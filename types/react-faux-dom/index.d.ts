@@ -5,7 +5,7 @@
 //                 Michał Kostrzyński <https://github.com/deviousm>
 //                 Hanai <https://github.com/hanai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from "react";
 

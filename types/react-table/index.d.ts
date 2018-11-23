@@ -2,7 +2,7 @@
 // Project: https://github.com/react-tools/react-table
 // Definitions by: Roy Xue <https://github.com/royxue>, Pavel Sakalo <https://github.com/psakalo>, Krzysztof Porębski <https://github.com/Havret>, Andy S <https://github.com/andys8>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 import * as React from 'react';
 
 export type ReactTableFunction = (value?: any) => void;

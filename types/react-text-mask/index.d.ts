@@ -4,7 +4,7 @@
 //                 Deividi Cavarzan <https://github.com/cavarzan>
 //                 Artem Lyubchuk <https://github.com/needpower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from "react";
 

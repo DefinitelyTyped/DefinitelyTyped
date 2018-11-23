@@ -5,7 +5,7 @@
 //                 Louis Hache <https://github.com/lhache>
 //                 Adam Lavin <https://github.com/lavoaster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.0
 
 export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 

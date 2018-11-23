@@ -2,7 +2,7 @@
 // Project: https://github.com/cssinjs/react-jss#readme
 // Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 import { createGenerateClassName, JSS, SheetsRegistry } from "jss";
 import * as React from "react";
 import { createTheming, ThemeProvider, withTheme } from "theming";

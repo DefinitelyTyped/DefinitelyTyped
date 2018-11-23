@@ -2,7 +2,7 @@
 // Project: https://github.com/jpuri/react-draft-wysiwyg#readme
 // Definitions by: imechZhangLY <https://github.com/imechZhangLY>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 import * as Draft from 'draft-js';

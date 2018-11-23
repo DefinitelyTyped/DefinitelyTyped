@@ -3,7 +3,7 @@
 // Definitions by: DovydasNavickas <https://github.com/DovydasNavickas>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 export interface ReactElementLike {
     type: string | ((...args: any[]) => ReactElementLike);

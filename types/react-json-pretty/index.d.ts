@@ -2,7 +2,7 @@
 // Project: https://github.com/chenckang/react-json-pretty
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { ComponentClass, HTMLProps } from "react";
 

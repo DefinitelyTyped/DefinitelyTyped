@@ -6,7 +6,7 @@
 //                 Janeene Beeforth <https://github.com/dawnmist>
 //                 Oscar Andersson <https://github.com/Ogglas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 

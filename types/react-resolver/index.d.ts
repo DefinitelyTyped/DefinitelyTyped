@@ -2,7 +2,7 @@
 // Project: https://github.com/ericclemmons/react-resolver
 // Definitions by: forabi <https://github.com/forabi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { ComponentType, StatelessComponent, Factory } from 'react';
 

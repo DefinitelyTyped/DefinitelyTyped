@@ -7,7 +7,7 @@
 //                 Brian Adams <https://github.com/brian-lives-outdoors>
 //                 Mathieu Masy <https://github.com/TiuSh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 ///<reference types="react" />
 

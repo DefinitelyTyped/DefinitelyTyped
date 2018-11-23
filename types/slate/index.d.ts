@@ -9,7 +9,7 @@
 //                 Irwan Fario Subastian <https://github.com/isubasti>
 //                 Sebastian Greaves <https://github.com/sgreav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 import * as Immutable from "immutable";
 import { SyntheticEvent } from "react";
 

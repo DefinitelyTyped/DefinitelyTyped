@@ -2,7 +2,7 @@
 // Project: https://github.com/gm0t/react-sticky-el
 // Definitions by: Justin Braithwaite <https://github.com/jbraithwaite>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from "react";
 

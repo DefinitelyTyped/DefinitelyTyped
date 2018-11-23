@@ -2,7 +2,7 @@
 // Project: https://lingui.github.io/js-lingui/
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
 // Definitions: https://github.com/huan086/lingui-typings
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { ComponentClass } from 'react';
 import { FormatPropsWithoutI18n } from './createFormat';

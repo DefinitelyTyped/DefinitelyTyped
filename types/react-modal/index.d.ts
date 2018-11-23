@@ -8,7 +8,7 @@
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>,
 //                 Justin Powell <https://github.com/jpowell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from "react";
 

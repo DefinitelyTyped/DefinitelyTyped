@@ -4,7 +4,7 @@
 //                 Konstantin Vasilev <https://github.com/mctep>
 //                 Hiroki Horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 

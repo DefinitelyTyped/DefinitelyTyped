@@ -2,7 +2,7 @@
 // Project: https://github.com/idyll-lang/idyll/tree/master/packages/idyll-document
 // Definitions by: Thanh Ngo <https://github.com/iocat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { PureComponent, ReactType } from "react";
 import { Options as CompilerOptions, AST } from "idyll-compiler";

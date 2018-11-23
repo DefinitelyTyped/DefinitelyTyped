@@ -2,7 +2,7 @@
 // Project: https://github.com/kadirahq/react-no-ssr
 // Definitions by: Rafał Filipek <https://github.com/rafalfilipek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 

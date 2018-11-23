@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/react-file-reader-input
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Ali Taheri <https://github.com/alitaheri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 

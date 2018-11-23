@@ -3,7 +3,7 @@
 // Definitions by: Ahmed Ghoneim <https://github.com/aghoneim92>
 //                 David Pett <https://github.com/davidpett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { ComponentType } from 'react';
 import {

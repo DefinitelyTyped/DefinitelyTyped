@@ -2,7 +2,7 @@
 // Project: https://github.com/borisyankov/react-sparklines#readme
 // Definitions by: Henri Normak <https://github.com/henrinormak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 

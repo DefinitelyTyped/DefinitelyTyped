@@ -7,7 +7,7 @@
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Kaare Hoff Skovgaard <https://github.com/kastermester>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.0
 
 // Prettified with:
 // $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 \

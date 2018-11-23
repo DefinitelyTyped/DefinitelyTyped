@@ -3,7 +3,7 @@
 // Definitions by: Avi Vahl <https://github.com/AviVahl>
 //                 Christian Chown <https://github.com/christianchown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 export as namespace ReactIs;
 

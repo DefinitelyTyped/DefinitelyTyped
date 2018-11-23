@@ -2,7 +2,7 @@
 // Project: https://github.com/moschan/react-native-flip-card
 // Definitions by: Jake Chapman <https://github.com/imjakechapman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { Component, ReactNode, ComponentClass } from "react";
 import {

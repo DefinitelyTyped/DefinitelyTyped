@@ -2,7 +2,7 @@
 // Project: https://github.com/pushtell/react-bootstrap-date-picker#readme
 // Definitions by: Karol Janyst <https://github.com/LKay>, Antal Bodnar <https://github.com/ssi-hu-antal-bodnar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { ComponentClass, StatelessComponent, ReactNode, FocusEventHandler, HTMLAttributes } from "react";
 

@@ -16,7 +16,7 @@
 //                 Ciaran Liedeman <https://github.com/cliedeman>
 //                 Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /**
  * Reference: https://github.com/react-navigation/react-navigation/tree/3f3ef6485c8932f49fddc3dd2c508629110bf2b6

@@ -2,7 +2,7 @@
 // Project: https://github.com/cloudflare/react-gateway
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import Gateway = require('./Gateway');
 import { GatewayProps } from './Gateway';

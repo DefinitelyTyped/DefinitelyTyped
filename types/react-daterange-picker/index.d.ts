@@ -5,7 +5,7 @@
 //                 Donald Ford <https://github.com/donaldtf>
 //                 Vlad Florescu <https://github.com/vladflorescu94>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from "react";
 import * as moment from "moment";

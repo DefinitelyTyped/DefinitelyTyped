@@ -6,7 +6,7 @@
 //                 Alex Maclean <https://github.com/acemac>
 //                 Jan Dolezel <https://github.com/dolezel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 import { ListProps, Index } from 'react-virtualized';

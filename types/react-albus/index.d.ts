@@ -4,7 +4,7 @@
 //                 Conrad Reuter <https://github.com/conradreuter>
 //                 Jonas Kugelmann <https://github.com/kuirak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from "react";
 import { History } from "history";

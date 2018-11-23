@@ -2,7 +2,7 @@
 // Project: https://github.com/innFactory/react-native-dialogflow#readme
 // Definitions by: Jason Merino <https://github.com/jasonmerino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 export namespace Dialogflow {
     const LANG_CHINESE_CHINA = 'zh-CN';

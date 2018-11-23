@@ -2,7 +2,7 @@
 // Project: https://github.com/seatgeek/react-infinite
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 ///<reference types="react" />
 

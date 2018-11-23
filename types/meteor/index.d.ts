@@ -10,7 +10,7 @@
 //                 Andrey Markeev <https://github.com/andrei-markeev>
 //                 Leon Machens <https://github.com/lmachens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference path="./accounts-base.d.ts" />
 /// <reference path="./globals/accounts-base.d.ts" />

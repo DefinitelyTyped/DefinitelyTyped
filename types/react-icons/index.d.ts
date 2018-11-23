@@ -4,4 +4,4 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0

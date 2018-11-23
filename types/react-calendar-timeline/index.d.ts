@@ -3,7 +3,7 @@
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //				         Alex Maclean <https://github.com/acemac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="react"/>
 

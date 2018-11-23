@@ -6,7 +6,7 @@
 //                 Jacob Froman <https://github.com/j-fro>
 //                 Deanna Veale <https://github.com/Deanna2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from "react";
 import { RCTooltip } from 'rc-tooltip';

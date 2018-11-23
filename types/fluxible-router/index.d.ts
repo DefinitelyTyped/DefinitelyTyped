@@ -2,7 +2,7 @@
 // Project: https://github.com/yahoo/fluxible#readme
 // Definitions by: xbim <https://github.com/xbim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 /// <reference types="node" />
 import * as React from 'react';
 import { FluxibleContext } from 'fluxible';

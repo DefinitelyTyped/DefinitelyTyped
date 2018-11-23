@@ -4,7 +4,7 @@
 //                 Alec Hill <https://github.com/alechill>
 //                 Javier Gonzalez <https://github.com/xaviergonz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from "react";
 

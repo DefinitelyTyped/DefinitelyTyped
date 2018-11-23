@@ -8,7 +8,7 @@
 //                 Joao Vieira <https://github.com/joaovieira>
 //                 AJ Livingston <https://github.com/ajliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 

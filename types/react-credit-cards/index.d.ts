@@ -2,7 +2,7 @@
 // Project: https://github.com/amarofashion/react-credit-cards
 // Definitions by: Vytautas Strimaitis <https://github.com/vstrimaitis>, Ole Frank <https://github.com/olefrank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from "react";
 

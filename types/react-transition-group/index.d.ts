@@ -4,7 +4,7 @@
 //                 Epskampie <https://github.com/Epskampie>
 //                 Masafumi Koba <https://github.com/ybiquitous>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import CSSTransition = require("./CSSTransition");
 import Transition from "./Transition";

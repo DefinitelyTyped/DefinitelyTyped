@@ -2,7 +2,7 @@
 // Project: https://github.com/miyabi/react-native-safe-area#readme
 // Definitions by: Pavlos Vinieratos <https://github.com/pvinis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="react" />
 

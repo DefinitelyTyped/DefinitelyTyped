@@ -2,7 +2,7 @@
 // Project: https://github.com/chrisjpatty/react-dragtastic#readme
 // Definitions by: Nicolás Scarcella <https://github.com/nscarcella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { ReactNode, Component, MouseEventHandler, TouchEventHandler } from 'react';
 

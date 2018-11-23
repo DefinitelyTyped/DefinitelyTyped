@@ -5,7 +5,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 John Gozde <https://github.com/jgoz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { ReactElement, ReactType } from "react";
 

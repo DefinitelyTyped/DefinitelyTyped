@@ -2,7 +2,7 @@
 // Project: https://github.com/YUzhva/react-leaflet-markercluster
 // Definitions by: Adam Binford <https://github.com/Kimahriman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="leaflet.markercluster" />
 import * as Leaflet from 'leaflet';

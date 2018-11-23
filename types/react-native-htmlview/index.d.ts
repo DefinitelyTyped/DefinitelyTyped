@@ -2,7 +2,7 @@
 // Project: https://github.com/jsdf/react-native-htmlview
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { Component, ComponentType, ReactNode } from 'react';
 import {

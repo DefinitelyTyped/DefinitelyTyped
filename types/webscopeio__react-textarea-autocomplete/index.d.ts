@@ -2,7 +2,7 @@
 // Project: https://github.com/webscopeio/react-textarea-autocomplete
 // Definitions by: Michal Zochowski <https://github.com/michauzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.0
 
 export default ReactTextareaAutocomplete;
 export as namespace ReactTextareaAutocomplete;

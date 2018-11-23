@@ -3,6 +3,6 @@
 // Definitions by: Jessica Franco <https://github.com/Kovensky>
 //                 Nick Winans <https://github.com/Nicell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 export * from './dist-es';

@@ -2,7 +2,7 @@
 // Project: https://github.com/FormidableLabs/victory
 // Definitions by: Zachary Maybury <https://github.com/zmaybury>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="react"/>
 

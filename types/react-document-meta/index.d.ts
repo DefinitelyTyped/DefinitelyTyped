@@ -2,7 +2,7 @@
 // Project: https://github.com/kodyl/react-document-meta#readme
 // Definitions by: ulrichb <https://github.com/ulrichb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 

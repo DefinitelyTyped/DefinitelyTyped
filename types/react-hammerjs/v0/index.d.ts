@@ -2,7 +2,7 @@
 // Project: https://github.com/JedWatson/react-hammerjs#readme
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as Hammer from 'hammerjs';
 import * as React from 'react';

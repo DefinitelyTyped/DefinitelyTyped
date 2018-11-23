@@ -10,7 +10,7 @@
 //                 Brandon Hall <https://github.com/brandonhall>
 //                 Sebastian Busch <https://github.com/sbusch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 export {
     ArrowKeyStepper,

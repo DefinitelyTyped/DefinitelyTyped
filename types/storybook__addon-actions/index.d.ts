@@ -2,7 +2,7 @@
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>, June <https://github.com/jicjjang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 export type HandlerFunction = (...args: any[]) => undefined;
 export type DecoratorFunction = (args: any[]) => any[];

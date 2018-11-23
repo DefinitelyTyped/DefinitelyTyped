@@ -4,7 +4,7 @@
 //                 fsubal <https://github.com/fsubal>
 //                 salieri <https://github.com/zyh825>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 import * as React from "react";
 
 type CSSProperties = React.CSSProperties;

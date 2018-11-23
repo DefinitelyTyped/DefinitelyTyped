@@ -2,7 +2,7 @@
 // Project: https://github.com/madox2/react-tagcloud
 // Definitions by: wassname <https://github.com/wassname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 ///<reference types="react"/>
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/cheekujha/react-table-filter
 // Definitions by: Gnanavel N <https://github.com/gjsln>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 

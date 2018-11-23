@@ -2,7 +2,7 @@
 // Project: https://github.com/Moeriki/react-holder
 // Definitions by: Isman Usoh <https://github.com/isman-usoh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 ///<reference types="react"/>
 

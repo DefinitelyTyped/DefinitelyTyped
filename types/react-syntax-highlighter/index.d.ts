@@ -3,7 +3,7 @@
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 //                 Aimee Gamble-Milner <https://github.com/ajgamble-milner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 type lineTagPropsFunction = (lineNumber: number) => React.DOMAttributes<HTMLElement>
 

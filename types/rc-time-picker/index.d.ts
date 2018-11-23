@@ -2,7 +2,7 @@
 // Project: http://github.com/react-component/time-picker
 // Definitions by: Frithjof Winkelmann <https://github.com/Hoff97>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as moment from "moment";
 import * as React from 'react';

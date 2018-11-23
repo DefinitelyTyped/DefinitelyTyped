@@ -14,7 +14,7 @@
 //                 Levan Basharuli <https://github.com/levansuper>
 //                 Pavel Ihm <https://github.com/ihmpavel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';

@@ -2,7 +2,7 @@
 // Project: https://github.com/i-like-robots/react-tags#readme
 // Definitions by: James Lismore <https://github.com/jlismore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { Component } from "react";
 

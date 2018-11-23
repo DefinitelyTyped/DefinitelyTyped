@@ -2,7 +2,7 @@
 // Project: https://github.com/maticzav/nookies#readme
 // Definitions by: Andreas Bergqvist <https://github.com/andreasbergqvist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { NextContext } from 'next';
 import { CookieParseOptions, CookieSerializeOptions } from 'cookie';

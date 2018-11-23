@@ -6,7 +6,7 @@
 //                 Ben Bayard <https://github.com/benbayard>,
 //                 Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { CSSProperties, Component, DragEvent, InputHTMLAttributes } from "react";
 

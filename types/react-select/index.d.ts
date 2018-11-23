@@ -3,7 +3,7 @@
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 //                 Jon Freedman <https://github.com/jonfreedman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.0
 
 import SelectBase from './lib/Select';
 import { StateManager } from './lib/stateManager';

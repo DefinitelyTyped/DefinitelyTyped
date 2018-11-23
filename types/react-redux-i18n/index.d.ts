@@ -2,7 +2,7 @@
 // Project: https://github.com/zoover/react-redux-i18n
 // Definitions by: Clément Devos <https://github.com/clementdevos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 declare module 'react-redux-i18n' {
   import * as react from "react"

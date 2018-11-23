@@ -2,7 +2,7 @@
 // Project: https://github.com/JesperLekland/react-native-svg-charts
 // Definitions by: Krzysztof Miemiec <https://github.com/krzysztof-miemiec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { ScaleBand, ScaleLinear, ScaleLogarithmic, ScalePower, ScaleTime } from 'd3-scale';
 import { CurveFactory, Series } from 'd3-shape';

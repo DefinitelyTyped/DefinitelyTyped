@@ -2,7 +2,7 @@
 // Project: https://github.com/ReactTraining/react-broadcast
 // Definitions by: Jaga Santagostino <https://github.com/kandros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/jamesplease/react-request
 // Definitions by: Danny Cochran <https://github.com/dannycochran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 

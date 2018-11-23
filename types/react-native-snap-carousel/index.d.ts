@@ -6,7 +6,7 @@
 //                 Guillaume Amat <https://github.com/GuillaumeAmat>
 //                 Vitor Luiz Cavalcanti <https://github.com/VitorLuizC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 import {
