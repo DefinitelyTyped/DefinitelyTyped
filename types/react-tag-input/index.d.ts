@@ -34,7 +34,7 @@ export interface ReactTagsProps {
     name?: string;
     id?: string;
     maxLength?: number;
-    
+
     inline?: boolean;
     allowUnique?: boolean;
     allowDragDrop?: boolean;
