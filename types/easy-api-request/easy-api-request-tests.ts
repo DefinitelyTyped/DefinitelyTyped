@@ -17,7 +17,7 @@ APIRequest.create({
 var app = express();
 
 app.get('/', function (req:any, res:express.Response) {
-    var rMaker = <APIRequest.RequestMaker>req.testAPI;
+    var rMaker = req.testAPI as APIRequest.RequestMaker;
     var r = rMaker();
     r.get('/', function (err, resp) {
         if(err) {
@@ -28,7 +28,7 @@ app.get('/', function (req:any, res:express.Response) {
 });
 
 app.get('/', function (req:any, res:express.Response) {
-    var rMaker = <APIRequest.RequestMaker>req.testAPI;
+    var rMaker = req.testAPI as APIRequest.RequestMaker;
     var r = rMaker();
     r.get('/')
         .then(function (resp) {

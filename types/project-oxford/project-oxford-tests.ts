@@ -12,7 +12,7 @@ const {describe, it, before, after, beforeEach, afterEach} = null as any as {
 var client = new oxford.Client(process.env.OXFORD_KEY);
 
 // Store variables, no point in calling the api too often
-var billFaces = <string[]>[];
+var billFaces = [] as string[];
 var personGroupId = "uuid.v4()";
 var personGroupId2 = "uuid.v4()";
 var billPersonId: string;
@@ -113,7 +113,7 @@ describe('Project Oxford Face API Test', function () {
 
     describe('#grouping()', function () {
         it('detects groups faces', function (done) {
-            var faceIds = <string[]>[];
+            var faceIds = [] as string[];
 
             this.timeout(10000);
 

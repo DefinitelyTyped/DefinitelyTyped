@@ -1,6 +1,6 @@
+import * as CSS from 'csstype';
+export type TLengthStyledSystem = string | 0 | number;
 export type ResponsiveValue<T> = T | Array<T | null>;
-
-export type SpaceValue = number | string;
 
 /**
  * Converts shorthand margin and padding props to margin and padding CSS declarations
@@ -11,37 +11,36 @@ export type SpaceValue = number | string;
  * - String values are passed as raw CSS values.
  * - Array values are converted into responsive values.
  */
-export type ResponsiveSpaceValue = ResponsiveValue<SpaceValue>;
 
-export interface SpaceProps {
+export interface SpaceProps<TLength = TLengthStyledSystem> {
     /** Margin on top, left, bottom and right */
-    m?: ResponsiveSpaceValue;
+    m?: ResponsiveValue<CSS.MarginProperty<TLength>>;
     /** Margin for the top */
-    mt?: ResponsiveSpaceValue;
+    mt?: ResponsiveValue<CSS.MarginTopProperty<TLength>>;
     /** Margin for the right */
-    mr?: ResponsiveSpaceValue;
+    mr?: ResponsiveValue<CSS.MarginRightProperty<TLength>>;
     /** Margin for the bottom */
-    mb?: ResponsiveSpaceValue;
+    mb?: ResponsiveValue<CSS.MarginBottomProperty<TLength>>;
     /** Margin for the left */
-    ml?: ResponsiveSpaceValue;
+    ml?: ResponsiveValue<CSS.MarginLeftProperty<TLength>>;
     /** Margin for the left and right */
-    mx?: ResponsiveSpaceValue;
+    mx?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Margin for the top and bottom */
-    my?: ResponsiveSpaceValue;
+    my?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding on top, left, bottom and right */
-    p?: ResponsiveSpaceValue;
+    p?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding for the top */
-    pt?: ResponsiveSpaceValue;
+    pt?: ResponsiveValue<CSS.PaddingTopProperty<TLength>>;
     /** Padding for the right */
-    pr?: ResponsiveSpaceValue;
+    pr?: ResponsiveValue<CSS.PaddingRightProperty<TLength>>;
     /** Padding for the bottom */
-    pb?: ResponsiveSpaceValue;
+    pb?: ResponsiveValue<CSS.PaddingBottomProperty<TLength>>;
     /** Padding for the left */
-    pl?: ResponsiveSpaceValue;
+    pl?: ResponsiveValue<CSS.PaddingLeftProperty<TLength>>;
     /** Padding for the left and right */
-    px?: ResponsiveSpaceValue;
+    px?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
     /** Padding for the top and bottom */
-    py?: ResponsiveSpaceValue;
+    py?: ResponsiveValue<CSS.PaddingProperty<TLength>>;
 }
 
 export function space(...args: any[]): any;

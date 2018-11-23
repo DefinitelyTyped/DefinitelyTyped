@@ -379,6 +379,7 @@ export interface NavigationStackViewConfig {
   headerTransitionPreset?: 'fade-in-place' | 'uikit';
   headerLayoutPreset?: 'left' | 'center';
   cardStyle?: StyleProp<ViewStyle>;
+  transparentCard?: boolean;
   transitionConfig?: (
     transitionProps: NavigationTransitionProps,
     prevTransitionProps: NavigationTransitionProps,

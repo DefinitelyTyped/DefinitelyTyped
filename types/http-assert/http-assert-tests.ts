@@ -5,7 +5,7 @@ try {
     httpAssert.equal('hello', 'hello');
     httpAssert(false, 401, 'authentication failed');
 } catch (err) {
-    console.log((<HttpError> err).status);
-    console.log((<HttpError> err).message);
-    console.log((<HttpError> err).expose);
+    console.log((err as HttpError).status);
+    console.log((err as HttpError).message);
+    console.log((err as HttpError).expose);
 }

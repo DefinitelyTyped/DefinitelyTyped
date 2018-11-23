@@ -149,7 +149,7 @@ function makeReadableFileStream(filename: string) {
         pull(controller) {
             const buffer = new ArrayBuffer(CHUNK_SIZE);
 
-            return fs.read(fd, <any>buffer, 0, CHUNK_SIZE, position).then(bytesRead => {
+            return fs.read(fd, buffer as any, 0, CHUNK_SIZE, position).then(bytesRead => {
                 if (bytesRead === 0) {
                     return fs.close(fd).then(() => controller.close());
                 } else {
@@ -189,7 +189,7 @@ function makeReadableByteFileStream(filename: string) {
             // feature allocates a buffer and passes it to us via byobRequest.
             const v = controller.byobRequest!.view;
 
-            return fs.read(fd, <any>v.buffer, v.byteOffset, v.byteLength, position).then(bytesRead => {
+            return fs.read(fd, v.buffer as any, v.byteOffset, v.byteLength, position).then(bytesRead => {
                 if (bytesRead === 0) {
                     return fs.close(fd).then(() => controller.close());
                 } else {

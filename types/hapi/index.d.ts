@@ -2104,6 +2104,9 @@ export interface ServerAuth {
 }
 
 export type CachePolicyOptions<T> = PolicyOptionVariants<T> & {
+    /**
+     * @default '_default'
+     */
     cache?: string;
     segment?: string;
 };
