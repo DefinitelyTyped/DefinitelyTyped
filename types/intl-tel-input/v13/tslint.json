@@ -75,6 +75,7 @@
         "typedef-whitespace": false,
         "unified-signatures": false,
         "void-return": false,
-        "whitespace": false
+        "whitespace": false,
+        "no-angle-bracket-type-assertion": false
     }
 }
