@@ -40,8 +40,8 @@ export interface MapboxProps extends Partial<Viewport> {
 
     mapStyle?: string | {};
 
-    width: number;
-    height: number;
+    width: number|string;
+    height: number|string;
 
     viewState?: Viewport;
 
@@ -217,8 +217,8 @@ export interface NavigationControlProps extends BaseControlProps {
 export class NavigationControl extends BaseControl<NavigationControlProps> {}
 
 export interface HTMLRedrawOptions {
-    width: number;
-    height: number;
+    width: number|string;
+    height: number|string;
     project: (lnglat: number[]) => number[];
     unproject: (xy: number[]) => number[];
 }
@@ -270,8 +270,8 @@ export namespace experimental {
     }
 
     class MapState implements Viewport {
-        width: number;
-        height: number;
+        width: number|string;
+        height: number|string;
         latitude: number;
         longitude: number;
         zoom: number;
