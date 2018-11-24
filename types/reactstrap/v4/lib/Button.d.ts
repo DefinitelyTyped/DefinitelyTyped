@@ -1,20 +1,17 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props extends React.HTMLProps<HTMLButtonElement> {
+interface Props extends CommonProps, React.ComponentPropsWithoutRef<'button'> {
   outline?: boolean;
   active?: boolean;
   block?: boolean;
   color?: string;
   disabled?: boolean;
-  tag?: React.ReactType;
   getRef?: string | ((instance: HTMLButtonElement) => any);
 
   onClick?: React.MouseEventHandler<any>;
   size?: any;
   id?: string;
   style?: React.CSSProperties;
-
-  cssModule?: CSSModule;
 }
 
 declare var Button: React.StatelessComponent<Props>;

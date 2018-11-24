@@ -1,15 +1,12 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props extends React.HTMLProps<HTMLUListElement> {
+interface Props extends CommonProps, React.ComponentPropsWithoutRef<'ul'> {
   inline?: boolean;
   disabled?: boolean;
   tabs?: boolean;
   pills?: boolean;
   stacked?: boolean;
   navbar?: boolean;
-  tag?: React.ReactType;
-  className?: string;
-  cssModule?: CSSModule;
   vertical?: boolean;
 }
 

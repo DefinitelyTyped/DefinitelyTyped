@@ -1,6 +1,6 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
+interface Props extends CommonProps {
   light?: boolean;
   dark?: boolean;
   inverse?: boolean;
@@ -9,9 +9,6 @@ interface Props {
   sticky?: string;
   color?: string;
   role?: string;
-  tag?: React.ReactType;
-  className?: string;
-  cssModule?: CSSModule;
   toggleable?: boolean | string;
   expand?: boolean | string;
 }

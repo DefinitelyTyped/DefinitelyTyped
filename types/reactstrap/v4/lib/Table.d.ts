@@ -1,8 +1,6 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  className?: string;
-  cssModule?: CSSModule;
+interface Props extends CommonProps {
   size?: string;
   bordered?: boolean;
   striped?: boolean;
@@ -10,7 +8,6 @@ interface Props {
   hover?: boolean;
   reflow?: boolean;
   responsive?: boolean;
-  tag?: React.ReactType;
   responsiveTag?: React.ReactType;
 }
 

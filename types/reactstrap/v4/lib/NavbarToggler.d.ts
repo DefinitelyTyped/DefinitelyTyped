@@ -1,10 +1,7 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props extends React.HTMLProps<HTMLAnchorElement> {
-  tag?: React.ReactType;
+interface Props extends CommonProps, React.ComponentPropsWithoutRef<'a'> {
   type?: string;
-  className?: string;
-  cssModule?: CSSModule;
   right?: boolean;
   left?: boolean;
 }

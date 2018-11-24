@@ -1,10 +1,7 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  tag?: React.ReactType;
+interface Props extends CommonProps {
   flush?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
 }
 
 declare var ListGroup: React.StatelessComponent<Props>;

@@ -1,10 +1,7 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-export interface UncontrolledProps {
-  className?: string;
-  cssModule?: CSSModule;
+export interface UncontrolledProps extends CommonProps {
   color?: string;
-  tag?: React.ReactType;
   transitionAppearTimeout?: number;
   transitionEnterTimeout?: number;
   transitionLeaveTimeout?: number;

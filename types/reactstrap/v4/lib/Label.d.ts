@@ -1,20 +1,17 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 import { ColumnProps } from './Col';
 
-interface Intermediate extends React.LabelHTMLAttributes<HTMLLabelElement> {
+interface Intermediate extends React.ComponentPropsWithoutRef<'label'> {
   size?: any;
 }
 
-interface Props extends Intermediate {
+interface Props extends CommonProps, Intermediate {
   hidden?: boolean;
   check?: boolean;
   inline?: boolean;
   disabled?: boolean;
   size?: string;
   for?: string;
-  tag?: string;
-  className?: string;
-  cssModule?: CSSModule;
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;

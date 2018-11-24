@@ -1,11 +1,8 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props extends React.HTMLProps<HTMLFormElement> {
+interface Props extends CommonProps, React.ComponentPropsWithoutRef<'form'> {
   inline?: boolean;
-  tag?: React.ReactType;
   getRef?: string | ((instance: HTMLButtonElement) => any);
-  className?: string;
-  cssModule?: CSSModule;
 }
 
 declare var Form: React.StatelessComponent<Props>;

@@ -1,10 +1,6 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  tag?: string;
-  className?: string;
-  cssModule?: CSSModule;
-}
+interface Props extends CommonProps {}
 
 declare var FormFeedback: React.StatelessComponent<Props>;
 export default FormFeedback;

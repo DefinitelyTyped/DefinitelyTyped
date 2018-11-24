@@ -1,11 +1,8 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
+interface Props extends CommonProps {
   baseClass?: string;
   baseClassIn?: string;
-  tag?: React.ReactType;
-  className?: string;
-  cssModule?: CSSModule;
   transitionAppearTimeout?: number;
   transitionEnterTimeout?: number;
   transitionLeaveTimeout?: number;

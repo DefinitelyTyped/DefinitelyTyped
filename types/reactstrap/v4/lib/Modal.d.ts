@@ -1,6 +1,6 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
+interface Props extends Pick<CommonProps, Exclude<keyof CommonProps, 'tag'>> {
   isOpen?: boolean;
   autoFocus?: boolean;
   size?: string;
@@ -9,8 +9,6 @@ interface Props {
   backdrop?: boolean | 'static';
   onEnter?: () => void;
   onExit?: () => void;
-  className?: string;
-  cssModule?: CSSModule;
   wrapClassName?: string;
   modalClassName?: string;
   backdropClassName?: string;

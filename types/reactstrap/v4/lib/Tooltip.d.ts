@@ -1,6 +1,6 @@
 /// <reference types='tether' />
 
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
 type Placement
   = 'top'
@@ -20,14 +20,12 @@ type Placement
   | 'left middle'
   | 'left bottom';
 
-export interface UncontrolledProps {
+export interface UncontrolledProps extends Pick<CommonProps, Exclude<keyof CommonProps, 'tag'>> {
   placement?: Placement;
   target: string;
   disabled?: boolean;
   tether?: Tether.ITetherOptions;
   tetherRef?: (tether: Tether) => void;
-  className?: string;
-  cssModule?: CSSModule;
   autohide?: boolean;
   delay?: number | { show: number, hide: number };
 }

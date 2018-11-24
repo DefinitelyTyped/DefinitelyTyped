@@ -1,10 +1,7 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  tag?: React.ReactType;
+interface Props extends CommonProps {
   getRef?: string | ((instance: HTMLButtonElement) => any);
-  className?: string;
-  cssModule?: CSSModule;
   href?: string;
 }
 

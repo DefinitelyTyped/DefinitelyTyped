@@ -1,10 +1,8 @@
 /// <reference types='tether' />
 
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  className?: string;
-  cssModule?: CSSModule;
+interface Props extends Pick<CommonProps, Exclude<keyof CommonProps, 'tag'>> {
   arrow?: string;
   disabled?: boolean;
   isOpen: boolean;

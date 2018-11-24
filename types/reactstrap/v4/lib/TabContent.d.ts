@@ -1,10 +1,7 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  tag?: React.ReactType;
+interface Props extends CommonProps {
   activeTab?: number | string;
-  className?: string;
-  cssModule?: CSSModule;
 }
 
 declare var TabContent: React.StatelessComponent<Props>;

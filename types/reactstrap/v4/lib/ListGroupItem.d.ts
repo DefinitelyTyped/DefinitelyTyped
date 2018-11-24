@@ -1,13 +1,10 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  tag?: React.ReactType;
+interface Props extends CommonProps {
   active?: boolean;
   disabled?: boolean;
   color?: string;
   action?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
   href?: string;
 
   onClick?: React.MouseEventHandler<any>;

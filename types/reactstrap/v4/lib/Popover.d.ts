@@ -1,6 +1,6 @@
 /// <reference types='tether' />
 
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
 type Placement
   = 'top'
@@ -20,13 +20,11 @@ type Placement
   | 'left middle'
   | 'left bottom';
 
-interface Props {
+interface Props extends Pick<CommonProps, Exclude<keyof CommonProps, 'tag'>> {
   placement?: Placement;
   target: string;
   isOpen?: boolean;
   tether?: Tether.ITetherOptions;
-  className?: string;
-  cssModule?: CSSModule;
   toggle?: () => void;
 }
 

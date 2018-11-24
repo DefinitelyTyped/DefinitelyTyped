@@ -1,9 +1,6 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props extends React.HTMLProps< HTMLElement> {
-  className?: string;
-  cssModule?: CSSModule;
-  tag?: React.ReactType;
+interface Props extends CommonProps, React.ComponentPropsWithoutRef<'div'> {
   noGutters?: boolean;
 }
 

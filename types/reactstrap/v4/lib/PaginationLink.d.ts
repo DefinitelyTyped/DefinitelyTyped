@@ -1,12 +1,9 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props extends React.HTMLProps<HTMLAnchorElement> {
+interface Props extends CommonProps, React.ComponentPropsWithoutRef<'a'> {
   'aria-label'?: string;
-  className?: string;
-  cssModule?: CSSModule;
   next?: boolean;
   previous?: boolean;
-  tag?: React.ReactType;
 }
 
 declare var PaginationLink: React.StatelessComponent<Props>;

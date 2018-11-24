@@ -1,15 +1,12 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
+interface Props extends CommonProps {
   caret?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<any>;
   'data-toggle'?: string;
   'aria-haspopup'?: boolean;
   split?: boolean;
-  tag?: React.ReactType;
   nav?: boolean;
   color?: string;
   size?: string;

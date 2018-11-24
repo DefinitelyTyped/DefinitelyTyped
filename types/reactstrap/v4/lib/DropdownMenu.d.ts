@@ -1,10 +1,7 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  tag?: React.ReactType;
+interface Props extends CommonProps {
   right?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
 }
 
 declare var DropdownMenu: React.StatelessComponent<Props>;

@@ -1,12 +1,10 @@
 /// <reference types='tether' />
 
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-export interface UncontrolledProps {
+export interface UncontrolledProps extends CommonProps {
   isOpen?: boolean;
   toggle?: () => void;
-  className?: string;
-  cssModule?: CSSModule;
 }
 
 export interface Props extends UncontrolledProps {
@@ -14,7 +12,6 @@ export interface Props extends UncontrolledProps {
   dropup?: boolean;
   group?: boolean;
   size?: string;
-  tag?: React.ReactType;
   tether?: boolean | Tether.ITetherOptions;
 }
 

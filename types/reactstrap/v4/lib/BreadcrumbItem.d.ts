@@ -1,10 +1,7 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  tag?: React.ReactType;
+interface Props extends CommonProps {
   active?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
   // if a is passed as a string
   // this could be href
   [others: string]: any;

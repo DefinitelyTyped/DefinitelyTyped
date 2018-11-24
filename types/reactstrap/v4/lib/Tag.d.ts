@@ -1,11 +1,8 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
+interface Props extends CommonProps {
   color?: string;
   pill?: boolean;
-  tag?: React.ReactType;
-  className?: string;
-  cssModule?: CSSModule;
 }
 
 declare var Tag: React.StatelessComponent<Props>;

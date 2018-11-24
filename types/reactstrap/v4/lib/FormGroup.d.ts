@@ -1,13 +1,10 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props extends React.HTMLProps<HTMLDivElement> {
+interface Props extends CommonProps, React.ComponentPropsWithoutRef<'div'> {
   row?: boolean;
   check?: boolean;
   disabled?: boolean;
-  tag?: React.ReactType;
   color?: string;
-  className?: string;
-  cssModule?: CSSModule;
 }
 
 declare var FormGroup: React.StatelessComponent<Props>;

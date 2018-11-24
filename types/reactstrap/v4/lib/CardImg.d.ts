@@ -1,11 +1,8 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  tag?: React.ReactType;
+interface Props extends CommonProps {
   top?: boolean;
   bottom?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
   src?: string;
   width?: string;
   height?: string;

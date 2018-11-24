@@ -1,12 +1,9 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props extends React.HTMLProps<HTMLAnchorElement> {
-  tag?: React.ReactType;
+interface Props extends CommonProps, React.ComponentPropsWithoutRef<'a'> {
   getRef?: string | ((instance: HTMLButtonElement) => any);
   disabled?: boolean;
   active?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
   onClick?: React.MouseEventHandler<any>;
   href?: string;
 }

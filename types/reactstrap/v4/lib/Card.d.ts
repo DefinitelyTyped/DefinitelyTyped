@@ -1,13 +1,10 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  tag?: React.ReactType;
+interface Props extends CommonProps {
   inverse?: boolean;
   color?: string;
   block?: boolean;
   outline?: boolean;
-  className?: string;
-  cssModule?: CSSModule;
   style?: React.CSSProperties;
 }
 

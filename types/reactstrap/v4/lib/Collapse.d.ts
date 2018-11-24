@@ -1,10 +1,7 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props extends React.HTMLProps<HTMLElement> {
+interface Props extends CommonProps, React.ComponentPropsWithoutRef<'div'> {
   isOpen?: boolean;
-  classNames?: string;
-  cssModule?: CSSModule;
-  tag?: React.ReactType;
   navbar?: boolean;
   delay?: {
     show: number

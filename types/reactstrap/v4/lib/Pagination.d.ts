@@ -1,9 +1,7 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
-  className?: string;
-  cssModule?: CSSModule;
-  size?: string;
+interface Props extends CommonProps {
+  size?: string
 }
 
 declare var Pagination: React.StatelessComponent<Props>;

@@ -1,11 +1,8 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
+interface Props extends CommonProps {
   inline?: boolean;
-  tag?: React.ReactType;
   color?: string;
-  className?: string;
-  cssModule?: CSSModule;
 }
 
 declare var FormText: React.StatelessComponent<Props>;

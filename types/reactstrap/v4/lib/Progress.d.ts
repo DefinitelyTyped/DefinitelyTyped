@@ -1,6 +1,6 @@
-import { CSSModule } from '../index';
+import { CommonProps } from '../index';
 
-interface Props {
+interface Props extends Pick<CommonProps, Exclude<keyof CommonProps, 'tag'>> {
   bar?: boolean;
   multi?: boolean;
   tag?: string;
@@ -9,8 +9,6 @@ interface Props {
   animated?: boolean;
   striped?: boolean;
   color?: string;
-  className?: string;
-  cssModule?: CSSModule;
   barClassName?: string;
 }
 

@@ -2,10 +2,18 @@
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>, Marco Falkenberg <https://github.com/mfal>, Danilo Barros <https://github.com/danilobjr>, Fábio Paiva <https://github.com/fabiopaiva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
+
+import React = require('react');
 
 export interface CSSModule {
   [className: string]: string;
+}
+
+export interface CommonProps extends React.Props {
+  tag?: React.ReactType;
+  className?: string;
+  cssModule?: CSSModule;
 }
 
 export { default as Alert } from './lib/Alert';
