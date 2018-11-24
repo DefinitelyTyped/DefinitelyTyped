@@ -18,15 +18,6 @@
             ],
             "react-dom": [
                 "react-dom/v15"
-            ],
-            "react-dom/server": [
-                "react-dom/v15/server"
-            ],
-            "react-dom/node-stream": [
-                "react-dom/v15/node-stream"
-            ],
-            "react-dom/test-utils": [
-                "react-dom/v15/test-utils"
             ]
         },
         "noImplicitAny": true,

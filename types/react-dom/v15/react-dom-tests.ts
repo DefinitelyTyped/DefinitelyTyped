@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as ReactDOMServer from 'react-dom/server';
-import * as ReactDOMNodeStream from 'react-dom/node-stream';
-import * as ReactTestUtils from 'react-dom/test-utils';
+import * as ReactDOMServer from 'react-dom/v15/server';
+import * as ReactDOMNodeStream from 'react-dom/v15/node-stream';
+import * as ReactTestUtils from 'react-dom/v15/test-utils';
 
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
