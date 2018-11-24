@@ -886,7 +886,7 @@ function longdesc() {
         var currentRequests: JQuery.PlainObject = {};
 
         $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-            if ((<any> options).abortOnRetry) {
+            if ((options as any).abortOnRetry) {
                 if (currentRequests[options.url!]) {
                     currentRequests[options.url!].abort();
                 }
@@ -1297,7 +1297,7 @@ function longdesc() {
                         return $.css(elem, borderRadius!);
                     },
                     set: function(elem, value) {
-                        (<any> elem.style)[borderRadius!] = value;
+                        (elem.style as any)[borderRadius!] = value;
                     },
                 };
             }

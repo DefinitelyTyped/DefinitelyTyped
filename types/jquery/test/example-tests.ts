@@ -1578,7 +1578,7 @@ function examples() {
 
     function event_related_target_0() {
         $('a').mouseout(function(event) {
-            alert((<HTMLElement> event.relatedTarget).nodeName); // "DIV"
+            alert((event.relatedTarget as HTMLElement).nodeName); // "DIV"
         });
     }
 
