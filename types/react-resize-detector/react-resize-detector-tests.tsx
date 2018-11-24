@@ -36,7 +36,7 @@ class App extends React.PureComponent {
                 <ReactResizeDetector handleWidth handleHeight>
                     <CustomComponent />
                 </ReactResizeDetector>
-                {withResizeDetector(CustomComponent)}
+                {React.createElement(withResizeDetector(CustomComponent))}
                 <ReactResizeDetector
                     handleWidth
                     handleHeight
