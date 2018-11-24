@@ -8,8 +8,9 @@
 export interface ReactElementLike {
     type: string | ((...args: any[]) => ReactElementLike);
     props: any;
-    key: string | number | null;
     children?: ReactNodeLike;
+    key: string | number | null;
+    ref: any;
 }
 
 export interface ReactNodeReadonlyArray extends ReadonlyArray<ReactNodeLike | undefined> {}

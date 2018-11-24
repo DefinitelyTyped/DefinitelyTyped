@@ -77,10 +77,11 @@ declare namespace React {
         ref?: LegacyRef<T>;
     }
 
-    interface ReactElement<P> {
+    interface ReactElement<P, R = any> {
         type: string | ComponentClass<P> | FunctionComponent<P>;
         props: P;
         key: Key | null;
+        ref: R | null;
     }
 
     type RefTypeOfProps<P> = 'ref' extends keyof P
@@ -92,7 +93,7 @@ declare namespace React {
     type LegacyRefTypeOfComponent<T extends ReactType> =
         T extends ComponentClass<any> | ClassicComponentClass<any>
             ? LegacyRef<InstanceType<T>>
-            : RefTypeOfProps<ComponentProps<T>>
+            : RefTypeOfProps<ComponentProps<T>>;
 
     interface TypedReactElement<C extends ReactType> {
         type: C;
@@ -106,22 +107,19 @@ declare namespace React {
      */
     type SFCElement<P> = FunctionComponentElement<P>;
 
-    interface FunctionComponentElement<P> extends ReactElement<P> {
+    interface FunctionComponentElement<P> extends ReactElement<P, RefTypeOfProps<P>> {
         type: FunctionComponent<P>;
-        ref: 'ref' extends keyof P ? P extends { ref?: infer R } ? R : null : null;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
-    interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
+    interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P, LegacyRef<T>> {
         type: ComponentClass<P>;
-        ref: LegacyRef<T> | null;
     }
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
-    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<PropsWithoutRef<P>> {
+    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<PropsWithoutRef<P>, LegacyRef<T>> {
         type: string;
-        ref: LegacyRef<T> | null;
     }
 
     // ReactHTML for ReactHTMLElement
@@ -150,7 +148,7 @@ declare namespace React {
 
     type TypedFactory<T extends ReactType> = (
         props?: Attributes & ComponentPropsWithoutRef<T> & { ref?: LegacyRefTypeOfComponent<T> }, ...children: ChildrenPropTupleType<ComponentProps<T>>
-    ) => TypedReactElement<T>
+    ) => TypedReactElement<T>;
 
     /**
      * @deprecated Please use `FunctionComponentFactory`
@@ -241,7 +239,7 @@ declare namespace React {
         ));
     // ReadonlyArray cannot directly be tuples, so we have to cast them to arrays
     type MultiChildrenTupleType<T extends ReadonlyArray<any>> =
-        T extends ReadonlyArray<infer E> ? E[] : []
+        T extends ReadonlyArray<infer E> ? E[] : [];
     // The Extract<T, any> is to work around a problem when T is directly compared with never
     // ChildrenTupleType<never> results in never (???) if Extract is not used
     type ChildrenTupleType<T> = Extract<T, any> extends never
@@ -259,6 +257,7 @@ declare namespace React {
         : [];
 
     // createElement with variadic children
+    // tslint:disable-next-line:adjacent-overload-signatures
     function createElement<C extends ReactType>(
         type: C,
         props?: Attributes & Pick<ComponentProps<C>, Exclude<keyof ComponentProps<C>, 'children'>> | null,
@@ -270,6 +269,21 @@ declare namespace React {
         ...children: ChildrenPropTupleType<ComponentProps<C>>
     ): TypedReactElement<C>;
 
+    // compatibility overloads
+    function cloneElement<P>(
+        element: FunctionComponentElement<P>,
+        props?: Partial<P> & Attributes,
+        ...children: ReactNodeArray): FunctionComponentElement<P>;
+    function cloneElement<P, T extends Component<P, ComponentState>>(
+        element: CElement<P, T>,
+        props?: Partial<P> & ClassAttributes<T>,
+        ...children: ReactNodeArray): CElement<P, T>;
+
+    // main overload
+    function cloneElement<T extends ReactType>(
+        element: TypedReactElement<T>,
+        props?: Partial<ComponentPropsWithRef<T>> & Attributes,
+        ...children: ChildrenPropTupleType<ComponentProps<T>>): TypedReactElement<T>;
     // DOM Elements
     // ReactHTMLElement
     function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
@@ -292,15 +306,7 @@ declare namespace React {
         props?: DOMAttributes<T> & P,
         ...children: ReactNodeArray): DOMElement<P, T>;
 
-    // Custom components
-    function cloneElement<P>(
-        element: FunctionComponentElement<P>,
-        props?: Partial<P> & Attributes,
-        ...children: ReactNodeArray): FunctionComponentElement<P>;
-    function cloneElement<P, T extends Component<P, ComponentState>>(
-        element: CElement<P, T>,
-        props?: Partial<P> & ClassAttributes<T>,
-        ...children: ReactNodeArray): CElement<P, T>;
+    // Fallback overloads
     function cloneElement<P>(
         element: ReactElement<P>,
         props?: Partial<P> & Attributes,
@@ -390,8 +396,8 @@ declare namespace React {
     type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
-    // tslint:disable-next-line:no-empty-interface
-    interface Component<P = Props, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
+    // tslint:disable-next-line:no-empty-interface no-unnecessary-qualifier
+    interface Component<P = React.Props, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
         // tslint won't let me format the sample code in a way that vscode likes it :(
         /**
@@ -460,9 +466,11 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P = Props, S = {}, SS = any> extends Component<P, S, SS> { }
+    // tslint:disable-next-line:no-unnecessary-qualifier
+    class PureComponent<P = React.Props, S = {}, SS = any> extends Component<P, S, SS> { }
 
-    interface ClassicComponent<P = Props, S = {}> extends Component<P, S> {
+    // tslint:disable-next-line:no-unnecessary-qualifier
+    interface ClassicComponent<P = React.Props, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
         getInitialState?(): S;
@@ -490,11 +498,14 @@ declare namespace React {
      *
      * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
      */
-    type StatelessComponent<P = Props> = FunctionComponent<P>;
+    // tslint:disable-next-line:no-unnecessary-qualifier
+    type StatelessComponent<P = React.Props> = FunctionComponent<P>;
 
-    type FC<P = Props> = FunctionComponent<P>;
+    // tslint:disable-next-line:no-unnecessary-qualifier
+    type FC<P = React.Props> = FunctionComponent<P>;
 
-    interface FunctionComponent<P = Props> {
+    // tslint:disable-next-line:no-unnecessary-qualifier
+    interface FunctionComponent<P = React.Props> {
         (props: P, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
@@ -502,7 +513,8 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface RefForwardingComponent<T, P = Props> {
+    // tslint:disable-next-line:no-unnecessary-qualifier
+    interface RefForwardingComponent<T, P = React.Props> {
         (props: P, ref: Ref<T> | null): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
@@ -511,7 +523,7 @@ declare namespace React {
     }
 
     interface ComponentClassConstructor<P, S, I extends Component<P, S> = Component<P, S>> extends StaticLifecycle<P, S>  {
-        new (props: P, context?: any): I
+        new (props: P, context?: any): I;
         propTypes?: ValidationMap<P>;
         contextType?: Context<any>;
         contextTypes?: ValidationMap<any>;
@@ -520,9 +532,11 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P = Props, S = ComponentState> extends ComponentClassConstructor<P, S> {}
+    // tslint:disable-next-line:no-unnecessary-qualifier
+    interface ComponentClass<P = React.Props, S = ComponentState> extends ComponentClassConstructor<P, S> {}
 
-    interface ClassicComponentClass<P = Props> extends ComponentClassConstructor<P, ComponentState, ClassicComponent<P, ComponentState>> {
+    // tslint:disable-next-line:no-unnecessary-qualifier
+    interface ClassicComponentClass<P = React.Props> extends ComponentClassConstructor<P, ComponentState, ClassicComponent<P, ComponentState>> {
         getDefaultProps?(): P;
     }
 
@@ -1148,7 +1162,7 @@ declare namespace React {
      * extend this interface; declare children directly (or omit them).
      */
     interface Props<T = ReactNode> {
-        children?: T
+        children?: T;
     }
 
     interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {

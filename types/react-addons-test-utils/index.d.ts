@@ -7,7 +7,7 @@
 import { AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
     DOMElement, SFCElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC } from 'react';
+    ReactHTMLElement, DOMAttributes, SFC, TypedReactElement, ReactType } from 'react';
 
 export = TestUtils;
 
@@ -128,6 +128,9 @@ declare namespace TestUtils {
     export function mockComponent(
         mocked: MockedComponentClass, mockTagName?: string): typeof TestUtils;
 
+    export function isElementOfType<T extends ReactType>(
+        element: ReactElement<any>, type: T
+    ): element is TypedReactElement<T>;
     export function isElementOfType<T extends HTMLElement>(
         element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
     export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
