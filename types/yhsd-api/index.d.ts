@@ -1,8 +1,8 @@
-// Type definitions for yhsd-api 1.0.6
+// Type definitions for yhsd-api 1.0
 // Project: https://github.com/yeezon/yhsd-api-node
 // Definitions by: Qing Ray <https://github.com/yeezon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1.6
+// TypeScript Version: 2.8
 
 interface AuthOption {
   appKey: string;
@@ -13,44 +13,48 @@ interface AuthOption {
   private: boolean;
 }
 
-export declare class Auth {
-  constructor(options: AuthOption)
+export = YhsdApi;
 
-  verifyHmac(queryObj: object): boolean
+declare namespace YhsdApi {
+  class Auth {
+    constructor(options: AuthOption)
 
-  getAuthorizeUrl(shopKey: string, state: string): string
+    verifyHmac(queryObj: object): boolean;
 
-  getToken(code: string, callback: (err: Error, token: string) => any)
+    getAuthorizeUrl(shopKey: string, state: string): string;
 
-  getTokenAsync(code?: string): Promise<string>
-}
+    getToken(code: string, callback: (err: Error, token: string) => any): string;
 
-export declare class Api {
-  constructor(token: string)
+    getTokenAsync(code?: string): Promise<string>;
+  }
 
-  get(path: string, query: object, callback: (...args: any[]) => any);
+  class Api {
+    constructor(token: string);
 
-  getAsync(path: string, query: object): Promise<object>
+    get(path: string, query: object, callback: (...args: any[]) => any): void;
 
-  put(path: string, body: object, callback: (...args: any[]) => any);
+    getAsync(path: string, query: object): Promise<object>;
 
-  putAsync(path: string, body: object): Promise<object>
+    put(path: string, body: object, callback: (...args: any[]) => any): void;
 
-  post(path: string, body: object, callback: (...args: any[]) => any);
+    putAsync(path: string, body: object): Promise<object>;
 
-  postAsync(path: string, body: object): Promise<object>
+    post(path: string, body: object, callback: (...args: any[]) => any): void;
 
-  delete(path: string, callback: (...args: any[]) => any);
+    postAsync(path: string, body: object): Promise<object>;
 
-  deleteAsync(path: string): Promise<object>
+    delete(path: string, callback: (...args: any[]) => any): void;
 
-  httpRequest(method: string, path: string, params: object, callback: (err: Error, data: object) => any)
+    deleteAsync(path: string): Promise<object>;
 
-  httpRequestAsync(method: string, path: string, params: object): Promise<object>
-}
+    httpRequest(method: string, path: string, params: object, callback: (err: Error, data: object) => any): void;
 
-export declare class WebHook {
-  constructor(token: string)
+    httpRequestAsync(method: string, path: string, params: object): Promise<object>;
+  }
 
-  verifyHmac(hmac: string, bodyData: string): boolean
+  class WebHook {
+    constructor(token: string);
+
+    verifyHmac(hmac: string, bodyData: string): boolean;
+  }
 }
