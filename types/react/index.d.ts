@@ -187,10 +187,17 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement<any> | ReactText;
 
+    interface ReactTextReadonlyArray extends ReadonlyArray<ReactTextFragment | undefined> {}
+    type ReactTextFragment = string | number | ReactTextReadonlyArray | boolean | null;
+
     interface ReactNodeReadonlyArray extends ReadonlyArray<ReactNode | undefined> {}
     type ReactNodeArray = Array<ReactNode | undefined>;
     type ReactFragment = ReactElement<any> | ReactNodeReadonlyArray;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null;
+
+    interface ReactNonTextReadonlyArray extends ReadonlyArray<ReactNonTextFragment | undefined> {}
+    type ReactNonTextFragment = ReactElement<any> | ReactPortal | ReactNonTextReadonlyArray | boolean | null;
+    type ReactNonTextChild = ReactElement<any> | ReactPortal | [(ReactElement<any> | ReactPortal | boolean | null)] | boolean | null;
 
     //
     // Top Level API

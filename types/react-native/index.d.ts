@@ -843,7 +843,9 @@ export interface TextPropsAndroid {
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
-export interface TextProps extends TextPropsIOS, TextPropsAndroid, AccessibilityProps {
+// NOTE: Text can nest other Text-like elements, but not any arbitrary element;
+// unfortunately we can't represent that in the prop types yet
+export interface TextProps extends React.Props, TextPropsIOS, TextPropsAndroid, AccessibilityProps {
     /**
      * Specifies whether fonts should scale to respect Text Size accessibility settings.
      * The default is `true`.
@@ -1972,7 +1974,7 @@ type AccessibilityTrait =
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
 export interface ViewProps
-    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps {
+    extends React.Props<React.ReactNonTextFragment>, ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -2570,7 +2572,7 @@ export class SafeAreaView extends SafeAreaViewBase {}
  */
 export class InputAccessoryView extends React.Component<InputAccessoryViewProps> {}
 
-export interface InputAccessoryViewProps {
+export interface InputAccessoryViewProps extends React.Props<React.ReactNonTextFragment> {
     backgroundColor?: string;
 
     /**
@@ -3807,7 +3809,7 @@ export class Image extends ImageBase {
     static resolveAssetSource(source: ImageSourcePropType): ImageResolvedAssetSource;
 }
 
-export interface ImageBackgroundProps extends ImagePropsBase {
+export interface ImageBackgroundProps extends ImagePropsBase, React.Props<React.ReactNonTextFragment> {
     imageStyle?: StyleProp<ImageStyle>;
     style?: StyleProp<ViewStyle>;
     imageRef?(image: Image): void;
@@ -4811,7 +4813,7 @@ declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
 declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedViewComponent;
 export class MaskedViewIOS extends MaskedViewBase {}
 
-export interface ModalBaseProps {
+export interface ModalBaseProps extends React.Props<React.ReactNonTextFragment> {
     // Only `animated` is documented. The JS code says `animated` is
     // deprecated and `animationType` is preferred.
     animated?: boolean;
@@ -4940,7 +4942,7 @@ interface TouchableMixin {
 /**
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html#props
  */
-export interface TouchableWithoutFeedbackProps extends AccessibilityProps {
+export interface TouchableWithoutFeedbackProps extends React.Props<React.ReactNonTextChild>, AccessibilityProps {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
      */

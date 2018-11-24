@@ -811,7 +811,7 @@ const TimePickerAndroidTest = () => (
     })
 )
 
-class BridgedComponentTest extends React.Component {
+class BridgedComponentTest extends React.Component<React.Props<React.ReactNonTextFragment>> {
     static propTypes = {
         jsProp: PropTypes.string.isRequired,
         ...ViewPropTypes,
