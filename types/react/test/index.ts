@@ -200,7 +200,7 @@ class ModernComponentArrayRender extends React.Component<Props> {
 }
 
 class ModernComponentNoState extends React.Component<Props> { }
-class ModernComponentNoPropsAndState extends React.Component { }
+class ModernComponentNoPropsAndState extends React.Component<{}> { }
 
 interface SCProps extends React.Props {
     foo?: number;
