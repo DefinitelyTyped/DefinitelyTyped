@@ -396,6 +396,8 @@ declare namespace React {
     type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
+    // no-unnecessary-qualifier is needed to silence use-default-type-parameter
+    // when the user's props are also named Props, as it's not aware they're different otherwise.
     // tslint:disable-next-line:no-empty-interface no-unnecessary-qualifier
     interface Component<P = React.Props, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
