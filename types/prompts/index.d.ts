@@ -57,7 +57,7 @@ declare namespace prompts {
     }
 
     interface PromptObject<T extends string = string> {
-        type: ValueOrFunc<string>;
+        type: ValueOrFunc<string> | Falsy;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
         initial?: string | number | boolean;
@@ -86,6 +86,8 @@ declare namespace prompts {
         values: Answers<T>,
         prompt: PromptObject
     ) => R;
+                    
+    type Falsy = false | null | undefined;
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }
