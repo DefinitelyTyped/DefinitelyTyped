@@ -260,7 +260,7 @@ When it graduates draft mode, we may remove it from DefinitelyTyped and deprecat
 
 _NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)_
 
-Each DefinitelyTyped package is versioned when published to NPM. The [automated tools](https://github.com/Microsoft/types-publisher) that publish typings packages to NPM will set the typings package's version using the version number listed in the first line of the typings file. For example, below is the first few lines of the latest (as of late 2018) [node.js typings file](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/index.d.ts) for node.js library version `10.12`.  Because this version is included in the typings file, the NPM version of the `@types/node` package will also be `10.12`:  
+Each DefinitelyTyped package is versioned when published to NPM. The [automated tools](https://github.com/Microsoft/types-publisher) that publish typings packages to NPM will set the typings package's version using the version number listed in the first line of the typings file. For example, below are the first few lines of the latest (as of late 2018) [node.js typings file](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/index.d.ts) for node.js library versions `10.12.x`.  
 
 ```javascript
 // Type definitions for Node.js 10.12
@@ -270,11 +270,13 @@ Each DefinitelyTyped package is versioned when published to NPM. The [automated 
 //                 Alberto Schiabel <https://github.com/jkomyno>
 ```
 
+Because `10.12` is at the end the first line, the NPM version of the `@types/node` package will also be `10.12.x`. Note that the first-line comment in the typings file should only contaiin major/minor versions (e.g. `10.12`) and should not contain a patch version (e.g. `10.12.4`). This is because only the major and minor release numbers are aligned between library packages and typings packages. The patch release number of the typings package (e.g. `.0` in `10.12.0`) is initialized to zero by DefinitelyTyped and is incremented each time a new `@types/node` package is published to NPM for the same major/minor version of the corresponding library.
+
 Sometimes typings versions and library versions can get out of sync. Below are a few common reasons why, in order of how much they inconvenience users of a library. Only the last case is typically problematic.
 
-* The patch version of the typings package is incremented every time an updated typings file is published for the same major and minor version. For example, a library may have only published `2.3.0` but the typings package might have gone through several revisions so its version would be `2.3.4`. If the library is later updated to `2.3.6` without any type updates needed, then the typings version would remain `2.3.4`. 
-* If a minor release adds new features that don't impact the type system, then there's no need to publish an updated typings file.  In cases like this, updates are often skipped to the typings file.  For example, imagine a contrived example of a library that formats only integers in its `2.0` release.  If a `2.1` release of the library adds the capability to format floating point numbers too without changing API type signatures, then the typings version might remain `2.1.3` even as the library goes to `2.2.0`.
-* Users who are updating typings for a library sometimes forget to increment the typings version to match the library version. This doesn't usually result in any problems because `npm update` will usually pick the latest typings version, although it may be confusing for users because they might assume that a library update is missing types that are really present. 
+* As noted above, the patch version of the typings package is unrelated to the library patch version. This allows DefinitelyTyped to safely update typings for the same major/minor version of a library. 
+* If a minor release adds new features that don't impact the type system, then there's no need to publish an updated typings file.  In cases like this, updates are often skipped to the typings file.  For example, imagine a contrived example of a library that formats only integers in its `2.0` release.  If a `2.1` release of the library adds the capability to format floating point numbers too without changing API type signatures, then the typings version might remain `2.0.3` even as the library goes to `2.1.0`.
+* Users who are updating typings for a library sometimes forget to increment the typings version to match the library version. This doesn't usually result in any problems because `npm update` will usually pick the latest typings version, although it may be confusing for users because they might assume that a library update is missing types that are really present. It will also cause problems when libraries are (see below) updated to a new major release with breaking changes, because users won't know which typings version is the right one to use for older versions of the library.
 * It's common for typings to lag behind library updates because it's often library users, not maintainers, who update DefinitelyTyped when new library features are released.  So there may be a lag of days, weeks, or even months before a helpful community member sends a PR to update the typings for a new library release.
 
 :exclamation:If you're updating the typings for a library version, always set the major/minor version in the first line of the typings file to match the library version that you're documenting!:exclamation:
@@ -283,7 +285,7 @@ Sometimes typings versions and library versions can get out of sync. Below are a
 
 [Semantic versioning](https://semver.org/) requires that versions with breaking changes must increment the major version number.  For example, a library that removes a publicly exported function after its `3.5.8` release must bump its version to `4.0.0` in its next release.  Furthermore, when the library's `4.0.0` release is out, its DefinitelyTyped typings should also be updated to `4.0.0`, including any breaking changes to the library's API. 
 
-Many libraries have a large installed base of developers (including mainatiners of other packages using that library as a dependency) who who won't move right away to a new version that has breaking changes, because it might be months until a maintainer has time to rewrite code to adapt to the new version. In the meantime, users of old library versions still may want to udpate typings for older versions. 
+Many libraries have a large installed base of developers (including mainatiners of other packages using that library as a dependency) who won't move right away to a new version that has breaking changes, because it might be months until a maintainer has time to rewrite code to adapt to the new version. In the meantime, users of old library versions still may want to udpate typings for older versions. 
 
 If you intend to continue updating the older version of the typings package, you may create a new subfolder (e.g. `/v2/`) named for the current (soon to be "old") version, and copy existing files from the current version to it. 
 
@@ -292,7 +294,7 @@ Because the root folder should always contain the typings for the latest ("new")
 1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
 2. Add path mapping rules to ensure that tests are running against the intended version.
 
-For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.  Many developers waited a while to update their `package.json` to depend on version `3.x` of `history`. Therefore, there's a `v2` folder inside the history repository that contains typings for the older version. The [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
+For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.  Many developers waited a while to update their `package.json` to depend on version `3.x` of `history`. Therefore, a maintainer of the typings for this library added a `v2` folder inside the history repository that contains typings for the older version. The [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
 
 ```json
 {
