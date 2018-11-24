@@ -1,5 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+
+// Not using the /v15 will incorrectly import the React 16 declarations
+// dtslint won't let me declare the mapping in the tsconfig.json :(
 import * as ReactDOMServer from 'react-dom/v15/server';
 import * as ReactDOMNodeStream from 'react-dom/v15/node-stream';
 import * as ReactTestUtils from 'react-dom/v15/test-utils';
