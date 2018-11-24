@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import * as DOM from "react-dom-factories";
 import createReactClass = require("create-react-class");
 
-interface Props {
+interface Props extends React.Props {
     foo: string;
 }
 

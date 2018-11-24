@@ -10,7 +10,7 @@ export interface EmojiProps {
     onOver?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
     onLeave?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
     onClick?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
-    fallback?(emoji: EmojiData, props: EmojiProps): React.Component;
+    fallback?(emoji: EmojiData, props: EmojiProps): React.ReactChild | boolean | null;
     /** defaults to returning a png from unpkg.com-hosted emoji-datasource-${set} */
     backgroundImageFn?: BackgroundImageFn;
     native?: boolean;
@@ -45,7 +45,7 @@ export interface I18n {
 export type PartialI18n = Partial<Pick<I18n, 'search' | 'notfound'> & { categories: Partial<I18n['categories']> }>;
 
 export interface CustomIcons {
-    categories: Record<CategoryName, () => React.Component>;
+    categories: Record<CategoryName, () => React.ReactChild | boolean null>;
 }
 
 export interface PickerProps {
@@ -77,7 +77,7 @@ export interface PickerProps {
     /** NOTE: custom emoji are copied into a singleton object on every new mount */
     custom?: CustomEmoji[];
     skinEmoji?: string;
-    notFound?(): React.Component;
+    notFound?(): React.ReactChild | boolean | null;
     notFoundEmoji?: string;
     icons?: CustomIcons;
 }
