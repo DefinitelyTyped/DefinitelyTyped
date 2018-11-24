@@ -22,7 +22,7 @@ interface Console {
     log(...args: any[]): void;
 }
 
-interface Props extends React.Attributes {
+interface Props extends React.Props {
     hello: string;
     world?: string | null;
     foo: number;
@@ -133,7 +133,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         hello: PropTypes.string.isRequired,
         world: PropTypes.string,
         foo: PropTypes.number.isRequired,
-        key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]) as PropTypes.Validator<string | number | undefined>
+        children: PropTypes.node
     };
 
     static contextTypes: React.ValidationMap<Context> = {
@@ -202,7 +202,7 @@ class ModernComponentArrayRender extends React.Component<Props> {
 class ModernComponentNoState extends React.Component<Props> { }
 class ModernComponentNoPropsAndState extends React.Component { }
 
-interface SCProps {
+interface SCProps extends React.Props {
     foo?: number;
 }
 
@@ -232,13 +232,11 @@ LegacyStatelessComponent2.defaultProps = {
     foo: 42
 };
 
-const FunctionComponent3: React.FunctionComponent<SCProps> =
-    // allows usage of props.children
+const FunctionComponent3: React.FunctionComponent<SCProps & React.Props> =
     // allows null return
     props => props.foo ? DOM.div(null, props.foo, props.children) : null;
 
-const LegacyStatelessComponent3: React.SFC<SCProps> =
-    // allows usage of props.children
+const LegacyStatelessComponent3: React.SFC<SCProps & React.Props> =
     // allows null return
     props => props.foo ? DOM.div(null, props.foo, props.children) : null;
 

@@ -13,7 +13,7 @@ FunctionComponent.defaultProps = {
 };
 <FunctionComponent />;
 
-const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
+const FunctionComponent2: React.FunctionComponent<SCProps & React.Props> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
 };
 FunctionComponent2.displayName = "FunctionComponent4";
@@ -215,7 +215,7 @@ const memoized4Ref = React.createRef<HTMLDivElement>();
 const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref}/>));
 <Memoized4 ref={memoized4Ref}/>;
 
-const Memoized5 = React.memo<{ test: boolean }>(
+const Memoized5 = React.memo<{ test: boolean } & React.Props>(
     prop => <>{prop.test && prop.children}</>,
     (prevProps, nextProps) => nextProps.test ? prevProps.children === nextProps.children : prevProps.test
 );

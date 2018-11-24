@@ -12,17 +12,15 @@ export interface ReactElementLike {
     children?: ReactNodeLike;
 }
 
-export interface ReactNodeArray extends Array<ReactNodeLike> {}
+export interface ReactNodeReadonlyArray extends ReadonlyArray<ReactNodeLike | undefined> {}
 
 export type ReactNodeLike =
-    | {}
     | ReactElementLike
-    | ReactNodeArray
+    | ReactNodeReadonlyArray
     | string
     | number
     | boolean
-    | null
-    | undefined;
+    | null;
 
 export const nominalTypeHack: unique symbol;
 
