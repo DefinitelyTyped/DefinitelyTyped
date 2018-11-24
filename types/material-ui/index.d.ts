@@ -158,7 +158,7 @@ declare namespace __MaterialUI {
         requestChange(newValue: T): void;
     }
 
-    export interface ThemeWrapperProps {
+    export interface ThemeWrapperProps extends React.Props {
         theme: Styles.MuiTheme;
     }
     export class ThemeWrapper extends React.Component<ThemeWrapperProps> {
@@ -520,7 +520,7 @@ declare namespace __MaterialUI {
             P extends {muiTheme?: MuiTheme}
         >(component: TComponent) => TComponent;
 
-        export interface MuiThemeProviderProps {
+        export interface MuiThemeProviderProps extends React.Props {
             muiTheme?: MuiTheme;
         }
         export class MuiThemeProvider extends React.Component<MuiThemeProviderProps> {
@@ -555,7 +555,7 @@ declare namespace __MaterialUI {
         export let Typography: Typography;
     }
 
-    export interface AppBarProps {
+    export interface AppBarProps extends React.Props {
         className?: string;
         iconClassNameLeft?: string;
         iconClassNameRight?: string;
@@ -575,7 +575,7 @@ declare namespace __MaterialUI {
     export class AppBar extends React.Component<AppBarProps> {
     }
 
-    export interface AppCanvasProps {
+    export interface AppCanvasProps extends React.Props {
     }
     export class AppCanvas extends React.Component<AppCanvasProps> {
     }
@@ -818,7 +818,7 @@ declare namespace __MaterialUI {
     }
 
     namespace BottomNavigation {
-        export interface BottomNavigationProps {
+        export interface BottomNavigationProps extends React.Props {
             className?: string;
             selectedIndex?: number;
             style?: React.CSSProperties;
@@ -1065,7 +1065,7 @@ declare namespace __MaterialUI {
     export class Dialog extends React.Component<DialogProps> {
     }
 
-    export interface DividerProps {
+    export interface DividerProps extends React.Props {
         className?: string;
         inset?: boolean;
         style?: React.CSSProperties;
@@ -1073,7 +1073,7 @@ declare namespace __MaterialUI {
     export class Divider extends React.Component<DividerProps> {
     }
 
-    export interface DrawerProps {
+    export interface DrawerProps extends React.Props {
         className?: string;
         containerClassName?: string;
         containerStyle?: React.CSSProperties;
@@ -1093,7 +1093,7 @@ declare namespace __MaterialUI {
     }
 
     namespace GridList {
-        export interface GridListProps {
+        export interface GridListProps extends React.Props {
             cellHeight?: number|'auto';
             cols?: number;
             padding?: number;
@@ -1102,7 +1102,7 @@ declare namespace __MaterialUI {
         export class GridList extends React.Component<GridListProps> {
         }
 
-        export interface GridTileProps {
+        export interface GridTileProps extends React.Props {
             actionIcon?: React.ReactElement<any>;
             actionPosition?: "left" | "right";
             cols?: number;
@@ -1332,11 +1332,11 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
         }
 
-        export interface PopoverProps {
+        export interface PopoverProps extends React.Props {
             anchorEl?: React.ReactInstance;
             anchorOrigin?: propTypes.origin;
             animated?: boolean;
-            animation?: React.ComponentClass<PopoverAnimationProps>;
+            animation?: React.ComponentType<PopoverAnimationProps>;
             autoCloseWhenOffScreen?: boolean;
             canAutoPosition?: boolean;
             className?: string;
@@ -1367,7 +1367,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    export interface CircularProgressProps {
+    export interface CircularProgressProps extends React.Props {
         color?: string;
         innerStyle?: React.CSSProperties;
         max?: number;
@@ -1381,7 +1381,7 @@ declare namespace __MaterialUI {
     export class CircularProgress extends React.Component<CircularProgressProps> {
     }
 
-    export interface LinearProgressProps {
+    export interface LinearProgressProps extends React.Props {
         color?: string;
         max?: number;
         min?: number;
@@ -1392,7 +1392,7 @@ declare namespace __MaterialUI {
     export class LinearProgress extends React.Component<LinearProgressProps> {
     }
 
-    export interface RefreshIndicatorProps {
+    export interface RefreshIndicatorProps extends React.Props {
         color?: string;
         left: number;
         loadingColor?: string;
@@ -1405,7 +1405,7 @@ declare namespace __MaterialUI {
     export class RefreshIndicator extends React.Component<RefreshIndicatorProps> {
     }
 
-    export interface SelectFieldProps {
+    export interface SelectFieldProps extends React.Props {
         // <DropDownMenu/> is the element that get the 'other' properties
         autoWidth?: boolean;
         disabled?: boolean;
@@ -1446,7 +1446,7 @@ declare namespace __MaterialUI {
     export class SelectField extends React.Component<SelectFieldProps> {
     }
 
-    export interface SliderProps {
+    export interface SliderProps extends React.Props {
         axis?: 'x' | 'x-reverse' | 'y' | 'y-reverse';
         defaultValue?: number;
         description?: string;
@@ -1557,7 +1557,7 @@ declare namespace __MaterialUI {
             getValue(): string;
         }
 
-        export interface RadioButtonGroupProps {
+        export interface RadioButtonGroupProps extends React.Props {
             className?: string;
             defaultSelected?: any;
             labelPosition?: "left" | "right";
@@ -1601,7 +1601,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    export interface SnackbarProps {
+    export interface SnackbarProps extends React.Props {
         action?: React.ReactNode;
         autoHideDuration?: number;
         bodyStyle?: React.CSSProperties;
