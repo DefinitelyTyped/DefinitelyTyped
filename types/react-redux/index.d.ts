@@ -359,7 +359,7 @@ export interface ConnectOptions {
     withRef?: boolean;
 }
 
-export interface ProviderProps<A extends Action = AnyAction> {
+export interface ProviderProps<A extends Action = AnyAction> extends React.Props {
     /**
      * The single Redux store in your application.
      */

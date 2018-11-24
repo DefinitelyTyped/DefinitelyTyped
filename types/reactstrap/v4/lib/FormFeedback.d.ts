@@ -1,6 +1,4 @@
 import { CommonProps } from '../index';
 
-interface Props extends CommonProps {}
-
-declare var FormFeedback: React.StatelessComponent<Props>;
+declare var FormFeedback: React.StatelessComponent<CommonProps>;
 export default FormFeedback;

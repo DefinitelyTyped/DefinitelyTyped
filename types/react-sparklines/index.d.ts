@@ -11,7 +11,7 @@ export interface Point {
     y: number;
 }
 
-export interface SparklinesProps {
+export interface SparklinesProps extends React.Props<React.ReactNonTextFragment> {
     data?: number[];
     limit?: number;
     width?: number;

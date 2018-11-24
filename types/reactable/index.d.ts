@@ -17,7 +17,7 @@ export type SortDirection = 'asc' | 'desc';
 
 export type FilterMethodType = (text: string) => void;
 
-export interface TableComponentProperties<T> {
+export interface TableComponentProperties<T> extends React.Props<React.ReactNonTextFragment> {
     data?: T[];
     className?: string;
     columns?: ColumnsType[];
@@ -29,17 +29,17 @@ export interface TableComponentProperties<T> {
     onFilter?: FilterMethodType;
 }
 
-export interface ThProperties {
+export interface ThProperties extends React.Props {
     column: string;
     className?: string;
 }
 
-export interface TrProperties<T> {
+export interface TrProperties<T> extends React.Props<React.ReactNonTextFragment> {
     data?: T;
     className?: string;
 }
 
-export interface TdProperties {
+export interface TdProperties extends React.Props {
     column: string;
     value?: any;
     data?: any;

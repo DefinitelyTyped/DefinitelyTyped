@@ -41,7 +41,7 @@ class RouteTwo extends React.Component<RouteComponentProps> {
     }
 }
 
-interface LayoutProps {
+interface LayoutProps extends React.Props {
     title: string;
     subtitle?: string;
 }
@@ -90,7 +90,7 @@ class RouteFour extends React.Component<RouteComponentProps> {
     }
 }
 
-interface MyContainerProps {
+interface MyContainerProps extends React.Props {
     className?: string;
     color: number;
 }

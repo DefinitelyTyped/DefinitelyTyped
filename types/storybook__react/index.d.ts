@@ -10,8 +10,11 @@
 
 import * as React from 'react';
 
-export type Renderable = React.ComponentType | JSX.Element;
-export type RenderFunction = () => Renderable | Renderable[];
+// NOTE: a Renderable is only Renderable if _at least one_ element is a ReactElement.
+// Only the result from the last decorator ultimately has to be Renderable, though.
+// c.f. https://github.com/storybooks/storybook/blob/3a029494/app/react/src/client/preview/element_check.js
+export type Renderable = React.ReactNonTextFragment;
+export type RenderFunction = () => Renderable;
 
 export interface DecoratorParameters {
     [key: string]: any;

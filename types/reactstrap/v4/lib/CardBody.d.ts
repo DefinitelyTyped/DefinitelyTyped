@@ -1,6 +1,4 @@
 import { CommonProps } from '../index';
 
-interface Props extends CommonProps {}
-
-declare var CardBody: React.StatelessComponent<Props>;
+declare var CardBody: React.StatelessComponent<CommonProps>;
 export default CardBody;

@@ -19,7 +19,7 @@ export interface Params {
 }
 
 export type RoutePattern = string;
-export type RouteComponent = ComponentClass<any> | StatelessComponent<any>;
+export type RouteComponent = ComponentClass | StatelessComponent;
 export interface RouteComponents {
     [name: string]: RouteComponent;
 }
@@ -66,7 +66,7 @@ export interface InjectedRouter {
     isActive: ActiveFunction;
 }
 
-export interface RouteComponentProps<P, R, ComponentProps = any> {
+export interface RouteComponentProps<P, R, ComponentProps = any> extends React.Props {
     location: Location;
     params: P & R;
     route: PlainRoute<ComponentProps>;

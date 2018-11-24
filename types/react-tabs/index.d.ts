@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export interface TabsProps {
+export interface TabsProps extends React.Props<React.ReactNonTextFragment> {
     className?: string | Array<string> | { [name: string]: boolean; };
     defaultFocus?: boolean;
     defaultIndex?: number;
@@ -19,11 +19,11 @@ export interface TabsProps {
     selectedTabPanelClassName?: string;
 }
 
-export interface TabListProps {
+export interface TabListProps extends React.Props<React.ReactNonTextFragment> {
     className?: string | Array<string> | { [name: string]: boolean; };
 }
 
-export interface TabProps {
+export interface TabProps extends React.Props<React.ReactTextFragment> {
     className?: string | Array<string> | { [name: string]: boolean; };
     disabled?: boolean;
     disabledClassName?: string;
@@ -31,7 +31,7 @@ export interface TabProps {
     tabIndex?: string;
 }
 
-export interface TabPanelProps {
+export interface TabPanelProps extends React.Props {
     className?: string | Array<string> | { [name: string]: boolean; };
     forceRender?: boolean;
     selectedClassName?: string;

@@ -128,7 +128,7 @@ export interface RequiredProps {
 	// children: () => any;
 }
 
-export type Props = RequiredProps & Partial<OptionalProps>;
+export type Props = RequiredProps & Partial<OptionalProps> & React.Props;
 
 export class ReactSVGPanZoom extends React.Component<Props> {
 	pan(SVGDeltaX: number, SVGDeltaY: number): void;

@@ -81,7 +81,7 @@ export interface Animatable {
     animationEasing?: AnimationEasingType;
 }
 
-export interface CategoricalChartWrapper<L = LayoutType> {
+export interface CategoricalChartWrapper<L = LayoutType> extends React.Props {
     syncId?: string | number;
     compact?: boolean;
     width?: number;
@@ -97,7 +97,6 @@ export interface CategoricalChartWrapper<L = LayoutType> {
     maxBarSize?: number;
     style?: object;
     className?: string;
-    children?: React.ReactNode | React.ReactNode[];
     onClick?: RechartsFunction;
     onMouseLeave?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
@@ -122,7 +121,7 @@ export interface EventAttributes {
     onTouchCancel?: RechartsFunction;
 }
 
-export interface PresentationAttributes<X = number, Y = number> extends Pick<CSSStyleDeclaration, PickedCSSStyleDeclarationKeys> {
+export interface PresentationAttributes<X = number, Y = number> extends React.Props, Pick<CSSStyleDeclaration, PickedCSSStyleDeclarationKeys> {
     angle: number;
     colorInterpolation: string;
     colorProfile: string;
@@ -333,7 +332,7 @@ export interface CurveProps extends EventAttributes, Partial<PresentationAttribu
 export class Curve extends React.Component<CurveProps> { }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
-export interface DotProps extends EventAttributes {
+export interface DotProps extends EventAttributes, React.Props {
     className?: string;
     cx?: number;
     cy?: number;
@@ -344,7 +343,7 @@ export class Dot extends React.Component<DotProps> { }
 
 export type DataPointFormatter = (entry: any, dataKey: DataKey) => { x: number; y: number, value: any; errorVal: any; };
 
-export interface ErrorBarProps {
+export interface ErrorBarProps extends React.Props {
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     data?: any[];
     xAxis?: object;
@@ -834,7 +833,7 @@ export interface TreemapProps extends EventAttributes, Animatable {
     className?: string;
     nameKey?: string | number | RechartsFunction;
     dataKey?: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
-    children?: React.ReactNode[] | React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export class Treemap extends React.Component<TreemapProps> { }
@@ -848,7 +847,7 @@ export interface LabelProps extends Partial<PresentationAttributes> {
     value?: number | string;
     offset?: number;
     position?: PositionType;
-    children?: React.ReactNode[] | React.ReactNode;
+    children?: React.ReactNode;
     className?: string;
     content?: React.ReactElement<any> | ContentRenderer<any>;
 }
@@ -857,7 +856,7 @@ export class LabelList extends React.Component<LabelListProps> { }
 
 export interface LabelListProps {
     angle?: number;
-    children?: React.ReactNode[] | React.ReactNode;
+    children?: React.ReactNode;
     className?: string;
     clockWise?: boolean;
     content?: React.ReactElement<any> | ContentRenderer<Label>;
@@ -881,7 +880,7 @@ export interface XPadding {
  * In the current lib, there is not actual implementation for XAxis.
  */
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
-export interface XAxisProps extends EventAttributes {
+export interface XAxisProps extends EventAttributes, React.Props<React.ReactNonTextFragment> {
     allowDecimals?: boolean;
     hide?: boolean;
     // The name of data displayed in the axis
@@ -934,7 +933,7 @@ export interface YPadding {
 }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
-export interface YAxisProps extends EventAttributes {
+export interface YAxisProps extends EventAttributes, React.Props<React.ReactNonTextFragment> {
     allowDecimals?: boolean;
     hide?: boolean;
     // The name of data displayed in the axis
@@ -980,7 +979,7 @@ export interface YAxisProps extends EventAttributes {
 
 export class YAxis extends React.Component<YAxisProps> { }
 
-export interface ZAxisProps {
+export interface ZAxisProps extends React.Props<React.ReactNonTextFragment> {
     type?: 'number' | 'category';
     // The name of data displayed in the axis
     name?: string | number;

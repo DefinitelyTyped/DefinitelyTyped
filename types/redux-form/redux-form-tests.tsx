@@ -98,7 +98,7 @@ const ItemListObj = formValues({ fooBar : "foo" })(
 
 /* Custom FormSection */
 
-interface MyFormSectionProps {
+interface MyFormSectionProps extends React.Props {
     foo: string;
 }
 const MyFormSection: React.StatelessComponent<MyFormSectionProps> = ({ children }) => null;
@@ -109,7 +109,7 @@ const FormSectionCustom = FormSection as new () => GenericFormSection<MyFormSect
 interface MyFieldCustomProps {
     foo: string;
 }
-type MyFieldProps = MyFieldCustomProps & WrappedFieldProps;
+type MyFieldProps = MyFieldCustomProps & WrappedFieldProps & React.Props;
 const MyField: React.StatelessComponent<MyFieldProps> = ({
     children,
     input,
@@ -146,7 +146,7 @@ const FieldImmutableCustom = ImmutableField as new () => GenericField<MyFieldCus
 
 /* Custom Fields */
 
-interface MyFieldsCustomProps {
+interface MyFieldsCustomProps extends React.Props {
     foo: string;
 }
 type MyFieldsProps = MyFieldsCustomProps & WrappedFieldsProps;
@@ -167,7 +167,7 @@ const MyArrayField: React.StatelessComponent = ({
 interface MyFieldValue {
     num: number;
 }
-interface MyFieldArrayCustomProps {
+interface MyFieldArrayCustomProps extends React.Props {
     foo: string;
 }
 

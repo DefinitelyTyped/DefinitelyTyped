@@ -8,7 +8,7 @@
 
 import * as React from "react";
 
-interface ReactResizeDetectorProps extends React.Props<ReactResizeDetector> {
+interface ReactResizeDetectorProps extends React.Props {
     /** Function that will be invoked with width and height arguments */
     onResize?: (width: number, height: number) => void;
     /** Trigger onResize on height change. Default: false */

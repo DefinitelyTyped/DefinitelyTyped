@@ -6,11 +6,11 @@
 
 import * as React from "react";
 
-interface CallBackProps extends React.Props<any> {
+interface CallBackProps extends React.Props {
     closePortal(): void;
 }
 
-interface ReactPortalProps {
+interface ReactPortalProps extends React.Props<React.ReactElement<any>> {
     isOpened?: boolean;
     openByClickOn?: React.ReactElement<CallBackProps>;
     closeOnEsc?: boolean;

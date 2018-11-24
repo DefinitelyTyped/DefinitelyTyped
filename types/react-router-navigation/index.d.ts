@@ -143,9 +143,7 @@ export class NavBar extends Component<CardSubViewProps, void> {
     renderRightComponent: (sceneProps: CardSubViewProps) => ReactNode;
 }
 
-export interface NavigationComponentProps extends NavigationProps {
-    children?: Array<ReactElement<any>>;
-}
+export interface NavigationComponentProps extends NavigationProps, React.Props<React.ReactNonTextFragment> {}
 
 export class Navigation extends Component<NavigationComponentProps> {
     props: NavigationComponentProps;

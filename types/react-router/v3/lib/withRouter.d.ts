@@ -7,7 +7,7 @@ interface Options {
     withRef?: boolean;
 }
 
-export interface WithRouterProps {
+export interface WithRouterProps extends React.Props {
     location: Location;
     params: Params;
     router: InjectedRouter;

@@ -30,7 +30,7 @@ declare module "spectacle" {
 	/**
 	 * Base props for many Spectacle components
 	 */
-	export interface BaseProps {
+	export interface BaseProps extends React.Props {
 		italic?:boolean,
 		bold?:boolean,
 		caps?:boolean,
@@ -47,11 +47,11 @@ declare module "spectacle" {
 
 	export type Theme = { [key: string ]: string | number }
 
-	export interface SpectacleProps {
+	export interface SpectacleProps extends React.Props<React.ReactNonTextFragment> {
 		theme?: Theme
 	}
 
-	export interface DeckProps {
+	export interface DeckProps extends React.Props<React.ReactNonTextFragment> {
 		transition?:transitionType[],
 		transitionDuration?:number,
 		progress?:progressType,
@@ -59,7 +59,7 @@ declare module "spectacle" {
 		theme?: Theme
 	}
 
-	export interface SlideProps extends BaseProps {
+	export interface SlideProps extends Pick<BaseProps, Exclude<keyof BaseProps, 'children'>>, React.Props<React.ReactNonTextFragment> {
 		align?:alignType,
 		transition?:transitionType[],
 		transitionDuration?:number,

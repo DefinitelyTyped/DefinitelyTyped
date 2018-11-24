@@ -1,6 +1,4 @@
 import { CommonProps } from '../index';
 
-interface Props extends CommonProps {}
-
-declare var ListGroupItemHeading: React.StatelessComponent<Props>;
+declare var ListGroupItemHeading: React.StatelessComponent<CommonProps>;
 export default ListGroupItemHeading;

@@ -492,7 +492,8 @@ declare namespace React {
      *
      * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
      */
-    type SFC<P = {}> = FunctionComponent<P>;
+    // tslint:disable-next-line:no-unnecessary-qualifier
+    type SFC<P = React.Props> = FunctionComponent<P>;
 
     /**
      * @deprecated as of recent React versions, function components can no

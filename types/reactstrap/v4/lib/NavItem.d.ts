@@ -1,6 +1,4 @@
 import { CommonProps } from '../index';
 
-interface Props extends CommonProps {}
-
-declare var NavItem: React.StatelessComponent<Props>;
+declare var NavItem: React.StatelessComponent<CommonProps>;
 export default NavItem;

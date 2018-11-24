@@ -1,6 +1,4 @@
 import { CommonProps } from '../index';
 
-interface Props extends CommonProps {}
-
-declare var CardColumns: React.StatelessComponent<Props>;
+declare var CardColumns: React.StatelessComponent<CommonProps>;
 export default CardColumns;

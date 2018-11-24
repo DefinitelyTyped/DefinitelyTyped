@@ -32,7 +32,7 @@ export interface IconProps extends TextProps {
   color?: string;
 }
 
-export interface IconButtonProps extends IconProps, TouchableHighlightProps, TouchableNativeFeedbackProps {
+export interface IconButtonProps extends Pick<IconProps, Exclude<keyof IconProps, 'children'>>, TouchableHighlightProps, TouchableNativeFeedbackProps {
   /**
    * Text and icon color
    * Use iconStyle or nest a Text component if you need different colors.

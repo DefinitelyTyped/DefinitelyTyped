@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   LinkProps,
-  Link
+  Link,
+  match
 } from 'react-router-dom';
 
 const CustomLinkExample = () => (
@@ -24,7 +25,7 @@ interface OldSchoolMenuLinkProps extends LinkProps {
 }
 
 const OldSchoolMenuLink: React.SFC<OldSchoolMenuLinkProps> = ({ label, to, activeOnlyWhenExact }) => (
-  <Route path={to as string} exact={activeOnlyWhenExact} children={(params: { match: boolean }) => (
+  <Route path={to as string} exact={activeOnlyWhenExact} children={(params: { match: match<any> | null }) => (
     <div className={params.match ? 'active' : ''}>
       {params.match ? '> ' : ''}<Link to={to}>{label}</Link>
     </div>

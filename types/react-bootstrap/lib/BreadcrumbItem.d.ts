@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 declare namespace BreadcrumbItem {
-    export interface BreadcrumbItemProps extends React.Props<BreadcrumbItem> {
+    export interface BreadcrumbItemProps extends React.Props {
         active?: boolean;
         href?: string;
         title?: React.ReactNode;

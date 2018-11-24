@@ -42,7 +42,7 @@ export interface LinkProps {
 
 export class Link extends React.Component<LinkProps> {}
 
-export interface NativeRouterProps {
+export interface NativeRouterProps extends React.Props<React.ReactNonTextFragment> {
   getUserConfirmation?: Function;
   keyLength?: number;
   initialEntries?: string[];

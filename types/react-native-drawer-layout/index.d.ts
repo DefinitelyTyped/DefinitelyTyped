@@ -77,7 +77,7 @@ export interface DrawerLayoutProperties extends ViewProps {
   /**
    * The navigation view that will be rendered to the side of the screen and can be pulled in.
    */
-  renderNavigationView (): React.ReactNonTextChild;
+  renderNavigationView(): React.ReactNonTextChild;
   /**
    * Make the drawer take the entire screen and draw the background of the status bar to allow it
    * to open over the status bar. It will only have an effect on API 21+.

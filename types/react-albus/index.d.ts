@@ -41,14 +41,14 @@ export interface WizardProps {
 
 export const Wizard: React.ComponentType<WizardProps>;
 
-export interface StepsProps {
+export interface StepsProps extends React.Props<React.ReactNonTextFragment> {
     step?: WizardStepObject;
 }
 
 export const Steps: React.ComponentType<StepsProps>;
 
 export type StepProps = { id: string } & (
-    | { render?: (wizard: WizardContext) => React.ReactNode }
+    | { render?: (wizard: WizardContext) => React.ReactNode; children?: React.ReactNode }
     | { children: (wizard: WizardContext) => React.ReactNode });
 
 export const Step: React.ComponentType<StepProps>;

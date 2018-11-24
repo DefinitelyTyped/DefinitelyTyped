@@ -1,6 +1,6 @@
 import { ComponentClass } from "react";
 
-type RouterContext = ComponentClass<any>;
+type RouterContext = ComponentClass;
 declare const RouterContext: RouterContext;
 
 export default RouterContext;

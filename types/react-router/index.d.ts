@@ -36,7 +36,7 @@ export interface RouterChildContext<Params extends { [K in keyof Params]?: strin
     }
   };
 }
-export interface MemoryRouterProps {
+export interface MemoryRouterProps extends React.Props<React.ReactChild> {
   initialEntries?: H.LocationDescriptor[];
   initialIndex?: number;
   getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
@@ -84,7 +84,7 @@ export interface RouteProps {
 }
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
 
-export interface RouterProps {
+export interface RouterProps extends React.Props<React.ReactChild> {
   history: H.History;
 }
 export class Router extends React.Component<RouterProps, any> { }
@@ -94,15 +94,15 @@ export interface StaticRouterContext extends StaticContext {
   action?: 'PUSH' | 'REPLACE';
   location?: object;
 }
-export interface StaticRouterProps {
+export interface StaticRouterProps extends React.Props<React.ReactChild> {
   basename?: string;
   location?: string | object;
   context?: StaticRouterContext;
 }
 
 export class StaticRouter extends React.Component<StaticRouterProps, any> { }
-export interface SwitchProps {
-  children?: React.ReactNode;
+// non-Route children are technically allowed at runtime, they'll just never be rendered
+export interface SwitchProps extends React.Props<React.ReactNonTextFragment> {
   location?: H.Location;
 }
 export class Switch extends React.Component<SwitchProps, any> { }

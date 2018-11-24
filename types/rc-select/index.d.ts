@@ -19,7 +19,7 @@ export {
 };
 
 declare namespace RcSelect {
-    interface SelectProps {
+    interface SelectProps extends React.Props<React.ReactNonTextFragment> {
         allowClear?: boolean;
         animation?: string;
         choiceTransitionName?: string;
@@ -73,7 +73,7 @@ declare namespace RcSelect {
     }
     export class Option extends React.Component<OptionProps> { }
 
-    interface OptGroupProps {
+    interface OptGroupProps extends React.Props<React.ReactNonTextFragment> {
         label?: string | React.ReactElement<any>;
         key?: string;
         value?: string;

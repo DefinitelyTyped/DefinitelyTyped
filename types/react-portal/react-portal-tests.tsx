@@ -9,7 +9,7 @@ interface AppState {
 }
 
 export default class App extends React.Component<{}, AppState> {
-    constructor(props: any) {
+    constructor(props: {}) {
         super(props);
 
         this.state = {

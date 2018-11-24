@@ -52,7 +52,7 @@ export interface RemoteObjSpec {
 	pagination?: boolean;
 }
 
-export interface BootstrapTableProps extends Props<BootstrapTable> {
+export interface BootstrapTableProps extends Props {
 	/**
 	 * Set version='4' to use bootstrap@4, else bootstrap@3 is used.
 	 */
@@ -515,7 +515,7 @@ interface BootstrapTable extends ComponentClass<BootstrapTableProps> { }
 declare const BootstrapTable: BootstrapTable;
 export type DataAlignType = 'left' | 'center' | 'right' | 'start' | 'end';
 
-export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
+export interface TableHeaderColumnProps extends Props {
 	/**
 	 * The field of data you want to show on column.
 	 */

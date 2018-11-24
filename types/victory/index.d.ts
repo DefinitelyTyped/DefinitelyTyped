@@ -1325,7 +1325,7 @@ declare module "victory" {
    */
   export class VictoryBar extends React.Component<VictoryBarProps, any> {}
 
-  export interface VictoryChartProps extends VictoryCommonProps {
+  export interface VictoryChartProps extends React.Props, VictoryCommonProps {
     /**
      * The domain prop describes the range of values your chart will include. This prop can be
      * given as a array of the minimum and maximum expected values for your chart,

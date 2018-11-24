@@ -1,6 +1,4 @@
 import { CommonProps } from '../index';
 
-interface Props extends CommonProps {}
-
-declare var ListGroupItemText: React.StatelessComponent<Props>;
+declare var ListGroupItemText: React.StatelessComponent<CommonProps>;
 export default ListGroupItemText;

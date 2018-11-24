@@ -7,7 +7,7 @@
 /// <reference types="react" />
 
 declare module "react-scrollbar" {
-  interface ScrollAreaProps extends React.Props<ScrollArea> {
+  interface ScrollAreaProps extends React.Props {
       className?: string,
       style?: React.CSSProperties,
       speed?: number,

@@ -1,6 +1,4 @@
 import { CommonProps } from '../index';
 
-interface Props extends CommonProps {}
-
-declare var PopoverTitle: React.StatelessComponent<Props>;
+declare var PopoverTitle: React.StatelessComponent<CommonProps>;
 export default PopoverTitle;

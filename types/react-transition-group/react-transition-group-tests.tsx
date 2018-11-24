@@ -6,7 +6,7 @@ import Components = require("react-transition-group");
 
 interface ContainerProps {
     theme: string;
-    children?: Element[];
+    children?: React.ReactNode;
 }
 
 const Container: React.StatelessComponent<ContainerProps> = (props: ContainerProps) => {

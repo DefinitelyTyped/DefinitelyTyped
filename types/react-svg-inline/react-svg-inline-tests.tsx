@@ -1,12 +1,9 @@
 import SVGInline = require("react-svg-inline");
 import * as React from "react";
 
-const TestSFC = (props: SVGInline.SVGInlineProps) => <div />;
+const TestSFC = (props: SVGInline.SVGInlineComponentProps) => <div />;
 
-class TestPure extends React.PureComponent {
-    constructor(props: SVGInline.SVGInlineProps) {
-        super(props);
-    }
+class TestPure extends React.PureComponent<SVGInline.SVGInlineComponentProps> {
     render() {
         return (<div />);
     }

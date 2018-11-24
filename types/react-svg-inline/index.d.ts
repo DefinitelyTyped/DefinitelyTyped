@@ -7,11 +7,15 @@
 /// <reference types="react" />
 
 declare namespace svgInline {
-    interface SVGInlineProps {
+    interface SVGInlineComponentProps extends SVGInlineProps {
+        className: string;
+        dangerouslySetInnerHTML: { __html: string };
+    }
+    interface SVGInlineProps extends React.Props {
         svg: string;
         className?: string;
         classSuffix?: string;
-        component?: React.ReactNode;
+        component?: React.ReactType<SVGInlineComponentProps>;
         fill?: string;
         cleanup?: boolean | Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup">;
         cleanupExceptions?: Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup">;

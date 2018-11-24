@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 declare namespace MediaBody {
-    export interface MediaBodyProps extends React.ClassAttributes<MediaBody> {
+    export interface MediaBodyProps extends React.Props {
         componentClass?: React.ReactType;
     }
 }

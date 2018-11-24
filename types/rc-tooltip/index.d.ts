@@ -31,7 +31,7 @@ declare namespace RCTooltip {
 		placement?: Placement | Object;
 		align?: Object;
 		onPopupAlign?: (popupDomNode: Element, align: Object) => void;
-		overlay: React.ReactNode;
+		overlay: React.ReactNode | (() => React.ReactNode);
 		arrowContent?: React.ReactNode;
 		getTooltipContainer?: () => Element;
 		destroyTooltipOnHide?: boolean;

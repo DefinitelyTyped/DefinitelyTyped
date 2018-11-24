@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter, Route } from 'react-router-dom';
 import { StaticContext, StaticRouterContext } from 'react-router';
 
-interface RouteStatusProps {
+interface RouteStatusProps extends React.Props {
     statusCode: number;
 }
 

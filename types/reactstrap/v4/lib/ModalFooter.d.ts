@@ -1,6 +1,4 @@
 import { CommonProps } from '../index';
 
-interface Props extends CommonProps {}
-
-declare var ModalFooter: React.StatelessComponent<Props>;
+declare var ModalFooter: React.StatelessComponent<CommonProps>;
 export default ModalFooter;

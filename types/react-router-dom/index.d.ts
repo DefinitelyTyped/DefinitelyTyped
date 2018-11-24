@@ -29,7 +29,8 @@ export {
     RouterChildContext
 } from 'react-router';
 
-export interface BrowserRouterProps {
+// only one child is allowed (and required), checked with React.Children.only
+export interface BrowserRouterProps extends React.Props<React.ReactChild> {
     basename?: string;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
     forceRefresh?: boolean;
@@ -37,16 +38,20 @@ export interface BrowserRouterProps {
 }
 export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
-export interface HashRouterProps {
+export interface HashRouterProps extends React.Props<React.ReactChild> {
     basename?: string;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
     hashType?: 'slash' | 'noslash' | 'hashbang';
 }
 export class HashRouter extends React.Component<HashRouterProps, any> {}
 
-export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+// Technically you're allowed to specify href, but only if to is not specified.
+// to is already required here so better to not mess with it, just use <a> instead.
+export interface LinkProps extends Pick<React.ComponentPropsWithoutRef<'a'>, Exclude<keyof React.ComponentPropsWithoutRef<'a'>, 'href'>> {
     to: H.LocationDescriptor;
     replace?: boolean;
+    // only function refs work, not object refs (causes PropTypes warning)
+    // PropTypes incorrectly accept string but that'd create a ref in the wrong owner
     innerRef?: (node: HTMLAnchorElement | null) => void;
 }
 export class Link extends React.Component<LinkProps, any> {}

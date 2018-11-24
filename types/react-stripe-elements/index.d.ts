@@ -64,11 +64,10 @@ export namespace ReactStripeElements {
 	}
 }
 
-export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {
+export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps & React.Props> {
 }
 
-export class Elements extends React.Component<stripe.elements.ElementsCreateOptions> {
-}
+export class Elements extends React.Component<stripe.elements.ElementsCreateOptions & React.Props> {}
 
 export function injectStripe<P extends object>(
     WrappedComponent: React.ComponentType<P & ReactStripeElements.InjectedStripeProps>,
