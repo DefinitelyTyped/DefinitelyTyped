@@ -60,7 +60,7 @@ declare namespace prompts {
         type: ValueOrFunc<string>;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
-        initial?: string | number;
+        initial?: string | number | boolean;
         style?: string;
         format?: PrevCaller<T, void>;
         validate?: PrevCaller<T, void>;
