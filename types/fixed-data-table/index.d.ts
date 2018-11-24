@@ -71,7 +71,7 @@ declare namespace FixedDataTable {
       * horizontally.
       *
       */
-    export interface TableProps extends React.Props<Table> {
+    export interface TableProps extends React.Props {
         /**
           * Pixel width of table. If all columns do not fit, a
           * horizontal scrollbar will appear.
@@ -256,7 +256,7 @@ declare namespace FixedDataTable {
     /**
      * Component that defines the attributes of table column.
      */
-    interface ColumnProps extends React.Props<Column> {
+    interface ColumnProps extends React.Props {
         /**
           * The horizontal alignment of the table cell content.
           *
@@ -405,7 +405,7 @@ declare namespace FixedDataTable {
     /**
      * Component that defines the attributes of a table column group.
      */
-    export interface ColumnGroupProps extends React.Props<ColumnGroup> {
+    export interface ColumnGroupProps extends React.Props {
         /**
 	     * The horizontal alignment of the table cell content.
          * 'left', 'center', 'right'

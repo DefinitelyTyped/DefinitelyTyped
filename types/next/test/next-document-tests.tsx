@@ -34,7 +34,7 @@ class MyDocumentDefault extends Document {
     }
 }
 
-class MyDoc extends Document<WithUrlProps> {
+class MyDoc extends Document<WithUrlProps & React.Props> {
     static getInitialProps({ req, renderPage }: NextDocumentContext) {
         // without callback
         const _page = renderPage();

@@ -11,14 +11,14 @@ export interface PluralPropsWithoutI18n extends RenderProps {
     few?: ReactNode;
     many?: ReactNode;
     other: ReactNode;
-    [exact: string]: ReactNode;
+    [exact: string]: ReactNode | undefined;
 }
 
 export interface SelectPropsWithoutI18n extends RenderProps {
     id?: string;
     value: string;
     other: ReactNode;
-    [exact: string]: ReactNode;
+    [exact: string]: ReactNode | undefined;
 }
 
 export class Select extends Component<SelectPropsWithoutI18n> { }

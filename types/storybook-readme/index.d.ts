@@ -5,8 +5,8 @@
 // TypeScript Version: 3.0
 
 // Shared Types
-export type Renderable = React.ComponentType | JSX.Element;
-export type RenderFunction = () => Renderable | Renderable[];
+export type Renderable = React.ReactNonTextFragment;
+export type RenderFunction = () => Renderable;
 export type Readme = string | string[];
 
 export type DecoratorPattern = (

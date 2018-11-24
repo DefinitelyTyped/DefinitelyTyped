@@ -1,5 +1,5 @@
-import IdyllDocument, { IdyllDocumentProps } from "idyll-document";
+import IdyllDocument from "idyll-document";
 import { createElement } from "react";
 
-// $ExpectType ReactElement<IdyllDocumentProps>
-createElement<IdyllDocumentProps>(IdyllDocument);
+// $ExpectType TypedReactElement<typeof IdyllDocument>
+createElement(IdyllDocument);

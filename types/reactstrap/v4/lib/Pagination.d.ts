@@ -1,7 +1,7 @@
 import { CommonProps } from '../index';
 
 interface Props extends CommonProps {
-  size?: string
+  size?: string;
 }
 
 declare var Pagination: React.StatelessComponent<Props>;

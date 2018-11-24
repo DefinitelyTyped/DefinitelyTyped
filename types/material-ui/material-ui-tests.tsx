@@ -3024,7 +3024,7 @@ const ChipExampleSimple = () => (
     <Chip><Avatar size={32} color={blue300} backgroundColor={indigo900}>UI</Avatar> Avatar</Chip>
     <Chip style={styles.chip}>Styled</Chip>
     <Chip containerElement="span">String Container</Chip>
-    <Chip containerElement={() => {}}>ReactNode Container</Chip>
+    <Chip containerElement={() => null}>ReactNode Container</Chip>
   </div>
 );
 
@@ -4196,7 +4196,7 @@ const ListExampleMessages = () => (
 );
 
 function wrapState(ComposedComponent: ComponentClass<__MaterialUI.List.SelectableProps>) {
-  return class SelectableList extends Component<{defaultValue: number}, {selectedIndex: number}> {
+  return class SelectableList extends Component<{defaultValue: number; children: React.ReactNode}, {selectedIndex: number}> {
     static propTypes = {
       children: PropTypes.node.isRequired,
       defaultValue: PropTypes.number.isRequired,

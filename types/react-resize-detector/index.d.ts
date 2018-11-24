@@ -8,7 +8,7 @@
 
 import * as React from "react";
 
-interface ReactResizeDetectorProps extends React.Props {
+interface ReactResizeDetectorProps {
     /** Function that will be invoked with width and height arguments */
     onResize?: (width: number, height: number) => void;
     /** Trigger onResize on height change. Default: false */
@@ -24,13 +24,14 @@ interface ReactResizeDetectorProps extends React.Props {
     /** Makes sense only when refreshMode is set. Default: 1000. */
     refreshRate?: number;
 
-    render?: (props: any) => React.ReactNode;
+    render?(props: any): React.ReactNode;
+    children?: ((width: number, height: number) => React.ReactNode) | React.ReactNode;
 }
 
 declare class ReactResizeDetector extends React.PureComponent<ReactResizeDetectorProps> { }
 
 export declare function withResizeDetector(
-    WrappedComponent: React.ReactNode,
+    WrappedComponent: React.ReactType,
     props?: ReactResizeDetectorProps
 ): React.Component;
 

@@ -7,7 +7,7 @@
 
 import * as React from 'react';
 
-export interface AppProps {
+export interface AppProps extends React.Props<React.ReactNonTextFragment> {
     /**
      * Called when the quit menu item is called, right before the entire app quits.
      */
@@ -19,7 +19,7 @@ export interface AppProps {
  */
 export class App extends React.Component<AppProps> { }
 
-export interface AreaBaseProps extends GridChildrenProps, Label, Stretchy {
+export interface AreaBaseProps extends GridChildrenProps, Label, Stretchy, React.Props<React.ReactNonTextFragment> {
     /**
      * The fill color for the component.
      */
@@ -170,7 +170,7 @@ export interface AreaPathProps extends AreaBaseProps {
 
 export class AreaPath extends React.Component<AreaPathProps> { }
 
-export interface AreaTextProps extends StyledTextProps, AreaBaseProps { }
+export interface AreaTextProps extends StyledTextProps, Pick<AreaBaseProps, Exclude<keyof AreaBaseProps, 'children'>>, React.Props { }
 
 export class AreaText extends React.Component<AreaTextProps> { }
 
@@ -286,7 +286,7 @@ export class Area extends React.Component<AreaProps> {
     static Text: typeof AreaText;
 }
 
-export interface BoxProps extends GridChildrenProps, Label, Stretchy {
+export interface BoxProps extends GridChildrenProps, Label, Stretchy, React.Props<React.ReactNonTextChild> {
     /**
      * Whether the Box is enabled.
      */
@@ -339,7 +339,7 @@ export interface CheckboxProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The text to display next to the check box.
      */
-    children?: string;
+    children?: React.ReactText;
     /**
      * Whether the checkbox can be used.
      */
@@ -377,7 +377,7 @@ export interface ColorButtonProps extends GridChildrenProps, Label, Stretchy {
  */
 export class ColorButton extends React.Component<ColorButtonProps> { }
 
-export interface FormProps extends GridChildrenProps, Stretchy {
+export interface FormProps extends GridChildrenProps, Stretchy, React.Props<React.ReactNonTextFragment> {
     /**
      * Whether the Form is enabled.
      */
@@ -431,7 +431,7 @@ export interface GridChildrenProps {
   };
 }
 
-export interface GridProps {
+export interface GridProps extends React.Props<React.ReactNonTextFragment> {
     /**
      * Whether the Grid is enabled.
      */
@@ -806,7 +806,7 @@ export interface TextProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The text to display.
      */
-    children?: string;
+    children?: React.ReactText;
 }
 
 /**
@@ -818,7 +818,7 @@ export interface TextInputProps extends GridChildrenProps, Label, Stretchy {
     /**
      * The default text in the TextInput.
      */
-    children?: string;
+    children?: React.ReactText;
     /**
      * Whether the TextInput can be used.
      */
@@ -858,7 +858,7 @@ export interface WindowProps {
     /**
      * Window can only have one child. To have more than one child, use boxes.
      */
-    children?: JSX.Element;
+    children?: React.ReactNonTextChild;
     /**
      * Whether the window is closed. If set to closed, then the window will be closed.
      */
