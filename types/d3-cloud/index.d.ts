@@ -5,7 +5,7 @@
 
 import * as d3 from 'd3';
 
-export default d3.layout.cloud;
+export = d3.layout.cloud;
 
 declare module 'd3' {
     namespace layout {
