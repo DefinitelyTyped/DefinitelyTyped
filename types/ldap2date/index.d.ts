@@ -1,6 +1,6 @@
 // Type definitions for ldap2date 1.0
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: My Self <https://github.com/me>
+// Project: https://github.com/rsolomo/ldap2date.js
+// Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function parse(time: string): Date;
