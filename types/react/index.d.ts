@@ -232,11 +232,14 @@ declare namespace React {
         : ([T] | (
             undefined extends T ? [] : never
         ));
+    // ReadonlyArray cannot directly be tuples, so we have to cast them to arrays
+    type MultiChildrenTupleType<T extends ReadonlyArray<any>> =
+        T extends ReadonlyArray<infer E> ? E[] : []
     // The Extract<T, any> is to work around a problem when T is directly compared with never
     // ChildrenTupleType<never> results in never (???) if Extract is not used
     type ChildrenTupleType<T> = Extract<T, any> extends never
       ? []
-      : SingleChildTupleType<Exclude<T, ReadonlyArray<any>>> | Extract<T, ReadonlyArray<any>>;
+      : SingleChildTupleType<Exclude<T, ReadonlyArray<any>>> | MultiChildrenTupleType<Extract<T, ReadonlyArray<any>>>;
     // Check first if 'children' key exists to avoid inferring {} if P is {}
     type ChildrenPropTupleType<P> = 'children' extends keyof P
         // we need to do the extends check twice because 'undefined' is
