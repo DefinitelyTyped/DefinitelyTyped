@@ -2,6 +2,7 @@
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
+//                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -47,6 +48,7 @@ declare namespace prompts {
     interface Choice {
         title: string;
         value: string;
+        disable?: boolean;
     }
 
     interface Options {
@@ -58,7 +60,7 @@ declare namespace prompts {
         type: ValueOrFunc<string>;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
-        initial?: string;
+        initial?: string | number;
         style?: string;
         format?: PrevCaller<T, void>;
         validate?: PrevCaller<T, void>;
