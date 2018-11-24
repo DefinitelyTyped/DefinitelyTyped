@@ -365,7 +365,7 @@ export interface PluginObj<S = {}> {
 }
 
 export interface BabelFileResult {
-    ast?: Node | null;
+    ast?: t.File | null;
     code?: string | null;
     ignored?: boolean;
     map?: {
