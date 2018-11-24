@@ -33,6 +33,6 @@ declare class ReactResizeDetector extends React.PureComponent<ReactResizeDetecto
 export declare function withResizeDetector(
     WrappedComponent: React.ReactType,
     props?: ReactResizeDetectorProps
-): React.Component;
+): React.ComponentClass;
 
 export default ReactResizeDetector;
