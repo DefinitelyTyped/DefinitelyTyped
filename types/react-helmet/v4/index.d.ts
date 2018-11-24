@@ -14,7 +14,7 @@ declare namespace ReactHelmet {
     function peek(): ReactHelmet.HelmetData;
     function rewind(): ReactHelmet.HelmetData;
 
-    interface HelmetProps {
+    interface HelmetProps extends React.Props {
         base?: any;
         defaultTitle?: string;
         htmlAttributes?: any;
@@ -29,7 +29,7 @@ declare namespace ReactHelmet {
 
     interface HelmetData {
         base: HelmetDatum;
-        htmlAttributes: HelmetDatum;
+        htmlAttributes: HelmetHtmlAttributesDatum;
         link: HelmetDatum;
         meta: HelmetDatum;
         script: HelmetDatum;
@@ -39,7 +39,15 @@ declare namespace ReactHelmet {
 
     interface HelmetDatum {
         toString(): string;
-        toComponent(): React.Component<any>;
+        // misnamer -- this actually returns an element
+        // title returns a 1-tuple instead for some reason
+        toComponent(): React.ReactElement<any> | [React.ReactElement<any>];
+    }
+
+    interface HelmetHtmlAttributesDatum {
+        toString(): string;
+        // this is not a react element at all
+        toComponent(): object;
     }
 }
 

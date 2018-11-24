@@ -328,7 +328,7 @@ export function connectSearchBox<TProps extends Partial<SearchBoxProvided>>(ctor
 
 export function connectSortBy(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
-export interface StateResultsProvided<TDoc = BasicDoc> {
+export interface StateResultsProvided<TDoc = BasicDoc> extends React.Props {
   /** The search state of the instant search component.  */
   searchState: SearchState;
   /**

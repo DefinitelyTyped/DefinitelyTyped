@@ -8,7 +8,7 @@
 import * as React from 'react';
 import { Animated, ScrollViewProps, ViewStyle, TextStyle } from 'react-native';
 
-export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
+export interface ScrollableTabViewProperties extends React.Props<React.ReactNonTextFragment> {
     /**
      * accept 1 argument props and should return a component
      * to use as the tab bar. The component has goToPage, tabs, activeTab and ref added to the props,
@@ -125,7 +125,7 @@ export default class ScrollableTabView extends React.Component<ScrollableTabView
 // Each top-level child component should have a tabLabel prop
 // that can be used by the tab bar component to render out the labels.
 export type TabProps<T = {}> = T & {
-    tabLabel: React.ReactChild;
+    tabLabel: React.ReactText;
 };
 
 export interface DefaultTabBarProps {

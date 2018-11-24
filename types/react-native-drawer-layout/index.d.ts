@@ -23,10 +23,6 @@ export type DrawerLayoutStateChangeEventHandler = (state: string) => void;
 
 export interface DrawerLayoutProperties extends ViewProps {
   /**
-   * Child content.
-   */
-  children?: React.ReactNode;
-  /**
    * Specifies the background color of the drawer. The default value is white. If you want to set
    * the opacity of the drawer, use rgba.
    */
@@ -81,7 +77,7 @@ export interface DrawerLayoutProperties extends ViewProps {
   /**
    * The navigation view that will be rendered to the side of the screen and can be pulled in.
    */
-  renderNavigationView: React.ReactNode;
+  renderNavigationView (): React.ReactNonTextChild;
   /**
    * Make the drawer take the entire screen and draw the background of the status bar to allow it
    * to open over the status bar. It will only have an effect on API 21+.

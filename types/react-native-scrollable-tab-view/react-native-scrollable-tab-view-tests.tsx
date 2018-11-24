@@ -6,7 +6,7 @@ interface MyTextProps {
     style?: TextStyle;
 }
 
-const MyText: React.SFC<TabProps<MyTextProps>> = (props) => (
+const MyText: React.SFC<React.Props & TabProps<MyTextProps>> = (props) => (
     <Text style={props.style}>{props.children}</Text>
 );
 
@@ -14,7 +14,7 @@ interface MyViewProps {
     style?: ViewStyle;
 }
 
-class MyView extends React.Component<TabProps<MyViewProps>> {
+class MyView extends React.Component<React.Props<React.ReactNonTextFragment> & TabProps<MyViewProps>> {
     render() {
         return (
             <View style={this.props.style}>{this.props.children}</View>

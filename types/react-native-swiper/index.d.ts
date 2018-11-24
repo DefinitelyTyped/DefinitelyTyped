@@ -29,7 +29,7 @@ export interface SwiperState {
   total: number;
 }
 
-export interface SwiperProperties extends React.Props<Swiper> {
+export interface SwiperProperties extends React.Props<React.ReactNonTextFragment> {
   horizontal?: boolean;
 
   style?: StyleProp<ViewStyle>;

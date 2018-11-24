@@ -9,7 +9,7 @@ import * as React from "react";
 export class PlainConfirmModal extends React.Component<any, any> { }
 
 export function confirmable(component: typeof PlainConfirmModal): React.Component<ReactConfirmProps>;
-export function createConfirmation(component: React.Component, unmountDelay?: number): (props: any) => Promise<string>;
+export function createConfirmation(component: React.Component<ReactConfirmProps>, unmountDelay?: number): (props: any) => Promise<string>;
 
 export interface ReactConfirmProps {
     confirmation: string | React.ReactElement<any>;

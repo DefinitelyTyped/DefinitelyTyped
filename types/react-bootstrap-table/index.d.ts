@@ -155,7 +155,7 @@ export interface RemoteObjSpec {
 	pagination?: boolean;
 }
 
-export interface BootstrapTableProps extends Props<BootstrapTable> {
+export interface BootstrapTableProps extends Props {
 	/**
 	 * Bootstrap version to use, values include '3' or '4'. Defaults to '3'.
 	 */
@@ -1172,7 +1172,7 @@ export class BootstrapTable extends Component<BootstrapTableProps> {
 	reset(): void;
 }
 
-export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
+export interface TableHeaderColumnProps extends Props {
 	/**
 	 * The field of data you want to show on column. This is used throughout react-bootstrap-table as the column field
 	 * name.

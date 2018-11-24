@@ -1162,6 +1162,10 @@ declare namespace React {
      *
      * If your children prop is not optional, or if you don't accept children, do not
      * extend this interface; declare children directly (or omit them).
+     *
+     * NOTE: an old version of this type used the generic argument to inject the 'ref' prop.
+     * This is now done automatically by other types; to fix errors just remove the generic
+     * argument.
      */
     interface Props<T = ReactNode> {
         children?: T;

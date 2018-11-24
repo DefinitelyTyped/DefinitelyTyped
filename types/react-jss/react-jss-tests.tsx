@@ -35,7 +35,7 @@ const styles = (theme: MyTheme) =>
     }
   });
 
-interface ButtonProps extends WithSheet<typeof styles> {
+interface ButtonProps extends React.Props, WithSheet<typeof styles> {
   label: string;
 }
 

@@ -12,7 +12,7 @@ export class Breadcrumbs extends React.Component<BreadcrumbsProps> {}
 
 export class BreadcrumbsItem extends React.Component<BreadcrumbsItemProps> {}
 
-export interface BreadcrumbsProviderProps {
+export interface BreadcrumbsProviderProps extends React.Props {
   shouldBreadcrumbsUpdate?: (...args: any[]) => any;
 }
 
@@ -27,6 +27,6 @@ export interface BreadcrumbsProps {
   duplicateProps?: {};
 }
 
-export interface BreadcrumbsItemProps {
+export interface BreadcrumbsItemProps extends React.Props {
   to: string;
 }

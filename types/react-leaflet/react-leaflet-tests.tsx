@@ -710,7 +710,7 @@ const CenterControlExample = () => (
     </Map>
 );
 
-class LegendControl extends MapControl<MapControlProps & { className?: string }> {
+class LegendControl extends MapControl<MapControlProps & React.Props & { className?: string }> {
     componentWillMount() {
         const legend = new L.Control({ position: 'bottomright' });
         const jsx = (

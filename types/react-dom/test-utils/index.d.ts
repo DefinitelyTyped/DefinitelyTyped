@@ -4,8 +4,8 @@ import {
     DOMElement, SFCElement, CElement,
     ReactHTMLElement, DOMAttributes, SFC, TypedReactElement, ReactType, ComponentElement
 } from 'react';
-import { ElementInstanceType } from 'react-dom'
 
+import { ElementInstanceType } from "..";
 import * as ReactTestUtils from ".";
 
 export interface OptionalEventProperties {

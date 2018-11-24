@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-export interface HelmetProps {
+export interface HelmetProps extends React.Props {
     async?: boolean;
     base?: any;
     bodyAttributes?: Object;
@@ -47,7 +47,9 @@ export interface HelmetData {
 
 export interface HelmetDatum {
     toString(): string;
-    toComponent(): React.Component<any>;
+    // misnomer -- actually returns an element
+    // title returns a 1-tuple instead for some reason
+    toComponent(): React.ReactElement<any> | [React.ReactElement<any>];
 }
 
 export interface HelmetHTMLBodyDatum {

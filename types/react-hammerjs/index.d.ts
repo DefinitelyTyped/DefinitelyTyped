@@ -15,7 +15,7 @@ type HammerOptionsWithRecognizers = Omit<HammerOptions, "recognizers"> & {
 };
 
 declare namespace ReactHammer {
-    interface ReactHammerProps {
+    interface ReactHammerProps extends React.Props {
         direction?:
             | "DIRECTION_NONE"
             | "DIRECTION_LEFT"

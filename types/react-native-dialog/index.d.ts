@@ -59,13 +59,13 @@ export namespace Dialog {
     > {}
     class Container extends PureComponent<ContainerProps & ViewProps> {}
     class Title extends PureComponent<
-        TitleProps & ViewProps & TextProps
+        TitleProps & Pick<ViewProps, Exclude<keyof ViewProps, 'children'>> & TextProps
     > {}
     class Input<T> extends PureComponent<
         InputProps<T> & ViewProps & TextInputProps
     > {}
     class Description extends PureComponent<
-        DescriptionProps & ViewProps & TextProps
+        DescriptionProps & Pick<ViewProps, Exclude<keyof ViewProps, 'children'>> & TextProps
     > {}
 }
 

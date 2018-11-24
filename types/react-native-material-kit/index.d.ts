@@ -178,7 +178,7 @@ export namespace MKPropTypes {
     type rippleLocation = 'tapLocation' | 'center';
 }
 
-export interface TickProperties extends ViewProps {
+export interface TickProperties extends Pick<ViewProps, Exclude<keyof ViewProps, 'children'>> {
     fillColor?: string;
     inset?: number;
 }
@@ -284,12 +284,13 @@ export interface MKSwitchProperties extends TouchableWithoutFeedbackProps {
     onCheckedChange?(checked: boolean): void;
 }
 
-export interface MKIconToggleProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {
+export interface MKIconToggleProperties extends MKRippleProperties, Pick<TouchableWithoutFeedbackProps, Exclude<keyof TouchableWithoutFeedbackProps, 'children'>> {
+    children: React.ReactNonTextFragment;
     checked?: boolean;
     onCheckedChange?(checked: boolean): void;
 }
 
-export interface MKRippleProperties extends ViewProps {
+export interface MKRippleProperties extends Pick<ViewProps, Exclude<keyof ViewProps, 'children'>> {
     rippleColor?: string;
     rippleDuration?: number;
     rippleLocation?: MKPropTypes.rippleLocation;

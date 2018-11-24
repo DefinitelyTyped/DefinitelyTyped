@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export interface DocumentMetaProps {
+export interface DocumentMetaProps extends React.Props {
     readonly title?: string;
     readonly description?: string;
     readonly canonical?: string;

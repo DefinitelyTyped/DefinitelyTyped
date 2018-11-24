@@ -7,7 +7,7 @@
 import * as React from "react";
 import { ViewStyle } from "react-native";
 
-export interface MarkerProps {
+export interface MarkerProps extends React.Props<React.ReactNonTextFragment> {
     pressed?: number;
     markerStyle?: ViewStyle;
     pressedMarkerStyle?: ViewStyle;

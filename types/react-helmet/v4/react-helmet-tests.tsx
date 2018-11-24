@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Helmet = require('react-helmet');
 
-<Helmet title="My Title" />
+<Helmet title="My Title" />;
 
 const head = Helmet.rewind();
 const html = `

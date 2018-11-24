@@ -64,13 +64,13 @@ export interface CommonFlexProps {
     display?: string;
 }
 
-export interface FlexProps extends React.Props<Flex>, CommonFlexProps {
+export interface FlexProps extends React.Props, CommonFlexProps {
 }
 
 export class Flex extends React.Component<FlexProps> {
 }
 
-export interface ItemProps extends React.Props<Flex>, CommonFlexProps {
+export interface ItemProps extends React.Props, CommonFlexProps {
     /**
      * A number/string from 0 to 24 for `flex-grow`. Most of the times, using `flex` is just enough.
      */

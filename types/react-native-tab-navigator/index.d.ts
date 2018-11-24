@@ -7,7 +7,7 @@
 import * as React from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 
-export interface TabNavigatorProps {
+export interface TabNavigatorProps extends React.Props<React.ReactNonTextFragment> {
     /**
      * Define for rendered scene
      */
@@ -31,7 +31,7 @@ export interface TabNavigatorProps {
     hidesTabTouch?: boolean;
 }
 
-interface TabNavigatorItemProps {
+interface TabNavigatorItemProps extends React.Props<React.ReactNonTextFragment> {
     /**
      * Allow font scaling for title
      */

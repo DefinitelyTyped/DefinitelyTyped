@@ -42,9 +42,9 @@ ReactIs.isValidElementType(React.createFactory('div')); // true
 const ThemeContext = React.createContext('blue');
 
 ReactIs.isContextConsumer(<ThemeContext.Consumer children={StatelessComponent} />); // true
-ReactIs.isContextProvider(<ThemeContext.Provider children={StatelessComponent} value='black' />); // true
+ReactIs.isContextProvider(<ThemeContext.Provider children={<StatelessComponent/>} value='black' />); // true
 ReactIs.typeOf(<ThemeContext.Consumer children={StatelessComponent} />) === ReactIs.ContextConsumer; // true
-ReactIs.typeOf(<ThemeContext.Provider children={StatelessComponent} value='black' />) === ReactIs.ContextProvider; // true
+ReactIs.typeOf(<ThemeContext.Provider children={<StatelessComponent/>} value='black' />) === ReactIs.ContextProvider; // true
 
 // Element
 ReactIs.isElement(<div />); // true

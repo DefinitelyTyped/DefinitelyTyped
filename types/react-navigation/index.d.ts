@@ -1348,7 +1348,7 @@ export interface SafeAreaViewProps extends ViewProps {
     horizontal?: SafeAreaViewForceInsetValue;
     vertical?: SafeAreaViewForceInsetValue;
   };
-  children?: React.ReactNode;
 }
 
+// NOTE / TODO: this is actually a reexport of a different npm module, `react-native-safe-area-view`
 export const SafeAreaView: React.ComponentClass<SafeAreaViewProps>;
