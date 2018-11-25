@@ -3,6 +3,7 @@
 // Definitions by: bitbankinc <https://github.com/bitbankinc>, rollymaduk <https://github.com/rollymaduk>, vitosamson <https://github.com/vitosamson>, FlorianDr <https://github.com/FlorianDr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
+// TypeScript Version: 2.2
 
 declare class Pubnub {
   constructor(config: Pubnub.PubnubConfig);
