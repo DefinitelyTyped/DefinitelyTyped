@@ -86,7 +86,7 @@ declare namespace prompts {
         values: Answers<T>,
         prompt: PromptObject
     ) => R;
-                    
+
     type Falsy = false | null | undefined;
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
