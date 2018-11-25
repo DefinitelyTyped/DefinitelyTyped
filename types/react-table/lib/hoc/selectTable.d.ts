@@ -12,7 +12,7 @@ export interface SelectInputComponentProps {
     row: any;
 }
 
-export interface SelectAllInputComponent {
+export interface SelectAllInputComponentProps {
     selectType: SelectType;
     checked: boolean;
     onClick: () => any;
@@ -28,7 +28,7 @@ export interface SelectTableAdditionalProps {
 
     selectAll?: boolean;
 
-    toggleAll?: SelectAllInputComponent['onClick'];
+    toggleAll?: SelectAllInputComponentProps['onClick'];
 
     toggleSelection?: SelectInputComponentProps['onClick'];
 
@@ -37,8 +37,10 @@ export interface SelectTableAdditionalProps {
      */
     selectType?: SelectType;
 
-    SelectInputComponent?: ComponentType<SelectInputComponentProps>;
-    SelectAllInputComponent?: ComponentType<SelectAllInputComponent>;
+    SelectInputComponent?: ComponentType<Partial<SelectInputComponentProps>>;
+    SelectAllInputComponent?: ComponentType<
+        Partial<SelectAllInputComponentProps>
+    >;
 }
 
 export interface SelectTableHOCOptions {
