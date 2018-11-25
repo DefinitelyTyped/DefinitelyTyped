@@ -37,10 +37,8 @@ export interface SelectTableAdditionalProps {
      */
     selectType?: SelectType;
 
-    SelectInputComponent?: ComponentType<Partial<SelectInputComponentProps>>;
-    SelectAllInputComponent?: ComponentType<
-        Partial<SelectAllInputComponentProps>
-    >;
+    SelectInputComponent?: ComponentType<SelectInputComponentProps>;
+    SelectAllInputComponent?: ComponentType<SelectAllInputComponentProps>;
 }
 
 export interface SelectTableHOCOptions {
