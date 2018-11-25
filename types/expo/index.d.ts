@@ -1,4 +1,4 @@
-// Type definitions for expo 30.0
+// Type definitions for expo 31.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -11,6 +11,7 @@
 //                 Tina Roh <https://github.com/tinaroh>
 //                 Nathan Phillip Brink <https://github.com/binki>
 //                 Martin Olsson <https://github.com/mo>
+//                 Levan Basharuli <https://github.com/levansuper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1559,6 +1560,8 @@ export namespace ImageManipulator {
     }
 
     function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
+
+    function manipulateAsync(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
@@ -2139,6 +2142,7 @@ export interface SvgUseProps extends SvgCommonProps {
 
 export interface SvgSymbolProps extends SvgCommonProps {
     viewBox: string;
+    preserveAspectRatio?: string;
     width: number | string;
     height: number | string;
 }
@@ -2166,7 +2170,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
+export class Svg extends Component<{ width: number, height: number, viewBox?: string, preserveAspectRatio?: string }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;

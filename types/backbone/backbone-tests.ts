@@ -1,6 +1,6 @@
 function test_events() {
 
-    var object = new Backbone.Events();
+    var object = Backbone.Events;
     object.on("alert", (eventName: string) => alert("Triggered " + eventName));
 
     object.trigger("alert", "an event");

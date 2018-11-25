@@ -491,6 +491,7 @@ describe("A spy, when configured to throw a value", () => {
 
 describe("A spy, when configured with multiple actions", () => {
     var foo: any, bar: any, fetchedBar: any;
+    var fakeCalled = false;
 
     beforeEach(() => {
         foo = {
@@ -503,7 +504,7 @@ describe("A spy, when configured with multiple actions", () => {
         };
 
         spyOn(foo, 'getBar').and.callThrough().and.callFake(() => {
-            this.fakeCalled = true;
+            fakeCalled = true;
         });
 
         foo.setBar(123);
@@ -523,7 +524,7 @@ describe("A spy, when configured with multiple actions", () => {
     });
 
     it("should have called the fake implementation", () => {
-        expect(this.fakeCalled).toEqual(true);
+        expect(fakeCalled).toEqual(true);
     });
 });
 

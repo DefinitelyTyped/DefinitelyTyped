@@ -1,11 +1,12 @@
 // Type definitions for node-forge 0.7.6
 // Project: https://github.com/digitalbazaar/forge
-// Definitions by: Seth Westphal <https://github.com/westy92>
-//                 Kay Schecker <https://github.com/flynetworks>
-//                 Aakash Goenka <https://github.com/a-k-g>
-//                 Rafal2228 <https://github.com/rafal2228>
-//                 Beeno Tung <https://github.com/beenotung>
-//                 Joe Flateau <https://github.com/joeflateau>
+// Definitions by: Seth Westphal    <https://github.com/westy92>
+//                 Kay Schecker     <https://github.com/flynetworks>
+//                 Aakash Goenka    <https://github.com/a-k-g>
+//                 Rafal2228        <https://github.com/rafal2228>
+//                 Beeno Tung       <https://github.com/beenotung>
+//                 Joe Flateau      <https://github.com/joeflateau>
+//                 Nikita Koryabkin <https://github.com/Apologiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -44,16 +45,26 @@ declare module "node-forge" {
         type Key = any;
 
         interface KeyPair {
-            publicKey: Key;
-            privateKey: Key;
+            publicKey: PublicKey;
+            privateKey: PrivateKey;
+        }
+
+        interface PublicKey {
+            encrypt(data: string, scheme?: string, schemeOptions?: number): Bytes
+            verify(digest: string, signature: string, scheme?: string): boolean
+        }
+
+        interface PrivateKey {
+            decrypt(data: string, scheme?: string, schemeOptions?: number): string
+            sign(md: string, scheme?: string): Bytes
         }
 
         function pemToDer(pem: PEM): util.ByteStringBuffer;
-        function privateKeyToPem(key: Key, maxline?: number): PEM;
-        function privateKeyInfoToPem(key: Key, maxline?: number): PEM;
-        function publicKeyToPem(key: Key, maxline?: number): PEM;
-        function publicKeyFromPem(pem: PEM): Key;
-        function privateKeyFromPem(pem: PEM): Key;
+        function privateKeyToPem(key: PrivateKey, maxline?: number): PEM;
+        function privateKeyInfoToPem(key: PrivateKey, maxline?: number): PEM;
+        function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
+        function publicKeyFromPem(pem: PEM): PublicKey;
+        function privateKeyFromPem(pem: PEM): PrivateKey;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
         function certificateFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
 
@@ -99,9 +110,15 @@ declare module "node-forge" {
 
             function publicKeyFromPrivateKey(options: { privateKey: NativeBuffer }): NativeBuffer;
 
-            function sign(options: { privateKey: NativeBuffer }): NativeBuffer;
+            function sign(options: {
+                message: string,
+                encoding: string,
+                privateKey: NativeBuffer
+            }): NativeBuffer;
 
             function verify(options: {
+                message: string,
+                encoding: string,
                 signature: Buffer | Uint8Array | util.ByteBuffer | string,
                 publicKey: NativeBuffer
             }): boolean;
@@ -474,11 +491,14 @@ declare module "node-forge" {
 
         type Algorithm = "AES-ECB" | "AES-CBC" | "AES-CFB" | "AES-OFB" | "AES-CTR" | "AES-GCM" | "3DES-ECB" | "3DES-CBC" | "DES-ECB" | "DES-CBC";
 
-        function createCipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
-        function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
+        function createCipher(algorithm: Algorithm, payload: util.ByteBuffer | Bytes): BlockCipher;
+        function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer | Bytes): BlockCipher;
 
         interface StartOptions {
-            iv?: string;
+            iv?: Bytes;
+            tag?: util.ByteStringBuffer;
+            tagLength?: number;
+            additionalData?: string;
         }
 
         interface BlockCipher {
@@ -486,6 +506,11 @@ declare module "node-forge" {
             update: (payload: util.ByteBuffer) => void;
             finish: () => boolean;
             output: util.ByteStringBuffer;
+            mode: Mode;
+        }
+
+        interface Mode {
+            tag: util.ByteStringBuffer;
         }
     }
         
@@ -497,5 +522,9 @@ declare module "node-forge" {
         namespace mgf1 {
             function create(any: any): any;
         }
+    }
+
+    namespace random {
+        function getBytesSync(length: number): Bytes;
     }
 }
