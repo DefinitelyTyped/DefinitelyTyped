@@ -1,6 +1,5 @@
 // Type definitions for SkyWay@1.1.17
 // Project: https://github.com/skyway/skyway-js-sdk
-// Based on Documentation for skyway-js-doc: https://github.com/skyway/skyway-js-sdk-doc
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 //                 Atsushi Izumihara <https://github.com/izmhr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

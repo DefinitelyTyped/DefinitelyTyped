@@ -1,5 +1,3 @@
-/// <reference types="skyway" />
-
 const peerByOption: Peer = new Peer({
     key: 'peerKey',
     debug: 3
