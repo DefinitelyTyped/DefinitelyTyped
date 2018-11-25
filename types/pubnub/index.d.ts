@@ -308,7 +308,7 @@ declare namespace Pubnub {
     };
   }
 
-  // encrypt
+  // encrypt & decrypt
   interface CryptoParameters {
     encryptKey?: boolean;
     keyEncoding?: string;
