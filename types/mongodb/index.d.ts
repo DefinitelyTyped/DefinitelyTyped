@@ -261,11 +261,11 @@ export interface MongoClientOptions extends
     /**
      * The name of the application that created this MongoClient instance.
      */
-     appname?: string;
+    appname?: string;
 
-     /**
-      * Authentifikation credentials
-      */
+    /**
+     * Authentifikation credentials
+     */
     auth?: {
         /**
          * The username for auth
@@ -280,7 +280,7 @@ export interface MongoClientOptions extends
     /**
      * Determines whether or not to use the new url parser
      */
-     useNewUrlParser?: boolean;
+    useNewUrlParser?: boolean;
 
     /**
      * Mechanism for authentication: DEFAULT, GSSAPI, PLAIN, MONGODB-X509, 'MONGODB-CR', SCRAM-SHA-1 or SCRAM-SHA-256
@@ -428,12 +428,12 @@ export interface DbCreateOptions extends CommonOptions {
      * ES6 compatible promise constructor
      */
     promiseLibrary?: Object;
-    /** https://docs.mongodb.com/manual/reference/read-concern/#read-concern */
+    /**
+     * https://docs.mongodb.com/manual/reference/read-concern/#read-concern
+     **/
     readConcern?: ReadConcern;
     /**
      * Sets a cap on how many operations the driver will buffer up before giving up on getting a
-     */
-    /**
      * working connection, default is -1 which is unlimited.
      */
     bufferMaxEntries?: number;
@@ -463,11 +463,8 @@ export interface SocketOptions {
     connectTimeoutMS?: number;
     /**
      * Version of IP stack. Can be 4, 6 or null. default: null.
-     */
-    /**
+     *
      * If null, will attempt to connect with IPv6, and will fall back to IPv4 on failure
-     */
-    /**
      * refer to http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html
      */
     family?: 4 | 6 | null;
@@ -514,9 +511,9 @@ export interface MongosOptions extends SSLOptions, HighAvailabilityOptions {
      */
     acceptableLatencyMS?: number;
 
-     /**
-      * Socket Options
-      */
+    /**
+     * Socket Options
+     */
     socketOptions?: SocketOptions;
 }
 
