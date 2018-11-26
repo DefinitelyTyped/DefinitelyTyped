@@ -48,7 +48,7 @@ function originalTests() {
         }]
     });
 
-    chart1.addSeries<Highcharts.BarChartSeriesOptions>({
+    chart1.addSeries({
         enableMouseTracking: true,
         data: [1, 2, 3, 4, 5],
         description: "some description"
