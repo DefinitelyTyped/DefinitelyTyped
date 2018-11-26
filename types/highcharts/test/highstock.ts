@@ -70,6 +70,6 @@ $(() => {
             name: 'USD to EUR',
             data: someData,
             lineColor: "blue"
-        }]
+        } as Highcharts.AreaRangeChartSeriesOptions]
     });
 });

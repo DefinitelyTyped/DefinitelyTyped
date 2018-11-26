@@ -2450,7 +2450,7 @@ function test_ChartObject() {
     chart.addSeries({}, false);
     chart.addSeries({}, false, false);
     chart.addSeries({}, false, { duration: 50 });
-    chart.addSeriesAsDrilldown({}, {});
+    chart.addSeriesAsDrilldown({} as Highcharts.PointObject, {});
     const container = chart.container;
     console.log(container.id);
     chart.destroy();
