@@ -424,7 +424,7 @@ function Argv$commandDirWithOptions() {
         .commandDir('.', {
             recurse: false,
             extensions: ['js'],
-            visit: (commandObject: any, pathToFile: string, filename: string) => void 0,
+            visit: (commandObject: any, pathToFile?: string, filename?: string) => void 0,
             include: /.*\.js$/,
             exclude: /.*\.spec.js$/,
         })
@@ -665,4 +665,43 @@ function Argv$showHidden() {
 function Argv$scriptName() {
     const ya = yargs
         .scriptName("my-script");
+}
+
+function Argv$inferOptionTypes() {
+    const argv1 = yargs
+        .option("u", { type: "string" })
+        .alias("u", "url")
+        .argv;
+    
+    argv1.u; // string
+    argv1.url; // string
+
+    const argv2 = yargs
+        .option("verbose", { default: false })
+        .alias("v", "verbose")
+        .argv;
+
+    argv2.v; // boolean
+    argv2.verbose; // boolean
+
+    const argv3 = yargs
+        .option({
+            count: { number: true },
+            date: { coerce: Date.parse }
+        })
+        .alias("c", "count")
+        .argv;
+    
+    argv3.c; // number
+    argv3.count; // number
+    argv3.date; // number
+
+    const argv4 = yargs
+        .string(["u", "url"])
+        .alias("url", "uri")
+        .argv;
+
+    argv4.u; // string
+    argv4.url; // string
+    argv4.uri; // string
 }
