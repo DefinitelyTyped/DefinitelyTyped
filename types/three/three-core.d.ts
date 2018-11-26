@@ -3755,7 +3755,7 @@ export class Matrix3 implements Matrix {
     /**
      * Float32Array with matrix values.
      */
-    elements: Float32Array;
+    elements: number[];
 
     set(n11: number, n12: number, n13: number, n21: number, n22: number, n23: number, n31: number, n32: number, n33: number): Matrix3;
     identity(): Matrix3;
@@ -3840,7 +3840,7 @@ export class Matrix4 implements Matrix {
     /**
      * Float32Array with matrix values.
      */
-    elements: Float32Array;
+    elements: number[];
 
     /**
      * Sets all fields of this matrix.
