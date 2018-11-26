@@ -798,7 +798,7 @@ context.fail(error);
 context.fail(str);
 
 /* Handler */
-const handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+const handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb?: AWSLambda.Callback) => { };
 
 /* In node8.10 runtime, handlers may return a promise for the result value, so existing async
  * handlers that return Promise<void> before calling the callback will now have a `null` result.
@@ -817,7 +817,7 @@ const legacyAsyncHandler: AWSLambda.APIGatewayProxyHandler = async (
 const node8AsyncHandler: AWSLambda.APIGatewayProxyHandler = async (
     event: AWSLambda.APIGatewayProxyEvent,
     context: AWSLambda.Context,
-    cb: AWSLambda.Callback<AWSLambda.APIGatewayProxyResult>,
+    cb?: AWSLambda.Callback<AWSLambda.APIGatewayProxyResult>,
 ) => {
     return { statusCode: 200, body: 'Is now valid!' };
 };
@@ -829,45 +829,47 @@ const inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
     // $ExpectType Context
     context;
     str = context.functionName;
-    // $ExpectType Callback<void>
+    // $ExpectType Callback<void> | undefined
     cb;
-    cb();
-    cb(null);
-    cb(new Error());
-    // $ExpectError
-    cb(null, { });
+    if (cb) {
+        cb();
+        cb(null);
+        cb(new Error());
+        // $ExpectError
+        cb(null, { });
+    }
 };
 
 // Test using default Callback type still works.
-const defaultCallbackHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+const defaultCallbackHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback) => { };
 
 // Specific types
-let s3Handler: AWSLambda.S3Handler = (event: AWSLambda.S3Event, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+let s3Handler: AWSLambda.S3Handler = (event: AWSLambda.S3Event, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => {};
 // Test old name
-const s3CreateHandler: AWSLambda.S3Handler = (event: AWSLambda.S3CreateEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const s3CreateHandler: AWSLambda.S3Handler = (event: AWSLambda.S3CreateEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => {};
 s3Handler = s3CreateHandler;
 
-const dynamoDBStreamHandler: AWSLambda.DynamoDBStreamHandler = (event: AWSLambda.DynamoDBStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const dynamoDBStreamHandler: AWSLambda.DynamoDBStreamHandler = (event: AWSLambda.DynamoDBStreamEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => {};
 
-const snsHandler: AWSLambda.SNSHandler = (event: AWSLambda.SNSEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const snsHandler: AWSLambda.SNSHandler = (event: AWSLambda.SNSEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => {};
 
-const cognitoUserPoolHandler: AWSLambda.CognitoUserPoolTriggerHandler = (event: AWSLambda.CognitoUserPoolEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const cognitoUserPoolHandler: AWSLambda.CognitoUserPoolTriggerHandler = (event: AWSLambda.CognitoUserPoolEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => {};
 
 const cloudFormationCustomResourceHandler: AWSLambda.CloudFormationCustomResourceHandler =
-    (event: AWSLambda.CloudFormationCustomResourceEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+    (event: AWSLambda.CloudFormationCustomResourceEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => {};
 
-const cloudWatchLogsHandler: AWSLambda.CloudWatchLogsHandler = (event: AWSLambda.CloudWatchLogsEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const cloudWatchLogsHandler: AWSLambda.CloudWatchLogsHandler = (event: AWSLambda.CloudWatchLogsEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => {};
 
-const scheduledHandler: AWSLambda.ScheduledHandler = (event: AWSLambda.ScheduledEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const scheduledHandler: AWSLambda.ScheduledHandler = (event: AWSLambda.ScheduledEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => {};
 
-let apiGtwProxyHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayProxyEvent, context: AWSLambda.Context, cb: AWSLambda.APIGatewayProxyCallback) => { };
+let apiGtwProxyHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayProxyEvent, context: AWSLambda.Context, cb?: AWSLambda.APIGatewayProxyCallback) => { };
 // Test old names
-const proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
+const proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb?: AWSLambda.ProxyCallback) => { };
 apiGtwProxyHandler = proxyHandler;
 
-const codePipelineHandler: AWSLambda.CodePipelineHandler = (event: AWSLambda.CodePipelineEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
+const codePipelineHandler: AWSLambda.CodePipelineHandler = (event: AWSLambda.CodePipelineEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => {};
 
-const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => {
+const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb?: AWSLambda.CloudFrontRequestCallback) => {
     event = CloudFrontRequestWithCustomOriginEvent;
     // $ExpectType CloudFrontRequestEvent
     event;
@@ -918,39 +920,43 @@ const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWS
         request.origin.custom.path = '/';
     }
 
-    cb();
-    cb(null);
-    cb(new Error(''));
-    cb(null, { clientIp: str, method: str, uri: str, querystring: str, headers: { } });
-    cb(null, { status: str });
-    // $ExpectError
-    cb(null, { });
+    if (cb) {
+        cb();
+        cb(null);
+        cb(new Error(''));
+        cb(null, { clientIp: str, method: str, uri: str, querystring: str, headers: { } });
+        cb(null, { status: str });
+        // $ExpectError
+        cb(null, { });
+    }
 };
 
-const cloudFrontResponseHandler: AWSLambda.CloudFrontResponseHandler = (event: AWSLambda.CloudFrontResponseEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontResponseCallback) => { };
+const cloudFrontResponseHandler: AWSLambda.CloudFrontResponseHandler = (event: AWSLambda.CloudFrontResponseEvent, context: AWSLambda.Context, cb?: AWSLambda.CloudFrontResponseCallback) => { };
 
-const customAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
+const customAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb?: AWSLambda.CustomAuthorizerCallback) => { };
 
 interface CustomEvent { eventString: string; eventBool: boolean; }
 interface CustomResult { resultString: string; resultBool?: boolean; }
 type CustomCallback = AWSLambda.Callback<CustomResult>;
-const customHandler: AWSLambda.Handler<CustomEvent, CustomResult> = (event, context, cb) => {
+const customHandler: AWSLambda.Handler<CustomEvent, CustomResult> = (event, context, cb?) => {
     // $ExpectType CustomEvent
     event;
     str = event.eventString;
     bool = event.eventBool;
     // $ExpectType Context
     context;
-    // $ExpectType Callback<CustomResult>
+    // $ExpectType Callback<CustomResult> | undefined
     cb;
-    cb(null, { resultString: str, resultBool: bool });
-    // $ExpectError
-    cb(null, { resultString: bool });
+    if (cb) {
+        cb(null, { resultString: str, resultBool: bool });
+        // $ExpectError
+        cb(null, { resultString: bool });
+    }
 };
 
-const kinesisStreamHandler: AWSLambda.KinesisStreamHandler = (event: AWSLambda.KinesisStreamEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
+const kinesisStreamHandler: AWSLambda.KinesisStreamHandler = (event: AWSLambda.KinesisStreamEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => { };
 
-const SQSMessageHandler: AWSLambda.SQSHandler = (event: AWSLambda.SQSEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => { };
+const SQSMessageHandler: AWSLambda.SQSHandler = (event: AWSLambda.SQSEvent, context: AWSLambda.Context, cb?: AWSLambda.Callback<void>) => { };
 
 // See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-sqs
 const SQSEvent: AWSLambda.SQSEvent = {
@@ -977,7 +983,7 @@ const SQSEvent: AWSLambda.SQSEvent = {
 const SQSMessageLegacyAsyncHandler: AWSLambda.SQSHandler = async (
     event: AWSLambda.SQSEvent,
     context: AWSLambda.Context,
-    cb: AWSLambda.Callback<void>,
+    cb?: AWSLambda.Callback<void>,
 ) => {
     // $ExpectType SQSEvent
     event;
@@ -986,11 +992,13 @@ const SQSMessageLegacyAsyncHandler: AWSLambda.SQSHandler = async (
     // $ExpectType Context
     context;
     str = context.functionName;
-    // $ExpectType Callback<void>
+    // $ExpectType Callback<void> | undefined
     cb;
-    cb();
-    cb(null);
-    cb(new Error());
+    if (cb) {
+        cb();
+        cb(null);
+        cb(new Error());
+    }
 };
 
 const SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
@@ -1010,7 +1018,7 @@ const SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
 const firehoseEventHandler: AWSLambda.FirehoseTransformationHandler = (
     event: AWSLambda.FirehoseTransformationEvent,
     context: AWSLambda.Context,
-    callback: AWSLambda.FirehoseTransformationCallback
+    callback?: AWSLambda.FirehoseTransformationCallback
 ) => {
     // $ExpectType FirehoseTransformationEvent
     event;
@@ -1019,13 +1027,15 @@ const firehoseEventHandler: AWSLambda.FirehoseTransformationHandler = (
     // $ExpectType Context
     context;
     str = context.functionName;
-    callback(null, {
-        records: [
-            {
-                recordId: event.records[0].recordId,
-                result: 'Ok' as AWSLambda.FirehoseRecordTransformationStatus,
-                data: 'eyJmb28iOiJiYXIifQ==',
-            }
-        ]
-    });
+    if (callback) {
+        callback(null, {
+            records: [
+                {
+                    recordId: event.records[0].recordId,
+                    result: 'Ok' as AWSLambda.FirehoseRecordTransformationStatus,
+                    data: 'eyJmb28iOiJiYXIifQ==',
+                }
+            ]
+        });
+    }
 };
