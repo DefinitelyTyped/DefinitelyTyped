@@ -94,13 +94,13 @@ declare class Pubnub {
     data: string,
     customCipherKey?: string,
     options?: Pubnub.CryptoParameters,
-  ): object | string | null;
+  ): any;
 
   decrypt(
     data: object,
     customCipherKey?: string,
     options?: Pubnub.CryptoParameters
-  ): object | string | null;
+  ): any;
 }
 
 declare namespace Pubnub {
