@@ -29,6 +29,8 @@ declare module 'mongoose' {
 
   interface PaginateModel<T extends Document> extends Model<T> {
     paginate(query?: Object, options?: PaginateOptions, callback?: (err: any, result: PaginateResult<T>) => void): Promise<PaginateResult<T>>;
+    discriminator<U extends Document>(name: string, schema: Schema): PaginateModel<U>;
+    discriminator<U extends Document, V extends PaginateModel<U>>(name: string, schema: Schema): V;
   }
 
   export function model<T extends Document>(
