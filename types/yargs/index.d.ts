@@ -25,9 +25,9 @@
 // when all parameters are optional and more than one
 
 declare namespace yargs {
-    // The type parameter T is the expected shape of the parsed arguments.
-    // Arguments<T> is those arguments plus _ and $0, and an indexer falling
-    // back to any for unknown arguments.
+    // The type parameter T is the expected shape of the parsed options.
+    // Arguments<T> is those options plus _ and $0, and an indexer falling
+    // back to any for unknown options.
     //
     // For the return type / argv property, we create a mapped type over
     // Arguments<T> to simplify the inferred type signature in client code.
@@ -35,7 +35,7 @@ declare namespace yargs {
         (): { [K in keyof Arguments<T>]: Arguments<T>[K] };
         (args: ReadonlyArray<string>, cwd?: string): { [K in keyof Arguments<T>]: Arguments<T>[K] };
 
-        /* Aliases for previously declared arguments can inherit the types of those arguments. */
+        // Aliases for previously declared options can inherit the types of those options.
         alias<K1 extends keyof T, K2 extends string>(shortName: K1, longName: K2): Argv<T & { [key in K2]: T[K1] }>;
         alias<K1 extends keyof T, K2 extends string>(shortName: K2, longName: K1): Argv<T & { [key in K2]: T[K1] }>;
 
@@ -53,7 +53,7 @@ declare namespace yargs {
         choices<K extends string, C extends ReadonlyArray<any>>(key: K, values: C): Argv<T & { [key in K]: C[number] }>;
         choices<C extends { [key: string]: ReadonlyArray<any> }>(choices: C): Argv<T & { [K in keyof C]: C[K][number] }>;
 
-        /* For previously declared arguments, we can infer the parameter type of the coercion function. */
+        // For previously declared options, we can infer the parameter type of the coercion function.
         coerce<K extends keyof T, V>(key: K | ReadonlyArray<K>, func: (arg: T[K]) => V): Argv<T & { [key in K]: V }>;
         coerce<K extends keyof T, O extends { [key in K]: (arg: T[K]) => any }>(opts: O): Argv<T & { [K in keyof O]: ReturnType<O[K]> }>;
 
