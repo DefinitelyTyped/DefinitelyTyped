@@ -1,4 +1,4 @@
-import { mixpanel } from 'mixpanel-browser';
+import mixpanel = require('mixpanel-browser');
 
 const lib = mixpanel.init('new token', { secure_cookie: true }, 'library_name');
 lib.track('event name');

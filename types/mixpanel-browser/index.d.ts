@@ -42,7 +42,7 @@ export interface Config {
   persistence: Persistence;
   persistence_name: string;
   cookie_name: string;
-  loaded: (mixpanel: MixPanel) => void;
+  loaded: (mixpanel: Mixpanel) => void;
   store_google: boolean;
   save_referrer: boolean;
   test: boolean;
@@ -76,7 +76,7 @@ export interface People {
   delete_user(): void;
 }
 
-export interface MixPanel {
+export interface Mixpanel {
   alias(alias: string, original?: string): void;
   clear_opt_in_out_tracking(options?: Partial<ClearOptOutInOutOptions>): void;
   disable(events?: string[]): void;
@@ -86,7 +86,7 @@ export interface MixPanel {
   has_opted_in_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
   has_opted_out_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
   identify(unique_id?: string): any;
-  init(token: string, config?: Partial<Config>, name?: string): MixPanel;
+  init(token: string, config?: Partial<Config>, name?: string): Mixpanel;
   opt_in_tracking(options?: Partial<InTrackingOptions>): void;
   opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
   push(item: PushItem): void;
@@ -102,4 +102,26 @@ export interface MixPanel {
   people: People;
 }
 
-export const mixpanel: MixPanel;
+export function alias(alias: string, original?: string): void;
+export function clear_opt_in_out_tracking(options?: Partial<ClearOptOutInOutOptions>): void;
+export function disable(events?: string[]): void;
+export function get_config(prop_name?: string): any;
+export function get_distinct_id(): any;
+export function get_property(property_name: string): any;
+export function has_opted_in_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
+export function has_opted_out_tracking(options?: Partial<HasOptedInOutOptions>): boolean;
+export function identify(unique_id?: string): any;
+export function init(token: string, config?: Partial<Config>, name?: string): Mixpanel;
+export function opt_in_tracking(options?: Partial<InTrackingOptions>): void;
+export function opt_out_tracking(options?: Partial<OutTrackingOptions>): void;
+export function push(item: PushItem): void;
+export function register(props: Dict, days?: number): void;
+export function register_once(props: Dict, default_value?: any, days?: number): void;
+export function reset(): void;
+export function set_config(config: Partial<Config>): void;
+export function time_event(event_name: string): void;
+export function track(event_name: string, properties?: Dict, callback?: () => void): void;
+export function track_forms(query: string, event_name: string, properties?: Dict | (() => void)): void;
+export function track_links(query: string, event_name: string, properties?: Dict | (() => void)): void;
+export function unregister(property: string): void;
+export const people: People;
