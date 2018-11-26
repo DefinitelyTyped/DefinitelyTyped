@@ -32,6 +32,9 @@ app.listen(8000, function () {
 
 declare module "swagger-express-middleware" {
     import { Application, Router, RequestHandler, Request, Response } from "express";
+    import * as parser from "swagger-parser";
+
+    type SwaggerParser = typeof parser.SwaggerParser;
 
     let s: s.SwaggerMiddlewareConstructor;
 
@@ -361,11 +364,6 @@ declare module "swagger-express-middleware" {
             security?: SecurityRequirementObject[]
             tags?: TagObject[]
             externalDocs?: ExternalDocumentationObject
-        }
-
-        export interface SwaggerParser {
-            $refs: any
-            schema: SwaggerObject
         }
 
         type MimeTypes = string[]
