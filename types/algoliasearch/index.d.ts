@@ -1475,6 +1475,11 @@ declare namespace algoliasearch {
      * https://www.algolia.com/doc/api-reference/api-parameters/minProximity/
      */
     minProximity?: number;
+    /**
+     * Sets the languages to be used by language-specific settings and functionalities such as ignorePlurals, removeStopWords, and CJK word-detection.
+     * https://www.algolia.com/doc/api-reference/api-parameters/queryLanguages/
+     */
+    queryLanguages: QueryLanguage[];
 
     nbShards?: number;
     userData?: string | object;
@@ -1798,11 +1803,15 @@ declare namespace algoliasearch {
       [name: string]: string[];
     };
     /**
-         * List of attributes on which to do a decomposition of camel case words.
-         *
-         https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
-        */
+     * List of attributes on which to do a decomposition of camel case words.
+     * https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
+     */
     camelCaseAttributes?: string[];
+    /**
+     * Sets the languages to be used by language-specific settings and functionalities such as ignorePlurals, removeStopWords, and CJK word-detection.
+     * https://www.algolia.com/doc/api-reference/api-parameters/queryLanguages/
+     */
+    queryLanguages: QueryLanguage[];
   }
 
   interface Response {
@@ -1847,7 +1856,9 @@ declare namespace algoliasearch {
      */
     params: string;
     facets?: {
-      [facetName: string]: { [facetValue: string]: number };
+      [facetName: string]: {
+        [facetValue: string]: number;
+      };
     };
     facets_stats?: {
       [facetName: string]: {
@@ -1872,6 +1883,64 @@ declare namespace algoliasearch {
   interface MultiResponse {
     results: Response[];
   }
+
+  type QueryLanguage =
+    | 'af'
+    | 'ar'
+    | 'az'
+    | 'bg'
+    | 'bn'
+    | 'ca'
+    | 'cs'
+    | 'cy'
+    | 'da'
+    | 'de'
+    | 'en'
+    | 'eo'
+    | 'es'
+    | 'et'
+    | 'eu'
+    | 'fi'
+    | 'fo'
+    | 'fr'
+    | 'gl'
+    | 'he'
+    | 'hi'
+    | 'hu'
+    | 'hy'
+    | 'id'
+    | 'is'
+    | 'it'
+    | 'ja'
+    | 'ka'
+    | 'kk'
+    | 'ko'
+    | 'ky'
+    | 'lt'
+    | 'mi'
+    | 'mn'
+    | 'mr'
+    | 'ms'
+    | 'mt'
+    | 'nb'
+    | 'nl'
+    | 'ns'
+    | 'pl'
+    | 'ps'
+    | 'pt'
+    | 'qu'
+    | 'ro'
+    | 'ru'
+    | 'sk'
+    | 'sq'
+    | 'sv'
+    | 'sw'
+    | 'ta'
+    | 'te'
+    | 'tl'
+    | 'tn'
+    | 'tr'
+    | 'tt';
 }
 
 declare function algoliasearch(
