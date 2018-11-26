@@ -1,11 +1,3 @@
-// Type definitions for Highstock 2.1.6
-// Project: http://www.highcharts.com/
-
-// Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
-//                 Dave Baumann <https://github.com/route2Dev>
-//                 Richard Ison <https://github.com/richardison>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as Highcharts from "highcharts";
 
 declare namespace Highstock {
