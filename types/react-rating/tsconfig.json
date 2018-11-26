@@ -11,8 +11,7 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node"
+        "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "react-rating-tests.tsx"]
 }
