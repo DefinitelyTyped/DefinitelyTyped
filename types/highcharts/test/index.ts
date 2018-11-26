@@ -2637,7 +2637,7 @@ function test_ResponsiveOptions() {
         ]
     };
 
-    const chart = new Highcharts.Chart(<Highcharts.Options> {
+    const chart = new Highcharts.Chart({
         responsive: responsiveOptions
     });
 }
