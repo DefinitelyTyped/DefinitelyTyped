@@ -66,7 +66,7 @@ $(() => {
             }
         },
 
-        series: [<Highcharts.AreaRangeChartSeriesOptions> {
+        series: [{
             name: 'USD to EUR',
             data: someData,
             lineColor: "blue"
