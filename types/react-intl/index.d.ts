@@ -47,7 +47,7 @@ declare namespace ReactIntl {
         messages: React.Requireable<any>;
         defaultLocale: React.Requireable<any>;
         defaultFormats: React.Requireable<any>;
-        onError?: (error: string) => void
+        onError: React.Requireable<any>;
     }
 
     interface IntlFormat {
@@ -80,7 +80,7 @@ declare namespace ReactIntl {
         defaultLocale: string;
         defaultFormats: any;
         now(): number;
-        onError: (error: string) => void;
+        onError(error: string): void;
     }
 
     interface InjectedIntlProps {
@@ -200,6 +200,7 @@ declare namespace ReactIntl {
             defaultFormats?: any;
             textComponent?: any;
             initialNow?: any;
+            onError?: (error: string) => void;
         }
     }
 
