@@ -90,7 +90,13 @@ export class Scope {
 
     removeData(key: string): void;
 
-    push(opts: any): void;
+    push(opts: {
+        id: object,
+        init?: object,
+        unique?: boolean,
+        _blockHoist?: number,
+        kind?: "var" | "let",
+    }): void;
 
     getProgramParent(): Scope;
 
