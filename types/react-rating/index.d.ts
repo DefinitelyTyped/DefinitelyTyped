@@ -22,27 +22,9 @@ export namespace Rating {
         readonly?: boolean;
         quiet?: boolean;
         direction?: "rtl" | "ltr";
-        emptySymbol?:
-            | string
-            | string[]
-            | any
-            | any[]
-            | JSX.Element[]
-            | JSX.Element;
-        fullSymbol?:
-            | string
-            | string[]
-            | any
-            | any[]
-            | JSX.Element[]
-            | JSX.Element;
-        placeholderSymbol?:
-            | string
-            | string[]
-            | any
-            | any[]
-            | JSX.Element[]
-            | JSX.Element;
+        emptySymbol?: string | string[] | JSX.Element[] | JSX.Element;
+        fullSymbol?: string | string[] | JSX.Element[] | JSX.Element;
+        placeholderSymbol?: string | string[] | JSX.Element[] | JSX.Element;
         onChange?: (value: number) => void;
         onHover?: (value: number) => void;
         onClick?: (value: number) => void;
