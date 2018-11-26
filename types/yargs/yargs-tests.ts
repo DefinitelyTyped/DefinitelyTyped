@@ -672,7 +672,7 @@ function Argv$inferOptionTypes() {
         .option("u", { type: "string" })
         .alias("u", "url")
         .argv;
-    
+
     argv1.u; // string
     argv1.url; // string
 
@@ -691,7 +691,7 @@ function Argv$inferOptionTypes() {
         })
         .alias("c", "count")
         .argv;
-    
+
     argv3.c; // number
     argv3.count; // number
     argv3.date; // number

@@ -8,7 +8,7 @@
 //                 Teddy Cross <https://github.com/tkazec>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
@@ -38,7 +38,7 @@ declare namespace yargs {
         /* Aliases for previously declared arguments can inherit the types of those arguments. */
         alias<K1 extends keyof T, K2 extends string>(shortName: K1, longName: K2): Argv<T & { [key in K2]: T[K1] }>;
         alias<K1 extends keyof T, K2 extends string>(shortName: K2, longName: K1): Argv<T & { [key in K2]: T[K1] }>;
-        
+
         alias(shortName: string | ReadonlyArray<string>, longName: string | ReadonlyArray<string>): Argv<T>;
         alias(aliases: { [shortName: string]: string | ReadonlyArray<string> }): Argv<T>;
 
@@ -62,7 +62,7 @@ declare namespace yargs {
 
         command<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
-        command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<T>;
+        command(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, any>): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
@@ -249,7 +249,7 @@ declare namespace yargs {
         $0: string;
         /** All remaining options */
         [argName: string]: any;
-    }
+    };
 
     interface RequireDirectoryOptions {
         recurse?: boolean;
@@ -333,8 +333,7 @@ declare namespace yargs {
         O extends { coerce: (arg: any) => infer T } ? T :
         any;
 
-    type InferredOptionTypes<O extends { [key: string]: Options }> =
-        { [K in keyof O]: InferredOptionType<O[K]> };
+    type InferredOptionTypes<O extends { [key: string]: Options }> = { [K in keyof O]: InferredOptionType<O[K]> };
 
     interface CommandModule<T, U> {
         aliases?: ReadonlyArray<string> | string;
