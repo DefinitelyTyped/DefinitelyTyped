@@ -2,6 +2,7 @@
 // Project: https://github.com/dreyescat/react-rating
 // Definitions by: Kyle Davis <https://github.com/kyledavisdev/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
