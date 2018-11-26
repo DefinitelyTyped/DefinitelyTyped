@@ -1,4 +1,4 @@
-import vfile = require("vfile");
+import vfile = require('vfile');
 import * as Unist from 'unist';
 
 // Instantiation
@@ -7,21 +7,30 @@ vfile('string');
 vfile(Buffer.from('string'));
 vfile(vfile());
 vfile({ stem: 'readme', extname: '.md' });
-vfile({ custom: 'data' });
 try {
     vfile({ extname: '.md' });
 } catch (e) {
     console.log('Error: set extname without path');
 }
 
-const file = vfile<{custom: string, data: {custom: number}}>({
+interface CustomVFile extends vfile.VFile {
+    custom: string;
+    data: {
+        custom: number;
+    };
+}
+
+const file = vfile<CustomVFile>({
     path: '~/example.txt',
     contents: 'Alpha *braavo* charlie.',
     custom: 'Custom tango',
     data: {
         custom: 12345
-    },
+    }
 });
+const customIsString: string = file.custom;
+const dataCustomIsNumber: number = file.data.custom;
+const copiedFile: CustomVFile = vfile(file);
 
 file.path; // => '~/example.txt'
 file.dirname; // => '~'
