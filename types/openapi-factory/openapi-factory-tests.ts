@@ -6,20 +6,24 @@ api.setAuthorizer((req: any) => req);
 api.onEvent((req: any) => req);
 api.onSchedule((req: any) => req);
 
-api.head('/v1/test', () => 'success');
-api.get('/v1/test', () => 'success');
-api.post('/v1/test', () => 'success');
-api.put('/v1/test', () => 'success');
-api.patch('/v1/test', () => 'success');
-api.delete('/v1/test', () => 'success');
-api.options('/v1/test', () => 'success');
-api.any('/v1/test2', () => 'success');
+const testReponse = {
+    statusCode: 200
+};
 
-api.head('/v2/test', {test: true}, () => 'success');
-api.get('/v2/test', {test: true}, () => 'success');
-api.post('/v2/test', {test: true}, () => 'success');
-api.put('/v2/test', {test: true}, () => 'success');
-api.patch('/v2/test', {test: true}, () => 'success');
-api.delete('/v2/test', {test: true}, () => 'success');
-api.options('/v2/test', {test: true}, () => 'success');
-api.any('/v2/test2', {test: true}, () => 'success');
+api.head('/v1/test', () => testReponse);
+api.get('/v1/test', () => testReponse);
+api.post('/v1/test', () => testReponse);
+api.put('/v1/test', () => testReponse);
+api.patch('/v1/test', () => testReponse);
+api.delete('/v1/test', () => testReponse);
+api.options('/v1/test', () => testReponse);
+api.any('/v1/test2', () => testReponse);
+
+api.head('/v2/test', { rawBody: true }, () => testReponse);
+api.get('/v2/test', { rawBody: true }, () => testReponse);
+api.post('/v2/test', { rawBody: true }, () => testReponse);
+api.put('/v2/test', { rawBody: true }, () => testReponse);
+api.patch('/v2/test', { rawBody: true }, () => testReponse);
+api.delete('/v2/test', { rawBody: true }, () => testReponse);
+api.options('/v2/test', { rawBody: true }, () => testReponse);
+api.any('/v2/test2', { rawBody: true }, () => testReponse);
