@@ -7,10 +7,12 @@
 /// <reference types="node" />
 import { Server } from 'http';
 
-interface StoppableServer extends Server {
-  stop(callback?: (e: Error, gracefully: boolean) => void): void;
+declare namespace stoppable {
+  interface StoppableServer extends Server {
+    stop(callback?: (e: Error, gracefully: boolean) => void): void;
+  }
 }
 
-declare function stoppable(server: Server, grace?: number): StoppableServer;
+declare function stoppable(server: Server, grace?: number): stoppable.StoppableServer;
 
 export = stoppable;
