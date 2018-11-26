@@ -11,8 +11,7 @@
         "types": [],
         "jsx": "react",
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node"
+        "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "react-recaptcha-tests.tsx"]
 }
