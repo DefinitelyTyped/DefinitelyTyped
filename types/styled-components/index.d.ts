@@ -436,4 +436,24 @@ export class StyleSheetManager extends React.Component<
     StyleSheetManagerProps
 > {}
 
+export type CSSIntrinsicAttributeType =
+    | string
+    | CSSObject
+    | FlattenSimpleInterpolation
+    // Sad, but because this is global, there is no way to override it with the ThemedStyledComponentsModule
+    // Only augmenting DefaultTheme will work for inline css prop
+    | FlattenInterpolation<ThemeProps<AnyIfEmpty<DefaultTheme>>>;
+
 export default styled;
+
+declare module "react" {
+    interface Attributes {
+        // NOTE: unlike the plain javascript version, it is not possible to get access
+        // to the element's own attributes inside function interpolations.
+        // Only theme will be accessible, and only with the DefaultTheme due to the global
+        // nature of this declaration.
+        // If you are writing this inline you already have access to all the attributes anyway,
+        // no need for the extra indirection.
+        css?: import(".").CSSIntrinsicAttributeType; // tslint:disable-line whitespace
+    }
+}

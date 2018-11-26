@@ -172,7 +172,6 @@ const styledButton = styled.button`
 const name = "hey";
 
 const ThemedMyButton = withTheme(MyButton);
-
 <ThemedMyButton name={name} />;
 
 /**
@@ -290,7 +289,6 @@ const ObjectStylesBox = styled.div`
         fontSize: 2
     }};
 `;
-
 <ObjectStylesBox size="big" />;
 
 /**
@@ -322,7 +320,6 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: "h1" })`
 `;
 
 const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: "off" })``;
-
 <AttrsInputExtra />;
 
 /**
@@ -419,10 +416,8 @@ const Component = (props: WithThemeProps) => (
 );
 
 const ComponentWithTheme = withTheme(Component);
-
 <ComponentWithTheme text={"hi"} />; // ok
 <ComponentWithTheme text={"hi"} theme={{ color: "red" }} />; // ok
-
 <ThemeConsumer>{theme => <Component text="hi" theme={theme} />}</ThemeConsumer>;
 
 /**
@@ -610,7 +605,6 @@ const divFnRef = (ref: HTMLDivElement | null) => {
 const divRef = React.createRef<HTMLDivElement>();
 
 const StyledDiv = styled.div``;
-
 <StyledDiv ref={divRef} />;
 <StyledDiv ref={divFnRef} />;
 <StyledDiv ref="string" />; // $ExpectError
@@ -769,5 +763,73 @@ async function themeAugmentation() {
                 </extra.ThemeProvider>
             </>
         </base.ThemeProvider>
+    );
+}
+
+// NOTE: this is needed for some tests inside cssProp,
+// but actually running this module augmentation will cause
+// tests elsewhere to break, and there is no way to contain it.
+// Uncomment out as needed to run tests.
+
+// declare module "styled-components" {
+//     interface DefaultTheme {
+//         background: string;
+//     }
+// }
+
+function cssProp() {
+    function Custom(props: React.ComponentPropsWithoutRef<"div">) {
+        return <div {...props} />;
+    }
+
+    return (
+        <>
+            <div css="background: blue;" />
+            <div css={{ background: "blue" }} />
+            <div css={undefined} />
+            <div
+                css={css`
+                    background: blue;
+                `}
+            />
+            <div
+                css={css`
+                    background: ${() => "blue"};
+                `}
+            />
+            <div
+                css={css`
+                    background: ${props => {
+                        // This requires the DefaultTheme augmentation
+                        // // $ExpectType string
+                        // props.theme.background;
+                        return props.theme.background;
+                    }};
+                `}
+            />
+            <Custom css="background: blue;" />
+            <Custom css={{ background: "blue" }} />
+            <Custom css={undefined} />
+            <Custom
+                css={css`
+                    background: blue;
+                `}
+            />
+            <Custom
+                css={css`
+                    background: ${() => "blue"};
+                `}
+            />
+            <Custom
+                css={css`
+                    background: ${props => {
+                        // This requires the DefaultTheme augmentation
+                        // // $ExpectType string
+                        // props.theme.background;
+                        return props.theme.background;
+                    }};
+                `}
+            />
+        </>
     );
 }
