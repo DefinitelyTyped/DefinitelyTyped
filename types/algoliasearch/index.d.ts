@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 declare namespace algoliasearch {
   /**
@@ -300,13 +300,24 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObject(object: {}, cb: (err: Error, res: Task) => void): void;
-    partialUpdateObject(object: {}, createIfNotExists: boolean, cb: (err: Error, res: Task) => void): void;
+    partialUpdateObject(
+      object: {},
+      createIfNotExists: boolean,
+      cb: (err: Error, res: Task) => void
+    ): void;
     /**
      * Update parameters of a list of objects
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
-    partialUpdateObjects(objects: {}[], cb: (err: Error, res: Task) => void): void;
-    partialUpdateObjects(objects: {}[], createIfNotExists: boolean, cb: (err: Error, res: Task) => void): void;
+    partialUpdateObjects(
+      objects: {}[],
+      cb: (err: Error, res: Task) => void
+    ): void;
+    partialUpdateObjects(
+      objects: {}[],
+      createIfNotExists: boolean,
+      cb: (err: Error, res: Task) => void
+    ): void;
     /**
      * Delete a specific object
      * https://github.com/algolia/algoliasearch-client-js#delete-objects---deleteobjects
@@ -550,7 +561,10 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
      */
     partialUpdateObjects(objects: {}[]): Promise<Task>;
-    partialUpdateObjects(objects: {}[], createIfNotExists?: boolean): Promise<Task>;
+    partialUpdateObjects(
+      objects: {}[],
+      createIfNotExists?: boolean
+    ): Promise<Task>;
     /**
      * Delete a specific object
      * https://github.com/algolia/algoliasearch-client-js#delete-objects---deleteobjects
@@ -618,7 +632,11 @@ declare namespace algoliasearch {
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
      */
-    browse(query: string, parameters: BrowseParameters, cb: (err: Error, res: BrowseResponse) => void): void;
+    browse(
+      query: string,
+      parameters: BrowseParameters,
+      cb: (err: Error, res: BrowseResponse) => void
+    ): void;
     /**
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
@@ -628,7 +646,10 @@ declare namespace algoliasearch {
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
      */
-    browse(query: string, parameters?: BrowseParameters): Promise<BrowseResponse>;
+    browse(
+      query: string,
+      parameters?: BrowseParameters
+    ): Promise<BrowseResponse>;
     /**
      * Browse an index from a cursor
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
@@ -776,7 +797,7 @@ declare namespace algoliasearch {
      * enable the experimental feature: caching requests instead of responses
      * see https://github.com/algolia/algoliasearch-client-javascript/pull/694
      */
-    _useRequestCache?: boolean
+    _useRequestCache?: boolean;
   }
   /**
    * Interface describing options available for gettings the logs
@@ -976,19 +997,19 @@ declare namespace algoliasearch {
   }
   type BrowseParameters = Omit<
     QueryParameters,
-    | "typoTolerance"
-    | "distinct"
-    | "facets"
-    | "getRankingInfo"
-    | "attributesToHighlight"
-    | "attributesToSnippet"
-  >
+    | 'typoTolerance'
+    | 'distinct'
+    | 'facets'
+    | 'getRankingInfo'
+    | 'attributesToHighlight'
+    | 'attributesToSnippet'
+  >;
   interface Browser {
-    on(type: "error", cb: (err: Error) => void): void
-    on(type: "end", cb: () => void): void
-    on(type: "stop", cb: () => void): void
-    on(type: "result", cb: (content: BrowseResponse) => void): void
-    stop(): void
+    on(type: 'error', cb: (err: Error) => void): void;
+    on(type: 'end', cb: () => void): void;
+    on(type: 'stop', cb: () => void): void;
+    on(type: 'result', cb: (content: BrowseResponse) => void): void;
+    stop(): void;
   }
   /**
    * Describes a synonym object
@@ -1123,44 +1144,44 @@ declare namespace algoliasearch {
     userToken?: string;
   }
   interface QueryParameters {
-   /**
-    * Query string used to perform the search
-    * default: ''
-    * https://www.algolia.com/doc/api-reference/api-parameters/query/
-    */
-   query?: string;
-   /**
-    * Filter the query with numeric, facet or/and tag filters
-    * default: ""
-    * https://www.algolia.com/doc/api-reference/api-parameters/filters/
-    */
-   filters?: string;
-   /**
-    * A string that contains the list of attributes you want to retrieve in order to minimize the size of the JSON answer.
-    * default: *
-    * https://www.algolia.com/doc/api-reference/api-parameters/attributesToRetrieve/
-    */
-   attributesToRetrieve?: string[];
-   /**
-    * List of attributes you want to use for textual search
-    * default: attributeToIndex
-    * https://www.algolia.com/doc/api-reference/api-parameters/restrictSearchableAttributes/
-    */
-   restrictSearchableAttributes?: string[];
-   /**
-    * You can use facets to retrieve only a part of your attributes declared in attributesForFaceting attributes
-    * default: []
-    * https://www.algolia.com/doc/api-reference/api-parameters/facets/
-    */
-   facets?: string[];
     /**
-    * Force faceting to be applied after de-duplication (via the Distinct setting).
-    * When using the distinct setting in combination with faceting, facet counts may be higher than expected.
-    * This is because the engine, by default, computes faceting before applying de-duplication (distinct).
-    * When facetingAfterDistinct is set to true, the engine calculates faceting after the de-duplication has been applied.
-    * default ""
-    * https://www.algolia.com/doc/api-reference/api-parameters/facetingAfterDistinct/
-    */
+     * Query string used to perform the search
+     * default: ''
+     * https://www.algolia.com/doc/api-reference/api-parameters/query/
+     */
+    query?: string;
+    /**
+     * Filter the query with numeric, facet or/and tag filters
+     * default: ""
+     * https://www.algolia.com/doc/api-reference/api-parameters/filters/
+     */
+    filters?: string;
+    /**
+     * A string that contains the list of attributes you want to retrieve in order to minimize the size of the JSON answer.
+     * default: *
+     * https://www.algolia.com/doc/api-reference/api-parameters/attributesToRetrieve/
+     */
+    attributesToRetrieve?: string[];
+    /**
+     * List of attributes you want to use for textual search
+     * default: attributeToIndex
+     * https://www.algolia.com/doc/api-reference/api-parameters/restrictSearchableAttributes/
+     */
+    restrictSearchableAttributes?: string[];
+    /**
+     * You can use facets to retrieve only a part of your attributes declared in attributesForFaceting attributes
+     * default: []
+     * https://www.algolia.com/doc/api-reference/api-parameters/facets/
+     */
+    facets?: string[];
+    /**
+     * Force faceting to be applied after de-duplication (via the Distinct setting).
+     * When using the distinct setting in combination with faceting, facet counts may be higher than expected.
+     * This is because the engine, by default, computes faceting before applying de-duplication (distinct).
+     * When facetingAfterDistinct is set to true, the engine calculates faceting after the de-duplication has been applied.
+     * default ""
+     * https://www.algolia.com/doc/api-reference/api-parameters/facetingAfterDistinct/
+     */
     facetingAfterDistinct?: boolean;
     /**
      * Limit the number of facet values returned for each facet.
@@ -1313,7 +1334,7 @@ declare namespace algoliasearch {
      * 'prefixNone' No query word is interpreted as a prefix. This option is not recommended.
      * https://www.algolia.com/doc/api-reference/api-parameters/queryType/
      */
-    queryType?: "prefixAll"|"prefixLast"|"prefixNone";
+    queryType?: 'prefixAll' | 'prefixLast' | 'prefixNone';
     /**
      * Search entries inside a given area defined by a set of points
      * defauly: ''
@@ -1329,7 +1350,11 @@ declare namespace algoliasearch {
      * 'none' No specific processing is done when a query does not return any results
      * https://www.algolia.com/doc/api-reference/api-parameters/removeWordsIfNoResults/
      */
-    removeWordsIfNoResults?: "none"|"lastWords"|"firstWords"|"allOptional";
+    removeWordsIfNoResults?:
+      | 'none'
+      | 'lastWords'
+      | 'firstWords'
+      | 'allOptional';
     /**
      * Enables the advanced query syntax
      * default: false
@@ -1349,7 +1374,7 @@ declare namespace algoliasearch {
      * a list of language ISO codes (as a comma-separated string) for which stop words should be enable
      * https://www.algolia.com/doc/api-reference/api-parameters/removeStopWords/
      */
-    removeStopWords?: boolean|string[];
+    removeStopWords?: boolean | string[];
     /**
      * List of attributes on which you want to disable the computation of exact criteria
      * default: []
@@ -1364,7 +1389,7 @@ declare namespace algoliasearch {
      * 'attribute': exact set to 1 if there is an attribute containing a string equals to the query
      * https://www.algolia.com/doc/api-reference/api-parameters/exactOnSingleWordQuery/
      */
-    exactOnSingleWordQuery?: "attribute"|"none"|"word";
+    exactOnSingleWordQuery?: 'attribute' | 'none' | 'word';
     /**
      * Specify the list of approximation that should be considered as an exact match in the ranking formula
      * default: ['ignorePlurals', 'singleWordSynonym']
@@ -1373,12 +1398,14 @@ declare namespace algoliasearch {
      * 'multiWordsSynonym': multiple-words synonym
      * https://www.algolia.com/doc/api-reference/api-parameters/alternativesAsExact/
      */
-    alternativesAsExact?: Array<"ignorePlurals"|"singleWordSynonym"|"multiWordsSynonym">;
+    alternativesAsExact?: Array<
+      'ignorePlurals' | 'singleWordSynonym' | 'multiWordsSynonym'
+    >;
     /**
      * If set to 1, enables the distinct feature, disabled by default, if the attributeForDistinct index setting is set.
      * https://www.algolia.com/doc/api-reference/api-parameters/distinct/
      */
-    distinct?: number|boolean;
+    distinct?: number | boolean;
     /**
      * If set to true, the result hits will contain ranking information in the _rankingInfo attribute.
      * default: false
@@ -1417,7 +1444,7 @@ declare namespace algoliasearch {
      * Default: []
      * https://www.algolia.com/doc/api-reference/api-parameters/facetFilters/
      */
-    facetFilters?: string[]|string[][];
+    facetFilters?: string[] | string[][];
     /**
      * If set to false, this query will not be taken into account in the analytics feature.
      * default true
@@ -1502,8 +1529,8 @@ declare namespace algoliasearch {
   }
 
   interface TaskStatus {
-    status: 'published' | 'notPublished',
-    pendingTask: boolean,
+    status: 'published' | 'notPublished';
+    pendingTask: boolean;
   }
 
   interface IndexSettings {
@@ -1642,7 +1669,7 @@ declare namespace algoliasearch {
      * default: ""
      * https://github.com/algolia/algoliasearch-client-js#disabletypotoleranceonattributes
      */
-    disableTypoToleranceOnAttributes?: string;
+    disableTypoToleranceOnAttributes?: string[];
     /**
      * Specify the separators (punctuation characters) to index.
      * default: ""
@@ -1687,7 +1714,7 @@ declare namespace algoliasearch {
      * a list of language ISO codes (as a comma-separated string) for which stop words should be enable
      * https://github.com/algolia/algoliasearch-client-js#removestopwords
      */
-    removeStopWords?: string[];
+    removeStopWords?: boolean | string[];
     /**
      * List of attributes on which you want to apply word-splitting ("decompounding") for
      * each of the languages supported (German, Dutch, and Finnish as of 05/2018)
@@ -1724,9 +1751,9 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#alternativesasexact
      */
     alternativesAsExact?: (
-      | "ignorePlurals"
-      | "singleWordSynonym"
-      | "multiWordsSynonym")[];
+      | 'ignorePlurals'
+      | 'singleWordSynonym'
+      | 'multiWordsSynonym')[];
     /**
      * The name of the attribute used for the Distinct feature
      * default: null
@@ -1768,13 +1795,13 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#placeholders
      */
     placeholders?: {
-      [name: string]: string[],
+      [name: string]: string[];
     };
     /**
-     * List of attributes on which to do a decomposition of camel case words.
-     *
-     https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
-     */
+         * List of attributes on which to do a decomposition of camel case words.
+         *
+         https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
+        */
     camelCaseAttributes?: string[];
   }
 
@@ -1824,10 +1851,10 @@ declare namespace algoliasearch {
     };
     facets_stats?: {
       [facetName: string]: {
-        avg: number,
-        max: number,
-        min: number,
-        sum: number,
+        avg: number;
+        max: number;
+        min: number;
+        sum: number;
       };
     };
     /**

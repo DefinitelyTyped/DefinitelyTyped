@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 declare namespace algoliasearch {
   /**
@@ -137,7 +137,11 @@ declare namespace algoliasearch {
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
      */
-    browse(query: string, parameters: BrowseParameters, cb: (err: Error, res: BrowseResponse) => void): void;
+    browse(
+      query: string,
+      parameters: BrowseParameters,
+      cb: (err: Error, res: BrowseResponse) => void
+    ): void;
     /**
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
@@ -147,7 +151,10 @@ declare namespace algoliasearch {
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
      */
-    browse(query: string, parameters?: BrowseParameters): Promise<BrowseResponse>;
+    browse(
+      query: string,
+      parameters?: BrowseParameters
+    ): Promise<BrowseResponse>;
     /**
      * Browse an index from a cursor
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
@@ -193,7 +200,7 @@ declare namespace algoliasearch {
      * enable the experimental feature: caching requests instead of responses
      * see https://github.com/algolia/algoliasearch-client-javascript/pull/694
      */
-    _useRequestCache?: boolean
+    _useRequestCache?: boolean;
   }
   interface BrowseResponse {
     cursor?: string;
@@ -204,13 +211,13 @@ declare namespace algoliasearch {
   }
   type BrowseParameters = Omit<
     QueryParameters,
-    | "typoTolerance"
-    | "distinct"
-    | "facets"
-    | "getRankingInfo"
-    | "attributesToHighlight"
-    | "attributesToSnippet"
-  >
+    | 'typoTolerance'
+    | 'distinct'
+    | 'facets'
+    | 'getRankingInfo'
+    | 'attributesToHighlight'
+    | 'attributesToSnippet'
+  >;
   interface QueryParameters {
     /**
      * Query string used to perform the search
@@ -393,7 +400,7 @@ declare namespace algoliasearch {
      * 'prefixNone' No query word is interpreted as a prefix. This option is not recommended.
      * https://www.algolia.com/doc/api-reference/api-parameters/queryType/
      */
-    queryType?: "prefixAll"|"prefixLast"|"prefixNone";
+    queryType?: 'prefixAll' | 'prefixLast' | 'prefixNone';
     /**
      * Search entries inside a given area defined by a set of points
      * defauly: ''
@@ -409,7 +416,11 @@ declare namespace algoliasearch {
      * 'none' No specific processing is done when a query does not return any results
      * https://www.algolia.com/doc/api-reference/api-parameters/removeWordsIfNoResults/
      */
-    removeWordsIfNoResults?: "none"|"lastWords"|"firstWords"|"allOptional";
+    removeWordsIfNoResults?:
+      | 'none'
+      | 'lastWords'
+      | 'firstWords'
+      | 'allOptional';
     /**
      * Enables the advanced query syntax
      * default: false
@@ -429,7 +440,7 @@ declare namespace algoliasearch {
      * a list of language ISO codes (as a comma-separated string) for which stop words should be enable
      * https://www.algolia.com/doc/api-reference/api-parameters/removeStopWords/
      */
-    removeStopWords?: boolean|string[];
+    removeStopWords?: boolean | string[];
     /**
      * List of attributes on which you want to disable the computation of exact criteria
      * default: []
@@ -444,7 +455,7 @@ declare namespace algoliasearch {
      * 'attribute': exact set to 1 if there is an attribute containing a string equals to the query
      * https://www.algolia.com/doc/api-reference/api-parameters/exactOnSingleWordQuery/
      */
-    exactOnSingleWordQuery?: "attribute"|"none"|"word";
+    exactOnSingleWordQuery?: 'attribute' | 'none' | 'word';
     /**
      * Specify the list of approximation that should be considered as an exact match in the ranking formula
      * default: ['ignorePlurals', 'singleWordSynonym']
@@ -453,12 +464,14 @@ declare namespace algoliasearch {
      * 'multiWordsSynonym': multiple-words synonym
      * https://www.algolia.com/doc/api-reference/api-parameters/alternativesAsExact/
      */
-    alternativesAsExact?: Array<"ignorePlurals"|"singleWordSynonym"|"multiWordsSynonym">;
+    alternativesAsExact?: Array<
+      'ignorePlurals' | 'singleWordSynonym' | 'multiWordsSynonym'
+    >;
     /**
      * If set to 1, enables the distinct feature, disabled by default, if the attributeForDistinct index setting is set.
      * https://www.algolia.com/doc/api-reference/api-parameters/distinct/
      */
-    distinct?: number|boolean;
+    distinct?: number | boolean;
     /**
      * If set to true, the result hits will contain ranking information in the _rankingInfo attribute.
      * default: false
@@ -497,7 +510,7 @@ declare namespace algoliasearch {
      * Default: []
      * https://www.algolia.com/doc/api-reference/api-parameters/facetFilters/
      */
-    facetFilters?: string[]|string[][];
+    facetFilters?: string[] | string[][];
     /**
      * If set to false, this query will not be taken into account in the analytics feature.
      * default true
@@ -598,10 +611,10 @@ declare namespace algoliasearch {
     };
     facets_stats?: {
       [facetName: string]: {
-        avg: number,
-        max: number,
-        min: number,
-        sum: number,
+        avg: number;
+        max: number;
+        min: number;
+        sum: number;
       };
     };
     /**
