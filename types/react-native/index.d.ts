@@ -3629,6 +3629,12 @@ interface ImagePropsAndroid {
      * Duration of fade in animation.
      */
     fadeDuration?: number;
+    
+    /**
+     * Required sizes if using native image resources on Android
+     */
+    width?: number;
+    height?: number;
 }
 
 /**
