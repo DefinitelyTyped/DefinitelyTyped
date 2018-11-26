@@ -673,16 +673,20 @@ function Argv$inferOptionTypes() {
         .alias("u", "url")
         .argv;
 
-    argv1.u; // string
-    argv1.url; // string
+    // $ExpectType string
+    argv1.u;
+    // $ExpectType string
+    argv1.url;
 
     const argv2 = yargs
         .option("verbose", { default: false })
         .alias("v", "verbose")
         .argv;
 
-    argv2.v; // boolean
-    argv2.verbose; // boolean
+    // $ExpectType boolean
+    argv2.v;
+    // $ExpectType boolean
+    argv2.verbose;
 
     const argv3 = yargs
         .option({
@@ -692,16 +696,55 @@ function Argv$inferOptionTypes() {
         .alias("c", "count")
         .argv;
 
-    argv3.c; // number
-    argv3.count; // number
-    argv3.date; // number
+    // $ExpectType number
+    argv3.c;
+    // $ExpectType number
+    argv3.count;
+    // $ExpectType number
+    argv3.date;
 
     const argv4 = yargs
         .string(["u", "url"])
         .alias("url", "uri")
         .argv;
 
-    argv4.u; // string
-    argv4.url; // string
-    argv4.uri; // string
+    // $ExpectType string
+    argv4.u;
+    // $ExpectType string
+    argv4.url;
+    // $ExpectType string
+    argv4.uri;
+    // $ExpectType any
+    argv4.bogus;
+
+    type Color = "red" | "blue" | "green";
+    const colors: Color[] = ["red", "blue", "green"];
+
+    const argv5 = yargs
+        .array("array")
+        .boolean("boolean")
+        .choices("color", colors)
+        .count("count")
+        .default("date", new Date())
+        .normalize("normalize")
+        .number("number")
+        .string("string")
+        .argv;
+
+    // $ExpectType string[]
+    argv5.array;
+    // $ExpectType boolean
+    argv5.boolean;
+    // $ExpectType Color
+    argv5.color;
+    // $ExpectType number
+    argv5.count;
+    // $ExpectType Date
+    argv5.date;
+    // $ExpectType string
+    argv5.normalize;
+    // $ExpectType number
+    argv5.number;
+    // $ExpectType string
+    argv5.string;
 }
