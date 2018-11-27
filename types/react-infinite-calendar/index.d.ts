@@ -8,6 +8,21 @@ import * as React from 'react';
 
 export type DateType = Date | string | number;
 
+export enum EVENT_TYPE {
+    START = 1,
+    HOVER,
+    END
+}
+
+export interface RangedSelection {
+    eventType: EVENT_TYPE;
+    start: Date;
+    end: Date;
+}
+
+type RangedSelectFunction = (rangedDate: RangedSelection) => void;
+type DateSelectFunction = (date: string) => void;
+
 export interface ReactInfiniteCalendarProps {
     selected?: DateType | false | { start: DateType; end: DateType };
     width?: number | 'auto' | '100%';
@@ -57,7 +72,7 @@ export interface ReactInfiniteCalendarProps {
         weekdayColor?: string;
     };
     className?: string;
-    onSelect?: (date: string | { eventType: EVENT_TYPE; start: Date; end: Date }) => void;
+    onSelect?: DateSelectFunction | RangedSelectFunction;
     onScroll?: (scrollTop: number) => void;
     onScrollEnd?: (scrollTop: number) => void;
     rowHeight?: number;
@@ -74,11 +89,5 @@ export function withDateSelection(component: CalendarClass): CalendarClass;
 export function withMultipleDates(component: CalendarClass): CalendarClass;
 export function withKeyboardSupport(component: CalendarClass): CalendarClass;
 export function defaultMultipleDateInterpolation(component: CalendarClass): CalendarClass;
-
-export enum EVENT_TYPE {
-    START = 1,
-    HOVER,
-    END
-}
 
 export default class ReactInfiniteCalendar extends React.Component<ReactInfiniteCalendarProps> {}
