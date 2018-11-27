@@ -42,13 +42,13 @@ export interface PlatformClientResponse {
 
 export class PlatformClient {
     constructor(logFunction: (msg: any) => void, tokenResolverFunction?: Promise<() => string>, configuration?: PlatformClientConfiguration)
-    get(url: string, headers?: object, type?: string): Promise<PlatformClientResponse>;
-    post(url: string, data: object, headers?: object): Promise<PlatformClientResponse>;
-    put(url: string, data: object, headers?: object): Promise<PlatformClientResponse>;
-    patch(url: string, data: object, headers?: object): Promise<PlatformClientResponse>;
-    delete(url: string, headers?: object): Promise<PlatformClientResponse>;
-    head(url: string, headers?: object): Promise<PlatformClientResponse>;
-    options(url: string, headers?: object): Promise<PlatformClientResponse>;
+    get(url: string, headers?: { [s: string]: string; }, type?: string): Promise<PlatformClientResponse>;
+    post(url: string, data: object, headers?: { [s: string]: string; }): Promise<PlatformClientResponse>;
+    put(url: string, data: object, headers?: { [s: string]: string; }): Promise<PlatformClientResponse>;
+    patch(url: string, data: object, headers?: { [s: string]: string; }): Promise<PlatformClientResponse>;
+    delete(url: string, headers?: { [s: string]: string; }): Promise<PlatformClientResponse>;
+    head(url: string, headers?: { [s: string]: string; }): Promise<PlatformClientResponse>;
+    options(url: string, headers?: { [s: string]: string; }): Promise<PlatformClientResponse>;
 }
 
 /**
