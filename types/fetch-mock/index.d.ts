@@ -190,11 +190,11 @@ declare namespace fetchMock {
     }
 
     interface MockCall extends Array<string | RequestInit | undefined> {
-        0: string,
-        1: RequestInit | undefined,
-        identifier: string,
-        isUnmatched: boolean | undefined,
-        request: Request | undefined,
+        0: string;
+        1: RequestInit | undefined;
+        identifier: string;
+        isUnmatched: boolean | undefined;
+        request: Request | undefined;
     }
 
     interface MockOptionsMethodGet extends MockOptions {
