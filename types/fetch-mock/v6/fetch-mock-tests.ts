@@ -30,61 +30,22 @@ fetchMock.mock(/test/, {
     }
 });
 
-fetchMock.restore().reset().resetHistory().resetBehavior();
+fetchMock.restore().reset();
 
-let calls: fetchMock.MockCall[] = fetchMock.calls(/https?:\/\/test.com/, {
-    method: 'GET',
-});
-calls[0][0].toUpperCase();
-(calls[0][1] as RequestInit).body;
-calls[0].identifier.toUpperCase();
-calls[0].isUnmatched;
-(calls[0].request as Request).body;
-calls = fetchMock.calls();
-calls = fetchMock.calls(true);
-calls = fetchMock.calls("http://test.com", "GET");
+(fetchMock.calls().matched[0][1] as RequestInit).body;
+fetchMock.calls().unmatched[0][0].toUpperCase();
+fetchMock.calls("http://test.com")[0][0].toUpperCase();
+(fetchMock.calls("http://test.com")[0][1] as RequestInit).body;
 
-let doneStatus: boolean = fetchMock.done();
-doneStatus = fetchMock.done(true);
-doneStatus = fetchMock.done("http://test.com");
-doneStatus = fetchMock.done(/https?:\/\/test.com/);
+const doneStatus: boolean = fetchMock.done();
+const doneStatusArguments: boolean = fetchMock.done("http://test.com");
 
-let calledStatus: boolean = fetchMock.called();
-calledStatus = fetchMock.called(true);
-calledStatus = fetchMock.called("http://test.com");
-calledStatus = fetchMock.called(/https?:\/\/test.com/);
-calledStatus = fetchMock.called("http://test.com", "GET");
-calledStatus = fetchMock.called("http://test.com", {
-    method: "GET",
-});
-calledStatus = fetchMock.called((url: string, opts: fetchMock.MockRequest): boolean => {
-    return true;
-});
-calledStatus = fetchMock.called(fetchMock.MATCHED);
-calledStatus = fetchMock.called(fetchMock.UNMATCHED);
+const calledStatus: boolean = fetchMock.called();
+const calledStatusArguments = fetchMock.called("http://test.com");
 
-let lastCall: fetchMock.MockCall = fetchMock.lastCall();
-lastCall = fetchMock.lastCall(/https?:\/\/test.com/, {
-    method: "GET",
-});
-lastCall = fetchMock.lastCall("https://test.com", "GET");
-
-let lastUrl: string = fetchMock.lastUrl();
-lastUrl = fetchMock.lastUrl(true);
-lastUrl = fetchMock.lastUrl("http://test.com");
-lastUrl = fetchMock.lastUrl(/https?:\/\/test.com/);
-lastUrl = fetchMock.lastUrl("http://test.com", "GET");
-lastUrl = fetchMock.lastUrl("http://test.com", {
-    method: "GET",
-});
-let lastOptions: fetchMock.MockOptions = fetchMock.lastOptions();
-lastOptions = fetchMock.lastOptions(true);
-lastOptions = fetchMock.lastOptions("http://test.com");
-lastOptions = fetchMock.lastOptions(/https?:\/\/test.com/);
-lastOptions = fetchMock.lastOptions("http://test.com", "GET");
-lastOptions = fetchMock.lastOptions("http://test.com", {
-    method: "GET",
-});
+(fetchMock.lastCall()[1] as RequestInit).body;
+const lastUrl: string = fetchMock.lastUrl();
+fetchMock.lastOptions();
 
 fetchMock.get("http://test.com", 200);
 fetchMock.getOnce("http://test.com", 200);
@@ -138,7 +99,3 @@ sandbox.get("http://test.com", {
     body: 'abc',
     redirectUrl: "http://example.org"
 });
-
-const response: fetchMock.MockResponseObject = {
-    throws: new Error('error'),
-};

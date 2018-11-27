@@ -1,4 +1,4 @@
-// Type definitions for fetch-mock 7.2
+// Type definitions for fetch-mock 6.0
 // Project: https://github.com/wheresrhys/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Tamir Duberstein <https://github.com/tamird>
@@ -7,7 +7,6 @@
 //                 Matt Tennison <https://github.com/matttennison>
 //                 Quentin Bouygues <https://github.com/quentinbouygues>
 //                 Fumiaki Matsushima <https://github.com/mtsmfm>
-//                 Colin Doig <https://github.com/captain-igloo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -35,35 +34,6 @@ declare namespace fetchMock {
     type MockMatcher = string | RegExp | MockMatcherFunction;
 
     /**
-     * Inspection filter. Can be one of the following:
-     * boolean:
-     *   * true retrieves all calls matched by fetch.
-     *     fetchMock.MATCHED is an alias for true and may be used to make tests
-     *     more readable.
-     *   * false retrieves all calls not matched by fetch (i.e. those handled
-     *     by catch() or spy(). fetchMock.UNMATCHED is an alias for false and
-     *     may be used to make tests more readable.
-     * MockMatcher (routeIdentifier):
-     *   All routes have an identifier:
-     *    * If it’s a named route, the identifier is the route’s name
-     *    * If the route is unnamed, the identifier is the matcher passed in to
-     *      .mock()
-     *   All calls that were handled by the route with the given identifier
-     *   will be retrieved
-     * MockMatcher (matcher):
-     *   Any matcher compatible with the mocking api can be passed in to filter
-     *   the calls arbitrarily.
-     */
-    type InspectionFilter = MockMatcher | boolean;
-
-    /**
-     * Either an object compatible with the mocking api or a string specifying
-     * a http method to filter by. This will be used to filter the list of
-     * calls further.
-     */
-    type InspectionOptions = MockOptions | string;
-
-    /**
      * Mock response object
      */
     interface MockResponseObject {
@@ -87,7 +57,21 @@ declare namespace fetchMock {
          * If this property is present then a Promise rejected with the value
          * of throws is returned
          */
-        throws?: Error;
+        throws?: boolean;
+
+        /**
+         * This property determines whether or not the request body should be
+         * JSON.stringified before being sent
+         * @default true
+         */
+        sendAsJson?: boolean;
+
+        /**
+         * Setting this property to true will automatically add the
+         * content-length header
+         * @default true
+         */
+        includeContentLength?: boolean;
 
         /**
          * The URL the response should be from (to imitate followed redirects
@@ -172,29 +156,13 @@ declare namespace fetchMock {
          * if nothing matches it).
          */
         repeat?: number;
-
-        /**
-         * Convert objects into JSON before delivering as stub reponses. Can
-         * be useful to set to false globally if e.g. dealing with a lot of
-         * array buffers. If true, will also add content-type: application/json
-         * header.
-         * @default true
-         */
-        sendAsJson?: boolean;
-
-        /**
-         * Automatically sets a content-length header on each response.
-         * @default true
-         */
-        includeContentLength?: boolean;
     }
 
-    interface MockCall extends Array<string | RequestInit | undefined> {
-        0: string,
-        1: RequestInit | undefined,
-        identifier: string,
-        isUnmatched: boolean | undefined,
-        request: Request | undefined,
+    type MockCall = [string, MockRequest];
+
+    interface MatchedRoutes {
+        matched: MockCall[];
+        unmatched: MockCall[];
     }
 
     interface MockOptionsMethodGet extends MockOptions {
@@ -218,9 +186,6 @@ declare namespace fetchMock {
     }
 
     interface FetchMockStatic {
-        MATCHED: boolean;
-        UNMATCHED: boolean;
-
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -416,27 +381,15 @@ declare namespace fetchMock {
         spy(response?: MockResponse | MockResponseFunction): this;
 
         /**
-         * Restores fetch() to its unstubbed state and clears all data recorded
-         * for its calls. reset() is an alias for restore().
+         * Chainable method that restores fetch() to its unstubbed state and
+         * clears all data recorded for its calls.
          */
         restore(): this;
 
         /**
-         * Restores fetch() to its unstubbed state and clears all data recorded
-         * for its calls. reset() is an alias for restore().
+         * Chainable method that clears all data recorded for fetch()'s calls
          */
         reset(): this;
-
-        /**
-         * Clears all data recorded for fetch()’s calls. It will not restore
-         * fetch to its default implementation.
-         */
-        resetHistory(): this;
-
-        /**
-         * Removes mocking behaviour without resetting call history.
-         */
-        resetBehavior(): this;
 
         /**
          * Returns a promise that resolves once all fetches handled by fetch-mock
@@ -445,80 +398,57 @@ declare namespace fetchMock {
         flush(): Promise<MockResponse[]>;
 
         /**
-         * Returns an array of all calls to fetch matching the given filters.
-         * Each call is returned as a [url, options] array. If fetch was called
-         * using a Request instance, this will be available as a request
-         * property on this array.
-         * @param [filter] Allows filtering of calls to fetch based on various
-         * criteria
-         * @param [options] Either an object compatible with the mocking api or
-         * a string specifying a http method to filter by. This will be used to
-         * filter the list of calls further.
+         * Returns all calls to fetch, grouped by whether fetch-mock matched
+         * them or not.
          */
-        calls(filter?: InspectionFilter, options?: InspectionOptions): MockCall[];
+        calls(): MatchedRoutes;
 
         /**
-         * Returns a Boolean indicating whether any calls to fetch matched the
-         * given filter.
-         * @param [filter] Allows filtering of calls to fetch based on various
-         * criteria
-         * @param [options] Either an object compatible with the mocking api or
-         * a string specifying a http method to filter by. This will be used to
-         * filter the list of calls further.
+         * Returns all calls to fetch matching matcherName.
          */
-        called(filter?: InspectionFilter, options?: InspectionOptions): boolean;
+        calls(matcherName?: string): MockCall[];
+
+        /**
+         * Returns a Boolean indicating whether fetch was called and a route
+         * was matched (or a specific route if matcherName is passed).
+         * @param [matcherName] either the name of a route or equal to
+         * matcher.toString() for any unnamed route
+         */
+        called(matcherName?: string): boolean;
 
         /**
          * Returns a Boolean indicating whether fetch was called the expected
-         * number of times (or has been called at least once if repeat is
-         * undefined for the route).
-         * @param [filter] Rule for matching calls to fetch.
+         * number of times (or at least once if the route defines no expectation
+         * is set) for every route (or for a specific route if matcherName is
+         * passed).
+         * @param [matcherName] either the name of a route or equal to
+         * matcher.toString() for any unnamed route
          */
-        done(filter?: InspectionFilter): boolean;
+        done(matcherName?: string): boolean;
 
         /**
-         * Returns the arguments for the last call to fetch matching the given
-         * filter.
-         * @param [filter] Allows filtering of calls to fetch based on various
-         * criteria
-         * @param [options] Either an object compatible with the mocking api or
-         * a string specifying a http method to filter by. This will be used to
-         * filter the list of calls further.
+         * Returns the arguments for the last matched call to fetch (or the
+         * last call to specific route is matcherName is passed).
+         * @param [matcherName] either the name of a route or equal to
+         * matcher.toString() for any unnamed route
          */
-        lastCall(
-            filter?: InspectionFilter,
-            options?: InspectionOptions,
-        ): MockCall | undefined;
+        lastCall(matcherName?: string): MockCall;
 
         /**
-         * Returns the url for the last call to fetch matching the given
-         * filter. If fetch was last called using a Request instance, the url
-         * will be extracted from this.
-         * @param [filter] Allows filtering of calls to fetch based on various
-         * criteria
-         * @param [options] Either an object compatible with the mocking api or
-         * a string specifying a http method to filter by. This will be used to
-         * filter the list of calls further.
+         * Returns the url for the last matched call to fetch (or the last
+         * call to specific route is matcherName is passed).
+         * @param [matcherName] either the name of a route or equal to
+         * matcher.toString() for any unnamed route
          */
-        lastUrl(
-            filter?: InspectionFilter,
-            options?: InspectionOptions,
-        ): string | undefined;
+        lastUrl(matcherName?: string): string;
 
         /**
-         * Returns the options for the call to fetch matching the given filter.
-         * If fetch was last called using a Request instance, a set of options
-         * inferred from the Request will be returned.
-         * @param [filter] Allows filtering of calls to fetch based on various
-         * criteria
-         * @param [options] Either an object compatible with the mocking api or
-         * a string specifying a http method to filter by. This will be used to
-         * filter the list of calls further.
+         * Returns the options for the last matched call to fetch (or the
+         * last call to a specific route is matcherName is passed).
+         * @param [matcherName] either the name of a route or equal to
+         * matcher.toString() for any unnamed route
          */
-        lastOptions(
-            filter?: InspectionFilter,
-            options?: InspectionOptions,
-        ): MockOptions | undefined;
+        lastOptions(matcherName?: string): MockRequest;
 
         /**
          * Set some global config options, which include
