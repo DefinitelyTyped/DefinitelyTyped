@@ -11,49 +11,42 @@ export as namespace gdal;
 export type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
 export type Resampling = 'NEAREST' | 'GAUSS' | 'CUBIC' | 'AVERAGE' | 'MODE' | 'AVERAGE_MAGPHASE' | 'NONE';
 
-export interface XY
-{
+export interface XY {
 	x: number;
 	y: number;
 }
 
-export interface XYZ extends XY
-{
+export interface XYZ extends XY {
 	z: number;
 }
 
-export interface EnvelopeBounds
-{
+export interface EnvelopeBounds {
     minX: number,
     maxX: number,
     minY: number,
     maxY: number
 }
 
-export interface Envelope3DBounds extends EnvelopeBounds
-{
+export interface Envelope3DBounds extends EnvelopeBounds {
     minZ: number,
     maxZ: number
 }
 
-export interface RasterBandStatistics
-{
+export interface RasterBandStatistics {
 	min: number;
 	max: number;
 	mean: number;
 	std_dev: number;
 }
 
-export interface RasterBandPixelsWriteOptions
-{
+export interface RasterBandPixelsWriteOptions {
 	buffer_width?: number;
 	buffer_height?: number;
 	pixel_space?: number;
 	line_space?: number;
 }
 
-export interface RasterBandPixelsReadOptions
-{
+export interface RasterBandPixelsReadOptions {
 	buffer_width?: number;
 	buffer_height?: number;
 	pixel_space?: number;
@@ -61,8 +54,7 @@ export interface RasterBandPixelsReadOptions
 	data_type?: string;
 }
 
-export interface ContourGenerateOptions
-{
+export interface ContourGenerateOptions {
     src: RasterBand;
     dst: Layer;
     offset?: number;
@@ -73,16 +65,14 @@ export interface ContourGenerateOptions
     elevField?: number;
 }
 
-export interface FillNoDataOptions
-{
+export interface FillNoDataOptions {
     src: RasterBand;
     mask?: RasterBand;
     searchDist: number;
     smoothingIterations?: number;
 }
 
-export interface PolygonizeOptions
-{
+export interface PolygonizeOptions {
     src: RasterBand;
     dst: Layer;
     mask?: RasterBand;
@@ -91,8 +81,7 @@ export interface PolygonizeOptions
     useFloats?: boolean;
 }
 
-export interface ReprojectImageOptions
-{
+export interface ReprojectImageOptions {
     src: Dataset;
     dst: Dataset;
     s_srs: SpatialReference;
@@ -111,8 +100,7 @@ export interface ReprojectImageOptions
     options?: string[] | object;
 }
 
-export interface SieveFilterOptions
-{
+export interface SieveFilterOptions {
     src: RasterBand;
     dst: RasterBand;
     mask?: RasterBand;
@@ -120,8 +108,7 @@ export interface SieveFilterOptions
     connectedness?: number;
 }
 
-export interface SuggestedWarpOutputOptions
-{
+export interface SuggestedWarpOutputOptions {
     src: Dataset;
     s_srs: SpatialReference;
     t_srs: SpatialReference;
@@ -283,14 +270,12 @@ export const wkbVariantOldOgc: string;
 
 /* Classes and interfaces */
 
-export class CoordinateTransformation
-{
+export class CoordinateTransformation {
     constructor(source: SpatialReference, target: SpatialReference | Dataset);
     transformPoint(x: number, y: number, z?: number): XYZ;
 }
 
-export interface Dataset
-{
+export interface Dataset {
     buildOverviews(resampling: Resampling, overviews: number[], bands?: number[]): void;
     close(): void;
     executeSQL(statement: string, spatial_filter?: Geometry, dialect?: string): Layer;
@@ -311,8 +296,7 @@ export interface Dataset
     srs: SpatialReference;
 }
 
-export interface DatasetBands
-{
+export interface DatasetBands {
     count(): number;
     create(dataType: number): RasterBand;
     forEach(callback: (band: RasterBand, i: number) => void): void;
@@ -322,8 +306,7 @@ export interface DatasetBands
     readonly ds: Dataset;
 }
 
-export interface DatasetLayers
-{
+export interface DatasetLayers {
     copy(src_lyr_name: string, dst_lyr_name: string, options?: object | string[]): Layer;
     count(): number;
     create(name: string, srs: SpatialReference, geomType: number | Function, creation_options: string[] | object): Layer;
@@ -335,8 +318,7 @@ export interface DatasetLayers
     readonly ds: Dataset;
 }
 
-export interface Driver
-{
+export interface Driver {
     copyFiles(name_old: string, name_new: string): void;
     create(filename: string, x_size?: number, y_size?: number, band_count?: number, data_type?: number, creation_options?: string[] | object): Dataset;
     createCopy(filename: string, src: Dataset, strict?: boolean, options?: string[] | object): Dataset;
@@ -348,8 +330,7 @@ export interface Driver
     readonly description: string;
 }
 
-export class Envelope
-{
+export class Envelope {
     constructor(bounds: EnvelopeBounds);
     contains(envelope: Envelope): boolean;
     intersect(envelope: Envelope): void;
@@ -359,13 +340,11 @@ export class Envelope
     toPolygon(): Polygon;
 }
 
-export class Envelope3D extends Envelope
-{
+export class Envelope3D extends Envelope {
     constructor(bounds: Envelope3DBounds);
 }
 
-export class Feature
-{
+export class Feature {
     constructor(definition: Layer | FeatureDefn);
     clone(): Feature;
     destroy(): void;
@@ -380,8 +359,7 @@ export class Feature
     readonly fields: FeatureFields;
 }
 
-export class FeatureDefn
-{
+export class FeatureDefn {
     constructor();
     clone(): FeatureDefn;
 
@@ -392,8 +370,7 @@ export class FeatureDefn
 	styleIgnored: boolean;
 }
 
-export interface FeatureDefnFields
-{
+export interface FeatureDefnFields {
 	add(field: FieldDefn | FieldDefn[]): void;
 	count(): number;
 	forEach(callback: (field: FieldDefn, i: number) => void): void;
@@ -407,8 +384,7 @@ export interface FeatureDefnFields
 	readonly featureDefn: FeatureDefn;
 }
 
-export interface FeatureFields
-{
+export interface FeatureFields {
 	count(): number;
 	forEach(callback: (value: any, key: string) => void): void;
 	get(key: string | number): any;
@@ -424,8 +400,7 @@ export interface FeatureFields
 	readonly feature: Feature;
 }
 
-export class FieldDefn
-{
+export class FieldDefn {
 	constructor(name: string, type: string);
 
 	ignored: boolean;
@@ -436,8 +411,7 @@ export class FieldDefn
 	width: number;
 }
 
-export interface GDALDrivers
-{
+export interface GDALDrivers {
     count(): number;
     forEach(callback: (driver: Driver, i: number) => void): void;
 	get(index: number | string): Driver;
@@ -445,8 +419,7 @@ export interface GDALDrivers
     map<T>(callback: (driver: Driver, i: number) => T): T[];
 }
 
-export abstract class Geometry
-{
+export abstract class Geometry {
 	static create(type: number): Geometry;
 	static fromWKB(wkb: number, srs?: SpatialReference): Geometry;
 	static fromWKT(wkt: string, srs?: SpatialReference): Geometry;
@@ -500,16 +473,14 @@ export abstract class Geometry
 	readonly wkbType: number;
 }
 
-export class GeometryCollection extends Geometry
-{
+export class GeometryCollection extends Geometry {
 	getArea(): number;
 	getLength(): number;
 
 	children: GeometryCollectionChildren;
 }
 
-export interface GeometryCollectionChildren
-{
+export interface GeometryCollectionChildren {
 	add(geometry: Geometry | Geometry[]): void;
 	count(): number;
     forEach(callback: (geometry: Geometry, i: number) => void): void;
@@ -521,8 +492,7 @@ export interface GeometryCollectionChildren
 	readonly layer: Layer;
 }
 
-export interface Layer
-{
+export interface Layer {
 	flush(): void;
 	getExtent(force?: boolean): Envelope;
 	getSpatialFilter(): Geometry;
@@ -541,8 +511,7 @@ export interface Layer
 	readonly srs: SpatialReference;
 }
 
-export interface LayerFeatures
-{
+export interface LayerFeatures {
 	add(feature: Feature): void;
 	count(force?: boolean): number;
 	first(): Feature;
@@ -556,8 +525,7 @@ export interface LayerFeatures
 	readonly layer: Layer;
 }
 
-export interface LayerFields
-{
+export interface LayerFields {
 	add(def: FieldDefn | FieldDefn[], approx?: boolean): void;
 	count(): number;
 	forEach(callback: (field: FieldDefn, i: number) => void): void;
@@ -572,13 +540,11 @@ export interface LayerFields
 	readonly layer: Layer;
 }
 
-export class LinearRing extends LineString
-{
+export class LinearRing extends LineString {
 	getArea(): number;
 }
 
-export class LineString extends Geometry
-{
+export class LineString extends Geometry {
 	addSubLineString(line: LineString, start?: number, end?: number): void;
 	getLength(): number;
 	value(distance: number): Point;
@@ -586,8 +552,7 @@ export class LineString extends Geometry
 	readonly points: LineStringPoints;
 }
 
-export interface LineStringPoints
-{
+export interface LineStringPoints {
 	add(point: Point | Point[]): void;
 	count(): number;
     forEach(callback: (point: Point, i: number) => void): void;
@@ -600,24 +565,20 @@ export interface LineStringPoints
 	toArray(): Point[];
 }
 
-export class MultiLineString extends GeometryCollection
-{
+export class MultiLineString extends GeometryCollection {
 	polygonize(): Polygon;
 }
 
-export class MultiPoint extends GeometryCollection
-{
+export class MultiPoint extends GeometryCollection {
 	
 }
 
-export class MultiPolygon extends GeometryCollection
-{
+export class MultiPolygon extends GeometryCollection {
 	getArea(): number;
 	unionCascaded(): Geometry;
 }
 
-export class Point extends Geometry
-{
+export class Point extends Geometry {
 	constructor(x: number, y: number, z?: number);
 
 	x: number;
@@ -625,15 +586,13 @@ export class Point extends Geometry
 	z: number;
 }
 
-export class Polygon extends Geometry
-{
+export class Polygon extends Geometry {
 	getArea(): number;
 
 	rings: PolygonRings;
 }
 
-export interface PolygonRings
-{
+export interface PolygonRings {
 	add(ring: LinearRing | LinearRing[]): void;
 	count(): number;
     forEach(callback: (ring: LinearRing, i: number) => void): void;
@@ -645,8 +604,7 @@ export interface PolygonRings
 	readonly layer: Layer;
 }
 
-export interface RasterBand
-{
+export interface RasterBand {
 	computeStatistics(allow_approximation: boolean): RasterBandStatistics;
 	createMaskBand(flags: number): void;
 	fill(real_value: number, imaginary_value?: number): void;
@@ -677,8 +635,7 @@ export interface RasterBand
 	unitType: string;
 }
 
-export interface RasterBandOverviews
-{
+export interface RasterBandOverviews {
 	count(): number;
     forEach(callback: (overviewBand: RasterBand, i: number) => void): void;
     get(index: number): RasterBand;
@@ -686,8 +643,7 @@ export interface RasterBandOverviews
     map<T>(callback: (overviewBand: RasterBand, i: number) => T): T[];
 }
 
-export interface RasterBandPixels
-{
+export interface RasterBandPixels {
 	get(x: number, y: number): number;
 	read(x: number, y: number, width: number, height: number, data?: TypedArray, options?: RasterBandPixelsReadOptions): TypedArray;
 	readBlock(x: number, y: number, data?: TypedArray): TypedArray;
@@ -696,8 +652,7 @@ export interface RasterBandPixels
 	writeBlock(x: number, y: number, data: TypedArray): void;
 }
 
-export class SpatialReference
-{
+export class SpatialReference {
 	constructor(wkt?: string);
 	autoIdentifyEPSG(): void;
 	clone(): SpatialReference;
@@ -741,8 +696,7 @@ export class SpatialReference
 	static fromXML(input: string): SpatialReference;
 }
 
-export namespace config
-{
+export namespace config {
 	function get(key: string): string;
 	function set(key: string, value: string): void;
 }
