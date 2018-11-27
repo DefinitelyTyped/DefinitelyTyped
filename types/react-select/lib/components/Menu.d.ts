@@ -67,9 +67,6 @@ export type MenuProps<OptionType> = CommonProps<OptionType> & {
 export function menuCSS(state: MenuState): React.CSSProperties;
 
 export class Menu<OptionType> extends Component<MenuProps<OptionType>, MenuState> {
-  static contextTypes: {
-    getPortalPlacement: (state: MenuState) => void,
-  };
   getPlacement: (ref: ElementRef<any>) => void;
   getState: () => MenuProps<OptionType> & MenuState;
 }
@@ -146,9 +143,6 @@ interface PortalStyleArgs {
 export function menuPortalCSS(args: PortalStyleArgs): React.CSSProperties;
 
 export class MenuPortal<OptionType> extends Component<MenuPortalProps<OptionType>, MenuPortalState> {
-  static childContextTypes: {
-    getPortalPlacement: (state: MenuState) => void,
-  };
   getChildContext(): {
     getPortalPlacement: (state: MenuState) => void;
   };
