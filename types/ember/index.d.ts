@@ -228,7 +228,7 @@ export namespace Ember {
     /**
      * A subclass of the JavaScript Error object for use in Ember.
      */
-    const Error: EmberError;
+    const Error: typeof EmberError;
 
     const Evented: typeof EmberObjectEventedNs.default;
 

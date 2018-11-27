@@ -7,6 +7,9 @@
 //                 Shahar Mor <https://github.com/shaharmor>
 //                 Whemoon Jang <https://github.com/palindrom615>
 //                 Francis Gulotta <https://github.com/reconbot>
+//                 Dmitry Motovilov <https://github.com/funthing>
+//                 Oleg Repin <https://github.com/iamolegga>
+//                 Ting-Wai To <https://github.com/tingwai-to>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -65,8 +68,8 @@ declare namespace IORedis {
         bitcount(key: KeyType): Promise<number>;
         bitcount(key: KeyType, start: number, end: number): Promise<number>;
 
-        get(key: KeyType, callback: (err: Error, res: string) => void): void;
-        get(key: KeyType): Promise<string>;
+        get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
+        get(key: KeyType): Promise<string | null>;
 
         getBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
         getBuffer(key: KeyType): Promise<Buffer>;
@@ -100,9 +103,9 @@ declare namespace IORedis {
         strlen(key: KeyType, callback: (err: Error, res: number) => void): void;
         strlen(key: KeyType): Promise<number>;
 
-        del(...keys: KeyType[]): any;
+        del(...keys: KeyType[]): Promise<number>;
 
-        exists(...keys: KeyType[]): any;
+        exists(...keys: KeyType[]): Promise<number>;
 
         setbit(key: KeyType, offset: number, value: any, callback: (err: Error, res: number) => void): void;
         setbit(key: KeyType, offset: number, value: any): Promise<number>;
@@ -210,7 +213,7 @@ declare namespace IORedis {
         smembers(key: KeyType, callback: (err: Error, res: any) => void): void;
         smembers(key: KeyType): Promise<any>;
 
-        zadd(key: KeyType, ...args: string[]): any;
+        zadd(key: KeyType, ...args: string[]): Promise<number | string>;
 
         zincrby(key: KeyType, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: KeyType, increment: number, member: string): Promise<any>;
@@ -262,8 +265,8 @@ declare namespace IORedis {
         hsetnx(key: KeyType, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
         hsetnx(key: KeyType, field: string, value: any): Promise<0 | 1>;
 
-        hget(key: KeyType, field: string, callback: (err: Error, res: string) => void): void;
-        hget(key: KeyType, field: string): Promise<string>;
+        hget(key: KeyType, field: string, callback: (err: Error, res: string | null) => void): void;
+        hget(key: KeyType, field: string): Promise<string | null>;
         hgetBuffer(key: KeyType, field: string, callback: (err: Error, res: Buffer) => void): void;
         hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
@@ -305,8 +308,8 @@ declare namespace IORedis {
         decrby(key: KeyType, decrement: number, callback: (err: Error, res: number) => void): void;
         decrby(key: KeyType, decrement: number): Promise<number>;
 
-        getset(key: KeyType, value: any, callback: (err: Error, res: string) => void): void;
-        getset(key: KeyType, value: any): Promise<string>;
+        getset(key: KeyType, value: any, callback: (err: Error, res: string | null) => void): void;
+        getset(key: KeyType, value: any): Promise<string | null>;
 
         mset(key: KeyType, value: any, ...args: string[]): any;
 
@@ -454,7 +457,13 @@ declare namespace IORedis {
         quit(callback: (err: Error, res: string) => void): void;
         quit(): Promise<string>;
 
-        scan(cursor: number, ...args: any[]): any;
+        scan(cursor: number): Promise<[string, string[]]>;
+
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
 
         sscan(key: KeyType, cursor: number, ...args: any[]): any;
 
@@ -474,6 +483,32 @@ declare namespace IORedis {
         sscanStream(key: KeyType, options?: ScanStreamOption): NodeJS.EventEmitter;
         hscanStream(key: KeyType, options?: ScanStreamOption): NodeJS.EventEmitter;
         zscanStream(key: KeyType, options?: ScanStreamOption): NodeJS.EventEmitter;
+
+        xack(key: KeyType, group: string, ...ids: string[]): any;
+
+        xadd(key: KeyType, id: string, ...args: string[]): any;
+
+        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, ...args: any[]): any;
+
+        xdel(key: KeyType, ...ids: string[]): any;
+
+        xgroup(...args: any[]): any;
+
+        xinfo(...args: any[]): any;
+
+        xlen(key: KeyType): any;
+
+        xpending(key: KeyType, group: string, ...args: any[]): any;
+
+        xrange(key: KeyType, start: string, end: string, ...args: any[]): any;
+
+        xread(...args: any[]): any;
+
+        xreadgroup(groupOption: 'GROUP' | 'group', group: string, consumer: string,  ...args: any[]): any;
+
+        xrevrange(key: KeyType, end: string, start: string, ...args: any[]): any;
+
+        xtrim(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', ...args: any[]): any;
     }
 
     interface Pipeline {
@@ -633,7 +668,7 @@ declare namespace IORedis {
 
         hsetnx(key: KeyType, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        hget(key: KeyType, field: string, callback?: (err: Error, res: string) => void): Pipeline;
+        hget(key: KeyType, field: string, callback?: (err: Error, res: string | string) => void): Pipeline;
         hgetBuffer(key: KeyType, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         hmset(key: KeyType, field: string, value: any, ...args: string[]): Pipeline;
@@ -775,8 +810,13 @@ declare namespace IORedis {
 
         quit(callback?: (err: Error, res: string) => void): Pipeline;
 
-        scan(cursor: number, ...args: any[]): Pipeline;
+        scan(cursor: number): Pipeline;
 
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Pipeline;
+
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Pipeline;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
         sscan(key: KeyType, cursor: number, ...args: any[]): Pipeline;
 
         hscan(key: KeyType, cursor: number, ...args: any[]): Pipeline;
@@ -788,6 +828,32 @@ declare namespace IORedis {
         pfadd(key: KeyType, ...elements: string[]): Pipeline;
 
         pfcount(...keys: KeyType[]): Pipeline;
+
+        xack(key: KeyType, group: string, ...ids: string[]): Pipeline;
+
+        xadd(key: KeyType, id: string, ...args: string[]): Pipeline;
+
+        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, id: string, ...args: any[]): Pipeline;
+
+        xdel(key: KeyType, ...ids: string[]): Pipeline;
+
+        xgroup(...args: any[]): Pipeline;
+
+        xinfo(...args: any[]): Pipeline;
+
+        xlen(key: KeyType): Pipeline;
+
+        xpending(key: KeyType, group: string, ...args: any[]): Pipeline;
+
+        xrange(key: KeyType, start: string, end: string, ...args: any[]): Pipeline;
+
+        xread(...args: any[]): Pipeline;
+
+        xreadgroup(command: 'GROUP' | 'group', group: string, consumer: string,  ...args: any[]): Pipeline;
+
+        xrevrange(key: KeyType, end: string, start: string, ...args: any[]): Pipeline;
+
+        xtrim(key: KeyType, strategy: 'MAXLEN' | 'maxlen', ...args: any[]): Pipeline;
     }
 
     interface NodeConfiguration {

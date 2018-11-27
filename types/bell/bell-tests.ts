@@ -16,7 +16,7 @@ async function run() {
         clientSecret: '',
         scope(request) {
             const scopes = ['public_profile', 'email'];
-            if ((<RequestQuery> request.query).wantsSharePermission) {
+            if ((request.query as RequestQuery).wantsSharePermission) {
               scopes.push('publish_actions');
             }
             return scopes;
@@ -105,5 +105,53 @@ async function run() {
         clientId: '',
         clientSecret: '',
         scope: ['user_read', 'channel_read']
+    },
+    {
+        provider: {
+            auth: 'http://test.com/auth',
+            token: 'http://test.com/auth',
+            name: 'custom',
+            protocol: 'oauth',
+            temporary: 'wat',
+            async profile(credentials, params, get) {
+                console.log(credentials.provider);
+                console.log(credentials.query);
+                console.log(credentials.secret);
+                console.log(this.clientId);
+                credentials.profile = await get('http://test.com/profile', {
+                    a: 'test',
+                });
+            },
+        },
+        password: 'cookie_encryption_password_secure',
+        isSecure: false,
+        clientId: '',
+        clientSecret: '',
+        location: () => '',
+    },
+    {
+        provider: {
+            auth: 'http://test.com/auth',
+            token: 'http://test.com/auth',
+            name: 'custom',
+            protocol: 'oauth2',
+            scope: ['a', 's', 'd', 'f'],
+            scopeSeparator: '~~~',
+            async profile(credentials, params, get) {
+                console.log(credentials.provider);
+                console.log(credentials.query);
+                console.log(credentials.token);
+                console.log(credentials.refreshToken);
+                console.log(this.clientId);
+                credentials.profile = await get('http://test.com/profile', {
+                    a: 'test',
+                });
+            },
+        },
+        password: 'cookie_encryption_password_secure',
+        isSecure: false,
+        clientId: '',
+        clientSecret: '',
+        location: () => '',
     }];
 }

@@ -2036,7 +2036,7 @@ declare module 'gl-matrix' {
          * @param v vector to translate by
          * @returns out
          */
-        public static translate(out: mat3, a: mat3, v: vec3 | number[]): mat3;
+        public static translate(out: mat3, a: mat3, v: vec2 | number[]): mat3;
 
         /**
          * Rotates a mat3 by the given angle

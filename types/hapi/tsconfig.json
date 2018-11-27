@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "test/request/auth.ts",
         "test/request/catch-all.ts",
         "test/request/event-types.ts",
         "test/request/get-log.ts",

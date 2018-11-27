@@ -414,6 +414,19 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
         const cf = util.promisify(fs.copyFile);
         cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
     }
+
+    {
+        fs.mkdir('some/test/path', {
+            recursive: true,
+            mode: 0o777,
+        }, () => {
+        });
+
+        fs.mkdirSync('some/test/path', {
+            recursive: true,
+            mode: 0o777,
+        });
+    }
 }
 
 ///////////////////////////////////////////////////////
@@ -763,6 +776,15 @@ function bufferTests() {
         ]);
         assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
+
+    {
+        let path: string = url.fileURLToPath('file://test');
+        path = url.fileURLToPath(new url.URL('file://test'));
+    }
+
+    {
+        const path: url.URL = url.pathToFileURL('file://test');
+    }
 }
 
 /////////////////////////////////////////////////////
@@ -781,7 +803,10 @@ function bufferTests() {
             showProxy: true,
             maxArrayLength: 10,
             breakLength: 20,
-            compact: true
+            compact: true,
+            sorted(a, b) {
+                return b.localeCompare(a);
+            },
         });
         util.inspect(["This is nice"], {
             colors: true,
@@ -790,7 +815,8 @@ function bufferTests() {
             showProxy: true,
             maxArrayLength: null,
             breakLength: Infinity,
-            compact: false
+            compact: false,
+            sorted: true,
         });
         assert(typeof util.inspect.custom === 'symbol');
 
@@ -1474,6 +1500,161 @@ async function asyncStreamPipelineFinished() {
         ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "uncompressed");
         ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "compressed");
         ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "hybrid");
+    }
+
+    {
+        const rsaRes: {
+            publicKey: Buffer;
+            privateKey: string;
+        } = crypto.generateKeyPairSync('rsa', {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+
+        const dsaRes: {
+            publicKey: string;
+            privateKey: Buffer;
+        } = crypto.generateKeyPairSync('dsa', {
+            modulusLength: 123,
+            divisorLength: 123,
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'spki',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'der',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+
+        const ecRes: {
+            publicKey: string;
+            privateKey: string;
+        } = crypto.generateKeyPairSync('ec', {
+            namedCurve: 'curve',
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+    }
+
+    {
+        crypto.generateKeyPair('rsa', {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        }, (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: string) => {});
+
+        crypto.generateKeyPair('dsa', {
+            modulusLength: 123,
+            divisorLength: 123,
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'spki',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'der',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: Buffer) => {});
+
+        crypto.generateKeyPair('ec', {
+            namedCurve: 'curve',
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+    }
+
+    {
+        const generateKeyPairPromisified = util.promisify(crypto.generateKeyPair);
+
+        const rsaRes: Promise<{
+            publicKey: Buffer;
+            privateKey: string;
+        }> = generateKeyPairPromisified('rsa', {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+
+        const dsaRes: Promise<{
+            publicKey: string;
+            privateKey: Buffer;
+        }> = generateKeyPairPromisified('dsa', {
+            modulusLength: 123,
+            divisorLength: 123,
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'spki',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'der',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+
+        const ecRes: Promise<{
+            publicKey: string;
+            privateKey: string;
+        }> = generateKeyPairPromisified('ec', {
+            namedCurve: 'curve',
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
     }
 }
 
@@ -2455,6 +2636,8 @@ async function asyncStreamPipelineFinished() {
     {
         childProcess.exec("echo test");
         childProcess.exec("echo test", { windowsHide: true });
+        childProcess.spawn("echo");
+        childProcess.spawn("echo", { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true });
         childProcess.spawn("echo", ["test"], { windowsHide: true, argv0: "echo-test" });
         childProcess.spawn("echo", ["test"], { stdio: [0xdeadbeef, "inherit", undefined, "pipe"] });
@@ -3087,6 +3270,7 @@ import * as p from "process";
         process.prependOnceListener("SIGBREAK", () => { });
         process.on("newListener", (event: string | symbol, listener: Function) => { });
         process.once("removeListener", (event: string | symbol, listener: Function) => { });
+        process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
 
         const listeners = process.listeners('uncaughtException');
         const oldHandler = listeners[listeners.length - 1];
@@ -3100,7 +3284,7 @@ import * as p from "process";
         const b: boolean = process.hasUncaughtExceptionCaptureCallback();
     }
     {
-        process.allowedNodeEnvironmentFlags.has('asdf');
+        // process.allowedNodeEnvironmentFlags.has('asdf');
     }
 }
 
@@ -3115,7 +3299,23 @@ import * as p from "process";
     }
     {
         const writeStream = fs.createWriteStream('./index.d.ts');
-        const consoleInstance = new console.Console(writeStream);
+        let consoleInstance: Console = new console.Console(writeStream);
+
+        consoleInstance = new console.Console(writeStream, writeStream);
+        consoleInstance = new console.Console(writeStream, writeStream, true);
+        consoleInstance = new console.Console({
+            stdout: writeStream,
+            stderr: writeStream,
+            colorMode: 'auto',
+            ignoreErrors: true
+        });
+        consoleInstance = new console.Console({
+            stdout: writeStream,
+            colorMode: false
+        });
+        consoleInstance = new console.Console({
+            stdout: writeStream
+        });
     }
 }
 
@@ -3420,7 +3620,7 @@ import * as p from "process";
     {
         let _server: repl.REPLServer;
         let _boolean: boolean;
-        const _ctx: any = 1;
+        const _ctx: vm.Context = {};
 
         _server = _server.addListener("exit", () => { });
         _server = _server.addListener("reset", () => { });
@@ -3442,6 +3642,37 @@ import * as p from "process";
 
         _server.outputStream.write("test");
         const line = _server.inputStream.read();
+
+        _server.clearBufferedCommand();
+        _server.displayPrompt();
+        _server.displayPrompt(true);
+        _server.defineCommand("cmd", function(text) {
+            // $ExpectType string
+            text;
+            // $ExpectType REPLServer
+            this;
+        });
+        _server.defineCommand("cmd", {
+            help: "",
+            action(text) {
+                // $ExpectType string
+                text;
+                // $ExpectType REPLServer
+                this;
+            }
+        });
+
+        repl.start({
+            eval() {
+                // $ExpectType REPLServer
+                this;
+            },
+            writer() {
+                // $ExpectType REPLServer
+                this;
+                return "";
+            }
+        });
 
         function test() {
             throw new repl.Recoverable(new Error("test"));
@@ -3488,6 +3719,10 @@ import * as p from "process";
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
+    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: dns.LookupAddress[] = addresses;
     });
@@ -3859,6 +4094,7 @@ import * as constants from 'constants';
         http2Session.on('remoteSettings', (settings: http2.Settings) => {});
         http2Session.on('stream', (stream: http2.Http2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
         http2Session.on('timeout', () => {});
+        http2Session.on('ping', () => {});
 
         http2Session.destroy();
 
@@ -3933,6 +4169,7 @@ import * as constants from 'constants';
         http2Stream.on('streamClosed', (code: number) => {});
         http2Stream.on('timeout', () => {});
         http2Stream.on('trailers', (trailers: http2.IncomingHttpHeaders, flags: number) => {});
+        http2Stream.on('wantTrailers', () => {});
 
         const aborted: boolean = http2Stream.aborted;
         const closed: boolean = http2Stream.closed;
@@ -3984,7 +4221,7 @@ import * as constants from 'constants';
 
         const options: http2.ServerStreamResponseOptions = {
             endStream: true,
-            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
+            waitForTrailers: true,
         };
         serverHttp2Stream.respond();
         serverHttp2Stream.respond(headers);
@@ -4436,6 +4673,7 @@ import * as constants from 'constants';
 ////////////////////////////////////////////////////
 /// module tests : http://nodejs.org/api/modules.html
 ////////////////////////////////////////////////////
+import moduleModule = require('module');
 
 {
     require.extensions[".ts"] = () => "";
@@ -4448,6 +4686,8 @@ import * as constants from 'constants';
     const b: string[] = Module.builtinModules;
     let paths: string[] = module.paths;
     paths = m1.paths;
+
+    moduleModule.createRequireFromPath('./test')('test');
 }
 
 ////////////////////////////////////////////////////

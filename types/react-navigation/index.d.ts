@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 2.0
+// Type definitions for react-navigation 2.13
 // Project: https://github.com/react-navigation/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
@@ -14,7 +14,6 @@
 //                 Steven Miller <https://github.com/YourGamesBeOver>
 //                 Armando Assuncao <https://github.com/ArmandoAssuncao>
 //                 Ciaran Liedeman <https://github.com/cliedeman>
-//                 Edward Sammut Alessi <https://github.com/Slessi>
 //                 Jérémy Magrin <https://github.com/magrinj>
 //                 Luca Campana <https://github.com/TizioFittizio>
 //                 Ullrich Schaefer <https://github.com/stigi>
@@ -24,6 +23,11 @@
 //                 Gustavo Brunoro <https://github.com/brunoro>
 //                 Denis Frezzato <https://github.com/DenisFrezzato>
 //                 Mickael Wegerich <https://github.com/mickaelw>
+//                 Max Davidson <https://github.com/maxdavidson>
+//                 Alec Hill <https://github.com/alechill>
+//                 Lachlan Young <https://github.com/builtbyproxy>
+//                 Jason Killian <https://github.com/jkillian>
+//                 Fellipe Chagas <https://github.com/chagasaway>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -91,6 +95,9 @@ export interface NavigationState {
    */
   index: number;
   routes: NavigationRoute[];
+  isTransitioning: boolean;
+  key: string;
+  params: NavigationParams;
 }
 
 export interface DrawerNavigationState extends NavigationState {
@@ -126,6 +133,14 @@ export interface NavigationLeafRoute<Params = NavigationParams> {
    * e.g. `{ car_id: 123 }` in a route that displays a car.
    */
   params?: Params;
+  /**
+   * Array containing the navigator's routes
+   */
+  routes: NavigationRoute[];
+  /**
+   * Flag that indicates the transition state of the route
+   */
+  isTransitioning: boolean;
 }
 
 export type NavigationStateRoute<
@@ -277,28 +292,28 @@ export interface NavigationInitAction extends NavigationInitActionPayload {
 }
 
 export interface NavigationReplaceActionPayload {
-    key?: string;
-    newKey?: string;
-    routeName: string;
-    params?: NavigationParams;
-    action?: NavigationNavigateAction;
+  key?: string;
+  newKey?: string;
+  routeName: string;
+  params?: NavigationParams;
+  action?: NavigationNavigateAction;
 }
 
 export interface NavigationReplaceAction {
-    type: 'Navigation/REPLACE';
-    key: string;
-    routeName: string;
-    params?: NavigationParams;
-    action?: NavigationNavigateAction;
+  type: 'Navigation/REPLACE';
+  key: string;
+  routeName: string;
+  params?: NavigationParams;
+  action?: NavigationNavigateAction;
 }
 
 export interface NavigationCompleteTransitionActionPayload {
-    key?: string;
+  key?: string;
 }
 
 export interface NavigationCompleteTransitionAction {
-    type: 'Navigation/COMPLETE_TRANSITION';
-    key: string;
+  type: 'Navigation/COMPLETE_TRANSITION';
+  key: string;
 }
 
 export interface NavigationResetActionPayload {
@@ -340,40 +355,43 @@ export interface NavigationPopToTopAction
 }
 
 export interface NavigationPushActionPayload {
-    routeName: string;
-    params?: NavigationParams;
-    action?: NavigationNavigateAction;
-    key?: string;
+  routeName: string;
+  params?: NavigationParams;
+  action?: NavigationNavigateAction;
+  key?: string;
 }
 
 export interface NavigationPushAction {
-    type: 'Navigation/PUSH';
-    routeName: string;
-    params?: NavigationParams;
-    action?: NavigationNavigateAction;
-    key?: string;
+  type: 'Navigation/PUSH';
+  routeName: string;
+  params?: NavigationParams;
+  action?: NavigationNavigateAction;
+  key?: string;
 }
 
 export interface NavigationOpenDrawerAction {
-    key?: string;
-    type: 'Navigation/OPEN_DRAWER';
+  key?: string;
+  type: 'Navigation/OPEN_DRAWER';
 }
 
 export interface NavigationCloseDrawerAction {
-    key?: string;
-    type: 'Navigation/CLOSE_DRAWER';
+  key?: string;
+  type: 'Navigation/CLOSE_DRAWER';
 }
 
 export interface NavigationToggleDrawerAction {
-    key?: string;
-    type: 'Navigation/TOGGLE_DRAWER';
+  key?: string;
+  type: 'Navigation/TOGGLE_DRAWER';
 }
 
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
+  headerBackTitleVisible?: boolean;
   headerTransitionPreset?: 'fade-in-place' | 'uikit';
+  headerLayoutPreset?: 'left' | 'center';
   cardStyle?: StyleProp<ViewStyle>;
+  transparentCard?: boolean;
   transitionConfig?: (
     transitionProps: NavigationTransitionProps,
     prevTransitionProps: NavigationTransitionProps,
@@ -517,7 +535,7 @@ interface NavigationTabScreenOptionsBase {
   tabBarIcon?:
   | React.ReactElement<any>
   | ((
-    options: { tintColor: string | null; focused: boolean }
+    options: { tintColor: string | null; focused: boolean; horizontal: boolean }
   ) => React.ReactElement<any> | null);
   tabBarLabel?:
   | string
@@ -549,6 +567,8 @@ export interface NavigationBottomTabScreenOptions
   ) => void;
 }
 
+export type DrawerLockMode = 'unlocked' | 'locked-closed' | 'locked-open';
+
 export interface NavigationDrawerScreenOptions {
   title?: string;
   drawerIcon?:
@@ -562,7 +582,7 @@ export interface NavigationDrawerScreenOptions {
   | ((
     options: { tintColor: string | null; focused: boolean }
   ) => React.ReactElement<any> | null);
-  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
+  drawerLockMode?: DrawerLockMode;
 }
 
 export interface NavigationRouteConfigMap {
@@ -650,9 +670,12 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   pop: (n?: number, params?: { immediate?: boolean }) => boolean;
   popToTop: (params?: { immediate?: boolean }) => boolean;
   isFocused: () => boolean;
+  router?: NavigationRouter;
+  dangerouslyGetParent: () => NavigationScreenProp<S> | undefined;
 }
 
 export interface NavigationNavigatorProps<O = {}, S = {}> {
+  detached?: boolean;
   navigation?: NavigationProp<S>;
   screenProps?: { [key: string]: any };
   navigationOptions?: O;
@@ -723,6 +746,9 @@ export interface NavigationTransitionSpec {
   easing?: (t: number) => number;
   // A timing function such as `Animated.timing`.
   timing?: (value: AnimatedValue, config: any) => any;
+  friction?: number;
+  tension?: number;
+  useNativeDriver?: boolean;
 }
 
 /**
@@ -894,6 +920,7 @@ export interface DrawerNavigatorConfig
     style?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;
   };
+  drawerLockMode?: DrawerLockMode;
 }
 
 export function DrawerNavigator(
@@ -1060,41 +1087,41 @@ export namespace NavigationActions {
  * DrawerActions
  */
 export namespace DrawerActions {
-    const OPEN_DRAWER: 'Navigation/OPEN_DRAWER';
-    const CLOSE_DRAWER: 'Navigation/CLOSE_DRAWER';
-    const TOGGLE_DRAWER: 'Navigation/TOGGLE_DRAWER';
+  const OPEN_DRAWER: 'Navigation/OPEN_DRAWER';
+  const CLOSE_DRAWER: 'Navigation/CLOSE_DRAWER';
+  const TOGGLE_DRAWER: 'Navigation/TOGGLE_DRAWER';
 
-    function openDrawer(): NavigationOpenDrawerAction;
-    function closeDrawer(): NavigationCloseDrawerAction;
-    function toggleDrawer(): NavigationToggleDrawerAction;
+  function openDrawer(): NavigationOpenDrawerAction;
+  function closeDrawer(): NavigationCloseDrawerAction;
+  function toggleDrawer(): NavigationToggleDrawerAction;
 }
 
 /**
  * StackActions
  */
 export namespace StackActions {
-    const POP: 'Navigation/POP';
-    const POP_TO_TOP: 'Navigation/POP_TO_TOP';
-    const PUSH: 'Navigation/PUSH';
-    const RESET: 'Navigation/RESET';
-    const REPLACE: 'Navigation/REPLACE';
-    const COMPLETE_TRANSITION: 'Navigation/COMPLETE_TRANSITION';
+  const POP: 'Navigation/POP';
+  const POP_TO_TOP: 'Navigation/POP_TO_TOP';
+  const PUSH: 'Navigation/PUSH';
+  const RESET: 'Navigation/RESET';
+  const REPLACE: 'Navigation/REPLACE';
+  const COMPLETE_TRANSITION: 'Navigation/COMPLETE_TRANSITION';
 
-    function pop(options: NavigationPopActionPayload): NavigationPopAction;
-    function popToTop(
-        options: NavigationPopToTopActionPayload
-    ): NavigationPopToTopAction;
+  function pop(options: NavigationPopActionPayload): NavigationPopAction;
+  function popToTop(
+    options: NavigationPopToTopActionPayload
+  ): NavigationPopToTopAction;
 
-    function push(options: NavigationPushActionPayload): NavigationPushAction;
-    function reset(options: NavigationResetActionPayload): NavigationResetAction;
+  function push(options: NavigationPushActionPayload): NavigationPushAction;
+  function reset(options: NavigationResetActionPayload): NavigationResetAction;
 
-    function replace(
-        options: NavigationReplaceActionPayload
-    ): NavigationReplaceAction;
+  function replace(
+    options: NavigationReplaceActionPayload
+  ): NavigationReplaceAction;
 
-    function completeTransition(
-        payload: NavigationCompleteTransitionActionPayload
-    ): NavigationCompleteTransitionAction;
+  function completeTransition(
+    payload: NavigationCompleteTransitionActionPayload
+  ): NavigationCompleteTransitionAction;
 }
 
 /**
@@ -1119,6 +1146,7 @@ export interface TransitionerProps {
     transitionProps: NavigationTransitionProps,
     prevTransitionProps?: NavigationTransitionProps
   ) => any;
+  descriptors?: { [key: string]: NavigationDescriptor };
   style?: StyleProp<ViewStyle>;
 }
 
@@ -1169,6 +1197,8 @@ export interface NavigationDescriptor<Params = NavigationParams> {
 
 export type NavigationView<O, S> = React.ComponentType<{
   descriptors: { [key: string]: NavigationDescriptor };
+  navigationConfig: O;
+  screenProps?: { [key: string]: any };
 } & NavigationInjectedProps>;
 
 export function createNavigator<S, Options>(
@@ -1234,20 +1264,45 @@ export class Header extends React.Component<HeaderProps> {
   static HEIGHT: number;
 }
 
+export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
+export type InferProps<T extends React.ComponentType<any>> = T extends React.ComponentType<infer P> ? P : never;
+
 export interface NavigationInjectedProps<P = NavigationParams> {
-  navigation: NavigationScreenProp<NavigationState, P>;
+  navigation: NavigationScreenProp<NavigationRoute<P>, P>;
 }
 
+// If the wrapped component is a class, we can get a ref to it
+export function withNavigation<T extends React.ComponentClass<NavigationInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
+
+export function withNavigation<T extends React.ComponentType<NavigationInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps>>;
+
+// For backwards compatibility
 export function withNavigation<T = {}, P = NavigationParams>(
-  Component: React.ComponentType<T & NavigationInjectedProps<P>>
+  Component: React.ComponentType<T | (T & NavigationInjectedProps<P>)>,
 ): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps<P>>> }>;
 
-export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
+export interface NavigationFocusInjectedProps<P = NavigationParams> extends NavigationInjectedProps<P> {
   isFocused: boolean;
 }
-export function withNavigationFocus<T = {}>(
-  Component: React.ComponentType<T & NavigationFocusInjectedProps>
-): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
+
+// If the wrapped component is a class, we can get a ref to it
+export function withNavigationFocus<T extends React.ComponentClass<NavigationFocusInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
+
+export function withNavigationFocus<T extends React.ComponentType<NavigationFocusInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps>>;
+
+// For backwards compatibility
+export function withNavigationFocus<T = {}, P = NavigationParams>(
+  Component: React.ComponentType<T & NavigationFocusInjectedProps<P>>,
+): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationFocusInjectedProps<P>>> }>;
 
 /**
  * SafeAreaView Component

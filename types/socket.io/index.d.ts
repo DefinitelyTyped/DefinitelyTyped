@@ -1,4 +1,4 @@
-// Type definitions for socket.io 1.4.5
+// Type definitions for socket.io 2.1
 // Project: http://socket.io/
 // Definitions by: PROGRE <https://github.com/progre>
 //                 Damian Connolly <https://github.com/divillysausages>
@@ -188,7 +188,7 @@ declare namespace SocketIO {
 		 * with a '/'
 		 * @return The Namespace
 		 */
-		of( nsp: string ): Namespace;
+		of( nsp: string | RegExp | Function ): Namespace;
 
 		/**
 		 * Closes the server connection

@@ -145,6 +145,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "@babel/parser",
+            "typingsPackageName": "babel__parser",
+            "sourceRepoURL": "https://github.com/babel/babel",
+            "asOfVersion": "7.1.0"
+        },
+        {
             "libraryName": "BabylonJS",
             "typingsPackageName": "babylonjs",
             "sourceRepoURL": "http://www.babylonjs.com/",
@@ -397,6 +403,12 @@
             "asOfVersion": "7.4.0"
         },
         {
+            "libraryName": "deepmerge",
+            "typingsPackageName": "deepmerge",
+            "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "delay",
             "typingsPackageName": "delay",
             "sourceRepoURL": "https://github.com/sindresorhus/delay",
@@ -535,6 +547,12 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "fast-diff",
+            "typingsPackageName": "fast-diff",
+            "sourceRepoURL": "https://github.com/jhchen/fast-diff",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
@@ -617,6 +635,12 @@
             "typingsPackageName": "github",
             "sourceRepoURL": "https://github.com/mikedeboer/node-github",
             "asOfVersion": "7.1.0"
+        },
+        {
+            "libraryName": "gitlab",
+            "typingsPackageName": "gitlab",
+            "sourceRepoURL": "https://github.com/jdalrymple/node-gitlab",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "graphene-pk11",
@@ -925,10 +949,22 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "mali",
+            "typingsPackageName": "mali",
+            "sourceRepoURL": "https://github.com/malijs/mali",
+            "asOfVersion": "0.9.2"
+        },
+        {
             "libraryName": "maquette",
             "typingsPackageName": "maquette",
             "sourceRepoURL": "http://maquettejs.org/",
             "asOfVersion": "2.1.6"
+        },
+        {
+            "libraryName": "maxmind",
+            "typingsPackageName": "maxmind",
+            "sourceRepoURL": "https://github.com/runk/node-maxmind",
+            "asOfVersion": "2.0.5"
         },
         {
             "libraryName": "mendixmodelsdk",
@@ -965,6 +1001,12 @@
             "typingsPackageName": "mobservable-react",
             "sourceRepoURL": "https://github.com/mweststrate/mobservable-react",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Mobx Cookie",
+            "typingsPackageName": "mobx-cookie",
+            "sourceRepoURL": "https://github.com/will-stone/mobx-cookie",
+            "asOfVersion": "1.1.1"
         },
         {
             "libraryName": "Moment",
@@ -1193,6 +1235,12 @@
             "typingsPackageName": "react-ga",
             "sourceRepoURL": "https://github.com/react-ga/react-ga",
             "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "react-i18next",
+            "typingsPackageName": "react-i18next",
+            "sourceRepoURL": "https://github.com/i18next/react-i18next",
+            "asOfVersion": "8.1.0"
         },
         {
             "libraryName": "react-monaco-editor",

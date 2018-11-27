@@ -10,6 +10,10 @@ async function boot() {
                 password: 'test',
                 isSecure: true,
             },
+            cache: {
+                cache: 'test',
+                expiresIn: 123141243,
+            }
         },
     });
 

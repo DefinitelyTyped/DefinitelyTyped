@@ -240,5 +240,5 @@ twilio.webhook("MYAUTHTOKEN", { validate: false });
 
 
 function getMockExpressRequest(): Express.Request {
-    return <Express.Request>JSON.parse("{}");
+    return JSON.parse("{}") as Express.Request;
 }

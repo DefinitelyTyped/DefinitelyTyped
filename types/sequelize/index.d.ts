@@ -14,6 +14,7 @@
 //                 Todd Bealmear <https://github.com/todd>
 //                 Nick Schultz <https://github.com/nrschultz>
 //                 Thomas Breleur <https://github.com/thomas-b>
+//                 Antoine Boisadam <https://github.com/Antoine38660>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -138,7 +139,7 @@ declare namespace sequelize {
      * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
      * @see Instance
      */
-    interface BelongsToCreateAssociationMixin<TAttributes> {
+    interface BelongsToCreateAssociationMixin<TAttributes, TInstance> {
         /**
          * Create a new instance of the associated model and associate it with this.
          * @param values The values used to create the association.
@@ -147,7 +148,7 @@ declare namespace sequelize {
         (
             values?: TAttributes,
             options?: BelongsToCreateAssociationMixinOptions | CreateOptions | BelongsToSetAssociationMixinOptions
-        ): Promise<void>;
+        ): Promise<TInstance>;
     }
 
     /**
@@ -2890,9 +2891,12 @@ declare namespace sequelize {
         changed(): boolean | string[];
 
         /**
-         * Returns the previous value for key from `_previousDataValues`.
+         * If previous is called with a string, it will return the previous value for the key from `_previousDataValues`.
+         *
+         * If previous is called without an argument, it will return an object containing the previous keys and values that have changed.
          */
         previous(key: keyof TAttributes): any;
+        previous(): object;
 
         /**
          * Validate this instance, and if the validation passes, persist it to the database.
@@ -3904,6 +3908,7 @@ declare namespace sequelize {
          */
         findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
         findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPk<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -5695,6 +5700,13 @@ declare namespace sequelize {
          * Pass object to limit set of aliased operators or false to disable completely.
          */
         operatorsAliases?: boolean | OperatorsAliases;
+
+        /**
+         * Set to `true` to enable connecting over SSL.
+         *
+         * Defaults to undefined
+         */
+        ssl?: boolean;
     }
 
     /**
@@ -6204,9 +6216,9 @@ declare namespace sequelize {
          * @param options Transaction Options
          * @param autoCallback Callback for the transaction
          */
-        transaction(options: TransactionOptions,
-            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
-        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction<T>(options: TransactionOptions,
+            autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
+        transaction<T>(autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
         transaction(options?: TransactionOptions): Promise<Transaction>;
 
         /**

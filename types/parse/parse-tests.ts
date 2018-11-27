@@ -1,22 +1,3 @@
-
-
-function test_events() {
-
-    const object = new Parse.Events();
-    object.on("alert", (eventName: string) => alert("Triggered " + eventName));
-
-    object.trigger("alert", "an event");
-
-    const onChange = () => console.log('whatever');
-    let context: any;
-
-    object.off("change", onChange);
-    object.off("change");
-    object.off(null, onChange);
-    object.off(null, null, context);
-    object.off();
-}
-
 class GameScore extends Parse.Object {
 
     constructor(options?: any) {
@@ -83,6 +64,7 @@ function test_query() {
     const query = new Parse.Query(GameScore);
     query.equalTo("playerName", "Dan Stemkoski");
     query.notEqualTo("playerName", "Michael Yabuti");
+    query.fullText("playerName", "dan", { language: 'en', caseSensitive: false, diacriticSensitive: true });
     query.greaterThan("playerAge", 18);
     query.limit(10);
     query.skip(10);
@@ -144,16 +126,29 @@ function test_query() {
     // Find objects with distinct key
     query.distinct('name');
 
-    const testQuery = Parse.Query.or(query, query);
+    const testQuery = Parse.Query.or(query, query);   
 }
 
-class TestCollection extends Parse.Collection<Object> {
+async function test_query_promise() {
+    // Test promise with a query
+    const findQuery = new Parse.Query('Test');
+    findQuery.find()
+    .then(() => {
+        // success
+    }).catch(() => {
+        // error
+    });
 
-    constructor(models?: Parse.Object[]) {
-
-        super(models);
+    const getQuery = new Parse.Query('Test');
+    try {
+        await getQuery.get('objectId');
+    }
+    catch (error) {
+        // noop
     }
 }
+
+
 
 function return_a_generic_query(): Parse.Query<Game> {
     return new Parse.Query(Game);
@@ -161,49 +156,6 @@ function return_a_generic_query(): Parse.Query<Game> {
 
 function return_a_query(): Parse.Query {
     return new Parse.Query(Game);
-}
-
-function test_collections() {
-
-    let collection = new TestCollection();
-
-    const query = new Parse.Query(Game);
-    query.equalTo("temperature", "hot");
-    query.greaterThan("degreesF", 100);
-
-    collection = query.collection();
-
-    collection.comparator = (object) => {
-        return object.get("temperature");
-    };
-
-    collection.add([
-        { "name": "Duke" },
-        { "name": "Scarlett" }
-    ]);
-
-    collection.fetch().then(
-        (data) => {
-
-        },
-        (error) => {
-            console.log("Error: " + error.code + " " + error.message);
-        }
-    );
-
-    const model = collection.at(0);
-
-    // Or you can get it by Parse objectId.
-    const modelAgain = collection.get(model.id);
-
-    // Remove "Duke" from the collection.
-    collection.remove(model);
-
-    // Completely replace all items in the collection.
-    collection.reset([
-        { "name": "Hawk" },
-        { "name": "Jane" }
-    ]);
 }
 
 function test_file() {
@@ -499,34 +451,6 @@ function test_push() {
         });
 }
 
-function test_view() {
-
-    const model = Parse.User.current();
-    const view = new Parse.View<Parse.User>();
-}
-
-function test_promise() {
-    let resolved = Parse.Promise.as(true);
-    let rejected = Parse.Promise.error("an error object");
-    Parse.Promise.when([resolved, rejected]).then(function () {
-        // success
-    }, function () {
-        // failed
-    });
-
-    // Test promise with a query
-    const query = new Parse.Query('Test');
-    query.find()
-    .then(() => {
-        // success
-    }).catch(() => {
-        // error
-    });
-
-    // can check whether an object is a Parse.Promise object or not
-    Parse.Promise.is(resolved);
-}
-
 function test_batch_operations() {
     const game1 = new Game()
     const game2 = new Game()
@@ -556,5 +480,7 @@ function test_query_subscribe() {
     subscription.on('create', (game: any) => {
         console.log(game);
     });
-}
 
+    // unsubscribe
+    subscription.unsubscribe();
+}

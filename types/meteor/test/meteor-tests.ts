@@ -392,7 +392,7 @@ Comments.find({ $and: [
     { $or: [{ tags: "tag-1" }, { tags: "tag-2" }] }
 ]});
 
-Comments.find({ inlineLinks: { $exists: true, $type: "array" } });
+Comments.find({ $query: { inlineLinks: { $exists: true, $type: "array" } } });
 Comments.find({ inlineLinks: { $elemMatch: { 
     objectType: InlineObjectType.Image, 
     objectUrl: { $regex: "https://(www\.?)youtube\.com" } 
@@ -709,7 +709,7 @@ Accounts.onPageLoadLogin(function () {
 });
 
 // Covers this PR:  https://github.com/DefinitelyTyped/DefinitelyTyped/pull/8065
-var loginOpts = <Meteor.LoginWithExternalServiceOptions>{
+var loginOpts = {
     requestPermissions: ["a", "b"],
     requestOfflineToken: true,
     loginUrlParameters: { asdf: 1, qwer: "1234" },
@@ -717,7 +717,7 @@ var loginOpts = <Meteor.LoginWithExternalServiceOptions>{
     loginStyle: "Bold and powerful",
     redirectUrl: "popup",
     profile: "asdfasdf"
-};
+} as Meteor.LoginWithExternalServiceOptions;
 Meteor.loginWithMeteorDeveloperAccount(loginOpts, function (error: Meteor.Error) { });
 
 Accounts.emailTemplates.siteName = "AwesomeSite";
@@ -760,7 +760,7 @@ const deeperPrivateSetting = Meteor.settings['somePrivateSettings']['deeperSetti
 
 
 // Covers https://github.com/meteor-typings/meteor/issues/9
-const username = (<HTMLInputElement>Template.instance().find('#username')).value;
+const username = (Template.instance().find('#username') as HTMLInputElement).value;
 
 
 // Covers https://github.com/meteor-typings/meteor/issues/3

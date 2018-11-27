@@ -2,6 +2,7 @@
 // Project: https://github.com/winstonjs/winston-syslog
 // Definitions by: Chris Barth <https://github.com/cjbarth>, Felix Hochgruber <https://github.com/felix-hoc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as Transport from 'winston-transport';
 import * as dgram from 'dgram';

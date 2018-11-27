@@ -33,11 +33,17 @@ getters.zoneName;
 getters.offset;
 getters.daysInMonth;
 getters.ordinal;
+getters.isInLeapYear;
 
 dt.toLocaleString();
 dt.toLocaleString(DateTime.DATE_MED);
 dt.toISO();
 dt.toISO({includeOffset: true});
+dt.toSQL();
+dt.toSQL({includeOffset: false, includeZone: true});
+dt.toSQLDate();
+dt.toSQLTime();
+dt.toSQLTime({includeOffset: false, includeZone: true});
 
 dt.plus({ hours: 3, minutes: 2 });
 dt.minus({ days: 7 });
@@ -60,6 +66,8 @@ DateTime.local().toUTC();
 DateTime.utc().toLocal();
 
 DateTime.fromMillis(1527780819458).toMillis();
+
+const {input, result, zone} = DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy");
 
 /* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 });

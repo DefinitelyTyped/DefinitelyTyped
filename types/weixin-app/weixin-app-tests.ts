@@ -469,3 +469,10 @@ wx.getSystemInfo({
 		} = res;
 	}
 });
+
+function testAccountInfo(): string {
+	const accountInfo: wx.AccountInfo = wx.getAccountInfoSync();
+	return accountInfo.miniProgram.appId;
+}
+
+wx.reportAnalytics("test-event", { a: 1, b: "2" });

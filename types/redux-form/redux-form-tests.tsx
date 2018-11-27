@@ -231,6 +231,14 @@ const testFormWithInitialValuesAndValidationDecorator = reduxForm<MultivalueForm
     }
 });
 
+const testFormWithChangeFunctionDecorator = reduxForm<TestFormData, TestFormComponentProps>({
+    form: "testWithValidation",
+    onChange: (values: Partial<TestFormData>,
+        dispatch: Dispatch<any>,
+        props: TestFormComponentProps & InjectedFormProps<TestFormData, TestFormComponentProps>,
+        previousValues: Partial<TestFormData>) => {}
+});
+
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm<TestFormData>({
     form : "test"
@@ -308,7 +316,7 @@ const Test = reduxForm<TestFormData>({
                                 foo="bar"
                             />
 
-                            <FieldArray
+                            <FieldArray<{}>
                                 name="field9"
                                 component={ MyArrayField }
                             />
