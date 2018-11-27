@@ -105,7 +105,7 @@ const BindingKindTest: Visitor = {
         kind === 'const';
         kind === 'let';
         kind === 'var';
-        // The following should fail when uncommented
-        // kind === 'anythingElse';
+        // $ExpectError
+        kind === 'anythingElse';
     },
 };
