@@ -36,10 +36,8 @@ let calls: fetchMock.MockCall[] = fetchMock.calls(/https?:\/\/test.com/, {
     method: 'GET',
 });
 calls[0][0].toUpperCase();
-(calls[0][1] as RequestInit).body;
 calls[0].identifier.toUpperCase();
 calls[0].isUnmatched;
-(calls[0].request as Request).body;
 calls = fetchMock.calls();
 calls = fetchMock.calls(true);
 calls = fetchMock.calls("http://test.com", "GET");
