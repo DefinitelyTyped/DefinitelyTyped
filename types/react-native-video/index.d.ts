@@ -1,4 +1,4 @@
-// Type definitions for react-native-video 2.0 and 3.1
+// Type definitions for react-native-video 3.1
 // Project: https://github.com/react-native-community/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -95,8 +95,6 @@ export interface VideoProperties extends ViewProps {
   onPlaybackRateChange?(): void;
   onAudioFocusChanged?(): void;
   onAudioBecomingNoisy?(): void;
-
-  /* 3.0 onwards */
   selectedTextTrack?: {
     type: 'system' | 'disabled' | 'title' | 'language' | 'index';
     value?: string | number;
