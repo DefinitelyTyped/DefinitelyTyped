@@ -91,11 +91,10 @@ export class Scope {
     removeData(key: string): void;
 
     push(opts: {
-        id: object,
-        init?: object,
+        id: t.LVal,
+        init?: t.Expression,
         unique?: boolean,
-        _blockHoist?: number,
-        kind?: "var" | "let",
+        kind?: "var" | "let" | "const",
     }): void;
 
     getProgramParent(): Scope;
