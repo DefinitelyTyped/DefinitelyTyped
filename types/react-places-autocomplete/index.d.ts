@@ -19,7 +19,6 @@ export interface PropTypes {
         type?: string;
         name?: string;
         placeholder?: string;
-        onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
         disabled?: boolean;
     };
     onError?: (status: string, clearSuggestion: () => void) => void;
@@ -47,7 +46,7 @@ export interface PropTypes {
         radius?: number | string;
         types?: string[];
     };
-    value: string;
+    value?: string;
     onChange?: (value: string) => void;
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 
