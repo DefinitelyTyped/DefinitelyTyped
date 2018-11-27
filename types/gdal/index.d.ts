@@ -21,15 +21,15 @@ export interface XYZ extends XY {
 }
 
 export interface EnvelopeBounds {
-    minX: number,
-    maxX: number,
-    minY: number,
-    maxY: number
+    minX: number;
+    maxX: number;
+    minY: number;
+    maxY: number;
 }
 
 export interface Envelope3DBounds extends EnvelopeBounds {
-    minZ: number,
-    maxZ: number
+    minZ: number;
+    maxZ: number;
 }
 
 export interface RasterBandStatistics {
@@ -309,7 +309,7 @@ export interface DatasetBands {
 export interface DatasetLayers {
     copy(src_lyr_name: string, dst_lyr_name: string, options?: object | string[]): Layer;
     count(): number;
-    create(name: string, srs: SpatialReference, geomType: number | Function, creation_options: string[] | object): Layer;
+    create(name: string, srs: SpatialReference, geomType: number | Geometry, creation_options: string[] | object): Layer;
     forEach(callback: (layer: Layer, i: number) => void): void;
     get(key: string | number): Layer;
     map<T>(callback: (layer: Layer, i: number) => T): T[];
@@ -423,7 +423,7 @@ export abstract class Geometry {
 	static create(type: number): Geometry;
 	static fromWKB(wkb: number, srs?: SpatialReference): Geometry;
 	static fromWKT(wkt: string, srs?: SpatialReference): Geometry;
-	static getConstructor(type: number): Function;
+	static getConstructor(type: number): Geometry;
 	static getName(type: number): string;
 
 	boundary(): Geometry;
@@ -488,7 +488,6 @@ export interface GeometryCollectionChildren {
     map<T>(callback: (geometry: Geometry, i: number) => T): T[];
     remove(index: number): void;
 	toArray(): Geometry[];
-	
 	readonly layer: Layer;
 }
 
@@ -500,7 +499,6 @@ export interface Layer {
 	setSpatialFilter(filter: Geometry): void;
 	setSpatialFilter(minX: number, maxX: number, minY: number, maxY: number): void;
 	testCapability(capability: string): boolean;
-
 	readonly ds: Dataset;
 	readonly features: LayerFeatures;
 	readonly fidColumn: string;
@@ -521,7 +519,6 @@ export interface LayerFeatures {
 	next(): Feature;
     remove(id: number): void;
 	set(id: number, feature: Feature): void;
-	
 	readonly layer: Layer;
 }
 
@@ -536,7 +533,6 @@ export interface LayerFields {
     map<T>(callback: (field: FieldDefn, i: number) => T): T[];
     remove(field: string | number): void;
 	reorder(map: number[]): void;
-	
 	readonly layer: Layer;
 }
 
@@ -548,7 +544,6 @@ export class LineString extends Geometry {
 	addSubLineString(line: LineString, start?: number, end?: number): void;
 	getLength(): number;
 	value(distance: number): Point;
-
 	readonly points: LineStringPoints;
 }
 
@@ -580,7 +575,6 @@ export class MultiPolygon extends GeometryCollection {
 
 export class Point extends Geometry {
 	constructor(x: number, y: number, z?: number);
-
 	x: number;
 	y: number;
 	z: number;
@@ -588,7 +582,6 @@ export class Point extends Geometry {
 
 export class Polygon extends Geometry {
 	getArea(): number;
-
 	rings: PolygonRings;
 }
 
@@ -600,7 +593,6 @@ export interface PolygonRings {
     map<T>(callback: (ring: LinearRing, i: number) => T): T[];
     remove(index: number): void;
 	toArray(): LinearRing[];
-	
 	readonly layer: Layer;
 }
 
@@ -614,7 +606,6 @@ export interface RasterBand {
 	getMetadata(domain?: string): object;
 	getStatistics(allow_approximation: boolean, force: boolean): RasterBandStatistics;
 	setStatistics(min: number, max: number, mean: number, std_dev: number): void;
-
 	readonly blockSize: XY;
 	categoryNames: string[];
 	colorInterpretation: string;
@@ -681,7 +672,6 @@ export class SpatialReference {
 	toWKT(): string;
 	toXML(): string;
 	validate(): string;
-
 	static fromCRSURL(input: string): SpatialReference;
 	static fromEPSG(input: string): SpatialReference;
 	static fromEPSGA(input: number): SpatialReference;
@@ -709,7 +699,8 @@ export function checksumImage(src: RasterBand, x?: number, y?: number, w?: numbe
 export function contourGenerate(options: ContourGenerateOptions): void;
 export function decToDMS(angle: number, axis: 'lat' | 'long', precision?: number): string;
 export function fillNodata(options: FillNoDataOptions): void;
-export function open(path: string, mode?: 'r' | 'r+' | 'w', drivers?: string | string[], x_size?: number, y_size?: number, band_count?: number, data_type?: number, creation_options?: string[] | object): Dataset;
+export function open(path: string, mode?: 'r' | 'r+' | 'w', drivers?: string | string[]): Dataset;
+export function open(path: string, mode?: 'w', drivers?: string | string[], x_size?: number, y_size?: number, band_count?: number, data_type?: number, creation_options?: string[] | object): Dataset;
 export function polygonize(options: PolygonizeOptions): void;
 export function quiet(): void;
 export function reprojectImage(options: ReprojectImageOptions): void;
