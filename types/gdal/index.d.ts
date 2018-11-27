@@ -564,9 +564,7 @@ export class MultiLineString extends GeometryCollection {
 	polygonize(): Polygon;
 }
 
-export class MultiPoint extends GeometryCollection {
-	
-}
+export class MultiPoint extends GeometryCollection {}
 
 export class MultiPolygon extends GeometryCollection {
 	getArea(): number;
