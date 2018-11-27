@@ -1,3 +1,9 @@
+// Type definitions for babel-minify-webpack-plugin 0.3.1
+// Project: https://github.com/webpack-contrib/babel-minify-webpack-plugin
+// Definitions by: Jip Sterk <https://github.com/JipSterk>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
+
 import { Plugin, Options } from 'webpack';
 import { TransformOptions, BabylonOptions } from 'babel-core';
 
