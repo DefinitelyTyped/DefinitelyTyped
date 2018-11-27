@@ -112,19 +112,19 @@ export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
 export type InferableComponentEnhancer<TInjectedProps> =
     InferableComponentEnhancerWithProps<TInjectedProps, {}>;
 
-export type WrappedThunkActionCreator<TActionCreator extends (...args: any[]) => any> =
+export type InferThunkActionCreatorType<TActionCreator extends (...args: any[]) => any> =
     TActionCreator extends (...args: infer TParams) => (...args: any[]) => infer TReturn
         ? (...args: TParams) => TReturn
         : TActionCreator;
 
 export type HandleThunkActionCreator<TActionCreator> =
     TActionCreator extends (...args: any[]) => any
-        ? WrappedThunkActionCreator<TActionCreator>
+        ? InferThunkActionCreatorType<TActionCreator>
         : TActionCreator;
 
 // redux-thunk middleware returns thunk's return value from dispatch call
 // https://github.com/reduxjs/redux-thunk#composition
-export type WithThunkActionCreators<TDispatchProps> =
+export type ResolveThunks<TDispatchProps> =
     TDispatchProps extends { [key: string]: any }
         ? {
             [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
@@ -167,7 +167,7 @@ export interface Connect {
         mapStateToProps: null | undefined,
         mapDispatchToProps: TDispatchProps,
     ): InferableComponentEnhancerWithProps<
-        WithThunkActionCreators<TDispatchProps>,
+        ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
 
@@ -180,7 +180,7 @@ export interface Connect {
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: TDispatchProps,
     ): InferableComponentEnhancerWithProps<
-        TStateProps & WithThunkActionCreators<TDispatchProps>,
+        TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
 
@@ -229,7 +229,7 @@ export interface Connect {
         mergeProps: null | undefined,
         options: Options<{}, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
-        WithThunkActionCreators<TDispatchProps>,
+        ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
 
@@ -246,7 +246,7 @@ export interface Connect {
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
-        TStateProps & WithThunkActionCreators<TDispatchProps>,
+        TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
     // tslint:enable:no-unnecessary-generics
