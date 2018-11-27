@@ -1,6 +1,8 @@
 {
     "files": [
         "index.d.ts",
+        "common.d.ts",
+        "lib.d.ts",
         "inspector.d.ts",
         "node-tests.ts"
     ],
