@@ -1,4 +1,4 @@
-import * as BabelMinifyWebpackPlugin from 'babel-minify-webpack-plugin';
+import * as BabelMinifyWebpackPlugin from "babel-minify-webpack-plugin";
 
 const babelMinifyWebpackPlugin: BabelMinifyWebpackPlugin = new BabelMinifyWebpackPlugin({
     test: /\.js$/,
@@ -7,12 +7,9 @@ const babelMinifyWebpackPlugin: BabelMinifyWebpackPlugin = new BabelMinifyWebpac
     comments: false,
     sourceMaps: 'both',
     parserOpts: {
-
     },
     babel: {
-
     },
     minifyPreset: {
-
     }
 });
