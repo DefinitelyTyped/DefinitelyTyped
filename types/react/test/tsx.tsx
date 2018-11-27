@@ -1,25 +1,26 @@
-import * as React from "react";
+import PropTypes = require("prop-types");
+import React = require("react");
 
 interface SCProps {
     foo?: number;
 }
-const StatelessComponent: React.SFC<SCProps> = ({ foo }: SCProps) => {
+const FunctionComponent: React.FunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
 };
-StatelessComponent.displayName = "StatelessComponent3";
-StatelessComponent.defaultProps = {
+FunctionComponent.displayName = "FunctionComponent3";
+FunctionComponent.defaultProps = {
     foo: 42
 };
-<StatelessComponent />;
+<FunctionComponent />;
 
-const StatelessComponent2: React.SFC<SCProps> = ({ foo, children }) => {
+const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
 };
-StatelessComponent2.displayName = "StatelessComponent4";
-StatelessComponent2.defaultProps = {
+FunctionComponent2.displayName = "FunctionComponent4";
+FunctionComponent2.defaultProps = {
     foo: 42
 };
-<StatelessComponent2>24</StatelessComponent2>;
+<FunctionComponent2>24</FunctionComponent2>;
 
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
@@ -70,10 +71,10 @@ class ComponentWithoutPropsAndState extends React.Component {
 }
 <ComponentWithoutPropsAndState />;
 
-const StatelessComponentWithoutProps: React.SFC = (props) => {
+const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
     return <div />;
 };
-<StatelessComponentWithoutProps />;
+<FunctionComponentWithoutProps />;
 
 // React.createContext
 const ContextWithRenderProps = React.createContext('defaultValue');
@@ -254,3 +255,73 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 <React.Suspense fallback={null}/>;
 // $ExpectError
 <React.Suspense/>;
+
+class LegacyContext extends React.Component {
+    static contextTypes = { foo: PropTypes.node.isRequired };
+
+    render() {
+        // $ExpectType any
+        this.context.foo;
+        return this.context.foo;
+    }
+}
+
+class LegacyContextAnnotated extends React.Component {
+    static contextTypes = { foo: PropTypes.node.isRequired };
+    context!: { foo: React.ReactNode };
+
+    render() {
+        // $ExpectType ReactNode
+        this.context.foo;
+        return this.context.foo;
+    }
+}
+
+class NewContext extends React.Component {
+    static contextType = ContextWithRenderProps;
+    context!: React.ContextType<typeof ContextWithRenderProps>;
+
+    render() {
+        // $ExpectType string
+        this.context;
+        return this.context;
+    }
+}
+
+const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}/>);
+const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
+const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
+const divRef = React.createRef<HTMLDivElement>();
+
+<ForwardRef ref={divFnRef}/>;
+<ForwardRef ref={divRef}/>;
+<ForwardRef ref='string'/>; // $ExpectError
+<ForwardRef2 ref={divFnRef}/>;
+<ForwardRef2 ref={divRef}/>;
+<ForwardRef2 ref='string'/>; // $ExpectError
+
+const newContextRef = React.createRef<NewContext>();
+<NewContext ref={newContextRef}/>;
+<NewContext ref='string'/>;
+
+const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref}/>);
+<ForwardNewContext ref={newContextRef}/>;
+<ForwardNewContext ref='string'/>; // $ExpectError
+
+const ForwardRef3 = React.forwardRef(
+    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
+        <div {...props} ref={ref}/>
+);
+
+<ForwardRef3 ref={divFnRef}/>;
+<ForwardRef3 ref={divRef}/>;
+
+type ImgProps = React.ComponentProps<'img'>;
+// $ExpectType "async" | "auto" | "sync" | undefined
+type ImgPropsDecoding = ImgProps['decoding'];
+type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
+// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
+type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
+type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
+// $ExpectType false
+type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;

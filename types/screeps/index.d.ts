@@ -1744,6 +1744,11 @@ type STRUCTURE_CONTAINER = "container";
 type STRUCTURE_NUKER = "nuker";
 type STRUCTURE_PORTAL = "portal";
 
+// Terrain mask constants
+type TERRAIN_MASK_WALL = 1;
+type TERRAIN_MASK_SWAMP = 2;
+type TERRAIN_MASK_LAVA = 4;
+
 // Resource Constants
 
 type ResourceConstant =
@@ -2809,7 +2814,15 @@ interface RoomTerrain {
      * @param y Y position in the room.
      * @return number Number of terrain mask like: TERRAIN_MASK_SWAMP | TERRAIN_MASK_WALL
      */
-    get(x: number, y: number): number;
+    get(x: number, y: number): 0 | TERRAIN_MASK_WALL | TERRAIN_MASK_SWAMP;
+}
+
+interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
+    /**
+     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * @param roomName String name of the room.
+     */
+    new (roomName: string): RoomTerrain;
 }
 declare class RoomVisual {
     /**
@@ -3183,6 +3196,11 @@ interface Room {
      */
     getPositionAt(x: number, y: number): RoomPosition | null;
     /**
+     * Get a Room.Terrain object which provides fast access to static terrain data.
+     * This method works for any room in the world even if you have no access to it.
+     */
+    getTerrain(): RoomTerrain;
+    /**
      * Get the list of objects at the specified room position.
      * @param x The X position.
      * @param y The Y position.
@@ -3282,6 +3300,9 @@ interface Room {
 
 interface RoomConstructor extends _Constructor<Room> {
     new (id: string): Room;
+
+    Terrain: RoomTerrainConstructor;
+
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
      * @param path A path array retrieved from `Room.findPath`.

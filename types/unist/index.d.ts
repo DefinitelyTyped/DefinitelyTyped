@@ -1,6 +1,7 @@
-// Type definitions for Unist 1.0
+// Type definitions for Unist 2.0
 // Project: https://github.com/syntax-tree/unist
 // Definitions by: bizen241 <https://github.com/bizen241>
+//                 Jun Lu <https://github.com/lujun2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -11,7 +12,7 @@ export interface Node {
 }
 
 export interface Data {
-    [key: string]: string | number | object | any[] | boolean | null;
+    [key: string]: any;
 }
 
 export interface Position {
@@ -34,6 +35,6 @@ export interface Parent extends Node {
     children: Node[];
 }
 
-export interface Text extends Node {
-    value: string;
+export interface Literal extends Node {
+    value: any;
 }

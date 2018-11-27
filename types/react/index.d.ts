@@ -19,6 +19,7 @@
 //                 Olivier Pascal <https://github.com/pascaloliv>
 //                 Martin Hochel <https://github.com/hotell>
 //                 Frank Li <https://github.com/franklixuefei>
+//                 Jessica Franco <https://github.com/Kovensky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -50,7 +51,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ReactType<P = any> = string | ComponentType<P>;
-    type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
+    type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type Key = string | number;
 
@@ -58,31 +59,41 @@ declare namespace React {
         readonly current: T | null;
     }
 
-    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
+    type Ref<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"] | RefObject<T> | null;
+    type LegacyRef<T> = string | Ref<T>;
 
     type ComponentState = any;
 
     interface Attributes {
         key?: Key;
     }
-    interface ClassAttributes<T> extends Attributes {
+    interface RefAttributes<T> extends Attributes {
         ref?: Ref<T>;
+    }
+    interface ClassAttributes<T> extends Attributes {
+        ref?: LegacyRef<T>;
     }
 
     interface ReactElement<P> {
-        type: string | ComponentClass<P> | SFC<P>;
+        type: string | ComponentClass<P> | FunctionComponent<P>;
         props: P;
         key: Key | null;
     }
 
-    interface SFCElement<P> extends ReactElement<P> {
-        type: SFC<P>;
+    /**
+     * @deprecated Please use `FunctionComponentElement`
+     */
+    type SFCElement<P> = FunctionComponentElement<P>;
+
+    interface FunctionComponentElement<P> extends ReactElement<P> {
+        type: FunctionComponent<P>;
+        ref?: 'ref' extends keyof P ? P extends { ref?: infer R } ? R : never : never;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
     interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
         type: ComponentClass<P>;
-        ref?: Ref<T>;
+        ref?: LegacyRef<T>;
     }
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
@@ -90,7 +101,7 @@ declare namespace React {
     // string fallback for custom web-components
     interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P> {
         type: string;
-        ref: Ref<T>;
+        ref: LegacyRef<T>;
     }
 
     // ReactHTML for ReactHTMLElement
@@ -117,7 +128,12 @@ declare namespace React {
 
     type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
 
-    type SFCFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => SFCElement<P>;
+    /**
+     * @deprecated Please use `FunctionComponentFactory`
+     */
+    type SFCFactory<P> = FunctionComponentFactory<P>;
+
+    type FunctionComponentFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => FunctionComponentElement<P>;
 
     type ComponentFactory<P, T extends Component<P, ComponentState>> =
         (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<P, T>;
@@ -164,7 +180,7 @@ declare namespace React {
         type: string): DOMFactory<P, T>;
 
     // Custom components
-    function createFactory<P>(type: SFC<P>): SFCFactory<P>;
+    function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
     function createFactory<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
@@ -191,10 +207,11 @@ declare namespace React {
         ...children: ReactNode[]): DOMElement<P, T>;
 
     // Custom components
+
     function createElement<P extends {}>(
-        type: SFC<P>,
+        type: FunctionComponent<P>,
         props?: Attributes & P | null,
-        ...children: ReactNode[]): SFCElement<P>;
+        ...children: ReactNode[]): FunctionComponentElement<P>;
     function createElement<P extends {}>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
         props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
@@ -204,7 +221,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P extends {}>(
-        type: SFC<P> | ComponentClass<P> | string,
+        type: FunctionComponent<P> | ComponentClass<P> | string,
         props?: Attributes & P | null,
         ...children: ReactNode[]): ReactElement<P>;
 
@@ -232,9 +249,9 @@ declare namespace React {
 
     // Custom components
     function cloneElement<P>(
-        element: SFCElement<P>,
+        element: FunctionComponentElement<P>,
         props?: Partial<P> & Attributes,
-        ...children: ReactNode[]): SFCElement<P>;
+        ...children: ReactNode[]): FunctionComponentElement<P>;
     function cloneElement<P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         props?: Partial<P> & ClassAttributes<T>,
@@ -280,6 +297,8 @@ declare namespace React {
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
         propTypes?: ValidationMap<P>;
     }
+
+    type ContextType<C extends Context<any>> = C extends Context<infer T> ? T : never;
 
     // NOTE: only the Context object itself can get a displayName
     // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
@@ -341,7 +360,7 @@ declare namespace React {
          *
          * class Foo extends React.Component {
          *   static contextType = Ctx
-         *   context!: MyContext
+         *   context!: React.ContextType<typeof Ctx>
          *   render () {
          *     return <>My context's value: {this.context}</>;
          *   }
@@ -352,10 +371,25 @@ declare namespace React {
          */
         static contextType?: Context<any>;
 
+        /**
+         * If using the new style context, re-declare this in your class to be the
+         * `React.ContextType` of your `static contextType`.
+         *
+         * ```ts
+         * static contextType = MyContext
+         * context!: React.ContextType<typeof MyContext>
+         * ```
+         *
+         * @deprecated if used without a type annotation, or without static contextType
+         * @see https://reactjs.org/docs/legacy-context.html
+         */
+        // TODO (TypeScript 3.0): unknown
+        context: any;
+
         constructor(props: Readonly<P>);
         /**
          * @deprecated
-         * https://reactjs.org/docs/legacy-context.html
+         * @see https://reactjs.org/docs/legacy-context.html
          */
         constructor(props: P, context?: any);
 
@@ -402,8 +436,25 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    type SFC<P = {}> = StatelessComponent<P>;
-    interface StatelessComponent<P = {}> {
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type SFC<P = {}> = FunctionComponent<P>;
+
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type StatelessComponent<P = {}> = FunctionComponent<P>;
+
+    type FC<P = {}> = FunctionComponent<P>;
+
+    interface FunctionComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
@@ -412,7 +463,7 @@ declare namespace React {
     }
 
     interface RefForwardingComponent<T, P = {}> {
-        (props: P & { children?: ReactNode }, ref?: Ref<T>): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, ref: Ref<T> | null): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -422,6 +473,7 @@ declare namespace React {
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
         propTypes?: ValidationMap<P>;
+        contextType?: Context<any>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -440,8 +492,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new (props: P, context?: any) => T) &
-        (new (props: P, context?: any) => { props: P });
+        (new (props: P, context?: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -638,16 +689,42 @@ declare namespace React {
         defaultProps?: Partial<P>;
     }
 
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<P & ClassAttributes<T>>;
+    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
-    type ComponentProps<T extends ComponentType<any>> =
-        T extends ComponentType<infer P> ? P : {};
-    type ComponentPropsWithRef<T extends ComponentType<any>> =
-        T extends ComponentClass<infer P>
-            ? P & ClassAttributes<InstanceType<T>>
-            : T extends SFC<infer P>
-                ? P
+    /** Ensures that the props do not include ref at all */
+    type PropsWithoutRef<P> =
+        // Just Pick would be sufficient for this, but I'm trying to avoid unnecessary mapping over union types
+        // https://github.com/Microsoft/TypeScript/issues/28339
+        'ref' extends keyof P
+            ? Pick<P, Exclude<keyof P, 'ref'>>
+            : P;
+    /** Ensures that the props do not include string ref, which cannot be forwarded */
+    type PropsWithRef<P> =
+        // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
+        'ref' extends keyof P
+            ? P extends { ref?: infer R }
+                ? string extends R
+                    ? PropsWithoutRef<P> & { ref?: Exclude<R, string> }
+                    : P
+                : P
+            : P;
+
+    /**
+     * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
+     * or ComponentPropsWithoutRef when refs are not supported.
+     */
+    type ComponentProps<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+        T extends ComponentType<infer P>
+            ? P
+            : T extends keyof JSX.IntrinsicElements
+                ? JSX.IntrinsicElements[T]
                 : {};
+    type ComponentPropsWithRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+        T extends ComponentClass<infer P>
+            ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
+            : PropsWithRef<ComponentProps<T>>;
+    type ComponentPropsWithoutRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+        PropsWithoutRef<ComponentProps<T>>;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
@@ -1038,7 +1115,7 @@ declare namespace React {
     interface Props<T> {
         children?: ReactNode;
         key?: Key;
-        ref?: Ref<T>;
+        ref?: LegacyRef<T>;
     }
 
     interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {
@@ -2511,6 +2588,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
+        map<T, C extends ReactElement<any>>(children: C[], fn: (child: C, index: number) => T): T[];
         map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
         forEach(children: ReactNode, fn: (child: ReactChild, index: number) => void): void;
         count(children: ReactNode): number;

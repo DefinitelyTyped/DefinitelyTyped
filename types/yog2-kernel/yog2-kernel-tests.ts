@@ -17,8 +17,8 @@ const handler = async function(req: yog2Kernel.Request, resp: yog2Kernel.Respons
     resp.render("test", {});
 };
 
-const router = <yog2Kernel.Router> {};
-(<yog2Kernel.ActionObject> router.action("test")).get;
+const router = {} as yog2Kernel.Router;
+(router.action("test") as yog2Kernel.ActionObject).get;
 
 const handler1 = router.wrapAsync(function() { });
 const handler21 = router.wrapAsync(function(req: yog2Kernel.Request) { });

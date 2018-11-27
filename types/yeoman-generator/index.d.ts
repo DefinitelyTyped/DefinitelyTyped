@@ -3,6 +3,7 @@
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
 //                 Ika <https://github.com/ikatyang>
+//                 Joshua Cherry <https://github.com/tasadar2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -91,7 +92,7 @@ declare class Generator extends EventEmitter {
     appname: string;
     config: Generator.Storage;
     fs: Generator.MemFsEditor;
-    options: {};
+    options: { [name: string]: any };
     log(message?: string, context?: any): void;
 
     argument(name: string, config: Generator.ArgumentConfig): this;
