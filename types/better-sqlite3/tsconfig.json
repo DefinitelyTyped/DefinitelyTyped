@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "types.d.ts",
         "better-sqlite3-tests.ts"
     ]
 }
