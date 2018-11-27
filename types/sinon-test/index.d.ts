@@ -2,7 +2,7 @@
 // Project: https://github.com/sinonjs/sinon-test
 // Definitions by: Francis Saul <https://github.com/mummybot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 import * as Sinon from 'sinon';
 
