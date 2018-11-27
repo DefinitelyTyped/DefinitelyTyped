@@ -142,7 +142,7 @@ export type Visitor<S = Node> = VisitNodeObject<Node> & {
     [P in Node["type"]]?: VisitNode<S, Extract<Node, { type: P; }>>;
 };
 
-export type VisitNode<T, P> = VisitNodeFunction<T, P> | VisitNodeObject<T>;
+export type VisitNode<T, P> = VisitNodeFunction<T, P> | VisitNodeObject<P>;
 
 export type VisitNodeFunction<T, P> = (this: T, path: NodePath<P>, state: any) => void;
 

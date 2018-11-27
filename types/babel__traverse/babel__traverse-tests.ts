@@ -4,10 +4,14 @@ import * as t from "@babel/types";
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
 const MyVisitor: Visitor = {
     Identifier: {
-        enter() {
+        enter(path) {
+            // $ExpectType NodePath<Identifier>
+            path;
             console.log("Entered!");
         },
-        exit() {
+        exit(path) {
+            // $ExpectType NodePath<Identifier>
+            path;
             console.log("Exited!");
         }
     }
