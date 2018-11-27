@@ -112,3 +112,40 @@ const BindingKindTest: Visitor = {
         // kind === 'anythingElse';
     },
 };
+
+interface SomeVisitorState { someState: string; }
+
+const VisitorStateTest: Visitor<SomeVisitorState> = {
+    enter(path, state) {
+        // $ExpectType SomeVisitorState
+        state;
+        // $ExpectType SomeVisitorState
+        this;
+    },
+    exit(path, state) {
+        // $ExpectType SomeVisitorState
+        state;
+        // $ExpectType SomeVisitorState
+        this;
+    },
+    Identifier(path, state) {
+        // $ExpectType SomeVisitorState
+        state;
+        // $ExpectType SomeVisitorState
+        this;
+    },
+    FunctionDeclaration: {
+        enter(path, state) {
+            // $ExpectType SomeVisitorState
+            state;
+            // $ExpectType SomeVisitorState
+            this;
+        },
+        exit(path, state) {
+            // $ExpectType SomeVisitorState
+            state;
+            // $ExpectType SomeVisitorState
+            this;
+        }
+    }
+};
