@@ -15,9 +15,7 @@ export interface formattedSuggestionType {
 }
 
 export interface PropTypes {
-    inputProps: {
-        value: string;
-        onChange: (value: string) => void;
+    inputProps?: {
         type?: string;
         name?: string;
         placeholder?: string;
@@ -49,6 +47,9 @@ export interface PropTypes {
         radius?: number | string;
         types?: string[];
     };
+    value: string;
+    onChange?: (value: string) => void;
+    onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 
     debounce?: number;
     highlightFirstSuggestion?: boolean;
