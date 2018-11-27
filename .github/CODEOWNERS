@@ -3250,6 +3250,7 @@
 /types/odata/                                       @janhommes @jcchalte
 /types/ofe/                                         @Morfent
 /types/office-js/                                   @OfficeDev @LanceEA @Zlatkovsky @kbrandl @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT
+/types/office-js-preview                            @OfficeDev @Zlatkovsky @kbrandl @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT
 /types/office-runtime/                              @Zlatkovsky @mscharlock
 /types/offline-js/                                  @cgwrench
 /types/oibackoff/                                   @geoffreak
