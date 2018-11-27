@@ -407,7 +407,7 @@ export namespace Audio {
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
 
-        /** Boolean selecting if audio should go to earpiece (only on Android).*/
+        /** Boolean selecting if audio should go to earpiece (only on Android). */
         playThroughEarpieceAndroid: boolean;
     }
 
@@ -570,7 +570,7 @@ export interface PlaybackStatusToSet {
     volume?: number;
 }
 
-export type PlaybackSource = RequireSource | { uri: string, headers?: { [string]: string }, overrideFileExtensionAndroid?: string } | Asset;
+export type PlaybackSource = RequireSource | { uri: string, headers?: { [header: string]: string }, overrideFileExtensionAndroid?: string } | Asset;
 
 export class PlaybackObject {
     /**
