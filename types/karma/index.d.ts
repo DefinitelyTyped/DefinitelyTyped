@@ -14,24 +14,24 @@ import https = require('https');
 import { Appender } from 'log4js';
 
 declare namespace karma {
-    interface Karma {
-        /**
-         * `start` method is deprecated since 0.13. It will be removed in 0.14.
-         * Please use
-         * <code>
-         *     server = new Server(config, [done])
-         *     server.start()
-         * </code>
-         * instead.
-         */
-        server: DeprecatedServer;
-        Server: Server;
-        runner: Runner;
-        stopper: Stopper;
-        launcher: Launcher;
-        VERSION: string;
-        constants: Constants;
-    }
+    /**
+     * `start` method is deprecated since 0.13. It will be removed in 0.14.
+     * Please use
+     * <code>
+     *     server = new Server(config, [done])
+     *     server.start()
+     * </code>
+     * instead.
+     *
+     * @deprecated
+     */
+    const server: DeprecatedServer;
+
+    const runner: Runner;
+    const stopper: Stopper;
+
+    const VERSION: string;
+    const constants: Constants;
 
     interface Constants {
         VERSION: string;
@@ -57,24 +57,25 @@ declare namespace karma {
         EXIT_CODE: string;
     }
 
-    interface LauncherStatic {
-        generateId(): string;
-        // TODO: injector should be of type `di.Injector`
-        new (emitter: NodeJS.EventEmitter, injector: any): Launcher;
+    namespace launcher {
+        class Launcher {
+            static generateId(): string;
+
+            constructor(emitter: NodeJS.EventEmitter, injector: any);
+
+            // TODO: Can this return value ever be typified?
+            launch(names: string[], protocol: string, hostname: string, port: number, urlRoot: string): any[];
+            kill(id: string, callback: () => void): boolean;
+            restart(id: string): boolean;
+            killAll(callback: () => void): void;
+            areAllCaptured(): boolean;
+            markCaptured(id: string): void;
+        }
     }
 
-    interface Launcher {
-        Launcher: LauncherStatic;
-        // TODO: Can this return value ever be typified?
-        launch(names: string[], protocol: string, hostname: string, port: number, urlRoot: string): any[];
-        kill(id: string, callback: () => void): boolean;
-        restart(id: string): boolean;
-        killAll(callback: () => void): void;
-        areAllCaptured(): boolean;
-        markCaptured(id: string): void;
-    }
-
+    /** @deprecated */
     interface DeprecatedServer {
+        /** @deprecated */
         start(options?: any, callback?: ServerCallback): void;
     }
 
@@ -97,10 +98,8 @@ declare namespace karma {
         success: number;
     }
 
-    interface Server extends NodeJS.EventEmitter {
-        // TODO: Figure out how to convert Server to class and remove suppression
-        // tslint:disable-next-line:no-misused-new
-        new (options?: ConfigOptions | ConfigFile, callback?: ServerCallback): Server;
+    class Server extends NodeJS.EventEmitter {
+        constructor(options?: ConfigOptions | ConfigFile, callback?: ServerCallback);
         /**
          * Start the server
          */
@@ -468,8 +467,10 @@ declare namespace karma {
         flags?: string[];
         platform?: string;
     }
-}
 
-declare var karma: karma.Karma;
+    namespace config {
+        function parseConfig(configFilePath: string, cliOptions: ConfigOptions): Config;
+    }
+}
 
 export = karma;
