@@ -1,4 +1,4 @@
-// Type definitions for Sinon 5.0
+// Type definitions for Sinon 7.0
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
@@ -18,12 +18,12 @@ interface Event {} // tslint:disable-line no-empty-interface
 interface Document {} // tslint:disable-line no-empty-interface
 
 declare namespace Sinon {
-    interface SinonSpyCallApi<TArgs extends any[] = any[], TReturnValue = any> {
+    interface SinonSpyCallApi<TArgs extends any = any, TReturnValue = any> {
         // Properties
         /**
          * Array of received arguments.
          */
-        args: TArgs;
+        args: TArgs[];
 
         // Methods
         /**
@@ -38,11 +38,11 @@ declare namespace Sinon {
          * so a call that received the provided arguments (in the same spots) and possibly others as well will return true.
          * @param args
          */
-        calledWith(...args: TArgs): boolean;
+        calledWith(...args: Array<TArgs|SinonMatcher>): boolean;
         /**
          * Returns true if spy was called at least once with the provided arguments and no others.
          */
-        calledWithExactly(...args: TArgs): boolean;
+        calledWithExactly(...args: Array<TArgs|SinonMatcher>): boolean;
         /**
          * Returns true if spy/stub was called the new operator.
          * Beware that this is inferred based on the value of the this object and the spy function’s prototype,
@@ -53,31 +53,31 @@ declare namespace Sinon {
          * Returns true if spy was called at exactly once with the provided arguments.
          * @param args
          */
-        calledOnceWith(...args: TArgs): boolean;
-        calledOnceWithExactly(...args: TArgs): boolean;
+        calledOnceWith(...args: Array<TArgs|SinonMatcher>): boolean;
+        calledOnceWithExactly(...args: Array<TArgs|SinonMatcher>): boolean;
         /**
          * Returns true if spy was called with matching arguments (and possibly others).
          * This behaves the same as spy.calledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        calledWithMatch(...args: TArgs): boolean;
+        calledWithMatch(...args: TArgs[]): boolean;
         /**
          * Returns true if call did not receive provided arguments.
          * @param args
          */
-        notCalledWith(...args: TArgs): boolean;
+        notCalledWith(...args: Array<TArgs|SinonMatcher>): boolean;
         /**
          * Returns true if call did not receive matching arguments.
          * This behaves the same as spyCall.notCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        notCalledWithMatch(...args: TArgs): boolean;
+        notCalledWithMatch(...args: TArgs[]): boolean;
         /**
          * Returns true if spy returned the provided value at least once.
          * Uses deep comparison for objects and arrays. Use spy.returned(sinon.match.same(obj)) for strict comparison (see matchers).
          * @param value
          */
-        returned(value: TReturnValue): boolean;
+        returned(value: TReturnValue|SinonMatcher): boolean;
         /**
          * Returns true if spy threw an exception at least once.
          */
@@ -118,7 +118,7 @@ declare namespace Sinon {
         yieldToOn(property: string, obj: any, ...args: any[]): void;
     }
 
-    interface SinonSpyCall<TArgs extends any[] = any[], TReturnValue = any>
+    interface SinonSpyCall<TArgs extends any = any, TReturnValue = any>
         extends SinonSpyCallApi<TArgs, TReturnValue> {
         /**
          * The call’s this value.
@@ -154,7 +154,7 @@ declare namespace Sinon {
         calledAfter(call: SinonSpyCall): boolean;
     }
 
-    interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
+    interface SinonSpy<TArgs extends any = any, TReturnValue = any>
         extends Pick<
                 SinonSpyCallApi<TArgs, TReturnValue>,
                 Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, 'args'>
@@ -207,7 +207,7 @@ declare namespace Sinon {
         /**
          * Array of arguments received, spy.args[0] is an array of arguments received in the first call.
          */
-        args: TArgs[];
+        args: TArgs[][];
         /**
          * Array of exception objects thrown, spy.exceptions[0] is the exception thrown by the first call.
          * If the call did not throw an error, the value at the call’s location in .exceptions will be undefined.
@@ -246,7 +246,7 @@ declare namespace Sinon {
          * This is useful to be more expressive in your assertions, where you can access the spy with the same call.
          * @param args Expected args
          */
-        withArgs(...args: TArgs): SinonSpy<TArgs, TReturnValue>;
+        withArgs(...args: Array<TArgs|SinonMatcher>): SinonSpy<TArgs, TReturnValue>;
         /**
          * Returns true if the spy was always called with @param obj as this.
          * @param obj
@@ -255,29 +255,29 @@ declare namespace Sinon {
         /**
          * Returns true if spy was always called with the provided arguments (and possibly others).
          */
-        alwaysCalledWith(...args: TArgs): boolean;
+        alwaysCalledWith(...args: Array<TArgs|SinonMatcher>): boolean;
         /**
          * Returns true if spy was always called with the exact provided arguments.
          * @param args
          */
-        alwaysCalledWithExactly(...args: TArgs): boolean;
+        alwaysCalledWithExactly(...args: Array<TArgs|SinonMatcher>): boolean;
         /**
          * Returns true if spy was always called with matching arguments (and possibly others).
          * This behaves the same as spy.alwaysCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        alwaysCalledWithMatch(...args: TArgs): boolean;
+        alwaysCalledWithMatch(...args: TArgs[]): boolean;
         /**
          * Returns true if the spy/stub was never called with the provided arguments.
          * @param args
          */
-        neverCalledWith(...args: TArgs): boolean;
+        neverCalledWith(...args: Array<TArgs|SinonMatcher>): boolean;
         /**
          * Returns true if the spy/stub was never called with matching arguments.
          * This behaves the same as spy.neverCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        neverCalledWithMatch(...args: TArgs): boolean;
+        neverCalledWithMatch(...args: TArgs[]): boolean;
         /**
          * Returns true if spy always threw an exception.
          */
@@ -300,7 +300,7 @@ declare namespace Sinon {
          * If the stub was never called with a function argument, yield throws an error.
          * Returns an Array with all callbacks return values in the order they were called, if no error is thrown.
          */
-        invokeCallback(...args: TArgs): void;
+        invokeCallback(...args: TArgs[]): void;
         /**
          * Set the displayName of the spy or stub.
          * @param name
@@ -356,13 +356,13 @@ declare namespace Sinon {
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
         <T, K extends keyof T>(obj: T, method: K): T[K] extends (
-            ...args: infer TArgs
+            ...args: Array<infer TArgs>
         ) => infer TReturnValue
             ? SinonSpy<TArgs, TReturnValue>
             : SinonSpy;
     }
 
-    interface SinonStub<TArgs extends any[] = any[], TReturnValue = any>
+    interface SinonStub<TArgs extends any = any, TReturnValue = any>
         extends SinonSpy<TArgs, TReturnValue> {
         /**
          * Resets the stub’s behaviour to the default behaviour
@@ -524,7 +524,7 @@ declare namespace Sinon {
          * Makes the stub call the provided @param func when invoked.
          * @param func
          */
-        callsFake(func: (...args: TArgs) => TReturnValue): SinonStub<TArgs, TReturnValue>;
+        callsFake(func: (...args: TArgs[]) => TReturnValue): SinonStub<TArgs, TReturnValue>;
         /**
          * Replaces a new getter for this stub.
          */
@@ -631,7 +631,7 @@ declare namespace Sinon {
          * It is also useful to create a stub that can act differently in response to different arguments.
          * @param args
          */
-        withArgs(...args: TArgs): SinonStub<TArgs, TReturnValue>;
+        withArgs(...args: Array<TArgs|SinonMatcher>): SinonStub<TArgs, TReturnValue>;
     }
 
     interface SinonStubStatic {
@@ -652,7 +652,7 @@ declare namespace Sinon {
          * The original function can be restored by calling object.method.restore(); (or stub.restore();).
          */
         <T, K extends keyof T>(obj: T, method: K): T[K] extends (
-            ...args: infer TArgs
+            ...args: Array<infer TArgs>
         ) => infer TReturnValue
             ? SinonStub<TArgs, TReturnValue>
             : SinonStub;
