@@ -27,7 +27,7 @@ io.on('connection', authorize({
 
 io.on('authenticated', (socket: SocketIo.Socket) => {
 	console.log('authenticated!!');
-	console.log(JSON.stringify((<any> socket).anyNameYouWant));
+	console.log(JSON.stringify((socket as any).anyNameYouWant));
 });
 
 const secrets: any = {

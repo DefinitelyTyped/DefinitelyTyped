@@ -4,6 +4,7 @@
 //                 nrbernard <https://github.com/nrbernard>
 //                 Pr1st0n <https://github.com/Pr1st0n>
 //                 rileymiller <https://github.com/rileymiller>
+//                 toddself <https://github.com/toddself>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CodeMirror;
@@ -669,6 +670,11 @@ declare namespace CodeMirror {
         /** Returns an array containing all marked ranges in the document. */
         getAllMarks(): CodeMirror.TextMarker[];
 
+        /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
+        line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
+        options, when given, should be an object that configures the behavior of the widget.
+        Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
+        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
         /** Gets the mode object for the editor. Note that this is distinct from getOption("mode"), which gives you the mode specification,
         rather than the resolved, instantiated mode object. */
@@ -706,8 +712,27 @@ declare namespace CodeMirror {
         or undefined if the marker is no longer in the document. */
         find(): {from: CodeMirror.Position, to: CodeMirror.Position};
 
+        /**  Called when you've done something that might change the size of the marker and want to cheaply update the display*/
+        changed(): void;
+
         /**  Returns an object representing the options for the marker. If copyWidget is given true, it will clone the value of the replacedWith option, if any. */
         getOptions(copyWidget: boolean): CodeMirror.TextMarkerOptions;
+
+        /** Fired when the cursor enters the marked range */
+        on(eventName: 'beforeCursorEnter', handler: () =>  void) : void;
+        off(eventName: 'beforeCursorEnter', handler: () => void) : void;
+
+        /** Fired when the range is cleared, either through cursor movement in combination with clearOnEnter or through a call to its clear() method */
+        on(eventName: 'clear', handler: (from: Position, to: Position) => void) : void;
+        off(eventName: 'clear', handler: () => void) : void;
+
+        /** Fired when the last part of the marker is removed from the document by editing operations */
+        on(eventName: 'hide', handler: () => void) : void;
+        off(eventname: 'hide', handler: () => void) : void;
+
+        /** Fired when, after the marker was removed by editing, a undo operation brough the marker back */
+        on(eventName: 'unhide', handler: () => void) : void;
+        off(eventname: 'unhide', handler: () => void) : void;
     }
 
     interface LineWidget {

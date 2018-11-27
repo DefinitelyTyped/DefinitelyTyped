@@ -2104,6 +2104,9 @@ export interface ServerAuth {
 }
 
 export type CachePolicyOptions<T> = PolicyOptionVariants<T> & {
+    /**
+     * @default '_default'
+     */
     cache?: string;
     segment?: string;
 };
@@ -3280,7 +3283,7 @@ export type DecorateName = string | symbol;
  * the facilities provided by the framework. Each server supports a single connection (e.g. listen to port 80).
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#server)
  */
-export class Server extends Podium {
+export class Server {
     /**
      * Creates a new server object
      * @param options server configuration object.

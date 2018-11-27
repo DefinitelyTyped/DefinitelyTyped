@@ -145,6 +145,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "@babel/parser",
+            "typingsPackageName": "babel__parser",
+            "sourceRepoURL": "https://github.com/babel/babel",
+            "asOfVersion": "7.1.0"
+        },
+        {
             "libraryName": "BabylonJS",
             "typingsPackageName": "babylonjs",
             "sourceRepoURL": "http://www.babylonjs.com/",
@@ -541,6 +547,12 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "fast-diff",
+            "typingsPackageName": "fast-diff",
+            "sourceRepoURL": "https://github.com/jhchen/fast-diff",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
@@ -623,6 +635,12 @@
             "typingsPackageName": "github",
             "sourceRepoURL": "https://github.com/mikedeboer/node-github",
             "asOfVersion": "7.1.0"
+        },
+        {
+            "libraryName": "gitlab",
+            "typingsPackageName": "gitlab",
+            "sourceRepoURL": "https://github.com/jdalrymple/node-gitlab",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "graphene-pk11",
@@ -943,6 +961,12 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "maxmind",
+            "typingsPackageName": "maxmind",
+            "sourceRepoURL": "https://github.com/runk/node-maxmind",
+            "asOfVersion": "2.0.5"
+        },
+        {
             "libraryName": "mendixmodelsdk",
             "typingsPackageName": "mendixmodelsdk",
             "sourceRepoURL": "http://www.mendix.com",
@@ -977,6 +1001,12 @@
             "typingsPackageName": "mobservable-react",
             "sourceRepoURL": "https://github.com/mweststrate/mobservable-react",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Mobx Cookie",
+            "typingsPackageName": "mobx-cookie",
+            "sourceRepoURL": "https://github.com/will-stone/mobx-cookie",
+            "asOfVersion": "1.1.1"
         },
         {
             "libraryName": "Moment",

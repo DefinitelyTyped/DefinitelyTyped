@@ -1,4 +1,4 @@
-// Type definitions for Paper.js v0.11.5
+// Type definitions for Paper.js v0.11.8
 // Project: http://paperjs.org/
 // Definitions by:  Clark Stevenson <https://github.com/clark-stevenson>,
 //                  Jon Lucas <https://github.com/Xakaloz>,
@@ -1332,7 +1332,12 @@ declare module paper {
          * The path style of the item.
          */
         style: Style;
-
+        
+        /**
+         * Specifies whether the item is locked. When set to true, item interactions with the mouse are disabled.
+         */
+        locked: boolean;
+        
         /**
          * Specifies whether the item is visible. When set to false, the item won't be drawn.
          */

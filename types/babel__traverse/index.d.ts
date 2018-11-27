@@ -5,7 +5,7 @@
 //                 Ryan Petrich <https://github.com/rpetrich>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as t from "@babel/types";
 

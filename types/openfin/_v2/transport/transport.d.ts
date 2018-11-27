@@ -3,6 +3,8 @@ import { Wire, WireConstructor, READY_STATE, ExistingConnectConfig, ConnectConfi
 import { Identity } from '../identity';
 import { EventEmitter } from 'events';
 import { Environment } from '../environment/environment';
+import { RuntimeEvent } from '../api/events/base';
+import { EventAggregator } from '../api/events/eventAggregator';
 export declare type MessageHandler = (data: any) => boolean;
 declare class Transport extends EventEmitter {
     protected wireListeners: Map<number, {
@@ -10,12 +12,13 @@ declare class Transport extends EventEmitter {
         reject: Function;
     }>;
     protected uncorrelatedListener: Function;
-    protected messageHandlers: MessageHandler[];
     me: Identity;
     protected wire: Wire;
     environment: Environment;
     topicRefMap: Map<string, number>;
     sendRaw: Wire['send'];
+    eventAggregator: EventAggregator;
+    protected messageHandlers: MessageHandler[];
     constructor(wireType: WireConstructor, environment: Environment);
     connectSync: (config: ConnectConfig) => any;
     connect(config: InternalConnectConfig): Promise<string>;
@@ -37,6 +40,20 @@ export declare class Message<T> {
     action: string;
     payload: T;
     correlationId?: number;
+}
+export declare class EventMessage implements Message<RuntimeEvent> {
+    action: 'process-desktop-event';
+    payload: RuntimeEvent;
+}
+export declare class NotificationEventMessage implements Message<NotificationEvent> {
+    action: 'process-notification-event';
+    payload: NotificationEvent;
+}
+export interface NotificationEvent {
+    payload: {
+        notificationId: string;
+    };
+    type: string | symbol;
 }
 export declare class Payload {
     success: boolean;
