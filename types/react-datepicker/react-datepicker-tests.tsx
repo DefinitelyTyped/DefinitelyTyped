@@ -1,17 +1,16 @@
 import * as React from 'react';
-import * as moment from 'moment';
 import DatePicker from 'react-datepicker';
 
 <DatePicker
-	selected={moment()}
-	onChange={(date: moment.Moment | null) => {}}
-	onYearChange={(date: moment.Moment) => {}}
+	selected={new Date()}
+	onChange={(date: Date | null) => {}}
+	onYearChange={(date: Date) => {}}
 	popperModifiers={{
 		flip: {
 			enabled: false
 		}
 	}}
-	includeTimes={[moment()]}
+	includeTimes={[new Date()]}
 >
 	<div/>
 	<span/>
