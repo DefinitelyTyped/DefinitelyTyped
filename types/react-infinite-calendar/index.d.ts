@@ -21,7 +21,7 @@ export interface RangedSelection {
 }
 
 export type RangedSelectFunction = (rangedDate: RangedSelection) => void;
-export type DateSelectFunction = (date: string) => void;
+export type DateSelectFunction = (date: Date) => void;
 
 export interface ReactInfiniteCalendarProps {
     selected?: DateType | false | { start: DateType; end: DateType };
