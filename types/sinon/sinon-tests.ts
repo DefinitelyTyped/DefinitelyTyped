@@ -288,6 +288,41 @@ function testAssert() {
     sinon.assert.expose(obj, { includeFail: true });
 }
 
+function testTypedSpy() {
+    const cls = class {
+        foo(a: number, b: string): number {
+            return 3;
+        }
+    }
+
+    const instance = new cls();
+    const spy = sinon.spy(instance, 'foo');
+
+    spy.calledWith(5, 'x');
+    spy.calledWith(sinon.match(5), 'x');
+    spy.calledWithExactly(5, 'x');
+    spy.calledWithExactly(5, sinon.match('x'));
+    spy.calledOnceWith(5, 'x');
+    spy.calledOnceWith(sinon.match(5), 'x');
+    spy.notCalledWith(5, 'x');
+    spy.notCalledWith(sinon.match(5), 'x');
+    spy.returned(5);
+    spy.returned(sinon.match(5));
+
+    spy.withArgs(sinon.match(5), 'x').calledWith(5, 'x');
+    spy.alwaysCalledWith(sinon.match(5), 'x');
+    spy.alwaysCalledWith(5, 'x');
+    spy.alwaysCalledWithExactly(sinon.match(5), 'x');
+    spy.alwaysCalledWithExactly(5, 'x');
+    spy.neverCalledWith(sinon.match(5), 'x');
+    spy.neverCalledWith(5, 'x');
+
+    const stub = sinon.stub(instance, 'foo');
+
+    stub.withArgs(5, 'x').returns(3);
+    stub.withArgs(sinon.match(5), 'x').returns(5);
+}
+
 function testSpy() {
     const fn = () => { };
     const obj = class {
