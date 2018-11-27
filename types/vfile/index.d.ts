@@ -117,7 +117,7 @@ declare namespace vfile {
          * Place to store custom information.
          * It's OK to store custom data directly on the `vfile`, moving it to `data` gives a little more privacy.
          */
-        data: any;
+        data: unknown;
         /**
          * List of messages associated with the file.
          */
