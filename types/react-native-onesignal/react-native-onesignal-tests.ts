@@ -1,13 +1,13 @@
-import OneSignal from 'react-native-onesignal';
+import OneSignal, { Permissions } from 'react-native-onesignal';
 
 OneSignal.init('123');
 OneSignal.sendTag('key1', 'value1');
 OneSignal.sendTags({ key1: 'value1', key2: 'value2' });
-OneSignal.getTags((receivedTags) => { return {}});
-OneSignal.getPermissionSubscriptionState((status) => {return {}});
+OneSignal.getTags((receivedTags) => ({}));
+OneSignal.getPermissionSubscriptionState((status) => ({}));
 OneSignal.deleteTag('key1');
-OneSignal.setEmail('user@email.com', 'emailAuthCode', (err) => {return {}});
-OneSignal.setEmail('user@email.com', (err) => {return {}});
+OneSignal.setEmail('user@email.com', 'emailAuthCode', (err) => ({}));
+OneSignal.setEmail('user@email.com', (err) => ({}));
 OneSignal.enableVibrate(true);
 OneSignal.enableSound(true);
 OneSignal.setSubscription(true);
@@ -21,7 +21,7 @@ OneSignal.postNotification(
     'playerId'
 );
 OneSignal.cancelNotification('notificationId');
-OneSignal.checkPermissions((permissions) => { return {}})
+OneSignal.checkPermissions((permissions: Permissions) => ({}));
 OneSignal.requestPermissions({ alert: true, badge: true, sound: false });
 OneSignal.registerForPushNotifications();
 OneSignal.setRequiresUserPrivacyConsent(true);
