@@ -14,6 +14,14 @@ import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
 
+// NOTE: forward declarations for tests
+declare function setInterval(...args: any[]): any;
+declare function clearInterval(...args: any[]): any;
+declare var console: Console;
+interface Console {
+    log(...args: any[]): void;
+}
+
 interface Props extends React.Attributes {
     hello: string;
     world?: string | null;
@@ -86,7 +94,7 @@ declare const container: Element;
         render() { return null; }
         componentDidMount() {
             // $ExpectError -> this will be true in next BC release where state is gonna be `null | Readonly<S>`
-            this.state.inputValue;
+            console.log(this.state.inputValue);
         }
         mutateState() {
             // $ExpectError
@@ -167,7 +175,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
                 value: this.state.inputValue ? this.state.inputValue : undefined
             }),
             DOM.input({
-                onChange: event => event.target
+                onChange: event => console.log(event.target)
             }));
     }
 
@@ -501,20 +509,17 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
-    // private _interval: NodeJS.Timer;
+    private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1
         }));
     }
     componentDidMount() {
-        // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
-        // this._interval = setInterval(() => this.tick(), 1000);
+        this._interval = setInterval(() => this.tick(), 1000);
     }
     componentWillUnmount() {
-        // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
-        // clearInterval(this._interval);
+        clearInterval(this._interval);
     }
     render() {
         return DOM.div(
@@ -601,14 +606,14 @@ Perf.printExclusive();
 Perf.printWasted();
 Perf.printOperations();
 
-Perf.getExclusive();
-Perf.getInclusive();
-Perf.getWasted();
-Perf.getOperations();
-Perf.getExclusive(measurements);
-Perf.getInclusive(measurements);
-Perf.getWasted(measurements);
-Perf.getOperations(measurements);
+console.log(Perf.getExclusive());
+console.log(Perf.getInclusive());
+console.log(Perf.getWasted());
+console.log(Perf.getOperations());
+console.log(Perf.getExclusive(measurements));
+console.log(Perf.getInclusive(measurements));
+console.log(Perf.getWasted(measurements));
+console.log(Perf.getOperations(measurements));
 
 // Renamed to printOperations().  Please use it instead.
 Perf.printDOM(measurements);

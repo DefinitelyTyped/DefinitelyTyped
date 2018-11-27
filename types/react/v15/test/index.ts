@@ -11,6 +11,14 @@ import * as TestUtils from "react-addons-test-utils";
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 
+// NOTE: forward declarations for tests
+declare function setInterval(...args: any[]): any;
+declare function clearInterval(...args: any[]): any;
+declare var console: Console;
+interface Console {
+    log(...args: any[]): void;
+}
+
 interface Props extends React.Attributes {
     hello: string;
     world?: string;
@@ -120,7 +128,7 @@ class ModernComponent extends React.Component<Props, State>
                 value: this.state.inputValue
             }),
             React.DOM.input({
-                onChange: event => event.target
+                onChange: event => console.log(event.target)
             }));
     }
 
@@ -342,7 +350,7 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
         event.stopPropagation();
     },
     onAnimationStart: event => {
-        event.currentTarget.className;
+        console.log(event.currentTarget.className);
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
@@ -505,20 +513,17 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
-    // private _interval: NodeJS.Timer;
+    private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1
         }));
     }
     componentDidMount() {
-        // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
-        // this._interval = setInterval(() => this.tick(), 1000);
+        this._interval = setInterval(() => this.tick(), 1000);
     }
     componentWillUnmount() {
-        // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
-        // clearInterval(this._interval);
+        clearInterval(this._interval);
     }
     render() {
         return React.DOM.div(
@@ -605,14 +610,14 @@ Perf.printExclusive();
 Perf.printWasted();
 Perf.printOperations();
 
-Perf.getExclusive();
-Perf.getInclusive();
-Perf.getWasted();
-Perf.getOperations();
-Perf.getExclusive(measurements);
-Perf.getInclusive(measurements);
-Perf.getWasted(measurements);
-Perf.getOperations(measurements);
+console.log(Perf.getExclusive());
+console.log(Perf.getInclusive());
+console.log(Perf.getWasted());
+console.log(Perf.getOperations());
+console.log(Perf.getExclusive(measurements));
+console.log(Perf.getInclusive(measurements));
+console.log(Perf.getWasted(measurements));
+console.log(Perf.getOperations(measurements));
 
 // Renamed to printOperations().  Please use it instead.
 Perf.printDOM(measurements);
