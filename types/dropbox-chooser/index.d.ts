@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Dropbox {
-
     interface Chooser {
       choose(options: ChooserOptions): void;
     }
