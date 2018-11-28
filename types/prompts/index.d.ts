@@ -52,12 +52,12 @@ declare namespace prompts {
     }
 
     interface Options {
-        onSubmit: (prompt: PromptObject, answer: any, answers: any[]) => void;
-        onCancel: (prompt: PromptObject, answers: any) => void;
+        onSubmit?: (prompt: PromptObject, answer: any, answers: any[]) => void;
+        onCancel?: (prompt: PromptObject, answers: any) => void;
     }
 
     interface PromptObject<T extends string = string> {
-        type: ValueOrFunc<string> | Falsy;
+        type: ValueOrFunc<PromptType> | Falsy;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
         initial?: string | number | boolean;
@@ -88,6 +88,8 @@ declare namespace prompts {
     ) => R;
 
     type Falsy = false | null | undefined;
+
+    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | Falsy
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }
