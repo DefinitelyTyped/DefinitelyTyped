@@ -25,6 +25,8 @@ export type StateGetter<TState = any> = () => TState;
 
 export type RouteString = string;
 
+export type ConfirmLeave = (state: object, action: object) => Nullable<string>;
+
 export type RouteThunk<TState = any> = (
     dispatch: Dispatch<any>,
     getState: StateGetter<TState>,
@@ -37,6 +39,9 @@ export type RouteObject<TKeys = {}, TState = any> = TKeys & {
     thunk?: RouteThunk<TState>;
     fromPath?(path: string, key?: string): string;
     toPath?(param: string, key?: string): string;
+    coerceNumbers?: boolean;
+    confirmLeave?: ConfirmLeave;
+    meta?: Meta;
 };
 
 export type Route<TKeys = {}, TState = any> = RouteString | RouteObject<TKeys, TState>;
