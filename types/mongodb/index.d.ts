@@ -1786,7 +1786,7 @@ export interface CollationDocument {
     locale: string;
     strength?: number;
     caseLevel?: boolean;
-    caseFirst?: boolean;
+    caseFirst?: string;
     numericOrdering?: boolean;
     alternate?: string;
     maxVariable?: string;
