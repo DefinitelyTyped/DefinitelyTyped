@@ -256,7 +256,7 @@ export function clearConfigCache(): void;
 export interface SupportLanguage {
     name: string;
     since?: string;
-    parsers: string[];
+    parsers: BuiltInParserName[] | string[];
     group?: string;
     tmScope: string;
     aceMode: string;
