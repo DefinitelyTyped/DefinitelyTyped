@@ -1,7 +1,7 @@
 // Type definitions for ssh2-streams v0.1.9
 // Project: https://github.com/mscdex/ssh2-streams
 // Definitions by: Ron Buckton <https://github.com/rbuckton>
-// Definitions by: Ron Buckton <https://github.com/lucasmotta>
+// Definitions by: Lucas Motta <https://github.com/lucasmotta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
