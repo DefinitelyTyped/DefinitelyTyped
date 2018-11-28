@@ -526,7 +526,7 @@ export interface CollectionCreateOptions extends CommonOptions {
     indexOptionDefaults?: object;
     viewOn?: string;
     pipeline?: any[];
-    collation?: object;
+    collation?: CollationDocument;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collection */
@@ -563,7 +563,7 @@ export interface IndexOptions extends CommonOptions {
     name?: string;
     // Creates a partial index based on the given filter object (MongoDB 3.2 or higher)
     partialFilterExpression?: any;
-    collation?: Object;
+    collation?: CollationDocument;
     default_language?: string
 }
 
