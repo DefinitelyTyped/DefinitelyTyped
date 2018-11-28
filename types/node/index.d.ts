@@ -34,16 +34,41 @@
 //                 Samuel Ainsworth <https://github.com/samuela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Forward definitions for required types from the default lib:
+// NOTE: These definitions support NodeJS and TypeScript 2.1.
 
-/// <reference path="./lib.d.ts" />
+// NOTE: TypeScript version-specific augmentations can be found in the following paths:
+//          - ~/common.d.ts       - Shared definitions common to all TypeScript versions
+//          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
+//          - ~/ts3.1/index.d.ts  - Definitions specific to TypeScript 3.1
 
-// Type information for all node modules shared between definitions for TypeScript 2.0 (defined
-// here) and TypeScript 3.1 and later (defined in ts3.1/index.d.ts):
-
+// Shared definitions common to all TypeScript versions:
 /// <reference path="./common.d.ts" />
 
-// TypeScript 2.0-specific module augmentations:
+// TypeScript 2.1-specific augmentations:
+
+// Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
+interface MapConstructor { }
+interface WeakMapConstructor { }
+interface SetConstructor { }
+interface WeakSetConstructor { }
+interface Set<T> { }
+interface ReadonlySet<T> { }
+interface Iterable<T> { }
+interface Iterator<T> {
+    next(value?: any): IteratorResult<T>;
+}
+interface IterableIterator<T> { }
+interface IteratorResult<T> { }
+interface AsyncIterableIterator<T> { }
+interface SymbolConstructor {
+    readonly iterator: symbol;
+    readonly asyncIterator: symbol;
+}
+declare var Symbol: SymbolConstructor;
+interface SharedArrayBuffer {
+    readonly byteLength: number;
+    slice(begin?: number, end?: number): SharedArrayBuffer;
+}
 
 // tslint:disable-next-line:no-single-declare-module
 declare module "util" {

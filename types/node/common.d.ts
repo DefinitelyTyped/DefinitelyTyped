@@ -1,8 +1,11 @@
-// NOTE: These definitions support NodeJS 10 and all TypeScript versions.
-//       TypeScript version-specific definitions can be found in index.d.ts
-//       and ts3.1/index.d.ts.
+// NOTE: These definitions support NodeJS and all TypeScript versions.
 
-/** inspector module types */
+// NOTE: TypeScript version-specific augmentations can be found in the following paths:
+//          - ~/common.d.ts       - Shared definitions common to all TypeScript versions
+//          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
+//          - ~/ts3.1/index.d.ts  - Definitions specific to TypeScript 3.1
+
+// Inspector module types
 /// <reference path="./inspector.d.ts" />
 
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build

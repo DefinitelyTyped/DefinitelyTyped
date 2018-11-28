@@ -1,18 +1,21 @@
-// NOTE: These definitions support NodeJS 10 and TypeScript 3.1 and later.
+// NOTE: These definitions support NodeJS and TypeScript 3.1.
 
-// Forward definitions for required types from the default lib:
+// NOTE: TypeScript version-specific augmentations can be found in the following paths:
+//          - ~/common.d.ts       - Shared definitions common to all TypeScript versions
+//          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
+//          - ~/ts3.1/index.d.ts  - Definitions specific to TypeScript 3.1
+
+// Reference required types from the default lib:
 
 /// <reference lib="es2018" />
 /// <reference lib="esnext.asyncIterable" />
 /// <reference lib="esnext.intl" />
 
-// Type information for all node modules shared between definitions for TypeScript 2.0 (defined
-// here) and TypeScript 3.1 and later (defined in ts3.1/index.d.ts):
-
+// Shared definitions common to all TypeScript versions:
 // tslint:disable-next-line:no-bad-reference
 /// <reference path="../common.d.ts" />
 
-// TypeScript 3.1-specific module augmentations:
+// TypeScript 3.1-specific augmentations:
 
 // tslint:disable-next-line:no-single-declare-module
 declare module "util" {
