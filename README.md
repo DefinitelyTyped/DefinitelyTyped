@@ -2,9 +2,6 @@
 
 [![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14) Are packages being published to npm in less than 10,000 seconds on average?
-[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13) Has typescript-bot been active on DefinitelyTyped in the last two hours?
-
 > The repository for *high quality* TypeScript type definitions.
 
 Also see the [definitelytyped.org](http://definitelytyped.org) website, although information in this README is more up-to-date.
@@ -339,3 +336,6 @@ This project is licensed under the MIT license.
 Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
 
 [![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)
+
+[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14) Are packages being published to npm in less than 10,000 seconds on average?
+[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13) Has typescript-bot been active on DefinitelyTyped in the last two hours?
