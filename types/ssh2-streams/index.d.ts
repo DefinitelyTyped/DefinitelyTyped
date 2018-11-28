@@ -1,6 +1,7 @@
 // Type definitions for ssh2-streams v0.1.9
 // Project: https://github.com/mscdex/ssh2-streams
 // Definitions by: Ron Buckton <https://github.com/rbuckton>
+// Definitions by: Ron Buckton <https://github.com/lucasmotta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -1046,6 +1047,24 @@ export class SFTPStream extends stream.Transform {
 
     /**
      * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, options: ReadFileOptions, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, encoding: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
      * Returns a new readable stream for `path`.
      */
     createReadStream(path: string, options?: ReadStreamOptions): stream.Readable;
@@ -1610,6 +1629,11 @@ export interface TransferOptions {
      * Called every time a part of a file was transferred
      */
     step?: (total_transferred: number, chunk: number, total: number) => void;
+}
+
+export interface ReadFileOptions {
+    encoding?: string
+    flag?: string
 }
 
 export interface ReadStreamOptions {
