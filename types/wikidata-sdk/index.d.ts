@@ -1,8 +1,8 @@
-// Type definitions for wikidata-sdk 5.15.9
+// Type definitions for wikidata-sdk 5.15
 // Project: https://github.com/maxlath/wikidata-sdk
 // Definitions by: Kamontat Chantrachirathumrong <https://github.com/kamontat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.1
 
 import { WikidataLanguage } from "./def/type/language";
 import { WikidataProperty } from "./def/type/property";
@@ -10,10 +10,10 @@ import { WikidataSite } from "./def/type/site";
 import { WikidataSiteLink, WikidataSiteLinkSimplify, WikidataSiteLinkWithUrlSimplify } from "./def/object/sitelink";
 import { UrlResultFormat } from "./def/type/format";
 import {
-  WikidataLanguageBaseString,
-  WikidataLanguageBaseStringSimplify,
-  WikidataLanguageBaseArrayString,
-  WikidataLanguageBaseArrayStringSimplify
+    WikidataLanguageBaseString,
+    WikidataLanguageBaseStringSimplify,
+    WikidataLanguageBaseArrayString,
+    WikidataLanguageBaseArrayStringSimplify
 } from "./def/object/language-base-string";
 
 import { WikidataClaim, WikidataMainSnak, WikidataTimeDataValue, WikidataEntityDataValue } from "./def/object/claim";
@@ -25,18 +25,22 @@ import { WikidataClaim, WikidataMainSnak, WikidataTimeDataValue, WikidataEntityD
 export { WikidataLanguage, WikidataProperty, WikidataSite };
 
 export {
-  WikidataLanguageBaseString,
-  WikidataLanguageBaseStringSimplify,
-  WikidataLanguageBaseArrayString,
-  WikidataLanguageBaseArrayStringSimplify,
-  WikidataSiteLink,
-  WikidataSiteLinkSimplify,
-  WikidataSiteLinkWithUrlSimplify
+    WikidataLanguageBaseString,
+    WikidataLanguageBaseStringSimplify,
+    WikidataLanguageBaseArrayString,
+    WikidataLanguageBaseArrayStringSimplify,
+    WikidataSiteLink,
+    WikidataSiteLinkSimplify,
+    WikidataSiteLinkWithUrlSimplify
 };
 
 export { UrlResultFormat };
 
 export { WikidataClaim, WikidataMainSnak, WikidataTimeDataValue, WikidataEntityDataValue };
+
+export interface Json {
+    [key: string]: any;
+}
 
 export as namespace sdk;
 
@@ -58,22 +62,22 @@ export as namespace sdk;
  * @see {@link https://www.wikidata.org/w/api.php?action=help&modules=wbsearchentities | Wikidata[wbsearchentities] }
  */
 export function searchEntities(
-  search: string,
-  language?: WikidataLanguage,
-  limit?: string | number,
-  format?: UrlResultFormat,
-  uselang?: WikidataLanguage
+    search: string,
+    language?: WikidataLanguage,
+    limit?: string | number,
+    format?: UrlResultFormat,
+    uselang?: WikidataLanguage
 ): string;
 
 /**
  * @alias searchEntities
  */
 export function searchEntities(opt: {
-  search: string;
-  language?: WikidataLanguage;
-  limit?: string | number;
-  format?: UrlResultFormat;
-  uselang?: WikidataLanguage;
+    search: string;
+    language?: WikidataLanguage;
+    limit?: string | number;
+    format?: UrlResultFormat;
+    uselang?: WikidataLanguage;
 }): string;
 
 /* **********
@@ -95,20 +99,20 @@ export function searchEntities(opt: {
  * @see {@link https://www.wikidata.org/w/api.php?action=help&modules=wbgetentities | Wikidata[wbgetentities] }
  */
 export function getEntities(
-  ids: string | string[],
-  languages?: WikidataLanguage | WikidataLanguage[],
-  props?: WikidataProperty | WikidataProperty[],
-  format?: UrlResultFormat
+    ids: string | string[],
+    languages?: WikidataLanguage | WikidataLanguage[],
+    props?: WikidataProperty | WikidataProperty[],
+    format?: UrlResultFormat
 ): string;
 
 /**
  * @alias getEntities
  */
 export function getEntities(a: {
-  ids: string | string[];
-  languages?: WikidataLanguage | WikidataLanguage[];
-  props?: WikidataProperty | WikidataProperty[];
-  format?: UrlResultFormat;
+    ids: string | string[];
+    languages?: WikidataLanguage | WikidataLanguage[];
+    props?: WikidataProperty | WikidataProperty[];
+    format?: UrlResultFormat;
 }): string;
 
 /**
@@ -117,20 +121,20 @@ export function getEntities(a: {
  * Without id limitation and return the array of url instead.
  */
 export function getManyEntities(
-  ids: string | string[],
-  languages?: WikidataLanguage | WikidataLanguage[],
-  props?: WikidataProperty | WikidataProperty[],
-  format?: UrlResultFormat
+    ids: string | string[],
+    languages?: WikidataLanguage | WikidataLanguage[],
+    props?: WikidataProperty | WikidataProperty[],
+    format?: UrlResultFormat
 ): string[];
 
 /**
  * @alias getManyEntities
  */
 export function getManyEntities(a: {
-  ids: string | string[];
-  languages?: WikidataLanguage | WikidataLanguage[];
-  props?: WikidataProperty | WikidataProperty[];
-  format?: UrlResultFormat;
+    ids: string | string[];
+    languages?: WikidataLanguage | WikidataLanguage[];
+    props?: WikidataProperty | WikidataProperty[];
+    format?: UrlResultFormat;
 }): string[];
 
 /**
@@ -147,22 +151,22 @@ export function getManyEntities(a: {
  * @see {@link https://github.com/maxlath/wikidata-sdk/blob/6b0673b9bf0fcaab19db65e2cc77e33c901ef35d/docs/get_entities.md#by-wikipedia-titles | Github[get_entities.md#by-wikipedia-titles] }
  */
 export function getWikidataIdsFromWikipediaTitles(
-  titles: string | string[],
-  sites?: WikidataSite,
-  languages?: WikidataLanguage | WikidataLanguage[],
-  props?: WikidataProperty | WikidataProperty[],
-  format?: UrlResultFormat
+    titles: string | string[],
+    sites?: WikidataSite,
+    languages?: WikidataLanguage | WikidataLanguage[],
+    props?: WikidataProperty | WikidataProperty[],
+    format?: UrlResultFormat
 ): string;
 
 /**
  * @alias getWikidataIdsFromWikipediaTitles
  */
 export function getWikidataIdsFromWikipediaTitles(a: {
-  titles: string | string[];
-  sites?: WikidataSite;
-  languages?: WikidataLanguage | WikidataLanguage[];
-  props?: WikidataProperty | WikidataProperty[];
-  format?: UrlResultFormat;
+    titles: string | string[];
+    sites?: WikidataSite;
+    languages?: WikidataLanguage | WikidataLanguage[];
+    props?: WikidataProperty | WikidataProperty[];
+    format?: UrlResultFormat;
 }): string;
 
 /**
@@ -183,13 +187,13 @@ export function getWikidataIdsFromWikipediaTitles(a: {
  * {@link https://github.com/maxlath/wikidata-sdk/blob/6b0673b9bf0fcaab19db65e2cc77e33c901ef35d/docs/get_entities_reverse_claims.md#get-entities-reverse-claims | Github[get-entities-reverse-claims] }
  */
 export function getReverseClaims(
-  property: string | string[],
-  value: string | string[],
-  options?: {
-    limit?: number;
-    keepProperties?: boolean;
-    caseInsensitive?: boolean;
-  }
+    property: string | string[],
+    value: string | string[],
+    options?: {
+        limit?: number;
+        keepProperties?: boolean;
+        caseInsensitive?: boolean;
+    }
 ): string;
 
 /**
@@ -248,7 +252,7 @@ export function isSitelinkKey(a: string): boolean;
  *
  * @see {@link https://www.mediawiki.org/wiki/Wikibase/Indexing/RDF_Dump_Format#Truthy_statements | Truthy}
  */
-export function truthyClaims(claims: object): object;
+export function truthyClaims(claims: WikidataClaim): WikidataClaim;
 
 /**
  * Filter-out non-truthy claims from an entity.claims[prop] array
@@ -276,8 +280,8 @@ export function getSitelinkUrl(site: WikidataSite, title: string): string;
 export function getSitelinkUrl(a: { site: WikidataSite; title: string }): string;
 
 export interface SitelinkData {
-  lang: string;
-  project: string;
+    lang: string;
+    project: string;
 }
 /**
  * Get the sitelink on english language and the lang of it.
@@ -340,7 +344,7 @@ export function wikidataTimeToDateObject(a: string): Date;
  * @see {@link https://github.com/maxlath/wikidata-sdk/blob/6b0673b9bf0fcaab19db65e2cc77e33c901ef35d/docs/general_helpers.md#wikidatatimetosimpleday | Github[wikidatatimetosimpleday] }
  *
  */
-export function wikidataTimeToSimpleDay(a: string | object): string;
+export function wikidataTimeToSimpleDay(a: string | Json): string;
 
 /**
  * Get an image URL from a Wikimedia Commons filename
@@ -352,113 +356,113 @@ export function wikidataTimeToSimpleDay(a: string | object): string;
  */
 export function getImageUrl(a: string, width?: number): string;
 
-export type SimplifyOption = {
-  // claims
-  entityPrefix?: string;
-  propertyPrefix?: string;
-  keepRichValues?: boolean;
-  keepQualifiers?: boolean;
-  keepReferences?: boolean;
-  keepIds?: boolean;
-  keepHashes?: boolean;
-  keepNonTruthy?: boolean;
-  // sitelinks
-  addUrl?: boolean;
-};
+export interface SimplifyOption {
+    // claims
+    entityPrefix?: string;
+    propertyPrefix?: string;
+    keepRichValues?: boolean;
+    keepQualifiers?: boolean;
+    keepReferences?: boolean;
+    keepIds?: boolean;
+    keepHashes?: boolean;
+    keepNonTruthy?: boolean;
+    // sitelinks
+    addUrl?: boolean;
+}
 
 /**
  * Helper method, for simplify result object more reasonable
  */
 export namespace simplify {
-  /**
-   * Applying all simplifiers at once: labels, descriptions, aliases, claims, sitelinks. See next sections for details.
-   * You can also pass options as a second argument, that will then be passed the subfunctions:
-   *
-   * @param entity the entity that receive from {@link getEntities} APIs
-   * @param opt simlify option. currently only simplify claims and simplify sitelinks.
-   *
-   * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-entity | Github[simplify-entity]}
-   */
-  export function entity<T>(entity: T, opt?: SimplifyOption): T;
+    /**
+     * Applying all simplifiers at once: labels, descriptions, aliases, claims, sitelinks. See next sections for details.
+     * You can also pass options as a second argument, that will then be passed the subfunctions:
+     *
+     * @param entity the entity that receive from {@link getEntities} APIs
+     * @param opt simlify option. currently only simplify claims and simplify sitelinks.
+     *
+     * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-entity | Github[simplify-entity]}
+     */
+    function entity<T>(entity: T, opt?: SimplifyOption): T;
 
-  /**
-   * This is a same of {@link entity} method except this input as multiple array of entities.
-   *
-   * @param entities entities from {@link getEntities} APIs
-   * @param opt simlify option. currently only simplify claims and simplify sitelinks.
-   *
-   * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-entities | Github[simplify-entities]}
-   */
-  export function entities<T>(entities: T[], opt?: SimplifyOption): T[];
+    /**
+     * This is a same of {@link entity} method except this input as multiple array of entities.
+     *
+     * @param entities entities from {@link getEntities} APIs
+     * @param opt simlify option. currently only simplify claims and simplify sitelinks.
+     *
+     * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-entities | Github[simplify-entities]}
+     */
+    function entities<T>(entities: T[], opt?: SimplifyOption): T[];
 
-  /**
-   * Make label simplifier and easier to understand
-   *
-   * @param labels label object, you will receive this from getEntities method
-   *
-   * @example
-   *
-   * const label = simplify.labels("{ pl: { language: 'pl', value: 'książka' } }");
-   * console.log(label) // { pl: 'książka' }
-   *
-   * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-labels | Github[simplify-labels]}
-   */
-  export function labels(labels: WikidataLanguageBaseString): WikidataLanguageBaseStringSimplify;
+    /**
+     * Make label simplifier and easier to understand
+     *
+     * @param labels label object, you will receive this from getEntities method
+     *
+     * @example
+     *
+     * const label = simplify.labels("{ pl: { language: 'pl', value: 'książka' } }");
+     * console.log(label) // { pl: 'książka' }
+     *
+     * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-labels | Github[simplify-labels]}
+     */
+    function labels(labels: WikidataLanguageBaseString): WikidataLanguageBaseStringSimplify;
 
-  /**
-   * Make description simplifier and easier to understand
-   *
-   * @param descriptions description object, you will receive this from getEntities method
-   *
-   * @example
-   *
-   * const desc = simplify.descriptions("{ pl: { language: 'pl', value: 'dokument piśmienniczy [...]' } }");
-   * console.log(desc) // { pl: 'dokument piśmienniczy [...]' }
-   *
-   * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-descriptions | Github[simplify-descriptions]}
-   */
-  export function descriptions(descriptions: WikidataLanguageBaseString): WikidataLanguageBaseStringSimplify;
+    /**
+     * Make description simplifier and easier to understand
+     *
+     * @param descriptions description object, you will receive this from getEntities method
+     *
+     * @example
+     *
+     * const desc = simplify.descriptions("{ pl: { language: 'pl', value: 'dokument piśmienniczy [...]' } }");
+     * console.log(desc) // { pl: 'dokument piśmienniczy [...]' }
+     *
+     * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-descriptions | Github[simplify-descriptions]}
+     */
+    function descriptions(descriptions: WikidataLanguageBaseString): WikidataLanguageBaseStringSimplify;
 
-  /**
-   * Make alias simplifier and easier to understand
-   *
-   * @param aliases alias object, you will receive this from getEntities method
-   *
-   * @example
-   *
-   * const alias = simplify.aliases("{ pl: [ { language: 'pl', value: 'Tom' }, { language: 'pl', value: 'Tomik' } ] }");
-   * console.log(alias) // { pl: [ 'Tom', 'Tomik' ] }
-   *
-   * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-aliases | Github[simplify-aliases]}
-   */
-  export function aliases(aliases: WikidataLanguageBaseArrayString): WikidataLanguageBaseArrayStringSimplify;
+    /**
+     * Make alias simplifier and easier to understand
+     *
+     * @param aliases alias object, you will receive this from getEntities method
+     *
+     * @example
+     *
+     * const alias = simplify.aliases("{ pl: [ { language: 'pl', value: 'Tom' }, { language: 'pl', value: 'Tomik' } ] }");
+     * console.log(alias) // { pl: [ 'Tom', 'Tomik' ] }
+     *
+     * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-aliases | Github[simplify-aliases]}
+     */
+    function aliases(aliases: WikidataLanguageBaseArrayString): WikidataLanguageBaseArrayStringSimplify;
 
-  /**
-   * Make sitelink simplifier and easier to understand
-   *
-   * @param sitelinks sitelink object, you will receive this from getEntities method
-   *
-   * @example
-   *
-   * const site = simplify.sitelinks("{ plwiki: { site: 'plwiki', title: 'Książka', badges: [] } }");
-   * console.log(site) // { plwiki: 'Książka' }
-   *
-   * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-sitelinks | Github[simplify-sitelinks]}
-   */
-  export function sitelinks(sitelinks: WikidataSiteLink): WikidataSiteLinkSimplify;
+    /**
+     * Make sitelink simplifier and easier to understand
+     *
+     * @param sitelinks sitelink object, you will receive this from getEntities method
+     *
+     * @example
+     *
+     * const site = simplify.sitelinks("{ plwiki: { site: 'plwiki', title: 'Książka', badges: [] } }");
+     * console.log(site) // { plwiki: 'Książka' }
+     *
+     * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#simplify-sitelinks | Github[simplify-sitelinks]}
+     */
+    function sitelinks(sitelinks: WikidataSiteLink): WikidataSiteLinkSimplify;
 
-  /**
-   * Make sitelink simplifier and easier to understand. include URL in the result.
-   *
-   * @param sitelinks sitelink object, you will receive this from getEntities method
-   * @param options add url to a result
-   *
-   * @example
-   *
-   * const site = simplify.sitelinks("{ plwiki: { site: 'plwiki', title: 'Książka', badges: [] } }", {addUrl: true});
-   * console.log(site) // { plwiki: { title: 'Książka', url: 'https://pl.wikipedia.org/wiki/Książka' } }
-   *
-   * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#add-sitelinks-urls | Github[simplify-sitelinks-with-url]}
-   */
-  export function sitelinks(sitelinks: WikidataSiteLink, options: { addUrl: true }): WikidataSiteLinkWithUrlSimplify;
+    /**
+     * Make sitelink simplifier and easier to understand. include URL in the result.
+     *
+     * @param sitelinks sitelink object, you will receive this from getEntities method
+     * @param options add url to a result
+     *
+     * @example
+     *
+     * const site = simplify.sitelinks("{ plwiki: { site: 'plwiki', title: 'Książka', badges: [] } }", {addUrl: true});
+     * console.log(site) // { plwiki: { title: 'Książka', url: 'https://pl.wikipedia.org/wiki/Książka' } }
+     *
+     * @see {@link https://github.com/maxlath/wikidata-sdk/blob/master/docs/simplify_entities_data.md#add-sitelinks-urls | Github[simplify-sitelinks-with-url]}
+     */
+    function sitelinks(sitelinks: WikidataSiteLink, options: { addUrl: true }): WikidataSiteLinkWithUrlSimplify;
 }
