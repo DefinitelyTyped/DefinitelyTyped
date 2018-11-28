@@ -1,17 +1,17 @@
-// Type definitions for hapi-auth-cookie 9.0
+// Type definitions for hapi-auth-cookie 1.0
 // Project: https://github.com/hapijs/hapi-auth-cookie#readme
 // Definitions by: MutMatt <https://github.com/MutMatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Request, Plugin, AuthCredentials } from 'hapi';
+import { Request, Plugin, AuthCredentials, ResponseToolkit } from 'hapi';
 import { string } from 'joi';
 import { Policy } from 'catbox';
 import { URL } from 'url';
 
 declare module 'hapi' {
     interface ServerAuth {
-        strategy(name: string, scheme: 'cookie', options?: hapiAuthCookie.Options): void;
+        strategy(name: string, scheme: 'cookie', options?: authCookie.Options): void;
     }
 
     interface ApplicationState {
@@ -19,12 +19,12 @@ declare module 'hapi' {
     }
 
     interface Request {
-        cookieAuth: hapiAuthCookie.CookieAuth;
+        cookieAuth: authCookie.cookieAuth;
     }
 }
 
-declare namespace hapiAuthCookie {
-    interface CookieAuth {
+export namespace authCookie {
+    interface cookieAuth {
         /**
          * Sets the current session.
          * Must be called after a successful login to begin the session.
@@ -130,10 +130,10 @@ declare namespace hapiAuthCookie {
          * @param request the `Request` object
          * @param session is the session object set via `request.cookieAuth.set()`
          */
-        validateFunc: ValidateFunc;
+        validateFunc: validateFunc;
         /**
          * **USE WITH CAUTION** an optional name to use with decorating the request object.
-         * @default `cookieAuth`. Using multiple decorator names for separate authentication strategies could allow a developer to call the methods for the wrong strategy.
+         * @default `authCookie`. Using multiple decorator names for separate authentication strategies could allow a developer to call the methods for the wrong strategy.
          * Potentially resulting in unintended authorized access.
          */
         requestDecoratorName?: string;
@@ -144,14 +144,14 @@ declare namespace hapiAuthCookie {
         credentials?: AuthCredentials;
     }
 
-    type ValidateFunc = (request: Request, session: any) => Promise<ValidateResponse>;
+    type validateFunc = (req: Request, h: ResponseToolkit) => Promise<ValidateResponse>;
+
+    enum isSameSite {
+        Lax,
+        Strict
+    }
+
+    const cookieAuth: Plugin<cookieAuth>;
 }
 
-declare enum isSameSite {
-    Lax,
-    Strict
-}
-
-declare const hapiAuthCookie: Plugin<hapiAuthCookie.ValidateFunc>;
-
-export = hapiAuthCookie;
+export default authCookie.cookieAuth;

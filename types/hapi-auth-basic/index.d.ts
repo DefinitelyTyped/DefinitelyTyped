@@ -1,4 +1,4 @@
-// Type definitions for hapi-auth-basic 5.0.0
+// Type definitions for hapi-auth-basic 5.0
 // Project: https://github.com/hapijs/hapi-auth-basic
 // Definitions by: AJP <https://github.com/AJamesPhillips>
 //                 Rodrigo Saboya <https://github.com/saboya>
