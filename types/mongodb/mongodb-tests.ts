@@ -7,6 +7,7 @@ const connectionString = 'mongodb://127.0.0.1:27017/test';
 var format = require('util').format;
 let options: mongodb.MongoClientOptions = {
     authSource: ' ',
+    loggerLevel: 'debug',
     w: 1,
     wtimeout: 300,
     j: true,
@@ -21,7 +22,6 @@ let options: mongodb.MongoClientOptions = {
 
     reconnectTries: 123456,
     reconnectInterval: 123456,
-
     ssl: true,
     sslValidate: false,
     checkServerIdentity: function () { },
@@ -31,12 +31,14 @@ let options: mongodb.MongoClientOptions = {
     sslKey: new Buffer(999),
     sslPass: new Buffer(999),
     promoteBuffers: false,
-    useNewUrlParser: false
+    useNewUrlParser: false,
+    authMechanism: 'SCRAM-SHA-1',
+    forceServerObjectId: false
 }
 MongoClient.connect(connectionString, options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
     if (err) throw err;
     const db = client.db('test');
-	
+
     var collection = db.collection('test_insert');
     collection.insertOne({ a: 2 }, function (err: mongodb.MongoError, docs: any) {
 
@@ -263,11 +265,11 @@ async function transfer(client: mongodb.MongoClient, from: any, to: any, amount:
         // `session.abortTransaction()` will undo the above `findOneAndUpdate()`
         throw new Error('Insufficient funds: ' + (A.balance + amount));
       }
-  
+
       const B = await db.collection('Account').
         findOneAndUpdate({ name: to }, { $inc: { balance: amount } }, opts).
         then(res => res.value);
-  
+
       await session.commitTransaction();
       session.endSession();
       return { from: A, to: B };
@@ -286,4 +288,5 @@ mongodb.connect(connectionString).then((client) => {
         runTransactionWithRetry(updateEmployeeInfo, client, session)
     );
 });
+
 
