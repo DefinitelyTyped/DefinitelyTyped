@@ -3,5 +3,5 @@
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function findVersions(version: string): string[];
+declare function findVersions(version: string, options?: { loose: boolean }): string[];
 export = findVersions;
