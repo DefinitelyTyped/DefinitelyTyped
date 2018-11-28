@@ -1,34 +1,33 @@
-// Type definitions for VFile 2.2
+// Type definitions for VFile 3.0
 // Project: https://github.com/vfile/vfile
 // Definitions by: bizen241 <https://github.com/bizen241>
 //                 Junyoung Choi <https://github.com/rokt33r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 /// <reference types='node' />
 
 import * as Unist from 'unist';
 
 declare namespace vfile {
-    type Contents = string | Buffer;
+    type VFileContents = string | Buffer;
 
     interface NodeWithPosition extends Unist.Node {
         position: Unist.Position;
         [key: string]: any;
     }
 
-    interface VFileParamsBase<D> {
-        data?: D;
-        contents?: Contents;
+    interface VFileOptions {
+        contents?: VFileContents;
         path?: string;
         basename?: string;
         stem?: string;
         extname?: string;
         dirname?: string;
         cwd?: string;
+        data?: any;
+        [key: string]: any;
     }
-
-    type VFileParams<C extends {data?: {}}> = VFileParamsBase<C['data']> & C;
 
     /**
      * File-related message describing something at certain position.
@@ -102,12 +101,11 @@ declare namespace vfile {
      */
     type ToString = (encoding?: BufferEncoding) => string;
 
-    interface VFileBase<C extends {data?: {}}> {
+    interface VFile {
         /**
          * @param options If `options` is `string` or `Buffer`, treats it as `{contents: options}`. If `options` is a `VFile`, returns it. All other options are set on the newly created `vfile`.
          */
-        (input?: Contents): VFile<C>;
-        <C>(input?: VFile<C> | VFileParams<C>): VFile<C>;
+        <F extends VFile>(input?: VFileContents | F | VFileOptions): F;
         message: Message;
         fail: Fail;
         info: Info;
@@ -119,7 +117,7 @@ declare namespace vfile {
          * Place to store custom information.
          * It's OK to store custom data directly on the `vfile`, moving it to `data` gives a little more privacy.
          */
-        data: C['data'];
+        data: unknown;
         /**
          * List of messages associated with the file.
          */
@@ -127,7 +125,7 @@ declare namespace vfile {
         /**
          * Raw value.
          */
-        contents: Contents;
+        contents: VFileContents;
         /**
          * Path of `vfile`.
          * Cannot be nullified.
@@ -161,8 +159,6 @@ declare namespace vfile {
         cwd: string;
         toString: ToString;
     }
-
-    type VFile<C> = VFileBase<C> & C;
 }
 
 /**
@@ -170,6 +166,6 @@ declare namespace vfile {
  * Path related properties are set in the following order (least specific to most specific): `history`, `path`, `basename`, `stem`, `extname`, `dirname`.
  * It’s not possible to set either `dirname` or `extname` without setting either `history`, `path`, `basename`, or `stem` as well.
  */
-declare const vfile: vfile.VFile<{}>;
+declare const vfile: vfile.VFile;
 
 export = vfile;
