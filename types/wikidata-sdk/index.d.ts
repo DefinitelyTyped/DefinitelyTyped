@@ -14,7 +14,7 @@ import {
   WikidataLanguageBaseStringSimplify,
   WikidataLanguageBaseArrayString,
   WikidataLanguageBaseArrayStringSimplify
-} from "wikidata-sdk/def/object/language-base-string";
+} from "./def/object/language-base-string";
 
 import { WikidataClaim, WikidataMainSnak, WikidataTimeDataValue, WikidataEntityDataValue } from "./def/object/claim";
 
