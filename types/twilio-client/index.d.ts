@@ -1,10 +1,8 @@
-// Type definitions for twilio-client v1.6.3
+// Type definitions for twilio-client 1.6
 // Project: https://www.npmjs.com/package/twilio-client
 // Definitions by: Ryan Castner <https://github.com/audiolion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1.4
-
-/// <reference types="webrtc" />
+// TypeScript Version: 2.4
 
 import { EventEmitter } from "events";
 
@@ -175,7 +173,7 @@ declare namespace Twilio {
         | "dtmfs"
         | "dtmfh";
 
-    type SoundProperties = {
+    interface SoundProperties {
         incoming: "incoming" | string;
         outgoing: "outgoing" | string;
         disconnect: "disconnect" | string;
@@ -191,7 +189,7 @@ declare namespace Twilio {
         dtmf9: "dtmf-9" | string;
         dtmfS: "dtmf-star" | string;
         dtmfH: "dtmf-hash" | string;
-    };
+    }
 
     enum Region {
         Au1 = "au1",
@@ -230,32 +228,31 @@ declare namespace Twilio {
     }
 
     /**
-     * Each web browser implements a different set of `MediaTrackConstraints` which may be used as `AudioConstraints`, so consult your browser's implementation of `getUserMedia` for further details.
+     * Each web browser implements a different set of `MediaTrackConstraints` which may be used as `AudioConstraints`,
+     * so consult your browser's implementation of `getUserMedia` for further details.
      */
-    type AudioConstraints = { [key: string]: any };
+    interface AudioConstraints {
+        [key: string]: any;
+    }
 
-    type RTCConfiguration = { [key: string]: any };
+    interface RTCConfiguration {
+        [key: string]: any;
+    }
 
-    type DTMF_INNER_TONE_GAP = 70;
-    type DTMF_PAUSE_DURATION = 500;
-    type DTMF_TONE_DURATION = 160;
-    type METRICS_BATCH_SIZE = 10;
-    type METRICS_DELAY = 20000;
-
-    type WARNING_NAMES = {
+    interface WARNING_NAMES {
         audioInputLevel: "audio-input-level";
         audioOutputLevel: "audio-output-level";
         jitter: "jitter";
         mos: "mos";
         packetsLostFraction: "packet-loss";
         rtt: "rtt";
-    };
+    }
 
-    type WARNING_PREFIXES = {
+    interface WARNING_PREFIXES {
         max: "high-";
         maxDuration: "constant-";
         min: "low-";
-    };
+    }
 
     enum FeedbackIssue {
         AudioLatency = "audio-latency",
@@ -279,21 +276,21 @@ declare namespace Twilio {
         Outgoing = "OUTGOING"
     }
 
-    type ConnectionConfig = {
+    interface ConnectionConfig {
         soundcache: any;
         publisher: any;
         audioHelper: any;
         pstream: any;
         getUserMedia: any;
-    };
+    }
 
-    type ConnectionOptions = {
+    interface ConnectionOptions {
         debug?: boolean;
         enableRingingState?: boolean;
         mediaStreamFactory?: any;
-        offerSdp?: any | null;
+        offerSdp?: any;
         shouldPlayDisconnect?: boolean;
-    };
+    }
 
     type Digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | "*" | "#" | "w";
 
@@ -310,7 +307,9 @@ declare namespace Twilio {
     /**
      * The callee has been notified of the call but has not yet responded.
      *
-     * _Note_: Until 2.0, this state is only surfaced when the `enableRingingState` flag is set to true in `Device.setup` options and the TwiML app is dialing out with the `answerOnBridge` property, eg: `<Dial answerOnBridge=true></Dial>`.
+     * _Note_: Until 2.0, this state is only surfaced when the `enableRingingState` flag is set
+     * to true in `Device.setup` options and the TwiML app is dialing out with the `answerOnBridge` property,
+     * eg: `<Dial answerOnBridge=true></Dial>`.
      */
     type connectionRinging = "ringing";
 
@@ -398,31 +397,39 @@ declare namespace Twilio {
     type accountSid = string;
 
     /**
-     * The phone number or client identifier of the party that initiated the call. Phone numbers are formatted with a '+' and country code, e.g. `+16175551212` ([E.164][e164] format). Client identifiers begin with the `client:` URI scheme; for example, for a call from a client named 'tommy', the From parameter will be `client:tommy`.
+     * The phone number or client identifier of the party that initiated the call.
+     * Phone numbers are formatted with a '+' and country code, e.g. `+16175551212` ([E.164][e164] format).
+     * Client identifiers begin with the `client:` URI scheme; for example, for a call from a client
+     * named 'tommy', the From parameter will be `client:tommy`.
      */
     type from = string;
 
     /**
-     * The phone number or client identifier of the called party. Phone numbers are formatted with a '+' and country code, e.g. `+16175551212` ( [E.164][e164] format). Client identifiers begin with the `client:` URI scheme; for example, for a call to a client named 'joey', the To parameter will be `client:joey`.
+     * The phone number or client identifier of the called party. Phone numbers are formatted
+     * with a '+' and country code, e.g. `+16175551212` ( [E.164][e164] format). Client identifiers
+     * begin with the `client:` URI scheme; for example, for a call to a client named 'joey', the
+     * To parameter will be `client:joey`.
      */
     type to = string;
 
     /**
-     * 	The version of the Twilio API used to handle this call. For incoming calls, this is determined by the API version set on the called number. For outgoing calls, this is the API version used by the outgoing call's REST API request.
+     * 	The version of the Twilio API used to handle this call. For incoming calls, this is
+     * determined by the API version set on the called number. For outgoing calls, this is the
+     * API version used by the outgoing call's REST API request.
      */
     type apiVersion = string;
 
-    type IncomingConnectionParameters = {
+    interface IncomingConnectionParameters {
         CallSid: callSid;
         AccountSid: accountSid;
         From: from;
         To: to;
         ApiVerison: apiVersion;
-    };
+    }
 
-    type OutgoingConnectionParameters = {
+    interface OutgoingConnectionParameters {
         CallSid: callSid;
-    };
+    }
 
     class Connection extends EventEmitter {
         direction: CallDirection;
@@ -433,7 +440,9 @@ declare namespace Twilio {
         /**
          * Accepts an incoming connection.
          *
-         * This will begin establishing the media session to this device. The connection status will be set to {@link connectionConnecting} while the media session for the call is setup. The connection status will change to {@link connectionOpen} once the media session is established.
+         * This will begin establishing the media session to this device. The connection status will be set to {@link connectionConnecting} while
+         * the media session for the call is setup. The connection status will change to {@link connectionOpen} once the media session
+         * is established.
          * @param audioConstraints
          */
         accept(audioConstraints?: AudioConstraints): void;
@@ -441,7 +450,9 @@ declare namespace Twilio {
         /**
          * Ignore a pending connection.
          *
-         * This will stop the Client device from playing the incoming sound and set the connection state to {@link connectionClosed}, but will not send a hangup message to the dialing party. The incoming call will keep ringing until another Client with the same name answers the call, or the call times out.
+         * This will stop the Client device from playing the incoming sound and set the connection state to {@link connectionClosed}, but
+         * will not send a hangup message to the dialing party. The incoming call will keep ringing until another Client with the
+         * same name answers the call, or the call times out.
          */
         ignore(): void;
 
@@ -456,7 +467,8 @@ declare namespace Twilio {
         getLocalStream(): MediaStream;
 
         /**
-         * Get the remote MediaStream. This contains the remote Client's audio, which is being received locally and output through the local Client's speakers.
+         * Get the remote MediaStream. This contains the remote Client's audio, which is being received locally and output through
+         * the local Client's speakers.
          */
         getRemoteStream(): MediaStream;
 
@@ -466,19 +478,24 @@ declare namespace Twilio {
         isMuted(): boolean;
 
         /**
-         * Mutes or unmutes the current connection based on the boolean parameter you provide. `true` mutes the connection by ending audio gathered from the user's microphone, `false` unmutes the connection.
+         * Mutes or unmutes the current connection based on the boolean parameter you provide. `true` mutes the connection by ending
+         * audio gathered from the user's microphone, `false` unmutes the connection.
          */
         mute(shouldMute: boolean): void;
 
         /**
          * Reject a pending connection.
          *
-         * This will cause a hangup to be issued from the client session to the dialing party. If multiple client sessions are active the pending connection will be rejected for all of them.
+         * This will cause a hangup to be issued from the client session to the dialing party. If multiple client sessions are active
+         * the pending connection will be rejected for all of them.
          */
         reject(): void;
 
         /**
-         * Posts the feedback collected for this call to Twilio. If no parameters are passed, Twilio will report feedback was not available for this call. Posting the feedback using this API will enable you to understand exactly which factors contribute to audio quality problems. Twilio will be able to correlate the metrics with perceived call quality and provide an accurate picture of the factors affecting your users’ call experience.
+         * Posts the feedback collected for this call to Twilio. If no parameters are passed, Twilio will report feedback was not
+         * available for this call. Posting the feedback using this API will enable you to understand exactly which factors
+         * contribute to audio quality problems. Twilio will be able to correlate the metrics with perceived call quality and
+         * provide an accurate picture of the factors affecting your users’ call experience.
          */
         postFeedback(
             score: FeedbackScore,
@@ -486,7 +503,10 @@ declare namespace Twilio {
         ): Promise<any> | Error;
 
         /**
-         * Play DTMF tones. The `digits` parameter is a string and can contain the characters `0-9`, `*`, `#`, and `w`. Each w will cause a 500 ms pause between digits sent. If you're familiar with TwiML, you can think of the `sendDigits` method as the `sendDigits` attribute in the `<Number>` noun. The SDK only supports sending DTMF digits. It does not raise events if DTMF digits are present in the incoming audio stream.
+         * Play DTMF tones. The `digits` parameter is a string and can contain the characters `0-9`, `*`, `#`, and `w`. Each w will
+         * cause a 500 ms pause between digits sent. If you're familiar with TwiML, you can think of the `sendDigits` method as
+         * the `sendDigits` attribute in the `<Number>` noun. The SDK only supports sending DTMF digits. It does not raise events
+         * if DTMF digits are present in the incoming audio stream.
          *
          * @param digits a string of one or more {@link Digit}
          */
@@ -541,9 +561,15 @@ declare namespace Twilio {
         /**
          * _Note_: This feature is behind a flag on `Device.setup`: `enableRingingState`. By default, this event will not fire.
          *
-         * Raised when the {@link Connection} has entered the ringing state. By default, TwiML's Dial verb will connect immediately and this state will be brief or skipped entirely. When using the Dial verb with `answerOnBridge=true`, the ringing state will begin when the callee has been notified of the call and will transition into open after the callee accepts the call, or closed if the call is rejected or cancelled.
+         * Raised when the {@link Connection} has entered the ringing state. By default, TwiML's Dial verb will connect
+         * immediately and this state will be brief or skipped entirely. When using the Dial verb with `answerOnBridge=true`,
+         * the ringing state will begin when the callee has been notified of the call and will transition into open after
+         * the callee accepts the call, or closed if the call is rejected or cancelled.
          *
-         * The `hasEarlyMedia` argument is a boolean denoting whether there is early media available from the callee. If `true`, the Client SDK will automatically play the early media -- Sometimes this is ringing, other times it may be an important message about the call. If `false`, there is no remote media to play, so the application may want to play its own outgoing ringtone sound.
+         * The `hasEarlyMedia` argument is a boolean denoting whether there is early media available from the callee. If `true`,
+         * the Client SDK will automatically play the early media -- Sometimes this is ringing, other times it may be an important
+         * message about the call. If `false`, there is no remote media to play, so the application may want to play its own
+         * outgoing ringtone sound.
          */
         on(
             event: connectionRingingEvent,
@@ -551,7 +577,11 @@ declare namespace Twilio {
         ): this;
 
         /**
-         * Register a handler function to be called with the Connection’s current input volume and output volume on every animation frame. The handler will be invoked up to 60 times per second, and will scale down dynamically on slower devices to preserve performance. The handler receives inputVolume and outputVolume as percentages of maximum volume represented by a floating point number between 0.0 and 1.0, inclusive. This value represents a range of relative decibel values between -100dB and -30dB.
+         * Register a handler function to be called with the Connection’s current input volume and output volume on every
+         * animation frame. The handler will be invoked up to 60 times per second, and will scale down dynamically on slower
+         * devices to preserve performance. The handler receives inputVolume and outputVolume as percentages of maximum volume
+         * represented by a floating point number between 0.0 and 1.0, inclusive. This value represents a range of relative
+         * decibel values between -100dB and -30dB.
          */
         on(
             event: connectionVolumeEvent,
@@ -579,16 +609,13 @@ declare namespace Twilio {
         constructor();
         /**
          * Get a `Set` containing `MediaDeviceInfo` objects representing the active devices in the collection.
-         *
-         * @returns {Set} Set containing `MediaDeviceInfo` objects representing the active devices in the collection.
          */
         get(): Set<MediaDeviceInfo>;
 
         /**
          * Replace the active devices in the collection by passing one or more device IDs.
          *
-         * @param {string} deviceId - A single device id
-         * @returns {Promise} Fulfilled if the device(s) were set successfully and rejected if:
+         * Fulfilled if the device(s) were set successfully and rejected if:
          *  - Output selection is not supported by the browser or
          *  - A specified deviceId wasn't found or
          *  - No deviceIds were specified
@@ -596,20 +623,9 @@ declare namespace Twilio {
         set(deviceId: string): Promise<any>;
 
         /**
-         * Replace the active devices in the collection by passing one or more device IDs.
-         * @param {string[]} deviceIds - An array of device ids
-         * @returns {Promise} Fulfilled if the device(s) were set successfully and rejected if:
-         *  - Output selection is not supported by the browser or
-         *  - A specified deviceId wasn't found or
-         *  - No deviceIds were specified
-         */
-        set(deviceIds: string[]): Promise<any>;
-
-        /**
          * Test the active devices by playing a sound through them.
          *
-         * @param {string} soundUrl - if passed will play a custom test sound.
-         * @returns {Promise} Fulfilled if devices were set successfully and rejected if:
+         * Fulfilled if devices were set successfully and rejected if:
          *  - Output selection is not supported by the browser or
          *  - There are no active devices or
          *  - Client detects one or more devices failed to play
@@ -632,12 +648,14 @@ declare namespace Twilio {
         availableOutputDevices: Map<string, MediaDeviceInfo>;
 
         /**
-         * The active input device. This will not initially be populated. Having no inputDevice specified by setInputDevice() will disable input selection related functionality.
+         * The active input device. This will not initially be populated. Having no inputDevice specified by
+         * setInputDevice() will disable input selection related functionality.
          */
         inputDevice: MediaDeviceInfo | null;
 
         /**
-         * False if the browser does not support setSinkId or enumerateDevices and Twilio can not facilitate output selection functionality.
+         * False if the browser does not support setSinkId or enumerateDevices and Twilio can not facilitate
+         * output selection functionality.
          */
         isOutputSelectionSupported: boolean;
 
@@ -647,12 +665,17 @@ declare namespace Twilio {
         isVolumeSupported: boolean;
 
         /**
-         * An {@link AudioOutputCollection} that controls which output devices are used to play standard speaker sounds: the ringtone you hear when initiating a call, the disconnect sound, DTMF tones the user might press and the audio received from the remote participant. Changing this set of devices will switch the device(s) used for these sounds. If you change these during an active call, the remote participant’s audio will immediately be played through the new set of outputs.
+         * An {@link AudioOutputCollection} that controls which output devices are used to play standard
+         * speaker sounds: the ringtone you hear when initiating a call, the disconnect sound, DTMF tones the
+         * user might press and the audio received from the remote participant. Changing this set of devices
+         * will switch the device(s) used for these sounds. If you change these during an active call, the
+         * remote participant’s audio will immediately be played through the new set of outputs.
          */
         speakerDevices: AudioOutputCollection;
 
         /**
-         * An {@link AudioOutputCollection} that controls which output devices are used to play the ringing sound when receiving an incoming call. Changing this set of devices will switch the devices used for the incoming call sound.
+         * An {@link AudioOutputCollection} that controls which output devices are used to play the ringing
+         * sound when receiving an incoming call. Changing this set of devices will switch the devices used for the incoming call sound.
          */
         ringtoneDevices: AudioOutputCollection;
 
@@ -702,11 +725,11 @@ declare namespace Twilio {
         /**
          * Replace the current input device with a new device by ID.
          *
-         * Once this is set, the input device will be used in the current call, if any, and used by default for any subsequent calls. In addition, whenever an inputDevice is set, the `Device.audio#inputVolume` event will fire on every animation frame. Returns a Promise that resolves if the input device was set successfully.
+         * Once this is set, the input device will be used in the current call, if any, and used by default for
+         * any subsequent calls. In addition, whenever an inputDevice is set, the `Device.audio#inputVolume` event
+         * will fire on every animation frame. Returns a Promise that resolves if the input device was set successfully.
          *
-         * @param {string} deviceId - An ID of a device to replace the existing
-         *   input device with.
-         * @returns {Promise} - Rejects if the ID is not found, setting the input device
+         * Rejects if the ID is not found, setting the input device
          *   fails, or an ID is not passed.
          */
         setInputDevice(deviceId: string): Promise<any>;
@@ -717,14 +740,19 @@ declare namespace Twilio {
          *
          * This will stop the `Device.audio#inputVolume` polling, and stop the input stream.
          *
-         * @returns {Promise} Rejects if the input device is currently in use by a connection.
+         * Rejects if the input device is currently in use by a connection.
          */
         unsetInputDevice(deviceId: string): Promise<any>;
 
         /**
-         * Register a handler that will be fired whenever a new audio device is found, an existing audio device is lost or the label of an existing device is changed. This typically happens when the user plugs in or unplugs an audio device, like a headset or a microphone. This will also trigger after the customer has given access to user media via `getUserMedia` for the first time, as the labels will become populated. If you want to allow users to choose a specific audio device in your application’s UI, attach a listener to this event.
+         * Register a handler that will be fired whenever a new audio device is found, an existing audio device is lost
+         * or the label of an existing device is changed. This typically happens when the user plugs in or unplugs an
+         * audio device, like a headset or a microphone. This will also trigger after the customer has given access to
+         * user media via `getUserMedia` for the first time, as the labels will become populated. If you want to allow users
+         * to choose a specific audio device in your application’s UI, attach a listener to this event.
          *
-         * *Note*: This does not detect a customer plugging in headphones or other speakers through the headphone jack, as the headphone jack only redirects audio from the internal audio device.
+         * *Note*: This does not detect a customer plugging in headphones or other speakers through the headphone jack,
+         * as the headphone jack only redirects audio from the internal audio device.
          */
         on(
             event: audioDeviceChangeEvent,
@@ -732,7 +760,11 @@ declare namespace Twilio {
         ): this;
 
         /**
-         * Register a handler that will be fired every animation frame with the current volume of the selected input device, if one is set. The handler will be invoked up to 60 times per second, and will scale down dynamically on slower devices to preserve performance. The handler receives volume as a percentage of maximum volume represented by a floating point number between 0.0 and 1.0, inclusive. This value represents a range of relative decibel values between -100dB and -30dB.
+         * Register a handler that will be fired every animation frame with the current volume of the selected input device,
+         * if one is set. The handler will be invoked up to 60 times per second, and will scale down dynamically on slower
+         * devices to preserve performance. The handler receives volume as a percentage of maximum volume represented by a
+         * floating point number between 0.0 and 1.0, inclusive. This value represents a range of relative decibel values
+         * between -100dB and -30dB.
          */
         on(
             event: audioInputVolumeEvent,
@@ -746,7 +778,8 @@ declare namespace Twilio {
     type cancelEvent = "cancel";
 
     /**
-     * This is triggered when a connection is opened, whether initiated using `.connect()` or via an [accepted incoming connection](https://www.twilio.com/docs/voice/client/javascript/device#incoming).
+     * This is triggered when a connection is opened, whether initiated using `.connect()` or via an
+     * [accepted incoming connection](https://www.twilio.com/docs/voice/client/javascript/device#incoming).
      */
     type connectEvent = "connect";
 
@@ -756,22 +789,29 @@ declare namespace Twilio {
     type disconnectEvent = "disconnect";
 
     /**
-     * Emitted when any device error occurs. These may be errors in your request, your token, connection errors, or other application errors. See the [Twilio Client error code reference](https://www.twilio.com/docs/client/errors) for more information.
+     * Emitted when any device error occurs. These may be errors in your request, your token, connection errors,
+     * or other application errors. See the [Twilio Client error code reference](https://www.twilio.com/docs/client/errors)
+     * for more information.
      */
     type errorEvent = "error";
 
     /**
-     * This is triggered whenever an incoming connection from an [outbound REST call](https://www.twilio.com/docs/api/rest/making_calls#example-2) or a [TwiML](https://www.twilio.com/docs/api/twiml/client) `<Dial>` to this device is made.
+     * This is triggered whenever an incoming connection from an [outbound REST call](https://www.twilio.com/docs/api/rest/making_calls#example-2)
+     * or a [TwiML](https://www.twilio.com/docs/api/twiml/client) `<Dial>` to this device is made.
      */
     type incomingEvent = "incoming";
 
     /**
-     * This is triggered when the connection to Twilio drops or the device's token is invalid/expired. In either of these scenarios, the device cannot receive incoming connections or make outgoing connections. If the token expires during an active connection the `offline` event will be fired, but the connection will not be terminated. In this situation you will have to call `Twilio.Device.setup()` with a valid token before attempting or receiving the next connection.
+     * This is triggered when the connection to Twilio drops or the device's token is invalid/expired. In either of these scenarios,
+     * the device cannot receive incoming connections or make outgoing connections. If the token expires during an active connection
+     * the `offline` event will be fired, but the connection will not be terminated. In this situation you will have to call
+     * `Twilio.Device.setup()` with a valid token before attempting or receiving the next connection.
      */
     type offlineEvent = "offline";
 
     /**
-     * This is initially triggered when all operations in `.setup()` have completed and the device is ready and online. It may be triggered again if the device goes offline and comes back online (i.e. the connection drops and returns).
+     * This is initially triggered when all operations in `.setup()` have completed and the device is ready and online. It may be
+     * triggered again if the device goes offline and comes back online (i.e. the connection drops and returns).
      */
     type readyEvent = "ready";
 
@@ -791,17 +831,27 @@ declare namespace Twilio {
     }
 
     /**
-     * When set to `true`, `Device`'s default behavior of silently ignoring the incoming call is removed, and the incoming call will instead cause `Device` to emit an "incoming" event. If accepted, the prior active call will be immediately disconnected, and the incoming call will be accepted, replacing the prior active call.
+     * When set to `true`, `Device`'s default behavior of silently ignoring the incoming call is removed, and the
+     * incoming call will instead cause `Device` to emit an "incoming" event. If accepted, the prior active call will be
+     * immediately disconnected, and the incoming call will be accepted, replacing the prior active call.
      */
     type allowIncomingWhileBusy = boolean;
 
     /**
-     * Can be `true` or `MediaTrackConstraints`. Set this property to select a specific microphone, or turn off features like auto-gain control, for the entire `Twilio.Device`. Each web browser implements a different set of `MediaTrackConstraints`, so consult your browser's implementation of `getUserMedia` for further details. This property can also be overridden for each `Twilio.Connection`. See also our knowledge base article on [audioConstraints](https://www.twilio.com/help/faq/twilio-client/how-to-constrain-the-audio-sources-in-google-chrome). Note: If an input device is selected using `Device.audio.setInputDevice`, this parameter will be ignored and the set input device will be used instead.
+     * Can be `true` or `MediaTrackConstraints`. Set this property to select a specific microphone, or turn off features
+     * like auto-gain control, for the entire `Twilio.Device`. Each web browser implements a different set of `MediaTrackConstraints`,
+     * so consult your browser's implementation of `getUserMedia` for further details. This property can also be overridden for each `Twilio.Connection`.
+     * See also our knowledge base article on [audioConstraints](https://www.twilio.com/help/faq/twilio-client/how-to-constrain-the-audio-sources-in-google-chrome).
+     *
+     * Note: If an input device is selected using `Device.audio.setInputDevice`, this parameter will be ignored and the set input device will be used instead.
      */
     type audioConstraints = boolean | AudioConstraints;
 
     /**
-     * Can be `boolean` or `string`. Setting this property to `true` will enable a dialog prompt with the text "A call is currently in progress. Leaving or reloading this page will end the call." when closing a page which has an active connection. Setting the property to a `string` will change the text of the message prompt. NOTE: Where custom text is not supported on the browser, Twilio will display the browser's default dialog.
+     * Can be `boolean` or `string`. Setting this property to `true` will enable a dialog prompt with the text "A call is currently
+     * in progress. Leaving or reloading this page will end the call." when closing a page which has an active connection. Setting
+     * the property to a `string` will change the text of the message prompt. NOTE: Where custom text is not supported on the browser,
+     * Twilio will display the browser's default dialog.
      */
     type closeProtection = boolean;
 
@@ -811,22 +861,26 @@ declare namespace Twilio {
     type debug = boolean;
 
     /**
-     * Specifies whether Twilio Client will ask WebRTC to set the Differentiated Services field in the packet headers for all WebRTC traffic. Note: At this time, DSCP is only supported in Google Chrome, and does not work on Windows.
+     * Specifies whether Twilio Client will ask WebRTC to set the Differentiated Services field in the packet headers for all
+     * WebRTC traffic. Note: At this time, DSCP is only supported in Google Chrome, and does not work on Windows.
      */
     type dscp = boolean;
 
     /**
-     * When set to `true`, the new `ringing` state and `Connection#ringing` event will be enabled for calls this Device makes. These features are intended to be used alongside the `answerOnBridge` Dial property (eg: `<Dial answerOnBridge=true></Dial>`) to provide better SDK feedback on the call status.
+     * When set to `true`, the new `ringing` state and `Connection#ringing` event will be enabled for calls this Device makes.
+     * These features are intended to be used alongside the `answerOnBridge` Dial property (eg: `<Dial answerOnBridge=true></Dial>`) to provide better SDK feedback on the call status.
      */
     type enableRingingState = boolean;
 
     /**
-     * If true, replaces default DTMF tones with mock DTMF tones. This prevents double-tones in some cases. This will become default in the next breaking release.
+     * If true, replaces default DTMF tones with mock DTMF tones. This prevents double-tones in some cases. This will become
+     * default in the next breaking release.
      */
     type fakeLocalDTMF = boolean;
 
     /**
-     * Specifies which Twilio Data Center to use when registering, initiating calls, and receiving calls. [See this page for the list of available regions, and their IP address ranges](https://www.twilio.com/docs/api/client/regions#twilio-js-regions).
+     * Specifies which Twilio Data Center to use when registering, initiating calls, and receiving calls.
+     * [See this page for the list of available regions, and their IP address ranges](https://www.twilio.com/docs/api/client/regions#twilio-js-regions).
      */
     type region = Region;
 
@@ -836,7 +890,10 @@ declare namespace Twilio {
     type rtcConstraints = RTCConfiguration | null;
 
     /**
-     * An object mapping sound names (property) to custom URLs (string value). Note that incoming ringtone will loop for at least 2 seconds and as long as the incoming call is pending. All other sounds will play once; DTMF tones will be cut short if they exceed 1 second, while outgoing and disconnect sounds will be cut short if they exceed 3 seconds. [See the list of all available sound properties and their default values](all available sound properties and their default values below).
+     * An object mapping sound names (property) to custom URLs (string value). Note that incoming ringtone will loop for
+     * at least 2 seconds and as long as the incoming call is pending. All other sounds will play once; DTMF tones will
+     * be cut short if they exceed 1 second, while outgoing and disconnect sounds will be cut short if they exceed 3 seconds.
+     * [See the list of all available sound properties and their default values](all available sound properties and their default values below).
      */
     type sounds = { [key: string]: any } | null;
 
@@ -845,7 +902,7 @@ declare namespace Twilio {
      */
     type warnings = boolean;
 
-    type DeviceOptions = {
+    interface DeviceOptions {
         allowIncomingWhileBusy?: allowIncomingWhileBusy;
         audioConstraints?: audioConstraints;
         closeProtection?: closeProtection;
@@ -857,24 +914,24 @@ declare namespace Twilio {
         rtcConstraints?: rtcConstraints;
         sounds?: sounds;
         warnings?: warnings;
-    };
+    }
 
     type RTCMediaEngine = "ORTC" | "WebRTC";
 
-    type DevicePayload = {
+    interface DevicePayload {
         platform: RTCMediaEngine;
         sdk_version: string;
         selected_region: Region;
         call_sid?: string | null;
         temp_call_sid?: string;
         direction?: CallDirection;
-    };
+    }
 
-    type DeviceError = {
+    interface DeviceError {
         message: string;
         code: TwilioError;
         connection: Connection;
-    };
+    }
 
     class Device extends EventEmitter {
         audioContext: AudioContext;
@@ -890,7 +947,8 @@ declare namespace Twilio {
         activeConnection(): Connection | null | undefined;
 
         /**
-         * Attempts a new connection to the Twilio application that you associated with this `Device`'s capability token when you called `.setup()`
+         * Attempts a new connection to the Twilio application that you associated with this `Device`'s capability
+         * token when you called `.setup()`
          */
         connect(
             params?: { [key: string]: any },
@@ -950,14 +1008,17 @@ declare namespace Twilio {
         on(event: cancelEvent, handler: (connection: Connection) => any): this;
 
         /**
-         * This is triggered when a connection is opened, whether initiated using `.connect()` or via an [accepted incoming connection](https://www.twilio.com/docs/voice/client/javascript/device#incoming).
+         * This is triggered when a connection is opened, whether initiated using `.connect()` or via an
+         * [accepted incoming connection](https://www.twilio.com/docs/voice/client/javascript/device#incoming).
          *
-         * Since this Connection object represents an inactive connection, you'll probably just want to use the event to update your application's UI, then throw away the Connection and wait for the next call.
+         * Since this Connection object represents an inactive connection, you'll probably just want to use the
+         * event to update your application's UI, then throw away the Connection and wait for the next call.
          */
         on(event: connectEvent, handler: (connection: Connection) => any): this;
 
         /**
-         * Fired any time a {@link Connection} is closed. The handler function receives the `Twilio.Connection` object that was just closed as an argument.
+         * Fired any time a {@link Connection} is closed. The handler function receives the `Twilio.Connection` object
+         * that was just closed as an argument.
          */
         on(
             event: disconnectEvent,
@@ -965,12 +1026,15 @@ declare namespace Twilio {
         ): this;
 
         /**
-         * Emitted when any device error occurs. These may be errors in your request, your token, connection errors, or other application errors. Using the error handler is a great way to debug your application and help catch mistakes in your code.
+         * Emitted when any device error occurs. These may be errors in your request, your token, connection errors,
+         * or other application errors. Using the error handler is a great way to debug your application and help catch
+         * mistakes in your code.
          */
         on(event: errorEvent, handler: (error: DeviceError) => any): this;
 
         /**
-         * This is triggered whenever an incoming connection from an [outbound REST call](https://www.twilio.com/docs/api/rest/making_calls#example-2) or a TwiML `<Dial>` to this device is made.
+         * This is triggered whenever an incoming connection from an [outbound REST call](https://www.twilio.com/docs/api/rest/making_calls#example-2) or a
+         * TwiML `<Dial>` to this device is made.
          *
          * This connection will be in state `pending` until you call `.accept()` on it.
          */
@@ -980,12 +1044,17 @@ declare namespace Twilio {
         ): this;
 
         /**
-         * This is triggered when the connection to Twilio drops or the device's token is invalid/expired. In either of these scenarios, the device cannot receive incoming connections or make outgoing connections. If the token expires during an active connection the `offline` event will be fired, but the connection will not be terminated. In this situation you will have to call `Twilio.Device.setup()` with a valid token before attempting or receiving the next connection.
+         * This is triggered when the connection to Twilio drops or the device's token is invalid/expired.
+         * In either of these scenarios, the device cannot receive incoming connections or make outgoing connections.
+         * If the token expires during an active connection the `offline` event will be fired, but the connection will not be
+         * terminated. In this situation you will have to call `Twilio.Device.setup()` with a valid token before attempting
+         * or receiving the next connection.
          */
         on(event: offlineEvent, handler: (device: Device) => any): this;
 
         /**
-         * This is initially triggered when all operations in `.setup()` have completed and the device is ready and online. It may be triggered again if the device goes offline and comes back online (i.e. the connection drops and returns).
+         * This is initially triggered when all operations in `.setup()` have completed and the device is
+         * ready and online. It may be triggered again if the device goes offline and comes back online (i.e. theconnection drops and returns).
          */
         on(event: readyEvent, handler: (device: Device) => any): this;
 

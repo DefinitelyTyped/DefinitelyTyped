@@ -1,6 +1,6 @@
 import Twilio from "twilio-client";
 
-let device = new Twilio.Device();
+const device = new Twilio.Device();
 
 Twilio.Device.setup("some_token");
 
@@ -9,11 +9,11 @@ device.on("cancel", connection => {
 });
 
 device.on("connect", connection => {
-    let localStream = connection.getLocalStream();
+    const localStream = connection.getLocalStream();
 });
 
 device.on("error", err => {
-    let { code, message, connection } = err;
+    const { code, message, connection } = err;
 });
 
 device.audio.on("deviceChange", lostActiveDevices => {
@@ -26,7 +26,7 @@ device.audio.on("deviceChange", lostActiveDevices => {
 
 device.audio.isOutputSelectionSupported;
 
-let connection = device.activeConnection();
+const connection = device.activeConnection();
 if (connection) {
     connection.on("mute", (isMuted, conn) => {
         if (isMuted) {
