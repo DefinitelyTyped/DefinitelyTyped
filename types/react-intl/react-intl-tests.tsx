@@ -401,7 +401,15 @@ class TestApp extends React.Component {
             hello: "Hello, {name}!"
         };
         return (
-            <IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages} timeZone="UTC">
+            <IntlProvider
+                locale="en"
+                formats={{}}
+                messages={messages}
+                defaultLocale="en"
+                defaultFormats={messages}
+                timeZone="UTC"
+                onError={(error: string) => console.error(error)}
+            >
                 <SomeComponentWithIntl className="just-for-test" />
                 <SomeFunctionalComponentWithIntl className="another-one" />
             </IntlProvider>
