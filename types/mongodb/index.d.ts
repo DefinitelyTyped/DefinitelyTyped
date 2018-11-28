@@ -79,7 +79,7 @@ export interface ClientSession extends EventEmitter {
     /** The server id associated with this session */
     id: any;
     /**
-     * Aborts the currently active transaction in this session. 
+     * Aborts the currently active transaction in this session.
      * @param {MongoCallback<void>} [cb] Optional callback for completion of this operation
      */
     abortTransaction(cb?: MongoCallback<void>): Promise<void>;
@@ -89,7 +89,7 @@ export interface ClientSession extends EventEmitter {
      */
     advanceOperationTime(operamtionTime: Timestamp): void;
     /**
-     * Commits the currently active transaction in this session. 
+     * Commits the currently active transaction in this session.
      * @param {MongoCallback<void>} [cb] Optional callback for completion of this operation
      */
     commitTransaction(cb?: MongoCallback<void>): Promise<void>;
@@ -110,7 +110,7 @@ export interface ClientSession extends EventEmitter {
      * Used to determine if this session equals another
      *
      * @param {ClientSession} session A class representing a client session on the server
-     * @returns {boolean} if the sessions are equal 
+     * @returns {boolean} if the sessions are equal
      */
     equals(session: ClientSession): boolean;
 
@@ -118,13 +118,13 @@ export interface ClientSession extends EventEmitter {
     incrementTransactionNumber(): void;
 
     /**
-     * @returns {boolean} this session is currently in a transaction or not 
+     * @returns {boolean} this session is currently in a transaction or not
      */
     inTransaction(): boolean;
 
     /**
      * Starts a new transaction with the given options.
-     * @param {TransactionOptions} options 
+     * @param {TransactionOptions} options
      * @memberof ClientSession
      */
     startTransaction(options?: TransactionOptions): void;
@@ -219,10 +219,10 @@ export class MongoError extends Error {
      * client/user (eg. "Email address must be unique" instead of "Both email
      * address and username must be unique") - which caters for a better (app)
      * user experience.
-     * 
+     *
      * Details: https://github.com/Automattic/mongoose/issues/2129 (issue for
      * mongoose, but the same applies for the native mongodb driver)
-     * 
+     *
      * Note that in mongoose (the link above) the prop in question is called
      * 'message' while in mongodb it is called 'errmsg'. This can be seen in
      * multiple places in the source code, for example here:
@@ -706,9 +706,9 @@ export interface Collection<TSchema = Default> {
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: Object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: Object, options: FindOneAndReplaceOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, options?: FindOneAndUpdateOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, options: FindOneAndUpdateOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: FindOneAndUpdateOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: FindOneAndUpdateOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
     geoHaystackSearch(x: number, y: number, callback: MongoCallback<any>): void;
     geoHaystackSearch(x: number, y: number, options?: GeoHaystackSearchOptions): Promise<any>;
