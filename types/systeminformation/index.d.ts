@@ -367,6 +367,7 @@ export namespace Systeminformation {
         tty: string;
         user: string;
         command: string;
+        name: string;
     }
 
     interface ProcessesProcessLoadData {

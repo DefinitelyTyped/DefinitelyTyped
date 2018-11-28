@@ -64,7 +64,7 @@ declare class Agenda extends EventEmitter {
     defaultConcurrency(value: number): this;
 
     /**
-     * Takes a number shich specifies the max number jobs that can be locked at any given moment. By default it is
+     * Takes a number which specifies the max number jobs that can be locked at any given moment. By default it is
      * 0 for no max.
      * @param value The value to set.
      */
@@ -189,7 +189,7 @@ declare namespace Agenda {
         defaultLockLimit?: number;
 
         /**
-         * Takes a number shich specifies the max number jobs that can be locked at any given moment. By default it is
+         * Takes a number which specifies the max number jobs that can be locked at any given moment. By default it is
          * 0 for no max.
          */
         lockLimit?: number;

@@ -989,6 +989,8 @@ import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRe
 import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
 import DraftDragType = Draft.Model.Constants.DraftDragType;
 import DraftBlockType = Draft.Model.Constants.DraftBlockType;
+import DraftBlockRenderConfig = Draft.Model.ImmutableData.DraftBlockRenderConfig;
+import DraftBlockRenderMap = Draft.Component.Base.DraftBlockRenderMap;
 import DraftInlineStyleType = Draft.Model.Constants.DraftInlineStyleType;
 import DraftEntityMutability = Draft.Model.Constants.DraftEntityMutability;
 import DraftEntityType = Draft.Model.Constants.DraftEntityType;
@@ -1039,6 +1041,8 @@ export {
     DraftEditorCommand,
     DraftDragType,
     DraftBlockType,
+    DraftBlockRenderConfig,
+    DraftBlockRenderMap,
     DraftInlineStyleType,
     DraftEntityType,
     DraftEntityMutability,

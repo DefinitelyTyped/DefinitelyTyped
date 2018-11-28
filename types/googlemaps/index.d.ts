@@ -2613,6 +2613,7 @@ declare namespace google.maps {
       strictBounds?: boolean;
       types?: string[];
       type?: string;
+      fields?: string[];
     }
 
     export interface AutocompletePrediction {
@@ -2881,7 +2882,7 @@ declare namespace google.maps {
     export interface FindPlaceFromPhoneNumberRequest {
       fields: string[];
       locationBias?: LocationBias;
-      query: string;
+      phoneNumber: string;
     }
   }
 

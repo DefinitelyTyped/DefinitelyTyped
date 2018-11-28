@@ -1,10 +1,11 @@
-// Type definitions for redux-first-router 1.10
+// Type definitions for redux-first-router 2.1
 // Project: https://github.com/faceyspacey/redux-first-router#readme
 // Definitions by: Valbrand <https://github.com/Valbrand>
 //                 viggyfresh <https://github.com/viggyfresh>
 //                 janb87 <https://github.com/janb87>
 //                 corydeppen <https://github.com/corydeppen>
 //                 jscinoz <https://github.com/jscinoz>
+//                 surgeboris <https://github.com/surgeboris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -64,8 +65,10 @@ export interface ReceivedActionMeta {
     };
 }
 
+export type HistoryEntries = Array<{ pathname: string }>;
+
 export interface HistoryData {
-    entries: Array<{ pathname: string }>;
+    entries: HistoryEntries;
     index: number;
     length: number;
 }
@@ -203,6 +206,8 @@ export interface Options<TKeys = {}, TState = any> {
     initialDispatch?: boolean;
     querySerializer?: QuerySerializer;
     navigators?: NavigatorsConfig<TKeys, TState>;
+    initialEntries?: HistoryEntries;
+    createHistory?(): History;
 }
 
 export type Params = object;
@@ -227,9 +232,8 @@ export function canGoBack(): boolean;
 export function canGoForward(): boolean;
 
 export function connectRoutes<TKeys = {}, TState = any>(
-    history: History,
     routesMap: RoutesMap<TKeys, TState>,
-    options?: Options<TKeys, TState>
+    options?: Options<TKeys, TState>,
 ): {
         reducer: Reducer<LocationState<TKeys, TState>>;
         middleware: Middleware;

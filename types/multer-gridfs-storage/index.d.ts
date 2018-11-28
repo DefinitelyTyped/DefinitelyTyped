@@ -58,7 +58,7 @@ declare namespace MulterGridfsStorage {
     }
 
     interface DbStorageOptions extends MulterGfsOptions {
-        db: Mongoose | Connection | Db | Promise<Mongoose | Connection | Db>;
+        db: Mongoose | Connection | Db | MongoClient | Promise<Mongoose | Connection | Db | MongoClient>;
     }
 
     interface FileConfig {

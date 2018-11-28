@@ -5,6 +5,7 @@
 //                 Larry Faudree <https://github.com/lfaudreejr>
 //                 Will Caulfield <https://github.com/willcaul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 /// <reference types="auth0-js" />
 
@@ -98,6 +99,7 @@ interface Auth0LockAuthOptions {
     params?: Auth0LockAuthParamsOptions;
     redirect?: boolean;
     redirectUrl?: string;
+    responseMode?: string;
     responseType?: string;
     sso?: boolean;
     audience?: string;

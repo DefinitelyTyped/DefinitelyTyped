@@ -1731,3 +1731,11 @@ interface GanttStatic {
 
 declare var gantt: GanttStatic;
 declare var Gantt: GanttEnterprise;
+
+declare module "gantt" {
+    export = gantt;
+}
+
+declare module "Gantt" {
+    export = GanttEnterprise;
+}

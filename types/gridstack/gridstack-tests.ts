@@ -7,7 +7,7 @@
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>, Ricky Blankenaufulland <https://github.com/ZoolWay/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-var options = <IGridstackOptions> {
+var options: IGridstackOptions = {
     float: true
 };
 var element: JQuery = $(document).gridstack(options);

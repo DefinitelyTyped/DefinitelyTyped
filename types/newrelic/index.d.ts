@@ -1,6 +1,7 @@
-// Type definitions for newrelic 3.3
+// Type definitions for newrelic 3.4
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
+//                 Brooks Patton <https://github.com/brookspatton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
@@ -64,14 +65,14 @@ export function setControllerName(name: string, action: string): void;
  *
  * Most recently set value wins.
  */
-export function addCustomAttribute(key: string, value: string): void;
+export function addCustomAttribute(key: string, value: string|number): void;
 
 /**
  * Adds all custom attributes in an object to the current transaction.
  *
  * See documentation for `addCustomAttribute` for more information on setting custom attributes.
  */
-export function addCustomAttributes(atts: { [key: string]: string }): void;
+export function addCustomAttributes(atts: { [key: string]: string|number }): void;
 
 /**
  * Tell the tracer whether to ignore the current transaction.

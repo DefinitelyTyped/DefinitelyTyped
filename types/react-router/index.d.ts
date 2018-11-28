@@ -1,4 +1,4 @@
-// Type definitions for React Router 4.0
+// Type definitions for React Router 4.4
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
 //                 Yuichi Murata <https://github.com/mrk21>
@@ -18,6 +18,7 @@
 //                 Rahul Raina <https://github.com/rraina>
 //                 Maksim Sharipov <https://github.com/pret-a-porter>
 //                 Duong Tran <https://github.com/t49tran>
+//                 Ben Smith <https://github.com/8enSmith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -76,7 +77,7 @@ export interface RouteProps {
   component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
-  path?: string;
+  path?: string | string[];
   exact?: boolean;
   sensitive?: boolean;
   strict?: boolean;
@@ -116,7 +117,7 @@ export interface match<Params extends { [K in keyof Params]?: string } = {}> {
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: RouteProps, parent?: match<Params> | null): match<Params> | null;
+export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: string | RouteProps, parent?: match<Params> | null): match<Params> | null;
 
 export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean }): string;
 

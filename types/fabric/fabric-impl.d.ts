@@ -104,7 +104,7 @@ export function warn(...values: any[]): void;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Data Object Interfaces - These intrface are not specific part of fabric,
-// They are just helpful for for defining function paramters
+// They are just helpful for for defining function parameters
 //////////////////////////////////////////////////////////////////////////////
 interface IDataURLOptions {
 	/**
@@ -140,6 +140,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
+    transform?: { corner: string };
 }
 
 interface IFillOptions {
@@ -4682,4 +4683,3 @@ export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOpt
 export class WebglFilterBackend {
 	constructor(options?: WebglFilterBackendOptions);
 }
-

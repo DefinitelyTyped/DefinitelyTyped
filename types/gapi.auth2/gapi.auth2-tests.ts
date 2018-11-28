@@ -55,8 +55,8 @@ function test_render() {
   const success = (googleUser: gapi.auth2.GoogleUser): void => {
     console.log(googleUser);
   };
-  const failure = (): void => {
-    console.log('Failure callback');
+  const failure = (reason: { error: string }): void => {
+    console.log(`Failure callback: ${reason.error}`);
   };
 
   gapi.signin2.render('testId', {

@@ -1,10 +1,8 @@
 // Type definitions for auth0 2.9.2
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-
-import * as Promise from 'bluebird';
 
 export interface ManagementClientOptions {
   token?: string;
@@ -588,7 +586,19 @@ export interface ImpersonateSettingOptions {
   clientId?: string;
 }
 
-
+export type ClientAppType = 'native' | 'spa' | 'regular_web' | 'non_interactive' | 'rms' | 'box' |
+  'cloudbees' | 'concur' | 'dropbox' | 'mscrm' | 'echosign' | 'egnyte' | 'newrelic' | 'office365' |
+  'salesforce' | 'sentry' | 'sharepoint' | 'slack' | 'springcm' | 'zendesk' | 'zoom';
+export interface GetClientsOptions {
+    fields?: string[];
+    include_fields?: boolean;
+    page?: number;
+    per_page?: number;
+    include_totals?: boolean;
+    is_global?: boolean;
+    is_first_party?: boolean;
+    app_type?: ClientAppType[];
+}
 
 export class AuthenticationClient {
 
@@ -661,8 +671,9 @@ export class ManagementClient {
 
 
   // Clients
-  getClients(): Promise<Client[]>;
-  getClients(cb: (err: Error, clients: Client[]) => void): void;
+  getClients(params?: GetClientsOptions): Promise<Client[]>;
+  getClients(cb: (err: Error, clients: Client[]) => void ): void;
+  getClients(params: GetClientsOptions, cb: (err: Error, clients: Client[]) => void ): void;
 
   getClient(params: ClientParams): Promise<Client>;
   getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;

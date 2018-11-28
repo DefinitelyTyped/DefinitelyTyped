@@ -21,6 +21,8 @@
 //                 Ethan Kay <https://github.com/elk941>,
 //                 Methuselah96 <https://github.com/Methuselah96>
 //                 Dilip Ramirez <https://github.com/Dukuo>
+//                 Julian Strecker <https://github.com/JulianSSS>
+//                 Zhang Hao <https://github.com/devilsparta>
 // Definitions: https://github.com//DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -32,13 +34,14 @@ export * from "./three-copyshader";
 export * from "./three-css3drenderer";
 export * from "./three-ctmloader";
 export * from "./three-ddsloader";
-export * from './three-dragcontrols';
+export * from "./three-dragcontrols";
 export * from "./three-editorcontrols";
 export * from "./three-effectcomposer";
 export * from "./three-examples";
 export * from "./three-fbxloader";
 export * from "./three-FirstPersonControls";
 export * from "./three-gltfexporter";
+export * from "./three-gltfloader";
 export * from "./three-lensflare";
 export * from "./three-maskpass";
 export * from "./three-mtlloader";

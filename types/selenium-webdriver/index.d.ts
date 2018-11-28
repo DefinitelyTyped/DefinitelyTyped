@@ -3448,7 +3448,7 @@ export class TargetLocator {
    * @return {!promise.Promise<void>} A promise that will be resolved
    *     when the driver has changed focus to the specified frame.
    */
-  frame(nameOrIndex: number | WebElement): promise.Promise<void>;
+  frame(nameOrIndex: number | WebElement | null): promise.Promise<void>;
 
   /**
    * Schedules a command to switch the focus of all future commands to another

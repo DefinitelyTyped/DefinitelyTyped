@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.38
+// Type definitions for plotly.js 1.41
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -479,7 +479,7 @@ export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' | 'surface';
+	type: 'bar' | 'box' | 'heatmap' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' | 'surface';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -530,6 +530,18 @@ export interface PlotData {
 	visible: boolean | 'legendonly';
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
+	boxmean: boolean | 'sd';
+	colorscale: string | Array<[number, string]>;
+	zsmooth: 'fast' | 'best' | false;
+	ygap: number;
+	xgap: number;
+	transpose: boolean;
+	autobinx: boolean;
+	xbins: {
+		start: number | string;
+		end: number | string;
+		size: number | string;
+	};
 }
 
 /**
@@ -792,6 +804,9 @@ export interface Config {
 
 	/** Which localization should we use? Should be a string like 'en' or 'en-US' */
 	locale: string;
+
+	/** Make the chart responsive to window size */
+	responsive: boolean;
 }
 
 // Components
