@@ -796,6 +796,7 @@ export interface TooltipPayload {
     fill?: string;
     dataKey?: DataKey;
     formatter?: TooltipFormatter;
+    payload?: any;
 }
 
 export interface TooltipProps extends Animatable {

@@ -644,7 +644,7 @@
 /types/connect-mongo/                               @Syati
 /types/connect-mongodb-session/                     @NattapongSiri
 /types/connect-pg-simple/                           @pasieronen
-/types/connect-redis/                               @xstoudi @morcerf
+/types/connect-redis/                               @xstoudi
 /types/connect-slashes/                             @samherrmann
 /types/connect-timeout/                             @cyrilschumacher
 /types/consola/                                     @Jungwoo-An
@@ -3691,8 +3691,8 @@
 /types/rdflib/                                      @cenotelie
 /types/re-base/                                     @jordandrako
 /types/reach__router/                               @kingdaro
-/types/react/v15/                                   @bbenezech @pzavolinsky @digiguru @ericanderson @morcerf @tkrotoff @DovydasNavickas @onigoetz
-/types/react/                                       @johnnyreilly @bbenezech @pzavolinsky @digiguru @ericanderson @morcerf @tkrotoff @DovydasNavickas @onigoetz @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei
+/types/react/v15/                                   @bbenezech @pzavolinsky @digiguru @ericanderson @tkrotoff @DovydasNavickas @onigoetz
+/types/react/                                       @johnnyreilly @bbenezech @pzavolinsky @digiguru @ericanderson @tkrotoff @DovydasNavickas @onigoetz @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei
 /types/react-adal/                                  @dkorolev1
 /types/react-albus/                                 @sseppola @conradreuter @kuirak
 /types/react-alert/v2/                              @ssyrell

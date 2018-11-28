@@ -92,7 +92,7 @@ declare namespace Bull {
      * Define a custom backoff strategy
      */
     backoffStrategies?: {
-      [key: string]: (attemptsMade: number, err: typeof Error) => number;
+      [key: string]: (attemptsMade: number, err: Error) => number;
     };
 
     /**

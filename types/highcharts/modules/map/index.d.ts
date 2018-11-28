@@ -1,8 +1,3 @@
-// Type definitions for Highmaps 4.2.7
-// Project: http://www.highcharts.com/products/highmaps
-// Definitions by: Albert Ozimek <https://github.com/AlbertOzimek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as highcharts from 'highcharts';
 import * as geojson from 'geojson';
 
