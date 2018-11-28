@@ -288,6 +288,10 @@ export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
 export interface BaseThemedCssFunction<T extends object> {
     (
+        first: TemplateStringsArray | NonNullable<SimpleInterpolation>,
+        ...interpolations: SimpleInterpolation[]
+    ): FlattenSimpleInterpolation;
+    (
         first:
             | TemplateStringsArray
             | NonNullable<Interpolation<ThemedStyledProps<{}, T>>>,
