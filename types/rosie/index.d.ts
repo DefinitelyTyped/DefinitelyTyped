@@ -163,7 +163,7 @@ declare namespace rosie {
      * @param {function(number): *=} builder
      * @return {Factory}
      */
-    sequence(name: keyof T, dependenciesOrBuilder?: () => any | keyof T[], builder?: Function) : IFactory<T>;
+    sequence(name: keyof T, dependenciesOrBuilder?: (i: number) => any | keyof T[], builder?: Function) : IFactory<T>;
 
     /**
      * Sets a post-processor callback that will receive built objects and the

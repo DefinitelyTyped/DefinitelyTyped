@@ -19,6 +19,7 @@ resultObj = Factory.build('some');
 Factory.define('coach')
   .option('buildPlayer', false)
   .sequence('id')
+  .sequence('name', (i: number) => `Coach${i}`)
   .attr('players', ['id', 'buildPlayer'], function(id: any, buildPlayer: boolean) {
     if (buildPlayer) {
       return [Factory.build('player', {coach_id: id})];
