@@ -135,4 +135,4 @@ const pretty = pino({
 		translateTime: 'UTC:h:MM:ss TT Z',
 		search: 'foo == `bar`'
 	}
-})
+});
