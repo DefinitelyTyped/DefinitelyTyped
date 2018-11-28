@@ -245,7 +245,7 @@ export interface TimelineOptions {
   multiselectPerGroup?: boolean;
   onAdd?: TimelineOptionsItemCallbackFunction;
   onAddGroup?: TimelineOptionsGroupCallbackFunction;
-  onInitialDrawComplete?: () => void;
+  onInitialDrawComplete?: (() => void);
   onUpdate?: TimelineOptionsItemCallbackFunction;
   onMove?: TimelineOptionsItemCallbackFunction;
   onMoveGroup?: TimelineOptionsGroupCallbackFunction;
