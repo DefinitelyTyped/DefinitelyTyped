@@ -76,7 +76,3 @@ declare module "codemirror" {
         hintOptions?: ShowHintOptions;
     }
 }
-
-declare module "codemirror/addon/hint/show-hint" {
-    export = CodeMirror;
-}

@@ -3,13 +3,14 @@
 // Definitions by: Michael Müller <https://github.com/mad-mike>,
 //                 Troy Lamerton <https://github.com/troy-lamerton>
 //                 Martín Rodriguez <https://github.com/netux>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
 /** Creates a new simple-oauth2 client with the passed configuration */
-export function create(options: ModuleOptions): OAuthClient;
+export function create<ClientIdName extends string = 'client_id'>(options: ModuleOptions<ClientIdName>): OAuthClient<ClientIdName>;
 
-export interface ModuleOptions {
+export interface ModuleOptions<ClientIdName extends string = 'client_id'> {
     client: {
         /** Service registered client id. Required. */
         id: string,
@@ -18,7 +19,7 @@ export interface ModuleOptions {
         /** Parameter name used to send the client secret. Default to client_secret. */
         secretParamName?: string,
         /** Parameter name used to send the client id. Default to client_id. */
-        idParamName?: string
+        idParamName?: ClientIdName
     };
     auth: {
         /** String used to set the host to request the tokens to. Required. */
@@ -91,7 +92,7 @@ export interface ClientCredentialTokenConfig {
     scope?: string | string[];
 }
 
-export interface OAuthClient {
+export interface OAuthClient<ClientIdName extends string = 'client_id'> {
     authorizationCode: {
         /**
          * Redirect the user to the autorization page
@@ -99,8 +100,8 @@ export interface OAuthClient {
          */
         authorizeURL(
             params?: {
-                /** A key-value pair where key is ModuleOptions#client.idParamName and the value represents the Client-ID */
-                [ idParamName: string ]: string | undefined
+                /** A string that represents the Client-ID */
+                [key in ClientIdName]?: string
             } & {
                 /** A string that represents the registered application URI where the user is redirected after authentication */
                 redirect_uri?: string,

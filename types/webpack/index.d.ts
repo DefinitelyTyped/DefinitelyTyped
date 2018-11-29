@@ -1394,7 +1394,6 @@ declare namespace webpack {
         constructor();
     }
 
-    /** @deprecated use webpack.NoEmitOnErrorsPlugin */
     class NormalModuleReplacementPlugin extends Plugin {
         constructor(resourceRegExp: any, newResource: any);
     }

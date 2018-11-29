@@ -1715,7 +1715,7 @@ export interface Page extends EventEmitter, FrameBase {
 }
 
 export interface TargetAwaiter {
-    waitForTarget(predicate: (target: Target) => boolean, options: Timeoutable): Promise<void>;
+    waitForTarget(predicate: (target: Target) => boolean, options?: Timeoutable): Promise<Target>;
 }
 
 /** A Browser is created when Puppeteer connects to a Chromium instance, either through puppeteer.launch or puppeteer.connect. */

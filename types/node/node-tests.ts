@@ -3677,6 +3677,12 @@ import * as p from "process";
         function test() {
             throw new repl.Recoverable(new Error("test"));
         }
+
+        _server.context['key0'] = 1;
+        _server.context['key1'] = "";
+        _server.context['key2'] = true;
+        _server.context['key3'] = [];
+        _server.context['key4'] = {};
     }
 }
 
