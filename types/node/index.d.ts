@@ -2501,7 +2501,9 @@ declare module "readline" {
 }
 
 declare module "vm" {
-    interface Context { }
+    interface Context {
+        [key: string]: any;
+    }
     interface BaseOptions {
         /**
          * Specifies the filename used in stack traces produced by this script.

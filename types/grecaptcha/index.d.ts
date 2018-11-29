@@ -46,7 +46,7 @@ declare namespace ReCaptchaV2 {
     /**
      * Your sitekey.
      */
-    sitekey: string;
+    sitekey?: string;
     /**
      * Optional. The color theme of the widget.
      * Accepted values: "light", "dark"

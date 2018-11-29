@@ -99,6 +99,21 @@ const fadeIn = keyframes`
   }
 `;
 
+const showAnimation = css`
+  opacity: 1;
+  transform: scale(1) translateY(0);
+`;
+
+const hideAnimation = css`
+  opacity: 0;
+  transform: scale(0.95, 0.8) translateY(20px);
+`;
+
+const entryAnimation = keyframes`
+  from { ${hideAnimation} }
+  to { ${showAnimation} }
+`;
+
 const animationRule = css`
     ${fadeIn} 1s infinite alternate;
 `;
