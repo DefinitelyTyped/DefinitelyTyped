@@ -1158,6 +1158,13 @@ declare namespace Office {
          */
         displayInIframe?: boolean
         /**
+         * Determines if the pop-up blocker dialog will be shown to the user. Defaults to true.
+         * 
+         * `true` - The framework displays a pop-up to trigger the navigation and avoid the browser's pop-up blocker.
+         * `false` - The dialog will not be shown and the developer must handle pop-ups (by providing a user interface artifact to trigger the navigation).
+         */
+        promptBeforeOpen?: boolean;
+        /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
         asyncContext?: any
