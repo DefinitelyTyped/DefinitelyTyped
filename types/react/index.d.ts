@@ -421,6 +421,11 @@ declare namespace React {
         refs: {
             [key: string]: ReactInstance
         };
+        
+        /*
+         * default props
+         */
+        static defaultProps: P;
     }
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
