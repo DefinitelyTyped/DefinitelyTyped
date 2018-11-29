@@ -17,7 +17,7 @@
     },
     "files": [
         "index.d.ts",
-        "mapview.d.ts",
+        "MapView.d.ts",
         "expo-tests.tsx"
     ]
 }
