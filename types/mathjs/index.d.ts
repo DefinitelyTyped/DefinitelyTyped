@@ -7,6 +7,7 @@
 // TypeScript Version: 2.2
 
 import { Decimal } from "decimal.js";
+import { ImportOptions } from "mathjs";
 
 declare const math: math.MathJsStatic;
 export as namespace math;
@@ -2571,6 +2572,18 @@ declare namespace math {
          * ‘string’, ‘Array’, ‘Date’.
          */
         typeof(x: any): string;
+
+        /**
+         * Import functions from an object or a module
+         * @param object An object with functions to be imported.
+         * @param options An object with import options.
+         */
+        import(object: object | Array<object>, options: ImportOptions);
+
+        /**
+         * It may not exists - this is _only_ for import functionality.
+         */
+        [key: string]: any;
     }
 
     interface Matrix {
@@ -4541,5 +4554,11 @@ declare namespace math {
          * Determine the type of a variable.
          */
         typeof(): MathJsChain;
+    }
+
+    interface ImportOptions {
+        override?: boolean;
+        silent?: boolean;
+        wrap?: boolean;
     }
 }
