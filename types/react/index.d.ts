@@ -53,7 +53,8 @@ declare namespace React {
         {
             [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
         }[keyof JSX.IntrinsicElements] |
-        ComponentType<P>;
+        BareComponentType<P>;
+    type BareComponentType<P = {}> = BareComponentClass<P> | BareFunctionComponent<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type Key = string | number;
@@ -457,24 +458,33 @@ declare namespace React {
 
     type FC<P = {}> = FunctionComponent<P>;
 
-    interface FunctionComponent<P = {}> {
+    interface BareFunctionComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+    }
+
+    interface FunctionComponent<P = {}> extends BareFunctionComponent<P> {
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
     }
 
-    interface RefForwardingComponent<T, P = {}> {
+    interface BareRefForwardingComponent<T, P = {}> {
         (props: P & { children?: ReactNode }, ref: Ref<T> | null): ReactElement<any> | null;
+    }
+
+    interface RefForwardingComponent<T, P = {}> extends BareRefForwardingComponent<T, P> {
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
     }
 
-    interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
+    interface BareComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
+    }
+
+    interface ComponentClass<P = {}, S = ComponentState> extends BareComponentClass<P, S> {
         propTypes?: ValidationMap<P>;
         contextType?: Context<any>;
         contextTypes?: ValidationMap<any>;
@@ -717,13 +727,13 @@ declare namespace React {
      * or ComponentPropsWithoutRef when refs are not supported.
      */
     type ComponentProps<T extends ReactType> =
-        T extends ComponentType<infer P>
+        T extends BareComponentType<infer P>
             ? P
             : T extends keyof JSX.IntrinsicElements
                 ? JSX.IntrinsicElements[T]
                 : {};
     type ComponentPropsWithRef<T extends ReactType> =
-        T extends ComponentClass<infer P>
+        T extends BareComponentClass<infer P>
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
     type ComponentPropsWithoutRef<T extends ReactType> =

@@ -34,7 +34,7 @@ export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
 
 export type StyledComponentProps<
     // The Component from whose props are derived
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends React.ReactType,
     // The Theme from the current context
     T extends object,
     // The other props added by the template
@@ -48,7 +48,7 @@ export type StyledComponentProps<
 >;
 
 type StyledComponentPropsWithAs<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends React.ReactType,
     T extends object,
     O extends object,
     A extends keyof any
@@ -115,7 +115,7 @@ export type AnyStyledComponent =
     | StyledComponent<any, any, any>;
 
 export type StyledComponent<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends React.ReactType,
     T extends object,
     O extends object = {},
     A extends keyof any = never
@@ -124,7 +124,7 @@ export type StyledComponent<
     string & StyledComponentBase<C, T, O, A>;
 
 export interface StyledComponentBase<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends React.ReactType,
     T extends object,
     O extends object = {},
     A extends keyof any = never
@@ -137,7 +137,7 @@ export interface StyledComponentBase<
     // (
     //     props: StyledComponentProps<C, T, O, A> & { as?: never }
     //   ): React.ReactElement<StyledComponentProps<C, T, O, A>>
-    // <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
+    // <AsC extends React.ReactType = C>(
     //   props: StyledComponentPropsWithAs<AsC, T, O, A>
     // ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>
 
@@ -149,7 +149,7 @@ export interface StyledComponentBase<
              *
              * String types need to be cast to themselves to become literal types (as={'a' as 'a'}).
              */
-            as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+            as?: React.ReactType;
         }
     ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
     withComponent<WithC extends AnyStyledComponent>(
@@ -161,14 +161,16 @@ export interface StyledComponentBase<
         A | StyledComponentInnerAttrs<WithC>
     >;
     withComponent<
-        WithC extends keyof JSX.IntrinsicElements | React.ComponentType<any>
+        WithC extends React.ReactType
     >(
         component: WithC
     ): StyledComponent<WithC, T, O, A>;
+
+    readonly defaultProps: C extends { defaultProps: infer DP } ? Readonly<DP> : undefined
 }
 
 export interface ThemedStyledFunctionBase<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends React.ReactType,
     T extends object,
     O extends object = {},
     A extends keyof any = never
@@ -208,7 +210,7 @@ export interface ThemedStyledFunctionBase<
 }
 
 export interface ThemedStyledFunction<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends React.ReactType,
     T extends object,
     O extends object = {},
     A extends keyof any = never
@@ -238,7 +240,7 @@ export interface ThemedStyledFunction<
 }
 
 export type StyledFunction<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
+    C extends React.ReactType
 > = ThemedStyledFunction<C, any>;
 
 type ThemedStyledComponentFactories<T extends object> = {
@@ -253,7 +255,7 @@ type StyledComponentInnerComponent<
     ? I
     : C;
 type StyledComponentPropsWithRef<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
+    C extends React.ReactType
 > = C extends AnyStyledComponent
     ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
     : React.ComponentPropsWithRef<C>;
@@ -274,7 +276,7 @@ export interface ThemedBaseStyledInterface<T extends object>
         StyledComponentInnerOtherProps<C>,
         StyledComponentInnerAttrs<C>
     >;
-    <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
+    <C extends React.ReactType>(
         // unfortunately using a conditional type to validate that it can receive a `theme?: Theme`
         // causes tests to fail in TS 3.1
         component: C

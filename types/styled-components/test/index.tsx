@@ -101,13 +101,13 @@ const fadeIn = keyframes`
 `;
 
 const showAnimation = css`
-  opacity: 1;
-  transform: scale(1) translateY(0);
+    opacity: 1;
+    transform: scale(1) translateY(0);
 `;
 
 const hideAnimation = css`
-  opacity: 0;
-  transform: scale(0.95, 0.8) translateY(20px);
+    opacity: 0;
+    transform: scale(0.95, 0.8) translateY(20px);
 `;
 
 const entryAnimation = keyframes`
@@ -867,3 +867,26 @@ function cssProp() {
         </>
     );
 }
+
+// This is a TS 3.2 test written using syntax that would work on TS 2.8
+
+// The TS 3.2 equivalent would be:
+// function HasDefaultProps(props: { x: boolean }) { return <div/>; }
+// HasDefaultProps.defaultProps = { x: true };
+// <HasDefaultProps/>;
+// const StyledHasDefaultProps = styled(HasDefaultProps)``;
+// <StyledHasDefaultProps/>;
+
+declare const HasDefaultProps: {
+    (props: { x: boolean }): JSX.Element;
+    defaultProps: { x: boolean };
+};
+const requiredProps: JSX.LibraryManagedAttributes<
+    typeof HasDefaultProps,
+    React.ComponentProps<typeof HasDefaultProps>
+> = {};
+const StyledHasDefaultProps = styled(HasDefaultProps)``;
+const styledRequiredProps: JSX.LibraryManagedAttributes<
+    typeof StyledHasDefaultProps,
+    React.ComponentProps<typeof StyledHasDefaultProps>
+> = {};
