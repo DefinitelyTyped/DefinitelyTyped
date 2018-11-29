@@ -426,15 +426,9 @@ declare class cropperjs {
     /**
      * Replace the image's src and rebuild the cropper.
      * @param url A new image url
+     * @param hasSameSize If the new image has the same size with the old one, then it will not rebuilt the cropper and only update the urls of all related images.
      */
-    replace(url: string): void;
-    
-    /**
-     * Replace the image's src and rebuild the cropper. If the new image has the same size with the old one, then it will not rebuilt the cropper and only update the urls of all related images. This can be used for applying filters.
-     * @param url A new image url
-     * @param hasSameSize (Default: false)
-     */
-    replace(url: string, hasSameSize: boolean): void;
+    replace(url: string, hasSameSize: boolean = false): void;
 
     /**
      * Enable (unfreeze) the cropper.
