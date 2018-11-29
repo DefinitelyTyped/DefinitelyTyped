@@ -1,18 +1,26 @@
-// Type definitions for react-flatpickr 3.2
+// Type definitions for react-flatpickr 3.6.4
 // Project: https://github.com/coderhaoxin/react-flatpickr
 // Definitions by: begincalendar <https://github.com/begincalendar>
+//                 snaveevans <https://github.com/snaveevans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
-import flatpickr from 'flatpickr';
+import { Component } from "react";
+import flatpickr from "flatpickr";
 
 export interface DateTimePickerProps {
-    defaultValue?: string;
-    options?: flatpickr.Options.Options;
-    onChange?: flatpickr.Options.Hook;
-    value?: string;
-    className?: string;
+  defaultValue?: string;
+  options?: flatpickr.Options.Options;
+  onChange?: flatpickr.Options.Hook;
+  onOpen?: flatpickr.Options.Hook;
+  onClose?: flatpickr.Options.Hook;
+  onMonthChange?: flatpickr.Options.Hook;
+  onYearChange?: flatpickr.Options.Hook;
+  onReady?: flatpickr.Options.Hook;
+  onValueUpdate?: flatpickr.Options.Hook;
+  onDayCreate?: flatpickr.Options.Hook;
+  value?: string | Date | number | Array<string | Date | number>;
+  children?: JSX.Element;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}
