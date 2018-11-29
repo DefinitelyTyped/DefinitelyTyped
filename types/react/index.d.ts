@@ -460,28 +460,29 @@ declare namespace React {
 
     interface BareFunctionComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        displayName?: string;
     }
 
     interface FunctionComponent<P = {}> extends BareFunctionComponent<P> {
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
-        displayName?: string;
     }
 
     interface BareRefForwardingComponent<T, P = {}> {
         (props: P & { children?: ReactNode }, ref: Ref<T> | null): ReactElement<any> | null;
+        displayName?: string;
     }
 
     interface RefForwardingComponent<T, P = {}> extends BareRefForwardingComponent<T, P> {
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
-        displayName?: string;
     }
 
     interface BareComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
+        displayName?: string;
     }
 
     interface ComponentClass<P = {}, S = ComponentState> extends BareComponentClass<P, S> {
@@ -490,7 +491,6 @@ declare namespace React {
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
-        displayName?: string;
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
