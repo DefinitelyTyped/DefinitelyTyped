@@ -1,0 +1,8 @@
+tabWidth: 4
+overrides:
+  - files: ".prettierrc.yml"
+    options:
+      tabWidth: 2
+  - files: "tsconfig.json"
+    options:
+      printWidth: 1
