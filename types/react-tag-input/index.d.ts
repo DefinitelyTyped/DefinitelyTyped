@@ -18,20 +18,26 @@ export interface ReactTagsProps {
     handleAddition: ((tag: {id: string, text: string}) => void);
     handleDelete: ((i: number) => void);
     handleDrag?: ((tag: { id: string; text: string; }, currPos: number, newPos: number) => void);
-    handleInputChange?: ((value: string) => void);
     handleFilterSuggestions?: ((textInputValue: string, possibleSuggestionsArray: Array<{ id: string, text: string }>) => Array<{ id: string, text: string }>);
-    handleInputBlur?: ((textInputValue: string) => void);
+    handleTagClick?: ((i: number) => void);
 
     autofocus?: boolean;
     allowDeleteFromEmptyInput?: boolean;
+    handleInputChange?: ((value: string) => void);
+    handleInputFocus?: ((value: string) => void);
+    handleInputBlur?: ((textInputValue: string) => void);
     minQueryLength?: number;
     removeComponent?: React.Component<any, any>;
     autocomplete?: boolean | 1;
     readOnly?: boolean;
-    maxLength?: number;
 
     name?: string;
     id?: string;
+    maxLength?: number;
+
+    inline?: boolean;
+    allowUnique?: boolean;
+    allowDragDrop?: boolean;
 }
 
 export class WithContext extends React.Component<ReactTagsProps> { }
