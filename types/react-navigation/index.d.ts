@@ -1273,17 +1273,17 @@ export interface NavigationInjectedProps<P = NavigationParams> {
 }
 
 // If the wrapped component is a class, we can get a ref to it
-export function withNavigation<T extends React.ComponentClass<NavigationInjectedProps>>(
-  Component: T,
-): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
+export function withNavigation<P extends NavigationInjectedProps, T extends React.ComponentClass<P>>(
+  Component: T & React.ComponentClass<P>,
+): React.ComponentType<Omit<P, keyof NavigationInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
 
-export function withNavigation<T extends React.ComponentType<NavigationInjectedProps>>(
-  Component: T,
-): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps>>;
+export function withNavigation<P extends NavigationInjectedProps>(
+  Component: React.ComponentType<P>,
+): React.ComponentType<Omit<P, keyof NavigationInjectedProps>>;
 
 // For backwards compatibility
 export function withNavigation<T = {}, P = NavigationParams>(
-  Component: React.ComponentType<T | (T & NavigationInjectedProps<P>)>,
+  Component: React.ComponentType<T & NavigationInjectedProps<P>>,
 ): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps<P>>> }>;
 
 export interface NavigationFocusInjectedProps<P = NavigationParams> extends NavigationInjectedProps<P> {
@@ -1291,13 +1291,13 @@ export interface NavigationFocusInjectedProps<P = NavigationParams> extends Navi
 }
 
 // If the wrapped component is a class, we can get a ref to it
-export function withNavigationFocus<T extends React.ComponentClass<NavigationFocusInjectedProps>>(
-  Component: T,
-): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
+export function withNavigationFocus<P extends NavigationFocusInjectedProps, T extends React.ComponentClass<P>>(
+  Component: T & React.ComponentClass<P>,
+): React.ComponentType<Omit<P, keyof NavigationFocusInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
 
-export function withNavigationFocus<T extends React.ComponentType<NavigationFocusInjectedProps>>(
-  Component: T,
-): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps>>;
+export function withNavigationFocus<P extends NavigationFocusInjectedProps>(
+  Component: React.ComponentType<P>,
+): React.ComponentType<Omit<P, keyof NavigationFocusInjectedProps>>;
 
 // For backwards compatibility
 export function withNavigationFocus<T = {}, P = NavigationParams>(
