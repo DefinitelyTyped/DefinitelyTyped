@@ -15,7 +15,7 @@ interface JsonRPCResponse {
 export class Provider {
     send(
         payload: JsonRPCRequest,
-        callback: (e: Error, val: JsonRPCResponse) => void
+        callback: (e?: Error, val?: JsonRPCResponse) => void
     ): any;
 }
 
