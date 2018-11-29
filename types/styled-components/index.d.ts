@@ -454,6 +454,11 @@ declare module "react" {
         // nature of this declaration.
         // If you are writing this inline you already have access to all the attributes anyway,
         // no need for the extra indirection.
-        css?: import(".").CSSIntrinsicAttributeType; // tslint:disable-line whitespace
+        /**
+         * If present, this React element will be converted by
+         * `babel-plugin-styled-components` into a styled component
+         * with the given css as its styles.
+         */
+        css?: CSSIntrinsicAttributeType;
     }
 }
