@@ -99,7 +99,7 @@ export class Scope {
 
     getProgramParent(): Scope;
 
-    getFunctionParent(): Scope;
+    getFunctionParent(): Scope | null;
 
     getBlockParent(): Scope;
 
