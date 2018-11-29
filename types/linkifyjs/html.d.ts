@@ -1,4 +1,4 @@
 import { LinkifyOptions } from "./index";
 
-export let linkifyHtml: (input: string, options?: LinkifyOptions) => string;
+export function linkifyHtml(input: string, options?: LinkifyOptions): string;
 export default linkifyHtml;
