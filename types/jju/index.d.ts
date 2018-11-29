@@ -192,7 +192,7 @@ export function analyze(text: string, options?: ParseOptions): JsonStyle;
  * Change json/json5 text, preserving original formatting as much as possible.
  * @param text Original text
  * @param new_value New value you want to set
- * @param options Parser or stringifier options
+ * @param options Parser and stringifier options
  *
  * @example
  * // here is your original JSON document:
@@ -210,4 +210,4 @@ export function analyze(text: string, options?: ParseOptions): JsonStyle;
  * var output = jju.update(input, json, {mode: 'json'})
  * // output is '{"foo": "quux", "baz": 123, "hello": "world"}'
  */
-export function update(text: string, new_value: any, options?: ParseOptions | StringifyOptions): string;
+export function update(text: string, new_value: any, options?: ParseOptions & StringifyOptions): string;
