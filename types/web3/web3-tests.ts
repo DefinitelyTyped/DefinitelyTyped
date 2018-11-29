@@ -2,6 +2,7 @@ import Web3 = require("web3");
 import BigNumber = require("bn.js");
 import { TransactionReceipt } from "web3/types";
 import PromiEvent from "web3/promiEvent";
+import { Provider, JsonRPCRequest, JsonRPCResponse } from "web3/providers";
 
 const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 
@@ -10,6 +11,23 @@ const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 // --------------------------------------------------------------------------
 const web3 = new Web3();
 const myProvider = new web3.providers.HttpProvider("http://localhost:5454");
+
+const responses: JsonRPCResponse[] = [];
+const errors: Error[] = [];
+class FakeHttpProvider implements Provider {
+    send(
+        payload: JsonRPCRequest,
+        callback: (e: Error, val: JsonRPCResponse) => void
+    ) {
+        const response = responses.shift();
+        const error = errors.shift();
+
+        callback(error, response);
+    }
+}
+const fakeProvider: Provider = new FakeHttpProvider();
+web3.setProvider(fakeProvider);
+
 web3.setProvider(myProvider);
 web3.eth.setProvider(myProvider);
 
