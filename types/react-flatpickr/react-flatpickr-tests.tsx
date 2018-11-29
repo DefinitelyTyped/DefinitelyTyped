@@ -46,3 +46,10 @@ const wrappedElement = (
         <input type="text" />
     </DatePicker>
 );
+
+const wrappedElements = (
+    <DatePicker>
+        <input type="text" />
+        <button data-clear>delete</button>
+    </DatePicker>
+);
