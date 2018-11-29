@@ -1,5 +1,3 @@
-import * as Unist from 'unist';
-
 const data: Unist.Data = {
     string: 'string',
     number: 1,
