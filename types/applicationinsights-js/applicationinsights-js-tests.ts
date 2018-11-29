@@ -86,7 +86,7 @@ appInsights.trackTrace("message", null);
 appInsights.trackTrace("message", { a: '1', b: '2' }, AI.SeverityLevel.Error);
 
 // trackDependency
-appInsights.trackDependency("id", "POST", "http://example.com/test/abc", "/test/abc", null, true, null);
+appInsights.trackDependency("id", "POST", "http://example.com/test/abc", "/test/abc", null, true, null, {prop1: 'abc'}, {meas1: 4.5});
 
 // flush
 appInsights.flush();
