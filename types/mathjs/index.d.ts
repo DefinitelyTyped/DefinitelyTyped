@@ -3,11 +3,11 @@
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
 //                  Brad Besserman <https://github.com/bradbesserman>
+//                  Pawel Krol <https://github.com/pawkrol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 import { Decimal } from "decimal.js";
-import { ImportOptions } from "mathjs";
 
 declare const math: math.MathJsStatic;
 export as namespace math;
