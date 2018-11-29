@@ -5,7 +5,7 @@
 //                 Hernan Rajchert <https://github.com/hrajchert>
 //                 Titus Wormer <https://github.com/wooorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.0
 
 export as namespace Unist
 
