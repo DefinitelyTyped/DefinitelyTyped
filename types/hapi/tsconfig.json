@@ -41,6 +41,7 @@
         "test/server/server-auth-api.ts",
         "test/server/server-auth-default.ts",
         "test/server/server-auth-test.ts",
+        "test/server/server-auth-verify.ts",
         "test/server/server-bind.ts",
         "test/server/server-cache-provision.ts",
         "test/server/server-cache.ts",

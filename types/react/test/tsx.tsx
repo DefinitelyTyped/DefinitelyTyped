@@ -325,3 +325,23 @@ type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 // $ExpectType false
 type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;
+
+const HasClassName: React.ReactType<{ className?: string }> = 'a';
+const HasFoo: React.ReactType<{ foo: boolean }> = 'a'; // $ExpectError
+const HasFoo2: React.ReactType<{ foo: boolean }> = (props: { foo: boolean }) => null;
+const HasFoo3: React.ReactType<{ foo: boolean }> = (props: { foo: string }) => null; // $ExpectError
+const HasHref: React.ReactType<{ href?: string }> = 'a';
+const HasHref2: React.ReactType<{ href?: string }> = 'div'; // $ExpectError
+
+const CustomElement: React.ReactType = 'my-undeclared-element'; // $ExpectError
+
+// custom elements now need to be declared as intrinsic elements
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            'my-declared-element': {};
+        }
+    }
+}
+
+const CustomElement2: React.ReactType = 'my-declared-element';

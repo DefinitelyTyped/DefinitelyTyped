@@ -2501,7 +2501,9 @@ declare module "readline" {
 }
 
 declare module "vm" {
-    interface Context { }
+    interface Context {
+        [key: string]: any;
+    }
     interface BaseOptions {
         /**
          * Specifies the filename used in stack traces produced by this script.
@@ -2655,6 +2657,7 @@ declare module "child_process" {
         windowsHide?: boolean;
     }
 
+    function spawn(command: string, options?: SpawnOptions): ChildProcess;
     function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     interface ExecOptions {
@@ -6257,6 +6260,13 @@ declare module "tls" {
          * May be used to distinguish TLS sockets from regular ones.
          */
         encrypted: boolean;
+
+        /**
+         * String containing the selected ALPN protocol.
+         * When ALPN has no selected protocol, tlsSocket.alpnProtocol equals false.
+         */
+        alpnProtocol?: string;
+
         /**
          * Returns an object representing the cipher name and the SSL/TLS protocol version of the current connection.
          * @returns Returns an object representing the cipher name
@@ -8302,6 +8312,7 @@ declare module "http2" {
         peerMaxConcurrentStreams?: number;
         selectPadding?: (frameLen: number, maxFrameLen: number) => number;
         settings?: Settings;
+        createConnection?: (option: SessionOptions) => stream.Duplex;
     }
 
     export type ClientSessionOptions = SessionOptions;

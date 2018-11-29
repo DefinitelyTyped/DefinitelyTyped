@@ -2,7 +2,8 @@
 // Project: https://github.com/oauthjs/node-oauth2-server
 // Definitions by:  Robbie Van Gorkom <https://github.com/vangorra>,
 //                  Charles Irick <https://github.com/cirick>,
-//                  Daniel Fischer <https://github.com/d-fischer>
+//                  Daniel Fischer <https://github.com/d-fischer>,
+//                  Vitor Santos <https://github.com/rvitorsantos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -112,6 +113,56 @@ declare namespace OAuth2Server {
         redirect(url: string): void;
     }
 
+    abstract class AbstractGrantType {
+        /**
+         * Instantiates AbstractGrantType using the supplied options.
+         *
+         */
+        constructor(options: TokenOptions)
+
+        /**
+         * Generate access token. Calls Model#generateAccessToken() if implemented.
+         *
+         */
+        generateAccessToken(client: Client, user: User, scope: string | string[]): Promise<string>;
+
+        /**
+         * Generate refresh token. Calls Model#generateRefreshToken() if implemented.
+         *
+         */
+        generateRefreshToken(client: Client, user: User, scope: string | string[]): Promise<string>;
+
+        /**
+         * Get access token expiration date.
+         *
+         */
+        getAccessTokenExpiresAt(): Date;
+
+        /**
+         * Get refresh token expiration date.
+         *
+         */
+        getRefreshTokenExpiresAt(): Date;
+
+        /**
+         * Get scope from the request body.
+         *
+         */
+        getScope(request: Request): string;
+
+        /**
+         * Validate requested scope. Calls Model#validateScope() if implemented.
+         *
+         */
+        validateScope(user: User, client: Client, scope: string | string[]): Promise<string | string[] | Falsey>;
+
+        /**
+         * Retrieve info from the request and client and return token
+         *
+         */
+        abstract handle(request: Request, client: Client): Promise<Token | Falsey>;
+    }
+
     interface ServerOptions extends AuthenticateOptions, AuthorizeOptions, TokenOptions {
         /**
          * Model object
@@ -183,6 +234,11 @@ declare namespace OAuth2Server {
          * Always revoke the used refresh token and issue a new one for the refresh_token grant.
          */
         alwaysIssueNewRefreshToken?: boolean;
+
+        /**
+         * Additional supported grant types.
+         */
+        extendedGrantTypes?: { [key: string]: typeof AbstractGrantType };
     }
 
     /**

@@ -10,7 +10,7 @@ const file = new File(["foo"], "foo.txt", {
 
 const upload = new Tus.Upload(file, {
     endpoint: "",
-    fingerprint: "fingerprint",
+    fingerprint: (file: File) => file.name,
     resume: true,
     metadata: {
         filename: "foo.txt"

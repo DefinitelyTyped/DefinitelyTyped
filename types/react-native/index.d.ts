@@ -1859,13 +1859,15 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     /**
      * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
      */
-    accessibilityStates?: "selected" | "disabled";
+    accessibilityStates?: AccessibilityState[];
 
     /**
      * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
      */
     accessibilityHint?: string;
 }
+
+export type AccessibilityState = "selected" | "disabled";
 
 export type AccessibilityRole =
     | "none"
@@ -3846,7 +3848,7 @@ export interface ViewabilityConfig {
     viewAreaCoveragePercentThreshold?: number;
 
     /**
-     * Similar to `viewAreaPercentThreshold`, but considers the percent of the item that is visible,
+     * Similar to `viewAreaCoveragePercentThreshold`, but considers the percent of the item that is visible,
      * rather than the fraction of the viewable area it covers.
      */
     itemVisiblePercentThreshold?: number;
@@ -8175,6 +8177,13 @@ export interface SwitchProps extends SwitchPropsIOS {
      * Default value is false.
      */
     value?: boolean;
+
+     /**
+     * On iOS, custom color for the background.
+     * Can be seen when the switch value is false or when the switch is disabled.
+     */
+    ios_backgroundColor?: string;
+
     style?: StyleProp<ViewStyle>;
 }
 
@@ -9021,34 +9030,15 @@ export const Platform: PlatformStatic;
 export const PlatformIOS: PlatformIOSStatic;
 export const PixelRatio: PixelRatioStatic;
 
-export interface ComponentInterface<P> {
-    name?: string;
-    displayName?: string;
-    propTypes: PropTypes.ValidationMap<P>;
-}
-
 /**
- * Used to create React components that directly wrap native component
- * implementations.  Config information is extracted from data exported from the
- * UIManager module.  You should also wrap the native component in a
- * hand-written component with full propTypes definitions and other
- * documentation - pass the hand-written component in as `componentInterface` to
- * verify all the native props are documented via `propTypes`.
+ * Creates values that can be used like React components which represent native
+ * view managers. You should create JavaScript modules that wrap these values so
+ * that the results are memoized. Example:
  *
- * If some native props shouldn't be exposed in the wrapper interface, you can
- * pass null for `componentInterface` and call `verifyPropTypes` directly
- * with `nativePropsToIgnore`;
+ *   const View = requireNativeComponent('RCTView');
  *
- * Common types are lined up with the appropriate prop differs with
- * `TypeToDifferMap`.  Non-scalar types not in the map default to `deepDiffer`.
  */
-export function requireNativeComponent<P, NP = {}>(
-    viewName: string,
-    componentInterface?: ComponentInterface<P>,
-    extraConfig?: { nativeOnly?: NP }
-): React.ComponentClass<
-    Partial<PropTypes.InferProps<PropTypes.ValidationMap<P>>> & { [K in keyof NP]?: any}
->;
+export function requireNativeComponent(viewName: string): React.ReactType;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>

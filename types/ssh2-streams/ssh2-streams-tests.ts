@@ -2,16 +2,17 @@ import * as stream from "stream";
 import * as ssh2 from "ssh2-streams";
 
 declare const SERVER_KEY: string;
-declare const HOST_KEYS: { 'ssh-rsa': ssh2.HostKey };
+declare const HOST_KEY: { publicKey: ssh2.ParsedKey; privateKey: ssh2.ParsedKey };
 declare const clientBufStream: stream.Transform & { buffer: string; };
 declare const serverBufStream: stream.Transform & { buffer: string; };
 declare const parsedKey: ssh2.ParsedKey;
 declare const prompts: ssh2.Prompt[];
 declare const buffer: Buffer;
 
+const hostKeys = { 'ssh-rsa': HOST_KEY };
 const algos = ['ssh-dss', 'ssh-rsa', 'ecdsa-sha2-nistp521'];
 const client = new ssh2.SSH2Stream({ algorithms: { serverHostKey: algos } });
-const server = new ssh2.SSH2Stream({ server: true, hostKeys: HOST_KEYS });
+const server = new ssh2.SSH2Stream({ server: true, hostKeys: hostKeys });
 
 client
     .pipe(server)

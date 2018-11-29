@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Dropbox {
-    interface DropboxChooser {
+    interface Chooser {
       choose(options: ChooserOptions): void;
     }
 
     interface ChooserOptions {
-        // alled when a user selects an item in the Chooser
-        success(files: ReadonlyArray<File>): void;
+        // called when a user selects an item in the Chooser
+        success(files: ReadonlyArray<ChooserFile>): void;
 
         // called when the user closes the dialog without selecting a file
         cancel?(): void;
@@ -31,7 +31,7 @@ declare namespace Dropbox {
         sizeLimit?: number;
     }
 
-    interface File {
+    interface ChooserFile {
         // Unique ID for the file, compatible with Dropbox API v2.
         id: string;
 
@@ -55,12 +55,12 @@ declare namespace Dropbox {
         // whether or not the file is actually a directory
         isDir: boolean;
     }
+
+    // Refer to "Handling the response" section of: https://www.dropbox.com/developers/chooser
+    type ChooserFileBoundingBox = 75 | 256 | 800 | 1280 | 2048;
+    type ChooserFileMode = 'fit' | 'crop' | 'fit_one_and_overflow';
 }
 
-type DropboxChooser = Dropbox.DropboxChooser;
-type DropboxChooserOptions = Dropbox.ChooserOptions;
-type DropboxChooserFile = Dropbox.File;
-
 interface Window {
-    Dropbox?: DropboxChooser;
+    Dropbox?: Dropbox.Chooser;
 }

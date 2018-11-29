@@ -644,7 +644,7 @@
 /types/connect-mongo/                               @Syati
 /types/connect-mongodb-session/                     @NattapongSiri
 /types/connect-pg-simple/                           @pasieronen
-/types/connect-redis/                               @xstoudi @morcerf
+/types/connect-redis/                               @xstoudi
 /types/connect-slashes/                             @samherrmann
 /types/connect-timeout/                             @cyrilschumacher
 /types/consola/                                     @Jungwoo-An
@@ -3691,8 +3691,8 @@
 /types/rdflib/                                      @cenotelie
 /types/re-base/                                     @jordandrako
 /types/reach__router/                               @kingdaro
-/types/react/v15/                                   @bbenezech @pzavolinsky @digiguru @ericanderson @morcerf @tkrotoff @DovydasNavickas @onigoetz
-/types/react/                                       @johnnyreilly @bbenezech @pzavolinsky @digiguru @ericanderson @morcerf @tkrotoff @DovydasNavickas @onigoetz @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei
+/types/react/v15/                                   @bbenezech @pzavolinsky @digiguru @ericanderson @tkrotoff @DovydasNavickas @onigoetz
+/types/react/                                       @johnnyreilly @bbenezech @pzavolinsky @digiguru @ericanderson @tkrotoff @DovydasNavickas @onigoetz @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei
 /types/react-adal/                                  @dkorolev1
 /types/react-albus/                                 @sseppola @conradreuter @kuirak
 /types/react-alert/v2/                              @ssyrell
@@ -3833,7 +3833,7 @@
 /types/react-json/                                  @spielc
 /types/react-json-pretty/                           @LKay
 /types/react-json-tree/                             @gnestor
-/types/react-jsonschema-form/                       @iamdanfox @iplus26 @KurtPreston @phbou72 @LucianBuzzo @sthenault @sbusch
+/types/react-jsonschema-form/                       @iamdanfox @iplus26 @phbou72 @LucianBuzzo @sthenault @sbusch
 /types/react-jss/                                   @eps1lon
 /types/react-lazyload/                              @m0a
 /types/react-lazylog/                               @benjaminRomano
@@ -4057,7 +4057,7 @@
 /types/reactable/                                   @spielc
 /types/reactcss/                                    @chrisgervang @LKay
 /types/reactstrap/v4/                               @alihammad @mfal @danilobjr @fabiopaiva
-/types/reactstrap/                                  @alihammad @mfal @danilobjr @FaithForHumans @KurtPreston @timc13 @patrickrgaffney @prabodht
+/types/reactstrap/                                  @alihammad @mfal @danilobjr @FaithForHumans @timc13 @patrickrgaffney @prabodht
 /types/read/                                        @timjk
 /types/read-chunk/                                  @crispybee
 /types/read-package-tree/                           @mgroenhoff

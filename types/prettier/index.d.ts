@@ -52,6 +52,10 @@ export interface RequiredOptions extends doc.printer.Options {
      */
     singleQuote: boolean;
     /**
+     * Use single quotes in JSX.
+     */
+    jsxSingleQuote: boolean;
+    /**
      * Print trailing commas wherever possible.
      */
     trailingComma: 'none' | 'es5' | 'all';
@@ -108,6 +112,14 @@ export interface RequiredOptions extends doc.printer.Options {
      * The plugin API is in a beta state.
      */
     plugins: Array<string | Plugin>;
+    /**
+     * How to handle whitespaces in HTML.
+     */
+    htmlWhitespaceSensitivity: 'css' | 'strict' | 'ignore';
+    /**
+     * Which end of line characters to apply.
+     */
+    endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
 }
 
 export interface ParserOptions extends RequiredOptions {
@@ -244,7 +256,7 @@ export function clearConfigCache(): void;
 export interface SupportLanguage {
     name: string;
     since?: string;
-    parsers: string[];
+    parsers: BuiltInParserName[] | string[];
     group?: string;
     tmScope: string;
     aceMode: string;

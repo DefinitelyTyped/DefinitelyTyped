@@ -145,7 +145,8 @@ Audio.setAudioModeAsync({
     playsInSilentModeIOS: true,
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
-    allowsRecordingIOS: true
+    allowsRecordingIOS: true,
+    playThroughEarpieceAndroid: false
 });
 Audio.setIsEnabledAsync(true);
 
@@ -413,6 +414,21 @@ async () => {
     result.width;
 };
 
+async () => {
+    const result = await ImageManipulator.manipulateAsync('url', [
+        { rotate: 360 },
+        { resize: { width: 300 } },
+        { resize: { height: 300 } },
+        { resize: { height: 300, width: 300 } },
+    ], {
+        compress: 0.75
+    });
+
+    result.height;
+    result.uri;
+    result.width;
+};
+
 FaceDetector.Constants.Mode.fast;
 FaceDetector.Constants.Mode.accurate;
 FaceDetector.Constants.Landmarks.all;
@@ -567,6 +583,10 @@ async () => {
             </Svg.LinearGradient>
         </Svg.Defs>
     </Svg>
+);
+
+() => (
+    <Svg width={100} height={50} preserveAspectRatio="none" />
 );
 
 IntentLauncherAndroid.ACTION_ACCESSIBILITY_SETTINGS === 'android.settings.ACCESSIBILITY_SETTINGS';

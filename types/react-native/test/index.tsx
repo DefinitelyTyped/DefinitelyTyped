@@ -756,7 +756,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
-                accessibilityStates="selected"
+                accessibilityStates={["selected"]}
                 accessibilityHint="Very importent header"
             >
                 <Text
@@ -822,12 +822,7 @@ class BridgedComponentTest extends React.Component {
     }
 }
 
-const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", BridgedComponentTest, {
-    nativeOnly: {
-        nativeProp: true,
-    }
-});
-
+const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent");
 
 const SwitchColorTest = () => (
     <Switch trackColor={{ true: 'pink', false: 'red'}} />
