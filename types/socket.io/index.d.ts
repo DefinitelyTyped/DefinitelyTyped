@@ -144,10 +144,10 @@ declare namespace SocketIO {
 
 		/**
 		 * Provides a function taking two arguments origin:String
-         * and callback(error, success), where success is a boolean
-         * value indicating whether origin is allowed or not. If
-         * success is set to false, error must be provided as a string
-         * value that will be appended to the server response, e.g. “Origin not allowed”.
+		 * and callback(error, success), where success is a boolean
+		 * value indicating whether origin is allowed or not. If
+		 * success is set to false, error must be provided as a string
+		 * value that will be appended to the server response, e.g. “Origin not allowed”.
 		 * @param fn The function that will be called to check the origin
 		 * return This Server
 		 */
