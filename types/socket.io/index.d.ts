@@ -153,7 +153,7 @@ declare namespace SocketIO {
 		 */
 		origins( fn: ( origin: string, callback: ( error: string | null, success: boolean ) => void ) => void ): Server;
 
-        /**
+    /**
 		 * Attaches socket.io to a server
 		 * @param srv The http.Server that we want to attach to
 		 * @param opts An optional parameters object
