@@ -424,9 +424,10 @@ request
 
 async function testDefaultOptions() {
     // Default options for multiple requests
-    const agentWithDefaultOptions = request.agent()
+    const agentWithDefaultOptions = request
+        .agent()
         .use(() => null)
-        .auth('digest', 'secret', {type:'auto'});
+        .auth('digest', 'secret', { type: 'auto' });
 
     await agentWithDefaultOptions.get('/with-plugin-and-auth');
     await agentWithDefaultOptions.get('/also-with-plugin-and-auth');
