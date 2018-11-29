@@ -18,7 +18,7 @@ declare class sftp {
 
     exists(remotePath: string): Promise<string>;
 
-    stat(remotePath: string): Promise<sftp.FileStats>
+    stat(remotePath: string): Promise<sftp.FileStats>;
 
     get(remoteFilePath: string, useCompression?: boolean, encoding?: string | null): Promise<NodeJS.ReadableStream>;
 
