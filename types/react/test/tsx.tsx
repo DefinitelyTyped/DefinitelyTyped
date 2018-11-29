@@ -53,6 +53,15 @@ FunctionComponent2.defaultProps = {
     <b>bar</b>
 </div>;
 
+<svg
+    aria-checked='true'
+    aria-hidden='true'
+    aria-labelledby='svg-aria-test'
+    role='checkbox'
+>
+    <title id='svg-aria-test'>Foo</title>
+</svg>;
+
 interface Props {
     hello: string;
 }
