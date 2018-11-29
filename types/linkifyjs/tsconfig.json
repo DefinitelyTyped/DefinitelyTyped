@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
+        "html.d.ts",
         "linkifyjs-tests.ts"
     ]
 }
