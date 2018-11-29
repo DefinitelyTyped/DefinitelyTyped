@@ -49,7 +49,11 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType<P = any> = string | ComponentType<P>;
+    type ReactType<P = any> =
+        {
+            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
+        }[keyof JSX.IntrinsicElements] |
+        ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type Key = string | number;
@@ -712,17 +716,17 @@ declare namespace React {
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
      * or ComponentPropsWithoutRef when refs are not supported.
      */
-    type ComponentProps<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+    type ComponentProps<T extends ReactType> =
         T extends ComponentType<infer P>
             ? P
             : T extends keyof JSX.IntrinsicElements
                 ? JSX.IntrinsicElements[T]
                 : {};
-    type ComponentPropsWithRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+    type ComponentPropsWithRef<T extends ReactType> =
         T extends ComponentClass<infer P>
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
-    type ComponentPropsWithoutRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+    type ComponentPropsWithoutRef<T extends ReactType> =
         PropsWithoutRef<ComponentProps<T>>;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
