@@ -134,13 +134,12 @@ export interface Session {
     on(name: 'replaced' | 'reinvite', callback: (newSession: Session) => void): void;
     on(name: 'dtmf', callback: (request: IncomingRequest, dtmf: Session.DTMF) => void): void;
     on(name: 'muted' | 'unmuted', callback: (data: Session.Muted) => void): void;
-    on(name: 'refer' | 'bye', callback: (request: IncomingRequest) => void): void;
+    on(name: 'refer' | 'bye' | 'notify', callback: (request: IncomingRequest) => void): void;
     on(name: 'referRequested', callback: (request: ClientContext | ServerContext) => void): void;
 
     /*    these come from the ClientContext that is on the session somehow */
     on(name: 'referAccepted' | 'referRejected' | 'referRequestAccepted' | 'referRequestRejected' | 'referProgress',
         callback: (ClientContext: ClientContext) => void): void;
-    on(name: 'notify', callback: (request: IncomingRequest) => void): void;
 }
 
 export namespace Session {
@@ -387,7 +386,7 @@ export class Context {
 export class ClientContext extends Context {
     cancel(options?: { status_code?: number, reason_phrase?: string }): ClientContext;
 
-    //This exists on all Context, but I cant make it work right
+    // This exists on all Context, but I cant make it work right
     on(name: 'progress' | 'accepted' | 'rejected' | 'failed', callback: (response: IncomingMessage, cause: string) => void): void;
     on(name: 'notify', callback: (request: IncomingRequest) => void): void;
     on(name: string, callback: () => void): void;
@@ -402,7 +401,7 @@ export class ServerContext extends Context {
     reject(options?: Session.CommonOptions): void;
     reply(options?: Session.CommonOptions): void;
 
-    //This exists on all Context, but I cant make it work right
+    // This exists on all Context, but I cant make it work right
     on(name: 'progress' | 'accepted' | 'rejected' | 'failed', callback: (response: IncomingMessage, cause: string) => void): void;
     on(name: 'notify', callback: (request: IncomingRequest) => void): void;
     on(name: string, callback: () => void): void;
