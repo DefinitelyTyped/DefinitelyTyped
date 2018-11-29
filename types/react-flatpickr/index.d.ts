@@ -19,7 +19,7 @@ export interface DateTimePickerProps {
     onReady?: flatpickr.Options.Hook;
     onValueUpdate?: flatpickr.Options.Hook;
     onDayCreate?: flatpickr.Options.Hook;
-    value?: string | Date | number | Array<string | Date | number>;
+    value?: string | Date | number | ReadonlyArray<string | Date | number>;
     children?: JSX.Element;
 }
 
