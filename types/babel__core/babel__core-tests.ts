@@ -34,3 +34,9 @@ babel.transformFromAst(parsedAst!, sourceCode, options, (err, result) => {
 const transformFromAstSyncResult = babel.transformFromAstSync(parsedAst!, sourceCode, options);
 const { code, map, ast } = transformFromAstSyncResult!;
 const { body } = ast!.program;
+
+babel.transformFromAstAsync(parsedAst!, sourceCode, options).then(transformFromAstAsyncResult => {
+    const { code, map, ast } = transformFromAstAsyncResult!;
+    const { body } = ast!.program;
+});
+
