@@ -397,7 +397,7 @@ declare namespace i18next {
          * options for i18n nessage format - check documentation of plugin
          * @default undefined
          */
-        i18nFormat?: {};
+        i18nFormat?: object;
     }
 
     // Add an indexer to assure that interpolation arguments can be passed
