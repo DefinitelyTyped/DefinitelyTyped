@@ -206,6 +206,7 @@ export interface TestContext {
     options: ValidateOptions;
     parent: any;
     schema: Schema<any>;
+    resolve: (value: any) => any;
     createError: (params: { path: string; message: string }) => ValidationError;
 }
 
