@@ -24,36 +24,6 @@ export declare class ResponsiveNavigation extends Component<ResponsiveNavigation
      */
     toggle(): void;
     render(): JSX.Element;
-    static propTypes: {
-        breakpoint: PropTypes.Validator<any>;
-        alignX: PropTypes.Requireable<any>;
-        alignY: PropTypes.Requireable<any>;
-        selfAlignX: PropTypes.Requireable<any>;
-        selfAlignY: PropTypes.Requireable<any>;
-        centerAlign: PropTypes.Requireable<any>;
-        flexContainer: PropTypes.Requireable<any>;
-        flexDirRow: PropTypes.Requireable<any>;
-        flexDirRowRev: PropTypes.Requireable<any>;
-        flexDirCol: PropTypes.Requireable<any>;
-        flexDirColRev: PropTypes.Requireable<any>;
-        flexChild: PropTypes.Requireable<any>;
-        flexOrder: PropTypes.Requireable<any>;
-        flexOrderSmall: PropTypes.Requireable<any>;
-        flexOrderMedium: PropTypes.Requireable<any>;
-        flexOrderLarge: PropTypes.Requireable<any>;
-        showFor: PropTypes.Requireable<any>;
-        showOnlyFor: PropTypes.Requireable<any>;
-        hideFor: PropTypes.Requireable<any>;
-        hideOnlyFor: PropTypes.Requireable<any>;
-        isHidden: PropTypes.Requireable<any>;
-        isInvisible: PropTypes.Requireable<any>;
-        showForLandscape: PropTypes.Requireable<any>;
-        showForPortrait: PropTypes.Requireable<any>;
-        showForSr: PropTypes.Requireable<any>;
-        showOnFocus: PropTypes.Requireable<any>;
-        isClearfix: PropTypes.Requireable<any>;
-        float: PropTypes.Requireable<any>;
-    };
     static defaultProps: {
         breakpoint: number;
     };

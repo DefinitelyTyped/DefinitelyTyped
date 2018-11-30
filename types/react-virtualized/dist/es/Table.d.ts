@@ -152,26 +152,6 @@ export type ColumnProps = {
     width: number;
 };
 export class Column extends Component<ColumnProps> {
-    static propTypes: {
-        "aria-label": Requireable<string>;
-        cellDataGetter: Requireable<TableCellDataGetter>;
-        cellRenderer: Requireable<TableCellRenderer>;
-        className: Requireable<string>;
-        columnData: Requireable<object>;
-        dataKey: Validator<string>;
-        disableSort: Requireable<boolean>;
-        flexGrow: Requireable<number>;
-        flexShrink: Requireable<number>;
-        headerClassName: Requireable<string>;
-        headerRenderer: Validator<TableHeaderRowRenderer>;
-        label: Requireable<string>;
-        maxWidth: Requireable<number>;
-        minWidth: Requireable<number>;
-        style: Requireable<React.CSSProperties>;
-        width: Validator<number>;
-        id: Requireable<string>;
-    };
-
     static defaultProps: {
         cellDataGetter: TableCellDataGetter;
         cellRenderer: TableCellRenderer;
@@ -378,63 +358,6 @@ export const SortIndicator: React.StatelessComponent<{
  * This component expects explicit width, height, and padding parameters.
  */
 export class Table extends PureComponent<TableProps> {
-    static propTypes: {
-        "aria-label": Requireable<string>;
-        autoHeight: Requireable<boolean>;
-        children: Validator<Column>;
-        className: Requireable<string>;
-        disableHeader: Requireable<boolean>;
-        estimatedRowSize: Validator<number>;
-        gridClassName: Requireable<string>;
-        gridStyle: Requireable<React.CSSProperties>;
-        headerClassName: Requireable<string>;
-        headerHeight: Validator<number>;
-        headerRowRenderer: Requireable<TableHeaderRowRenderer>;
-        headerStyle: Requireable<React.CSSProperties>;
-        height: Validator<number>;
-        id: Requireable<string>;
-        noRowsRenderer: Requireable<() => JSX.Element>;
-        onHeaderClick: Requireable<
-            (params: HeaderMouseEventHandlerParams) => void
-        >;
-        onRowClick: Requireable<(params: RowMouseEventHandlerParams) => void>;
-        onRowDoubleClick: Requireable<
-            (params: RowMouseEventHandlerParams) => void
-        >;
-        onRowMouseOut: Requireable<
-            (params: RowMouseEventHandlerParams) => void
-        >;
-        onRowMouseOver: Requireable<
-            (params: RowMouseEventHandlerParams) => void
-        >;
-        onRowsRendered: Requireable<
-            (params: RowMouseEventHandlerParams) => void
-        >;
-        onScroll: Requireable<(params: ScrollEventData) => void>;
-        overscanRowCount: Validator<number>;
-        rowClassName: Requireable<string | ((params: Index) => string)>;
-        rowGetter: Validator<(params: Index) => any>;
-        rowHeight: Validator<number | ((params: Index) => number)>;
-        rowCount: Validator<number>;
-        rowRenderer: Requireable<(props: TableRowProps) => React.ReactNode>;
-        rowStyle: Validator<
-            React.CSSProperties | ((params: Index) => React.CSSProperties)
-        >;
-        scrollToAlignment: Validator<Alignment>;
-        scrollToIndex: Validator<number>;
-        scrollTop: Requireable<number>;
-        sort: Requireable<
-            (
-                params: { sortBy: string; sortDirection: SortDirectionType }
-            ) => void
-        >;
-        sortBy: Requireable<string>;
-        sortDirection: Validator<SortDirectionType>;
-        style: Requireable<React.CSSProperties>;
-        tabIndex: Requireable<number>;
-        width: Validator<number>;
-    };
-
     static defaultProps: {
         disableHeader: false;
         estimatedRowSize: 30;
@@ -445,7 +368,7 @@ export class Table extends PureComponent<TableProps> {
         onScroll: () => null;
         overscanRowCount: 10;
         rowRenderer: TableRowRenderer;
-        headerRowRenderer: TableHeaderRenderer;
+        headerRowRenderer: TableHeaderRowRenderer;
         rowStyle: {};
         scrollToAlignment: "auto";
         scrollToIndex: -1;
