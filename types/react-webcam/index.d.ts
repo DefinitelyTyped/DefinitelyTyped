@@ -20,15 +20,35 @@ declare class Webcam extends React.Component<Webcam.WebcamProps, Webcam.WebcamSt
 declare namespace Webcam {
     interface WebcamProps {
         audio?: boolean;
-        muted?: boolean;
         height?: number|string;
         width?: number|string;
         screenshotFormat?: 'image/jpeg' | 'image/png' | 'image/webp';
         style?: React.CSSProperties;
         className?: string;
-        audioSource?: string;
-        videoSource?: string;
+        screenshotQuality?: number;
+        screenshotWidth?: number;
+        audioConstraints?: {
+            deviceId?: string;
+            groupId?: string;
+            autoGainControl?: boolean;
+            channelCount?: number|string;
+            latency?: number|string;
+            noiseSuppression?: boolean;
+            sampleRate?: number|string;
+            sampleSize?: number|string;
+            volume?: number|string;
+        };
+        videoConstraints?: {
+            deviceId?: string;
+            groupId?: string;
+            aspectRatio?: number|string;
+            facingMode?: string;
+            frameRate?: number|string;
+            height?: number|string;
+            width?: number|string;
+        };
         onUserMedia?(): void;
+        onUserMediaError?(): void;
     }
 
     interface WebcamState {
