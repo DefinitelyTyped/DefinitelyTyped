@@ -27,6 +27,7 @@
 //                 Alec Hill <https://github.com/alechill>
 //                 Lachlan Young <https://github.com/builtbyproxy>
 //                 Jason Killian <https://github.com/jkillian>
+//                 Jeroen Vervaeke <https://github.com/jeroenvervaeke>
 //                 Fellipe Chagas <https://github.com/chagasaway>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -895,7 +896,37 @@ export function createSwitchNavigator(
 ): NavigationContainer;
 
 // DrawerItems
-export const DrawerItems: React.ReactType;
+export const DrawerItems: React.ComponentType<DrawerItemsProps>;
+
+export interface DrawerItemsProps {
+  navigation: NavigationScreenProp<NavigationState>;
+  items: NavigationRoute[];
+  activeItemKey?: string;
+  activeTintColor?: string;
+  activeBackgroundColor?: string;
+  inactiveTintColor?: string;
+  inactiveBackgroundColor?: string;
+  getLabel: (scene: DrawerScene) => React.ReactNode | string;
+  renderIcon: (scene: DrawerScene) => React.ReactNode;
+  onItemPress: (info: DrawerItem) => void;
+  itemsContainerStyle?: StyleProp<ViewStyle>;
+  itemStyle?: StyleProp<ViewStyle>;
+  labelStyle?: StyleProp<TextStyle>;
+  activeLabelStyle?: StyleProp<TextStyle>;
+  inactiveLabelStyle?: StyleProp<TextStyle>;
+  iconContainerStyle?: StyleProp<ViewStyle>;
+  drawerPosition: 'left' | 'right';
+}
+export interface DrawerScene {
+  route: NavigationRoute;
+  focused: boolean;
+  index: number;
+  tintColor?: string;
+}
+export interface DrawerItem {
+  route: NavigationRoute;
+  focused: boolean;
+}
 
 /**
  * Drawer Navigator
@@ -904,7 +935,7 @@ export interface DrawerViewConfig {
   drawerBackgroundColor?: string;
   drawerWidth?: number;
   drawerPosition?: 'left' | 'right';
-  contentComponent?: React.ReactType;
+  contentComponent?: React.ComponentType<DrawerItemsProps>;
   contentOptions?: any;
   style?: StyleProp<ViewStyle>;
 }

@@ -8,6 +8,8 @@ import {
 import {
     createDrawerNavigator,
     createBottomTabNavigator,
+    DrawerItems,
+    DrawerItemsProps,
     DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
@@ -358,6 +360,17 @@ const drawerNavigatorConfig: DrawerNavigatorConfig = {
 const BasicDrawerNavigator = createDrawerNavigator(
     routeConfigMap,
     stackNavigatorConfig,
+);
+
+const Drawer = (props: DrawerItemsProps) => (
+    <DrawerItems {...props} />
+);
+
+const DrawerNavigatorWithCustomDrawer = createDrawerNavigator(
+    routeConfigMap,
+    {
+        contentComponent: Drawer,
+    }
 );
 
 function renderBasicDrawerNavigator(): JSX.Element {
