@@ -1749,7 +1749,10 @@ export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     borderTopStartRadius?: number;
     borderTopWidth?: number;
     borderWidth?: number;
-    opacity?: number;
+    /**
+      * Allow to insert number or Animated.Value, because Animated.Value is not number
+      */
+    opacity?: number | Animated.Value;
     testID?: string;
     /**
       * Sets the elevation of a view, using Android's underlying
