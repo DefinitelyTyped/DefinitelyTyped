@@ -2,22 +2,30 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "i18next-express-middleware": [
+                "i18next-express-middleware/v0"
+            ],
+            "i18next": [
+                "i18next/v12"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "i18next-node-fs-backend-tests.ts"
+        "i18next-express-middleware-tests.ts"
     ]
 }

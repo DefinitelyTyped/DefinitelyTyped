@@ -1,4 +1,4 @@
-import i18next from "i18next";
+import * as i18next from "i18next";
 import * as XHR from "i18next-xhr-backend";
 
 const options: XHR.BackendOptions = {

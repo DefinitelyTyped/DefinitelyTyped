@@ -1,4 +1,4 @@
-// Type definitions for i18next 13.1
+// Type definitions for i18next 12.1
 // Project: http://i18next.com
 // Definitions by: Michael Ledin <https://github.com/mxl>
 //                 Budi Irawan <https://github.com/deerawan>
@@ -397,7 +397,7 @@ declare namespace i18next {
          * options for i18n nessage format - check documentation of plugin
          * @default undefined
          */
-        i18nFormat?: {};
+        i18nFormat?: object;
     }
 
     // Add an indexer to assure that interpolation arguments can be passed
@@ -684,4 +684,4 @@ declare namespace i18next {
 }
 
 declare const i18next: i18next.i18n;
-export default i18next;
+export = i18next;

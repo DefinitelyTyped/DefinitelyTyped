@@ -1,4 +1,4 @@
-// Type definitions for i18next-node-fs-backend 1.2
+// Type definitions for i18next-node-fs-backend 0.0
 // Project: https://github.com/i18next/i18next-node-fs-backend
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Silas Rech <https://github.com/lenovouser>
@@ -50,7 +50,7 @@ declare namespace i18nextNodeFsBackEnd {
 }
 
 declare module "i18next-node-fs-backend" {
-    import i18next from 'i18next';
+    import * as i18next from "i18next";
 
     class BackEnd {
         constructor(services?: any, options?: i18nextNodeFsBackEnd.i18nextNodeFsBackEndOptions);

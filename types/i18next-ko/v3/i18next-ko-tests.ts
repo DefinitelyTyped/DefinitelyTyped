@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 import * as i18nextko from 'i18next-ko';
 import * as ko from 'knockout';
 

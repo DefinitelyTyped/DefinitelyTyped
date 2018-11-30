@@ -1,4 +1,4 @@
-// Type definitions for i18next-express-middleware 1.2
+// Type definitions for i18next-express-middleware 0.0
 // Project: http://i18next.com/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,7 +35,7 @@ declare namespace i18nextExpressMiddleware {
 
 declare module 'i18next-express-middleware' {
   import express = require('express')
-  import i18next from "i18next";
+  import i18next = require('i18next')
 
   /**
    * @summary Interface for middleware to use i18next in express.js.

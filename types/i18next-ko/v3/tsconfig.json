@@ -2,22 +2,31 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "i18next-ko": [
+                "i18next-ko/v3",
+            ],
+            "i18next": [
+                "i18next/v12"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "i18next-node-fs-backend-tests.ts"
+        "i18next-ko-tests.ts"
     ]
 }

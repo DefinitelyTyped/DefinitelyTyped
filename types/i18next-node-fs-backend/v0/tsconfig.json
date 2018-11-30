@@ -8,10 +8,18 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "i18next": [
+                "i18next/v2"
+            ],
+            "i18next-node-fs-backend": [
+                "i18next-node-fs-backend/v0"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

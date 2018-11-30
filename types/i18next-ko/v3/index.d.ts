@@ -1,4 +1,4 @@
-// Type definitions for i18next-ko 4.2
+// Type definitions for i18next-ko 3.0
 // Project: https://github.com/leMaik/i18next-ko
 // Definitions by: Daniel Waxweiler <https://github.com/dwaxweiler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 
 /// <reference types="knockout"/>
 
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 export const i18n: i18next.i18n;
 
