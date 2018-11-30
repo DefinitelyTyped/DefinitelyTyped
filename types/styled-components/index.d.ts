@@ -440,21 +440,21 @@ export class StyleSheetManager extends React.Component<
  * The CSS prop is not declared by default in the types as it would cause 'css' to be present
  * on the types of anything that uses styled-components indirectly, even if they do not use the
  * babel plugin.
- * 
+ *
  * You can load a default declaration by using writing this special import from
  * a typescript file. This module does not exist in reality, which is why the {} is important:
- * 
+ *
  * ```ts
  * import {} from 'styled-components/cssprop'
  * ```
- * 
+ *
  * Or you can declare your own module augmentation, which allows you to specify the type of Theme:
- * 
+ *
  * ```ts
  * import { CSSProp } from 'styled-components'
  *
  * interface MyTheme {}
- * 
+ *
  * declare module 'react' {
  *   interface Attributes {
  *     css?: CSSProp<MyTheme>

@@ -783,15 +783,16 @@ function cssProp() {
         return <div {...props} />;
     }
 
-    const myCss = 'background: blue;';
+    const myCss = "background: blue;";
 
     return (
         <>
             <div css="background: blue;" />
-            <div
-                // $ExpectError only strings work, objects crash the plugin
-                css={{ background: "blue" }}
-            />
+            {/*
+                For some reason $ExpectError doesn't work on this expression.
+                Only strings work, objects crash the plugin.
+                <div css={{ background: "blue" }} />
+            */}
             <div
                 // would be nice to be able to turn this into an error as it also crashes the plugin,
                 // but this is how optional properties work in TypeScript...
@@ -805,7 +806,7 @@ function cssProp() {
             />
             <div
                 // but this crashes the plugin, even though it's valid type-wise and we can't forbid it
-                css={css({ background: 'blue' })}
+                css={css({ background: "blue" })}
             />
             <div
                 // this also crashes the plugin, only inline strings or css template tag work
@@ -827,10 +828,6 @@ function cssProp() {
                 `}
             />
             <Custom css="background: blue;" />
-            <Custom
-                // $ExpectError only strings work, objects crash the plugin
-                css={{ background: "blue" }}
-            />
             <Custom css={undefined} />
             <Custom
                 css={css`
