@@ -49,7 +49,7 @@ function* fakeSaga() {
 }
 
 function* fakeSagaWithParams(param1: string, param2: number) {
-    return param1.length > param2
+    return param1.length > param2;
 }
 
 sagaTester.start(fakeSaga);
