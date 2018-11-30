@@ -15,7 +15,7 @@
         ],
         "paths": {
             "i18next-xhr-backend": [
-                "i18next-xhr-backend/v1",
+                "i18next-xhr-backend/v1"
             ],
             "i18next": [
                 "i18next/v12"
