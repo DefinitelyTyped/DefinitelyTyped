@@ -32,6 +32,10 @@ export interface ReactFacebookLoginProps {
     xfbml?: boolean;
     isMobile?: boolean;
     tag?: Node | React.Component<any>;
+    returnScopes?: boolean;
+    state?: string;
+    authType?: string;
+    responseType?: string;
 }
 
 export interface ReactFacebookFailureResponse {
