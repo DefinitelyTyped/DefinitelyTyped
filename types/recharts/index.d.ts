@@ -363,6 +363,7 @@ export interface LegendPayload {
     value: any;
     id: any;
     type: LegendType;
+    color?: string;
 }
 
 export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
