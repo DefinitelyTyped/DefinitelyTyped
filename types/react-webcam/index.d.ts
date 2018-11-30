@@ -1,4 +1,4 @@
-// Type definitions for react-webcam 0.3
+// Type definitions for react-webcam 1.0.4
 // Project: https://github.com/mozmorris/react-webcam
 // Definitions by: Lucas Servén Marín <https://github.com/squat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
