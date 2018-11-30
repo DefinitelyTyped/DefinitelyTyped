@@ -15,6 +15,9 @@
         "paths": {
             "i18next-browser-languagedetector": [
                 "i18next-browser-languagedetector/v0"
+            ],
+            "i18next": [
+                "i18next/v12"
             ]
         },
         "types": [],
