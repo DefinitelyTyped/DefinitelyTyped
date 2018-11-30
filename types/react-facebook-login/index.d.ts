@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-interface ReactFacebookLoginProps {
+export interface ReactFacebookLoginProps {
     appId: string;
     callback(userInfo: ReactFacebookLoginInfo): void;
     onFailure?(response: ReactFacebookFailureResponse): void;
