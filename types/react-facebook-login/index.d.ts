@@ -49,14 +49,12 @@ export interface ReactFacebookLoginInfo {
     email?: string;
 }
 
-interface ReactFacebookLoginState {
+export interface ReactFacebookLoginState {
     isSdkLoaded?: boolean;
     isProcessing?: boolean;
 }
 
-declare class ReactFacebookLogin extends React.Component<
+export default class ReactFacebookLogin extends React.Component<
     ReactFacebookLoginProps,
     ReactFacebookLoginState
 > {}
-
-export default ReactFacebookLogin;
