@@ -10,7 +10,7 @@
 export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 import { ComponentType } from "react";
-import { StyledComponent, CSSIntrinsicAttributeType } from "styled-components";
+import { StyledComponent, Interpolation } from "styled-components";
 
 export type ResponsiveProp = number | string | Array<string | number>;
 
@@ -34,10 +34,11 @@ export interface CommonProps {
     px?: ResponsiveProp;
     py?: ResponsiveProp;
     theme?: any;
+    // this is actually more powerful than the plugin because of some limitations of the transform
     /**
-     * NOTE: this is not compatible with the styled-components babel plugin anymore
+     * This works even without babel-plugin-styled-components.
      */
-    css?: CSSIntrinsicAttributeType;
+    css?: Interpolation<any>;
 }
 
 export interface BoxProps

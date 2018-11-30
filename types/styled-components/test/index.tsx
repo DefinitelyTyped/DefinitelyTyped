@@ -16,6 +16,7 @@ import styled, {
     StyledComponent,
     ThemedStyledComponentsModule
 } from "styled-components";
+import {} from "styled-components/cssprop";
 
 /**
  * general usage
@@ -782,15 +783,33 @@ function cssProp() {
         return <div {...props} />;
     }
 
+    const myCss = 'background: blue;';
+
     return (
         <>
             <div css="background: blue;" />
-            <div css={{ background: "blue" }} />
-            <div css={undefined} />
             <div
+                // $ExpectError only strings work, objects crash the plugin
+                css={{ background: "blue" }}
+            />
+            <div
+                // would be nice to be able to turn this into an error as it also crashes the plugin,
+                // but this is how optional properties work in TypeScript...
+                css={undefined}
+            />
+            <div
+                // css used as tagged function is fine and is correctly handled by the plugin
                 css={css`
                     background: blue;
                 `}
+            />
+            <div
+                // but this crashes the plugin, even though it's valid type-wise and we can't forbid it
+                css={css({ background: 'blue' })}
+            />
+            <div
+                // this also crashes the plugin, only inline strings or css template tag work
+                css={myCss}
             />
             <div
                 css={css`
@@ -808,7 +827,10 @@ function cssProp() {
                 `}
             />
             <Custom css="background: blue;" />
-            <Custom css={{ background: "blue" }} />
+            <Custom
+                // $ExpectError only strings work, objects crash the plugin
+                css={{ background: "blue" }}
+            />
             <Custom css={undefined} />
             <Custom
                 css={css`

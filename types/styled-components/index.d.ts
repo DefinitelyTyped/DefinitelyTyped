@@ -436,29 +436,35 @@ export class StyleSheetManager extends React.Component<
     StyleSheetManagerProps
 > {}
 
-export type CSSIntrinsicAttributeType =
-    | string
-    | CSSObject
-    | FlattenSimpleInterpolation
-    // Sad, but because this is global, there is no way to override it with the ThemedStyledComponentsModule
-    // Only augmenting DefaultTheme will work for inline css prop
-    | FlattenInterpolation<ThemeProps<AnyIfEmpty<DefaultTheme>>>;
+/**
+ * The CSS prop is not declared by default in the types as it would cause 'css' to be present
+ * on the types of anything that uses styled-components indirectly, even if they do not use the
+ * babel plugin.
+ * 
+ * You can load a default declaration by using writing this special import from
+ * a typescript file. This module does not exist in reality, which is why the {} is important:
+ * 
+ * ```ts
+ * import {} from 'styled-components/cssprop'
+ * ```
+ * 
+ * Or you can declare your own module augmentation, which allows you to specify the type of Theme:
+ * 
+ * ```ts
+ * import { CSSProp } from 'styled-components'
+ *
+ * interface MyTheme {}
+ * 
+ * declare module 'react' {
+ *   interface Attributes {
+ *     css?: CSSProp<MyTheme>
+ *   }
+ * }
+ * ```
+ */
+// ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
+export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
+      string |
+      FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;
-
-declare module "react" {
-    interface Attributes {
-        // NOTE: unlike the plain javascript version, it is not possible to get access
-        // to the element's own attributes inside function interpolations.
-        // Only theme will be accessible, and only with the DefaultTheme due to the global
-        // nature of this declaration.
-        // If you are writing this inline you already have access to all the attributes anyway,
-        // no need for the extra indirection.
-        /**
-         * If present, this React element will be converted by
-         * `babel-plugin-styled-components` into a styled component
-         * with the given css as its styles.
-         */
-        css?: CSSIntrinsicAttributeType;
-    }
-}
