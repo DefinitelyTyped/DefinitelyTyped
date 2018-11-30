@@ -18,7 +18,7 @@ export interface ReactFacebookLoginProps {
     cssClass?: string;
     disableMobileRedirect?: boolean;
     fields?: string;
-    icon?: string | React.ReactNode;
+    icon?: React.ReactNode;
     isDisabled?: boolean;
     language?: string;
     onClick?(event: React.MouseEvent<HTMLDivElement>): void;
