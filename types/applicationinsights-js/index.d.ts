@@ -734,8 +734,11 @@ declare module Microsoft.ApplicationInsights {
          * @param   totalTime total request time
          * @param   success   indicates if the request was sessessful
          * @param   resultCode    response code returned by the dependency request
+         * @param   properties    map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
+         * @param   measurements  map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
          */
-        trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number): any;
+        trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number,
+            properties?: { [name: string]: string }, measurements?: { [name: string]: number }): any;
         /**
          * Log an exception you have caught.
          * @param   exception   An Error from a catch clause, or the string error message.
