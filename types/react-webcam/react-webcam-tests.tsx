@@ -18,9 +18,13 @@ export class ReactWebcamTest extends React.Component {
                 <Webcam
                     audio={false}
                     height={350}
+                    width={350}
                     ref={this.setRef}
                     screenshotFormat="image/jpeg"
-                    width={350}
+                    videoConstraints={{
+                        deviceId: 'abc123',
+                        width: 720,
+                    }}
                 />
                 <button onClick={this.capture}>Capture photo</button>
             </div>
