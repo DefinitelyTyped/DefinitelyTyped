@@ -32,8 +32,8 @@ declare namespace yargs {
     // For the return type / argv property, we create a mapped type over
     // Arguments<T> to simplify the inferred type signature in client code.
     interface Argv<T = {}> {
-        (): { [K in keyof Arguments<T>]: Arguments<T>[K] };
-        (args: ReadonlyArray<string>, cwd?: string): { [K in keyof Arguments<T>]: Arguments<T>[K] };
+        (): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        (args: ReadonlyArray<string>, cwd?: string): { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         // Aliases for previously declared options can inherit the types of those options.
         alias<K1 extends keyof T, K2 extends string>(shortName: K1, longName: K2 | ReadonlyArray<K2>): Argv<T & { [key in K2]: T[K1] }>;
@@ -42,7 +42,7 @@ declare namespace yargs {
         alias(shortName: string | ReadonlyArray<string>, longName: string | ReadonlyArray<string>): Argv<T>;
         alias(aliases: { [shortName: string]: string | ReadonlyArray<string> }): Argv<T>;
 
-        argv: { [K in keyof Arguments<T>]: Arguments<T>[K] };
+        argv: { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         array<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: string[] | undefined }>;
 
@@ -51,14 +51,14 @@ declare namespace yargs {
         check(func: (argv: Arguments<T>, aliases: { [alias: string]: string }) => any, global?: boolean): Argv<T>;
 
         choices<K extends string, C extends ReadonlyArray<any>>(key: K, values: C): Argv<T & { [key in K]: C[number] | undefined }>;
-        choices<C extends { [key: string]: ReadonlyArray<any> }>(choices: C): Argv<T & { [K in keyof C]: C[K][number] | undefined }>;
+        choices<C extends { [key: string]: ReadonlyArray<any> }>(choices: C): Argv<T & { [key in keyof C]: C[key][number] | undefined }>;
 
         // For previously declared options, we can infer the parameter type of the coercion function.
         coerce<K extends keyof T, V>(key: K | ReadonlyArray<K>, func: (arg: T[K]) => V): Argv<T & { [key in K]: V }>;
-        coerce<K extends keyof T, O extends { [key in K]: (arg: T[K]) => any }>(opts: O): Argv<T & { [K in keyof O]: ReturnType<O[K]> }>;
+        coerce<K extends keyof T, O extends { [key in K]: (arg: T[K]) => any }>(opts: O): Argv<T & { [key in keyof O]: ReturnType<O[key]> }>;
 
         coerce<K extends string, V>(key: K | ReadonlyArray<K>, func: (arg: any) => V): Argv<T & { [key in K]: V | undefined }>;
-        coerce<O extends { [key: string]: (arg: any) => any }>(opts: O): Argv<T & { [K in keyof O]: ReturnType<O[K]> | undefined }>;
+        coerce<O extends { [key: string]: (arg: any) => any }>(opts: O): Argv<T & { [key in keyof O]: ReturnType<O[key]> | undefined }>;
 
         command<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
@@ -348,7 +348,7 @@ declare namespace yargs {
         O extends { coerce: (arg: any) => infer T } ? T :
         any;
 
-    type InferredOptionTypes<O extends { [key: string]: Options }> = { [K in keyof O]: InferredOptionType<O[K]> };
+    type InferredOptionTypes<O extends { [key: string]: Options }> = { [key in keyof O]: InferredOptionType<O[key]> };
 
     interface CommandModule<T, U> {
         aliases?: ReadonlyArray<string> | string;
