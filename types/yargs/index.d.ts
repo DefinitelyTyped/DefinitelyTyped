@@ -44,21 +44,22 @@ declare namespace yargs {
 
         argv: { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
-        array<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: Array<string | number> | undefined }>;
+        array<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToArray<T[key]> }>;
+        array<K extends string>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: Array<string | number> | undefined }>;
 
-        boolean<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: boolean | undefined }>;
+        boolean<K extends string>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: boolean | undefined }>;
 
         check(func: (argv: Arguments<T>, aliases: { [alias: string]: string }) => any, global?: boolean): Argv<T>;
 
-        choices<K extends string, C extends ReadonlyArray<any>>(key: K, values: C): Argv<T & { [key in K]: C[number] | undefined }>;
-        choices<C extends { [key: string]: ReadonlyArray<any> }>(choices: C): Argv<T & { [key in keyof C]: C[key][number] | undefined }>;
+        choices<K extends string, C extends ReadonlyArray<any>>(key: K, values: C): Argv<Omit<T, K> & { [key in K]: C[number] | undefined }>;
+        choices<C extends { [key: string]: ReadonlyArray<any> }>(choices: C): Argv<Omit<T, keyof C> & { [key in keyof C]: C[key][number] | undefined }>;
 
         // For previously declared options, we can infer the parameter type of the coercion function.
-        coerce<K extends keyof T, V>(key: K | ReadonlyArray<K>, func: (arg: T[K]) => V): Argv<T & { [key in K]: V }>;
-        coerce<K extends keyof T, O extends { [key in K]: (arg: T[K]) => any }>(opts: O): Argv<T & { [key in keyof O]: ReturnType<O[key]> }>;
+        coerce<K extends keyof T, V>(key: K | ReadonlyArray<K>, func: (arg: T[K]) => V): Argv<Omit<T, K> & { [key in K]: V }>;
+        coerce<K extends keyof T, O extends { [key in K]: (arg: T[K]) => any }>(opts: O): Argv<Omit<T, K> & { [key in keyof O]: ReturnType<O[key]> }>;
 
-        coerce<K extends string, V>(key: K | ReadonlyArray<K>, func: (arg: any) => V): Argv<T & { [key in K]: V | undefined }>;
-        coerce<O extends { [key: string]: (arg: any) => any }>(opts: O): Argv<T & { [key in keyof O]: ReturnType<O[key]> | undefined }>;
+        coerce<K extends string, V>(key: K | ReadonlyArray<K>, func: (arg: any) => V): Argv<Omit<T, K> & { [key in K]: V | undefined }>;
+        coerce<O extends { [key: string]: (arg: any) => any }>(opts: O): Argv<Omit<T, keyof O> & { [key in keyof O]: ReturnType<O[key]> | undefined }>;
 
         command<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
@@ -85,23 +86,23 @@ declare namespace yargs {
         conflicts(key: string, value: string | ReadonlyArray<string>): Argv<T>;
         conflicts(conflicts: { [key: string]: string | ReadonlyArray<string> }): Argv<T>;
 
-        count<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: number }>;
+        count<K extends string>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: number }>;
 
-        default<K extends string, V>(key: K, value: V, description?: string): Argv<T & { [key in K]: V }>;
-        default<D extends { [key: string]: any }>(defaults: D, description?: string): Argv<T & D>;
+        default<K extends string, V>(key: K, value: V, description?: string): Argv<Omit<T, K> & { [key in K]: V }>;
+        default<D extends { [key: string]: any }>(defaults: D, description?: string): Argv<Omit<T, keyof D> & D>;
 
         /**
          * @deprecated since version 6.6.0
          * Use '.demandCommand()' or '.demandOption()' instead
          */
-        demand<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Required<T, K>>;
+        demand<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
         demand(key: string | ReadonlyArray<string>, msg: string): Argv<T>;
         demand(key: string | ReadonlyArray<string>, required?: boolean): Argv<T>;
         demand(positionals: number, msg: string): Argv<T>;
         demand(positionals: number, required?: boolean): Argv<T>;
         demand(positionals: number, max: number, msg?: string): Argv<T>;
 
-        demandOption<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Required<T, K>>;
+        demandOption<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
         demandOption(key: string | ReadonlyArray<string>, msg?: string): Argv<T>;
         demandOption(key: string | ReadonlyArray<string>, demand?: boolean): Argv<T>;
 
@@ -152,15 +153,17 @@ declare namespace yargs {
         nargs(key: string, count: number): Argv<T>;
         nargs(nargs: { [key: string]: number }): Argv<T>;
 
-        normalize<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: string | undefined }>;
+        normalize<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToString<T[key]> }>;
+        normalize<K extends string>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: string | undefined }>;
 
-        number<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: number | undefined }>;
+        number<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToNumber<T[key]> }>;
+        number<K extends string>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: number | undefined }>;
 
-        option<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
-        option<O extends { [key: string]: Options }>(options: O): Argv<T & InferredOptionTypes<O>>;
+        option<K extends string, O extends Options>(key: K, options: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
+        option<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O>>;
 
-        options<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
-        options<O extends { [key: string]: Options }>(options: O): Argv<T & InferredOptionTypes<O>>;
+        options<K extends string, O extends Options>(key: K, options: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
+        options<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O>>;
 
         parse(): Arguments<T>;
         parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): Arguments<T>;
@@ -179,7 +182,7 @@ declare namespace yargs {
          * @deprecated since version 6.6.0
          * Use '.demandCommand()' or '.demandOption()' instead
          */
-        require<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Required<T, K>>;
+        require<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
         require(key: string, msg: string): Argv<T>;
         require(key: string, required: boolean): Argv<T>;
         require(keys: ReadonlyArray<number>, msg: string): Argv<T>;
@@ -191,7 +194,7 @@ declare namespace yargs {
          * @deprecated since version 6.6.0
          * Use '.demandCommand()' or '.demandOption()' instead
          */
-        required<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Required<T, K>>;
+        required<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
         required(key: string, msg: string): Argv<T>;
         required(key: string, required: boolean): Argv<T>;
         required(keys: ReadonlyArray<number>, msg: string): Argv<T>;
@@ -222,7 +225,8 @@ declare namespace yargs {
 
         strict(): Argv<T>;
 
-        string<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: string | undefined }>;
+        string<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToString<T[key]> }>;
+        string<K extends string>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: string | undefined }>;
 
         // Intended to be used with '.wrap()'
         terminalWidth(): number;
@@ -321,8 +325,20 @@ declare namespace yargs {
         type?: PositionalOptionsType;
     }
 
-    /* Remove undefined as a possible value for keys K in T */
-    type Required<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> & { [key in K]: Exclude<T[key], undefined> };
+    /** Remove keys K in T */
+    type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
+    /** Remove undefined as a possible value for keys K in T */
+    type Defined<T, K extends keyof T> = Omit<T, K> & { [key in K]: Exclude<T[key], undefined> };
+
+    /** Convert T to T[] and T | undefined to T[] | undefined */
+    type ToArray<T> = Array<Exclude<T, undefined>> | Extract<T, undefined>;
+
+    /** Gives string[] | undefined or string[] if T is an array type, otherwise string */
+    type ToString<T> = T extends any[] ? string[] : T extends any[] | undefined ? string[] | undefined : string | undefined;
+
+    /** Gives number[] | undefined or number[] if T is an array type, otherwise number */
+    type ToNumber<T> = T extends any[] ? number[] : T extends any[] | undefined ? number[] | undefined : number | undefined;
 
     type InferredOptionType<O extends Options | PositionalOptions> =
         O extends { default: infer D } ? D :

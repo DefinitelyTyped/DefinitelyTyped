@@ -695,7 +695,7 @@ function Argv$inferOptionTypes() {
         .option("s", { string: true })
         .argv;
 
-    // $ExpectType { [x: string]: any; choices: Color; coerce: Date | undefined; count: number; normalize: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: any; count: number; choices: Color; coerce: Date | undefined; normalize: string | undefined; _: string[]; $0: string; }
     yargs
         .option("choices", { choices: colors, required: true })
         .option("coerce", { coerce: () => new Date() })
@@ -852,6 +852,65 @@ function Argv$inferArrayOptionTypes() {
 
     // $ExpectType string[] | undefined
     yargs.option("a", { normalize: true, type: "array" }).argv.a;
+
+    // $ExpectType string[] | undefined
+    yargs.string("a").array("a").argv.a;
+
+    // $ExpectType string[] | undefined
+    yargs.array("a").string("a").argv.a;
+
+    // $ExpectType string[]
+    yargs.string("a").array("a").demandOption("a").argv.a;
+
+    // $ExpectType string[]
+    yargs.array("a").string("a").demandOption("a").argv.a;
+
+    // $ExpectType string[]
+    yargs.string("a").demandOption("a").array("a").argv.a;
+
+    // $ExpectType string[]
+    yargs.array("a").demandOption("a").string("a").argv.a;
+
+    // $ExpectType number[]
+    yargs.number("a").array("a").demandOption("a").argv.a;
+
+    // $ExpectType number[]
+    yargs.array("a").number("a").demandOption("a").argv.a;
+
+    // $ExpectType number[]
+    yargs.array("a").demandOption("a").number("a").argv.a;
+
+    // $ExpectType string[]
+    yargs.normalize("a").array("a").demandOption("a").argv.a;
+
+    // $ExpectType string[]
+    yargs.array("a").normalize("a").demandOption("a").argv.a;
+
+    // $ExpectType string[]
+    yargs.array("a").demandOption("a").normalize("a").argv.a;
+}
+
+function Argv$usesTheLastInferredOptionType() {
+    // $ExpectType boolean | undefined
+    yargs.string("a").boolean("a").argv.a;
+
+    // FIXME: $ExpectType string | undefined
+    // FIXME: yargs.number("a").string("a").argv.a;
+
+    // FIXME: $ExpectType number | undefined
+    // FIXME: yargs.string("a").number("a").argv.a;
+
+    // $ExpectType boolean | undefined
+    yargs.string("a").option("a", { number: true }).boolean("a").argv.a;
+
+    // $ExpectType boolean | undefined
+    yargs.number("a").option("a", { string: true }).boolean("a").argv.a;
+
+    // $ExpectType string | undefined
+    yargs.boolean("a").option("a", { number: true }).option("a", { string: true }).argv.a;
+
+    // $ExpectType number | undefined
+    yargs.boolean("a").option("a", { string: true }).option("a", { number: true }).argv.a;
 }
 
 function Argv$fallbackToAnyForUnknownOptions() {
