@@ -513,6 +513,9 @@ export interface DirectNavigationOptions extends NavigationOptions {
   referer?: string;
 }
 
+/** Accepts values labeled with units. If number, treat as pixels. */
+export type LayoutDimension = string | number;
+
 export type PDFFormat =
   | "Letter"
   | "Legal"
@@ -580,22 +583,21 @@ export interface PDFOptions {
    * @default 'Letter'
    */
   format?: PDFFormat;
-  /** Paper width, accepts values labeled with units. Treat numbers as pixel values */
-  width?: string | number;
-  /** Paper height, accepts values labeled with units. Treat numbers as pixel values */
-  height?: string | number;
-  /** Paper margins, defaults to none.  */
+  /** Paper width. */
+  width?: LayoutDimension;
+  /** Paper height. */
+  height?: LayoutDimension;
+  /** Paper margins, defaults to none. */
   margin?: {
-    /** Top margin, accepts values labeled with units. Treat numbers as pixel values */
-    top?: string | number;
-    /** Right margin, accepts values labeled with units. Treat numbers as pixel values */
-    right?: string | number;
-    /** Bottom margin, accepts values labeled with units. Treat numbers as pixel values */
-    bottom?: string | number;
-    /** Left margin, accepts values labeled with units. Treat numbers as pixel values */
-    left?: string | number;
+    /** Top margin. */
+    top?: LayoutDimension;
+    /** Right margin. */
+    right?: LayoutDimension;
+    /** Bottom margin. */
+    bottom?: LayoutDimension;
+    /** Left margin. */
+    left?: LayoutDimension;
   };
-
   /**
    * Give any CSS @page size declared in the page priority over what is declared in width and
    * height or format options.
