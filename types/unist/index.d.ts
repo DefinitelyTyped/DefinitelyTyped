@@ -34,7 +34,7 @@ export interface Position {
 
     // Start column at each index (plus start line) in the source region,
     // for elements that span multiple lines.
-    indent: number[];
+    indent?: number[];
 }
 
 // One place in a source file.
