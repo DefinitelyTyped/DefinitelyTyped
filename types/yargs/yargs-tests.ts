@@ -703,36 +703,32 @@ function Argv$inferOptionTypes() {
         .option("normalize", { normalize: true })
         .argv;
 
-    const argv = yargs
-        .array("array")
-        .boolean("boolean")
-        .choices("choices", colors)
-        .coerce("coerce", Date.parse)
-        .count("count")
-        .default("default", new Date())
-        .normalize("normalize")
-        .number("number")
-        .string("string")
-        .argv;
-
     // $ExpectType string[]
-    argv.array;
+    yargs.array("x").argv.x;
+
     // $ExpectType boolean
-    argv.boolean;
+    yargs.boolean("x").argv.x;
+
     // $ExpectType Color
-    argv.choices;
+    yargs.choices("x", colors).argv.x;
+
     // $ExpectType number
-    argv.coerce;
+    yargs.coerce("x", Date.parse).argv.x;
+
     // $ExpectType number
-    argv.count;
+    yargs.count("x").argv.x;
+
     // $ExpectType Date
-    argv.default;
+    yargs.default("x", new Date()).argv.x;
+
     // $ExpectType string
-    argv.normalize;
+    yargs.normalize("x").argv.x;
+
     // $ExpectType number
-    argv.number;
+    yargs.number("x").argv.x;
+
     // $ExpectType string
-    argv.string;
+    yargs.string("x").argv.x;
 }
 
 function Argv$inferMultipleOptionTypes() {
