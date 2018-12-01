@@ -55,6 +55,7 @@ import {
     SectionListRenderItemInfo,
     Switch,
     RefreshControl,
+    RegisteredStyle,
     TabBarIOS,
     NativeModules,
     MaskedViewIOS,
@@ -174,6 +175,14 @@ const imageStyle: StyleProp<ImageStyle> = {
 const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
 const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
+
+const s = StyleSheet.create({
+  shouldWork: {
+    fontWeight: '900', // if we comment this line, errors gone
+    marginTop: 5, // if this line commented, errors also gone
+  },
+})
+const f1: RegisteredStyle<TextStyle> = s.shouldWork
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
@@ -747,7 +756,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
-                accessibilityStates="selected"
+                accessibilityStates={["selected"]}
                 accessibilityHint="Very importent header"
             >
                 <Text
@@ -813,12 +822,7 @@ class BridgedComponentTest extends React.Component {
     }
 }
 
-const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", BridgedComponentTest, {
-    nativeOnly: {
-        nativeProp: true,
-    }
-});
-
+const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent");
 
 const SwitchColorTest = () => (
     <Switch trackColor={{ true: 'pink', false: 'red'}} />

@@ -2295,8 +2295,8 @@ declare namespace sequelize {
      * interfaces.
      *
      * beforeValidate, afterValidate, beforeBulkCreate, beforeBulkDestroy, beforeBulkUpdate, beforeCreate,
-     * beforeDestroy, beforeUpdate, afterCreate, afterDestroy, afterUpdate, afterBulkCreate, afterBulkDestroy and
-     * afterBulkUpdate.
+     * beforeDestroy, beforeSave, beforeUpdate, afterCreate, afterDestroy, afterSave, afterUpdate, afterBulkCreate,
+     * afterBulkDestroy and afterBulkUpdate.
      */
     interface HooksDefineOptions<TInstance> {
 
@@ -2310,6 +2310,8 @@ declare namespace sequelize {
         afterDelete?: (instance: TInstance, options: Object, fn?: Function) => any;
         beforeUpdate?: (instance: TInstance, options: Object, fn?: Function) => any;
         afterUpdate?: (instance: TInstance, options: Object, fn?: Function) => any;
+        beforeSave?: (instance: TInstance, options: Object, fn?: Function) => any;
+        afterSave?: (instance: TInstance, options: Object, fn?: Function) => any;
         beforeBulkCreate?: (instances: TInstance[], options: Object, fn?: Function) => any;
         afterBulkCreate?: (instances: TInstance[], options: Object, fn?: Function) => any;
         beforeBulkDestroy?: (options: Object, fn?: Function) => any;
@@ -3908,6 +3910,7 @@ declare namespace sequelize {
          */
         findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
         findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPk<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -5271,9 +5274,10 @@ declare namespace sequelize {
         /**
          * An object of hook function that are called before and after certain lifecycle events.
          * The possible hooks are: beforeValidate, afterValidate, beforeBulkCreate, beforeBulkDestroy,
-         * beforeBulkUpdate, beforeCreate, beforeDestroy, beforeUpdate, afterCreate, afterDestroy, afterUpdate,
-         * afterBulkCreate, afterBulkDestory and afterBulkUpdate. See Hooks for more information about hook
-         * functions and their signatures. Each property can either be a function, or an array of functions.
+         * beforeBulkUpdate, beforeCreate, beforeDestroy, beforeSave, beforeUpdate, afterCreate, afterDestroy,
+         * afterSave, afterUpdate, afterBulkCreate, afterBulkDestory and afterBulkUpdate.
+         * See Hooks for more information about hook functions and their signatures. Each property can either
+         * be a function, or an array of functions.
          */
         hooks?: HooksDefineOptions<TInstance>;
 

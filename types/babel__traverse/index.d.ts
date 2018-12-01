@@ -5,7 +5,7 @@
 //                 Ryan Petrich <https://github.com/rpetrich>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as t from "@babel/types";
 
@@ -90,11 +90,16 @@ export class Scope {
 
     removeData(key: string): void;
 
-    push(opts: any): void;
+    push(opts: {
+        id: t.LVal,
+        init?: t.Expression,
+        unique?: boolean,
+        kind?: "var" | "let" | "const",
+    }): void;
 
     getProgramParent(): Scope;
 
-    getFunctionParent(): Scope;
+    getFunctionParent(): Scope | null;
 
     getBlockParent(): Scope;
 

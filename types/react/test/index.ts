@@ -14,6 +14,14 @@ import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
 
+// NOTE: forward declarations for tests
+declare function setInterval(...args: any[]): any;
+declare function clearInterval(...args: any[]): any;
+declare var console: Console;
+interface Console {
+    log(...args: any[]): void;
+}
+
 interface Props extends React.Attributes {
     hello: string;
     world?: string | null;
@@ -46,6 +54,10 @@ const props: Props & React.ClassAttributes<any> = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
+    foo: 42
+};
+
+const scProps: SCProps = {
     foo: 42
 };
 
@@ -121,7 +133,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         hello: PropTypes.string.isRequired,
         world: PropTypes.string,
         foo: PropTypes.number.isRequired,
-        key: <PropTypes.Validator<string | number | undefined>> PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]) as PropTypes.Validator<string | number | undefined>
     };
 
     static contextTypes: React.ValidationMap<Context> = {
@@ -194,31 +206,44 @@ interface SCProps {
     foo?: number;
 }
 
-function StatelessComponent(props: SCProps) {
+function FunctionComponent(props: SCProps) {
     return props.foo ? DOM.div(null, props.foo) : null;
 }
 
 // tslint:disable-next-line:no-namespace
-namespace StatelessComponent {
-    export const displayName = "StatelessComponent";
+namespace FunctionComponent {
+    export const displayName = "FunctionComponent";
     export const defaultProps = { foo: 42 };
 }
 
-const StatelessComponent2: React.SFC<SCProps> =
+const FunctionComponent2: React.FunctionComponent<SCProps> =
     // props is contextually typed
     props => DOM.div(null, props.foo);
-StatelessComponent2.displayName = "StatelessComponent2";
-StatelessComponent2.defaultProps = {
+FunctionComponent2.displayName = "FunctionComponent2";
+FunctionComponent2.defaultProps = {
     foo: 42
 };
 
-const StatelessComponent3: React.SFC<SCProps> =
+const LegacyStatelessComponent2: React.SFC<SCProps> =
+    // props is contextually typed
+    props => DOM.div(null, props.foo);
+LegacyStatelessComponent2.displayName = "LegacyStatelessComponent2";
+LegacyStatelessComponent2.defaultProps = {
+    foo: 42
+};
+
+const FunctionComponent3: React.FunctionComponent<SCProps> =
+    // allows usage of props.children
+    // allows null return
+    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
+
+const LegacyStatelessComponent3: React.SFC<SCProps> =
     // allows usage of props.children
     // allows null return
     props => props.foo ? DOM.div(null, props.foo, props.children) : null;
 
 // allows null as props
-const StatelessComponent4: React.SFC = props => null;
+const FunctionComponent4: React.FunctionComponent = props => null;
 
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
@@ -226,10 +251,15 @@ const factory: React.CFactory<Props, ModernComponent> =
 const factoryElement: React.CElement<Props, ModernComponent> =
     factory(props);
 
-const statelessFactory: React.SFCFactory<SCProps> =
-    React.createFactory(StatelessComponent);
-const statelessFactoryElement: React.SFCElement<SCProps> =
-    statelessFactory(props);
+const functionComponentFactory: React.FunctionComponentFactory<SCProps> =
+    React.createFactory(FunctionComponent);
+const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> =
+    functionComponentFactory(props);
+
+const legacyStatelessComponentFactory: React.SFCFactory<SCProps> =
+    React.createFactory(FunctionComponent);
+const legacyStatelessComponentFactoryElement: React.SFCElement<SCProps> =
+    legacyStatelessComponentFactory(props);
 
 const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
     React.createFactory("div");
@@ -240,8 +270,10 @@ const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
 const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
-const statelessElement: React.SFCElement<SCProps> = React.createElement(StatelessComponent, props);
-const statelessElementNullProps: React.SFCElement<SCProps> = React.createElement(StatelessComponent4, null);
+const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
+const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
+const legacyStatelessComponentElement: React.SFCElement<SCProps> = React.createElement(FunctionComponent, scProps);
+const legacyStatelessComponentElementNullProps: React.SFCElement<SCProps> = React.createElement(FunctionComponent4, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
@@ -258,7 +290,11 @@ const customDomElementNullProps = React.createElement(customDomElement, null);
 
 // https://github.com/Microsoft/TypeScript/issues/15019
 
-function foo3(child: React.ComponentClass<{ name: string }> | React.StatelessComponent<{ name: string }> | string) {
+function foo3(child: React.ComponentClass<{ name: string }> | React.FunctionComponent<{ name: string }> | string) {
+    React.createElement(child, { name: "bar" });
+}
+
+function foo4(child: React.ComponentClass<{ name: string }> | React.SFC<{ name: string }> | string) {
     React.createElement(child, { name: "bar" });
 }
 
@@ -277,8 +313,10 @@ const clonedElement3: React.CElement<Props, ModernComponent> =
         key: "8eac7",
         foo: 55
     });
-const clonedStatelessElement: React.SFCElement<SCProps> =
-    React.cloneElement(statelessElement, { foo: 44 });
+const clonedfunctionComponentElement: React.FunctionComponentElement<SCProps> =
+    React.cloneElement(functionComponentElement, { foo: 44 });
+const clonedlegacyStatelessComponentElement: React.SFCElement<SCProps> =
+    React.cloneElement(legacyStatelessComponentElement, { foo: 44 });
 // Clone base DOMElement
 const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
@@ -367,7 +405,12 @@ const ForwardingRefComponent = React.forwardRef((props: {}, ref: React.Ref<RefCo
 
 function RefCarryingComponent() {
     const ref: React.RefObject<RefComponent> = React.createRef();
-    return React.createElement(ForwardingRefComponent, { ref });
+    // Without the explicit type argument, TypeScript infers `{ref: React.RefObject<RefComponent>}`
+    // from the second argument because both of the inferences generated by the first argument
+    // (both to the `P` in the call signature and the `P` in `defaultProps`) have low priority.
+    // Then we get a type error because `ForwardingRefComponent.defaultProps` has the wrong type.
+    // Can/should this be fixed somehow?
+    return React.createElement<React.RefAttributes<RefComponent>>(ForwardingRefComponent, { ref });
 }
 
 //
@@ -446,6 +489,9 @@ DOM.svg({
 
 const mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => 42);
+const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
+const mappedChildrenArrayWithKnownChildren: number[] =
+    React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement<any> = React.Children.only(DOM.div()); // ok
@@ -463,7 +509,7 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    private _interval: NodeJS.Timer;
+    private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1
@@ -604,12 +650,12 @@ const foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithT
 
 // ReactTestUtils custom type guards
 
-const emptyElement1: React.ReactElement<{}> = React.createElement(ModernComponent);
-if (TestUtils.isElementOfType(emptyElement1, StatelessComponent)) {
+const emptyElement1: React.ReactElement<Props> = React.createElement(ModernComponent);
+if (TestUtils.isElementOfType(emptyElement1, FunctionComponent)) {
     emptyElement1.props.foo;
 }
-const emptyElement2: React.ReactElement<{}> = React.createElement(StatelessComponent);
-if (TestUtils.isElementOfType(emptyElement2, StatelessComponent)) {
+const emptyElement2: React.ReactElement<SCProps> = React.createElement(FunctionComponent);
+if (TestUtils.isElementOfType(emptyElement2, FunctionComponent)) {
     emptyElement2.props.foo;
 }
 
@@ -715,3 +761,19 @@ class RenderChildren extends React.Component {
         return children !== undefined ? children : null;
     }
 }
+
+const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
+React.createElement(Memoized1, { foo: 'string' });
+
+const Memoized2 = React.memo(
+    function Bar(props: { bar: string }) { return null; },
+    (prevProps, nextProps) => prevProps.bar === nextProps.bar
+);
+React.createElement(Memoized2, { bar: 'string' });
+
+const specialSfc1: React.ExoticComponent<any> = Memoized1;
+const functionComponent: React.FunctionComponent<any> = Memoized2;
+const sfc: React.SFC<any> = Memoized2;
+// this $ExpectError is failing on TypeScript@next
+// // $ExpectError Property '$$typeof' is missing in type
+// const specialSfc2: React.SpecialSFC = props => null;

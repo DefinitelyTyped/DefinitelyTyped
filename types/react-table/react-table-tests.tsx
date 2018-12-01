@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom';
 
 // Import React Table
 import ReactTable, { Column, FinalState, Instance } from "react-table";
-import "react-table/react-table.css";
 
 interface Data {
   firstName: string;
@@ -24,7 +23,11 @@ const columns: Array<Column<Data>> = [
   {
     Header: "Info",
     columns: [
-      { Header: "Age", accessor: (data: Data) => data.age },
+      {
+        Header: "Age",
+        accessor: (data: Data) => data.age,
+        Cell: props => <span className='number'>{props.value}</span>
+      },
       { Header: "Status", accessor: "status" }
     ]
   },

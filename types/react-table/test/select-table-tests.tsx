@@ -6,8 +6,6 @@ import selectTableHOC, {
     SelectTableAdditionalProps
 } from 'react-table/lib/hoc/selectTable';
 
-import 'react-table/react-table.css';
-
 const SelectTable = selectTableHOC(ReactTable);
 
 const selectTableAdditionalProps: SelectTableAdditionalProps = {

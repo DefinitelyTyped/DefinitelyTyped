@@ -4,16 +4,16 @@
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import { GeneratorOptions } from "@babel/generator";
 import traverse, { Visitor, NodePath } from "@babel/traverse";
 import template from "@babel/template";
 import * as t from "@babel/types";
-import { ParseOptions } from "@babel/parser";
+import { ParserOptions } from "@babel/parser";
 
 export {
-    ParseOptions,
+    ParserOptions,
     GeneratorOptions,
     t as types,
     template,
@@ -217,7 +217,7 @@ export interface TransformOptions {
      *
      * Default: `{}`
      */
-    parserOpts?: ParseOptions | null;
+    parserOpts?: ParserOptions | null;
 
     /**
      * List of plugins to load and use
@@ -349,7 +349,7 @@ export function transformFromAstSync(ast: Node, code?: string, opts?: TransformO
 /**
  * Given an AST, transform it.
  */
-export function transformFromAstSync(ast: Node, code?: string, opts?: TransformOptions): Promise<BabelFileResult | null>;
+export function transformFromAstAsync(ast: Node, code?: string, opts?: TransformOptions): Promise<BabelFileResult | null>;
 
 // A babel plugin is a simple function which must return an object matching
 // the following interface. Babel will throw if it finds unknown properties.
@@ -365,7 +365,7 @@ export interface PluginObj<S = {}> {
 }
 
 export interface BabelFileResult {
-    ast?: Node | null;
+    ast?: t.File | null;
     code?: string | null;
     ignored?: boolean;
     map?: {

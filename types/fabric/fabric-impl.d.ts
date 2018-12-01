@@ -140,6 +140,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
+    transform?: { corner: string };
 }
 
 interface IFillOptions {
@@ -3466,7 +3467,7 @@ export class IText extends Object {
 	 * @param [endIndex] End index to get styles at
 	 * @return styles Style object at a specified (or current) index
 	 */
-	getSelectionStyles(startIndex: number, endIndex: number): any;
+	getSelectionStyles(startIndex: number, endIndex: number, complete?: boolean): any;
 	/**
 	 * Sets style of a current selection
 	 * @param [styles] Styles object

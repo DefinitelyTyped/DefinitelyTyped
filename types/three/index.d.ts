@@ -41,6 +41,7 @@ export * from "./three-examples";
 export * from "./three-fbxloader";
 export * from "./three-FirstPersonControls";
 export * from "./three-gltfexporter";
+export * from "./three-gltfloader";
 export * from "./three-lensflare";
 export * from "./three-maskpass";
 export * from "./three-mtlloader";

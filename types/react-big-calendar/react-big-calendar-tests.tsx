@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import BigCalendar, { BigCalendarProps, Navigate, View, DateRange, DateLocalizer } from "react-big-calendar";
+import BigCalendar, { BigCalendarProps, Navigate, View, DateRange, DateLocalizer, ToolbarProps, EventWrapperProps } from "react-big-calendar";
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const globalize: any;
@@ -101,7 +101,9 @@ class CalendarEvent {
                         event: Event,
                         agenda: {
                             event: EventAgenda
-                        }
+                        },
+                        toolbar: Toolbar,
+                        eventWrapper: EventWrapper,
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
@@ -171,4 +173,26 @@ function Event(event: any) {
             {event.desc && ':  ' + event.desc}
         </span>
     );
+}
+
+class EventWrapper extends React.Component<EventWrapperProps> {
+    render() {
+        const { continuesEarlier, label, accessors = {}, style } = this.props;
+        return (
+            <div style={style}>
+                <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
+            </div>
+        );
+    }
+}
+
+class Toolbar extends React.Component<ToolbarProps> {
+    render() {
+        const { date, label, view } = this.props;
+        return (
+            <div>
+                <div>{date.toJSON()}-{label}-{view}}</div>
+            </div>
+        );
+    }
 }

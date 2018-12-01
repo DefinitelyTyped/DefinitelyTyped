@@ -44,6 +44,8 @@ router.get('user', '/users/:id', function (ctx) {
     ctx.body = "sdsd";
 });
 
+const match = router.match('/users/:id', 'GET');
+
 let layer: Router.Layer
 let layerOptions: Router.ILayerOptions
 

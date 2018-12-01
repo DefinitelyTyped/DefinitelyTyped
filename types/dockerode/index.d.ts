@@ -6,6 +6,7 @@
 //                 Ray Fang <https://github.com/lazarusx>
 //                 Marius Meisenzahl <https://github.com/meisenzahl>
 //                 Rob Moran <https://github.com/thegecko>
+//                 Cameron Diver <https://github.com/CameronDiver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -626,8 +627,36 @@ declare namespace Dockerode {
 
   interface DeviceMapping {
     PathOnHost: string;
-    PathinContainer: string;
+    PathInContainer: string;
     CgroupPermissions: string;
+  }
+
+  /* tslint:disable:interface-name */
+  interface IPAMConfig {
+    IPv4Address?: string;
+    IPv6Address?: string;
+    LinkLocalIPs?: string[];
+  }
+  /* tslint:enable:interface-name */
+
+  interface EndpointSettings {
+    IPAMConfig?: IPAMConfig;
+    Links?: string[];
+    Aliases?: string[];
+    NetworkID?: string;
+    EndpointID?: string;
+    Gateway?: string;
+    IPAddress?: string;
+    IPPrefixLen?: number;
+    IPv6Gateway?: string;
+    GlobalIPv6Address?: string;
+    GlobalIPV6PrefixLen?: number;
+    MacAddress?: string;
+    DriverOpts?: {[key: string]: string};
+  }
+
+  interface EndpointsConfig {
+    [key: string]: EndpointSettings;
   }
 
   interface ContainerCreateOptions {
@@ -701,19 +730,7 @@ declare namespace Dockerode {
       ShmSize?: number;
     };
     NetworkingConfig?: {
-      EndpointsConfig?: {
-        [index: string]: any;
-        isolated_nw?: {
-          [index: string]: any;
-          IPAMConfig?: {
-            IPv4Address?: string;
-            IPv6Adress?: string;
-            LinkLocalIPs?: string[];
-          }
-          Links?: string[];
-          Aliases?: string[];
-        }
-      }
+      EndpointsConfig?: EndpointsConfig;
     };
   }
 
