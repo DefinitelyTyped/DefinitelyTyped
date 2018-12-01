@@ -1,4 +1,4 @@
-import {Data, Point, Position, Node, Literal, Parent} from './index';
+import { Data, Point, Position, Node, Literal, Parent } from 'unist';
 
 const data: Data = {
     string: 'string',
