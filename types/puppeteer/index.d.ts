@@ -2033,7 +2033,6 @@ export interface BrowserOptions {
      */
     isMobile?: boolean;
     /**
-     *
      * Specifies if viewport supports touch events.
      * @default false
      */
