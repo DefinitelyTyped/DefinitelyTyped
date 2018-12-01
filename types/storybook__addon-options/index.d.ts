@@ -5,7 +5,7 @@
 //                 A.MacLeay <https://github.com/amacleay>
 //                 Adam Misiorny <https://github.com/adam187>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { StoryDecorator } from "@storybook/react";
 
