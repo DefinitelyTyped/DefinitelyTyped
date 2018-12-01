@@ -6,6 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { StoryDecorator } from "@storybook/react";
+
 export interface Options {
     name?: string;
     url?: string;
@@ -23,4 +25,9 @@ export interface Options {
     selectedAddonPanel?: string;
 }
 
+/**
+ * @deprecated Use withOptions instead
+ */
 export function setOptions(options: Options): void;
+
+export function withOptions(options: Options): StoryDecorator;
