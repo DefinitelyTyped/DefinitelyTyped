@@ -44,7 +44,7 @@ declare namespace yargs {
 
         argv: { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
-        array<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: string[] | undefined }>;
+        array<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: Array<string | number> | undefined }>;
 
         boolean<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: boolean | undefined }>;
 
@@ -335,11 +335,19 @@ declare namespace yargs {
         RequiredOptionType<O> | undefined;
 
     type RequiredOptionType<O extends Options | PositionalOptions> =
-        O extends { type: "array" } ? string[] :
+        O extends { type: "array", string: true } ? string[] :
+        O extends { type: "array", number: true } ? number[] :
+        O extends { type: "array", normalize: true } ? string[] :
+        O extends { type: "string", array: true } ? string[] :
+        O extends { type: "number", array: true } ? number[] :
+        O extends { string: true, array: true } ? string[] :
+        O extends { number: true, array: true } ? number[] :
+        O extends { normalize: true, array: true } ? string[] :
+        O extends { type: "array" } ? Array<string | number> :
         O extends { type: "boolean" } ? boolean :
         O extends { type: "number" } ? number :
         O extends { type: "string" } ? string :
-        O extends { array: true } ? string[] :
+        O extends { array: true } ? Array<string | number> :
         O extends { boolean: true } ? boolean :
         O extends { number: true } ? number :
         O extends { string: true } ? string :

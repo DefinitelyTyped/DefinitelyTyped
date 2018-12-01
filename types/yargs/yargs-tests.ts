@@ -671,7 +671,7 @@ type Color = "red" | "blue" | "green";
 const colors: Color[] = ["red", "blue", "green"];
 
 function Argv$inferOptionTypes() {
-    // $ExpectType { [x: string]: any; a: string[] | undefined; b: boolean | undefined; c: number; n: number | undefined; s: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: any; a: (string | number)[] | undefined; b: boolean | undefined; c: number; n: number | undefined; s: string | undefined; _: string[]; $0: string; }
     yargs
         .option("a", { type: "array" })
         .option("b", { type: "boolean" })
@@ -687,7 +687,7 @@ function Argv$inferOptionTypes() {
         .option("c", { default: "tmp" })
         .argv;
 
-    // $ExpectType { [x: string]: any; a: string[] | undefined; b: boolean | undefined; n: number | undefined; s: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: any; a: (string | number)[] | undefined; b: boolean | undefined; n: number | undefined; s: string | undefined; _: string[]; $0: string; }
     yargs
         .option("a", { array: true })
         .option("b", { boolean: true })
@@ -703,7 +703,7 @@ function Argv$inferOptionTypes() {
         .option("normalize", { normalize: true })
         .argv;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType (string | number)[] | undefined
     yargs.array("x").argv.x;
 
     // $ExpectType boolean | undefined
@@ -771,7 +771,7 @@ function Argv$inferRequiredOptionTypes() {
     // $ExpectType number
     yargs.option("x", { number: true, default: 42 }).argv.x;
 
-    // $ExpectType string[]
+    // $ExpectType (string | number)[]
     yargs.option("x", { array: true, demandOption: true }).argv.x;
 }
 
@@ -800,17 +800,6 @@ function Argv$inferMultipleOptionTypes() {
         .argv;
 }
 
-function Argv$fallbackToAnyForUnknownOptions() {
-    // $ExpectType any
-    yargs.argv.bogus;
-
-    // $ExpectType any
-    yargs
-        .option({a: { type: "string" }, b: { type: "boolean" } })
-        .argv
-        .bogus;
-}
-
 function Argv$inferOptionTypesForAliases() {
     // $ExpectType { [x: string]: any; u: string | undefined; url: string | undefined; _: string[]; $0: string; }
     yargs
@@ -831,4 +820,47 @@ function Argv$inferOptionTypesForAliases() {
         .alias("n", "count")
         .alias("num", ["n", "count"])
         .argv;
+}
+
+function Argv$inferArrayOptionTypes() {
+    // $ExpectType (string | number)[]
+    yargs.option("a", { array: true, demandOption: true }).argv.a;
+
+    // $ExpectType string[]
+    yargs.option("a", { array: true, string: true, demandOption: true }).argv.a;
+
+    // $ExpectType number[]
+    yargs.option("a", { array: true, number: true, demandOption: true }).argv.a;
+
+    // $ExpectType string[]
+    yargs.option("a", { array: true, normalize: true, demandOption: true }).argv.a;
+
+    // $ExpectType string[] | undefined
+    yargs.option("a", { array: true, type: "string" }).argv.a;
+
+    // $ExpectType number[] | undefined
+    yargs.option("a", { array: true, type: "number" }).argv.a;
+
+    // $ExpectType string[] | undefined
+    yargs.option("a", { array: true, normalize: true }).argv.a;
+
+    // $ExpectType string[] | undefined
+    yargs.option("a", { string: true, type: "array" }).argv.a;
+
+    // $ExpectType number[] | undefined
+    yargs.option("a", { number: true, type: "array" }).argv.a;
+
+    // $ExpectType string[] | undefined
+    yargs.option("a", { normalize: true, type: "array" }).argv.a;
+}
+
+function Argv$fallbackToAnyForUnknownOptions() {
+    // $ExpectType any
+    yargs.argv.bogus;
+
+    // $ExpectType any
+    yargs
+        .option({a: { type: "string" }, b: { type: "boolean" } })
+        .argv
+        .bogus;
 }
