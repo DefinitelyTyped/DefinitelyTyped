@@ -8,6 +8,7 @@
 
 declare namespace rosie {
   interface IFactoryStatic {
+    new<T = any>(): IFactory<T>;
     /**
      * Defines a factory by name and constructor function. Call #attr and #option
      * on the result to define the properties of this factory.

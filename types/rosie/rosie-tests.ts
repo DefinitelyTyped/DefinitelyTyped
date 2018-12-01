@@ -70,6 +70,21 @@ const person = Factory.build<Person>('Person');
 let aString = '';
 aString = person.firstName;
 
+// Unregistered factories
+const unregisteredPersonFactory = new Factory<Person>();
+
+unregisteredPersonFactory.attr('firstName', 'John').sequence('id');
+
+// Sequence with dependencies
+unregisteredPersonFactory.sequence('lastName', ['age'], (i: number, age: number) => `Doe ${i} ${age}`)
+
+// Unregistered extended factories
+
+const unregisteredExtendedPersonFactory = new Factory().extend(unregisteredPersonFactory)
+
+unregisteredExtendedPersonFactory.attr('firstName', 'John2')
+unregisteredExtendedPersonFactory.sequence('lastName', ['age'], (i: number) => `Doe2 ${i}`)
+
 class CustomClass {
   type: string;
 
