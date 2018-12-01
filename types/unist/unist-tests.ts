@@ -1,4 +1,6 @@
-const data: Unist.Data = {
+import {Data, Point, Position, Node, Literal, Parent} from './index';
+
+const data: Data = {
     string: 'string',
     number: 1,
     object: {
@@ -9,32 +11,32 @@ const data: Unist.Data = {
     null: null
 };
 
-const point: Unist.Point = {
+const point: Point = {
     line: 1,
     column: 1,
     offset: 0
 };
 
-const position: Unist.Position = {
+const position: Position = {
     start: point,
     end: point,
     indent: [1]
 };
 
-const node: Unist.Node = {
+const node: Node = {
     type: 'node',
     data,
     position
 };
 
-const text: Unist.Literal = {
+const text: Literal = {
     type: 'text',
     data,
     position,
     value: 'value'
 };
 
-const parent: Unist.Parent = {
+const parent: Parent = {
     type: 'parent',
     data,
     position,

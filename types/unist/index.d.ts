@@ -7,8 +7,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-export as namespace Unist
-
 // Syntactic units in unist syntax trees are called nodes.
 export interface Node {
     // The variant of a node.
@@ -59,5 +57,5 @@ export interface Parent extends Node {
 
 // Nodes containing a value.
 export interface Literal extends Node {
-    value: any;
+    value: unknown;
 }
