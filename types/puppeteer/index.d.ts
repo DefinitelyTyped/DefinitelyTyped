@@ -1937,7 +1937,7 @@ export interface Target {
   url(): string;
 }
 
-export interface LaunchOptions extends Timeoutable {
+export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeoutable {
   /**
    * Path to a Chromium executable to run instead of bundled Chromium. If
    * executablePath is a relative path, then it is resolved relative to current
@@ -2052,7 +2052,7 @@ export interface BrowserOptions {
   slowMo?: number;
 }
 
-export interface ConnectOptions {
+export interface ConnectOptions extends BrowserOptions {
   /** A browser websocket endpoint to connect to. */
   browserWSEndpoint?: string;
   /**
@@ -2108,10 +2108,10 @@ export interface CoverageEntry {
 }
 
 /** Attaches Puppeteer to an existing Chromium instance */
-export function connect(options?: ConnectOptions & BrowserOptions): Promise<Browser>;
+export function connect(options?: ConnectOptions): Promise<Browser>;
 /** The default flags that Chromium will be launched with */
 export function defaultArgs(options?: ChromeArgOptions): string[];
 /** Path where Puppeteer expects to find bundled Chromium */
 export function executablePath(): string;
 /** The method launches a browser instance with given arguments. The browser will be closed when the parent node.js process is closed. */
-export function launch(options?: LaunchOptions & ChromeArgOptions & BrowserOptions): Promise<Browser>;
+export function launch(options?: LaunchOptions): Promise<Browser>;
