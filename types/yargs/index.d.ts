@@ -327,6 +327,7 @@ declare namespace yargs {
         O extends { boolean: true } ? boolean :
         O extends { number: true } ? number :
         O extends { string: true } ? string :
+        O extends { count: true } ? number :
         O extends { normalize: true } ? string :
         O extends { choices: Array<infer C> } ? C :
         O extends { default: infer D } ? D :
