@@ -554,8 +554,8 @@ declare namespace Chart {
         borderSkipped?: PositionType;
         data?: Array<number | null | undefined> | ChartPoint[];
         fill?: boolean | number | string;
-        hoverBackgroundColor?: string | string[];
-        hoverBorderColor?: string | string[];
+        hoverBackgroundColor?: ChartColor | ChartColor[];
+        hoverBorderColor?: ChartColor | ChartColor[];
         hoverBorderWidth?: number | number[];
         label?: string;
         lineTension?: number;
