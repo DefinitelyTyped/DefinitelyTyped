@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Strategy as OAuth2Strategy, VerifyFunction, VerifyFunctionWithRequest } from 'passport-oauth2';
+import { Strategy as OAuth2Strategy, VerifyFunction, VerifyFunctionWithRequest, _StrategyOptionsBase } from 'passport-oauth2';
 
 declare class BnetStrategy extends OAuth2Strategy {
     constructor(options: BnetStrategy.StrategyOptions, verify: VerifyFunction);
@@ -12,17 +12,16 @@ declare class BnetStrategy extends OAuth2Strategy {
 }
 
 declare namespace BnetStrategy {
-    interface _BaseBnetOptions {
-        region?: string;
 
-        scopeSeparator?: string;
-        customHeaders?: object;
-        authorizationURL?: string;
-        tokenURL?: string;
-        scope?: string;
-        clientID: string;
-        clientSecret: string;
-        callbackURL?: string;
+    //Utility types for excluding properties from interfaces
+    type Diff<T extends string | number | symbol, U extends string | number | symbol> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
+    type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>; 
+
+    // passport--bnet accepts any options that passport-oauth2 accepts, but add the option region and makes authorizationURL and tokenURL optional
+    interface _BaseBnetOptions 
+        extends Partial<Pick<_StrategyOptionsBase, 'authorizationURL' | 'tokenURL'>>, Omit<_StrategyOptionsBase, 'authorizationURL' | 'tokenURL'> {
+    
+        region?: string;
     }
 
     interface StrategyOptions extends _BaseBnetOptions {
