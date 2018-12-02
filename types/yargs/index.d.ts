@@ -370,7 +370,7 @@ declare namespace yargs {
         O extends { number: true } ? number :
         O extends { string: true } ? string :
         O extends { normalize: true } ? string :
-        O extends { choices: Array<infer C> } ? C :
+        O extends { choices: ReadonlyArray<infer C> } ? C :
         O extends { coerce: (arg: any) => infer T } ? T :
         any;
 
@@ -389,7 +389,7 @@ declare namespace yargs {
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type MiddlewareFunction<T> = (args: Arguments<T>) => void;
-    type Choices = Array<string | true | undefined>;
+    type Choices = ReadonlyArray<string | true | undefined>;
     type PositionalOptionsType = "boolean" | "number" | "string";
 }
 

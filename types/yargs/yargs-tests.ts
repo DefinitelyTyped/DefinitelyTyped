@@ -668,7 +668,7 @@ function Argv$scriptName() {
 }
 
 type Color = "red" | "blue" | "green";
-const colors: Color[] = ["red", "blue", "green"];
+const colors: ReadonlyArray<Color> = ["red", "blue", "green"];
 
 function Argv$inferOptionTypes() {
     // $ExpectType { [x: string]: any; a: (string | number)[] | undefined; b: boolean | undefined; c: number; n: number | undefined; s: string | undefined; _: string[]; $0: string; }
