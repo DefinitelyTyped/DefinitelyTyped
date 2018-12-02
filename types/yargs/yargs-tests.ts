@@ -695,7 +695,7 @@ function Argv$inferOptionTypes() {
         .option("s", { string: true })
         .argv;
 
-    // $ExpectType { [x: string]: any; count: number; choices: Color; coerce: Date | undefined; normalize: string | undefined; _: string[]; $0: string; }
+    // $ExpectType { [x: string]: any; choices: Color; coerce: Date | undefined; count: number; normalize: string | undefined; _: string[]; $0: string; }
     yargs
         .option("choices", { choices: colors, required: true })
         .option("coerce", { coerce: () => new Date() })
@@ -783,6 +783,13 @@ function Argv$inferMultipleOptionTypes() {
         .demandOption(["c", "d", "e"])
         .argv;
 
+    // $ExpectType { [x: string]: any; a: string; b: boolean; c: number; d: number; e: number; _: string[]; $0: string; }
+    yargs
+        .options({ a: { default: "a" }, b: { default: false } })
+        .number(["c", "d", "e"])
+        .demandOption(["c", "d", "e"])
+        .argv;
+
     // $ExpectType { [x: string]: any; a: number; b: string; c: boolean; _: string[]; $0: string; }
     yargs
         .default({ a: 42, b: "b", c: false })
@@ -791,6 +798,7 @@ function Argv$inferMultipleOptionTypes() {
     // $ExpectType { [x: string]: any; a: number; b: string; c: Date; _: string[]; $0: string; }
     yargs
         .coerce({ a: Date.parse, b: String.prototype.toLowerCase, c: (s: string) => new Date(s) })
+        .demandOption(["a", "b", "c"])
         .argv;
 
     // $ExpectType { [x: string]: any; a: number | undefined; b: string | undefined; c: Color; _: string[]; $0: string; }
@@ -890,15 +898,15 @@ function Argv$inferArrayOptionTypes() {
     yargs.array("a").demandOption("a").normalize("a").argv.a;
 }
 
-function Argv$usesTheLastInferredOptionType() {
+function Argv$inferRepeatedOptionTypes() {
     // $ExpectType boolean | undefined
     yargs.string("a").boolean("a").argv.a;
 
-    // FIXME: $ExpectType string | undefined
-    // FIXME: yargs.number("a").string("a").argv.a;
+    // $ExpectType string | undefined
+    yargs.number("a").string("a").argv.a;
 
-    // FIXME: $ExpectType number | undefined
-    // FIXME: yargs.string("a").number("a").argv.a;
+    // $ExpectType number | undefined
+    yargs.string("a").number("a").argv.a;
 
     // $ExpectType boolean | undefined
     yargs.string("a").option("a", { number: true }).boolean("a").argv.a;
