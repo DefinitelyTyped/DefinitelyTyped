@@ -2,6 +2,7 @@
 // Project: https://github.com/Blizzard/passport-bnet#readme
 // Definitions by: Ivan Fernandes <https://github.com/ivan94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Strategy as OAuth2Strategy, VerifyFunction, VerifyFunctionWithRequest } from 'passport-oauth2';
 
