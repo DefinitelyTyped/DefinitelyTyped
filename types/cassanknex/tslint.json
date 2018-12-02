@@ -1,14 +1,7 @@
 {
 	"extends": "dtslint/dt.json",
-	"rules": {
-		"space-before-function-paren": [true, "always"],
-		"no-unnecessary-generics": false,
-		"strict-export-declare-modifiers": false,
-		"prefer-readonly": false,
-		"await-promise": false,
-		"no-for-in-array": false,
-		"no-void-expression": false,
-		"expect": true,
-		"no-declare-current-package": false
-	}
+  "rules": {
+    "no-unnecessary-generics": false,
+    "strict-export-declare-modifiers": false
+  }
 }
