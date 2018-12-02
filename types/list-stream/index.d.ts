@@ -2,6 +2,7 @@
 // Project: https://github.com/rvagg/list-stream
 // Definitions by: IanStorm <https://github.com/IanStorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
 
