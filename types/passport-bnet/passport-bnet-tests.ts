@@ -1,9 +1,8 @@
-//Based on passport-oauth2/passport-oauth2-tests.ts
+// Based on passport-oauth2/passport-oauth2-tests.ts
 
 import BnetStrategy = require("passport-bnet");
 import { Strategy, StrategyOptions, StrategyOptionsWithRequest } from "passport-bnet";
-import { Strategy as OAuth2Strategy } from "passport-oauth2";
-import { VerifyCallback } from "passport-oauth2";
+import { Strategy as OAuth2Strategy, VerifyCallback } from "passport-oauth2";
 import { Request } from "express";
 
 const strategyOptions1: StrategyOptions = {
@@ -16,7 +15,7 @@ const strategyOptions1: StrategyOptions = {
     scope: "email",
     scopeSeparator: ' ',
     customHeaders: {}
-}
+};
 
 function verifyFunction1(_accessToken: string, _refreshToken: string, _profile: any, verifyCallback: VerifyCallback) {
     verifyCallback(new Error('unimplemented'));

@@ -1,4 +1,4 @@
-// Type definitions for passport-bnet 2.0.0
+// Type definitions for passport-bnet 2.0.
 // Project: https://github.com/Blizzard/passport-bnet#readme
 // Definitions by: Ivan Fernandes <https://github.com/ivan94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,6 @@ declare class BnetStrategy extends OAuth2Strategy {
 }
 
 declare namespace BnetStrategy {
-
     interface _BaseBnetOptions {
         region?: string;
 
@@ -20,7 +19,7 @@ declare namespace BnetStrategy {
         customHeaders?: object;
         authorizationURL?: string;
         tokenURL?: string;
-        scope?: string; 
+        scope?: string;
         clientID: string;
         clientSecret: string;
         callbackURL?: string;
@@ -40,4 +39,4 @@ declare namespace BnetStrategy {
     const Strategy: typeof BnetStrategy;
 }
 
-export = BnetStrategy
+export = BnetStrategy;
