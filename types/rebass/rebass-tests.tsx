@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as rebassComponents from 'rebass';
 import { BoxProps, Button, Card, Flex, Heading, Image, Link, RebassComponentsModule, Text } from 'rebass';
 import * as styledComponents from 'styled-components';
-import { ThemedOuterStyledProps, ThemedStyledComponentsModule } from 'styled-components';
+import {  ThemedStyledComponentsModule } from 'styled-components';
 const {Box} = rebassComponents
 
 const RebassTests = () => (
@@ -248,7 +248,7 @@ const ReactHTMLAttributes = () => (
                 I am button
             </Button>
             <Image
-                as="asdhehe"
+                as="div"
                 src="source.unsplash.com/random/1024x768"
                 alt="randomm image"
                 onMouseOver={() => {}}
@@ -305,9 +305,9 @@ const StyledExtended = () => {
 }
 
 const ClassExtended = () => {
-    class Header extends React.Component<ThemedOuterStyledProps<BoxProps, Theme>> {
+    class Header extends React.Component<styledComponents.ThemedStyledProps<BoxProps, Theme>> {
         render() {
-            const {children, ...rest} = this.props
+            const {children, ref, ...rest} = this.props
             return (
             <Box
                 {...rest}
@@ -329,19 +329,16 @@ const ClassExtended = () => {
 }
 
 const SFCExtended = () => {
-    const Header: React.SFC<ThemedOuterStyledProps<BoxProps, Theme>> = ({
-        children,
-        ...rest
-    }) => (
+    const Header: React.FunctionComponent<styledComponents.ThemedStyledProps<BoxProps, Theme>> = ({ref, ...props})  => (
         <Box
-            {...rest}
+            {...props}
             as="header"
             bg="#222"
             p="20px"
             color="white"
             css={{height: '150px', textAlign: 'center'}}
         >
-            {children}
+            {props.children}
         </Box>
     )
 
