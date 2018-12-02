@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Text, AccessibilityInfo } from 'react-native';
 
 import {
     Accelerometer,
@@ -33,7 +33,6 @@ import {
     Linking,
     Location,
     MailComposer,
-    MapView,
     MediaLibrary,
     Permissions,
     PublisherBanner,
@@ -43,7 +42,7 @@ import {
     Updates
 } from 'expo';
 
-import {
+import MapView, {
     EdgeInsets,
     EdgePadding,
     EventUserLocation,
@@ -51,7 +50,7 @@ import {
     MapEvent,
     MapStyleElement,
     Region
-} from './MapView';
+} from 'react-native-maps';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
     latitude: 0,
