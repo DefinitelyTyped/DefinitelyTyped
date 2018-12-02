@@ -38,7 +38,6 @@ declare namespace yargs {
         // Aliases for previously declared options can inherit the types of those options.
         alias<K1 extends keyof T, K2 extends string>(shortName: K1, longName: K2 | ReadonlyArray<K2>): Argv<T & { [key in K2]: T[K1] }>;
         alias<K1 extends keyof T, K2 extends string>(shortName: K2, longName: K1 | ReadonlyArray<K1>): Argv<T & { [key in K2]: T[K1] }>;
-
         alias(shortName: string | ReadonlyArray<string>, longName: string | ReadonlyArray<string>): Argv<T>;
         alias(aliases: { [shortName: string]: string | ReadonlyArray<string> }): Argv<T>;
 
