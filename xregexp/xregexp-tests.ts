@@ -33,6 +33,7 @@ var obj: Object;
 var matchArr: RegExpExecArray;
 var options: TokenOpts;
 var replacer: Function;
+var subpattern: { [name: string]: string | RegExp };
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -66,8 +67,8 @@ XRegExp.addToken(regex, (arr, scope) => {
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-regex = XRegExp.build(pattern, strArr, flags);
-regex = XRegExp.build(pattern, strArr);
+regex = XRegExp.build(pattern, subpattern, flags);
+regex = XRegExp.build(pattern, subpattern);
 regex = XRegExp.cache(pattern);
 regex = XRegExp.cache(pattern, flags);
 
