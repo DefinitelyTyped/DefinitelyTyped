@@ -480,7 +480,10 @@ cli.addPlugin('my-fancy-plugin', {});
 
 cli.isPathIgnored('./dist/index.js');
 
-const formatter = cli.getFormatter('codeframe');
+let formatter: CLIEngine.Formatter;
+
+formatter = cli.getFormatter('codeframe');
+formatter = cli.getFormatter();
 
 formatter(cliReport.results);
 
