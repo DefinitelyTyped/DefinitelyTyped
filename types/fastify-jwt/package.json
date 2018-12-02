@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "fastify": "^1.11.2"
+        "fastify": ">=1.13.1 || 2.0.0-rc.1"
     }
 }

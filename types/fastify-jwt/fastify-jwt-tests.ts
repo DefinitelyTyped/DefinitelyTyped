@@ -1,17 +1,16 @@
-import { IncomingMessage, Server, ServerResponse } from "http";
-import fastifyJwt = require("fastify-jwt");
 import fastify = require("fastify");
+import fastifyJwt = require("fastify-jwt");
 
 const app = fastify();
 
 app.register<fastifyJwt.FastifyJwtOptions>(fastifyJwt, {
-  secret: "super-secret"
+  secret: "super-secret",
 });
 
 app.register<fastifyJwt.FastifyJwtOptions>(fastifyJwt, {
   secret: (request, reply, callback) => {
     return "";
-  }
+  },
 });
 
 app.get("/path", (request, reply) => {
