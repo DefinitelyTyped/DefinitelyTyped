@@ -1,4 +1,4 @@
-import * as ListStream from "list-stream";
+import ListStream from "list-stream";
 
 let chunk: any = "chunk";
 let listStream: ListStream;
