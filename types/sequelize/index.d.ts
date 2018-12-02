@@ -3330,7 +3330,7 @@ declare namespace sequelize {
          * first element is the column / function to order by, the second is the direction. For example:
          * `order: [['name', 'DESC']]`. In this way the column will be escaped, but the direction will not.
          */
-        order?: string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }> | Array<string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }>>;
+        order?: string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string } | fn> | fn | Array<string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }| fn>| fn>;
 
         /**
          * Limit the results
@@ -5240,13 +5240,13 @@ declare namespace sequelize {
          * `this.constructor.prototype.find.apply(this, arguments)`
          */
         classMethods?: Object;
-        
+
         /**
          * Change the database schema. PG only feature, but also works with other dialects.
          */
         schema?: string;
-        
-        
+
+
         /**
          * Change the database schema delimiter. Defaults to "." on PG but for other dialects can be also changed to "_".
          */
