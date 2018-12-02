@@ -25,7 +25,7 @@ declare namespace Gravatar {
 	type DefaultImage = "404" | "mm" | "identicon" | "monsterid" | "wavatar" | "retro" | "blank";
 	type Rating = "g" | "pg" | "r" | "x";
 
-	interface Props {
+	interface Props extends Partial<JSX.IntrinsicElements['img']> {
 		/**
 		 * The email address used to look up the Gravatar image.
 		 * If you wish to avoid sending an email address to the client, you can compute the md5 hash on the server and

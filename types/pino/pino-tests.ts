@@ -123,3 +123,16 @@ anotherRedacted.info({
     msg: 'another logged with redacted properties',
     anotherPath: 'Not shown'
 });
+
+const pretty = pino({
+	prettyPrint: {
+		colorize: true,
+		crlf: false,
+		errorLikeObjectKeys: ['err', 'error'],
+		errorProps: '',
+		levelFirst: false,
+		messageKey: 'msg',
+		translateTime: 'UTC:h:MM:ss TT Z',
+		search: 'foo == `bar`'
+	}
+});

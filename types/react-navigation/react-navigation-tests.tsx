@@ -8,6 +8,8 @@ import {
 import {
     createDrawerNavigator,
     createBottomTabNavigator,
+    DrawerItems,
+    DrawerItemsProps,
     DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
@@ -360,6 +362,17 @@ const BasicDrawerNavigator = createDrawerNavigator(
     stackNavigatorConfig,
 );
 
+const Drawer = (props: DrawerItemsProps) => (
+    <DrawerItems {...props} />
+);
+
+const DrawerNavigatorWithCustomDrawer = createDrawerNavigator(
+    routeConfigMap,
+    {
+        contentComponent: Drawer,
+    }
+);
+
 function renderBasicDrawerNavigator(): JSX.Element {
     return (
         <BasicDrawerNavigator
@@ -413,14 +426,14 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
             />
         );
     }
-    _render = (props: NavigationTransitionProps, prevProps: NavigationTransitionProps): React.ReactElement<any> => {
+    _render = (props: NavigationTransitionProps, prevProps?: NavigationTransitionProps): React.ReactElement<any> => {
         return (
             <View />
         );
     }
     _configureTransition = (
         _transitionProps: NavigationTransitionProps,
-        _prevTransitionProps: NavigationTransitionProps
+        _prevTransitionProps?: NavigationTransitionProps
     ) => {
         return {};
     }
