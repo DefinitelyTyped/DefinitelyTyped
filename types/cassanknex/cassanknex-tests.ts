@@ -46,11 +46,11 @@ const query2 = knex("keyspace")
 	.from("table");
 
 query2.stream({
-	readable () {
+	readable() {
 		const row = this.read();
 	},
-	end () {},
-	error () {}
+	end() {},
+	error() {}
 });
 
 const values = {
