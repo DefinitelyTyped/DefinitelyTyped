@@ -835,17 +835,6 @@ declare namespace React {
     // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T|null): RefObject<T>;
     /**
-     * The signature is identical to `useEffect`, but it fires synchronously during the same phase that
-     * React performs its DOM mutations, before sibling components have been updated. Use this to perform
-     * custom DOM mutations.
-     *
-     * Prefer the standard `useEffect` when possible to avoid blocking visual updates.
-     *
-     * @version experimental
-     * @see https://reactjs.org/docs/hooks-reference.html#usemutationeffect
-     */
-    function useMutationEffect(effect: EffectCallback, inputs?: InputIdentityList): void;
-    /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
      * `useLayoutEffect` will be flushed synchronously, before the browser has a chance to paint.
