@@ -23,6 +23,7 @@
         "eth/accounts.d.ts",
         "eth/contract.d.ts",
         "eth/index.d.ts",
-        "eth/types.d.ts"
+        "eth/types.d.ts",
+        "test/abi-tests.ts"
     ]
 }

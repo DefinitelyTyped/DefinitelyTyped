@@ -2,6 +2,7 @@ import Web3 = require("web3");
 import BigNumber = require("bn.js");
 import { TransactionReceipt } from "web3/types";
 import PromiEvent from "web3/promiEvent";
+import { NEW_ABI_STANDARD, OLD_ABI_STANDARD } from "web3/test/abi-tests";
 
 const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 
@@ -125,6 +126,8 @@ web3.eth.personal.unlockAccount(
 //
 // web3.eth.abi
 // --------------------------------------------------------------------------
+const myContractOldAbi = new web3.eth.Contract(OLD_ABI_STANDARD);
+const myContractNewAbi = new web3.eth.Contract(NEW_ABI_STANDARD);
 
 //
 // web3.bzz
