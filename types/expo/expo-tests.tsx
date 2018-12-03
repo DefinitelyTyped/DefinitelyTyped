@@ -20,6 +20,9 @@ import {
     CameraObject,
     Constants,
     DocumentPicker,
+    EdgeInsets,
+    EdgePadding,
+    EventUserLocation,
     Facebook,
     FacebookAds,
     FaceDetector,
@@ -29,28 +32,23 @@ import {
     ImagePicker,
     IntentLauncherAndroid,
     KeepAwake,
+    KmlMapEvent,
     LinearGradient,
     Linking,
     Location,
     MailComposer,
+    MapEvent,
+    MapStyleElement,
+    MapView,
     MediaLibrary,
     Permissions,
     PublisherBanner,
+    Region,
     registerRootComponent,
     ScreenOrientation,
     Svg,
     Updates
 } from 'expo';
-
-import MapView, {
-    EdgeInsets,
-    EdgePadding,
-    EventUserLocation,
-    KmlMapEvent,
-    MapEvent,
-    MapStyleElement,
-    Region
-} from 'react-native-maps';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
     latitude: 0,
