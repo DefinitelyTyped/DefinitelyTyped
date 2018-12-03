@@ -1624,7 +1624,7 @@ export interface Page extends EventEmitter, FrameBase {
 
   /**
    * Determines whether cache is enabled on the page.
-   * @param enabled Whether or not to enable cache on the page. Defaults to true.
+   * @param [enabled=true] Whether or not to enable cache on the page.
    */
   setCacheEnabled(enabled?: boolean): Promise<void>;
 
