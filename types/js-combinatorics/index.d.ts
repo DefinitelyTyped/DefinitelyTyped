@@ -93,6 +93,14 @@ declare namespace __Combinatorics {
 	function combination<T>(a:T[], n?:number):IGenerator<T[]>;
 
 	/**
+	 * Generates the combination of array with n elements, which
+	 * also supports larger sets of elements.
+	 * When n is ommited, the length of the array is used.
+	 * Somewhat slower than combination()
+	 */
+	function bigCombination<T>(a:T[], n?:number):IGenerator<T[]>;
+
+	/**
 	 * Generates the permutation of array with n elements.
 	 * When n is ommited, the length of the array is used.
 	 */
