@@ -761,7 +761,7 @@ declare namespace CKEDITOR {
         pasteFromWordNumberedHeadingToList?: boolean;
         pasteFromWordPromptCleanup?: boolean;
         pasteFromWordRemoveFontStyles?: boolean;
-        pasteFromWorkRemoveStyles?: boolean;
+        pasteFromWordRemoveStyles?: boolean;
         pasteFromWord_heuristicsEdgeList?: boolean;
         pasteFromWord_inlineImages?: boolean;
         plugins?: string;

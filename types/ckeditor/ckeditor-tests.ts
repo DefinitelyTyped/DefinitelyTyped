@@ -485,7 +485,7 @@ function test_dialog() {
                 {
                     id: 'tab-basic',
                     label: 'Basic Settings',
-                    elements: <any[]> []
+                    elements: [] as any[]
                 },
                 {
                     id: 'tab-adv',
