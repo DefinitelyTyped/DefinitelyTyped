@@ -3631,9 +3631,15 @@ interface ImagePropsAndroid {
     fadeDuration?: number;
 
     /**
-     * Required sizes if using native image resources on Android
+     * Required if loading images via 'uri' from drawable folder on Android.
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
      */
     width?: number;
+
+    /**
+     * Required if loading images via 'uri' from drawable folder on Android
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
+     */
     height?: number;
 }
 
