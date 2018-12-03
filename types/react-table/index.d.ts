@@ -50,7 +50,7 @@ export interface SortingRule {
     desc?: true;
 }
 
-export interface TableProps<D = any> extends
+export interface TableProps<D = any, ResolvedData = D> extends
     Partial<TextProps>,
     Partial<ComponentDecoratorProps>,
     Partial<ControlledStateCallbackProps>,
@@ -59,6 +59,8 @@ export interface TableProps<D = any> extends
     Partial<ComponentProps> {
     /** Default: [] */
     data: D[];
+
+    resolveData?: (data: D[]) => ResolvedData[];
 
     /** Default: false */
     loading: boolean;
@@ -168,7 +170,7 @@ export interface TableProps<D = any> extends
     column: Partial<GlobalColumn>;
 
     /** Array of all Available Columns */
-    columns?: Array<Column<D>>;
+    columns?: Array<Column<ResolvedData>>;
 
     /** Expander defaults. */
     expanderDefaults: Partial<ExpanderDefaults>;
@@ -184,9 +186,9 @@ export interface TableProps<D = any> extends
 
     /** Control callback for functional rendering */
     children: (
-        state: FinalState<D>,
+        state: FinalState<ResolvedData>,
         makeTable: () => React.ReactElement<any>,
-        instance: Instance<D>
+        instance: Instance<ResolvedData>
     ) => React.ReactNode;
 }
 
