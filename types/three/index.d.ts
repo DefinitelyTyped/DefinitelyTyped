@@ -23,6 +23,7 @@
 //                 Dilip Ramirez <https://github.com/Dukuo>
 //                 Julian Strecker <https://github.com/JulianSSS>
 //                 Zhang Hao <https://github.com/devilsparta>
+//                 Spade <https://github.com/spade69>
 // Definitions: https://github.com//DefinitelyTyped
 // TypeScript Version: 2.8
 
