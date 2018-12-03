@@ -274,4 +274,4 @@ export interface IFrameScrollData {
   y: number;
 }
 
-export function iframeResizer(options: IFrameOptions, target: string | HTMLElement): IFrameComponent[];
+export default function iframeResizer(options: IFrameOptions, target: string | HTMLElement): IFrameComponent[];
