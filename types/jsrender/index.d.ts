@@ -29,6 +29,13 @@ declare namespace JsRender {
 
     interface Template {
         render(data?: any): string;
+        link(container: any, data?: any): any;
+        link(container: any, data?: any, helpersOrContext?: any): any;
+        link(container: any, data?: any, helpersOrContext?: any, noIteration?: boolean): any;
+    }
+
+    interface Link {
+        (container: any, data?: any, helpersOrContext?: any, noIteration?: boolean): any;
     }
 
     interface NamedTemplate {
