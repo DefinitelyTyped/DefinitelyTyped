@@ -16,6 +16,7 @@ import styled, {
     StyledComponent,
     ThemedStyledComponentsModule
 } from "styled-components";
+import {} from "styled-components/cssprop";
 
 /**
  * general usage
@@ -187,7 +188,6 @@ const styledButton = styled.button`
 const name = "hey";
 
 const ThemedMyButton = withTheme(MyButton);
-
 <ThemedMyButton name={name} />;
 
 /**
@@ -305,7 +305,6 @@ const ObjectStylesBox = styled.div`
         fontSize: 2
     }};
 `;
-
 <ObjectStylesBox size="big" />;
 
 /**
@@ -337,7 +336,6 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: "h1" })`
 `;
 
 const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: "off" })``;
-
 <AttrsInputExtra />;
 
 /**
@@ -434,10 +432,8 @@ const Component = (props: WithThemeProps) => (
 );
 
 const ComponentWithTheme = withTheme(Component);
-
 <ComponentWithTheme text={"hi"} />; // ok
 <ComponentWithTheme text={"hi"} theme={{ color: "red" }} />; // ok
-
 <ThemeConsumer>{theme => <Component text="hi" theme={theme} />}</ThemeConsumer>;
 
 /**
@@ -625,7 +621,6 @@ const divFnRef = (ref: HTMLDivElement | null) => {
 const divRef = React.createRef<HTMLDivElement>();
 
 const StyledDiv = styled.div``;
-
 <StyledDiv ref={divRef} />;
 <StyledDiv ref={divFnRef} />;
 <StyledDiv ref="string" />; // $ExpectError
@@ -784,5 +779,91 @@ async function themeAugmentation() {
                 </extra.ThemeProvider>
             </>
         </base.ThemeProvider>
+    );
+}
+
+// NOTE: this is needed for some tests inside cssProp,
+// but actually running this module augmentation will cause
+// tests elsewhere to break, and there is no way to contain it.
+// Uncomment out as needed to run tests.
+
+// declare module "styled-components" {
+//     interface DefaultTheme {
+//         background: string;
+//     }
+// }
+
+function cssProp() {
+    function Custom(props: React.ComponentPropsWithoutRef<"div">) {
+        return <div {...props} />;
+    }
+
+    const myCss = "background: blue;";
+
+    return (
+        <>
+            <div css="background: blue;" />
+            {/*
+                For some reason $ExpectError doesn't work on this expression.
+                Only strings work, objects crash the plugin.
+                <div css={{ background: "blue" }} />
+            */}
+            <div
+                // would be nice to be able to turn this into an error as it also crashes the plugin,
+                // but this is how optional properties work in TypeScript...
+                css={undefined}
+            />
+            <div
+                // css used as tagged function is fine and is correctly handled by the plugin
+                css={css`
+                    background: blue;
+                `}
+            />
+            <div
+                // but this crashes the plugin, even though it's valid type-wise and we can't forbid it
+                css={css({ background: "blue" })}
+            />
+            <div
+                // this also crashes the plugin, only inline strings or css template tag work
+                css={myCss}
+            />
+            <div
+                css={css`
+                    background: ${() => "blue"};
+                `}
+            />
+            <div
+                css={css`
+                    background: ${props => {
+                        // This requires the DefaultTheme augmentation
+                        // // $ExpectType string
+                        // props.theme.background;
+                        return props.theme.background;
+                    }};
+                `}
+            />
+            <Custom css="background: blue;" />
+            <Custom css={undefined} />
+            <Custom
+                css={css`
+                    background: blue;
+                `}
+            />
+            <Custom
+                css={css`
+                    background: ${() => "blue"};
+                `}
+            />
+            <Custom
+                css={css`
+                    background: ${props => {
+                        // This requires the DefaultTheme augmentation
+                        // // $ExpectType string
+                        // props.theme.background;
+                        return props.theme.background;
+                    }};
+                `}
+            />
+        </>
     );
 }

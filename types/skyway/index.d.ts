@@ -1,185 +1,153 @@
-// Type definitions for SkyWay
-// Project: http://nttcom.github.io/skyway/
+// Type definitions for SkyWay@1.1.17
+// Project: https://github.com/skyway/skyway-js-sdk
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
+//                 Atsushi Izumihara <https://github.com/izmhr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
-/// <reference types="webrtc" />
-
-declare namespace PeerJs{
-    interface PeerJSOption{
-        key?: string;
-        host?: string;
-        port?: number;
-        path?: string;
-        secure?: boolean;
-        turn?: boolean;
-        config?: RTCPeerConnectionConfig;
-        debug?: number;
-    }
-
-    interface PeerConnectOption{
-        label?: string;
-        metadata?: any;
-        serialization?: string;
-        reliable?: boolean;
-    }
-
-    interface DataConnection{
-        send(data: any): void;
-        close(): void;
-        on(event: string, cb: ()=>void): void;
-        on(event: 'data', cb: (data: any)=>void): void;
-        on(event: 'open', cb: ()=>void): void;
-        on(event: 'close', cb: ()=>void): void;
-        on(event: 'error', cb: (err: any)=>void): void;
-        off(event: string, fn: Function, once?: boolean): void;
-        bufferSize: number;
-        dataChannel: RTCDataChannel;
-        label: string;
-        metadata: any;
-        open: boolean;
-        peerConnection: any;
-        peer: string;
-        reliable: boolean;
-        serialization: string;
-        type: string;
-    }
-
-    interface MediaConnection{
-        answer(stream?: any): void;
-        close(): void;
-        on(event: string, cb: ()=>void): void;
-        on(event: 'stream', cb: (stream: any)=>void): void;
-        on(event: 'close', cb: ()=>void): void;
-        on(event: 'error', cb: (err: any)=>void): void;
-        off(event: string, fn: Function, once?: boolean): void;
-        open: boolean;
-        metadata: any;
-        peer: string;
-        type: string;
-    }
-
-    interface utilSupportsObj {
-        audioVideo: boolean;
-        data: boolean;
-        binary: boolean;
-        reliable: boolean;
-    }
-
-    interface util{
-        browser: string;
-        supports: utilSupportsObj;
-    }
-
-    export interface Peer{
-        /**
-         *
-         * @param id The brokering ID of the remote peer (their peer.id).
-         * @param options for specifying details about Peer Connection
-         */
-        connect(id: string, options?: PeerJs.PeerConnectOption): PeerJs.DataConnection;
-        /**
-         * Connects to the remote peer specified by id and returns a data connection.
-         * @param id The brokering ID of the remote peer (their peer.id).
-         * @param stream The caller's media stream
-         */
-        call(id: string, stream: any): PeerJs.MediaConnection;
-        /**
-         * Calls the remote peer specified by id and returns a media connection.
-         * @param event Event name
-         * @param cb Callback Function
-         */
-        on(event: string, cb: ()=>void): void;
-        /**
-         * Emitted when a connection to the PeerServer is established.
-         * @param event Event name
-         * @param cb id is the brokering ID of the peer
-         */
-        on(event: 'open', cb: (id: string)=>void): void;
-        /**
-         * Emitted when a new data connection is established from a remote peer.
-         * @param event Event name
-         * @param cb Callback Function
-         */
-        on(event: 'connection', cb: (dataConnection: PeerJs.DataConnection)=>void): void;
-        /**
-         * Emitted when a remote peer attempts to call you.
-         * @param event Event name
-         * @param cb Callback Function
-         */
-        on(event: 'call', cb: (mediaConnection: PeerJs.MediaConnection)=>void): void;
-        /**
-         * Emitted when the peer is destroyed and can no longer accept or create any new connections.
-         * @param event Event name
-         * @param cb Callback Function
-         */
-        on(event: 'close', cb: ()=>void): void;
-        /**
-         * Emitted when the peer is disconnected from the signalling server
-         * @param event Event name
-         * @param cb Callback Function
-         */
-        on(event: 'disconnected', cb: ()=>void): void;
-        /**
-         * Errors on the peer are almost always fatal and will destroy the peer.
-         * @param event Event name
-         * @param cb Callback Function
-         */
-        on(event: 'error', cb: (err: any)=>void): void;
-        /**
-         * Remove event listeners.(EventEmitter3)
-         * @param {String} event The event we want to remove.
-         * @param {Function} fn The listener that we need to find.
-         * @param {Boolean} once Only remove once listeners.
-         */
-        off(event: string, fn: Function, once?: boolean): void;
-        /**
-         * Close the connection to the server, leaving all existing data and media connections intact.
-         */
-        disconnect(): void;
-        /**
-         * Close the connection to the server and terminate all existing connections.
-         */
-        destroy(): void;
-        /**
-         * Get a list of available peer IDs
-         * @param callback
-         */
-        listAllPeers(callback: (peerIds: Array<string>)=>void): void;
-
-        /**
-         * The brokering ID of this peer
-         */
-        id: string;
-        /**
-         * A hash of all connections associated with this peer, keyed by the remote peer's ID.
-         */
-        connections: any;
-        /**
-         * false if there is an active connection to the PeerServer.
-         */
-        disconnected: boolean;
-        /**
-         * true if this peer and all of its connections can no longer be used.
-         */
-        destroyed: boolean;
-    }
+interface Options {
+    key: string;
+    debug?: number;
+    turn?: boolean;
+    credential?: Credential;
+    config?: RTCConfiguration;
 }
 
-declare var Peer: {
-    prototype: RTCIceServer;
-    /**
-     * A peer can connect to other peers and listen for connections.
-     * @param id Other peers can connect to this peer using the provided ID.
-     *     If no ID is given, one will be generated by the brokering server.
-     * @param options for specifying details about PeerServer
-     */
-    new (id: string, options?: PeerJs.PeerJSOption): PeerJs.Peer;
+interface Credential {
+    timestamp?: number;
+    ttl?: number;
+    authToken?: string;
+}
 
-    /**
-     * A peer can connect to other peers and listen for connections.
-     * @param options for specifying details about PeerServer
-     */
-    new (options: PeerJs.PeerJSOption): PeerJs.Peer;
-};
+interface CallOptions {
+    metadata?: any;
+    videoBandWidth?: number;
+    audioBandwidth?: number;
+    videoCodec?: string;
+    audioCodec?: string;
+    videoReceiveEnabled?: boolean;
+    audioReceiveEnabled?: boolean;
+    label?: string;
+}
+
+interface ConnectOptions {
+    metadata?: any;
+    serialization?: string;
+    dcInit?: RTCDataChannelInit;
+    label?: string;
+}
+
+interface RoomOptions {
+    mode?: string;
+    stream?: MediaStream;
+    videoBandwidth?: number;
+    audioBandwidth?: number;
+    videoCodec?: string;
+    audioCodec?: string;
+    videoReceiveEnabled?: boolean;
+    audioReceiveEnabled?: boolean;
+}
+
+interface AnswerOptions {
+    videoBandwidth?: number;
+    audioBandwidth?: number;
+    videoCodec?: string;
+    audioCodec?: string;
+}
+
+declare class Peer {
+    constructor(id: string, options: Options);
+    constructor(options: Options);
+
+    connections: any;
+    id: string;
+    open: boolean;
+    rooms: any;
+
+    call(peerId: string, stream?: MediaStream, options?: CallOptions): MediaConnection | undefined;
+    connect(peerId: string, options?: ConnectOptions): DataConnection | undefined;
+    destroy(): undefined;
+    disconnect(): undefined;
+    joinRoom(roomName: string, roomOptions?: RoomOptions): SFURoom | MeshRoom | undefined | null;
+    listAllPeers(cb: (peerIds: Array<string>) => void): void;
+    updateCredential(newCredential: Credential): undefined;
+
+    on(event: string, cb: (ret: any) => void): void;
+    on(event: 'open', cb: (id: string) => void): void;
+    on(event: 'call', cb: (call: MediaConnection) => void): void;
+    on(event: 'close', cb: () => void): void;
+    on(event: 'connection', cb: (connection: DataConnection) => void): void;
+    on(event: 'disconnected', cb: (id: string) => void): void;
+    on(event: 'error', cb: (err: any) => void): void;
+}
+
+declare class MediaConnection {
+    metadata: any;
+    open: boolean;
+    remoteId: string;
+    peer: string;
+
+    answer(stream: MediaStream, options?: AnswerOptions): undefined;
+    close(): void | undefined;
+    replaceStream(stream: MediaStream): undefined;
+
+    on(event: string, cb: () => void): void;
+    on(event: 'stream', cb: (stream: MediaStream) => void): void;
+    on(event: 'close', cb: () => void): void;
+    on(event: 'removeStream', cb: (reamoteStream: MediaStream) => void): void;
+}
+
+declare class DataConnection {
+    metadata: any;
+    open: boolean;
+    remoteId: string;
+    peer: string;
+
+    send(data: any): void;
+    close(): void | undefined;
+
+    on(event: string, cb: () => void): void;
+    on(event: 'data', cb: (data: any) => void): void;
+    on(event: 'close', cb: () => void): void;
+}
+
+interface DataObject {
+    src: string;
+    data: any;
+}
+
+declare class MeshRoom {
+    close(): undefined;
+    getLog(): undefined;
+    replaceStream(stream: MediaSource): undefined;
+    send(data: any): undefined;
+
+    on(event: string, cb: () => void): void;
+    on(event: 'open', cb: () => void): void;
+    on(event: 'peerJoin', cb: (peerId: string) => void): void;
+    on(event: 'peerLeave', cb: (peerId: string) => void): void;
+    on(event: 'log', cb: (logs: Array<string>) => void): void;
+    once(event: 'log', cb: (logs: Array<string>) => void): void;
+    on(event: 'stream', cb: (stream: MediaStream) => void): void;
+    on(event: 'data', cb: (object: DataObject) => void): void;
+    on(event: 'close', cb: () => void): void;
+    on(event: 'removeStream', cb: (stream: MediaStream) => void): void;
+}
+
+declare class SFURoom {
+    close(): undefined;
+    getLog(): undefined;
+    replaceStream(stream: MediaSource): undefined;
+    send(data: any): undefined;
+
+    on(event: string, cb: () => void): void;
+    on(event: 'open', cb: () => void): void;
+    on(event: 'peerJoin', cb: (peerId: string) => void): void;
+    on(event: 'peerLeave', cb: (peerId: string) => void): void;
+    on(event: 'log', cb: (logs: Array<string>) => void): void;
+    once(event: 'log', cb: (logs: Array<string>) => void): void;
+    on(event: 'stream', cb: (stream: MediaStream) => void): void;
+    on(event: 'data', cb: (object: DataObject) => void): void;
+    on(event: 'close', cb: () => void): void;
+    on(event: 'removeStream', cb: (stream: MediaStream) => void): void;
+}

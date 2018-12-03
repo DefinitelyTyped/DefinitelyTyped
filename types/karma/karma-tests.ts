@@ -1,16 +1,6 @@
-import gulp = require('gulp');
 import karma = require('karma');
 
-function runKarma(singleRun: boolean): void {
-    // MEMO: `start` method is deprecated since 0.13. It will be removed in 0.14.
-    karma.server.start({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun
-    });
-}
-
-gulp.task('test:unit:karma', gulp.parallel('build:test:unit', () => runKarma(true)));
-
+// karma.server is deprecated and will eventually be removed
 karma.server.start({port: 9876}, (exitCode: number) => {
   console.log('Karma has exited with ' + exitCode);
   process.exit(exitCode);
@@ -54,7 +44,8 @@ karma.runner.run({port: 9876}, (exitCode: number) => {
     process.exit(exitCode);
 });
 
-const captured: boolean = karma.launcher.areAllCaptured();
+const launcher: karma.launcher.Launcher = null;
+const captured: boolean = launcher.areAllCaptured();
 
 // Example of configuration file karma.conf.ts, see http://karma-runner.github.io/latest/config/configuration-file.html
 module.exports = (config: karma.Config) => {
@@ -123,3 +114,10 @@ const foo = (config: karma.Config) => {
     }
   });
 };
+
+console.log(karma.constants.DEFAULT_HOSTNAME);
+console.log(karma.VERSION);
+
+karma.config.parseConfig('karma.conf.js', {
+    singleRun: true
+});
