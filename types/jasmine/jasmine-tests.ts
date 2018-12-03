@@ -469,6 +469,40 @@ describe("A spy, when configured with an alternate implementation", () => {
     });
 });
 
+describe("A spy, when configured with alternate implementations for specified arguments", () => {
+    var foo: any, bar: any, fetchedBar: any;
+
+    beforeEach(() => {
+        foo = {
+            setBar: (value: any) => {
+                bar = value;
+            },
+            getBar: () => {
+                return bar;
+            }
+        };
+
+        spyOn(foo, "getBar")
+            .withArgs(1, "2")
+            .and.callFake(() => 1002);
+
+        foo.setBar(123);
+        fetchedBar = foo.getBar(1, "2");
+    });
+
+    it("tracks that the spy was called", () => {
+        expect(foo.getBar).toHaveBeenCalled();
+    });
+
+    it("should not effect other functions", () => {
+        expect(bar).toEqual(123);
+    });
+
+    it("when called returns the requested value", () => {
+        expect(fetchedBar).toEqual(1002);
+    });
+});
+
 describe("A spy, when configured to throw a value", () => {
     var foo: any, bar: any;
 
