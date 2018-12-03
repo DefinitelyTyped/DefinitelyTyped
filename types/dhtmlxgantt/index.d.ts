@@ -1190,9 +1190,24 @@ interface GanttStatic {
 
 	/**
 	 * calculates the duration of a task
+	 * @param start the date when a task is scheduled to begin
+	 * @param end the date when a task is scheduled to be completed
+	*/
+	calculateDuration(start: Date, end: Date): number;
+
+	/**
+	 * calculates the duration of a task
 	 * @param config the <a href="#configurationobjectproperties">configuration object</a> of a time span
 	*/
 	calculateDuration(config: any): number;
+
+	/**
+	 * calculates the end date of a task
+	 * @param start the date when a task is scheduled to begin
+	 * @param duration the duration of a task
+	 * @param unit the time unit of the duration
+	*/
+	calculateEndDate(start: Date, duration: number, unit: string): Date;
 
 	/**
 	 * calculates the end date of a task
@@ -1921,6 +1936,13 @@ interface GanttStatic {
 	 * @param task the task's object
 	*/
 	isUnscheduledTask(task: any): boolean;
+
+	/**
+	 * checks whether the specified date is working or not
+	 * @param date a date to check
+	 * @param timeunit a time unit: 'hour' or 'day'.<br> If not specified, the value of 'gantt.config.duration_unit'  is used
+	*/
+	isWorkTime(date: Date, timeunit: string): boolean;
 
 	/**
 	 * checks whether the specified date is working or not
