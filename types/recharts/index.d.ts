@@ -11,6 +11,7 @@
 //                 Paul Melnikow <https://github.com/paulmelnikow>
 //                 Harry Cruse <https://github.com/crusectrl>
 //                 Andrew Palugniok <https://github.com/apalugniok>
+//                 Robert Stigsson <https://github.com/RobertStigsson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -634,6 +635,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: 'hidden' | 'visible' | 'discard' | 'extendDomain'
     x1?: number | string;
     x2?: number | string;
     y1?: number | string;
@@ -657,6 +659,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
     yAxis?: ReferenceDotAxisConfiguration;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: 'hidden' | 'visible' | 'discard' | 'extendDomain'
     x?: number | string;
     y?: number | string;
     xAxisId?: string | number;
@@ -677,6 +680,7 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: 'hidden' | 'visible' | 'discard' | 'extendDomain'
     x?: number | string;
     y?: number | string;
     label?: string | number | ContentRenderer<any> | React.ReactElement<any>;
