@@ -880,6 +880,15 @@ import * as assert from 'assert';
     }, 2000);
 })();
 
+(function tickAndTickDiff(): void {
+    const startTick: number = pigpio.getTick();
+    setTimeout(() => {
+        const endTick: number = pigpio.getTick();
+        const diff: number = pigpio.tickDiff(startTick, endTick);
+        assert.ok(diff > 0, 'expected tick count to increase across a timer call');
+    }, 50);
+})();
+
 (function gpio_glitch_filter(): void {
     const Gpio = pigpio.Gpio;
     const input = new Gpio(7, {
