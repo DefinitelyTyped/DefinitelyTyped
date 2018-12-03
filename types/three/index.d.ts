@@ -62,5 +62,6 @@ export * from "./three-transformcontrols";
 export * from "./three-unrealbloompass";
 export * from "./three-vrcontrols";
 export * from "./three-vreffect";
+export * from "./three-clearpass";
 
 export as namespace THREE;
