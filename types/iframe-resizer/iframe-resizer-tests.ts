@@ -1,4 +1,4 @@
-import { IFrameComponent, IFrameOptions, iframeResizer } from "iframe-resizer";
+import iframeResizer, { IFrameComponent, IFrameOptions } from "iframe-resizer";
 
 function testOne(): void {
   const iframe: HTMLIFrameElement = document.createElement('iframe');
