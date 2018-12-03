@@ -3,11 +3,22 @@
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
+//                 Andreas Richter <https://github.com/arichter83>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // TODO: <Highlighter>, <Menu>, <MenuItem>, <Token> components
 
 import * as React from 'react';
+
+export interface TypeaheadFilterbyProps {
+  filterBy: string[];
+  labelKey: (string | (() => void));
+  multiple: boolean;
+  selected: any[];
+  caseSensitive: boolean;
+  ignoreDiacritics: boolean;
+  text: string;
+}
 
 export interface TypeaheadProps<T> {
     /* For localized accessibility: Should return a string indicating the number of results for screen readers. Receives the current results. */
@@ -58,7 +69,7 @@ export interface TypeaheadProps<T> {
     emptyLabel?: string;
 
     /* Either an array of fields in option to search, or a custom filtering callback. */
-    filterBy?: (string[] | ((option: T | string, text: string) => boolean));
+    filterBy?: (string[] | ((option: T | string, props: TypeaheadFilterbyProps) => boolean));
 
     /* Highlights the menu item if there is only one result and allows selecting that item by hitting enter.
        Does not work with allowNew. */

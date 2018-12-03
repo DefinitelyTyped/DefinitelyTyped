@@ -28,6 +28,14 @@ class BasicExample extends React.Component {
                     onInputChange={(value, e) => {}}
                     placeholder="Choose a state..."
                 />
+                <Typeahead
+                    labelKey="name"
+                    multiple={multiple}
+                    options={options}
+                    maxHeight='300px'
+                    filterBy={(option, props) => (props.text.indexOf(option) !== -1) }
+                    placeholder="Choose a state..."
+                />
             </div>
         );
     }
