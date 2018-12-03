@@ -207,7 +207,7 @@ declare module 'underscore' {
          * ('-moz-transform') => 'MozTransform'
          * @param str
          */
-        camelize(str: string): string;
+        camelize(str: string, decapitalize?: boolean): string;
 
         /**
          * Converts a camelized or dasherized string into an underscored one.
