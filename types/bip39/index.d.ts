@@ -17,7 +17,7 @@ export const wordlists: {
     spanish: string[];
 };
 
-export function entropyToMnemonic(entropyHex: string, wordlist?: string[]): string;
+export function entropyToMnemonic(entropyHex: Buffer | string, wordlist?: string[]): string;
 
 export function generateMnemonic(strength?: number, rng?: (size: number) => Buffer, wordlist?: string[]): string;
 
