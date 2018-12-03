@@ -322,11 +322,8 @@ declare namespace React {
     const Children: ReactChildren;
     const Fragment: ExoticComponent<{ children?: ReactNode }>;
     const StrictMode: ExoticComponent<{ children?: ReactNode }>;
-    /**
-     * This feature is not yet available for server-side rendering.
-     * Suspense support will be added in a later release.
-     */
-    const Suspense: ExoticComponent<{
+
+    interface SuspenseProps {
         children?: ReactNode
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
@@ -338,7 +335,12 @@ declare namespace React {
          * Not implemented yet, requires unstable_ConcurrentMode
          */
         // maxDuration?: number
-    }>;
+    }
+    /**
+     * This feature is not yet available for server-side rendering.
+     * Suspense support will be added in a later release.
+     */
+    const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
 
     //
