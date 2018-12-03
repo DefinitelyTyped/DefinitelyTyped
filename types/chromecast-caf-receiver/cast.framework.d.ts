@@ -3,34 +3,6 @@ import * as events from "./cast.framework.events";
 import * as messages from "./cast.framework.messages";
 import * as system from "./cast.framework.system";
 import * as ui from "./cast.framework.ui";
-import { EventType } from "./cast.framework.events";
-import {
-    PlayerState,
-    PlayStringId,
-    ErrorType,
-    ErrorReason,
-    IdleReason,
-    MessageType,
-    Track,
-    TextTrackStyle,
-    QueueItem,
-    LoadRequestData,
-    QueueData,
-    Break,
-    LiveSeekableRange,
-    MediaInformation,
-    ErrorData,
-    RequestData
-} from "./cast.framework.messages";
-import { BreakManager } from "./cast.framework.breaks";
-import { EventHandler, RequestHandler, BinaryHandler } from "./index";
-import {
-    EventType as SystemEventType,
-    ApplicationData,
-    Sender,
-    StandbyState,
-    SystemState
-} from "./cast.framework.system";
 
 export import breaks = breaks;
 export import events = events;
@@ -59,12 +31,12 @@ export class TextTracksManager {
     /**
      * Adds text tracks to the list.
      */
-    addTracks(tracks: Track[]): void;
+    addTracks(tracks: messages.Track[]): void;
 
     /**
      * Creates a text track.
      */
-    createTrack(): Track;
+    createTrack(): messages.Track;
 
     /**
      * Gets all active text ids.
@@ -74,27 +46,27 @@ export class TextTracksManager {
     /**
      * Gets all active text tracks.
      */
-    getActiveTracks(): Track[];
+    getActiveTracks(): messages.Track[];
 
     /**
      * Returns the current text track style.
      */
-    getTextTracksStyle(): TextTrackStyle;
+    getTextTracksStyle(): messages.TextTrackStyle;
 
     /**
      * Gets text track by id.
      */
-    getTrackById(id: number): Track;
+    getTrackById(id: number): messages.Track;
 
     /**
      * Returns all text tracks.
      */
-    getTracks(): Track[];
+    getTracks(): messages.Track[];
 
     /**
      * Gets text tracks by language.
      */
-    getTracksByLanguage(language: string): Track[];
+    getTracksByLanguage(language: string): messages.Track[];
 
     /**
      * Sets text tracks to be active by id.
@@ -109,7 +81,7 @@ export class TextTracksManager {
     /**
      * Sets text track style.
      */
-    setTextTrackStyle(style: TextTrackStyle): void;
+    setTextTrackStyle(style: messages.TextTrackStyle): void;
 }
 
 /**
@@ -121,7 +93,7 @@ export class QueueManager {
     /**
      * Returns the current queue item.
      */
-    getCurrentItem(): QueueItem;
+    getCurrentItem(): messages.QueueItem;
 
     /**
      * Returns the index of the current queue item.
@@ -131,12 +103,12 @@ export class QueueManager {
     /**
      * Returns the queue items.
      */
-    getItems(): QueueItem[];
+    getItems(): messages.QueueItem[];
 
     /**
      * Inserts items into the queue.
      */
-    insertItems(items: QueueItem[], insertBefore?: number): void;
+    insertItems(items: messages.QueueItem[], insertBefore?: number): void;
 
     /**
      * Removes items from the queue.
@@ -151,7 +123,7 @@ export class QueueManager {
     /**
      * Updates existing queue items by matching itemId.
      */
-    updateItems(items: QueueItem[]): void;
+    updateItems(items: messages.QueueItem[]): void;
 }
 
 /**
@@ -167,7 +139,7 @@ export class QueueBase {
         itemId: number,
         nextCount: number,
         prevCount: number
-    ): QueueItem[] | Promise<QueueItem[]>;
+    ): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 
     /**
      * Initializes the queue with the requestData. This is called when a new LOAD request comes in to the receiver.
@@ -175,13 +147,13 @@ export class QueueBase {
      *  in the load request data.
      */
     initialize(
-        requestData: LoadRequestData
-    ): QueueData | Promise<QueueData>;
+        requestData: messages.LoadRequestData
+    ): messages.QueueData | Promise<messages.QueueData>;
 
     /**
      * Returns next items after the reference item; often the end of the current queue; called by the receiver MediaManager.
      */
-    nextItems(itemId?: number): QueueItem[] | Promise<QueueItem[]>;
+    nextItems(itemId?: number): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 
     /**
      * Sets the current item with the itemId; called by the receiver MediaManager when it changes the current playing item.
@@ -192,7 +164,7 @@ export class QueueBase {
      * A callback for informing the following items have been inserted into the receiver queue in this session.
      *  A cloud based implementation can optionally choose to update its queue based on the new information.
      */
-    onItemsInserted(items: QueueItem[], insertBefore?: number): void;
+    onItemsInserted(items: messages.QueueItem[], insertBefore?: number): void;
 
     /**
      * A callback for informing the following items have been removed from the receiver queue in this session.
@@ -203,12 +175,12 @@ export class QueueBase {
     /**
      * Returns previous items before the reference item; often at the beginning of the queue; called by the receiver MediaManager.
      */
-    prevItems(itemId?: number): QueueItem[] | Promise<QueueItem[]>;
+    prevItems(itemId?: number): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 
     /**
      * Shuffles the queue and returns new queue items. Returns null if the operation is not supported.
      */
-    shuffle(): QueueItem[] | Promise<QueueItem[]>;
+    shuffle(): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 }
 
 /**
@@ -221,7 +193,7 @@ export class PlayerManager {
      * Adds an event listener for player event.
      */
     addEventListener: (
-        eventType: EventType | EventType[],
+        eventType: events.EventType | events.EventType[],
         eventListener: EventHandler
     ) => void;
 
@@ -250,12 +222,12 @@ export class PlayerManager {
     /**
      * Obtain the breaks (Ads) manager.
      */
-    getBreakManager(): BreakManager;
+    getBreakManager(): breaks.BreakManager;
 
     /**
      * Returns list of breaks.
      */
-    getBreaks(): Break[];
+    getBreaks(): messages.Break[];
 
     /**
      * Gets current time in sec of current media.
@@ -270,12 +242,12 @@ export class PlayerManager {
     /**
      * Returns live seekable range with start and end time in seconds. The values are media time based.
      */
-    getLiveSeekableRange(): LiveSeekableRange;
+    getLiveSeekableRange(): messages.LiveSeekableRange;
 
     /**
      * Gets media information of current media.
      */
-    getMediaInformation(): MediaInformation;
+    getMediaInformation(): messages.MediaInformation;
 
     /**
      * Returns playback configuration.
@@ -290,7 +262,7 @@ export class PlayerManager {
     /**
      * Gets player state.
      */
-    getPlayerState(): PlayerState;
+    getPlayerState(): messages.PlayerState;
 
     /**
      * Get the preferred playback rate. (Can be used on shutdown event to save latest preferred playback rate to a persistent storage;
@@ -313,7 +285,7 @@ export class PlayerManager {
     /**
      * Loads media.
      */
-    load(loadRequest: LoadRequestData): Promise<void>;
+    load(loadRequest: messages.LoadRequestData): Promise<void>;
 
     /**
      * Pauses currently playing media.
@@ -328,7 +300,7 @@ export class PlayerManager {
     /**
      * Requests a text string to be played back locally on the receiver device.
      */
-    playString(stringId: PlayStringId, args?: string[]): Promise<ErrorData>;
+    playString(stringId: messages.PlayStringId, args?: string[]): Promise<messages.ErrorData>;
 
     /**
      * Request Google Assistant to refresh the credentials. Only works if the original credentials came from the assistant.
@@ -339,7 +311,7 @@ export class PlayerManager {
      * Removes the event listener added for given player event. If event listener is not added; it will be ignored.
      */
     removeEventListener(
-        eventType: EventType | EventType[],
+        eventType: events.EventType | events.EventType[],
         eventListener: EventHandler
     ): void;
 
@@ -354,15 +326,15 @@ export class PlayerManager {
     sendError(
         senderId: string,
         requestId: number,
-        type: ErrorType,
-        reason?: ErrorReason,
+        type: messages.ErrorType,
+        reason?: messages.ErrorReason,
         customData?: any
     ): void;
 
     /**
      * Send local media request.
      */
-    sendLocalMediaRequest(request: RequestData): void;
+    sendLocalMediaRequest(request: messages.RequestData): void;
 
     /**
      * Sends a media status message to a specific sender.
@@ -381,7 +353,7 @@ export class PlayerManager {
      * it is only needed if they want to make the player go to IDLE in special circumstances and the default idleReason does not reflect their intended
      * behavior.
      */
-    setIdleReason(idleReason: IdleReason): void;
+    setIdleReason(idleReason: messages.IdleReason): void;
 
     /**
      * Sets MediaElement to use. If Promise of MediaElement is set; media begins playback after Promise is resolved.
@@ -392,7 +364,7 @@ export class PlayerManager {
      * Sets media information.
      */
     setMediaInformation(
-        mediaInformation: MediaInformation,
+        mediaInformation: messages.MediaInformation,
         opt_broadcast?: boolean
     ): void;
 
@@ -403,7 +375,7 @@ export class PlayerManager {
      */
     setMediaPlaybackInfoHandler(
         handler: (
-            loadRequestData: LoadRequestData,
+            loadRequestData: messages.LoadRequestData,
             playbackConfig: PlaybackConfig
         ) => void
     ): void;
@@ -413,7 +385,7 @@ export class PlayerManager {
      * of the media status. By default the media contentId is used as the content url.
      */
     setMediaUrlResolver(
-        resolver: (loadRequestData: LoadRequestData) => void
+        resolver: (loadRequestData: messages.LoadRequestData) => void
     ): void;
 
     /**
@@ -424,8 +396,8 @@ export class PlayerManager {
      * the load interceptor will be called for preload messages.
      */
     setMessageInterceptor(
-        type: MessageType,
-        interceptor: (requestData: RequestData) => Promise<any>
+        type: messages.MessageType,
+        interceptor: (requestData: messages.RequestData) => Promise<any>
     ): void;
 
     /**
@@ -652,7 +624,7 @@ export class CastReceiverContext {
      * Add listener to cast system events.
      */
     addEventListener(
-        type: SystemEventType | SystemEventType[],
+        type: system.EventType | system.EventType[],
         handler: EventHandler
     ): void;
 
@@ -670,7 +642,7 @@ export class CastReceiverContext {
     /**
      * Provides application information once the system is ready; otherwise it will be null.
      */
-    getApplicationData(): ApplicationData;
+    getApplicationData(): system.ApplicationData;
 
     /**
      * Provides device capabilities information once the system is ready; otherwise it will be null.
@@ -686,22 +658,22 @@ export class CastReceiverContext {
     /**
      * Get a sender by sender id
      */
-    getSender(senderId: string): Sender;
+    getSender(senderId: string): system.Sender;
 
     /**
      * Gets a list of currently-connected senders.
      */
-    getSenders(): Sender[];
+    getSenders(): system.Sender[];
 
     /**
      * Reports if the cast application's HDMI input is in standby.
      */
-    getStandbyState(): StandbyState;
+    getStandbyState(): system.StandbyState;
 
     /**
      * Provides application information about the system state.
      */
-    getSystemState(): SystemState;
+    getSystemState(): system.SystemState;
 
     /**
      * Reports if the cast application is the HDMI active input.
@@ -731,7 +703,7 @@ export class CastReceiverContext {
     /**
      * Remove listener to cast system events.
      */
-    removeEventListener(type: EventType, handler: EventHandler): void;
+    removeEventListener(type: system.EventType, handler: EventHandler): void;
 
     /**
      * Sends a message to a specific sender.
@@ -783,10 +755,10 @@ export class CastReceiverContext {
 export class AudioTracksManager {
     constructor(params: any);
     getActiveId(): number;
-    getActiveTrack(): Track;
-    getTrackById(id: number): Track;
-    getTracks(): Track[];
-    getTracksByLanguage(language: string): Track[];
+    getActiveTrack(): messages.Track;
+    getTrackById(id: number): messages.Track;
+    getTracks(): messages.Track[];
+    getTracksByLanguage(language: string): messages.Track[];
     setActiveById(id: number): void;
     setActiveByLanguage(language: string): void;
 }

@@ -1,7 +1,5 @@
 import { PlayerDataEventType } from "./cast.framework.ui";
 import { MediaMetadata } from "./cast.framework.messages";
-import { PlayerDataChangedEventHandler } from "./index";
-
 
 export as namespace ui
 export type ContentType = "video" | "audio" | "image";
