@@ -19,6 +19,7 @@
 //                 Mikael Lirbank <https://github.com/lirbank>
 //                 Hector Ribes <https://github.com/hector7>
 //                 Florian Richter <https://github.com/floric>
+//                 Erik Christensen <https://github.com/erikc5000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -44,10 +45,7 @@ export class MongoClient extends EventEmitter {
     static connect(uri: string, callback: MongoCallback<MongoClient>): void;
     static connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
     static connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
-    /**
-     * @deprecated
-     * http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#connect
-     */
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#connect */
     connect(): Promise<MongoClient>;
     connect(callback: MongoCallback<MongoClient>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#close */
@@ -589,7 +587,7 @@ export class Db extends EventEmitter {
     indexInformation(name: string, options?: { full?: boolean, readPreference?: ReadPreference | string }): Promise<any>;
     indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#listCollections */
-    listCollections(filter?: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
+    listCollections(filter?: Object, options?: { nameOnly?: boolean, batchSize?: number, readPreference?: ReadPreference | string, session?: ClientSession }): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#profilingInfo */
     /** @deprecated Query the system.profile collection directly. */
     profilingInfo(callback: MongoCallback<any>): void;
@@ -679,7 +677,7 @@ export interface CollectionCreateOptions extends CommonOptions {
     indexOptionDefaults?: object;
     viewOn?: string;
     pipeline?: any[];
-    collation?: object;
+    collation?: CollationDocument;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#collection */
@@ -737,7 +735,7 @@ export interface IndexOptions extends CommonOptions {
      * Creates a partial index based on the given filter object (MongoDB 3.2 or higher)
      */
     partialFilterExpression?: any;
-    collation?: Object;
+    collation?: CollationDocument;
     default_language?: string
 }
 
@@ -839,9 +837,9 @@ export interface Collection<TSchema = Default> {
     createIndex(fieldOrSpec: string | any, options?: IndexOptions): Promise<string>;
     createIndex(fieldOrSpec: string | any, options: IndexOptions, callback: MongoCallback<string>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#createIndexes and  http://docs.mongodb.org/manual/reference/command/createIndexes/ */
-    createIndexes(indexSpecs: Object[], callback: MongoCallback<any>): void;
-    createIndexes(indexSpecs: Object[], options?: { session?: ClientSession }): Promise<any>;
-    createIndexes(indexSpecs: Object[], options: { session?: ClientSession }, callback: MongoCallback<any>): void;
+    createIndexes(indexSpecs: IndexSpecification[], callback: MongoCallback<any>): void;
+    createIndexes(indexSpecs: IndexSpecification[], options?: { session?: ClientSession }): Promise<any>;
+    createIndexes(indexSpecs: IndexSpecification[], options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#deleteMany */
     deleteMany(filter: FilterQuery<TSchema>, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     deleteMany(filter: FilterQuery<TSchema>, options?: CommonOptions): Promise<DeleteWriteOpResultObject>;
@@ -1298,7 +1296,7 @@ export interface CollectionAggregationOptions {
     promoteLongs?: boolean;
     promoteValues?: boolean;
     promoteBuffers?: boolean;
-    collation?: Object;
+    collation?: CollationDocument;
     comment?: string
     session?: ClientSession;
 
@@ -1560,7 +1558,7 @@ export interface FindOneOptions {
     readPreference?: ReadPreference | string;
     partial?: boolean;
     maxTimeMs?: number;
-    collation?: Object;
+    collation?: CollationDocument;
     session?: ClientSession;
 }
 
@@ -1681,7 +1679,7 @@ export class Cursor<T = Default> extends Readable {
     close(): Promise<CursorResult>;
     close(callback: MongoCallback<CursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#collation */
-    collation(value: Object): Cursor<T>;
+    collation(value: CollationDocument): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#comment */
     comment(value: string): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#count */
@@ -1827,24 +1825,30 @@ export class AggregationCursor<T = Default> extends Readable {
     unwind(field: string): AggregationCursor<T>;
 }
 
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */
+export type CommandCursorResult = any | void;
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html */
 export class CommandCursor extends Readable {
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#hasNext */
+    hasNext(): Promise<CommandCursorResult>;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#hasNext */
+    hasNext(callback: MongoCallback<CommandCursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#batchSize */
     batchSize(value: number): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#clone */
     clone(): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#close */
-    close(): Promise<AggregationCursorResult>;
-    close(callback: MongoCallback<AggregationCursorResult>): void;
+    close(): Promise<CommandCursorResult>;
+    close(callback: MongoCallback<CommandCursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#each */
-    each(callback: MongoCallback<AggregationCursorResult>): void;
+    each(callback: MongoCallback<CommandCursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#isClosed */
     isClosed(): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#maxTimeMS */
     maxTimeMS(value: number): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#next */
-    next(): Promise<AggregationCursorResult>;
-    next(callback: MongoCallback<AggregationCursorResult>): void;
+    next(): Promise<CommandCursorResult>;
+    next(callback: MongoCallback<CommandCursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#read */
     read(size: number): string | Buffer | void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#rewind */
@@ -1986,7 +1990,7 @@ export interface ChangeStreamOptions {
     maxAwaitTimeMS?: number;
     resumeAfter?: Object;
     batchSize?: number;
-    collation?: Object;
+    collation?: CollationDocument;
     readPreference?: ReadPreference;
 }
 
@@ -2066,4 +2070,40 @@ export class Logger {
      * Set the current log level
      */
     static setLevel(level: string): void
+}
+
+/** https://docs.mongodb.com/manual/reference/collation/#collation-document-fields */
+export interface CollationDocument {
+    locale: string;
+    strength?: number;
+    caseLevel?: boolean;
+    caseFirst?: string;
+    numericOrdering?: boolean;
+    alternate?: string;
+    maxVariable?: string;
+    backwards?: boolean;
+    normalization?: boolean;
+
+}
+
+/** https://docs.mongodb.com/manual/reference/command/createIndexes/ */
+export interface IndexSpecification {
+    key: object;
+    name?: string;
+    background?: boolean;
+    unique?: boolean;
+    partialFilterExpression?: object;
+    sparse?: boolean;
+    expireAfterSeconds?: number;
+    storageEngine?: object;
+    weights?: object;
+    default_language?: string;
+    language_override?: string;
+    textIndexVersion?: number;
+    '2dsphereIndexVersion'?: number;
+    bits?: number;
+    min?: number;
+    max?: number;
+    bucketSize?: number;
+    collation?: CollationDocument;
 }
