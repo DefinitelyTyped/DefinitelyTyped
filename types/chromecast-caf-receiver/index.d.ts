@@ -11,11 +11,14 @@
 /// <reference path="./cast.framework.system.d.ts" />
 /// <reference path="./cast.framework.ui.d.ts" />
 
+import * as framework from "./cast.framework";
 import { PlayerDataChangedEvent } from './cast.framework.ui';
 import { NetworkRequestInfo } from './cast.framework';
 import { Event } from './cast.framework.events';
 
+
 export as namespace cast;
+export { framework };
 export type EventHandler = (event: Event) => void;
 export type PlayerDataChangedEventHandler = (
     event: PlayerDataChangedEvent
