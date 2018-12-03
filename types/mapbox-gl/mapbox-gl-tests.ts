@@ -465,10 +465,10 @@ expectType<mapboxgl.Point>(mapboxgl.Point.convert(pointlike));
 
 expectType<mapboxgl.TransformRequestFunction>((url: string) => ({ url }));
 expectType<mapboxgl.TransformRequestFunction>((url: string, resourceType: mapboxgl.ResourceType) => ({
-	 url,
-	 credentials: 'same-origin',
-	 headers: { 'Accept-Encoding': 'compress' },
-	 method: 'POST',
+	url,
+	credentials: 'same-origin',
+	headers: { 'Accept-Encoding': 'compress' },
+	method: 'POST',
 	collectResourceTiming: true,
  }));
 

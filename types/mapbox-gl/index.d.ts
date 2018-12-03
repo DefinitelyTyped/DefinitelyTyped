@@ -1071,7 +1071,7 @@ declare namespace mapboxgl {
     export interface MapSourceDataEvent extends MapboxEvent {
         dataType: 'source';
         isSourceLoaded: boolean;
-        source: Style;
+        source: Source;
         sourceId: string;
         sourceDataType: 'metadata' | 'content';
         tile: any;
