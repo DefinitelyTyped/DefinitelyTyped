@@ -55,6 +55,7 @@ declare namespace ReactDates {
         screenReaderInputMessage?: string,
         showClearDates?: boolean,
         showDefaultInputIcon?: boolean,
+        inputIconPosition?: IconPositionShape,
         customInputIcon?: string | JSX.Element,
         customArrowIcon?: string | JSX.Element,
         customCloseIcon?: string | JSX.Element,
