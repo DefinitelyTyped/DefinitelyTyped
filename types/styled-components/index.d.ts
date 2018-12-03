@@ -73,7 +73,7 @@ export type SimpleInterpolation =
     | InterpolationValue
     | FlattenSimpleInterpolation;
 // must be an interface to be self-referential
-interface FlattenSimpleInterpolation
+export interface FlattenSimpleInterpolation
     extends ReadonlyArray<SimpleInterpolation> {}
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
@@ -176,10 +176,9 @@ export interface ThemedStyledFunctionBase<
     (
         first:
             | TemplateStringsArray
-            | NonNullable<
-                  Interpolation<
-                      ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
-                  >
+            | CSSObject
+            | InterpolationFunction<
+                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
               >,
         ...rest: Array<
             Interpolation<
@@ -187,17 +186,12 @@ export interface ThemedStyledFunctionBase<
             >
         >
     ): StyledComponent<C, T, O, A>;
-    // at least the first argument is required, whatever it is
     <U extends object>(
         first:
             | TemplateStringsArray
-            | NonNullable<
-                  Interpolation<
-                      ThemedStyledProps<
-                          StyledComponentPropsWithRef<C> & O & U,
-                          T
-                      >
-                  >
+            | CSSObject
+            | InterpolationFunction<
+                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
               >,
         ...rest: Array<
             Interpolation<
@@ -288,19 +282,21 @@ export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
 export interface BaseThemedCssFunction<T extends object> {
     (
-        first: TemplateStringsArray | NonNullable<SimpleInterpolation>,
+        first: TemplateStringsArray | CSSObject,
         ...interpolations: SimpleInterpolation[]
     ): FlattenSimpleInterpolation;
     (
         first:
             | TemplateStringsArray
-            | NonNullable<Interpolation<ThemedStyledProps<{}, T>>>,
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<{}, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<{}, T>>>
     ): FlattenInterpolation<ThemedStyledProps<{}, T>>;
     <P extends object>(
         first:
             | TemplateStringsArray
-            | NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): FlattenInterpolation<ThemedStyledProps<P, T>>;
 }
@@ -333,7 +329,8 @@ export interface ThemedStyledComponentsModule<
     createGlobalStyle<P extends object = {}>(
         first:
             | TemplateStringsArray
-            | NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): GlobalStyleComponent<P, T>;
 
@@ -405,7 +402,8 @@ export function keyframes(
 export function createGlobalStyle<P extends object = {}>(
     first:
         | TemplateStringsArray
-        | NonNullable<Interpolation<ThemedStyledProps<P, DefaultTheme>>>,
+        | CSSObject
+        | InterpolationFunction<ThemedStyledProps<P, DefaultTheme>>,
     ...interpolations: Array<Interpolation<ThemedStyledProps<P, DefaultTheme>>>
 ): GlobalStyleComponent<P, DefaultTheme>;
 
@@ -468,7 +466,7 @@ export class StyleSheetManager extends React.Component<
  */
 // ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
 export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
-      string |
-      FlattenInterpolation<ThemeProps<T>>;
+    | string
+    | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;

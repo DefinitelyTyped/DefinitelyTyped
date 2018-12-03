@@ -14,7 +14,10 @@ import styled, {
     withTheme,
     ThemeConsumer,
     StyledComponent,
-    ThemedStyledComponentsModule
+    ThemedStyledComponentsModule,
+    FlattenSimpleInterpolation,
+    SimpleInterpolation,
+    FlattenInterpolation
 } from "styled-components";
 import {} from "styled-components/cssprop";
 
@@ -101,13 +104,13 @@ const fadeIn = keyframes`
 `;
 
 const showAnimation = css`
-  opacity: 1;
-  transform: scale(1) translateY(0);
+    opacity: 1;
+    transform: scale(1) translateY(0);
 `;
 
 const hideAnimation = css`
-  opacity: 0;
-  transform: scale(0.95, 0.8) translateY(20px);
+    opacity: 0;
+    transform: scale(0.95, 0.8) translateY(20px);
 `;
 
 const entryAnimation = keyframes`
@@ -694,6 +697,8 @@ async function typedThemes() {
             return props.theme.color;
         }};
     `;
+    //  can't use a FlattenInterpolation as the first argument, would make broken css
+    // $ExpectError
     const ThemedDiv4 = styled.div(themedCss);
 
     const themedCssWithNesting = css(props => ({
@@ -714,7 +719,6 @@ async function typedThemes() {
                 <ThemedDiv />
                 <ThemedDiv2 />
                 <ThemedDiv3 />
-                <ThemedDiv4 />
                 <ThemeConsumer>
                     {theme => {
                         // $ExpectType string
@@ -866,4 +870,79 @@ function cssProp() {
             />
         </>
     );
+}
+
+function validateArgumentsAndReturns() {
+    const t1: FlattenSimpleInterpolation[] = [
+        css({ color: "blue" }),
+        css`
+            color: blue;
+        `,
+        css`
+            color: ${"blue"};
+        `
+    ];
+    const t4: FlattenInterpolation<any> = [
+        css`
+            color: ${() => "blue"};
+        `,
+        css(() => ({ color: "blue" })),
+        css(
+            () =>
+                css`
+                    color: "blue";
+                `
+        )
+    ];
+
+    // if the first argument is array-like it's always treated as a string[], this breaks things
+    css(
+        // $ExpectError
+        css`
+            ${{ color: "blue" }}
+        `
+    );
+    // _technically_ valid as styled-components doesn't look at .raw but best not to support it
+    // $ExpectError
+    css([]);
+
+    styled.div({ color: "blue" });
+    styled.div(props => ({ color: props.theme.color }));
+    styled.div`
+        color: ${"blue"};
+    `;
+    // These don't work for the same reason css doesn't work
+    styled.div(
+        // $ExpectError
+        css`
+            ${{ color: "blue" }}
+        `
+    );
+    // $ExpectError
+    styled.div([]);
+
+    createGlobalStyle({
+        ":root": {
+            color: "blue"
+        }
+    });
+    createGlobalStyle`
+        :root {
+            color: blue;
+        }
+    `;
+    createGlobalStyle(() => ({
+        ":root": {
+            color: "blue"
+        }
+    }));
+    // these are invalid for the same reason as in styled.div
+    // $ExpectError
+    createGlobalStyle(css`
+        :root {
+            color: ${() => "blue"};
+        }
+    `);
+    // $ExpectError
+    createGlobalStyle([]);
 }
