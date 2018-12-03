@@ -4,7 +4,6 @@
 //                 Nathan Holland <https://github.com/NathanNZ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-Heads up, this will commit to master.
 // Required fields are made according to 'minimum REQUIRED setup' in https://github.com/airbnb/react-dates/blob/master/README.md
 
 import * as React from 'react';
@@ -496,10 +495,7 @@ declare namespace ReactDates {
     var toISODateString: (date: moment.MomentInput, currentFormat: moment.MomentFormatSpecification) => string | null;
     // utils/toLocalizedDateString.js
     var toLocalizedDateString: (
-        dat<<<<<<< master
-56
- 
-e: moment.MomentInput,
+        date: moment.MomentInput,
         currentFormat: moment.MomentFormatSpecification
     ) => string | null;
     // utils/toMomentObject.js
