@@ -86,3 +86,15 @@ pubnub.setState({ channels: [] }, (status, res) => {
 pubnub.setState({ channels: [] }).then(res => {
   console.log(res.state);
 });
+
+const cryptoOptions = {
+  encryptKey: true,
+  keyEncoding: 'utf8',
+  keyLength: 256,
+  mode: 'cbc'
+};
+const mySecret = {
+  message: 'Hi!',
+};
+pubnub.decrypt(mySecret, undefined, cryptoOptions);
+pubnub.encrypt('egrah5rwgrehwqh5eh3hwfwef', undefined, cryptoOptions);

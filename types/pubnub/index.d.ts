@@ -1,8 +1,9 @@
 // Type definitions for pubnub 4.0
 // Project: https://github.com/pubnub/javascript
-// Definitions by: bitbankinc <https://github.com/bitbankinc>, rollymaduk <https://github.com/rollymaduk>, vitosamson <https://github.com/vitosamson>
+// Definitions by: bitbankinc <https://github.com/bitbankinc>, rollymaduk <https://github.com/rollymaduk>, vitosamson <https://github.com/vitosamson>, FlorianDr <https://github.com/FlorianDr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
+// TypeScript Version: 2.2
 
 declare class Pubnub {
   constructor(config: Pubnub.PubnubConfig);
@@ -88,6 +89,18 @@ declare class Pubnub {
   setState(
     params: Pubnub.SetStateParameters
   ): Promise<Pubnub.SetStateResponse>;
+
+  encrypt(
+    data: string,
+    customCipherKey?: string,
+    options?: Pubnub.CryptoParameters,
+  ): any;
+
+  decrypt(
+    data: object,
+    customCipherKey?: string,
+    options?: Pubnub.CryptoParameters
+  ): any;
 }
 
 declare namespace Pubnub {
@@ -294,6 +307,14 @@ declare namespace Pubnub {
     channels: {
       [channel: string]: any;
     };
+  }
+
+  // encrypt & decrypt
+  interface CryptoParameters {
+    encryptKey?: boolean;
+    keyEncoding?: string;
+    keyLength?: number;
+    mode?: string;
   }
 
   interface Categories {
