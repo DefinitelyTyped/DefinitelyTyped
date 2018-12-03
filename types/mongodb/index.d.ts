@@ -1294,7 +1294,7 @@ export interface CollectionAggregationOptions {
      * Allow driver to bypass schema validation in MongoDB 3.2 or higher.
      */
     bypassDocumentValidation?: boolean;
-    hint?: string | Object;   
+    hint?: string | object;   
     raw?: boolean;
     promoteLongs?: boolean;
     promoteValues?: boolean;
