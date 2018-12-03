@@ -20,7 +20,6 @@ export interface DateTimePickerProps {
     onValueUpdate?: flatpickr.Options.Hook;
     onDayCreate?: flatpickr.Options.Hook;
     value?: string | Date | number | ReadonlyArray<string | Date | number>;
-    children?: JSX.Element | JSX.Element[];
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}

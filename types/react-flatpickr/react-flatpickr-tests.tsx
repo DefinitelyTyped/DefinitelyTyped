@@ -40,16 +40,3 @@ const valueDateArrayElement = (
 const valueNumberArrayElement = (
     <DatePicker value={[1543516477474, 1544549477474]} />
 );
-
-const wrappedElement = (
-    <DatePicker>
-        <input type="text" />
-    </DatePicker>
-);
-
-const wrappedElements = (
-    <DatePicker>
-        <input type="text" />
-        <button data-clear>delete</button>
-    </DatePicker>
-);
