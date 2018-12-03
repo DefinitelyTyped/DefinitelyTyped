@@ -52,8 +52,8 @@ export class ImapSimple extends NodeJS.EventEmitter {
     delBox(boxName: string): Promise<string>;
 
     /** Returns the full list of mailboxes (folders). Upon success, either the provided callback will be called with signature (err, boxes), or the returned promise will be resolved with boxes. Boxes is the exact object returned from the node-imap getBoxes() result. */
-    getBoxes(callback: (err: Error, boxes: any) => void): void;
-    getBoxes(): Promise<any>;
+    getBoxes(callback: (err: Error, boxes: Imap.MailBoxes) => void): void;
+    getBoxes(): Promise<Imap.MailBoxes>;
 
     /** Search for and retrieve mail in the previously opened mailbox. */
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions, callback: (err: Error, messages: Message[]) => void): void;
@@ -71,8 +71,8 @@ export class ImapSimple extends NodeJS.EventEmitter {
     addMessageLabel(source: string | string[], label: string | string[]): Promise<void>;
 
     /** Appends the argument message to the currently open mailbox or another mailbox. Message is a RFC-822 compatible MIME message. Valid options are mailbox, flags and date. When completed, either calls the provided callback with signature (err), or resolves the returned promise. */
-    append(message: any, options: any, callback: (err: Error) => void): void;
-    append(message: any, options: any): Promise<void>;
+    append(message: any, options: Imap.AppendOptions, callback: (err: Error) => void): void;
+    append(message: any, options: Imap.AppendOptions): Promise<void>;
 
     /** Moves the specified message(s) in the currently open mailbox to another mailbox. source corresponds to a node-imap MessageSource which specifies the messages to be moved. When completed, either calls the provided callback with signature (err), or resolves the returned promise. */
     moveMessage(source: string | string[], boxName: string, callback: (err: Error) => void): void;
