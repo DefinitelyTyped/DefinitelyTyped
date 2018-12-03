@@ -2,7 +2,7 @@
 // Project: https://github.com/syntax-tree/mdast
 // Definitions by: Jun Lu <https://github.com/lujun2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 import { Parent as UnistParent, Literal as UnistLiteral, Node } from 'unist';
 
