@@ -166,7 +166,7 @@ declare namespace rosie {
      * @return {Factory}
      */
     sequence<K extends keyof T>(name: K, builder?: (i: number) => any): IFactory<T>;
-    sequence<K extends keyof T, D extends keyof T>(name: keyof T, dependencies: D[], builder: (i: number, ...args: any[]) => any): IFactory<T>;
+    sequence<K extends keyof T, D extends keyof T>(name: K, dependencies: D[], builder: (i: number, ...args: any[]) => any): IFactory<T>;
 
     /**
      * Sets a post-processor callback that will receive built objects and the
