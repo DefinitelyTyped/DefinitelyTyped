@@ -40,7 +40,7 @@ export interface ThemeListener<C extends string> {
     callback: (theme: Theme) => void
   ): SubscriptionId;
   unsubscribe(context: ContextWithTheme<C>, id: SubscriptionId): void;
-  contextTypes: React.ValidationMap<ContextWithTheme<C>>;
+  contextTypes: React.ValidationMap<C>;
 }
 /**
  * ThemeListener for the default channel

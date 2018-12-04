@@ -3,6 +3,7 @@ import BigNumber = require("bn.js");
 import { TransactionReceipt } from "web3/types";
 import PromiEvent from "web3/promiEvent";
 import { NEW_ABI_STANDARD, OLD_ABI_STANDARD } from "web3/test/abi-tests";
+import { Provider, JsonRPCResponse } from "web3/providers";
 
 const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 
@@ -11,6 +12,25 @@ const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 // --------------------------------------------------------------------------
 const web3 = new Web3();
 const myProvider = new web3.providers.HttpProvider("http://localhost:5454");
+
+const createFailingHttpProvider = (): Provider => ({
+  send(payload, callback) {
+    callback(new Error("Illegal!"));
+  }
+});
+
+const createSuccesfulHttpProvider = (): Provider => ({
+  send(payload, callback) {
+    const response = {};
+    callback(null, response as JsonRPCResponse);
+  }
+});
+
+const fakeProvider: Provider = createFailingHttpProvider();
+const otherFakeProvider: Provider = createSuccesfulHttpProvider();
+
+web3.setProvider(fakeProvider);
+web3.setProvider(otherFakeProvider);
 web3.setProvider(myProvider);
 web3.eth.setProvider(myProvider);
 

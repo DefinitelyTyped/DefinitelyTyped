@@ -1,4 +1,5 @@
-import { setOptions } from '@storybook/addon-options';
+import { setOptions, withOptions } from '@storybook/addon-options';
+import { addDecorator } from '@storybook/react';
 
 setOptions({
   name: 'My Storybook',
@@ -31,3 +32,19 @@ setOptions({
   hierarchySeparator: '.',
   hierarchyRootSeparator: '#',
 });
+
+addDecorator(
+    withOptions({
+        name: "My Storybook",
+        url: "https://example.com",
+        goFullScreen: false,
+        showStoriesPanel: false,
+        showAddonPanel: false,
+        showSearchBox: false,
+        addonPanelInRight: false,
+        sortStoriesByKind: false,
+        hierarchySeparator: /\//,
+        hierarchyRootSeparator: /\|/,
+        selectedAddonPanel: "storybook/actions/action-panel"
+    })
+);

@@ -1,4 +1,4 @@
-// Type definitions for react-places-autocomplete 6.1
+// Type definitions for react-places-autocomplete 7.2
 // Project: https://github.com/kenny-hibino/react-places-autocomplete/
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Andrew Makarov <https://github.com/r3nya>
@@ -15,13 +15,10 @@ export interface formattedSuggestionType {
 }
 
 export interface PropTypes {
-    inputProps: {
-        value: string;
-        onChange: (value: string) => void;
+    inputProps?: {
         type?: string;
         name?: string;
         placeholder?: string;
-        onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
         disabled?: boolean;
     };
     onError?: (status: string, clearSuggestion: () => void) => void;
@@ -49,6 +46,9 @@ export interface PropTypes {
         radius?: number | string;
         types?: string[];
     };
+    value?: string;
+    onChange?: (value: string) => void;
+    onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 
     debounce?: number;
     highlightFirstSuggestion?: boolean;

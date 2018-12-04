@@ -3629,6 +3629,18 @@ interface ImagePropsAndroid {
      * Duration of fade in animation.
      */
     fadeDuration?: number;
+
+    /**
+     * Required if loading images via 'uri' from drawable folder on Android.
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
+     */
+    width?: number;
+
+    /**
+     * Required if loading images via 'uri' from drawable folder on Android
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
+     */
+    height?: number;
 }
 
 /**
@@ -9037,8 +9049,11 @@ export const PixelRatio: PixelRatioStatic;
  *
  *   const View = requireNativeComponent('RCTView');
  *
+ * The concrete return type of `requireNativeComponent` is a string, but the declared type is
+ * `any` because TypeScript assumes anonymous JSX intrinsics (`string` instead of `"div", for
+ * example) not to have any props.
  */
-export function requireNativeComponent(viewName: string): React.ReactType;
+export function requireNativeComponent(viewName: string): any;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>

@@ -322,23 +322,25 @@ declare namespace React {
     const Children: ReactChildren;
     const Fragment: ExoticComponent<{ children?: ReactNode }>;
     const StrictMode: ExoticComponent<{ children?: ReactNode }>;
-    /**
-     * This feature is not yet available for server-side rendering.
-     * Suspense support will be added in a later release.
-     */
-    const Suspense: ExoticComponent<{
-        children?: ReactNode
+
+    interface SuspenseProps {
+        children?: ReactNode;
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
-        fallback: NonNullable<ReactNode>|null
+        fallback: NonNullable<ReactNode>|null;
 
         // I tried looking at the code but I have no idea what it does.
         // https://github.com/facebook/react/issues/13206#issuecomment-432489986
         /**
          * Not implemented yet, requires unstable_ConcurrentMode
          */
-        // maxDuration?: number
-    }>;
+        // maxDuration?: number;
+    }
+    /**
+     * This feature is not yet available for server-side rendering.
+     * Suspense support will be added in a later release.
+     */
+    const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
 
     //
@@ -421,34 +423,6 @@ declare namespace React {
         refs: {
             [key: string]: ReactInstance
         };
-
-        // Static properties copied from ComponentClass interface.
-        /**
-         * The validity of the type of `propTypes` cannot be checked
-         * automatically at the definition of a component class because the
-         * required type depends on `P`.  We recommend checking it using
-         * `asPropTypes` from the `react-typescript-helpers` package.  If you
-         * don't do that, then the type will still be checked by
-         * JSX.LibraryManagedAttributes every time the component is used,
-         * assuming you use TypeScript 3.0 or newer.
-         */
-        // Note: `propTypes` and `defaultProps` need to be `any` so that a
-        // component class that does not redeclare them is assignable to
-        // `ComponentClass<P>`.
-        static propTypes?: any;
-        static contextTypes?: ValidationMap<any>;
-        static childContextTypes?: ValidationMap<any>;
-        /**
-         * The validity of the type of `defaultProps` cannot be checked
-         * automatically at the definition of a component class because the
-         * required type depends on `P`.  We recommend checking it using
-         * `asDefaultProps` from the `react-typescript-helpers` package.  If you
-         * don't do that, then the type will still be checked by
-         * JSX.LibraryManagedAttributes every time the component is used,
-         * assuming you use TypeScript 3.0 or newer.
-         */
-        static defaultProps?: any;
-        static displayName?: string;
     }
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
@@ -862,17 +836,6 @@ declare namespace React {
      */
     // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T|null): RefObject<T>;
-    /**
-     * The signature is identical to `useEffect`, but it fires synchronously during the same phase that
-     * React performs its DOM mutations, before sibling components have been updated. Use this to perform
-     * custom DOM mutations.
-     *
-     * Prefer the standard `useEffect` when possible to avoid blocking visual updates.
-     *
-     * @version experimental
-     * @see https://reactjs.org/docs/hooks-reference.html#usemutationeffect
-     */
-    function useMutationEffect(effect: EffectCallback, inputs?: InputIdentityList): void;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
@@ -2664,76 +2627,30 @@ declare namespace React {
          */
         componentStack: string;
     }
-
-    const Invalid_propTypes: unique symbol;
-    /**
-     * Dummy interface that is intersected into the props type of a component on
-     * use to generate an error if the component's `propTypes` static property
-     * is invalid.  In most cases, you can get more information about the
-     * problem with the `propTypes` by trying to assign the component to a
-     * variable of type `React.ComponentType<P>` where `P` is the appropriate
-     * props type.  You can bypass the type checking of `propTypes` by defining
-     * a static property named `bypassPropTypesTypecheck`.
-     */
-    interface Invalid_propTypes<P, T> {
-        [Invalid_propTypes]: never;
-    }
-
-    const Invalid_defaultProps: unique symbol;
-    /**
-     * Dummy interface that is intersected into the props type of a component on
-     * use to generate an error if the component's `defaultProps` static
-     * property is invalid.  In most cases, you can get more information about
-     * the problem with the `defaultProps` by trying to assign the component to
-     * a variable of type `React.ComponentType<P>` where `P` is the appropriate
-     * props type.  You can bypass the type checking of `defaultProps` by
-     * defining a static property named `bypassDefaultPropsTypecheck`.
-     */
-    interface Invalid_defaultProps<P, D> {
-        [Invalid_defaultProps]: never;
-    }
-
-    // For a component class, the P passed to JSX.LibraryManagedAttributes is
-    // based on the `props` property and includes `children` regardless of
-    // whether the original props type (the `P` type argument to
-    // React.Component) does.  However, it's common for component classes not
-    // to list `children` in the `propTypes` if the original props type did not
-    // include `children`.  We accommodate that here by making the validator for
-    // `children` optional.
-    type ValidationMapWithOptionalChildren<P> =
-        ValidationMap<Pick<P, Exclude<keyof P, "children">>> &
-        Partial<ValidationMap<Pick<P, Extract<keyof P, "children">>>>;
-
-    // Explicitly check for excess properties in CheckPropTypes and
-    // CheckDefaultProps because by the time we get to
-    // JSX.LibraryManagedAttributes, we have lost the opportunity to do an
-    // excess properties check on the original object literal.
-
-    type CheckPropTypes<P, T> =
-        // This condition attempts to single out `T = any`, which needs to bypass the rest of the check
-        // because `keyof T` would come out as not extending `keyof P`.
-        T extends typeof Invalid_propTypes ? {} :
-        [keyof T, T] extends [keyof P, ValidationMapWithOptionalChildren<P>] ? {} : Invalid_propTypes<P, T>;
-
-    type CheckDefaultProps<P, D> =
-        D extends typeof Invalid_defaultProps ? {} :
-        [keyof D, D] extends [keyof P, Partial<P>] ? {} : Invalid_defaultProps<P, D>;
-
-    // Any prop that has a default prop becomes optional, but its type is unchanged
-    // If declared props have indexed properties, ignore default props entirely as keyof gets widened
-    // Wrap in an outer-level conditional type to allow distribution over props that are unions
-    type Defaultize<P, D> = P extends any
-        ? string extends keyof P ? P :
-            & Pick<P, Exclude<keyof P, keyof D>>
-            & Partial<Pick<P, Extract<keyof P, keyof D>>>
-        : never;
-
-    type ReactManagedAttributes<C, P> =
-        (C extends { propTypes: infer T; }
-            ? (C extends { bypassPropTypesTypecheck: {}; } ? {} : CheckPropTypes<P, T>) : {}) &
-        (C extends { defaultProps: infer D; }
-            ? (C extends { bypassDefaultPropsTypecheck: {}; } ? {} : CheckDefaultProps<P, D>) & Defaultize<P, D> : P);
 }
+
+// Declared props take priority over inferred props
+// If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
+type MergePropTypes<P, T> = P & Pick<T, Exclude<keyof T, keyof P>>;
+
+// Any prop that has a default prop becomes optional, but its type is unchanged
+// Undeclared default props are augmented into the resulting allowable attributes
+// If declared props have indexed properties, ignore default props entirely as keyof gets widened
+// Wrap in an outer-level conditional type to allow distribution over props that are unions
+type Defaultize<P, D> = P extends any
+    ? string extends keyof P ? P :
+        & Pick<P, Exclude<keyof P, keyof D>>
+        & Partial<Pick<P, Extract<keyof P, keyof D>>>
+        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+    : never;
+
+type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
+    ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
+    : C extends { propTypes: infer T; }
+        ? MergePropTypes<P, PropTypes.InferProps<T>>
+        : C extends { defaultProps: infer D; }
+            ? Defaultize<P, D>
+            : P;
 
 declare global {
     namespace JSX {
@@ -2749,9 +2666,9 @@ declare global {
         // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
         type LibraryManagedAttributes<C, P> = C extends React.MemoExoticComponent<infer T> | React.LazyExoticComponent<infer T>
             ? T extends React.MemoExoticComponent<infer U> | React.LazyExoticComponent<infer U>
-                ? React.ReactManagedAttributes<U, P>
-                : React.ReactManagedAttributes<T, P>
-            : React.ReactManagedAttributes<C, P>;
+                ? ReactManagedAttributes<U, P>
+                : ReactManagedAttributes<T, P>
+            : ReactManagedAttributes<C, P>;
 
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
