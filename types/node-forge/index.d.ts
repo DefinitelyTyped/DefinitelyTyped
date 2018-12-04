@@ -247,7 +247,7 @@ declare module "node-forge" {
         }
 
         interface CAStore {
-            addCertificate(cert: Certificate | string): any;
+            addCertificate(cert: Certificate | string): void;
             hasCertificate(cert: Certificate | string): boolean;
             removeCertificate(cert: Certificate | string): Certificate | null;
             listAllCertificates(): pki.Certificate[];
