@@ -67,6 +67,7 @@ declare namespace OAuth2Strategy {
         callbackURL?: string;
         customHeaders?: OutgoingHttpHeaders;
         scope?: string | string[];
+        scopeSeparator?: string;
         sessionKey?: string;
         store?: StateStore;
         state?: any;
