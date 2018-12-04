@@ -40,7 +40,7 @@ declare namespace OAuth2Strategy {
     }
 
     type StateStoreStoreCallback = (err: Error | null, state: any) => void;
-    type StateStoreVerifyCallback = (err: Error, ok: boolean, state: any) => void
+    type StateStoreVerifyCallback = (err: Error, ok: boolean, state: any) => void;
 
     interface StateStore {
         store(req: Request, callback: StateStoreStoreCallback): void;

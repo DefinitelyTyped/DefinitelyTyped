@@ -1,5 +1,6 @@
 import OAuth2Strategy = require('passport-oauth2');
-import { Strategy, StrategyOptions, StrategyOptionsWithRequest, VerifyCallback, AuthorizationError, TokenError, InternalOAuthError, Metadata, StateStore, StateStoreStoreCallback, StateStoreVerifyCallback } from 'passport-oauth2';
+import { Strategy, StrategyOptions, StrategyOptionsWithRequest, VerifyCallback, AuthorizationError, TokenError,
+    InternalOAuthError, Metadata, StateStore, StateStoreStoreCallback, StateStoreVerifyCallback } from 'passport-oauth2';
 import { Strategy as PassportStrategy } from 'passport';
 import { Request } from 'express';
 
@@ -61,14 +62,14 @@ const metadata: Metadata = {
     authorizationURL: 'http://www.example.com/auth',
     clientID: 'dummy',
     tokenURL: 'http://www.example.com/token'
-}
+};
 
 class MyStore implements StateStore {
     store(req: Request, meta: StateStoreStoreCallback | Metadata, callback?: StateStoreStoreCallback): void {}
     verify(req: Request, state: string, meta: StateStoreVerifyCallback | Metadata, callback?: StateStoreVerifyCallback): void {}
 }
 
-const myStore = new MyStore;
+const myStore = new MyStore();
 
 const strategyOptions3: StrategyOptions = {
     authorizationURL: 'http://www.example.com/auth',
