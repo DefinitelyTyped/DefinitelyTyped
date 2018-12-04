@@ -983,7 +983,7 @@ declare namespace Twilio {
          * @param token - A Twilio JWT token string granting this {@link Device} access.
          * @param [options]
          */
-        static setup(token: string, options?: DeviceOptions): Device;
+        setup(token: string, options?: DeviceOptions): Device;
 
         /**
          * Get the status of this {@link Device} instance
