@@ -9,8 +9,8 @@
 import * as Unist from 'unist';
 
 declare namespace vfileMessage {
-    interface AnyNode extends Unist.Node{
-        [key: string]: unknown
+    interface AnyNode extends Unist.Node {
+        [key: string]: unknown;
     }
 
     /**
