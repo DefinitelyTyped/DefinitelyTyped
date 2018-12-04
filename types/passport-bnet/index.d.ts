@@ -12,15 +12,11 @@ declare class BnetStrategy extends OAuth2Strategy {
 }
 
 declare namespace BnetStrategy {
-
-    //Utility types for excluding properties from interfaces
-    type Diff<T extends string | number | symbol, U extends string | number | symbol> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
-    type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>; 
-
     // passport--bnet accepts any options that passport-oauth2 accepts, but add the option region and makes authorizationURL and tokenURL optional
-    interface _BaseBnetOptions 
-        extends Partial<Pick<_StrategyOptionsBase, 'authorizationURL' | 'tokenURL'>>, Omit<_StrategyOptionsBase, 'authorizationURL' | 'tokenURL'> {
-    
+    interface _BaseBnetOptions extends Partial<_StrategyOptionsBase> {
+        clientID: string;
+        clientSecret: string;
+
         region?: string;
     }
 
