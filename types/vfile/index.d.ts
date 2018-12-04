@@ -8,6 +8,7 @@
 /// <reference types='node' />
 
 import * as Unist from 'unist';
+import * as vfileMessage from 'vfile-message';
 
 declare namespace vfile {
     type VFileContents = string | Buffer;
@@ -30,45 +31,6 @@ declare namespace vfile {
     }
 
     /**
-     * File-related message describing something at certain position.
-     */
-    interface VFileMessage {
-        /**
-         * File-path, when the message was triggered.
-         */
-        file: string;
-        /**
-         * Category of message.
-         */
-        ruleId: string | null;
-        /**
-         * Reason for message.
-         */
-        reason: string;
-        /**
-         * Starting line of error.
-         */
-        line: number | null;
-        /**
-         * Starting column of error.
-         */
-        column: number | null;
-        /**
-         * Full range information, when available.
-         * Has start and end properties, both set to an object with line and column, set to number?.
-         */
-        location: Unist.Position;
-        /**
-         * Namespace of warning.
-         */
-        source: string | null;
-        /**
-         * If true, marks associated file as no longer processable.
-         */
-        fatal?: boolean | null;
-    }
-
-    /**
      * Associates a message with the file for `reason` at `position`.
      * When an error is passed in as `reason`, copies the stack.
      * Each message has a `fatal` property which by default is set to `false` (ie. `warning`).
@@ -76,7 +38,7 @@ declare namespace vfile {
      * @param position Place at which the message occurred in `vfile`.
      * @param ruleId Category of message.
      */
-    type Message = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => VFileMessage;
+    type Message = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => vfileMessage.VFileMessage;
     /**
      * Associates a fatal message with the file, then immediately throws it.
      * Note: fatal errors mean a file is no longer processable.
@@ -121,7 +83,7 @@ declare namespace vfile {
         /**
          * List of messages associated with the file.
          */
-        messages: VFileMessage[];
+        messages: vfileMessage.VFileMessage[];
         /**
          * Raw value.
          */
