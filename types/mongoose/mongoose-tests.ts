@@ -145,6 +145,7 @@ conn1.close(function (err) {});
 conn1.close(true, function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+conn1.deleteModel('myModel');
 conn1.models.myModel.findOne().exec();
 interface IStatics {
   staticMethod1: (a: number) => string;
