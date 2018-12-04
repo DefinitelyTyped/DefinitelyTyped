@@ -1,4 +1,4 @@
-// https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/TDSLoader.js
+// https://github.com/codetheorist/three-tds-loader/blob/master/src/index.js
 
 import * as THREE from "./index";
 
