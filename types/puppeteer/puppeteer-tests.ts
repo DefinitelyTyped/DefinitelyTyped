@@ -200,6 +200,13 @@ puppeteer.launch().then(async browser => {
   browser.close();
 })();
 
+// Launching with default viewport disabled
+(async () => {
+  await puppeteer.launch({
+    defaultViewport: null
+  });
+})();
+
 // Test v0.12 features
 (async () => {
   const browser = await puppeteer.launch({
