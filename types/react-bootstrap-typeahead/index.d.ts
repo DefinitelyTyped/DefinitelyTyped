@@ -1,4 +1,4 @@
-// Type definitions for react-bootstrap-typeahead 3.3
+// Type definitions for react-bootstrap-typeahead 3.2.2
 // Project: https://github.com/ericgio/react-bootstrap-typeahead
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
