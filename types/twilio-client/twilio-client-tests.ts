@@ -2,7 +2,7 @@ import Twilio from "twilio-client";
 
 const device = new Twilio.Device();
 
-Twilio.Device.setup("some_token");
+device.setup("some_token");
 
 device.on("cancel", connection => {
     console.log(connection.status());
