@@ -162,7 +162,7 @@ declare namespace wx {
     /**
      * 获取“分享到QQ空间”按钮点击状态及自定义分享内容接口
      */
-    function onMenuShareQzone(config: MenuShareWeibo): void;
+    function onMenuShareQZone(config: MenuShareWeibo): void;
 
     interface ChooseImageConfig {
         /**
