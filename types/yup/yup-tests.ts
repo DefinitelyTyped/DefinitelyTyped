@@ -174,6 +174,8 @@ const testContext = function(this: TestContext) {
     this.parent;
     // $ExpectType Schema<any>
     this.schema;
+    // $ExpectType (value: any) => any
+    this.resolve;
     // $ExpectType ValidationError
     this.createError({ path: "1", message: "1" });
     return true;
