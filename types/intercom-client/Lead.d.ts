@@ -8,19 +8,14 @@ export interface Lead {
   readonly "id": string,
   "user_id": string | null,
   "email": string | null,
-  "app_id"?: string,
   "phone": string | null,
   "name": string | null,
   readonly "updated_at": number,
   "last_seen_ip": string | null,
   "unsubscribed_from_emails": boolean,
   "last_request_at": number | null,
-  "signed_up_at": number | null,
   readonly "created_at": number,
-  "session_count": number,
   "user_agent_data": string | null,
-  "pseudonym": string | null,
-  "anonymous": boolean,
   "custom_attributes": {
     [key: string]: any
   },
@@ -42,7 +37,8 @@ export interface Lead {
   "tags": {
     "type": "tag.list",
     "tags": Tag[]
-  }
+  },
+  "referrer": string | null,
 }
 
 export interface List {
