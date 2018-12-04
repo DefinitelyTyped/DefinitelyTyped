@@ -59,9 +59,14 @@ export class Users {
 
     scroll: Scroll<User>;
 
-    archive(): Promise<User>;
+    archive(identifier: UserIdentifier): Promise<ApiResponse<User>>;
+    archive(identifier: UserIdentifier, cb: callback<ApiResponse<User>>): void;
 
-    requestPermanentDeletion(): Promise<{id: number}>;
+    requestPermanentDeletion(id: string): Promise<{ id: number }>;
+    requestPermanentDeletion(id: string, cb: callback<{ id: number }>): void;
+
+    requestPermanentDeletionByParams(identifier: UserIdentifier): Promise<{ id: number }>;
+    requestPermanentDeletionByParams(identifier: UserIdentifier, cb: callback<{ id: number }>): void;
 }
 
 export class Companies {
