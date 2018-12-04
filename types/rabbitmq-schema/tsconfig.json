@@ -4,6 +4,7 @@
         "lib": [
             "es6"
         ],
+        "strictFunctionTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
