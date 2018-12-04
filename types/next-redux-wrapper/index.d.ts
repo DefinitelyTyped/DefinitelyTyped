@@ -19,6 +19,8 @@ declare namespace nextReduxWrapper {
     interface Options {
         storeKey?: string;
         debug?: boolean;
+        serializeState: any;
+        deserializeState: any;
     }
 
     interface StoreCreatorOptions<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> extends Options {
