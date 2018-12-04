@@ -13,10 +13,12 @@
         "typeRoots": [
             "../"
         ],
+        "target": "es5",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
+
     "files": [
         "index.d.ts",
         "jest-tests.ts"
