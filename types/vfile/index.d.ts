@@ -55,7 +55,7 @@ declare namespace vfile {
      * @param position Place at which the message occurred in `vfile`.
      * @param ruleId Category of message.
      */
-    type Info = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => void;
+    type Info = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => vfileMessage.VFileMessage;
 
     /**
      * Convert contents of `vfile` to string.

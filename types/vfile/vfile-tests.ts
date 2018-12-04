@@ -40,6 +40,10 @@ file.message('test', {
 
 file.message('test', { start: 'invalid point' }); // $ExpectError
 
+file.fail('test');
+
+const infoMessage: vfileMessage.VFileMessage = file.info('test');
+
 // Using `data` prop
 interface CustomData {
     message: string;
