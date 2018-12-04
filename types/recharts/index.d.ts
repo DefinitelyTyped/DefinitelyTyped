@@ -447,6 +447,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     } | React.ReactElement<any> | ContentRenderer<any> | boolean;
     activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
+    blendStroke?: boolean;
 }
 
 export class Pie extends React.Component<PieProps> { }
