@@ -329,6 +329,16 @@ declare module "mongoose" {
       collection?: string
     ): U;
 
+    /**
+     * Removes the model named `name` from this connection, if it exists. You can
+     * use this function to clean up any models you created in your tests to
+     * prevent OverwriteModelErrors.
+     *
+     * @param name if string, the name of the model to remove. If regexp, removes all models whose name matches the regexp.
+     * @returns this
+     */
+    deleteModel(name: string | RegExp): Connection;
+
     /** Returns an array of model names created on this connection. */
     modelNames(): string[];
 

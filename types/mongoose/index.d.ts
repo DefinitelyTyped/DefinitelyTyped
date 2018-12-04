@@ -280,6 +280,16 @@ declare module "mongoose" {
       collection?: string
     ): U;
 
+    /**
+     * Removes the model named `name` from this connection, if it exists. You can
+     * use this function to clean up any models you created in your tests to
+     * prevent OverwriteModelErrors.
+     *
+     * @param name if string, the name of the model to remove. If regexp, removes all models whose name matches the regexp.
+     * @returns this
+     */
+    deleteModel(name: string | RegExp): Connection;
+
     /** Returns an array of model names created on this connection. */
     modelNames(): string[];
 
@@ -511,7 +521,7 @@ declare module "mongoose" {
     /**
      * section error/notFound.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.DocumentNotFoundError
-     * 
+     *
      * An instance of this error class will be returned when `save()` fails
      * because the underlying
      * document was not found. The constructor takes one parameter, the
@@ -524,7 +534,7 @@ declare module "mongoose" {
     /**
      * section error/cast.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.CastError
-     * 
+     *
      * An instance of this error class will be returned when mongoose failed to
      * cast a value.
      */
@@ -544,7 +554,7 @@ declare module "mongoose" {
     /**
      * section error/validation.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
-     * 
+     *
      * An instance of this error class will be returned when [validation](http://mongoosejs.com/docs/validation.html) failed.
      */
     export class ValidationError extends Error {
@@ -565,7 +575,7 @@ declare module "mongoose" {
     /**
      * section error/validator.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidatorError
-     * 
+     *
      * A `ValidationError` has a hash of `errors` that contain individual `ValidatorError` instances
      */
     export class ValidatorError extends Error {
@@ -585,7 +595,7 @@ declare module "mongoose" {
     /**
      * section error/version.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.VersionError
-     * 
+     *
      * An instance of this error class will be returned when you call `save()` after
      * the document in the database was changed in a potentially unsafe way. See
      * the [`versionKey` option](http://mongoosejs.com/docs/guide.html#versionKey) for more information.
@@ -600,7 +610,7 @@ declare module "mongoose" {
     /**
      * section error/parallelSave.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ParallelSaveError
-     * 
+     *
      * An instance of this error class will be returned when you call `save()` multiple
      * times on the same document in parallel. See the [FAQ](http://mongoosejs.com/docs/faq.html) for more
      * information.
@@ -612,7 +622,7 @@ declare module "mongoose" {
     /**
      * section error/overwriteModel.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.OverwriteModelError
-     * 
+     *
      * Thrown when a model with the given name was already registered on the connection.
      * See [the FAQ about `OverwriteModelError`](http://mongoosejs.com/docs/faq.html#overwrite-model-error).
      */
@@ -623,7 +633,7 @@ declare module "mongoose" {
     /**
      * section error/missingSchema.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
-     * 
+     *
      * Thrown when you try to access a model that has not been registered yet
      */
     export class MissingSchemaError extends Error {
@@ -633,7 +643,7 @@ declare module "mongoose" {
     /**
      * section error/divergentArray.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.DivergentArrayError
-     * 
+     *
      * An instance of this error will be returned if you used an array projection
      * and then modified the array in an unsafe way.
      */
