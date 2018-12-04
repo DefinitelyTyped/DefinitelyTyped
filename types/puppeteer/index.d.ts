@@ -968,7 +968,7 @@ export interface Request {
   /**
    * @returns The `Frame` object that initiated the request, or `null` if navigating to error pages
    */
-  frame(): Promise<Frame | null>;
+  frame(): Frame | null;
 
   /**
    * An object with HTTP headers associated with the request.
