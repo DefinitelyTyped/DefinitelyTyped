@@ -5,13 +5,7 @@
 
 /// <reference types="cheerio" />
 
-export type Node = string | Element;
-export type SimpleElement = [string, Attributes] | [string];
-export interface NodeList extends Array<Node> {}
-export type Element = SimpleElement & NodeList;
-export interface Attributes {
-    [key: string]: string;
-}
+export type Node = string | [string, ...any[]];
 export function parse(xml: string, trim?: boolean): Node[];
 export function stringify(
     object: Node[],

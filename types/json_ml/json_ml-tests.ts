@@ -1,12 +1,20 @@
 /// <reference types="node" />
-import { Attributes, Element, Node, parse, stringify } from "json_ml";
+import { Node, parse, stringify } from "json_ml";
 
-const nodes: Node[] = parse("<ul><li>hello</li></ul>");
-const node1: Node = nodes[0];
-if (typeof node1 !== "string") {
-    const el: Element = node1;
-    const attrs = el[1] as Attributes;
-    console.log(el[0], attrs);
-}
+const nodes: Node[] = parse(
+    '<ul><li style="color:red">First Item</li><li title="Some hover text." style="color:green">Second Item</li><li><span class="code-example-third">Third</span>Item</li></ul>'
+);
+stringify(nodes, el => (el.is("li") ? null : el), 2);
 
-console.log(stringify(nodes, el => (el.is("li") ? null : el), 2));
+stringify(
+    [
+        [
+            "ul",
+            ["li", { style: "color: red" }],
+            ["li", { title: "Some hover text", style: "color: green" }],
+            ["li", ["span", { class: "code-example-third" }]]
+        ]
+    ],
+    null,
+    2
+);
