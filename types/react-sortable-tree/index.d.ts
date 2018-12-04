@@ -166,8 +166,8 @@ export interface TreeRendererProps {
 }
 
 interface ThemeTreeProps {
-    style?: React.CSSProperties
-    innerStyle?: React.CSSProperties
+    style?: React.CSSProperties;
+    innerStyle?: React.CSSProperties;
     reactVirtualizedListProps?: Partial<ListProps>;
     scaffoldBlockPxWidth?: number;
     slideRegionSize?: number;

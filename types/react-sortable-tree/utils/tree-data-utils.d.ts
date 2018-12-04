@@ -68,7 +68,7 @@ export function getFlatDataFromTree(
         getNodeKey: GetNodeKeyFunction,
         ignoreCollapsed?: boolean,
     },
-): Array<FlatDataItem>;
+): FlatDataItem[];
 export function getTreeFromFlatData(
     data: {
         flatData: FlattenedData,
