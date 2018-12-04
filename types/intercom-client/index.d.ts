@@ -73,11 +73,11 @@ export class Users {
 }
 
 export class Leads {
-    create(user: Partial<Lead>): Promise<ApiResponse<Lead>>;
-    create(user: Partial<Lead>, cb: callback<ApiResponse<Lead>>): void;
+    create(lead: Partial<Lead>): Promise<ApiResponse<Lead>>;
+    create(lead: Partial<Lead>, cb: callback<ApiResponse<Lead>>): void;
 
-    update(user: UserIdentifier & Partial<Lead>): Promise<ApiResponse<Lead>>;
-    update(user: UserIdentifier & Partial<Lead>, cb: callback<ApiResponse<Lead>>): void;
+    update(lead: UserIdentifier & Partial<Lead>): Promise<ApiResponse<Lead>>;
+    update(lead: UserIdentifier & Partial<Lead>, cb: callback<ApiResponse<Lead>>): void;
 
     list(): Promise<ApiResponse<LeadList>>;
     list(cb: callback<ApiResponse<LeadList>>): void;
