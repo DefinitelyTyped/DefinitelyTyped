@@ -2,6 +2,7 @@
 // Project: https://github.com/vfile/vfile-message#readme
 // Definitions by: Junyoung Choi <https://github.com/rokt33r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types='node' />
 
@@ -20,7 +21,7 @@ declare namespace vfileMessage {
          * @param position Place at which the message occurred in a file (`Node`, `Position`, or `Point`, optional).
          * @param origin Place in code the message originates from (`string`, optional).
          */
-        (reason: string | Error, position?: Unist.Node | Unist.Position | Unist.Point, origin?: string): VFileMessage
+        (reason: string | Error, position?: Unist.Node | Unist.Position | Unist.Point, origin?: string): VFileMessage;
         /**
          * Category of message.
          */
