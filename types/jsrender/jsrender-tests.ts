@@ -45,3 +45,6 @@ $.templates({
 
 var html = $("#personTemplate").render(person);
 console.log(html);
+
+var selector = myTmpl.link("#personTmpl", {name: person.name});
+console.log(selector);
