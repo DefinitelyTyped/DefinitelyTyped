@@ -1,4 +1,4 @@
-// Type definitions for react-bootstrap-typeahead 3.4
+// Type definitions for react-bootstrap-typeahead 3.3
 // Project: https://github.com/ericgio/react-bootstrap-typeahead
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
@@ -6,23 +6,18 @@
 //                 Andreas Richter <https://github.com/arichter83>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-// TODO: <Token> components
+// TODO: <Highlighter>, <Menu>, <MenuItem>, <Token> components
 
 import * as React from 'react';
-import * as CSS from 'csstype';
 
 export interface TypeaheadFilterbyProps {
-    filterBy: string[];
-    labelKey: (string | (() => void));
-    multiple: boolean;
-    selected: any[];
-    caseSensitive: boolean;
-    ignoreDiacritics: boolean;
-    text: string;
-}
-
-export interface TypeaheadMenuProps<T> {
-    text: string;
+  filterBy: string[];
+  labelKey: (string | (() => void));
+  multiple: boolean;
+  selected: any[];
+  caseSensitive: boolean;
+  ignoreDiacritics: boolean;
+  text: string;
 }
 
 export interface TypeaheadProps<T> {
@@ -154,7 +149,7 @@ export interface TypeaheadProps<T> {
     renderMenu?: (results: Array<T | string>, menuProps: any) => any;
 
     /* Provides a hook for customized rendering of menu item contents. */
-    renderMenuItemChildren?: (option: T, props: TypeaheadMenuProps<T>, index: number) => any;
+    renderMenuItemChildren?: (option: T, props: TypeaheadProps<T>, index: number) => any;
 
     /* Provides a hook for customized rendering of tokens when multiple selections are enabled. */
     renderToken?: (selectedItem: T | string, onRemove: () => void) => any;
@@ -189,34 +184,3 @@ export interface AsyncTypeaheadProps<T> extends TypeaheadProps<T> {
 }
 
 export const AsyncTypeahead: React.ClassicComponentClass<AsyncTypeaheadProps<any>>;
-
-export interface HighligherProps<T> {
-    key: string;
-    search: string;
-}
-
-export const Highlighter: React.ClassicComponentClass<HighligherProps<any>>;
-
-export interface MenuProps<T> {
-    id: string;
-    className?: string;
-    emptyLabel?: string;
-    innerRef?: string;
-    maxHeight?: string;
-    style?: CSS.Properties;
-}
-
-export const Menu: React.ClassicComponentClass<MenuProps<any>>;
-
-export interface MenuItemProps<T> {
-    option: T;
-    position: number;
-    label?: string;
-    active?: boolean;
-    className?: string;
-    disabled?: boolean;
-    onClick?: (e: Event) => any;
-    onMouseDown?: (e: Event) => any;
-}
-
-export const MenuItem: React.ClassicComponentClass<MenuItemProps<any>>;
