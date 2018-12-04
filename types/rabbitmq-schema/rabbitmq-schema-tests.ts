@@ -1,20 +1,16 @@
 import RabbitMqSchema = require('rabbitmq-schema');
 
-const topology: rabbitMqSchemaNc.Exchange = {
-  exchange: 'images',
-  type: 'topic',
-  bindings: []
-};
+const topology = {};
 
-const rabbitSchema = new RabbitMqSchema(topology, '');
+const rabbitSchema = new RabbitMqSchema({}, '');
 
-const exchanges: rabbitMqSchemaNc.Exchange[] = rabbitSchema.getExchanges();
-const bindings: rabbitMqSchemaNc.Binding[] = rabbitSchema.getBindings();
-const queues: rabbitMqSchemaNc.Queue[] = rabbitSchema.getQueues();
-const directBindings: rabbitMqSchemaNc.DirectBinding[] = rabbitSchema.getDirectBindings();
+rabbitSchema.getExchanges();
+rabbitSchema.getBindings();
+rabbitSchema.getQueues();
+rabbitSchema.getDirectBindings();
 
-const jpgQueue: rabbitMqSchemaNc.Queue | unknown = rabbitSchema.getQueueByName('images.jpeg.get');
-const exchange: rabbitMqSchemaNc.Exchange | unknown = rabbitSchema.getExchangeByName('images');
+rabbitSchema.getQueueByName('images.jpeg.get');
+rabbitSchema.getExchangeByName('images');
 
 rabbitSchema.validate(topology);
 rabbitSchema.validateMessage('images', 'images.jpeg.get', {testMsg: 'ok'});
