@@ -3,10 +3,31 @@ import * as ReactDOM from 'react-dom';
 
 import ReactTable, { Column } from 'react-table';
 import selectTableHOC, {
-    SelectTableAdditionalProps
+    SelectTableAdditionalProps,
+    SelectInputComponentProps,
+    SelectAllInputComponentProps
 } from 'react-table/lib/hoc/selectTable';
 
 const SelectTable = selectTableHOC(ReactTable);
+
+const SelectInput: React.StatelessComponent<SelectInputComponentProps> = ({
+    onClick,
+    id,
+    checked,
+    row
+}) => (
+    <input
+        type="checkbox"
+        onClick={e => onClick(id, e.shiftKey, row)}
+        checked={checked}
+    />
+);
+
+const SelectAllInput: React.StatelessComponent<
+    SelectAllInputComponentProps
+> = ({ onClick, checked }) => (
+    <input type="checkbox" onClick={onClick} checked={checked} />
+);
 
 const selectTableAdditionalProps: SelectTableAdditionalProps = {
     isSelected: () => true,
@@ -14,7 +35,9 @@ const selectTableAdditionalProps: SelectTableAdditionalProps = {
     selectAll: true,
     selectType: 'checkbox',
     toggleAll: () => null,
-    toggleSelection: () => null
+    toggleSelection: () => null,
+    SelectInputComponent: SelectInput,
+    SelectAllInputComponent: SelectAllInput
 };
 
 const data = [{ id: 1, name: 'Foo' }, { id: 2, name: 'Bar' }];
