@@ -30,13 +30,13 @@ declare namespace JsRender {
 
     interface Template {
         render(data?: any): string;
-        link(container: any, data?: any): any;
-        link(container: any, data?: any, helpersOrContext?: any): any;
-        link(container: any, data?: any, helpersOrContext?: any, noIteration?: boolean): any;
+        link(container: any, data?: any): JQuery;
+        link(container: any, data?: any, helpersOrContext?: any): JQuery;
+        link(container: any, data?: any, helpersOrContext?: any, noIteration?: boolean): JQuery;
     }
 
     interface Link {
-        (container: any, data?: any, helpersOrContext?: any, noIteration?: boolean): any;
+        (container: any, data?: any, helpersOrContext?: any, noIteration?: boolean): JQuery;
     }
 
     interface NamedTemplate {
