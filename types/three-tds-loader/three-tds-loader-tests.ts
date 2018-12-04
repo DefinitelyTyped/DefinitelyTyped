@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import TDSLoader from 'three-tds-loader';
+import TDSLoader = require('three-tds-loader');
 
 const loader = new TDSLoader(THREE);
 

@@ -7,7 +7,9 @@
 
 import * as THREE from 'three';
 
-export default class TDSLoader {
+export = TDSLoader;
+
+declare class TDSLoader {
     constructor(three: typeof THREE);
 
     /**
