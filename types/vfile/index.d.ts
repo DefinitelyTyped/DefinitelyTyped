@@ -13,11 +13,6 @@ import * as vfileMessage from 'vfile-message';
 declare namespace vfile {
     type VFileContents = string | Buffer;
 
-    interface NodeWithPosition extends Unist.Node {
-        position: Unist.Position;
-        [key: string]: any;
-    }
-
     interface VFileOptions {
         contents?: VFileContents;
         path?: string;
@@ -103,7 +98,7 @@ declare namespace vfile {
          * @param position Place at which the message occurred in `vfile`.
          * @param ruleId Category of message.
          */
-        message: (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => vfileMessage.VFileMessage;
+        message: (reason: string, position?: Unist.Point | Unist.Position | vfileMessage.AnyNode, ruleId?: string) => vfileMessage.VFileMessage;
         /**
          * Associates a fatal message with the file, then immediately throws it.
          * Note: fatal errors mean a file is no longer processable.
@@ -112,7 +107,7 @@ declare namespace vfile {
          * @param position Place at which the message occurred in `vfile`.
          * @param ruleId Category of message.
          */
-        fail: (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => never;
+        fail: (reason: string, position?: Unist.Point | Unist.Position | vfileMessage.AnyNode, ruleId?: string) => never;
         /**
          * Associates an informational message with the file, where `fatal` is set to `null`.
          * Calls `message()` internally.
@@ -120,7 +115,7 @@ declare namespace vfile {
          * @param position Place at which the message occurred in `vfile`.
          * @param ruleId Category of message.
          */
-        info: (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => vfileMessage.VFileMessage;
+        info: (reason: string, position?: Unist.Point | Unist.Position | vfileMessage.AnyNode, ruleId?: string) => vfileMessage.VFileMessage;
     }
 }
 
