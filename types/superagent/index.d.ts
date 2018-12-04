@@ -46,7 +46,7 @@ declare namespace request {
         // tslint:disable-next-line:unified-signatures
         (method: string, url: string): SuperAgentRequest;
 
-        agent(): this & Request & SuperAgent<SuperAgentRequest>;
+        agent(): this & Request;
         serialize: { [type: string]: Serializer };
         parse: { [type: string]: Parser };
     }
