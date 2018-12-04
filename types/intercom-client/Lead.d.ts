@@ -4,7 +4,7 @@ import { Avatar, LocationData, Segment, SocialProfile, Tag } from './User';
 export type LeadIdentifier = { "id": string } | { "user_id": string };
 
 export interface Lead {
-  "type": "user" | "contact",
+  "type": "contact",
   readonly "id": string,
   "user_id": string | null,
   "email": string | null,
