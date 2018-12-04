@@ -32,6 +32,13 @@ declare namespace vfile {
 
     interface VFile {
         /**
+         * Create a new virtual file. If `options` is `string` or `Buffer`, treats it as `{contents: options}`.
+         * If `options` is a `VFile`, returns it. All other options are set on the newly created `vfile`.
+         *
+         * Path related properties are set in the following order (least specific to most specific): `history`, `path`, `basename`, `stem`, `extname`, `dirname`.
+         *
+         * It’s not possible to set either `dirname` or `extname` without setting either `history`, `path`, `basename`, or `stem` as well.
+         *
          * @param options If `options` is `string` or `Buffer`, treats it as `{contents: options}`. If `options` is a `VFile`, returns it. All other options are set on the newly created `vfile`.
          */
         <F extends VFile>(input?: VFileContents | F | VFileOptions): F;
@@ -117,11 +124,6 @@ declare namespace vfile {
     }
 }
 
-/**
- * Create a new virtual file.
- * Path related properties are set in the following order (least specific to most specific): `history`, `path`, `basename`, `stem`, `extname`, `dirname`.
- * It’s not possible to set either `dirname` or `extname` without setting either `history`, `path`, `basename`, or `stem` as well.
- */
 declare const vfile: vfile.VFile;
 
 export = vfile;
