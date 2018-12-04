@@ -1,4 +1,8 @@
-// from https://github.com/aldeed/simple-schema-js/issues/90
+// Type definitions for simpl-schema 0.1
+// Project: https://github.com/aldeed/simple-schema-js
+// Definitions by: Andreas Richter <https://github.com/arichter83>
+//                 Qkramer <https://github.com/Qkramer>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class ValidationContext {
     constructor(ss: any);
@@ -14,40 +18,45 @@ export class ValidationContext {
     validationErrors(): any;
 }
 
+interface CustomValidationContext {
+    value: any;
+}
+
 interface SchemaDefinition {
     type: any;
-    label?: string | Function;
-    optional?: boolean | Function;
-    min?: number | boolean | Date | Function;
-    max?: number | boolean | Date | Function;
-    minCount?: number | Function;
-    maxCount?: number | Function;
-    allowedValues?: any[] | Function;
+    label?: string | (() => string);
+    optional?: boolean | (() => boolean);
+    min?: number | boolean | Date | (() => number | boolean | Date);
+    max?: number | boolean | Date | (() => number | boolean | Date);
+    minCount?: number | (() => number);
+    maxCount?: number | (() => number);
+    allowedValues?: any[] | (() => any[]);
     decimal?: boolean;
     exclusiveMax?: boolean;
     exclusiveMin?: boolean;
     regEx?: RegExp | RegExp[];
-    custom?: Function;
+    custom?: () => any;
     blackbox?: boolean;
-    autoValue?: Function;
+    autoValue?: () => any;
     defaultValue?: any;
     trim?: boolean;
 }
 
 interface CleanOption {
-  filter?: boolean;
-  autoConvert?: boolean;
-  removeEmptyStrings?: boolean;
-  trimStrings?: boolean;
-  getAutoValues?: boolean;
-  isModifier?: boolean;
-  extendAutoValueContext?: boolean;
+    filter?: boolean;
+    autoConvert?: boolean;
+    removeEmptyStrings?: boolean;
+    trimStrings?: boolean;
+    getAutoValues?: boolean;
+    isModifier?: boolean;
+    extendAutoValueContext?: boolean;
 }
 
+// ???
 interface SimpleSchemaStatic {
-  new(schema: {[key: string]: SchemaDefinition} | any[]): SimpleSchemaStatic;
+  new(schema: {[key: string]: SchemaDefinition} | any[]): SimpleSchema;
   namedContext(name?: string): SimpleSchemaValidationContextStatic;
-  addValidator(validator: Function): any;
+  addValidator(validator: () => boolean): any;
   pick(...fields: string[]): SimpleSchemaStatic;
   omit(...fields: string[]): SimpleSchemaStatic;
   clean(doc: any, options?: CleanOption): any;
@@ -63,7 +72,7 @@ interface SimpleSchemaStatic {
   newContext(): SimpleSchemaValidationContextStatic;
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
-  validator(options: ValidationOption): Function;
+  validator(options: ValidationOption): () => boolean;
   RegEx: {
       Email: RegExp;
       EmailWithTLD: RegExp;
@@ -77,6 +86,25 @@ interface SimpleSchemaStatic {
       ZipCode: RegExp;
       Phone: RegExp;
   };
+  ErrorTypes: {
+      REQUIRED: string,
+      MIN_STRING: string,
+      MAX_STRING: string,
+      MIN_NUMBER: string,
+      MAX_NUMBER: string,
+      MIN_NUMBER_EXCLUSIVE: string,
+      MAX_NUMBER_EXCLUSIVE: string,
+      MIN_DATE: string,
+      MAX_DATE: string,
+      BAD_DATE: string,
+      MIN_COUNT: string,
+      MAX_COUNT: string,
+      MUST_BE_INTEGER: string,
+      VALUE_NOT_ALLOWED: string,
+      EXPECTED_TYPE: string,
+      FAILED_REGULAR_EXPRESSION: string,
+      KEY_NOT_IN_SCHEMA: string
+  };
 }
 
 interface ValidationOption {
@@ -87,20 +115,31 @@ interface ValidationOption {
     upsertextendedCustomContext?: boolean;
 }
 
+interface SimpleSchemaValidationContextStaticKeys {
+    name: string;
+    type: string;
+    value?: any;
+}
+
+interface SimpleSchemaError {
+    name: string;
+    type: string;
+}
+
 interface SimpleSchemaValidationContextStatic {
     validate(obj: any, options?: ValidationOption): boolean;
     validateOne(doc: any, keyName: string, options?: ValidationOption): boolean;
     resetValidation(): void;
     isValid(): boolean;
-    invalidKeys(): { name: string; type: string; value?: any; }[];
-    addInvalidKeys(errors: { name: string, type: string; }[]): void;
+    invalidKeys(): SimpleSchemaValidationContextStaticKeys[];
+    addInvalidKeys(errors: SimpleSchemaError[]): void;
     keyIsInvalid(name: any): boolean;
     keyErrorMessage(name: any): string;
     getErrorObject(): any;
 }
 
 interface MongoObjectStatic {
-    forEachNode(func: Function, options?: {endPointsOnly: boolean;}): void;
+    forEachNode(func: (() => void), options?: {endPointsOnly: boolean}): void;
     getValueForPosition(position: string): any;
     setValueForPosition(position: string, value: any): void;
     removeValueForPosition(position: string): void;
@@ -115,7 +154,7 @@ interface MongoObjectStatic {
     removeGenericKey(key: string): void;
     removeKey(key: string): void;
     removeKeys(keys: string[]): void;
-    filterGenericKeys(test: Function): void;
+    filterGenericKeys(test: (() => boolean)): void;
     setValueForKey(key: string, val: any): void;
     setValueForGenericKey(key: string, val: any): void;
     getObject(): any;
@@ -130,11 +169,12 @@ export const SimpleSchemaValidationContext: SimpleSchemaValidationContextStatic;
 export const MongoObject: MongoObjectStatic;
 
 export interface SimpleSchema {
-  debug: boolean;
-  addValidator(validator: Function): any;
-  extendOptions(options: {[key: string]: any}): void;
-  messages(messages: any): void;
-  RegEx: {
+    debug: boolean;
+    validate(obj: any, options?: ValidationOption): void;
+    addValidator(validator: () => boolean): any;
+    extendOptions(options: {[key: string]: any}): void;
+    messages(messages: any): void;
+    RegEx: {
       Email: RegExp;
       Domain: RegExp;
       WeakDomain: RegExp;
@@ -145,7 +185,7 @@ export interface SimpleSchema {
       Id: RegExp;
       ZipCode: RegExp;
       Phone: RegExp;
-  };
+    };
 }
 
 export interface MongoObject {
