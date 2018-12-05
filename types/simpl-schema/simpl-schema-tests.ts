@@ -34,63 +34,30 @@ StringSchema.validate({
     regExpString: "id"
 });
 
-    /*
-    ,
-    title: {
-      type: String,
-      label: "Argument",
-      custom: function () {
-        var text = this.value;
-        text = text.replace(/https?:\/\/(www\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6})\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi, '$2');
-
-        if(text.length > MAX_ARGUMENT_LENGTH) return { type: SimpleSchema.ErrorTypes.MAX_STRING, max: MAX_ARGUMENT_LENGTH }
-        else if(text.length < MIN_ARGUMENT_LENGTH) return { type: SimpleSchema.ErrorTypes.MIN_STRING, min: MIN_ARGUMENT_LENGTH }
-      }
+const StringSchemaWithOptions = new SimpleSchema({
+    basicString: {
+        type: String
     },
-    questionId: {
-      type: String,
-      regEx: SimpleSchema.RegEx.Id
-    },
-    side: {
-      type: String,
-      allowedValues: ['pro', 'con']
+    limitedString: {
+        type: String,
+        allowedValues: ['pro', 'con']
     },
     userId: {
-      type: String,
-      regEx: SimpleSchema.RegEx.Id
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
     },
     createdAt: {
-      type: Date,
-      autoValue: () => new Date(),
+        type: Date,
+        autoValue: () => new Date(),
     },
-    clapCount: {
-      type: SimpleSchema.Integer,
-      defaultValue: 0
-    },
-    highlight: {
-      type: Array,
-      optional: true
-    },
-    'highlight.$': {
-      type: Object
-    },
-    'highlight.$.start': SimpleSchema.Integer,
-    'highlight.$.end': SimpleSchema.Integer,
-    'highlight.$.text': {
-      type: String,
-      trim: false
+},
+{
+    clean: {
+        filter: true,
+        autoConvert: true,
+        removeEmptyStrings: true,
+        trimStrings: true,
+        getAutoValues: true,
+        removeNullsFromArrays: true,
     }
-    */
-    /*
-    ,
-    {
-        clean: {
-            filter: true,
-            autoConvert: true,
-            removeEmptyStrings: true,
-            trimStrings: true,
-            getAutoValues: true,
-            removeNullsFromArrays: true,
-        }
-    }
-    */
+});

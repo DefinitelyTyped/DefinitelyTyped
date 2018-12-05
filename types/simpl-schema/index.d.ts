@@ -50,11 +50,20 @@ interface CleanOption {
     getAutoValues?: boolean;
     isModifier?: boolean;
     extendAutoValueContext?: boolean;
+    removeNullsFromArrays?: boolean;
 }
 
-// ???
+interface SimpleSchemaOptions {
+  check?: boolean;
+  clean?: CleanOption;
+  defaultLabel?: string;
+  humanizeAutoLabels?: boolean;
+  requiredByDefault?: boolean;
+  tracker?: any;
+}
+
 interface SimpleSchemaStatic {
-  new(schema: {[key: string]: SchemaDefinition} | any[]): SimpleSchema;
+  new(schema: {[key: string]: SchemaDefinition} | any[], options?: SimpleSchemaOptions): SimpleSchema;
   namedContext(name?: string): SimpleSchemaValidationContextStatic;
   addValidator(validator: () => boolean): any;
   pick(...fields: string[]): SimpleSchemaStatic;
