@@ -191,8 +191,9 @@ export interface AsyncTypeaheadProps<T> extends TypeaheadProps<T> {
 export const AsyncTypeahead: React.ClassicComponentClass<AsyncTypeaheadProps<any>>;
 
 export interface HighligherProps<T> {
-    key: string;
+    key?: string;
     search: string;
+    optionId?: any;
 }
 
 export const Highlighter: React.ClassicComponentClass<HighligherProps<any>>;
