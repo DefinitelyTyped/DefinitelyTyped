@@ -513,6 +513,7 @@ declare module "victory" {
     /**
      * Default theme
      */
+    grayscale: VictoryThemeDefinition;
     material: VictoryThemeDefinition;
   }
 

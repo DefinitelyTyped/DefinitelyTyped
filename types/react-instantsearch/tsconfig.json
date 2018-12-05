@@ -21,6 +21,7 @@
       "connectors.d.ts",
       "dom.d.ts",
       "native.d.ts",
+      "server.d.ts",
       "react-instantsearch-tests.tsx"
   ]
 }

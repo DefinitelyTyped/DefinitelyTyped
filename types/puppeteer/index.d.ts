@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.9
+// Type definitions for puppeteer 1.11
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -398,6 +398,8 @@ export interface Cookie {
   path: string;
   /** The cookie Unix expiration time in seconds. */
   expires: number;
+  /** The cookie size */
+  size: number;
   /** The cookie http only flag. */
   httpOnly: boolean;
   /** The session cookie flag. */
@@ -414,7 +416,6 @@ export interface DeleteCookie {
   url?: string;
   domain?: string;
   path?: string;
-  secure?: boolean;
 }
 
 export interface SetCookie {
@@ -483,13 +484,16 @@ export type LoadEvent =
   | "networkidle0"
   | "networkidle2";
 
+export interface Timeoutable {
+    /**
+     * Maximum navigation time in milliseconds, pass 0 to disable timeout.
+     * @default 30000
+     */
+    timeout?: number;
+}
+
 /** The navigation options. */
-export interface NavigationOptions {
-  /**
-   * Maximum navigation time in milliseconds, pass 0 to disable timeout.
-   * @default 30000
-   */
-  timeout?: number;
+export interface NavigationOptions extends Timeoutable {
   /**
    * When to consider navigation succeeded.
    * @default load Navigation is consider when the `load` event is fired.
@@ -508,6 +512,9 @@ export interface DirectNavigationOptions extends NavigationOptions {
    */
   referer?: string;
 }
+
+/** Accepts values labeled with units. If number, treat as pixels. */
+export type LayoutDimension = string | number;
 
 export type PDFFormat =
   | "Letter"
@@ -576,22 +583,21 @@ export interface PDFOptions {
    * @default 'Letter'
    */
   format?: PDFFormat;
-  /** Paper width, accepts values labeled with units. */
-  width?: string;
-  /** Paper height, accepts values labeled with units. */
-  height?: string;
-  /** Paper margins, defaults to none.  */
+  /** Paper width. */
+  width?: LayoutDimension;
+  /** Paper height. */
+  height?: LayoutDimension;
+  /** Paper margins, defaults to none. */
   margin?: {
-    /** Top margin, accepts values labeled with units. */
-    top?: string;
-    /** Right margin, accepts values labeled with units. */
-    right?: string;
-    /** Bottom margin, accepts values labeled with units. */
-    bottom?: string;
-    /** Left margin, accepts values labeled with units. */
-    left?: string;
+    /** Top margin. */
+    top?: LayoutDimension;
+    /** Right margin. */
+    right?: LayoutDimension;
+    /** Bottom margin. */
+    bottom?: LayoutDimension;
+    /** Left margin. */
+    left?: LayoutDimension;
   };
-
   /**
    * Give any CSS @page size declared in the page priority over what is declared in width and
    * height or format options.
@@ -665,9 +671,8 @@ export interface ScriptTagOptions {
   type?: string;
 }
 
-export interface PageFnOptions {
+export interface PageFnOptions extends Timeoutable {
   polling?: "raf" | "mutation" | number;
-  timeout?: number;
 }
 
 export interface BoundingBox {
@@ -966,7 +971,7 @@ export interface Request {
   /**
    * @returns The `Frame` object that initiated the request, or `null` if navigating to error pages
    */
-  frame(): Promise<Frame | null>;
+  frame(): Frame | null;
 
   /**
    * An object with HTTP headers associated with the request.
@@ -1068,7 +1073,7 @@ export interface Response {
   url(): string;
 }
 
-export interface WaitForSelectorOptions {
+export interface WaitForSelectorOptions extends Timeoutable {
     /**
      * Wait for element to be present in DOM and to be visible,
      * i.e. to not have display: none or visibility: hidden CSS properties.
@@ -1081,12 +1086,6 @@ export interface WaitForSelectorOptions {
      * @default false
      */
     hidden?: boolean;
-    /**
-     * Maximum time to wait for in milliseconds.
-     * Pass 0 to disable timeout.
-     * @default 30000 (30 seconds).
-     */
-    timeout?: number;
 }
 
 export interface FrameBase extends Evalable {
@@ -1181,8 +1180,9 @@ export interface FrameBase extends Evalable {
   /**
    * Sets the page content.
    * @param html HTML markup to assign to the page.
+   * @param options The navigation parameters.
    */
-  setContent(html: string): Promise<void>;
+  setContent(html: string, options?: NavigationOptions): Promise<void>;
 
   /**
    * This method fetches an element with `selector`, scrolls it into view if needed,
@@ -1331,6 +1331,137 @@ export interface GeoOptions {
 
 export type MediaType = "screen" | "print";
 
+export interface AXNode {
+  /**
+   * The role.
+   */
+  role: string;
+  /**
+   * A human readable name for the node.
+   */
+  name: string;
+  /**
+   * The current value of the node.
+   */
+  value: string | number;
+  /**
+   * An additional human readable description of the node.
+   */
+  description: string;
+  /**
+   * Keyboard shortcuts associated with this node.
+   */
+  keyshortcuts: string;
+  /**
+   * A human readable alternative to the role.
+   */
+  roledescription: string;
+  /**
+   * A description of the current value.
+   */
+  valuetext: string;
+  /**
+   * Whether the node is disabled.
+   */
+  disabled: boolean;
+  /**
+   * Whether the node is expanded or collapsed.
+   */
+  expanded: boolean;
+  /**
+   * Whether the node is focused.
+   */
+  focused: boolean;
+  /**
+   * Whether the node is modal.
+   */
+  modal: boolean;
+  /**
+   * Whether the node text input supports multiline.
+   */
+  multiline: boolean;
+  /**
+   * Whether more than one child can be selected.
+   */
+  multiselectable: boolean;
+  /**
+   * Whether the node is read only.
+   */
+  readonly: boolean;
+  /**
+   * Whether the node is required.
+   */
+  required: boolean;
+  /**
+   * Whether the node is selected in its parent node.
+   */
+  selected: boolean;
+  /**
+   * Whether the checkbox is checked, or "mixed".
+   */
+  checked: boolean | "mixed";
+  /**
+   * Whether the toggle button is checked, or "mixed".
+   */
+  pressed: boolean | "mixed";
+  /**
+   * The level of a heading.
+   */
+  level: number;
+  /**
+   * The minimum value in a node.
+   */
+  valuemin: number;
+  /**
+   * The maximum value in a node.
+   */
+  valuemax: number;
+  /**
+   * What kind of autocomplete is supported by a control.
+   */
+  autocomplete: string;
+  /**
+   * What kind of popup is currently being shown for a node.
+   */
+  haspopup: string;
+  /**
+   * Whether and in what way this node's value is invalid.
+   */
+  invalid: string;
+  /**
+   * Whether the node is oriented horizontally or vertically.
+   */
+  orientation: string;
+  /**
+   * Child nodes of this node, if any.
+   */
+  children: AXNode[];
+}
+
+export interface SnapshopOptions {
+  /**
+   * Prune uninteresting nodes from the tree.
+   * @default true
+   */
+  interestingOnly?: boolean;
+}
+
+/**
+ * The Accessibility class provides methods for inspecting Chromium's accessibility tree.
+ * The accessibility tree is used by assistive technology such as screen readers.
+ * Accessibility is a very platform-specific thing. On different platforms,
+ * there are different screen readers that might have wildly different output.
+ * Blink - Chrome's rendering engine - has a concept of "accessibility tree",
+ * which is than translated into different platform-specific APIs.
+ * Accessibility namespace gives users access to the Blink Accessibility Tree.
+ * Most of the accessibility tree gets filtered out when converting from Blink AX Tree to Platform-specific AX-Tree or
+ * by screen readers themselves. By default, Puppeteer tries to approximate this filtering,
+ * exposing only the "interesting" nodes of the tree.
+ */
+export interface Accessibility {
+  snapshot(options?: SnapshopOptions): Promise<AXNode>;
+}
+
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
 export interface Page extends EventEmitter, FrameBase {
   /**
@@ -1355,6 +1486,8 @@ export interface Page extends EventEmitter, FrameBase {
     eventName: K,
     handler: (e: PageEventObj[K], ...args: any[]) => void
   ): this;
+
+  accessibility: Accessibility;
 
   /**
    * Provide credentials for http authentication.
@@ -1491,9 +1624,9 @@ export interface Page extends EventEmitter, FrameBase {
 
   /**
    * Determines whether cache is enabled on the page.
-   * @param enabled Whether or not to enable cache on the page.
+   * @param [enabled=true] Whether or not to enable cache on the page.
    */
-  setCacheEnabled(enabled: boolean): Promise<void>;
+  setCacheEnabled(enabled?: boolean): Promise<void>;
 
   /**
    * Sets the cookies on the page.
@@ -1573,20 +1706,24 @@ export interface Page extends EventEmitter, FrameBase {
 
   waitForRequest(
     urlOrPredicate: string | ((req: Request) => boolean),
-    options?: { timeout?: number }
+    options?: Timeoutable
   ): Promise<Request>;
 
   waitForResponse(
     urlOrPredicate: string | ((res: Response) => boolean),
-    options?: { timeout?: number }
+    options?: Timeoutable
   ): Promise<Response>;
 
   /** This method returns all of the dedicated WebWorkers associated with the page. */
   workers(): Worker[];
 }
 
+export interface TargetAwaiter {
+    waitForTarget(predicate: (target: Target) => boolean, options?: Timeoutable): Promise<Target>;
+}
+
 /** A Browser is created when Puppeteer connects to a Chromium instance, either through puppeteer.launch or puppeteer.connect. */
-export interface Browser extends EventEmitter {
+export interface Browser extends EventEmitter, TargetAwaiter {
   /**
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
@@ -1705,7 +1842,7 @@ export type Permission =
  * When a browser is launched, it has a single BrowserContext used by default.
  * The method `browser.newPage()` creates a page in the default browser context.
  */
-export interface BrowserContext extends EventEmitter {
+export interface BrowserContext extends EventEmitter, TargetAwaiter {
   /**
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
@@ -1800,27 +1937,7 @@ export interface Target {
   url(): string;
 }
 
-export interface LaunchOptions {
-  /**
-   * Whether to open chrome in appMode.
-   * @default false
-   */
-  appMode?: boolean;
-  /**
-   * Whether to ignore HTTPS errors during navigation.
-   * @default false
-   */
-  ignoreHTTPSErrors?: boolean;
-  /**
-   * Do not use `puppeteer.defaultArgs()` for launching Chromium.
-   * @default false
-   */
-  ignoreDefaultArgs?: boolean | string[];
-  /**
-   * Whether to run Chromium in headless mode.
-   * @default true
-   */
-  headless?: boolean;
+export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeoutable {
   /**
    * Path to a Chromium executable to run instead of bundled Chromium. If
    * executablePath is a relative path, then it is resolved relative to current
@@ -1828,10 +1945,73 @@ export interface LaunchOptions {
    */
   executablePath?: string;
   /**
-   * Slows down Puppeteer operations by the specified amount of milliseconds.
-   * Useful so that you can see what is going on.
+   * Do not use `puppeteer.defaultArgs()` for launching Chromium.
+   * @default false
    */
-  slowMo?: number;
+  ignoreDefaultArgs?: boolean | string[];
+  /**
+   * Close chrome process on Ctrl-C.
+   * @default true
+   */
+  handleSIGINT?: boolean;
+  /**
+   * Close chrome process on SIGTERM.
+   * @default true
+   */
+  handleSIGTERM?: boolean;
+  /**
+   * Close chrome process on SIGHUP.
+   * @default true
+   */
+  handleSIGHUP?: boolean;
+  /**
+   * Whether to pipe browser process stdout and stderr into process.stdout and
+   * process.stderr.
+   * @default false
+   */
+  dumpio?: boolean;
+  /**
+   * Specify environment variables that will be visible to Chromium.
+   * @default `process.env`.
+   */
+  env?: {
+    [key: string]: string | boolean | number;
+  };
+  /**
+   * Connects to the browser over a pipe instead of a WebSocket.
+   * @default false
+   */
+  pipe?: boolean;
+}
+
+export interface ChromeArgOptions {
+    /**
+     * Whether to run browser in headless mode.
+     * @default true unless the devtools option is true.
+     */
+    headless?: boolean;
+    /**
+     * Additional arguments to pass to the browser instance.
+     * The list of Chromium flags can be found here.
+     */
+    args?: string[];
+    /**
+     * Path to a User Data Directory.
+     */
+    userDataDir?: string;
+    /**
+     * Whether to auto-open a DevTools panel for each tab.
+     * If this option is true, the headless option will be set false.
+     */
+    devtools?: boolean;
+}
+
+export interface BrowserOptions {
+  /**
+   * Whether to ignore HTTPS errors during navigation.
+   * @default false
+   */
+  ignoreHTTPSErrors?: boolean;
   /**
    * Sets a consistent viewport for each page. Defaults to an 800x600 viewport. null disables the default viewport.
    */
@@ -1855,7 +2035,6 @@ export interface LaunchOptions {
      */
     isMobile?: boolean;
     /**
-     *
      * Specifies if viewport supports touch events.
      * @default false
      */
@@ -1867,87 +2046,26 @@ export interface LaunchOptions {
     isLandscape?: boolean;
   };
   /**
-   * Additional arguments to pass to the Chromium instance. List of Chromium
-   * flags can be found here.
+   * Slows down Puppeteer operations by the specified amount of milliseconds.
+   * Useful so that you can see what is going on.
    */
-  args?: string[];
-  /**
-   * Close chrome process on Ctrl-C.
-   * @default true
-   */
-  handleSIGINT?: boolean;
-  /**
-   * Close chrome process on SIGTERM.
-   * @default true
-   */
-  handleSIGTERM?: boolean;
-  /**
-   * Close chrome process on SIGHUP.
-   * @default true
-   */
-  handleSIGHUP?: boolean;
-  /**
-   * Maximum time in milliseconds to wait for the Chrome instance to start.
-   * Pass 0 to disable timeout.
-   * @default 30000 (30 seconds).
-   */
-  timeout?: number;
-  /**
-   * Whether to pipe browser process stdout and stderr into process.stdout and
-   * process.stderr.
-   * @default false
-   */
-  dumpio?: boolean;
-  /** Path to a User Data Directory. */
-  userDataDir?: string;
-  /**
-   * Specify environment variables that will be visible to Chromium.
-   * @default `process.env`.
-   */
-  env?: {
-    [key: string]: string | boolean | number;
-  };
-  /**
-   * Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false.
-   */
-  devtools?: boolean;
-  /**
-   * Connects to the browser over a pipe instead of a WebSocket.
-   * @default false
-   */
-  pipe?: boolean;
+  slowMo?: number;
 }
 
-export interface DefaultArgsOptions {
-    /**
-     * Whether to run browser in headless mode.
-     * @default true unless the devtools option is true.
-     */
-    headless?: boolean;
-    /**
-     * Additional arguments to pass to the browser instance.
-     * The list of Chromium flags can be found here.
-     */
-    args?: string[];
-    /**
-     * Path to a User Data Directory.
-     */
-    userDataDir?: string;
-    /**
-     * Whether to auto-open a DevTools panel for each tab.
-     * If this option is true, the headless option will be set false.
-     */
-    devtools?: boolean;
-}
-
-export interface ConnectOptions {
+export interface ConnectOptions extends BrowserOptions {
   /** A browser websocket endpoint to connect to. */
   browserWSEndpoint?: string;
   /**
-   * Whether to ignore HTTPS errors during navigation.
-   * @default false
+   * **Experimental** Specify a custom transport object for Puppeteer to use.
    */
-  ignoreHTTPSErrors?: boolean;
+  transport?: ConnectionTransport;
+}
+
+export interface ConnectionTransport {
+  send(message: string): void;
+  close(): void;
+  onmessage?(message: string): void;
+  onclose?(): void;
 }
 
 export interface CDPSession extends EventEmitter {
@@ -1992,7 +2110,7 @@ export interface CoverageEntry {
 /** Attaches Puppeteer to an existing Chromium instance */
 export function connect(options?: ConnectOptions): Promise<Browser>;
 /** The default flags that Chromium will be launched with */
-export function defaultArgs(options?: DefaultArgsOptions): string[];
+export function defaultArgs(options?: ChromeArgOptions): string[];
 /** Path where Puppeteer expects to find bundled Chromium */
 export function executablePath(): string;
 /** The method launches a browser instance with given arguments. The browser will be closed when the parent node.js process is closed. */

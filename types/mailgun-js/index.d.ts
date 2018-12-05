@@ -1,6 +1,7 @@
 // Type definitions for mailgun-js 0.16
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
+//                 Andi Pätzold <https://github.com/andipaetzold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -125,8 +126,29 @@ declare namespace Mailgun {
             unparseable: string[];
         }
 
+        type ValidationCallback = (error: Error, body: ValidateResponse) => void;
+
+        interface ValidationOptionsPublic {
+            api_key?: string;
+            mailbox_verification?: boolean | "true" | "false";
+        }
+
+        interface ValidationOptionsPrivate {
+            mailbox_verification?: boolean | "true" | "false";
+        }
+
         interface ValidateResponse {
+            address: string;
+            did_you_mean: string | null;
+            is_disposable_address: boolean;
+            is_role_address: boolean;
             is_valid: boolean;
+            mailbox_verification: "true" | "false" | "unknown" | null;
+            parts: {
+                display_name: string | null;
+                domain: string;
+                local_part: string;
+            };
         }
     }
 
@@ -140,15 +162,18 @@ declare namespace Mailgun {
             bodySignature: string
         ): boolean;
 
-        parse(
-            addressList: string[],
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ParseResponse>;
+        parse(addressList: string[], callback?: validation.ValidationCallback): Promise<validation.ParseResponse>;
 
-        validate(
-            address: string,
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ValidateResponse>;
+        validate(address: string, callback: validation.ValidationCallback): void;
+        validate(address: string, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
+        // tslint:disable-next-line unified-signatures
+        validate(address: string, isPrivate: boolean, callback: validation.ValidationCallback): void;
+        validate(address: string, isPrivate: false, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
+        validate(address: string, isPrivate: true, opts: validation.ValidationOptionsPrivate, callback: validation.ValidationCallback): void;
+
+        validate(address: string, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
+        validate(address: string, isPrivate: false, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
+        validate(address: string, isPrivate: true, opts?: validation.ValidationOptionsPrivate): Promise<validation.ValidateResponse>;
     }
 
     interface Lists {

@@ -9,7 +9,7 @@ booleanValue = toobusy.started();
 numberValue = toobusy.interval(numberValue);
 numberValue = toobusy.lag();
 numberValue = toobusy.maxLag(numberValue);
-numberValue = toobusy.smmothingFactor(numberValue);
+numberValue = toobusy.smoothingFactor(numberValue);
 
 toobusy.onLag((duration: number) => {});
 toobusy.onLag((duration: number) => {}, numberValue);

@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/ansi
 // Definitions by: Gustavo6046 <https://github.com/Gustavo6046>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * References:
@@ -14,11 +15,19 @@
 /// <reference types="node" />
 import { Stream } from "stream";
 
-declare function ansi(stream: Stream, options?: any): ansi.Cursor;
+interface CursorOptions {
+    enabled: boolean;
+    buffering: boolean;
+}
+
+declare function ansi(stream: Stream, options?: CursorOptions): ansi.Cursor;
 
 declare namespace ansi {
     class Cursor {
-        constructor(stream: Stream, options?: any);
+        bg: Colorer;
+        fg: Colorer;
+
+        constructor(stream: Stream, options?: CursorOptions);
 
         /**
          * Helper function that calls `write()` on the underlying Stream.
@@ -161,7 +170,11 @@ declare namespace ansi {
     }
 
     interface Cursor {
-        [key: string]: (...anything: any[]) => Cursor;
+        [key: string]: ((...anything: any[]) => Cursor) | Colorer;
+    }
+
+    interface Colorer {
+        [key: string]: (...anything: any[]) => (Cursor | Colorer);
     }
 }
 

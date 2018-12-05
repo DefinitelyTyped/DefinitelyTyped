@@ -377,9 +377,7 @@ declare namespace PIXI {
             | PIXI.HitArea;
         buttonMode: boolean;
         cursor: string;
-        trackedPointers(): {
-            [key: number]: interaction.InteractionTrackingData;
-        };
+        trackedPointers: { [key: number]: interaction.InteractionTrackingData; };
         // Deprecated
         defaultCursor: string;
         // end interactive target
@@ -1587,7 +1585,7 @@ declare namespace PIXI {
         constructor(
             vertexSrc?: string,
             fragmentSrc?: string,
-            uniforms?: UniformDataMap<U>
+            uniformData?: UniformDataMap<U>
         );
 
         protected _blendMode: number;
@@ -2314,7 +2312,7 @@ declare namespace PIXI {
         );
 
         baseTexture: BaseTexture;
-        animations: { [key: string]: Texture };
+        animations: { [key: string]: Texture[] };
         textures: { [key: string]: Texture };
         data: any;
         resolution: number;
@@ -2811,7 +2809,7 @@ declare namespace PIXI {
                 | PIXI.HitArea;
             buttonMode: boolean;
             cursor: string;
-            trackedPointers(): { [key: number]: InteractionTrackingData };
+            trackedPointers: { [key: number]: InteractionTrackingData };
 
             // Deprecated
             defaultCursor: string;
@@ -3348,6 +3346,7 @@ declare namespace PIXI {
             spineAtlas: any;
             spineData: any;
             textures?: TextureDictionary;
+            spritesheet?: Spritesheet;
         }
         const shared: Loader;
     }

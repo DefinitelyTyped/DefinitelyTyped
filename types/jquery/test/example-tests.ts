@@ -2334,7 +2334,9 @@ function examples() {
     }
 
     function jQuery_contains_0() {
+        // tslint:disable-next-line no-unnecessary-type-assertion
         $.contains(document.documentElement!, document.body); // true
+        // tslint:disable-next-line no-unnecessary-type-assertion
         $.contains(document.body, document.documentElement!); // false
     }
 

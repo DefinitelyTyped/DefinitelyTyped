@@ -1,6 +1,7 @@
 import { Base, EmitterBase } from '../base';
 import { Identity } from '../../identity';
 import Transport from '../../transport/transport';
+import { FrameEvents } from '../events/frame';
 export declare type EntityType = 'window' | 'iframe' | 'external connection' | 'unknown';
 export interface FrameInfo {
     uuid: string;
@@ -8,19 +9,40 @@ export interface FrameInfo {
     entityType: EntityType;
     parent: Identity;
 }
+/**
+ * @lends Frame
+ */
 export default class _FrameModule extends Base {
     /**
-     * Gets a reference to the specified frame. The frame does not have to exist
-     * @param {string} uuid - uuid of the frame you want to wrap
-     * @param {string} name - name of the frame you want to wrap
+     * Asynchronously returns a reference to the specified frame. The frame does not have to exist
+     * @param {Identity} identity - the identity of the frame you want to wrap
      * @return {Promise.<_Frame>}
+     * @tutorial Frame.wrap
+     * @static
      */
-    wrap(uuid: string, name: string): Promise<_Frame>;
+    wrap(identity: Identity): Promise<_Frame>;
     /**
-     * Get a reference to the current frame
+     * Synchronously returns a reference to the specified frame. The frame does not have to exist
+     * @param {Identity} identity - the identity of the frame you want to wrap
+     * @return {_Frame}
+     * @tutorial Frame.wrapSync
+     * @static
+     */
+    wrapSync(identity: Identity): _Frame;
+    /**
+     * Asynchronously returns a reference to the current frame
      * @return {Promise.<_Frame>}
+     * @tutorial Frame.getCurrent
+     * @static
      */
     getCurrent(): Promise<_Frame>;
+    /**
+     * Synchronously returns a reference to the current frame
+     * @return {_Frame}
+     * @tutorial Frame.getCurrentSync
+     * @static
+     */
+    getCurrentSync(): _Frame;
 }
 /**
  * @classdesc Represents a way to interact with `iframes`. Facilitates discovery of current context
@@ -28,7 +50,7 @@ export default class _FrameModule extends Base {
  * @class
  * @alias Frame
  */
-export declare class _Frame extends EmitterBase {
+export declare class _Frame extends EmitterBase<FrameEvents> {
     identity: Identity;
     constructor(wire: Transport, identity: Identity);
     /**
@@ -44,8 +66,4 @@ export declare class _Frame extends EmitterBase {
      * @tutorial Frame.getParentWindow
      */
     getParentWindow(): Promise<FrameInfo>;
-}
-export interface _Frame {
-    on(type: 'connected', listener: (eventType: string) => void): Promise<void>;
-    on(type: 'disconnected', listener: (eventType: string) => void): Promise<void>;
 }

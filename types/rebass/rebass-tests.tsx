@@ -8,7 +8,6 @@ const RebassTests = () => (
       <Text fontSize={3}>Hi, I'm text.</Text>
       <Card
         fontSize={6}
-        fontWeight='bold'
         width={[ 1, 1, 1/2 ]}
         p={5}
         my={5}

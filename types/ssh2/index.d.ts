@@ -3,6 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Ron Buckton <https://github.com/rbuckton>
 //                 Will Boyce <https://github.com/wrboyce>
+//                 Lucas Motta <https://github.com/lucasmotta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -21,6 +22,7 @@ import {
     Attributes,
     Stats,
     TransferOptions,
+    ReadFileOptions,
     ReadStreamOptions,
     WriteStreamOptions,
     FileEntry
@@ -1272,6 +1274,24 @@ export interface SFTPWrapper extends events.EventEmitter {
      * Uploads a file from `localPath` to `remotePath` using parallel reads for faster throughput.
      */
     fastPut(localPath: string, remotePath: string, callback: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, options: ReadFileOptions, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, encoding: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, callback: (err: any, handle: Buffer) => void): void;
 
     /**
      * (Client-only)

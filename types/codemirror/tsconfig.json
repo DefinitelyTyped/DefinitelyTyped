@@ -23,12 +23,14 @@
         "codemirror-panel.d.ts",
         "codemirror-runmode.d.ts",
         "codemirror-showhint.d.ts",
+        "codemirror-comment.d.ts",
         "searchcursor.d.ts",
         "test/index.ts",
         "test/matchbrackets.ts",
         "test/panel.ts",
         "test/runmode.ts",
         "test/searchcursor.ts",
-        "test/showhint.ts"
+        "test/showhint.ts",
+        "test/comment.ts"
     ]
 }

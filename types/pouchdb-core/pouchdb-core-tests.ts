@@ -50,7 +50,7 @@ function testBulkDocs() {
     const isError = (
         result: PouchDB.Core.Response | PouchDB.Core.Error
     ): result is PouchDB.Core.Error => {
-        return !!(<PouchDB.Core.Error> result).error;
+        return !!(result as PouchDB.Core.Error).error;
     };
 
     db.bulkDocs([model, model2]).then((result) => {

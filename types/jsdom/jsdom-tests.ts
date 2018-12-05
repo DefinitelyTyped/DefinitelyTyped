@@ -82,6 +82,7 @@ function test_serialize() {
     dom.serialize() === '<!DOCTYPE html><html><head></head><body>hello</body></html>';
 
     // Contrast with:
+    // tslint:disable-next-line no-unnecessary-type-assertion
     dom.window.document.documentElement!.outerHTML === '<html><head></head><body>hello</body></html>';
 }
 
@@ -119,7 +120,7 @@ function test_runVMScript() {
     dom.runVMScript(s);
     dom.runVMScript(s);
 
-    (<any> dom.window).ran === 3;
+    (dom.window as any).ran === 3;
 }
 
 function test_reconfigure() {

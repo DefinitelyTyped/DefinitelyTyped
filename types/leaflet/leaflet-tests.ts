@@ -227,9 +227,6 @@ tileLayerOptions = {
     pane: '',
     className: '',
     keepBuffer: 1,
-    foo: 'bar',
-    bar: () => 'foo',
-    abc: (data: any) => 'foobar'
 };
 
 tileLayerOptions.subdomains = 'a';
@@ -245,11 +242,9 @@ tileLayerOptions.bounds = latLngBoundsLiteral;
 let tileLayer: L.TileLayer;
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
-tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
-tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 
 // imageOverlay
 let imageOverlayOptions: L.ImageOverlayOptions;

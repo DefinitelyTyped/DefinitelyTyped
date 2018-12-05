@@ -9,6 +9,7 @@
 //                 Francis Gulotta <https://github.com/reconbot>
 //                 Dmitry Motovilov <https://github.com/funthing>
 //                 Oleg Repin <https://github.com/iamolegga>
+//                 Ting-Wai To <https://github.com/tingwai-to>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -482,6 +483,32 @@ declare namespace IORedis {
         sscanStream(key: KeyType, options?: ScanStreamOption): NodeJS.EventEmitter;
         hscanStream(key: KeyType, options?: ScanStreamOption): NodeJS.EventEmitter;
         zscanStream(key: KeyType, options?: ScanStreamOption): NodeJS.EventEmitter;
+
+        xack(key: KeyType, group: string, ...ids: string[]): any;
+
+        xadd(key: KeyType, id: string, ...args: string[]): any;
+
+        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, ...args: any[]): any;
+
+        xdel(key: KeyType, ...ids: string[]): any;
+
+        xgroup(...args: any[]): any;
+
+        xinfo(...args: any[]): any;
+
+        xlen(key: KeyType): any;
+
+        xpending(key: KeyType, group: string, ...args: any[]): any;
+
+        xrange(key: KeyType, start: string, end: string, ...args: any[]): any;
+
+        xread(...args: any[]): any;
+
+        xreadgroup(groupOption: 'GROUP' | 'group', group: string, consumer: string,  ...args: any[]): any;
+
+        xrevrange(key: KeyType, end: string, start: string, ...args: any[]): any;
+
+        xtrim(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', ...args: any[]): any;
     }
 
     interface Pipeline {
@@ -801,6 +828,32 @@ declare namespace IORedis {
         pfadd(key: KeyType, ...elements: string[]): Pipeline;
 
         pfcount(...keys: KeyType[]): Pipeline;
+
+        xack(key: KeyType, group: string, ...ids: string[]): Pipeline;
+
+        xadd(key: KeyType, id: string, ...args: string[]): Pipeline;
+
+        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, id: string, ...args: any[]): Pipeline;
+
+        xdel(key: KeyType, ...ids: string[]): Pipeline;
+
+        xgroup(...args: any[]): Pipeline;
+
+        xinfo(...args: any[]): Pipeline;
+
+        xlen(key: KeyType): Pipeline;
+
+        xpending(key: KeyType, group: string, ...args: any[]): Pipeline;
+
+        xrange(key: KeyType, start: string, end: string, ...args: any[]): Pipeline;
+
+        xread(...args: any[]): Pipeline;
+
+        xreadgroup(command: 'GROUP' | 'group', group: string, consumer: string,  ...args: any[]): Pipeline;
+
+        xrevrange(key: KeyType, end: string, start: string, ...args: any[]): Pipeline;
+
+        xtrim(key: KeyType, strategy: 'MAXLEN' | 'maxlen', ...args: any[]): Pipeline;
     }
 
     interface NodeConfiguration {

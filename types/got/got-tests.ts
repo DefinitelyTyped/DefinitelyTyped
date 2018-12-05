@@ -269,3 +269,4 @@ got('http://todomvc.com', { retry: 2 });
 got('http://todomvc.com', { retry: { retries: 2, methods: ['GET'], statusCodes: [408, 504], maxRetryAfter: 1 } });
 got('http://todomvc.com', { throwHttpErrors: false });
 got('http://todomvc.com', { hooks: { beforeRequest: [ () => 'foo']} });
+got('http://todomvc.com', { timeout: 1 }).catch((e) => e instanceof got.TimeoutError);

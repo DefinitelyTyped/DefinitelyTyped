@@ -117,7 +117,7 @@ export interface match<Params extends { [K in keyof Params]?: string } = {}> {
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: RouteProps, parent?: match<Params> | null): match<Params> | null;
+export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: string | RouteProps, parent?: match<Params> | null): match<Params> | null;
 
 export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean }): string;
 

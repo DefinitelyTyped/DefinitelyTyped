@@ -3369,7 +3369,7 @@ declare namespace chrome {
         function chooseEntry(options: ChooseEntryOptionsBase, callback: FileEntryCallback<ChooseEntryOptionsBase>): void;
         function chooseEntry(options: ChooseFileEntryOptions, callback: FileEntryCallback<ChooseFileEntryOptions>): void;
         function chooseEntry(options: ChooseSaveFileEntryOptions, callback: FileEntryCallback<ChooseSaveFileEntryOptions>): void;
-        function chooseEntry(options: ChooseMultipleFilesEntryOptions, callback: FileEntryCallback<ChooseFileEntryOptions>): void;
+        function chooseEntry(options: ChooseMultipleFilesEntryOptions, callback: FileEntryCallback<ChooseMultipleFilesEntryOptions>): void;
         function chooseEntry(options: ChooseDirectoryEntryOptions, callback: FileEntryCallback<ChooseDirectoryEntryOptions>): void;
         /** Returns the file entry with the given id if it can be restored. This call will fail with a runtime error otherwise. */
         function restoreEntry(id: string, callback: (entry: FileEntry) => void): void;

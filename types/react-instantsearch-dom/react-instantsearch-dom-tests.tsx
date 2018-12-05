@@ -204,12 +204,62 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 
 <RefinementList attribute="products" searchable />;
 
-// https://community.algolia.com/react-instantsearch/guide/Search_parameters.html
-<InstantSearch
-  appId="appId"
-  apiKey="apiKey"
-  indexName="indexName"
->
-  <Configure distinct={1}/>
-  // widgets
-</InstantSearch>;
+() => {
+  // https://community.algolia.com/react-instantsearch/guide/Search_parameters.html
+  <InstantSearch
+    appId="appId"
+    apiKey="apiKey"
+    indexName="indexName"
+  >
+    <Configure distinct={1}/>
+    // widgets
+  </InstantSearch>;
+};
+
+import { createInstantSearch } from 'react-instantsearch-dom/server';
+// import { createServer } from 'http';
+declare function createServer(handler: (req: any, res: any) => any): any;
+import { renderToString } from 'react-dom/server';
+
+() => {
+  // https://community.algolia.com/react-instantsearch/guide/Server-side_rendering.html
+
+  // Now we create a dedicated `InstantSearch` component
+  const { InstantSearch, findResultsState } = createInstantSearch();
+
+  class App extends React.Component<any> {
+    render() {
+      return (
+        <InstantSearch
+          appId="appId"
+          apiKey="apiKey"
+          indexName="indexName"
+          searchState={this.props.searchState}
+          resultsState={this.props.resultsState}
+        >
+          <SearchBox />
+          <Hits />
+        </InstantSearch>
+      );
+    }
+  }
+
+  const server = createServer(async (req, res) => {
+    const searchState = {query: 'chair'};
+    const resultsState = await findResultsState(App, {searchState});
+    const appInitialState = {searchState, resultsState};
+    const appAsString = renderToString(<App {...appInitialState} />);
+    res.send(
+  `
+  <!doctype html>
+  <html>
+    <body>
+      <h1>Awesome server-side rendered search</h1>
+      <did id="root">${appAsString}</div>
+      <script>window.__APP_INITIAL_STATE__ = ${JSON.stringify(appInitialState)}</script>
+      <script src="bundle.js"></script> <!-- this is the build of browser.js -->
+    </body>
+  </html>`
+    );
+  });
+};

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Modal, { ModalProvider, BackgroundComponent } from 'styled-react-modal';
+import Modal, { ModalProvider, BaseModalBackground as BackgroundComponent } from 'styled-react-modal';
 import styled from 'styled-components';
 
 const background = styled.div`

@@ -1025,8 +1025,8 @@ export interface Commands<R> {
     /**
      * Increment the score of a member in a sorted set.
      */
-    zincrby(key: string, increment: number, member: string, cb?: Callback<number>): R;
-    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<number>): R;
+    zincrby(key: string, increment: number, member: string, cb?: Callback<string>): R;
+    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<string>): R;
 
     /**
      * Intersect multiple sorted sets and store the resulting sorted set in a new key.

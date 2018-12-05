@@ -59,7 +59,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
 export type EventSimulator = (element: Element | Component<any>, eventData?: SyntheticEventData) => void;
 
 export interface MockedComponentClass {
-    new (props: {}): any;
+    new (props: any): any;
 }
 
 export interface ShallowRenderer {
@@ -160,8 +160,12 @@ export function renderIntoDocument<T extends Element>(
     element: DOMElement<any, T>): T;
 export function renderIntoDocument(
     element: SFCElement<any>): void;
-export function renderIntoDocument<T extends Component<any>>(
-    element: CElement<any, T>): T;
+// If we replace `P` with `any` in this overload, then some tests fail because
+// calls to `renderIntoDocument` choose the last overload on the
+// subtype-relation pass and get an undesirably broad return type.  Using `P`
+// allows this overload to match on the subtype-relation pass.
+export function renderIntoDocument<P, T extends Component<P>>(
+    element: CElement<P, T>): T;
 export function renderIntoDocument<P>(
     element: ReactElement<P>): Component<P> | Element | void;
 
@@ -257,7 +261,7 @@ export function findRenderedDOMComponentWithTag(
 /**
  * Finds all instances of components with type equal to `componentClass`.
  */
-export function scryRenderedComponentsWithType<T extends Component, C extends ComponentClass>(
+export function scryRenderedComponentsWithType<T extends Component<any>, C extends ComponentClass<any>>(
     root: Component<any>,
     type: ClassType<any, T, C>): T[];
 
@@ -266,7 +270,7 @@ export function scryRenderedComponentsWithType<T extends Component, C extends Co
  * and returns that one result, or throws exception if there is any other
  * number of matches besides one.
  */
-export function findRenderedComponentWithType<T extends Component, C extends ComponentClass>(
+export function findRenderedComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
     root: Component<any>,
     type: ClassType<any, T, C>): T;
 

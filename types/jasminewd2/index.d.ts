@@ -3,7 +3,7 @@
 // Definitions by: Sammy Jelin <https://github.com/sjelin>
 //                 George Kalpakas <https://github.com/gkalpak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jasmine" />
 

@@ -179,6 +179,7 @@ Expressions examples
 
 		const x = parser.get('x');
 		const f = parser.get('f');
+		const y = parser.getAll();
 		const g = f(3, 3);
 
 		parser.set('h', 500);

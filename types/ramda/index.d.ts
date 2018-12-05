@@ -1,4 +1,4 @@
-// Type definitions for ramda 0.26
+// Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 //                 Tycho Grouwstra <https://github.com/tycho01>
@@ -564,8 +564,8 @@ declare namespace R {
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
         assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-        assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
         assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+        assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and

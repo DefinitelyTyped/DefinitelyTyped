@@ -31,7 +31,7 @@ declare class SonicBoom extends EventEmitter {
     /**
      * Reopen the file in place, useful for log rotation.
      */
-    reopen(file: string): void;
+    reopen(fileDescriptor?: string | number): void;
 
     /**
      * Flushes the buffered data synchronously. This is a costly operation.

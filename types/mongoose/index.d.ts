@@ -15,6 +15,7 @@
 //                 Fazendaaa <https://github.com/Fazendaaa>
 //                 Norman Perrin <https://github.com/NormanPerrin>
 //                 Dan Manastireanu <https://github.com/danmana>
+//                 stablio <https://github.com/stablio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -279,6 +280,16 @@ declare module "mongoose" {
       collection?: string
     ): U;
 
+    /**
+     * Removes the model named `name` from this connection, if it exists. You can
+     * use this function to clean up any models you created in your tests to
+     * prevent OverwriteModelErrors.
+     *
+     * @param name if string, the name of the model to remove. If regexp, removes all models whose name matches the regexp.
+     * @returns this
+     */
+    deleteModel(name: string | RegExp): Connection;
+
     /** Returns an array of model names created on this connection. */
     modelNames(): string[];
 
@@ -479,15 +490,6 @@ declare module "mongoose" {
   }
 
   /*
-   * section error/validation.js
-   * http://mongoosejs.com/docs/api.html#error-validation-js
-   */
-  class ValidationError extends Error {
-    /** Console.log helper */
-    toString(): string;
-  }
-
-  /*
    * section error.js
    * http://mongoosejs.com/docs/api.html#error-js
    */
@@ -511,6 +513,143 @@ declare module "mongoose" {
 
     /** For backwards compatibility. Same as mongoose.Error.messages */
     static Messages: any;
+
+  }
+
+  module Error {
+
+    /**
+     * section error/notFound.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.DocumentNotFoundError
+     *
+     * An instance of this error class will be returned when `save()` fails
+     * because the underlying
+     * document was not found. The constructor takes one parameter, the
+     * conditions that mongoose passed to `update()` when trying to update
+     * the document.
+     */
+    export class DocumentNotFoundError extends Error {
+    }
+
+    /**
+     * section error/cast.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.CastError
+     *
+     * An instance of this error class will be returned when mongoose failed to
+     * cast a value.
+     */
+    export class CastError extends Error {
+      stringValue: string;
+      kind: string;
+      path: string;
+      value: any;
+      reason?: any;
+      model?: any;
+
+      constructor(type: string, value: any, path: string, reason?: NativeError);
+
+      setModel(model: any): void;
+    }
+
+    /**
+     * section error/validation.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
+     *
+     * An instance of this error class will be returned when [validation](http://mongoosejs.com/docs/validation.html) failed.
+     */
+    export class ValidationError extends Error {
+      errors: any;
+
+      constructor(instance: MongooseDocument);
+
+      /** Console.log helper */
+      toString(): string;
+
+      inspect(): object;
+
+      toJSON(): object;
+
+      addError(path: string, error: any): void;
+    }
+
+    /**
+     * section error/validator.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidatorError
+     *
+     * A `ValidationError` has a hash of `errors` that contain individual `ValidatorError` instances
+     */
+    export class ValidatorError extends Error {
+      properties: any;
+      kind: string;
+      path: string;
+      value: any;
+      reason: any;
+
+      constructor(properties: any);
+
+      formatMessage(msg: string | Function, properties: any): string;
+
+      toString(): string;
+    }
+
+    /**
+     * section error/version.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.VersionError
+     *
+     * An instance of this error class will be returned when you call `save()` after
+     * the document in the database was changed in a potentially unsafe way. See
+     * the [`versionKey` option](http://mongoosejs.com/docs/guide.html#versionKey) for more information.
+     */
+    export class VersionError extends Error {
+      version: any;
+      modifiedPaths: Array<any>;
+
+      constructor(doc: MongooseDocument, currentVersion: any, modifiedPaths: any);
+    }
+
+    /**
+     * section error/parallelSave.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ParallelSaveError
+     *
+     * An instance of this error class will be returned when you call `save()` multiple
+     * times on the same document in parallel. See the [FAQ](http://mongoosejs.com/docs/faq.html) for more
+     * information.
+     */
+    export class ParallelSaveError extends Error {
+      constructor(doc: MongooseDocument);
+    }
+
+    /**
+     * section error/overwriteModel.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.OverwriteModelError
+     *
+     * Thrown when a model with the given name was already registered on the connection.
+     * See [the FAQ about `OverwriteModelError`](http://mongoosejs.com/docs/faq.html#overwrite-model-error).
+     */
+    export class OverwriteModelError extends Error {
+      constructor(name: string);
+    }
+
+    /**
+     * section error/missingSchema.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
+     *
+     * Thrown when you try to access a model that has not been registered yet
+     */
+    export class MissingSchemaError extends Error {
+      constructor(name: string);
+    }
+
+    /**
+     * section error/divergentArray.js
+     * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.DivergentArrayError
+     *
+     * An instance of this error will be returned if you used an array projection
+     * and then modified the array in an unsafe way.
+     */
+    export class DivergentArrayError extends Error {
+      constructor(paths: Array<any>);
+    }
   }
 
   interface EachAsyncOptions {
@@ -682,11 +821,11 @@ declare module "mongoose" {
      * @param fn callback
      */
     post<T extends Document>(method: string, fn: (
-      error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
+      doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
     post<T extends Document>(method: string, fn: (
-      doc: T, next: (err?: NativeError) => void
+      error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
     /**
@@ -1166,7 +1305,7 @@ declare module "mongoose" {
      * @param kind optional kind property for the error
      * @returns the current ValidationError, with all currently invalidated paths
      */
-    invalidate(path: string, errorMsg: string | NativeError, value: any, kind?: string): ValidationError | boolean;
+    invalidate(path: string, errorMsg: string | NativeError, value: any, kind?: string): Error.ValidationError | boolean;
 
     /** Returns true if path was directly set and modified, else false. */
     isDirectModified(path: string): boolean;

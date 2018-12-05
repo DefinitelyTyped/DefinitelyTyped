@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.38
+// Type definitions for plotly.js 1.41
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -804,6 +804,9 @@ export interface Config {
 
 	/** Which localization should we use? Should be a string like 'en' or 'en-US' */
 	locale: string;
+
+	/** Make the chart responsive to window size */
+	responsive: boolean;
 }
 
 // Components

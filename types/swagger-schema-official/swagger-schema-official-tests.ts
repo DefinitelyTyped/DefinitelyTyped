@@ -1243,7 +1243,11 @@ const uber: swagger.Spec = {
         },
         "surge_multiplier": {
           "type": "number",
-          "description": "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier."
+          "description": "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier.",
+          "minimum": 0,
+          "exclusiveMinimum": true,
+          "maximum": 10,
+          "exclusiveMaximum": true
         }
       }
     },
@@ -1365,7 +1369,13 @@ const reference_support: swagger.Spec = {
         "/path": {
             "get": {
                 "parameters": [
-                    {"$ref": "#/parameters/operationParameter"}
+                    {"$ref": "#/parameters/operationParameter"},
+                    {
+                        "in": "body",
+                        "name": "bodyParameter",
+                        "type": "string",
+                        "description": "The body parameter"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1380,7 +1390,13 @@ const reference_support: swagger.Spec = {
                 }
             },
             "parameters": [
-                {"$ref": "#/parameters/pathParameter"}
+                {"$ref": "#/parameters/pathParameter"},
+                {
+                    "in": "query",
+                    "name": "queryParameter",
+                    "type": "string",
+                    "description": "Another query parameter"
+                }
             ]
         }
     },

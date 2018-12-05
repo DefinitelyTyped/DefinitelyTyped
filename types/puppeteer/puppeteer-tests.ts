@@ -1,6 +1,19 @@
 import * as puppeteer from "puppeteer";
 import { TimeoutError } from "puppeteer/Errors";
 
+// Accessibility
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const snap = await page.accessibility.snapshot({
+    interestingOnly: true,
+  });
+  for (const child of snap.children) {
+    console.log(child.name);
+  }
+});
+
 // Basic nagivation
 (async () => {
   const browser = await puppeteer.launch();
