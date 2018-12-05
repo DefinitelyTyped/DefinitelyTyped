@@ -4,6 +4,7 @@
 //                 Jun Lu <https://github.com/lujun2>
 //                 Hernan Rajchert <https://github.com/hrajchert>
 //                 Titus Wormer <https://github.com/wooorm>
+//                 Junyoung Choi <https://github.com/rokt33r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
