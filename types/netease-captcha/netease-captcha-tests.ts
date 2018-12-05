@@ -13,8 +13,11 @@ const config: NeteaseCaptcha.Config = {
 const onLoad: NeteaseCaptcha.onLoad = (instance: NeteaseCaptcha.Instance) => {
     instance.refresh();
     instance.destroy();
+    if (instance.popUp) {
+        instance.popUp();
+    }
 };
 
-function init(initNECaptcha: NeteaseCaptcha.InitFunction): void {
-    initNECaptcha(config, onLoad);
+if (window.initNECaptcha) {
+    window.initNECaptcha(config, onLoad);
 }
