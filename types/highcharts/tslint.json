@@ -7,6 +7,7 @@
         "no-declare-current-package": false,
         "no-object-literal-type-assertion": false,
         "no-self-import": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-generics": false,
+        "no-angle-bracket-type-assertion": false
     }
 }

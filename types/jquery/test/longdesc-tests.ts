@@ -538,7 +538,7 @@ function longdesc() {
         $('#foo').slideUp(300).delay(800).fadeIn(400);
     }
 
-    function delegate_0(elements: HTMLElement[], selector: string, events: any, data: any, handler: JQuery.EventHandler<HTMLElement>) {
+    function delegate_0(elements: HTMLElement[], selector: string, events: string, data: any, handler: JQuery.TypeEventHandler<HTMLElement, any, any, any, string>) {
         // jQuery 1.4.3+
         $(elements).delegate(selector, events, data, handler);
         // jQuery 1.7+
@@ -886,7 +886,7 @@ function longdesc() {
         var currentRequests: JQuery.PlainObject = {};
 
         $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-            if ((<any> options).abortOnRetry) {
+            if ((options as any).abortOnRetry) {
                 if (currentRequests[options.url!]) {
                     currentRequests[options.url!].abort();
                 }
@@ -1297,7 +1297,7 @@ function longdesc() {
                         return $.css(elem, borderRadius!);
                     },
                     set: function(elem, value) {
-                        (<any> elem.style)[borderRadius!] = value;
+                        (elem.style as any)[borderRadius!] = value;
                     },
                 };
             }
@@ -2016,7 +2016,7 @@ function longdesc() {
     }
 
     function on_3() {
-        function greet(event: JQuery.Event<HTMLElement, { name: string; }>) {
+        function greet(event: JQuery.TriggeredEvent<HTMLElement, { name: string; }>) {
             alert('Hello ' + event.data.name);
         }
 
