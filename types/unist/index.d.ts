@@ -26,6 +26,8 @@ export interface Node {
      * Must not be present if a node is generated.
      */
     position?: Position;
+
+    [key: string]: unknown;
 }
 
 /**
