@@ -32,7 +32,7 @@ StringSchema.validate({
     basicString: "Test",
     limitedString: "pro",
     regExpString: "id"
-});
+}, {keys: ['basicString']});
 
 const StringSchemaWithOptions = new SimpleSchema({
     basicString: {

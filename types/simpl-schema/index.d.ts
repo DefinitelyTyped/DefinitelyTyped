@@ -5,7 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'simpl-schema' {
-
 export class ValidationContext {
     constructor(ss: any);
     addValidationErrors(errors: any): void;
@@ -133,6 +132,7 @@ interface ValidationOption {
     clean?: boolean;
     filter?: boolean;
     upsertextendedCustomContext?: boolean;
+    keys?: string[];
 }
 
 interface SimpleSchemaValidationContextStaticKeys {
@@ -188,24 +188,12 @@ export const SimpleSchema: SimpleSchemaStatic;
 export const SimpleSchemaValidationContext: SimpleSchemaValidationContextStatic;
 export const MongoObject: MongoObjectStatic;
 
-export interface SimpleSchema {
+export interface SimpleSchema extends SimpleSchemaStatic {
     debug: boolean;
     validate(obj: any, options?: ValidationOption): void;
     addValidator(validator: () => boolean): any;
     extendOptions(options: {[key: string]: any}): void;
     messages(messages: any): void;
-    RegEx: {
-      Email: RegExp;
-      Domain: RegExp;
-      WeakDomain: RegExp;
-      IP: RegExp;
-      IPv4: RegExp;
-      IPv6: RegExp;
-      Url: RegExp;
-      Id: RegExp;
-      ZipCode: RegExp;
-      Phone: RegExp;
-    };
 }
 
 export interface MongoObject {
@@ -213,5 +201,4 @@ export interface MongoObject {
 }
 
 export default SimpleSchema;
-
 }
