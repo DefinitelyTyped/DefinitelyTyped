@@ -33,6 +33,8 @@ export interface EmptyNumberOptions {
     step?: undefined;
 }
 
+export interface RadioOptions<T> { [key: string]: T}
+
 export function knob<T>(name: string, options: KnobOption<T>): T;
 
 export function text(name: string, value: string | null, groupId?: string): string;
@@ -47,7 +49,7 @@ export function color(name: string, value: string, groupId?: string): string;
 
 export function object<T>(name: string, value: T, groupId?: string): T;
 
-export function radios(name: string, options: object, value: string | null, groupId?: string): string;
+export function radios(name: string, options: RadioOptions<string>, value: string | null, groupId?: string): string;
 
 export type SelectValue = string | number;
 export function select<T extends string>(name: string, options: { [s: string]: string }, value: T, groupId?: string): T;
