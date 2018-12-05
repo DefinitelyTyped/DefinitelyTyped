@@ -2578,7 +2578,8 @@ declare namespace math {
          * @param object An object with functions to be imported.
          * @param options An object with import options.
          */
-        import(object: object | Array<object>, options: ImportOptions);
+        import(object: ImportObject | ImportObject[], options: ImportOptions): void;
+        // TypeScript Version: 2.4
 
         /**
          * It may not exists - this is _only_ for import functionality.
@@ -4560,5 +4561,9 @@ declare namespace math {
         override?: boolean;
         silent?: boolean;
         wrap?: boolean;
+    }
+
+    interface ImportObject {
+        [key: string]: any;
     }
 }

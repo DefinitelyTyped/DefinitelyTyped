@@ -392,3 +392,21 @@ JSON serialization/deserialization
 	const parsed = JSON.parse(stringified, math.json.reviver);
 	parsed.bigNumber === math.bignumber('1.5'); // true
 }
+
+/*
+Extend functionality with import
+ */
+{
+    const testFun = function() {
+        return 5;
+    };
+
+    math.import({
+        testFun,
+        value: 10
+    }, {});
+
+    math.testFun();
+
+    const a = math.value * 2;
+}
