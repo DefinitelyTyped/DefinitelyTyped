@@ -88,17 +88,17 @@ export interface InjectOptions extends CreateStyleSheetOptions {
 
 export type ClassNameMap<C extends string> = Record<C, string>;
 export type WithSheet<
-  S extends string | Styles | StyleCreator<string, any, any>,
+  S extends string | Styles | StyleCreator<string, any>,
   GivenTheme = undefined
 > = {
   classes: ClassNameMap<
     S extends string
       ? S
-      : S extends StyleCreator<infer C, any, any>
+      : S extends StyleCreator<infer C, any>
         ? C
-        : S extends Styles<infer C, any> ? C : never
+        : S extends Styles<infer C> ? C : never
   >;
-} & WithTheme<S extends StyleCreator<string, infer T, any> ? T : GivenTheme>;
+} & WithTheme<S extends StyleCreator<string, infer T> ? T : GivenTheme>;
 
 export interface WithTheme<T> {
   theme: T;
