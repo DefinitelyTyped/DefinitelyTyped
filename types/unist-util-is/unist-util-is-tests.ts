@@ -3,7 +3,7 @@ import is = require('unist-util-is');
 const node = {type: 'strong'};
 const parent = {type: 'paragraph', children: [node]};
 
-function test(node: unknown, n: number) {
+function test(node: unknown, n?: number) {
   return n === 5;
 }
 

@@ -14,7 +14,7 @@ declare namespace unistUtilIs {
      * @param index Position of node in parent
      * @param parent Parent of node
      */
-    type TestFunction<C = {}> = (this: C, node: unknown, index: number, parent: Unist.Parent) => boolean | void;
+    type TestFunction<C = {}> = (this: C, node: unknown, index?: number, parent?: Unist.Parent) => boolean | void;
     type Test<C = {}> = TestFunction<C> | Partial<Unist.Node> | string | null;
 }
 
