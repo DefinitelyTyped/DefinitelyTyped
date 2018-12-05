@@ -1,29 +1,44 @@
-const breaksEvent = new cast.framework.events.BreaksEvent('BREAK_STARTED');
-breaksEvent.breakId = 'some-break-id';
-breaksEvent.breakClipId = 'some-break-clip-id';
+import { MediaMetadata } from "chromecast-caf-receiver/cast.framework.messages";
+
+// The following test showcases how you can import individual types directly from the namespace:
+
+const mediaMetadata = new MediaMetadata();
+mediaMetadata.metadataType = "TV_SHOW";
+
+// The following tests showcase how you can globally access 'cast' types using
+// the nested namespace style. This is the preferred method as it
+// conforms exactly to the CAF documentation.
+
+const breaksEvent = new cast.framework.events.BreaksEvent("BREAK_STARTED");
+breaksEvent.breakId = "some-break-id";
+breaksEvent.breakClipId = "some-break-clip-id";
 
 const track = new cast.framework.messages.Track(1, "TEXT");
 const breakClip = new cast.framework.messages.BreakClip("id");
 const adBreak = new cast.framework.messages.Break("id", ["id"], 1);
-const rEvent = new cast.framework.events.RequestEvent("BITRATE_CHANGED", { requestId: 2 });
+const rEvent = new cast.framework.events.RequestEvent("BITRATE_CHANGED", {
+    requestId: 2
+});
 const pManager = new cast.framework.PlayerManager();
-pManager.addEventListener("STALLED", () => { });
+pManager.addEventListener("STALLED", () => {});
 const ttManager = new cast.framework.TextTracksManager();
 const qManager = new cast.framework.QueueManager();
 const qBase = new cast.framework.QueueBase();
 const items = qBase.fetchItems(1, 3, 4);
 const breakSeekData = new cast.framework.breaks.BreakSeekData(0, 100, []);
-const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorContext(adBreak);
+const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorContext(
+    adBreak
+);
 const breakManager: cast.framework.breaks.BreakManager = {
     getBreakById: () => adBreak,
     getBreakClipById: () => breakClip,
     getBreakClips: () => [breakClip],
     getBreaks: () => [adBreak],
     getPlayWatchedBreak: () => true,
-    setBreakClipLoadInterceptor: () => { },
-    setBreakSeekInterceptor: () => { },
-    setPlayWatchedBreak: () => { },
-    setVastTrackingInterceptor: () => { }
+    setBreakClipLoadInterceptor: () => {},
+    setBreakSeekInterceptor: () => {},
+    setPlayWatchedBreak: () => {},
+    setVastTrackingInterceptor: () => {}
 };
 
 const lrd: cast.framework.messages.LoadRequestData = {
@@ -76,4 +91,4 @@ const pData: cast.framework.ui.PlayerData = {
     whenSkippable: 321
 };
 const binder = new cast.framework.ui.PlayerDataBinder(pData);
-binder.addEventListener("ANY_CHANGE", e => { });
+binder.addEventListener("ANY_CHANGE", e => {});
