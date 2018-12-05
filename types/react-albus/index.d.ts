@@ -47,8 +47,19 @@ export interface StepsProps {
 
 export const Steps: React.ComponentType<StepsProps>;
 
-export type StepProps = { id: string } & (
+export type StepProps = WizardStepObject & (
     | { render?: (wizard: WizardContext) => React.ReactNode }
     | { children: (wizard: WizardContext) => React.ReactNode });
 
+/**
+ * In addition to id, any additional props added to <Step> will be available on each step object.
+ * This can be used to add names, descriptions, or other metadata to each step.
+ * To use this feature generally you need to augment the WizardStepObject
+ * @example
+ * declare module "react-albus" {
+ *   interface WizardStepObject {
+ *     propName: string;
+ *   }
+ * }
+ */
 export const Step: React.ComponentType<StepProps>;
