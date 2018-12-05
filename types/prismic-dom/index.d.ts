@@ -8,6 +8,7 @@
 interface RichText {
     asHtml<T>(richText: any, linkResolver?: (doc: any) => string, htmlSersializer?: HTMLSerializer<T>): string;
     asText(richText: any, joinString?: string): string;
+    Elements: Elements;
 }
 
 interface Link {
@@ -27,3 +28,25 @@ export const Link: Link;
 
 declare const _default: { RichText: RichText, Link: Link };
 export default _default;
+
+type Elements = {
+    heading1: any,
+    heading2: any,
+    heading3: any,
+    heading4: any,
+    heading5: any,
+    heading6: any,
+    paragraph: any,
+    preformatted: any,
+    strong: any,
+    em: any,
+    listItem: any,
+    oListItem: any,
+    list: any,
+    oList: any,
+    image: any,
+    embed: any,
+    hyperlink: any,
+    label: any,
+    span: any,
+};
