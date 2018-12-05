@@ -49,7 +49,11 @@ declare namespace convict {
         | 'duration'
         | 'timestamp'
         | 'nat'
-        | String;
+        | String
+        | Object
+        | Number
+        | RegExp
+        | Boolean;
 
     interface SchemaObj<T = any> {
         default: T;
