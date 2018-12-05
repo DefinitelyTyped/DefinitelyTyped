@@ -3306,7 +3306,7 @@ declare namespace wx {
 	function openCard(options: OpenCardOptions): void;
 
 	interface OpenSettingOptions extends BaseOptions {
-		success?(res: { authSetting: { [key in Scope]: string} }): void;
+		success?(res: { authSetting: { [key in Scope]: boolean } }): void;
 	}
 	/**
 	 * 调起客户端小程序设置界面，返回用户设置的操作结果。
