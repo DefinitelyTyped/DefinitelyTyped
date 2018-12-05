@@ -102,9 +102,7 @@ import {
       <h1>{additionalProp}</h1>
       {searchResults.hits.map((h) => {
         // $ExpectType string
-        const compound = h._highlightResult.field3.compound.value;
-        // $ExpectType never
-        const field2 = h._highlightResult.field2;
+        const compound = h._highlightResult.field3!.compound!.value;
         return <span>{compound}</span>;
       })}
     </div>;
@@ -121,7 +119,7 @@ import {
       <h1>{additionalProp}</h1>
       {searchResults.hits.map((h) => {
         // $ExpectType string[]
-        const words = h._highlightResult.field3.compound.matchedWords;
+        const words = h._highlightResult.field3!.compound!.matchedWords;
         return <span>{h.field2}: {words.join(',')}</span>;
       })}
     </div>;

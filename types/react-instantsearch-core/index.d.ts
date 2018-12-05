@@ -497,12 +497,18 @@ export interface SearchResults<TDoc = BasicDoc> {
  */
 export type Hit<TDoc = BasicDoc> = TDoc & {
   objectID: string;
+  /**
+   * Contains the searchable attributes within the document and shows which part of the
+   * attribute was matched by the search terms.  Note that if the index has defined
+   * any searchable attributes, this object will only contain those keys and others
+   * will not exist.
+   */
   '_highlightResult': HighlightResult<TDoc>;
 };
 
 export type HighlightResult<TDoc> =
   TDoc extends { [k: string]: any } ?
-    { [K in keyof TDoc]: HighlightResultField<TDoc[K]> } :
+    { [K in keyof TDoc]?: HighlightResultField<TDoc[K]> } :
     never;
 
 type HighlightResultField<TField> =
