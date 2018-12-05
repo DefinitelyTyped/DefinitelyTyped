@@ -1,7 +1,6 @@
 {
 	"extends": "dtslint/dt.json",
 	"rules": {
-		"indent": [true, "tabs"],
-		"no-single-declare-module": false
+		"indent": [true, "tabs"]
 	}
 }
