@@ -15,6 +15,11 @@ interface MyTheme {
   };
 }
 
+interface ButtonProps {
+    label: string;
+    size: number;
+}
+
 const styles: StyleCreator<'myButton' | 'myLabel', MyTheme, ButtonProps> = (theme) =>
   ({
     myButton: (props) => ({
@@ -30,14 +35,9 @@ const styles: StyleCreator<'myButton' | 'myLabel', MyTheme, ButtonProps> = (them
     }
   });
 
-interface ButtonProps {
-    label: string;
-    size: number;
-}
+interface Props extends ButtonProps, WithSheet<typeof styles> {}
 
-interface IProps extends ButtonProps, WithSheet<typeof styles> {}
-
-const Button: React.SFC<IProps> = ({ classes, children }) => {
+const Button: React.SFC<Props> = ({ classes, children }) => {
   return (
     <button className={classes.myButton}>
       <span className={classes.myLabel}>{children}</span>

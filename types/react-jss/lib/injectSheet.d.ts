@@ -66,11 +66,11 @@ export interface CSSProperties extends CSS.Properties<number | string> {
     | CSS.Properties<number | string>[keyof CSS.Properties]
     | CSSProperties;
 }
-export type Styles<ClassKey extends string = string, P extends {} = {}> = Record<
+export type Styles<ClassKey extends string = string, P extends {} = any> = Record<
   ClassKey,
   CSSProperties | ((props: P) => CSSProperties)
 >;
-export type StyleCreator<C extends string = string, T extends {} = {}, P extends {} = {}> = (
+export type StyleCreator<C extends string = string, T extends {} = {}, P extends {} = any> = (
   theme: T
 ) => Styles<C, P>;
 
