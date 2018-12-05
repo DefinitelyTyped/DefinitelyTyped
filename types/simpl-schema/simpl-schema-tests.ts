@@ -42,6 +42,9 @@ const StringSchemaWithOptions = new SimpleSchema({
         type: String,
         allowedValues: ['pro', 'con']
     },
+    subschema: {
+        type: StringSchema
+    },
     userId: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
@@ -60,4 +63,14 @@ const StringSchemaWithOptions = new SimpleSchema({
         getAutoValues: true,
         removeNullsFromArrays: true,
     }
+});
+
+new SimpleSchema({
+    shortBoolean: Boolean,
+    shortString: String,
+    shortNumber: Number,
+    shortInteger: SimpleSchema.Integer,
+    shortDate: Date,
+    shortArray: Array,
+    subSchema: StringSchemaWithOptions
 });

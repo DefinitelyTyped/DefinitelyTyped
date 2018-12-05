@@ -4,6 +4,8 @@
 //                 Qkramer <https://github.com/Qkramer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare module 'simpl-schema' {
+
 export class ValidationContext {
     constructor(ss: any);
     addValidationErrors(errors: any): void;
@@ -63,7 +65,16 @@ interface SimpleSchemaOptions {
 }
 
 interface SimpleSchemaStatic {
-  new(schema: {[key: string]: SchemaDefinition} | any[], options?: SimpleSchemaOptions): SimpleSchema;
+  new(
+    schema: {
+      [key: string]: SchemaDefinition
+        | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor
+        | ArrayConstructor
+        | string | RegExp
+        | SimpleSchema
+    } | any[],
+    options?: SimpleSchemaOptions
+  ): SimpleSchema;
   namedContext(name?: string): SimpleSchemaValidationContextStatic;
   addValidator(validator: () => boolean): any;
   pick(...fields: string[]): SimpleSchemaStatic;
@@ -202,3 +213,5 @@ export interface MongoObject {
 }
 
 export default SimpleSchema;
+
+}
