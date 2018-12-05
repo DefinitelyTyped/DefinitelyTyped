@@ -1,10 +1,11 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export type CardHeaderProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare var CardHeader: React.StatelessComponent<Props>;
+declare class CardHeader<T = {[key: string]: any}> extends React.Component<CardHeaderProps<T>> {}
 export default CardHeader;

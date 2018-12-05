@@ -26,6 +26,7 @@ thenableNum = chai.expect(thenableNum).to.notify(() => console.log('done'));
 // BDD API (should)
 thenableNum = thenableNum.should.be.fulfilled;
 thenableNum = thenableNum.should.eventually.deep.equal(3);
+thenableNum = thenableNum.should.eventually.become(3);
 thenableNum = thenableNum.should.become(3);
 thenableNum = thenableNum.should.be.rejected;
 thenableNum = thenableNum.should.be.rejectedWith(Error);

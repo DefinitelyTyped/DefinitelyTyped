@@ -1,5 +1,5 @@
 // Type definitions for imagemagick
-// Project: http://github.com/rsms/node-imagemagick
+// Project: https://github.com/rsms/node-imagemagick
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

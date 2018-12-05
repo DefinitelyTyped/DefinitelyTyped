@@ -1,158 +1,181 @@
-// Type definitions for Quill
+// Type definitions for Quill 2.0
 // Project: https://github.com/quilljs/quill/
 // Definitions by: Sumit <https://github.com/sumitkm>
+//                 Guillaume <https://github.com/guillaume-ro-fr>
+//                 James Garbutt <https://github.com/43081j>
+//                 Aniello Falcone <https://github.com/AnielloFalcone>
+//                 Mohammad Hossein Amri <https://github.com/mhamri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
-declare namespace Quill {
+import { Blot } from 'parchment/dist/src/blot/abstract/blot';
+import Delta = require('quill-delta');
 
-    type Key = { key: string, shortKey?: boolean };
-    type Sources = "api" | "user" | "silent";
-    type StringMap = { [key: string]: any };
-    type OptionalAttributes = { attributes?: StringMap };
+/**
+ * A stricter type definition would be:
+ *
+ *   type DeltaOperation ({ insert: any } | { delete: number } | { retain: number }) & OptionalAttributes;
+ *
+ *  But this would break a lot of existing code as it would require manual discrimination of the union types.
+ */
+export type DeltaOperation = { insert?: any, delete?: number, retain?: number } & OptionalAttributes;
+export type Sources = "api" | "user" | "silent";
+
+export interface Key {
+    key: string;
+    shortKey?: boolean;
+}
+
+export interface StringMap {
+    [key: string]: any;
+}
+
+export interface OptionalAttributes {
+    attributes?: StringMap;
+}
+
+export type TextChangeHandler = (delta: Delta, oldContents: Delta, source: Sources) => any;
+export type SelectionChangeHandler = (range: RangeStatic, oldRange: RangeStatic, source: Sources) => any;
+export type EditorChangeHandler = ((name: "text-change", delta: Delta, oldContents: Delta, source: Sources) => any)
+    | ((name: "selection-change", range: RangeStatic, oldRange: RangeStatic, source: Sources) => any);
+
+export interface KeyboardStatic {
+    addBinding(key: Key, callback: (range: RangeStatic, context: any) => void): void;
+    addBinding(key: Key, context: any, callback: (range: RangeStatic, context: any) => void): void;
+}
+
+export interface ClipboardStatic {
+    convert(html?: string): Delta;
+    addMatcher(selectorOrNodeType: string|number, callback: (node: any, delta: Delta) => Delta): void;
+    dangerouslyPasteHTML(html: string, source?: Sources): void;
+    dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;
+}
+
+export interface QuillOptionsStatic {
+    debug?: string | boolean;
+    modules?: StringMap;
+    placeholder?: string;
+    readOnly?: boolean;
+    theme?: string;
+    formats?: string[];
+    bounds?: HTMLElement | string;
+    scrollingContainer?: HTMLElement | string;
+    strict?: boolean;
+}
+
+export interface BoundsStatic {
+    bottom: number;
+    left: number;
+    right: number;
+    top: number;
+    height: number;
+    width: number;
+}
+
+export interface RangeStatic {
+    index: number;
+    length: number;
+}
+
+export class RangeStatic implements RangeStatic {
+    constructor();
+    index: number;
+    length: number;
+}
+
+export interface EventEmitter {
+    on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    on(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    once(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    once(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    once(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    off(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+}
+
+export class Quill implements EventEmitter {
     /**
-     * A stricter type definition would be:
-     *
-     *   type DeltaOperation ({ insert: any } | { delete: number } | { retain: number }) & OptionalAttributes;
-     *
-     *  But this would break a lot of existing code as it would require manual discrimination of the union types.
+     * @private Internal API
      */
-    type DeltaOperation = { insert?: any, delete?: number, retain?: number } & OptionalAttributes;
+    root: HTMLDivElement;
+    clipboard: ClipboardStatic;
+    scroll: Blot;
+    keyboard: KeyboardStatic;
+    constructor(container: string | Element, options?: QuillOptionsStatic);
+    deleteText(index: number, length: number, source?: Sources): Delta;
+    disable(): void;
+    enable(enabled?: boolean): void;
+    getContents(index?: number, length?: number): Delta;
+    getLength(): number;
+    getText(index?: number, length?: number): string;
+    insertEmbed(index: number, type: string, value: any, source?: Sources): Delta;
+    insertText(index: number, text: string, source?: Sources): Delta;
+    insertText(index: number, text: string, format: string, value: any, source?: Sources): Delta;
+    insertText(index: number, text: string, formats: StringMap, source?: Sources): Delta;
+    /**
+     * @deprecated Remove in 2.0. Use clipboard.dangerouslyPasteHTML(index: number, html: string, source: Sources)
+     */
+    pasteHTML(index: number, html: string, source?: Sources): string;
+    /**
+     * @deprecated Remove in 2.0. Use clipboard.dangerouslyPasteHTML(html: string, source: Sources): void;
+     */
+    pasteHTML(html: string, source?: Sources): string;
+    setContents(delta: Delta, source?: Sources): Delta;
+    setText(text: string, source?: Sources): Delta;
+    update(source?: Sources): void;
+    updateContents(delta: Delta, source?: Sources): Delta;
 
-    type TextChangeHandler = (delta: DeltaStatic, oldContents: DeltaStatic, source: Sources) => any;
-    type SelectionChangeHandler = (range: RangeStatic, oldRange: RangeStatic, source: Sources) => any;
-    type EditorChangeHandler = ((name: "text-change", delta: DeltaStatic, oldContents: DeltaStatic, source: Sources) => any)
-                             | ((name: "selection-change", range: RangeStatic, oldRange: RangeStatic, source: Sources) => any);
+    format(name: string, value: any, source?: Sources): Delta;
+    formatLine(index: number, length: number, source?: Sources): Delta;
+    formatLine(index: number, length: number, format: string, value: any, source?: Sources): Delta;
+    formatLine(index: number, length: number, formats: StringMap, source?: Sources): Delta;
+    formatText(index: number, length: number, source?: Sources): Delta;
+    formatText(index: number, length: number, format: string, value: any, source?: Sources): Delta;
+    formatText(index: number, length: number, formats: StringMap, source?: Sources): Delta;
+    formatText(range: RangeStatic, format: string, value: any, source?: Sources): Delta;
+    formatText(range: RangeStatic, formats: StringMap, source?: Sources): Delta;
+    getFormat(range?: RangeStatic): StringMap;
+    getFormat(index: number, length?: number): StringMap;
+    removeFormat(index: number, length: number, source?: Sources): Delta;
 
-    export interface KeyboardStatic {
-        addBinding(key: Key, callback: (range: RangeStatic, context: any) => void): void;
-        addBinding(key: Key, context: any, callback: (range: RangeStatic, context: any) => void) : void;
-    }
+    blur(): void;
+    focus(): void;
+    getBounds(index: number, length?: number): BoundsStatic;
+    getSelection(focus: true): RangeStatic;
+    getSelection(focus?: false): RangeStatic | null;
+    hasFocus(): boolean;
+    setSelection(index: number, length: number, source?: Sources): void;
+    setSelection(range: RangeStatic, source?: Sources): void;
 
-    export interface ClipboardStatic {
-        addMatcher(selector: string, callback: (node: any, delta: DeltaStatic) => DeltaStatic) : void;
-        addMatcher(nodeType: number, callback: (node: any, delta: DeltaStatic) => DeltaStatic) : void;
-        dangerouslyPasteHTML(html: string, source?: Sources): void;
-        dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;
-    }
+    // static methods: debug, import, register, find
+    static debug(level: string|boolean): void;
+    static import(path: string): any;
+    static register(path: string, def: any, suppressWarning?: boolean): void;
+    static register(defs: StringMap, suppressWarning?: boolean): void;
+    static find(domNode: Node, bubble?: boolean): Quill | any;
 
-    export interface QuillOptionsStatic {
-        debug?: string,
-        modules?: StringMap,
-        placeholder?: string,
-        readOnly?: boolean,
-        theme?: string,
-        formats?: string[],
-        bounds?: HTMLElement | string
-    }
+    addContainer(classNameOrDomNode: string|Node, refNode?: Node): any;
+    getModule(name: string): any;
 
-    export interface BoundsStatic {
-        left: number,
-        top: number,
-        height: number,
-        width: number
-    }
+    // Blot interface is not exported on Parchment
+    getIndex(blot: any): number;
+    getLeaf(index: number): any;
+    getLine(index: number): [any, number];
+    getLines(index?: number, length?: number): any[];
+    getLines(range: RangeStatic): any[];
 
-    export interface DeltaStatic {
-        new (ops?: DeltaOperation[] | { ops: DeltaOperation[] }) : DeltaStatic;
-        ops?: DeltaOperation[];
-        retain(length: number, attributes?: StringMap) : DeltaStatic;
-        delete(length: number) : DeltaStatic;
-        filter(predicate: (op: DeltaOperation) => boolean) : DeltaOperation[];
-        forEach(predicate: (op: DeltaOperation) => void) : void;
-        insert(text: any, attributes?: StringMap): DeltaStatic;
-        map<T>(predicate: (op: DeltaOperation) => T) : T[];
-        partition(predicate: (op: DeltaOperation) => boolean) : [DeltaOperation[], DeltaOperation[]];
-        reduce<T>(predicate: (acc: T, curr: DeltaOperation, idx: number, arr: DeltaOperation[]) => T, initial: T): T;
-        chop() : DeltaStatic;
-        length(): number;
-        slice(start?: number, end?: number): DeltaStatic;
-        compose(other: DeltaStatic): DeltaStatic;
-        concat(other: DeltaStatic): DeltaStatic;
-        diff(other: DeltaStatic, index?: number) : DeltaStatic;
-        eachLine(predicate: (line: DeltaStatic, attributes: StringMap, idx: number) => any, newline?: string) : DeltaStatic;
-        transform(index: number) : number;
-        transform(other: DeltaStatic, priority: boolean) : DeltaStatic;
-        transformPosition(index: number) : number;
-    }
-
-    export interface RangeStatic {
-        new (): RangeStatic;
-        index: number;
-        length: number;
-    }
-
-    export interface EventEmitter {
-        on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
-        on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
-        on(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
-        once(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
-        once(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
-        once(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
-        off(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
-        off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
-        off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
-    }
-
-    export interface Quill extends EventEmitter {
-        new (container: string | Element, options?: QuillOptionsStatic): Quill;
-        deleteText(index: number, length: number, source?: Sources): void;
-        disable(): void;
-        enable(enabled?: boolean): void;
-        getContents(index?: number, length?: number): DeltaStatic;
-        getLength(): number;
-        getText(index?: number, length?: number): string;
-        insertEmbed(index: number, type: string, value: any, source?: Sources): void;
-        insertText(index: number, text: string, source?: Sources): DeltaStatic;
-        insertText(index: number, text: string, format: string, value: any, source?: Sources): DeltaStatic;
-        insertText(index: number, text: string, formats: StringMap, source?: Sources): DeltaStatic;
-        /**
-        * @deprecated Use clipboard.dangerouslyPasteHTML(index: number, html: string, source: Sources)
-        */
-        pasteHTML(index: number, html: string, source?: Sources): string;
-        /**
-        * @deprecated Use dangerouslyPasteHTML(html: string, source: Sources): void;
-        */
-        pasteHTML(html: string, source?: Sources): string;
-        setContents(delta: DeltaStatic, source?: Sources): DeltaStatic;
-        setText(text: string, source?: Sources): DeltaStatic;
-        update(source?: string): void;
-        updateContents(delta: DeltaStatic, source?: Sources): DeltaStatic;
-
-        format(name: string, value: any, source?: Sources): DeltaStatic;
-        formatLine(index: number, length: number, source?: Sources): DeltaStatic;
-        formatLine(index: number, length: number, format: string, value: any, source?: Sources): DeltaStatic;
-        formatLine(index: number, length: number, formats: StringMap, source?: Sources): DeltaStatic;
-        formatText(index: number, length: number, source?: Sources): DeltaStatic;
-        formatText(index: number, length: number, format: string, value: any, source?: Sources): DeltaStatic;
-        formatText(index: number, length: number, formats: StringMap, source?: Sources): DeltaStatic;
-        getFormat(range?: RangeStatic): StringMap;
-        getFormat(index: number, length?: number): StringMap;
-        removeFormat(index: number, length: number, source?: Sources): void;
-
-        blur(): void;
-        focus(): void;
-        getBounds(index: number, length?: number): BoundsStatic;
-        getSelection(focus?: boolean): RangeStatic;
-        hasFocus(): boolean;
-        setSelection(index: number, length: number, source?: Sources): void;
-        setSelection(range: RangeStatic, source?: Sources): void;
-
-        debug(level: string): void;
-        import(path: string): any;
-        register(path: string, def: any, suppressWarning?: boolean): void;
-        register(defs: StringMap, suppressWarning?: boolean): void;
-        addContainer(className: string, refNode?: any): any;
-        addContainer(domNode: any, refNode?: any): any;
-        getModule(name: string): any
-
-        clipboard: ClipboardStatic;
-    }
+    // EventEmitter methods
+    on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    on(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    once(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    once(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    once(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    off(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
 }
 
-declare var Quill: Quill.Quill;
-
-declare var Delta: Quill.DeltaStatic;
-
-declare module "quill" {
-    export = Quill;
-}
+export default Quill;

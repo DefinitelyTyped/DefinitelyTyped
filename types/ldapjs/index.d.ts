@@ -1,6 +1,6 @@
 // Type definitions for ldapjs 1.0
 // Project: http://ldapjs.org
-// Definitions by: Charles Villemure <https://github.com/cvillemure/>, Peter Kooijmans <https://github.com/peterkooijmans/>
+// Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -52,7 +52,7 @@ export interface ClientOptions {
 
 export interface SearchOptions {
 	scope?: string;
-	filter?: string;
+	filter?: string | Filter;
 	attributes?: string[];
 	sizeLimit?: number;
 	timeLimit?: number;
@@ -69,6 +69,10 @@ export interface Change {
 	modification: {
 		[key: string]: any;
 	};
+}
+
+export var Change: {
+	new(change: Change): Change;
 }
 
 export interface SearchCallBack {
@@ -234,3 +238,46 @@ export interface Client extends EventEmitter {
 }
 
 export function createClient(options?: ClientOptions): Client;
+
+declare class Filter {
+	matches(obj: any): boolean;
+	type: string;
+}
+
+export function parseFilter(filterString: string): Filter;
+
+export class EqualityFilter extends Filter {
+	constructor(options: { attribute: string, value: string })
+}
+
+export class PresenceFilter extends Filter {
+	constructor(options: { attribute: string })
+}
+
+export class SubstringFilter extends Filter {
+	constructor(options: { attribute: string, initial: string, any?: string[], final?: string })
+}
+
+export class GreaterThanEqualsFilter extends Filter {
+	constructor(options: { attribute: string, value: string })
+}
+
+export class LessThanEqualsFilter extends Filter {
+	constructor(options: { attribute: string, value: string })
+}
+
+export class AndFilter extends Filter {
+	constructor(options: { filters: Filter[] })
+}
+
+export class OrFilter extends Filter {
+	constructor(options: { filters: Filter[] })
+}
+
+export class NotFilter extends Filter {
+	constructor(options: { filter: Filter })
+}
+
+export class ApproximateFilter extends Filter {
+	constructor(options: { attribute: string, value: string })
+}

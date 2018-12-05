@@ -1,40 +1,42 @@
-import * as Sinon from "sinon";
-import { mockReq, mockRes } from "sinon-express-mock";
+import {
+    spy,
+} from "sinon";
 
-const req = mockReq({});
-const acceptStub: Sinon.SinonStub = req.accepts();
-const acceptsCharsetsStub: Sinon.SinonStub = req.acceptsCharsets();
-const acceptsEncodingsStub: Sinon.SinonStub = req.acceptsEncodings();
-const acceptsLanguagesStub: Sinon.SinonStub = req.acceptsLanguages();
-const bodyObj: object = req.body;
-const flashStub: Sinon.SinonStub = req.flash();
-const getStub: Sinon.SinonStub = req.get();
-const isStub: Sinon.SinonStub = req.is();
-const paramsObj: object = req.params;
-const queryObj: object = req.query;
-const sessionObj: object = req.session;
+import {
+    RequestHandler,
+} from "express";
 
-const res = mockRes({});
-const append: Sinon.SinonStub = res.append();
-const attachement: Sinon.SinonStub = res.attachement();
-const clearCookie: Sinon.SinonStub = res.clearCookie();
-const cookie: Sinon.SinonStub = res.cookie();
-const download: Sinon.SinonStub = res.download();
-const end: Sinon.SinonStub = res.end();
-const format: object = res.format;
-const get: Sinon.SinonStub = res.get();
-const headersSent: Sinon.SinonStub = res.headersSent();
-const json: Sinon.SinonStub = res.json();
-const jsonp: Sinon.SinonStub = res.jsonp();
-const links: Sinon.SinonStub = res.links();
-const locals: object = res.locals;
-const location: Sinon.SinonStub = res.location();
-const redirect: Sinon.SinonStub = res.redirect();
-const render: Sinon.SinonStub = res.render();
-const send: Sinon.SinonStub = res.send();
-const sendFile: Sinon.SinonStub = res.sendFile();
-const sendStatus: Sinon.SinonStub = res.sendStatus();
-const set: Sinon.SinonStub = res.set();
-const status: Sinon.SinonStub = res.status();
-const type: Sinon.SinonStub = res.type();
-const vary: Sinon.SinonStub = res.vary();
+import {
+    mockReq,
+    mockRes,
+} from "sinon-express-mock";
+
+const handlers: RequestHandler[] = [];
+
+handlers.push((req, res, next) => {
+    // mock common methods
+    res.send(JSON.stringify(req.accepts())).end();
+});
+
+handlers.push((req, res, next) => {
+    // next is not a part of the package, it has to be mocked manually
+    next();
+});
+
+handlers.push((req, res, next) => {
+    // cookies are not mocked, but it should be working anyway
+    res.send(JSON.stringify(req.cookies)).end();
+});
+
+for (const handler of handlers) {
+    // run the handler, an exception should be thrown on error
+    handler(mockReq(), mockRes(), spy());
+}
+
+// test req generics
+const req = mockReq({ testMockReq: `test` });
+console.assert(typeof req.testMockReq === "string");
+
+// test res generics
+const res = mockRes({ testMockRes: `test` });
+console.assert(typeof res.testMockRes === "string");

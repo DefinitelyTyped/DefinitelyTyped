@@ -1,78 +1,95 @@
-// Type definitions for multer-gridfs-storage 1.1
+// Type definitions for multer-gridfs-storage 3.1
 // Project: https://github.com/devconcept/multer-gridfs-storage
-// Definitions by: devconcept <https://github.com/devconcept/>
+// Definitions by: devconcept <https://github.com/devconcept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { EventEmitter } from 'events';
 import { Express } from 'express';
 import * as Multer from 'multer';
-import { Grid } from 'gridfs-stream';
+import { Db, MongoClient } from 'mongodb';
+import { Connection, Mongoose } from 'mongoose';
 
-type logConfig = 'file' | 'all';
-
-interface StorageLog {
-	message: string;
-	extra: any;
-}
-
-type NodeCb<T> = (err: Error | null, value: T | null) => void;
-
-type ConfigFn<T> = (req: Express.Request, file: Express.Multer.File, cb: T) => void;
-
-// TODO: PR and add this interface to the mongodb types
-interface GridFile {
-	_id: any;
-	filename: string;
-	contentType: string;
-	length: number;
-	chunkSize: number;
-	uploadDate: Date;
-	aliases: any;
-	metadata: any;
-	md5: string;
+declare class Cache {
+    initialize(opts: object): object;
+    findUri(cacheName: string, url: string): string;
+    has(cacheIndex: object): boolean;
+    get(cacheIndex: object): object;
+    set(cacheIndex: object, value: object): void;
+    isPending(cacheIndex: object): boolean;
+    isOpening(cacheIndex: object): boolean;
+    resolve(cacheIndex: object, db: Db, client: MongoClient): void;
+    reject(cacheIndex: object, err: Error): void;
+    waitFor(cacheIndex: object): Promise<object>;
+    connections(): number;
+    remove(cacheIndex: object): void;
+    clear(): void;
 }
 
 interface MulterGfsOptions {
-	filename?: ConfigFn<NodeCb<string>>;
-	identifier?: ConfigFn<NodeCb<any>>;
-	metadata?: ConfigFn<NodeCb<any>>;
-	chunkSize?: number | ConfigFn<NodeCb<number>>;
-	root?: string | ConfigFn<NodeCb<string>>;
-	log?: boolean | NodeCb<StorageLog>;
-	logLevel?: logConfig;
+    file?(req: Express.Request, file: Express.Multer.File): any;
 }
 
 declare class MulterGridfsStorage extends EventEmitter implements Multer.StorageEngine {
-	constructor(settings: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.GfsStorageOptions);
+    db: Db;
+    client: MongoClient;
+    connected: boolean;
+    connecting: boolean;
+    configuration: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.DbStorageOptions;
+    error: Error;
+    caching: boolean;
+    cacheName: string;
+    cacheIndex: object;
 
-	_handleFile(req: Express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+    constructor(configuration: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.DbStorageOptions);
 
-	_removeFile(req: Express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
+    _handleFile(req: Express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+
+    _removeFile(req: Express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
+
+    static cache: Cache;
 }
 
 declare namespace MulterGridfsStorage {
-	interface UrlStorageOptions extends MulterGfsOptions {
-		url: string;
-	}
+    interface UrlStorageOptions extends MulterGfsOptions {
+        url: string;
+        options?: any;
+        cache?: boolean | string;
+    }
 
-	interface GfsStorageOptions extends MulterGfsOptions {
-		gfs: Promise<Grid> | Grid;
-	}
+    interface DbStorageOptions extends MulterGfsOptions {
+        db: Mongoose | Connection | Db | MongoClient | Promise<Mongoose | Connection | Db | MongoClient>;
+    }
+
+    interface FileConfig {
+        filename?: string;
+        id?: any;
+        metadata?: object;
+        chunkSize?: number;
+        bucketName?: string;
+        contentType?: string;
+        aliases?: string[];
+        disableMD5?: boolean;
+    }
 }
 
 // Merge multer's file declaration with ours
 declare global {
-	namespace Express {
-		namespace Multer {
-			interface File {
-				filename: string;
-				metadata: any;
-				id: any;
-				grid: GridFile;
-				size: number;
-			}
-		}
-	}
+    namespace Express {
+        namespace Multer {
+            interface File {
+                id: any;
+                filename: string;
+                metadata: any;
+                contentType: string;
+                chunkSize: number;
+                bucketName: string;
+                uploadDate: Date;
+                md5: string;
+                size: number;
+            }
+        }
+    }
 }
 
 export = MulterGridfsStorage;

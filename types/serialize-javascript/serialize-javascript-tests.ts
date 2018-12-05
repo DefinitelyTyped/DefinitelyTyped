@@ -1,4 +1,4 @@
-import * as serialize from "serialize-javascript";
+import serialize = require("serialize-javascript");
 
 const obj: any = {
     str: "string",

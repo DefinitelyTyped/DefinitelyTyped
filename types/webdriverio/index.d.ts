@@ -1,9 +1,11 @@
-// Type definitions for WebdriverIO 4.8
+// Type definitions for WebdriverIO 4.13
 // Project: http://www.webdriver.io/
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 //                 Tim Brust <https://github.com/timbru31>
 //                 Fredrik Smedberg <https://github.com/fsmedberg-tc>
 //                 Tanvir ul Islam <https://github.com/tanvirislam06>
+//                 Dave Parslow <https://github.com/daveparslow>
+//                 Phil Leger <https://github.com/phil-lgr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -177,6 +179,9 @@ declare namespace WebdriverIO {
         setWindowRect?: boolean;
         timeouts?: Timeouts;
         unhandledPromptBehavior?: string;
+
+        // wdio-sauce-service specific
+        build?: string;
     }
 
     interface DesiredCapabilities extends Capabilities {
@@ -307,15 +312,22 @@ declare namespace WebdriverIO {
         // RC
         honorSystemProxy?: boolean;
         ensureCleanSession?: boolean;
+
+        // Exclude
+        exclude?: string[];
+
+        // Define which test specs should run (only on the desired capability)
+        specs?: string[];
     }
 
-    interface Cookie extends RawResult<string> {
+    interface Cookie {
         name: string;
         value: string;
         path?: string;
         httpOnly?: boolean;
         expiry?: number;
-        secure: boolean;
+        secure?: boolean;
+        domain?: string;
     }
 
     interface Suite {
@@ -333,70 +345,73 @@ declare namespace WebdriverIO {
     }
 
     interface Hooks {
-        onError<T>(error: Error): Promise<T> & undefined;
+        onError?(error: Error): Promise<any> | void;
 
-        onPrepare<T>(
+        onPrepare?(
             config: Options,
             capabilities: DesiredCapabilities
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        onComplete<T>(exitCode: number): Promise<T> & undefined;
+        onComplete?(exitCode: number): Promise<any> | void;
 
-        before<T>(
+        before?(
             capabilities: DesiredCapabilities,
             specs: string[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | undefined;
 
-        beforeCommand<T>(
+        beforeCommand?(
             commandName: string,
             args: any[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        beforeFeature<T>(feature: string): Promise<T> & undefined;
-        beforeHook<T>(): Promise<T> & undefined;
-        beforeScenario<T>(scenario: string): Promise<T> & undefined;
+        beforeHook?(): Promise<any> | void;
 
-        beforeSession<T>(
+        beforeSession?(
             config: Options,
             capabilities: DesiredCapabilities,
             specs: string[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        beforeStep<T>(step: string): Promise<T> & undefined;
-        beforeSuite<T>(suite: Suite): Promise<T> & undefined;
-        beforeTest<T>(test: Test): Promise<T> & undefined;
-        afterHook<T>(): Promise<T> & undefined;
+        beforeSuite?(suite: Suite): Promise<any> | void;
+        beforeTest?(test: Test): Promise<any> | void;
+        afterHook?(): Promise<any> | void;
 
-        after<T>(
+        after?(
             result: number,
             capabilities: DesiredCapabilities,
             specs: string[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        afterCommand<T>(
+        afterCommand?(
             commandName: string,
             args: any[],
             result: any,
             error?: Error
-        ): Promise<T> & undefined;
+        ): Promise<any> | undefined;
 
-        afterScenario<T>(scenario: any): Promise<T> & undefined;
-
-        afterSession<T>(
+        afterSession?(
             config: Options,
             capabilities: DesiredCapabilities,
             specs: string[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        afterStep<T>(stepResult: any): Promise<T> & undefined;
-        afterSuite<T>(suite: Suite): Promise<T> & undefined;
-        afterTest<T>(test: Test): Promise<T> & undefined;
-        afterFeature<T>(feature: string): Promise<T> & undefined;
+        afterSuite?(suite: Suite): Promise<any> | void;
+        afterTest?(test: Test): Promise<any> | void;
+
+         // cucumber specific hooks
+         beforeFeature?(feature: string): Promise<any> | void;
+         beforeScenario?(scenario: string): Promise<any> | void;
+         beforeStep?(step: string): Promise<any> | void;
+         afterFeature?(feature: string): Promise<any> | void;
+         afterScenario?(scenario: any): Promise<any> | void;
+         afterStep?(stepResult: any): Promise<any> | void;
     }
 
     interface Options {
         baseUrl?: string;
         bail?: number;
+        deprecationWarnings?: boolean;
+        browserstackLocal?: boolean;
         coloredLogs?: boolean;
         capabilities?: DesiredCapabilities[];
         connectionRetryTimeout?: number;
@@ -406,14 +421,14 @@ declare namespace WebdriverIO {
         desiredCapabilities?: DesiredCapabilities;
         exclude?: string[];
         framework?: string;
-        hostname?: string;
+        host?: string;
         isWDIO?: boolean;
         protocol?: string;
         port?: number;
         path?: string;
         plugins?: { [name: string]: any; };
-        reporters?: string | ((...args: any[]) => void);
-        reporterOptions?: { outputDir?: string; };
+        reporters?: string[] | ((...args: any[]) => void);
+        reporterOptions?: { outputDir?: string, [reporterName: string]: any };
         logLevel?: string;
         maxInstances?: number;
         maxInstancesPerCapability?: number;
@@ -421,7 +436,7 @@ declare namespace WebdriverIO {
         mochaOpts?: { [name: string]: any; };
         jasmineNodeOpts?: { [name: string]: any; };
         cucumberOpts?: { [name: string]: any; };
-        services?: string | ((...args: any[]) => void);
+        services?: string[] | ((...args: any[]) => void);
         screenshotPath?: string;
         specs?: string[];
         seleniumLogs?: string;
@@ -431,6 +446,15 @@ declare namespace WebdriverIO {
         waitforInterval?: number;
         user?: string;
         key?: string;
+
+        // wdio-sauce-service specific
+        sauceConnect?: boolean;
+        sauceConnectOpts?: { [name: string]: any; };
+
+        // wdio-docker-service specific
+        dockerOptions?: { [name: string]: any; };
+        onDockerReady?: ((...args: any[]) => void);
+        dockerLogs?: string;
     }
 
     interface UnknownOptions {
@@ -461,8 +485,8 @@ declare namespace WebdriverIO {
         run(): Promise<any>;
     }
 
-    class ErrorHandler {
-        constructor(type: string, msg: string | number);
+    class ErrorHandler extends Error {
+        constructor(type: string, msg: string | number, details?: string);
     }
 
     function multiremote(options: MultiRemoteOptions): Client<void>;
@@ -769,8 +793,8 @@ declare namespace WebdriverIO {
         deleteCookie(name?: string): Client<RawResult<null>> & RawResult<null>;
         deleteCookie<P>(name?: string): Client<P>;
 
-        getCookie(): Client<Cookie[]> & Cookie[];
-        getCookie(name: string): Client<Cookie> & Cookie;
+        getCookie(): Client<Cookie & Array<RawResult<string>>> & Cookie[] & Array<RawResult<string>>;
+        getCookie(name: string): Client<Cookie & RawResult<string>> & Cookie & RawResult<string>;
         getCookie<P>(name?: string): Client<P>;
 
         setCookie(cookie: Cookie): Client<RawResult<null>> & RawResult<null>;
@@ -793,8 +817,8 @@ declare namespace WebdriverIO {
     interface Client<T> {
         background(seconds: number): Client<T>;
         closeApp(): Client<T>;
-        context(id?: string): Client<T>;
-        contexts(): Client<T>;
+        context(id?: string): Client<T> & RawResult<string>;
+        contexts(): Client<T> & RawResult<string[]>;
         currentActivity(): any;
         deviceKeyEvent(keyValue: number): Client<T>;
         getAppStrings(language: string): Client<T>;
@@ -838,7 +862,7 @@ declare namespace WebdriverIO {
         setOrientation(setTo: 'landscape' | 'portrait'): Client<T>;
         settings(settings?: { [key: string]: string }): Client<T>;
         shake(): Client<T>;
-        startActivity(appPackage: string, activity: string): Client<T>;
+        startActivity(appPackage: string, activity: string, appWaitPackage?: string, appWaitActivity?: string): Client<T>;
         strings(language: string): Client<T>;
 
         swipe(
@@ -863,6 +887,9 @@ declare namespace WebdriverIO {
         touchMultiPerform(actions: any): Client<T>;
         touchPerform(actions: any): Client<T>;
         unlock(): Client<T>;
+        isIOS: boolean;
+        isAndroid: boolean;
+        isMobile: boolean;
     }
 
     // Property
@@ -1033,12 +1060,12 @@ declare namespace WebdriverIO {
         /** @deprecated in favour of Actions.pointerUp */
         buttonUp<P>(button?: string | Button): Client<P>;
 
-        cookie(): Client<RawResult<Cookie[]>> & RawResult<Cookie[]>;
+        cookie(): Client<RawResult<Cookie[] & Array<RawResult<string>>>> & RawResult<Cookie[] & Array<RawResult<string>>>;
 
         cookie(
             method: Method,
-            key?: Cookie | string
-        ): Client<RawResult<Cookie[]>> & RawResult<Cookie[]>;
+            key?: (Cookie & RawResult<string>) | string
+        ): Client<RawResult<Cookie[] & Array<RawResult<string>>>> & RawResult<Cookie[] & Array<RawResult<string>>>;
 
         /** @deprecated in favour of Actions.pointerDown(0) + Actions.pointerMove */
         doDoubleClick(): Client<RawResult<null>> & RawResult<null> & never;
@@ -1209,7 +1236,7 @@ declare namespace WebdriverIO {
         init<P>(capabilities?: DesiredCapabilities): Client<P>;
 
         /** @deprecated in favour of Actions.keyDown */
-        keys(value: string | string[]): Client<RawResult<null>> & RawResult<null> & never;
+        keys(value: string | string[]): Client<RawResult<null>> & RawResult<null> & Client<void>;
 
         /** @deprecated in favour of Actions.keyDown */
         keys<P>(value: string | string[]): Client<P>;
@@ -1888,6 +1915,12 @@ declare namespace WebdriverIO {
 }
 
 declare var browser: WebdriverIO.Client<void>;
+
+declare function $(selector: string): WebdriverIO.Client<WebdriverIO.RawResult<WebdriverIO.Element>> & WebdriverIO.RawResult<WebdriverIO.Element>;
+declare function $<P>(selector: string): WebdriverIO.Client<P>;
+
+declare function $$(selector: string): Array<WebdriverIO.Client<WebdriverIO.RawResult<WebdriverIO.Element>>> & Array<WebdriverIO.RawResult<WebdriverIO.Element>>;
+declare function $$<P>(selector: string): WebdriverIO.Client<P>;
 
 declare module "webdriverio" {
     export = WebdriverIO;

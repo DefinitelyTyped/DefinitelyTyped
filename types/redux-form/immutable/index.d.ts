@@ -2,6 +2,9 @@ export {
     Field,
     FieldArray,
     Fields,
+    Form,
+    FormName,
+    FormSection,
     reduxForm,
     reducer,
     formValueSelector,
@@ -19,5 +22,7 @@ export {
     isInvalid,
     isPristine,
     isSubmitting,
+    isAsyncValidating,
     isValid,
-} from "redux-form";
+    SubmissionError
+} from "../";

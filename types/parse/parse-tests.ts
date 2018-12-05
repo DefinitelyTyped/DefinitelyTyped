@@ -1,22 +1,3 @@
-
-
-function test_events() {
-
-    var object = new Parse.Events();
-    object.on("alert", (eventName: string) => alert("Triggered " + eventName));
-
-    object.trigger("alert", "an event");
-
-    var onChange = () => console.log('whatever');
-    var context: any;
-
-    object.off("change", onChange);
-    object.off("change");
-    object.off(null, onChange);
-    object.off(null, null, context);
-    object.off();
-}
-
 class GameScore extends Parse.Object {
 
     constructor(options?: any) {
@@ -29,27 +10,43 @@ class Game extends Parse.Object {
 
     constructor(options?: any) {
 
-        super("GameScore", options);
+        super("Game", options);
     }
 }
 
 function test_object() {
 
-    var game = new Game();
+    const game = new Game();
 
-    game.fetch((g: Game) => {});
+    if (!game.isNew()) {
+        console.error("Game should be new");
+    }
 
-// Create a new instance of that class.
-    var gameScore = new GameScore();
+    if (game.toPointer().className !== "Game") {
+        console.log("Class name should be 'Game")
+    }
+
+    game.fetch({
+        success(g: Game) { }
+    });
+
+    // Create a new instance of that class.
+    const gameScore = new GameScore();
 
     gameScore.set("score", 1337);
     gameScore.set("playerName", "Sean Plott");
     gameScore.set("cheatMode", false);
 
 
-    var score = gameScore.get("score");
-    var playerName = gameScore.get("playerName");
-    var cheatMode = gameScore.get("cheatMode");
+    // Setting attrs using object
+    gameScore.set({
+        level: '10',
+        difficult: 15
+    });
+
+    const score = gameScore.get("score");
+    const playerName = gameScore.get("playerName");
+    const cheatMode = gameScore.get("cheatMode");
 
     gameScore.increment("score");
     gameScore.addUnique("skills", "flying");
@@ -57,16 +54,17 @@ function test_object() {
 
     game.set("gameScore", gameScore);
 
-    var gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
+    const gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
 }
 
 function test_query() {
 
-    var gameScore = new GameScore();
+    const gameScore = new GameScore();
 
-    var query = new Parse.Query(GameScore);
+    const query = new Parse.Query(GameScore);
     query.equalTo("playerName", "Dan Stemkoski");
     query.notEqualTo("playerName", "Michael Yabuti");
+    query.fullText("playerName", "dan", { language: 'en', caseSensitive: false, diacriticSensitive: true });
     query.greaterThan("playerAge", 18);
     query.limit(10);
     query.skip(10);
@@ -91,11 +89,11 @@ function test_query() {
 
     // Finds scores from any of Jonathan, Dario, or Shawn
     query.containedIn("playerName",
-                      ["Jonathan Walsh", "Dario Wunsch", "Shawn Simon"]);
+        ["Jonathan Walsh", "Dario Wunsch", "Shawn Simon"]);
 
     // Finds scores from anyone who is neither Jonathan, Dario, nor Shawn
     query.notContainedIn("playerName",
-                         ["Jonathan Walsh", "Dario Wunsch", "Shawn Simon"]);
+        ["Jonathan Walsh", "Dario Wunsch", "Shawn Simon"]);
 
     // Finds objects that have the score set
     query.exists("score");
@@ -118,16 +116,39 @@ function test_query() {
     query.include("score");
     query.include(["score.team"]);
 
-    var testQuery = Parse.Query.or(query, query);
+    // Find objects that match the aggregation pipeline
+    query.aggregate({
+        group:{
+            objectId: '$name'
+        }
+    });
+
+    // Find objects with distinct key
+    query.distinct('name');
+
+    const testQuery = Parse.Query.or(query, query);   
 }
 
-class TestCollection extends Parse.Collection<Object> {
+async function test_query_promise() {
+    // Test promise with a query
+    const findQuery = new Parse.Query('Test');
+    findQuery.find()
+    .then(() => {
+        // success
+    }).catch(() => {
+        // error
+    });
 
-    constructor(models?: Parse.Object[]) {
-
-        super(models);
+    const getQuery = new Parse.Query('Test');
+    try {
+        await getQuery.get('objectId');
+    }
+    catch (error) {
+        // noop
     }
 }
+
+
 
 function return_a_generic_query(): Parse.Query<Game> {
     return new Parse.Query(Game);
@@ -137,68 +158,25 @@ function return_a_query(): Parse.Query {
     return new Parse.Query(Game);
 }
 
-function test_collections() {
-
-    var collection = new TestCollection();
-
-    var query = new Parse.Query(Game);
-    query.equalTo("temperature", "hot");
-    query.greaterThan("degreesF", 100);
-
-    collection = query.collection();
-
-    collection.comparator = (object) => {
-        return object.get("temperature");
-    };
-
-    collection.add([
-       {"name": "Duke"},
-       {"name": "Scarlett"}
-   ]);
-
-    collection.fetch().then(
-        (data) => {
-
-        },
-        (error) => {
-            console.log("Error: " + error.code + " " + error.message);
-        }
-    );
-
-    var model = collection.at(0);
-
-    // Or you can get it by Parse objectId.
-    var modelAgain = collection.get(model.id);
-
-    // Remove "Duke" from the collection.
-    collection.remove(model);
-
-    // Completely replace all items in the collection.
-    collection.reset([
-         {"name": "Hawk"},
-         {"name": "Jane"}
-     ]);
-}
-
 function test_file() {
 
-    var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
-    var file = new Parse.File("myfile.txt", { base64: base64 });
+    const base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+    let file = new Parse.File("myfile.txt", { base64: base64 });
 
-    var bytes = [ 0xBE, 0xEF, 0xCA, 0xFE ];
-    var file = new Parse.File("myfile.txt", bytes);
+    const bytes = [0xBE, 0xEF, 0xCA, 0xFE];
+    file = new Parse.File("myfile.txt", bytes);
 
-    var file = new Parse.File("myfile.zzz", {}, "image/png");
+    file = new Parse.File("myfile.zzz", {}, "image/png");
 
-    var src = file.url();
+    const src = file.url();
 
     file.save().then(
-    () => {
-        // The file has been saved to Parse.
-    },
-    (error) => {
-        // The file either could n ot be read, or could not be saved to Parse.
-    });
+        () => {
+            // The file has been saved to Parse.
+        },
+        (error) => {
+            // The file either could n ot be read, or could not be saved to Parse.
+        });
 
     Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
         // result
@@ -209,7 +187,7 @@ function test_file() {
 
 function test_analytics() {
 
-    var dimensions = {
+    const dimensions = {
         // Define  ranges to bucket data points into meaningful segments
         priceRange: '1000-1500',
         // Did the user filter the query?
@@ -217,28 +195,44 @@ function test_analytics() {
         // Do searches happen more often on weekdays or weekends?
         dayType: 'weekday'
     };
-   // Send the dimensions to Parse along with the 'search' event
+    // Send the dimensions to Parse along with the 'search' event
     Parse.Analytics.track('search', dimensions);
 
-    var codeString = '404';
+    const codeString = '404';
     Parse.Analytics.track('error', { code: codeString })
 }
 
 function test_relation() {
-    new Parse.User().relation("games").query().find().then((g: Game[]) => {});
+    var game1 = new Game();
+    var game2 = new Game();
+
+    new Parse.User().relation("games").query().find().then((g: Game[]) => { });
+    new Parse.User().relation("games").add(game1)
+    new Parse.User().relation("games").add([game1, game2])
+
+    new Parse.User().relation("games").remove(game1)
+    new Parse.User().relation("games").remove([game1, game2])
+}
+
+function test_user() {
+    const user = new Parse.User();
+    user.set("username", "my name");
+    user.set("password", "my pass");
+    user.set("email", "email@example.com");
+    user.signUp(null, { useMasterKey: true });
 }
 
 function test_user_acl_roles() {
 
-    var user = new Parse.User();
+    const user = new Parse.User();
     user.set("username", "my name");
     user.set("password", "my pass");
     user.set("email", "email@example.com");
 
-// other fields can be set just like with Parse.Object
+    // other fields can be set just like with Parse.Object
     user.set("phone", "415-392-0202");
 
-    var currentUser = Parse.User.current();
+    const currentUser = Parse.User.current();
     if (currentUser) {
         // do stuff with the user
     } else {
@@ -251,17 +245,24 @@ function test_user_acl_roles() {
         // The token could not be validated.
     });
 
-    var game = new Game();
+    const game = new Game();
     game.set("score", new GameScore());
     game.setACL(new Parse.ACL(Parse.User.current()));
-    game.save().then((game: Game) => {});
+    game.save().then((game: Game) => { });
     game.save(null, { useMasterKey: true });
+    game.save({ score: '10' }, { useMasterKey: true }).then(function (game) {
+        // Update game then revert it to the last saved state.
+        game.set("score", '20');
+        game.revert();
+    }, function (error) {
+        // The save failed
+    });
 
-    var groupACL = new Parse.ACL();
+    const groupACL = new Parse.ACL();
 
-    var userList: Parse.User[] = [Parse.User.current()!];
+    const userList: Parse.User[] = [Parse.User.current()!];
     // userList is an array with the users we are sending this message to.
-    for (var i = 0; i < userList.length; i++) {
+    for (let i = 0; i < userList.length; i++) {
         groupACL.setReadAccess(userList[i], true);
         groupACL.setWriteAccess(userList[i], true);
     }
@@ -277,24 +278,24 @@ function test_user_acl_roles() {
     });
 
     // By specifying no write privileges for the ACL, we can ensure the role cannot be altered.
-    var role = new Parse.Role("Administrator", groupACL);
+    const role = new Parse.Role("Administrator", groupACL);
     role.getUsers().add(userList[0]);
     role.getRoles().add(role);
     role.save();
 
     Parse.User.logOut().then(function (data) {
-      // logged out
+        // logged out
     });
 }
 
 function test_facebook_util() {
 
     Parse.FacebookUtils.init({
-         appId      : 'YOUR_APP_ID', // Facebook App ID
-         channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
-         cookie     : true, // enable cookies to allow Parse to access the session
-         xfbml      : true  // parse XFBML
-     });
+        appId: 'YOUR_APP_ID', // Facebook App ID
+        channelUrl: '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
+        cookie: true, // enable cookies to allow Parse to access the session
+        xfbml: true  // parse XFBML
+    });
 
     Parse.FacebookUtils.logIn(null, {
         success: (user: Parse.User) => {
@@ -309,7 +310,7 @@ function test_facebook_util() {
         }
     });
 
-    var user = Parse.User.current()!;
+    const user = Parse.User.current()!;
 
     if (!Parse.FacebookUtils.isLinked(user)) {
         Parse.FacebookUtils.link(user, null, {
@@ -348,55 +349,91 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.beforeDelete('MyCustomClass', (request: Parse.Cloud.BeforeDeleteRequest,
-                                               response: Parse.Cloud.BeforeDeleteResponse) => {
+        response: Parse.Cloud.BeforeDeleteResponse) => {
         // result
+    });
+
+    const CUSTOM_ERROR_INVALID_CONDITION = 1001
+    const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
+
+    Parse.Cloud.beforeSave('MyCustomClass', (request: Parse.Cloud.BeforeSaveRequest,
+        response: Parse.Cloud.BeforeSaveResponse) => {
+
+            if (request.object.isNew()) {
+                if (!request.object.has('immutable')) return response.error('Field immutable is required')
+            } else {
+                const original = request.original;
+                if (original == null) { // When the object is not new, request.original must be defined
+                    return response.error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
+                }
+
+                if (original.get('immutable') !== request.object.get('immutable')) {
+                    return response.error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
+                }
+            }
+            response.success()
+    });
+
+    Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
+        let query = request.query; // the Parse.Query
+        let user = request.user; // the user
+        let isMaster = request.master; // if the query is run with masterKey
+        let isCount = request.count; // if the query is a count operation (available on parse-server 2.4.0 or up)
+        let isGet = request.isGet; // if the query is a get operation
+
+        // All possible read preferences
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Primary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.PrimaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Secondary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.SecondaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Nearest
     });
 }
 
-class PlaceObject extends Parse.Object {}
+class PlaceObject extends Parse.Object { }
 
 function test_geo_points() {
 
-    var point = new Parse.GeoPoint({latitude: 40.0, longitude: -30.0});
+    const point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
 
-    var userObject = Parse.User.current()!;
+    const userObject = Parse.User.current()!;
 
     // User's location
-    var userGeoPoint = userObject.get("location");
+    const userGeoPoint = userObject.get("location");
 
     // Create a query for places
-    var query = new Parse.Query(Parse.User);
-// Interested in locations near user.
+    const query = new Parse.Query(Parse.User);
+    // Interested in locations near user.
     query.near("location", userGeoPoint);
-        // Limit what could be a lot of points.
+    // Limit what could be a lot of points.
     query.limit(10);
 
-    var southwestOfSF = new Parse.GeoPoint(37.708813, -122.526398);
-    var northeastOfSF = new Parse.GeoPoint(37.822802, -122.373962);
+    const southwestOfSF = new Parse.GeoPoint(37.708813, -122.526398);
+    const northeastOfSF = new Parse.GeoPoint(37.822802, -122.373962);
 
-    var query2 = new Parse.Query(PlaceObject);
+    const query2 = new Parse.Query(PlaceObject);
     query2.withinGeoBox("location", southwestOfSF, northeastOfSF);
 
-    var query3 = new Parse.Query("PlaceObject").find().then((o: Parse.Object[]) => {});
+    const query3 = new Parse.Query("PlaceObject").find().then((o: Parse.Object[]) => { });
 }
 
 function test_push() {
 
     Parse.Push.send({
-        channels: [ "Gia nts", "Mets" ],
+        channels: ["Gia nts", "Mets"],
         data: {
             alert: "The Giants won against the Mets 2-3."
         }
     }, {
-        success: () => {
-            // Push was successful
-        },
-        error: (error: any) => {
-            // Handle error
-        }
-    });
+            success: () => {
+                // Push was successful
+            },
+            error: (error: any) => {
+                // Handle error
+            }
+        });
 
-    var query = new Parse.Query(Parse.Installation);
+    const query = new Parse.Query(Parse.Installation);
     query.equalTo('injuryReports', true);
 
     Parse.Push.send({
@@ -405,30 +442,45 @@ function test_push() {
             alert: "Willie Hayes injured by own pop fly."
         }
     }, {
-        success: function() {
-            // Push was successful
-        },
-        error: function(error: any) {
-            // Handle error
-        }
-    });
+            success: function () {
+                // Push was successful
+            },
+            error: function (error: any) {
+                // Handle error
+            }
+        });
 }
 
-function test_view() {
+function test_batch_operations() {
+    const game1 = new Game()
+    const game2 = new Game()
+    const games = [game1, game2]
 
-    var model = Parse.User.current();
-    var view = new Parse.View<Parse.User>();
+    // Master key
+    Parse.Object.saveAll(games, { useMasterKey: true })
+    Parse.Object.destroyAll(games, { useMasterKey: true })
+    Parse.Object.fetchAll(games, { useMasterKey: true })
+    Parse.Object.fetchAllIfNeeded(games, { useMasterKey: true })
+
+    // Session token
+    Parse.Object.saveAll(games, { sessionToken: '' })
+    Parse.Object.destroyAll(games, { sessionToken: '' })
+    Parse.Object.fetchAll(games, { sessionToken: '' })
+    Parse.Object.fetchAllIfNeeded(games, { sessionToken: '' })
 }
 
-function test_promise() {
-    let resolved = Parse.Promise.as(true);
-    let rejected = Parse.Promise.error("an error object");
-    Parse.Promise.when([resolved, rejected]).then(function() {
-        // success
-    }, function() {
-        // failed
+function test_query_subscribe() {
+    // create new query from Game object type
+    const query = new Parse.Query(Game);
+
+    // create subscription to Game object
+    const subscription = query.subscribe();
+
+    // listen for new Game objects created on Parse server
+    subscription.on('create', (game: any) => {
+        console.log(game);
     });
 
-    // can check whether an object is a Parse.Promise object or not
-    Parse.Promise.is(resolved);
+    // unsubscribe
+    subscription.unsubscribe();
 }

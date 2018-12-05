@@ -1,6 +1,6 @@
 // Type definitions for Backbone-relational 0.8.5
 // Project: http://backbonerelational.org/
-// Definitions by: Eirik Hoem <https://github.com/eirikhm/>
+// Definitions by: Eirik Hoem <https://github.com/eirikhm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -122,7 +122,19 @@ declare module 'backbone' {
 
     }
 
-    export class Store extends Events {
+    export class Store implements Events {
+        on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
+        on(eventMap: EventsHash): any;
+        on(eventName: any, callback?: any, context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+        bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
+        once(events: string, callback: (...args: any[]) => void, context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
+
         initializeRelation(model, relation, options);
 
         addModelScope(scope:any):void;

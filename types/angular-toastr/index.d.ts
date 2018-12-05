@@ -8,6 +8,15 @@
 
 import * as angular from 'angular';
 
+export type IToastBaseConfig = angular.toastr.IToastBaseConfig;
+export type IToastContainerConfig = angular.toastr.IToastContainerConfig;
+export type IToastConfig = angular.toastr.IToastConfig;
+export type IToastrConfig = angular.toastr.IToastrConfig;
+export type IToastScope = angular.toastr.IToastScope;
+export type IToast = angular.toastr.IToast;
+export type IToastOptions = angular.toastr.IToastOptions;
+export type IToastrService = angular.toastr.IToastrService;
+
 declare module 'angular' {
     export namespace toastr {
         interface IToastBaseConfig {
@@ -15,6 +24,7 @@ declare module 'angular' {
             closeButton?: boolean;
             closeHtml?: string;
             extendedTimeOut?: number;
+            extraData?: any,
             messageClass?: string;
             onHidden?: (wasClicked: boolean, toast: angular.toastr.IToast) => void;
             onShown?: (toast: angular.toastr.IToast) => void;

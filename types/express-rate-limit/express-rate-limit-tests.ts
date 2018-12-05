@@ -11,12 +11,17 @@ const createAccountLimiter = new RateLimit({
   delayAfter: 1, // begin slowing down responses after the first request
   delayMs: 3 * 1000, // slow down subsequent responses by 3 seconds per request
   max: 5, // start blocking after 5 requests
-  message: "Too many accounts created from this IP, please try again after an hour"
+  message: "Too many accounts created from this IP, please try again after an hour",
+  handler: (req, _, next) => next(new Error(`TooManyRequests: ${req.ip}`))
+});
+
+const callbackWithFewerParams = new RateLimit({
+  handler: (req, res) => res.status(429).json(`TooManyRequests: ${req.ip}`)
 });
 
 class SomeStore implements RateLimit.Store {
   incr(key: string, cb: RateLimit.StoreIncrementCallback) { }
-  resetAll() { }
+  decrement(key: string) { }
   resetKey(key: string) { }
 }
 

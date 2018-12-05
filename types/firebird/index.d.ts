@@ -1,6 +1,6 @@
 // Type definitions for firebird 0.1
 // Project: https://github.com/xdenser/node-firebird-libfbclient
-// Definitions by: Yasushi Kato <http://github.com//karak/>
+// Definitions by: Yasushi Kato <https://github.com/karak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -12,6 +12,8 @@
  * Original document is [here](https://www.npmjs.com/package/firebird).
  */
 declare module 'firebird' {
+    import * as stream from 'stream';
+
     /**
      * @see createConnection() method will create Firebird Connection object for you
      */
@@ -27,10 +29,6 @@ declare module 'firebird' {
          * Connects you to database,
          *
          * @param database a database name in Firebird notation, i.e. <hostname>:<path to database file | alias>
-         * @param username user name
-         * @param pasword
-         * @param role
-         *
          * @throws raises exception on error (try to catch it).
          */
         connectSync(db: string, user: string, pass: string, role: string): void;
@@ -39,9 +37,6 @@ declare module 'firebird' {
          * Asynchronously connects you to Database.
          *
          * @param database a database name in Firebird notation, i.e. <hostname>:<path to database file | alias>
-         * @param username user name
-         * @param pasword
-         * @param role
          * @param callback function(err), where err is error object in case of error.
          */
         connect(db: string, user: string, pass: string, role: string, callback: (err: Error | null) => void): void;
@@ -146,7 +141,8 @@ declare module 'firebird' {
          */
         start(callback: (err: Error | null) => void): void;
 
-        /**Synchronously prepares SQL statement and returns FBStatement object.
+        /**
+         * Synchronously prepares SQL statement and returns FBStatement object.
          *
          * @param sql an SQL query to prepare.
          */
@@ -325,7 +321,7 @@ declare module 'firebird' {
          * Synchronously prepares SQL statement
          *
          * @param sql an SQL query to prepare.
-         * @returns @see FBStatement object in context of this transaction.
+         * @returns object in context of this transaction.
          */
         prepareSync(sql: string): FBStatement;
 
@@ -355,9 +351,6 @@ declare module 'firebird' {
 
         /**
          * Same as @see execSync but executes statement in context of given @see Transaction obejct.
-         *
-         * @param transaction
-         * @param params
          */
         execInTransSync(transaction: Transaction, ...params: DataType[]): void;
 
@@ -375,9 +368,6 @@ declare module 'firebird' {
 
          /**
           * Same as @see exec but executes statement in context of given @see Transaction obejct.
-          *
-          * @param transaction
-          * @param params
           */
          execInTrans(transaction: Transaction, ...params: DataType[]): void;
     }
@@ -453,24 +443,13 @@ declare module 'firebird' {
      * You may pipe strm to/from NodeJS Stream objects (fs or socket).
      * You may also look at [NodeJS Streams reference](https://nodejs.org/api/stream.html).
      */
-    class Stream implements NodeJS.ReadWriteStream {
+    class Stream extends stream.Stream {
         constructor(blob: FBBlob);
-
-        /* Following lines is JUST AS NodeJS.ReadStream, NodeJS.WriteStream, and NodeJS.Emmiter */
-        /* tslint:disable */
 
         /* NodeJS.ReadStream */
         readable: boolean;
-        read(size?: number): string | Buffer;
-        setEncoding(encoding: string | null): this;
         pause(): this;
         resume(): this;
-        isPaused(): boolean;
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
-        wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
 
         /* NodeJS.WriteStream */
         writable: boolean;
@@ -480,22 +459,8 @@ declare module 'firebird' {
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
+        destroy(error?: Error): void;
 
-        /* EventEmitter */
-        addListener(event: string | symbol, listener: Function): this;
-        on(event: string | symbol, listener: Function): this;
-        once(event: string | symbol, listener: Function): this;
-        removeListener(event: string | symbol, listener: Function): this;
-        removeAllListeners(event?: string | symbol): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string | symbol): Function[];
-        emit(event: string | symbol, ...args: any[]): boolean;
-        listenerCount(type: string | symbol): number;
-        prependListener(event: string | symbol, listener: Function): this;
-        prependOnceListener(event: string | symbol, listener: Function): this;
-        eventNames(): (string | symbol)[];
-
-        /* tslint:enable */
+        check_destroyed(): void;
     }
 }

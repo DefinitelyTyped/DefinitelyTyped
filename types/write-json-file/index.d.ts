@@ -7,9 +7,9 @@ declare function writeJsonFile(filepath: string, data: any, options?: writeJsonF
 declare namespace writeJsonFile {
     type Replacer = (key: string, value: any) => void;
     interface Options {
-        indent?: string | number;
+        indent?: string | number | null;
         detectIndent?: boolean;
-        sortKeys?: boolean;
+        sortKeys?: boolean | ((a: string, b: string) => number);
         replacer?: Replacer | Array<number | string> | null;
         mode?: number;
     }

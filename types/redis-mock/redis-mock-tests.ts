@@ -1,23 +1,23 @@
 import * as redis from "redis-mock";
 
-let value: any;
+declare const value: any;
 let valueArr: any[];
-let commandArr: any[][];
-let num: number = 1;
-let str: string = "hi";
-let bool: boolean = false;
-let err: Error = new Error();
-let args: any[] = [];
-let options: redis.ClientOpts = {};
+declare const commandArr: any[][];
+let num = 1;
+const str = "hi";
+let bool = false;
+const err: Error = new Error();
+const args: any[] = [];
+const options: redis.ClientOpts = {};
 let client: redis.RedisClient;
 let info: redis.ServerInfo;
-let resCallback: (err: Error, res: any) => void = () => {
+const resCallback: (err: Error, res: any) => void = () => {
 };
-let numCallback: (err: Error, res: number) => void = () => {
+const numCallback: (err: Error, res: number) => void = () => {
 };
-let strCallback: (err: Error, res: string) => void = () => {
+const strCallback: (err: Error, res: string) => void = () => {
 };
-let messageHandler: (channel: string, message: any) => void = () => {
+const messageHandler: (channel: string, message: any) => void = () => {
 };
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -34,10 +34,10 @@ client = redis.createClient(num, str, options);
 function retryStrategyNumber(options: redis.RetryStrategyOptions): number {
   // Ensure that the properties of RetryStrategyOptions are resilient to breaking change.
   // If the properties of the interface changes, the variables below will also need to be adapted.
-  let error: Error = options.error;
-  let total_retry_time: number = options.total_retry_time;
-  let times_connected: number = options.times_connected;
-  let attempt: number = options.attempt;
+  const error: Error = options.error;
+  const total_retry_time: number = options.total_retry_time;
+  const times_connected: number = options.times_connected;
+  const attempt: number = options.attempt;
   return 5000;
 }
 function retryStrategyError(options: redis.RetryStrategyOptions): Error {

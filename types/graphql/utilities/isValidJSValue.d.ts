@@ -1,11 +1,8 @@
-import { GraphQLInputType } from '../type/definition';
+import { GraphQLInputType } from "../type/definition";
 
 /**
- * Given a JavaScript value and a GraphQL type, determine if the value will be
- * accepted for that type. This is primarily useful for validating the
- * runtime values of query variables.
+ * Deprecated. Use coerceValue() directly for richer information.
+ *
+ * This function will be removed in v15
  */
-export function isValidJSValue(
-    value: any,
-    type: GraphQLInputType
-): string[];
+export function isValidJSValue(value: any, type: GraphQLInputType): string[];

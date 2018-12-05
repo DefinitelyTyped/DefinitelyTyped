@@ -3,14 +3,14 @@ import * as http from 'http';
 import * as stream from 'stream';
 
 let server: sockjs.Server;
-let serverOptions: sockjs.ServerOptions = {};
+const serverOptions: sockjs.ServerOptions = {};
 
 // createServer method
 server = sockjs.createServer();
 server = sockjs.createServer(serverOptions);
 
 // installHandlers method
-let httpServer: http.Server = http.createServer();
+const httpServer: http.Server = http.createServer();
 server.installHandlers(httpServer);
 server.installHandlers(httpServer, serverOptions);
 
@@ -37,7 +37,7 @@ server.on('connection', (conn: sockjs.Connection) => {
 });
 
 // connection is a ReadWriteStream
-let connectionAsReadWrite: NodeJS.ReadWriteStream = connection;
+const connectionAsReadWrite: NodeJS.ReadWriteStream = connection;
 
 connection.on('data', (message: string) => { });
 connection.on('close', () => { });

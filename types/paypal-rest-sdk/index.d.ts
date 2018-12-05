@@ -20,7 +20,7 @@ export interface PayPalError {
     readonly debug_id: string;
 }
 
-export type CallbackFunction<T> = ( err: SDKError, response: T) => any;
+export type CallbackFunction<T> = (err: SDKError, response: T) => any;
 
 export interface SDKError {
     httpStatusCode: number;
@@ -132,6 +132,7 @@ export interface QueryParameters {
     webhook_id?: string;
     page?: number;
     total_count_required?: boolean;
+    status?: string[];
 }
 
 export interface Link {
@@ -161,7 +162,7 @@ export interface Transaction {
     };
     notify_url?: string;
     order_url?: string;
-    readonly related_resources?: RelatedResources;
+    readonly related_resources?: RelatedResources[];
 }
 
 export interface Payee {
@@ -257,6 +258,22 @@ export interface Item {
     url?: string;
 }
 
+export interface PayerInfo {
+  email?: string;
+  readonly salutation?: string;
+  readonly first_name?: string;
+  readonly middle_name?: string;
+  readonly last_name?: string;
+  readonly suffix?: string;
+  readonly payer_id?: string;
+  birth_date?: string;
+  tax_id?: string;
+  tax_id_type?: string;
+  country_code?: string;
+  billing_address?: Address;
+  readonly shipping_address?: Address;
+}
+
 export interface RefundRequest {
     amount?: Amount;
     description?: string;
@@ -265,8 +282,7 @@ export interface RefundRequest {
     invoice_number?: string;
     refund_advice?: boolean;
     items?: Item[];
-    // TODO: Type this https://developer.paypal.com/docs/api/payments/#definition-payer_info
-    payer_info?: any;
+    payer_info?: PayerInfo;
     supplementary_data?: any[];
 }
 
@@ -447,7 +463,7 @@ export namespace invoice {
     }
     interface Invoice {
         allow_tip?: boolean;
-        billing_info?: BillingInfo;
+        billing_info?: [BillingInfo];
         discount?: Cost;
         shipping_cost?: ShippingCost;
         readonly id?: string;
@@ -455,7 +471,16 @@ export namespace invoice {
         items?: InvoiceItem[];
         merchant_info?: Merchant;
         readonly metadata?: {
-            created_date: string;
+            created_date?: string;
+            created_by?: string;
+            cancelled_date?: string;
+            cancelled_by?: string;
+            last_updated_date?: string;
+            last_updated_by?: string;
+            first_sent_date?: string;
+            last_sent_date?: string;
+            last_sent_by?: string;
+            payer_view_url?: string;
         };
         note?: string;
         number?: string;
@@ -507,6 +532,7 @@ export namespace invoice {
         email?: string;
         language?: string;
         notification_channel?: string;
+        additional_info?: string;
     }
     interface InvoiceItem {
         name: string;

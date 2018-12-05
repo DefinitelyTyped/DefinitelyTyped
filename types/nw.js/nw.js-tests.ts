@@ -14,8 +14,8 @@ nw.App.crashRenderer();
 nw.App.getProxyForURL( 'https://github.com/alirdn' );
 nw.App.setProxyConfig( 'http=foopy:80;ftp=foopy2' );
 nw.App.quit();
-nw.App.addOriginAccessWhitelistEntry( 'http://github.com/', 'chrome-extension', location.host, true );
-nw.App.removeOriginAccessWhitelistEntry( 'http://github.com/', 'chrome-extension', location.host, true );
+nw.App.addOriginAccessWhitelistEntry( 'https://github.com/', 'chrome-extension', location.host, true );
+nw.App.removeOriginAccessWhitelistEntry( 'https://github.com/', 'chrome-extension', location.host, true );
 
 /*
  * Note:
@@ -164,7 +164,7 @@ nw.Screen.chooseDesktopMedia( ["window", "screen"],
                 maxWidth: 1920,
                 maxHeight: 1080
             },
-            optional: <any[]>[]
+            optional: [] as any[]
         };
         //navigator.webkitGetUserMedia( { audio: false, video: constraint }, success_func, fallback_func );
     }

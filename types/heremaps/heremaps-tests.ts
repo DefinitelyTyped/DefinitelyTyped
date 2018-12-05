@@ -86,6 +86,21 @@ let polyline = new H.map.Polyline(new H.geo.Strip());
 let clipArr: Array<Array<number>>;
 clipArr = polyline.clip(new H.geo.Rect(5, 5, 5, 5));
 
+let lineString = new H.geo.LineString();
+lineString.pushPoint({ lat: 53.3477, lng: -6.2597 });
+lineString.pushPoint({ lat: 51.5008, lng: -0.1224 });
+lineString.pushPoint({ lat: 48.8567, lng: 2.3508 });
+lineString.pushPoint({ lat: 52.5166, lng: 13.3833 });
+lineString.eachLatLngAlt((lat: number, lng: number, alt: number, i: number) => {
+    console.log(lat, lng, alt, i);
+});
+lineString.getBounds();
+lineString.getPointCount();
+lineString.insertPoint(2, { lat: 53.3477, lng: -6.2597 });
+lineString.removePoint(2);
+
+let polyline2 = new H.map.Polyline(lineString);
+
 let router = platform.getRoutingService();
 let calculateRouteParams = {
     waypoint0: 'geo!52.5,13.4',
@@ -112,7 +127,7 @@ places.request(
     },
     (response) => {
         console.log(response);
-        let items = response.results.items;
+        const items = response.results.items;
         places.follow(
             items[0].href,
             (resp) => {
@@ -173,3 +188,22 @@ clusteringOptions: {
 
 // Create a layer that will consume objects from our clustering provider
 const layer = new H.map.layer.ObjectLayer(clusteredDataProvider);
+
+const pixelProjection = new H.geo.PixelProjection();
+pixelProjection.rescale(12);
+
+const point = pixelProjection.geoToPixel({ lat: 53, lng: 12 });
+pixelProjection.xyToGeo(point.x, point.y);
+
+const engine = map.getEngine();
+engine.getAnimationDuration();
+engine.setAnimationDuration(1000);
+
+engine.getAnimationEase();
+engine.setAnimationEase(H.util.animation.ease.EASE_IN_QUAD);
+
+const engineListener = (e: Event) => {
+    console.log(e);
+};
+engine.addEventListener('tap', engineListener);
+engine.removeEventListener('tap', engineListener);

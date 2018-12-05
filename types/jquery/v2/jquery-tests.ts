@@ -2215,8 +2215,8 @@ function test_hide() {
         $("p").hide("slow");
     });
     $("#hidr").click(function () {
-        $("span:last-child").hide("fast", function () {
-            $(this).prev().hide("fast", arguments.callee);
+        $("span:last-child").hide("fast", function f() {
+            $(this).prev().hide("fast", f);
         });
     });
     $("#showr").click(function () {
@@ -2715,7 +2715,7 @@ function test_fn_extend() {
 }
 
 function test_jquery() {
-    var a = <any>{ what: "A regular JS object" },
+    var a: any = { what: "A regular JS object" },
     b = $('body');
     if (a.jquery) {
         alert(' a is a jQuery object! ');
@@ -3126,20 +3126,21 @@ function test_map() {
     }).get().join(", "));
     var mappedItems = $("li").map(function (index) {
         var replacement:any = $("<li>").text($(this).text()).get(0);
-        if (index === 0) {
-
-            // Make the first item all caps
-            $(replacement).text($(replacement).text().toUpperCase());
-        } else if (index === 1 || index === 3) {
-
-            // Delete the second and fourth items
-            replacement = null;
-        } else if (index === 2) {
-
-            // Make two of the third item and add some text
-            replacement = [replacement, $("<li>").get(0)];
-            $(replacement[0]).append("<b> - A</b>");
-            $(replacement[1]).append("Extra <b> - B</b>");
+        switch (index) {
+            case 0:
+                // Make the first item all caps
+                $(replacement).text($(replacement).text().toUpperCase());
+                break;
+            case 1:
+            case 3:
+                // Delete the second and fourth items
+                replacement = null;
+                break;
+            case 2:
+                // Make two of the third item and add some text
+                replacement = [replacement, $("<li>").get(0)];
+                $(replacement[0]).append("<b> - A</b>");
+                $(replacement[1]).append("Extra <b> - B</b>");
         }
 
         // Replacement will be a dom element, null,
@@ -3552,4 +3553,12 @@ function test_promise_then_not_return_deferred() {
   promise = promise.done();
   promise = promise.fail();
   promise = promise.always();
+}
+
+function test_element() {
+    const itemEl = $('#item')[0];
+    $('li').toArray().indexOf(itemEl);
+    $('li').get().indexOf(itemEl);
+    let otherItemEl = $('li').get(0);
+    otherItemEl = itemEl;
 }

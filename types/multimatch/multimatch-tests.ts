@@ -1,4 +1,4 @@
-import * as multimatch from "multimatch";
+import multimatch = require("multimatch");
 
 const options: multimatch.MultimatchOptions = {
 	debug: true

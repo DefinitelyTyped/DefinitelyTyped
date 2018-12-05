@@ -1,5 +1,5 @@
 // Type definitions for JsMockito 1.0.4
-// Project: http://github.com/chrisleishman/jsmockito
+// Project: https://github.com/chrisleishman/jsmockito
 // Definitions by: Karl Bennett <https://github.com/shiver-me-timbers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

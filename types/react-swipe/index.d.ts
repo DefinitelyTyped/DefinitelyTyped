@@ -2,13 +2,13 @@
 // Project: https://github.com/voronianski/react-swipe
 // Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="swipe" />
 
 import * as React from "react";
 
-declare class ReactSwipe extends React.Component<ReactSwipe.Props, {}> {
+declare class ReactSwipe extends React.Component<ReactSwipe.Props> {
     prev(): void;
     next(): void;
     getPos(): number;

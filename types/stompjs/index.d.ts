@@ -1,6 +1,7 @@
 // Type definitions for stompjs 2.3
 // Project: https://github.com/jmesnil/stomp-websocket
 // Definitions by: Jimi Charalampidis <https://github.com/jimic>
+//                 Stefan Erichsen <https://github.com/Dr4k4n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -9,11 +10,10 @@ export const VERSIONS: {
     V1_0: string,
     V1_1: string,
     V1_2: string,
-    supportedVersions: () => Array<string>
+    supportedVersions: () => string[]
 };
 
 export class Client {
-
     connected: boolean;
     counter: number;
     heartbeat: {
@@ -26,13 +26,14 @@ export class Client {
 
     debug(...args: string[]): any;
 
-    connect(headers: { login: string, passcode: string, host?: string }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any): any;
-    connect(login: string, passcode: string, connectCallback: (frame?: Frame) => any, errorCallback?: (error: string) => any, host?: string): any;
+    connect(headers: { login: string, passcode: string, host?: string }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: Frame | string) => any): any;
+    connect(headers: { }, connectCallback: (frame?: Frame) => any, errorCallback?: (error: Frame | string) => any): any;
+    connect(login: string, passcode: string, connectCallback: (frame?: Frame) => any, errorCallback?: (error: Frame | string) => any, host?: string): any;
     disconnect(disconnectCallback: () => any, headers?: {}): any;
 
     send(destination: string, headers?: {}, body?: string): any;
-    subscribe(destination: string, callback?: (message: Message) => any, headers?: {}): any;
-    unsubscribe(): any;
+    subscribe(destination: string, callback?: (message: Message) => any, headers?: {}): Subscription;
+    unsubscribe(id: string): void;
 
     begin(transaction: string): any;
     commit(transaction: string): any;
@@ -42,22 +43,26 @@ export class Client {
     nack(messageID: string, subscription: string, headers?: {}): any;
 }
 
-export interface Message {
-    command: string;
-    headers: {};
-    body: string;
+export interface Subscription {
+    id: string;
+    unsubscribe(): void;
+}
 
+export interface Message extends Frame {
     ack(headers?: {}): any;
     nack(headers?: {}): any;
 }
 
 export class Frame {
+    command: string;
+    headers: {};
+    body: string;
     constructor(command: string, headers?: {}, body?: string);
 
     toString(): string;
-    sizeOfUTF8(s: string): number;
-    unmarshall(datas: any): any;
-    marshall(command: string, headers?: {}, body?: string): any;
+    static sizeOfUTF8(s: string): number;
+    static unmarshall(datas: any): any;
+    static marshall(command: string, headers?: {}, body?: string): any;
 }
 
 export function client(url: string, protocols?: string | Array<string>): Client;

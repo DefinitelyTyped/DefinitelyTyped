@@ -1,12 +1,23 @@
-// Type definitions for validator.js v6.2
+// Type definitions for validator.js v9.4
 // Project: https://github.com/chriso/validator.js
-// Definitions by: tgfjt <https://github.com/tgfjt>, Ilya Mochalov <https://github.com/chrootsu>, Ayman Nedjmeddine <https://github.com/IOAyman>, Louy Alakkad <https://github.com/louy>, Kacper Polak <https://github.com/kacepe>
+// Definitions by: tgfjt <https://github.com/tgfjt>
+//                 Ilya Mochalov <https://github.com/chrootsu>
+//                 Ayman Nedjmeddine <https://github.com/IOAyman>
+//                 Louy Alakkad <https://github.com/louy>
+//                 Kacper Polak <https://github.com/kacepe>
+//                 Bonggyun Lee <https://github.com/deptno>
+//                 Naoto Yokoyama <https://github.com/builtinnya>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ValidatorJS {
-  type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
-  type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "fr-BE" | "hu-HU" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
-  type MobilePhoneLocale = "ar-DZ" | "ar-SA" | "ar-SY" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fi-FI" | "fr-FR" | "hu-HU" | "it-IT" | "ja-JP" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ru-RU" | "sr-RS" | "tr-TR" | "vi-VN" | "zh-CN" | "zh-TW" | "any";
+  type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "bg-BG" | "cs-CZ" | "da-DK" | "de-DE" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sk-SK" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
+  type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "bg-BG"| "cs-CZ" | "da-DK" | "de-DE" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sk-SK" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
+  type DecimalLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "bg-BG" | "cs-CZ" | "da-DK" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
+  type FloatLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "bg-BG" | "cs-CZ" | "da-DK" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "it-IT" | "nb-NO" | "nl-NL" | "nn-NO" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "sv-SE" | "tr-TR" | "uk-UA";
+  type MobilePhoneLocale = "ar-AE" | "ar-DZ" | "ar-EG" | "ar-JO" | "ar-SA" | "ar-SY" | "be-BY" | "bg-BG" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-KE" | "en-NG" | "en-NZ" | "en-UG" | "en-RW" | "en-SG" | "en-TZ" | "en-PK" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fa-IR" | "fi-FI" | "fo-FO" | "fr-FR" | "he-IL" | "hu-HU" | "id-ID" | "it-IT" | "ja-JP" | "kk-KZ" | "kl-GL" | "ko-KR" | "lt-LT" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ro-RO" | "ru-RU" | "sk-SK" | "sr-RS" | "th-TH" | "tr-TR" | "uk-UA" | "vi-VN" | "zh-CN" | "zh-HK" | "zh-TW" | "any";
+  type PostalCodeLocale = "AT" | "AU" | "BE" | "BG" | "CA" | "CH" | "CZ" | "DE" | "DK" | "DZ" | "ES" | "FI" | "FR" | "GB" | "GR" | "IL" | "IN" | "IS" | "IT" | "JP" | "KE" | "LI" | "MX" | "NL" | "NO" | "PL" | "PT" | "RO" | "RU" | "SA" | "SE" | "TW" | "US" | "ZA" | "ZM" | "any"
+  type HashAlgorithm = "md4" | "md5" | "sha1" | "sha256" | "sha384" | "sha512" | "ripemd128" | "ripemd160" | "tiger128" | "tiger160" | "tiger192" | "crc32" | "crc32b";
 
   interface ValidatorStatic {
 
@@ -25,14 +36,16 @@ declare namespace ValidatorJS {
 
     // check if the string contains only letters (a-zA-Z). Locale is one of ['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG',
     // 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE',
-    // 'cs-CZ', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR', 'hu-HU',
-    // 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'tr-TR']) and defaults to en-US
+    // 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM',
+    // 'es-ES', 'fr-FR', 'hu-HU', 'it-IT', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sk-SK', 'sr-RS',
+    // 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA']) and defaults to en-US
     isAlpha(str: string, locale?: AlphaLocale): boolean;
 
     // check if the string contains only letters and numbers. Locale is one of ['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG',
     // 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE',
-    // 'cs-CZ', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR', 'hu-HU',
-    // 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'tr-TR']) and defaults to en-US
+    // 'bg-BG', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM',
+    // 'es-ES', 'fr-FR', 'hu-HU', 'it-IT', 'nb-NO', 'nl-NL', 'nn-NO', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sk-SK', 'sr-RS',
+    // 'sr-RS@latin', 'sv-SE', 'tr-TR', 'uk-UA']) and defaults to en-US
     isAlphanumeric(str: string, locale?: AlphanumericLocale): boolean;
 
     // check if the string contains ASCII chars only.
@@ -60,11 +73,8 @@ declare namespace ValidatorJS {
     // check if the string is a data uri format (https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs)
     isDataURI(str: string): boolean;
 
-    // check if the string is a date.
-    isDate(str: string): boolean;
-
     // check if the string represents a decimal number, such as 0.1, .3, 1.1, 1.00003, 4.0, etc.
-    isDecimal(str: string): boolean;
+    isDecimal(str: string, options?: IsDecimalOptions): boolean;
 
     // check if the string is a number that's divisible by another.
     isDivisibleBy(str: string, number: number): boolean;
@@ -87,6 +97,11 @@ declare namespace ValidatorJS {
     // check if the string contains any half-width chars.
     isHalfWidth(str: string): boolean;
 
+    // check if the string is a hash of type algorithm.
+    // Algorithm is one of ['md4', 'md5', 'sha1', 'sha256', 'sha384', 'sha512', 'ripemd128', 'ripemd160', 'tiger128',
+    // 'tiger160', 'tiger192', 'crc32', 'crc32b']
+    isHash(str: string, algorithm: HashAlgorithm): boolean;
+
     // check if the string is a hexadecimal color.
     isHexColor(str: string): boolean;
 
@@ -99,12 +114,22 @@ declare namespace ValidatorJS {
     // check if the string is an ISBN (version 10 or 13).
     isISBN(str: string, version?: number): boolean;
 
+    // check if the string is an ISSN (https://en.wikipedia.org/wiki/International_Standard_Serial_Number).
+    isISSN(str: string, options?: IsISSNOptions): boolean;
+
     // check if the string is an ISIN (https://en.wikipedia.org/wiki/International_Securities_Identification_Number)
     // (stock/security identifier).
     isISIN(str: string): boolean;
 
     // check if the string is a valid ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) date.
-    isISO8601(str: string): boolean;
+    isISO8601(str: string, options?: IsISO8601Options): boolean;
+
+    // check if the string is a valid ISO 3166-1 alpha-2 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned
+    // country code.
+    isISO31661Alpha2(str: string): boolean;
+
+    // check if the string is a ISRC (https://en.wikipedia.org/wiki/International_Standard_Recording_Code).
+    isISRC(str: string): boolean;
 
     // check if the string is in a array of allowed values.
     isIn(str: string, values: any[]): boolean;
@@ -114,6 +139,9 @@ declare namespace ValidatorJS {
 
     // check if the string is valid JSON (note: uses JSON.parse).
     isJSON(str: string): boolean;
+
+    // check if the string is a valid latitude-longitude coordinate in the format lat,long or lat, long.
+    isLatLong(str: string): boolean;
 
     // check if the string's length falls in a range.
     // Note: this function takes into account surrogate pairs.
@@ -129,12 +157,17 @@ declare namespace ValidatorJS {
     // check if the string is a MD5 hash.
     isMD5(str: string): boolean;
 
+    // check if the string matches to a valid MIME type (https://en.wikipedia.org/wiki/Media_type) format
+    isMimeType(str: string): boolean;
+
     // check if the string is a mobile phone number, (locale is one of
-    // ['ar-DZ', 'ar-SA', 'ar-SY', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-GB', 'en-HK',
-    // 'en-IN', 'en-NZ', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'fi-FI', 'fr-FR', 'hu-HU',
-    // 'it-IT', 'ja-JP', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ru-RU', 'sr-RS', 'tr-TR',
-    // 'vi-VN', 'zh-CN', 'zh-TW']).
-    isMobilePhone(str: string, locale: MobilePhoneLocale): boolean;
+    // ['ar-AE', ar-DZ', 'ar-EG', 'ar-JO', 'ar-SA', 'ar-SY', 'be-BY', 'bg-BG', 'cs-CZ', 'de-DE',
+    // 'da-DK', 'el-GR', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-KE', 'en-NG', 'en-NZ', 'en-UG',
+    // 'en-RW', 'en-SG', 'en-TZ', 'en-PK', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'fa-IR',
+    // 'fi-FI', 'fo-FO', 'fr-FR', 'he-IL', 'hu-HU', 'id-ID', 'it-IT', 'ja-JP', 'kk-KZ', 'kl-GL',
+    // 'ko-KR', 'lt-LT', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK',
+    // 'sr-RS', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-HK', 'zh-TW']).
+    isMobilePhone(str: string, locale: MobilePhoneLocale, options?: IsMobilePhoneOptions): boolean;
 
     // check if the string is a valid hex-encoded representation of a MongoDB ObjectId
     // (http://docs.mongodb.org/manual/reference/object-id/).
@@ -143,11 +176,18 @@ declare namespace ValidatorJS {
     // check if the string contains one or more multibyte chars.
     isMultibyte(str: string): boolean;
 
-    // check if the string is null.
-    isNull(str: string): boolean;
-
     // check if the string contains only numbers.
-    isNumeric(str: string): boolean;
+    isNumeric(str: string, options?: IsNumericOptions): boolean;
+
+    // check if the string is a valid port number.
+    isPort(str: string): boolean;
+
+    // check if the string is a postal code, (locale is one of
+    // [ 'AT', 'AU', 'BE', 'BG', 'CA', 'CH', 'CZ', 'DE', 'DK', 'DZ', 'ES', 'FI', 'FR', 'GB', 'GR',
+    // 'IL', 'IN', 'IS', 'IT', 'JP', 'KE', 'LI', 'MX', 'NL', 'NO', 'PL', 'PT', 'RO', 'RU', 'SA',
+    // 'SE', 'TW', 'US', 'ZA', 'ZM' ]) OR 'any'. If 'any' is used, function will check if any of the
+    // locales match).
+    isPostalCode(str: string, locale: PostalCodeLocale): boolean;
 
     // check if the string contains any surrogate pairs chars.
     isSurrogatePair(str: string): boolean;
@@ -156,7 +196,7 @@ declare namespace ValidatorJS {
     isURL(str: string, options?: IsURLOptions): boolean;
 
     // check if the string is a UUID. Must be one of ['3', '4', '5', 'all'], default is all.
-    isUUID(str: string, version?: string | number): boolean;
+    isUUID(str: string, version?: 3|4|5|"3"|"4"|"5"|"all"): boolean;
 
     // check if the string is uppercase.
     isUppercase(str: string): boolean;
@@ -218,7 +258,7 @@ declare namespace ValidatorJS {
     whitelist(input: string, chars: string): string;
 
     toString(input: any | any[]): string;
-    
+
     version: string;
 
     // **************
@@ -249,12 +289,23 @@ declare namespace ValidatorJS {
     allow_negative_sign_placeholder?: boolean;
     thousands_separator?: string;
     decimal_separator?: string;
+    allow_decimal?: boolean;
+    require_decimal?: boolean;
+    digits_after_decimal?: number[];
     allow_space_after_digits?: boolean;
+  }
+
+  // options for isDecimal
+  interface IsDecimalOptions {
+    force_decimal?: boolean;
+    decimal_digits?: string;
+    locale?: DecimalLocale;
   }
 
   // options for isEmail
   interface IsEmailOptions {
     allow_display_name?: boolean;
+    require_display_name?: boolean;
     allow_utf8_local_part?: boolean;
     require_tld?: boolean;
   }
@@ -270,6 +321,15 @@ declare namespace ValidatorJS {
   interface IsFloatOptions {
     min?: number;
     max?: number;
+    gt?: number;
+    lt?: number;
+    locale?: FloatLocale;
+  }
+
+  // options for isISSN
+  interface IsISSNOptions {
+    case_sensitive?: boolean;
+    require_hyphen?: boolean;
   }
 
   // options for IsInt
@@ -281,10 +341,20 @@ declare namespace ValidatorJS {
     gt?: number;
   }
 
+  // options for isISO8601
+  interface IsISO8601Options {
+    strict?: boolean;
+  }
+
   // options for IsLength
   interface IsLengthOptions {
     min?: number;
     max?: number;
+  }
+
+  // options for isMobilePhone
+  interface IsMobilePhoneOptions {
+    strictMode?: boolean;
   }
 
   // options for isURL
@@ -292,7 +362,7 @@ declare namespace ValidatorJS {
     protocols?: string[];
     require_tld?: boolean;
     require_protocol?: boolean;
-    require_host: boolean;
+    require_host?: boolean;
     require_valid_protocol?: boolean;
     allow_underscores?: boolean;
     host_whitelist?: (string | RegExp)[];
@@ -303,9 +373,24 @@ declare namespace ValidatorJS {
 
   // options for normalizeEmail
   interface NormalizeEmailOptions {
-    lowercase?: boolean;
-    remove_dots?: boolean;
-    remove_extension?: boolean;
+    all_lowercase?: boolean;
+    gmail_lowercase?: boolean;
+    gmail_remove_dots?: boolean;
+    gmail_remove_subaddress?: boolean;
+    gmail_convert_googlemaildotcom?: boolean;
+    outlookdotcom_lowercase?: boolean;
+    outlookdotcom_remove_subaddress?: boolean;
+    yahoo_lowercase?: boolean;
+    yahoo_remove_subaddress?: boolean;
+    icloud_lowercase?: boolean;
+    icloud_remove_subaddress?: boolean;
+  }
+
+  /**
+   * Options for isNumeric
+   */
+  interface IsNumericOptions {
+    no_symbols?: boolean;
   }
 }
 
@@ -393,11 +478,6 @@ declare module "validator/lib/isDataURI" {
   export = isDataURI;
 }
 
-declare module "validator/lib/isDate" {
-  const isDate: typeof validator.isDate;
-  export = isDate;
-}
-
 declare module "validator/lib/isDecimal" {
   const isDecimal: typeof validator.isDecimal;
   export = isDecimal;
@@ -438,6 +518,11 @@ declare module "validator/lib/isHalfWidth" {
   export = isHalfWidth;
 }
 
+declare module "validator/lib/isHash" {
+  const isHash: typeof validator.isHash;
+  export = isHash;
+}
+
 declare module "validator/lib/isHexColor" {
   const isHexColor: typeof validator.isHexColor;
   export = isHexColor;
@@ -458,6 +543,11 @@ declare module "validator/lib/isISBN" {
   export = isISBN;
 }
 
+declare module "validator/lib/isISSN" {
+  const isISSN: typeof validator.isISSN;
+  export = isISSN;
+}
+
 declare module "validator/lib/isISIN" {
   const isISIN: typeof validator.isISIN;
   export = isISIN;
@@ -466,6 +556,16 @@ declare module "validator/lib/isISIN" {
 declare module "validator/lib/isISO8601" {
   const isISO8601: typeof validator.isISO8601;
   export = isISO8601;
+}
+
+declare module "validator/lib/isISO31661Alpha2" {
+  const isISO31661Alpha2: typeof validator.isISO31661Alpha2;
+  export = isISO31661Alpha2;
+}
+
+declare module "validator/lib/isISRC" {
+  const isISRC: typeof validator.isISRC;
+  export = isISRC;
 }
 
 declare module "validator/lib/isIn" {
@@ -481,6 +581,11 @@ declare module "validator/lib/isInt" {
 declare module "validator/lib/isJSON" {
   const isJSON: typeof validator.isJSON;
   export = isJSON;
+}
+
+declare module "validator/lib/isLatLong" {
+  const isLatLong: typeof validator.isLatLong;
+  export = isLatLong;
 }
 
 declare module "validator/lib/isLength" {
@@ -503,9 +608,19 @@ declare module "validator/lib/isMD5" {
   export = isMD5;
 }
 
+declare module "validator/lib/isMimeType" {
+  const isMimeType: typeof validator.isMimeType;
+  export = isMimeType;
+}
+
 declare module "validator/lib/isMobilePhone" {
   const isMobilePhone: typeof validator.isMobilePhone;
   export = isMobilePhone;
+}
+
+declare module "validator/lib/isPostalCode" {
+  const isPostalCode: typeof validator.isPostalCode;
+  export = isPostalCode;
 }
 
 declare module "validator/lib/isMongoId" {
@@ -518,14 +633,14 @@ declare module "validator/lib/isMultibyte" {
   export = isMultibyte;
 }
 
-declare module "validator/lib/isNull" {
-  const isNull: typeof validator.isNull;
-  export = isNull;
-}
-
 declare module "validator/lib/isNumeric" {
   const isNumeric: typeof validator.isNumeric;
   export = isNumeric;
+}
+
+declare module "validator/lib/isPort" {
+  const isPort: typeof validator.isPort;
+  export = isPort;
 }
 
 declare module "validator/lib/isSurrogatePair" {

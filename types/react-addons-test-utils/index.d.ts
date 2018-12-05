@@ -2,7 +2,7 @@
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
@@ -80,6 +80,7 @@ declare namespace TestUtils {
         export var blur: EventSimulator;
         export var change: EventSimulator;
         export var click: EventSimulator;
+        export var contextMenu: EventSimulator;
         export var copy: EventSimulator;
         export var cut: EventSimulator;
         export var doubleClick: EventSimulator;
@@ -159,11 +160,11 @@ declare namespace TestUtils {
         root: Component<any>,
         tagName: string): Element;
 
-    export function scryRenderedComponentsWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+    export function scryRenderedComponentsWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
         type: ClassType<any, T, C>): T[];
 
-    export function findRenderedComponentWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+    export function findRenderedComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
         type: ClassType<any, T, C>): T;
 

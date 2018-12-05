@@ -1,43 +1,24 @@
-/// <reference types='tether' />
-
+import * as React from 'react';
+import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
-type Placement
-  = 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'top left'
-  | 'top center'
-  | 'top right'
-  | 'right top'
-  | 'right middle'
-  | 'right bottom'
-  | 'bottom right'
-  | 'bottom center'
-  | 'bottom left'
-  | 'left top'
-  | 'left middle'
-  | 'left bottom';
-
-export interface UncontrolledProps {
-  placement?: Placement;
-  target: string;
-  disabled?: boolean;
-  tether?: Tether.ITetherOptions;
-  tetherRef?: (tether: Tether) => void;
+export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+  target: string | HTMLElement;
+  container?: string | HTMLElement;
+  delay?: number | {show: number, hide: number};
   className?: string;
-  cssModule?: CSSModule;
+  innerClassName?: string;
   autohide?: boolean;
-  delay?: number | { show: number, hide: number };
-}
+  placement?: Popper.Placement;
+  modifiers?: Popper.Modifiers;
+  cssModule?: CSSModule;
+} & T;
+export type UncontrolledTooltipProps<T = {}> = UncontrolledProps<T>;
 
-interface Props extends UncontrolledProps {
+export type TooltipProps<T = {}> = UncontrolledTooltipProps<T> & {
   toggle?: () => void;
   isOpen?: boolean;
-}
+};
 
-
-
-declare var Tooltip: React.StatelessComponent<Props>;
+declare class Tooltip<T> extends React.Component<TooltipProps<T>> {}
 export default Tooltip;

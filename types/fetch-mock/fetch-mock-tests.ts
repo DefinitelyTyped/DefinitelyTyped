@@ -1,6 +1,19 @@
 import * as fetchMock from "fetch-mock";
 
 fetchMock.mock("http://test.com", 200);
+fetchMock.mock("http://test.com", 200, {
+    headers: {
+        test: "header"
+    }
+});
+fetchMock.mock("http//test.com", 200, {
+    query: {
+        searchValue: "apples"
+    }
+});
+fetchMock.mock("http://test.com", 200, {
+    repeat: 2
+});
 fetchMock.mock(/test\.com/, 200);
 fetchMock.mock(() => true, 200);
 fetchMock.mock((url, opts) => true, 200);
@@ -48,6 +61,8 @@ fetchMock.patch("http://test.com", 200);
 fetchMock.patchOnce("http://test.com", 200);
 
 fetchMock.get("http://test.com", 200, {method: "GET"});
+fetchMock.get("http://test.com", 200, {method: "GET", overwriteRoutes: true});
+fetchMock.get("http://test.com", 200, {overwriteRoutes: true});
 fetchMock.post("http://test.com", 200, {method: "POST"});
 fetchMock.put("http://test.com", 200, {method: "PUT"});
 fetchMock.delete("http://test.com", 200, {method: "DELETE"});
@@ -65,3 +80,22 @@ const myMatcher: fetchMock.MockMatcherFunction = (
   url: string,
   opts: fetchMock.MockRequest
 ) => true;
+
+fetchMock.flush().then(resolved => resolved.forEach(console.log));
+fetchMock.flush().catch(r => r);
+
+fetchMock.get("http://test.com", {
+    body: 'abc',
+    includeContentLength: false
+});
+
+fetchMock.get("http://test.com", {
+    body: 'abc',
+    redirectUrl: "http://example.org"
+});
+
+const sandbox = fetchMock.sandbox();
+sandbox.get("http://test.com", {
+    body: 'abc',
+    redirectUrl: "http://example.org"
+});

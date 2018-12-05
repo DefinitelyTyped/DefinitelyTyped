@@ -7,13 +7,13 @@ interface Dependency {
 function doTest(test: (ctx: any, ...obj: Dependency[]) => void) {
     // create di context
     var ctx = di.createContext(),
-        A: Dependency = () => {
-            this.dependencies = "b, c";
+        A: Dependency = {
+            dependencies: "b, c",
         },
-        B: Dependency = () => {
-            this.dependencies = "c";
+        B: Dependency = {
+            dependencies: "c",
         },
-        C: Dependency = () => {};
+        C: Dependency = {};
 
     // register a class with an unique name
     ctx.register("a", A);

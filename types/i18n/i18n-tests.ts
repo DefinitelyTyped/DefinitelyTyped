@@ -9,7 +9,7 @@ import express = require("express");
 import i18n = require("i18n");
 
 const app = express();
-let req: express.Request;
+declare const req: express.Request;
 
 /**
  * Configuration
@@ -98,7 +98,7 @@ i18n.configure({
  * Usage in global scope
  * https://github.com/mashpie/i18n-node#example-usage-in-global-scope
  */
-let greeting = i18n.__('Hello');
+const greeting = i18n.__('Hello');
 
 /**
  * Usage in Express
@@ -111,7 +111,7 @@ app.configure(() => {
 });
 
 app.get('/de', (_req: Express.Request, res: Express.Response) => {
-    let greeting = res.__('Hello');
+    const greeting = res.__('Hello');
 });
 
 /**

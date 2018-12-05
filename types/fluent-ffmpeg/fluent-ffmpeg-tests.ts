@@ -50,3 +50,7 @@ command.clone()
 
 // Save a converted version with the original size
 command.save('/path/to/output-original-size.mp4');
+
+ffmpeg.ffprobe('/path/to/file.avi', (err, metadata) => {
+    console.dir(metadata);
+});

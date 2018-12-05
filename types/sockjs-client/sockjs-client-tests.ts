@@ -14,8 +14,8 @@ sockJs = SockJS('url', null, {
     transports: ['websocket', 'eventsource']
 });
 
-let listener = (e: any) => e;
-let listenerObj = {
+const listener = (e: any) => e;
+const listenerObj = {
     handleEvent: (e: any) => e
 };
 
@@ -33,8 +33,8 @@ sockJs.onopen = (e: any) => console.log(e);
 sockJs.onmessage = (e: any) => console.log(e.data);
 sockJs.onclose = (e: any) => console.log(e.code, e.reason, e.wasClean);
 
-let num: number = -1;
-let testStates = SockJS.CONNECTING !== num && SockJS.OPEN !== num && SockJS.CLOSING !== num && SockJS.CLOSED !== num;
+const num = -1 as number;
+const testStates = SockJS.CONNECTING !== num && SockJS.OPEN !== num && SockJS.CLOSING !== num && SockJS.CLOSED !== num;
 
 sockJs.send('send');
 sockJs.send({x: 1});
@@ -43,5 +43,4 @@ sockJs.close(100, 'reason');
 sockJs.close(200);
 sockJs.close();
 
-type MySocket = SockJS.Socket;
 type MessageEvent = SockJS.MessageEvent;

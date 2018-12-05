@@ -1,5 +1,5 @@
 // ChocolateChipStatic -- DOM creation, etc.
-$(function() {
+$(() => {
     alert('Ready to do stuff!');
 });
 const docRoot = $();
@@ -20,10 +20,10 @@ const moreEls = $.html('<p>Stuff</p>');
 const oldTag = $('#oldTag');
 const newTag = $('#newTag');
 $.replace(oldTag, newTag);
-$.require('./scripts/myscript.js', function() {
+$.require('./scripts/myscript.js', () => {
     $.noop;
 });
-$.defer(function() {
+$.defer(() => {
     console.log("This comes after Squawk!");
 });
 const concatenation = $.concat('This', ' ', 'is', ' ', 'a', ' ', 'string', '.');
@@ -41,7 +41,7 @@ $.isInteger(123);
 $.isInteger(123.123); // should return false
 $.isFloat(123.123); // should return true
 const newUuid = $.makeUuid();
-$.each(['a', 'b', 'c'], function(ctx: string, idx: number) {
+$.each(['a', 'b', 'c'], (ctx: string, idx: number) => {
     console.log(ctx);
     console.log(idx);
 });
@@ -55,7 +55,7 @@ $.fn.extend({
 });
 
 // ChocolateChipElementArray extensions:
-$('li').each(function(ctx, idx) {
+$('li').each((ctx, idx) => {
     console.log(ctx.nodeName);
 });
 const uniqueElements = $('li').unique();
@@ -63,19 +63,19 @@ const secondElement = $('li').eq(1);
 const lastElement = $('li').eq(-1);
 const whichIndex = $('li').index($('.selected'));
 const whichListItemIndex = $('li').eq(3).index();
-$('.elems').is('div').each(function(ctx) {
+$('.elems').is('div').each(ctx => {
     console.log('This element is a div.');
 });
-$('.elems').isnt('p').each(function() {
+$('.elems').isnt('p').each(() => {
     console.log('This element is not a paragraph tag.');
 });
-$('li').has('p').each(function(ctx) {
+$('li').has('p').each(ctx => {
     console.log('This list item has a paragraph tag.');
 });
-$('li').hasnt('p').each(function(ctx) {
+$('li').hasnt('p').each(ctx => {
     console.log('This list item does not have a paragraph tag.');
 });
-$('ul').find('li').each(function(ctx) {
+$('ul').find('li').each(ctx => {
     console.log(ctx);
 });
 $('li').css('color');
@@ -124,14 +124,14 @@ $('ul').hide();
 $('ul').hide('slow');
 $('ul').hide('fast');
 $('ul').hide(1000);
-$('ul').hide('fast', function() {
+$('ul').hide('fast', () => {
     console.log('Finished hiding these.');
 });
 $('ul').show();
 $('ul').show('slow');
 $('ul').show('fast');
 $('ul').show(1000);
-$('ul').show('fast', function() {
+$('ul').show('fast', () => {
     console.log('Finished hiding these.');
 });
 $('#list').prev().css('display', 'none');
@@ -198,22 +198,22 @@ const isSafari = $.isSafari;
 const isNativeAndroid = $.isNativeAndroid;
 
 // Events:
-$('li').bind('click', function() {
+$('li').bind('click', () => {
     $.noop;
 }, false);
-$('li').unbind('click', function() {
+$('li').unbind('click', () => {
     $.noop;
 }, false);
-$('ul').delegate('click', 'li', function() {
+$('ul').delegate('click', 'li', () => {
     $.noop;
 }, false);
-$('ul').undelegate('click', 'li', function() {
+$('ul').undelegate('click', 'li', () => {
     $.noop;
 }, false);
-$('li').on('click', function() {
+$('li').on('click', () => {
     $.noop;
 });
-$('ul').on('click', 'li', function() {
+$('ul').on('click', 'li', () => {
     console.log($(this).text());
 });
 $('li').off('click');
@@ -224,22 +224,22 @@ $('.selected').data('selection', 'This is awesome!'); // set the value of data v
 $('.selected').data('selection'); // return the data value of "selection" on ".selected"
 
 // Promises:
-let myPromise = new Promise(function(resolve, reject) {
+let myPromise = new Promise((resolve, reject) => {
     $.noop;
 });
 
-myPromise = new Promise(function(resolve, reject) {
+myPromise = new Promise((resolve, reject) => {
     // Resolve the promise:
     resolve('Success!');
     // or reject it:
     // reject('Lost in Space!');
 });
-myPromise.then(function(value) {
+myPromise.then(value => {
     // Success:
     console.log(value);
   },
   // Opps! There was a problem:
-  function(reason) {
+  reason => {
     console.log(reason);
 });
 
@@ -256,10 +256,10 @@ interface WineInterface {
 }
 fetch('../data/wines.json')
 .then($.json)
-.then(function<WineObject>(obj: any): any {
+.then((obj: any) => {
   $('#message_ajax').empty();
-  obj.data.forEach(function(wine: any) {
-    $('#message_ajax').append('<li>' + wine.name + '</li>');
+  obj.data.forEach((wine: any) => {
+    $('#message_ajax').append(`<li>${wine.name}</li>`);
   });
 });
 
@@ -278,12 +278,12 @@ fetch('../controllers/php-post.php', {
   body: formData
 })
 .then($.json)
-.then(function<postData>(data: any): any {
+.then((data: any) => {
   if (data.email_check === "valid") {
-    $("#message_ajax").html("<div class='successMessage'>" + data.email + " is a valid e-mail address. Thank you, " + data.name + ".</div>");
-    $("#message_ajax").append('<p>' + data.msg + '</p>');
+    $("#message_ajax").html(`<div class='successMessage'>${data.email} is a valid e-mail address. Thank you, ${data.name}.</div>`);
+    $("#message_ajax").append(`<p>${data.msg}</p>`);
   } else {
-    $("#message_ajax").html("<div class='errorMessage'>Sorry " + data.name + ", " + data.email + " is NOT a valid e-mail address. Try again.</div>");
+    $("#message_ajax").html(`<div class='errorMessage'>Sorry ${data.name}, ${data.email} is NOT a valid e-mail address. Try again.</div>`);
   }
 });
 // PUT:
@@ -301,12 +301,12 @@ fetch('../controllers/php-put.php', {
   body: putData
 })
 .then($.json)
-.then(function<putData>(data: any): any {
+.then((data: any) => {
    console.dir(data.base);
-   $("#message_ajax").append('<p>' + data.result + '</p>');
-   $("#message_ajax").append('<p>The file name is: ' + data.fileName + '</p>');
+   $("#message_ajax").append(`<p>${data.result}</p>`);
+   $("#message_ajax").append(`<p>The file name is: ${data.fileName}</p>`);
 })
-.catch(function(error: Error) {
+.catch((error: Error) => {
    console.log(error);
    $("#message_ajax").html("<div class='errorMessage'>Sorry, put was not successful.</div>");
 });
@@ -324,15 +324,15 @@ fetch('../controllers/php-delete.php', {
   body: file
 })
 .then($.json)
-.then(function<deleteData>(data: any): any {
+.then((data: any) => {
    $("#message_ajax").html("<div>DELETE was sent to the server successfully.</div>");
-   $("#message_ajax").append('<p>' + data.result + '</p>');
+   $("#message_ajax").append(`<p>${data.result}</p>`);
 },
-function(data: any) {
+(data: any) => {
   console.log('PROBLEM');
   console.log(data);
 })
-.catch(function(error: any) {
+.catch((error: any) => {
    $("#message_ajax").html("<div class='errorMessage'>Sorry, 'DELETE' was not successful.</div>");
    error.reject();
 });
@@ -349,30 +349,30 @@ fetch('../controllers/php-post.php', {
     timeout: 10000
 })
     .then($.json)
-    .then(function <postData>(data: any): any {
+    .then((data: any) => {
         if (data.email_check === "valid") {
-            $("#message_ajax").html("<div class='successMessage'>" + data.email + " is a valid e-mail address. Thank you, " + data.name + ".</div>");
-            $("#message_ajax").append('<p>' + data.msg + '</p>');
+            $("#message_ajax").html(`<div class='successMessage'>${data.email} is a valid e-mail address. Thank you, ${data.name}.</div>`);
+            $("#message_ajax").append(`<p>${data.msg}</p>`);
         } else {
-            $("#message_ajax").html("<div class='errorMessage'>Sorry " + data.name + ", " + data.email + " is NOT a valid e-mail address. Try again.</div>");
+            $("#message_ajax").html(`<div class='errorMessage'>Sorry ${data.name}, ${data.email} is NOT a valid e-mail address. Try again.</div>`);
         }
     })
     // Catch timeout:
-    .catch(function(error) {
+    .catch(error => {
       console.log(error);
     });
 
 // $.jsonp:
 $.jsonp('https://api.github.com/users/rbiggs/repos?name=chipper', {timeout: 10000})
 .then($.json)
-.then(function(obj: any): any {
+.then((obj: any) => {
   console.log(obj);
-  obj.data.forEach(function(repo: any): any {
-    $('#message_ajax').append("<li>" + repo.name + "</li>");
+  obj.data.forEach((repo: any) => {
+    $('#message_ajax').append(`<li>${repo.name}</li>`);
   });
 })
-.catch(function(error: any): any {
-  $('#message_ajax').append("<li>" + error.message + "</li>");
+.catch((error: any) => {
+  $('#message_ajax').append(`<li>${error.message}</li>`);
 });
 
 // Templates:
@@ -411,10 +411,9 @@ $.template.data['myRepeater'] = [{ name: "Joe" }, { name: "Sally" }, {name: "Tom
 $.template.repeater();
 
 // Pub/Sub:
-const arraySubscriber = function(topic: string, data: any): any {
-    $('.list').append('<li><h3>' + topic + '</h3><h4>' + data + '</h4></li>');
-};
-const newsSubscription = $.subscribe('news/update', arraySubscriber);
+const newsSubscription = $.subscribe('news/update', (topic: string, data: any) => {
+    $('.list').append(`<li><h3>${topic}</h3><h4>${data}</h4></li>`);
+});
 $.publish('news/update', 'The New York Stock Exchange rose an unprecedented 1000 points in just three minutes. Analysts and investors are confused and uncertain how to respond.');
 $.unsubscribe('news/update');
 // Due to being unsubscribed above, this does nothing:

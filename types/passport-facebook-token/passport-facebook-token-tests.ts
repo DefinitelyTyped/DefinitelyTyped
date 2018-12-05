@@ -1,28 +1,43 @@
+import * as express from 'express';
+import * as passport from 'passport';
+import PassportFacebookToken = require('passport-facebook-token');
 
-import passport = require('passport');
-import facebook = require('passport-facebook-token');
-
-var User = {
+const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, {username: 'ray'});
+        callback(null, { username: 'ray' });
     }
-}
-
-var options: facebook.StrategyOptions = {
-    clientID: process.env.PASSPORT_FACEBOOK_CLIENT_ID,
-    clientSecret: process.env.PASSPORT_FACEBOOK_CLIENT_SECRET
 };
 
-function verify(accessToken: string,
-                refreshToken: string,
-                profile: facebook.Profile,
-                done: (err: any, user?: any) => void) {
-    User.findOrCreate(profile.id, profile.provider, function (err, user) {
+const options: PassportFacebookToken.StrategyOptions = {
+    clientID: 'TEST_CLIENT_ID',
+    clientSecret: 'TEST_CLIENT_SECRET'
+};
+
+const optionsWithRequest: PassportFacebookToken.StrategyOptionsWithRequest = {
+    clientID: 'TEST_CLIENT_ID',
+    clientSecret: 'TEST_CLIENT_SECRET',
+    passReqToCallback: true
+};
+
+const verify: PassportFacebookToken.VerifyFunction =
+    (accessToken: string, refreshToken: string, profile: PassportFacebookToken.Profile, done: (err: any, user?: any, info?: any) => void) => {
+    User.findOrCreate(profile.id, profile.provider, (err, user) => {
         if (err) {
-            return done(err);
+            done(err);
         }
         done(null, user);
     });
-}
+};
 
-passport.use(new facebook.Strategy(options, verify));
+const verifyWithRequest: PassportFacebookToken.VerifyFunctionWithRequest =
+    (req: express.Request, accessToken: string, refreshToken: string, profile: PassportFacebookToken.Profile, done: (err: any, user?: any, info?: any) => void) => {
+    User.findOrCreate(profile.id, profile.provider, (err, user) => {
+        if (err) {
+            done(err);
+        }
+        done(null, user);
+    });
+};
+
+passport.use(new PassportFacebookToken(options, verify));
+passport.use(new PassportFacebookToken(optionsWithRequest, verifyWithRequest));

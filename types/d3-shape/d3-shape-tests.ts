@@ -17,6 +17,7 @@ import { HierarchyPointLink, HierarchyPointNode } from 'd3-hierarchy';
 
 let context: CanvasRenderingContext2D | null = document.querySelector('canvas')!.getContext('2d');
 let num: number;
+let padAngleMaybe: number | undefined;
 let pathStringMaybe: string | null;
 
 // -----------------------------------------------------------------------------------
@@ -28,7 +29,7 @@ interface ArcDatum {
     oRadius: number;
     sAngle: number;
     eAngle: number;
-    pAngle: number;
+    pAngle?: number;
 }
 
 const arcDefaultDatum: d3Shape.DefaultArcObject = {
@@ -37,6 +38,13 @@ const arcDefaultDatum: d3Shape.DefaultArcObject = {
     startAngle: 0,
     endAngle: Math.PI / 2,
     padAngle: 0.03
+};
+
+const arcReducedDefaultDatum: d3Shape.DefaultArcObject = {
+    innerRadius: 40,
+    outerRadius: 60,
+    startAngle: 0,
+    endAngle: Math.PI / 2
 };
 
 const arcDatum: ArcDatum = {
@@ -48,6 +56,7 @@ const arcDatum: ArcDatum = {
 };
 
 let accessorArcDatumNumber: (this: any, d: ArcDatum, ...args: any[]) => number;
+let accessorArcDatumNumberOrUndefined: (this: any, d: ArcDatum, ...args: any[]) => number | undefined;
 let accessorArcDatumNumberOrNull: ((this: any, d: ArcDatum, ...args: any[]) => number) | null;
 
 // DefaultArcObject interface ========================================================
@@ -64,7 +73,7 @@ num = defaultArcObject.innerRadius;
 num = defaultArcObject.outerRadius;
 num = defaultArcObject.startAngle;
 num = defaultArcObject.endAngle;
-num = defaultArcObject.padAngle;
+padAngleMaybe = defaultArcObject.padAngle;
 
 // arc(...) create Arc generator =====================================================
 
@@ -134,7 +143,7 @@ canvasArc = canvasArc.padAngle(0);
 svgArc = svgArc.padAngle(d => {
     return d.pAngle; // datum type is ArcDatum
 });
-accessorArcDatumNumber = svgArc.padAngle();
+accessorArcDatumNumberOrUndefined = svgArc.padAngle();
 
 // padRadius(...) ----------------------------------------------------------------------
 
@@ -200,14 +209,14 @@ class Arcer {
             .endAngle(this.endAngle)
             .padAngle(this.padAngle);
     }
-    private startAngle: number;
-    private endAngle: number;
-    private padAngle: number;
-    private innerRadius: number;
-    private outerRadius: number;
-    private cornerRadius: number;
+    private readonly startAngle: number;
+    private readonly endAngle: number;
+    private readonly padAngle: number;
+    private readonly innerRadius: number;
+    private readonly outerRadius: number;
+    private readonly cornerRadius: number;
 
-    private arc: d3Shape.Arc<Arcer, ArcerDatum>;
+    private readonly arc: d3Shape.Arc<Arcer, ArcerDatum>;
 
     getPathString(d?: ArcerDatum) {
         return d ? this.arc(d) : this.arc({ innerRadius: this.innerRadius, outerRadius: this.outerRadius });
@@ -447,8 +456,8 @@ let lineRadial: d3Shape.LineRadial<LineRadialDatum> = d3Shape.lineRadial<LineRad
 
 // DEPRECATED Naming conventions test (cross-testing with new naming conventions)
 
-let defaultRadialLine: d3Shape.RadialLine<[number, number]> = defaultLineRadial;
-let radialLine: d3Shape.RadialLine<LineRadialDatum> = lineRadial;
+const defaultRadialLine: d3Shape.RadialLine<[number, number]> = defaultLineRadial;
+const radialLine: d3Shape.RadialLine<LineRadialDatum> = lineRadial;
 
 defaultLineRadial = d3Shape.radialLine();
 lineRadial = d3Shape.radialLine<LineRadialDatum>();
@@ -685,8 +694,8 @@ let areaRadial: d3Shape.AreaRadial<AreaRadialDatum> = d3Shape.areaRadial<AreaRad
 
 // DEPRECATED Naming conventions test (cross-testing with new naming conventions)
 
-let defaultRadialArea: d3Shape.RadialArea<[number, number]> = defaultAreaRadial;
-let radialArea: d3Shape.RadialArea<AreaRadialDatum> = areaRadial;
+const defaultRadialArea: d3Shape.RadialArea<[number, number]> = defaultAreaRadial;
+const radialArea: d3Shape.RadialArea<AreaRadialDatum> = areaRadial;
 
 defaultAreaRadial = d3Shape.radialArea();
 areaRadial = d3Shape.radialArea<AreaRadialDatum>();
@@ -1175,7 +1184,7 @@ interface SymbolDatum {
 let customSymbol: d3Shape.SymbolType;
 
 customSymbol = {
-    draw(context: CanvasPathMethods, size: number): void {
+    draw(context: d3Shape.CanvasPath_D3Shape, size: number): void {
         // draw custom symbol using canvas path methods
     }
 };
@@ -1292,9 +1301,9 @@ class Symbolizer {
                 return type;
             });
     }
-    private size: number;
-    private type: d3Shape.SymbolType;
-    private symbol: d3Shape.Symbol<Symbolizer, SymbolDatum>;
+    private readonly size: number;
+    private readonly type: d3Shape.SymbolType;
+    private readonly symbol: d3Shape.Symbol<Symbolizer, SymbolDatum>;
 
     getPathString(d?: SymbolDatum) {
         return d ? this.symbol(d) : this.symbol();
@@ -1322,7 +1331,7 @@ customSymbol = d3Shape.symbolWye;
 // Test pointRadial
 // -----------------------------------------------------------------------------------
 
-let coordinatates: [number, number] = d3Shape.pointRadial(0, 12);
+const coordinatates: [number, number] = d3Shape.pointRadial(0, 12);
 
 // -----------------------------------------------------------------------------------
 // Test Stacks

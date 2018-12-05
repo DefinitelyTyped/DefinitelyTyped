@@ -1,18 +1,43 @@
-// Type definitions for auth0 2.3
+// Type definitions for auth0 2.9.2
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as Promise from 'bluebird';
+// TypeScript Version: 2.8
 
 export interface ManagementClientOptions {
-  token: string;
-  domain?: string;
+  token?: string;
+  domain: string;
+  clientId?: string;
+  clientSecret?: string;
+  audience?: string;
+  scope?: string;
+  tokenProvider?: TokenProvider;
+  retry?: RetryOptions;
 }
 
-export interface UserMetadata { }
-export interface AppMetadata { }
+export interface TokenProvider {
+  enableCache: boolean;
+  cacheTTLInSeconds?: number;
+}
+
+export interface RetryOptions {
+  /**
+   * Default value is `true`.
+   */
+  enabled?: boolean;
+  /**
+   * Default value is `10`.
+   */
+  maxRetries?: number;
+}
+
+export interface UserMetadata {
+  [propName: string]: string
+}
+
+export interface AppMetadata {
+  [propName: string]: any
+}
 
 export interface UserData {
   email?: string;
@@ -41,13 +66,260 @@ export interface UpdateUserData extends UserData {
 export interface GetUsersData {
   per_page?: number;
   page?: number;
-  include_totals?: boolean;
   sort?: string;
   connection?: string;
   fields?: string;
   include_fields?: boolean;
   q?: string;
   search_engine?: string;
+}
+
+export interface GetUsersDataPaged extends GetUsersData {
+  include_totals: boolean;
+}
+
+export interface Rule {
+  /**
+   * The name of the rule.
+   */
+  name?: string;
+  /**
+   * The rule's identifier.
+   */
+  id?: string;
+  /**
+   * The code to be executed when the rule runs.
+   */
+  script?: string;
+  /**
+   * The rule's execution stage.
+   */
+  stage?: string;
+  /**
+   * `true` if the connection is enabled, `false` otherwise.
+   */
+  enabled?: boolean;
+  /**
+   * The rule's order in relation to other rules. A rule with a lower order than another rule executes first.
+   */
+  order?: number;
+}
+
+export interface Client {
+  /**
+   * The name of the client.
+   */
+  name?: string;
+  /**
+   * Free text description of the purpose of the Client. (Max character length: `140`).
+   */
+  description?: string;
+  /**
+   * The id of the client.
+   */
+  client_id?: string;
+  /**
+   * The client secret, it must not be public.
+   */
+  client_secret?: string;
+  /**
+   * The type of application this client represents.
+   */
+  app_type?: string;
+  /**
+   * The URL of the client logo (recommended size: 150x150).
+   */
+  logo_uri?: string;
+  /**
+   * Whether this client a first party client or not.
+   */
+  is_first_party?: boolean;
+  /**
+   * Whether this client will conform to strict OIDC specifications.
+   */
+  oidc_conformant?: boolean;
+  /**
+   * The URLs that Auth0 can use to as a callback for the client.
+   */
+  callbacks?: string[];
+  allowed_origins?: string[];
+  web_origins?: string[];
+  client_aliases?: string[];
+  allowed_clients?: string[];
+  allowed_logout_urls?: string[];
+  jwt_configuration?: any;
+  /**
+   * Client signing keys.
+   */
+  signing_keys?: string[];
+  encryption_key?: any;
+  sso?: boolean;
+  /**
+   * `true` to disable Single Sign On, `false` otherwise (default: `false`)
+   */
+  sso_disabled?: boolean;
+  /**
+   * `true` if this client can be used to make cross-origin authentication requests, `false` otherwise (default: `false`)
+   */
+  cross_origin_auth?: boolean;
+  /**
+   * Url fo the location in your site where the cross origin verification takes place for the cross-origin auth flow when performing Auth in your own domain instead of Auth0 hosted login page.
+   */
+  cross_origin_loc?: string;
+  /**
+   * `true` if the custom login page is to be used, `false` otherwise. (default: `true`)
+   */
+  custom_login_page_on?: boolean;
+  custom_login_page?: string;
+  custom_login_page_preview?: string;
+  form_template?: string;
+  addons?: any;
+  /**
+   * Defines the requested authentication method for the token endpoint. Possible values are 'none' (public client without a client secret), 'client_secret_post' (client uses HTTP POST parameters) or 'client_secret_basic' (client uses HTTP Basic) ['none' or 'client_secret_post' or 'client_secret_basic']
+   */
+  token_endpoint_auth_method?: string;
+  client_metadata?: any;
+  mobile?: any;
+}
+
+export interface ResourceServer {
+  /**
+   * The identifier of the resource server.
+   */
+  identifier?: string;
+  scopes?: { description: string, value: string }[];
+  /**
+   * The algorithm used to sign tokens.
+   */
+  signing_alg?: 'HS256' | 'RS256';
+  /**
+   * The secret used to sign tokens when using symmetric algorithms.
+   */
+  signing_secret?: string;
+  /**
+   * Allows issuance of refresh tokens for this entity.
+   */
+  allow_offline_access?: boolean;
+  /**
+   * Flag this entity as capable of skipping consent.
+   */
+  skip_consent_for_verifiable_first_party_clients?: boolean;
+  /**
+   * The amount of time (in seconds) that the token will be valid after being issued.
+   */
+  token_lifetime?: number;
+  /**
+   * The amount of time (in seconds) that the token will be valid after being issued from browser based flows. Value cannot be larger than token_lifetime..
+   */
+  token_lifetime_for_web?: number;
+  /**
+   * The ID of the resource server.
+   */
+  id?: string;
+  /**
+   * A friendly name for the resource server.
+   */
+  name?: string;
+}
+
+export interface CreateResourceServer extends ResourceServer {
+  /**
+   * The identifier of the client.
+   */
+  identifier: string;
+}
+
+export interface CreateClientGrant {
+  /**
+   * The identifier of the resource server.
+   */
+  client_id: string;
+  /**
+   * The audience.
+   */
+  audience: string;
+  scope: string[];
+}
+
+export type UpdateClientGrant = Pick<Partial<CreateClientGrant>, 'scope'>;
+
+export type ClientGrant = Partial<CreateClientGrant> & {
+  /**
+   * The id of the client grant.
+   */
+  id?: string;
+};
+
+export interface CreateClientGrant {
+  /**
+   * The identifier of the resource server.
+   */
+  client_id: string;
+  /**
+   * The audience.
+   */
+  audience: string;
+  scope: string[];
+}
+
+export type Strategy =
+  'ad' | 'adfs' | 'amazon' | 'dropbox' | 'bitbucket' | 'aol' | 'auth0-adldap' | 'auth0-oidc' |
+  'auth0' | 'baidu' | 'bitly' | 'box' | 'custom' | 'daccount' | 'dwolla' | 'email' |
+  'evernote-sandbox' | 'evernote' | 'exact' | 'facebook' | 'fitbit' | 'flickr' | 'github' |
+  'google-apps' | 'google-oauth2' | 'guardian' | 'instagram' | 'ip' | 'linkedin' | 'miicard' |
+  'oauth1' | 'oauth2' | 'office365' | 'paypal' | 'paypal-sandbox' | 'pingfederate' |
+  'planningcenter' | 'renren' | 'salesforce-community' | 'salesforce-sandbox' | 'salesforce' |
+  'samlp' | 'sharepoint' | 'shopify' | 'sms' | 'soundcloud' | 'thecity-sandbox' | 'thecity' |
+  'thirtysevensignals' | 'twitter' | 'untappd' | 'vkontakte' | 'waad' | 'weibo' | 'windowslive' |
+  'wordpress' | 'yahoo' | 'yammer' | 'yandex';
+
+export interface UpdateConnection {
+  options?: any;
+  /**
+   * The identifiers of the clients for which the connection is to
+   * be enabled. If the array is empty or the property is not
+   * specified, no clients are enabled.
+   */
+  enabled_clients?: string[];
+  /**
+   * Defines the realms for which the connection will be used
+   * (ie: email domains). If the array is empty or the property is
+   * not specified, the connection name will be added as realm.
+   */
+  realms?: string[];
+  metadata?: any;
+  /**
+ * True if the connection is domain level.
+ */
+  is_domain_connection?: boolean;
+}
+
+export interface Connection extends UpdateConnection {
+  /**
+   * The connection's identifier.
+   */
+  id?: string;
+  /**
+   * The name of the connection.
+   */
+  name?: string;
+  /**
+   * The type of the connection, related to the identity provider.
+   */
+  strategy?: Strategy;
+}
+
+export interface CreateConnection extends UpdateConnection {
+  /**
+   * The name of the connection. Must start and end with an
+   * alphanumeric character and can only contain alphanumeric
+   * characters and '-'. Max length 128.
+   */
+  name: string;
+  /**
+   * The identity provider identifier for the connection.
+   */
+  strategy: Strategy;
 }
 
 export interface User {
@@ -74,11 +346,31 @@ export interface User {
   family_name?: string;
 }
 
+export interface Page {
+  start: number;
+  limit: number;
+  length: number;
+  total: number;
+}
+
+export interface UserPage extends Page {
+  users: User[];
+}
+
 export interface Identity {
   connection: string;
   user_id: string;
   provider: string;
   isSocial: boolean;
+  access_token?: string;
+  profileData?: {
+    email?: string;
+    email_verified?: boolean;
+    name?: string;
+    phone_number?: string;
+    phone_verified?: boolean;
+    request_language?: string;
+  }
 }
 
 export interface AuthenticationClientOptions {
@@ -196,7 +488,7 @@ export interface UnlinkAccountsResponse {
   profileData?: UnlinkAccountsResponseProfile
 }
 
-export interface LinkAccountsData {
+export interface LinkAccountsParams {
   user_id: string;
   connection_id?: string;
   provider?: string;
@@ -222,10 +514,16 @@ export interface UserIdParams {
 }
 
 export interface PasswordChangeTicketParams {
-  result_url: string;
-  user_id: string;
-  email: string;
-  new_password: string;
+  result_url?: string;
+  user_id?: string;
+  new_password?: string;
+  connection_id?: string;
+  email?: string;
+  ttl_sec?: number;
+}
+
+export interface PasswordChangeTicketResponse {
+  ticket: string;
 }
 
 export interface EmailVerificationTicketOptions {
@@ -233,9 +531,84 @@ export interface EmailVerificationTicketOptions {
   result_url: string;
 }
 
+export interface BaseClientOptions {
+  baseUrl: string;
+  clientId?: string;
+}
 
+export interface OAuthClientOptions extends BaseClientOptions {
+  clientSecret?: string;
+}
+
+export interface DatabaseClientOptions extends BaseClientOptions {
+}
+
+export interface PasswordLessClientOptions extends BaseClientOptions {
+}
+
+export interface TokenManagerOptions extends BaseClientOptions {
+  headers?: any;
+}
+export interface UsersOptions extends BaseClientOptions {
+  headers?: any;
+}
+
+export interface SignInOptions extends VerifyOptions {
+  connection?: string;
+}
+
+export interface SocialSignInOptions {
+  access_token: string;
+  connection: string;
+}
+
+export interface SignInToken {
+  access_token: string;
+  id_token?: string;
+  token_type?: string;
+  expiry: number;
+}
+
+export interface RequestSMSCodeOptions extends RequestSMSOptions {
+  client_id: string;
+}
+
+export type SendType = 'link' | 'code';
+export interface RequestEmailCodeOrLinkOptions {
+  email: string;
+  send: SendType
+}
+
+export interface ImpersonateSettingOptions {
+  impersonator_id: string;
+  protocol: string;
+  token: string;
+  clientId?: string;
+}
+
+export type ClientAppType = 'native' | 'spa' | 'regular_web' | 'non_interactive' | 'rms' | 'box' |
+  'cloudbees' | 'concur' | 'dropbox' | 'mscrm' | 'echosign' | 'egnyte' | 'newrelic' | 'office365' |
+  'salesforce' | 'sentry' | 'sharepoint' | 'slack' | 'springcm' | 'zendesk' | 'zoom';
+export interface GetClientsOptions {
+    fields?: string[];
+    include_fields?: boolean;
+    page?: number;
+    per_page?: number;
+    include_totals?: boolean;
+    is_global?: boolean;
+    is_first_party?: boolean;
+    app_type?: ClientAppType[];
+}
 
 export class AuthenticationClient {
+
+  // Members
+  database?: DatabaseAuthenticator;
+  oauth?: OAuthAuthenticator;
+  passwordless?: PasswordlessAuthenticator;
+  tokens?: TokenManager;
+  users?: UsersManager;
+
   constructor(options: AuthenticationClientOptions);
   getClientInfo(): ClientInfo;
 
@@ -281,53 +654,52 @@ export class ManagementClient {
   getClientInfo(): ClientInfo;
 
   // Connections
-  getConnections(): Promise<User>;
-  getConnections(cb: (err: Error, data: any) => void): void;
+  getConnections(): Promise<Connection[]>;
+  getConnections(cb: (err: Error, connections: Connection[]) => void): void;
 
-  createConnection(data: ObjectWithId): Promise<User>;
-  createConnection(data: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  createConnection(data: CreateConnection): Promise<Connection>;
+  createConnection(data: CreateConnection, cb: (err: Error, connection: Connection) => void): void;
 
-  getConnection(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
-  getConnection(params: ObjectWithId): Promise<User>;
+  getConnection(params: ObjectWithId, cb: (err: Error, connection: Connection) => void): void;
+  getConnection(params: ObjectWithId): Promise<Connection>;
 
-  deleteConnection(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
-  deleteConnection(params: ObjectWithId): Promise<User>;
+  deleteConnection(params: ObjectWithId, cb: (err: Error) => void): void;
+  deleteConnection(params: ObjectWithId): Promise<void>;
 
-  deleteConnection(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
-  deleteConnection(params: ObjectWithId): Promise<User>;
-
-  updateConnection(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
-  updateConnection(params: ObjectWithId, data: Data): Promise<User>;
+  updateConnection(params: ObjectWithId, data: UpdateConnection, cb: (err: Error, connection: Connection) => void): void;
+  updateConnection(params: ObjectWithId, data: UpdateConnection): Promise<Connection>;
 
 
   // Clients
-  getClients(): Promise<User>;
-  getClients(cb: (err: Error, data: any) => void): void;
+  getClients(params?: GetClientsOptions): Promise<Client[]>;
+  getClients(cb: (err: Error, clients: Client[]) => void ): void;
+  getClients(params: GetClientsOptions, cb: (err: Error, clients: Client[]) => void ): void;
 
-  getClient(params: ClientParams): Promise<User>;
-  getClient(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  getClient(params: ClientParams): Promise<Client>;
+  getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;
 
-  createClient(data: Data): Promise<User>;
-  createClient(data: Data, cb: (err: Error, data: any) => void): void;
+  createClient(data: Data): Promise<Client>;
+  createClient(data: Data, cb: (err: Error, client: Client) => void): void;
 
-  updateClient(params: ClientParams, data: Data): Promise<User>;
-  updateClient(params: ClientParams, data: Data, cb: (err: Error, data: any) => void): void;
+  updateClient(params: ClientParams, data: Data): Promise<Client>;
+  updateClient(params: ClientParams, data: Data, cb: (err: Error, client: Client) => void): void;
 
-  deleteClient(params: ClientParams): Promise<User>;
-  deleteClient(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  deleteClient(params: ClientParams): Promise<void>;
+  deleteClient(params: ClientParams, cb: (err: Error) => void): void;
+
 
   // Client Grants
-  getClientGrants(): Promise<User>;
-  getClientGrants(cb: (err: Error, data: any) => void): void;
+  getClientGrants(): Promise<ClientGrant[]>;
+  getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
 
-  createClientGrant(data: Data): Promise<User>;
-  createClientGrant(data: Data, cb: (err: Error, data: any) => void): void;
+  createClientGrant(data: CreateClientGrant): Promise<ClientGrant>;
+  createClientGrant(data: CreateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
-  updateClientGrant(params: ObjectWithId, data: Data): Promise<User>;
-  updateClientGrant(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
+  updateClientGrant(params: ObjectWithId, data: UpdateClientGrant): Promise<ClientGrant>;
+  updateClientGrant(params: ObjectWithId, data: UpdateClientGrant, cb: (err: Error, data: ClientGrant) => void): void;
 
-  deleteClientGrant(params: ObjectWithId): Promise<User>;
-  deleteClientGrant(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  deleteClientGrant(params: ObjectWithId): Promise<void>;
+  deleteClientGrant(params: ObjectWithId, cb: (err: Error) => void): void;
 
 
   // Device Keys
@@ -342,31 +714,37 @@ export class ManagementClient {
 
 
   // Rules
-  getRules(): Promise<User>;
-  getRules(cb: (err: Error, data: any) => void): void;
+  getRules(): Promise<Rule[]>;
+  getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
-  getRule(params: ClientParams): Promise<User>;
-  getRule(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  getRule(params: ClientParams): Promise<Rule>;
+  getRule(params: ClientParams, cb: (err: Error, rule: Rule) => void): void;
 
-  createRules(data: Data): Promise<User>;
-  createRules(data: Data, cb: (err: Error, data: any) => void): void;
+  createRule(data: Data): Promise<Rule>;
+  createRule(data: Data, cb: (err: Error, rule: Rule) => void): void;
 
-  updateRule(params: ObjectWithId, data: Data): Promise<User>;
-  updateRule(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
+  updateRule(params: ObjectWithId, data: Data): Promise<Rule>;
+  updateRule(params: ObjectWithId, data: Data, cb: (err: Error, rule: Rule) => void): void;
 
-  deleteRule(params: ObjectWithId): Promise<User>;
-  deleteRule(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  deleteRule(params: ObjectWithId): Promise<void>;
+  deleteRule(params: ObjectWithId, cb: (err: Error) => void): void;
 
 
   // Users
+  getUsers(params: GetUsersDataPaged): Promise<UserPage>;
+  getUsers(params: GetUsersDataPaged, cb: (err: Error, userPage: UserPage) => void): void;
   getUsers(params?: GetUsersData): Promise<User[]>;
+  getUsers(cb: (err: Error, users: User[]) => void): void;
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
 
   getUser(params: ObjectWithId): Promise<User>;
   getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
 
+  getUsersByEmail(email: string): Promise<User[]>;
+  getUsersByEmail(email: string, cb?: (err: Error, users: User[]) => void): void;
+
   createUser(data: CreateUserData): Promise<User>;
-  createUser(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+  createUser(data: CreateUserData, cb: (err: Error, user: User) => void): void;
 
   updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User>;
   updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User) => void): void;
@@ -390,8 +768,8 @@ export class ManagementClient {
   unlinkUsers(params: UnlinkAccountsParams): Promise<UnlinkAccountsResponse>;
   unlinkUsers(params: UnlinkAccountsParams, cb: (err: Error, data: UnlinkAccountsResponse) => void): void;
 
-  linkUsers(params: ObjectWithId, data: LinkAccountsData): Promise<any>;
-  linkUsers(params: ObjectWithId, data: LinkAccountsData, cb: (err: Error, data: any) => void): void;
+  linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
+  linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
 
 
   // Tokens
@@ -412,8 +790,8 @@ export class ManagementClient {
   deleteEmailProvider(): Promise<any>;
   deleteEmailProvider(cb?: (err: Error, data: any) => void): void;
 
-  updateEmailProvider(data: Data): Promise<any>;
-  updateEmailProvider(data: Data, cb?: (err: Error, data: any) => void): void;
+  updateEmailProvider(params: {}, data: Data): Promise<any>;
+  updateEmailProvider(params: {}, data: Data, cb?: (err: Error, data: any) => void): void;
 
 
   // Statistics
@@ -443,8 +821,8 @@ export class ManagementClient {
   sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: any) => void): void;
 
   // Tickets
-  createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<any>;
-  createPasswordChangeTicket(params: PasswordChangeTicketParams, cb?: (err: Error, data: any) => void): void;
+  createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
+  createPasswordChangeTicket(params: PasswordChangeTicketParams, cb?: (err: Error, data: PasswordChangeTicketResponse) => void): void;
 
   createEmailVerificationTicket(data: EmailVerificationTicketOptions): Promise<any>;
   createEmailVerificationTicket(data: EmailVerificationTicketOptions, cb?: (err: Error, data: any) => void): void;
@@ -458,22 +836,78 @@ export class ManagementClient {
 
 
   // Resource Server
-  createResourceServer(data: Data): Promise<any>;
-  createResourceServer(data: Data, cb?: (err: Error, data: any) => void): void;
+  createResourceServer(data: CreateResourceServer): Promise<ResourceServer>;
+  createResourceServer(data: CreateResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
 
-  getResourceServers(): Promise<any>;
-  getResourceServers(cb?: (err: Error, data: any) => void): void;
+  getResourceServers(): Promise<ResourceServer[]>;
+  getResourceServers(cb?: (err: Error, data: ResourceServer[]) => void): void;
 
-  getResourceServer(data: ObjectWithId): Promise<any>;
-  getResourceServer(data: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+  getResourceServer(data: ObjectWithId): Promise<ResourceServer>;
+  getResourceServer(data: ObjectWithId, cb?: (err: Error, data: ResourceServer) => void): void;
 
-  deleteResourceServer(params: ObjectWithId): Promise<any>;
-  deleteResourceServer(params: ObjectWithId, cb?: (err: Error, data: any) => void): void;
+  deleteResourceServer(params: ObjectWithId): Promise<void>;
+  deleteResourceServer(params: ObjectWithId, cb?: (err: Error) => void): void;
 
-  updateResourceServer(params: ObjectWithId, data: Data): Promise<any>;
-  updateResourceServer(params: ObjectWithId, data: Data, cb?: (err: Error, data: any) => void): void;
+  updateResourceServer(params: ObjectWithId, data: ResourceServer): Promise<ResourceServer>;
+  updateResourceServer(params: ObjectWithId, data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
+}
 
 
+export class DatabaseAuthenticator {
+  constructor(options: DatabaseClientOptions, oauth: OAuthAuthenticator);
+
+  changePassword(data: ResetPasswordOptions): Promise<any>;
+  changePassword(data: ResetPasswordOptions, cb: (err: Error, message: string) => void): void;
+
+  requestChangePasswordEmail(data: ResetPasswordEmailOptions): Promise<any>;
+  requestChangePasswordEmail(data: ResetPasswordEmailOptions, cb: (err: Error, message: string) => void): void;
+
+  signIn(data: SignInOptions): Promise<SignInToken>;
+  signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  signUp(data: CreateUserData): Promise<User>;
+  signIn(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+
+}
+
+export class OAuthAuthenticator {
+  constructor(options: OAuthClientOptions);
+
+  passwordGrant(options: PasswordGrantOptions): Promise<SignInToken>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: SignInToken) => void): void;
+
+  signIn(data: SignInOptions): Promise<SignInToken>;
+  signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
 
 
+  socialSignIn(data: SocialSignInOptions): Promise<SignInToken>;
+  socialSignIn(data: SocialSignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+}
+
+export class PasswordlessAuthenticator {
+  constructor(options: PasswordLessClientOptions, oauth: OAuthAuthenticator);
+
+  signIn(data: SignInOptions): Promise<SignInToken>;
+  signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  sendEmail(data: RequestEmailCodeOrLinkOptions): Promise<any>;
+  sendEmail(data: RequestEmailCodeOrLinkOptions, cb: (err: Error, message: string) => void): void;
+
+  sendSMS(data: RequestSMSCodeOptions): Promise<any>;
+  sendSMS(data: RequestSMSCodeOptions, cb: (err: Error, message: string) => void): void;
+}
+
+export class TokenManager {
+  constructor(options: TokenManagerOptions);
+
+}
+
+export class UsersManager {
+  constructor(options: UsersOptions);
+
+  getInfo(accessToken: string): Promise<User>;
+  getInfo(accessToken: string, cb: (err: Error, user: User) => void): void;
+
+  impersonate(userId: string, settings: ImpersonateSettingOptions): Promise<any>;
+  impersonate(userId: string, settings: ImpersonateSettingOptions, cb: (err: Error, data: any) => void): void;
 }

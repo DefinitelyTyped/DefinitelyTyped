@@ -4,15 +4,26 @@ import Auth0Lock from 'auth0-lock';
 const CLIENT_ID = "YOUR_AUTH0_APP_CLIENTID";
 const DOMAIN = "YOUR_DOMAIN_AT.auth0.com";
 
-var lock: Auth0LockStatic = new Auth0Lock(CLIENT_ID, DOMAIN);
+const lock: Auth0LockStatic = new Auth0Lock(CLIENT_ID, DOMAIN);
 
 lock.show();
 lock.hide();
 lock.logout(() => {});
 
+lock.checkSession({}, function(error: auth0.Auth0Error, authResult: AuthResult): void {
+  if (error || !authResult) {
+    lock.show();
+  } else {
+    // user has an active session, so we can use the accessToken directly.
+    lock.getUserInfo(authResult.accessToken, function(error, profile) {
+      console.log(error, profile);
+    });
+  }
+});
+
 // Show supports UI arguments
 
-var showOptions : Auth0LockShowOptions = {
+const showOptions : Auth0LockShowOptions = {
   allowedConnections: [ "twitter", "facebook" ],
   allowSignUp: true,
   allowForgotPassword: false,
@@ -28,7 +39,10 @@ var showOptions : Auth0LockShowOptions = {
     type: "error",
     text: "an error has occurred"
   },
-  rememberLastLogin: false
+  rememberLastLogin: false,
+  languageDictionary: {
+    title: "test"
+  }
 };
 
 lock.show(showOptions);
@@ -37,7 +51,7 @@ lock.show(showOptions);
 
 // "on" event-driven example
 
-lock.on("authenticated", function(authResult : any) {
+lock.on("authenticated", function(authResult: AuthResult) {
   lock.getProfile(authResult.idToken, function(error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) {
     if (error) {
       // Handle error
@@ -49,7 +63,7 @@ lock.on("authenticated", function(authResult : any) {
   });
 });
 
-lock.on("authenticated", function(authResult : any) {
+lock.on("authenticated", function(authResult: AuthResult) {
   lock.getUserInfo(authResult.accessToken, function(error, profile) {
     if (error) {
       // Handle error
@@ -63,7 +77,7 @@ lock.on("authenticated", function(authResult : any) {
 
 // test theme
 
-var themeOptions : Auth0LockConstructorOptions = {
+const themeOptions : Auth0LockConstructorOptions = {
   theme: {
     authButtons: {
       fooProvider: {
@@ -76,6 +90,7 @@ var themeOptions : Auth0LockConstructorOptions = {
         icon: 'http://baz.com/icon.png'
       }
     },
+    hideMainScreenTitle: false,
     labeledSubmitButton: false,
     logo: "https://example.com/assets/logo.png",
     primaryColor: "green"
@@ -86,7 +101,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
 
 // test empty theme
 
-var themeOptionsEmpty : Auth0LockConstructorOptions = {
+const themeOptionsEmpty : Auth0LockConstructorOptions = {
   theme: { }
 };
 
@@ -94,7 +109,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
 
 // test authentication
 
-var authOptions : Auth0LockConstructorOptions = {
+const authOptions : Auth0LockConstructorOptions = {
   auth: {
    params: { state: "foo" },
    redirect: true,
@@ -106,23 +121,43 @@ var authOptions : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, authOptions);
 
+// test "other" properties
+
+const otherOptions : Auth0LockConstructorOptions = {
+  clientBaseUrl: "http://www.example.com",
+  configurationBaseUrl: "https://cdn.auth0.com",
+  languageBaseUrl: "http://www.example.com",
+  hashCleanup: false,
+  leeway: 30,
+  _enableImpersonation: true,
+  _enableIdPInitiatedLogin: false
+};
+
+new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);
+
 // test multi-variant example
 
-var multiVariantOptions : Auth0LockConstructorOptions = {
+const multiVariantOptions : Auth0LockConstructorOptions = {
   container: "myContainer",
   closable: false,
+  language: "en",
   languageDictionary: {
     signUpTerms: "I agree to the <a href='/terms' target='_new'>terms of service</a> ...",
     title: "My Company",
   },
-  autofocus: false
+  autoclose: true,
+  autofocus: false,
+  allowAutocomplete: false,
+  scrollGlobalMessagesIntoView: false,
+  allowShowPassword: true,
+  allowPasswordAutocomplete: false,
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, multiVariantOptions);
 
 // test text-field additional sign up field
 
-var textFieldOptions : Auth0LockConstructorOptions = {
+const textFieldOptions : Auth0LockConstructorOptions = {
   additionalSignUpFields: [{
     name: "address",
     placeholder: "enter your address",
@@ -142,7 +177,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, textFieldOptions);
 
 // test select-field additional sign up field
 
-var selectFieldOptions : Auth0LockConstructorOptions = {
+const selectFieldOptions : Auth0LockConstructorOptions = {
   additionalSignUpFields: [{
     type: "select",
     name: "location",
@@ -162,7 +197,7 @@ new Auth0Lock(CLIENT_ID, DOMAIN, selectFieldOptions);
 
 // test select-field additional sign up field with callbacks for
 
-var selectFieldOptionsWithCallbacks : Auth0LockConstructorOptions = {
+const selectFieldOptionsWithCallbacks : Auth0LockConstructorOptions = {
   additionalSignUpFields: [{
     type: "select",
     name: "location",
@@ -171,7 +206,7 @@ var selectFieldOptionsWithCallbacks : Auth0LockConstructorOptions = {
       // obtain options, in case of error you call cb with the error in the
       // first arg instead of null
 
-      let options = [
+      const options = [
         {value: "us", label: "United States"},
         {value: "fr", label: "France"},
         {value: "ar", label: "Argentina"}
@@ -184,7 +219,7 @@ var selectFieldOptionsWithCallbacks : Auth0LockConstructorOptions = {
       // obtain prefill, in case of error you call cb with the error in the
       // first arg instead of null
 
-      let prefill = "us";
+      const prefill = "us";
 
       cb(null, prefill);
     }
@@ -193,15 +228,28 @@ var selectFieldOptionsWithCallbacks : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, selectFieldOptionsWithCallbacks);
 
+// test checkbox-field additional sign up field
+
+const checkboxFieldOptions : Auth0LockConstructorOptions = {
+    additionalSignUpFields: [{
+      type: "checkbox",
+      name: "remember",
+      placeholder: "Remember Me",
+      prefill: "false"
+    }]
+  };
+
+  new Auth0Lock(CLIENT_ID, DOMAIN, checkboxFieldOptions);
+
 // test Avatar options
 
-var avatarOptions : Auth0LockConstructorOptions = {
+const avatarOptions : Auth0LockConstructorOptions = {
   avatar: {
     url: (email : string, cb : Auth0LockAvatarUrlCallback) => {
       // obtain url for email, in case of error you call cb with the error in
       // the first arg instead of null
 
-      let url = "url";
+      const url = "url";
 
       cb(null, url);
     },
@@ -209,7 +257,7 @@ var avatarOptions : Auth0LockConstructorOptions = {
       // obtain displayName for email, in case of error you call cb with the
       // error in the first arg instead of null
 
-      let displayName = "displayName";
+      const displayName = "displayName";
 
       cb(null, displayName);
     }
@@ -218,8 +266,9 @@ var avatarOptions : Auth0LockConstructorOptions = {
 
 new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
 
-var authResult : AuthResult = {
+const authResult : AuthResult = {
     accessToken: 'fake_access_token',
+    expiresIn: 7200,
     idToken: 'fake_id_token',
     idTokenPayload: {
       aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
@@ -229,5 +278,6 @@ var authResult : AuthResult = {
       sub: "auth0|aksjfkladsf"
     },
     refreshToken: undefined,
-    state: "923jf092j3.FFSDJFDSKLDF"
+    state: "923jf092j3.FFSDJFDSKLDF",
+    tokenType: 'Bearer'
 };

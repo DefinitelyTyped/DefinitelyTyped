@@ -11,6 +11,7 @@ new Awesomplete(input, {
 
 const awesomplete = new Awesomplete(input);
 awesomplete.list = ["Ada", "Java", "JavaScript", "LOLCODE", "Node.js", "Ruby on Rails"];
+awesomplete.destroy();
 
 new Awesomplete(input, {
     list: [
@@ -35,7 +36,7 @@ new Awesomplete('input[type="email"]', {
            "hotmail.co.uk", "mac.com", "me.com", "mail.com", "msn.com",
            "live.com", "sbcglobal.net", "verizon.net", "yahoo.com", "yahoo.co.uk"],
     data: (text: string, input: string) => {
-        return input.slice(0, input.indexOf("@")) + "@" + text;
+        return `${input.slice(0, input.indexOf("@"))}@${text}`;
     },
     filter: Awesomplete.FILTER_STARTSWITH
 });
@@ -47,7 +48,7 @@ new Awesomplete('input[data-multiple]', {
 
     replace: (text: string) => {
         const before = this.input.value.match(/^.+,\s*|/)[0];
-        this.input.value = before + text + ", ";
+        this.input.value = `${before}${text}, `;
     }
 });
 

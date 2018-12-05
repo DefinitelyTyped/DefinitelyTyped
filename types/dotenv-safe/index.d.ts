@@ -1,8 +1,7 @@
-// Type definitions for dotenv-safe 4.0
+// Type definitions for dotenv-safe 5.0
 // Project: https://github.com/rolodato/dotenv-safe
 // Definitions by: Stan Goldmann <https://github.com/krenor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import env = require("dotenv")
 
@@ -18,23 +17,44 @@ export interface MissingEnvVarsError extends Error {
   missing: string[]
 }
 
+export interface DotenvSafeOptions {
+  /**
+   * You can specify a custom path if your file containing environment variables is named or located differently.
+   * @default '.env'
+   */
+  path?: string,
+  /**
+   * Path to example environment file.
+   * @default ".env.example"
+   */
+  sample?: string,
+  /**
+   * Path to environment file.
+   * @default ".env"
+   */
+  silent?: boolean,
+  /**
+   * Encoding of your file containing environment variables.
+   * @default "utf8"
+   */
+  encoding?: string,
+  /**
+   * Enabling this option will not throw an error after loading.
+   * @default false
+   */
+  allowEmptyValues?: boolean,
+}
+
 /**
  * Loads environment variables file into 'process.env'.
  *
- * @param {object}  options
- * @param {string}  [options.sample=".env.example"] Path to example environment file.
- * @param {string}  [options.path=".env"] Path to environment file.
- * @param {string}  [options.encoding="utf8"] Encoding of your file containing environment variables.
- * @param {boolean} [options.allowEmptyValues=false] Enabling this option will not throw an error after loading.
+ * @throws MissingEnvVarsError
+ */
+export function load(options?: DotenvSafeOptions): env.DotenvConfigOutput
+
+/**
+ * Loads environment variables file into 'process.env'.
  *
  * @throws MissingEnvVarsError
- *
- * @return env.DotenvResult
  */
-export function load(options?: {
-  path?: string,
-  sample?: string,
-  silent?: boolean,
-  encoding?: string,
-  allowEmptyValues?: boolean,
-}): env.DotenvResult
+export function config(options?: DotenvSafeOptions): env.DotenvConfigOutput

@@ -1,7 +1,9 @@
 // Type definitions for Lovefield 2.1
 // Project: http://google.github.io/lovefield/
 // Definitions by: freshp86 <https://github.com/freshp86>
+//                 zackzeno <https://github.com/zackzeno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace lf {
   enum Order { ASC, DESC }
@@ -59,10 +61,10 @@ declare namespace lf {
   }
 
   interface Transaction {
-    attach(query: query.Builder): Promise<Object[]>;
+    attach(query: query.Builder): Promise<object[]>;
     begin(scope: schema.Table[]): Promise<void>;
     commit(): Promise<void>;
-    exec(queries: query.Builder[]): Promise<Object[][]>;
+    exec(queries: query.Builder[]): Promise<object[][]>;
     rollback(): Promise<void>;
     stats(): TransactionStats;
   }
@@ -73,9 +75,9 @@ declare namespace lf {
     close(): void;
     createTransaction(type?: TransactionType): Transaction;
     delete(): query.Delete;
-    export(): Promise<Object>;
+    export(): Promise<object>;
     getSchema(): schema.Database;
-    import(data: Object): Promise<void>;
+    import(data: object): Promise<void>;
     insertOrReplace(): query.Insert;
     insert(): query.Insert;
     observe(query: query.Select, callback: Function): void;
@@ -87,7 +89,7 @@ declare namespace lf {
   namespace query {
     interface Builder {
       bind(...values: any[]): Builder;
-      exec(): Promise<Object[]>;
+      exec(): Promise<object[]>;
       explain(): string;
       toSql(): string;
     }
@@ -131,9 +133,9 @@ declare namespace lf {
       renameTableColumn(
           tableName: string, oldColumnName: string,
           newColumnName: string): Promise<void>;
-      createRow(payload: Object): Row;
+      createRow(payload: object): Row;
       getVersion(): number;
-      dump(): Object[];
+      dump(): object[];
     }
   }  // module raw
 
@@ -153,8 +155,8 @@ declare namespace lf {
     interface Database {
       name(): string;
       pragma(): DatabasePragma;
-      tables(): schema.Table[];
-      table(tableName: string): schema.Table;
+      tables(): Table[];
+      table(tableName: string): Table;
       version(): number;
     }
 
@@ -166,7 +168,7 @@ declare namespace lf {
 
     interface ITable {
       as(name: string): Table;
-      createRow(value: Object): Row;
+      createRow(value: object): Row;
       getName(): string;
     }
 
@@ -195,12 +197,12 @@ declare namespace lf {
     type RawForeignKeySpec = {
       local: string
       ref: string
-      action?: lf.ConstraintAction
-      timing?: lf.ConstraintTiming
+      action?: ConstraintAction
+      timing?: ConstraintTiming
     };
 
     interface TableBuilder {
-      addColumn(name: string, type: lf.Type): TableBuilder;
+      addColumn(name: string, type: Type): TableBuilder;
       addForeignKey(name: string, spec: RawForeignKeySpec): TableBuilder;
       addIndex(
           name: string, columns: string[]|IndexedColumn[],

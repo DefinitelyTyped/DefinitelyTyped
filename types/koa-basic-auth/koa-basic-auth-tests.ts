@@ -1,4 +1,4 @@
-import * as Koa from "koa";
+import Koa = require("koa");
 import auth = require("koa-basic-auth");
 
 const app = new Koa();

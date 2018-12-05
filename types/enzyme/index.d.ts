@@ -1,4 +1,4 @@
-// Type definitions for Enzyme 2.8
+// Type definitions for Enzyme 3.1
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
@@ -6,8 +6,10 @@
 //                 jwbay <https://github.com/jwbay>
 //                 huhuanming <https://github.com/huhuanming>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Torgeir Hovden <https://github.com/thovden>
+//                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="cheerio" />
 import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
@@ -22,7 +24,7 @@ export class ElementClass extends Component<any, any> {
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new (props?: Props, context?: any): Component<Props, any>;
+    new(props: Props, context?: any): Component<Props>;
 }
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
@@ -44,36 +46,31 @@ export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<a
 
 export type Intercepter<T> = (intercepter: T) => void;
 
-export interface CommonWrapper<P, S> {
+export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
-     * @param predicate
      */
     filterWhere(predicate: (wrapper: this) => boolean): this;
 
     /**
      * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
-     * @param node
      */
-    contains(node: ReactElement<any>): boolean;
+    contains(node: ReactElement<any> | Array<ReactElement<any>> | string): boolean;
 
     /**
      * Returns whether or not a given react element exists in the shallow render tree.
-     * @param node
      */
-    containsMatchingElement(node: ReactElement<any>): boolean;
+    containsMatchingElement(node: ReactElement<any> | Array<ReactElement<any>>): boolean;
 
     /**
      * Returns whether or not all the given react elements exists in the shallow render tree
-     * @param nodes
      */
-    containsAllMatchingElements(nodes: Array<ReactElement<any>>): boolean;
+    containsAllMatchingElements(nodes: Array<ReactElement<any>> | Array<Array<ReactElement<any>>>): boolean;
 
     /**
      * Returns whether or not one of the given react elements exists in the shallow render tree.
-     * @param nodes
      */
-    containsAnyMatchingElements(nodes: Array<ReactElement<any>>): boolean;
+    containsAnyMatchingElements(nodes: Array<ReactElement<any>> | Array<Array<ReactElement<any>>>): boolean;
 
     /**
      * Returns whether or not the current render tree is equal to the given node, based on the expected value.
@@ -87,13 +84,11 @@ export interface CommonWrapper<P, S> {
 
     /**
      * Returns whether or not the current node has a className prop including the passed in class name.
-     * @param className
      */
     hasClass(className: string): boolean;
 
     /**
      * Returns whether or not the current node matches a provided selector.
-     * @param selector
      */
     is(selector: EnzymeSelector): boolean;
 
@@ -106,12 +101,11 @@ export interface CommonWrapper<P, S> {
     /**
      * Returns whether or not the current node exists.
      */
-    exists(): boolean;
+    exists(selector?: EnzymeSelector): boolean;
 
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that don't match the provided selector.
      * This method is effectively the negation or inverse of filter.
-     * @param selector
      */
     not(selector: EnzymeSelector): this;
 
@@ -133,7 +127,6 @@ export interface CommonWrapper<P, S> {
 
     /**
      * Returns the node at a given index of the current wrapper.
-     * @param index
      */
     get(index: number): ReactElement<any>;
 
@@ -148,13 +141,22 @@ export interface CommonWrapper<P, S> {
     getNodes(): Array<ReactElement<any>>;
 
     /**
+     * Returns the wrapper's underlying node.
+     */
+    getElement(): ReactElement<any>;
+
+    /**
+     * Returns the wrapper's underlying node.
+     */
+    getElements(): Array<ReactElement<any>>;
+
+    /**
      * Returns the outer most DOMComponent of the current wrapper.
      */
     getDOMNode(): Element;
 
     /**
      * Returns a wrapper around the node at a given index of the current wrapper.
-     * @param index
      */
     at(index: number): this;
 
@@ -180,7 +182,6 @@ export interface CommonWrapper<P, S> {
 
     /**
      * Returns the state hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
-     * @param [key]
      */
     state(): S;
     state<K extends keyof S>(key: K): S[K];
@@ -203,7 +204,6 @@ export interface CommonWrapper<P, S> {
      * Returns the prop value for the node of the current wrapper with the provided key.
      *
      * NOTE: can only be called on a wrapper of a single node.
-     * @param key
      */
     prop<K extends keyof P>(key: K): P[K];
     prop<T>(key: string): T;
@@ -217,10 +217,16 @@ export interface CommonWrapper<P, S> {
     /**
      * Simulate events.
      * Returns itself.
-     * @param event
      * @param args?
      */
     simulate(event: string, ...args: any[]): this;
+
+    /**
+     * Used to simulate throwing a rendering error. Pass an error to throw.
+     * Returns itself.
+     * @param error
+     */
+    simulateError(error: any): this;
 
     /**
      * A method to invoke setState() on the root component instance similar to how you might in the definition of
@@ -231,8 +237,6 @@ export interface CommonWrapper<P, S> {
      * Returns itself.
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
-     * @param state
-     * @param [callback]
      */
     setState<K extends keyof S>(state: Pick<S, K>, callback?: () => void): this;
 
@@ -245,8 +249,6 @@ export interface CommonWrapper<P, S> {
      * Returns itself.
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
-     * @param props
-     * @param [callback]
      */
     setProps<K extends keyof P>(props: Pick<P, K>): this;
 
@@ -256,7 +258,6 @@ export interface CommonWrapper<P, S> {
      * Returns itself.
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
-     * @param state
      */
     setContext(context: any): this;
 
@@ -265,7 +266,7 @@ export interface CommonWrapper<P, S> {
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      */
-    instance(): Component<P, S>;
+    instance(): C;
 
     /**
      * Forces a re-render. Useful to run before checking the render output if something external may be updating
@@ -310,40 +311,32 @@ export interface CommonWrapper<P, S> {
     /**
      * Applies the provided reducing function to every node in the wrapper to reduce to a single value. Each node
      * is passed in as a ShallowWrapper, and is processed from left to right.
-     * @param fn
-     * @param initialValue
      */
     reduce<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R;
 
     /**
      * Applies the provided reducing function to every node in the wrapper to reduce to a single value.
      * Each node is passed in as a ShallowWrapper, and is processed from right to left.
-     * @param fn
-     * @param initialValue
      */
     reduceRight<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R;
 
     /**
      * Returns whether or not any of the nodes in the wrapper match the provided selector.
-     * @param selector
      */
     some(selector: EnzymeSelector): boolean;
 
     /**
      * Returns whether or not any of the nodes in the wrapper pass the provided predicate function.
-     * @param fn
      */
     someWhere(fn: (wrapper: this) => boolean): boolean;
 
     /**
      * Returns whether or not all of the nodes in the wrapper match the provided selector.
-     * @param selector
      */
     every(selector: EnzymeSelector): boolean;
 
     /**
-     * Returns whether or not any of the nodes in the wrapper pass the provided predicate function.
-     * @param fn
+     * Returns whether or not all of the nodes in the wrapper pass the provided predicate function.
      */
     everyWhere(fn: (wrapper: this) => boolean): boolean;
 
@@ -368,9 +361,12 @@ export interface CommonWrapper<P, S> {
     length: number;
 }
 
-export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
+// tslint:disable-next-line no-empty-interface
+export interface ShallowWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> { }
+export class ShallowWrapper<P = {}, S = {}, C = Component> {
+    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper<any, any>, options?: ShallowRendererProps);
     shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
-    unmount(): ShallowWrapper<any, any>;
+    unmount(): this;
 
     /**
      * Find every node in the render tree that matches the provided selector.
@@ -385,20 +381,18 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P>): this;
-    filter(selector: string): this;
+    filter<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
+    filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    filter(props: EnzymePropSelector | string): ShallowWrapper<P, S>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
-     * @param predicate
      */
     findWhere(predicate: (wrapper: ShallowWrapper<any, any>) => boolean): ShallowWrapper<any, any>;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
      * can be provided and it will filter the children by this selector.
-     * @param [selector]
      */
     children<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     children<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
@@ -407,7 +401,6 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
 
     /**
      * Returns a new wrapper with child at the specified index.
-     * @param index
      */
     childAt(index: number): ShallowWrapper<any, any>;
     childAt<P2, S2>(index: number): ShallowWrapper<P2, S2>;
@@ -415,16 +408,22 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     /**
      * Shallow render the one non-DOM child of the current wrapper, and return a wrapper around the result.
      * NOTE: can only be called on wrapper of a single non-DOM component element node.
-     * @param [options]
      */
     dive<P2, S2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2>;
+
+    /**
+     * Strips out all the not host-nodes from the list of nodes
+     *
+     * This method is useful if you want to check for the presence of host nodes
+     * (actually rendered HTML elements) ignoring the React nodes.
+     */
+    hostNodes(): ShallowWrapper<HTMLAttributes>;
 
     /**
      * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the
      * current wrapper. Optionally, a selector can be provided and it will filter the parents by this selector.
      *
      * Note: can only be called on a wrapper of a single node.
-     * @param [selector]
      */
     parents<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     parents<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
@@ -436,7 +435,6 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      * ancestors in the tree, starting with itself.
      *
      * Note: can only be called on a wrapper of a single node.
-     * @param selector
      */
     closest<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     closest<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
@@ -449,9 +447,13 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     parent(): ShallowWrapper<any, any>;
 }
 
-export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
-    unmount(): ReactWrapper<any, any>;
-    mount(): ReactWrapper<any, any>;
+// tslint:disable-next-line no-empty-interface
+export interface ReactWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> { }
+export class ReactWrapper<P = {}, S = {}, C = Component> {
+    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper<any, any>, options?: MountRendererProps);
+
+    unmount(): this;
+    mount(): this;
 
     /**
      * Returns a wrapper of the node that matches the provided reference name.
@@ -474,6 +476,14 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
     detach(): void;
 
     /**
+     * Strips out all the not host-nodes from the list of nodes
+     *
+     * This method is useful if you want to check for the presence of host nodes
+     * (actually rendered HTML elements) ignoring the React nodes.
+     */
+    hostNodes(): ReactWrapper<HTMLAttributes>;
+
+    /**
      * Find every node in the render tree that matches the provided selector.
      * @param selector The selector to match.
      */
@@ -484,7 +494,6 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
-     * @param predicate
      */
     findWhere(predicate: (wrapper: ReactWrapper<any, any>) => boolean): ReactWrapper<any, any>;
 
@@ -492,14 +501,13 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P>): this;
-    filter(selector: string): this;
+    filter<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
+    filter<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    filter(props: EnzymePropSelector | string): ReactWrapper<P, S>;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
      * can be provided and it will filter the children by this selector.
-     * @param [selector]
      */
     children<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     children<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
@@ -508,7 +516,6 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
 
     /**
      * Returns a new wrapper with child at the specified index.
-     * @param index
      */
     childAt(index: number): ReactWrapper<any, any>;
     childAt<P2, S2>(index: number): ReactWrapper<P2, S2>;
@@ -518,7 +525,6 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * current wrapper. Optionally, a selector can be provided and it will filter the parents by this selector.
      *
      * Note: can only be called on a wrapper of a single node.
-     * @param [selector]
      */
     parents<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     parents<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
@@ -530,7 +536,6 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * ancestors in the tree, starting with itself.
      *
      * Note: can only be called on a wrapper of a single node.
-     * @param selector
      */
     closest<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     closest<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
@@ -541,9 +546,27 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ReactWrapper<any, any>;
+
+    /**
+     * A method that sets the props of the root component, and re-renders. Useful for when you are wanting to test
+     * how the component behaves over time with changing props. Calling this, for instance, will call the
+     * componentWillReceiveProps lifecycle method.
+     *
+     * Similar to setState, this method accepts a props object and will merge it in with the already existing props.
+     * Returns itself.
+     *
+     * NOTE: can only be called on a wrapper instance that is also the root instance.
+     */
+    setProps<K extends keyof P>(props: Pick<P, K>, callback?: () => void): this;
 }
 
 export interface ShallowRendererProps {
+    // See https://github.com/airbnb/enzyme/blob/enzyme@3.1.1/docs/api/shallow.md#arguments
+    /**
+     * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
+     * setProps and setContext. Default to false.
+     */
+    disableLifecycleMethods?: boolean;
     /**
      * Enable experimental support for full react lifecycle methods
      */
@@ -562,7 +585,7 @@ export interface MountRendererProps {
     /**
      * DOM Element to attach the component to
      */
-    attachTo?: HTMLElement;
+    attachTo?: HTMLElement | null;
     /**
      * Merged contextTypes for all children of the wrapper
      */
@@ -572,23 +595,39 @@ export interface MountRendererProps {
 /**
  * Shallow rendering is useful to constrain yourself to testing a component as a unit, and to ensure that
  * your tests aren't indirectly asserting on behavior of child components.
- * @param node
- * @param [options]
  */
+export function shallow<C extends Component, P = C['props'], S = C['state']>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S, C>;
 export function shallow<P>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
 export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
 
 /**
  * Mounts and renders a react component into the document and provides a testing wrapper around it.
- * @param node
- * @param [options]
  */
+export function mount<C extends Component, P = C['props'], S = C['state']>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S, C>;
 export function mount<P>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
 export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;
 
 /**
  * Render react components to static HTML and analyze the resulting HTML structure.
- * @param node
- * @param [options]
  */
 export function render<P, S>(node: ReactElement<P>, options?: any): Cheerio;
+
+// See https://github.com/airbnb/enzyme/blob/v3.1.0/packages/enzyme/src/EnzymeAdapter.js
+export class EnzymeAdapter {
+}
+
+/**
+ * Configure enzyme to use the correct adapter for the react verstion
+ * This is enabling the Enzyme configuration with adapters in TS
+ */
+export function configure(options: {
+    adapter: EnzymeAdapter,
+    // See https://github.com/airbnb/enzyme/blob/enzyme@3.1.1/docs/guides/migration-from-2-to-3.md#lifecycle-methods
+    // Actually, `{adapter:} & Pick<ShallowRendererProps,"disableLifecycleMethods">` is more precise. However,
+    // in that case jsdoc won't be shown
+    /**
+     * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
+     * setProps and setContext. Default to false.
+     */
+    disableLifecycleMethods?: boolean;
+}): void;

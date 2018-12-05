@@ -85,7 +85,6 @@ brush = brush.on('end', null);
 
 // re-apply
 brush.on('end', function(d, i, g) {
-    const that: SVGGElement = this;
     const datum: BrushDatum = d;
     const index: number = i;
     const group: SVGGElement[] | ArrayLike<SVGGElement> = g;
@@ -99,7 +98,7 @@ brush.on('end', function(d, i, g) {
 // -----------------------------------------------------------------------------
 
 const g = select<SVGSVGElement, any>('svg')
-    .append<SVGGElement>('g')
+    .append('g')
     .classed('brush', true)
     .datum<BrushDatum>({
         extent: [[0, 0], [300, 200]],
@@ -109,7 +108,7 @@ const g = select<SVGSVGElement, any>('svg')
 g.call(brush);
 
 const gX = select<SVGSVGElement, any>('svg')
-    .append<SVGGElement>('g')
+    .append('g')
     .classed('brush', true)
     .datum<BrushDatum>({
         extent: [[0, 0], [300, 200]],

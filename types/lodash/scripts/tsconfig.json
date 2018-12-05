@@ -1,10 +1,18 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "es2017",
+        "module": "commonjs",
         "baseUrl": "../..",
+        "esModuleInterop": true,
+        "noEmit": true,
+        "noImplicitAny": true,
+        "pretty": true,
+        "strict": true,
         "typeRoots": [
             "../../"
         ],
-        "types": []
+        "types": [
+            "lodash"
+        ]
     }
 }

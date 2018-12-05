@@ -1,7 +1,5 @@
 import * as swagger from "swagger-schema-official";
 
-// tslint:disable:max-line-length
-
 const apiExample: swagger.Spec = {
   "swagger": "2.0",
   "info": {
@@ -75,7 +73,7 @@ const petStore: swagger.Spec = {
     },
     "license": {
       "name": "MIT",
-      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+      "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
     }
   },
   "host": "petstore.swagger.io",
@@ -578,7 +576,7 @@ const externalDocs: swagger.Spec = {
     },
     "license": {
       "name": "MIT",
-      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+      "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
     }
   },
   "externalDocs": {
@@ -1245,7 +1243,11 @@ const uber: swagger.Spec = {
         },
         "surge_multiplier": {
           "type": "number",
-          "description": "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier."
+          "description": "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier.",
+          "minimum": 0,
+          "exclusiveMinimum": true,
+          "maximum": 10,
+          "exclusiveMaximum": true
         }
       }
     },
@@ -1336,4 +1338,74 @@ const basic_auth: swagger.Spec = {
     basicAuth: { type: 'basic' },
   },
   "security": [{basicAuth: []}]
+};
+
+const reference_support: swagger.Spec = {
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Swagger Petstore"
+    },
+    "definitions": {
+        "stringSchema": {
+            "type": "string"
+        }
+    },
+    "parameters": {
+        "operationParameter": {
+            "in": "query",
+            "name": "operationParameter",
+            "type": "integer",
+            "description": "A sample operation parameter"
+        },
+        "pathParameter": {
+            "in": "query",
+            "name": "pathParameter",
+            "type": "string",
+            "description": "A sample path parameter"
+        }
+    },
+    "paths": {
+        "/path": {
+            "get": {
+                "parameters": [
+                    {"$ref": "#/parameters/operationParameter"},
+                    {
+                        "in": "body",
+                        "name": "bodyParameter",
+                        "type": "string",
+                        "description": "The body parameter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/sampleResponse"
+                    },
+                    "404": {
+                      "description": "A sample response with a Schema reference.",
+                      "schema": {
+                          "$ref": "stringSchema"
+                      }
+                    }
+                }
+            },
+            "parameters": [
+                {"$ref": "#/parameters/pathParameter"},
+                {
+                    "in": "query",
+                    "name": "queryParameter",
+                    "type": "string",
+                    "description": "Another query parameter"
+                }
+            ]
+        }
+    },
+    "responses": {
+        "sampleResponse" : {
+            "description": "A sample response.",
+            "schema": {
+                "type": "string"
+            }
+        }
+    }
 };

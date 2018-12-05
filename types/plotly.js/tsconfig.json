@@ -8,16 +8,22 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "d3": [ "d3/v3" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "plotly.js-tests.ts"
+        "lib/core.d.ts",
+        "test/index-tests.ts",
+        "test/core-tests.ts"
     ]
 }

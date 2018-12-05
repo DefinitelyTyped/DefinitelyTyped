@@ -1,32 +1,33 @@
-// Type definitions for @xmpp/jid 0.0
+// Type definitions for @xmpp/jid 0.6
 // Project: https://github.com/node-xmpp/node-xmpp/
 // Definitions by: PJakcson <https://github.com/PJakcson>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
-// TODO: Once TS2.3 is released,
-// https://github.com/Microsoft/TypeScript/issues/14819 should be fixed.
-// Then, upgrade this package's typescript version to 2.3 and
-// Remove the `declare module` wrapper.
-// tslint:disable-next-line no-single-declare-module
-declare module "@xmpp/jid" {
-    function createJID(local: string, domain: string, resource: string): JID;
+export = jid;
+
+declare function jid(address: string): jid.JID;
+declare function jid(local: string | undefined, domain: string, resource?: string): jid.JID;
+
+declare namespace jid {
+    function jid(address: string): JID;
+    function jid(local: string | undefined, domain: string, resource?: string): JID;
+
+    function createJID(local: string | undefined, domain: string, resource?: string): JID;
     function equal(a: JID, b: JID): boolean;
-    function is(a: any): boolean;
+    function detectEscape(local?: string): boolean;
+    function escapeLocal(local: string): string;
+    function unescapeLocal(local: string): string;
+    function parse(s: string): JID;
 
-    /**
-     * Created by marcneumann on 17.02.17.
-     */
     class JID {
         local: string;
         domain: string;
         resource: string;
 
-        constructor(local: string, domain?: string, resource?: string);
+        constructor(local: string | undefined, domain: string, resource?: string);
 
-        parseJID(jid: string): void;
-
-        toString(unescape?: any): string;
+        toString(unescape?: boolean): string;
 
         /**
          * Convenience method to distinguish users
@@ -41,9 +42,9 @@ declare module "@xmpp/jid" {
         /**
          * http://xmpp.org/rfcs/rfc6122.html#addressing-localpart
          */
-        setLocal(local: string, escape?: any): void;
+        setLocal(local: string, escape?: boolean): void;
 
-        getLocal(unescape?: any): string;
+        getLocal(unescape?: boolean): string;
 
         /**
          * http://xmpp.org/rfcs/rfc6122.html#addressing-domain

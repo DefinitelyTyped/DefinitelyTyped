@@ -32,7 +32,7 @@ declare class Route {
      * var route = new Route('/:one/:two')
      * route.reverse({one: 'foo', two: 'bar'}) -> '/foo/bar'
      */
-    reverse(params: { [i: string]: any } ): string | false;
+    reverse(params: { [i: string]: any }): string | false;
 }
 
 declare namespace Route {}

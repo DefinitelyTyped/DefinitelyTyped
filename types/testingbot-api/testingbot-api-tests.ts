@@ -1,4 +1,4 @@
-import * as TestingBot from 'testingbot-api';
+import TestingBot = require('testingbot-api');
 
 const sessionId = '123';
 

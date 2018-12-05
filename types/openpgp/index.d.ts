@@ -1,122 +1,232 @@
-// Type definitions for openpgpjs
+// Type definitions for openpgp 4.0.1
 // Project: http://openpgpjs.org/
 // Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
+//                 Errietta Kostala <https://github.com/errietta>
+//                 Daniel Montesinos <https://github.com/damonpam>
+//                 Carlos Villavicencio <https://github.com/po5i>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace openpgp {
+export as namespace openpgp;
 
-    interface KeyPair {
-        key: key.Key,
-        privateKeyArmored: string,
-        publicKeyArmored: string
-    }
-
-    interface KeyOptions {
-        keyType?: enums.publicKey,
-        numBits: number,
-        userId: string,
-        passphrase: string,
-        unlocked?: boolean
-    }
-
-    interface Keyid {
-        bytes: string,
-    }
-
-    interface Signature {
-        keyid: Keyid,
-        valid: boolean
-    }
-
-    interface VerifiedMessage {
-        text: string,
-        signatures: Array<Signature>
-    }
-
-    /** Decrypts message and verifies signatures
-
-        @param privateKey private key with decrypted secret key data
-        @param publicKeys array of keys to verify signatures
-        @param msg the message object with signed and encrypted data
-     */
-    function decryptAndVerifyMessage(privateKey: key.Key, publicKeys: Array<key.Key>, msg: string): Promise<VerifiedMessage>;
-    /** Decrypts message and verifies signatures
-
-        @param privateKey private key with decrypted secret key data
-        @param publicKey single key to verify signatures
-        @param msg the message object with signed and encrypted data
-     */
-    function decryptAndVerifyMessage(privateKey: key.Key, publicKey: key.Key, msg: string): Promise<VerifiedMessage>;
-
-    /** Decrypts message
-
-        @param privateKey private key with decrypted secret key data
-        @param msg the message object with the encrypted data
-     */
-    function decryptMessage(privateKey: key.Key, msg: message.Message): Promise<string>;
-
-    /** Encrypts message text with keys
-        @param keys array of keys used to encrypt the message
-        @param text message as native JavaScript string
-        @returns encrypted ASCII armored message
-     */
-    function encryptMessage(keys: Array<key.Key>, message: string): Promise<string>;
-    /** Encrypts message text with keys
-
-        @param single key used to encrypt the message
-        @param text message as native JavaScript string
-     */
-    function encryptMessage(key: key.Key, message: string): Promise<string>;
-
-    /** Generates a new OpenPGP key pair. Currently only supports RSA keys. Primary and subkey will be of same type.
-        @param options
-     */
-    function generateKeyPair(options: KeyOptions): Promise<KeyPair>;
-
-    /** Signs message text and encrypts it
-
-        @param publicKeys array of keys used to encrypt the message
-        @param privateKey private key with decrypted secret key data for signing
-        @param text private key with decrypted secret key data for signing
-     */
-    function signAndEncryptMessage(publicKeys: Array<key.Key>, privateKey: key.Key, text: string): Promise<string>;
-    /** Signs message text and encrypts it
-
-        @param publicKeys single key used to encrypt the message
-        @param privateKey private key with decrypted secret key data for signing
-        @param text private key with decrypted secret key data for signing
-     */
-    function signAndEncryptMessage(publicKey: key.Key, privateKey: key.Key, text: string): Promise<string>;
-
-    /** Signs a cleartext message
-
-        @param privateKeys array of keys with decrypted secret key data to sign cleartext
-        @param text cleartext
-     */
-    function signClearMessage(privateKeys: Array<key.Key>, text: string): Promise<string>;
-    /** Signs a cleartext message
-
-        @param privateKeys single key with decrypted secret key data to sign cleartext
-        @param text cleartext
-     */
-    function signClearMessage(privateKey: key.Key, text: string): Promise<string>;
-
-    /** Verifies signatures of cleartext signed message
-
-        @param publicKeys array of keys to verify signatures
-        @param msg cleartext message object with signatures
-     */
-    function verifyClearSignedMessage(publicKeys: Array<key.Key>, msg: cleartext.CleartextMessage): Promise<VerifiedMessage>;
-    /** Verifies signatures of cleartext signed message
-
-        @param publicKeys single key to verify signatures
-        @param msg cleartext message object with signatures
-     */
-    function verifyClearSignedMessage(publicKey: key.Key, msg: cleartext.CleartextMessage): Promise<VerifiedMessage>;
+export interface UserId {
+    name?: string,
+    email?: string,
 }
 
-declare namespace openpgp.armor {
+export interface SessionKey {
+    data: Uint8Array,
+    algorithm: string
+}
 
+export interface EncryptOptions {
+    message: message.Message
+    publicKeys?: key.Key | key.Key[],
+    privateKeys?: key.Key | key.Key[],
+    passwords?: string | string[],
+    sessionKey?: SessionKey,
+    compression?: enums.compression,
+    armor?: boolean,
+    detached?: boolean,
+    signature?: Signature,
+    returnSessionKey?: boolean,
+    wildcard?: boolean,
+    date?: Date,
+    fromUserId?: UserId,
+    toUserId?: UserId,
+}
+
+export interface EncryptedMessage {
+    data: string,
+    message: string,
+}
+
+export interface DecryptOptions {
+    message: message.Message,
+    privateKeys?: key.Key | key.Key[],
+    passwords?: string | string[],
+    sessionKeys?: SessionKey | SessionKey[],
+    publicKeys?: key.Key | key.Key[],
+    format?: string,
+    signature?: Signature,
+    date?: Date,
+}
+
+export interface KeyContainer {
+    key: key.Key,
+}
+
+export interface KeyPair extends KeyContainer {
+    privateKeyArmored: string,
+    publicKeyArmored: string
+}
+
+export interface KeyOptions {
+    userIds?: UserId[],
+    passphrase?: string,
+    numBits?: number,
+    keyExpirationTime?: number,
+    curve?: string,
+    date?: Date,
+    subkeys?: KeyOptions[]
+}
+
+export interface Keyid {
+    bytes: string,
+}
+
+export interface Signature {
+    keyid: Keyid,
+    valid: boolean
+}
+
+export interface VerifiedMessage {
+    data: Uint8Array | string,
+    signatures: Array<Signature>,
+    filename: string,
+}
+
+export interface OpenPGPWorker {
+    randomCallback(): void;
+    configure(config: any): void;
+    seedRandom(buffer: ArrayBuffer): void;
+    delegate(id: number, method: string, options: any): void;
+    response(event: any): void;
+}
+
+export interface WorkerOptions {
+    path?: string,
+    n?: number,
+    workers?: OpenPGPWorker[],
+    config?: any,
+}
+
+export class AsyncProxy {
+    constructor(options: WorkerOptions);
+    getId(): number;
+    seedRandom(workerId: number, size: number): Promise<void>;
+    terminate(): void;
+    delegate(method: string, options: any): void;
+
+    workers: OpenPGPWorker[];
+}
+
+/**
+ * Set the path for the web worker script and create an instance of the async proxy
+ * @param {String} path            relative path to the worker scripts, default: 'openpgp.worker.js'
+ * @param {Number} n               number of workers to initialize
+ * @param {Array<Object>} workers  alternative to path parameter: web workers initialized with 'openpgp.worker.js'
+ */
+export function initWorker(options: WorkerOptions): boolean;
+
+/**
+ * Returns a reference to the async proxy if the worker was initialized with openpgp.initWorker()
+ * @returns {module:worker/async_proxy.AsyncProxy|null} the async proxy or null if not initialized
+ */
+export function getWorker(): AsyncProxy;
+
+/**
+ * Cleanup the current instance of the web worker.
+ */
+export function destroyWorker(): void;
+
+/**
+ * Encrypts message text/data with public keys, passwords or both at once. At least either public keys or passwords
+ *   must be specified. If private keys are specified, those will be used to sign the message.
+ * @param  {Message} message                      message to be encrypted as created by openpgp.message.fromText or openpgp.message.fromBinary
+ * @param  {Key|Array<Key>} publicKeys            (optional) array of keys or single key, used to encrypt the message
+ * @param  {Key|Array<Key>} privateKeys           (optional) private keys for signing. If omitted message will not be signed
+ * @param  {String|Array<String>} passwords       (optional) array of passwords or a single password to encrypt the message
+ * @param  {Object} sessionKey                    (optional) session key in the form: { data:Uint8Array, algorithm:String }
+ * @param  {module:enums.compression} compression (optional) which compression algorithm to compress the message with, defaults to what is specified in config
+ * @param  {Boolean} armor                        (optional) if the return values should be ascii armored or the message/signature objects
+ * @param  {Boolean} detached                     (optional) if the signature should be detached (if true, signature will be added to returned object)
+ * @param  {Signature} signature                  (optional) a detached signature to add to the encrypted message
+ * @param  {Boolean} returnSessionKey             (optional) if the unencrypted session key should be added to returned object
+ * @param  {Boolean} wildcard                     (optional) use a key ID of 0 instead of the public key IDs
+ * @param  {Date} date                            (optional) override the creation date of the message and the message signature
+ * @param  {Object} fromUserId                    (optional) user ID to sign with, e.g. { name:'Steve Sender', email:'steve@openpgp.org' }
+ * @param  {Object} toUserId                      (optional) user ID to encrypt for, e.g. { name:'Robert Receiver', email:'robert@openpgp.org' }
+ * @returns {Promise<Object>}                      encrypted (and optionally signed message) in the form:
+ *                                                  {data: ASCII armored message if 'armor' is true,
+ *                                                  message: full Message object if 'armor' is false, signature: detached signature if 'detached' is true}
+ * @async
+ * @static
+ */
+export function encrypt(options: EncryptOptions): Promise<EncryptedMessage>;
+
+/**
+ * Decrypts a message with the user's private key, a session key or a password. Either a private key,
+ *   a session key or a password must be specified.
+ * @param  {Message} message                  the message object with the encrypted data
+ * @param  {Key|Array<Key>} privateKeys       (optional) private keys with decrypted secret key data or session key
+ * @param  {String|Array<String>} passwords   (optional) passwords to decrypt the message
+ * @param  {Object|Array<Object>} sessionKeys (optional) session keys in the form: { data:Uint8Array, algorithm:String }
+ * @param  {Key|Array<Key>} publicKeys        (optional) array of public keys or single key, to verify signatures
+ * @param  {String} format                    (optional) return data format either as 'utf8' or 'binary'
+ * @param  {Signature} signature              (optional) detached signature for verification
+ * @param  {Date} date                        (optional) use the given date for verification instead of the current time
+ * @returns {Promise<Object>}             decrypted and verified message in the form:
+ *                                         { data:Uint8Array|String, filename:String, signatures:[{ keyid:String, valid:Boolean }] }
+ * @async
+ * @static
+ */
+export function decrypt(options: DecryptOptions): Promise<VerifiedMessage>;
+
+/**
+ * Generates a new OpenPGP key pair. Supports RSA and ECC keys. Primary and subkey will be of same type.
+ * @param  {Array<Object>} userIds   array of user IDs e.g. [{ name:'Phil Zimmermann', email:'phil@openpgp.org' }]
+ * @param  {String} passphrase       (optional) The passphrase used to encrypt the resulting private key
+ * @param  {Number} numBits          (optional) number of bits for RSA keys: 2048 or 4096.
+ * @param  {Number} keyExpirationTime (optional) The number of seconds after the key creation time that the key expires
+ * @param  {String} curve            (optional) elliptic curve for ECC keys:
+ *                                              curve25519, p256, p384, p521, secp256k1,
+ *                                              brainpoolP256r1, brainpoolP384r1, or brainpoolP512r1.
+ * @param  {Date} date               (optional) override the creation date of the key and the key signatures
+ * @param  {Array<Object>} subkeys   (optional) options for each subkey, default to main key options. e.g. [{sign: true, passphrase: '123'}]
+ *                                              sign parameter defaults to false, and indicates whether the subkey should sign rather than encrypt
+ * @returns {Promise<Object>}         The generated key object in the form:
+ *                                     { key:Key, privateKeyArmored:String, publicKeyArmored:String }
+ * @async
+ * @static
+ */
+export function generateKey(options: KeyOptions): Promise<KeyPair>;
+
+/**
+ * Reformats signature packets for a key and rewraps key object.
+ * @param  {Key} privateKey          private key to reformat
+ * @param  {Array<Object>} userIds   array of user IDs e.g. [{ name:'Phil Zimmermann', email:'phil@openpgp.org' }]
+ * @param  {String} passphrase       (optional) The passphrase used to encrypt the resulting private key
+ * @param  {Number} keyExpirationTime (optional) The number of seconds after the key creation time that the key expires
+ * @returns {Promise<Object>}         The generated key object in the form:
+ *                                     { key:Key, privateKeyArmored:String, publicKeyArmored:String }
+ * @async
+ * @static
+ */
+export function reformatKey(options: {
+    privateKey: key.Key,
+    userIds?: UserId[],
+    passphrase?: string,
+    keyExpirationTime?: number,
+}): Promise<KeyPair>;
+
+/**
+ * Unlock a private key with your passphrase.
+ * @param  {Key} privateKey                    the private key that is to be decrypted
+ * @param  {String|Array<String>} passphrase   the user's passphrase(s) chosen during key generation
+ * @returns {Promise<Object>}                  the unlocked key object in the form: { key:Key }
+ * @async
+ */
+export function decryptKey(options: {
+    privateKey: key.Key,
+    passphrase?: string | string[],
+}): Promise<KeyContainer>;
+
+export function encryptKey(options: {
+    privateKey: key.Key,
+    passphrase?: string
+}): Promise<KeyContainer>;
+
+export namespace armor {
     /** Armor an OpenPGP binary packet block
 
         @param messagetype type of the message
@@ -133,8 +243,7 @@ declare namespace openpgp.armor {
     function dearmor(text: string): Object;
 }
 
-declare namespace openpgp.cleartext {
-
+export namespace cleartext {
     /** Class that represents an OpenPGP cleartext signed message.
      */
     interface CleartextMessage {
@@ -161,10 +270,20 @@ declare namespace openpgp.cleartext {
         verify(keys: Array<key.Key>): Array<VerifiedMessage>;
     }
 
-    function readArmored(armoredText: string): CleartextMessage;
+    /** creates new message object from binary data
+        @param bytes
+     */
+    function fromBinary(bytes: string): CleartextMessage;
+
+    /** creates new message object from text
+        @param text
+     */
+    function fromText(text: string): CleartextMessage;
+
+    function readArmored(armoredText: string): Promise<CleartextMessage>;
 }
 
-declare namespace openpgp.config {
+export namespace config {
     var prefer_hash_algorithm: enums.hash;
     var encryption_cipher: enums.symmetric;
     var compression: enums.compression;
@@ -175,7 +294,7 @@ declare namespace openpgp.config {
     var debug: boolean;
 }
 
-declare namespace openpgp.crypto {
+export namespace crypto {
     interface Mpi {
         data: number,
         read(input: string): number,
@@ -211,92 +330,92 @@ declare namespace openpgp.crypto {
         @param data Data to be encrypted as MPI
      */
     function publicKeyEncrypt(algo: enums.publicKey, publicMPIs: Array<Mpi>, data: Mpi): Array<Mpi>;
+
+
+    namespace cfb {
+        /** This function decrypts a given plaintext using the specified blockcipher to decrypt a message
+            @param cipherfn the algorithm cipher class to decrypt data in one block_size encryption
+            @param key binary string representation of key to be used to decrypt the ciphertext. This will be passed to the cipherfn
+            @param ciphertext to be decrypted provided as a string
+            @param resync a boolean value specifying if a resync of the IV should be used or not. The encrypteddatapacket uses the "old" style with a resync. Decryption within an encryptedintegrityprotecteddata packet is not resyncing the IV.
+        */
+        function decrypt(cipherfn: string, key: string, ciphertext: string, resync: boolean): string;
+
+        /** This function encrypts a given with the specified prefixrandom using the specified blockcipher to encrypt a message
+            @param prefixrandom random bytes of block_size length provided as a string to be used in prefixing the data
+            @param cipherfn the algorithm cipher class to encrypt data in one block_size encryption
+            @param plaintext data to be encrypted provided as a string
+            @param key binary string representation of key to be used to encrypt the plaintext. This will be passed to the cipherfn
+            @param resync a boolean value specifying if a resync of the IV should be used or not. The encrypteddatapacket uses the "old" style with a resync. Encryption within an encryptedintegrityprotecteddata packet is not resyncing the IV.
+        */
+        function encrypt(prefixrandom: string, cipherfn: string, plaintext: string, key: string, resync: boolean): string;
+
+        /** Decrypts the prefixed data for the Modification Detection Code (MDC) computation
+            @param cipherfn cipherfn.encrypt Cipher function to use
+            @param key binary string representation of key to be used to check the mdc This will be passed to the cipherfn
+            @param ciphertext The encrypted data
+        */
+        function mdc(cipherfn: Object, key: string, ciphertext: string): string;
+    }
+
+    namespace hash {
+        /** Create a hash on the specified data using the specified algorithm
+            @param algo Hash algorithm type
+            @param data Data to be hashed
+        */
+        function digest(algo: enums.hash, data: string): string;
+
+        /** Returns the hash size in bytes of the specified hash algorithm type
+            @param algo Hash algorithm type
+        */
+        function getHashByteLength(algo: enums.hash): number;
+    }
+
+    namespace random {
+        /** Create a secure random big integer of bits length
+            @param bits Bit length of the MPI to create
+        */
+        function getRandomBigInteger(bits: number): number;
+
+        /** Retrieve secure random byte string of the specified length
+            @param length Length in bytes to generate
+        */
+        function getRandomBytes(length: number): string;
+
+        /** Helper routine which calls platform specific crypto random generator
+            @param buf
+        */
+        function getRandomValues(buf: Uint8Array): void;
+
+        /** Return a secure random number in the specified range
+            @param from Min of the random number
+            @param to Max of the random number (max 32bit)
+        */
+        function getSecureRandom(from: number, to: number): number;
+    }
+
+    namespace signature {
+        /** Create a signature on data using the specified algorithm
+            @param hash_algo hash Algorithm to use
+            @param algo Asymmetric cipher algorithm to use
+            @param publicMPIs Public key multiprecision integers of the private key
+            @param secretMPIs Private key multiprecision integers which is used to sign the data
+            @param data Data to be signed
+        */
+        function sign(hash_algo: enums.hash, algo: enums.publicKey, publicMPIs: Array<Mpi>, secretMPIs: Array<Mpi>, data: string): Mpi;
+
+        /**
+            @param algo public Key algorithm
+            @param hash_algo Hash algorithm
+            @param msg_MPIs Signature multiprecision integers
+            @param publickey_MPIs Public key multiprecision integers
+            @param data Data on where the signature was computed on
+        */
+        function verify(algo: enums.publicKey, hash_algo: enums.hash, msg_MPIs: Array<Mpi>, publickey_MPIs: Array<Mpi>, data: string): boolean;
+    }
 }
 
-declare namespace openpgp.crypto.cfb {
-    /** This function decrypts a given plaintext using the specified blockcipher to decrypt a message
-        @param cipherfn the algorithm cipher class to decrypt data in one block_size encryption
-        @param key binary string representation of key to be used to decrypt the ciphertext. This will be passed to the cipherfn
-        @param ciphertext to be decrypted provided as a string
-        @param resync a boolean value specifying if a resync of the IV should be used or not. The encrypteddatapacket uses the "old" style with a resync. Decryption within an encryptedintegrityprotecteddata packet is not resyncing the IV.
-     */
-    function decrypt(cipherfn: string, key: string, ciphertext: string, resync: boolean): string;
-
-    /** This function encrypts a given with the specified prefixrandom using the specified blockcipher to encrypt a message
-        @param prefixrandom random bytes of block_size length provided as a string to be used in prefixing the data
-        @param cipherfn the algorithm cipher class to encrypt data in one block_size encryption
-        @param plaintext data to be encrypted provided as a string
-        @param key binary string representation of key to be used to encrypt the plaintext. This will be passed to the cipherfn
-        @param resync a boolean value specifying if a resync of the IV should be used or not. The encrypteddatapacket uses the "old" style with a resync. Encryption within an encryptedintegrityprotecteddata packet is not resyncing the IV.
-     */
-    function encrypt(prefixrandom: string, cipherfn: string, plaintext: string, key: string, resync: boolean): string;
-
-    /** Decrypts the prefixed data for the Modification Detection Code (MDC) computation
-        @param cipherfn cipherfn.encrypt Cipher function to use
-        @param key binary string representation of key to be used to check the mdc This will be passed to the cipherfn
-        @param ciphertext The encrypted data
-     */
-    function mdc(cipherfn: Object, key: string, ciphertext: string): string;
-}
-
-declare namespace openpgp.crypto.hash {
-    /** Create a hash on the specified data using the specified algorithm
-        @param algo Hash algorithm type
-        @param data Data to be hashed
-     */
-    function digest(algo: enums.hash, data: string): string;
-
-    /** Returns the hash size in bytes of the specified hash algorithm type
-        @param algo Hash algorithm type
-     */
-    function getHashByteLength(algo: enums.hash): number;
-}
-
-declare namespace openpgp.crypto.random {
-    /** Create a secure random big integer of bits length
-        @param bits Bit length of the MPI to create
-     */
-    function getRandomBigInteger(bits: number): number;
-
-    /** Retrieve secure random byte string of the specified length
-        @param length Length in bytes to generate
-     */
-    function getRandomBytes(length: number): string;
-
-    /** Helper routine which calls platform specific crypto random generator
-        @param buf
-     */
-    function getRandomValues(buf: Uint8Array): void;
-
-    /** Return a secure random number in the specified range
-        @param from Min of the random number
-        @param to Max of the random number (max 32bit)
-     */
-    function getSecureRandom(from: number, to: number): number;
-}
-
-declare namespace openpgp.crypto.signature {
-    /** Create a signature on data using the specified algorithm
-        @param hash_algo hash Algorithm to use
-        @param algo Asymmetric cipher algorithm to use
-        @param publicMPIs Public key multiprecision integers of the private key
-        @param secretMPIs Private key multiprecision integers which is used to sign the data
-        @param data Data to be signed
-     */
-    function sign(hash_algo: enums.hash, algo: enums.publicKey, publicMPIs: Array<Mpi>, secretMPIs: Array<Mpi>, data: string): Mpi;
-
-    /**
-        @param algo public Key algorithm
-        @param hash_algo Hash algorithm
-        @param msg_MPIs Signature multiprecision integers
-        @param publickey_MPIs Public key multiprecision integers
-        @param data Data on where the signature was computed on
-     */
-    function verify(algo: enums.publicKey, hash_algo: enums.hash, msg_MPIs: Array<Mpi>, publickey_MPIs: Array<Mpi>, data: string): boolean;
-}
-
-declare namespace openpgp.enums {
-
+export namespace enums {
     enum armor {
         multipart_section,
         multipart_last,
@@ -372,8 +491,7 @@ declare namespace openpgp.enums {
     }
 }
 
-declare namespace openpgp.key {
-
+export namespace key {
     interface KeyResult {
         keys: Array<Key>,
         err: Array<Error>
@@ -407,11 +525,10 @@ declare namespace openpgp.key {
 
         @param armoredText text to be parsed
      */
-    function readArmored(armoredText: string): KeyResult;
-
+    function readArmored(armoredText: string): Promise<KeyResult>;
 }
 
-declare namespace openpgp.message {
+export namespace message {
     /** Class that represents an OpenPGP message. Can be an encrypted message, signed message, compressed message or literal message
      */
     interface Message {
@@ -474,11 +591,18 @@ declare namespace openpgp.message {
 
         @param armoredText text to be parsed
      */
-    function readArmored(armoredText: string): Message;
+    function readArmored(armoredText: string): Promise<Message>;
+
+    /**
+     * reads an OpenPGP message as byte array and returns a message object
+     * @param {Uint8Array} input   binary message
+     * @returns {Message}           new message object
+     * @static
+     */
+    function read(data: Uint8Array): Message;
 }
 
-declare namespace openpgp.packet {
-
+export namespace packet {
     interface PublicKey {
         algorithm: enums.publicKey;
         created: Date;
@@ -492,10 +616,10 @@ declare namespace openpgp.packet {
     }
 
     interface SecretKey extends PublicKey {
-        read(bytes:string): void;
+        read(bytes: string): void;
         write(): string;
         clearPrivateMPIs(str_passphrase: string): boolean;
-        encrypt(passphrase:string): void;
+        encrypt(passphrase: string): void;
     }
 
     /** Allocate a new packet from structured packet clone
@@ -509,7 +633,7 @@ declare namespace openpgp.packet {
     function newPacketFromTag(tag: string): Object;
 }
 
-declare namespace openpgp.util {
+export namespace util {
     /** Convert an array of integers(0.255) to a string
         @param bin An array of (binary) integers to convert
      */
@@ -583,6 +707,4 @@ declare namespace openpgp.util {
         @param bin An array of (binary) integers to convert
      */
     function Uint8Array2str(bin: Uint8Array): string;
-
-
 }

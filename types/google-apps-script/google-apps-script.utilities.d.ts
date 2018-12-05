@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,7 +25,7 @@ declare namespace GoogleAppsScript {
 
     /**
      * This service provides utilities for string encoding/decoding, date formatting, JSON manipulation,
-     *  and other miscellaneous tasks.
+     * and other miscellaneous tasks.
      */
     export interface Utilities {
       Charset: typeof Charset;
@@ -41,10 +41,13 @@ declare namespace GoogleAppsScript {
       base64EncodeWebSafe(data: Byte[]): string;
       base64EncodeWebSafe(data: string): string;
       base64EncodeWebSafe(data: string, charset: Charset): string;
+      computeDigest(algorithm: DigestAlgorithm, value: Byte[]): Byte[];
       computeDigest(algorithm: DigestAlgorithm, value: string): Byte[];
       computeDigest(algorithm: DigestAlgorithm, value: string, charset: Charset): Byte[];
+      computeHmacSha256Signature(value: Byte[], key: Byte[]): Byte[];
       computeHmacSha256Signature(value: string, key: string): Byte[];
       computeHmacSha256Signature(value: string, key: string, charset: Charset): Byte[];
+      computeHmacSignature(algorithm: MacAlgorithm, value: Byte[], key: Byte[]): Byte[];
       computeHmacSignature(algorithm: MacAlgorithm, value: string, key: string): Byte[];
       computeHmacSignature(algorithm: MacAlgorithm, value: string, key: string, charset: Charset): Byte[];
       computeRsaSha256Signature(value: string, key: string): Byte[];
@@ -52,15 +55,18 @@ declare namespace GoogleAppsScript {
       formatDate(date: Date, timeZone: string, format: string): string;
       formatString(template: string, ...args: Object[]): string;
       getUuid(): string;
+      gzip(blob: Base.BlobSource): Base.Blob;
+      gzip(blob: Base.BlobSource, name: string): Base.Blob;
       newBlob(data: Byte[]): Base.Blob;
       newBlob(data: Byte[], contentType: string): Base.Blob;
       newBlob(data: Byte[], contentType: string, name: string): Base.Blob;
       newBlob(data: string): Base.Blob;
       newBlob(data: string, contentType: string): Base.Blob;
       newBlob(data: string, contentType: string, name: string): Base.Blob;
-      parseCsv(csv: string): String[][];
-      parseCsv(csv: string, delimiter: Char): String[][];
+      parseCsv(csv: string): string[][];
+      parseCsv(csv: string, delimiter: Char): string[][];
       sleep(milliseconds: Integer): void;
+      ungzip(blob: Base.BlobSource): Base.Blob;
       unzip(blob: Base.BlobSource): Base.Blob[];
       zip(blobs: Base.BlobSource[]): Base.Blob;
       zip(blobs: Base.BlobSource[], name: string): Base.Blob;

@@ -1,12 +1,13 @@
-import { GraphQLError } from './GraphQLError';
+import { GraphQLError } from "./GraphQLError";
+import { ASTNode } from "../language/ast";
 
 /**
  * Given an arbitrary Error, presumably thrown while attempting to execute a
  * GraphQL operation, produce a new GraphQLError aware of the location in the
  * document responsible for the original Error.
  */
-export function locatedError<T>(
-    originalError: Error,
-    nodes: T[],
-    path: Array<string | number>
+export function locatedError(
+    originalError: Error | GraphQLError,
+    nodes: ReadonlyArray<ASTNode>,
+    path: ReadonlyArray<string | number>
 ): GraphQLError;

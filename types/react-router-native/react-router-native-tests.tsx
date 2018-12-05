@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { NativeRouter as Router, Route, Link } from 'react-router-native';
+import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { AndroidBackButton, BackButton, Link, NativeRouter as Router, Route } from 'react-router-native';
 
-const Home: React.SFC<{}> = () => {
+const Home: React.SFC = () => {
   return (
     <View>
       <Text style={styles.welcome}>
@@ -16,7 +16,7 @@ const Home: React.SFC<{}> = () => {
  );
 };
 
-const About: React.SFC<{}> = () => {
+const About: React.SFC = () => {
   return (
     <Text style={styles.header}>
       About
@@ -24,22 +24,31 @@ const About: React.SFC<{}> = () => {
  );
 };
 
-export default class App extends React.Component<{}, {}> {
+interface ButtonTextProps extends TouchableOpacityProps {
+    text: string;
+}
+
+const ButtonText: React.SFC<ButtonTextProps> = ({ text, ...props }) => (
+  <TouchableOpacity {...props}><Text>{text}</Text></TouchableOpacity>
+);
+
+export default class App extends React.Component {
   render() {
     return (
-      <Router>
-        <View style={styles.container}>
-          <View style={styles.nav}>
-            <Link to="/" style={styles.navItem}>
-              <Text>Home</Text>
-            </Link>
-            <Link to="/about" style={styles.navItem}>
-                <Text>About</Text>
-            </Link>
+      <Router initialEntries={['/']} initialIndex={0}>
+        <BackButton />
+        <AndroidBackButton>
+          <View style={styles.container}>
+            <View style={styles.nav}>
+              <Link to="/" style={styles.navItem}>
+                <Text>Home</Text>
+              </Link>
+              <Link to="/about" style={styles.navItem} component={ButtonText} text="About" />
+            </View>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
           </View>
-          <Route exact path="/" component={Home}/>
-          <Route path="/about" component={About}/>
-        </View>
+        </AndroidBackButton>
       </Router>
     );
   }

@@ -13,7 +13,7 @@ shell.cp("-R", "stuff/*", "out/Release");
 
 // Replace macros in each .js file
 shell.cd("lib");
-shell.ls("*.js").forEach( file => {
+shell.ls("*.js").forEach(file => {
     shell.sed("-i", "BUILD_VERSION", "v0.1.2", file);
     shell.sed("-i", /.*REMOVE_THIS_LINE.*\n/, "", file);
     shell.sed("-i", /.*REPLACE_LINE_WITH_MACRO.*\n/, shell.cat("macro.js"), file);
@@ -62,7 +62,7 @@ shell.sed(/.*DELETE_THIS_LINE.*\n/, "", "source.js");
 shell.grep("-v", "GLOBAL_VARIABLE", "*.js");
 shell.grep("GLOBAL_VARIABLE", "*.js");
 
-let nodeExec = shell.which("node");
+const nodeExec = shell.which("node");
 
 shell.pushd("/etc"); // Returns /etc /usr
 shell.pushd("+1");   // Returns /usr /etc
@@ -76,39 +76,48 @@ shell.echo(process.cwd()); // '/usr'
 shell.ln("file", "newlink");
 shell.ln("-sf", "file", "existing");
 
-let testPath = shell.env["path"];
+const testPath = shell.env["path"];
 
 import child = require("child_process");
 
-let version = shell.exec("node --version").stdout;
+const version = shell.exec("node --version").stdout;
 
-let version2 = <shell.ExecOutputReturnValue> shell.exec("node --version", { async: false });
-let output = version2.stdout;
+const version2 = shell.exec("node --version", { async: false }) as shell.ExecOutputReturnValue;
+const output = version2.stdout;
 
-let asyncVersion3 = <child.ChildProcess> shell.exec("node --version", { async: true });
+const asyncVersion3 = shell.exec("node --version", { async: true }) as child.ChildProcess;
 let pid = asyncVersion3.pid;
 
 shell.exec("node --version", { silent: true }, (code, stdout, stderr) => {
-    let version = stdout;
+    const version = stdout;
 });
 shell.exec("node --version", { silent: true, async: true, cwd: '/usr/local/bin' }, (code, stdout, stderr) => {
-    let version = stdout;
+    const version = stdout;
 });
 shell.exec("node --version", (code, stdout, stderr) => {
-    let version = stdout;
+    const version = stdout;
 });
 shell.exec("node --version", (code: number) => {
-    let num: number = code;
+    const num: number = code;
 });
 
-let childProc = shell.exec("node --version", (code: number) => {
-    let num: number = code;
+const childProc = shell.exec("node --version", (code: number) => {
+    const num: number = code;
 });
 pid = childProc.pid;
+
+shell.set('+e');
+shell.set('-e');
+shell.set('+v');
+shell.set('-v');
+shell.set('+f');
+shell.set('-f');
 
 shell.chmod(755, "/Users/brandon");
 shell.chmod("755", "/Users/brandon"); // same as above
 shell.chmod("u+x", "/Users/brandon");
+shell.chmod("-cR", 755, "/Users/brandon");
+shell.chmod("-Rv", "u+x", "/Users/brandon");
 
 shell.exit(0);
 
@@ -126,9 +135,32 @@ shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1');
 shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1', '/Users/brandom/test2');
 shell.touch({ '-r': '/oome/file.txt' }, ['/Users/brandom/test1', '/Users/brandom/test2']);
 
-let tmp = shell.tempdir(); // "/tmp" for most *nix platforms
+shell.head({'-n': 1}, 'file*.txt');
+shell.head('file1', 'file2');
+shell.head(['file1', 'file2']); // same as above
 
-let errorlol = shell.error();
+shell.sort('foo.txt', 'bar.txt');
+shell.sort('-r', 'foo.txt');
 
-shell.config.fatal = true;
+shell.tail({'-n': 1}, 'file*.txt');
+shell.tail('file1', 'file2');
+shell.tail(['file1', 'file2']); // same as above
+
+shell.uniq('foo.txt');
+shell.uniq('-i', 'foo.txt');
+shell.uniq('-cd', 'foo.txt', 'bar.txt');
+
+const tmp = shell.tempdir(); // "/tmp" for most *nix platforms
+
+const errorlol = shell.error();
+
+shell.config.reset();
 shell.config.silent = true;
+shell.config.fatal = true;
+shell.config.verbose = true;
+shell.config.execPath = null;
+shell.config.execPath = '/bin/node';
+shell.config.globOptions = {
+    cwd: './',
+    dot: true
+};

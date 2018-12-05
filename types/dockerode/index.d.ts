@@ -1,6 +1,12 @@
-// Type definitions for dockerode 2.4
+// Type definitions for dockerode 2.5
 // Project: https://github.com/apocas/dockerode
-// Definitions by: Carl Winkler <https://github.com/seikho>, Nicolas Laplante <https://github.com/nlaplante>
+// Definitions by: Carl Winkler <https://github.com/seikho>
+//                 Nicolas Laplante <https://github.com/nlaplante>
+//                 ByeongHun Yoo <https://github.com/isac322>
+//                 Ray Fang <https://github.com/lazarusx>
+//                 Marius Meisenzahl <https://github.com/meisenzahl>
+//                 Rob Moran <https://github.com/thegecko>
+//                 Cameron Diver <https://github.com/CameronDiver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -323,6 +329,20 @@ declare namespace Dockerode {
     MacAddress: string;
   }
 
+  // not complete definition of network inspection
+  // info which is returned by list / inspect
+  interface NetworkInspectInfo {
+    Id: string;
+    Name: string;
+    Driver: string;
+    Created: string;
+    Scope: string;
+    EnableIPv6: boolean;
+    Internal: boolean;
+    Attachable: boolean;
+    Ingress: boolean;
+  }
+
   interface ContainerInspectInfo {
     Id: string;
     Created: string;
@@ -396,10 +416,10 @@ declare namespace Dockerode {
       LinkLocalIPv6Address: string;
       LinkLocalIPv6PrefixLen: number;
       Ports: {
-        [portAndProtocol: string]: {
+        [portAndProtocol: string]: Array<{
           HostIp: string;
           HostPort: string;
-        }
+        }>;
       };
       SandboxKey: string;
       SecondaryIPAddresses?: any;
@@ -441,6 +461,7 @@ declare namespace Dockerode {
   }
 
   interface HostConfig {
+    AutoRemove: boolean;
     Binds: string[];
     ContainerIDFile: string;
     LogConfig: {
@@ -486,6 +507,7 @@ declare namespace Dockerode {
     CpusetCpus: string;
     CpusetMems: string;
     Devices?: any;
+    DiskQuota: number;
     KernelMemory: number;
     Memory: number;
     MemoryReservation: number;
@@ -566,6 +588,77 @@ declare namespace Dockerode {
     };
   }
 
+  interface AuthConfig {
+    username: string;
+    password: string;
+    serveraddress: string;
+    email?: string;
+  }
+
+  interface PortBinding {
+    HostIp?: string;
+    HostPort?: string;
+  }
+
+  interface PortMap {
+    [key: string]: PortBinding[];
+  }
+
+  interface RestartPolicy {
+    Name: string;
+    MaximumRetryCount?: number;
+  }
+
+  type LoggingDriverType =
+    | "json-file"
+    | "syslog"
+    | "journald"
+    | "gelf"
+    | "fluentd"
+    | "awslogs"
+    | "splunk"
+    | "etwlogs"
+    | "none";
+
+  interface LogConfig {
+    Type: LoggingDriverType;
+    Config?: { [key: string]: string };
+  }
+
+  interface DeviceMapping {
+    PathOnHost: string;
+    PathInContainer: string;
+    CgroupPermissions: string;
+  }
+
+  /* tslint:disable:interface-name */
+  interface IPAMConfig {
+    IPv4Address?: string;
+    IPv6Address?: string;
+    LinkLocalIPs?: string[];
+  }
+  /* tslint:enable:interface-name */
+
+  interface EndpointSettings {
+    IPAMConfig?: IPAMConfig;
+    Links?: string[];
+    Aliases?: string[];
+    NetworkID?: string;
+    EndpointID?: string;
+    Gateway?: string;
+    IPAddress?: string;
+    IPPrefixLen?: number;
+    IPv6Gateway?: string;
+    GlobalIPv6Address?: string;
+    GlobalIPV6PrefixLen?: number;
+    MacAddress?: string;
+    DriverOpts?: {[key: string]: string};
+  }
+
+  interface EndpointsConfig {
+    [key: string]: EndpointSettings;
+  }
+
   interface ContainerCreateOptions {
     name?: string;
     Hostname?: string;
@@ -589,6 +682,7 @@ declare namespace Dockerode {
     ExposedPorts?: { [port: string]: {} };
     StopSignal?: string;
     HostConfig?: {
+      AutoRemove?: boolean;
       Binds?: string[];
       Links?: string[];
       Memory?: number;
@@ -612,7 +706,7 @@ declare namespace Dockerode {
       OomScoreAdj?: number;
       PidMode?: string;
       PidsLimit?: number;
-      PortBindings?: { [portAndProtocol: string]: Array<{ [index: string]: string }> };
+      PortBindings?: PortMap;
       PublishAllPorts?: boolean;
       Privileged?: boolean;
       ReadonlyRootfs?: boolean;
@@ -624,43 +718,37 @@ declare namespace Dockerode {
       CapAdd?: string[];
       CapDrop?: string[];
       GroupAdd?: string[];
-      RestartPolicy?: { [index: string]: number | string };
+      RestartPolicy?: RestartPolicy;
       NetworkMode?: string;
-      Devices?: any[];
+      Devices?: DeviceMapping[];
       Sysctls?: { [index: string]: string };
       Ulimits?: Array<{}>;
-      LogConfig?: { [index: string]: string | {} };
+      LogConfig?: LogConfig;
       SecurityOpt?: { [index: string]: any };
       CgroupParent?: string;
       VolumeDriver?: string;
       ShmSize?: number;
     };
     NetworkingConfig?: {
-      EndpointsConfig?: {
-        [index: string]: any;
-        isolated_nw?: {
-          [index: string]: any;
-          IPAMConfig?: {
-            IPv4Address?: string;
-            IPv6Adress?: string;
-            LinkLocalIPs?: string[];
-          }
-          Links?: string[];
-          Aliases?: string[];
-        }
-      }
+      EndpointsConfig?: EndpointsConfig;
     };
+  }
+
+  interface KeyObject {
+    pem: string | Buffer;
+    passphrase?: string;
   }
 
   interface DockerOptions {
     socketPath?: string;
     host?: string;
     port?: number | string;
-    ca?: string;
-    cert?: string;
-    key?: string;
+    ca?: string | string[] | Buffer | Buffer[];
+    cert?: string | string[] | Buffer | Buffer[];
+    key?: string | string[] | Buffer | Buffer[] | KeyObject[];
     protocol?: "https" | "http";
     timeout?: number;
+    version?: string;
     Promise?: typeof Promise;
   }
 
@@ -804,6 +892,40 @@ declare namespace Dockerode {
     tail?: number;
     timestamps?: boolean;
   }
+
+  interface ImageBuildContext {
+  	context: string;
+  	src: string[];
+  }
+
+  interface DockerVersion {
+    ApiVersion: string;
+    Arch: string;
+    BuildTime: Date;
+    Components: Array<{
+      Details: {
+        ApiVersion: string;
+        Arch: string;
+        BuilTime: Date;
+        Experimental: string;
+        GitCommit: string;
+        GoVersion: string;
+        KernelVersion: string;
+        Os: string;
+      };
+      Name: string;
+      Version: string;
+    }>;
+    GitCommit: string;
+    GoVersion: string;
+    KernelVersion: string;
+    MinAPIVersion: string;
+    Os: string;
+    Platform: {
+      Name: string;
+    };
+    Version: string;
+  }
 }
 
 type Callback<T> = (error?: any, result?: T) => void;
@@ -814,25 +936,25 @@ declare class Dockerode {
   createContainer(options: Dockerode.ContainerCreateOptions, callback: Callback<Dockerode.Container>): void;
   createContainer(options: Dockerode.ContainerCreateOptions): Promise<Dockerode.Container>;
 
-  createImage(options: {}, callback: Callback<Dockerode.Image>): void;
-  createImage(auth: any, options: {}, callback: Callback<Dockerode.Image>): void;
-  createImage(options: {}): Promise<Dockerode.Image>;
-  createImage(auth: any, options: {}): Promise<Dockerode.Image>;
+  createImage(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  createImage(auth: any, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  createImage(options: {}): Promise<NodeJS.ReadableStream>;
+  createImage(auth: any, options: {}): Promise<NodeJS.ReadableStream>;
 
-  loadImage(file: string, options: {}, callback: Callback<any>): void;
-  loadImage(file: string, callback: Callback<any>): void;
-  loadImage(file: string, options?: {}): Promise<any>;
+  loadImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  loadImage(file: string | NodeJS.ReadableStream, callback: Callback<NodeJS.ReadableStream>): void;
+  loadImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<NodeJS.ReadableStream>;
 
-  importImage(file: string, options: {}, callback: Callback<any>): void;
-  importImage(file: string, callback: Callback<any>): void;
-  importImage(file: string, options?: {}): Promise<any>;
+  importImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  importImage(file: string | NodeJS.ReadableStream, callback: Callback<NodeJS.ReadableStream>): void;
+  importImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<NodeJS.ReadableStream>;
 
   checkAuth(options: any, callback: Callback<any>): void;
   checkAuth(options: any): Promise<any>;
 
-  buildImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<any>): void;
-  buildImage(file: string | NodeJS.ReadableStream, callback: Callback<any>): void;
-  buildImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<any>;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, callback: Callback<NodeJS.ReadableStream>): void;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options?: {}): Promise<NodeJS.ReadableStream>;
 
   getContainer(id: string): Dockerode.Container;
 
@@ -927,8 +1049,11 @@ declare class Dockerode {
   info(callback: Callback<any>): void;
   info(): Promise<any>;
 
-  version(callback: Callback<any>): void;
-  version(): Promise<any>;
+  df(callback: Callback<any>): void;
+  df(): Promise<any>;
+
+  version(callback: Callback<Dockerode.DockerVersion>): void;
+  version(): Promise<Dockerode.DockerVersion>;
 
   ping(callback: Callback<any>): void;
   ping(): Promise<any>;
@@ -940,11 +1065,11 @@ declare class Dockerode {
   pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
   pull(repoTag: string, options: {}, auth?: {}): Promise<any>;
 
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, createOptions: {}, startOptions: {}, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, startOptions: {}, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, createOptions: {}, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, createOptions?: {}, startOptions?: {}): Promise<any>;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], createOptions: {}, startOptions: {}, callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], startOptions: {}, callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], createOptions: {}, callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], createOptions?: {}, startOptions?: {}): Promise<any>;
 
   swarmInit(options: {}, callback: Callback<any>): void;
   swarmInit(options: {}): Promise<any>;

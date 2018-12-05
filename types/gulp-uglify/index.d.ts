@@ -1,7 +1,9 @@
-// Type definitions for gulp-uglify
+// Type definitions for gulp-uglify 3.0
 // Project: https://github.com/terinjokes/gulp-uglify
-// Definitions by: Christopher Haws <https://github.com/ChristopherHaws/>
+// Definitions by: Christopher Haws <https://github.com/ChristopherHaws>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node"/>
 
@@ -12,25 +14,17 @@ declare namespace GulpUglify {
         /**
          * Pass false to skip mangling names.
          */
-        mangle?: boolean;
+        mangle?: UglifyJS.MangleOptions | boolean;
 
         /**
          * Pass if you wish to specify additional output options. The defaults are optimized for best compression.
          */
-        output?: UglifyJS.BeautifierOptions;
+        output?: UglifyJS.OutputOptions;
 
         /**
          * Pass an object to specify custom compressor options. Pass false to skip compression completely.
          */
-        compress?: UglifyJS.CompressorOptions | boolean;
-
-        /**
-         * A convenience option for options.output.comments. Defaults to preserving no comments.
-         * all - Preserve all comments in code blocks
-         * some - Preserve comments that start with a bang (!) or include a Closure Compiler directive (@preserve, @license, @cc_on)
-         * function - Specify your own comment preservation function. You will be passed the current node and the current comment and are expected to return either true or false.
-         */
-        preserveComments?: string | ((node: any, comment: UglifyJS.Tokenizer) => boolean);
+        compress?: UglifyJS.CompressOptions | boolean;
     }
 }
 

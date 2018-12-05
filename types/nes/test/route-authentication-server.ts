@@ -1,14 +1,20 @@
 // from https://github.com/hapijs/nes#route-authentication
 
-import Hapi = require('hapi');
+import { AuthCredentials, Request, ResponseToolkit, Server } from 'hapi';
 import Basic = require('hapi-auth-basic');
 import Bcrypt = require('bcrypt');
 import Nes = require('nes');
 
-var server = new Hapi.Server();
-server.connection();
+const server = new Server();
 
-server.register([Basic, Nes], function (err) {
+declare module 'hapi' {
+    interface AuthCredentials {
+        id: string;
+        name: string;
+    }
+}
+
+server.register([Basic, Nes]).then(() => {
 
     // Set up HTTP Basic authentication
 
@@ -19,7 +25,7 @@ server.register([Basic, Nes], function (err) {
         id: string;
     }
 
-    var users: {[index: string]: User} = {
+    const users: { [index: string]: User } = {
         john: {
             username: 'john',
             password: '$2a$10$iqJSHD.BGr0E2IxQwYgJmeP3NvhPrXAeLSaGCj6IR/XU5QtjVu5Tm',   // 'secret'
@@ -28,34 +34,34 @@ server.register([Basic, Nes], function (err) {
         }
     };
 
-    var validate: Basic.ValidateFunc = function (request, username, password, callback) {
+    const validate: Basic.Validate = async (request, username, password, h) => {
 
-        var user = users[username];
+        const user = users[username];
         if (!user) {
-            return callback(null, false);
+            return { credentials: null, isValid: false };
         }
 
-        Bcrypt.compare(password, user.password, function (err, isValid) {
+        let isValid = await Bcrypt.compare(password, user.password)
 
-            callback(err, isValid, { id: user.id, name: user.name });
-        });
+        return { isValid, credentials: { id: user.id, name: user.name } };
     };
 
-    server.auth.strategy('simple', 'basic', 'required', { validateFunc: validate });
+    server.auth.strategy('simple', 'basic', {validateFunc: validate});
+    server.auth.default('simple');
 
     // Configure route with authentication
 
     server.route({
         method: 'GET',
         path: '/h',
-        config: {
+        options: {
             id: 'hello',
-            handler: function (request, reply) {
+            handler: function (request: Request, h: ResponseToolkit) {
 
-                return reply('Hello ' + request.auth.credentials.name);
+                return 'Hello ' + request.auth.credentials.name;
             }
         }
     });
 
-    server.start(function (err) { /* ... */ });
+    return server.start();
 });

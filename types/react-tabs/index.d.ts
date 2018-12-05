@@ -1,64 +1,45 @@
-// Type definitions for react-tabs 1.0.0
+// Type definitions for react-tabs 2.3.0
 // Project: https://github.com/reactjs/react-tabs/
-// Definitions by: Yuu Igarashi <https://github.com/yu-i9/>, Daniel Tschinder <https://github.com/danez>
+// Definitions by: Yuu Igarashi <https://github.com/yu-i9/>, Daniel Tschinder <https://github.com/danez>, Ummon Karpe <https://github.com/Equationist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
-export as namespace ReactTabs;
-
-declare namespace ReactTabs {
-
-    interface TabsProps {
-        className?: string | Array<string> | { [name: string]: boolean; };
-        defaultFocus?: boolean;
-        defaultIndex?: number;
-        disabledTabClassName?: string;
-        forceRenderTabPanel?: boolean;
-        onSelect?: (index: number, last: number, event: Event) => boolean | void;
-        selectedIndex?: number;
-        selectedTabClassName?: string;
-        selectedTabPanelClassName?: string;
-    }
-
-    interface Tabs extends React.ComponentClass<TabsProps> {}
-
-    interface TabListProps {
-        className?: string | Array<string> | { [name: string]: boolean; };
-    }
-
-    interface TabList extends React.ComponentClass<TabListProps> {}
-
-    interface TabProps {
-        className?: string | Array<string> | { [name: string]: boolean; };
-        disabled?: boolean;
-        disabledClassName?: string;
-        selectedClassName?: boolean;
-    }
-
-    interface Tab extends React.ComponentClass<TabProps> {}
-
-    interface TabPanelProps {
-        className?: string | Array<string> | { [name: string]: boolean; };
-        forceRender?: boolean;
-        selectedClassName?: string;
-    }
-
-    interface TabPanel extends React.ComponentClass<TabPanelProps> {}
+export interface TabsProps {
+    className?: string | Array<string> | { [name: string]: boolean; };
+    defaultFocus?: boolean;
+    defaultIndex?: number;
+    disabledTabClassName?: string;
+    domRef?: (node?: HTMLElement) => void;
+    forceRenderTabPanel?: boolean;
+    onSelect?: (index: number, last: number, event: Event) => boolean | void;
+    selectedIndex?: number;
+    selectedTabClassName?: string;
+    selectedTabPanelClassName?: string;
 }
 
-declare const Tabs: ReactTabs.Tabs;
-declare const TabList: ReactTabs.TabList;
-declare const Tab: ReactTabs.Tab;
-declare const TabPanel: ReactTabs.TabPanel;
+export interface TabListProps {
+    className?: string | Array<string> | { [name: string]: boolean; };
+}
 
-declare function resetIdCounter(): void;
+export interface TabProps {
+    className?: string | Array<string> | { [name: string]: boolean; };
+    disabled?: boolean;
+    disabledClassName?: string;
+    selectedClassName?: string;
+    tabIndex?: string;
+}
 
-export {
-    Tabs,
-    TabList,
-    Tab,
-    TabPanel,
-    resetIdCounter
-};
+export interface TabPanelProps {
+    className?: string | Array<string> | { [name: string]: boolean; };
+    forceRender?: boolean;
+    selectedClassName?: string;
+}
+
+export declare class Tabs extends React.Component<TabsProps> { }
+export declare class TabList extends React.Component<TabListProps> { }
+export declare class Tab extends React.Component<TabProps> { }
+export declare class TabPanel extends React.Component<TabPanelProps> { }
+
+export declare function resetIdCounter(): void;

@@ -14,20 +14,30 @@ import { Dispatch } from "redux";
 export type Normalizer = (value: any, previousValue?: any, allValues?: any, previousAllValues?: any) => any;
 export type Formatter = (value: any, name: string) => any;
 export type Parser = (value: any, name: string) => any;
-export type Validator = (value: any, allValues?: any, props?: any) => any;
+export type Validator = (value: any, allValues?: any, props?: any, name?: any) => any;
 
-interface CommonFieldProps {
-    name: string;
-    onBlur: EventOrValueHandler<FocusEvent<any>>;
-    onChange: EventOrValueHandler<ChangeEvent<any>>;
-    onDragStart: EventOrValueHandler<DragEvent<any>>;
-    onDrop: EventOrValueHandler<DragEvent<any>>;
-    onFocus: EventOrValueHandler<FocusEvent<any>>;
+export type EventHandler<Event> = (event: Event) => void;
+export type EventWithDataHandler<Event> = (event?: Event, newValue?: any, previousValue?: any) => void;
+
+export interface EventOrValueHandler<Event> extends EventHandler<Event> {
+    (value: any): void;
 }
 
-interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
+export interface CommonFieldInputProps {
     name: string;
-    component?: ComponentType<P> | "input" | "select" | "textarea",
+    onDragStart: EventHandler<DragEvent<any>>;
+    onDrop: EventHandler<DragEvent<any>>;
+    onFocus: EventHandler<FocusEvent<any>>;
+}
+
+export interface CommonFieldProps extends CommonFieldInputProps {
+    onBlur: EventWithDataHandler<FocusEvent<any>>;
+    onChange: EventWithDataHandler<ChangeEvent<any>>;
+}
+
+export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
+    name: string;
+    component?: ComponentType<WrappedFieldProps & P> | "input" | "select" | "textarea";
     format?: Formatter | null;
     normalize?: Normalizer;
     props?: P;
@@ -35,6 +45,7 @@ interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
     withRef?: boolean;
+    immutableProps?: string[];
 }
 
 export interface GenericField<P> extends Component<BaseFieldProps<P> & P> {
@@ -45,9 +56,12 @@ export interface GenericField<P> extends Component<BaseFieldProps<P> & P> {
     getRenderedComponent(): Component<WrappedFieldProps & P>;
 }
 
-type GenericFieldHTMLAttributes = InputHTMLAttributes<HTMLInputElement> | SelectHTMLAttributes<HTMLSelectElement> | TextareaHTMLAttributes<HTMLTextAreaElement>;
+export type GenericFieldHTMLAttributes =
+    InputHTMLAttributes<HTMLInputElement> |
+    SelectHTMLAttributes<HTMLSelectElement> |
+    TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export class Field<P = GenericFieldHTMLAttributes> extends Component<BaseFieldProps<P> & P> implements GenericField<P> {
+export class Field<P = GenericFieldHTMLAttributes | BaseFieldProps> extends Component<BaseFieldProps<P> & P> {
     dirty: boolean;
     name: string;
     pristine: boolean;
@@ -55,22 +69,19 @@ export class Field<P = GenericFieldHTMLAttributes> extends Component<BaseFieldPr
     getRenderedComponent(): Component<WrappedFieldProps & P>;
 }
 
-interface WrappedFieldProps {
+export interface WrappedFieldProps {
     input: WrappedFieldInputProps;
     meta: WrappedFieldMetaProps;
 }
 
-interface EventOrValueHandler<Event> {
-    (event: Event): void;
-    (value: any, newValue: any, previousValue: any): void;
-}
-
-interface WrappedFieldInputProps extends CommonFieldProps {
+export interface WrappedFieldInputProps extends CommonFieldInputProps {
     checked?: boolean;
     value: any;
+    onBlur: EventOrValueHandler<FocusEvent<any>>;
+    onChange: EventOrValueHandler<ChangeEvent<any>>;
 }
 
-interface WrappedFieldMetaProps {
+export interface WrappedFieldMetaProps {
     active?: boolean;
     autofilled: boolean;
     asyncValidating: boolean;
@@ -88,3 +99,5 @@ interface WrappedFieldMetaProps {
     visited: boolean;
     warning?: any;
 }
+
+export default Field;

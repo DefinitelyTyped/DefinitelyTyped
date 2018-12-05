@@ -27,7 +27,8 @@ const parameterizedB_ = b_.B({
     modSeparator: "_",
     modValueSeparator: "-",
     classSeparator: " ",
-    isFullModifier: true
+    isFullModifier: true,
+    isFullBoolValue: true
 });
 
 const parameterizedBlockClass: string = parameterizedB_("block");

@@ -1,6 +1,7 @@
 {
   "extends": "dtslint/dt.json",
   "rules": {
+    "no-any-union": false,
     "prefer-method-signature": false
   }
 }

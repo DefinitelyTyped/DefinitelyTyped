@@ -8,8 +8,11 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -17,7 +20,9 @@
     },
     "files": [
         "history3/redirect.d.ts",
+        "history3/locationHelper.d.ts",
         "history4/redirect.d.ts",
+        "history4/locationHelper.d.ts",
         "authWrapper.d.ts",
         "connectedAuthWrapper.d.ts",
         "index.d.ts",

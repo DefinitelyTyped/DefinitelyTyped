@@ -1,3 +1,4 @@
+
 function CommandTests() {
     // initalize command with an execute method
     var cmd1 = ko.command(() => {
@@ -64,7 +65,7 @@ function EditableTests() {
     // test editable
     var isEditing = edit1.isEditing();
 
-    // test editableArray functions:
+    // test editable functions:
     edit1.beginEdit();
     edit1.endEdit();
     edit1.cancelEdit();
@@ -88,7 +89,7 @@ function EditableArrayTests() {
     // test properties
     var isEditing = edit1.isEditing();
 
-    // test functions:
+    // test editable array functions:
     edit1.beginEdit();
     edit1.endEdit();
     edit1.cancelEdit();
@@ -118,4 +119,14 @@ function SortableTests() {
     sort2.sortDescending(true);
     sort2.setSourceKey("name");
     sort2.sortDescending(false);
+    
+}
+
+function BindingHandlerTests() {
+
+        // test binding handlers
+        var bh1 = ko.bindingHandlers.command;
+        var bh2 = ko.bindingHandlers.loadingWhen;
+        var bh3 = ko.bindingHandlers.sortBy;
+        
 }

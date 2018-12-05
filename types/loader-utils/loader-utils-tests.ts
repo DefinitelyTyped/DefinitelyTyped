@@ -1,10 +1,31 @@
 import { loader } from "webpack";
-import { getOptions, parseQuery, stringifyRequest, urlToRequest, interpolateName, getHashDigest } from "loader-utils";
+import {
+    getOptions,
+    parseQuery,
+    stringifyRequest,
+    urlToRequest,
+    interpolateName,
+    getHashDigest,
+    getRemainingRequest,
+    getCurrentRequest,
+    isUrlRequest,
+    parseString,
+} from "loader-utils";
 
 parseQuery("?{data:{a:1},isJSON5:true}");
+parseString(`"123"`); // "123"
+parseString(`'123'`); // "123"
+parseString(`123`); // "123"
+const jsonStr = JSON.stringify({ a: 1, b: 2 });
+const parsed = parseString(jsonStr);
+jsonStr === parsed; // true
 
 function loader(this: loader.LoaderContext) {
     getOptions(this);
+
+    getRemainingRequest(this);
+
+    getCurrentRequest(this);
 
     stringifyRequest(this, "./test.js");
     // "\"./test.js\""
@@ -35,6 +56,10 @@ urlToRequest("path/to/module.js"); // "./path/to/module.js"
 urlToRequest("~path/to/module.js"); // "path/to/module.js"
 urlToRequest("/path/to/module.js", "./root"); // "./root/path/to/module.js"
 urlToRequest("/path/to/module.js", "~"); // "path/to/module.js"
+isUrlRequest("path/to/module.js");
+isUrlRequest("~path/to/module.js");
+isUrlRequest("/path/to/module.js", "./root");
+isUrlRequest("/path/to/module.js", "~");
 
 function loader2(this: loader.LoaderContext) {
 // loaderContext.resourcePath = "/app/js/javascript.js"

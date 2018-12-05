@@ -1,6 +1,7 @@
-// Type definitions for snoowrap 1.14
+// Type definitions for snoowrap 1.16
 // Project: https://github.com/not-an-aardvark/snoowrap
 // Definitions by: Vito Samson <https://github.com/vitosamson>
+//                 TheAppleFreak <https://github.com/TheAppleFreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -48,7 +49,7 @@ declare class Snoowrap {
   checkCaptchaRequirement(): Promise<boolean>;
   checkUsernameAvailability(name: string): Promise<boolean>;
   composeMessage(options: Snoowrap.ComposeMessageParams): Promise<any>;
-  config(opts: Snoowrap.ConfigOptions): Snoowrap.ConfigOptions;
+  config(opts?: Snoowrap.ConfigOptions): Snoowrap.ConfigOptions;
   createLivethread(options: LiveThreadSettings): Promise<_LiveThread>;
   createMultireddit(options: MultiRedditProperties & { name: string; subreddits: _Subreddit[] | string[]}): Promise<_MultiReddit>;
   createSubreddit(options: SubredditSettings): Promise<_Subreddit>;
@@ -62,7 +63,7 @@ declare class Snoowrap {
   getFriends(): Promise<_RedditUser[]>;
   getGoldSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
   getHot(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
-  getInbox(options?: { filter?: string }): _Listing<_PrivateMessage | Comment>;
+  getInbox(options?: { filter?: string }): _Listing<_PrivateMessage | _Comment>;
   getKarma(): Promise<Array<{ sr: _Subreddit; comment_karma: number; link_karma: number; }>>;
   getLivethread(threadId: string): _LiveThread;
   getMe(): _RedditUser;
@@ -73,7 +74,7 @@ declare class Snoowrap {
   getMyTrophies(): Promise<Snoowrap.Trophy[]>;
   getNew(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
   getNewCaptchaIdentifier(): Promise<string>;
-  getNewComments(subredditName?: string, options?: ListingOptions): _Listing<Comment>;
+  getNewComments(subredditName?: string, options?: ListingOptions): _Listing<_Comment>;
   getNewSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
   getOauthScopeList(): Promise<{ [key: string]: { description: string; id: string; name: string } }>;
   getPopularSubreddit(options?: ListingOptions): _Listing<_Subreddit>;

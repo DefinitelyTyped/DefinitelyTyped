@@ -7,7 +7,7 @@ function handle(res: number) {}
 asyncFunction(42, handle);
 
 // deasync
-let wrapped = deasync(asyncFunction);
+const wrapped = deasync(asyncFunction);
 handle(wrapped(42));
 
 // deasync.loopWhile

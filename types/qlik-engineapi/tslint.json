@@ -1,8 +1,10 @@
 {
   "extends": "dtslint/dt.json",
   "rules": {
-        "ban-types": false,
-        "no-empty-interface": false,
-        "interface-name": false
+    // TODOs
+    "ban-types": false,
+    "no-empty-interface": false,
+    "no-mergeable-namespace": false,
+    "interface-name": false
   }
 }

@@ -348,6 +348,10 @@ export class StateContext {
      */
     oldData: any;
     /**
+     * Gets the Url for the last displayed State
+     */
+    oldUrl: string;
+    /**
      * Gets the State of the last Crumb in the crumb trail
      */
     previousState: State;
@@ -355,6 +359,10 @@ export class StateContext {
      * Gets the NavigationData of the last Crumb in the crumb trail
      */
     previousData: any;
+    /**
+     * Gets the Url of the last Crumb in the crumb trail
+     */
+    previousUrl: string;
     /**
      * Gets the current State
      */

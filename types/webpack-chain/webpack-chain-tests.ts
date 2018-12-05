@@ -1,4 +1,4 @@
-import * as Config from 'webpack-chain';
+import Config = require('webpack-chain');
 import * as webpack from 'webpack';
 
 const config = new Config();
@@ -29,11 +29,13 @@ config
 	.target('web')
 	.watch(true)
 	.watchOptions({})
+	.when(false, config => config.watch(true), config => config.watch(false))
 
 	.entry('main')
 		.add('index.js')
 		.delete('index.js')
 		.clear()
+		.when(false, entry => entry.clear(), entry => entry.clear())
 		.end()
 
 	.entryPoints
@@ -44,8 +46,20 @@ config
 		.use(webpack.DefinePlugin, [])
 		.end()
 
+	.plugin('bar')
+		.use(webpack.DefinePlugin, [])
+		.before('foo')
+		.end()
+
+	.plugin('baz')
+		.use(webpack.DefinePlugin, [])
+		.after('bar')
+		.end()
+
 	.plugins
 		.delete('foo')
+		.delete('bar')
+		.delete('baz')
 		.end()
 
 	.devServer
@@ -71,19 +85,24 @@ config
 			errors: true,
 		})
 		.port(8080)
+		.progress(true)
 		.proxy({})
+		.public('foo')
+		.publicPath('bar')
 		.quiet(false)
 		.setup(app => {})
+		.staticOptions({})
 		.stats({
 			reasons: true,
 			errors: true,
 			warnings: false,
 		})
 		.watchContentBase(true)
+		.watchOptions({})
 		.end()
 
 	.module
-		.noParse.add(/.min.js$/).end()
+		.noParse(/.min.js$/)
 		.rule('compile')
 			.test(/.js$/)
 			.include
@@ -100,8 +119,14 @@ config
 				.loader('babel-loader')
 				.options({})
 				.end()
+			.use('eslint')
+				.loader('eslint-loader')
+				.options({})
+				.after('babel')
+				.end()
 			.uses
 				.delete('babel')
+				.delete('eslint')
 				.end()
 			.pre()
 			.post()
@@ -141,6 +166,30 @@ config
 		.sourcePrefix('~')
 		.strictModuleExceptionHandling(true)
 		.umdNamedDefine(true)
+		.end()
+
+	.optimization
+		.concatenateModules(true)
+		.flagIncludedChunks(true)
+		.mergeDuplicateChunks(true)
+		.minimize(true)
+		.minimizer('foo')
+			.use(webpack.DefinePlugin)
+			.end()
+		.namedChunks(true)
+		.namedModules(true)
+		.nodeEnv(true)
+		.noEmitOnErrors(true)
+		.occurrenceOrder(true)
+		.portableRecords(true)
+		.providedExports(true)
+		.removeAvailableModules(true)
+		.removeEmptyChunks(true)
+		.runtimeChunk("single")
+		.runtimeChunk({ name: ({}) => "hello" })
+		.sideEffects(true)
+		.splitChunks({})
+		.usedExports(true)
 		.end()
 
 	.performance

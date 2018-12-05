@@ -1,6 +1,6 @@
 // Type definitions for speakingurl 13.0
 // Project: http://pid.github.io/speakingurl/
-// Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42/>
+// Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Dictionary<T> {

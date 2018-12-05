@@ -1,18 +1,13 @@
-import http = require('http')
-import onHeaders = require('on-headers')
+import * as http from 'http';
+import onHeaders = require('on-headers');
 
-http.createServer(onRequest)
-    .listen(3000);
+http.createServer((req, res) => {
+    onHeaders(res, function addPoweredBy() {
+        if (!this.getHeader('X-Powered-By')) {
+            this.setHeader('X-Powered-By', 'Node.js');
+        }
+    });
 
-function onRequest(req: http.IncomingMessage, res: http.ServerResponse) {
-    onHeaders(res, addPoweredBy);
-    res.setHeader('Content-Type', 'text/plain')
+    res.setHeader('Content-Type', 'text/plain');
     res.end('hello!');
-}
-
-function addPoweredBy(): void {
-    // set if not set by end of request
-    if (!this.getHeader('X-Powered-By')) {
-        this.setHeader('X-Powered-By', 'Node.js');
-    }
-}
+}).listen(3000);

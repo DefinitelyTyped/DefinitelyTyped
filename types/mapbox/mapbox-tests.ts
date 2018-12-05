@@ -4,6 +4,8 @@ const mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i8
 
 const map = L.map('map').addLayer(mapboxTiles).setView(new L.LatLng([42.3610, -71.0587]), 15);
 
+const lightTiles = L.mapbox.styleLayer('mapbox://styles/mapbox/light-v9').addTo(map);
+
 const coordinates = document.getElementById('coordinates');
 
 const marker = L.marker(new L.LatLng([0, 0]), {
@@ -16,7 +18,7 @@ const marker = L.marker(new L.LatLng([0, 0]), {
 // every time the marker is dragged, update the coordinates container
 marker.on('dragend', () => {
 	const m = marker.getLatLng();
-	coordinates.innerHTML = 'Latitude: ' + m.lat + '<br />Longitude: ' + m.lng;
+	coordinates.innerHTML = `Latitude: ${m.lat}<br />Longitude: ${m.lng}`;
 });
 
 // Build a marker from a simple GeoJSON object:

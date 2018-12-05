@@ -1,6 +1,6 @@
 // Type definitions for AutobahnJS v0.9.7
 // Project: http://autobahn.ws/js/
-// Definitions by: Elad Zelingher <https://github.com/darkl/>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Wladimir Totino <https://github.com/valepu>
+// Definitions by: Elad Zelingher <https://github.com/darkl>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Wladimir Totino <https://github.com/valepu>, Mathias Teier <https://github.com/glenroy37/,http://kagent.at>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="when" />
@@ -25,7 +25,7 @@ declare namespace autobahn {
 
         leave(reason: string, message: string): void;
 
-        call<TResult>(procedure: string, args?: any[], kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
+        call<TResult>(procedure: string, args?: any[] | any, kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
 
         publish(topic: string, args?: any[], kwargs?: any, options?: IPublishOptions): When.Promise<IPublication>;
 
@@ -96,7 +96,7 @@ declare namespace autobahn {
         kwargs: any;
     }
 
-    type SubscribeHandler = (args?: any[], kwargs?: any, details?: IEvent) => void;
+    type SubscribeHandler = (args?: any[] | any, kwargs?: any, details?: IEvent) => void;
 
     interface ISubscription {
         topic: string;
@@ -179,6 +179,7 @@ declare namespace autobahn {
 
     interface ISubscribeOptions {
         match?: string;
+        get_retained?: boolean;
     }
 
     interface IRegisterOptions {
@@ -189,6 +190,8 @@ declare namespace autobahn {
     export class Connection {
         constructor(options?: IConnectionOptions);
 
+        isOpen: boolean;
+        
         open(): void;
 
         close(reason?: string, message?: string): void;
@@ -205,7 +208,7 @@ declare namespace autobahn {
 
     type DeferFactory = () => When.Promise<any>;
 
-    type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
+    type OnChallengeHandler = (session: Session, method: string, extra: any) => string | When.Promise<string>;
 
     interface IConnectionOptions {
         use_es6_promises?: boolean;

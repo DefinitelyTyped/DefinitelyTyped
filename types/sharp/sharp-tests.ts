@@ -1,4 +1,4 @@
-import * as sharp from "sharp";
+import sharp = require("sharp");
 import { createReadStream, createWriteStream } from "fs";
 
 // Test samples taken from the official documentation
@@ -25,8 +25,7 @@ sharp('3-channel-rgb-input.png')
 sharp('input.png')
     .rotate(180)
     .resize(300)
-    .flatten()
-    .background('#ff6600')
+    .flatten({ background: "#ff6600" })
     .overlayWith('overlay.png', { gravity: sharp.gravity.southeast })
     .sharpen()
     .withMetadata()
@@ -47,6 +46,17 @@ sharp('input.jpg')
         // containing a scaled and cropped version of input.jpg
     });
 
+sharp({
+    create: {
+        width: 300,
+        height: 200,
+        channels: 4,
+        background: { r: 255, g: 0, b: 0, alpha: 128 }
+    }
+})
+.png()
+.toBuffer();
+
 let transformer = sharp()
     .resize(300)
     .on('info', (info: sharp.OutputInfo) => {
@@ -58,17 +68,17 @@ console.log(sharp.format);
 console.log(sharp.versions);
 
 sharp.queue.on('change', (queueLength: number) => {
-    console.log('Queue contains ' + queueLength + ' task(s)');
+    console.log(`Queue contains ${queueLength} task(s)`);
 });
 
-let pipeline: sharp.SharpInstance = sharp().rotate();
+let pipeline: sharp.Sharp = sharp().rotate();
 pipeline.clone().resize(800, 600).pipe(writableStream);
 pipeline.clone().extract({ left: 20, top: 20, width: 100, height: 100 }).pipe(writableStream);
 readableStream.pipe(pipeline);
 // firstWritableStream receives auto-rotated, resized readableStream
 // secondWritableStream receives auto-rotated, extracted region of readableStream
 
-const image: sharp.SharpInstance = sharp(input);
+const image: sharp.Sharp = sharp(input);
 image
     .metadata()
     .then<Buffer|undefined>((metadata: sharp.Metadata) => {
@@ -110,8 +120,7 @@ sharp(input)
 // Resize to 140 pixels wide, then add 10 transparent pixels
 // to the top, left and right edges and 20 to the bottom edge
 sharp(input)
-    .resize(140)
-    .background({ r: 0, g: 0, b: 0, alpha: 0 })
+    .resize(140, null, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
     .extend({ top: 10, bottom: 20, left: 10, right: 10 });
 
 sharp(input)
@@ -138,11 +147,11 @@ sharp('input.tiff')
 
 sharp(input)
     .resize(200, 300, {
+        fit: "contain",
+        position: "north",
         kernel: sharp.kernel.lanczos2,
-        interpolator: sharp.interpolator.nohalo
+        background: "white"
     })
-    .background('white')
-    .embed()
     .toFile('output.tiff')
     .then(() => {
         // output.tiff is a 200 pixels wide and 300 pixels high image
@@ -151,8 +160,10 @@ sharp(input)
     });
 
 transformer = sharp()
-    .resize(200, 200)
-    .crop(sharp.strategy.entropy)
+    .resize(200, 200, {
+        fit: "cover",
+        position: sharp.strategy.entropy
+    })
     .on('error', (err: Error) => {
         console.log(err);
     });
@@ -161,9 +172,11 @@ transformer = sharp()
 readableStream.pipe(transformer).pipe(writableStream);
 
 sharp('input.gif')
-    .resize(200, 300)
-    .background({ r: 0, g: 0, b: 0, alpha: 0 })
-    .embed()
+    .resize(200, 300, {
+        fit: "contain",
+        position: "north",
+        background: { r: 0, g: 0, b: 0, alpha: 0 }
+    })
     .toFormat(sharp.format.webp)
     .toBuffer((err: Error, outputBuffer: Buffer) => {
         if (err) {
@@ -174,13 +187,27 @@ sharp('input.gif')
     });
 
 sharp(input)
-    .resize(200, 200)
-    .max()
+    .resize(200, 200, { fit: "inside" })
     .toFormat('jpeg')
     .toBuffer()
     .then((outputBuffer: Buffer) => {
         // outputBuffer contains JPEG image data no wider than 200 pixels and no higher
         // than 200 pixels regardless of the inputBuffer image dimensions
+    });
+
+sharp(input)
+    .resize(100, 100)
+    .toBuffer({ resolveWithObject: false })
+    .then((outputBuffer: Buffer) => {
+        // Resolves with a Buffer object when resolveWithObject is false
+    });
+
+sharp(input)
+    .resize(100, 100)
+    .toBuffer({ resolveWithObject: true })
+    .then((object: { data: Buffer, info: sharp.OutputInfo }) => {
+        // Resolve with an object containing data Buffer and an OutputInfo object
+        // when resolveWithObject is true
     });
 
 const stats = sharp.cache();
@@ -200,3 +227,9 @@ let simd: boolean = sharp.simd();
 
 simd = sharp.simd(true);
 // attempts to enable the use of SIMD, returning true if available
+
+const vipsVersion: string = sharp.versions.vips;
+
+if (sharp.versions.cairo) {
+    const cairoVersion: string = sharp.versions.cairo;
+}

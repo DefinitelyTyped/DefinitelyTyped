@@ -9,7 +9,7 @@ enum enumTest { male, female }
  */
 function ObservableValidationTypes() {
     // any
-    var t0 = ko.observable<any>()
+    var t0 = ko.observable()
         .validate()
         .end();
 

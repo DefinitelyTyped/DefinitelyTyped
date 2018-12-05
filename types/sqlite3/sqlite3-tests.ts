@@ -1,11 +1,12 @@
-import sqlite3 = require('sqlite3');
-sqlite3.verbose();
+import * as sqlite from 'sqlite3';
+const sqlite3 = sqlite.verbose();
 
-let db: sqlite3.Database = new sqlite3.Database('chain.sqlite3', () => {});
+let db: sqlite.Database = new sqlite3.Database('chain.sqlite3', () => {});
 
 function createDb() {
     console.log("createDb chain");
-    db = new sqlite3.Database('chain.sqlite3', createTable);
+	db = new sqlite3.Database('chain.sqlite3', createTable);
+	db.configure("busyTimeout", 1000);
 }
 
 function createTable() {
@@ -28,7 +29,7 @@ function readAllRows() {
     console.log("readAllRows lorem");
     db.all("SELECT rowid AS id, info FROM lorem", (err, rows) => {
         rows.forEach(row => {
-            console.log(row.id + ": " + row.info);
+            console.log(`${row.id}: ${row.info}`);
         });
         readSomeRows();
     });
@@ -37,7 +38,7 @@ function readAllRows() {
 function readSomeRows() {
     console.log("readAllRows lorem");
     db.each("SELECT rowid AS id, info FROM lorem WHERE rowid < ? ", 5, (err, row) => {
-        console.log(row.id + ": " + row.info);
+        console.log(`${row.id}: ${row.info}`);
     }, closeDb);
 }
 
@@ -62,7 +63,7 @@ db.serialize(() => {
   stmt.finalize();
 
   db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
-      console.log(row.id + ": " + row.info);
+      console.log(`${row.id}: ${row.info}`);
   });
 });
 

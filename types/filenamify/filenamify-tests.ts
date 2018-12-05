@@ -1,4 +1,4 @@
-import * as filenamify from 'filenamify';
+import filenamify = require('filenamify');
 
 filenamify('<foo/bar>');
 // => 'foo!bar'

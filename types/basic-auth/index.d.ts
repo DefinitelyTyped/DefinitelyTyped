@@ -19,7 +19,7 @@ declare namespace auth {
     /**
      * Parse basic auth to object.
      */
-    function parse(authorizationHeader: string): auth.BasicAuthResult | undefined;
+    function parse(authorizationHeader: string): BasicAuthResult | undefined;
 }
 
 export = auth;

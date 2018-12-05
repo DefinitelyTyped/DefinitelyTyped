@@ -485,9 +485,6 @@ declare namespace fin {
 	 * An object representing the core of OpenFin Runtime. Allows the developer to perform system-level actions, such as accessing logs, viewing processes, clearing the cache and exiting the runtime.
 	 */
 	interface OpenFinSystem {
-		/**
-		 *
-		 */
 		Clipboard: OpenFinClipboard;
 		/**
 		 * Registers an event listener on the specified event.
@@ -851,14 +848,14 @@ declare namespace fin {
 		 * Creates a new OpenFin Window
 		 *
 		 * A basic window that wraps a native HTML window. Provides more fine-grained control over the window state such as the ability to minimize, maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually. The new window appears in the same process as the parent window.
-		 * @param {any} options - The options of the window
-		 * @param {Function} [callback] - Called if the window creation was successful
-		 * @param {number} [callback.successObj] - httpResponseCode
+		 * @param options - The options of the window
+		 * @param [callback] - Called if the window creation was successful
+		 * @param [callback.successObj] - httpResponseCode
 		 */
 		new (options: WindowOptions, callback?: (successObj: { httpResponseCode: number }) => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinWindow;
 		/**
 		 * Returns an instance of the current window.
-		 * @returns {OpenFinWindow} Current window
+		 * @returns Current window
 		 */
 		getCurrent(): OpenFinWindow;
 		/**
@@ -878,12 +875,12 @@ declare namespace fin {
 		name: string;
 		/**
 		 * Returns the native JavaScript "window" object for the window. This method can only be used by the parent application or the window itself, otherwise it will return undefined. The same Single-Origin-Policy (SOP) rules apply for child windows created by window.open(url) in that the contents of the window object are only accessible if the URL has the same origin as the invoking window. See example below. Also, will not work with fin.desktop.Window objects created with fin.desktop.Window.wrap().
-		 * @returns {Window} Native window
+		 * @returns Native window
 		 */
 		getNativeWindow(): Window;
 		/**
 		 * Gets the parent application.
-		 * @returns {OpenFinApplication} Parent application
+		 * @returns Parent application
 		 */
 		getParentApplication(): OpenFinApplication;
 		/**
@@ -912,7 +909,7 @@ declare namespace fin {
 		bringToFront(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the window.
-		 * @param {force} Close will be prevented from closing when force is false and 'close-requested' has been subscribed to for application's main window.
+		 * @param Close will be prevented from closing when force is false and 'close-requested' has been subscribed to for application's main window.
 		 */
 		close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1029,7 +1026,7 @@ declare namespace fin {
 		setZoomLevel(level: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Shows the window if it is hidden.
-		 * @param {force} Show will be prevented from closing when force is false and 'show-requested' has been subscribed to for application's main window.
+		 * @param Show will be prevented from closing when force is false and 'show-requested' has been subscribed to for application's main window.
 		 */
 		show(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1217,9 +1214,6 @@ declare namespace fin {
 		 * the top-most coordinate of the window.
 		 */
 		top: number;
-		/**
-		 *
-		 */
 		type: "bounds-changed" | "bounds-changing" | "disabled-frame-bounds-changed" | "disabled-frame-bounds-changing";
 		/**
 		 * the new width of the window.

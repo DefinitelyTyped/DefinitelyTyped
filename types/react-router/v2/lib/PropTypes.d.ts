@@ -8,12 +8,12 @@ export const components: React.Requireable<any>;
 export const route: React.Requireable<any>;
 export const routes: React.Requireable<any>;
 
-export default {
-    falsy,
-    history,
-    location,
-    component,
-    components,
-    route
+declare const defaultExport: {
+    falsy: typeof falsy,
+    history: typeof history,
+    location: typeof location,
+    component: typeof component,
+    components: typeof components,
+    route: typeof route,
 };
-
+export default defaultExport;

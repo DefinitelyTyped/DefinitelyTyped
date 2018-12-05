@@ -1,14 +1,13 @@
 // from https://github.com/hapijs/nes#broadcast
 
-import Hapi = require('hapi');
+import { Server } from 'hapi';
 import Nes = require('nes');
 
-var server = new Hapi.Server();
-server.connection();
+const server = new Server();
 
-server.register(Nes, function (err) {
+server.register(Nes).then(() => {
 
-    server.start(function (err) {
+    return server.start().then(() => {
 
         server.broadcast('welcome!');
     });

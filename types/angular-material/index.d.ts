@@ -1,6 +1,6 @@
 // Type definitions for angular-material 1.1
 // Project: https://github.com/angular/material
-// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>
+// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>, Edward Knowles <https://github.com/eknowles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,6 +11,10 @@ export = _;
 
 declare module 'angular' {
     namespace material {
+        interface IAriaProvider {
+            disableWarnings(): void;
+        }
+
         interface ResolveObject {
             [name: string]: Injectable<(...args: any[]) => PromiseLike<any>>;
         }
@@ -18,7 +22,7 @@ declare module 'angular' {
         interface IBottomSheetOptions {
             templateUrl?: string;
             template?: string;
-            scope?: angular.IScope; // default: new child scope
+            scope?: IScope; // default: new child scope
             preserveScope?: boolean; // default: false
             controller?: string | Injectable<IControllerConstructor>;
             locals?: { [index: string]: any };
@@ -28,12 +32,12 @@ declare module 'angular' {
             escapeToClose?: boolean;
             resolve?: ResolveObject;
             controllerAs?: string;
-            parent?: ((scope: angular.IScope, element: JQuery) => Element | JQuery) | string | Element | JQuery; // default: root node
+            parent?: ((scope: IScope, element: JQuery) => Element | JQuery) | string | Element | JQuery; // default: root node
             disableParentScroll?: boolean; // default: true
         }
 
         interface IBottomSheetService {
-            show(options: IBottomSheetOptions): angular.IPromise<any>;
+            show(options: IBottomSheetOptions): IPromise<any>;
             hide(response?: any): void;
             cancel(response?: any): void;
         }
@@ -47,7 +51,7 @@ declare module 'angular' {
             templateUrl(templateUrl?: string): T;
             template(template?: string): T;
             targetEvent(targetEvent?: MouseEvent): T;
-            scope(scope?: angular.IScope): T; // default: new child scope
+            scope(scope?: IScope): T; // default: new child scope
             preserveScope(preserveScope?: boolean): T; // default: false
             disableParentScroll(disableParentScroll?: boolean): T; // default: true
             hasBackdrop(hasBackdrop?: boolean): T; // default: true
@@ -61,6 +65,9 @@ declare module 'angular' {
             controllerAs(controllerAs?: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
             ariaLabel(ariaLabel: string): T;
+            openFrom(from: string | Element | Event | { top: number, left: number }): T;
+            closeTo(to: string | Element | { top: number, left: number }): T;
+            multiple(multiple: boolean): T;
         }
 
         // tslint:disable-next-line no-empty-interface
@@ -69,10 +76,12 @@ declare module 'angular' {
 
         interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
             cancel(cancel: string): IConfirmDialog;
+            multiple(multiple: boolean): IConfirmDialog;
         }
 
         interface IPromptDialog extends IPresetDialog<IPromptDialog> {
             cancel(cancel: string): IPromptDialog;
+            required(required: boolean): IPromptDialog; // default: false
             placeholder(placeholder: string): IPromptDialog;
             initialValue(initialValue: string): IPromptDialog;
         }
@@ -95,7 +104,7 @@ declare module 'angular' {
             targetEvent?: MouseEvent;
             openFrom?: any;
             closeTo?: any;
-            scope?: angular.IScope; // default: new child scope
+            scope?: IScope; // default: new child scope
             preserveScope?: boolean; // default: false
             disableParentScroll?: boolean; // default: true
             hasBackdrop?: boolean; // default: true
@@ -108,24 +117,33 @@ declare module 'angular' {
             resolve?: ResolveObject;
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
-            onShowing?(scope: angular.IScope, element: JQuery): void;
-            onComplete?(scope: angular.IScope, element: JQuery): void;
-            onRemoving?(element: JQuery, removePromise: angular.IPromise<any>): void;
+            onShowing?(scope: IScope, element: JQuery): void;
+            onComplete?(scope: IScope, element: JQuery): void;
+            onRemoving?(element: JQuery, removePromise: IPromise<any>): void;
             skipHide?: boolean;
             multiple?: boolean;
             fullscreen?: boolean; // default: false
         }
 
         interface IDialogService {
-            show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog | IPromptDialog): angular.IPromise<any>;
+            // indexer used to call preset dialog created with $mdDialogProvider
+            // see: https://material.angularjs.org/latest/api/service/$mdDialog#custom-presets
+            // tslint:disable-next-line:ban-types
+            [presetName: string]: Function;
+
+            show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog | IPromptDialog): IPromise<any>;
             confirm(): IConfirmDialog;
             alert(): IAlertDialog;
             prompt(): IPromptDialog;
-            hide(response?: any): angular.IPromise<any>;
+            hide(response?: any): IPromise<any>;
             cancel(response?: any): void;
         }
 
-        type IIcon = (id: string) => angular.IPromise<Element>; // id is a unique ID or URL
+        interface IDialogProvider {
+            addPreset(presetName: string, presetOptions: { methods?: ReadonlyArray<string>, options: () => IDialogOptions }): IDialogProvider;
+        }
+
+        type IIcon = (id: string) => IPromise<Element>; // id is a unique ID or URL
 
         interface IIconProvider {
             icon(id: string, url: string, viewBoxSize?: number): IIconProvider; // viewBoxSize default: 24
@@ -138,16 +156,16 @@ declare module 'angular' {
         type IMedia = (media: string) => boolean;
 
         interface ISidenavObject {
-            toggle(): angular.IPromise<void>;
-            open(): angular.IPromise<void>;
-            close(): angular.IPromise<void>;
+            toggle(): IPromise<void>;
+            open(): IPromise<void>;
+            close(): IPromise<void>;
             isOpen(): boolean;
             isLockedOpen(): boolean;
             onClose(onClose: () => void): void;
         }
 
         interface ISidenavService {
-            (component: string, enableWait: boolean): angular.IPromise<ISidenavObject>;
+            (component: string, enableWait: boolean): IPromise<ISidenavObject>;
             (component: string): ISidenavObject;
         }
 
@@ -172,7 +190,7 @@ declare module 'angular' {
             templateUrl?: string;
             template?: string;
             autoWrap?: boolean;
-            scope?: angular.IScope; // default: new child scope
+            scope?: IScope; // default: new child scope
             preserveScope?: boolean; // default: false
             hideDelay?: number | false; // default (ms): 3000
             position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
@@ -186,8 +204,8 @@ declare module 'angular' {
         }
 
         interface IToastService {
-            show(optionsOrPreset: IToastOptions | IToastPreset<any>): angular.IPromise<any>;
-            showSimple(content: string): angular.IPromise<any>;
+            show(optionsOrPreset: IToastOptions | IToastPreset<any>): IPromise<any>;
+            showSimple(content: string): IPromise<any>;
             simple(): ISimpleToastPreset;
             build(): IToastPreset<any>;
             updateContent(newContent: string): void;
@@ -215,7 +233,7 @@ declare module 'angular' {
             contrastDefaultColor?: string;
             contrastDarkColors?: string | string[];
             contrastLightColors?: string | string[];
-            contrastStrongLightColors?: string|string[];
+            contrastStrongLightColors?: string | string[];
         }
 
         interface IThemeHues {
@@ -287,6 +305,25 @@ declare module 'angular' {
             configuration(): IThemeConfig;
         }
 
+        interface IDefineThemeOptions {
+            primary?: string;
+            accent?: string;
+            warn?: string;
+            background?: string;
+            dark?: boolean;
+        }
+
+        interface IThemingService {
+            PALETTES: IConfiguredColorPalette; // get only
+            THEMES: IConfiguredThemes; // get only
+            (element: JQuery): void;
+            registered(themeName: string): boolean;
+            defaultTheme(): string;
+            generateTheme(name: string): void;
+            setBrowserColor(options: IBrowserColors): () => void;
+            defineTheme(name: string, options: IDefineThemeOptions): IPromise<string>;
+        }
+
         interface IDateLocaleProvider {
             months: string[];
             shortMonths: string[];
@@ -303,7 +340,8 @@ declare module 'angular' {
         }
 
         interface IMenuService {
-            hide(response?: any, options?: any): angular.IPromise<any>;
+            hide(response?: any, options?: any): IPromise<any>;
+            open(event?: MouseEvent): void;
         }
 
         interface IColorPalette {
@@ -325,6 +363,18 @@ declare module 'angular' {
             brown: IPalette;
             grey: IPalette;
             'blue-grey': IPalette;
+        }
+
+        interface IConfiguredColorPalette extends IColorPalette {
+            [name: string]: IPalette;
+        }
+
+        interface IThemes {
+            default: ITheme;
+        }
+
+        interface IConfiguredThemes extends IThemes {
+            [name: string]: ITheme;
         }
 
         interface IPanelConfig {
@@ -363,19 +413,19 @@ declare module 'angular' {
             isAttached: boolean;
             panelContainer: JQuery;
             panelEl: JQuery;
-            open(): angular.IPromise<any>;
-            close(): angular.IPromise<any>;
-            attach(): angular.IPromise<any>;
-            detach(): angular.IPromise<any>;
-            show(): angular.IPromise<any>;
-            hide(): angular.IPromise<any>;
+            open(): IPromise<any>;
+            close(): IPromise<any>;
+            attach(): IPromise<any>;
+            detach(): IPromise<any>;
+            show(): IPromise<any>;
+            hide(): IPromise<any>;
             destroy(): void;
             addClass(newClass: string): void;
             removeClass(oldClass: string): void;
             toggleClass(toggleClass: string): void;
             updatePosition(position: IPanelPosition): void;
-            registerInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
-            removeInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+            registerInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
+            removeInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
             removeAllInterceptors(type?: string): IPanelRef;
         }
 
@@ -404,7 +454,7 @@ declare module 'angular' {
 
         interface IPanelService {
             create(opt_config: IPanelConfig): IPanelRef;
-            open(opt_config: IPanelConfig): angular.IPromise<IPanelRef>;
+            open(opt_config: IPanelConfig): IPromise<IPanelRef>;
             newPanelPosition(): IPanelPosition;
             newPanelAnimation(): IPanelAnimation;
             xPosition: {
@@ -455,5 +505,7 @@ declare module 'angular' {
         interface IProgressCircularProvider {
             configure(options: IProgressCircularConfig): void;
         }
+
+        type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
     }
 }

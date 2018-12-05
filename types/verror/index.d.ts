@@ -1,6 +1,6 @@
 // Type definitions for verror 1.10
 // Project: https://github.com/davepacheco/node-verror
-// Definitions by: Sven Reglitzki <https://github.com/svi3c/>, Maxime Toumi-M <https://github.com/max4t/>
+// Definitions by: Sven Reglitzki <https://github.com/svi3c>, Maxime Toumi-M <https://github.com/max4t>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -30,7 +30,7 @@ declare class VError extends Error {
 
     cause(): Error | undefined;
     constructor(options: VError.Options | Error, message: string, ...params: any[]);
-    constructor(message: string, ...params: any[]);
+    constructor(message?: string, ...params: any[]);
 }
 
 declare namespace VError {
@@ -39,7 +39,7 @@ declare namespace VError {
     }
 
     interface Options {
-        cause?: Error | null | undefined;
+        cause?: Error | null;
         name?: string;
         strict?: boolean;
         constructorOpt?(...args: any[]): void;

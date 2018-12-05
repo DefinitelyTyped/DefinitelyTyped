@@ -1,4 +1,4 @@
-import { redraw, render } from "mithril";
+import { redraw, render } from ".";
 
 declare namespace RedrawService {
 	interface Static {

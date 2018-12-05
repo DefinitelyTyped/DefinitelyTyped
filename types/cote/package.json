@@ -1,5 +1,6 @@
 {
-  "dependencies": {
-    "eventemitter2": "^4.1.0"
-  }
+    "private": true,
+    "dependencies": {
+        "eventemitter2": "^4.1.0"
+    }
 }

@@ -896,6 +896,7 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']] });
 User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], group: ['sex'] });
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
+User.findAll( { subQuery: false, include : [User], order : [['id', 'ASC NULLS LAST']] } );
 
 User.findById( 'a string' );
 
@@ -929,6 +930,7 @@ User.count( { include : [{ model : User, required : false }] } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
 User.count( { attributes : ['data'], group : ['data'] } );
 User.count( { where : { access_level : { gt : 5 } } } );
+User.count( { col: 'title', distinct: true, where : { access_level : { gt : 5 } } } );
 
 User.findAndCountAll( { offset : 5, limit : 1, include : [User, { model : User, as : 'a' }] } );
 
@@ -1163,11 +1165,20 @@ new Sequelize( 'wat', 'trololo', 'wow', { port : 99999 } );
 new Sequelize( 'localhost', 'wtf', 'lol', { port : 99999 } );
 new Sequelize( 'sequelize', null, null, {
     replication : {
-        read : {
+        read : [{
             host : 'localhost',
             username : 'omg',
             password : 'lol'
-        }
+        }]
+    }
+} );
+new Sequelize( {
+    database: 'db',
+    username: 'user',
+    password: 'pass',
+    retry: {
+        match: ['failed'],
+        max: 3
     }
 } );
 

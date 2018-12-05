@@ -197,7 +197,7 @@ str = v.replace();
 str = v.replace('swan', 'wa', 'u');
 str = v.replace('domestic duck', /domestic\s/, '');
 str = v.replace('nice duck', /(nice)(duck)/, (match: string, nice: string, duck: string) => {
-    return 'the ' + duck + ' is ' + nice;
+    return `the ${duck} is ${nice}`;
 });
 
 str = v.replaceAll();

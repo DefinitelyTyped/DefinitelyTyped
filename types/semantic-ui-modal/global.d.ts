@@ -131,7 +131,7 @@ declare namespace SemanticUI {
              */
             keyboardShortcuts: boolean;
             /**
-             *    A vertical offset to allow for content outside of modal, for example a close button, to be centered.
+             * A vertical offset to allow for content outside of modal, for example a close button, to be centered.
              *
              * @default 0
              */

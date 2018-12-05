@@ -1,4 +1,4 @@
-import * as J from 'jenkins';
+import J = require('jenkins');
 
 const jenkins = J({ baseUrl: 'http://user:pass@localhost:8080', crumbIssuer: true });
 
@@ -35,6 +35,10 @@ log.on('end', () => {
 });
 
 jenkins.build.stop('example', 1, (err) => {
+  if (err) throw err;
+});
+
+jenkins.build.term('example', 1, (err) => {
   if (err) throw err;
 });
 

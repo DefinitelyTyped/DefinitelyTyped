@@ -2,25 +2,26 @@
 // Project: https://github.com/IvanSanchez/Leaflet.ImageOverlay.Rotated
 // Definitions by: Thomas Kleinke <https://github.com/tkleinke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     namespace ImageOverlay {
-        interface Rotated extends L.ImageOverlay {
+        interface Rotated extends ImageOverlay {
             reposition(
-                topleft: L.LatLngExpression,
-                topright: L.LatLngExpression,
-                bottomleft: L.LatLngExpression): void;
+                topleft: LatLngExpression,
+                topright: LatLngExpression,
+                bottomleft: LatLngExpression): void;
         }
     }
 
     namespace imageOverlay {
         function rotated(
             imgSrc: string | HTMLImageElement | HTMLCanvasElement,
-            topleft: L.LatLngExpression,
-            topright: L.LatLngExpression,
-            bottomleft: L.LatLngExpression,
-            options?: L.ImageOverlayOptions): L.ImageOverlay.Rotated;
+            topleft: LatLngExpression,
+            topright: LatLngExpression,
+            bottomleft: LatLngExpression,
+            options?: ImageOverlayOptions): ImageOverlay.Rotated;
     }
 }

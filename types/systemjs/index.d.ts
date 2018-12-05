@@ -1,11 +1,28 @@
 // Type definitions for SystemJS 0.20
 // Project: https://github.com/systemjs/systemjs
-// Definitions by: Ludovic HENIN <https://github.com/ludohenin/>, Nathan Walker <https://github.com/NathanWalker/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Definitions by: Ludovic HENIN <https://github.com/ludohenin>
+//                 Nathan Walker <https://github.com/NathanWalker>
+//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 Aluan Haddad <https://github.com/aluanhaddad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = SystemJSLoader;
+
+export as namespace SystemJSLoader;
+
+declare global {
+    const SystemJS: typeof SystemJSLoader;
+
+    /**
+     * @deprecated use SystemJS https://github.com/systemjs/systemjs/releases/tag/0.19.10
+     */
+    const System: typeof SystemJSLoader;
+    const __moduleName: string;
+}
+
+declare const SystemJSLoader: SystemJSLoader.System;
 
 declare namespace SystemJSLoader {
-
     interface ModulesList {
         [bundleName: string]: string[];
     }
@@ -111,6 +128,12 @@ declare namespace SystemJSLoader {
          * Use with the SystemJS Builder. (https://github.com/systemjs/builder#ignore-resources)
          */
         build?: boolean;
+
+        /**
+         * A truthy value enables sending credentials to the server on every request. Additionally, a string value adds
+         * an "Authorization" header with that value to all requests.
+         */
+        authorization?: string | boolean;
     }
 
     interface PackageConfig {
@@ -167,7 +190,7 @@ declare namespace SystemJSLoader {
         /**
          * Set the Babel transpiler options when System.transpiler is set to babel.
          */
-        //TODO: Import BabelCore.TransformOptions
+        // TODO: Import BabelCore.TransformOptions
         babelOptions?: any;
 
         /**
@@ -228,7 +251,7 @@ declare namespace SystemJSLoader {
         /**
          * Sets the TypeScript transpiler options.
          */
-        //TODO: Import Typescript.CompilerOptions
+        // TODO: Import Typescript.CompilerOptions
         typescriptOptions?: {
             /**
              * A boolean flag which instructs the plugin to load configuration from "tsconfig.json".
@@ -237,36 +260,21 @@ declare namespace SystemJSLoader {
              * Note: This setting is specific to plugin-typescript.
              */
             tsconfig?: boolean | string,
-            /**
-             * A flag which controls whether the files are type-checked or simply transpiled.
-             * Set this option to "strict" to have the builds fail when compiler errors are encountered.
-             * Note: The strict option only affects builds and bundles via the SystemJS or JSPM Builder.
-             * Note: This setting is specific to plugin-typescript.
-             */
-            typeCheck?: boolean | "strict",
+
             [key: string]: any
         };
     }
 
-    interface SystemJSSystemFields {
-        env: string;
-        loaderErrorStack: boolean;
-        packageConfigPaths: string[];
-        pluginFirst: boolean;
-        version: string;
-        warnings: boolean;
-    }
-
-    interface System extends Config, SystemJSSystemFields {
+    interface System extends Config {
         /**
          * For backwards-compatibility with AMD environments, set window.define = System.amdDefine.
          */
-        amdDefine: (...args: any[]) => void;
+        amdDefine(...args: any[]): void;
 
         /**
          * For backwards-compatibility with AMD environments, set window.require = System.amdRequire.
          */
-        amdRequire: (deps: string[], callback: (...modules: any[]) => void) => void;
+        amdRequire(deps: string[], callback: (...modules: any[]) => void): void;
 
         /**
          * SystemJS configuration helper function.
@@ -288,7 +296,6 @@ declare namespace SystemJSLoader {
          * Returns a module from the registry by normalized name.
          */
         get(moduleName: string): any;
-        get<TModule>(moduleName: string): TModule;
 
         /**
          * Returns a clone of the internal SystemJS configuration in use.
@@ -305,7 +312,6 @@ declare namespace SystemJSLoader {
          * Promise resolves to the module value.
          */
         import(moduleName: string, normalizedParentName?: string): Promise<any>;
-        import<TModule>(moduleName: string, normalizedParentName?: string): Promise<TModule>;
 
         /**
          * Given any object, returns true if the object is either a SystemJS module or native JavaScript module object, and false otherwise.
@@ -318,7 +324,6 @@ declare namespace SystemJSLoader {
          * Useful when writing a custom instantiate hook or using System.set.
          */
         newModule(object: any): any;
-        newModule<TModule>(object: any): TModule;
 
         /**
          * Declaration function for defining modules of the System.register polyfill module format.
@@ -349,32 +354,35 @@ declare namespace SystemJSLoader {
          * Synchronous alternative to `SystemJS.resolve`.
          */
         resolveSync(moduleName: string, parentName?: string): string;
-    
+
         /**
          * In CommonJS environments, SystemJS will substitute the global require as needed by the module format being
          * loaded to ensure the correct detection paths in loaded code.
          * The CommonJS require can be recovered within these modules from System._nodeRequire.
          */
-        _nodeRequire: (dep: string) => any;
+        _nodeRequire(dep: string): any;
 
         /**
          * Modules list available only with trace=true
          */
         loads: PackageList<any>;
+
+        env: string;
+
+        loaderErrorStack: boolean;
+
+        packageConfigPaths: string[];
+
+        /**
+         * Specify a value of true to have SystemJS conform to the AMD-style plugin syntax, e.g. "text!some/file.txt", over the default of "some/file.txt!text".
+         */
+        pluginFirst: boolean;
+
+        version: string;
+
+        /**
+         * Enables the output of warnings to the console, including deprecation messages.
+         */
+        warnings: boolean;
     }
-}
-
-declare var SystemJS: SystemJSLoader.System;
-
-declare var __moduleName: string;
-
-/**
- * @deprecated use SystemJS https://github.com/systemjs/systemjs/releases/tag/0.19.10
- */
-declare const System: SystemJSLoader.System;
-
-declare module "systemjs" {
-    import systemJSLoader = SystemJSLoader;
-    const system: systemJSLoader.System;
-    export = system;
 }

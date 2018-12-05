@@ -1,19 +1,41 @@
 import Conf = require('conf');
 
-const conf = new Conf();
+const conf = new Conf<string | number | boolean>();
+new Conf<string>({
+    defaults: {
+        foo: 'bar',
+        unicorn: 'rainbow'
+    },
+    configName: '',
+    projectName: 'foo',
+    cwd: ''
+});
+// $ExpectError
+new Conf<string>({
+    defaults: {
+        foo: 'bar',
+        unicorn: ['rainbow']
+    }
+});
 conf.set('foo', 'bar');
 conf.set('hello', 1);
 conf.set('unicorn', false);
-conf.set('object', {
-	foo: 'bar',
-	unicorn: ['rainbow']
-});
+conf.set('null', null); // $ExpectError
 
-conf.get('foo');
+conf.get('foo'); // $ExpectType string | number | boolean
+conf.get('foo', 'bar'); // $ExpectType string | number | boolean
+conf.get('foo', null); // $ExpectError
 conf.delete('foo');
-conf.has('foo');
+conf.has('foo'); // $ExpectType boolean
 conf.clear();
 
-for (const value of conf) {
-	console.log(value[0], value[1]);
+conf.store = {
+    foo: 'bar',
+    unicorn: 'rainbow'
+};
+conf.path; // $ExpectType string
+
+for (const [key, value] of conf) {
+    key; // $ExpectType string
+    value; // $ExpectType string | number | boolean
 }

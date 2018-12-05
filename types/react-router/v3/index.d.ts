@@ -9,8 +9,11 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Karol Janyst <https://github.com/LKay>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
+//                 Ross Allen <https://github.com/ssorallen>
+//                 Christian Gill <https://github.com/gillchristian>
+//                 Roman Nevolin <https://github.com/nulladdict>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export {
     ChangeHook,
@@ -34,6 +37,7 @@ export { RouteProps, PlainRoute } from "react-router/lib/Route";
 export { IndexRouteProps } from "react-router/lib/IndexRoute";
 export { RedirectProps } from "react-router/lib/Redirect";
 export { IndexRedirectProps } from "react-router/lib/IndexRedirect";
+export { WithRouterProps } from "react-router/lib/withRouter";
 
 /* components */
 export { default as Router } from "react-router/lib/Router";

@@ -2,10 +2,11 @@
 // Project: https://github.com/codeofsumit/leaflet.pm
 // Definitions by: Thomas Kleinke <https://github.com/tkleinke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     interface Map {
         pm: PM.Map;
     }
@@ -28,15 +29,15 @@ declare namespace L {
 
     namespace PM {
         interface Map {
-            addControls(options?: PM.ToolbarOptions): void;
-            enableDraw(shape: string, options?: PM.DrawOptions): void;
+            addControls(options?: ToolbarOptions): void;
+            enableDraw(shape: string, options?: DrawOptions): void;
             disableDraw(shape: string): void;
-            setPathOptions(options: L.PathOptions): void;
+            setPathOptions(options: PathOptions): void;
             toggleRemoval(enabled: boolean): void;
             globalEditEnabled(): boolean;
-            toggleGlobalEditMode(options?: PM.EditOptions): void;
+            toggleGlobalEditMode(options?: EditOptions): void;
 
-            Draw: PM.Draw;
+            Draw: Draw;
         }
 
         interface Draw {
@@ -53,9 +54,9 @@ declare namespace L {
         }
 
         interface DrawOptions {
-            templineStyle?: L.PathOptions;
-            hintlineStyle?: L.PathOptions;
-            pathOptions?: L.PathOptions;
+            templineStyle?: PathOptions;
+            hintlineStyle?: PathOptions;
+            pathOptions?: PathOptions;
         }
 
         interface EditOptions {
@@ -67,7 +68,7 @@ declare namespace L {
         namespace Edit {
             interface Line {
                 enable(options?: EditOptions): void;
-                disable(poly?: L.Layer): void;
+                disable(poly?: Layer): void;
                 toggleEdit(options?: EditOptions): void;
                 enabled(): boolean;
             }
@@ -84,7 +85,7 @@ declare namespace L {
                 disable(): void;
                 toggleEdit(options?: EditOptions): void;
                 enabled(): boolean;
-                findLayers(): L.Layer[];
+                findLayers(): Layer[];
                 dragging(): boolean;
                 getOptions(): EditOptions;
             }

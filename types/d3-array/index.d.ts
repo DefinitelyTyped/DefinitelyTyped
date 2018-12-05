@@ -1,9 +1,13 @@
 // Type definitions for D3JS d3-array module 1.2
 // Project: https://github.com/d3/d3-array
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 Tom Wanzek <https://github.com/tomwanzek>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.2.1
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -28,133 +32,142 @@ export interface Numeric {
 /**
  * Return the maximum value in the array of strings using natural order.
  */
-export function max(array: string[]): string | undefined;
+export function max(array: ArrayLike<string>): string | undefined;
 
 /**
  * Return the maximum value in the array of numbers using natural order.
  */
-export function max<T extends Numeric>(array: T[]): T | undefined;
+export function max<T extends Numeric>(array: ArrayLike<T>): T | undefined;
 
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to strings.
  */
-export function max<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string | undefined | null): string | undefined;
+export function max<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => string | undefined | null): string | undefined;
 
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to easily-sorted values.
  */
-export function max<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): U | undefined;
+export function max<T, U extends Numeric>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => U | undefined | null): U | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min(array: string[]): string | undefined;
+export function min(array: ArrayLike<string>): string | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T extends Numeric>(array: T[]): T | undefined;
+export function min<T extends Numeric>(array: ArrayLike<T>): T | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string | undefined | null): string | undefined;
+export function min<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => string | undefined | null): string | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): U | undefined;
+export function min<T, U extends Numeric>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => U | undefined | null): U | undefined;
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent(array: string[]): [string, string] | [undefined, undefined];
+export function extent(array: ArrayLike<string>): [string, string] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T extends Numeric>(array: T[]): [T, T] | [undefined, undefined];
+export function extent<T extends Numeric>(array: ArrayLike<T>): [T, T] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string | undefined | null): [string, string] | [undefined, undefined];
+export function extent<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => string | undefined | null): [string, string] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): [U, U] | [undefined, undefined];
+export function extent<T, U extends Numeric>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => U | undefined | null): [U, U] | [undefined, undefined];
 
 /**
  * Return the mean of an array of numbers
  */
-export function mean<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
-export function mean<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
+export function mean<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
+
+/**
+ * Return the mean of an array of numbers
+ */
+export function mean<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
 
 /**
  * Return the median of an array of numbers
  */
-export function median<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
-export function median<T>(array: T[], accessor: (element: T, i: number, array: T[]) => number | undefined | null): number | undefined;
+export function median<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
+
+/**
+ * Return the median of an array of numbers
+ */
+export function median<T>(array: ArrayLike<T>, accessor: (element: T, i: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
 
 /**
  * Returns the p-quantile of an array of numbers
  */
-export function quantile<T extends Numeric>(array: Array<T | undefined | null>, p: number): number | undefined;
-export function quantile<T>(array: T[], p: number, accessor: (element: T, i: number, array: T[]) => number | undefined | null): number | undefined;
+export function quantile<T extends Numeric>(array: ArrayLike<T | undefined | null>, p: number): number | undefined;
+
+export function quantile<T>(array: ArrayLike<T>, p: number, accessor: (element: T, i: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
 
 /**
  * Compute the sum of an array of numbers.
  */
-export function sum<T extends Numeric>(array: Array<T | undefined | null>): number;
+export function sum<T extends Numeric>(array: ArrayLike<T | undefined | null>): number;
 
 /**
  * Compute the sum of an array, using the given accessor to convert values to numbers.
  */
-export function sum<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number;
+export function sum<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array of numbers.
  */
-export function deviation<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
+export function deviation<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function deviation<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
+export function deviation<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array of numbers.
  */
-export function variance<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
+export function variance<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function variance<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
+export function variance<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
 
 // --------------------------------------------------------------------------------------
 // Searching Arrays
 // --------------------------------------------------------------------------------------
 
-export function scan(array: number[], comparator?: (a: number, b: number) => number): number | undefined;
-export function scan<T>(array: T[], comparator: (a: T, b: T) => number): number | undefined;
+export function scan(array: ArrayLike<number>, comparator?: (a: number, b: number) => number): number | undefined;
+export function scan<T>(array: ArrayLike<T>, comparator: (a: T, b: T) => number): number | undefined;
 
-export function bisectLeft(array: number[], x: number, lo?: number, hi?: number): number;
-export function bisectLeft(array: string[], x: string, lo?: number, hi?: number): number;
-export function bisectLeft(array: Date[], x: Date, lo?: number, hi?: number): number;
+export function bisectLeft(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
+export function bisectLeft(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
+export function bisectLeft(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
 
-export function bisectRight(array: number[], x: number, lo?: number, hi?: number): number;
-export function bisectRight(array: string[], x: string, lo?: number, hi?: number): number;
-export function bisectRight(array: Date[], x: Date, lo?: number, hi?: number): number;
+export function bisectRight(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
+export function bisectRight(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
+export function bisectRight(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
 
 export const bisect: typeof bisectRight;
 
 export interface Bisector<T, U> {
-    left(array: T[], x: U, lo?: number, hi?: number): number;
-    right(array: T[], x: U, lo?: number, hi?: number): number;
+    left(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
+    right(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
 }
 
 export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
@@ -184,7 +197,7 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
  * @param a First input array.
  * @param b Second input array.
  */
-export function cross<S, T>(a: S[], b: T[]): Array<[S, T]>;
+export function cross<S, T>(a: ArrayLike<S>, b: ArrayLike<T>): Array<[S, T]>;
 
 /**
  * Returns the Cartesian product of the two arrays a and b.
@@ -195,12 +208,12 @@ export function cross<S, T>(a: S[], b: T[]): Array<[S, T]>;
  * @param b Second input array.
  * @param reducer A reducer function taking as input an element from "a" and "b" and returning a reduced value.
  */
-export function cross<S, T, U>(a: S[], b: T[], reducer: (a: S, b: T) => U): U[];
+export function cross<S, T, U>(a: ArrayLike<S>, b: ArrayLike<T>, reducer: (a: S, b: T) => U): U[];
 
 /**
  * Merges the specified arrays into a single array.
  */
-export function merge<T>(arrays: T[][]): T[];
+export function merge<T>(arrays: ArrayLike<ArrayLike<T>>): T[];
 
 /**
  * For each adjacent pair of elements in the specified array, returns a new array of tuples of elements i and i - 1.
@@ -208,26 +221,30 @@ export function merge<T>(arrays: T[][]): T[];
  *
  * @param array Array of input elements
  */
-export function pairs<T>(array: T[]): Array<[T, T]>;
+export function pairs<T>(array: ArrayLike<T>): Array<[T, T]>;
 /**
  * For each adjacent pair of elements in the specified array, in order, invokes the specified reducer function passing the element i and element i - 1.
  * Returns the resulting array of pair-wise reduced elements.
  * Returns the empty array if the input array has fewer than two elements.
  *
  * @param array Array of input elements
- * @param reducer A reducer function taking as input to adjecent elements of the input array and returning a reduced value.
+ * @param reducer A reducer function taking as input to adjacent elements of the input array and returning a reduced value.
  */
-export function pairs<T, U>(array: T[], reducer: (a: T, b: T) => U): U[];
+export function pairs<T, U>(array: ArrayLike<T>, reducer: (a: T, b: T) => U): U[];
 
 /**
- * Given the specified array, return an array corresponding to the list of indices in 'keys'.
+ * Returns a permutation of the specified array using the specified array of indexes.
+ * The returned array contains the corresponding element in array for each index in indexes, in order.
+ * For example, `permute(["a", "b", "c"], [1, 2, 0]) // ["b", "c", "a"]`
  */
-export function permute<T>(array: { [key: number]: T }, keys: number[]): T[];
+export function permute<T>(array: { [key: number]: T }, keys: ArrayLike<number>): T[];
 
 /**
- * Given the specified object, return an array corresponding to the list of property names in 'keys'.
+ * Extract the values from an object into an array with a stable order. For example:
+ * `var object = {yield: 27, year: 1931, site: "University Farm"};`
+ * `d3.permute(object, ["site", "yield"]); // ["University Farm", 27]`
  */
-export function permute<T>(object: { [key: string]: T }, keys: string[]): T[];
+export function permute<T, K extends keyof T>(object: T, keys: ArrayLike<K>): Array<T[K]>;
 
 /**
  * Generates a 0-based numeric sequence. The output range does not include 'stop'.
@@ -243,6 +260,15 @@ export function range(start: number, stop: number, step?: number): number[];
  * Randomizes the order of the specified array using the Fisher–Yates shuffle.
  */
 export function shuffle<T>(array: T[], lo?: number, hi?: number): T[];
+export function shuffle(array: Int8Array, lo?: number, hi?: number): Int8Array;
+export function shuffle(array: Uint8Array, lo?: number, hi?: number): Uint8Array;
+export function shuffle(array: Uint8ClampedArray, lo?: number, hi?: number): Uint8ClampedArray;
+export function shuffle(array: Int16Array, lo?: number, hi?: number): Int16Array;
+export function shuffle(array: Uint16Array, lo?: number, hi?: number): Uint16Array;
+export function shuffle(array: Int32Array, lo?: number, hi?: number): Int32Array;
+export function shuffle(array: Uint32Array, lo?: number, hi?: number): Uint32Array;
+export function shuffle(array: Float32Array, lo?: number, hi?: number): Float32Array;
+export function shuffle(array: Float64Array, lo?: number, hi?: number): Float64Array;
 
 /**
  * Generate an array of approximately count + 1 uniformly-spaced, nicely-rounded values between start and stop (inclusive).
@@ -289,42 +315,115 @@ export function tickStep(start: number, stop: number, count: number): number;
 /**
  * Transpose a matrix provided in Array of Arrays format.
  */
-export function transpose<T>(matrix: T[][]): T[][];
+export function transpose<T>(matrix: ArrayLike<ArrayLike<T>>): T[][];
 
 /**
  * Returns an array of arrays, where the ith array contains the ith element from each of the argument arrays.
  * The returned array is truncated in length to the shortest array in arrays. If arrays contains only a single array, the returned array
  * contains one-element arrays. With no arguments, the returned array is empty.
  */
-export function zip<T>(...arrays: T[][]): T[][];
+export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
 
 // --------------------------------------------------------------------------------------
 // Histogram
 // --------------------------------------------------------------------------------------
 
-export interface Bin<Datum, Value extends number | Date> extends Array<Datum> {
-    x0: Value;
-    x1: Value;
+export interface Bin<Datum, Value extends number | Date | undefined> extends Array<Datum> {
+    x0: Value | undefined;
+    x1: Value | undefined;
 }
 
 /**
  * Type definition for threshold generator which returns the count of recommended thresholds
  */
-export type ThresholdCountGenerator = (values: number[], min?: number, max?: number) => number;
+export type ThresholdCountGenerator<Value extends number | undefined = number | undefined> =
+    (values: ArrayLike<Value>, min: number, max: number) => number;
 
 /**
- * Type definition for threshold generator which returns an array of recommended thresholds
+ * Type definition for threshold generator which returns an array of recommended numbers thresholds
  */
-export type ThresholdArrayGenerator<Value extends number | Date> = (values: Value[], min?: Value, max?: Value) => Value[];
+export type ThresholdNumberArrayGenerator<Value extends number | undefined> =
+    (values: ArrayLike<Value>, min: number, max: number) => Value[];
 
-export interface HistogramGenerator<Datum, Value extends number | Date> {
-    (data: Datum[]): Array<Bin<Datum, Value>>;
-    value(): (d: Datum, i: number, data: Datum[]) => Value;
-    value(valueAccessor: (d: Datum, i: number, data: Datum[]) => Value): this;
-    domain(): (values: Value[]) => [Value, Value];
+/**
+ * Type definition for threshold generator which returns an array of recommended dates thresholds
+ */
+export type ThresholdDateArrayGenerator<Value extends Date | undefined> =
+    (values: ArrayLike<Value>, min: Date, max: Date) => Value[];
+
+/**
+ * @deprecated Use ThresholdNumberArrayGenerator or ThresholdDateArrayGenerator.
+ */
+export type ThresholdArrayGenerator = ThresholdNumberArrayGenerator<number>;
+
+/**
+ * @deprecated Use `HistogramGeneratorNumber<Datum, Value>` for `number` values and `HistogramGeneratorDate<Datum, Value> for `Date` values.
+ */
+export interface HistogramGenerator<Datum, Value extends number | Date | undefined> {
+    (data: ArrayLike<Datum>): Array<Bin<Datum, Value>>;
+
+    value(): (d: Datum, i: number, data: ArrayLike<Datum>) => Value;
+    value(valueAccessor: (d: Datum, i: number, data: ArrayLike<Datum>) => Value): this;
+
+    domain(): (values: ArrayLike<Value>) => [Value, Value] | [undefined, undefined];
     domain(domain: [Value, Value]): this;
-    domain(domainAccessor: (values: Value[]) => [Value, Value]): this;
-    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<Value>;
+    domain(domainAccessor: (values: ArrayLike<Value>) => [Value, Value] | [undefined, undefined]): this;
+
+    /**
+     * Set the array of values to be used as thresholds in determining the bins.
+     *
+     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
+     * and the last bin.x1 is always equal to the maximum domain value.
+     *
+     * @param thresholds Array of threshold values used for binning. The elements must
+     * be of the same type as the materialized values of the histogram.
+     */
+    thresholds(thresholds: ArrayLike<Value>): this;
+}
+
+export interface HistogramCommon<Datum, Value extends number | Date | undefined> {
+    (data: ArrayLike<Datum>): Array<Bin<Datum, Value>>;
+
+    value(): (d: Datum, i: number, data: ArrayLike<Datum>) => Value;
+    value(valueAccessor: (d: Datum, i: number, data: ArrayLike<Datum>) => Value): this;
+}
+
+export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> extends HistogramCommon<Datum, Date> {
+    domain(): (values: ArrayLike<Value>) => [Date, Date];
+    domain(domain: [Date, Date]): this;
+    domain(domainAccessor: (values: ArrayLike<Value>) => [Date, Date]): this;
+
+    thresholds(): ThresholdDateArrayGenerator<Value>;
+    /**
+     * Set the array of values to be used as thresholds in determining the bins.
+     *
+     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
+     * and the last bin.x1 is always equal to the maximum domain value.
+     *
+     * @param thresholds Array of threshold values used for binning. The elements must
+     * be of the same type as the materialized values of the histogram.
+     */
+    thresholds(thresholds: ArrayLike<Value>): this;
+    /**
+     * Set a threshold accessor function, which returns the array of values to be used as
+     * thresholds in determining the bins.
+     *
+     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
+     * and the last bin.x1 is always equal to the maximum domain value.
+     *
+     * @param thresholds A function which accepts as arguments the array of materialized values, and
+     * optionally the domain minimum and maximum. The function calculates and returns the array of values to be used as
+     * thresholds in determining the bins.
+     */
+    thresholds(thresholds: ThresholdDateArrayGenerator<Value>): this;
+}
+
+export interface HistogramGeneratorNumber<Datum, Value extends number | undefined> extends HistogramCommon<Datum, Value> {
+    domain(): (values: ArrayLike<Value>) => [number, number] | [undefined, undefined];
+    domain(domain: [number, number]): this;
+    domain(domainAccessor: (values: ArrayLike<Value>) => [number, number] | [undefined, undefined]): this;
+
+    thresholds(): ThresholdCountGenerator<Value> | ThresholdNumberArrayGenerator<Value>;
     /**
      * Divide the domain uniformly into approximately count bins. IMPORTANT: This threshold
      * setting approach only works, when the materialized values are numbers!
@@ -344,10 +443,10 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
      * and the last bin.x1 is always equal to the maximum domain value.
      *
      * @param count A function which accepts as arguments the array of materialized values, and
-     * optionally the domain minimum and maximum. The function calcutates and returns the suggested
+     * optionally the domain minimum and maximum. The function calculates and returns the suggested
      * number of bins.
      */
-    thresholds(count: ThresholdCountGenerator): this;
+    thresholds(count: ThresholdCountGenerator<Value>): this;
     /**
      * Set the array of values to be used as thresholds in determining the bins.
      *
@@ -357,7 +456,7 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
      * @param thresholds Array of threshold values used for binning. The elements must
      * be of the same type as the materialized values of the histogram.
      */
-    thresholds(thresholds: Value[]): this;
+    thresholds(thresholds: ArrayLike<Value>): this;
     /**
      * Set a threshold accessor function, which returns the array of values to be used as
      * thresholds in determining the bins.
@@ -366,21 +465,28 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
      * and the last bin.x1 is always equal to the maximum domain value.
      *
      * @param thresholds A function which accepts as arguments the array of materialized values, and
-     * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as
+     * optionally the domain minimum and maximum. The function calculates and returns the array of values to be used as
      * thresholds in determining the bins.
      */
-    thresholds(thresholds: ThresholdArrayGenerator<Value>): this;
+    thresholds(thresholds: ThresholdNumberArrayGenerator<Value>): this;
 }
 
-export function histogram(): HistogramGenerator<number, number>;
-export function histogram<Datum, Value extends number | Date>(): HistogramGenerator<Datum, Value>;
+export function histogram(): HistogramGeneratorNumber<number, number>;
+export function histogram<Datum, Value extends number | undefined>(): HistogramGeneratorNumber<Datum, Value>;
+export function histogram<Datum, Value extends Date | undefined>(): HistogramGeneratorDate<Datum, Value>;
+
+/**
+ * @deprecated Do not use Value generic which mixes number and Date types. Use either number or Date
+ * (in combination with undefined, as applicable) to obtain a type-specific histogram generator.
+ */
+export function histogram<Datum, Value extends number | Date | undefined>(): HistogramGenerator<Datum, Value>;
 
 // --------------------------------------------------------------------------------------
 // Histogram Thresholds
 // --------------------------------------------------------------------------------------
 
-export function thresholdFreedmanDiaconis(values: number[], min: number, max: number): number; // of type ThresholdCountGenerator
+export function thresholdFreedmanDiaconis(values: ArrayLike<number | undefined>, min: number, max: number): number; // of type ThresholdCountGenerator
 
-export function thresholdScott(values: number[], min: number, max: number): number; // of type ThresholdCountGenerator
+export function thresholdScott(values: ArrayLike<number | undefined>, min: number, max: number): number; // of type ThresholdCountGenerator
 
-export function thresholdSturges(values: number[]): number; // of type ThresholdCountGenerator
+export function thresholdSturges(values: ArrayLike<number | undefined>): number; // of type ThresholdCountGenerator

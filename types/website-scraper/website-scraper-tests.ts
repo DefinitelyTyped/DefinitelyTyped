@@ -1,4 +1,4 @@
-import * as scraper from "website-scraper";
+import scraper = require("website-scraper");
 
 scraper({
     urls: [

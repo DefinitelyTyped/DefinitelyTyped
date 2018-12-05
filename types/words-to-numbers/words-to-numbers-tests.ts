@@ -1,5 +1,5 @@
 import { wordsToNumbers } from 'words-to-numbers';
 
-let number = wordsToNumbers("one");
+const number = wordsToNumbers("one");
 
-let text = wordsToNumbers("another two", { fuzzy: true });
+const text = wordsToNumbers("another two", { fuzzy: true });

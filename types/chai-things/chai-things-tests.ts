@@ -1,8 +1,7 @@
 
 
-import chai = require('chai');
-import chaiThings = require('chai-things');
-
+import * as chai from 'chai';
+import * as chaiThings from 'chai-things';
 chai.use(chaiThings);
 
 function test_somethingSyntax() {

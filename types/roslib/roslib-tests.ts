@@ -107,3 +107,17 @@ maxVelX.set(0.8);
 maxVelX.get(function (value) {
 	console.log('MAX VAL: ' + value);
 });
+
+// Creating a TF Client
+// --------------------
+const tfClient = new ROSLIB.TFClient({
+    ros: ros,
+    fixedFrame: '/world'
+})
+const tfclient_callback = function (transform: ROSLIB.Transform) {
+    console.log('Received transform: ' + transform);
+    tfClient.unsubscribe('/transform');
+}
+
+tfClient.subscribe('/transform', tfclient_callback);
+tfClient.unsubscribe('/transform', tfclient_callback);

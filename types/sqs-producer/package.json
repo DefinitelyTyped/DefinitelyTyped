@@ -1,5 +1,6 @@
 {
-  "dependencies": {
-    "sqs-producer": "^1.5.0"
-  }
+    "private": true,
+    "dependencies": {
+        "aws-sdk": "^2.37.0"
+    }
 }

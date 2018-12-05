@@ -1,15 +1,14 @@
 import isPromise = require("is-promise");
 
-isPromise({ then() { }});
+isPromise({ then() {} });
 isPromise(null);
-isPromise({ });
+isPromise({});
 isPromise({then: true});
 
 function f(x: number | PromiseLike<number>) {
     if (isPromise(x)) {
         x.then;
-    }
-    else {
+    } else {
         x.toExponential;
     }
 }

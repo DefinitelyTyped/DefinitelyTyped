@@ -1,9 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // All of the different "export default" lines in the index.d.ts
-        // appear to be triggering this.  Remove this when I know of a way
-        // to declare a default export across multiple package/subpackages.
-        "strict-export-declare-modifiers": false
-    }
-}
+{ "extends": "dtslint/dt.json" }

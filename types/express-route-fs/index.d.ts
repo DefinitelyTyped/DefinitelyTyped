@@ -2,6 +2,7 @@
 // Project: https://github.com/kripod/express-route-fs
 // Definitions by: Kristóf Poduszló <https://github.com/kripod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 
 /**

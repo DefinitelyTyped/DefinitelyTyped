@@ -21,13 +21,13 @@ declare namespace gapi.auth2 {
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
      */
-    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: string) => any): any;
+    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: {error: string, details: string}) => any): any;
 
     /**
      * Signs in the user using the specified options.
      * If no option specified here, fallback to the options specified to gapi.auth2.init().
      */
-    signIn(options?: SigninOptions | SigninOptionsBuilder): any;
+    signIn(options?: SigninOptions | SigninOptionsBuilder): Promise<GoogleUser>;
 
     /**
      * Signs out all accounts from the application.
@@ -42,11 +42,7 @@ declare namespace gapi.auth2 {
     /**
      * Get permission from the user to access the specified scopes offline.
      */
-    grantOfflineAccess(options?: {
-      scope?: string;
-      prompt?: "select_account" | "consent";
-      app_package_name?: string;
-    }): any;
+    grantOfflineAccess(options?: OfflineAccessOptions): Promise<{code: string}>;
 
     /**
      * Attaches the sign-in flow to the specified container's click handler.
@@ -107,6 +103,69 @@ declare namespace gapi.auth2 {
     scope?: string;
   }
 
+  /**
+   * Definitions by: John <https://github.com/jhcao23>
+   * Interface that represents the different configuration parameters for the GoogleAuth.grantOfflineAccess(options) method.
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2offlineaccessoptions
+   */
+  interface OfflineAccessOptions {
+    scope?: string;
+    prompt?: "select_account" | "consent";
+    app_package_name?: string;
+  }
+
+  /**
+   * Interface that represents the different configuration parameters for the gapi.auth2.init method.
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2clientconfig
+   */
+  interface ClientConfig {
+    /**
+     * The app's client ID, found and created in the Google Developers Console.
+     */
+    client_id?: string;
+
+    /**
+     * The domains for which to create sign-in cookies. Either a URI, single_host_origin, or none.
+     * Defaults to single_host_origin if unspecified.
+     */
+    cookie_policy?: string;
+
+    /**
+     * The scopes to request, as a space-delimited string. Optional if fetch_basic_profile is not set to false.
+     */
+    scope?: string;
+
+    /**
+     * Fetch users' basic profile information when they sign in. Adds 'profile' and 'email' to the requested scopes. True if unspecified.
+     */
+    fetch_basic_profile?: boolean;
+
+    /**
+     * The Google Apps domain to which users must belong to sign in. This is susceptible to modification by clients,
+     * so be sure to verify the hosted domain property of the returned user. Use GoogleUser.getHostedDomain() on the client,
+     * and the hd claim in the ID Token on the server to verify the domain is what you expected.
+     */
+    hosted_domain?: string;
+
+    /**
+     * Used only for OpenID 2.0 client migration. Set to the value of the realm that you are currently using for OpenID 2.0,
+     * as described in <a href="https://developers.google.com/accounts/docs/OpenID#openid-connect">OpenID 2.0 (Migration)</a>.
+     */
+    openid_realm?: string;
+
+    /**
+     * The UX mode to use for the sign-in flow.
+     * By default, it will open the consent flow in a popup.
+     */
+    ux_mode?: "popup" | "redirect";
+
+    /**
+     * If using ux_mode='redirect', this parameter allows you to override the default redirect_uri that will be used at the end of the consent flow.
+     * The default redirect_uri is the current URL stripped of query parameters and hash fragment.
+     */
+    redirect_uri?: string;
+  }
+
   class SigninOptionsBuilder {
     setAppPackageName(name: string): any;
     setFetchBasicProfile(fetch: boolean): any;
@@ -123,6 +182,9 @@ declare namespace gapi.auth2 {
     getEmail(): string;
   }
 
+  /**
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2authresponse
+   */
   interface AuthResponse {
     access_token: string;
     id_token: string;
@@ -131,6 +193,37 @@ declare namespace gapi.auth2 {
     expires_in: number;
     first_issued_at: number;
     expires_at: number;
+  }
+
+  /**
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2authorizeconfig
+   */
+  interface AuthorizeConfig {
+    client_id: string;
+    scope: string;
+    response_type?: string;
+    prompt?: string;
+    cookie_policy?: string;
+    hosted_domain?: string;
+    login_hint?: string;
+    app_package_name?: string;
+    openid_realm?: string;
+    include_granted_scopes?: boolean;
+  }
+
+  /**
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2authorizeresponse
+   */
+  interface AuthorizeResponse {
+    access_token: string;
+    id_token: string;
+    code: string;
+    scope: string;
+    expires_in: number;
+    first_issued_at: number;
+    expires_at: number;
+    error: string;
+    error_subtype: string;
   }
 
   /**
@@ -203,58 +296,22 @@ declare namespace gapi.auth2 {
     disconnect(): void;
   }
 
-  function init(params: {
-    /**
-     * The app's client ID, found and created in the Google Developers Console.
-     */
-    client_id?: string;
-
-    /**
-     * The domains for which to create sign-in cookies. Either a URI, single_host_origin, or none.
-     * Defaults to single_host_origin if unspecified.
-     */
-    cookie_policy?: string;
-
-    /**
-     * The scopes to request, as a space-delimited string. Optional if fetch_basic_profile is not set to false.
-     */
-    scope?: string;
-
-    /**
-     * Fetch users' basic profile information when they sign in. Adds 'profile' and 'email' to the requested scopes. True if unspecified.
-     */
-    fetch_basic_profile?: boolean;
-
-    /**
-     * The Google Apps domain to which users must belong to sign in. This is susceptible to modification by clients,
-     * so be sure to verify the hosted domain property of the returned user. Use GoogleUser.getHostedDomain() on the client,
-     * and the hd claim in the ID Token on the server to verify the domain is what you expected.
-     */
-    hosted_domain?: string;
-
-    /**
-     * Used only for OpenID 2.0 client migration. Set to the value of the realm that you are currently using for OpenID 2.0,
-     * as described in <a href="https://developers.google.com/accounts/docs/OpenID#openid-connect">OpenID 2.0 (Migration)</a>.
-     */
-    openid_realm?: string;
-
-    /**
-     * The UX mode to use for the sign-in flow.
-     * By default, it will open the consent flow in a popup.
-     */
-    ux_mode?: "popup" | "redirect";
-
-    /**
-     * If using ux_mode='redirect', this parameter allows you to override the default redirect_uri that will be used at the end of the consent flow.
-     * The default redirect_uri is the current URL stripped of query parameters and hash fragment.
-     */
-    redirect_uri?: string;
-  }): GoogleAuth;
+  /**
+   * Initializes the GoogleAuth object.
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2initparams
+   */
+  function init(params: ClientConfig): GoogleAuth;
 
   /**
    * Returns the GoogleAuth object. You must initialize the GoogleAuth object with gapi.auth2.init() before calling this method.
    */
   function getAuthInstance(): GoogleAuth;
+
+  /**
+   * Performs a one time OAuth 2.0 authorization.
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2authorizeparams-callback
+   */
+  function authorize(params: AuthorizeConfig, callback: (response: AuthorizeResponse) => void): void;
 }
 
 declare namespace gapi.signin2 {
@@ -292,7 +349,7 @@ declare namespace gapi.signin2 {
     /**
      * The callback function to call when sign-in fails (default: none).
      */
-    onfailure?(): void;
+    onfailure?(reason: { error: string }): void;
 
     /**
      * The package name of the Android app to install over the air. See

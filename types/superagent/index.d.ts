@@ -1,8 +1,12 @@
-// Type definitions for SuperAgent 3.5
+// Type definitions for SuperAgent 3.8
 // Project: https://github.com/visionmedia/superagent
-// Definitions by: Nico Zelaya <https://github.com/NicoZelaya/>
-//                 Michael Ledin <https://github.com/mxl/>
-//                 Pap Lőrinc <https://github.com/paplorinc/>
+// Definitions by: Nico Zelaya <https://github.com/NicoZelaya>
+//                 Michael Ledin <https://github.com/mxl>
+//                 Pap Lőrinc <https://github.com/paplorinc>
+//                 Shrey Jain <https://github.com/shreyjain1994>
+//                 Alec Zopf <https://github.com/zopf>
+//                 Adam Haglund <https://github.com/beeequeue>
+//                 Lukas Elmer <https://github.com/lukaselmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -11,10 +15,21 @@
 import * as fs from 'fs';
 import * as https from 'https';
 import * as stream from 'stream';
+import * as cookiejar from 'cookiejar';
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
 type Serializer = (obj: any) => string;
+
+type BrowserParser = (str: string) => any;
+
+type NodeParser = (res: request.Response, callback: (err: Error | null, body: any) => void) => void;
+
+type Parser = BrowserParser | NodeParser;
+
+type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
+
+type MultipartValue = MultipartValueSingle | MultipartValueSingle[];
 
 declare const request: request.SuperAgentStatic;
 
@@ -31,11 +46,13 @@ declare namespace request {
         // tslint:disable-next-line:unified-signatures
         (method: string, url: string): SuperAgentRequest;
 
-        agent(): SuperAgent<SuperAgentRequest>;
+        agent(): this & Request;
         serialize: { [type: string]: Serializer };
+        parse: { [type: string]: Parser };
     }
 
     interface SuperAgent<Req extends SuperAgentRequest> extends stream.Stream {
+        jar: cookiejar.CookieJar;
         attachCookies(req: Req): void;
         checkout(url: string, callback?: CallbackHandler): Req;
         connect(url: string, callback?: CallbackHandler): Req;
@@ -51,7 +68,6 @@ declare namespace request {
         move(url: string, callback?: CallbackHandler): Req;
         notify(url: string, callback?: CallbackHandler): Req;
         options(url: string, callback?: CallbackHandler): Req;
-        parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
         patch(url: string, callback?: CallbackHandler): Req;
         post(url: string, callback?: CallbackHandler): Req;
         propfind(url: string, callback?: CallbackHandler): Req;
@@ -67,18 +83,26 @@ declare namespace request {
         unsubscribe(url: string, callback?: CallbackHandler): Req;
     }
 
+    interface ResponseError extends Error {
+        status: number;
+        text: string;
+        method: string;
+        path: string;
+    }
+
     interface Response extends NodeJS.ReadableStream {
         accepted: boolean;
         badRequest: boolean;
         body: any;
         charset: string;
         clientError: boolean;
-        error: Error;
+        error: ResponseError;
         files: any;
         forbidden: boolean;
         get(header: string): string;
         header: any;
         info: boolean;
+        links: object;
         noContent: boolean;
         notAcceptable: boolean;
         notFound: boolean;
@@ -96,28 +120,30 @@ declare namespace request {
     interface Request extends Promise<Response> {
         abort(): void;
         accept(type: string): this;
-        attach(field: string, file: Blob | Buffer | fs.ReadStream | string, filename?: string): this;
-        auth(user: string, name: string): this;
+        attach(field: string, file: MultipartValueSingle, options?: string | { filename?: string; contentType?: string }): this;
+        auth(user: string, pass: string, options?: { type: 'basic' | 'auto' }): this;
+        auth(token: string, options: { type: 'bearer' }): this;
         buffer(val?: boolean): this;
         ca(cert: Buffer): this;
         cert(cert: Buffer | string): this;
         clearTimeout(): this;
         end(callback?: CallbackHandler): this;
-        field(name: string, val: string): this;
+        field(name: string, val: MultipartValue): this;
+        field(fields: { [fieldName: string]: MultipartValue }): this;
         get(field: string): string;
         key(cert: Buffer | string): this;
         ok(callback: (res: Response) => boolean): this;
         on(name: 'error', handler: (err: any) => void): this;
         on(name: 'progress', handler: (event: ProgressEvent) => void): this;
         on(name: string, handler: (event: any) => void): this;
-        parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
+        parse(parser: Parser): this;
         part(): this;
-        pfx(cert: Buffer | string): this;
+        pfx(cert: Buffer | string | { pfx: Buffer, passphrase: string }): this;
         pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;
         query(val: object | string): this;
         redirects(n: number): this;
         responseType(type: string): this;
-        retry(count?: number): this;
+        retry(count?: number, callback?: CallbackHandler): this;
         send(data?: string | object): this;
         serialize(serializer: Serializer): this;
         set(field: object): this;
@@ -130,7 +156,7 @@ declare namespace request {
         write(data: string | Buffer, encoding?: string): this;
     }
 
-    type Plugin = (req: Request) => void;
+    type Plugin = (req: SuperAgentRequest) => void;
 
     interface ProgressEvent {
         direction: 'download' | 'upload';

@@ -68,6 +68,8 @@ declare namespace MDNS {
         host:string;
         interfaceIndex: number;
         name?:string;
+        rawTxtRecord?:Buffer;
+        txtRecord?:any;
         networkInterface:string;
         port:number;
         replyDomain:string;

@@ -1,4 +1,4 @@
-import * as PureRender from 'pure-render-decorator';
+import PureRender = require('pure-render-decorator');
 
 @PureRender
 class TestClass {}

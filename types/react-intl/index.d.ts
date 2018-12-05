@@ -7,11 +7,15 @@
 //                 Karol Janyst <https://github.com/LKay>,
 //                 Brian Houser <https://github.com/bhouser>,
 //                 Krister Kari <https://github.com/kristerkari>
+//                 Martin Raedlinger <https://github.com/formatlos>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
+//                 obedm503 <https://github.com/obedm503>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace ReactIntl {
     type DateSource = Date | string | number;
+    type MessageValue = string | number | boolean | Date | null | undefined;
 
     interface Locale {
         locale: string;
@@ -26,10 +30,8 @@ declare namespace ReactIntl {
         withRef?: boolean;
     }
 
-    type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
-
-    function injectIntl<P>(component: ComponentConstructor<P & InjectedIntlProps>, options?: InjectIntlConfig):
-        React.ComponentClass<P> & { WrappedComponent: ComponentConstructor<P & InjectedIntlProps> };
+    function injectIntl<P>(component: React.ComponentType<P & InjectedIntlProps>, options?: InjectIntlConfig):
+        React.ComponentClass<Pick<P, Exclude<keyof P, keyof InjectedIntlProps>>> & { WrappedComponent: React.ComponentType<P & InjectedIntlProps> };
 
     function addLocaleData(data: Locale[] | Locale): void;
 
@@ -45,6 +47,7 @@ declare namespace ReactIntl {
         messages: React.Requireable<any>;
         defaultLocale: React.Requireable<any>;
         defaultFormats: React.Requireable<any>;
+        onError: React.Requireable<any>;
     }
 
     interface IntlFormat {
@@ -69,14 +72,15 @@ declare namespace ReactIntl {
         formatRelative(value: DateSource, options?: FormattedRelative.PropsBase & { now?: any }): string;
         formatNumber(value: number, options?: FormattedNumber.PropsBase): string;
         formatPlural(value: number, options?: FormattedPlural.Base): keyof FormattedPlural.PropsBase;
-        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
-        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
+        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
+        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
         locale: string;
         formats: any;
         messages: { [id: string]: string };
         defaultLocale: string;
         defaultFormats: any;
         now(): number;
+        onError(error: string): void;
     }
 
     interface InjectedIntlProps {
@@ -94,6 +98,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: DateSource;
+            children?: (formattedDate: string) => React.ReactNode;
         }
     }
 
@@ -104,6 +109,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: DateSource;
+            children?: (formattedTime: string) => React.ReactNode;
         }
     }
     class FormattedTime extends React.Component<FormattedTime.Props> { }
@@ -125,6 +131,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: DateSource;
+            children?: (formattedRelative: string) => React.ReactNode;
         }
     }
 
@@ -138,8 +145,9 @@ declare namespace ReactIntl {
         }
 
         interface Props extends MessageDescriptor {
-            values?: {[key: string]: string | number | JSX.Element};
+            values?: {[key: string]: MessageValue | JSX.Element};
             tagName?: string;
+            children?: (...formattedMessage: Array<string | JSX.Element>) => React.ReactNode;
         }
     }
     class FormattedMessage extends React.Component<FormattedMessage.Props> { }
@@ -153,6 +161,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: number;
+            children?: (formattedNumber: string) => React.ReactNode;
         }
     }
     class FormattedNumber extends React.Component<FormattedNumber.Props> { }
@@ -176,6 +185,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: number;
+            children?: (formattedPlural: React.ReactNode) => React.ReactNode;
         }
     }
     class FormattedPlural extends React.Component<FormattedPlural.Props> { }
@@ -183,11 +193,14 @@ declare namespace ReactIntl {
     namespace IntlProvider {
         interface Props {
             locale?: string;
+            timeZone?: string;
             formats?: any;
             messages?: any;
             defaultLocale?: string;
             defaultFormats?: any;
             textComponent?: any;
+            initialNow?: any;
+            onError?: (error: string) => void;
         }
     }
 

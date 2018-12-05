@@ -1,10 +1,27 @@
+import Maybe from "../tsutils/Maybe";
+import { MaybePromise } from "../jsutils/MaybePromise";
 import {
+    ScalarTypeDefinitionNode,
+    ObjectTypeDefinitionNode,
+    FieldDefinitionNode,
+    InputValueDefinitionNode,
+    InterfaceTypeDefinitionNode,
+    UnionTypeDefinitionNode,
+    EnumTypeDefinitionNode,
+    EnumValueDefinitionNode,
+    InputObjectTypeDefinitionNode,
+    ObjectTypeExtensionNode,
+    InterfaceTypeExtensionNode,
     OperationDefinitionNode,
     FieldNode,
     FragmentDefinitionNode,
     ValueNode,
-} from '../language/ast';
-import { GraphQLSchema } from './schema';
+    ScalarTypeExtensionNode,
+    UnionTypeExtensionNode,
+    EnumTypeExtensionNode,
+    InputObjectTypeExtensionNode,
+} from "../language/ast";
+import { GraphQLSchema } from "./schema";
 
 /**
  * These are all of the possible kinds of types.
@@ -23,6 +40,38 @@ export function isType(type: any): type is GraphQLType;
 
 export function assertType(type: any): GraphQLType;
 
+export function isScalarType(type: any): type is GraphQLScalarType;
+
+export function assertScalarType(type: any): GraphQLScalarType;
+
+export function isObjectType(type: any): type is GraphQLObjectType;
+
+export function assertObjectType(type: any): GraphQLObjectType;
+
+export function isInterfaceType(type: any): type is GraphQLInterfaceType;
+
+export function assertInterfaceType(type: any): GraphQLInterfaceType;
+
+export function isUnionType(type: any): type is GraphQLUnionType;
+
+export function assertUnionType(type: any): GraphQLUnionType;
+
+export function isEnumType(type: any): type is GraphQLEnumType;
+
+export function assertEnumType(type: any): GraphQLEnumType;
+
+export function isInputObjectType(type: any): type is GraphQLInputObjectType;
+
+export function assertInputObjectType(type: any): GraphQLInputObjectType;
+
+export function isListType(type: any): type is GraphQLList<any>;
+
+export function assertListType(type: any): GraphQLList<any>;
+
+export function isNonNullType(type: any): type is GraphQLNonNull<any>;
+
+export function assertNonNullType(type: any): GraphQLNonNull<any>;
+
 /**
  * These types may be used as input types for arguments and directives.
  */
@@ -31,15 +80,11 @@ export type GraphQLInputType =
     | GraphQLEnumType
     | GraphQLInputObjectType
     | GraphQLList<any>
-    | GraphQLNonNull<
-        | GraphQLScalarType
-        | GraphQLEnumType
-        | GraphQLInputObjectType
-        | GraphQLList<any>>;
+    | GraphQLNonNull<GraphQLScalarType | GraphQLEnumType | GraphQLInputObjectType | GraphQLList<any>>;
 
-export function isInputType(type: GraphQLType): type is GraphQLInputType;
+export function isInputType(type: any): type is GraphQLInputType;
 
-export function assertInputType(type: GraphQLType): GraphQLInputType;
+export function assertInputType(type: any): GraphQLInputType;
 
 /**
  * These types may be used as output types as the result of fields.
@@ -52,50 +97,117 @@ export type GraphQLOutputType =
     | GraphQLEnumType
     | GraphQLList<any>
     | GraphQLNonNull<
-        | GraphQLScalarType
-        | GraphQLObjectType
-        | GraphQLInterfaceType
-        | GraphQLUnionType
-        | GraphQLEnumType
-        | GraphQLList<any>>;
+          | GraphQLScalarType
+          | GraphQLObjectType
+          | GraphQLInterfaceType
+          | GraphQLUnionType
+          | GraphQLEnumType
+          | GraphQLList<any>
+      >;
 
-export function isOutputType(type: GraphQLType): type is GraphQLOutputType;
+export function isOutputType(type: any): type is GraphQLOutputType;
 
-export function assertOutputType(type: GraphQLType): GraphQLOutputType;
+export function assertOutputType(type: any): GraphQLOutputType;
 
 /**
  * These types may describe types which may be leaf values.
  */
-export type GraphQLLeafType =
-    | GraphQLScalarType
-    | GraphQLEnumType;
+export type GraphQLLeafType = GraphQLScalarType | GraphQLEnumType;
 
-export function isLeafType(type: GraphQLType): type is GraphQLLeafType;
+export function isLeafType(type: any): type is GraphQLLeafType;
 
-export function assertLeafType(type: GraphQLType): GraphQLLeafType;
+export function assertLeafType(type: any): GraphQLLeafType;
 
 /**
  * These types may describe the parent context of a selection set.
  */
-export type GraphQLCompositeType =
-    | GraphQLObjectType
-    | GraphQLInterfaceType
-    | GraphQLUnionType;
+export type GraphQLCompositeType = GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType;
 
-export function isCompositeType(type: GraphQLType): type is GraphQLCompositeType;
+export function isCompositeType(type: any): type is GraphQLCompositeType;
 
-export function assertCompositeType(type: GraphQLType): GraphQLCompositeType;
+export function assertCompositeType(type: any): GraphQLCompositeType;
 
 /**
  * These types may describe the parent context of a selection set.
  */
-export type GraphQLAbstractType =
-    | GraphQLInterfaceType
-    | GraphQLUnionType;
+export type GraphQLAbstractType = GraphQLInterfaceType | GraphQLUnionType;
 
-export function isAbstractType(type: GraphQLType): type is GraphQLAbstractType;
+export function isAbstractType(type: any): type is GraphQLAbstractType;
 
-export function assertAbstractType(type: GraphQLType): GraphQLAbstractType;
+export function assertAbstractType(type: any): GraphQLAbstractType;
+
+/**
+ * List Modifier
+ *
+ * A list is a kind of type marker, a wrapping type which points to another
+ * type. Lists are often created within the context of defining the fields of
+ * an object type.
+ *
+ * Example:
+ *
+ *     const PersonType = new GraphQLObjectType({
+ *       name: 'Person',
+ *       fields: () => ({
+ *         parents: { type: new GraphQLList(Person) },
+ *         children: { type: new GraphQLList(Person) },
+ *       })
+ *     })
+ *
+ */
+interface GraphQLList<T extends GraphQLType> {
+    readonly ofType: T;
+    toString(): string;
+    toJSON(): string;
+    inspect(): string;
+}
+
+
+interface _GraphQLList<T extends GraphQLType> {
+    (type: T): GraphQLList<T>;
+    new (type: T): GraphQLList<T>;
+}
+
+export const GraphQLList: _GraphQLList<GraphQLType>;
+
+/**
+ * Non-Null Modifier
+ *
+ * A non-null is a kind of type marker, a wrapping type which points to another
+ * type. Non-null types enforce that their values are never null and can ensure
+ * an error is raised if this ever occurs during a request. It is useful for
+ * fields which you can make a strong guarantee on non-nullability, for example
+ * usually the id field of a database row will never be null.
+ *
+ * Example:
+ *
+ *     const RowType = new GraphQLObjectType({
+ *       name: 'Row',
+ *       fields: () => ({
+ *         id: { type: new GraphQLNonNull(GraphQLString) },
+ *       })
+ *     })
+ *
+ * Note: the enforcement of non-nullability occurs within the executor.
+ */
+interface GraphQLNonNull<T extends GraphQLNullableType> {
+    readonly ofType: T;
+    toString(): string;
+    toJSON(): string;
+    inspect(): string;
+}
+
+interface _GraphQLNonNull<T extends GraphQLNullableType> {
+    (type: T): GraphQLNonNull<T>;
+    new (type: T): GraphQLNonNull<T>;
+}
+
+export const GraphQLNonNull: _GraphQLNonNull<GraphQLNullableType>;
+
+export type GraphQLWrappingType = GraphQLList<any> | GraphQLNonNull<any>;
+
+export function isWrappingType(type: any): type is GraphQLWrappingType;
+
+export function assertWrappingType(type: any): GraphQLWrappingType;
 
 /**
  * These types can all accept null as a value.
@@ -109,9 +221,13 @@ export type GraphQLNullableType =
     | GraphQLInputObjectType
     | GraphQLList<any>;
 
-export function getNullableType<T extends GraphQLType>(
-    type: T
-): (T & GraphQLNullableType);
+export function isNullableType(type: any): type is GraphQLNullableType;
+
+export function assertNullableType(type: any): GraphQLNullableType;
+
+export function getNullableType(type: void): undefined;
+export function getNullableType<T extends GraphQLNullableType>(type: T): T;
+export function getNullableType<T extends GraphQLNullableType>(type: GraphQLNonNull<T>): T;
 
 /**
  * These named types do not include modifiers like List or NonNull.
@@ -124,10 +240,11 @@ export type GraphQLNamedType =
     | GraphQLEnumType
     | GraphQLInputObjectType;
 
-export function isNamedType(type: GraphQLType): boolean;
+export function isNamedType(type: any): type is GraphQLNamedType;
 
-export function assertNamedType(type: GraphQLType): GraphQLNamedType;
+export function assertNamedType(type: any): GraphQLNamedType;
 
+export function getNamedType(type: void): undefined;
 export function getNamedType(type: GraphQLType): GraphQLNamedType;
 
 /**
@@ -155,27 +272,37 @@ export type Thunk<T> = (() => T) | T;
  */
 export class GraphQLScalarType {
     name: string;
-    description: string;
+    description: Maybe<string>;
+    serialize: GraphQLScalarSerializer<any>;
+    parseValue: GraphQLScalarValueParser<any>;
+    parseLiteral: GraphQLScalarLiteralParser<any>;
+    astNode: Maybe<ScalarTypeDefinitionNode>;
+    extensionASTNodes: Maybe<ReadonlyArray<ScalarTypeExtensionNode>>;
     constructor(config: GraphQLScalarTypeConfig<any, any>);
 
-    // Serializes an internal value to include in a response.
-    serialize(value: any): any;
-
-    // Parses an externally provided value to use as an input.
-    parseValue(value: any): any;
-
-    // Parses an externally provided literal value to use as an input.
-    parseLiteral(valueNode: ValueNode): any;
-
     toString(): string;
+    toJSON(): string;
+    inspect(): string;
 }
+
+export type GraphQLScalarSerializer<TExternal> = (value: any) => Maybe<TExternal>;
+export type GraphQLScalarValueParser<TInternal> = (value: any) => Maybe<TInternal>;
+export type GraphQLScalarLiteralParser<TInternal> = (
+    valueNode: ValueNode,
+    variables: Maybe<{ [key: string]: any }>
+) => Maybe<TInternal>;
 
 export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
     name: string;
-    description?: string;
-    serialize(value: any): TExternal | null | undefined;
-    parseValue?(value: any): TInternal | null | undefined;
-    parseLiteral?(valueNode: ValueNode): TInternal | null | undefined;
+    description?: Maybe<string>;
+    // Serializes an internal value to include in a response.
+    serialize: GraphQLScalarSerializer<TExternal>;
+    // Parses an externally provided value to use as an input.
+    parseValue?: GraphQLScalarValueParser<TInternal>;
+    // Parses an externally provided literal value to use as an input.
+    parseLiteral?: GraphQLScalarLiteralParser<TInternal>;
+    astNode?: Maybe<ScalarTypeDefinitionNode>;
+    extensionASTNodes?: Maybe<ReadonlyArray<ScalarTypeExtensionNode>>;
 }
 
 /**
@@ -217,99 +344,114 @@ export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
  */
 export class GraphQLObjectType {
     name: string;
-    description: string;
-    isTypeOf: GraphQLIsTypeOfFn<any, any>;
+    description: Maybe<string>;
+    astNode: Maybe<ObjectTypeDefinitionNode>;
+    extensionASTNodes: Maybe<ReadonlyArray<ObjectTypeExtensionNode>>;
+    isTypeOf: Maybe<GraphQLIsTypeOfFn<any, any>>;
 
     constructor(config: GraphQLObjectTypeConfig<any, any>);
     getFields(): GraphQLFieldMap<any, any>;
     getInterfaces(): GraphQLInterfaceType[];
     toString(): string;
+    toJSON(): string;
+    inspect(): string;
 }
 
 export interface GraphQLObjectTypeConfig<TSource, TContext> {
     name: string;
-    interfaces?: Thunk<GraphQLInterfaceType[]>;
+    interfaces?: Thunk<Maybe<GraphQLInterfaceType[]>>;
     fields: Thunk<GraphQLFieldConfigMap<TSource, TContext>>;
-    isTypeOf?: GraphQLIsTypeOfFn<TSource, TContext>;
-    description?: string;
+    isTypeOf?: Maybe<GraphQLIsTypeOfFn<TSource, TContext>>;
+    description?: Maybe<string>;
+    astNode?: Maybe<ObjectTypeDefinitionNode>;
+    extensionASTNodes?: Maybe<ReadonlyArray<ObjectTypeExtensionNode>>;
 }
 
 export type GraphQLTypeResolver<TSource, TContext> = (
     value: TSource,
     context: TContext,
     info: GraphQLResolveInfo
-) => GraphQLObjectType | string | Promise<GraphQLObjectType | string>;
+) => MaybePromise<Maybe<GraphQLObjectType | string>>;
 
 export type GraphQLIsTypeOfFn<TSource, TContext> = (
     source: TSource,
     context: TContext,
     info: GraphQLResolveInfo
-) => boolean | Promise<boolean>;
+) => MaybePromise<boolean>;
 
-export type GraphQLFieldResolver<TSource, TContext> = (
+export type GraphQLFieldResolver<TSource, TContext, TArgs = { [argName: string]: any }> = (
     source: TSource,
-    args: { [argName: string]: any },
+    args: TArgs,
     context: TContext,
     info: GraphQLResolveInfo
 ) => any;
 
 export interface GraphQLResolveInfo {
-    fieldName: string;
-    fieldNodes: FieldNode[];
-    returnType: GraphQLOutputType;
-    parentType: GraphQLCompositeType;
-    path: ResponsePath;
-    schema: GraphQLSchema;
-    fragments: { [fragmentName: string]: FragmentDefinitionNode };
-    rootValue: any;
-    operation: OperationDefinitionNode;
-    variableValues: { [variableName: string]: any };
+    readonly fieldName: string;
+    readonly fieldNodes: ReadonlyArray<FieldNode>;
+    readonly returnType: GraphQLOutputType;
+    readonly parentType: GraphQLObjectType;
+    readonly path: ResponsePath;
+    readonly schema: GraphQLSchema;
+    readonly fragments: { [key: string]: FragmentDefinitionNode };
+    readonly rootValue: any;
+    readonly operation: OperationDefinitionNode;
+    readonly variableValues: { [variableName: string]: any };
 }
 
-export type ResponsePath = { prev: ResponsePath, key: string | number } | undefined;
+export type ResponsePath = {
+    readonly prev: ResponsePath | undefined;
+    readonly key: string | number;
+};
 
-export interface GraphQLFieldConfig<TSource, TContext> {
+export interface GraphQLFieldConfig<TSource, TContext, TArgs = { [argName: string]: any }> {
     type: GraphQLOutputType;
     args?: GraphQLFieldConfigArgumentMap;
-    resolve?: GraphQLFieldResolver<TSource, TContext>;
-    deprecationReason?: string;
-    description?: string;
+    resolve?: GraphQLFieldResolver<TSource, TContext, TArgs>;
+    subscribe?: GraphQLFieldResolver<TSource, TContext, TArgs>;
+    deprecationReason?: Maybe<string>;
+    description?: Maybe<string>;
+    astNode?: Maybe<FieldDefinitionNode>;
 }
 
-export interface GraphQLFieldConfigArgumentMap {
-    [argName: string]: GraphQLArgumentConfig;
-}
+export type GraphQLFieldConfigArgumentMap = { [key: string]: GraphQLArgumentConfig };
 
 export interface GraphQLArgumentConfig {
     type: GraphQLInputType;
     defaultValue?: any;
-    description?: string;
+    description?: Maybe<string>;
+    astNode?: Maybe<InputValueDefinitionNode>;
 }
 
-export interface GraphQLFieldConfigMap<TSource, TContext> {
-    [fieldName: string]: GraphQLFieldConfig<TSource, TContext>;
-}
+export type GraphQLFieldConfigMap<TSource, TContext> = {
+    [key: string]: GraphQLFieldConfig<TSource, TContext>;
+};
 
-export interface GraphQLField<TSource, TContext> {
+export interface GraphQLField<TSource, TContext, TArgs = { [key: string]: any }> {
     name: string;
-    description: string;
+    description: Maybe<string>;
     type: GraphQLOutputType;
     args: GraphQLArgument[];
-    resolve?: GraphQLFieldResolver<TSource, TContext>;
+    resolve?: GraphQLFieldResolver<TSource, TContext, TArgs>;
+    subscribe?: GraphQLFieldResolver<TSource, TContext, TArgs>;
     isDeprecated?: boolean;
-    deprecationReason?: string;
+    deprecationReason?: Maybe<string>;
+    astNode?: Maybe<FieldDefinitionNode>;
 }
 
 export interface GraphQLArgument {
     name: string;
     type: GraphQLInputType;
     defaultValue?: any;
-    description?: string;
+    description?: Maybe<string>;
+    astNode?: Maybe<InputValueDefinitionNode>;
 }
 
-export interface GraphQLFieldMap<TSource, TContext> {
-    [fieldName: string]: GraphQLField<TSource, TContext>;
-}
+export function isRequiredArgument(arg: GraphQLArgument): boolean;
+
+export type GraphQLFieldMap<TSource, TContext> = {
+    [key: string]: GraphQLField<TSource, TContext>;
+};
 
 /**
  * Interface Type Definition
@@ -331,14 +473,18 @@ export interface GraphQLFieldMap<TSource, TContext> {
  */
 export class GraphQLInterfaceType {
     name: string;
-    description: string;
-    resolveType: GraphQLTypeResolver<any, any>;
+    description: Maybe<string>;
+    astNode?: Maybe<InterfaceTypeDefinitionNode>;
+    extensionASTNodes: Maybe<ReadonlyArray<InterfaceTypeExtensionNode>>;
+    resolveType: Maybe<GraphQLTypeResolver<any, any>>;
 
     constructor(config: GraphQLInterfaceTypeConfig<any, any>);
 
     getFields(): GraphQLFieldMap<any, any>;
 
     toString(): string;
+    toJSON(): string;
+    inspect(): string;
 }
 
 export interface GraphQLInterfaceTypeConfig<TSource, TContext> {
@@ -349,8 +495,10 @@ export interface GraphQLInterfaceTypeConfig<TSource, TContext> {
      * the default implementation will call `isTypeOf` on each implementing
      * Object type.
      */
-    resolveType?: GraphQLTypeResolver<TSource, TContext>;
-    description?: string;
+    resolveType?: Maybe<GraphQLTypeResolver<TSource, TContext>>;
+    description?: Maybe<string>;
+    astNode?: Maybe<InterfaceTypeDefinitionNode>;
+    extensionASTNodes?: Maybe<ReadonlyArray<InterfaceTypeExtensionNode>>;
 }
 
 /**
@@ -378,14 +526,18 @@ export interface GraphQLInterfaceTypeConfig<TSource, TContext> {
  */
 export class GraphQLUnionType {
     name: string;
-    description: string;
-    resolveType: GraphQLTypeResolver<any, any>;
+    description: Maybe<string>;
+    astNode: Maybe<UnionTypeDefinitionNode>;
+    extensionASTNodes: Maybe<ReadonlyArray<UnionTypeExtensionNode>>;
+    resolveType: Maybe<GraphQLTypeResolver<any, any>>;
 
     constructor(config: GraphQLUnionTypeConfig<any, any>);
 
     getTypes(): GraphQLObjectType[];
 
     toString(): string;
+    toJSON(): string;
+    inspect(): string;
 }
 
 export interface GraphQLUnionTypeConfig<TSource, TContext> {
@@ -396,8 +548,10 @@ export interface GraphQLUnionTypeConfig<TSource, TContext> {
      * the default implementation will call `isTypeOf` on each implementing
      * Object type.
      */
-    resolveType?: GraphQLTypeResolver<TSource, TContext>;
-    description?: string;
+    resolveType?: Maybe<GraphQLTypeResolver<TSource, TContext>>;
+    description?: Maybe<string>;
+    astNode?: Maybe<UnionTypeDefinitionNode>;
+    extensionASTNodes?: Maybe<ReadonlyArray<UnionTypeExtensionNode>>;
 }
 
 /**
@@ -423,38 +577,44 @@ export interface GraphQLUnionTypeConfig<TSource, TContext> {
  */
 export class GraphQLEnumType {
     name: string;
-    description: string;
+    description: Maybe<string>;
+    astNode: Maybe<EnumTypeDefinitionNode>;
+    extensionASTNodes: Maybe<ReadonlyArray<EnumTypeExtensionNode>>;
 
     constructor(config: GraphQLEnumTypeConfig);
     getValues(): GraphQLEnumValue[];
-    getValue(name: string): GraphQLEnumValue;
-    serialize(value: any): string;
-    parseValue(value: any): any;
-    parseLiteral(valueNode: ValueNode): any;
+    getValue(name: string): Maybe<GraphQLEnumValue>;
+    serialize(value: any): Maybe<string>;
+    parseValue(value: any): Maybe<any>;
+    parseLiteral(valueNode: ValueNode, _variables: Maybe<{ [key: string]: any }>): Maybe<any>;
     toString(): string;
+    toJSON(): string;
+    inspect(): string;
 }
 
 export interface GraphQLEnumTypeConfig {
     name: string;
     values: GraphQLEnumValueConfigMap;
-    description?: string;
+    description?: Maybe<string>;
+    astNode?: Maybe<EnumTypeDefinitionNode>;
+    extensionASTNodes?: Maybe<ReadonlyArray<EnumTypeExtensionNode>>;
 }
 
-export interface GraphQLEnumValueConfigMap {
-    [valueName: string]: GraphQLEnumValueConfig;
-}
+export type GraphQLEnumValueConfigMap = { [key: string]: GraphQLEnumValueConfig };
 
 export interface GraphQLEnumValueConfig {
     value?: any;
-    deprecationReason?: string;
-    description?: string;
+    deprecationReason?: Maybe<string>;
+    description?: Maybe<string>;
+    astNode?: Maybe<EnumValueDefinitionNode>;
 }
 
 export interface GraphQLEnumValue {
     name: string;
-    description: string;
+    description: Maybe<string>;
     isDeprecated?: boolean;
-    deprecationReason: string;
+    deprecationReason: Maybe<string>;
+    astNode?: Maybe<EnumValueDefinitionNode>;
     value: any;
 }
 
@@ -480,87 +640,43 @@ export interface GraphQLEnumValue {
  */
 export class GraphQLInputObjectType {
     name: string;
-    description: string;
+    description: Maybe<string>;
+    astNode: Maybe<InputObjectTypeDefinitionNode>;
+    extensionASTNodes: Maybe<ReadonlyArray<InputObjectTypeExtensionNode>>;
     constructor(config: GraphQLInputObjectTypeConfig);
     getFields(): GraphQLInputFieldMap;
     toString(): string;
+    toJSON(): string;
+    inspect(): string;
 }
 
 export interface GraphQLInputObjectTypeConfig {
     name: string;
     fields: Thunk<GraphQLInputFieldConfigMap>;
-    description?: string;
+    description?: Maybe<string>;
+    astNode?: Maybe<InputObjectTypeDefinitionNode>;
+    extensionASTNodes?: Maybe<ReadonlyArray<InputObjectTypeExtensionNode>>;
 }
 
 export interface GraphQLInputFieldConfig {
     type: GraphQLInputType;
     defaultValue?: any;
-    description?: string;
+    description?: Maybe<string>;
+    astNode?: Maybe<InputValueDefinitionNode>;
 }
 
-export interface GraphQLInputFieldConfigMap {
-    [fieldName: string]: GraphQLInputFieldConfig;
-}
+export type GraphQLInputFieldConfigMap = {
+    [key: string]: GraphQLInputFieldConfig;
+};
 
 export interface GraphQLInputField {
     name: string;
     type: GraphQLInputType;
     defaultValue?: any;
-    description?: string;
+    description?: Maybe<string>;
+    astNode?: Maybe<InputValueDefinitionNode>;
 }
 
-export interface GraphQLInputFieldMap {
-    [fieldName: string]: GraphQLInputField;
-}
+export function isRequiredInputField(field: GraphQLInputField): boolean;
 
-/**
- * List Modifier
- *
- * A list is a kind of type marker, a wrapping type which points to another
- * type. Lists are often created within the context of defining the fields of
- * an object type.
- *
- * Example:
- *
- *     const PersonType = new GraphQLObjectType({
- *       name: 'Person',
- *       fields: () => ({
- *         parents: { type: new GraphQLList(Person) },
- *         children: { type: new GraphQLList(Person) },
- *       })
- *     })
- *
- */
-export class GraphQLList<T extends GraphQLType> {
-    ofType: T;
-    constructor(type: T);
-    toString(): string;
-}
-
-/**
- * Non-Null Modifier
- *
- * A non-null is a kind of type marker, a wrapping type which points to another
- * type. Non-null types enforce that their values are never null and can ensure
- * an error is raised if this ever occurs during a request. It is useful for
- * fields which you can make a strong guarantee on non-nullability, for example
- * usually the id field of a database row will never be null.
- *
- * Example:
- *
- *     const RowType = new GraphQLObjectType({
- *       name: 'Row',
- *       fields: () => ({
- *         id: { type: new GraphQLNonNull(GraphQLString) },
- *       })
- *     })
- *
- * Note: the enforcement of non-nullability occurs within the executor.
- */
-export class GraphQLNonNull<T extends GraphQLNullableType> {
-    ofType: T;
-
-    constructor(type: T);
-
-    toString(): string;
-}
+export type GraphQLInputFieldMap = { [key: string]: GraphQLInputField };

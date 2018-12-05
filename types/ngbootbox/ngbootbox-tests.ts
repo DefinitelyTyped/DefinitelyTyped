@@ -3,7 +3,7 @@
 
 class TestBootboxController {
 
-	constructor(private $scope: angular.IScope, $ngBootbox: BootboxService) {
+	constructor(private readonly $scope: angular.IScope, $ngBootbox: BootboxService) {
 
 		$ngBootbox.alert('An important message!').then(function() {
 			console.log('Alert closed');
@@ -29,15 +29,15 @@ class TestBootboxController {
 				warning: {
 					label: "Cancel",
 					className: "btn-warning",
-					callback: function() { 
+					callback: function() {
 						console.log('warning callback');
 					}
 				},
 				success: {
 					label: "Ok",
 					className: "btn-success",
-					callback: function() { 
-						console.log('sucess callback'); 
+					callback: function() {
+						console.log('sucess callback');
 					}
 				}
 			}

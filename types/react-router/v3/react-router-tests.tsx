@@ -20,8 +20,10 @@ import {
 	RouterContext,
 	LinkProps,
 	RedirectFunction,
-	RouteComponentProps
+	RouteComponentProps,
+	WithRouterProps
 } from "react-router";
+import { matchPattern } from 'react-router/lib/PatternUtils';
 import { createHistory, History } from "history";
 
 const routerHistory = useRouterHistory(createHistory)({ basename: "/test" });
@@ -33,7 +35,7 @@ interface CustomHistory {
 type CombinedHistory = History & CustomHistory;
 
 function createCustomHistory(history: History): CombinedHistory {
-	return Object.assign(history, { test() { } });
+	return Object.assign(history, { test() { } }); // tslint:disable-line prefer-object-spread
 }
 const customHistory = createCustomHistory(browserHistory);
 
@@ -71,11 +73,7 @@ class Master extends Component {
 	}
 }
 
-interface DashboardProps {
-	router: InjectedRouter;
-}
-
-class Dashboard extends React.Component<DashboardProps> {
+class Dashboard extends React.Component<WithRouterProps> {
 	static staticMethodToBeHoisted(): void { }
 
 	navigate() {
@@ -107,6 +105,23 @@ class NotFound extends React.Component {
 	}
 }
 
+interface UserListProps {
+	users: string;
+}
+
+class UserList extends React.Component<UserListProps & WithRouterProps> {
+	render() {
+		const { location, params, router, routes } = this.props;
+		return <div>
+			<ul>
+				<li>{this.props.users}</li>
+			</ul>
+		</div>;
+	}
+}
+
+const UserListWithRouter = withRouter(UserList);
+
 type UsersProps = RouteComponentProps<{}, {}>;
 
 class Users extends React.Component<UsersProps> {
@@ -114,6 +129,7 @@ class Users extends React.Component<UsersProps> {
 		const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
 			This is a user list
+			<UserListWithRouter users="Suzanne, Fred" />
 		</div>;
 	}
 }
@@ -140,7 +156,7 @@ ReactDOM.render((
 	</Router>
 ), document.body);
 
-const history = createMemoryHistory("baseurl");
+const history = createMemoryHistory({ current: "baseurl" });
 const routes = (
 	<Route path="/" component={Master}>
 		<IndexRoute component={DashboardWithRouter} />
@@ -166,3 +182,24 @@ ReactDOM.render((
 	>
 	</Router>
 ), document.body);
+
+const matchedPattern = matchPattern("/foo", "/foo/bar");
+
+if (matchedPattern) {
+    matchedPattern.remainingPathname === "/bar";
+    matchedPattern.paramNames.forEach(name => {});
+    matchedPattern.paramValues.forEach(value => {});
+}
+
+matchPattern("/foo", "/baz") === null;
+
+const CreateHref: React.SFC<WithRouterProps> = ({ router }) => (
+	<div>
+		{router.createHref({ pathname: "/foo", query: { bar: "baz" } })}
+		{router.createHref("/foo?bar=baz")}
+	</div>
+);
+
+const CreateHrefWithRouter = withRouter<{}>(CreateHref);
+
+ReactDOM.render(<CreateHrefWithRouter />, document.body);

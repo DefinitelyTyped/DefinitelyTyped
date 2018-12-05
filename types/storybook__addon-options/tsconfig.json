@@ -7,12 +7,18 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "paths": {
-            "@storybook/addon-options": ["storybook__addon-options"]
+            "@storybook/addon-options": [
+                "storybook__addon-options"
+            ],
+            "@storybook/react": [
+                "storybook__react"
+            ]
         },
         "types": [],
         "noEmit": true,

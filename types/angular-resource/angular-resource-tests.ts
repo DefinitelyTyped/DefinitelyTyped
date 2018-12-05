@@ -32,7 +32,7 @@ interface IArticleResourceClass extends ng.resource.IResourceClass<IArticleResou
 function MainController($resource: ng.resource.IResourceService): void {
     // IntelliSense will provide IActionDescriptor interface and will validate
     // your assignment against it
-    let publishDescriptor: ng.resource.IActionDescriptor = {
+    const publishDescriptor: ng.resource.IActionDescriptor = {
         method: 'GET',
         isArray: false
     };
@@ -40,7 +40,7 @@ function MainController($resource: ng.resource.IResourceService): void {
     // A call to the $resource service returns a IResourceClass. Since
     // our own IArticleResourceClass defines 2 more actions, we cast the return
     // value to make the compiler aware of that
-    let articleResource: IArticleResourceClass = $resource<IArticleResource, IArticleResourceClass>('/articles/:id', null, {
+    const articleResource: IArticleResourceClass = $resource<IArticleResource, IArticleResourceClass>('/articles/:id', null, {
         publish : publishDescriptor,
         unpublish : {
             method: 'POST'
@@ -51,7 +51,7 @@ function MainController($resource: ng.resource.IResourceService): void {
     articleResource.unpublish({ id: 1 });
 
     // IResourceClass.get() will be automatically available here
-    let article: IArticleResource = articleResource.get({id: 1}, function success(): void {
+    const article: IArticleResource = articleResource.get({id: 1}, function success(): void {
         // Again, default + custom action here...
         article.title = 'New Title';
         article.$save();
@@ -59,10 +59,9 @@ function MainController($resource: ng.resource.IResourceService): void {
     });
 }
 
-import IHttpPromiseCallbackArg = angular.IHttpPromiseCallbackArg;
+import IHttpResponse = angular.IHttpResponse;
 
 interface IMyData {}
-interface IMyHttpPromiseCallbackArg extends IHttpPromiseCallbackArg<IMyData> {}
 interface IMyResource extends angular.resource.IResource<IMyResource> {}
 interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> {}
 
@@ -87,7 +86,7 @@ angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactorySe
     actionDescriptor.withCredentials = true;
     actionDescriptor.responseType = 'response type';
     actionDescriptor.interceptor = {
-        response() { return {} as IMyHttpPromiseCallbackArg; },
+        response() { return {} as IHttpResponse<IMyData>; },
         responseError() {}
     };
     actionDescriptor.cancellable = true;

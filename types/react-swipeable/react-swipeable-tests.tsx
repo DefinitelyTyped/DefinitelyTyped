@@ -1,19 +1,20 @@
 import * as React from 'react';
-import * as Swipeable from 'react-swipeable';
+import Swipeable = require('react-swipeable');
 
 class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
-  private handleSwiped: Swipeable.OnSwipedCallback = () => {};
-  private handleSwiping: Swipeable.OnSwipingCallback = () => {};
-  private handleSwipingUp: Swipeable.OnSwipingDirectionCallback = () => {};
-  private handleSwipingRight: Swipeable.OnSwipingDirectionCallback = () => {};
-  private handleSwipingDown: Swipeable.OnSwipingDirectionCallback = () => {};
-  private handleSwipingLeft: Swipeable.OnSwipingDirectionCallback = () => {};
-  private handleSwipedUp: Swipeable.OnSwipedDirectionCallback = () => {};
-  private handleSwipedRight: Swipeable.OnSwipedDirectionCallback = () => {};
-  private handleSwipedDown: Swipeable.OnSwipedDirectionCallback = () => {};
-  private handleSwipedLeft: Swipeable.OnSwipedDirectionCallback = () => {};
-  private handleTap: Swipeable.OnTapCallback = () => {};
-  private handleClick = () => {};
+  private readonly handleSwiped: Swipeable.OnSwipedCallback = () => {};
+  private readonly handleSwiping: Swipeable.OnSwipingCallback = () => {};
+  private readonly handleSwipingUp: Swipeable.OnSwipingDirectionCallback = () => {};
+  private readonly handleSwipingRight: Swipeable.OnSwipingDirectionCallback = () => {};
+  private readonly handleSwipingDown: Swipeable.OnSwipingDirectionCallback = () => {};
+  private readonly handleSwipingLeft: Swipeable.OnSwipingDirectionCallback = () => {};
+  private readonly handleSwipedUp: Swipeable.OnSwipedDirectionCallback = () => {};
+  private readonly handleSwipedRight: Swipeable.OnSwipedDirectionCallback = () => {};
+  private readonly handleSwipedDown: Swipeable.OnSwipedDirectionCallback = () => {};
+  private readonly handleSwipedLeft: Swipeable.OnSwipedDirectionCallback = () => {};
+  private readonly handleTap: Swipeable.OnTapCallback = () => {};
+  private readonly handleClick = () => {};
+  private readonly swipeRef = React.createRef<HTMLElement>();
 
   render() {
     return (
@@ -35,6 +36,8 @@ class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
         stopPropagation
         nodeName="swipe"
         trackMouse
+        disabled
+        innerRef={this.swipeRef}
         onClick={this.handleClick}
       >
         <div>
@@ -44,3 +47,16 @@ class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
     );
   }
 }
+
+class DivSwipeable extends Swipeable<HTMLDivElement> {}
+const TestComponent: React.StatelessComponent = (_) => {
+    const handleSwiped = (event: React.TouchEvent<HTMLDivElement>) => {};
+    return (
+        <DivSwipeable
+            nodeName="div"
+            onSwiped={handleSwiped}
+        >
+            <div>this is sample code.</div>
+        </DivSwipeable>
+    );
+};

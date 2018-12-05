@@ -1,6 +1,6 @@
-// Type definitions for ora v0.3.0
+// Type definitions for ora 0.3
 // Project: https://github.com/sindresorhus/ora
-// Definitions by: Basarat Ali Syed <https://github.com/basarat/>, Christian Rackerseder <https://github.com/screendriver>
+// Definitions by: Basarat Ali Syed <https://github.com/basarat>, Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

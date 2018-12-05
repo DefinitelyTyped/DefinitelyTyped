@@ -3,7 +3,7 @@ import * as json2md from 'json2md';
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-const EXAMPLE_STRING: string = "example string";
+const EXAMPLE_STRING = "example string";
 const EXAMPLE_STRING_ARRAY: string[] = ["A", "B"];
 
 describe("Default elements", () => {

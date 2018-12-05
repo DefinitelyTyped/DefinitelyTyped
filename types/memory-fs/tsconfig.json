@@ -7,6 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -21,6 +22,7 @@
         "lib/normalize.d.ts",
         "test/index.ts",
         "test/join.ts",
-        "test/normalize.ts"
+        "test/normalize.ts",
+        "test/webpack.ts"
     ]
 }

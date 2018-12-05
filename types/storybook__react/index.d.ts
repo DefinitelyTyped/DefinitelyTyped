@@ -1,28 +1,38 @@
-// Type definitions for @storybook/react 3.0
+// Type definitions for @storybook/react 4.0
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
+//                 Anton Izmailov <https://github.com/wapgear>
+//                 Dan Dean <https://github.com/dandean>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
-/// <reference types="node" />
+/// <reference types="webpack-env" />
 
 import * as React from 'react';
 
-export type Renderable = React.StatelessComponent<any> | React.Component<any> | JSX.Element;
-export type RenderFunction = () => Renderable;
+export type Renderable = React.ComponentType | JSX.Element;
+export type RenderFunction = () => Renderable | Renderable[];
 
+export interface DecoratorParameters {
+    [key: string]: any;
+}
 export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;
 
 export interface Story {
-    add(storyName: string, callback: RenderFunction): Story;
-    addDecorator(decorator: StoryDecorator): Story;
+    readonly kind: string;
+    add(storyName: string, callback: RenderFunction, parameters?: DecoratorParameters): this;
+    addDecorator(decorator: StoryDecorator): this;
+    addParameters(parameters: DecoratorParameters): this;
 }
 
 export function addDecorator(decorator: StoryDecorator): void;
-export function configure(fn: () => void, module: any): void;
+export function addParameters(parameters: DecoratorParameters): void;
+export function clearDecorators(): void;
+export function configure(fn: () => void, module: NodeModule): void;
 export function setAddon(addon: object): void;
 export function storiesOf(name: string, module: NodeModule): Story;
 export function storiesOf<T>(name: string, module: NodeModule): Story & T;
+export function forceReRender(): void;
 
 export interface StoryObject {
     name: string;

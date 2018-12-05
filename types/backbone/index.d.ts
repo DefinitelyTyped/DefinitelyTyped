@@ -1,6 +1,9 @@
 // Type definitions for Backbone 1.3.3
 // Project: http://backbonejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Natan Vivo <https://github.com/nvivo>
+//                 kenjiru <https://github.com/kenjiru>
+//                 jjoekoullas <https://github.com/jjoekoullas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,6 +18,13 @@ declare namespace Backbone {
 
     interface AddOptions extends Silenceable {
         at?: number;
+        merge?: boolean;
+        sort?: boolean;
+    }
+
+    interface CollectionSetOptions extends Silenceable {
+        add?: boolean;
+        remove?: boolean;
         merge?: boolean;
     }
 
@@ -69,7 +79,7 @@ declare namespace Backbone {
     interface ModelDestroyOptions extends Waitable, PersistenceOptions {
     }
 
-    interface CollectionFetchOptions extends PersistenceOptions, Parseable {
+    interface CollectionFetchOptions extends PersistenceOptions, Parseable, CollectionSetOptions {
         reset?: boolean;
     }
 
@@ -85,22 +95,34 @@ declare namespace Backbone {
         [selector: string]: string | {(eventObject: JQueryEventObject): void};
     }
 
-    class Events {
-        on(eventName: string, callback?: Function, context?: any): any;
+    export const Events: Events;
+    interface Events {
+        on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
         on(eventMap: EventsHash): any;
-        off(eventName?: string, callback?: Function, context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: Function, context?: any): any;
-        unbind(eventName?: string, callback?: Function, context?: any): any;
+        bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
 
-        once(events: string, callback: Function, context?: any): any;
-        listenTo(object: any, events: string, callback: Function): any;
-        listenToOnce(object: any, events: string, callback: Function): any;
-        stopListening(object?: any, events?: string, callback?: Function): any;
+        once(events: string, callback: (...args: any[]) => void, context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
     }
 
-    class ModelBase extends Events {
-        url: any;
+    class ModelBase implements Events {
+        on(eventName: string, callback?: Function, context?: any): any;
+        on(eventMap: EventsHash): any;
+        on(eventName: any, callback?: any, context?: any): any
+        off(eventName?: string, callback?: Function, context?: any): any
+        trigger(eventName: string, ...args: any[]): any
+        bind(eventName: string, callback: Function, context?: any): any
+        unbind(eventName?: string, callback?: Function, context?: any): any
+        once(events: string, callback: Function, context?: any): any
+        listenTo(object: any, events: string, callback: Function):any
+        listenToOnce(object: any, events: string, callback: Function): any
+        stopListening(object?: any, events?: string, callback?: Function): any
+
         parse(response: any, options?: any): any;
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
@@ -111,7 +133,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         attributes: any;
         changed: any[];
@@ -133,6 +155,13 @@ declare namespace Backbone {
         id: any;
         idAttribute: string;
         validationError: any;
+
+        /**
+         * Returns the relative URL where the model's resource would be located on the server.
+         * @memberof Model
+         */
+        url: () => string;
+
         urlRoot: any;
 
         constructor(attributes?: any, options?: any);
@@ -205,7 +234,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         model: new (...args:any[]) => TModel;
         models: TModel[];
@@ -219,7 +248,7 @@ declare namespace Backbone {
         /**
          * Specify a model attribute name (string) or function that will be used to sort the collection.
          */
-        comparator: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number);
+        comparator: string | { bivarianceHack(element: TModel): number | string }["bivarianceHack"] | { bivarianceHack(compare: TModel, to?: TModel): number }["bivarianceHack"];
 
         add(model: {}|TModel, options?: AddOptions): TModel;
         add(models: ({}|TModel)[], options?: AddOptions): TModel[];
@@ -229,6 +258,7 @@ declare namespace Backbone {
          **/
         get(id: number|string|Model): TModel;
         has(key: number|string|Model): boolean;
+        clone(): this;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
@@ -236,7 +266,19 @@ declare namespace Backbone {
         remove(model: {}|TModel, options?: Silenceable): TModel;
         remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
-        set(models?: TModel[], options?: Silenceable): TModel[];
+
+        /**
+         *
+         * The set method performs a "smart" update of the collection with the passed list of models.
+         * If a model in the list isn't yet in the collection it will be added; if the model is already in the
+         * collection its attributes will be merged; and if the collection contains any models that aren't present
+         * in the list, they'll be removed. All of the appropriate "add", "remove", and "change" events are fired as
+         * this happens. Returns the touched models in the collection. If you'd like to customize the behavior, you can
+         * disable it with options: {add: false}, {remove: false}, or {merge: false}.
+         * @param models
+         * @param options
+         */
+        set(models?: TModel[], options?: CollectionSetOptions): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
@@ -252,7 +294,7 @@ declare namespace Backbone {
         /**
          * Return a shallow copy of this collection's models, using the same options as native Array#slice.
          */
-        slice(min: number, max?: number): TModel[];
+        slice(min?: number, max?: number): TModel[];
 
         // mixins from underscore
 
@@ -314,15 +356,23 @@ declare namespace Backbone {
         take(): TModel;
         take(n: number): TModel[];
         toArray(): TModel[];
+
+        /**
+         * Sets the url property (or function) on a collection to reference its location on the server.
+         *
+         * @memberof Collection
+         */
+        url: string | (() => string);
+
         without(...values: TModel[]): TModel[];
     }
 
-    class Router extends Events {
+    class Router extends EventSignatures {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         /**
         * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
@@ -346,7 +396,7 @@ declare namespace Backbone {
 
     var history: History;
 
-    class History extends Events {
+    class History extends EventSignatures {
 
         handlers: any[];
         interval: number;
@@ -358,7 +408,7 @@ declare namespace Backbone {
         decodeFragment(fragment: string): string;
         getSearch(): string;
         stop(): void;
-        route(route: string, callback: Function): number;
+        route(route: string|RegExp, callback: Function): number;
         checkUrl(e?: any): void;
         getPath(): string;
         matchRoot(): boolean;
@@ -383,12 +433,12 @@ declare namespace Backbone {
       attributes?: {[id: string]: any};
     }
 
-    class View<TModel extends Model> extends Events {
+    class View<TModel extends Model> extends EventSignatures {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: ViewOptions<TModel>);
         initialize(options?: ViewOptions<TModel>): void;
@@ -426,7 +476,7 @@ declare namespace Backbone {
     }
 
     // SYNC
-    function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
+    function sync(method: string, model: Model | Collection<Model>, options?: JQueryAjaxSettings): any;
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
     var emulateHTTP: boolean;
     var emulateJSON: boolean;
@@ -434,4 +484,22 @@ declare namespace Backbone {
     // Utility
     function noConflict(): typeof Backbone;
     var $: JQueryStatic;
+}
+
+/**
+ * This is not for external use and is only here as a convenient way to
+ * specify signatures for internal implementers of Backbone.Events
+ */
+declare abstract class EventSignatures implements Backbone.Events {
+        on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
+        on(eventMap: Backbone.EventsHash): any;
+        off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+        bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
+
+        once(events: string, callback: (...args: any[]) => void, context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
 }

@@ -1,4 +1,4 @@
-import * as Snoowrap from 'snoowrap';
+import * as Snoowrap from '../..';
 
 export default class Listing<T> extends Array<T> {
   constructor(options: any, _r: Snoowrap);
@@ -11,7 +11,7 @@ export default class Listing<T> extends Array<T> {
 }
 
 export interface ListingOptions {
-  limit?: string;
+  limit?: number;
   after?: string;
   before?: string;
   show?: string;

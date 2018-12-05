@@ -1,7 +1,7 @@
-import { FormErrors } from "redux-form";
+import { FormErrors } from "../index";
 
-export interface SubmissionErrorConstructor<T = void> {
-    new (errors?: FormErrors<T>): Error;
+export declare class SubmissionError<FormData = {}, ErrorType = string> extends Error {
+  constructor(errors?: FormErrors<FormData, ErrorType>);
 }
 
-declare const SubmissionError: SubmissionErrorConstructor;
+export default SubmissionError;
