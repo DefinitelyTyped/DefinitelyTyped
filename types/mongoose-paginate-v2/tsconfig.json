@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "mongoose-paginate-tests.ts"
+        "mongoose-paginate-v2-tests.ts"
     ]
 }

@@ -1,15 +1,31 @@
-// Type definitions for mongoose-paginate 5.0.0
+// Type definitions for mongoose-paginate-v2 1.0.13
 // Project: https://github.com/edwardhotchkiss/mongoose-paginate
-// Definitions by: Linus Brolin <https://github.com/linusbrolin>, simonxca <https://github.com/simonxca>
+// Definitions by: Linus Brolin <https://github.com/linusbrolin>
+//                 simonxca <https://github.com/simonxca>
+//                 woutgg <https://github.com/woutgg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+//
+// Based on type declarations for mongoose-paginate 5.0.0.
 
 /// <reference types="mongoose" />
 
 declare module 'mongoose' {
+  export interface CustomLabels {
+    totalDocs?: string,
+    limit?: string,
+    page?: string,
+    totalPages?: string,
+    docs?: string,
+    nextPage?: string,
+    prevPage?: string,
+  }
+
   export interface PaginateOptions {
     select?: Object | string;
     sort?: Object | string;
+    customLabels?: CustomLabels,
+    collation?: CollationOptions,
     populate?: Array<Object> | Array<string> | Object | string;
     lean?: boolean;
     leanWithId?: boolean;
@@ -25,6 +41,7 @@ declare module 'mongoose' {
     page?: number;
     pages?: number;
     offset?: number;
+    [customLabel: string]: Array<T> | number | undefined;
   }
 
   interface PaginateModel<T extends Document> extends Model<T> {
@@ -44,7 +61,7 @@ declare module 'mongoose' {
     skipInit?: boolean): U;
 }
 
-declare module 'mongoose-paginate' {
+declare module 'mongoose-paginate-v2' {
   import mongoose = require('mongoose');
   var _: (schema: mongoose.Schema) => void;
   export = _;

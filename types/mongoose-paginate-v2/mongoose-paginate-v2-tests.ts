@@ -43,12 +43,22 @@ router.get('/users.json', function(req: Request, res: Response) {
     let options: PaginateOptions = {} as PaginateOptions;
     options.select = 'email username';
     options.sort = { 'username': (descending ? -1 : 1) };
+    options.collation = { locale: 'en_US', strength: 1 };
     options.populate = '';
     options.lean = true;
     options.leanWithId = false;
     options.offset = 0;
     options.page = 1;
     options.limit = 10;
+    options.customLabels = {
+        totalDocs: 'totalDocsCustom',
+        limit: 'limitCustom',
+        page: 'pageCustom',
+        totalPages: 'totalPagesCustom',
+        docs: 'docsCustom',
+        nextPage: 'nextPageCustom',
+        prevPage: 'prevPageCustom'
+    };
 
     UserModel
     .paginate({}, options, (err: any, value: PaginateResult<User>) => {
@@ -57,13 +67,15 @@ router.get('/users.json', function(req: Request, res: Response) {
             return res.status(500).send(err);
         }
 
-        console.log('total: ' + value.total);
-        console.log('limit: ' + value.limit);
-        console.log('page: ' + value.page);
-        console.log('pages: ' + value.pages);
+        console.log('totalDocs: ' + value.totalDocsCustom);
+        console.log('limit: ' + value.limitCustom);
+        console.log('page: ' + value.pageCustom);
+        console.log('nextPage: ' + value.nextPageCustom);
+        console.log('prevPage: ' + value.prevPageCustom);
+        console.log('totalPages: ' + value.totalPagesCustom);
         console.log('offset: ' + value.offset);
         console.log('docs: ');
-        console.dir(value.docs);
+        console.dir(value.docsCustom);
         return res.json(value);
     });
 
