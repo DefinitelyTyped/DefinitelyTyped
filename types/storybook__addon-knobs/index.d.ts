@@ -47,6 +47,8 @@ export function color(name: string, value: string, groupId?: string): string;
 
 export function object<T>(name: string, value: T, groupId?: string): T;
 
+export function radios(name: string, options: KnobOption<T>, value: string | null, groupId?: string): string;
+
 export type SelectValue = string | number;
 export function select<T extends string>(name: string, options: { [s: string]: string }, value: T, groupId?: string): T;
 export function select<T extends number>(name: string, options: { [s: number]: string }, value: T, groupId?: string): T;
