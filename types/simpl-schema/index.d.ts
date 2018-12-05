@@ -4,18 +4,13 @@
 //                 Qkramer <https://github.com/Qkramer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'simpl-schema' {
-export class ValidationContext {
-    constructor(ss: any);
+export interface ValidationContext extends SimpleSchemaValidationContextStatic {
+    // constructor(ss: any);
     addValidationErrors(errors: any): void;
     clean(...args: any[]): any;
     getErrorForKey(key: any, ...args: any[]): any;
-    isValid(): any;
-    keyErrorMessage(key: any, ...args: any[]): any;
-    keyIsInvalid(key: any, ...args: any[]): any;
     reset(): void;
     setValidationErrors(errors: any): void;
-    validate(obj: any, ...args: any[]): any;
     validationErrors(): any;
 }
 
@@ -88,7 +83,7 @@ interface SimpleSchemaStatic {
   messages(messages: any): any;
   messageForError(type: any, key: any, def: any, value: any): string;
   allowsKey(key: any): string;
-  newContext(): SimpleSchemaValidationContextStatic;
+  newContext(): ValidationContext;
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
   validator(options: ValidationOption): () => boolean;
@@ -201,4 +196,3 @@ export interface MongoObject {
 }
 
 export default SimpleSchema;
-}
