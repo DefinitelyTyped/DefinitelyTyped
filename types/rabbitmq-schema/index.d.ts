@@ -5,7 +5,7 @@
 // TypeScript Version: 2.2
 
 interface Binding {
-    destination: Topology;
+    destination: Exchange | Queue;
     source: Exchange;
     args?: object;
     routingPattern?: string;
