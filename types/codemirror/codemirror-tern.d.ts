@@ -13,6 +13,9 @@ import * as Tern from "tern";
 declare module "codemirror" {
 
     interface TernServer {
+        readonly options: TernOptions;
+        readonly docs: { readonly [key: string]: CodeMirror.Doc };
+        readonly server: Tern.Server;
         addDoc(name: string, doc: CodeMirror.Doc): { doc: CodeMirror.Doc, name: string, changed: { from: number, to: number } | null };
         delDoc(id: string | CodeMirror.Editor | CodeMirror.Doc): void;
         hideDoc(id: string | CodeMirror.Editor | CodeMirror.Doc): void;
