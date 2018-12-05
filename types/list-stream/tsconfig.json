@@ -18,6 +18,8 @@
         "esModuleInterop": true
     },
     "files": [
+        "test/import-tests.ts",
+        "test/require-tests.ts",
         "index.d.ts",
         "list-stream-tests.ts"
     ]
