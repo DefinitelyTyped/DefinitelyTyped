@@ -7,7 +7,9 @@ import {
   connectStateResults,
   SearchBoxProvided,
   connectSearchBox,
-  connectRefinementList
+  connectRefinementList,
+  CurrentRefinementsProvided,
+  connectCurrentRefinements
 } from 'react-instantsearch-core';
 
 () => {
@@ -152,4 +154,19 @@ import {
   // the <InstantSearch> state, providing it with `currentRefinement` and `refine` props for
   // reading and manipulating the current query of the search.
   const ConnectedSearchBox = connectSearchBox(MySearchBox);
+};
+
+() => {
+  const MyCurrentRefinements = ({refine, items, query}: CurrentRefinementsProvided) =>
+    <>
+      {items.map((refinement) => (
+        <div key={refinement.id} onClick={() => refine(refinement.value) }>
+          <label>{refinement.label}</label>
+        </div>
+      ))}
+    </>;
+
+  const ConnectedCurrentRefinements = connectCurrentRefinements(MyCurrentRefinements);
+
+  <ConnectedCurrentRefinements clearsQuery={true} transformItems={(item) => item} />;
 };

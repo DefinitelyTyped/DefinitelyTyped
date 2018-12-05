@@ -128,7 +128,49 @@ export class Configure extends React.Component<any, any> {}
 export function connectAutoComplete(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectBreadcrumb(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectConfigure(Composed: React.ComponentType<any>): React.ComponentClass<any>;
-export function connectCurrentRefinements(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+
+export interface Refinement {
+  label: string;
+  attribute: string;
+  currentRefinement: string | object;
+  items?: Array<{ label: string, value: RefinementValue }>;
+  index: string;
+  id: string;
+  value: RefinementValue;
+}
+
+type RefinementValue = (searchState: SearchState) => SearchState;
+
+export interface CurrentRefinementsExposed {
+  /**
+   * Function to modify the items being displayed, e.g. for filtering or sorting them.
+   * Takes an items as parameter and expects it back in return.
+   */
+  transformItems?: (...args: any[]) => any;
+  /** Pass true to also clear the search query */
+  clearsQuery?: boolean;
+}
+
+export interface CurrentRefinementsProvided {
+  /** a function to remove a single filter */
+  refine: (refinement: RefinementValue | RefinementValue[]) => void;
+  /**
+   * all the filters, the value is to pass to the refine function for removing all currentrefinements,
+   * label is for the display. When existing several refinements for the same atribute name, then you
+   * get a nested items object that contains a label and a value function to use to remove a single filter.
+   * attribute and currentRefinement are metadata containing row values.
+   */
+  items: Refinement[];
+  /** the search query */
+  query: string;
+}
+
+export function connectCurrentRefinements(
+  stateless: React.StatelessComponent<CurrentRefinementsProvided>,
+): React.ComponentClass<CurrentRefinementsExposed>;
+export function connectCurrentRefinements<TProps extends Partial<CurrentRefinementsProvided>>(
+  Composed: React.ComponentType<TProps>,
+): ConnectedComponentClass<TProps, CurrentRefinementsProvided, CurrentRefinementsExposed>;
 
 export interface NESW {
   northEast: { lat: number, lng: number };
