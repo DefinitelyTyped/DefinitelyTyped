@@ -1,41 +1,40 @@
-// Type definitions for netease-captcha x.x
+// Type definitions for netease-captcha 2.1
 // Project: https://cstaticdun.126.net/load.min.js
 // Definitions by: Minjie Shen <https://github.com/norubidium>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-declare interface Window {
+interface Window {
     initNECaptcha?: NeteaseCaptcha.InitFunction;
 }
 
 declare namespace NeteaseCaptcha {
-    declare type InitFunction = (config: Config, onLoad?: onLoad, onError?: onError) => void;
+    type InitFunction = (config: Config, onLoad?: onLoad, onError?: onError) => void;
 
-    declare type Config = {
+    interface Config {
         /**
          * Verification code id
          */
-        captchaId: string,
+        captchaId: string;
 
         /**
          * Selector string or HTMLElement to render widget into
          */
-        element: string | HTMLElement,
+        element: string | HTMLElement;
 
         /**
          * Defaults to 'float' on desktop, and 'popup' on mobile
          */
-        mode?: 'float' | 'embed' | 'popup',
+        mode?: 'float' | 'embed' | 'popup';
 
         /**
          * Defaults to page protocol
          */
-        protocol?: 'http' | 'https',
+        protocol?: 'http' | 'https';
 
         /**
          * Defaults to 'auto'
          */
-        width?: number | string,
+        width?: number | string;
 
         /**
          * Defaults to 'zh-CN'
@@ -45,9 +44,9 @@ declare namespace NeteaseCaptcha {
         onReady?(instance: Instance): void;
 
         onVerify?(error: any, data: Data): void;
-    };
+    }
 
-    type Instance = {
+    interface Instance {
         /**
          * Refresh the instance to get new verification information
          */
@@ -62,9 +61,11 @@ declare namespace NeteaseCaptcha {
          * Available when the mode is set to 'popup' - opens the popup to accept verification
          */
         popUp?(): void;
-    };
+    }
 
-    type Data = { validate: string };
+    interface Data {
+        validate: string;
+    }
 
     type onLoad = (instance: Instance) => void;
 

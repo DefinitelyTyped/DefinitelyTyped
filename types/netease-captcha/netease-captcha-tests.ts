@@ -1,4 +1,4 @@
-const config : NeteaseCaptcha.Config = {
+const config: NeteaseCaptcha.Config = {
         captchaId: 'FAKE ID',
         element: '#captcha',
         mode: 'popup',
@@ -10,12 +10,11 @@ const config : NeteaseCaptcha.Config = {
         }
     };
 
-const onLoad : NeteaseCaptcha.onLoad = (instance : NeteaseCaptcha.Instance) => void {
+const onLoad: NeteaseCaptcha.onLoad = (instance: NeteaseCaptcha.Instance) => {
     instance.refresh();
     instance.destroy();
-}
+};
 
-function init(initNECaptcha : NeteaseCaptcha.InitFunction) => void {
+function init(initNECaptcha: NeteaseCaptcha.InitFunction): void {
     initNECaptcha(config, onLoad);
 }
-
