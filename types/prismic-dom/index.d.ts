@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface RichText {
-    asHtml<T>(richText: any, linkResolver?: (doc: any) => string, htmlSersializer?: HTMLSerializer<T>): string;
+    asHtml(richText: any, linkResolver?: (doc: any) => string, htmlSersializer?: HTMLSerializer): string;
     asText(richText: any, joinString?: string): string;
     Elements: Elements;
 }
@@ -15,13 +15,13 @@ interface Link {
     url(link: any, linkResolver?: (doc: any) => string): string;
 }
 
-export type HTMLSerializer<T> = (
+export type HTMLSerializer = (
     type: string,
     element: any,
     content?: string | null,
-    children?: T[],
+    children?: any[],
     index?: number,
-) => T
+) => any;
 
 export const RichText: RichText;
 export const Link: Link;
@@ -29,24 +29,24 @@ export const Link: Link;
 declare const _default: { RichText: RichText, Link: Link };
 export default _default;
 
-type Elements = {
-    heading1: any,
-    heading2: any,
-    heading3: any,
-    heading4: any,
-    heading5: any,
-    heading6: any,
-    paragraph: any,
-    preformatted: any,
-    strong: any,
-    em: any,
-    listItem: any,
-    oListItem: any,
-    list: any,
-    oList: any,
-    image: any,
-    embed: any,
-    hyperlink: any,
-    label: any,
-    span: any,
-};
+interface Elements {
+    heading1: any;
+    heading2: any;
+    heading3: any;
+    heading4: any;
+    heading5: any;
+    heading6: any;
+    paragraph: any;
+    preformatted: any;
+    strong: any;
+    em: any;
+    listItem: any;
+    oListItem: any;
+    list: any;
+    oList: any;
+    image: any;
+    embed: any;
+    hyperlink: any;
+    label: any;
+    span: any;
+}
