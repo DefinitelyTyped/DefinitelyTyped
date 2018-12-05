@@ -5,7 +5,6 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_tern
 
-// TypeScript Version: 2.2
 
 import * as CodeMirror from "codemirror";
 import * as Tern from "tern";
