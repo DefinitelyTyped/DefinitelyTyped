@@ -316,7 +316,7 @@ const Test = reduxForm<TestFormData>({
                                 foo="bar"
                             />
 
-                            <FieldArray
+                            <FieldArray<{}>
                                 name="field9"
                                 component={ MyArrayField }
                             />

@@ -65,11 +65,11 @@ const svg = select<SVGSVGElement, undefined>('svg')
     .attr('width', d => d.width)
     .attr('height', d => d.height);
 
-const g = svg.append<SVGGElement>('g');
+const g = svg.append('g');
 
 g.selectAll()
     .data<[number, number]>(points)
-    .enter().append<SVGCircleElement>('circle')
+    .enter().append('circle')
     .attr('cx', d => d[0])
     .attr('cy', d => d[1])
     .attr('r', 2.5);
@@ -280,7 +280,7 @@ canvas.call(canvasZoom);
 // SVG Example --------------------------------------------------------------
 
 // attach the zoom behavior to an overlay svg rectangle
-const svgOverlay: Selection<SVGRectElement, SVGDatum, HTMLElement, any> = svg.append<SVGRectElement>('rect')
+const svgOverlay: Selection<SVGRectElement, SVGDatum, HTMLElement, any> = svg.append('rect')
     .attr('width', d => d.width)
     .attr('height', d => d.height)
     .style('fill', 'none')

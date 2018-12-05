@@ -370,6 +370,11 @@ declare namespace Detox {
     type Orientation = "portrait" | "landscape";
     type Speed = "fast" | "slow";
 
+    interface LanguageAndLocale {
+        language?: string;
+        locale?: string;
+    }
+
     interface DetoxInitOptions {
         /**
          * Detox exports device, expect, element, by and waitFor as globals by default, if you want to control their initialization manually, set init detox with initGlobals set to false.
@@ -416,5 +421,10 @@ declare namespace Detox {
          * The added launchArgs will be passed through the launch command to the device and be accessible via [[NSProcessInfo processInfo] arguments]
          */
         launchArgs?: any;
+
+        /**
+         * Launch config for specifying the native language and locale
+         */
+        languageAndLocale?: LanguageAndLocale;
     }
 }

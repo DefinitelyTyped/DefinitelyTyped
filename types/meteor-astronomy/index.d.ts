@@ -14,7 +14,6 @@ declare namespace MeteorAstronomy {
 
     type TypeOptionsPrimitives = typeof String | typeof Date | typeof Boolean | typeof Object | typeof Number;
     type TypeOptions = TypeOptionsPrimitives | TypeOptionsPrimitives[] | Class<any> | Enum<any>;
-    type MongoQuery = object | string;
 
     interface SaveAndValidateOptions<K> {
         fields?: K[];
@@ -93,12 +92,40 @@ declare namespace MeteorAstronomy {
         remove(callback?: RemoveCallback): void;
     };
 
+    interface FindOneOptions {
+        sort?: Mongo.SortSpecifier;
+        skip?: number;
+        fields?: Mongo.FieldSpecifier;
+        reactive?: boolean;
+        transform?: (...args: any[]) => any;
+        disableEvents?: boolean;
+        children?: number;
+        defaults?: boolean;
+    }
+
+    interface FindOptions extends FindOneOptions {
+        limit?: number;
+    }
+
+    interface UpsertOptions {
+        multi?: boolean;
+    }
+
+    interface UpdateOptions extends UpsertOptions {
+        upsert?: boolean;
+    }
+
+    type MongoQuery<T> = Mongo.Selector<T> | Mongo.ObjectID | string;
+
     interface Class<T> {
         new(data?: Partial<T>): Model<T>;
 
-        findOne(query?: MongoQuery): Model<T>;
-        find(query?: MongoQuery): Array<Model<T>>;
-        update(search: object | string, query: object, callback?: () => void): void;
+        findOne(selector?: MongoQuery<T>, options?: FindOneOptions): Model<T>;
+        find(selector?: MongoQuery<T>, options?: FindOptions): Mongo.Cursor<Model<T>>;
+        insert(doc: T, callback?: () => void): string;
+        update(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpdateOptions, callback?: () => void): number;
+        upsert(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpsertOptions, callback?: () => void): number;
+        remove(selector: MongoQuery<T>, callback?: () => void): number;
     }
 
     type Enum<T> = T & {

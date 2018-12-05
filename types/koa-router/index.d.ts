@@ -5,6 +5,7 @@
 //                 JounQin <https://github.com/JounQin>
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
+//                 Andrea Gueugnaut <https://github.com/falinor>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -90,6 +91,12 @@ declare namespace Router {
     
     export interface IUrlOptionsQuery {
         query: object | string;
+    }
+
+    export interface IRoutesMatch {
+        path: Layer[];
+        pathAndMethod: Layer[];
+        route: boolean;
     }
 
     export class ParamName {
@@ -183,6 +190,19 @@ declare class Router {
      */
     put(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
     put(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    
+    /**
+     * HTTP link method
+     */
+    link(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    link(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    
+    /**
+     * HTTP unlink method
+     */
+    unlink(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    unlink(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    
 
     /**
      * HTTP delete method
@@ -285,7 +305,7 @@ declare class Router {
     /**
      * Match given `path` and return corresponding routes.
      */
-    match(name: string, method: string): Object;
+    match(path: string, method: string): Router.IRoutesMatch;
 
     /**
      * Run middleware for named route parameters. Useful for auto-loading or validation.

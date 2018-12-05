@@ -131,3 +131,5 @@ client.incrbyfloat('a', 1.5, (error, value) => value.startsWith('1'));
 client.INCRBYFLOAT('a', 1.5, (error, value) => value.startsWith('1'));
 client.hincrbyfloat('a', 'b', 1.5, (error, value) => value.startsWith('1'));
 client.HINCRBYFLOAT('a', 'b', 1.5, (error, value) => value.startsWith('1'));
+client.zincrby('a', 1, 'b', strCallback);
+client.ZINCRBY('a', 1, 'b', strCallback);

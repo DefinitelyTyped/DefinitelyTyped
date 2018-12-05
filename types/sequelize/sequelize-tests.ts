@@ -981,6 +981,10 @@ User.findByPrimary( 'a string' );
 User.findByPrimary( 42 );
 User.findByPrimary( Buffer.from('a buffer') );
 
+User.findByPk( 'a string' );
+User.findByPk( 42 );
+User.findByPk( Buffer.from('a buffer') );
+
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
 User.findOne( { where : { id : 1 }, attributes : ['id'] } );

@@ -5,6 +5,7 @@
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Shrey Jain <https://github.com/shreyjain1994>
+//                 Joel Shepherd <https://github.com/joelshepherd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -129,6 +130,7 @@ declare namespace Knex {
         havingIn: HavingIn;
 
         // Clear
+        clearOrder(): QueryBuilder;
         clearSelect(): QueryBuilder;
         clearWhere(): QueryBuilder;
 

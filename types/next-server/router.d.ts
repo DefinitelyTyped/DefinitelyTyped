@@ -79,7 +79,7 @@ export interface SingletonRouter<Q = DefaultQuery> extends RouterProps<Q> {
 }
 
 export interface WithRouterProps<Q = DefaultQuery> {
-    router: SingletonRouter<Q>;
+    router?: SingletonRouter<Q>;
 }
 
 /**

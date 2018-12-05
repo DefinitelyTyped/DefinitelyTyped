@@ -631,6 +631,34 @@ declare namespace Dockerode {
     CgroupPermissions: string;
   }
 
+  /* tslint:disable:interface-name */
+  interface IPAMConfig {
+    IPv4Address?: string;
+    IPv6Address?: string;
+    LinkLocalIPs?: string[];
+  }
+  /* tslint:enable:interface-name */
+
+  interface EndpointSettings {
+    IPAMConfig?: IPAMConfig;
+    Links?: string[];
+    Aliases?: string[];
+    NetworkID?: string;
+    EndpointID?: string;
+    Gateway?: string;
+    IPAddress?: string;
+    IPPrefixLen?: number;
+    IPv6Gateway?: string;
+    GlobalIPv6Address?: string;
+    GlobalIPV6PrefixLen?: number;
+    MacAddress?: string;
+    DriverOpts?: {[key: string]: string};
+  }
+
+  interface EndpointsConfig {
+    [key: string]: EndpointSettings;
+  }
+
   interface ContainerCreateOptions {
     name?: string;
     Hostname?: string;
@@ -702,19 +730,7 @@ declare namespace Dockerode {
       ShmSize?: number;
     };
     NetworkingConfig?: {
-      EndpointsConfig?: {
-        [index: string]: any;
-        isolated_nw?: {
-          [index: string]: any;
-          IPAMConfig?: {
-            IPv4Address?: string;
-            IPv6Adress?: string;
-            LinkLocalIPs?: string[];
-          }
-          Links?: string[];
-          Aliases?: string[];
-        }
-      }
+      EndpointsConfig?: EndpointsConfig;
     };
   }
 

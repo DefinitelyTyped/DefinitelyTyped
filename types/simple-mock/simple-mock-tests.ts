@@ -776,12 +776,12 @@ describe('Simple', function() {
 
         Simple.mock(Simple, 'Promise', {
           when: function <T>(value: T) {
-            let promise: MockPromise<T> = <any>Object.create(mockPromise)
+            let promise: MockPromise<T> = Object.create(mockPromise)
             promise.resolveValue = value
             return promise
           },
           reject: function <T>(value: T) {
-            let promise: MockPromise<T> = <any>Object.create(mockPromise)
+            let promise: MockPromise<T> = Object.create(mockPromise)
             promise.rejectValue = value
             return promise
           }

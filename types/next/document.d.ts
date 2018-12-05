@@ -55,6 +55,7 @@ export interface DocumentProps<Q extends DefaultQuery = DefaultQuery> {
         runtimeConfig?: any;
         nextExport?: boolean;
         err?: any;
+        [key: string]: any;
     };
     dev: boolean;
     dir?: string;

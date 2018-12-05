@@ -173,6 +173,24 @@ describe("Included matchers:", () => {
     });
 });
 
+describe("toThrowMatching", () => {
+    expect(() => {
+        ({} as any).doSomething();
+    }).toThrowMatching(error => error != undefined);
+});
+
+describe("toBeNegativeInfinity", () => {
+    expect("").toBeNegativeInfinity();
+});
+
+describe("toBePositiveInfinity", () => {
+    expect("").toBePositiveInfinity();
+});
+
+describe("toHaveClass", () => {
+    expect("").toHaveClass(Array);
+});
+
 describe("A spec", () => {
     it("is just a function, so it can contain any code", () => {
         var foo = 0;
@@ -451,6 +469,40 @@ describe("A spy, when configured with an alternate implementation", () => {
     });
 });
 
+describe("A spy, when configured with alternate implementations for specified arguments", () => {
+    var foo: any, bar: any, fetchedBar: any;
+
+    beforeEach(() => {
+        foo = {
+            setBar: (value: any) => {
+                bar = value;
+            },
+            getBar: () => {
+                return bar;
+            }
+        };
+
+        spyOn(foo, "getBar")
+            .withArgs(1, "2")
+            .and.callFake(() => 1002);
+
+        foo.setBar(123);
+        fetchedBar = foo.getBar(1, "2");
+    });
+
+    it("tracks that the spy was called", () => {
+        expect(foo.getBar).toHaveBeenCalled();
+    });
+
+    it("should not effect other functions", () => {
+        expect(bar).toEqual(123);
+    });
+
+    it("when called returns the requested value", () => {
+        expect(fetchedBar).toEqual(1002);
+    });
+});
+
 describe("A spy, when configured to throw a value", () => {
     var foo: any, bar: any;
 
@@ -473,6 +525,7 @@ describe("A spy, when configured to throw a value", () => {
 
 describe("A spy, when configured with multiple actions", () => {
     var foo: any, bar: any, fetchedBar: any;
+    var fakeCalled = false;
 
     beforeEach(() => {
         foo = {
@@ -485,7 +538,7 @@ describe("A spy, when configured with multiple actions", () => {
         };
 
         spyOn(foo, 'getBar').and.callThrough().and.callFake(() => {
-            this.fakeCalled = true;
+            fakeCalled = true;
         });
 
         foo.setBar(123);
@@ -505,7 +558,7 @@ describe("A spy, when configured with multiple actions", () => {
     });
 
     it("should have called the fake implementation", () => {
-        expect(this.fakeCalled).toEqual(true);
+        expect(fakeCalled).toEqual(true);
     });
 });
 

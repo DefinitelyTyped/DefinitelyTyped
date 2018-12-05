@@ -685,7 +685,7 @@ circles2 = d3Selection.select<SVGSVGElement, any>('#svg2')
     .selectAll() // create empty Selection
     .data(startCircleData) // assign data for circles to be added (no previous circles)
     .enter() // obtain enter selection
-    .append<SVGCircleElement>('circle');
+    .append('circle');
 
 // UPDATE-selection with continuation in data type ---------------------------------
 
@@ -705,7 +705,7 @@ let enterElements: d3Selection.Selection<d3Selection.EnterElement, CircleDatumAl
 enterElements = circles2.enter(); // enter selection
 
 const enterCircles = enterElements
-    .append<SVGCircleElement>('circle') // enter selection with materialized DOM elements (svg circles)
+    .append('circle') // enter selection with materialized DOM elements (svg circles)
     .attr('cx', d => d.cx)
     .attr('cy', d => d.cy)
     .attr('r', d => d.r)
@@ -763,19 +763,19 @@ let nRow: number[];
 
 let tr: d3Selection.Selection<HTMLTableRowElement, number[], HTMLTableElement, any>;
 tr = d3Selection.select('body')
-    .append<HTMLTableElement>('table')
+    .append('table')
     .selectAll()
     .data(matrix)
     // $ExpectError
     .data<number[]>([{test: 1}, {test: 2}]) // fails, using this data statement instead, would fail because of its type parameter not being met by input
-    .enter().append<HTMLTableRowElement>('tr');
+    .enter().append('tr');
 
 nMatrix = tr.data(); // i.e. matrix
 
 let td: d3Selection.Selection<HTMLTableDataCellElement, number, HTMLTableRowElement, number[]>;
 td = tr.selectAll()
     .data(d => d) // d : Array<number> inferred (Array[4] of number per parent <tr>)
-    .enter().append<HTMLTableDataCellElement>('td')
+    .enter().append('td')
     .text(function(d, i, g) {
         const that: HTMLTableDataCellElement = this;
         const datum: number = d;
@@ -810,19 +810,24 @@ nRow = td2.data(); // flattened matrix (Array[16] of number)
 
 // append(...), creator(...) and create(...) ---------------------------------------------
 
-// without append<...> typing returned selection has group element of type BaseType
-let newDiv: d3Selection.Selection<d3Selection.BaseType, BodyDatum, HTMLElement, any>;
+let newCircle: d3Selection.Selection<SVGCircleElement, BodyDatum, HTMLElement, any>;
+newCircle = body.append('circle');
+
+let newDiv: d3Selection.Selection<HTMLDivElement, BodyDatum, HTMLElement, any>;
 newDiv = body.append('div');
 
-let newDiv2: d3Selection.Selection<HTMLDivElement, BodyDatum, HTMLElement, any>;
-newDiv2 = body.append<HTMLDivElement>('div');
+newDiv = body.append<HTMLDivElement>('div');
 
 // using creator
-newDiv2 = body.append(d3Selection.creator<HTMLDivElement>('div'));
+newCircle = body.append(d3Selection.creator('circle'));
+newDiv = body.append(d3Selection.creator('div'));
+newDiv = body.append(d3Selection.creator<HTMLDivElement>('custom_div_elem'));
 // $ExpectError
-newDiv2 = body.append(d3Selection.creator('div')); // fails, as creator returns BaseType element, but HTMLDivElement is expected.
+newDiv = body.append(d3Selection.creator('a'));
+// $ExpectError
+newDiv = body.append(d3Selection.creator<HTMLAnchorElement>('a'));
 
-newDiv2 = body.append(function(d, i, g) {
+newDiv = body.append(function(d, i, g) {
     const that: HTMLBodyElement = this;
     // $ExpectError
     const that2: SVGElement  = this; // fails, type mismatch
@@ -834,29 +839,29 @@ newDiv2 = body.append(function(d, i, g) {
 });
 
 // $ExpectError
-newDiv2 = body.append<HTMLDivElement>(function(d) {
+newDiv = body.append<HTMLDivElement>(function(d) {
     return this.ownerDocument!.createElement('a'); // fails, HTMLDivElement expected by type parameter, HTMLAnchorElement returned
 });
 
 // $ExpectError
-newDiv2 = body.append(function(d) {
+newDiv = body.append(function(d) {
     return this.ownerDocument!.createElement('a'); // fails, HTMLDivElement expected by inference, HTMLAnchorElement returned
 });
 
 // create a detached element
 
+let detachedCircle: d3Selection.Selection<SVGCircleElement, undefined, null, undefined>;
+
+detachedCircle = d3Selection.create('circle');
+
 let detachedDiv: d3Selection.Selection<HTMLDivElement, undefined, null, undefined>;
 
-detachedDiv = d3Selection.create<HTMLDivElement>('div');
+detachedDiv = d3Selection.create('div');
+detachedDiv = d3Selection.create<HTMLDivElement>('custom_div_elem');
 
 // insert(...) ---------------------------------------------------------------------------
 
-// without insert<...> typing returned selection has group element of type BaseType
-let newParagraph: d3Selection.Selection<d3Selection.BaseType, BodyDatum, HTMLElement, any>;
-newParagraph = body.insert('p', 'p.second-paragraph');
-newParagraph = body.insert('p');
-
-// Two arguments; the first can be string, selection , or a
+// Two arguments; the first can be string, selection, or a
 
 const typeValueFunction = function(
   this: HTMLBodyElement,
@@ -876,32 +881,37 @@ const beforeValueFunction = function(
     return this.children[0];
 };
 
-let newParagraph2: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
+let newParagraph: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
+
+// 1 args, with 3 possibilities each, makes 3 possible combinations:
+newParagraph = body.insert('p', 'p.second-paragraph');
+newParagraph = body.insert('p', beforeValueFunction);
+newParagraph = body.insert('p');
 
 // 2 args, with 3 possibilities each, makes 9 possible combinations:
-newParagraph2 = body.insert<HTMLParagraphElement>('p', 'p.second-paragraph');
-newParagraph2 = body.insert<HTMLParagraphElement>('p', beforeValueFunction);
-newParagraph2 = body.insert<HTMLParagraphElement>('p');
+newParagraph = body.insert<HTMLParagraphElement>('p', 'p.second-paragraph');
+newParagraph = body.insert<HTMLParagraphElement>('p', beforeValueFunction);
+newParagraph = body.insert<HTMLParagraphElement>('p');
 
-newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), 'p.second-paragraph');
-newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), beforeValueFunction);
-newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'));
+newParagraph = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), 'p.second-paragraph');
+newParagraph = body.insert(d3Selection.creator<HTMLParagraphElement>('p'), beforeValueFunction);
+newParagraph = body.insert(d3Selection.creator<HTMLParagraphElement>('p'));
 
-newParagraph2 = body.insert(typeValueFunction, 'p.second-paragraph');
-newParagraph2 = body.insert(typeValueFunction, beforeValueFunction);
-newParagraph2 = body.insert(typeValueFunction);
+newParagraph = body.insert(typeValueFunction, 'p.second-paragraph');
+newParagraph = body.insert(typeValueFunction, beforeValueFunction);
+newParagraph = body.insert(typeValueFunction);
 
 // clone(...) ----------------------------------------------------------------------------
 
 let clonedParagraph: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
 
 // shallow clone
-clonedParagraph = newParagraph2.clone();
+clonedParagraph = newParagraph.clone();
 
 // deep clone
 
 newParagraph.append('span');
-clonedParagraph = newParagraph2.clone(true);
+clonedParagraph = newParagraph.clone(true);
 
 // sort(...) -----------------------------------------------------------------------------
 

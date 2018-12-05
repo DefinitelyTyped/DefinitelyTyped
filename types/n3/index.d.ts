@@ -21,10 +21,10 @@ export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
 export type PrefixedToIri = (suffix: string) => RDF.NamedNode;
 
 export class NamedNode implements RDF.NamedNode {
-    termType: "NamedNode";
-    value: string;
+    readonly termType: "NamedNode";
+    readonly value: string;
     constructor(iri: string);
-    id: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
@@ -32,20 +32,20 @@ export class NamedNode implements RDF.NamedNode {
 
 export class BlankNode implements RDF.BlankNode {
     static nextId: number;
-    termType: "BlankNode";
-    value: string;
+    readonly termType: "BlankNode";
+    readonly value: string;
     constructor(name: string);
-    id: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
 }
 
 export class Variable  implements RDF.Variable {
-    termType: "Variable";
-    value: string;
+    readonly termType: "Variable";
+    readonly value: string;
     constructor(name: string);
-    id: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
@@ -53,23 +53,23 @@ export class Variable  implements RDF.Variable {
 
 export class Literal implements RDF.Literal {
     static readonly langStringDatatype: NamedNode;
-    termType: "Literal";
-    value: string;
-    id: string;
+    readonly termType: "Literal";
+    readonly value: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
-    language: string;
-    datatype: NamedNode;
-    datatypeString: string;
+    readonly language: string;
+    readonly datatype: NamedNode;
+    readonly datatypeString: string;
     constructor(id: string);
 }
 
 export class DefaultGraph implements RDF.DefaultGraph {
-    termType: "DefaultGraph";
-    value: "";
+    readonly termType: "DefaultGraph";
+    readonly value: "";
     constructor();
-    id: string;
+    readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
     static subclass(type: any): void;

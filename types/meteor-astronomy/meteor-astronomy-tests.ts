@@ -4,8 +4,10 @@ import { Mongo } from 'meteor/mongo';
 
 interface PostInterface {
     title: string;
+    name: string;
     userId: string;
     publishedAt: Date;
+    tags?: string[];
 }
 
 const Posts = new Mongo.Collection<PostInterface>('posts');
@@ -14,15 +16,22 @@ const Post = Class.create<PostInterface>({
     name: 'Post',
     collection: Posts,
     fields: {
+        name: String,
         title: {
             type: String,
             validators: [{
                 type: 'minLength',
                 param: 3
-            }]
+            }],
         },
         userId: String,
-        publishedAt: Date
+        publishedAt: Date,
+        tags: {
+            type: [String],
+            default(): string[] {
+                return [];
+            },
+        },
     },
     behaviors: {
         timestamp: {}
@@ -174,3 +183,18 @@ StatusBis.getValues(); // [5, 6, 15, 16]
 const statusNumber = Status.OPENED;
 
 Status.getIdentifier(statusNumber); // "OPENED"
+
+// server.js
+Meteor.publish('posts', () => {
+    Post.find({}, {fields: {title: 1}});
+});
+
+Meteor.subscribe('posts');
+const post1 = Post.findOne({}, {defaults: false});
+post1.name = 'New name';
+post1.getModifier(); // {$set: {name: 'New name'}} - it will not override tags
+post1.save();
+
+const user1 = User.findOne({}, {
+    disableEvents: true
+});

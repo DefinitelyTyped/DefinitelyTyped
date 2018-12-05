@@ -469,7 +469,9 @@ let any: any;
 
   result = validator.isISIN('sample');
 
+  let isISO8601Options: ValidatorJS.IsISO8601Options = {};
   result = validator.isISO8601('sample');
+  result = validator.isISO8601('sample', isISO8601Options);
 
   result = validator.isISO31661Alpha2('sample');
 

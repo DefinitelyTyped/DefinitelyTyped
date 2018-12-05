@@ -2,6 +2,7 @@
 // Project: https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
+//                 David Furlong <https://github.com/davidfurlong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -171,13 +172,30 @@ export function connectHighlight(Composed: React.ComponentType<any>): React.Comp
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
-export function connectHits<TProps extends { hits: THit[]}, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, {hits?: THit[]}>;
+export function connectHits<TProps extends { hits: THit[] }, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, { hits?: THit[] }>;
 
 export function connectHitsPerPage(Composed: React.ComponentType<any>): React.ComponentClass<any>;
-export function connectInfiniteHits(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+
+export interface InfiniteHitsProvided<THit = any> {
+  /** the records that matched the search */
+  hits: THit[];
+  /** a function to toggle the refinement */
+  refine: (...args: any[]) => any;
+  /** indicates if there are more pages to load */
+  hasMore: boolean;
+}
+
+/**
+ * InfiniteHits connector provides the logic to create connected components that will render an continuous list of results retrieved from Algolia.
+ * This connector provides a function to load more results.
+ *
+ * https://community.algolia.com/react-instantsearch/connectors/connectInfiniteHits.html
+ */
+export function connectInfiniteHits(Composed: React.ComponentType<InfiniteHitsProvided>): React.ComponentClass;
+export function connectInfiniteHits<TProps extends Partial<InfiniteHitsProvided<THit>>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, InfiniteHitsProvided<THit>>;
 
 export interface MenuProvided {
-  items: Array<{count: number, isRefined: boolean, label: string, value: string}>;
+  items: Array<{ count: number, isRefined: boolean, label: string, value: string }>;
   currentRefinement: string;
   refine: (...args: any[]) => any;
   createURL: (...args: any[]) => any;
@@ -256,6 +274,8 @@ export interface RefinementListProvided {
   searchForItems: (...args: any[]) => any;
   /** a boolean that says if the items props contains facet values from the global search or from the search inside items. */
   isFromSearch: boolean;
+  /** a boolean that says whether you can currently refine */
+  canRefine: boolean;
 }
 export interface RefinementListExposed {
   /** the name of the attribute in the record */

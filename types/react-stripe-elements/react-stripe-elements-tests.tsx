@@ -69,35 +69,35 @@ const ElementsWithPropsTest: React.SFC = () => (
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardNumberElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardExpiryElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardCVCElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <PostalCodeElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
     </div>
