@@ -66,13 +66,13 @@ export interface CSSProperties extends CSS.Properties<number | string> {
     | CSS.Properties<number | string>[keyof CSS.Properties]
     | CSSProperties;
 }
-export type Styles<ClassKey extends string = string> = Record<
+export type Styles<ClassKey extends string = string, P extends {} = {}> = Record<
   ClassKey,
-  CSSProperties
+  CSSProperties | ((props: P) => CSSProperties)
 >;
-export type StyleCreator<C extends string = string, T extends {} = {}> = (
+export type StyleCreator<C extends string = string, T extends {} = {}, P extends {} = {}> = (
   theme: T
-) => Styles<C>;
+) => Styles<C, P>;
 
 export interface Theming {
   channel: string;
@@ -88,17 +88,17 @@ export interface InjectOptions extends CreateStyleSheetOptions {
 
 export type ClassNameMap<C extends string> = Record<C, string>;
 export type WithSheet<
-  S extends string | Styles | StyleCreator<string, any>,
+  S extends string | Styles | StyleCreator<string, any, any>,
   GivenTheme = undefined
 > = {
   classes: ClassNameMap<
     S extends string
       ? S
-      : S extends StyleCreator<infer C, any>
+      : S extends StyleCreator<infer C, any, any>
         ? C
-        : S extends Styles<infer C> ? C : never
+        : S extends Styles<infer C, any> ? C : never
   >;
-} & WithTheme<S extends StyleCreator<string, infer T> ? T : GivenTheme>;
+} & WithTheme<S extends StyleCreator<string, infer T, any> ? T : GivenTheme>;
 
 export interface WithTheme<T> {
   theme: T;

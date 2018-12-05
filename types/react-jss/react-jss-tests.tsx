@@ -4,7 +4,8 @@ import injectSheet, {
   SheetsRegistry,
   Styles,
   WithSheet,
-  ThemeProvider
+  ThemeProvider,
+  StyleCreator,
 } from "react-jss";
 
 interface MyTheme {
@@ -14,32 +15,29 @@ interface MyTheme {
   };
 }
 
-/**
- * helper function to counter typescripts type widening
- */
-function createStyles<C extends string>(styles: Styles<C>): Styles<C> {
-  return styles;
-}
-
-const styles = (theme: MyTheme) =>
-  createStyles({
-    myButton: {
+const styles: StyleCreator<'myButton' | 'myLabel', MyTheme, ButtonProps> = (theme) =>
+  ({
+    myButton: (props) => ({
+      fontSize: props.size,
       color: theme.color.primary,
       margin: 1,
       "& span": {
         fontWeight: "revert"
       }
-    },
+    }),
     myLabel: {
       fontStyle: "italic"
     }
   });
 
-interface ButtonProps extends WithSheet<typeof styles> {
-  label: string;
+interface ButtonProps {
+    label: string;
+    size: number;
 }
 
-const Button: React.SFC<ButtonProps> = ({ classes, children }) => {
+interface IProps extends ButtonProps, WithSheet<typeof styles> {}
+
+const Button: React.SFC<IProps> = ({ classes, children }) => {
   return (
     <button className={classes.myButton}>
       <span className={classes.myLabel}>{children}</span>
@@ -51,6 +49,7 @@ const ManuallyStyles = () => {
   return (
     <Button
       classes={{ myButton: "my-button", myLabel: "my-label" }}
+      size={16}
       label="Hello, World!"
       theme={{ color: { primary: "red", secondary: "blue" } }}
     />
@@ -67,7 +66,7 @@ const darkTheme: MyTheme = {
 };
 const App = () => (
   <ThemeProvider theme={darkTheme}>
-    <StyledButton label="I'm dark" />
+    <StyledButton size={16} label="I'm dark" />
   </ThemeProvider>
 );
 
@@ -77,7 +76,7 @@ function ssrRender(req: any, res: { send: (text: string) => any }) {
 
   const body = mockedRenderToString(
     <JssProvider classNamePrefix="dt-" registry={sheets}>
-      <StyledButton label="I come from the server" />
+      <StyledButton size={16} label="I come from the server" />
     </JssProvider>
   );
 
