@@ -300,7 +300,7 @@ export class Popup extends BaseControl<PopupProps> {}
 
 export interface NavigationControlProps extends BaseControlProps {
     className?: string;
-    onViewStateChange: (info: ViewStateChangeInfo) => void;
+    onViewStateChange?: (info: ViewStateChangeInfo) => void;
     onViewportChange: (viewport: ViewState) => void;
     showCompass?: boolean;
     showZoom?: boolean;
