@@ -1,3 +1,6 @@
+// Import needed for mathjs.import functionality (declaring/extending module)
+import * as math from 'mathjs';
+
 /*
 Basic usage examples
 */
@@ -396,10 +399,16 @@ JSON serialization/deserialization
 /*
 Extend functionality with import
  */
+
+declare module 'mathjs' {
+    interface MathJsStatic {
+        testFun(): number;
+        value: number;
+    }
+}
+
 {
-    const testFun = function() {
-        return 5;
-    };
+    const testFun = () => 5;
 
     math.import({
         testFun,

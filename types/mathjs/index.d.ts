@@ -2575,16 +2575,20 @@ declare namespace math {
 
         /**
          * Import functions from an object or a module
+         * To avoid errors when using one of the imported functions extend module like this:
+         *
+         * @example
+         * // imported_math_functions.ts
+         * declare module 'mathjs' {
+         *      interface MathJsStatic {
+         *          hello(a: number): number;
+         *      }
+         * }
+         *
          * @param object An object with functions to be imported.
          * @param options An object with import options.
          */
         import(object: ImportObject | ImportObject[], options: ImportOptions): void;
-        // TypeScript Version: 2.4
-
-        /**
-         * It may not exists - this is _only_ for import functionality.
-         */
-        [key: string]: any;
     }
 
     interface Matrix {
