@@ -45,8 +45,8 @@ export type ValidationMap<T> = { [K in keyof T]?: Validator<T[K]> };
 
 export type InferType<V> = V extends Validator<infer T> ? T : any;
 export type InferProps<V> =
-    & InferPropsInner<Pick<V, RequiredKeys<V>>>
-    & Partial<InferPropsInner<Pick<V, OptionalKeys<V>>>>;
+    & (RequiredKeys<V> extends undefined ? {} : InferPropsInner<Pick<V, RequiredKeys<V>>>)
+    & (OptionalKeys<V> extends undefined ? {} : Partial<InferPropsInner<Pick<V, OptionalKeys<V>>>>);
 
 export const any: Requireable<any>;
 export const array: Requireable<any[]>;
