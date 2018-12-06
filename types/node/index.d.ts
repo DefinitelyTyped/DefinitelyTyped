@@ -32,6 +32,7 @@
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
 //                 Jeremie Rodriguez <https://github.com/jeremiergz>
 //                 Samuel Ainsworth <https://github.com/samuela>
+//                 He xu <https://github.com/hvaexlove>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -821,6 +822,7 @@ declare namespace NodeJS {
         uptime(): number;
         hrtime(time?: [number, number]): [number, number];
         domain: Domain;
+        binding(path: string): any;
 
         // Worker
         send?(message: any, sendHandle?: any): void;
