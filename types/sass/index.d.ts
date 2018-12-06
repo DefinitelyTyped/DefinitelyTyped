@@ -137,6 +137,11 @@ export interface SassException extends Error {
     message: string;
 
     /**
+     * The formatted error.
+     */
+    formatted: string;
+
+    /**
      * The line number of error.
      */
     line: number;
