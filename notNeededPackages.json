@@ -643,6 +643,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "Google Cloud Storage",
+            "typingsPackageName": "google-cloud__storage",
+            "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "graphene-pk11",
             "typingsPackageName": "graphene-pk11",
             "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
