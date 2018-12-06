@@ -207,34 +207,18 @@ export interface ThemedStyledFunctionBase<
     ): StyledComponent<C, T, O & U, A>;
 }
 
-export interface ThemedStyledFunction<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
-    T extends object,
-    O extends object = {},
-    A extends keyof any = never
-> extends ThemedStyledFunctionBase<C, T, O, A> {
-    // Fun thing: 'attrs' can also provide a polymorphic 'as' prop
-    // My head already hurts enough so maybe later...
-    attrs<
-        U,
-        NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
-            [others: string]: any;
-        } = {}
-    >(
-        attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>
-    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
-    // Only this overload is deprecated
-    // tslint:disable:unified-signatures
-    /** @deprecated Prefer using the new single function style, to be removed in v5 */
-    attrs<
-        U,
-        NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
-            [others: string]: any;
-        } = {}
-    >(
-        attrs: DeprecatedAttrs<StyledComponentPropsWithRef<C> & U, NewA, T>
-    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
-    // tslint:enable:unified-signatures
+export interface ThemedStyledFunction<P, T, O = P> {
+    (
+        strings: TemplateStringsArray,
+        ...interpolations: Interpolation<ThemedStyledProps<P, T>>[]
+    ): StyledComponentClass<P, T, O>
+    <U>(
+        strings: TemplateStringsArray,
+        ...interpolations: Interpolation<ThemedStyledProps<P & U, T>>[]
+    ): StyledComponentClass<P & U, T, O & U>
+    attrs<U, A extends Partial<P & U> = {}>(
+        attrs: Attrs<P & U, A, T>
+    ): ThemedStyledFunction<DiffBetween<A, P & U>, T, DiffBetween<A, O & U>>
 }
 
 export type StyledFunction<
