@@ -1,9 +1,9 @@
 import * as shelljs from './';
 declare global {
     interface Target {
-        (...args: any[]): void,
-        result?: any,
-        done?: boolean
+        (...args: any[]): void;
+        result?: any;
+        done?: boolean;
     }
     const target: {
         all?: Target;
