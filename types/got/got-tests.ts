@@ -270,3 +270,21 @@ got('http://todomvc.com', { retry: { retries: 2, methods: ['GET'], statusCodes: 
 got('http://todomvc.com', { throwHttpErrors: false });
 got('http://todomvc.com', { hooks: { beforeRequest: [ () => 'foo']} });
 got('http://todomvc.com', { timeout: 1 }).catch((e) => e instanceof got.TimeoutError);
+
+const client = got.extend({
+    baseUrl: 'https://example.com',
+    headers: {
+        'x-unicorn': 'rainbow'
+    }
+});
+client.get('/demo');
+
+const settings = {
+    handler: got.defaults.handler,
+    options: got.mergeOptions(got.defaults.options, {
+        headers: {
+            unicorn: 'rainbow'
+        }
+    })
+};
+const unicorn = got.create(settings);

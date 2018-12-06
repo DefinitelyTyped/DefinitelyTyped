@@ -69,7 +69,7 @@ declare class StdError extends Error {
 }
 
 declare const got: got.GotFn &
-    Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', 'extend', got.GotFn> &
+    Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', 'extend', 'create', got.GotFn> &
     {
         stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>;
         RequestError: typeof RequestError;
