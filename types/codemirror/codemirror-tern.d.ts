@@ -13,7 +13,16 @@ declare module "codemirror" {
 
     interface TernServer {
         readonly options: TernOptions;
-        readonly docs: { readonly [key: string]: CodeMirror.Doc };
+        readonly docs: {
+            readonly [key: string]: {
+                doc: CodeMirror.Doc,
+                name: string,
+                changed?: {
+                    from: CodeMirror.Position,
+                    to: CodeMirror.Position
+                }
+            }
+        };
         readonly server: Tern.Server;
         addDoc(name: string, doc: CodeMirror.Doc): { doc: CodeMirror.Doc, name: string, changed: { from: number, to: number } | null };
         delDoc(id: string | CodeMirror.Editor | CodeMirror.Doc): void;
