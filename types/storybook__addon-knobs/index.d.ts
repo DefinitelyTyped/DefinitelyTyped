@@ -33,7 +33,7 @@ export interface EmptyNumberOptions {
     step?: undefined;
 }
 
-export interface RadioOptions<T> { [key: string]: T}
+export interface RadioOptions<T> { [key: string]: T;}
 
 export function knob<T>(name: string, options: KnobOption<T>): T;
 
