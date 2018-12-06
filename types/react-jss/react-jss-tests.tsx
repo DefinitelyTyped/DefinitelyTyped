@@ -6,6 +6,7 @@ import injectSheet, {
   WithSheet,
   ThemeProvider,
   StyleCreator,
+  CSSProperties
 } from "react-jss";
 
 interface MyTheme {
@@ -20,26 +21,48 @@ interface ButtonProps {
     size: number;
 }
 
-const styles: StyleCreator<'myButton' | 'myLabel', MyTheme, ButtonProps> = (theme) =>
-  ({
-    myButton: (props) => ({
-      fontSize: props.size,
-      color: theme.color.primary,
-      margin: 1,
-      "& span": {
-        fontWeight: "revert"
-      }
-    }),
-    myLabel: {
-      fontStyle: "italic"
-    }
-  });
+/**
+ * helper function to counter typescripts type widening
+ */
+function createStyles<C extends string>(styles: Styles<C>): Styles<C> {
+    return styles;
+}
+
+const styles = (theme: MyTheme) =>
+    createStyles({
+        myButton: (props: ButtonProps): CSSProperties => ({
+            fontSize: props.size,
+            color: theme.color.primary,
+            margin: 1,
+            "& span": {
+                fontWeight: "revert"
+            }
+        }),
+        myLabel: {
+            fontStyle: "italic"
+        }
+    });
+
+const otherStyles: StyleCreator<'myButton' | 'myLabel', MyTheme, ButtonProps> = (theme) =>
+    ({
+        myButton: (props) => ({
+            fontSize: props.size,
+            color: theme.color.primary,
+            margin: 1,
+            "& span": {
+                fontWeight: "revert"
+            }
+        }),
+        myLabel: {
+            fontStyle: "italic"
+        }
+    });
 
 interface Props extends ButtonProps, WithSheet<typeof styles> {}
 
 const Button: React.SFC<Props> = ({ classes, children }) => {
   return (
-    <button className={classes.myButton}>
+    <button className={classes.myLabel}>
       <span className={classes.myLabel}>{children}</span>
     </button>
   );
