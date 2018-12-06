@@ -18,8 +18,8 @@ declare module "codemirror" {
                 doc: CodeMirror.Doc,
                 name: string,
                 changed?: {
-                    from: CodeMirror.Position,
-                    to: CodeMirror.Position
+                    from: CodeMirror.Position | number,
+                    to: CodeMirror.Position | number
                 }
             }
         };
