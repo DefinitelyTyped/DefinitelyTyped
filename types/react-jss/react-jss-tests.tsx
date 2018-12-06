@@ -43,26 +43,11 @@ const styles = (theme: MyTheme) =>
         }
     });
 
-const otherStyles: StyleCreator<'myButton' | 'myLabel', MyTheme, ButtonProps> = (theme) =>
-    ({
-        myButton: (props) => ({
-            fontSize: props.size,
-            color: theme.color.primary,
-            margin: 1,
-            "& span": {
-                fontWeight: "revert"
-            }
-        }),
-        myLabel: {
-            fontStyle: "italic"
-        }
-    });
-
 interface Props extends ButtonProps, WithSheet<typeof styles> {}
 
 const Button: React.SFC<Props> = ({ classes, children }) => {
   return (
-    <button className={classes.myLabel}>
+    <button className={classes.myButton}>
       <span className={classes.myLabel}>{children}</span>
     </button>
   );

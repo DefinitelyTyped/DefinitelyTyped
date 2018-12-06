@@ -66,13 +66,13 @@ export interface CSSProperties extends CSS.Properties<number | string> {
     | CSS.Properties<number | string>[keyof CSS.Properties]
     | CSSProperties;
 }
-export type Styles<ClassKey extends string = string, P extends {} = any> = Record<
+export type Styles<ClassKey extends string = string> = Record<
   ClassKey,
-  CSSProperties | ((props: P) => CSSProperties)
+  CSSProperties | ((props: any) => CSSProperties)
 >;
-export type StyleCreator<C extends string = string, T extends {} = {}, P extends {} = any> = (
+export type StyleCreator<C extends string = string, T extends {} = {}> = (
   theme: T
-) => Styles<C, P>;
+) => Styles<C>;
 
 export interface Theming {
   channel: string;
