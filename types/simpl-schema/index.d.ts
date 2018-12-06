@@ -15,7 +15,33 @@ export interface ValidationContext extends SimpleSchemaValidationContextStatic {
 }
 
 interface CustomValidationContext {
+    /** The name of the schema key (e.g., "addresses.0.street") */
+    key: string;
+
+    /** The generic name of the schema key (e.g., "addresses.$.street") */
+    genericKey: string;
+
+    /** The schema definition object. */
+    definition: SchemaDefinition;
+
+    /** Does the object being validated have this key set? */
+    isSet: boolean;
+
+    /** Value to validate */
     value: any;
+
+    /** The Mongo operator for which we're doing validation. Might be null. */
+    operator: any;
+    validationContext: ValidationContext;
+
+    /** Use this method to get information about other fields. Pass a field name (non-generic schema key) as the only argument. The return object will have isSet, value, and operator properties for that field. */
+    field(): any;
+
+    /** Use this method to get information about other fields that have the same parent object. Works the same way as field(). This is helpful when you use sub-schemas or when you're dealing with arrays of objects. */
+    siblingField(): any;
+
+    /** Call this to add validation errors for any key. In general, you should use this to add errors for other keys. To add an error for the current key, return the error type string. If you do use this to add an error for the current key, return false from your custom validation function. */
+    addValidationErrors(errors: SimpleSchemaValidationError): any;
 }
 
 interface SchemaDefinition {
@@ -31,7 +57,11 @@ interface SchemaDefinition {
     exclusiveMax?: boolean;
     exclusiveMin?: boolean;
     regEx?: RegExp | RegExp[];
-    custom?: () => any;
+
+    /** For custom validation function. If you use an arrow function the context
+        for "this" will not be available.
+        Use "custom: function() { return something(this.value); }" instead." */
+    custom?: (this: CustomValidationContext) => undefined | string | SimpleSchemaValidationError;
     blackbox?: boolean;
     autoValue?: () => any;
     defaultValue?: any;
@@ -56,6 +86,11 @@ interface SimpleSchemaOptions {
   humanizeAutoLabels?: boolean;
   requiredByDefault?: boolean;
   tracker?: any;
+}
+
+interface SimpleSchemaValidationError {
+  type: string;
+  [key: string]: number | string;
 }
 
 interface SimpleSchemaStatic {
@@ -185,6 +220,7 @@ export const MongoObject: MongoObjectStatic;
 
 export interface SimpleSchema extends SimpleSchemaStatic {
     debug: boolean;
+    /** Validate a data object. Options: {keys: []} to limit */
     validate(obj: any, options?: ValidationOption): void;
     addValidator(validator: () => boolean): any;
     extendOptions(options: {[key: string]: any}): void;

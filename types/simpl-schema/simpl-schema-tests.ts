@@ -14,18 +14,19 @@ const StringSchema = new SimpleSchema({
     },
     createdAt: {
         type: Date,
-        autoValue: () => new Date(),
+        autoValue: () => new Date()
     },
     title: {
         type: String,
-        label: "Argument",
-        /* TODO, this does not work: "The containing arrow function captures the global value of 'this' which implicitly has type 'any'."
-        custom: () => {
+        label: "Title",
+        /* Can't use arrow function here, else the context won't be available */
+        custom: function() {
           const text = this.value;
-          if (text.length > 10) return { type: SimpleSchema.ErrorTypes.MAX_STRING, max: 10 };
+
+          if (text.length > 100) return { type: SimpleSchema.ErrorTypes.MAX_STRING, max: 100 };
+          else if (text.length <10) return SimpleSchema.ErrorTypes.MIN_STRING
         }
-        */
-    },
+    }
 });
 
 StringSchema.validate({
