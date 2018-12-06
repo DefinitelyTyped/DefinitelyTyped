@@ -218,8 +218,8 @@ declare namespace fetchMock {
     }
 
     interface FetchMockStatic {
-        MATCHED: boolean;
-        UNMATCHED: boolean;
+        MATCHED: true;
+        UNMATCHED: false;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
