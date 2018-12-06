@@ -2344,6 +2344,36 @@ declare namespace chrome.enterprise.deviceAttributes {
      * function(string deviceId) {...};
      */
     export function getDirectoryDeviceId(callback: (deviceId: string) => void): void;
+    /**
+     * @since Chrome 66.
+     * @description
+     * Fetches the device's serial number.
+     * Please note the purpose of this API is to administrate the device
+     * (e.g. generating Certificate Sign Requests for device-wide certificates).
+     * This API may not be used for tracking devices without the consent of the device's administrator.
+     * If the current user is not affiliated, returns an empty string.
+     * @export
+     * @param callback Called with the serial number of the device.
+     */
+    export function getDeviceSerialNumber(callback: (serialNumber: string) => void): void;
+    /**
+     * @since Chrome 66.
+     * @description
+     * Fetches the administrator-annotated Asset Id.
+     * If the current user is not affiliated or no Asset Id has been set by the administrator, returns an empty string.
+     * @export
+     * @param callback Called with the Asset ID of the device.
+     */
+    export function getDeviceAssetId(callback: (assetId: string) => void): void;
+    /**
+     * @since Chrome 66.
+     * @description
+     * Fetches the administrator-annotated Location.
+     * If the current user is not affiliated or no Annotated Location has been set by the administrator, returns an empty string.
+     * @export
+     * @param callback Called with the Annotated Location of the device.
+     */
+    export function getDeviceAnnotatedLocation(callback: (annotatedLocation: string) => void): void;
 }
 
 ////////////////////
