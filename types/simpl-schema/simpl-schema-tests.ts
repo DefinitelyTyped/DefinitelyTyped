@@ -24,7 +24,7 @@ const StringSchema = new SimpleSchema({
           const text = this.value;
 
           if (text.length > 100) return { type: SimpleSchema.ErrorTypes.MAX_STRING, max: 100 };
-          else if (text.length <10) return SimpleSchema.ErrorTypes.MIN_STRING
+          else if (text.length < 10) return SimpleSchema.ErrorTypes.MIN_STRING;
         }
     }
 });
