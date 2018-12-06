@@ -34,13 +34,20 @@ interface CustomValidationContext {
     operator: any;
     validationContext: ValidationContext;
 
-    /** Use this method to get information about other fields. Pass a field name (non-generic schema key) as the only argument. The return object will have isSet, value, and operator properties for that field. */
+    /** Use this method to get information about other fields. Pass a field name
+        (non-generic schema key) as the only argument. The return object will
+        have isSet, value, and operator properties for that field. */
     field(): any;
 
-    /** Use this method to get information about other fields that have the same parent object. Works the same way as field(). This is helpful when you use sub-schemas or when you're dealing with arrays of objects. */
+    /** Use this method to get information about other fields that have the same
+        parent object. Works the same way as field(). This is helpful when you use
+        sub-schemas or when you're dealing with arrays of objects. */
     siblingField(): any;
 
-    /** Call this to add validation errors for any key. In general, you should use this to add errors for other keys. To add an error for the current key, return the error type string. If you do use this to add an error for the current key, return false from your custom validation function. */
+    /** Call this to add validation errors for any key. In general, you should use
+        this to add errors for other keys. To add an error for the current key,
+        return the error type string. If you do use this to add an error for the
+        current key, return false from your custom validation function. */
     addValidationErrors(errors: SimpleSchemaValidationError): any;
 }
 
@@ -59,8 +66,8 @@ interface SchemaDefinition {
     regEx?: RegExp | RegExp[];
 
     /** For custom validation function. If you use an arrow function the context
-        for "this" will not be available.
-        Use "custom: function() { return something(this.value); }" instead." */
+        for "this" will not be available. Use "custom: function() { return
+        something(this.value); }" instead. */
     custom?: (this: CustomValidationContext) => undefined | string | SimpleSchemaValidationError;
     blackbox?: boolean;
     autoValue?: () => any;
