@@ -947,9 +947,13 @@ declare namespace jest {
      * Represents the result of a single call to a mock function.
      */
     interface MockResult {
-        type: 'return' | 'throw' | 'incomplete';
         /**
-         * The value that was either thrown or returned by the function, or undefined if type = 'incomplete'
+         * True if the function threw.
+         * False if the function returned.
+         */
+        isThrow: boolean;
+        /**
+         * The value that was either thrown or returned by the function.
          */
         value: any;
     }
