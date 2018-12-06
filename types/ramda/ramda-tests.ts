@@ -1312,13 +1312,15 @@ type Pair = KeyValuePair<string, number>;
     ]);
     f(0); // $ExpectType string
     f(""); // $ExpectError
+    f(1, 2); // $ExpectType string
 
     const g = R.cond([
-        [x => x === 0, () => "a"],
+        [(a, b) => a === b, () => "a"],
         [() => true, () => "b"],
     ]);
     g(0);
     g("");
+    g(1, "");
 };
 
 () => {
