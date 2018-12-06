@@ -3562,7 +3562,7 @@ export class Euler {
     fromArray(xyzo: any[]): Euler;
     toArray(array?: number[], offset?: number): number[];
     toVector3(optionalResult?: Vector3): Vector3;
-    onChange(callback: Function): void;
+    onChange(callback: Function): this;
 
     static RotationOrders: string[];
     static DefaultOrder: string;

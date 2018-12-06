@@ -2044,7 +2044,7 @@ export interface BrowserOptions {
      * @default false
      */
     isLandscape?: boolean;
-  };
+  } | null;
   /**
    * Slows down Puppeteer operations by the specified amount of milliseconds.
    * Useful so that you can see what is going on.
