@@ -129,17 +129,20 @@ export function connectAutoComplete(Composed: React.ComponentType<any>): React.C
 export function connectBreadcrumb(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectConfigure(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
-export interface Refinement {
+export type Refinement = {
   label: string;
   attribute: string;
-  currentRefinement: string | object;
-  items?: Array<{ label: string, value: RefinementValue }>;
   index: string;
   id: string;
   value: RefinementValue;
-}
+} & ({
+  currentRefinement: string;
+} | {
+  items: Array<{ label: string, value: RefinementValue }>;
+  currentRefinement: string[];
+});
 
-type RefinementValue = (searchState: SearchState) => SearchState;
+export type RefinementValue = (searchState: SearchState) => SearchState;
 
 export interface CurrentRefinementsExposed {
   /**
@@ -305,13 +308,16 @@ export function connectRange(Composed: React.ComponentType<any>): React.Componen
 
 export interface RefinementListProvided {
   /** a function to toggle a refinement */
-  refine: (...args: any[]) => any;
+  refine: (value: string[]) => any;
   /** a function to generate a URL for the corresponding search state */
   createURL: (...args: any[]) => any;
   /** the refinement currently applied */
   currentRefinement: string[];
-  /** the list of items the RefinementList can display. */
-  items: Array<Hit<{ count: number, isRefined: boolean, label: string, value: string }>>;
+  /**
+   * The list of items the RefinementList can display.
+   * If isFromSearch is false, the hit properties like _highlightResult are undefined
+   */
+  items: Array<Hit<{ count: number, isRefined: boolean, label: string, value: string[] }>>;
   /** a function to toggle a search inside items values */
   searchForItems: (...args: any[]) => any;
   /** a boolean that says if the items props contains facet values from the global search or from the search inside items. */
