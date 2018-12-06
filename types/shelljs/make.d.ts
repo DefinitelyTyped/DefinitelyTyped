@@ -1,41 +1,41 @@
-import * as shelljs from './'
+import * as shelljs from './';
 declare global {
-    type Target = {
+    interface Target {
         (...args: any[]): void,
         result?: any,
         done?: boolean
-    };
-    export const target: {
+    }
+    const target: {
         all?: Target;
         [s: string]: Target;
     };
-    export const cd: typeof shelljs.cd;
-    export const pwd: typeof shelljs.pwd;
-    export const ls: typeof shelljs.ls;
-    export const find: typeof shelljs.find;
-    export const cp: typeof shelljs.cp;
-    export const rm: typeof shelljs.rm;
-    export const mv: typeof shelljs.mv;
-    export const mkdir: typeof shelljs.mkdir;
-    export const cat: typeof shelljs.cat;
-    export const sed: typeof shelljs.sed;
-    export const grep: typeof shelljs.grep;
-    export const echo: typeof shelljs.echo;
-    export const pushd: typeof shelljs.pushd;
-    export const popd: typeof shelljs.popd;
-    export const dirs: typeof shelljs.dirs;
-    export const ln: typeof shelljs.ln;
-    export const exit: typeof shelljs.exit;
-    export const env: typeof shelljs.env;
-    export const exec: typeof shelljs.exec;
-    export const chmod: typeof shelljs.chmod;
-    export const tempdir: typeof shelljs.tempdir;
-    export const error: typeof shelljs.error;
-    export const touch: typeof shelljs.touch;
-    export const head: typeof shelljs.head;
-    export const sort: typeof shelljs.sort;
-    export const tail: typeof shelljs.tail;
-    export const uniq: typeof shelljs.uniq;
-    export const set: typeof shelljs.set;
-    export const config: typeof shelljs.config;
+    const cd: typeof shelljs.cd;
+    const pwd: typeof shelljs.pwd;
+    const ls: typeof shelljs.ls;
+    const find: typeof shelljs.find;
+    const cp: typeof shelljs.cp;
+    const rm: typeof shelljs.rm;
+    const mv: typeof shelljs.mv;
+    const mkdir: typeof shelljs.mkdir;
+    const cat: typeof shelljs.cat;
+    const sed: typeof shelljs.sed;
+    const grep: typeof shelljs.grep;
+    const echo: typeof shelljs.echo;
+    const pushd: typeof shelljs.pushd;
+    const popd: typeof shelljs.popd;
+    const dirs: typeof shelljs.dirs;
+    const ln: typeof shelljs.ln;
+    const exit: typeof shelljs.exit;
+    const env: typeof shelljs.env;
+    const exec: typeof shelljs.exec;
+    const chmod: typeof shelljs.chmod;
+    const tempdir: typeof shelljs.tempdir;
+    const error: typeof shelljs.error;
+    const touch: typeof shelljs.touch;
+    const head: typeof shelljs.head;
+    const sort: typeof shelljs.sort;
+    const tail: typeof shelljs.tail;
+    const uniq: typeof shelljs.uniq;
+    const set: typeof shelljs.set;
+    const config: typeof shelljs.config;
 }
