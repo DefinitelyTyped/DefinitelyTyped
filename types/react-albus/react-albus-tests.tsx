@@ -2,7 +2,7 @@ import * as React from "react";
 import { Wizard, Step, Steps, withWizard } from "react-albus";
 
 declare module "react-albus" {
-    interface WizardStepObject {
+    interface StepObject {
         quote?: string;
     }
 }
