@@ -1,0 +1,9 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "ban-types": false,
+    "unified-signatures": false,
+    "no-empty-interface": false,
+    "strict-export-declare-modifiers": false // http2 needs this
+  }
+}

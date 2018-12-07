@@ -1,0 +1,36 @@
+{
+    "files": [
+        "tab-bar/constants.d.ts",
+        "tab-bar/adapter.d.ts",
+        "tab-bar/index.d.ts",
+        "tab-bar/foundation.d.ts",
+        "tab/constants.d.ts",
+        "tab/adapter.d.ts",
+        "tab/index.d.ts",
+        "tab/foundation.d.ts",
+        "index.d.ts",
+        "tab-bar-scroller/constants.d.ts",
+        "tab-bar-scroller/adapter.d.ts",
+        "tab-bar-scroller/index.d.ts",
+        "tab-bar-scroller/foundation.d.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

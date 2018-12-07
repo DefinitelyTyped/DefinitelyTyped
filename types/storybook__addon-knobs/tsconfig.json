@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@storybook/addon-knobs": [
+                "storybook__addon-knobs"
+            ],
+            "@storybook/react": [
+                "storybook__react"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "angular.d.ts",
+        "index.d.ts",
+        "react.d.ts",
+        "storybook__addon-knobs-tests.tsx",
+        "vue.d.ts"
+    ]
+}
