@@ -273,6 +273,10 @@ mock7('abc');
 // $ExpectError
 mock7.mockImplementation((arg: string) => 1);
 
+const mock8 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise.resolve(_makeItStop));
+// mockImplementation not required to declare all arguments
+mock8.mockImplementation((a: number) => Promise.resolve(a === 0));
+
 const genMockModule1: {} = jest.genMockFromModule("moduleName");
 const genMockModule2: { a: "b" } = jest.genMockFromModule<{ a: "b" }>("moduleName");
 
