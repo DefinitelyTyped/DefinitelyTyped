@@ -66,8 +66,8 @@ declare namespace Mailgun {
             subject?: string;
             text?: string;
             html?: string;
-            attachment?: AttachmentData | AttachmentData[];
-            inline?: AttachmentData | AttachmentData[];
+            attachment?: AttachmentData | ReadonlyArray<AttachmentData>;
+            inline?: AttachmentData | ReadonlyArray<AttachmentData>;
         }
 
         interface BatchData extends SendData {
