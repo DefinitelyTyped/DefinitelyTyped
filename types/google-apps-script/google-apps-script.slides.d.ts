@@ -836,6 +836,7 @@ declare namespace GoogleAppsScript {
       getNotesMaster(): NotesMaster;
       getNotesPageHeight(): Number;
       getNotesPageWidth(): Number;
+      getPageElementById(id: string): PageElement;	
       getPageHeight(): Number;
       getPageWidth(): Number;
       getSelection(): Selection;
