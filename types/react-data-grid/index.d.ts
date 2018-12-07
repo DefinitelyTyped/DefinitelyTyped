@@ -583,7 +583,7 @@ declare namespace AdazzleReactDataGrid {
   declare namespace AdazzleReactDataGridPlugins {
     interface AutoCompleteEditorProps {
         onCommit?: () => void;
-        options?: Array<{ id: number; title: string }>;
+        options?: Array<{ id: any; title: string }>;
         label?: any;
         value?: any;
         height?: number;

@@ -9,7 +9,9 @@ import {
   connectSearchBox,
   connectRefinementList,
   CurrentRefinementsProvided,
-  connectCurrentRefinements
+  connectCurrentRefinements,
+  RefinementListProvided,
+  Refinement
 } from 'react-instantsearch-core';
 
 () => {
@@ -167,4 +169,53 @@ import {
   const ConnectedCurrentRefinements = connectCurrentRefinements(MyCurrentRefinements);
 
   <ConnectedCurrentRefinements clearsQuery={true} transformItems={(item) => item} />;
+};
+
+() => {
+  function renderRefinement(
+    label: string,
+    value: Refinement['value'],
+    refine: CurrentRefinementsProvided['refine'],
+  ) {
+    return <button className="badge badge-secondary" onClick={() => refine(value)}>
+        {label}
+      </button>;
+  }
+
+  const MyCurrentRefinements = connectCurrentRefinements(({refine, items, query}: CurrentRefinementsProvided) => {
+    return <>
+        {items.map((refinement) => {
+          let str: string = refinement.currentRefinement; // $ExpectError
+          /*
+           * When existing several refinements for the same atribute name, then you get a
+           * nested items object that contains a label and a value function to use to remove a single filter.
+           * https://community.algolia.com/react-instantsearch/connectors/connectCurrentRefinements.html
+           */
+          if ('items' in refinement) {
+            str = refinement.currentRefinement; // $ExpectError
+            return <>
+              {refinement.items.map((i) => renderRefinement(i.label, i.value, refine))}
+            </>;
+          }
+
+          console.log(refinement.items); // $ExpectError
+          return renderRefinement(refinement.currentRefinement, refinement.value, refine);
+        })}
+      </>;
+  });
+};
+
+() => {
+  const MyRefinementList = ({items, refine}: RefinementListProvided) =>
+    <>
+      {items.map((item) => (
+        <button onClick={() => refine(item.value)}>
+          {item.label}
+        </button>
+      ))}
+    </>;
+  const ConnectedRefinementList = connectRefinementList(MyRefinementList);
+
+  <ConnectedRefinementList attribute={'test'} searchable={true} operator={'and'}
+    showMore={true} limit={8} showMoreLimit={99} />;
 };
