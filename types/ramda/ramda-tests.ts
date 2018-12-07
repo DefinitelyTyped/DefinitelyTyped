@@ -1306,14 +1306,21 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const fn        = R.cond([
-        [R.equals(0), R.always("water freezes at 0°C")],
-        [R.equals(100), R.always("water boils at 100°C")],
-        [R.T, (temp: number) => `nothing special happens at ${temp}°C`]
+    const f = R.cond<number, string>([
+        [x => x === 0, () => "a"],
+        [() => true, () => "b"],
     ]);
-    const a: string = fn(0); // => 'water freezes at 0°C'
-    const b: string = fn(50); // => 'nothing special happens at 50°C'
-    const c: string = fn(100); // => 'water boils at 100°C'
+    f(0); // $ExpectType string
+    f(""); // $ExpectError
+    f(1, 2); // $ExpectType string
+
+    const g = R.cond([
+        [(a, b) => a === b, () => "a"],
+        [() => true, () => "b"],
+    ]);
+    g(0);
+    g("");
+    g(1, "");
 };
 
 () => {
