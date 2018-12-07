@@ -2126,7 +2126,7 @@ declare namespace ymaps {
 	}
 
 	interface IGeoObjectFeature {
-		geometry?: IGeometry | IGeometryJson;
+		geometry?: IGeometry | IGeometryJson | object;
 		properties?: IDataManager | object;
 	}
 
@@ -3036,6 +3036,7 @@ declare namespace ymaps {
 
 		shift(offset: number[]): IShape;
 	}
+        
 	class Monitor {
     	constructor(dataManager: IDataManager | IOptionManager);
    		add(name: string[] | string, changeCallback: (event: (object | IEvent)) => void, context?: any, params?: any): Monitor;
@@ -3044,4 +3045,13 @@ declare namespace ymaps {
     	remove(name: string): Monitor;
     	removeAll(): Monitor;
 	}
+    
+    class Polyline extends GeoObject {
+        constructor(geometry: number[][] | object | ILineStringGeometry, properties: object | IDataManager, options?: IPolylineOptions);
+    }
+
+    interface IPolylineOptions {      
+        cursor?: string;        
+        [index: string]: any;
+    }
 }
