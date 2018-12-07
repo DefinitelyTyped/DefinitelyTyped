@@ -2026,7 +2026,7 @@ declare module "mongoose" {
      * This is handy for integrating with async/await, because `orFail()` saves you
      * an extra `if` statement to check if no document was found.
      *
-     * ####Example:
+     * Example:
      *
      *     // Throws if no doc returned
      *     await Model.findOne({ foo: 'bar' }).orFail();
