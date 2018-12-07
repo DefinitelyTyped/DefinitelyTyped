@@ -839,8 +839,8 @@ declare namespace GoogleAppsScript {
       getPageHeight(): Number;
       getPageWidth(): Number;
       getSelection(): Selection;
-      getSlides(): Slide[];
       getSlideById(id: string): Slide;  
+      getSlides(): Slide[];
       getUrl(): string;
       getViewers(): Base.User[];
       insertSlide(insertionIndex: Integer): Slide;
