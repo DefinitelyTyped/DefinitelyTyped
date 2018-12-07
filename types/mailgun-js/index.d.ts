@@ -49,7 +49,7 @@ declare namespace Mailgun {
         contentType?: string;
         getType(): string;
     }
-    
+
     type AttachmentData = string | Buffer | NodeJS.ReadWriteStream | Attachment;
 
     interface MailgunExport {
