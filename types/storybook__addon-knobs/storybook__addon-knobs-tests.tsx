@@ -15,6 +15,7 @@ import {
   button,
   knob,
   selectV2,
+  radios,
 } from '@storybook/addon-knobs';
 
 enum SomeEnum {
@@ -35,6 +36,7 @@ stories.add('with all knobs', () => {
   const selectedColor = color('Color', 'black');
   const favoriteNumber = number('Favorite Number', 42);
   const comfortTemp = number('Comfort Temp', 72, { range: true, min: 60, max: 90, step: 1 });
+  const radioStation = radios('Favorite Radio Station', {1100: "1100", 2200: "2200", 3300: "3300"});
   const textDecoration = select('Decoration', {
     none: 'None',
     underline: 'Underline',
@@ -78,6 +80,7 @@ stories.add('with all knobs', () => {
       I'm {name} and I was born on "{dob}"
       <p>My favorite number is {favoriteNumber}.</p>
       <p>My most comfortable room temperature is {comfortTemp} degrees Fahrenheit.</p>
+      <p>My favorite radio station is: {radioStation}</p>
     </div>
   );
 });
@@ -111,6 +114,7 @@ number('label', 1, {}, groupId);
 color('label', '#ffffff', groupId);
 object('label', {}, groupId);
 array('label', [], ',', groupId);
+radios('label', {}, null, groupId);
 select<any>('label', { option: 'Option' }, null, groupId);
 files('label', 'image/*', []);
 date('label', new Date(), groupId);
