@@ -7304,10 +7304,12 @@ $( "body" ).on( "click", "p", foo );
 $( "body" ).off( "click", "p", foo );
 ```
      */
-    off(events: string,
+    off<TType extends string>(
+        events: TType,
         selector: JQuery.Selector,
-        handler: JQuery.TypeEventHandler<TElement, any, any, any, string> |
-                 false): this;
+        handler: JQuery.TypeEventHandler<TElement, any, any, any, TType> |
+                 false
+    ): this;
     /**
      * Remove an event handler.
      * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as
@@ -7337,10 +7339,12 @@ $( "form" ).on( "keypress.validator", "input[type='text']", validate );
 $( "form" ).off( ".validator" );
 ```
      */
-    off(events: string,
+    off<TType extends string>(
+        events: TType,
         selector_handler?: JQuery.Selector |
-                           JQuery.TypeEventHandler<TElement, any, any, any, string> |
-                           false): this;
+                           JQuery.TypeEventHandler<TElement, any, any, any, TType> |
+                           false
+    ): this;
     /**
      * Remove an event handler.
      * @param events An object where the string keys represent one or more space-separated event types and optional
@@ -11968,9 +11972,10 @@ $( "p" ).bind( "click", foo ); // ... Now foo will be called when paragraphs are
 $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
 ```
      */
-    unbind(event: string,
-           handler: JQuery.TypeEventHandler<TElement, any, TElement, TElement, string> |
-                    false
+    unbind<TType extends string>(
+        event: TType,
+        handler: JQuery.TypeEventHandler<TElement, any, TElement, TElement, TType> |
+                 false
     ): this;
     /**
      * Remove a previously-attached event handler from the elements.
@@ -12062,10 +12067,11 @@ $( "body" ).delegate( "p", "click", foo );
 $( "body" ).undelegate( "p", "click", foo );
 ```
      */
-    undelegate(selector: JQuery.Selector,
-               eventType: string,
-               handler: JQuery.TypeEventHandler<TElement, any, any, any, string> |
-                        false
+    undelegate<TType extends string>(
+        selector: JQuery.Selector,
+        eventType: TType,
+        handler: JQuery.TypeEventHandler<TElement, any, any, any, TType> |
+                 false
     ): this;
     /**
      * Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.
