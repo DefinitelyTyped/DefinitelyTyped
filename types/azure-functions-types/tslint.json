@@ -1,0 +1,11 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "array-type": [true, "generic"],
+    "indent": [true, "spaces", 2],
+    "max-line-length": [true, { "limit": 80, "ignore-pattern": "//|/\\*\\*|\\* " }],
+    "no-duplicate-imports": false,
+    "one-line": [true, "check-open-brace"],
+    "semicolon": [true, "never"]
+  }
+}
