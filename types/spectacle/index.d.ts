@@ -1,164 +1,321 @@
-// Type definitions for Spectacle 1.2.0
-// Project: https://github.com/FormidableLabs/victory
+// Type definitions for Spectacle 5.2.2
+// Project: https://github.com/FormidableLabs/spectacle
 // Definitions by: Zachary Maybury <https://github.com/zmaybury>
+//                 Kylie Stewart <https://github.com/kale-stew>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types="react"/>
 
 declare module "spectacle" {
-	import * as React from "react";
+    import * as React from "react";
+    import * as CSS from "csstype";
+    /**
+     * Alignment Types for Spectacle
+     */
+    type alignType =
+        | "flex-start flex-start"
+        | "flex-start center"
+        | "flex-start flex-end"
+        | "center flex-start"
+        | "center center"
+        | "center flex-end"
+        | "flex-end flex-start"
+        | "flex-end center"
+        | "flex-end flex-end";
 
-	/**
-	 * Transition Types for Spectacle
-	 */
-	type transitionType = "slide"|"zoom"|"fade"|"spin";
+    /**
+     * Animation Types for Spectacle
+     */
+    type easeType =
+        | "back"
+        | "backIn"
+        | "backOut"
+        | "backInOut"
+        | "bounce"
+        | "bounceIn"
+        | "bounceOut"
+        | "bounceInOut"
+        | "circle"
+        | "circleIn"
+        | "circleOut"
+        | "circleInOut"
+        | "linear"
+        | "linearIn"
+        | "linearOut"
+        | "linearInOut"
+        | "cubic"
+        | "cubicIn"
+        | "cubicOut"
+        | "cubicInOut"
+        | "elastic"
+        | "elasticIn"
+        | "elasticOut"
+        | "elasticInOut"
+        | "exp"
+        | "expIn"
+        | "expOut"
+        | "expInOut"
+        | "poly"
+        | "polyIn"
+        | "polyOut"
+        | "polyInOut"
+        | "quad"
+        | "quadIn"
+        | "quadOut"
+        | "quadInOut"
+        | "sin"
+        | "sinIn"
+        | "sinOut"
+        | "sinInOut";
 
-	/**
-	 * Progress Types for Spectacle
-	 */
-	type progressType = "pacman"|"bar"|"number"|"none";
+    /**
+     * Progress Types for Spectacle
+     */
+    type progressType = "pacman" | "bar" | "number" | "none";
 
-	/**
-	 * Alignment Types for Spectacle
-	 */
-	type alignType =
-		"flex-start flex-start"|"flex-start center"|"flex-start flex-end"|
-		"center flex-start"|"center center"|"center flex-end"|
-		"flex-end flex-start"|"flex-end center"|"flex-end flex-end";
+    /**
+     * S Types for StyledS in Spectacle
+     */
+    type sType = "italic" | "bold" | "line-through" | "underline";
 
-	/**
-	 * Base props for many Spectacle components
-	 */
-	export interface BaseProps {
-		italic?:boolean,
-		bold?:boolean,
-		caps?:boolean,
-		margin?:number|string,
-		padding?:number|string,
-		textColor?:string,
-		textSize?:string,
-		textAlign?:string,
-		textFont?:string,
-		bgColor?:string,
-		bgImage?:string,
-		bgDarken?:number
-	}
+    /**
+     * Target Types for links
+     */
+    type targetType = "_blank" | "_self" | "_parent" | "_top";
 
-	export type Theme = { [key: string ]: string | number }
+    /**
+     * Theme Types for CodePane in Spectacle
+     */
+    type themeType = "dark" | "light" | "external";
 
-	export interface SpectacleProps {
-		theme?: Theme
-	}
+    /**
+     * Transition Types for Spectacle
+     */
+    type transitionType = "slide" | "zoom" | "fade" | "spin";
 
-	export interface DeckProps {
-		transition?:transitionType[],
-		transitionDuration?:number,
-		progress?:progressType,
-		controls?:boolean,
-		theme?: Theme
-	}
+    /**
+     * All available DOM style properties and their types
+     * https://www.npmjs.com/package/csstype
+     */
+    export interface CSSProperties extends CSS.Properties<string | number> {}
 
-	export interface SlideProps extends BaseProps {
-		align?:alignType,
-		transition?:transitionType[],
-		transitionDuration?:number,
-		notes?:string,
-		id?:string
-	}
+    export interface AnimProps {
+        easing: easeType;
+        fromStyle: CSSProperties | CSSProperties[];
+        onAnim?: (forwards?: boolean, animIndex?: number) => void;
+        order?: number;
+        route?: object;
+        style?: CSSProperties;
+        toStyle: CSSProperties | CSSProperties[];
+        transitionDuration: number;
+    }
 
-	export interface MarkdownProps {
-		source?:string,
-		mdastConfig?:{ [key: string ]: string | number }
-	}
+    export interface AppearProps {
+        easing?: easeType;
+        endValue?: object;
+        fid?: string;
+        order?: number;
+        startValue?: object;
+        style?: BaseProps["style"];
+        transitionDuration?: number;
+    }
 
-	export interface CodePaneProps extends BaseProps {
-		lang?:string,
-		source?:string
-	}
+    /**
+     * Base props for many Spectacle components
+     */
+    export interface BaseProps {
+        bgColor?: string;
+        bgDarken?: number;
+        bgImage?: string;
+        bold?: boolean;
+        caps?: boolean;
+        className?: string;
+        italic?: boolean;
+        margin?: number | string;
+        padding?: number | string;
+        style?: CSSProperties;
+        textAlign?: string;
+        textColor?: string;
+        textFont?: string;
+        textSize?: string;
+    }
+    export interface CodePaneProps {
+        className?: BaseProps["className"];
+        contentEditable?: boolean;
+        lang?: string;
+        source?: string;
+        style?: BaseProps["style"];
+        theme?: themeType;
+    }
 
-	export interface HeadingProps extends BaseProps {
-		fit?:boolean,
-		lineHeight?:number
-		size?:number;
-	}
+    export interface ComponentPlaygroundProps {
+        code?: string;
+        previewBackgroundColor?: string;
+        scope?: object;
+        theme?: themeType;
+        transformCode?: (code: string) => string;
+    }
 
-	export interface ImageProps extends BaseProps {
-		display?:string,
-		height?:number,
-		src?:string,
-		width?:number|string
-	}
+    export interface DeckProps {
+        autoplay?: boolean;
+        autoplayDuration?: number;
+        autoplayLoop?: boolean;
+        controls?: boolean;
+        globalStyles?: boolean;
+        history?: any; // Needs a type, see https://github.com/ReactTraining/history
+        progress?: progressType;
+        theme?: Theme;
+        transition?: transitionType[];
+        transitionDuration?: number;
+    }
 
-	export interface LinkProps extends BaseProps {
-		href?:string
-	}
+    export interface FillProps {
+        className?: string;
+        style?: CSSProperties;
+    }
 
-	export interface SProps extends BaseProps {
-		type?:string
-	}
+    export interface FitProps extends FillProps {}
 
-	export interface TextProps extends BaseProps {
-		fit?:boolean,
-		lineHeight?:number
-	}
+    export interface GoToActionProps {
+        margin?: BaseProps["margin"];
+        padding?: BaseProps["padding"];
+        render?: (goToSlide?: (slide: number | string) => void) => void;
+        slide?: number | string;
+        style?: BaseProps["style"];
+    }
 
-	export class Spectacle extends React.Component<SpectacleProps> {}
+    export interface HeadingProps extends BaseProps {
+        fit?: boolean;
+        lineHeight?: number;
+        size?: number;
+    }
 
-	export class Deck extends React.Component<DeckProps> {}
+    export interface ImageProps {
+        alt?: string;
+        className?: BaseProps["className"];
+        display?: string;
+        height?: number | string;
+        margin?: BaseProps["margin"];
+        padding?: BaseProps["padding"];
+        src?: string;
+        width?: number | string;
+    }
 
-	export class Slide extends React.Component<SlideProps> {}
+    export interface LayoutProps {
+        style?: CSSProperties;
+    }
 
-	export class Layout extends React.Component<any> {}
+    export interface LinkProps extends BaseProps {
+        href?: string;
+        target?: targetType;
+    }
 
-	export class Fit extends React.Component<any> {}
+    export interface MarkdownProps {
+        mdastConfig?: { [key: string]: number | string };
+        source?: string;
+    }
 
-	export class Fill extends React.Component<any> {}
+    export interface SlideProps extends BaseProps {
+        align?: alignType;
+        contentStyles?: CSSProperties;
+        controlColor?: string;
+        dispatch?: () => void;
+        hash?: number | string;
+        progressColor?: string;
+        history?: any; // Needs a type, see https://github.com/ReactTraining/history
+        id?: string;
+        lastSlideIndex?: number;
+        notes?: string;
+        onActive?: (slideIndex: string | number) => void;
+        slideIndex?: number;
+        transition?: transitionType[];
+        transitionDuration?: number;
+        transitionIn?: transitionType[];
+        transitionOut?: transitionType[];
+    }
 
-	export class Markdown extends React.Component<MarkdownProps> {}
+    export interface SProps extends BaseProps {
+        type?: sType | sType[];
+    }
 
-	export class Appear extends React.Component<any> {}
+    export interface TextProps extends BaseProps {
+        fit?: boolean;
+        lineHeight?: number;
+    }
 
-	export class BlockQuote extends React.Component<BaseProps> {}
+    export type Theme = { [key: string]: number | string };
 
-	export class Quote extends React.Component<BaseProps> {}
+    export class Anim extends React.Component<AnimProps> {}
 
-	export class Cite extends React.Component<BaseProps> {}
+    export class Appear extends React.Component<AppearProps> {}
 
-	export class CodePane extends React.Component<CodePaneProps> {}
+    export class BlockQuote extends React.Component<BaseProps> {}
 
-	export class Code extends React.Component<BaseProps> {}
+    export class Cite extends React.Component<BaseProps> {}
 
-	export class Heading extends React.Component<HeadingProps> {}
+    export class Code extends React.Component<BaseProps> {}
 
-	export class Image extends React.Component<ImageProps> {}
+    export class CodePane extends React.Component<CodePaneProps> {}
 
-	export class Link extends React.Component<LinkProps> {}
+    export class ComponentPlayground extends React.Component<
+        ComponentPlaygroundProps
+    > {}
 
-	export class List extends React.Component<BaseProps> {}
+    export class Deck extends React.Component<DeckProps> {}
 
-	export class ListItem extends React.Component<BaseProps> {}
+    export class Fill extends React.Component<FillProps> {}
 
-	export class S extends React.Component<SProps> {}
+    export class Fit extends React.Component<FitProps> {}
 
-	export class Table extends React.Component<BaseProps> {}
+    export class GoToAction extends React.Component<GoToActionProps> {}
 
-	export class TableRow extends React.Component<BaseProps> {}
+    export class Heading extends React.Component<HeadingProps> {}
 
-	export class TableHeaderItem extends React.Component<BaseProps> {}
+    export class Image extends React.Component<ImageProps> {}
 
-	export class TableItem extends React.Component<BaseProps> {}
+    export class Layout extends React.Component<LayoutProps> {}
 
-	export class Text extends React.Component<TextProps> {}
+    export class Link extends React.Component<LinkProps> {}
+
+    export class List extends React.Component<BaseProps> {}
+
+    export class ListItem extends React.Component<BaseProps> {}
+
+    export class Markdown extends React.Component<MarkdownProps> {}
+
+    export class Notes extends React.Component<BaseProps> {}
+
+    export class Quote extends React.Component<BaseProps> {}
+
+    export class S extends React.Component<SProps> {}
+
+    export class Slide extends React.Component<SlideProps> {}
+
+    export class SlideSet extends React.Component<BaseProps> {}
+
+    export class Table extends React.Component<BaseProps> {}
+
+    export class TableBody extends React.Component<BaseProps> {}
+
+    export class TableHeader extends React.Component<BaseProps> {}
+
+    export class TableHeaderItem extends React.Component<BaseProps> {}
+
+    export class TableItem extends React.Component<BaseProps> {}
+
+    export class TableRow extends React.Component<BaseProps> {}
+
+    export class Text extends React.Component<TextProps> {}
 }
 
 declare module "spectacle/lib/utils/preloader" {
-	const preloader: (obj: object) => void;
-	export default preloader;
+    const preloader: (obj: object) => void;
+    export default preloader;
 }
 
 declare module "spectacle/lib/themes/default" {
-	import { Theme } from "spectacle";
-	const createTheme: (...args: object[]) => Theme;
-	export default createTheme;
+    import { Theme } from "spectacle";
+    const createTheme: (...args: object[]) => Theme;
+    export default createTheme;
 }
