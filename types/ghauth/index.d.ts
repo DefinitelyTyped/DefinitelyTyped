@@ -3,43 +3,47 @@
 // Definitions by: Leko <https://github.com/Leko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface AuthOptions {
-    configName: string;
+declare function ghauth(authOptions: ghauth.AuthOptions, callback: (err: Error, tokenData: ghauth.TokenData) => void): void;
 
-    /**
-     * @default false
-     */
-    noSave?: boolean;
+declare namespace ghauth {
+    interface AuthOptions {
+        configName: string;
 
-    /**
-     * @default "https://api.github.com/authorizations"
-     */
-    authUrl?: string;
+        /**
+         * @default false
+         */
+        noSave?: boolean;
 
-    /**
-     * @default "GitHub"
-     */
-    promptName?: string;
+        /**
+         * @default "https://api.github.com/authorizations"
+         */
+        authUrl?: string;
 
-    /**
-     * @default []
-     */
-    scopes?: ReadonlyArray<string>;
+        /**
+         * @default "GitHub"
+         */
+        promptName?: string;
 
-    /**
-     * @default "Node.js command-line app with ghauth"
-     */
-    note?: string;
+        /**
+         * @default []
+         */
+        scopes?: ReadonlyArray<string>;
 
-    /**
-     * @default "Magic Node.js application that does magic things with ghauth"
-     */
-    userAgent?: string;
+        /**
+         * @default "Node.js command-line app with ghauth"
+         */
+        note?: string;
+
+        /**
+         * @default "Magic Node.js application that does magic things with ghauth"
+         */
+        userAgent?: string;
+    }
+
+    interface TokenData {
+        user: string;
+        token: string;
+    }
 }
 
-export interface TokenData {
-    user: string;
-    token: string;
-}
-
-export default function ghauth(authOptions: AuthOptions, callback: (err: Error, tokenData: TokenData) => void): void;
+export = ghauth;

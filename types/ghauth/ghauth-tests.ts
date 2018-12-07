@@ -1,4 +1,6 @@
-import ghauth, { AuthOptions, TokenData } from "ghauth";
+/// <reference types="node" />
+import ghauth = require("ghauth");
+import { AuthOptions, TokenData } from "ghauth";
 
 // Full
 const authOptions1: AuthOptions = {
