@@ -31,7 +31,8 @@ const exampleSendData: mailgunFactory.messages.SendData = {
             data: "filepath",
             filename: "my_custom_name_2.png"
         }),
-        "my_custom_file_3.png"
+        "my_custom_file_3.png",
+        Buffer.from("plain text")
     ]
   };
 
