@@ -3,8 +3,8 @@
 // Definitions by: Nikolaj Kappler <https://github.com/nkappler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// See docs https://codemirror.net/doc/manual.html#addon_tern
-
+// See docs https://codemirror.net/doc/manual.html#addon_tern and https://codemirror.net/addon/tern/tern.js (comments in the beginning of the file)
+// Docs for tern itself might also be helpful: http://ternjs.net/doc/manual.html
 
 import * as CodeMirror from "codemirror";
 import * as Tern from "tern";
