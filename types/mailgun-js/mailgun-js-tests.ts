@@ -25,7 +25,14 @@ const exampleSendData: mailgunFactory.messages.SendData = {
     attachment: new mailgun.Attachment({
         data: "filepath",
         filename: "my_custom_name.png"
-    })
+    }),
+    inline: [
+        new mailgun.Attachment({
+            data: "filepath",
+            filename: "my_custom_name_2.png"
+        }),
+        "my_custom_file_3.png"
+    ]
   };
 
 mailgun.messages().send(exampleSendData, (err, body) => {});
