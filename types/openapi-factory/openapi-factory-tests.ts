@@ -1,4 +1,4 @@
-import * as OpenApiFactory from 'openapi-factory';
+import OpenApiFactory = require('openapi-factory');
 
 const api = new OpenApiFactory({});
 
