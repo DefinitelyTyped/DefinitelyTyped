@@ -16,9 +16,14 @@ Copyright (c) Microsoft Corporation
 /**
  * Enables you to map your own name that uses lowercase letters to a function.
  */
-declare let CustomFunctionMappings: { [key: string]: Function };
 
 declare namespace CustomFunctions {
+    function Associate(key:string, functionName: Function): void
+    /**
+     * @beta
+     * Ties together the function's JavaScript name with the JSON id property
+     */
+
     interface StreamingHandler<T> extends CancelableHandler {
         /**
          * Sets the returned result for a streaming custom function.
