@@ -1,8 +1,6 @@
 declare namespace M {
-    class AutoInitialization {
-    }
     /**
      * Automatically initialize components.
      */
-    function AutoInit(context?: Element): AutoInitialization;
+    function AutoInit(context?: Element): void;
 }
