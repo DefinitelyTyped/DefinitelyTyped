@@ -83,7 +83,7 @@ declare namespace ValidatorJS {
     isEmail(str: string, options?: IsEmailOptions): boolean;
 
     // check if the string has a length of zero.
-    isEmpty(str: string): boolean;
+    isEmpty(str: string, options?: IsEmptyOptions): boolean;
 
     // check if the string is a fully qualified domain name (e.g. domain.com).
     isFQDN(str: string, options?: IsFQDNOptions): boolean;
@@ -308,6 +308,11 @@ declare namespace ValidatorJS {
     require_display_name?: boolean;
     allow_utf8_local_part?: boolean;
     require_tld?: boolean;
+  }
+
+  // options for isEmpty
+  interface IsEmptyOptions {
+    ignore_whitespace?: boolean;
   }
 
   // options for isFQDN
