@@ -12,6 +12,8 @@ import tough = require('tough-cookie');
 let str: string;
 let buf: Buffer;
 
+type Args<F> = F extends (...args: infer T) => any ? T : never;
+
 got('todomvc.com')
     .then(response => {
         str = response.body;
@@ -72,6 +74,16 @@ got('todomvc.com', {
     timeout: {connect: 20, request: 20, socket: 20}
 }).then(response => str = response.body);
 // following must lead to type checking error: got('todomvc.com', {form: true, body: ''}).then(response => str = response.body);
+
+// the following checks argument inference for GotFn overloads
+type ArgsGotFn = Args<got.GotFn>;
+const gotFnArgs01: ArgsGotFn = ['todomvc.com'];
+const gotFnArgs02: ArgsGotFn = ['todomvc.com', {json: true}];
+const gotFnArgs03: ArgsGotFn = ['todomvc.com', {json: true, body: {}}];
+const gotFnArgs04: ArgsGotFn = ['todomvc.com', {json: true, body: {}, encoding: null}];
+const gotFnArgs05: ArgsGotFn = ['todomvc.com', {json: true, body: {}, encoding: 'utf8'}];
+const gotFnArgs06: ArgsGotFn = ['todomvc.com', {form: true, body: [{}], encoding: null}];
+const gotFnArgs07: ArgsGotFn = ['todomvc.com', {form: true, body: [{}], encoding: 'utf8'}];
 
 got('todomvc.com', {encoding: null, hostname: 'todomvc'}).then(response => buf = response.body);
 got('todomvc.com', {encoding: 'utf8', hostname: 'todomvc'}).then(response => str = response.body);

@@ -4,8 +4,9 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Konstantin Ikonnikov <https://github.com/ikokostya>
 //                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
+//                 Jan Riemer <https://github.com/janriemer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="node"/>
 
@@ -96,6 +97,8 @@ declare namespace got {
         (url: GotUrl, options: GotFormOptions<null>): GotPromise<Buffer>;
         (url: GotUrl, options: GotBodyOptions<string>): GotPromise<string>;
         (url: GotUrl, options: GotBodyOptions<null>): GotPromise<Buffer>;
+        (url: GotUrl, options?: GotJSONOptions | GotFormOptions<string> | GotFormOptions<null> | GotBodyOptions<string> | GotBodyOptions<null>):
+            GotPromise<any> | GotPromise<string> | GotPromise<Buffer>;
     }
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
