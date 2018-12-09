@@ -59,7 +59,7 @@ export class MapControls extends EventDispatcher {
 
     saveState(): void;
 
-    update(): false;
+    update(): boolean;
 
     reset(): void;
 
