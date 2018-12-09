@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "draft-js-export-html": ">=0.6.0",
-        "draft-js-import-html": ">=0.4.0"
-    }
-}

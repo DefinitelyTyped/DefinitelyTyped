@@ -6,8 +6,63 @@
 
 import { Component, ReactNode } from "react";
 import { ContentBlock, EditorState } from "draft-js";
-import { Options as ImportOptions } from "draft-js-import-html";
-import { Options as ExportOptions } from "draft-js-export-html";
+import draftjs = require("draft-js");
+
+type CustomBlockFn = (
+    element: Element
+) => undefined | null | CustomBlockObject;
+type CustomInlineFn = (
+    element: Element,
+    inlineCreators: InlineCreators
+) => undefined | null | Style | draftjs.EntityInstance;
+
+interface CustomBlockObject {
+    type?: string;
+    data?: object;
+}
+
+interface InlineCreators {
+    Style: (style: string) => Style;
+    Entity: (type: string, data?: object) => draftjs.EntityInstance;
+}
+
+interface Style {
+    type: "STYLE";
+    style: string;
+}
+
+interface ImportOptions {
+    parser?: (html: string) => HTMLBodyElement;
+    elementStyles?: { [styleName: string]: string };
+    customBlockFn?: CustomBlockFn;
+    customInlineFn?: CustomInlineFn;
+}
+
+declare function stateFromHTML(
+    html: string,
+    options?: ImportOptions
+): draftjs.ContentState;
+
+type BlockStyleFn = (block: draftjs.ContentBlock) => RenderConfig;
+type EntityStyleFn = (entity: draftjs.EntityInstance) => RenderConfig;
+type BlockRenderer = (block: draftjs.ContentBlock) => string;
+interface RenderConfig {
+    element?: string;
+    attributes?: any;
+    style?: any;
+}
+
+interface ExportOptions {
+    inlineStyles?: { [styleName: string]: RenderConfig };
+    blockRenderers?: { [blockType: string]: BlockRenderer };
+    blockStyleFn?: BlockStyleFn;
+    entityStyleFn?: EntityStyleFn;
+}
+
+declare function stateToHTML(
+    content: draftjs.ContentState,
+    options?: ExportOptions
+): string;
 
 interface StringMap {
     [key: string]: string;
