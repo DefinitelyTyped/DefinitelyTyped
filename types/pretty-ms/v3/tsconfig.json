@@ -14,10 +14,7 @@
         ],
         "paths": {
             "pretty-ms": [
-                "pretty-ms/v3.2"
-            ],
-            "pretty-ms/*": [
-                "pretty-ms/v3.2/*"
+                "pretty-ms/v3"
             ]
         },
         "types": [],
