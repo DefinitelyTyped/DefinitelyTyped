@@ -1,4 +1,4 @@
-// Type definitions for react-rte 0.16.1
+// Type definitions for react-rte 0.16
 // Project: https://github.com/sstur/react-rte
 // Definitions by: jclyons52 <https://github.com/jclyons52>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,9 @@ import { ContentBlock, EditorState } from "draft-js";
 import { Options as ImportOptions } from "draft-js-import-html";
 import { Options as ExportOptions } from "draft-js-export-html";
 
-type StringMap = { [key: string]: string };
+interface StringMap {
+    [key: string]: string;
+}
 
 export class EditorValue {
     constructor(editorState: EditorState, cache: StringMap);
@@ -37,7 +39,7 @@ interface StyleConfig {
     className?: string;
 }
 
-type StyleConfigList = Array<StyleConfig>;
+type StyleConfigList = StyleConfig[];
 
 type ChangeHandler = (value: EditorValue) => any;
 
@@ -62,14 +64,14 @@ type GroupName =
     | "IMAGE_BUTTON";
 
 interface ToolbarConfig {
-    display: Array<GroupName>;
-    extraProps?: Object;
+    display: GroupName[];
+    extraProps?: object;
     INLINE_STYLE_BUTTONS: StyleConfigList;
     BLOCK_TYPE_DROPDOWN: StyleConfigList;
     BLOCK_TYPE_BUTTONS: StyleConfigList;
 }
 
-interface IProps {
+interface Props {
     className?: string;
     toolbarClassName?: string;
     editorClassName?: string;
@@ -77,24 +79,26 @@ interface IProps {
     onChange?: ChangeHandler;
     placeholder?: string;
     customStyleMap?: { [style: string]: { [key: string]: any } };
-    handleReturn?: (event: Object) => boolean;
-    customControls?: Array<CustomControl>;
+    handleReturn?: (event: object) => boolean;
+    customControls?: CustomControl[];
     readOnly?: boolean;
     disabled?: boolean; // Alias of readOnly
     toolbarConfig?: ToolbarConfig;
     blockStyleFn?: (block: ContentBlock) => string | undefined;
     autoFocus?: boolean;
-    keyBindingFn?: (event: Object) => string | undefined;
-    rootStyle?: Object;
-    editorStyle?: Object;
-    toolbarStyle?: Object;
+    keyBindingFn?: (event: object) => string | undefined;
+    rootStyle?: object;
+    editorStyle?: object;
+    toolbarStyle?: object;
 }
 
-export default class RichTextEditor extends Component<IProps, any> {
-    public static createEmptyValue(): EditorValue;
-    public static createValueFromString(
+declare class RichTextEditor extends Component<Props, any> {
+    static createEmptyValue(): EditorValue;
+    static createValueFromString(
         markup: string,
         format: string,
         options?: ImportOptions
     ): EditorValue;
 }
+
+export default RichTextEditor;
