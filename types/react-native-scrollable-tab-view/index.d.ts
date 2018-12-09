@@ -3,7 +3,7 @@
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 //                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { Animated, ScrollViewProps, ViewStyle, TextStyle } from 'react-native';
@@ -125,7 +125,7 @@ export default class ScrollableTabView extends React.Component<ScrollableTabView
 // Each top-level child component should have a tabLabel prop
 // that can be used by the tab bar component to render out the labels.
 export type TabProps<T = {}> = T & {
-    tabLabel: React.ReactType;
+    tabLabel: React.ReactChild;
 };
 
 export interface DefaultTabBarProps {

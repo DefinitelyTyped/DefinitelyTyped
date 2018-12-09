@@ -22,10 +22,11 @@ export interface PushNotification {
     finish: (fetchResult: string) => void;
 }
 
-export class PushNotificationOptions {
+export interface PushNotificationOptions {
     onRegister?: (token: { os: string, token: string }) => void;
     onNotification?: (notification: PushNotification) => void;
     senderID?: string;
+    permissions?: PushNotificationPermissions;
     popInitialNotification?: boolean;
     requestPermissions?: boolean;
 }

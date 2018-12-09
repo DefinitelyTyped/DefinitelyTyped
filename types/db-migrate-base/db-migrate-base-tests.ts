@@ -3,7 +3,7 @@
 import * as DbMigrateBase from "db-migrate-base";
 
 // Throw together a dummy driver
-let db = <DbMigrateBase.Base>{};
+let db = {} as DbMigrateBase.Base;
 
 let callback = (err: any, response: any) => {
   // Do nothing.

@@ -2,13 +2,13 @@
 // Project: https://github.com/squaremo/amqp.node
 // Definitions by: Michael Nahkies <https://github.com/mnahkies>, Ab Reitsma <https://github.com/abreits>, Nicolás Fantone <https://github.com/nfantone>, Nick Zelei <https://github.com/zelein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
 import * as Promise from 'bluebird';
 import * as events from 'events';
-import { Replies, Options, Message } from './properties';
+import { Replies, Options, Message, GetMessage, ConsumeMessage } from './properties';
 export * from './properties';
 
 export interface Connection extends events.EventEmitter {
@@ -40,10 +40,10 @@ export interface Channel extends events.EventEmitter {
     publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish): boolean;
     sendToQueue(queue: string, content: Buffer, options?: Options.Publish): boolean;
 
-    consume(queue: string, onMessage: (msg: Message | null) => any, options?: Options.Consume): Promise<Replies.Consume>;
+    consume(queue: string, onMessage: (msg: ConsumeMessage | null) => any, options?: Options.Consume): Promise<Replies.Consume>;
 
     cancel(consumerTag: string): Promise<Replies.Empty>;
-    get(queue: string, options?: Options.Get): Promise<Message | false>;
+    get(queue: string, options?: Options.Get): Promise<GetMessage | false>;
 
     ack(message: Message, allUpTo?: boolean): void;
     ackAll(): void;

@@ -75,6 +75,7 @@ interface Select2Options {
     dropdownCss?: any;
     dropdownCssClass?: any;
     escapeMarkup?: (markup: string) => string;
+    nextSearchTerm?: (selectedObject: object, currentSearchTerm: string) => string;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -112,6 +113,14 @@ interface Select2Plugin {
 	 */
     (method: 'data', value: any, triggerChange?: boolean): any;
 	/**
+	 * Whether it is open
+	 */
+    (method: 'opened'): boolean;
+	/**
+	 * Whether it is in focus
+	 */
+    (method: 'isFocused'): boolean;
+	/**
 	 * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
 	 */
     (method: 'destroy'): JQuery;
@@ -124,10 +133,18 @@ interface Select2Plugin {
 	 */
     (method: 'close'): JQuery;
 	/**
+	 * Disables Select2
+	 */
+    (method: 'disable'): JQuery;
+	/**
 	 * Enables or disables Select2 and its underlying form component
 	 * @param value True if it should be enabled false if it should be disabled
 	 */
     (method: 'enable', value?: boolean): JQuery;
+	/**
+	 * Enable its focus
+	 */
+    (method: 'focus'): JQuery;
 	/**
 	 * Toggles readonly mode on Select2 and its underlying form component
 	 * @param value True if it should be readonly false if it should be read write

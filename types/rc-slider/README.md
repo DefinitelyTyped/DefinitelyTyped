@@ -5,7 +5,7 @@
 This package contains type definitions for rc-slider (https://github.com/react-component/slider).
 
 Additional Details
- * Last updated: Fri, 15 Dec 2017
+ * Last updated: Sun, 04 Aug 2018
  * Dependencies: react
  * Global values: none
 

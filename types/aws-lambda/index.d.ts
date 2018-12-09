@@ -19,6 +19,11 @@
 //                 Chris Redekop <https://github.com/repl-chris>
 //                 Aneil Mallavarapu <https://github.com/aneilbaboo>
 //                 Jeremy Nagel <https://github.com/jeznag>
+//                 Louis Larry <https://github.com/louislarry>
+//                 Daniel Papukchiev <https://github.com/dpapukchiev>
+//                 Oliver Hookins <https://github.com/ohookins>
+//                 Trevor Leach <https://github.com/trevor-leach>
+//                 James Gregory <https://github.com/jagregory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -55,11 +60,13 @@ export interface APIGatewayEventRequestContext {
 export interface APIGatewayProxyEvent {
     body: string | null;
     headers: { [name: string]: string };
+    multiValueHeaders: { [name: string]: string[] };
     httpMethod: string;
     isBase64Encoded: boolean;
     path: string;
     pathParameters: { [name: string]: string } | null;
     queryStringParameters: { [name: string]: string } | null;
+    multiValueQueryStringParameters: { [name: string]: string[] } | null;
     stageVariables: { [name: string]: string } | null;
     requestContext: APIGatewayEventRequestContext;
     resource: string;
@@ -72,8 +79,10 @@ export interface CustomAuthorizerEvent {
     methodArn: string;
     authorizationToken?: string;
     headers?: { [name: string]: string };
+    multiValueHeaders?: { [name: string]: string[] };
     pathParameters?: { [name: string]: string } | null;
     queryStringParameters?: { [name: string]: string } | null;
+    multiValueQueryStringParameters?: { [name: string]: string[] } | null;
     requestContext?: APIGatewayEventRequestContext;
 }
 
@@ -211,27 +220,29 @@ export type S3CreateEvent = S3Event; // old name
 export interface CognitoUserPoolTriggerEvent {
     version: number;
     triggerSource:
-        | "PreSignUp_SignUp"
-        | "PostConfirmation_ConfirmSignUp"
-        | "PreAuthentication_Authentication"
-        | "PostAuthentication_Authentication"
-        | "CustomMessage_SignUp"
-        | "CustomMessage_AdminCreateUser"
-        | "CustomMessage_ResendCode"
-        | "CustomMessage_ForgotPassword"
-        | "CustomMessage_UpdateUserAttribute"
-        | "CustomMessage_VerifyUserAttribute"
-        | "CustomMessage_Authentication"
-        | "DefineAuthChallenge_Authentication"
-        | "CreateAuthChallenge_Authentication"
-        | "VerifyAuthChallengeResponse_Authentication"
-        | "PreSignUp_AdminCreateUser"
-        | "PostConfirmation_ConfirmForgotPassword"
-        | "TokenGeneration_HostedAuth"
-        | "TokenGeneration_Authentication"
-        | "TokenGeneration_NewPasswordChallenge"
-        | "TokenGeneration_AuthenticateDevice"
-        | "TokenGeneration_RefreshTokens";
+    | "PreSignUp_SignUp"
+    | "PostConfirmation_ConfirmSignUp"
+    | "PreAuthentication_Authentication"
+    | "PostAuthentication_Authentication"
+    | "CustomMessage_SignUp"
+    | "CustomMessage_AdminCreateUser"
+    | "CustomMessage_ResendCode"
+    | "CustomMessage_ForgotPassword"
+    | "CustomMessage_UpdateUserAttribute"
+    | "CustomMessage_VerifyUserAttribute"
+    | "CustomMessage_Authentication"
+    | "DefineAuthChallenge_Authentication"
+    | "CreateAuthChallenge_Authentication"
+    | "VerifyAuthChallengeResponse_Authentication"
+    | "PreSignUp_AdminCreateUser"
+    | "PostConfirmation_ConfirmForgotPassword"
+    | "TokenGeneration_HostedAuth"
+    | "TokenGeneration_Authentication"
+    | "TokenGeneration_NewPasswordChallenge"
+    | "TokenGeneration_AuthenticateDevice"
+    | "TokenGeneration_RefreshTokens"
+    | "UserMigration_Authentication"
+    | "UserMigration_ForgotPassword";
     region: string;
     userPoolId: string;
     userName?: string;
@@ -240,19 +251,20 @@ export interface CognitoUserPoolTriggerEvent {
         clientId: string;
     };
     request: {
-        userAttributes: {[key: string]: string};
-        validationData?: {[key: string]: string};
+        userAttributes: { [key: string]: string };
+        validationData?: { [key: string]: string };
         codeParameter?: string;
         usernameParameter?: string;
         newDeviceUsed?: boolean;
         session?: Array<{
             challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";
             challengeResult: boolean;
-            challengeMetaData?: string;
+            challengeMetadata?: string;
         }>;
         challengeName?: string;
-        privateChallengeParameters?: {[key: string]: string};
-        challengeAnswer?: {[key: string]: string};
+        privateChallengeParameters?: { [key: string]: string };
+        challengeAnswer?: string;
+        password?: string;
     };
     response: {
         autoConfirmUser?: boolean;
@@ -262,10 +274,15 @@ export interface CognitoUserPoolTriggerEvent {
         challengeName?: string;
         issueTokens?: boolean;
         failAuthentication?: boolean;
-        publicChallengeParameters?: {[key: string]: string};
-        privateChallengeParameters?: {[key: string]: string};
-        challengeMetaData?: string;
+        publicChallengeParameters?: { [key: string]: string };
+        privateChallengeParameters?: { [key: string]: string };
+        challengeMetadata?: string;
         answerCorrect?: boolean;
+        userAttributes?: { [key: string]: string };
+        finalUserStatus?: "CONFIRMED" | "RESET_REQUIRED";
+        messageAction?: "SUPPRESS";
+        desiredDeliveryMediums?: Array<"EMAIL" | "SMS">;
+        forceAliasCreation?: boolean;
     };
 }
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
@@ -369,6 +386,7 @@ export interface CloudWatchLogsLogEvent {
     id: string;
     timestamp: number;
     message: string;
+    extractedFields?: {[key: string]: string};
 }
 
 // Context
@@ -404,7 +422,7 @@ export interface CognitoIdentity {
 
 export interface ClientContext {
     client: ClientContextClient;
-    Custom?: any;
+    custom?: any;
     env: ClientContextEnv;
 }
 
@@ -428,6 +446,9 @@ export interface APIGatewayProxyResult {
     statusCode: number;
     headers?: {
         [header: string]: boolean | number | string;
+    };
+    multiValueHeaders?: {
+        [header: string]: Array<boolean | number | string>;
     };
     body: string;
     isBase64Encoded?: boolean;
@@ -549,7 +570,7 @@ export interface CodePipelineEvent {
             inputArtifacts: Artifact[];
             outputArtifacts: Artifact[];
             artifactCredentials: Credentials;
-            encryptionKey?: EncryptionKey & {type: 'KMS'};
+            encryptionKey?: EncryptionKey & { type: 'KMS' };
             continuationToken?: string;
         };
     };
@@ -558,12 +579,38 @@ export interface CodePipelineEvent {
 /**
  * CloudFront events
  * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
+ * Bear in mind that the "example" event structure in the page above includes
+ * both an S3 and a Custom origin, which is not strictly allowed. Only one
+ * of these per event may be present.
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
         key: string;
         value: string;
     }>;
+}
+
+export type CloudFrontOrigin =
+    | { s3: CloudFrontS3Origin, custom?: never }
+    | { custom: CloudFrontCustomOrigin, s3?: never };
+
+export interface CloudFrontCustomOrigin {
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    keepaliveTimeout: number;
+    path: string;
+    port: number;
+    protocol: 'http' | 'https';
+    readTimeout: number;
+    sslProtocols: string[];
+}
+
+export interface CloudFrontS3Origin {
+    authMethod: 'origin-access-identity' | 'none';
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    path: string;
+    region: string;
 }
 
 export interface CloudFrontResponse {
@@ -578,11 +625,14 @@ export interface CloudFrontRequest {
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
+    origin?: CloudFrontOrigin;
 }
 
 export interface CloudFrontEvent {
     config: {
+        distributionDomainName: string;
         distributionId: string;
+        eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
         requestId: string;
     };
 }
@@ -642,6 +692,80 @@ export interface KinesisStreamEvent {
     Records: KinesisStreamRecord[];
 }
 
+// Kinesis Data Firehose Event
+// https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-firehose
+// https://docs.aws.amazon.com/firehose/latest/dev/data-transformation.html
+// https://aws.amazon.com/blogs/compute/amazon-kinesis-firehose-data-transformation-with-aws-lambda/
+// Examples in the lambda blueprints
+export interface FirehoseTransformationEvent {
+    invocationId: string;
+    deliveryStreamArn: string;
+    region: string;
+    records: FirehoseTransformationEventRecord[];
+}
+
+export interface FirehoseTransformationEventRecord {
+    recordId: string;
+    approximateArrivalTimestamp: number;
+    /** Base64 encoded */
+    data: string;
+    kinesisRecordMetadata?: FirehoseRecordMetadata;
+}
+
+export interface FirehoseRecordMetadata {
+    shardId: string;
+    partitionKey: string;
+    approximateArrivalTimestamp: string;
+    sequenceNumber: string;
+    subsequenceNumber: string;
+}
+
+export type FirehoseRecordTransformationStatus = 'Ok' | 'Dropped' | 'ProcessingFailed';
+
+export interface FirehoseTransformationResultRecord {
+    recordId: string;
+    result: FirehoseRecordTransformationStatus;
+    /** Encode in Base64 */
+    data: string;
+}
+
+export interface FirehoseTransformationResult {
+    records: FirehoseTransformationResultRecord[];
+}
+
+// SQS
+// https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-sqs
+export interface SQSRecord {
+    messageId: string;
+    receiptHandle: string;
+    body: string;
+    attributes: SQSRecordAttributes;
+    messageAttributes: SQSMessageAttributes;
+    md5OfBody: string;
+    eventSource: string;
+    eventSourceARN: string;
+    awsRegion: string;
+}
+
+export interface SQSEvent {
+    Records: SQSRecord[];
+}
+
+export interface SQSRecordAttributes {
+    ApproximateReceiveCount: string;
+    SentTimestamp: string;
+    SenderId: string;
+    ApproximateFirstReceiveTimestamp: string;
+}
+export interface SQSMessageAttribute {
+    Name: string;
+    Type: string;
+    Value: string;
+}
+export interface SQSMessageAttributes {
+    [name: string]: SQSMessageAttribute;
+}
+
 /**
  * AWS Lambda handler function.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
@@ -686,6 +810,8 @@ export type SNSHandler = Handler<SNSEvent, void>;
 export type CognitoUserPoolTriggerHandler = Handler<CognitoUserPoolTriggerEvent>;
 // TODO: Different event/handler types for each event trigger so we can type the result?
 
+export type SQSHandler = Handler<SQSEvent, void>;
+
 // TODO: CognitoSync
 
 export type CloudFormationCustomResourceHandler = Handler<CloudFormationCustomResourceEvent, void>;
@@ -719,7 +845,8 @@ export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
 
 export type KinesisStreamHandler = Handler<KinesisStreamEvent, void>;
 
-// TODO: Kinesis Firehose
+export type FirehoseTransformationCallback = Callback<FirehoseTransformationResult>;
+export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent, FirehoseTransformationResult>;
 
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;

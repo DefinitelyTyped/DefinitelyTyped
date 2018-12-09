@@ -1,4 +1,4 @@
-// Type definitions for material-ui 0.20
+// Type definitions for material-ui 0.21
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 //                 Igor Beagorudsky <https://github.com/theigor>
@@ -12,8 +12,9 @@
 //                 Dan Jones <https://github.com/dan-j>
 //                 Daisuke Mino <https://github.com/minodisk>
 //                 Sam Walsh <https://github.com/samwalshnz>
+//                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
@@ -1144,12 +1145,8 @@ declare namespace __MaterialUI {
     }
 
     namespace List {
-        export interface ListProps {
-            // <Paper/> is the element that get the 'other' properties
-            style?: React.CSSProperties;
-        }
-        export class List extends React.Component<ListProps> {
-        }
+        export interface ListProps extends React.HTMLAttributes<{}> {}
+        export class List extends React.Component<ListProps> {}
 
         export interface ListItemProps extends EnhancedButtonProps {
             // <EnhancedButton/> is the element that get the 'other' properties
@@ -1911,6 +1908,8 @@ declare namespace __MaterialUI {
         minlength?: string;
         step?: number;
         autoComplete?: string;
+        placeholder?: string;
+        title?: string;
     }
     export class TextField extends React.Component<TextFieldProps> {
         blur(): void;

@@ -1,36 +1,31 @@
-import Document, { Head, Main, NextScript, NextDocumentContext } from 'next/document';
+import Document, {
+    DocumentProps,
+    Enhancer,
+    Head,
+    Main,
+    NextScript,
+    NextDocumentContext,
+    PageProps
+} from "next/document";
 import * as React from "react";
 
-const results = (
-    <Document any="property" should="work" here>
-        <Head some="more" properties>
-            <meta name="description" content="Head can have children, too!" />
-        </Head>
-        <Main />
-        <NextScript />
-    </Document>
-);
+interface WithUrlProps {
+    url: string;
+}
 
-const Wrapper: React.SFC = ({ children }) => <React.Fragment>{children}</React.Fragment>;
-
-export default class MyDocument extends Document {
-    static async getInitialProps({ renderPage }: NextDocumentContext) {
-        // Without callback
-        const page = renderPage();
-        // With callback
-        const differentPage = renderPage(App => props => <Wrapper><App {...props} /></Wrapper>);
-        const style = {};
-        return { ...page, style };
+class MyDocumentDefault extends Document {
+    static async getInitialProps(ctx: NextDocumentContext) {
+        const initialProps = await Document.getInitialProps(ctx);
+        return { ...initialProps };
     }
 
     render() {
         return (
             <html>
                 <Head>
-                    <title>My page</title>
-                    <style id='cxs-style' dangerouslySetInnerHTML={{ __html: this.props.style }} />
+                    <style>{`body { margin: 0 } /* custom! */`}</style>
                 </Head>
-                <body>
+                <body className="custom_class">
                     <Main />
                     <NextScript />
                 </body>
@@ -38,3 +33,82 @@ export default class MyDocument extends Document {
         );
     }
 }
+
+class MyDoc extends Document<WithUrlProps> {
+    static getInitialProps({ req, renderPage }: NextDocumentContext) {
+        // without callback
+        const _page = renderPage();
+
+        // with callback
+        const enhancer: Enhancer<PageProps, {}> = App => props => <App />;
+        const { html, head, buildManifest } = renderPage(enhancer);
+
+        const styles = [<style />];
+
+        // Custom prop
+        const url = req!.url;
+
+        return { html, head, buildManifest, styles, url };
+    }
+
+    constructor(props: WithUrlProps & DocumentProps) {
+        super(props);
+        const { __NEXT_DATA__, url } = props;
+
+        // Custom __NEXT_DATA__ attribute
+        __NEXT_DATA__.url = url;
+    }
+
+    render() {
+        const { pathname, query } = this.props.__NEXT_DATA__;
+
+        return (
+            <html>
+                <Head nonce="nonce" any="property" should="work" here>
+                    <title>My page</title>
+                    {this.props.styles}
+                </Head>
+                <body>
+                    <Main />
+                    <NextScript />
+                    <p>{this.props.url}</p>
+                    {this.props.children}
+                </body>
+            </html>
+        );
+    }
+}
+
+const renderPage: NextDocumentContext["renderPage"] = enhancer => ({
+    buildManifest: {},
+    chunks: { names: [], filenames: [] },
+    html: "",
+    head: [<React.Fragment />],
+    errorHtml: ""
+});
+
+interface PageInitialProps extends PageProps {
+    foo: string;
+    bar: number;
+}
+
+interface ProcessedInitialProps {
+    fooLength: number;
+    bar: boolean;
+}
+
+const enhancerExplicit: Enhancer<PageProps, {}> = App => props => <App />;
+const enhancerInferred = (App: React.ComponentType<ProcessedInitialProps>) => ({
+    foo,
+    bar
+}: PageInitialProps) => <App fooLength={foo.length} bar={!!bar} />;
+const explicitEnhancerRenderResponse = renderPage(enhancerExplicit);
+const inferredEnhancerRenderResponse = renderPage(enhancerInferred);
+const defaultedTypesRenderResponse = renderPage(App => props => <App url={props.url} />);
+const defaultedTypesExtendedRenderResponse = renderPage(App => props => (
+    <App foo="bar" url={props.url} />
+));
+const explicitTypesRenderResponseOne = renderPage<PageProps, {}>(App => props => <App />);
+const explicitTypesRenderResponseTwo = renderPage<PageInitialProps, ProcessedInitialProps>(
+    App => ({ foo, bar }) => <App fooLength={foo.length} bar={!!bar} />
+);

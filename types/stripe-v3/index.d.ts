@@ -308,6 +308,7 @@ declare namespace stripe {
         }
 
         interface ElementChangeResponse {
+            elementType: string;
             brand: string;
             complete: boolean;
             empty: boolean;

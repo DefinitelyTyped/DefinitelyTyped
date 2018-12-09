@@ -2,7 +2,7 @@
 // Project: https://github.com/digiaonline/react-foundation
 // Definitions by: Daniel Earwicker <https://github.com/danielearwicker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export { Accordion, AccordionItem, AccordionTitle, AccordionContent } from './components/accordion';
 export { Badge } from './components/badge';

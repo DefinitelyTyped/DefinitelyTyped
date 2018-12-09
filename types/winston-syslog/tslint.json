@@ -1,3 +1,8 @@
 {
-    "extends": "dtslint/dt.json"
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // This allows to be in line with winston transport types.
+        // See https://github.com/winstonjs/winston-mongodb/blob/master/lib/winston-mongodb.d.ts and https://github.com/winstonjs/winston-daily-rotate-file/blob/master/index.d.ts
+        "no-misused-new": false
+    }
 }

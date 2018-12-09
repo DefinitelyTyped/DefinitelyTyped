@@ -80,9 +80,10 @@ declare class JSON2CSVTransform<T> extends Transform { // implements JSON2CSVBas
      * Performs the flattening of a data row recursively
      *
      * @param {object} dataRow Original JSON object
+     * @param {string} separator Separator to be used as the flattened field name
      * @returns {object} Flattened object
      */
-    protected flatten(dataRow: T): object;
+    protected flatten(dataRow: T, separator: string): object;
 
     /**
      * Performs the unwind recursively in specified sequence

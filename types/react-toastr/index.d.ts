@@ -2,7 +2,7 @@
 // Project: https://github.com/tomchentw/react-toastr
 // Definitions by: Josh Holmer <https://github.com/shssoichiro>, Dan Regazzi <https://github.com/DanRegazzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, ReactHTML } from 'react';
 

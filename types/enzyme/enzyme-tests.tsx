@@ -36,8 +36,16 @@ interface MyComponentState {
 }
 
 class MyComponent extends Component<MyComponentProps, MyComponentState> {
+    handleEcho(value: string) {
+        return value;
+    }
     setState(...args: any[]) {
         console.log(args);
+    }
+}
+class MyComponentPropsOnly extends Component<MyComponentProps> {
+    handleEcho(value: string) {
+        return value;
     }
 }
 
@@ -77,6 +85,34 @@ function ShallowWrapperTest() {
     let elementWrapper: ShallowWrapper<HTMLAttributes<{}>>;
     let anotherStatelessWrapper: ShallowWrapper<AnotherStatelessProps, never>;
     let anotherComponentWrapper: ShallowWrapper<AnotherComponentProps, any>;
+
+    // testStatePropsInstanceFn(shallow<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>));
+    function testStatePropsInstance() {
+        const wrapper = shallow<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+
+        const {
+            numberProp, // $ExpectType number
+            stringProp // $ExpectType string
+        } = wrapper.props();
+        const {
+            stateProperty // $ExpectType string
+        } = wrapper.state();
+        const {
+            handleEcho // $ExpectType (value: string) => string
+        } = wrapper.instance();
+
+        // $ExpectError
+        wrapper.setState({stateProperty: 123});
+        // $ExpectError
+        wrapper.setState({statePropertyzasd: 'hello'});
+        wrapper.setState({stateProperty: 'hello'});
+
+        // $ExpectError
+        wrapper.setProps({numberProp: '123'});
+        // $ExpectError
+        wrapper.setProps({numberPropzasd: 'hello'});
+        wrapper.setProps({numberProp: 123});
+    }
 
     function test_props_state_inferring() {
         let wrapper: ShallowWrapper<MyComponentProps, MyComponentState>;
@@ -327,6 +363,10 @@ function ShallowWrapperTest() {
         shallowWrapper.simulate('click', args);
     }
 
+    function test_simulateError(error: any) {
+        shallowWrapper.simulateError(error);
+    }
+
     function test_setState() {
         shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' }, () => console.log('state updated'));
     }
@@ -340,7 +380,16 @@ function ShallowWrapperTest() {
     }
 
     function test_instance() {
-        const myComponent: MyComponent = shallowWrapper.instance();
+        const myComponent = shallowWrapper.instance() as MyComponent;
+        myComponent.handleEcho('it works');
+
+        const wrapper = shallow<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapper.instance().handleEcho('it works');
+
+        const wrapperPropsOnly = shallow<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapperPropsOnly.setProps({stringProp: 'new value'});
+        // $ExpectError
+        wrapperPropsOnly.instance().handleEcho;
     }
 
     function test_update() {
@@ -437,6 +486,33 @@ function ReactWrapperTest() {
     let elementWrapper: ReactWrapper<HTMLAttributes<{}>>;
     let anotherStatelessWrapper: ReactWrapper<AnotherStatelessProps, never>;
     let anotherComponentWrapper: ReactWrapper<AnotherComponentProps, any>;
+
+    function testStatePropsInstance() {
+        const wrapper = mount<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+
+        const {
+            numberProp, // $ExpectType number
+            stringProp // $ExpectType string
+        } = wrapper.props();
+        const {
+            stateProperty // $ExpectType string
+        } = wrapper.state();
+        const {
+            handleEcho // $ExpectType (value: string) => string
+        } = wrapper.instance();
+
+        // $ExpectError
+        wrapper.setState({stateProperty: 123});
+        // $ExpectError
+        wrapper.setState({statePropertyzasd: 'hello'});
+        wrapper.setState({stateProperty: 'hello'});
+
+        // $ExpectError
+        wrapper.setProps({numberProp: '123'});
+        // $ExpectError
+        wrapper.setProps({numberPropzasd: 'hello'});
+        wrapper.setProps({numberProp: 123});
+    }
 
     function test_prop_state_inferring() {
         let wrapper: ReactWrapper<MyComponentProps, MyComponentState>;
@@ -696,7 +772,16 @@ function ReactWrapperTest() {
     }
 
     function test_instance() {
-        const myComponent: MyComponent = reactWrapper.instance();
+        const myComponent = reactWrapper.instance() as MyComponent;
+        myComponent.handleEcho('it works');
+
+        const wrapperPropsOnly = mount<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapperPropsOnly.setProps({stringProp: 'new value'});
+        // $ExpectError
+        wrapperPropsOnly.instance().handleEcho;
+
+        const wrapper = mount<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
+        wrapper.instance().handleEcho('it works');
     }
 
     function test_update() {

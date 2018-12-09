@@ -5,7 +5,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 John Gozde <https://github.com/jgoz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { ReactElement, ReactType } from "react";
 
@@ -25,7 +25,7 @@ export interface ReactTestRendererTree extends ReactTestRendererJSON {
 }
 export interface ReactTestInstance {
     instance: any;
-    type: string;
+    type: ReactType;
     props: { [propName: string]: any };
     parent: null | ReactTestInstance;
     children: Array<ReactTestInstance | string>;

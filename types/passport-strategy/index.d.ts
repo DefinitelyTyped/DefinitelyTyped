@@ -16,7 +16,7 @@
 import passport = require('passport');
 import express = require('express');
 
-declare class Strategy extends passport.Strategy {
+declare class Strategy implements passport.Strategy {
     /**
      * Performs authentication for the request.
      * Note: Virtual function - re-implement in the strategy.
@@ -45,7 +45,7 @@ declare class Strategy extends passport.Strategy {
      * @param {Object} info
      * @api public
      */
-    success(user: any, info: any): void;
+    success(user: any, info?: any): void;
 
     /**
      * Fail authentication, with optional `challenge` and `status`, defaulting

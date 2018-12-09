@@ -111,7 +111,7 @@ declare namespace NodeVault {
         debug?(...args: any[]): any;
         tv4?(...args: any[]): any;
         commands?: Array<{ method: string, path: string, scheme: any }>;
-        mustache?: MustacheStatic;
+        mustache?: typeof mustache;
         "request-promise"?: any;
         Promise?: PromiseConstructor;
 

@@ -1,13 +1,13 @@
-// Type definitions for react-redux-toastr 7.0.0
+// Type definitions for react-redux-toastr 7.4
 // Project: https://github.com/diegoddox/react-redux-toastr
 // Definitions by: Aleksandar Ivanov <https://github.com/Smiche>
 //                 Artyom Stukans <https://github.com/artyomsv>
 //                 Mika Kuitunen <https://github.com/kulmajaba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { Component } from 'react';
-import { Action, ActionCreator, Reducer } from 'redux';
+import { Action, Reducer } from 'redux';
 
 export type iconType = 'success' | 'info' | 'warning' | 'error';
 export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
@@ -23,6 +23,7 @@ interface BasicToastrOptions {
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
     onShowComplete?: () => void;
+    onToastrClick?: () => void;
     progressBar?: boolean;
     removeOnHover?: boolean;
     showCloseButton?: boolean;
@@ -101,6 +102,7 @@ interface ReduxToastrProps {
     transitionIn?: transitionInType;
     transitionOut?: transitionOutType;
     className?: string;
+    closeOnToastrClick?: boolean;
 }
 
 interface ToastrEmitter {

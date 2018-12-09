@@ -1,10 +1,11 @@
-import SAXParser, {
+import {
     StartTagToken,
     EndTagToken,
     CommentToken,
     TextToken,
     DoctypeToken
 } from "parse5-sax-parser";
+import SAXParser = require("parse5-sax-parser");
 import { createReadStream, createWriteStream } from "fs";
 
 let sax = new SAXParser();

@@ -2,14 +2,8 @@
 
 // TODO: document all aliases as aliases, not as duplicates!
 
-const assert = (tag: boolean) => { if (!tag) throw new Error(); };
-const aliases = (...obj: Array<{}>) => { if (obj.slice(1).some((alias) => alias !== obj[0])) throw new Error(); };
-const events = (obj: any) => {
-  aliases(obj.on, obj.bind, obj.listen, obj.addListener);
-  aliases(obj.promiseOn, obj.pon);
-  aliases(obj.off, obj.unbind, obj.unlisten, obj.removeListener);
-  aliases(obj.emit, obj.trigger);
-};
+const assert = (tag: boolean) => {};
+const aliases = (...obj: Array<{}>) => {};
 
 // definitions
 function oneOf<A, B, C, D, E>(a: A, b: B, c: C, d: D, e: E): A | B | C | D | E;
@@ -42,7 +36,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'text-halign': 'center',
       shape: 'rectangle',
       'min-zoomed-font-size': 20,
-      opacity: 1
+      opacity: 1,
+      width: 'mapData(weight, 40, 80, 20, 60)'
     }
   },
   {
@@ -129,9 +124,9 @@ cy.on('zoom', (event) => {
   }
 });
 cy.off('zoom');
-events(cy);
+// events(cy); - TODO
 
-cy.add({ data: { id: 'g' }, position: {x: 200, y: 150} });
+cy.add({ data: { id: 'g', someOtherKey: 'value' }, position: {x: 200, y: 150} });
 cy.add([
   { data: { id: 'h' }, position: {x: 250, y: 100} }
 ]);
@@ -347,19 +342,32 @@ const positions = oneOf({a: {x: 100, y: 100}}, (node: cytoscape.NodeCollection):
 //   layout.stop();
 // });
 
-// TODO: cy.style
+cy.style(cy.style());
+cy.style([cy.style()]);
 
+// $ExpectType string
 cy.png({
-  output: oneOf('base64uri', 'base64', 'blob', undefined),
+  output: oneOf('base64uri', 'base64', undefined),
   bg: oneOf('#ffffff', undefined),
   full: true,
   scale: 2,
   maxWidth: 100,
   maxHeight: 100
 });
+// $ExpectType Blob
+cy.png({
+  output: 'blob',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100
+});
+
 aliases(cy.jpg, cy.jpeg);
+// $ExpectType string
 cy.jpg({
-  output: oneOf('base64uri', 'base64', 'blob', undefined),
+  output: oneOf('base64uri', 'base64', undefined),
   bg: oneOf('#ffffff', undefined),
   full: true,
   scale: 2,
@@ -367,6 +375,17 @@ cy.jpg({
   maxHeight: 100,
   quality: 0.5
 });
+// $ExpectType Blob
+cy.jpg({
+  output: 'blob',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100,
+  quality: 0.5
+});
+
 cy.json(cy.json());
 
 // Types possible to call methods
@@ -383,11 +402,24 @@ assert(eles.removed());
 assert(!eles.inside());
 eles.restore();
 
-([ele, eles, node, nodes, edge, edges] as cytoscape.CollectionReturnValue[]).forEach((elem) => {
-  aliases(elem.clone, elem.copy);
-  events(elem);
-  aliases(elem.data, elem.attr);
-  aliases(elem.removeData, elem.removeAttr);
+([ele, eles, node, nodes, edge, edges] as [
+  cytoscape.SingularElementReturnValue,
+  cytoscape.CollectionReturnValue,
+  cytoscape.NodeSingular,
+  cytoscape.NodeCollection,
+  cytoscape.EdgeSingular,
+  cytoscape.EdgeCollection
+]).forEach((elemType) => {
+  aliases(elemType.clone, elemType.copy);
+  // events(elemType); - TODO
+  aliases(elemType.removeData, elemType.removeAttr);
+});
+([ele, node, edge] as [
+  cytoscape.SingularElementReturnValue,
+  cytoscape.NodeSingular,
+  cytoscape.EdgeSingular
+]).forEach((elemType) => {
+  aliases(elemType.data, elemType.attr);
 });
 // TODO: tests for data flow
 
@@ -429,6 +461,8 @@ aliases(eles.renderedBoundingBox, eles.renderedBoundingbox);
 const flags: boolean[] = [
   node.grabbed(), node.grabbable(), node.locked(), ele.active(),
 ];
+nodes.lock(); node.lock();
+nodes.unlock(); node.unlock();
 
 const edgePoints: cytoscape.Position[] = [
   ...edge.controlPoints(), ...edge.segmentPoints(), edge.sourceEndpoint(), edge.targetEndpoint(), edge.midpoint()
@@ -436,6 +470,13 @@ const edgePoints: cytoscape.Position[] = [
 
 aliases(eles.layout, eles.createLayout, eles.makeLayout);
 const layout = eles.layout({name: 'random'}).run();
+
+layout.on('layoutstop', () => {
+  cy.fit();
+});
+layout.on('layoutstop', {}, (obj) => {
+  console.log(obj);
+});
 
 eles.select();
 assert(ele.selected()); // as we selected all, and this too
@@ -456,6 +497,27 @@ Object.keys(eles.style()).map(key => eles.style(key));
 eles.style(eles.style());
 aliases(eles.style, eles.css);
 aliases(ele.renderedCss, ele.renderedStyle);
+
+nodes.forEach((child) => {
+  child.animate({
+    position: node.position(),
+    duration: 300,
+    complete: () => {
+      console.log(child.id());
+    }
+  });
+});
+
+nodes.animate({
+  renderedPosition: node.position()
+}, {
+  style: { backgroundColor: 'red' },
+  duration: 1000,
+  queue: true,
+  complete: () => console.log('end'),
+  step: () => console.log('step'),
+  easing: 'ease-in-out-quint'
+});
 
 eles.anySame(nodes);
 aliases(eles.contains, eles.has);
@@ -485,11 +547,25 @@ eles.difference(collNodes).abscomp().intersection(collSel).symdiff(collNodes);
 const diff = collSel.diff(collNodes);
 cy.collection().merge(diff.left).merge(diff.right).merge(diff.both).unmerge(collSel).filter((ele, i, eles) => true);
 
-eles.sort((a, b) => 1).map((ele, i, eles) => [i, ele]);
-eles.reduce<any[]>((prev, ele, i, eles) => [...prev, [ele, i]], []).concat(['finish']);
-const min = eles.min((ele, i, eles) => ele.id.length + i); min.ele.scratch('min', min.value);
-const max = eles.max((ele, i, eles) => ele.id.length + i); max.ele.scratch('max', max.value);
+nodes.map(n => n.degree(false));
+edges.map(e => e.source());
+eles.map(e => e.id());
+eles.map(e => e.isNode() ? e.degree(false) : e.source());
+eles.map(e => e.isEdge() ? e.source() : e.degree(false));
 
-// TODO: traversing (need to actively check the nodes/edeges distinction)
+eles.sort((a, b) => a.id.length - b.id.length).map((ele, i, eles) => [i, ele]);
+eles.reduce<any[]>((prev, ele, i, eles) => [...prev, [ele, i]], []).concat(['finish']);
+
+const min = eles.min((ele, i, eles) => ele.isNode() ? ele.degree(false) : ele.source().degree(false));
+min.ele.scratch('min', min.value).scratch('min').value;
+const max = eles.max((ele, i, eles) => ele.isEdge() ? ele.source().degree(false) : ele.degree(false));
+max.ele.scratch('max', max.value);
+
+nodes.min(n => n.degree(false));
+nodes.max(n => n.degree(false));
+edges.max(n => n.source().id().length);
+edges.max(n => n.source().id().length);
+
+// TODO: traversing (need to actively check the nodes/edges distinction)
 // TODO: algorithms
 // TODO: compound nodes (there aren't any in current test case)

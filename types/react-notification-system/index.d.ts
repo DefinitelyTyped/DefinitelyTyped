@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/react-notification-system
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Deividas Bakanas <https://github.com/DeividasBakanas>, Karol Janyst <https://github.com/LKay>, Bartosz Szewczyk <https://github.com/sztobar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -18,8 +18,8 @@ declare namespace NotificationSystem {
     export type CallBackFunction = (notification: Notification) => void;
 
     export interface Notification {
-        title?: string;
-        message?: string;
+        title?: string | JSX.Element;
+        message?: string | JSX.Element;
         level?: "error" | "warning" | "info" | "success";
         position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc";
         autoDismiss?: number;

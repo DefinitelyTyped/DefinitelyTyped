@@ -1,4 +1,4 @@
-// Type definitions for unzipper 0.8
+// Type definitions for unzipper 0.9
 // Project: https://github.com/ZJONSSON/node-unzipper#readme
 // Definitions by: s73obrien <https://github.com/s73obrien>
 //                 Nate <https://github.com/natemara>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { Readable, Stream, PassThrough, Duplex } from "stream";
+import { Readable, Stream, PassThrough, Duplex, Transform } from "stream";
 import { ClientRequest, RequestOptions } from "http";
 
 export interface PullStream extends Duplex {
@@ -16,7 +16,9 @@ export interface PullStream extends Duplex {
 }
 
 export interface Entry extends PassThrough {
-    autodrain(): Promise<void>;
+    autodrain(): Transform & {
+        promise(): Promise<void>;
+    };
     buffer(): Promise<Buffer>;
     path: string;
 
@@ -57,6 +59,7 @@ export function unzip(
 ): Entry;
 
 export namespace Open {
+    function buffer(data: Buffer): Promise<CentralDirectory>;
     function file(filename: string): Promise<CentralDirectory>;
     function url(
         request: ClientRequest,

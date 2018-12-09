@@ -14,3 +14,5 @@ setTimeout(function() {
     led.writeSync(0);
     led.unexport();
 }, 2000);
+
+var accessible:boolean = onoff.Gpio.accessible;

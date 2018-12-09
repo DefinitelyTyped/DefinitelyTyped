@@ -19,4 +19,11 @@ server.route({
 server.start();
 const table = server.table();
 console.log(table);
+console.log(table[0].method);
+console.log(table[0].path);
+console.log(table[0].vhost);
+console.log(table[0].realm);
+console.log(table[0].settings);
+console.log(table[0].fingerprint);
+console.log(table[0].auth);
 console.log('Server started at: ' + server.info.uri);

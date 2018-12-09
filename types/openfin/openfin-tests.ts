@@ -78,8 +78,8 @@ function test_application() {
     });
     // getTrayIconInfo
     application.getTrayIconInfo(info => {
-        console.log(info.x, info.y, info.bounds.x, info.bounds.y, info.bounds.height, info.bounds.width,
-                    info.monitorInfo.type, info.monitorInfo.reason);
+        console.log(info.x, info.y, info.bounds.left, info.bounds.top, info.bounds.height, info.bounds.width,
+                    info.monitorInfo.reason);
     });
     // isRunning
     application.isRunning(running => {
@@ -207,7 +207,7 @@ function test_notification() {
     notification.close();
     // sendMessage
     notification = new fin.desktop.Notification({
-        duration: 10,
+        timeout: 10,
         url: "http://localhost:5000/Account/Register",
         message: "Hello",
         onShow: () => { },
@@ -235,8 +235,7 @@ function test_system() {
         cache: true,
         cookies: true,
         localStorage: true,
-        appcache: true,
-        userData: true
+        appcache: true
     });
     // deleteCacheOnExit
     fin.desktop.System.deleteCacheOnExit(() => {

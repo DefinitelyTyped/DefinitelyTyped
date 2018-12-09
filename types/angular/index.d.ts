@@ -250,8 +250,8 @@ declare namespace angular {
          */
         factory(name: string, $getFn: Injectable<Function>): IModule;
         factory(object: {[name: string]: Injectable<Function>}): IModule;
-        filter(name: string, filterFactoryFunction: Injectable<Function>): IModule;
-        filter(object: {[name: string]: Injectable<Function>}): IModule;
+        filter(name: string, filterFactoryFunction: Injectable<FilterFactory>): IModule;
+        filter(object: {[name: string]: Injectable<FilterFactory>}): IModule;
         provider(name: string, serviceProviderFactory: IServiceProviderFactory): IModule;
         provider(name: string, serviceProviderConstructor: IServiceProviderClass): IModule;
         provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
@@ -1137,12 +1137,12 @@ declare namespace angular {
          *
          * @param value Value or a promise
          */
-        resolve<T>(value: IPromise<T>|T): IPromise<T>;
+        resolve<T>(value: PromiseLike<T>|T): IPromise<T>;
         /**
          * @deprecated Since TS 2.4, inference is stricter and no longer produces the desired type when T1 !== T2.
          * To use resolve with two different types, pass a union type to the single-type-argument overload.
          */
-        resolve<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
+        resolve<T1, T2>(value: PromiseLike<T1>|T2): IPromise<T1|T2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
@@ -1152,11 +1152,11 @@ declare namespace angular {
          *
          * @param value Value or a promise
          */
-        when<T>(value: IPromise<T>|T): IPromise<T>;
-        when<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
-        when<TResult, T>(value: IPromise<T>|T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult): IPromise<TResult>;
-        when<TResult, T>(value: T, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: null | undefined | ((reason: any) => any), notifyCallback?: (state: any) => any): IPromise<TResult>;
-        when<TResult, TResult2, T>(value: IPromise<T>, successCallback: (promiseValue: T) => IPromise<TResult>|TResult, errorCallback: (reason: any) => TResult2 | IPromise<TResult2>, notifyCallback?: (state: any) => any): IPromise<TResult | TResult2>;
+        when<T>(value: PromiseLike<T>|T): IPromise<T>;
+        when<T1, T2>(value: PromiseLike<T1>|T2): IPromise<T1|T2>;
+        when<TResult, T>(value: PromiseLike<T>|T, successCallback: (promiseValue: T) => PromiseLike<TResult>|TResult): IPromise<TResult>;
+        when<TResult, T>(value: T, successCallback: (promiseValue: T) => PromiseLike<TResult>|TResult, errorCallback: null | undefined | ((reason: any) => any), notifyCallback?: (state: any) => any): IPromise<TResult>;
+        when<TResult, TResult2, T>(value: PromiseLike<T>, successCallback: (promiseValue: T) => PromiseLike<TResult>|TResult, errorCallback: (reason: any) => TResult2 | PromiseLike<TResult2>, notifyCallback?: (state: any) => any): IPromise<TResult | TResult2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
          */
@@ -1316,7 +1316,7 @@ declare namespace angular {
          *
          * @param key the key of the data to be retrieved
          */
-        get<T>(key: string): T;
+        get<T>(key: string): T | undefined;
 
         /**
          * Removes an entry from the Cache object.
@@ -2183,6 +2183,14 @@ declare namespace angular {
             has(name: string): boolean;
             instantiate<T>(typeConstructor: {new(...args: any[]): T}, locals?: any): T;
             invoke<T = any>(func: Injectable<Function | ((...args: any[]) => T)>, context?: any, locals?: any): T;
+            /**
+             * Add the specified modules to the current injector.
+             * This method will add each of the injectables to the injector and execute all of the config and run blocks for each module passed to the method.
+             * @param modules A module, module name or annotated injection function.
+             */
+            loadNewModules(modules: Array<IModule|string|Injectable<(...args: any[]) => void>>): void;
+            /** An object map of all the modules that have been loaded into the injector. */
+            modules: {[moduleName: string]: IModule};
             strictDi: boolean;
         }
 
@@ -2237,4 +2245,13 @@ declare namespace angular {
     interface IHttpParamSerializer {
         (obj: Object): string;
     }
+
+    interface IFilterFunction extends Function {
+        /**
+         * By default, filters are only run once the input value changes. By marking the filter as `$stateful`, the filter will be run on every `$digest` to update the output. **This is strongly discouraged.**
+         * See https://docs.angularjs.org/guide/filter#stateful-filters
+         */
+        $stateful?: boolean;
+    }
+    type FilterFactory = (...I: any[]) => IFilterFunction;
 }

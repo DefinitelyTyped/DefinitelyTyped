@@ -92,11 +92,11 @@ async function main() {
         'import _ = require("lodash");',
         'declare module "./index" {',
         "    interface LoDashExplicitSyncWrapper<TValue> {",
-        syncFunctions, // TODO: write sync?
+        syncFunctions,
         "    }",
         "",
         "    interface LoDashExplicitAsyncWrapper<TValue> {",
-        asyncFunctions, // TODO: write async?
+        asyncFunctions,
         "    }",
         "}",
         "",

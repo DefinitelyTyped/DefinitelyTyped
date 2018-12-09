@@ -1,6 +1,8 @@
 // Type definitions for @google-cloud/datastore 1.3
 // Project: https://github.com/googleapis/nodejs-datastore
 // Definitions by: Antoine Beauvais-Lacasse <https://github.com/beaulac>
+//                 Futa Ogawa <https://github.com/ogawa0071>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -34,7 +36,16 @@ declare module '@google-cloud/datastore' {
     import { DatastoreTransaction } from '@google-cloud/datastore/transaction';
 
     class Datastore extends DatastoreRequest_ {
-        constructor(options: InitOptions);
+        static readonly KEY: unique symbol;
+        static readonly MORE_RESULTS_AFTER_CURSOR: MoreResultsAfterCursor;
+        static readonly MORE_RESULTS_AFTER_LIMIT: MoreResultsAfterLimit;
+        static readonly NO_MORE_RESULTS: NoMoreResults;
+
+        static readonly Query: typeof DatastoreQuery;
+        static readonly DatastoreRequest: typeof DatastoreRequest_;
+        static readonly Transaction: typeof DatastoreTransaction;
+
+        constructor(options?: InitOptions);
 
         readonly KEY: typeof Datastore.KEY;
         readonly MORE_RESULTS_AFTER_CURSOR: MoreResultsAfterCursor;
@@ -78,17 +89,6 @@ declare module '@google-cloud/datastore' {
         projectId?: string;
         keyFilename?: string;
         credentials?: object;
-    }
-
-    namespace Datastore {
-        const KEY: unique symbol;
-        const MORE_RESULTS_AFTER_CURSOR: MoreResultsAfterCursor;
-        const MORE_RESULTS_AFTER_LIMIT: MoreResultsAfterLimit;
-        const NO_MORE_RESULTS: NoMoreResults;
-
-        const Query: typeof DatastoreQuery;
-        const DatastoreRequest: typeof DatastoreRequest_;
-        const Transaction: typeof DatastoreTransaction;
     }
 }
 

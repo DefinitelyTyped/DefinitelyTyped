@@ -1,10 +1,11 @@
-// Type definitions for yargs 11.0
+// Type definitions for yargs 12.0
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
+//                 Teddy Cross <https://github.com/tkazec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -116,6 +117,8 @@ declare namespace yargs {
 
         group(key: string | string[], groupName: string): Argv;
 
+        hide(key: string): Argv;
+
         help(): Argv;
         help(enableExplicit: boolean): Argv;
         help(option: string, enableExplicit: boolean): Argv;
@@ -126,6 +129,8 @@ declare namespace yargs {
 
         locale(): string;
         locale(loc: string): Argv;
+
+        middleware(callbacks: MiddlewareFunction | MiddlewareFunction[]): Argv;
 
         nargs(key: string, count: number): Argv;
         nargs(nargs: { [key: string]: number }): Argv;
@@ -183,7 +188,12 @@ declare namespace yargs {
          */
         reset(): Argv;
 
+        scriptName($0: string): Argv;
+
         showCompletionScript(): Argv;
+
+        showHidden(option?: string | boolean): Argv;
+        showHidden(option: string, description?: string): Argv;
 
         showHelp(consoleLevel?: string): Argv;
 
@@ -304,6 +314,7 @@ declare namespace yargs {
     type CommandBuilder = { [key: string]: Options } | ((args: Argv) => Argv);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: string[]) => void) => void;
+    type MiddlewareFunction = (args: Arguments) => void;
     type Choices = Array<string | true | undefined>;
     type PositionalOptionsType = "boolean" | "number" | "string";
 }

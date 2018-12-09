@@ -1,4 +1,4 @@
-import {Company} from "intercom-client";
+import { Company } from "./Company";
 
 export type UserIdentifier = { "id": string } | { "user_id": string } | { "email": string }
 

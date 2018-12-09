@@ -1,13 +1,16 @@
 interface TestState {
     crop?: ReactCrop.Crop;
 }
+const initialState = {
+    crop: {
+        x: 0,
+        y: 0
+    }
+};
 
 // Basic use case
 class SimpleTest extends React.Component<{}, TestState> {
-    constructor(props: {}) {
-        super(props);
-        this.state = {};
-    }
+    state = initialState;
 
     onChange = (crop: ReactCrop.Crop) => {
         this.setState({ crop });
@@ -27,10 +30,7 @@ class SimpleTest extends React.Component<{}, TestState> {
 
 // Set an aspect ratio to crop
 class AspectRatioTest extends React.Component<{}, TestState> {
-    constructor(props: {}) {
-        super(props);
-        this.state = {};
-    }
+    state = initialState;
 
     onChange = (crop: ReactCrop.Crop) => {
         this.setState({ crop });
@@ -65,10 +65,7 @@ class AspectRatioTest extends React.Component<{}, TestState> {
 
 // All available props
 class CompleteTest extends React.Component<{}, TestState> {
-    constructor(props: {}) {
-        super(props);
-        this.state = {};
-    }
+    state = initialState;
 
     onChange = (crop: ReactCrop.Crop) => {
         this.setState({ crop });

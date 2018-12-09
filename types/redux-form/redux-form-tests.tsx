@@ -4,6 +4,7 @@ import {
     reduxForm,
     InjectedFormProps,
     Form,
+    FormName,
     GenericForm,
     FormSection,
     GenericFormSection,
@@ -23,7 +24,8 @@ import {
     FormAction,
     actionTypes,
     submit,
-    SubmissionError
+    SubmissionError,
+    FieldArrayFieldsProps
 } from "redux-form";
 import {
     Field as ImmutableField,
@@ -60,8 +62,9 @@ type InjectedProps = InjectedFormProps<TestFormData, TestFormComponentProps>;
 
 class TestFormComponent extends React.Component<TestFormComponentProps & InjectedProps> {
     render() {
-        const { form, initialValues } = this.props;
+        const { form, initialValues, error } = this.props;
         const foo = initialValues.foo;
+        const errorIsString = error + 'test';
         return null;
     }
 }
@@ -109,7 +112,6 @@ interface MyFieldCustomProps {
 type MyFieldProps = MyFieldCustomProps & WrappedFieldProps;
 const MyField: React.StatelessComponent<MyFieldProps> = ({
     children,
-    label,
     input,
     meta,
     foo
@@ -229,6 +231,14 @@ const testFormWithInitialValuesAndValidationDecorator = reduxForm<MultivalueForm
     }
 });
 
+const testFormWithChangeFunctionDecorator = reduxForm<TestFormData, TestFormComponentProps>({
+    form: "testWithValidation",
+    onChange: (values: Partial<TestFormData>,
+        dispatch: Dispatch<any>,
+        props: TestFormComponentProps & InjectedFormProps<TestFormData, TestFormComponentProps>,
+        previousValues: Partial<TestFormData>) => {}
+});
+
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm<TestFormData>({
     form : "test"
@@ -238,7 +248,7 @@ const Test = reduxForm<TestFormData>({
 
         render() {
             const { handleSubmit } = this.props;
-            const FormCustom = Form as new () => GenericForm<TestFormData, {}>;
+            const FormCustom = Form as new () => GenericForm<TestFormData, {}, string>;
 
             return (
                 <div>
@@ -306,7 +316,7 @@ const Test = reduxForm<TestFormData>({
                                 foo="bar"
                             />
 
-                            <FieldArray
+                            <FieldArray<{}>
                                 name="field9"
                                 component={ MyArrayField }
                             />
@@ -397,5 +407,50 @@ class HandleSubmitTest extends React.Component {
     handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
     render() {
         return <HandleSubmitTestForm onSubmit={this.handleSubmit} />;
+    }
+}
+
+class FormNameTest extends React.Component {
+    render() {
+        return (
+            <FormName>
+                {({ form }) => <span>Form Name is: {form}</span>}
+            </FormName>
+        );
+    }
+}
+
+// Test SubmissionError with custom error format
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26494
+// Note: explicit parameters not needed in TS 2.7
+new LibSubmissionError<{ myField: any }, string[]>({
+    _error: ["First form-level error", "Second form-level error"],
+    myField: ["Field-level error"]
+});
+
+new SubmissionError({
+    _error: ["First form-level error", "Second form-level error"]
+});
+
+// Test forms with custom error format.
+const HandleSubmitTestForm2 = reduxForm<TestFormData, {}, string[]>({ form : "test" })(
+    (props: InjectedFormProps<TestFormData, {}, string[]>) => <form onSubmit={ props.handleSubmit } />
+);
+
+class HandleSubmitTest2 extends React.Component {
+    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+    render() {
+        return <HandleSubmitTestForm2 onSubmit={this.handleSubmit} />;
+    }
+}
+
+type InjectedProps2 = InjectedFormProps<TestFormData, TestFormComponentProps, string[]>;
+class TestFormComponent2 extends React.Component<TestFormComponentProps & InjectedProps2> {
+    render() {
+        const { error, initialValues, handleSubmit } = this.props;
+        error.concat(['error is a string array']);
+
+        handleSubmit((values) => ({ foo: ['string'], _error: [] }));
+        return null;
     }
 }

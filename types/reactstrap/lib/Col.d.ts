@@ -20,7 +20,7 @@ export type ColProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
   lg?: ColumnProps;
   xl?: ColumnProps;
 
-  //custom widths
+  // custom widths
   widths?: string[];
 } & T;
 

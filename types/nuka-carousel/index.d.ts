@@ -1,54 +1,41 @@
-// Type definitions for nuka-carousel 4.2
+// Type definitions for nuka-carousel 4.4
 // Project: https://github.com/FormidableLabs/nuka-carousel
 // Definitions by: Roman Charugin <https://github.com/Romic>
+//                 Alex Smith <https://github.com/altaudio>
+//                 matt-sungwook <https://github.com/matt-sungwook>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
 export default class Carousel extends React.Component<CarouselProps, CarouselState> {}
 
-export type CellAlignProp = 'left' | 'center' | 'right';
+export type CarouselCellAlignProp = 'left' | 'center' | 'right';
 
-export type HeightModeProp = 'first' | 'current' | 'max';
+export type CarouselHeightModeProp = 'first' | 'current' | 'max';
 
-export type SlidesToScrollProp = number | 'auto';
+export type CarouselSlidesToScrollProp = number | 'auto';
 
-export type SlideWidthProp = string | number;
+export type CarouselSlideWidthProp = string | number;
 
-export interface SlideRenderControlProps {
-  /**
-   * Current slide index
-   */
-  currentSlide: number;
-  /**
-   * Total amount of slides
-   */
-  slideCount: number;
-  /**
-   * Current frame width (px)
-   */
-  frameWidth: number;
-  /**
-   * Current slide width (px)
-   */
-  slideWidth: number;
-  /**
-   * Slides to scroll at once
-   */
-  slidesToScroll: number;
+export interface CarouselSlideRenderControlProps {
   /**
    * Space between slides, as an integer, but reflected as px
    */
   cellSpacing: number;
   /**
-   * Slides to show at once
+   * Current slide index
    */
-  slidesToShow: number;
+  currentSlide: number;
   /**
-   * Infinite mode enabled
+   * Current frame width (px)
    */
-  wrapAround: boolean;
+  frameWidth: number;
+  /**
+   * Go to X slide method
+   * @param index Slide's index to go
+   */
+  goToSlide: (index: number) => void;
   /**
    * Go to the next slide method
    */
@@ -58,13 +45,28 @@ export interface SlideRenderControlProps {
    */
   previousSlide: () => void;
   /**
-   * Go to X slide method
-   * @param index Slide's index to go
+   * Total amount of slides
    */
-  goToSlide: (index: number) => void;
+  slideCount: number;
+  /**
+   * Slides to scroll at once
+   */
+  slidesToScroll: number;
+  /**
+   * Slides to show at once
+   */
+  slidesToShow: number;
+  /**
+   * Current slide width (px)
+   */
+  slideWidth: number;
+  /**
+   * Infinite mode enabled
+   */
+  wrapAround: boolean;
 }
 
-export type RenderControl = (props: SlideRenderControlProps) => JSX.Element | null;
+export type CarouselRenderControl = (props: CarouselSlideRenderControlProps) => JSX.Element;
 
 export interface CarouselProps {
   /**
@@ -92,7 +94,7 @@ export interface CarouselProps {
    * When displaying more than one slide,
    * sets which position to anchor the current slide to
    */
-  cellAlign?: CellAlignProp;
+  cellAlign?: CarouselCellAlignProp;
   /**
    * Space between slides, as an integer, but reflected as px
    */
@@ -101,6 +103,11 @@ export interface CarouselProps {
    * Additional className
    */
   className?: string;
+  /**
+   * When set to true, disable keyboard controls
+   * @default false
+   */
+  disableKeyboardControls?: boolean;
   /**
    * Enable mouse swipe/dragging
    */
@@ -131,7 +138,7 @@ export interface CarouselProps {
    * Change the height of the slides based either on the first slide,
    * the current slide, or the maximum height of all slides.
    */
-  heightMode?: HeightModeProp;
+  heightMode?: CarouselHeightModeProp;
   /**
    * Initial height of the slides (px)
    */
@@ -145,41 +152,46 @@ export interface CarouselProps {
    */
   onResize?: () => void;
   /**
+   * Pause autoPlay when mouse is over carousel
+   * @default true
+   */
+  pauseOnHover?: boolean;
+  /**
    * Function for rendering top left control
    */
-  renderTopLeftControls?: RenderControl;
+  renderTopLeftControls?: CarouselRenderControl;
   /**
    * Function for rendering top center control
    */
-  renderTopCenterControls?: RenderControl;
+  renderTopCenterControls?: CarouselRenderControl;
   /**
    * Function for rendering top right control
    */
-  renderTopRightControls?: RenderControl;
+  renderTopRightControls?: CarouselRenderControl;
   /**
    * Function for rendering center left control
    */
-  renderCenterLeftControls?: RenderControl;
+  renderCenterLeftControls?: CarouselRenderControl;
   /**
    * Function for rendering center center control
    */
-  renderCenterCenterControls?: RenderControl;
+  renderCenterCenterControls?: CarouselRenderControl;
   /**
    * Function for rendering center right control
    */
-  renderCenterRightControls?: RenderControl;
+  renderCenterRightControls?: CarouselRenderControl;
   /**
    * Function for rendering bottom left control
    */
-  renderBottomLeftControls?: RenderControl;
+  renderBottomLeftControls?: CarouselRenderControl;
   /**
    * Function for rendering bottom center control
    */
-  renderBottomCenterControls?: RenderControl;
+  renderBottomCenterControls?: CarouselRenderControl;
   /**
    * Function for rendering bottom right control
    */
-  renderBottomRightControls?: RenderControl;
+  renderBottomRightControls?: CarouselRenderControl;
   /**
    * Manually set the index of the slide to be shown
    */
@@ -188,7 +200,7 @@ export interface CarouselProps {
    * Slides to scroll at once. Set to "auto"
    * to always scroll the current number of visible slides
    */
-  slidesToScroll?: SlidesToScrollProp;
+  slidesToScroll?: CarouselSlidesToScrollProp;
   /**
    * Slides to show at once
    */
@@ -198,7 +210,7 @@ export interface CarouselProps {
    * @example '20px'
    * @example 0.8
    */
-  slideWidth?: SlideWidthProp;
+  slideWidth?: CarouselSlideWidthProp;
   /**
    * Animation duration
    */
@@ -222,6 +234,11 @@ export interface CarouselProps {
    * @default false
    */
   wrapAround?: boolean;
+  /**
+   * Used to remove all controls at once. Overwrites the render[Top, Right, Bottom, Left]CenterControls()
+   * @default false
+   */
+  withoutControls?: boolean;
 }
 
 export interface CarouselState {
@@ -234,13 +251,20 @@ export interface CarouselState {
    */
   dragging: boolean;
   /**
+   * Easing function name
+   */
+  easing: string;
+  /**
    * Current frame width
    */
   frameWidth: number;
   /**
    * Current left value
    */
+  isWrappingAround: boolean;
   left: number;
+  pauseOnHover: boolean;
+  resetWrapAroundPosition: boolean;
   /**
    * Total amount of slides
    */
@@ -252,19 +276,13 @@ export interface CarouselState {
   /**
    * Current slide width
    */
-  slideWidth: SlideWidthProp;
+  slideWidth: CarouselSlideWidthProp;
   /**
    * Current top value
    */
   top: number;
   /**
-   * Easing function name
-   */
-  easing: string;
-  /**
    * Is infinite mode enabled
    */
-  isWrappingAround: boolean;
   wrapToIndex: boolean;
-  resetWrapAroundPosition: boolean;
 }

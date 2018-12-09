@@ -76,7 +76,7 @@ class ParserExt extends Parser<ExampleObj> {
         s = this.processValue(new Date(), true);
         s = this.processValue({}, true);
         s = this.processValue([], true);
-        const flattenedData: object = this.flatten({});
+        const flattenedData: object = this.flatten({}, '.');
         const unwindedData: object[] = this.unwindData([], []);
     }
 }
@@ -110,7 +110,7 @@ class TransformExt extends Transform<ExampleObj> {
         s = this.processValue(new Date(), true);
         s = this.processValue({}, true);
         s = this.processValue([], true);
-        const flattenedData: object = this.flatten({});
+        const flattenedData: object = this.flatten({}, '.');
         const unwindedData: object[] = this.unwindData([], []);
     }
 }

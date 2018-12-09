@@ -19,27 +19,51 @@ openpgp.generateKey(options).then(function (keypair) {
 
 
 var spubkey = '-----BEGIN PGP PUBLIC KEY BLOCK ... END PGP PUBLIC KEY BLOCK-----';
-var publicKey = openpgp.key.readArmored(spubkey);
 
-openpgp.encrypt({
-    data: 'Hello, World!',
-    publicKeys: publicKey.keys
-}).then(function (pgpMessage) {
+openpgp.key.readArmored(spubkey)
+    .then(function (publicKey) {
+        return {
+            message: openpgp.message.fromText('Hello, World!'),
+            publicKeys: publicKey.keys
+        };
+    })
+    .then(openpgp.encrypt)
+    .then(function (pgpMessage) {
+        // success
+    })
+    .catch(function (error) {
+        // failure
+    });
+
+var sprivkey = '-----BEGIN PGP PRIVATE KEY BLOCK ... END PGP PRIVATE KEY BLOCK-----';
+var pgpMessageStr = '-----BEGIN PGP MESSAGE ... END PGP MESSAGE-----';
+
+openpgp.message.readArmored(pgpMessageStr).then(function(pgpMessage) {
+    const options = {
+        message: pgpMessage
+    };
+    return openpgp.decrypt(options);
+}).then(function (plaintext) {
     // success
 }).catch(function (error) {
     // failure
 });
 
-var sprivkey = '-----BEGIN PGP PRIVATE KEY BLOCK ... END PGP PRIVATE KEY BLOCK-----';
-var privateKey = openpgp.key.readArmored(sprivkey).keys[0];
-privateKey.decrypt('passphrase');
+const promises: [Promise<openpgp.key.KeyResult>, Promise<openpgp.message.Message>] = [
+    openpgp.key.readArmored(sprivkey),
+    openpgp.message.readArmored(pgpMessageStr)
+];
 
-var pgpMessageStr = '-----BEGIN PGP MESSAGE ... END PGP MESSAGE-----';
-var pgpMessage = openpgp.message.readArmored(pgpMessageStr);
-
-openpgp.decrypt({
-    privateKeys: privateKey,
-    message: pgpMessage
+Promise.all(promises).then(function (values) {
+    const keyObject: openpgp.key.KeyResult = values[0];
+    const pgpMessage: openpgp.message.Message = values[1];
+    const privateKey = keyObject.keys[0];
+    privateKey.decrypt('passphrase');
+    const options = {
+        privateKeys: privateKey,
+        message: pgpMessage
+    };
+    return openpgp.decrypt(options);
 }).then(function (plaintext) {
     // success
 }).catch(function (error) {

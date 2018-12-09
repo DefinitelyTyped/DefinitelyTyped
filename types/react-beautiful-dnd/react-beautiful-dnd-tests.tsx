@@ -40,12 +40,11 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
+  state = {
+    items: getItems(10)
+  };
   constructor(props: any) {
     super(props);
-
-    this.state = {
-      items: getItems(10)
-    };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
@@ -74,7 +73,7 @@ class App extends React.Component<{}, AppState> {
   render() {
     return (
       <DragDropContext onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable">
+        <Droppable droppableId="droppable" ignoreContainerClipping={false}>
           {(provided, snapshot) => (
             <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)} {...provided.droppableProps}>
               {this.state.items.map((item, index) => (

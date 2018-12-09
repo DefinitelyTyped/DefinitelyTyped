@@ -30,16 +30,17 @@ export interface InitializeOptions {
     keepValues: boolean;
 }
 
-export declare function initialize(form: string, data: any, keepDirty?: boolean | InitializeOptions, options?: InitializeOptions): FormAction;
+export declare function initialize(form: string, data: any, keepDirty?: boolean, options?: Partial<InitializeOptions>): FormAction;
+export declare function initialize(form: string, data: any, options?: Partial<InitializeOptions>): FormAction;
 export declare function registerField(form: string, name: string, type: FieldType): FormAction;
 export declare function reset(form: string): FormAction;
 export declare function resetSection(form: string, ...sections: string[]): FormAction;
 export declare function startAsyncValidation(form: string): FormAction;
-export declare function stopAsyncValidation(form: string, errors?: any): FormAction;
+export declare function stopAsyncValidation(form: string, errors?: FormErrors<FormData, any>): FormAction;
 export declare function setSubmitFailed(form: string, ...fields: string[]): FormAction;
 export declare function setSubmitSucceeded(form: string, ...fields: string[]): FormAction;
 export declare function startSubmit(form: string): FormAction;
-export declare function stopSubmit(form: string, errors?: any): FormAction;
+export declare function stopSubmit(form: string, errors?: FormErrors<FormData, any>): FormAction;
 export declare function submit(form: string): FormAction;
 export declare function clearSubmit(form: string): FormAction;
 export declare function clearSubmitErrors(form: string): FormAction;
@@ -48,8 +49,8 @@ export declare function clearFields(form: string, keepTouched: boolean, persiste
 export declare function touch(form: string, ...fields: string[]): FormAction;
 export declare function unregisterField(form: string, name: string): FormAction;
 export declare function untouch(form: string, ...fields: string[]): FormAction;
-export declare function updateSyncErrors(from: string, syncErrors: FormErrors<FormData>, error: any): FormAction;
-export declare function updateSyncWarnings(form: string, syncWarnings: FormWarnings<FormData>, warning: any): FormAction;
+export declare function updateSyncErrors<T = any>(from: string, syncErrors: FormErrors<FormData, T>, error: T): FormAction;
+export declare function updateSyncWarnings<T = any>(form: string, syncWarnings: FormWarnings<FormData, T>, warning: T): FormAction;
 
 declare const actions: {
     arrayInsert: typeof arrayInsert,

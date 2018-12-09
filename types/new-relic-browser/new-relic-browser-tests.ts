@@ -9,6 +9,7 @@ newrelic.addRelease('checkout page', 'a818994');
 
 // addPageAction()
 newrelic.addPageAction('copy-text-button', { result: 'success' });
+newrelic.addPageAction('async-action', { duration: 3000 });
 
 // addToTrace()
 newrelic.addToTrace({

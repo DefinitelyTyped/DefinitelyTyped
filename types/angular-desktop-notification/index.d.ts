@@ -22,7 +22,7 @@ declare module 'angular' {
              * This is an experimental technology
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/badge
              */
-            badge?: USVString;
+            badge?: string;
 
             /**
              * The data read-only property of the Notification interface returns a structured clone of the notification's data,
@@ -40,7 +40,7 @@ declare module 'angular' {
              * Note: This feature is available in Web Workers.
              * Ref: https://developer.mozilla.org/en-US/docs/Web/API/Notification/image
              */
-            image?: USVString;
+            image?: string;
 
             /**
              * The renotify read-only property of the Notification interface specifies whether the user should be notified after a

@@ -1,10 +1,10 @@
-// Type definitions for react-bootstrap-typeahead 3.1
+// Type definitions for react-bootstrap-typeahead 3.2
 // Project: https://github.com/ericgio/react-bootstrap-typeahead
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 // TODO: <Highlighter>, <Menu>, <MenuItem>, <Token> components
 
 import * as React from 'react';
@@ -70,8 +70,14 @@ export interface TypeaheadProps<T> {
     /* Props to be applied directly to the input. onBlur, onChange, onFocus, and onKeyDown are ignored. */
     inputProps?: object;
 
+    /* Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`. */
+    isInvalid?: boolean;
+
     /* Indicate whether an asynchronous data fetch is happening. */
     isLoading?: boolean;
+
+    /* Bootstrap 4 only. Adds the `is-valid` classname to the `form-control`. */
+    isValid?: boolean;
 
     /* Specify which option key to use for display or a render function. By default, the selector will use the label key. */
     labelKey?: string | ((option: T | string) => string);

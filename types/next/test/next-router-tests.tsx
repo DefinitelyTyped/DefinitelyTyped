@@ -36,15 +36,10 @@ split(Router.pathname);
 const query = `?${qs.stringify(Router.query)}`;
 
 // Assign some callback methods.
-Router.onAppUpdated = (nextRoute: string) => console.log(nextRoute);
-Router.onRouteChangeStart = (url: string) =>
-    console.log("Route is starting to change.", url);
-Router.onBeforeHistoryChange = (as: string) =>
-    console.log("History hasn't changed yet.", as);
-Router.onRouteChangeComplete = (url: string) =>
-    console.log("Route chaneg is complete.", url);
-Router.onRouteChangeError = (err: any, url: string) =>
-    console.log("Route is starting to change.", url, err);
+Router.events.on('routeChangeStart', (url: string) => console.log("Route is starting to change.", url));
+Router.events.on('beforeHistoryChange', (as: string) => console.log("History hasn't changed yet.", as));
+Router.events.on('routeChangeComplete', (url: string) => console.log("Route change is complete.", url));
+Router.events.on('routeChangeError', (err: any, url: string) => console.log("Route change errored.", err, url));
 
 // Call methods on the router itself.
 Router.reload("/route").then(() => console.log("route was reloaded"));
@@ -84,16 +79,18 @@ class TestComponent extends React.Component<TestComponentProps & WithRouterProps
 
     constructor(props: TestComponentProps & WithRouterProps) {
         super(props);
-        props.router.ready(() => {
-            this.setState({ ready: true });
-        });
+        if (props.router) {
+            props.router.ready(() => {
+                this.setState({ ready: true });
+            });
+        }
     }
 
     render() {
         return (
             <div>
                 <h1>{this.state.ready ? 'Ready' : 'Not Ready'}</h1>
-                <h2>Route: {this.props.router.route}</h2>
+                <h2>Route: {this.props.router ? this.props.router.route : ""}</h2>
                 <p>Another prop: {this.props.testValue}</p>
             </div>
         );
@@ -101,3 +98,13 @@ class TestComponent extends React.Component<TestComponentProps & WithRouterProps
 }
 
 withRouter(TestComponent);
+
+interface TestSFCQuery {
+    test?: string;
+}
+
+interface TestSFCProps extends WithRouterProps<TestSFCQuery> { }
+
+const TestSFC: React.SFC<TestSFCProps> = ({ router }) => {
+    return <div>{router && router.query && router.query.test}</div>;
+};

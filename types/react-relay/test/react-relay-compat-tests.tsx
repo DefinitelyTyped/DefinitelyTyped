@@ -32,7 +32,7 @@ function markNotificationAsReadCompat(environment: CompatEnvironment, source: st
             if (field) {
                 field.setValue(data.story, "story");
             }
-        }
+        },
     });
 }
 
@@ -46,7 +46,7 @@ class CompatComponent extends React.Component<CompatProps> {
     }
 
     render() {
-        return (<div/>);
+        return <div />;
     }
 }
 

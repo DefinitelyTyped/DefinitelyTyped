@@ -8,8 +8,9 @@
 //                 Willis Plummer <https://github.com/willisplummer>
 //                 Santiago Vilar <https://github.com/smvilar>
 //                 Ulf Schwekendiek <https://github.com/sulf>
+//                 Pablo Varela <https://github.com/pablopunk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
@@ -950,6 +951,7 @@ import Editor = Draft.Component.Base.DraftEditor;
 import EditorProps = Draft.Component.Base.DraftEditorProps;
 import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
+import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
 import Entity = Draft.Model.Entity.DraftEntity;
@@ -987,6 +989,8 @@ import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRe
 import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
 import DraftDragType = Draft.Model.Constants.DraftDragType;
 import DraftBlockType = Draft.Model.Constants.DraftBlockType;
+import DraftBlockRenderConfig = Draft.Model.ImmutableData.DraftBlockRenderConfig;
+import DraftBlockRenderMap = Draft.Component.Base.DraftBlockRenderMap;
 import DraftInlineStyleType = Draft.Model.Constants.DraftInlineStyleType;
 import DraftEntityMutability = Draft.Model.Constants.DraftEntityMutability;
 import DraftEntityType = Draft.Model.Constants.DraftEntityType;
@@ -999,6 +1003,7 @@ export {
     EditorProps,
     EditorBlock,
     EditorState,
+    EditorChangeType,
 
     CompositeDecorator,
     Entity,
@@ -1036,6 +1041,8 @@ export {
     DraftEditorCommand,
     DraftDragType,
     DraftBlockType,
+    DraftBlockRenderConfig,
+    DraftBlockRenderMap,
     DraftInlineStyleType,
     DraftEntityType,
     DraftEntityMutability,

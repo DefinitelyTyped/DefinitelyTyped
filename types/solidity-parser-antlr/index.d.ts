@@ -1,11 +1,22 @@
 // Type definitions for solidity-parser-antlr 0.2
 // Project: https://github.com/federicobond/solidity-parser-antlr
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
+//                 Alex Browne <https://github.com/albrow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+export interface LineColumn {
+    line: number;
+    column: number;
+}
+export interface Location {
+    start: LineColumn;
+    end: LineColumn;
+}
 export interface BaseASTNode {
-    range: [number, number];
+    type: string;
+    range?: [number, number];
+    loc?: Location;
 }
 export interface SourceUnit extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface PragmaDirective extends BaseASTNode {} // tslint:disable-line:no-empty-interface
@@ -16,7 +27,9 @@ export interface VersionOperator extends BaseASTNode {} // tslint:disable-line:n
 export interface VersionConstraint extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface ImportDeclaration extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface ImportDirective extends BaseASTNode {} // tslint:disable-line:no-empty-interface
-export interface ContractDefinition extends BaseASTNode {} // tslint:disable-line:no-empty-interface
+export interface ContractDefinition extends BaseASTNode {
+    name: string;
+}
 export interface InheritanceSpecifier extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface ContractPart extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface StateVariableDeclaration extends BaseASTNode {
@@ -45,7 +58,7 @@ export interface EventParameter extends BaseASTNode {} // tslint:disable-line:no
 export interface FunctionTypeParameterList extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface FunctionTypeParameter extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface VariableDeclaration extends BaseASTNode {
-    visibility: 'public' | 'private';
+    visibility: "public" | "private";
     isStateVar: boolean;
 }
 export interface TypeName extends BaseASTNode {} // tslint:disable-line:no-empty-interface
@@ -104,36 +117,36 @@ export interface ElementaryTypeNameExpression extends BaseASTNode {} // tslint:d
 export interface NumberLiteral extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface Identifier extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export type BinOp =
-    | '+'
-    | '-'
-    | '*'
-    | '/'
-    | '**'
-    | '%'
-    | '<<'
-    | '>>'
-    | '&&'
-    | '||'
-    | '&'
-    | '|'
-    | '^'
-    | '<'
-    | '>'
-    | '<='
-    | '>='
-    | '=='
-    | '!='
-    | '='
-    | '|='
-    | '^='
-    | '&='
-    | '<<='
-    | '>>='
-    | '+='
-    | '-='
-    | '*='
-    | '/='
-    | '%=';
+    | "+"
+    | "-"
+    | "*"
+    | "/"
+    | "**"
+    | "%"
+    | "<<"
+    | ">>"
+    | "&&"
+    | "||"
+    | "&"
+    | "|"
+    | "^"
+    | "<"
+    | ">"
+    | "<="
+    | ">="
+    | "=="
+    | "!="
+    | "="
+    | "|="
+    | "^="
+    | "&="
+    | "<<="
+    | ">>="
+    | "+="
+    | "-="
+    | "*="
+    | "/="
+    | "%=";
 export interface BinaryOperation extends BaseASTNode {
     left: ASTNode;
     right: ASTNode;
@@ -312,7 +325,9 @@ export interface Visitor {
     Conditional?: (node: Conditional) => void;
 }
 export interface ParserOpts {
+    tolerant?: boolean;
     range?: boolean;
+    loc?: boolean;
 }
 export function parse(sourceCode: string, parserOpts: ParserOpts): ASTNode;
 export function visit(ast: ASTNode, visitor: Visitor): void;

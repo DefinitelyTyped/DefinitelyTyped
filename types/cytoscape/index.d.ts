@@ -133,6 +133,8 @@ declare namespace cytoscape {
     }
 
     interface EdgeDataDefinition extends ElementDataDefinition {
+        id?: string;
+
         /**
          * the source node id (edge comes from this node)
          */
@@ -141,6 +143,8 @@ declare namespace cytoscape {
          * the target node id (edge goes to this node)
          */
         target: string;
+
+        [key: string]: any;
     }
 
     interface NodeDefinition extends ElementDefinition {
@@ -148,7 +152,9 @@ declare namespace cytoscape {
     }
 
     interface NodeDataDefinition extends ElementDataDefinition {
+        id?: string;
         parent?: string;
+        [key: string]: any;
     }
 
     interface CytoscapeOptions {
@@ -482,7 +488,8 @@ declare namespace cytoscape {
          * @param namespace A namespace string.
          * @param value The value to set at the specified namespace.
          */
-        scratch(namespace?: string, value?: any): Scratchpad;
+        scratch(namespace?: string): Scratchpad;
+        scratch(namespace: string, value: any): this;
 
         /**
          * Remove scratchpad data. You should remove scratchpad data only at your own namespaces.
@@ -490,7 +497,7 @@ declare namespace cytoscape {
          *
          * @param namespace A namespace string.
          */
-        removeScratch(namespace: string): void;
+        removeScratch(namespace: string): this;
     }
 
     /**
@@ -508,25 +515,25 @@ declare namespace cytoscape {
          * @param eventsMap A map of event names to handler functions.
          */
 
-        on(events: EventNames, handler: EventHandler): void;
-        on(events: EventNames, selector: Selector, handler: EventHandler): void;
-        on(events: EventNames, selector: Selector, data: any, handler: EventHandler): void;
-        on(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): void;
+        on(events: EventNames, handler: EventHandler): this;
+        on(events: EventNames, selector: Selector, handler: EventHandler): this;
+        on(events: EventNames, selector: Selector, data: any, handler: EventHandler): this;
+        on(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): this;
 
-        bind(events: EventNames, handler: EventHandler): void;
-        bind(events: EventNames, selector: Selector, handler: EventHandler): void;
-        bind(events: EventNames, selector: Selector, data: any, handler: EventHandler): void;
-        bind(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): void;
+        bind(events: EventNames, handler: EventHandler): this;
+        bind(events: EventNames, selector: Selector, handler: EventHandler): this;
+        bind(events: EventNames, selector: Selector, data: any, handler: EventHandler): this;
+        bind(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): this;
 
-        listen(events: EventNames, handler: EventHandler): void;
-        listen(events: EventNames, selector: Selector, handler: EventHandler): void;
-        listen(events: EventNames, selector: Selector, data: any, handler: EventHandler): void;
-        listen(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): void;
+        listen(events: EventNames, handler: EventHandler): this;
+        listen(events: EventNames, selector: Selector, handler: EventHandler): this;
+        listen(events: EventNames, selector: Selector, data: any, handler: EventHandler): this;
+        listen(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): this;
 
-        addListener(events: EventNames, handler: EventHandler): void;
-        addListener(events: EventNames, selector: Selector, handler: EventHandler): void;
-        addListener(events: EventNames, selector: Selector, data: any, handler: EventHandler): void;
-        addListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): void;
+        addListener(events: EventNames, handler: EventHandler): this;
+        addListener(events: EventNames, selector: Selector, handler: EventHandler): this;
+        addListener(events: EventNames, selector: Selector, data: any, handler: EventHandler): this;
+        addListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): this;
 
         /**
          * Get a promise that is resolved with the first
@@ -542,7 +549,7 @@ declare namespace cytoscape {
          * @param events A space separated list of event names.
          * @param handler The handler function that is called when one of the specified events occurs.
          */
-        one(events: EventNames, handler: EventHandler): void;
+        one(events: EventNames, handler: EventHandler): this;
         /**
          * Bind to events that occur in the graph, and trigger the handler only once.
          *
@@ -550,7 +557,7 @@ declare namespace cytoscape {
          * @param handler The handler function that is called when one of the specified events occurs.
          * @param selector A selector to specify elements for which the handler is triggered.
          */
-        one(events: EventNames, selector: Selector, handler: EventHandler): void;
+        one(events: EventNames, selector: Selector, handler: EventHandler): this;
         /**
          * Bind to events that occur in the graph, and trigger the handler only once.
          *
@@ -559,7 +566,7 @@ declare namespace cytoscape {
          * @param selector A selector to specify elements for which the handler is triggered.
          * @param data A plain object which is passed to the handler in the event object argument.
          */
-        one(events: EventNames, selector: Selector, data: any, handler: EventHandler): void;
+        one(events: EventNames, selector: Selector, data: any, handler: EventHandler): this;
         /**
          * Bind to events that occur in the graph, and trigger the handler only once.
          *
@@ -567,7 +574,7 @@ declare namespace cytoscape {
          * @param selector A selector to specify elements for which the handler is triggered.
          * @param data A plain object which is passed to the handler in the event object argument.
          */
-        one(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): void;
+        one(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): this;
 
         /**
          * Remove event handlers.
@@ -578,17 +585,17 @@ declare namespace cytoscape {
          * @param handler [optional] A reference to the handler function to remove.
          * @param eventsMap A map of event names to handler functions to remove.
          */
-        off(events: EventNames, selector?: Selector, handler?: EventHandler): void;
-        off(eventsMap: { [value: string]: EventHandler }, selector?: Selector): void;
+        off(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        off(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
-        unbind(events: EventNames, selector?: Selector, handler?: EventHandler): void;
-        unbind(eventsMap: { [value: string]: EventHandler }, selector?: Selector): void;
+        unbind(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        unbind(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
-        unlisten(events: EventNames, selector?: Selector, handler?: EventHandler): void;
-        unlisten(eventsMap: { [value: string]: EventHandler }, selector?: Selector): void;
+        unlisten(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        unlisten(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
-        removeListener(events: EventNames, selector?: Selector, handler?: EventHandler): void;
-        removeListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector): void;
+        removeListener(events: EventNames, selector?: Selector, handler?: EventHandler): this;
+        removeListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
         /**
          * Trigger one or more events.
@@ -596,14 +603,14 @@ declare namespace cytoscape {
          * @param events A space separated list of event names to trigger.
          * @param extraParams [optional] An array of additional parameters to pass to the handler.
          */
-        trigger(events: EventNames, extraParams?: any[]): void;
-        emit(events: EventNames, extraParams?: any[]): void;
+        trigger(events: EventNames, extraParams?: any[]): this;
+        emit(events: EventNames, extraParams?: any[]): this;
 
         /**
          * Run a callback as soon as the graph becomes ready. If the graph is already ready, then the callback is called immediately.
          * @param fn The callback run as soon as the graph is ready, inside which this refers to the core (cy).
          */
-        ready(fn: EventHandler): void;
+        ready(fn: EventHandler): this;
     }
 
     interface ZoomOptionsModel {
@@ -695,7 +702,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables panning; a falsey value disables it.
          */
-        panningEnabled(bool: boolean): void;
+        panningEnabled(bool: boolean): this;
 
         /**
          * Get whether panning by user events (e.g. dragging the graph background) is enabled. If cy.boxSelectionEnabled() === true, then the user must taphold to initiate panning.
@@ -709,7 +716,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables user panning; a falsey value disables it.
          */
-        userPanningEnabled(bool: boolean): void;
+        userPanningEnabled(bool: boolean): this;
         /**
          * Get the zoom level.
          * http://js.cytoscape.org/#cy.zoom
@@ -722,7 +729,7 @@ declare namespace cytoscape {
          * @param level The zoom level to set.
          * @param options The options for zooming.
          */
-        zoom(level?: number | ZoomOptions): void;
+        zoom(level?: number | ZoomOptions): this;
 
         /**
          * Set or get whether zooming is enabled. Get if no parameter provided.
@@ -730,7 +737,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables zooming; a falsey value disables it.
          */
-        zoomingEnabled(bool?: boolean): void;
+        zoomingEnabled(bool?: boolean): this;
 
         /**
          * Get whether zooming by user events (e.g. mouse wheel, pinch-to-zoom)
@@ -745,7 +752,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables user zooming; a falsey value disables it.
          */
-        userZoomingEnabled(bool?: boolean): void;
+        userZoomingEnabled(bool?: boolean): this;
 
         /**
          * Get the minimum zoom level.
@@ -758,7 +765,7 @@ declare namespace cytoscape {
          *
          * @param zoom The new minimum zoom level to use.
          */
-        minZoom(zoom: number): void;
+        minZoom(zoom: number): this;
 
         /**
          * Get the maximum zoom level.
@@ -771,7 +778,7 @@ declare namespace cytoscape {
          *
          * @param zoom The new maximum zoom level to use.
          */
-        maxZoom(zoom: number): void;
+        maxZoom(zoom: number): this;
 
         /**
          * Set the viewport state (pan & zoom) in one call.
@@ -780,7 +787,7 @@ declare namespace cytoscape {
          * @param zoom The zoom level to set.
          * @param pan The pan to set (a rendered position).
          */
-        viewport(zoom: number, pan: Position): void;
+        viewport(zoom: number, pan: Position): this;
 
         /**
          * Get whether box selection is enabled.
@@ -795,7 +802,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables box selection; a falsey value disables it.
          */
-        boxSelectionEnabled(bool: boolean): void;
+        boxSelectionEnabled(bool: boolean): this;
 
         /**
          * Get the on-screen width of the viewport in pixels.
@@ -832,7 +839,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
-        autolock(bool: boolean): void;
+        autolock(bool: boolean): this;
 
         /**
          * Get whether nodes are automatically ungrabified
@@ -847,7 +854,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
-        autoungrabify(bool: boolean): void;
+        autoungrabify(bool: boolean): this;
 
         /**
          * Get whether nodes are automatically unselectified
@@ -862,7 +869,7 @@ declare namespace cytoscape {
          *
          * @param bool A truthy value enables autolocking; a falsey value disables it.
          */
-        autounselectify(bool: boolean): void;
+        autounselectify(bool: boolean): this;
 
         /**
          * Force the renderer to redraw (i.e. draw a new frame).
@@ -872,7 +879,7 @@ declare namespace cytoscape {
          * but it should not be needed for most developers.
          * http://js.cytoscape.org/#cy.forceRender
          */
-        forceRender(): void;
+        forceRender(): this;
 
         /**
          * Force the renderer to recalculate the viewport bounds.
@@ -914,7 +921,7 @@ declare namespace cytoscape {
         /** An object containing centring options from which the graph will be animated. */
         center?: CenterOptions;
         /** easing - A transition-timing-function easing style string that shapes the animation progress curve. */
-        easing?: string; // TODO: explicit type
+        easing?: Css.TransitionTimingFunction;
 
         /** duration - The duration of the animation in milliseconds. */
         duration?: number;
@@ -949,7 +956,7 @@ declare namespace cytoscape {
          * Get an animation of the viewport.
          * http://js.cytoscape.org/#cy.animation
          */
-        animation(options: AnimationOptions): any;
+        animation(options: AnimationOptions): AnimationManipulation;
 
         /**
          * Add a delay between animations for the viewport.
@@ -963,7 +970,7 @@ declare namespace cytoscape {
          * Get a delay animation of the viewport.
          * http://js.cytoscape.org/#cy.delayAnimation
          */
-        delayAnimation(duration: number): void;
+        delayAnimation(duration: number): AnimationManipulation;
 
         /**
          * Stop all viewport animations that are currently running.
@@ -994,7 +1001,7 @@ declare namespace cytoscape {
          * An analogue to run a layout on a subset of the graph exists as eles.layout().
          * http://js.cytoscape.org/#cy.layout
          */
-        layout(layout: LayoutOptions): LayoutManipulation;
+        layout(layout: LayoutOptions): Layouts;
         /**
          * Get a new layout, which can be used to algorithmically
          * position the nodes in the graph.
@@ -1007,15 +1014,18 @@ declare namespace cytoscape {
          * Note that you must call layout.run() in order for it to affect the graph.
          * An analogue to make a layout on a subset of the graph exists as eles.makeLayout().
          */
-        makeLayout(options: LayoutOptions): LayoutManipulation;
-        createLayout(options: LayoutOptions): LayoutManipulation;
+        makeLayout(options: LayoutOptions): Layouts;
+        createLayout(options: LayoutOptions): Layouts;
     }
 
     /**
      * Get the entry point to modify the visual style of the graph after initialisation.
      * http://js.cytoscape.org/#core/style
      */
-    interface ElementStylesheet extends StylesheetStyle {
+    interface ElementStylesheetStyle extends StylesheetStyle {
+        json(): any;
+    }
+    interface ElementStylesheetCSS extends StylesheetCSS {
         json(): any;
     }
 
@@ -1023,11 +1033,11 @@ declare namespace cytoscape {
         /**
          * Get the current style object.
          */
-        style(): ElementStylesheet | string;
+        style(): ElementStylesheetStyle | ElementStylesheetCSS;
         /**
          * Assign a new stylesheet to replace the existing one.
          */
-        style(sheet: Stylesheet): Stylesheet;
+        style(sheet: Stylesheet | Stylesheet[] | string): Stylesheet;
     }
 
     /**
@@ -1053,10 +1063,6 @@ declare namespace cytoscape {
      */
     interface ExportOptions {
         /**
-         * output Whether the output should be 'base64uri' (default), 'base64', or 'blob'.
-         */
-        output?: "base64uri" | "base64" | "blob";
-        /**
          * The background colour of the image (transparent by default).
          */
         bg?: string;
@@ -1077,6 +1083,18 @@ declare namespace cytoscape {
          */
         maxHeight?: number;
     }
+    interface ExportStringOptions extends ExportOptions {
+        /**
+         * output Whether the output should be 'base64uri' (default), 'base64', or 'blob'.
+         */
+        output?: "base64uri" | "base64";
+    }
+    interface ExportBlobOptions extends ExportOptions {
+        /**
+         * output Whether the output should be 'base64uri' (default), 'base64', or 'blob'.
+         */
+        output?: "blob";
+    }
 
     interface ExportJpgOptions extends ExportOptions {
         /**
@@ -1086,22 +1104,29 @@ declare namespace cytoscape {
          */
         quality?: number;
     }
+    interface ExportJpgStringOptions extends ExportJpgOptions, ExportStringOptions {
+    }
+    interface ExportJpgBlobOptions extends ExportJpgOptions, ExportBlobOptions {
+    }
 
     interface CoreExport {
         /**
          * Export the current graph view as a PNG image in Base64 representation.
          */
-        png(options?: ExportOptions): string;
+        png(options?: ExportStringOptions): string;
+        png(options?: ExportBlobOptions): Blob;
 
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
-        jpg(options?: ExportJpgOptions): string;
+        jpg(options?: ExportJpgStringOptions): string;
+        jpg(options?: ExportJpgBlobOptions): Blob;
 
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
-        jpeg(options?: ExportJpgOptions): string;
+        jpeg(options?: ExportJpgStringOptions): string;
+        jpeg(options?: ExportJpgBlobOptions): Blob;
 
         /**
          * Export the graph as JSON, the same format used at initialisation.
@@ -1118,19 +1143,21 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection
      */
     interface Collection<TOut = SingularElementReturnValue, TIn = SingularElementArgument>
-        extends Singular,
+        extends
         CollectionGraphManipulation, CollectionEvents,
         CollectionData, CollectionPosition,
         CollectionLayout,
         CollectionSelection, CollectionStyle, CollectionAnimation,
         CollectionComparision, CollectionIteration<TIn, TOut>,
-        CollectionBuildingFiltering<TOut>, CollectionAlgorithms { }
+        CollectionBuildingFiltering<TIn, TOut>, CollectionAlgorithms { }
 
     /**
      * ele  --> Cy.Singular
      * a collection of a single element (node or edge)
+     * NB: every singular collection is a general collection too (but not vice versa)!
      */
-    interface Singular extends
+    interface Singular<TOut = SingularElementReturnValue, TIn = SingularElementArgument>
+        extends Collection<TOut, TIn>,
         SingularGraphManipulation,
         SingularData, SingularPosition,
         SingularSelection, SingularStyle, SingularAnimation { }
@@ -1145,8 +1172,8 @@ declare namespace cytoscape {
     /**
      * The output is a collection of node and edge elements OR single element.
      */
-    type CollectionArgument = EdgeCollection | NodeCollection | SingularElementArgument;
-    type CollectionReturnValue = EdgeCollection & NodeCollection & SingularElementReturnValue;
+    type CollectionArgument = Collection | EdgeCollection | NodeCollection | SingularElementArgument;
+    type CollectionReturnValue = Collection & EdgeCollection & NodeCollection & SingularElementReturnValue;
 
     /**
      * edges -> Cy.EdgeCollection
@@ -1154,7 +1181,7 @@ declare namespace cytoscape {
      *
      * The output is a collection of edge elements OR single edge.
      */
-    interface EdgeCollection extends Collection<EdgeSingular, EdgeSingular>, EdgeSingular,
+    interface EdgeCollection extends Collection<EdgeSingular, EdgeSingular>,
         EdgeCollectionTraversing { }
     /**
      *  nodes -> Cy.NodeCollection
@@ -1162,7 +1189,7 @@ declare namespace cytoscape {
      *
      * The output is a collection of node elements OR single node.
      */
-    interface NodeCollection extends Collection<NodeSingular, NodeSingular>, NodeSingular,
+    interface NodeCollection extends Collection<NodeSingular, NodeSingular>,
         NodeCollectionMetadata, NodeCollectionPosition, NodeCollectionTraversing,
         NodeCollectionCompound { }
 
@@ -1172,14 +1199,14 @@ declare namespace cytoscape {
      *  edge --> Cy.EdgeSingular
      *  a collection of a single edge
      */
-    interface EdgeSingular extends Singular,
+    interface EdgeSingular extends Singular<EdgeSingular, EdgeSingular>, EdgeCollection,
         EdgeSingularData, EdgeSingularPoints, EdgeSingularTraversing { }
 
     /**
      *  node --> Cy.NodeSingular
      *  a collection of a single node
      */
-    interface NodeSingular extends Singular,
+    interface NodeSingular extends Singular<NodeSingular, NodeSingular>, NodeCollection,
         NodeSingularMetadata, NodeSingularPosition, NodeSingularCompound { }
 
     /**
@@ -1248,9 +1275,18 @@ declare namespace cytoscape {
         /**
          * http://js.cytoscape.org/#eles.on
          */
-        on(events: EventNames, selector: string, data: any, handler: EventHandler): void;
-        on(events: EventNames, selector: string, handler: EventHandler): void;
-        on(events: EventNames, handler: EventHandler): void;
+        on(events: EventNames, selector: string, data: any, handler: EventHandler): this;
+        on(events: EventNames, selector: string, handler: EventHandler): this;
+        on(events: EventNames, handler: EventHandler): this;
+        bind(events: EventNames, selector: string, data: any, handler: EventHandler): this;
+        bind(events: EventNames, selector: string, handler: EventHandler): this;
+        bind(events: EventNames, handler: EventHandler): this;
+        listen(events: EventNames, selector: string, data: any, handler: EventHandler): this;
+        listen(events: EventNames, selector: string, handler: EventHandler): this;
+        listen(events: EventNames, handler: EventHandler): this;
+        addListener(events: EventNames, selector: string, data: any, handler: EventHandler): this;
+        addListener(events: EventNames, selector: string, handler: EventHandler): this;
+        addListener(events: EventNames, handler: EventHandler): this;
         /**
          * http://js.cytoscape.org/#eles.promiseOn
          * alias: pon
@@ -1266,25 +1302,29 @@ declare namespace cytoscape {
          * @param event The event object.
          * http://js.cytoscape.org/#eles.one
          */
-        one(events: EventNames, selector: string, data: any, handler: EventHandler): void;
-        one(events: EventNames, selector: string, handler: EventHandler): void;
-        one(events: EventNames, handler: EventHandler): void;
+        one(events: EventNames, selector: string, data: any, handler: EventHandler): this;
+        one(events: EventNames, selector: string, handler: EventHandler): this;
+        one(events: EventNames, handler: EventHandler): this;
         /**
          * http://js.cytoscape.org/#eles.once
          */
-        once(events: EventNames, selector: string, data: any, handler: EventHandler): void;
-        once(events: EventNames, selector: string, handler: EventHandler): void;
-        once(events: EventNames, handler: EventHandler): void;
+        once(events: EventNames, selector: string, data: any, handler: EventHandler): this;
+        once(events: EventNames, selector: string, handler: EventHandler): this;
+        once(events: EventNames, handler: EventHandler): this;
         /**
          * http://js.cytoscape.org/#eles.off
          * alias unbind, unlisten, removeListener
          */
-        off(events: EventNames, selector?: string, handler?: EventHandler): void;
+        off(events: EventNames, selector?: string, handler?: EventHandler): this;
+        unbind(events: EventNames, selector?: string, handler?: EventHandler): this;
+        unlisten(events: EventNames, selector?: string, handler?: EventHandler): this;
+        removeListener(events: EventNames, selector?: string, handler?: EventHandler): this;
         /**
          * http://js.cytoscape.org/#eles.trigger
          * alias: emit
          */
-        trigger(events: EventNames, extra?: string[]): void;
+        trigger(events: EventNames, extra?: string[]): this;
+        emit(events: EventNames, extra?: string[]): this;
     }
 
     /**
@@ -1329,12 +1369,12 @@ declare namespace cytoscape {
          * @param name The name of the field to set.
          * @param value The value to set for the field.
          */
-        data(name: string, value: any): void;
+        data(name: string, value: any): this;
         /**
          * Update multiple data fields at once via an object.
          * @param obj The object containing name- value pairs to update data fields.
          */
-        data(obj: any): void;
+        data(obj: any): this;
         /**
          * Get a particular data field for the element.
          * @param name The name of the field to get.
@@ -1345,12 +1385,12 @@ declare namespace cytoscape {
          * @param name The name of the field to set.
          * @param value The value to set for the field.
          */
-        attr(name: string, value: any): void;
+        attr(name: string, value: any): this;
         /**
          * Update multiple data fields at once via an object.
          * @param obj The object containing name- value pairs to update data fields.
          */
-        attr(obj: any): void;
+        attr(obj: any): this;
 
         /**
          * Get or set the scratchpad at a particular namespace,
@@ -1362,7 +1402,8 @@ declare namespace cytoscape {
          * @param namespace A namespace string.
          * @param value The value to set at the specified namespace.
          */
-        scratch(namespace?: string, value?: any): Scratchpad;
+        scratch(namespace?: string): Scratchpad;
+        scratch(namespace: string, value: any): this;
 
         /**
          * Remove scratchpad data.
@@ -1370,7 +1411,7 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#ele.removeScratch
          * @param namespace A namespace string.
          */
-        removeScratch(namespace: string): void;
+        removeScratch(namespace: string): this;
 
         /**
          * A shortcut to get the ID of an element.
@@ -1398,13 +1439,13 @@ declare namespace cytoscape {
          * Get whether the element is a node.
          * http://js.cytoscape.org/#ele.isNode
          */
-        isNode(): boolean;
+        isNode(): this is NodeSingular;
 
         /**
          * Get whether the element is an edge.
          * http://js.cytoscape.org/#ele.isEdge
          */
-        isEdge(): boolean;
+        isEdge(): this is EdgeSingular;
     }
     /**
      * http://js.cytoscape.org/#collection/data
@@ -1560,18 +1601,6 @@ declare namespace cytoscape {
         point(pos: Position): this;
 
         /**
-         * Shift the positions of the nodes by a given model position vector.
-         * @param dimension The position dimension to shift.
-         * @param value The value to shift the dimension.
-         */
-        shift(dimension: PositionDimension, value?: number): this;
-        /**
-         * Shift the positions of the nodes by a given model position vector.
-         * @param pos An object specifying name-value pairs representing dimensions to shift.
-         */
-        shift(pos: Position): this;
-
-        /**
          * Get or set the rendered (on-screen) position of a node.
          * http://js.cytoscape.org/#node.renderedPosition
          */
@@ -1582,8 +1611,8 @@ declare namespace cytoscape {
          * @param pos An object specifying name-value pairs representing dimensions to set.
          */
         renderedPosition(dimension?: PositionDimension): Position;
-        renderedPosition(dimension: PositionDimension, value: Position): void;
-        renderedPosition(pos: { [name: string]: number }): void;
+        renderedPosition(dimension: PositionDimension, value: Position): this;
+        renderedPosition(pos: { [name: string]: number }): this;
 
         /**
          * Set the value of a specified rendered position dimension.
@@ -1592,8 +1621,8 @@ declare namespace cytoscape {
          * @param pos An object specifying name-value pairs representing dimensions to set.
          */
         renderedPoint(dimension?: PositionDimension): Position;
-        renderedPoint(dimension: PositionDimension, value: Position): void;
-        renderedPoint(pos: { [name: string]: number }): void;
+        renderedPoint(dimension: PositionDimension, value: Position): this;
+        renderedPoint(pos: { [name: string]: number }): this;
 
         /**
          *
@@ -1606,8 +1635,8 @@ declare namespace cytoscape {
          * @param pos An object specifying name-value pairs representing dimensions to set.
          */
         relativePosition(dimension?: PositionDimension): Position;
-        relativePosition(dimension: PositionDimension, value: Position): void;
-        relativePosition(pos: { [name: string]: number }): void;
+        relativePosition(dimension: PositionDimension, value: Position): this;
+        relativePosition(pos: { [name: string]: number }): this;
 
         /**
          * Get the value of a specified relative position dimension.
@@ -1616,8 +1645,8 @@ declare namespace cytoscape {
          * @param pos An object specifying name-value pairs representing dimensions to set.
          */
         relativePoint(dimension?: PositionDimension): Position;
-        relativePoint(dimension: PositionDimension, value: Position): void;
-        relativePoint(pos: { [name: string]: number }): void;
+        relativePoint(dimension: PositionDimension, value: Position): this;
+        relativePoint(pos: { [name: string]: number }): this;
 
         /**
          * Get whether a node is currently grabbed, meaning the user has hold of the node.
@@ -1640,43 +1669,55 @@ declare namespace cytoscape {
      * @param ele The element being iterated over for which the function should return a position to set.
      * @param ix The index of the element when iterating over the elements in the collection.
      */
-    type ElementPositionFunction = (ele: NodeSingular, ix: number) => void;
-    type ElementCollectionFunction = (ele: NodeSingular, ix: number, eles: CollectionArgument) => void;
+    type ElementPositionFunction = (ele: NodeSingular, ix: number) => Position;
+    type ElementCollectionFunction = (ele: NodeSingular, ix: number, eles: CollectionArgument) => Position;
 
     /**
      * http://js.cytoscape.org/#collection/position--dimensions
      */
     interface NodeCollectionPosition {
         /**
+         * Shift the positions of the nodes by a given model position vector.
+         * @param dimension The position dimension to shift.
+         * @param value The value to shift the dimension.
+         */
+        shift(dimension: PositionDimension, value?: number): this;
+        /**
+         * Shift the positions of the nodes by a given model position vector.
+         * @param pos An object specifying name-value pairs representing dimensions to shift.
+         */
+        shift(pos: Position): this;
+
+        /**
          * Set the positions via a function.
          * @param handler A callback function that returns the position to set for each element.
          * @param pos An object specifying name-value pairs representing dimensions to set.
          * http://js.cytoscape.org/#nodes.positions
          */
-        positions(handler: ElementPositionFunction | Position): void;
-        modelPositions(handler: ElementPositionFunction | Position): void;
-        points(handler: ElementPositionFunction | Position): void;
+        positions(handler: ElementPositionFunction | Position): this;
+        modelPositions(handler: ElementPositionFunction | Position): this;
+        points(handler: ElementPositionFunction | Position): this;
 
         /**
          * Allow the user to grab the nodes.
          * http://js.cytoscape.org/#nodes.grabify
          */
-        grabify(): void;
+        grabify(): this;
         /**
          * Disallow the user to grab the nodes.
          * http://js.cytoscape.org/#nodes.ungrabify
          */
-        ungrabify(): void;
+        ungrabify(): this;
         /**
          * Lock the nodes such that their positions can not be changed.
          * http://js.cytoscape.org/#nodes.lock
          */
-        lock(): void;
+        lock(): this;
         /**
          * Unlock the nodes such that their positions can be changed.
          * http://js.cytoscape.org/#nodes.unlock
          */
-        unlock(): void;
+        unlock(): this;
     }
     /**
      * http://js.cytoscape.org/#collection/position--dimensions
@@ -1766,9 +1807,9 @@ declare namespace cytoscape {
          *
          * @param options The layout options.
          */
-        layout(options: LayoutOptions): LayoutManipulation;
-        makeLayout(options: LayoutOptions): LayoutManipulation;
-        createLayout(options: LayoutOptions): LayoutManipulation;
+        layout(options: LayoutOptions): Layouts;
+        makeLayout(options: LayoutOptions): Layouts;
+        createLayout(options: LayoutOptions): Layouts;
     }
 
     /**
@@ -1781,7 +1822,7 @@ declare namespace cytoscape {
         animationDuration?: number;
         // easing of animation, if enabled
         animationEasing?: number;
-        // collection of elements involved in the layout; set by cy.layout() or eles.layout()
+        // collection of elements involved in the layout; set by cy.layout() or eles.layout(s)
         eles: CollectionArgument;
         // whether to fit the viewport to the graph
         fit?: boolean;
@@ -1847,23 +1888,23 @@ declare namespace cytoscape {
          * Make the elements selected (NB other elements outside the collection are not affected).
          * http://js.cytoscape.org/#eles.select
          */
-        select(): void;
+        select(): this;
         /**
          * Make the elements not selected (NB other elements outside the collection are not affected).
          * http://js.cytoscape.org/#eles.unselect
          */
-        unselect(): void;
-        deselect(): void;
+        unselect(): this;
+        deselect(): this;
         /**
          * Make the selection states of the elements mutable.
          * http://js.cytoscape.org/#eles.selectify
          */
-        selectify(): void;
+        selectify(): this;
         /**
          * Make the selection states of the elements immutable.
          * http://js.cytoscape.org/#eles.unselectify
          */
-        unselectify(): void;
+        unselectify(): this;
     }
 
     /**
@@ -1879,34 +1920,34 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#eles.addClass
          * @param classes A space-separated list of class names to add to the elements.
          */
-        addClass(classes: ClassNames): void;
+        addClass(classes: ClassNames): this;
         /**
          * Remove classes from elements.
          * @param classes A space-separated list of class names to remove from the elements.
          * http://js.cytoscape.org/#eles.removeClass
          */
-        removeClass(classes: ClassNames): void;
+        removeClass(classes: ClassNames): this;
         /**
          * Toggle whether the elements have the specified classes.
          * @param classes A space-separated list of class names to toggle on the elements.
          * @param toggle [optional] Instead of automatically toggling, adds the classes on truthy values or removes them on falsey values.
          * http://js.cytoscape.org/#eles.toggleClass
          */
-        toggleClass(classes: ClassNames, toggle?: boolean): void;
+        toggleClass(classes: ClassNames, toggle?: boolean): this;
         /**
          * Replace the current list of classes on the elements with the specified list.
          * @param classes A space-separated list of class names that replaces the current class list.
          * http://js.cytoscape.org/#eles.classes
          * Note: can be used to clear all classes (no arguments).
          */
-        classes(classes?: ClassNames): void;
+        classes(classes?: ClassNames): this;
         /**
          * Add classes to the elements, and then remove the classes after a specified duration.
          * @param classes A space-separated list of class names to flash on the elements.
          * @param duration [optional] The duration in milliseconds that the classes should be added on the elements. After the duration, the classes are removed.
          * http://js.cytoscape.org/#eles.flashClass
          */
-        flashClass(classes: ClassNames, duration?: number): void;
+        flashClass(classes: ClassNames, duration?: number): this;
 
         /**
          * Set a particular style property value.
@@ -2031,19 +2072,15 @@ declare namespace cytoscape {
         /** A function to call each time the animation steps. */
         step?(): void;
         /** A transition-timing-function easing style string that shapes the animation progress curve. */
-        easing?(): void;
+        easing?: Css.TransitionTimingFunction;
     }
-    interface ElementAnimateOptionPos {
+    interface ElementAnimateOptionPos extends ElementAnimateOptionsBase {
         /** A position to which the elements will be animated. */
-        position?: Position;
-        /** A rendered position to which the elements will be animated. */
-        renderedPosition?: Position;
+        position: Position;
     }
-    interface ElementAnimateOptionRen {
-        /** A position to which the elements will be animated. */
-        position?: Position;
+    interface ElementAnimateOptionRen extends ElementAnimateOptionsBase {
         /** A rendered position to which the elements will be animated. */
-        renderedPosition?: Position;
+        renderedPosition: Position;
     }
     interface CollectionAnimation {
         /**
@@ -2051,28 +2088,28 @@ declare namespace cytoscape {
          * @param options An object containing the details of the animation.
          * http://js.cytoscape.org/#eles.animate
          */
-        animate(options: ElementAnimateOptionPos | ElementAnimateOptionRen): void;
+        animate(options: ElementAnimateOptionPos | ElementAnimateOptionRen, params?: ElementAnimateOptionsBase): this;
         /**
          * Add a delay between animations for the elements.
          * @param duration How long the delay should be in milliseconds.
          * @param complete A function to call when the delay is complete.
          * http://js.cytoscape.org/#eles.delay
          */
-        delay(duration: number, complete: () => void): void;
+        delay(duration: number, complete: () => void): this;
         /**
          * Stop all animations that are currently running.
          * @param clearQueue A boolean, indicating whether the queue of animations should be emptied.
          * @param jumpToEnd A boolean, indicating whether the currently-running animations should jump to their ends rather than just stopping midway.
          * http://js.cytoscape.org/#eles.stop
          */
-        stop(clearQueue: boolean, jumpToEnd: boolean): void;
+        stop(clearQueue: boolean, jumpToEnd: boolean): this;
         /**
          * Remove all queued animations for the elements.
          * http://js.cytoscape.org/#eles.clearQueue
          */
-        clearQueue(): void;
+        clearQueue(): this;
     }
-    interface SingularAnimationOptions {
+    interface SingularAnimationOptionsBase {
         /** A position to which the elements will be animated. */
         position: Position;
         /** A rendered position to which the elements will be animated. */
@@ -2082,7 +2119,15 @@ declare namespace cytoscape {
         /** The duration of the animation in milliseconds. */
         duration: number;
         /** A transition-timing-function easing style string that shapes the animation progress curve. */
-        easing(): void;
+        easing: Css.TransitionTimingFunction;
+    }
+    interface SingularAnimationOptionsPos extends SingularAnimationOptionsBase {
+        /** A position to which the elements will be animated. */
+        position: Position;
+    }
+    interface SingularAnimationOptionsRen extends SingularAnimationOptionsBase {
+        /** A rendered position to which the elements will be animated. */
+        renderedPosition: Position;
     }
     interface SingularAnimation {
         /**
@@ -2093,14 +2138,14 @@ declare namespace cytoscape {
          *  Get an animation for the element.
          * @param options An object containing the details of the animation.
          */
-        animation(options: SingularAnimationOptions): void;
+        animation(options: SingularAnimationOptionsRen | SingularAnimationOptionsPos): AnimationManipulation;
 
         /**
          * Get a delay animation for the element.
          * @param duration How long the delay should be in milliseconds.
          * http://js.cytoscape.org/#ele.delayAnimation
          */
-        delayAnimation(duration: number): void;
+        delayAnimation(duration: number): AnimationManipulation;
     }
 
     /**
@@ -2216,8 +2261,8 @@ declare namespace cytoscape {
          * eles - The collection of elements being iterated.
          * @param thisArg [optional] The value for this within the iterating function.
          */
-        each(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): void;
-        forEach(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): void;
+        each(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): this;
+        forEach(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): this;
 
         /**
          * Get an element at a particular index in the collection.
@@ -2257,7 +2302,7 @@ declare namespace cytoscape {
         /**
          * Get the collection as an array, maintaining the order of the elements.
          */
-        toArray(): SingularElementReturnValue[];
+        toArray(): TOut[];
     }
 
     /**
@@ -2299,7 +2344,7 @@ declare namespace cytoscape {
     /**
      * http://js.cytoscape.org/#collection/building--filtering
      */
-    interface CollectionBuildingFiltering<TOut> {
+    interface CollectionBuildingFiltering<TIn, TOut> {
         /**
          * Get an element in the collection from its ID in a very performant way.
          * @param id The ID of the element to get.
@@ -2346,12 +2391,12 @@ declare namespace cytoscape {
          * Get the elements in both this collection and another specified collection.
          * http://js.cytoscape.org/#eles.intersection
          */
-        intersection: CollectionSymmetricDifferenceFunc;
-        intersect: CollectionSymmetricDifferenceFunc;
-        and: CollectionSymmetricDifferenceFunc;
-        n: CollectionSymmetricDifferenceFunc;
-        '&': CollectionSymmetricDifferenceFunc;
-        '.': CollectionSymmetricDifferenceFunc;
+        intersection: CollectionBuildingIntersectionFunc;
+        intersect: CollectionBuildingIntersectionFunc;
+        and: CollectionBuildingIntersectionFunc;
+        n: CollectionBuildingIntersectionFunc;
+        '&': CollectionBuildingIntersectionFunc;
+        '.': CollectionBuildingIntersectionFunc;
 
         /**
          * Get the elements that are in the calling collection
@@ -2406,7 +2451,7 @@ declare namespace cytoscape {
          * var col = cy.collection(); // new, empty collection
          * col.merge('#j').merge('#e');
          */
-        merge(eles: CollectionArgument | string): this;
+        merge(eles: CollectionArgument | Selector): this;
         /**
          * Perform an in-place operation on the calling collection to remove the given elements.
          * @param eles The elements to remove  in-place or a selector representing the elements to remove .
@@ -2431,7 +2476,7 @@ declare namespace cytoscape {
          * col.merge( cy.nodes() );
          * col.unmerge('#e');
          */
-        unmerge(eles: CollectionArgument | string): this;
+        unmerge(eles: CollectionArgument | Selector): this;
 
         /**
          * Get a new collection containing elements that are accepted by the specified filter.
@@ -2442,7 +2487,7 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((ele: TOut, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
+        filter(selector: Selector | ((ele: TIn, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
         /**
          * Get the nodes that match the specified selector.
          *
@@ -2468,7 +2513,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.sort
          */
-        sort(sort: (ele1: CollectionArgument, ele2: CollectionArgument) => number): CollectionReturnValue;
+        sort(sort: (ele1: TIn, ele2: TIn) => number): CollectionReturnValue;
 
         /**
          * Get an array containing values mapped from the collection.
@@ -2481,7 +2526,7 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.map
          */
-        map(fn: (ele: CollectionArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): any[];
+        map<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): T[];
 
         /**
          * Reduce a single value by applying a
@@ -2491,15 +2536,15 @@ declare namespace cytoscape {
          * given the previous value and the current element.
          * prevVal The value accumulated from previous elements.
          * ele The current element.
-         * ix The index of the current element.
+         * i The index of the current element.
          * eles The collection of elements being reduced.
          * @param initialValue The initial value for reducing
          * It is used also for type inference of output, but the type can be
          * also stated explicitly as generic
          * http://js.cytoscape.org/#eles.reduce
          */
-        reduce<T>(fn: (prevVal: T, ele: SingularElementReturnValue,
-            ix: number, eles: CollectionReturnValue) => T, initialValue: T): T;
+        reduce<T>(fn: (prevVal: T, ele: TIn,
+            i: number, eles: CollectionArgument) => T, initialValue: T): T;
 
         /**
          * Find a minimum value in a collection.
@@ -2512,15 +2557,15 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.min
          */
-        min(fn: (ele: CollectionArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
+        min<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
              * The minimum value found.
              */
-            value: any,
+            value: T,
             /**
              * The element that corresponds to the minimum value.
              */
-            ele: CollectionArgument
+            ele: SingularElementReturnValue
         };
 
         /**
@@ -2534,15 +2579,15 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.max
          */
-        max(fn: (ele: CollectionArgument, i: number, eles: CollectionArgument) => any, thisArg?: any): {
+        max<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
             /**
-             * The maximum value found.
+             * The minimum value found.
              */
-            value: any,
+            value: T,
             /**
-             * The element that corresponds to the maximum value.
+             * The element that corresponds to the minimum value.
              */
-            ele: CollectionArgument
+            ele: SingularElementReturnValue
         };
     }
 
@@ -2640,14 +2685,14 @@ declare namespace cytoscape {
          * @param selector An optional selector that is used to filter the resultant collection.
          * http://js.cytoscape.org/#edge.source
          */
-        source(selector?: Selector): NodeCollection;
+        source(selector?: Selector): NodeSingular;
 
         /**
          * Get target node of this edge.
          * @param selector An optional selector that is used to filter the resultant collection.
          * http://js.cytoscape.org/#edge.target
          */
-        target(selector?: Selector): NodeCollection;
+        target(selector?: Selector): NodeSingular;
     }
     interface EdgeCollectionTraversing {
         // http://js.cytoscape.org/#collection/traversing
@@ -2747,28 +2792,28 @@ declare namespace cytoscape {
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        outgoers(selector?: Selector): EdgeCollection;
+        outgoers(selector?: Selector): CollectionReturnValue;
 
         /**
          * Recursively get edges (and their targets) coming out of the nodes in the collection (i.e. the outgoers, the outgoers' outgoers, ...).
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        successors(selector?: Selector): EdgeCollection;
+        successors(selector?: Selector): CollectionReturnValue;
 
         /**
          * Get edges (and their sources) coming into the nodes in the collection.
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        incomers(selector?: Selector): EdgeCollection;
+        incomers(selector?: Selector): CollectionReturnValue;
 
         /**
          * Recursively get edges (and their sources) coming into the nodes in the collection (i.e. the incomers, the incomers' incomers, ...).
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
-        predecessors(selector?: Selector): EdgeCollection;
+        predecessors(selector?: Selector): CollectionReturnValue;
     }
 
     /**
@@ -2780,13 +2825,13 @@ declare namespace cytoscape {
 
     /**
      * The handler returns true when it finds the desired node, and it returns false to cancel the search.
-     * i - The index indicating this node is the ith visited node.
-     * depth - How many edge hops away this node is from the root nodes.
      * v - The current node.
      * e - The edge connecting the previous node to the current node.
      * u - The previous node.
+     * i - The index indicating this node is the ith visited node.
+     * depth - How many edge hops away this node is from the root nodes.
      */
-    type SearchVisitFunction = (i: number, depth: number, v: NodeCollection, e: EdgeCollection, u: NodeCollection) => boolean;
+    type SearchVisitFunction = (v: NodeCollection,  e: EdgeCollection, u: NodeCollection, i: number, depth: number) => boolean | void;
     interface SearchFirstOptions {
         /**
          * The root nodes (selector or collection) to start the search from.
@@ -2958,7 +3003,7 @@ declare namespace cytoscape {
      */
     interface SearchPageRankResult {
         /** function that computes the rank of a given node (either object or selector string) */
-        rank(node: NodeCollection): void;
+        rank(node: NodeCollection): number;
     }
 
     /**
@@ -3168,7 +3213,7 @@ declare namespace cytoscape {
          * returning the minimum spanning tree, assuming undirected edges.
          * http://js.cytoscape.org/#eles.kruskal
          */
-        kruskal(handler: (edge: EdgeCollection) => number): void;
+        kruskal(handler: (edge: EdgeCollection) => number): CollectionReturnValue;
         /**
          * Finds the minimum cut in a graph using the Karger-Stein algorithm.
          * The optimal result is found with a high probability, but without guarantee.
@@ -3406,13 +3451,13 @@ declare namespace cytoscape {
              * This property can take on the special value label
              * so the width is automatically based on the node’s label.
              */
-            "width"?: number | "label";
+            "width"?: number | string;
             /**
              * The height of the node’s body.
              * This property can take on the special value label
              * so the height is automatically based on the node’s label.
              */
-            "height"?: number | "label";
+            "height"?: number | string;
             /**
              * The shape of the node’s body.
              */
@@ -3585,7 +3630,7 @@ declare namespace cytoscape {
             /**
              * The width of an edge’s line.
              */
-            "width"?: number | "label";
+            "width"?: number | string;
             /**
              * The curving method used to separate two or more edges between two nodes;
              * may be
@@ -4641,10 +4686,14 @@ declare namespace cytoscape {
          * @param handler  The handler function that is called
          * when one of the specified events occurs.
          */
-        on(events: EventNames, data: any, handler: EventHandler): void;
-        bind(events: EventNames, data: any, handler: EventHandler): void;
-        listen(events: EventNames, data: any, handler: EventHandler): void;
-        addListener(events: EventNames, data: any, handler: EventHandler): void;
+        on(events: EventNames, handler: EventHandler): this;
+        on(events: EventNames, data: any, handler: EventHandler): this;
+        bind(events: EventNames, handler: EventHandler): this;
+        bind(events: EventNames, data: any, handler: EventHandler): this;
+        listen(events: EventNames, handler: EventHandler): this;
+        listen(events: EventNames, data: any, handler: EventHandler): this;
+        addListener(events: EventNames, handler: EventHandler): this;
+        addListener(events: EventNames, data: any, handler: EventHandler): this;
 
         /**
          * Get a promise that is resolved with the first of any of
@@ -4660,8 +4709,8 @@ declare namespace cytoscape {
          * @param data [optional] A plain object which is passed to the handler in the event object argument.
          * @param handler The handler function that is called when one of the specified events occurs.
          */
-        one(events: EventNames, handler: EventHandler): void;
-        one(events: EventNames, data: any, handler: EventHandler): void;
+        one(events: EventNames, handler: EventHandler): this;
+        one(events: EventNames, data: any, handler: EventHandler): this;
 
         /**
          * Remove event handlers on the layout.
@@ -4670,10 +4719,10 @@ declare namespace cytoscape {
          * @param events A space separated list of event names.
          * @param handler [optional] A reference to the handler function to remove.
          */
-        off(events: EventNames, handler?: EventHandler): void;
-        unbind(events: EventNames, handler?: EventHandler): void;
-        unlisten(events: EventNames, handler?: EventHandler): void;
-        removeListener(events: EventNames, handler?: EventHandler): void;
+        off(events: EventNames, handler?: EventHandler): this;
+        unbind(events: EventNames, handler?: EventHandler): this;
+        unlisten(events: EventNames, handler?: EventHandler): this;
+        removeListener(events: EventNames, handler?: EventHandler): this;
 
         /**
          * Trigger one or more events on the layout.
@@ -4681,7 +4730,7 @@ declare namespace cytoscape {
          * @param events A space separated list of event names to trigger.
          * @param extraParams [optional] An array of additional parameters to pass to the handler.
          */
-        trigger(events: EventNames, extraParams?: any[]): void;
+        trigger(events: EventNames, extraParams?: any[]): this;
     }
 
     /**
@@ -4702,7 +4751,7 @@ declare namespace cytoscape {
          * If the animation is complete, it restarts from the beginning.
          * http://js.cytoscape.org/#ani.play
          */
-        play(): void;
+        play(): this;
         /**
          * Get whether the animation is currently playing.
          * http://js.cytoscape.org/#ani.playing

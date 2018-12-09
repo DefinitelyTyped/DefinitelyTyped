@@ -1,12 +1,14 @@
-// Type definitions for tus-js-client 1.4
+// Type definitions for tus-js-client 1.5
 // Project: https://github.com/tus/tus-js-client/
 // Definitions by: Kevin Somers-Higgins <https://github.com/kevhiggins>
+//                 Marius Kleidl <https://github.com/Acconut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface UploadOptions {
     endpoint: string;
-    fingerprint?: string;
+    fingerprint?: (file: File, options?: UploadOptions) => string;
     resume?: boolean;
+    metadata?: { [key: string]: string };
     onProgress?: ((bytesSent: number, bytesTotal: number) => void) | null;
     onChunkComplete?: ((chunkSize: number, bytesAccepted: number, bytesTotal: number) => void) | null;
     onSuccess?: (() => void) | null;
@@ -18,6 +20,7 @@ export interface UploadOptions {
     uploadSize?: number | null;
     overridePatchMethod?: boolean;
     retryDelays?: number[];
+    removeFingerprintOnSuccess?: boolean;
 }
 
 export class Upload {
@@ -30,3 +33,7 @@ export class Upload {
     start(): void;
     abort(): void;
 }
+
+export const isSupported: boolean;
+export const canStoreURLs: boolean;
+export const defaultOptions: UploadOptions;

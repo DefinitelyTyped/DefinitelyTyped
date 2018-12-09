@@ -29,7 +29,7 @@ interface CalendarProps extends ReactWidgetsCommonProps<CalendarClass>, AutoFocu
      * Callback fired when the Calendar navigates between views, or forward and backwards in
      * time.
      */
-    onNavigate?: (date: Date, direction: string, view: string ) => void;
+    onNavigate?: (date: Date, direction: string, view: string) => void;
     /**
      * A callback fired when the view changes.
      */
@@ -68,13 +68,11 @@ interface CalendarProps extends ReactWidgetsCommonProps<CalendarClass>, AutoFocu
     dayComponent?: React.ReactType;
     /**
      * The starting and lowest level view the calendar can navigate down to.
-     * @enum "month" "year" "decade" "century"
      */
     initialView?: "month" | "year" | "decade" | "century";
     /**
      * The highest level view the calendar can navigate up to. This value should be higher than
      * initialView
-     * @enum "month" "year" "decade" "century"
      */
     finalView?: "month" | "year" | "decade" | "century";
     /**

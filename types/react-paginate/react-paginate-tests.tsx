@@ -1,5 +1,5 @@
-import * as React from "react";
-import ReactPaginate = require("react-paginate");
+import * as React from 'react';
+import ReactPaginate from 'react-paginate';
 
 class Test extends React.Component {
     render() {
@@ -20,6 +20,7 @@ class Test extends React.Component {
                 pageClassName={'page-li'}
                 pageLinkClassName={'page-a'}
                 activeClassName={'active'}
+                activeLinkClassName={'active'}
                 previousClassName={'previous-li'}
                 nextClassName={'next-li'}
                 previousLinkClassName={'previous-a'}

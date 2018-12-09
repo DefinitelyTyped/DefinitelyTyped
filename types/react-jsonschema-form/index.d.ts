@@ -1,12 +1,13 @@
-// Type definitions for react-jsonschema-form 1.0.0
+// Type definitions for react-jsonschema-form 1.0.1
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
-//                 Jon Surrell <https://github.com/sirreal>
 //                 Ivan Jiang <https://github.com/iplus26>
-//                 Kurt Preston <https://github.com/KurtPreston>
 //                 Philippe Bourdages <https://github.com/phbou72>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
+//                 Sylvain Thénault <https://github.com/sthenault>
+//                 Sebastian Busch <https://github.com/sbusch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
@@ -35,6 +36,7 @@ declare module "react-jsonschema-form" {
         >;
         safeRenderCompletion?: boolean;
         transformErrors?: (errors: AjvError[]) => AjvError[];
+        idPrefix?: string;
 
         // HTML Attributes
         id?: string;
@@ -66,7 +68,12 @@ declare module "react-jsonschema-form" {
         [key: string]: FieldId;
     };
 
-    export interface WidgetProps extends React.HTMLAttributes<HTMLElement> {
+    export interface WidgetProps extends Pick<
+        React.HTMLAttributes<HTMLElement>,
+        Exclude<
+            keyof React.HTMLAttributes<HTMLElement>,
+            "onBlur"|"onFocus">
+    > {
         id: string;
         schema: JSONSchema6;
         value: any;
@@ -77,6 +84,8 @@ declare module "react-jsonschema-form" {
         onChange: (value: any) => void;
         options: object;
         formContext: any;
+        onBlur: (id: string, value: string) => void;
+        onFocus: (id: string, value: string) => void;
     }
 
     export type Widget =
@@ -132,8 +141,8 @@ declare module "react-jsonschema-form" {
     };
 
     export type ArrayFieldTemplateProps = {
-        DescriptionField: object;
-        TitleField: object;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<any> }>;
+        TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         canAdd: boolean;
         className: string;
         disabled: boolean;
@@ -165,8 +174,8 @@ declare module "react-jsonschema-form" {
     };
 
     export type ObjectFieldTemplateProps = {
-        DescriptionField: object;
-        TitleField: object;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<any> }>;
+        TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         title: string;
         description: string;
         properties: {
@@ -226,4 +235,16 @@ declare module "react-jsonschema-form" {
     type FormSubmit<T> = {
         formData: T;
     };
+}
+
+declare module "react-jsonschema-form/lib/utils" {
+    import { JSONSchema6 } from "json-schema";
+
+    export interface IRangeSpec {
+        min?: number;
+        max?: number;
+        step?: number;
+    }
+
+    export function rangeSpec(schema: JSONSchema6): IRangeSpec;
 }

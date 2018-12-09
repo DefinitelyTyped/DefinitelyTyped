@@ -39,7 +39,7 @@ export class MDCMenu extends MDCComponent<MDCMenuAdapter, MDCMenuFoundation> {
     /**
      * @param corner Default anchor corner alignment of top-left menu corner.
      */
-    setAnchorCorner(corner: Corner): void;
+    setAnchorCorner(corner: number): void;
 
     setAnchorMargin(margin: AnchorMargin): void;
 

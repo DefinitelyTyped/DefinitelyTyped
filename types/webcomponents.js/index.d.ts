@@ -36,7 +36,7 @@ export interface Polyfill {
 declare global {
     // This contains duplicates of some types in lib.dom.d.ts in order to support typescript 2.0
     interface ElementDefinitionOptions {
-        extends: string;
+        extends?: string;
     }
 
     interface ShadowRoot extends DocumentFragment {

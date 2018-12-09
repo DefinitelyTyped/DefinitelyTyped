@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.24
+// Type definitions for ArcGIS API for JavaScript 3.26
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -45,7 +45,6 @@ declare module "esri" {
   import PrintTemplate = require("esri/tasks/PrintTemplate");
   import QueryTask = require("esri/tasks/QueryTask");
   import DataProviderGE = require("esri/dijit/geoenrichment/ReportPlayer/DataProviderGE");
-  import PlayerResizeModes = require("esri/dijit/geoenrichment/ReportPlayer/PlayerResizeModes");
   import PlayerThemes = require("esri/dijit/geoenrichment/ReportPlayer/PlayerThemes");
   import TextSymbol = require("esri/symbols/TextSymbol");
   import StandardGeographyQueryTask = require("esri/tasks/geoenrichment/StandardGeographyQueryTask");
@@ -1896,14 +1895,31 @@ declare module "esri" {
     values: number[];
   }
   export interface ReportPlayerOptions {
+    /** Indicates whether left and right arrows key can be used to paginate when viewMode is set to PlayerViewModes.PANELS_IN_SLIDES. */
+    allowKeyboardNavigation?: boolean;
+    /** As of version 3.26 Configuration to specify the location of the JavaScript API to use when exporting an Infographic to Dynamic HTML. */
+    config?: any;
     /** Specifies which export options are available for the report. */
     dataProvider?: DataProviderGE;
-    /** Indicate whether to display the report in slide view or full screen, defaults to false which is full view. */
-    isSlidesView?: boolean;
+    /** Specifies how the ReportPlayer should zoom by default. */
+    defaultZoomBehavior?: string;
+    /** Indicates whether interactive experience for panels should be enabled. */
+    enableDataDrilling?: boolean;
     /** Specifies the resize mode of the ReportPlayer. */
-    resizeMode?: PlayerResizeModes;
+    resizeMode?: string;
+    /** If true, indicates that panels should scale to fit the window. */
+    scaleSlidesToFitWindow?: boolean;
+    /** Indicates whether the analysis area title will be shown in the toolbar. */
+    showAreaTitle?: boolean;
+    /** Indicates whether the toolbar will be shown in a compact popup view. */
+    showToolbarInPopup?: boolean;
     /** Specifies the theme of the ReportPlayer. */
     theme?: PlayerThemes;
+    /**
+     * Specifies the display of the report in full page view, slide view, or stacked panel view.
+     * @deprecated
+     */
+    viewMode?: string;
   }
   export interface RingBufferOptions {
     /** The radii to use to create ring buffers */
@@ -3492,7 +3508,7 @@ declare module "esri/dijit/Attribution" {
     /**
      * Creates a new Attribution object.
      * @param options An object that defines the attribution options.
-     * @param srcNodeRef HTML element where the time slider should be rendered.
+     * @param srcNodeRef HTML element where the attribution widget should be rendered.
      */
     constructor(options: esri.AttributionOptions, srcNodeRef: Node | string);
     /** Destroy the attribution widget. */
@@ -7549,34 +7565,75 @@ declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerThemes" {
   export = PlayerThemes;
 }
 
+declare module "esri/dijit/geoenrichment/ReportPlayer/PlayerViewModes" {
+  /** An enumerator of available view modes displaying the Report Player. */
+  class PlayerViewModes {
+    /** Displays one full page at a time. */
+    static FULL_PAGES: any;
+    /** Panels will be shown in the slides view mode. */
+    static PANELS_IN_SLIDES: any;
+    /** Panels will be shown in a single stack. */
+    static PANELS_IN_STACK: any;
+  }
+  export = PlayerViewModes;
+}
+
 declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
   import esri = require("esri");
   import DataProviderGE = require("esri/dijit/geoenrichment/ReportPlayer/DataProviderGE");
-  import PlayerResizeModes = require("esri/dijit/geoenrichment/ReportPlayer/PlayerResizeModes");
-  import PlayerThemes = require("esri/dijit/geoenrichment/ReportPlayer/PlayerThemes");
 
   /** The ReportPlayer widget runs infographic report templates for a provided analysis area. */
   class ReportPlayer {
+    /** Indicates whether left and right arrows key can be used to paginate when viewMode is set to PlayerViewModes.PANELS_IN_SLIDES. */
+    allowKeyboardNavigation: boolean;
+    /** Configuration to specify the location of the JavaScript API to use when exporting an Infographic to Dynamic HTML. */
+    config: any;
     /** Data Provider for the ReportPlayer which allows you to specify which export options are available when running the report. */
     dataProvider: DataProviderGE;
-    /** Indicate whether to display the report in slide view or full screen, defaults to false which is full view. */
-    isSlidesView: boolean;
+    /** Specifies how the ReportPlayer should zoom by default. */
+    defaultZoomBehavior: string;
+    /** Indicates whether interactive experience for panels should be enabled. */
+    enableDataDrilling: boolean;
     /** Specifies the resize mode of the ReportPlayer. */
-    resizeModes: PlayerResizeModes;
+    resizeMode: string;
+    /** If true, indicates that panels should scale to fit the window. */
+    scaleSlidesToFitWindow: boolean;
+    /** Indicates whether the analysis area title will be shown in the toolbar. */
+    showAreaTitle: boolean;
+    /** Indicates whether the toolbar will be shown in a compact popup view. */
+    showToolbarInPopup: boolean;
     /** Specifies the theme of the ReportPlayer. */
-    theme: PlayerThemes;
+    theme: string;
+    /** Specifies the display of the report in full page view, slide view, or stacked panel view. */
+    viewMode: string;
     /**
      * Creates a new ReportPlayer dijit using the given DOM node.
      * @param params Various parameters that can be used to configure the ReportPlayer.
      * @param srcNode Reference or id of the HTML element where the widget should be rendered.
      */
-    constructor(params: esri.ReportPlayerOptions, srcNode?: Node | string);
+    constructor(params?: esri.ReportPlayerOptions, srcNode?: Node | string);
     /**
      * Generates the report for the supplied parameters.
      * @param dataProviderParams See the object specifications table below for the structure of the dataProviderParams object.
      * @param playParams See the object specifications table below for the structure of the playParams object.
      */
     playReport(dataProviderParams: any, playParams?: any): any;
+    /**
+     * Sets the width and height of the ReportPlayer when resizeMode is set to PlayerResizeModes.MANUAL.
+     * @param width The width in pixels.
+     * @param height The height in pixels.
+     */
+    resize(width?: number, height?: number): any;
+    /**
+     * Sets the maximum height for the Report Player.
+     * @param number The height in pixels.
+     */
+    setMaxHeight(number: number): number;
+    /**
+     * Sets the maximum width for the Report Player.
+     * @param number The width in pixels.
+     */
+    setMaxWidth(number: number): number;
   }
   export = ReportPlayer;
 }
@@ -11463,6 +11520,8 @@ declare module "esri/layers/VectorTileLayer" {
 
   /** A VectorTileLayer renders cached tiles of data. */
   class VectorTileLayer extends Layer {
+    /** The current style information of the VectorTileLayer. */
+    currentStyleInfo: any;
     /** The full extent of the layer. */
     fullExtent: Extent;
     /** The initial extent of the layer. */
@@ -11608,7 +11667,7 @@ declare module "esri/layers/WCSLayer" {
   import Point = require("esri/geometry/Point");
   import Layer = require("esri/layers/layer");
 
-  /** (Currently in beta) The WCSLayer works with OGC Web Coverage Services. */
+  /** The WCSLayer works with OGC Web Coverage Services. */
   class WCSLayer {
     /** Resamples pixel by bilinear interpolation. */
     static INTERPOLATION_BILINEAR: any;
@@ -12566,7 +12625,7 @@ declare module "esri/opsdashboard/DataSourceProxy" {
   import Query = require("esri/tasks/query");
   import Graphic = require("esri/graphic");
 
-  /** DataSourceProxy is a proxy class that represents a operations dashboard data source. */
+  /** (Currently in Mature Support) DataSourceProxy is a proxy class that represents a operations dashboard data source. */
   class DataSourceProxy {
     /** Read-only: The name of the display field. */
     displayFieldName: string;
@@ -12634,7 +12693,7 @@ declare module "esri/opsdashboard/ExtensionBase" {
   import esri = require("esri");
   import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
 
-  /** ExtensionBase is a base class used by all the extension proxies. */
+  /** (Currently in Mature Support) ExtensionBase is a base class used by all the extension proxies. */
   class ExtensionBase {
     /** "circle" */
     static CIRCLE: any;
@@ -12712,7 +12771,7 @@ declare module "esri/opsdashboard/ExtensionBase" {
 declare module "esri/opsdashboard/ExtensionConfigurationBase" {
   import ExtensionBase = require("esri/opsdashboard/ExtensionBase");
 
-  /** ExtensionConfigurationBase is a base class used by all the extension configuration proxies. */
+  /** (Currently in Mature Support) ExtensionConfigurationBase is a base class used by all the extension configuration proxies. */
   class ExtensionConfigurationBase extends ExtensionBase {
     /** The object that will store the Widget/MapTool/FeatureAction configuration. */
     config: any;
@@ -12728,7 +12787,7 @@ declare module "esri/opsdashboard/ExtensionConfigurationBase" {
 declare module "esri/opsdashboard/FeatureActionConfigurationProxy" {
   import ExtensionConfigurationBase = require("esri/opsdashboard/ExtensionConfigurationBase");
 
-  /** FeatureActionConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension feature action. */
+  /** (Currently in Mature Support) FeatureActionConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension feature action. */
   class FeatureActionConfigurationProxy extends ExtensionConfigurationBase {
   }
   export = FeatureActionConfigurationProxy;
@@ -12738,7 +12797,7 @@ declare module "esri/opsdashboard/FeatureActionFeatures" {
   import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
   import Graphic = require("esri/graphic");
 
-  /** FeatureActionFeatures is a specialized collection of features used by WidgetProxy to hold the collection of features for the associated feature actions. */
+  /** (Currently in Mature Support) FeatureActionFeatures is a specialized collection of features used by WidgetProxy to hold the collection of features for the associated feature actions. */
   class FeatureActionFeatures {
     /** The DataSourceProxy from which the collection of features belongs to. */
     dataSourceProxy: DataSourceProxy;
@@ -12782,7 +12841,7 @@ declare module "esri/opsdashboard/GraphicsLayerProxy" {
   import Renderer = require("esri/renderers/Renderer");
   import Graphic = require("esri/graphic");
 
-  /** GraphicsLayerProxy is a proxy class that represents a graphics layer in a map widget in the host application. */
+  /** (Currently in Mature Support) GraphicsLayerProxy is a proxy class that represents a graphics layer in a map widget in the host application. */
   class GraphicsLayerProxy {
     /** Read-only: The current host graphics layer maximum visible scale. */
     maxScale: number;
@@ -12843,7 +12902,7 @@ declare module "esri/opsdashboard/GraphicsLayerProxy" {
 declare module "esri/opsdashboard/MapToolConfigurationProxy" {
   import ExtensionConfigurationBase = require("esri/opsdashboard/ExtensionConfigurationBase");
 
-  /** MapToolConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension map tool. */
+  /** (Currently in Mature Support) MapToolConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension map tool. */
   class MapToolConfigurationProxy extends ExtensionConfigurationBase {
   }
   export = MapToolConfigurationProxy;
@@ -12854,7 +12913,7 @@ declare module "esri/opsdashboard/MapToolProxy" {
   import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
   import Geometry = require("esri/geometry/Geometry");
 
-  /** MapToolProxy is a class used to define an operations dashboard extension map tool. */
+  /** (Currently in Mature Support) MapToolProxy is a class used to define an operations dashboard extension map tool. */
   class MapToolProxy {
     /** Read-only: The available size for the map tool user experience on the host map widget. */
     availableDisplaySize: number;
@@ -12907,7 +12966,7 @@ declare module "esri/opsdashboard/MapWidgetProxy" {
   import Point = require("esri/geometry/Point");
   import Extent = require("esri/geometry/Extent");
 
-  /** MapWidgetProxy is a proxy class that represents a operations dashboard map widget. */
+  /** (Currently in Mature Support) MapWidgetProxy is a proxy class that represents a operations dashboard map widget. */
   class MapWidgetProxy {
     /** Read-only: The map id. */
     id: string;
@@ -12954,7 +13013,7 @@ declare module "esri/opsdashboard/WidgetConfigurationProxy" {
   import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
   import MapWidgetProxy = require("esri/opsdashboard/MapWidgetProxy");
 
-  /** WidgetConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension widget. */
+  /** (Currently in Mature Support) WidgetConfigurationProxy is a class used to provide the configuration user experience for an operations dashboard extension widget. */
   class WidgetConfigurationProxy extends ExtensionConfigurationBase {
     /**
      * Called by the host application when the user has changed the selected data source in the data source selector.
@@ -12990,7 +13049,7 @@ declare module "esri/opsdashboard/WidgetProxy" {
   import Graphic = require("esri/graphic");
   import Geometry = require("esri/geometry/Geometry");
 
-  /** WidgetProxy is a class used to define an operations dashboard extension widget. */
+  /** (Currently in Mature Support) WidgetProxy is a class used to define an operations dashboard extension widget. */
   class WidgetProxy extends ExtensionBase {
     /** Read-only: If the widget was configured to consume data sources, the dataSourceConfig array will hold a collection of dataSourceConfig objects. */
     dataSourceConfigs: any[];
@@ -13051,7 +13110,7 @@ declare module "esri/opsdashboard/featureActionProxy" {
   import DataSourceProxy = require("esri/opsdashboard/DataSourceProxy");
   import FeatureSet = require("esri/tasks/FeatureSet");
 
-  /** featureActionProxy is a singleton object that allows implementing an operations dashboard Feature Action extension. */
+  /** (Currently in Mature Support) featureActionProxy is a singleton object that allows implementing an operations dashboard Feature Action extension. */
   class featureActionProxy extends ExtensionBase {
     /** Event raised when the feature action should execute for a set of features. */
     on(type: "execute", listener: (event: { config: any; dataSourceProxy: DataSourceProxy; featureSet: FeatureSet; target: featureActionProxy }) => void): esri.Handle;
@@ -13903,6 +13962,11 @@ declare module "esri/renderers/smartMapping" {
      * @param params See the Object Specifications table below for the structure of the params object.
      */
     createPredominanceRenderer(params: any): any;
+    /**
+     * Creates a renderer for exploring the relationship between two numeric attributes.
+     * @param params See the object specifications table below for the structure of the params object.
+     */
+    createRelationshipRenderer(params: any): any;
     /**
      * Defines the size of the symbol where feature size is proportional to data value.
      * @param params See the object specifications table below for the structure of the params object.
@@ -15776,6 +15840,8 @@ declare module "esri/tasks/ImageServiceIdentifyParameters" {
   class ImageServiceIdentifyParameters {
     /** Input geometry that defines the location to be identified. */
     geometry: Geometry;
+    /** If the returnCatalogItems parameter is set to true, this parameter will take effect. */
+    maxItemCount: number;
     /** Specifies the mosaic rules defining the image sorting order. */
     mosaicRule: MosaicRule;
     /** The pixel or RGB color value representing no information. */
@@ -15794,6 +15860,8 @@ declare module "esri/tasks/ImageServiceIdentifyParameters" {
     returnCatalogItems: boolean;
     /** When true, each feature in the catalog items includes the geometry. */
     returnGeometry: boolean;
+    /** If true, returns the pixel values of all mosaicked raster catalog items under the requested geometry. */
+    returnPixelValues: boolean;
     /** Specify a time extent. */
     timeExtent: TimeExtent;
     /** Creates a new ImageServiceIdentifyParameters object. */
@@ -18454,5 +18522,18 @@ declare module "esri/workers/WorkerClient" {
     terminate(): void;
   }
   export = WorkerClient;
+}
+
+declare module "sri/dijit/geoenrichment/ReportPlayer/PlayerZoomBehaviors" {
+  /** Enumerator of available zoom behavior options for the ReportPlayer. */
+  class PlayerZoomBehaviors {
+    /** The Report Player zooms in to fit a full page in the viewable area. */
+    static FIT_PAGE: any;
+    /** The Report Player zooms to fit the full page's width in the viewable area. */
+    static FIT_PAGE_WIDTH: any;
+    /** The zoom will be set to 100% (not zoomed). */
+    static RESET: any;
+  }
+  export = PlayerZoomBehaviors;
 }
 

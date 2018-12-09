@@ -4,12 +4,9 @@ import * as express from 'express';
 import * as glob from 'glob';
 
 import * as sf from 'jsforce';
-
-export interface DummyRecord {
-    thing: boolean;
-    other: number;
-    person: string;
-}
+import { RecordReference, Record } from 'jsforce/record';
+import { SObject } from 'jsforce/salesforce-object';
+import { RecordResult } from 'jsforce/record-result';
 
 const salesforceConnection: sf.Connection = new sf.Connection({
     instanceUrl: '',
@@ -20,7 +17,390 @@ const salesforceConnection: sf.Connection = new sf.Connection({
     },
 });
 
-salesforceConnection.sobject<DummyRecord>("Dummy").select(["thing", "other"]);
+async function testSObject(connection: sf.Connection) {
+    interface DummyRecord {
+        thing: boolean;
+        other: number;
+        person: string;
+    }
+
+    const dummySObject: SObject<DummyRecord> = connection.sobject<DummyRecord>('Dummy');
+
+    // currently untyped, but some future change may make this stricter
+    const restApiOptions = {
+        headers: { Bearer: 'I have no idea what this wants' }
+    };
+
+    { // Test SObject.record
+        // $ExpectType RecordReference<DummyRecord>
+        dummySObject.record('50130000000014C');
+    }
+
+    { // Test SObject.retrieve
+        // with single id
+        // $ExpectType Record<DummyRecord>
+        await dummySObject.retrieve('50130000000014C');
+        // with single id and rest api options
+        // $ExpectType Record<DummyRecord>
+        await dummySObject.retrieve('50130000000014C', restApiOptions);
+
+        // with single id and callback
+        dummySObject.retrieve('50130000000014C', restApiOptions, (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType Record<DummyRecord>
+        });
+
+        // with ids array
+        // $ExpectType Record<DummyRecord>[]
+        await dummySObject.retrieve(['IIIIDDD']);
+        // with ids array and rest api options
+        // $ExpectType Record<DummyRecord>[]
+        await dummySObject.retrieve(['IIIIDDD'], restApiOptions);
+
+        // with ids array and callback
+        dummySObject.retrieve(['50130000000014C'], restApiOptions, (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType Record<DummyRecord>[]
+        });
+
+        salesforceConnection.sobject<any>("ContentVersion").retrieve("world", {
+            test: "test"
+        }, (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType any
+        });
+    }
+
+    { // Test SObject.update
+        // if we require that records have an id field this will fail
+        // //$ExpectError
+        await dummySObject.update({ thing: false });
+
+        // If we require that the records have an Id field
+        // await dummySObject.update({ thing: false, Id: 'asdf' }); // $ExpectType RecordResult
+
+        // invalid field
+        // $ExpectError
+        await dummySObject.update({ asdf: false });
+
+        // with rest api options
+        // $ExpectType RecordResult
+        await dummySObject.update({ thing: false }, restApiOptions);
+
+        // with callback
+        dummySObject.update({ thing: false }, (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult
+        });
+
+        dummySObject.update({ thing: false }, restApiOptions, (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult
+        });
+
+        // with multiple records
+        // $ExpectType RecordResult[]
+        await dummySObject.update([{ thing: false }]);
+
+        // with multiple records and api options
+        // $ExpectType RecordResult[]
+        await dummySObject.update([{ thing: false }], restApiOptions);
+
+        // with multiple records and callback
+        dummySObject.update([{ thing: false }], restApiOptions, (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+
+        dummySObject.update([{ thing: false }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+    }
+
+    { // Test SObject.updated
+        // $ExpectType UpdatedRecordsInfo
+        await dummySObject.updated(new Date(), new Date());
+
+        // $ExpectType UpdatedRecordsInfo
+        await dummySObject.updated(new Date(), 'hi');
+
+        // $ExpectType UpdatedRecordsInfo
+        await dummySObject.updated('hi', new Date());
+
+        // $ExpectType UpdatedRecordsInfo
+        await dummySObject.updated('hi', 'hi');
+
+        dummySObject.updated(new Date(), 'hi', (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType UpdatedRecordsInfo
+        });
+    }
+
+    { // Test SObject.upsert
+        const updateData = {
+            Id: 'Some ID',
+            thing: true,
+            other: 1,
+            person: 'hi'
+        };
+        // $ExpectType RecordResult
+        await dummySObject.upsert(updateData, 'Id');
+
+        // $ExpectType RecordResult
+        await dummySObject.upsert(updateData, 'Id', restApiOptions);
+
+        // $ExpectType RecordResult[]
+        await dummySObject.upsert([updateData], 'Id');
+
+        // $ExpectType RecordResult[]
+        await dummySObject.upsert([updateData], 'Id', restApiOptions);
+
+        dummySObject.upsert(updateData, 'Id', (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult
+        });
+
+        dummySObject.upsert(updateData, 'Id', restApiOptions, (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult
+        });
+
+        dummySObject.upsert([updateData], 'Id', (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult[]
+        });
+
+        dummySObject.upsert([updateData], 'Id', restApiOptions, (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult[]
+        });
+    }
+
+    { // Test SObject.find
+    }
+
+    { // Test SObject.findOne
+        salesforceConnection.sobject("ContentVersion").findOne<any>({ Id: '' }, (err, contentVersion) => {
+            err; // $ExpectType Error | null
+            contentVersion; // $ExpectType any
+        });
+    }
+
+    { // Test SObject.select
+
+        dummySObject.select(["thing", "other"]);
+
+        // note the following should never compile:
+        // $ExpectError
+        dummySObject.select(["lol"]);
+    }
+
+    { // Test SObject.create
+        // $ExpectType RecordResult
+        await dummySObject.create({
+            thing: true,
+            other: 1,
+            person: 'hi'
+        });
+
+        // $ExpectType RecordResult
+        await dummySObject.create({
+            thing: true,
+            other: 1,
+            person: 'hi'
+        }, restApiOptions);
+
+        // $ExpectType RecordResult[]
+        await dummySObject.create([{
+            thing: true,
+            other: 1,
+            person: 'hi'
+        }]);
+
+        // $ExpectType RecordResult[]
+        await dummySObject.create([{
+            thing: true,
+            other: 1,
+            person: 'hi'
+        }], restApiOptions);
+
+        dummySObject.create([{
+            thing: true,
+            other: 1,
+            person: 'hi'
+        }], (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult[]
+        });
+
+        dummySObject.create([{
+            thing: true,
+            other: 1,
+            person: 'hi'
+        }], restApiOptions, (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult[]
+        });
+
+        salesforceConnection.sobject("Account").create({
+            Name: "Test Acc 2",
+            BillingStreet: "Maplestory street",
+            BillingPostalCode: "ME4 666"
+        }, (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult
+        });
+
+        // callback and rest api options
+        salesforceConnection.sobject("ContentVersion").create({
+            OwnerId: '',
+            Title: 'hello',
+            PathOnClient: './hello-world.jpg',
+            VersionData: '{ Test: Data }'
+        }, restApiOptions, (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult
+        });
+
+        salesforceConnection.sobject("ContentDocumentLink").create({
+            ContentDocumentId: '',
+            LinkedEntityId: '',
+            ShareType: "I"
+        }, (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult
+        });
+    }
+
+    { // Test SObject.createBulk
+        // $ExpectType Batch
+        dummySObject.createBulk();
+        // $ExpectType Batch
+        dummySObject.createBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.createBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.createBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.createBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+    }
+
+    { // Test SObject.deleteBulk and aliases
+        // $ExpectType Batch
+        dummySObject.deleteBulk();
+        // $ExpectType Batch
+        dummySObject.deleteBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.deleteBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.deleteBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.deleteBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+
+        // $ExpectType Batch
+        dummySObject.destroyBulk();
+        // $ExpectType Batch
+        dummySObject.destroyBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.destroyBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.destroyBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.destroyBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+    }
+
+    { // Test SObject.deleteHardBulk and aliases
+        // $ExpectType Batch
+        dummySObject.deleteHardBulk();
+        // $ExpectType Batch
+        dummySObject.deleteHardBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.deleteHardBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.deleteHardBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.deleteHardBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+
+        // $ExpectType Batch
+        dummySObject.destroyHardBulk();
+        // $ExpectType Batch
+        dummySObject.destroyHardBulk('hi.csv');
+        // $ExpectType Batch
+        dummySObject.destroyHardBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }]);
+        // $ExpectType Batch
+        dummySObject.destroyHardBulk([{ Id: 'hi', thing: true, other: 1, person: 'you' }], (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+        dummySObject.destroyHardBulk('hi.csv', (err, res) => {
+            err; // $ExpectType Error | null
+            res; // $ExpectType RecordResult[]
+        });
+    }
+
+    { // Test SObject.destroy and aliases
+        // $ExpectType RecordResult
+        await dummySObject.del('Id');
+        // $ExpectType RecordResult
+        await dummySObject.destroy('Id');
+        // $ExpectType RecordResult
+        await dummySObject.delete('Id');
+
+        // $ExpectType RecordResult[]
+        await dummySObject.del(['Id']);
+        // $ExpectType RecordResult[]
+        await dummySObject.destroy(['Id']);
+        // $ExpectType RecordResult[]
+        await dummySObject.delete(['Id']);
+
+        dummySObject.del('Id', (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult
+        });
+        dummySObject.destroy('Id', (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult
+        });
+        dummySObject.delete('Id', (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult
+        });
+
+        dummySObject.del(['Id'], (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult[]
+        });
+        dummySObject.destroy(['Id'], (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult[]
+        });
+        dummySObject.delete(['Id'], (err, ret) => {
+            err; // $ExpectType Error | null
+            ret; // $ExpectType RecordResult[]
+        });
+    }
+}
 
 const requestInfo: sf.RequestInfo = {
     body: '',
@@ -37,51 +417,6 @@ const queryOptions: sf.ExecuteOptions = {
     scanAll: true
 };
 salesforceConnection.query('SELECT Id, Name FROM Account', queryOptions);
-
-// note the following should never compile:
-// salesforceConnection.sobject<DummyRecord>("Dummy").select(["lol"]);
-
-salesforceConnection.sobject("Account").create({
-    Name: "Test Acc 2",
-    BillingStreet: "Maplestory street",
-    BillingPostalCode: "ME4 666"
-}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
-    if (err || !Array.isArray(ret) && !ret.success) {
-        return;
-    }
-});
-
-salesforceConnection.sobject("ContentVersion").create({
-    OwnerId: '',
-    Title: 'hello',
-    PathOnClient: './hello-world.jpg',
-    VersionData: '{ Test: Data }'
-}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
-    if (err || !Array.isArray(ret) && !ret.success) {
-        return;
-    }
-});
-
-salesforceConnection.sobject<any>("ContentVersion").retrieve("world", {
-    test: "test"
-}, (err: Error, ret) => {
-    if (err) {
-        return;
-    }
-});
-
-salesforceConnection.sobject("ContentVersion").findOne<any>({ Id: '' }, (err, contentVersion) => {
-});
-
-salesforceConnection.sobject("ContentDocumentLink").create({
-    ContentDocumentId: '',
-    LinkedEntityId: '',
-    ShareType: "I"
-}, (err: Error, ret: sf.RecordResult | sf.RecordResult[]) => {
-    if (err || !Array.isArray(ret) && !ret.success) {
-        return;
-    }
-});
 
 sf.Date.YESTERDAY;
 
@@ -230,7 +565,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
         },
         feedElementType: 'FeedItem',
         subjectId: 'me'
-    }, (err: Error, result: any) => {
+    }, (err: Error | null, result: any) => {
         if (err) {
             throw err;
         }
@@ -242,7 +577,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
                     text: 'This is new comment on the post'
                 }]
             }
-        }, (err: Error, result: any) => {
+        }, (err: Error | null, result: any) => {
             if (err) {
                 throw err;
             }
@@ -366,16 +701,109 @@ async function testDescribe() {
         object.fields.forEach(field => {
             const type: sf.FieldType = field.type;
             // following should never compile
-            // const fail = type === 'hey'
+            // $ExpectError
+            const fail = type === 'hey';
 
             const isString = type === 'string';
         });
 
         // following should never compile (if StrictNullChecks is on)
-        // object.keyPrefix.length;
+        // $ExpectError
+        object.keyPrefix.length;
 
         console.log(`${sobject.name} Label: `, object.label);
 
         const correctlyCached = object === cachedObject;
     });
+}
+
+async function testApex(conn: sf.Connection): Promise<void> {
+    const apex: sf.Apex = conn.apex;
+
+    // Test GET
+    {
+        await apex.get('/custom-get-apex-api');
+
+        apex.get('/custom-get-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        apex.get('/custom-get-apex-api', { headers: { 'X-Custom-Header': 'value' } });
+    }
+
+    // Test POST
+    {
+        await apex.post('/custom-apex-api', { email: 'test@example.com' });
+
+        apex.post('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        // Including custom body
+        apex.post('/custom-apex-api', { email: 'test@example.com' }, (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+    }
+
+    // Test PUT
+    {
+        await apex.put('/custom-apex-api', { email: 'test@example.com' });
+
+        apex.put('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        // Including custom body
+        apex.put('/custom-apex-api', { email: 'test@example.com' }, (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+    }
+
+    // Test PATCH
+    {
+        await apex.patch('/custom-apex-api', { email: 'test@example.com' });
+
+        apex.patch('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        // Including custom body
+        apex.patch('/custom-apex-api', { email: 'test@example.com' }, (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+    }
+
+    // Test DELETE
+    {
+        await apex.del('/custom-apex-api');
+
+        apex.del('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+
+        // alias
+        await apex.delete('/custom-apex-api');
+
+        apex.delete('/custom-apex-api', (err: Error | null, response: object) => {
+            if (!err) {
+                console.log(response);
+            }
+        });
+    }
 }

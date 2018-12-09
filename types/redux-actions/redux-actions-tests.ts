@@ -60,6 +60,22 @@ const actionsHandlerWithRecursiveReducerMap = ReduxActions.handleActions<number,
 
 state = actionsHandlerWithRecursiveReducerMap(0, { type: 'ADJUST/UP', payload: 1 });
 
+const actionsHandlerWithOptions = ReduxActions.handleActions({
+    INCREMENT: (state: number, action: ReduxActions.Action<number>) => state + action.payload,
+    MULTIPLY: (state: number, action: ReduxActions.Action<number>) => state * action.payload
+}, 0, {prefix: 'TEST'});
+
+state = actionsHandlerWithOptions(0, { type: 'TEST/INCREMENT' });
+
+const actionsHandlerWithRecursiveReducerMapAndOptions = ReduxActions.handleActions<number, number>({
+    ADJUST: {
+        UP: (state: number, action: ReduxActions.Action<number>) => state + action.payload,
+        DOWN: (state: number, action: ReduxActions.Action<number>) => state - action.payload,
+    }
+}, 0, {namespace: '--'});
+
+state = actionsHandlerWithRecursiveReducerMapAndOptions(0, { type: 'ADJUST--UP', payload: 1 });
+
 // ----------------------------------------------------------------------------------------------------
 
 interface TypedState {
@@ -256,6 +272,13 @@ const { actions1_actionOne } = ReduxActions.createActions({
 });
 actions1_actionOne('value', 1).payload; // $ExpectType Actions1Payload
 actions1_actionOne('value', 1).payload.value === 1;
+
+const options: ReduxActions.Options = {
+    prefix: 'TEST'
+};
+const { actions2_actionOne } = ReduxActions.createActions<any>('ACTION_ONE', options);
+actions2_actionOne('value').payload; // $ExpectType any
+actions2_actionOne('value').type === 'TEST/ACTION_ONE';
 
 ReduxActions.handleAction<{ hello: string }, string>(act1, (state, action) => {
     return { hello: action.payload };

@@ -16,6 +16,13 @@ export interface TransitionActions {
     exit?: boolean;
 }
 
+export type TransitionStatus =
+    typeof ENTERING |
+    typeof ENTERED |
+    typeof EXITING |
+    typeof EXITED |
+    typeof UNMOUNTED;
+export type TransitionChildren = React.ReactNode | ((status: TransitionStatus) => React.ReactNode);
 export interface TransitionProps extends TransitionActions {
     in?: boolean;
     mountOnEnter?: boolean;
@@ -29,6 +36,7 @@ export interface TransitionProps extends TransitionActions {
     onExiting?: ExitHandler;
     onExited?: ExitHandler;
     [prop: string]: any;
+    children?: TransitionChildren;
 }
 
 /**
