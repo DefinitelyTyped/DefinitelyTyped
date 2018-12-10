@@ -39,6 +39,10 @@ interface InitialPersonProps {
 type PersonProps = RouteComponentProps<{ id: string }>;
 
 const Person: React.SFC<InitialPersonProps | PersonProps> = ({ match }) => {
+  if (!match) {
+    return null;
+  }
+
   const person = find(match.params.id);
 
   return (

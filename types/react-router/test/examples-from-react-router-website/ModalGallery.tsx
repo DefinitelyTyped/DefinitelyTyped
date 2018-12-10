@@ -114,6 +114,10 @@ const Gallery = () => (
 );
 
 const ImageView: React.SFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
+  if (!match) {
+    return null;
+  }
+
   const image = IMAGES[parseInt(match.params.id, 10)];
   if (!image) {
     return <div>Image not found</div>;
@@ -128,6 +132,10 @@ const ImageView: React.SFC<RouteComponentProps<{ id: string }>> = ({ match }) =>
 };
 
 const Modal: React.SFC<RouteComponentProps<{ id: string }>> = ({ match, history }) => {
+  if (!match) {
+    return null;
+  }
+
   const image = IMAGES[parseInt(match.params.id, 10)];
   if (!image) {
     return null;
