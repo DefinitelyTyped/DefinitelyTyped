@@ -3629,6 +3629,18 @@ interface ImagePropsAndroid {
      * Duration of fade in animation.
      */
     fadeDuration?: number;
+
+    /**
+     * Required if loading images via 'uri' from drawable folder on Android.
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
+     */
+    width?: number;
+
+    /**
+     * Required if loading images via 'uri' from drawable folder on Android
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
+     */
+    height?: number;
 }
 
 /**
@@ -6324,6 +6336,12 @@ export interface ScrollViewProps
      * instead of vertically in a column. The default value is false.
      */
     horizontal?: boolean;
+
+    /**
+     * If sticky headers should stick at the bottom instead of the top of the
+     * ScrollView. This is usually used with inverted ScrollViews.
+     */
+    invertStickyHeaders?: boolean;
 
     /**
      * Determines whether the keyboard gets dismissed in response to a drag.

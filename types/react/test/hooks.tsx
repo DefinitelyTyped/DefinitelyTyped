@@ -95,11 +95,9 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectError
     React.useImperativeMethods(ref, () => ({}), [id]);
 
-    React.useMutationEffect(() => {
+    React.useLayoutEffect(() => {
         setState(1);
         setState(prevState => prevState - 1);
-    }, []);
-    React.useLayoutEffect(() => {
         didLayout.current = true;
     }, []);
     React.useEffect(() => {

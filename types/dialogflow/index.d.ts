@@ -23,12 +23,7 @@ export namespace v2 {
         searchAgents(
             request: SearchAgentRequest,
             options?: gax.CallOptions,
-            cb?: (
-                err: Error,
-                agents: Agent[],
-                arg3: any,
-                response: any
-            ) => void
+            cb?: (err: Error, agents: Agent[], arg3: any, response: any) => void
         ): Promise<Agent[]>;
         searchAgentsStream(
             request: SearchAgentRequest,
@@ -213,7 +208,28 @@ export namespace v2 {
         getProjectId(): Promise<string>;
         getProjectId(callback?: (error: Error, id: string) => string): void;
 
-        // TODO: add Session Entity Types service methods
+        // TODO: add streaming calls
+
+        listSessionEntityTypes(
+            request: ListSessionEntityTypesRequest,
+            options?: gax.CallOptions
+        ): Promise<[SessionEntityType[]]>;
+        getSessionEntityType(
+            request: GetSessionEntityTypeRequest,
+            options?: gax.CallOptions
+        ): Promise<[SessionEntityType]>;
+        createSessionEntityType(
+            request: CreateSessionEntityTypeRequest,
+            options?: gax.CallOptions
+        ): Promise<[SessionEntityType]>;
+        updateSessionEntityType(
+            request: UpdateSessionEntityTypeRequest,
+            options?: gax.CallOptions
+        ): Promise<[SessionEntityType]>;
+        deleteSessionEntityType(
+            request: DeleteSessionEntityTypeRequest,
+            options?: gax.CallOptions
+        ): Promise<void>;
     }
 
     class SessionsClient {
@@ -501,6 +517,30 @@ export interface UpdateEntityTypeRequest {
 }
 
 export interface DeleteEntityTypeRequest {
+    name: string;
+}
+
+export interface ListSessionEntityTypesRequest {
+    parent: string;
+    pageSize?: number;
+}
+
+export interface GetSessionEntityTypeRequest {
+    name: string;
+}
+
+export interface CreateSessionEntityTypeRequest {
+    parent: string;
+    sessionEntityType: SessionEntityType;
+}
+
+export interface UpdateSessionEntityTypeRequest {
+    sessionEntityType: SessionEntityType;
+    /** @link https://github.com/google/protobuf/blob/master/src/google/protobuf/field_mask.proto */
+    updateMask: any;
+}
+
+export interface DeleteSessionEntityTypeRequest {
     name: string;
 }
 

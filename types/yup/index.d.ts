@@ -5,6 +5,7 @@
 //                 Moreton Bay Regional Council <https://github.com/MoretonBayRC>,
 //                 Sindre Seppola <https://github.com/sseppola>
 //                 Yash Kulshrestha <https://github.com/YashdalfTheGray>
+//                 Vincent Pizzo <https://github.com/vincentjames501>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -47,6 +48,9 @@ export type AnySchemaConstructor =
     | ArraySchemaConstructor
     | ObjectSchemaConstructor;
 
+export type TestOptionsMessage = string
+    | ((params: object & Partial<TestMessageParams>) => string);
+
 export interface Schema<T> {
     clone(): this;
     label(label: string): this;
@@ -67,11 +71,11 @@ export interface Schema<T> {
     withMutation(fn: (current: this) => void): void;
     default(value?: any): this;
     nullable(isNullable: boolean): this;
-    required(message?: string): this;
+    required(message?: TestOptionsMessage): this;
     notRequired(): this;
-    typeError(message?: string): this;
-    oneOf(arrayOfValues: any[], message?: string): this;
-    notOneOf(arrayOfValues: any[], message?: string): this;
+    typeError(message?: TestOptionsMessage): this;
+    oneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
+    notOneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
     test(
         name: string,
@@ -102,20 +106,20 @@ export interface StringSchemaConstructor {
 }
 
 export interface StringSchema extends Schema<string> {
-    min(limit: number | Ref, message?: string): StringSchema;
-    max(limit: number | Ref, message?: string): StringSchema;
+    min(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
+    max(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     matches(
         regex: RegExp,
         messageOrOptions?:
-            | string
-            | { message?: string; excludeEmptyString?: boolean }
+            | TestOptionsMessage
+            | { message?: TestOptionsMessage; excludeEmptyString?: boolean }
     ): StringSchema;
-    email(message?: string): StringSchema;
-    url(message?: string): StringSchema;
+    email(message?: TestOptionsMessage): StringSchema;
+    url(message?: TestOptionsMessage): StringSchema;
     ensure(): StringSchema;
-    trim(message?: string): StringSchema;
-    lowercase(message?: string): StringSchema;
-    uppercase(message?: string): StringSchema;
+    trim(message?: TestOptionsMessage): StringSchema;
+    lowercase(message?: TestOptionsMessage): StringSchema;
+    uppercase(message?: TestOptionsMessage): StringSchema;
 }
 
 export interface NumberSchemaConstructor {
@@ -124,13 +128,13 @@ export interface NumberSchemaConstructor {
 }
 
 export interface NumberSchema extends Schema<number> {
-    min(limit: number | Ref, message?: string): NumberSchema;
-    max(limit: number | Ref, message?: string): NumberSchema;
-    lessThan(limit: number | Ref, message?: string): NumberSchema;
-    moreThan(limit: number | Ref, message?: string): NumberSchema;
-    positive(message?: string): NumberSchema;
-    negative(message?: string): NumberSchema;
-    integer(message?: string): NumberSchema;
+    min(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
+    max(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
+    lessThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
+    moreThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
+    positive(message?: TestOptionsMessage): NumberSchema;
+    negative(message?: TestOptionsMessage): NumberSchema;
+    integer(message?: TestOptionsMessage): NumberSchema;
     truncate(): NumberSchema;
     round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema;
 }
@@ -149,8 +153,8 @@ export interface DateSchemaConstructor {
 }
 
 export interface DateSchema extends Schema<Date> {
-    min(limit: Date | string | Ref, message?: string): DateSchema;
-    max(limit: Date | string | Ref, message?: string): DateSchema;
+    min(limit: Date | string | Ref, message?: TestOptionsMessage): DateSchema;
+    max(limit: Date | string | Ref, message?: TestOptionsMessage): DateSchema;
 }
 
 export interface ArraySchemaConstructor {
@@ -160,8 +164,8 @@ export interface ArraySchemaConstructor {
 
 export interface ArraySchema<T> extends Schema<T[]> {
     of<U>(type: Schema<U>): ArraySchema<U>;
-    min(limit: number | Ref, message?: string): ArraySchema<T>;
-    max(limit: number | Ref, message?: string): ArraySchema<T>;
+    min(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
+    max(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
     ensure(): ArraySchema<T>;
     compact(rejector?: (value: any) => boolean): ArraySchema<T>;
 }
@@ -177,7 +181,7 @@ export interface ObjectSchema<T> extends Schema<T> {
         noSortEdges?: Array<[string, string]>
     ): ObjectSchema<T>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
-    noUnknown(onlyKnownKeys?: boolean, message?: string): ObjectSchema<T>;
+    noUnknown(onlyKnownKeys?: boolean, message?: TestOptionsMessage): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
@@ -206,6 +210,7 @@ export interface TestContext {
     options: ValidateOptions;
     parent: any;
     schema: Schema<any>;
+    resolve: (value: any) => any;
     createError: (params: { path: string; message: string }) => ValidationError;
 }
 
@@ -256,9 +261,7 @@ export interface TestOptions {
     /**
      * The validation error message
      */
-    message?:
-        | string
-        | ((params: object & Partial<TestMessageParams>) => string);
+    message?: TestOptionsMessage;
 
     /**
      * Values passed to message for interpolation

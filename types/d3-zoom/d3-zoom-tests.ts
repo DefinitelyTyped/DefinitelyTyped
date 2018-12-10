@@ -91,7 +91,7 @@ interface GroupDatum {
 
 function zoomedCanvas(this: HTMLCanvasElement, d: CanvasDatum) {
     // Cast d3 event to D3ZoomEvent to be used in zoom event handler
-    const e = <d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>> event;
+    const e = event as d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>;
     if (context) {
         context.save();
         context.clearRect(0, 0, this.width, this.height); // this element
@@ -112,7 +112,7 @@ canvasZoom = d3Zoom.zoom<HTMLCanvasElement, CanvasDatum>()
 
 function zoomedSVGOverlay(this: SVGRectElement) {
     // Cast d3 event to D3ZoomEvent to be used in zoom event handler
-    const e = <d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>> event;
+    const e = event as d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>;
 
     g.attr('transform', e.transform.toString());
 }
@@ -146,7 +146,7 @@ constraintFn = svgZoom.constrain();
 // chainable
 svgZoom = svgZoom.filter(function(d, i, group) {
     // Cast d3 event to D3ZoomEvent to be used in filter logic
-    const e = <d3Zoom.D3ZoomEvent<SVGRectElement, SVGDatum>> event;
+    const e = event as d3Zoom.D3ZoomEvent<SVGRectElement, SVGDatum>;
 
     console.log('Overlay Rectangle width: ', this.width.baseVal.value); // this typing is SVGRectElement
     return e.sourceEvent.type !== 'brush' || !d.filterBrushEvent; // datum type is SVGDatum (as propagated to SVGRectElement with zoom event attached)
@@ -178,7 +178,7 @@ touchableFn = svgZoom.touchable();
 // chainable
 svgZoom = svgZoom.wheelDelta(function(d, i, group) {
     // Cast d3 event to D3ZoomEvent to be used in filter logic
-    const e = <WheelEvent> event;
+    const e = event as WheelEvent;
     const that: SVGRectElement = this;
     const datum: SVGDatum = d;
     const index: number = i;
