@@ -762,6 +762,9 @@ declare namespace chrome.commands {
  * Permissions:  "contentSettings"
  */
 declare namespace chrome.contentSettings {
+
+    type ScopeEnum = 'regular' | 'incognito_session_only';
+
     export interface ClearDetails {
         /**
          * Optional.
@@ -770,7 +773,7 @@ declare namespace chrome.contentSettings {
          * * regular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
          * * incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
          */
-        scope?: string;
+        scope?: ScopeEnum;
     }
 
     export interface SetDetails {
@@ -781,7 +784,7 @@ declare namespace chrome.contentSettings {
         /** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
         secondaryPattern?: string;
         /** Optional. Where to set the setting (default: regular).  */
-        scope?: string;
+        scope?: ScopeEnum;
         /** The pattern for the primary URL. For details on the format of a pattern, see Content Setting Patterns. */
         primaryPattern: string;
     }
