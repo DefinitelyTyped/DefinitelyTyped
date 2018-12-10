@@ -27,7 +27,8 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   bufferCommands: false,
   useNewUrlParser: true,
   useFindAndModify: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  autoIndex: true
 });
 const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
