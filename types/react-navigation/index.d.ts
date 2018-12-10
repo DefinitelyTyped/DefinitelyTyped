@@ -1250,6 +1250,15 @@ export function createNavigator<S, Options>(
 export function createNavigationContainer(
   Component: NavigationNavigator<any, any, any>
 ): NavigationContainer;
+                            
+/**
+ * Create an app container to wrap the root navigator
+ *
+ */
+export function createAppContainer(
+  Component: NavigationNavigator<any, any, any>
+): NavigationContainer;
+                            
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */
