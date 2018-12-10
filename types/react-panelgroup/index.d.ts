@@ -2,6 +2,7 @@
 // Project: https://github.com/DanFessler/react-panelgroup
 // Definitions by: My Self <https://github.com/qgolsteyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 import * as React from "react";
 
