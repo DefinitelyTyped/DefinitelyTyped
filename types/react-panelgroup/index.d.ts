@@ -1,0 +1,30 @@
+// Type definitions for react-panelgroup 1.0.7
+// Project: https://github.com/DanFessler/react-panelgroup
+// Definitions by: My Self <https://github.com/qgolsteyn>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import * as React from "react";
+
+/**
+ * Interface used to define a number of options for a panel.
+ */
+export interface PanelWidth {
+    size?: number;
+    minSize?: number;
+    resize?: "fixed" | "dynamic" | "stretch";
+    snap?: number[];
+}
+
+interface PropTypes {
+    spacing?: number;
+    borderColor?: string;
+    panelColor?: string;
+    direction?: "row" | "column";
+    panelWidths?: Array<PanelWidth | null>;
+    onUpdate?: (data: PanelWidth) => void;
+}
+
+/**
+ * React component that allows for the creation of resizable panels.
+ */
+export default class PanelGroup extends React.Component<PropTypes> {}
