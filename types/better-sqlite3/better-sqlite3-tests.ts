@@ -57,6 +57,6 @@ stmt.safeIntegers(true);
 const trans = db.transaction((param) => stmt.all(param));
 trans('name');
 trans.default('name');
-trans.default('name');
+trans.deferred('name');
 trans.immediate('name');
 trans.exclusive('name');

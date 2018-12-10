@@ -59,7 +59,7 @@ declare class SqliteError implements Error {
 }
 
 interface DatabaseConstructor {
-    new(filename: string, options?: Database.Options): Database;
+    new (filename: string, options?: Database.Options): Database;
     (filename: string, options?: Database.Options): Database;
     prototype: Database;
 
@@ -93,8 +93,8 @@ declare namespace Database {
     interface AggregateOptions extends RegistrationOptions {
         start?: any;
         step: (total: any, next: any) => any;
-        inverse?: (totla: any, dropped: any) => any;
-        result?: (totla: any) => any;
+        inverse?: (total: any, dropped: any) => any;
+        result?: (total: any) => any;
     }
 }
 
