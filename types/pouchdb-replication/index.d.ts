@@ -84,9 +84,9 @@ declare namespace PouchDB {
             back_off_function?(delay: number): number;
             
             /**
-             * Can be used if you want to disable checkpoints on the source, target, or both. 
-             * Setting this option to false will prevent writing checkpoints on both source and target. 
-             * Setting it to source will only write checkpoints on the source. 
+             * Can be used if you want to disable checkpoints on the source, target, or both.
+             * Setting this option to false will prevent writing checkpoints on both source and target.
+             * Setting it to source will only write checkpoints on the source.
              * Setting it to target will only write checkpoints on the target.
              */
             checkpoint?: boolean | 'target' | 'source';
