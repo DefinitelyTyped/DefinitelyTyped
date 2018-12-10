@@ -4865,7 +4865,7 @@ declare module paper {
         /**
          * The current scale factor of the view, as described by its matrix.
          */
-        scaling: number;
+        scaling: Point;
 
         /**
          * The view’s transformation matrix, defining the view onto the project’s contents (position, zoom level, rotation, etc).
