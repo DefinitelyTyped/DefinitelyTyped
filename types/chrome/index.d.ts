@@ -789,6 +789,58 @@ declare namespace chrome.contentSettings {
         primaryPattern: string;
     }
 
+    export interface CookieSetDetails extends SetDetails {
+        setting: 'allow' | 'block' | 'session_only';
+    }
+
+    export interface ImagesSetDetails extends SetDetails {
+        setting: 'allow' | 'block';
+    }
+
+    export interface JavascriptSetDetails extends SetDetails {
+        setting: 'allow' | 'block';
+    }
+
+    export interface LocationSetDetails extends SetDetails {
+        setting: 'allow' | 'block' | 'ask';
+    }
+
+    export interface PluginsSetDetails extends SetDetails {
+        setting: 'allow' | 'block' | 'detect_important_content';
+    }
+
+    export interface PopupsSetDetails extends SetDetails {
+        setting: 'allow' | 'block';
+    }
+
+    export interface NotificationsSetDetails extends SetDetails {
+        setting: 'allow' | 'block' | 'ask';
+    }
+
+    export interface FullscreenSetDetails extends SetDetails {
+        setting: 'allow';
+    }
+
+    export interface MouselockSetDetails extends SetDetails {
+        setting: 'allow';
+    }
+
+    export interface MicrophoneSetDetails extends SetDetails {
+        setting: 'allow' | 'block' | 'ask';
+    }
+
+    export interface CameraSetDetails extends SetDetails {
+        setting: 'allow' | 'block' | 'ask';
+    }
+
+    export interface PpapiBrokerSetDetails extends SetDetails {
+        setting: 'allow' | 'block' | 'ask';
+    }
+
+    export interface MultipleAutomaticDownloadsSetDetails extends SetDetails {
+        setting: 'allow' | 'block' | 'ask';
+    }
+
     export interface GetDetails {
         /** Optional. The secondary URL for which the content setting should be retrieved. Defaults to the primary URL. Note that the meaning of a secondary URL depends on the content type, and not all content types use secondary URLs.  */
         secondaryUrl?: string;
@@ -832,6 +884,58 @@ declare namespace chrome.contentSettings {
         get(details: GetDetails, callback: (details: ReturnedDetails) => void): void;
     }
 
+    export interface CookieContentSetting extends ContentSetting{
+        set(details: CookieSetDetails, callback?: () => void): void;
+    }
+
+    export interface PopupsContentSetting extends ContentSetting{
+        set(details: PopupsSetDetails, callback?: () => void): void;
+    }
+
+    export interface JavascriptContentSetting extends ContentSetting{
+        set(details: JavascriptSetDetails, callback?: () => void): void;
+    }
+
+    export interface NotificationsContentSetting extends ContentSetting{
+        set(details: NotificationsSetDetails, callback?: () => void): void;
+    }
+
+    export interface PluginsContentSetting extends ContentSetting{
+        set(details: PluginsSetDetails, callback?: () => void): void;
+    }
+
+    export interface ImagesContentSetting extends ContentSetting{
+        set(details: ImagesSetDetails, callback?: () => void): void;
+    }
+
+    export interface LocationContentSetting extends ContentSetting{
+        set(details: LocationSetDetails, callback?: () => void): void;
+    }
+
+    export interface FullscreenContentSetting extends ContentSetting{
+        set(details: FullscreenSetDetails, callback?: () => void): void;
+    }
+
+    export interface MouselockContentSetting extends ContentSetting{
+        set(details: MouselockSetDetails, callback?: () => void): void;
+    }
+
+    export interface MicrophoneContentSetting extends ContentSetting{
+        set(details: MicrophoneSetDetails, callback?: () => void): void;
+    }
+
+    export interface CameraContentSetting extends ContentSetting{
+        set(details: CameraSetDetails, callback?: () => void): void;
+    }
+
+    export interface PpapiBrokerContentSetting extends ContentSetting{
+        set(details: PpapiBrokerSetDetails, callback?: () => void): void;
+    }
+
+    export interface MultipleAutomaticDownloadsContentSetting extends ContentSetting{
+        set(details: MultipleAutomaticDownloadsSetDetails, callback?: () => void): void;
+    }
+
     /** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */
     export interface ResourceIdentifier {
         /** The resource identifier for the given content type. */
@@ -848,7 +952,7 @@ declare namespace chrome.contentSettings {
      * Default is allow.
      * The primary URL is the URL representing the cookie origin. The secondary URL is the URL of the top-level frame.
      */
-    export var cookies: ContentSetting;
+    export var cookies: CookieContentSetting;
     /**
      * Whether to allow sites to show pop-ups. One of
      * allow: Allow sites to show pop-ups,
@@ -856,7 +960,7 @@ declare namespace chrome.contentSettings {
      * Default is block.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    export var popups: ContentSetting;
+    export var popups: PopupsContentSetting;
     /**
      * Whether to run JavaScript. One of
      * allow: Run JavaScript,
@@ -864,7 +968,7 @@ declare namespace chrome.contentSettings {
      * Default is allow.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    export var javascript: ContentSetting;
+    export var javascript: JavascriptContentSetting;
     /**
      * Whether to allow sites to show desktop notifications. One of
      * allow: Allow sites to show desktop notifications,
@@ -873,7 +977,7 @@ declare namespace chrome.contentSettings {
      * Default is ask.
      * The primary URL is the URL of the document which wants to show the notification. The secondary URL is not used.
      */
-    export var notifications: ContentSetting;
+    export var notifications: NotificationsContentSetting;
     /**
      * Whether to run plugins. One of
      * allow: Run plugins automatically,
@@ -882,7 +986,7 @@ declare namespace chrome.contentSettings {
      * Default is allow.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    export var plugins: ContentSetting;
+    export var plugins: PluginsContentSetting;
     /**
      * Whether to show images. One of
      * allow: Show images,
@@ -890,7 +994,7 @@ declare namespace chrome.contentSettings {
      * Default is allow.
      * The primary URL is the URL of the top-level frame. The secondary URL is the URL of the image.
      */
-    export var images: ContentSetting;
+    export var images: ImagesContentSetting;
     /**
      * Since Chrome 42.
      * Whether to allow Geolocation. One of
@@ -900,7 +1004,7 @@ declare namespace chrome.contentSettings {
      * Default is ask.
      * The primary URL is the URL of the document which requested location data. The secondary URL is the URL of the top-level frame (which may or may not differ from the requesting URL).
      */
-    export var location: ContentSetting;
+    export var location: LocationContentSetting;
     /**
      * Since Chrome 42.
      * Whether to allow sites to toggle the fullscreen mode. One of
@@ -909,7 +1013,7 @@ declare namespace chrome.contentSettings {
      * Default is ask.
      * The primary URL is the URL of the document which requested to toggle the fullscreen mode. The secondary URL is the URL of the top-level frame (which may or may not differ from the requesting URL).
      */
-    export var fullscreen: ContentSetting;
+    export var fullscreen: FullscreenContentSetting;
     /**
      * Since Chrome 42.
      * Whether to allow sites to disable the mouse cursor. One of
@@ -919,7 +1023,29 @@ declare namespace chrome.contentSettings {
      * Default is ask.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    export var mouselock: ContentSetting;
+    export var mouselock: MouselockContentSetting;
+    /**
+     * Since Chrome 46.
+     * Whether to allow sites to access the microphone. One of
+     * allow: Allow sites to access the microphone,
+     * block: Don't allow sites to access the microphone,
+     * ask: Ask when a site wants to access the microphone.
+     * Default is ask.
+     * The primary URL is the URL of the document which requested microphone access. The secondary URL is not used.
+     * NOTE: The 'allow' setting is not valid if both patterns are ''.
+     */
+    export var microphone: MicrophoneContentSetting;
+    /**
+     * Since Chrome 46.
+     * Whether to allow sites to access the camera. One of
+     * allow: Allow sites to access the camera,
+     * block: Don't allow sites to access the camera,
+     * ask: Ask when a site wants to access the camera.
+     * Default is ask.
+     * The primary URL is the URL of the document which requested camera access. The secondary URL is not used.
+     * NOTE: The 'allow' setting is not valid if both patterns are ''.
+     */
+    export var camera: CameraContentSetting;
     /**
      * Since Chrome 42.
      * Whether to allow sites to run plugins unsandboxed. One of
@@ -929,7 +1055,7 @@ declare namespace chrome.contentSettings {
      * Default is ask.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    export var unsandboxedPlugins: ContentSetting;
+    export var unsandboxedPlugins: PpapiBrokerContentSetting;
     /**
      * Since Chrome 42.
      * Whether to allow sites to download multiple files automatically. One of
@@ -939,7 +1065,7 @@ declare namespace chrome.contentSettings {
      * Default is ask.
      * The primary URL is the URL of the top-level frame. The secondary URL is not used.
      */
-    export var automaticDownloads: ContentSetting;
+    export var automaticDownloads: MultipleAutomaticDownloadsContentSetting;
 }
 
 ////////////////////
