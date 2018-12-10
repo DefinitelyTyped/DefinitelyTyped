@@ -18,4 +18,4 @@ export type WithNotesOptions = string | {
 };
 
 export function withNotes(options?: WithNotesOptions): StoryDecorator;
-export function withMarkdownNotes(markdown: string, options: MarkedOptions): StoryDecorator;
+export function withMarkdownNotes(markdown: string, options?: MarkedOptions): StoryDecorator;
