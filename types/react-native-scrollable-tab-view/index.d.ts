@@ -6,7 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Animated, ScrollViewProps, ViewStyle, TextStyle } from 'react-native';
+import { Animated, ScrollViewProps, ViewStyle, TextStyle, StyleProp } from 'react-native';
 
 export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
     /**
