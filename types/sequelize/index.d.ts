@@ -3292,6 +3292,11 @@ declare namespace sequelize {
     type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
+     * Shortcut for order type in FindOptions.attributes
+     */
+    type FindOptionsOrderArray = Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string } | fn>;
+
+    /**
      * Options that are passed to any model creating a SELECT query
      *
      * A hash of options to describe the scope of the search
@@ -3331,7 +3336,7 @@ declare namespace sequelize {
          * first element is the column / function to order by, the second is the direction. For example:
          * `order: [['name', 'DESC']]`. In this way the column will be escaped, but the direction will not.
          */
-        order?: string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string } | fn> | fn | Array<string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }| fn>| fn>;
+        order?: string | col | literal | FindOptionsOrderArray | fn | Array<string | col | literal | FindOptionsOrderArray | fn>;
 
         /**
          * Limit the results
