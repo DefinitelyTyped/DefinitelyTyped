@@ -5,6 +5,7 @@
 //                 A.MacLeay <https://github.com/amacleay>
 //                 Michael Loughry <https://github.com/MLoughry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 import { RenderFunction } from '@storybook/react';
