@@ -82,7 +82,7 @@ declare namespace PouchDB {
              * The default delay will never exceed 10 minutes.
              */
             back_off_function?(delay: number): number;
-            
+
             /**
              * Can be used if you want to disable checkpoints on the source, target, or both.
              * Setting this option to false will prevent writing checkpoints on both source and target.
