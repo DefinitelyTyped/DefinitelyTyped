@@ -121,7 +121,7 @@ declare namespace jest {
     /**
      * Returns whether the given function is a mock function.
      */
-    function isMockFunction(fn: any): fn is Mock<any, any[]>;
+    function isMockFunction(fn: any): fn is Mock;
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
@@ -763,12 +763,12 @@ declare namespace jest {
         new (...args: any[]): any;
     }
 
-    interface Mock<T, Y extends any[]> extends Function, MockInstance<T, Y> {
+    interface Mock<T = {}, Y extends any[] = any> extends Function, MockInstance<T, Y> {
         new (...args: Y): T;
         (...args: Y): T;
     }
 
-    interface SpyInstance<T, Y extends any[]> extends MockInstance<T, Y> {}
+    interface SpyInstance<T = {}, Y extends any[] = any> extends MockInstance<T, Y> {}
 
     /**
      * Wrap module with mock definitions

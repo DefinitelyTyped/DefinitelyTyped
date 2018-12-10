@@ -267,15 +267,20 @@ const mock5 = jest.fn((...args: string[]) => args.join(""));
 const mock6 = jest.fn((arg: {}) => arg);
 // $ExpectType Mock<number, [number]>
 const mock7 = jest.fn((arg: number) => arg);
+// $ExpectType Mock<number, [number]>
+const mock8: jest.Mock = jest.fn((arg: number) => arg);
 
 // $ExpectError
 mock7('abc');
 // $ExpectError
 mock7.mockImplementation((arg: string) => 1);
+// compiles because mock8 is declared as jest.Mock<{}, any>
+mock8('abc');
+mock8.mockImplementation((arg: string) => 1);
 
-const mock8 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise.resolve(_makeItStop));
+const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise.resolve(_makeItStop));
 // mockImplementation not required to declare all arguments
-mock8.mockImplementation((a: number) => Promise.resolve(a === 0));
+mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
 
 const genMockModule1: {} = jest.genMockFromModule("moduleName");
 const genMockModule2: { a: "b" } = jest.genMockFromModule<{ a: "b" }>("moduleName");
@@ -342,8 +347,10 @@ const spy3Mock = spy3
     .mockRejectedValue("value")
     .mockRejectedValueOnce("value");
 
-let spy4;
+let spy4: jest.SpyInstance;
 spy4 = jest.spyOn(spiedTarget, "returnsString");
+// compiles because spy4 is declared as jest.SpyInstance<{}, any>
+spy4.mockImplementation(() => 1);
 spy4.mockRestore();
 
 // $ExpectType SpyInstance<number, []>

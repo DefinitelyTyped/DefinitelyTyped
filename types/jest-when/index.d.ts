@@ -9,7 +9,7 @@
 export type PartialMockInstance<T, Y extends any[]> = Pick<jest.MockInstance<T, Y>, 'mockReturnValue' | 'mockReturnValueOnce' | 'mockResolvedValue'
   | 'mockResolvedValueOnce' | 'mockRejectedValue' | 'mockRejectedValueOnce'>;
 
-export interface When<T = {}, Y extends any[] = any[]> {
+export interface When<T = {}, Y extends any[] = any> {
   (fn: jest.Mock<T, Y>): When<T, Y>;
   calledWith(...matchers: Y): PartialMockInstance<T, Y>;
   expectCalledWith(...matchers: Y): PartialMockInstance<T, Y>;
