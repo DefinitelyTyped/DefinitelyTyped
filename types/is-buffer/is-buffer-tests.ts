@@ -16,3 +16,11 @@ booleanResult = isBuffer([]);
 booleanResult = isBuffer(function foo() {});
 booleanResult = isBuffer({ isBuffer: null });
 booleanResult = isBuffer({ isBuffer() { throw new Error(); } });
+
+// Typeguard test
+const unknownValue: unknown = {};
+if (isBuffer(unknownValue)) {
+  const bufferValue: Buffer = unknownValue;
+} else {
+  const bufferValue: Buffer = unknownValue; // $ExpectError
+}
