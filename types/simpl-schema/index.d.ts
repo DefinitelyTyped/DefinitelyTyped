@@ -5,7 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
-    // constructor(ss: any);
     addValidationErrors(errors: any): void;
     clean(...args: any[]): any;
     getErrorForKey(key: any, ...args: any[]): any;
