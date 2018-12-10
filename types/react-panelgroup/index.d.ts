@@ -1,4 +1,4 @@
-// Type definitions for react-panelgroup 1.0.7
+// Type definitions for react-panelgroup 1.0
 // Project: https://github.com/DanFessler/react-panelgroup
 // Definitions by: My Self <https://github.com/qgolsteyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,7 +16,7 @@ export interface PanelWidth {
     snap?: number[];
 }
 
-interface PropTypes {
+export interface PropTypes {
     spacing?: number;
     borderColor?: string;
     panelColor?: string;
