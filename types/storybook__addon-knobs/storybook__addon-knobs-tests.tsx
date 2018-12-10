@@ -14,7 +14,6 @@ import {
   array,
   button,
   knob,
-  selectV2,
 } from '@storybook/addon-knobs';
 
 enum SomeEnum {
@@ -50,15 +49,12 @@ stories.add('with all knobs', () => {
 
   type X = 'a' | 'b';
 
-  const genericSelect: X = select<X>('Some generic select', { a: 'type a', b: 'type b' }, 'b');
-
   const enumSelectOptions: { [s: number]: string } = {};
   enumSelectOptions[SomeEnum.Type1] = "Type 1";
   enumSelectOptions[SomeEnum.Type2] = "Type 2";
-  const genericSelect2: SomeEnum = select<SomeEnum>('Some generic select', enumSelectOptions, SomeEnum.Type1);
 
-  const genericSelectV2: X = selectV2<X>('Some generic select', { 'type a': 'a', 'type b': 'b' }, 'b');
-  const genericSelectV2Enum: SomeEnum = selectV2<SomeEnum>('Some generic select v2', { 'type a': SomeEnum.Type1, 'type b': SomeEnum.Type2 }, SomeEnum.Type2);
+  const genericSelectV2: X = select<X>('Some generic select', { 'type a': 'a', 'type b': 'b' }, 'b');
+  const genericSelectV2Enum: SomeEnum = select<SomeEnum>('Some generic select v2', { 'type a': SomeEnum.Type1, 'type b': SomeEnum.Type2 }, SomeEnum.Type2);
 
   const genericArray: string[] = array<string>('Some generic array', ['red', 'green', 'blue']);
 

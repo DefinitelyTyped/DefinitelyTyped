@@ -1,10 +1,11 @@
-// Type definitions for @storybook/addon-knobs 3.4
+// Type definitions for @storybook/addon-knobs 4.0
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
 //                 A.MacLeay <https://github.com/amacleay>
+//                 Michael Loughry <https://github.com/MLoughry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2.1
 
 import * as React from 'react';
 import { RenderFunction } from '@storybook/react';
@@ -47,13 +48,8 @@ export function color(name: string, value: string, groupId?: string): string;
 
 export function object<T>(name: string, value: T, groupId?: string): T;
 
-export type SelectValue = string | number;
-export function select<T extends string>(name: string, options: { [s: string]: string }, value: T, groupId?: string): T;
-export function select<T extends number>(name: string, options: { [s: number]: string }, value: T, groupId?: string): T;
-export function select<T extends SelectValue>(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
-
-export function selectV2<T extends string | number>(name: string, options: { [s: string]: T | T[] }, value: T | T[], groupId?: string): T;
-export function selectV2<T extends SelectValue>(name: string, options: T[], value: T, groupId?: string): T;
+export type SelectValue = string | number | ReadonlyArray<string> | ReadonlyArray<number>;
+export function select<T extends SelectValue>(name: string, options: { [s: string]: T } | ReadonlyArray<T>, value: T, groupId?: string): T;
 
 export function date(name: string, value?: Date, groupId?: string): Date;
 
