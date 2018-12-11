@@ -152,7 +152,7 @@ declare module 'angular' {
             defaultViewBoxSize(viewBoxSize: number): IIconProvider; // default: 24
             defaultFontSet(name: string): IIconProvider;
         }
-    
+
         interface IInkRippleProvider {
             disableInkRipple(): void;
         }
