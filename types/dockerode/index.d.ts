@@ -930,7 +930,7 @@ declare namespace Dockerode {
       Details: {
         ApiVersion: string;
         Arch: string;
-        BuilTime: Date;
+        BuildTime: Date;
         Experimental: string;
         GitCommit: string;
         GoVersion: string;
