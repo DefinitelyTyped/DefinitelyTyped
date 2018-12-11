@@ -72,7 +72,7 @@ export interface RouteComponentProps<Params extends { [K in keyof Params]?: stri
   staticContext?: C;
 }
 
-interface RouteChildrenProps<
+export interface RouteChildrenProps<
   Params extends { [K in keyof Params]?: string } = {},
   S = H.LocationState
 > {
