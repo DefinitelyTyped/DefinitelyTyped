@@ -49,6 +49,8 @@ export function color(name: string, value: string, groupId?: string): string;
 export function object<T>(name: string, value: T, groupId?: string): T;
 
 export type SelectValue = string | number;
+export function select<T extends SelectValue>(name: string, options: { [s: string]: T }, value: T | ReadonlyArray<T>, groupId?: string): T;
+export function select<T extends SelectValue>(name: string, options: { [s: string]: ReadonlyArray<T> }, value: T | ReadonlyArray<T>, groupId?: string): T[];
 export function select<T extends SelectValue>(name: string, options: { [s: string]: T | ReadonlyArray<T> }, value: T | ReadonlyArray<T>, groupId?: string): T | T[];
 export function select<T extends SelectValue>(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
 
