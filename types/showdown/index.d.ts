@@ -295,6 +295,14 @@ declare namespace Showdown {
         makeHtml(text: string): string;
 
         /**
+         * Converts an HTML string into a markdown string
+         * 
+         * @param src
+         * @returns {string}
+         */
+        makeMarkdown(src: string): string;
+
+        /**
          * Setting a "local" option only affects the specified Converter object.
          *
          * @param optionKey
