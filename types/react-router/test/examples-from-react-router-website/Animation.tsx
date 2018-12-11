@@ -72,12 +72,12 @@ interface HSLParams {
   l: string;
 }
 
-const HSL: React.SFC<RouteComponentProps<HSLParams>> = ({ match }) => match && (
+const HSL: React.SFC<RouteComponentProps<HSLParams>> = ({ match: { params } }) => (
   <div style={{
     ...styles.fill,
     ...styles.hsl,
-    background: `hsl(${match.params.h}, ${match.params.s}%, ${match.params.l}%)`
-  }}>hsl({match.params.h}, {match.params.s}%, {match.params.l}%)</div>
+    background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`
+  }}>hsl({params.h}, {params.s}%, {params.l}%)</div>
 );
 
 const styles: any = {};
