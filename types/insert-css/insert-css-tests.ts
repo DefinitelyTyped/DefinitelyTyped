@@ -1,4 +1,4 @@
-import { insertCss } from "insert-css";
+import { insertCss } from 'insert-css';
 
 insertCss('body{position:absolute}');
 
