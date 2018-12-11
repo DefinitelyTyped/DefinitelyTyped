@@ -1254,6 +1254,7 @@ export function createNavigationContainer(
 /**
  * Create an app container to wrap the root navigator
  *
+ * @see https://github.com/react-navigation/react-navigation-native/blob/master/src/createAppContainer.js#L64
  */
 export function createAppContainer(
   Component: NavigationNavigator<any, any, any>
