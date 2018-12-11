@@ -297,8 +297,8 @@ declare namespace Showdown {
         /**
          * Converts an HTML string into a markdown string
          * 
-         * @param src
-         * @returns {string}
+         * @param src The input text (HTML)
+         * @returns The output markdown
          */
         makeMarkdown(src: string): string;
 
