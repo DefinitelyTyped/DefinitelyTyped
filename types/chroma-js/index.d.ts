@@ -21,7 +21,7 @@ declare namespace chroma {
         gl: [number, number, number, number];
     }
 
-    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl"
+    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl";
 
     interface ChromaStatic {
         /**
