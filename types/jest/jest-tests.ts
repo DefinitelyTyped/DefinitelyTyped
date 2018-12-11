@@ -305,6 +305,9 @@ jest.fn().mockRestore();
 
 const spiedTarget = {
     returnsVoid(): void { },
+    setValue(value: string): void {
+        this.value = value;
+    },
     returnsString(): string {
         return "";
     }
@@ -360,6 +363,9 @@ spy5.mockReturnValue('5');
 
 // $ExpectType SpyInstance<void, [number]>
 const spy6 = jest.spyOn(spiedTarget2, "value", "set");
+
+let spy7: jest.SpyInstance;
+spy7 = jest.spyOn(spiedTarget, "setValue");
 
 /* Snapshot serialization */
 

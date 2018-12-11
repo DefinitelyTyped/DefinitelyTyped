@@ -763,12 +763,12 @@ declare namespace jest {
         new (...args: any[]): any;
     }
 
-    interface Mock<T = {}, Y extends any[] = any> extends Function, MockInstance<T, Y> {
+    interface Mock<T = any, Y extends any[] = any> extends Function, MockInstance<T, Y> {
         new (...args: Y): T;
         (...args: Y): T;
     }
 
-    interface SpyInstance<T = {}, Y extends any[] = any> extends MockInstance<T, Y> {}
+    interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
 
     /**
      * Wrap module with mock definitions
