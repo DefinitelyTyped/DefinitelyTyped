@@ -5,23 +5,23 @@ insertCss('body{position:absolute}');
 insertCss('body{position:absolute}', {});
 
 insertCss('body{text-decoration:underline !important}', {
-  prepend: true,
+    prepend: true,
 });
 
 insertCss('body{text-decoration:underline !important}', {
-  prepend: false,
+    prepend: false,
 });
 
 insertCss('body{position:absolute}', {
-  container: document.createElement(''),
+    container: document.createElement(''),
 });
 
 insertCss('body{text-decoration:underline !important}', {
-  prepend: true,
-  container: document.createElement('div'),
+    prepend: true,
+    container: document.createElement('div'),
 });
 
 insertCss('body{text-decoration:underline !important}', {
-  prepend: false,
-  container: document.createElement('div'),
+    prepend: false,
+    container: document.createElement('div'),
 });
