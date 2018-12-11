@@ -40,7 +40,9 @@ export interface conformToMaskResult {
 export default class MaskedInput extends React.Component<
     MaskedInputProps,
     any
-> {}
+> {
+    inputElement: HTMLInputElement
+}
 
 export function conformToMask(
     text: string,
