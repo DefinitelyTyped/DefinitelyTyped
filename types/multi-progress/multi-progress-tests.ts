@@ -3,14 +3,14 @@
  */
 
 // require the library
-var MultiProgress = require("multi-progress");
+import MultiProgress from 'multi-progress';
 
 // spawn an instance with the optional stream to write to
 // use of `new` is optional
-var multi = new MultiProgress(process.stderr);
+const multi = new MultiProgress(process.stderr);
 
 // create a progress bar
-var bar = multi.newBar('  downloading [:bar] :percent :etas', {
+const bar = multi.newBar('  downloading [:bar] :percent :etas', {
   complete: '=',
   incomplete: ' ',
   width: 30,
