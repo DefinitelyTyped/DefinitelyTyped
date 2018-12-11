@@ -7,8 +7,8 @@
 
 export type ReactComponentLike =
     | string
-    | ((props: any, context?: any) => null)
-    | (new (props: any, context?: any) => null);
+    | ((props: any, context?: any) => any)
+    | (new (props: any, context?: any) => any);
 
 export interface ReactElementLike {
     type: ReactComponentLike;
