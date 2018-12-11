@@ -18,10 +18,10 @@ insertCss('body{position:absolute}', {
 
 insertCss('body{text-decoration:underline !important}', {
     prepend: true,
-    container: document.createElement('div'),
+    container: document.createElement(''),
 });
 
 insertCss('body{text-decoration:underline !important}', {
     prepend: false,
-    container: document.createElement('div'),
+    container: document.createElement(''),
 });
