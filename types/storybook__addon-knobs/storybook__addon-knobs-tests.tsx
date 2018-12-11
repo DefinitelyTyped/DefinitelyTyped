@@ -35,9 +35,9 @@ stories.add('with all knobs', () => {
   const favoriteNumber = number('Favorite Number', 42);
   const comfortTemp = number('Comfort Temp', 72, { range: true, min: 60, max: 90, step: 1 });
   const textDecoration = select('Decoration', {
-    none: 'None',
-    underline: 'Underline',
-    'line-through': 'Line-Through'
+    None: 'none',
+    Underline: 'underline',
+    'Line-through': 'line-through'
   }, 'none');
 
   const customStyle = object('Style', {
