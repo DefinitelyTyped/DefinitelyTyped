@@ -2,6 +2,7 @@
 // Project: https://ckeditor.com/ckeditor-4/
 // Definitions by: Thomas Wittwer <https://github.com/wittwert>
 //                 Stuart Long <https://github.com/stuartlong>
+//                 Viktor Pegy <https://github.com/viktorpegy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
@@ -2168,6 +2169,8 @@ declare namespace CKEDITOR {
         // tslint:disable-next-line:no-duplicate-variable
         var name: string;
         var ua: { [name: string]: any };
+        var ua_dialog: string;
+        var ua_editor: string;
 
         function addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
         function chameleon(editor: string, part: string): void;

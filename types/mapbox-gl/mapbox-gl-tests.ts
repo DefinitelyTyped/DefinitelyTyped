@@ -417,6 +417,7 @@ function expectType<T>(value: T) { /* let the compiler handle things */ }
 expectType<mapboxgl.LngLatLike>(new mapboxgl.LngLat(0, 0));
 expectType<mapboxgl.LngLatLike>([0, 0]);
 expectType<mapboxgl.LngLatLike>({ lng: 0, lat: 0 });
+expectType<mapboxgl.LngLatLike>({ lon: 0, lat: 0 });
 
 /*
  * LngLat
@@ -464,10 +465,10 @@ expectType<mapboxgl.Point>(mapboxgl.Point.convert(pointlike));
 
 expectType<mapboxgl.TransformRequestFunction>((url: string) => ({ url }));
 expectType<mapboxgl.TransformRequestFunction>((url: string, resourceType: mapboxgl.ResourceType) => ({
-	 url,
-	 credentials: 'same-origin',
-	 headers: { 'Accept-Encoding': 'compress' },
-	 method: 'POST',
+	url,
+	credentials: 'same-origin',
+	headers: { 'Accept-Encoding': 'compress' },
+	method: 'POST',
 	collectResourceTiming: true,
  }));
 

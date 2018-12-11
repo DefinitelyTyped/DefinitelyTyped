@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.49.0
+// Type definitions for Mapbox GL JS v0.51.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,7 @@ declare namespace mapboxgl {
 
     export function setRTLTextPlugin(pluginURL: string, callback: (error: Error) => void): void;
 
-    type LngLatLike = LngLat | { lng: number; lat: number; } | [number, number];
+    type LngLatLike = LngLat | { lng: number; lat: number; } | { lon: number; lat: number; } | [number, number];
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number];
     type PointLike = Point | [number, number];
     type Expression = any[];
@@ -692,6 +692,8 @@ declare namespace mapboxgl {
         clusterMaxZoom?: number;
 
         lineMetrics?: boolean;
+        
+        generateId?: boolean;
     }
 
     /**
@@ -1069,7 +1071,7 @@ declare namespace mapboxgl {
     export interface MapSourceDataEvent extends MapboxEvent {
         dataType: 'source';
         isSourceLoaded: boolean;
-        source: Style;
+        source: Source;
         sourceId: string;
         sourceDataType: 'metadata' | 'content';
         tile: any;

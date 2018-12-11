@@ -1,4 +1,4 @@
-// Type definitions for sip.js 0.8
+// Type definitions for sip.js 0.9
 // Project: http://sipjs.com
 // Definitions by: Kir Dergachev <https://github.com/decyrus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -75,6 +75,8 @@ export namespace C {
 export type DescriptionModifier = (description: RTCSessionDescription) => Promise<RTCSessionDescription>;
 
 export interface SessionDescriptionHandler {
+    peerConnection: any;
+
     getDescription(options: SessionDescriptionHandlerParameters, modifiers: DescriptionModifier[]): Promise<any>;
     setDescription(sessionDescription: string, options: SessionDescriptionHandlerParameters, modifiers: DescriptionModifier[]): Promise<any>;
     hasDescription: (contentType: string) => boolean;
@@ -128,11 +130,16 @@ export interface Session {
     on(name: 'accepted', callback: (data: { code: number, response: IncomingResponse }) => void): void;
     on(name: 'failed' | 'rejected', callback: (response: IncomingResponse, cause: string) => void): void;
     on(name: 'terminated', callback: (message: IncomingResponse, cause: string) => void): void;
-    on(name: 'cancel' | string, callback: () => void): void;
-    on(name: 'replaced', callback: (newSession: Session) => void): void;
+    on(name: 'cancel' | 'directionChanged' | 'trackAdded' | 'SessionDescriptionHandler-created' | string, callback: () => void): void;
+    on(name: 'replaced' | 'reinvite', callback: (newSession: Session) => void): void;
     on(name: 'dtmf', callback: (request: IncomingRequest, dtmf: Session.DTMF) => void): void;
     on(name: 'muted' | 'unmuted', callback: (data: Session.Muted) => void): void;
-    on(name: 'refer' | 'bye', callback: (request: IncomingRequest) => void): void;
+    on(name: 'refer' | 'bye' | 'notify', callback: (request: IncomingRequest) => void): void;
+    on(name: 'referRequested', callback: (request: ClientContext | ServerContext) => void): void;
+
+    /*    these come from the ClientContext that is on the session somehow */
+    on(name: 'referAccepted' | 'referRejected' | 'referRequestAccepted' | 'referRequestRejected' | 'referProgress',
+        callback: (ClientContext: ClientContext) => void): void;
 }
 
 export namespace Session {
@@ -164,7 +171,10 @@ export namespace Session {
         };
     }
 
-    interface DTMF extends Object { }
+    interface DTMF extends Object {
+        direction: string | 'incoming';
+        tone: any;
+    }
 
     interface Muted {
         audio?: boolean;
@@ -364,27 +374,40 @@ export interface Subscription extends ClientContext {
 }
 
 /* Context */
-export interface Context {
+export class Context {
     ua: UA;
     method: string;
     request: OutgoingRequest;
     localIdentity: NameAddrHeader;
     remoteIdentity: NameAddrHeader;
     data: {};
+}
+
+export class ClientContext extends Context {
+    cancel(options?: { status_code?: number, reason_phrase?: string }): ClientContext;
+
+    // This exists on all Context, but I cant make it work right
     on(name: 'progress' | 'accepted' | 'rejected' | 'failed', callback: (response: IncomingMessage, cause: string) => void): void;
     on(name: 'notify', callback: (request: IncomingRequest) => void): void;
     on(name: string, callback: () => void): void;
+
+    on(name: 'referAccepted' | 'referRejected' | 'referRequestAccepted' | 'referRequestRejected' | 'referProgress',
+        callback: (ClientContext: ClientContext) => void): void;
 }
 
-export interface ClientContext extends Context {
-    cancel(options?: { status_code?: number, reason_phrase?: string }): ClientContext;
-}
-
-export interface ServerContext extends Context {
+export class ServerContext extends Context {
     progress(options?: Session.ProgressOptions): void;
     accept(options?: Session.AcceptOptions): void;
     reject(options?: Session.CommonOptions): void;
     reply(options?: Session.CommonOptions): void;
+
+    // This exists on all Context, but I cant make it work right
+    on(name: 'progress' | 'accepted' | 'rejected' | 'failed', callback: (response: IncomingMessage, cause: string) => void): void;
+    on(name: 'notify', callback: (request: IncomingRequest) => void): void;
+    on(name: string, callback: () => void): void;
+
+    on(name: 'referRequestAccepted' | 'referRequestRejected' | 'referInviteSent' | 'referProgress' | 'referAccepted' | 'referRejected',
+        callback: (ServerContext: ServerContext) => void): void;
 }
 
 /* Request */
@@ -398,6 +421,7 @@ export interface OutgoingRequest extends Request {
 }
 
 export interface IncomingResponse extends Request {
+    reason_phrase: string | 'Ringing';
 }
 
 export interface IncomingMessage extends Request {

@@ -30,3 +30,4 @@ export * from './salesforce-id';
 export * from './salesforce-object';
 export * from './streaming';
 export * from './topic';
+export * from './limits-info';

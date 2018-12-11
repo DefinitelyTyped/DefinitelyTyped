@@ -1,4 +1,5 @@
 import Document, {
+    DocumentProps,
     Enhancer,
     Head,
     Main,
@@ -10,6 +11,27 @@ import * as React from "react";
 
 interface WithUrlProps {
     url: string;
+}
+
+class MyDocumentDefault extends Document {
+    static async getInitialProps(ctx: NextDocumentContext) {
+        const initialProps = await Document.getInitialProps(ctx);
+        return { ...initialProps };
+    }
+
+    render() {
+        return (
+            <html>
+                <Head>
+                    <style>{`body { margin: 0 } /* custom! */`}</style>
+                </Head>
+                <body className="custom_class">
+                    <Main />
+                    <NextScript />
+                </body>
+            </html>
+        );
+    }
 }
 
 class MyDoc extends Document<WithUrlProps> {
@@ -27,6 +49,14 @@ class MyDoc extends Document<WithUrlProps> {
         const url = req!.url;
 
         return { html, head, buildManifest, styles, url };
+    }
+
+    constructor(props: WithUrlProps & DocumentProps) {
+        super(props);
+        const { __NEXT_DATA__, url } = props;
+
+        // Custom __NEXT_DATA__ attribute
+        __NEXT_DATA__.url = url;
     }
 
     render() {

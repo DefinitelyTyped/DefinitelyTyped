@@ -1,4 +1,4 @@
-// Type definitions for request 2.47
+// Type definitions for request 2.48
 // Project: https://github.com/request/request
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>,
 //                 bonnici <https://github.com/bonnici>,
@@ -8,6 +8,7 @@
 //                 Jon Stevens <https://github.com/lookfirst>,
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Jose Colella <https://github.com/josecolella>
+//                 Marek Urbanowicz <https://github.com/murbanowicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -24,6 +25,7 @@ import FormData = require('form-data');
 import net = require('net');
 import tough = require('tough-cookie');
 import { Url } from 'url';
+import { SecureContextOptions } from 'tls';
 
 declare namespace request {
     interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions> {
@@ -132,7 +134,7 @@ declare namespace request {
         jsonReplacer?: (key: string, value: any) => any;
         multipart?: RequestPart[] | Multipart;
         agent?: http.Agent | https.Agent;
-        agentOptions?: any;
+        agentOptions?: http.AgentOptions | https.AgentOptions;
         agentClass?: any;
         forever?: any;
         host?: string;

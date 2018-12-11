@@ -22,7 +22,7 @@ declare class sharedb {
     addProjection(name: string, collection: string, fields: {}): any;
     listen(stream: any): void;
     close(callback?: (err: Error) => any): void;
-    use(action: sharedb.UseAction, fn: sharedb.UseCallback);
+    use(action: sharedb.UseAction, fn: sharedb.UseCallback): void;
     static types: {
         register: (type: { name?: string, uri?: string, [key: string]: any}) => void;
     };
@@ -36,16 +36,16 @@ declare namespace sharedb {
         projectsSnapshots: boolean;
         disableSubscribe: boolean;
         close(callback?: () => void): void;
-        commit(collection: string, id: string, op: Op, snapshot, options, callback: (...args: any[]) => any): void;
-        getSnapshot(collection: string, id: string, fields, options, callback: (...args: any[]) => any): void;
-        getSnapshotBulk(collection: string, ids: string, fields, options, callback: (...args: any[]) => any): void;
-        getOps(collection: string, id: string, from: number, to: number, options, callback: (...args: any[]) => any): void;
-        getOpsToSnapshot(collection: string, id: string, from: number, snapshot: number, options, callback: (...args: any[]) => any): void;
-        getOpsBulk(collection: string, fromMap, toMap, options, callback: (...args: any[]) => any): void;
-        getCommittedOpVersion(collection: string, id: string, snapshot, op, options, callback: (...args: any[]) => any): void;
-        query(collection: string, query: Query, fields, options, callback: (...args: any[]) => any): void;
-        queryPoll(collection: string, query: Query, options, callback: (...args: any[]) => any): void;
-        queryPollDoc(collection: string, id: string, query: Query, options, callback: (...args: any[]) => any): void;
+        commit(collection: string, id: string, op: Op, snapshot: any, options: any, callback: (...args: any[]) => any): void;
+        getSnapshot(collection: string, id: string, fields: any, options: any, callback: (...args: any[]) => any): void;
+        getSnapshotBulk(collection: string, ids: string, fields: any, options: any, callback: (...args: any[]) => any): void;
+        getOps(collection: string, id: string, from: number, to: number, options: any, callback: (...args: any[]) => any): void;
+        getOpsToSnapshot(collection: string, id: string, from: number, snapshot: number, options: any, callback: (...args: any[]) => any): void;
+        getOpsBulk(collection: string, fromMap: any, toMap: any, options: any, callback: (...args: any[]) => any): void;
+        getCommittedOpVersion(collection: string, id: string, snapshot: any, op: any, options: any, callback: (...args: any[]) => any): void;
+        query(collection: string, query: Query, fields: any, options: any, callback: (...args: any[]) => any): void;
+        queryPoll(collection: string, query: Query, options: any, callback: (...args: any[]) => any): void;
+        queryPollDoc(collection: string, id: string, query: Query, options: any, callback: (...args: any[]) => any): void;
         canPollDoc(): boolean;
         skipPoll(): boolean;
     }
@@ -53,7 +53,7 @@ declare namespace sharedb {
     class MemoryDB extends DB { }
 
     abstract class PubSub {
-        private static shallowCopy(obj: any);
+        private static shallowCopy(obj: any): any;
         protected prefix?: string;
         protected nextStreamId: number;
         protected streamsCount: number;
@@ -71,8 +71,8 @@ declare namespace sharedb {
         protected abstract _unsubscribe(channel: string, callback: (err: Error | null) => void): void;
         protected abstract _publish(channels: string[], data: any, callback: (err: Error | null) => void): void;
         protected _emit(channel: string, data: {[k: string]: any}): void;
-        private _createStream(channel);
-        private _removeStream(channel, stream);
+        private _createStream(channel): void;
+        private _removeStream(channel, stream): void;
     }
 
     class Connection {

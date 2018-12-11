@@ -1,5 +1,5 @@
 // Type definitions for Office.js
-// Project: http://dev.office.com
+// Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>, Lance Austin <https://github.com/LanceEA>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Kim Brandl <https://github.com/kbrandl>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -252,7 +252,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
      *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -288,7 +288,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
      *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -326,7 +326,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
      *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -356,7 +356,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
      *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -390,7 +390,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
      *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
@@ -421,7 +421,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
      *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td> Y               </td><td>                </td></tr>
@@ -476,7 +476,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
      *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td> Y               </td><td>                </td></tr>
@@ -540,7 +540,7 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
         *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -551,7 +551,7 @@ declare namespace Office {
         */
         asyncContext: any;
         /**
-        * Gets an {@link Office.Error} object that provides a description of the error, if any error occurred.
+        * Gets an object that may provide additional information if an error occurred.
         *
         * @remarks
         * 
@@ -566,6 +566,37 @@ declare namespace Office {
         * *Supported hosts, by platform*
         *  <table>
         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><td><strong>Outlook</strong></td><td> Y (Mailbox Preview)    </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *  </table>
+        * 
+        * *Supported APIs*
+        * 
+        * `Office.context.mailbox.item.getCallbackTokenAsync`, `Office.context.mailbox.item.getUserIdentityTokenAsync`
+        * 
+        * *Supported errors*
+        * <table>
+        *   <tr><th>`AsyncResult.error.name`            </th><th>`AsyncResult.error.message`                                                                       </th><th>Description of diagnostics object returned                                                                                          </th></tr>
+        *   <tr><td><strong>HTTPRequestFailure</strong> </td><td>The request has failed. Please look at the diagnostics object for the HTTP error code.            </td><td>The HTTP error code in a JSON object e.g., `{"HTTPCode":"401"}`                                                                     </td></tr>
+        *   <tr><td><strong>InternalServerError</strong></td><td>The Exchange server returned an error. Please look at the diagnostics object for more information.</td><td>The error message from the Exchange server in a JSON object e.g., `{"ErrorText": "The mailbox database is temporarily unavailable"}`</td></tr>
+        * </table>
+        */
+       diagnostics: any;
+       /**
+        * Gets an {@link Office.Error} object that provides a description of the error, if any error occurred.
+        *
+        * @remarks
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
+        * An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see 
+        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -620,7 +651,7 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -657,9 +688,9 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for iPad </th></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y               </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y               </td></tr>
+        *   <tr><th>                        </th><th> Office for iPad </th></tr>
+        *   <tr><td><strong> Excel </strong></td><td> Y               </td></tr>
+        *   <tr><td><strong> Word  </strong></td><td> Y               </td></tr>
         *  </table>
         */
         commerceAllowed: boolean;
@@ -667,7 +698,7 @@ declare namespace Office {
         * Gets the locale (language) specified by the user for editing the document or item.
         * 
         * @remarks
-        * The `contentLanguage` value reflects the **Editing Language** setting specified with **File > Options > Language** in the Office host 
+        * The `contentLanguage` value reflects the **Editing Language** setting specified with **File \> Options \> Language** in the Office host 
         * application.
         * 
         * In content add-ins for Access web apps, the `contentLanguage` property gets the add-in culture (e.g., "en-GB").
@@ -682,7 +713,7 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -703,7 +734,7 @@ declare namespace Office {
         * 
         * The returned value is a string in the RFC 1766 Language tag format, such as en-US.
         * 
-        * The `displayLanguage` value reflects the current **Display Language** setting specified with **File > Options > Language** in the Office 
+        * The `displayLanguage` value reflects the current **Display Language** setting specified with **File \> Options \> Language** in the Office 
         * host application.
         * 
         * In content add-ins for Access web apps, the `displayLanguage property` gets the add-in language (e.g., "en-US").
@@ -720,7 +751,7 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
         *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
         *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -745,7 +776,7 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
@@ -825,7 +856,7 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for iPad </th></tr>
+        *   <tr><th>                             </th><th> Office for iPad </th></tr>
         *   <tr><td><strong> Excel      </strong></td><td> Y               </td></tr>
         *   <tr><td><strong> PowerPoint </strong></td><td> Y               </td></tr>
         *   <tr><td><strong> Word       </strong></td><td> Y               </td></tr>
@@ -854,7 +885,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
      *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -905,8 +936,8 @@ declare namespace Office {
              * 
              * *Supported hosts, by platform*
              *  <table>
-             *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-             *   <tr><td><strong> Outlook    </strong></td><td> Y (Mailbox 1.3)            </td><td>                            </td><td>                 </td></tr>
+             *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+             *   <tr><td><strong> Outlook </strong></td><td> Y (Mailbox 1.3)            </td><td>                            </td><td>                 </td></tr>
              *  </table>
              */
             source:Source;
@@ -938,7 +969,7 @@ declare namespace Office {
              * 
              * *Supported hosts, by platform*
              *  <table>
-             *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+             *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
              *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
              *   <tr><td><strong> Outlook    </strong></td><td> Y (Mailbox 1.3)            </td><td>                            </td><td>                 </td></tr>
              *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
@@ -1035,6 +1066,10 @@ declare namespace Office {
         *     <td>12007</td>
         *     <td>A dialog box is already opened from the task pane. A task pane add-in can only have one dialog box open at a time.</td>
         *   </tr>
+        *   <tr>
+        *     <td>12009</td>
+        *     <td>The user chose to ignore the dialog box. This error can occur in online versions of Office, where users may choose not to allow an add-in to present a dialog.</td>
+        *   </tr>
         * </table>
         * 
         * In the callback function passed to the displayDialogAsync method, you can use the properties of the AsyncResult object to return the 
@@ -1070,9 +1105,9 @@ declare namespace Office {
         displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult<Dialog>) => void): void;
         /**
          * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. 
-         * @param messageObject Accepts a message from the dialog to deliver to the add-in.
+         * @param message Accepts a message from the dialog to deliver to the add-in. In addition to a boolean, anything that can serialized to a string including JSON and XML can be sent. 
          */
-        messageParent(messageObject: any): void;
+        messageParent(message: boolean | string): void;
         /**
          * Closes the UI container where the JavaScript is executing.
          *
@@ -1083,8 +1118,8 @@ declare namespace Office {
          *
          * - Called from a UI-less command button: No effect. Any dialog opened by displayDialogAsync will remain open.
          *
-         * - Called from a taskpane: The taskpane will close. Any dialog opened by displayDialogAsync will also close. 
-         * If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
+         * - Called from a task pane: The task pane will close. Any dialog opened by displayDialogAsync will also close. 
+         * If the task pane supports pinning and was pinned by the user, it will be un-pinned.
          *
          * - Called from a module extension: No effect.
          */
@@ -1122,6 +1157,13 @@ declare namespace Office {
          * This is best for user experience and performance.
          */
         displayInIframe?: boolean
+        /**
+         * Determines if the pop-up blocker dialog will be shown to the user. Defaults to true.
+         * 
+         * `true` - The framework displays a pop-up to trigger the navigation and avoid the browser's pop-up blocker.
+         * `false` - The dialog will not be shown and the developer must handle pop-ups (by providing a user interface artifact to trigger the navigation).
+         */
+        promptBeforeOpen?: boolean;
         /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
@@ -1212,7 +1254,7 @@ declare namespace Office {
          * 
          * Example: `[{cells: Office.Table.Data, format: {fontColor: "yellow"}}, {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]`
          */
-        cellFormat?: Array<RangeFormatConfiguration>
+        cellFormat?: RangeFormatConfiguration[]
         /**
          * Explicitly sets the shape of the data object. If not supplied is inferred from the data type.
          */
@@ -1220,7 +1262,7 @@ declare namespace Office {
         /**
         * Only for table bindings in content add-ins for Access. Array of strings. Specifies the column names.
         */
-        columns?: Array<string>
+        columns?: string[]
         /**
         * Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
         */
@@ -1250,17 +1292,17 @@ declare namespace Office {
      */
     interface RangeFormatConfiguration {
         /**
-         * Specifies the range. Example of using Office.Table enum: Office.Table.All. Example of using RangeCoordinates: {row: 3, column: 4} specifies 
+         * Specifies the range. Example of using Office.Table enum: Office.Table.All. Example of using RangeCoordinates: `{row: 3, column: 4}` specifies 
          * the cell in the 3rd (zero-based) row in the 4th (zero-based) column.
          */
          cells: Office.Table | RangeCoordinates
         /**
-         * Specifies the formatting as key-value pairs. Example: {borderColor: "white", fontStyle: "bold"}
+         * Specifies the formatting as key-value pairs. Example: `{borderColor: "white", fontStyle: "bold"}`
          */
          format: object
     }
     /**
-     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: {row: 3, column: 4} specifies the cell in the 3rd 
+     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: `{row: 3, column: 4}` specifies the cell in the 3rd 
      * (zero-based) row in the 4th (zero-based) column.
      */
     interface RangeCoordinates {
@@ -1334,7 +1376,7 @@ declare namespace Office {
         /**
          * The names of the columns involved in the binding.
          */
-        columns?: Array<string>
+        columns?: string[]
         /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
@@ -1407,7 +1449,7 @@ declare namespace Office {
          * 
          * Example: `[{cells: Office.Table.Data, format: {fontColor: "yellow"}}, {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]`
          */
-        cellFormat?: Array<RangeFormatConfiguration>
+        cellFormat?: RangeFormatConfiguration[]
         /**
          * Explicitly sets the shape of the data object. If not supplied is inferred from the data type.
          */
@@ -1460,8 +1502,8 @@ declare namespace Office {
     /**
      * Provides access to the properties for Office theme colors.
      *
-     * Using Office theme colors lets you coordinate the color scheme of your add-in with the current Office theme selected by the user with File > 
-     * Office Account > Office Theme UI, which is applied across all Office host applications. Using Office theme colors is appropriate for mail and 
+     * Using Office theme colors lets you coordinate the color scheme of your add-in with the current Office theme selected by the user with File \> 
+     * Office Account \> Office Theme UI, which is applied across all Office host applications. Using Office theme colors is appropriate for mail and 
      * task pane add-ins.
      *
      * @remarks
@@ -1476,7 +1518,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y (in preview)             </td></tr>
      *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td></tr>
@@ -1543,10 +1585,10 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
+     *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
      *  </table>
      */
     function select(expression: string, callback?: (result: AsyncResult<any>) => void): Binding;
@@ -1565,8 +1607,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     enum ActiveView {
@@ -1593,10 +1635,10 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Access </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
+     *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     enum BindingType {
@@ -1632,7 +1674,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
      *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
@@ -1681,7 +1723,7 @@ declare namespace Office {
         SlideRange,
         /**
         * Data is returned or set as an image stream.
-        * Note: Only applies to data in Excel, Word and PowerPoint.
+        * Note: Only applies to data in Excel, Word, and PowerPoint.
         */
         Image
     }
@@ -1702,11 +1744,11 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     enum DocumentMode {
@@ -1735,8 +1777,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     enum CustomXMLNodeType {
@@ -1789,7 +1831,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
@@ -1811,7 +1853,7 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
          *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
          *  </table>
          */
@@ -1822,6 +1864,14 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          */
         AppointmentTimeChanged,
+        /**
+         * Triggers when an attachment is added to or removed from an item.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @beta
+         */
+        AttachmentsChanged,
         /**
          * Occurs when data within the binding is changed. 
          * To add an event handler for the BindingDataChanged event of a binding, use the addHandlerAsync method of the Binding object. 
@@ -1839,10 +1889,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
          *  </table>
          */
         BindingDataChanged,
@@ -1862,10 +1912,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
          *  </table>
          */
         BindingSelectionChanged,
@@ -1890,16 +1940,16 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><td><strong> Excel </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><td><strong> Word  </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
          *  </table>
          */
         DocumentSelectionChanged,
         /**
-         * Triggers when the selected Outlook item is changed.
+         * Triggers when a different Outlook item is selected for viewing while the task pane is pinned.
          * 
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.5]
          */
         ItemChanged,
         /**
@@ -1918,6 +1968,8 @@ declare namespace Office {
          * Triggers when the OfficeTheme is changed in Outlook.
          * 
          * [Api set: Mailbox Preview]
+         * 
+         * @beta
          */
         OfficeThemeChanged,
         /**
@@ -1949,7 +2001,7 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
          *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
          *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
          *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
@@ -1982,10 +2034,10 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     enum FileType {
@@ -2017,10 +2069,10 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><td><strong> Excel   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
+     *   <tr><td><strong> Word    </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
      *  </table>
      */
     enum FilterType {
@@ -2048,7 +2100,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
@@ -2096,7 +2148,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
      *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *  </table>
      */
@@ -2133,7 +2185,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
      *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
      *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
@@ -2168,10 +2220,10 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><td><strong> Excel   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
+     *   <tr><td><strong> Word    </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
      *  </table>
      */
     enum ValueFormat {
@@ -2189,7 +2241,7 @@ declare namespace Office {
     * Represents a binding to a section of the document.
     *
     * @remarks
-    * <table><tr><td>Requirement Sets</td><td>MatrixBinding, TableBinding, TextBinding</td></tr></table>
+    * <table><tr><td>Requirement Sets</td><td>MatrixBindings, TableBindings, TextBindings</td></tr></table>
     *
     * The Binding object exposes the functionality possessed by all bindings regardless of type.
     *
@@ -2209,10 +2261,10 @@ declare namespace Office {
     * 
     * *Supported hosts, by platform*
     *  <table>
-    *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-    *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-    *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-    *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+    *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+    *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+    *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+    *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
     *  </table>
     */
     interface Binding {
@@ -2496,10 +2548,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          */
         document: Document;
@@ -2537,10 +2589,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          * @param itemName Name of the bindable object in the document. For Example 'MyExpenses' table in Excel."
          * @param bindingType The {@link Office.BindingType} for the data. The method returns null if the selected object cannot be coerced into the specified type.
@@ -2568,9 +2620,9 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param bindingType Specifies the type of the binding object to create. Required. 
@@ -2603,10 +2655,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param bindingType Specifies the type of the binding object to create. Required. 
@@ -2632,10 +2684,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -2661,10 +2713,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param id Specifies the unique name of the binding object. Required.
@@ -2691,10 +2743,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param id Specifies the unique name to be used to identify the binding object. Required.
@@ -2719,8 +2771,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface CustomXmlNode {
@@ -2842,8 +2894,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface CustomXmlPart {
@@ -2934,8 +2986,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface NodeDeletedEventArgs {
@@ -2971,8 +3023,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface NodeInsertedEventArgs  {
@@ -3002,8 +3054,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface NodeReplacedEventArgs  {
@@ -3042,8 +3094,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface CustomXmlParts {
@@ -3093,8 +3145,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                       </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Word </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface CustomXmlPrefixMappings {
@@ -3163,10 +3215,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          */
         bindings: Bindings;
@@ -3185,8 +3237,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          */
         customXmlParts: CustomXmlParts;
@@ -3205,11 +3257,11 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          */
         mode: DocumentMode;
@@ -3228,11 +3280,12 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          */
         settings: Settings;
@@ -3251,7 +3304,7 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
          *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
          *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
          *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
@@ -3277,11 +3330,12 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param eventType For a Document object event, the eventType parameter can be specified as `Office.EventType.Document.SelectionChanged` or 
@@ -3309,10 +3363,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td>                            </td><td>                            </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td>                            </td><td>                            </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3336,13 +3388,13 @@ declare namespace Office {
          * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
          *
-         * Excel Online, Win32, Mac, and iOS: `Office.FileType.Compressed`
+         * Excel for Windows desktop, iPad, and Excel Online: `Office.FileType.Compressed`
+         * 
+         * Excel for Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
-         * PowerPoint on Windows desktop, Mac, and iPad, and PowerPoint Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`
+         * PowerPoint for Windows desktop, Mac, iPad, and PowerPoint Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
-         * Word on Windows desktop, Word on Mac, and Word Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
-         *
-         * Word on iPad: `Office.FileType.Compressed`, `Office.FileType.Text`
+         * Word for Windows desktop, Mac, iPad, and Word Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
          * 
          * **Support details**
          * 
@@ -3354,10 +3406,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td>                            </td><td>                 </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param fileType The format in which the file will be returned
@@ -3384,10 +3436,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -3435,15 +3487,15 @@ declare namespace Office {
          *     <th>Supported coercionType</th>
          *   </tr>
          *   <tr>
-         *     <td>Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online</td>
+         *     <td>Excel, PowerPoint, Project, and Word</td>
          *     <td>`Office.CoercionType.Text` (string)</td>
          *   </tr>
          *   <tr>
-         *     <td>Excel, Word, and Word Online</td>
+         *     <td>Excel and Word</td>
          *     <td>`Office.CoercionType.Matrix` (array of arrays)</td>
          *   </tr>
          *   <tr>
-         *     <td>Access, Excel, Word, and Word Online</td>
+         *     <td>Access, Excel, and Word</td>
          *     <td>`Office.CoercionType.Table` (TableData object)</td>
          *   </tr>
          *   <tr>
@@ -3451,7 +3503,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Html`</td>
          *   </tr>
          *   <tr>
-         *     <td>Word and Word Online </td>
+         *     <td>Word</td>
          *     <td>`Office.CoercionType.Ooxml` (Office Open XML)</td>
          *   </tr>
          *   <tr>
@@ -3470,12 +3522,11 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          * 
          * @param coercionType The type of data structure to return. See the remarks section for each host's supported coercion types.
@@ -3517,10 +3568,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param id The identifier of the object or location to go to.
@@ -3546,10 +3597,12 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> OneNote    </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param eventType The event type. For document can be 'Document.SelectionChanged' or 'Document.ActiveViewChanged'.
@@ -3598,15 +3651,15 @@ declare namespace Office {
          *     <th>Supported coercionType</th>
          *   </tr>
          *   <tr>
-         *     <td>Excel, Excel Online, PowerPoint, PowerPoint Online, Word, and Word Online</td>
+         *     <td>Excel, PowerPoint, Project, and Word</td>
          *     <td>`Office.CoercionType.Text` (string)</td>
          *   </tr>
          *   <tr>
-         *     <td>Excel, Word, and Word Online</td>
+         *     <td>Excel and Word</td>
          *     <td>`Office.CoercionType.Matrix` (array of arrays)</td>
          *   </tr>
          *   <tr>
-         *     <td>Access, Excel, Word, and Word Online</td>
+         *     <td>Access, Excel, and Word</td>
          *     <td>`Office.CoercionType.Table` (TableData object)</td>
          *   </tr>
          *   <tr>
@@ -3614,7 +3667,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Html`</td>
          *   </tr>
          *   <tr>
-         *     <td>Word and Word Online </td>
+         *     <td>Word</td>
          *     <td>`Office.CoercionType.Ooxml` (Office Open XML)</td>
          *   </tr>
          *   <tr>
@@ -3633,11 +3686,11 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td> y                          </td><td>                            </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          * 
          * @param data The data to be set. Either a string or  {@link Office.CoercionType} value, 2d array or TableData object.
@@ -3689,8 +3742,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getProjectFieldAsync(fieldId: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
@@ -3714,8 +3767,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getResourceFieldAsync(resourceId: string, fieldId: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
@@ -3737,8 +3790,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getSelectedResourceAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
@@ -3760,8 +3813,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getSelectedTaskAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
@@ -3785,8 +3838,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getSelectedViewAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
@@ -3812,8 +3865,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getTaskAsync(taskId: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
@@ -3837,8 +3890,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getTaskFieldAsync(taskId: string, fieldId: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
@@ -3862,8 +3915,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getWSSUrlAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<any>) => void): void;
@@ -3914,8 +3967,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getMaxTaskIndexAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<number>) => void): void;
@@ -3941,8 +3994,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getResourceByIndexAsync(resourceIndex: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
@@ -3968,8 +4021,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         getTaskByIndexAsync(taskIndex: number, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
@@ -3996,8 +4049,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         setResourceFieldAsync(resourceId: string, fieldId: number, fieldValue: string | number | boolean | object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
@@ -4024,8 +4077,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
-         *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                           </td></tr>
+         *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser)</th></tr>
+         *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                           </td></tr>
          *  </table>
          */
         setTaskFieldAsync(taskId: string, fieldId: number, fieldValue: string | number | boolean | object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
@@ -4059,9 +4112,10 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface File {
@@ -4177,9 +4231,9 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><td><strong> Word  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface MatrixBinding extends Binding {
@@ -4272,8 +4326,9 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
          *  </table>
          */
         addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
@@ -4293,11 +4348,11 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param settingName The case-sensitive name of the setting to retrieve.
@@ -4353,11 +4408,11 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
          *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
          *  </table>
          *
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -4386,11 +4441,11 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param settingName The case-sensitive name of the setting to remove.
@@ -4422,10 +4477,9 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
          *  </table>
          *
          * @param eventType Specifies the type of event to remove. Required.
@@ -4479,11 +4533,11 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          * 
          * @param options Provides options for saving settings.
@@ -4515,11 +4569,11 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          * 
          * @param settingName The case-sensitive name of the setting to set or create.
@@ -4558,9 +4612,9 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
+     *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><td><strong> Excel </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
+     *   <tr><td><strong> Word  </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td></tr>
      *  </table>
      */
     interface SettingsChangedEventArgs {
@@ -4591,7 +4645,7 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
      *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
      *  </table>
@@ -4643,10 +4697,10 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+        *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
         *  </table>
         */
         columnCount: number;
@@ -4665,10 +4719,10 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+        *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
         *  </table>
         */
         hasHeaders: boolean;
@@ -4700,10 +4754,10 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+        *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+        *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+        *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+        *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
         *  </table>
         */
         rowCount: number;
@@ -4733,15 +4787,16 @@ declare namespace Office {
          * 
          * A capital Y in the following matrix indicates that this method is supported in the corresponding Office host application. 
          * An empty cell indicates that the Office host application doesn't support this method.
-        * 
+         * 
          * For more information about Office host application and server requirements, see 
          * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param tableData An array of arrays ("matrix") or a TableData object that contains one or more columns of data to add to the table. Required.
@@ -4778,10 +4833,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param rows An array of arrays ("matrix") or a TableData object that contains one or more rows of data to add to the table. Required.
@@ -4806,10 +4861,10 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-         *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                </td></tr>
+         *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+         *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -4832,8 +4887,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
@@ -4859,32 +4914,33 @@ declare namespace Office {
          *     <th>Description</th>
          *   </tr>
          *   <tr>
-         *     <td>{row: n}</td>
+         *     <td>`{row: n}`</td>
          *     <td>Specifies the range that is the zero-based nth row of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>{column: n}</td>
+         *     <td>`{column: n}`</td>
          *     <td>Specifies the range that is the zero-based nth column of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>{row: i, column: j}</td>
+         *     <td>`{row: i, column: j}`</td>
          *     <td>Specifies the single cell that is the ith row and jth column of the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.All</td>
+         *     <td>`Office.Table.All`</td>
          *     <td>Specifies the entire table, including column headers, data, and totals (if any).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Data</td>
+         *     <td>`Office.Table.Data`</td>
          *     <td>Specifies only the data in the table (no headers and totals).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Headers</td>
+         *     <td>`Office.Table.Headers`</td>
          *     <td>Specifies only the header row.</td>
          *   </tr>
          * </table>
          * 
-         * The `format:` property specifies values that correspond to a subset of the settings available in the Format Cells dialog box in Excel (Right-click > Format Cells or Home > Format > Format Cells).
+         * The `format:` property specifies values that correspond to a subset of the settings available in the Format Cells dialog box in Excel 
+         * (Right-click \> Format Cells or Home \> Format \> Format Cells).
          * 
          * @param cellReference An object literal containing name-value pairs that specify the range of cells to get formatting from.
          * @param formats An array specifying the format properties to get.
@@ -4916,33 +4972,33 @@ declare namespace Office {
          *     <th>Description</th>
          *   </tr>
          *   <tr>
-         *     <td>{row: n}</td>
+         *     <td>`{row: n}`</td>
          *     <td>Specifies the range that is the zero-based nth row of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>{column: n}</td>
+         *     <td>`{column: n}`</td>
          *     <td>Specifies the range that is the zero-based nth column of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>{row: i, column: j}</td>
+         *     <td>`{row: i, column: j}`</td>
          *     <td>Specifies the single cell that is the ith row and jth column of the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.All</td>
+         *     <td>`Office.Table.All`</td>
          *     <td>Specifies the entire table, including column headers, data, and totals (if any).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Data</td>
+         *     <td>`Office.Table.Data`</td>
          *     <td>Specifies only the data in the table (no headers and totals).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Headers</td>
+         *     <td>`Office.Table.Headers`</td>
          *     <td>Specifies only the header row.</td>
          *   </tr>
          * </table>
          * 
          * The `format:` property specifies values that correspond to a subset of the settings available in the Format Cells dialog box in Excel 
-         * (Right-click > Format Cells or Home > Format > Format Cells).
+         * (Right-click \> Format Cells or Home \> Format \> Format Cells).
          * 
          * You specify the value of the `format:` property as a list of one or more property name - value pairs in a JavaScript object literal. The 
          * property name specifies the name of the formatting property to set, and value specifies the property value. 
@@ -4997,8 +5053,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param cellFormat An array that contains one or more JavaScript objects that specify which cells to target and the formatting to apply to them.
@@ -5049,8 +5105,8 @@ declare namespace Office {
          * 
          * *Supported hosts, by platform*
          *  <table>
-         *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-         *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+         *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+         *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
          *  </table>
          *
          * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
@@ -5091,8 +5147,8 @@ declare namespace Office {
          */
         headers: any[];
         /**
-         * Gets or sets the rows in the table. Returns an array of arrays that contains the data in the table. Returns an empty array ``, if there are 
-         * no rows.
+         * Gets or sets the rows in the table. Returns an array of arrays that contains the data in the table. 
+         * Returns an empty array if there are no rows.
          * 
          * @remarks
          * <table><tr><td>Hosts</td><td>Excel, Word</td></tr>
@@ -5127,8 +5183,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     enum Table {
@@ -5164,9 +5220,9 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+     *   <tr><th>                        </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> Office for Mac </th></tr>
+     *   <tr><td><strong> Excel </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
+     *   <tr><td><strong> Word  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td> Y              </td></tr>
      *  </table>
      */
     interface TextBinding extends Binding { }
@@ -5187,8 +5243,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td></tr>
+     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
+     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td></tr>
      *  </table>
      */
     enum ProjectProjectFields {
@@ -5263,8 +5319,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td></tr>
+     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
+     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td></tr>
      *  </table>
      */
     enum ProjectResourceFields {
@@ -6090,8 +6146,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td></tr>
+     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
+     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td></tr>
      *  </table>
      */
     enum ProjectTaskFields {
@@ -7252,8 +7308,8 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td></tr>
+     *   <tr><th>                          </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th></tr>
+     *   <tr><td><strong> Project </strong></td><td> Y                          </td><td>                            </td></tr>
      *  </table>
      */
     enum ProjectViewTypes {
@@ -7339,6 +7395,62 @@ declare namespace Office {
 
 declare namespace Office {
     namespace MailboxEnums {
+        /**
+         * Specifies the formatting that applies to an attachment's content.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * <table><tr><td>
+         * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
+         * </td><td>Compose or read</td></tr></table>
+         * 
+         * @beta
+         */
+        enum AttachmentContentFormat {
+            /**
+             * The content of the attachment is returned as a base64-encoded string.
+             */
+            Base64 = "base64",
+
+            /**
+             * The content of the attachment is returned as a string representing a URL.
+             */
+            Url = "url",
+
+            /**
+             * The content of the attachment is returned as a string representing an .eml formatted file.
+             */
+            Eml = "eml",
+
+            /**
+             * The content of the attachment is returned as a string representing an .icalendar formatted file.
+             */
+            ICalendar = "iCalendar"
+        }
+        /**
+         * Specifies whether an attachment was added to or removed from an item.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * <table><tr><td>
+         * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
+         * </td><td>Compose or read</td></tr></table>
+         * 
+         * @beta
+         */
+        enum AttachmentStatus {
+            /**
+             * An attachment was added to the item.
+             */
+            Added = "added",
+
+            /**
+             * An attachment was removed from the item.
+             */
+            Removed = "removed"
+        }
         /**
          * Specifies an attachment's type.
          *
@@ -8494,6 +8606,36 @@ declare namespace Office {
         subject: string;
     }
     /**
+     * Represents the content of an attachment on a message or appointment item.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+     *
+     * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+     * 
+     * @beta
+     */
+    interface AttachmentContent {
+        /**
+         * The content of an attachment as a string.
+         */
+        content: string;
+        /**
+         * The string format to use for an attachment's content.
+         * 
+         * For file attachments, the formatting is a base64-encoded string.
+         * 
+         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file.
+         * 
+         * For item attachments that represent calendar items, the formatting is a string representing an .icalendar file.
+         * 
+         * For cloud attachments, the formatting is a URL string.
+         */
+        format: Office.MailboxEnums.AttachmentContentFormat;
+    }
+    /**
      * Represents an attachment on an item from the server. Read mode only.
      *
      * An array of AttachmentDetail objects is returned as the attachments property of an Appointment or Message object.
@@ -8561,7 +8703,7 @@ declare namespace Office {
          * 
          * In addition to this signature, this method also has the following signature:
          * 
-         * `getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<Office.Body>) => void): void;`
+         * `getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<string>) => void): void;`
          * 
          * @param coercionType The format for the returned body.
          * @param options Optional. An object literal that contains one or more of the following properties:
@@ -8569,7 +8711,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. 
          *                  The body is provided in the requested format in the asyncResult.value property.
          */
-        getAsync(coerciontype: Office.CoercionType, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.Body>) => void): void;
+        getAsync(coerciontype: Office.CoercionType, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
          * Returns the current body in a specified format.
          *
@@ -8590,7 +8732,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  The body is provided in the requested format in the asyncResult.value property.
          */
-        getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<Office.Body>) => void): void;
+        getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<string>) => void): void;
 
         /**
          * Gets a value that indicates whether the content is in HTML or text format.
@@ -8614,7 +8756,7 @@ declare namespace Office {
          * The prependAsync method inserts the specified string at the beginning of the item body. 
          * After insertion, the cursor is returned to its original place, relative to the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
@@ -8648,7 +8790,7 @@ declare namespace Office {
          * The prependAsync method inserts the specified string at the beginning of the item body. 
          * After insertion, the cursor is returned to its original place, relative to the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
@@ -8672,7 +8814,7 @@ declare namespace Office {
          * The prependAsync method inserts the specified string at the beginning of the item body. 
          * After insertion, the cursor is returned to its original place, relative to the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
@@ -8693,7 +8835,7 @@ declare namespace Office {
          * The prependAsync method inserts the specified string at the beginning of the item body. 
          * After insertion, the cursor is returned to its original place, relative to the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
@@ -8713,7 +8855,7 @@ declare namespace Office {
          * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
          * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.3]
@@ -8748,7 +8890,7 @@ declare namespace Office {
          * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
          * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.3]
@@ -8773,7 +8915,7 @@ declare namespace Office {
          * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
          * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.3]
@@ -8797,7 +8939,7 @@ declare namespace Office {
          *  The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
          * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.3]
@@ -8820,7 +8962,7 @@ declare namespace Office {
          * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
          * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
@@ -8855,7 +8997,7 @@ declare namespace Office {
          * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
          * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
@@ -8880,7 +9022,7 @@ declare namespace Office {
          * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
          * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
@@ -8904,7 +9046,7 @@ declare namespace Office {
          * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
          * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
          *
-         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (<a>) to "LPNoLP" 
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
          * (please see the Examples section for a sample).
          *
          * [Api set: Mailbox 1.1]
@@ -8937,7 +9079,7 @@ declare namespace Office {
         /**
          * An array of strings containing the mailing and street addresses associated with the contact. Nullable.
          */
-        addresses: Array<string>;
+        addresses: string[];
         /**
          * A string containing the name of the business associated with the contact. Nullable.
          */
@@ -8945,7 +9087,7 @@ declare namespace Office {
         /**
          * An array of strings containing the SMTP email addresses associated with the contact. Nullable,
          */
-        emailAddresses: Array<string>;
+        emailAddresses: string[];
         /**
          * A string containing the name of the person associated with the contact. Nullable.
          */
@@ -8953,11 +9095,11 @@ declare namespace Office {
         /**
          * An array containing a PhoneNumber object for each phone number associated with the contact. Nullable.
          */
-        phoneNumbers: Array<PhoneNumber>;
+        phoneNumbers: PhoneNumber[];
         /**
          * An array of strings containing the Internet URLs associated with the contact. Nullable.
          */
-        urls: Array<string>;
+        urls: string[];
     }
     /**
      * The CustomProperties object represents custom properties that are specific to a particular item and specific to a mail add-in for Outlook. 
@@ -9276,6 +9418,154 @@ declare namespace Office {
          *                  The `value` property of the result is message's from value, as an EmailAddressDetails object.
          */
         getAsync(callback?: (result: AsyncResult<Office.EmailAddressDetails>) => void): void;
+    }
+
+    /**
+     * The InternetHeaders object represents properties that are preserved after the item leaves Exchange and converted to a MIME message. 
+     * These properties are stored as x-headers in the MIME message.
+     * 
+     * InternetHeaders are stored as key/value pairs on a per-item basis.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+     *
+     * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+     * 
+     * @beta
+     */
+    export interface InternetHeaders {
+        /**
+         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+         * 
+         * In addition to this signature, this method also has the following signature:
+         * 
+         * `getAsync(names: string[], callback: (result: AsyncResult<Office.InternetHeaders>) => void): void;`
+         * 
+         * @param names The names of the internet headers to be returned.
+         * @param options Optional. An object literal that contains one or more of the following properties:
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+         * 
+         * @param names The names of the internet headers to be returned.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        getAsync(names: string[], callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * In addition to this signature, this method also has the following signature:
+         * 
+         * `removeAsync(names: string[], callback: (result: AsyncResult<Office.Body>) => void): void;`
+         * 
+         * @param names The names of the internet headers to be removed.
+         * @param options Optional. An object literal that contains one or more of the following properties:
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        removeAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param names The names of the internet headers to be removed.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        removeAsync(names: string[], callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Sets the specified internet headers to the specified values.
+         * 
+         * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
+         * the new value.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *
+         * In addition to this signature, this method also has the following signatures:
+         * 
+         * `setAsync(headers: string, callback: (result: AsyncResult<void>) => void): void;`
+         * 
+         * @param headers The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
+         *                internet headers and values being the values of the internet headers.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         * 
+         * @beta
+         */
+        setAsync(headers: Object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
+        /**
+         * Sets the specified internet headers to the specified values.
+         * 
+         * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
+         * the new value.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *
+         * @param headers The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
+         *                internet headers and values being the values of the internet headers.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         * 
+         * @beta
+         */
+        setAsync(headers: Object, callback?: (result: AsyncResult<void>) => void): void;
     }
 
     /**
@@ -9668,7 +9958,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9695,7 +9986,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9855,6 +10146,26 @@ declare namespace Office {
          */
         close(): void;
         /**
+         * Gets the item's attachments as an array.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
+         *                 the failure.
+         * 
+         * @beta
+         */
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentDetails[]>) => void): void;
+        /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
@@ -9962,8 +10273,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9996,8 +10307,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -10018,8 +10329,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -10043,8 +10354,8 @@ declare namespace Office {
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. 
          * In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -10066,7 +10377,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -10080,7 +10391,7 @@ declare namespace Office {
         * 
         * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param options Optional. An object literal that contains one or more of the following properties.
@@ -10092,7 +10403,8 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -10102,7 +10414,7 @@ declare namespace Office {
         *
         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr></table>
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -10146,13 +10458,13 @@ declare namespace Office {
          * 
          * `saveAsync(options: Office.AsyncContextOptions): void;`
          * 
-         * `saveAsync(callback: (result: AsyncResult<void>) => void): void;`
+         * `saveAsync(callback: (result: AsyncResult<string>) => void): void;`
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          */
-        saveAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
+        saveAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
          * Asynchronously saves an item.
          *
@@ -10253,7 +10565,7 @@ declare namespace Office {
          *
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          */
-        saveAsync(callback: (result: AsyncResult<void>) => void): void;
+        saveAsync(callback: (result: AsyncResult<string>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -10377,7 +10689,7 @@ declare namespace Office {
      */
     interface AppointmentRead extends Appointment, ItemRead {
         /**
-         * Gets an array of attachments for the item.
+         * Gets the item's attachments as an array.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -10681,7 +10993,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10709,7 +11021,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11062,7 +11374,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11076,7 +11388,7 @@ declare namespace Office {
         * 
         * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param options Optional. An object literal that contains one or more of the following properties.
@@ -11089,7 +11401,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11099,7 +11411,7 @@ declare namespace Office {
         *
         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr></table>
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -11236,7 +11548,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11263,7 +11576,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11280,6 +11594,36 @@ declare namespace Office {
          *                 asyncResult, which is an Office.AsyncResult object.
          */
         addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;
+
+        /**
+         * Gets an attachment from a message or appointment and returns it as an `Office.AttachmentContent` object.
+         * 
+         * The `getAttachmentContentAsync` method gets the attachment with the specified identifier from the item. As a best practice, you should use 
+         * the identifier to retrieve an attachment in the same session that the attachmentIds were retrieved with the `getAttachmentsAsync` or 
+         * `item.attachments` call. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr>
+         * 
+         * <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr></table>
+         * 
+         * @param attachmentId The identifier of the attachment you want to get. The maximum length of the string is 100 characters. 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object. If the call fails, the asyncResult.error property will contain and error code 
+         *                 with the reason for the failure.
+         * 
+         * @beta
+         */
+        getAttachmentContentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentContent>) => void): void;
 		
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
@@ -11383,7 +11727,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11397,7 +11741,7 @@ declare namespace Office {
         * 
         * `removeHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param options Optional. An object literal that contains one or more of the following properties.
@@ -11411,7 +11755,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11421,7 +11765,7 @@ declare namespace Office {
         *
         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -11732,6 +12076,26 @@ declare namespace Office {
          */
         close(): void;
         /**
+         * Gets the item's attachments as an array.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
+         *                 the failure.
+         * 
+         * @beta
+         */
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentDetails[]>) => void): void;
+        /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
@@ -11817,8 +12181,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -11852,8 +12216,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -11874,8 +12238,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -11898,8 +12262,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -12191,7 +12555,7 @@ declare namespace Office {
      */
     interface ItemRead extends Item {
         /**
-         * Gets an array of attachments for the item.
+         * Gets the item's attachments as an array.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -12740,6 +13104,22 @@ declare namespace Office {
          */
         from: Office.From;
         /**
+         * Sets the internet headers of a message.
+         * 
+         * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
+         * 
+         * @beta
+         */
+        internetHeaders: Office.InternetHeaders;
+        /**
          * Gets the type of item that an instance represents.
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
@@ -12977,7 +13357,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13004,7 +13385,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13166,6 +13547,26 @@ declare namespace Office {
          */
         close(): void;
         /**
+         * Gets the item's attachments as an array.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
+         *                 the failure.
+         * 
+         * @beta
+         */
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentDetails[]>) => void): void;
+        /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
@@ -13277,8 +13678,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13312,8 +13713,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13334,8 +13735,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13358,8 +13759,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13381,7 +13782,7 @@ declare namespace Office {
          * Removes an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13395,7 +13796,7 @@ declare namespace Office {
          * 
          * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -13408,7 +13809,7 @@ declare namespace Office {
          * Removes an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13418,7 +13819,7 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -13693,7 +14094,7 @@ declare namespace Office {
      */
     interface MessageRead extends Message, ItemRead {
         /**
-         * Gets an array of attachments for the item.
+         * Gets the item's attachments as an array.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -13801,6 +14202,22 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
          */
         from: EmailAddressDetails;
+        /**
+         * Gets the internet headers of a message.
+         * 
+         * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
+         * 
+         * @beta
+         */
+        internetHeaders: Office.InternetHeaders;
         /**
          * Gets the Internet message identifier for an email message.
          *
@@ -14013,7 +14430,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14041,7 +14458,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14398,7 +14815,7 @@ declare namespace Office {
          * Removes an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14412,7 +14829,7 @@ declare namespace Office {
          * 
          * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -14425,7 +14842,7 @@ declare namespace Office {
          * Removes an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14435,7 +14852,7 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -14724,7 +15141,7 @@ declare namespace Office {
          */
         restUrl: string;
         /**
-         * Information about the user associated with the mailbox. This includes their account type, display name, email adddress, and time zone.
+         * Information about the user associated with the mailbox. This includes their account type, display name, email address, and time zone.
          * 
          * More information is under {@link Office.UserProfile}
          */
@@ -14732,7 +15149,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          *
-         * Currently, the supported event types are `Office.EventType.ItemChanged` and `Office.EventType.OfficeThemeChanged`.
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -15005,7 +15422,8 @@ declare namespace Office {
          *        isRest: Determines if the token provided will be used for the Outlook REST APIs or Exchange Web Services. Default value is false.
          *        asyncContext: Any state data that is passed to the asynchronous method.
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the asyncResult.value property.
+         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          */
         getCallbackTokenAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (result: AsyncResult<string>) => void): void;
         /**
@@ -15032,7 +15450,8 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose and read</td></tr></table>
          *
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. 
-         *                 The token is provided as a string in the asyncResult.value property.
+         *                 The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          */
         getCallbackTokenAsync(callback: (result: AsyncResult<string>) => void): void;
         /**
@@ -15059,7 +15478,8 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose and read</td></tr></table>
          *
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the asyncResult.value property.
+         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext Optional. Any state data that is passed to the asynchronous method.
          */
         getCallbackTokenAsync(callback: (result: AsyncResult<string>) => void, userContext?: any): void;
@@ -15081,7 +15501,8 @@ declare namespace Office {
          *
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
-         *                 The token is provided as a string in the asyncResult.value property.
+         *                 The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext Optional. Any state data that is passed to the asynchronous method.|
          */
         getUserIdentityTokenAsync(callback: (result: AsyncResult<string>) => void, userContext?: any): void;
@@ -15094,7 +15515,7 @@ declare namespace Office {
          *
          * You cannot request Folder Associated Items with the makeEwsRequestAsync method.
          *
-         * The XML request must specify UTF-8 encoding. <?xml version="1.0" encoding="utf-8"?>
+         * The XML request must specify UTF-8 encoding. \<?xml version="1.0" encoding="utf-8"?\>
          *
          * Your add-in must have the ReadWriteMailbox permission to use the makeEwsRequestAsync method. 
          * For information about using the ReadWriteMailbox permission and the EWS operations that you can call with the makeEwsRequestAsync method, 
@@ -15138,6 +15559,27 @@ declare namespace Office {
          * @param userContext Optional. Any state data that is passed to the asynchronous method.
          */
         makeEwsRequestAsync(data: any, callback: (result: AsyncResult<string>) => void, userContext?: any): void;
+        /**
+         * Removes an event handler for a supported event.
+         *
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         *
+         * [Api set: Mailbox 1.5]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+         *
+         * @param eventType The event that should revoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
+         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
+         * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         */
+        removeHandlerAsync(eventType: Office.EventType, handler: (type: EventType) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
     }
 
     /**
@@ -16204,7 +16646,7 @@ declare namespace Office {
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name. 
          * The value is stored in the document as the serialized JSON representation of its data type.
          *
-         * A maximum of 2MB is available for the settings of each add-in, and each individual setting is limited to 32KB.
+         * A maximum of 32KB is available for the settings of each add-in.
          *
          * Any changes made to settings using the set function will not be saved to the server until the saveAsync function is called.
          *
@@ -16443,7 +16885,7 @@ declare namespace Office {
          */
         owner: String;
         /**
-         * The remote REST url related to the owner’s mailbox.
+         * The remote REST URL related to the owner’s mailbox.
          */
         restUrl: String;
         /**
@@ -16767,7 +17209,7 @@ declare namespace Office {
 
     }
     /**
-     * Information about the user associated with the mailbox. This includes their account type, display name, email adddress, and time zone.
+     * Information about the user associated with the mailbox. This includes their account type, display name, email address, and time zone.
      * 
      * [Api set: Mailbox 1.0]
      *
@@ -17103,7 +17545,7 @@ declare namespace OfficeExtension {
          * If there was an error, this contains all trace messages that were executed before the error occurred. 
          * These messages can help you monitor the program execution sequence and detect the case of the error.
          */
-        traceMessages: Array<string>;
+        traceMessages: string[];
         /** Debug info (useful for detailed logging of the error, i.e., via `JSON.stringify(...)`). */
         debugInfo: DebugInfo;
         /** Inner error, if applicable. */
@@ -19890,7 +20332,7 @@ declare namespace Excel {
          * @param key The Key of the new setting.
          * @param value The Value for the new setting.
          */
-        add(key: string, value: string | number | boolean | Date | Array<any> | any): Excel.Setting;
+        add(key: string, value: string | number | boolean | Date | any[] | any): Excel.Setting;
         /**
          *
          * Gets the number of Settings in the collection.
@@ -21323,18 +21765,19 @@ declare namespace Excel {
     interface BasicDataValidation {
         /**
          *
-         * Gets or sets the Formula1, i.e. minimum value or value depending of the operator.
-            When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
-            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+         * Specifies the right-hand operand when the operator property is set to a binary operator such as GreaterThan (the left-hand operand is the value the user tries to enter in the cell). With the ternary operators Between and NotBetween, specifies the lower bound operand. 
+         * For example, setting formula1 to 10 and operator to GreaterThan means that valid data for the range must be greater than 10.
+         * When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+         * When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
          *
          * [Api set: ExcelApi 1.8]
          */
         formula1: string | number | Range;
         /**
          *
-         * Gets or sets the Formula2, i.e. maximum value or value depending of the operator.
-            When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
-            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+         * With the ternary operators Between and NotBetween, specifies the upper bound operand. Is not used with the binary operators, such as GreaterThan. 
+         * When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+         * When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -21356,18 +21799,18 @@ declare namespace Excel {
     interface DateTimeDataValidation {
         /**
          *
-         * Gets or sets the Formula1, i.e. minimum value or value depending of the operator.
-            When setting the value, it can be passed in as a Date, a Range object, or a string formula (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
-            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+         * Specifies the right-hand operand when the operator property is set to a binary operator such as GreaterThan (the left-hand operand is the value the user tries to enter in the cell). With the ternary operators Between and NotBetween, specifies the lower bound operand. 
+         * When setting the value, it can be passed in as a Date, a Range object, or a string formula (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+         * When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
          *
          * [Api set: ExcelApi 1.8]
          */
         formula1: string | Date | Range;
         /**
          *
-         * Gets or sets the Formula2, i.e. maximum value or value depending of the operator.
-            When setting the value, it can be passed in as a Date, a Range object, or a string (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
-            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+         * With the ternary operators Between and NotBetween, specifies the upper bound operand. Is not used with the binary operators, such as GreaterThan. 
+         * When setting the value, it can be passed in as a Date, a Range object, or a string (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+         * When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -21396,12 +21839,11 @@ declare namespace Excel {
         inCellDropDown: boolean;
         /**
          *
-         * Source of the list for data validation
-            When setting the value, it can be passed in as a Excel Range object, or a string that contains comma separated number, boolean or date.
+         * The source of the list for data validation. The value is a string, which can either be a range reference (e.g. `"=Names!$A$1:$A$3"`) or a comma-separated list of the values themselves.
          *
          * [Api set: ExcelApi 1.8]
          */
-        source: string | Range;
+        source: string;
     }
     /**
      *
@@ -22167,8 +22609,7 @@ declare namespace Excel {
         readonly worksheet: Excel.Worksheet;
         /**
          *
-         * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
-            the level of where the category labels are being sourced from. Read/Write.
+         * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to the level of where the category labels are being sourced from. Read/Write.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -22231,8 +22672,7 @@ declare namespace Excel {
         plotVisibleOnly: boolean;
         /**
          *
-         * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
-            the level of where the series names are being sourced from. Read/Write.
+         * Returns or sets a ChartSeriesNameLevel enumeration constant referring to the level of where the series names are being sourced from. Read/Write.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23316,7 +23756,7 @@ declare namespace Excel {
         position: Excel.ChartAxisPosition | "Automatic" | "Maximum" | "Minimum" | "Custom";
         /**
          *
-         * Represents the specified axis position where the other axis crosses at. Read Only. Set to this property should use SetPositionAt(double) method.
+         * Represents the specified axis position where the other axis crosses at. You should use the SetPositionAt(double) method to set this property.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23682,15 +24122,14 @@ declare namespace Excel {
         readonly format: Excel.ChartDataLabelFormat;
         /**
          *
-         * Represents whether data labels automatically generates appropriate text based on context.
+         * Represents whether data labels automatically generate appropriate text based on context.
          *
          * [Api set: ExcelApi 1.8]
          */
         autoText: boolean;
         /**
          *
-         * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+         * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details. This property is valid only when TextOrientation of data label is 0.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23767,8 +24206,7 @@ declare namespace Excel {
         textOrientation: number;
         /**
          *
-         * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+         * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details. This property is valid only when TextOrientation of data label is -90, 90, or 180.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -50399,7 +50837,7 @@ declare namespace Word {
         getRange(rangeLocation?: "Whole" | "Start" | "End" | "Before" | "After" | "Content"): Word.Range;
         /**
          *
-         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a break at the specified location in the main document. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -50409,7 +50847,7 @@ declare namespace Word {
         insertBreak(breakType: Word.BreakType, insertLocation: Word.InsertLocation): void;
         /**
          *
-         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a break at the specified location in the main document. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -50426,7 +50864,7 @@ declare namespace Word {
         insertContentControl(): Word.ContentControl;
         /**
          *
-         * Inserts a document at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a document at the specified location. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -50436,7 +50874,7 @@ declare namespace Word {
         insertFileFromBase64(base64File: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts a document at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a document at the specified location. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -50446,7 +50884,7 @@ declare namespace Word {
         insertFileFromBase64(base64File: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts HTML at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts HTML at the specified location. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -50456,7 +50894,7 @@ declare namespace Word {
         insertHtml(html: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts HTML at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts HTML at the specified location. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -50486,7 +50924,7 @@ declare namespace Word {
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.InlinePicture;
         /**
          *
-         * Inserts OOXML at the specified location.  The insertLocation value can be 'Before' or 'After'.
+         * Inserts OOXML at the specified location.  
          *
          * [Api set: WordApi 1.2]
          *
@@ -50496,7 +50934,7 @@ declare namespace Word {
         insertOoxml(ooxml: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts OOXML at the specified location.  The insertLocation value can be 'Before' or 'After'.
+         * Inserts OOXML at the specified location.  
          *
          * [Api set: WordApi 1.2]
          *
@@ -50506,7 +50944,7 @@ declare namespace Word {
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -50516,7 +50954,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -50526,7 +50964,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
          *
-         * Inserts text at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts text at the specified location. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -50536,7 +50974,7 @@ declare namespace Word {
         insertText(text: string, insertLocation: Word.InsertLocation): Word.Range;
         /**
          *
-         * Inserts text at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts text at the specified location. 
          *
          * [Api set: WordApi 1.2]
          *
@@ -51347,7 +51785,7 @@ declare namespace Word {
         getTextRanges(endingMarks: string[], trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
-         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a break at the specified location in the main document. 
          *
          * [Api set: WordApi 1.1]
          *
@@ -51357,7 +51795,7 @@ declare namespace Word {
         insertBreak(breakType: Word.BreakType, insertLocation: Word.InsertLocation): void;
         /**
          *
-         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a break at the specified location in the main document. 
          *
          * [Api set: WordApi 1.1]
          *
@@ -51454,7 +51892,7 @@ declare namespace Word {
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. 
          *
          * [Api set: WordApi 1.1]
          *
@@ -51464,7 +51902,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. 
          *
          * [Api set: WordApi 1.1]
          *
@@ -51474,7 +51912,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
          *
-         * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a table with the specified number of rows and columns. 
          *
          * [Api set: WordApi 1.3]
          *
@@ -51486,7 +51924,7 @@ declare namespace Word {
         insertTable(rowCount: number, columnCount: number, insertLocation: Word.InsertLocation, values?: string[][]): Word.Table;
         /**
          *
-         * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a table with the specified number of rows and columns. 
          *
          * [Api set: WordApi 1.3]
          *
@@ -51925,7 +52363,7 @@ declare namespace Word {
         getTextRanges(endingMarks: string[], trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
-         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a break at the specified location in the main document. 
          *
          * [Api set: WordApi 1.1]
          *
@@ -51935,7 +52373,7 @@ declare namespace Word {
         insertBreak(breakType: Word.BreakType, insertLocation: Word.InsertLocation): void;
         /**
          *
-         * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a break at the specified location in the main document. 
          *
          * [Api set: WordApi 1.1]
          *
@@ -52032,7 +52470,7 @@ declare namespace Word {
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. 
          *
          * [Api set: WordApi 1.1]
          *
@@ -52042,7 +52480,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. 
          *
          * [Api set: WordApi 1.1]
          *
@@ -52052,7 +52490,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
          *
-         * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a table with the specified number of rows and columns. 
          *
          * [Api set: WordApi 1.3]
          *
@@ -52064,7 +52502,7 @@ declare namespace Word {
         insertTable(rowCount: number, columnCount: number, insertLocation: Word.InsertLocation, values?: string[][]): Word.Table;
         /**
          *
-         * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a table with the specified number of rows and columns. 
          *
          * [Api set: WordApi 1.3]
          *
@@ -52927,7 +53365,7 @@ declare namespace Word {
         insertContentControl(): Word.ContentControl;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. 
          *
          * [Api set: WordApi 1.3]
          *
@@ -52937,7 +53375,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a paragraph at the specified location. 
          *
          * [Api set: WordApi 1.3]
          *
@@ -52947,7 +53385,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Paragraph;
         /**
          *
-         * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a table with the specified number of rows and columns. 
          *
          * [Api set: WordApi 1.3]
          *
@@ -52959,7 +53397,7 @@ declare namespace Word {
         insertTable(rowCount: number, columnCount: number, insertLocation: Word.InsertLocation, values?: string[][]): Word.Table;
         /**
          *
-         * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Before' or 'After'.
+         * Inserts a table with the specified number of rows and columns. 
          *
          * [Api set: WordApi 1.3]
          *

@@ -1,5 +1,19 @@
 import * as puppeteer from "puppeteer";
 import { TimeoutError } from "puppeteer/Errors";
+import * as Devices from "puppeteer/DeviceDescriptors";
+
+// Accessibility
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const snap = await page.accessibility.snapshot({
+    interestingOnly: true,
+  });
+  for (const child of snap.children) {
+    console.log(child.name);
+  }
+});
 
 // Basic nagivation
 (async () => {
@@ -18,6 +32,9 @@ import { TimeoutError } from "puppeteer/Errors";
   const page = await browser.newPage();
   await page.goto("https://news.ycombinator.com", { waitUntil: "networkidle0" });
   await page.pdf({ path: "hn.pdf", format: "A4" });
+
+  const frame = page.frames()[0];
+  await frame.goto('/');
 
   browser.close();
 })();
@@ -102,6 +119,7 @@ puppeteer.launch().then(async browser => {
   });
 
   await page.emulateMedia("screen");
+  await page.emulate(Devices['test']);
   await page.pdf({ path: "page.pdf" });
 
   await page.setRequestInterception(true);
@@ -182,6 +200,13 @@ puppeteer.launch().then(async browser => {
   await page.screenshot({ path: "example.png" });
 
   browser.close();
+})();
+
+// Launching with default viewport disabled
+(async () => {
+  await puppeteer.launch({
+    defaultViewport: null
+  });
 })();
 
 // Test v0.12 features
@@ -438,6 +463,11 @@ puppeteer.launch().then(async browser => {
       hidden: true,
   });
   await page.waitFor((stuff: string) => !!document.querySelector(stuff), {
+    hidden: true,
+  }, 'asd');
+
+  const frame: puppeteer.Frame = page.frames()[0];
+  await frame.waitFor((stuff: string) => !!document.querySelector(stuff), {
     hidden: true,
   }, 'asd');
 })();

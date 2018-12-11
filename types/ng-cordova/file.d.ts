@@ -36,7 +36,10 @@ declare namespace ngCordova {
     }
 
     export interface IFilePromise<T> extends ng.IPromise<T> {
-        then<TResult>(successCallback: (promiseValue: T) => ng.IPromise<TResult> | TResult, errorCallback?: (error: IFileError) => ng.IPromise<TResult> | TResult): ng.IPromise<TResult>;
+        then<TResult = T, TResult2 = never>(
+            successCallback: (promiseValue: T) => ng.IPromise<TResult> | TResult,
+            errorCallback?: (error: IFileError) => ng.IPromise<TResult2> | TResult2
+        ): ng.IPromise<TResult | TResult2>;
         catch<TResult>(onRejected: (error: IFileError) => ng.IPromise<TResult> | TResult): ng.IPromise<TResult>;
     }
 

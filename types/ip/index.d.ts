@@ -26,7 +26,7 @@ declare module "ip" {
     /**
      * Convert an IP string into a buffer.
      **/
-    export function toBuffer(ip: string, buffer?: number, offset?: number): Buffer;
+    export function toBuffer(ip: string, buffer?: Buffer, offset?: number): Buffer;
 
     /**
      * Convert an IP buffer into a string.

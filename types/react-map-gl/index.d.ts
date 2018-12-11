@@ -1,4 +1,4 @@
-// Type definitions for react-map-gl 3.3
+// Type definitions for react-map-gl 4.0
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
@@ -9,16 +9,18 @@ import * as React from 'react';
 import * as MapboxGL from 'mapbox-gl';
 import * as GeoJSON from 'geojson';
 
-export interface Viewport {
+export interface ViewState {
     latitude: number;
     longitude: number;
     zoom: number;
     bearing?: number;
     pitch?: number;
+    altitude?: number;
 }
 
 export interface MapError {
-    message: string;
+    error?: { message: string; status: number };
+    status: number;
 }
 
 export interface MapRequest {
@@ -27,31 +29,37 @@ export interface MapRequest {
     credentials?: string;
 }
 
-export interface MapboxProps extends Partial<Viewport> {
-    container?: {};
+export interface MapboxProps extends Partial<ViewState> {
+    container?: object;
+    gl?: object;
     mapboxApiAccessToken?: string;
     attributionControl?: boolean;
     preserveDrawingBuffer?: boolean;
+    reuseMaps?: boolean;
+    transformRequest?: (url?: string, resourceType?: string) => MapRequest;
+    mapOptions?: object;
+    mapStyle?: string | object;
+    visible?: boolean;
     onLoad?: () => void;
     onError?: (e: MapError) => void;
-    reuseMaps?: boolean;
     reuseMap?: boolean;
-    transformRequest?: (url?: string, resourceType?: string) => MapRequest;
-
-    mapStyle?: string | {};
-
-    width: number;
-    height: number;
-
-    viewState?: Viewport;
-
-    altitude?: number; // Note: Non-public API, see https://github.com/mapbox/mapbox-gl-js/issues/1137
+    width: number | string;
+    height: number | string;
+    viewState?: ViewState;
 }
 
 export interface StaticMapProps extends MapboxProps {
+    onResize?: (dimensions: { width: number; height: number }) => void;
     preventStyleDiffing?: boolean;
-    visible?: boolean;
+    disableTokenWarning?: boolean;
     className?: string;
+    style?: object;
+    visibilityConstraints?: {
+        minZoom?: number;
+        maxZoom?: number;
+        minPitch?: number;
+        maxPitch?: number;
+    };
 }
 
 export interface QueryRenderedFeaturesParams {
@@ -64,14 +72,71 @@ export class StaticMap extends React.Component<StaticMapProps> {
     queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
-export interface InteractiveMapState {
+export interface ExtraState {
     isDragging: boolean;
     isHovering: boolean;
 }
 
-export interface MapEvent {
-    lngLat: [number, number];
-    features: Array<{}>;
+export interface PositionInput {
+    pos: [number, number];
+}
+
+export interface MapControllerOptions {
+    onViewportChange?: (viewState: ViewState) => void;
+    onStateChange?: (state: MapState) => void;
+    eventManager?: any;
+    isInteractive: boolean;
+    scrollZoom?: boolean;
+    dragPan?: boolean;
+    dragRotate?: boolean;
+    doubleClickZoom?: boolean;
+    touchZoom?: boolean;
+    touchRotate?: boolean;
+    keyboard?: boolean;
+}
+
+export interface ViewportProps {
+    width: number;
+    height: number;
+    latitude: number;
+    longitude: number;
+    zoom: number;
+    bearing: number;
+    pitch: number;
+    altitude: number;
+    maxZoom: number;
+    minZoom: number;
+    maxPitch: number;
+    minPitch: number;
+    transitionDuration?: number;
+    transitionInterpolator?: TransitionInterpolator;
+    transitionInterruption?: TRANSITION_EVENTS;
+    transitionEasing?: EasingFunction;
+}
+
+export interface InteractiveState {
+    startPanLngLat?: [number, number];
+    startZoomLngLat?: [number, number];
+    startBearing?: number;
+    startPitch?: number;
+    startZoom?: number;
+}
+
+export type MapStateProps = Partial<ViewportProps & InteractiveState>;
+
+export class MapState {
+    constructor(props: MapStateProps);
+    getViewportProps(): ViewportProps;
+    getInteractiveState(): InteractiveState;
+    panStart(input: PositionInput): MapState;
+    pan(input: PositionInput & { startPos?: [number, number] }): MapState;
+    panEnd(): MapState;
+    rotateStart(input: PositionInput): MapState;
+    rotate(input: { deltaScaleX?: number; deltaScaleY?: number }): MapState;
+    rotateEnd(): MapState;
+    zoomStart(input: PositionInput): MapState;
+    zoom(input: PositionInput & { scale: number; startPos?: [number, number] }): MapState;
+    zoomEnd(): MapState;
 }
 
 export interface Center {
@@ -93,9 +158,28 @@ export interface MapControlEvent {
     delta?: number;
 }
 
-export interface BaseMapControls {
+export interface BaseMapController {
     events: string[];
     handleEvent(event: MapControlEvent): void;
+}
+
+export class MapController implements BaseMapController {
+    events: string[];
+    handleEvent(event: MapControlEvent): void;
+    getMapState(overrides: Partial<MapState>): MapState;
+    setOptions(options: MapControllerOptions): void;
+    setState(newState: MapState): void;
+    updateViewport(newMapState: MapState, extraProps: any, extraState: ExtraState): void;
+}
+
+export interface PointerEvent {
+    type: string;
+    point: [number, number];
+    lngLat: [number, number];
+    target: any;
+    srcEvent: any;
+    // backward compatibility: v3 interface
+    features: any[];
 }
 
 export type EasingFunction = (t: number) => number;
@@ -115,7 +199,7 @@ export class LinearInterpolator extends TransitionInterpolator {
 export class FlyToInterpolator extends TransitionInterpolator {}
 
 export interface ViewStateChangeInfo {
-  viewState: Viewport;
+    viewState: ViewState;
 }
 
 export interface InteractiveMapProps extends StaticMapProps {
@@ -123,10 +207,9 @@ export interface InteractiveMapProps extends StaticMapProps {
     minZoom?: number;
     maxPitch?: number;
     minPitch?: number;
-
-    onViewportChange?: (viewport: Viewport) => void;
     onViewStateChange?: (info: ViewStateChangeInfo) => void;
-
+    onViewportChange?: (viewState: ViewState) => void;
+    onInteractionStateChange?: (state: ExtraState) => void;
     transitionDuration?: number;
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
@@ -134,7 +217,6 @@ export interface InteractiveMapProps extends StaticMapProps {
     onTransitionStart?: () => void;
     onTransitionInterrupt?: () => void;
     onTransitionEnd?: () => void;
-
     scrollZoom?: boolean;
     dragPan?: boolean;
     dragRotate?: boolean;
@@ -142,26 +224,25 @@ export interface InteractiveMapProps extends StaticMapProps {
     touchZoom?: boolean;
     touchRotate?: boolean;
     keyboard?: boolean;
-
-    onHover?: (event: MapEvent, lngLat: number[], features: any) => void;
-    onClick?: (event: MapEvent, lngLat: number[], features: any) => void;
-
-    onContextMenu?: (event: MapEvent) => void;
-
+    onHover?: (event: PointerEvent) => void;
+    onClick?: (event: PointerEvent) => void;
+    onDblClick?: (event: PointerEvent) => void;
+    onContextMenu?: (event: PointerEvent) => void;
+    onMouseDown?: (event: PointerEvent) => void;
+    onMouseMove?: (event: PointerEvent) => void;
+    onMouseUp?: (event: PointerEvent) => void;
+    onTouchStart?: (event: PointerEvent) => void;
+    onTouchMove?: (event: PointerEvent) => void;
+    onTouchEnd?: (event: PointerEvent) => void;
+    onMouseEnter?: (event: PointerEvent) => void;
+    onMouseLeave?: (event: PointerEvent) => void;
+    onMouseOut?: (event: PointerEvent) => void;
+    onWheel?: (event: PointerEvent) => void;
     touchAction?: string;
-
     clickRadius?: number;
-
-    getCursor?: (state: InteractiveMapState) => void;
-
-    visibilityConstraints?: {
-        minZoom?: number;
-        maxZoom?: number;
-        minPitch?: number;
-        maxPitch?: number;
-    };
-
-    mapControls?: BaseMapControls;
+    interactiveLayerIds?: string[];
+    getCursor?: (state: ExtraState) => void;
+    controller?: MapController;
 }
 
 export class InteractiveMap extends React.Component<InteractiveMapProps> {
@@ -180,12 +261,21 @@ export interface BaseControlProps {
 
 export class BaseControl<T extends BaseControlProps> extends React.Component<T> {}
 
+export interface DragEvent {
+    lngLat: [number, number];
+    [key: string]: any;
+}
+
 export interface MarkerProps extends BaseControlProps {
     className?: string;
     longitude: number;
     latitude: number;
     offsetLeft?: number;
     offsetTop?: number;
+    draggable?: boolean;
+    onDrag?: (event: DragEvent) => void;
+    onDragEnd?: (event: DragEvent) => void;
+    onDragStart?: (event: DragEvent) => void;
 }
 
 export class Marker extends BaseControl<MarkerProps> {}
@@ -194,6 +284,7 @@ export interface PopupProps extends BaseControlProps {
     className?: string;
     longitude: number;
     latitude: number;
+    altitude?: number;
     offsetLeft?: number;
     offsetTop?: number;
     tipSize?: number;
@@ -201,6 +292,7 @@ export interface PopupProps extends BaseControlProps {
     closeOnClick?: boolean;
     anchor?: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right';
     dynamicPosition?: boolean;
+    sortByDepth?: boolean;
     onClose?: () => void;
 }
 
@@ -209,12 +301,21 @@ export class Popup extends BaseControl<PopupProps> {}
 export interface NavigationControlProps extends BaseControlProps {
     className?: string;
     onViewStateChange: (info: ViewStateChangeInfo) => void;
-    onViewportChange: (viewport: Viewport) => void;
+    onViewportChange: (viewport: ViewState) => void;
     showCompass?: boolean;
     showZoom?: boolean;
 }
 
 export class NavigationControl extends BaseControl<NavigationControlProps> {}
+
+export interface DraggableControlProps extends BaseControlProps {
+    draggable?: boolean;
+    onDrag?: (event: DragEvent) => void;
+    onDragEnd?: (event: DragEvent) => void;
+    onDragStart?: (event: DragEvent) => void;
+}
+
+export class DraggableControl extends BaseControl<DraggableControlProps> {}
 
 export interface HTMLRedrawOptions {
     width: number;
@@ -248,61 +349,3 @@ export interface SVGOverlayProps extends BaseControlProps {
 }
 
 export class SVGOverlay extends BaseControl<SVGOverlayProps> {}
-
-export namespace experimental {
-    interface Options {
-        // TODO(deprecate): remove this when `onChangeViewport` gets deprecated
-        onChangeViewport?: (viewport: Viewport) => void;
-        // TODO(deprecate): remove this when `touchZoomRotate` gets deprecated
-        touchZoomRotate?: boolean;
-
-        onViewStateChange?: (info: ViewStateChangeInfo) => void;
-        onViewportChange?: (viewport: Viewport) => void;
-        onStateChange?: (state: MapState) => void;
-        eventManager?: any;
-        scrollZoom?: boolean;
-        dragPan?: boolean;
-        dragRotate?: boolean;
-        doubleClickZoom?: boolean;
-        touchZoom?: boolean;
-        touchRotate?: boolean;
-        keyboard?: boolean;
-    }
-
-    class MapState implements Viewport {
-        width: number;
-        height: number;
-        latitude: number;
-        longitude: number;
-        zoom: number;
-        bearing?: number;
-        pitch?: number;
-        altitude?: number;
-
-        maxZoom?: number;
-        minZoom?: number;
-        maxPitch?: number;
-        minPitch?: number;
-
-        transitionDuration?: number;
-        transitionInterpolator?: TransitionInterpolator;
-        transitionInterruption?: TRANSITION_EVENTS;
-        transitionEasing?: EasingFunction;
-
-        startPanLngLat?: [number, number];
-        startZoomLngLat?: [number, number];
-        startBearing?: number;
-        startPitch?: number;
-        startZoom?: number;
-    }
-
-    class MapControls implements BaseMapControls {
-        events: string[];
-
-        handleEvent(event: MapControlEvent): void;
-        getMapState(overrides: Partial<MapState>): MapState;
-        setOptions(options: Options): void;
-        setState(newState: MapState): void;
-        updateViewport(newMapState: MapState, extraProps: any, extraState: InteractiveMapState): void;
-    }
-}

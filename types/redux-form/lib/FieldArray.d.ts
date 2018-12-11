@@ -36,6 +36,7 @@ export interface FieldArrayFieldsProps<FieldValue> {
     getAll(): FieldValue[];
     removeAll(): void;
     insert(index: number, value: FieldValue): void;
+    name: string;
     length: number;
     map<R>(callback: FieldIterate<FieldValue, R>): R[];
     pop(): FieldValue;

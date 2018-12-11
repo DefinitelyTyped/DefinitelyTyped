@@ -4,6 +4,7 @@
 //                 nrbernard <https://github.com/nrbernard>
 //                 Pr1st0n <https://github.com/Pr1st0n>
 //                 rileymiller <https://github.com/rileymiller>
+//                 toddself <https://github.com/toddself>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CodeMirror;
@@ -260,16 +261,7 @@ declare namespace CodeMirror {
         line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
         options, when given, should be an object that configures the behavior of the widget.
         Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: {
-            /** Whether the widget should cover the gutter. */
-            coverGutter?: boolean;
-            /** Whether the widget should stay fixed in the face of horizontal scrolling. */
-            noHScroll?: boolean;
-            /** Causes the widget to be placed above instead of below the text of the line. */
-            above?: boolean;
-            /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
-            showIfHidden?: boolean;
-        }): CodeMirror.LineWidget;
+        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
 
         /** Programatically set the size of the editor (overriding the applicable CSS rules).
@@ -364,6 +356,12 @@ declare namespace CodeMirror {
         It will call the function, buffering up all changes, and only doing the expensive update after the function returns.
         This can be a lot faster. The return value from this method will be the return value of your function. */
         operation<T>(fn: ()=> T): T;
+        
+        /** In normal circumstances, use the above operation method. But if you want to buffer operations happening asynchronously, or that can't all be wrapped in a callback
+        function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
+        API and forget to call endOperation, the editor will just never update. */
+        startOperation(): void;
+        endOperation(): void;
 
         /** Adjust the indentation of the given line.
         The second argument (which defaults to "smart") may be one of:
@@ -672,6 +670,11 @@ declare namespace CodeMirror {
         /** Returns an array containing all marked ranges in the document. */
         getAllMarks(): CodeMirror.TextMarker[];
 
+        /** Adds a line widget, an element shown below a line, spanning the whole of the editor's width, and moving the lines below it downwards.
+        line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
+        options, when given, should be an object that configures the behavior of the widget.
+        Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
+        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
         /** Gets the mode object for the editor. Note that this is distinct from getOption("mode"), which gives you the mode specification,
         rather than the resolved, instantiated mode object. */
@@ -709,8 +712,27 @@ declare namespace CodeMirror {
         or undefined if the marker is no longer in the document. */
         find(): {from: CodeMirror.Position, to: CodeMirror.Position};
 
+        /**  Called when you've done something that might change the size of the marker and want to cheaply update the display*/
+        changed(): void;
+
         /**  Returns an object representing the options for the marker. If copyWidget is given true, it will clone the value of the replacedWith option, if any. */
         getOptions(copyWidget: boolean): CodeMirror.TextMarkerOptions;
+
+        /** Fired when the cursor enters the marked range */
+        on(eventName: 'beforeCursorEnter', handler: () =>  void) : void;
+        off(eventName: 'beforeCursorEnter', handler: () => void) : void;
+
+        /** Fired when the range is cleared, either through cursor movement in combination with clearOnEnter or through a call to its clear() method */
+        on(eventName: 'clear', handler: (from: Position, to: Position) => void) : void;
+        off(eventName: 'clear', handler: () => void) : void;
+
+        /** Fired when the last part of the marker is removed from the document by editing operations */
+        on(eventName: 'hide', handler: () => void) : void;
+        off(eventname: 'hide', handler: () => void) : void;
+
+        /** Fired when, after the marker was removed by editing, a undo operation brough the marker back */
+        on(eventName: 'unhide', handler: () => void) : void;
+        off(eventname: 'unhide', handler: () => void) : void;
     }
 
     interface LineWidget {
@@ -720,6 +742,17 @@ declare namespace CodeMirror {
         /** Call this if you made some change to the widget's DOM node that might affect its height.
         It'll force CodeMirror to update the height of the line that contains the widget. */
         changed(): void;
+    }
+
+    interface LineWidgetOptions {
+        /** Whether the widget should cover the gutter. */
+        coverGutter?: boolean;
+        /** Whether the widget should stay fixed in the face of horizontal scrolling. */
+        noHScroll?: boolean;
+        /** Causes the widget to be placed above instead of below the text of the line. */
+        above?: boolean;
+        /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
+        showIfHidden?: boolean;
     }
 
     interface EditorChange {

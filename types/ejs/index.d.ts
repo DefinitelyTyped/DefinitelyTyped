@@ -54,6 +54,8 @@ export type RenderFileCallback<T> = (err: Error, str?: string) => T;
 export function renderFile<T>(path: string, cb: RenderFileCallback<T>): T;
 export function renderFile<T>(path: string, data: Data, cb: RenderFileCallback<T>): T;
 export function renderFile<T>(path: string, data: Data, opts: Options, cb: RenderFileCallback<T>): T;
+// tslint:disable-next-line no-unnecessary-generics
+export function renderFile<T>(path: string, data?: Data, opts?: Options): Promise<T>;
 
 /**
  * Clear intermediate JavaScript cache. Calls {@link Cache#reset}.

@@ -5,12 +5,12 @@ interface LeaveMeAloneDtslint { foo: string; }
 // import * as PropTypes from 'prop-types';
 
 // interface Props {
-//     bool?: boolean
-//     fnc: () => any
-//     node?: React.ReactNode
-//     num?: number
-//     reqNode: NonNullable<React.ReactNode>
-//     str: string
+//     bool?: boolean;
+//     fnc: () => any;
+//     node?: React.ReactNode;
+//     num?: number;
+//     reqNode: NonNullable<React.ReactNode>;
+//     str: string;
 // }
 
 // const propTypes = {
@@ -24,9 +24,9 @@ interface LeaveMeAloneDtslint { foo: string; }
 // };
 
 // const defaultProps = {
-//     fnc: function() { return 'abc' } as () => any,
+//     fnc: (() => 'abc') as () => any,
 //     extraBool: false,
-//     reqNode: 'text_node' as React.ReactNode
+//     reqNode: 'text_node' as NonNullable<React.ReactNode>
 // };
 
 // class AnnotatedPropTypesAndDefaultProps extends React.Component<Props> {
@@ -157,4 +157,68 @@ interface LeaveMeAloneDtslint { foo: string; }
 //         fnc={console.log}
 //         reqNode={<span />}
 //     />
+// ];
+
+// class ComponentWithNoDefaultProps extends React.Component<Props> {}
+
+// function FunctionalComponent(props: Props) { return <>{props.reqNode}</> }
+// FunctionalComponent.defaultProps = defaultProps;
+
+// const functionalComponentTests = [
+//     // $ExpectError
+//     <FunctionalComponent />,
+//     // This is possibly a bug/limitation of TS
+//     // Even if JSX.LibraryManagedAttributes returns the correct type, it doesn't seem to work with non-classes
+//     // This also doesn't work with things typed React.SFC<P> because defaultProps will always be Partial<P>
+//     // $ExpectError
+//     <FunctionalComponent str='' />
+// ];
+
+// const MemoFunctionalComponent = React.memo(FunctionalComponent);
+// const MemoAnnotatedDefaultProps = React.memo(AnnotatedDefaultProps);
+// const LazyMemoFunctionalComponent = React.lazy(async () => ({ default: MemoFunctionalComponent }));
+// const LazyMemoAnnotatedDefaultProps = React.lazy(async () => ({ default: MemoAnnotatedDefaultProps }));
+
+// const memoTests = [
+//     // $ExpectError
+//     <MemoFunctionalComponent />,
+//     // $ExpectError won't work as long as FunctionalComponent doesn't work either
+//     <MemoFunctionalComponent str='abc' />,
+//     // $ExpectError
+//     <MemoAnnotatedDefaultProps />,
+//     <AnnotatedDefaultProps str='abc' />,
+//     // $ExpectError this doesn't work despite JSX.LibraryManagedAttributes returning the correct type
+//     <MemoAnnotatedDefaultProps str='abc' />,
+//     // $ExpectError won't work as long as FunctionalComponent doesn't work either
+//     <LazyMemoFunctionalComponent str='abc' />,
+//     // $ExpectError
+//     <LazyMemoAnnotatedDefaultProps />,
+//     // $ExpectError this doesn't work despite JSX.LibraryManagedAttributes returning the correct type
+//     <LazyMemoAnnotatedDefaultProps str='abc' />
+// ];
+
+// type AnnotatedDefaultPropsLibraryManagedAttributes = JSX.LibraryManagedAttributes<typeof AnnotatedDefaultProps, Props>;
+// // $ExpectType AnnotatedDefaultPropsLibraryManagedAttributes
+// type FunctionalComponentLibraryManagedAttributes = JSX.LibraryManagedAttributes<typeof FunctionalComponent, Props>;
+// // $ExpectType FunctionalComponentLibraryManagedAttributes
+// type MemoFunctionalComponentLibraryManagedAttributes = JSX.LibraryManagedAttributes<typeof MemoFunctionalComponent, Props>;
+// // $ExpectType FunctionalComponentLibraryManagedAttributes
+// type LazyMemoFunctionalComponentLibraryManagedAttributes = JSX.LibraryManagedAttributes<typeof LazyMemoFunctionalComponent, Props>;
+
+// const ForwardRef = React.forwardRef((props: Props, ref: React.Ref<ComponentWithNoDefaultProps>) => (
+//     <ComponentWithNoDefaultProps ref={ref} {...props}/>
+// ));
+// ForwardRef.defaultProps = defaultProps;
+
+// const forwardRefTests = [
+//     // $ExpectError
+//     <ForwardRef />,
+//     <ForwardRef
+//         fnc={console.log}
+//         reqNode={<span />}
+//         str=''
+//     />,
+//     // same bug as MemoFunctionalComponent and React.SFC-typed things
+//     // $ExpectError the type of ForwardRef.defaultProps stays Partial<P> anyway even if assigned
+//     <ForwardRef str='abc' />
 // ];

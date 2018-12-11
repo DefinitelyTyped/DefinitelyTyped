@@ -90,7 +90,7 @@ declare namespace WaveSurfer {
     }
 
     class WaveSurferPlugin {
-        constructor(ws: WaveSurfer, params: object);
+        constructor(params: object, ws: WaveSurfer);
         static create(params: object): PluginDefinition;
         init(): void;
         destroy(): void;
@@ -151,7 +151,7 @@ declare namespace WaveSurfer {
         staticProps?: object;
         deferInit?: boolean;
         params: object;
-        instance: { new(ws: WaveSurfer, params: object): WaveSurferPlugin };
+        instance: { new(params: object, ws: WaveSurfer): WaveSurferPlugin };
     }
 
     interface ListenerDescriptor {

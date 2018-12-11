@@ -32,6 +32,8 @@ export type OptionProps<OptionType> = PropsWithStyles &
     /* Type is used by the menu to determine whether this is an option or a group.
     In the case of option this is always `option`. */
     type: 'option',
+    /* The data of the selected option. */
+    data: any,
   };
 
 export function optionCSS(state: State): React.CSSProperties;

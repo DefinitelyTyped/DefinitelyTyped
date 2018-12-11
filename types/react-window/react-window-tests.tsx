@@ -52,6 +52,8 @@ const VariableSizeGridTestRequiredProps: React.SFC = () => (
     </VariableSizeGrid>
 );
 
+const anyRef: React.Ref<any> = React.createRef();
+
 const FixedSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
     testBool
 }) => (
@@ -63,7 +65,7 @@ const FixedSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         className=""
         direction={testBool ? "vertical" : "horizontal"}
         initialScrollOffset={0}
-        innerRef="innerRef"
+        innerRef={anyRef}
         innerTagName="div"
         itemData={{ foo: "bar" }}
         itemKey={index => "foo" + index.toString()}
@@ -82,7 +84,7 @@ const FixedSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         outerTagName="div"
         style={{ color: "cyan" }}
         overscanCount={0}
-        outerRef="outerRef"
+        outerRef={anyRef}
         ref="ref"
         onScroll={({
             scrollDirection,
@@ -109,7 +111,7 @@ const VariableSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         className=""
         direction={testBool ? "vertical" : "horizontal"}
         initialScrollOffset={0}
-        innerRef="innerRef"
+        innerRef={anyRef}
         innerTagName="div"
         itemData={{ foo: "bar" }}
         itemKey={index => "foo" + index.toString()}
@@ -128,7 +130,7 @@ const VariableSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         outerTagName="div"
         style={{ color: "cyan" }}
         overscanCount={0}
-        outerRef="outerRef"
+        outerRef={anyRef}
         ref="ref"
         onScroll={({
             scrollDirection,
@@ -158,7 +160,7 @@ const VariableSizeGridTestOptionalProps: React.SFC = () => (
         estimatedRowHeight={0}
         initialScrollLeft={0}
         initialScrollTop={0}
-        innerRef="innerRef"
+        innerRef={anyRef}
         innerTagName="div"
         itemData={{ foo: "bar" }}
         itemKey={({ columnIndex, rowIndex }) =>
@@ -181,7 +183,7 @@ const VariableSizeGridTestOptionalProps: React.SFC = () => (
             scrollUpdateWasRequested,
             verticalScrollDirection
         }) => undefined}
-        outerRef="outerRef"
+        outerRef={anyRef}
         outerTagName="div"
         overscanCount={5}
         ref="ref"

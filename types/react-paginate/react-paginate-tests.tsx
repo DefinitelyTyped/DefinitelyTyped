@@ -20,6 +20,7 @@ class Test extends React.Component {
                 pageClassName={'page-li'}
                 pageLinkClassName={'page-a'}
                 activeClassName={'active'}
+                activeLinkClassName={'active'}
                 previousClassName={'previous-li'}
                 nextClassName={'next-li'}
                 previousLinkClassName={'previous-a'}

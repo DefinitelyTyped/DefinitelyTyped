@@ -2715,7 +2715,7 @@ function test_fn_extend() {
 }
 
 function test_jquery() {
-    var a = <any>{ what: "A regular JS object" },
+    var a: any = { what: "A regular JS object" },
     b = $('body');
     if (a.jquery) {
         alert(' a is a jQuery object! ');

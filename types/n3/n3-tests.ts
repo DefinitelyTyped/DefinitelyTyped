@@ -17,7 +17,8 @@ function test_add_prefixes() {
 
     writer.addPrefixes({
         freebase: N3.DataFactory.namedNode("http://rdf.freebase.com/ns/"),
-        xsd: N3.DataFactory.namedNode("http://www.w3.org/2001/XMLSchema#")
+        xsd: N3.DataFactory.namedNode("http://www.w3.org/2001/XMLSchema#"),
+        rdf: 'http://test'
     });
 
     writer.end((error, result) => {
@@ -31,7 +32,7 @@ function test_serialize() {
             format: "ttl",
             prefixes: {
                 foaf: "http://xmlns.com/foaf/0.1",
-                freebase: "http://rdf.freebase.com/ns/",
+                freebase: N3.DataFactory.namedNode("http://rdf.freebase.com/ns/"),
                 g: "http://base.google.com/ns/1.0"
             }
         });
@@ -76,7 +77,13 @@ function test_doc_rdf_to_triples_2() {
 }
 
 function test_doc_rdf_stream_to_triples_1() {
-    const parser: N3.N3Parser = new N3.Parser();
+    interface QuadBnode extends N3.BaseQuad {
+      subject: N3.BlankNode;
+      predicate: N3.BlankNode;
+      object: N3.BlankNode;
+      graph: N3.BlankNode;
+    }
+    const parser: N3.N3Parser<QuadBnode> = new N3.Parser<QuadBnode>({factory: N3.DataFactory});
     parser.parse('abc', console.log);
 
     const streamParser: N3.N3StreamParser = N3.StreamParser();
@@ -113,7 +120,7 @@ function test_doc_from_triples_to_string() {
 }
 
 function test_doc_from_triples_to_rdf_stream() {
-    const writer: N3.N3Writer = new N3.Writer(process.stdout, { prefixes: { c: N3.DataFactory.namedNode('http://example.org/cartoons#') } });
+    const writer: N3.N3Writer = new N3.Writer(process.stdout, { end: false, prefixes: { c: N3.DataFactory.namedNode('http://example.org/cartoons#') } });
     writer.addQuad(N3.DataFactory.quad(
       N3.DataFactory.namedNode('http://example.org/cartoons#Tom'),
       N3.DataFactory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
@@ -177,7 +184,26 @@ function test_doc_storing() {
     const bnode2: RDF.BlankNode = store.createBlankNode('abc');
 
     const mickey: RDF.Quad = store.getQuads(N3.DataFactory.namedNode('http://ex.org/Mickey'), null, null, null)[0];
+    if (mickey.object.termType === "Literal") {
+      console.log(mickey.object.datatype);
+    }
     console.log(mickey.subject, mickey.predicate, mickey.object, '.');
+
+    interface N3QuadGeneralized extends N3.BaseQuad {
+      subject: N3.Quad_Subject | N3.BlankNode | N3.Literal;
+      predicate: N3.Quad_Predicate | N3.BlankNode | N3.Literal;
+      object: N3.Quad_Object | N3.BlankNode | N3.Literal;
+      graph: N3.Quad_Graph | N3.BlankNode | N3.Literal;
+    }
+    interface RDFQuadGeneralized extends RDF.BaseQuad {
+      subject: RDF.Quad_Subject | RDF.BlankNode | RDF.Literal;
+      predicate: RDF.Quad_Predicate | RDF.BlankNode | RDF.Literal;
+      object: RDF.Quad_Object | RDF.BlankNode | RDF.Literal;
+      graph: RDF.Quad_Graph | RDF.BlankNode | RDF.Literal;
+    }
+    const storeGeneralized = new N3.Store<RDFQuadGeneralized, N3QuadGeneralized>();
+    // storeGeneralized.
+    storeGeneralized.addQuad(N3.DataFactory.namedNode('http://ex.org/Pluto'), N3.DataFactory.blankNode(), N3.DataFactory.namedNode('http://ex.org/Dog'));
 }
 
 function test_doc_utility() {

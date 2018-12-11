@@ -1,4 +1,4 @@
-// Type definitions for expo 27.0
+// Type definitions for expo 31.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -11,6 +11,8 @@
 //                 Tina Roh <https://github.com/tinaroh>
 //                 Nathan Phillip Brink <https://github.com/binki>
 //                 Martin Olsson <https://github.com/mo>
+//                 Levan Basharuli <https://github.com/levansuper>
+//                 Pavel Ihm <https://github.com/ihmpavel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -404,6 +406,9 @@ export namespace Audio {
 
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
+
+        /** Boolean selecting if audio should go to earpiece (only on Android). */
+        playThroughEarpieceAndroid: boolean;
     }
 
     function setIsEnabledAsync(value: boolean): Promise<void>;
@@ -565,7 +570,7 @@ export interface PlaybackStatusToSet {
     volume?: number;
 }
 
-export type PlaybackSource = RequireSource | { uri: string } | Asset;
+export type PlaybackSource = RequireSource | { uri: string, headers?: { [header: string]: string }, overrideFileExtensionAndroid?: string } | Asset;
 
 export class PlaybackObject {
     /**
@@ -1403,8 +1408,8 @@ export namespace FileSystem {
 }
 
 /** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
-export namespace Fingerprint {
-    type FingerprintAuthenticationResult = {
+export namespace LocalAuthentication {
+    type LocalAuthenticationResult = {
         success: true
     } | {
         success: false,
@@ -1413,10 +1418,10 @@ export namespace Fingerprint {
         error: string
     };
 
-    /** Determine whether the Fingerprint scanner is available on the device. */
+    /** Determine whether a face or fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
 
-    /** Determine whether the device has saved fingerprints to use for authentication. */
+    /** Determine whether the device has saved fingerprints or facial data to use for authentication. */
     function isEnrolledAsync(): Promise<boolean>;
 
     /**
@@ -1424,7 +1429,7 @@ export namespace Fingerprint {
      *
      * @param promptMessage A message that is shown alongside the TouchID/FaceID prompt. (iOS only)
      */
-    function authenticateAsync(promptMessageIOS?: string): Promise<FingerprintAuthenticationResult>;
+    function authenticateAsync(promptMessageIOS?: string): Promise<LocalAuthenticationResult>;
 
     /** Cancels the fingerprint authentication flow. (Android only) */
     function cancelAuthenticate(): void;
@@ -1559,6 +1564,8 @@ export namespace ImageManipulator {
     }
 
     function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
+
+    function manipulateAsync(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
@@ -1603,6 +1610,8 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
     }
 
     /**
@@ -2137,6 +2146,7 @@ export interface SvgUseProps extends SvgCommonProps {
 
 export interface SvgSymbolProps extends SvgCommonProps {
     viewBox: string;
+    preserveAspectRatio?: string;
     width: number | string;
     height: number | string;
 }
@@ -2164,7 +2174,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
+export class Svg extends Component<{ width: number, height: number, viewBox?: string, preserveAspectRatio?: string }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;
@@ -2349,7 +2359,7 @@ export namespace Calendar {
         /** Name for the account that owns this calendar */
         ownerAccount?: string; // Android
 
-        /** Time zone for the calendar	 */
+        /** Time zone for the calendar */
         timeZone?: string; // Android
 
         /** Alarm methods that this calendar supports */
@@ -2392,7 +2402,7 @@ export namespace Calendar {
         /** Visible name of the event */
         title?: string;
 
-        /** Location field of the event	 */
+        /** Location field of the event */
         location?: string;
 
         /** Date when the event record was created */
@@ -2420,10 +2430,10 @@ export namespace Calendar {
         recurrenceRule?: RecurrenceRule;
 
         /** Date object or string representing the time when the event starts */
-        startDate?: string;
+        startDate?: string | Date;
 
         /** Date object or string representing the time when the event ends */
-        endDate?: string;
+        endDate?: string | Date;
 
         /** For recurring events, the start date for the first (original) instance of the event */
         originalStartDate?: string; // iOS

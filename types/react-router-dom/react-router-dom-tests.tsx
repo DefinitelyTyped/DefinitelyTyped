@@ -27,6 +27,10 @@ type OtherProps = RouteComponentProps<{
 }>;
 
 const Component: React.SFC<OtherProps> = props => {
+  if (!props.match) {
+    return null;
+  }
+
   const { id } = props.match.params;
   return (
     <div>{id}</div>

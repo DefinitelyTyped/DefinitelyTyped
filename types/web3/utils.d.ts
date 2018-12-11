@@ -35,13 +35,15 @@ type Mixed =
     | number
     | BigNumber
     | {
-    type: string;
-    value: string;
-}
+        type: string;
+        value: string;
+    }
     | {
-    t: string;
-    v: string;
-};
+        t: string;
+        v: string;
+    };
+
+type Hex = string | number;
 
 export default interface Utils {
     BN: BigNumber; // TODO only static-definition
@@ -49,6 +51,7 @@ export default interface Utils {
     isBigNumber(any: any): boolean;
     isAddress(any: any): boolean;
     isHex(any: any): boolean;
+    isHexStrict(val: Hex): boolean;
     _: us.UnderscoreStatic;
     asciiToHex(val: string): string;
     hexToAscii(val: string): string;
@@ -58,7 +61,8 @@ export default interface Utils {
     fromAscii(val: string): string;
     fromDecimal(val: string | number | BigNumber): string;
     fromUtf8(val: string): string;
-    fromWei(val: string | number | BigNumber, unit: Unit): string | BigNumber;
+    fromWei(val: BigNumber, unit?: Unit): BigNumber;
+    fromWei(val: string | number, unit?: Unit): string;
     hexToBytes(val: string): number[];
     hexToNumber(val: string | number | BigNumber): number;
     hexToNumberString(val: string | number | BigNumber): string;

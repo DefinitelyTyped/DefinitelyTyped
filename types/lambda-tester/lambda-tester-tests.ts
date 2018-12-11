@@ -12,27 +12,35 @@ interface TError {
     message: string;
 }
 
-lambdaTester(handler)
-    .event({ test: "123" })
+function lambdaTesterInstance() {
+    return lambdaTester(handler).event({ test: "123" });
+}
+
+lambdaTesterInstance()
     .context(context)
     .clientContext(clientContext)
     .xray()
     .identity("123", "123")
     .expectSucceed((result: TResult) => {
         const t: string = result.data;
-    })
-    .expectFail((error: TError) => {
-        const t: string = error.message;
-    })
-    .expectResolve((result: TResult) => {
-        const t: string = result.data;
-    })
-    .expectReject((error: TError) => {
-        const t: string = error.message;
-    })
-    .expectResult((result: TResult) => {
-        const t: string = result.data;
-    })
-    .expectError((error: TError) => {
-        const t: string = error.message;
     });
+
+lambdaTesterInstance().expectFail((error: TError) => {
+    const t: string = error.message;
+});
+
+lambdaTesterInstance().expectResolve((result: TResult) => {
+    const t: string = result.data;
+});
+
+lambdaTesterInstance().expectReject((error: TError) => {
+    const t: string = error.message;
+});
+
+lambdaTesterInstance().expectResult((result: TResult) => {
+    const t: string = result.data;
+});
+
+lambdaTesterInstance().expectError((error: TError) => {
+    const t: string = error.message;
+});

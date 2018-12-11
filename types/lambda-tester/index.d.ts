@@ -1,6 +1,7 @@
 // Type definitions for lambda-tester 3.5
 // Project: https://github.com/vandium-io/lambda-tester#readme
 // Definitions by: Ivan Kerin <https://github.com/ivank>
+//                 Hajo Aho-Mantila <https://github.com/HajoAhoMantila>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -19,12 +20,12 @@ declare namespace lambdaTester {
         ): this;
         timeout(seconds: number): this;
         xray(): this;
-        expectSucceed(verifier: Verifier): this;
-        expectFail(verifier: Verifier): this;
-        expectError(verifier: Verifier): this;
-        expectResult(verifier: Verifier): this;
-        expectReject(verifier: Verifier): this;
-        expectResolve(verifier: Verifier): this;
+        expectSucceed(verifier: Verifier): Promise<any>;
+        expectFail(verifier: Verifier): Promise<any>;
+        expectError(verifier: Verifier): Promise<any>;
+        expectResult(verifier: Verifier): Promise<any>;
+        expectReject(verifier: Verifier): Promise<any>;
+        expectResolve(verifier: Verifier): Promise<any>;
     }
 }
 

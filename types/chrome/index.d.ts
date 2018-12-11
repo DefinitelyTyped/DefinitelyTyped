@@ -4525,12 +4525,12 @@ declare namespace chrome.pageAction {
      * Shows the page action. The page action is shown whenever the tab is selected.
      * @param tabId The id of the tab for which you want to modify the page action.
      */
-    export function hide(tabId: number): void;
+    export function hide(tabId: number, callback?: () => void): void;
     /**
      * Shows the page action. The page action is shown whenever the tab is selected.
      * @param tabId The id of the tab for which you want to modify the page action.
      */
-    export function show(tabId: number): void;
+    export function show(tabId: number, callback?: () => void): void;
     /** Sets the title of the page action. This is displayed in a tooltip over the page action. */
     export function setTitle(details: TitleDetails): void;
     /** Sets the html document to be opened as a popup when the user clicks on the page action's icon. */

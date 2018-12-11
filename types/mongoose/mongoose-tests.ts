@@ -22,12 +22,12 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   pass: 'housan',
   config: {
     autoIndex: true,
-    useCreateIndex: true,
   },
   mongos: true,
   bufferCommands: false,
   useNewUrlParser: true,
   useFindAndModify: true,
+  useCreateIndex: true
 });
 const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
@@ -145,6 +145,7 @@ conn1.close(function (err) {});
 conn1.close(true, function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+conn1.deleteModel('myModel');
 conn1.models.myModel.findOne().exec();
 interface IStatics {
   staticMethod1: (a: number) => string;
@@ -166,17 +167,6 @@ const getDB = async (tenant: string)=> {
   return conn1.useDb(tenant);
 };
 
-
-/*
- * section error/validation.js
- * http://mongoosejs.com/docs/api.html#error-validation-js
- */
-var validationError = <mongoose.ValidationError> {};
-validationError.toString().toLowerCase();
-/* inherited properties */
-validationError.stack;
-validationError.message;
-
 /*
  * section error.js
  * http://mongoosejs.com/docs/api.html#error-js
@@ -189,6 +179,93 @@ mongooseError.stack;
 /* static properties */
 mongoose.Error.messages.hasOwnProperty('');
 mongoose.Error.Messages.hasOwnProperty('');
+
+/*
+ * section error/cast.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.CastError
+ */
+var castError: mongoose.Error.CastError = new mongoose.Error.CastError('', '', '');
+castError.setModel('foo');
+castError.stringValue;
+castError.kind;
+castError.path;
+castError.value;
+/* inherited properties */
+castError.name;
+castError.stack;
+castError.message;
+
+/*
+ * section error/validator.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidatorError
+ */
+var validatorError: mongoose.Error.ValidatorError = new mongoose.Error.ValidatorError({ foo: 'bar' })
+validatorError.properties;
+validatorError.kind;
+validatorError.path;
+validatorError.value;
+validatorError.toString().toLowerCase();
+validatorError.formatMessage('foo', {});
+validatorError.formatMessage('foo', (bar: any)=>{ return bar; });
+/* inherited properties */
+validatorError.name;
+validatorError.stack;
+validatorError.message;
+
+/*
+ * section error/validation.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
+ */
+var doc = <mongoose.MongooseDocument> {};
+var validationError: mongoose.Error.ValidationError = new mongoose.Error.ValidationError(doc);
+validationError.toString().toLowerCase();
+validationError.inspect();
+validationError.toJSON().hasOwnProperty('');
+validationError.addError('foo', validatorError)
+/* inherited properties */
+validationError.name;
+validationError.stack;
+validationError.message;
+
+/*
+ * section error/parallelSave.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ParallelSaveError
+ */
+var parallelSaveError: mongoose.Error.ParallelSaveError = new mongoose.Error.ParallelSaveError(doc);
+/* inherited properties */
+parallelSaveError.name;
+parallelSaveError.stack;
+parallelSaveError.message;
+
+/*
+ * section error/overwriteModel.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.OverwriteModelError
+ */
+var overwriteModelError: mongoose.Error.OverwriteModelError = new mongoose.Error.OverwriteModelError('foo');
+/* inherited properties */
+overwriteModelError.name;
+overwriteModelError.stack;
+overwriteModelError.message;
+
+/*
+ * section error/missingSchema.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
+ */
+var missingSchemaError: mongoose.Error.MissingSchemaError = new mongoose.Error.MissingSchemaError('foo');
+/* inherited properties */
+missingSchemaError.name;
+missingSchemaError.stack;
+missingSchemaError.message;
+
+/*
+ * section error/divergentArray.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
+ */
+var missingSchemaError: mongoose.Error.DivergentArrayError = new mongoose.Error.DivergentArrayError(['foo','bar']);
+/* inherited properties */
+missingSchemaError.name;
+missingSchemaError.stack;
+missingSchemaError.message;
 
 const pluralize = mongoose.pluralize();
 const plural: string = pluralize('foo');
@@ -415,12 +492,12 @@ preHookTestSchemaArr.push(
 );
 
 schema
-.post('save', function (error, doc, next) {
+.post('save', function (error: mongoose.Error, doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
   error.stack;
   doc.model;
   next.apply;
 })
-.post('save', function (doc: mongoose.Document, next: Function) {
+.post('save', function (doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
   doc.model;
   next(new Error());
 })
@@ -1003,6 +1080,7 @@ query.find().where('age').in([20, 21]);
 query.find().in('age', [20, 21]);
 query.nor([{ color: 'green' }, { status: 'ok' }]).nor([]);
 query.or([{ color: 'red' }, { status: 'emergency' }]).or([]);
+query.find({ color: 'blue' }).orFail();
 query.where('loc').within().polygon([10,20], [13, 25], [7,15]);
 query.polygon('loc', [10,20], [13, 25], [7,15]);
 query.findOne().populate('owner').exec(function (err, kitten) {
@@ -1989,3 +2067,40 @@ db.createCollection('customers').
   // visible outside of the transaction.
   then(() => session.commitTransaction()).
   then(() => Customer.findOne({ name: 'Test' }).exec())
+
+/**
+ * https://mongoosejs.com/docs/guide.html#writeConcern
+ */
+new mongoose.Schema({ name: String }, {
+  writeConcern: {
+    w: 'majority',
+    j: true,
+    wtimeout: 1000
+  }
+});
+
+/* Query helpers: https://mongoosejs.com/docs/guide.html#query-helpers */
+
+interface Animal2 extends mongoose.Document {
+  name: string;
+  type: string;
+  tags: string[];
+}
+var animal2Schema = new mongoose.Schema({
+  name: String,
+  type: String,
+  tags: { type: [String], index: true } // field level
+});
+let animal2QueryHelpers = {
+  byName<Q extends mongoose.DocumentQuery<any, Animal2>>(this: Q, name: string) {
+    return this.where({ name: new RegExp(name, 'i') });
+  }
+};
+animal2Schema.query = animal2QueryHelpers;
+var Animal2 = mongoose.model<Animal2, mongoose.Model<Animal2, typeof animal2QueryHelpers>>('Animal', animal2Schema);
+Animal2.find().byName('fido').exec(function(err, animals) {
+  console.log(animals);
+});
+Animal2.findOne().byName('fido').exec(function(err, animal) {
+  console.log(animal);
+});

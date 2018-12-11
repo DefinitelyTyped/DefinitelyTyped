@@ -1,5 +1,5 @@
-// Type definitions for js-logging-sdk 1.3
-// Project: https://github.com/SumoLogic/js-logging-sdk
+// Type definitions for js-sumo-logger 1.6
+// Project: https://github.com/SumoLogic/js-sumo-logger
 // Definitions by: forabi <https://github.com/forabi>
 //                 clementallen <https://github.com/clementallen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -70,9 +70,14 @@ declare namespace SumoLogger {
         sourceName?: string;
 
         /**
-         * This value enabled and disables sending data as graphite metrics
+         * This value enables and disables sending data as graphite metrics
          */
         graphite?: boolean;
+
+        /**
+         * This value enables and disables sending data as a raw string
+         */
+        raw?: boolean;
     }
 
     interface PerMessageOptions {

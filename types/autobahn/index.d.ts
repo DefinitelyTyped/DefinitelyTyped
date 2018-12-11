@@ -190,6 +190,8 @@ declare namespace autobahn {
     export class Connection {
         constructor(options?: IConnectionOptions);
 
+        isOpen: boolean;
+        
         open(): void;
 
         close(reason?: string, message?: string): void;

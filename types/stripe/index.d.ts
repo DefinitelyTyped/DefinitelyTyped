@@ -411,7 +411,7 @@ declare namespace Stripe {
                  * "individual" or "company". This field is required when attaching the
                  * bank account to a customer object.
                  */
-                account_holder_type?: string;
+                account_holder_type?: "individual" | "company" | null;
 
                 /**
                  * The routing number, sort code, or other country-appropriate institution
@@ -902,7 +902,7 @@ declare namespace Stripe {
              * For most Stripe users, the source of every charge is a credit or debit card.
              * This hash is then the card object describing that card.
              */
-            source: cards.ICard | bitcoinReceivers.IBitcoinReceiver;
+            source: cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount;
 
             /**
              * The transfer ID which created this charge. Only present if the charge came
@@ -987,7 +987,19 @@ declare namespace Stripe {
              *
              * Connect only.
              */
-            destination?: string;
+            destination?: string | {
+                /**
+                 * ID of the Stripe account this fee will be transferred to.
+                 */
+                account: string;
+
+                /**
+                 * A positive integer in the smallest currency unit (e.g 100 cents to charge
+                 * $1.00, or 1 to charge ¥1, a 0-decimal currency) reflecting the amount of the
+                 * charge to be transferred to the destination[account].
+                 */
+                amount?: number;
+            };
 
             /**
              * A string that identifies this transaction as part of a group.
@@ -1332,12 +1344,12 @@ declare namespace Stripe {
             /**
              * The currency the customer can be charged in for recurring billing purposes (subscriptions, invoices, invoice items).
              */
-            currency: string;
+            currency: string | null;
 
             /**
              * ID of the default source attached to this customer. [Expandable]
              */
-            default_source: string | cards.ICard | bitcoinReceivers.IBitcoinReceiver | null;
+            default_source: string | cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount | null;
 
             /**
              * Whether or not the latest charge for the customer's latest invoice has failed
@@ -1360,12 +1372,12 @@ declare namespace Stripe {
             /**
              * Shipping information associated with the customer.
              */
-            shipping: IShippingInformation;
+            shipping: IShippingInformation | null;
 
             /**
              * The customer’s payment sources, if any
              */
-            sources?: IList<cards.ICard | bitcoinReceivers.IBitcoinReceiver>;
+            sources?: IList<cards.ICard | bitcoinReceivers.IBitcoinReceiver | bankAccounts.IBankAccount>;
 
             cards?: resources.CustomerCards;
 
@@ -2363,7 +2375,10 @@ declare namespace Stripe {
              */
             discountable: boolean;
 
-            invoice: string;
+            /**
+             * If null, the invoice item is pending and will be included in the upcoming invoice.
+             */ 
+            invoice: string | null;
             livemode: boolean;
             metadata: IMetadata;
 
@@ -4058,12 +4073,12 @@ declare namespace Stripe {
 
     namespace bankAccounts {
         interface IBankAccount extends IBankAccountHash {
-            account: string;
+            account?: string;
 
             /**
              * This indicates whether or not this bank account is the default external account for its currency.
              */
-            default_for_currency: boolean;
+            default_for_currency?: boolean;
 
             /**
              * A set of key/value pairs that you can attach to a bank account object. It
@@ -4075,20 +4090,20 @@ declare namespace Stripe {
 
         interface IBankAccountHash extends IResourceObject {
             /**
-             * value is "customer_bank_account"
+             * value is "bank_account"
              */
-            object: "customer_bank_account";
+            object: "bank_account";
 
             /**
              * The name of the person or business that owns the bank account.
              */
-            account_holder_name: string;
+            account_holder_name: string | null;
 
             /**
              * The type of entity that holds the account. This can be either
              * "individual"" or "company".
              */
-            account_holder_type: string;
+            account_holder_type: "individual" | "company" | null;
 
             /**
              * Name of the bank associated with the routing number, e.g. WELLS FARGO.
@@ -4104,6 +4119,8 @@ declare namespace Stripe {
              * Three-letter ISO currency code representing the currency paid out to the bank account.
              */
             currency: string;
+
+            customer?: string;
 
             /**
              * Uniquely identifies this particular bank account. You can use this attribute
@@ -4130,7 +4147,7 @@ declare namespace Stripe {
              * transfer sent to this bank account fails, we’ll set the status to "errored""
              * and will not continue to send transfers until the bank details are updated.
              */
-            status: "new" | "validated" | "verified" | "verification_failed" | "error" ;
+            status: "new" | "validated" | "verified" | "verification_failed" | "errored";
         }
 
         interface ISourceCreationOptions {
@@ -4179,12 +4196,19 @@ declare namespace Stripe {
             /**
              * The name of the person or business that owns the bank account.
              */
-            account_holder_name?: string;
+            account_holder_name?: string | null;
 
             /**
              * The type of entity that holds the account. This can be either "individual" or "company".
              */
-            account_holder_type?: "individual" | "company";
+            account_holder_type?: "individual" | "company" | null;
+        }
+
+        interface IBankAccountVerifyOptions {
+            /**
+             * Two positive integers, in cents, equal to the values of the microdeposits sent to the bank account.
+             */
+            amounts: [number, number];
         }
     }
 
@@ -4437,15 +4461,15 @@ declare namespace Stripe {
             /**
              * If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.
              */
-            address_line1_check: string | null;
+            address_line1_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
             address_line2: string | null;
             address_state: string | null;
-            address_zip: string;
+            address_zip: string | null;
 
             /**
              * If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked.
              */
-            address_zip_check: "pass" | "fail" | "unavailable" | "unchecked" ;
+            address_zip_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
 
             /**
              * Two-letter ISO code representing the country of the card. You could use this
@@ -5478,8 +5502,8 @@ declare namespace Stripe {
              * currency is not the Stripe account's default currency. Otherwise, you must set another external account to be the default for the currency
              * before deleting it.
              */
-            deleteExternalAccount(accId: string, id: string, options: HeaderOptions, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
-            deleteExternalAccount(accId: string, id: string, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
+            deleteExternalAccount(accId: string, id: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
+            deleteExternalAccount(accId: string, id: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
 
             /**
              * You can see a list of the bank accounts belonging to a managed account. Note that the 10 most recent external accounts are always
@@ -6256,8 +6280,18 @@ declare namespace Stripe {
             deleteSource(customerId: string, sourceId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
 
 
-            verifySource(customerId: string, sourceId: string, options: HeaderOptions): Promise<{}>; //TODO: This still needs properly implementing.
-            verifySource(customerId: string, sourceId: string): Promise<{}>; //TODO: This still needs properly implementing.
+            /**
+             * A customer's bank account must first be verified before it can be charged. Stripe supports instant verification using Plaid for many of
+             * the most popular banks. If your customer's bank is not supported or you do not wish to integrate with Plaid, you must manually verify
+             * the customer's bank account using the API.
+             *
+             * @returns Returns the bank account object.
+             *
+             * @param customerId The ID of the customer whose source needs to be verified.
+             * @param sourceId The ID of the source to be verified.
+             */
+            verifySource(customerId: string, sourceId: string, data: bankAccounts.IBankAccountVerifyOptions, options: HeaderOptions): Promise<bankAccounts.IBankAccount>;
+            verifySource(customerId: string, sourceId: string, data: bankAccounts.IBankAccountVerifyOptions): Promise<bankAccounts.IBankAccount>;
 
 
             /**
@@ -7350,7 +7384,11 @@ declare namespace Stripe {
         (err: IStripeError, value: R): void;
     }
 
-    interface IDeleteConfirmation { id: string; deleted: boolean; }
+    interface IDeleteConfirmation {
+        id: string;
+        object: string;
+        deleted: boolean;
+    }
 
     /**
      * A filter on the list based on this object field. The value can

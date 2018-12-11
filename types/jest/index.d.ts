@@ -16,6 +16,7 @@
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Martin Hochel <https://github.com/hotell>
 //                 Sebastian Sebald <https://github.com/sebald>
+//                 Andy <https://github.com/andys8>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -197,7 +198,7 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): MockInstance<T[M]>;
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -250,7 +251,7 @@ declare namespace jest {
          * @param fn The function for your test
          * @param timeout The timeout for an async function test
          */
-        (name: string, fn: ProvidesCallback, timeout?: number): void;
+        (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /**
          * Only runs this test in the current file.
          */
@@ -317,6 +318,7 @@ declare namespace jest {
     }
 
     interface MatcherUtils {
+        readonly expand: boolean;
         readonly isNot: boolean;
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
@@ -343,7 +345,14 @@ declare namespace jest {
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string | (() => string), pass: boolean } | Promise<{ message(): string, pass: boolean }>;
+        [key: string]: CustomMatcher;
+    }
+
+    type CustomMatcher = (this: MatcherUtils, received: any, ...actual: any[]) => CustomMatcherResult | Promise<CustomMatcherResult>;
+
+    interface CustomMatcherResult {
+        pass: boolean;
+        message: string | (() => string);
     }
 
     interface SnapshotSerializerOptions {
@@ -382,6 +391,36 @@ declare namespace jest {
     interface SnapshotSerializerPlugin {
         print(val: any, serialize: ((val: any) => string), indent: ((str: string) => string), opts: SnapshotSerializerOptions, colors: SnapshotSerializerColors): string;
         test(val: any): boolean;
+    }
+
+    interface InverseAsymmetricMatchers {
+        /**
+         * `expect.not.arrayContaining(array)` matches a received array which
+         * does not contain all of the elements in the expected array. That is,
+         * the expected array is not a subset of the received array. It is the
+         * inverse of `expect.arrayContaining`.
+         */
+        arrayContaining(arr: any[]): any;
+        /**
+         * `expect.not.objectContaining(object)` matches any received object
+         * that does not recursively match the expected properties. That is, the
+         * expected object is not a subset of the received object. Therefore,
+         * it matches a received object which contains properties that are not
+         * in the expected object. It is the inverse of `expect.objectContaining`.
+         */
+        objectContaining(obj: {}): any;
+        /**
+         * `expect.not.stringMatching(string | regexp)` matches the received
+         * string that does not match the expected regexp. It is the inverse of
+         * `expect.stringMatching`.
+         */
+        stringMatching(str: string | RegExp): any;
+        /**
+         * `expect.not.stringContaining(string)` matches the received string
+         * that does not contain the exact expected string. It is the inverse of
+         * `expect.stringContaining`.
+         */
+        stringContaining(str: string): any;
     }
 
     /**
@@ -466,6 +505,8 @@ declare namespace jest {
          * Matches any received string that contains the exact expected string
          */
         stringContaining(str: string): any;
+
+        not: InverseAsymmetricMatchers;
     }
 
     interface Matchers<R> {
@@ -664,7 +705,7 @@ declare namespace jest {
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchSnapshot<T extends {[P in keyof R]: Expect['any']}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
+        toMatchSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
@@ -675,7 +716,7 @@ declare namespace jest {
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchInlineSnapshot<T extends {[P in keyof R]: Expect['any']}>(propertyMatchers: Partial<T>, snapshot?: string): R;
+        toMatchInlineSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshot?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
@@ -725,6 +766,8 @@ declare namespace jest {
         new (...args: any[]): T;
         (...args: any[]): any;
     }
+
+    interface SpyInstance<T = {}> extends MockInstance<T> {}
 
     /**
      * Wrap module with mock definitions

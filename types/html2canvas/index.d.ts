@@ -14,8 +14,8 @@ declare namespace Html2Canvas {
         /** Whether to allow cross-origin images to taint the canvas */
         allowTaint?: boolean;
 
-        /** Canvas background color, if none is specified in DOM. Set undefined for transparent */
-        backgroundColor?: string;
+        /** Canvas background color, if none is specified in DOM. Set null for transparent */
+        backgroundColor?: string | null;
 
         /** Existing canvas element to use as a base for drawing on */
         canvas?: any;

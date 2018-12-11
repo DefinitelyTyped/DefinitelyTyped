@@ -1,5 +1,5 @@
 // Type definitions for office-runtime 1.0
-// Project: http://dev.office.com/
+// Project: https://github.com/OfficeDev/office-js
 // Definitions by: Michael Zlatskovsky <https://github.com/Zlatkovsky>, Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 2.4
@@ -49,11 +49,6 @@ declare namespace OfficeRuntime {
          * Removes an item for specified key and invokes a callback when finished. Returns a Promise.
          */
         removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
-        /**
-         * @beta
-         * Erases all AsyncStorage. Returns a Promise.
-         */
-        clear(callback?: (error?: Error) => void): Promise<void>;
         /**
          * @beta
          * Returns a Promise with all keys.

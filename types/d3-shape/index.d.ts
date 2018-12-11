@@ -2,10 +2,15 @@
 // Project: https://github.com/d3/d3-shape/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.2.0
 
 import { Path } from 'd3-path';
+
+declare global {
+    interface CanvasRenderingContext2D {} // tslint:disable-line no-empty-interface
+}
 
 // -----------------------------------------------------------------------------------
 // Shared Types and Interfaces

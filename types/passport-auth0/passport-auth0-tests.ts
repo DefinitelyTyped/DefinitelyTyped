@@ -15,7 +15,8 @@ const User = {
 passport.use(new auth0.Strategy({
     clientID: process.env.PASSPORT_AUTH0_CLIENT_ID as string,
     clientSecret: process.env.PASSPORT_AUTH0_CLIENT_SECRET as string,
-    callbackURL: process.env.PASSPORT_AUTH0_CALLBACK_URL as string
+    callbackURL: process.env.PASSPORT_AUTH0_CALLBACK_URL as string,
+    domain : process.env.PASSPORT_AUTH0_DOMAIN as string
 },
     (accessToken: string, refreshToken: string, extraParams: auth0.ExtraVerificationParams, profile: auth0.Profile, done: (error: any, user?: any) => void) => {
         User.findOrCreate(profile.id, profile.provider, (err, user) => {
@@ -29,6 +30,7 @@ passport.use(new auth0.Strategy({
     clientID: process.env.PASSPORT_AUTH0_CLIENT_ID as string,
     clientSecret: process.env.PASSPORT_AUTH0_CLIENT_SECRET as string,
     callbackURL: process.env.PASSPORT_AUTH0_CALLBACK_URL as string,
+    domain : process.env.PASSPORT_AUTH0_DOMAIN as string,
     passReqToCallback: true
 },
     (req: express.Request, accessToken: string, refreshToken: string, profile: auth0.Profile, done: (error: any, user?: any) => void) => {
@@ -42,7 +44,8 @@ passport.use(new auth0.Strategy({
 passport.use(new auth0.Strategy({
     clientID: process.env.PASSPORT_AUTH0_CLIENT_ID as string,
     clientSecret: process.env.PASSPORT_AUTH0_CLIENT_SECRET as string,
-    callbackURL: process.env.PASSPORT_AUTH0_CALLBACK_URL as string
+    callbackURL: process.env.PASSPORT_AUTH0_CALLBACK_URL as string,
+    domain : process.env.PASSPORT_AUTH0_DOMAIN as string
 },
     (accessToken: string, refreshToken: string, extraParams: auth0.ExtraVerificationParams, profile: auth0.Profile, done: (error: any, user?: any, info?: any) => void) => {
         done(null, false, { message: 'Some error.' });
