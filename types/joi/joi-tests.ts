@@ -618,6 +618,7 @@ numSchema = numSchema.greater(ref);
 numSchema = numSchema.less(num);
 numSchema = numSchema.less(ref);
 numSchema = numSchema.integer();
+numSchema = numSchema.unsafe();
 numSchema = numSchema.precision(num);
 numSchema = numSchema.multiple(num);
 numSchema = numSchema.positive();

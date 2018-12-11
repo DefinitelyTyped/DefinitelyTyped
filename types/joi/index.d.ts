@@ -507,7 +507,7 @@ export interface NumberSchema extends AnySchema {
     /**
      * Allows the number to be outside of JavaScript's safety range (Number.MIN_SAFE_INTEGER & Number.MAX_SAFE_INTEGER).
      */
-    unsafe(enabled: boolean): this;
+    unsafe(enabled?: boolean): this;
 
     /**
      * Specifies the maximum number of decimal places where:
