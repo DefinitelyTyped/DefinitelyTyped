@@ -36,7 +36,7 @@ stories.add('with all knobs', () => {
   const selectedColor = color('Color', 'black');
   const favoriteNumber = number('Favorite Number', 42);
   const comfortTemp = number('Comfort Temp', 72, { range: true, min: 60, max: 90, step: 1 });
-  const radioStation = radios('Favorite Radio Station', {1100: "1100", 2200: "2200", 3300: "3300"});
+  const radioStation = radios('Favorite Radio Station', { 1100: "1100", 2200: "2200", 3300: "3300" });
   const textDecoration = select('Decoration', {
     none: 'None',
     underline: 'Underline',
