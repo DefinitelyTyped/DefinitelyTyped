@@ -160,6 +160,9 @@ function JQueryStatic() {
         // $ExpectType JQuery<HTMLSelectElement>
         $([new HTMLSelectElement()]);
 
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $(document.querySelectorAll('p'));
+
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19597#issuecomment-378218432
         function issue_19597_378218432() {
             const myDiv = $(document.createElement('div'));
