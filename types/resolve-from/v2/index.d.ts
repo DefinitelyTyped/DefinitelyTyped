@@ -1,4 +1,4 @@
-// Type definitions for resolve-from
+// Type definitions for resolve-from 2.0
 // Project: https://github.com/sindresorhus/resolve-from
 // Definitions by: unional <https://github.com/unional>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
