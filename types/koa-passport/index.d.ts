@@ -59,6 +59,6 @@ declare namespace KoaPassport {
     }
 }
 
-declare const koaPassport: KoaPassport.Static;
+declare const KoaPassport: KoaPassport.Static;
 
-export = koaPassport;
+export = KoaPassport;
