@@ -762,6 +762,38 @@ declare namespace Dockerode {
     [key: string]: EndpointSettings;
   }
 
+  type MountType =
+    | "bind"
+    | "volume"
+    | "tmpfs";
+
+  type MountConsistency =
+    | "default"
+    | "consistent"
+    | "cached"
+    | "delegated";
+
+  type MountPropagation =
+    | "private"
+    | "rprivate"
+    | "shared"
+    | "rshared"
+    | "slave"
+    | "rslave";
+
+  interface MountSettings {
+    Target: string;
+    Source: string;
+    Type: MountType;
+    ReadOnly ?: boolean;
+    Consistency ?: MountConsistency;
+    BindOptions ?: {
+      Propagation: MountPropagation;
+    };
+  }
+
+  type MountConfig = MountSettings[];
+
   interface ContainerCreateOptions {
     name?: string;
     Hostname?: string;
@@ -818,6 +850,7 @@ declare namespace Dockerode {
       DnsSearch?: string[];
       ExtraHosts?: any;
       VolumesFrom?: string[];
+      Mounts?: MountConfig;
       CapAdd?: string[];
       CapDrop?: string[];
       GroupAdd?: string[];
