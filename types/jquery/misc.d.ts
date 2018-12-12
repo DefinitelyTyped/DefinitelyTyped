@@ -4710,6 +4710,7 @@ $( "button" ).click(function( event ) {
 ```
          */
         namespace?: string;
+        originalEvent?: _Event;
         /**
          * The last value returned by an event handler that was triggered by this event, unless the value was undefined.
          * @see \`{@link https://api.jquery.com/event.result/ }\`

@@ -2,7 +2,7 @@
 // Project: https://github.com/domenic/sinon-chai
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>, Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 /// <reference types="chai" />
 /// <reference types="sinon" />
