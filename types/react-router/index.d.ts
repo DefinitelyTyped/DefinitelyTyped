@@ -68,15 +68,24 @@ export interface StaticContext {
 export interface RouteComponentProps<Params extends { [K in keyof Params]?: string } = {}, C extends StaticContext = StaticContext, S = H.LocationState> {
   history: H.History;
   location: H.Location<S>;
-  match: match<Params> | null;
+  match: match<Params>;
   staticContext?: C;
+}
+
+export interface RouteChildrenProps<
+  Params extends { [K in keyof Params]?: string } = {},
+  S = H.LocationState
+> {
+  history: H.History;
+  location: H.Location<S>;
+  match: match<Params> | null;
 }
 
 export interface RouteProps {
   location?: H.Location;
   component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
-  children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
+  children?: ((props: RouteChildrenProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string | string[];
   exact?: boolean;
   sensitive?: boolean;

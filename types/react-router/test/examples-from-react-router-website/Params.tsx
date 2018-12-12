@@ -22,7 +22,7 @@ const ParamsExample = () => (
   </Router>
 );
 
-const Child: React.SFC<RouteComponentProps<{id: string}>> = ({ match }) => match && (
+const Child: React.SFC<RouteComponentProps<{id: string}>> = ({ match }) => (
   <div>
     <h3>ID: {match.params.id}</h3>
   </div>
