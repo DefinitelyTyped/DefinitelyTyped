@@ -1,4 +1,4 @@
-// Type definitions for Swiper 4.2
+// Type definitions for Swiper 4.4
 // Project: https://github.com/nolimits4web/Swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
 //                 Luca Trazzi <https://github.com/lucax88x>
@@ -220,6 +220,7 @@ export interface SwiperOptions {
     centeredSlides?: boolean;
     slidesOffsetBefore?: number;
     slidesOffsetAfter?: number;
+    centerInsufficientSlides?: boolean;
     normalizeSlideIndex?: boolean;
 
     // Grab Cursor
@@ -291,6 +292,7 @@ export interface SwiperOptions {
     breakpoints?: {
         [index: number]: SwiperOptions;
     };
+    breakpointsInverse?: boolean;
 
     // Observer
     observer?: boolean;
@@ -551,6 +553,8 @@ export interface PaginationOptions {
 
     clickable?: boolean;
 
+    progressbarOpposite?: boolean;
+
     /**
      * format fraction pagination current number. Function receives current number,
      * and you need to return formatted value
@@ -775,6 +779,8 @@ export interface VirtualOptions {
     cache?: boolean;
     renderSlide?: (slide: any, index: any) => any;
     renderExternal?: (data: any) => any;
+    addSlidesBefore?: number;
+    addSlidesAfter?: number;
 }
 
 export interface HashNavigationOptions {
