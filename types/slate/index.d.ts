@@ -409,7 +409,7 @@ declare class BaseNode<
     getChild(path: Path): Node | null;
     getClosestBlock(path: Path): Block | null;
     getClosestInline(path: Path): Inline | null;
-    getClosestVoid(path: Path): Node | null;
+    getClosestVoid(key: string | Path): Node | null;
     getClosestVoid(key: string): Node | null;
     getClosest(path: Path, iterator: (node: Node) => boolean): Node | null;
     getCommonAncestor(a: Path, b: Path): Node;
