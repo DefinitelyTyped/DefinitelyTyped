@@ -369,6 +369,7 @@ function test_dom_walker() {
     node = walker.lastForward();
     node = walker.next();
     node = walker.previous();
+    isSomething = walker.guard(node, true);
     walker.reset();
 
     isSomething = CKEDITOR.dom.walker.blockBoundary({ div: 1 })(node);
