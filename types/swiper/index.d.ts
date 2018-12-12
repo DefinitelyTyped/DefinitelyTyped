@@ -238,6 +238,8 @@ export interface SwiperOptions {
     followFinger?: boolean;
     allowTouchMove?: boolean;
     threshold?: number;
+    touchStartPreventDefault?: boolean;
+    touchStartForcePreventDefault?: boolean;
     touchMoveStopPropagation?: boolean;
     iOSEdgeSwipeDetection?: boolean;
     iOSEdgeSwipeThreshold?: number;
