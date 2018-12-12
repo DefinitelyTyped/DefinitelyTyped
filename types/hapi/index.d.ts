@@ -3,6 +3,7 @@
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2305,7 +2306,7 @@ export interface RequestEvent {
 export type LogEventHandler = (event: LogEvent, tags: { [key: string]: true }) => void;
 export type RequestEventHandler = (request: Request, event: RequestEvent, tags: { [key: string]: true }) => void;
 export type ResponseEventHandler = (request: Request) => void;
-export type RouteEventHandler = (route: ServerRoute) => void;
+export type RouteEventHandler = (route: RequestRoute) => void;
 export type StartEventHandler = () => void;
 export type StopEventHandler = () => void;
 
