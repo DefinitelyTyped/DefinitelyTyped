@@ -273,10 +273,10 @@ declare module 'recompose' {
 
     // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
     export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
-        RenderPropsComponent: StatelessComponent<any>,
-        propsMapper: (props: TRenderProps) => Partial<TInner>,
+        RenderPropsComponent: Component<any>,
+        propsMapper: (props: TRenderProps) => TInner,
         renderPropName?: string
-    ): ComponentEnhancer<TInner, TOutter>;
+    ): ComponentEnhancer<TInner & TOutter, TOutter>;
 
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
 
