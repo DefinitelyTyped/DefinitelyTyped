@@ -592,6 +592,7 @@ interface BaseJQueryEventObject extends Event {
     pageY: number;
     /**
      * For key or mouse events, this property indicates the specific key or button that was pressed.
+     * @deprecated Use `key` for KeyEvents or `button` for MouseEvents instead.
      * @see {@link https://api.jquery.com/event.which/}
      */
     which: number;
