@@ -4,18 +4,18 @@ const conf = new Conf<string | number | boolean>();
 new Conf<string>({
     defaults: {
         foo: 'bar',
-        unicorn: 'rainbow'
+        unicorn: 'rainbow',
     },
     configName: '',
     projectName: 'foo',
-    cwd: ''
+    cwd: '',
 });
 // $ExpectError
 new Conf<string>({
     defaults: {
         foo: 'bar',
-        unicorn: ['rainbow']
-    }
+        unicorn: ['rainbow'],
+    },
 });
 conf.set('foo', 'bar');
 conf.set('hello', 1);
@@ -31,7 +31,7 @@ conf.clear();
 
 conf.store = {
     foo: 'bar',
-    unicorn: 'rainbow'
+    unicorn: 'rainbow',
 };
 conf.path; // $ExpectType string
 
