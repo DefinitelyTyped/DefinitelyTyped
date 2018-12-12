@@ -1163,6 +1163,24 @@ declare namespace Xrm
              * @remarks Valid for optionset and boolean attribute types
              */
             getInitialValue(): number | boolean;
+
+            /**
+             * Gets the value.
+             *
+             * @return  The value.
+             */
+            getValue(): string;
+
+            /**
+             * Sets the value.
+             *
+             * @param   {string}    value   The value.
+             *
+             * @remarks     A String field with the {@link Attribute.getFormat|email} format enforces email
+             *              address formatting. Attributes on Quick Create Forms will not save values set
+             *              with this method.
+             */
+            setValue( value: string ): void;
         }
 
         /**
