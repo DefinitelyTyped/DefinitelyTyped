@@ -30,6 +30,7 @@ import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
 import * as inspector from "inspector";
 import * as perf_hooks from "perf_hooks";
+import * as trace_events from "trace_events";
 import Module = require("module");
 
 // Specifically test buffer module regression.
@@ -4674,6 +4675,19 @@ import * as constants from 'constants';
         });
         session.on('Debugger.resumed', () => {});
     }
+}
+
+///////////////////////////////////////////////////////////
+/// Trace Events Tests                                  ///
+///////////////////////////////////////////////////////////
+
+{
+    const enabledCategories: string = trace_events.getEnabledCategories();
+    const tracing: trace_events.Tracing = trace_events.createTracing({ categories: ['node', 'v8'] });
+    const categories: string = tracing.categories;
+    const enabled: boolean = tracing.enabled;
+    tracing.enable();
+    tracing.disable();
 }
 
 ////////////////////////////////////////////////////
