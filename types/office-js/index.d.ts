@@ -9421,7 +9421,7 @@ declare namespace Office {
     }
 
     /**
-     * The InternetHeaders object represents properties that are preserved after the item leaves Exchange and converted to a MIME message. 
+     * The InternetHeaders object represents properties that are preserved after the message item leaves Exchange and is converted to a MIME message. 
      * These properties are stored as x-headers in the MIME message.
      * 
      * InternetHeaders are stored as key/value pairs on a per-item basis.
