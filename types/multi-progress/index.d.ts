@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-import ProgressBar, { ProgressBarOptions } from '../progress';
+import ProgressBar, { ProgressBarOptions } from 'progress';
 import { Stream } from 'stream';
 
 export default class MultiProgress {
