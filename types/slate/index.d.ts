@@ -410,7 +410,6 @@ declare class BaseNode<
     getClosestBlock(path: Path): Block | null;
     getClosestInline(path: Path): Inline | null;
     getClosestVoid(key: string | Path): Node | null;
-    getClosestVoid(key: string): Node | null;
     getClosest(path: Path, iterator: (node: Node) => boolean): Node | null;
     getCommonAncestor(a: Path, b: Path): Node;
     getDecorations(editor: Editor): Immutable.List<Decoration>;
