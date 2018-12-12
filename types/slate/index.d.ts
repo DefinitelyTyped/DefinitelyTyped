@@ -56,7 +56,6 @@ export interface SchemaProperties {
 export interface ValueProperties {
     document?: Document;
     selection?: Selection;
-    history?: History;
     data?: Data;
     decorations?: Immutable.List<Decoration> | null;
 }
@@ -64,7 +63,6 @@ export interface ValueProperties {
 export interface ValueJSON {
     document?: DocumentJSON;
     selection?: Selection;
-    history?: History;
     data?: Data;
     decorations?: Immutable.List<Decoration> | null;
     object?: "value";
@@ -75,7 +73,6 @@ export type Path = Immutable.List<number> | string;
 export class Value extends Immutable.Record({}) {
     document: Document;
     selection: Selection;
-    history: History;
     data: Data;
     object: "value";
     decorations: Immutable.List<Decoration>;
