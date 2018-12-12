@@ -1,12 +1,14 @@
 // Type definitions for eureka-js-client 4.4
 // Project: https://github.com/jquatier/eureka-js-client
-// Definitions by: Ilko Hoffmann <https://github.com/Schnillz>, Karl O. <https://github.com/karl-run>
+// Definitions by: Ilko Hoffmann <https://github.com/Schnillz>
+//                 Karl O. <https://github.com/karl-run>
+//                 Tom Barton <https://github.com/tombarton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Eureka {
     constructor(config: EurekaClient.EurekaConfig)
-    start(): void;
-    stop(): void;
+    start(cb?: (err?: Error) => void): void;
+    stop(cb?: (err?: Error) => void): void;
     getInstancesByAppId(appId: string): string[];
     getInstancesByVipAddress(vidAddress: string): string [];
 }

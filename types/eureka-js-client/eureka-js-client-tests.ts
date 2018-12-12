@@ -43,3 +43,11 @@ const newerClient = new Eureka({
     port: 32768,
   }
 });
+
+// Test callbacks
+newerClient.start((err: Error) => {});
+newerClient.start(() => {});
+newerClient.start();
+newerClient.stop((err: Error) => {});
+newerClient.start(() => {});
+newerClient.stop();
