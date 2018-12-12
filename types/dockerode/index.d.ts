@@ -109,9 +109,9 @@ declare namespace Dockerode {
     logs(callback: Callback<NodeJS.ReadableStream>): void;
     logs(options?: ContainerLogsOptions): Promise<NodeJS.ReadableStream>;
 
-    stats(options: {}, callback: Callback<any>): void;
-    stats(callback: Callback<any>): void;
-    stats(options?: {}): Promise<any>;
+    stats(options: {}, callback: Callback<ContainerStats>): void;
+    stats(callback: Callback<ContainerStats>): void;
+    stats(options?: {}): Promise<ContainerStats>;
 
     attach(options: {}, callback: Callback<NodeJS.ReadWriteStream>): void;
     attach(options: {}): Promise<NodeJS.ReadWriteStream>;
