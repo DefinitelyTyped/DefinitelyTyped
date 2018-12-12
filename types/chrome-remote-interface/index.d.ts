@@ -12,15 +12,15 @@ declare function CDP(options?: CDP.ChromeRemoteInterfaceOptions | Callback, call
 type Callback = (...args: any[]) => void;
 
 declare namespace CDP {
-  interface ChromeRemoteInterfaceOptions {
-    host?: string;
-    port?: number;
-    secure?: boolean;
-    useHostName?: boolean;
-    target?: (targets: Target[]) => Target | string;
-    protocol?: DevtoolsProtocol;
-    local?: boolean;
-  }
+    interface ChromeRemoteInterfaceOptions {
+        host?: string;
+        port?: number;
+        secure?: boolean;
+        useHostName?: boolean;
+        target?: (targets: Target[]) => Target | string;
+        protocol?: DevtoolsProtocol;
+        local?: boolean;
+    }
 
   interface ProtocolOptions {
       host?: string;
@@ -81,31 +81,31 @@ declare namespace CDP {
   }
 
   interface Type {
-    id: string;
-    description: string;
-    type: string;
-    enum?: string[];
+      id: string;
+      description: string;
+      type: string;
+      enum?: string[];
   }
 
   interface Command {
-    name: string;
-    description: string;
-    experimental: boolean;
-    parameters?: any[];
-    returns?: any[];
+      description: string;
+      name: string;
+      experimental: boolean;
+      parameters?: any[];
+      returns?: any[];
   }
 
   interface Domain {
-    domain: string;
-    experimental: string;
-    dependencies: string[];
-    types: Type[];
-    commands: Command[];
+      domain: string;
+      experimental: string;
+      dependencies: string[];
+      types: Type[];
+      commands: Command[];
   }
 
   interface DevtoolsProtocol extends Object {
-    version: { major: string, minor: string };
-    domains: Domain[];
+      version: { major: string, minor: string };
+      domains: Domain[];
   }
   function Activate(options: TargetOptions, callback: ((err: Error) => void)): void;
   function Activate(options?: TargetOptions): Promise<void>;
