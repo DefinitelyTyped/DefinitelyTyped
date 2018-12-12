@@ -620,11 +620,11 @@ declare namespace wx {
         /**
          * 支付取消后的回调函数
          */
-        cancel(res: any): void;
+        cancel?(res: any): void;
         /**
          * 支付失败后的回调函数
          */
-        fail(res: any): void;
+        fail?(res: any): void;
     }
 
     /**
