@@ -10,22 +10,22 @@
 /**
  * These are keys in the options object you can pass to the progress bar along with total as seen in the example above.
  */
-interface ProgressBarOptions {
+export interface ProgressBarOptions {
     /**
      * Total number of ticks to complete.
      */
     total: number;
-    
+
     /**
      * current completed index
      */
-    curr?: number;    
-    
+    curr?: number;
+
     /**
      * head character defaulting to complete character
      */
-    head?: string;    
-    
+    head?: string;
+
     /**
      * The displayed width of the progress bar defaulting to total.
      */
@@ -120,7 +120,7 @@ declare class ProgressBar {
      *   overall completion to.
      */
     update(ratio: number, tokens?: any): void;
-    
+
     /**
      * "interrupt" the progress bar and write a message above it.
      */
@@ -128,7 +128,7 @@ declare class ProgressBar {
 
     /**
      * Terminates a progress bar.
-     */ 
+     */
     terminate(): void;
 
     /**
@@ -138,4 +138,4 @@ declare class ProgressBar {
 }
 declare namespace ProgressBar { }
 
-export = ProgressBar;
+export default ProgressBar;
