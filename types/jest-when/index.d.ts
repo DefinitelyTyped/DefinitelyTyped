@@ -8,6 +8,11 @@
 
 export interface PartialMockInstance<T> {
   mockReturnValue: jest.MockInstance<T>['mockReturnValue'];
+  mockReturnValueOnce: jest.MockInstance<T>['mockReturnValueOnce'];
+  mockResolvedValue: jest.MockInstance<T>['mockResolvedValue'];
+  mockResolvedValueOnce: jest.MockInstance<T>['mockResolvedValueOnce'];
+  mockRejectedValue: jest.MockInstance<T>['mockRejectedValue'];
+  mockRejectedValueOnce: jest.MockInstance<T>['mockRejectedValueOnce'];
 }
 
 export interface When {

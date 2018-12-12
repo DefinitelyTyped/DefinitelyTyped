@@ -7,7 +7,9 @@ import {
   connectStateResults,
   SearchBoxProvided,
   connectSearchBox,
-  connectRefinementList
+  connectRefinementList,
+  CurrentRefinementsProvided,
+  connectCurrentRefinements
 } from 'react-instantsearch-core';
 
 () => {
@@ -100,9 +102,7 @@ import {
       <h1>{additionalProp}</h1>
       {searchResults.hits.map((h) => {
         // $ExpectType string
-        const compound = h._highlightResult.field3.compound.value;
-        // $ExpectType never
-        const field2 = h._highlightResult.field2;
+        const compound = h._highlightResult.field3!.compound!.value;
         return <span>{compound}</span>;
       })}
     </div>;
@@ -119,7 +119,7 @@ import {
       <h1>{additionalProp}</h1>
       {searchResults.hits.map((h) => {
         // $ExpectType string[]
-        const words = h._highlightResult.field3.compound.matchedWords;
+        const words = h._highlightResult.field3!.compound!.matchedWords;
         return <span>{h.field2}: {words.join(',')}</span>;
       })}
     </div>;
@@ -152,4 +152,19 @@ import {
   // the <InstantSearch> state, providing it with `currentRefinement` and `refine` props for
   // reading and manipulating the current query of the search.
   const ConnectedSearchBox = connectSearchBox(MySearchBox);
+};
+
+() => {
+  const MyCurrentRefinements = ({refine, items, query}: CurrentRefinementsProvided) =>
+    <>
+      {items.map((refinement) => (
+        <div key={refinement.id} onClick={() => refine(refinement.value) }>
+          <label>{refinement.label}</label>
+        </div>
+      ))}
+    </>;
+
+  const ConnectedCurrentRefinements = connectCurrentRefinements(MyCurrentRefinements);
+
+  <ConnectedCurrentRefinements clearsQuery={true} transformItems={(item) => item} />;
 };

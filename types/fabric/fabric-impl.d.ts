@@ -4529,7 +4529,7 @@ interface IUtilMisc {
 	 * @param [context] Context to invoke callback in
 	 * @param [crossOrigin] crossOrigin value to set image element to
 	 */
-	loadImage(url: string, callback: (image: HTMLImageElement) => void, context?: any, crossOrigin?: boolean): void;
+	loadImage(url: string, callback: (image: HTMLImageElement) => void, context?: any, crossOrigin?: string): void;
 
 	/**
 	 * Creates corresponding fabric instances from their object representations

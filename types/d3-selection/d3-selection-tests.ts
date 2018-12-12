@@ -1060,7 +1060,7 @@ interface SuccessEvent {
 const successEvent = { type: 'wonEuro2016', team: 'Island' };
 
 function customListener(this: HTMLBodyElement | null, finalOpponent: string): string {
-    const e = <SuccessEvent> d3Selection.event;
+    const e = d3Selection.event as SuccessEvent;
 
     return `${e.team} defeated ${finalOpponent} in the EURO 2016 Cup. Who would have thought!!!`;
 }
