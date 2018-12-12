@@ -298,7 +298,7 @@ declare namespace React {
     }
 
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
     }
 
     type ContextType<C extends Context<any>> = C extends Context<infer T> ? T : never;
@@ -461,7 +461,7 @@ declare namespace React {
 
     interface FunctionComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
@@ -469,7 +469,7 @@ declare namespace React {
 
     interface RefForwardingComponent<T, P = {}> {
         (props: P & { children?: ReactNode }, ref: Ref<T> | null): ReactElement<any> | null;
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
@@ -477,7 +477,7 @@ declare namespace React {
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
         contextType?: Context<any>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -2557,6 +2557,14 @@ declare namespace React {
     type Requireable<T> = PropTypes.Requireable<T>;
 
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
+
+    type WeakValidationMap<T> = {
+        [K in keyof T]?: null extends T[K]
+            ? Validator<T[K] | null | undefined>
+            : undefined extends T[K]
+            ? Validator<T[K] | null | undefined>
+            : Validator<T[K]>
+    };
 
     interface ReactPropTypes {
         any: typeof PropTypes.any;
