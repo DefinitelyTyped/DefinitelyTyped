@@ -2090,7 +2090,7 @@ $( "#frameDemo" ).contents().find( "a" ).css( "background-color", "#BADA55" );
 </html>
 ```
      */
-    contents(): JQuery<TElement | Text | Comment>;
+    contents(): JQuery<TElement | Text | Comment | Document>;
     /**
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
