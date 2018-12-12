@@ -53,39 +53,10 @@ export interface SchemaProperties {
     inlines?: RulesByNodeType;
 }
 
-export class Schema extends Immutable.Record({}) {
-    stack: Stack;
-    rules: Rules[];
-
-    static create(properties: SchemaProperties | Schema): Schema;
-    static fromJSON(object: SchemaProperties): Schema;
-    static fromJS(object: SchemaProperties): Schema;
-    static isSchema(maybeSchema: any): maybeSchema is Schema;
-
-    validateNode(node: Node): Error | void;
-    testNode(node: Node): boolean;
-    assertNode(node: Node): boolean;
-    getNodeRules(node: Node): any[];
-    isVoid(node: Node): boolean;
-    isAtomic(mark: Mark): boolean;
-    normalizeNode(node: Node): () => void;
-    testRules(object: any, rules: object | any[]): boolean;
-    validateRules(
-        object: any,
-        rule: object | any[],
-        rules: any[] | null,
-        options?: object
-    ): Error | void;
-
-    toJSON(): SchemaProperties;
-    toJS(): SchemaProperties;
-}
-
 export interface ValueProperties {
     document?: Document;
     selection?: Selection;
     history?: History;
-    schema?: Schema;
     data?: Data;
     decorations?: Immutable.List<Decoration> | null;
 }
@@ -94,7 +65,6 @@ export interface ValueJSON {
     document?: DocumentJSON;
     selection?: Selection;
     history?: History;
-    schema?: Schema;
     data?: Data;
     decorations?: Immutable.List<Decoration> | null;
     object?: "value";
@@ -106,7 +76,6 @@ export class Value extends Immutable.Record({}) {
     document: Document;
     selection: Selection;
     history: History;
-    schema: Schema;
     data: Data;
     object: "value";
     decorations: Immutable.List<Decoration>;
@@ -350,9 +319,6 @@ export class Text extends Immutable.Record({}) {
     ): Text;
     splitText(offset: number): Text[];
     mergeText(text: Text): Text;
-    normalize(schema: Schema): () => void | null;
-    validate(schema: Schema): Error | null;
-    getFirstInvalidNode(schema: Schema): Text | null;
     setLeaves(leaves: Immutable.List<Leaf>): Text;
 }
 
@@ -446,13 +412,13 @@ declare class BaseNode<
     getChild(path: Path): Node | null;
     getClosestBlock(path: Path): Block | null;
     getClosestInline(path: Path): Inline | null;
-    getClosestVoid(path: Path, schema: Schema): Node | null;
+    getClosestVoid(path: Path): Node | null;
+    getClosestVoid(key: string): Node | null;
     getClosest(path: Path, iterator: (node: Node) => boolean): Node | null;
     getCommonAncestor(a: Path, b: Path): Node;
-    getDecorations(stack: Stack): Immutable.List<Range>;
+    getDecorations(editor: Editor): Immutable.List<Decoration>;
     getDepth(path: Path, startAt?: number): number;
     getDescendant(path: Path): Node | null;
-    getFirstInvalidNode(schema: Schema): Node | null;
     getFirstText(): Text | null;
     getFragmentAtRange(range: Range): Document;
     getFurthest(path: Path, iterator: (node: Node) => boolean): Node | null;
@@ -514,7 +480,7 @@ declare class BaseNode<
     hasInlineChildren(): boolean;
     hasDescendant(path: Path): boolean;
     hasNode(path: Path): boolean;
-    hasVoidParent(path: Path, schema: Schema): boolean;
+    hasVoidParent(path: Path, editor: Editor): boolean;
     insertNode(path: Path, node: Node): Node;
     insertText(
         path: Path,
@@ -528,7 +494,7 @@ declare class BaseNode<
     mapDescendants(iterator: () => void): Node;
     mergeNode(path: Path): Node;
     moveNode(path: Path, newPath: Path, newIndex?: number): Node;
-    normalize(schema: Schema): () => void | void;
+    normalize(editor: Editor): () => void | void;
     refinedNOde(path: Path, key: string): Node | null;
     refindPath(path: Path, key: string): Immutable.List<string> | null;
     regenerateKey(): Node;
@@ -548,7 +514,7 @@ declare class BaseNode<
         properties: MarkProperties
     ): Node;
     splitNode(path: Path, position: number, properties: NodeProperties): Node;
-    validate(schema: Schema): Error | void;
+    validate(editor: Editor): Error | void;
 }
 
 export interface MarkProperties {
@@ -912,61 +878,6 @@ export interface SetValueOperation {
 export interface Operations {
     apply: (value: Value, operation: Operation) => Value;
     invert: (operation: Operation) => Operation;
-}
-
-export interface StackProperties {
-    plugins?: any[];
-}
-
-export interface StackJSON {
-    object: "stack";
-    plugins: any[];
-}
-
-export class Stack extends Immutable.Record({}) {
-    object: "stack";
-    plugins: any[];
-
-    static create(attrs: StackProperties): Stack;
-    static isStack(maybeStack: any): maybeStack is Stack;
-
-    static fromJSON(properties: StackJSON): Stack;
-    static fromJS(properties: StackJSON): Stack;
-    toJSON(options: any): object;
-}
-
-export interface HistoryProperties {
-    undos?: Operation[];
-    redos?: Operation[];
-}
-
-export interface HistoryJSON {
-    object: "history";
-    undos: any[];
-    redos: any[];
-}
-
-export interface HistoryOptions {
-    merge?: boolean;
-    skip?: boolean;
-}
-
-export class History extends Immutable.Record({}) {
-    redos: Stack;
-    undos: Stack;
-    object: "history";
-
-    static create(attrs: History | HistoryProperties): History;
-    static createOperationsList(
-        oeprations?: Immutable.List<Operation> | Operation[]
-    ): Immutable.List<Operation>;
-    static fromJSON(object: HistoryJSON): History;
-    static fromJS(object: HistoryJSON): History;
-    static isHistory(maybeHistory: any): maybeHistory is History;
-
-    save(operation: Operation, options?: HistoryOptions): History;
-    toJSON(): HistoryJSON;
-    toJS(): HistoryJSON;
 }
 
 export type ErrorCode =
