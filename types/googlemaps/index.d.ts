@@ -2775,7 +2775,7 @@ declare namespace google.maps {
       radius?: number;
       rankBy?: RankBy;
       types?: string[]; /* Deprecated. Will be removed February 16, 2017 */
-      type?: string;
+      type?: string|string[];
     }
 
     export class PlacesService {
