@@ -1013,6 +1013,8 @@ declare namespace React {
          */
         getModifierState(key: string): boolean;
         metaKey: boolean;
+        movementX: number;
+        movementY: number;
         nativeEvent: NativeMouseEvent;
         pageX: number;
         pageY: number;
