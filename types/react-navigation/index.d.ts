@@ -1250,8 +1250,8 @@ export function createNavigator<S, Options>(
  *
  * @see https://github.com/react-navigation/react-navigation/blob/master/src/createNavigationContainer.js
  */
-export function createNavigationContainer<S, O>(
-  Component: NavigationNavigator<S, O, any>
+export function createNavigationContainer(
+  Component: NavigationNavigator<any, any, any>
 ): NavigationContainer;
 
 /**
@@ -1259,8 +1259,8 @@ export function createNavigationContainer<S, O>(
  *
  * @see https://github.com/react-navigation/react-navigation-native/blob/098e2e52b349d37357109d5aee545fa74699d3d4/src/createAppContainer.js#L64
  */
-export function createAppContainer<S, O>(
-  Component: NavigationNavigator<S, O, any>
+export function createAppContainer(
+  Component: NavigationNavigator<any, any, any>
 ): NavigationContainer;
 
 /**
