@@ -103,7 +103,7 @@ declare class GroupEffect extends KeyframeEffect {
     constructor(effects: KeyframeEffect[]);
 }
 interface Element {
-    animate(effect: AnimationKeyFrame | AnimationKeyFrame[], timing: number | AnimationEffectTiming): Animation;
+    animate(effect: AnimationKeyFrame | AnimationKeyFrame[] | null, timing: number | AnimationEffectTiming): Animation;
     getAnimations(): Animation[];
 }
 interface Document {
