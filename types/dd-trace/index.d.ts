@@ -1,4 +1,4 @@
-// Type definitions for dd-trace-js 0.6
+// Type definitions for dd-trace-js 0.7
 // Project: https://github.com/DataDog/dd-trace-js
 // Definitions by: Colin Bradley <https://github.com/ColinBradley>
 //                 Eloy Durán <https://github.com/alloy>
@@ -185,6 +185,7 @@ declare class Scope {
 type Plugin =
     | "amqp10"
     | "amqplib"
+    | "bluebird"
     | "elasticsearch"
     | "express"
     | "graphql"
@@ -197,8 +198,10 @@ type Plugin =
     | "mysql"
     | "mysql2"
     | "pg"
+    | "q"
     | "redis"
-    | "restify";
+    | "restify"
+    | "when";
 
 interface BasePluginOptions {
     /**
