@@ -359,23 +359,7 @@ type TaskProvider = () => Task;
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-export interface NativeSyntheticEvent<T> {
-    bubbles: boolean;
-    cancelable: boolean;
-    currentTarget: NodeHandle;
-    defaultPrevented: boolean;
-    eventPhase: number;
-    isTrusted: boolean;
-    nativeEvent: T;
-    isPropagationStopped(): boolean;
-    isDefaultPrevented(): boolean;
-    persist(): void;
-    preventDefault(): void;
-    stopPropagation(): void;
-    target: NodeHandle;
-    timeStamp: number;
-    type: string;
-}
+export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {}
 
 export interface NativeTouchEvent {
     /**
