@@ -3,7 +3,7 @@
  */
 
 // require the library
-import MultiProgress from 'multi-progress';
+import * as MultiProgress from 'multi-progress';
 
 // spawn an instance with the optional stream to write to
 // use of `new` is optional
