@@ -1153,6 +1153,8 @@ declare namespace React {
         // Form Events
         onChange?: FormEventHandler<T>;
         onChangeCapture?: FormEventHandler<T>;
+        onBeforeInput?: FormEventHandler<T>;
+        onBeforeInputCapture?: FormEventHandler<T>;
         onInput?: FormEventHandler<T>;
         onInputCapture?: FormEventHandler<T>;
         onReset?: FormEventHandler<T>;
