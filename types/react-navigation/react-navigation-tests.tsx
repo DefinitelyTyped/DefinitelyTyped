@@ -670,7 +670,7 @@ createStackNavigator(
 
 // Test createAppContainer
 
-export const AppContainer = createAppContainer(AppNavigator)
+export const AppContainer = createAppContainer(AppNavigator);
 
 // Test NavigationEvents component
 const ViewWithNavigationEvents = (
