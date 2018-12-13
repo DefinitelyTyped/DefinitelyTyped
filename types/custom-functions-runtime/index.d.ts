@@ -9,7 +9,7 @@ office-js
 Copyright (c) Microsoft Corporation
 */
 
-/**
+ /**
  * CustomFunctions namespace, used by Excel Custom Functions
  * @beta
  */
