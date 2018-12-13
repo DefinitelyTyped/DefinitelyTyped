@@ -9,12 +9,12 @@ office-js
 Copyright (c) Microsoft Corporation
 */
 
- /**
+/**
  * CustomFunctions namespace, used by Excel Custom Functions
  * @beta
  */
 declare namespace CustomFunctions {
-     /**
+    /**
      * @beta
      * Ties together the function's JavaScript name with the JSON id property
      */
