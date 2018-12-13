@@ -607,7 +607,7 @@ export type CodePipelineActionState =
     | 'FAILED'
     | 'CANCELED';
 
-export interface CodePipelinePiplelineEvent {
+export interface CodePipelinePipelineEvent {
     version: string;
     id: string;
     'detail-type': 'CodePipeline Pipeline Execution State Change';
@@ -676,7 +676,7 @@ export interface CodePipelineActionEvent {
 }
 
 export type CodePipelineCloudWatchEvent =
-    | CodePipelinePiplelineEvent
+    | CodePipelinePipelineEvent
     | CodePipelineStageEvent
     | CodePipelineActionEvent;
 
