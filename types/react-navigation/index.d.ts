@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 3.0.0
+// Type definitions for react-navigation 3.0
 // Project: https://github.com/react-navigation/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
