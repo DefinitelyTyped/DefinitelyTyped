@@ -975,7 +975,7 @@ interface Obj {
     R.includes(8, [1, 8]); // => true
     R.includes(10)([2, 3, 5, 8]); // => false
     R.includes('ba', 'kiwi'); //=>false
-    R.includes('ba', 'banana'); //=>true
+    R.includes('ba')('banana'); //=>true
 };
 
 () => {
