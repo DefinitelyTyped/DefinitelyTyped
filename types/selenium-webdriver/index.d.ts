@@ -4,7 +4,8 @@
 //   Yuki Kokubun <https://github.com/Kuniwak>,
 //   Craig Nishina <https://github.com/cnishina>,
 //   Simon Gellis <https://github.com/SupernaviX>,
-//   Ben Dixon <https://github.com/bendxn>
+//   Ben Dixon <https://github.com/bendxn>,
+//   Ziyu <https://github.com/oddui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -540,7 +541,7 @@ export namespace logging {
      * @param {string} name the logger's name.
      * @return {!Logger} the requested logger.
      */
-    getLogger(name: string): Logger;
+    getLogger(name?: string): Logger;
 
     /**
      * Creates a new logger.
@@ -552,6 +553,34 @@ export namespace logging {
      */
     createLogger_(name: string, parent: Logger): Logger;
   }
+
+  /**
+   * Retrieves a named logger, creating it in the process. This function will
+   * implicitly create the requested logger, and any of its parents, if they
+   * do not yet exist.
+   *
+   * @param {string} name the logger's name.
+   * @return {!Logger} the requested logger.
+   */
+  function getLogger(name?: string): Logger;
+
+  /**
+   * Adds the console handler to the given logger. The console handler will log
+   * all messages using the JavaScript Console API.
+   *
+   * @param {Logger=} opt_logger The logger to add the handler to; defaults
+   *     to the root logger.
+   */
+  function addConsoleHandler(opt_logger?: Logger): void;
+
+  /**
+   * Removes the console log handler from the given logger.
+   *
+   * @param {Logger=} opt_logger The logger to remove the handler from; defaults
+   *     to the root logger.
+   * @see exports.addConsoleHandler
+   */
+  function removeConsoleHandler(opt_logger?: Logger): void;
 }
 
 export namespace promise {

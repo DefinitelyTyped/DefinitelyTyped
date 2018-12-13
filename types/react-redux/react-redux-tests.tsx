@@ -102,23 +102,79 @@ function MapDispatch() {
 }
 
 function MapDispatchWithThunkActionCreators() {
-    class TestComponent extends React.Component<{
-        foo: string,
-        onClick(): void,
-        thunkAction(): Promise<void>
-    }> {}
-
-    const mapDispatchToProps = () => ({
-        onClick: () => {},
-        thunkAction: () => async () => {}
+    const simpleAction = (payload: boolean) => ({
+        type: 'SIMPLE_ACTION',
+        payload,
     });
+    const thunkAction = (param1: number, param2: string) => (
+        async (dispatch: Dispatch, { foo }: OwnProps) => {
+            return foo;
+        }
+    );
+    interface OwnProps {
+        foo: string;
+    }
+    interface TestComponentProps extends OwnProps {
+        simpleAction: typeof simpleAction;
+        thunkAction(param1: number, param2: string): Promise<string>;
+   }
+    class TestComponent extends React.Component<TestComponentProps> {}
 
-    const Test = connect(
-        null,
-        mapDispatchToProps,
+    const mapStateToProps = ({ foo }: { foo: string }) => ({ foo });
+    const mapDispatchToProps = { simpleAction, thunkAction };
+
+    const Test1 = connect(null, mapDispatchToProps)(TestComponent);
+    const Test2 = connect(mapStateToProps, mapDispatchToProps)(TestComponent);
+    const Test3 = connect(
+        null, mapDispatchToProps, null, { storeKey: 'somekey' }
     )(TestComponent);
+    const Test4 = connect(
+        mapStateToProps, mapDispatchToProps, null, { storeKey: 'somekey' }
+    )(TestComponent);
+    const verify = <div>
+        <Test1 foo='bar' />;
+        <Test2 />
+        <Test3 foo='bar' />;
+        <Test4 />
+    </div>;
+}
 
-    const verify = <Test foo='bar' />;
+function MapManualDispatchThatLooksLikeThunk() {
+    interface OwnProps {
+        foo: string;
+    }
+    interface TestComponentProps extends OwnProps {
+        remove: (item: string) => () => object;
+   }
+    class TestComponent extends React.Component<TestComponentProps> {
+        render() {
+            return <div onClick={this.props.remove('someid')} />;
+        }
+    }
+
+    const mapStateToProps = ({ foo }: { foo: string }) => ({ foo });
+    function mapDispatchToProps(dispatch: Dispatch) {
+        return {
+            remove(item: string) {
+                return () => dispatch({ type: 'REMOVE_ITEM', item });
+            }
+        };
+    }
+
+    const Test1 = connect(null, mapDispatchToProps)(TestComponent);
+    const Test2 = connect(mapStateToProps, mapDispatchToProps)(TestComponent);
+    const Test3 = connect(
+        null, mapDispatchToProps, null, { storeKey: 'somekey' }
+    )(TestComponent);
+    const Test4 = connect(
+        mapStateToProps, mapDispatchToProps, null, { storeKey: 'somekey' }
+    )(TestComponent);
+    const verify = <div>
+        <Test1 foo='bar' />;
+        <Test2 />
+        <Test3 foo='bar' />;
+        <Test4 />
+    </div>;
 }
 
 function MapStateAndDispatchObject() {

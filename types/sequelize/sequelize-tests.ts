@@ -946,6 +946,8 @@ User.findAll( { where : { user_id : 1 }, attributes : ['a', 'b'], include : [{ m
 User.findAll( { order : s.literal( 'email =' ) } );
 User.findAll( { order : [s.literal( 'email = ' + s.escape( 'test@sequelizejs.com' ) )] } );
 User.findAll( { order : [['id', ';DELETE YOLO INJECTIONS']] } );
+User.findAll( { order : s.random() } );
+User.findAll( { order : [s.random()] } );
 User.findAll( { include : [User], order : [[User, 'id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id', 'DESC NULLS FIRST']] } );
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );

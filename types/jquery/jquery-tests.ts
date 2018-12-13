@@ -4244,6 +4244,19 @@ function JQuery() {
                     event;
                 }
             });
+
+            // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31124
+            function issue_31124(el: Element, mouseX: number) {
+                $(el)
+                    .on("mousedown touchstart", (evt) => {
+                        // tslint:disable-next-line:prefer-conditional-expression
+                        if (evt.type === "mousedown") {
+                            mouseX = (evt.originalEvent as MouseEvent).clientX;
+                        } else {
+                            mouseX = (evt.originalEvent as TouchEvent).touches[0].clientX;
+                        }
+                    });
+            }
         }
 
         function one() {

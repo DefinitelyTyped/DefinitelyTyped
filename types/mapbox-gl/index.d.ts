@@ -1319,6 +1319,7 @@ declare namespace mapboxgl {
         'fill-extrusion-height-transition'?: Transition;
         'fill-extrusion-base'?: number | StyleFunction | Expression;
         'fill-extrusion-base-transition'?: Transition;
+        'fill-extrusion-vertical-gradient'?: boolean;
     }
 
     export interface LineLayout {
