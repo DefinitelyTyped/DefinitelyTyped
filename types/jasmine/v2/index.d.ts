@@ -7,6 +7,7 @@
 //                 Lukas Zech <https://github.com/lukas-zech-software>
 //                 Boris Breuer <https://github.com/Engineer2B>
 //                 Chris Yungmann <https://github.com/cyungmann>
+//                 Yaroslav Admin <https://github.com/devoto13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -623,11 +624,8 @@ declare namespace jasmine {
     interface Spy {
         (...params: any[]): any;
 
-        identity: string;
         and: SpyAnd;
         calls: Calls;
-        mostRecentCall: { args: any[]; };
-        argsForCall: any[];
     }
 
     type SpyObj<T> = T & {
@@ -635,6 +633,8 @@ declare namespace jasmine {
     }
 
     interface SpyAnd {
+        identity: string;
+
         /** By chaining the spy with and.callThrough, the spy will still track all calls to it but in addition it will delegate to the actual implementation. */
         callThrough(): Spy;
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
