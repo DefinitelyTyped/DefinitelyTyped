@@ -55,6 +55,12 @@ declare class TraceProxy extends Tracer {
 
 interface TracerOptions {
     /**
+     * Whether to enable the tracer.
+     * @default true
+     */
+    enabled?: boolean;
+
+    /**
      * Enable debug logging in the tracer.
      * @default false
      */
