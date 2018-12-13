@@ -607,7 +607,7 @@ export type CodePipelineActionState =
     | 'FAILED'
     | 'CANCELED';
 
-export interface CodePipelinePipelineEvent {
+export interface CodePipelineCloudWatchPipelineEvent {
     version: string;
     id: string;
     'detail-type': 'CodePipeline Pipeline Execution State Change';
@@ -624,7 +624,7 @@ export interface CodePipelinePipelineEvent {
     };
 }
 
-export interface CodePipelineStageEvent {
+export interface CodePipelineCloudWatchStageEvent {
     version: string;
     id: string;
     'detail-type': 'CodePipeline Stage Execution State Change';
@@ -650,7 +650,7 @@ export type CodePipelineActionCategory =
     | 'Source'
     | 'Test';
 
-export interface CodePipelineActionEvent {
+export interface CodePipelineCloudWatchActionEvent {
     version: string;
     id: string;
     'detail-type': 'CodePipeline Action Execution State Change';
@@ -676,9 +676,9 @@ export interface CodePipelineActionEvent {
 }
 
 export type CodePipelineCloudWatchEvent =
-    | CodePipelinePipelineEvent
-    | CodePipelineStageEvent
-    | CodePipelineActionEvent;
+    | CodePipelineCloudWatchPipelineEvent
+    | CodePipelineCloudWatchStageEvent
+    | CodePipelineCloudWatchActionEvent;
 
 /**
  * CloudFront events
