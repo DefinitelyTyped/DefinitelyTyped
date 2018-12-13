@@ -35,7 +35,7 @@
  *   THE SOFTWARE.
  */
 
-type Constructor<E> = new (...args: any[]) => E
+type Constructor<E> = new (...args: any[]) => E;
 type CatchFilter<E> = ((error: E) => boolean) | (object & E);
 type IterableItem<R> = R extends Iterable<infer U> ? U : never;
 type IterableOrNever<R> = Extract<R, Iterable<any>>;
@@ -152,6 +152,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   ): Bluebird<U | R>;
 
   catch<U, E1>(
+    // tslint:disable-next-line:unified-signatures
     filter1: Constructor<E1> | CatchFilter<E1>,
     onReject: (error: E1) => Resolvable<U>,
   ): Bluebird<U | R>;
@@ -262,6 +263,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     onReject: (error: E1) => Resolvable<any>,
   ): Bluebird<R>;
   tapCatch<E1>(
+    // tslint:disable-next-line:unified-signatures
     filter1: Constructor<E1> | CatchFilter<E1>,
     onReject: (error: E1) => Resolvable<any>,
   ): Bluebird<R>;
@@ -467,6 +469,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     value: U,
   ): Bluebird<R | U>;
   catchReturn<U>(
+    // tslint:disable-next-line:unified-signatures
     filter1: Constructor<Error> | CatchFilter<Error>,
     value: U,
   ): Bluebird<R | U>;
@@ -541,6 +544,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     reason: Error,
   ): Bluebird<R>;
   catchThrow(
+    // tslint:disable-next-line:unified-signatures
     filter1: Constructor<Error> | CatchFilter<Error>,
     reason: Error,
   ): Bluebird<R>;
