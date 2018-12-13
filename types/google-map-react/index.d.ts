@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
+export type BootstrapURLKeys = ({libraries?: string[] | string;} | { key: string; } | { client: string; v: string; }) & { language?: string };
 
 export interface MapTypeStyle {
   elementType?: string;
