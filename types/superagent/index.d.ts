@@ -6,6 +6,7 @@
 //                 Shrey Jain <https://github.com/shreyjain1994>
 //                 Alec Zopf <https://github.com/zopf>
 //                 Adam Haglund <https://github.com/beeequeue>
+//                 Lukas Elmer <https://github.com/lukaselmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -45,7 +46,7 @@ declare namespace request {
         // tslint:disable-next-line:unified-signatures
         (method: string, url: string): SuperAgentRequest;
 
-        agent(): SuperAgent<SuperAgentRequest>;
+        agent(): this & Request;
         serialize: { [type: string]: Serializer };
         parse: { [type: string]: Parser };
     }

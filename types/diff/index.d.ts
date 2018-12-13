@@ -2,6 +2,7 @@
 // Project: https://github.com/kpdecker/jsdiff
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 szdc <https://github.com/szdc>
+//                 moc-yuto <https://github.com/moc-yuto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -18,8 +19,8 @@ declare namespace JsDiff {
         newlineIsToken?: boolean;
     }
 
-    interface IArrayOptions extends IOptions {
-        comparator?: (left: any, right: any) => number;
+    interface IArrayOptions {
+        comparator?: (left: any, right: any) => boolean;
     }
 
     interface IDiffResult {

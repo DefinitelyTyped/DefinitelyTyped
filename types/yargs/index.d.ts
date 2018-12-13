@@ -5,6 +5,7 @@
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
+//                 Teddy Cross <https://github.com/tkazec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -191,8 +192,8 @@ declare namespace yargs {
 
         showCompletionScript(): Argv;
 
-        showhidden(option?: string | boolean): Argv;
-        showhidden(option: string, description?: string): Argv;
+        showHidden(option?: string | boolean): Argv;
+        showHidden(option: string, description?: string): Argv;
 
         showHelp(consoleLevel?: string): Argv;
 

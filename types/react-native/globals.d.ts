@@ -119,3 +119,92 @@ type HeadersInit_ = Headers | string[][] | { [key: string]: string };
 type RequestCredentials_ = "omit" | "same-origin" | "include";
 type RequestMode_ = "navigate" | "same-origin" | "no-cors" | "cors";
 type ResponseType_ = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
+
+//
+// XMLHttpRequest
+//
+
+interface XMLHttpRequestEventMap extends XMLHttpRequestEventTargetEventMap {
+  "readystatechange": Event;
+}
+
+interface XMLHttpRequest extends EventTarget, XMLHttpRequestEventTarget {
+//  msCaching: string;
+  onreadystatechange: ((this: XMLHttpRequest, ev: Event) => any) | null;
+  readonly readyState: number;
+  readonly response: any;
+  readonly responseText: string;
+  responseType: XMLHttpRequestResponseType;
+  readonly responseURL: string;
+  readonly responseXML: Document | null;
+  readonly status: number;
+  readonly statusText: string;
+  timeout: number;
+  readonly upload: XMLHttpRequestUpload;
+  withCredentials: boolean;
+  abort(): void;
+  getAllResponseHeaders(): string;
+  getResponseHeader(header: string): string | null;
+//  msCachingEnabled(): boolean;
+  open(method: string, url: string, async?: boolean, user?: string | null, password?: string | null): void;
+  overrideMimeType(mime: string): void;
+  send(data?: any): void;
+  setRequestHeader(header: string, value: string): void;
+  readonly DONE: number;
+  readonly HEADERS_RECEIVED: number;
+  readonly LOADING: number;
+  readonly OPENED: number;
+  readonly UNSENT: number;
+  addEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any): void;
+//  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+  removeEventListener<K extends keyof XMLHttpRequestEventMap>(type: K, listener: (this: XMLHttpRequest, ev: XMLHttpRequestEventMap[K]) => any): void;
+//  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+}
+
+declare var XMLHttpRequest: {
+  prototype: XMLHttpRequest;
+  new(): XMLHttpRequest;
+  readonly DONE: number;
+  readonly HEADERS_RECEIVED: number;
+  readonly LOADING: number;
+  readonly OPENED: number;
+  readonly UNSENT: number;
+};
+
+interface XMLHttpRequestEventTargetEventMap {
+  "abort": Event;
+  "error": Event;
+  "load": Event;
+  "loadend": Event;
+  "loadstart": Event;
+  "progress": Event;
+  "timeout": Event;
+}
+
+interface XMLHttpRequestEventTarget {
+  onabort: ((this: XMLHttpRequest, ev: Event) => any) | null;
+  onerror: ((this: XMLHttpRequest, ev: Event) => any) | null;
+  onload: ((this: XMLHttpRequest, ev: Event) => any) | null;
+  onloadend: ((this: XMLHttpRequest, ev: Event) => any) | null;
+  onloadstart: ((this: XMLHttpRequest, ev: Event) => any) | null;
+  onprogress: ((this: XMLHttpRequest, ev: Event) => any) | null;
+  ontimeout: ((this: XMLHttpRequest, ev: Event) => any) | null;
+  addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any): void;
+//  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+  removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestEventTarget, ev: XMLHttpRequestEventTargetEventMap[K]) => any): void;
+//  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+}
+
+interface XMLHttpRequestUpload extends EventTarget, XMLHttpRequestEventTarget {
+  addEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any): void;
+//  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+  removeEventListener<K extends keyof XMLHttpRequestEventTargetEventMap>(type: K, listener: (this: XMLHttpRequestUpload, ev: XMLHttpRequestEventTargetEventMap[K]) => any): void;
+//  removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
+}
+
+declare var XMLHttpRequestUpload: {
+  prototype: XMLHttpRequestUpload;
+  new(): XMLHttpRequestUpload;
+};
+
+type XMLHttpRequestResponseType = "" | "arraybuffer" | "blob" | "document" | "json" | "text";

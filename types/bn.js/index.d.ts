@@ -45,7 +45,7 @@ interface ReductionContext {
 declare class BN {
     constructor(
         number: number | string | number[] | Buffer | BN,
-        base?: number,
+        base?: number | 'hex',
         endian?: Endianness
     );
     constructor(

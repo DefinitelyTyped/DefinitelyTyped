@@ -1,32 +1,54 @@
-import { Base, EmitterBase, RuntimeEvent } from '../base';
+import { Base, EmitterBase } from '../base';
 import { Identity } from '../../identity';
 import Bounds from './bounds';
-import BoundsChangedReply from './bounds-changed';
 import { Transition, TransitionOptions } from './transition';
 import { Application } from '../application/application';
 import Transport from '../../transport/transport';
+import { WindowEvents } from '../events/window';
+import { AnchorType } from './anchor-type';
+import { WindowOption } from './windowOption';
+/**
+ * @lends Window
+ */
 export default class _WindowModule extends Base {
-    private instance;
     /**
-     * Returns a Window object that represents an existing window.
-     * @param { Identity } indentity
+     * Asynchronously returns a Window object that represents an existing window.
+     * @param { Identity } identity
      * @return {Promise.<_Window>}
      * @tutorial Window.wrap
+     * @static
      */
     wrap(identity: Identity): Promise<_Window>;
     /**
+     * Synchronously returns a Window object that represents an existing window.
+     * @param { Identity } identity
+     * @return {_Window}
+     * @tutorial Window.wrapSync
+     * @static
+     */
+    wrapSync(identity: Identity): _Window;
+    /**
      * Creates a new Window.
-     * @param { * } options - Window creation options
+     * @param { WindowOption } options - Window creation options
      * @return {Promise.<_Window>}
      * @tutorial Window.create
+     * @static
      */
-    create(options: any): Promise<_Window>;
+    create(options: WindowOption): Promise<_Window>;
     /**
-     * Returns a Window object that represents the current window
-     * @return {Promise.<Window>}
-     * @tutorial window.getCurrent
+     * Asynchronously returns a Window object that represents the current window
+     * @return {Promise.<_Window>}
+     * @tutorial Window.getCurrent
+     * @static
      */
     getCurrent(): Promise<_Window>;
+    /**
+     * Synchronously returns a Window object that represents the current window
+     * @return {_Window}
+     * @tutorial Window.getCurrentSync
+     * @static
+     */
+    getCurrentSync(): _Window;
 }
 export interface CloseEventShape {
     name: string;
@@ -47,6 +69,19 @@ export interface FrameInfo {
     entityType: string;
     parent?: Identity;
 }
+export interface Area {
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+}
+/**
+ * @typedef { Object } Area
+ * @property { number } height Area's height
+ * @property { number } width Area's width
+ * @property { number } x X coordinate of area's starting point
+ * @property { number } y Y coordinate of area's starting point
+ */
 /**
  * @typedef {object} Transition
  * @property {Opacity} opacity - The Opacity transition
@@ -98,7 +133,7 @@ this animation onto the end of the animation queue.
  * @class
  * @alias Window
 */
-export declare class _Window extends EmitterBase {
+export declare class _Window extends EmitterBase<WindowEvents> {
     identity: Identity;
     /**
      * Raised when a window within this application requires credentials from the user.
@@ -425,10 +460,8 @@ export declare class _Window extends EmitterBase {
      * @property {string} state - The preload script state:
      "load-failed", "failed", "succeeded"
      */
-    private nativeWindow;
     constructor(wire: Transport, identity: Identity);
-    createWindow(options: any): Promise<_Window>;
-    protected runtimeEventComparator: (listener: RuntimeEvent) => boolean;
+    createWindow(options: WindowOption): Promise<_Window>;
     private windowListFromNameList;
     /**
      * Retrieves an array of frame info objects representing the main frame and any
@@ -443,12 +476,6 @@ export declare class _Window extends EmitterBase {
      * @tutorial Window.getBounds
     */
     getBounds(): Promise<Bounds>;
-    /**
-    * Returns the native JavaScript "window" object for the window.
-    * @return {Promise.<any>}
-    * @tutorial Window.getNativeWindow
-    */
-    getNativeWindow(): Promise<any>;
     /**
      * Gives focus to the window.
      * @return {Promise.<void>}
@@ -561,11 +588,13 @@ export declare class _Window extends EmitterBase {
      */
     getParentWindow(): Promise<_Window>;
     /**
-     * Gets a base64 encoded PNG snapshot of the window.
+     * Gets a base64 encoded PNG snapshot of the window or just part a of it.
+     * @param { Area } [area] The area of the window to be captured.
+     * Omitting it will capture the whole visible window.
      * @return {Promise.<string>}
      * @tutorial Window.getSnapshot
      */
-    getSnapshot(): Promise<string>;
+    getSnapshot(area?: Area): Promise<string>;
     /**
      * Gets the current state ("minimized", "maximized", or "restored") of the window.
      * @return {Promise.<string>}
@@ -636,24 +665,24 @@ export declare class _Window extends EmitterBase {
      * Resizes the window by a specified amount.
      * @param { number } deltaWidth The change in the width of the window
      * @param { number } deltaHeight The change in the height of the window
-     * @param { string } anchor Specifies a corner to remain fixed during the resize.
-     * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right."
+     * @param { AnchorType } anchor Specifies a corner to remain fixed during the resize.
+     * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right".
      * If undefined, the default is "top-left"
      * @return {Promise.<void>}
      * @tutorial Window.resizeBy
      */
-    resizeBy(deltaWidth: number, deltaHeight: number, anchor: string): Promise<void>;
+    resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType): Promise<void>;
     /**
      * Resizes the window to the specified dimensions.
      * @param { number } width The change in the width of the window
      * @param { number } height The change in the height of the window
-     * @param { string } anchor Specifies a corner to remain fixed during the resize.
-     * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right."
+     * @param { AnchorType } anchor Specifies a corner to remain fixed during the resize.
+     * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right".
      * If undefined, the default is "top-left"
      * @return {Promise.<void>}
      * @tutorial Window.resizeTo
      */
-    resizeTo(width: number, height: number, anchor: string): Promise<void>;
+    resizeTo(width: number, height: number, anchor: AnchorType): Promise<void>;
     /**
      * Restores the window to its normal state (i.e., unminimized, unmaximized).
      * @return {Promise.<void>}
@@ -746,14 +775,4 @@ export declare class _Window extends EmitterBase {
      * @tutorial Window.stopNavigation
      */
     stopNavigation(): Promise<void>;
-}
-export interface _Window {
-    on(type: 'focused', listener: Function): Promise<void>;
-    on(type: 'initialized', listener: Function): Promise<void>;
-    on(type: 'bounds-changed', listener: (data: BoundsChangedReply) => void): Promise<void>;
-    on(type: 'hidden', listener: Function): Promise<void>;
-    on(type: 'removeListener', listener: (eventType: string | symbol) => void): Promise<void>;
-    on(type: 'newListener', listener: (eventType: string | symbol) => void): Promise<void>;
-    on(type: 'closed', listener: (eventType: CloseEventShape) => void): Promise<void>;
-    on(type: 'fire-constructor-callback', listener: Function): Promise<void>;
 }

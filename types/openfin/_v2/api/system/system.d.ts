@@ -12,13 +12,14 @@ import { RVMInfo } from './rvm';
 import { RuntimeInfo } from './runtime-info';
 import { Entity, EntityInfo } from './entity';
 import { HostSpecs } from './host-specs';
-import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection } from './external-process';
+import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo } from './external-process';
 import Transport from '../../transport/transport';
 import { CookieInfo, CookieOption } from './cookie';
 import { RegistryInfo } from './registry-info';
 import { DownloadPreloadOption, DownloadPreloadInfo } from './download-preload';
 import { ClearCacheOption } from './clearCacheOption';
 import { CrashReporterOption } from './crashReporterOption';
+import { SystemEvents } from '../events/system';
 /**
  * AppAssetInfo interface
  * @typedef { Object } AppAssetInfo
@@ -36,6 +37,23 @@ import { CrashReporterOption } from './crashReporterOption';
  * @property { string } alias The name of the asset
  */
 /**
+ * ApplicationInfo interface
+ * @typedef { Object } ApplicationInfo
+ * @property { boolean } isRunning  true when the application is running
+ * @property { string } uuid uuid of the application
+ * @property { string } parentUuid uuid of the application that launches this application
+ */
+/**
+ * @typedef { Object } ClearCacheOption
+ * @summary Clear cache options.
+ * @desc These are the options required by the clearCache function.
+ *
+ * @property {boolean} appcache html5 application cache
+ * @property {boolean} cache browser data cache for html files and images
+ * @property {boolean} cookies browser cookies
+ * @property {boolean} localStorage browser data that can be used across sessions
+ */
+/**
  * CookieInfo interface
  * @typedef { Object } CookieInfo
  * @property { string } name  The name of the cookie
@@ -48,18 +66,33 @@ import { CrashReporterOption } from './crashReporterOption';
  * @property { string } name The name of the cookie
  */
 /**
- * ExternalConnection interface
- * @typedef { Object } ExternalConnection
- * @property { string } token The token to broker an external connection
- * @property { string } uuid The uuid of the external connection
+ * CpuInfo interface
+ * @typedef { Object } CpuInfo
+ * @property { string } model The model of the cpu
+ * @property { number } speed The number in MHz
+ * @property { Time } times The numbers of milliseconds the CPU has spent in different modes.
  */
 /**
-* ExternalProcessRequestType interface
-* @typedef { Object } ExternalProcessRequestType
-* @property { string } path The file path to where the running application resides
-* @property { string } arguments The argument passed to the running application
-* @property { Object } listener This is described in the {LaunchExternalProcessListner} type definition
+* CrashReporterOption interface
+* @typedef { Object } CrashReporterOption
+* @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
+*  the OpenFin reporting service on runtime shutdown
+* @property { boolean } isRunning check if it's running
 */
+/**
+ * DownloadPreloadInfo interface
+ * @typedef { Object } DownloadPreloadInfo
+ * @desc downloadPreloadScripts function return value
+ * @property { string } url url to the preload script
+ * @property { string } error error during preload script acquisition
+ * @property { boolean } succeess download operation success
+ */
+/**
+ * DownloadPreloadOption interface
+ * @typedef { Object } DownloadPreloadOption
+ * @desc These are the options object required by the downloadPreloadScripts function
+ * @property { string } url url to the preload script
+ */
 /**
  * Entity interface
  * @typedef { Object } Entity
@@ -75,17 +108,53 @@ import { CrashReporterOption } from './crashReporterOption';
  * @property { string } entityType The type of the entity
  */
 /**
-* GetLogRequestType interface
-* @typedef { Object } GetLogRequestType
-* @property { string } name The name of the running application
-* @property { number } endFile The file length of the log file
-* @property { number } sizeLimit The set size limit of the log file
-*/
+ * ExternalConnection interface
+ * @typedef { Object } ExternalConnection
+ * @property { string } token The token to broker an external connection
+ * @property { string } uuid The uuid of the external connection
+ */
+/**
+ * ExternalProcessRequestType interface
+ * @typedef { Object } ExternalProcessRequestType
+ * @property { string } path The file path to where the running application resides
+ * @property { string } arguments The argument passed to the running application
+ * @property { Object } listener This is described in the {LaunchExternalProcessListner} type definition
+ */
+/**
+ * GetLogRequestType interface
+ * @typedef { Object } GetLogRequestType
+ * @property { string } name The name of the running application
+ * @property { number } endFile The file length of the log file
+ * @property { number } sizeLimit The set size limit of the log file
+ */
+/**
+ * GpuInfo interface
+ * @typedef { Object } GpuInfo
+ * @property { string } name The graphics card name
+ */
+/**
+ * HostSpecs interface
+ * @typedef { Object } HostSpecs
+ * @property { boolean } aeroGlassEnabled Value to check if Aero Glass theme is supported on Windows platforms
+ * @property { string } arch "x86" for 32-bit or "x86_64" for 64-bit
+ * @property { Array<CpuInfo> } cpus The same payload as Node's os.cpus()
+ * @property { GpuInfo } gpu The graphics card name
+ * @property { number } memory The same payload as Node's os.totalmem()
+ * @property { string } name The OS name and version/edition
+ * @property { boolean } screenSaver Value to check if screensaver is running. Supported on Windows only
+ */
 /**
  * Identity interface
  * @typedef { Object } Identity
  * @property { string } name The name of the application
  * @property { string } uuid The uuid of the application
+ */
+/**
+ * LogInfo interface
+ * @typedef { Object } LogInfo
+ * @property { string } name The filename of the log
+ * @property { number } size The size of the log in bytes
+ * @property { string } date The unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)""
  */
 /**
  * @typedef { verbose | info | warning | error | fatal } LogLevel
@@ -99,11 +168,48 @@ import { CrashReporterOption } from './crashReporterOption';
  * @property { string } fatal fatal only, indicates a crash is imminent
  */
 /**
+ * PointTopLeft interface
+ * @typedef { Object } PointTopLeft
+ * @property { number } top The mouse top position in virtual screen coordinates
+ * @property { number } left The mouse left position in virtual screen coordinates
+ */
+/**
+ * ProcessInfo interface
+ * @typedef { Object } ProcessInfo
+ * @property { numder } cpuUsage The percentage of total CPU usage
+ * @property { string } name The application name
+ * @property { number } nonPagedPoolUsage The current nonpaged pool usage in bytes
+ * @property { number } pageFaultCount The number of page faults
+ * @property { number } pagedPoolUsage The current paged pool usage in bytes
+ * @property { number } pagefileUsage The total amount of memory in bytes that the memory manager has committed
+ * @property { number } peakNonPagedPoolUsage The peak nonpaged pool usage in bytes
+ * @property { number } peakPagedPoolUsage The peak paged pool usage in bytes
+ * @property { number } peakPagefileUsage The peak value in bytes of pagefileUsage during the lifetime of this process
+ * @property { number } peakWorkingSetSize The peak working set size in bytes
+ * @property { number } processId The native process identifier
+ * @property { string } uuid The application UUID
+ * @property { nubmer } workingSetSize The current working set size (both shared and private data) in bytes
+ */
+/**
  * ProxyConfig interface
  * @typedef { Object } ProxyConfig
- * @property { numder } proxyPort The port number of the running application
- * @property { string } proxyAddress The address of the running application
- * @property { string } type
+ * @property { string } proxyAddress The configured proxy address
+ * @property { numder } proxyPort The configured proxy port
+ * @property { string } type The proxy Type
+ */
+/**
+ * ProxyInfo interface
+ * @typedef { Object } ProxyInfo
+ * @property { ProxyConfig } config The proxy config
+ * @property { ProxySystemInfo } system The proxy system info
+ */
+/**
+ * ProxySystemInfo interface
+ * @typedef { Object } ProxySystemInfo
+ * @property { string } autoConfigUrl The auto configuration url
+ * @property { string } bypass The proxy bypass info
+ * @property { boolean } enabled Value to check if a proxy is enabled
+ * @property { string } proxy The proxy info
  */
 /**
  * RegistryInfo interface
@@ -121,6 +227,16 @@ import { CrashReporterOption } from './crashReporterOption';
  * @property { string } version The given version to download
  */
 /**
+ * RVMInfo interface
+ * @typedef { Object } RVMInfo
+ * @property { string } action The name of action: "get-rvm-info"
+ * @property { string } appLogDirectory The app log directory
+ * @property { string } path The path of OpenfinRVM.exe
+ * @property { string } 'start-time' The start time of RVM
+ * @property { string } version The version of RVM
+ * @property { string } 'working-dir' The working directory
+ */
+/**
  * TerminateExternalRequestType interface
  * @typedef { Object } TerminateExternalRequestType
  * @property { string } uuid The uuid of the running application
@@ -128,43 +244,41 @@ import { CrashReporterOption } from './crashReporterOption';
  * @property { boolean } killtree Value to terminate the running application
  */
 /**
- * DownloadPreloadOption interface
- * @typedef { Object } DownloadPreloadOption
- * @desc These are the options object required by the downloadPreloadScripts function
- * @property { string } url url to the preload script
+ * Time interface
+ * @typedef { Object } Time
+ * @property { number } user The number of milliseconds the CPU has spent in user mode
+ * @property { number } nice The number of milliseconds the CPU has spent in nice mode
+ * @property { number } sys The number of milliseconds the CPU has spent in sys mode
+ * @property { number } idle The number of milliseconds the CPU has spent in idle mode
+ * @property { number } irq The number of milliseconds the CPU has spent in irq mode
  */
 /**
- * DownloadPreloadInfo interface
- * @typedef { Object } DownloadPreloadInfo
- * @desc downloadPreloadScripts function return value
- * @property { string } url url to the preload script
- * @property { string } error error during preload script acquisition
- * @property { boolean } succeess download operation success
+ * WindowDetail interface
+ * @typedef { Object } WindowDetail
+ * @property { number } bottom The bottom-most coordinate of the window
+ * @property { number } height The height of the window
+ * @property { boolean } isShowing Value to check if the window is showing
+ * @property { number } left The left-most coordinate of the window
+ * @property { string } name The name of the window
+ * @property { number } right The right-most coordinate of the window
+ * @property { string } state The window state
+ * @property { number } top The top-most coordinate of the window
+ * @property { number } width The width of the window
  */
 /**
- * @typedef { Object } ClearCacheOption
- * @summary Clear cache options.
- * @desc These are the options required by the clearCache function.
- *
- * @property {boolean} appcache html5 application cache
- * @property {boolean} cache browser data cache for html files and images
- * @property {boolean} cookies browser cookies
- * @property {boolean} localStorage browser data that can be used across sessions
+ * WindowInfo interface
+ * @typedef { Object } WindowInfo
+ * @property { Array<WindowDetail> } childWindows The array of child windows details
+ * @property { WindowDetail } mainWindow The main window detail
+ * @property { string } uuid The uuid of the application
  */
-/**
-* CrashReporterOption interface
-* @typedef { Object } CrashReporterOption
-* @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
-*  the OpenFin reporting service on runtime shutdown
-* @property { boolean } isRunning check if it's running
-*/
 /**
  * An object representing the core of OpenFin Runtime. Allows the developer
  * to perform system-level actions, such as accessing logs, viewing processes,
  * clearing the cache and exiting the runtime.
  * @namespace
  */
-export default class System extends EmitterBase {
+export default class System extends EmitterBase<SystemEvents> {
     constructor(wire: Transport);
     /**
      * Returns the version of the runtime. The version contains the major, minor,
@@ -224,13 +338,6 @@ export default class System extends EmitterBase {
      * @tutorial System.getCrashReporterState
      */
     getCrashReporterState(): Promise<CrashReporterOption>;
-    /**
-     * Returns a unique identifier (UUID) for the machine (SHA256 hash of the system's MAC address).
-     * This call will return the same value on subsequent calls on the same machine(host).
-     * The values will be different on different machines, and should be considered globally unique.
-     * @return {Promise.<string>}
-     * @tutorial System.getDeviceId
-     */
     getDeviceId(): Promise<string>;
     /**
      * Start the crash reporter for the browser process if not already running.
@@ -275,6 +382,12 @@ export default class System extends EmitterBase {
      * @tutorial System.getLog
      */
     getLog(options: GetLogRequestType): Promise<string>;
+    /**
+     * Returns a unique identifier (UUID) provided by the machine.
+     * @return {Promise.<string>}
+     * @tutorial System.getMachineId
+     */
+    getMachineId(): Promise<string>;
     /**
      * Returns the minimum (inclusive) logging level that is currently being written to the log.
      * @return {Promise.<LogLevel>}
@@ -328,7 +441,7 @@ export default class System extends EmitterBase {
     getRvmInfo(): Promise<RVMInfo>;
     /**
      * Retrieves system information.
-     * @return {Promise.<Hostspecs>}
+     * @return {Promise.<HostSpecs>}
      * @tutorial System.getHostSpecs
      */
     getHostSpecs(): Promise<HostSpecs>;
@@ -341,11 +454,11 @@ export default class System extends EmitterBase {
     launchExternalProcess(options: ExternalProcessRequestType): Promise<Identity>;
     /**
      * Monitors a running process.
-     * @param { number } pid See tutorial for more details
+     * @param { ExternalProcessInfo } options See tutorial for more details
      * @return {Promise.<Identity>}
      * @tutorial System.monitorExternalProcess
      */
-    monitorExternalProcess(pid: number): Promise<Identity>;
+    monitorExternalProcess(options: ExternalProcessInfo): Promise<Identity>;
     /**
      * Writes the passed message into both the log file and the console.
      * @param { string } level The log level for the entry. Can be either "info", "warning" or "error"

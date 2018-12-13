@@ -42,8 +42,8 @@ class RelationalPost extends DS.Model {
     series = DS.belongsTo('series');
 }
 
-declare module 'ember-data' {
-    interface ModelRegistry {
+declare module 'ember-data/types/registries/model' {
+    export default interface ModelRegistry {
         'relational-post': RelationalPost;
         comment: Comment;
         series: Series;

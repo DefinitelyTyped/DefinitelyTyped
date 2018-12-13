@@ -4063,7 +4063,7 @@ declare namespace EngineAPI {
         /**
          * Information about publishing and permissions.
          */
-        qMeta: INxMeta;
+        qMeta: INxMetaTitleDescriptionTag;
 
         /**
          * Identifier and type of the dimension.
@@ -6874,9 +6874,7 @@ declare namespace EngineAPI {
     }
 
     interface IQVersion {
-        qVersion: {
-            qComponentVersion: string;
-        };
+        qComponentVersion: string;
     }
 
     interface IQConfig {
@@ -7223,7 +7221,7 @@ declare namespace EngineAPI {
          * The apps are located in C:\Users\<user name>\Documents\Qlik\Sense\Apps.
          * @returns Path of the folder where the apps are stored.
          */
-        getFolderItemsForPath(qPath: string): Promise<IFolderItem>;
+        getFolderItemsForPath(qPath: string): Promise<IFolderItem[]>;
 
         /**
          * Gets the list of all the script functions.
@@ -9285,7 +9283,7 @@ declare namespace EngineAPI {
      * GenericDimensionListLayout width extend GenericBaseLayout
      */
     interface IGenericDimensionListLayout extends IGenericBaseLayout {
-        qDimensionsListObject: IDimensionList;
+        qDimensionList: IDimensionList;
     }
 
     /**

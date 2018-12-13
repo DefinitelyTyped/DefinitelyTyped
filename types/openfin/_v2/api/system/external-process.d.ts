@@ -1,7 +1,17 @@
 export interface ExternalProcessRequestType {
-    path: string;
-    arguments: string;
-    listener: LaunchExternalProcessListener;
+    path?: string;
+    alias?: string;
+    arguments?: string;
+    listener?: LaunchExternalProcessListener;
+    lifetime?: string;
+    certificate?: CertificationInfo;
+}
+export interface CertificationInfo {
+    serial?: string;
+    subject?: string;
+    publickey?: string;
+    thumbprint?: string;
+    trusted?: boolean;
 }
 export interface ExitCode {
     topic: string;
@@ -19,4 +29,8 @@ export interface TerminateExternalRequestType {
 export interface ExternalConnection {
     token: string;
     uuid: string;
+}
+export interface ExternalProcessInfo {
+    pid: number;
+    listener?: LaunchExternalProcessListener;
 }

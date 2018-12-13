@@ -369,6 +369,7 @@ function test_dom_walker() {
     node = walker.lastForward();
     node = walker.next();
     node = walker.previous();
+    isSomething = walker.guard(node, true);
     walker.reset();
 
     isSomething = CKEDITOR.dom.walker.blockBoundary({ div: 1 })(node);
@@ -485,7 +486,7 @@ function test_dialog() {
                 {
                     id: 'tab-basic',
                     label: 'Basic Settings',
-                    elements: <any[]> []
+                    elements: [] as any []
                 },
                 {
                     id: 'tab-adv',
@@ -914,6 +915,9 @@ function test_skin() {
     CKEDITOR.skin.loadPart('part', () => console.log('load'));
 
     var path2: string = CKEDITOR.skin.path();
+
+    CKEDITOR.skin.ua_dialog = 'ie,iequirks,ie8,gecko';
+    CKEDITOR.skin.ua_editor = 'ie,gecko';
 }
 
 function test_style() {

@@ -198,7 +198,7 @@ declare namespace mockjs {
     city(prefix?: B): S;
 
     // Random.county
-    country(prefix?: B): S;
+    county(prefix?: B): S;
 
     // Random.zip
     zip(prefix?: B): S;

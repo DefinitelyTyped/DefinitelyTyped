@@ -1,4 +1,4 @@
-/* Note that this is a sample function for the purpose of running the below CustomFunctionsMappings test */
+/* Note that this is a sample function for the purpose of running the below CustomFunctions.Associate() test */
 function add10(n: number) {
     return n + 10;
 }

@@ -1,10 +1,11 @@
-// Type definitions for Recompose 0.26
+// Type definitions for Recompose 0.30
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
-//                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
+//                 Brian Adams <https://github.com/brian-lives-outdoors>
+//                 Mathieu Masy <https://github.com/TiuSh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -265,23 +266,34 @@ declare module 'recompose' {
     // toClass: https://github.com/acdlite/recompose/blob/master/docs/API.md#toClass
     export const toClass: InferableComponentEnhancer<{}>;
 
+    // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
+    export function toRenderProps<TInner, TOutter>(
+        hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
+    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement<any> }>;
+
+    // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
+    export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
+        RenderPropsComponent: StatelessComponent<any>,
+        propsMapper: (props: TRenderProps) => Partial<TInner>,
+        renderPropName?: string
+    ): ComponentEnhancer<TInner, TOutter>;
 
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
 
     // setStatic: https://github.com/acdlite/recompose/blob/master/docs/API.md#setStatic
-    export function setStatic<TOutter>(
+    export function setStatic(
         key: string, value: any
-    ): ComponentEnhancer<TOutter, TOutter>;
+    ): <T extends Component>(component: T) => T;
 
     // setPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#setPropTypes
-    export function setPropTypes<TOutter>(
-        propTypes: ValidationMap<TOutter>
-    ): ComponentEnhancer<any, TOutter>;
+    export function setPropTypes<P>(
+        propTypes: ValidationMap<P>
+    ): <T extends Component<P>>(component: T) => T;
 
     // setDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#setDisplayName
-    export function setDisplayName<TOutter>(
+    export function setDisplayName(
         displayName: string
-    ): ComponentEnhancer<TOutter, TOutter>;
+    ): <T extends Component>(component: T) => T;
 
 
     // Utilities: https://github.com/acdlite/recompose/blob/master/docs/API.md#utilities
@@ -584,6 +596,18 @@ declare module 'recompose/lifecycle' {
 declare module 'recompose/toClass' {
     import { toClass } from 'recompose';
     export default toClass;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
+declare module 'recompose/toRenderProps' {
+    import { toRenderProps } from 'recompose';
+    export default toRenderProps;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
+declare module 'recompose/fromRenderProps' {
+    import { fromRenderProps } from 'recompose';
+    export default fromRenderProps;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#setstatic

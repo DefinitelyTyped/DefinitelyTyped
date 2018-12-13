@@ -6,7 +6,7 @@ let clientToken: string = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiO
 
 braintree.client.create({
   authorization: clientToken
-}, function (error: braintree.BraintreeError, clientInstance: any) {
+}, function (error: braintree.BraintreeError, clientInstance: braintree.Client) {
 
   var form: HTMLFormElement = document.getElementById('my-form-id') as HTMLFormElement;
   var data: { creditCard: braintree.CreditCardInfo } = {
@@ -396,7 +396,7 @@ let submitNonceToServer: (nonce: string) => void;
 
 braintree.threeDSecure.verifyCard({
   nonce: existingNonce,
-  amount: 123.45,
+  amount: 123.45, // $ExpectType number
   addFrame: function (err, iframe) {
     // Set up your UI and add the iframe.
     let my3DSContainer = document.createElement('div');

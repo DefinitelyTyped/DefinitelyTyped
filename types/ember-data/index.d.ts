@@ -1,4 +1,4 @@
-// Type definitions for ember-data 3.0
+// Type definitions for ember-data 3.1
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
@@ -11,16 +11,10 @@ import Evented from '@ember/object/evented';
 import ObjectProxy from '@ember/object/proxy';
 import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
 import RSVP from 'rsvp';
-
-export interface ModelRegistry {}
-export interface AdapterRegistry {}
-export interface SerializerRegistry {}
-export interface TransformRegistry {
-    string: string;
-    boolean: boolean;
-    number: number;
-    date: Date;
-}
+import TransformRegistry from 'ember-data/types/registries/transform';
+import ModelRegistry from 'ember-data/types/registries/model';
+import SerializerRegistry from 'ember-data/types/registries/serializer';
+import AdapterRegistry from 'ember-data/types/registries/adapter';
 
 type AttributesFor<Model> = keyof Model; // TODO: filter to attr properties only (TS 2.8)
 type RelationshipsFor<Model> = keyof Model; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
@@ -753,7 +747,7 @@ export namespace DS {
          * relationship is not yet loaded. If the relationship is not loaded
          * it will always return `null`.
          */
-        value(objectOrPromise: {} | RSVP.Promise<any>): Model;
+        value(): Model | null;
         /**
          * Loads a record in a belongs to relationship if it is not already
          * loaded. If the relationship is already loaded this method does not
@@ -805,7 +799,7 @@ export namespace DS {
          * relationship is not yet loaded. If the relationship is not loaded
          * it will always return `null`.
          */
-        value(): ManyArray<T>;
+        value(): ManyArray<T> | null;
         /**
          * Loads the relationship if it is not already loaded.  If the
          * relationship is already loaded this method does not trigger a new
@@ -1138,7 +1132,7 @@ export namespace DS {
          * This method unloads all records in the store.
          * It schedules unloading to happen during the next run loop.
          */
-        unloadAll<K extends keyof ModelRegistry>(modelName: K): void;
+        unloadAll<K extends keyof ModelRegistry>(modelName?: K): void;
         /**
          * DEPRECATED:
          * This method has been deprecated and is an alias for store.hasRecordForId, which should

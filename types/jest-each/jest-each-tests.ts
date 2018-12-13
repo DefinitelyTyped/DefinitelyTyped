@@ -17,3 +17,19 @@ each(params).describe.only('', () => {});
 each(params).fdescribe('', () => {});
 each(params).describe.skip('', () => {});
 each(params).xdescribe('', () => {});
+
+each(params).test('', (a: number, b: string, c: object) => {});
+each(params).it('', (a: number, b: string, c: object) => {});
+each(params).test.only('', (a: number, b: string, c: object) => {});
+each(params).it.only('', (a: number, b: string, c: object) => {});
+each(params).fit('', (a: number, b: string, c: object) => {});
+each(params).test.skip('', (a: number, b: string, c: object) => {});
+each(params).it.skip('', (a: number, b: string, c: object) => {});
+each(params).xit('', (a: number, b: string, c: object) => {});
+each(params).xtest('', (a: number, b: string, c: object) => {});
+
+each(params).describe('', (a: number, b: string, c: object) => {});
+each(params).describe.only('', (a: number, b: string, c: object) => {});
+each(params).fdescribe('', (a: number, b: string, c: object) => {});
+each(params).describe.skip('', (a: number, b: string, c: object) => {});
+each(params).xdescribe('', (a: number, b: string, c: object) => {});

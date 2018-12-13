@@ -203,3 +203,6 @@ declare module 'ember-data' {
 
 assertType<UserAdapter>(store.adapterFor('user'));
 assertType<UserSerializer>(store.serializerFor('user'));
+
+store.unloadAll();
+store.unloadAll('user');

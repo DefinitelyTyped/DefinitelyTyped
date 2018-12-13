@@ -1,5 +1,5 @@
 // Type definitions for office-runtime 1.0
-// Project: http://dev.office.com/
+// Project: https://github.com/OfficeDev/office-js
 // Definitions by: Michael Zlatskovsky <https://github.com/Zlatkovsky>, Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 2.4
@@ -51,11 +51,6 @@ declare namespace OfficeRuntime {
         removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
         /**
          * @beta
-         * Erases all AsyncStorage. Returns a Promise.
-         */
-        clear(callback?: (error?: Error) => void): Promise<void>;
-        /**
-         * @beta
          * Returns a Promise with all keys.
          */
         getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
@@ -75,7 +70,7 @@ declare namespace OfficeRuntime {
          */
         multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string[][]>;
     }
-    /*
+    /**
      * @beta
      * Object representing the dialog box.
      */
@@ -111,15 +106,20 @@ declare namespace OfficeRuntime {
          * True if title is hidden from the dialog box.
          */
         hideTitle?: boolean;
-        /*
+        /**
          * @beta
          * Callback that is run when the dialog box is closed.
          */
         onClose?: () => void;
+        /**
+         * @beta
+         * Callback that is run when the dialog sends a message to its parent.
+         */
+        onMessage?(message: string, dialog?: Dialog): void;
         /*
          * @beta
          * Callback that is run when the dialog box sends an error.
          */
-        onMessage?(message: string, dialog?: Dialog): void;
+        onRuntimeError?(error: Error, dialog?: Dialog): void;
     }
 }

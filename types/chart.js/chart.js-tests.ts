@@ -9,7 +9,9 @@ const plugin = {
     }
 };
 
-const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
+const ctx = new CanvasRenderingContext2D();
+
+const chart: Chart = new Chart(ctx, {
     type: "bar",
     plugins: [plugin, plugin],
     data: {
@@ -17,9 +19,11 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         datasets: [
             {
                 backgroundColor: "#000000",
+                hoverBackgroundColor: ctx.createLinearGradient(0, 0, 0, 100),
+                hoverBorderColor: ctx.createLinearGradient(0, 0, 0, 100),
                 borderWidth: 1,
                 label: "test",
-                data: [1]
+                data: [1, null, 3]
             }
         ]
     },
@@ -36,6 +40,7 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
+            mode: 'index',
             itemSort: (a, b) => Math.random() - 0.5,
             position: "average",
             caretPadding: 2,
@@ -125,6 +130,7 @@ const chartConfig: Chart.ChartConfiguration = {
             backgroundColor: '#37738353',
             borderColor: '#37738353',
             borderWidth: 3,
+            borderCapStyle: 'round',
             fill: true
         }]
     },

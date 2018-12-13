@@ -45,6 +45,7 @@ declare namespace passport {
         successMessage?: boolean | string;
         successRedirect?: string;
         successReturnToOrRedirect?: string;
+        state?: string;
         pauseStream?: boolean;
         userProperty?: string;
         passReqToCallback?: boolean;

@@ -145,7 +145,19 @@ declare namespace Giraffe {
 
   namespace Contrib {
 
-    class Controller extends Backbone.Events implements GiraffeObject {
+    class Controller implements GiraffeObject, Backbone.Events {
+      on(eventName: string, callback?: (...args: any[]) => void, context?: any);
+      on(eventMap: Backbone.EventsHash);
+      on(eventName: any, callback?: any, context?: any)
+      off(eventName?: string, callback?: (...args: any[]) => void, context?: any)
+      trigger(eventName: string, ...args: any[])
+      bind(eventName: string, callback: (...args: any[]) => void, context?: any)
+      unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any)
+      once(events: string, callback: (...args: any[]) => void, context?: any): any;
+      listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
+      listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
+      stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
+
       app: App;
     }
 

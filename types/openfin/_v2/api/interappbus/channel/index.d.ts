@@ -4,30 +4,29 @@ import { ChannelProvider } from './provider';
 import { EmitterBase } from '../../base';
 import Transport, { Message, Payload } from '../../../transport/transport';
 import { ProviderIdentity } from './channel';
-export interface Options {
+import { ChannelEvents } from '../../events/channel';
+export interface ConnectOptions {
     wait?: boolean;
-    uuid: string;
-    name?: string;
     payload?: any;
 }
 export interface ChannelPayload {
     payload: Payload;
 }
-export interface ChannelMessage {
+export interface ChannelMessage extends Message<any> {
     senderIdentity: Identity;
     ackToSender: any;
-    providerIdentity: Identity;
+    providerIdentity: ProviderIdentity;
     connectAction: boolean;
 }
-export declare class Channel extends EmitterBase {
+export declare class Channel extends EmitterBase<ChannelEvents> {
     private channelMap;
     constructor(wire: Transport);
     getAllChannels(): Promise<ProviderIdentity[]>;
-    onChannelConnect(listener: Function): Promise<void>;
-    onChannelDisconnect(listener: Function): Promise<void>;
-    connect(options: Options): Promise<ChannelClient>;
-    create(channelName?: string): Promise<ChannelProvider>;
-    onmessage: (msg: Message<ChannelMessage>) => boolean;
+    onChannelConnect(listener: (...args: any[]) => void): Promise<void>;
+    onChannelDisconnect(listener: (...args: any[]) => void): Promise<void>;
+    connect(channelName: string, options?: ConnectOptions): Promise<ChannelClient>;
+    create(channelName: string): Promise<ChannelProvider>;
+    onmessage: (msg: ChannelMessage) => boolean;
     private processChannelMessage;
     private processChannelConnection;
 }

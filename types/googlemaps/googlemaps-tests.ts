@@ -438,3 +438,14 @@ service.findPlaceFromQuery({
 
     results[0].name; // $ExpectType string
 });
+
+service.findPlaceFromPhoneNumber({
+    phoneNumber: '123456',
+    fields: ['name']
+}, (results, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        return;
+    }
+
+    results[0].name; // $ExpectType string
+});

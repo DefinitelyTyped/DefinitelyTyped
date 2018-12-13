@@ -43,6 +43,10 @@ export class Response {
      */
     constructor(status: number, headers: Object, body: string);
 
+    status: number;
+    body: string;
+    headers: Map<string, string>;
+
     /** @override */
     toString(): string;
 }

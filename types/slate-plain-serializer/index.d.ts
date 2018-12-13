@@ -3,7 +3,7 @@
 // Definitions by: Brandon Shelton <https://github.com/YangusKhan>
 //                 Martin Kiefel <https://github.com/mkiefel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 import { BlockProperties, MarkProperties, Value } from 'slate';
 
 export interface DeserializeOptions {
