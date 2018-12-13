@@ -416,7 +416,7 @@ export interface NavigationSwitchRouterConfig {
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+  defaultNavigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   order?: string[];
   backBehavior?: 'none' | 'initialRoute'; // defaults to `'none'`
   resetOnBlur?: boolean; // defaults to `true`
@@ -456,6 +456,7 @@ export interface NavigationStackRouterConfig {
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
+  defaultNavigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   initialRouteKey?: string;
 }
@@ -519,10 +520,12 @@ interface NavigationTabRouterConfigBase {
   backBehavior?: 'none' | 'initialRoute'; // defaults `initialRoute`
 }
 export interface NavigationTabRouterConfig extends NavigationTabRouterConfigBase {
-  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+  defaultNavigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+  navigationOptions?: NavigationTabRouterConfigBase;
 }
 export interface NavigationBottomTabRouterConfig extends NavigationTabRouterConfigBase {
-  navigationOptions?: NavigationScreenConfig<NavigationBottomTabScreenOptions>;
+  defaultNavigationOptions?: NavigationScreenConfig<NavigationBottomTabScreenOptions>;
+  navigationOptions?: NavigationTabRouterConfigBase;
 }
 export interface TabScene {
   route: NavigationRoute;
@@ -1247,8 +1250,8 @@ export function createNavigator<S, Options>(
  *
  * @see https://github.com/react-navigation/react-navigation/blob/master/src/createNavigationContainer.js
  */
-export function createNavigationContainer(
-  Component: NavigationNavigator<any, any, any>
+export function createNavigationContainer<S, O>(
+  Component: NavigationNavigator<S, O, any>
 ): NavigationContainer;
 
 /**
@@ -1256,8 +1259,8 @@ export function createNavigationContainer(
  *
  * @see https://github.com/react-navigation/react-navigation-native/blob/098e2e52b349d37357109d5aee545fa74699d3d4/src/createAppContainer.js#L64
  */
-export function createAppContainer(
-  Component: NavigationNavigator<any, any, any>
+export function createAppContainer<S, O>(
+  Component: NavigationNavigator<S, O, any>
 ): NavigationContainer;
 
 /**
