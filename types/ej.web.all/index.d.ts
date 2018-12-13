@@ -46631,11 +46631,6 @@ declare namespace ej {
          */
         searchPrevious(): void;
 
-        /** Aborts the search operation.
-         * @returns {void}
-         */
-        cancelSearchText(): void;
-
         /** Set the JSON data that are formed for rendering the document content in PDF viewer.
          * @param {any} Set the JSON data that are formed for rendering the document content.
          * @returns {void}
