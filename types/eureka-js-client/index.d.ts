@@ -6,11 +6,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Eureka {
-    constructor(config: EurekaClient.EurekaConfig)
-    start(cb?: (err?: Error) => void): void;
-    stop(cb?: (err?: Error) => void): void;
-    getInstancesByAppId(appId: string): string[];
-    getInstancesByVipAddress(vidAddress: string): string [];
+    constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig)
+    start(cb?: (err: Error, ...rest: any[]) => void): void;
+    stop(cb?: (err: Error, ...rest: any[]) => void): void;
+    getInstancesByAppId(appId: string): EurekaClient.EurekaInstanceConfig[];
+    getInstancesByVipAddress(vidAddress: string): EurekaClient.EurekaInstanceConfig[];
 }
 
 export namespace EurekaClient {
@@ -28,11 +28,11 @@ export namespace EurekaClient {
         ipAddr: string;
         vipAddress: string;
         dataCenterInfo: DataCenterInfo;
-        port?: number | LegacyPortWrapper;
+        port?: number | PortWrapper | LegacyPortWrapper;
         instanceId?: string;
         appGroupName?: string;
         sid?: string;
-        securePort?: PortWrapper;
+        securePort?: number | PortWrapper | LegacyPortWrapper;
         homePageUrl?: string;
         statusPageUrl?: string;
         healthCheckUrl?: string;
@@ -43,6 +43,12 @@ export namespace EurekaClient {
         overriddenstatus?: InstanceStatus;
         leaseInfo?: LeaseInfo;
         isCoordinatingDiscoveryServer?: boolean;
+        lastUpdatedTimestamp?: number;
+        lastDirtyTimestamp?: number;
+        actionType?: ActionType;
+        metadata?: {
+            [index: string]: string;
+        };
     }
     interface EurekaClientConfig {
         host: string;
@@ -62,6 +68,17 @@ export namespace EurekaClient {
         registerWithEureka?: boolean;
         useLocalMetadata?: boolean;
         preferIpAddress?: boolean;
+        shouldUseDelta?: boolean;
+        logger?: {
+            warn: (...args: any[]) => void;
+            info: (...args: any[]) => void;
+            debug: (...args: any[]) => void;
+            error: (...args: any[]) => void;
+        };
+    }
+    interface EurekaYmlConfig {
+        cwd: string;
+        filename?: string;
     }
     interface LegacyPortWrapper {
         '$': number;
@@ -72,8 +89,12 @@ export namespace EurekaClient {
         port: number;
     }
     interface LeaseInfo {
-        renewalIntervalInSecs: number;
-        durationInSecs: number;
+        renewalIntervalInSecs?: number;
+        durationInSecs?: number;
+        registrationTimestamp?: number;
+        lastRenewalTimestamp?: number;
+        evictionTimestamp?: number;
+        serviceUpTimestamp?: number;
     }
     interface DataCenterInfo {
         name: DataCenterName;
