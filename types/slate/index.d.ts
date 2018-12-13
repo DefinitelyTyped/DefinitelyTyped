@@ -7,7 +7,7 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
-//                 Sebastian Greaves <https://github.com/sgreav>
+//                 Hanna Greaves <https://github.com/sgreav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -319,7 +319,7 @@ export class Text extends Immutable.Record({}) {
     addMark(index: number, length: number, mark: Mark): Text;
     addMarks(index: number, lenght: number, marks: Immutable.Set<Mark>): Text;
     getLeaves(decorations?: Range[]): Immutable.List<Leaf>;
-    getActiveMarksBetweenOffset(
+    getActiveMarksBetweenOffsets(
         startOffset: number,
         endOffset: number
     ): Immutable.Set<Mark>;

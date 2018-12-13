@@ -4,10 +4,14 @@ import * as t from "@babel/types";
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
 const MyVisitor: Visitor = {
     Identifier: {
-        enter() {
+        enter(path) {
+            // $ExpectType NodePath<Identifier>
+            path;
             console.log("Entered!");
         },
-        exit() {
+        exit(path) {
+            // $ExpectType NodePath<Identifier>
+            path;
             console.log("Exited!");
         }
     }
@@ -89,7 +93,8 @@ const v1: Visitor = {
 
         const id = path.scope.generateUidIdentifierBasedOnNode(path.node.id!);
         path.remove();
-        path.scope.parent.push({ id, init: path.node });
+        path.scope.parent.push({ id });
+        path.scope.parent.push({ id, init: t.stringLiteral('foo'), kind: "const" });
 
         path.scope.rename("n", "x");
         path.scope.rename("n");
@@ -104,7 +109,44 @@ const BindingKindTest: Visitor = {
         kind === 'const';
         kind === 'let';
         kind === 'var';
-        // The following should fail when uncommented
-        // kind === 'anythingElse';
+        // $ExpectError
+        kind === 'anythingElse';
     },
+};
+
+interface SomeVisitorState { someState: string; }
+
+const VisitorStateTest: Visitor<SomeVisitorState> = {
+    enter(path, state) {
+        // $ExpectType SomeVisitorState
+        state;
+        // $ExpectType SomeVisitorState
+        this;
+    },
+    exit(path, state) {
+        // $ExpectType SomeVisitorState
+        state;
+        // $ExpectType SomeVisitorState
+        this;
+    },
+    Identifier(path, state) {
+        // $ExpectType SomeVisitorState
+        state;
+        // $ExpectType SomeVisitorState
+        this;
+    },
+    FunctionDeclaration: {
+        enter(path, state) {
+            // $ExpectType SomeVisitorState
+            state;
+            // $ExpectType SomeVisitorState
+            this;
+        },
+        exit(path, state) {
+            // $ExpectType SomeVisitorState
+            state;
+            // $ExpectType SomeVisitorState
+            this;
+        }
+    }
 };

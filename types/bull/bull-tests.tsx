@@ -98,10 +98,16 @@ const pdfQueue = new Queue('pdf transcoding', {
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-pdfQueue.process((job) => {
+pdfQueue.process((job: Queue.Job) => {
     // Processors can also return promises instead of using the done callback
     return Promise.resolve();
 });
+
+async function pfdPromise(job: Queue.Job) {
+    return Promise.resolve();
+}
+
+pdfQueue.process(1, pfdPromise);
 
 videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
 .then((video1Job) => {

@@ -145,7 +145,8 @@ Audio.setAudioModeAsync({
     playsInSilentModeIOS: true,
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
-    allowsRecordingIOS: true
+    allowsRecordingIOS: true,
+    playThroughEarpieceAndroid: false
 });
 Audio.setIsEnabledAsync(true);
 
@@ -401,6 +402,21 @@ async () => {
 async () => {
     const result = await ImageManipulator.manipulate('url', [
         { rotate: 90 },
+        { resize: { width: 300 } },
+        { resize: { height: 300 } },
+        { resize: { height: 300, width: 300 } },
+    ], {
+        compress: 0.75
+    });
+
+    result.height;
+    result.uri;
+    result.width;
+};
+
+async () => {
+    const result = await ImageManipulator.manipulateAsync('url', [
+        { rotate: 360 },
         { resize: { width: 300 } },
         { resize: { height: 300 } },
         { resize: { height: 300, width: 300 } },

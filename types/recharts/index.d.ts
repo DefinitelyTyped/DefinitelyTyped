@@ -11,6 +11,7 @@
 //                 Paul Melnikow <https://github.com/paulmelnikow>
 //                 Harry Cruse <https://github.com/crusectrl>
 //                 Andrew Palugniok <https://github.com/apalugniok>
+//                 Robert Stigsson <https://github.com/RobertStigsson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -45,6 +46,7 @@ export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouett
 export type LineType =
     'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' |
     'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | CurveFactory;
+export type IfOverflowType = 'hidden' | 'visible' | 'discard' | 'extendDomain';
 export type AxisInterval = number | 'preserveStart' | 'preserveEnd' | 'preserveStartEnd';
 
 export type PickedCSSStyleDeclarationKeys =
@@ -363,6 +365,7 @@ export interface LegendPayload {
     value: any;
     id: any;
     type: LegendType;
+    color?: string;
 }
 
 export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
@@ -447,6 +450,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     } | React.ReactElement<any> | ContentRenderer<any> | boolean;
     activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
+    blendStroke?: boolean;
 }
 
 export class Pie extends React.Component<PieProps> { }
@@ -634,6 +638,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x1?: number | string;
     x2?: number | string;
     y1?: number | string;
@@ -657,6 +662,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
     yAxis?: ReferenceDotAxisConfiguration;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
     xAxisId?: string | number;
@@ -677,6 +683,7 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
     label?: string | number | ContentRenderer<any> | React.ReactElement<any>;
@@ -796,6 +803,7 @@ export interface TooltipPayload {
     fill?: string;
     dataKey?: DataKey;
     formatter?: TooltipFormatter;
+    payload?: any;
 }
 
 export interface TooltipProps extends Animatable {

@@ -3,8 +3,8 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import PrismSyntaxHighlighter from "react-syntax-highlighter/prism";
 import PrismLightHighlighter, { registerLanguage } from "react-syntax-highlighter/prism-light";
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
-import { docco } from "react-syntax-highlighter/styles/hljs";
-import { atomDark } from "react-syntax-highlighter/styles/prism";
+import { docco } from "react-syntax-highlighter/dist/styles/hljs";
+import { atomDark } from "react-syntax-highlighter/dist/styles/prism";
 
 function hljsHighlighter(): JSX.Element {
     const codeString: string = `class CPP {

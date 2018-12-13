@@ -349,7 +349,7 @@ export function transformFromAstSync(ast: Node, code?: string, opts?: TransformO
 /**
  * Given an AST, transform it.
  */
-export function transformFromAstSync(ast: Node, code?: string, opts?: TransformOptions): Promise<BabelFileResult | null>;
+export function transformFromAstAsync(ast: Node, code?: string, opts?: TransformOptions): Promise<BabelFileResult | null>;
 
 // A babel plugin is a simple function which must return an object matching
 // the following interface. Babel will throw if it finds unknown properties.
@@ -365,7 +365,7 @@ export interface PluginObj<S = {}> {
 }
 
 export interface BabelFileResult {
-    ast?: Node | null;
+    ast?: t.File | null;
     code?: string | null;
     ignored?: boolean;
     map?: {

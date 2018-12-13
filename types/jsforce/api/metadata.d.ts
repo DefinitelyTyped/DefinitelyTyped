@@ -124,6 +124,8 @@ export class AsyncResultLocator<T> extends EventEmitter implements Promise<T> {
     then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | null | undefined,
                              onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | null | undefined): Promise<TResult1 | TResult2>;
 
+    finally(onfinally?: () => void): Promise<T>;
+
     readonly [Symbol.toStringTag]: "Promise";
 }
 

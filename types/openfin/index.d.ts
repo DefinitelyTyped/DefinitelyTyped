@@ -420,7 +420,7 @@ declare namespace fin {
         /**
          * The timeout for displaying a notification.Can be in milliseconds or "never".
          */
-        duration?: number | "never";
+        timeout?: number | "never";
         /**
          * The url of the notification
          */
@@ -804,9 +804,9 @@ declare namespace fin {
          */
         getSnapshot(callback?: (base64Snapshot: string) => void, errorCallback?: (reason: string) => void): void;
         /**
-         * Gets the current state ("minimized", "maximized", or "restored") of the window.
+         * Gets the current state ("minimized", "maximized", or "normal") of the window.
          */
-        getState(callback?: (state: "minimized" | "maximized" | "restored") => void, errorCallback?: (reason: string) => void): void;
+        getState(callback?: (state: "minimized" | "maximized" | "normal") => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns the zoom level of the window.
          */

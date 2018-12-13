@@ -53,6 +53,10 @@ declare class CancelError extends StdError {
     name: 'CancelError';
 }
 
+declare class TimeoutError extends StdError {
+    name: 'TimeoutError';
+}
+
 declare class StdError extends Error {
     code?: string;
     host?: string;
@@ -75,6 +79,7 @@ declare const got: got.GotFn &
         MaxRedirectsError: typeof MaxRedirectsError;
         UnsupportedProtocolError: typeof UnsupportedProtocolError;
         CancelError: typeof CancelError;
+        TimeoutError: typeof TimeoutError;
     };
 
 interface InternalRequestOptions extends https.RequestOptions {
@@ -215,7 +220,7 @@ declare namespace got {
         removeListener(event: 'uploadProgress', listener: (progress: Progress) => void): this;
     }
 
-    type GotError = RequestError | ReadError | ParseError | HTTPError | MaxRedirectsError | UnsupportedProtocolError | CancelError;
+    type GotError = RequestError | ReadError | ParseError | HTTPError | MaxRedirectsError | UnsupportedProtocolError | CancelError | TimeoutError;
 
     interface Progress {
         percent: number;

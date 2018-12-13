@@ -430,6 +430,7 @@ class ScrollerListComponentTest extends React.Component<
                         <ScrollView
                             horizontal={true}
                             nestedScrollEnabled={true}
+                            invertStickyHeaders={true}
                             contentOffset={{ x: 0, y: 0 }}
                             {...props}
                             style={[
@@ -822,12 +823,7 @@ class BridgedComponentTest extends React.Component {
     }
 }
 
-const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", BridgedComponentTest, {
-    nativeOnly: {
-        nativeProp: true,
-    }
-});
-
+const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent");
 
 const SwitchColorTest = () => (
     <Switch trackColor={{ true: 'pink', false: 'red'}} />

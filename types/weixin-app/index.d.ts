@@ -936,7 +936,7 @@ declare namespace wx {
 		/** 本地缓存中的指定的 key */
 		key: string;
 		/** 接口调用的回调函数,res = {data: key对应的内容} */
-		success(res: DataResponse): void;
+		success(res: { data: Record<string, any> | string | undefined }): void;
 	}
 	/**
 	 * 从本地缓存中异步获取指定 key 对应的内容。
@@ -3058,12 +3058,33 @@ declare namespace wx {
 	 * 登录态过期后开发者可以再调用wx.login获取新的用户登录态。
 	 */
 	function checkSession(options: CheckSessionOption): void;
+
+	// scope 列表
+	type Scope =
+		| "scope.userInfo"
+		| "scope.userLocation"
+		| "scope.address"
+		| "scope.invoiceTitle"
+		| "scope.invoice"
+		| "scope.werun"
+		| "scope.record"
+		| "scope.writePhotosAlbum"
+		| "scope.camera";
+
+	// 开放接口-----设置
+	interface AuthorizeOption {
+		scope: Scope;
+		success?(res: ErrMsgResponse): void;
+		fail?(): void;
+		complete?(): void;
+	}
+
 	/**
 	 * 提前向用户发起授权请求。
 	 * 调用后会立刻弹窗询问用户是否同意授权小程序使用某项功能或获取用户的某些数据，
 	 * 但不会实际调用对应接口。如果用户之前已经同意授权，则不会出现弹窗，直接返回成功。
 	 */
-	function authorize(options: AuthSetting): void;
+	function authorize(options: AuthorizeOption): void;
 	// 开放接口-----用户信息
 	interface UserInfo {
 		nickName: string;
@@ -3283,22 +3304,9 @@ declare namespace wx {
 	 *
 	 */
 	function openCard(options: OpenCardOptions): void;
-	// 开放接口-----设置
-	interface AuthSetting {
-		scope:
-			| "scope.userInfo"
-			| "scope.userLocation"
-			| "scope.address"
-			| "scope.invoiceTitle"
-			| "scope.werun"
-			| "scope.record"
-			| "scope.writePhotosAlbum";
-		success?(res: ErrMsgResponse): void;
-		fail?(): void;
-		complete?(): void;
-	}
+
 	interface OpenSettingOptions extends BaseOptions {
-		success?(res: { authSetting: AuthSetting }): void;
+		success?(res: { authSetting: { [key in Scope]: boolean } }): void;
 	}
 	/**
 	 * 调起客户端小程序设置界面，返回用户设置的操作结果。

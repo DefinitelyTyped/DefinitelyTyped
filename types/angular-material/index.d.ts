@@ -153,6 +153,10 @@ declare module 'angular' {
             defaultFontSet(name: string): IIconProvider;
         }
 
+        interface IInkRippleProvider {
+            disableInkRipple(): void;
+        }
+
         type IMedia = (media: string) => boolean;
 
         interface ISidenavObject {
