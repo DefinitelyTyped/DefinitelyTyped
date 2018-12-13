@@ -669,7 +669,7 @@ export interface CodePipelineActionEvent {
         type: {
             owner: 'AWS' | 'Custom' | 'ThirdParty';
             category: CodePipelineActionCategory;
-            provider: 'CodeDeploy';
+            provider: string;
             version: number;
         };
     };
