@@ -1,11 +1,9 @@
 /* Note that this is a sample function for the purpose of running the below CustomFunctionsMappings test */
-function ADD10(n: number) {
+function add10(n: number) {
     return n + 10;
 }
 
-CustomFunctionMappings = {
-    addTen: ADD10
-};
+CustomFunctions.Associate('ADD10', add10);
 
 async function getStockValues(ticker: string): Promise<number> {
     const response = await fetch(`myService.com/prices/${ticker}`);

@@ -18,7 +18,7 @@ Copyright (c) Microsoft Corporation
  */
 
 declare namespace CustomFunctions {
-    function Associate(key:string, functionName: Function): void
+    function Associate(key: any, functionName: Function): void;
     /**
      * @beta
      * Ties together the function's JavaScript name with the JSON id property
