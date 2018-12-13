@@ -8,7 +8,16 @@
 
 export = FileType;
 
-declare function FileType(buf: Buffer | Uint8Array): FileType.FileTypeResult;
+/**
+ * Returns an Object with:
+ * - ext - One of the supported file types
+ * - mime - The MIME type
+ * Or null when no match.
+ * @param buf It only needs the first .minimumBytes bytes.The exception is
+ * detection of docx, pptx, and xlsx which potentially requires reading
+ * the whole file.
+ */
+declare function FileType(buf: Buffer | Uint8Array): FileType.FileTypeResult | null;
 
 declare namespace FileType {
     interface FileTypeResult {
@@ -16,5 +25,9 @@ declare namespace FileType {
         mime: string;
     }
 
+    /**
+     * The minimum amount of bytes needed to detect a file type. Currently,
+     * it's 4100 bytes, but it can change, so don't hard-code it.
+     */
     const minimumBytes: number;
 }
