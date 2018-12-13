@@ -1,4 +1,4 @@
-// Type definitions for node-progress v2.0.0
+// Type definitions for node-progress v2.0.3
 // Project: https://github.com/visionmedia/node-progress
 // Definitions by: Sebastian Lenz <https://github.com/sebastian-lenz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
