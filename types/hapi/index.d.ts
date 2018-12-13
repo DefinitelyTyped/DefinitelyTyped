@@ -1,4 +1,4 @@
-// Type definitions for hapi 17.6
+// Type definitions for hapi 17.8
 // Project: https://github.com/hapijs/hapi
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
@@ -41,6 +41,18 @@ import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePro
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
+
+/**
+ * one of
+ * a single plugin name string.
+ * an array of plugin name strings.
+ * an object where each key is a plugin name and each matching value is a
+ * {@link https://www.npmjs.com/package/semver version range string} which must match the registered
+ *  plugin version.
+ */
+export type Dependencies = string | string[] | {
+    [key: string]: string;
+};
 
 /**
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverregistrations)
@@ -126,7 +138,16 @@ export interface PluginBase<T> {
     multiple?: boolean;
 
     /** (optional) a string or an array of strings indicating a plugin dependency. Same as setting dependencies via server.dependency(). */
-    dependencies?: string | string[];
+    dependencies?: Dependencies;
+
+    /**
+     * Allows defining semver requirements for node and hapi.
+     * @default Allows all.
+     */
+    requirements?: {
+        node?: string;
+        hapi?: string;
+    };
 
     /** once - (optional) if true, will only register the plugin once per server. If set, overrides the once option passed to server.register(). Defaults to no override. */
     once?: boolean;
@@ -2014,6 +2035,15 @@ export interface ServerAuthSchemeObject {
     response?(request: Request, h: ResponseToolkit): Lifecycle.ReturnValue;
 
     /**
+     * a method used to verify the authentication credentials provided
+     * are still valid (e.g. not expired or revoked after the initial authentication).
+     * the method throws an `Error` when the credentials passed are no longer valid (e.g. expired or
+     * revoked). Note that the method does not have access to the original request, only to the
+     * credentials and artifacts produced by the `authenticate()` method.
+     */
+    verify?(auth: RequestAuth): Promise<void>;
+
+    /**
      * An object with the following keys:
      * * payload
      */
@@ -2040,7 +2070,7 @@ export interface ServerAuth {
      * returned from its implementation function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthapi)
      */
-    api: Util.Dictionary<any>;
+    api: Util.Dictionary<ServerAuthSchemeObjectApi>;
 
     /**
      * Contains the default authentication configuration is a default strategy was set via
@@ -2100,7 +2130,19 @@ export interface ServerAuth {
      * include verifying scope, entity, or other route properties.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverauthteststrategy-request)
      */
-    test(strategy: string, request: Request): Promise<any>;
+    test(strategy: string, request: Request): Promise<AuthCredentials>;
+
+    /**
+     * Verify a request's authentication credentials against an authentication strategy.
+     * Returns nothing if verification was successful, otherwise throws an error.
+     *
+     * Note that the `verify()` method does not take into account the route authentication configuration
+     * or any other information from the request other than the `request.auth` object. It also does not
+     * perform payload authentication. It is limited to verifying that the previously valid credentials
+     * are still valid (e.g. have not been revoked or expired). It does not include verifying scope,
+     * entity, or other route properties.
+     */
+    verify(request: Request): Promise<void>;
 }
 
 export type CachePolicyOptions<T> = PolicyOptionVariants<T> & {
@@ -3302,7 +3344,7 @@ export class Server {
     /**
      * Server Auth: properties and methods
      */
-    auth: ServerAuth;
+    readonly auth: ServerAuth;
 
     /**
      * Links another server to the initialize/start/stop state of the current server by calling the
@@ -3542,7 +3584,7 @@ export class Server {
 
     /**
      * Used within a plugin to declare a required dependency on other plugins where:
-     * @param dependencies - a single string or an array of plugin name strings which must be registered in order for this plugin to operate. Plugins listed must be registered before the server is
+     * @param dependencies - plugins which must be registered in order for this plugin to operate. Plugins listed must be registered before the server is
      *     initialized or started.
      * @param after - (optional) a function that is called after all the specified dependencies have been registered and before the server starts. The function is only called if the server is
      *     initialized or started. The function signature is async function(server) where: server - the server the dependency() method was called on.
@@ -3552,7 +3594,7 @@ export class Server {
      * The method does not provide version dependency which should be implemented using npm peer dependencies.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdependencydependencies-after)
      */
-    dependency(dependencies: string | string[], after?: ((server: Server) => Promise<void>)): void;
+    dependency(dependencies: Dependencies, after?: ((server: Server) => Promise<void>)): void;
 
     /**
      * Registers a custom content encoding compressor to extend the built-in support for 'gzip' and 'deflate' where:

@@ -6,7 +6,7 @@
 
 export interface UploadOptions {
     endpoint: string;
-    fingerprint?: string;
+    fingerprint?: (file: File, options?: UploadOptions) => string;
     resume?: boolean;
     metadata?: { [key: string]: string };
     onProgress?: ((bytesSent: number, bytesTotal: number) => void) | null;

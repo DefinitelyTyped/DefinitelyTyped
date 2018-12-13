@@ -73,7 +73,7 @@ export type SimpleInterpolation =
     | InterpolationValue
     | FlattenSimpleInterpolation;
 // must be an interface to be self-referential
-interface FlattenSimpleInterpolation
+export interface FlattenSimpleInterpolation
     extends ReadonlyArray<SimpleInterpolation> {}
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
@@ -176,10 +176,9 @@ export interface ThemedStyledFunctionBase<
     (
         first:
             | TemplateStringsArray
-            | NonNullable<
-                  Interpolation<
-                      ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
-                  >
+            | CSSObject
+            | InterpolationFunction<
+                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
               >,
         ...rest: Array<
             Interpolation<
@@ -187,17 +186,12 @@ export interface ThemedStyledFunctionBase<
             >
         >
     ): StyledComponent<C, T, O, A>;
-    // at least the first argument is required, whatever it is
     <U extends object>(
         first:
             | TemplateStringsArray
-            | NonNullable<
-                  Interpolation<
-                      ThemedStyledProps<
-                          StyledComponentPropsWithRef<C> & O & U,
-                          T
-                      >
-                  >
+            | CSSObject
+            | InterpolationFunction<
+                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
               >,
         ...rest: Array<
             Interpolation<
@@ -288,15 +282,21 @@ export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
 export interface BaseThemedCssFunction<T extends object> {
     (
+        first: TemplateStringsArray | CSSObject,
+        ...interpolations: SimpleInterpolation[]
+    ): FlattenSimpleInterpolation;
+    (
         first:
             | TemplateStringsArray
-            | NonNullable<Interpolation<ThemedStyledProps<{}, T>>>,
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<{}, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<{}, T>>>
     ): FlattenInterpolation<ThemedStyledProps<{}, T>>;
     <P extends object>(
         first:
             | TemplateStringsArray
-            | NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): FlattenInterpolation<ThemedStyledProps<P, T>>;
 }
@@ -329,7 +329,8 @@ export interface ThemedStyledComponentsModule<
     createGlobalStyle<P extends object = {}>(
         first:
             | TemplateStringsArray
-            | NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): GlobalStyleComponent<P, T>;
 
@@ -401,7 +402,8 @@ export function keyframes(
 export function createGlobalStyle<P extends object = {}>(
     first:
         | TemplateStringsArray
-        | NonNullable<Interpolation<ThemedStyledProps<P, DefaultTheme>>>,
+        | CSSObject
+        | InterpolationFunction<ThemedStyledProps<P, DefaultTheme>>,
     ...interpolations: Array<Interpolation<ThemedStyledProps<P, DefaultTheme>>>
 ): GlobalStyleComponent<P, DefaultTheme>;
 
@@ -435,5 +437,36 @@ type StyleSheetManagerProps =
 export class StyleSheetManager extends React.Component<
     StyleSheetManagerProps
 > {}
+
+/**
+ * The CSS prop is not declared by default in the types as it would cause 'css' to be present
+ * on the types of anything that uses styled-components indirectly, even if they do not use the
+ * babel plugin.
+ *
+ * You can load a default declaration by using writing this special import from
+ * a typescript file. This module does not exist in reality, which is why the {} is important:
+ *
+ * ```ts
+ * import {} from 'styled-components/cssprop'
+ * ```
+ *
+ * Or you can declare your own module augmentation, which allows you to specify the type of Theme:
+ *
+ * ```ts
+ * import { CSSProp } from 'styled-components'
+ *
+ * interface MyTheme {}
+ *
+ * declare module 'react' {
+ *   interface Attributes {
+ *     css?: CSSProp<MyTheme>
+ *   }
+ * }
+ * ```
+ */
+// ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
+export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
+    | string
+    | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;

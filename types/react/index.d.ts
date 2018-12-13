@@ -8,7 +8,6 @@
 //                 Patricio Zavolinsky <https://github.com/pzavolinsky>
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
-//                 Albert Kurniawan <https://github.com/morcerf>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
@@ -50,7 +49,11 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType<P = any> = string | ComponentType<P>;
+    type ReactType<P = any> =
+        {
+            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
+        }[keyof JSX.IntrinsicElements] |
+        ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type Key = string | number;
@@ -295,7 +298,7 @@ declare namespace React {
     }
 
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
     }
 
     type ContextType<C extends Context<any>> = C extends Context<infer T> ? T : never;
@@ -319,23 +322,25 @@ declare namespace React {
     const Children: ReactChildren;
     const Fragment: ExoticComponent<{ children?: ReactNode }>;
     const StrictMode: ExoticComponent<{ children?: ReactNode }>;
-    /**
-     * This feature is not yet available for server-side rendering.
-     * Suspense support will be added in a later release.
-     */
-    const Suspense: ExoticComponent<{
-        children?: ReactNode
+
+    interface SuspenseProps {
+        children?: ReactNode;
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
-        fallback: NonNullable<ReactNode>|null
+        fallback: NonNullable<ReactNode>|null;
 
         // I tried looking at the code but I have no idea what it does.
         // https://github.com/facebook/react/issues/13206#issuecomment-432489986
         /**
          * Not implemented yet, requires unstable_ConcurrentMode
          */
-        // maxDuration?: number
-    }>;
+        // maxDuration?: number;
+    }
+    /**
+     * This feature is not yet available for server-side rendering.
+     * Suspense support will be added in a later release.
+     */
+    const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
 
     //
@@ -456,7 +461,7 @@ declare namespace React {
 
     interface FunctionComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
@@ -464,7 +469,7 @@ declare namespace React {
 
     interface RefForwardingComponent<T, P = {}> {
         (props: P & { children?: ReactNode }, ref: Ref<T> | null): ReactElement<any> | null;
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
@@ -472,7 +477,7 @@ declare namespace React {
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
         contextType?: Context<any>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -492,8 +497,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new (props: P, context?: any) => T) &
-        (new (props: P, context?: any) => { props: P });
+        (new (props: P, context?: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -714,17 +718,17 @@ declare namespace React {
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
      * or ComponentPropsWithoutRef when refs are not supported.
      */
-    type ComponentProps<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+    type ComponentProps<T extends ReactType> =
         T extends ComponentType<infer P>
             ? P
             : T extends keyof JSX.IntrinsicElements
                 ? JSX.IntrinsicElements[T]
                 : {};
-    type ComponentPropsWithRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+    type ComponentPropsWithRef<T extends ReactType> =
         T extends ComponentClass<infer P>
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
-    type ComponentPropsWithoutRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+    type ComponentPropsWithoutRef<T extends ReactType> =
         PropsWithoutRef<ComponentProps<T>>;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
@@ -832,17 +836,6 @@ declare namespace React {
      */
     // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T|null): RefObject<T>;
-    /**
-     * The signature is identical to `useEffect`, but it fires synchronously during the same phase that
-     * React performs its DOM mutations, before sibling components have been updated. Use this to perform
-     * custom DOM mutations.
-     *
-     * Prefer the standard `useEffect` when possible to avoid blocking visual updates.
-     *
-     * @version experimental
-     * @see https://reactjs.org/docs/hooks-reference.html#usemutationeffect
-     */
-    function useMutationEffect(effect: EffectCallback, inputs?: InputIdentityList): void;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
@@ -1020,6 +1013,8 @@ declare namespace React {
          */
         getModifierState(key: string): boolean;
         metaKey: boolean;
+        movementX: number;
+        movementY: number;
         nativeEvent: NativeMouseEvent;
         pageX: number;
         pageY: number;
@@ -1158,6 +1153,8 @@ declare namespace React {
         // Form Events
         onChange?: FormEventHandler<T>;
         onChangeCapture?: FormEventHandler<T>;
+        onBeforeInput?: FormEventHandler<T>;
+        onBeforeInputCapture?: FormEventHandler<T>;
         onInput?: FormEventHandler<T>;
         onInputCapture?: FormEventHandler<T>;
         onReset?: FormEventHandler<T>;
@@ -2564,6 +2561,14 @@ declare namespace React {
     type Requireable<T> = PropTypes.Requireable<T>;
 
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
+
+    type WeakValidationMap<T> = {
+        [K in keyof T]?: null extends T[K]
+            ? Validator<T[K] | null | undefined>
+            : undefined extends T[K]
+            ? Validator<T[K] | null | undefined>
+            : Validator<T[K]>
+    };
 
     interface ReactPropTypes {
         any: typeof PropTypes.any;

@@ -12,6 +12,7 @@
 //                 Nathan Phillip Brink <https://github.com/binki>
 //                 Martin Olsson <https://github.com/mo>
 //                 Levan Basharuli <https://github.com/levansuper>
+//                 Pavel Ihm <https://github.com/ihmpavel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -405,6 +406,9 @@ export namespace Audio {
 
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
+
+        /** Boolean selecting if audio should go to earpiece (only on Android). */
+        playThroughEarpieceAndroid: boolean;
     }
 
     function setIsEnabledAsync(value: boolean): Promise<void>;
@@ -566,7 +570,7 @@ export interface PlaybackStatusToSet {
     volume?: number;
 }
 
-export type PlaybackSource = RequireSource | { uri: string } | Asset;
+export type PlaybackSource = RequireSource | { uri: string, headers?: { [header: string]: string }, overrideFileExtensionAndroid?: string } | Asset;
 
 export class PlaybackObject {
     /**
@@ -2355,7 +2359,7 @@ export namespace Calendar {
         /** Name for the account that owns this calendar */
         ownerAccount?: string; // Android
 
-        /** Time zone for the calendar	 */
+        /** Time zone for the calendar */
         timeZone?: string; // Android
 
         /** Alarm methods that this calendar supports */
@@ -2398,7 +2402,7 @@ export namespace Calendar {
         /** Visible name of the event */
         title?: string;
 
-        /** Location field of the event	 */
+        /** Location field of the event */
         location?: string;
 
         /** Date when the event record was created */

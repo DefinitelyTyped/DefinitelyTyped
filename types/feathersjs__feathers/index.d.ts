@@ -12,7 +12,8 @@
 import { EventEmitter } from 'events';
 import * as self from '@feathersjs/feathers';
 
-declare const feathers: (() => Application<object>) & typeof self;
+// tslint:disable-next-line no-unnecessary-generics
+declare const feathers: (<T = any>() => Application<T>) & typeof self;
 export default feathers;
 
 export const version: string;

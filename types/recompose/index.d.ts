@@ -152,7 +152,7 @@ declare module 'recompose' {
       [updaterName: string]: StateHandler<TState>;
     };
     type StateUpdaters<TOutter, TState, TUpdaters> = {
-      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => StateHandler<TState>;
+      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => TUpdaters[updaterName];
     };
     export function withStateHandlers<TState, TUpdaters extends StateHandlerMap<TState>, TOutter = {}>(
       createProps: TState | mapper<TOutter, TState>,

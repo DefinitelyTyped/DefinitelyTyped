@@ -1,24 +1,25 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6"],
         "target": "ES2015",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "detox-tests.ts"
+        "runners/jest/adapters/index.d.ts",
+        "runners/mocha/adapters/index.d.ts",
+        "test/detox-global-tests.ts",
+        "test/detox-module-tests.ts",
+        "test/detox-jest-setup-tests.ts",
+        "test/detox-mocha-setup-tests.ts"
     ]
 }

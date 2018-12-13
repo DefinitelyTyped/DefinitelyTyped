@@ -41,7 +41,3 @@ declare module "codemirror" {
         fullLines?: boolean;
     }
 }
-
-declare module "codemirror/addon/comment/comment" {
-    export = CodeMirror;
-}

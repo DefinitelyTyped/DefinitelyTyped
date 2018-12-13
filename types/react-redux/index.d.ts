@@ -13,7 +13,7 @@
 //                 Anatoli Papirovski <https://github.com/apapirovski>
 //                 Boris Sergeyev <https://github.com/surgeboris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 // Known Issue:
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
@@ -65,11 +65,11 @@ export type AdvancedComponentDecorator<TProps, TOwnProps> =
  *   DecorationTargetProps[P] definition, its definition will be that of InjectedProps[P]
  */
 export type Matching<InjectedProps, DecorationTargetProps> = {
-	[P in keyof DecorationTargetProps]: P extends keyof InjectedProps
-		? InjectedProps[P] extends DecorationTargetProps[P]
-			? DecorationTargetProps[P]
-			: InjectedProps[P]
-		: DecorationTargetProps[P];
+    [P in keyof DecorationTargetProps]: P extends keyof InjectedProps
+        ? InjectedProps[P] extends DecorationTargetProps[P]
+            ? DecorationTargetProps[P]
+            : InjectedProps[P]
+        : DecorationTargetProps[P];
 };
 
 /**
@@ -95,16 +95,16 @@ export type GetProps<C> = C extends ComponentType<infer P> ? P : never;
 // Applies LibraryManagedAttributes (proper handling of defaultProps
 // and propTypes), as well as defines WrappedComponent.
 export type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & {
-	WrappedComponent: C;
+    WrappedComponent: C;
 };
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
-	<C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
-		component: C
-	) => ConnectedComponentClass<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
+    <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
+        component: C
+    ) => ConnectedComponentClass<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
@@ -112,14 +112,19 @@ export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
 export type InferableComponentEnhancer<TInjectedProps> =
     InferableComponentEnhancerWithProps<TInjectedProps, {}>;
 
+export type InferThunkActionCreatorType<TActionCreator extends (...args: any[]) => any> =
+    TActionCreator extends (...args: infer TParams) => (...args: any[]) => infer TReturn
+        ? (...args: TParams) => TReturn
+        : TActionCreator;
+
 export type HandleThunkActionCreator<TActionCreator> =
-    TActionCreator extends (...args: any[]) => (...args: any[]) => any
-        ? ReturnType<TActionCreator>
+    TActionCreator extends (...args: any[]) => any
+        ? InferThunkActionCreatorType<TActionCreator>
         : TActionCreator;
 
 // redux-thunk middleware returns thunk's return value from dispatch call
 // https://github.com/reduxjs/redux-thunk#composition
-export type WithThunkActionCreators<TDispatchProps> =
+export type ResolveThunks<TDispatchProps> =
     TDispatchProps extends { [key: string]: any }
         ? {
             [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
@@ -155,17 +160,27 @@ export interface Connect {
 
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
-        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
+        mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>
+    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+
+    <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
+        mapStateToProps: null | undefined,
+        mapDispatchToProps: TDispatchProps,
     ): InferableComponentEnhancerWithProps<
-        WithThunkActionCreators<TDispatchProps>,
+        ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
-        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
+        mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>
+    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: TDispatchProps,
     ): InferableComponentEnhancerWithProps<
-        TStateProps & WithThunkActionCreators<TDispatchProps>,
+        TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
 
@@ -203,21 +218,35 @@ export interface Connect {
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
-        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>,
+        mergeProps: null | undefined,
+        options: Options<{}, TStateProps, TOwnProps>
+    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
+        mapStateToProps: null | undefined,
+        mapDispatchToProps: TDispatchProps,
         mergeProps: null | undefined,
         options: Options<{}, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
-        WithThunkActionCreators<TDispatchProps>,
+        ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
-        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>,
+        mergeProps: null | undefined,
+        options: Options<State, TStateProps, TOwnProps>
+    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
+        mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: TDispatchProps,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<
-        TStateProps & WithThunkActionCreators<TDispatchProps>,
+        TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
     // tslint:enable:no-unnecessary-generics
@@ -243,9 +272,11 @@ export type MapDispatchToProps<TDispatchProps, TOwnProps> =
     MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | TDispatchProps;
 
 export type MapDispatchToPropsFactory<TDispatchProps, TOwnProps> =
-    (dispatch: Dispatch<Action>, ownProps: TOwnProps) => MapDispatchToProps<TDispatchProps, TOwnProps>;
+    (dispatch: Dispatch<Action>, ownProps: TOwnProps) => MapDispatchToPropsFunction<TDispatchProps, TOwnProps>;
 
 export type MapDispatchToPropsParam<TDispatchProps, TOwnProps> = MapDispatchToPropsFactory<TDispatchProps, TOwnProps> | MapDispatchToProps<TDispatchProps, TOwnProps>;
+
+export type MapDispatchToPropsNonObject<TDispatchProps, TOwnProps> = MapDispatchToPropsFactory<TDispatchProps, TOwnProps> | MapDispatchToPropsFunction<TDispatchProps, TOwnProps>;
 
 export type MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps> =
     (stateProps: TStateProps, dispatchProps: TDispatchProps, ownProps: TOwnProps) => TMergedProps;

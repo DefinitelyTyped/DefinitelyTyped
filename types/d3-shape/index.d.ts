@@ -38,7 +38,7 @@ export interface CanvasPath_D3Shape {
 // -----------------------------------------------------------------------------------
 
 /**
- * Interface corresponding to the minimum data type assumed by the accessor functions of  the Arc generator
+ * Interface corresponding to the minimum data type assumed by the accessor functions of the Arc generator
  */
 export interface DefaultArcObject {
     /**
@@ -994,14 +994,17 @@ export function lineRadial(): LineRadial<[number, number]>;
  */
 export function lineRadial<Datum>(): LineRadial<Datum>;
 
+/**
+ * @deprecated Use LineRadial<Datum>
+ */
 export type RadialLine<Datum> = LineRadial<Datum>;
 
 /**
- * DEPRECATED: Use lineRadial()
+ * @deprecated Use lineRadial()
  */
 export function radialLine(): RadialLine<[number, number]>;
 /**
- * DEPRECATED: Use lineRadial<Datum>()
+ * @deprecated Use lineRadial<Datum>()
  */
 export function radialLine<Datum>(): RadialLine<Datum>;
 
@@ -1620,16 +1623,16 @@ export function areaRadial(): AreaRadial<[number, number]>;
 export function areaRadial<Datum>(): AreaRadial<Datum>;
 
 /**
- * DEPRECATED: Use AreaRadial interface
+ * @deprecated Use AreaRadial interface
  */
 export type RadialArea<Datum> = AreaRadial<Datum>;
 
 /**
- * DEPRECATED: Use areaRadial()
+ * @deprecated Use areaRadial()
  */
 export function radialArea(): RadialArea<[number, number]>;
 /**
- * DEPRECATED: Use areaRadial<Datum>()
+ * @deprecated Use areaRadial<Datum>()
  */
 export function radialArea<Datum>(): RadialArea<Datum>;
 
@@ -2239,7 +2242,7 @@ export interface LinkRadial<This, LinkDatum, NodeDatum> {
 }
 
 /**
- * DEPRECATED: Use LinkRadial interface
+ * @deprecated Use LinkRadial interface
  */
 export type RadialLink<This, LinkDatum, NodeDatum> = LinkRadial<This, LinkDatum, NodeDatum>;
 

@@ -639,6 +639,7 @@ declare namespace jasmine {
         calls: Calls;
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
+        withArgs(...args: any[]): Spy;
     }
 
     type SpyObj<T> = T & {

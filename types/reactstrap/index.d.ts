@@ -4,7 +4,6 @@
 //                 Marco Falkenberg <https://github.com/mfal>
 //                 Danilo Barros <https://github.com/danilobjr>
 //                 FaithForHumans <https://github.com/FaithForHumans>
-//                 Kurt Preston <https://github.com/KurtPreston>
 //                 Tim Chen <https://github.com/timc13>
 //                 Pat Gaffney <https://github.com/patrickrgaffney>
 //                 Prabodh Tiwari <https://github.com/prabodht>

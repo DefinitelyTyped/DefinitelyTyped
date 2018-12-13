@@ -3629,6 +3629,18 @@ interface ImagePropsAndroid {
      * Duration of fade in animation.
      */
     fadeDuration?: number;
+
+    /**
+     * Required if loading images via 'uri' from drawable folder on Android.
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
+     */
+    width?: number;
+
+    /**
+     * Required if loading images via 'uri' from drawable folder on Android
+     * Explanation: https://medium.com/@adamjacobb/react-native-performance-images-adf5843e120
+     */
+    height?: number;
 }
 
 /**
@@ -6326,6 +6338,12 @@ export interface ScrollViewProps
     horizontal?: boolean;
 
     /**
+     * If sticky headers should stick at the bottom instead of the top of the
+     * ScrollView. This is usually used with inverted ScrollViews.
+     */
+    invertStickyHeaders?: boolean;
+
+    /**
      * Determines whether the keyboard gets dismissed in response to a drag.
      *   - 'none' (the default) drags do not dismiss the keyboard.
      *   - 'onDrag' the keyboard is dismissed when a drag begins.
@@ -8177,6 +8195,13 @@ export interface SwitchProps extends SwitchPropsIOS {
      * Default value is false.
      */
     value?: boolean;
+
+     /**
+     * On iOS, custom color for the background.
+     * Can be seen when the switch value is false or when the switch is disabled.
+     */
+    ios_backgroundColor?: string;
+
     style?: StyleProp<ViewStyle>;
 }
 
@@ -9023,34 +9048,18 @@ export const Platform: PlatformStatic;
 export const PlatformIOS: PlatformIOSStatic;
 export const PixelRatio: PixelRatioStatic;
 
-export interface ComponentInterface<P> {
-    name?: string;
-    displayName?: string;
-    propTypes: PropTypes.ValidationMap<P>;
-}
-
 /**
- * Used to create React components that directly wrap native component
- * implementations.  Config information is extracted from data exported from the
- * UIManager module.  You should also wrap the native component in a
- * hand-written component with full propTypes definitions and other
- * documentation - pass the hand-written component in as `componentInterface` to
- * verify all the native props are documented via `propTypes`.
+ * Creates values that can be used like React components which represent native
+ * view managers. You should create JavaScript modules that wrap these values so
+ * that the results are memoized. Example:
  *
- * If some native props shouldn't be exposed in the wrapper interface, you can
- * pass null for `componentInterface` and call `verifyPropTypes` directly
- * with `nativePropsToIgnore`;
+ *   const View = requireNativeComponent('RCTView');
  *
- * Common types are lined up with the appropriate prop differs with
- * `TypeToDifferMap`.  Non-scalar types not in the map default to `deepDiffer`.
+ * The concrete return type of `requireNativeComponent` is a string, but the declared type is
+ * `any` because TypeScript assumes anonymous JSX intrinsics (`string` instead of `"div", for
+ * example) not to have any props.
  */
-export function requireNativeComponent<P, NP = {}>(
-    viewName: string,
-    componentInterface?: ComponentInterface<P>,
-    extraConfig?: { nativeOnly?: NP }
-): React.ComponentClass<
-    Partial<PropTypes.InferProps<PropTypes.ValidationMap<P>>> & { [K in keyof NP]?: any}
->;
+export function requireNativeComponent(viewName: string): any;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>
