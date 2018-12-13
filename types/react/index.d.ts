@@ -19,6 +19,7 @@
 //                 Martin Hochel <https://github.com/hotell>
 //                 Frank Li <https://github.com/franklixuefei>
 //                 Jessica Franco <https://github.com/Kovensky>
+//                 Paul Sherman <https://github.com/pshrmn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
