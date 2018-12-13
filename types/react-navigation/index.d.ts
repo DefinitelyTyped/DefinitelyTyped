@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 2.13
+// Type definitions for react-navigation 3.0.8
 // Project: https://github.com/react-navigation/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
@@ -29,6 +29,7 @@
 //                 Jason Killian <https://github.com/jkillian>
 //                 Jeroen Vervaeke <https://github.com/jeroenvervaeke>
 //                 Fellipe Chagas <https://github.com/chagasaway>
+//                 Deniss Borisovs <https://github.com/denissb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
