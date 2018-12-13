@@ -346,6 +346,7 @@ function ShallowWrapperTest() {
         const props2: AnotherComponentProps = shallowWrapper.find(AnotherComponent).props();
         const props3: AnotherStatelessProps = shallowWrapper.find(AnotherStatelessComponent).props();
         const props4: HTMLAttributes<any> = shallowWrapper.find('.selector').props();
+        const props5: MyComponentProps = shallowWrapper.find<MyComponentProps>({ stringProp: 'myProp' }).props();
     }
 
     function test_prop() {
@@ -390,6 +391,8 @@ function ShallowWrapperTest() {
         wrapperPropsOnly.setProps({stringProp: 'new value'});
         // $ExpectError
         wrapperPropsOnly.instance().handleEcho;
+
+        const inputComponent: HTMLInputElement = shallowWrapper.find(".my-input").instance<HTMLInputElement>();
     }
 
     function test_update() {
@@ -742,6 +745,7 @@ function ReactWrapperTest() {
         const props2: AnotherComponentProps = reactWrapper.find(AnotherComponent).props();
         const props3: AnotherStatelessProps = reactWrapper.find(AnotherStatelessComponent).props();
         const props4: HTMLAttributes<any> = reactWrapper.find('.selector').props();
+        const props5: MyComponentProps = reactWrapper.find<MyComponentProps>({ prop: 'stringProp' }).props();
     }
 
     function test_prop() {

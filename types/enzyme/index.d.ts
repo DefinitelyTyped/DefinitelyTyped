@@ -12,7 +12,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="cheerio" />
-import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
+import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes, HtmlHTMLAttributes } from "react";
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
@@ -266,7 +266,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      */
-    instance(): C;
+    instance<C2 = C>(): C2;
 
     /**
      * Forces a re-render. Useful to run before checking the render output if something external may be updating
@@ -374,7 +374,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     find<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
-    find(props: EnzymePropSelector): ShallowWrapper<any, any>;
+    find<P2 = any>(props: EnzymePropSelector): ShallowWrapper<P2, any>;
     find(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
     /**
@@ -489,7 +489,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     find<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
-    find(props: EnzymePropSelector): ReactWrapper<any, any>;
+    find<P2 = any>(props: EnzymePropSelector): ReactWrapper<P2, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
 
     /**
