@@ -269,6 +269,7 @@
 /// <reference path="./es/zip.d.ts" />
 /// <reference path="./es/zipObj.d.ts" />
 /// <reference path="./es/zipWith.d.ts" />
+/// <reference path="./es/includes.d.ts" />
 
 declare let R: R.Static;
 
@@ -1128,6 +1129,12 @@ declare namespace R {
          * Increments its argument.
          */
         inc(n: number): number;
+
+        /**
+         * Given a target, this function checks a list for a target and returns a boolean.
+         */
+        includes<T>(target: T, list: ReadonlyArray<T>): boolean;
+        includes<T>(target: T): (list: ReadonlyArray<T>) => boolean;
 
         /**
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
