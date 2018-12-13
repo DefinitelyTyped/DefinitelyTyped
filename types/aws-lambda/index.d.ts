@@ -941,6 +941,11 @@ export type ProxyCallback = APIGatewayProxyCallback; // Old name
 
 export type CodePipelineHandler = Handler<CodePipelineEvent, void>;
 
+export type CodePipelineCloudWatchHandler = Handler<CodePipelineCloudWatchEvent, void>;
+export type CodePipelineCloudWatchPipelineHandler = Handler<CodePipelineCloudWatchPipelineEvent, void>;
+export type CodePipelineCloudWatchStageHandler = Handler<CodePipelineCloudWatchStageEvent, void>;
+export type CodePipelineCloudWatchActionHandler = Handler<CodePipelineCloudWatchActionEvent, void>;
+
 export type CloudFrontRequestHandler = Handler<CloudFrontRequestEvent, CloudFrontRequestResult>;
 export type CloudFrontRequestCallback = Callback<CloudFrontRequestResult>;
 
