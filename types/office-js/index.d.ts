@@ -30229,7 +30229,7 @@ declare namespace Excel {
     
     /**
      *
-     * Represents a collection of all the styles. WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.”
+     * Represents a collection of all the styles. WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
      *
      * [Api set: ExcelApi 1.7]
      */
