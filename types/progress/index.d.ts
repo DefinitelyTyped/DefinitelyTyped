@@ -7,59 +7,61 @@
 
 
 
-/**
- * These are keys in the options object you can pass to the progress bar along with total as seen in the example above.
- */
-export interface ProgressBarOptions {
+declare namespace ProgressBar {
     /**
-     * Total number of ticks to complete.
+     * These are keys in the options object you can pass to the progress bar along with total as seen in the example above.
      */
-    total: number;
+    interface Options {
+        /**
+         * Total number of ticks to complete.
+         */
+        total: number;
 
-    /**
-     * current completed index
-     */
-    curr?: number;
+        /**
+         * current completed index
+         */
+        curr?: number;
 
-    /**
-     * head character defaulting to complete character
-     */
-    head?: string;
+        /**
+         * head character defaulting to complete character
+         */
+        head?: string;
 
-    /**
-     * The displayed width of the progress bar defaulting to total.
-     */
-    width?: number;
+        /**
+         * The displayed width of the progress bar defaulting to total.
+         */
+        width?: number;
 
-    /**
-     * minimum time between updates in milliseconds defaulting to 16
-     */
-    renderThrottle?: number;
+        /**
+         * minimum time between updates in milliseconds defaulting to 16
+         */
+        renderThrottle?: number;
 
-    /**
-     * The output stream defaulting to stderr.
-     */
-    stream?: NodeJS.WritableStream;
+        /**
+         * The output stream defaulting to stderr.
+         */
+        stream?: NodeJS.WritableStream;
 
-    /**
-     * Completion character defaulting to "=".
-     */
-    complete?: string;
+        /**
+         * Completion character defaulting to "=".
+         */
+        complete?: string;
 
-    /**
-     * Incomplete character defaulting to "-".
-     */
-    incomplete?: string;
+        /**
+         * Incomplete character defaulting to "-".
+         */
+        incomplete?: string;
 
-    /**
-     * Option to clear the bar on completion defaulting to false.
-     */
-    clear?: boolean;
+        /**
+         * Option to clear the bar on completion defaulting to false.
+         */
+        clear?: boolean;
 
-    /**
-     * Optional function to call when the progress bar completes.
-     */
-    callback?: Function;
+        /**
+         * Optional function to call when the progress bar completes.
+         */
+        callback?: Function;
+    }
 }
 
 
@@ -90,7 +92,7 @@ declare class ProgressBar {
      *   - `:eta` eta in seconds
      */
     constructor(format: string, total: number);
-    constructor(format: string, options: ProgressBarOptions);
+    constructor(format: string, options: ProgressBar.Options);
 
 
     /**
@@ -138,4 +140,4 @@ declare class ProgressBar {
 }
 declare namespace ProgressBar { }
 
-export default ProgressBar;
+export = ProgressBar;
