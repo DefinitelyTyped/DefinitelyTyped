@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 10.0.3
+// Type definitions for react-beautiful-dnd 10.0
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -71,14 +71,14 @@ export interface DragStart {
 export interface DragUpdate extends DragStart {
     destination?: DraggableLocation | null;
     // populated when a draggable is dragging over another in combine mode
-    combine?: Combine,
+    combine?: Combine;
 }
 
 // details of the item that is being combined with
-export type Combine = {
-    draggableId: DraggableId,
-    droppableId: DroppableId,
-};
+export interface Combine {
+    draggableId: DraggableId;
+    droppableId: DroppableId;
+}
 
 export interface DropResult extends DragUpdate {
     reason: DropReason;
@@ -180,11 +180,11 @@ export interface DraggableStateSnapshot {
     draggingOver?: DroppableId;
     dropAnimation?: DropAnimation;
     // the id of a draggable that you are combining with
-    combineWith?: DraggableId,
+    combineWith?: DraggableId;
     // a combine target is being dragged over by
-    combineTargetFor?: DraggableId,
+    combineTargetFor?: DraggableId;
     // What type of movement is being done: 'FLUID' or 'SNAP'
-    mode?: MovementMode,
+    mode?: MovementMode;
 }
 
 export interface DropAnimation {
