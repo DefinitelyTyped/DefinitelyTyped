@@ -1133,11 +1133,12 @@ declare namespace R {
 
         /**
          * Given a target, this function checks a list for the target and returns a boolean.
-         * Given a string, this function checks for the string in another string and returns
+         * Given a string, this function checks for the string in another string or list and returns
          * a boolean.
          */
-        includes(s: string, string: string): boolean;
-        includes(s: string): (string: string) => boolean;
+
+        includes(s: string, list: ReadonlyArray<string> | string): boolean;
+        includes(s: string): (list: ReadonlyArray<string> | string)  => boolean;
         includes<T>(target: T, list: ReadonlyArray<T>): boolean;
         includes<T>(target: T): (list: ReadonlyArray<T>) => boolean;
 
