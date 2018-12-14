@@ -7,11 +7,11 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "w3c-generic-sensor-tests.ts"
+        "peerjs-tests.ts"
     ]
 }

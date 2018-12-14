@@ -1,9 +1,3 @@
-// Type definitions for web-animations-js 2.2
-// Project: https://github.com/web-animations/web-animations-js
-// Definitions by: Kristian Moerch <https://github.com/kritollm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
 type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 
@@ -104,7 +98,6 @@ declare class GroupEffect extends KeyframeEffect {
 }
 interface Element {
     animate(effect: AnimationKeyFrame | AnimationKeyFrame[] | null, timing: number | AnimationEffectTiming): Animation;
-    animate(keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeAnimationOptions): Animation;
     getAnimations(): Animation[];
 }
 interface Document {
