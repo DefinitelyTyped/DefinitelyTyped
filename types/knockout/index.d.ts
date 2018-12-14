@@ -9,7 +9,7 @@
 //                 Leonardo Lombardi <https://github.com/ltlombardi>
 //                 Retsam <https://github.com/Retsam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3f
+// TypeScript Version: 2.3
 
 interface KnockoutSubscribableFunctions<T> {
     notifySubscribers(valueToWrite?: T, event?: string): void;
