@@ -2066,29 +2066,31 @@ declare namespace angular {
     // and http://docs.angularjs.org/guide/directive
     ///////////////////////////////////////////////////////////////////////////
 
-    interface IDirectiveFactory<TScope extends IScope = IScope> {
-        (...args: any[]): IDirective<TScope> | IDirectiveLinkFn<TScope>;
+    type IDirectiveController = IController | IController[] | {[key: string]: IController};
+
+    interface IDirectiveFactory<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
+        (...args: any[]): IDirective<TScope, TElement, TAttributes, TController> | IDirectiveLinkFn<TScope, TElement, TAttributes, TController>;
     }
 
-    interface IDirectiveLinkFn<TScope extends IScope = IScope> {
+    interface IDirectiveLinkFn<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
         (
             scope: TScope,
-            instanceElement: JQLite,
-            instanceAttributes: IAttributes,
-            controller?: IController | IController[] | {[key: string]: IController},
+            instanceElement: TElement,
+            instanceAttributes: TAttributes,
+            controller?: TController,
             transclude?: ITranscludeFunction
         ): void;
     }
 
-    interface IDirectivePrePost<TScope extends IScope = IScope> {
-        pre?: IDirectiveLinkFn<TScope>;
-        post?: IDirectiveLinkFn<TScope>;
+    interface IDirectivePrePost<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
+        pre?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController>;
+        post?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController>;
     }
 
-    interface IDirectiveCompileFn<TScope extends IScope = IScope> {
+    interface IDirectiveCompileFn<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
         (
-            templateElement: JQLite,
-            templateAttributes: IAttributes,
+            templateElement: TElement,
+            templateAttributes: TAttributes,
             /**
              * @deprecated
              * Note: The transclude function that is passed to the compile function is deprecated,
@@ -2096,11 +2098,11 @@ declare namespace angular {
              * that is passed to the link function instead.
              */
             transclude: ITranscludeFunction
-        ): void | IDirectiveLinkFn<TScope> | IDirectivePrePost<TScope>;
+        ): void | IDirectiveLinkFn<TScope, TElement, TAttributes, TController> | IDirectivePrePost<TScope, TElement, TAttributes, TController>;
     }
 
-    interface IDirective<TScope extends IScope = IScope> {
-        compile?: IDirectiveCompileFn<TScope>;
+    interface IDirective<TScope extends IScope = IScope, TElement extends JQLite = JQLite, TAttributes extends IAttributes = IAttributes, TController extends IDirectiveController = IController> {
+        compile?: IDirectiveCompileFn<TScope, TElement, TAttributes, TController>;
         controller?: string | Injectable<IControllerConstructor>;
         controllerAs?: string;
         /**
@@ -2109,7 +2111,7 @@ declare namespace angular {
          * relies upon bindings inside a $onInit method on the controller, instead.
          */
         bindToController?: boolean | {[boundProperty: string]: string};
-        link?: IDirectiveLinkFn<TScope> | IDirectivePrePost<TScope>;
+        link?: IDirectiveLinkFn<TScope, TElement, TAttributes, TController> | IDirectivePrePost<TScope, TElement, TAttributes, TController>;
         multiElement?: boolean;
         priority?: number;
         /**
@@ -2119,9 +2121,9 @@ declare namespace angular {
         require?: string | string[] | {[controller: string]: string};
         restrict?: string;
         scope?: boolean | {[boundProperty: string]: string};
-        template?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
+        template?: string | ((tElement: TElement, tAttrs: TAttributes) => string);
         templateNamespace?: string;
-        templateUrl?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
+        templateUrl?: string | ((tElement: TElement, tAttrs: TAttributes) => string);
         terminal?: boolean;
         transclude?: boolean | 'element' | {[slot: string]: string};
     }
