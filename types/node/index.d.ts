@@ -1194,6 +1194,7 @@ declare module "http" {
         agent?: Agent | boolean;
         _defaultAgent?: Agent;
         timeout?: number;
+        setHost?: boolean;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
     }

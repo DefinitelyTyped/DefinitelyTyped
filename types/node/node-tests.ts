@@ -1940,6 +1940,7 @@ async function asyncStreamPipelineFinished() {
         let req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
         req = new http.ClientRequest(new url.URL("https://www.google.com"));
         req = new http.ClientRequest({ path: 'http://0.0.0.0' });
+        req = new http.ClientRequest({ setHost: false });
 
         // header
         req.setHeader('Content-Type', 'text/plain');
