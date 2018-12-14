@@ -2,9 +2,6 @@
 // Project: http://peerjs.com/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-/// <reference types="webrtc" />
 
 declare namespace PeerJs{
     interface PeerJSOption{
@@ -13,7 +10,7 @@ declare namespace PeerJs{
         port?: number;
         path?: string;
         secure?: boolean;
-        config?: RTCPeerConnectionConfig;
+        config?: RTCConfiguration;
         debug?: number;
     }
 

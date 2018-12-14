@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
+            "es5",
             "es6",
             "dom"
         ],
@@ -9,9 +10,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
@@ -19,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "w3c-generic-sensor-tests.ts"
+        "web-animations-js-tests.ts"
     ]
 }
