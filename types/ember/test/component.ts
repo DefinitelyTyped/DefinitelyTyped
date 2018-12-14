@@ -3,9 +3,6 @@ import Component from '@ember/component';
 import Object, { computed } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
 import { assertType } from "./lib/assert";
-import ComputedProperty from '@ember/object/computed';
-import { ExtractPropertyNamesOfType } from 'ember/-private-types/utils';
-import { UnwrapComputedPropertySetter } from 'ember/-private-types/object/computed';
 
 Component.extend({
   layout: hbs`

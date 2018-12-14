@@ -15,9 +15,21 @@ const server = createServer({
     }
 });
 
+const devServer = createServer({
+    dev: true,
+    dir: "..",
+    quiet: true,
+    conf: {
+        distDir: "./dist",
+        useFileSystemPublicRoutes: false,
+        anotherProperty: {
+            key: true
+        }
+    }
+});
+
 const {
     dir,
-    dev,
     quiet,
     router,
     nextConfig,
@@ -29,8 +41,6 @@ const {
 
 server.prepare().then(voidFunc);
 server.close().then(voidFunc);
-server.defineRoutes().then(voidFunc);
-server.start().then(voidFunc);
 
 const parsedUrl = url.parse("https://www.example.com");
 const handler = server.getRequestHandler();
@@ -77,9 +87,7 @@ function handle(req: http.IncomingMessage, res: http.ServerResponse) {
 
     let b: boolean;
     b = server.isServeableUrl("/path/to/thing");
-    b = server.handleBuildId("{buildId}", res);
 
     const s: string = server.readBuildId();
-    server.getCompilationError().then(err => err.thisIsAnAny);
-    server.send404(res);
+    devServer.getCompilationError().then(err => err.thisIsAnAny);
 }

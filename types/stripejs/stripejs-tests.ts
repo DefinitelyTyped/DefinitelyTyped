@@ -24,7 +24,7 @@ describe('StripeJS', () => {
     it('Should be possible to create and modify elements', () => {
         const creator = stripe.elements();
         stripe.elements({fonts: [], locale: 'nl'});
-        stripe.elements({fonts: [], locale: 'nl', isIETFLocaleTag: true});
+        stripe.elements({fonts: [], locale: 'nl'});
 
         const element = creator.create("cardCvc", {value: {postalCode: '94110'}});
         element.blur();

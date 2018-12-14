@@ -22,6 +22,8 @@ export class UnrealBloomPass extends Pass {
 	camera: OrthographicCamera;
 	scene: Scene;
 	quad: Mesh;
+	radius: number;
+	threshold: number;
 	dispose(): void;
 	getSeparableBlurMaterial(): ShaderMaterial;
 	getCompositeMaterial(): ShaderMaterial;

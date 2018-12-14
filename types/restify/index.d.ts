@@ -1231,7 +1231,7 @@ export namespace plugins {
 
         maxFieldsSize?: number;
 
-        maxFileSize: number;
+        maxFileSize?: number;
     }
 
     /**
@@ -1343,7 +1343,7 @@ export namespace plugins {
     }
 
     /**
-     * Parses URL query paramters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
+     * Parses URL query parameters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
      */
     function queryParser(options?: QueryParserOptions): RequestHandler;
 

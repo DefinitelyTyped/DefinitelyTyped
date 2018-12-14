@@ -227,9 +227,6 @@ tileLayerOptions = {
     pane: '',
     className: '',
     keepBuffer: 1,
-    foo: 'bar',
-    bar: () => 'foo',
-    abc: (data: any) => 'foobar'
 };
 
 tileLayerOptions.subdomains = 'a';
@@ -245,11 +242,9 @@ tileLayerOptions.bounds = latLngBoundsLiteral;
 let tileLayer: L.TileLayer;
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
-tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
-tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 
 // imageOverlay
 let imageOverlayOptions: L.ImageOverlayOptions;
@@ -413,6 +408,14 @@ threeCoords = L.GeoJSON.latLngToCoords(latLng) as [number, number, number];
 let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
 nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
+
+const geojson = new L.GeoJSON();
+const style: L.PathOptions = {
+    className: "string",
+};
+const styler: L.StyleFunction<MyProperties> = () => style;
+geojson.setStyle(style);
+geojson.setStyle(styler);
 
 class MyMarker extends L.Marker {
 	constructor() {

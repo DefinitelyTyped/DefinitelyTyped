@@ -1,10 +1,10 @@
 // Type definitions for @ember/error 3.0
-// Project: http://emberjs.com/
+// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Ferror
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import Ember from 'ember';
-
-declare const Error: typeof Ember.Error;
-export default Error;
+/**
+ * A subclass of the JavaScript Error object for use in Ember.
+ */
+export default class EmberError extends Error {}

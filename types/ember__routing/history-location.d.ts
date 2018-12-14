@@ -1,3 +1,7 @@
-import Ember from 'ember';
+import EmberObject from "@ember/object";
 
-export default class HistoryLocation extends Ember.HistoryLocation { }
+/**
+ * Ember.HistoryLocation implements the location API using the browser's
+ * history.pushState API.
+ */
+export default class HistoryLocation extends EmberObject {}

@@ -1,4 +1,4 @@
-// Type definitions for Paper.js v0.11.5
+// Type definitions for Paper.js v0.11.8
 // Project: http://paperjs.org/
 // Definitions by:  Clark Stevenson <https://github.com/clark-stevenson>,
 //                  Jon Lucas <https://github.com/Xakaloz>,
@@ -1332,7 +1332,12 @@ declare module paper {
          * The path style of the item.
          */
         style: Style;
-
+        
+        /**
+         * Specifies whether the item is locked. When set to true, item interactions with the mouse are disabled.
+         */
+        locked: boolean;
+        
         /**
          * Specifies whether the item is visible. When set to false, the item won't be drawn.
          */
@@ -1486,7 +1491,7 @@ declare module paper {
         /**
          * The color of the stroke.
          */
-        strokeColor: Color | string;
+        strokeColor: Color | string | null;
 
         /**
          * The width of the stroke.
@@ -1534,7 +1539,7 @@ declare module paper {
         /**
          * The fill color of the item.
          */
-        fillColor: Color | string;
+        fillColor: Color | string | null;
 
         /**
          * The fill-rule with which the shape gets filled. Please note that only modern browsers support fill-rules other than 'nonzero'.
@@ -1546,7 +1551,7 @@ declare module paper {
         /**
          * The shadow color.
          */
-        shadowColor: Color | string;
+        shadowColor: Color | string | null;
 
         /**
          * The shadow’s blur radius.
@@ -4860,7 +4865,7 @@ declare module paper {
         /**
          * The current scale factor of the view, as described by its matrix.
          */
-        scaling: number;
+        scaling: Point;
 
         /**
          * The view’s transformation matrix, defining the view onto the project’s contents (position, zoom level, rotation, etc).

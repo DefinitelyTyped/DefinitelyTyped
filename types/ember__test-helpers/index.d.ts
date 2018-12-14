@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="ember" />
+/// <reference types="ember__error" />
 
 declare module '@ember/test-helpers' {
     // DOM Interaction Helpers

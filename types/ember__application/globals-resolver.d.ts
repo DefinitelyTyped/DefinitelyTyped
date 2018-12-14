@@ -1,3 +1,1 @@
-import Ember from 'ember';
-
-export default class GlobalsResolver extends Ember.DefaultResolver { }
+export { default } from '@ember/application/-private/default-resolver';

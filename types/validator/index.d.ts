@@ -83,7 +83,7 @@ declare namespace ValidatorJS {
     isEmail(str: string, options?: IsEmailOptions): boolean;
 
     // check if the string has a length of zero.
-    isEmpty(str: string): boolean;
+    isEmpty(str: string, options?: IsEmptyOptions): boolean;
 
     // check if the string is a fully qualified domain name (e.g. domain.com).
     isFQDN(str: string, options?: IsFQDNOptions): boolean;
@@ -122,7 +122,7 @@ declare namespace ValidatorJS {
     isISIN(str: string): boolean;
 
     // check if the string is a valid ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) date.
-    isISO8601(str: string): boolean;
+    isISO8601(str: string, options?: IsISO8601Options): boolean;
 
     // check if the string is a valid ISO 3166-1 alpha-2 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned
     // country code.
@@ -310,6 +310,11 @@ declare namespace ValidatorJS {
     require_tld?: boolean;
   }
 
+  // options for isEmpty
+  interface IsEmptyOptions {
+    ignore_whitespace?: boolean;
+  }
+
   // options for isFQDN
   interface IsFQDNOptions {
     require_tld?: boolean;
@@ -339,6 +344,11 @@ declare namespace ValidatorJS {
     allow_leading_zeroes?: boolean;
     lt?: number;
     gt?: number;
+  }
+
+  // options for isISO8601
+  interface IsISO8601Options {
+    strict?: boolean;
   }
 
   // options for IsLength

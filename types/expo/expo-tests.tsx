@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Text, AccessibilityInfo } from 'react-native';
 
 import {
     Accelerometer,
@@ -8,39 +8,46 @@ import {
     AdMobInterstitial,
     AdMobRewarded,
     Amplitude,
-    Asset,
-    AuthSession,
-    Audio,
     AppLoading,
+    Asset,
+    Audio,
+    AuthSession,
     BarCodeScanner,
-    BlurViewProps,
     BlurView,
     Brightness,
+    Calendar,
     Camera,
     CameraObject,
+    Constants,
     DocumentPicker,
+    EdgeInsets,
+    EdgePadding,
+    EventUserLocation,
     Facebook,
     FacebookAds,
-    FileSystem,
-    ImagePicker,
-    ImageManipulator,
     FaceDetector,
-    Linking,
-    Svg,
+    FileSystem,
+    Haptic,
+    ImageManipulator,
+    ImagePicker,
     IntentLauncherAndroid,
     KeepAwake,
+    KmlMapEvent,
     LinearGradient,
+    Linking,
+    Location,
+    MailComposer,
+    MapEvent,
+    MapStyleElement,
+    MapView,
+    MediaLibrary,
     Permissions,
     PublisherBanner,
+    Region,
     registerRootComponent,
     ScreenOrientation,
-    SQLite,
-    Calendar,
-    MailComposer,
-    Location,
-    Updates,
-    MediaLibrary,
-    Haptic
+    Svg,
+    Updates
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
@@ -144,7 +151,8 @@ Audio.setAudioModeAsync({
     playsInSilentModeIOS: true,
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
-    allowsRecordingIOS: true
+    allowsRecordingIOS: true,
+    playThroughEarpieceAndroid: false
 });
 Audio.setIsEnabledAsync(true);
 
@@ -412,6 +420,21 @@ async () => {
     result.width;
 };
 
+async () => {
+    const result = await ImageManipulator.manipulateAsync('url', [
+        { rotate: 360 },
+        { resize: { width: 300 } },
+        { resize: { height: 300 } },
+        { resize: { height: 300, width: 300 } },
+    ], {
+        compress: 0.75
+    });
+
+    result.height;
+    result.uri;
+    result.width;
+};
+
 FaceDetector.Constants.Mode.fast;
 FaceDetector.Constants.Mode.accurate;
 FaceDetector.Constants.Landmarks.all;
@@ -470,12 +493,14 @@ async () => {
             fill='rgb(0,0,255)'
             strokeWidth={3}
             stroke='rgb(0,0,0)'
+            transform="translate(0, 0)"
         />
         <Svg.Circle
             cx={50}
             cy={50}
             r={50}
             fill="pink"
+            transform="translate(0, 0)"
         />
         <Svg.Ellipse
             cx={55}
@@ -485,6 +510,7 @@ async () => {
             stroke="purple"
             strokeWidth={2}
             fill="yellow"
+            transform="translate(0, 0)"
         />
         <Svg.Line
             x1={0}
@@ -493,18 +519,21 @@ async () => {
             y2={100}
             stroke="red"
             strokeWidth={2}
+            transform="translate(0, 0)"
         />
         <Svg.Polygon
             points="40,5 70,80 25,95"
             fill="lime"
             stroke="purple"
             strokeWidth={1}
+            transform="translate(0, 0)"
         />
         <Svg.Polyline
             points="10,10 20,12 30,20 40,60 60,70 95,90"
             fill="none"
             stroke="black"
             strokeWidth={3}
+            transform="translate(0, 0)"
         />
         <Svg.Text
             fill="none"
@@ -514,6 +543,7 @@ async () => {
             x={100}
             y={20}
             textAnchor="middle"
+            transform="translate(0, 0)"
         >
             STROKED TEXT
         </Svg.Text>
@@ -523,8 +553,8 @@ async () => {
                 d=""
             />
         </Svg.Defs>
-        <Svg.G y={20}>
-            <Svg.Text fill="blue"        >
+        <Svg.G transform="translate(0, 0)" y={20}>
+            <Svg.Text fill="blue" transform={{ translateX: 0, translateY: 0 }}>
                 <Svg.TextPath href="#path" startOffset="-10%">
                     We go up and down,
                     <Svg.TSpan fill="red" dy="5,5,5">then up again</Svg.TSpan>
@@ -537,8 +567,8 @@ async () => {
                 strokeWidth={1}
             />
         </Svg.G>
-        <Svg.Use href="#shape" x="20" y="0" />
-        <Svg.Use href="#shape" x="20" y="0" width="20" height="20"/>
+        <Svg.Use href="#shape" transform="translate(0, 0)" x="20" y="0" />
+        <Svg.Use href="#shape" transform={{ translateX: 0, translateY: 0 }} x="20" y="0" width="20" height="20"/>
         <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
@@ -559,6 +589,10 @@ async () => {
             </Svg.LinearGradient>
         </Svg.Defs>
     </Svg>
+);
+
+() => (
+    <Svg width={100} height={50} preserveAspectRatio="none" />
 );
 
 IntentLauncherAndroid.ACTION_ACCESSIBILITY_SETTINGS === 'android.settings.ACCESSIBILITY_SETTINGS';
@@ -809,6 +843,100 @@ async () => {
     result.status === 'saved';
 };
 
+// #region MapView
+const initialRegion: Region = {
+  latitude: 0,
+  longitude: 0,
+  latitudeDelta: 0,
+  longitudeDelta: 0,
+};
+
+const edgePadding: EdgePadding = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+};
+
+const edgeInsets: EdgeInsets = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+};
+
+const mapStyleElements: MapStyleElement[] = [{
+  featureType: 'featureType',
+  elementType: 'elementType',
+  stylers: [{}, {}],
+}];
+
+const mapEventCallback = (event: MapEvent) => console.log(event);
+const regionCallback = (region: Region) =>  console.log(region);
+const kmlCallback = (kml: KmlMapEvent) =>  console.log(kml);
+const userLocationCallback = (event: EventUserLocation) =>  console.log(event);
+
+() => (
+    <MapView
+        provider="google"
+        customMapStyle={mapStyleElements}
+        customMapStyleString="some-string"
+        showsUserLocation={true}
+        userLocationAnnotationTitle="title"
+        showsMyLocationButton={true}
+        followsUserLocation={true}
+        showsPointsOfInterest={true}
+        showsCompass={true}
+        zoomEnabled={true}
+        zoomControlEnabled={true}
+        rotateEnabled={true}
+        cacheEnabled={true}
+        loadingEnabled={true}
+        loadingBackgroundColor="#000"
+        loadingIndicatorColor="#000"
+        scrollEnabled={true}
+        pitchEnabled={true}
+        toolbarEnabled={true}
+        moveOnMarkerPress={true}
+        showsScale={true}
+        showsBuildings={true}
+        showsTraffic={true}
+        showsIndoors={true}
+        showsIndoorLevelPicker={true}
+        mapType="standard"
+        region={initialRegion}
+        initialRegion={initialRegion}
+        liteMode={true}
+        mapPadding={edgePadding}
+        maxDelta={0}
+        minDelta={0}
+        legalLabelInsets={edgeInsets}
+
+        onMapReady={() => ({})}
+        onKmlReady={kmlCallback}
+        onRegionChange={regionCallback}
+        onRegionChangeComplete={regionCallback}
+        onPress={mapEventCallback}
+        onLongPress={mapEventCallback}
+        onUserLocationChange={userLocationCallback}
+        onPanDrag={mapEventCallback}
+        onPoiClick={(event: MapEvent<{ placeId: string, name: string }>) => console.log(event)}
+        onMarkerPress={(event: MapEvent<{ action: 'marker-press', id: string }>) =>  console.log(event)}
+        onMarkerSelect={(event: MapEvent<{ action: 'marker-select', id: string }>) => console.log(event)}
+        onMarkerDeselect={(event: MapEvent<{ action: 'marker-deselect', id: string }>) => console.log(event)}
+        onCalloutPress={(event: MapEvent<{ action: 'callout-press' }>) => console.log(event)}
+        onMarkerDragStart={mapEventCallback}
+        onMarkerDrag={mapEventCallback}
+        onMarkerDragEnd={mapEventCallback}
+
+        minZoomLevel={0}
+        maxZoomLevel={0}
+        kmlSrc="src"
+        style={{ flex: 1 }}
+    />
+);
+// #endegion
+
 async () => {
     const updateEventListener: Updates.UpdateEventListener = ({ type, manifest, message }) => {
         switch (type) {
@@ -833,13 +961,60 @@ async () => {
         console.log(updateCheckResult.manifest);
     }
 
-    Updates.fetchUpdateAsync(updateEventListener);
+    Updates.fetchUpdateAsync({ eventListener: updateEventListener });
 
     const bundleFetchResult = await Updates.fetchUpdateAsync();
 
     if (bundleFetchResult.isNew) {
         console.log(bundleFetchResult.manifest);
     }
+};
+
+async () => {
+  const asset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('some-url');
+  const getAssetsOptions: MediaLibrary.GetAssetsOptions = {
+    first: 0,
+    after: 'lastAssetId',
+    album: 'albumId',
+    sortBy: MediaLibrary.SortBy.creationTime,
+    mediaType: MediaLibrary.MediaType.photo
+  };
+  const assetsList: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync(getAssetsOptions);
+  const endCursor: string = assetsList.endCursor;
+  const hasNextPage: boolean = assetsList.hasNextPage;
+  const totalCount: number = assetsList.totalCount;
+  const asset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(asset);
+  if (await MediaLibrary.deleteAssetsAsync(assetsList.assets)) {
+    console.log('assets deleted');
+  }
+  const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
+  const album: MediaLibrary.Album | null = await MediaLibrary.getAlbumAsync('albumName');
+  const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('albumName', asset1);
+  if (await MediaLibrary.addAssetsToAlbumAsync([asset, asset1], album1, true)) {
+    console.log('assets added');
+  }
+
+  const moments: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
+
+  switch (getAssetsOptions.mediaType) {
+    case MediaLibrary.MediaType.audio:
+    case MediaLibrary.MediaType.photo:
+    case MediaLibrary.MediaType.video:
+    case MediaLibrary.MediaType.unknow:
+      return true;
+  }
+
+  switch (getAssetsOptions.sortBy) {
+    case MediaLibrary.SortBy.default:
+    case MediaLibrary.SortBy.id:
+    case MediaLibrary.SortBy.creationTime:
+    case MediaLibrary.SortBy.modificationTime:
+    case MediaLibrary.SortBy.mediaType:
+    case MediaLibrary.SortBy.width:
+    case MediaLibrary.SortBy.height:
+    case MediaLibrary.SortBy.duration:
+      return true;
+  }
 };
 
 // #region MediaLibrary
@@ -873,4 +1048,23 @@ Haptic.notification(Haptic.NotificationType.Success);
 Haptic.notification(Haptic.NotificationType.Error);
 
 Haptic.selection();
+// #endregion
+
+// #region Constants
+async () => {
+    const appOwnerShip = Constants.appOwnership;
+    const expoVersion = Constants.expoVersion;
+    const installationId = Constants.installationId;
+    const deviceId = Constants.deviceId;
+    const deviceName = Constants.deviceName;
+    const deviceYearClass = Constants.deviceYearClass;
+    const isDevice = Constants.isDevice;
+    const platform = Constants.platform;
+    const sessionId = Constants.sessionId;
+    const statusBarHeight = Constants.statusBarHeight;
+    const systemFonts = Constants.systemFonts;
+    const manifest = Constants.manifest;
+    const linkingUri = Constants.linkingUri;
+    const userAgent: string = await Constants.getWebViewUserAgentAsync();
+};
 // #endregion

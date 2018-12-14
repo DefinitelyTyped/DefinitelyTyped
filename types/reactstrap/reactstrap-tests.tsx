@@ -278,6 +278,14 @@ const Example13 = (
   </div>
 );
 
+interface CustomButtonProps extends ButtonProps {
+  customProp: string;
+}
+// NOTE: not adding the <{}> causes the generic parameter to be a spread type of CustomButtonProps,
+// for some reason this causes children to be inferred as being 'ReactNode & {}' which makes the spread
+// invalid. TS3.2 bug?
+const CustomButton: React.SFC<CustomButtonProps> = props => <Button<{}> {...props}/>;
+
 class Example14 extends React.Component<any, any> {
   state: any;
   constructor(props: any) {
@@ -3746,7 +3754,7 @@ function Example117() {
 }
 
 function Example118() {
-    const ref: string | ((e: any) => void) | React.RefObject<any> = null as any;
+    const ref: React.Ref<any> = React.createRef();
 
     <Button innerRef={ref}/>;
     <CardLink innerRef={ref}/>;
@@ -3759,7 +3767,7 @@ import { default as Alert_ } from './lib/Alert'; /* tslint:disable-line: no-rela
 import { default as Badge_ } from './lib/Badge'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Breadcrumb_ } from './lib/Breadcrumb'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as BreadcrumbItem_ } from './lib/BreadcrumbItem'; /* tslint:disable-line: no-relative-import-in-test */
-import { default as Button_ } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Button_, ButtonProps } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonDropdown_ } from './lib/ButtonDropdown'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonGroup_ } from './lib/ButtonGroup'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonToolbar_ } from './lib/ButtonToolbar'; /* tslint:disable-line: no-relative-import-in-test */

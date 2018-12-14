@@ -533,9 +533,10 @@ AFRAME.registerComponent('audioanalyser-waveform', {
 		rings.forEach(function transformRing(ring: THREE.Line, index: number) {
 			var normLevel;
 			normLevel = levels[RINGCOUNT - index - 1] + 0.01; // Avoid scaling by 0.
-			(ring.material as THREE.LineBasicMaterial).color.setHSL(colors[index], 1, normLevel);
-			ring.material.linewidth = normLevel * 3;
-			ring.material.opacity = normLevel;
+			const lineMaterial = ring.material as THREE.LineBasicMaterial;
+			lineMaterial.color.setHSL(colors[index], 1, normLevel);
+			lineMaterial.linewidth = normLevel * 3;
+			lineMaterial.opacity = normLevel;
 			ring.scale.z = normLevel;
 		});
 	},

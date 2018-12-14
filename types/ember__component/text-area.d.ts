@@ -1,3 +1,8 @@
-import Ember from 'ember';
+import TextSupport from "@ember/component/-private/text-support";
+import Component from "@ember/component";
 
-export default class TextArea extends Ember.TextArea { }
+/**
+ * The internal class used to create textarea element when the `{{textarea}}`
+ * helper is used.
+ */
+export default class TextArea extends Component.extend(TextSupport) {}

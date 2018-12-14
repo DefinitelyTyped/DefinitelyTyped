@@ -1,3 +1,6 @@
+// Import needed for mathjs.import functionality (declaring/extending module)
+import * as math from 'mathjs';
+
 /*
 Basic usage examples
 */
@@ -179,6 +182,7 @@ Expressions examples
 
 		const x = parser.get('x');
 		const f = parser.get('f');
+		const y = parser.getAll();
 		const g = f(3, 3);
 
 		parser.set('h', 500);
@@ -269,6 +273,13 @@ Matrices examples
 		math.range(0, 18, 3);
 		math.range('2:-1:-3');
 		math.factorial(math.range('1:6'));
+	}
+
+	// map matrix
+	{
+  	math.map([1, 2, 3], function(value) {
+      return value * value;
+	  });  // returns [1, 4, 9]
 	}
 }
 
@@ -383,4 +394,28 @@ JSON serialization/deserialization
 	const stringified = JSON.stringify(data);
 	const parsed = JSON.parse(stringified, math.json.reviver);
 	parsed.bigNumber === math.bignumber('1.5'); // true
+}
+
+/*
+Extend functionality with import
+ */
+
+declare module 'mathjs' {
+    interface MathJsStatic {
+        testFun(): number;
+        value: number;
+    }
+}
+
+{
+    const testFun = () => 5;
+
+    math.import({
+        testFun,
+        value: 10
+    }, {});
+
+    math.testFun();
+
+    const a = math.value * 2;
 }

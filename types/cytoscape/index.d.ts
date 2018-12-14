@@ -133,6 +133,8 @@ declare namespace cytoscape {
     }
 
     interface EdgeDataDefinition extends ElementDataDefinition {
+        id?: string;
+
         /**
          * the source node id (edge comes from this node)
          */
@@ -141,6 +143,8 @@ declare namespace cytoscape {
          * the target node id (edge goes to this node)
          */
         target: string;
+
+        [key: string]: any;
     }
 
     interface NodeDefinition extends ElementDefinition {
@@ -148,7 +152,9 @@ declare namespace cytoscape {
     }
 
     interface NodeDataDefinition extends ElementDataDefinition {
+        id?: string;
         parent?: string;
+        [key: string]: any;
     }
 
     interface CytoscapeOptions {
@@ -3445,13 +3451,13 @@ declare namespace cytoscape {
              * This property can take on the special value label
              * so the width is automatically based on the node’s label.
              */
-            "width"?: number | "label";
+            "width"?: number | string;
             /**
              * The height of the node’s body.
              * This property can take on the special value label
              * so the height is automatically based on the node’s label.
              */
-            "height"?: number | "label";
+            "height"?: number | string;
             /**
              * The shape of the node’s body.
              */
@@ -3624,7 +3630,7 @@ declare namespace cytoscape {
             /**
              * The width of an edge’s line.
              */
-            "width"?: number | "label";
+            "width"?: number | string;
             /**
              * The curving method used to separate two or more edges between two nodes;
              * may be

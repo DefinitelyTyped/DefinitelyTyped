@@ -1,8 +1,9 @@
-// Type definitions for luxon 1.2
+// Type definitions for luxon 1.4
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
 //                 Jonathan Siebern <https://github.com/jsiebern>
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -20,6 +21,11 @@ declare module 'luxon' {
 
         type ToFormatOptions = DateTimeFormatOptions & {
             round?: boolean;
+        };
+
+        type ToSQLOptions = {
+            includeOffset?: boolean;
+            includeZone?: boolean;
         };
 
         type ISOTimeOptions = {
@@ -65,6 +71,17 @@ declare module 'luxon' {
             conversionAccuracy?: string;
         };
 
+        type ExplainedFormat = {
+            input: string;
+            tokens: Array<{ literal: boolean, val: string }>,
+            regex?: RegExp;
+            rawMatches?: RegExpMatchArray | null;
+            matches?: {[k: string]: any};
+            result?: {[k: string]: any} | null;
+            zone?: Zone | null;
+            invalidReason?: string;
+        };
+
         class DateTime {
             static readonly DATETIME_FULL: DateTimeFormatOptions;
             static readonly DATETIME_FULL_WITH_SECONDS: DateTimeFormatOptions;
@@ -108,7 +125,7 @@ declare module 'luxon' {
                 text: string,
                 format: string,
                 opts?: DateTimeOptions
-            ): object;
+            ): ExplainedFormat;
             /**
              * @deprecated since 0.3.0. Use fromFormat instead
              */
@@ -124,7 +141,7 @@ declare module 'luxon' {
                 text: string,
                 format: string,
                 options?: DateTimeOptions
-            ): object;
+            ): ExplainedFormat;
             static invalid(reason: any): DateTime;
             static local(
                 year?: number,
@@ -154,6 +171,7 @@ declare module 'luxon' {
             hour: number;
             invalidReason: string;
             isInDST: boolean;
+            isInLeapYear: boolean;
             isOffsetFixed: boolean;
             isValid: boolean;
             locale: string;
@@ -212,9 +230,9 @@ declare module 'luxon' {
             toMillis(): number;
             toObject(options?: { includeConfig?: boolean }): DateObject;
             toRFC2822(): string;
-            toSQL(options?: Object): string;
+            toSQL(options?: ToSQLOptions): string;
             toSQLDate(): string;
-            toSQLTime(options?: Object): string;
+            toSQLTime(options?: ToSQLOptions): string;
             toString(): string;
             toUTC(offset?: number, options?: ZoneOptions): DateTime;
             until(other: DateTime): Interval;

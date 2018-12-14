@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 5.0.13
+// Type definitions for Highcharts 5.0
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <https://github.com/damianog>
 //                 Dan Lewi Harkestad <https://github.com/baltie>
@@ -59,6 +59,8 @@ declare namespace Highcharts {
         value: any;
         isFirst: number;
         isLast: number;
+        chart: ChartObject;
+        axis: AxisObject;
     }
 
     interface AxisLabels {
@@ -103,7 +105,8 @@ declare namespace Highcharts {
         format?: string;
         /**
          * Callback JavaScript function to format the label. The value is given by this.value. Additional properties for
-         * this are axis, chart, isFirst and isLast.
+         * this are axis, chart, isFirst and isLast. The value of the default label formatter can be retrieved by calling
+         * this.axis.defaultLabelFormatter.call(this) within the function.
          * @default function() {return this.value;}
          */
         formatter?(this: AxisLabelFormatterOptions): string;
@@ -372,6 +375,316 @@ declare namespace Highcharts {
         /**
          * The z index of the plot line within the chart.
          * @since 1.2
+         */
+        zIndex?: number;
+    }
+
+    interface AnnotationsPoint {
+        /**
+         * The x position of the point. Units can be either in axis or chart pixel coordinates.
+         * @default undefined
+         * @since 6.0.0
+         */
+        x?: number;
+        /**
+         * This number defines which xAxis the point is connected to.
+         * It refers to either the axis id or the index of the axis in the xAxis array.
+         * If the option is not configured or the axis is not found the point's x coordinate refers to the chart pixels.
+         * @default undefined
+         * @since 6.0.0
+         */
+        xAxis?: number | string;
+        /**
+         * The y position of the point. Units can be either in axis or chart pixel coordinates.
+         * @default undefined
+         * @since 6.0.0
+         */
+        y?: number;
+        /**
+         * This number defines which yAxis the point is connected to.
+         * It refers to either the axis id or the index of the axis in the yAxis array.
+         * If the option is not configured or the axis is not found the point's y coordinate refers to the chart pixels.
+         * @default undefined
+         * @since 6.0.0
+         */
+        yAxis?: number;
+    }
+
+    interface AnnotationsLabelOptions {
+        /**
+         * The alignment of the annotation's label. If right, the right side of the label should be touching the point.
+         * @default "center"
+         * @since 6.0.0
+         */
+        align?: "left" | "center" | "right";
+        /**
+         * The alignment of the annotation's label. If right, the right side of the label should be touching the point.
+         * @default false
+         * @since 6.0.0
+         */
+        allowOverlap?: boolean;
+        /**
+         * The background color or gradient for the annotation's label.
+         * @default rgba(0, 0, 0, 0.75)
+         * @since 6.0.0
+         */
+        backgroundColor?: string | Gradient;
+        /**
+         * The border color for the annotation's label.
+         * @default "black"
+         * @since 6.0.0
+         */
+        borderColor?: string | Gradient;
+        /**
+         * The border radius in pixels for the annotation's label.
+         * @default 1
+         * @since 6.0.0
+         */
+        borderRadius?: number;
+        /**
+         * The border width in pixels for the annotation's label.
+         * @default 1
+         * @since 6.0.0
+         */
+        borderWidth?: number;
+        /**
+         * Whether to hide the annotation's label that is outside the plot area.
+         * @default false
+         * @since 6.0.0
+         */
+        crop?: boolean;
+        /**
+         * The label's pixel distance from the point.
+         * @default undefined
+         * @since 6.0.0
+         */
+        distance?: number;
+        /**
+         * A format string for the data label.
+         * @default undefined
+         * @since 6.0.0
+         */
+        format?: string;
+        /**
+         * Callback JavaScript function to format the annotation's label.
+         * Note that if a format or text are defined, the format or text take precedence and the formatter is ignored.
+         * This refers to a point object.
+         * @default function () { return defined(this.y) ? this.y : 'Annotation label'; }
+         * @since 6.0.0
+         */
+        formatter?: Function;
+        /**
+         * How to handle the annotation's label that flow outside the plot area.
+         * The justify option aligns the label inside the plot area.
+         * @default "justify
+         * @since 6.0.0
+         */
+        overflow?: "justify" | "none";
+        /**
+         * When either the borderWidth or the backgroundColor is set, this is the padding within the box.
+         * @default 5
+         * @since 6.0.0
+         */
+        padding?: number;
+        /**
+         * The shadow of the box. The shadow can be an object configuration containing color, offsetX, offsetY, opacity and width.
+         * @default false
+         * @since 6.0.0
+         */
+        shadow?:
+            | boolean
+            | {
+            color?: string | Gradient;
+            offsetX?: number;
+            offsetY?: number;
+            opacity?: number;
+            width?: number;
+        };
+        /**
+         * The name of a symbol to use for the border around the label. Symbols are predefined functions on the Renderer object.
+         * @default "callout"
+         * @since 6.0.0
+         */
+        shape?: "connector" | "rect" | "circle" | "diamond" | "triangle";
+        /**
+         * Styles for the annotation's label.
+         * @default "callout"
+         * @since 6.0.0
+         */
+        style?: {
+            /**
+             * @default "contrast"
+             * @since 6.0.0
+             */
+            color?: string;
+            fontFamily?: string;
+            /**
+             * @default "11px"
+             * @since 6.0.0
+             */
+            fontSize?: string;
+            /**
+             * @default "normal"
+             * @since 6.0.0
+             */
+            fontWeight?: string;
+            textAlign?: string;
+        };
+        /**
+         * Alias for the format option.
+         * @default undefined
+         * @since 6.0.0
+         */
+        text?: string;
+        /**
+         * Whether to use HTML to render the annotation's label.
+         * @default false
+         * @since 6.0.0
+         */
+        useHTML?: boolean;
+        /**
+         * The vertical alignment of the annotation's label.
+         * @default "bottom"
+         * @since 6.0.0
+         */
+        verticalAlign?: "bottom" | "middle" | "top";
+        /**
+         * The x position offset of the label relative to the point.
+         * Note that if a distance is defined, the distance takes precedence over x and y options.
+         * @default 0
+         * @since 6.0.0
+         */
+        x?: number;
+        /**
+         * The y position offset of the label relative to the point.
+         * Note that if a distance is defined, the distance takes precedence over x and y options.
+         * @default -16
+         * @since 6.0.0
+         */
+        y?: number;
+    }
+
+    interface AnnotationsLabel extends AnnotationsLabelOptions {
+        /**
+         * This option defines the point to which the label will be connected.
+         * It can be either the point which exists in the series - it is referenced by the point's id
+         * - or a new point with defined x, y properties and optionally axes.
+         * @since 6.0.0
+         */
+        point?: string | AnnotationsPoint;
+    }
+
+    interface AnnotationsShapeOptions {
+        /**
+         * The color of the shape's fill.
+         * @default rgba(0, 0, 0, 0.75)
+         * @since 6.0.0
+         */
+        fill?: string;
+        /**
+         * The height of the shape.
+         * @default undefined
+         * @since 6.0.0
+         */
+        height?: number;
+        /**
+         * The radius of the shape.
+         * @default 0
+         * @since 6.0.0
+         */
+        r?: number;
+        /**
+         * The color of the shape's stroke.
+         * @default rgba(0, 0, 0, 0.75)
+         * @since 6.0.0
+         */
+        stroke?: string;
+        /**
+         * The pixel stroke width of the shape.
+         * @default 1
+         * @since 6.0.0
+         */
+        strokeWidth?: number;
+        /**
+         * The type of the shape, e.g. circle or rectangle.
+         * @default "rect"
+         * @since 6.0.0
+         */
+        type?: "circle" | "path" | "rect";
+        /**
+         * The width of the shape.
+         * @default undefined
+         * @since 6.0.0
+         */
+        width?: number;
+    }
+
+    interface AnnotationsShape extends AnnotationsShapeOptions {
+        /**
+         * Id of the marker which will be drawn at the final vertex of the path. Custom markers can be defined in defs property.
+         * @default undefined
+         * @since 6.0.0
+         */
+        markerEnd?: string;
+        /**
+         * Id of the marker which will be drawn at the final vertex of the path. Custom markers can be defined in defs property.
+         * @default undefined
+         * @since 6.0.0
+         */
+        markerStart?: string;
+        /**
+         * This option defines the point to which the shape will be connected.
+         * It can be either the point which exists in the series - it is referenced by the point's id
+         * - or a new point with defined x, y properties and optionally axes.
+         * @since 6.0.0
+         */
+        point?: string | AnnotationsPoint;
+        /**
+         * An array of points for the shape. This option is available for shapes which can use multiple points such as path.
+         * A point can be either a point object or a point's id.
+         * @default undefined
+         * @since 6.0.0
+         */
+        points?: Array<string | AnnotationsPoint>;
+    }
+
+    /**
+     * Options for configuring annotations, for example labels, arrows or shapes. Annotations can be tied to points,
+     * axis coordinates or chart pixel coordinates.
+     */
+    interface AnnotationsOptions {
+        /**
+         * Options for annotation's labels. Each label inherits options from the labelOptions object.
+         * An option from the labelOptions can be overwritten by config for a specific label.
+         * @since 6.0.0
+         */
+        labelOptions?: AnnotationsLabelOptions;
+        /**
+         * An array of labels for the annotation. For options that apply to multiple labels, they can be added to the labelOptions.
+         * @since 6.0.0
+         */
+        labels?: AnnotationsLabel[];
+        /**
+         * Options for annotation's shapes. Each shape inherits options from the shapeOptions object.
+         * An option from the shapeOptions can be overwritten by config for a specific shape.
+         * @since 6.0.0
+         */
+        shapeOptions?: AnnotationsShapeOptions;
+        /**
+         * An array of shapes for the annotation. For options that apply to multiple shapes, they can be added to the shapeOptions.
+         * @since 6.0.0
+         */
+        shapes?: AnnotationsShape[];
+        /**
+         * Whether the annotation is visible.
+         * @default true
+         * @since 6.0.0
+         */
+        visible?: boolean;
+        /**
+         * The Z index of the annotation.
+         * @default 6
+         * @since 6.0.0
          */
         zIndex?: number;
     }
@@ -2664,6 +2977,21 @@ declare namespace Highcharts {
          */
         printChart?: string;
         /**
+         * The text for the label for the "from" input box in the range selector.
+         * @default 'From'
+         */
+        rangeSelectorFrom?: string;
+        /**
+         * The text for the label for the "to" input box in the range selector.
+         * @default 'To'
+         */
+        rangeSelectorTo?: string;
+        /**
+         * The text for the label for the range selector buttons.
+         * @default 'Zoom'
+         */
+        rangeSelectorZoom?: String;
+        /**
          * The text for the label appearing when a chart is zoomed.
          * @default 'Reset zoom'
          * @since 1.2.4
@@ -4332,6 +4660,14 @@ declare namespace Highcharts {
          */
         lineColor?: string | Gradient;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+        /**
          * A separate color for the negative part of the area.
          * @since 3.0
          */
@@ -4430,12 +4766,20 @@ declare namespace Highcharts {
          */
         grouping?: boolean;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
          * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
          * columns from becoming too wide when there is a small number of points in the chart.
          * @default null
          * @since 4.1.8
          */
         maxPointWidth?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * The minimal height for a column or width for a bar. By default, 0 values are not shown. To visualize a 0 (or
          * close to zero) point, set the minimal point length to a pixel value like 3. In stacked column charts,
@@ -4531,6 +4875,10 @@ declare namespace Highcharts {
          */
         displayNegative?: boolean;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
          * Maximum bubble size. Bubbles will automatically size between the minSize and maxSize to reflect the z value of
          * each bubble. Can be either pixels (when no unit is given), or a percentage of the smallest one of the plot width
          * and height.
@@ -4538,6 +4886,10 @@ declare namespace Highcharts {
          * @since 3.0
          */
         maxSize?: string | number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * Minimum bubble size. Bubbles will automatically size between the minSize and maxSize to reflect the z value of
          * each bubble. Can be either pixels (when no unit is given), or a percentage of the smallest one of the plot width
@@ -4824,6 +5176,14 @@ declare namespace Highcharts {
          */
         dial?: Dial;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+        /**
          * Allow the dial to overshoot the end of the perimeter axis by this many degrees. Say if the gauge axis goes from 0
          * to 60, a value of 100, or 1000, will show 5 degrees beyond the end of the axis. Defaults to 0.
          * @default 0
@@ -4892,12 +5252,20 @@ declare namespace Highcharts {
          */
         cropTreshold?: number;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
          * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
          * columns from becoming too wide when there is a small number of points in the chart.
          * @default null
          * @since 4.1.8
          */
         maxPointWidth?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * The row size - how many Y axis units each heatmap row should span.
          * @default 1
@@ -4916,6 +5284,14 @@ declare namespace Highcharts {
     }
 
     interface LineChart extends SeriesChart {
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * Whether to apply steps to the line. Possible values are left, center and right. Prior to 2.3.5, only left was
          * supported.
@@ -4987,6 +5363,14 @@ declare namespace Highcharts {
          */
         innerSize?: number | string;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+        /**
          * The minimum size for a pie in response to auto margins. The pie will try to shrink to make room for data labels
          * in side the plot area, but only to this size.
          * @default 80
@@ -5033,6 +5417,14 @@ declare namespace Highcharts {
          * @default 0
          */
         lineWidth?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
     }
 
     interface PyramidChart extends SeriesChart {
@@ -5107,7 +5499,16 @@ declare namespace Highcharts {
         width?: number | string;
     }
 
-    interface ScatterChart extends SeriesChart { }
+    interface ScatterChart extends SeriesChart {
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+    }
 
     /**
      * A gauge showing values using a filled arc with colors indicating the value. The solid gauge plots values against the
@@ -5143,7 +5544,16 @@ declare namespace Highcharts {
         wrap?: boolean;
     }
 
-    interface SplineChart extends SeriesChart { }
+    interface SplineChart extends SeriesChart {
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
+    }
 
     /**
      * The size of the point shape is determined by its value relative to its siblings values. Requires the module
@@ -5216,12 +5626,20 @@ declare namespace Highcharts {
          */
         levels?: TreeMapLevel[];
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
          * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
          * columns from becoming too wide when there is a small number of points in the chart.
          * @default null
          * @since 4.1.8
          */
         maxPointWidth?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * The sort index of the point inside the treemap level.
          * @since 4.1.10
@@ -5286,6 +5704,14 @@ declare namespace Highcharts {
          * @since 5.0.12
          */
         exposeElementToA11y?: boolean;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * This option decides which algorithm is used for placement, and rotation of a word. The choice of algorith is
          * therefore a crucial part of the resulting layout of the wordcloud. It is possible for users to add their own
@@ -5454,8 +5880,16 @@ declare namespace Highcharts {
          *            name: 'Point1',
          *            color: '#FF00FF'
          *        }]
+         *
+         * 4. An array of arrays with three values for ranges. In this case the values correspond x, yMin and yMax. If the
+         *    first value is a string it is applied as the name of the point, and the x value is inferred.
+         *        data: [
+         *            [1, 2, 3],
+         *            [2, 4, 6],
+         *            [3, 7, 8]
+         *
          */
-        data?: Array<number | [number, number] | [string, number] | DataPoint>;
+        data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
         /**
          * A description of the series to add to the screen reader information about the series.
          * @since 5.0.0
@@ -5478,6 +5912,14 @@ declare namespace Highcharts {
          * The sequential index of the series in the legend.
          */
         legendIndex?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number | null;
         /**
          * The name of the series as shown in the legend, tooltip etc.
          */
@@ -5557,6 +5999,12 @@ declare namespace Highcharts {
          * Individual data label for each point. The options are the same as the ones for plotOptions.series.dataLabels
          */
         dataLabels?: DataLabels;
+        /**
+         * A description of the point to add to the screen reader information about the point.
+         * @default undefined
+         * @since 5.0.0
+         */
+        description?: string;
         /**
          * The id of a series in the drilldown.series array to use for a drilldown for this point.
          * @since 3.0.8
@@ -5924,6 +6372,16 @@ declare namespace Highcharts {
          */
         formatter?(): boolean | string;
         /**
+         * Whether to allow the tooltip to render outside the chart's SVG element box.
+         * By default (false), the tooltip is rendered within the chart's SVG element, which results in
+         * the tooltip being aligned inside the chart area. For small charts, this may result in
+         * clipping or overlapping. When true, a separate SVG element is created and overlaid on the
+         * page, allowing the tooltip to be aligned inside the page itself.
+         * @default false
+         * @since 6.1.1
+         */
+        outside?: boolean;
+        /**
          * Padding inside the tooltip, in pixels.
          * @since 5.0.0
          * @default 8
@@ -6080,6 +6538,10 @@ declare namespace Highcharts {
          */
         accessibility?: AccessibilityOptions;
         /**
+         * Options for configuring annotations, for example labels, arrows or shapes.
+         */
+        annotations?: AnnotationsOptions[];
+        /**
          * Options regarding the chart area and plot area as well as general chart options.
          */
         chart?: ChartOptions;
@@ -6167,7 +6629,7 @@ declare namespace Highcharts {
          * Allows setting a set of rules to apply for different screen or chart sizes. Each rule specifies additional chart options.
          * @since 5.0.0
          */
-        responsive?: ResponsiveOptions[];
+        responsive?: ResponsiveOptions;
         /**
          * The actual series to append to the chart. In addition to the members listed below, any member of the plotOptions
          * for that specific type of plot can be added to a series individually. For example, even though a general
@@ -6236,6 +6698,13 @@ declare namespace Highcharts {
      * Configuration options for the axes are given in options.xAxis and options.yAxis.
      */
     interface AxisObject {
+        dataMin: number;
+        dataMax: number;
+        userMin: number;
+        userMax: number;
+        bottom: number;
+        left: number;
+        width: number;
         /**
          * Add a plot band after render time.
          * @param options A configuration object consisting of the same members as options.xAxis.plotBands
@@ -6248,6 +6717,7 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         addPlotLine(options: PlotLines): void;
+        defaultLabelFormatter(this: AxisLabelFormatterOptions): string;
         /**
          * Get the current extremes for the axis.
          * @since 1.2.0
@@ -6274,16 +6744,10 @@ declare namespace Highcharts {
         /**
          * Set new categories for the axis. Redraws.
          * @param categories The new category names.
+         * @param redraw Whether to redraw the axis or wait for an explicit call to chart.redraw().
          * @since 1.2.0
          */
-        setCategories(categories: string[]): void;
-        /**
-         * Set new categories for the axis.
-         * @param categories The new category names.
-         * @param  redraw     Whether to redraw the axis or wait for an explicit call to chart.redraw().
-         * @since 1.2.0
-         */
-        setCategories(categories: string[], redraw: boolean): void;
+        setCategories(categories: string[], redraw?: boolean): void;
         /**
          * Set the minimum and maximum of the axes after render time. If the startOnTick and endOnTick options are true, the
          * minimum and maximum values are rounded off to the nearest tick. To prevent this, these options can be set to
@@ -6370,6 +6834,8 @@ declare namespace Highcharts {
          * @since 3.0.8
          */
         addSeriesAsDrilldown(point: PointObject, seriesOptions: IndividualSeriesOptions): void;
+        chartHeight?: number;
+        chartWidth?: number;
         /**
          * A reference to the containing HTML element, dynamically inserted into the element given in chart.renderTo.
          * @since 1.2.5
@@ -6394,22 +6860,6 @@ declare namespace Highcharts {
         /**
          * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
          * conversion.
-         * @since 2.0
-         */
-        exportChart(): void;
-        /**
-         * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
-         * conversion.
-         * @param options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method.
-         * All options default to the values given in the exporting config options. filename: the filename for the export without extension,
-         * url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server,
-         * type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
-         * @since 2.0
-         */
-        exportChart(options: ExportingOptions): void;
-        /**
-         * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
-         * conversion.
          * @param options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method.
          * All options default to the values given in the exporting config options. filename: the filename for the export without extension,
          * url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server,
@@ -6417,31 +6867,17 @@ declare namespace Highcharts {
          * @param chartOptions Additional chart options for the exported chart. For example a different background color can be added here.
          * @since 2.0
          */
-        exportChart(options: ExportingOptions, chartOptions: Options): void;
+        exportChart(options?: ExportingOptions, chartOptions?: Options): void;
         /**
          * Export the chart to a PNG or SVG without sending it to a server. Requires
          * modules/exporting.js and modules/offline-exporting.js.
-         * @since 2.0
-         */
-        exportChartLocal(): void;
-        /**
-         * Export the chart to a PNG or SVG without sending it to a server. Requires
-         * modules/exporting.js and modules/offline-exporting.js.
-         * @param options Exporting options. Same as
-         * the exportChart params.
-         * @since 2.0
-         */
-        exportChartLocal(options: ExportingOptions): void;
-        /**
-         * Export the chart to a PNG or SVG without sending it to a server.
-         * Requires modules/exporting.js and modules/offline-exporting.js.
          * @param options Exporting options. Same as
          * the exportChart params.
          * @param chartOptions Additional chart options for the
          * exported chart. Same as the exportChart params.
          * @since 2.0
          */
-        exportChartLocal(options: ExportingOptions, chartOptions: Options): void;
+        exportChartLocal(options?: ExportingOptions, chartOptions?: Options): void;
         /**
          * Get an axis, series or point by its id as given in the configuration options.
          * @param  id The id of the axis, series or point to get.
@@ -6479,6 +6915,10 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         options: Options;
+        plotLeft?: number;
+        plotSizeX?: number;
+        plotSizeY?: number;
+        plotTop?: number;
         /**
          * Exporting module required. Clears away other elements in the page and prints the chart as it is displayed. By
          * default, when the exporting module is enabled, a button at the upper left calls this method.
@@ -6581,23 +7021,12 @@ declare namespace Highcharts {
         /**
          * This is the constructor for creating a new chart object.
          * @param  options The chart options
-         */
-        new (options: Options): ChartObject;
-        /**
-         * This is the constructor for creating a new chart object.
-         * @param options The chart options
          * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread,
          * but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready,
          * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart().
          * s a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
          */
-        new (options: Options, callback: (chart: ChartObject) => void): ChartObject;
-        /**
-         * This is the constructor for creating a new chart object.
-         * @param renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
-         * @param options The chart options
-         */
-        new (renderTo: string | HTMLElement, options: Options): ChartObject;
+        new (options: Options, callback?: (chart: ChartObject) => void): ChartObject;
         /**
          * This is the constructor for creating a new chart object.
          * @param renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
@@ -6607,7 +7036,7 @@ declare namespace Highcharts {
          * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart().
          * As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
          */
-        new (renderTo: string | HTMLElement, options: Options, callback: (chart: ChartObject) => void): ChartObject;
+        new (renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
     }
 
     /**
@@ -7185,17 +7614,10 @@ declare global {
          * Creates a new Highcharts.Chart for the current JQuery selector; usually
          * a div selected by $('#container')
          * @param options Options for this chart
-         * @return current {JQuery} selector the current JQuery selector
-         */
-        highcharts(options: Highcharts.Options): JQuery;
-        /**
-         * Creates a new Highcharts.Chart for the current JQuery selector; usually
-         * a div selected by $('#container')
-         * @param options Options for this chart
          * @param callback Callback function used to manipulate the constructed chart instance
          * @return current {JQuery} selector the current JQuery selector
          */
-        highcharts(options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
+        highcharts(options: Highcharts.Options, callback?: (chart: Highcharts.ChartObject) => void): JQuery;
     }
 }
 

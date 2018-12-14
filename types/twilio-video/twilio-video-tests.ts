@@ -63,10 +63,14 @@ function trackSubscribed(track: Video.VideoTrack | Video.AudioTrack) {
 
 function trackUnsubscribed(track: Video.VideoTrack | Video.AudioTrack) {
     track.detach().forEach(element => element.remove());
+    // Alternative if Safari crashes when detaching tracks
+    track._attachments!.forEach((detachedElement) => detachedElement.remove());
 }
 
-function insertDomElement(element: any) {
+function insertDomElement(element: HTMLMediaElement) {
     // Do something with the dom element
+    document.createElement('div');
+    element.appendChild(element);
 }
 
 initRoom();

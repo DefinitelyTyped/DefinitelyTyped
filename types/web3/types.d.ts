@@ -1,7 +1,3 @@
-import BigNumber = require("bn.js");
-import * as us from "underscore";
-import PromiEvent from "./promiEvent";
-import { ABIDefinition } from "./eth/abi";
 export type Callback<T> = (error: Error, result: T) => void;
 
 export interface EventEmitter {
@@ -40,7 +36,7 @@ export interface TransactionReceipt {
     events?: {
         [eventName: string]: EventLog;
     };
-    status: string;
+    status: boolean;
 }
 
 export interface EncodedTransaction {

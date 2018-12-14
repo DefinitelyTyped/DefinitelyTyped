@@ -169,8 +169,14 @@ If a package was never on DefinitelyTyped, it does not need to be added to `notN
 
 #### Lint
 
-To lint a package, just add a `tslint.json` to that package containing `{ "extends": "dtslint/dt.json" }`. All new packages must be linted.
-If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
+All new packages must be linted. To lint a package, add a `tslint.json` to that package containing 
+```js
+{ 
+    "extends": "dtslint/dt.json" 
+}
+```
+
+This should be the only content in a finished project's `tslint.json` file. If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
 
 ```js
 {
@@ -336,3 +342,6 @@ This project is licensed under the MIT license.
 Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
 
 [![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)
+
+[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13) Are packages being published to npm in less than 10,000 seconds on average?
+[![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14) Has typescript-bot been active on DefinitelyTyped in the last two hours?

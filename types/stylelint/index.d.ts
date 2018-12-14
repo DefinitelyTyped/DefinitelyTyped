@@ -1,7 +1,9 @@
 // Type definitions for stylelint 9.4
 // Project: https://github.com/stylelint/stylelint
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
+//                 Filips Alpe <https://github.com/filipsalpe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export type FormatterType = "json" | "string" | "verbose" | "compact";
 
@@ -50,3 +52,36 @@ export namespace formatters {
 }
 
 export function lint(options?: LinterOptions): Promise<LinterResult>;
+
+export type RuleOption = {
+    actual: any;
+    possible?: any;
+    optional?: false;
+} | {
+    actual?: any;
+    possible: any;
+    optional: true;
+};
+
+export namespace utils {
+    function report(violation: {
+        ruleName: string;
+        result: LintResult;
+        message: string;
+        node: any;
+        index?: number;
+        word?: string;
+        line?: number;
+    }): void;
+
+    function ruleMessages(ruleName: string, messages: { [key: string]: any; }): typeof messages;
+
+    function validateOptions(result: LintResult, ruleName: string, ...options: RuleOption[]): boolean;
+
+    function checkAgainstRule(options: { ruleName: string; ruleSettings: any; root: any; }, callback: (warning: string) => void): void;
+}
+
+export function createPlugin(
+    ruleName: string,
+    plugin: (options: RuleOption[]) => (root: any, result: LintResult) => void,
+): any;

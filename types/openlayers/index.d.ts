@@ -12494,6 +12494,7 @@ export namespace olx {
         renderer?: (ol.RendererType | Array<(ol.RendererType | string)> | string);
         target?: (Element | string);
         view?: ol.View;
+        moveTolerance?: number;
     }
 
     /**

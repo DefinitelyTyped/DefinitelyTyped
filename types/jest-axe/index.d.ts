@@ -82,4 +82,7 @@ declare global {
             toHaveNoViolations: IToHaveNoViolations;
         }
     }
+
+    // axe-core depends on a global Node
+    interface Node {}
 }

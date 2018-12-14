@@ -383,9 +383,9 @@ describe('dest stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -424,9 +424,9 @@ describe('dest stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: contentStream,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -467,10 +467,10 @@ describe('dest stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: null,
-         stat: <fs.Stats> {
+         stat: {
             isDirectory: () => true,
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -711,9 +711,9 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -752,9 +752,9 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: contentStream,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -795,10 +795,10 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: null,
-         stat: <fs.Stats> {
+         stat: {
             isDirectory: () => true,
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -870,9 +870,9 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       fs.mkdirSync(expectedBase);

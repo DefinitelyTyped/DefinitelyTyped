@@ -1,14 +1,12 @@
-
-
 function test_CKEDITOR() {
     CKEDITOR.basePath = 'test';
     CKEDITOR.replaceClass = 'rich_editor';
     CKEDITOR.skinName = 'moono';
     CKEDITOR.skinName = 'myskin,/customstuff/myskin/';
     var editor = new CKEDITOR.editor();
-    if (editor.getSelection().getType() == CKEDITOR.SELECTION_ELEMENT)
-        if (editor.getSelection().getType() == CKEDITOR.SELECTION_NONE)
-            if (editor.getSelection().getType() == CKEDITOR.SELECTION_TEXT)
+    if (editor.getSelection().getType() === CKEDITOR.SELECTION_ELEMENT)
+        if (editor.getSelection().getType() === CKEDITOR.SELECTION_NONE)
+            if (editor.getSelection().getType() === CKEDITOR.SELECTION_TEXT)
                 alert(CKEDITOR.basePath);
     if (CKEDITOR.currentInstance)
         alert(CKEDITOR.currentInstance.name);
@@ -17,7 +15,7 @@ function test_CKEDITOR() {
     CKEDITOR.loadFullCoreTimeout = 5;
     alert(CKEDITOR.revision);
     alert(CKEDITOR.rnd);
-    if (CKEDITOR.status == 'loaded') {
+    if (CKEDITOR.status === 'loaded') {
         CKEDITOR.loadFullCore();
     }
     alert(CKEDITOR.timestamp);
@@ -38,7 +36,7 @@ function test_CKEDITOR() {
 }
 
 function test_CKEDITOR_events() {
-    CKEDITOR.on('instanceCreated', function(event) {
+    CKEDITOR.on('instanceCreated', (event) => {
         // $ExpectType editor
         event.editor;
     });
@@ -75,7 +73,7 @@ function test_config() {
             { name: 'styles', groups: [ 'styles' ] },
             { name: 'colors', groups: [ 'colors' ] },
         ],
-    }
+    };
 }
 
 function test_dom_comment() {
@@ -115,7 +113,7 @@ function test_dom_domObject() {
     var nativeElement = element.$;
     var doc = new CKEDITOR.dom.document(document);
     alert(doc.equals(CKEDITOR.document));
-    alert(doc == CKEDITOR.document);
+    alert(doc === CKEDITOR.document);
     var element2 = new CKEDITOR.dom.element('span');
     alert(element.getCustomData('hasCustomData'));
     alert(element.getCustomData('nonExistingKey'));
@@ -136,7 +134,7 @@ function test_dom_element() {
     var strong = new CKEDITOR.dom.element('strong');
     p.append(strong);
     var em = p.append('em');
-    var p = new CKEDITOR.dom.element('p');
+    p = new CKEDITOR.dom.element('p');
     p.appendText('This is');
     p.appendText(' some text');
     element.breakParent(strong);
@@ -147,7 +145,7 @@ function test_dom_element() {
     element.focus();
     element.focusNext();
     element.focusPrevious();
-    element.forEach(node=> {
+    element.forEach(node => {
         console.log(node);
     });
     var element2 = CKEDITOR.dom.element.createFromHtml('<input type="text" />');
@@ -159,7 +157,7 @@ function test_dom_element() {
     alert(element.getHtml());
     alert(element.getId());
     alert(element.getName());
-    alert('<b>' + element.getNameAtt() + '</b>');
+    alert(`<b>${element.getNameAtt()}</b>`);
     alert(element.getOuterHtml());
     alert(element.getTabIndex());
     alert(element.getText());
@@ -180,7 +178,7 @@ function test_dom_element() {
     element.setAttribute('class', 'myClass');
     element.setAttribute('title', 'This is an example');
     element.setAttributes({
-        'class': 'myClass',
+        class: 'myClass',
         title: 'This is an example'
     });
     p.setHtml('<b>Inner</b> HTML');
@@ -196,7 +194,7 @@ function test_dom_element() {
     element.show();
     element.unselectable();
     alert(element.getName());
-    alert(element == CKEDITOR.dom.element.get(element));
+    alert(element === CKEDITOR.dom.element.get(element));
     var htmlElement = document.getElementById('myElement');
     alert(CKEDITOR.dom.element.get(htmlElement).getName());
 }
@@ -204,20 +202,20 @@ function test_dom_element() {
 function test_dom_event() {
     var event = new CKEDITOR.dom.event(new Event(""));
     alert(event.getKey());
-    alert(event.getKeystroke() == 65);
-    alert(event.getKeystroke() == CKEDITOR.CTRL + 65);
-    alert(event.getKeystroke() == CKEDITOR.CTRL + CKEDITOR.SHIFT + 65);
+    alert(event.getKeystroke() === 65);
+    alert(event.getKeystroke() === CKEDITOR.CTRL + 65);
+    alert(event.getKeystroke() === CKEDITOR.CTRL + CKEDITOR.SHIFT + 65);
     var element = new CKEDITOR.dom.element('div');
-    element.on('mousemouse', ev=> {
+    element.on('mousemouse', ev => {
         var pageOffset = ev.data.getPageOffset();
         alert(pageOffset.x);
         alert(pageOffset.y);
     });
-    element.on('click', ev=> {
+    element.on('click', ev => {
         var domEvent = ev.data;
         domEvent.getTarget().addClass('clicked');
     });
-    element.on('click', ev=> {
+    element.on('click', ev => {
         var domEvent = ev.data as CKEDITOR.dom.event;
         domEvent.preventDefault();
     });
@@ -298,14 +296,14 @@ function test_adding_command_and_buttons() {
     var textarea = document.createElement('textarea');
     var instance = CKEDITOR.replace(textarea);
 
-    instance.addCommand( 'aCommand', {
-        exec: function( editor: CKEDITOR.editor ) {
+    instance.addCommand('aCommand', {
+        exec: (editor: CKEDITOR.editor) => {
             // empty logic
             return true;
         }
     });
 
-    instance.ui.addButton( 'firstButton', {
+    instance.ui.addButton('firstButton', {
         icon: 'http://www.example.com/assets/images/icons.png',
         iconOffset: -32,
         label: 'Label 1',
@@ -313,7 +311,7 @@ function test_adding_command_and_buttons() {
         toolbar: 'tools'
     });
 
-    instance.ui.addButton( 'secondButton', {
+    instance.ui.addButton('secondButton', {
         label: 'Label 2',
         command: 'aCommand',
         toolbar: 'tools'
@@ -321,11 +319,11 @@ function test_adding_command_and_buttons() {
 }
 
 function test_adding_dialog_by_path() {
-    CKEDITOR.dialog.add( 'abbrDialog', this.path + 'dialogs/abbr.js' );
+    CKEDITOR.dialog.add('abbrDialog', 'PATH/dialogs/abbr.js');
 }
 
 function test_adding_dialog_by_definition() {
-    CKEDITOR.dialog.add( 'abbrDialog', function ( editor: CKEDITOR.editor ) {
+    CKEDITOR.dialog.add('abbrDialog', (editor: CKEDITOR.editor) => {
         return {
             title: 'Abbreviation Properties',
             minWidth: 400,
@@ -339,7 +337,7 @@ function test_adding_dialog_by_definition() {
                 {
                     id: 'tab-basic',
                     label: 'Basic Settings',
-                    elements: <any[]>[]
+                    elements: <any[]> []
                 },
                 {
                     id: 'tab-adv',
@@ -352,8 +350,8 @@ function test_adding_dialog_by_definition() {
 }
 
 function test_plugins() {
-    CKEDITOR.plugins.add( 'abbr', {
-        init: function( editor: CKEDITOR.editor ) {
+    CKEDITOR.plugins.add('abbr', {
+        init: (editor: CKEDITOR.editor) => {
             // empty logic
         }
     });
@@ -367,7 +365,7 @@ function test_adding_widget() {
             button: "Activate widgetty",
             template: "<imaginary-element>",
             dialog: "widgetty",
-            init: function() {
+            init: () => {
                 // no logic
             }
         });
@@ -442,80 +440,80 @@ function test_editor_instance_event() {
     var textarea = document.createElement('textarea');
     var instance = CKEDITOR.replace(textarea, {
         on: {
-            activeEnterModeChange: function() {},
-            activeFilterChange: function() {},
-            afterCommandExec: function() {},
-            afterInsertHtml: function() {},
-            afterPaste: function() {},
-            afterPasteFromWord: function() {},
-            afterSetData: function() {},
-            afterUndoImage: function() {},
-            ariaEditorHelpLabel: function() {},
-            ariaWidget: function() {},
-            autogrow: function() {},
-            beforeCommandExec: function() {},
-            beforeDestroy: function() {},
-            beforeModeUnload: function() {},
-            beforeSetMode: function() {},
-            beforeUndoImage: function() {},
-            blur: function() {},
-            change: function() {},
-            configLoaded: function() {},
-            contentDirChanged: function() {},
-            contentDom: function() {},
-            contentDomInvalidated: function() {},
-            contentDomUnload: function() {},
-            customConfigLoaded: function() {},
-            dataFiltered: function() {},
-            dataReady: function() {},
-            destroy: function() {},
-            dialogHide: function() {},
-            dialogShow: function() {},
-            dirChanged: function() {},
-            doubleclick: function() {},
-            dragend: function() {},
-            dragstart: function() {},
-            drop: function() {},
-            elementsPathUpdate: function() {},
-            fileUploadRequest: function() {},
-            fileUploadResponse: function() {},
-            floatingSpaceLayout: function() {},
-            focus: function() {},
-            getData: function() {},
-            getSnapshot: function() {},
-            insertElement: function() {},
-            insertHtml: function() {},
-            insertText: function() {},
-            instanceReady: function() {},
-            key: function() {},
-            langLoaded: function() {},
-            loadSnapshot: function() {},
-            loaded: function() {},
-            lockSnapshot: function() {},
-            maximize: function() {},
-            menuShow: function() {},
-            mode: function() {},
-            notificationHide: function() {},
-            notificationShow: function() {},
-            notificationUpdate: function() {},
-            paste: function() {},
-            pasteFromWord: function() {},
-            pluginsLoaded: function() {},
-            readOnly: function() {},
-            removeFormatCleanup: function() {},
-            required: function() {},
-            resize: function() {},
-            save: function() {},
-            saveSnapshot: function() {},
-            selectionChange: function() {},
-            setData: function() {},
-            stylesSet: function() {},
-            template: function() {},
-            toDataFormat: function() {},
-            toHtml: function() {},
-            unlockSnapshot: function() {},
-            updateSnapshot: function() {},
-            widgetDefinition: function() {}
+            activeEnterModeChange: () => {},
+            activeFilterChange: () => {},
+            afterCommandExec: () => {},
+            afterInsertHtml: () => {},
+            afterPaste: () => {},
+            afterPasteFromWord: () => {},
+            afterSetData: () => {},
+            afterUndoImage: () => {},
+            ariaEditorHelpLabel: () => {},
+            ariaWidget: () => {},
+            autogrow: () => {},
+            beforeCommandExec: () => {},
+            beforeDestroy: () => {},
+            beforeModeUnload: () => {},
+            beforeSetMode: () => {},
+            beforeUndoImage: () => {},
+            blur: () => {},
+            change: () => {},
+            configLoaded: () => {},
+            contentDirChanged: () => {},
+            contentDom: () => {},
+            contentDomInvalidated: () => {},
+            contentDomUnload: () => {},
+            customConfigLoaded: () => {},
+            dataFiltered: () => {},
+            dataReady: () => {},
+            destroy: () => {},
+            dialogHide: () => {},
+            dialogShow: () => {},
+            dirChanged: () => {},
+            doubleclick: () => {},
+            dragend: () => {},
+            dragstart: () => {},
+            drop: () => {},
+            elementsPathUpdate: () => {},
+            fileUploadRequest: () => {},
+            fileUploadResponse: () => {},
+            floatingSpaceLayout: () => {},
+            focus: () => {},
+            getData: () => {},
+            getSnapshot: () => {},
+            insertElement: () => {},
+            insertHtml: () => {},
+            insertText: () => {},
+            instanceReady: () => {},
+            key: () => {},
+            langLoaded: () => {},
+            loadSnapshot: () => {},
+            loaded: () => {},
+            lockSnapshot: () => {},
+            maximize: () => {},
+            menuShow: () => {},
+            mode: () => {},
+            notificationHide: () => {},
+            notificationShow: () => {},
+            notificationUpdate: () => {},
+            paste: () => {},
+            pasteFromWord: () => {},
+            pluginsLoaded: () => {},
+            readOnly: () => {},
+            removeFormatCleanup: () => {},
+            required: () => {},
+            resize: () => {},
+            save: () => {},
+            saveSnapshot: () => {},
+            selectionChange: () => {},
+            setData: () => {},
+            stylesSet: () => {},
+            template: () => {},
+            toDataFormat: () => {},
+            toHtml: () => {},
+            unlockSnapshot: () => {},
+            updateSnapshot: () => {},
+            widgetDefinition: () => {}
         }
     });
 }
@@ -580,8 +578,8 @@ function test_tools() {
     console.log(CKEDITOR.tools.isArray(null)); // false
     console.log(CKEDITOR.tools.isArray(undefined)); // false
 
-    CKEDITOR.tools.override(parseInt, function(_parseInt) {
-        return function(value: any, radix?: number) {
+    CKEDITOR.tools.override(parseInt, (_parseInt) => {
+        return (value: any, radix?: number) => {
             return _parseInt(value, radix);
         };
     });
@@ -590,9 +588,9 @@ function test_tools() {
 function test_htmlParser() {
     var html = '<div><span>text</span></div>';
     var fragment = CKEDITOR.htmlParser.fragment.fromHtml(html);
-    fragment.forEach(function(node) {
+    fragment.forEach((node) => {
         if (node instanceof CKEDITOR.htmlParser.element) {
-            node.forEach(function(node) {
+            node.forEach((node) => {
                 console.log(node);
             });
         }

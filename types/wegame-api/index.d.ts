@@ -1,4 +1,4 @@
-// Type definitions for wegame 2.2
+// Type definitions for wegame 2.3
 // Project: https://developers.weixin.qq.com/minigame/dev/index.html
 // Definitions by: J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -242,7 +242,7 @@ declare class FileSystemManager {
     getFileInfo(param: wx.types.FileinfoParams): void;
 
     /**
-     * 删除该小程序下已保存的本地缓存文件
+     * 删除该小程序下已保存的本地缓存文件（新版本应使用unlink）
      */
     removeSavedFile(param: wx.types.RemovefileParams): void;
 
@@ -1079,12 +1079,12 @@ declare namespace wx {
             zipFilePath: string;
             targetPath: string;
             success?: () => void;
-            fail?: (e?: any) => void;
+            fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
 
         interface AccessfileParams {
-            filePath: string;
+            path: string;
             success?: () => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
@@ -1108,7 +1108,7 @@ declare namespace wx {
 
         interface FileinfoParams {
             filePath: string;
-            success?: (res: { size: number }) => void;
+            success?: (res: { size: number, digest: string }) => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
@@ -1318,13 +1318,20 @@ declare namespace wx {
 
         interface DownfileParams {
             url: string;
-            filePath: string;
+            /**
+             * 在指定filePath之后success回调中将不会有res.tempFilePath路径值，下载的文件会直接写入filePath指定的路径（有写入权限的情况下，根目录请使用wx.env.USER_DATA_PATH，路径文件夹必须存在，否则写入失败）
+             */
+            filePath?: string;
             /**
              * 	HTTP 请求的 Header，Header 中不能设置 Referer
              */
             header?: { [key: string]: string };
+            /**
+             * res.tempFilePath 临时文件路径。如果没传入 filePath 指定文件存储路径，则下载后的文件会存储到一个临时文件
+             * res.statusCode 开发者服务器返回的 HTTP 状态码
+             */
             success?: (res: { tempFilePath: string, statusCode: number }) => void;
-            fail?: () => void;
+            fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
 

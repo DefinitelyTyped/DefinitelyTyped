@@ -17,9 +17,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@babel/parser": [
-                "babel__parser"
-            ],
             "@babel/traverse": [
                 "babel__traverse"
             ]
