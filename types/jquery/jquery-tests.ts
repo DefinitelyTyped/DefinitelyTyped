@@ -160,6 +160,9 @@ function JQueryStatic() {
         // $ExpectType JQuery<HTMLSelectElement>
         $([new HTMLSelectElement()]);
 
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $(document.querySelectorAll('p'));
+
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19597#issuecomment-378218432
         function issue_19597_378218432() {
             const myDiv = $(document.createElement('div'));
@@ -3969,11 +3972,16 @@ function JQuery() {
 
             function customData(this: HTMLElement, event: JQuery.TriggeredEvent<HTMLElement, string>) { }
 
+            function specificEventType(this: HTMLElement, event: JQuery.MouseDownEvent<HTMLElement>) { }
+
             // $ExpectType JQuery<HTMLElement>
             $('table').off('myEvent', 'td', defaultData);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').off('myEvent', 'td', customData);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off('mousedown', 'td', specificEventType);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').off('myEvent', 'td', false);
@@ -3986,6 +3994,9 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('table').off('myEvent', customData);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off('mousedown', specificEventType);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').off('myEvent', false);
@@ -4486,11 +4497,16 @@ function JQuery() {
 
             function customData(this: HTMLElement, event: JQuery.TriggeredEvent<HTMLElement, string>) { }
 
+            function specificEventType(this: HTMLElement, event: JQuery.MouseDownEvent<HTMLElement>) { }
+
             // $ExpectType JQuery<HTMLElement>
             $('p').unbind('myEvent', defaultData);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').unbind('myEvent', customData);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unbind('mousedown', specificEventType);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').unbind('myEvent', false);
@@ -4511,11 +4527,16 @@ function JQuery() {
 
             function customData(this: HTMLElement, event: JQuery.TriggeredEvent<HTMLElement, string>) { }
 
+            function specificEventType(this: HTMLElement, event: JQuery.MouseDownEvent<HTMLElement>) { }
+
             // $ExpectType JQuery<HTMLElement>
             $('table').undelegate('td', 'click', defaultData);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').undelegate('td', 'click', customData);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').undelegate('td', 'mousedown', specificEventType);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').undelegate('td', 'click', false);
