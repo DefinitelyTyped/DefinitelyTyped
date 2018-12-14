@@ -399,7 +399,7 @@ declare namespace Sinon {
          * The Promise library can be overwritten using the usingPromise method.
          * Since sinon@2.0.0
          */
-        resolves(value?: any): SinonStub<TArgs, TReturnValue>;
+        resolves(value?: TReturnValue extends Promise<infer TResolveValue> ? TResolveValue : never): SinonStub<TArgs, TReturnValue>;
         /**
          * Causes the stub to return a Promise which resolves to the argument at the provided index.
          * stub.resolvesArg(0); causes the stub to return a Promise which resolves to the first argument.
