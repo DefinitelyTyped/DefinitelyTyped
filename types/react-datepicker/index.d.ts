@@ -19,7 +19,7 @@ export function registerLocale(localeName: string, localeData: {}): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
 
-interface IHighlightDates {
+interface HighlightDates {
     [className: string]: Date[];
 }
 
@@ -49,7 +49,7 @@ export interface ReactDatePickerProps {
     forceShowMonthNavigation?: boolean;
     formatWeekDay?(date: Date): string;
     formatWeekNumber?(date: Date): string | number;
-    highlightDates?: IHighlightDates[];
+    highlightDates?: HighlightDates[];
     id?: string;
     includeDates?: Date[];
     includeTimes?: Date[];
