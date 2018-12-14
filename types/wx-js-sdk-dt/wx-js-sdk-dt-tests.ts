@@ -61,7 +61,9 @@ wx.chooseWXPay({
     nonceStr: '',
     package: '',
     paySign: '',
-    success: (res) => {}
+    success: (res) => {},
+    cancel: (res) => {},
+    fail: (res) => {}
 });
 
 wx.getLocation({
