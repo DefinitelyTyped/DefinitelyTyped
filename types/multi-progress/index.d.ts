@@ -5,10 +5,14 @@
 
 /// <reference types="node"/>
 
-import ProgressBar, { ProgressBarOptions } from 'progress';
+import * as ProgressBar from 'progress';
 import { Stream } from 'stream';
 
-export default class MultiProgress {
+export as namespace MultiProgress;
+
+export = MultiProgress;
+
+declare class MultiProgress {
     /**
      * Create a new @see MultiProgress with the given stream, or stderr by default
      * @param stream A stream to write the progress bars to
@@ -18,7 +22,7 @@ export default class MultiProgress {
     /**
      * Add a new bar
      */
-    newBar: (format: string, options: ProgressBarOptions) => ProgressBar;
+    newBar: (format: string, options: ProgressBar.ProgressBarOptions) => ProgressBar;
 
     /**
      * Close all bars
@@ -40,3 +44,5 @@ export default class MultiProgress {
      */
     update: (index: number, value: number, options?: any) => void;
 }
+
+declare namespace MultiProgress {}
