@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Text, AccessibilityInfo } from 'react-native';
 
 import {
     Accelerometer,
@@ -8,40 +8,46 @@ import {
     AdMobInterstitial,
     AdMobRewarded,
     Amplitude,
-    Asset,
-    AuthSession,
-    Audio,
     AppLoading,
+    Asset,
+    Audio,
+    AuthSession,
     BarCodeScanner,
-    BlurViewProps,
     BlurView,
     Brightness,
+    Calendar,
     Camera,
     CameraObject,
+    Constants,
     DocumentPicker,
+    EdgeInsets,
+    EdgePadding,
+    EventUserLocation,
     Facebook,
     FacebookAds,
-    FileSystem,
-    ImagePicker,
-    ImageManipulator,
     FaceDetector,
-    Linking,
-    Svg,
+    FileSystem,
+    Haptic,
+    ImageManipulator,
+    ImagePicker,
     IntentLauncherAndroid,
     KeepAwake,
+    KmlMapEvent,
     LinearGradient,
+    Linking,
+    Location,
+    MailComposer,
+    MapEvent,
+    MapStyleElement,
+    MapView,
+    MediaLibrary,
     Permissions,
     PublisherBanner,
+    Region,
     registerRootComponent,
     ScreenOrientation,
-    SQLite,
-    Calendar,
-    MailComposer,
-    Location,
-    Updates,
-    MediaLibrary,
-    Haptic,
-    Constants
+    Svg,
+    Updates
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
@@ -837,6 +843,100 @@ async () => {
     result.status === 'saved';
 };
 
+// #region MapView
+const initialRegion: Region = {
+  latitude: 0,
+  longitude: 0,
+  latitudeDelta: 0,
+  longitudeDelta: 0,
+};
+
+const edgePadding: EdgePadding = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+};
+
+const edgeInsets: EdgeInsets = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+};
+
+const mapStyleElements: MapStyleElement[] = [{
+  featureType: 'featureType',
+  elementType: 'elementType',
+  stylers: [{}, {}],
+}];
+
+const mapEventCallback = (event: MapEvent) => console.log(event);
+const regionCallback = (region: Region) =>  console.log(region);
+const kmlCallback = (kml: KmlMapEvent) =>  console.log(kml);
+const userLocationCallback = (event: EventUserLocation) =>  console.log(event);
+
+() => (
+    <MapView
+        provider="google"
+        customMapStyle={mapStyleElements}
+        customMapStyleString="some-string"
+        showsUserLocation={true}
+        userLocationAnnotationTitle="title"
+        showsMyLocationButton={true}
+        followsUserLocation={true}
+        showsPointsOfInterest={true}
+        showsCompass={true}
+        zoomEnabled={true}
+        zoomControlEnabled={true}
+        rotateEnabled={true}
+        cacheEnabled={true}
+        loadingEnabled={true}
+        loadingBackgroundColor="#000"
+        loadingIndicatorColor="#000"
+        scrollEnabled={true}
+        pitchEnabled={true}
+        toolbarEnabled={true}
+        moveOnMarkerPress={true}
+        showsScale={true}
+        showsBuildings={true}
+        showsTraffic={true}
+        showsIndoors={true}
+        showsIndoorLevelPicker={true}
+        mapType="standard"
+        region={initialRegion}
+        initialRegion={initialRegion}
+        liteMode={true}
+        mapPadding={edgePadding}
+        maxDelta={0}
+        minDelta={0}
+        legalLabelInsets={edgeInsets}
+
+        onMapReady={() => ({})}
+        onKmlReady={kmlCallback}
+        onRegionChange={regionCallback}
+        onRegionChangeComplete={regionCallback}
+        onPress={mapEventCallback}
+        onLongPress={mapEventCallback}
+        onUserLocationChange={userLocationCallback}
+        onPanDrag={mapEventCallback}
+        onPoiClick={(event: MapEvent<{ placeId: string, name: string }>) => console.log(event)}
+        onMarkerPress={(event: MapEvent<{ action: 'marker-press', id: string }>) =>  console.log(event)}
+        onMarkerSelect={(event: MapEvent<{ action: 'marker-select', id: string }>) => console.log(event)}
+        onMarkerDeselect={(event: MapEvent<{ action: 'marker-deselect', id: string }>) => console.log(event)}
+        onCalloutPress={(event: MapEvent<{ action: 'callout-press' }>) => console.log(event)}
+        onMarkerDragStart={mapEventCallback}
+        onMarkerDrag={mapEventCallback}
+        onMarkerDragEnd={mapEventCallback}
+
+        minZoomLevel={0}
+        maxZoomLevel={0}
+        kmlSrc="src"
+        style={{ flex: 1 }}
+    />
+);
+// #endegion
+
 async () => {
     const updateEventListener: Updates.UpdateEventListener = ({ type, manifest, message }) => {
         switch (type) {
@@ -916,6 +1016,7 @@ async () => {
       return true;
   }
 };
+
 // #region MediaLibrary
 async () => {
   const mlAsset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('localUri');
