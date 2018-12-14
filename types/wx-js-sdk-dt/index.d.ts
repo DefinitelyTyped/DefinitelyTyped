@@ -617,6 +617,14 @@ declare namespace wx {
          * 支付成功后的回调函数
          */
         success(res: any): void;
+        /**
+         * 支付取消后的回调函数
+         */
+        cancel?(res: any): void;
+        /**
+         * 支付失败后的回调函数
+         */
+        fail?(res: any): void;
     }
 
     /**
