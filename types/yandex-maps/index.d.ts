@@ -764,6 +764,51 @@ declare namespace ymaps {
 
 				setCoordinates(coordinates: number[] | null): this;
 			}
+
+            class Polygon implements IBasePointGeometry {
+                constructor(coordinates?: number[][][], fillRule?: 'evenOdd' | 'nonZero');
+
+                events: IEventManager;
+
+                static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
+                static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+
+                contains(position: number[]): boolean;
+
+                freeze(): IFreezable;
+
+                get(index: number): number[][];
+
+                getBounds(): number[][] | null;
+
+                getChildGeometry(index: number): ILinearRingGeometryAccess;
+
+                getClosest(anchorPosition: number[]): object;
+
+                getCoordinates(): number[] | null;
+
+                getFillRule(): string;
+
+                getLength(): number;
+
+                getType(): string;
+
+                insert(index: number, path: number[][]): IPolygonGeometryAccess;
+
+                isFrozen(): boolean;
+
+                remove(index: number): ILinearRingGeometryAccess;
+
+                set(index: number, path: number[][]): IPolygonGeometryAccess;
+
+                setCoordinates(coordinates: number[] | null): this;
+
+                setFillRule(fillRule: string): IPolygonGeometryAccess;
+
+                splice(index: number, number: number): ILinearRingGeometryAccess[];
+
+                unfreeze(): IFreezable;
+            }
 		}
 
 		class LineString implements ILineStringGeometry {
@@ -849,6 +894,68 @@ declare namespace ymaps {
 			getCoordinates(): number[] | null;
 
             setCoordinates(coordinates: number[] | null): this;
+        }
+
+        class Polygon implements IPolygonGeometry {
+            constructor(coordinates?: number[][][], fillRule?: 'evenOdd' | 'nonZero', options?: object);
+
+            events: IEventManager;
+            options: IOptionManager;
+
+            static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
+            static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+
+            add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+
+            contains(position: number[]): boolean;
+
+            fire(type: string, eventobject: object | IEvent): this;
+
+            freeze(): IFreezable;
+
+            get(index: number): number[][];
+
+            getBounds(): number[][] | null;
+
+            getChildGeometry(index: number): ILinearRingGeometryAccess;
+
+            getClosest(anchorPosition: number[]): object;
+
+            getCoordinates(): number[][][];
+
+            getFillRule(): string;
+
+            getLength(): number;
+
+            getMap(): Map | null;
+
+            getParent(): object | null;
+
+            getPixelGeometry(options?: object): IPixelGeometry;
+
+            getType(): string;
+
+            group(): IEventGroup;
+
+            insert(index: number, path: number[][]): IPolygonGeometryAccess;
+
+            isFrozen(): boolean;
+
+            remove(index: number): ILinearRingGeometryAccess;
+
+            set(index: number, path: number[][]): IPolygonGeometryAccess;
+
+            setCoordinates(coordinates: number[][][]): IPolygonGeometryAccess;
+
+            setFillRule(fillRule: string): IPolygonGeometryAccess;
+
+            setMap(map: Map): void;
+
+            setParent(parent: object | null): this;
+
+            splice(index: number, number: number): ILinearRingGeometryAccess[];
+
+            unfreeze(): IFreezable;
         }
     }
 
@@ -2792,6 +2899,9 @@ declare namespace ymaps {
 
 	interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
 	}
+
+    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    }
 
 	interface IBehavior extends IChildOnMap, ICustomizable {
 		disable(): void;
