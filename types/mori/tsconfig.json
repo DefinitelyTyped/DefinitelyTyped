@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true
+    },
+    "files": [
+        "index.d.ts",
+        "mori-tests.ts"
+    ]
+}
