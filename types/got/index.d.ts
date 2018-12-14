@@ -1,9 +1,10 @@
-// Type definitions for got 9.2
+// Type definitions for got 9.4
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Konstantin Ikonnikov <https://github.com/ikokostya>
 //                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
+//                 Sebastian Sebald <https://github.com/sebald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -71,7 +72,11 @@ declare class StdError extends Error {
 declare const got: got.GotFn &
     Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotFn> &
     {
+        defaults: got.GotDefaults;
         stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>;
+        create: got.GotCreateFn;
+        mergeOptions: got.GotMergeOptionsFn;
+
         RequestError: typeof RequestError;
         ReadError: typeof ReadError;
         ParseError: typeof ParseError;
@@ -90,20 +95,54 @@ interface InternalRequestOptions extends https.RequestOptions {
 
 declare namespace got {
     interface GotFn {
-        (url: GotUrl): GotPromise<string>;
-        (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
-        (url: GotUrl, options: GotFormOptions<string>): GotPromise<string>;
-        (url: GotUrl, options: GotFormOptions<null>): GotPromise<Buffer>;
-        (url: GotUrl, options: GotBodyOptions<string>): GotPromise<string>;
-        (url: GotUrl, options: GotBodyOptions<null>): GotPromise<Buffer>;
+        <T extends Buffer | string | object = string>(url: GotUrl): GotPromise<T>;
+        <T extends Buffer | string | object = any>(url: GotUrl, options: GotJSONOptions): GotPromise<T>;
+        <T extends Buffer | string | object = string>(url: GotUrl, options: GotFormOptions<string>): GotPromise<T>;
+        <T extends Buffer | string | object = Buffer>(url: GotUrl, options: GotFormOptions<null>): GotPromise<T>;
+        <T extends Buffer | string | object = string>(url: GotUrl, options: GotBodyOptions<string>): GotPromise<T>;
+        <T extends Buffer | string | object = Buffer>(url: GotUrl, options: GotBodyOptions<null>): GotPromise<T>;
+    }
+
+    interface GotDefaults<T = any> {
+        options: {
+            retry: {
+                retries: RetryOptions['retries'];
+                methods: RetryOptions['methods'];
+                statusCodes: RetryOptions['statusCodes'];
+                errorCodes: Array<'ETIMEDOUT'| 'ECONNRESET'| 'EADDRINUSE'| 'ECONNREFUSED'| 'EPIPE'| 'ENOTFOUND'| 'ENETUNREACH'| 'EAI_AGAIN'>;
+            },
+            headers: http.OutgoingHttpHeaders,
+            hooks: Hooks<T>,
+            decompress: boolean,
+            throwHttpErrors: boolean,
+            followRedirect: boolean,
+            stream: boolean,
+            form: boolean,
+            json: true,
+            cache: boolean,
+            useElectronNet: boolean
+        };
+        mutableDefaults: boolean;
+        handler: GotHandler<T> | undefined;
     }
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
 
+    type GotCreateFn = <S extends GotOptions<string | null>>(settings?: GotCreateSettings<S>) => typeof got;
+
+    interface GotMergeOptionsFn {
+        <T1, T2>(o1: T1, o2: T2): T1 & T2;
+        <T1, T2, T3>(o1: T1, o2: T2, o3: T3): T1 & T2 & T3;
+        <T1, T2, T3, T4>(o1: T1, o2: T2, o3: T3, o4: T4): T1 & T2 & T3 & T4;
+        <R, T extends object>(...o: T[]): R;
+    }
+
     type GotUrl = string | https.RequestOptions | Url | URL;
 
     type Hook<T> = (options: T) => any;
-    type Hooks<T> = Record<'beforeRequest', Array<Hook<T>>>;
+    type Hooks<T> = Partial<Record<'beforeRequest' | 'beforeRedirect' | 'beforeRetry' | 'afterResponse', Array<Hook<T>>>>;
+
+    type GotHandler<T> = (options: T, next: (options: T) => Promise<any>) => Promise<any>;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
         body?: string | Buffer | nodeStream.Readable;
@@ -137,7 +176,7 @@ declare namespace got {
         useElectronNet?: boolean;
         throwHttpErrors?: boolean;
         agent?: http.Agent | boolean | AgentOptions;
-        cache?: Cache;
+        cache?: Cache | boolean;
     }
 
     interface TimeoutOptions {
@@ -175,6 +214,14 @@ declare namespace got {
     }
 
     type GotPromise<B extends Buffer | string | object> = Promise<Response<B>> & { cancel(): void };
+
+    interface GotCreateSettings<T extends GotOptions<string | null>> {
+        options?: T;
+        methods?: string[];
+        mutableDefaults?: boolean;
+        handler?: GotHandler<T>;
+        [name: string]: any;
+    }
 
     interface GotEmitter {
         addListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
