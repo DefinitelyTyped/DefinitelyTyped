@@ -1526,7 +1526,9 @@ declare namespace Sinon {
     /**
      * Replaces a type with a Sinon stub if it's a function.
      */
-    type SinonStubbedMember<T> = T extends Function ? SinonStub : T;
+    type SinonStubbedMember<T> = T extends (
+        ...args: infer TArgs
+    ) => infer TReturnValue ? SinonStub<TArgs, TReturnValue> : T;
 
     interface SinonFake {
         /**
