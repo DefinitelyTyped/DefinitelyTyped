@@ -14,7 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "wx-js-sdk-dt": ["."]
+        }
     },
     "files": [
         "index.d.ts",

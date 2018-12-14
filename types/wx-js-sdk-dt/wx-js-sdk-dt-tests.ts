@@ -16,7 +16,13 @@ wx.error((res: any) => {
 
 wx.checkJsApi({
     jsApiList: [''],
-    success: (res) => {
+    success: res => {
+        res.checkResult;
+        if (res.errMsg) {
+            res.errMsg.msg;
+        }
+    },
+    complete: () => {
     }
 });
 
@@ -126,4 +132,19 @@ wx.onVoicePlayEnd((res) => {
 
 wx.openProductSpecificView({
     productId: ''
+});
+
+wx.updateAppMessageShareData({
+    title: '',
+    desc: '',
+    link: '',
+    imageUrl: '',
+    success: () => {
+    }
+});
+
+wx.updateTimelineShareData({
+    title: '',
+    link: '',
+    imageUrl: ''
 });
