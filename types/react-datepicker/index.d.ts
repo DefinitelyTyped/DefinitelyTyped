@@ -65,10 +65,7 @@ export interface ReactDatePickerProps {
   name?: string;
   nextMonthButtonLabel?: string;
   onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
-  onChange(
-      date: Date | null,
-      event: React.SyntheticEvent<any> | undefined
-  ): void;
+  onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
   onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
   onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
   onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
@@ -77,11 +74,7 @@ export interface ReactDatePickerProps {
   onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void;
   onMonthChange?(date: Date): void;
   onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
-  onWeekSelect?(
-    firstDayOfWeek: Date,
-    weekNumber: string | number,
-    event: React.SyntheticEvent<any> | undefined
-  ): void;
+  onWeekSelect?(firstDayOfWeek: Date, weekNumber: string | number, event: React.SyntheticEvent<any> | undefined): void;
   onYearChange?(date: Date): void;
   open?: boolean;
   openToDate?: Date;
@@ -134,7 +127,5 @@ export interface ReactDatePickerProps {
   withPortal?: boolean;
   yearDropdownItemNumber?: number;
 }
-declare const ReactDatePicker: React.ClassicComponentClass<
-  ReactDatePickerProps
->;
+declare const ReactDatePicker: React.ClassicComponentClass<ReactDatePickerProps >;
 export default ReactDatePicker;
