@@ -1502,16 +1502,46 @@ interface MyScope extends ng.IScope {
     foo: string;
 }
 
-const directiveCompileFnWithGeneric: ng.IDirectiveCompileFn<MyScope> = (
-        templateElement: JQLite,
-        templateAttributes: ng.IAttributes,
-        transclude: ng.ITranscludeFunction
-    ): ng.IDirectiveLinkFn<MyScope> => {
+interface MyElement extends JQLite {
+    foo: string;
+}
+
+interface MyAttributes extends ng.IAttributes {
+    foo: string;
+}
+interface MyController extends ng.INgModelController {
+    foo: string;
+}
+
+const directiveCompileFnWithGeneric: ng.IDirectiveCompileFn<MyScope, MyElement, MyAttributes, MyController> = (
+        templateElement: MyElement,
+        templateAttributes: MyAttributes,
+        transclude: ng.ITranscludeFunction,
+    ): ng.IDirectiveLinkFn<MyScope, MyElement, MyAttributes, MyController> => {
     return (
         scope: MyScope,
-        instanceElement: JQLite,
-        instanceAttributes: ng.IAttributes
+        instanceElement: MyElement,
+        instanceAttributes: MyAttributes,
+        controller: MyController,
     ) => {
         return null;
     };
+};
+
+const directiveFactoryWithGeneric: ng.IDirectiveFactory<MyScope, MyElement, MyAttributes, MyController> = (
+    templateElement: MyElement,
+    templateAttributes: MyAttributes,
+    transclude: ng.ITranscludeFunction,
+): ng.IDirective<MyScope, MyElement, MyAttributes, MyController> => {
+    return {
+        link: ($scope: MyScope, templateElement: MyElement, templateAttributes: MyAttributes, controller: MyController) => {return; }
+    };
+};
+
+const directiveFactoryWithGeneric2: ng.IDirectiveFactory<MyScope, MyElement, MyAttributes, MyController> = (
+    templateElement: MyElement,
+    templateAttributes: MyAttributes,
+    transclude: ng.ITranscludeFunction,
+): ng.IDirectiveLinkFn<MyScope, MyElement, MyAttributes, MyController> => {
+    return ($scope: MyScope, templateElement: MyElement, templateAttributes: MyAttributes, controller: MyController) => {return; };
 };
