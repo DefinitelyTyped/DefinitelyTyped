@@ -140,45 +140,45 @@ interface KnockoutSubscribableStatic {
 
 interface KnockoutSubscription {
     /**
-     * Terminate a subscription 
+     * Terminates a subscription 
      */
     dispose(): void;
 }
 
 interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
     /**
-     * Register to be notified after the observable's value changes
+     * Registers to be notified after the observable's value changes
      * @param callback Function that is called whenever the notification happens
      * @param target? Defines the value of 'this' in the callback function
      * @param event? The name of the event to receive notification for
      */
     subscribe(callback: (newValue: T) => void, target?: any, event?: "change"): KnockoutSubscription;
     /**
-     * Register to be notified before the observable's value changes
+     * Registers to be notified before the observable's value changes
      * @param callback Function that is called whenever the notification happens
      * @param target Defines the value of 'this' in the callback function
      * @param event The name of the event to receive notification for
      */
     subscribe(callback: (newValue: T) => void, target: any, event: "beforeChange"): KnockoutSubscription;
     /**
-     * Register to be notified when the observable's value changes
+     * Registers to be notified when the observable's value changes
      * @param callback Function that is called whenever the notification happens
      * @param target Defines the value of 'this' in the callback function
      * @param event The name of the event to receive notification for
      */
     subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
     /**
-     * Customize observables basic functionality
+     * Customizes observables basic functionality
      * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
      */
     extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
     /**
-    * Get total number of subscriptors
+    * Gets total number of subscriptors
     */
     getSubscriptionsCount(): number;
     /**
-     * Get number of subscriptors of a particular event
-     * @param event
+     * Gets number of subscriptors of a particular event
+     * @param event Event name
      */
     getSubscriptionsCount(event: string): number;
 }
@@ -186,15 +186,23 @@ interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
 interface KnockoutComputedStatic {
     fn: KnockoutComputedFunctions<any>;
 
+    /**
+     * Creates computed observable
+     */
     <T>(): KnockoutComputed<T>;
     /**
-     * Create computed observable
-     * @param func Function that computes the observable value
+     * Creates computed observable
+     * @param evaluatorFunction Function that computes the observable value
      * @param context? Defines the value of 'this' when evaluating the computed observable
-     * @param options?
+     * @param options? An object with further properties for the computed observable
      */
-    <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
-    <T>(def: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
+    <T>(evaluatorFunction: () => T, context?: any, options?: KnockoutComputedDefine<T>): KnockoutComputed<T>;
+    /**
+     * Creates computed observable
+     * @param options An object that defines the computed observable options and behavior
+     * @param context? Defines the value of 'this' when evaluating the computed observable
+     */
+    <T>(options: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
 }
 
 interface KnockoutReadonlyComputed<T> extends KnockoutReadonlyObservable<T> {
@@ -205,13 +213,25 @@ interface KnockoutReadonlyComputed<T> extends KnockoutReadonlyObservable<T> {
 interface KnockoutComputed<T> extends KnockoutReadonlyComputed<T>, KnockoutObservable<T>, KnockoutComputedFunctions<T> {
     fn: KnockoutComputedFunctions<any>;
 
-    // It's possible for a to be undefined, since the equalityComparer is run on the initial
+    // It's possible for 'a' to be undefined, since the equalityComparer is run on the initial
     // computation with undefined as the first argument. This is user-relevant for deferred computeds.
     equalityComparer(a: T | undefined, b: T): boolean;
-
+    /**
+     * Manually disposes the computed observable, clearing all subscriptions to dependencies.
+     * This function is useful if you want to stop a computed observable from being updated or want to clean up memory for a
+     * computed observable that has dependencies on observables that won’t be cleaned.
+     */
     dispose(): void;
     /**
-     * Customize observables basic functionality
+     * Returns whether the computed observable may be updated in the future. A computed observable is inactive if it has no dependencies.
+     */
+    isActive(): boolean;
+    /**
+     * Returns the current number of dependencies of the computed observable.
+     */
+    getDependenciesCount(): number;
+    /**
+     * Customizes observables basic functionality
      * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
      */
     extend(requestedExtenders: { [key: string]: any; }): KnockoutComputed<T>;
@@ -264,6 +284,10 @@ interface KnockoutObservableStatic {
 interface KnockoutReadonlyObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
     (): T;
 
+
+    /**
+     * Returns the current value of the computed observable without creating a dependency
+     */
     peek(): T;
     valueHasMutated?: { (): void; };
     valueWillMutate?: { (): void; };
@@ -277,12 +301,41 @@ interface KnockoutObservable<T> extends KnockoutReadonlyObservable<T> {
 }
 
 interface KnockoutComputedDefine<T> {
+    /**
+     * A function that is used to evaluate the computed observable’s current value.
+     */
     read(): T;
+    /**
+     * Makes the computed observable writable. This is a function that receives values that other code is trying to write to your computed observable.
+     * It’s up to you to supply custom logic to handle the incoming values, typically by writing the values to some underlying observable(s).
+     * @param value
+     */
     write?(value: T): void;
+    /**
+     * Disposal of the computed observable will be triggered when the specified DOM node is removed by KO.
+     * This feature is used to dispose computed observables used in bindings when nodes are removed by the template and control-flow bindings.
+     */
     disposeWhenNodeIsRemoved?: Node;
+    /**
+     * This function is executed before each re-evaluation to determine if the computed observable should be disposed.
+     * A true-ish result will trigger disposal of the computed observable.
+     */
     disposeWhen?(): boolean;
+    /**
+     * Defines the value of this whenever KO invokes your read or write callbacks.
+     * @param properties
+     */
     owner?: any;
+    /**
+     * If true, then the value of the computed observable will not be evaluated until something actually attempts to access its value or manually subscribes to it.
+     * By default, a computed observable has its value determined immediately during creation.
+     * @param properties
+     */
     deferEvaluation?: boolean;
+    /**
+     * If true, the computed observable will be set up as a purecomputed observable. This option is an alternative to the ko.pureComputed constructor.
+     * @param properties
+     */
     pure?: boolean;
 }
 
@@ -597,7 +650,7 @@ interface KnockoutStatic {
     pureComputed<T>(evaluatorFunction: () => T, context?: any): KnockoutComputed<T>;
     /**
      * Creates a pure computed observable
-     * @param options
+     * @param options An object that defines the computed observable options and behavior
      * @param context? Defines the value of 'this' when evaluating the computed observable
      */
     pureComputed<T>(options: KnockoutComputedDefine<T>, context?: any): KnockoutComputed<T>;
@@ -648,6 +701,9 @@ interface KnockoutStatic {
     unwrap<T>(value: KnockoutObservable<T> | T): T;
     unwrap<T>(value: KnockoutObservableArray<T> | T[]): T[];
 
+    /**
+     * Get information about the current computed property during the execution of a computed observable’s evaluator function.
+     */
     computedContext: KnockoutComputedContext;
 
     //////////////////////////////////
@@ -729,7 +785,13 @@ interface KnockoutStatic {
     renderTemplateForEach(template: Function, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
     renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
 
-    ignoreDependencies<T>(callback: () => T): T;
+    /**
+     * Executes a callback function inside a computed observable, without creating a dependecy between it and the observables inside the function
+     * @param callback Function to be called.
+     * @param callbackTarget? Defines the value of 'this' in the callback function
+     * @param callbackArgs? Arguments for the callback Function
+     */
+    ignoreDependencies<T>(callback: () => T, callbackTarget?: any, callbackArgs?: any): T;
 
     expressionRewriting: {
         bindingRewriteValidators: any[];
@@ -804,7 +866,14 @@ interface KnockoutBindingProvider {
 }
 
 interface KnockoutComputedContext {
+    /**
+     * Returns the number of dependencies of the computed observable detected so far during the current evaluation.
+     */
     getDependenciesCount(): number;
+    /**
+     * A function that returns true if called during the first ever evaluation of the current computed observable, or false otherwise.
+     * For pure computed observables, isInitial() is always undefined.
+     */
     isInitial: () => boolean;
     isSleeping: boolean;
 }
@@ -872,12 +941,33 @@ declare namespace KnockoutComponentTypes {
 }
 
 interface KnockoutComponents {
-    // overloads for register method:
-    register(componentName: string, config: KnockoutComponentTypes.Config | KnockoutComponentTypes.EmptyConfig): void;
 
+    /**
+     * Registers a component, in the default component loader, to be used by name in the component binding.
+     * @param componentName Component name.
+     * @param config Component configuration.
+     */
+    register(componentName: string, config: KnockoutComponentTypes.Config | KnockoutComponentTypes.EmptyConfig): void;
+    /**
+     * Determine if a component with the specified name is already registered in the default component loader.
+     * @param componentName Component name.
+     */
     isRegistered(componentName: string): boolean;
+    /**
+     * Removes the named component from the default component loader registry. Or if no such component was registered, does nothing.
+     * @param componentName Component name.
+     */
     unregister(componentName: string): void;
+    /**
+     * Searchs each registered component loader by component name, and returns the viewmodel/template declaration via callback parameter
+     * @param componentName Component name.
+     * @param callback Function to be called with the viewmodel/template declaration parameter.
+     */
     get(componentName: string, callback: (definition: KnockoutComponentTypes.Definition) => void): void;
+    /**
+     * Clears the cache knockout creates to speed up component loading, for a given component.
+     * @param componentName Component name.
+     */
     clearCachedDefinition(componentName: string): void
     defaultLoader: KnockoutComponentTypes.Loader;
     loaders: KnockoutComponentTypes.Loader[];
