@@ -23,5 +23,8 @@
     "devDependencies": {
         "dtslint": "github:Microsoft/dtslint#production",
         "types-publisher": "github:Microsoft/types-publisher#production"
+    },
+    "dependencies": {
+        "typescript": "^3.2.2"
     }
 }

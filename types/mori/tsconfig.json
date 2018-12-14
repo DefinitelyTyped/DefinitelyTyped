@@ -1,5 +1,12 @@
 {
     "compilerOptions": {
+        "module": "commonjs",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "strictFunctionTypes": false,
         "lib": [
             "es6"
         ],

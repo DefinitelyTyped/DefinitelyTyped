@@ -6,9 +6,27 @@ These tests are based on the code examples listed on:
 http://swannodette.github.io/mori/
 */
 
-const describe: any = "blah";
-const it: any = "blah";
-const expect: any = "blah";
+const l0 = mori.list(1, 2, 3);
+const l1 = mori.list(1, 2, 3);
+const l2 = mori.list(2, 3, 4);
+const v1 = mori.vector(1, 2, 3);
+const v2 = mori.vector(2, 3, 4);
+const v3 = mori.vector(1, 2, 3);
+const m0 = mori.hashMap("foo", 1);
+const m1 = mori.hashMap("foo", 1);
+const m2 = mori.hashMap("foo", 2);
+const s1 = mori.set([1, 2, 3]);
+
+const describe = (d, f) => undefined;
+const it = (d, f) => undefined;
+const expect = (t) => ({
+    toBe: (t) => undefined,
+    toEqual: (t) => undefined,
+    not: {
+        toBe: (t) => undefined,
+        toEqual: (t) => undefined,
+    }
+})
 
 describe("mori", () => {
     const l0 = mori.list(1, 2, 3);
@@ -42,13 +60,11 @@ describe("mori", () => {
         });
 
         describe("hash", () => {
-
             it("returns the same hash for the same contents", () => {
                 expect(mori.hash(l1)).toEqual(mori.hash(v1));
                 expect(mori.hash(v1)).toEqual(mori.hash(v3));
                 expect(mori.hash(v1)).not.toEqual(mori.hash(v2));
             });
-
         });
     });
 
@@ -138,7 +154,7 @@ describe("mori", () => {
             const l = mori.list(2, 3);
             expect(mori.conj(l, 1)).toEqual(mori.list(1, 2, 3));
 
-            const v = mori.vector(1,2);
+            const v = mori.vector(1, 2);
             expect(mori.conj(v, 3)).toEqual(mori.vector(1, 2, 3));
 
             const m = mori.hashMap("foo", 1);
@@ -151,8 +167,8 @@ describe("mori", () => {
         });
 
         it("can into", () => {
-            const l = mori.list(2,3);
-            const v = mori.vector(1,2);
+            const l = mori.list(2, 3);
+            const v = mori.vector(1, 2);
 
             expect(mori.into(l, v)).toEqual(mori.list(2, 1, 2, 3));
             expect(mori.into(l, l)).toEqual(mori.list(3, 2, 2, 3));
@@ -231,12 +247,12 @@ describe("mori", () => {
         });
 
         it("can find", () => {
-            const v = mori.vector("foo", "bar", "baz")
+            const v = mori.vector("foo", "bar", "baz");
             expect(mori.find(v, 2))
                 .toEqual(mori.vector(2, "baz"));
             expect(mori.find(v, 9)).toBe(null);
 
-            const m = mori.hashMap("foo", 1, "bar", 2)
+            const m = mori.hashMap("foo", 1, "bar", 2);
             expect(mori.find(m, "foo"))
                 .toEqual(mori.vector("foo", 1));
             expect(mori.find(m, "quux")).toBe(null);
@@ -402,9 +418,9 @@ describe("mori", () => {
         it("it can first", () => {
             expect(mori.first("foobar")).toEqual("f");
 
-            expect(mori.first([1,2,3])).toEqual(1);
+            expect(mori.first([1, 2, 3])).toEqual(1);
 
-            const l = mori.list(1,2,3);
+            const l = mori.list(1, 2, 3);
             expect(mori.first(l)).toEqual(1);
 
             const m = mori.hashMap("foo", 1, "bar", 2);
@@ -418,11 +434,11 @@ describe("mori", () => {
             )).toBe(true);
 
             expect(mori.equals(
-                mori.rest([1,2,3]),
+                mori.rest([1, 2, 3]),
                 mori.list(2, 3)
             )).toBe(true);
 
-            const l = mori.list(1,2,3);
+            const l = mori.list(1, 2, 3);
             expect(mori.equals(
                 mori.rest(l),
                 mori.list(2, 3)
@@ -487,24 +503,24 @@ describe("mori", () => {
         });
 
         it("can each", () => {
-            const xs = mori.map(mori.inc, [1,2,3]);
+            const xs = mori.map(mori.inc, [1, 2, 3]);
             const ns: number[] = [];
-            mori.each(xs, function(n: number) {
+            mori.each(xs, (n: number) => {
                 ns.push(n);
             });
             expect(ns).toEqual([2, 3, 4]);
         });
 
         it("can map", () => {
-            const a0 = [1,2,3];
+            const a0 = [1, 2, 3];
 
             expect(mori.equals(
                 mori.map(mori.inc, a0),
                 mori.list(2, 3, 4)
             )).toBe(true);
 
-            const a1 = [4,5,6];
-            const a2 = [7,8,9];
+            const a1 = [4, 5, 6];
+            const a2 = [7, 8, 9];
 
             expect(mori.equals(
                 mori.map(mori.vector, a0, a1, a2),
@@ -518,7 +534,7 @@ describe("mori", () => {
         it("can mapcat", () => {
             const a = mori.seq("abc");
             const b = mori.seq("123");
-            const f = function(x, y) { return mori.list(x, x + y); };
+            const f = (x, y) => mori.list(x, x + y);
 
             expect(mori.equals(
                 mori.mapcat(f, a, b),
@@ -574,8 +590,8 @@ describe("mori", () => {
         });
 
         it("can reduceKV", () => {
-            const f = function(acc, key, val) {
-                return acc + "(" + key + ":" + val + ")";
+            const f = (acc, key, val) => {
+                return `${acc}(${key}:${val})`;
             };
 
             const m = mori.hashMap("foo", 1, "bar", 2);
@@ -613,7 +629,7 @@ describe("mori", () => {
         });
 
         it("can drop", () => {
-            const a = [0,1,2,3,4,5,6,7,8,9];
+            const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
             expect(mori.equals(
                 mori.drop(5, a),
                 mori.list(5, 6, 7, 8, 9)
@@ -646,20 +662,20 @@ describe("mori", () => {
 
         it("can some", () => {
             const a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-            const f = function(x) { return x % 5 == 0 && x * x; };
+            const f = (x) => x % 5 === 0 && x * x;
             expect(mori.some(f, a)).toEqual(25);
         });
 
         it("can some strings", () => {
             const s = "bananas";
-            const f = function(c) { return c === "a"; };
+            const f = (c) => c === "a";
             expect(mori.some(f, s)).toEqual(true);
         });
 
         it("can every", () => {
-            const a = [1,2,3,4,5,6,7,8,9];
-            const f = function(x) { return mori.isEven(x); };
-            const g = function(x) { return mori.isEven(x) || mori.isOdd(x); };
+            const a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            const f = (x) => mori.isEven(x);
+            const g = (x) => mori.isEven(x) || mori.isOdd(x);
 
             expect(mori.every(f, a)).toBe(false);
             expect(mori.every(g, a)).toBe(true);
@@ -674,8 +690,8 @@ describe("mori", () => {
         });
 
         it("can sort", () => {
-            const a = [4,6,2,7,1,0,9,5,8,3]
-            const f = function(a, b) { return b - a; };
+            const a = [4, 6, 2, 7, 1, 0, 9, 5, 8, 3];
+            const f = (a, b) => b - a;
 
             expect(mori.equals(
                 mori.sort(a),
@@ -689,8 +705,8 @@ describe("mori", () => {
 
         it("can sortBy", () => {
             const a = [0, 1, 2, 3, 4, 5, 6];
-            const kf = function(x) { return x * 5 % 7; };
-            const f = function(a, b) { return b - a; };
+            const kf = (x) => x * 5 % 7;
+            const f = (a, b) => b - a;
 
             expect(mori.equals(
                 mori.map(kf, a),
@@ -719,7 +735,7 @@ describe("mori", () => {
         });
 
         it("can interleave", () => {
-            const ns = [1,2,3];
+            const ns = [1, 2, 3];
             const as = ["a", "b", "c"];
 
             expect(mori.equals(
@@ -756,33 +772,33 @@ describe("mori", () => {
         });
 
         it("can partition", () => {
-            let m   = mori,
-            arr = [0,1,2,3,4,5,6,7,8,9],
-            ps  = m.partition(2, arr);
+            const m   = mori;
+            const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            let ps  = m.partition(2, arr);
 
             expect(m.intoArray(m.map(m.intoArray, ps)))
-                .toEqual([[0,1],[2,3],[4,5],[6,7],[8,9]]);
+                .toEqual([[0, 1], [2, 3], [4, 5], [6, 7], [8, 9]]);
 
             ps = m.partition(2, 1, arr);
             expect(m.intoArray(m.map(m.intoArray, ps)))
-                .toEqual([[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9]]);
+                .toEqual([[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9]]);
         });
 
         it("can partition 2", () => {
-            let m   = mori,
-            arr = [0,1,2,3,4,5,6,7,8,9],
-            ps  = m.partition(2, arr);
+            const m   = mori;
+            const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            const ps  = m.partition(2, arr);
         });
 
         it("can partition 3", () => {
-            let m   = mori,
-            v = mori.vector(0,1,2,3,4,5,6,7,8,9),
-            ps  = m.partition(2, v);
+            const m   = mori;
+            const v = mori.vector(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            const ps  = m.partition(2, v);
         });
 
         it("can partition strings", () => {
-            const s = "bananas",
-            ps  = mori.partition(2, s);
+            const s = "bananas";
+            const ps  = mori.partition(2, s);
 
             expect(mori.equals(ps,
                 mori.list(mori.list("b", "a"), mori.list("n", "a"),
@@ -791,7 +807,7 @@ describe("mori", () => {
 
         it("can partitionBy", () => {
             const v = mori.vector("foo", "bar", "baz", "grapefruit");
-            const f = function(s) { return s[0]; }
+            const f = (s) => s[0];
 
             expect(mori.equals(
                 mori.partitionBy(f, v),
@@ -819,11 +835,12 @@ describe("mori", () => {
 
     describe("Helper Functionts", () => {
         it("can primSeq", () => {
+            // tslint:disable-next-line:only-arrow-functions
             const foo: any = function() {
-                var args = mori.primSeq(arguments);
-                var f = mori.first(args);
+                const args = mori.primSeq(arguments);
+                const f = mori.first(args);
                 return f;
-            }
+            };
             expect(foo(1, 2, 3)).toEqual(1);
         });
 
@@ -847,7 +864,7 @@ describe("mori", () => {
         });
 
         it("can sum", () => {
-            expect(mori.sum(1,2)).toEqual(3);
+            expect(mori.sum(1, 2)).toEqual(3);
             expect(mori.reduce(mori.sum, 0, mori.range(10))).toEqual(45);
         });
 
@@ -886,8 +903,8 @@ describe("mori", () => {
 
         it("can knit", () => {
             const f = mori.knit(
-                function (s: string) { return s.toLowerCase(); },
-                function (s: string) { return s.toUpperCase(); });
+                (s: string) => s.toLowerCase(),
+                (s: string) => s.toUpperCase());
             expect(f(["FoO", "bAr"])).toEqual(["foo", "BAR"]);
         });
 
@@ -895,7 +912,7 @@ describe("mori", () => {
             const _ = mori;
 
             expect(_.pipeline(
-                _.vector(1,2,3),
+                _.vector(1, 2, 3),
                 _.curry(_.conj, 4),
                 _.curry(_.conj, 5)
             )).toEqual(mori.vector(1, 2, 3, 4, 5));
@@ -903,22 +920,24 @@ describe("mori", () => {
 
         it("can partial", () => {
             const _ = mori;
-            const f = _.partial<mori.Vector<number>, number, mori.Vector<number>>(_.conj, _.vector(1,2,3));
+            const f = _.partial
+                <mori.Vector<number>, number, mori.Vector<number>>(
+                    _.conj, _.vector(1, 2, 3));
 
-            expect(f(4)).toEqual(mori.vector(1,2,3,4));
-            expect(f(5)).toEqual(mori.vector(1,2,3,5));
+            expect(f(4)).toEqual(mori.vector(1, 2, 3, 4));
+            expect(f(5)).toEqual(mori.vector(1, 2, 3, 5));
         });
 
         it("can curry", () => {
             const _ = mori;
             const f = _.curry(_.conj, 4);
 
-            expect(f(_.vector(1,2,3))).toEqual(mori.vector(1,2,3,4));
+            expect(f(_.vector(1, 2, 3))).toEqual(mori.vector(1, 2, 3, 4));
         });
 
         it("can fnil", () => {
             const _ = mori;
-            const f = function(x) {
+            const f = (x) => {
                 return _.updateIn(x, ["count"], _.fnil(_.inc, 0));
             };
 
@@ -932,8 +951,7 @@ describe("mori", () => {
 
         it("can toJs", () => {
             const data = mori.hashMap("foo", "bar");
-            expect(mori.toJs(data)).toEqual({"foo": "bar"});
+            expect(mori.toJs(data)).toEqual({ foo: "bar" });
         });
     });
-
 });
