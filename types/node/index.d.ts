@@ -1198,8 +1198,14 @@ declare module "http" {
         createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
     }
 
+    interface ServerOptions {
+        IncomingMessage: any;
+        ServerResponse : any;
+    }
+
     class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
+        constructor(options: ServerOptions);
 
         setTimeout(msecs?: number, callback?: () => void): this;
         setTimeout(callback: () => void): this;
@@ -1344,6 +1350,7 @@ declare module "http" {
     };
 
     function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
+    function createServer(options: ServerOptions): Server;
     function createClient(port?: number, host?: string): any;
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
