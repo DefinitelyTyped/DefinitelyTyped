@@ -6,17 +6,7 @@ These tests are based on the code examples listed on:
 http://swannodette.github.io/mori/
 */
 
-const l0 = mori.list(1, 2, 3);
-const l1 = mori.list(1, 2, 3);
-const l2 = mori.list(2, 3, 4);
-const v1 = mori.vector(1, 2, 3);
-const v2 = mori.vector(2, 3, 4);
-const v3 = mori.vector(1, 2, 3);
-const m0 = mori.hashMap("foo", 1);
-const m1 = mori.hashMap("foo", 1);
-const m2 = mori.hashMap("foo", 2);
-const s1 = mori.set([1, 2, 3]);
-
+// mock the jest functions to get types to check out
 const describe = (d, f) => undefined;
 const it = (d, f) => undefined;
 const expect = (t) => ({
@@ -26,7 +16,7 @@ const expect = (t) => ({
         toBe: (t) => undefined,
         toEqual: (t) => undefined,
     }
-})
+});
 
 describe("mori", () => {
     const l0 = mori.list(1, 2, 3);
