@@ -18,7 +18,7 @@ declare namespace CustomFunctions {
      * @beta
      * Ties together the function's JavaScript name with the JSON id property
      */
-    function Associate(key: any, functionName: Function): void;
+    function associate(id: string, function: Function): void;
 
     /**
      * A handler passed automatically as the last parameter
