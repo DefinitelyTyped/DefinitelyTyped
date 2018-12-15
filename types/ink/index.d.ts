@@ -126,7 +126,7 @@ export declare namespace h {
 }
 export declare const Fragment: typeof h.Fragment;
 
-export declare const Color: InkComponent<{
+export declare const Color: ComponentClass<{
     rgb?: [number, number, number];
     hsl?: [number, number, number];
     hsv?: [number, number, number];
