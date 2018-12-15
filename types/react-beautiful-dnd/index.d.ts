@@ -33,22 +33,22 @@ export interface ResponderProvided {
     announce: Announce;
 }
 
-export type OnBeforeDragStartResponder = (start: DragStart) => any;
+export type OnBeforeDragStartResponder = (start: DragStart) => void;
 
 export type OnDragStartResponder = (
     start: DragStart,
     provided: ResponderProvided,
-) => any;
+) => void;
 
 export type OnDragUpdateResponder = (
     update: DragUpdate,
     provided: ResponderProvided,
-) => any;
+) => void;
 
 export type OnDragEndResponder = (
     result: DropResult,
     provided: ResponderProvided,
-) => any;
+) => void;
 
 export interface Responders {
     onBeforeDragStart?: OnBeforeDragStartResponder;
