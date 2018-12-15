@@ -8,7 +8,13 @@
 
 import { ValidationMap } from "prop-types";
 
-export interface InkElement {}
+export interface InkElement {
+    component: InkComponent<any>;
+    instance: Component<any, any, any> | null;
+    ref: (ref: any) => void;
+    _props: any;
+    _children: InkNode[];
+}
 
 export type InkNode =
     | ReadonlyArray<InkElement | string | number | null>
@@ -17,35 +23,27 @@ export type InkNode =
     | number
     | null;
 
-export declare function h<
-    P extends Record<string, any>,
-    C extends ComponentClass<P, any, any>
->(type: C, props: P, ...children: InkNode[]): InkElement;
-export declare function h<P extends Record<string, any>>(
-    type: StatelessComponent<P, any>,
+export function h<P extends Record<string, any>>(
+    type: ComponentClass<P, any, any> | StatelessComponent<P, any>,
     props: P,
     ...children: InkNode[]
 ): InkElement;
-export declare function h<T extends keyof JSX.IntrinsicElements>(
+
+export function h<T extends keyof JSX.IntrinsicElements>(
     type: T,
     props: JSX.IntrinsicElements[T],
     ...children: InkNode[]
 ): InkElement;
 
-export declare function render(
+export function render(
     tree: InkElement,
     stream?: NodeJS.WriteStream
 ): (() => void);
-export declare function renderToString(
-    tree: InkElement,
-    prevTree?: InkElement
-): string;
+export function renderToString(tree: InkElement, prevTree?: InkElement): string;
 
 export type InkComponent<P extends Record<string, any> = {}> =
     | ComponentClass<P, any, any>
     | StatelessComponent<P, any>;
-
-export interface InkChildren {}
 
 export interface StatelessComponent<
     P extends Record<string, any> = {},
@@ -65,11 +63,9 @@ export abstract class Component<
     readonly context: C;
 
     setState(
-        nextState: Partial<Component["state"]>,
-        callback?: () => void
-    ): void;
-    setState(
-        nextState: (state: Component["state"]) => Partial<Component["state"]>,
+        nextState:
+            | Partial<Component["state"]>
+            | ((state: Component["state"]) => Partial<Component["state"]>),
         callback?: () => void
     ): void;
 }
@@ -104,7 +100,7 @@ export interface Component<
     ): void;
     componentDidUpdate?(): void;
 
-    getChildContext?<CC extends Record<string, any>>(): (() => CC);
+    getChildContext?(): (() => Record<string, any>);
 }
 
 export interface ComponentClass<
@@ -121,12 +117,12 @@ export interface ComponentClass<
     propTypes?: ValidationMap<Record<string, any>>;
 }
 
-export declare namespace h {
-    export const Fragment: InkComponent<{}>;
+export namespace h {
+    const Fragment: InkComponent;
 }
-export declare const Fragment: typeof h.Fragment;
+export const Fragment: typeof h.Fragment;
 
-export declare const Color: ComponentClass<{
+export const Color: ComponentClass<{
     rgb?: [number, number, number];
     hsl?: [number, number, number];
     hsv?: [number, number, number];
@@ -184,8 +180,8 @@ export declare const Color: ComponentClass<{
     bgWhiteBright?: boolean;
 }>;
 
-export declare const Bold: InkComponent<{}>;
-export declare const Underline: InkComponent<{}>;
+export const Bold: InkComponent;
+export const Underline: InkComponent;
 
 declare global {
     namespace JSX {
@@ -201,7 +197,6 @@ declare global {
             children: {};
         }
 
-        interface IntrinsicAttributes {}
         interface IntrinsicClassAttributes<T> {
             ref?: (ref: T | null) => void;
         }
