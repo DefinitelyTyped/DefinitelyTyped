@@ -1,4 +1,6 @@
-import { Color, Component, Fragment, h, render } from "ink";
+// @jsx h
+
+import { Color, Component, Fragment, render } from "ink";
 
 class Counter extends Component<{}, { i: number }> {
     timer = null as ReturnType<typeof setInterval> | null;

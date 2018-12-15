@@ -11,8 +11,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "jsxFactory": "h"
+        "jsx": "preserve"
     },
     "files": ["index.d.ts", "ink-tests.tsx"]
 }
