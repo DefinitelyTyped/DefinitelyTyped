@@ -1123,6 +1123,7 @@ declare namespace R {
          * of the condition predicate.
          */
         ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
+        ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
         /**
          * Increments its argument.
