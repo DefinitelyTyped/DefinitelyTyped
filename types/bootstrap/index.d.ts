@@ -325,11 +325,21 @@ export interface TooltipOption {
 // Events
 // --------------------------------------------------------------------------------------
 
-export interface CarouselEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined> {
+export interface CarouselEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement> {
+    /**
+     * The carousel dom element.
+     */
+    target: HTMLElement; // overridden only for better JsDoc
+
     /**
      * The direction in which the carousel is sliding.
      */
     direction: "left" | "right";
+
+    /**
+     * The DOM element that is being slid into place as the active item.
+     */
+    relatedTarget: HTMLElement;
 
     /**
      * The index of the current item.
@@ -342,7 +352,44 @@ export interface CarouselEventHandler<TElement> extends JQuery.TriggeredEvent<TE
     to: number;
 }
 
-export interface TapEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined> {
+export interface DropdownsEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement> {
+    /**
+     * The the dropdown's toggle and the dropdown menu container (the `.dropdown` element).
+     */
+    target: HTMLElement; // overridden only for better JsDoc
+
+    /**
+     * The toggling anchor element.
+     */
+    relatedTarget: HTMLElement;
+}
+
+export interface ModalEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement> {
+    /**
+     * The modal dom element.
+     */
+    target: HTMLElement; // overridden only for better JsDoc
+
+    /**
+     * For `show.bs.modal` and `shown.bs.modal` is the clicked element, when caused by a _click_.
+     * Otherwise is undefined.
+     */
+    relatedTarget: HTMLElement | undefined;
+}
+
+export interface TapEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement> {
+    /**
+     * * For `show.bs.tab` and `shown.bs.tab`, is the newly activated tab.
+     * * For `hide.bs.tab`, is the current active tab.
+     * * For `hidden.bs.tab`, is the previous active tab.
+     */
+    target: HTMLElement; // overridden only for better JsDoc
+
+    /**
+     * * For `show.bs.tab` and `shown.bs.tab`, is the previous active tab.
+     * * For `hide.bs.tab`, is the new soon-to-be-active tab.
+     * * For `hidden.bs.tab`, is the new active tab.
+     */
     relatedTarget: HTMLElement;
 }
 
@@ -390,10 +437,12 @@ declare global {
         tooltip(options?: TooltipOption): this;
 
         on(events: CarouselEvent, handler: JQuery.EventHandlerBase<TElement, CarouselEventHandler<TElement>>): this;
+        on(events: DropdownEvent, handler: JQuery.EventHandlerBase<TElement, DropdownsEventHandler<TElement>>): this;
+        on(events: ModalEvent, handler: JQuery.EventHandlerBase<TElement, ModalEventHandler<TElement>>): this;
         on(events: TapEvent, handler: JQuery.EventHandlerBase<TElement, TapEventHandler<TElement>>): this;
-        on(events:
-            AlertEvent | CollapseEvent | DropdownEvent | ModalEvent |
-            PopoverEvent | ScrollspyEvent | TooltipEvent,
-            handler: JQuery.EventHandler<TElement>): this;
+        on(
+            events: AlertEvent | CollapseEvent | PopoverEvent | ScrollspyEvent | TooltipEvent,
+            handler: JQuery.EventHandler<TElement>
+        ): this;
     }
 }
