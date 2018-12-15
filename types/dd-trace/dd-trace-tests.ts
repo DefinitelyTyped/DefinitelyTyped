@@ -6,11 +6,11 @@ tracer.init({
     service: "MyLovelyService",
     hostname: "localhost",
     port: 8126,
+    env: "dev",
     logger: {
         debug: msg => {},
         error: err => {},
-    },
-    tags: { tracerEnv: 'dev'}
+    }
 });
 
 function useWebFrameworkPlugin(plugin: "express" | "hapi" | "koa" | "restify") {

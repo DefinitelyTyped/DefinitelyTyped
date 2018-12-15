@@ -84,6 +84,11 @@ interface TracerOptions {
     port?: number | string;
 
     /**
+     * Set an application’s environment e.g. prod, pre-prod, stage.
+     */
+    env?: string;
+
+    /**
      * Percentage of spans to sample as a float between 0 and 1.
      * @default 1
      */
