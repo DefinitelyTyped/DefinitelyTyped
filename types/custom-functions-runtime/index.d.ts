@@ -37,6 +37,7 @@ declare namespace CustomFunctions {
         setResult: (value: T | Error) => void;
     }
     /**
+     * @beta
      * CancelableHandler interface
      */
     interface CancelableHandler {
