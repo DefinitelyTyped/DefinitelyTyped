@@ -3,6 +3,8 @@
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// tslint:disable:no-any Describing some permissive APIs.
+
 import { CustomElementConstructor } from "webcomponents.js";
 
 declare global {
@@ -20,19 +22,17 @@ declare global {
       observer?: string;
     }
 
-    interface Base {
-      /** Need to allow all properties for callback methods. */
-      [prop: string]: any;
-
+    interface CommonBase {
       /* polymer-micro */
 
       // Attributes
 
-      hostAttributes?: {[name:string]:any};
+      hostAttributes?: {[name: string]: any};
 
       reflectPropertiesToAttribute?(name: string): void;
 
-      serializeValueToAttribute?(value: any, attribute: string, node?: Element): void;
+      serializeValueToAttribute?
+          (value: any, attribute: string, node?: Element): void;
 
       deserialize?(value: string, type: NumberConstructor): number;
       deserialize?(value: string, type: BooleanConstructor): boolean;
@@ -120,7 +120,8 @@ declare global {
 
       notifyPath?(path: string, value: any, fromAbove: any): void;
 
-      set?<Value>(path: string|(string|number)[], value: Value, root?: Object): void;
+      set?<Value>(path: string|(string|number)[], value: Value, root?: Object):
+          void;
 
       get?(path: string|(string|number)[], root?: Object): any;
 
@@ -139,7 +140,8 @@ declare global {
 
       unshift?(path: string, ...item: any[]): number;
 
-      notifySplices?(path: string, splices: ReadonlyArray<polymer.PolymerSplice>): void;
+      notifySplices?
+          (path: string, splices: ReadonlyArray<polymer.PolymerSplice>): void;
 
       // ResolveUrl
 
@@ -154,8 +156,6 @@ declare global {
       $$?(selector: string): Element;
 
       toggleClass?(name: string, bool?: boolean, node?: HTMLElement): void;
-
-      toggleAttribute?(name: string, bool?: boolean, node?: HTMLElement): void;
 
       classFollows?(name: string, toElement: HTMLElement, fromElement: HTMLElement): void;
 
@@ -220,7 +220,19 @@ declare global {
       detached?(): void;
 
       attributeChanged?(name: string, oldValue: any, newValue: any): void;
+    }
 
+    // This is the type of a Polymer element after it has gone through the
+    // Polymer() function.
+    interface PolymerElement extends CommonBase, HTMLElement {}
+
+    interface Base extends CommonBase {
+      /** Need to allow all properties for callback methods. */
+      [prop: string]: any;
+
+      // Has to live on Base because it is incompatible with
+      // HTMLElement#toggleAttribute
+      toggleAttribute?(name: string, bool?: boolean, node?: HTMLElement): void;
     }
 
     interface DomApiStatic {
