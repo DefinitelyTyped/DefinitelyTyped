@@ -82,7 +82,7 @@ export interface Transaction {
 export interface TransactionObject<T> {
 	arguments: any[];
 	call(tx?: Tx): Promise<T>;
-	send(tx?: Tx): PromiEvent<T>;
+	send(tx?: Tx): PromiEvent<TransactionReceipt>;
 	estimateGas(tx?: Tx): Promise<number>;
 	encodeABI(): string;
 }
