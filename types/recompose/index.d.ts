@@ -70,13 +70,13 @@ declare module 'recompose' {
     // withProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#withprops
     export function withProps<TInner, TOutter>(
         createProps: TInner | mapper<TOutter, TInner>
-    ): InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>;
+    ): InferableComponentEnhancerWithProps<TInner, TOutter>;
 
     // withPropsOnChange: https://github.com/acdlite/recompose/blob/master/docs/API.md#withpropsonchange
     export function withPropsOnChange<TInner, TOutter>(
         shouldMapOrKeys: string[] | predicateDiff<TOutter>,
         createProps: mapper<TOutter, TInner>
-    ): InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>;
+    ): InferableComponentEnhancerWithProps<TInner, TOutter>;
 
     // withHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withhandlers
     type EventHandler = Function;
@@ -98,7 +98,7 @@ declare module 'recompose' {
         handlerCreators:
             | HandleCreators<TOutter, THandlers>
             | HandleCreatorsFactory<TOutter, THandlers>
-    ): InferableComponentEnhancerWithProps<THandlers & TOutter, TOutter>;
+    ): InferableComponentEnhancerWithProps<THandlers, TOutter>;
 
     // defaultProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#defaultprops
     export function defaultProps<T = {}>(
@@ -268,7 +268,7 @@ declare module 'recompose' {
 
     // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
     export function toRenderProps<TInner, TOutter>(
-        hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
+        hoc: InferableComponentEnhancerWithProps<TInner, TOutter>
     ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement<any> }>;
 
     // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops

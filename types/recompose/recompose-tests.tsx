@@ -133,12 +133,12 @@ function testWithHandlers() {
     }
     interface HandlerProps {
         onSubmit: React.MouseEventHandler<HTMLDivElement>;
-        onChange: Function;
+        onChange: (e: any) => void;
     }
-    const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps & OutterProps> = ({onChange, onSubmit, foo}) =>
+    const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps> = ({onChange, onSubmit, foo}) =>
       <div onClick={onSubmit}>{foo}</div>;
 
-    const enhancer = withHandlers<OutterProps & InnerProps, HandlerProps>({
+    const enhancer = withHandlers<OutterProps, HandlerProps>({
       onChange: (props) => (e: any) => {},
       onSubmit: (props) => (e: React.MouseEvent<any>) => {},
     });
@@ -150,7 +150,7 @@ function testWithHandlers() {
         />
     )
 
-    const enhancer2 = withHandlers<OutterProps & InnerProps, HandlerProps>((props) => ({
+    const enhancer2 = withHandlers<OutterProps, HandlerProps>((props) => ({
       onChange: (props) => (e: any) => {},
       onSubmit: (props) => (e: React.MouseEvent<any>) => {},
     }));
@@ -167,12 +167,12 @@ function testWithHandlers() {
       notAKeyOnHandlerProps: () => () => {},
     });
 
-    // The inner props should be fully inferrable
+    // Internal props should be separately
     const enhancer3 = withHandlers({
       onChange: (props: OutterProps) => (e: any) => {},
       onSubmit: (props: OutterProps) => (e: React.MouseEvent<any>) => {},
     });
-    const Enhanced3 = enhancer3(({onChange, onSubmit, out}) =>
+    const Enhanced3 = enhancer3(({onChange, onSubmit, out}) => // $ExpectError
         <div onClick={onSubmit}>{out}</div>);
     const rendered3 = (
         <Enhanced3
@@ -184,10 +184,23 @@ function testWithHandlers() {
       onChange: (props) => (e: any) => {},
       onSubmit: (props) => (e: React.MouseEvent<any>) => {},
     }));
-    const Enhanced4 = enhancer4(({onChange, onSubmit, out}) =>
+    const Enhanced4 = enhancer4(({onChange, onSubmit, out}) => // $ExpectError
         <div onClick={onSubmit}>{out}</div>);
     const rendered4 = (
         <Enhanced4
+            out={42}
+        />
+    )
+
+    const InnerComponent1: React.StatelessComponent<OutterProps & HandlerProps> = ({onChange, onSubmit, out}) =>
+        <div onClick={onSubmit}>{out}</div>;
+    const enhancer5 = withHandlers((props: OutterProps) => ({
+        onChange: (props) => (e: any) => { },
+        onSubmit: (props) => (e: React.MouseEvent<any>) => {},
+    }));
+    const Enhanced5 = enhancer5(InnerComponent1);
+    const rendered5 = (
+        <Enhanced5
             out={42}
         />
     )
