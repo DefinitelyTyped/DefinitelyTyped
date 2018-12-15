@@ -3,7 +3,7 @@ function add10(n: number) {
     return n + 10;
 }
 
-CustomFunctions.Associate('ADD10', add10);
+CustomFunctions.associate('ADD10', add10);
 
 async function getStockValues(ticker: string): Promise<number> {
     const response = await fetch(`myService.com/prices/${ticker}`);
