@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-scale module 2.0
+// Type definitions for D3JS d3-scale module 2.1
 // Project: https://github.com/d3/d3-scale/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 2.1.2
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
