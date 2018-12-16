@@ -468,20 +468,39 @@ const testObject: MyInterface = {
 
 typedSchema.validateSync(testObject); // $ExpectType MyInterface
 
-// shape function
-interface InterfaceA {
-    aField: string;
+// Shape<T, U> and shape function
+interface AB {
+    a: string;
+    b: number;
 }
 
-interface InterfaceB {
-    bField: number;
+interface BC {
+    b: string;
+    c: number;
 }
 
-const definitionA: yup.ObjectSchemaDefinition<InterfaceA> = { aField: yup.string() };
-const definitionB: yup.ObjectSchemaDefinition<InterfaceB> = { bField: yup.number() };
-let combinedSchema = yup.object(definitionA).shape(definitionB); // $ExpectType ObjectSchema<InterfaceA & InterfaceB>
+interface ExpectedABC {
+    a: string;
+    b: string;
+    c: number;
+}
 
-combinedSchema = yup.object<InterfaceA>({ aField: yup.string() }).shape<InterfaceB>({ bField: yup.number() });
+const expectedAbc: ExpectedABC = {
+    a: 'qwerty',
+    b: 'asdfg',
+    c: 123
+};
+const actualAbc: yup.Shape<AB, BC> = expectedAbc;
+
+const definitionAB: yup.ObjectSchemaDefinition<AB> = {
+    a: yup.string(),
+    b: yup.number()
+};
+const definitionBC: yup.ObjectSchemaDefinition<BC> = {
+    b: yup.string(),
+    c: yup.number()
+};
+const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
 
 // $ExpectError
 yup.object<MyInterface>({

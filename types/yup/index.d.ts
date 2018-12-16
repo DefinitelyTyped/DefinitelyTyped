@@ -1,4 +1,4 @@
-// Type definitions for yup 0.27
+// Type definitions for yup 0.26
 // Project: https://github.com/jquense/yup
 // Definitions by: Dominik Hardtke <https://github.com/dhardtke>,
 //                 Vladyslav Tserman <https://github.com/vtserman>,
@@ -61,10 +61,10 @@ export interface Schema<T> {
     concat(schema: this): this;
     validate(value: any, options?: ValidateOptions): Promise<T>;
     validateSync(value: any, options?: ValidateOptions): T;
-    validateAt(path: string, value: any, options?: ValidateOptions): Promise<T>;
-    validateSyncAt(path: string, value: any, options?: ValidateOptions): T;
+    validateAt(path: string, value: T, options?: ValidateOptions): Promise<T>;
+    validateSyncAt(path: string, value: T, options?: ValidateOptions): T;
     isValid(value: any, options?: any): Promise<boolean>;
-    isValidSync(value: any, options?: any): boolean;
+    isValidSync(value: any, options?: any): value is T;
     cast(value: any, options?: any): T;
     isType(value: any): value is T;
     strict(isStrict: boolean): this;
@@ -173,6 +173,13 @@ export interface ArraySchema<T> extends Schema<T[]> {
 
 export type ObjectSchemaDefinition<T extends object> = { [field in keyof T]: Schema<T[field]> | Ref };
 
+/**
+ * Merges two interfaces. For properties in common, property types from `U` trump those of `T`.
+ * This is conducive to the functionality of
+ * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
+ */
+export type Shape<T extends object, U extends object> = { [P in keyof T]: P extends keyof U ? U[P] : T[P] } & U;
+
 export interface ObjectSchemaConstructor {
     <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
     new (): ObjectSchema<{}>;
@@ -182,7 +189,7 @@ export interface ObjectSchema<T extends object> extends Schema<T> {
     shape<U extends object>(
         fields: ObjectSchemaDefinition<U>,
         noSortEdges?: Array<[string, string]>
-    ): ObjectSchema<T & U>;
+    ): ObjectSchema<Shape<T, U>>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
     noUnknown(onlyKnownKeys?: boolean, message?: TestOptionsMessage): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
