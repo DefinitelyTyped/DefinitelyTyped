@@ -105,4 +105,4 @@ newrelic.shutdown((err) => {
     const error: Error | undefined = err;
 });
 
-newrelic.setLambdaHandler(() => void 0); // $ExpectType void
+newrelic.setLambdaHandler(() => void 0); // $ExpectType undefined
