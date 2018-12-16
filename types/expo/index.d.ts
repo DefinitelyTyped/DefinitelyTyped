@@ -1835,7 +1835,6 @@ export namespace Notifications {
         origin: 'selected' | 'received';
         data: any;
         remote: boolean;
-        isMultiple: boolean;
     }
 
     interface LocalNotification {
