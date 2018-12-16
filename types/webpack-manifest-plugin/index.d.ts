@@ -77,7 +77,7 @@ declare namespace WebpackManifestPlugin {
         /**
          * Sort files before they are passed to generate.
          */
-        sort?: (file: FileDescriptor) => number;
+        sort?: (a: FileDescriptor, b: FileDescriptor) => number;
 
         /**
          * Create the manifest. It can return anything as long as it's serialisable by JSON.stringify.
