@@ -64,7 +64,7 @@ loadOpts = {
 	json: bool
 };
 loadOpts = {
-    schema: yaml.DEFAULT_SAFE_SCHEMA
+	schema: yaml.DEFAULT_SAFE_SCHEMA
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -85,7 +85,7 @@ dumpOpts = {
 	schema: value
 };
 dumpOpts = {
-    schema: yaml.DEFAULT_FULL_SCHEMA
+	schema: yaml.DEFAULT_FULL_SCHEMA
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

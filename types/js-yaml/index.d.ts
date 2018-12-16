@@ -40,9 +40,9 @@ export function dump(obj: any, opts?: DumpOptions): string;
 
 export interface LoadOptions {
 	/** string to be used as a file path in error/warning messages. */
-    filename?: string;
-    /** function to call on warning messages. */
-    onWarning?(this: null, e: YAMLException): void;
+	filename?: string;
+	/** function to call on warning messages. */
+	onWarning?(this: null, e: YAMLException): void;
 	/** specifies a schema to use. */
 	schema?: SchemaDefinition;
 	/** compatibility with JSON.parse behaviour. */
@@ -68,10 +68,10 @@ export interface DumpOptions {
 	noRefs?: boolean;
 	/** if true don't try to be compatible with older yaml versions. Currently: don't quote "yes", "no" and so on, as required for YAML 1.1 (default: false) */
 	noCompatMode?: boolean;
-    /**
-     * if true flow sequences will be condensed, omitting the space between `key: value` or `a, b`. Eg. `'[a,b]'` or `{a:{b:c}}`.
-     *  Can be useful when using yaml for pretty URL query params as spaces are %-encoded. (default: false).
-     */
+	/**
+	 * if true flow sequences will be condensed, omitting the space between `key: value` or `a, b`. Eg. `'[a,b]'` or `{a:{b:c}}`.
+	 *  Can be useful when using yaml for pretty URL query params as spaces are %-encoded. (default: false).
+	 */
 	condenseFlow?: boolean;
 }
 
