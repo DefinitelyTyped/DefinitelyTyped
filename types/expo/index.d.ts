@@ -1856,6 +1856,12 @@ export namespace Notifications {
         };
     }
 
+    interface SchedulingOptions {
+        time: Date | number;
+        repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+        intervalMs?: number;
+    }
+
     interface ChannelAndroid {
         name: string;
         description?: string;
@@ -1872,8 +1878,7 @@ export namespace Notifications {
     function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
     function scheduleLocalNotificationAsync(
         localNotification: LocalNotification,
-        schedulingOptions: { time: Date | number, repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' },
-        intervalMs?: number
+        schedulingOptions: SchedulingOptions
     ): Promise<LocalNotificationId>;
     function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
     function dismissAllNotificationsAsync(): Promise<void>;
