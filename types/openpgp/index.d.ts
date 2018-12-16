@@ -270,11 +270,6 @@ export namespace cleartext {
         verify(keys: Array<key.Key>): Array<VerifiedMessage>;
     }
 
-    /** creates new message object from binary data
-        @param bytes
-     */
-    function fromBinary(bytes: string): CleartextMessage;
-
     /** creates new message object from text
         @param text
      */
@@ -580,7 +575,7 @@ export namespace message {
     /** creates new message object from binary data
         @param bytes
      */
-    function fromBinary(bytes: string): Message;
+    function fromBinary(bytes: Uint8Array | ReadableStream<Uint8Array>): Message;
 
     /** creates new message object from text
         @param text

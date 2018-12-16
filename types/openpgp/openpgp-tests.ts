@@ -107,7 +107,7 @@ openpgp.crypto.signature.verify(openpgp.enums.publicKey.rsa_encrypt, openpgp.enu
 openpgp.key.generate(keyoptions);
 openpgp.key.readArmored("");
 
-openpgp.message.fromBinary("");
+openpgp.message.fromBinary(new Uint8Array([0x01, 0x02, 0x03]));
 openpgp.message.fromText("");
 openpgp.message.readArmored("");
 
