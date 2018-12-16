@@ -1,12 +1,14 @@
-// Type definitions for react-modal 3.1
+// Type definitions for react-modal 3.6
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
 //                 Thomas B Homburg <https://github.com/homburg>,
 //                 Tatu Tamminen <https://github.com/ttamminen>,
-//                 Uwe Wiemer <https://github.com/hallowatcher>
+//                 Uwe Wiemer <https://github.com/hallowatcher>,
+//                 Peter Blazejewicz <https://github.com/peterblazejewicz>,
+//                 Justin Powell <https://github.com/jpowell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -47,6 +49,9 @@ declare namespace ReactModal {
         /* String className to be applied to the document.body. */
         bodyOpenClassName?: string;
 
+        /* String className to be applied to the document.html. */
+        htmlOpenClassName?: string;
+
         /* String or object className to be applied to the modal content. */
         className?: string | Classes;
 
@@ -86,17 +91,29 @@ declare namespace ReactModal {
         /* Additional aria attributes. */
         aria?: Aria;
 
+        /* Additional data attributes to be applied to to the modal content in the form of "data-*" */
+        data?: any;
+
         /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
         role?: string;
 
         /* String indicating how the content container should be announced to screenreaders. */
         contentLabel?: string;
+
+        /* Function accepting the ref for the content */
+        contentRef?: (instance: HTMLDivElement) => void;
+
+        /* Function accepting the ref for the overlay */
+        overlayRef?: (instance: HTMLDivElement) => void;
     }
 }
 
 declare class ReactModal extends React.Component<ReactModal.Props> {
     /* Override base styles for all instances of this component. */
     static defaultStyles: ReactModal.Styles;
-    /* Call this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */
-    static setAppElement(appElement: HTMLElement): void;
+    /**
+     * Call this to properly hide your application from assistive screenreaders
+     * and other assistive technologies while the modal is open.
+     */
+    static setAppElement(appElement: string | HTMLElement): void;
 }

@@ -1,9 +1,9 @@
 // Test the minimum amount of configuration required.
 let handler = StripeCheckout.configure({
-	key: "my-secret-key",
-	token: (token: stripe.StripeTokenResponse) => {
-		console.log(token.id);
-	}
+    key: "my-secret-key",
+    token: (token: stripe.Token) => {
+        console.log(token.id);
+    }
 });
 
 handler.open();
@@ -12,10 +12,13 @@ handler.close();
 
 // Test all configuration options.
 const options: StripeCheckoutOptions = {
-	key: "my-secret-key",
-	token: (token: stripe.StripeTokenResponse) => {
-		console.log(token.id);
-	},
+    key: "my-secret-key",
+    token: (token: stripe.Token) => {
+        console.log(token.id);
+    },
+    source: (src: stripe.Source) => {
+        console.log(src.id);
+    },
     image: "http://placehold.it/128x128",
     name: "Definitely Typed",
     description: "A DefinitelyTyped test for Stripe Checkout",

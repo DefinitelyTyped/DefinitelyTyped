@@ -2,14 +2,22 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import createFragment = require("react-addons-create-fragment");
-import * as CSSTransitionGroup from "react-addons-css-transition-group";
+import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
-import * as shallowCompare from "react-addons-shallow-compare";
+import shallowCompare = require("react-addons-shallow-compare");
 import * as TestUtils from "react-addons-test-utils";
-import * as TransitionGroup from "react-addons-transition-group";
+import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
+
+// NOTE: forward declarations for tests
+declare function setInterval(...args: any[]): any;
+declare function clearInterval(...args: any[]): any;
+declare var console: Console;
+interface Console {
+    log(...args: any[]): void;
+}
 
 interface Props extends React.Attributes {
     hello: string;
@@ -110,7 +118,7 @@ class ModernComponent extends React.Component<Props, State>
         });
     }
 
-    private _myComponent: MyComponent;
+    private readonly _myComponent: MyComponent;
     private _input: HTMLInputElement | null;
 
     render() {
@@ -255,7 +263,7 @@ const str: string = ReactDOMServer.renderToString(element);
 const markup: string = ReactDOMServer.renderToStaticMarkup(element);
 const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
-let domNode: Element = ReactDOM.findDOMNode(component);
+let domNode = ReactDOM.findDOMNode(component);
 domNode = ReactDOM.findDOMNode(domNode);
 
 //
@@ -346,7 +354,11 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
-    }
+    },
+    'aria-atomic': false,
+    'aria-checked': 'true',
+    'aria-colcount': 7,
+    'aria-label': 'test'
 };
 React.DOM.div(htmlAttr);
 React.DOM.span(htmlAttr);
@@ -481,6 +493,9 @@ const ContextTypesSpecification: React.ComponentSpec<any, any> = {
 
 const mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => 42);
+const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
+const mappedChildrenArrayWithKnownChildren: number[] =
+    React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement<any> = React.Children.only(React.DOM.div()); // ok
@@ -498,7 +513,7 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    private _interval: NodeJS.Timer;
+    private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1

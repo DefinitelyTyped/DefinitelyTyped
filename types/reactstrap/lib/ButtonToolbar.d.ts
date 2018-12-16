@@ -1,12 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface ButtonToolbarProps {
+export type ButtonToolbarProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   'aria-label'?: string;
   className?: string;
   cssModule?: CSSModule;
   role?: string;
-}
+} & T;
 
-declare const ButtonToolbar: React.StatelessComponent<ButtonToolbarProps>;
+declare class ButtonToolbar<T = {[key: string]: any}> extends React.Component<ButtonToolbarProps<T>> {}
 export default ButtonToolbar;

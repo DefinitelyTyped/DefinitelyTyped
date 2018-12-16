@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import { Route } from 'react-router';
 
-import { ConnectedRouter, routerReducer, routerMiddleware, push, RouterState } from 'react-router-redux';
+import { ConnectedRouter, routerReducer, routerMiddleware, push, RouterState, createMatchSelector } from 'react-router-redux';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();
@@ -44,3 +44,7 @@ ReactDOM.render(
 
 // Now you can dispatch navigation actions from anywhere!
 store.dispatch(push('/foo'));
+
+// And match location path using createMatchSelector
+const matchSelector = createMatchSelector('/:foo');
+const match = matchSelector(store.getState());

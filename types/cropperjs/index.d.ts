@@ -312,19 +312,19 @@ declare namespace cropperjs {
         /**
          * the offset left of the crop box
          */
-        left?: number;
+        left: number;
         /**
          * the offset top of the crop box
          */
-        top?: number;
+        top: number;
         /**
          * the width of the crop box
          */
-        width?: number;
+        width: number;
         /**
          * the height of the crop box
          */
-        height?: number;
+        height: number;
     }
     interface CanvasData {
         /**
@@ -403,6 +403,11 @@ declare namespace cropperjs {
          * a color to fill any alpha values in the output canvas
          */
         fillColor?: string;
+        /**
+         * image smoothing
+         */
+        imageSmoothingEnabled?: boolean;
+        imageSmoothingQuality?: 'low' | 'medium' | 'high';
     }
 }
 
@@ -421,8 +426,9 @@ declare class cropperjs {
     /**
      * Replace the image's src and rebuild the cropper.
      * @param url A new image url
+     * @param hasSameSize If the new image has the same size with the old one, then it will not rebuilt the cropper and only update the urls of all related images. (Default: false)
      */
-    replace(url: string): void;
+    replace(url: string, hasSameSize?: boolean): void;
 
     /**
      * Enable (unfreeze) the cropper.
@@ -484,6 +490,21 @@ declare class cropperjs {
     rotateTo(degree: number): void;
 
     /**
+     * Scale the image.
+     */
+    scale(scaleX: number, scaleY?: number): void;
+
+    /**
+     * Scale the abscissa of the image.
+     */
+    scaleX(scaleX: number): void;
+
+    /**
+     * Scale the ordinate of the image.
+     */
+    scaleY(scaleY: number): void;
+
+    /**
      * Clear the crop box.
      */
     clear(): void;
@@ -496,7 +517,7 @@ declare class cropperjs {
     /**
      * Change the cropped area position and size with new data (base on the original image).
      */
-    setData(data: cropperjs.Data): void;
+    setData(data: Partial<cropperjs.Data>): void;
 
     /**
      * Output the container size data.
@@ -525,7 +546,7 @@ declare class cropperjs {
     /**
      * Change the canvas (image wrapper) position and size with new data.
      */
-    setCanvasData(data: cropperjs.CanvasData): void;
+    setCanvasData(data: Partial<cropperjs.CanvasData>): void;
 
     /**
      * Output the crop box position and size data.
@@ -535,7 +556,7 @@ declare class cropperjs {
     /**
      * Change the crop box position and size with new data.
      */
-    setCropBoxData(data: cropperjs.CropBoxData): void;
+    setCropBoxData(data: Partial<cropperjs.CropBoxData>): void;
 
     /**
      * Get a canvas drawn the cropped image.

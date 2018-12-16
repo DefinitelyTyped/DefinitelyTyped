@@ -25,7 +25,7 @@ declare namespace autobahn {
 
         leave(reason: string, message: string): void;
 
-        call<TResult>(procedure: string, args?: any[], kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
+        call<TResult>(procedure: string, args?: any[] | any, kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
 
         publish(topic: string, args?: any[], kwargs?: any, options?: IPublishOptions): When.Promise<IPublication>;
 
@@ -96,7 +96,7 @@ declare namespace autobahn {
         kwargs: any;
     }
 
-    type SubscribeHandler = (args?: any[], kwargs?: any, details?: IEvent) => void;
+    type SubscribeHandler = (args?: any[] | any, kwargs?: any, details?: IEvent) => void;
 
     interface ISubscription {
         topic: string;
@@ -190,6 +190,8 @@ declare namespace autobahn {
     export class Connection {
         constructor(options?: IConnectionOptions);
 
+        isOpen: boolean;
+        
         open(): void;
 
         close(reason?: string, message?: string): void;
@@ -206,7 +208,7 @@ declare namespace autobahn {
 
     type DeferFactory = () => When.Promise<any>;
 
-    type OnChallengeHandler = (session: Session, method: string, extra: any) => string;
+    type OnChallengeHandler = (session: Session, method: string, extra: any) => string | When.Promise<string>;
 
     interface IConnectionOptions {
         use_es6_promises?: boolean;

@@ -130,6 +130,11 @@ export class InsufficientStorageError extends DefinedHttpError { }
 export class BandwidthLimitExceededError extends DefinedHttpError { }
 export class NotExtendedError extends DefinedHttpError { }
 export class NetworkAuthenticationRequiredError extends DefinedHttpError { }
+export class PayloadTooLargeError extends DefinedHttpError { }
+export class UriTooLongError extends DefinedHttpError { }
+export class MisdirectedRequestError extends DefinedHttpError { }
+export class UnavailableForLegalReasonsError extends DefinedHttpError { }
+export class LoopDetectedError extends DefinedHttpError { }
 
 export class BadDigestError extends DefinedRestError { }
 export class BadMethodError extends DefinedRestError { }

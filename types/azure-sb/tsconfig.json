@@ -30,6 +30,7 @@
         "lib/models/subscriptionresult.d.ts",
         "lib/models/notificationhubresult.d.ts",
         "lib/models/resourceresult.d.ts",
+        "lib/serviceclient.d.ts",
         "lib/servicebusserviceclient.d.ts",
         "lib/gcmservice.d.ts",
         "lib/wnsservice.d.ts",
@@ -39,4 +40,3 @@
         "index.d.ts"
     ]
 }
-

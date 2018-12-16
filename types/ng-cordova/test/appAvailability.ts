@@ -17,8 +17,8 @@ namespace demo.appavailability {
 
     static $inject:Array<string> = ["$ionicPlatform", "$cordovaDevice", "$cordovaAppAvailability"];
     constructor($ionicPlatform:ionic.platform.IonicPlatformService,
-       private $cordovaDevice:ngCordova.IDeviceService,
-       private $cordovaAppAvailability:ngCordova.IAppAvailabilityService) {
+       private readonly $cordovaDevice:ngCordova.IDeviceService,
+       private readonly $cordovaAppAvailability:ngCordova.IAppAvailabilityService) {
 
       this.isAvailable = false;
 

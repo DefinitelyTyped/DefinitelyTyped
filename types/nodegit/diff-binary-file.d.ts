@@ -1,5 +1,7 @@
+import { Object } from './object';
+
 export class DiffBinaryFile {
-    type: number;
+    type: Object.TYPE;
     data: string;
     datalen: number;
     inflatedlen: number;

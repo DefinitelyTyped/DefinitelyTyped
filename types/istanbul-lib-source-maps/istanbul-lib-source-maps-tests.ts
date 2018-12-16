@@ -1,5 +1,6 @@
 import { createSourceMapStore } from 'istanbul-lib-source-maps';
 import { CoverageMap } from 'istanbul-lib-coverage';
+import { RawSourceMap } from 'source-map';
 
 createSourceMapStore();
 createSourceMapStore({});
@@ -12,8 +13,8 @@ const store = createSourceMapStore({
 
 store.data['foo'].type.trim();
 
-const sourceMap = {
-	version: 1,
+const sourceMap: RawSourceMap = {
+	version: 1 as any as string, // Fixed by https://github.com/mozilla/source-map/pull/293 but the fix is not yet published
 	sources: ['foo', 'bar'],
 	names: ['foo', 'bar'],
 	mappings: 'foo',

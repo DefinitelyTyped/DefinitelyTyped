@@ -1,9 +1,12 @@
 
 import username = require("username");
 
-username(function(err, username) {
-    err === new Error();
-    username === "string";
-});
+username()
+    .then((username) => {
+        username === "string";
+    })
+    .catch((err) => {
+        err === new Error();
+    });
 
 username.sync() === "string";

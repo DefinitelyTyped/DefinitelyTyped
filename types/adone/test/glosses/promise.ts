@@ -106,4 +106,34 @@ namespace promiseTests {
     namespace _finally {
         promise.finally(Promise.resolve(2), () => 2).then((x: number) => {});
     }
+
+    namespace props {
+        promise.props({ a: Promise.resolve(2) }).then((x) => x.a);
+    }
+
+    namespace retry {
+        promise.retry((info) => {
+            { const a: number = info.current; }
+        });
+
+        promise.retry(() => {}, {});
+        promise.retry(() => {}, { backOffBase: 1000 });
+        promise.retry(() => {}, { backOffExponent: 2 });
+        promise.retry(() => {}, { match: "a" });
+        promise.retry(() => {}, { match: ["a"] });
+        promise.retry(() => {}, { match: [/abc/] });
+        promise.retry(() => {}, { match: /abc/ });
+        promise.retry(() => {}, { match: [new Error()] });
+        promise.retry(() => {}, { match: new Error() });
+        promise.retry(() => {}, { max: 100 });
+        promise.retry(() => {}, { name: "asd" });
+        promise.retry(() => {}, {
+            report(msg: string, opts) {
+                opts.backOffBase < 100;
+            }
+        });
+        promise.retry(() => {}, {
+            timeout: 100
+        });
+    }
 }

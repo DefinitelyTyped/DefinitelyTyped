@@ -124,6 +124,45 @@ class F2 {
     }
 };
 
+/** R.__ */
+() => {
+  R.concat(R.__, [4, 5, 6])([1, 2, 3]); // [1, 2, 3, 4, 5, 6]
+  R.concat(R.__)([4, 5, 6], [1, 2, 3]); // [1, 2, 3, 4, 5, 6]
+
+  R.contains(R.__, [1, 2, 3])(3); // true
+  R.contains<number>(R.__)([1, 2, 3], 3); // true
+
+  R.divide(R.__)(2, 42); // 21
+  R.divide(R.__, 2)(42); // 21
+
+  R.gt(R.__, 2)(10); // true
+  R.gt(R.__)(2, 10); // true
+
+  R.gte(R.__, 6)(2); // false
+  R.gte(R.__)(6, 2); // false
+
+  R.has(R.__, {x: 0, y: 0})('x'); // true;
+  R.has(R.__)({x: 0, y: 0}, 'x'); // true;
+
+  R.lt(R.__, 5)(10); // false
+  R.lt(R.__)(5, 10); // false
+
+  R.lte(R.__, 2)(1); // true
+  R.lte(R.__)(2, 1); // true
+
+  R.mathMod(R.__, 12)(15); // 3
+  R.mathMod(R.__)(12, 15); // 3
+
+  R.modulo(R.__, 2)(42); // 0
+  R.modulo(R.__)(2, 42); // 0
+
+  R.merge(R.__, {x: 0})({x: 5, y: 2}); // {x: 0, y: 2}
+  R.merge(R.__)({x: 0}, {x: 5, y: 2}); // {x: 0, y: 2}
+
+  R.subtract(R.__, 5)(17); // 12
+  R.subtract(R.__)(5, 17); // 12
+};
+
 () => {
     const addFour          = (a: number) => (b: number) => (c: number) => (d: number) => a + b + c + d;
     const uncurriedAddFour = R.uncurryN<number>(4, addFour);
@@ -175,7 +214,7 @@ class F2 {
 
     const f0 = (s: string) => +s;      // string -> number
     const f1 = (n: number) => n === 1; // number -> boolean
-    const f2 = R.compose(f1, f0);      // string -> boolean
+    const f2: (s: string) => boolean = R.compose(f1, f0);      // string -> boolean
 
     // akward example that bounces types between number and string
     const g0             = (list: number[]) => R.map(R.inc, list);
@@ -184,6 +223,73 @@ class F2 {
     const g3             = R.all((i: string) => i === "smaller");
     const g              = R.compose(g3, g2, g1, g0);
     const g_res: boolean = g([1, 2, 10, 13]);
+
+    // compose with last function taking no params
+    const f10 = () => 'str';
+    const f11 = (str: string) => str;
+    const f12: () => string = R.compose(f11, f10);
+};
+
+/* composeK */
+() => {
+    const get = (prop: string) => (obj: any): any[] => {
+        const propVal = obj[prop];
+        if (propVal) {
+            return [propVal];
+        } else {
+            return [];
+        }
+    };
+
+    const getStateCode: (input: any) => any[] = R.composeK(
+        R.compose((val) => [val], R.toUpper),
+        get('state'),
+        get('address'),
+        get('user'),
+    );
+    getStateCode({ user: { address: { state: "ny" } } }); // => []
+    getStateCode({}); // => []
+
+    const nextThree = (num: number): number[] => ([num, num + 1, num + 2]);
+    const onlyOverNine = (num: number): number[] => num > 9 ? [num] : [];
+    const toString = (input: any): string[] => [`${input}`];
+    const split = (input: string): string[] => input.split('');
+
+    const composed: (num: number) => string[] = R.composeK(
+        split,
+        toString,
+        onlyOverNine,
+        nextThree,
+    );
+};
+
+/* composeP */
+() => {
+    interface User {
+        name: string;
+        followers: string[];
+    }
+    interface Db {
+        users: { [index: string]: User };
+    }
+    const db: Db = {
+        users: {
+            JOE: {
+                name: 'Joe',
+                followers: ['STEVE', 'SUZY']
+            }
+        }
+    };
+
+    // We'll pretend to do a db lookup which returns a promise
+    const lookupUser = (userId: string): Promise<User> => Promise.resolve(db.users[userId]);
+    const lookupFollowers = (user: User): Promise<string[]> => Promise.resolve(user.followers);
+    lookupUser('JOE').then(lookupFollowers);
+
+    //  followersForUser :: String -> Promise [UserId]
+    const followersForUser: (input: string) => Promise<string[]> = R.composeP(lookupFollowers, lookupUser);
+    followersForUser('JOE').then(followers => console.log('Followers:', followers));
+    // Followers: ["STEVE","SUZY"]
 };
 
 /* pipe */
@@ -199,11 +305,73 @@ class F2 {
 
     const f          = R.pipe(Math.pow, R.negate, R.inc);
     const fr: number = f(3, 4); // -(3^4) + 1
+
+    // pipe with first function taking no params
+    const f10 = () => 'str';
+    const f11 = (str: string) => str;
+    const f12: () => string = R.pipe(f10, f11);
+};
+
+/* pipeK */
+() => {
+    const parseJson = (input: string): any[] => {
+        try {
+            return [JSON.parse(input)];
+        } catch (e) {
+            return [];
+        }
+    };
+    const get = (prop: string) => (obj: any): any[] => {
+        const propVal = obj[prop];
+        if (propVal) {
+            return [propVal];
+        } else {
+            return [];
+        }
+    };
+
+    const getStateCode: (input: string) => string[] = R.pipeK(
+        parseJson,
+        get('user'),
+        get('address'),
+        get('state'),
+        R.compose((val) => [val], R.toUpper)
+    );
+
+    getStateCode('{"user":{"address":{"state":"ny"}}}');
+    // => Just('NY')
+    getStateCode('[Invalid JSON]');
+    // => Nothing()
+};
+
+/* pipeP */
+() => {
+    interface User {
+        followers: string[];
+        name: string;
+    }
+
+    const db = {
+        getUserById(userName: string): Promise<User> {
+            return Promise.resolve({
+                name: 'Jon',
+                followers: [
+                    'Samwell',
+                    'Edd',
+                    'Grenn',
+                ],
+            });
+        },
+        getFollowers(user: User): Promise<string[]> {
+            return Promise.resolve(user.followers);
+        },
+    };
+    const followersForUser: (userName: string) => Promise<string[]> = R.pipeP(db.getUserById, db.getFollowers);
 };
 
 () => {
-    R.invoker("charAt", String.prototype);
-    R.invoker("charAt", String.prototype, 1);
+    R.invoker(1, "slice")(6, "abcdefghijklm");
+    R.invoker(2, "slice")(6)(8, "abcdefghijklm");
 };
 
 (() => {
@@ -305,8 +473,38 @@ R.times(i, 5);
     function stringLength(str: string): number {
       return str.length;
     }
-    const memoStringLength = R.memoize<number>(stringLength);
+    const memoStringLength = R.memoize(stringLength);
     const isLong = memoStringLength('short') > 10; // false
+})();
+
+(() => {
+    interface Vector {
+      x: number;
+      y: number;
+    }
+
+    let numberOfCalls = 0;
+
+    function vectorSum(a: Vector, b: Vector): Vector {
+        numberOfCalls += 1;
+        return {
+            x: a.x + b.x,
+            y: a.y + b.y
+        };
+    }
+
+    const memoVectorSum = R.memoizeWith(JSON.stringify, vectorSum);
+
+    memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
+    numberOfCalls; // => 1
+    memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
+    numberOfCalls; // => 1
+    memoVectorSum({ x: 1, y: 2 }, { x: 2, y: 3 }); // => { x: 3, y: 5 }
+    numberOfCalls; // => 2
+
+    // Note that argument order matters
+    memoVectorSum({ x: 2, y: 3 }, { x: 1, y: 2 }); // => { x: 3, y: 5 }
+    numberOfCalls; // => 3
 })();
 
 (() => {
@@ -351,6 +549,20 @@ R.times(i, 5);
     }
 
     R.mapObjIndexed(prependKeyAndDouble, values); // => { x: 'x2', y: 'y4', z: 'z6' }
+});
+
+(() => {
+    const testObject: {
+        [key: string]: Error
+    } = {
+        hello: new Error('hello'),
+    };
+    const errorMessages = R.mapObjIndexed(
+        function test(value, key) {
+            // value should be inferred.
+            return value.message + String(key);
+        }, testObject);
+    console.log(errorMessages);
 });
 
 (() => {
@@ -415,7 +627,7 @@ R.times(i, 5);
  */
 () => {
     function mergeThree(a: number, b: number, c: number): number[] {
-        return ([]).concat(a, b, c);
+        return (new Array<number>()).concat(a, b, c);
     }
 
     mergeThree(1, 2, 3); // => [1, 2, 3]
@@ -445,6 +657,9 @@ R.times(i, 5);
     R.aperture(3, [1, 2, 3, 4, 5]); // => [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
     R.aperture(7, [1, 2, 3, 4, 5]); // => []
     R.aperture(7)([1, 2, 3, 4, 5]); // => []
+
+    const res1: Array<[number, number]> = R.aperture(2, [1, 2, 3, 4, 5]);
+    const res2: number[][] = R.aperture(11, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
 };
 
 () => {
@@ -519,12 +734,34 @@ R.times(i, 5);
     }
 
     const filterEven = R.filter(isEven);
-    filterEven({ a: 0, b: 1 }); // => { a: 0 }
-    filterEven([0, 1]); // => [0]
+    const objA: R.Dictionary<number> = filterEven({ a: 0, b: 1 }); // => { a: 0 }
+    const listA: number[] = filterEven([0, 1]); // => [0]
 
     const rejectEven = R.reject(isEven);
-    rejectEven({ a: 0, b: 1 }); // => { b: 1 }
-    rejectEven([0, 1]); // => [1]
+    const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
+    const listB: number[] = rejectEven([0, 1]); // => [1]
+};
+
+() => {
+    function isEven(n: number) {
+        return n % 2 === 0;
+    }
+
+    const a: R.Dictionary<number> = R.pipe(
+        R.filter<number, 'object'>(isEven),
+    )({ a: 0, b: 1 }); // => { a: 0 }
+
+    const b: number[] = R.pipe(
+        R.filter<number, 'array'>(isEven),
+    )([0, 1]); // => [0]
+
+    const c: R.Dictionary<number> = R.pipe(
+        R.reject<number, 'object'>(isEven),
+    )({ a: 0, b: 1 }); // => { b: 1 }
+
+    const d: number[] = R.pipe(
+        R.reject<number, 'array'>(isEven),
+    )([0, 1]); // => [1]
 };
 
 () => {
@@ -581,6 +818,13 @@ R.times(i, 5);
     const users    = [user1, user2, user3];
     const isFamous = R.pathEq(["address", "zipCode"], 90210);
     R.filter(isFamous, users); // => [ user1 ]
+};
+
+() => {
+    const coll = [{ type: 'BUY' }, { type: 'SELL' }, { type: 'BUY' }];
+    const typeIs = R.propEq('type');
+    const isBuy = typeIs('BUY');
+    R.filter(isBuy, coll); // [{ type: 'BUY' }, { type: 'BUY' }]
 };
 
 () => {
@@ -658,6 +902,38 @@ interface Obj {
 };
 
 () => {
+    interface MyObject {
+        id: string;
+        quantity: number;
+    }
+
+    const reduceWithCombinedQuantities = (items: MyObject[]) =>
+        items.reduce<MyObject>(
+            (acc, item) => ({...item, quantity: acc.quantity + item.quantity}),
+            {id: '', quantity: 0},
+        );
+
+    const combineMyObjects = R.pipe(
+        R.groupBy<MyObject>(s => s.id),
+        R.values,
+        R.map(reduceWithCombinedQuantities),
+    );
+
+    const combined = combineMyObjects([
+        {id: 'foo', quantity: 4},
+        {id: 'bar', quantity: 3},
+        {id: 'foo', quantity: 2},
+    ]);
+
+    return {
+        id: combined[0].id,
+        quantity: combined[0].quantity
+    };
+};
+
+() => {
+    R.groupWith(R.equals)([0, 1, 1, 2, 3, 5, 8, 13, 21]);
+
     R.groupWith(R.equals, [0, 1, 1, 2, 3, 5, 8, 13, 21]);
     // [[0], [1, 1], [2, 3, 5, 8, 13, 21]]
 
@@ -685,7 +961,9 @@ interface Obj {
     const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
     const a1 = R.indexBy(R.prop("id"), list);
     const a2 = R.indexBy(R.prop("id"))(list);
-    const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
+    const a3 = R.indexBy<{ id: string }>(R.prop("id"))(list);
+    const a4 = R.indexBy(R.prop<"id", string>("id"))(list);
+    const a5 = R.indexBy<{ id: string }>(R.prop<"id", string>("id"))(list);
 
     const titlesIndexedByTitles: { [k: string]: string } = R.pipe(
         R.map((x: Book) => x.title),
@@ -930,6 +1208,30 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    const isOdd = (acc: number, x: number) => x % 2 === 1;
+
+    const xs: number[] = [1, 3, 5, 60, 777, 800];
+    R.reduceWhile(isOdd, R.add, 0, xs); // => 9
+    R.reduceWhile(isOdd)(R.add, 0, xs); // => 9
+    R.reduceWhile(isOdd)(R.add, 0)(xs); // => 9
+    R.reduceWhile(isOdd)(R.add)(0, xs); // => 9
+    R.reduceWhile(isOdd)(R.add)(0)(xs); // => 9
+    R.reduceWhile(isOdd, R.add)(0, xs); // => 9
+    R.reduceWhile(isOdd, R.add)(0)(xs); // => 9
+    R.reduceWhile(isOdd, R.add, 0)(xs); // => 9
+
+    const ys: number[] = [];
+    R.reduceWhile(isOdd, R.add, 111, ys); // => 111
+    R.reduceWhile(isOdd)(R.add, 111, ys); // => 111
+    R.reduceWhile(isOdd)(R.add, 111)(ys); // => 111
+    R.reduceWhile(isOdd)(R.add)(111, ys); // => 111
+    R.reduceWhile(isOdd)(R.add)(111)(ys); // => 111
+    R.reduceWhile(isOdd, R.add)(111, ys); // => 111
+    R.reduceWhile(isOdd, R.add)(111)(ys); // => 111
+    R.reduceWhile(isOdd, R.add, 111)(ys); // => 111
+};
+
+() => {
     function isOdd(n: number) {
         return n % 2 === 1;
     }
@@ -969,6 +1271,13 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    R.reverse('abc');      // => 'cba'
+    R.reverse('ab');       // => 'ba'
+    R.reverse('a');        // => 'a'
+    R.reverse('');         // => ''
+};
+
+() => {
     const numbers = [1, 2, 3, 4];
     R.scan(R.multiply, 1, numbers); // => [1, 1, 2, 6, 24]
     R.scan(R.multiply, 1)(numbers); // => [1, 1, 2, 6, 24]
@@ -997,14 +1306,21 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const fn        = R.cond([
-        [R.equals(0), R.always("water freezes at 0°C")],
-        [R.equals(100), R.always("water boils at 100°C")],
-        [R.T, (temp: number) => `nothing special happens at ${temp}°C`]
+    const f = R.cond<number, string>([
+        [x => x === 0, () => "a"],
+        [() => true, () => "b"],
     ]);
-    const a: string = fn(0); // => 'water freezes at 0°C'
-    const b: string = fn(50); // => 'nothing special happens at 50°C'
-    const c: string = fn(100); // => 'water boils at 100°C'
+    f(0); // $ExpectType string
+    f(""); // $ExpectError
+    f(1, 2); // $ExpectType string
+
+    const g = R.cond([
+        [(a, b) => a === b, () => "a"],
+        [() => true, () => "b"],
+    ]);
+    g(0);
+    g("");
+    g(1, "");
 };
 
 () => {
@@ -1115,7 +1431,8 @@ type Pair = KeyValuePair<string, number>;
 
 () => {
     const x          = R.prop("x");
-    const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a: boolean  = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
+    const a1: boolean = R.tryCatch(R.prop<"x", true>("x"), R.F)({x: true}); // => true
     const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
     const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      // => true
 };
@@ -1179,6 +1496,11 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    type ABC = Record<string, string>;
+    const b: ABC = R.compose(R.assoc, R.toString)(3)("c", {1: "a", 2: "b"}); // => {1: "a", 2: "b", 3: "c"}
+};
+
+() => {
     const a1 = R.dissoc<{ a: number, c: number }>("b", {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
     const a2 = R.dissoc("b", {a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
     const a4 = R.dissoc("b")<{ a: number, c: number }>({a: 1, b: 2, c: 3}); // => {a: 1, c: 3}
@@ -1223,24 +1545,60 @@ type Pair = KeyValuePair<string, number>;
     const o2                                        = {a: 10, b: 20, c: 3, d: 40};
     const a1                                      = R.eqProps("a", o1, o2); // => false
     const a2                                      = R.eqProps("c", o1, o2); // => true
-    const a3: <T, U>(obj1: T, obj2: U) => boolean = R.eqProps("c");
+    const a3: <T extends { c: any }, U extends { c: any }>(obj1: T, obj2: U) => boolean = R.eqProps("c");
     const a4: <U>(obj2: U) => boolean             = R.eqProps("c", o1);
 };
 
 () => {
-    const a1 = R.evolve({elapsed: R.add(1), remaining: R.add(-1)}, {name: "Tomato", elapsed: 100, remaining: 1400});
-    const a2 = R.evolve({elapsed: R.add(1), remaining: R.add(-1)})({name: "Tomato", elapsed: 100, remaining: 1400});
-};
+    // No type transformation
 
-() => {
-    // const tomato = {firstName: 'Tomato ', data: {elapsed: 100, remaining: 1400}, id:123};
-    // const transformations = {
-    //     firstName: R.trim,
-    //     lastName: R.trim, // Will not get invoked.
-    //     data: {elapsed: R.add(1), remaining: R.add(-1)}
-    // };
-    // const a = R.evolve(transformations, tomato); // => {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
-    // const b = R.evolve(transformations)(tomato); // => {firstName: 'Tomato', data: {elapsed: 101, remaining: 1399}, id:123}
+    const a1 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) }, { name: "Tomato", elapsed: 100, remaining: 1400 });
+
+    const a1Test: { elapsed: number, remaining: number, name: string } = a1;
+
+    const a2 = R.evolve({ elapsed: R.add(1), remaining: R.add(-1) })({ name: "Tomato", elapsed: 100, remaining: 1400 });
+
+    const a2Test: { elapsed: number, remaining: number, name: string } = a2;
+
+    // Object doesn't have all evolver keys
+
+    const a3 = R.evolve({ age: R.add(1), name: R.trim }, { name: "Potato", elapsed: 100 });
+
+    const a3Test: { name: string, elapsed: number } = a3;
+
+    // Flat transformation
+
+    const ex0 = R.evolve({ a: parseInt }, { a: '10', b: 1 });
+
+    const ex0Test: { a: number, b: number } = ex0;
+
+    // Nested transformation:
+
+    const ex1 = R.evolve(
+        { a: { b: R.toString, d: { e: R.toString } } },
+        { a: { b: 1, c: null, d: { e: 2 } } },
+    );
+
+    const ex1Test: { a: { b: string, c: null, d: { e: string } } } = ex1;
+
+    // Mapping a nested object with a single function
+
+    const ex2 = R.evolve(
+        { a: (obj: { foo: string }) => ({ bar: 1, baz: 2 }) },
+        { a: { foo: 'a', skipped: 3 }, b: null },
+    );
+
+    const ex2Test: { a: { bar: number, baz: number }, b: null } = ex2;
+
+    // Nested curried:
+
+    const ex3 = R.evolve(
+        { a: { b: R.toString, d: { e: R.toString } } },
+    )(
+        { a: { b: 1, c: null, d: { e: 2 } } }
+    );
+
+    const ex3Test: { a: { b: string, c: null, d: { e: string } } } = ex3;
 };
 
 () => {
@@ -1299,7 +1657,10 @@ class Rectangle {
 };
 
 () => {
-    R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
+    const objKeys = R.keys({a: 1, b: 2, c: 3}); // => ['a', 'b', 'c']
+    const numberKeys = R.keys(1);
+    const arrayKeys = R.keys([]);
+    const stringKeys = R.keys('foo');
 };
 
 () => {
@@ -1540,6 +1901,7 @@ class Rectangle {
     const fred = {name: "Fred", age: 12, hair: "brown", grade: 7};
     const kids = [abby, fred];
     R.project(["name", "grade"], kids); // => [{name: 'Abby', grade: 2}, {name: 'Fred', grade: 7}]
+    R.project(["name", "grade"])(kids); // => [{name: 'Abby', grade: 2}, {name: 'Fred', grade: 7}]
 };
 
 () => {
@@ -1581,13 +1943,14 @@ class Rectangle {
 };
 
 () => {
-    const a = R.toPairs<string, number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
+    const a = R.toPairs<number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
+    const b = R.toPairs({1: 'a'}); // => [['1', 'something']]
 };
 
 () => {
     const f    = new F();
     const a1 = R.toPairsIn(f); // => [['x','X'], ['y','Y']]
-    const a2 = R.toPairsIn<string, string>(f); // => [['x','X'], ['y','Y']]
+    const a2 = R.toPairsIn<string>(f); // => [['x','X'], ['y','Y']]
 };
 
 () => {
@@ -1707,7 +2070,7 @@ class Rectangle {
 
     const format = R.converge(
         R.call, [
-            R.pipe<{}, number, (s: string) => string>(R.prop("indent"), indentN),
+            R.pipe(R.prop<"indent", number>("indent"), indentN),
             R.prop("value")
         ]
     );
@@ -1809,13 +2172,23 @@ class Rectangle {
 };
 
 () => {
-    function cmp(x: any, y: any) {
+    function cmp1(x: any, y: any) {
         return x.a === y.a;
+    }
+
+    function cmp2(x: any, y: any) {
+        return x.a === y.b;
     }
 
     const l1 = [{a: 1}, {a: 2}, {a: 3}];
     const l2 = [{a: 3}, {a: 4}];
-    R.differenceWith(cmp, l1, l2); // => [{a: 1}, {a: 2}]
+    const l3 = [{b: 3}, {b: 4}];
+    R.differenceWith(cmp1, l1, l2); // => [{a: 1}, {a: 2}]
+
+    const differenceWithCurried1 = R.differenceWith(cmp1);
+    differenceWithCurried1(l1, l2); // =>[{a: 1}, {a: 2}]
+
+    R.differenceWith(cmp2, l1, l3); // => [{a: 1}, {a: 2}]
 };
 
 () => {
@@ -1854,6 +2227,9 @@ class Rectangle {
 
     R.path(testPath, testObj); // => 2
     R.path(testPath)(testObj); // => 2
+
+    R.path(['a', 'b'])({c: {b: 2}}); // => undefined
+    R.path(['a', 'b'], {c: {b: 2}}); // => undefined
 };
 
 () => {
@@ -1897,6 +2273,14 @@ class Rectangle {
     const b: number[][] = R.splitAt(1)([1, 2, 3]);        // => [[1], [2, 3]]
     const c: string[]   = R.splitAt(5, "hello world");      // => ['hello', ' world']
     const d: string[]   = R.splitAt(-1, "foobar");          // => ['fooba', 'r']
+    const e: string[]   = R.splitAt(-1)("foobar");          // => ['fooba', 'r']
+};
+
+() => {
+    const a: number[][] = R.splitEvery(3, [1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
+    const b: number[][] = R.splitEvery(3)([1, 2, 3, 4, 5, 6, 7]); // => [[1, 2, 3], [4, 5, 6], [7]]
+    const c: string[]   = R.splitEvery(3, 'foobarbaz'); // => ['foo', 'bar', 'baz']
+    const d: string[]   = R.splitEvery(3)('foobarbaz'); // => ['foo', 'bar', 'baz']
 };
 
 () => {
@@ -2016,10 +2400,12 @@ class Rectangle {
     const c = {x: 3};
     const d = {x: "a"};
     const e = {x: "z"};
+    const f = {x: new Date(0)};
+    const g = {x: new Date(60 * 1000)};
     R.maxBy(cmp, a, c); // => {x: 3}
     R.maxBy(cmp)(a, c); // => {x: 3}
     R.maxBy(cmp)(a)(b);
-    R.maxBy(cmp)(d)(e);
+    R.maxBy(cmp)(f)(g);
 };
 
 () => {
@@ -2047,10 +2433,13 @@ class Rectangle {
     const c = {x: 3};
     const d = {x: "a"};
     const e = {x: "z"};
+    const f = {x: new Date(0)};
+    const g = {x: new Date(60 * 1000)};
     R.minBy(cmp, a, b); // => {x: 1}
     R.minBy(cmp)(a, b); // => {x: 1}
     R.minBy(cmp)(a)(c);
     R.minBy(cmp, d, e);
+    R.minBy(cmp)(f)(g);
 };
 
 () => {
@@ -2107,6 +2496,14 @@ class Rectangle {
     R.symmetricDifferenceWith(eqA, l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
     R.symmetricDifferenceWith(eqA)(l1, l2); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
     const c: (a: any[]) => any[] = R.symmetricDifferenceWith(eqA)(l1); // => [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
+};
+
+() => {
+    const eqL = R.eqBy<string, number>(s => s.length);
+    const l1 = ['bb', 'ccc', 'dddd'];
+    const l2 = ['aaa', 'bb', 'c'];
+    R.symmetricDifferenceWith(eqL, l1, l2); // => ['dddd', 'c']
+    R.symmetricDifferenceWith(eqL)(l1, l2); // => ['dddd', 'c']
 };
 
 /*****************************************************************
@@ -2191,6 +2588,8 @@ class Rectangle {
     f(11); // => true
     f(8); // => true
     f(9); // => false
+
+    const f2 = R.anyPass<number>([gt10, even]);
 };
 
 () => {
@@ -2227,6 +2626,12 @@ class Rectangle {
     defaultTo42(null);  // => 42
     defaultTo42(undefined);  // => 42
     defaultTo42("Ramda");  // => 'Ramda'
+
+    const valueOrUndefined = 2 as number | undefined;
+    defaultTo42(valueOrUndefined) - 2; // => 0
+
+    const valueOrNull = 2 as number | null;
+    defaultTo42(valueOrNull) - 2; // => 0
 };
 
 () => {
@@ -2250,6 +2655,17 @@ class Rectangle {
 
     flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
     flattenArrays([[[10], 123], [8, [10]], "hello"]); // => [[10, 123], [8, 10], "hello"]
+};
+
+() => {
+    const incCount = R.ifElse(
+        R.has('count'),
+        R.over(R.lensProp('count'), R.inc),
+        R.assoc('count', 1)
+      );
+      incCount({});           // => { count: 1 }
+      incCount({ count: 1 }); // => { count: 2 }
+      R.ifElse(R.identical, R.add as (a: number, b: number) => number, R.always(""))(2, 2); // https://goo.gl/CVUSs9
 };
 
 () => {
@@ -2292,7 +2708,7 @@ class Why {
     const x0: boolean        = R.or(false, true); // => false
     const x1: number | any[] = R.or(0, []); // => []
     const x2: number | any[] = R.or(0)([]); // => []
-    const x3: string         = R.or(null, ""); // => ''
+    const x3: string | null  = R.or(null, ""); // => ''
 
     const why = new Why(true);
     why.or(true);
@@ -2308,4 +2724,8 @@ class Why {
 () => {
     R.intersection([1, 2, 3], [2, 3, 3, 4]); // => [2, 3]
     R.intersection([1, 2, 3])([2, 3, 3, 4]); // => [2, 3]
+};
+
+() => {
+    R.bind(console.log, console);
 };

@@ -1,14 +1,13 @@
-import * as express from 'express';
-import * as webpack from 'webpack';
-import * as webpackDevMiddleware from 'webpack-dev-middleware';
+import express = require('express');
+import webpack = require('webpack');
+import webpackDevMiddleware = require('webpack-dev-middleware');
 
 const compiler = webpack({});
 
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
-	noInfo: false,
-	quiet: false,
+	logLevel: 'silent',
 	lazy: true,
 	watchOptions: {
 		aggregateTimeout: 300,
@@ -24,6 +23,7 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 	},
 	reporter: null,
 	serverSideRender: false,
+	writeToDisk: false,
 });
 
 const app = express();

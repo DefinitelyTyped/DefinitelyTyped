@@ -1,8 +1,7 @@
-
-import * as express from 'express';
+import express = require('express');
 import * as mongoose from 'mongoose';
-import * as session from 'express-session';
-import * as connectMongo from 'connect-mongo';
+import session = require('express-session');
+import connectMongo = require('connect-mongo');
 import * as mongodb from 'mongodb';
 
 var app = express();

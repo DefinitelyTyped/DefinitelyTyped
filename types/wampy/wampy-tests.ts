@@ -1,4 +1,12 @@
-import * as Wampy from 'wampy';
+import Wampy = require('wampy');
+import {
+    DataArgs,
+    ErrorArgs,
+    RPCResult,
+    RPCOptions,
+    RPCCallback,
+    WampyOpStatus
+} from 'wampy';
 declare var console: { log(...args: any[]): void };
 
 let ws = new Wampy('http://wamp.router.url', {realm: 'WAMPRealm'});
@@ -24,11 +32,11 @@ let id: number = ws.getSessionId();
 ws.disconnect();
 ws.abort();
 
-ws.subscribe('system.monitor.update', (args: any[], kwargs: any) =>
+ws.subscribe('system.monitor.update', (args: DataArgs) =>
     {
         console.log('Received system.monitor.update event!');
     })
-    .subscribe('client.message', function (args: any[], kwargs: any)
+    .subscribe('client.message', function (args: DataArgs)
     {
         console.log('Received client.message event!');
     });
@@ -40,14 +48,14 @@ ws.unsubscribe('subscribed.topic', f1);
 ws.unsubscribe('chat.message.received');
 
 ws.call('get.server.time', null, {
-    onSuccess: (args: any[], kwargs: any) =>
+    onSuccess: (args: DataArgs) =>
     {
         console.log('RPC successfully called');
-        console.log('Server time is ' + kwargs);
+        console.log('Server time is ' + args.argsDict);
     },
-    onError: (err: string, details: any, args: any[], kwargs: any) =>
+    onError: (args: ErrorArgs) =>
     {
-        console.log('RPC call failed with error ' + err);
+        console.log('RPC call failed with error ' + args.error);
     }
 });
 
@@ -63,44 +71,59 @@ ws.publish('user.modified', {field1: 'field1', field2: true, field3: 123}, {
 });
 ws.publish('user.modified', {field1: 'field1', field2: true, field3: 123}, {
     onSuccess: () => console.log('User successfully modified'),
-    onError: (err: string, details: any) => console.log('User modification failed', err)
+    onError: (args: ErrorArgs) => console.log('User modification failed', args.error)
 });
 ws.publish('chat.message.received', ['Private message'], null, {eligible: 123456789});
+ws.publish('user.logged.in', { argsList: [1,2,3], argsDict: {first: 1, second:2, third: 3}});
 
-ws.call('server.time', null, (args: any[], kwargs: any) => console.log('Server time is ' + args[0]));
+ws.call('server.time', null, (args: DataArgs) => console.log('Server time is ' + args.argsList[0]));
+ws.call('server.time', null, (args: DataArgs) => console.log('Server time is ' + args.argsDict.serverTime));
 
 ws.call('start.migration', null, {
-    onSuccess: (args: any[], kwargs: any) => console.log('RPC successfully called'),
-    onError: (err: string, details: any, args: any[], kwargs: any) => console.log('RPC call failed!', err)
+    onSuccess: (args: DataArgs) => console.log('RPC successfully called'),
+    onError: (args: ErrorArgs) => console.log('RPC call failed!', args.error)
 });
 
 ws.call('restore.backup', {backupFile: 'backup.zip'}, {
-    onSuccess: (args: any[], kwargs: any) => console.log('Backup successfully restored'),
-    onError: (err: string, details: any, args: any[], kwargs: any) => console.log('Restore failed!', err)
+    onSuccess: (args: DataArgs) => console.log('Backup successfully restored'),
+    onError: (args: ErrorArgs) => console.log('Restore failed!', args.error)
 });
 
 ws.call('start.migration', null, {
-    onSuccess: (args: any[], kwargs: any) => console.log('RPC successfully called'),
-    onError: (err: string, details: any, args: any[], kwargs: any) => console.log('RPC call failed!', err)
+    onSuccess: (args: DataArgs) => console.log('RPC successfully called'),
+    onError: (args: ErrorArgs) => console.log('RPC call failed!', args.error)
 });
 
-let status = ws.getOpStatus();
+let status: WampyOpStatus = ws.getOpStatus();
 
 ws.cancel(status.reqId);
 
-let sqrt_f = (args: any[], kwargs: any, options: any) => [{}, kwargs * kwargs];
+let options: RPCOptions = { process: true };
+
+let sqrt_f: RPCCallback = (args: DataArgs): RPCResult => {
+    let result = args.argsList[0] * args.argsList[0];
+    if (result === 0) {
+        return;
+    }
+
+    return {
+        options,
+        argsList: [result],
+        argsDict: { result }
+    }
+};
 
 ws.register('sqrt.value', sqrt_f);
 
 ws.register('sqrt.value', {
     rpc: sqrt_f,
-    onSuccess: (args: any[], kwargs: any) => console.log('RPC successfully registered'),
-    onError: (err: string, details: any) => console.log('RPC registration failed!', err)
+    onSuccess: () => console.log('RPC successfully registered'),
+    onError: (args: ErrorArgs) => console.log('RPC registration failed!', args.error)
 });
 
 ws.unregister('sqrt.value');
 
 ws.unregister('sqrt.value', {
-    onSuccess: (data: any) => console.log('RPC successfully unregistered'),
-    onError: (err: string, details: any) => console.log('RPC unregistration failed!', err)
+    onSuccess: () => console.log('RPC successfully unregistered'),
+    onError: (args: ErrorArgs) => console.log('RPC unregistration failed!', args.error)
 });

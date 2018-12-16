@@ -1,7 +1,7 @@
 import connectPgSimple = require("connect-pg-simple");
-import * as session from "express-session";
+import session = require("express-session");
 import * as pg from "pg";
-import * as express from "express";
+import express = require('express');
 
 const pgSession = connectPgSimple(session);
 

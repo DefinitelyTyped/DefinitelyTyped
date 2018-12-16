@@ -2,12 +2,13 @@
 // Project: https://github.com/alexindigo/webpack-chunk-hash#readme
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import webpack = require('webpack');
+import { Plugin } from 'webpack';
 
 export = WebpackChunkHash;
 
-declare class WebpackChunkHash extends webpack.Plugin {
+declare class WebpackChunkHash extends Plugin {
     constructor(options?: WebpackChunkHash.Options);
 }
 

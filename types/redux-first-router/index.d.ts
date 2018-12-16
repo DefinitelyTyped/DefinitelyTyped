@@ -1,9 +1,12 @@
-// Type definitions for redux-first-router 1.10
+// Type definitions for redux-first-router 2.1
 // Project: https://github.com/faceyspacey/redux-first-router#readme
 // Definitions by: Valbrand <https://github.com/Valbrand>
 //                 viggyfresh <https://github.com/viggyfresh>
 //                 janb87 <https://github.com/janb87>
 //                 corydeppen <https://github.com/corydeppen>
+//                 jscinoz <https://github.com/jscinoz>
+//                 surgeboris <https://github.com/surgeboris>
+//                 geirsagberg <https://github.com/geirsagberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -12,34 +15,39 @@ import {
     Store,
     Reducer,
     Middleware,
-    GenericStoreEnhancer
+    StoreEnhancer
 } from 'redux';
 import { History } from 'history';
 
 export type Nullable<T> = T | null | undefined;
 
-export type StateGetter = () => object;
+export type StateGetter<TState = any> = () => TState;
 
 export type RouteString = string;
 
-export type RouteThunk = (
+export type ConfirmLeave = (state: object, action: object) => Nullable<string>;
+
+export type RouteThunk<TState = any> = (
     dispatch: Dispatch<any>,
-    getState: StateGetter
+    getState: StateGetter<TState>,
 ) => any | Promise<any>;
 
-export type RouteObject<TKeys> = TKeys & {
+export type RouteObject<TKeys = {}, TState = any> = TKeys & {
     capitalizedWords?: boolean;
     navKey?: string;
     path: string;
-    thunk?: RouteThunk;
+    thunk?: RouteThunk<TState>;
     fromPath?(path: string, key?: string): string;
     toPath?(param: string, key?: string): string;
+    coerceNumbers?: boolean;
+    confirmLeave?: ConfirmLeave;
+    meta?: Meta;
 };
 
-export type Route<TKeys = {}> = RouteString | RouteObject<TKeys>;
+export type Route<TKeys = {}, TState = any> = RouteString | RouteObject<TKeys, TState>;
 
-export interface RoutesMap<TKeys = {}> {
-    [key: string]: Route<TKeys>;
+export interface RoutesMap<TKeys = {}, TState = any> {
+    [key: string]: Route<TKeys, TState>;
 }
 
 export interface ReceivedAction {
@@ -63,8 +71,10 @@ export interface ReceivedActionMeta {
     };
 }
 
+export type HistoryEntries = Array<{ pathname: string }>;
+
 export interface HistoryData {
-    entries: Array<{ pathname: string }>;
+    entries: HistoryEntries;
     index: number;
     length: number;
 }
@@ -77,7 +87,7 @@ export interface Location {
     search?: string;
 }
 
-export interface LocationState {
+export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
     type: string;
     payload: Payload;
@@ -86,7 +96,7 @@ export interface LocationState {
     prev: Location;
     kind: Nullable<string>;
     history: Nullable<HistoryData>;
-    routesMap: RoutesMap;
+    routesMap: RoutesMap<TKeys, TState>;
     hasSSR?: boolean;
 }
 
@@ -138,82 +148,166 @@ export type Listener = (
 
 export type ScrollBehavior = object;
 
-export interface Router {
+export interface Router<TState = any> {
     getStateForActionOriginal(
         action: object,
-        state: Nullable<object>
-    ): Nullable<object>;
+        state: Nullable<TState>
+    ): Nullable<TState>;
     getStateForAction(
         action: object,
-        state: Nullable<object>
-    ): Nullable<object>;
+        state: Nullable<TState>
+    ): Nullable<TState>;
     getPathAndParamsForState(
-        state: object
+        state: TState
     ): { path: Nullable<string>; params: Nullable<Params> };
     getActionForPathAndParams(path: string): Nullable<object>;
 }
 
-export interface Navigator {
-    router: Router;
+export interface Navigator<TState = any> {
+    router: Router<TState>;
 }
 
-export interface Navigators {
-    [key: string]: Navigator;
+export interface Navigators<TState = any> {
+    [key: string]: Navigator<TState>;
 }
 
-export type SelectLocationState = (state: object) => LocationState;
-export type SelectTitleState = (state: object) => string;
+export type SelectLocationState<TKeys = {}, TState = any> = (state: TState) => LocationState<TKeys, TState>;
+export type SelectTitleState<TState = any> = (state: TState) => string;
 
 export interface QuerySerializer {
     stringify(params: Params): string;
     parse(queryString: string): object;
 }
 
-export interface NavigatorsConfig {
-    navigators: Navigators;
-    patchNavigators(navigators: Navigators): void;
+export interface NavigatorsConfig<TKeys = {}, TState = any> {
+    navigators: Navigators<TState>;
+    patchNavigators(navigators: Navigators<TState>): void;
 
     actionToNavigation(
-        navigators: Navigators,
+        navigators: Navigators<TState>,
         action: object, // TODO check this
         navigationAction: Nullable<NavigationAction>,
-        route: Nullable<Route>
+        route: Nullable<Route<TKeys, TState>>
     ): object;
     navigationToAction(
-        navigators: Navigators,
-        store: Store<any>,
-        routesMap: RoutesMap,
+        navigators: Navigators<TState>,
+        store: Store<TState>,
+        routesMap: RoutesMap<TKeys, TState>,
         action: object
     ): {
-        action: object;
-        navigationAction: Nullable<NavigationAction>;
-    };
+            action: object;
+            navigationAction: Nullable<NavigationAction>;
+        };
 }
 
-export interface Options {
-    title?: string | SelectTitleState;
-    location?: string | SelectLocationState;
-    notFoundPath?: string;
-    scrollTop?: boolean;
-    onBeforeChange?(dispatch: Dispatch<any>, getState: StateGetter): void;
-    onAfterChange?(dispatch: Dispatch<any>, getState: StateGetter): void;
-    onBackNext?(dispatch: Dispatch<any>, getState: StateGetter): void;
-    restoreScroll?(history: History): ScrollBehavior;
+export interface Bag {
+    action: ReceivedAction | Action;
+    extra: any;
+}
+
+export interface Options<TKeys = {}, TState = any> {
+    /**
+     * A prefix that will be prepended to the URL. For example, using a basename of '/playground',
+     * a route with the path '/home' would correspond to the URL path '/playground/home'.
+     */
+    basename?: string;
+    /**
+     *  Whether or not a trailing delimiter is allowed when matching path.
+     */
+    strict?: boolean;
+    /**
+     * The name of the state key or a selector function to specify where in your Redux state tree
+     * Redux First Router should expect your page location reducer to be attached to.
+     */
+    location?: string | SelectLocationState<TKeys, TState>;
+    /**
+     * The name of the state key or a selector function to specify where in your Redux state tree
+     * Redux First Router should expect your page title reducer to be attached to.
+     * This can be omitted if you attach the reducer at state.title.
+     */
+    title?: string | SelectTitleState<TState>;
+    /**
+     * Can be set to false to bypass the initial dispatch, so you can do it manually, perhaps after running sagas.
+     */
     initialDispatch?: boolean;
+    /**
+     * An array of entries to initialise history object. Useful for server side rendering and tests.
+     */
+    initialEntries?: HistoryEntries;
+    /**
+     * An object with parse and stringify methods, such as the `query-string` or `qs` libraries (or anything handmade).
+     * This will be used to handle querystrings. Without this option, query strings are ignored silently.
+     */
     querySerializer?: QuerySerializer;
-    navigators?: NavigatorsConfig;
+    /**
+     * The path where users may be redirected in 2 situations: when you dispatch an action with no matching path,
+     *  or if you manually call dispatch(redirect({ type: NOT_FOUND })), where NOT_FOUND is an export from this package.
+     *  The type in actions and state will be NOT_FOUND, which you can use to show a 404 page.
+     */
+    notFoundPath?: string;
+    /**
+     * Whether or not window.scrollTo(0, 0) should be run on route changes so the user starts each page at the top.
+     */
+    scrollTop?: boolean;
+    /**
+     * A function to update window/elements scroll position.
+     */
+    restoreScroll?(history: History): ScrollBehavior;
+    /**
+     * A simple function that will be called before the routes change.
+     * It's passed your standard `dispatch` and `getState` arguments like a thunk,
+     * as well as the `bag` object as a third parameter, which contains the dispatched `action` and the configured `extra` value.
+     */
+    onBeforeChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>, bag: Bag): void;
+    /**
+     * A simple function that will be called after the routes change.
+     * It's passed your standard `dispatch` and `getState` arguments like a thunk,
+     * as well as the `bag` object as a third parameter, which contains the dispatched `action` and the configured `extra` value.
+     */
+    onAfterChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>, bag: Bag): void;
+    /**
+     * A simple function that will be called whenever the user uses the browser back/next buttons.
+     * It's passed your standard `dispatch` and `getState` arguments like a thunk,
+     * as well as the `bag` object as a third parameter, which contains the dispatched `action`
+     * and the configured `extra` value. Actions with kinds `back`, `next`, and `pop` trigger this.
+     */
+    onBackNext?(dispatch: Dispatch<any>, getState: StateGetter<TState>, bag: Bag): void;
+    /**
+     * A function receiving `message` and `callback` when navigation is blocked with `confirmLeave`.
+     * The message is the return value from `confirmLeave`.
+     * The callback can be called with `true` to unblock the navigation, or with `false` to cancel the navigation.
+     */
+    displayConfirmLeave?: DisplayConfirmLeave;
+    /**
+     * A function returning a history object compatible with the popular `history` package.
+     */
+    createHistory?(): History;
+    /**
+     * A map of of your Redux state keys to _React Navigation_ navigators.
+     */
+    navigators?: NavigatorsConfig<TKeys, TState>;
+    /**
+     * An optional value that will be passed as part of the third `bag` argument to all options callbacks and routes thunk.
+     * It works much like the `withExtraArgument` feature of `redux-thunk` or the `context` argument of GraphQL resolvers.
+     * You can use it to pass any required context to your thunks without having to tightly couple them to it.
+     * For example, you could pass an instance of an API client initialised with authentication cookies,
+     * or a function `addReducer` to inject new code split reducers into the store.
+     */
+    extra?: any;
 }
 
 export type Params = object;
 export type Payload = object;
 
+export type DisplayConfirmLeave = (message: string, callback: (unblock: boolean) => void) => void;
+
 export type ScrollUpdater = (performedByUser: boolean) => void;
 
 export const NOT_FOUND: '@@redux-first-router/NOT_FOUND';
 
-export function actionToPath(
+export function actionToPath<TKeys = {}, TState = any>(
     action: ReceivedAction,
-    routesMap: RoutesMap,
+    routesMap: RoutesMap<TKeys, TState>,
     querySerializer?: QuerySerializer
 ): string;
 
@@ -225,17 +319,16 @@ export function canGoBack(): boolean;
 
 export function canGoForward(): boolean;
 
-export function connectRoutes(
-    history: History,
-    routesMap: RoutesMap,
-    options?: Options
+export function connectRoutes<TKeys = {}, TState = any>(
+    routesMap: RoutesMap<TKeys, TState>,
+    options?: Options<TKeys, TState>,
 ): {
-    reducer: Reducer<LocationState>;
-    middleware: Middleware;
-    thunk(store: Store<any>): Promise<Nullable<RouteThunk>>;
-    enhancer: GenericStoreEnhancer;
-    initialDispatch?(): void;
-};
+        reducer: Reducer<LocationState<TKeys, TState>>;
+        middleware: Middleware;
+        thunk(store: Store<TState>): Promise<Nullable<RouteThunk<TState>>>;
+        enhancer: StoreEnhancer;
+        initialDispatch?(): void;
+    };
 
 export function go(n: number): void;
 
@@ -247,9 +340,10 @@ export function next(): void;
 
 export function nextPath(): string | void;
 
-export function pathToAction(
+export function pathToAction<TKeys = {}, TState = any>(
     pathname: string,
-    routesMap: RoutesMap
+    routesMap: RoutesMap<TKeys, TState>,
+    querySerializer?: QuerySerializer
 ): ReceivedAction;
 
 export function prevPath(): string | void;

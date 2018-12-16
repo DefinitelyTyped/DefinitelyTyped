@@ -1,4 +1,4 @@
-import * as uniqid from "uniqid";
+import uniqid = require("uniqid");
 
 const uniqueID = uniqid("123");
 const processString = uniqid.process("123");

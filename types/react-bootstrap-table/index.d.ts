@@ -1,11 +1,12 @@
-// Type definitions for react-bootstrap-table 4.2
+// Type definitions for react-bootstrap-table 4.3
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>,
 //                 Aleksander Lode <https://github.com/alelode>,
 //                 Josué Us <https://github.com/UJosue10>
 //                 Janeene Beeforth <https://github.com/dawnmist>
+//                 Oscar Andersson <https://github.com/Ogglas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
@@ -376,9 +377,9 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 		search?: boolean;
 	};
 	/**
-	 * Set a style to be used for the table rows.
+	 * Set a style to be used for the table rows. Example: https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/style/tr-style-table.js
 	 */
-	trStyle?: CSSProperties;
+	trStyle?: CSSProperties | ((rowData: any, rowIndex: number) => CSSProperties);
 	/**
 	 * Disable the automatic tabIndex for navigating between cells. This can be useful if you have a page with multiple
 	 * tables on the page, to stop the tab moving to another table. Default is false.
@@ -840,6 +841,10 @@ export interface Options<TRow extends object = any> {
 	 */
 	expandRowBgColor?: string;
 	/**
+	 * Expand all rows
+	 */
+	expandAll?: boolean;
+	/**
 	 * Tell react-bootstrap-table how to trigger expanding by clicking on 'row' or 'column' level.
 	 * If the value is 'column', by default all the columns are expandable. If you want to specify some columns as
 	 * unexpandable, check expandable.
@@ -1017,7 +1022,7 @@ export interface Options<TRow extends object = any> {
 	 * The function allows you to make further modifications to the cell value prior to it being saved. You need to
 	 * return the final cell value to use.
 	 */
-	onCellEdit?<K extends keyof TRow>(row: TRow, fieldName: K, value: TRow[K]): TRow[K];
+	onCellEdit?<K extends string & keyof TRow>(row: TRow, fieldName: K, value: TRow[K]): TRow[K];
 	/**
 	 * Custom message to show when the InsertModal save fails validation.
 	 * Default message is 'Form validate errors, please checking!'
@@ -1512,11 +1517,6 @@ export interface Editable<TRow extends object, K extends keyof TRow> {
 	attrs?: EditableAttrs;
 }
 
-export type SetFilterCallback = (targetValue: any) => boolean;
-export interface ApplyFilterParameter {
-	callback: SetFilterCallback;
-}
-
 /**
  * Text filter type.
  */
@@ -1709,9 +1709,24 @@ export interface DateFilter {
 }
 
 /**
+ * Custom Filter Parameters
+ */
+export interface CustomFilterParameters<Params extends object = any> {
+	callback(cell: any, params: Params): boolean;
+	callbackParameters: Params;
+}
+
+/**
+ * Custom filter element type.
+ */
+export class CustomFilterElement extends Component<any> {
+	cleanFiltered: () => void;
+}
+
+/**
  * Custom filter type.
  */
-export interface CustomFilter {
+export interface CustomFilter<FParams extends object = any, FElement extends CustomFilterElement = any> {
 	/**
 	 * Type must be 'CustomFilter'
 	 */
@@ -1720,13 +1735,13 @@ export interface CustomFilter {
 	 * Function to generate the filter component
 	 */
 	getElement(
-		filterHandler: (parameters?: ApplyFilterParameter) => void,
-		customFilterParameters: object
-	): ReactElement<any>;
+		filterHandler: (value?: CustomFilterParameters<FParams>, type?: 'CustomFilter') => void,
+		customFilterParameters: CustomFilterParameters<FParams>
+	): ReactElement<FElement>;
 	/**
 	 * Custom filter parameters to be passed to the generator function
 	 */
-	customFilterParameters: object;
+	customFilterParameters: CustomFilterParameters<FParams>;
 }
 
 /**
@@ -1817,8 +1832,8 @@ export type FilterValue =
 /**
  * Filter object that can be passed to BootstrapTableFilter.handleFilterData function.
  */
-export interface FilterData {
-	[dataField: string]: FilterValue;
+export interface FilterData<CustomFilterValue extends object = any> {
+	[dataField: string]: FilterValue | CustomFilterValue;
 }
 
 /**
@@ -1842,7 +1857,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the navigating cell.
 	 */
-	customStyle?: CSSProperties;
+	customStyle?(cell: any, row: any): CSSProperties;
 	/**
 	 * Set to false to disable click to navigate, usually user wants to click to select row instead of navigation.
 	 */
@@ -1850,7 +1865,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the both of navigating and editing cell.
 	 */
-	customStyleOnEditCell?: CSSProperties;
+	customStyleOnEditCell?(cell: any, row: any): CSSProperties;
 	/**
 	 * When set to true, pressing ENTER will begin to edit the cell if cellEdit is also enabled.
 	 */
@@ -1880,6 +1895,13 @@ export interface ExpandColumnComponentProps {
 }
 
 /**
+ * Input properties for the expandedColumnHeaderComponent function.
+ */
+export interface ExpandedColumnHeaderProps {
+	anyExpand: boolean;
+}
+
+/**
  * Customize the options for expand row feature.
  */
 export interface ExpandColumnOptions {
@@ -1900,6 +1922,10 @@ export interface ExpandColumnOptions {
 	 * should be shown first. Default is true, false will move the expand indicator column after selection column.
 	 */
 	expandColumnBeforeSelectColumn?: boolean;
+	/**
+	 * a callback function to customise the header column
+	 */
+	expandedColumnHeaderComponent?(props: ExpandedColumnHeaderProps): string | ReactElement<any>;
 }
 
 /**

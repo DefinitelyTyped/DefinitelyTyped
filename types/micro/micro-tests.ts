@@ -1,5 +1,5 @@
 import micro, { json, RequestHandler, buffer, text, send, createError } from 'micro';
-import * as socketIO from 'socket.io';
+import socketIO = require('socket.io');
 
 // Json sample
 

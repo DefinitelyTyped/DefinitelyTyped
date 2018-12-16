@@ -1,5 +1,5 @@
-import * as Koa from "koa";
-import * as json from 'koa-json';
+import Koa = require("koa");
+import json = require('koa-json');
 
 const app = new Koa();
 

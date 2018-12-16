@@ -1,11 +1,18 @@
-// Type definitions for React OnSenui (react-onsenui) 2.7
+// Type definitions for React Onsen UI (react-onsenui) 2.9.5
 // Project: https://onsen.io/v2/docs/guide/react/
-// Definitions by: Ozytis <https://ozytis.fr>
+// Definitions by: Ozytis <https://ozytis.fr>,
+//                 Salim <https://github.com/salim7>,
+//                 Jemmyw <https://github.com/jemmyw>
+//                 Mikael Lirbank <https://github.com/lirbank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
-import Component = React.Component;
+
+export type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Partial<Pick<React.HTMLAttributes<{}>, K>>;
+export type InputHTMLAttributes<K extends keyof React.InputHTMLAttributes<{}>> = Partial<Pick<React.InputHTMLAttributes<{}>, K>>;
+
+export class Component<P = {}, S = {}> extends React.Component<HTMLAttributes<'id' | 'className' | 'style'> & P, S> {}
 
 export interface Modifiers_string {
     default?: string;
@@ -23,6 +30,25 @@ export interface AnimationOptions {
     timing?: string;
 }
 
+export interface PullHookChangeEvent {
+    state: "initial" | "preaction" | "action";
+}
+
+export type NavigatorAnimationTypes = "slide" | "lift" | "fade" | "none" | string;
+
+export interface PageTransitionOptions {
+    animation?: NavigatorAnimationTypes;
+    animationOptions?: AnimationOptions;
+    callback?: () => void;
+    data?: any;
+}
+
+export interface SwitchChangeEvent extends Event {
+    switch: HTMLElement;
+    value: boolean;
+    isInteractive: boolean;
+}
+
 /*** splitter ***/
 export class SplitterSide extends Component<{
     side?: "left" | "right",
@@ -33,13 +59,13 @@ export class SplitterSide extends Component<{
     onPreClose?(e?: Event): void,
     onModeChange?(e?: Event): void,
     onClose?(e?: Event): void,
-    isSwipeable?: boolean,
+    swipeable?: boolean,
     swipeTargetWidth?: number,
     width?: number,
     animation?: "overlay" | "default"
     animationOptions?: AnimationOptions,
     openThreshold?: number,
-    mode?: "collapse" | "split"
+    mode?: "collapse" | "split",
 }, any> { }
 
 export class SplitterContent extends Component { }
@@ -73,7 +99,6 @@ export class Icon extends Component<{
 }, any> {}
 
 /*** page ***/
-
 export class Page extends Component<{
     contentStyle?: any,
     modifier?: string,
@@ -89,7 +114,7 @@ export class Page extends Component<{
 /*** Grid ***/
 export class Col extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
-    width?: string
+    width?: string,
 }, any> {}
 
 export class Row extends Component<{
@@ -103,22 +128,22 @@ export class BackButton extends Component<{
 }, any> {}
 
 export class Navigator extends Component<{
-    renderPage(route: any): JSX.Element,
+    renderPage(route: any, navigator?: Navigator): JSX.Element,
     initialRouteStack?: string[],
     initialRoute?: any,
     onPrePush?(): void,
     onPostPush?(): void,
     onPrePop?(): void,
     onPostPop?(): void,
-    animation?: "slide" | "lift" | "fade" | "none" | string,
+    animation?: NavigatorAnimationTypes,
     animationOptions?: AnimationOptions,
 }, any> {
     pages: any[];
     routes: any[];
-    resetPage(route: any, options?: any): void;
-    resetPageStack(route: any, options?: any): void;
-    pushPage(route: any, options?: any): void;
-    popPage(options?: any): void;
+    resetPage(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
+    resetPageStack(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
+    pushPage(route: any, options?: PageTransitionOptions): Promise<HTMLElement>;
+    popPage(options?: PageTransitionOptions): Promise<HTMLElement>;
 }
 
 /*** Carousel ***/
@@ -127,8 +152,8 @@ export class Carousel extends Component<{
     fullscreen?: boolean,
     overscrollable?: boolean,
     centered?: boolean,
-    itemWidth?: number,
-    itemHeight?: number,
+    itemWidth?: number | string,
+    itemHeight?: number | string,
     autoScroll?: boolean,
     autoScrollRatio?: number,
     swipeable?: boolean,
@@ -142,7 +167,7 @@ export class Carousel extends Component<{
 }, any> {}
 
 export class CarouselItem extends Component<{
-    modifier: string
+    modifier?: string
 }, any> {}
 
 /*** AlertDialog ***/
@@ -177,11 +202,14 @@ export class Dialog extends Component<{
 }, any> {}
 
 export class Modal extends Component<{
-    animation?: "fade" | "none",
-    animationOptions?: AnimationOptions
-    onShow?(): void,
-    onHide?(): void,
-    isOpen?: boolean
+    animation?: "fade" | "lift" | "none",
+    animationOptions?: AnimationOptions,
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    isOpen?: boolean,
+    onDeviceBackButton?(): void,
 }, any> {}
 
 export class Popover extends Component<{
@@ -198,6 +226,18 @@ export class Popover extends Component<{
     onPostShow?(): void,
     onPreHide?(): void,
     onPostHide?(): void,
+}, any> {}
+
+export class Toast extends Component<{
+    isOpen: boolean,
+    animation?: 'default' | 'ascend' | 'lift' | 'fall' | 'fade' | 'none',
+    modifier?: string,
+    animationOptions?: AnimationOptions,
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    onDeviceBackButton?(): void,
 }, any> {}
 
 export class ActionSheet extends Component<{
@@ -226,21 +266,22 @@ export class ActionSheetButton extends Component<{
 export class ProgressBar extends Component<{
     modifier?: string,
     value?: number,
-    secondaryValue?: boolean,
-    intermediate?: boolean,
+    secondaryValue?: number,
+    indeterminate?: boolean,
 }, any> {}
 
 export class ProgressCircular extends Component<{
     modifier?: string,
     value?: number,
     secondaryValue?: boolean,
-    intermediate?: boolean,
+    indeterminate?: boolean,
 }, any> {}
 
 export class Ripple extends Component<{
     color?: string,
     background?: string,
     disabled?: boolean,
+    modifier?: string,
 }, any> {}
 
 /*** Forms ***/
@@ -250,28 +291,32 @@ export class Fab extends Component<{
     position?: string,
     disabled?: boolean,
     onClick?(e?: React.MouseEvent<HTMLElement>): void,
+    name?: string,
 }, any> {}
 
 export class Button extends Component<{
     modifier?: string,
     disabled?: boolean,
     ripple?: boolean,
-    className?: string,
+    name?: string,
     onClick?(e?: React.MouseEvent<HTMLElement>): void
 }, any> {}
 
-export class Input extends Component<{
+export class Input extends Component<InputHTMLAttributes<'min' | 'max' | 'step'> & {
     modifier?: string,
     disabled?: boolean,
+    readOnly?: boolean,
     onChange?: (e: React.ChangeEvent<any>) => void,
+    onBlur?: (e: React.FocusEvent<any>) => void,
+    onFocus?: (e: React.FocusEvent<any>) => void,
     value?: string,
+    defaultValue?: string,
     checked?: boolean,
     placeholder?: string,
     type?: string,
     inputId?: string,
     float?: boolean,
     name?: string,
-    className?: string
 }, any> {}
 
 export class Radio extends Component<{
@@ -280,7 +325,9 @@ export class Radio extends Component<{
     onChange?(e: Event): void,
     value?: string,
     checked?: boolean,
-    inputId?: string
+    defaultChecked?: boolean,
+    inputId?: string,
+    name?: string,
 }, any> {}
 
 export class Checkbox extends Component<{
@@ -289,7 +336,8 @@ export class Checkbox extends Component<{
     onChange?(e: Event): void,
     value?: string,
     checked?: boolean,
-    inputId?: string
+    inputId?: string,
+    name?: string,
 }, any> {}
 
 export class Range extends Component<{
@@ -299,32 +347,67 @@ export class Range extends Component<{
     disabled?: boolean,
 }, any> {}
 
-export class Switch extends Component<{
+export class SearchInput extends Component<{
+    modifier?: string,
+    disabled?: boolean,
     onChange?(e: Event): void,
+    value?: string,
+    inputId?: string,
+}, any> {}
+
+export class Select extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?: (e: React.ChangeEvent<any>) => void,
+    value?: string,
+    multiple?: boolean,
+    autofocus?: boolean,
+    required?: boolean,
+    form?: string,
+    size?: string,
+    name?: string,
+}, any> {}
+
+export class Switch extends Component<{
+    modifier?: string,
+    onChange?(e: SwitchChangeEvent): void,
     checked?: boolean,
     disabled?: boolean,
-    inputId?: string
+    inputId?: string,
+    name?: string,
 }, any> {}
 
 /**
  * Tabs
  */
 
-export class Tab extends Component { }
+export class Tab extends Component<{
+    label?: string,
+    icon?: string,
+}> { }
 
 export class TabActive extends Component { }
 
 export class TabInactive extends Component { }
 
+export interface TabbarRenderTab {
+    content: JSX.Element;
+    tab: JSX.Element;
+}
+
 export class Tabbar extends Component<{
-    index?: number,
-    renderTabs?(): any,
+    index: number,
+    renderTabs(): TabbarRenderTab[],
     position?: "bottom" | "top" | "auto",
-    animation: "none" | "slide" | "fade",
+    swipeable?: boolean,
+    ignoreEdgeWidth?: number,
+    animation?: "none" | "slide",
     animationOptions?: AnimationOptions,
+    tabBorder?: boolean,
     onPreChange?(): void,
     onPostChange?(): void,
     onReactive?(): void,
+    onSwipe?(index: number, animationOptions: AnimationOptions): void,
 }, any> { }
 
 /**
@@ -358,4 +441,49 @@ export class ListItem extends Component<{
     onClick?: React.MouseEventHandler<any>,
 }, any> {}
 
-export class Card extends Component { }
+export class ListTitle extends Component<{
+    modifier?: string,
+    onClick?: React.MouseEventHandler<any>,
+}, any> {}
+
+export class Card extends Component<{
+    modifier?: string,
+}, any> {}
+
+/**
+ * Controls
+ */
+
+/** Pull-to-refresh hook. */
+export class PullHook extends Component<{
+    onChange?(e: PullHookChangeEvent): void,
+    onLoad?(done: () => void): void,
+    onPull?(): void,
+    disabled?: boolean,
+    height?: number,
+    thresholdHeight?: number,
+    fixedContent?: boolean,
+}, any> {}
+
+export class Segment extends Component<{
+    index?: number,
+    tabbarId?: string,
+    modifier?: string,
+    onPostChange?(): void,
+}, any> {}
+
+export type SpeedDialPosition = 'top' | 'right' | 'bottom' | 'left' |
+    'top right' | 'top left' | 'bottom right' | 'bottom left';
+export type SpeedDialDirection = 'up' | 'down' | 'left' | 'right';
+
+export class SpeedDial extends Component<{
+    modifier?: string,
+    position?: SpeedDialPosition,
+    direction?: SpeedDialDirection,
+    disabled?: boolean,
+}, any> {}
+
+export class SpeedDialItem extends Component<{
+    modifier?: string;
+    onClick?(e?: React.MouseEvent<HTMLElement>): void,
+}, any> {}

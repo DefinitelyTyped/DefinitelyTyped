@@ -5,41 +5,44 @@
 
 /// <reference types="node" />
 
-import * as temp from ".";
 import * as fs from "fs";
 
-export interface OpenFile {
-  path: string;
-  fd: number;
+declare namespace temp {
+  interface OpenFile {
+    path: string;
+    fd: number;
+  }
+
+  interface Stats {
+    files: number;
+    dirs: number;
+  }
+
+  interface AffixOptions {
+    prefix?: string;
+    suffix?: string;
+    dir?: string;
+  }
+
+  let dir: string;
+
+  function track(value?: boolean): typeof temp;
+
+  function mkdir(affixes?: string | AffixOptions, callback?: (err: any, dirPath: string) => void): void;
+
+  function mkdirSync(affixes?: string | AffixOptions): string;
+
+  function open(affixes?: string | AffixOptions, callback?: (err: any, result: OpenFile) => void): void;
+
+  function openSync(affixes?: string | AffixOptions): OpenFile;
+
+  function path(affixes?: string | AffixOptions, defaultPrefix?: string): string;
+
+  function cleanup(callback?: (result: boolean | Stats) => void): void;
+
+  function cleanupSync(): boolean | Stats;
+
+  function createWriteStream(affixes?: string | AffixOptions): fs.WriteStream;
 }
 
-export interface Stats {
-  files: number;
-  dirs: number;
-}
-
-export interface AffixOptions {
-  prefix?: string;
-  suffix?: string;
-  dir?: string;
-}
-
-export let dir: string;
-
-export function track(value?: boolean): typeof temp;
-
-export function mkdir(affixes?: string | AffixOptions, callback?: (err: any, dirPath: string) => void): void;
-
-export function mkdirSync(affixes?: string | AffixOptions): string;
-
-export function open(affixes?: string | AffixOptions, callback?: (err: any, result: OpenFile) => void): void;
-
-export function openSync(affixes?: string | AffixOptions): OpenFile;
-
-export function path(affixes?: string | AffixOptions, defaultPrefix?: string): string;
-
-export function cleanup(callback?: (result: boolean | Stats) => void): void;
-
-export function cleanupSync(): boolean | Stats;
-
-export function createWriteStream(affixes?: string | AffixOptions): fs.WriteStream;
+export = temp;

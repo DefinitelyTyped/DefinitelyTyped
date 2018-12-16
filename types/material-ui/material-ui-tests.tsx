@@ -2063,13 +2063,13 @@ import {
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
-// Needed for onTouchTap
+// Needed for onClick
 // Check this repo:
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-function handleTouchTap() {
-  alert('onTouchTap triggered on the title component');
+function handleClick() {
+  alert('onClick triggered on the title component');
 }
 
 const styles: { [key: string]: CSSProperties } = {
@@ -2344,7 +2344,7 @@ const AppBarExampleIcon = () => (
 const AppBarExampleIconButton = () => (
   <AppBar
     title={<span style={styles.title}>Title</span>}
-    onTitleTouchTap={handleTouchTap}
+    onTitleClick={handleClick}
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
     iconElementRight={<FlatButton label="Save" />}
   />
@@ -2372,13 +2372,9 @@ const AppBarExampleIconMenu = () => (
 
 // "http://www.material-ui.com/#/components/auto-complete"
 export class AutoCompleteExampleSimple extends Component<{}, {dataSource: string[]}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      dataSource: [],
-    };
-  }
+  state = {
+    dataSource: [],
+  };
 
   handleUpdateInput = (value) => {
     this.setState({
@@ -2536,7 +2532,7 @@ const AutoCompleteExampleFilters = () => (
 
 // "http://www.material-ui.com/#/components/avatar"
 const AvatarExampleSimple = () => (
-  <List>
+  <List className="foo">
     <ListItem
       disabled={true}
       leftAvatar={
@@ -2959,12 +2955,9 @@ const CardExampleWithoutAvatar = () => (
 );
 
 class CardExampleControlled extends Component<{}, {expanded: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false,
-    };
-  }
+  state = {
+    expanded: false,
+  };
 
   handleExpandChange = (expanded) => {
     this.setState({expanded});
@@ -3014,8 +3007,8 @@ class CardExampleControlled extends Component<{}, {expanded: boolean}> {
           Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
         </CardText>
         <CardActions>
-                    <FlatButton label="Expand" onTouchTap={this.handleExpand}/>
-                    <FlatButton label="Reduce" onTouchTap={this.handleReduce}/>
+                    <FlatButton label="Expand" onClick={this.handleExpand}/>
+                    <FlatButton label="Reduce" onClick={this.handleReduce}/>
         </CardActions>
       </Card>
     );
@@ -3040,14 +3033,14 @@ class ChipExampleComplex extends Component {
     alert('You clicked the delete button.');
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     alert('You clicked the Chip.');
   }
 
   render() {
     return (
       <div>
-        <Chip onTouchTap={this.handleTouchTap} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
+        <Chip onClick={this.handleClick} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
       </div>
     );
   }
@@ -3082,95 +3075,90 @@ interface DatePickerExampleToggleState {
 }
 
 class DatePickerExampleToggle extends Component<{}, DatePickerExampleToggleState> {
-  constructor(props) {
-    super(props);
+    static initState() {
+        const minDate = new Date();
+        const maxDate = new Date();
+        minDate.setFullYear(minDate.getFullYear() - 1);
+        minDate.setHours(0, 0, 0, 0);
+        maxDate.setFullYear(maxDate.getFullYear() + 1);
+        maxDate.setHours(0, 0, 0, 0);
 
-    const minDate = new Date();
-    const maxDate = new Date();
-    minDate.setFullYear(minDate.getFullYear() - 1);
-    minDate.setHours(0, 0, 0, 0);
-    maxDate.setFullYear(maxDate.getFullYear() + 1);
-    maxDate.setHours(0, 0, 0, 0);
+        return {
+            minDate,
+            maxDate,
+            autoOk: false,
+            disableYearSelection: false
+        };
+    }
+    state = DatePickerExampleToggle.initState();
 
-    this.state = {
-      minDate,
-      maxDate,
-      autoOk: false,
-      disableYearSelection: false,
-    };
-  }
+    handleChangeMinDate = (event, date) => {
+        this.setState({
+            minDate: date
+        });
+    }
 
-  handleChangeMinDate = (event, date) => {
-    this.setState({
-      minDate: date,
-    });
-  }
+    handleChangeMaxDate = (event, date) => {
+        this.setState({
+            maxDate: date
+        });
+    }
 
-  handleChangeMaxDate = (event, date) => {
-    this.setState({
-      maxDate: date,
-    });
-  }
+    handleToggle = (event, toggled) => {
+        this.setState({
+            [event.target.name]: toggled
+        });
+    }
 
-  handleToggle = (event, toggled) => {
-    this.setState({
-      [event.target.name]: toggled,
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <DatePicker
-          floatingLabelText="Ranged Date Picker"
-          autoOk={this.state.autoOk}
-          minDate={this.state.minDate}
-          maxDate={this.state.maxDate}
-          disableYearSelection={this.state.disableYearSelection}
-        />
-        <div style={optionsStyle}>
-          <DatePicker
-            onChange={this.handleChangeMinDate}
-            autoOk={this.state.autoOk}
-            floatingLabelText="Min Date"
-            defaultDate={this.state.minDate}
-            disableYearSelection={this.state.disableYearSelection}
-          />
-          <DatePicker
-            onChange={this.handleChangeMaxDate}
-            autoOk={this.state.autoOk}
-            floatingLabelText="Max Date"
-            defaultDate={this.state.maxDate}
-            disableYearSelection={this.state.disableYearSelection}
-          />
-          <Toggle
-            name="autoOk"
-            value="autoOk"
-            label="Auto Ok"
-            toggled={this.state.autoOk}
-            onToggle={this.handleToggle}
-          />
-          <Toggle
-            name="disableYearSelection"
-            value="disableYearSelection"
-            label="Disable Year Selection"
-            toggled={this.state.disableYearSelection}
-            onToggle={this.handleToggle}
-          />
-        </div>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <DatePicker
+                    floatingLabelText="Ranged Date Picker"
+                    autoOk={this.state.autoOk}
+                    minDate={this.state.minDate}
+                    maxDate={this.state.maxDate}
+                    disableYearSelection={this.state.disableYearSelection}
+                />
+                <div style={optionsStyle}>
+                    <DatePicker
+                        onChange={this.handleChangeMinDate}
+                        autoOk={this.state.autoOk}
+                        floatingLabelText="Min Date"
+                        defaultDate={this.state.minDate}
+                        disableYearSelection={this.state.disableYearSelection}
+                    />
+                    <DatePicker
+                        onChange={this.handleChangeMaxDate}
+                        autoOk={this.state.autoOk}
+                        floatingLabelText="Max Date"
+                        defaultDate={this.state.maxDate}
+                        disableYearSelection={this.state.disableYearSelection}
+                    />
+                    <Toggle
+                        name="autoOk"
+                        value="autoOk"
+                        label="Auto Ok"
+                        toggled={this.state.autoOk}
+                        onToggle={this.handleToggle}
+                    />
+                    <Toggle
+                        name="disableYearSelection"
+                        value="disableYearSelection"
+                        label="Disable Year Selection"
+                        toggled={this.state.disableYearSelection}
+                        onToggle={this.handleToggle}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
 class DatePickerExampleControlled extends Component<{}, {controlledDate?: Date}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      controlledDate: null,
-    };
-  }
+  state = {
+    controlledDate: null,
+  };
 
   handleChange = (event, date) => {
     this.setState({
@@ -3247,19 +3235,19 @@ class DialogExampleSimple extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Dialog" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Dialog" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Actions"
           actions={actions}
@@ -3292,19 +3280,19 @@ class DialogExampleModal extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         disabled={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Modal Dialog" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Modal Dialog" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Actions"
           actions={actions}
@@ -3336,18 +3324,18 @@ class DialogExampleCustomWidth extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Dialog With Custom Width" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Dialog With Custom Width" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Custom Width"
           actions={actions}
@@ -3381,13 +3369,13 @@ class DialogExampleDialogDatePicker extends Component<{}, {open?: boolean}> {
         label="Ok"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Dialog With Date Picker" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Dialog With Date Picker" onClick={this.handleOpen}/>
         <Dialog
           title="Dialog With Date Picker"
           actions={actions}
@@ -3421,13 +3409,13 @@ class DialogExampleScrollable extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
@@ -3445,7 +3433,7 @@ class DialogExampleScrollable extends Component<{}, {open?: boolean}> {
 
     return (
       <div>
-                <RaisedButton label="Scrollable Dialog" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Scrollable Dialog" onClick={this.handleOpen}/>
         <Dialog
           title="Scrollable Dialog"
           actions={actions}
@@ -3481,18 +3469,18 @@ class DialogExampleAlert extends Component<{}, {open?: boolean}> {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
       <FlatButton
         label="Discard"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 
     return (
       <div>
-                <RaisedButton label="Alert" onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Alert" onClick={this.handleOpen}/>
         <Dialog
           actions={actions}
           modal={false}
@@ -3545,10 +3533,7 @@ const DividerExampleMenu = () => (
 
 // "http://www.material-ui.com/#/components/drawer"
 class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
+  state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
 
@@ -3557,7 +3542,7 @@ class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
       <div>
         <RaisedButton
           label="Toggle Drawer"
-          onTouchTap={this.handleToggle}
+          onClick={this.handleToggle}
         />
         <Drawer open={this.state.open}>
           <MenuItem>Menu Item</MenuItem>
@@ -3569,10 +3554,7 @@ class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
 }
 
 class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
+  state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
 
@@ -3583,7 +3565,7 @@ class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
       <div>
         <RaisedButton
           label="Open Drawer"
-          onTouchTap={this.handleToggle}
+          onClick={this.handleToggle}
         />
         <Drawer
           docked={false}
@@ -3591,8 +3573,8 @@ class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
-          <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-          <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+          <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
+          <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
         </Drawer>
       </div>
     );
@@ -3600,10 +3582,7 @@ class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
 }
 
 class DrawerOpenRightExample extends Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
+  state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
 
@@ -3612,7 +3591,7 @@ class DrawerOpenRightExample extends Component<{}, {open?: boolean}> {
       <div>
         <RaisedButton
           label="Toggle Drawer"
-          onTouchTap={this.handleToggle}
+          onClick={this.handleToggle}
         />
                 <Drawer width="20%" openSecondary={true} open={this.state.open}>
                     <AppBar title="AppBar"/>
@@ -4487,6 +4466,31 @@ const IconMenuExampleSimple = () => (
             <MenuItem primaryText="Help"/>
             <MenuItem primaryText="Sign out"/>
     </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+      onClick={(e) => {}}
+      onItemClick={(e, child) => {}}
+    >
+            <MenuItem primaryText="Refresh"/>
+            <MenuItem primaryText="Send feedback"/>
+            <MenuItem primaryText="Settings"/>
+            <MenuItem primaryText="Help"/>
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
+    <IconMenu
+      iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+    >
+            {false}
+            {undefined}
+            {null}
+            {true}
+            <MenuItem primaryText="Sign out"/>
+    </IconMenu>
   </div>
 );
 
@@ -4497,14 +4501,11 @@ interface IconMenuExampleControlledState {
 }
 
 class IconMenuExampleControlled extends Component<{}, IconMenuExampleControlledState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      valueSingle: '3',
-      valueMultiple: ['3', '5'],
-    };
-  }
+  state = {
+    valueSingle: '3',
+    valueMultiple: ['3', '5'],
+    openMenu: false
+  };
 
   handleChangeSingle = (event, value) => {
     this.setState({
@@ -4567,7 +4568,7 @@ class IconMenuExampleControlled extends Component<{}, IconMenuExampleControlledS
                     <MenuItem value="3" primaryText="Android App"/>
                     <MenuItem value="4" primaryText="iOS App"/>
         </IconMenu>
-                <RaisedButton onTouchTap={this.handleOpenMenu} label="Downloads"/>
+                <RaisedButton onClick={this.handleOpenMenu} label="Downloads"/>
       </div>
     );
   }
@@ -4673,10 +4674,7 @@ const IconMenuExampleNested = () => (
 
 // "http://www.material-ui.com/#/components/dropdown-menu"
 class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 1};
-  }
+  state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4696,7 +4694,6 @@ class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
           value={this.state.value}
           onChange={this.handleChange}
           style={styles.customWidth}
-          autoWidth={false}
         >
                     <MenuItem value={1} primaryText="Custom width"/>
                     <MenuItem value={2} primaryText="Every Night"/>
@@ -4710,10 +4707,7 @@ class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
 }
 
 class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 2};
-  }
+  state = {value: 2};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4730,7 +4724,7 @@ class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
   }
 }
 
-const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+const DropDownMenuAnchorExample: React.SFC = () => (
   <DropDownMenu
     value={1}
     targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
@@ -4747,10 +4741,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 class DropDownMenuLongMenuExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 10};
-  }
+  state = {value: 10};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4764,10 +4755,7 @@ class DropDownMenuLongMenuExample extends Component<{}, {value?: number}> {
 }
 
 class DropDownMenuLabeledExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 2};
-  }
+  state = {value: 2};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -4816,15 +4804,12 @@ const PaperExampleCircle = () => (
 
 // "http://www.material-ui.com/#/components/popover"
 class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
-  constructor(props) {
-    super(props);
+  state = {
+    open: false,
+    anchorEl: null
+  };
 
-    this.state = {
-      open: false,
-    };
-  }
-
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
 
@@ -4844,7 +4829,7 @@ class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: Rea
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <Popover
@@ -4867,15 +4852,12 @@ class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: Rea
 }
 
 class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
-  constructor(props) {
-    super(props);
+  state = {
+    open: false,
+    anchorEl: null
+  };
 
-    this.state = {
-      open: false,
-    };
-  }
-
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
     this.setState({
@@ -4894,7 +4876,7 @@ class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: 
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <Popover
@@ -4925,23 +4907,19 @@ interface PopoverExampleConfigurableState {
 }
 
 class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurableState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: false,
-      anchorOrigin: {
+  state: PopoverExampleConfigurableState = {
+    open: false,
+    anchorOrigin: {
         horizontal: 'left',
         vertical: 'bottom',
-      },
-      targetOrigin: {
+    },
+    targetOrigin: {
         horizontal: 'left',
         vertical: 'top',
-      },
-    };
-  }
+    },
+  };
 
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
     this.setState({
@@ -4978,7 +4956,7 @@ class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurabl
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Click me"
         />
         <h3 style={styles.h3}>Current Settings</h3>
@@ -5086,13 +5064,9 @@ const CircularProgressExampleSimple = () => (
 class CircularProgressExampleDeterminate extends Component<{}, {completed?: number}> {
   private timer: number;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      completed: 0,
-    };
-  }
+  state = {
+    completed: 0,
+  };
 
   componentDidMount() {
     this.timer = setTimeout(() => this.progress(5), 1000);
@@ -5131,13 +5105,9 @@ const LinearProgressExampleSimple = () => (
 class LinearProgressExampleDeterminate extends Component<{}, {completed?: number}> {
   private timer: number;
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      completed: 0,
-    };
-  }
+  state = {
+    completed: 0,
+  };
 
   componentDidMount() {
     this.timer = setTimeout(() => this.progress(5), 1000);
@@ -5226,10 +5196,7 @@ const RefreshIndicatorExampleLoading = () => (
 
 // "http://www.material-ui.com/#/components/select-field"
 class SelectFieldExampleSimple extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 1};
-  }
+  state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5278,10 +5245,7 @@ class SelectFieldExampleSimple extends Component<{}, {value?: number}> {
 }
 
 class SelectFieldLongMenuExample extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 10};
-  }
+  state = {value: 10};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5295,10 +5259,7 @@ class SelectFieldLongMenuExample extends Component<{}, {value?: number}> {
 }
 
 class SelectFieldExampleCustomLabel extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: 1};
-  }
+  state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5323,10 +5284,7 @@ const itemsPeriod = [
 ];
 
 export default class SelectFieldExampleFloatingLabel extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: null};
-  }
+  state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5356,10 +5314,7 @@ export default class SelectFieldExampleFloatingLabel extends Component<{}, {valu
 }
 
 class SelectFieldExampleError extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {value: null};
-  }
+  state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -5405,10 +5360,7 @@ const names = [
 ];
 
 class SelectFieldExampleMultiSelect extends Component<{}, {values?: string[]}> {
-  constructor(props) {
-    super(props);
-    this.state = {values: []};
-  }
+  state = {values: []};
 
   handleChange = (event, index, values) => this.setState({values});
 
@@ -5453,10 +5405,7 @@ const persons = [
 ];
 
 class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string[]}> {
-  constructor(props) {
-    super(props);
-    this.state = {values: []};
-  }
+  state = {values: []};
 
   handleChange = (event, index, values) => this.setState({values});
 
@@ -5494,6 +5443,28 @@ class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string
       >
         {this.menuItems(persons)}
       </SelectField>
+    );
+  }
+}
+
+class SelectFieldExampleDropDownMenu extends Component<{}, {value?: number}> {
+  state = {value: null};
+
+  handleChange = (event, index, value) => this.setState({value});
+
+  render() {
+    return (
+    <SelectField
+      value={this.state.value}
+      onChange={this.handleChange}
+      dropDownMenuProps={{
+        anchorOrigin: { vertical: 'top', horizontal: 'left' },
+      }}
+    >
+      <MenuItem value={1} primaryText="Foo"/>
+      <MenuItem value={2} primaryText="Bar"/>
+      <MenuItem value={3} primaryText="Baz"/>
+    </SelectField>
     );
   }
 }
@@ -5661,6 +5632,10 @@ const ToggleExampleSimple = () => (
       style={styles.toggle}
     />
     <Toggle
+      label={<span>Element</span>}
+      style={styles.toggle}
+    />
+    <Toggle
       label="Toggled by default"
       defaultToggled={true}
       style={styles.toggle}
@@ -5682,14 +5657,9 @@ const ToggleExampleSimple = () => (
 
 // "http://material-ui.com/#/components/snackbar"
 class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-    };
-  }
+  state = { open: false, };
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5705,7 +5675,7 @@ class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar"
         />
         <Snackbar
@@ -5721,16 +5691,13 @@ class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
 }
 
 class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDuration?: number, message?: string}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      autoHideDuration: 4000,
-      message: 'Event added to your calendar',
-      open: false,
-    };
-  }
+  state = {
+    autoHideDuration: 4000,
+    message: 'Event added to your calendar',
+    open: false,
+  };
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5760,7 +5727,7 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar"
         />
         <br />
@@ -5783,22 +5750,17 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
 }
 
 class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: string}> {
-  private timer: number;
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      message: 'Event 1 added to your calendar',
-      open: false,
-    };
-    this.timer = undefined;
-  }
+  state = {
+    message: 'Event 1 added to your calendar',
+    open: false,
+  };
+  private timer?: number;
 
   componentWillUnMount() {
     clearTimeout(this.timer);
   }
 
-  handleTouchTap = () => {
+  handleClick = () => {
     this.setState({
       open: true,
     });
@@ -5820,7 +5782,7 @@ class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: stri
     return (
       <div>
         <RaisedButton
-          onTouchTap={this.handleTouchTap}
+          onClick={this.handleClick}
           label="Add to my calendar two times"
         />
         <Snackbar
@@ -5907,13 +5869,13 @@ class HorizontalLinearStepper extends Component<{}, {stepIndex?: number, finishe
                 <FlatButton
                   label="Back"
                   disabled={stepIndex === 0}
-                  onTouchTap={this.handlePrev}
+                  onClick={this.handlePrev}
                   style={{marginRight: 12}}
                 />
                 <RaisedButton
                   label={stepIndex === 2 ? 'Finish' : 'Next'}
                   primary={true}
-                  onTouchTap={this.handleNext}
+                  onClick={this.handleNext}
                 />
               </div>
             </div>
@@ -5955,7 +5917,7 @@ class VerticalLinearStepper extends Component<{}, {stepIndex?: number, finished?
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
-          onTouchTap={this.handleNext}
+          onClick={this.handleNext}
           style={{marginRight: 12}}
         />
         {step > 0 && (
@@ -5964,7 +5926,7 @@ class VerticalLinearStepper extends Component<{}, {stepIndex?: number, finished?
             disabled={stepIndex === 0}
             disableTouchRipple={true}
             disableFocusRipple={true}
-            onTouchTap={this.handlePrev}
+            onClick={this.handlePrev}
           />
         )}
       </div>
@@ -6087,14 +6049,14 @@ class HorizontalNonLinearStepper extends Component<{}, {stepIndex?: number}> {
             <FlatButton
               label="Back"
               disabled={stepIndex === 0}
-              onTouchTap={this.handlePrev}
+              onClick={this.handlePrev}
               style={{marginRight: 12}}
             />
             <RaisedButton
               label="Next"
               disabled={stepIndex === 2}
               primary={true}
-              onTouchTap={this.handleNext}
+              onClick={this.handleNext}
             />
           </div>
         </div>
@@ -6130,7 +6092,7 @@ class VerticalNonLinear extends Component<{}, {stepIndex?: number}> {
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
-          onTouchTap={this.handleNext}
+          onClick={this.handleNext}
           style={{marginRight: 12}}
         />
         {step > 0 && (
@@ -6138,7 +6100,7 @@ class VerticalNonLinear extends Component<{}, {stepIndex?: number}> {
             label="Back"
             disableTouchRipple={true}
             disableFocusRipple={true}
-            onTouchTap={this.handlePrev}
+            onClick={this.handlePrev}
           />
         )}
       </div>
@@ -6302,13 +6264,13 @@ class GranularControlStepper extends Component<{}, {stepIndex?: number, visited?
               <FlatButton
                 label="Back"
                 disabled={stepIndex === 0}
-                onTouchTap={this.handlePrev}
+                onClick={this.handlePrev}
                 style={styles.backButton}
               />
               <RaisedButton
                 label="Next"
                 primary={true}
-                onTouchTap={this.handleNext}
+                onClick={this.handleNext}
               />
             </div>
           )}
@@ -6463,22 +6425,18 @@ interface TableExampleComplexState {
 }
 
 class TableExampleComplex extends Component<{}, TableExampleComplexState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fixedHeader: true,
-      fixedFooter: true,
-      stripedRows: false,
-      showRowHover: false,
-      selectable: true,
-      multiSelectable: false,
-      enableSelectAll: false,
-      deselectOnClickaway: true,
-      showCheckboxes: true,
-      height: '300px',
-    };
-  }
+  state = {
+    fixedHeader: true,
+    fixedFooter: true,
+    stripedRows: false,
+    showRowHover: false,
+    selectable: true,
+    multiSelectable: false,
+    enableSelectAll: false,
+    deselectOnClickaway: true,
+    showCheckboxes: true,
+    height: '300px',
+  };
 
   handleToggle = (event, toggled) => {
     this.setState({
@@ -6658,12 +6616,9 @@ const TabsExampleSimple = () => (
 );
 
 class TabsExampleControlled extends Component<{}, {value?: string}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 'a',
-    };
-  }
+  state = {
+    value: 'a',
+  };
 
   handleChange = (value) => {
     this.setState({
@@ -6863,13 +6818,9 @@ const TextFieldExampleDisabled = () => (
 );
 
 class TextFieldExampleControlled extends Component<{}, {value?: string}> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: 'Property Value',
-    };
-  }
+  state = {
+    value: 'Property Value',
+  };
 
   handleChange = (event) => {
     this.setState({
@@ -6909,10 +6860,7 @@ const TimePickerExampleSimple = () => (
 );
 
 class TimePickerExampleComplex extends Component<{}, {value24?: Date, value12?: Date}> {
-  constructor(props) {
-    super(props);
-    this.state = {value24: null, value12: null};
-  }
+  state = {value24: null, value12: null};
 
   handleChangeTimePicker24 = (event, date) => {
     this.setState({value24: date});
@@ -6954,12 +6902,9 @@ const TimePickerInternational = () => (
 
 // "http://www.material-ui.com/#/components/toolbar"
 class ToolbarExamplesSimple extends Component<{}, {value?: number}> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 3,
-    };
-  }
+  state = {
+    value: 3
+  };
 
   handleChange = (event, index, value) => this.setState({value});
 
@@ -7003,16 +6948,13 @@ const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 class BottomNavigationExample extends Component<{}, {
   index?: number
 }> {
-  constructor() {
-    super({});
-    this.state = {
-      index: 0
-    };
-  }
+  state = {
+    index: 0
+  };
   render() {
     return <BottomNavigation selectedIndex={this.state.index}>
-      <BottomNavigationItem label='0' icon={<ActionHome/>} onTouchTap={() => this.setState({index: 0})}/>
-      <BottomNavigationItem label='1' icon={<ActionInfo/>} onTouchTap={() => this.setState({index: 1})}/>
+      <BottomNavigationItem label='0' icon={<ActionHome/>} onClick={() => this.setState({index: 0})}/>
+      <BottomNavigationItem label='1' icon={<ActionInfo/>} onClick={() => this.setState({index: 1})}/>
     </BottomNavigation>;
   }
 }

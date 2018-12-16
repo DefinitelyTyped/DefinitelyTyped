@@ -96,6 +96,11 @@ interface KnockoutValidationConfiguration {
      * that ko observable's are bound to
      */
     writeInputAttributes?: boolean;
+    /**
+     * Supply the HTML5 input types validation will be
+     * added to. Defaults to ["email", "number", "date"]
+     */
+    html5InputTypes?: string[];
 }
 
 interface KnockoutValidationUtils {

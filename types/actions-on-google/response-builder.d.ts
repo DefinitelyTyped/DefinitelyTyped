@@ -5,6 +5,76 @@
 import { OrderUpdate } from './transactions';
 
 /**
+ * List of possible options to display the image in a BasicCard.
+ * When the aspect ratio of an image is not the same as the surface,
+ * this attribute changes how the image is displayed in the card.
+ */
+export enum ImageDisplays {
+    /**
+     * Pads the gaps between the image and image frame with a blurred copy of the
+     * same image.
+     */
+    DEFAULT,
+    /**
+     * Fill the gap between the image and image container with white bars.
+     */
+    WHITE,
+    /**
+     * Image is scaled such that the image width matches the container width. This may crop the top
+     * and bottom of the image if the scaled image height is greater than the container height. This
+     * is similar to "Zoom Mode" on a widescreen TV when playing a 4:3 video.
+     */
+    CROPPED
+}
+
+/**
+ * Values related to supporting media.
+ */
+export namespace MediaValues {
+    /**
+     * Type of the media within a MediaResponse.
+     */
+    enum Type {
+        /**
+         * Unspecified.
+         */
+        MEDIA_TYPE_UNSPECIFIED,
+        /**
+         * Audio stream.
+         */
+        AUDIO
+    }
+
+    /**
+     * List of media control status' returned.
+     */
+    enum Status {
+        /**
+         * Unspecified.
+         */
+        UNSPECIFIED,
+        /**
+         * Finished.
+         */
+        FINISHED
+    }
+
+    /**
+     * List of possible item types.
+     */
+    enum ImageType {
+        /**
+         * Icon.
+         */
+        ICON,
+        /**
+         * Large image.
+         */
+        LARGE
+    }
+}
+
+/**
  * Simple Response type.
  */
 export interface SimpleResponse {
@@ -74,19 +144,19 @@ export interface StructuredResponse {
     orderUpdate: OrderUpdate;
 }
 
-export interface RichResponseItemBasicCard {
+export interface ItemBasicCard {
     basicCard: BasicCard;
 }
 
-export interface RichResponseItemSimpleResponse {
+export interface ItemSimpleResponse {
     simpleResponse: SimpleResponse;
 }
 
-export interface RichResponseItemStructuredResponse {
+export interface ItemStructuredResponse {
     structuredResponse: StructuredResponse;
 }
 
-export type RichResponseItem = RichResponseItemBasicCard | RichResponseItemSimpleResponse | RichResponseItemStructuredResponse;
+export type RichResponseItem = ItemBasicCard | ItemSimpleResponse | ItemStructuredResponse;
 
 /**
  * Class for initializing and constructing Rich Responses with chainable interface.
@@ -133,6 +203,22 @@ export class RichResponse {
     addBasicCard(basicCard: BasicCard): RichResponse;
 
     /**
+     * Adds media to this response.
+     *
+     * @param mediaResponse MediaResponse to include in response.
+     * @return Returns current constructed RichResponse.
+     */
+    addMediaResponse(mediaResponse: MediaResponse): RichResponse;
+
+    /**
+     * Adds a Browse Carousel to list of items.
+     *
+     * @param browseCarousel Browse Carousel to present to user
+     * @return Returns current constructed RichResponse.
+     */
+    addBrowseCarousel(browseCarousel: string | BrowseCarousel): RichResponse;
+
+    /**
      * Adds a single suggestion or list of suggestions to list of items.
      *
      * @param suggestions Either a single string suggestion
@@ -150,7 +236,8 @@ export class RichResponse {
     isValidSuggestionText(suggestionText: string): boolean;
 
     /**
-     * Sets the suggestion link for this rich response.
+     * Sets the suggestion link for this rich response. The destination site must be verified
+     * (https://developers.google.com/actions/console/brand-verification).
      *
      * @param destinationName Name of the link out destination.
      * @param suggestionUrl - String URL to open when suggestion is used.
@@ -241,6 +328,16 @@ export class BasicCard {
     setImage(url: string, accessibilityText: string, width?: number, height?: number): BasicCard;
 
     /**
+     * Sets the display options for the image in this Basic Card.
+     * Use one of the image display constants. If none is chosen,
+     * ImageDisplays.DEFAULT will be enforced.
+     *
+     * @param option The option for displaying the image.
+     * @return Returns current constructed BasicCard.
+     */
+    setImageDisplay(option: ImageDisplays): BasicCard;
+
+    /**
      * Adds a button below card.
      *
      * @param text Text to show on button.
@@ -292,6 +389,43 @@ export class List {
 }
 
 /**
+ * Class for initializing and constructing BrowseCarousel with chainable interface.
+ */
+export class BrowseCarousel {
+    /**
+     * Constructor for BrowseCarousel. Accepts optional BrowseCarousel to
+     * clone or list of items to copy.
+     *
+     * @param carousel Either a carousel to clone
+     *     or an array of BrowseItem to initialize a new carousel
+     */
+    constructor(carousel?: BrowseCarousel | BrowseItem[]);
+
+    /**
+     * List of 2-20 items to show in this carousel. Required.
+     */
+    items: BrowseItem[];
+
+     /**
+      * Adds a single item or list of items to the carousel.
+      *
+      * @param browseItems BrowseItems to add.
+      * @return Returns current constructed BrowseCarousel.
+      */
+    addItems(browseItems: BrowseItem | BrowseItem[]): BrowseCarousel;
+
+    /**
+     * Sets the display options for the images in this carousel.
+     * Use one of the image display constants. If none is chosen,
+     * ImageDisplays.DEFAULT will be enforced.
+     *
+     * @param option The option for displaying the image.
+     * @return Returns current constructed BrowseCarousel.
+     */
+    setImageDisplay(option: ImageDisplays): BrowseCarousel;
+}
+
+/**
  * Class for initializing and constructing Carousel with chainable interface.
  */
 export class Carousel {
@@ -316,6 +450,120 @@ export class Carousel {
      * @return Returns current constructed Carousel.
      */
     addItems(optionItems: OptionItem | OptionItem[]): Carousel;
+
+    /**
+     * Sets the display options for the images in this carousel.
+     * Use one of the image display constants. If none is chosen,
+     * ImageDisplays.DEFAULT will be enforced.
+     *
+     * @param option The option for displaying the image.
+     * @return Returns current constructed Carousel.
+     */
+    setImageDisplay(option: ImageDisplays): Carousel;
+}
+
+/**
+ * Class for initializing and constructing Option Items with chainable interface.
+ */
+export class BrowseItem {
+    /**
+     * Constructor for BrowseItem. Accepts a title and URL for the Browse Item
+     * card.
+     *
+     * @param title The title of the Browse Item card.
+     * @param url The URL of the link opened by clicking the  Browse Item card.
+     */
+    constructor(title?: string, url?: string);
+
+    /**
+     * Title of the browse item. Required.
+     */
+    title: string;
+
+    /**
+     * Description text of the item. Optional.
+     */
+    description?: string;
+
+    /**
+     * Footer text of the item. Optional.
+     */
+    footer?: string;
+
+    /**
+     * Image to show on item. Optional.
+     */
+    image?: Image;
+
+    /**
+     * Url to that clicking the card opens. Optional.
+     */
+    openUrlAction?: object;
+
+    /**
+     * @return Returns the possible valid values for URL type hints
+     */
+    urlTypeHints(): object;
+
+    /**
+     * Sets the title for this Browse Item.
+     *
+     * @param title Title to show on item.
+     * @return Returns current constructed BrowseItem.
+     */
+    setTitle(title: string): BrowseItem;
+
+    /**
+     * Sets the description for this Browse Item.
+     *
+     * @param description Description to show on item.
+     * @return Returns current constructed BrowseItem.
+     */
+    setDescription(description: string): BrowseItem;
+
+    /**
+     * Sets the footer for this Browse Item.
+     *
+     * @param footerText text to show on item.
+     * @return Returns current constructed BrowseItem.
+     */
+    setFooter(footerText: string): BrowseItem;
+
+    /**
+     * Sets the image for this Browse Item.
+     *
+     * @param url Image source URL.
+     * @param accessibilityText Text to replace for image for accessibility.
+     * @param width Width of the image.
+     * @param height Height of the image.
+     * @return Returns current constructed BrowseItem.
+     */
+    setImage(url: string, accessibilityText: string, width?: number, height?: number): BrowseItem;
+
+    /**
+     * Sets the Open URL action - which includes the url and possibly the typeHint
+     *
+     * @param url Image source URL.
+     * @param urlTypeHint One of the typeHints enumerated by this.urlTypeHints()
+     * @return Returns the current constructed BrowseItem
+     */
+    setOpenUrlAction(url: string, urlTypeHint?: string): BrowseItem;
+
+    /**
+     * Sets the URL target of the BrowseItem card
+     *
+     * @param url Image source URL.
+     * @return Returns the current constructed BrowseItem
+     */
+    setUrl(url: string): BrowseItem;
+
+    /**
+     * Sets the URL type hint for the BrowseItem card
+     *
+     * @param urlTypeHint One of the typeHints enumerated by this.urlTypeHints()
+     * @return Returns the current constructed BrowseItem
+     */
+    setUrlTypeHint(urlTypeHint: string): BrowseItem;
 }
 
 /**
@@ -397,8 +645,99 @@ export class OptionItem {
 }
 
 /**
+ * Class for initializing and constructing MediaResponse with chainable interface.
+ */
+export class MediaResponse {
+    /**
+     * Constructor for MediaResponse.
+     * @param mediaType Type of the media which defaults to MediaValues.Type.AUDIO
+     */
+    constructor(mediaType: MediaValues.Type);
+
+    /**
+     * Array of MediaObject held in the MediaResponse.
+     */
+    mediaObjects: MediaObject[];
+
+    /**
+     * Type of the media within this MediaResponse
+     */
+    mediaType: MediaValues.Type;
+
+    /**
+     * Adds a single media file or list of media files to the cart.
+     *
+     * @param items Single or Array of MediaObject to add.
+     * @return Returns current constructed MediaResponse.
+     */
+    addMediaObjects(items: MediaObject | MediaObject[]): MediaResponse;
+}
+
+/**
+ * Class for initializing and constructing MediaObject with chainable interface.
+ */
+export class MediaObject {
+    /**
+     * Constructor for MediaObject.
+     *
+     * @param name Name of the MediaObject.
+     * @param contentUrl URL of the MediaObject.
+     */
+    constructor(name: string, contentUrl: string);
+
+    /**
+     * Name of the MediaObject.
+     */
+    name: string;
+
+    /**
+     * MediaObject URL.
+     */
+    contentUrl: string;
+
+    /**
+     * Description of the MediaObject.
+     */
+    description?: string;
+
+    /**
+     * Large image.
+     */
+    largeImage?: Image;
+
+    /**
+     * Icon image.
+     */
+    icon?: Image;
+
+    /**
+     * Set the description of the item.
+     *
+     * @param description Description of the item.
+     * @return Returns current constructed MediaObject.
+     */
+    setDescription(description: string): MediaObject;
+
+    /**
+     * Sets the image for this item.
+     *
+     * @param url Image source URL.
+     * @param type Type of image (LARGE or ICON).
+     * @return Returns current constructed MediaObject.
+     */
+    setImage(url: string, type: MediaValues.ImageType): MediaObject;
+}
+
+/**
  * Check if given text contains SSML.
  * @param text Text to check.
  * @return True if text contains SSML, false otherwise.
  */
 export function isSsml(text: string): boolean;
+
+/**
+ * Check if given text contains SSML, allowing for whitespace padding.
+ * @param text Text to check.
+ * @return True if text contains possibly whitespace padded SSML, false otherwise.
+ */
+export function isPaddedSsml(text: string): boolean;

@@ -2,7 +2,7 @@
 // Project: https://github.com/goatslacker/alt
 // Definitions by: Michael Shearer <https://github.com/Shearerbeard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 ///<reference types="react"/>
 
@@ -54,7 +54,7 @@ declare namespace AltJS {
   export type Source = {[name:string]: () => SourceModel<any>};
 
   export interface SourceModel<S> {
-    local(state:any, ...args: any[]):any;
+    local?(state:any, ...args: any[]):any;
     remote(state:any, ...args: any[]):Promise<S>;
     shouldFetch?(fetchFn:(...args:Array<any>) => boolean):void;
     loading?:(args:any) => void;

@@ -183,7 +183,7 @@ describe('missing tests', function () {
        class Closure<T> {
            private arg: T;
 
-           public constructor(private fn: (arg: T) => void) {
+           public constructor(private readonly fn: (arg: T) => void) {
                this.fn = fn;
            }
 

@@ -1,6 +1,6 @@
 // Type definitions for Cheerio v0.22.0
 // Project: https://github.com/cheeriojs/cheerio
-// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>, LiJinyao <https://github.com/LiJinyao>
+// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>, LiJinyao <https://github.com/LiJinyao>, Chennakrishna <https://github.com/chennakrishna8>, AzSiAz <https://github.com/AzSiAz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Cheerio {
@@ -111,9 +111,8 @@ interface Cheerio {
 
     eq(index: number): Cheerio;
 
-    get(): string[];
-    get(): CheerioElement[];
-    get(index: number): CheerioElement;
+    get(): any[];
+    get(index: number): any;
 
     index(): number;
     index(selector: string): number;
@@ -178,10 +177,9 @@ interface Cheerio {
     text(): string;
     text(text: string): Cheerio;
 
-    // See https://github.com/cheeriojs/cheerio/issues/731
-    /*wrap(content: string): Cheerio;
+    wrap(content: string): Cheerio;
     wrap(content: Document): Cheerio;
-    wrap(content: Cheerio): Cheerio;*/
+    wrap(content: Cheerio): Cheerio;
 
     css(propertyName: string): string;
     css(propertyNames: string[]): string[];
@@ -215,6 +213,7 @@ interface CheerioOptionsInterface {
     recognizeCDATA?: boolean;
     recognizeSelfClosing?: boolean;
     normalizeWhitespace?: boolean;
+    ignoreWhitespace?: boolean;
 }
 
 interface CheerioSelector {
@@ -270,6 +269,8 @@ interface CheerioAPI extends CheerioSelector, CheerioStatic {
   load(html: string, options?: CheerioOptionsInterface): CheerioStatic;
   load(element: CheerioElement, options?: CheerioOptionsInterface): CheerioStatic;
 }
+
+interface Document { }
 
 declare var cheerio:CheerioAPI;
 

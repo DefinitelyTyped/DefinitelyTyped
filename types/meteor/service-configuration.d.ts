@@ -3,7 +3,7 @@ declare module "meteor/service-configuration" {
         appId: string;
         secret: string;
     }
-    class ServiceConfiguration {
+    var ServiceConfiguration: {
         configurations: Mongo.Collection<Configuration>;
     }
 }

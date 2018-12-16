@@ -47,6 +47,9 @@ declare namespace google {
             // ISO 639 language code. If the language is not supported, en-US is used. This method provides an alternative to setting the locale at google.load() time. See the Developer's Guide for a list of supported locales.
             setLocale(locale:string):PickerBuilder;
 
+            // Sets the maximum number of items a user can pick.
+            setMaxItems(max: number):PickerBuilder;
+
             // Sets an OAuth token to use for authenticating the current user. Depending on the scope of the token, only certain views will display data. Valid scopes are Google Docs, Drive, Photos, YouTube.
             setOAuthToken(token:string):PickerBuilder;
 
@@ -80,7 +83,7 @@ declare namespace google {
          */
         export interface Picker {
             isVisible(): boolean;
-            setCallback():Picker;
+            setCallback(method:Function):Picker;
             setRelayUrl(url:string):Picker;
             setVisible(visible:boolean):Picker;
         }
@@ -122,6 +125,9 @@ declare namespace google {
 
             // Filters the documents based on whether they are starred by the user.
             setStarred(starred:boolean):DocsView;
+
+            // Allows the user to select folders from Team Drives.
+            setEnableTeamDrives(enabled:boolean):DocsView;
         }
 
         /**
@@ -146,7 +152,7 @@ declare namespace google {
 
             // For photo uploads, controls whether per-photo selection (as opposed to per-album) selection is enabled.
             SIMPLE_UPLOAD_ENABLED: string;
-            
+
             // Whether Team Drive items should be included in results.
             SUPPORT_TEAM_DRIVES: string;
         };

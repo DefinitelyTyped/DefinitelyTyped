@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { TransitionCallbacks, Omit } from 'react-bootstrap';
-import * as TabContainer from './TabContainer';
-import * as TabPane from './TabPane';
-import * as TabContent from './TabContent';
+import TabContainer = require('./TabContainer');
+import TabPane = require('./TabPane');
+import TabContent = require('./TabContent');
 
 declare namespace Tab {
     export interface TabProps extends TransitionCallbacks, Omit<React.HTMLProps<Tab>, "title"> {

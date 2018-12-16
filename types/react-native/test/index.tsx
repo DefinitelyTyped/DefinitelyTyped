@@ -11,38 +11,75 @@ The content of index.io.js could be something like
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
 
+import * as PropTypes from "prop-types";
 import * as React from "react";
 import {
     Alert,
     AppState,
     AppStateIOS,
+    AlertIOS,
     BackAndroid,
+    BackHandler,
     Button,
+    ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
+    Image,
+    ImageStyle,
+    ImageResizeMode,
+    ImageLoadEventData,
+    ImageErrorEventData,
+    ImageResolvedAssetSource,
+    ImageBackground,
     InteractionManager,
     ListView,
     ListViewDataSource,
     StyleSheet,
+    StyleProp,
     Systrace,
     Text,
     TextStyle,
-    TextProperties,
+    TextProps,
     View,
     ViewStyle,
     ViewPagerAndroid,
     FlatList,
-    FlatListProperties,
+    FlatListProps,
+    ScaledSize,
     SectionList,
-    SectionListProperties,
+    SectionListProps,
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
+    SectionListRenderItemInfo,
+    Switch,
     RefreshControl,
+    RegisteredStyle,
     TabBarIOS,
     NativeModules,
-    MaskedView,
+    MaskedViewIOS,
+    TextInput,
+    TouchableNativeFeedback,
+    TextInputFocusEventData,
+    InputAccessoryView,
+    StatusBar,
+    NativeSyntheticEvent,
+    NativeScrollEvent,
+    GestureResponderEvent,
+    TextInputScrollEventData,
+    TextInputSelectionChangeEventData,
+    TextInputKeyPressEventData,
+    TextInputChangeEventData,
+    TextInputContentSizeChangeEventData,
+    TextInputEndEditingEventData,
+    TextInputSubmitEditingEventData,
+    WebView,
+    KeyboardAvoidingView,
+    Modal,
+    TimePickerAndroid,
+    ViewPropTypes,
+    requireNativeComponent,
 } from "react-native";
 
 declare module "react-native" {
@@ -60,9 +97,19 @@ NativeModules.NativeUntypedModule;
 NativeModules.NativeTypedModule.someFunction();
 NativeModules.NativeTypedModule.someProperty = "";
 
+function dimensionsListener(dimensions: { window: ScaledSize, screen: ScaledSize }) {
+    console.log("window dimensions: ", dimensions.window);
+    console.log("screen dimensions: ", dimensions.screen);
+}
+
 function testDimensions() {
     const { width, height, scale, fontScale } = Dimensions.get(1 === 1 ? "window" : "screen");
+
+    Dimensions.addEventListener('change', dimensionsListener);
+    Dimensions.removeEventListener('change', dimensionsListener);
 }
+
+BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
 
 BackAndroid.addEventListener("hardwareBackPress", () => {});
 
@@ -111,7 +158,52 @@ const stylesAlt = StyleSheet.create({
     },
 });
 
+StyleSheet.setStyleAttributePreprocessor('fontFamily', (family: string) => family);
+
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
+
+const viewStyle: StyleProp<ViewStyle> = {
+  backgroundColor: "#F5FCFF",
+}
+const textStyle: StyleProp<TextStyle> = {
+  fontSize: 20,
+}
+const imageStyle: StyleProp<ImageStyle> = {
+  resizeMode: 'contain',
+}
+
+const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
+const textProperty = StyleSheet.flatten(textStyle).fontSize;
+const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
+
+const s = StyleSheet.create({
+  shouldWork: {
+    fontWeight: '900', // if we comment this line, errors gone
+    marginTop: 5, // if this line commented, errors also gone
+  },
+})
+const f1: RegisteredStyle<TextStyle> = s.shouldWork
+
+const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
+    e.isDefaultPrevented();
+    e.preventDefault();
+    e.isPropagationStopped();
+    e.stopPropagation();
+    e.persist();
+    e.cancelable;
+    e.bubbles;
+    e.currentTarget;
+    e.defaultPrevented;
+    e.eventPhase;
+    e.isTrusted;
+    e.nativeEvent;
+    e.target;
+    e.timeStamp;
+    e.type;
+    e.nativeEvent;
+}
+
+type ElementProps<C> = C extends React.Component<infer P, any> ? P : never;
 
 class CustomView extends React.Component {
     render() {
@@ -119,7 +211,12 @@ class CustomView extends React.Component {
     }
 }
 
-class Welcome extends React.Component {
+class Welcome extends React.Component<ElementProps<View> & { color: string }> {
+    static propTypes = {
+        ...ViewPropTypes,
+        color: ColorPropType,
+    };
+
     refs: {
         [key: string]: any;
         rootView: View;
@@ -145,8 +242,9 @@ class Welcome extends React.Component {
     }
 
     render() {
+        const { color, ...props } = this.props;
         return (
-            <View ref="rootView" style={[[styles.container], undefined, null, false]}>
+            <View {...props} ref="rootView" style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>Welcome to React Native</Text>
                 <Text style={styles.instructions}>To get started, edit index.ios.js</Text>
                 <Text style={styles.instructions}>
@@ -161,8 +259,28 @@ class Welcome extends React.Component {
 
 export default Welcome;
 
-// App State
+// TouchableNativeFeedbackTest
+export class TouchableNativeFeedbackTest extends React.Component {
+    onPressButton = (e: GestureResponderEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    }
 
+    render() {
+        return (
+            <TouchableNativeFeedback
+                onPress={this.onPressButton}
+            >
+                <View style={{width: 150, height: 100, backgroundColor: 'red'}}>
+                    <Text style={{margin: 30}}>Button</Text>
+                </View>
+            </TouchableNativeFeedback>
+        )
+    }
+}
+
+// App State
 function appStateListener(state: string) {
     console.log("New state: " + state);
 }
@@ -178,7 +296,6 @@ function appStateIOSTest() {
 }
 
 // ViewPagerAndroid
-
 export class ViewPagerAndroidTest {
     render() {
         return (
@@ -205,7 +322,7 @@ InteractionManager.runAfterInteractions(() => {
     // ...
 }).then(() => "done");
 
-export class FlatListTest extends React.Component<FlatListProperties<number>, {}> {
+export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     _renderItem = (rowData: any) => {
         return (
             <View>
@@ -222,12 +339,20 @@ export class FlatListTest extends React.Component<FlatListProperties<number>, {}
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
+                ListFooterComponent={null}
+                ListHeaderComponent={null}
             />
         );
     }
 }
 
-export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
+export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
+    myList: SectionList<any>
+
+    scrollMe = () => {
+        this.myList.scrollToLocation({itemIndex: 0, sectionIndex: 1});
+    }
+
     render() {
         const sections = [
             {
@@ -246,31 +371,44 @@ export class SectionListTest extends React.Component<SectionListProperties<strin
         ];
 
         return (
-            <SectionList
-                sections={sections}
-                renderSectionHeader={({ section }) => (
-                    <View>
-                        <Text>{section.title}</Text>
-                    </View>
-                )}
-                renderItem={(info: { item: string }) => (
-                    <View>
-                        <Text>{info.item}</Text>
-                    </View>
-                )}
-            />
+            <React.Fragment>
+                <Button title="Press" onPress={this.scrollMe} />
+
+                <SectionList
+                    ref={(ref: any) => this.myList = ref}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => (
+                        <View>
+                            <Text>{section.title}</Text>
+                        </View>
+                    )}
+                    renderItem={(info: SectionListRenderItemInfo<string>) => (
+                        <View>
+                            <Text>{`${info.section.title} - ${info.item}`}</Text>
+                        </View>
+                    )}
+                    maxToRenderPerBatch={5}
+                />
+            </React.Fragment>
         );
     }
 }
 
-export class CapsLockComponent extends React.Component<TextProperties> {
+export class CapsLockComponent extends React.Component<TextProps> {
     render() {
         const content = (this.props.children || "") as string;
         return <Text {...this.props}>{content.toUpperCase()}</Text>;
     }
 }
 
-class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
+class ScrollerListComponentTest extends React.Component<
+    {},
+    { dataSource: ListViewDataSource }
+> {
+    eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        console.log(event);
+    };
+
     render() {
         const scrollViewStyle1 = StyleSheet.create({
             scrollView: {
@@ -288,11 +426,28 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.");
                     }
 
-                    return <ScrollView {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
+                    return (
+                        <ScrollView
+                            horizontal={true}
+                            nestedScrollEnabled={true}
+                            invertStickyHeaders={true}
+                            contentOffset={{ x: 0, y: 0 }}
+                            {...props}
+                            style={[
+                                scrollViewStyle1.scrollView,
+                                scrollViewStyle2
+                            ]}
+                        />
+                    );
                 }}
                 renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>;
                 }}
+                onScroll={this.eventHandler}
+                onScrollBeginDrag={this.eventHandler}
+                onScrollEndDrag={this.eventHandler}
+                onMomentumScrollBegin={this.eventHandler}
+                onMomentumScrollEnd={this.eventHandler}
             />
         );
     }
@@ -350,10 +505,21 @@ class AlertTest extends React.Component {
 class MaskedViewTest extends React.Component {
     render() {
         return (
-            <MaskedView maskElement={<View />}>
+            <MaskedViewIOS maskElement={<View />}>
                 <View />
-            </MaskedView>
+            </MaskedViewIOS>
         );
+    }
+}
+
+class InputAccessoryViewTest extends React.Component {
+    render() {
+        const uniqueID = "foobar";
+        return (
+            <InputAccessoryView nativeID={uniqueID}>
+                <TextInput inputAccessoryViewID={uniqueID} />
+            </InputAccessoryView>
+        )
     }
 }
 
@@ -371,3 +537,298 @@ const dataSourceAssetCallback2: DataSourceAssetCallback = {};
 const deviceEventEmitterStatic: DeviceEventEmitterStatic = null;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
+
+
+class TextInputTest extends React.Component<{}, {username: string}> {
+    username: TextInput | null = null;
+
+    handleUsernameChange = (text: string) => {
+        console.log(`text: ${ text }`);
+    }
+
+    onScroll = (e: NativeSyntheticEvent<TextInputScrollEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`x: ${ e.nativeEvent.contentOffset.x }`);
+        console.log(`y: ${ e.nativeEvent.contentOffset.y }`);
+    }
+
+    handleOnBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        testNativeSyntheticEvent(e);
+    }
+
+    handleOnFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        testNativeSyntheticEvent(e);
+    }
+
+    handleOnSelectionChange = (e: NativeSyntheticEvent<TextInputSelectionChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        console.log(`target: ${ e.nativeEvent.target }`);
+        console.log(`start: ${ e.nativeEvent.selection.start }`);
+        console.log(`end: ${ e.nativeEvent.selection.end }`);
+    }
+
+    handleOnKeyPress = (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`key: ${ e.nativeEvent.key }`);
+    }
+
+    handleOnChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+
+        console.log(`eventCount: ${ e.nativeEvent.eventCount }`);
+        console.log(`target: ${ e.nativeEvent.target }`);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
+    handleOnContentSizeChange = (e: NativeSyntheticEvent<TextInputContentSizeChangeEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`contentSize.width: ${ e.nativeEvent.contentSize.width }`);
+        console.log(`contentSize.height: ${ e.nativeEvent.contentSize.height }`);
+    }
+
+    handleOnEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
+    handleOnSubmitEditing = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log(`text: ${ e.nativeEvent.text }`);
+    }
+
+    render() {
+        return (
+            <View>
+                <Text onPress={() => this.username.focus()}>Username</Text>
+
+                <TextInput
+                    ref={input => this.username = input}
+                    textContentType="username"
+                    value={this.state.username}
+                    onChangeText={this.handleUsernameChange}
+                />
+
+                <TextInput
+                    multiline
+                    onScroll={this.onScroll}
+                />
+
+                <TextInput
+                    onBlur={this.handleOnBlur}
+                    onFocus={this.handleOnFocus}
+                />
+
+                <TextInput
+                    onSelectionChange={this.handleOnSelectionChange}
+                />
+
+                <TextInput
+                    onKeyPress={this.handleOnKeyPress}
+                />
+
+                <TextInput
+                    onChange={this.handleOnChange}
+                />
+
+                <TextInput
+                    onChange={this.handleOnChange}
+                />
+
+                <TextInput
+                    onEndEditing={this.handleOnEndEditing}
+                />
+
+                <TextInput
+                    onSubmitEditing={this.handleOnSubmitEditing}
+                />
+
+                <TextInput
+                    multiline
+                    onContentSizeChange={this.handleOnContentSizeChange}
+                />
+
+                <TextInput
+                    contextMenuHidden={true}
+                />
+            </View>
+        );
+    }
+}
+
+class StatusBarTest extends React.Component {
+    render() {
+        StatusBar.setBarStyle("dark-content", true);
+
+        console.log('height:', StatusBar.currentHeight);
+
+        return (
+            <StatusBar
+                backgroundColor="blue"
+                barStyle="light-content"
+                translucent
+            />
+        );
+    }
+}
+
+class WebViewTest extends React.Component {
+    render() {
+        return (
+            <WebView
+                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
+                onShouldStartLoadWithRequest={(event) => event.navigationType !== 'formresubmit'}
+                originWhitelist={['https://origin.test']}
+                saveFormDataDisabled={false}
+                useWebKit={true}
+                allowFileAccess={true}
+            />
+        );
+    }
+}
+
+export class ImageTest extends React.Component {
+    componentDidMount(): void {
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
+            uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png'
+        });
+        console.log(image.width, image.height, image.scale, image.uri);
+    }
+
+    handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log('height:', e.nativeEvent.source.height);
+        console.log('width:', e.nativeEvent.source.width);
+        console.log('url:', e.nativeEvent.source.url);
+    }
+
+    handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
+        testNativeSyntheticEvent(e);
+        console.log('error:', e.nativeEvent.error);
+    }
+
+    render() {
+        const resizeMode: ImageResizeMode = 'contain';
+
+        return (
+            <View>
+                <Image
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    onLoad={this.handleOnLoad}
+                    onError={this.handleOnError}
+                />
+
+                <Image
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    resizeMode={resizeMode}
+                />
+            </View>
+        );
+    }
+}
+
+export class ImageBackgroundProps extends React.Component {
+    private _imageRef: Image | null = null;
+
+    setImageRef = (image: Image) => {
+        this._imageRef = image;
+    }
+
+    render() {
+        return (
+            <View>
+                <ImageBackground
+                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    imageRef={this.setImageRef}
+                />
+            </View>
+        );
+    }
+}
+
+const listViewDataSourceTest = new ListView.DataSource({rowHasChanged: () => true})
+
+class AccessibilityTest extends React.Component {
+    render() {
+        return (
+            <View
+                accessibilityElementsHidden={true}
+                importantForAccessibility={"no-hide-descendants"}
+                accessibilityTraits={'none'}
+                onAccessibilityTap={() => {}}
+                accessibilityRole="header"
+                accessibilityStates={["selected"]}
+                accessibilityHint="Very importent header"
+            >
+                <Text
+                    accessibilityTraits={['key', 'text']}
+                    accessibilityIgnoresInvertColors
+                >
+                    Text
+                </Text>
+                <View />
+            </View>
+        );
+    }
+}
+
+
+const KeyboardAvoidingViewTest = () => (
+    <KeyboardAvoidingView enabled />
+);
+
+
+const AlertIOSTest = () => {
+    AlertIOS.prompt(
+        'My Prompt',
+        'Enter your email',
+        [
+            {
+                text: 'Cancel',
+                style: 'cancel'
+            },
+            {
+                text: 'Add',
+                onPress: (value: string) => {
+                  console.log(value);
+                },
+              },
+        ],
+        'default',
+        'email-address'
+    );
+}
+
+const ModalTest = () => (
+    <Modal hardwareAccelerated />
+)
+
+const TimePickerAndroidTest = () => (
+    TimePickerAndroid.open({
+        hour: 8,
+        minute: 15,
+        is24Hour: true,
+        mode: 'spinner'
+    })
+)
+
+class BridgedComponentTest extends React.Component {
+    static propTypes = {
+        jsProp: PropTypes.string.isRequired,
+        ...ViewPropTypes,
+    }
+
+    render() {
+        return <NativeBridgedComponent {...this.props} nativeProp="test" />;
+    }
+}
+
+const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent");
+
+const SwitchColorTest = () => (
+    <Switch trackColor={{ true: 'pink', false: 'red'}} />
+)
+
+const SwitchThumbColorTest = () => (
+    <Switch thumbColor={'red'} />
+)

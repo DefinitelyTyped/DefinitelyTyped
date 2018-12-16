@@ -1,18 +1,24 @@
-// Type definitions for react-stripe-elements 1.0
+// Type definitions for react-stripe-elements 1.1
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
+//                 sonnysangha <https://github.com/sonnysangha>
+//                 Andrew Goh Yisheng <https://github.com/9y5>
+//                 Thomas Chia <https://github.com/thchia>
+//                 Piotr Dabrowski <https://github.com/yhnavein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="stripe-v3" />
 import * as React from 'react';
 
 export namespace ReactStripeElements {
-	import ElementChangeResponse = stripe.elements.ElementChangeResponse;
-	import ElementsOptions = stripe.elements.ElementsOptions;
-	import TokenOptions = stripe.TokenOptions;
-	import TokenResponse = stripe.TokenResponse;
+	type ElementChangeResponse = stripe.elements.ElementChangeResponse;
+	type ElementsOptions = stripe.elements.ElementsOptions;
+	type TokenOptions = stripe.TokenOptions;
+	type TokenResponse = stripe.TokenResponse;
+	type SourceResponse = stripe.SourceResponse;
+	type SourceOptions = stripe.SourceOptions;
 
 	/**
 	 * There's a bug in @types/stripe which defines the property as
@@ -22,15 +28,15 @@ export namespace ReactStripeElements {
 		error?: { decline_code?: string };
 	};
 
-	interface StripeProviderProps {
-		apiKey: string;
+	interface StripeProviderOptions {
+		stripeAccount?: string;
 	}
+	type StripeProviderProps = { apiKey: string; stripe?: never; } & StripeProviderOptions | { apiKey?: never; stripe: stripe.Stripe | null; } & StripeProviderOptions;
 
 	interface StripeProps {
-		// I'm not sure what the definition for this is
-		createSource(): void;
-
+		createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
 		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
+		paymentRequest: stripe.Stripe['paymentRequest'];
 	}
 
 	interface InjectOptions {
@@ -42,9 +48,11 @@ export namespace ReactStripeElements {
 	}
 
 	interface ElementProps extends ElementsOptions {
+		id?: string;
+
 		className?: string;
 
-		elementRef?(): void;
+		elementRef?(ref: any): void;
 
 		onChange?(event: ElementChangeResponse): void;
 
@@ -52,7 +60,7 @@ export namespace ReactStripeElements {
 
 		onFocus?(event: ElementChangeResponse): void;
 
-		onReady?(): void;
+		onReady?(el: HTMLElement): void;
 	}
 }
 
@@ -79,4 +87,7 @@ export class CardCVCElement extends React.Component<ReactStripeElements.ElementP
 }
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {
+}
+
+export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.ElementProps> {
 }

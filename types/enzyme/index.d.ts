@@ -7,8 +7,9 @@
 //                 huhuanming <https://github.com/huhuanming>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Torgeir Hovden <https://github.com/thovden>
+//                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="cheerio" />
 import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
@@ -23,7 +24,7 @@ export class ElementClass extends Component<any, any> {
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new(props?: Props, context?: any): Component<Props, any>;
+    new(props: Props, context?: any): Component<Props>;
 }
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
@@ -45,7 +46,7 @@ export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<a
 
 export type Intercepter<T> = (intercepter: T) => void;
 
-export interface CommonWrapper<P = {}, S = {}> {
+export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
      */
@@ -100,7 +101,7 @@ export interface CommonWrapper<P = {}, S = {}> {
     /**
      * Returns whether or not the current node exists.
      */
-    exists(): boolean;
+    exists(selector?: EnzymeSelector): boolean;
 
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that don't match the provided selector.
@@ -221,6 +222,13 @@ export interface CommonWrapper<P = {}, S = {}> {
     simulate(event: string, ...args: any[]): this;
 
     /**
+     * Used to simulate throwing a rendering error. Pass an error to throw.
+     * Returns itself.
+     * @param error
+     */
+    simulateError(error: any): this;
+
+    /**
      * A method to invoke setState() on the root component instance similar to how you might in the definition of
      * the component, and re-renders. This method is useful for testing your component in hard to achieve states,
      * however should be used sparingly. If possible, you should utilize your component's external API in order to
@@ -258,7 +266,7 @@ export interface CommonWrapper<P = {}, S = {}> {
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      */
-    instance(): Component<P, S>;
+    instance(): C;
 
     /**
      * Forces a re-render. Useful to run before checking the render output if something external may be updating
@@ -354,8 +362,8 @@ export interface CommonWrapper<P = {}, S = {}> {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
-export class ShallowWrapper<P = {}, S = {}> {
+export interface ShallowWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> { }
+export class ShallowWrapper<P = {}, S = {}, C = Component> {
     constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper<any, any>, options?: ShallowRendererProps);
     shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
     unmount(): this;
@@ -373,8 +381,9 @@ export class ShallowWrapper<P = {}, S = {}> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(selector: Partial<P> | string): this;
+    filter<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
+    filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    filter(props: EnzymePropSelector | string): ShallowWrapper<P, S>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -439,8 +448,8 @@ export class ShallowWrapper<P = {}, S = {}> {
 }
 
 // tslint:disable-next-line no-empty-interface
-export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {}
-export class ReactWrapper<P = {}, S = {}> {
+export interface ReactWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> { }
+export class ReactWrapper<P = {}, S = {}, C = Component> {
     constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper<any, any>, options?: MountRendererProps);
 
     unmount(): this;
@@ -492,8 +501,9 @@ export class ReactWrapper<P = {}, S = {}> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P> | string): this;
+    filter<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
+    filter<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    filter(props: EnzymePropSelector | string): ReactWrapper<P, S>;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
@@ -575,7 +585,7 @@ export interface MountRendererProps {
     /**
      * DOM Element to attach the component to
      */
-    attachTo?: HTMLElement;
+    attachTo?: HTMLElement | null;
     /**
      * Merged contextTypes for all children of the wrapper
      */
@@ -586,12 +596,14 @@ export interface MountRendererProps {
  * Shallow rendering is useful to constrain yourself to testing a component as a unit, and to ensure that
  * your tests aren't indirectly asserting on behavior of child components.
  */
+export function shallow<C extends Component, P = C['props'], S = C['state']>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S, C>;
 export function shallow<P>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
 export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
 
 /**
  * Mounts and renders a react component into the document and provides a testing wrapper around it.
  */
+export function mount<C extends Component, P = C['props'], S = C['state']>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S, C>;
 export function mount<P>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
 export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;
 

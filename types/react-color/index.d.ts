@@ -2,7 +2,7 @@
 // Project: https://github.com/casesandberg/react-color/
 // Definitions by: Karol Janyst <https://github.com/LKay>, Marks Polakovs <https://github.com/markspolakovs>, Matthieu Montaudouin <https://github.com/mntdn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { ComponentClass, ClassAttributes, StatelessComponent, ReactNode } from "react";
 
@@ -44,6 +44,7 @@ export interface CustomPickerProps<A> extends ClassAttributes<A> {
 
 export { default as AlphaPicker, AlphaPickerProps } from "./lib/components/alpha/Alpha";
 export { default as BlockPicker, BlockPickerProps } from "./lib/components/block/Block";
+export { default as Checkboard, CheckboardProps } from "./lib/components/common/Checkboard";
 export { default as ChromePicker, ChromePickerProps } from "./lib/components/chrome/Chrome";
 export { default as CirclePicker, CirclePickerProps } from "./lib/components/circle/Circle";
 export { default as CompactPicker, CompactPickerProps } from "./lib/components/compact/Compact";

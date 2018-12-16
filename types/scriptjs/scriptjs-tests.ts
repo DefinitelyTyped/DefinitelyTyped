@@ -1,4 +1,4 @@
-import * as $script from 'scriptjs';
+import $script = require('scriptjs');
 
 const callback = (): void => console.log('done');
 

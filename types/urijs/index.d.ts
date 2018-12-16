@@ -1,6 +1,6 @@
 // Type definitions for URI.js 1.15.1
 // Project: https://github.com/medialize/URI.js
-// Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>
+// Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>, Pete Johanson <https://github.com/petejohanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -13,6 +13,7 @@ declare namespace uri {
         absoluteTo(path: URI): URI;
         addFragment(fragment: string): URI;
         addQuery(qry: string): URI;
+        addQuery(qry: string, value:any): URI;
         addQuery(qry: Object): URI;
         addSearch(qry: string): URI;
         addSearch(key: string, value:any): URI;
@@ -104,7 +105,7 @@ declare namespace uri {
         search(qry: Object): URI;
         segment(): string[];
         segment(segments: string[]): URI;
-        segment(position: number): string;
+        segment(position: number): string | undefined;
         segment(position: number, level: string): URI;
         segment(segment: string): URI;
         segmentCoded(): string[];
@@ -234,6 +235,41 @@ declare namespace uri {
         withinString(source: string, func: (url: string) => string): string;
     }
 
+    type URITemplateValue = string | ReadonlyArray<string> | { [key: string] : string } | undefined | null;
+    type URITemplateCallback = (keyName: string) => URITemplateValue;
+    type URITemplateInput = { [key: string]: URITemplateValue | URITemplateCallback } | URITemplateCallback;
+
+    type URITemplateLiteral = string;
+    interface URITemplateVariable {
+      name: string;
+      explode: boolean;
+      maxLength?: number;
+    }
+
+    interface URITemplateExpression {
+      expression: string;
+      operator: string;
+      variables: ReadonlyArray<URITemplateVariable>;
+    }
+
+    type URITemplatePart = URITemplateLiteral | URITemplateExpression;
+
+    interface URITemplate {
+      expand(data: URITemplateInput, opts?: Object) : URI;
+      parse(): this;
+
+      /**
+       * @description The parsed parts of the URI Template. Only present after calling
+       *              `parse()` first.
+       */
+      parts?: ReadonlyArray<URITemplatePart>;
+    }
+
+    interface URITemplateStatic {
+      (template: string) : URITemplate;
+
+      new (template: string) : URITemplate;
+    }
 }
 
 interface JQuery {
@@ -241,6 +277,7 @@ interface JQuery {
 }
 
 declare var URI: uri.URIStatic;
+declare var URITemplate : uri.URITemplateStatic;
 
 declare module 'URI' {
     export = URI;
@@ -251,5 +288,5 @@ declare module 'urijs' {
 }
 
 declare module 'urijs/src/URITemplate' {
-    export = URI;
+    export = URITemplate;
 }

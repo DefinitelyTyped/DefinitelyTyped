@@ -2038,7 +2038,7 @@ namespace _ {
     // do is retrieve a reference to the term set with the same ID as the div, and
     // then add the term  that belong to that term set under the div that was clicked.
 
-    function showTerms(event: JQuery.Event, groupID: SP.Guid, termSetID: SP.Guid) {
+    function showTerms(event: JQuery.ClickEvent, groupID: SP.Guid, termSetID: SP.Guid) {
         // First, cancel the bubble so that the group div click handler does not also fire
         // because that removes all term set divs and we don't want that here.
         event.originalEvent.cancelBubble = true;
@@ -2355,7 +2355,7 @@ namespace App {
 
         static $inject: string[] = ["$SharePoint", "$spnotify"];
 
-        constructor(private $SharePoint: App.SharePoint, private $n: App.SpNotify) {
+        constructor(private readonly $SharePoint: App.SharePoint, private readonly $n: App.SpNotify) {
             this.activate();
         }
 

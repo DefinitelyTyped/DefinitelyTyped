@@ -1,8 +1,7 @@
-// Type definitions for dotenv-safe 4.0
+// Type definitions for dotenv-safe 5.0
 // Project: https://github.com/rolodato/dotenv-safe
 // Definitions by: Stan Goldmann <https://github.com/krenor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import env = require("dotenv")
 
@@ -18,12 +17,11 @@ export interface MissingEnvVarsError extends Error {
   missing: string[]
 }
 
-/**
- * Loads environment variables file into 'process.env'.
- *
- * @throws MissingEnvVarsError
- */
-export function load(options?: {
+export interface DotenvSafeOptions {
+  /**
+   * You can specify a custom path if your file containing environment variables is named or located differently.
+   * @default '.env'
+   */
   path?: string,
   /**
    * Path to example environment file.
@@ -45,4 +43,18 @@ export function load(options?: {
    * @default false
    */
   allowEmptyValues?: boolean,
-}): env.DotenvResult
+}
+
+/**
+ * Loads environment variables file into 'process.env'.
+ *
+ * @throws MissingEnvVarsError
+ */
+export function load(options?: DotenvSafeOptions): env.DotenvConfigOutput
+
+/**
+ * Loads environment variables file into 'process.env'.
+ *
+ * @throws MissingEnvVarsError
+ */
+export function config(options?: DotenvSafeOptions): env.DotenvConfigOutput

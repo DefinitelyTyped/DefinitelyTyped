@@ -2,7 +2,7 @@ import * as React from "react";
 import { RouteConfig, matchRoutes, MatchedRoute, renderRoutes, RouteConfigComponentProps } from "react-router-config";
 import { BrowserRouter } from "react-router-dom";
 
-const Root = ({ route }: RouteConfigComponentProps<void>) => (
+const Root = ({ route }: RouteConfigComponentProps) => (
     <div>
         <h1>Root</h1>
         {/* child routes won't render without this */}
@@ -10,17 +10,17 @@ const Root = ({ route }: RouteConfigComponentProps<void>) => (
     </div>
 );
 
-const Home = ({ route }: RouteConfigComponentProps<void>) => (
+const Home = ({ route }: RouteConfigComponentProps) => (
     <div>
         <h2>Home</h2>
     </div>
 );
 
-const Child = ({ route }: RouteConfigComponentProps<void>) => (
+const Child = ({ route }: RouteConfigComponentProps<{ id: string }>) => (
     <div>
         <h2>Child</h2>
         {/* child routes won't render without this */}
-        {renderRoutes(route && route.routes)}
+        {route && renderRoutes(route.routes, null, {})}
     </div>
 );
 

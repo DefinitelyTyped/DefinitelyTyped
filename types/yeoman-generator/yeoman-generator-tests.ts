@@ -1,5 +1,5 @@
 import Base = require('yeoman-generator');
-import { Questions, Answers } from 'inquirer';
+import { Questions, Answers } from 'yeoman-generator';
 import { EventEmitter } from 'events';
 
 class MyES2015Generator extends Base {}
@@ -43,35 +43,35 @@ generator.argument('arg4', {
 const argsHelp = generator.argumentsHelp();
 
 async function install() {
-    await generator.installDependencies();
-    await generator.installDependencies({
+    generator.installDependencies();
+    generator.installDependencies({
         bower: true,
         npm: true,
     });
 
-    await generator.bowerInstall();
-    await generator.bowerInstall('pkg');
-    await generator.bowerInstall(['pkg1', 'pkg2']);
-    await generator.bowerInstall('pkg', {});
-    await generator.bowerInstall('pkg', { 'custom-option': 3 }, {});
+    generator.bowerInstall();
+    generator.bowerInstall('pkg');
+    generator.bowerInstall(['pkg1', 'pkg2']);
+    generator.bowerInstall('pkg', {});
+    generator.bowerInstall('pkg', { 'custom-option': 3 }, {});
 
-    await generator.npmInstall();
-    await generator.npmInstall('pkg');
-    await generator.npmInstall(['pkg1', 'pkg2']);
-    await generator.npmInstall('pkg', {});
-    await generator.npmInstall('pkg', { 'custom-option': 3 }, {});
+    generator.npmInstall();
+    generator.npmInstall('pkg');
+    generator.npmInstall(['pkg1', 'pkg2']);
+    generator.npmInstall('pkg', {});
+    generator.npmInstall('pkg', { 'custom-option': 3 }, {});
 
-    await generator.yarnInstall();
-    await generator.yarnInstall('pkg');
-    await generator.yarnInstall(['pkg1', 'pkg2']);
-    await generator.yarnInstall('pkg', {});
-    await generator.yarnInstall('pkg', { 'custom-option': 3 }, {});
+    generator.yarnInstall();
+    generator.yarnInstall('pkg');
+    generator.yarnInstall(['pkg1', 'pkg2']);
+    generator.yarnInstall('pkg', {});
+    generator.yarnInstall('pkg', { 'custom-option': 3 }, {});
 
-    await generator.runInstall('installer');
-    await generator.runInstall('installer', 'pkg');
-    await generator.runInstall('installer', ['pkg1', 'pkg2']);
-    await generator.runInstall('installer', 'pkg', {});
-    await generator.runInstall('installer', 'pkg', { 'custom-option': 3 }, {});
+    generator.scheduleInstallTask('installer');
+    generator.scheduleInstallTask('installer', 'pkg');
+    generator.scheduleInstallTask('installer', ['pkg1', 'pkg2']);
+    generator.scheduleInstallTask('installer', 'pkg', {});
+    generator.scheduleInstallTask('installer', 'pkg', { 'custom-option': 3 }, {});
 }
 
 const composed1: Base = generator.composeWith('bootstrap', { sass: true });
@@ -108,9 +108,15 @@ generator.option('opt4', {
   default: 3.2,
 });
 
+const optionValue1 = generator.options.opt1;
+
 const optionsHelp: string = generator.optionsHelp();
 
 const answers: Promise<Answers> = generator.prompt([] as Questions);
+const answers2: Promise<Answers> = generator.prompt([{store: true}] as Questions);
+const answers3: Promise<Answers> = generator.prompt([{type: "input"}] as Questions);
+const answers4: Promise<Answers> = generator.prompt({type: "input"});
+const answers5: Promise<Answers> = generator.prompt({type: "input", store: false});
 
 generator.registerTransformStream([]);
 

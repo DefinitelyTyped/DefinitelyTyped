@@ -4,7 +4,18 @@ var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 
 var myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
     value: "function myScript(){return 100;}\n",
-    mode: "javascript"
+    mode: "javascript",
+    extraKeys: {
+        Enter: (cm) => { console.log("save"); },
+        Esc: (cm) => { return CodeMirror.Pass; }
+    }
+});
+
+// $ExpectError
+var myCodeMirror2_1: CodeMirror.Editor = CodeMirror(document.body, {
+    extraKeys: {
+        "Shift-Enter": (cm) => { return 42; }  // not a valid return value
+    }
 });
 
 var range = myCodeMirror2.findWordAt(CodeMirror.Pos(0, 2));
@@ -13,9 +24,9 @@ var head = range.head;
 var from = range.from();
 var to = range.to();
 
-var myTextArea: HTMLTextAreaElement;
+var myTextArea: HTMLTextAreaElement = undefined!;
 var myCodeMirror3: CodeMirror.Editor = CodeMirror(function (elt) {
-    myTextArea.parentNode.replaceChild(elt, myTextArea);
+    myTextArea.parentNode!.replaceChild(elt, myTextArea);
 }, { value: myTextArea.value });
 
 var myCodeMirror4: CodeMirror.Editor = CodeMirror.fromTextArea(myTextArea);
@@ -67,7 +78,25 @@ myCodeMirror.on(
   (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => { }
 );
 
+myCodeMirror.on(
+  "beforeChange",
+  (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeCancellable) => {
+    // $ExpectError
+    change.update();
+    if (change.update != null) change.update();
+  }
+);
+
 CodeMirror.registerHelper("lint", "javascript", {});
 
 myCodeMirror.isReadOnly();
 myCodeMirror.execCommand('selectAll');
+
+let htmlElement1 = document.createElement('div');
+let htmlElement2 = document.createElement('div');
+let widget1 = myCodeMirror.addLineWidget(1, htmlElement1, {});
+let widget2 = doc.addLineWidget(1, htmlElement2, {});
+widget1.clear();
+widget2.clear();
+htmlElement1.remove();
+htmlElement2.remove();

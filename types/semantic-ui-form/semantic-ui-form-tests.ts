@@ -12,6 +12,7 @@ function test_form() {
     const selector = '.ui.form';
     $(selector).form('submit'); // $ExpectType JQuery<HTMLElement>
     $(selector).form('is valid'); // $ExpectType boolean
+    $(selector).form('is valid', 'field'); // $ExpectType boolean
     $(selector).form('add rule', 'field', 'rule'); // $ExpectType JQuery<HTMLElement>
     $(selector).form('add rule', 'field', ['rule1', 'rule2']); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
@@ -143,7 +144,7 @@ function test_form() {
         },
         onSuccess(event, fields) {
             this; // $ExpectType JQuery<HTMLElement>
-            event; // $ExpectType Event<HTMLElement, null>
+            event; // $ExpectType TriggeredEvent<HTMLElement, any, any, any>
             fields; // $ExpectType any
         },
         onFailure(formErrors, fields) {

@@ -1,6 +1,7 @@
-// Type definitions for lokijs v1.5.1
+// Type definitions for lokijs v1.5.3
 // Project: https://github.com/techfort/LokiJS
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
+//                 Thomas Conner <https://github.com/thomasconner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -29,6 +30,11 @@ declare var LokiOps: {
     $lte(a: any, b: any): boolean;
     /** ex : coll.find({'orderCount': {$between: [10, 50]}}); */
     $between(a: any, vals: any/*[any, any]*/): boolean;
+    $jgt(a: any, b: any): boolean;
+    $jgte(a: any, b: any): boolean;
+    $jlt(a: any, b: any): boolean;
+    $jlte(a: any, b: any): boolean;
+    $jbetween(a: any, vals: any/*[any, any]*/): boolean;
     $in(a: any, b: any): boolean;
     $nin(a: any, b: any): boolean;
     $keyin(a: any, b: any): boolean;
@@ -773,6 +779,13 @@ interface GetDataOptions {
 }
 
 
+interface SimplesortOptions {
+    desc: boolean;
+    disableIndexIntersect: boolean;
+    forceIndexIntersect: boolean;
+    useJavascriptSorting: boolean;
+}
+
 /**
  * Resultset class allowing chainable queries.  Intended to be instanced internally.
  *    Collection.find(), Collection.where(), and Collection.chain() instantiate this.
@@ -863,10 +876,14 @@ declare class Resultset<E extends object> {
      *    Sorting based on the same lt/gt helper functions used for binary indices.
      *
      * @param propname - name of property to sort by.
-     * @param isdesc - (Optional) If true, the property will be sorted in descending order
+     * @param options - boolean to specify if sort is descending, or options object
+     * @param [options.desc] - whether to sort descending
+     * @param [options.disableIndexIntersect] - whether we should explicity not use array intersection.
+     * @param [options.forceIndexIntersect] - force array intersection (if binary index exists).
+     * @param [options.useJavascriptSorting] - whether results are sorted via basic javascript sort.
      * @returns Reference to this resultset, sorted, for future chain operations.
      */
-    public simplesort(propname: keyof E, isdesc?: boolean): this;
+    public simplesort(propname: keyof E, options?: boolean | Partial<SimplesortOptions>): this;
 
     /**
      * Allows sorting a resultset based on multiple columns.
@@ -1104,10 +1121,14 @@ declare class DynamicView<E extends object> extends LokiEventEmitter {
      * dv.applySimpleSort("name");
      *
      * @param propname - Name of property by which to sort.
-     * @param [isdesc] - (Optional) If true, the sort will be in descending order.
+     * @param [options] - boolean for sort descending or options object
+     * @param [options.desc] - whether we should sort descending.
+     * @param [options.disableIndexIntersect] - whether we should explicity not use array intersection.
+     * @param [options.forceIndexIntersect] - force array intersection (if binary index exists).
+     * @param [options.useJavascriptSorting] - whether results are sorted via basic javascript sort.
      * @returns this DynamicView object, for further chain ops.
      */
-    public applySimpleSort(propname: keyof E, isdesc?: boolean): this;
+    public applySimpleSort(propname: keyof E,  options?: boolean | Partial<SimplesortOptions>): this;
 
     /**
      * applySortCriteria() - Allows sorting a resultset based on multiple columns.
@@ -1277,6 +1298,7 @@ interface BinaryIndex {
 
 
 interface CollectionOptions<E> {
+    disableMeta: boolean;
     disableChangesApi: boolean;
     disableDeltaChangesApi: boolean;
     adaptiveBinaryIndices: boolean;
@@ -1300,6 +1322,11 @@ interface CollectionChange {
     obj: any;
 }
 
+interface CheckIndexOptions {
+  randomSampling: boolean;
+  randomSamplingFactor: number;
+  repair: boolean;
+}
 
 /**
  * Collection class that handles documents of same type
@@ -1448,6 +1475,25 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      * @param [force] - (Optional) flag indicating whether to construct index immediately
      */
     public ensureIndex(property: keyof E, force?: boolean): void;
+    
+    /**
+     * Perform checks to determine validity/consistency of all binary indices
+     * @param [options] - optional configuration object
+     * @param [options.randomSampling] - whether (faster) random sampling should be used
+     * @param [options.randomSamplingFactor] - percentage of total rows to randomly sample
+     * @param [options.repair] - whether to fix problems if they are encountered
+     */
+    public checkAllIndexes(options?: Partial<CheckIndexOptions>): string[];
+    
+    /**
+     * Perform checks to determine validity/consistency of a binary index
+     * @param property - name of the binary-indexed property to check
+     * @param [options] optional configuration object
+     * @param [options.randomSampling] - whether (faster) random sampling should be used
+     * @param [options.randomSamplingFactor] - percentage of total rows to randomly sample
+     * @param [options.repair] - whether to fix problems if they are encountered
+     */
+    public checkIndex(property: keyof E, options?: Partial<CheckIndexOptions>): boolean;
 
     public getSequencedIndexValues(property: string): string;
 

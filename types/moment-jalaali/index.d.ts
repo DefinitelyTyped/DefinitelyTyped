@@ -3,7 +3,7 @@
 // Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from 'moment';
+import moment = require('moment');
 
 export = moment;
 

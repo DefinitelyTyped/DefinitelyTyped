@@ -1,4 +1,4 @@
-// Type definitions for Draft.js v0.10.4
+// Type definitions for Draft.js v0.10.5
 // Project: https://facebook.github.io/draft-js/
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
 //                 Eelco Lempsink <https://github.com/eelco>
@@ -7,8 +7,10 @@
 //                 Michael Wu <https://github.com/michael-yx-wu>
 //                 Willis Plummer <https://github.com/willisplummer>
 //                 Santiago Vilar <https://github.com/smvilar>
+//                 Ulf Schwekendiek <https://github.com/sulf>
+//                 Pablo Varela <https://github.com/pablopunk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
@@ -398,7 +400,7 @@ declare namespace Draft {
                 /**
                  * Given a `ContentBlock`, return an immutable List of decorator keys.
                  */
-                getDecorations(block: ContentBlock): Immutable.List<string>;
+                getDecorations(block: ContentBlock, contentState: ContentState): Immutable.List<string>;
 
                 /**
                  * Given a decorator key, return the component to use when rendering
@@ -456,7 +458,7 @@ declare namespace Draft {
             class CompositeDraftDecorator {
                 constructor(decorators: Array<DraftDecorator>);
 
-                getDecorations(block: ContentBlock): Immutable.List<string>;
+                getDecorations(block: ContentBlock, contentState: ContentState): Immutable.List<string>;
                 getComponentForKey(key: string): Function;
                 getPropsForKey(key: string): Object;
             }
@@ -609,6 +611,7 @@ declare namespace Draft {
             import DraftBlockType = Draft.Model.Constants.DraftBlockType;
             import DraftEntityMutability = Draft.Model.Constants.DraftEntityMutability;
             import DraftEntityType = Draft.Model.Constants.DraftEntityType;
+            import DraftEntityInstance = Draft.Model.Entity.DraftEntityInstance;
 
             import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
 
@@ -753,6 +756,8 @@ declare namespace Draft {
                 getEntity(key: string): EntityInstance;
                 getLastCreatedEntityKey(): string;
                 mergeEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
+                replaceEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
+                addEntity(instance: DraftEntityInstance): ContentState;
 
 
                 getBlockMap(): BlockMap;
@@ -946,6 +951,7 @@ import Editor = Draft.Component.Base.DraftEditor;
 import EditorProps = Draft.Component.Base.DraftEditorProps;
 import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
+import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
 import Entity = Draft.Model.Entity.DraftEntity;
@@ -957,6 +963,7 @@ import ContentBlock = Draft.Model.ImmutableData.ContentBlock;
 import ContentState = Draft.Model.ImmutableData.ContentState;
 import SelectionState = Draft.Model.ImmutableData.SelectionState;
 import DraftInlineStyle = Draft.Model.ImmutableData.DraftInlineStyle;
+import BlockMap = Draft.Model.ImmutableData.BlockMap;
 
 import AtomicBlockUtils = Draft.Model.Modifier.AtomicBlockUtils;
 import KeyBindingUtil = Draft.Component.Utils.KeyBindingUtil;
@@ -982,6 +989,8 @@ import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRe
 import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
 import DraftDragType = Draft.Model.Constants.DraftDragType;
 import DraftBlockType = Draft.Model.Constants.DraftBlockType;
+import DraftBlockRenderConfig = Draft.Model.ImmutableData.DraftBlockRenderConfig;
+import DraftBlockRenderMap = Draft.Component.Base.DraftBlockRenderMap;
 import DraftInlineStyleType = Draft.Model.Constants.DraftInlineStyleType;
 import DraftEntityMutability = Draft.Model.Constants.DraftEntityMutability;
 import DraftEntityType = Draft.Model.Constants.DraftEntityType;
@@ -994,6 +1003,7 @@ export {
     EditorProps,
     EditorBlock,
     EditorState,
+    EditorChangeType,
 
     CompositeDecorator,
     Entity,
@@ -1005,6 +1015,7 @@ export {
     ContentState,
     SelectionState,
     DraftInlineStyle,
+    BlockMap,
 
     AtomicBlockUtils,
     KeyBindingUtil,
@@ -1030,6 +1041,8 @@ export {
     DraftEditorCommand,
     DraftDragType,
     DraftBlockType,
+    DraftBlockRenderConfig,
+    DraftBlockRenderMap,
     DraftInlineStyleType,
     DraftEntityType,
     DraftEntityMutability,

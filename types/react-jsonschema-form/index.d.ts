@@ -1,42 +1,250 @@
-// Type definitions for react-jsonschema-form 0.51.0
+// Type definitions for react-jsonschema-form 1.0.1
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
-//                 Jon Surrell <https://github.com/sirreal>
 //                 Ivan Jiang <https://github.com/iplus26>
+//                 Philippe Bourdages <https://github.com/phbou72>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
+//                 Sylvain Thénault <https://github.com/sthenault>
+//                 Sebastian Busch <https://github.com/sbusch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
+    import { JSONSchema6 } from "json-schema";
 
-    export interface FormProps {
-        schema: {};
-        uiSchema?: {};
-        formData?: any;
-        widgets?: {};
-        fields?: {};
+    export interface FormProps<T> {
+        schema: JSONSchema6;
+        uiSchema?: UiSchema;
+        formData?: T;
+        formContext?: any;
+        widgets?: { [name: string]: Widget };
+        fields?: { [name: string]: Field };
         noValidate?: boolean;
         noHtml5Validate?: boolean;
         showErrorList?: boolean;
-        validate?: (formData: any, errors: any) => any;
-        onChange?: (e: IChangeEvent) => any;
+        ErrorList?: React.StatelessComponent<ErrorListProps>;
+        validate?: (formData: T, errors: FormValidation) => FormValidation;
+        onChange?: (e: IChangeEvent<T>) => any;
         onError?: (e: any) => any;
-        onSubmit?: (e: any) => any;
+        onSubmit?: (e: ISubmitEvent<T>) => any;
         liveValidate?: boolean;
-        ObjectFieldTemplate?:any;
+        FieldTemplate?: React.StatelessComponent<FieldTemplateProps>;
+        ArrayFieldTemplate?: React.StatelessComponent<ArrayFieldTemplateProps>;
+        ObjectFieldTemplate?: React.StatelessComponent<
+            ObjectFieldTemplateProps
+        >;
         safeRenderCompletion?: boolean;
-        FieldTemplate?: any;
-        transformErrors?: (errors: any) => any;
+        transformErrors?: (errors: AjvError[]) => AjvError[];
+        idPrefix?: string;
+
+        // HTML Attributes
+        id?: string;
+        className?: string;
+        name?: string;
+        method?: string;
+        target?: string;
+        action?: string;
+        autocomplete?: string;
+        enctype?: string;
+        acceptcharset?: string;
     }
 
-    export interface IChangeEvent {
-        edit: boolean;
+    export default class Form<T> extends React.Component<FormProps<T>> {}
+
+    export type UiSchema = {
+        "ui:field"?: Field | string;
+        "ui:widget"?: Widget | string;
+        "ui:options"?: object;
+        "ui:order"?: string[];
+        [name: string]: any;
+    };
+
+    export type FieldId = {
+        $id: string;
+    };
+
+    export type IdSchema = FieldId & {
+        [key: string]: FieldId;
+    };
+
+    export interface WidgetProps extends Pick<
+        React.HTMLAttributes<HTMLElement>,
+        Exclude<
+            keyof React.HTMLAttributes<HTMLElement>,
+            "onBlur"|"onFocus">
+    > {
+        id: string;
+        schema: JSONSchema6;
+        value: any;
+        required: boolean;
+        disabled: boolean;
+        readonly: boolean;
+        autofocus: boolean;
+        onChange: (value: any) => void;
+        options: object;
+        formContext: any;
+        onBlur: (id: string, value: string) => void;
+        onFocus: (id: string, value: string) => void;
+    }
+
+    export type Widget =
+        | React.StatelessComponent<WidgetProps>
+        | React.ComponentClass<WidgetProps>;
+
+    export interface FieldProps extends React.HTMLAttributes<HTMLElement> {
+        schema: JSONSchema6;
+        uiSchema: UiSchema;
+        idSchema: IdSchema;
         formData: any;
-        errors: any[];
-        errorSchema: any;
-        idSchema: any;
-        status: string;
+        errorSchema: object;
+        onChange: (value: any) => void;
+        registry: {
+            fields: { [name: string]: Field };
+            widgets: { [name: string]: Widget };
+            definitions: object;
+            formContext: any;
+        };
+        formContext: any;
+        autofocus: boolean;
+        disabled: boolean;
+        readonly: boolean;
+        required: boolean;
+        name: string;
+        [prop: string]: any;
     }
 
-    export default class Form extends React.Component<FormProps> { }
+    export type Field =
+        | React.StatelessComponent<FieldProps>
+        | React.ComponentClass<FieldProps>;
+
+    export type FieldTemplateProps = {
+        id: string;
+        classNames: string;
+        label: string;
+        description: React.ReactElement<any>;
+        rawDescription: string;
+        children: React.ReactElement<any>;
+        errors: React.ReactElement<any>;
+        rawErrors: string[];
+        help: React.ReactElement<any>;
+        rawHelp: string;
+        hidden: boolean;
+        required: boolean;
+        readonly: boolean;
+        disabled: boolean;
+        displayLabel: boolean;
+        fields: Field[];
+        schema: JSONSchema6;
+        uiSchema: UiSchema;
+        formContext: any;
+    };
+
+    export type ArrayFieldTemplateProps = {
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<any> }>;
+        TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
+        canAdd: boolean;
+        className: string;
+        disabled: boolean;
+        idSchema: IdSchema;
+        items: {
+            children: React.ReactElement<any>;
+            className: string;
+            disabled: boolean;
+            hasMoveDown: boolean;
+            hasMoveUp: boolean;
+            hasRemove: boolean;
+            hasToolbar: boolean;
+            index: number;
+            onDropIndexClick: (index: number) => (event: any) => void;
+            onReorderClick: (
+                index: number,
+                newIndex: number
+            ) => (event: any) => void;
+            readonly: boolean;
+        }[];
+        onAddClick: (event: any) => (event: any) => void;
+        readonly: boolean;
+        required: boolean;
+        schema: JSONSchema6;
+        uiSchema: UiSchema;
+        title: string;
+        formContext: any;
+        formData: any;
+    };
+
+    export type ObjectFieldTemplateProps = {
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement<any> }>;
+        TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
+        title: string;
+        description: string;
+        properties: {
+            content: React.ReactElement<any>;
+            name: string;
+            disabled: boolean;
+            readonly: boolean;
+        }[];
+        required: boolean;
+        schema: JSONSchema6;
+        uiSchema: UiSchema;
+        idSchema: IdSchema;
+        formData: any;
+        formContext: any;
+    };
+
+    export type AjvError = {
+        message: string;
+        name: string;
+        params: any;
+        property: string;
+        stack: string;
+    };
+
+    export type ErrorListProps = {
+        errorSchema: FormValidation;
+        errors: AjvError[];
+        formContext: any;
+        schema: JSONSchema6;
+        uiSchema: UiSchema;
+    };
+
+    export interface IChangeEvent<T = any> {
+        edit: boolean;
+        formData: T;
+        errors: AjvError[];
+        errorSchema: FormValidation;
+        idSchema: IdSchema;
+        schema: JSONSchema6;
+        uiSchema: UiSchema;
+        status?: string;
+    }
+
+    export type ISubmitEvent<T> = IChangeEvent<T>;
+
+    export type FieldError = string;
+
+    type FieldValidation = {
+        __errors: FieldError[];
+        addError: (message: string) => void;
+    };
+
+    type FormValidation = FieldValidation & {
+        [fieldName: string]: FieldValidation;
+    };
+
+    type FormSubmit<T> = {
+        formData: T;
+    };
+}
+
+declare module "react-jsonschema-form/lib/utils" {
+    import { JSONSchema6 } from "json-schema";
+
+    export interface IRangeSpec {
+        min?: number;
+        max?: number;
+        step?: number;
+    }
+
+    export function rangeSpec(schema: JSONSchema6): IRangeSpec;
 }

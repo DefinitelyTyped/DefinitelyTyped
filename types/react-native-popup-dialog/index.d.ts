@@ -1,11 +1,13 @@
-// Type definitions for react-native-popup-dialog 0.9
+// Type definitions for react-native-popup-dialog 0.16
 // Project: https://github.com/jacklam718/react-native-popup-dialog/blob/master/README.md
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
+//                 connectdotz <https://github.com/connectdotz>
+//                 Michele Bombardi <https://github.com/bm-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
-import { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native';
+import { GestureResponderEvent, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 export type AlignTypes = 'left' | 'right' | 'center';
 export type OverlayPointerEventTypes = 'auto' | 'none';
@@ -16,7 +18,7 @@ export interface DialogButtonProps {
     align?: AlignTypes;
     onPress?: (event: GestureResponderEvent) => void;
     buttonStyle?: StyleProp<ViewStyle>;
-    textStyle?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
     textContainerStyle?: StyleProp<ViewStyle>;
     disabled?: boolean;
     activeOpacity?: number;
@@ -53,7 +55,7 @@ export interface PopupDialogProps {
     dismissOnTouchOutside?: boolean;
     dismissOnHardwareBackPress?: boolean;
     haveOverlay?: boolean;
-    show?: boolean;
+    visible?: boolean;
     onShown?: () => void;
     onDismissed?: () => void;
     actions?: any[];
@@ -82,4 +84,7 @@ export class SlideAnimation {
 export class DialogButton extends React.Component<DialogButtonProps, any> { }
 export class DialogTitle extends React.Component<DialogTitleProps, any> { }
 export class Overlay extends React.Component<OverlayProps, any> { }
-export default class PopupDialog extends React.Component<PopupDialogProps, any> { }
+export default class PopupDialog extends React.Component<PopupDialogProps, any> {
+    show(onShown?: () => void): void;
+    dismiss(onDismissed?: () => void): void;
+}

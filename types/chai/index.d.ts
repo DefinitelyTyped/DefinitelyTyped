@@ -1,4 +1,4 @@
-// Type definitions for chai 4.0
+// Type definitions for chai 4.1
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
@@ -8,9 +8,9 @@
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Shaun Luttin <https://github.com/shaunluttin>
 //                 Gintautas Miselis <https://github.com/Naktibalda>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
+//                 Erik Schierboom <https://github.com/ErikSchierboom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// <reference types="assertion-error"/>
 
 declare namespace Chai {
     interface ChaiStatic {
@@ -118,7 +118,7 @@ declare namespace Chai {
         extensible: Assertion;
         sealed: Assertion;
         frozen: Assertion;
-        oneOf(list: any[], message?: string): Assertion;
+        oneOf(list: ReadonlyArray<any>, message?: string): Assertion;
     }
 
     interface LanguageChains {
@@ -151,10 +151,11 @@ declare namespace Chai {
         most: NumberComparer;
         lte: NumberComparer;
         within(start: number, finish: number, message?: string): Assertion;
+        within(start: Date, finish: Date, message?: string): Assertion;
     }
 
     interface NumberComparer {
-        (value: number, message?: string): Assertion;
+        (value: number | Date, message?: string): Assertion;
     }
 
     interface TypeComparison {
@@ -185,6 +186,7 @@ declare namespace Chai {
         property: Property;
         members: Members;
         ordered: Ordered;
+        nested: Nested;
     }
 
     interface Ordered {
@@ -193,6 +195,7 @@ declare namespace Chai {
 
     interface KeyFilter {
         keys: Keys;
+        members: Members;
     }
 
     interface Equal {
@@ -227,12 +230,12 @@ declare namespace Chai {
     }
 
     interface Match {
-        (regexp: RegExp|string, message?: string): Assertion;
+        (regexp: RegExp, message?: string): Assertion;
     }
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: any[]|Object): Assertion;
+        (keys: ReadonlyArray<any>|Object): Assertion;
     }
 
     interface Throw {
@@ -249,7 +252,7 @@ declare namespace Chai {
     }
 
     interface Members {
-        (set: any[], message?: string): Assertion;
+        (set: ReadonlyArray<any>, message?: string): Assertion;
     }
 
     interface PropertyChange {
@@ -352,7 +355,7 @@ declare namespace Chai {
         notStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply equal to expected.
+         * Asserts that actual is deeply equal (==) to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -362,7 +365,7 @@ declare namespace Chai {
         deepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is not deeply equal to expected.
+         * Asserts that actual is not deeply equal (==) to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -370,6 +373,16 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notDeepEqual<T>(actual: T, expected: T, message?: string): void;
+
+        /**
+         * Asserts that actual is deeply strict equal (===) to expected.
+         *
+         * @type T   Type of the objects.
+         * @param actual   Actual value.
+         * @param expected   Potential expected value.
+         * @param message   Message to display on error.
+         */
+        deepStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
          * Asserts valueToCheck is strictly greater than (>) valueToBeAbove.
@@ -683,7 +696,7 @@ declare namespace Chai {
          * @param needle   Potential value contained in haystack.
          * @param message   Message to display on error.
          */
-        include<T>(haystack: T[], needle: T, message?: string): void;
+        include<T>(haystack: ReadonlyArray<T>, needle: T, message?: string): void;
 
         /**
          * Asserts that haystack does not include needle.
@@ -692,7 +705,7 @@ declare namespace Chai {
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
          */
-        notInclude(haystack: string | any[], needle: any, message?: string): void;
+        notInclude(haystack: string | ReadonlyArray<any>, needle: any, message?: string): void;
 
         /**
          * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
@@ -719,7 +732,7 @@ declare namespace Chai {
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
          */
-        notDeepInclude(haystack: string | any[], needle: any, message?: string): void;
+        notDeepInclude(haystack: string | ReadonlyArray<any>, needle: any, message?: string): void;
 
         /**
          * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object.
@@ -1585,6 +1598,77 @@ declare namespace Chai {
          * @param message    Message to display on error.
          */
         doesNotHaveAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+
+        /**
+         * Asserts that object has a direct or inherited property named by property,
+         * which can be a string using dot- and bracket-notation for nested reference.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param message    Message to display on error.
+         */
+        nestedProperty<T>(object: T, property: string, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property,
+         * which can be a string using dot- and bracket-notation for nested reference.
+         * The property cannot exist on the object nor anywhere in its prototype chain.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param message    Message to display on error.
+         */
+        notNestedProperty<T>(object: T, property: string, message?: string): void;
+
+        /**
+         * Asserts that object has a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        nestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a strict equality check (===).
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        notNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object has a property named by property with a value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a deep equality check.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        deepNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
+
+        /**
+         * Asserts that object does not have a property named by property with value given by value.
+         * property can use dot- and bracket-notation for nested reference. Uses a deep equality check.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param property    Property to test.
+         * @param value    Value to test.
+         * @param message    Message to display on error.
+         */
+        notDeepNestedPropertyVal<T>(object: T, property: string, value: any, message?: string): void;
     }
 
     export interface Config {

@@ -21,7 +21,7 @@ declare namespace gapi.auth2 {
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
      */
-    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: string) => any): any;
+    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: {error: string, details: string}) => any): any;
 
     /**
      * Signs in the user using the specified options.
@@ -349,7 +349,7 @@ declare namespace gapi.signin2 {
     /**
      * The callback function to call when sign-in fails (default: none).
      */
-    onfailure?(): void;
+    onfailure?(reason: { error: string }): void;
 
     /**
      * The package name of the Android app to install over the air. See

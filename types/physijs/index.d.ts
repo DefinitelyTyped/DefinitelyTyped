@@ -2,6 +2,7 @@
 // Project: http://chandlerprall.github.io/Physijs/
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="three" />
 
@@ -143,8 +144,8 @@ declare namespace Physijs {
         onSimulationResume():void;
         removeConstraint(constraint:Constraint):void;
         execute(cmd:string, params:any):void;
-        add(object:THREE.Object3D):void;
-        remove(object:THREE.Object3D):void;
+        add(object:THREE.Object3D):this;
+        remove(object:THREE.Object3D):this;
         setFixedTimeStep(fixedTimeStep:number):void;
         setGravity(gravity:THREE.Vector3):void;
         simulate(timeStep?:number, maxSubSteps?:number):boolean;

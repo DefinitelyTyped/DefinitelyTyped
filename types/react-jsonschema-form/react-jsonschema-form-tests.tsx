@@ -1,42 +1,40 @@
 import * as React from "react";
-import Form from "react-jsonschema-form";
+import Form, { UiSchema, ErrorListProps, WidgetProps } from "react-jsonschema-form";
+import { JSONSchema6 } from "json-schema";
 
 // example taken from the react-jsonschema-form playground:
 // https://github.com/mozilla-services/react-jsonschema-form/blob/fedd830294417969d88e38fb9f6b3a85e6ad105e/playground/samples/simple.js
 
-const schema =  {
-    "title": "A registration form",
-    "type": "object",
-    "required": [
-        "firstName",
-        "lastName"
-    ],
-    "properties": {
-        "firstName": {
-            "type": "string",
-            "title": "First name"
+const schema: JSONSchema6 = {
+    title: "A registration form",
+    type: "object",
+    required: ["firstName", "lastName"],
+    properties: {
+        firstName: {
+            type: "string",
+            title: "First name"
         },
-        "lastName": {
-            "type": "string",
-            "title": "Last name"
+        lastName: {
+            type: "string",
+            title: "Last name"
         },
-        "age": {
-            "type": "integer",
-            "title": "Age"
+        age: {
+            type: "integer",
+            title: "Age"
         },
-        "bio": {
-            "type": "string",
-            "title": "Bio"
+        bio: {
+            type: "string",
+            title: "Bio"
         },
-        "password": {
-            "type": "string",
-            "title": "Password",
-            "minLength": 3
+        password: {
+            type: "string",
+            title: "Password",
+            minLength: 3
         }
     }
 };
 
-const uiSchema = {
+const uiSchema: UiSchema = {
     age: {
         "ui:widget": "updown"
     },
@@ -56,6 +54,26 @@ interface IExampleState {
     formData: any;
 }
 
+export default function ErrorListExample(props: ErrorListProps) {
+    const { errors } = props;
+    return (
+        <div className="panel panel-danger errors">
+            <div className="panel-heading">
+                <h3 className="panel-title">Errors</h3>
+            </div>
+            <ul className="list-group">
+                {errors.map((error, i) => {
+                    return (
+                        <li key={i} className="list-group-item text-danger">
+                            {error.stack}
+                        </li>
+                    );
+                })}
+            </ul>
+        </div>
+    );
+}
+
 export class Example extends React.Component<any, IExampleState> {
     public state: IExampleState = {
         formData: {
@@ -65,23 +83,34 @@ export class Example extends React.Component<any, IExampleState> {
             bio: "Roundhouse kicking asses since 1940",
             password: "noneed"
         }
-    }
+    };
 
     constructor(props: any) {
         super(props);
     }
 
     public render() {
-      return (
-          <div className="react-jsonschema-form-example">
-              {   <Form schema={schema}
+        return (
+            <div className="react-jsonschema-form-example">
+                {
+                    <Form
+                        schema={schema}
                         uiSchema={uiSchema}
                         showErrorList={false}
                         noValidate={false}
                         noHtml5Validate={false}
                         formData={this.state}
-                        onChange={(formData) => this.setState({formData})} /> }
-          </div>
-      );
+                        ErrorList={ErrorListExample}
+                        onChange={formData => this.setState({ formData })}
+                    />
+                }
+            </div>
+        );
     }
 }
+
+export const CustomWidget: React.SFC<WidgetProps> = (props) =>
+    <input
+        onFocus={()=> props.onFocus('id', 'value')}
+        onBlur={()=> props.onFocus('id', 'value')}
+    />

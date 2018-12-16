@@ -21,6 +21,7 @@
     "files": [
         "index.d.ts",
         "test/react-overlays-tests.tsx",
-        "test/react-overlays-tests-individual.tsx"
+        "test/react-overlays-tests-individual.tsx",
+        "test/react-overlays-tests-transition.tsx"
     ]
 }

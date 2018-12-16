@@ -65,7 +65,7 @@ export interface Bucket {
  * A NodeJS library to do statistical analysis of numeric datasets.
  * When doing statistical analysis of data, the most common usage pattern is to run multiple statistical methods on the same set of data. Some of these methods use others. For example, to calculate the standard deviation of a dataset, we first need the mean.
  * Additionally, some methods can be calculated quickly as data is inserted, thereby reducing the number of loops required to run through the data during processing.
- * Fast stats maintains a running cache of several summary values as data is inserted making final calculation very fast. It trades off a small amount of additional memory usage for a large reduction in execution time.	 
+ * Fast stats maintains a running cache of several summary values as data is inserted making final calculation very fast. It trades off a small amount of additional memory usage for a large reduction in execution time.
  */
 export declare class Stats {
     constructor(opts?: StatsOpts);
@@ -109,7 +109,7 @@ export declare class Stats {
 
     /**
      * Arithmetic Mean
-     * The arithmetic mean is calculated as the sum of all data points divided by the number of data points. This is useful for data sets that are fairly uniform, following a linear or binomial distribution. Use the amean() method or the `�()? method to get at it:
+     * The arithmetic mean is calculated as the sum of all data points divided by the number of data points. This is useful for data sets that are fairly uniform, following a linear or binomial distribution. Use the amean() method or the ???()? method to get at it:
      */
     amean(): number;
 

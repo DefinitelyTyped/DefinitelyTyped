@@ -1,11 +1,13 @@
 // Type definitions for redis 2.8
-// Project: https://github.com/mranney/node_redis
+// Project: https://github.com/NodeRedis/node_redis
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Peter Harris <https://github.com/CodeAnimal>
 //                 TANAKA Koichi <https://github.com/MugeSo>
 //                 Stuart Schechter <https://github.com/UppaJung>
 //                 Junyoung Choi <https://github.com/Rokt33r>
 //                 James Garbutt <https://github.com/43081j>
+//                 Bartek Szczepański <https://github.com/barnski>
+//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -128,11 +130,14 @@ export interface Commands<R> {
      */
     ping(callback?: Callback<string>): R;
     ping(message: string, callback?: Callback<string>): R;
+    PING(callback?: Callback<string>): R;
+    PING(message: string, callback?: Callback<string>): R;
 
     /**
      * Post a message to a channel.
      */
     publish(channel: string, value: string, cb?: Callback<number>): R;
+    PUBLISH(channel: string, value: string, cb?: Callback<number>): R;
 
     /**
      * Authenticate to the server.
@@ -472,8 +477,8 @@ export interface Commands<R> {
     /**
      * Get all fields and values in a hash.
      */
-    hgetall(key: string, cb: Callback<{ [key: string]: string }>): R;
-    HGETALL(key: string, cb: Callback<{ [key: string]: string }>): R;
+    hgetall(key: string, cb?: Callback<{ [key: string]: string }>): R;
+    HGETALL(key: string, cb?: Callback<{ [key: string]: string }>): R;
 
     /**
      * Increment the integer value of a hash field by the given number.
@@ -484,8 +489,8 @@ export interface Commands<R> {
     /**
      * Increment the float value of a hash field by the given amount.
      */
-    hincrbyfloat(key: string, field: string, increment: number, cb?: Callback<number>): R;
-    HINCRBYFLOAT(key: string, field: string, increment: number, cb?: Callback<number>): R;
+    hincrbyfloat(key: string, field: string, increment: number, cb?: Callback<string>): R;
+    HINCRBYFLOAT(key: string, field: string, increment: number, cb?: Callback<string>): R;
 
     /**
      * Get all the fields of a hash.
@@ -544,8 +549,8 @@ export interface Commands<R> {
     /**
      * Increment the float value of a key by the given amount.
      */
-    incrbyfloat(key: string, increment: number, cb?: Callback<number>): R;
-    INCRBYFLOAT(key: string, increment: number, cb?: Callback<number>): R;
+    incrbyfloat(key: string, increment: number, cb?: Callback<string>): R;
+    INCRBYFLOAT(key: string, increment: number, cb?: Callback<string>): R;
 
     /**
      * Find all keys matching the given pattern.
@@ -1020,8 +1025,8 @@ export interface Commands<R> {
     /**
      * Increment the score of a member in a sorted set.
      */
-    zincrby(key: string, increment: number, member: string, cb?: Callback<number>): R;
-    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<number>): R;
+    zincrby(key: string, increment: number, member: string, cb?: Callback<string>): R;
+    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<string>): R;
 
     /**
      * Intersect multiple sorted sets and store the resulting sorted set in a new key.
@@ -1235,4 +1240,4 @@ export function createClient(unix_socket: string, options?: ClientOpts): RedisCl
 export function createClient(redis_url: string, options?: ClientOpts): RedisClient;
 export function createClient(options?: ClientOpts): RedisClient;
 
-export function print(err: Error | undefined, reply: any): void;
+export function print(err: Error | null, reply: any): void;

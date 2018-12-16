@@ -1,11 +1,12 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface JumbotronProps {
+export type JumbotronProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   fluid?: boolean;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare const Jumbotron: React.StatelessComponent<JumbotronProps>;
+declare class Jumbotron<T = {[key: string]: any}> extends React.Component<JumbotronProps<T>> {}
 export default Jumbotron;

@@ -133,7 +133,7 @@ export interface AbstractMeta extends UniqueId {
     _self: string;
 
     /** The time the object was created. */
-    _ts: string;
+    _ts: number;
 
     _rid?: string;
     _etag?: string;
@@ -802,7 +802,7 @@ export class DocumentClient {
      * @param [options]      - Represents the feed options.
      * @returns              - An instance of queryIterator to handle reading feed.
      */
-    queryDocuments<TDocument>(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<RetrievedDocument>;
+    queryDocuments<TDocument>(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<RetrievedDocument & TDocument>;
 
     /**
      * Query the triggers for the collection.

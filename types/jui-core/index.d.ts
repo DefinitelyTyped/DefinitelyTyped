@@ -53,7 +53,7 @@ export interface UtilBase {
     /**
      * use QuickSort
      */
-    sort(array: any[]): UtilQuickSort;
+    sort(array: any[]): (array: number[], isClone: boolean) => this;
 
     /**
      * caculate callback runtime
@@ -577,5 +577,3 @@ export interface UtilScaleOrdinal extends Function {
     rangeBands(interval: number, padding?: number, outerPadding?: number): () => void;
     invert(x: number): number;
 }
-
-export type UtilQuickSort = (array: number[], isClone: boolean) => this;

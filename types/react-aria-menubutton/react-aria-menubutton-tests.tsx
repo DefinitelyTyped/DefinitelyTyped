@@ -56,10 +56,7 @@ interface DemoOneState {
 }
 
 class DemoOne extends React.Component<{}, DemoOneState> {
-	constructor(props: any) {
-		super(props);
-		this.state = { selected: "", noMenu: false };
-	}
+	state = { selected: "", noMenu: false };
 
 	handleSelection(value: string) {
 		if (value === "destroy") {

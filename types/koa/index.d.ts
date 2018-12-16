@@ -21,7 +21,8 @@ import * as accepts from "accepts";
 import * as Cookies from "cookies";
 import { EventEmitter } from "events";
 import { IncomingMessage, ServerResponse, Server } from "http";
-import * as httpAssert from "http-assert";
+import { Http2ServerRequest, Http2ServerResponse } from 'http2';
+import httpAssert = require("http-assert");
 import * as Keygrip from "keygrip";
 import * as compose from "koa-compose";
 import { Socket, ListenOptions } from "net";
@@ -500,9 +501,9 @@ declare class Application extends EventEmitter {
 
     /**
      * Return a request handler callback
-     * for node's native http server.
+     * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage, res: ServerResponse) => void;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
 
     /**
      * Initialize a new context.
@@ -658,7 +659,9 @@ declare namespace Application {
          * Default error handling.
          */
         onerror(err: Error): void;
-
+        /**
+         * Custom properties.
+         */
         [key: string]: any;
     }
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/rkusa/koa-passport
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
+//                 Tümay Çeber <https://github.com/brendtumi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,13 +43,13 @@ declare namespace KoaPassport {
         session(options?: { pauseStream: boolean; }): Middleware;
 
         authenticate(strategy: string | string[], callback?: (...args: any[]) => any): Middleware;
-        authenticate(strategy: string | string[], options: passport.AuthenticateOptions, callback?: (...args: any[]) => any): Middleware;
+        authenticate(strategy: string | string[], options: passport.AuthenticateOptions | object, callback?: (...args: any[]) => any): Middleware;
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): Middleware;
         authorize(strategy: string | string[], options: any, callback?: (...args: any[]) => any): Middleware;
 
-        serializeUser: passport.Passport["serializeUser"];
-        deserializeUser: passport.Passport["deserializeUser"];
-        transformAuthInfo: passport.Passport["transformAuthInfo"];
+        serializeUser: passport.Authenticator["serializeUser"];
+        deserializeUser: passport.Authenticator["deserializeUser"];
+        transformAuthInfo: passport.Authenticator["transformAuthInfo"];
     }
 
     interface Static extends KoaPassport {

@@ -1,22 +1,3 @@
-
-
-function test_events() {
-
-    const object = new Parse.Events();
-    object.on("alert", (eventName: string) => alert("Triggered " + eventName));
-
-    object.trigger("alert", "an event");
-
-    const onChange = () => console.log('whatever');
-    let context: any;
-
-    object.off("change", onChange);
-    object.off("change");
-    object.off(null, onChange);
-    object.off(null, null, context);
-    object.off();
-}
-
 class GameScore extends Parse.Object {
 
     constructor(options?: any) {
@@ -57,6 +38,12 @@ function test_object() {
     gameScore.set("cheatMode", false);
 
 
+    // Setting attrs using object
+    gameScore.set({
+        level: '10',
+        difficult: 15
+    });
+
     const score = gameScore.get("score");
     const playerName = gameScore.get("playerName");
     const cheatMode = gameScore.get("cheatMode");
@@ -77,6 +64,7 @@ function test_query() {
     const query = new Parse.Query(GameScore);
     query.equalTo("playerName", "Dan Stemkoski");
     query.notEqualTo("playerName", "Michael Yabuti");
+    query.fullText("playerName", "dan", { language: 'en', caseSensitive: false, diacriticSensitive: true });
     query.greaterThan("playerAge", 18);
     query.limit(10);
     query.skip(10);
@@ -128,16 +116,39 @@ function test_query() {
     query.include("score");
     query.include(["score.team"]);
 
-    const testQuery = Parse.Query.or(query, query);
+    // Find objects that match the aggregation pipeline
+    query.aggregate({
+        group:{
+            objectId: '$name'
+        }
+    });
+
+    // Find objects with distinct key
+    query.distinct('name');
+
+    const testQuery = Parse.Query.or(query, query);   
 }
 
-class TestCollection extends Parse.Collection<Object> {
+async function test_query_promise() {
+    // Test promise with a query
+    const findQuery = new Parse.Query('Test');
+    findQuery.find()
+    .then(() => {
+        // success
+    }).catch(() => {
+        // error
+    });
 
-    constructor(models?: Parse.Object[]) {
-
-        super(models);
+    const getQuery = new Parse.Query('Test');
+    try {
+        await getQuery.get('objectId');
+    }
+    catch (error) {
+        // noop
     }
 }
+
+
 
 function return_a_generic_query(): Parse.Query<Game> {
     return new Parse.Query(Game);
@@ -145,49 +156,6 @@ function return_a_generic_query(): Parse.Query<Game> {
 
 function return_a_query(): Parse.Query {
     return new Parse.Query(Game);
-}
-
-function test_collections() {
-
-    let collection = new TestCollection();
-
-    const query = new Parse.Query(Game);
-    query.equalTo("temperature", "hot");
-    query.greaterThan("degreesF", 100);
-
-    collection = query.collection();
-
-    collection.comparator = (object) => {
-        return object.get("temperature");
-    };
-
-    collection.add([
-        { "name": "Duke" },
-        { "name": "Scarlett" }
-    ]);
-
-    collection.fetch().then(
-        (data) => {
-
-        },
-        (error) => {
-            console.log("Error: " + error.code + " " + error.message);
-        }
-    );
-
-    const model = collection.at(0);
-
-    // Or you can get it by Parse objectId.
-    const modelAgain = collection.get(model.id);
-
-    // Remove "Duke" from the collection.
-    collection.remove(model);
-
-    // Completely replace all items in the collection.
-    collection.reset([
-        { "name": "Hawk" },
-        { "name": "Jane" }
-    ]);
 }
 
 function test_file() {
@@ -235,7 +203,23 @@ function test_analytics() {
 }
 
 function test_relation() {
+    var game1 = new Game();
+    var game2 = new Game();
+
     new Parse.User().relation("games").query().find().then((g: Game[]) => { });
+    new Parse.User().relation("games").add(game1)
+    new Parse.User().relation("games").add([game1, game2])
+
+    new Parse.User().relation("games").remove(game1)
+    new Parse.User().relation("games").remove([game1, game2])
+}
+
+function test_user() {
+    const user = new Parse.User();
+    user.set("username", "my name");
+    user.set("password", "my pass");
+    user.set("email", "email@example.com");
+    user.signUp(null, { useMasterKey: true });
 }
 
 function test_user_acl_roles() {
@@ -266,6 +250,13 @@ function test_user_acl_roles() {
     game.setACL(new Parse.ACL(Parse.User.current()));
     game.save().then((game: Game) => { });
     game.save(null, { useMasterKey: true });
+    game.save({ score: '10' }, { useMasterKey: true }).then(function (game) {
+        // Update game then revert it to the last saved state.
+        game.set("score", '20');
+        game.revert();
+    }, function (error) {
+        // The save failed
+    });
 
     const groupACL = new Parse.ACL();
 
@@ -358,8 +349,29 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.beforeDelete('MyCustomClass', (request: Parse.Cloud.BeforeDeleteRequest,
-                                               response: Parse.Cloud.BeforeDeleteResponse) => {
+        response: Parse.Cloud.BeforeDeleteResponse) => {
         // result
+    });
+
+    const CUSTOM_ERROR_INVALID_CONDITION = 1001
+    const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
+
+    Parse.Cloud.beforeSave('MyCustomClass', (request: Parse.Cloud.BeforeSaveRequest,
+        response: Parse.Cloud.BeforeSaveResponse) => {
+
+            if (request.object.isNew()) {
+                if (!request.object.has('immutable')) return response.error('Field immutable is required')
+            } else {
+                const original = request.original;
+                if (original == null) { // When the object is not new, request.original must be defined
+                    return response.error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
+                }
+
+                if (original.get('immutable') !== request.object.get('immutable')) {
+                    return response.error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
+                }
+            }
+            response.success()
     });
 
     Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
@@ -367,6 +379,14 @@ function test_cloud_functions() {
         let user = request.user; // the user
         let isMaster = request.master; // if the query is run with masterKey
         let isCount = request.count; // if the query is a count operation (available on parse-server 2.4.0 or up)
+        let isGet = request.isGet; // if the query is a get operation
+
+        // All possible read preferences
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Primary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.PrimaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Secondary
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.SecondaryPreferred
+        request.readPreference = Parse.Cloud.ReadPreferenceOption.Nearest
     });
 }
 
@@ -431,25 +451,6 @@ function test_push() {
         });
 }
 
-function test_view() {
-
-    const model = Parse.User.current();
-    const view = new Parse.View<Parse.User>();
-}
-
-function test_promise() {
-    let resolved = Parse.Promise.as(true);
-    let rejected = Parse.Promise.error("an error object");
-    Parse.Promise.when([resolved, rejected]).then(function () {
-        // success
-    }, function () {
-        // failed
-    });
-
-    // can check whether an object is a Parse.Promise object or not
-    Parse.Promise.is(resolved);
-}
-
 function test_batch_operations() {
     const game1 = new Game()
     const game2 = new Game()
@@ -468,3 +469,18 @@ function test_batch_operations() {
     Parse.Object.fetchAllIfNeeded(games, { sessionToken: '' })
 }
 
+function test_query_subscribe() {
+    // create new query from Game object type
+    const query = new Parse.Query(Game);
+
+    // create subscription to Game object
+    const subscription = query.subscribe();
+
+    // listen for new Game objects created on Parse server
+    subscription.on('create', (game: any) => {
+        console.log(game);
+    });
+
+    // unsubscribe
+    subscription.unsubscribe();
+}

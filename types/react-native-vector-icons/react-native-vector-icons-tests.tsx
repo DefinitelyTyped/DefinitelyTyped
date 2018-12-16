@@ -3,6 +3,8 @@ import { View, Text, TabBarIOS } from 'react-native';
 import { createIconSet } from 'react-native-vector-icons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome5ProIcon from 'react-native-vector-icons/FontAwesome5Pro';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
 const glyphMap = {
@@ -27,6 +29,9 @@ class Example extends React.Component {
       <View>
         {/* Normal Icon */}
         <MaterialIcon size={30} color="red" name="exit" />
+        <FontAwesome5Icon size={10} name="handshake" />
+        <FontAwesome5Icon size={10} name="handshake" solid />
+        <FontAwesome5ProIcon size={10} name="parachute-box" light />
 
         {/* Icon button  */}
         <FontAwesomeIcon.Button
@@ -44,13 +49,9 @@ class Example extends React.Component {
 }
 
 class TabTest extends React.Component<{}, { selectedTab: string }> {
-  constructor() {
-    super({});
-
-    this.state = {
-      selectedTab: 'tab1'
-    };
-  }
+  state = {
+    selectedTab: 'tab1'
+  };
 
   render() {
     return (

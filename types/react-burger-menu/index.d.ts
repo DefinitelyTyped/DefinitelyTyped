@@ -1,29 +1,42 @@
-// Type definitions for react-burger-menu 2.1
+// Type definitions for react-burger-menu 2.2
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
 export interface State {
-  isOpen: boolean;
+    isOpen: boolean;
+}
+
+export interface Styles {
+    bmBurgerBars: Partial<CSSStyleDeclaration>;
+    bmBurgerButton: Partial<CSSStyleDeclaration>;
+    bmCross: Partial<CSSStyleDeclaration>;
+    bmCrossButton: Partial<CSSStyleDeclaration>;
+    bmItemList: Partial<CSSStyleDeclaration>;
+    bmMenuWrap: Partial<CSSStyleDeclaration>;
+    bmMenu: Partial<CSSStyleDeclaration>;
+    bmMorphShape: Partial<CSSStyleDeclaration>;
+    bmOverlay: Partial<CSSStyleDeclaration>;
 }
 
 export interface Props {
+    bodyClassName?: string;
     burgerBarClassName?: string;
     burgerButtonClassName?: string;
     crossButtonClassName?: string;
     crossClassName?: string;
     customBurgerIcon?: JSX.Element | false;
     customCrossIcon?: JSX.Element | false;
+    disableOverlayClick?: boolean;
     id?: string;
     isOpen?: boolean;
     itemListClassName?: string;
     menuClassName?: string;
     morphShapeClassName?: string;
     noOverlay?: boolean;
-    disableOverlayClick?: boolean;
     onStateChange?(state: State): void;
     // TODO (Rajab) This can be improved, though I do not know how. From PropTypes:
     // styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string
@@ -33,16 +46,7 @@ export interface Props {
     // styles && styles.pageWrap ? PropTypes.string.isRequired : PropTypes.string,
     pageWrapId?: string;
     right?: boolean;
-    styles?: {
-        bmBurgerButton: CSSStyleDeclaration;
-        bmBurgerBars: CSSStyleDeclaration;
-        bmCrossButton: CSSStyleDeclaration;
-        bmCross: CSSStyleDeclaration;
-        bmMenu: CSSStyleDeclaration;
-        bmMorphShape: CSSStyleDeclaration;
-        bmItemList: CSSStyleDeclaration;
-        bmOverlay: CSSStyleDeclaration;
-    };
+    styles?: Styles;
     width?: number | string;
 }
 
@@ -57,3 +61,4 @@ export class pushRotate extends ReactBurgerMenu { }
 export class scaleDown extends ReactBurgerMenu { }
 export class scaleRotate extends ReactBurgerMenu { }
 export class fallDown extends ReactBurgerMenu { }
+export class reveal extends ReactBurgerMenu { }

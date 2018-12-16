@@ -131,7 +131,7 @@ angular
     $scope['foo']; // = undefined
     locker.get('foo'); // = undefined
 
-    if (! locker.supported()) {
+    if (! locker.supported('session')) {
         // load a polyfill?
     }
 }]);

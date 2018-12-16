@@ -17,6 +17,25 @@ var options = {
 i18next.use(Backend).init(options);
 i18next.use(Backend).init({ backend: options.backend });
 
+var parseOptions = {
+    backend: {
+        // path where resources get loaded from
+        loadPath: '/locales/{{lng}}/{{ns}}.json',
+
+        // path to post missing resources
+        addPath: '/locales/{{lng}}/{{ns}}.missing.json',
+
+        // jsonIndent to use when storing json files
+        jsonIndent: 2,
+
+        parse: (data: any) => {
+            return data;
+        },
+    }
+};
+
+i18next.use(Backend).init({ backend: parseOptions });
+
 var backend = new Backend(null, options.backend);
 
 backend = new Backend();

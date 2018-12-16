@@ -1,17 +1,27 @@
-// Type definitions for yeoman-generator 2.0
+// Type definitions for yeoman-generator 3.0
 // Project: https://github.com/yeoman/generator
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
 //                 Ika <https://github.com/ikatyang>
+//                 Joshua Cherry <https://github.com/tasadar2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { EventEmitter } from 'events';
-import { Questions, Answers } from 'inquirer';
+import * as inquirer from 'inquirer';
 
 type Callback = (err: any) => void;
 
-declare namespace Base {
+declare namespace Generator {
+    interface Question extends inquirer.Question {
+        /**
+         * whether to store the user's previous answer
+         */
+        store?: boolean;
+    }
+    type Questions = Question | Question[] | Rx.Observable<Question>;
+    type Answers = inquirer.Answers;
+
     class Storage {
         constructor(name: string, fs: MemFsEditor, configPath: string);
 
@@ -70,7 +80,7 @@ declare namespace Base {
     }
 }
 
-declare class Base extends EventEmitter {
+declare class Generator extends EventEmitter {
     constructor(args: string|string[], options: {});
 
     env: {
@@ -80,18 +90,18 @@ declare class Base extends EventEmitter {
     resolved: string;
     description: string;
     appname: string;
-    config: Base.Storage;
-    fs: Base.MemFsEditor;
-    options: {};
+    config: Generator.Storage;
+    fs: Generator.MemFsEditor;
+    options: { [name: string]: any };
     log(message?: string, context?: any): void;
 
-    argument(name: string, config: Base.ArgumentConfig): this;
+    argument(name: string, config: Generator.ArgumentConfig): this;
     composeWith(namespace: string, options: { [name: string]: any }, settings?: { local: string, link: 'weak'|'strong' }): this;
     destinationPath(...path: string[]): string;
     destinationRoot(rootPath?: string): string;
     determineAppname(): string;
-    option(name: string, config: Base.OptionConfig): this;
-    prompt(questions: Questions): Promise<Answers>;
+    option(name: string, config: Generator.OptionConfig): this;
+    prompt(questions: Generator.Questions): Promise<Generator.Answers>;
     registerTransformStream(stream: {}|Array<{}>): this;
     rootGeneratorName(): string;
     rootGeneratorVersion(): string;
@@ -119,9 +129,8 @@ declare class Base extends EventEmitter {
      * @param component Components to install
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
-     * @return Resolved if install successful, rejected otherwise
      */
-    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): void;
     /**
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
@@ -138,9 +147,8 @@ declare class Base extends EventEmitter {
      *   npm: false
      * }).then(() => console.log('Everything is ready!'));
      *
-     * @return Resolved if install successful, rejected otherwise
      */
-    installDependencies(options?: Base.InstallOptions): Promise<void>;
+    installDependencies(options?: Generator.InstallOptions): void;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -149,24 +157,21 @@ declare class Base extends EventEmitter {
      * @param pkgs Packages to install
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
-     * @return Resolved if install successful, rejected otherwise
      */
-    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
     /**
      * Combine package manager cmd line arguments and run the `install` command.
      *
      * During the `install` step, every command will be scheduled to run once, on the
-     * run loop. This means you can use `Promise.then` to log information, but don't
-     * return it or mix it with `this.async` as it'll dead lock the process.
+     * run loop.
      *
      * @param installer Which package manager to use
      * @param paths Packages to install. Use an empty string for `npm install`
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`. ref
      *                     https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
-     * @return Resolved if install successful, rejected otherwise
      */
-    runInstall(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    scheduleInstallTask(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): void;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -175,9 +180,8 @@ declare class Base extends EventEmitter {
      * @param pkgs Packages to install
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
-     * @return Resolved if install successful, rejected otherwise
      */
-    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
 
     // actions/user mixin
     readonly user: {
@@ -205,4 +209,4 @@ declare class Base extends EventEmitter {
         }
     };
 }
-export = Base;
+export = Generator;

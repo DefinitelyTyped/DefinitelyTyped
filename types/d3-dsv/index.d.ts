@@ -1,9 +1,13 @@
 // Type definitions for D3JS d3-dsv module 1.0
 // Project: https://github.com/d3/d3-dsv/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.0.30
+// Last module patch version validated against: 1.0.10
 
 // ------------------------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -19,6 +23,8 @@ export interface DSVRowString {
 /**
  * An object representing a DSV parsed row with values represented as an arbitrary datatype, depending
  * on the performed parsed row mapping.
+ *
+ * @deprecated
  */
 export interface DSVRowAny {
     [key: string]: any;
@@ -67,10 +73,10 @@ export function csvParse(csvString: string): DSVParsedArray<DSVRowString>;
  * @param csvString A string, which must be in the comma-separated values format.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
  * the index (i) starting at zero for the first non-header row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function csvParse<ParsedRow extends DSVRowAny>(
+export function csvParse<ParsedRow extends object>(
     csvString: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
 ): DSVParsedArray<ParsedRow>;
@@ -102,10 +108,10 @@ export function csvParseRows(csvString: string): string[][];
  * @param csvString A string, which must be in the comma-separated values format.
  * @param row A row conversion function which is invoked for each row, being passed an array representing the current row (d), the index (i)
  * starting at zero for the first row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function csvParseRows<ParsedRow extends DSVRowAny>(
+export function csvParseRows<ParsedRow extends object>(
     csvString: string,
     row: (rawRow: string[], index: number) => ParsedRow | undefined | null
 ): ParsedRow[];
@@ -126,7 +132,7 @@ export function csvParseRows<ParsedRow extends DSVRowAny>(
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function csvFormat(rows: DSVRowAny[], columns?: string[]): string;
+export function csvFormat<T extends object>(rows: T[], columns?: Array<keyof T>): string;
 
 // csvFormatRows(...) ========================================================================
 
@@ -177,10 +183,10 @@ export function tsvParse(tsvString: string): DSVParsedArray<DSVRowString>;
  * @param tsvString A string, which must be in the tab-separated values format.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
  * the index (i) starting at zero for the first non-header row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function tsvParse<MappedRow extends DSVRowAny>(
+export function tsvParse<MappedRow extends object>(
     tsvString: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => MappedRow | undefined | null
 ): DSVParsedArray<MappedRow>;
@@ -212,10 +218,10 @@ export function tsvParseRows(tsvString: string): string[][];
  * @param tsvString A string, which must be in the tab-separated values format.
  * @param row A row conversion function which is invoked for each row, being passed an array representing the current row (d), the index (i)
  * starting at zero for the first row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function tsvParseRows<MappedRow extends DSVRowAny>(
+export function tsvParseRows<MappedRow extends object>(
     tsvString: string,
     row: (rawRow: string[], index: number) => MappedRow | undefined | null
 ): MappedRow[];
@@ -236,7 +242,7 @@ export function tsvParseRows<MappedRow extends DSVRowAny>(
  * @param rows Array of object rows.
  * @param columns An array of strings representing the column names.
  */
-export function tsvFormat(rows: DSVRowAny[], columns?: string[]): string;
+export function tsvFormat<T extends object>(rows: T[], columns?: Array<keyof T>): string;
 
 // tsvFormatRows(...) ========================================================================
 
@@ -285,10 +291,10 @@ export interface DSV {
      * @param dsvString A string, which must be in the delimiter-separated values format with the appropriate delimiter.
      * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
      * the index (i) starting at zero for the first non-header row, and the array of column names. If the returned value is null or undefined,
-     * the row is skipped and will be ommitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
+     * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
      * In effect, row is similar to applying a map and filter operator to the returned rows.
      */
-    parse<ParsedRow extends DSVRowAny>(
+    parse<ParsedRow extends object>(
         dsvString: string,
         row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
     ): DSVParsedArray<ParsedRow>;
@@ -314,10 +320,10 @@ export interface DSV {
      * @param dsvString A string, which must be in the delimiter-separated values format with the appropriate delimiter.
      * @param row A row conversion function which is invoked for each row, being passed an array representing the current row (d), the index (i)
      * starting at zero for the first row, and the array of column names. If the returned value is null or undefined,
-     * the row is skipped and will be ommitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
+     * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
      * In effect, row is similar to applying a map and filter operator to the returned rows.
      */
-    parseRows<ParsedRow extends DSVRowAny>(
+    parseRows<ParsedRow extends object>(
         dsvString: string,
         row: (rawRow: string[], index: number) => ParsedRow | undefined | null
     ): ParsedRow[];
@@ -334,7 +340,7 @@ export interface DSV {
      * @param rows Array of object rows.
      * @param columns An array of strings representing the column names.
      */
-    format(rows: DSVRowAny[], columns?: string[]): string;
+    format<T extends object>(rows: T[], columns?: Array<keyof T>): string;
 
     /**
      * Formats the specified array of array of string rows as delimiter-separated values, returning a string.

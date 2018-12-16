@@ -7,7 +7,7 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-class TestComponent extends React.Component { }
+class TestComponent extends React.Component<{x: string}> { }
 
 describe('ReactDOM', () => {
     it('render', () => {
@@ -42,7 +42,14 @@ describe('ReactDOM', () => {
             }
         }
 
-        ReactDOM.createPortal(React.createElement('div'), portalTarget);
+        ReactDOM.createPortal(<div />, document.createElement('div'));
+        ReactDOM.createPortal(<div />, document.createElement('div'), null);
+        ReactDOM.createPortal(<div />, document.createElement('div'), 'key');
+
+        ReactDOM.createPortal(React.createElement('div'), document.createElement('div'));
+        ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), null);
+        ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), 'key');
+
         ReactDOM.render(<ClassComponent />, rootElement);
     });
 });

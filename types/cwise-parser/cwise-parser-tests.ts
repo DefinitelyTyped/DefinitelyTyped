@@ -1,6 +1,5 @@
-import * as parser from "cwise-parser";
-// import parser = require("cwise-parser");
-import * as tape from "tape";
+import parser = require("cwise-parser");
+import tape = require("tape");
 
 tape("basic tests", (t) => {
 	const parsed = parser((a: number, b: number, c: number) => {

@@ -4,11 +4,13 @@
 //                 Alex Young <https://github.com/alsiola/>
 //                 David Ng <https://github.com/davidNHK/>
 //                 Carlos Eduardo Scheffer <https://github.com/carlosscheffer/>
+//                 Byungjin Kim <https://github.com/jindev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import { Strategy as PassportStrategy } from 'passport-strategy';
 import {Request} from 'express';
+import { VerifyOptions } from 'jsonwebtoken'
 
 export declare class Strategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);
@@ -24,6 +26,7 @@ export interface StrategyOptions {
     algorithms?: string[];
     ignoreExpiration?: boolean;
     passReqToCallback?: boolean;
+    jsonWebTokenOptions?: VerifyOptions;
 }
 
 export interface VerifyCallback {

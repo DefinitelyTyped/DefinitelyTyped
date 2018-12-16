@@ -1,7 +1,10 @@
-// Type definitions for electron-packager 8.7
+// Type definitions for electron-packager 13.0
 // Project: https://github.com/electron-userland/electron-packager
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Juan Jimenez-Anca <https://github.com/cortopy>
+//                 John Kleinschmidt <https://github.com/jkleinsc>
+//                 Brendan Forster <https://github.com/shiftkey>
+//                 Mark Lee <https://github.com/malept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -16,9 +19,10 @@ export = electronPackager;
  * You should be able to launch the app on the platform you built for. If not, check your settings and try again.
  *
  * @param opts - Options to configure packaging.
- * @param callback - Callback which is called when packaging is done or an error occured.
+ *
+ * @returns A promise containing the path(s) to the newly created application(s)
  */
-declare function electronPackager(opts: electronPackager.Options, callback: electronPackager.finalCallback): void;
+declare function electronPackager(opts: electronPackager.Options): Promise<string|string[]>;
 
 declare namespace electronPackager {
     /**
@@ -31,8 +35,7 @@ declare namespace electronPackager {
 
     type ignoreFunction = (path: string) => boolean;
     type onCompleteFn = (buildPath: string, electronVersion: string, platform: string, arch: string, callbackFn: () => void) => void;
-    type arch = "ia32" | "x64" | "armv7l" | "all";
-    type packageManager = "npm" | "cnpm" | "yarn";
+    type arch = "ia32" | "x64" | "armv7l" | "arm64" | "mips64el" | "all";
     type platform = "linux" | "win32" | "darwin" | "mas" | "all";
 
     interface AsarOptions {
@@ -46,6 +49,11 @@ declare namespace electronPackager {
         mirror?: string;
         quiet?: boolean;
         strictSSL?: boolean;
+    }
+
+    interface ElectronNotarizeOptions {
+        appleId: string;
+        appleIdPassword: string;
     }
 
     interface ElectronOsXSignOptions {
@@ -94,11 +102,15 @@ declare namespace electronPackager {
          * Arbitrary combinations of individual architectures are also supported via a comma-delimited string or array of strings.
          * The non-all values correspond to the architecture names used by Electron releases. This value is not restricted to the official set if download.mirror is set.
          */
-        arch?: arch;
+        arch?: arch | arch[];
         /**
          * Whether to package the application's source code into an archive, using Electron's archive format
          */
         asar?: boolean | AsarOptions;
+        /**
+         * The path to a prebuilt ASAR file.
+         */
+        prebuiltAsar?: string;
         /**
          * The build version of the application. Defaults to the value of appVersion.
          * Maps to the FileVersion metadata property on Windows, and CFBundleVersion on OS X.
@@ -121,6 +133,10 @@ declare namespace electronPackager {
          */
         extraResource?: string | string[];
         /**
+         * The name of the executable file, sans file extension. Defaults to the value for the name parameter
+         */
+        executableName?: string;
+        /**
          * The local path to the icon file, if the target platform supports setting embedding an icon.
          */
         icon?: string;
@@ -139,10 +155,6 @@ declare namespace electronPackager {
          * Whether to replace an already existing output directory for a given platform (true) or skip recreating it (false).
          */
         overwrite?: boolean;
-        /**
-         * The package manager used to prune devDependencies modules from the outputted Electron app
-         */
-        packageManager?: packageManager;
         /**
          * The target platform(s) to build for. Not required if the all option is set.
          */
@@ -181,6 +193,14 @@ declare namespace electronPackager {
          * The bundle identifier to use in the application helper's plist.
          */
         helperBundleId?: string;
+        /**
+         * Forces support for Mojave (macOS 10.14) dark mode in the packaged app.
+         */
+        darwinDarkModeSupport?: boolean;
+        /**
+         * If present, notarizes OS X target apps when the host platform is OS X and XCode is installed.
+         */
+        osxNotarize?: ElectronNotarizeOptions;
         /**
          * If present, signs OS X target apps when the host platform is OS X and XCode is installed.
          */

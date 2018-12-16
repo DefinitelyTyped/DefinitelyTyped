@@ -69,35 +69,35 @@ const ElementsWithPropsTest: React.SFC = () => (
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardNumberElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardExpiryElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardCVCElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <PostalCodeElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
     </div>
@@ -107,18 +107,40 @@ interface ComponentProps {
     tokenCallback(token: PatchedTokenResponse): void;
 }
 
-class WrappedComponent extends React.Component<ComponentProps & InjectedStripeProps> {
+class WrappedComponent extends React.Component<
+    ComponentProps & InjectedStripeProps
+> {
+    constructor(props: ComponentProps & InjectedStripeProps) {
+        super(props);
+        // Test for paymentRequest
+        const paymentRequest = props.stripe && props.stripe.paymentRequest({
+            country: 'US',
+            currency: 'usd',
+            total: {
+                label: 'Demo total',
+                amount: 1
+            }
+        });
+        if (paymentRequest) {
+            paymentRequest.on('token', ({complete, token, ...data}) => undefined);
+            paymentRequest.canMakePayment().then(res => undefined);
+        }
+    }
     onSubmit = () => {
-        this.props.stripe!.createToken({
-            name: '',
-            address_line1: '',
-            address_line2: '',
-            address_city: '',
-            address_state: '',
-            address_zip: '',
-            address_country: '',
-            currency: '',
-        }).then((response: PatchedTokenResponse) => this.props.tokenCallback(response));
+        this.props.stripe!
+            .createToken({
+                name: '',
+                address_line1: '',
+                address_line2: '',
+                address_city: '',
+                address_state: '',
+                address_zip: '',
+                address_country: '',
+                currency: '',
+            })
+            .then((response: PatchedTokenResponse) =>
+                this.props.tokenCallback(response)
+            );
     }
 
     isFormValid = () => {
@@ -170,3 +192,40 @@ const ElementsDefaultPropsTest: React.SFC = () => (
         <PostalCodeElement />
     </div>
 );
+
+/**
+ * StripeProvider should either receive `apiKey` or `stripe`, but not both.
+ * See: https://github.com/stripe/react-stripe-elements/blob/d30b32b6b8df282dd8880a3521667c371e90083f/src/components/Provider.js#L83-L86
+ */
+const TestStripeProviderProps1: React.SFC = () => <StripeProvider apiKey="" />;
+
+const TestStripeProviderProps2: React.SFC<{
+    stripe: stripe.Stripe;
+}> = props => <StripeProvider stripe={props.stripe} />;
+
+/**
+ * props.stripe is null until loaded.
+ * See: https://github.com/stripe/react-stripe-elements#props-shape
+ */
+const TestStripeProviderProps3: React.SFC<{
+    stripe: stripe.Stripe;
+}> = props => <StripeProvider stripe={null} />;
+
+/**
+ * End-to-end usage of loading stripe.js asynchronously.
+ * See: https://github.com/stripe/react-stripe-elements#loading-stripejs-asynchronously
+ */
+const TestStripeProviderProps4: React.SFC<{
+    stripe: null | stripe.Stripe
+}> = props =>
+    <StripeProvider stripe={props.stripe}>
+        <Elements>
+            <div />
+        </Elements>
+    </StripeProvider>;
+
+/**
+ * StripeProvider should be able to accept options.
+ * See: https://stripe.com/docs/stripe-js/reference#stripe-function for options.
+ */
+const TestStripeProviderOptions: React.SFC = () => <StripeProvider apiKey="" stripeAccount="" />;

@@ -1,6 +1,6 @@
-import * as cwise from 'cwise';
-import * as ndarray from 'ndarray';
-import * as tape from 'tape';
+import cwise = require('cwise');
+import ndarray = require('ndarray');
+import tape = require('tape');
 
 // basic
 tape("only allow same shape", (t) => {
@@ -150,8 +150,7 @@ tape("binary", (t) => {
 	t.end();
 });
 
-// browserify
-import * as browserify from "browserify";
+import browserify = require("browserify");
 import * as vm from 'vm';
 import * as path from 'path';
 

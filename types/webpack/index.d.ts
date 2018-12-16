@@ -1,4 +1,4 @@
-// Type definitions for webpack 3.8
+// Type definitions for webpack 4.4
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -6,14 +6,26 @@
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
-//                 Ahmed T. Ali <https://github.com/ahmed-taj>
 //                 Alan Agius <https://github.com/alan-agius4>
+//                 Spencer Elliott <https://github.com/elliottsj>
+//                 Jason Cheatham <https://github.com/jason0x43>
+//                 Dennis George <https://github.com/dennispg>
+//                 Christophe Hurpeau <https://github.com/christophehurpeau>
+//                 ZSkycat <https://github.com/ZSkycat>
+//                 John Reilly <https://github.com/johnnyreilly>
+//                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
+//                 Kyle Uehlein <https://github.com/kuehlein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
-import * as Tapable from 'tapable';
+import { Tapable, HookMap,
+         SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
+         AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
+import * as anymatch from 'anymatch';
+import { RawSourceMap } from 'source-map';
 
 export = webpack;
 
@@ -31,6 +43,8 @@ declare function webpack(options: webpack.Configuration[]): webpack.MultiCompile
 
 declare namespace webpack {
     interface Configuration {
+        /** Enable production optimizations or development hints. */
+        mode?: "development" | "production" | "none";
         /** Name of the configuration. Used when loading multiple configurations. */
         name?: string;
         /**
@@ -50,24 +64,22 @@ declare namespace webpack {
         /** Like resolve but for loaders. */
         resolveLoader?: ResolveLoader;
         /**
-         *  Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
-         *  The kind of the dependency depends on output.libraryTarget.
+         * Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
+         * The kind of the dependency depends on output.libraryTarget.
          */
         externals?: ExternalsElement | ExternalsElement[];
         /**
-         * <ul>
-         *   <li>"web" Compile for usage in a browser-like environment (default)</li>
-         *   <li>"webworker" Compile as WebWorker</li>
-         *   <li>"node" Compile for usage in a node.js-like environment (use require to load chunks)</li>
-         *   <li>"async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)</li>
-         *   <li>"node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)</li>
-         *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
-         *   <li>"electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin
-         *        for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.<li>
-         *   <li>"electron-main" Compile for Electron for main process.</li>
-         *   <li>"atom" Alias for electron-main</li>
-         *   <li>"electron" Alias for electron-main</li>
-         * <ul>
+         * - "web" Compile for usage in a browser-like environment (default).
+         * - "webworker" Compile as WebWorker.
+         * - "node" Compile for usage in a node.js-like environment (use require to load chunks).
+         * - "async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async).
+         * - "node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)
+         * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
+         * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
+         *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-main" Compile for Electron for main process.
+         * - "atom" Alias for electron-main.
+         * - "electron" Alias for electron-main.
          */
         target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
@@ -75,16 +87,14 @@ declare namespace webpack {
         /** Capture timing information for each module. */
         profile?: boolean;
         /** Cache generated modules and chunks to improve performance for multiple incremental builds. */
-        cache?: boolean | any;
+        cache?: boolean | object;
         /** Enter watch mode, which rebuilds on file change. */
         watch?: boolean;
         watchOptions?: Options.WatchOptions;
         /** Switch loaders to debug mode. */
         debug?: boolean;
-        /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
-        devServer?: any; // TODO: Type this
         /** Include polyfills or mocks for various node stuff */
-        node?: Node;
+        node?: Node | false;
         /** Set the value of require.amd and define.amd. */
         amd?: { [moduleName: string]: boolean };
         /** Used for recordsInputPath and recordsOutputPath */
@@ -98,16 +108,18 @@ declare namespace webpack {
         /** Stats options for logging  */
         stats?: Options.Stats;
         /** Performance options */
-        performance?: Options.Performance;
+        performance?: Options.Performance | false;
         /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
         parallelism?: number;
+        /** Optimization options */
+        optimization?: Options.Optimization;
     }
 
     interface Entry {
         [name: string]: string | string[];
     }
 
-    type EntryFunc = () => (string | string[] | Promise<string | string[]>);
+    type EntryFunc = () => (string | string[] | Entry | Promise<string | string[] | Entry>);
 
     interface DevtoolModuleFilenameTemplateInfo {
         identifier: string;
@@ -122,14 +134,20 @@ declare namespace webpack {
     }
 
     interface Output {
-        /** The output directory as absolute path (required). */
-        path?: string;
+        /** When used in tandem with output.library and output.libraryTarget, this option allows users to insert comments within the export wrapper. */
+        auxiliaryComment?: string | AuxiliaryCommentObject;
         /** The filename of the entry chunk as relative path inside the output.path directory. */
         filename?: string;
         /** The filename of non-entry chunks as relative path inside the output.path directory. */
         chunkFilename?: string;
-        /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
-        sourceMapFilename?: string;
+        /** Number of milliseconds before chunk request expires, defaults to 120,000. */
+        chunkLoadTimeout?: number;
+        /** This option enables cross-origin loading of chunks. */
+        crossOriginLoading?: string | boolean;
+        /** The JSONP function used by webpack for asnyc loading of chunks. */
+        jsonpFunction?: string;
+        /** Allows customization of the script type webpack injects script tags into the DOM to download async chunks. */
+        jsonpScriptType?: 'text/javascript' | 'module';
         /** Filename template string of function for the sources array in a generated SourceMap. */
         devtoolModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /** Similar to output.devtoolModuleFilenameTemplate, but used in the case of duplicate module identifiers. */
@@ -141,50 +159,64 @@ declare namespace webpack {
          * true enables it for all modules (not recommended)
          */
         devtoolLineToLine?: boolean;
+        /** This option determines the modules namespace used with the output.devtoolModuleFilenameTemplate. */
+        devtoolNamespace?: string;
         /** The filename of the Hot Update Chunks. They are inside the output.path directory. */
         hotUpdateChunkFilename?: string;
-        /** The filename of the Hot Update Main File. It is inside the output.path directory. */
-        hotUpdateMainFilename?: string;
-        /** The output.path from the view of the Javascript / HTML page. */
-        publicPath?: string;
-        /** The JSONP function used by webpack for asnyc loading of chunks. */
-        jsonpFunction?: string;
         /** The JSONP function used by webpack for async loading of hot update chunks. */
         hotUpdateFunction?: string;
-        /** Include comments with information about the modules. */
-        pathinfo?: boolean;
+        /** The filename of the Hot Update Main File. It is inside the output.path directory. */
+        hotUpdateMainFilename?: string;
         /** If set, export the bundle as library. output.library is the name. */
         library?: string | string[];
         /**
          * Which format to export the library:
-         * <ul>
-         *   <li>"var" - Export by setting a variable: var Library = xxx (default)</li>
-         *   <li>"this" - Export by setting a property of this: this["Library"] = xxx</li>
-         *   <li>"commonjs" - Export by setting a property of exports: exports["Library"] = xxx</li>
-         *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
-         *   <li>"amd" - Export to AMD (optionally named)</li>
-         *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
-         *   <li>"window" - Assign to widnow</li>
-         *   <li>"assign" - Assign to a global variable</li>
-         *   <li>"jsonp" - Generate Webpack JSONP module<li>
-         * </ul>
+         * - "var" - Export by setting a variable: var Library = xxx (default)
+         * - "this" - Export by setting a property of this: this["Library"] = xxx
+         * - "commonjs" - Export by setting a property of exports: exports["Library"] = xxx
+         * - "commonjs2" - Export by setting module.exports: module.exports = xxx
+         * - "amd" - Export to AMD (optionally named)
+         * - "umd" - Export to AMD, CommonJS2 or as property in root
+         * - "window" - Assign to window
+         * - "assign" - Assign to a global variable
+         * - "jsonp" - Generate Webpack JSONP module
          */
-        libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
+        libraryTarget?: LibraryTarget;
         /** Configure which module or modules will be exposed via the `libraryTarget` */
         libraryExport?: string | string[];
         /** If output.libraryTarget is set to umd and output.library is set, setting this to true will name the AMD module. */
         umdNamedDefine?: boolean;
+        /** The output directory as absolute path. */
+        path?: string;
+        /** Include comments with information about the modules. */
+        pathinfo?: boolean;
+        /** The output.path from the view of the Javascript / HTML page. */
+        publicPath?: string;
+        /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
+        sourceMapFilename?: string;
         /** Prefixes every line of the source in the bundle with this string. */
         sourcePrefix?: string;
-        /** This option enables cross-origin loading of chunks. */
-        crossOriginLoading?: string | boolean;
+        /** The encoding to use when generating the hash, defaults to 'hex' */
+        hashDigest?: 'hex' | 'latin1' | 'base64';
+        /** The prefix length of the hash digest to use, defaults to 20. */
+        hashDigestLength?: number;
+        /** Algorithm used for generation the hash (see node.js crypto package) */
+        hashFunction?: string | ((algorithm: string, options?: any) => any);
+        /** An optional salt to update the hash via Node.JS' hash.update. */
+        hashSalt?: string;
+        /** An expression which is used to address the global object/scope in runtime code. */
+        globalObject?: string;
     }
 
-    interface BaseModule {
+    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
+
+    type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
+
+    interface Module {
         /** A array of applied pre loaders. */
-        preLoaders?: Rule[];
+        preLoaders?: RuleSetRule[];
         /** A array of applied post loaders. */
-        postLoaders?: Rule[];
+        postLoaders?: RuleSetRule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
         noParse?: RegExp | RegExp[] | ((content: string) => boolean);
         unknownContextRequest?: string;
@@ -199,17 +231,9 @@ declare namespace webpack {
         wrappedContextRecursive?: boolean;
         wrappedContextCritical?: boolean;
         strictExportPresence?: boolean;
-    }
-    interface OldModule extends BaseModule {
-        /** An array of automatically applied loaders. */
-        loaders: Rule[];
-    }
-    interface NewModule extends BaseModule {
         /** An array of rules applied for modules. */
-        rules: Rule[];
+        rules: RuleSetRule[];
     }
-
-    type Module = OldModule | NewModule;
 
     interface Resolve {
         /**
@@ -238,7 +262,7 @@ declare namespace webpack {
          * Defaults to `["browser", "module", "main"]` or `["module", "main"]`,
          * depending on the value of the `target` `Configuration` value.
          */
-        mainFields?: string[];
+        mainFields?: string[] | string[][];
 
         /**
          * A list of fields in a package description object to try to parse
@@ -249,7 +273,7 @@ declare namespace webpack {
          *
          * @see alias
          */
-        aliasFields?: string[];
+        aliasFields?: string[] | string[][];
 
         /**
          * A list of file names to search for when requiring directories that
@@ -306,6 +330,14 @@ declare namespace webpack {
          * Defaults to `true`
          */
         symlinks?: boolean;
+
+        /**
+         * If unsafe cache is enabled, includes request.context in the cache key.
+         * This option is taken into account by the enhanced-resolve module.
+         * Since webpack 3.1.0 context in resolve caching is ignored when resolve or resolveLoader plugins are provided.
+         * This addresses a performance regression.
+         */
+        cacheWithContext?: boolean;
     }
 
     interface ResolveLoader extends Resolve {
@@ -320,155 +352,199 @@ declare namespace webpack {
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
     interface ExternalsObjectElement {
-        [key: string]: boolean | string;
+        [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
 
     interface Node {
-        console?: boolean;
+        console?: boolean | 'mock';
+        process?: boolean | 'mock';
         global?: boolean;
-        process?: boolean;
-        Buffer?: boolean;
-        __filename?: boolean | string;
-        __dirname?: boolean | string;
-        [nodeBuiltin: string]: boolean | string | undefined;
+        __filename?: boolean | 'mock';
+        __dirname?: boolean | 'mock';
+        Buffer?: boolean | 'mock';
+        setImmediate?: boolean | 'mock' | 'empty';
+        [nodeBuiltin: string]: boolean | 'mock' | 'empty' | undefined;
     }
 
-    interface BaseConditionSpec {
-        /** The Condition must match. The convention is the provide a string or array of strings here, but it's not enforced. */
-        include?: Condition;
-        /** The Condition must NOT match. The convention is the provide a string or array of strings here, but it's not enforced. */
-        exclude?: Condition;
-    }
-    interface TestConditionSpec extends BaseConditionSpec {
-        /** The Condition must match. The convention is the provide a RegExp or array of RegExps here, but it's not enforced. */
-        test: Condition;
-    }
-    interface AndConditionSpec extends BaseConditionSpec {
-        /** All Conditions must match. */
-        and: Condition[];
-    }
-    interface OrConditionSpec extends BaseConditionSpec {
-        /** Any Condition must match. */
-        or: Condition[];
-    }
-    interface NotConditionSpec extends BaseConditionSpec {
-        /** The Condition must NOT match. */
-        not: Condition;
-    }
-    type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
-
-    // tslint:disable-next-line:no-empty-interface
-    interface ConditionArray extends Array<Condition> { }
-    type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
-
-    interface OldLoader {
-        loader: string;
-        query?: { [name: string]: any };
-    }
     interface NewLoader {
         loader: string;
         options?: { [name: string]: any };
     }
-    type Loader = string | OldLoader | NewLoader;
+    type Loader = string | NewLoader;
 
-    /**
-     * There are direct and delegate rules. Direct Rules need a test, Delegate rules delegate to subrules bringing their own.
-     * Direct rules can optionally contain delegate keys (oneOf, rules).
-     *
-     * These types exist to enforce that a rule has the keys `((loader XOR loaders) AND test) OR oneOf OR rules`
-     */
-    interface BaseRule {
+    interface ParserOptions {
+        [optName: string]: any;
+        system?: boolean;
+    }
+
+    type RuleSetCondition =
+        | RegExp
+        | string
+        | ((path: string) => boolean)
+        | RuleSetConditions
+        | {
+            /**
+             * Logical AND
+             */
+            and?: RuleSetCondition[];
+            /**
+             * Exclude all modules matching any of these conditions
+             */
+            exclude?: RuleSetCondition;
+            /**
+             * Exclude all modules matching not any of these conditions
+             */
+            include?: RuleSetCondition;
+            /**
+             * Logical NOT
+             */
+            not?: RuleSetCondition[];
+            /**
+             * Logical OR
+             */
+            or?: RuleSetCondition[];
+            /**
+             * Exclude all modules matching any of these conditions
+             */
+            test?: RuleSetCondition;
+        };
+
+    // A hack around circular type referencing
+    interface RuleSetConditions extends Array<RuleSetCondition> {}
+
+    interface RuleSetRule {
         /**
-         * Specifies the category of the loader. No value means normal loader.
-         *
-         * There is also an additional category "inlined loader" which are loaders applied inline of the import/require.
-         *
-         * All loaders are sorted in the order post, inline, normal, pre and used in this order.
-         *
-         * All normal loaders can be omitted (overridden) by prefixing ! in the request.
-         *
-         * All normal and pre loaders can be omitted (overridden) by prefixing -! in the request.
-         *
-         * All normal, post and pre loaders can be omitted (overridden) by prefixing !! in the request.
-         *
-         * Inline loaders and ! prefixes should not be used as they are non-standard. They may be use by loader generated code.
+         * Enforce this rule as pre or post step
          */
-        enforce?: 'pre' | 'post';
-        /** A condition that must be met */
-        test?: Condition | Condition[];
-        /** A condition that must not be met */
-        exclude?: Condition | Condition[];
-        /** A condition that must be met */
-        include?: Condition | Condition[];
-        /** A Condition matched with the resource. */
-        resource?: Condition | Condition[];
-        /** A condition matched with the issuer */
-        issuer?: Condition | Condition[];
+        enforce?: "pre" | "post";
         /**
-         * An object with parser options. All applied parser options are merged.
-         *
-         * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options.
-         * Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
+         * Shortcut for resource.exclude
          */
-        parser?: { [optName: string]: any };
-        /** An array of Rules that is also used when the Rule matches. */
-        rules?: Rule[];
-        /** An array of Rules from which only the first matching Rule is used when the Rule matches. */
-        oneOf?: Rule[];
+        exclude?: RuleSetCondition;
+        /**
+         * Shortcut for resource.include
+         */
+        include?: RuleSetCondition;
+        /**
+         * Match the issuer of the module (The module pointing to this module)
+         */
+        issuer?: RuleSetCondition;
+        /**
+         * Shortcut for use.loader
+         */
+        loader?: RuleSetUse;
+        /**
+         * Shortcut for use.loader
+         */
+        loaders?: RuleSetUse;
+        /**
+         * Only execute the first matching rule in this array
+         */
+        oneOf?: RuleSetRule[];
+        /**
+         * Shortcut for use.options
+         */
+        options?: RuleSetQuery;
+        /**
+         * Options for parsing
+         */
+        parser?: { [k: string]: any };
+        /**
+         * Options for the resolver
+         */
+        resolve?: Resolve;
+        /**
+         * Flags a module as with or without side effects
+         */
+        sideEffects?: boolean;
+        /**
+         * Shortcut for use.query
+         */
+        query?: RuleSetQuery;
+        /**
+         * Module type to use for the module
+         */
+        type?: "javascript/auto" | "javascript/dynamic" | "javascript/esm" | "json" | "webassembly/experimental";
+        /**
+         * Match the resource path of the module
+         */
+        resource?: RuleSetCondition;
+        /**
+         * Match the resource query of the module
+         */
+        resourceQuery?: RuleSetCondition;
+        /**
+         * Match the child compiler name
+         */
+        compiler?: RuleSetCondition;
+        /**
+         * Match and execute these rules when this rule is matched
+         */
+        rules?: RuleSetRule[];
+        /**
+         * Shortcut for resource.test
+         */
+        test?: RuleSetCondition;
+        /**
+         * Modifiers applied to the module when rule is matched
+         */
+        use?: RuleSetUse;
     }
-    interface BaseDirectRule extends BaseRule {
-        /** A condition that must be met */
-        test: Condition | Condition[];
-    }
-    // Direct Rules
-    interface BaseSingleLoaderRule extends BaseDirectRule {
-        /** Loader name or an object with name and options */
-        loader: Loader;
-    }
-    interface OldLoaderRule extends BaseSingleLoaderRule {
+
+    type RuleSetUse =
+        | RuleSetUseItem
+        | RuleSetUseItem[]
+        | ((data: any) => RuleSetUseItem | RuleSetUseItem[]);
+
+    interface RuleSetLoader {
+        /**
+         * Loader name
+         */
+        loader?: string;
         /**
          * Loader options
-         * @deprecated:
          */
-        query?: { [name: string]: any };
-    }
-    interface NewLoaderRule extends BaseSingleLoaderRule {
-        options?: { [name: string]: any };
-    }
-    type LoaderRule = OldLoaderRule | NewLoaderRule;
-    interface OldUseRule extends BaseDirectRule {
+        options?: RuleSetQuery;
         /**
-         * A array of loaders.
-         * @deprecated  use `use` instead
+         * Unique loader identifier
          */
-        loaders: string[];
+        ident?: string;
+        /**
+         * Loader query
+         */
+        query?: RuleSetQuery;
     }
-    interface NewUseRule extends BaseDirectRule {
-        /** A loader or array of loaders */
-        use: Loader | Loader[];
-    }
-    type UseRule = OldUseRule | NewUseRule;
 
-    // Delegate Rules
-    interface RulesRule extends BaseRule {
-        /** An array of Rules that is also used when the Rule matches. */
-        rules: Rule[];
-    }
-    interface OneOfRule extends BaseRule {
-        oneOf: Rule[];
-    }
-    type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
+    type RuleSetUseItem =
+        | string
+        | RuleSetLoader
+        | ((data: any) => string | RuleSetLoader);
+
+    type RuleSetQuery =
+        | string
+        | { [k: string]: any };
+
+    /**
+     * @deprecated Use RuleSetCondition instead
+     */
+    type Condition = RuleSetCondition;
+
+    /**
+     * @deprecated Use RuleSetRule instead
+     */
+    type Rule = RuleSetRule;
 
     namespace Options {
         // tslint:disable-next-line:max-line-length
-        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
-            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
-            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
-            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
-            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
-            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map'
+            | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | 'inline-cheap-source-map' | 'inline-cheap-module-source-map' | '@eval'
+            | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map'
+            | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' | '#cheap-eval-source-map'
+            | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map'
+            | '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map'
+            | '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
 
         interface Performance {
             /** This property allows webpack to control what files are used to calculate performance hints. */
@@ -490,10 +566,450 @@ declare namespace webpack {
              */
             maxEntrypointSize?: number;
         }
-        type Stats = webpack.Stats.ToStringOptions;
+        type Stats = Stats.ToStringOptions;
         type WatchOptions = ICompiler.WatchOptions;
+        interface CacheGroupsOptions {
+            /** Assign modules to a cache group */
+            test?: ((...args: any[]) => boolean) | string | RegExp;
+            /** Select chunks for determining cache group content (defaults to \"initial\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
+            /** Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group */
+            enforce?: boolean;
+            /** Priority of this cache group */
+            priority?: number;
+            /** Minimal size for the created chunk */
+            minSize?: number;
+            /** Maximum size for the created chunk */
+            maxSize?: number;
+            /** Minimum number of times a module has to be duplicated until it's considered for splitting */
+            minChunks?: number;
+            /** Maximum number of requests which are accepted for on-demand loading */
+            maxAsyncRequests?: number;
+            /** Maximum number of initial chunks which are accepted for an entry point */
+            maxInitialRequests?: number;
+            /** Try to reuse existing chunk (with name) when it has matching modules */
+            reuseExistingChunk?: boolean;
+            /** Give chunks created a name (chunks with equal name are merged) */
+            name?: boolean | string | ((...args: any[]) => any);
+        }
+        interface SplitChunksOptions {
+            /** Select chunks for determining shared modules (defaults to \"async\", \"initial\" and \"all\" requires adding these chunks to the HTML) */
+            chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
+            /** Minimal size for the created chunk */
+            minSize?: number;
+            /** Maximum size for the created chunk */
+            maxSize?: number;
+            /** Minimum number of times a module has to be duplicated until it's considered for splitting */
+            minChunks?: number;
+            /** Maximum number of requests which are accepted for on-demand loading */
+            maxAsyncRequests?: number;
+            /** Maximum number of initial chunks which are accepted for an entry point */
+            maxInitialRequests?: number;
+            /** Give chunks created a name (chunks with equal name are merged) */
+            name?: boolean | string | ((...args: any[]) => any);
+            /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
+            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions | false };
+        }
+        interface RuntimeChunkOptions {
+            /** The name or name factory for the runtime chunks. */
+            name?: string | ((...args: any[]) => any);
+        }
+        interface Optimization {
+            /**
+             *  Modules are removed from chunks when they are already available in all parent chunk groups.
+             *  This reduces asset size. Smaller assets also result in faster builds since less code generation has to be performed.
+             */
+            removeAvailableModules?: boolean;
+            /** Empty chunks are removed. This reduces load in filesystem and results in faster builds. */
+            removeEmptyChunks?: boolean;
+            /** Equal chunks are merged. This results in less code generation and faster builds. */
+            mergeDuplicateChunks?: boolean;
+            /** Chunks which are subsets of other chunks are determined and flagged in a way that subsets don’t have to be loaded when the bigger chunk has been loaded. */
+            flagIncludedChunks?: boolean;
+            /** Give more often used ids smaller (shorter) values. */
+            occurrenceOrder?: boolean;
+            /** Determine exports for each module when possible. This information is used by other optimizations or code generation. I. e. to generate more efficient code for export * from. */
+            providedExports?: boolean;
+            /**
+             *  Determine used exports for each module. This depends on optimization.providedExports. This information is used by other optimizations or code generation.
+             *  I. e. exports are not generated for unused exports, export names are mangled to single char identifiers when all usages are compatible.
+             *  DCE in minimizers will benefit from this and can remove unused exports.
+             */
+            usedExports?: boolean;
+            /**
+             *  Recognise the sideEffects flag in package.json or rules to eliminate modules. This depends on optimization.providedExports and optimization.usedExports.
+             *  These dependencies have a cost, but eliminating modules has positive impact on performance because of less code generation. It depends on your codebase.
+             *  Try it for possible performance wins.
+             */
+            sideEffects?: boolean;
+            /** Tries to find segments of the module graph which can be safely concatenated into a single module. Depends on optimization.providedExports and optimization.usedExports. */
+            concatenateModules?: boolean;
+            /** Finds modules which are shared between chunk and splits them into separate chunks to reduce duplication or separate vendor modules from application modules. */
+            splitChunks?: SplitChunksOptions | false;
+            /** Create a separate chunk for the webpack runtime code and chunk hash maps. This chunk should be inlined into the HTML */
+            runtimeChunk?: boolean | "single" | "multiple" | RuntimeChunkOptions;
+            /** Avoid emitting assets when errors occur. */
+            noEmitOnErrors?: boolean;
+            /** Instead of numeric ids, give modules readable names for better debugging. */
+            namedModules?: boolean;
+            /** Instead of numeric ids, give chunks readable names for better debugging. */
+            namedChunks?: boolean;
+            /** Defines the process.env.NODE_ENV constant to a compile-time-constant value. This allows to remove development only code from code. */
+            nodeEnv?: string | false;
+            /** Use the minimizer (optimization.minimizer, by default uglify-js) to minimize output assets. */
+            minimize?: boolean;
+            /** Minimizer(s) to use for minimizing the output */
+            minimizer?: Array<Plugin | Tapable.Plugin>;
+            /** Generate records with relative paths to be able to move the context folder". */
+            portableRecords?: boolean;
+        }
     }
 
+    namespace debug {
+        interface ProfilingPluginOptions {
+            /** A relative path to a custom output file (json) */
+            outputPath?: string;
+        }
+        /**
+         * Generate Chrome profile file which includes timings of plugins execution. Outputs `events.json` file by
+         * default. It is possible to provide custom file path using `outputPath` option.
+         *
+         * In order to view the profile file:
+         * * Run webpack with ProfilingPlugin.
+         * * Go to Chrome, open the Profile Tab.
+         * * Drag and drop generated file (events.json by default) into the profiler.
+         *
+         * It will then display timeline stats and calls per plugin!
+         */
+        class ProfilingPlugin extends Plugin {
+            constructor(options?: ProfilingPluginOptions);
+        }
+    }
+    namespace compilation {
+        class Asset {
+        }
+
+        class Module {
+        }
+
+        class Record {
+        }
+
+        class Chunk {
+            constructor(name: string);
+            id: any;
+            ids: any;
+            debugId: number;
+            name: any;
+            entryModule: any;
+            files: any[];
+            rendered: boolean;
+            hash: any;
+            renderedHash: any;
+            chunkReason: any;
+            extraAsync: boolean;
+
+            hasRuntime(): boolean;
+            canBeInitial(): boolean;
+            isOnlyInitial(): boolean;
+            hasEntryModule(): boolean;
+
+            addModule(module: any): boolean;
+            removeModule(module: any): boolean;
+            setModules(modules: any): void;
+            getNumberOfModules(): number;
+            modulesIterable: any[];
+
+            addGroup(chunkGroup: any): boolean;
+            removeGroup(chunkGroup: any): boolean;
+            isInGroup(chunkGroup: any): boolean;
+            getNumberOfGroups(): number;
+            groupsIterable: any[];
+
+            compareTo(otherChunk: any): -1 | 0 | 1;
+            containsModule(module: any): boolean;
+            getModules(): any[];
+            getModulesIdent(): any[];
+            remove(reason: any): void;
+            moveModule(module: any, otherChunk: any): void;
+            integrate(otherChunk: any, reason: any): boolean;
+            split(newChunk: any): void;
+            isEmpty(): boolean;
+            updateHash(hash: any): void;
+            canBeIntegrated(otherChunk: any): boolean;
+            addMultiplierAndOverhead(size: number, options: any): number;
+            modulesSize(): number;
+            size(options: any): number;
+            integratedSize(otherChunk: any, options: any): number;
+            // tslint:disable-next-line:ban-types
+            sortModules(sortByFn: Function): void;
+            getAllAsyncChunks(): Set<any>;
+            getChunkMaps(realHash: any): { hash: any, name: any };
+            // tslint:disable-next-line:ban-types
+            getChunkModuleMaps(filterFn: Function): { id: any, hash: any };
+            // tslint:disable-next-line:ban-types
+            hasModuleInGraph(filterFn: Function, filterChunkFn: Function): boolean;
+            toString(): string;
+        }
+
+        class ChunkGroup {
+        }
+
+        class ChunkHash {
+        }
+
+        class Dependency {
+            constructor();
+            getResourceIdentifier(): any;
+            getReference(): any;
+            getExports(): any;
+            getWarnings(): any;
+            getErrors(): any;
+            updateHash(hash: any): void;
+            disconnect(): void;
+            static compare(a: any, b: any): any;
+        }
+
+        interface NormalModuleFactoryHooks {
+            resolver: SyncWaterfallHook;
+            factory: SyncWaterfallHook;
+            beforeResolve: AsyncSeriesWaterfallHook;
+            afterResolve: AsyncSeriesWaterfallHook;
+            createModule: SyncBailHook;
+            module: SyncWaterfallHook;
+            createParser: HookMap;
+            parser: HookMap;
+            createGenerator: HookMap;
+            generator: HookMap;
+        }
+
+        class NormalModuleFactory extends Tapable {
+            hooks: NormalModuleFactoryHooks;
+        }
+
+        interface ContextModuleFactoryHooks {
+            beforeResolve: AsyncSeriesWaterfallHook;
+            afterResolve: AsyncSeriesWaterfallHook;
+            contextModuleFiles: SyncWaterfallHook;
+            alternatives: AsyncSeriesWaterfallHook;
+        }
+
+        class ContextModuleFactory extends Tapable {
+            hooks: ContextModuleFactoryHooks;
+        }
+
+        class DllModuleFactory extends Tapable {
+            hooks: {};
+        }
+
+        interface CompilationHooks {
+            buildModule: SyncHook<Module>;
+            rebuildModule: SyncHook<Module>;
+            failedModule: SyncHook<Module, Error>;
+            succeedModule: SyncHook<Module>;
+
+            finishModules: SyncHook<Module[]>;
+            finishRebuildingModule: SyncHook<Module>;
+
+            unseal: SyncHook;
+            seal: SyncHook;
+
+            optimizeDependenciesBasic: SyncBailHook<Module[]>;
+            optimizeDependencies: SyncBailHook<Module[]>;
+            optimizeDependenciesAdvanced: SyncBailHook<Module[]>;
+            afterOptimizeDependencies: SyncHook<Module[]>;
+
+            optimize: SyncHook;
+
+            optimizeModulesBasic: SyncBailHook<Module[]>;
+            optimizeModules: SyncBailHook<Module[]>;
+            optimizeModulesAdvanced: SyncBailHook<Module[]>;
+            afterOptimizeModules: SyncHook<Module[]>;
+
+            optimizeChunksBasic: SyncBailHook<Chunk[], ChunkGroup[]>;
+            optimizeChunks: SyncBailHook<Chunk[], ChunkGroup[]>;
+            optimizeChunksAdvanced: SyncBailHook<Chunk[], ChunkGroup[]>;
+            afterOptimizeChunks: SyncHook<Chunk[], ChunkGroup[]>;
+
+            optimizeTree: AsyncSeriesHook<Chunk[], Module[]>;
+            afterOptimizeTree: SyncHook<Chunk[], Module[]>;
+
+            optimizeChunkModulesBasic: SyncBailHook<Chunk[], Module[]>;
+            optimizeChunkModules: SyncBailHook<Chunk[], Module[]>;
+            optimizeChunkModulesAdvanced: SyncBailHook<Chunk[], Module[]>;
+            afterOptimizeChunkModules: SyncHook<Chunk[], Module[]>;
+            shouldRecord: SyncBailHook;
+
+            reviveModules: SyncHook<Module[], Record[]>;
+            optimizeModuleOrder: SyncHook<Module[]>;
+            advancedOptimizeModuleOrder: SyncHook<Module[]>;
+            beforeModuleIds: SyncHook<Module[]>;
+            moduleIds: SyncHook<Module[]>;
+            optimizeModuleIds: SyncHook<Module[]>;
+            afterOptimizeModuleIds: SyncHook<Module[]>;
+
+            reviveChunks: SyncHook<Chunk[], Record[]>;
+            optimizeChunkOrder: SyncHook<Chunk[]>;
+            beforeChunkIds: SyncHook<Chunk[]>;
+            optimizeChunkIds: SyncHook<Chunk[]>;
+            afterOptimizeChunkIds: SyncHook<Chunk[]>;
+
+            recordModules: SyncHook<Module[], Record[]>;
+            recordChunks: SyncHook<Chunk[], Record[]>;
+
+            beforeHash: SyncHook;
+            afterHash: SyncHook;
+
+            recordHash: SyncHook<Record[]>;
+
+            record: SyncHook<Compilation, Record[]>;
+
+            beforeModuleAssets: SyncHook;
+            shouldGenerateChunkAssets: SyncBailHook;
+            beforeChunkAssets: SyncHook;
+            additionalChunkAssets: SyncHook<Chunk[]>;
+
+            records: SyncHook<Compilation, Record[]>;
+
+            additionalAssets: AsyncSeriesHook;
+            optimizeChunkAssets: AsyncSeriesHook<Chunk[]>;
+            afterOptimizeChunkAssets: SyncHook<Chunk[]>;
+            optimizeAssets: AsyncSeriesHook<Asset[]>;
+            afterOptimizeAssets: SyncHook<Asset[]>;
+
+            needAdditionalSeal: SyncBailHook;
+            afterSeal: AsyncSeriesHook;
+
+            chunkHash: SyncHook<Chunk, ChunkHash>;
+            moduleAsset: SyncHook<Module, string>;
+            chunkAsset: SyncHook<Chunk, string>;
+
+            assetPath: SyncWaterfallHook<string>;
+
+            needAdditionalPass: SyncBailHook;
+            childCompiler: SyncHook;
+
+            normalModuleLoader: SyncHook<any, Module>;
+
+            optimizeExtractedChunksBasic: SyncBailHook<Chunk[]>;
+            optimizeExtractedChunks: SyncBailHook<Chunk[]>;
+            optimizeExtractedChunksAdvanced: SyncBailHook<Chunk[]>;
+            afterOptimizeExtractedChunks: SyncHook<Chunk[]>;
+        }
+
+        interface CompilationModule {
+            module: any;
+            issuer: boolean;
+            build: boolean;
+            dependencies: boolean;
+        }
+
+        class MainTemplate extends Tapable {}
+        class ChunkTemplate extends Tapable {}
+        class HotUpdateChunkTemplate extends Tapable {}
+        class RuntimeTemplate {}
+
+        interface ModuleTemplateHooks {
+            content: SyncWaterfallHook;
+            module: SyncWaterfallHook;
+            render: SyncWaterfallHook;
+            package: SyncWaterfallHook;
+            hash: SyncHook;
+        }
+
+        class ModuleTemplate extends Tapable {
+            hooks: ModuleTemplateHooks;
+        }
+
+        class Compilation extends Tapable {
+            hooks: CompilationHooks;
+            compiler: Compiler;
+
+            resolverFactory: any;
+            inputFileSystem: any;
+            requestShortener: any;
+
+            outputOptions: any;
+            bail: any;
+            profile: any;
+            performance: any;
+
+            mainTemplate: MainTemplate;
+            chunkTemplate: ChunkTemplate;
+            hotUpdateChunkTemplate: HotUpdateChunkTemplate;
+            runtimeTemplate: RuntimeTemplate;
+            moduleTemplates: {
+                javascript: ModuleTemplate;
+                webassembly: ModuleTemplate;
+            };
+
+            entries: any[];
+            _preparedEntrypoints: any[];
+            entrypoints: Map<any, any>;
+            chunks: any[];
+            chunkGroups: any[];
+            namedChunkGroups: Map<any, any>;
+            namedChunks: Map<any, any>;
+            modules: any[];
+            _modules: Map<any, any>;
+            cache: any;
+            records: any;
+            nextFreeModuleIndex: any;
+            nextFreeModuleIndex2: any;
+            additionalChunkAssets: any[];
+            assets: any;
+            errors: any[];
+            warnings: any[];
+            children: any[];
+            dependencyFactories: Map<typeof Dependency, Tapable>;
+            dependencyTemplates: Map<typeof Dependency, Tapable>;
+            childrenCounters: any;
+            usedChunkIds: any;
+            usedModuleIds: any;
+            fileTimestamps: Map<string, number>;
+            contextTimestamps: Map<string, number>;
+            fileDependencies: SortableSet<string>;
+            contextDependencies: SortableSet<string>;
+            missingDependencies: SortableSet<string>;
+            hash?: string;
+            getStats(): Stats;
+            addModule(module: CompilationModule, cacheGroup: any): any;
+            // tslint:disable-next-line:ban-types
+            addEntry(context: any, entry: any, name: any, callback: Function): void;
+            getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
+            /**
+             * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
+             */
+            applyPlugins(name: string, ...args: any[]): void;
+        }
+
+        interface CompilerHooks {
+            shouldEmit: SyncBailHook<Compilation>;
+            done: AsyncSeriesHook<Stats>;
+            additionalPass: AsyncSeriesHook;
+            beforeRun: AsyncSeriesHook<Compilation>;
+            run: AsyncSeriesHook<Compilation>;
+            emit: AsyncSeriesHook<Compilation>;
+            afterEmit: AsyncSeriesHook<Compilation>;
+            thisCompilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
+            compilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
+            normalModuleFactory: SyncHook<NormalModuleFactory>;
+            contextModuleFactory: SyncHook<ContextModuleFactory>;
+            beforeCompile: AsyncSeriesHook<{}>;
+            compile: SyncHook<{}>;
+            make: AsyncParallelHook<Compilation>;
+            afterCompile: AsyncSeriesHook<Compilation>;
+            watchRun: AsyncSeriesHook<Compiler>;
+            failed: SyncHook<Error>;
+            invalid: SyncHook<string, Date>;
+            watchClose: SyncHook;
+            environment: SyncHook;
+            afterEnvironment: SyncHook;
+            afterPlugins: SyncHook<Compiler>;
+            afterResolvers: SyncHook<Compiler>;
+            entryOption: SyncBailHook;
+        }
+    }
     // tslint:disable-next-line:interface-name
     interface ICompiler {
         run(handler: ICompiler.Handler): void;
@@ -515,7 +1031,7 @@ declare namespace webpack {
              * It is possible to exclude a huge folder like node_modules.
              * It is also possible to use anymatch patterns.
              */
-            ignored?: string | RegExp;
+            ignored?: anymatch.Matcher;
             /** Turn on polling by passing true, or specifying a poll interval in milliseconds. */
             poll?: boolean | number;
         }
@@ -526,12 +1042,44 @@ declare namespace webpack {
         invalidate(): void;
     }
 
+    interface InputFileSystem {
+        purge?(): void;
+        readFile(path: string, callback: (err: Error | undefined | null, contents: Buffer) => void): void;
+        readFileSync(path: string): Buffer;
+        readlink(path: string, callback: (err: Error | undefined | null, linkString: string) => void): void;
+        readlinkSync(path: string): string;
+        stat(path: string, callback: (err: Error | undefined | null, stats: any) => void): void;
+        statSync(path: string): any;
+    }
+
+    interface OutputFileSystem {
+        join(...paths: string[]): string;
+        mkdir(path: string, callback: (err: Error | undefined | null) => void): void;
+        mkdirp(path: string, callback: (err: Error | undefined | null) => void): void;
+        rmdir(path: string, callback: (err: Error | undefined | null) => void): void;
+        unlink(path: string, callback: (err: Error | undefined | null) => void): void;
+        writeFile(path: string, data: any, callback: (err: Error | undefined | null) => void): void;
+    }
+
+    interface SortableSet<T> extends Set<T> {
+        sortWith(sortFn: (a: T, b: T) => number): void;
+        sort(): void;
+        getFromCache(fn: (set: SortableSet<T>) => T[]): T[];
+        getFromUnorderedCache(fn: (set: SortableSet<T>) => string|number|T[]): any;
+    }
+
     class Compiler extends Tapable implements ICompiler {
         constructor();
 
+        hooks: compilation.CompilerHooks;
+        _pluginCompat: SyncBailHook<compilation.Compilation>;
+
         name: string;
         options: Configuration;
-        outputFileSystem: any;
+        inputFileSystem: InputFileSystem;
+        outputFileSystem: OutputFileSystem;
+        fileTimestamps: Map<string, number>;
+        contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
     }
@@ -540,7 +1088,7 @@ declare namespace webpack {
         type Handler = ICompiler.Handler;
         type WatchOptions = ICompiler.WatchOptions;
 
-        class Watching implements webpack.Watching {
+        class Watching implements Watching {
             constructor(compiler: Compiler, watchOptions: Watching.WatchOptions, handler: Watching.Handler);
 
             close(callback: () => void): void;
@@ -554,6 +1102,7 @@ declare namespace webpack {
     }
 
     abstract class MultiCompiler extends Tapable implements ICompiler {
+        compilers: Compiler[];
         run(handler: MultiCompiler.Handler): void;
         watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
@@ -577,6 +1126,10 @@ declare namespace webpack {
     }
 
     abstract class Stats {
+        compilation: compilation.Compilation;
+        hash?: string;
+        startTime?: Date;
+        endTime?: Date;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
@@ -597,10 +1150,14 @@ declare namespace webpack {
             | 'verbose';
 
         interface ToJsonOptionsObject {
+            /** fallback value for stats options when an option is not defined (has precedence over local webpack defaults) */
+            all?: boolean;
             /** Add asset Information */
             assets?: boolean;
             /** Sort assets by a field */
             assetsSort?: string;
+            /** Add built at time information */
+            builtAt?: boolean;
             /** Add information about cached (not built) modules */
             cached?: boolean;
             /** Show cached assets (setting this to `false` only shows emitted files) */
@@ -824,6 +1381,7 @@ declare namespace webpack {
         constructor(options: any);
     }
 
+    /** @deprecated use config.optimization.namedModules */
     class NamedModulesPlugin extends Plugin {
         constructor();
     }
@@ -832,12 +1390,8 @@ declare namespace webpack {
         constructor(nameResolver?: (chunk: any) => string | null);
     }
 
+    /** @deprecated use config.optimization.noEmitOnErrors */
     class NoEmitOnErrorsPlugin extends Plugin {
-        constructor();
-    }
-
-    /** @deprecated use webpack.NoEmitOnErrorsPlugin */
-    class NoErrorsPlugin extends Plugin {
         constructor();
     }
 
@@ -852,7 +1406,7 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string) => void);
+        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
     }
 
     class EnvironmentPlugin extends Plugin {
@@ -861,6 +1415,10 @@ declare namespace webpack {
 
     class ProvidePlugin extends Plugin {
         constructor(definitions: { [key: string]: any });
+    }
+
+    class SplitChunksPlugin extends Plugin {
+        constructor(options?: Options.SplitChunksOptions);
     }
 
     class SourceMapDevToolPlugin extends Plugin {
@@ -894,6 +1452,7 @@ declare namespace webpack {
     }
 
     namespace optimize {
+        /** @deprecated use config.optimization.concatenateModules */
         class ModuleConcatenationPlugin extends Plugin { }
         class AggressiveMergingPlugin extends Plugin {
             constructor(options?: AggressiveMergingPlugin.Options);
@@ -920,59 +1479,30 @@ declare namespace webpack {
             }
         }
 
-        class CommonsChunkPlugin extends Plugin {
-            constructor(options?: CommonsChunkPlugin.Options);
+        class AggressiveSplittingPlugin extends Plugin {
+            constructor(options?: AggressiveSplittingPlugin.Options);
         }
 
-        namespace CommonsChunkPlugin {
-            type MinChunksFn = (module: any, count: number) => boolean;
-
+        namespace AggressiveSplittingPlugin {
             interface Options {
                 /**
-                 * The chunk name of the commons chunk. An existing chunk can be selected by passing a name of an existing chunk.
-                 * If an array of strings is passed this is equal to invoking the plugin multiple times for each chunk name.
-                 * If omitted and `options.async` or `options.children` is set all chunks are used,
-                 * otherwise `options.filename` is used as chunk name.
+                 * Size in byte.
+                 * Only chunks bigger than the specified minSize are stored in records.
+                 * This ensures the chunks fill up as your application grows,
+                 * instead of creating too many chunks for every change.
+                 *
+                 * Default: 30720
                  */
-                name?: string;
-                names?: string[];
-
+                minSize: 30000;
                 /**
-                 * The filename template for the commons chunk. Can contain the same placeholders as `output.filename`.
-                 * If omitted the original filename is not modified (usually `output.filename` or `output.chunkFilename`).
+                 * Size in byte.
+                 * maximum size prefered for each chunk.
+                 *
+                 * Default: 51200
                  */
-                filename?: string;
-
-                /**
-                 * The minimum number of chunks which need to contain a module before it's moved into the commons chunk.
-                 * The number must be greater than or equal 2 and lower than or equal to the number of chunks.
-                 * Passing `Infinity` just creates the commons chunk, but moves no modules into it.
-                 * By providing a `function` you can add custom logic. (Defaults to the number of chunks)
-                 */
-                minChunks?: number | MinChunksFn;
-
-                /**
-                 * Select the source chunks by chunk names. The chunk must be a child of the commons chunk.
-                 * If omitted all entry chunks are selected.
-                 */
-                chunks?: string[];
-
-                /**
-                 * If `true` all children of the commons chunk are selected
-                 */
-                children?: boolean;
-
-                /**
-                 * If `true` a new async commons chunk is created as child of `options.name` and sibling of `options.chunks`.
-                 * It is loaded in parallel with `options.chunks`. It is possible to change the name of the output file
-                 * by providing the desired string instead of `true`.
-                 */
-                async?: boolean | string;
-
-                /**
-                 * Minimum size of all common module before a commons chunk is created.
-                 */
-                minSize?: number;
+                maxSize: 50000;
+                chunkOverhead: 0;
+                entryChunkMultiplicator: 1;
             }
         }
 
@@ -1018,7 +1548,7 @@ declare namespace webpack {
 
     namespace loader {
         interface Loader extends Function {
-            (this: LoaderContext, source: string | Buffer, sourceMap: string | Buffer): string | Buffer | void | undefined;
+            (this: LoaderContext, source: string | Buffer, sourceMap?: RawSourceMap): string | Buffer | void | undefined;
 
             /**
              * The order of chained loaders are always called from right to left.
@@ -1027,7 +1557,7 @@ declare namespace webpack {
              * If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders,
              * continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
              */
-            pitch?(remainingRequest: string, precedingRequest: string, data: any): any | undefined;
+            pitch?(remainingRequest: string, precedingRequest: string, data: any): any;
 
             /**
              * By default, the resource file is treated as utf-8 string and passed as String to the loader.
@@ -1038,7 +1568,7 @@ declare namespace webpack {
             raw?: boolean;
         }
 
-        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: string | Buffer) => void;
+        type loaderCallback = (err: Error | undefined | null, content?: string | Buffer, sourceMap?: RawSourceMap) => void;
 
         interface LoaderContext {
             /**
@@ -1053,6 +1583,11 @@ declare namespace webpack {
              *  In the example: /abc because resource.js is in this directory
              */
             context: string;
+
+            /**
+             * Starting with webpack 4, the formerly `this.options.context` is provided as `this.rootContext`.
+             */
+            rootContext: string;
 
             /**
              * The resolved request string.
@@ -1147,6 +1682,14 @@ declare namespace webpack {
             exec(code: string, filename: string): any;
 
             /**
+             * Resolves the given request to a module, applies all configured loaders and calls
+             * back with the generated source, the sourceMap and the module instance (usually an
+             * instance of NormalModule). Use this function if you need to know the source code
+             * of another module to generate the result.
+             */
+            loadModule(request: string, callback: (err: Error | null, source: string, sourceMap: RawSourceMap, module: Module) => void): any;
+
+            /**
              * Resolve a request like a require expression.
              */
             resolve(context: string, request: string, callback: (err: Error, result: string) => void): any;
@@ -1191,11 +1734,6 @@ declare namespace webpack {
              * If you would execute the input argument as module, consider reading this variable for a shortcut (for performance).
              */
             inputValue: any;
-
-            /**
-             * The options passed to the Compiler.
-             */
-            options: any;
 
             /**
              * A boolean flag. It is set when in debug mode.
@@ -1251,43 +1789,49 @@ declare namespace webpack {
              * Hacky access to the Module object being loaded.
              */
             _module: any;
+
+            /** Flag if HMR is enabled */
+            hot: boolean;
         }
     }
 
     /** @deprecated */
     namespace compiler {
         /** @deprecated use webpack.Compiler */
+        // tslint:disable-next-line:no-unnecessary-qualifier
         type Compiler = webpack.Compiler;
 
         /** @deprecated use webpack.Compiler.Watching */
-        type Watching = webpack.Compiler.Watching;
+        type Watching = Compiler.Watching;
 
         /** @deprecated use webpack.Compiler.WatchOptions */
-        type WatchOptions = webpack.Compiler.WatchOptions;
+
+        type WatchOptions = Compiler.WatchOptions;
 
         /** @deprecated use webpack.Stats */
+        // tslint:disable-next-line:no-unnecessary-qualifier
         type Stats = webpack.Stats;
 
         /** @deprecated use webpack.Stats.ToJsonOptions */
-        type StatsOptions = webpack.Stats.ToJsonOptions;
+        type StatsOptions = Stats.ToJsonOptions;
 
         /** @deprecated use webpack.Stats.ToStringOptions */
-        type StatsToStringOptions = webpack.Stats.ToStringOptions;
+        type StatsToStringOptions = Stats.ToStringOptions;
 
         /** @deprecated use webpack.Compiler.Handler */
-        type CompilerCallback = webpack.Compiler.Handler;
+        type CompilerCallback = Compiler.Handler;
     }
 
     /** @deprecated use webpack.Options.Performance */
-    type PerformanceOptions = webpack.Options.Performance;
+    type PerformanceOptions = Options.Performance;
     /** @deprecated use webpack.Options.WatchOptions */
-    type WatchOptions = webpack.Options.WatchOptions;
+    type WatchOptions = Options.WatchOptions;
     /** @deprecated use webpack.EvalSourceMapDevToolPlugin.Options */
-    type EvalSourceMapDevToolPluginOptions = webpack.EvalSourceMapDevToolPlugin.Options;
+    type EvalSourceMapDevToolPluginOptions = EvalSourceMapDevToolPlugin.Options;
     /** @deprecated use webpack.SourceMapDevToolPlugin.Options */
-    type SourceMapDevToolPluginOptions = webpack.SourceMapDevToolPlugin.Options;
+    type SourceMapDevToolPluginOptions = SourceMapDevToolPlugin.Options;
     /** @deprecated use webpack.optimize.UglifyJsPlugin.CommentFilter */
-    type UglifyCommentFunction = webpack.optimize.UglifyJsPlugin.CommentFilter;
+    type UglifyCommentFunction = optimize.UglifyJsPlugin.CommentFilter;
     /** @deprecated use webpack.optimize.UglifyJsPlugin.Options */
-    type UglifyPluginOptions = webpack.optimize.UglifyJsPlugin.Options;
+    type UglifyPluginOptions = optimize.UglifyJsPlugin.Options;
 }

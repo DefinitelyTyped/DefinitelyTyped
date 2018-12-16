@@ -1,6 +1,6 @@
-// Type definitions for Showdown 1.7.2
+// Type definitions for Showdown 1.7.3
 // Project: https://github.com/coreyti/showdown
-// Definitions by: cbowdon <https://github.com/cbowdon>, Pei-Tang Huang <https://github.com/tan9>
+// Definitions by: cbowdon <https://github.com/cbowdon>, Pei-Tang Huang <https://github.com/tan9>, Ariel-Saldana <https://github.com/arielsaldana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Showdown;
@@ -321,6 +321,7 @@ declare namespace Showdown {
          * @param name
          */
         addExtension(extension: ShowdownExtension, name: string): void;
+        addExtension(extension: ShowdownExtension[], name: string): void;
 
         /**
          * Use a global registered extension with THIS converter
@@ -362,14 +363,28 @@ declare namespace Showdown {
          */
         new (converterOptions?: ConverterOptions): Converter;
     }
+    /** 
+     * Helper Interface 
+     */
+    interface Helper {
+        replaceRecursiveRegExp(...args: any[]): string;
+    }
 
     /** Constructor function for a Converter */
     var Converter: ConverterStatic;
 
     /**
-     * Setting a "global" option affects all instances of showdown
+     * Showdown helper
      */
-    function setOption(optionKey: string, value: string): void;
+    var helper: Helper;
+
+    /**
+     * Setting a "global" option affects all instances of showdown
+     * 
+     * @param optionKey
+     * @param value
+     */
+    function setOption(optionKey: string, value: any): void;
 
     /**
      * Retrieve previous set global option.
