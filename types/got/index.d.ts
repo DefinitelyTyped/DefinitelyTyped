@@ -141,7 +141,7 @@ declare namespace got {
     }
 
     /**
-     * Constrains the duration of each phase of the request lifecycle.
+     * Contains properties to constrain the duration of each phase of the request lifecycle.
      *
      * @see https://github.com/sindresorhus/got#timeout
      */
