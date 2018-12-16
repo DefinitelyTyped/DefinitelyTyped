@@ -1,4 +1,4 @@
-// Type definitions for debounce 1.0
+// Type definitions for original 1.0
 // Project: https://github.com/unshiftio/original
 // Definitions by: Wayne Carson <https://github.com/wcarson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
