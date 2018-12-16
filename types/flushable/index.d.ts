@@ -14,9 +14,7 @@ export interface FlushableOperation {
     flush: () => void;
 }
 
-declare module 'flushable' {
-    export default function flushable(
-        onComplete: FlushableOnCompleteHandler,
-        delay: number
-    ): FlushableOperation;
-}
+export default function flushable(
+    onComplete: FlushableOnCompleteHandler,
+    delay: number
+): FlushableOperation;
