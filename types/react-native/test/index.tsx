@@ -832,3 +832,12 @@ const SwitchColorTest = () => (
 const SwitchThumbColorTest = () => (
     <Switch thumbColor={'red'} />
 )
+
+const NativeIDTest = () => (
+    <ScrollView nativeID={'nativeID'}>
+        <View nativeID={'nativeID'} />
+        <Text nativeID={'nativeID'} >
+            Text
+        </Text>
+    </ScrollView>
+)

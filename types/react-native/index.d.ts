@@ -912,6 +912,11 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * Used to locate this view in end-to-end tests.
      */
     testID?: string;
+
+    /**
+     * Used to reference react managed views from native code.
+     */
+    nativeID?: string;
 }
 
 /**
@@ -2031,6 +2036,11 @@ export interface ViewProps
      * Used to locate this view in end-to-end tests.
      */
     testID?: string;
+
+    /**
+     * Used to reference react managed views from native code.
+     */
+    nativeID?: string;
 }
 
 /**
