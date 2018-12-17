@@ -13,7 +13,7 @@
 
 interface KnockoutSubscribableFunctions<T> {
     notifySubscribers(valueToWrite?: T, event?: string): void;
-} // test
+} // test 2
 
 interface KnockoutComputedFunctions<T> {
 }
