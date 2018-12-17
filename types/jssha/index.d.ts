@@ -33,7 +33,7 @@ declare namespace jsSHA {
         new(variant: string, inputFormat: ArrayBufferDataFormat, options?: Options): Hasher<ArrayBuffer>;
     }
 
-    interface Hasher<InputFormat> {
+    interface Hasher<InputT> {
         /**
          * Sets the HMAC key for an eventual getHMAC call.  Must be called
          * immediately after jsSHA object instantiation
@@ -50,7 +50,7 @@ declare namespace jsSHA {
          *
          * @param srcString - The string to be hashed
          */
-        update(srcString: InputFormat): void;
+        update(srcString: InputT): void;
 
         /**
          * Returns the desired SHA hash of the string specified at instantiation
