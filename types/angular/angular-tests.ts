@@ -1545,3 +1545,23 @@ const directiveFactoryWithGeneric2: ng.IDirectiveFactory<MyScope, MyElement, MyA
 ): ng.IDirectiveLinkFn<MyScope, MyElement, MyAttributes, MyController> => {
     return ($scope: MyScope, templateElement: MyElement, templateAttributes: MyAttributes, controller: MyController) => {return; };
 };
+
+angular.module('WithGenerics', []).directive('usingDirectiveFactoryWithGeneric', directiveFactoryWithGeneric).directive('usingDirectiveFactoryWithGeneric2', directiveFactoryWithGeneric2);
+
+class DirectiveWithGenerics implements ng.IDirective<MyScope, MyElement, MyAttributes, MyController> {
+    restrict = 'EAC';
+
+    compile(templateElement: MyElement) {
+        return {
+            pre: this.link
+        };
+    }
+
+    static instance(): ng.IDirective<MyScope, MyElement, MyAttributes, MyController> {
+        return new DirectiveWithGenerics();
+    }
+
+    link($scope: MyScope, templateElement: MyElement, templateAttributes: MyAttributes, controller: MyController) {}
+}
+
+angular.module('WithGenerics', []).directive('directiveWithGenerics', DirectiveWithGenerics.instance);
