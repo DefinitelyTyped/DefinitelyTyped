@@ -49,7 +49,7 @@ export interface ReactDatePickerProps {
   forceShowMonthNavigation?: boolean;
   formatWeekDay?(date: Date): string;
   formatWeekNumber?(date: Date): string | number;
-  highlightDates?: HighlightDates[];
+  highlightDates?: (Date|HighlightDates)[];
   id?: string;
   includeDates?: Date[];
   includeTimes?: Date[];
