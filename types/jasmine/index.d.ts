@@ -80,18 +80,21 @@ declare function afterAll(action: (done: DoneFn) => void, timeout?: number): voi
 
 /**
  * Create an expectation for a spec.
+ * @checkReturnValue see https://tsetse.info/check-return-value
  * @param spy
  */
 declare function expect(spy: Function): jasmine.Matchers<any>;
 
 /**
  * Create an expectation for a spec.
+ * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual
  */
 declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
 
 /**
  * Create an expectation for a spec.
+ * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual Actual computed value to test expectations against.
  */
 declare function expect<T>(actual: T): jasmine.Matchers<T>;
@@ -639,6 +642,7 @@ declare namespace jasmine {
         calls: Calls;
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
+        withArgs(...args: any[]): Spy;
     }
 
     type SpyObj<T> = T & {

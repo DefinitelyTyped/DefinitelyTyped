@@ -1,5 +1,5 @@
 import * as React from "react";
-import QrReader from "react-qr-reader";
+import * as QrReader from "react-qr-reader";
 
 export class Test extends React.Component {
     render() {

@@ -1,29 +1,13 @@
-// Type definitions for react-bootstrap-typeahead 3.4
+// Type definitions for react-bootstrap-typeahead 3.2
 // Project: https://github.com/ericgio/react-bootstrap-typeahead
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
-//                 Andreas Richter <https://github.com/arichter83>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-// TODO: <Token> components
+// TODO: <Highlighter>, <Menu>, <MenuItem>, <Token> components
 
 import * as React from 'react';
-import * as CSS from 'csstype';
-
-export interface TypeaheadFilterbyProps {
-    filterBy: string[];
-    labelKey: (string | (() => void));
-    multiple: boolean;
-    selected: any[];
-    caseSensitive: boolean;
-    ignoreDiacritics: boolean;
-    text: string;
-}
-
-export interface TypeaheadMenuProps<T> {
-    text: string;
-}
 
 export interface TypeaheadProps<T> {
     /* For localized accessibility: Should return a string indicating the number of results for screen readers. Receives the current results. */
@@ -74,7 +58,7 @@ export interface TypeaheadProps<T> {
     emptyLabel?: string;
 
     /* Either an array of fields in option to search, or a custom filtering callback. */
-    filterBy?: (string[] | ((option: T | string, props: TypeaheadFilterbyProps) => boolean));
+    filterBy?: (string[] | ((option: T | string, text: string) => boolean));
 
     /* Highlights the menu item if there is only one result and allows selecting that item by hitting enter.
        Does not work with allowNew. */
@@ -154,7 +138,7 @@ export interface TypeaheadProps<T> {
     renderMenu?: (results: Array<T | string>, menuProps: any) => any;
 
     /* Provides a hook for customized rendering of menu item contents. */
-    renderMenuItemChildren?: (option: T, props: TypeaheadMenuProps<T>, index: number) => any;
+    renderMenuItemChildren?: (option: T, props: TypeaheadProps<T>, index: number) => any;
 
     /* Provides a hook for customized rendering of tokens when multiple selections are enabled. */
     renderToken?: (selectedItem: T | string, onRemove: () => void) => any;

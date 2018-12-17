@@ -16,6 +16,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+export * from 'react-native-maps';
+export { default as MapView } from 'react-native-maps';
+
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
 import {

@@ -12,10 +12,10 @@ new UniversalRouter(
             user: 'name',
         },
         baseUrl: '/base',
-        errorHandler: (error) => {
+        errorHandler: (error, context) => {
             console.error(error);
-            console.dir(error.context);
-            return error.code === 404
+            console.dir(context);
+            return error.status === 404
                 ? '<h1>Page Not Found</h1>'
                 : '<h1>Oops! Something went wrong</h1>';
         },

@@ -1,10 +1,11 @@
-// Type definitions for Swiper 4.2
+// Type definitions for Swiper 4.4
 // Project: https://github.com/nolimits4web/Swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano>
 //                 Luca Trazzi <https://github.com/lucax88x>
 //                 Eugene Matseruk <https://github.com/ematseruk>
 //                 Luiz M. <https://github.com/odahcam>
 //                 Justin Abene <https://github.com/jmca>
+//                 Asif Rahman <https://github.com/daem0ndev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -221,6 +222,7 @@ export interface SwiperOptions {
     slidesOffsetBefore?: number;
     slidesOffsetAfter?: number;
     normalizeSlideIndex?: boolean;
+    centerInsufficientSlides?: boolean;
 
     // Grab Cursor
     grabCursor?: boolean;
@@ -238,6 +240,8 @@ export interface SwiperOptions {
     followFinger?: boolean;
     allowTouchMove?: boolean;
     threshold?: number;
+    touchStartPreventDefault?: boolean;
+    touchStartForcePreventDefault?: boolean;
     touchMoveStopPropagation?: boolean;
     iOSEdgeSwipeDetection?: boolean;
     iOSEdgeSwipeThreshold?: number;
@@ -249,11 +253,12 @@ export interface SwiperOptions {
     resistanceRatio?: number;
 
     // Swiping / No swiping
+    preventInteractionOnTransition?: boolean;
     allowSlidePrev?: boolean;
     allowSlideNext?: boolean;
     noSwiping?: boolean;
     noSwipingClass?: string;
-    // noSwipingSelector?: string;
+    noSwipingSelector?: string;
     swipeHandler?: SelectableElement;
 
     // Clicks
@@ -289,6 +294,7 @@ export interface SwiperOptions {
     breakpoints?: {
         [index: number]: SwiperOptions;
     };
+    breakpointsInverse?: boolean;
 
     // Observer
     observer?: boolean;
@@ -1074,6 +1080,44 @@ export default class Swiper {
     slideTo(index: number, speed?: number, runCallbacks?: boolean): void;
 
     /**
+     * Does the same as .slideTo but for the case when used with enabled loop. So this
+     * method will slide to slides with realIndex matching to passed index
+     *
+     * @param index Index number of slide.
+     * @param speed Transition duration (in ms).
+     * @param runCallbacks Set it to false (by default it is true) and transition will
+     *  not produce transition events.
+     */
+    slideToLoop(index: number, speed?: number, runCallbacks?: boolean): void;
+
+    /**
+     * Reset swiper position to currently active slide for the duration equal to 'speed'
+     * parameter.
+     *
+     * @param speed Transition duration (in ms).
+     * @param runCallbacks Set it to false (by default it is true) and transition will
+     *  not produce transition events.
+     */
+    slideReset(speed?: number, runCallbacks?: boolean): void;
+
+    /**
+     * Reset swiper position to closest slide/snap point for the duration equal to 'speed' parameter.
+     *
+     * @param speed Transition duration (in ms).
+     * @param runCallbacks Set it to false (by default it is true) and transition will
+     *  not produce transition events.
+     */
+    slideToClosest(speed?: number, runCallbacks?: boolean): void;
+
+    /**
+     * Force swiper to update its height (when autoHeight enabled) for the duration equal to
+     * 'speed' parameter
+     *
+     * @param speed Transition duration (in ms).
+     */
+    updateAutoHeight(speed?: number): void;
+
+    /**
      * You should call it after you add/remove slides
      * manually, or after you hide/show it, or do any
      * custom DOM modifications with Swiper
@@ -1163,6 +1207,17 @@ export default class Swiper {
     prependSlide(slides: HTMLElement | string | string[]): void;
 
     /**
+     * Add new slides to the required index. slides could be HTMLElement or HTML string with new slide or array with such slides, for example:
+     *
+     * @example addSlide(1, '<div class="swiper-slide">Slide 10"</div>')
+     * @example addSlide(1, [
+     *  '<div class="swiper-slide">Slide 10"</div>',
+     *  '<div class="swiper-slide">Slide 11"</div>'
+     * ]);
+     */
+    addSlide(index: number, slides: HTMLElement | string | string[]): void;
+
+    /**
      * Remove selected slides. slideIndex could be a number with slide index to remove or array with indexes.
      *
      * @example removeSlide(0); // remove first slide
@@ -1170,6 +1225,11 @@ export default class Swiper {
      * @example removeAllSlides();	// Remove all slides
      */
     removeSlide(slideIndex: number | number[]): void;
+
+    /**
+     * Remove all slides
+     */
+    removeAllSlides(): any;
 
     /**
      * Set custom css3 transform's translate value for swiper wrapper

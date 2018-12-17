@@ -3,35 +3,32 @@
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
 //                 Santiago Aguilar <https://github.com/sant123>
+//                 Alessandro Vergani <https://github.com/loghorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Integer = require("integer");
 
-declare class Statement {
+interface Statement {
     database: Database;
     source: string;
-    returnsData: boolean;
-    constructor(db: Database, sources: string[]);
+    reader: boolean;
 
     run(...params: any[]): Database.RunResult;
     get(...params: any[]): any;
     all(...params: any[]): any[];
-    each(params: any, cb: (row: any) => void): void;
-    each(cb: (row: any) => void): void;
-    each(...params: any[]): void;
+    iterate(...params: any[]): IterableIterator<any>;
     pluck(toggleState?: boolean): this;
+    expand(toggleState?: boolean): this;
     bind(...params: any[]): this;
     safeIntegers(toggleState?: boolean): this;
 }
 
-declare class Transaction {
-    database: Database;
-    source: string;
-    constructor(db: Database, sources: string[]);
-
-    run(...params: any[]): Database.RunResult;
-    bind(...params: any[]): this;
-    safeIntegers(toggleState?: boolean): this;
+interface Transaction {
+    (...params: any[]): any;
+    default(...params: any[]): any;
+    deferred(...params: any[]): any;
+    immediate(...params: any[]): any;
+    exclusive(...params: any[]): any;
 }
 
 interface Database {
@@ -42,15 +39,14 @@ interface Database {
     inTransaction: boolean;
 
     prepare(source: string): Statement;
-    transaction(sources: string[]): Transaction;
+    transaction(fn: (...params: any[]) => any): Transaction;
     exec(source: string): this;
-    pragma(source: string, simplify?: boolean): any;
+    pragma(source: string, options?: Database.PragmaOptions): any;
     checkpoint(databaseName?: string): this;
-    register(cb: (...params: any[]) => any): this;
-    register(
-        options: Database.RegistrationOptions,
-        cb: (...params: any[]) => any
-    ): this;
+    function(name: string, cb: (...params: any[]) => any): this;
+    function(name: string, options: Database.RegistrationOptions, cb: (...params: any[]) => any): this;
+    aggregate(name: string, options: Database.AggregateOptions): this;
+    loadExtension(path: string): this;
     close(): this;
     defaultSafeIntegers(toggleState?: boolean): this;
 }
@@ -81,13 +77,24 @@ declare namespace Database {
         memory?: boolean;
         readonly?: boolean;
         fileMustExist?: boolean;
+        timeout?: number;
+    }
+
+    interface PragmaOptions {
+        simple?: boolean;
     }
 
     interface RegistrationOptions {
-        name?: string;
         varargs?: boolean;
         deterministic?: boolean;
         safeIntegers?: boolean;
+    }
+
+    interface AggregateOptions extends RegistrationOptions {
+        start?: any;
+        step: (total: any, next: any) => any;
+        inverse?: (total: any, dropped: any) => any;
+        result?: (total: any) => any;
     }
 }
 

@@ -67,6 +67,8 @@ declare module "node-forge" {
         function privateKeyFromPem(pem: PEM): PrivateKey;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
         function certificateFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
+        function createCaStore(): CAStore;
+        function verifyCertificateChain(caStore: CAStore, chain: Certificate[], customVerifyCallback?: (verified: boolean | string, depth: number, chain: Certificate[]) => boolean): boolean;
 
         interface oids {
             [key: string]: string;
@@ -202,7 +204,7 @@ declare module "node-forge" {
              */
             setSubject(attrs: CertificateField[], uniqueId?: string): void;
             /**
-              * Sets the subject of this certificate.
+              * Sets the issuer of this certificate.
               *
               * @param attrs the array of subject attributes to use.
               * @param uniqueId an optional a unique ID to use.
@@ -242,6 +244,15 @@ declare module "node-forge" {
              */
             verify(child: Certificate): boolean;
 
+        }
+
+        interface CAStore {
+            addCertificate(cert: Certificate | string): void;
+            hasCertificate(cert: Certificate | string): boolean;
+            removeCertificate(cert: Certificate | string): Certificate | null;
+            listAllCertificates(): pki.Certificate[];
+            getIssuer(subject: Certificate): Certificate | null;
+            getBySubject(subject: string): Certificate | null;
         }
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
