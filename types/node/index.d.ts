@@ -1205,7 +1205,7 @@ declare module "http" {
 
     class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
-        constructor(options: ServerOptions);
+        constructor(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
         setTimeout(msecs?: number, callback?: () => void): this;
         setTimeout(callback: () => void): this;
@@ -1350,7 +1350,7 @@ declare module "http" {
     };
 
     function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
-    function createServer(options: ServerOptions): Server;
+    function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
     function createClient(port?: number, host?: string): any;
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
