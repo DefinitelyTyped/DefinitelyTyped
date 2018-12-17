@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.4.0.40-beta
+*  version : 16.4.0.42
 *  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -192,9 +192,9 @@ declare namespace ej {
         from(tableName: any): ej.Query;
         addParams(key: string, value: string): ej.Query;
         expand(tables: any): ej.Query;
-        where(fieldName: string, operator: ej.FilterOperators, value: any, ignoreCase?: boolean): ej.Query;
+        where(fieldName: string, operator: ej.FilterOperators, value: any, ignoreCase?: boolean, ignoreAccent?: boolean): ej.Query;
         where(predicate: ej.Predicate): ej.Query;
-        search(searchKey: any, fieldNames?: any, operator?: string, ignoreCase?: boolean): ej.Query;
+        search(searchKey: any, fieldNames?: any, operator?: string, ignoreCase?: boolean, ignoreAccent?: boolean): ej.Query;
         sortBy(fieldName: string, comparer?: ej.SortOrder, isFromGroup?: boolean): ej.Query;
         sortByDesc(fieldName: string): ej.Query;
         group(fieldName: string): ej.Query;
@@ -433,9 +433,9 @@ declare namespace ej {
     }
     class Predicate {
         constructor();
-        constructor(field: string, operator: ej.FilterOperators, value: any, ignoreCase: boolean);
-        and(field: string, operator: any, value: any, ignoreCase: boolean): ej.Predicate;
-        or(field: string, operator: any, value: any, ignoreCase: boolean): ej.Predicate;
+        constructor(field: string, operator: ej.FilterOperators, value: any, ignoreCase: boolean, ignoreAccent?: boolean);
+        and(field: string, operator: any, value: any, ignoreCase: boolean, ignoreAccent?: boolean): ej.Predicate;
+        or(field: string, operator: any, value: any, ignoreCase: boolean, ignoreAccent?: boolean): ej.Predicate;
         or(predicate: any[]): any;
         validate(record: any): boolean;
         toJSON(): {
@@ -46630,6 +46630,11 @@ declare namespace ej {
          * @returns {void}
          */
         searchPrevious(): void;
+
+        /** Aborts the search operation.
+         * @returns {void}
+         */
+        cancelSearchText(): void;
 
         /** Set the JSON data that are formed for rendering the document content in PDF viewer.
          * @param {any} Set the JSON data that are formed for rendering the document content.
