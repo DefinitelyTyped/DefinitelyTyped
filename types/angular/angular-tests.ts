@@ -1513,55 +1513,17 @@ interface MyController extends ng.INgModelController {
     foo: string;
 }
 
-const directiveCompileFnWithGeneric: ng.IDirectiveCompileFn<MyScope, MyElement, MyAttributes, MyController> = (
-        templateElement: MyElement,
-        templateAttributes: MyAttributes,
-        transclude: ng.ITranscludeFunction,
-    ): ng.IDirectiveLinkFn<MyScope, MyElement, MyAttributes, MyController> => {
-    return (
-        scope: MyScope,
-        instanceElement: MyElement,
-        instanceAttributes: MyAttributes,
-        controller: MyController,
-    ) => {
-        return null;
-    };
-};
-
-const directiveFactoryWithGeneric: ng.IDirectiveFactory<MyScope, MyElement, MyAttributes, MyController> = (
-    templateElement: MyElement,
-    templateAttributes: MyAttributes,
-    transclude: ng.ITranscludeFunction,
-): ng.IDirective<MyScope, MyElement, MyAttributes, MyController> => {
-    return {
-        link: ($scope: MyScope, templateElement: MyElement, templateAttributes: MyAttributes, controller: MyController) => {return; }
-    };
-};
-
-const directiveFactoryWithGeneric2: ng.IDirectiveFactory<MyScope, MyElement, MyAttributes, MyController> = (
-    templateElement: MyElement,
-    templateAttributes: MyAttributes,
-    transclude: ng.ITranscludeFunction,
-): ng.IDirectiveLinkFn<MyScope, MyElement, MyAttributes, MyController> => {
-    return ($scope: MyScope, templateElement: MyElement, templateAttributes: MyAttributes, controller: MyController) => {return; };
-};
-
-angular.module('WithGenerics', []).directive('usingDirectiveFactoryWithGeneric', directiveFactoryWithGeneric).directive('usingDirectiveFactoryWithGeneric2', directiveFactoryWithGeneric2);
-
-class DirectiveWithGenerics implements ng.IDirective<MyScope, MyElement, MyAttributes, MyController> {
-    restrict = 'EAC';
-
-    compile(templateElement: MyElement) {
+angular.module('WithGenerics', [])
+    .directive('directiveUsingGenerics', () => {
         return {
-            pre: this.link
+            restrict: 'E',
+            link(scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) {
+                scope['name'] = 'Jeff';
+            }
         };
-    }
-
-    static instance(): ng.IDirective<MyScope, MyElement, MyAttributes, MyController> {
-        return new DirectiveWithGenerics();
-    }
-
-    link($scope: MyScope, templateElement: MyElement, templateAttributes: MyAttributes, controller: MyController) {}
-}
-
-angular.module('WithGenerics', []).directive('directiveWithGenerics', DirectiveWithGenerics.instance);
+    })
+    .directive('linkFunctionUsingGenerics', () => {
+        return (scope: MyScope, element: MyElement, templateAttributes: MyAttributes, controller: MyController) => {
+            scope['name'] = 'Jeff';
+        };
+    });
