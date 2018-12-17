@@ -63,7 +63,7 @@ const co6 = CoreObject.extend(
         },
         func1() {
             // this includes stuff from CoreObject
-            this.init; // $ExpectType () => void
+            this.init; // $ExpectType (...args: any[]) => void
             // this includes stuff from this extend-arg
             this.foo; // $ExpectType string
             // this does not include stuff from later extend args
@@ -75,7 +75,7 @@ const co6 = CoreObject.extend(
         bee: 'honey',
         func2() {
             // this includes stuff from CoreObject
-            this.init; // $ExpectType () => void
+            this.init; // $ExpectType (...args: any[]) => void
             // this includes stuff from this extend-arg
             // TODO: switch to "$ExpectType number" in TS 3.0  see: https://github.com/typed-ember/ember-cli-typescript/issues/291
             this.foo; // $ExpectType string & number
@@ -100,7 +100,7 @@ const co7 = CoreObject.extend(
         },
         func1() {
             // this includes stuff from CoreObject
-            this.init; // $ExpectType () => void
+            this.init; // $ExpectType (...args: any[]) => void
             // this includes stuff from this extend-arg
             this.foo; // $ExpectType string
             // this does not include stuff from later extend args
@@ -112,7 +112,7 @@ const co7 = CoreObject.extend(
         bee: 'honey',
         func2() {
             // this includes stuff from CoreObject
-            this.init; // $ExpectType () => void
+            this.init; // $ExpectType (...args: any[]) => void
             // this includes stuff from this extend-arg
             // TODO: switch to "$ExpectType number" in TS 3.0  see: https://github.com/typed-ember/ember-cli-typescript/issues/291
             this.foo; // $ExpectType string & number
@@ -125,7 +125,7 @@ const co7 = CoreObject.extend(
         money: 'in the banana stand',
         func3() {
             // this includes stuff from CoreObject
-            this.init; // $ExpectType () => void
+            this.init; // $ExpectType (...args: any[]) => void
             // this includes stuff from this extend-arg
             this.money; // $ExpectType string
             // this includes stuff from earlier extend-args
@@ -150,7 +150,7 @@ const co8 = CoreObject.extend(
         },
         func1() {
             // this includes stuff from CoreObject
-            this.init; // $ExpectType () => void
+            this.init; // $ExpectType (...args: any[]) => void
             // this includes stuff from this extend-arg
             this.foo; // $ExpectType string
             // this does not include stuff from later extend args
@@ -162,7 +162,7 @@ const co8 = CoreObject.extend(
         bee: 'honey',
         func2() {
             // this includes stuff from CoreObject
-            this.init; // $ExpectType () => void
+            this.init; // $ExpectType (...args: any[]) => void
             // this includes stuff from this extend-arg
             // TODO: switch to "$ExpectType number" in TS 3.0  see: https://github.com/typed-ember/ember-cli-typescript/issues/291
             this.foo; // $ExpectType string & number
@@ -177,7 +177,7 @@ const co8 = CoreObject.extend(
         money: 'in the banana stand',
         func3() {
             // this includes stuff from CoreObject
-            this.init; // $ExpectType () => void
+            this.init; // $ExpectType (...args: any[]) => void
             // this includes stuff from this extend-arg
             this.money; // $ExpectType string
             // this includes stuff from earlier extend-args
@@ -192,7 +192,7 @@ const co8 = CoreObject.extend(
         neighborhood: 'sudden valley',
         func4() {
             // this includes stuff from CoreObject
-            this.init; // $ExpectType () => void
+            this.init; // $ExpectType (...args: any[]) => void
             // this includes stuff from this extend-arg
             this.neighborhood; // $ExpectType string
             // this includes stuff from earlier extend-args
