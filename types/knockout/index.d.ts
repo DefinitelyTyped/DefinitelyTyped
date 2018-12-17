@@ -13,7 +13,7 @@
 
 interface KnockoutSubscribableFunctions<T> {
     notifySubscribers(valueToWrite?: T, event?: string): void;
-} // test 4
+}
 
 interface KnockoutComputedFunctions<T> {
 }
@@ -196,7 +196,7 @@ interface KnockoutComputedStatic {
      * @param context? Defines the value of 'this' when evaluating the computed observable
      * @param options? An object with further properties for the computed observable
      */
-    <T>(evaluatorFunction: () => T, context?: any, options?: KnockoutComputedDefine<T>): KnockoutComputed<T>;
+    <T>(evaluatorFunction: () => T, context?: any, options?: any): KnockoutComputed<T>;
     /**
      * Creates computed observable
      * @param options An object that defines the computed observable options and behavior
