@@ -1255,6 +1255,12 @@ declare module "victory" {
 
   export interface VictoryBarProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
     /**
+     * The cornerRadius prop specifies a radius to apply to each bar.
+     * If this prop is given as a single number, the radius will only be applied to the top of each bar.
+     * When this prop is given as a function, it will be evaluated with the arguments datum, and active.
+     */
+    cornerRadius?: NumberOrCallback;
+    /**
      * The event prop take an array of event objects. Event objects are composed of
      * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, so "data" and "labels" are all valid targets for VictoryBar events.
