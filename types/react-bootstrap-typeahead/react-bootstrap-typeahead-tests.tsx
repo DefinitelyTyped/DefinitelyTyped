@@ -38,11 +38,19 @@ class BasicExample extends React.Component {
                 />
                 <Typeahead
                     labelKey="name"
+                    multiple={multiple}
+                    options={options}
+                    maxHeight='300px'
+                    filterBy={(option, {text}) => (text.indexOf(option) !== -1) }
+                    placeholder="Choose a state..."
+                />
+                <Typeahead
+                    labelKey="name"
                     options={options}
                     placeholder="Choose a state..."
                     renderMenuItemChildren={ (option, props, index) =>
                         <Highlighter key="name" search={props.text}>
-                            {option.name}
+                            {option.name} {index}
                         </Highlighter>
                     }
                 />
