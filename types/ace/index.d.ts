@@ -1223,7 +1223,7 @@ declare namespace AceAjax {
         /**
          * Returns `true` if the current `textInput` is in focus.
         **/
-        isFocused(): void;
+        isFocused(): boolean;
 
         /**
          * Blurs the current `textInput`.

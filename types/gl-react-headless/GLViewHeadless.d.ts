@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 export interface GLViewHeadlessProps {
-  onContextCreate: (gl: WebGLRenderingContext) => void;
-  onContextFailure: (e: Error) => void;
-  onContextLost: () => void;
-  onContextRestored: (gl: WebGLRenderingContext) => void;
+  onContextCreate?: (gl: WebGLRenderingContext) => void;
+  onContextFailure?: (e: Error) => void;
+  onContextLost?: () => void;
+  onContextRestored?: (gl: WebGLRenderingContext) => void;
   webglContextAttributes?: WebGLContextAttributes;
   pixelRatio?: number;
   width: number;

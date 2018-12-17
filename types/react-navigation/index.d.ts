@@ -899,7 +899,7 @@ export function createSwitchNavigator(
 export const DrawerItems: React.ComponentType<DrawerItemsProps>;
 
 export interface DrawerItemsProps {
-  navigation: NavigationScreenProp<NavigationState>;
+  navigation: NavigationScreenProp<DrawerNavigationState>;
   items: NavigationRoute[];
   activeItemKey?: string;
   activeTintColor?: string;
