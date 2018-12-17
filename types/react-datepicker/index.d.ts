@@ -29,7 +29,7 @@ export interface ReactDatePickerProps {
 	autoComplete?: string;
 	autoFocus?: boolean;
 	calendarClassName?: string;
-	calendarContainer?(props: {children: React.ReactNode[]}): React.ReactNode;
+	calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
 	children?: React.ReactNode;
 	className?: string;
 	clearButtonTitle?: string;
@@ -40,7 +40,7 @@ export interface ReactDatePickerProps {
 	dayClassName?(date: Date): string | null;
 	disabled?: boolean;
 	disabledKeyboardNavigation?: boolean;
-	dropdownMode?: "scroll" | "select";
+	dropdownMode?: 'scroll' | 'select';
 	endDate?: Date;
 	excludeDates?: Date[];
 	excludeTimes?: Date[];
@@ -70,7 +70,7 @@ export interface ReactDatePickerProps {
 	onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
 	onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
 	onInputClick?(): void;
-	onInputError?(err: {code: number; msg: string}): void;
+    onInputError?(err: {code: number; msg: string}): void;
 	onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void;
 	onMonthChange?(date: Date): void;
 	onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
