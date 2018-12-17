@@ -94,7 +94,3 @@ declare module "codemirror" {
     }
 
 }
-
-declare module "codemirror/addon/tern/tern" {
-    export = CodeMirror;
-}
