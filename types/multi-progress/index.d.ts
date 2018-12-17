@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-import * as ProgressBar from 'progress';
+import ProgressBar = require('progress');
 import { Stream } from 'stream';
 
 export as namespace MultiProgress;
