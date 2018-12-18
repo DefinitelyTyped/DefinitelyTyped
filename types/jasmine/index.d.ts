@@ -9,6 +9,7 @@
 //                 Chris Yungmann <https://github.com/cyungmann>
 //                 Giles Roadnight <https://github.com/Roaders>
 //                 Yaroslav Admin <https://github.com/devoto13>
+//                 Domas Trijonis <https://github.com/fdim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -643,8 +644,8 @@ declare namespace jasmine {
         withArgs(...args: any[]): Spy;
     }
 
-    type SpyObj<T> = T & {
-      [k in keyof T]: Spy;
+    type SpyObj<T> = {
+        [k in keyof T]: T[k] extends Function ? T[k] & Spy : T[k];
     }
 
     interface SpyAnd {
