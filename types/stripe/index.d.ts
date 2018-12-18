@@ -3797,7 +3797,7 @@ declare namespace Stripe {
              * Otherwise, if you do not pass a customer, a object containing a
              * user's credit card details, with the options described below.
              */
-            card: sources.ISourceCreationOptions;
+            card?: sources.ISourceCreationOptions;
         }
 
         interface IBankAccountTokenCreationOptions extends ITokenCreationOptionsBase {
