@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.41
+// Type definitions for plotly.js 1.42
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -479,7 +479,9 @@ export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'box' | 'heatmap' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' | 'surface';
+	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
+		'ohlc' | 'parcoords' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
+		'scatterternary' | 'surface';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;

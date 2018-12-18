@@ -643,11 +643,20 @@ describe("A spy, when created manually", () => {
 });
 
 describe("Multiple spies, when created manually", () => {
-    var tape: any;
+    interface Tape {
+        play(): void;
+        pause(): void;
+        rewind(pos: number): void;
+        stop(): void;
+        readonly isPlaying: boolean; // spy obj makes this writable
+    }
+
+    var tape: jasmine.SpyObj<Tape>;
     var el: jasmine.SpyObj<Element>;
 
     beforeEach(() => {
-        tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
+        tape = jasmine.createSpyObj<Tape>('tape', ['play', 'pause', 'stop', 'rewind']);
+        (tape as { isPlaying: boolean }).isPlaying = false;
         el = jasmine.createSpyObj<Element>('Element', ['hasAttribute']);
 
         el.hasAttribute.and.returnValue(false);
@@ -675,6 +684,10 @@ describe("Multiple spies, when created manually", () => {
     it("tracks all the arguments of its calls", () => {
         expect(tape.rewind).toHaveBeenCalledWith(0);
     });
+
+    it("read isPlaying property", () => {
+        expect(tape.isPlaying).toBe(false);
+    })
 });
 
 describe("jasmine.nothing", () => {
