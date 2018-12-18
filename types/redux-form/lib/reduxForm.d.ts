@@ -146,9 +146,7 @@ export interface FormInstance<FormData, P, ErrorType> extends Component<P> {
     wrappedInstance: ReactElement<P & InjectedFormProps<FormData, P, ErrorType>>;
 }
 
-export interface DecoratedComponentClass<FormData, P, ErrorType> {
-    new(props?: P, context?: any): FormInstance<FormData, P, ErrorType>;
-}
+export type DecoratedComponentClass<FormData, P, ErrorType> = new(props?: P, context?: any) => FormInstance<FormData, P, ErrorType>;
 
 export type FormDecorator<FormData, P, Config, ErrorType = string> =
     (component: ComponentType<P & InjectedFormProps<FormData, P, ErrorType>>) => DecoratedComponentClass<FormData, P & Config, ErrorType>;
