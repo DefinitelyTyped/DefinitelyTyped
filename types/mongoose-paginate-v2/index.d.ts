@@ -1,5 +1,5 @@
 // Type definitions for mongoose-paginate-v2 1.0.13
-// Project: https://github.com/edwardhotchkiss/mongoose-paginate
+// Project: https://github.com/aravindnc/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 //                 simonxca <https://github.com/simonxca>
 //                 woutgg <https://github.com/woutgg>
