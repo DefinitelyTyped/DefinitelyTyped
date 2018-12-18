@@ -34,7 +34,7 @@ export interface WarningOther<T = void> {
 }
 
 export type FormWarnings<FormData = {}, T = void> = {
-    [P in keyof FormData]?: ReactElement<any> | string | WarningOther<T>;
+    [P in keyof FormData]?: ReactElement<any> | string | string[] | WarningOther<T>;
 };
 
 export interface RegisteredFieldState {
