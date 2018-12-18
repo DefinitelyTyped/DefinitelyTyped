@@ -4,7 +4,7 @@ import { Authorizer, PlatformClient, RequestLogger, ServiceTokenProvider } from 
     const authorizer = new Authorizer((msg: any) => msg, { jwkKeyListUrl: 'aaa' });
     const authorizerPolicy = authorizer.getPolicy({ test: true });
 
-    const platformClient = new PlatformClient((msg: any) => msg);
+    const platformClient = new PlatformClient((msg: any) => msg, (): Promise<string> => Promise.resolve('secretToken'));
     const result = await platformClient.get('https://www.typescriptlang.org/');
     const data = result.data as string;
 
