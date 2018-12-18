@@ -232,7 +232,7 @@ declare namespace mapboxgl {
         /**
          * The max number of pixels a user can shift the mouse pointer during a click for it to be
          * considered a valid click (as opposed to a mouse drag).
-         * 
+         *
          * @default 3
          */
         clickTolerance?: number;
@@ -242,7 +242,7 @@ declare namespace mapboxgl {
          * and Vector Tile web workers (this information is normally inaccessible from the main
          * Javascript thread). Information will be returned in a `resourceTiming` property of
          * relevant `data` events.
-         * 
+         *
          * @default false
          */
         collectResourceTiming?: boolean;
@@ -250,7 +250,7 @@ declare namespace mapboxgl {
         /**
          * If `true`, symbols from multiple sources can collide with each other during collision
          * detection. If `false`, collision detection is run separately for the symbols in each source.
-         * 
+         *
          * @default true
          */
         crossSourceCollisions?: boolean;
@@ -278,7 +278,7 @@ declare namespace mapboxgl {
          * Controls the duration of the fade-in/fade-out animation for label collisions, in milliseconds.
          * This setting affects all symbol layers. This setting does not affect the duration of runtime
          * styling transitions or raster tile cross-fading.
-         * 
+         *
          * @default 300
          */
         fadeDuration?: number;
@@ -297,14 +297,14 @@ declare namespace mapboxgl {
          * 'CJK Unified Ideographs' and 'Hangul Syllables' ranges. In these ranges, font settings from
          * the map's style will be ignored, except for font-weight keywords (light/regular/medium/bold).
          * The purpose of this option is to avoid bandwidth-intensive glyph server requests.
-         * 
+         *
          * @default null
          */
         localIdeographFontFamily?: string;
 
         /**
          * A string representing the position of the Mapbox wordmark on the map.
-         * 
+         *
          * @default "bottom-left"
          */
         logoPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
@@ -324,14 +324,14 @@ declare namespace mapboxgl {
         /**
          * The initial pitch (tilt) of the map, measured in degrees away from the plane of the
          * screen (0-60).
-         * 
+         *
          * @default 0
          */
         pitch?: number;
 
         /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
-         * 
+         *
          * @default true
          */
         pitchWithRotate?: boolean;
@@ -339,14 +339,14 @@ declare namespace mapboxgl {
         /**
          * If `false`, the map won't attempt to re-request tiles once they expire per their HTTP
          * `cacheControl`/`expires` headers.
-         * 
+         *
          * @default true
          */
         refreshExpiredTiles?: boolean;
 
         /**
          * If `true`, multiple copies of the world will be rendered, when zoomed out.
-         * 
+         *
          * @default true
          */
         renderWorldCopies?: boolean;
@@ -363,7 +363,7 @@ declare namespace mapboxgl {
         /**
          * A callback run before the Map makes a request for an external URL. The callback can be
          * used to modify the url, set headers, or set the credentials property for cross-origin requests.
-         * 
+         *
          * @default null
          */
         transformRequest?: TransformRequestFunction;
@@ -377,13 +377,13 @@ declare namespace mapboxgl {
         /**
          * The maximum number of tiles stored in the tile cache for a given source. If omitted, the
          * cache will be dynamically sized based on the current viewport.
-         * 
+         *
          * @default null
          */
         maxTileCacheSize?: number;
     }
 
-    export type ResourceType = 
+    export type ResourceType =
         | 'Unknown'
         | 'Style'
         | 'Source'
@@ -692,7 +692,7 @@ declare namespace mapboxgl {
         clusterMaxZoom?: number;
 
         lineMetrics?: boolean;
-        
+
         generateId?: boolean;
     }
 
@@ -1477,13 +1477,13 @@ declare namespace mapboxgl {
     }
 
     export interface HeatmapPaint {
-        'heatmap-radius'?: number | Expression;
+        'heatmap-radius'?: number | StyleFunction | Expression;
         'heatmap-radius-transition'?: Transition;
         'heatmap-weight'?: number | StyleFunction | Expression;
-        'heatmap-intensity'?: number | Expression;
+        'heatmap-intensity'?: number | StyleFunction | Expression;
         'heatmap-intensity-transition'?: Transition;
-        'heatmap-color'?: string | Expression;
-        'heatmap-opacity'?: number | Expression;
+        'heatmap-color'?: string | StyleFunction | Expression;
+        'heatmap-opacity'?: number | StyleFunction | Expression;
         'heatmap-opacity-transition'?: Transition;
     }
 

@@ -2233,6 +2233,10 @@ declare namespace Highcharts {
          */
         resetZoomButton?: ChartResetZoomButton;
         /**
+         * Options for a scrollable plot area
+         */
+        scrollablePlotArea?: ScrollablePropArea;
+        /**
          * The background color of the marker square when selecting (zooming in on) an area of the chart.
          * @default 'rgba(69,114,167,0.25)'
          * @since 2.1.7
@@ -3493,6 +3497,11 @@ declare namespace Highcharts {
          * @since 5.0.0
          */
         update(options: TitleOptions): void;
+    }
+
+    interface ScrollablePropArea {
+        minWidth?: number;
+        scrollPositionX?: number;
     }
 
     /**
