@@ -8,6 +8,10 @@
 
 import { EventEmitter } from "events";
 
+export class LibUSBException extends Error {
+  errno: number;
+}
+
 export class Device {
   timeout: number;
   busNumber: number;
@@ -25,7 +29,7 @@ export class Device {
   open(defaultConfig?: boolean): void;
   close(): void;
   interface(addr: number): Interface;
-  controlTransfer(bmRequestType: number, bRequest: number, wValue: number, wIndex: number, data_or_length: any, callback: (error?: string, buf?: Buffer) => void): Device;
+  controlTransfer(bmRequestType: number, bRequest: number, wValue: number, wIndex: number, data_or_length: any, callback: (error?: LibUSBException, buf?: Buffer) => void): Device;
   getStringDescriptor(desc_index: number, callback: (error?: string, buf?: Buffer) => void): void;
   setConfiguration(desired: number, cb: (err?: string) => void): void;
   reset(callback: (err?: string) => void): void;
@@ -104,7 +108,7 @@ export class InEndpoint extends EventEmitter implements Endpoint {
   timeout: number;
   descriptor: EndpointDescriptor;
   constructor(device: Device, descriptor: EndpointDescriptor);
-  transfer(length: number, callback: (error: string, data: Buffer) => void): InEndpoint;
+  transfer(length: number, callback: (error: LibUSBException, data: Buffer) => void): InEndpoint;
   startPoll(nTransfers?: number, transferSize?: number): void;
   stopPoll(cb?: () => void): void;
 }
@@ -115,8 +119,8 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
   timeout: number;
   descriptor: EndpointDescriptor;
   constructor(device: Device, descriptor: EndpointDescriptor);
-  transfer(buffer: Buffer, cb: (err?: string) => void): OutEndpoint;
-  transferWithZLP(buf: Buffer, cb: (err?: string) => void): void;
+  transfer(buffer: Buffer, cb: (err?: LibUSBException) => void): OutEndpoint;
+  transferWithZLP(buf: Buffer, cb: (err?: LibUSBException) => void): void;
 }
 
 export class EndpointDescriptor {
