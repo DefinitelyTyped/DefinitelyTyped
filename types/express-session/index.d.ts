@@ -60,6 +60,8 @@ declare namespace session {
     store?: Store | MemoryStore;
     cookie?: express.CookieOptions;
     genid?(req: express.Request): string;
+    regenerate?: boolean;
+    regenerateCookieName?: string;
     rolling?: boolean;
     resave?: boolean;
     proxy?: boolean;
