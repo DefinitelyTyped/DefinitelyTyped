@@ -8,6 +8,7 @@
 //                 Boris Breuer <https://github.com/Engineer2B>
 //                 Chris Yungmann <https://github.com/cyungmann>
 //                 Giles Roadnight <https://github.com/Roaders>
+//                 Yaroslav Admin <https://github.com/devoto13>
 //                 Peter Safranek <https://github.com/pe8ter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -81,18 +82,21 @@ declare function afterAll(action: (done: DoneFn) => void, timeout?: number): voi
 
 /**
  * Create an expectation for a spec.
+ * @checkReturnValue see https://tsetse.info/check-return-value
  * @param spy
  */
 declare function expect(spy: Function): jasmine.Matchers<any>;
 
 /**
  * Create an expectation for a spec.
+ * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual
  */
 declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
 
 /**
  * Create an expectation for a spec.
+ * @checkReturnValue see https://tsetse.info/check-return-value
  * @param actual Actual computed value to test expectations against.
  */
 declare function expect<T>(actual: T): jasmine.Matchers<T>;
@@ -691,11 +695,9 @@ declare namespace jasmine {
     interface Spy {
         (...params: any[]): any;
 
-        identity: string;
         and: SpyAnd;
         calls: Calls;
-        mostRecentCall: { args: any[]; };
-        argsForCall: any[];
+        withArgs(...args: any[]): Spy;
     }
 
     type SpyObj<T> = T & {
@@ -703,6 +705,8 @@ declare namespace jasmine {
     }
 
     interface SpyAnd {
+        identity: string;
+
         /** By chaining the spy with and.callThrough, the spy will still track all calls to it but in addition it will delegate to the actual implementation. */
         callThrough(): Spy;
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */

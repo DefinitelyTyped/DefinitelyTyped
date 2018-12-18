@@ -311,6 +311,12 @@ describe("A spy", () => {
     it("stops all execution on a function", () => {
         expect(bar).toBeNull();
     });
+
+    it("tracks if it was called at all", function () {
+        foo.setBar();
+
+        expect(foo.setBar.calls.any()).toEqual(true);
+    });
 });
 
 describe("A spy, when configured to call through", () => {

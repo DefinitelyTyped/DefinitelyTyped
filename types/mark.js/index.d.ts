@@ -2,6 +2,7 @@
 // Project: https://markjs.io/
 // Definitions by: Soner Köksal <https://github.com/renjfk>
 //                 Roman Hotsiy <https://github.com/RomanGotsiy>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -38,6 +39,27 @@ declare namespace Mark {
 
         done?(marksTotal: number): void;
 
+        debug?: boolean;
+        log?: object;
+    }
+
+    interface MarkRegExpOptions {
+        element?: string;
+        className?: string;
+        exclude?: string[];
+        iframes?: boolean;
+        iframesTimeout?: number;
+        acrossElements?: boolean;
+        ignoreGroups?: number;
+        each?(element: Element): void;
+        filter?(
+            textNode: Element,
+            term: string,
+            marksSoFar: number,
+            marksTotal: number
+        ): boolean;
+        noMatch?(term: string): void;
+        done?(marksTotal: number): void;
         debug?: boolean;
         log?: object;
     }
@@ -84,7 +106,7 @@ declare class Mark {
      * Note that groups will be ignored and mark.js will always find all matches, regardless of the g flag.
      * @param options Optional options
      */
-    markRegExp(regexp: RegExp, options?: Mark.MarkOptions): void;
+    markRegExp(regexp: RegExp, options?: Mark.MarkRegExpOptions): void;
 
     /**
      * A method to mark ranges with a start position and length. They will be applied

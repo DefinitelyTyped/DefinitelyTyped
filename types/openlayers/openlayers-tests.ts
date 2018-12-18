@@ -175,7 +175,7 @@ loadingStrategy = ol.loadingstrategy.tile(tilegrid);
 // ol.geom.Circle
 //
 booleanValue = circle.intersectsExtent(extent);
-circle = <ol.geom.Circle> circle.transform(projectionLike, projectionLike);
+circle = circle.transform(projectionLike, projectionLike) as ol.geom.Circle;
 
 //
 //

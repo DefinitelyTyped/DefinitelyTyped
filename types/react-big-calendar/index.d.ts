@@ -5,14 +5,23 @@
 //                 Krzysztof Bezrąk <https://github.com/pikpok>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Paul Potsides <https://github.com/strongpauly>
+//                 janb87 <https://github.com/janb87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
 import * as React from 'react';
 
+export type DayPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
+export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: React.CSSProperties };
+export type SlotPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
 export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
+export type Views = View[] | {
+    month: boolean | React.SFC | React.Component,
+    week: boolean | React.SFC | React.Component,
+    myweek: boolean | React.SFC | React.Component,
+};
 export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
 export type Event = object;
@@ -70,7 +79,7 @@ export interface Formats {
     /**
      * Toolbar header format for the Agenda view, e.g. "4/1/2015 — 5/1/2015"
      */
-    agendaHeaderFormat?: DateFormat;
+    agendaHeaderFormat?: DateRangeFormatFunction;
 
     /**
      * A time range format for selecting time slots, e.g "8:00am — 2:00pm"
@@ -105,14 +114,14 @@ export interface HeaderProps {
 
 export interface Components {
     event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    eventWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    eventWrapper?: React.ComponentType<EventWrapperProps>;
     dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     /**
      * component used as a header for each column in the TimeGridHeader
      */
     header?: React.ComponentType<HeaderProps>;
-    toolbar?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    toolbar?: React.ComponentType<ToolbarProps>;
     agenda?: {
         date?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
         time?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -131,6 +140,42 @@ export interface Components {
         dateHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
         event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     };
+}
+
+export interface ToolbarProps {
+    date: Date;
+    view: View;
+    views: Views;
+    label: string;
+    localizer: { messages: Messages };
+    onNavigate: (navigate: Navigate, date?: Date) => void;
+    onView: (view: View) => void;
+    children?: React.ReactNode;
+}
+
+export interface EventWrapperProps<T extends Event = Event> {
+    // https://github.com/intljusticemission/react-big-calendar/blob/27a2656b40ac8729634d24376dff8ea781a66d50/src/TimeGridEvent.js#L28
+    style?: React.CSSProperties & { xOffset: number };
+    className: string;
+    event: T;
+    isRtl: boolean;
+    getters: {
+        eventProp?: EventPropGetter<T>;
+        slotProp?: SlotPropGetter;
+        dayProp?: DayPropGetter;
+    };
+    onClick: (e: React.MouseEvent<HTMLElement>) => void;
+    onDoubleClick: (e: React.MouseEvent<HTMLElement>) => void;
+    accessors: {
+        title?: (event: T) => string;
+        tooltip?: (event: T) => string;
+        end?: (event: T) => Date;
+        start?: (event: T) => Date;
+    };
+    selected: boolean;
+    label: string;
+    continuesEarlier: boolean;
+    continuesLater: boolean;
 }
 
 export interface Messages {
@@ -171,26 +216,22 @@ export class DateLocalizer {
     format(value: FormatInput, format: string, culture: Culture): string;
 }
 
-export interface BigCalendarProps<T extends Event = Event> extends React.Props<BigCalendar<T>> {
+export interface BigCalendarProps<TEvent extends Event = Event, TResource extends object = object> extends React.Props<BigCalendar<TEvent, TResource>> {
     localizer: DateLocalizer;
 
     date?: stringOrDate;
     now?: Date;
     view?: View;
-    events?: T[];
-    onNavigate?: (newDate: Date, action: Navigate) => void;
+    events?: TEvent[];
+    onNavigate?: (newDate: Date, view: View, action: Navigate) => void;
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
     onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[], action: 'select' | 'click' | 'doubleClick' }) => void;
-    onDoubleClickEvent?: (event: T, e: React.SyntheticEvent<HTMLElement>) => void;
-    onSelectEvent?: (event: T, e: React.SyntheticEvent<HTMLElement>) => void;
+    onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
+    onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate, end: stringOrDate }) => boolean | undefined | null;
     selected?: any;
-    views?: View[] | {
-        month: boolean | React.SFC | React.Component,
-        week: boolean | React.SFC | React.Component,
-        myweek: boolean | React.SFC | React.Component,
-    };
+    views?: Views;
     drilldownView?: View | null;
     getDrilldownView?: ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void) | null;
     length?: number;
@@ -202,9 +243,9 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     step?: number;
     timeslots?: number;
     rtl?: boolean;
-    eventPropGetter?: (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: React.CSSProperties };
-    slotPropGetter?: (date: Date) => { className?: string, style?: object };
-    dayPropGetter?: (date: Date) => { className?: string, style?: object };
+    eventPropGetter?: EventPropGetter<TEvent>;
+    slotPropGetter?: SlotPropGetter;
+    dayPropGetter?: DayPropGetter;
     showMultiDayTimes?: boolean;
     min?: stringOrDate;
     max?: stringOrDate;
@@ -213,14 +254,14 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     formats?: Formats;
     components?: Components;
     messages?: Messages;
-    titleAccessor?: keyof T | ((event: T) => string);
-    allDayAccessor?: keyof T | ((event: T) => boolean);
-    startAccessor?: keyof T | ((event: T) => Date);
-    endAccessor?: keyof T | ((event: T) => Date);
-    resourceAccessor?: keyof T | ((event: T) => any);
-    resources?: any[];
-    resourceIdAccessor?: keyof T | ((event: T) => any);
-    resourceTitleAccessor?: keyof T | ((event: T) => string);
+    titleAccessor?: keyof TEvent | ((event: TEvent) => string);
+    allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean);
+    startAccessor?: keyof TEvent | ((event: TEvent) => Date);
+    endAccessor?: keyof TEvent | ((event: TEvent) => Date);
+    resourceAccessor?: keyof TEvent | ((event: TEvent) => any);
+    resources?: TResource[];
+    resourceIdAccessor?: keyof TResource | ((resource: TResource) => any);
+    resourceTitleAccessor?: keyof TResource | ((resource: TResource) => string);
     defaultView?: View;
     defaultDate?: Date;
     className?: string;
@@ -237,7 +278,7 @@ export interface MoveOptions {
     today: Date;
 }
 
-export default class BigCalendar<T extends Event = Event> extends React.Component<BigCalendarProps<T>> {
+export default class BigCalendar<TEvent extends Event = Event, TResource extends object = object> extends React.Component<BigCalendarProps<TEvent, TResource>> {
     components: {
         dateCellWrapper: React.ComponentType,
         dayWrapper: React.ComponentType,

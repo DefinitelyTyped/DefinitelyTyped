@@ -5173,6 +5173,7 @@ declare namespace XrmEnum {
         Memo = "memo",
         Money = "money",
         OptionSet = "optionset",
+        MultiSelectOptionSet = "multiselectoptionset",
         String = "string"
     }
 
@@ -5185,6 +5186,7 @@ declare namespace XrmEnum {
         IFrame = "iframe",
         Lookup = "lookup",
         OptionSet = "optionset",
+        MultiSelectOptionSet = "multiselectoptionset",
         SubGrid = "subgrid",
         WebResource = "webresource",
         Notes = "notes",

@@ -9,6 +9,7 @@
 //                 Krister Kari <https://github.com/kristerkari>
 //                 Martin Raedlinger <https://github.com/formatlos>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
+//                 obedm503 <https://github.com/obedm503>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -29,8 +30,8 @@ declare namespace ReactIntl {
         withRef?: boolean;
     }
 
-    function injectIntl<P extends InjectedIntlProps>(component: React.ComponentType<P>, options?: InjectIntlConfig):
-        React.ComponentClass<Pick<P, Exclude<keyof P, keyof InjectedIntlProps>>> & { WrappedComponent: React.ComponentType<P> };
+    function injectIntl<P>(component: React.ComponentType<P & InjectedIntlProps>, options?: InjectIntlConfig):
+        React.ComponentClass<Pick<P, Exclude<keyof P, keyof InjectedIntlProps>>> & { WrappedComponent: React.ComponentType<P & InjectedIntlProps> };
 
     function addLocaleData(data: Locale[] | Locale): void;
 
@@ -46,6 +47,7 @@ declare namespace ReactIntl {
         messages: React.Requireable<any>;
         defaultLocale: React.Requireable<any>;
         defaultFormats: React.Requireable<any>;
+        onError: React.Requireable<any>;
     }
 
     interface IntlFormat {
@@ -78,6 +80,7 @@ declare namespace ReactIntl {
         defaultLocale: string;
         defaultFormats: any;
         now(): number;
+        onError(error: string): void;
     }
 
     interface InjectedIntlProps {
@@ -197,6 +200,7 @@ declare namespace ReactIntl {
             defaultFormats?: any;
             textComponent?: any;
             initialNow?: any;
+            onError?: (error: string) => void;
         }
     }
 

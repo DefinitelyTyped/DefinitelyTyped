@@ -32,15 +32,32 @@
 interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
-    dir(obj: any, options?: NodeJS.InspectOptions): void;
+    clear(): void;
+    count(label?: string): void;
+    countReset(label?: string): void;
     debug(message?: any, ...optionalParams: any[]): void;
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
     error(message?: any, ...optionalParams: any[]): void;
+    group(...label: any[]): void;
+    groupCollapsed(): void;
+    groupEnd(): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
     time(label: string): void;
     timeEnd(label: string): void;
     trace(message?: any, ...optionalParams: any[]): void;
     warn(message?: any, ...optionalParams: any[]): void;
+
+    // --- Inspector mode only ---
+    /** @deprecated Use console.timeStamp() instead. */
+    markTimeline(label?: string): void;
+    profile(label?: string): void;
+    profileEnd(label?: string): void;
+    timeStamp(label?: string): void;
+    /** @deprecated Use console.time() instead. */
+    timeline(label?: string): void;
+    /** @deprecated Use console.timeEnd() instead. */
+    timelineEnd(label?: string): void;
 }
 
 interface Error {

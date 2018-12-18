@@ -498,7 +498,7 @@ declare namespace CKEDITOR {
 
         class walker {
             evaluator: (node: node) => boolean;
-            guard: (node: node) => boolean;
+            guard: (node: node, movingOut?: boolean) => boolean;
 
             static validEmptyBlockContainers: { [key: string]: any };
 

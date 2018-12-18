@@ -1,64 +1,60 @@
-import {
-    PlayerData,
-    PlayerDataBinder
-} from "chromecast-caf-receiver/cast.framework.ui";
-import {
-    ReadyEvent,
-    ApplicationData
-} from "chromecast-caf-receiver/cast.framework.system";
-import {
-    RequestEvent,
-    Event,
-    BreaksEvent
-} from "chromecast-caf-receiver/cast.framework.events";
-import {
-    QueueBase,
-    TextTracksManager,
-    QueueManager,
-    PlayerManager
-} from "chromecast-caf-receiver/cast.framework";
-import {
-    BreakSeekData,
-    BreakClipLoadInterceptorContext,
-    BreakManager
-} from "chromecast-caf-receiver/cast.framework.breaks";
-import {
-    Break,
-    BreakClip,
-    LoadRequestData,
-    Track,
-    MediaMetadata
-} from "chromecast-caf-receiver/cast.framework.messages";
+import { MediaMetadata } from "chromecast-caf-receiver/cast.framework.messages";
 
-const breaksEvent = new BreaksEvent('BREAK_STARTED');
-breaksEvent.breakId = 'some-break-id';
-breaksEvent.breakClipId = 'some-break-clip-id';
+// The following test showcases how you can import individual types directly from the namespace:
 
-const track = new Track(1, "TEXT");
-const breakClip = new BreakClip("id");
-const adBreak = new Break("id", ["id"], 1);
-const rEvent = new RequestEvent("BITRATE_CHANGED", { requestId: 2 });
-const pManager = new PlayerManager();
-pManager.addEventListener("STALLED", () => { });
-const ttManager = new TextTracksManager();
-const qManager = new QueueManager();
-const qBase = new QueueBase();
+const mediaMetadata = new MediaMetadata("GENERIC");
+mediaMetadata.metadataType = "TV_SHOW";
+
+// The following tests showcase how you can globally access 'cast' types using
+// the nested namespace style. This is the preferred method as it
+// conforms exactly to the CAF documentation.
+
+// tslint:disable-next-line
+const breaksEvent = new cast.framework.events.BreaksEvent("BREAK_STARTED");
+breaksEvent.breakId = "some-break-id";
+breaksEvent.breakClipId = "some-break-clip-id";
+
+// tslint:disable-next-line
+const track = new cast.framework.messages.Track(1, "TEXT");
+// tslint:disable-next-line
+const breakClip = new cast.framework.messages.BreakClip("id");
+// tslint:disable-next-line
+const adBreak = new cast.framework.messages.Break("id", ["id"], 1);
+// tslint:disable-next-line
+const rEvent = new cast.framework.events.RequestEvent("BITRATE_CHANGED", {
+    requestId: 2
+});
+// tslint:disable-next-line
+const pManager = new cast.framework.PlayerManager();
+pManager.addEventListener("STALLED", () => {});
+// tslint:disable-next-line
+const ttManager = new cast.framework.TextTracksManager();
+// tslint:disable-next-line
+const qManager = new cast.framework.QueueManager();
+// tslint:disable-next-line
+const qBase = new cast.framework.QueueBase();
 const items = qBase.fetchItems(1, 3, 4);
-const breakSeekData = new BreakSeekData(0, 100, []);
-const breakClipLoadContext = new BreakClipLoadInterceptorContext(adBreak);
-const breakManager: BreakManager = {
+// tslint:disable-next-line
+const breakSeekData = new cast.framework.breaks.BreakSeekData(0, 100, []);
+// tslint:disable-next-line
+const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorContext(
+    adBreak
+);
+// tslint:disable-next-line
+const breakManager: cast.framework.breaks.BreakManager = {
     getBreakById: () => adBreak,
     getBreakClipById: () => breakClip,
     getBreakClips: () => [breakClip],
     getBreaks: () => [adBreak],
     getPlayWatchedBreak: () => true,
-    setBreakClipLoadInterceptor: () => { },
-    setBreakSeekInterceptor: () => { },
-    setPlayWatchedBreak: () => { },
-    setVastTrackingInterceptor: () => { }
+    setBreakClipLoadInterceptor: () => {},
+    setBreakSeekInterceptor: () => {},
+    setPlayWatchedBreak: () => {},
+    setVastTrackingInterceptor: () => {}
 };
 
-const lrd: LoadRequestData = {
+// tslint:disable-next-line
+const lrd: cast.framework.messages.LoadRequestData = {
     requestId: 1,
     activeTrackIds: [1, 2],
     media: {
@@ -75,7 +71,8 @@ const lrd: LoadRequestData = {
     queueData: {}
 };
 
-const appData: ApplicationData = {
+// tslint:disable-next-line
+const appData: cast.framework.system.ApplicationData = {
     id: () => "id",
     launchingSenderId: () => "launch-id",
     name: () => "name",
@@ -83,9 +80,11 @@ const appData: ApplicationData = {
     sessionId: () => 1
 };
 
-const readyEvent = new ReadyEvent(appData);
+// tslint:disable-next-line
+const readyEvent = new cast.framework.system.ReadyEvent(appData);
 const data = readyEvent.data;
-const pData: PlayerData = {
+// tslint:disable-next-line
+const pData: cast.framework.ui.PlayerData = {
     breakPercentagePositions: [1],
     contentType: "video",
     currentBreakClipNumber: 2,
@@ -96,7 +95,8 @@ const pData: PlayerData = {
     isLive: true,
     isPlayingBreak: false,
     isSeeking: true,
-    metadata: new MediaMetadata("GENERIC"),
+    // tslint:disable-next-line
+    metadata: new cast.framework.messages.MediaMetadata("GENERIC"),
     nextSubtitle: "sub",
     nextThumbnailUrl: "url",
     nextTitle: "title",
@@ -107,5 +107,6 @@ const pData: PlayerData = {
     title: "title",
     whenSkippable: 321
 };
-const binder = new PlayerDataBinder(pData);
-binder.addEventListener("ANY_CHANGE", e => { });
+// tslint:disable-next-line
+const binder = new cast.framework.ui.PlayerDataBinder(pData);
+binder.addEventListener("ANY_CHANGE", e => {});

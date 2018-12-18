@@ -1,3 +1,6 @@
+// Import needed for mathjs.import functionality (declaring/extending module)
+import * as math from 'mathjs';
+
 /*
 Basic usage examples
 */
@@ -391,4 +394,28 @@ JSON serialization/deserialization
 	const stringified = JSON.stringify(data);
 	const parsed = JSON.parse(stringified, math.json.reviver);
 	parsed.bigNumber === math.bignumber('1.5'); // true
+}
+
+/*
+Extend functionality with import
+ */
+
+declare module 'mathjs' {
+    interface MathJsStatic {
+        testFun(): number;
+        value: number;
+    }
+}
+
+{
+    const testFun = () => 5;
+
+    math.import({
+        testFun,
+        value: 10
+    }, {});
+
+    math.testFun();
+
+    const a = math.value * 2;
 }

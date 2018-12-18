@@ -53,6 +53,10 @@ declare class CancelError extends StdError {
     name: 'CancelError';
 }
 
+declare class TimeoutError extends StdError {
+    name: 'TimeoutError';
+}
+
 declare class StdError extends Error {
     code?: string;
     host?: string;
@@ -75,6 +79,7 @@ declare const got: got.GotFn &
         MaxRedirectsError: typeof MaxRedirectsError;
         UnsupportedProtocolError: typeof UnsupportedProtocolError;
         CancelError: typeof CancelError;
+        TimeoutError: typeof TimeoutError;
     };
 
 interface InternalRequestOptions extends https.RequestOptions {
@@ -135,9 +140,44 @@ declare namespace got {
         cache?: Cache;
     }
 
+    /**
+     * Contains properties to constrain the duration of each phase of the request lifecycle.
+     *
+     * @see https://github.com/sindresorhus/got#timeout
+     */
     interface TimeoutOptions {
+        /**
+         * Starts when a socket is assigned and ends when the hostname has been resolved. Does not
+         * apply when using a Unix domain socket.
+         */
+        lookup?: number;
+        /**
+         * Starts when `lookup` completes (or when the socket is assigned if lookup does not apply
+         * to the request) and ends when the socket is connected.
+         */
         connect?: number;
+        /**
+         * Starts when `connect` completes and ends when the handshaking process completes (HTTPS
+         * only).
+         */
+        secureConnect?: number;
+        /**
+         * Starts when the socket is connected. See [request.setTimeout](https://nodejs.org/api/http.html#http_request_settimeout_timeout_callback).
+         */
         socket?: number;
+        /**
+         * Starts when the request has been written to the socket and ends when the response headers
+         * are received.
+         */
+        response?: number;
+        /**
+         * Starts when the socket is connected and ends with the request has been written to the
+         * socket.
+         */
+        send?: number;
+        /**
+         * Starts when the request is initiated and ends when the response's end event fires.
+         */
         request?: number;
     }
 
@@ -215,7 +255,7 @@ declare namespace got {
         removeListener(event: 'uploadProgress', listener: (progress: Progress) => void): this;
     }
 
-    type GotError = RequestError | ReadError | ParseError | HTTPError | MaxRedirectsError | UnsupportedProtocolError | CancelError;
+    type GotError = RequestError | ReadError | ParseError | HTTPError | MaxRedirectsError | UnsupportedProtocolError | CancelError | TimeoutError;
 
     interface Progress {
         percent: number;

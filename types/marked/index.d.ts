@@ -1,8 +1,9 @@
-// Type definitions for Marked 0.4
+// Type definitions for Marked 0.5
 // Project: https://github.com/markedjs/marked
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
 //                 CrossR <https://github.com/CrossR>
+//                 Mike Wickett <https://github.com/mwickett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -33,6 +34,15 @@ declare namespace marked {
      * @param options Hash of options
      */
     function lexer(src: string, options?: MarkedOptions): TokensList;
+
+    /**
+     * @param src String of markdown source to be compiled
+     * @param links Array of links
+     * @param options Hash of options
+     * @return String of compiled HTML
+     */
+
+    function inlineLexer(src: string, links: string[], options?: MarkedOptions): string;
 
     /**
      * Compiles markdown to HTML.

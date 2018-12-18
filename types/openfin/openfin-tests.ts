@@ -207,7 +207,7 @@ function test_notification() {
     notification.close();
     // sendMessage
     notification = new fin.desktop.Notification({
-        duration: 10,
+        timeout: 10,
         url: "http://localhost:5000/Account/Register",
         message: "Hello",
         onShow: () => { },

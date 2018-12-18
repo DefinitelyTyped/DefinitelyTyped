@@ -8,9 +8,7 @@ let x: string = forge.ssh.privateKeyToOpenSSH(key);
 let pemKey: forge.pki.PEM = publicKeyPem;
 let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
-let privateKeyRsa2 = forge.pki.privateKeyInfoToPem(privateKeyRsa);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
-let certPem = forge.pki.certificateFromPem(pemKey);
 let cert = forge.pki.createCertificate();
 
 {
@@ -118,6 +116,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    let key = forge.random.getBytesSync(24)
     let payload = { asd: 'asd' };
     let cipher = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(key, 'raw'));
     cipher.start();
@@ -133,7 +132,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let decrypted = decipher.output as forge.util.ByteStringBuffer;
     let content = JSON.parse(forge.util.encodeUtf8(decrypted.getBytes()));
 
-    if (content.asd == payload.asd) throw Error('forge.cipher.createCipher failed');
+    if (content.asd !== payload.asd) throw Error('forge.cipher.createCipher failed');
 }
 
 {
@@ -188,4 +187,38 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
+}
+
+{
+    let md: forge.md.MessageDigest;
+    let hex: string;
+    let signature: forge.Bytes
+
+    md = forge.md.sha256.create();
+    md = md.update('Test');
+    hex = md.digest().toHex();
+
+    signature = keypair.privateKey.sign(md)
+    if (!keypair.publicKey.verify(md.digest().bytes(), signature)) {
+        throw Error("rsa signature verification fail");
+    }
+}
+
+{
+    const emptyStore = forge.pki.createCaStore();
+
+    const certificate = forge.pki.createCertificate();
+    const pem = forge.pki.certificateToPem(certificate);
+
+    const caStore = forge.pki.createCaStore();
+    caStore.addCertificate(certificate);
+    caStore.removeCertificate(certificate);
+
+    caStore.listAllCertificates();
+
+    caStore.removeCertificate(certificate);
+
+    forge.pki.verifyCertificateChain(caStore, [certificate], (verified, depth, chain) => {
+        return true;
+    });
 }

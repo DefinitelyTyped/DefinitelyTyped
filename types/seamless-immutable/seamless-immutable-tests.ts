@@ -112,6 +112,8 @@ interface ExtendedUser extends User {
 
     // merge: merged part is strongly checked as a deeply partial object
     const mergedUser: Immutable.Immutable<User> = immutableUserEx.merge({ address: { line1: 'Small house' }, firstName: 'Jack' });
+    // accepts merge config
+    const mergedUser2: Immutable.Immutable<User> = immutableUserEx.merge({ address: { line1: 'Small house' }, firstName: 'Jack' }, { mode: 'merge', deep: true });
 
     // update: property name is strongly checked
     const updatedUser41: Immutable.Immutable<User> = immutableUser.update('firstName', x => x.toLowerCase() + ' Whirlwind');

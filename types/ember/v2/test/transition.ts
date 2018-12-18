@@ -10,7 +10,7 @@ Ember.Route.extend({
 });
 
 Ember.Controller.extend({
-    previousTransition: <Ember.Transition | null> null,
+    previousTransition: null as Ember.Transition | null,
 
     actions: {
         login() {
