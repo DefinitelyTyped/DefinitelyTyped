@@ -33622,16 +33622,12 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the styles. WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
+     * Represents a collection of all the styles.
      *
      * [Api set: ExcelApi 1.7]
      */
     class StyleCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
-        /**
-         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
-         */
+        /** Gets the loaded child items in this collection. */
         readonly items: Excel.Style[];
         /**
          *
@@ -33652,16 +33648,23 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.Style;
         /**
-         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
-         * 
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.StyleCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.StyleCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.StyleCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
          * @param options Provides options for which properties of the object to load.
          */
         load(option?: Excel.Interfaces.StyleCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.StyleCollection;
         load(option?: string | string[]): Excel.StyleCollection;
         load(option?: OfficeExtension.LoadOption): Excel.StyleCollection;
-        /**
-         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
-         */
         toJSON(): Excel.Interfaces.StyleCollectionData;
     }
     /**
@@ -73335,8 +73338,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class Application extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the collection of notebooks that are open in the OneNote application instance. In OneNote Online, only one notebook at a time is open in the application instance. Read-only.
@@ -73465,8 +73466,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkAnalysis extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the parent page object. Read-only.
@@ -73533,8 +73532,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkAnalysisParagraph extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Reference to the parent InkAnalysisPage. Read-only.
@@ -73608,8 +73605,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkAnalysisParagraphCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkAnalysisParagraph[];
         /**
@@ -73672,8 +73667,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkAnalysisLine extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Reference to the parent InkAnalysisParagraph. Read-only.
@@ -73747,8 +73740,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkAnalysisLineCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkAnalysisLine[];
         /**
@@ -73811,8 +73802,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkAnalysisWord extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Reference to the parent InkAnalysisLine. Read-only.
@@ -73900,8 +73889,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkAnalysisWordCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkAnalysisWord[];
         /**
@@ -73964,8 +73951,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class FloatingInk extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the strokes of the FloatingInk object. Read-only.
@@ -74025,8 +74010,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkStroke extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the ID of the InkStroke object. Read-only.
@@ -74079,8 +74062,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkStrokeCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkStroke[];
         /**
@@ -74143,8 +74124,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkWord extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * The parent paragraph containing the ink word. Read-only.
@@ -74211,8 +74190,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class InkWordCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.InkWord[];
         /**
@@ -74275,8 +74252,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class Notebook extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * The section groups in the notebook. Read only
@@ -74389,8 +74364,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class NotebookCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.Notebook[];
         /**
@@ -74462,8 +74435,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class SectionGroup extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the notebook that contains the section group. Read-only.
@@ -74583,8 +74554,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class SectionGroupCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.SectionGroup[];
         /**
@@ -74656,8 +74625,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class Section extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the notebook that contains the section. Read-only.
@@ -74820,8 +74787,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class SectionCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.Section[];
         /**
@@ -74893,8 +74858,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class Page extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * The collection of PageContent objects on the page. Read only
@@ -74980,7 +74943,7 @@ declare namespace OneNote {
          *
          * @param left The left position of the top, left corner of the Outline.
          * @param top The top position of the top, left corner of the Outline.
-         * @param html An HTML string that describes the visual presentation of the Outline. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
+         * @param html An HTML string that describes the visual presentation of the Outline. See {@link https://docs.microsoft.com/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
          */
         addOutline(left: number, top: number, html: string): OneNote.Outline;
         /**
@@ -75087,8 +75050,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class PageCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.Page[];
         /**
@@ -75160,8 +75121,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class PageContent extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the Image in the PageContent object. Throws an exception if PageContentType is not Image.
@@ -75277,8 +75236,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class PageContentCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.PageContent[];
         /**
@@ -75341,8 +75298,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class Outline extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the PageContent object that contains the Outline. This object defines the position of the Outline on the page. Read-only.
@@ -75370,7 +75325,7 @@ declare namespace OneNote {
          *
          * [Api set: OneNoteApi 1.1]
          *
-         * @param html The HTML string to append. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
+         * @param html The HTML string to append. See {@link https://docs.microsoft.com/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
          */
         appendHtml(html: string): void;
         /**
@@ -75449,8 +75404,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class Paragraph extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the Image object in the Paragraph. Throws an exception if ParagraphType is not Image. Read-only.
@@ -75590,7 +75543,7 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          *
          * @param insertLocation The location of new contents relative to the current Paragraph.
-         * @param html An HTML string that describes the visual presentation of the content. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
+         * @param html An HTML string that describes the visual presentation of the content. See {@link https://docs.microsoft.com/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
          */
         insertHtmlAsSibling(insertLocation: OneNote.InsertLocation, html: string): void;
         /**
@@ -75600,7 +75553,7 @@ declare namespace OneNote {
          * [Api set: OneNoteApi 1.1]
          *
          * @param insertLocation The location of new contents relative to the current Paragraph.
-         * @param html An HTML string that describes the visual presentation of the content. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
+         * @param html An HTML string that describes the visual presentation of the content. See {@link https://docs.microsoft.com/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
          */
         insertHtmlAsSibling(insertLocation: "Before" | "After", html: string): void;
         /**
@@ -75709,8 +75662,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class ParagraphCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.Paragraph[];
         /**
@@ -75773,8 +75724,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class NoteTag extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the Id of the NoteTag object. Read-only.
@@ -75834,8 +75783,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class RichText extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the Paragraph object that contains the RichText object. Read-only.
@@ -75910,8 +75857,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class Image extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the PageContent object that contains the Image. Throws if the Image is not a direct child of a PageContent. This object defines the position of the Image on the page. Read-only.
@@ -76028,8 +75973,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class Table extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the Paragraph object that contains the Table object. Read-only.
@@ -76187,8 +76130,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class TableRow extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the cells in the row. Read-only.
@@ -76297,8 +76238,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class TableRowCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.TableRow[];
         /**
@@ -76361,8 +76300,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class TableCell extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /**
          *
          * Gets the collection of Paragraph objects in the TableCell. Read-only.
@@ -76425,7 +76362,7 @@ declare namespace OneNote {
          *
          * [Api set: OneNoteApi 1.1]
          *
-         * @param html The HTML string to append. See {@link https://docs.microsoft.com/en-us/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
+         * @param html The HTML string to append. See {@link https://docs.microsoft.com/office/dev/add-ins/onenote/onenote-add-ins-page-content#supported-html | Supported HTML} for the OneNote add-ins JavaScript API.
          */
         appendHtml(html: string): void;
         /**
@@ -76504,8 +76441,6 @@ declare namespace OneNote {
      * [Api set: OneNoteApi 1.1]
      */
     class TableCellCollection extends OfficeExtension.ClientObject {
-        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
-        context: RequestContext; 
         /** Gets the loaded child items in this collection. */
         readonly items: OneNote.TableCell[];
         /**
@@ -77019,6 +76954,13 @@ declare namespace OneNote {
             * [Api set: OneNoteApi 1.1]
             */
             page?: OneNote.Interfaces.PageData;
+            /**
+            *
+            * Gets the ink analysis paragraphs in this page. Read-only.
+            *
+            * [Api set: OneNoteApi 1.1]
+            */
+            paragraphs?: OneNote.Interfaces.InkAnalysisParagraphData[];
             /**
              *
              * Gets the ID of the InkAnalysis object. Read-only.
@@ -77899,6 +77841,7 @@ declare namespace OneNote {
         interface TableCellCollectionData {
             items?: OneNote.Interfaces.TableCellData[];
         }
+        
         /**
          *
          * Represents the top-level object that contains all globally addressable OneNote objects such as notebooks, the active notebook, and the active section.
@@ -77930,6 +77873,13 @@ declare namespace OneNote {
             * [Api set: OneNoteApi 1.1]
             */
             page?: OneNote.Interfaces.PageLoadOptions;
+            /**
+            *
+            * Gets the ink analysis paragraphs in this page.
+            *
+            * [Api set: OneNoteApi 1.1]
+            */
+            paragraphs?: OneNote.Interfaces.InkAnalysisParagraphCollectionLoadOptions;
             /**
              *
              * Gets the ID of the InkAnalysis object. Read-only.
@@ -79576,17 +79526,24 @@ declare namespace OneNote {
      */
     function run<T>(batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
     /**
-     * Executes a batch script that performs actions on the OneNote object model, using the request context of a previously-created API object.
-     * @param object - A previously-created API object. The batch will use the same request context as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
-     * @param batch - A function that takes in an OneNote.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     */
-    function run<T>(object: OfficeExtension.ClientObject, batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
-    /**
      * Executes a batch script that performs actions on the OneNote object model, using the request context of previously-created API objects.
      * @param object - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared request context, which means that any changes applied to these objects will be picked up by "context.sync()".
      * @param batch - A function that takes in an OneNote.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      */
     function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
+    /**
+     * Executes a batch script that performs actions on the OneNote object model, using the request context of a previously-created API object.
+     * @param object - A previously-created API object. The batch will use the same request context as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
+     * @param batch - A function that takes in an OneNote.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * 
+     * @remarks
+     * In addition to this signature, the method also has the following signatures:
+     * 
+     * `run<T>(batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;`
+     * 
+     * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;`
+     */
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
 }
 
 
@@ -79814,9 +79771,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.Application` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.Application` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.Application` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.Application` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Application` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -79902,9 +79859,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.Document` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.Document` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.Document` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.Document` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Document` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -79921,6 +79878,8 @@ declare namespace Visio {
          * Occurs when the data is refreshed in the diagram.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onDataRefreshComplete: OfficeExtension.EventHandlers<Visio.DataRefreshCompleteEventArgs>;
         /**
@@ -79928,6 +79887,8 @@ declare namespace Visio {
          * Occurs when the Document is loaded, refreshed, or changed.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onDocumentLoadComplete: OfficeExtension.EventHandlers<Visio.DocumentLoadCompleteEventArgs>;
         /**
@@ -79935,6 +79896,8 @@ declare namespace Visio {
          * Occurs when the page is finished loading.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onPageLoadComplete: OfficeExtension.EventHandlers<Visio.PageLoadCompleteEventArgs>;
         /**
@@ -79942,6 +79905,8 @@ declare namespace Visio {
          * Occurs when the current selection of shapes changes.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Visio.SelectionChangedEventArgs>;
         /**
@@ -79949,6 +79914,8 @@ declare namespace Visio {
          * Occurs when the user moves the mouse pointer into the bounding box of a shape.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onShapeMouseEnter: OfficeExtension.EventHandlers<Visio.ShapeMouseEnterEventArgs>;
         /**
@@ -79956,6 +79923,8 @@ declare namespace Visio {
          * Occurs when the user moves the mouse out of the bounding box of a shape.
          *
          * [Api set:  1.1]
+         *
+         * @eventproperty
          */
         readonly onShapeMouseLeave: OfficeExtension.EventHandlers<Visio.ShapeMouseLeaveEventArgs>;
         toJSON(): Visio.Interfaces.DocumentData;
@@ -80016,9 +79985,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.DocumentView` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.DocumentView` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.DocumentView` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.DocumentView` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.DocumentView` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80130,9 +80099,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.Page` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.Page` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.Page` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.Page` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Page` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80229,9 +80198,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.PageView` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.PageView` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.PageView` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.PageView` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.PageView` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80277,9 +80246,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.PageCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.PageCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.PageCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.PageCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.PageCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80322,9 +80291,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.ShapeCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.ShapeCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.ShapeCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80433,9 +80402,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.Shape` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.Shape` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.Shape` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.Shape` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Shape` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80521,9 +80490,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.ShapeView` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.ShapeView` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeView` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeView` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.ShapeView` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80649,9 +80618,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.ShapeDataItemCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.ShapeDataItemCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeDataItemCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeDataItemCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.ShapeDataItemCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80704,9 +80673,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.ShapeDataItem` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.ShapeDataItem` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeDataItem` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.ShapeDataItem` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.ShapeDataItem` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80752,9 +80721,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.HyperlinkCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.HyperlinkCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.HyperlinkCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.HyperlinkCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.HyperlinkCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80807,9 +80776,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.Hyperlink` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.Hyperlink` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.Hyperlink` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.Hyperlink` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Hyperlink` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80855,9 +80824,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.CommentCollection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.CommentCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.CommentCollection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.CommentCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.CommentCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80917,9 +80886,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.Comment` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.Comment` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.Comment` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.Comment` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Comment` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -80954,9 +80923,9 @@ declare namespace Visio {
          *
          * In addition to this signature, this method has the following signatures:
          *
-         * `load(option?: string | string[]): Visio.Selection` - Where option is a comma-delimited string or an array of strings that specify the properties/relationships to load.
+         * `load(option?: string | string[]): Visio.Selection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
          *
-         * `load(option?: { select?: string; expand?: string; }): Visio.Selection` - Where option.select is a comma-delimited string that specifies the properties/relationships to load, and options.expand is a comma-delimited string that specifies the relationships to load.
+         * `load(option?: { select?: string; expand?: string; }): Visio.Selection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
          *
          * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Visio.Selection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
          *
@@ -82109,9 +82078,9 @@ declare namespace Visio {
         readonly document: Document;
     }
     /**
- * Executes a batch script that performs actions on the Visio object model, using a new request context. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
- * @param batch - A function that takes in an Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
- */
+     * Executes a batch script that performs actions on the Visio object model, using a new request context. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param batch - A function that takes in an Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the request context is required to get access to the Visio object model from the add-in.
+     */
     function run<T>(batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
     /**
      * Executes a batch script that performs actions on the Visio object model, using the request context of a previously-created API object.
@@ -82129,13 +82098,14 @@ declare namespace Visio {
      * Executes a batch script that performs actions on the Visio object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      * @param contextObject - A previously-created Visio.RequestContext. This context will get re-used by the batch function (instead of having a new context created). This means that the batch will be able to pick up changes made to existing API objects, if those objects were derived from this same context.
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the RequestContext is required to get access to the Visio object model from the add-in.
+     * 
      * @remarks
      * In addition to this signature, the method also has the following signatures:
-     *
+     * 
      * `run<T>(batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
-     *
+     * 
      * `run<T>(object: OfficeExtension.ClientObject | OfficeExtension.EmbeddedSession, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
-     *
+     * 
      * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
      */
     function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
