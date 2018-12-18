@@ -15,7 +15,7 @@ declare namespace DynamodbUtil {
     /** Taken from the AWS SDK definition dynamodb.d.ts **/
     export type StringAttributeValue = string;
     export type NumberAttributeValue = string;
-    export type BinaryAttributeValue = Uint8Array|Blob|string; //Buffer|Uint8Array|Blob|string;
+    export type BinaryAttributeValue = Uint8Array|string; //Buffer|Uint8Array|Blob|string;
     export type BinarySetAttributeValue = BinaryAttributeValue[];
     export type BooleanAttributeValue = boolean;
     export type NumberSetAttributeValue = NumberAttributeValue[];
