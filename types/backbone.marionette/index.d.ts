@@ -1693,7 +1693,7 @@ export class Application extends Object {
  * allowing you to share common user-facing operations between your views.
  */
 export class Behavior extends Object {
-    constructor(options?: any);
+    constructor(options: any, view?: any);
 
     options: any;
 
