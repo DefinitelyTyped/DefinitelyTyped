@@ -14,8 +14,12 @@ import styled, {
     withTheme,
     ThemeConsumer,
     StyledComponent,
-    ThemedStyledComponentsModule
+    ThemedStyledComponentsModule,
+    FlattenSimpleInterpolation,
+    SimpleInterpolation,
+    FlattenInterpolation
 } from "styled-components";
+import {} from "styled-components/cssprop";
 
 /**
  * general usage
@@ -100,13 +104,13 @@ const fadeIn = keyframes`
 `;
 
 const showAnimation = css`
-  opacity: 1;
-  transform: scale(1) translateY(0);
+    opacity: 1;
+    transform: scale(1) translateY(0);
 `;
 
 const hideAnimation = css`
-  opacity: 0;
-  transform: scale(0.95, 0.8) translateY(20px);
+    opacity: 0;
+    transform: scale(0.95, 0.8) translateY(20px);
 `;
 
 const entryAnimation = keyframes`
@@ -187,7 +191,6 @@ const styledButton = styled.button`
 const name = "hey";
 
 const ThemedMyButton = withTheme(MyButton);
-
 <ThemedMyButton name={name} />;
 
 /**
@@ -305,7 +308,6 @@ const ObjectStylesBox = styled.div`
         fontSize: 2
     }};
 `;
-
 <ObjectStylesBox size="big" />;
 
 /**
@@ -337,7 +339,6 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: "h1" })`
 `;
 
 const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: "off" })``;
-
 <AttrsInputExtra />;
 
 /**
@@ -434,10 +435,8 @@ const Component = (props: WithThemeProps) => (
 );
 
 const ComponentWithTheme = withTheme(Component);
-
 <ComponentWithTheme text={"hi"} />; // ok
 <ComponentWithTheme text={"hi"} theme={{ color: "red" }} />; // ok
-
 <ThemeConsumer>{theme => <Component text="hi" theme={theme} />}</ThemeConsumer>;
 
 /**
@@ -625,7 +624,6 @@ const divFnRef = (ref: HTMLDivElement | null) => {
 const divRef = React.createRef<HTMLDivElement>();
 
 const StyledDiv = styled.div``;
-
 <StyledDiv ref={divRef} />;
 <StyledDiv ref={divFnRef} />;
 <StyledDiv ref="string" />; // $ExpectError
@@ -699,6 +697,8 @@ async function typedThemes() {
             return props.theme.color;
         }};
     `;
+    //  can't use a FlattenInterpolation as the first argument, would make broken css
+    // $ExpectError
     const ThemedDiv4 = styled.div(themedCss);
 
     const themedCssWithNesting = css(props => ({
@@ -719,7 +719,6 @@ async function typedThemes() {
                 <ThemedDiv />
                 <ThemedDiv2 />
                 <ThemedDiv3 />
-                <ThemedDiv4 />
                 <ThemeConsumer>
                     {theme => {
                         // $ExpectType string
@@ -785,4 +784,165 @@ async function themeAugmentation() {
             </>
         </base.ThemeProvider>
     );
+}
+
+// NOTE: this is needed for some tests inside cssProp,
+// but actually running this module augmentation will cause
+// tests elsewhere to break, and there is no way to contain it.
+// Uncomment out as needed to run tests.
+
+// declare module "styled-components" {
+//     interface DefaultTheme {
+//         background: string;
+//     }
+// }
+
+function cssProp() {
+    function Custom(props: React.ComponentPropsWithoutRef<"div">) {
+        return <div {...props} />;
+    }
+
+    const myCss = "background: blue;";
+
+    return (
+        <>
+            <div css="background: blue;" />
+            {/*
+                For some reason $ExpectError doesn't work on this expression.
+                Only strings work, objects crash the plugin.
+                <div css={{ background: "blue" }} />
+            */}
+            <div
+                // would be nice to be able to turn this into an error as it also crashes the plugin,
+                // but this is how optional properties work in TypeScript...
+                css={undefined}
+            />
+            <div
+                // css used as tagged function is fine and is correctly handled by the plugin
+                css={css`
+                    background: blue;
+                `}
+            />
+            <div
+                // but this crashes the plugin, even though it's valid type-wise and we can't forbid it
+                css={css({ background: "blue" })}
+            />
+            <div
+                // this also crashes the plugin, only inline strings or css template tag work
+                css={myCss}
+            />
+            <div
+                css={css`
+                    background: ${() => "blue"};
+                `}
+            />
+            <div
+                css={css`
+                    background: ${props => {
+                        // This requires the DefaultTheme augmentation
+                        // // $ExpectType string
+                        // props.theme.background;
+                        return props.theme.background;
+                    }};
+                `}
+            />
+            <Custom css="background: blue;" />
+            <Custom css={undefined} />
+            <Custom
+                css={css`
+                    background: blue;
+                `}
+            />
+            <Custom
+                css={css`
+                    background: ${() => "blue"};
+                `}
+            />
+            <Custom
+                css={css`
+                    background: ${props => {
+                        // This requires the DefaultTheme augmentation
+                        // // $ExpectType string
+                        // props.theme.background;
+                        return props.theme.background;
+                    }};
+                `}
+            />
+        </>
+    );
+}
+
+function validateArgumentsAndReturns() {
+    const t1: FlattenSimpleInterpolation[] = [
+        css({ color: "blue" }),
+        css`
+            color: blue;
+        `,
+        css`
+            color: ${"blue"};
+        `
+    ];
+    const t4: FlattenInterpolation<any> = [
+        css`
+            color: ${() => "blue"};
+        `,
+        css(() => ({ color: "blue" })),
+        css(
+            () =>
+                css`
+                    color: "blue";
+                `
+        )
+    ];
+
+    // if the first argument is array-like it's always treated as a string[], this breaks things
+    css(
+        // $ExpectError
+        css`
+            ${{ color: "blue" }}
+        `
+    );
+    // _technically_ valid as styled-components doesn't look at .raw but best not to support it
+    // $ExpectError
+    css([]);
+
+    styled.div({ color: "blue" });
+    styled.div(props => ({ color: props.theme.color }));
+    styled.div`
+        color: ${"blue"};
+    `;
+    // These don't work for the same reason css doesn't work
+    styled.div(
+        // $ExpectError
+        css`
+            ${{ color: "blue" }}
+        `
+    );
+    // $ExpectError
+    styled.div([]);
+
+    createGlobalStyle({
+        ":root": {
+            color: "blue"
+        }
+    });
+    createGlobalStyle`
+        :root {
+            color: blue;
+        }
+    `;
+    createGlobalStyle(() => ({
+        ":root": {
+            color: "blue"
+        }
+    }));
+    // these are invalid for the same reason as in styled.div
+    // $ExpectError
+    createGlobalStyle(css`
+        :root {
+            color: ${() => "blue"};
+        }
+    `);
+    // $ExpectError
+    createGlobalStyle([]);
 }

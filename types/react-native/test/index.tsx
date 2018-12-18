@@ -430,6 +430,7 @@ class ScrollerListComponentTest extends React.Component<
                         <ScrollView
                             horizontal={true}
                             nestedScrollEnabled={true}
+                            invertStickyHeaders={true}
                             contentOffset={{ x: 0, y: 0 }}
                             {...props}
                             style={[

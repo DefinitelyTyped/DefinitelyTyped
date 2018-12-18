@@ -133,6 +133,7 @@ conn1.openSet('mongodb://localhost/test', 'db', {
 conn1.close().catch(function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+conn1.deleteModel('myModel');
 interface IStatics {
   staticMethod1: (a: number) => string;
 }

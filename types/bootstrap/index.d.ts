@@ -322,7 +322,7 @@ export interface TooltipOption {
 // Events
 // --------------------------------------------------------------------------------------
 
-export interface CarouselEventHandler<TElement> extends JQuery.Event<TElement, undefined> {
+export interface CarouselEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined> {
     /**
      * The direction in which the carousel is sliding.
      */
@@ -337,6 +337,10 @@ export interface CarouselEventHandler<TElement> extends JQuery.Event<TElement, u
      * The index of the next item.
      */
     to: number;
+}
+
+export interface TapEventHandler<TElement> extends JQuery.TriggeredEvent<TElement, undefined> {
+    relatedTarget: HTMLElement;
 }
 
 export type AlertEvent = "close.bs.alert" | "closed.bs.alert";
@@ -383,9 +387,10 @@ declare global {
         tooltip(options?: TooltipOption): this;
 
         on(events: CarouselEvent, handler: JQuery.EventHandlerBase<TElement, CarouselEventHandler<TElement>>): this;
+        on(events: TapEvent, handler: JQuery.EventHandlerBase<TElement, TapEventHandler<TElement>>): this;
         on(events:
             AlertEvent | CollapseEvent | DropdownEvent | ModalEvent |
-            PopoverEvent | ScrollspyEvent | TapEvent | TooltipEvent,
+            PopoverEvent | ScrollspyEvent | TooltipEvent,
             handler: JQuery.EventHandler<TElement>): this;
     }
 }

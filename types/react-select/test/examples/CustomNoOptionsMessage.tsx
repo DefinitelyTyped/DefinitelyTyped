@@ -18,12 +18,7 @@ const NoOptionsMessage = (props: any) => {
 export default class CustomNoOptionsMessage extends React.Component {
   render() {
     return (
-      // Without the type argument, `OptionType` is inferred as `never` from the
-      // `options` attribute of type `never[]`, and `Select.defaultProps` (of
-      // type `Props<any>`) fails to be assignable to the instantiated props
-      // type, `Props<never>`.  This issue shouldn't come up in real code where
-      // the `options` attribute isn't a literal empty array.
-      <Select<{ label: string; value: string }>
+      <Select
         isClearable
         components={{ NoOptionsMessage }}
         styles={{ noOptionsMessage: (base: any) => ({ ...base, ...msgStyles }) }}

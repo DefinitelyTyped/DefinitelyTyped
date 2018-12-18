@@ -30,7 +30,7 @@ export type ListProps = GridCoreProps & {
     /** Height constraint for list (determines how many actual rows are rendered) */
     height: number;
     /** Optional renderer to be used in place of rows when rowCount is 0 */
-    noRowsRenderer?: () => JSX.Element | null;
+    noRowsRenderer?: () => JSX.Element;
     /**
      * Callback invoked with information about the slice of rows that were just rendered.
      * ({ startIndex, stopIndex }): void
