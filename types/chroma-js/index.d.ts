@@ -21,6 +21,8 @@ declare namespace chroma {
         gl: [number, number, number, number];
     }
 
+    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl";
+
     interface ChromaStatic {
         /**
          * Creates a color from a string representation (as supported in CSS).
@@ -311,7 +313,7 @@ declare namespace chroma {
 
         domain(d?: number[], n?: number, mode?: string): this;
 
-        mode(mode: keyof ColorSpaces): this;
+        mode(mode: InterpolationMode): this;
 
         gamma(g: number): this;
 
