@@ -322,19 +322,16 @@ interface KnockoutComputedDefine<T> {
      */
     disposeWhen?(): boolean;
     /**
-     * Defines the value of this whenever KO invokes your read or write callbacks.
-     * @param properties
+     * Defines the value of 'this' whenever KO invokes your 'read' or 'write' callbacks.
      */
     owner?: any;
     /**
      * If true, then the value of the computed observable will not be evaluated until something actually attempts to access its value or manually subscribes to it.
      * By default, a computed observable has its value determined immediately during creation.
-     * @param properties
      */
     deferEvaluation?: boolean;
     /**
      * If true, the computed observable will be set up as a purecomputed observable. This option is an alternative to the ko.pureComputed constructor.
-     * @param properties
      */
     pure?: boolean;
 }
