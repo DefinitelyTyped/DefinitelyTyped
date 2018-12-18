@@ -113,7 +113,7 @@ interface Console {
     /**
      * For a timer that was previously started by calling {@link console.time()}, prints the elapsed time and other `data` arguments to `stdout`.
      */
-    timeLog(label: string, ...data: any[]): void;
+    timeLog(label?: string, ...data: any[]): void;
     /**
      * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
      */
@@ -126,6 +126,13 @@ interface Console {
     // --- Inspector mode only ---
     /**
      * This method does not display anything unless used in the inspector.
+     *  The console.markTimeline() method is the deprecated form of console.timeStamp().
+     *
+     * @deprecated Use console.timeStamp() instead.
+     */
+    markTimeline(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
      *  Starts a JavaScript CPU profile with an optional label.
      */
     profile(label?: string): void;
@@ -133,12 +140,26 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Stops the current JavaScript CPU profiling session if one has been started and prints the report to the Profiles panel of the inspector.
      */
-    profileEnd(): void;
+    profileEnd(label?: string): void;
     /**
      * This method does not display anything unless used in the inspector.
      *  Adds an event with the label `label` to the Timeline panel of the inspector.
      */
     timeStamp(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  The console.timeline() method is the deprecated form of console.time().
+     *
+     * @deprecated Use console.time() instead.
+     */
+    timeline(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  The console.timelineEnd() method is the deprecated form of console.timeEnd().
+     *
+     * @deprecated Use console.timeEnd() instead.
+     */
+    timelineEnd(label?: string): void;
 }
 
 interface Error {
