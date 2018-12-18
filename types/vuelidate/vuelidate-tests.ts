@@ -1,5 +1,5 @@
 import { Validation } from 'vuelidate'
-import { required, minLength, sameAs, helpers } from 'vuelidate/lib/validators'
+import { required, integer, decimal,  minLength, sameAs, helpers } from 'vuelidate/lib/validators'
 
 import Vue, { ComponentOptions } from 'vue'
 
@@ -54,14 +54,25 @@ const mustHaveLength = (minLen: number) => helpers.withParams(
             },
             nestedB: {
                 required
+            },
+            nestedOfLength: {
+                mustHaveLength: mustHaveLength(6)
             }
+        },
+        age: {
+            required,
+            integer
+        },
+        coolFactor: {
+            required,
+            decimal
         },
         flatA: { required },
         flatB: { required },
         forGroup: {
             nested: { required }
         },
-        validationGroup: ['flatA', 'flatB', 'forGroup.nested'],
+        validationGroup: ['age', 'coolFactor', 'flatA', 'flatB', 'forGroup.nested'],
         people: {
             required,
             minLength: minLength(3),
@@ -90,7 +101,7 @@ const mustHaveLength = (minLen: number) => helpers.withParams(
             required,
             mustBeCool,
             mustBeCool2,
-            containsA: contains("a"),
+            containsA: contains('a'),
             mustBeCool3
         }
     }
@@ -101,8 +112,12 @@ export class ValidComponent extends Vue {
 
     form = {
         nestedA: 'A',
-        nestedB: 'B'
+        nestedB: 'B',
+        nestedOfLength: ''
     }
+
+    age = 50
+    coolFactor = 0.25
 
     flatA = ''
     flatB = ''
@@ -132,6 +147,8 @@ export class ValidComponent extends Vue {
             console.log(this.$v.form.$params)
             console.log(this.$v.form.$params.nestedA)
             console.log(this.$v.form.nestedA)
+            console.log(this.$v.form.$params.nestedOfLength)
+            console.log(this.$v.form.nestedOfLength)
         }
         console.log(this.$v.validationGroup.$params)
     }
