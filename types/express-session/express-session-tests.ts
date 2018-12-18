@@ -27,7 +27,7 @@ interface MySession extends Express.Session {
 app.use((req, res, next) => {
   const sess = req.session as MySession;
   if (sess.views) {
-    sess.views++;
+    sess.views += 1;
     res.setHeader('Content-Type', 'text/html');
     res.write(`<p>views: ${sess.views}</p>`);
     res.write(`<p>expires in: ${((sess.cookie.maxAge || 0) / 1000)}s</p>`);
