@@ -53,6 +53,14 @@ stmt.expand(true);
 stmt.bind('name');
 stmt.safeIntegers();
 stmt.safeIntegers(true);
+stmt.raw();
+stmt.raw(true);
+stmt.raw(false);
+for (const col of stmt.columns()) {
+    col.name;
+    col.column;
+    col.type;
+}
 
 const trans = db.transaction((param) => stmt.all(param));
 trans('name');

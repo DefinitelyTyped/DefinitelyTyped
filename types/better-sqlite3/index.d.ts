@@ -1,4 +1,4 @@
-// Type definitions for better-sqlite3 5.0
+// Type definitions for better-sqlite3 5.2
 // Project: http://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
@@ -19,8 +19,18 @@ interface Statement {
     iterate(...params: any[]): IterableIterator<any>;
     pluck(toggleState?: boolean): this;
     expand(toggleState?: boolean): this;
+    raw(toggleState?: boolean): this;
     bind(...params: any[]): this;
+    columns(): ColumnDefinition[];
     safeIntegers(toggleState?: boolean): this;
+}
+
+interface ColumnDefinition {
+    name: string;
+    column: string | null;
+    table: string | null;
+    database: string | null;
+    type: string | null;
 }
 
 interface Transaction {
