@@ -19,7 +19,7 @@ export interface JSONTreeProps extends Props<JSONTreeComponent> {
     shouldExpandNode?: (keyPath: (string | number)[], data: [any] | {}, level: number) => boolean;
     getItemString?: (type: string, data: [any] | {}, itemType: string, itemString: string) => JSX.Element;
     labelRenderer?: (raw: [string, string]) => JSX.Element;
-    valueRenderer?: (raw: string) => JSX.Element;
+    valueRenderer?: (displayValue: string, rawValue: string, key: string, parentKey: string) => JSX.Element;
     postprocessValue?: (raw: string) => JSX.Element;
     isCustomNode?: () => boolean;
     collectionLimit?: number;
