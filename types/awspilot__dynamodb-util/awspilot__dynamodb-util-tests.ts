@@ -1,13 +1,12 @@
 import * as util from './index';
-import * as mocha from 'mocha';
-import * as chai from 'chai';
 
 interface ParseParam {
     dbval: util.AttributeValue,
     val: any
 }
 
-describe('Key funcionality', ()=>{
+const util_tests = {
+'Key funcionality': ()=>{
 
     let params:ParseParam [] = [
         {dbval: {S: "String"}, val:"String"},
@@ -16,15 +15,17 @@ describe('Key funcionality', ()=>{
     ]
 
     params.forEach((param:ParseParam) => {
-    it('parses ' + param.dbval + ' into "' + param.val + '"', (done:MochaDone)=>{
-        let parsed = util.parse(param.dbval)
-        chai.expect(parsed).to.deep.eq(param.val)
-    } )})
+        function TestParse (param:ParseParam) {
+            let parsed = util.parse(param.dbval)
+        }
+        TestParse(param)
+    })
     
     params.forEach((param:ParseParam) => {
-    it('stringifies ' + param.val + ' into "' + param.dbval + '"', (done:MochaDone)=>{
-        let parsed = util.stringify(param.val)
-        chai.expect(parsed).to.deep.eq(param.dbval)
-    } )
-})
-})
+        function TestStringify ( param:ParseParam) {
+            let parsed = util.stringify(param.val)
+        }
+        TestStringify(param)
+    })
+}
+}
