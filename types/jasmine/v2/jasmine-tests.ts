@@ -888,7 +888,7 @@ describe("Asynchronous specs", () => {
     });
 
     it("should support async execution of test preparation and expectations", (done: DoneFn) => {
-        value++;
+        value += 1;
         expect(value).toBeGreaterThan(0);
         done();
     });
@@ -1066,7 +1066,7 @@ var myReporter: jasmine.CustomReporter = {
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log("Spec: " + result.description + " was " + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
             console.log("Expected: " + result.failedExpectations[i].expected);
@@ -1078,7 +1078,7 @@ var myReporter: jasmine.CustomReporter = {
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log('Suite: ' + result.description + ' was ' + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
         }
