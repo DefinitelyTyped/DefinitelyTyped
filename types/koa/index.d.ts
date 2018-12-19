@@ -693,11 +693,15 @@ declare namespace Application {
         originalUrl: string;
         cookies: Cookies;
         accept: accepts.Accepts;
-        state: any;
+        state: State;
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
         respond?: boolean;
+    }
+
+    interface State {
+        [key: string]: any
     }
 }
 
