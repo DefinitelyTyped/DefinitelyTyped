@@ -10,8 +10,25 @@
 import * as bunyan from 'bunyan';
 
 declare namespace BrowserBunyan {
+    interface ConsoleFormattedStreamLevelStyle {
+        trace: string;
+        debug: string;
+        info: string;
+        warn: string;
+        error: string;
+        fatal: string;
+    }
+
+    interface ConsoleFormattedStreamStyle {
+        levels: Partial<ConsoleFormattedStreamLevelStyle>;
+        def: string;
+        msg: string;
+        src: string;
+    }
+
     interface ConsoleFormattedStreamOptions {
         logByLevel?: boolean;
+        css?: Partial<ConsoleFormattedStreamStyle>;
     }
 
     interface ConsoleFormattedStream {
