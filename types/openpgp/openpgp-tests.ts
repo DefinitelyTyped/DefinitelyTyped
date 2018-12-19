@@ -70,6 +70,45 @@ Promise.all(promises).then(function (values) {
     // failure
 });
 
+openpgp.initWorker({ path:'openpgp.worker.js' });
+
+(async () => {
+    let msgOptions: openpgp.EncryptOptions;
+
+    msgOptions = {
+        message: openpgp.message.fromBinary(new Uint8Array([0x01, 0x01, 0x01])),
+        passwords: ['secret stuff'],
+        armor: false,
+    };
+
+    let cipher = await openpgp.encrypt(msgOptions);
+    let encrypted = cipher.message.packets.write(); // get raw encrypted packets as Uint8Array
+
+    let plain = await openpgp.decrypt({
+        message: await openpgp.message.read(encrypted),
+        passwords: ['secret stuff'],
+        format: 'binary'
+    });
+
+    return plain.data;
+})();
+
+(async () => {
+    let cipher = await openpgp.encrypt({
+        message: openpgp.message.fromText('hello world'),
+        passwords: 'super secure',
+        armor: true,
+    });
+    let encrypted = cipher.data;
+
+    let plain = await openpgp.decrypt({
+        message: await openpgp.message.readArmored(encrypted),
+        passwords: 'super secure',
+    });
+
+    return plain.data;
+})();
+
 
 // Open PGP Tests
 

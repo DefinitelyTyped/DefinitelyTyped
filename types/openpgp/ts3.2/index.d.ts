@@ -36,8 +36,8 @@ export interface EncryptOptions {
 }
 
 export interface EncryptedMessage {
-    data: string,
-    message: string,
+    data?: string,
+    message?: message.Message,
 }
 
 export interface DecryptOptions {
@@ -570,6 +570,10 @@ export namespace message {
             @param keys array of keys to verify signatures
          */
         verify(keys: Array<key.Key>): Array<Object>,
+
+        packets: {
+            write(): Uint8Array,
+        },
     }
 
     /** creates new message object from binary data
@@ -594,7 +598,7 @@ export namespace message {
      * @returns {Message}           new message object
      * @static
      */
-    function read(data: Uint8Array): Message;
+    function read(data: Uint8Array): Promise<Message>;
 }
 
 export namespace packet {
