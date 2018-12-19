@@ -1170,9 +1170,7 @@ export interface Commands<R> {
     ZSCAN: OverloadedKeyCommand<string, [string, string[]], R>;
 }
 
-export const RedisClient: {
-    new (options: ClientOpts): RedisClient;
-};
+export const RedisClient: new (options: ClientOpts) => RedisClient;
 
 export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
@@ -1222,9 +1220,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     BATCH(args?: Array<Array<string | number | Callback<any>>>): Multi;
 }
 
-export const Multi: {
-    new (): Multi;
-};
+export const Multi: new () => Multi;
 
 export interface Multi extends Commands<Multi> {
     exec(cb?: Callback<any[]>): boolean;
