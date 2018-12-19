@@ -1,4 +1,4 @@
-// Type definitions for styled-system 3.0
+// Type definitions for styled-system 3.1
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
@@ -11,16 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as util from './dist/util';
-
-export { util };
-export {
-    style,
-    themeGet,
-    merge,
-    compose,
-} from './dist/util';
-
+export * from './dist/util';
 export * from './dist/styles';
 export * from './dist/variant';
 export * from './dist/mixed';

@@ -12,7 +12,7 @@ export function merge(a: any, b: any): any;
 
 export function compose(...funcs: Array<(...args: any[]) => any>): (...args: any[]) => any;
 
-export function createMediaQuery(n: string): string;
+export function createMediaQuery(n: any): string;
 
 export interface LowLevelStylefunctionArguments {
     prop: string;
