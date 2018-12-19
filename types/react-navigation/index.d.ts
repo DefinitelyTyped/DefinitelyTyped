@@ -30,6 +30,7 @@
 //                 Jeroen Vervaeke <https://github.com/jeroenvervaeke>
 //                 Fellipe Chagas <https://github.com/chagasaway>
 //                 Deniss Borisovs <https://github.com/denissb>
+//                 Kenneth Skovhus <https://github.com/skovhus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1144,7 +1145,7 @@ export namespace StackActions {
 
   function pop(options: NavigationPopActionPayload): NavigationPopAction;
   function popToTop(
-    options: NavigationPopToTopActionPayload
+    options?: NavigationPopToTopActionPayload
   ): NavigationPopToTopAction;
 
   function push(options: NavigationPushActionPayload): NavigationPushAction;
