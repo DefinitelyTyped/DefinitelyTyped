@@ -5,7 +5,6 @@
 //                 Daniel Montesinos <https://github.com/damonpam>
 //                 Carlos Villavicencio <https://github.com/po5i>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 export as namespace openpgp;
 
@@ -576,7 +575,7 @@ export namespace message {
     /** creates new message object from binary data
         @param bytes
      */
-    function fromBinary(bytes: Uint8Array | ReadableStream): Message;
+    function fromBinary(bytes: Uint8Array | ReadableStream<Uint8Array>): Message;
 
     /** creates new message object from text
         @param text
