@@ -76,7 +76,7 @@ export interface ResetPasswordParams {
     connection: string;
 }
 
-export type UserInfo = {
+export type UserInfo<CustomClaims = {}> = {
     email: string;
     emailVerified: boolean;
     name: string;
@@ -84,9 +84,7 @@ export type UserInfo = {
     picture: string;
     sub: string;
     updatedAt: string;
-} & {
-    [key: string]: string;
-};
+} & CustomClaims
 
 export class Auth {
     authorizationUrl(params: AuthorizationUrlParams): string;
@@ -99,7 +97,7 @@ export class Auth {
     refreshToken(params: RefreshTokenParams): Promise<any>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
-    userInfo(params: UserInfoParams): Promise<UserInfo>;
+    userInfo<CustomClaims>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
 }
 
 /**
