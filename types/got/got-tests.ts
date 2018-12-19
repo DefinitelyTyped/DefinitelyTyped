@@ -271,28 +271,6 @@ got('http://todomvc.com', { throwHttpErrors: false });
 got('http://todomvc.com', { hooks: { beforeRequest: [ () => 'foo']} });
 got('http://todomvc.com', { timeout: 1 }).catch((e) => e instanceof got.TimeoutError);
 
-got<{ todos: string[]; }>('http://todomvc.com')
-.then(res => {
-    res.body.todos; // $ExpectType string[]
-});
-got.get<{ todos: string[]; }>('http://todomvc.com')
-.then(res => {
-    res.body.todos; // $ExpectType string[]
-});
-
-got<{ todos: string[]; }>('http://todomvc.com', { json: true })
-.then(res => {
-    res.body.todos; // $ExpectType string[]
-});
-got<{ todos: string[]; }>('http://todomvc.com', { form: true })
-.then(res => {
-    res.body.todos; // $ExpectType string[]
-});
-got<{ todos: string[]; }>('http://todomvc.com', { body: 'body' })
-.then(res => {
-    res.body.todos; // $ExpectType string[]
-});
-
 const settings = {
     handler: got.defaults.handler,
     options: got.mergeOptions(got.defaults.options, {
@@ -303,7 +281,18 @@ const settings = {
 };
 
 const api = got.create(settings);
-api.get('http://todomvc.com');
+api.get('http://todomvc.com')
+    .then(r => {
+        r.body; // $ExpectType string
+    });
+
+const jsonApi = got.create<object>(got.mergeOptions(
+    settings, { options: { json: true }})
+);
+jsonApi.get('http://todomvc.com?t=json')
+    .then(r => {
+        r.body; // $ExpectType object
+    });
 
 got.create({
     handler: got.defaults.handler,
