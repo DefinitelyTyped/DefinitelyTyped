@@ -2,7 +2,7 @@ import { GraphQLSchema, buildSchema } from 'graphql';
 import {
     UserError,
     maskErrors,
-    handlerFunction,
+    HandlerFunction,
     setDefaultHandler
 } from 'graphql-errors';
 
@@ -11,7 +11,7 @@ const schema: GraphQLSchema = buildSchema(`
   # graphql schema definition
 `);
 
-const customHandler: handlerFunction = err => {
+const customHandler: HandlerFunction = err => {
     return { ...err, message: 'Internal error' };
 };
 
