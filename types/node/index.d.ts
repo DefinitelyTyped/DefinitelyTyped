@@ -6634,7 +6634,7 @@ declare module "tls" {
      */
     function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
     function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
-    function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
+    function connect(options: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
