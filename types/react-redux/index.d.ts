@@ -402,10 +402,10 @@ export interface ProviderProps<A extends Action = AnyAction> {
      */
     store: Store<any, A>;
     /**
-     * Optional context to be used internally in react-redux. Initial value doesn't matter, as it is overwritten with the
-     * internal state of Provider.
+     * Optional context to be used internally in react-redux. Use React.createContext() to create a context to be used.
+     * Initial value doesn't matter, as it is overwritten with the internal state of Provider.
      */
-    context?: Context<ReactReduxContextType<any, A>>;
+    context?: Context<any>;
 }
 
 /**
