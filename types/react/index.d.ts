@@ -1013,6 +1013,8 @@ declare namespace React {
          */
         getModifierState(key: string): boolean;
         metaKey: boolean;
+        movementX: number;
+        movementY: number;
         nativeEvent: NativeMouseEvent;
         pageX: number;
         pageY: number;
@@ -1151,6 +1153,8 @@ declare namespace React {
         // Form Events
         onChange?: FormEventHandler<T>;
         onChangeCapture?: FormEventHandler<T>;
+        onBeforeInput?: FormEventHandler<T>;
+        onBeforeInputCapture?: FormEventHandler<T>;
         onInput?: FormEventHandler<T>;
         onInputCapture?: FormEventHandler<T>;
         onReset?: FormEventHandler<T>;

@@ -785,10 +785,10 @@ export interface Agent {
     classificationThreshold?: number;
 }
 
-export interface Context {
-    name: string;
+export interface Context<N = string, T = any> {
+    name: N;
     lifespanCount?: number;
-    parameters?: any;
+    parameters?: T;
 }
 
 export interface EntityType {

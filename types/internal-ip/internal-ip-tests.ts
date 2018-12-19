@@ -1,10 +1,15 @@
 import * as internalIp from 'internal-ip';
 
-let str: string;
 internalIp.v6().then(ip => {
-    str = ip;
+    // $ExpectType string | null
+    ip;
 });
+// $ExpectType string | null
+internalIp.v6.sync();
 
 internalIp.v4().then(ip => {
-    str = ip;
+    // $ExpectType string | null
+    ip;
 });
+// $ExpectType string | null
+internalIp.v4.sync();

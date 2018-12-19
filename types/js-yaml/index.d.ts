@@ -41,10 +41,10 @@ export function dump(obj: any, opts?: DumpOptions): string;
 export interface LoadOptions {
 	// string to be used as a file path in error/warning messages.
 	filename?: string;
-	// makes the loader to throw errors instead of warnings.
-	strict?: boolean;
+	// function to call on warning messages.
+	onWarning?(this: null, e: YAMLException): void;
 	// specifies a schema to use.
-	schema?: any;
+	schema?: SchemaDefinition;
 	// compatibility with JSON.parse behaviour.
 	json?: boolean;
 }
@@ -59,7 +59,7 @@ export interface DumpOptions {
 	// Each tag may have own set of styles.	- "tag" => "style" map.
 	styles?: { [x: string]: any; };
 	// specifies a schema to use.
-	schema?: any;
+	schema?: SchemaDefinition;
 	// if true, sort keys when dumping YAML. If a function, use the function to sort the keys. (default: false)
 	sortKeys?: boolean | ((a: any, b: any) => number);
 	// set max line width. (default: 80)
@@ -69,7 +69,7 @@ export interface DumpOptions {
 	// if true don't try to be compatible with older yaml versions. Currently: don't quote "yes", "no" and so on, as required for YAML 1.1 (default: false)
 	noCompatMode?: boolean;
 	// if true flow sequences will be condensed, omitting the space between `key: value` or `a, b`. Eg. `'[a,b]'` or `{a:{b:c}}`.
-	// Can be useful when using yaml for pretty URL query params as spaces are %-encoded. (default: false)
+	// Can be useful when using yaml for pretty URL query params as spaces are %-encoded. (default: false).
 	condenseFlow?: boolean;
 }
 

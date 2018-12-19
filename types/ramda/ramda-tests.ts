@@ -972,6 +972,15 @@ interface Obj {
 });
 
 () => {
+    R.includes('ba', 'banana'); // => true
+    R.includes('ba')('kiwi'); // => false
+    R.includes('ma', ['ma', 'ng', 'o']); // => true
+    R.includes('ma')(['li', 'me']); // => false
+    R.includes(8, [1, 8, 9, 17]); // => true
+    R.includes(1)([2, 3, 5, 8]); // => false
+};
+
+() => {
     R.indexOf(3, [1, 2, 3, 4]); // => 2
     R.indexOf(10)([1, 2, 3, 4]); // => -1
 };
@@ -2655,6 +2664,17 @@ class Rectangle {
 
     flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
     flattenArrays([[[10], 123], [8, [10]], "hello"]); // => [[10, 123], [8, 10], "hello"]
+};
+
+() => {
+    const incCount = R.ifElse(
+        R.has('count'),
+        R.over(R.lensProp('count'), R.inc),
+        R.assoc('count', 1)
+      );
+      incCount({});           // => { count: 1 }
+      incCount({ count: 1 }); // => { count: 2 }
+      R.ifElse(R.identical, R.add as (a: number, b: number) => number, R.always(""))(2, 2); // https://goo.gl/CVUSs9
 };
 
 () => {

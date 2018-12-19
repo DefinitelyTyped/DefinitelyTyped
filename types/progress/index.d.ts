@@ -1,67 +1,13 @@
-// Type definitions for node-progress v2.0.0
-// Project: https://github.com/tj/node-progress
+// Type definitions for node-progress 2.0
+// Project: https://github.com/visionmedia/node-progress
 // Definitions by: Sebastian Lenz <https://github.com/sebastian-lenz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
+export as namespace ProgressBar;
 
-
-/**
- * These are keys in the options object you can pass to the progress bar along with total as seen in the example above.
- */
-export interface ProgressBarOptions {
-    /**
-     * Total number of ticks to complete.
-     */
-    total: number;
-
-    /**
-     * current completed index
-     */
-    curr?: number;
-
-    /**
-     * head character defaulting to complete character
-     */
-    head?: string;
-
-    /**
-     * The displayed width of the progress bar defaulting to total.
-     */
-    width?: number;
-
-    /**
-     * minimum time between updates in milliseconds defaulting to 16
-     */
-    renderThrottle?: number;
-
-    /**
-     * The output stream defaulting to stderr.
-     */
-    stream?: NodeJS.WritableStream;
-
-    /**
-     * Completion character defaulting to "=".
-     */
-    complete?: string;
-
-    /**
-     * Incomplete character defaulting to "-".
-     */
-    incomplete?: string;
-
-    /**
-     * Option to clear the bar on completion defaulting to false.
-     */
-    clear?: boolean;
-
-    /**
-     * Optional function to call when the progress bar completes.
-     */
-    callback?: Function;
-}
-
+export = ProgressBar;
 
 /**
  * Flexible ascii progress bar.
@@ -90,7 +36,7 @@ declare class ProgressBar {
      *   - `:eta` eta in seconds
      */
     constructor(format: string, total: number);
-    constructor(format: string, options: ProgressBarOptions);
+    constructor(format: string, options: ProgressBar.ProgressBarOptions);
 
 
     /**
@@ -135,7 +81,71 @@ declare class ProgressBar {
      * Completed status of progress (Boolean)
      */
     complete: boolean;
-}
-declare namespace ProgressBar { }
 
-export default ProgressBar;
+    /**
+     * Current tick number.
+     */
+    curr: number;
+
+    /**
+     * Total number of ticks to complete.
+     */
+    total: number;
+}
+
+declare namespace ProgressBar {
+  /**
+   * These are keys in the options object you can pass to the progress bar along with total as seen in the example above.
+   */
+  interface ProgressBarOptions {
+      /**
+       * Total number of ticks to complete.
+       */
+      total: number;
+
+      /**
+       * current completed index
+       */
+      curr?: number;
+
+      /**
+       * head character defaulting to complete character
+       */
+      head?: string;
+
+      /**
+       * The displayed width of the progress bar defaulting to total.
+       */
+      width?: number;
+
+      /**
+       * minimum time between updates in milliseconds defaulting to 16
+       */
+      renderThrottle?: number;
+
+      /**
+       * The output stream defaulting to stderr.
+       */
+      stream?: NodeJS.WritableStream;
+
+      /**
+       * Completion character defaulting to "=".
+       */
+      complete?: string;
+
+      /**
+       * Incomplete character defaulting to "-".
+       */
+      incomplete?: string;
+
+      /**
+       * Option to clear the bar on completion defaulting to false.
+       */
+      clear?: boolean;
+
+      /**
+       * Optional function to call when the progress bar completes.
+       */
+      callback?: Function;
+  }
+}

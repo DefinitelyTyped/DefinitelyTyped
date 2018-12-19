@@ -257,6 +257,8 @@ declare namespace SCServer {
         authSignAsync?: boolean;
         authVerifyAsync?: boolean;
         httpServer?: Server;
+
+        [additionalOptions: string]: any;
     }
 
     interface SCServerSocketStatus {

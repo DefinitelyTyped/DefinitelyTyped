@@ -424,6 +424,7 @@ declare module "mongoose" {
        */
       autoIndex?: boolean;
     };
+    autoIndex?: boolean;
   }
 
   /** See the node-mongodb-native driver instance for options that it understands. */

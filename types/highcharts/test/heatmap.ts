@@ -1,0 +1,1 @@
+HighchartsHeatMap(Highcharts);

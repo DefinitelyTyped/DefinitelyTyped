@@ -15,6 +15,14 @@
 import * as React from "react";
 import * as Popper from "popper.js";
 
+export function registerLocale(localeName: string, localeData: {}): void;
+export function setDefaultLocale(localeName: string): void;
+export function getDefaultLocale(): string;
+
+interface HighlightDates {
+   [className: string]: Date[];
+}
+
 export interface ReactDatePickerProps {
 	adjustDateOnChange?: boolean;
 	allowSameDay?: boolean;
@@ -24,6 +32,7 @@ export interface ReactDatePickerProps {
 	calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
 	children?: React.ReactNode;
 	className?: string;
+	clearButtonTitle?: string;
 	customInput?: React.ReactNode;
 	customInputRef?: string;
 	dateFormat?: string | string[];
@@ -38,8 +47,9 @@ export interface ReactDatePickerProps {
 	filterDate?(date: Date): boolean;
 	fixedHeight?: boolean;
 	forceShowMonthNavigation?: boolean;
+	formatWeekDay?(date: Date): string;
 	formatWeekNumber?(date: Date): string | number;
-	highlightDates?: Date[];
+	highlightDates?: Array<HighlightDates|Date>;
 	id?: string;
 	includeDates?: Date[];
 	includeTimes?: Date[];
@@ -53,18 +63,19 @@ export interface ReactDatePickerProps {
 	minTime?: Date;
 	monthsShown?: number;
 	name?: string;
+	nextMonthButtonLabel?: string;
 	onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
 	onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
 	onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
 	onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
 	onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
+	onInputClick?(): void;
+	onInputError?(err: {code: number; msg: string}): void;
 	onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void;
 	onMonthChange?(date: Date): void;
 	onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
 	onWeekSelect?(firstDayOfWeek: Date, weekNumber: string | number, event: React.SyntheticEvent<any> | undefined): void;
-	onInputClick?(): void;
 	onYearChange?(date: Date): void;
-	onInputError?(err: {code: number; msg: string}): void;
 	open?: boolean;
 	openToDate?: Date;
 	peekNextMonth?: boolean;
@@ -75,7 +86,18 @@ export interface ReactDatePickerProps {
 	popperPlacement?: string;
 	popperProps?: {};
 	preventOpenOnFocus?: boolean;
+	previousMonthButtonLabel?: string;
 	readOnly?: boolean;
+	renderCustomHeader?(params: {
+		date: Date;
+		changeYear(year: number): void;
+		changeMonth(month: number): void;
+		decreaseMonth(): void;
+		increaseMonth(): void;
+		prevMonthButtonDisabled: boolean;
+		nextMonthButtonDisabled: boolean;
+	}): React.ReactNode;
+	renderDayContents?(dayOfMonth: number): React.ReactNode;
 	required?: boolean;
 	scrollableMonthYearDropdown?: boolean;
 	scrollableYearDropdown?: boolean;
@@ -104,20 +126,6 @@ export interface ReactDatePickerProps {
 	weekLabel?: string;
 	withPortal?: boolean;
 	yearDropdownItemNumber?: number;
-	formatWeekDay?(date: Date): string;
-	clearButtonTitle?: string;
-	previousMonthButtonLabel?: string;
-	nextMonthButtonLabel?: string;
-	renderCustomHeader?(params: {
-		date: Date;
-		changeYear(year: number): void;
-		changeMonth(month: number): void;
-		decreaseMonth(): void;
-		increaseMonth(): void;
-		prevMonthButtonDisabled: boolean;
-		nextMonthButtonDisabled: boolean;
-	}): React.ReactNode;
-	renderDayContents?(dayOfMonth: number): React.ReactNode;
 }
 declare const ReactDatePicker: React.ClassicComponentClass<ReactDatePickerProps>;
 export default ReactDatePicker;

@@ -31,6 +31,16 @@ interface WorkerClusterExitInfo {
     childProcess: ChildProcess;
 }
 
+interface KillWorkersOptions {
+    // Shut down the workers immediately without waiting for termination timeout.
+    immediate?: boolean;
+
+    // Shut down the cluster master (load balancer) as well as all the workers.
+    killClusterMaster?: boolean;
+}
+
+type ColorCodes = "red" | "green" | "yellow";
+
 export = SocketCluster;
 
 declare class SocketCluster extends EventEmitter {
@@ -59,6 +69,21 @@ declare class SocketCluster extends EventEmitter {
     on(event: "workerClusterStart", listener: (workerClusterInfo: WorkerClusterStartInfo) => void): this;
     on(event: "workerClusterReady", listener: (workerClusterInfo: WorkerClusterReadyInfo) => void): this;
     on(event: "workerClusterExit", listener: (workerClusterInfo: WorkerClusterExitInfo) => void): this;
+
+    run(): void;
+
+    sendToWorker(workerId: number, data: any, callback?: (err: Error, responseData: any, workerId: number) => void): void;
+    sendToBroker(brokerId: number, data: any, callback?: (err: Error | null, responseData: any) => void): void;
+
+    killWorkers(options?: KillWorkersOptions): void;
+    killBrokers(): void;
+
+    log(message: string, time?: number): void;
+    colorText(message: string, color?: ColorCodes | number): string;
+
+    destroy(callback?: () => void): void;
+
+    static create(options?: SCServer.SCServerOptions): SocketCluster;
 }
 
 declare namespace SocketCluster {

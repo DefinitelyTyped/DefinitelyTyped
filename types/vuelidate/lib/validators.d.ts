@@ -18,10 +18,10 @@ export interface ValidationRule {
     $pending(): boolean
 }
 
-export type CustomRule = (value: any, parentVm?: Vue) => boolean
+export type CustomRule = (value: any, parentVm?: any) => boolean
 
 export interface Helpers {
-    withParams(params: Params, rule: CustomRule): ValidationRule
+    withParams(params: Params, rule: CustomRule | ValidationRule): ValidationRule
     req(value: any): ValidationRule
     ref(reference: string | ((vm: any, parentVm?: Vue) => any), vm: any, parentVm?: Vue): any
     len(value: any): number
@@ -42,10 +42,13 @@ export function between(min: number, max: number): ValidationRule
 export function alpha(): ValidationRule
 export function alphaNum(): ValidationRule
 export function numeric(): ValidationRule
+export function integer(): ValidationRule
+export function decimal(): ValidationRule
 export function email(): ValidationRule
 export function ipAddress(): ValidationRule
 export function macAddress(): ValidationRule
 export function sameAs(field: string | ((vm: any, parentVm?: Vue) => any)): ValidationRule
 export function url(): ValidationRule
-export function or(...validators: ValidationRule[]): ValidationRule
-export function and(...validators: ValidationRule[]): ValidationRule
+export function not(validator: ValidationRule | CustomRule): ValidationRule
+export function or(...validators: Array<ValidationRule | CustomRule>): ValidationRule
+export function and(...validators: Array<ValidationRule | CustomRule>): ValidationRule

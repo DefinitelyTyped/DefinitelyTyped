@@ -5,6 +5,7 @@
 // TypeScript Version: 2.4
 
 import { SCServer } from "socketcluster-server";
+import { SCBrokerOptions } from "./scbroker";
 import { WorkerExitInfo } from "socketcluster";
 import { EventEmitter } from "events";
 import { KeyChain, FlexiMap } from "fleximap";
@@ -23,7 +24,7 @@ export interface SCBrokerServerOptions {
     processTermTimeout?: number;
     ipcAckTimeout?: number;
     secretKey?: string;
-    brokerOptions?: SCServer.SCServerOptions;
+    brokerOptions?: SCBrokerOptions;
 }
 
 export interface SCBrokerServer extends EventEmitter {

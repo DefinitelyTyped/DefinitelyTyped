@@ -104,3 +104,5 @@ newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, (err) => {
 newrelic.shutdown((err) => {
     const error: Error | undefined = err;
 });
+
+newrelic.setLambdaHandler(() => void 0); // $ExpectType undefined
