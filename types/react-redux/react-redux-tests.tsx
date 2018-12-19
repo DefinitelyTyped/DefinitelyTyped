@@ -18,7 +18,7 @@ function Empty() {
         foo: string;
     }
 
-    class TestComponent extends React.Component<OwnProps> { }
+    class TestComponent extends React.Component<OwnProps> {}
 
     const Test = connect()(TestComponent);
 
@@ -29,7 +29,7 @@ function MapState() {
     interface OwnProps { foo: string; }
     interface StateProps { bar: number; }
 
-    class TestComponent extends React.Component<OwnProps & StateProps> { }
+    class TestComponent extends React.Component<OwnProps & StateProps> {}
 
     const mapStateToProps = (_: any) => ({
         bar: 1
@@ -46,7 +46,7 @@ function MapStateWithDispatchProp() {
     interface OwnProps { foo: string; }
     interface StateProps { bar: number; dispatch: Dispatch; }
 
-    class TestComponent extends React.Component<OwnProps & StateProps> { }
+    class TestComponent extends React.Component<OwnProps & StateProps> {}
 
     const mapStateToProps = (_: any) => ({
         bar: 1
@@ -63,7 +63,7 @@ function MapStateFactory() {
     interface OwnProps { foo: string; }
     interface StateProps { bar: number; }
 
-    class TestComponent extends React.Component<OwnProps & StateProps> { }
+    class TestComponent extends React.Component<OwnProps & StateProps> {}
 
     const mapStateToProps = () => () => ({
         bar: 1
@@ -80,10 +80,10 @@ function MapDispatch() {
     interface OwnProps { foo: string; }
     interface DispatchProps { onClick: () => void; }
 
-    class TestComponent extends React.Component<OwnProps & DispatchProps> { }
+    class TestComponent extends React.Component<OwnProps & DispatchProps> {}
 
     const mapDispatchToProps = () => ({
-        onClick: () => { }
+        onClick: () => {}
     });
 
     const TestNull = connect(
@@ -117,8 +117,8 @@ function MapDispatchWithThunkActionCreators() {
     interface TestComponentProps extends OwnProps {
         simpleAction: typeof simpleAction;
         thunkAction(param1: number, param2: string): Promise<string>;
-    }
-    class TestComponent extends React.Component<TestComponentProps> { }
+   }
+    class TestComponent extends React.Component<TestComponentProps> {}
 
     const mapStateToProps = ({ foo }: { foo: string }) => ({ foo });
     const mapDispatchToProps = { simpleAction, thunkAction };
@@ -145,7 +145,7 @@ function MapManualDispatchThatLooksLikeThunk() {
     }
     interface TestComponentProps extends OwnProps {
         remove: (item: string) => () => object;
-    }
+   }
     class TestComponent extends React.Component<TestComponentProps> {
         render() {
             return <div onClick={this.props.remove('someid')} />;
@@ -192,7 +192,7 @@ function MapStateAndDispatchObject() {
         bar: 1
     });
 
-    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> { }
+    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> {}
 
     const Test = connect(
         mapStateToProps,
@@ -206,10 +206,10 @@ function MapDispatchFactory() {
     interface OwnProps { foo: string; }
     interface DispatchProps { onClick: () => void; }
 
-    class TestComponent extends React.Component<OwnProps & DispatchProps> { }
+    class TestComponent extends React.Component<OwnProps & DispatchProps> {}
 
     const mapDispatchToPropsFactory = () => () => ({
-        onClick: () => { }
+        onClick: () => {}
     });
 
     const TestNull = connect(
@@ -232,14 +232,14 @@ function MapStateAndDispatch() {
     interface StateProps { bar: number; }
     interface DispatchProps { onClick: () => void; }
 
-    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> { }
+    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> {}
 
     const mapStateToProps = () => ({
         bar: 1
     });
 
     const mapDispatchToProps = () => ({
-        onClick: () => { }
+        onClick: () => {}
     });
 
     const Test = connect(
@@ -260,10 +260,10 @@ function MapStateFactoryAndDispatch() {
     });
 
     const mapDispatchToProps = () => ({
-        onClick: () => { }
+        onClick: () => {}
     });
 
-    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> { }
+    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> {}
 
     const Test = connect(
         mapStateToPropsFactory,
@@ -283,10 +283,10 @@ function MapStateFactoryAndDispatchFactory() {
     });
 
     const mapDispatchToPropsFactory = () => () => ({
-        onClick: () => { }
+        onClick: () => {}
     });
 
-    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> { }
+    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> {}
 
     const Test = connect(
         mapStateToPropsFactory,
@@ -301,14 +301,14 @@ function MapStateAndDispatchAndMerge() {
     interface StateProps { bar: number; }
     interface DispatchProps { onClick: () => void; }
 
-    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> { }
+    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> {}
 
     const mapStateToProps = () => ({
         bar: 1
     });
 
     const mapDispatchToProps = () => ({
-        onClick: () => { }
+        onClick: () => {}
     });
 
     const mergeProps = (stateProps: StateProps, dispatchProps: DispatchProps) => (
@@ -330,7 +330,7 @@ function MapStateAndOptions() {
     interface StateProps { bar: number; }
     interface DispatchProps { dispatch: Dispatch; }
 
-    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> { }
+    class TestComponent extends React.Component<OwnProps & StateProps & DispatchProps> {}
 
     const mapStateToProps = (state: State) => ({
         bar: 1
@@ -444,9 +444,9 @@ ReactDOM.render((
 declare var store: Store<TodoState>;
 class MyRootComponent extends React.Component<any, any> {
 }
-class TodoApp extends React.Component<any, any> { }
+class TodoApp extends React.Component<any, any> {}
 interface TodoState {
-    todos: string[] | string;
+    todos: string[]|string;
 }
 interface TodoProps {
     userId: number;
@@ -629,7 +629,7 @@ function TestTOwnPropsInference() {
 
     class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp> {
         render() {
-            return <div />;
+            return <div/>;
         }
     }
 
@@ -667,7 +667,7 @@ function TestTOwnPropsInference() {
 
     class AllPropsComponent extends React.Component<AllProps & DispatchProp> {
         render() {
-            return <div />;
+            return <div/>;
         }
     }
 
@@ -701,7 +701,7 @@ function TestMergedPropsInference() {
 
     class MergedPropsComponent extends React.Component<MergedProps> {
         render() {
-            return <div />;
+            return <div/>;
         }
     }
 
@@ -747,7 +747,7 @@ function Issue16652() {
         comments: Array<({ id: string } | undefined)>;
     }
 
-    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp> { }
+    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp> {}
 
     const mapStateToProps = (state: any, ownProps: PassedProps): GeneratedStateProps => {
         return {
@@ -861,7 +861,7 @@ function TestInferredFunctionalComponentWithExplicitOwnProps() {
 
     const Header = connect(
         (
-            { app: { title } }: { app: { title: string } },
+            { app: { title }}: { app: { title: string }},
             { extraText }: { extraText: string }
         ) => ({
             title,
@@ -873,7 +873,7 @@ function TestInferredFunctionalComponentWithExplicitOwnProps() {
     )(({ title, extraText, onClick }: Props) => {
         return <h1 onClick={onClick}>{title} {extraText}</h1>;
     });
-    <Header extraText='text' />;
+    <Header extraText='text'/>;
 }
 
 function TestInferredFunctionalComponentWithImplicitOwnProps() {
@@ -885,7 +885,7 @@ function TestInferredFunctionalComponentWithImplicitOwnProps() {
 
     const Header = connect(
         (
-            { app: { title } }: { app: { title: string } },
+            { app: { title }}: { app: { title: string }},
         ) => ({
             title,
         }),
@@ -895,7 +895,7 @@ function TestInferredFunctionalComponentWithImplicitOwnProps() {
     )(({ title, extraText, onClick }: Props) => {
         return <h1 onClick={onClick}>{title} {extraText}</h1>;
     });
-    <Header extraText='text' />;
+    <Header extraText='text'/>;
 }
 
 function TestWrappedComponent() {
@@ -1082,7 +1082,7 @@ function TestOptionalPropsMergedCorrectly() {
 
     function mapDispatchToProps(dispatch: any): MapDispatchProps {
         return {
-            dependsOnDispatch: () => { }
+            dependsOnDispatch: () => {}
         };
     }
 
@@ -1126,7 +1126,7 @@ function TestMoreGeneralDecorationProps() {
 
     function mapDispatchToProps(dispatch: any): MapDispatchProps {
         return {
-            dependsOnDispatch: () => { }
+            dependsOnDispatch: () => {}
         };
     }
 
@@ -1165,7 +1165,7 @@ function TestFailsMoreSpecificInjectedProps() {
 
     function mapDispatchToProps(dispatch: any): MapDispatchProps {
         return {
-            dependsOnDispatch: () => { }
+            dependsOnDispatch: () => {}
         };
     }
 
@@ -1205,10 +1205,10 @@ function TestLibraryManagedAttributes() {
     }
 
     const ConnectedComponent = connect(mapStateToProps)(Component);
-    <ConnectedComponent fn={() => { }} />;
+    <ConnectedComponent fn={() => {}} />;
 
     const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
-    <ConnectedComponent2 fn={() => { }} />;
+    <ConnectedComponent2 fn={() => {}} />;
 }
 
 function TestProviderContext() {

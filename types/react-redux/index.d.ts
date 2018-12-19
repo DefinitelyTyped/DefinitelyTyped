@@ -67,10 +67,10 @@ export type AdvancedComponentDecorator<TProps, TOwnProps> =
  */
 export type Matching<InjectedProps, DecorationTargetProps> = {
     [P in keyof DecorationTargetProps]: P extends keyof InjectedProps
-    ? InjectedProps[P] extends DecorationTargetProps[P]
-    ? DecorationTargetProps[P]
-    : InjectedProps[P]
-    : DecorationTargetProps[P];
+        ? InjectedProps[P] extends DecorationTargetProps[P]
+            ? DecorationTargetProps[P]
+            : InjectedProps[P]
+        : DecorationTargetProps[P];
 };
 
 /**
@@ -115,22 +115,22 @@ export type InferableComponentEnhancer<TInjectedProps> =
 
 export type InferThunkActionCreatorType<TActionCreator extends (...args: any[]) => any> =
     TActionCreator extends (...args: infer TParams) => (...args: any[]) => infer TReturn
-    ? (...args: TParams) => TReturn
-    : TActionCreator;
+        ? (...args: TParams) => TReturn
+        : TActionCreator;
 
 export type HandleThunkActionCreator<TActionCreator> =
     TActionCreator extends (...args: any[]) => any
-    ? InferThunkActionCreatorType<TActionCreator>
-    : TActionCreator;
+        ? InferThunkActionCreatorType<TActionCreator>
+        : TActionCreator;
 
 // redux-thunk middleware returns thunk's return value from dispatch call
 // https://github.com/reduxjs/redux-thunk#composition
 export type ResolveThunks<TDispatchProps> =
     TDispatchProps extends { [key: string]: any }
-    ? {
-        [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
-    }
-    : TDispatchProps;
+        ? {
+            [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
+        }
+        : TDispatchProps;
 
 /**
  * Connects a React component to a Redux store.
