@@ -417,6 +417,7 @@ function testSpy() {
 function testStub() {
     const obj = class {
         foo() { }
+        promiseFunc() { return Promise.resolve('foo'); }
     };
     const instance = new obj();
 
@@ -424,6 +425,10 @@ function testStub() {
     stub = sinon.stub(instance, 'foo').named('namedStub');
 
     const spy: sinon.SinonSpy = stub;
+
+    function promiseFunc(n: number) { return Promise.resolve('foo'); }
+    const promiseStub = sinon.stub(instance, 'promiseFunc');
+    promiseStub.resolves('test');
 
     sinon.stub(instance);
 
