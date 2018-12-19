@@ -401,7 +401,7 @@ Page({
       this.setData({
         animationData:animation.export()
       })
-    }.bind(this), 1000)
+    }, 1000)
   },
   rotateAndScale: function () {
     // 旋转同时放大
