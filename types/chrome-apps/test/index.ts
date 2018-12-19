@@ -917,7 +917,7 @@ chrome.app.runtime.onLaunched.addListener(() => {
 
 // #region chrome.gcm
 
-const gcmMessage = <chrome.gcm.OutgoingMessage>{};
+const gcmMessage = {} as chrome.gcm.OutgoingMessage;
 gcmMessage.data = {
     /*goog: 'any', should not be allowed, and it is not :) */
     test: true
@@ -1078,8 +1078,7 @@ chrome.networking.config.finishAuthentication(filter.HexSSID || '', 'rejected');
 // #region chrome.networking.onc
 
 const TLSFormatExample = {
-    NetworkConfigurations: <chrome.networking.onc.NetworkConfigProperties>
-        {
+    NetworkConfigurations: {
             GUID: '{00f79111-51e0-e6e0-76b3b55450d80a1b}',
             Name: 'MyTTLSNetwork',
             Type: 'WiFi',
@@ -1103,7 +1102,7 @@ const TLSFormatExample = {
                 'SSID': 'MyTTLSNetwork',
                 'Security': 'WPA-EAP'
             }
-        }
+        } as chrome.networking.onc.NetworkConfigProperties
 }
 
 chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
@@ -2012,5 +2011,8 @@ appview.connect('id of app');
 document.appendChild(appview);
 //#endregion
 
+// #region HTMLElement correctly subtypes Element in TS3.1.
+const htmlElement = document.querySelector('zzzzzz') as HTMLElement;
+//#endregion
 
 

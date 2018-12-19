@@ -1,6 +1,8 @@
 import fileType = require("file-type");
 
+// $ExpectType FileTypeResult | null
 fileType(new Buffer([0xFF, 0xD8, 0xFF]));
 fileType(new Uint8Array([0xFF, 0xD8, 0xFF]));
 
-const minimumBytes: number = fileType.minimumBytes;
+// $ExpectType number
+fileType.minimumBytes;

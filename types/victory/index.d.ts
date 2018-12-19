@@ -1143,8 +1143,15 @@ declare module "victory" {
      *   }
      * ]}
      *}}
-      */
+     */
     events?: EventPropTypeInterface<"axis" | "axisLabel" | "grid" | "ticks" | "tickLabels" | "parent", number | string>[];
+    /**
+     * When true, this prop reduces the number of tick labels to fit the length of the axis.
+     * Labels are removed at approximately even intervals from the original array of labels.
+     * This feature only works well for labels that are approximately evenly spaced.
+     * @default false
+     */
+    fixLabelOverlap?: boolean;
     /**
      * The gridComponent prop takes in an entire component which will be used
      * to create grid lines. The new element created from the passed gridComponent

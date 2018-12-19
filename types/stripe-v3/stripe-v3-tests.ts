@@ -211,5 +211,10 @@ describe("Stripe v2 & v3", () => {
             (error: stripe.Error) => {
                 console.error(error);
             });
+
+        elements.create('iban', {
+            supportedCountries: ['SEPA'],
+            placeholderCountry: 'AT'
+        });
     });
 });

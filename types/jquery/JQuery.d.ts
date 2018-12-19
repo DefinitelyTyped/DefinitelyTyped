@@ -83,6 +83,7 @@ $( document.body )
      * @since 1.4
      */
     add(selector: JQuery.Selector, context: Element): this;
+    // TODO: The return type should reflect newly selected types.
     /**
      * Create a new jQuery object with elements added to the set of matched elements.
      * @param selector_elements_html_selection _&#x40;param_ `selector_elements_html_selection`
@@ -226,7 +227,7 @@ collection.css( "background", "yellow" );
 </html>
 ```
      */
-    add(selector_elements_html_selection: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): this;
+    add(selector_elements_html_selection: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery | JQuery.Node): this;
     /**
      * Add the previous set of elements on the stack to the current set, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match the current set of elements against.
@@ -5141,7 +5142,9 @@ $( "div b" )
 </html>
 ```
      */
-    html(htmlString_function: JQuery.htmlString | ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString)): this;
+    html(htmlString_function: JQuery.htmlString |
+                              JQuery.Node |
+                              ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString | JQuery.Node)): this;
     /**
      * Get the HTML contents of the first element in the set of matched elements.
      * @see \`{@link https://api.jquery.com/html/ }\`
@@ -7304,10 +7307,12 @@ $( "body" ).on( "click", "p", foo );
 $( "body" ).off( "click", "p", foo );
 ```
      */
-    off(events: string,
+    off<TType extends string>(
+        events: TType,
         selector: JQuery.Selector,
-        handler: JQuery.TypeEventHandler<TElement, any, any, any, string> |
-                 false): this;
+        handler: JQuery.TypeEventHandler<TElement, any, any, any, TType> |
+                 false
+    ): this;
     /**
      * Remove an event handler.
      * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as
@@ -7337,10 +7342,12 @@ $( "form" ).on( "keypress.validator", "input[type='text']", validate );
 $( "form" ).off( ".validator" );
 ```
      */
-    off(events: string,
+    off<TType extends string>(
+        events: TType,
         selector_handler?: JQuery.Selector |
-                           JQuery.TypeEventHandler<TElement, any, any, any, string> |
-                           false): this;
+                           JQuery.TypeEventHandler<TElement, any, any, any, TType> |
+                           false
+    ): this;
     /**
      * Remove an event handler.
      * @param events An object where the string keys represent one or more space-separated event types and optional
@@ -9986,7 +9993,14 @@ $( "button" ).on( "click", function() {
 </html>
 ```
      */
-    replaceWith(newContent_function: JQuery.htmlString | JQuery | JQuery.TypeOrArray<Element> | ((this: TElement) => any)): this;
+    replaceWith(newContent_function: JQuery.htmlString |
+                                     JQuery<JQuery.Node> |
+                                     JQuery.TypeOrArray<Element> |
+                                     JQuery.Node |
+                                     ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString |
+                                                                                                     JQuery<JQuery.Node> |
+                                                                                                     JQuery.TypeOrArray<Element> |
+                                                                                                     JQuery.Node)): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -11968,9 +11982,10 @@ $( "p" ).bind( "click", foo ); // ... Now foo will be called when paragraphs are
 $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
 ```
      */
-    unbind(event: string,
-           handler: JQuery.TypeEventHandler<TElement, any, TElement, TElement, string> |
-                    false
+    unbind<TType extends string>(
+        event: TType,
+        handler: JQuery.TypeEventHandler<TElement, any, TElement, TElement, TType> |
+                 false
     ): this;
     /**
      * Remove a previously-attached event handler from the elements.
@@ -12062,10 +12077,11 @@ $( "body" ).delegate( "p", "click", foo );
 $( "body" ).undelegate( "p", "click", foo );
 ```
      */
-    undelegate(selector: JQuery.Selector,
-               eventType: string,
-               handler: JQuery.TypeEventHandler<TElement, any, any, any, string> |
-                        false
+    undelegate<TType extends string>(
+        selector: JQuery.Selector,
+        eventType: TType,
+        handler: JQuery.TypeEventHandler<TElement, any, any, any, TType> |
+                 false
     ): this;
     /**
      * Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.

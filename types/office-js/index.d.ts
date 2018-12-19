@@ -9421,7 +9421,7 @@ declare namespace Office {
     }
 
     /**
-     * The InternetHeaders object represents properties that are preserved after the item leaves Exchange and converted to a MIME message. 
+     * The InternetHeaders object represents properties that are preserved after the message item leaves Exchange and is converted to a MIME message. 
      * These properties are stored as x-headers in the MIME message.
      * 
      * InternetHeaders are stored as key/value pairs on a per-item basis.
@@ -15225,7 +15225,7 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
          *
          * Item IDs retrieved via EWS or via the itemId property use a different format than the format used by REST APIs (such as the 
-         * {@link https://docs.microsoft.com/previous-versions/office/office-365-api/api/version-2.0/mail-rest-operations | Outlook Mail API} or the {@link http://graph.microsoft.io/ | Microsoft Graph}. 
+         * {@link https://docs.microsoft.com/previous-versions/office/office-365-api/api/version-2.0/mail-rest-operations | Outlook Mail API} or the {@link https://graph.microsoft.io/ | Microsoft Graph}. 
          * The convertToRestId method converts an EWS-formatted ID into the proper format for REST.
          *
          * @param itemId An item ID formatted for Exchange Web Services (EWS)
@@ -30226,14 +30226,17 @@ declare namespace Excel {
         }): Excel.Style;
         toJSON(): Excel.Interfaces.StyleData;
     }
+    
     /**
      *
-     * Represents a collection of all the styles.
+     * Represents a collection of all the styles. WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
      *
      * [Api set: ExcelApi 1.7]
      */
     class StyleCollection extends OfficeExtension.ClientObject {
-        /** Gets the loaded child items in this collection. */
+        /** 
+         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
+         */
         readonly items: Excel.Style[];
         /**
          *
@@ -30254,23 +30257,14 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.Style;
         /**
-         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
-         *
-         * @remarks
-         *
-         * In addition to this signature, this method has the following signatures:
-         *
-         * `load(option?: string | string[]): Excel.StyleCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; }): Excel.StyleCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
-         *
-         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.StyleCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
-         *
-         * @param options Provides options for which properties of the object to load.
+         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
          */
         load(option?: Excel.Interfaces.StyleCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.StyleCollection;
         load(option?: string | string[]): Excel.StyleCollection;
         load(option?: OfficeExtension.LoadOption): Excel.StyleCollection;
+        /**
+         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
+         */
         toJSON(): Excel.Interfaces.StyleCollectionData;
     }
     /**

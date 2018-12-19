@@ -312,3 +312,20 @@ got.create({
         return next(options);
     }
 });
+
+// Test timeout options.
+got('http://todomvc.com', {timeout: 1});
+got('http://todomvc.com', {
+    timeout: {
+        lookup: 1,
+        connect: 2,
+        secureConnect: 3,
+        socket: 4,
+        response: 5,
+        send: 6,
+        request: 7
+    }
+});
+
+// Test got.TimeoutError.
+got('http://todomvc.com', {timeout: 1}).catch((err) => err instanceof got.TimeoutError);

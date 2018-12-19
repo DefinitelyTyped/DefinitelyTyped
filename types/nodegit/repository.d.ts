@@ -162,7 +162,7 @@ export class Repository {
     /**
      * Lists out the remotes in the given repository.
      */
-    getRemotes(callback?: Function): Promise<Remote[]>;
+    getRemotes(callback?: Function): Promise<string[]>;
     /**
      * Gets a remote from the repo
      */
