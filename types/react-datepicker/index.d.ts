@@ -19,6 +19,10 @@ export function registerLocale(localeName: string, localeData: {}): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
 
+interface HighlightDates {
+   [className: string]: Date[];
+}
+
 export interface ReactDatePickerProps {
 	adjustDateOnChange?: boolean;
 	allowSameDay?: boolean;
@@ -45,7 +49,7 @@ export interface ReactDatePickerProps {
 	forceShowMonthNavigation?: boolean;
 	formatWeekDay?(date: Date): string;
 	formatWeekNumber?(date: Date): string | number;
-	highlightDates?: Date[];
+	highlightDates?: Array<HighlightDates|Date>;
 	id?: string;
 	includeDates?: Date[];
 	includeTimes?: Date[];
