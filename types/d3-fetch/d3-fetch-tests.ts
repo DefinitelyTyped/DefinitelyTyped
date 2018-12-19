@@ -35,16 +35,20 @@ const parseRow = (rawRow: DSVRowString, index: number, columns: string[]): (MyTy
     const myType: MyType | null = rawRow['foo'] ? { foo: rawRow['foo'] + '+ bar' } : null;
     return myType;
 };
+
 let promise1: Promise<DSVParsedArray<DSVRowString>>;
 let promise2: Promise<DSVParsedArray<MyType>>;
+
 promise1 = d3Fetch.csv(url);
 promise1 = d3Fetch.csv(url, init);
 promise2 = d3Fetch.csv<MyType>(url, parseRow);
 promise2 = d3Fetch.csv<MyType>(url, init, parseRow);
+
 promise1 = d3Fetch.dsv(';', url);
 promise1 = d3Fetch.dsv(';', url, init);
 promise2 = d3Fetch.dsv<MyType>(';', url, parseRow);
 promise2 = d3Fetch.dsv<MyType>(';', url, init, parseRow);
+
 promise1 = d3Fetch.tsv(url);
 promise1 = d3Fetch.tsv(url, init);
 promise2 = d3Fetch.tsv<MyType>(url, parseRow);
