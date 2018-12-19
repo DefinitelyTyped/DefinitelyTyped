@@ -1,5 +1,5 @@
 import * as d3Fetch from 'd3-fetch';
-import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
+import { DSVParsedArray, DSVRowString } from 'd3-dsv';
 
 interface MyType {
     foo: string;
