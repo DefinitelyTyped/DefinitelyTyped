@@ -273,7 +273,7 @@ export class WebAuth {
     /**
      * Logs in a user with the verification code sent to the user
      * @param options
-     * @param callback 
+     * @param callback
      */
     passwordlessLogin(options: PasswordlessLoginOptions, callback: Auth0Callback<any>): void;
 
