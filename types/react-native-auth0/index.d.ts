@@ -84,7 +84,7 @@ export type UserInfo<CustomClaims = {}> = {
     picture: string;
     sub: string;
     updatedAt: string;
-} & CustomClaims
+} & CustomClaims;
 
 export class Auth {
     authorizationUrl(params: AuthorizationUrlParams): string;
@@ -93,10 +93,10 @@ export class Auth {
     exchange(params: ExchangeParams): Promise<string>;
     logoutUrl(params: LogoutParams): string;
     passwordRealm(params: PasswordRealmParams): Promise<PasswordRealmResponse>;
-
     refreshToken(params: RefreshTokenParams): Promise<any>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
+    /* tslint:disable-next-line no-unnecessary-generics */
     userInfo<CustomClaims>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
 }
 
