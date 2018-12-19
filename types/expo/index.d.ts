@@ -13,6 +13,7 @@
 //                 Martin Olsson <https://github.com/mo>
 //                 Levan Basharuli <https://github.com/levansuper>
 //                 Pavel Ihm <https://github.com/ihmpavel>
+//                 Bartosz Dotryw <https://github.com/burtek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1855,6 +1856,21 @@ export namespace Notifications {
         };
     }
 
+    interface SchedulingOptions {
+        time: Date | number;
+        repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+        intervalMs?: number;
+    }
+
+    interface ChannelAndroid {
+        name: string;
+        description?: string;
+        sound?: boolean;
+        priority?: 'min' | 'low' | 'default' | 'high' | 'max';
+        vibrate?: boolean | number[];
+        badge?: boolean;
+    }
+
     type LocalNotificationId = string | number;
 
     function addListener(listener: (notification: Notification) => any): EventSubscription;
@@ -1862,12 +1878,14 @@ export namespace Notifications {
     function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
     function scheduleLocalNotificationAsync(
         localNotification: LocalNotification,
-        schedulingOptions: { time: Date | number, repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' }
+        schedulingOptions: SchedulingOptions
     ): Promise<LocalNotificationId>;
     function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
     function dismissAllNotificationsAsync(): Promise<void>;
     function cancelScheduledNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
     function cancelAllScheduledNotificationsAsync(): Promise<void>;
+    function createChannelAndroidAsync(id: string, channel: ChannelAndroid): Promise<void>;
+    function deleteChannelAndroidAsync(id: string): Promise<void>;
     function getBadgeNumberAsync(): Promise<number>;
     function setBadgeNumberAsync(number: number): Promise<void>;
 }
