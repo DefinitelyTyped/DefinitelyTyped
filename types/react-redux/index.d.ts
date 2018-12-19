@@ -31,7 +31,8 @@ import {
     Component,
     ComponentClass,
     ComponentType,
-    StatelessComponent
+    StatelessComponent,
+    Context
 } from 'react';
 
 import {
@@ -66,10 +67,10 @@ export type AdvancedComponentDecorator<TProps, TOwnProps> =
  */
 export type Matching<InjectedProps, DecorationTargetProps> = {
     [P in keyof DecorationTargetProps]: P extends keyof InjectedProps
-        ? InjectedProps[P] extends DecorationTargetProps[P]
-            ? DecorationTargetProps[P]
-            : InjectedProps[P]
-        : DecorationTargetProps[P];
+    ? InjectedProps[P] extends DecorationTargetProps[P]
+    ? DecorationTargetProps[P]
+    : InjectedProps[P]
+    : DecorationTargetProps[P];
 };
 
 /**
@@ -114,22 +115,22 @@ export type InferableComponentEnhancer<TInjectedProps> =
 
 export type InferThunkActionCreatorType<TActionCreator extends (...args: any[]) => any> =
     TActionCreator extends (...args: infer TParams) => (...args: any[]) => infer TReturn
-        ? (...args: TParams) => TReturn
-        : TActionCreator;
+    ? (...args: TParams) => TReturn
+    : TActionCreator;
 
 export type HandleThunkActionCreator<TActionCreator> =
     TActionCreator extends (...args: any[]) => any
-        ? InferThunkActionCreatorType<TActionCreator>
-        : TActionCreator;
+    ? InferThunkActionCreatorType<TActionCreator>
+    : TActionCreator;
 
 // redux-thunk middleware returns thunk's return value from dispatch call
 // https://github.com/reduxjs/redux-thunk#composition
 export type ResolveThunks<TDispatchProps> =
     TDispatchProps extends { [key: string]: any }
-        ? {
-            [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
-        }
-        : TDispatchProps;
+    ? {
+        [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
+    }
+    : TDispatchProps;
 
 /**
  * Connects a React component to a Redux store.
@@ -390,11 +391,21 @@ export interface ConnectOptions {
     withRef?: boolean;
 }
 
+export interface ReactReduxContextType<SS = any, A extends Action = AnyAction> {
+    store: Store<SS, A>;
+    storeState: SS;
+}
+
 export interface ProviderProps<A extends Action = AnyAction> {
     /**
      * The single Redux store in your application.
      */
     store: Store<any, A>;
+    /**
+     * Optional context to be used internally in react-redux. Initial value doesn't matter, as it is overwritten with the
+     * internal state of Provider.
+     */
+    context?: Context<ReactReduxContextType<any, A>>;
 }
 
 /**
@@ -410,3 +421,9 @@ export class Provider<A extends Action = AnyAction> extends Component<ProviderPr
  * @param storeKey The key of the context on which to set the store.
  */
 export function createProvider(storeKey: string): typeof Provider;
+
+/**
+ * Exposes the internal context used in react-redux. It is generally advised to use the connect HOC to connect to the
+ * redux store instead of this approeach.
+ */
+export const ReactReduxContext: Context<ReactReduxContextType>;
