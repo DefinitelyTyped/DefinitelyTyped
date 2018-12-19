@@ -24,6 +24,7 @@
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 //                 Ryan McCuaig <https://github.com/rgm>
 //                 Drew Wyatt <https://github.com/drewwyatt>
+//                 John Ottenlips <https://github.com/jottenlips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -269,6 +270,7 @@
 /// <reference path="./es/zip.d.ts" />
 /// <reference path="./es/zipObj.d.ts" />
 /// <reference path="./es/zipWith.d.ts" />
+/// <reference path="./es/includes.d.ts" />
 
 declare let R: R.Static;
 
@@ -1129,6 +1131,16 @@ declare namespace R {
          * Increments its argument.
          */
         inc(n: number): number;
+
+        /**
+         * Given a target, this function checks a list for the target and returns a boolean.
+         * Given a string, this function checks for the string in another string or list and returns
+         * a boolean.
+         */
+        includes(s: string, list: ReadonlyArray<string> | string): boolean;
+        includes(s: string): (list: ReadonlyArray<string> | string)  => boolean;
+        includes<T>(target: T, list: ReadonlyArray<T>): boolean;
+        includes<T>(target: T): (list: ReadonlyArray<T>) => boolean;
 
         /**
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
