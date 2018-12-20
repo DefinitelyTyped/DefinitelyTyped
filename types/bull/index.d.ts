@@ -120,6 +120,16 @@ declare namespace Bull {
     attemptsMade: number;
 
     /**
+     * When this job was started (unix milliseconds)
+     */
+    processedOn?: number;
+
+    /**
+     * When this job was completed (unix milliseconds)
+     */
+    finishedOn?: number;
+
+    /**
      * Report progress on a job
      */
     progress(value: any): Promise<void>;
