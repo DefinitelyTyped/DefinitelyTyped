@@ -2,7 +2,6 @@
 // Project: http://blissfuljs.com/
 // Definitions by: François Skorzec <https://github.com/fskorzec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 interface Element {
     _: BlissNS.BlissBindedElement<Element>;
