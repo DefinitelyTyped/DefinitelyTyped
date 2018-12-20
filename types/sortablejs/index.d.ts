@@ -229,6 +229,14 @@ declare namespace Sortable {
          */
         onClone?: (event: SortableEvent) => void;
         /**
+         * Element is chosen
+         */
+        onChoose?: (event: SortableEvent) => void;
+        /**
+         * Element is unchosen
+         */
+        onUnchoose?: (event: SortableEvent) => void;
+        /**
          * Changed sorting within list
          */
         onUpdate?: (event: SortableEvent) => void;
