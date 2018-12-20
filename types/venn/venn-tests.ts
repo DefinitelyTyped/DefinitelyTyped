@@ -29,7 +29,7 @@ function lossFunction(
             left.radius, right.radius, venn.distance(left, right));
       } else {
         overlapSize =
-            venn.intersectionArea(area.sets.map((i: number) => sets[i]));
+            venn.intersectionArea(area.sets.map((i: string) => sets[i]));
       }
     }
     if (overlapSize < 100 && area.size > 0) {
