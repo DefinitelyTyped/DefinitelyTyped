@@ -71,7 +71,7 @@ export interface DragStart {
 export interface DragUpdate extends DragStart {
     destination?: DraggableLocation | null;
     // populated when a draggable is dragging over another in combine mode
-    combine?: Combine;
+    combine?: Combine | null;
 }
 
 // details of the item that is being combined with
