@@ -2428,7 +2428,7 @@ export interface WebViewProps extends ViewProps, WebViewPropsAndroid, WebViewPro
     /**
      * Function that returns a view to show if there's an error.
      */
-    renderError?: () => React.ReactElement<ViewProps>;
+    renderError?: (domain: string, code: number, description: string) => React.ReactElement<ViewProps>;
 
     /**
      * Function that returns a loading indicator.
