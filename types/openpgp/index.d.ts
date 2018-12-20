@@ -37,8 +37,8 @@ export interface EncryptOptions {
 }
 
 export interface EncryptedMessage {
-    data: string,
-    message: message.Message,
+    data?: string,
+    message?: message.Message,
 }
 
 export interface DecryptOptions {
