@@ -8,6 +8,9 @@ import adapter from "detox/runners/jest/adapter";
 // const config = require("./package.json").detox;
 declare const config: any;
 
+declare const jasmine: any;
+jasmine.getEnv().addReporter(adapter);
+
 beforeAll(async () => {
     await detox.init(config);
 
