@@ -79,12 +79,18 @@ export interface CustomAuthorizerEvent {
     type: string;
     methodArn: string;
     authorizationToken?: string;
+    resource?: string;
+    path?: string;
+    httpMethod?: string;
     headers?: { [name: string]: string };
     multiValueHeaders?: { [name: string]: string[] };
     pathParameters?: { [name: string]: string } | null;
     queryStringParameters?: { [name: string]: string } | null;
     multiValueQueryStringParameters?: { [name: string]: string[] } | null;
+    stageVariables?: { [name: string]: string };
     requestContext?: APIGatewayEventRequestContext;
+    domainName?: string;
+    apiId?: string;
 }
 
 // Context
