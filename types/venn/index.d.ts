@@ -19,8 +19,9 @@ export interface Circle {
   radius: number;
 }
 
+/** Typing for Overlap object. */
 export interface Overlap {
-  sets: number[];
+  sets: string[];
   size: number;
   weight?: number;
 }
