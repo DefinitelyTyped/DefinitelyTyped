@@ -48,7 +48,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
      * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
      * @param start The zero-based location in the array from which to start removing elements.
      * @param deleteCount The number of elements to remove.
-     * @param ...items Elements to insert into the array in place of the deleted elements.
+     * @param items Elements to insert into the array in place of the deleted elements.
      */
     splice(start: number, deleteCount: number, ...items: T[]): T[];
     /**
@@ -57,7 +57,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
     pop(): T;
     /**
      * Adds a new item to the end of array.
-     * @param ...items Items  to be added
+     * @param items Items  to be added
      */
     push(...items: T[]): void;
     /**
@@ -66,7 +66,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
     shift(): T;
     /**
      * Inserts a new item at the beginning of the array.
-     * @param ...items Items to be added
+     * @param items Items to be added
      */
     unshift(...items: T[]): number;
     /**
@@ -149,8 +149,8 @@ interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
     /**
      * Registers to be notified after the observable's value changes
      * @param callback Function that is called whenever the notification happens
-     * @param target? Defines the value of 'this' in the callback function
-     * @param event? The name of the event to receive notification for
+     * @param target Defines the value of 'this' in the callback function
+     * @param event The name of the event to receive notification for
      */
     subscribe(callback: (newValue: T) => void, target?: any, event?: "change"): KnockoutSubscription;
     /**
@@ -169,15 +169,15 @@ interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
     subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
     /**
      * Customizes observables basic functionality
-     * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
+     * @param requestedExtenders Name of the extender feature and its value, e.g. { notify: 'always' }, { rateLimit: 50 }
      */
     extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
     /**
-    * Gets total number of subscriptors
+    * Gets total number of subscribers
     */
     getSubscriptionsCount(): number;
     /**
-     * Gets number of subscriptors of a particular event
+     * Gets number of subscribers of a particular event
      * @param event Event name
      */
     getSubscriptionsCount(event: string): number;
@@ -193,14 +193,14 @@ interface KnockoutComputedStatic {
     /**
      * Creates computed observable
      * @param evaluatorFunction Function that computes the observable value
-     * @param context? Defines the value of 'this' when evaluating the computed observable
-     * @param options? An object with further properties for the computed observable
+     * @param context Defines the value of 'this' when evaluating the computed observable
+     * @param options An object with further properties for the computed observable
      */
     <T>(evaluatorFunction: () => T, context?: any, options?: KnockoutComputedOptions<T>): KnockoutComputed<T>;
     /**
      * Creates computed observable
      * @param options An object that defines the computed observable options and behavior
-     * @param context? Defines the value of 'this' when evaluating the computed observable
+     * @param context Defines the value of 'this' when evaluating the computed observable
      */
     <T>(options: KnockoutComputedRequiredOptions<T>, context?: any): KnockoutComputed<T>;
 }
@@ -645,13 +645,13 @@ interface KnockoutStatic {
     /**
      * Creates a pure computed observable
      * @param evaluatorFunction Function that computes the observable value
-     * @param context? Defines the value of 'this' when evaluating the computed observable
+     * @param context Defines the value of 'this' when evaluating the computed observable
      */
     pureComputed<T>(evaluatorFunction: () => T, context?: any): KnockoutComputed<T>;
     /**
      * Creates a pure computed observable
      * @param options An object that defines the computed observable options and behavior
-     * @param context? Defines the value of 'this' when evaluating the computed observable
+     * @param context Defines the value of 'this' when evaluating the computed observable
      */
     pureComputed<T>(options: KnockoutComputedRequiredOptions<T>, context?: any): KnockoutComputed<T>;
 
@@ -673,12 +673,12 @@ interface KnockoutStatic {
      */
     isObservable<T>(instance: KnockoutObservable<T> | T): instance is KnockoutObservable<T>;
     /**
-     * Determine if argument is an observable. Returns true for observables, observable arrays, and all computed observables.
+     * Determine if argument is a writable observable. Returns true for observables, observable arrays, and writable computed observables.
      * @param instance Object to be checked
      */
     isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
     /**
-     * Determine if argument is an observable that can be writed upon. Returns true for observables, observable arrays, and all computed observables.
+     * Determine if argument is a writable observable. Returns true for observables, observable arrays, and writable computed observables.
      * @param instance Object to be checked
      */
     isWriteableObservable<T>(instance: KnockoutObservable<T> | T): instance is KnockoutObservable<T>;
@@ -788,8 +788,8 @@ interface KnockoutStatic {
     /**
      * Executes a callback function inside a computed observable, without creating a dependecy between it and the observables inside the function
      * @param callback Function to be called.
-     * @param callbackTarget? Defines the value of 'this' in the callback function
-     * @param callbackArgs? Arguments for the callback Function
+     * @param callbackTarget Defines the value of 'this' in the callback function
+     * @param callbackArgs Arguments for the callback Function
      */
     ignoreDependencies<T>(callback: () => T, callbackTarget?: any, callbackArgs?: any): T;
 
