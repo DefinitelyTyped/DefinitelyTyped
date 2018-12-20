@@ -430,6 +430,7 @@ class ScrollerListComponentTest extends React.Component<
                         <ScrollView
                             horizontal={true}
                             nestedScrollEnabled={true}
+                            invertStickyHeaders={true}
                             contentOffset={{ x: 0, y: 0 }}
                             {...props}
                             style={[
@@ -830,4 +831,13 @@ const SwitchColorTest = () => (
 
 const SwitchThumbColorTest = () => (
     <Switch thumbColor={'red'} />
+)
+
+const NativeIDTest = () => (
+    <ScrollView nativeID={'nativeID'}>
+        <View nativeID={'nativeID'} />
+        <Text nativeID={'nativeID'} >
+            Text
+        </Text>
+    </ScrollView>
 )

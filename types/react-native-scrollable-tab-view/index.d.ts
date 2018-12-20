@@ -6,7 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Animated, ScrollViewProps, ViewStyle, TextStyle } from 'react-native';
+import { Animated, ScrollViewProps, ViewStyle, TextStyle, StyleProp } from 'react-native';
 
 export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
     /**
@@ -57,7 +57,7 @@ export interface ScrollableTabViewProperties extends React.Props<ScrollableTabVi
     /**
      * style of the default tab bar's underline
      */
-    tabBarUnderlineStyle?: ViewStyle;
+    tabBarUnderlineStyle?: StyleProp<ViewStyle>;
 
     /**
      * color of the default tab bar's background, defaults to white
@@ -77,12 +77,12 @@ export interface ScrollableTabViewProperties extends React.Props<ScrollableTabVi
     /**
      * additional styles to the tab bar's text
      */
-    tabBarTextStyle?: TextStyle;
+    tabBarTextStyle?: StyleProp<TextStyle>;
 
     /**
      * style (View.propTypes.style)
      */
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
 
     /**
      * props that are applied to root ScrollView/ViewPagerAndroid.

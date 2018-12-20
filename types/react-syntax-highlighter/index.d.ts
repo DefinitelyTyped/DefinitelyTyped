@@ -1,4 +1,4 @@
-// Type definitions for react-syntax-highlighter
+// Type definitions for react-syntax-highlighter 10.1
 // Project: https://github.com/conorhastings/react-syntax-highlighter
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 //                 Aimee Gamble-Milner <https://github.com/ajgamble-milner>
@@ -42,626 +42,626 @@ declare module 'react-syntax-highlighter/prism-light' {
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
 }
 
-declare module 'react-syntax-highlighter/styles/hljs' {
-    export { default as agate } from 'react-syntax-highlighter/styles/hljs/agate';
-    export { default as androidstudio } from 'react-syntax-highlighter/styles/hljs/androidstudio';
-    export { default as arduinoLight } from 'react-syntax-highlighter/styles/hljs/arduino-light';
-    export { default as arta } from 'react-syntax-highlighter/styles/hljs/arta';
-    export { default as ascetic } from 'react-syntax-highlighter/styles/hljs/ascetic';
-    export { default as atelierCaveDark } from 'react-syntax-highlighter/styles/hljs/atelier-cave-dark';
-    export { default as atelierCaveLight } from 'react-syntax-highlighter/styles/hljs/atelier-cave-light';
-    export { default as atelierDuneDark } from 'react-syntax-highlighter/styles/hljs/atelier-dune-dark';
-    export { default as atelierDuneLight } from 'react-syntax-highlighter/styles/hljs/atelier-dune-light';
-    export { default as atelierEstuaryDark } from 'react-syntax-highlighter/styles/hljs/atelier-estuary-dark';
-    export { default as atelierEstuaryLight } from 'react-syntax-highlighter/styles/hljs/atelier-estuary-light';
-    export { default as atelierForestDark } from 'react-syntax-highlighter/styles/hljs/atelier-forest-dark';
-    export { default as atelierForestLight } from 'react-syntax-highlighter/styles/hljs/atelier-forest-light';
-    export { default as atelierHeathDark } from 'react-syntax-highlighter/styles/hljs/atelier-heath-dark';
-    export { default as atelierHeathLight } from 'react-syntax-highlighter/styles/hljs/atelier-heath-light';
-    export { default as atelierLakesideDark } from 'react-syntax-highlighter/styles/hljs/atelier-lakeside-dark';
-    export { default as atelierLakesideLight } from 'react-syntax-highlighter/styles/hljs/atelier-lakeside-light';
-    export { default as atelierPlateauDark } from 'react-syntax-highlighter/styles/hljs/atelier-plateau-dark';
-    export { default as atelierPlateauLight } from 'react-syntax-highlighter/styles/hljs/atelier-plateau-light';
-    export { default as atelierSavannaDark } from 'react-syntax-highlighter/styles/hljs/atelier-savanna-dark';
-    export { default as atelierSavannaLight } from 'react-syntax-highlighter/styles/hljs/atelier-savanna-light';
-    export { default as atelierSeasideDark } from 'react-syntax-highlighter/styles/hljs/atelier-seaside-dark';
-    export { default as atelierSeasideLight } from 'react-syntax-highlighter/styles/hljs/atelier-seaside-light';
-    export { default as atelierSulphurpoolDark } from 'react-syntax-highlighter/styles/hljs/atelier-sulphurpool-dark';
-    export { default as atelierSulphurpoolLight } from 'react-syntax-highlighter/styles/hljs/atelier-sulphurpool-light';
-    export { default as atomOneDark } from 'react-syntax-highlighter/styles/hljs/atom-one-dark';
-    export { default as atomOneLight } from 'react-syntax-highlighter/styles/hljs/atom-one-light';
-    export { default as brownPaper } from 'react-syntax-highlighter/styles/hljs/brown-paper';
-    export { default as codepenEmbed } from 'react-syntax-highlighter/styles/hljs/codepen-embed';
-    export { default as colorBrewer } from 'react-syntax-highlighter/styles/hljs/color-brewer';
-    export { default as darcula } from 'react-syntax-highlighter/styles/hljs/darcula';
-    export { default as dark } from 'react-syntax-highlighter/styles/hljs/dark';
-    export { default as darkula } from 'react-syntax-highlighter/styles/hljs/darkula';
-    export { default as defaultStyle } from 'react-syntax-highlighter/styles/hljs/default-style';
-    export { default as docco } from 'react-syntax-highlighter/styles/hljs/docco';
-    export { default as dracula } from 'react-syntax-highlighter/styles/hljs/dracula';
-    export { default as far } from 'react-syntax-highlighter/styles/hljs/far';
-    export { default as foundation } from 'react-syntax-highlighter/styles/hljs/foundation';
-    export { default as githubGist } from 'react-syntax-highlighter/styles/hljs/github-gist';
-    export { default as github } from 'react-syntax-highlighter/styles/hljs/github';
-    export { default as googlecode } from 'react-syntax-highlighter/styles/hljs/googlecode';
-    export { default as grayscale } from 'react-syntax-highlighter/styles/hljs/grayscale';
-    export { default as gruvboxDark } from 'react-syntax-highlighter/styles/hljs/gruvbox-dark';
-    export { default as gruvboxLight } from 'react-syntax-highlighter/styles/hljs/gruvbox-light';
-    export { default as hopscotch } from 'react-syntax-highlighter/styles/hljs/hopscotch';
-    export { default as hybrid } from 'react-syntax-highlighter/styles/hljs/hybrid';
-    export { default as idea } from 'react-syntax-highlighter/styles/hljs/idea';
-    export { default as irBlack } from 'react-syntax-highlighter/styles/hljs/ir-black';
-    export { default as kimbieDark } from 'react-syntax-highlighter/styles/hljs/kimbie.dark';
-    export { default as kimbieLight } from 'react-syntax-highlighter/styles/hljs/kimbie.light';
-    export { default as magula } from 'react-syntax-highlighter/styles/hljs/magula';
-    export { default as monoBlue } from 'react-syntax-highlighter/styles/hljs/mono-blue';
-    export { default as monokaiSublime } from 'react-syntax-highlighter/styles/hljs/monokai-sublime';
-    export { default as monokai } from 'react-syntax-highlighter/styles/hljs/monokai';
-    export { default as obsidian } from 'react-syntax-highlighter/styles/hljs/obsidian';
-    export { default as ocean } from 'react-syntax-highlighter/styles/hljs/ocean';
-    export { default as paraisoDark } from 'react-syntax-highlighter/styles/hljs/paraiso-dark';
-    export { default as paraisoLight } from 'react-syntax-highlighter/styles/hljs/paraiso-light';
-    export { default as pojoaque } from 'react-syntax-highlighter/styles/hljs/pojoaque';
-    export { default as purebasic } from 'react-syntax-highlighter/styles/hljs/purebasic';
-    export { default as qtcreatorDark } from 'react-syntax-highlighter/styles/hljs/qtcreator_dark';
-    export { default as qtcreatorLight } from 'react-syntax-highlighter/styles/hljs/qtcreator_light';
-    export { default as railscasts } from 'react-syntax-highlighter/styles/hljs/railscasts';
-    export { default as rainbow } from 'react-syntax-highlighter/styles/hljs/rainbow';
-    export { default as routeros } from 'react-syntax-highlighter/styles/hljs/routeros';
-    export { default as schoolBook } from 'react-syntax-highlighter/styles/hljs/school-book';
-    export { default as solarizedDark } from 'react-syntax-highlighter/styles/hljs/solarized-dark';
-    export { default as solarizedLight } from 'react-syntax-highlighter/styles/hljs/solarized-light';
-    export { default as sunburst } from 'react-syntax-highlighter/styles/hljs/sunburst';
-    export { default as tomorrowNightBlue } from 'react-syntax-highlighter/styles/hljs/tomorrow-night-blue';
-    export { default as tomorrowNightBright } from 'react-syntax-highlighter/styles/hljs/tomorrow-night-bright';
-    export { default as tomorrowNightEighties } from 'react-syntax-highlighter/styles/hljs/tomorrow-night-eighties';
-    export { default as tomorrowNight } from 'react-syntax-highlighter/styles/hljs/tomorrow-night';
-    export { default as tomorrow } from 'react-syntax-highlighter/styles/hljs/tomorrow';
-    export { default as vs } from 'react-syntax-highlighter/styles/hljs/vs';
-    export { default as vs2015 } from 'react-syntax-highlighter/styles/hljs/vs2015';
-    export { default as xcode } from 'react-syntax-highlighter/styles/hljs/xcode';
-    export { default as xt256 } from 'react-syntax-highlighter/styles/hljs/xt256';
-    export { default as zenburn } from 'react-syntax-highlighter/styles/hljs/zenburn';
+declare module 'react-syntax-highlighter/dist/styles/hljs' {
+    export { default as agate } from 'react-syntax-highlighter/dist/styles/hljs/agate';
+    export { default as androidstudio } from 'react-syntax-highlighter/dist/styles/hljs/androidstudio';
+    export { default as arduinoLight } from 'react-syntax-highlighter/dist/styles/hljs/arduino-light';
+    export { default as arta } from 'react-syntax-highlighter/dist/styles/hljs/arta';
+    export { default as ascetic } from 'react-syntax-highlighter/dist/styles/hljs/ascetic';
+    export { default as atelierCaveDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-cave-dark';
+    export { default as atelierCaveLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-cave-light';
+    export { default as atelierDuneDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-dune-dark';
+    export { default as atelierDuneLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-dune-light';
+    export { default as atelierEstuaryDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-estuary-dark';
+    export { default as atelierEstuaryLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-estuary-light';
+    export { default as atelierForestDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-forest-dark';
+    export { default as atelierForestLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-forest-light';
+    export { default as atelierHeathDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-heath-dark';
+    export { default as atelierHeathLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-heath-light';
+    export { default as atelierLakesideDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-lakeside-dark';
+    export { default as atelierLakesideLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-lakeside-light';
+    export { default as atelierPlateauDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-plateau-dark';
+    export { default as atelierPlateauLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-plateau-light';
+    export { default as atelierSavannaDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-savanna-dark';
+    export { default as atelierSavannaLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-savanna-light';
+    export { default as atelierSeasideDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-seaside-dark';
+    export { default as atelierSeasideLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-seaside-light';
+    export { default as atelierSulphurpoolDark } from 'react-syntax-highlighter/dist/styles/hljs/atelier-sulphurpool-dark';
+    export { default as atelierSulphurpoolLight } from 'react-syntax-highlighter/dist/styles/hljs/atelier-sulphurpool-light';
+    export { default as atomOneDark } from 'react-syntax-highlighter/dist/styles/hljs/atom-one-dark';
+    export { default as atomOneLight } from 'react-syntax-highlighter/dist/styles/hljs/atom-one-light';
+    export { default as brownPaper } from 'react-syntax-highlighter/dist/styles/hljs/brown-paper';
+    export { default as codepenEmbed } from 'react-syntax-highlighter/dist/styles/hljs/codepen-embed';
+    export { default as colorBrewer } from 'react-syntax-highlighter/dist/styles/hljs/color-brewer';
+    export { default as darcula } from 'react-syntax-highlighter/dist/styles/hljs/darcula';
+    export { default as dark } from 'react-syntax-highlighter/dist/styles/hljs/dark';
+    export { default as darkula } from 'react-syntax-highlighter/dist/styles/hljs/darkula';
+    export { default as defaultStyle } from 'react-syntax-highlighter/dist/styles/hljs/default-style';
+    export { default as docco } from 'react-syntax-highlighter/dist/styles/hljs/docco';
+    export { default as dracula } from 'react-syntax-highlighter/dist/styles/hljs/dracula';
+    export { default as far } from 'react-syntax-highlighter/dist/styles/hljs/far';
+    export { default as foundation } from 'react-syntax-highlighter/dist/styles/hljs/foundation';
+    export { default as githubGist } from 'react-syntax-highlighter/dist/styles/hljs/github-gist';
+    export { default as github } from 'react-syntax-highlighter/dist/styles/hljs/github';
+    export { default as googlecode } from 'react-syntax-highlighter/dist/styles/hljs/googlecode';
+    export { default as grayscale } from 'react-syntax-highlighter/dist/styles/hljs/grayscale';
+    export { default as gruvboxDark } from 'react-syntax-highlighter/dist/styles/hljs/gruvbox-dark';
+    export { default as gruvboxLight } from 'react-syntax-highlighter/dist/styles/hljs/gruvbox-light';
+    export { default as hopscotch } from 'react-syntax-highlighter/dist/styles/hljs/hopscotch';
+    export { default as hybrid } from 'react-syntax-highlighter/dist/styles/hljs/hybrid';
+    export { default as idea } from 'react-syntax-highlighter/dist/styles/hljs/idea';
+    export { default as irBlack } from 'react-syntax-highlighter/dist/styles/hljs/ir-black';
+    export { default as kimbieDark } from 'react-syntax-highlighter/dist/styles/hljs/kimbie.dark';
+    export { default as kimbieLight } from 'react-syntax-highlighter/dist/styles/hljs/kimbie.light';
+    export { default as magula } from 'react-syntax-highlighter/dist/styles/hljs/magula';
+    export { default as monoBlue } from 'react-syntax-highlighter/dist/styles/hljs/mono-blue';
+    export { default as monokaiSublime } from 'react-syntax-highlighter/dist/styles/hljs/monokai-sublime';
+    export { default as monokai } from 'react-syntax-highlighter/dist/styles/hljs/monokai';
+    export { default as obsidian } from 'react-syntax-highlighter/dist/styles/hljs/obsidian';
+    export { default as ocean } from 'react-syntax-highlighter/dist/styles/hljs/ocean';
+    export { default as paraisoDark } from 'react-syntax-highlighter/dist/styles/hljs/paraiso-dark';
+    export { default as paraisoLight } from 'react-syntax-highlighter/dist/styles/hljs/paraiso-light';
+    export { default as pojoaque } from 'react-syntax-highlighter/dist/styles/hljs/pojoaque';
+    export { default as purebasic } from 'react-syntax-highlighter/dist/styles/hljs/purebasic';
+    export { default as qtcreatorDark } from 'react-syntax-highlighter/dist/styles/hljs/qtcreator_dark';
+    export { default as qtcreatorLight } from 'react-syntax-highlighter/dist/styles/hljs/qtcreator_light';
+    export { default as railscasts } from 'react-syntax-highlighter/dist/styles/hljs/railscasts';
+    export { default as rainbow } from 'react-syntax-highlighter/dist/styles/hljs/rainbow';
+    export { default as routeros } from 'react-syntax-highlighter/dist/styles/hljs/routeros';
+    export { default as schoolBook } from 'react-syntax-highlighter/dist/styles/hljs/school-book';
+    export { default as solarizedDark } from 'react-syntax-highlighter/dist/styles/hljs/solarized-dark';
+    export { default as solarizedLight } from 'react-syntax-highlighter/dist/styles/hljs/solarized-light';
+    export { default as sunburst } from 'react-syntax-highlighter/dist/styles/hljs/sunburst';
+    export { default as tomorrowNightBlue } from 'react-syntax-highlighter/dist/styles/hljs/tomorrow-night-blue';
+    export { default as tomorrowNightBright } from 'react-syntax-highlighter/dist/styles/hljs/tomorrow-night-bright';
+    export { default as tomorrowNightEighties } from 'react-syntax-highlighter/dist/styles/hljs/tomorrow-night-eighties';
+    export { default as tomorrowNight } from 'react-syntax-highlighter/dist/styles/hljs/tomorrow-night';
+    export { default as tomorrow } from 'react-syntax-highlighter/dist/styles/hljs/tomorrow';
+    export { default as vs } from 'react-syntax-highlighter/dist/styles/hljs/vs';
+    export { default as vs2015 } from 'react-syntax-highlighter/dist/styles/hljs/vs2015';
+    export { default as xcode } from 'react-syntax-highlighter/dist/styles/hljs/xcode';
+    export { default as xt256 } from 'react-syntax-highlighter/dist/styles/hljs/xt256';
+    export { default as zenburn } from 'react-syntax-highlighter/dist/styles/hljs/zenburn';
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/agate' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/agate' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/androidstudio' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/androidstudio' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/arduino-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/arduino-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/arta' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/arta' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/ascetic' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/ascetic' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-cave-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-cave-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-cave-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-cave-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-dune-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-dune-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-dune-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-dune-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-estuary-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-estuary-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-estuary-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-estuary-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-forest-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-forest-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-forest-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-forest-light' {
     const style: any;
     export default style;
 }
 
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-heath-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-heath-dark' {
     const style: any;
     export default style;
 }
 
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-heath-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-heath-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-lakeside-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-lakeside-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-lakeside-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-lakeside-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-plateau-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-plateau-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-plateau-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-plateau-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-savanna-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-savanna-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-savanna-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-savanna-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-seaside-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-seaside-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-seaside-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-seaside-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-sulphurpool-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-sulphurpool-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atelier-sulphurpool-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atelier-sulphurpool-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atom-one-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atom-one-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/atom-one-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/atom-one-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/brown-paper' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/brown-paper' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/codepen-embed' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/codepen-embed' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/color-brewer' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/color-brewer' {
     const style: any;
     export default style;
 }
 
 
-declare module 'react-syntax-highlighter/styles/hljs/darcula' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/darcula' {
     const style: any;
     export default style;
 }
 
 
-declare module 'react-syntax-highlighter/styles/hljs/dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/darkula' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/darkula' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/default-style' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/default-style' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/docco' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/docco' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/dracula' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/dracula' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/far' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/far' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/foundation' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/foundation' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/github-gist' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/github-gist' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/github' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/github' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/googlecode' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/googlecode' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/grayscale' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/grayscale' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/gruvbox-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/gruvbox-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/gruvbox-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/gruvbox-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/hopscotch' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/hopscotch' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/hybrid' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/hybrid' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/idea' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/idea' {
     const style: any;
     export default style;
 }
 
 
-declare module 'react-syntax-highlighter/styles/hljs/ir-black' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/ir-black' {
     const style: any;
     export default style;
 }
 
 
-declare module 'react-syntax-highlighter/styles/hljs/kimbie.dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/kimbie.dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/kimbie.light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/kimbie.light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/magula' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/magula' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/mono-blue' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/mono-blue' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/monokai-sublime' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/monokai-sublime' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/monokai' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/monokai' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/obsidian' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/obsidian' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/ocean' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/ocean' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/paraiso-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/paraiso-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/paraiso-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/paraiso-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/pojoaque' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/pojoaque' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/purebasic' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/purebasic' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/qtcreator_dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/qtcreator_dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/qtcreator_light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/qtcreator_light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/railscasts' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/railscasts' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/rainbow' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/rainbow' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/routeros' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/routeros' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/school-book' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/school-book' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/solarized-dark' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/solarized-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/solarized-light' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/solarized-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/sunburst' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/sunburst' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/tomorrow-night-blue' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/tomorrow-night-blue' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/tomorrow-night-bright' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/tomorrow-night-bright' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/tomorrow-night-eighties' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/tomorrow-night-eighties' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/tomorrow-night' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/tomorrow-night' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/tomorrow' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/tomorrow' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/vs' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/vs' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/vs2015' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/vs2015' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/xcode' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/xcode' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/xt256' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/xt256' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/hljs/zenburn' {
+declare module 'react-syntax-highlighter/dist/styles/hljs/zenburn' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism' {
-    export { default as atomDark } from 'react-syntax-highlighter/styles/prism/atom-dark';
-    export { default as base16AteliersulphurpoolLight } from 'react-syntax-highlighter/styles/prism/base16-ateliersulphurpool.light';
-    export { default as cb } from 'react-syntax-highlighter/styles/prism/cb';
-    export { default as coy } from 'react-syntax-highlighter/styles/prism/coy';
-    export { default as darcula } from 'react-syntax-highlighter/styles/prism/darcula';
-    export { default as dark } from 'react-syntax-highlighter/styles/prism/dark';
-    export { default as duotoneDark } from 'react-syntax-highlighter/styles/prism/duotone-dark';
-    export { default as duotoneEarth } from 'react-syntax-highlighter/styles/prism/duotone-earth';
-    export { default as duotoneForest } from 'react-syntax-highlighter/styles/prism/duotone-forest';
-    export { default as duotoneLight } from 'react-syntax-highlighter/styles/prism/duotone-light';
-    export { default as duotoneSea } from 'react-syntax-highlighter/styles/prism/duotone-sea';
-    export { default as duotoneSpace } from 'react-syntax-highlighter/styles/prism/duotone-space';
-    export { default as funky } from 'react-syntax-highlighter/styles/prism/funky';
-    export { default as ghcolors } from 'react-syntax-highlighter/styles/prism/ghcolors';
-    export { default as hopscotch } from 'react-syntax-highlighter/styles/prism/hopscotch';
-    export { default as okaidia } from 'react-syntax-highlighter/styles/prism/okaidia';
-    export { default as pojoaque } from 'react-syntax-highlighter/styles/prism/pojoaque';
-    export { default as prism } from 'react-syntax-highlighter/styles/prism/prism';
-    export { default as solarizedlight } from 'react-syntax-highlighter/styles/prism/solarizedlight';
-    export { default as tomorrow } from 'react-syntax-highlighter/styles/prism/tomorrow';
-    export { default as twilight } from 'react-syntax-highlighter/styles/prism/twilight';
-    export { default as vs } from 'react-syntax-highlighter/styles/prism/vs';
-    export { default as xonokai } from 'react-syntax-highlighter/styles/prism/xonokai';
+declare module 'react-syntax-highlighter/dist/styles/prism' {
+    export { default as atomDark } from 'react-syntax-highlighter/dist/styles/prism/atom-dark';
+    export { default as base16AteliersulphurpoolLight } from 'react-syntax-highlighter/dist/styles/prism/base16-ateliersulphurpool.light';
+    export { default as cb } from 'react-syntax-highlighter/dist/styles/prism/cb';
+    export { default as coy } from 'react-syntax-highlighter/dist/styles/prism/coy';
+    export { default as darcula } from 'react-syntax-highlighter/dist/styles/prism/darcula';
+    export { default as dark } from 'react-syntax-highlighter/dist/styles/prism/dark';
+    export { default as duotoneDark } from 'react-syntax-highlighter/dist/styles/prism/duotone-dark';
+    export { default as duotoneEarth } from 'react-syntax-highlighter/dist/styles/prism/duotone-earth';
+    export { default as duotoneForest } from 'react-syntax-highlighter/dist/styles/prism/duotone-forest';
+    export { default as duotoneLight } from 'react-syntax-highlighter/dist/styles/prism/duotone-light';
+    export { default as duotoneSea } from 'react-syntax-highlighter/dist/styles/prism/duotone-sea';
+    export { default as duotoneSpace } from 'react-syntax-highlighter/dist/styles/prism/duotone-space';
+    export { default as funky } from 'react-syntax-highlighter/dist/styles/prism/funky';
+    export { default as ghcolors } from 'react-syntax-highlighter/dist/styles/prism/ghcolors';
+    export { default as hopscotch } from 'react-syntax-highlighter/dist/styles/prism/hopscotch';
+    export { default as okaidia } from 'react-syntax-highlighter/dist/styles/prism/okaidia';
+    export { default as pojoaque } from 'react-syntax-highlighter/dist/styles/prism/pojoaque';
+    export { default as prism } from 'react-syntax-highlighter/dist/styles/prism/prism';
+    export { default as solarizedlight } from 'react-syntax-highlighter/dist/styles/prism/solarizedlight';
+    export { default as tomorrow } from 'react-syntax-highlighter/dist/styles/prism/tomorrow';
+    export { default as twilight } from 'react-syntax-highlighter/dist/styles/prism/twilight';
+    export { default as vs } from 'react-syntax-highlighter/dist/styles/prism/vs';
+    export { default as xonokai } from 'react-syntax-highlighter/dist/styles/prism/xonokai';
 }
 
-declare module 'react-syntax-highlighter/styles/prism/atom-dark' {
+declare module 'react-syntax-highlighter/dist/styles/prism/atom-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/base16-ateliersulphurpool.light' {
+declare module 'react-syntax-highlighter/dist/styles/prism/base16-ateliersulphurpool.light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/cb' {
+declare module 'react-syntax-highlighter/dist/styles/prism/cb' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/coy' {
+declare module 'react-syntax-highlighter/dist/styles/prism/coy' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/darcula' {
+declare module 'react-syntax-highlighter/dist/styles/prism/darcula' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/dark' {
+declare module 'react-syntax-highlighter/dist/styles/prism/dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-dark' {
+declare module 'react-syntax-highlighter/dist/styles/prism/duotone-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-earth' {
+declare module 'react-syntax-highlighter/dist/styles/prism/duotone-earth' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-forest' {
+declare module 'react-syntax-highlighter/dist/styles/prism/duotone-forest' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-light' {
+declare module 'react-syntax-highlighter/dist/styles/prism/duotone-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-sea' {
+declare module 'react-syntax-highlighter/dist/styles/prism/duotone-sea' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-space' {
+declare module 'react-syntax-highlighter/dist/styles/prism/duotone-space' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/funky' {
+declare module 'react-syntax-highlighter/dist/styles/prism/funky' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/ghcolors' {
+declare module 'react-syntax-highlighter/dist/styles/prism/ghcolors' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/hopscotch' {
+declare module 'react-syntax-highlighter/dist/styles/prism/hopscotch' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/okaidia' {
+declare module 'react-syntax-highlighter/dist/styles/prism/okaidia' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/pojoaque' {
+declare module 'react-syntax-highlighter/dist/styles/prism/pojoaque' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/prism' {
+declare module 'react-syntax-highlighter/dist/styles/prism/prism' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/solarizedlight' {
+declare module 'react-syntax-highlighter/dist/styles/prism/solarizedlight' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/tomorrow' {
+declare module 'react-syntax-highlighter/dist/styles/prism/tomorrow' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/twilight' {
+declare module 'react-syntax-highlighter/dist/styles/prism/twilight' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/vs' {
+declare module 'react-syntax-highlighter/dist/styles/prism/vs' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/xonokai' {
+declare module 'react-syntax-highlighter/dist/styles/prism/xonokai' {
     const style: any;
     export default style;
 }

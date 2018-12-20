@@ -12,7 +12,7 @@ device.__claimInterface(0);
 
 device.open(true);
 device.close();
-const xferDevice: usb.Device = device.controlTransfer(1, 1, 1, 1, 1, (error: string, buf: Buffer): usb.Device => new usb.Device());
+const xferDevice: usb.Device = device.controlTransfer(1, 1, 1, 1, 1, (error: usb.LibUSBException, buf: Buffer): usb.Device => new usb.Device());
 device.getStringDescriptor(1, (error: string, buf: Buffer) => null);
 device.setConfiguration(1, (error: string) => null);
 device.reset((error: string) => null);
@@ -103,7 +103,7 @@ inEndpoint.direction = "in";
 inEndpoint.transferType = 1;
 inEndpoint.timeout = 1;
 inEndpoint.descriptor = endpointDesc;
-const xferInEndpoint: usb.InEndpoint = inEndpoint.transfer(1, (error: string, data: Buffer) => inEndpoint);
+const xferInEndpoint: usb.InEndpoint = inEndpoint.transfer(1, (error: usb.LibUSBException, data: Buffer) => inEndpoint);
 inEndpoint.on("data", (data) => null);
 inEndpoint.startPoll(1, 1);
 inEndpoint.startPoll(1);
@@ -117,8 +117,8 @@ outEndpoint.transferType = 1;
 outEndpoint.timeout = 1;
 outEndpoint.descriptor = endpointDesc;
 inEndpoint.on("error", (err) => null);
-const xferOutEndpoint: usb.OutEndpoint = outEndpoint.transfer(new Buffer([]), (error: string) => null);
-outEndpoint.transferWithZLP(new Buffer([]), (error: string) => null);
+const xferOutEndpoint: usb.OutEndpoint = outEndpoint.transfer(new Buffer([]), (error: usb.LibUSBException) => null);
+outEndpoint.transferWithZLP(new Buffer([]), (error: usb.LibUSBException) => null);
 
 iface.endpoints = [inEndpoint, outEndpoint];
 

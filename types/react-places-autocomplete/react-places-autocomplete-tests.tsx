@@ -45,7 +45,7 @@ class Test extends React.Component {
 
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <PlacesAutocomplete inputProps={inputProps} />
+                <PlacesAutocomplete value={this.state.address} onChange={this.onChange} />
             </form>
         );
     }

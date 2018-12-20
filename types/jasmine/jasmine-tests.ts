@@ -335,6 +335,12 @@ describe("A spy", () => {
     it("stops all execution on a function", () => {
         expect(bar).toBeNull();
     });
+
+    it("tracks if it was called at all", function () {
+        foo.setBar();
+
+        expect(foo.setBar.calls.any()).toEqual(true);
+    });
 });
 
 describe("A spy, when configured to call through", () => {
@@ -466,6 +472,40 @@ describe("A spy, when configured with an alternate implementation", () => {
 
     it("when called returns the requested value", () => {
         expect(fetchedBar).toEqual(1001);
+    });
+});
+
+describe("A spy, when configured with alternate implementations for specified arguments", () => {
+    var foo: any, bar: any, fetchedBar: any;
+
+    beforeEach(() => {
+        foo = {
+            setBar: (value: any) => {
+                bar = value;
+            },
+            getBar: () => {
+                return bar;
+            }
+        };
+
+        spyOn(foo, "getBar")
+            .withArgs(1, "2")
+            .and.callFake(() => 1002);
+
+        foo.setBar(123);
+        fetchedBar = foo.getBar(1, "2");
+    });
+
+    it("tracks that the spy was called", () => {
+        expect(foo.getBar).toHaveBeenCalled();
+    });
+
+    it("should not effect other functions", () => {
+        expect(bar).toEqual(123);
+    });
+
+    it("when called returns the requested value", () => {
+        expect(fetchedBar).toEqual(1002);
     });
 });
 
@@ -661,11 +701,20 @@ describe("A spy, when created manually", () => {
 });
 
 describe("Multiple spies, when created manually", () => {
-    var tape: any;
+    interface Tape {
+        play(): void;
+        pause(): void;
+        rewind(pos: number): void;
+        stop(): void;
+        readonly isPlaying: boolean; // spy obj makes this writable
+    }
+
+    var tape: jasmine.SpyObj<Tape>;
     var el: jasmine.SpyObj<Element>;
 
     beforeEach(() => {
-        tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
+        tape = jasmine.createSpyObj<Tape>('tape', ['play', 'pause', 'stop', 'rewind']);
+        (tape as { isPlaying: boolean }).isPlaying = false;
         el = jasmine.createSpyObj<Element>('Element', ['hasAttribute']);
 
         el.hasAttribute.and.returnValue(false);
@@ -693,6 +742,10 @@ describe("Multiple spies, when created manually", () => {
     it("tracks all the arguments of its calls", () => {
         expect(tape.rewind).toHaveBeenCalledWith(0);
     });
+
+    it("read isPlaying property", () => {
+        expect(tape.isPlaying).toBe(false);
+    })
 });
 
 describe("jasmine.nothing", () => {
@@ -906,7 +959,7 @@ describe("Asynchronous specs", () => {
     });
 
     it("should support async execution of test preparation and expectations", (done: DoneFn) => {
-        value++;
+        value += 1;
         expect(value).toBeGreaterThan(0);
         done();
     });
@@ -1084,7 +1137,7 @@ var myReporter: jasmine.CustomReporter = {
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log("Spec: " + result.description + " was " + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
             console.log("Expected: " + result.failedExpectations[i].expected);
@@ -1096,7 +1149,7 @@ var myReporter: jasmine.CustomReporter = {
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log('Suite: ' + result.description + ' was ' + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
         }

@@ -57,6 +57,11 @@ helpers.run(path.join(__dirname, '../app')).withGenerators([
 	[helpers.createDummyGenerator(), 'karma:app'],
 ]);
 
+helpers.run(Generator, {
+	resolved: '../app',
+	namespace: 'custom:generator'
+});
+
 before(done => {
 	helpers.run(path.join(__dirname, '../app'))
 		.on('error', error => { /* ... */ })

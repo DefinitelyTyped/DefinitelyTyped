@@ -203,3 +203,22 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         throw Error("rsa signature verification fail");
     }
 }
+
+{
+    const emptyStore = forge.pki.createCaStore();
+
+    const certificate = forge.pki.createCertificate();
+    const pem = forge.pki.certificateToPem(certificate);
+
+    const caStore = forge.pki.createCaStore();
+    caStore.addCertificate(certificate);
+    caStore.removeCertificate(certificate);
+
+    caStore.listAllCertificates();
+
+    caStore.removeCertificate(certificate);
+
+    forge.pki.verifyCertificateChain(caStore, [certificate], (verified, depth, chain) => {
+        return true;
+    });
+}

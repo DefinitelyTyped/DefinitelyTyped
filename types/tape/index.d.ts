@@ -4,6 +4,7 @@
 //                 Haoqun Jiang <https://github.com/sodatea>
 //                 Dennis Schwartz <https://github.com/DennisSchwartz>
 //                 Michael Henretty <https://github.com/mikehenrty>
+//                 Rafał Ostrowski <https://github.com/rostrowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -46,6 +47,9 @@ declare namespace tape {
      * Generate a new test that will be skipped over.
      */
     export function skip(name: string, cb: tape.TestCase): void;
+    export function skip(name: string, opts: tape.TestOptions, cb: tape.TestCase): void;
+    export function skip(cb: tape.TestCase): void;
+    export function skip(opts: tape.TestOptions, cb: tape.TestCase): void;
 
     /**
      * The onFinish hook will get invoked when ALL tape tests have finished right before tape is about to print the test summary.
@@ -53,9 +57,12 @@ declare namespace tape {
     export function onFinish(cb: () => void): void;
 
     /**
-     * Like test(name, cb) except if you use .only this is the only test case that will run for the entire process, all other test cases using tape will be ignored.
+     * Like test(name?, opts?, cb) except if you use .only this is the only test case that will run for the entire process, all other test cases using tape will be ignored.
      */
     export function only(name: string, cb: tape.TestCase): void;
+    export function only(name: string, opts: tape.TestOptions, cb: tape.TestCase): void;
+    export function only(cb: tape.TestCase): void;
+    export function only(opts: tape.TestOptions, cb: tape.TestCase): void;
 
     /**
      * Create a new test harness instance, which is a function like test(), but with a new pending stack and test state.
