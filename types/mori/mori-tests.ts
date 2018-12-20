@@ -7,14 +7,14 @@ http://swannodette.github.io/mori/
 */
 
 // mock the jest functions to get types to check out
-const describe = (d, f) => undefined;
-const it = (d, f) => undefined;
-const expect = (t) => ({
-    toBe: (t) => undefined,
-    toEqual: (t) => undefined,
+const describe = (d: any, f: any) => undefined;
+const it = (d: any, f: any) => undefined;
+const expect = (t: any) => ({
+    toBe: (t: any) => undefined,
+    toEqual: (t: any) => undefined,
     not: {
-        toBe: (t) => undefined,
-        toEqual: (t) => undefined,
+        toBe: (t: any) => undefined,
+        toEqual: (t: any) => undefined,
     }
 });
 
@@ -524,7 +524,7 @@ describe("mori", () => {
         it("can mapcat", () => {
             const a = mori.seq("abc");
             const b = mori.seq("123");
-            const f = (x, y) => mori.list(x, x + y);
+            const f = (x: string, y: string) => mori.list(x, x + y);
 
             expect(mori.equals(
                 mori.mapcat(f, a, b),
@@ -580,7 +580,7 @@ describe("mori", () => {
         });
 
         it("can reduceKV", () => {
-            const f = (acc, key, val) => {
+            const f = (acc: string, key: any, val: number) => {
                 return `${acc}(${key}:${val})`;
             };
 
@@ -652,20 +652,20 @@ describe("mori", () => {
 
         it("can some", () => {
             const a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-            const f = (x) => x % 5 === 0 && x * x;
+            const f = (x: number) => x % 5 === 0 && x * x;
             expect(mori.some(f, a)).toEqual(25);
         });
 
         it("can some strings", () => {
             const s = "bananas";
-            const f = (c) => c === "a";
+            const f = (c: string) => c === "a";
             expect(mori.some(f, s)).toEqual(true);
         });
 
         it("can every", () => {
             const a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-            const f = (x) => mori.isEven(x);
-            const g = (x) => mori.isEven(x) || mori.isOdd(x);
+            const f = (x: number) => mori.isEven(x);
+            const g = (x: number) => mori.isEven(x) || mori.isOdd(x);
 
             expect(mori.every(f, a)).toBe(false);
             expect(mori.every(g, a)).toBe(true);
@@ -681,7 +681,7 @@ describe("mori", () => {
 
         it("can sort", () => {
             const a = [4, 6, 2, 7, 1, 0, 9, 5, 8, 3];
-            const f = (a, b) => b - a;
+            const f = (a: number, b: number) => b - a;
 
             expect(mori.equals(
                 mori.sort(a),
@@ -695,8 +695,8 @@ describe("mori", () => {
 
         it("can sortBy", () => {
             const a = [0, 1, 2, 3, 4, 5, 6];
-            const kf = (x) => x * 5 % 7;
-            const f = (a, b) => b - a;
+            const kf = (x: number) => x * 5 % 7;
+            const f = (a: number, b: number) => b - a;
 
             expect(mori.equals(
                 mori.map(kf, a),
@@ -797,7 +797,7 @@ describe("mori", () => {
 
         it("can partitionBy", () => {
             const v = mori.vector("foo", "bar", "baz", "grapefruit");
-            const f = (s) => s[0];
+            const f = (s: string) => s[0];
 
             expect(mori.equals(
                 mori.partitionBy(f, v),
@@ -809,7 +809,7 @@ describe("mori", () => {
         });
 
         it("can groupBy", () => {
-            function evenOdd(n) {
+            function evenOdd(n: number) {
                 return mori.isEven(n) ? "even" : "odd";
             }
 
@@ -927,7 +927,7 @@ describe("mori", () => {
 
         it("can fnil", () => {
             const _ = mori;
-            const f = (x) => {
+            const f = (x: mori.HashMap<string, number>) => {
                 return _.updateIn(x, ["count"], _.fnil(_.inc, 0));
             };
 

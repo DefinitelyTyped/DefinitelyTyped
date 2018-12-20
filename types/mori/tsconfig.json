@@ -10,7 +10,7 @@
         "lib": [
             "es6"
         ],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true
     },
