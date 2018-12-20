@@ -140,7 +140,7 @@ interface KnockoutSubscribableStatic {
 
 interface KnockoutSubscription {
     /**
-     * Terminates a subscription 
+     * Terminates a subscription
      */
     dispose(): void;
 }
@@ -213,9 +213,6 @@ interface KnockoutReadonlyComputed<T> extends KnockoutReadonlyObservable<T> {
 interface KnockoutComputed<T> extends KnockoutReadonlyComputed<T>, KnockoutObservable<T>, KnockoutComputedFunctions<T> {
     fn: KnockoutComputedFunctions<any>;
 
-    // It's possible for 'a' to be undefined, since the equalityComparer is run on the initial
-    // computation with undefined as the first argument. This is user-relevant for deferred computeds.
-    equalityComparer(a: T | undefined, b: T): boolean;
     /**
      * Manually disposes the computed observable, clearing all subscriptions to dependencies.
      * This function is useful if you want to stop a computed observable from being updated or want to clean up memory for a
