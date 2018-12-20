@@ -12,7 +12,6 @@ function testReadonlyObservable() {
     writeAgain("bar");
 };
 
-
 function testReadonlyObservableArray() {
     // Normal observable array behavior
     const write = ko.observableArray(["foo"]);

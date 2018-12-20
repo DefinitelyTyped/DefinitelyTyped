@@ -761,3 +761,8 @@ interface MyComputed extends KnockoutComputed<any> {
 function observableAny() {
     ko.observable<number>(5 as any); // $ExpectType KnockoutObservable<number>
 }
+
+function testComputedContentsInference() {
+    type ObservableContents<O> = O extends KnockoutObservable<infer T> ? T : never;
+    let contents: ObservableContents<KnockoutComputed<string>>; // $ExpectType string
+}
