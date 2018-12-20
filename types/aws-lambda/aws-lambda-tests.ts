@@ -118,12 +118,18 @@ str = apiGwEvt.resource;
 str = customAuthorizerEvt.type;
 str = customAuthorizerEvt.methodArn;
 strOrUndefined = customAuthorizerEvt.authorizationToken;
+strOrUndefined = customAuthorizerEvt.resource;
+strOrUndefined = customAuthorizerEvt.path;
+strOrUndefined = customAuthorizerEvt.httpMethod;
 str = customAuthorizerEvt.headers!["example"];
 str = customAuthorizerEvt.multiValueHeaders!["example"][0];
 str = customAuthorizerEvt.pathParameters!["example"];
 str = customAuthorizerEvt.queryStringParameters!["example"];
 str = customAuthorizerEvt.multiValueQueryStringParameters!["example"][0];
+str = customAuthorizerEvt.stageVariables!["example"];
 apiGwEvtReqCtxOpt = customAuthorizerEvt.requestContext;
+strOrUndefined = customAuthorizerEvt.domainName;
+strOrUndefined = customAuthorizerEvt.apiId;
 
 /* DynamoDB Stream Event */
 const dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
