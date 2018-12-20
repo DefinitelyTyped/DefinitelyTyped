@@ -906,10 +906,11 @@ declare namespace React {
     //
     // Event System
     // ----------------------------------------------------------------------
-    interface BaseSyntheticEvent<E = any, T = any, C = any> {
+    // TODO: change any to unknown when moving to TS v3
+    interface BaseSyntheticEvent<E = object, C = any, T = any> {
         nativeEvent: E;
-        target: T;
         currentTarget: C;
+        target: T;
         bubbles: boolean;
         cancelable: boolean;
         defaultPrevented: boolean;
@@ -931,7 +932,7 @@ declare namespace React {
      * This might be a child element to the element on which the event listener is registered.
      * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
      */
-    interface SyntheticEvent<T = Element, E = Event> extends BaseSyntheticEvent<E, EventTarget, EventTarget & T> {}
+    interface SyntheticEvent<T = Element, E = Event> extends BaseSyntheticEvent<E, EventTarget & T, EventTarget> {}
 
     interface ClipboardEvent<T = Element> extends SyntheticEvent<T, NativeClipboardEvent> {
         clipboardData: DataTransfer;
