@@ -624,9 +624,9 @@ export interface PasswordlessVerifyOptions {
 
 export interface PasswordlessLoginOptions {
     connection: string;
+    verificationCode: string;
     phoneNumber?: string;
     email?: string;
-    verificationCode: string;
 }
 
 export interface Auth0UserProfile {
