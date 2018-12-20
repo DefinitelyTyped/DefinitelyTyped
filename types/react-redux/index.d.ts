@@ -391,7 +391,7 @@ export interface ConnectOptions {
     withRef?: boolean;
     /**
      * The react context to get the store from.
-     * 
+     *
      * @default ReactReduxContext
      */
     context?: Context<any>;
@@ -402,7 +402,7 @@ export interface ReactReduxContextObject<SS = any, A extends Action = AnyAction>
     storeState: SS;
 }
 
-export type ReactReduxContextType<SS = any, A extends Action = AnyAction> = Context<ReactReduxContextObject<SS, A>>
+export type ReactReduxContextType<SS = any, A extends Action = AnyAction> = Context<ReactReduxContextObject<SS, A>>;
 
 export interface ProviderProps<A extends Action = AnyAction> {
     /**
@@ -411,7 +411,7 @@ export interface ProviderProps<A extends Action = AnyAction> {
     store: Store<any, A>;
     /**
      * Optional context to be used internally in react-redux. Use React.createContext() to create a context to be used.
-     * If this is used, generate own connect HOC by using connectAdvanced, supplying the same context provided to the 
+     * If this is used, generate own connect HOC by using connectAdvanced, supplying the same context provided to the
      * Provider. Initial value doesn't matter, as it is overwritten with the internal state of Provider.
      */
     context?: Context<any>;

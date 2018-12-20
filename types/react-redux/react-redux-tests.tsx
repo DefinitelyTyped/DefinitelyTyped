@@ -1212,25 +1212,24 @@ function TestLibraryManagedAttributes() {
 }
 
 function TestProviderContext() {
-
-    //Internally in react-redux, null is used initially and overwritten in Provider with store and storeState.
+    // Internally in react-redux, null is used initially and overwritten in Provider with store and storeState.
     const context = React.createContext(null);
 
     class ComponentWithOwnContext extends React.Component {
-        public static contextType = context;
+        static contextType = context;
     }
 
     <Provider store={store} context={context}>
         <ComponentWithOwnContext />;
-    </Provider>
+    </Provider>;
 
     class ComponentWithDefaultContext extends React.Component {
-        public static contextType = ReactReduxContext;
+        static contextType = ReactReduxContext;
     }
 
     <Provider store={store}>
         <ComponentWithDefaultContext />
     </Provider>;
 
-    <Provider store={store} context={null} /> // $ExpectError
+    <Provider store={store} context={null} />; // $ExpectError
 }
