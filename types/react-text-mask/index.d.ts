@@ -10,7 +10,7 @@ import * as React from "react";
 
 export type maskArray = Array<string | RegExp>;
 
-export interface MaskedInputProps
+export interface   MaskedInputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
     mask?: maskArray | ((value: string) => maskArray);
 
@@ -40,7 +40,9 @@ export interface conformToMaskResult {
 export default class MaskedInput extends React.Component<
     MaskedInputProps,
     any
-> {}
+> {
+  inputElement: HTMLElement;
+}
 
 export function conformToMask(
     text: string,
