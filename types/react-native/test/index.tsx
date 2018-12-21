@@ -203,6 +203,12 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 }
 
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
+
+function handler(e: GestureResponderEvent) {
+    eventHandler(e);
+}
+
 type ElementProps<C> = C extends React.Component<infer P, any> ? P : never;
 
 class CustomView extends React.Component {
