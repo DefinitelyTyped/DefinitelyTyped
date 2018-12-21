@@ -1905,7 +1905,7 @@ export namespace Pedometer {
 export namespace Permissions {
     type PermissionType = 'audioRecording' | 'calendar' |
     'cameraRoll' | 'camera' | 'contacts' | 'location' | 'reminders' |
-    'notifications' | 'systemBrightness' | 'userFacingNotifications';
+    'notifications' | 'systemBrightness' | 'userFacingNotifications' | 'SMS';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1944,7 +1944,11 @@ export namespace Permissions {
     const NOTIFICATIONS: 'notifications';
     const REMINDERS: 'reminders';
     const SYSTEM_BRIGHTNESS: 'systemBrightness';
-    const USER_FACING_NOTIFICATIONS = 'userFacingNotifications';
+    const USER_FACING_NOTIFICATIONS: 'userFacingNotifications';
+    /**
+     * Will be removed in SDK 32
+     */
+    const SMS: 'SMS';
 }
 
 /**
