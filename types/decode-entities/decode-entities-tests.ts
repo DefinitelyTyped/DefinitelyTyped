@@ -1,4 +1,4 @@
 import decodeEntities = require('decode-entities');
 
 // $ExpectType string
-decodeEntities('&#33;'); 
+decodeEntities('&copy; &#33;'); 
