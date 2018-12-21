@@ -1,0 +1,12 @@
+import { Express } from "express";
+import proxy from "express-http-proxy";
+
+const app: Express = {} as any;
+
+app.use('/proxy', proxy('www.google.com'));
+
+proxy('www.google.com', {});
+
+proxy('www.google.com', {
+    proxyReqPathResolver: (req) => req.url,
+});
