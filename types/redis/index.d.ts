@@ -9,7 +9,7 @@
 //                 Bartek Szczepański <https://github.com/barnski>
 //                 Pirasis Leelatanon <https://github.com/1pete>
 //                 Stanislav Dzhus <https://github.com/blablapolicja>
-//                 Jake Ferrante <https://github.com/ferrantejake> 
+//                 Jake Ferrante <https://github.com/ferrantejake>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -1244,7 +1244,7 @@ export class RedisError extends Error { }
 export class ReplyError extends RedisError { }
 export class AbortError extends RedisError { }
 export class ParserError extends RedisError {
-    public offset: number;
-    public buffer: Buffer;
+    offset: number;
+    buffer: Buffer;
 }
 export class AggregateError extends AbortError { }
