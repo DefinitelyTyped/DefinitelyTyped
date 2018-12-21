@@ -1905,7 +1905,7 @@ export namespace Pedometer {
 export namespace Permissions {
     type PermissionType = 'audioRecording' | 'calendar' |
     'cameraRoll' | 'camera' | 'contacts' | 'location' | 'reminders' |
-    'remoteNotifications' | 'systemBrightness' | 'userFacingNotifications';
+    'notifications' | 'systemBrightness' | 'userFacingNotifications' | 'SMS';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1917,17 +1917,23 @@ export namespace Permissions {
         scope: 'fine' | 'coarse' | 'none';
     }
 
-    interface PermissionResponse {
+    interface SinglePermissionResponse {
         status: PermissionStatus;
         expires: PermissionExpires;
         ios?: PermissionDetailsLocationIOS;
         android?: PermissionDetailsLocationAndroid;
     }
 
-    function getAsync(type: PermissionType): Promise<PermissionResponse>;
-    function askAsync(type: PermissionType): Promise<PermissionResponse>;
+    interface PermissionResponse {
+        status: PermissionStatus;
+        expires: PermissionExpires;
+        permissions: {
+            [key in PermissionType]: SinglePermissionResponse
+        };
+    }
 
-    type RemoteNotificationPermission = 'remoteNotifications';
+    function getAsync(...permissionTypes: PermissionType[]): Promise<PermissionResponse>;
+    function askAsync(...permissionTypes: PermissionType[]): Promise<PermissionResponse>;
 
     const AUDIO_RECORDING: 'audioRecording';
     const CALENDAR: 'calendar';
@@ -1935,11 +1941,14 @@ export namespace Permissions {
     const CAMERA: 'camera';
     const CONTACTS: 'contacts';
     const LOCATION: 'location';
-    const NOTIFICATIONS: RemoteNotificationPermission;
-    const REMINDERS = 'reminders';
-    const REMOTE_NOTIFICATIONS: RemoteNotificationPermission;
+    const NOTIFICATIONS: 'notifications';
+    const REMINDERS: 'reminders';
     const SYSTEM_BRIGHTNESS: 'systemBrightness';
-    const USER_FACING_NOTIFICATIONS = 'userFacingNotifications';
+    const USER_FACING_NOTIFICATIONS: 'userFacingNotifications';
+    /**
+     * Will be removed in SDK 32
+     */
+    const SMS: 'SMS';
 }
 
 /**
