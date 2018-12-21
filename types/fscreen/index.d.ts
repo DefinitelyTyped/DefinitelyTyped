@@ -6,11 +6,11 @@
 // TypeScript Version: 2.3
 
 type Handler = (e?: Event) => void;
-type RequestFullScreenFunction = (element: Element) => void;
+type RequestFullScreenFunction = (element: Element) => Promise<undefined>;
 type EventName = 'fullscreenEnabled' | 'fullscreenElement' | 'requestFullscreen' | 'exitFullscreen' | 'fullscreenchange' | 'fullscreenerror';
 
 declare class Fscreen {
-    readonly fullscreenElement: Element | undefined;
+    readonly fullscreenElement: Element | null;
     readonly fullscreenEnabled: boolean;
     readonly exitFullscreen: Handler;
     onfullscreenchange: Handler;
@@ -18,7 +18,7 @@ declare class Fscreen {
 
     addEventListener(type: EventName, handler: Handler, options?: boolean | AddEventListenerOptions): void;
     removeEventListener(type: EventName, handler: Handler, options?: boolean | AddEventListenerOptions): void;
-    requestFullscreen(element: Element): void;
+    requestFullscreen(element: Element): Promise<undefined>;
     requestFullscreenFunction(element: Element): RequestFullScreenFunction;
 }
 
