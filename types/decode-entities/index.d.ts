@@ -1,4 +1,4 @@
-// Type definitions for decode-entities v1.0.4
+// Type definitions for decode-entities 1.0
 // Project: https://github.com/waspothegreat/decode-entities#readme
 // Definitions by: waspothegreat <https://github.com/waspothegreat/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
