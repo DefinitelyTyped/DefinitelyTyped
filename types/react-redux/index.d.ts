@@ -1,4 +1,4 @@
-// Type definitions for react-redux 6.0
+// Type definitions for react-redux 7.0
 // Project: https://github.com/reduxjs/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
