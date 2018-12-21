@@ -1212,7 +1212,7 @@ function TestLibraryManagedAttributes() {
 }
 
 function TestProviderContext() {
-    const store: Store<any> = createStore((state = {}) => state);
+    const store: Store = createStore((state = {}) => state);
     const nullContext = React.createContext(null);
 
     // To ensure type safety when consuming the context in an app, a null-context does not suffice.
