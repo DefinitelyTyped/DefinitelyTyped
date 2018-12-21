@@ -1,5 +1,5 @@
 import { Express } from "express";
-import proxy from "express-http-proxy";
+import proxy = require("express-http-proxy");
 
 const app: Express = {} as any;
 

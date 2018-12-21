@@ -7,11 +7,11 @@
 import { RequestHandler, Request } from "express";
 import { RequestOptions } from "http";
 
-export interface ProxyOptions {
+interface ProxyOptions {
     proxyReqPathResolver?: (req: Request) => string;
     proxyReqOptDecorator?: (proxyReqOpts: RequestOptions, srcReq: Request) => RequestOptions;
 }
 
 declare function proxy(host: string, options?: ProxyOptions): RequestHandler;
 
-export default proxy;
+export = proxy;
