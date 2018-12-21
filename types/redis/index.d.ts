@@ -8,6 +8,7 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Bartek Szczepański <https://github.com/barnski>
 //                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Stanislav Dzhus <https://github.com/blablapolicja>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -159,8 +160,8 @@ export interface Commands<R> {
     /**
      * Set multiple hash fields to multiple values.
      */
-    hmset: OverloadedSetCommand<string | number, boolean, R>;
-    HMSET: OverloadedSetCommand<string | number, boolean, R>;
+    hmset: OverloadedSetCommand<string | number, 'OK', R>;
+    HMSET: OverloadedSetCommand<string | number, 'OK', R>;
 
     /**
      * Listen for messages published to the given channels.
@@ -393,8 +394,8 @@ export interface Commands<R> {
     /**
      * Remove all keys from the current database.
      */
-    flushdb(cb?: Callback<string>): R;
-    FLUSHDB(cb?: Callback<string>): R;
+    flushdb(cb?: Callback<'OK'>): R;
+    FLUSHDB(cb?: Callback<'OK'>): R;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.
@@ -1169,9 +1170,7 @@ export interface Commands<R> {
     ZSCAN: OverloadedKeyCommand<string, [string, string[]], R>;
 }
 
-export const RedisClient: {
-    new (options: ClientOpts): RedisClient;
-};
+export const RedisClient: new (options: ClientOpts) => RedisClient;
 
 export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
@@ -1221,9 +1220,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     BATCH(args?: Array<Array<string | number | Callback<any>>>): Multi;
 }
 
-export const Multi: {
-    new (): Multi;
-};
+export const Multi: new () => Multi;
 
 export interface Multi extends Commands<Multi> {
     exec(cb?: Callback<any[]>): boolean;

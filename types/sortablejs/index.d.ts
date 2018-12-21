@@ -225,6 +225,18 @@ declare namespace Sortable {
          */
         onAdd?: (event: SortableEvent) => void;
         /**
+         * Created a clone of an element
+         */
+        onClone?: (event: SortableEvent) => void;
+        /**
+         * Element is chosen
+         */
+        onChoose?: (event: SortableEvent) => void;
+        /**
+         * Element is unchosen
+         */
+        onUnchoose?: (event: SortableEvent) => void;
+        /**
          * Changed sorting within list
          */
         onUpdate?: (event: SortableEvent) => void;

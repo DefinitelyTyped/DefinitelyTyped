@@ -5172,8 +5172,8 @@ declare namespace XrmEnum {
         Lookup = "lookup",
         Memo = "memo",
         Money = "money",
+        MultiOptionSet = "multioptionset",
         OptionSet = "optionset",
-        MultiSelectOptionSet = "multiselectoptionset",
         String = "string"
     }
 
