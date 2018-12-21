@@ -194,5 +194,5 @@ declare namespace LRU {
     /**
      * @deprecated just use the `LRU` type instead
      */
-    type Cache<K = any, V = any> = LRU<K, V>
+    type Cache<K = any, V = any> = LRU<K, V>;
 }

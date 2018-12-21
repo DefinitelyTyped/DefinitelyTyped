@@ -11,8 +11,8 @@ const foo = {
 };
 
 const cache = new LRU<string, Foo>();
-cache; // $ExpectType Cache<string, Foo>
-new LRU<string, Foo>({ // $ExpectType Cache<string, Foo>
+cache; // $ExpectType LRU<string, Foo>
+new LRU<string, Foo>({ // $ExpectType LRU<string, Foo>
     max: num,
     maxAge: num,
     length(value) {
@@ -27,9 +27,9 @@ new LRU<string, Foo>({ // $ExpectType Cache<string, Foo>
     noDisposeOnSet: false,
     updateAgeOnGet: false,
 });
-new LRU<string, Foo>(num); // $ExpectType Cache<string, Foo>
-new LRU<string, Foo>(); // $ExpectType Cache<string, Foo>
-new LRU<string, Foo>({ // $ExpectType Cache<string, Foo>
+new LRU<string, Foo>(num); // $ExpectType LRU<string, Foo>
+new LRU<string, Foo>(); // $ExpectType LRU<string, Foo>
+new LRU<string, Foo>({ // $ExpectType LRU<string, Foo>
     max: num,
     maxAge: num,
     length: (value) => {
@@ -40,7 +40,7 @@ new LRU<string, Foo>({ // $ExpectType Cache<string, Foo>
     noDisposeOnSet: false,
     updateAgeOnGet: false,
 });
-new LRU<string, Foo>(num); // $ExpectType Cache<string, Foo>
+new LRU<string, Foo>(num); // $ExpectType LRU<string, Foo>
 
 cache.length; // $ExpectType number
 cache.length = 1; // $ExpectError
@@ -82,26 +82,26 @@ cache.prune();
 cache.forEach(function(value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
-    cache; // $ExpectType Cache<string, Foo>
-    this; // $ExpectType Cache<string, Foo>
+    cache; // $ExpectType LRU<string, Foo>
+    this; // $ExpectType LRU<string, Foo>
 });
 cache.forEach(function(value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
-    cache; // $ExpectType Cache<string, Foo>
+    cache; // $ExpectType LRU<string, Foo>
     this; // $ExpectType { foo(): void; }
 }, foo);
 
 cache.rforEach(function(value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
-    cache; // $ExpectType Cache<string, Foo>
-    this; // $ExpectType Cache<string, Foo>
+    cache; // $ExpectType LRU<string, Foo>
+    this; // $ExpectType LRU<string, Foo>
 });
 cache.rforEach(function(value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
-    cache; // $ExpectType Cache<string, Foo>
+    cache; // $ExpectType LRU<string, Foo>
     this; // $ExpectType { foo(): void; }
 }, foo);
 
