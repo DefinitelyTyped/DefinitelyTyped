@@ -10,3 +10,11 @@ proxy('www.google.com', {});
 proxy('www.google.com', {
     proxyReqPathResolver: (req) => req.url,
 });
+
+proxy('www.google.com', {
+    proxyReqOptDecorator(proxyReqOpts, srcReq) {
+        console.log(proxyReqOpts.headers, proxyReqOpts.method);
+        console.log(srcReq.url, srcReq.cookies);
+        return proxyReqOpts;
+    }
+});

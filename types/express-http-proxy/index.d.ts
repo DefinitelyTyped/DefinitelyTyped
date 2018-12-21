@@ -5,9 +5,11 @@
 // TypeScript Version: 2.2
 
 import { RequestHandler, Request } from "express";
+import { RequestOptions } from "http";
 
 export interface ProxyOptions {
     proxyReqPathResolver?: (req: Request) => string;
+    proxyReqOptDecorator?: (proxyReqOpts: RequestOptions, srcReq: Request) => RequestOptions;
 }
 
 declare function proxy(host: string, options?: ProxyOptions): RequestHandler;
