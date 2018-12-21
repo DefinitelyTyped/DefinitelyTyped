@@ -867,7 +867,7 @@ export interface LabelListProps {
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
     clockWise?: boolean;
-    content?: React.ReactElement<any> | ContentRenderer<Label>;
+    content?: React.ReactElement<any> | ContentRenderer<LabelProps>;
     data?: number;
     dataKey: string | number | RechartsFunction;
     formatter?: LabelFormatter;
