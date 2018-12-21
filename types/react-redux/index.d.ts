@@ -67,10 +67,10 @@ export type AdvancedComponentDecorator<TProps, TOwnProps> =
  */
 export type Matching<InjectedProps, DecorationTargetProps> = {
     [P in keyof DecorationTargetProps]: P extends keyof InjectedProps
-        ? InjectedProps[P] extends DecorationTargetProps[P]
-            ? DecorationTargetProps[P]
-            : InjectedProps[P]
-        : DecorationTargetProps[P];
+    ? InjectedProps[P] extends DecorationTargetProps[P]
+    ? DecorationTargetProps[P]
+    : InjectedProps[P]
+    : DecorationTargetProps[P];
 };
 
 /**
@@ -115,22 +115,22 @@ export type InferableComponentEnhancer<TInjectedProps> =
 
 export type InferThunkActionCreatorType<TActionCreator extends (...args: any[]) => any> =
     TActionCreator extends (...args: infer TParams) => (...args: any[]) => infer TReturn
-        ? (...args: TParams) => TReturn
-        : TActionCreator;
+    ? (...args: TParams) => TReturn
+    : TActionCreator;
 
 export type HandleThunkActionCreator<TActionCreator> =
     TActionCreator extends (...args: any[]) => any
-        ? InferThunkActionCreatorType<TActionCreator>
-        : TActionCreator;
+    ? InferThunkActionCreatorType<TActionCreator>
+    : TActionCreator;
 
 // redux-thunk middleware returns thunk's return value from dispatch call
 // https://github.com/reduxjs/redux-thunk#composition
 export type ResolveThunks<TDispatchProps> =
     TDispatchProps extends { [key: string]: any }
-        ? {
-            [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
-        }
-        : TDispatchProps;
+    ? {
+        [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
+    }
+    : TDispatchProps;
 
 /**
  * Connects a React component to a Redux store.
@@ -394,15 +394,13 @@ export interface ConnectOptions {
      *
      * @default ReactReduxContext
      */
-    context?: Context<any>;
+    context?: Context<ReactReduxContextObject>;
 }
 
 export interface ReactReduxContextObject<SS = any, A extends Action = AnyAction> {
     store: Store<SS, A>;
     storeState: SS;
 }
-
-export type ReactReduxContextType<SS = any, A extends Action = AnyAction> = Context<ReactReduxContextObject<SS, A>>;
 
 export interface ProviderProps<A extends Action = AnyAction> {
     /**
@@ -414,7 +412,7 @@ export interface ProviderProps<A extends Action = AnyAction> {
      * If this is used, generate own connect HOC by using connectAdvanced, supplying the same context provided to the
      * Provider. Initial value doesn't matter, as it is overwritten with the internal state of Provider.
      */
-    context?: Context<any>;
+    context?: Context<ReactReduxContextObject>;
 }
 
 /**
@@ -435,4 +433,4 @@ export function createProvider(storeKey: string): typeof Provider;
  * Exposes the internal context used in react-redux. It is generally advised to use the connect HOC to connect to the
  * redux store instead of this approeach.
  */
-export const ReactReduxContext: ReactReduxContextType;
+export const ReactReduxContext: Context<ReactReduxContextObject>;
