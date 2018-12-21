@@ -1,4 +1,4 @@
-// Type definitions for cassandra-driver v3.5.0
+// Type definitions for cassandra-driver v3.6.0
 // Project: https://github.com/datastax/nodejs-driver
 // Definitions by: Marc Fisher <https://github.com/Svjard>
 //                 Christian D <https://github.com/pc-jedi>
@@ -572,6 +572,7 @@ export interface QueryOptions {
   serialConsistency?: number;
   timestamp?: number | _Long;
   traceQuery?: boolean;
+  host?: Host;
 }
 
 export interface ClientStatic {
@@ -687,8 +688,10 @@ export namespace auth {
 }
 
 export namespace errors {
-  abstract class DriverError {
+  abstract class DriverError extends Error {
     constructor(message: string, constructor?: any);
+
+    info: string;
   }
 
   class ArgumentError extends DriverError {
@@ -705,16 +708,28 @@ export namespace errors {
 
   class NoHostAvailableError extends DriverError {
     constructor(innerErrors: any, message?: string);
+
+    innerErrors: any;
   }
 
   class NotSupportedError extends DriverError {
     constructor(message: string);
   }
 
-  class OperationTimedOutError extends DriverError { }
+  class OperationTimedOutError extends DriverError { 
+    constructor(message: string, host?: string);
+
+    host?: string;
+  }
 
   class ResponseError extends DriverError {
     constructor(code: number, message: string);
+
+    code: number;
+  }
+
+  class BusyConnectionError extends DriverError {
+    constructor(address: string, maxRequestsPerConnection: number, connectionLength: number);
   }
 }
 
@@ -800,7 +815,7 @@ export namespace metadata {
   }
 
   interface IndexStatic {
-    new (name: string, target: string, kind: IndexType, options: Object): Index;
+    new (name: string, target: string, kind: string | IndexType, options: Object): Index;
 
     fromRows(indexRows: Array<types.Row>): Array<Index>;
     fromColumnRows(columnRows: Array<types.Row>, columnsByName: { [key: string]: ColumnInfo }): Array<Index>;
@@ -869,5 +884,7 @@ export namespace metadata {
     isCompact: boolean;
     memtableFlushPeriod: number;
     replicateOnWrite: boolean;
+    cdc?: boolean;
+    virtual: boolean;
   }
 }
