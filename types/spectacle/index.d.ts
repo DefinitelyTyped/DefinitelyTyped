@@ -164,6 +164,7 @@ declare module "spectacle" {
         controls?: boolean;
         globalStyles?: boolean;
         history?: any; // Needs a type, see https://github.com/ReactTraining/history
+        onStateChange?: (previousState?: string, nextState?: string) => void
         progress?: progressType;
         theme?: Theme;
         transition?: transitionType[];
@@ -229,6 +230,7 @@ declare module "spectacle" {
         notes?: string;
         onActive?: (slideIndex: string | number) => void;
         slideIndex?: number;
+        state?: string;
         transition?: transitionType[];
         transitionDuration?: number;
         transitionIn?: transitionType[];
