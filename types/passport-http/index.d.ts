@@ -52,7 +52,7 @@ export type DigestValidateFunction = (
     done: (error: any, valid: boolean) => void,
 ) => any;
 
-export class BasicStrategy extends passport.Strategy {
+export class BasicStrategy implements passport.Strategy {
     constructor(verify: BasicVerifyFunction);
     constructor(options: BasicStrategyOptions<false>, verify: BasicVerifyFunction);
     constructor(options: BasicStrategyOptions<true>, verify: BasicVerifyFunctionWithRequest);
@@ -61,7 +61,7 @@ export class BasicStrategy extends passport.Strategy {
     authenticate(req: express.Request, options?: object): void;
 }
 
-export class DigestStrategy extends passport.Strategy {
+export class DigestStrategy implements passport.Strategy {
     constructor(secret: DigestSecretFunction, validate?: DigestValidateFunction);
     constructor(options: DigestStrategyOptions, secret: DigestSecretFunction, validate?: DigestValidateFunction);
 
