@@ -1003,7 +1003,7 @@ export namespace Contacts {
     // Constants
 
     namespace Fields {
-        type Id = 'id';
+        type ID = 'id';
         type Name = 'name';
         type FirstName = 'firstName';
         type MiddleName = 'middleName';
@@ -1034,7 +1034,7 @@ export namespace Contacts {
         type SocialProfiles = 'socialProfiles';
         type NonGregorianBirthday = 'nonGregorianBirthday';
 
-        const ID: Id;
+        const ID: ID;
         const Name: Name;
         const FirstName: FirstName;
         const MiddleName: MiddleName;
@@ -1067,7 +1067,7 @@ export namespace Contacts {
     }
 
     type Field =
-        | Fields.Id
+        | Fields.ID
         | Fields.Name
         | Fields.FirstName
         | Fields.MiddleName
