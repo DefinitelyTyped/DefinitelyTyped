@@ -3,7 +3,7 @@
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
 //                 Renārs Vilnis <https://github.com/renarsvilnis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="express" />
 /// <reference types="express-session" />
