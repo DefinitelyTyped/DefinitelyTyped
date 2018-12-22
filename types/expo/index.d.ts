@@ -21,18 +21,8 @@ export * from 'react-native-maps';
 export { default as MapView } from 'react-native-maps';
 
 import { EventSubscription } from 'fbemitter';
-import { Component, ComponentClass, Ref, ComponentType } from 'react';
-import {
-    ColorPropType,
-    ImageRequireSource,
-    ImageURISource,
-    LinkingStatic as ReactNativeLinkingStatic,
-    NativeEventEmitter,
-    ViewProps,
-    ViewStyle,
-    Permission,
-    StyleProp
-} from 'react-native';
+import { Component, ComponentClass, ComponentType, Ref } from 'react';
+import { ImageRequireSource, ImageURISource, LinkingStatic as ReactNativeLinkingStatic, StyleProp, ViewProps, ViewStyle } from 'react-native';
 
 export type Axis = number;
 export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
@@ -1010,150 +1000,479 @@ export namespace Constants {
  * Contacts
  */
 export namespace Contacts {
-    type PhoneNumbers = 'phoneNumbers';
-    type Emails = 'emails';
-    type Addresses = 'addresses';
-    type Image = 'image';
-    type Thumbnail = 'thumbnail';
-    type Note = 'note';
-    type Birthday = 'birthday';
-    type NonGregorianBirthday = 'nonGregorianBirthday';
-    type NamePrefix = 'namePrefix';
-    type NameSuffix = 'nameSuffix';
-    type PhoneticFirstName = 'phoneticFirstName';
-    type PhoneticMiddleName = 'phoneticMiddleName';
-    type PhoneticLastName = 'phoneticLastName';
-    type SocialProfiles = 'socialProfiles';
-    type InstantMessageAddresses = 'instantMessageAddresses';
-    type UrlAddresses = 'urlAddresses';
-    type Dates = 'dates';
-    type Relationships = 'relationships';
+    // Constants
 
-    const PHONE_NUMBERS: PhoneNumbers;
-    const EMAILS: Emails;
-    const ADDRESSES: Addresses;
-    const IMAGE: Image;
-    const THUMBNAIL: Thumbnail;
-    const NOTE: Note;
-    const BIRTHDAY: Birthday;
-    const NON_GREGORIAN_BIRTHDAY: NonGregorianBirthday;
-    const NAME_PREFIX: NamePrefix;
-    const NAME_SUFFIX: NameSuffix;
-    const PHONETIC_FIRST_NAME: PhoneticFirstName;
-    const PHONETIC_MIDDLE_NAME: PhoneticMiddleName;
-    const PHONETIC_LAST_NAME: PhoneticLastName;
-    const SOCIAL_PROFILES: SocialProfiles;
-    const IM_ADDRESSES: InstantMessageAddresses;
-    const URLS: UrlAddresses;
-    const DATES: Dates;
-    const RELATIONSHIPS: Relationships;
+    namespace Fields {
+        type Id = 'id';
+        type Name = 'name';
+        type FirstName = 'firstName';
+        type MiddleName = 'middleName';
+        type LastName = 'lastName';
+        type NamePrefix = 'namePrefix';
+        type NameSuffix = 'nameSuffix';
+        type PhoneticFirstName = 'phoneticFirstName';
+        type PhoneticMiddleName = 'phoneticMiddleName';
+        type PhoneticLastName = 'phoneticLastName';
+        type Birthday = 'birthday';
+        type Emails = 'emails';
+        type PhoneNumbers = 'phoneNumbers';
+        type Addresses = 'addresses';
+        type InstantMessageAddresses = 'instantMessageAddresses';
+        type UrlAddresses = 'urlAddresses';
+        type Company = 'company';
+        type JobTitle = 'jobTitle';
+        type Department = 'department';
+        type ImageAvailable = 'imageAvailable';
+        type Image = 'image';
+        type Note = 'note';
+        type Dates = 'dates';
+        type Relationships = 'relationships';
+        type Nickname = 'nickname';
+        type RawImage = 'rawImage';
+        type MaidenName = 'maidenName';
+        type ContactType = 'contactType';
+        type SocialProfiles = 'socialProfiles';
+        type NonGregorianBirthday = 'nonGregorianBirthday';
 
-    type FieldType = PhoneNumbers | Emails | Addresses | Image | Thumbnail |
-        Note | Birthday | NonGregorianBirthday | NamePrefix | NameSuffix |
-        PhoneticFirstName | PhoneticMiddleName | PhoneticLastName | SocialProfiles |
-        InstantMessageAddresses | UrlAddresses | Dates | Relationships;
-
-    interface Options {
-        pageSize?: number;
-        pageOffset?: number;
-        fields?: FieldType[];
+        const ID: Id;
+        const Name: Name;
+        const FirstName: FirstName;
+        const MiddleName: MiddleName;
+        const LastName: LastName;
+        const NamePrefix: NamePrefix;
+        const NameSuffix: NameSuffix;
+        const PhoneticFirstName: PhoneticFirstName;
+        const PhoneticMiddleName: PhoneticMiddleName;
+        const PhoneticLastName: PhoneticLastName;
+        const Birthday: Birthday;
+        const Emails: Emails;
+        const PhoneNumbers: PhoneNumbers;
+        const Addresses: Addresses;
+        const InstantMessageAddresses: InstantMessageAddresses;
+        const UrlAddresses: UrlAddresses;
+        const Company: Company;
+        const JobTitle: JobTitle;
+        const Department: Department;
+        const ImageAvailable: ImageAvailable;
+        const Image: Image;
+        const Note: Note;
+        const Dates: Dates;
+        const Relationships: Relationships;
+        const Nickname: Nickname;
+        const RawImage: RawImage;
+        const MaidenName: MaidenName;
+        const ContactType: ContactType;
+        const SocialProfiles: SocialProfiles;
+        const NonGregorianBirthday: NonGregorianBirthday;
     }
 
+    type Field =
+        | Fields.Id
+        | Fields.Name
+        | Fields.FirstName
+        | Fields.MiddleName
+        | Fields.LastName
+        | Fields.NamePrefix
+        | Fields.NameSuffix
+        | Fields.PhoneticFirstName
+        | Fields.PhoneticMiddleName
+        | Fields.PhoneticLastName
+        | Fields.Birthday
+        | Fields.Emails
+        | Fields.PhoneNumbers
+        | Fields.Addresses
+        | Fields.InstantMessageAddresses
+        | Fields.UrlAddresses
+        | Fields.Company
+        | Fields.JobTitle
+        | Fields.Department
+        | Fields.ImageAvailable
+        | Fields.Image
+        | Fields.Note
+        | Fields.Dates
+        | Fields.Relationships
+        | Fields.Nickname
+        | Fields.RawImage
+        | Fields.MaidenName
+        | Fields.ContactType
+        | Fields.SocialProfiles
+        | Fields.NonGregorianBirthday;
+
+    namespace FormTypes {
+        type New = 'new';
+        type Unknown = 'unknown';
+        type Default = 'default';
+
+        const New: New;
+        const Unknown: Unknown;
+        const Default: Default;
+    }
+
+    type FormType = FormTypes.New | FormTypes.Unknown | FormTypes.Default;
+
+    /**
+     * iOS Only
+     */
+    namespace ContactTypes {
+        type Person = 'person';
+        type Company = 'company';
+
+        const Person: Person;
+        const Company: Company;
+    }
+
+    type ContactType = ContactTypes.Person | ContactTypes.Company;
+
+    namespace SortTypes {
+        type FirstName = 'firstName';
+        type LastName = 'lastName';
+        type UserDefault = 'userDefault';
+
+        const FirstName: FirstName;
+        const LastName: LastName;
+        const UserDefault: UserDefault;
+    }
+
+    type SortType = SortTypes.FirstName | SortTypes.LastName | SortTypes.UserDefault;
+
+    /**
+     * iOS Only
+     */
+    namespace ContainerTypes {
+        type Local = 'local';
+        type Exchange = 'exchange';
+        type CardDAV = 'cardDAV';
+        type Unassigned = 'unassigned';
+
+        const Local: Local;
+        const Exchange: Exchange;
+        const CardDAV: CardDAV;
+        const Unassigned: Unassigned;
+    }
+
+    type ContainerType = ContainerTypes.Local | ContainerTypes.Exchange | ContainerTypes.CardDAV | ContainerTypes.Unassigned;
+
+    namespace CalendarFormats {
+        type Gregorian = 'gregorian';
+        type Chinese = 'chinese';
+        type Hebrew = 'hebrew';
+        type Islamic = 'islamic';
+
+        const Gregorian: Gregorian;
+        const Chinese: Chinese;
+        const Hebrew: Hebrew;
+        const Islamic: Islamic;
+    }
+
+    type CalendarFormat = CalendarFormats.Gregorian | CalendarFormats.Chinese | CalendarFormats.Hebrew | CalendarFormats.Islamic;
+
+    // Types
+
+    /**
+     * A set of fields that define information about a single entity.
+     */
     interface Contact {
         id: string;
-        contactType: string;
         name: string;
         firstName?: string;
         middleName?: string;
         lastName?: string;
-        previousLastName?: string;
+        maidenName?: string;
         namePrefix?: string;
         nameSuffix?: string;
         nickname?: string;
         phoneticFirstName?: string;
         phoneticMiddleName?: string;
         phoneticLastName?: string;
-        emails?: Array<{
-            email?: string;
-            primary?: boolean;
-            label: string;
-            id: string;
-        }>;
-        phoneNumbers?: Array<{
-            number?: string;
-            primary?: boolean;
-            digits?: string;
-            countryCode?: string;
-            label: string;
-            id: string;
-        }>;
-        addresses?: Array<{
-            street?: string;
-            city?: string;
-            country?: string;
-            region?: string;
-            neighborhood?: string;
-            postalCode?: string;
-            poBox?: string;
-            isoCountryCode?: string;
-            label: string;
-            id: string;
-        }>;
-        socialProfiles?: Array<{
-            service?: string;
-            localizedProfile?: string;
-            url?: string;
-            username?: string;
-            userId?: string;
-            label: string;
-            id: string;
-        }>;
-        instantMessageAddresses?: Array<{
-            service?: string;
-            username?: string;
-            localizedService?: string;
-            label: string;
-            id: string;
-        }>;
-        urls?: {
-            label: string;
-            url?: string;
-            id: string;
-        };
         company?: string;
         jobTitle?: string;
         department?: string;
-        imageAvailable?: boolean;
-        image?: {
-            uri?: string;
-        };
-        thumbnail?: {
-            uri?: string;
-        };
         note?: string;
-        dates?: Array<{
-            day?: number;
-            month?: number;
-            year?: number;
-            id: string;
-            label: string;
-        }>;
-        relationships?: Array<{
-            label: string;
-            name?: string;
-            id: string;
-        }>;
+        imageAvailable?: boolean;
+        image?: Image;
+        rawImage?: Image;
+        contactType: ContactType;
+        birthday?: ContactDate;
+        dates?: ContactDate[];
+        relationships?: Relationship[];
+        emails?: Email[];
+        phoneNumbers?: PhoneNumber[];
+        addresses?: Address[];
+        instantMessageAddresses?: InstantMessageAddress[];
+        urlAddresses?: UrlAddress[];
+        /**
+         * iOS only
+         */
+        nonGregorianBirthday?: ContactDate;
+        /**
+         * iOS only
+         */
+        socialProfiles?: SocialProfile[];
     }
 
-    interface Response {
+    interface ContactDate {
+        day: number;
+        month: number;
+        year: number;
+        format: CalendarFormat;
+        id: string;
+        label: string;
+    }
+
+    interface Relationship {
+        name: string;
+        id: string;
+        label: string;
+    }
+
+    interface Email {
+        email: string;
+        isPrimary: boolean;
+        id: string;
+        label: string;
+    }
+
+    interface PhoneNumber {
+        number: string;
+        isPrimary: boolean;
+        digits: string;
+        countryCode: string;
+        id: string;
+        label: string;
+    }
+
+    interface Address {
+        street: string;
+        city: string;
+        country: string;
+        region: string;
+        neighborhood: string;
+        postalCode: string;
+        poBox: string;
+        isoCountryCode: string;
+        id: string;
+        label: string;
+    }
+
+    /**
+     * iOS only
+     */
+    interface SocialProfile {
+        service: string;
+        username: string;
+        localizedProfile: string;
+        url: string;
+        userId: string;
+        id: string;
+        label: string;
+    }
+
+    interface InstantMessageAddress {
+        service: string;
+        username: string;
+        localizedProfile: string;
+        id: string;
+        label: string;
+    }
+
+    interface UrlAddress {
+        url: string;
+        id: string;
+        label: string;
+    }
+
+    /**
+     * Information regarding thumbnail images
+     */
+    interface Image {
+        uri: string;
+        /**
+         * iOS only
+         * In Android you can get dimensions using `ReactNative.Image.getSize`
+         */
+        width?: number;
+        /**
+         * iOS only
+         * In Android you can get dimensions using `ReactNative.Image.getSize`
+         */
+        height?: number;
+        /**
+         * Avoid using Base 64 in React Native
+         * iOS only
+         */
+        base64?: string;
+    }
+
+    /**
+     * A parent to contacts. A contact can belong to multiple groups.
+     * iOS Only
+     */
+    interface Group {
+        id: string;
+        name: string;
+    }
+
+    /**
+     * A parent to contacts and groups.
+     * iOS Only
+     */
+    interface Container {
+        id: string;
+        name: string;
+    }
+
+    /**
+     * Denotes the functionality of a native contact form
+     */
+    interface FormOptions {
+        displayedPropertyKeys?: Field[];
+        message?: string;
+        alternateName?: string;
+        cancelButtonTitle?: string;
+        groupId?: string;
+        allowsEditing?: boolean;
+        allowsActions?: boolean;
+        shouldShowLinkedContacts?: boolean;
+        isNew?: boolean;
+        preventAnimation?: boolean;
+    }
+
+    /**
+     * Used to query contacts from the user's device
+     */
+    interface ContactQuery {
+        fields?: Field[];
+        pageSize?: number;
+        pageOffset?: number;
+        id?: string;
+        /** Android Only */
+        sort?: SortType;
+        /** iOS Only */
+        name?: string;
+        /** iOS Only */
+        groupId?: string;
+        /** iOS Only */
+        containerID?: string;
+        /** iOS Only */
+        rawContacts?: boolean;
+    }
+
+    interface ContactResponse {
         data: Contact[];
-        total: number;
+        /**
+         * This will be true if there are more contacts to retrieve beyond what is returned
+         */
         hasNextPage: boolean;
+        /**
+         * `true` if there are previous contacts that weren't retrieved due to `pageOffset`
+         */
         hasPreviousPage: boolean;
     }
 
-    function getContactsAsync(options: Options): Promise<Response>;
-    function getContactByIdAsync(options: { id?: string; fields?: FieldType[] }): Promise<Contact>;
+    /**
+     * Used to query native contact groups.
+     * iOS Only
+     */
+    interface GroupQuery {
+        groupName?: string;
+        groupId?: string;
+        containerId?: string;
+    }
+
+    /**
+     * Used to query native contact containers.
+     * iOS Only
+     */
+    interface ContainerQuery {
+        contactId?: string;
+        groupId?: string;
+        containerId?: string;
+    }
+
+    // Methods
+
+    /**
+     * Return a list of contacts that fit a given criteria. You can get all of the contacts by passing no criteria.
+     */
+    function getContactsAsync(contactQuery?: ContactQuery): Promise<ContactResponse>;
+    /**
+     * Returns a contact matching the input id. Used for gathering precise data about a contact.
+     */
+    function getContactByIdAsync(contactId: string, fields?: Field[]): Promise<Contact>;
+
+    // iOS Only - temporary
+    /**
+     * Creates a new contact and adds it to the system.
+     * iOS Only - temporary
+     */
+    function addContactAsync(contact: Contact, containerId?: string): Promise<string>;
+    /**
+     * Mutate the information of an existing contact.
+     * iOS Only - temporary
+     */
+    function updateContactAsync(contact: Contact): Promise<string>;
+    /**
+     * Delete a contact from the system.
+     * iOS Only - temporary
+     */
+    function removeContactAsync(contactId: string): Promise<void>;
+    /**
+     * Query a set of contacts and write them to a local uri that can be used for sharing with `ReactNative.Share`.
+     * iOS Only - temporary
+     */
+    function writeContactToFileAsync(contactQuery: ContactQuery): Promise<string>;
+
+    // iOS Only
+    /**
+     * Present a native form for manipulating contacts.
+     * iOS Only
+     */
+    function presentFormAsync(contactId: string, contact?: Contact, formOptions?: FormOptions): Promise<void>;
+    /**
+     * Add a group to a container.
+     * iOS Only
+     */
+    function addExistingGroupToContainerAsync(groupId: string, containerId: string): Promise<void>;
+    /**
+     * Create a group with a name, and add it to a container. If the container is undefined, the default container will be targeted.
+     * iOS Only
+     */
+    function createGroupAsync(groupName: string, containerId?: string): Promise<string>;
+    /**
+     * Change the name of an existing group.
+     * iOS Only
+     */
+    function updateGroupNameAsync(groupName: string, groupId: string): Promise<void>;
+    /**
+     * Delete a group from the device.
+     * iOS Only
+     */
+    function removeGroupAsync(groupId: string): Promise<void>;
+    /**
+     * Add a contact as a member to a group. A contact can be a member of multiple groups.
+     * iOS Only
+     */
+    function addExistingContactToGroupAsync(contactId: string, groupId: string): Promise<void>;
+    /**
+     * Remove a contact's membership from a given group. This will not delete the contact.
+     * iOS Only
+     */
+    function removeContactFromGroupAsync(contactId: string, groupId: string): Promise<void>;
+    /**
+     * Query and return a list of system groups.
+     * iOS Only
+     */
+    function getGroupsAsync(query: GroupQuery): Promise<Group[]>;
+    /**
+     * Get the default container's ID.
+     * iOS Only
+     */
+    function getDefaultContainerIdAsync(): Promise<string>;
+    /**
+     * Query a list of system containers.
+     * iOS Only
+     */
+    function getContainersAsync(containerQuery: ContainerQuery): Promise<Container[]>;
 }
 
 /**
