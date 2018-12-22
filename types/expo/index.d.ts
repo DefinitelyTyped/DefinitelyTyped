@@ -1394,7 +1394,7 @@ export namespace Contacts {
     /**
      * Return a list of contacts that fit a given criteria. You can get all of the contacts by passing no criteria.
      */
-    function getContactsAsync(contactQuery?: ContactQuery): Promise<ContactResponse>;
+    function getContactsAsync(contactQuery: ContactQuery): Promise<ContactResponse>;
     /**
      * Returns a contact matching the input id. Used for gathering precise data about a contact.
      */
