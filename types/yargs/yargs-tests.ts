@@ -944,6 +944,14 @@ function Argv$fallbackToUnknownForUnknownOptions() {
         .argv
         .bogus;
 
+    const argv = yargs.option({ a: {}, b: {} }).option("c", {}).argv;
+    // $ExpectType unknown
+    argv.a;
+    // $ExpectType unknown
+    argv.b;
+    // $ExpectType unknown
+    argv.c;
+
     // $ExpectError
     const x: string = yargs.argv.x;
     return x;
