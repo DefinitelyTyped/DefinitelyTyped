@@ -18,8 +18,8 @@ export interface FrontloadConnectOptions {
 
 export const Frontload: ComponentClass<FrontloadProps>;
 
-export function frontloadConnect <P = {}>(
-    frontload: (props: P) => Promise<void>,
+export function frontloadConnect(
+    frontload: (props: {}) => Promise<void>,
     options?: FrontloadConnectOptions,
 ): <P = {}>(Component: ComponentType<P>) => ComponentType<P>;
 
