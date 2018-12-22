@@ -1,13 +1,15 @@
-// Type definitions for passport-linkedin
-// Project: https://github.com/TOOD/passport-linkedin
+// Type definitions for passport-linkedin-oauth2
+// Project: https://github.com/auth0/passport-linkedin-oauth2
 // Definitions by: Andrew Vetovitz <https://github.com/andrewvetovitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 2.8
 
-import passport = require('passport');
-import express = require('express');
+/// <reference types="passport"/>
 
-export interface Profile extends passport.Profile {
+import { Profile as passportProfile, AuthenticateOptions, Strategy as passportStrategy } from 'passport';
+import { Request } from 'express';
+
+export interface Profile extends passportProfile {
     id: string;
     displayName: string;
     name: {
@@ -15,12 +17,12 @@ export interface Profile extends passport.Profile {
         givenName: string;
     };
     emails: [{ value: string }];
-    photos: [ { value: string }];
+    photos: [{ value: string }];
     _raw: string;
     _json: any;
 }
 
-export interface AuthenticateOptions extends passport.AuthenticateOptions {
+export interface AuthenticateOptions extends AuthenticateOptions {
     authType?: string;
 }
 
@@ -42,12 +44,12 @@ export type VerifyFunction =
     (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
 
 export type VerifyFunctionWithRequest =
-    (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
+    (req: Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
 
-export class Strategy extends passport.Strategy {
+export class Strategy extends passportStrategy {
     constructor(options: StrategyOptionWithRequest, verify: VerifyFunctionWithRequest);
     constructor(options: StrategyOption, verify: VerifyFunction);
 
     name: string;
-    authenticate(req: express.Request, options?: object): void;
+    authenticate(req: Request, options?: object): void;
 }
