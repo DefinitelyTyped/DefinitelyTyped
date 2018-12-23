@@ -1205,6 +1205,7 @@ const contact: Contacts.Contact = {
 };
 
 async () => {
+    const response1: Contacts.ContactResponse = await Contacts.getContactsAsync();
     const response2: Contacts.ContactResponse = await Contacts.getContactsAsync({ id: 'contactId' });
 
     const response3: Contacts.Contact = await Contacts.getContactByIdAsync('contactId');
