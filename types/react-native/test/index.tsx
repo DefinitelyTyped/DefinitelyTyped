@@ -182,7 +182,7 @@ const s = StyleSheet.create({
     marginTop: 5, // if this line commented, errors also gone
   },
 })
-const f1: RegisteredStyle<TextStyle> = s.shouldWork
+const f1: TextStyle = s.shouldWork
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
