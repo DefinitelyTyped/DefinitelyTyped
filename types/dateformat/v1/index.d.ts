@@ -1,4 +1,4 @@
-// Type definitions for dateformat v1.0.12
+// Type definitions for dateformat 1.0
 // Project: https://github.com/felixge/node-dateformat
 // Definitions by: Kombu <https://github.com/aicest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -71,7 +71,5 @@ interface DateFormatStatic {
     i18n: DateFormatI18n;
 }
 
-declare module 'dateformat' {
-    const dateFormat: DateFormatStatic;
-    export = dateFormat;
-}
+declare const dateFormat: DateFormatStatic;
+export = dateFormat;

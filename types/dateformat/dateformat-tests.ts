@@ -14,12 +14,11 @@ dateFormat(now, 'isoDateTime');
 // 2007-06-09T17:46:21
 
 // ...Or add your own
-dateFormat.masks['hammerTime'] = `HH:MM! "Can't touch this!"`;
+dateFormat.masks.hammerTime = 'HH:MM! "Can\'t touch this!"';
 dateFormat(now, 'hammerTime');
 // 17:46! Can't touch this!
 
-// When using the standalone dateFormat function,
-// you can also provide the date as a string
+// You can also provide the date as a string
 dateFormat('Jun 9 2007', 'fullDate');
 // Saturday, June 9, 2007
 
@@ -43,7 +42,7 @@ dateFormat('longTime');
 dateFormat(now, 'longTime', true);
 // 10:46:21 PM UTC
 
-// ...Or add the prefix 'UTC:' or 'GMT:' to your mask.
+// ...Or add the prefix "UTC:" or "GMT:" to your mask.
 dateFormat(now, 'UTC:h:MM:ss TT Z');
 // 10:46:21 PM UTC
 
