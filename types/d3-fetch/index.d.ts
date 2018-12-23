@@ -173,7 +173,7 @@ export function html(url: string, init?: RequestInit): Promise<Document>;
  * @param url A valid URL string.
  * @param init An optional object of image properties to set.
  */
-export function image(url: string, init?: {[key: string]: any}): Promise<HTMLImageElement>;
+export function image(url: string, init?: Partial<HTMLImageElement>): Promise<HTMLImageElement>;
 
 /**
  * Fetches the json file at the specified input URL and returns it as a Promise of a parsed JSON object.
