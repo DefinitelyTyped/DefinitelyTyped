@@ -1001,7 +1001,6 @@ interface ActiveXObject {
     on(
         obj: Shell32.ShellFolderViewOC, event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked',
         handler: (this: Shell32.ShellFolderViewOC, parameter: {}) => void): void;
-    new <K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

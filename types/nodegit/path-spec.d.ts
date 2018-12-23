@@ -23,7 +23,7 @@ export class Pathspec {
     static matchListEntrycount(m: any): number;
     static matchListFailedEntry(m: any, pos: number): string;
     static matchListFailedEntrycount(m: any): number;
-    static create(pathspec: Strarray): Pathspec;
+    static create(pathspec: Strarray | string | string[]): Pathspec;
 
     free(): void;
     matchDiff(diff: Diff, flags: number): Promise<any>;

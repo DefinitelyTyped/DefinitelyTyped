@@ -1,6 +1,4 @@
-
-
-import page = require("page");
+import page from 'page';
 
 //***********************************************************************
 // Basic Example
@@ -13,6 +11,16 @@ page('/contact', contact);
 page('/contact/:contactName', contact);
 page('/contact/inline/:contactName', ctx => { });
 page();
+page({
+    click: false,
+    popstate: true,
+    dispatch: false,
+    hashbang: true,
+    decodeURLComponents: false
+});
+page({
+    hashbang: true
+});
 
 var index: PageJS.Callback = function() {
     document.querySelector('p')

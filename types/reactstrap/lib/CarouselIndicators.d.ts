@@ -1,11 +1,12 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface CarouselIndicatorsProps extends React.HTMLProps<HTMLElement> {
+export type CarouselIndicatorsProps<T = {}> = React.HTMLProps<HTMLElement> & {
     items: object[];
     activeIndex: number;
     cssModule?: CSSModule;
     onClickHandler: (idx: number) => void;
-}
+} & T;
 
-declare const CarouselIndicators: React.StatelessComponent<CarouselIndicatorsProps>;
+declare class CarouselIndicators<T = {[key: string]: any}> extends React.Component<CarouselIndicatorsProps<T>> {}
 export default CarouselIndicators;

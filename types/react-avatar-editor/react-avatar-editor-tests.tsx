@@ -12,6 +12,14 @@ const imageState: ImageState = {
 };
 
 class AvatarEditorTest extends React.Component {
+    avatar: AvatarEditor;
+
+    test() {
+        const getImage: HTMLCanvasElement = this.avatar.getImage();
+        const getImageScaledToCanvas: HTMLCanvasElement = this.avatar.getImageScaledToCanvas();
+        const getCroppingRect: CroppedRect = this.avatar.getCroppingRect();
+    }
+
     render() {
         return (
             <div>
@@ -37,11 +45,13 @@ class AvatarEditorTest extends React.Component {
                 <AvatarEditor image="" onMouseMove={event => {}} />
                 <AvatarEditor image="" onImageChange={() => {}} />
                 <AvatarEditor image="" onPositionChange={() => {}} />
+                <AvatarEditor
+                    image=""
+                    ref={ref => {
+                        this.avatar = ref!;
+                    }}
+                />
             </div>
         );
     }
 }
-
-const getImage: HTMLCanvasElement = AvatarEditor.getImage();
-const getImageScaledToCanvas: HTMLCanvasElement = AvatarEditor.getImageScaledToCanvas();
-const getCroppingRect: CroppedRect = AvatarEditor.getCroppingRect();

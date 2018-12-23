@@ -6,6 +6,7 @@
 //                 Adam Cmiel <https://github.com/adamcmiel>
 //                 Justin Leider <https://github.com/jleider>
 //                 Kamil Gałuszka <https://github.com/galuszkak>
+//                 Stefan Langeder <https://github.com/slangeder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -255,8 +256,6 @@ declare namespace stripe {
         }
 
         interface StripePaymentResponse {
-            token?: Token;
-            source?: Source;
             complete: (status: string) => void;
             payerName?: string;
             payerEmail?: string;
@@ -266,11 +265,20 @@ declare namespace stripe {
             methodName: string;
         }
 
+        interface StripeTokenPaymentResponse extends StripePaymentResponse {
+            token: Token;
+        }
+
+        interface StripeSourcePaymentResponse extends StripePaymentResponse {
+            source: Source;
+        }
+
         interface StripePaymentRequest {
             canMakePayment(): Promise<{applePay?: boolean} | null>;
             show(): void;
             update(options: StripePaymentRequestUpdateOptions): void;
-            on(event: 'token' | 'source', handler: (response: StripePaymentResponse) => void): void;
+            on(event: 'token', handler: (response: StripeTokenPaymentResponse) => void): void;
+            on(event: 'source', handler: (response: StripeSourcePaymentResponse) => void): void;
             on(event: 'cancel', handler: () => void): void;
             on(event: 'shippingaddresschange', handler: (response: {updateWith: (options: UpdateDetails) => void, shippingAddress: ShippingAddress}) => void): void;
             on(event: 'shippingoptionchange', handler: (response: {updateWith: (options: UpdateDetails) => void, shippingOption: ShippingOption}) => void): void;
@@ -301,10 +309,13 @@ declare namespace stripe {
         }
 
         interface ElementChangeResponse {
+            elementType: string;
             brand: string;
             complete: boolean;
             empty: boolean;
             value?: { postalCode: string | number };
+            country?: string;
+            bankName?: string;
             error?: Error;
         }
 
@@ -313,7 +324,7 @@ declare namespace stripe {
             locale?: string;
         }
 
-        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton';
+        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
         }
@@ -331,6 +342,7 @@ declare namespace stripe {
             hideIcon?: boolean;
             iconStyle?: 'solid' | 'default';
             placeholder?: string;
+            placeholderCountry?: string;
             style?: {
                 base?: Style;
                 complete?: Style;
@@ -340,6 +352,8 @@ declare namespace stripe {
             };
             value?: string | { [objectKey: string]: string; };
             paymentRequest?: paymentRequest.StripePaymentRequest;
+            supportedCountries?: string[];
+            disabled?: boolean;
         }
 
         interface Style extends StyleOptions {

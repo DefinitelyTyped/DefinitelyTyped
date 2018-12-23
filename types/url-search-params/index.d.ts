@@ -9,7 +9,7 @@ declare class URLSearchParams {
     append(name: string, value: any): void;
     delete(name: string): void;
     entries(): Iterator<string>;
-    get(name: string): string;
+    get(name: string): string | null;
     getAll(name: string): string[];
     has(name: string): boolean;
     keys(): Iterator<string>;

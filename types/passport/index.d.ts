@@ -12,7 +12,7 @@ declare global {
     namespace Express {
         interface Request {
             authInfo?: any;
-            user?: User;
+            user?: any;
 
             // These declarations are merged into express's Request type
             login(user: any, done: (err: any) => void): void;
@@ -25,9 +25,6 @@ declare global {
 
             isAuthenticated(): boolean;
             isUnauthenticated(): boolean;
-        }
-        interface User {
-            [_: string]: any;
         }
     }
 }
@@ -48,9 +45,11 @@ declare namespace passport {
         successMessage?: boolean | string;
         successRedirect?: string;
         successReturnToOrRedirect?: string;
+        state?: string;
         pauseStream?: boolean;
         userProperty?: string;
         passReqToCallback?: boolean;
+        prompt?: string;
     }
 
     interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
@@ -73,6 +72,7 @@ declare namespace passport {
     interface PassportStatic extends Authenticator {
         Authenticator: { new(): Authenticator };
         Passport: PassportStatic["Authenticator"];
+        Strategy: { new(): Strategy & StrategyCreatedStatic };
     }
 
     interface Strategy {

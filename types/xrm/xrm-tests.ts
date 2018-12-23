@@ -36,7 +36,7 @@ grids.forEach((gridControl: Xrm.Page.GridControl) => {
 
 /// Demonstrate generic overload vs typecast
 
-const lookupAttribute = <Xrm.Page.LookupControl> Xrm.Page.getControl("customerid");
+const lookupAttribute = Xrm.Page.getControl("customerid") as Xrm.Page.LookupControl;
 const lookupAttribute2 = Xrm.Page.getControl<Xrm.Page.LookupControl>("customerid");
 
 /// Demonstrate ES6 String literal syntax

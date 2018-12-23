@@ -15,8 +15,8 @@ const TruncateTest: React.SFC = _ => (
             <div>Test string</div>
         </Truncate>
 
-	<Truncate trimWhitespace={true}>
+        <Truncate trimWhitespace={true}>
             <div>Test string</div>
-	</Truncate>
+        </Truncate>
     </div>
 );

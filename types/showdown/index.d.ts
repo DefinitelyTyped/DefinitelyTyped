@@ -1,4 +1,4 @@
-// Type definitions for Showdown 1.7.3
+// Type definitions for Showdown 1.9.0
 // Project: https://github.com/coreyti/showdown
 // Definitions by: cbowdon <https://github.com/cbowdon>, Pei-Tang Huang <https://github.com/tan9>, Ariel-Saldana <https://github.com/arielsaldana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -295,6 +295,14 @@ declare namespace Showdown {
         makeHtml(text: string): string;
 
         /**
+         * Converts an HTML string into a markdown string
+         * 
+         * @param src The input text (HTML)
+         * @returns The output markdown
+         */
+        makeMarkdown(src: string): string;
+
+        /**
          * Setting a "local" option only affects the specified Converter object.
          *
          * @param optionKey
@@ -321,6 +329,7 @@ declare namespace Showdown {
          * @param name
          */
         addExtension(extension: ShowdownExtension, name: string): void;
+        addExtension(extension: ShowdownExtension[], name: string): void;
 
         /**
          * Use a global registered extension with THIS converter
@@ -379,8 +388,11 @@ declare namespace Showdown {
 
     /**
      * Setting a "global" option affects all instances of showdown
+     * 
+     * @param optionKey
+     * @param value
      */
-    function setOption(optionKey: string, value: string): void;
+    function setOption(optionKey: string, value: any): void;
 
     /**
      * Retrieve previous set global option.

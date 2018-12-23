@@ -9,8 +9,10 @@ import {
     Paginated
 } from '@feathersjs/feathers';
 import { Request } from 'express';
+import * as self from '@feathersjs/authentication-oauth2';
 
-export default function feathersAuthenticationOAuth2(options?: FeathersAuthenticationOAuth2Options): () => void;
+declare const feathersAuthenticationOAuth2: ((options?: FeathersAuthenticationOAuth2Options) => () => void) & typeof self;
+export default feathersAuthenticationOAuth2;
 
 export interface FeathersAuthenticationOAuth2Options {
     /**
@@ -58,10 +60,10 @@ export interface FeathersAuthenticationOAuth2Options {
     /**
      * A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
      */
-    Verifier: OAuth2Verifier;
+    Verifier: Verifier;
 }
 
-export class OAuth2Verifier {
+export class Verifier {
     constructor(app: Application, options: any)
 
     _updateEntity(entity: any, data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // updates an existing entity

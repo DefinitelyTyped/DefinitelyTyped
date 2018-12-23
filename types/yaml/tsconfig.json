@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "map.d.ts",
+        "pair.d.ts",
+        "parse-cst.d.ts",
+        "scalar.d.ts",
+        "seq.d.ts",
+        "types/binary.d.ts",
+        "types/timestamp.d.ts",
+        "yaml-tests.ts"
+    ]
+}

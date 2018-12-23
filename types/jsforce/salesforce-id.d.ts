@@ -1,2 +1,1 @@
-export class SalesforceId extends String {
-}
+export type SalesforceId = string

@@ -2,7 +2,7 @@
 // Project: https://github.com/orgsync/react-list
 // Definitions by: Yifei Yan <https://github.com/buptyyf>, Tom Shen <https://github.com/tomshen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import {
     Component,

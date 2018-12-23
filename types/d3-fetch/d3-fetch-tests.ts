@@ -1,5 +1,5 @@
 import * as d3Fetch from 'd3-fetch';
-import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
+import { DSVParsedArray, DSVRowString } from 'd3-dsv';
 
 interface MyType {
     foo: string;
@@ -49,3 +49,14 @@ promise1 = d3Fetch.tsv(url);
 promise1 = d3Fetch.tsv(url, init);
 promise2 = d3Fetch.tsv<MyType>(url, parseRow);
 promise2 = d3Fetch.tsv<MyType>(url, init, parseRow);
+
+let docPromise: Promise<Document>;
+docPromise = d3Fetch.html(url);
+docPromise = d3Fetch.html(url, init);
+
+docPromise = d3Fetch.svg(url);
+docPromise = d3Fetch.svg(url, init);
+
+let xmlDocPromise: Promise<XMLDocument>;
+xmlDocPromise = d3Fetch.xml(url);
+xmlDocPromise = d3Fetch.xml(url, init);

@@ -1,10 +1,8 @@
-// Type definitions for auth0 2.7
+// Type definitions for auth0 2.9.2
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as Promise from 'bluebird';
+// TypeScript Version: 2.8
 
 export interface ManagementClientOptions {
   token?: string;
@@ -33,8 +31,13 @@ export interface RetryOptions {
   maxRetries?: number;
 }
 
-export interface UserMetadata { }
-export interface AppMetadata { }
+export interface UserMetadata {
+  [propName: string]: string
+}
+
+export interface AppMetadata {
+  [propName: string]: any
+}
 
 export interface UserData {
   email?: string;
@@ -63,13 +66,16 @@ export interface UpdateUserData extends UserData {
 export interface GetUsersData {
   per_page?: number;
   page?: number;
-  include_totals?: boolean;
   sort?: string;
   connection?: string;
   fields?: string;
   include_fields?: boolean;
   q?: string;
   search_engine?: string;
+}
+
+export interface GetUsersDataPaged extends GetUsersData {
+  include_totals: boolean;
 }
 
 export interface Rule {
@@ -256,7 +262,7 @@ export interface CreateClientGrant {
   scope: string[];
 }
 
-export type Strategy = 
+export type Strategy =
   'ad' | 'adfs' | 'amazon' | 'dropbox' | 'bitbucket' | 'aol' | 'auth0-adldap' | 'auth0-oidc' |
   'auth0' | 'baidu' | 'bitly' | 'box' | 'custom' | 'daccount' | 'dwolla' | 'email' |
   'evernote-sandbox' | 'evernote' | 'exact' | 'facebook' | 'fitbit' | 'flickr' | 'github' |
@@ -340,11 +346,31 @@ export interface User {
   family_name?: string;
 }
 
+export interface Page {
+  start: number;
+  limit: number;
+  length: number;
+  total: number;
+}
+
+export interface UserPage extends Page {
+  users: User[];
+}
+
 export interface Identity {
   connection: string;
   user_id: string;
   provider: string;
   isSocial: boolean;
+  access_token?: string;
+  profileData?: {
+    email?: string;
+    email_verified?: boolean;
+    name?: string;
+    phone_number?: string;
+    phone_verified?: boolean;
+    request_language?: string;
+  }
 }
 
 export interface AuthenticationClientOptions {
@@ -462,7 +488,7 @@ export interface UnlinkAccountsResponse {
   profileData?: UnlinkAccountsResponseProfile
 }
 
-export interface LinkAccountsData {
+export interface LinkAccountsParams {
   user_id: string;
   connection_id?: string;
   provider?: string;
@@ -505,9 +531,84 @@ export interface EmailVerificationTicketOptions {
   result_url: string;
 }
 
+export interface BaseClientOptions {
+  baseUrl: string;
+  clientId?: string;
+}
 
+export interface OAuthClientOptions extends BaseClientOptions {
+  clientSecret?: string;
+}
+
+export interface DatabaseClientOptions extends BaseClientOptions {
+}
+
+export interface PasswordLessClientOptions extends BaseClientOptions {
+}
+
+export interface TokenManagerOptions extends BaseClientOptions {
+  headers?: any;
+}
+export interface UsersOptions extends BaseClientOptions {
+  headers?: any;
+}
+
+export interface SignInOptions extends VerifyOptions {
+  connection?: string;
+}
+
+export interface SocialSignInOptions {
+  access_token: string;
+  connection: string;
+}
+
+export interface SignInToken {
+  access_token: string;
+  id_token?: string;
+  token_type?: string;
+  expiry: number;
+}
+
+export interface RequestSMSCodeOptions extends RequestSMSOptions {
+  client_id: string;
+}
+
+export type SendType = 'link' | 'code';
+export interface RequestEmailCodeOrLinkOptions {
+  email: string;
+  send: SendType
+}
+
+export interface ImpersonateSettingOptions {
+  impersonator_id: string;
+  protocol: string;
+  token: string;
+  clientId?: string;
+}
+
+export type ClientAppType = 'native' | 'spa' | 'regular_web' | 'non_interactive' | 'rms' | 'box' |
+  'cloudbees' | 'concur' | 'dropbox' | 'mscrm' | 'echosign' | 'egnyte' | 'newrelic' | 'office365' |
+  'salesforce' | 'sentry' | 'sharepoint' | 'slack' | 'springcm' | 'zendesk' | 'zoom';
+export interface GetClientsOptions {
+    fields?: string[];
+    include_fields?: boolean;
+    page?: number;
+    per_page?: number;
+    include_totals?: boolean;
+    is_global?: boolean;
+    is_first_party?: boolean;
+    app_type?: ClientAppType[];
+}
 
 export class AuthenticationClient {
+
+  // Members
+  database?: DatabaseAuthenticator;
+  oauth?: OAuthAuthenticator;
+  passwordless?: PasswordlessAuthenticator;
+  tokens?: TokenManager;
+  users?: UsersManager;
+
   constructor(options: AuthenticationClientOptions);
   getClientInfo(): ClientInfo;
 
@@ -570,8 +671,9 @@ export class ManagementClient {
 
 
   // Clients
-  getClients(): Promise<Client[]>;
-  getClients(cb: (err: Error, clients: Client[]) => void): void;
+  getClients(params?: GetClientsOptions): Promise<Client[]>;
+  getClients(cb: (err: Error, clients: Client[]) => void ): void;
+  getClients(params: GetClientsOptions, cb: (err: Error, clients: Client[]) => void ): void;
 
   getClient(params: ClientParams): Promise<Client>;
   getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;
@@ -585,7 +687,7 @@ export class ManagementClient {
   deleteClient(params: ClientParams): Promise<void>;
   deleteClient(params: ClientParams, cb: (err: Error) => void): void;
 
-                                              
+
   // Client Grants
   getClientGrants(): Promise<ClientGrant[]>;
   getClientGrants(cb: (err: Error, data: ClientGrant[]) => void): void;
@@ -629,6 +731,8 @@ export class ManagementClient {
 
 
   // Users
+  getUsers(params: GetUsersDataPaged): Promise<UserPage>;
+  getUsers(params: GetUsersDataPaged, cb: (err: Error, userPage: UserPage) => void): void;
   getUsers(params?: GetUsersData): Promise<User[]>;
   getUsers(cb: (err: Error, users: User[]) => void): void;
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
@@ -664,8 +768,8 @@ export class ManagementClient {
   unlinkUsers(params: UnlinkAccountsParams): Promise<UnlinkAccountsResponse>;
   unlinkUsers(params: UnlinkAccountsParams, cb: (err: Error, data: UnlinkAccountsResponse) => void): void;
 
-  linkUsers(params: ObjectWithId, data: LinkAccountsData): Promise<any>;
-  linkUsers(params: ObjectWithId, data: LinkAccountsData, cb: (err: Error, data: any) => void): void;
+  linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
+  linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
 
 
   // Tokens
@@ -746,4 +850,64 @@ export class ManagementClient {
 
   updateResourceServer(params: ObjectWithId, data: ResourceServer): Promise<ResourceServer>;
   updateResourceServer(params: ObjectWithId, data: ResourceServer, cb?: (err: Error, data: ResourceServer) => void): void;
+}
+
+
+export class DatabaseAuthenticator {
+  constructor(options: DatabaseClientOptions, oauth: OAuthAuthenticator);
+
+  changePassword(data: ResetPasswordOptions): Promise<any>;
+  changePassword(data: ResetPasswordOptions, cb: (err: Error, message: string) => void): void;
+
+  requestChangePasswordEmail(data: ResetPasswordEmailOptions): Promise<any>;
+  requestChangePasswordEmail(data: ResetPasswordEmailOptions, cb: (err: Error, message: string) => void): void;
+
+  signIn(data: SignInOptions): Promise<SignInToken>;
+  signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  signUp(data: CreateUserData): Promise<User>;
+  signIn(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+
+}
+
+export class OAuthAuthenticator {
+  constructor(options: OAuthClientOptions);
+
+  passwordGrant(options: PasswordGrantOptions): Promise<SignInToken>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: SignInToken) => void): void;
+
+  signIn(data: SignInOptions): Promise<SignInToken>;
+  signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+
+  socialSignIn(data: SocialSignInOptions): Promise<SignInToken>;
+  socialSignIn(data: SocialSignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+}
+
+export class PasswordlessAuthenticator {
+  constructor(options: PasswordLessClientOptions, oauth: OAuthAuthenticator);
+
+  signIn(data: SignInOptions): Promise<SignInToken>;
+  signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  sendEmail(data: RequestEmailCodeOrLinkOptions): Promise<any>;
+  sendEmail(data: RequestEmailCodeOrLinkOptions, cb: (err: Error, message: string) => void): void;
+
+  sendSMS(data: RequestSMSCodeOptions): Promise<any>;
+  sendSMS(data: RequestSMSCodeOptions, cb: (err: Error, message: string) => void): void;
+}
+
+export class TokenManager {
+  constructor(options: TokenManagerOptions);
+
+}
+
+export class UsersManager {
+  constructor(options: UsersOptions);
+
+  getInfo(accessToken: string): Promise<User>;
+  getInfo(accessToken: string, cb: (err: Error, user: User) => void): void;
+
+  impersonate(userId: string, settings: ImpersonateSettingOptions): Promise<any>;
+  impersonate(userId: string, settings: ImpersonateSettingOptions, cb: (err: Error, data: any) => void): void;
 }

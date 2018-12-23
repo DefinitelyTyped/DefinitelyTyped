@@ -73,13 +73,10 @@ class ListItem extends React.Component<{ key: number; num: number }, {}> {
 }
 
 class InfiniteList extends React.Component<{}, { elements: React.ReactElement<any>[], isInfiniteLoading: boolean }> {
-    constructor(props?: {}, context?: any) {
-        super(props, context);
-        this.state = {
-            elements: this.buildElements(0, 20),
-            isInfiniteLoading: false
-        };
-    }
+    state = {
+        elements: this.buildElements(0, 20),
+        isInfiniteLoading: false
+    };
 
     buildElements(start: number, end: number) {
         var elements = [] as React.ReactElement<any>[];

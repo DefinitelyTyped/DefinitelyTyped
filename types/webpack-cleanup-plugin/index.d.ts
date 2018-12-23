@@ -2,7 +2,7 @@
 // Project: https://github.com/gpbl/webpack-cleanup-plugin#readme
 // Definitions by: Luka Maljic <https://github.com/malj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Plugin } from 'webpack';
 export = WebpackCleanupPlugin;

@@ -1,7 +1,10 @@
-/// <reference types="mocha"" />
-
 import { Expectation, Extension, Spy, createSpy, isSpy, assert, spyOn, extend, restoreSpies } from 'expect';
 import * as expect from 'expect';
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+  [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 describe('chaining assertions', () => {
   it('should allow chaining for array-like applications', () => {

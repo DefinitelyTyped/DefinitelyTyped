@@ -1,12 +1,12 @@
-// Type definitions for d3-fetch 1.0
+// Type definitions for d3-fetch 1.1
 // Project: https://d3js.org/d3-fetch/
 // Definitions by: Hugues Stefanski <https://github.com/ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.0.1
+// Last module patch version validated against: 1.1.0
 
-import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
+import { DSVParsedArray, DSVRowString } from 'd3-dsv';
 
 /**
  * Fetches the binary file at the specified input URL and returns it as a Promise of a Blob.
@@ -52,10 +52,10 @@ export function csv(
  * @param url A valid URL string.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
  * the index (i) starting at zero for the first non-header row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.csvParse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.csvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function csv<ParsedRow extends DSVRowAny>(
+export function csv<ParsedRow extends object>(
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
@@ -74,10 +74,10 @@ export function csv<ParsedRow extends DSVRowAny>(
  * @param init An request initialization object.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
  * the index (i) starting at zero for the first non-header row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.csvParse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.csvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function csv<ParsedRow extends DSVRowAny>(
+export function csv<ParsedRow extends object>(
     url: string,
     init: RequestInit,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
@@ -112,10 +112,10 @@ export function dsv(
  * @param url A valid URL string.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
  * the index (i) starting at zero for the first non-header row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function dsv<ParsedRow extends DSVRowAny>(
+export function dsv<ParsedRow extends object>(
     delimiter: string,
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
@@ -136,15 +136,25 @@ export function dsv<ParsedRow extends DSVRowAny>(
  * @param init An request initialization object.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
  * the index (i) starting at zero for the first non-header row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function dsv<ParsedRow extends DSVRowAny>(
+export function dsv<ParsedRow extends object>(
     delimiter: string,
     url: string,
     init: RequestInit,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
+
+/**
+ * Fetches the file at the specified input URL as text, parses it as HTML and returns a Promise of an HTML DOM Document.
+ *
+ * If init is specified, it is passed along to the underlying call to fetch.
+ *
+ * @param url A valid URL string.
+ * @param init An optional request initialization object.
+ */
+export function html(url: string, init?: RequestInit): Promise<Document>;
 
 /**
  * Fetches the image at the specified input URL and returns a promise of an HTML image element.
@@ -167,6 +177,16 @@ export function image(url: string, init?: {[key: string]: any}): Promise<HTMLIma
  * @param init An optional request initialization object.
  */
 export function json<ParsedJSONObject extends any>(url: string, init?: RequestInit): Promise<ParsedJSONObject>;
+
+/**
+ * Fetches the file at the specified input URL as text, parses it as SVG and returns a Promise of an SVG Document.
+ *
+ * If init is specified, it is passed along to the underlying call to fetch.
+ *
+ * @param url A valid URL string.
+ * @param init An optional request initialization object.
+ */
+export function svg(url: string, init?: RequestInit): Promise<Document>;
 
 /**
  * Fetches the text file at the specified input URL and returns it as a Promise of a string.
@@ -204,10 +224,10 @@ export function tsv(
  * @param url A valid URL string.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
  * the index (i) starting at zero for the first non-header row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.tsvParse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.tsvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function tsv<ParsedRow extends DSVRowAny>(
+export function tsv<ParsedRow extends object>(
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
@@ -226,11 +246,21 @@ export function tsv<ParsedRow extends DSVRowAny>(
  * @param init An request initialization object.
  * @param row A row conversion function which is invoked for each row, being passed an object representing the current row (d),
  * the index (i) starting at zero for the first non-header row, and the array of column names. If the returned value is null or undefined,
- * the row is skipped and will be ommitted from the array returned by dsv.tsvParse; otherwise, the returned value defines the corresponding row object.
+ * the row is skipped and will be omitted from the array returned by dsv.tsvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function tsv<ParsedRow extends DSVRowAny>(
+export function tsv<ParsedRow extends object>(
     url: string,
     init: RequestInit,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
+
+/**
+ * Fetches the file at the specified input URL as text, parses it as XML and returns a Promise of an XML Document.
+ *
+ * If init is specified, it is passed along to the underlying call to fetch.
+ *
+ * @param url A valid URL string.
+ * @param init An optional request initialization object.
+ */
+export function xml(url: string, init?: RequestInit): Promise<XMLDocument>;

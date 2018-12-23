@@ -83,6 +83,7 @@ interface Options {
     interval?: number;
     stream?: NodeJS.WritableStream;
     enabled?: boolean;
+    hideCursor?: boolean;
 }
 
 interface PersistOptions {
@@ -119,6 +120,8 @@ declare class Ora {
     text: string;
 
     color: Color;
+
+    frameIndex: number;
 }
 
 interface oraFactory {

@@ -1,12 +1,24 @@
-// Type definitions for expo 25.0
+// Type definitions for expo 31.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Jan Aagaard <https://github.com/janaagaard75>
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
+//                 Umidbek Karimov <https://github.com/umidbekkarimov>
+//                 Moshe Feuchtwanger <https://github.com/moshfeu>
+//                 Michael Prokopchuk <https://github.com/prokopcm>
+//                 Tina Roh <https://github.com/tinaroh>
+//                 Nathan Phillip Brink <https://github.com/binki>
+//                 Martin Olsson <https://github.com/mo>
+//                 Levan Basharuli <https://github.com/levansuper>
+//                 Pavel Ihm <https://github.com/ihmpavel>
+//                 Bartosz Dotryw <https://github.com/burtek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
+
+export * from 'react-native-maps';
+export { default as MapView } from 'react-native-maps';
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -14,15 +26,16 @@ import {
     ColorPropType,
     ImageRequireSource,
     ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
     NativeEventEmitter,
-    ViewProperties,
+    ViewProps,
     ViewStyle,
-    Permission
+    Permission,
+    StyleProp
 } from 'react-native';
 
 export type Axis = number;
 export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
-export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
 export type Md5 = string;
 export type Orientation = 'portrait' | 'landscape';
 export type RequireSource = ImageRequireSource;
@@ -32,6 +45,7 @@ export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
 export interface HashMap { [key: string]: any; }
+export interface StringHashMap { [key: string]: string; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -56,6 +70,82 @@ export namespace Accelerometer {
      * @param intervalMs Desired interval in milliseconds between accelerometer updates.
      */
     function setUpdateInterval(intervalMs: number): void;
+}
+
+/**
+ * Admob
+ */
+export type AdMobBannerSize =
+    | 'banner'
+    | 'largeBanner'
+    | 'mediumRectangle'
+    | 'fullBanner'
+    | 'leaderboard'
+    | 'smartBannerPortrait'
+    | 'smartBannerLandscape';
+export interface AdMobBannerProperties extends ViewProps {
+    bannerSize?: AdMobBannerSize;
+    adUnitID?: string;
+    testDeviceID?: string;
+    didFailToReceiveAdWithError?(errorDescription: string): void;
+    adViewDidReceiveAd?(): void;
+    adViewWillPresentScreen?(): void;
+    adViewWillDismissScreen?(): void;
+    adViewDidDismissScreen?(): void;
+    adViewWillLeaveApplication?(): void;
+}
+
+export class AdMobBanner extends Component<AdMobBannerProperties> { }
+export interface AdMobAppEvent {
+    name: string;
+    info: string;
+}
+export interface PublisherBannerProperties extends AdMobBannerProperties {
+    onAdMobDispatchAppEvent?(event: AdMobAppEvent): void;
+}
+export class PublisherBanner extends Component<PublisherBannerProperties> { }
+
+export type AdMobInterstitialEmptyEvent =
+    | 'interstitialDidLoad'
+    | 'interstitialDidOpen'
+    | 'interstitialDidClose'
+    | 'interstitialWillLeaveApplication';
+export type AdMobInterstitialEvent = AdMobInterstitialEmptyEvent | 'interstitialDidFailToLoad';
+export namespace AdMobInterstitial {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAdAsync(): Promise<void>;
+    function showAdAsync(): Promise<void>;
+    function dismissAdAsync(): Promise<void>;
+    function getIsReadyAsync(): Promise<boolean>;
+    function addEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'interstitialDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobInterstitialEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
+}
+
+export type AdMobRewardedEmptyEvent =
+    | 'rewardedVideoDidLoad'
+    | 'rewardedVideoDidOpen'
+    | 'rewardedVideoDidStart'
+    | 'rewardedVideoDidClose'
+    | 'rewardedVideoWillLeaveApplication';
+export type AdMobRewardedEvent = AdMobRewardedEmptyEvent | 'rewardedVideoDidRewardUser' | 'rewardedVideoDidFailToLoad';
+export namespace AdMobRewarded {
+    function setAdUnitID(id: string): void;
+    function setTestDeviceID(id: string): void;
+    function requestAdAsync(): Promise<void>;
+    function showAdAsync(): Promise<void>;
+    function dismissAdAsync(): Promise<void>;
+    function getIsReadyAsync(): Promise<boolean>;
+    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function addEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
+    function removeEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
+    function removeAllListeners(): void;
 }
 
 /**
@@ -99,20 +189,16 @@ export namespace Amplitude {
 
 // #region AppLoading
 /** The following props are recommended, but optional for the sake of backwards compatibility (they were introduced in SDK21). If you do not provide any props, you are responsible for coordinating loading assets, handling errors, and updating state to unmount the `AppLoading` component. */
-export type AppLoadingProps = {
+export interface AppLoadingProps {
     /** A `function` that returns a `Promise`. The `Promise` should resolve when the app is done loading data and assets. */
-    startAsync: () => Promise<void>;
+    startAsync?: () => Promise<void>;
 
     /** Required if you provide `startAsync`. Called when `startAsync` resolves or rejects. This should be used to set state and unmount the `AppLoading` component. */
-    onFinish: () => void;
+    onFinish?: () => void;
 
     /** If `startAsync` throws an error, it is caught and passed into the function provided to `onError`. */
     onError?: (error: Error) => void;
-} | {
-    startAsync: null;
-    onFinish: null;
-    onError?: null;
-};
+}
 
 /**
  * A React component that tells Expo to keep the app loading screen open if it is the first and only component rendered in your app. When it is removed, the loading screen will disappear and your app will be visible.
@@ -324,6 +410,9 @@ export namespace Audio {
 
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
+
+        /** Boolean selecting if audio should go to earpiece (only on Android). */
+        playThroughEarpieceAndroid: boolean;
     }
 
     function setIsEnabledAsync(value: boolean): Promise<void>;
@@ -473,17 +562,19 @@ export type PlaybackStatus = {
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
-    progressUpdateIntervalMillis?: number;
-    positionMillis?: number;
-    shouldPlay?: boolean;
-    rate?: FloatFromZeroToOne;
-    shouldCorrectPitch?: boolean;
-    volume?: FloatFromZeroToOne;
-    isMuted?: boolean;
     isLooping?: boolean;
+    isMuted?: boolean;
+    positionMillis?: number;
+    progressUpdateIntervalMillis?: number;
+    /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
+    rate?: number;
+    shouldCorrectPitch?: boolean;
+    shouldPlay?: boolean;
+    /** A number between `0.0` (silence) and `1.0` (maximum volume). */
+    volume?: number;
 }
 
-export type PlaybackSource = RequireSource | { uri: string } | Asset;
+export type PlaybackSource = RequireSource | { uri: string, headers?: { [header: string]: string }, overrideFileExtensionAndroid?: string } | Asset;
 
 export class PlaybackObject {
     /**
@@ -593,7 +684,6 @@ export class PlaybackObject {
     setRateAsync(
         /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
         rate: number,
-
         /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
         shouldCorrectPitch: boolean
     ): Promise<PlaybackStatus>;
@@ -626,7 +716,7 @@ export class PlaybackObject {
 /**
  * BarCodeScanner
  */
-export interface BarCodeScannerProps extends ViewProperties {
+export interface BarCodeScannerProps extends ViewProps {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
@@ -647,7 +737,7 @@ export class BarCodeScanner extends Component<BarCodeScannerProps> {
 /**
  * BlurView
  */
-export interface BlurViewProps extends ViewProperties {
+export interface BlurViewProps extends ViewProps {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
@@ -655,13 +745,32 @@ export class BlurView extends Component<BlurViewProps> { }
 // #endregion
 
 /**
- * Brightness
+ * An API to get and set screen brightness.
  */
 export namespace Brightness {
-    function setBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
-    function getBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function getSystemBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function setSystemBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
+    /** Sets screen brightness. */
+    function setBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
+
+    /**
+     * Gets screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current screen brightness.
+     */
+    function getBrightnessAsync(): Promise<number>;
+
+    /**
+     * Gets global system screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current system screen brightness.
+     */
+    function getSystemBrightnessAsync(): Promise<number>;
+
+    /** Sets global system screen brightness, requires `WRITE_SETTINGS` permissions on Android. */
+    function setSystemBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
 }
 
 // #region Camera
@@ -670,6 +779,9 @@ export namespace Brightness {
  */
 export interface PictureOptions {
     quality?: number;
+    base64?: boolean;
+    exif?: boolean;
+    onPictureSaved?: (data: PictureResponse) => void;
 }
 
 export interface PictureResponse {
@@ -687,37 +799,59 @@ export interface RecordingOptions {
 }
 
 export class CameraObject {
-    takePictureAsync(options: PictureOptions): Promise<PictureResponse>;
+    takePictureAsync(options?: PictureOptions): Promise<PictureResponse>;
     recordAsync(options: RecordingOptions): Promise<{ uri: string; }>;
     stopRecording(): void;
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
 
-export interface CameraProps extends ViewProperties {
-    zoom?: FloatFromZeroToOne;
-    ratio?: string;
-    focusDepth?: FloatFromZeroToOne;
-    type?: string | number;
-    onCameraReady?: () => void;
-    onBarCodeRead?: BarCodeReadCallback;
+export interface CameraProps extends ViewProps {
+    autoFocus?: string | number | boolean;
+    barCodeTypes?: Array<string | number>;
+    faceDetectionClassifications?: number;
+    faceDetectionLandmarks?: number;
     faceDetectionMode?: number;
     flashMode?: string | number;
-    barCodeTypes?: Array<string | number>;
-    whiteBalance?: string | number;
-    faceDetectionLandmarks?: number;
-    autoFocus?: string | number | boolean;
-    faceDetectionClassifications?: number;
-    onMountError?: () => void;
+    /** Distance to plane of sharpest focus. A value between `0` and `1`. `0`: infinity focus, `1`: focus as close as possible. Default: `0`. For Android this is available only for some devices and when `useCamera2Api` is set to `true`. */
+    focusDepth?: number;
+    onBarCodeRead?: BarCodeReadCallback;
+    onCameraReady?: () => void;
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
+    onMountError?: () => void;
+    ratio?: string;
     ref?: Ref<CameraObject>;
+    type?: string | number;
+    whiteBalance?: string | number;
+    /** A value between `0` and `1` being a percentage of device's max zoom. `0`: not zoomed, `1`: maximum zoom. Default: `0`. */
+    zoom?: number;
 }
 
 export interface CameraConstants {
-    readonly Type: string;
-    readonly FlashMode: string;
-    readonly AutoFocus: string;
-    readonly WhiteBalance: string;
-    readonly VideoQuality: string;
+    readonly Type: {
+        back: string;
+        front: string;
+    };
+    readonly FlashMode: {
+        on: string;
+        off: string;
+        auto: string;
+        torch: string;
+    };
+    readonly AutoFocus: {
+        on: string;
+        off: string;
+    };
+    readonly WhiteBalance: {
+        auto: string;
+        sunny: string;
+        cloudy: string;
+        shadow: string;
+        fluorescent: string;
+        incandescent: string;
+    };
+    readonly VideoQuality: {
+        [videoQuality: string]: number;
+    };
     readonly BarCodeType: {
         aztec: string;
         codabar: string;
@@ -753,6 +887,7 @@ export class Camera extends Component<CameraProps> {
 export namespace Constants {
     const appOwnership: 'expo' | 'standalone' | 'guest';
     const expoVersion: string;
+    const installationId: string;
     const deviceId: string;
     const deviceName: string;
     const deviceYearClass: number;
@@ -803,7 +938,7 @@ export namespace Constants {
         };
         appKey?: string;
         androidStatusBar?: {
-            barStyle?: 'lignt-content' | 'dark-content',
+            barStyle?: 'light-content' | 'dark-content',
             backgroundColor?: string
         };
         androidShowExponentNotificationInShellApp?: boolean;
@@ -867,6 +1002,8 @@ export namespace Constants {
     }
     const manifest: Manifest;
     const linkingUri: string;
+
+    function getWebViewUserAgentAsync(): Promise<string>;
 }
 
 /**
@@ -1275,8 +1412,8 @@ export namespace FileSystem {
 }
 
 /** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
-export namespace Fingerprint {
-    type FingerprintAuthenticationResult = {
+export namespace LocalAuthentication {
+    type LocalAuthenticationResult = {
         success: true
     } | {
         success: false,
@@ -1285,10 +1422,10 @@ export namespace Fingerprint {
         error: string
     };
 
-    /** Determine whether the Fingerprint scanner is available on the device. */
+    /** Determine whether a face or fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
 
-    /** Determine whether the device has saved fingerprints to use for authentication. */
+    /** Determine whether the device has saved fingerprints or facial data to use for authentication. */
     function isEnrolledAsync(): Promise<boolean>;
 
     /**
@@ -1296,7 +1433,7 @@ export namespace Fingerprint {
      *
      * @param promptMessage A message that is shown alongside the TouchID/FaceID prompt. (iOS only)
      */
-    function authenticateAsync(promptMessageIOS?: string): Promise<FingerprintAuthenticationResult>;
+    function authenticateAsync(promptMessageIOS?: string): Promise<LocalAuthenticationResult>;
 
     /** Cancels the fingerprint authentication flow. (Android only) */
     function cancelAuthenticate(): void;
@@ -1315,12 +1452,24 @@ export namespace Font {
 }
 
 // #region GLView
+export interface ExpoWebGLRenderingContext extends WebGLRenderingContext {
+    endFrameEXP(): void;
+}
+
 /**
- * GLView
+ * A View that acts as an OpenGL ES render target. On mounting, an OpenGL ES
+ * context is created. Its drawing buffer is presented as the contents of
+ * the View every frame.
  */
-export interface GLViewProps extends ViewProperties {
-    onContextCreate(): void;
-    msaaSamples: number;
+export interface GLViewProps extends ViewProps {
+    /**
+     * A function that will be called when the OpenGL ES context is created.
+     * Passes an object with a WebGLRenderingContext interface as an argument.
+     */
+    onContextCreate(gl: ExpoWebGLRenderingContext): void;
+
+    /** Number of MSAA samples to use on iOS. Defaults to 4. Ignored on Android. */
+    msaaSamples?: number;
 }
 
 export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
@@ -1383,6 +1532,27 @@ export namespace Gyroscope {
  * ImageManipulator
  */
 export namespace ImageManipulator {
+    type Action = Resize | Rotate | Flip | Crop;
+
+    interface Resize {
+        resize: { width?: number, height?: number };
+    }
+
+    interface Rotate {
+        rotate: number;
+    }
+
+    interface Flip {
+        flip?: { vertical?: boolean; horizontal?: boolean };
+    }
+
+    interface Crop {
+        originX: number;
+        originY: number;
+        width: number;
+        height: number;
+    }
+
     interface ImageResult {
         uri: string;
         width: number;
@@ -1392,25 +1562,14 @@ export namespace ImageManipulator {
 
     interface SaveOptions {
         base64?: boolean;
-        compress?: FloatFromZeroToOne;
+        /** A value in range `0` - `1` specifying compression level of the result image. `1` means no compression and `0` the highest compression. */
+        compress?: number;
         format?: 'jpeg' | 'png';
     }
 
-    interface CropParameters {
-        originX: number;
-        originY: number;
-        width: number;
-        height: number;
-    }
+    function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 
-    interface ImageManipulationOptions {
-        resize?: { width?: number; height?: number };
-        rotate?: number;
-        flip?: { vertical?: boolean; horizontal?: boolean };
-        crop?: CropParameters;
-    }
-
-    function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
+    function manipulateAsync(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
@@ -1421,6 +1580,10 @@ export namespace ImagePicker {
         uri: string;
         width: number;
         height: number;
+        type: 'video' | 'image';
+        base64?: string;
+        exif?: object;
+        duration?: number;
     }
 
     type ImageResult = { cancelled: true } | ({ cancelled: false } & ImageInfo);
@@ -1437,17 +1600,27 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
         mediaTypes?: keyof _MediaTypeOptions;
     }
 
+    /**
+     * require Permissions.CAMERA_ROLL
+     */
     function launchImageLibraryAsync(options?: ImageLibraryOptions): Promise<ImageResult>;
 
     interface CameraOptions {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
     }
 
+    /**
+     * require Permissions.CAMERA_ROLL
+     */
     function launchCameraAsync(options?: CameraOptions): Promise<ImageResult>;
 }
 
@@ -1551,15 +1724,31 @@ export class KeepAwake extends Component {
 /**
  * LinearGradient
  */
-export interface LinearGradientProps extends ViewProperties {
+export interface LinearGradientProps {
     colors: string[];
     start?: [number, number];
     end?: [number, number];
     locations?: number[];
+    style?: StyleProp<ViewStyle>;
 }
 
 export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
+
+/**
+ * Linking
+ */
+export interface LinkInfo {
+    path: string;
+    queryParams: Partial<StringHashMap>;
+}
+
+export interface LinkingStatic extends ReactNativeLinkingStatic {
+    makeUrl(path: string, queryParams?: HashMap): string;
+    parse(url: string): LinkInfo;
+    parseInitialURLAsync(): Promise<LinkInfo>;
+}
+export const Linking: LinkingStatic;
 
 /**
  * Location
@@ -1619,7 +1808,7 @@ export namespace Location {
     function getHeadingAsync(): Promise<HeadingStatus>;
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
     function geocodeAsync(address: string): Promise<Coords>;
-    function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData>;
+    function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
     function setApiKey(key: string): void;
 }
 
@@ -1667,6 +1856,21 @@ export namespace Notifications {
         };
     }
 
+    interface SchedulingOptions {
+        time: Date | number;
+        repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+        intervalMs?: number;
+    }
+
+    interface ChannelAndroid {
+        name: string;
+        description?: string;
+        sound?: boolean;
+        priority?: 'min' | 'low' | 'default' | 'high' | 'max';
+        vibrate?: boolean | number[];
+        badge?: boolean;
+    }
+
     type LocalNotificationId = string | number;
 
     function addListener(listener: (notification: Notification) => any): EventSubscription;
@@ -1674,12 +1878,14 @@ export namespace Notifications {
     function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
     function scheduleLocalNotificationAsync(
         localNotification: LocalNotification,
-        schedulingOptions: { time: Date | number, repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' }
+        schedulingOptions: SchedulingOptions
     ): Promise<LocalNotificationId>;
     function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
     function dismissAllNotificationsAsync(): Promise<void>;
     function cancelScheduledNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
     function cancelAllScheduledNotificationsAsync(): Promise<void>;
+    function createChannelAndroidAsync(id: string, channel: ChannelAndroid): Promise<void>;
+    function deleteChannelAndroidAsync(id: string): Promise<void>;
     function getBadgeNumberAsync(): Promise<number>;
     function setBadgeNumberAsync(number: number): Promise<void>;
 }
@@ -1697,8 +1903,9 @@ export namespace Pedometer {
  * Permissions
  */
 export namespace Permissions {
-    type PermissionType = 'remoteNotifications' | 'location' |
-        'camera' | 'contacts' | 'audioRecording';
+    type PermissionType = 'audioRecording' | 'calendar' |
+    'cameraRoll' | 'camera' | 'contacts' | 'location' | 'reminders' |
+    'notifications' | 'systemBrightness' | 'userFacingNotifications' | 'SMS';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1710,26 +1917,38 @@ export namespace Permissions {
         scope: 'fine' | 'coarse' | 'none';
     }
 
-    interface PermissionResponse {
+    interface SinglePermissionResponse {
         status: PermissionStatus;
         expires: PermissionExpires;
         ios?: PermissionDetailsLocationIOS;
         android?: PermissionDetailsLocationAndroid;
     }
 
-    function getAsync(type: PermissionType): Promise<PermissionResponse>;
-    function askAsync(type: PermissionType): Promise<PermissionResponse>;
+    interface PermissionResponse {
+        status: PermissionStatus;
+        expires: PermissionExpires;
+        permissions: {
+            [key in PermissionType]: SinglePermissionResponse
+        };
+    }
 
-    type RemoteNotificationPermission = 'remoteNotifications';
+    function getAsync(...permissionTypes: PermissionType[]): Promise<PermissionResponse>;
+    function askAsync(...permissionTypes: PermissionType[]): Promise<PermissionResponse>;
 
-    const CAMERA: 'camera';
-    const CAMERA_ROLL: 'cameraRoll';
     const AUDIO_RECORDING: 'audioRecording';
-    const LOCATION: 'location';
-    const REMOTE_NOTIFICATIONS: RemoteNotificationPermission;
-    const NOTIFICATIONS: RemoteNotificationPermission;
+    const CALENDAR: 'calendar';
+    const CAMERA_ROLL: 'cameraRoll';
+    const CAMERA: 'camera';
     const CONTACTS: 'contacts';
+    const LOCATION: 'location';
+    const NOTIFICATIONS: 'notifications';
+    const REMINDERS: 'reminders';
     const SYSTEM_BRIGHTNESS: 'systemBrightness';
+    const USER_FACING_NOTIFICATIONS: 'userFacingNotifications';
+    /**
+     * Will be removed in SDK 32
+     */
+    const SMS: 'SMS';
 }
 
 /**
@@ -1869,6 +2088,8 @@ export namespace SQLite {
 export interface SvgCommonProps {
     fill?: string;
     fillOpacity?: number | string;
+    fillRule?: 'nonzero' | 'evenodd';
+    opacity?: number | string;
     stroke?: string;
     strokeWidth?: number | string;
     strokeOpacity?: number | string;
@@ -1876,9 +2097,11 @@ export interface SvgCommonProps {
     strokeLineJoin?: string;
     strokeDasharray?: any[];
     strokeDashoffset?: any;
+    transform?: string | object;
     x?: number | string;
     y?: number | string;
     rotate?: number | string;
+    rotation?: number | string;
     scale?: number | string;
     origin?: number | string;
     originX?: number | string;
@@ -1947,10 +2170,13 @@ export interface SvgUseProps extends SvgCommonProps {
     href: string;
     x: number | string;
     y: number | string;
+    width?: number | string;
+    height?: number | string;
 }
 
 export interface SvgSymbolProps extends SvgCommonProps {
     viewBox: string;
+    preserveAspectRatio?: string;
     width: number | string;
     height: number | string;
 }
@@ -1978,7 +2204,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number }> {
+export class Svg extends Component<{ width: number, height: number, viewBox?: string, preserveAspectRatio?: string }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;
@@ -2093,6 +2319,7 @@ export interface VideoProps {
     translateY?: number;
     rotation?: number;
     ref?: Ref<PlaybackObject>;
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface VideoState {
@@ -2162,7 +2389,7 @@ export namespace Calendar {
         /** Name for the account that owns this calendar */
         ownerAccount?: string; // Android
 
-        /** Time zone for the calendar	 */
+        /** Time zone for the calendar */
         timeZone?: string; // Android
 
         /** Alarm methods that this calendar supports */
@@ -2205,7 +2432,7 @@ export namespace Calendar {
         /** Visible name of the event */
         title?: string;
 
-        /** Location field of the event	 */
+        /** Location field of the event */
         location?: string;
 
         /** Date when the event record was created */
@@ -2233,10 +2460,10 @@ export namespace Calendar {
         recurrenceRule?: RecurrenceRule;
 
         /** Date object or string representing the time when the event starts */
-        startDate?: string;
+        startDate?: string | Date;
 
         /** Date object or string representing the time when the event ends */
-        endDate?: string;
+        endDate?: string | Date;
 
         /** For recurring events, the start date for the first (original) instance of the event */
         originalStartDate?: string; // iOS
@@ -2641,7 +2868,7 @@ export namespace Calendar {
 }
 // #endregion
 
-// #region Calendar
+// #region MailComposer
 /**
  * An API to compose mails using OS specific UI.
  */
@@ -2674,5 +2901,284 @@ export namespace MailComposer {
         /** A map defining the data to fill the mail */
         options: ComposeOptions
     ): Promise<{ status: 'sent' | 'saved' | 'cancelled' }>;
+}
+// #endregion
+
+export namespace Updates {
+    namespace EventType {
+        /** A new update is available and has started downloading. */
+        type DownloadStart = 'downloadStart';
+        /** A new update is currently being downloaded and will be stored in the device's cache. */
+        type DownloadProgress = 'downloadProgress';
+        /** A new update has finished downloading and is now stored in the device's cache. */
+        type DownloadFinished = 'downloadFinished';
+        /** No updates are available, and the most up-to-date bundle of this experience is already running. */
+        type NoUpdateAvailable = 'noUpdateAvailable';
+        /** An error occurred trying to fetch the latest update. */
+        type Error = 'error';
+
+        /** A new update is available and has started downloading. */
+        const DOWNLOAD_STARTED: DownloadStart;
+        /** A new update is currently being downloaded and will be stored in the device's cache. */
+        const DOWNLOAD_PROGRESS: DownloadProgress;
+        /** A new update has finished downloading and is now stored in the device's cache. */
+        const DOWNLOAD_FINISHED: DownloadFinished;
+        /** No updates are available, and the most up-to-date bundle of this experience is already running. */
+        const NO_UPDATE_AVAILABLE: NoUpdateAvailable;
+        /** An error occurred trying to fetch the latest update. */
+        const ERROR: Error;
+    }
+
+    interface UpdateCheck {
+        /** True if an update is available, false if you're already running the most up-to-date JS bundle. */
+        isAvailable: boolean;
+        /** If `isAvailable` is true, the manifest of the available update. Undefined otherwise. */
+        manifest?: Constants.Manifest;
+    }
+
+    interface UpdateBundle {
+        /** True if the fetched bundle is new (i.e. a different version that the what's currently running). */
+        isNew: boolean;
+        /** Manifest of the fetched update. */
+        manifest: Constants.Manifest;
+    }
+
+    /** An object that is passed into each event listener when a new version is available. */
+    interface UpdateEvent {
+        /** Type of the event */
+        type: EventType.DownloadStart
+            | EventType.DownloadProgress
+            | EventType.DownloadFinished
+            | EventType.NoUpdateAvailable
+            | EventType.Error;
+        /** If `type === Expo.Updates.EventType.DOWNLOAD_FINISHED`, the manifest of the newly downloaded update. Undefined otherwise. */
+        manifest?: Constants.Manifest;
+        /** If `type === Expo.Updates.EventType.ERROR`, the error message. Undefined otherwise. */
+        message?: string;
+    }
+
+    /** An optional params object passed to fetchUpdateAsync. */
+    interface FetchUpdateAsyncParams {
+        eventListener: UpdateEventListener;
+    }
+
+    type UpdateEventListener = (event: UpdateEvent) => any;
+
+    /**
+     * Invokes a callback when updates-related events occur,
+     * either on the initial app load or as a result of a call to `Expo.Updates.fetchUpdateAsync`.
+     */
+    function addListener(listener: UpdateEventListener): EventSubscription;
+
+    /**
+     * Check if a new published version of your project is available.
+     * Does not actually download the update.
+     * Rejects if `updates.enabled` is `false` in app.json.
+     */
+    function checkForUpdateAsync(): Promise<UpdateCheck>;
+
+    /**
+     * Downloads the most recent published version of your experience to the device's local cache.
+     * Rejects if `updates.enabled` is `false` in app.json.
+     */
+    function fetchUpdateAsync(params?: FetchUpdateAsyncParams): Promise<UpdateBundle>;
+
+    /**
+     * Immediately reloads the current experience.
+     * This will use your app.json updates configuration to fetch and load the newest available JS supported by the device's Expo environment.
+     * This is useful for triggering an update of your experience if you have published a new version.
+     */
+    function reload(): void;
+
+    /**
+     * Immediately reloads the current experience using the most recent cached version.
+     * This is useful for triggering an update of your experience if you have published and already downloaded a new version.
+     */
+    function reloadFromCache(): void;
+}
+
+// #region MediaLibrary
+/**
+ * https://docs.expo.io/versions/latest/sdk/media-library
+ * Provides access to user's media library
+ * Requires Permissions.CAMERA_ROLL permissions.
+ */
+
+export namespace MediaLibrary {
+  /**
+   * Creates an asset from existing file. The most common use case is to save a picture taken by Camera.
+   */
+  function createAssetAsync(localUri: string): Promise<Asset>;
+
+  /**
+   * Fetches a page of assets matching the provided criteria.
+   */
+  function getAssetsAsync(options: GetAssetsOptions): Promise<GetAssetsResult>;
+
+  /**
+   * Provides more informations about an asset, including GPS location, local URI and EXIF metadata.
+   */
+  function getAssetInfoAsync(asset: string | Asset): Promise<Asset>;
+
+  /**
+   * Deletes assets from the library. On iOS it deletes assets from all albums they belong to, while on Android it keeps all copies of them
+   * (album is strictly connected to the asset). Also, there is additional dialog on iOS that requires user to confirm this action.
+   */
+  function deleteAssetsAsync(asset: string[] | Asset[]): Promise<boolean>;
+
+  /**
+   * Queries for user-created albums in media gallery.
+   */
+  function getAlbumsAsync(): Promise<Album[]>;
+
+  /**
+   * Queries for an album with a specific name.
+   */
+  function getAlbumAsync(albumName: string): Promise<Album>;
+
+  /**
+   * Creates an album with given name and initial asset.
+   * The asset parameter is required on Android, since it's not possible to create empty album on this platform.
+   */
+  function createAlbumAsync(albumName: string, asset: string | Asset): Promise<Album>;
+
+  /**
+   * Adds array of assets to the album.
+   * On Android, by default it copies assets from the current album to provided one, however it's also possible to move them by passing false as copyAssets argument.
+   * In case they're copied you should keep in mind that getAssetsAsync will return duplicated assets.
+   */
+  function addAssetsToAlbumAsync(assets: Asset[], album: string | Album, copyAssets?: boolean /* default true */): Promise<boolean>;
+
+  /**
+   * Removes given assets from album.
+   * On Android, album will be automatically deleted if there are no more assets inside.
+   */
+  function removeAssetsFromAlbumAsync(assets: Asset[], album: string | Album): Promise<boolean>;
+
+  /**
+   * Available on iOS only. Fetches a list of moments, which is a group of assets taken around the same place and time.
+   */
+  function getMomentsAsync(): Promise<Album[]>;
+
+  enum MediaType {
+    audio = 'audio',
+    photo = 'photo',
+    video = 'video',
+    unknow = 'unknow'
+  }
+
+  enum SortBy {
+    default = 'default',
+    id = 'id',
+    creationTime = 'creationTime',
+    modificationTime = 'modificationTime',
+    mediaType = 'mediaType',
+    width = 'width',
+    height = 'height',
+    duration = 'duration'
+  }
+
+  // region Asset
+  interface AssetAndroid {
+    albumId?: string;
+  }
+
+  interface AssetIos {
+    mediaSubtypes?: MediaType[];
+    // *
+    orientation: number;
+    // *
+    isFavorite: boolean;
+  }
+
+  interface Asset extends AssetAndroid, AssetIos {
+    id: string;
+    filename: string;
+    uri: string;
+    mediaType: string;
+    width: number;
+    height: number;
+    creationTime: number;
+    modificationTime: number;
+    duration: number;
+    // *
+    localUri?: string;
+    // *
+    location?: Location.LocationProps;
+    // *
+    exif?: object;
+  }
+
+  /**
+   * These fields can be obtained only by calling getAssetInfoAsync method
+   */
+  //#endregion
+
+  // #region Album
+  interface AlbumIos {
+    type?: string;
+    // *
+    startTime: number;
+    // *
+    endTime: number;
+    // *
+    approximateLocation?: Location.LocationProps;
+    // *
+    locationNames?: string[];
+  }
+
+  /**
+   * These fields apply only to albums whose type is moment
+   */
+
+  interface Album extends AlbumIos {
+    id: string;
+    title: string;
+    assetCount: number;
+  }
+  // #endregion
+
+  interface GetAssetsOptions {
+    first?: number;
+    after?: string;
+    album?: string | Album;
+    sortBy?: SortBy;
+    mediaType?: MediaType;
+  }
+
+  interface GetAssetsResult {
+    assets: Asset[];
+    endCursor: string;
+    hasNextPage: boolean;
+    totalCount: number;
+  }
+}
+// #endregion
+
+// #region Haptic
+/**
+ * https://docs.expo.io/versions/latest/sdk/haptic
+ * Provides haptic feedback for iOS 10+ devices using the Taptic Engine.
+ * If this is used in Android the device will use ReactNative.Vibrate instead, it's best to just avoid this.
+ */
+export namespace Haptic {
+  /**
+   * Used to let a user know when a selection change has been registered
+   */
+  function selection(): void;
+  function notification(notificationType?: NotificationType): void;
+  function impact(impactStyles?: ImpactStyles): void;
+
+  enum ImpactStyles {
+    Light = 'light',
+    Medium = 'medium',
+    Heavy = 'heavy'
+  }
+
+  enum NotificationType {
+    Success = 'success',
+    Warning = 'warning',
+    Error = 'error'
+  }
 }
 // #endregion

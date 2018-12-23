@@ -64,6 +64,18 @@ archiver.setModule(() => {});
 archiver.pointer();
 archiver.use(() => {});
 
-archiver.finalize().then();
+archiver.finalize();
 
 archiver.symlink('./path', './target');
+
+function fakeHandler(err: Archiver.ArchiverError) {
+    console.log(err.code);
+    console.log(err.message);
+    console.log(err.stack);
+    console.log(err.data);
+}
+
+const fakeError = new Archiver.ArchiverError('code', 'foo');
+
+archiver.on('error', fakeHandler);
+archiver.on('warning', fakeHandler);

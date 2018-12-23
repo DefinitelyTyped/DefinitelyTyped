@@ -454,6 +454,13 @@ declare module CANNON {
         type?: number;
         linearDamping?: number;
         angularDamping?: number;
+        allowSleep?: boolean;
+        sleepSpeedLimit?: number;
+        sleepTimeLimit?: number;
+        collisionFilterGroup?: number;
+        collisionFilterMask?: number;
+        fixedRotation?: boolean;
+        shape?: Shape;
     }
 
     export class Body extends EventTarget {

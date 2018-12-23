@@ -3,7 +3,7 @@
 // Definitions by: Eduard Zintz <https://github.com/ezintz>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export {
   match,
@@ -33,7 +33,7 @@ export class AndroidBackButton extends React.Component<BackButtonProps> {}
 export class DeepLinking extends React.Component {}
 
 export interface LinkProps {
-  component?: React.Component | React.ComponentClass;
+  component?: React.ComponentType<any>;
   replace?: boolean;
   style?: any;
   to: H.LocationDescriptor;

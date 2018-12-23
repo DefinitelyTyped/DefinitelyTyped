@@ -1,6 +1,6 @@
 function test_events() {
 
-    var object = new Backbone.Events();
+    var object = Backbone.Events;
     object.on("alert", (eventName: string) => alert("Triggered " + eventName));
 
     object.trigger("alert", "an event");
@@ -398,7 +398,10 @@ namespace v1Changes {
     namespace Collection {
         function test_fetch() {
             var collection = new EmployeeCollection;
-            collection.fetch({ reset: true });
+            collection.fetch({ 
+                reset: true,
+                remove: false
+            });
         }
 
         function test_create() {

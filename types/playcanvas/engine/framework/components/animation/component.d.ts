@@ -46,6 +46,6 @@ declare namespace pc {
         * @param {String} name The name of the animation asset
         * @returns {pc.Animation} An Animation
         */
-        getAnimation(name: string): void;
+        getAnimation(name: string): pc.Animation;
     }
 }

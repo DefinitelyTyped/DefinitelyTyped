@@ -1,8 +1,11 @@
-/// <reference types="mocha" />
-
 import File = require('vinyl');
 import Stream = require('stream');
 import fs = require('fs');
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 declare var fakeStream: NodeJS.ReadWriteStream;
 
@@ -164,11 +167,11 @@ describe('File', () => {
 	});
 
 	describe('isDirectory()', () => {
-		var fakeStat = <fs.Stats>{
+		var fakeStat = {
 			isDirectory() {
 				return true;
 			}
-		};
+		} as fs.Stats;
 
 		it('should return false when the contents are a Buffer', done => {
 			var val = new Buffer("test");
@@ -213,10 +216,10 @@ describe('File', () => {
 
 			let fileUtf8Contents = fileContents instanceof Buffer ?
 				fileContents.toString('utf8') :
-				(<NodeJS.ReadableStream>fileContents).toString();
+				(fileContents as NodeJS.ReadableStream).toString();
 			let file2Utf8Contents = file2Contents instanceof Buffer ?
 				file2Contents.toString('utf8') :
-				(<NodeJS.ReadableStream>file2Contents).toString();
+				(file2Contents as NodeJS.ReadableStream).toString();
 
 			file2Utf8Contents.should.equal(fileUtf8Contents);
 			done();

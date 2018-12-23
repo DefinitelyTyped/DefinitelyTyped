@@ -2,7 +2,7 @@
 // Project: https://github.com/underscopeio/sinon-mongoose
 // Definitions by: stevehipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as s from "sinon";
 

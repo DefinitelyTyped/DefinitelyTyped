@@ -2,14 +2,18 @@ import * as passport from 'passport';
 import express = require('express');
 import 'express-session';
 
-class TestStrategy implements passport.Strategy {
+class TestStrategy extends passport.Strategy {
     name = 'test';
-    constructor() { }
-    authenticate(this: passport.StrategyCreated<this>, req: express.Request) {
+
+    authenticate(req: express.Request) {
         const user: TestUser = {
             id: 0,
         };
-        this.success(user);
+        if (Math.random() > 0.5) {
+            this.fail();
+        } else {
+            this.success(user);
+        }
     }
 }
 

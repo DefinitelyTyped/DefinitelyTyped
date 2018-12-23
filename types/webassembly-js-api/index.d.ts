@@ -3,7 +3,9 @@
 // Definitions by: 01alchemist <https://twitter.com/01alchemist>
 //                 Wink Saville <wink@saville.com>
 //                 Periklis Tsirakidis <https://github.com/periklis>
+//                 Sergey Rubanov <https://github.com/chicoxyzzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /**
  * The WebAssembly namespace, see [WebAssembly](https://github.com/webassembly)
@@ -22,11 +24,13 @@ declare namespace WebAssembly {
         kind: string;
     }>;
 
+    type BufferSource = ArrayBufferView | ArrayBuffer;
+
     /**
      * WebAssembly.Module
      */
     class Module {
-        constructor(bufferSource: ArrayBuffer | Uint8Array);
+        constructor(bufferSource: BufferSource);
         static customSections(module: Module, sectionName: string): ArrayBuffer[];
         static exports(module: Module): Imports;
         static imports(module: Module): Exports;
@@ -99,15 +103,15 @@ declare namespace WebAssembly {
         toString(): string;
     }
 
-    function compile(bufferSource: ArrayBuffer | Uint8Array): Promise<Module>;
+    function compile(bufferSource: BufferSource): Promise<Module>;
 
     interface ResultObject {
         module: Module;
         instance: Instance;
     }
 
-    function instantiate(bufferSource: ArrayBuffer | Uint8Array, importObject?: any): Promise<ResultObject>;
-    function instantiate(module: Module, importObject?: any): Promise<Instance>;
+    function instantiate(bufferSource: BufferSource, importObject?: object): Promise<ResultObject>;
+    function instantiate(module: Module, importObject?: object): Promise<Instance>;
 
-    function validate(bufferSource: ArrayBuffer | Uint8Array): boolean;
+    function validate(bufferSource: BufferSource): boolean;
 }

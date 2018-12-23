@@ -2,10 +2,13 @@
 // Project: http://feathersjs.com/
 // Definitions by: Abraao Alves <https://github.com/AbraaoAlves>, Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// TypeScript Version: 2.3
 
 import { Hook } from '@feathersjs/feathers';
+import * as self from '@feathersjs/authentication';
 
-export default function feathersAuthentication(config?: FeathersAuthenticationOptions): () => void;
+declare const feathersAuthentication: ((config?: FeathersAuthenticationOptions) => () => void) & typeof self;
+export default feathersAuthentication;
 
 export const hooks: AuthHooks.Hooks;
 

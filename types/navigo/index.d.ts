@@ -2,6 +2,7 @@
 // Project: https://github.com/krasimir/navigo
 // Definitions by: Adrian Ehrsam <https://github.com/aersamkull>
 //                 Dancespiele <https://github.com/dancespiele>
+//                 Daniel Almaguer <https://github.com/deini>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -53,7 +54,7 @@ declare class Navigo {
 
     link(path: string): string;
 
-    lastRouteResolved(): {url: string, query: string};
+    lastRouteResolved(): {url: string, query: string, hooks: NavigoHooks, params?: Params, name?: string};
 
     disableIfAPINotAvailable(): void;
 

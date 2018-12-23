@@ -32,6 +32,7 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.setDate('2015-01-01');
     picker.getMoment();
     picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'));
+    picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'), true);
     picker.gotoDate(new Date(2014, 1));
     picker.gotoToday();
     picker.gotoMonth(2);
@@ -66,6 +67,7 @@ new Pikaday({field: $('#datepicker')[0]});
         format: 'YYYY-MM-DD',
         trigger: document.getElementById('datepicker'),
         bound: false,
+        ariaLabel: 'myLabel',
         position: 'top right',
         reposition: false,
         container: document.getElementById('myTag'),
@@ -78,24 +80,31 @@ new Pikaday({field: $('#datepicker')[0]});
         disableDayFn: (date) => true,
         yearRange: [2000, 2020],
         showWeekNumber: true,
+        pickWholeWeek: true,
         isRTL: true,
         yearSuffix: 'r',
         showMonthAfterYear: false,
         showDaysInNextAndPreviousMonths: true,
+        enableSelectionDaysInNextAndPreviousMonths: true,
         numberOfMonths: 2,
         mainCalendar: 'right',
+        events: ['Sat Jun 28 2017'],
         theme: 'myTheme',
+        blurFieldOnSelect: false,
         formatStrict: true,
+        toString: (date) => '2017-08-23',
         parse: () => new Date('2017-08-23'),
         onSelect: () => {},
         onOpen: () => {},
         onClose: () => {},
-        onDraw: () => {}
+        onDraw: () => {},
+        keyboardInput: false
     });
 })();
 
 (() => {
     new Pikaday({
-        yearRange: 5
+        yearRange: 5,
+        toString: (date, format) => '2017-08-23'
     });
 })();

@@ -1,6 +1,7 @@
 import * as marked from 'marked';
 
 const options: marked.MarkedOptions = {
+    baseUrl: '',
     gfm: true,
     tables: true,
     breaks: false,
@@ -16,23 +17,24 @@ const options: marked.MarkedOptions = {
     renderer: new marked.Renderer()
 };
 
-function callback() {
-    console.log('callback called');
+function callback(err: string, markdown: string) {
+    console.log("Callback called!");
+    return markdown;
 }
 
 const myOldMarked: typeof marked = marked.setOptions(options);
 
-console.log(marked('i am using __markdown__.'));
-console.log(marked('i am using __markdown__.', options));
-console.log(marked('i am using __markdown__.', callback));
-console.log(marked('i am using __markdown__.', options, callback));
+console.log(marked('1) I am using __markdown__.'));
+console.log(marked('2) I am using __markdown__.', options));
+console.log(marked('3) I am using __markdown__.', callback));
+console.log(marked('4) I am using __markdown__.', options, callback));
 
-console.log(marked.parse('i am using __markdown__.'));
-console.log(marked.parse('i am using __markdown__.', options));
-console.log(marked.parse('i am using __markdown__.', callback));
-console.log(marked.parse('i am using __markdown__.', options, callback));
+console.log(marked.parse('5) I am using __markdown__.'));
+console.log(marked.parse('6) I am using __markdown__.', options));
+console.log(marked.parse('7) I am using __markdown__.', callback));
+console.log(marked.parse('8) I am using __markdown__.', options, callback));
 
-const text = 'something';
+const text = 'Something';
 const tokens: marked.TokensList = marked.lexer(text, options);
 console.log(marked.parser(tokens));
 
