@@ -53,6 +53,7 @@ function TestAnimatedAPI() {
     });
 
     Animated.add(v1, v2);
+    Animated.subtract(v1, v2);
     Animated.divide(v1, v2);
     Animated.multiply(v1, v2);
     Animated.modulo(v1, 2);

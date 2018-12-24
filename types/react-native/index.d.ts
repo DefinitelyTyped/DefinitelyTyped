@@ -8508,6 +8508,14 @@ export namespace Animated {
     class AnimatedAddition extends AnimatedInterpolation {}
 
     /**
+     * Creates a new Animated value composed by subtracting the second Animated
+     * value from the first Animated value.
+     */
+    export function subtract(a: Animated, b: Animated): AnimatedSubtraction;
+
+    class AnimatedSubtraction extends AnimatedInterpolation {}
+
+    /**
      * Creates a new Animated value composed by dividing the first Animated
      * value by the second Animated value.
      */
