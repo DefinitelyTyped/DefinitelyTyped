@@ -37,6 +37,8 @@ declare namespace IntlTelInput {
     }
 
     interface Plugin {
+        promise: Promise<void>;
+
         /**
          * Remove the plugin from the input, and unbind any event listeners.
          */
