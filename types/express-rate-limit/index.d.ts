@@ -14,6 +14,12 @@ declare namespace RateLimit {
         decrement(key: string): void;
         resetKey(key: string): void;
     }
+    
+    interface Message {
+        status: number
+        message: string
+        [key: string]: any
+    }
 
     interface Options {
         delayAfter?: number;
@@ -22,7 +28,7 @@ declare namespace RateLimit {
         headers?: boolean;
         keyGenerator?(req: express.Request, res: express.Response): string;
         max?: number;
-        message?: string | Buffer | object;
+        message?: string | Buffer | Message;
         skip?(req: express.Request, res: express.Response): boolean;
         skipFailedRequests?: boolean;
         statusCode?: number;
