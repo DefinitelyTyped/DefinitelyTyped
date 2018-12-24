@@ -70,10 +70,7 @@ function TestAnimatedAPI() {
         }
     };
 
-    Animated.event(
-        [{ nativeEvent: { contentOffset: { y: v1 } } }],
-        { useNativeDriver: true, listener },
-    );
+    Animated.event([{ nativeEvent: { contentOffset: { y: v1 } } }], { useNativeDriver: true, listener });
 
     return (
         <View>
