@@ -48,17 +48,11 @@ declare module 'mongoose' {
     paginate(query?: Object, options?: PaginateOptions, callback?: (err: any, result: PaginateResult<T>) => void): Promise<PaginateResult<T>>;
   }
 
-  export function model<T extends Document>(
+  export function model(
     name: string,
     schema?: Schema,
     collection?: string,
-    skipInit?: boolean): PaginateModel<T>;
-
-  export function model<T extends Document, U extends PaginateModel<T>>(
-    name: string,
-    schema?: Schema,
-    collection?: string,
-    skipInit?: boolean): U;
+    skipInit?: boolean): PaginateModel<any>;
 }
 
 declare module 'mongoose-paginate-v2' {
