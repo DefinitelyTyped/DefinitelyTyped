@@ -8,9 +8,10 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "jsx": "react",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts"]
+    "files": ["index.d.ts", "react-simple-maps-tests.tsx"]
 }
