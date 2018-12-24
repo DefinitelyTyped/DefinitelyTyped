@@ -2732,6 +2732,9 @@ declare module "child_process" {
         stdout: stream.Readable;
         stderr: stream.Readable;
         stdio: [stream.Writable, stream.Readable, stream.Readable];
+        spawnargs: [string];
+        spawnfile: string;
+        connected: string;
         killed: boolean;
         pid: number;
         kill(signal?: string): void;
@@ -2742,7 +2745,7 @@ declare module "child_process" {
         disconnect(): void;
         unref(): void;
         ref(): void;
-
+        
         /**
          * events.EventEmitter
          * 1. close
