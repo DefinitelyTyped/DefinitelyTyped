@@ -90,6 +90,30 @@ myContract.options.from = "0x1234567890123456789012345678901234567891";
 myContract.options.gasPrice = "20000000000000";
 myContract.options.gas = 5000000;
 
+const newContract = new web3.eth.Contract(
+    [],
+    contractAddress,
+    {
+        from: "0x1234567890123456789012345678901234567891",
+        gasPrice: "20000000000"
+    }
+);
+const new_contract: Promise<TransactionReceipt> = newContract.deploy({
+    data: '0x12345...',
+    arguments: [123, 'My String']
+})
+.send({
+    from: '0x1234567890123456789012345678901234567891',
+    gas: 1500000,
+    gasPrice: '20000000000'
+// tslint:disable-next-line:only-arrow-functions
+})
+// tslint:disable-next-line:only-arrow-functions
+.then(function(value)  {
+    console.log(value);
+    return value;
+});
+
 //
 // web3.eth.accounts
 // --------------------------------------------------------------------------
