@@ -14,11 +14,11 @@ declare namespace RateLimit {
         decrement(key: string): void;
         resetKey(key: string): void;
     }
-    
+
     interface Message {
-        status: number
-        message: string
-        [key: string]: any
+        status: number;
+        message: string;
+        [key: string]: any;
     }
 
     interface Options {
