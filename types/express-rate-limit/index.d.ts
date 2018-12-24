@@ -22,7 +22,7 @@ declare namespace RateLimit {
         headers?: boolean;
         keyGenerator?(req: express.Request, res: express.Response): string;
         max?: number;
-        message?: string | Buffer | Object;
+        message?: string | Buffer | object;
         skip?(req: express.Request, res: express.Response): boolean;
         skipFailedRequests?: boolean;
         statusCode?: number;
