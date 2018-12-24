@@ -1,4 +1,3 @@
-
 import * as bs58 from 'bs58';
 
 {
@@ -8,4 +7,4 @@ import * as bs58 from 'bs58';
 	encoded = bs58.encode({0: 255, length: 1});
 }
 
-let decoded: number[] = bs58.decode('5Q');
+const decoded: number[] = bs58.decode('5Q');
