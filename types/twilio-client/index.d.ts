@@ -1062,4 +1062,5 @@ declare namespace Twilio {
     }
 }
 
-export default Twilio;
+export = Twilio;
+export as namespace Twilio;
