@@ -8477,6 +8477,7 @@ export namespace Animated {
         stiffness?: number;
         mass?: number;
         damping?: number;
+        delay?: number;
     }
 
     interface LoopAnimationConfig {

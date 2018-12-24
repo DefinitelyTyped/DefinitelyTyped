@@ -25,6 +25,7 @@ function TestAnimatedAPI() {
     const spring1 = Animated.spring(v1, {
         toValue: 0.5,
         tension: 10,
+        delay: 100,
     });
 
     const springXY = Animated.spring(position, {
