@@ -1,4 +1,4 @@
-// Type definitions for base-x v1.0.1
+// Type definitions for base-x 1.0
 // Project: https://github.com/cryptocoinjs/base-x
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,5 @@ declare namespace BaseX {
 		decode: (string: string) => number[];
 	}
 
-	interface Base {
-		(ALPHABET: string): BaseX.BaseConverter
-	}
+	type Base = (ALPHABET: string) => BaseConverter;
 }
