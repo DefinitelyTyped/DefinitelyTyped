@@ -3,9 +3,8 @@
 // Definitions by: Drew Petersen <https://github.com/kirbysayshi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "pseudo-audio-param" {
-    export = PseudoAudioParam;
-}
+export = PseudoAudioParam;
+export as namespace PseudoAudioParam;
 
 interface PseudoAudioParamEvent {
     type: string;
