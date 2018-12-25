@@ -861,9 +861,15 @@ export interface Intent {
     followupIntentInfo?: FollowupIntentInfo[];
 }
 
+export enum PhraseType {
+    TYPE_UNSPECIFIED = "TYPE_UNSPECIFIED",
+    EXAMPLE = "EXAMPLE",
+    TEMPLATE = "TEMPLATE"
+}
+
 export interface TrainingPhrase {
-    name: string;
-    type: string;
+    readonly name?: string;
+    type: PhraseType;
     parts: Part[];
     timesAddedCount?: number;
 }
