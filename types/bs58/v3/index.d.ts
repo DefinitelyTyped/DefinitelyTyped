@@ -1,11 +1,12 @@
-// Type definitions for bs58 4.0
+// Type definitions for bs58 3.0
 // Project: https://github.com/cryptocoinjs/bs58
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { BaseConverter } from 'base-x';
+import * as BaseX from 'base-x';
 
-declare const base58: BaseConverter;
+declare namespace base58 { }
+
+declare let base58: BaseX.BaseConverter;
 
 export = base58;
