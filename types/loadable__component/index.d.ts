@@ -24,22 +24,22 @@ export type LoadableLibrary<TModule> = React.ComponentType<{
 }> &
 	TModule;
 
-declare function lib<TProps, TModule>(
-	loadFn: (props: TProps) => Promise<TModule>,
+declare function lib<T>(
+	loadFn: (props: object) => Promise<T>,
 	options?: Options
-): LoadableLibrary<TModule>
+): LoadableLibrary<T>;
 
-declare function loadableFunc<TProps, TComponent>(
-	loadFn: (props: TProps) => Promise<DefaultComponent<TProps>>,
+declare function loadableFunc<T>(
+	loadFn: (props: T) => Promise<DefaultComponent<T>>,
 	options?: Options
-): LoadableComponent<TProps>
+): LoadableComponent<T>;
 
 declare const loadable: typeof loadableFunc & { lib: typeof lib };
 
 export default loadable;
 
 export namespace lazy {
-	export function lib<TProps, TModule>(loadFn: (props: TProps) => Promise<TModule>): LoadableLibrary<TModule>;
+	function lib<TModule>(loadFn: (props: object) => Promise<TModule>): LoadableLibrary<TModule>;
 }
 
 export function lazy<T>(loadFn: (props: T) => Promise<DefaultComponent<T>>): LoadableComponent<T>;
