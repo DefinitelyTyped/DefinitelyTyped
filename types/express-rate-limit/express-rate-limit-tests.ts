@@ -6,6 +6,15 @@ const apiLimiter = new RateLimit({
   delayMs: 0 // disabled
 });
 
+const apiLimiterWithMessageObject = new RateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  message: {
+     status: 429,
+     message: 'To many requests, try again later'
+  }
+});
+
 const createAccountLimiter = new RateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window
   delayAfter: 1, // begin slowing down responses after the first request
