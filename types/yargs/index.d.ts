@@ -8,7 +8,7 @@
 //                 Teddy Cross <https://github.com/tkazec>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
@@ -27,7 +27,7 @@
 declare namespace yargs {
     // The type parameter T is the expected shape of the parsed options.
     // Arguments<T> is those options plus _ and $0, and an indexer falling
-    // back to any for unknown options.
+    // back to unknown for unknown options.
     //
     // For the return type / argv property, we create a mapped type over
     // Arguments<T> to simplify the inferred type signature in client code.
@@ -96,14 +96,14 @@ declare namespace yargs {
          * Use '.demandCommand()' or '.demandOption()' instead
          */
         demand<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
-        demand(key: string | ReadonlyArray<string>, msg: string): Argv<T>;
+        demand<K extends string>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<T & { [key in K]: unknown }>;
         demand(key: string | ReadonlyArray<string>, required?: boolean): Argv<T>;
         demand(positionals: number, msg: string): Argv<T>;
         demand(positionals: number, required?: boolean): Argv<T>;
         demand(positionals: number, max: number, msg?: string): Argv<T>;
 
         demandOption<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
-        demandOption(key: string | ReadonlyArray<string>, msg?: string): Argv<T>;
+        demandOption<K extends string>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<T & { [key in K]: unknown }>;
         demandOption(key: string | ReadonlyArray<string>, demand?: boolean): Argv<T>;
 
         demandCommand(): Argv<T>;
@@ -258,7 +258,7 @@ declare namespace yargs {
         /** The script name or node command */
         $0: string;
         /** All remaining options */
-        [argName: string]: any;
+        [argName: string]: unknown;
     };
 
     interface RequireDirectoryOptions {
@@ -372,7 +372,7 @@ declare namespace yargs {
         O extends { normalize: true } ? string :
         O extends { choices: ReadonlyArray<infer C> } ? C :
         O extends { coerce: (arg: any) => infer T } ? T :
-        any;
+        unknown;
 
     type InferredOptionTypes<O extends { [key: string]: Options }> = { [key in keyof O]: InferredOptionType<O[key]> };
 
