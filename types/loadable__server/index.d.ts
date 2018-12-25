@@ -1,21 +1,27 @@
+// Type definitions for @loadable/server 5.2
+// Project: https://github.com/smooth-code/loadable-components
+// Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
+
 import { ComponentType, ReactElement, Component } from 'react';
 
 export interface ChunkExtractorOptions {
 	/**
-     * Stats file path generated using `@loadable/webpack-plugin`
-     */
+	 * Stats file path generated using `@loadable/webpack-plugin`
+	 */
 	statsFile?: string;
 	/**
-     * Stats generated using `@loadable/webpack-plugin`.
-     */
+	 * Stats generated using `@loadable/webpack-plugin`.
+	 */
 	stats?: object;
 	/**
-     * Webpack entrypoints to load (default to `["main"]`)
-     */
+	 * Webpack entrypoints to load (default to `["main"]`)
+	 */
 	entrypoints?: string | string[];
 	/**
-     * Optional output path (only for `requireEntrypoint`)
-     */
+	 * Optional output path (only for `requireEntrypoint`)
+	 */
 	outputPath?: string;
 }
 
@@ -26,48 +32,48 @@ export class ChunkExtractor {
 	constructor(options: ChunkExtractorOptions);
 
 	/**
-     * Wrap your application in a `ChunkExtractorManager`
-     */
+	 * Wrap your application in a `ChunkExtractorManager`
+	 */
 	collectChunks(
 		/**
-         * JSX element that will be wrapped in `ChunkExtractorManager`
-         */
+		 * JSX element that will be wrapped in `ChunkExtractorManager`
+		 */
 		element: JSX.Element
 	): JSX.Element;
 
 	/**
-     * Require the entrypoint of your application as a commonjs module.
-     */
-	requireEntrypoint<T>(name?: string): { default: ComponentType<T> };
+	 * Require the entrypoint of your application as a commonjs module.
+	 */
+	requireEntrypoint(name?: string): { default: ComponentType };
 
 	/**
-     * Get scripts as a string of `<script>` tags
-     */
+	 * Get scripts as a string of `<script>` tags
+	 */
 	getScriptTags(): string[];
 
 	/**
-     * Get scripts as an array of React `<script>` elements.
-     */
+	 * Get scripts as an array of React `<script>` elements.
+	 */
 	getScriptElements(): Array<ReactElement<{}>>;
 
 	/**
-     * Get "prefetch" and "preload" links as a string of `<link>` tags
-     */
+	 * Get "prefetch" and "preload" links as a string of `<link>` tags
+	 */
 	getLinkTags(): string[];
 
 	/**
-     * Get "prefetch" and "preload" links as an array of React `<link>` elements
-     */
+	 * Get "prefetch" and "preload" links as an array of React `<link>` elements
+	 */
 	getLinkElements(): Array<ReactElement<{}>>;
 
 	/**
-     * Get style links as a string of `<link>` tags
-     */
+	 * Get style links as a string of `<link>` tags
+	 */
 	getStyleTags(): string[];
 
 	/**
-     * Get style links as an array of React `<link>` elements
-     */
+	 * Get style links as an array of React `<link>` elements
+	 */
 	getStyleElements(): Array<ReactElement<{}>>;
 }
 
