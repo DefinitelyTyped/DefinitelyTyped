@@ -1,6 +1,7 @@
 // Type definitions for dialogflow 0.6
 // Project: https://github.com/dialogflow/dialogflow-nodejs-client-v2#readme
 // Definitions by: Daniel Dyla <https://github.com/dyladan>
+//                 Joseph Thibeault <https://github.com/jrthib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -840,10 +841,16 @@ export enum IntentView {
     INTENT_VIEW_FULL = "INTENT_VIEW_FULL"
 }
 
+export enum WebhookState {
+    WEBHOOK_STATE_UNSPECIFIED = "WEBHOOK_STATE_UNSPECIFIED",
+    WEBHOOK_STATE_ENABLED = "WEBHOOK_STATE_ENABLED",
+    WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING = "WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING"
+}
+
 export interface Intent {
     name: string;
     displayName: string;
-    webhookState: string;
+    webhookState: WebhookState;
     priority?: number;
     isFallback?: boolean;
     mlEnabled?: boolean;
