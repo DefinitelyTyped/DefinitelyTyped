@@ -245,7 +245,7 @@ const LazyClassComponent = React.lazy(async () => ({ default: ComponentWithProps
 const LazyMemoized3 = React.lazy(async () => ({ default: Memoized3 }));
 const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 
-<React.Suspense fallback={<Memoized1 foo='string' />}>
+<React.Suspense fallback={<Memoized1 foo='string' />} maxDuration={500}>
     <LazyClassComponent hello='test'/>
     <LazyClassComponent ref={ref => { if (ref) { ref.props.hello; } }} hello='test'/>
     <LazyMemoized3 ref={ref => { if (ref) { ref.props.x; } }}/>

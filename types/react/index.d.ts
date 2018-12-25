@@ -330,12 +330,8 @@ declare namespace React {
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
 
-        // I tried looking at the code but I have no idea what it does.
-        // https://github.com/facebook/react/issues/13206#issuecomment-432489986
-        /**
-         * Not implemented yet, requires unstable_ConcurrentMode
-         */
-        // maxDuration?: number;
+        /** The duration (in milliseconds) to wait before rendering the fallback react tree */
+        maxDuration?: number;
     }
     /**
      * This feature is not yet available for server-side rendering.
