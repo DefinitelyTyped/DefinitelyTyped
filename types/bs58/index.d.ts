@@ -3,8 +3,6 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="base-x" />
-
 import * as BaseX from 'base-x';
 
 declare namespace base58 { }
