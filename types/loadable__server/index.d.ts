@@ -6,15 +6,7 @@
 
 import { ComponentType, ReactElement, Component } from 'react';
 
-export interface ChunkExtractorOptions {
-	/**
-	 * Stats file path generated using `@loadable/webpack-plugin`
-	 */
-	statsFile?: string;
-	/**
-	 * Stats generated using `@loadable/webpack-plugin`.
-	 */
-	stats?: object;
+export type ChunkExtractorOptions = {
 	/**
 	 * Webpack entrypoints to load (default to `["main"]`)
 	 */
@@ -23,7 +15,17 @@ export interface ChunkExtractorOptions {
 	 * Optional output path (only for `requireEntrypoint`)
 	 */
 	outputPath?: string;
-}
+} & ({
+	/**
+	 * Stats file path generated using `@loadable/webpack-plugin`
+	 */
+	statsFile: string;
+ } | {
+	 /**
+	  * Stats generated using `@loadable/webpack-plugin`.
+	  */
+	stats: object;
+ });
 
 /**
  * Used to collect chunks server-side and get them as script tags or script elements
