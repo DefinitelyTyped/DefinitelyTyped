@@ -255,6 +255,7 @@ test = (
         ]}
         barWidth={20}
         barRatio={100}
+        cornerRadius={2}
     />
 );
 
