@@ -2,7 +2,7 @@
 // Project: https://github.com/smooth-code/loadable-components
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.3
 
 import { Plugin } from 'webpack';
 
