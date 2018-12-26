@@ -706,7 +706,7 @@ export class BufferAttribute {
 
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
-    clone(): BufferAttribute;
+    clone(): this;
     copy(source: BufferAttribute): this;
     copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute;
     copyArray(array: ArrayLike<number>): BufferAttribute;
@@ -926,7 +926,7 @@ export class BufferGeometry extends EventDispatcher {
     toNonIndexed(): BufferGeometry;
 
     toJSON(): any;
-    clone(): BufferGeometry;
+    clone(): this;
     copy(source: BufferGeometry): this;
 
     /**
@@ -1195,7 +1195,7 @@ export class Face3 {
      */
     materialIndex: number;
 
-    clone(): Face3;
+    clone(): this;
     copy(source: Face3): this;
 }
 
@@ -1425,7 +1425,7 @@ export class Geometry extends EventDispatcher {
     /**
      * Creates a new clone of the Geometry.
      */
-    clone(): Geometry;
+    clone(): this;
 
     copy(source: Geometry): this;
 
@@ -1509,7 +1509,7 @@ export class InterleavedBuffer {
 
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): InterleavedBuffer;
-    clone(): InterleavedBuffer;
+    clone(): this;
     copy(source: InterleavedBuffer): this;
     copyAt(index1: number, attribute: InterleavedBufferAttribute, index2: number): InterleavedBuffer;
     set(value: ArrayLike<number>, index: number): InterleavedBuffer;
@@ -1839,7 +1839,7 @@ export class Object3D extends EventDispatcher {
 
     toJSON(meta?: { geometries: any, materials: any, textures: any, images: any }): any;
 
-    clone(recursive?: boolean): Object3D;
+    clone(recursive?: boolean): this;
 
     /**
      *
@@ -2016,7 +2016,7 @@ export class LightShadow {
     matrix: Matrix4;
 
     copy(source: LightShadow): this;
-    clone(recursive?: boolean): LightShadow;
+    clone(recursive?: boolean): this;
     toJSON(): any;
 }
 
@@ -2691,7 +2691,7 @@ export class Material extends EventDispatcher {
     /**
      * Return a new material with the same parameters as this material.
      */
-    clone(): Material;
+    clone(): this;
 
     /**
      * Copy the parameters from the passed material into this material.
@@ -3186,7 +3186,7 @@ export class Box2 {
     set(min: Vector2, max: Vector2): Box2;
     setFromPoints(points: Vector2[]): Box2;
     setFromCenterAndSize(center: Vector2, size: Vector2): Box2;
-    clone(): Box2;
+    clone(): this;
     copy(box: Box2): this;
     makeEmpty(): Box2;
     isEmpty(): boolean;
@@ -3226,7 +3226,7 @@ export class Box3 {
     setFromPoints(points: Vector3[]): this;
     setFromCenterAndSize(center: Vector3, size: Vector3): this;
     setFromObject(object: Object3D): this;
-    clone(): Box3;
+    clone(): this;
     copy(box: Box3): this;
     makeEmpty(): this;
     isEmpty(): boolean;
@@ -3330,7 +3330,7 @@ export class Color {
     /**
      * Clones this color.
      */
-    clone(): Color;
+    clone(): this;
 
     /**
      * Copies given color.
@@ -3553,7 +3553,7 @@ export class Euler {
     onChangeCallback: Function;
 
     set(x: number, y: number, z: number, order?: string): Euler;
-    clone(): Euler;
+    clone(): this;
     copy(euler: Euler): this;
     setFromRotationMatrix(m: Matrix4, order?: string, update?: boolean): Euler;
     setFromQuaternion(q: Quaternion, order?: string, update?: boolean): Euler;
@@ -3581,7 +3581,7 @@ export class Frustum {
     planes: Plane[];
 
     set(p0?: number, p1?: number, p2?: number, p3?: number, p4?: number, p5?: number): Frustum;
-    clone(): Frustum;
+    clone(): this;
     copy(frustum: Frustum): this;
     setFromMatrix(m: Matrix4): Frustum;
     intersectsObject(object: Object3D): boolean;
@@ -3598,7 +3598,7 @@ export class Line3 {
     end: Vector3;
 
     set(start?: Vector3, end?: Vector3): Line3;
-    clone(): Line3;
+    clone(): this;
     copy(line: Line3): this;
     getCenter(target: Vector3): Vector3;
     delta(target: Vector3): Vector3;
@@ -3741,7 +3741,7 @@ export interface Matrix {
     /**
      * clone():T;
      */
-    clone(): Matrix;
+    clone(): this;
 }
 
 /**
@@ -3760,7 +3760,7 @@ export class Matrix3 implements Matrix {
 
     set(n11: number, n12: number, n13: number, n21: number, n22: number, n23: number, n31: number, n32: number, n33: number): Matrix3;
     identity(): Matrix3;
-    clone(): Matrix3;
+    clone(): this;
     copy(m: Matrix3): this;
     setFromMatrix4(m: Matrix4): Matrix3;
 
@@ -3852,7 +3852,7 @@ export class Matrix4 implements Matrix {
      * Resets this matrix to identity.
      */
     identity(): Matrix4;
-    clone(): Matrix4;
+    clone(): this;
     copy(m: Matrix4): this;
     copyPosition(m: Matrix4): Matrix4;
     extractBasis( xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
@@ -4049,7 +4049,7 @@ export class Plane {
     setComponents(x: number, y: number, z: number, w: number): Plane;
     setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): Plane;
     setFromCoplanarPoints(a: Vector3, b: Vector3, c: Vector3): Plane;
-    clone(): Plane;
+    clone(): this;
     copy(plane: Plane): this;
     normalize(): Plane;
     negate(): Plane;
@@ -4079,7 +4079,7 @@ export class Spherical {
     theta: number;
 
     set(radius: number, phi: number, theta: number): Spherical;
-    clone(): Spherical;
+    clone(): this;
     copy(other: Spherical): this;
     makeSafe(): void;
     setFromVector3(vec3: Vector3): Spherical;
@@ -4092,7 +4092,7 @@ export class Cylindrical {
     theta: number;
     y: number;
 
-    clone(): Cylindrical;
+    clone(): this;
     copy(other: Cylindrical): this;
     set(radius: number, theta: number, y: number): this;
     setFromVector3(vec3: Vector3): this;
@@ -4129,7 +4129,7 @@ export class Quaternion {
     /**
      * Clones this quaternion.
      */
-    clone(): Quaternion;
+    clone(): this;
 
     /**
      * Copies values of q to this quaternion.
@@ -4216,7 +4216,7 @@ export class Ray {
     direction: Vector3;
 
     set(origin: Vector3, direction: Vector3): Ray;
-    clone(): Ray;
+    clone(): this;
     copy(ray: Ray): this;
     at(t: number, target: Vector3): Vector3;
     lookAt(v: Vector3): Vector3;
@@ -4260,7 +4260,7 @@ export class Sphere {
 
     set(center: Vector3, radius: number): Sphere;
     setFromPoints(points: Vector3[], optionalCenter?: Vector3): Sphere;
-    clone(): Sphere;
+    clone(): this;
     copy(sphere: Sphere): this;
     empty(): boolean;
     containsPoint(point: Vector3): boolean;
@@ -4290,7 +4290,7 @@ export class Triangle {
 
     set(a: Vector3, b: Vector3, c: Vector3): Triangle;
     setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): Triangle;
-    clone(): Triangle;
+    clone(): this;
     copy(triangle: Triangle): this;
     getArea(): number;
     getMidpoint(target: Vector3): Vector3;
@@ -4427,7 +4427,7 @@ export interface Vector {
     /**
      * clone():T;
      */
-    clone(): Vector;
+    clone(): this;
 }
 
 /**
@@ -4477,7 +4477,7 @@ export class Vector2 implements Vector {
     /**
      * Returns a new Vector2 instance with the same `x` and `y` values.
      */
-    clone(): Vector2;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
@@ -4796,7 +4796,7 @@ export class Vector3 implements Vector {
     /**
      * Clones this vector.
      */
-    clone(): Vector3;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
@@ -5043,7 +5043,7 @@ export class Vector4 implements Vector {
     /**
      * Clones this vector.
      */
-    clone(): Vector4;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
@@ -5344,7 +5344,7 @@ export class Skeleton {
     calculateInverses(bone: Bone): void;
     pose(): void;
     update(): void;
-    clone(): Skeleton;
+    clone(): this;
 }
 
 export class SkinnedMesh extends Mesh {
@@ -5841,7 +5841,7 @@ export class WebGLRenderTarget extends EventDispatcher {
     generateMipmaps: any;
 
     setSize(width: number, height: number): void;
-    clone(): WebGLRenderTarget;
+    clone(): this;
     copy(source: WebGLRenderTarget): this;
     dispose(): void;
 }
@@ -6457,7 +6457,7 @@ export class Scene extends Object3D {
 export interface IFog {
     name: string;
     color: Color;
-    clone(): IFog;
+    clone(): this;
     toJSON(): any;
 }
 
@@ -6485,7 +6485,7 @@ export class Fog implements IFog {
      */
     far: number;
 
-    clone(): Fog;
+    clone(): this;
     toJSON(): any;
 }
 
@@ -6504,7 +6504,7 @@ export class FogExp2 implements IFog {
      */
     density: number;
 
-    clone(): FogExp2;
+    clone(): this;
     toJSON(): any;
 }
 
@@ -6554,7 +6554,7 @@ export class Texture extends EventDispatcher {
     static DEFAULT_IMAGE: any;
     static DEFAULT_MAPPING: any;
 
-    clone(): Texture;
+    clone(): this;
     copy(source: Texture): this;
     toJSON(meta: any): any;
     dispose(): void;
