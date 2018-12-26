@@ -6,6 +6,7 @@
 //                 Andrew Goh Yisheng <https://github.com/9y5>
 //                 Thomas Chia <https://github.com/thchia>
 //                 Piotr Dabrowski <https://github.com/yhnavein>
+//                 Victor Irzak <https://github.com/virzak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -60,8 +61,12 @@ export namespace ReactStripeElements {
 
 		onFocus?(event: ElementChangeResponse): void;
 
-		onReady?(el: HTMLElement): void;
+		onReady?(el: HTMLStripeElement): void;
 	}
+}
+
+export interface HTMLStripeElement extends HTMLElement {
+    clear(): void;
 }
 
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {
