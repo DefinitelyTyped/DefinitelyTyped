@@ -3165,8 +3165,10 @@ export class SpriteMaterial extends Material {
     color: Color;
     map: Texture | null;
     rotation: number;
+    isSpriteMaterial: true;
 
     setValues(parameters: SpriteMaterialParameters): void;
+    copy(source: SpriteMaterial): this;
 }
 
 export class ShadowMaterial extends ShaderMaterial {
