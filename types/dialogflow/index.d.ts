@@ -868,7 +868,7 @@ export enum PhraseType {
 }
 
 export interface TrainingPhrase {
-    readonly name?: string;
+    name: string;
     type: PhraseType;
     parts: Part[];
     timesAddedCount?: number;
