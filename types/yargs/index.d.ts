@@ -381,7 +381,7 @@ declare namespace yargs {
         builder?: CommandBuilder<T, U>;
         command?: ReadonlyArray<string> | string;
         describe?: string | false;
-        handler: (args: Argv<U>) => void;
+        handler: (args: Arguments<U>) => void;
     }
 
     type ParseCallback<T> = (err: Error | undefined, argv: Arguments<T>, output: string) => void;
