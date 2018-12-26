@@ -5380,18 +5380,17 @@ export namespace interaction {
 
     /**
      * @classdesc
-     * Interaction for drawing feature geometries.
+     * Allows the user to draw a vector box by clicking and dragging on the map.
+     * Once drawn, the vector box can be modified by dragging its vertices or edges.
+     * This interaction is only supported for mouse devices.
      *
-     * @fires ol.interaction.DrawEvent
+     * @fires ol.interaction.Extent.Event
      * @param options Options.
      * @api stable
      */
     class Extent extends Pointer {
         /**
-         * @classdesc
-         * Interaction for drawing feature geometries.
-         *
-         * @fires ol.interaction.DrawEvent
+         * @fires ol.interaction.Extent.Event
          * @param options Options.
          * @api stable
          */
