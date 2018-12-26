@@ -20,6 +20,7 @@ export namespace ReactStripeElements {
 	type TokenResponse = stripe.TokenResponse;
 	type SourceResponse = stripe.SourceResponse;
 	type SourceOptions = stripe.SourceOptions;
+	type HTMLStripeElement = stripe.elements.Element;
 
 	/**
 	 * There's a bug in @types/stripe which defines the property as
@@ -63,10 +64,6 @@ export namespace ReactStripeElements {
 
 		onReady?(el: HTMLStripeElement): void;
 	}
-}
-
-export interface HTMLStripeElement extends HTMLElement {
-    clear(): void;
 }
 
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {

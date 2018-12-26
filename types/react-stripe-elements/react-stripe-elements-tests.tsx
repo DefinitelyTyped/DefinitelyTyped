@@ -9,7 +9,6 @@ import {
     CardCVCElement,
     PostalCodeElement,
     ReactStripeElements,
-    HTMLStripeElement,
 } from 'react-stripe-elements';
 import InjectedStripeProps = ReactStripeElements.InjectedStripeProps;
 
@@ -17,6 +16,7 @@ import ElementChangeResponse = stripe.elements.ElementChangeResponse;
 import ElementsOptions = stripe.elements.ElementsOptions;
 import ElementsCreateOptions = stripe.elements.ElementsCreateOptions;
 import PatchedTokenResponse = ReactStripeElements.PatchedTokenResponse;
+import HTMLStripeElement = ReactStripeElements.HTMLStripeElement;
 
 const cardElementProps: ElementsOptions = {
     iconStyle: 'solid',
