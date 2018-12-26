@@ -67,9 +67,9 @@ export interface PropTypes {
     renderFooter?: () => JSX.Element;
     shouldFetchSuggestions?: (value: string) => boolean;
 
-    children: (opts: {
+    children: (opts: Readonly<{
         loading: boolean;
-        suggestions: Suggestion[];
+        suggestions: ReadonlyArray<Suggestion>;
         getInputProps: <InputProps extends {}>(options?: InputProps) => {
             type: 'text';
             autoComplete: 'off';
@@ -95,7 +95,7 @@ export interface PropTypes {
             onTouchEnd: () => void;
             onClick: (event?: Event) => void;
         } & SuggestionProps;
-    }) => JSX.Element;
+    }>) => JSX.Element;
 }
 
 export function geocodeByAddress(address: string, callback: (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => void): void;
