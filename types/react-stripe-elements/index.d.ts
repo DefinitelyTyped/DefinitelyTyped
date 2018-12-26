@@ -91,3 +91,9 @@ export class PostalCodeElement extends React.Component<ReactStripeElements.Eleme
 
 export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.ElementProps> {
 }
+
+export class IbanElement extends React.Component<ReactStripeElements.ElementProps> {
+}
+
+export class IdealBankElement extends React.Component<ReactStripeElements.ElementProps> {
+}
