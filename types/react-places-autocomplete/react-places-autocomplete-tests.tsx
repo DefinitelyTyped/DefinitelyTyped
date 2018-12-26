@@ -45,7 +45,20 @@ class Test extends React.Component {
 
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <PlacesAutocomplete value={this.state.address} onChange={this.onChange} />
+                <PlacesAutocomplete value={this.state.address} onChange={this.onChange}>
+                    {({getInputProps, getSuggestionItemProps, suggestions}) => (
+                        <>
+                            <input {...getInputProps()} />
+                            <div>
+                                {suggestions.map(suggestion => (
+                                    <div {...getSuggestionItemProps(suggestion)} >
+                                        {suggestion.description}
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </PlacesAutocomplete>
             </form>
         );
     }
