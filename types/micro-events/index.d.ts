@@ -2,7 +2,7 @@
 // Project: https://github.com/alexanderGugel/micro-events
 // Definitions by: Alexander Sychev <https://github.com/AlexanderSychev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.0
+// TypeScript Version: 2.4
 
 /** Event emitter class */
 declare class MicroEventEmitter {
