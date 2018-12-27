@@ -5841,6 +5841,14 @@ declare namespace Highcharts {
          *     value is pulled from the options.colors array.
          */
         color?: string | Gradient;
+                /**
+         * Enabled or disabled the legend of the plot.
+         */
+        showInLegend?: boolean;
+        /**
+         * Display with another color the negative values.
+         */
+        negativeColor?: string | null;
         /**
          * Styled mode only. A specific color index to use for the point, so its graphic representations are given the class name highcharts-color-{n}.
          * @since 5.0.0
