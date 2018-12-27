@@ -40,14 +40,9 @@ class Test extends React.Component {
     onChange = (address: string) => this.setState({ address });
 
     render() {
-        const inputProps = {
-            value: this.state.address,
-            onChange: this.onChange,
-        };
-
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <PlacesAutocomplete inputProps={inputProps} googleCallbackName="google_callback_name" />
+                <PlacesAutocomplete value={this.state.address} onChange={this.onChange} googleCallbackName="google_callback_name" />
             </form>
         );
     }

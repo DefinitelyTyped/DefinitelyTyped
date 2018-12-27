@@ -2,6 +2,7 @@
 // Project: https://github.com/kenny-hibino/react-places-autocomplete/
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Nokky Goren <https://github.com/ApeNox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 //
@@ -14,13 +15,10 @@ export interface formattedSuggestionType {
 }
 
 export interface PropTypes {
-    inputProps: {
-        value: string;
-        onChange: (value: string) => void;
+    inputProps?: {
         type?: string;
         name?: string;
         placeholder?: string;
-        onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
         disabled?: boolean;
     };
     onError?: (status: string, clearSuggestion: () => void) => void;
@@ -40,7 +38,7 @@ export interface PropTypes {
         autocompleteItem?: React.CSSProperties;
         autocompleteItemActive?: React.CSSProperties;
     };
-    options?: {
+    searchOptions?: {
         bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
         componentRestrictions?: google.maps.GeocoderComponentRestrictions;
         location?: google.maps.LatLng | google.maps.LatLngLiteral;
@@ -48,6 +46,9 @@ export interface PropTypes {
         radius?: number | string;
         types?: string[];
     };
+    value?: string;
+    onChange?: (value: string) => void;
+    onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 
     debounce?: number;
     highlightFirstSuggestion?: boolean;
