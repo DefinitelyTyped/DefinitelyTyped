@@ -671,7 +671,7 @@ declare namespace Application {
         app: Application;
         req: IncomingMessage;
         res: ServerResponse;
-        ctx: ParameterizedContext;
+        ctx: Context;
         response: Response;
         originalUrl: string;
         ip: string;
@@ -682,7 +682,7 @@ declare namespace Application {
         app: Application;
         req: IncomingMessage;
         res: ServerResponse;
-        ctx: ParameterizedContext;
+        ctx: Context;
         request: Request;
     }
 
