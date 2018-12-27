@@ -1133,7 +1133,7 @@ lexDialogActionBase.responseCard!.genericAttachments[0];
 
 lexDialogActionClose.type === 'Close';
 lexDialogActionClose.fulfillmentState === 'Failed';
-lexDialogActionClose.fulfillmentState === 'Fullfilled';
+lexDialogActionClose.fulfillmentState === 'Fulfilled';
 
 lexDialogActionConfirmIntent.type === 'ConfirmIntent';
 str = lexDialogActionConfirmIntent.intentName;

@@ -932,7 +932,7 @@ export interface LexDialogActionBase {
 
 export interface LexDialogActionClose extends LexDialogActionBase {
     type: 'Close';
-    fulfillmentState: 'Fullfilled' | 'Failed';
+    fulfillmentState: 'Fulfilled' | 'Failed';
 }
 
 export interface LexDialogActionElicitIntent extends LexDialogActionBase {
