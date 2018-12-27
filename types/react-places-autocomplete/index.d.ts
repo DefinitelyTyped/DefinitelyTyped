@@ -6,8 +6,7 @@
 // TypeScript Version: 2.8
 //
 /// <reference types="googlemaps" />
-
-import * as React from "react";
+import * as React from 'react';
 
 export interface formattedSuggestionType {
     mainText: string;
@@ -52,6 +51,7 @@ export interface PropTypes {
 
     debounce?: number;
     highlightFirstSuggestion?: boolean;
+    googleCallbackName?: string;
     renderFooter?: () => React.ReactNode;
     shouldFetchSuggestions?: (value: string) => boolean;
 }
