@@ -702,7 +702,7 @@ declare namespace Application {
         respond?: boolean;
     } & CustomT;
 
-    interface Context extends ParameterizedContext<any, {}> {}
+    interface Context extends ParameterizedContext {}
 }
 
 export = Application;
