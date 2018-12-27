@@ -252,7 +252,11 @@ const Test = reduxForm<TestFormData>({
             return (
                 <div>
                     <FormCustom onSubmit={ handleSubmit(this.handleSubmitForm) }>
-                        <FormSection<MyFormSectionProps> name="my-section" component={MyFormSection} foo="hello" />;
+                        <FormSection<MyFormSectionProps>
+                            name="my-section"
+                            component={MyFormSection}
+                            foo="hello"
+                        />
 
                         <FormSection name="test2">
                             <Field
