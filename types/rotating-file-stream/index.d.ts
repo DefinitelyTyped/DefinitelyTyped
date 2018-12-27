@@ -8,14 +8,12 @@
 import { WriteStream } from "fs";
 
 export = rfs;
-declare function rfs(filename: string, options: rfs.RfsOptions): WriteStream
+declare function rfs(filename: string, options: rfs.RfsOptions): WriteStream;
 
 declare namespace rfs {
-
-    export type CompressFn = (srcFileName: string, destinationFileName: string) => string
-
+    type CompressFn = (srcFileName: string, destinationFileName: string) => string;
     interface RfsOptions {
-        compress?: string | true | CompressFn,
+        compress?: string | true | CompressFn;
         highWaterMark?: number;
         history?: string;
         immutable?: boolean;
@@ -27,6 +25,6 @@ declare namespace rfs {
         path?: string;
         rotate?: number;
         rotationTime?: boolean;
-        size?: string
+        size?: string;
     }
 }

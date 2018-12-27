@@ -2,7 +2,7 @@ import * as rfs from 'rotating-file-stream';
 
 const compress: rfs.CompressFn = (src: string, dest: string): string => {
     return `cat ${src} | gzip -c9 > ${dest}`;
-}
+};
 
 const accessLogStream = rfs('access.log', {
     interval: '1d',
