@@ -3,6 +3,7 @@
 // Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Nokky Goren <https://github.com/ApeNox>
+//                 Aziz Khambati <https://github.com/azizhk/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 //
@@ -35,7 +36,7 @@ export interface Suggestion {
 export interface PropTypes {
     onError?: (status: string, clearSuggestion: () => void) => void;
     onSelect?: (address: string, placeID: string) => void;
-    renderSuggestion?: (suggestion: string, formattedSuggestion: formattedSuggestionType) => JSX.Element;
+    renderSuggestion?: (suggestion: string, formattedSuggestion: formattedSuggestionType) => React.ReactNode;
     classNames?: {
         root?: string;
         input?: string;
@@ -64,7 +65,7 @@ export interface PropTypes {
 
     debounce?: number;
     highlightFirstSuggestion?: boolean;
-    renderFooter?: () => JSX.Element;
+    renderFooter?: () => React.ReactNode;
     shouldFetchSuggestions?: (value: string) => boolean;
 
     children: (opts: Readonly<{
@@ -95,7 +96,7 @@ export interface PropTypes {
             onTouchEnd: () => void;
             onClick: (event?: Event) => void;
         } & SuggestionProps;
-    }>) => JSX.Element;
+    }>) => React.ReactNode;
 }
 
 export function geocodeByAddress(address: string, callback: (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => void): void;
