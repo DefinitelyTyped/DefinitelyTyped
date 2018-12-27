@@ -1,4 +1,4 @@
-// Type definitions for Passport 1.0
+// Type definitions for Passport 0.4
 // Project: http://passportjs.org
 // Definitions by: Horiuchi_H <https://github.com/horiuchi>
 //                 Eric Naeseth <https://github.com/enaeseth>
