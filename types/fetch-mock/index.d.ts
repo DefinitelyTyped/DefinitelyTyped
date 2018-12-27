@@ -8,6 +8,7 @@
 //                 Quentin Bouygues <https://github.com/quentinbouygues>
 //                 Fumiaki Matsushima <https://github.com/mtsmfm>
 //                 Colin Doig <https://github.com/captain-igloo>
+//                 Felix Chen <https://github.com/ChenNima>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -441,8 +442,10 @@ declare namespace fetchMock {
         /**
          * Returns a promise that resolves once all fetches handled by fetch-mock
          * have resolved.
+         * @param [waitForBody] Wait for all body parsing methods(res.json(),
+         * res.text(), etc.) to resolve too.
          */
-        flush(): Promise<MockResponse[]>;
+        flush(waitForBody?: boolean): Promise<MockResponse[]>;
 
         /**
          * Returns an array of all calls to fetch matching the given filters.
