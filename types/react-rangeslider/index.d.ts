@@ -1,21 +1,21 @@
-// Type definitions for react-rangeslider 2.2.0
+// Type definitions for react-rangeslider 2.2
 // Project: https://github.com/whoisandy/react-rangeslider
-// Definitions by: aponomy <https://github.com/aponomy>
+// Definitions by: Riku Kallio <https://github.com/RichieRock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2.2
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
 export interface SliderProps {
-  disabled?:boolean
-  format?: Function;
+  disabled?: boolean;
+  format?: (value: number) => string | number | undefined;
   handleLabel?: boolean;
-  labels?: object;
+  labels?: { [value: number]: string };
   max?: number;
   min?: number;
-  onChange?(value:number):void;
-  onChangeComplete?(value:number):void;
-  onChangeStart?(value:number):void;
+  onChange?(value: number): void;
+  onChangeComplete?(value: number): void;
+  onChangeStart?(value: number): void;
   orientation?: string;
   reverse?: boolean;
   step?: number;
@@ -23,5 +23,4 @@ export interface SliderProps {
   value: number;
 }
 
-export default class Slider extends React.Component<SliderProps> {
-}
+export default class Slider extends React.Component<SliderProps> { }
