@@ -515,7 +515,7 @@ declare class Application<StateT = any, CustomT = {}> extends EventEmitter {
     createContext<StateT = any>(
         req: IncomingMessage,
         res: ServerResponse,
-    ): Application.Context<StateT>;
+    ): Application.ParameterizedContext<StateT>;
 
     /**
      * Default error handler.
@@ -526,7 +526,7 @@ declare class Application<StateT = any, CustomT = {}> extends EventEmitter {
 }
 
 declare namespace Application {
-    type Middleware<StateT = any, CustomT = {}> = compose.Middleware<Context<StateT, CustomT>>;
+    type Middleware<StateT = any, CustomT = {}> = compose.Middleware<ParameterizedContext<StateT, CustomT>>;
 
     interface BaseRequest extends ContextDelegatedRequest {
         /**
@@ -671,7 +671,7 @@ declare namespace Application {
         app: Application;
         req: IncomingMessage;
         res: ServerResponse;
-        ctx: Context;
+        ctx: ParameterizedContext;
         response: Response;
         originalUrl: string;
         ip: string;
@@ -682,11 +682,11 @@ declare namespace Application {
         app: Application;
         req: IncomingMessage;
         res: ServerResponse;
-        ctx: Context;
+        ctx: ParameterizedContext;
         request: Request;
     }
 
-    type Context<StateT = any, CustomT = {}> = BaseContext & {
+    type ParameterizedContext<StateT = any, CustomT = {}> = BaseContext & {
         app: Application;
         request: Request;
         response: Response;
@@ -701,6 +701,8 @@ declare namespace Application {
          */
         respond?: boolean;
     } & CustomT;
+
+    interface Context extends ParameterizedContext<any, {}> {}
 }
 
 export = Application;
