@@ -1,4 +1,4 @@
-import * as videojs from 'video.js';
+import videojs from 'video.js';
 
 videojs("example_video_1").ready(function() {
 	// EXAMPLE: Start playing the video.
@@ -57,7 +57,7 @@ videojs("example_video_1").ready(function() {
 
 	this.height(480);
 
-	this.requestFullScreen();
+	this.requestFullscreen();
 
 	testEvents(this);
 

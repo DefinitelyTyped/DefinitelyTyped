@@ -379,7 +379,7 @@ declare module "global" {
 		 * 
 		 * 
 		 */
-		export function setTimeout(callback: Function, timeout: number, ...args: any[]): Class_Timer;
+		export function setTimeout(callback: Function, timeout?: number/** = 1*/, ...args: any[]): Class_Timer;
 	
 		/**
 		 * 

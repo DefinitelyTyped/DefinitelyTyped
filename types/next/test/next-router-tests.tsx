@@ -79,16 +79,18 @@ class TestComponent extends React.Component<TestComponentProps & WithRouterProps
 
     constructor(props: TestComponentProps & WithRouterProps) {
         super(props);
-        props.router.ready(() => {
-            this.setState({ ready: true });
-        });
+        if (props.router) {
+            props.router.ready(() => {
+                this.setState({ ready: true });
+            });
+        }
     }
 
     render() {
         return (
             <div>
                 <h1>{this.state.ready ? 'Ready' : 'Not Ready'}</h1>
-                <h2>Route: {this.props.router.route}</h2>
+                <h2>Route: {this.props.router ? this.props.router.route : ""}</h2>
                 <p>Another prop: {this.props.testValue}</p>
             </div>
         );
@@ -96,3 +98,13 @@ class TestComponent extends React.Component<TestComponentProps & WithRouterProps
 }
 
 withRouter(TestComponent);
+
+interface TestFCQuery {
+    test?: string;
+}
+
+interface TestFCProps extends WithRouterProps<TestFCQuery> { }
+
+const TestFC: React.FunctionComponent<TestFCProps> = ({ router }) => {
+    return <div>{router && router.query && router.query.test}</div>;
+};

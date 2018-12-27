@@ -6,6 +6,8 @@
 //                 Ray Fang <https://github.com/lazarusx>
 //                 Marius Meisenzahl <https://github.com/meisenzahl>
 //                 Rob Moran <https://github.com/thegecko>
+//                 Cameron Diver <https://github.com/CameronDiver>
+//                 Pascal Sthamer <https://github.com/p4sca1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -14,8 +16,16 @@
 import * as stream from 'stream';
 import * as events from 'events';
 
+// The modem parameter is an instance of docker-modem, which is missing type declarations.
+// https://github.com/apocas/docker-modem
+
 declare namespace Dockerode {
-  interface Container {
+  class Container {
+    constructor(modem: any, id: string);
+
+    modem: any;
+    id: string;
+
     inspect(options: {}, callback: Callback<ContainerInspectInfo>): void;
     inspect(callback: Callback<ContainerInspectInfo>): void;
     inspect(options?: {}): Promise<ContainerInspectInfo>;
@@ -99,18 +109,20 @@ declare namespace Dockerode {
     logs(callback: Callback<NodeJS.ReadableStream>): void;
     logs(options?: ContainerLogsOptions): Promise<NodeJS.ReadableStream>;
 
-    stats(options: {}, callback: Callback<any>): void;
-    stats(callback: Callback<any>): void;
-    stats(options?: {}): Promise<any>;
+    stats(options: {}, callback: Callback<ContainerStats>): void;
+    stats(callback: Callback<ContainerStats>): void;
+    stats(options?: {}): Promise<ContainerStats>;
 
-    attach(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
-    attach(options: {}): Promise<NodeJS.ReadableStream>;
-
-    modem: any;
-    id?: string;
+    attach(options: {}, callback: Callback<NodeJS.ReadWriteStream>): void;
+    attach(options: {}): Promise<NodeJS.ReadWriteStream>;
   }
 
-  interface Image {
+  class Image {
+    constructor(modem: any, name: string);
+
+    modem: any;
+    id: string;
+
     inspect(callback: Callback<ImageInspectInfo>): void;
     inspect(): Promise<ImageInspectInfo>;
 
@@ -131,24 +143,28 @@ declare namespace Dockerode {
     remove(options: {}, callback: Callback<ImageRemoveInfo>): void;
     remove(callback: Callback<ImageRemoveInfo>): void;
     remove(options?: {}): Promise<any>;
-
-    modem: any;
-    id?: string;
   }
 
-  interface Volume {
+  class Volume {
+    constructor(modem: any, name: string);
+
+    modem: any;
+    name: string;
+
     inspect(callback: Callback<any>): void;
     inspect(): Promise<any>;
 
     remove(options: {}, callback: Callback<any>): void;
     remove(callback: Callback<any>): void;
     remove(options?: {}): Promise<any>;
-
-    modem: any;
-    name?: string;
   }
 
-  interface Service {
+  class Service {
+    constructor(modem: any, id: string);
+
+    modem: any;
+    id: string;
+
     inspect(callback: Callback<any>): void;
     inspect(): Promise<any>;
 
@@ -158,20 +174,24 @@ declare namespace Dockerode {
 
     update(options: {}, callback: Callback<any>): void;
     update(options: {}): Promise<any>;
-
-    modem: any;
-    id?: string;
   }
 
-  interface Task {
+  class Task {
+    constructor(modem: any, id: string);
+
+    modem: any;
+    id: string;
+
     inspect(callback: Callback<any>): void;
     inspect(): Promise<any>;
-
-    modem: any;
-    id?: string;
   }
 
-  interface Node {
+  class Node {
+    constructor(modem: any, id: string);
+
+    modem: any;
+    id: string;
+
     inspect(callback: Callback<any>): void;
     inspect(): Promise<any>;
 
@@ -182,12 +202,11 @@ declare namespace Dockerode {
     remove(options: {}, callback: Callback<any>): void;
     remove(callback: Callback<any>): void;
     remove(options?: {}): Promise<any>;
-
-    modem: any;
-    id?: string;
   }
 
-  interface Plugin {
+  class Plugin {
+    constructor(modem: any, name: string, remote?: any);
+
     modem: any;
     name: string;
     remote: any;
@@ -226,7 +245,12 @@ declare namespace Dockerode {
     upgrade(auth: any, options?: {}): Promise<any>;
   }
 
-  interface Secret {
+  class Secret {
+    constructor(modem: any, id: string);
+
+    modem: any;
+    id: string;
+
     inspect(callback: Callback<SecretInfo>): void;
     inspect(): Promise<SecretInfo>;
 
@@ -237,12 +261,14 @@ declare namespace Dockerode {
     remove(options: {}, callback: Callback<any>): void;
     remove(callback: Callback<any>): void;
     remove(options?: {}): Promise<any>;
-
-    modem: any;
-    id?: string;
   }
 
-  interface Network {
+  class Network {
+    constructor(modem: any, id: string);
+
+    modem: any;
+    id: string;
+
     inspect(callback: Callback<any>): void;
     inspect(): Promise<any>;
 
@@ -257,12 +283,14 @@ declare namespace Dockerode {
     disconnect(options: {}, callback: Callback<any>): void;
     disconnect(callback: Callback<any>): void;
     disconnect(options?: {}): Promise<any>;
-
-    modem: any;
-    id?: string;
   }
 
-  interface Exec {
+  class Exec {
+    constructor(modem: any, id: string);
+
+    modem: any;
+    id: string;
+
     inspect(callback: Callback<any>): void;
     inspect(): Promise<any>;
 
@@ -271,9 +299,6 @@ declare namespace Dockerode {
 
     resize(options: {}, callback: Callback<any>): void;
     resize(options: {}): Promise<any>;
-
-    modem: any;
-    id?: string;
   }
 
   interface ImageInfo {
@@ -326,6 +351,20 @@ declare namespace Dockerode {
     GlobalIPv6Address: string;
     GlobalIPv6PrefixLen: number;
     MacAddress: string;
+  }
+
+  // not complete definition of network inspection
+  // info which is returned by list / inspect
+  interface NetworkInspectInfo {
+    Id: string;
+    Name: string;
+    Driver: string;
+    Created: string;
+    Scope: string;
+    EnableIPv6: boolean;
+    Internal: boolean;
+    Attachable: boolean;
+    Ingress: boolean;
   }
 
   interface ContainerInspectInfo {
@@ -431,18 +470,97 @@ declare namespace Dockerode {
           GlobalIPv6Address: string;
           GlobalIPv6PrefixLen: number;
           MacAddress: string;
-        }
+        };
       };
       Node?: {
-          ID: string;
-          IP: string;
-          Addr: string;
-          Name: string;
-          Cpus: number;
-          Memory: number;
-          Labels: any;
-      }
+        ID: string;
+        IP: string;
+        Addr: string;
+        Name: string;
+        Cpus: number;
+        Memory: number;
+        Labels: any;
+      };
     };
+  }
+
+  interface NetworkStats {
+    [name: string]: {
+      rx_bytes: number;
+      rx_dropped: number;
+      rx_errors: number;
+      rx_packets: number;
+      tx_bytes: number;
+      tx_dropped: number;
+      tx_errors: number;
+      tx_packets: number;
+    };
+  }
+
+  interface CPUStats {
+    cpu_usage: {
+      percpu_usage: number[];
+      usage_in_usermode: number;
+      total_usage: number;
+      usage_in_kernelmode: number;
+    };
+    system_cpu_usage: number;
+    online_cpus: number;
+    throttling_data: {
+      periods: number;
+      throttled_periods: number;
+      throttled_time: number;
+    };
+  }
+
+  interface MemoryStats {
+    stats: {
+      total_pgmajfault: number;
+      cache: number;
+      mapped_file: number;
+      total_inactive_file: number;
+      pgpgout: number;
+      rss: number;
+      total_mapped_file: number;
+      writeback: number;
+      unevictable: number;
+      pgpgin: number;
+      total_unevictable: number;
+      pgmajfault: number;
+      total_rss: number;
+      total_rss_huge: number;
+      total_writeback: number;
+      total_inactive_anon: number;
+      rss_huge: number;
+      hierarchical_memory_limit: number;
+      total_pgfault: number;
+      total_active_file: number;
+      active_anon: number;
+      total_active_anon: number;
+      total_pgpgout: number;
+      total_cache: number;
+      inactive_anon: number;
+      active_file: number;
+      pgfault: number;
+      inactive_file: number;
+      total_pgpgin: number;
+    };
+    max_usage: number;
+    usage: number;
+    failcnt: number;
+    limit: number;
+  }
+
+  interface ContainerStats {
+    read: string;
+    pid_stats: {
+      current: number;
+    };
+    networks: NetworkStats;
+    memory_stats: MemoryStats;
+    blkio_stats: {};
+    cpu_stats: CPUStats;
+    precpu_stats: CPUStats;
   }
 
   interface HostConfig {
@@ -573,6 +691,109 @@ declare namespace Dockerode {
     };
   }
 
+  interface AuthConfig {
+    username: string;
+    password: string;
+    serveraddress: string;
+    email?: string;
+  }
+
+  interface PortBinding {
+    HostIp?: string;
+    HostPort?: string;
+  }
+
+  interface PortMap {
+    [key: string]: PortBinding[];
+  }
+
+  interface RestartPolicy {
+    Name: string;
+    MaximumRetryCount?: number;
+  }
+
+  type LoggingDriverType =
+    | "json-file"
+    | "syslog"
+    | "journald"
+    | "gelf"
+    | "fluentd"
+    | "awslogs"
+    | "splunk"
+    | "etwlogs"
+    | "none";
+
+  interface LogConfig {
+    Type: LoggingDriverType;
+    Config?: { [key: string]: string };
+  }
+
+  interface DeviceMapping {
+    PathOnHost: string;
+    PathInContainer: string;
+    CgroupPermissions: string;
+  }
+
+  /* tslint:disable:interface-name */
+  interface IPAMConfig {
+    IPv4Address?: string;
+    IPv6Address?: string;
+    LinkLocalIPs?: string[];
+  }
+  /* tslint:enable:interface-name */
+
+  interface EndpointSettings {
+    IPAMConfig?: IPAMConfig;
+    Links?: string[];
+    Aliases?: string[];
+    NetworkID?: string;
+    EndpointID?: string;
+    Gateway?: string;
+    IPAddress?: string;
+    IPPrefixLen?: number;
+    IPv6Gateway?: string;
+    GlobalIPv6Address?: string;
+    GlobalIPV6PrefixLen?: number;
+    MacAddress?: string;
+    DriverOpts?: { [key: string]: string };
+  }
+
+  interface EndpointsConfig {
+    [key: string]: EndpointSettings;
+  }
+
+  type MountType =
+    | "bind"
+    | "volume"
+    | "tmpfs";
+
+  type MountConsistency =
+    | "default"
+    | "consistent"
+    | "cached"
+    | "delegated";
+
+  type MountPropagation =
+    | "private"
+    | "rprivate"
+    | "shared"
+    | "rshared"
+    | "slave"
+    | "rslave";
+
+  interface MountSettings {
+    Target: string;
+    Source: string;
+    Type: MountType;
+    ReadOnly ?: boolean;
+    Consistency ?: MountConsistency;
+    BindOptions ?: {
+      Propagation: MountPropagation;
+    };
+  }
+
+  type MountConfig = MountSettings[];
+
   interface ContainerCreateOptions {
     name?: string;
     Hostname?: string;
@@ -620,7 +841,7 @@ declare namespace Dockerode {
       OomScoreAdj?: number;
       PidMode?: string;
       PidsLimit?: number;
-      PortBindings?: { [portAndProtocol: string]: Array<{ [index: string]: string }> };
+      PortBindings?: PortMap;
       PublishAllPorts?: boolean;
       Privileged?: boolean;
       ReadonlyRootfs?: boolean;
@@ -629,34 +850,23 @@ declare namespace Dockerode {
       DnsSearch?: string[];
       ExtraHosts?: any;
       VolumesFrom?: string[];
+      Mounts?: MountConfig;
       CapAdd?: string[];
       CapDrop?: string[];
       GroupAdd?: string[];
-      RestartPolicy?: { [index: string]: number | string };
+      RestartPolicy?: RestartPolicy;
       NetworkMode?: string;
-      Devices?: any[];
+      Devices?: DeviceMapping[];
       Sysctls?: { [index: string]: string };
       Ulimits?: Array<{}>;
-      LogConfig?: { [index: string]: string | {} };
+      LogConfig?: LogConfig;
       SecurityOpt?: { [index: string]: any };
       CgroupParent?: string;
       VolumeDriver?: string;
       ShmSize?: number;
     };
     NetworkingConfig?: {
-      EndpointsConfig?: {
-        [index: string]: any;
-        isolated_nw?: {
-          [index: string]: any;
-          IPAMConfig?: {
-            IPv4Address?: string;
-            IPv6Adress?: string;
-            LinkLocalIPs?: string[];
-          }
-          Links?: string[];
-          Aliases?: string[];
-        }
-      }
+      EndpointsConfig?: EndpointsConfig;
     };
   }
 
@@ -820,8 +1030,37 @@ declare namespace Dockerode {
   }
 
   interface ImageBuildContext {
-  	context: string;
-  	src: string[];
+    context: string;
+    src: string[];
+  }
+
+  interface DockerVersion {
+    ApiVersion: string;
+    Arch: string;
+    BuildTime: Date;
+    Components: Array<{
+      Details: {
+        ApiVersion: string;
+        Arch: string;
+        BuildTime: Date;
+        Experimental: string;
+        GitCommit: string;
+        GoVersion: string;
+        KernelVersion: string;
+        Os: string;
+      };
+      Name: string;
+      Version: string;
+    }>;
+    GitCommit: string;
+    GoVersion: string;
+    KernelVersion: string;
+    MinAPIVersion: string;
+    Os: string;
+    Platform: {
+      Name: string;
+    };
+    Version: string;
   }
 }
 
@@ -949,8 +1188,8 @@ declare class Dockerode {
   df(callback: Callback<any>): void;
   df(): Promise<any>;
 
-  version(callback: Callback<any>): void;
-  version(): Promise<any>;
+  version(callback: Callback<Dockerode.DockerVersion>): void;
+  version(): Promise<Dockerode.DockerVersion>;
 
   ping(callback: Callback<any>): void;
   ping(): Promise<any>;

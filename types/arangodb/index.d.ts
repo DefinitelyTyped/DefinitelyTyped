@@ -2,7 +2,7 @@
 // Project: https://github.com/arangodb/arangodb
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="node" />
 
@@ -619,6 +619,7 @@ declare namespace ArangoDB {
 
     interface Collection<T extends object = any> {
         // Collection
+        name(): string;
         checksum(
             withRevisions?: boolean,
             withData?: boolean
@@ -848,10 +849,11 @@ declare namespace ArangoDB {
         ): ArangoSearchViewProperties;
     }
 
-    interface ArangoSearchViewConsolidate {
-        threshold: number;
-        segmentThreshold: number;
-    }
+    type ArangoSearchViewConsolidationType =
+        | "bytes"
+        | "bytes_accum"
+        | "count"
+        | "fill";
 
     interface ArangoSearchViewCollectionLink {
         analyzers?: string[];
@@ -865,35 +867,26 @@ declare namespace ArangoDB {
         id: string;
         name: string;
         type: "arangosearch";
-        commit: {
-            cleanupIntervalStep: number;
-            commitIntervalMsec: number;
-            consolidate: {
-                bytes?: ArangoSearchViewConsolidate;
-                bytes_accum?: ArangoSearchViewConsolidate;
-                count?: ArangoSearchViewConsolidate;
-                fill?: ArangoSearchViewConsolidate;
-            };
+
+        cleanupIntervalStep: number;
+        consolidationIntervalMsec: number;
+        consolidationPolicy: {
+            type: ArangoSearchViewConsolidationType;
+            segmentThreshold: number;
+            threshold: number;
         };
-        locale: string;
         links: {
             [key: string]: ArangoSearchViewCollectionLink | undefined;
         };
     }
 
     interface ArangoSearchViewPropertiesOptions {
-        locale?: string;
-        commit?: {
-            consolidate?:
-                | "none"
-                | {
-                      count?: Partial<ArangoSearchViewConsolidate>;
-                      bytes?: Partial<ArangoSearchViewConsolidate>;
-                      bytes_accum?: Partial<ArangoSearchViewConsolidate>;
-                      fill?: Partial<ArangoSearchViewConsolidate>;
-                  };
-            commitIntervalMsec?: number;
-            cleanupIntervalStep?: number;
+        cleanupIntervalStep?: number;
+        consolidationIntervalMsec?: number;
+        consolidationPolicy?: {
+            type?: ArangoSearchViewConsolidationType;
+            segmentThreshold?: number;
+            threshold?: number;
         };
         links?: {
             [key: string]: ArangoSearchViewCollectionLink | undefined;
@@ -1448,6 +1441,72 @@ declare module "@arangodb/foxx/router" {
     export = createRouter;
 }
 
+declare module "@arangodb/foxx/queues" {
+    interface QueueItem {
+        name: string;
+        mount: string;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        schema?: Foxx.Schema;
+        preprocess?: (data: any) => any;
+    }
+
+    interface Script {
+        name: string;
+        mount: string;
+    }
+
+    type JobCallback = (result: any, jobData: any, job: ArangoDB.Document<Job>) => void;
+
+    interface Job {
+        status: string;
+        queue: string;
+        type: Script;
+        failures: object[];
+        runs: number;
+        data: any;
+        created: number;
+        modified: number;
+        delayUntil: number;
+        maxFailures: number;
+        repeatDelay: number;
+        repeatTimes: number;
+        repeatUntil: number;
+        success?: string;
+        failure?: string;
+        runFailures: number;
+        abort(): void;
+    }
+
+    interface JobOptions {
+        success?: JobCallback;
+        failure?: JobCallback;
+        delayUntil?: number | Date;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        repeatTimes?: number;
+        repeatUntil?: number | Date;
+        repeatDelay?: number;
+    }
+
+    interface Queue {
+        push(item: QueueItem, data: any, opts?: JobOptions): void;
+        get(jobId: string): ArangoDB.Document<Job>;
+        delete(jobId: string): boolean;
+        pending(script?: Script): string[];
+        progress(script?: Script): string[];
+        complete(script?: Script): string[];
+        failed(script?: Script): string[];
+        all(script?: Script): string[];
+    }
+
+    function createQueue(name: string, maxWorkers?: number): Queue;
+    function deleteQueue(name: string): boolean;
+    function get(name: string): Queue;
+
+    export { createQueue as create, deleteQueue as delete, get, JobOptions, Job, Queue, QueueItem, Script, };
+}
+
 declare module "@arangodb/foxx/graphql" {
     import { formatError, GraphQLSchema } from "graphql";
     type GraphQLModule = object;
@@ -1706,7 +1765,7 @@ declare module "@arangodb/crypto" {
         key: string | null,
         token: string,
         noVerify?: boolean
-    ): string | null;
+    ): object | null;
     function md5(message: string): string;
     function sha1(message: string): string;
     function sha224(message: string): string;

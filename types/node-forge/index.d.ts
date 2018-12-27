@@ -1,10 +1,17 @@
-// Type definitions for node-forge 0.7.5
+// Type definitions for node-forge 0.7.6
 // Project: https://github.com/digitalbazaar/forge
-// Definitions by: Seth Westphal <https://github.com/westy92>
-//                 Kay Schecker <https://github.com/flynetworks>
-//                 Aakash Goenka <https://github.com/a-k-g>
-//                 Rafal2228 <https://github.com/rafal2228>
+// Definitions by: Seth Westphal    <https://github.com/westy92>
+//                 Kay Schecker     <https://github.com/flynetworks>
+//                 Aakash Goenka    <https://github.com/a-k-g>
+//                 Rafal2228        <https://github.com/rafal2228>
+//                 Beeno Tung       <https://github.com/beenotung>
+//                 Joe Flateau      <https://github.com/joeflateau>
+//                 Nikita Koryabkin <https://github.com/Apologiz>
+//                 timhwang21       <https://github.com/timhwang21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
+
+/// <reference types="node" />
 
 declare module "node-forge" {
     type Byte = string;
@@ -13,6 +20,15 @@ declare module "node-forge" {
     type Base64 = string;
     type Utf8 = string;
     type OID = string;
+
+    namespace jsbn {
+        class BigInteger {
+            data: number[];
+            t: number;
+            s: number;
+            toString(): string;
+        }
+    }
 
     namespace pem {
 
@@ -34,30 +50,63 @@ declare module "node-forge" {
     }
 
     namespace pki {
-
         type PEM = string;
-        type Key = any;
+        type PublicKey = rsa.PublicKey | ed25519.Key;
+        type PrivateKey = rsa.PrivateKey | ed25519.Key;
 
         interface KeyPair {
-            publicKey: Key;
-            privateKey: Key;
+            publicKey: PublicKey;
+            privateKey: PrivateKey;
         }
 
         function pemToDer(pem: PEM): util.ByteStringBuffer;
-        function privateKeyToPem(key: Key, maxline?: number): PEM;
-        function privateKeyInfoToPem(key: Key, maxline?: number): PEM;
-        function publicKeyToPem(key: Key, maxline?: number): PEM;
-        function publicKeyFromPem(pem: PEM): Key;
-        function privateKeyFromPem(pem: PEM): Key;
+        function privateKeyToPem(key: PrivateKey, maxline?: number): PEM;
+        function privateKeyInfoToPem(key: Bytes, maxline?: number): PEM;
+        function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
+        function publicKeyFromPem(pem: PEM): PublicKey;
+        function privateKeyFromPem(pem: PEM): PrivateKey;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
         function certificateFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
+        function createCaStore(): CAStore;
+        function verifyCertificateChain(caStore: CAStore, chain: Certificate[], customVerifyCallback?: (verified: boolean | string, depth: number, chain: Certificate[]) => boolean): boolean;
 
         interface oids {
             [key: string]: string;
         }
         var oids: oids;
 
+        namespace ed25519 {
+            type Key = ArrayBuffer;
+        }
+
         namespace rsa {
+            type EncryptionScheme = 'RSAES-PKCS1-V1_5' | 'RSA-OAEP' | 'RAW' | 'NONE' | null;
+            type SignatureScheme = 'RSASSA-PKCS1-V1_5' | pss.PSS | 'NONE' | null;
+
+            interface PublicKey {
+                n: jsbn.BigInteger;
+                e: jsbn.BigInteger;
+                encrypt(data: Bytes, scheme?: EncryptionScheme, schemeOptions?: any): Bytes;
+                verify(digest: Bytes, signature: Bytes, scheme?: SignatureScheme): boolean;
+            }
+
+            interface PrivateKey {
+                n: jsbn.BigInteger;
+                e: jsbn.BigInteger;
+                d: jsbn.BigInteger;
+                p: jsbn.BigInteger;
+                q: jsbn.BigInteger;
+                dP: jsbn.BigInteger;
+                dQ: jsbn.BigInteger;
+                qInv: jsbn.BigInteger;
+                decrypt(data: Bytes, scheme?: EncryptionScheme, schemeOptions?: any): Bytes;
+                sign(md: md.MessageDigest, scheme?: SignatureScheme): Bytes;
+            }
+
+            interface KeyPair {
+                publicKey: PublicKey;
+                privateKey: PrivateKey;
+            }
 
             interface GenerateKeyPairOptions {
                 bits?: number;
@@ -69,8 +118,43 @@ declare module "node-forge" {
                 algorithm?: string;
             }
 
+            function setPublicKey(n: any, e: any): any;
+
             function generateKeyPair(bits?: number, e?: number, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
             function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
+        }
+
+        namespace ed25519 {
+
+            type NativeBuffer = Buffer | Uint8Array;
+
+            namespace constants {
+                const PUBLIC_KEY_BYTE_LENGTH = 32;
+                const PRIVATE_KEY_BYTE_LENGTH = 64;
+                const SEED_BYTE_LENGTH = 32;
+                const SIGN_BYTE_LENGTH = 64;
+                const HASH_BYTE_LENGTH = 64;
+            }
+
+            function generateKeyPair(options?: { seed?: Buffer | Uint8Array | string }): {
+                publicKey: NativeBuffer;
+                privateKey: NativeBuffer;
+            };
+
+            function publicKeyFromPrivateKey(options: { privateKey: NativeBuffer }): NativeBuffer;
+
+            function sign(options: {
+                message: string,
+                encoding: string,
+                privateKey: NativeBuffer
+            }): NativeBuffer;
+
+            function verify(options: {
+                message: string,
+                encoding: string,
+                signature: Buffer | Uint8Array | util.ByteBuffer | string,
+                publicKey: NativeBuffer
+            }): boolean;
         }
 
         interface CertificateFieldOptions {
@@ -109,7 +193,8 @@ declare module "node-forge" {
                 hash: any;
             };
             extensions: any[];
-            publicKey: any;
+            privateKey: PrivateKey;
+            publicKey: PublicKey;
             md: any;
             /**
              * Sets the subject of this certificate.
@@ -119,7 +204,7 @@ declare module "node-forge" {
              */
             setSubject(attrs: CertificateField[], uniqueId?: string): void;
             /**
-              * Sets the subject of this certificate.
+              * Sets the issuer of this certificate.
               *
               * @param attrs the array of subject attributes to use.
               * @param uniqueId an optional a unique ID to use.
@@ -148,7 +233,7 @@ declare module "node-forge" {
              * @param key the private key to sign with.
              * @param md the message digest object to use (defaults to forge.md.sha1).
              */
-            sign(key: pki.Key, md: md.MessageDigest): void;
+            sign(key: pki.PrivateKey, md?: md.MessageDigest): void;
             /**
              * Attempts verify the signature on the passed certificate using this
              * certificate's public key.
@@ -161,11 +246,41 @@ declare module "node-forge" {
 
         }
 
+        interface CAStore {
+            addCertificate(cert: Certificate | string): void;
+            hasCertificate(cert: Certificate | string): boolean;
+            removeCertificate(cert: Certificate | string): Certificate | null;
+            listAllCertificates(): pki.Certificate[];
+            getIssuer(subject: Certificate): Certificate | null;
+            getBySubject(subject: string): Certificate | null;
+        }
+
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
-        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): Key;
+        function decryptRsaPrivateKey(pem: PEM, passphrase?: string): PrivateKey;
 
         function createCertificate(): Certificate;
+
+        function certificationRequestToPem(cert: Certificate, maxline?: number): PEM;
+
+        function certificationRequestFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
+
+        function createCertificationRequest(): Certificate;
+
+        function publicKeyToAsn1(publicKey: PublicKey): any;
+
+        function publicKeyToRSAPublicKey(publicKey: PublicKey): any;
+    }
+
+    namespace random {
+        function getBytes(count: number, callback?: (bytes: Bytes) => any): Bytes;
+        function getBytesSync(count: number): Bytes;
+        type CB = (_: any, seed: string) => void;
+        interface Random {
+            seedFileSync: (needed: number) => string;
+            seedFile: (needed: number, cb: CB) => void;
+        }
+        function createInstance(): Random;
     }
 
     namespace ssh {
@@ -187,22 +302,22 @@ declare module "node-forge" {
         /**
          * @description Encodes a private RSA key as an OpenSSH file
          */
-        function privateKeyToOpenSSH(privateKey: pki.Key, passphrase?: string): string;
+        function privateKeyToOpenSSH(privateKey: pki.PrivateKey, passphrase?: string): string;
 
         /**
          * @description Encodes (and optionally encrypts) a private RSA key as a Putty PPK file
          */
-        function privateKeyToPutty(privateKey: pki.Key, passphrase?: string, comment?: string): string;
+        function privateKeyToPutty(privateKey: pki.PrivateKey, passphrase?: string, comment?: string): string;
 
         /**
          * @description Encodes a public RSA key as an OpenSSH file
          */
-        function publicKeyToOpenSSH(publicKey: pki.Key, comment?: string): string | pki.PEM;
+        function publicKeyToOpenSSH(publicKey: pki.PublicKey, comment?: string): string | pki.PEM;
 
         /**
          * @description Gets the SSH fingerprint for the given public key
          */
-        function getPublicKeyFingerprint(publicKey: pki.Key, options?: FingerprintOptions): util.ByteStringBuffer | Hex | string;
+        function getPublicKeyFingerprint(publicKey: pki.PublicKey, options?: FingerprintOptions): util.ByteStringBuffer | Hex | string;
     }
 
     namespace asn1 {
@@ -315,7 +430,7 @@ declare module "node-forge" {
         function decodeUtf8(encoded: Utf8): string;
 
         function createBuffer(): ByteBuffer;
-        function createBuffer(input: string, encode: string): ByteBuffer;
+        function createBuffer(input: Bytes | ArrayBuffer | ArrayBufferView | ByteStringBuffer, encode: string): ByteBuffer;
 
         namespace binary {
             namespace raw {
@@ -356,7 +471,7 @@ declare module "node-forge" {
         interface Bag {
             type: string;
             attributes: any;
-            key?: pki.Key;
+            key?: pki.PrivateKey;
             cert?: pki.Certificate;
             asn1: asn1.Asn1
         }
@@ -380,10 +495,33 @@ declare module "node-forge" {
         function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
     }
 
+    namespace pkcs7 {
+        interface PkcsSignedData {
+            content?: string | util.ByteBuffer;
+            contentInfo?: { value: any[] };
+
+            addCertificate(certificate: pki.Certificate): void;
+            addSigner(options: {
+                key: string;
+                certificate: pki.Certificate;
+                digestAlgorithm: string;
+                authenticatedAttributes: { type: string; value?: string }[];
+            }): void;
+            sign(options?:{
+                detached?: boolean
+            }): void;
+            toAsn1(): asn1.Asn1;
+        }
+
+        function createSignedData(): PkcsSignedData;
+    }
+
     namespace md {
 
+        type Encoding = "raw" | "utf8"
+
         interface MessageDigest {
-            update(msg: string, encoding?: string): MessageDigest;
+            update(msg: string, encoding?: Encoding): MessageDigest;
             digest(): util.ByteStringBuffer;
         }
 
@@ -392,6 +530,10 @@ declare module "node-forge" {
         }
 
         namespace sha256 {
+            function create(): MessageDigest;
+        }
+
+        namespace sha512 {
             function create(): MessageDigest;
         }
 
@@ -404,11 +546,14 @@ declare module "node-forge" {
 
         type Algorithm = "AES-ECB" | "AES-CBC" | "AES-CFB" | "AES-OFB" | "AES-CTR" | "AES-GCM" | "3DES-ECB" | "3DES-CBC" | "DES-ECB" | "DES-CBC";
 
-        function createCipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
-        function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer): BlockCipher;
+        function createCipher(algorithm: Algorithm, payload: util.ByteBuffer | Bytes): BlockCipher;
+        function createDecipher(algorithm: Algorithm, payload: util.ByteBuffer | Bytes): BlockCipher;
 
         interface StartOptions {
-            iv?: string;
+            iv?: Bytes;
+            tag?: util.ByteStringBuffer;
+            tagLength?: number;
+            additionalData?: string;
         }
 
         interface BlockCipher {
@@ -416,6 +561,23 @@ declare module "node-forge" {
             update: (payload: util.ByteBuffer) => void;
             finish: () => boolean;
             output: util.ByteStringBuffer;
+            mode: Mode;
+        }
+
+        interface Mode {
+            tag: util.ByteStringBuffer;
+        }
+    }
+
+    namespace pss {
+        type PSS = any;
+
+        function create(any: any): PSS;
+    }
+
+    namespace mgf {
+        namespace mgf1 {
+            function create(any: any): any;
         }
     }
 }

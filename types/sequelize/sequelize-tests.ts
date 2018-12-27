@@ -34,11 +34,16 @@ s.transaction().then( ( a ) => t = a );
 interface GUserAttributes {
     id? : number;
     username? : string;
+    email: string;
 }
 
 interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
-var GUser = s.define<GUserInstance, GUserAttributes>( 'user', { id: Sequelize.INTEGER, username : Sequelize.STRING });
-GUser.create({ id : 1, username : 'one' }).then( ( guser ) => guser.save() );
+const GUser = s.define<GUserInstance, GUserAttributes>('user', {
+    id: Sequelize.INTEGER,
+    username: Sequelize.STRING,
+    email: Sequelize.STRING
+});
+GUser.create({ id : 1, username : 'one', email: 'one@lol.com' }).then((guser) => guser.save());
 
 var schema : Sequelize.DefineAttributes = {
     key : { type : Sequelize.STRING, primaryKey : true },
@@ -215,7 +220,7 @@ barcode.setProduct(product, { save: true }).then(() => { });
 
 barcode.createProduct();
 barcode.createProduct({ id: 1, name: 'Crowbar' });
-barcode.createProduct({ id: 1 }, { save: true, silent: true }).then((product) => { });
+barcode.createProduct({ id: 1 }, { save: true, silent: true }).then((product: ProductInstance) => { });
 
 product.getWarehouse();
 product.getWarehouse({ scope: null }).then(w => w.capacity);
@@ -360,7 +365,7 @@ interface ProductInstance extends Sequelize.Instance<ProductAttributes>, Product
     // belongsTo association mixins:
     getWarehouse: Sequelize.BelongsToGetAssociationMixin<WarehouseInstance>;
     setWarehouse: Sequelize.BelongsToSetAssociationMixin<WarehouseInstance, number>;
-    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
+    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes, WarehouseInstance>;
 };
 
 interface BarcodeAttributes {
@@ -373,7 +378,7 @@ interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, Barcode
     // belongsTo association mixins:
     getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
     setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
-    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes>;
+    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes, ProductInstance>;
 };
 
 interface WarehouseAttributes {
@@ -828,6 +833,7 @@ user.changed( 'name' );
 user.changed();
 
 user.previous( 'name' );
+user.previous();
 
 user.save().then( ( p ) => p );
 user.save( { fields : ['a'] } ).then( ( p ) => p );
@@ -940,6 +946,8 @@ User.findAll( { where : { user_id : 1 }, attributes : ['a', 'b'], include : [{ m
 User.findAll( { order : s.literal( 'email =' ) } );
 User.findAll( { order : [s.literal( 'email = ' + s.escape( 'test@sequelizejs.com' ) )] } );
 User.findAll( { order : [['id', ';DELETE YOLO INJECTIONS']] } );
+User.findAll( { order : s.random() } );
+User.findAll( { order : [s.random()] } );
 User.findAll( { include : [User], order : [[User, 'id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id', 'DESC NULLS FIRST']] } );
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
@@ -974,6 +982,10 @@ User.findById( Buffer.from('a buffer') );
 User.findByPrimary( 'a string' );
 User.findByPrimary( 42 );
 User.findByPrimary( Buffer.from('a buffer') );
+
+User.findByPk( 'a string' );
+User.findByPk( 42 );
+User.findByPk( Buffer.from('a buffer') );
 
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );
@@ -1294,7 +1306,7 @@ var testModel = s.define( 'User', {
     theDate : Sequelize.DATE,
     aBool : Sequelize.BOOLEAN
 } );
-var testModel = s.define( 'FrozenUser', {}, { freezeTableName : true } );
+const testFrozenModel = s.define( 'FrozenUser', {}, { freezeTableName : true } );
 s.define( 'UserWithClassAndInstanceMethods', {}, {
     classMethods : { doSmth : function() { return 1; } },
     instanceMethods : { makeItSo : function() { return 2; } }
@@ -1539,7 +1551,11 @@ interface ChairAttributes {
 }
 interface ChairInstance extends Sequelize.Instance<ChairAttributes> {}
 
-const Chair = s.define<ChairInstance, ChairAttributes>('chair', {});
+const Chair = s.define<ChairInstance, ChairAttributes>('chair', {
+    id: Sequelize.NUMBER,
+    color: Sequelize.STRING,
+    legs: Sequelize.NUMBER
+});
 
 Chair.findAll({
     where: {
@@ -1728,7 +1744,7 @@ s.define('DefineOptionsIndexesTest', {
     email: {
         allowNull: false,
         type: Sequelize.STRING(255),
-        set: function (val) {
+        set: function (val: any) {
             if (typeof val === "string") {
                 val = val.toLowerCase();
             } else {

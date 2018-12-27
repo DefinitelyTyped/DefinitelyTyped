@@ -52,3 +52,5 @@ class MyLoader extends nunjucks.Loader implements nunjucks.ILoader {
 }
 
 env = new nunjucks.Environment(new MyLoader());
+
+new nunjucks.runtime.SafeString("an unsafe string");

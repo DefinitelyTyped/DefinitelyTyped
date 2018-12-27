@@ -1,25 +1,35 @@
-// Type definitions for Knuddels UserApps API 1.00108823
+// Type definitions for Knuddels UserApps API 1.00111486
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// JSON definition
-export interface Json {
-	[x: string]: string | number | boolean | Date | Json | JsonArray;
-}
-export interface JsonArray extends Array<string | number | boolean | Date | Json | JsonArray> { }
-
-// serializable objects (for persistence)
-export type KnuddelsSerializable = string | number | boolean | User | BotUser;
-export interface KnuddelsJson {
-	[x: string]: string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable;
-}
-export interface KnuddelsJsonArray extends Array<string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable> { }
-
-// "data" that may be send between apps and between server and client
+// helper types
+export type JsonData = string | number | boolean | Date | Json | JsonArray | undefined;
+export type KnuddelsJsonData = string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable | undefined;
+export type KnuddelsSerializable = string | number | boolean | User | BotUser | undefined;
 export type KnuddelsEvent = string | Json | KnuddelsEventArray;
-export interface KnuddelsEventArray extends Array<string | KnuddelsEvent | KnuddelsEventArray> { }
 
+// helper interfaces
+declare global {
+	interface Json {
+		[x: string]: JsonData | undefined;
+	}
+
+	interface KnuddelsJson {
+		[x: string]: KnuddelsJsonData | undefined;
+	}
+
+	interface JsonArray extends Array<JsonData> {
+	}
+
+	interface KnuddelsJsonArray extends Array<KnuddelsJsonData> {
+	}
+
+	interface KnuddelsEventArray extends Array<string | Json | KnuddelsEventArray> {
+	}
+}
+
+// Apps API
 declare global {
 	/**
 	 * @see https://developer.knuddels.de/docs/classes/App.html
@@ -255,6 +265,13 @@ declare global {
 			height: number
 		): AppContent;
 		/**
+		 * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_headerbarContent
+		 */
+		static headerbarContent(
+			htmlFile: HTMLFile,
+			height: number
+		): AppContent;
+		/**
 		 * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_sendEvent
 		 */
 		sendEvent(
@@ -426,6 +443,14 @@ declare global {
 	 * @see https://developer.knuddels.de/docs/classes/AppPersistence.html
 	 */
 	class AppPersistence extends Persistence {
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/AppPersistence.html#method_getDatabaseFileSize
+		 */
+		getDatabaseFileSize(): number;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/AppPersistence.html#method_getDatabaseFileSizeLimit
+		 */
+		getDatabaseFileSizeLimit(): number;
 	}
 
 	/**
@@ -493,6 +518,10 @@ declare global {
 		 * @see https://developer.knuddels.de/docs/classes/AppViewMode.html#property_Popup
 		 */
 		static readonly Popup: AppViewMode;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/AppViewMode.html#property_Headerbar
+		 */
+		static readonly Headerbar: AppViewMode;
 	}
 
 	/**
@@ -997,12 +1026,12 @@ declare global {
 			 * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_getAppViewMode
 			 * @since Applet: 9.0byl
 			 */
-			getAppViewMode(): void;
+			getAppViewMode(): string;
 			/**
 			 * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_getBrowserType
 			 * @since Applet: 9.0bzp
 			 */
-			getBrowserType(): void;
+			getBrowserType(): string;
 		}
 	}
 
@@ -1597,6 +1626,18 @@ declare global {
 	 * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html
 	 */
 	class KnuddelsServer {
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_execute
+		 */
+		static execute(
+			fileName: string
+		): void;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_listFiles
+		 */
+		static listFiles(
+			path: string
+		): string[];
 		/**
 		 * @see https://developer.knuddels.de/docs/classes/KnuddelsServer.html#method_getDefaultBotUser
 		 */
@@ -2269,6 +2310,7 @@ declare global {
 			parameters?: {
 				labelMapping?: { [minValue: string]: string };
 				ascending?: boolean;
+				sortIndex?: number;
 			}
 		): Toplist;
 	}

@@ -13,6 +13,7 @@ declare namespace LoadableExport {
     id: number;
     name: string;
     file: string;
+    publicPath: string;
   }
 
   interface Manifest {

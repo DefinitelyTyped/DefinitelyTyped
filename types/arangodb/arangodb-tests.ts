@@ -16,6 +16,9 @@ coll.save({ username: "user" });
 const doc = coll.any();
 console.log(doc.username);
 
+const coll2 = db._collection(coll.name());
+console.log(coll2 === coll);
+
 const users = coll as ArangoDB.Collection<User>;
 const admin = users.firstExample({ username: "admin" })!;
 users.update(admin, { password: md5("hunter2") });
@@ -99,10 +102,9 @@ console.log(
 
 const view = db._view("yolo")!;
 view.properties({
-    locale: "C",
-    commit: {
-        consolidate: {
-            bytes: { segmentThreshold: 20 }
-        }
+    consolidationIntervalMsec: 123,
+    consolidationPolicy: {
+        type: "bytes",
+        segmentThreshold: 234
     }
 });

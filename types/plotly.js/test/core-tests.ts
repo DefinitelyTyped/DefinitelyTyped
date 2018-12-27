@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js/lib/core';
-import { ScatterData, Layout, PlotlyHTMLElement, newPlot } from 'plotly.js/lib/core';
+import { Datum, ScatterData, Layout, PlotlyHTMLElement, newPlot } from 'plotly.js/lib/core';
 
 const graphDiv = '#test';
 
@@ -336,8 +336,8 @@ function rand() {
 	});
 
 	myPlot.on('plotly_selected', (data) => {
-		const x = [] as number[];
-		const y = [] as number[];
+		const x = [] as Datum[];
+		const y = [] as Datum[];
 		const N = 1000;
 		const color1 = '#7b3294';
 		const color1Light = '#c2a5cf';

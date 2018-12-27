@@ -75,7 +75,7 @@ export namespace Azure.ServiceBus {
         DefaultMessageTimeToLive: string;
         DuplicateDetectionHistoryTimeWindow: string;
         EnablePartitioning: boolean;
-        MaxSizeInMegaBytes: number;
+        MaxSizeInMegabytes: number;
         RequiresDuplicateDetection: boolean;
     }
 

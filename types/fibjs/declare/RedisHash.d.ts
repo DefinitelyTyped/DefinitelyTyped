@@ -53,7 +53,7 @@ declare class Class_RedisHash extends Class__object {
 	 * 
 	 * 
 	 */
-	mset(kvs: Object): void;
+	mset(kvs: object): void;
 
 	/**
 	 * 

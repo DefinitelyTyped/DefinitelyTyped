@@ -274,7 +274,7 @@ declare module "util" {
 		 * 
 		 * 
 		 */
-		export function inspect(obj: Object, options?: Object/** = v8::Object::New(isolate)*/): string;
+		export function inspect(obj: object, options?: object/** = v8::Object::New(isolate)*/): string;
 	
 		/**
 		 * 
@@ -639,6 +639,17 @@ declare module "util" {
 	
 		/**
 		 * 
+		 * @brief 深度冻结一个对象，被冻结后的对象及其包含的对象都将不允许修改
+		 * 
+		 * @param v 指定要冻结的对象
+		 * 
+		 * 
+		 * 
+		 */
+		export function deepFreeze(v: any): void;
+	
+		/**
+		 * 
 		 * @brief 将一个或者多个对象的键值扩展到指定对象
 		 * 
 		 * @param v 指定要扩展的对象
@@ -674,7 +685,7 @@ declare module "util" {
 		 * 
 		 * 
 		 */
-		export function pick(v: any, ...objs: any[]): Object;
+		export function pick(v: any, ...objs: any[]): object;
 	
 		/**
 		 * 
@@ -687,7 +698,7 @@ declare module "util" {
 		 * 
 		 * 
 		 */
-		export function omit(v: any, ...keys: any[]): Object;
+		export function omit(v: any, ...keys: any[]): object;
 	
 		/**
 		 * 
@@ -937,22 +948,25 @@ declare module "util" {
 		 * 
 		 * ```JavaScript
 		 * {
-		 * "fibjs": "0.1.0",
-		 * "svn": 1753,
-		 * "build": "Dec 10 2013 21:44:17",
+		 * "fibjs": "0.25.0",
+		 * "clang": "9.1",
+		 * "date": "Jun 12 2018 07:22:40",
 		 * "vender": {
-		 * "ev": "4.11",
-		 * "exif": "0.6.21",
-		 * "gd": "2.1.0-alpha",
+		 * "ev": "4.24",
+		 * "expat": "2.2.5",
+		 * "gd": "2.2.4",
 		 * "jpeg": "8.3",
-		 * "log4cpp": "1.0",
+		 * "leveldb": "1.17",
 		 * "mongo": "0.7",
 		 * "pcre": "8.21",
 		 * "png": "1.5.4",
-		 * "sqlite": "3.8.1",
+		 * "mbedtls": "2.6.1",
+		 * "snappy": "1.1.2",
+		 * "sqlite": "3.23.0",
 		 * "tiff": "3.9.5",
 		 * "uuid": "1.6.2",
-		 * "v8": "3.23.17 (candidate)",
+		 * "v8": "6.7.288.20",
+		 * "v8-snapshot": true,
 		 * "zlib": "1.2.7",
 		 * "zmq": "3.1"
 		 * }
@@ -963,7 +977,7 @@ declare module "util" {
 		 * 
 		 * 
 		 */
-		export function buildInfo(): Object;
+		export function buildInfo(): object;
 	
 	} /** end of `module util` */
 	export = util

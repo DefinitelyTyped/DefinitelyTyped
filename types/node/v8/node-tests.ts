@@ -819,6 +819,8 @@ namespace util_tests {
         var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
         var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
         var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
+        // The following test requires typescript >= 2.4, but definitions currently tested with typescript@2.1
+        // var cbOptionalError: () => Promise<void> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -2698,6 +2700,57 @@ namespace console_tests {
         var writeStream = fs.createWriteStream('./index.d.ts');
         var consoleInstance = new console.Console(writeStream);
     }
+    {
+        console.assert('value');
+        console.assert('value', 'message');
+        console.assert('value', 'message', 'foo', 'bar');
+        console.clear();
+        console.count();
+        console.count('label');
+        console.countReset();
+        console.countReset('label');
+        console.debug();
+        console.debug('message');
+        console.debug('message', 'foo', 'bar');
+        console.dir('obj');
+        console.dir('obj', { depth: 1 });
+        console.error();
+        console.error('message');
+        console.error('message', 'foo', 'bar');
+        console.group();
+        console.group('label');
+        console.group('label1', 'label2');
+        console.groupCollapsed();
+        console.groupEnd();
+        console.info();
+        console.info('message');
+        console.info('message', 'foo', 'bar');
+        console.log();
+        console.log('message');
+        console.log('message', 'foo', 'bar');
+        console.time('label');
+        console.timeEnd('label');
+        console.trace();
+        console.trace('message');
+        console.trace('message', 'foo', 'bar');
+        console.warn();
+        console.warn('message');
+        console.warn('message', 'foo', 'bar');
+
+        // --- Inspector mode only ---
+        console.markTimeline();
+        console.markTimeline('label');
+        console.profile();
+        console.profile('label');
+        console.profileEnd();
+        console.profileEnd('label');
+        console.timeStamp();
+        console.timeStamp('label');
+        console.timeline();
+        console.timeline('label');
+        console.timelineEnd();
+        console.timelineEnd('label');
+    }
 }
 
 ///////////////////////////////////////////////////
@@ -3070,6 +3123,10 @@ namespace dns_tests {
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
+    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: dns.LookupAddress[] = addresses;
     });

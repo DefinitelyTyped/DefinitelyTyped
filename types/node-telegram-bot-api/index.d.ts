@@ -371,7 +371,7 @@ declare namespace TelegramBot {
         mime_type?: string;
     }
 
-    interface Video {
+    interface Video extends FileBase {
         width: number;
         height: number;
         duration: number;
@@ -904,96 +904,96 @@ declare class TelegramBot extends EventEmitter {
 
     hasOpenWebHook(): boolean;
 
-    getMe(): Promise<TelegramBot.User | Error>;
+    getMe(): Promise<TelegramBot.User>;
 
     setWebHook(url: string, options?: TelegramBot.SetWebHookOptions): Promise<any>;
 
-    deleteWebHook(): Promise<boolean | Error>;
+    deleteWebHook(): Promise<boolean>;
 
-    getWebHookInfo(): Promise<TelegramBot.WebhookInfo | Error>;
+    getWebHookInfo(): Promise<TelegramBot.WebhookInfo>;
 
-    getUpdates(options?: TelegramBot.GetUpdatesOptions): Promise<TelegramBot.Update[] | Error>;
+    getUpdates(options?: TelegramBot.GetUpdatesOptions): Promise<TelegramBot.Update[]>;
 
     processUpdate(update: TelegramBot.Update): void;
 
-    sendMessage(chatId: number | string, text: string, options?: TelegramBot.SendMessageOptions): Promise<TelegramBot.Message | Error>;
+    sendMessage(chatId: number | string, text: string, options?: TelegramBot.SendMessageOptions): Promise<TelegramBot.Message>;
 
-    answerInlineQuery(inlineQueryId: string, results: ReadonlyArray<TelegramBot.InlineQueryResult>, options?: TelegramBot.AnswerInlineQueryOptions): Promise<boolean | Error>;
+    answerInlineQuery(inlineQueryId: string, results: ReadonlyArray<TelegramBot.InlineQueryResult>, options?: TelegramBot.AnswerInlineQueryOptions): Promise<boolean>;
 
-    forwardMessage(chatId: number | string, fromChatId: number | string, messageId: number | string, options?: TelegramBot.ForwardMessageOptions): Promise<TelegramBot.Message | Error>;
+    forwardMessage(chatId: number | string, fromChatId: number | string, messageId: number | string, options?: TelegramBot.ForwardMessageOptions): Promise<TelegramBot.Message>;
 
-    sendPhoto(chatId: number | string, photo: string | Stream | Buffer, options?: TelegramBot.SendPhotoOptions): Promise<TelegramBot.Message | Error>;
+    sendPhoto(chatId: number | string, photo: string | Stream | Buffer, options?: TelegramBot.SendPhotoOptions): Promise<TelegramBot.Message>;
 
-    sendAudio(chatId: number | string, audio: string | Stream | Buffer, options?: TelegramBot.SendAudioOptions): Promise<TelegramBot.Message | Error>;
+    sendAudio(chatId: number | string, audio: string | Stream | Buffer, options?: TelegramBot.SendAudioOptions): Promise<TelegramBot.Message>;
 
-    sendDocument(chatId: number | string, doc: string | Stream | Buffer, options?: TelegramBot.SendDocumentOptions, fileOpts?: any): Promise<TelegramBot.Message | Error>;
+    sendDocument(chatId: number | string, doc: string | Stream | Buffer, options?: TelegramBot.SendDocumentOptions, fileOpts?: any): Promise<TelegramBot.Message>;
 
-    sendMediaGroup(chatId: number | string, media: ReadonlyArray<TelegramBot.InputMedia>, options?: TelegramBot.SendMediaGroupOptions): Promise<TelegramBot.Message | Error>;
+    sendMediaGroup(chatId: number | string, media: ReadonlyArray<TelegramBot.InputMedia>, options?: TelegramBot.SendMediaGroupOptions): Promise<TelegramBot.Message>;
 
-    sendSticker(chatId: number | string, sticker: string | Stream | Buffer, options?: TelegramBot.SendStickerOptions): Promise<TelegramBot.Message | Error>;
+    sendSticker(chatId: number | string, sticker: string | Stream | Buffer, options?: TelegramBot.SendStickerOptions): Promise<TelegramBot.Message>;
 
-    sendVideo(chatId: number | string, video: string | Stream | Buffer, options?: TelegramBot.SendVideoOptions): Promise<TelegramBot.Message | Error>;
+    sendVideo(chatId: number | string, video: string | Stream | Buffer, options?: TelegramBot.SendVideoOptions): Promise<TelegramBot.Message>;
 
-    sendVideoNote(chatId: number | string, videoNote: string | Stream | Buffer, options?: TelegramBot.SendVideoNoteOptions): Promise<TelegramBot.Message | Error>;
+    sendVideoNote(chatId: number | string, videoNote: string | Stream | Buffer, options?: TelegramBot.SendVideoNoteOptions): Promise<TelegramBot.Message>;
 
-    sendVoice(chatId: number | string, voice: string | Stream | Buffer, options?: TelegramBot.SendVoiceOptions): Promise<TelegramBot.Message | Error>;
+    sendVoice(chatId: number | string, voice: string | Stream | Buffer, options?: TelegramBot.SendVoiceOptions): Promise<TelegramBot.Message>;
 
-    sendChatAction(chatId: number | string, action: TelegramBot.ChatAction): Promise<boolean | Error>;
+    sendChatAction(chatId: number | string, action: TelegramBot.ChatAction): Promise<boolean>;
 
-    kickChatMember(chatId: number | string, userId: string): Promise<boolean | Error>;
+    kickChatMember(chatId: number | string, userId: string): Promise<boolean>;
 
-    unbanChatMember(chatId: number | string, userId: string): Promise<boolean | Error>;
+    unbanChatMember(chatId: number | string, userId: string): Promise<boolean>;
 
-    restrictChatMember(chatId: number | string, userId: string, options?: TelegramBot.RestrictChatMemberOptions): Promise<boolean | Error>;
+    restrictChatMember(chatId: number | string, userId: string, options?: TelegramBot.RestrictChatMemberOptions): Promise<boolean>;
 
-    promoteChatMember(chatId: number | string, userId: string, options?: TelegramBot.PromoteChatMemberOptions): Promise<boolean | Error>;
+    promoteChatMember(chatId: number | string, userId: string, options?: TelegramBot.PromoteChatMemberOptions): Promise<boolean>;
 
-    exportChatInviteLink(chatId: number | string): Promise<string | Error>;
+    exportChatInviteLink(chatId: number | string): Promise<string>;
 
-    setChatPhoto(chatId: number | string, photo: string | Stream | Buffer): Promise<boolean | Error>;
+    setChatPhoto(chatId: number | string, photo: string | Stream | Buffer): Promise<boolean>;
 
-    deleteChatPhoto(chatId: number | string): Promise<boolean | Error>;
+    deleteChatPhoto(chatId: number | string): Promise<boolean>;
 
-    setChatTitle(chatId: number | string, title: string): Promise<boolean | Error>;
+    setChatTitle(chatId: number | string, title: string): Promise<boolean>;
 
-    setChatDescription(chatId: number | string, description: string): Promise<boolean | Error>;
+    setChatDescription(chatId: number | string, description: string): Promise<boolean>;
 
-    pinChatMessage(chatId: number | string, messageId: string): Promise<boolean | Error>;
+    pinChatMessage(chatId: number | string, messageId: string): Promise<boolean>;
 
-    unpinChatMessage(chatId: number | string): Promise<boolean | Error>;
+    unpinChatMessage(chatId: number | string): Promise<boolean>;
 
-    answerCallbackQuery(callbackQueryId: string, options?: Partial<TelegramBot.AnswerCallbackQueryOptions>): Promise<boolean | Error>;
+    answerCallbackQuery(callbackQueryId: string, options?: Partial<TelegramBot.AnswerCallbackQueryOptions>): Promise<boolean>;
 
     /**
      * @deprecated since version 0.30.0
      */
-    answerCallbackQuery(options?: TelegramBot.AnswerCallbackQueryOptions): Promise<boolean | Error>;
+    answerCallbackQuery(options?: TelegramBot.AnswerCallbackQueryOptions): Promise<boolean>;
 
-    editMessageText(text: string, options?: TelegramBot.EditMessageTextOptions): Promise<TelegramBot.Message | boolean | Error>;
+    editMessageText(text: string, options?: TelegramBot.EditMessageTextOptions): Promise<TelegramBot.Message | boolean>;
 
-    editMessageCaption(caption: string, options?: TelegramBot.EditMessageCaptionOptions): Promise<TelegramBot.Message | boolean | Error>;
+    editMessageCaption(caption: string, options?: TelegramBot.EditMessageCaptionOptions): Promise<TelegramBot.Message | boolean>;
 
-    editMessageReplyMarkup(replyMarkup: TelegramBot.InlineKeyboardMarkup, options?: TelegramBot.EditMessageReplyMarkupOptions): Promise<TelegramBot.Message | boolean | Error>;
+    editMessageReplyMarkup(replyMarkup: TelegramBot.InlineKeyboardMarkup, options?: TelegramBot.EditMessageReplyMarkupOptions): Promise<TelegramBot.Message | boolean>;
 
-    getUserProfilePhotos(userId: number | string, options?: TelegramBot.GetUserProfilePhotosOptions): Promise<TelegramBot.UserProfilePhotos | Error>;
+    getUserProfilePhotos(userId: number | string, options?: TelegramBot.GetUserProfilePhotosOptions): Promise<TelegramBot.UserProfilePhotos>;
 
-    sendLocation(chatId: number | string, latitude: number, longitude: number, options?: TelegramBot.SendLocationOptions): Promise<TelegramBot.Message | Error>;
+    sendLocation(chatId: number | string, latitude: number, longitude: number, options?: TelegramBot.SendLocationOptions): Promise<TelegramBot.Message>;
 
-    editMessageLiveLocation(latitude: number, longitude: number, options?: TelegramBot.EditMessageLiveLocationOptions): Promise<TelegramBot.Message | boolean | Error>;
+    editMessageLiveLocation(latitude: number, longitude: number, options?: TelegramBot.EditMessageLiveLocationOptions): Promise<TelegramBot.Message | boolean>;
 
-    stopMessageLiveLocation(options?: TelegramBot.StopMessageLiveLocationOptions): Promise<TelegramBot.Message | boolean | Error>;
+    stopMessageLiveLocation(options?: TelegramBot.StopMessageLiveLocationOptions): Promise<TelegramBot.Message | boolean>;
 
-    sendVenue(chatId: number | string, latitude: number, longitude: number, title: string, address: string, options?: TelegramBot.SendVenueOptions): Promise<TelegramBot.Message | Error>;
+    sendVenue(chatId: number | string, latitude: number, longitude: number, title: string, address: string, options?: TelegramBot.SendVenueOptions): Promise<TelegramBot.Message>;
 
-    sendContact(chatId: number | string, phoneNumber: string, firstName: string, options?: TelegramBot.SendContactOptions): Promise<TelegramBot.Message | Error>;
+    sendContact(chatId: number | string, phoneNumber: string, firstName: string, options?: TelegramBot.SendContactOptions): Promise<TelegramBot.Message>;
 
-    getFile(fileId: string): Promise<TelegramBot.File | Error>;
+    getFile(fileId: string): Promise<TelegramBot.File>;
 
-    getFileLink(fileId: string): Promise<string | Error>;
+    getFileLink(fileId: string): Promise<string>;
 
     getFileStream(fileId: string): Readable;
 
-    downloadFile(fileId: string, downloadDir: string): Promise<string | Error>;
+    downloadFile(fileId: string, downloadDir: string): Promise<string>;
 
     onText(regexp: RegExp, callback: ((msg: TelegramBot.Message, match: RegExpExecArray | null) => void)): void;
 
@@ -1003,34 +1003,34 @@ declare class TelegramBot extends EventEmitter {
 
     removeReplyListener(replyListenerId: number): TelegramBot.ReplyListener;
 
-    getChat(chatId: number | string): Promise<TelegramBot.Chat | Error>;
+    getChat(chatId: number | string): Promise<TelegramBot.Chat>;
 
-    getChatAdministrators(chatId: number | string): Promise<TelegramBot.ChatMember[] | Error>;
+    getChatAdministrators(chatId: number | string): Promise<TelegramBot.ChatMember[]>;
 
-    getChatMembersCount(chatId: number | string): Promise<number | Error>;
+    getChatMembersCount(chatId: number | string): Promise<number>;
 
-    getChatMember(chatId: number | string, userId: string): Promise<TelegramBot.ChatMember | Error>;
+    getChatMember(chatId: number | string, userId: string): Promise<TelegramBot.ChatMember>;
 
-    leaveChat(chatId: number | string): Promise<boolean | Error>;
+    leaveChat(chatId: number | string): Promise<boolean>;
 
-    setChatStickerSet(chatId: number | string, stickerSetName: string): Promise<boolean | Error>;
+    setChatStickerSet(chatId: number | string, stickerSetName: string): Promise<boolean>;
 
-    deleteChatStickerSet(chatId: number | string): Promise<boolean | Error>;
+    deleteChatStickerSet(chatId: number | string): Promise<boolean>;
 
-    sendGame(chatId: number | string, gameShortName: string, options?: TelegramBot.SendGameOptions): Promise<TelegramBot.Message | Error>;
+    sendGame(chatId: number | string, gameShortName: string, options?: TelegramBot.SendGameOptions): Promise<TelegramBot.Message>;
 
-    setGameScore(userId: string, score: number, options?: TelegramBot.SetGameScoreOptions): Promise<TelegramBot.Message | boolean | Error>;
+    setGameScore(userId: string, score: number, options?: TelegramBot.SetGameScoreOptions): Promise<TelegramBot.Message | boolean>;
 
-    getGameHighScores(userId: string, options?: TelegramBot.GetGameHighScoresOptions): Promise<TelegramBot.GameHighScore[] | Error>;
+    getGameHighScores(userId: string, options?: TelegramBot.GetGameHighScoresOptions): Promise<TelegramBot.GameHighScore[]>;
 
-    deleteMessage(chatId: number | string, messageId: string, options?: any): Promise<boolean | Error>;
+    deleteMessage(chatId: number | string, messageId: string, options?: any): Promise<boolean>;
 
     sendInvoice(chatId: number | string, title: string, description: string, payload: string, providerToken: string, startParameter: string, currency: string,
-                prices: ReadonlyArray<TelegramBot.LabeledPrice>, options?: TelegramBot.SendInvoiceOptions): Promise<TelegramBot.Message | Error>;
+                prices: ReadonlyArray<TelegramBot.LabeledPrice>, options?: TelegramBot.SendInvoiceOptions): Promise<TelegramBot.Message>;
 
-    answerShippingQuery(shippingQueryId: string, ok: boolean, options?: TelegramBot.AnswerShippingQueryOptions): Promise<boolean | Error>;
+    answerShippingQuery(shippingQueryId: string, ok: boolean, options?: TelegramBot.AnswerShippingQueryOptions): Promise<boolean>;
 
-    answerPreCheckoutQuery(preCheckoutQueryId: string, ok: boolean, options?: TelegramBot.AnswerPreCheckoutQueryOptions): Promise<boolean | Error>;
+    answerPreCheckoutQuery(preCheckoutQueryId: string, ok: boolean, options?: TelegramBot.AnswerPreCheckoutQueryOptions): Promise<boolean>;
 }
 
 export = TelegramBot;

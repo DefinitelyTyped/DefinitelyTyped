@@ -15,7 +15,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * The name of the cookie to set, defaults to session.
          */
-        name: string;
+        name?: string;
 
         /**
          * The list of keys to use to sign & verify cookie values. Set cookies are always signed with keys[0], while the other keys are valid for verification, allowing for key rotation.
@@ -46,6 +46,11 @@ declare namespace CookieSessionInterfaces {
          * a string indicating the domain of the cookie (no default).
          */
         domain?: string;
+
+        /**
+         * a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', or true (which maps to 'strict').
+         */
+        sameSite?: "strict" | "lax" | boolean;
 
         /**
          * a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS).

@@ -7,10 +7,12 @@
 //                 Alex Young <https://github.com/alsiola>
 //                 Anton Novik <https://github.com/tehbi4>
 //                 Huw Martin <https://github.com/huwmartin>
+//                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Tim de Koning <https://github.com/reggino>
 //                 Maddi Joyce <https://github.com/maddijoyce>
+//                 Kamil Wojcik <https://github.com/smifun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 import {
   ComponentClass,
   StatelessComponent,
@@ -19,13 +21,13 @@ import {
 
 export type FieldType = "Field" | "FieldArray";
 
-export interface ErrorOther<T = void> {
+export interface ErrorOther<T = string> {
     _error?: T;
 }
 
-export type FormErrors<FormData = {}, T = void> = {
-    [P in keyof FormData]?: ReactElement<any> | string | ErrorOther<T>;
-};
+export type FormErrors<FormData = {}, T = string> = {
+    [P in keyof FormData]?: ReactElement<any> | T;
+} & ErrorOther<T>;
 
 export interface WarningOther<T = void> {
     _warning?: T;

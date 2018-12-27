@@ -11,6 +11,5 @@ export interface GraphQLFormattedError {
     readonly message: string;
     readonly locations: ReadonlyArray<SourceLocation> | undefined;
     readonly path: ReadonlyArray<string | number> | undefined;
-    // Extensions
-    readonly [key: string]: any;
+    readonly extensions?: { [key: string]: any };
 }

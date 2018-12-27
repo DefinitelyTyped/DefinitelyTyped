@@ -1,6 +1,8 @@
-// Type definitions for nuka-carousel 4.2
+// Type definitions for nuka-carousel 4.4
 // Project: https://github.com/FormidableLabs/nuka-carousel
 // Definitions by: Roman Charugin <https://github.com/Romic>
+//                 Alex Smith <https://github.com/altaudio>
+//                 matt-sungwook <https://github.com/matt-sungwook>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -18,37 +20,22 @@ export type CarouselSlideWidthProp = string | number;
 
 export interface CarouselSlideRenderControlProps {
   /**
+   * Space between slides, as an integer, but reflected as px
+   */
+  cellSpacing: number;
+  /**
    * Current slide index
    */
   currentSlide: number;
-  /**
-   * Total amount of slides
-   */
-  slideCount: number;
   /**
    * Current frame width (px)
    */
   frameWidth: number;
   /**
-   * Current slide width (px)
+   * Go to X slide method
+   * @param index Slide's index to go
    */
-  slideWidth: number;
-  /**
-   * Slides to scroll at once
-   */
-  slidesToScroll: number;
-  /**
-   * Space between slides, as an integer, but reflected as px
-   */
-  cellSpacing: number;
-  /**
-   * Slides to show at once
-   */
-  slidesToShow: number;
-  /**
-   * Infinite mode enabled
-   */
-  wrapAround: boolean;
+  goToSlide: (index: number) => void;
   /**
    * Go to the next slide method
    */
@@ -58,10 +45,25 @@ export interface CarouselSlideRenderControlProps {
    */
   previousSlide: () => void;
   /**
-   * Go to X slide method
-   * @param index Slide's index to go
+   * Total amount of slides
    */
-  goToSlide: (index: number) => void;
+  slideCount: number;
+  /**
+   * Slides to scroll at once
+   */
+  slidesToScroll: number;
+  /**
+   * Slides to show at once
+   */
+  slidesToShow: number;
+  /**
+   * Current slide width (px)
+   */
+  slideWidth: number;
+  /**
+   * Infinite mode enabled
+   */
+  wrapAround: boolean;
 }
 
 export type CarouselRenderControl = (props: CarouselSlideRenderControlProps) => JSX.Element;
@@ -101,6 +103,11 @@ export interface CarouselProps {
    * Additional className
    */
   className?: string;
+  /**
+   * When set to true, disable keyboard controls
+   * @default false
+   */
+  disableKeyboardControls?: boolean;
   /**
    * Enable mouse swipe/dragging
    */
@@ -144,6 +151,11 @@ export interface CarouselProps {
    * Window onResize callback
    */
   onResize?: () => void;
+  /**
+   * Pause autoPlay when mouse is over carousel
+   * @default true
+   */
+  pauseOnHover?: boolean;
   /**
    * Function for rendering top left control
    */
@@ -222,6 +234,11 @@ export interface CarouselProps {
    * @default false
    */
   wrapAround?: boolean;
+  /**
+   * Used to remove all controls at once. Overwrites the render[Top, Right, Bottom, Left]CenterControls()
+   * @default false
+   */
+  withoutControls?: boolean;
 }
 
 export interface CarouselState {
@@ -234,13 +251,20 @@ export interface CarouselState {
    */
   dragging: boolean;
   /**
+   * Easing function name
+   */
+  easing: string;
+  /**
    * Current frame width
    */
   frameWidth: number;
   /**
    * Current left value
    */
+  isWrappingAround: boolean;
   left: number;
+  pauseOnHover: boolean;
+  resetWrapAroundPosition: boolean;
   /**
    * Total amount of slides
    */
@@ -258,13 +282,7 @@ export interface CarouselState {
    */
   top: number;
   /**
-   * Easing function name
-   */
-  easing: string;
-  /**
    * Is infinite mode enabled
    */
-  isWrappingAround: boolean;
   wrapToIndex: boolean;
-  resetWrapAroundPosition: boolean;
 }

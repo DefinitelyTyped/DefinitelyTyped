@@ -1,9 +1,11 @@
-// Type definitions for stellar-sdk 0.8
+// Type definitions for stellar-sdk 0.10
 // Project: https://github.com/stellar/js-stellar-sdk
 // Definitions by: Carl Foster <https://github.com/carl-foster>
 //                 Triston Jones <https://github.com/tristonj>
 //                 Paul Selden <https://github.com/pselden>
 //                 Max Bause <https://github.com/maxbause>
+//                 Timur Ramazanov <https://github.com/charlie-wasp>
+//                 Kalvis Kalniņš <https://github.com/Akuukis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -20,7 +22,7 @@ export class CallBuilder<T extends Record> {
     constructor(serverUrl: string)
     call(): Promise<CollectionPage<T>>;
     cursor(cursor: string): this;
-    limit(limit: number): this;
+    limit(limit: number | string): this;
     order(direction: 'asc' | 'desc'): this;
     stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
 }
@@ -64,6 +66,25 @@ export type CallFunction<T extends Record> = () => Promise<T>;
 export type CallCollectionFunction<T extends Record> =
     (options?: CallFunctionTemplateOptions) => Promise<CollectionRecord<T>>;
 
+export enum ASSET_TYPE {
+    native = 'native',
+    credit4 = 'credit_alphanum4',
+    credit12 = 'credit_alphanum12',
+}
+
+export interface BalanceLineNative {
+    balance: string;
+    asset_type: ASSET_TYPE.native;
+}
+export interface BalanceLineAsset {
+    balance: string;
+    limit: string;
+    asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
+    asset_code: string;
+    asset_issuer: string;
+}
+export type BalanceLine = BalanceLineNative | BalanceLineAsset;
+
 export interface AccountRecord extends Record {
     id: string;
     paging_token: string;
@@ -79,29 +100,17 @@ export interface AccountRecord extends Record {
         auth_required: boolean
         auth_revocable: boolean
     };
-    balances: Array<
-    {
-        balance: string
-        asset_type: 'native'
-    } |
-    {
-        balance: string
-        limit: string
-        asset_type: 'credit_alphanum4' | 'credit_alphanum12'
-        asset_code: string
-        asset_issuer: string
-    }
-    >;
+    balances: BalanceLine[];
     signers: Array<
     {
         public_key: string
         weight: number
     }
     >;
-    data: {
+    data: (options: {value: string}) => Promise<{value: string}>;
+    data_attr: {
         [key: string]: string
     };
-
     effects: CallCollectionFunction<EffectRecord>;
     offers: CallCollectionFunction<OfferRecord>;
     operations: CallCollectionFunction<OperationRecord>;
@@ -110,7 +119,7 @@ export interface AccountRecord extends Record {
 }
 
 export interface AssetRecord extends Record {
-    asset_type: 'credit_alphanum4' | 'credit_alphanum12';
+    asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
     asset_code: string;
     asset_issuer: string;
     paging_token: string;
@@ -128,6 +137,7 @@ export interface EffectRecord extends Record {
     starting_balance: string;
     type_i: string;
     type: string;
+    amount?: any;
 
     operation?: CallFunction<OperationRecord>;
     precedes?: CallFunction<EffectRecord>;
@@ -177,6 +187,7 @@ export interface BaseOperationRecord extends Record {
     paging_token: string;
     type: string;
     type_i: number;
+    source_account: string;
 
     self: CallFunction<OperationRecord>;
     succeeds: CallFunction<OperationRecord>;
@@ -298,6 +309,11 @@ export interface ManageDataOperationRecord extends BaseOperationRecord {
     value: string;
 }
 
+export interface BumpSequenceOperationRecord extends BaseOperationRecord {
+    type: 'bump_sequence';
+    bump_to: string;
+}
+
 export type OperationRecord = CreateAccountOperationRecord
     | PaymentOperationRecord
     | PathPaymentOperationRecord
@@ -308,7 +324,8 @@ export type OperationRecord = CreateAccountOperationRecord
     | AllowTrustOperationRecord
     | AccountMergeOperationRecord
     | InflationOperationRecord
-    | ManageDataOperationRecord;
+    | ManageDataOperationRecord
+    | BumpSequenceOperationRecord;
 
 export interface OrderbookRecord extends Record {
     bids: Array<{ price_r: {}, price: number, amount: string }>;
@@ -383,6 +400,8 @@ export interface TransactionRecord extends Record {
     result_xdr: string;
     result_meta_xdr: string;
     memo: string;
+    envelope: any;
+    memo_type: any;
 
     account: CallFunction<AccountRecord>;
     effects: CallCollectionFunction<EffectRecord>;
@@ -412,28 +431,18 @@ export class AccountResponse implements AccountRecord {
         auth_required: boolean
         auth_revocable: boolean
     };
-    balances: Array<
-        {
-            balance: string
-            asset_type: 'native'
-        } |
-        {
-            balance: string
-            limit: string
-            asset_type: 'credit_alphanum4' | 'credit_alphanum12'
-            asset_code: string
-            asset_issuer: string
-        }
-        >;
+    balances: BalanceLine[];
     signers: Array<
         {
             public_key: string
             weight: number
         }
         >;
-    data: {
+    data: (options: {value: string}) => Promise<{value: string}>;
+    data_attr: {
         [key: string]: string
     };
+    inflation_destination?: any;
 
     effects: CallCollectionFunction<EffectRecord>;
     offers: CallCollectionFunction<OfferRecord>;
@@ -448,13 +457,16 @@ export class AccountResponse implements AccountRecord {
 
 export class Asset {
     static native(): Asset;
+    static fromOperation(xdr: xdr.Asset): Asset;
+
     constructor(code: string, issuer: string)
 
     getCode(): string;
     getIssuer(): string;
-    getAssetType(): 'native' | 'credit_alphanum4' | 'credit_alphanum12';
+    getAssetType(): ASSET_TYPE;
     isNative(): boolean;
     equals(other: Asset): boolean;
+    toXDRObject(): xdr.Asset;
 
     code: string;
     issuer: string;
@@ -499,6 +511,13 @@ export class FederationServer {
 
 export class LedgerCallBuilder extends CallBuilder<LedgerRecord> { }
 
+export const MemoNone = 'none';
+export const MemoID = 'id';
+export const MemoText = 'text';
+export const MemoHash = 'hash';
+export const MemoReturn = 'return';
+export type MemoType = typeof MemoNone | typeof MemoID | typeof MemoText | typeof MemoHash | typeof MemoReturn;
+
 export class Memo {
     static fromXDRObject(memo: xdr.Memo): Memo;
     static hash(hash: string): Memo;
@@ -507,21 +526,15 @@ export class Memo {
     static return(hash: string): Memo;
     static text(text: string): Memo;
 
-    constructor(type: 'none');
-    constructor(type: 'id' | 'text' | 'hash' | 'return', value: string)
-    constructor(type: 'hash' | 'return', value: Buffer)
+    constructor(type: typeof MemoNone);
+    constructor(type: typeof MemoID | typeof MemoText | typeof MemoHash | typeof MemoReturn, value: string)
+    constructor(type: typeof MemoHash | typeof MemoReturn, value: Buffer)
 
     type: string;
     value: null | string | Buffer;
 
     toXDRObject(): xdr.Memo;
 }
-
-export const MemoNone = 'none';
-export const MemoID = 'id';
-export const MemoText = 'text';
-export const MemoHash = 'hash';
-export const MemoReturn = 'return';
 
 export enum Networks {
     PUBLIC = 'Public Global Stellar Network ; September 2015',
@@ -553,7 +566,8 @@ export type TransactionOperation =
     | Operation.AllowTrust
     | Operation.AccountMerge
     | Operation.Inflation
-    | Operation.ManageData;
+    | Operation.ManageData
+    | Operation.BumpSequence;
 
 export enum OperationType {
     createAccount = 'createAccount',
@@ -567,6 +581,7 @@ export enum OperationType {
     accountMerge = 'accountMerge',
     inflation = 'inflation',
     manageData = 'manageData',
+    bumpSequence = 'bumpSequence',
 }
 
 export namespace Operation {
@@ -647,7 +662,7 @@ export namespace Operation {
     interface ManageData extends Operation {
         type: OperationType.manageData;
         name: string;
-        value: string;
+        value: Buffer;
     }
     interface ManageDataOptions {
         name: string;
@@ -665,7 +680,7 @@ export namespace Operation {
         offerId: string;
     }
     interface ManageOfferOptions extends CreatePassiveOfferOptions {
-        offerId: number | string;
+        offerId?: number | string;
     }
     function manageOffer(options: ManageOfferOptions): xdr.Operation<ManageOffer>;
 
@@ -745,6 +760,16 @@ export namespace Operation {
     }
     function setOptions(options: SetOptionsOptions): xdr.Operation<SetOptions>;
 
+    interface BumpSequence extends Operation {
+        type: OperationType.bumpSequence;
+        bumpTo: string;
+    }
+    interface BumpSequenceOptions {
+        bumpTo: string;
+        source?: string;
+    }
+    function bumpSequence(options: BumpSequenceOptions): xdr.Operation<BumpSequence>;
+
     function fromXDRObject<T extends Operation>(xdrOperation: xdr.Operation<T>): T;
 }
 
@@ -761,8 +786,12 @@ export class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> {
     forTransaction(transactionId: string): this;
 }
 
+export interface ServerOptions {
+    allowHttp: boolean;
+}
+
 export class Server {
-    constructor(serverURL: string, options?: { allowHttp: boolean })
+    constructor(serverURL: string, options?: ServerOptions)
     accounts(): AccountCallBuilder;
     assets(): AssetsCallBuilder;
     effects(): EffectCallBuilder;
@@ -778,7 +807,7 @@ export class Server {
         destinationAmount: string,
     ): PathCallBuilder;
     payments(): PaymentCallBuilder;
-    submitTransaction(transaction: Transaction): Promise<any>;
+    submitTransaction(transaction: Transaction): Promise<TransactionRecord>;
     tradeAggregation(
         base: Asset,
         counter: Asset,
@@ -788,6 +817,8 @@ export class Server {
     ): TradeAggregationCallBuilder;
     trades(): TradesCallBuilder;
     transactions(): TransactionCallBuilder;
+
+    serverURL: any;  // TODO: require("urijs")
 }
 
 export namespace StrKey {
@@ -854,6 +885,7 @@ export class TransactionCallBuilder extends CallBuilder<TransactionRecord> {
 
 export class Keypair {
     static fromRawEd25519Seed(secretSeed: Buffer): Keypair;
+    static fromBase58Seed(secretSeed: string): Keypair;
     static fromSecret(secretKey: string): Keypair;
     static master(): Keypair;
     static fromPublicKey(publicKey: string): Keypair;
@@ -867,21 +899,51 @@ export class Keypair {
     rawSecretKey(): Buffer;
     canSign(): boolean;
     sign(data: Buffer): Buffer;
+    signDecorated(data: Buffer): xdr.DecoratedSignature;
     signatureHint(): xdr.SignatureHint;
     verify(data: Buffer, signature: Buffer): boolean;
 }
 
 export namespace xdr {
     class XDRStruct {
-        toXDR(): Buffer;
+        static fromXDR(xdr: Buffer): XDRStruct;
+
+        toXDR(base?: string): Buffer;
+        toXDR(encoding: string): string;
     }
-    class Operation<T extends Operation.Operation> extends XDRStruct { }
-    class Asset extends XDRStruct { }
-    class Memo extends XDRStruct { }
-    class TransactionEnvelope extends XDRStruct { }
+    class Operation<T extends Operation.Operation> extends XDRStruct {
+        static fromXDR(xdr: Buffer): Operation<Operation.Operation>;
+    }
+    class Asset extends XDRStruct {
+        static fromXDR(xdr: Buffer): Asset;
+    }
+    class Memo extends XDRStruct {
+        static fromXDR(xdr: Buffer): Memo;
+    }
+    class TransactionEnvelope extends XDRStruct {
+        static fromXDR(xdr: Buffer): TransactionEnvelope;
+    }
     class DecoratedSignature extends XDRStruct {
-      constructor(keys: { hint: SignatureHint, signature: Signature })
+        static fromXDR(xdr: Buffer): DecoratedSignature;
+
+        constructor(keys: { hint: SignatureHint, signature: Signature })
+
+        hint(): SignatureHint;
+        signature(): Buffer;
     }
-    class SignatureHint { }
-    class Signature { }
+    type SignatureHint = Buffer;
+    type Signature = Buffer;
+
+    class TransactionResult extends XDRStruct {
+        static fromXDR(xdr: Buffer): TransactionResult;
+    }
+}
+
+export namespace StellarTomlResolver {
+    interface StellarTomlResolveOptions {
+        allowHttp?: boolean;
+        timeout?: number;
+    }
+
+    function resolve(domain: string, options?: StellarTomlResolveOptions): Promise<{ [key: string]: any }>;
 }

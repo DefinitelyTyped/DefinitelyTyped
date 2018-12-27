@@ -64,6 +64,7 @@ declare namespace JQueryUI {
          * The item selected from the menu, if any. Otherwise the property is null
          */
         item?: any;
+        content?: any;
     }
 
     interface AutocompleteEvent {
@@ -1071,6 +1072,17 @@ declare namespace JQueryUI {
         show?: any;
     }
 
+    interface WidgetCommonProperties {
+        element: JQuery;
+        defaultElement : string;
+        document: Document;
+        namespace: string;
+        uuid: string;
+        widgetEventPrefix: string;
+        widgetFullName: string;
+        window: Window;
+    }
+
     interface Widget {
         (methodName: string): JQuery;
         (options: WidgetOptions): JQuery;
@@ -1079,8 +1091,8 @@ declare namespace JQueryUI {
         (optionLiteral: string, options: WidgetOptions): any;
         (optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
-        (name: string, prototype: any): JQuery;
-        (name: string, base: Function, prototype: any): JQuery;
+        <T>(name: string, prototype: T & ThisType<T & WidgetCommonProperties>): JQuery;
+        <T>(name: string, base: Function, prototype: T & ThisType<T & WidgetCommonProperties> ): JQuery;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1845,7 +1857,9 @@ interface JQuery {
     tabs(): JQuery;
     tabs(methodName: 'destroy'): void;
     tabs(methodName: 'disable'): void;
+    tabs(methodName: 'disable', index: number): void;
     tabs(methodName: 'enable'): void;
+    tabs(methodName: 'enable', index: number): void;
     tabs(methodName: 'load', index: number): void;
     tabs(methodName: 'refresh'): void;
     tabs(methodName: 'widget'): JQuery;

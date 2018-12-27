@@ -154,7 +154,7 @@ export interface HierarchyNode<Datum> {
  * Must return an array of data representing the children, and return null or undefined if the current datum has no children.
  * If children is not specified, it defaults to: `(d) => d.children`.
  */
-export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] | null)): HierarchyNode<Datum>;
+export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Datum[] | null | undefined)): HierarchyNode<Datum>;
 
 // -----------------------------------------------------------------------
 // Stratify
@@ -182,7 +182,7 @@ export interface StratifyOperator<Datum> {
      *
      * @param id The id accessor.
      */
-    id(id: (d: Datum, i?: number, data?: Datum[]) => (string | null | '' | undefined)): this;
+    id(id: (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined)): this;
 
     /**
      * Returns the current parent id accessor, which defaults to: `(d) => d.parentId`.
@@ -197,7 +197,7 @@ export interface StratifyOperator<Datum> {
      *
      * @param parentId The parent id accessor.
      */
-    parentId(parentId: (d: Datum, i?: number, data?: Datum[]) => (string | null | '' | undefined)): this;
+    parentId(parentId: (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined)): this;
 }
 
 /**
@@ -576,7 +576,7 @@ export interface TreemapLayout<Datum> {
  */
 export function treemap<Datum>(): TreemapLayout<Datum>;
 
-// Tiling functions -----------------------------------------------------------------------
+// Tiling functions ------------------------------------------------------
 
 /**
  * Recursively partitions the specified nodes into an approximately-balanced binary tree,
@@ -748,7 +748,7 @@ export interface PackLayout<Datum> {
      *
      * @param radius The specified radius accessor.
      */
-    radius(radius: (node: HierarchyCircularNode<Datum>) => number): this;
+    radius(radius: null | ((node: HierarchyCircularNode<Datum>) => number)): this;
 
     /**
      * Returns the current size, which defaults to [1, 1].
@@ -802,7 +802,7 @@ export function pack<Datum>(): PackLayout<Datum>;
 // Pack Siblings and Enclosure
 // -----------------------------------------------------------------------
 
-export interface PackCircle {
+export interface PackRadius {
     /**
      * The radius of the circle.
      */
@@ -819,10 +819,25 @@ export interface PackCircle {
     y?: number;
 }
 
+export interface PackCircle {
+    /**
+     * The radius of the circle.
+     */
+    r: number;
+
+    /**
+     * The x-coordinate of the circle’s center.
+     */
+    x: number;
+
+    /**
+     * The y-coordinate of the circle’s center.
+     */
+    y: number;
+}
+
 // TODO: Since packSiblings manipulates the circles array in place, technically the x and y properties
 // are optional on invocation, but will be created after execution for each entry.
-// For invocation of packEnclose the x and y coordinates are mandatory. It seems easier to just comment
-// on the mandatory nature, then to create separate interfaces and having to deal with recasting.
 
 /**
  * Packs the specified array of circles, each of which must have a `circle.r` property specifying the circle’s radius.
@@ -830,7 +845,7 @@ export interface PackCircle {
  *
  * @param circles The specified array of circles to pack.
  */
-export function packSiblings<Datum extends PackCircle>(circles: Datum[]): Datum[];
+export function packSiblings<Datum extends PackRadius>(circles: Datum[]): Array<Datum & PackCircle>;
 
 /**
  * Computes the smallest circle that encloses the specified array of circles, each of which must have
@@ -839,4 +854,4 @@ export function packSiblings<Datum extends PackCircle>(circles: Datum[]): Datum[
  *
  * @param circles The specified array of circles to pack.
  */
-export function packEnclose<Datum extends PackCircle>(circles: Datum[]): { r: number, x: number, y: number };
+export function packEnclose<Datum extends PackCircle>(circles: Datum[]): PackCircle;

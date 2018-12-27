@@ -1,4 +1,4 @@
-// Type definitions for Showdown 1.7.3
+// Type definitions for Showdown 1.9.0
 // Project: https://github.com/coreyti/showdown
 // Definitions by: cbowdon <https://github.com/cbowdon>, Pei-Tang Huang <https://github.com/tan9>, Ariel-Saldana <https://github.com/arielsaldana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -293,6 +293,14 @@ declare namespace Showdown {
          * @return The output HTML
          */
         makeHtml(text: string): string;
+
+        /**
+         * Converts an HTML string into a markdown string
+         * 
+         * @param src The input text (HTML)
+         * @returns The output markdown
+         */
+        makeMarkdown(src: string): string;
 
         /**
          * Setting a "local" option only affects the specified Converter object.

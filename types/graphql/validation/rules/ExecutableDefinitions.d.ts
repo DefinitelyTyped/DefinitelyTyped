@@ -1,4 +1,4 @@
-import ValidationContext from "../ValidationContext";
+import { ASTValidationContext } from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
 
 export function nonExecutableDefinitionMessage(defName: string): string;
@@ -9,4 +9,4 @@ export function nonExecutableDefinitionMessage(defName: string): string;
  * A GraphQL document is only valid for execution if all definitions are either
  * operation or fragment definitions.
  */
-export function ExecutableDefinitions(context: ValidationContext): ASTVisitor;
+export function ExecutableDefinitions(context: ASTValidationContext): ASTVisitor;

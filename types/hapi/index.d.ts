@@ -1,11 +1,11 @@
-// Type definitions for hapi 17.0
+// Type definitions for hapi 17.8
 // Project: https://github.com/hapijs/hapi
-// Definitions by: Marc Bornträger <https://github.com/BorntraegerMarc>
-//                 Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
+// Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -17,21 +17,21 @@
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
 
-/// <reference types="node" />
+/// <reference types='node' />
 
-import * as Boom from "boom";
-import * as catbox from "catbox";
-import * as http from "http";
-import * as https from "https";
-import * as Shot from "shot";
-import * as stream from "stream";
-import * as url from "url";
-import * as zlib from "zlib";
+import * as Boom from 'boom';
+import * as http from 'http';
+import * as https from 'https';
+import * as Shot from 'shot';
+import * as stream from 'stream';
+import * as url from 'url';
+import * as zlib from 'zlib';
 
-import { MimosOptions } from "mimos";
-import { SealOptions, SealOptionsSub } from "iron";
-import { AnySchema, ValidationOptions } from "joi";
-import Podium = require("podium");
+import { MimosOptions } from 'mimos';
+import { SealOptions, SealOptionsSub } from 'iron';
+import { AnySchema, ValidationOptions } from 'joi';
+import Podium = require('podium');
+import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy } from 'catbox';
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -42,6 +42,18 @@ import Podium = require("podium");
  +                                                                           +
  +                                                                           +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
+
+/**
+ * one of
+ * a single plugin name string.
+ * an array of plugin name strings.
+ * an object where each key is a plugin name and each matching value is a
+ * {@link https://www.npmjs.com/package/semver version range string} which must match the registered
+ *  plugin version.
+ */
+export type Dependencies = string | string[] | {
+    [key: string]: string;
+};
 
 /**
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverregistrations)
@@ -127,7 +139,16 @@ export interface PluginBase<T> {
     multiple?: boolean;
 
     /** (optional) a string or an array of strings indicating a plugin dependency. Same as setting dependencies via server.dependency(). */
-    dependencies?: string | string[];
+    dependencies?: Dependencies;
+
+    /**
+     * Allows defining semver requirements for node and hapi.
+     * @default Allows all.
+     */
+    requirements?: {
+        node?: string;
+        hapi?: string;
+    };
 
     /** once - (optional) if true, will only register the plugin once per server. If set, overrides the once option passed to server.register(). Defaults to no override. */
     once?: boolean;
@@ -146,11 +167,37 @@ export type Plugin<T> = PluginBase<T> & (PluginNameVersion | PluginPackage);
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
 
 /**
+ * User extensible types user credentials.
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface UserCredentials {
+}
+
+/**
+ * User extensible types app credentials.
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface AppCredentials {
+}
+
+/**
  * User-extensible type for request.auth credentials.
  */
-
-/* tslint:disable-next-line:no-empty-interface */
 export interface AuthCredentials {
+    /**
+     * The application scopes to be granted.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessscope)
+     */
+    scope?: string[];
+    /**
+     * If set, will only work with routes that set `access.entity` to `user`.
+     */
+    user?: UserCredentials;
+
+    /**
+     * If set, will only work with routes that set `access.entity` to `app`.
+     */
+    app?: AppCredentials;
 }
 
 /**
@@ -191,7 +238,7 @@ export interface RequestAuth {
  * 'disconnect' - emitted when a request errors or aborts unexpectedly.
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
  */
-export type RequestEventType = "peek" | "finish" | "disconnect";
+export type RequestEventType = 'peek' | 'finish' | 'disconnect';
 
 /**
  * Access: read only and the public podium interface.
@@ -210,9 +257,9 @@ export interface RequestEvents extends Podium {
      * * 'disconnect' - emitted when a request errors or aborts unexpectedly.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
      */
-    on(criteria: "peek", listener: PeekListener): void;
+    on(criteria: 'peek', listener: PeekListener): void;
 
-    on(criteria: "finish" | "disconnect", listener: (data: undefined) => void): void;
+    on(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): void;
 
     /**
      * Access: read only and the public podium interface.
@@ -222,9 +269,9 @@ export interface RequestEvents extends Podium {
      * * 'disconnect' - emitted when a request errors or aborts unexpectedly.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-requestevents)
      */
-    once(criteria: "peek", listener: PeekListener): void;
+    once(criteria: 'peek', listener: PeekListener): void;
 
-    once(criteria: "finish" | "disconnect", listener: (data: undefined) => void): void;
+    once(criteria: 'finish' | 'disconnect', listener: (data: undefined) => void): void;
 }
 
 /**
@@ -503,6 +550,14 @@ export interface Request extends Podium {
      * The parsed request URI.
      */
     readonly url: url.Url;
+
+    /**
+     * Returns `true` when the request is active and processing should continue and `false` when the
+     *  request terminated early or completed its lifecycle. Useful when request processing is a
+     * resource-intensive operation and should be terminated early if the request is no longer active
+     * (e.g. client disconnected or aborted early).
+     */
+    active(): boolean;
 
     /**
      * Returns a response which you can pass into the reply interface where:
@@ -909,8 +964,14 @@ export interface ResponseSettings {
 export type ResponseValue = string | object;
 
 export interface AuthenticationData {
-    credentials: object;
+    credentials: AuthCredentials;
     artifacts?: object;
+}
+
+export interface Auth {
+    readonly isAuth: true;
+    readonly error?: Error | null;
+    readonly data?: AuthenticationData;
 }
 
 /**
@@ -965,7 +1026,7 @@ export interface ResponseToolkit {
      * * artifacts - (optional) authentication artifacts object specific to the authentication scheme.
      * @return Return value: an internal authentication object.
      */
-    authenticated(data: AuthenticationData): object;
+    authenticated(data: AuthenticationData): Auth;
 
     /**
      * Sets the response 'ETag' and 'Last-Modified' headers and checks for any conditional request headers to decide if
@@ -1368,7 +1429,7 @@ export interface RouteOptionsPreObject {
     /**
      * key name used to assign the response of the method to in request.pre and request.preResponses.
      */
-    assign: string;
+    assign?: string;
     /**
      * A failAction value which determine what to do when a pre-handler method throws an error. If assign is specified and the failAction setting is not 'error', the error will be assigned.
      */
@@ -1459,6 +1520,12 @@ export interface RouteOptionsResponse {
 }
 
 /**
+ * @see https://www.w3.org/TR/referrer-policy/
+ */
+export type ReferrerPolicy = '' | 'no-referrer' | 'no-referrer-when-downgrade' | 'unsafe-url' |
+    'same-origin' | 'origin' |  'strict-origin' | 'origin-when-cross-origin' | 'strict-origin-when-cross-origin';
+
+/**
  * Default value: false (security headers disabled).
  * Sets common security headers. To enable, set security to true or to an object with the following options:
  * * hsts - controls the 'Strict-Transport-Security' header, where:
@@ -1532,6 +1599,12 @@ export interface RouteOptionsSecureObject {
      * boolean controlling the 'X-Content-Type-Options' header. Defaults to true setting the header to its only and default option, 'nosniff'.
      */
     noSniff?: boolean;
+
+    /**
+     * Controls the `Referrer-Policy` header, which has the following possible values.
+     * @default false Header will not be send.
+     */
+    referrer?: false | ReferrerPolicy;
 }
 
 export type RouteOptionsSecure = boolean | RouteOptionsSecureObject;
@@ -1843,30 +1916,6 @@ export interface RouteOptions {
 
     /**
      * Default value: false (security headers disabled).
-     * Sets common security headers. To enable, set security to true or to an object with the following options:
-     * * hsts - controls the 'Strict-Transport-Security' header, where:
-     * * * true - the header will be set to max-age=15768000. This is the default value.
-     * * * a number - the maxAge parameter will be set to the provided value.
-     * * * an object with the following fields:
-     * * * * maxAge - the max-age portion of the header, as a number. Default is 15768000.
-     * * * * includeSubDomains - a boolean specifying whether to add the includeSubDomains flag to the header.
-     * * * * preload - a boolean specifying whether to add the 'preload' flag (used to submit domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list) to the header.
-     * * xframe - controls the 'X-Frame-Options' header, where:
-     * * * true - the header will be set to 'DENY'. This is the default value.
-     * * * 'deny' - the headers will be set to 'DENY'.
-     * * * 'sameorigin' - the headers will be set to 'SAMEORIGIN'.
-     * * * an object for specifying the 'allow-from' rule, where:
-     * * * * rule - one of:
-     * * * * * 'deny'
-     * * * * * 'sameorigin'
-     * * * * * 'allow-from'
-     * * * * source - when rule is 'allow-from' this is used to form the rest of the header, otherwise this field is ignored. If rule is 'allow-from' but source is unset, the rule will be
-     * automatically changed to 'sameorigin'.
-     * * xss - boolean that controls the 'X-XSS-PROTECTION' header for Internet Explorer. Defaults to true which sets the header to equal '1; mode=block'.
-     *       Note: this setting can create a security vulnerability in versions of Internet Exploere below 8, as well as unpatched versions of IE8. See here and here for more information. If you
-     * actively support old versions of IE, it may be wise to explicitly set this flag to false.
-     * * noOpen - boolean controlling the 'X-Download-Options' header for Internet Explorer, preventing downloads from executing in your context. Defaults to true setting the header to 'noopen'.
-     * * noSniff - boolean controlling the 'X-Content-Type-Options' header. Defaults to true setting the header to its only and default option, 'nosniff'.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionssecurity)
      */
     security?: RouteOptionsSecure;
@@ -1987,6 +2036,15 @@ export interface ServerAuthSchemeObject {
     response?(request: Request, h: ResponseToolkit): Lifecycle.ReturnValue;
 
     /**
+     * a method used to verify the authentication credentials provided
+     * are still valid (e.g. not expired or revoked after the initial authentication).
+     * the method throws an `Error` when the credentials passed are no longer valid (e.g. expired or
+     * revoked). Note that the method does not have access to the original request, only to the
+     * credentials and artifacts produced by the `authenticate()` method.
+     */
+    verify?(auth: RequestAuth): Promise<void>;
+
+    /**
      * An object with the following keys:
      * * payload
      */
@@ -2013,7 +2071,7 @@ export interface ServerAuth {
      * returned from its implementation function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthapi)
      */
-    api: Util.Dictionary<any>;
+    api: Util.Dictionary<ServerAuthSchemeObjectApi>;
 
     /**
      * Contains the default authentication configuration is a default strategy was set via
@@ -2073,8 +2131,28 @@ export interface ServerAuth {
      * include verifying scope, entity, or other route properties.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverauthteststrategy-request)
      */
-    test(strategy: string, request: Request): Promise<any>;
+    test(strategy: string, request: Request): Promise<AuthCredentials>;
+
+    /**
+     * Verify a request's authentication credentials against an authentication strategy.
+     * Returns nothing if verification was successful, otherwise throws an error.
+     *
+     * Note that the `verify()` method does not take into account the route authentication configuration
+     * or any other information from the request other than the `request.auth` object. It also does not
+     * perform payload authentication. It is limited to verifying that the previously valid credentials
+     * are still valid (e.g. have not been revoked or expired). It does not include verifying scope,
+     * entity, or other route properties.
+     */
+    verify(request: Request): Promise<void>;
 }
+
+export type CachePolicyOptions<T> = PolicyOptionVariants<T> & {
+    /**
+     * @default '_default'
+     */
+    cache?: string;
+    segment?: string;
+};
 
 /**
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
@@ -2105,7 +2183,7 @@ export interface ServerCache {
      * @return Catbox Policy.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
      */
-    (options: ServerOptionsCache): catbox.Policy;
+    <T, O extends CachePolicyOptions<T> = CachePolicyOptions<T>>(options: O): Policy<T, O>;
 
     /**
      * Provisions a server cache as described in server.cache where:
@@ -2203,7 +2281,7 @@ export interface LogEvent {
     /** an array of tags identifying the event (e.g. ['error', 'http']) */
     tags: string[];
     /** set to 'internal' for internally generated events, otherwise 'app' for events generated by server.log() */
-    channel: "internal" | "app";
+    channel: 'internal' | 'app';
     /** the request identifier. */
     request: string;
     /** event-specific information. Available when event data was provided and is not an error. Errors are passed via error. */
@@ -2218,7 +2296,7 @@ export interface RequestEvent {
     /** an array of tags identifying the event (e.g. ['error', 'http']) */
     tags: string[];
     /** set to 'internal' for internally generated events, otherwise 'app' for events generated by server.log() */
-    channel: "internal" | "app" | "error";
+    channel: 'internal' | 'app' | 'error';
     /** event-specific information. Available when event data was provided and is not an error. Errors are passed via error. */
     data: object;
     /** the error object related to the event if applicable. Cannot appear together with data */
@@ -2228,7 +2306,7 @@ export interface RequestEvent {
 export type LogEventHandler = (event: LogEvent, tags: { [key: string]: true }) => void;
 export type RequestEventHandler = (request: Request, event: RequestEvent, tags: { [key: string]: true }) => void;
 export type ResponseEventHandler = (request: Request) => void;
-export type RouteEventHandler = (route: ServerRoute) => void;
+export type RouteEventHandler = (route: RequestRoute) => void;
 export type StartEventHandler = () => void;
 export type StopEventHandler = () => void;
 
@@ -2276,17 +2354,17 @@ export interface ServerEvents extends Podium {
      * See ['start' event](https://github.com/hapijs/hapi/blob/master/API.md#-start-event)
      * See ['stop' event](https://github.com/hapijs/hapi/blob/master/API.md#-stop-event)
      */
-    on(criteria: "log" | ServerEventCriteria<"log">, listener: LogEventHandler): void;
+    on(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): void;
 
-    on(criteria: "request" | ServerEventCriteria<"request">, listener: RequestEventHandler): void;
+    on(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): void;
 
-    on(criteria: "response" | ServerEventCriteria<"response">, listener: ResponseEventHandler): void;
+    on(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): void;
 
-    on(criteria: "route" | ServerEventCriteria<"route">, listener: RouteEventHandler): void;
+    on(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): void;
 
-    on(criteria: "start" | ServerEventCriteria<"start">, listener: StartEventHandler): void;
+    on(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): void;
 
-    on(criteria: "stop" | ServerEventCriteria<"stop">, listener: StopEventHandler): void;
+    on(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
 
     /**
      * Same as calling [server.events.on()](https://github.com/hapijs/hapi/blob/master/API.md#server.events.on()) with the count option set to 1.
@@ -2298,17 +2376,17 @@ export interface ServerEvents extends Podium {
      * @return Return value: none.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servereventsoncecriteria-listener)
      */
-    once(criteria: "log" | ServerEventCriteria<"log">, listener: LogEventHandler): void;
+    once(criteria: 'log' | ServerEventCriteria<'log'>, listener: LogEventHandler): void;
 
-    once(criteria: "request" | ServerEventCriteria<"request">, listener: RequestEventHandler): void;
+    once(criteria: 'request' | ServerEventCriteria<'request'>, listener: RequestEventHandler): void;
 
-    once(criteria: "response" | ServerEventCriteria<"response">, listener: ResponseEventHandler): void;
+    once(criteria: 'response' | ServerEventCriteria<'response'>, listener: ResponseEventHandler): void;
 
-    once(criteria: "route" | ServerEventCriteria<"route">, listener: RouteEventHandler): void;
+    once(criteria: 'route' | ServerEventCriteria<'route'>, listener: RouteEventHandler): void;
 
-    once(criteria: "start" | ServerEventCriteria<"start">, listener: StartEventHandler): void;
+    once(criteria: 'start' | ServerEventCriteria<'start'>, listener: StartEventHandler): void;
 
-    once(criteria: "stop" | ServerEventCriteria<"stop">, listener: StopEventHandler): void;
+    once(criteria: 'stop' | ServerEventCriteria<'stop'>, listener: StopEventHandler): void;
 
     /**
      * Same as calling server.events.on() with the count option set to 1.
@@ -2634,7 +2712,7 @@ export type ServerMethod = (...args: any[]) => Promise<any>;
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
  */
-export interface ServerMethodCache extends catbox.PolicyOptions {
+export interface ServerMethodCache extends PolicyOptions<any> {
     generateTimeout: number | false;
 }
 
@@ -2663,7 +2741,7 @@ export interface ServerMethodOptions {
      * unique key if the function's arguments are all of types 'string', 'number', or 'boolean'. However if the method uses other types of arguments, a key generation function must be provided which
      * takes the same arguments as the function and returns a unique string (or null if no key can be generated).
      */
-    generateKey?: (...args: any[]) => string | null;
+    generateKey?(...args: any[]): string | null;
 }
 
 /**
@@ -2693,9 +2771,9 @@ export interface ServerMethodConfigurationObject {
  * MongoDB, Memcached, Riak, among others). Caching is only utilized if methods and plugins explicitly store their state in the cache.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-cache)
  */
-export interface ServerOptionsCache extends catbox.PolicyOptions {
+export interface ServerOptionsCache extends PolicyOptions<any> {
     /** a class, a prototype function, or a catbox engine object. */
-    engine?: catbox.EnginePrototypeOrObject;
+    engine?: EnginePrototypeOrObject;
 
     /**
      * an identifier used later when provisioning or configuring caching for server methods or plugins. Each cache name must be unique. A single item may omit the name option which defines
@@ -2773,7 +2851,7 @@ export interface ServerOptions {
      * * * other options passed to the catbox strategy used. Other options are only passed to catbox when engine above is a class or function and ignored if engine is a catbox engine object).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptionscache)
      */
-    cache?: catbox.EnginePrototype | ServerOptionsCache | ServerOptionsCache[];
+    cache?: EnginePrototype<any> | ServerOptionsCache | ServerOptionsCache[];
 
     /**
      * Default value: { minBytes: 1024 }.
@@ -2822,6 +2900,12 @@ export interface ServerOptions {
     load?: {
         /** the frequency of sampling in milliseconds. When set to 0, the other load options are ignored. Defaults to 0 (no sampling). */
         sampleInterval?: number;
+
+        /**
+         * Max concurrent requests.
+         */
+        concurrent?: number;
+
         /** maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit). */
         maxHeapUsedBytes?: number;
         /**
@@ -2905,7 +2989,7 @@ export interface ServerOptions {
      * Default value: none.
      * Used to create an HTTPS connection. The tls object is passed unchanged to the node HTTPS server as described in the node HTTPS documentation.
      */
-    tls?: boolean | https.RequestOptions;
+    tls?: boolean | https.ServerOptions;
 
     /**
      * Default value: constructed from runtime server information.
@@ -3178,7 +3262,9 @@ export interface ServerState {
      * An object containing the configuration of each cookie added via [server.state()](https://github.com/hapijs/hapi/blob/master/API.md#server.state()) where each key is the
      * cookie name and value is the configuration object.
      */
-    readonly cookies: object;
+    readonly cookies: {
+        [key: string]: ServerStateCookieOptions;
+    };
 
     /**
      * An array containing the names of all configued cookies.
@@ -3233,12 +3319,14 @@ export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
 export interface PluginProperties {
 }
 
+export type DecorateName = string | symbol;
+
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
  * the facilities provided by the framework. Each server supports a single connection (e.g. listen to port 80).
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#server)
  */
-export class Server extends Podium {
+export class Server {
     /**
      * Creates a new server object
      * @param options server configuration object.
@@ -3257,7 +3345,14 @@ export class Server extends Podium {
     /**
      * Server Auth: properties and methods
      */
-    auth: ServerAuth;
+    readonly auth: ServerAuth;
+
+    /**
+     * Links another server to the initialize/start/stop state of the current server by calling the
+     * controlled server `initialize()`/`start()`/`stop()` methods whenever the current server methods
+     * are called, where:
+     */
+    control(server: Server): void;
 
     /**
      * Provides access to the decorations already applied to various framework interfaces. The object must not be
@@ -3351,6 +3446,11 @@ export class Server extends Podium {
          * event loop delay milliseconds.
          */
         eventLoopDelay: number;
+
+        /**
+         * Max concurrent requests.
+         */
+        concurrent: number
         /**
          * V8 heap usage.
          */
@@ -3474,18 +3574,18 @@ export class Server extends Podium {
      * @return void;
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options)
      */
-    decorate(type: 'handler', property: string, method: HandlerDecorationMethod, options?: {apply?: boolean, extend?: boolean}): void;
-    decorate(type: 'request', property: string, method: (existing: ((...args: any[]) => any)) => (request: Request) => DecorationMethod<Request>, options: {apply: true, extend: true}): void;
-    decorate(type: 'request', property: string, method: (request: Request) => DecorationMethod<Request>, options: {apply: true, extend?: boolean}): void;
-    decorate(type: 'request', property: string, method: DecorationMethod<Request>, options?: {apply?: boolean, extend?: boolean}): void;
-    decorate(type: 'toolkit', property: string, method: (existing: ((...args: any[]) => any)) => DecorationMethod<ResponseToolkit>, options: {apply?: boolean, extend: true}): void;
-    decorate(type: 'toolkit', property: string, method: DecorationMethod<ResponseToolkit>, options?: {apply?: boolean, extend?: boolean}): void;
-    decorate(type: 'server', property: string, method: (existing: ((...args: any[]) => any)) => DecorationMethod<Server>, options: {apply?: boolean, extend: true}): void;
-    decorate(type: 'server', property: string, method: DecorationMethod<Server>, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'handler', property: DecorateName, method: HandlerDecorationMethod, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'request', property: DecorateName, method: (existing: ((...args: any[]) => any)) => (request: Request) => DecorationMethod<Request>, options: {apply: true, extend: true}): void;
+    decorate(type: 'request', property: DecorateName, method: (request: Request) => DecorationMethod<Request>, options: {apply: true, extend?: boolean}): void;
+    decorate(type: 'request', property: DecorateName, method: DecorationMethod<Request>, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'toolkit', property: DecorateName, method: (existing: ((...args: any[]) => any)) => DecorationMethod<ResponseToolkit>, options: {apply?: boolean, extend: true}): void;
+    decorate(type: 'toolkit', property: DecorateName, method: DecorationMethod<ResponseToolkit>, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'server', property: DecorateName, method: (existing: ((...args: any[]) => any)) => DecorationMethod<Server>, options: {apply?: boolean, extend: true}): void;
+    decorate(type: 'server', property: DecorateName, method: DecorationMethod<Server>, options?: {apply?: boolean, extend?: boolean}): void;
 
     /**
      * Used within a plugin to declare a required dependency on other plugins where:
-     * @param dependencies - a single string or an array of plugin name strings which must be registered in order for this plugin to operate. Plugins listed must be registered before the server is
+     * @param dependencies - plugins which must be registered in order for this plugin to operate. Plugins listed must be registered before the server is
      *     initialized or started.
      * @param after - (optional) a function that is called after all the specified dependencies have been registered and before the server starts. The function is only called if the server is
      *     initialized or started. The function signature is async function(server) where: server - the server the dependency() method was called on.
@@ -3495,7 +3595,7 @@ export class Server extends Podium {
      * The method does not provide version dependency which should be implemented using npm peer dependencies.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdependencydependencies-after)
      */
-    dependency(dependencies: string | string[], after?: ((server: Server) => Promise<void>)): void;
+    dependency(dependencies: Dependencies, after?: ((server: Server) => Promise<void>)): void;
 
     /**
      * Registers a custom content encoding compressor to extend the built-in support for 'gzip' and 'deflate' where:
@@ -3790,7 +3890,7 @@ export class Server extends Podium {
      * * path - the route path.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost)
      */
-    table(host?: string): Array<{settings: ServerRoute; method: Util.HTTP_METHODS_PARTIAL_LOWERCASE, path: string}>; // TODO I am not sure if the ServerRoute is the object expected here
+    table(host?: string): RequestRoute[];
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +

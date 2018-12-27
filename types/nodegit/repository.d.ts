@@ -78,7 +78,7 @@ export class Repository {
     /**
      * Creates a branch with the passed in name pointing to the commit
      */
-    createBranch(name: string, commit: Commit | string | Oid, force: boolean): Promise<Reference>;
+    createBranch(name: string, commit: Commit | string | Oid, force?: boolean): Promise<Reference>;
     /**
      * Look up a refs's commit.
      */
@@ -162,7 +162,7 @@ export class Repository {
     /**
      * Lists out the remotes in the given repository.
      */
-    getRemotes(callback?: Function): Promise<Remote[]>;
+    getRemotes(callback?: Function): Promise<string[]>;
     /**
      * Gets a remote from the repo
      */
@@ -175,7 +175,7 @@ export class Repository {
      * Fetches from all remotes. This is done in series due to deadlocking issues with fetching from many remotes that can happen.
      */
     fetchAll(fetchOptions?: FetchOptions, callback?: Function): Promise<void>;
-    mergeBranches(to: string | Reference, from: string | Reference, signature: Signature, mergePreference: Merge.PREFERENCE, mergeOptions?: MergeOptions): Promise<Oid>;
+    mergeBranches(to: string | Reference, from: string | Reference, signature?: Signature, mergePreference?: Merge.PREFERENCE, mergeOptions?: MergeOptions): Promise<Oid>;
     /**
      * Rebases a branch onto another branch
      */

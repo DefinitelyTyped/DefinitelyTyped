@@ -9,6 +9,7 @@ import {
 	ParseMeta,
 	ParseResult
 } from "papaparse";
+import { Readable } from "stream";
 
 /**
  * Parsing
@@ -20,6 +21,7 @@ res.errors[0].code;
 Papa.parse("3,3,3", {
 	delimiter: ';',
 	comments: false,
+    trimHeaders: false,
 
 	step: function (results, p) {
 		p.abort();
@@ -30,14 +32,28 @@ Papa.parse("3,3,3", {
 var file = new File(null, null, null);
 
 Papa.parse(file, {
+    transform: function(value, field) {
+
+    },
 	complete: function (a, b) {
 		a.meta.fields;
 		b.name;
 	}
 });
 
+const readable = new Readable()
+const rows = [
+	"1,2,3",
+	"4,5,6"
+]
 
-Papa.parse(Papa.NODE_STREAM_INPUT);
+rows.forEach(r => {
+	readable.push(r);
+});
+
+const papaStream: NodeJS.ReadWriteStream = Papa.parse(Papa.NODE_STREAM_INPUT);
+
+readable.pipe(papaStream);
 
 /**
  * Unparsing

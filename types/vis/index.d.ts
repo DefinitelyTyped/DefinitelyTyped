@@ -10,6 +10,8 @@
 //                 Alex Soh <https://github.com/takato1314>
 //                 Oleksii Kachura <https://github.com/alex-kachura>
 //                 dcop <https://github.com/dcop>
+//                 Avraham Essoudry <https://github.com/avrahamcool>
+//                 Dmitriy Trifonov <https://github.com/divideby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
@@ -243,6 +245,7 @@ export interface TimelineOptions {
   multiselectPerGroup?: boolean;
   onAdd?: TimelineOptionsItemCallbackFunction;
   onAddGroup?: TimelineOptionsGroupCallbackFunction;
+  onInitialDrawComplete?: (() => void);
   onUpdate?: TimelineOptionsItemCallbackFunction;
   onMove?: TimelineOptionsItemCallbackFunction;
   onMoveGroup?: TimelineOptionsGroupCallbackFunction;
@@ -976,6 +979,7 @@ export interface TimelineGroup {
   content: string | HTMLElement;
   id: IdType;
   style?: string;
+  order?: number;
   subgroupOrder?: TimelineOptionsGroupOrderType;
   title?: string;
   visible?: boolean;
@@ -1782,7 +1786,7 @@ export interface NodeOptions {
 
   brokenImage?: string;
 
-  color?: Color;
+  color?: string | Color;
 
   fixed?: boolean | {
     x?: boolean,

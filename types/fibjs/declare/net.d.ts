@@ -284,7 +284,7 @@ declare module "net" {
 		 * 
 		 * 
 		 */
-		export function info(): Object;
+		export function info(): object;
 	
 		/**
 		 * 

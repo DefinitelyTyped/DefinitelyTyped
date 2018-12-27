@@ -22,6 +22,11 @@ import { ExecutionResult, ExecutionResultDataDefault } from "./execution/execute
  * rootValue:
  *    The value provided as the first argument to resolver functions on the top
  *    level type (e.g. the query object type).
+ * contextValue:
+ *    The context value is provided as an argument to resolver functions after
+ *    field arguments. It is used to pass shared information useful at any point
+ *    during executing this query, for example the currently logged in user and
+ *    connections to databases or other services.
  * variableValues:
  *    A mapping of variable name to runtime value to use for all variables
  *    defined in the requestString.

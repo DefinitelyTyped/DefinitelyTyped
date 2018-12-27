@@ -2,17 +2,43 @@
 // Project: https://github.com/d3/d3-shape/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.2.0
 
 import { Path } from 'd3-path';
+
+declare global {
+    interface CanvasRenderingContext2D {} // tslint:disable-line no-empty-interface
+}
+
+// -----------------------------------------------------------------------------------
+// Shared Types and Interfaces
+// -----------------------------------------------------------------------------------
+
+/**
+ * @deprecated
+ * This interface is used to bridge the gap between two incompatible versions of TypeScript (see [#25944](https://github.com/Microsoft/TypeScript/pull/25944)).
+ * Use `CanvasPathMethods` instead with TS <= 3.0 and `CanvasPath` with TS >= 3.1.
+ */
+export interface CanvasPath_D3Shape {
+    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+    closePath(): void;
+    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    lineTo(x: number, y: number): void;
+    moveTo(x: number, y: number): void;
+    quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+    rect(x: number, y: number, w: number, h: number): void;
+}
 
 // -----------------------------------------------------------------------------------
 // Arc Generator
 // -----------------------------------------------------------------------------------
 
 /**
- * Interface corresponding to the minimum data type assumed by the accessor functions of  the Arc generator
+ * Interface corresponding to the minimum data type assumed by the accessor functions of the Arc generator
  */
 export interface DefaultArcObject {
     /**
@@ -968,14 +994,17 @@ export function lineRadial(): LineRadial<[number, number]>;
  */
 export function lineRadial<Datum>(): LineRadial<Datum>;
 
+/**
+ * @deprecated Use LineRadial<Datum>
+ */
 export type RadialLine<Datum> = LineRadial<Datum>;
 
 /**
- * DEPRECATED: Use lineRadial()
+ * @deprecated Use lineRadial()
  */
 export function radialLine(): RadialLine<[number, number]>;
 /**
- * DEPRECATED: Use lineRadial<Datum>()
+ * @deprecated Use lineRadial<Datum>()
  */
 export function radialLine<Datum>(): RadialLine<Datum>;
 
@@ -1594,16 +1623,16 @@ export function areaRadial(): AreaRadial<[number, number]>;
 export function areaRadial<Datum>(): AreaRadial<Datum>;
 
 /**
- * DEPRECATED: Use AreaRadial interface
+ * @deprecated Use AreaRadial interface
  */
 export type RadialArea<Datum> = AreaRadial<Datum>;
 
 /**
- * DEPRECATED: Use areaRadial()
+ * @deprecated Use areaRadial()
  */
 export function radialArea(): RadialArea<[number, number]>;
 /**
- * DEPRECATED: Use areaRadial<Datum>()
+ * @deprecated Use areaRadial<Datum>()
  */
 export function radialArea<Datum>(): RadialArea<Datum>;
 
@@ -2213,7 +2242,7 @@ export interface LinkRadial<This, LinkDatum, NodeDatum> {
 }
 
 /**
- * DEPRECATED: Use LinkRadial interface
+ * @deprecated Use LinkRadial interface
  */
 export type RadialLink<This, LinkDatum, NodeDatum> = LinkRadial<This, LinkDatum, NodeDatum>;
 
@@ -2264,13 +2293,13 @@ export function linkRadial<This, LinkDatum, NodeDatum>(): LinkRadial<This, LinkD
  */
 export interface SymbolType {
     /**
-     * Renders this symbol type to the specified context with the specified size in square pixels. The context implements the CanvasPathMethods interface.
+     * Renders this symbol type to the specified context with the specified size in square pixels. The context implements the CanvasPath interface.
      * (Note that this is a subset of the CanvasRenderingContext2D interface!)
      *
-     * @param context A rendering context implementing CanvasPathMethods.
+     * @param context A rendering context implementing CanvasPath.
      * @param size Size of the symbol to draw.
      */
-    draw(context: CanvasPathMethods, size: number): void;
+    draw(context: CanvasPath_D3Shape, size: number): void;
 }
 
 /**

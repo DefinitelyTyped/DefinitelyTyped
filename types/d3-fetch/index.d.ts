@@ -2,11 +2,11 @@
 // Project: https://d3js.org/d3-fetch/
 // Definitions by: Hugues Stefanski <https://github.com/ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.1.0
 
-import { DSVParsedArray, DSVRowString, DSVRowAny } from 'd3-dsv';
+import { DSVParsedArray, DSVRowString } from 'd3-dsv';
 
 /**
  * Fetches the binary file at the specified input URL and returns it as a Promise of a Blob.
@@ -55,7 +55,7 @@ export function csv(
  * the row is skipped and will be omitted from the array returned by dsv.csvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function csv<ParsedRow extends DSVRowAny>(
+export function csv<ParsedRow extends object>(
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
@@ -77,7 +77,7 @@ export function csv<ParsedRow extends DSVRowAny>(
  * the row is skipped and will be omitted from the array returned by dsv.csvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function csv<ParsedRow extends DSVRowAny>(
+export function csv<ParsedRow extends object>(
     url: string,
     init: RequestInit,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
@@ -115,7 +115,7 @@ export function dsv(
  * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function dsv<ParsedRow extends DSVRowAny>(
+export function dsv<ParsedRow extends object>(
     delimiter: string,
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
@@ -139,7 +139,7 @@ export function dsv<ParsedRow extends DSVRowAny>(
  * the row is skipped and will be omitted from the array returned by dsv.parse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function dsv<ParsedRow extends DSVRowAny>(
+export function dsv<ParsedRow extends object>(
     delimiter: string,
     url: string,
     init: RequestInit,
@@ -227,7 +227,7 @@ export function tsv(
  * the row is skipped and will be omitted from the array returned by dsv.tsvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function tsv<ParsedRow extends DSVRowAny>(
+export function tsv<ParsedRow extends object>(
     url: string,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null
 ): Promise<DSVParsedArray<ParsedRow>>;
@@ -249,7 +249,7 @@ export function tsv<ParsedRow extends DSVRowAny>(
  * the row is skipped and will be omitted from the array returned by dsv.tsvParse; otherwise, the returned value defines the corresponding row object.
  * In effect, row is similar to applying a map and filter operator to the returned rows.
  */
-export function tsv<ParsedRow extends DSVRowAny>(
+export function tsv<ParsedRow extends object>(
     url: string,
     init: RequestInit,
     row: (rawRow: DSVRowString, index: number, columns: string[]) => ParsedRow | undefined | null

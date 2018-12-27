@@ -115,13 +115,14 @@ export type ASTNode =
     | EnumTypeDefinitionNode
     | EnumValueDefinitionNode
     | InputObjectTypeDefinitionNode
+    | DirectiveDefinitionNode
+    | SchemaExtensionNode
     | ScalarTypeExtensionNode
     | ObjectTypeExtensionNode
     | InterfaceTypeExtensionNode
     | UnionTypeExtensionNode
     | EnumTypeExtensionNode
-    | InputObjectTypeExtensionNode
-    | DirectiveDefinitionNode;
+    | InputObjectTypeExtensionNode;
 
 /**
  * Utility type listing all nodes indexed by their kind.
@@ -162,13 +163,14 @@ export interface ASTKindToNode {
     EnumTypeDefinition: EnumTypeDefinitionNode;
     EnumValueDefinition: EnumValueDefinitionNode;
     InputObjectTypeDefinition: InputObjectTypeDefinitionNode;
+    DirectiveDefinition: DirectiveDefinitionNode;
+    SchemaExtension: SchemaExtensionNode;
     ScalarTypeExtension: ScalarTypeExtensionNode;
     ObjectTypeExtension: ObjectTypeExtensionNode;
     InterfaceTypeExtension: InterfaceTypeExtensionNode;
     UnionTypeExtension: UnionTypeExtensionNode;
     EnumTypeExtension: EnumTypeExtensionNode;
     InputObjectTypeExtension: InputObjectTypeExtensionNode;
-    DirectiveDefinition: DirectiveDefinitionNode;
 }
 
 // Name
@@ -187,7 +189,7 @@ export interface DocumentNode {
     readonly definitions: ReadonlyArray<DefinitionNode>;
 }
 
-export type DefinitionNode = ExecutableDefinitionNode | TypeSystemDefinitionNode; // experimental non-spec addition.
+export type DefinitionNode = ExecutableDefinitionNode | TypeSystemDefinitionNode | TypeSystemExtensionNode;
 
 export type ExecutableDefinitionNode = OperationDefinitionNode | FragmentDefinitionNode;
 
@@ -209,6 +211,7 @@ export interface VariableDefinitionNode {
     readonly variable: VariableNode;
     readonly type: TypeNode;
     readonly defaultValue?: ValueNode;
+    readonly directives?: ReadonlyArray<DirectiveNode>;
 }
 
 export interface VariableNode {
@@ -372,16 +375,12 @@ export interface NonNullTypeNode {
 
 // Type System Definition
 
-export type TypeSystemDefinitionNode =
-    | SchemaDefinitionNode
-    | TypeDefinitionNode
-    | TypeExtensionNode
-    | DirectiveDefinitionNode;
+export type TypeSystemDefinitionNode = SchemaDefinitionNode | TypeDefinitionNode | DirectiveDefinitionNode;
 
 export interface SchemaDefinitionNode {
     readonly kind: "SchemaDefinition";
     readonly loc?: Location;
-    readonly directives: ReadonlyArray<DirectiveNode>;
+    readonly directives?: ReadonlyArray<DirectiveNode>;
     readonly operationTypes: ReadonlyArray<OperationTypeDefinitionNode>;
 }
 
@@ -484,6 +483,28 @@ export interface InputObjectTypeDefinitionNode {
     readonly fields?: ReadonlyArray<InputValueDefinitionNode>;
 }
 
+// Directive Definitions
+
+export interface DirectiveDefinitionNode {
+    readonly kind: "DirectiveDefinition";
+    readonly loc?: Location;
+    readonly description?: StringValueNode;
+    readonly name: NameNode;
+    readonly arguments?: ReadonlyArray<InputValueDefinitionNode>;
+    readonly locations: ReadonlyArray<NameNode>;
+}
+
+// Type System Extensions
+
+export type TypeSystemExtensionNode = SchemaExtensionNode | TypeExtensionNode;
+
+export type SchemaExtensionNode = {
+    readonly kind: "SchemaExtension";
+    readonly loc?: Location;
+    readonly directives?: ReadonlyArray<DirectiveNode>;
+    readonly operationTypes?: ReadonlyArray<OperationTypeDefinitionNode>;
+};
+
 // Type Extensions
 
 export type TypeExtensionNode =
@@ -540,15 +561,4 @@ export interface InputObjectTypeExtensionNode {
     readonly name: NameNode;
     readonly directives?: ReadonlyArray<DirectiveNode>;
     readonly fields?: ReadonlyArray<InputValueDefinitionNode>;
-}
-
-// Directive Definitions
-
-export interface DirectiveDefinitionNode {
-    readonly kind: "DirectiveDefinition";
-    readonly loc?: Location;
-    readonly description?: StringValueNode;
-    readonly name: NameNode;
-    readonly arguments?: ReadonlyArray<InputValueDefinitionNode>;
-    readonly locations: ReadonlyArray<NameNode>;
 }

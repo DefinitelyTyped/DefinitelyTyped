@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.27.10
+// Type definitions for Sequelize 4.27.11
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -14,6 +14,8 @@
 //                 Todd Bealmear <https://github.com/todd>
 //                 Nick Schultz <https://github.com/nrschultz>
 //                 Thomas Breleur <https://github.com/thomas-b>
+//                 Antoine Boisadam <https://github.com/Antoine38660>
+//                 Dima Smirnov <https://github.com/smff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -138,7 +140,7 @@ declare namespace sequelize {
      * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
      * @see Instance
      */
-    interface BelongsToCreateAssociationMixin<TAttributes> {
+    interface BelongsToCreateAssociationMixin<TAttributes, TInstance> {
         /**
          * Create a new instance of the associated model and associate it with this.
          * @param values The values used to create the association.
@@ -147,7 +149,7 @@ declare namespace sequelize {
         (
             values?: TAttributes,
             options?: BelongsToCreateAssociationMixinOptions | CreateOptions | BelongsToSetAssociationMixinOptions
-        ): Promise<void>;
+        ): Promise<TInstance>;
     }
 
     /**
@@ -2294,8 +2296,8 @@ declare namespace sequelize {
      * interfaces.
      *
      * beforeValidate, afterValidate, beforeBulkCreate, beforeBulkDestroy, beforeBulkUpdate, beforeCreate,
-     * beforeDestroy, beforeUpdate, afterCreate, afterDestroy, afterUpdate, afterBulkCreate, afterBulkDestroy and
-     * afterBulkUpdate.
+     * beforeDestroy, beforeSave, beforeUpdate, afterCreate, afterDestroy, afterSave, afterUpdate, afterBulkCreate,
+     * afterBulkDestroy and afterBulkUpdate.
      */
     interface HooksDefineOptions<TInstance> {
 
@@ -2309,6 +2311,8 @@ declare namespace sequelize {
         afterDelete?: (instance: TInstance, options: Object, fn?: Function) => any;
         beforeUpdate?: (instance: TInstance, options: Object, fn?: Function) => any;
         afterUpdate?: (instance: TInstance, options: Object, fn?: Function) => any;
+        beforeSave?: (instance: TInstance, options: Object, fn?: Function) => any;
+        afterSave?: (instance: TInstance, options: Object, fn?: Function) => any;
         beforeBulkCreate?: (instances: TInstance[], options: Object, fn?: Function) => any;
         afterBulkCreate?: (instances: TInstance[], options: Object, fn?: Function) => any;
         beforeBulkDestroy?: (options: Object, fn?: Function) => any;
@@ -2890,9 +2894,12 @@ declare namespace sequelize {
         changed(): boolean | string[];
 
         /**
-         * Returns the previous value for key from `_previousDataValues`.
+         * If previous is called with a string, it will return the previous value for the key from `_previousDataValues`.
+         *
+         * If previous is called without an argument, it will return an object containing the previous keys and values that have changed.
          */
         previous(key: keyof TAttributes): any;
+        previous(): object;
 
         /**
          * Validate this instance, and if the validation passes, persist it to the database.
@@ -3285,6 +3292,11 @@ declare namespace sequelize {
     type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
+     * Shortcut for order type in FindOptions.attributes
+     */
+    type FindOptionsOrderArray = Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string } | fn>;
+
+    /**
      * Options that are passed to any model creating a SELECT query
      *
      * A hash of options to describe the scope of the search
@@ -3324,7 +3336,7 @@ declare namespace sequelize {
          * first element is the column / function to order by, the second is the direction. For example:
          * `order: [['name', 'DESC']]`. In this way the column will be escaped, but the direction will not.
          */
-        order?: string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }> | Array<string | col | literal | Array<string | number | Model<any, any> | { model: Model<any, any>, as?: string }>>;
+        order?: string | col | literal | FindOptionsOrderArray | fn | Array<string | col | literal | FindOptionsOrderArray | fn>;
 
         /**
          * Limit the results
@@ -3904,6 +3916,7 @@ declare namespace sequelize {
          */
         findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
         findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPk<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -4673,6 +4686,20 @@ declare namespace sequelize {
     }
 
     /**
+     * Interface for Attributes provided for a column
+     *
+     * @see Sequelize.define
+     */
+    type DefineModelAttributes<T> = {
+
+        /**
+         * The description of a database column for model
+         */
+        [P in keyof T]: string | DataTypeAbstract | DefineAttributeColumnOptions;
+
+    }
+
+    /**
      * Interface for query options
      *
      * @see Options
@@ -5220,7 +5247,16 @@ declare namespace sequelize {
          */
         classMethods?: Object;
 
+        /**
+         * Change the database schema. PG only feature, but also works with other dialects.
+         */
         schema?: string;
+
+
+        /**
+         * Change the database schema delimiter. Defaults to "." on PG but for other dialects can be also changed to "_".
+         */
+        schemaDelimiter?: string;
 
         /**
          * You can also change the database engine, e.g. to MyISAM. InnoDB is the default.
@@ -5244,9 +5280,10 @@ declare namespace sequelize {
         /**
          * An object of hook function that are called before and after certain lifecycle events.
          * The possible hooks are: beforeValidate, afterValidate, beforeBulkCreate, beforeBulkDestroy,
-         * beforeBulkUpdate, beforeCreate, beforeDestroy, beforeUpdate, afterCreate, afterDestroy, afterUpdate,
-         * afterBulkCreate, afterBulkDestory and afterBulkUpdate. See Hooks for more information about hook
-         * functions and their signatures. Each property can either be a function, or an array of functions.
+         * beforeBulkUpdate, beforeCreate, beforeDestroy, beforeSave, beforeUpdate, afterCreate, afterDestroy,
+         * afterSave, afterUpdate, afterBulkCreate, afterBulkDestory and afterBulkUpdate.
+         * See Hooks for more information about hook functions and their signatures. Each property can either
+         * be a function, or an array of functions.
          */
         hooks?: HooksDefineOptions<TInstance>;
 
@@ -5672,6 +5709,13 @@ declare namespace sequelize {
          * Pass object to limit set of aliased operators or false to disable completely.
          */
         operatorsAliases?: boolean | OperatorsAliases;
+
+        /**
+         * Set to `true` to enable connecting over SSL.
+         *
+         * Defaults to undefined
+         */
+        ssl?: boolean;
     }
 
     /**
@@ -5976,7 +6020,7 @@ declare namespace sequelize {
          * @param options    These options are merged with the default define options provided to the Sequelize
          *                   constructor
          */
-        define<TInstance, TAttributes>(modelName: string, attributes: DefineAttributes,
+        define<TInstance, TAttributes>(modelName: string, attributes: DefineModelAttributes<TAttributes>,
             options?: DefineOptions<TInstance>): Model<TInstance, TAttributes>;
 
         /**
@@ -6181,9 +6225,9 @@ declare namespace sequelize {
          * @param options Transaction Options
          * @param autoCallback Callback for the transaction
          */
-        transaction(options: TransactionOptions,
-            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
-        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction<T>(options: TransactionOptions,
+            autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
+        transaction<T>(autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
         transaction(options?: TransactionOptions): Promise<Transaction>;
 
         /**

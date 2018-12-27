@@ -24,7 +24,7 @@ Cookies2; // $ExpectType CookiesStatic
 
 Cookies.set('name', { foo: 'bar' });
 
-// $ExpectType object
+// $ExpectType any
 Cookies.getJSON('name');
 
 // $ExpectType { [key: string]: any; }

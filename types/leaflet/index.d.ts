@@ -11,10 +11,12 @@ export as namespace L;
 import * as geojson from 'geojson';
 
 export class Class {
-    static extend(props: any): any/* how to return constructor of self extended type ? */;
-    static include(props: any): any /* how to return self extended type ? */;
-    static mergeOptions(props: any): any /* how to return self extended type ? */;
-    static addInitHook(initHookFn: () => void): any/* how to return self extended type ? */;
+    static extend(props: any): {new(...args: any[]): any} & typeof Class;
+    static include(props: any): any & typeof Class;
+    static mergeOptions(props: any): any & typeof Class;
+
+    static addInitHook(initHookFn: () => void): any & typeof Class;
+    static addInitHook(methodName: string, ...args: any[]): any & typeof Class;
 }
 
 export class Transformation {
@@ -492,7 +494,11 @@ export interface TileLayerOptions extends GridLayerOptions {
     zoomReverse?: boolean;
     detectRetina?: boolean;
     crossOrigin?: boolean;
-    [name: string]: any;
+    // [name: string]: any;
+    // You are able add additional properties, but it makes this interface unchackable.
+    // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15313
+    // Example:
+    // tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 }
 
 export class TileLayer extends GridLayer {
@@ -612,10 +618,10 @@ export interface PolylineOptions extends PathOptions {
 }
 
 export class Polyline<T extends geojson.GeometryObject = geojson.LineString | geojson.MultiLineString, P = any> extends Path {
-    constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
+    constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
     toGeoJSON(): geojson.Feature<T, P>;
     getLatLngs(): LatLng[] | LatLng[][] | LatLng[][][];
-    setLatLngs(latlngs: LatLngExpression[]): this;
+    setLatLngs(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][]): this;
     isEmpty(): boolean;
     getCenter(): LatLng;
     getBounds(): LatLngBounds;
@@ -625,13 +631,13 @@ export class Polyline<T extends geojson.GeometryObject = geojson.LineString | ge
     options: PolylineOptions;
 }
 
-export function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
+export function polyline(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polyline;
 
 export class Polygon<P = any> extends Polyline<geojson.Polygon | geojson.MultiPolygon, P> {
-    constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
+    constructor(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][], options?: PolylineOptions);
 }
 
-export function polygon(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polygon;
+export function polygon(latlngs: LatLngExpression[] | LatLngExpression[][] | LatLngExpression[][][], options?: PolylineOptions): Polygon;
 
 export class Rectangle<P = any> extends Polygon<P> {
     constructor(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions);
@@ -815,7 +821,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
     pointToLayer?(geoJsonPoint: geojson.Feature<geojson.Point, P>, latlng: LatLng): Layer; // should import GeoJSON typings
 
     /**
-     * A Function defining the Path options for styling GeoJSON lines and polygons,
+     * PathOptions or a Function defining the Path options for styling GeoJSON lines and polygons,
      * called internally when data is added.
      *
      * The default value is to not override any defaults:
@@ -826,7 +832,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
      * }
      * ```
      */
-    style?: StyleFunction<P>;
+    style?: PathOptions | StyleFunction<P>;
 
     /**
      * A Function that will be called once for each created Feature, after it
@@ -916,6 +922,12 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      * useful for resetting style after hover events.
      */
     resetStyle(layer: Layer): Layer;
+
+    /**
+     * Same as FeatureGroup's setStyle method, but style-functions are also
+     * allowed here to set the style according to the feature.
+     */
+    setStyle(style: PathOptions | StyleFunction<P>): this;
 
     options: GeoJSONOptions<P>;
 }
@@ -1532,8 +1544,12 @@ export namespace Browser {
 }
 
 export namespace Util {
-    function extend(dest: any, src?: any): any;
-    function create(proto: any, properties?: any): any;
+    function extend<D extends object, S1 extends object = {}>(dest: D, src?: S1): D & S1;
+    function extend<D extends object, S1 extends object, S2 extends object>(dest: D, src1: S1, src2: S2): D & S1 & S2;
+    function extend<D extends object, S1 extends object, S2 extends object, S3 extends object>(dest: D, src1: S1, src2: S2, src3: S3): D & S1 & S2 & S3;
+    function extend(dest: any, ...src: any[]): any;
+
+    function create(proto: object | null, properties?: PropertyDescriptorMap): any;
     function bind(fn: () => void, ...obj: any[]): () => void;
     function stamp(obj: any): number;
     function throttle(fn: () => void, time: number, context: any): () => void;
@@ -1547,7 +1563,7 @@ export namespace Util {
     function template(str: string, data: any): string;
     function isArray(obj: any): boolean;
     function indexOf(array: any[], el: any): number;
-    function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
+    function requestAnimFrame(fn: (timestamp: number) => void, context?: any, immediate?: boolean): number;
     function cancelAnimFrame(id: number): void;
 
     let lastId: number;

@@ -1,4 +1,4 @@
-// Type definitions for Recharts 1.0
+// Type definitions for Recharts 1.1
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
@@ -10,10 +10,13 @@
 //                 Jamie Saunders <https://github.com/jrsaunde>
 //                 Paul Melnikow <https://github.com/paulmelnikow>
 //                 Harry Cruse <https://github.com/crusectrl>
+//                 Andrew Palugniok <https://github.com/apalugniok>
+//                 Robert Stigsson <https://github.com/RobertStigsson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import { getTickValues, getNiceTickValues, getTickValuesFixedDomain } from 'recharts-scale';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
@@ -43,6 +46,7 @@ export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouett
 export type LineType =
     'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' |
     'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | CurveFactory;
+export type IfOverflowType = 'hidden' | 'visible' | 'discard' | 'extendDomain';
 export type AxisInterval = number | 'preserveStart' | 'preserveEnd' | 'preserveStartEnd';
 
 export type PickedCSSStyleDeclarationKeys =
@@ -361,6 +365,7 @@ export interface LegendPayload {
     value: any;
     id: any;
     type: LegendType;
+    color?: string;
 }
 
 export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
@@ -445,6 +450,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     } | React.ReactElement<any> | ContentRenderer<any> | boolean;
     activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
+    blendStroke?: boolean;
 }
 
 export class Pie extends React.Component<PieProps> { }
@@ -482,7 +488,7 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     ticks?: PolarAngleAxisTick[];
     stroke?: string;
     orientation?: 'inner' | 'outer';
-    tickFormatter: TickFormatterFunction;
+    tickFormatter?: TickFormatterFunction;
 }
 
 export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
@@ -519,7 +525,7 @@ export interface PolarRadiusAxisProps extends EventAttributes, Partial<Presentat
     axisLine?: boolean | object;
     tick?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
     stroke?: string;
-    tickFormatter: TickFormatterFunction;
+    tickFormatter?: TickFormatterFunction;
     domain?: [PolarRadiusAxisDomain, PolarRadiusAxisDomain];
     scale?: ScaleType | RechartsFunction;
     allowDataOverflow?: boolean;
@@ -632,6 +638,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x1?: number | string;
     x2?: number | string;
     y1?: number | string;
@@ -655,6 +662,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
     yAxis?: ReferenceDotAxisConfiguration;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
     xAxisId?: string | number;
@@ -675,8 +683,10 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
+    label?: string | number | ContentRenderer<any> | React.ReactElement<any>;
     xAxisId?: string | number;
     yAxisId?: string | number;
     shape?: ContentRenderer<
@@ -758,6 +768,8 @@ export interface TextProps extends Partial<PresentationAttributes> {
     textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
     verticalAnchor?: 'start' | 'middle' | 'end';
     style?: object;
+    capHeight?: string;
+    lineHeight?: string;
 }
 
 export class Text extends React.Component<TextProps> { }
@@ -791,6 +803,7 @@ export interface TooltipPayload {
     fill?: string;
     dataKey?: DataKey;
     formatter?: TooltipFormatter;
+    payload?: any;
 }
 
 export interface TooltipProps extends Animatable {
@@ -854,7 +867,7 @@ export interface LabelListProps {
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
     clockWise?: boolean;
-    content?: React.ReactElement<any> | ContentRenderer<Label>;
+    content?: React.ReactElement<any> | ContentRenderer<LabelProps>;
     data?: number;
     dataKey: string | number | RechartsFunction;
     formatter?: LabelFormatter;
@@ -917,6 +930,7 @@ export interface XAxisProps extends EventAttributes {
     // see label section at http://recharts.org/#/en-US/api/XAxis
     label?: string | number | Label | LabelProps;
     allowDuplicatedCategory?: boolean;
+    stroke?: string;
 }
 
 export class XAxis extends React.Component<XAxisProps> { }
@@ -968,6 +982,7 @@ export interface YAxisProps extends EventAttributes {
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
     label?: string | number | Label | LabelProps;
+    stroke?: string;
 }
 
 export class YAxis extends React.Component<YAxisProps> { }

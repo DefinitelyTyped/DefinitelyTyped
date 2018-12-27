@@ -1,89 +1,121 @@
-// Type definitions for better-sqlite3 3.1
+// Type definitions for better-sqlite3 5.2
 // Project: http://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
+//                 Santiago Aguilar <https://github.com/sant123>
+//                 Alessandro Vergani <https://github.com/loghorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Integer = require('integer');
+import Integer = require("integer");
 
-interface RunResult {
-	changes: number;
-	lastInsertROWID: Integer.IntLike;
-}
+declare namespace BetterSqlite3 {
+    interface Statement {
+        database: Database;
+        source: string;
+        reader: boolean;
 
-declare class Statement {
-	database: Database;
-	source: string;
-	returnsData: boolean;
-	constructor(db: Database, sources: string[]);
+        run(...params: any[]): Database.RunResult;
+        get(...params: any[]): any;
+        all(...params: any[]): any[];
+        iterate(...params: any[]): IterableIterator<any>;
+        pluck(toggleState?: boolean): this;
+        expand(toggleState?: boolean): this;
+        raw(toggleState?: boolean): this;
+        bind(...params: any[]): this;
+        columns(): ColumnDefinition[];
+        safeIntegers(toggleState?: boolean): this;
+    }
 
-	run(...params: any[]): RunResult;
-	get(...params: any[]): any;
-	all(...params: any[]): any[];
-	each(params: any, cb: (row: any) => void): void;
-	each(cb: (row: any) => void): void;
-	each(...params: any[]): void;
-	pluck(toggleState?: boolean): this;
-	bind(...params: any[]): this;
-	safeIntegers(toggleState?: boolean): this;
-}
+    interface ColumnDefinition {
+        name: string;
+        column: string | null;
+        table: string | null;
+        database: string | null;
+        type: string | null;
+    }
 
-declare class Transaction {
-	database: Database;
-	source: string;
-	constructor(db: Database, sources: string[]);
+    interface Transaction {
+        (...params: any[]): any;
+        default(...params: any[]): any;
+        deferred(...params: any[]): any;
+        immediate(...params: any[]): any;
+        exclusive(...params: any[]): any;
+    }
 
-	run(...params: any[]): RunResult;
-	bind(...params: any[]): this;
-	safeIntegers(toggleState?: boolean): this;
-}
+    interface Database {
+        memory: boolean;
+        readonly: boolean;
+        name: string;
+        open: boolean;
+        inTransaction: boolean;
 
-interface DatabaseOptions {
-	memory?: boolean;
-	readonly?: boolean;
-	fileMustExist?: boolean;
-}
+        prepare(source: string): Statement;
+        transaction(fn: (...params: any[]) => any): Transaction;
+        exec(source: string): this;
+        pragma(source: string, options?: Database.PragmaOptions): any;
+        checkpoint(databaseName?: string): this;
+        function(name: string, cb: (...params: any[]) => any): this;
+        function(name: string, options: Database.RegistrationOptions, cb: (...params: any[]) => any): this;
+        aggregate(name: string, options: Database.AggregateOptions): this;
+        loadExtension(path: string): this;
+        close(): this;
+        defaultSafeIntegers(toggleState?: boolean): this;
+    }
 
-interface RegistrationOptions {
-	name?: string;
-	varargs?: boolean;
-	deterministic?: boolean;
-	safeIntegers?: boolean;
-}
+    interface DatabaseConstructor {
+        new(filename: string, options?: Database.Options): Database;
+        (filename: string, options?: Database.Options): Database;
+        prototype: Database;
 
-interface Database {
-	memory: boolean;
-	readonly: boolean;
-	name: string;
-	open: boolean;
-	inTransaction: boolean;
-
-	prepare(source: string): Statement;
-	transaction(sources: string[]): Transaction;
-	exec(source: string): this;
-	pragma(source: string, simplify?: boolean): any;
-	checkpoint(databaseName?: string): this;
-	register(cb: (...params: any[]) => any): this;
-	register(options: RegistrationOptions, cb: (...params: any[]) => any): this;
-	close(): this;
-	defaultSafeIntegers(toggleState?: boolean): this;
+        Integer: typeof Integer;
+        SqliteError: typeof SqliteError;
+    }
 }
 
 declare class SqliteError implements Error {
-	name: string;
-	message: string;
-	code: string;
-	constructor(message: string, code: string);
+    name: string;
+    message: string;
+    code: string;
+    constructor(message: string, code: string);
 }
 
-interface DatabaseConstructor {
-	new(filename: string, options?: DatabaseOptions): Database;
-	(filename: string, options?: DatabaseOptions): Database;
-	prototype: Database;
+declare namespace Database {
+    interface RunResult {
+        changes: number;
+        lastInsertRowid: Integer.IntLike;
+    }
 
-	Integer: typeof Integer;
-	SqliteError: typeof SqliteError;
+    interface Options {
+        memory?: boolean;
+        readonly?: boolean;
+        fileMustExist?: boolean;
+        timeout?: number;
+    }
+
+    interface PragmaOptions {
+        simple?: boolean;
+    }
+
+    interface RegistrationOptions {
+        varargs?: boolean;
+        deterministic?: boolean;
+        safeIntegers?: boolean;
+    }
+
+    interface AggregateOptions extends RegistrationOptions {
+        start?: any;
+        step: (total: any, next: any) => any;
+        inverse?: (total: any, dropped: any) => any;
+        result?: (total: any) => any;
+    }
+
+    type Integer = typeof Integer;
+    type SqliteError = typeof SqliteError;
+    type Statement = BetterSqlite3.Statement;
+    type ColumnDefinition = BetterSqlite3.ColumnDefinition;
+    type Transaction = BetterSqlite3.Transaction;
+    type Database = BetterSqlite3.Database;
 }
 
-declare const Database: DatabaseConstructor;
+declare const Database: BetterSqlite3.DatabaseConstructor;
 export = Database;

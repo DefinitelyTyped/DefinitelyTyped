@@ -16,7 +16,7 @@ export interface TransitionActions {
     exit?: boolean;
 }
 
-type TransitionStatus =
+export type TransitionStatus =
     typeof ENTERING |
     typeof ENTERED |
     typeof EXITING |
@@ -57,7 +57,7 @@ export interface TransitionProps extends TransitionActions {
  *
  * const defaultStyle = {
  *   transition: `opacity ${duration}ms ease-in-out`,
- *   opactity: 0,
+ *   opacity: 0,
  * }
  *
  * const transitionStyles = {

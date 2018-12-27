@@ -8,6 +8,7 @@
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 David Gasperoni <https://github.com/mcdado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -315,6 +316,7 @@ export declare class PreparedStatement extends events.EventEmitter {
     public parameters: IRequestParameters;
     public stream: any;
     public constructor(connection?: ConnectionPool);
+    public constructor(transaction: Transaction);
     public input(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
     public output(name: string, type: (() => ISqlType) | ISqlType): PreparedStatement;
     public prepare(statement?: string): Promise<void>;

@@ -175,7 +175,7 @@ loadingStrategy = ol.loadingstrategy.tile(tilegrid);
 // ol.geom.Circle
 //
 booleanValue = circle.intersectsExtent(extent);
-circle = <ol.geom.Circle> circle.transform(projectionLike, projectionLike);
+circle = circle.transform(projectionLike, projectionLike) as ol.geom.Circle;
 
 //
 //
@@ -418,6 +418,14 @@ feature.setStyle(styleArray);
 feature.setStyle(featureStyleFunction);
 feature.setStyle(styleFunction);
 feature.setProperties(object);
+const nullStyleFunction = (feature: (ol.Feature|ol.render.Feature), resolution: number): null => {
+    return null;
+};
+const nullFeatureStyleFunction = (resolution: number): null => {
+  return null;
+};
+feature.setStyle(nullStyleFunction);
+feature.setStyle(nullFeatureStyleFunction);
 
 //
 // ol.View
@@ -572,6 +580,10 @@ const vectorLayer: ol.layer.Vector = new ol.layer.Vector({
     source: new ol.source.Vector(),
     zIndex: -1
 });
+
+vectorLayer.setStyle(nullStyleFunction);
+vectorLayer.setStyle(null);
+vectorLayer.setStyle(undefined);
 
 //
 // ol.layer.VectorTile

@@ -3,6 +3,7 @@
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
 //                  Brad Besserman <https://github.com/bradbesserman>
+//                  Pawel Krol <https://github.com/pawkrol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1345,7 +1346,7 @@ declare namespace math {
          * the Matrix/array being traversed.
          * @returns Transformed map of x
          */
-        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)): Matrix | MathArray;
+        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => MathType | string)): Matrix | MathArray;
 
         /**
          * Create a matrix filled with ones. The created matrix can have one or
@@ -2571,6 +2572,23 @@ declare namespace math {
          * ‘string’, ‘Array’, ‘Date’.
          */
         typeof(x: any): string;
+
+        /**
+         * Import functions from an object or a module
+         * To avoid errors when using one of the imported functions extend module like this:
+         *
+         * @example
+         * // imported_math_functions.ts
+         * declare module 'mathjs' {
+         *      interface MathJsStatic {
+         *          hello(a: number): number;
+         *      }
+         * }
+         *
+         * @param object An object with functions to be imported.
+         * @param options An object with import options.
+         */
+        import(object: ImportObject | ImportObject[], options: ImportOptions): void;
     }
 
     interface Matrix {
@@ -2876,6 +2894,7 @@ declare namespace math {
     interface Parser {
         eval(expr: string): any;
         get(variable: string): any;
+        getAll(): { [key: string]: any; };
         set: (variable: string, value: any) => void;
         clear: () => void;
     }
@@ -4540,5 +4559,15 @@ declare namespace math {
          * Determine the type of a variable.
          */
         typeof(): MathJsChain;
+    }
+
+    interface ImportOptions {
+        override?: boolean;
+        silent?: boolean;
+        wrap?: boolean;
+    }
+
+    interface ImportObject {
+        [key: string]: any;
     }
 }

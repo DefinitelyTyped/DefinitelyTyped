@@ -36,6 +36,7 @@ export interface DatePickerProps {
     customStyles?: any;
     minuteInterval?: number;
     TouchableComponent?: React.Component;
+    locale?: string;
 }
 
 declare class DatePicker extends React.Component<DatePickerProps> {

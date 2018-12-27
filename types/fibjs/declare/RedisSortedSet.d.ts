@@ -34,7 +34,7 @@ declare class Class_RedisSortedSet extends Class__object {
 	 * 
 	 * 
 	 */
-	add(sms: Object): number;
+	add(sms: object): number;
 
 	/**
 	 * 

@@ -37,6 +37,21 @@ client.search({
 }, (error) => {
 });
 
+client.search({
+  body: {
+    query: {
+      match_all: {
+        _name: 'test'
+      }
+    }
+  }
+}
+).then((body) => {
+  const hit = body.hits.hits[0];
+  const names = hit && hit.matched_queries;
+}, (error) => {
+});
+
 client.indices.delete({
   index: 'test_index',
   ignore: [404]
@@ -194,7 +209,7 @@ client.get({
   id: '1',
   routing: '1'
 }, (error, response) => {
-    const routing = response._routing;
+  const routing = response._routing;
 });
 
 client.mget({
@@ -323,7 +338,43 @@ client.indices.updateAliases({
   // ...
 });
 
+client.indices.updateAliases({
+  body: {
+    actions: [
+      {
+        add: {
+          index: 'logstash-2018.11', alias: 'logstash-filtered', filter: {
+            query: {
+              exists: { field: 'id' }
+            }
+          },
+          routing: 'id'
+        }
+      }
+    ]
+  }
+}).then((response) => {
+  // ...
+}, (error) => {
+  // ...
+});
+
+client.reindex({
+  body: {
+    source: {
+      index: "twitter"
+    },
+    dest: {
+      index: "new_twitter"
+    }
+  }
+})
+  .then(response => {
+    const { took, timed_out } = response;
+    // ...
+  });
+
 // Errors
 function testErrors() {
-    throw new elasticsearch.errors.AuthenticationException();
+  throw new elasticsearch.errors.AuthenticationException();
 }

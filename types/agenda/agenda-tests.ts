@@ -1,10 +1,14 @@
 import Agenda = require("agenda");
-import { Db, Server } from "mongodb";
+import { Db, Server, MongoClient } from "mongodb";
 
 var mongoConnectionString = "mongodb://127.0.0.1/agenda";
 
 (async () => {
     var agenda = new Agenda({ db: { address: mongoConnectionString } });
+    var agenda = new Agenda({
+        mongo: (await MongoClient.connect(mongoConnectionString)).db(),
+        db: { collection: 'agenda-jobs' },
+    });
 
     agenda.define<{ foo: Error }>('delete old users', (job, done) => {
         done(job.attrs.data.foo)

@@ -28,7 +28,7 @@ declare namespace i18nextBrowserLanguageDetector {
     interface CustomDetector {
         name: string;
 
-        // todo: Checks paramters type.
+        // todo: Checks parameters type.
         cacheUserLanguage(lng: string, options: {}): void;
         lookup(options: {}): string;
     }

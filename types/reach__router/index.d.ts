@@ -1,29 +1,38 @@
-// Type definitions for @reach/router 1.0
+// Type definitions for @reach/router 1.2
 // Project: https://github.com/reach/router
 // Definitions by: Kingdaro <https://github.com/kingdaro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import { Location as HLocation } from "history";
+export type WindowLocation = Window["location"] & HLocation;
 
-export type WindowLocation = Window["location"];
+export type HistoryActionType = "PUSH" | "POP";
+export type HistoryLocation = WindowLocation & { state?: any };
+export interface HistoryListenerParameter {
+	location: HistoryLocation;
+	action: HistoryActionType;
+}
+export type HistoryListener = (parameter: HistoryListenerParameter) => void;
+export type HistoryUnsubscribe = () => void;
 
 export interface History {
-    readonly location: string;
+    readonly location: HistoryLocation;
     readonly transitioning: boolean;
     listen: (listener: HistoryListener) => HistoryUnsubscribe;
     navigate: NavigateFn;
 }
 
-export type HistoryListener = () => void;
-export type HistoryUnsubscribe = () => void;
-
-export class Router extends React.Component<RouterProps> {}
+export class Router extends React.Component<
+  RouterProps & React.HTMLProps<HTMLDivElement>
+> {}
 
 export interface RouterProps {
     basepath?: string;
     primary?: boolean;
     location?: WindowLocation;
+    component?: React.ComponentType | string;
 }
 
 export type RouteComponentProps<TParams = {}> = Partial<TParams> & {
@@ -38,11 +47,11 @@ export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export type AnchorProps = Omit<
     React.DetailedHTMLProps<
-        React.AnchorHTMLAttributes<HTMLAnchorElement>,
-        HTMLAnchorElement
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    HTMLAnchorElement
     >,
     "href" // remove href, as it's ignored by the router
->;
+    >;
 
 export interface LinkProps<TState> extends AnchorProps {
     to?: string;
@@ -58,15 +67,17 @@ export interface LinkGetProps {
     location: WindowLocation;
 }
 
-export class Link<TState> extends React.Component<LinkProps<TState>> {}
+export class Link<TState> extends React.Component<LinkProps<TState>> { }
 
-export interface RedirectProps {
+export interface RedirectProps<TState> {
     from?: string;
     to: string;
     noThrow?: boolean;
+    state?: TState;
+    replace?: boolean;
 }
 
-export class Redirect extends React.Component<RedirectProps> {}
+export class Redirect<TState> extends React.Component<RedirectProps<TState>> { }
 
 export interface MatchProps<TParams> {
     path: string;
@@ -74,7 +85,7 @@ export interface MatchProps<TParams> {
 }
 
 export type MatchRenderFn<TParams> = (
-    props: MatchRenderProps<TParams>,
+    props: MatchRenderProps<TParams>
 ) => React.ReactNode;
 
 export interface MatchRenderProps<TParams> {
@@ -83,7 +94,7 @@ export interface MatchRenderProps<TParams> {
     navigate: NavigateFn;
 }
 
-export class Match<TParams> extends React.Component<MatchProps<TParams>> {}
+export class Match<TParams> extends React.Component<MatchProps<TParams>> { }
 
 export type NavigateFn = (to: string, options?: NavigateOptions<{}>) => void;
 
@@ -96,7 +107,7 @@ export interface LocationProps {
     children: LocationProviderRenderFn;
 }
 
-export class Location extends React.Component<LocationProps> {}
+export class Location extends React.Component<LocationProps> { }
 
 export interface LocationProviderProps {
     history: History;
@@ -104,7 +115,7 @@ export interface LocationProviderProps {
 }
 
 export type LocationProviderRenderFn = (
-    context: LocationContext,
+    context: LocationContext
 ) => React.ReactNode;
 
 export interface LocationContext {
@@ -112,13 +123,13 @@ export interface LocationContext {
     navigate: NavigateFn;
 }
 
-export class LocationProvider extends React.Component<LocationProviderProps> {}
+export class LocationProvider extends React.Component<LocationProviderProps> { }
 
 export interface ServerLocationProps {
     url: string;
 }
 
-export class ServerLocation extends React.Component<ServerLocationProps> {}
+export class ServerLocation extends React.Component<ServerLocationProps> { }
 
 export const navigate: NavigateFn;
 
@@ -144,3 +155,5 @@ export interface RedirectRequest {
 export function isRedirect(error: any): error is RedirectRequest;
 
 export function redirectTo(uri: string): void;
+
+export const globalHistory: History;

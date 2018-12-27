@@ -45,7 +45,7 @@ declare class Class_DgramSocket extends Class_EventEmitter {
 	 * 
 	 * @async
 	 */
-	bind(opts: Object): void;
+	bind(opts: object): void;
 
 	/**
 	 * 

@@ -9,6 +9,7 @@
 import * as React from 'react';
 import {
   ViewStyle,
+  StyleProp,
   NativeSyntheticEvent,
   NativeScrollEvent,
 } from 'react-native';
@@ -31,7 +32,7 @@ export interface SwiperState {
 export interface SwiperProperties extends React.Props<Swiper> {
   horizontal?: boolean;
 
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
 
   pagingEnabled?: boolean;
 
@@ -71,9 +72,9 @@ export interface SwiperProperties extends React.Props<Swiper> {
 
   renderPagination?(index: number, total: number, thisObject: Swiper): JSX.Element;
 
-  dotStyle?: ViewStyle;
+  dotStyle?: StyleProp<ViewStyle>;
 
-  activeDotStyle?: ViewStyle;
+  activeDotStyle?: StyleProp<ViewStyle>;
 
   activeDot?: JSX.Element;
 
@@ -87,9 +88,9 @@ export interface SwiperProperties extends React.Props<Swiper> {
 
   width?: number;
 
-  paginationStyle?: ViewStyle;
+  paginationStyle?: StyleProp<ViewStyle>;
 
-  buttonWrapperStyle?: ViewStyle;
+  buttonWrapperStyle?: StyleProp<ViewStyle>;
 
   nextButton?: JSX.Element;
 

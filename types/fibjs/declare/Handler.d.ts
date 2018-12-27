@@ -44,7 +44,7 @@ declare class Class_Handler extends Class__object {
 	 * 
 	 * 
 	 */
-	constructor(map: Object);
+	constructor(map: object);
 
 	/**
 	 * 
