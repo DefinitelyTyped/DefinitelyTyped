@@ -221,7 +221,7 @@ declare namespace jest {
 
     interface DoneCallback {
         (...args: any[]): any;
-        fail(error?: string | { message: string }): never;
+        fail(error?: string | { message: string }): any;
     }
 
     type ProvidesCallback = (cb: DoneCallback) => any;
