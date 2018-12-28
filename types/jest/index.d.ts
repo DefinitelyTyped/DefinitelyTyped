@@ -221,7 +221,7 @@ declare namespace jest {
 
     interface DoneCallback {
         (...args: any[]): any;
-        fail(error?: string | { message: string }): any;
+        fail(error?: string | { message: string }): never;
     }
 
     type ProvidesCallback = (cb: DoneCallback) => any;
@@ -981,7 +981,7 @@ declare function pending(reason?: string): void;
 /**
  * Fails a test when called within one.
  */
-declare function fail(error?: any): void;
+declare function fail(error?: any): never;
 declare namespace jasmine {
     let DEFAULT_TIMEOUT_INTERVAL: number;
     function clock(): Clock;
