@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { EventEmitter } from 'events';
+/// <reference types="node" />
 
-export class VASTTracker extends EventEmitter {
+export class VASTTracker extends NodeJS.EventEmitter {
     /**
      * The VAST tracker constructor will process the tracking URLs of the selected ad/creative and returns an instance of VASTTracker.
      */
@@ -170,7 +170,7 @@ export class VASTClient {
     getParser(): VASTParser;
 }
 
-export class VASTParser extends EventEmitter {
+export class VASTParser extends NodeJS.EventEmitter {
     /**
      * util method for handling urls, it is used to make the requests.
      */

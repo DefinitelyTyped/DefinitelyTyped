@@ -136,7 +136,7 @@ const onSkip = () => {
 // Log a message when event 'skip' is emitted
 vastTracker.on('skip', onSkip);
 // Stop logging message
-// vastTracker.off('skip', onSkip);
+vastTracker.off('skip', onSkip);
 
 const player = document.getElementById('playerId') as HTMLVideoElement;
 
