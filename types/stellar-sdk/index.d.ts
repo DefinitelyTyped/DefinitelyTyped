@@ -7,7 +7,7 @@
 //                 Timur Ramazanov <https://github.com/charlie-wasp>
 //                 Kalvis Kalniņš <https://github.com/Akuukis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -69,23 +69,38 @@ export namespace StellarBase {
     const MemoText = 'text';
     const MemoHash = 'hash';
     const MemoReturn = 'return';
-    type MemoType = typeof MemoNone | typeof MemoID | typeof MemoText | typeof MemoHash | typeof MemoReturn;
-    class Memo {
+    type MemoNone = 'none';
+    type MemoID = 'id';
+    type MemoText = 'text';
+    type MemoHash = 'hash';
+    type MemoReturn = 'return';
+    class Memo<T extends Memo.AnyType = Memo.AnyType> {
         static fromXDRObject(memo: xdr.Memo): Memo;
-        static hash(hash: string): Memo;
-        static id(id: string): Memo;
-        static none(): Memo;
-        static return(hash: string): Memo;
-        static text(text: string): Memo;
+        static hash(hash: string): Memo<MemoHash>;
+        static id(id: string): Memo<MemoID>;
+        static none(): Memo<MemoNone>;
+        static return(hash: string): Memo<MemoReturn>;
+        static text(text: string): Memo<MemoText>;
 
-        constructor(type: typeof MemoNone);
-        constructor(type: typeof MemoID | typeof MemoText | typeof MemoHash | typeof MemoReturn, value: string)
-        constructor(type: typeof MemoHash | typeof MemoReturn, value: Buffer)
+        constructor(type: MemoNone, value?: null);
+        constructor(type: MemoHash | MemoReturn, value: Buffer)
+        constructor(type: MemoHash | MemoReturn | MemoID | MemoText, value: string)
+        constructor(type: T, value: Memo.AnyValue)
 
-        type: string;
-        value: null | string | Buffer;
+        type: T;
+        value:
+            T extends MemoNone ? null :
+            T extends MemoID ? string :
+            T extends MemoText ? string :
+            T extends MemoHash ? Buffer :
+            T extends MemoReturn ? Buffer :
+            Memo.AnyValue;
 
         toXDRObject(): xdr.Memo;
+    }
+    namespace Memo {
+        type AnyType = MemoNone | MemoID | MemoText | MemoHash | MemoReturn;
+        type AnyValue = null | string | Buffer;
     }
 
     enum Networks {
@@ -429,7 +444,6 @@ export import MemoID = StellarBase.MemoID;
 export import MemoNone = StellarBase.MemoNone;
 export import MemoReturn = StellarBase.MemoReturn;
 export import MemoText = StellarBase.MemoText;
-export import MemoType = StellarBase.MemoType;
 export import Network = StellarBase.Network;
 export import Networks = StellarBase.Networks;
 export import Operation = StellarBase.Operation;
