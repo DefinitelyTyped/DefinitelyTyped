@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap 4.1
+// Type definitions for Bootstrap 4.2
 // Project: https://github.com/twbs/bootstrap/
 // Definitions by: denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -64,9 +64,10 @@ export interface CarouselOption {
     slide?: "next" | "prev" | false;
 
     /**
-     * If set to "hover", pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave.
+     * If set to "hover", pauses the cycling of the carousel on `mouseenter` and resumes the cycling of the carousel on `mouseleave`.
      * If set to false, hovering over the carousel won't pause it.
-     * On touch-enabled devices, when set to "hover", cycling will pause on touchend (once the user finished interacting with the carousel)
+     *
+     * On touch-enabled devices, when set to "hover", cycling will pause on `touchend` (once the user finished interacting with the carousel)
      * for two intervals, before automatically resuming. Note that this is in addition to the above mouse behavior.
      *
      * @default "hover"
@@ -79,6 +80,13 @@ export interface CarouselOption {
      * @default true
      */
     wrap?: boolean;
+
+    /**
+     * Whether the carousel should support left/right swipe interactions on touchscreen devices.
+     *
+     * @default true
+     */
+    touch?: boolean;
 }
 
 export interface CollapseOption {
@@ -208,6 +216,29 @@ export interface ScrollspyOption {
      * @default ""
      */
     target?: string | Element;
+}
+
+export interface ToastOption {
+    /**
+     * Apply a CSS fade transition to the toast.
+     *
+     * @default true
+     */
+    animation?: boolean;
+
+    /**
+     * Auto hide the toast.
+     *
+     * @default true
+     */
+    autohide?: boolean;
+
+    /**
+     * Delay hiding the toast in millisecond.
+     *
+     * @default 500
+     */
+    delay?: number;
 }
 
 export interface TooltipOption {
@@ -401,6 +432,7 @@ export type ModalEvent = "show.bs.modal" | "shown.bs.modal" | "hide.bs.modal" | 
 export type PopoverEvent = "show.bs.popover" | "shown.bs.popover" | "hide.bs.popover" | "hidden.bs.popover" | "inserted.bs.popover";
 export type ScrollspyEvent = "activate.bs.scrollspy";
 export type TapEvent = "show.bs.tab" | "shown.bs.tab" | "hide.bs.tab" | "hidden.bs.tab";
+export type ToastEvent = "show.bs.toast" | "shown.bs.toast" | "hide.bs.toast" | "hidden.bs.toast";
 export type TooltipEvent = "show.bs.tooltip" | "shown.bs.tooltip" | "hide.bs.tooltip" | "hidden.bs.tooltip" | "inserted.bs.tooltip";
 
 // --------------------------------------------------------------------------------------
@@ -539,6 +571,20 @@ $('[data-spy="scroll"]').each(function () {
         tab(action: "show" | "dispose"): this;
 
         /**
+         * Call a method on the toast element:
+         * * `show` – Reveals an element's toast. You have to manually call this method, instead your toast won't show.
+         * * `hide` – Hides an element's toast. You have to manually call this method if you made `autohide` to false.
+         * * `dispose` – Hides an element's toast. Your toast will remain on the DOM but won't show anymore.
+         *
+         * Returns to the caller before the toast has actually been shown or hidden (i.e. before the `shown.bs.toast` or `hidden.bs.toast` event occurs).
+         */
+        toast(action: "show" | "hide" | "dispose"): this;
+        /**
+         * Attaches a toast handler to an element collection.
+         */
+        toast(options?: ToastOption): this;
+
+        /**
          * Call a method on the tooltip element:
          * * `show` – Reveals an element's tooltip.
          * * `hide` – Hides an element's tooltip.
@@ -564,7 +610,7 @@ $('[data-spy="scroll"]').each(function () {
         on(events: ModalEvent, handler: JQuery.EventHandlerBase<TElement, ModalEventHandler<TElement>>): this;
         on(events: TapEvent, handler: JQuery.EventHandlerBase<TElement, TapEventHandler<TElement>>): this;
         on(
-            events: AlertEvent | CollapseEvent | PopoverEvent | ScrollspyEvent | TooltipEvent,
+            events: AlertEvent | CollapseEvent | PopoverEvent | ScrollspyEvent | ToastEvent | TooltipEvent,
             handler: JQuery.EventHandler<TElement>
         ): this;
     }
