@@ -2551,7 +2551,7 @@ declare namespace React {
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
     type WeakValidationMap<T> = {
-        [K in keyof T]?: null extends T[K]
+        [K in keyof T]-?: null extends T[K]
             ? Validator<T[K] | null | undefined>
             : undefined extends T[K]
             ? Validator<T[K] | null | undefined>
