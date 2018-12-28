@@ -437,6 +437,15 @@ export import sign = StellarBase.sign;
 export import verify = StellarBase.verify;
 export import xdr = StellarBase.xdr;
 
+export class NetworkError extends Error {
+    private response: any;
+    constructor(message: string, response: any)
+    getResponse(): any;
+}
+export class NotFoundError extends NetworkError {}
+export class BadRequestError extends NetworkError {}
+export class BadResponseError extends NetworkError {}
+
 export class CallBuilder<T extends Record> {
     constructor(serverUrl: string)
     call(): Promise<CollectionPage<T>>;
