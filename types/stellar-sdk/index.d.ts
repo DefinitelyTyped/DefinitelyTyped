@@ -556,14 +556,17 @@ export namespace Server {
         balance: string;
         asset_type: ASSET_TYPE.native;
     }
-    interface BalanceLineAsset {
+    interface BalanceLineAsset<T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 = ASSET_TYPE.credit4 | ASSET_TYPE.credit12> {
         balance: string;
         limit: string;
-        asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
+        asset_type: T;
         asset_code: string;
         asset_issuer: string;
     }
-    type BalanceLine = BalanceLineNative | BalanceLineAsset;
+    type BalanceLine<T extends ASSET_TYPE = ASSET_TYPE> =
+        T extends ASSET_TYPE.native ? BalanceLineNative :
+        T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 ? BalanceLineAsset<T> :
+        BalanceLineNative | BalanceLineAsset;
 
     interface AccountRecord extends Record {
         id: string;
