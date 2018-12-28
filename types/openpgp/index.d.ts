@@ -40,7 +40,7 @@ export interface EncryptOptions {
 export interface EncryptedMessage {
     data?: string,
     message?: message.Message,
-    signature?: String | ReadableStream | Signature // TODO add NodeStream
+    signature?: string | ReadableStream | Signature // TODO add NodeStream
     sessionKey?: SessionKey
 }
 
@@ -67,8 +67,8 @@ export interface SignOptions {
 }
 
 export interface SignedMessage {
-    signature?: String | ReadableStream | Signature, // TODO add NodeStream
-    data?: String | ReadableStream, // TODO add NodeStream
+    signature?: string | ReadableStream | Signature, // TODO add NodeStream
+    data?: string | ReadableStream, // TODO add NodeStream
     message?: message.Message
 }
 
