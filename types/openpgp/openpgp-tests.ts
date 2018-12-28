@@ -125,8 +125,8 @@ openpgp.initWorker({ path:'openpgp.worker.js' });
     const message = signed.message;
 
     const verifyOptions: openpgp.VerifyOptions = {
-        message: message,
-        signature: signature,
+        message,
+        signature,
         publicKeys: publicKey.keys
     };
 
