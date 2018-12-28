@@ -19,6 +19,11 @@ export namespace StellarBase {
         incrementSequenceNumber(): void;
     }
 
+    enum ASSET_TYPE {
+        native = 'native',
+        credit4 = 'credit_alphanum4',
+        credit12 = 'credit_alphanum12',
+    }
     class Asset {
         static native(): Asset;
         static fromOperation(xdr: xdr.Asset): Asset;
@@ -414,6 +419,7 @@ export namespace StellarBase {
 
 // Re-StellarBase
 export import Account = StellarBase.Account;
+export import ASSET_TYPE = StellarBase.ASSET_TYPE;
 export import Asset = StellarBase.Asset;
 export import FastSigning = StellarBase.FastSigning;
 export import Keypair = StellarBase.Keypair;
@@ -531,12 +537,6 @@ export namespace Server {
     type CallFunction<T extends Record> = () => Promise<T>;
     type CallCollectionFunction<T extends Record> =
         (options?: CallFunctionTemplateOptions) => Promise<CollectionRecord<T>>;
-
-    enum ASSET_TYPE {
-        native = 'native',
-        credit4 = 'credit_alphanum4',
-        credit12 = 'credit_alphanum12',
-    }
 
     interface BalanceLineNative {
         balance: string;
