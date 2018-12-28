@@ -446,6 +446,12 @@ export class NotFoundError extends NetworkError {}
 export class BadRequestError extends NetworkError {}
 export class BadResponseError extends NetworkError {}
 
+export namespace Config {
+    function setAllowHttp(allow: boolean): void;
+    function isAllowHttp(): boolean;
+    function setDefault(): void;
+}
+
 export class CallBuilder<T extends Record> {
     constructor(serverUrl: string)
     call(): Promise<CollectionPage<T>>;
@@ -886,12 +892,6 @@ export class AccountResponse implements AccountRecord {
 export class AssetsCallBuilder extends CallBuilder<AssetRecord> {
     forCode(value: string): this;
     forIssuer(value: string): this;
-}
-
-export namespace Config {
-    function setAllowHttp(allow: boolean): void;
-    function isAllowHttp(): boolean;
-    function setDefault(): void;
 }
 
 export class EffectCallBuilder extends CallBuilder<EffectRecord> {
