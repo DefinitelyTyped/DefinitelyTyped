@@ -40,7 +40,7 @@ export interface EncryptOptions {
 export interface EncryptedMessage {
     data?: string,
     message?: message.Message,
-    signature?: String |ReadableStream<String> |Signature // TODO add NodeStream
+    signature?: String | ReadableStream | Signature // TODO add NodeStream
     sessionKey?: SessionKey
 }
 
@@ -66,11 +66,11 @@ export interface SignOptions {
     fromUserIds?: UserId[]
 }
 
-export type SignedMessage = {
-    signature?: String | ReadableStream<String> | Signature // TODO add NodeStream
-    data?: String | ReadableStream<String> // TODO add NodeStream
+export interface SignedMessage {
+    signature?: String | ReadableStream | Signature, // TODO add NodeStream
+    data?: String | ReadableStream, // TODO add NodeStream
     message?: message.Message
-};
+}
 
 export interface KeyContainer {
     key: key.Key,
@@ -98,7 +98,7 @@ export interface Keyid {
 
 export interface Signature {
     keyid: Keyid,
-    valid: boolean
+    valid: boolean,
     verified?: boolean
 }
 
@@ -107,15 +107,19 @@ export interface VerifyOptions {
     publicKeys: key.Key | key.Key[],
     streaming?: 'web' | 'node' | false,
     signature?: Signature,
-    date?: Date,
+    date?: Date
 }
 
 export interface VerifiedMessage {
-    data: Uint8Array | string | ReadableStream<String> | ReadableStream<Uint8Array>,
+    data: Uint8Array | string | ReadableStream, // TODO add NodeStream
     signatures: Array<Signature>,
 }
 
-export type DecryptedMessage = VerifiedMessage & { filename: string }
+export interface DecryptedMessage {
+    data: Uint8Array | string | ReadableStream, // TODO add NodeStream
+    signatures: Array<Signature>,
+    filename: string
+}
 
 export interface OpenPGPWorker {
     randomCallback(): void;
@@ -129,7 +133,7 @@ export interface WorkerOptions {
     path?: string,
     n?: number,
     workers?: OpenPGPWorker[],
-    config?: any,
+    config?: any
 }
 
 export class AsyncProxy {
