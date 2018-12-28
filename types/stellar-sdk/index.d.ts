@@ -5,23 +5,442 @@
 //                 Paul Selden <https://github.com/pselden>
 //                 Max Bause <https://github.com/maxbause>
 //                 Timur Ramazanov <https://github.com/charlie-wasp>
+//                 Kalvis Kalniņš <https://github.com/Akuukis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="node" />
 
-export class Account {
-    constructor(accountId: string, sequence: string)
-    accountId(): string;
-    sequenceNumber(): string;
-    incrementSequenceNumber(): void;
+export namespace StellarBase {
+    const hash: any;  // TODO
+    const sign: any;  // TODO
+    const verify: any;  // TODO
+    const FastSigning: any;  // TODO
+
+    class Account {
+        constructor(accountId: string, sequence: string | number)
+        accountId(): string;
+        sequenceNumber(): string;
+        incrementSequenceNumber(): void;
+    }
+
+    class Asset {
+        static native(): Asset;
+        static fromOperation(xdr: xdr.Asset): Asset;
+
+        constructor(code: string, issuer: string);
+
+        getCode(): string;
+        getIssuer(): string;
+        getAssetType(): ASSET_TYPE;
+        isNative(): boolean;
+        equals(other: Asset): boolean;
+        toXDRObject(): xdr.Asset;
+
+        code: string;
+        issuer: string;
+    }
+
+    class Keypair {
+        static fromRawEd25519Seed(secretSeed: Buffer): Keypair;
+        static fromBase58Seed(secretSeed: string): Keypair;
+        static fromSecret(secretKey: string): Keypair;
+        static master(): Keypair;
+        static fromPublicKey(publicKey: string): Keypair;
+        static random(): Keypair;
+
+        constructor(keys: { type: 'ed25519', secretKey: string } | { type: 'ed25519', Key: string })
+
+        publicKey(): string;
+        secret(): string;
+        rawPublicKey(): Buffer;
+        rawSecretKey(): Buffer;
+        canSign(): boolean;
+        sign(data: Buffer): Buffer;
+        signDecorated(data: Buffer): xdr.DecoratedSignature;
+        signatureHint(): xdr.SignatureHint;
+        verify(data: Buffer, signature: Buffer): boolean;
+    }
+
+    const MemoNone = 'none';
+    const MemoID = 'id';
+    const MemoText = 'text';
+    const MemoHash = 'hash';
+    const MemoReturn = 'return';
+    type MemoType = typeof MemoNone | typeof MemoID | typeof MemoText | typeof MemoHash | typeof MemoReturn;
+    class Memo {
+        static fromXDRObject(memo: xdr.Memo): Memo;
+        static hash(hash: string): Memo;
+        static id(id: string): Memo;
+        static none(): Memo;
+        static return(hash: string): Memo;
+        static text(text: string): Memo;
+
+        constructor(type: typeof MemoNone);
+        constructor(type: typeof MemoID | typeof MemoText | typeof MemoHash | typeof MemoReturn, value: string)
+        constructor(type: typeof MemoHash | typeof MemoReturn, value: Buffer)
+
+        type: string;
+        value: null | string | Buffer;
+
+        toXDRObject(): xdr.Memo;
+    }
+
+    enum Networks {
+        PUBLIC = 'Public Global Stellar Network ; September 2015',
+        TESTNET = 'Test SDF Network ; September 2015',
+    }
+
+    class Network {
+        static use(network: Network): void;
+        static usePublicNetwork(): void;
+        static useTestNetwork(): void;
+        static current(): Network;
+
+        constructor(passphrase: string)
+
+        networkPassphrase(): string;
+        networkId(): string;
+    }
+
+    const AuthRequiredFlag: 1;
+    const AuthRevocableFlag: 2;
+    const AuthImmutableFlag: 4;
+
+    type TransactionOperation =
+        Operation.CreateAccount
+        | Operation.Payment
+        | Operation.PathPayment
+        | Operation.CreatePassiveOffer
+        | Operation.ManageOffer
+        | Operation.SetOptions
+        | Operation.ChangeTrust
+        | Operation.AllowTrust
+        | Operation.AccountMerge
+        | Operation.Inflation
+        | Operation.ManageData
+        | Operation.BumpSequence;
+
+    enum OperationType {
+        createAccount = 'createAccount',
+        payment = 'payment',
+        pathPayment = 'pathPayment',
+        createPassiveOffer = 'createPassiveOffer',
+        manageOffer = 'manageOffer',
+        setOptions = 'setOptions',
+        changeTrust = 'changeTrust',
+        allowTrust = 'allowTrust',
+        accountMerge = 'accountMerge',
+        inflation = 'inflation',
+        manageData = 'manageData',
+        bumpSequence = 'bumpSequence',
+    }
+
+    namespace Operation {
+        interface Operation {
+            type: OperationType;
+            source: string | null;
+        }
+        interface AccountMerge extends Operation {
+            type: OperationType.accountMerge;
+            destination: string;
+        }
+        interface AccountMergeOptions {
+            destination: string;
+            source?: string;
+        }
+        function accountMerge(options: AccountMergeOptions): xdr.Operation<AccountMerge>;
+
+        interface AllowTrust extends Operation {
+            type: OperationType.allowTrust;
+            trustor: string;
+            assetCode: string;
+            authorize: boolean;
+        }
+        interface AllowTrustOptions {
+            trustor: string;
+            assetCode: string;
+            authorize: boolean;
+            source?: string;
+        }
+        function allowTrust(options: AllowTrustOptions): xdr.Operation<AllowTrust>;
+
+        interface ChangeTrust extends Operation {
+            type: OperationType.changeTrust;
+            line: Asset;
+            limit: string | number;
+        }
+        interface ChangeTrustOptions {
+            asset: Asset;
+            limit?: string;
+            source?: string;
+        }
+        function changeTrust(options: ChangeTrustOptions): xdr.Operation<ChangeTrust>;
+
+        interface CreateAccount extends Operation {
+            type: OperationType.createAccount;
+            source: string;
+            destination: string;
+            startingBalance: string | number;
+        }
+        interface CreateAccountOptions {
+            destination: string;
+            startingBalance: string;
+            source?: string;
+        }
+        function createAccount(options: CreateAccountOptions): xdr.Operation<CreateAccount>;
+
+        interface CreatePassiveOffer extends Operation {
+            type: OperationType.createPassiveOffer;
+            selling: Asset;
+            buying: Asset;
+            amount: string | number;
+            price: string | number;
+        }
+        interface CreatePassiveOfferOptions {
+            selling: Asset;
+            buying: Asset;
+            amount: string;
+            price: number | string | object;
+            source?: string;
+        }
+        function createPassiveOffer(options: CreatePassiveOfferOptions): xdr.Operation<CreatePassiveOffer>;
+
+        interface Inflation extends Operation {
+            type: OperationType.inflation;
+        }
+        function inflation(options: { source?: string }): xdr.Operation<Inflation>;
+
+        interface ManageData extends Operation {
+            type: OperationType.manageData;
+            name: string;
+            value: Buffer;
+        }
+        interface ManageDataOptions {
+            name: string;
+            value: string | Buffer;
+            source?: string;
+        }
+        function manageData(options: ManageDataOptions): xdr.Operation<ManageData>;
+
+        interface ManageOffer extends Operation {
+            type: OperationType.manageOffer;
+            selling: Asset;
+            buying: Asset;
+            amount: string | number;
+            price: string | number;
+            offerId: string;
+        }
+        interface ManageOfferOptions extends CreatePassiveOfferOptions {
+            offerId?: number | string;
+        }
+        function manageOffer(options: ManageOfferOptions): xdr.Operation<ManageOffer>;
+
+        interface PathPayment extends Operation {
+            type: OperationType.pathPayment;
+            sendAsset: Asset;
+            sendMax: string | number;
+            destination: string;
+            destAsset: Asset;
+            destAmount: string | number;
+            path: Asset[];
+        }
+        interface PathPaymentOptions {
+            sendAsset: Asset;
+            sendMax: string;
+            destination: string;
+            destAsset: Asset;
+            destAmount: string;
+            path: Asset[];
+            source?: string;
+        }
+        function pathPayment(options: PathPaymentOptions): xdr.Operation<PathPayment>;
+
+        interface Payment extends Operation {
+            type: OperationType.payment;
+            destination: string;
+            asset: Asset;
+            amount: string | number;
+        }
+        interface PaymentOptions {
+            destination: string;
+            asset: Asset;
+            amount: string;
+            source?: string;
+        }
+        function payment(options: PaymentOptions): xdr.Operation<Payment>;
+
+        /*
+        * Required = 1 << 0
+        * Revocable = 1 << 1
+        * Immutable = 1 << 2
+        */
+        enum AuthFlags {
+            Required = 1,
+            Revocable = 2,
+            Immutable = 4,
+        }
+        interface Signer {
+            ed25519PublicKey?: string;
+            sha256Hash?: Buffer | string;
+            preAuthTx?: Buffer | string;
+            weight?: number | string;
+        }
+        interface SetOptions extends Operation {
+            type: OperationType.setOptions;
+            inflationDest?: string;
+            clearFlags?: AuthFlags;
+            setFlags?: AuthFlags;
+            masterWeight?: number | string;
+            lowThreshold?: number | string;
+            medThreshold?: number | string;
+            highThreshold?: number | string;
+            homeDomain?: string;
+            signer?: Signer;
+        }
+        interface SetOptionsOptions {
+            inflationDest?: string;
+            clearFlags?: AuthFlags;
+            setFlags?: AuthFlags;
+            masterWeight?: number | string;
+            lowThreshold?: number | string;
+            medThreshold?: number | string;
+            highThreshold?: number | string;
+            signer?: Signer;
+            homeDomain?: string;
+            source?: string;
+        }
+        function setOptions(options: SetOptionsOptions): xdr.Operation<SetOptions>;
+
+        interface BumpSequence extends Operation {
+            type: OperationType.bumpSequence;
+            bumpTo: string;
+        }
+        interface BumpSequenceOptions {
+            bumpTo: string;
+            source?: string;
+        }
+        function bumpSequence(options: BumpSequenceOptions): xdr.Operation<BumpSequence>;
+
+        function fromXDRObject<T extends Operation>(xdrOperation: xdr.Operation<T>): T;
+    }
+
+    namespace StrKey {
+        function encodeEd25519PublicKey(data: Buffer): string;
+        function decodeEd25519PublicKey(data: string): Buffer;
+        function isValidEd25519PublicKey(Key: string): boolean;
+
+        function encodeEd25519SecretSeed(data: Buffer): string;
+        function decodeEd25519SecretSeed(data: string): Buffer;
+        function isValidEd25519SecretSeed(seed: string): boolean;
+
+        function encodePreAuthTx(data: Buffer): string;
+        function decodePreAuthTx(data: string): Buffer;
+
+        function encodeSha256Hash(data: Buffer): string;
+        function decodeSha256Hash(data: string): Buffer;
+    }
+
+    class Transaction {
+        constructor(envelope: string | xdr.TransactionEnvelope)
+        hash(): Buffer;
+        sign(...keypairs: Keypair[]): void;
+        signatureBase(): Buffer;
+        signHashX(preimage: Buffer | string): void;
+        toEnvelope(): xdr.TransactionEnvelope;
+
+        operations: TransactionOperation[];
+        sequence: number;
+        fee: number;
+        source: string;
+        memo: Memo;
+        signatures: xdr.DecoratedSignature[];
+    }
+
+    class TransactionBuilder {
+        constructor(sourceAccount: Account, options?: TransactionBuilder.TransactionBuilderOptions)
+        addOperation(operation: xdr.Operation<Operation.Operation>): this;
+        addMemo(memo: Memo): this;
+        build(): Transaction;
+    }
+
+    namespace TransactionBuilder {
+        interface TransactionBuilderOptions {
+            fee?: number;
+            timebounds?: {
+                minTime?: number | string
+                maxTime?: number | string
+            };
+            memo?: Memo;
+        }
+    }
+
+    namespace xdr {
+        class XDRStruct {
+            static fromXDR(xdr: Buffer): XDRStruct;
+
+            toXDR(base?: string): Buffer;
+            toXDR(encoding: string): string;
+        }
+        class Operation<T extends Operation.Operation> extends XDRStruct {
+            static fromXDR(xdr: Buffer): Operation<Operation.Operation>;
+        }
+        class Asset extends XDRStruct {
+            static fromXDR(xdr: Buffer): Asset;
+        }
+        class Memo extends XDRStruct {
+            static fromXDR(xdr: Buffer): Memo;
+        }
+        class TransactionEnvelope extends XDRStruct {
+            static fromXDR(xdr: Buffer): TransactionEnvelope;
+        }
+        class DecoratedSignature extends XDRStruct {
+            static fromXDR(xdr: Buffer): DecoratedSignature;
+
+            constructor(keys: { hint: SignatureHint, signature: Signature })
+
+            hint(): SignatureHint;
+            signature(): Buffer;
+        }
+        type SignatureHint = Buffer;
+        type Signature = Buffer;
+
+        class TransactionResult extends XDRStruct {
+            static fromXDR(xdr: Buffer): TransactionResult;
+        }
+    }
 }
+
+// Re-export StellarBase
+export import Account = StellarBase.Account;
+export import Asset = StellarBase.Asset;
+export import FastSigning = StellarBase.FastSigning;
+export import Keypair = StellarBase.Keypair;
+export import Memo = StellarBase.Memo;
+export import MemoHash = StellarBase.MemoHash;
+export import MemoID = StellarBase.MemoID;
+export import MemoNone = StellarBase.MemoNone;
+export import MemoReturn = StellarBase.MemoReturn;
+export import MemoText = StellarBase.MemoText;
+export import MemoType = StellarBase.MemoType;
+export import Network = StellarBase.Network;
+export import Networks = StellarBase.Networks;
+export import Operation = StellarBase.Operation;
+export import OperationType = StellarBase.OperationType;
+export import StrKey = StellarBase.StrKey;
+export import TransactionOperation = StellarBase.TransactionOperation;
+export import hash = StellarBase.hash;
+export import sign = StellarBase.sign;
+export import verify = StellarBase.verify;
+export import Transaction = StellarBase.Transaction;
+export import TransactionBuilder = StellarBase.TransactionBuilder;
+export import xdr = StellarBase.xdr;
 
 export class CallBuilder<T extends Record> {
     constructor(serverUrl: string)
     call(): Promise<CollectionPage<T>>;
     cursor(cursor: string): this;
-    limit(limit: number): this;
+    limit(limit: number | string): this;
     order(direction: 'asc' | 'desc'): this;
     stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
 }
@@ -65,6 +484,25 @@ export type CallFunction<T extends Record> = () => Promise<T>;
 export type CallCollectionFunction<T extends Record> =
     (options?: CallFunctionTemplateOptions) => Promise<CollectionRecord<T>>;
 
+export enum ASSET_TYPE {
+    native = 'native',
+    credit4 = 'credit_alphanum4',
+    credit12 = 'credit_alphanum12',
+}
+
+export interface BalanceLineNative {
+    balance: string;
+    asset_type: ASSET_TYPE.native;
+}
+export interface BalanceLineAsset {
+    balance: string;
+    limit: string;
+    asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
+    asset_code: string;
+    asset_issuer: string;
+}
+export type BalanceLine = BalanceLineNative | BalanceLineAsset;
+
 export interface AccountRecord extends Record {
     id: string;
     paging_token: string;
@@ -80,19 +518,7 @@ export interface AccountRecord extends Record {
         auth_required: boolean
         auth_revocable: boolean
     };
-    balances: Array<
-    {
-        balance: string
-        asset_type: 'native'
-    } |
-    {
-        balance: string
-        limit: string
-        asset_type: 'credit_alphanum4' | 'credit_alphanum12'
-        asset_code: string
-        asset_issuer: string
-    }
-    >;
+    balances: BalanceLine[];
     signers: Array<
     {
         public_key: string
@@ -111,7 +537,7 @@ export interface AccountRecord extends Record {
 }
 
 export interface AssetRecord extends Record {
-    asset_type: 'credit_alphanum4' | 'credit_alphanum12';
+    asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
     asset_code: string;
     asset_issuer: string;
     paging_token: string;
@@ -129,6 +555,7 @@ export interface EffectRecord extends Record {
     starting_balance: string;
     type_i: string;
     type: string;
+    amount?: any;
 
     operation?: CallFunction<OperationRecord>;
     precedes?: CallFunction<EffectRecord>;
@@ -178,6 +605,7 @@ export interface BaseOperationRecord extends Record {
     paging_token: string;
     type: string;
     type_i: number;
+    source_account: string;
 
     self: CallFunction<OperationRecord>;
     succeeds: CallFunction<OperationRecord>;
@@ -390,6 +818,8 @@ export interface TransactionRecord extends Record {
     result_xdr: string;
     result_meta_xdr: string;
     memo: string;
+    envelope: any;
+    memo_type: any;
 
     account: CallFunction<AccountRecord>;
     effects: CallCollectionFunction<EffectRecord>;
@@ -419,19 +849,7 @@ export class AccountResponse implements AccountRecord {
         auth_required: boolean
         auth_revocable: boolean
     };
-    balances: Array<
-        {
-            balance: string
-            asset_type: 'native'
-        } |
-        {
-            balance: string
-            limit: string
-            asset_type: 'credit_alphanum4' | 'credit_alphanum12'
-            asset_code: string
-            asset_issuer: string
-        }
-        >;
+    balances: BalanceLine[];
     signers: Array<
         {
             public_key: string
@@ -442,6 +860,7 @@ export class AccountResponse implements AccountRecord {
     data_attr: {
         [key: string]: string
     };
+    inflation_destination?: any;
 
     effects: CallCollectionFunction<EffectRecord>;
     offers: CallCollectionFunction<OfferRecord>;
@@ -452,23 +871,6 @@ export class AccountResponse implements AccountRecord {
     accountId(): string;
     sequenceNumber(): string;
     incrementSequenceNumber(): void;
-}
-
-export class Asset {
-    static native(): Asset;
-    static fromOperation(xdr: xdr.Asset): Asset;
-
-    constructor(code: string, issuer: string)
-
-    getCode(): string;
-    getIssuer(): string;
-    getAssetType(): 'native' | 'credit_alphanum4' | 'credit_alphanum12';
-    isNative(): boolean;
-    equals(other: Asset): boolean;
-    toXDRObject(): xdr.Asset;
-
-    code: string;
-    issuer: string;
 }
 
 export class AssetsCallBuilder extends CallBuilder<AssetRecord> {
@@ -510,266 +912,7 @@ export class FederationServer {
 
 export class LedgerCallBuilder extends CallBuilder<LedgerRecord> { }
 
-export class Memo {
-    static fromXDRObject(memo: xdr.Memo): Memo;
-    static hash(hash: string): Memo;
-    static id(id: string): Memo;
-    static none(): Memo;
-    static return(hash: string): Memo;
-    static text(text: string): Memo;
-
-    constructor(type: 'none');
-    constructor(type: 'id' | 'text' | 'hash' | 'return', value: string)
-    constructor(type: 'hash' | 'return', value: Buffer)
-
-    type: string;
-    value: null | string | Buffer;
-
-    toXDRObject(): xdr.Memo;
-}
-
-export const MemoNone = 'none';
-export const MemoID = 'id';
-export const MemoText = 'text';
-export const MemoHash = 'hash';
-export const MemoReturn = 'return';
-
-export enum Networks {
-    PUBLIC = 'Public Global Stellar Network ; September 2015',
-    TESTNET = 'Test SDF Network ; September 2015',
-}
-
-export class Network {
-    static use(network: Network): void;
-    static usePublicNetwork(): void;
-    static useTestNetwork(): void;
-    static current(): Network;
-
-    constructor(passphrase: string)
-
-    networkPassphrase(): string;
-    networkId(): string;
-}
-
 export class OfferCallBuilder extends CallBuilder<OfferRecord> { }
-
-export type TransactionOperation =
-    Operation.CreateAccount
-    | Operation.Payment
-    | Operation.PathPayment
-    | Operation.CreatePassiveOffer
-    | Operation.ManageOffer
-    | Operation.SetOptions
-    | Operation.ChangeTrust
-    | Operation.AllowTrust
-    | Operation.AccountMerge
-    | Operation.Inflation
-    | Operation.ManageData
-    | Operation.BumpSequence;
-
-export enum OperationType {
-    createAccount = 'createAccount',
-    payment = 'payment',
-    pathPayment = 'pathPayment',
-    createPassiveOffer = 'createPassiveOffer',
-    manageOffer = 'manageOffer',
-    setOptions = 'setOptions',
-    changeTrust = 'changeTrust',
-    allowTrust = 'allowTrust',
-    accountMerge = 'accountMerge',
-    inflation = 'inflation',
-    manageData = 'manageData',
-    bumpSequence = 'bumpSequence',
-}
-
-export namespace Operation {
-    interface Operation {
-        type: OperationType;
-        source: string | null;
-    }
-    interface AccountMerge extends Operation {
-        type: OperationType.accountMerge;
-        destination: string;
-    }
-    interface AccountMergeOptions {
-        destination: string;
-        source?: string;
-    }
-    function accountMerge(options: AccountMergeOptions): xdr.Operation<AccountMerge>;
-
-    interface AllowTrust extends Operation {
-        type: OperationType.allowTrust;
-        trustor: string;
-        assetCode: string;
-        authorize: boolean;
-    }
-    interface AllowTrustOptions {
-        trustor: string;
-        assetCode: string;
-        authorize: boolean;
-        source?: string;
-    }
-    function allowTrust(options: AllowTrustOptions): xdr.Operation<AllowTrust>;
-
-    interface ChangeTrust extends Operation {
-        type: OperationType.changeTrust;
-        line: Asset;
-        limit: string | number;
-    }
-    interface ChangeTrustOptions {
-        asset: Asset;
-        limit?: string;
-        source?: string;
-    }
-    function changeTrust(options: ChangeTrustOptions): xdr.Operation<ChangeTrust>;
-
-    interface CreateAccount extends Operation {
-        type: OperationType.createAccount;
-        source: string;
-        destination: string;
-        startingBalance: string | number;
-    }
-    interface CreateAccountOptions {
-        destination: string;
-        startingBalance: string;
-        source?: string;
-    }
-    function createAccount(options: CreateAccountOptions): xdr.Operation<CreateAccount>;
-
-    interface CreatePassiveOffer extends Operation {
-        type: OperationType.createPassiveOffer;
-        selling: Asset;
-        buying: Asset;
-        amount: string | number;
-        price: string | number;
-    }
-    interface CreatePassiveOfferOptions {
-        selling: Asset;
-        buying: Asset;
-        amount: string;
-        price: number | string | object;
-        source?: string;
-    }
-    function createPassiveOffer(options: CreatePassiveOfferOptions): xdr.Operation<CreatePassiveOffer>;
-
-    interface Inflation extends Operation {
-        type: OperationType.inflation;
-    }
-    function inflation(options: { source?: string }): xdr.Operation<Inflation>;
-
-    interface ManageData extends Operation {
-        type: OperationType.manageData;
-        name: string;
-        value: string;
-    }
-    interface ManageDataOptions {
-        name: string;
-        value: string | Buffer;
-        source?: string;
-    }
-    function manageData(options: ManageDataOptions): xdr.Operation<ManageData>;
-
-    interface ManageOffer extends Operation {
-        type: OperationType.manageOffer;
-        selling: Asset;
-        buying: Asset;
-        amount: string | number;
-        price: string | number;
-        offerId: string;
-    }
-    interface ManageOfferOptions extends CreatePassiveOfferOptions {
-        offerId: number | string;
-    }
-    function manageOffer(options: ManageOfferOptions): xdr.Operation<ManageOffer>;
-
-    interface PathPayment extends Operation {
-        type: OperationType.pathPayment;
-        sendAsset: Asset;
-        sendMax: string | number;
-        destination: string;
-        destAsset: Asset;
-        destAmount: string | number;
-        path: Asset[];
-    }
-    interface PathPaymentOptions {
-        sendAsset: Asset;
-        sendMax: string;
-        destination: string;
-        destAsset: Asset;
-        destAmount: string;
-        path: Asset[];
-        source?: string;
-    }
-    function pathPayment(options: PathPaymentOptions): xdr.Operation<PathPayment>;
-
-    interface Payment extends Operation {
-        type: OperationType.payment;
-        destination: string;
-        asset: Asset;
-        amount: string | number;
-    }
-    interface PaymentOptions {
-        destination: string;
-        asset: Asset;
-        amount: string;
-        source?: string;
-    }
-    function payment(options: PaymentOptions): xdr.Operation<Payment>;
-
-    /*
-     * Required = 1 << 0
-     * Revocable = 1 << 1
-     * Immutable = 1 << 2
-     */
-    enum AuthFlags {
-        Required = 1,
-        Revocable = 2,
-        Immutable = 4,
-    }
-    interface Signer {
-        ed25519PublicKey?: string;
-        sha256Hash?: Buffer | string;
-        preAuthTx?: Buffer | string;
-        weight?: number | string;
-    }
-    interface SetOptions extends Operation {
-        type: OperationType.setOptions;
-        inflationDest?: string;
-        clearFlags?: AuthFlags;
-        setFlags?: AuthFlags;
-        masterWeight?: number | string;
-        lowThreshold?: number | string;
-        medThreshold?: number | string;
-        highThreshold?: number | string;
-        homeDomain?: string;
-        signer?: Signer;
-    }
-    interface SetOptionsOptions {
-        inflationDest?: string;
-        clearFlags?: AuthFlags;
-        setFlags?: AuthFlags;
-        masterWeight?: number | string;
-        lowThreshold?: number | string;
-        medThreshold?: number | string;
-        highThreshold?: number | string;
-        signer?: Signer;
-        homeDomain?: string;
-        source?: string;
-    }
-    function setOptions(options: SetOptionsOptions): xdr.Operation<SetOptions>;
-
-    interface BumpSequence extends Operation {
-        type: OperationType.bumpSequence;
-        bumpTo: string;
-    }
-    interface BumpSequenceOptions {
-        bumpTo: string;
-        source?: string;
-    }
-    function bumpSequence(options: BumpSequenceOptions): xdr.Operation<BumpSequence>;
-
-    function fromXDRObject<T extends Operation>(xdrOperation: xdr.Operation<T>): T;
-}
 
 export class OperationCallBuilder extends CallBuilder<OperationRecord> {
     forAccount(accountId: string): this;
@@ -784,8 +927,12 @@ export class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> {
     forTransaction(transactionId: string): this;
 }
 
+export interface ServerOptions {
+    allowHttp: boolean;
+}
+
 export class Server {
-    constructor(serverURL: string, options?: { allowHttp: boolean })
+    constructor(serverURL: string, options?: ServerOptions)
     accounts(): AccountCallBuilder;
     assets(): AssetsCallBuilder;
     effects(): EffectCallBuilder;
@@ -801,7 +948,7 @@ export class Server {
         destinationAmount: string,
     ): PathCallBuilder;
     payments(): PaymentCallBuilder;
-    submitTransaction(transaction: Transaction): Promise<any>;
+    submitTransaction(transaction: Transaction): Promise<TransactionRecord>;
     tradeAggregation(
         base: Asset,
         counter: Asset,
@@ -811,22 +958,8 @@ export class Server {
     ): TradeAggregationCallBuilder;
     trades(): TradesCallBuilder;
     transactions(): TransactionCallBuilder;
-}
 
-export namespace StrKey {
-    function encodeEd25519PublicKey(data: Buffer): string;
-    function decodeEd25519PublicKey(data: string): Buffer;
-    function isValidEd25519PublicKey(Key: string): boolean;
-
-    function encodeEd25519SecretSeed(data: Buffer): string;
-    function decodeEd25519SecretSeed(data: string): Buffer;
-    function isValidEd25519SecretSeed(seed: string): boolean;
-
-    function encodePreAuthTx(data: Buffer): string;
-    function decodePreAuthTx(data: string): Buffer;
-
-    function encodeSha256Hash(data: Buffer): string;
-    function decodeSha256Hash(data: string): Buffer;
+    serverURL: any;  // TODO: require("urijs")
 }
 
 export class TradeAggregationCallBuilder extends CallBuilder<TradeAggregationRecord> { }
@@ -835,84 +968,10 @@ export class TradesCallBuilder extends CallBuilder<TradeRecord> {
     forOffer(offerId: string): this;
 }
 
-export class Transaction {
-    constructor(envelope: string | xdr.TransactionEnvelope)
-    hash(): Buffer;
-    sign(...keypairs: Keypair[]): void;
-    signatureBase(): Buffer;
-    signHashX(preimage: Buffer | string): void;
-    toEnvelope(): xdr.TransactionEnvelope;
-
-    operations: TransactionOperation[];
-    sequence: number;
-    fee: number;
-    source: string;
-    memo: Memo;
-    signatures: xdr.DecoratedSignature[];
-}
-
-export class TransactionBuilder {
-    constructor(sourceAccount: Account, options?: TransactionBuilder.TransactionBuilderOptions)
-    addOperation(operation: xdr.Operation<Operation.Operation>): this;
-    addMemo(memo: Memo): this;
-    build(): Transaction;
-}
-
-export namespace TransactionBuilder {
-    interface TransactionBuilderOptions {
-        fee?: number;
-        timebounds?: {
-            minTime?: number | string
-            maxTime?: number | string
-        };
-        memo?: Memo;
-    }
-}
-
 export class TransactionCallBuilder extends CallBuilder<TransactionRecord> {
     transaction(transactionId: string): this;
     forAccount(accountId: string): this;
     forLedger(sequence: string | number): this;
-}
-
-export class Keypair {
-    static fromRawEd25519Seed(secretSeed: Buffer): Keypair;
-    static fromSecret(secretKey: string): Keypair;
-    static master(): Keypair;
-    static fromPublicKey(publicKey: string): Keypair;
-    static random(): Keypair;
-
-    constructor(keys: { type: 'ed25519', secretKey: string } | { type: 'ed25519', Key: string })
-
-    publicKey(): string;
-    secret(): string;
-    rawPublicKey(): Buffer;
-    rawSecretKey(): Buffer;
-    canSign(): boolean;
-    sign(data: Buffer): Buffer;
-    signatureHint(): xdr.SignatureHint;
-    verify(data: Buffer, signature: Buffer): boolean;
-}
-
-export namespace xdr {
-    class XDRStruct {
-        static fromXDR(xdr: Buffer): XDRStruct;
-
-        toXDR(): Buffer;
-        toXDR(encoding: string): string;
-    }
-    class Operation<T extends Operation.Operation> extends XDRStruct { }
-    class Asset extends XDRStruct { }
-    class Memo extends XDRStruct { }
-    class TransactionEnvelope extends XDRStruct { }
-    class DecoratedSignature extends XDRStruct {
-      constructor(keys: { hint: SignatureHint, signature: Signature })
-
-      hint(): SignatureHint;
-      signature(): Buffer;
-    }
-    type SignatureHint = Buffer;
-    type Signature = Buffer;
 }
 
 export namespace StellarTomlResolver {
