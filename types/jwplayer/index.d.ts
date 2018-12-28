@@ -254,6 +254,19 @@ interface CaptionOptions {
     windowOpacity: number;
 }
 
+interface Level {
+    bitrate: number;
+    height: number;
+    width: number;
+    label: string;
+}
+
+interface QualityLevel {
+    mode: 'auto' | 'manual';
+    level: Level;
+    reason: 'auto' | 'api' | 'initial choice';
+}
+
 interface JWPlayer {
 	addButton(icon: string, label: string, handler: () => void, id: string): void;
 	getAudioTracks(): any[];
@@ -279,6 +292,7 @@ interface JWPlayer {
 	getContainer(): HTMLElement;
 	getEnvironment(): Environment;
 	getWidth(): number;
+    getVisualQuality(): QualityLevel | undefined;
 	load(playlist: any[]): void;
 	load(playlist: string): void;
 	on(event: 'adClick', callback: EventCallback<AdProgressParam>): void;
