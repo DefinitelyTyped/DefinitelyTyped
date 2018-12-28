@@ -2,12 +2,17 @@
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Arguments as YargsArguments } from 'yargs';
+// TypeScript Version: 2.2
 
 declare namespace yargsParser {
-    type Arguments = YargsArguments<{}>;
+    interface Arguments {
+        /** Non-option arguments */
+        _: string[];
+        /** The script name or node command */
+        $0: string;
+        /** All remaining options */
+        [argName: string]: any;
+    }
 
     interface DetailedArguments {
         argv: Arguments;

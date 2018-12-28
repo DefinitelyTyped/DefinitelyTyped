@@ -580,9 +580,9 @@ declare class ByteBuffer
     writeShort( value: number, offset?: number ): ByteBuffer;
 
     /**
-     * Writes an UTF8 encoded string.This is an alias of ByteBuffer#writeUTF8String.
+     * Writes an UTF8 encoded string. This is an alias of ByteBuffer#writeUTF8String.
      */
-    WriteString( str: string, offset?: number ): ByteBuffer | number;
+    writeString( str: string, offset?: number ): ByteBuffer | number;
 
     /**
      * Writes an UTF8 encoded string.

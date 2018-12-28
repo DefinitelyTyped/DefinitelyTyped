@@ -789,7 +789,7 @@ export namespace Server {
     interface ManageDataOperationRecord extends BaseOperationRecord {
         type: 'manage_data';
         name: string;
-        value: string;
+        value: Buffer;
     }
 
     interface BumpSequenceOperationRecord extends BaseOperationRecord {

@@ -35,10 +35,10 @@
 /// <reference path="BatchedBridge.d.ts" />
 /// <reference path="Devtools.d.ts" />
 
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
+import * as PropTypes from "prop-types";
+import * as React from "react";
 
-type Constructor<T> = new(...args: any[]) => T;
+type Constructor<T> = new (...args: any[]) => T;
 
 export type MeasureOnSuccessCallback = (
     x: number,
@@ -359,23 +359,7 @@ type TaskProvider = () => Task;
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-export interface NativeSyntheticEvent<T> {
-    bubbles: boolean;
-    cancelable: boolean;
-    currentTarget: NodeHandle;
-    defaultPrevented: boolean;
-    eventPhase: number;
-    isTrusted: boolean;
-    nativeEvent: T;
-    isPropagationStopped(): boolean;
-    isDefaultPrevented(): boolean;
-    persist(): void;
-    preventDefault(): void;
-    stopPropagation(): void;
-    target: NodeHandle;
-    timeStamp: number;
-    type: string;
-}
+export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {}
 
 export interface NativeTouchEvent {
     /**
@@ -1022,7 +1006,6 @@ export interface TextInputIOSProps {
      */
     spellCheck?: boolean;
 
-
     /**
      * Give the keyboard and the system information about the expected
      * semantic meaning for the content that users enter.
@@ -1062,18 +1045,38 @@ export interface TextInputIOSProps {
      *  - `'password'`
      *
      */
-    textContentType?: "none" | "URL" | "addressCity" | "addressCityAndState" |
-        "addressState" | "countryName" | "creditCardNumber" | "emailAddress" |
-        "familyName" | "fullStreetAddress" | "givenName" | "jobTitle" |
-        "location" | "middleName" | "name" | "namePrefix" | "nameSuffix" |
-        "nickname" | "organizationName" | "postalCode" | "streetAddressLine1" |
-        "streetAddressLine2" | "sublocality" | "telephoneNumber" | "username" |
-        "password";
+    textContentType?:
+        | "none"
+        | "URL"
+        | "addressCity"
+        | "addressCityAndState"
+        | "addressState"
+        | "countryName"
+        | "creditCardNumber"
+        | "emailAddress"
+        | "familyName"
+        | "fullStreetAddress"
+        | "givenName"
+        | "jobTitle"
+        | "location"
+        | "middleName"
+        | "name"
+        | "namePrefix"
+        | "nameSuffix"
+        | "nickname"
+        | "organizationName"
+        | "postalCode"
+        | "streetAddressLine1"
+        | "streetAddressLine2"
+        | "sublocality"
+        | "telephoneNumber"
+        | "username"
+        | "password";
 
     /**
      * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
      */
-    scrollEnabled?: boolean
+    scrollEnabled?: boolean;
 }
 
 /**
@@ -1154,7 +1157,7 @@ export interface TextInputFocusEventData {
  * @see TextInputProps.onScroll
  */
 export interface TextInputScrollEventData {
-    contentOffset: { x: number; y: number; }
+    contentOffset: { x: number; y: number };
 }
 
 /**
@@ -1208,8 +1211,7 @@ export interface TextInputSubmitEditingEventData {
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#props
  */
-export interface TextInputProps
-    extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
+export interface TextInputProps extends ViewProps, TextInputIOSProps, TextInputAndroidProps, AccessibilityProps {
     /**
      * Specifies whether fonts should scale to respect Text Size accessibility settings.
      * The default is `true`.
@@ -1248,12 +1250,12 @@ export interface TextInputProps
     /**
      * If true, caret is hidden. The default value is false.
      */
-    caretHidden?: boolean
+    caretHidden?: boolean;
 
     /**
      * If true, context menu is hidden. The default value is false.
      */
-    contextMenuHidden?: boolean
+    contextMenuHidden?: boolean;
 
     /**
      * Provides an initial value that will change when the user starts typing.
@@ -1757,13 +1759,13 @@ export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     opacity?: number;
     testID?: string;
     /**
-      * Sets the elevation of a view, using Android's underlying
-      * [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation).
-      * This adds a drop shadow to the item and affects z-order for overlapping views.
-      * Only supported on Android 5.0+, has no effect on earlier versions.
-      *
-      * @platform android
-      */
+     * Sets the elevation of a view, using Android's underlying
+     * [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation).
+     * This adds a drop shadow to the item and affects z-order for overlapping views.
+     * Only supported on Android 5.0+, has no effect on earlier versions.
+     *
+     * @platform android
+     */
     elevation?: number;
 }
 
@@ -1834,7 +1836,6 @@ export interface ViewPropsAndroid {
     renderToHardwareTextureAndroid?: boolean;
 }
 
-
 type Falsy = undefined | null | false;
 interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
 /** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
@@ -1886,7 +1887,6 @@ export type AccessibilityRole =
     | "header"
     | "summary"
     | "imagebutton";
-
 
 export interface AccessibilityPropsAndroid {
     /**
@@ -1977,7 +1977,11 @@ type AccessibilityTrait =
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
 export interface ViewProps
-    extends ViewPropsAndroid, ViewPropsIOS, GestureResponderHandlers, Touchable, AccessibilityProps {
+    extends ViewPropsAndroid,
+        ViewPropsIOS,
+        GestureResponderHandlers,
+        Touchable,
+        AccessibilityProps {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -2569,7 +2573,6 @@ export interface SegmentedControlIOSProps extends ViewProps {
 declare class SafeAreaViewComponent extends React.Component<ViewProps> {}
 declare const SafeAreaViewBase: Constructor<NativeMethodsMixin> & typeof SafeAreaViewComponent;
 export class SafeAreaView extends SafeAreaViewBase {}
-
 
 /**
  * A component which enables customization of the keyboard input accessory view on iOS. The input accessory view is
@@ -3274,7 +3277,8 @@ export interface RecyclerViewBackedScrollViewProps extends ScrollViewProps {}
  * now only horizontal scrolling is supported.
  */
 declare class RecyclerViewBackedScrollViewComponent extends React.Component<RecyclerViewBackedScrollViewProps> {}
-declare const RecyclerViewBackedScrollViewBase: Constructor<ScrollResponderMixin> & typeof RecyclerViewBackedScrollViewComponent;
+declare const RecyclerViewBackedScrollViewBase: Constructor<ScrollResponderMixin> &
+    typeof RecyclerViewBackedScrollViewComponent;
 export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBase {
     /**
      * A helper function to scroll to a specific point  in the scrollview.
@@ -3670,7 +3674,7 @@ export interface ImageLoadEventData extends ImageLoadEventDataAndroid {
         height: number;
         width: number;
         url: string;
-    }
+    };
 }
 
 export interface ImageErrorEventData {
@@ -4121,7 +4125,7 @@ export interface SectionListData<ItemT> extends SectionBase<ItemT> {
  */
 
 export interface SectionListRenderItemInfo<ItemT> extends ListRenderItemInfo<ItemT> {
-  section: SectionListData<ItemT>;
+    section: SectionListData<ItemT>;
 }
 
 export type SectionListRenderItem<ItemT> = (info: SectionListRenderItemInfo<ItemT>) => React.ReactElement<any> | null;
@@ -4179,7 +4183,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
      */
     initialNumToRender?: number;
 
-     /**
+    /**
      * Reverses the direction of scroll. Uses scale transforms of -1.
      */
     inverted?: boolean;
@@ -4215,11 +4219,13 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
      * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
      * as possible and then try again after more items have been rendered.
      */
-    onScrollToIndexFailed?: (info: {
-        index: number,
-        highestMeasuredFrameIndex: number,
-        averageItemLength: number
-    }) => void;
+    onScrollToIndexFailed?: (
+        info: {
+            index: number;
+            highestMeasuredFrameIndex: number;
+            averageItemLength: number;
+        }
+    ) => void;
 
     /**
      * Set this true while waiting for new data from a refresh.
@@ -4285,11 +4291,11 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
 /**
  * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
  */
- export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
-     renderItem: ListRenderItem<ItemT>;
- }
+export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
+    renderItem: ListRenderItem<ItemT>;
+}
 
- export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps {
+export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps {
     /**
      * Rendered when the list is empty. Can be a React Component Class, a render function, or
      * a rendered element.
@@ -4403,11 +4409,13 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
      * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
      * as possible and then try again after more items have been rendered.
      */
-    onScrollToIndexFailed?: (info: {
-        index: number,
-        highestMeasuredFrameIndex: number,
-        averageItemLength: number
-    }) => void;
+    onScrollToIndexFailed?: (
+        info: {
+            index: number;
+            highestMeasuredFrameIndex: number;
+            averageItemLength: number;
+        }
+    ) => void;
 
     /**
      * Called when the viewability of rows changes, as defined by the
@@ -4875,7 +4883,9 @@ export interface ModalPropsIOS {
      * The `supportedOrientations` prop allows the modal to be rotated to any of the specified orientations.
      * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
      */
-    supportedOrientations?: Array<"portrait" | "portrait-upside-down" | "landscape" | "landscape-left" | "landscape-right">;
+    supportedOrientations?: Array<
+        "portrait" | "portrait-upside-down" | "landscape" | "landscape-left" | "landscape-right"
+    >;
 
     /**
      * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
@@ -4895,7 +4905,6 @@ export interface ModalPropsAndroid {
      */
     hardwareAccelerated?: boolean;
 }
-
 
 export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
 
@@ -5039,7 +5048,9 @@ export interface TouchableWithoutFeedbackProps extends AccessibilityProps {
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html
  */
 declare class TouchableWithoutFeedbackComponent extends React.Component<TouchableWithoutFeedbackProps> {}
-declare const TouchableWithoutFeedbackBase: Constructor<TimerMixin> & Constructor<TouchableMixin> & typeof TouchableWithoutFeedbackComponent;
+declare const TouchableWithoutFeedbackBase: Constructor<TimerMixin> &
+    Constructor<TouchableMixin> &
+    typeof TouchableWithoutFeedbackComponent;
 export class TouchableWithoutFeedback extends TouchableWithoutFeedbackBase {}
 
 /**
@@ -5087,7 +5098,10 @@ export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
  * @see https://facebook.github.io/react-native/docs/touchablehighlight.html
  */
 declare class TouchableHighlightComponent extends React.Component<TouchableHighlightProps> {}
-declare const TouchableHighlightBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & Constructor<TouchableMixin> & typeof TouchableHighlightComponent;
+declare const TouchableHighlightBase: Constructor<NativeMethodsMixin> &
+    Constructor<TimerMixin> &
+    Constructor<TouchableMixin> &
+    typeof TouchableHighlightComponent;
 export class TouchableHighlight extends TouchableHighlightBase {}
 
 /**
@@ -5110,7 +5124,10 @@ export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps {
  * @see https://facebook.github.io/react-native/docs/touchableopacity.html
  */
 declare class TouchableOpacityComponent extends React.Component<TouchableOpacityProps> {}
-declare const TouchableOpacityBase: Constructor<TimerMixin> & Constructor<TouchableMixin> & Constructor<NativeMethodsMixin> & typeof TouchableOpacityComponent;
+declare const TouchableOpacityBase: Constructor<TimerMixin> &
+    Constructor<TouchableMixin> &
+    Constructor<NativeMethodsMixin> &
+    typeof TouchableOpacityComponent;
 export class TouchableOpacity extends TouchableOpacityBase {
     /**
      * Animate the touchable to a new opacity.
@@ -5250,7 +5267,7 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T): { [P in keyof T]: RegisteredStyle<T[P]> };
+    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -5305,10 +5322,7 @@ export namespace StyleSheet {
      * internally to process color and transform values. You should not use this
      * unless you really know what you are doing and have exhausted other options.
      */
-    export function setStyleAttributePreprocessor(
-        property: string,
-        process: (nextProp: any) => any
-    ): void;
+    export function setStyleAttributePreprocessor(property: string, process: (nextProp: any) => any): void;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -5730,7 +5744,7 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>(specifics: { [platform in PlatformOSType | 'default']?: T }): T;
+    select<T>(specifics: { [platform in PlatformOSType | "default"]?: T }): T;
 }
 
 interface PlatformIOSStatic extends PlatformStatic {
@@ -5801,7 +5815,10 @@ export interface Dimensions {
      * @param type the type of event to listen to
      * @param handler the event handler
      */
-    addEventListener(type: "change", handler: ({ window, screen }: { window: ScaledSize, screen: ScaledSize }) => void): void;
+    addEventListener(
+        type: "change",
+        handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void
+    ): void;
 
     /**
      * Remove an event listener
@@ -5809,7 +5826,10 @@ export interface Dimensions {
      * @param type the type of event
      * @param handler the event handler
      */
-    removeEventListener(type: "change", handler: ({ window, screen }: { window: ScaledSize, screen: ScaledSize }) => void): void;
+    removeEventListener(
+        type: "change",
+        handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void
+    ): void;
 }
 
 export type SimpleTask = {
@@ -6319,11 +6339,7 @@ export interface ScrollViewPropsAndroid {
     nestedScrollEnabled?: boolean;
 }
 
-export interface ScrollViewProps
-    extends ViewProps,
-        ScrollViewPropsIOS,
-        ScrollViewPropsAndroid,
-        Touchable {
+export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollViewPropsAndroid, Touchable {
     /**
      * These styles will be applied to the scroll view content container which
      * wraps all of the child views. Example:
@@ -6729,7 +6745,7 @@ type AccessibilityChangeEvent = boolean;
 
 type AccessibilityAnnoucementFinishedEvent = {
     announcement: string;
-    success: boolean
+    success: boolean;
 };
 
 type AccessibilityEvent = AccessibilityChangeEvent | AccessibilityAnnoucementFinishedEvent;
@@ -6913,7 +6929,7 @@ export interface AlertIOSStatic {
         callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>,
         type?: AlertType,
         defaultValue?: string,
-        keyboardType?: KeyboardType | KeyboardTypeIOS,
+        keyboardType?: KeyboardType | KeyboardTypeIOS
     ) => void;
 }
 
@@ -7715,9 +7731,9 @@ type ScheduleLocalNotificationDetails = {
 export type PushNotificationEventName = "notification" | "localNotification" | "register" | "registrationError";
 
 type FetchResult = {
-    NewData: "UIBackgroundFetchResultNewData",
-    NoData: "UIBackgroundFetchResultNoData",
-    ResultFailed: "UIBackgroundFetchResultFailed"
+    NewData: "UIBackgroundFetchResultNewData";
+    NoData: "UIBackgroundFetchResultNoData";
+    ResultFailed: "UIBackgroundFetchResultFailed";
 };
 
 /**
@@ -7786,7 +7802,10 @@ export interface PushNotificationIOSStatic {
      *
      * The type MUST be 'notification'
      */
-    addEventListener(type: "notification" | "localNotification", handler: (notification: PushNotification) => void): void;
+    addEventListener(
+        type: "notification" | "localNotification",
+        handler: (notification: PushNotification) => void
+    ): void;
 
     /**
      * Fired when the user registers for remote notifications.
@@ -7805,16 +7824,21 @@ export interface PushNotificationIOSStatic {
      *
      * The type MUST be 'registrationError'
      */
-    addEventListener(type: "registrationError", handler: (error: { message: string, code: number, details: any }) => void): void;
+    addEventListener(
+        type: "registrationError",
+        handler: (error: { message: string; code: number; details: any }) => void
+    ): void;
 
     /**
      * Removes the event listener. Do this in `componentWillUnmount` to prevent
      * memory leaks
      */
-    removeEventListener(type: PushNotificationEventName,
-        handler: ((notification: PushNotification) => void)
+    removeEventListener(
+        type: PushNotificationEventName,
+        handler:
+            | ((notification: PushNotification) => void)
             | ((deviceToken: string) => void)
-            | ((error: { message: string, code: number, details: any }) => void)
+            | ((error: { message: string; code: number; details: any }) => void)
     ): void;
 
     /**
@@ -7972,7 +7996,7 @@ type TimePickerAndroidOpenOptions = {
     hour?: number;
     minute?: number;
     is24Hour?: boolean;
-    mode?: 'clock' | 'spinner' | 'default';
+    mode?: "clock" | "spinner" | "default";
 };
 
 /**
@@ -8182,7 +8206,7 @@ export interface SwitchProps extends SwitchPropsIOS {
      *
      * Color when false and color when true
      */
-    trackColor?: { false: string, true: string };
+    trackColor?: { false: string; true: string };
 
     /**
      * If true the user won't be able to toggle the switch.
@@ -8206,7 +8230,7 @@ export interface SwitchProps extends SwitchPropsIOS {
      */
     value?: boolean;
 
-     /**
+    /**
      * On iOS, custom color for the background.
      * Can be seen when the switch value is false or when the switch is disabled.
      */
@@ -8493,6 +8517,7 @@ export namespace Animated {
         stiffness?: number;
         mass?: number;
         damping?: number;
+        delay?: number;
     }
 
     interface LoopAnimationConfig {
@@ -8506,6 +8531,14 @@ export namespace Animated {
     export function add(a: Animated, b: Animated): AnimatedAddition;
 
     class AnimatedAddition extends AnimatedInterpolation {}
+
+    /**
+     * Creates a new Animated value composed by subtracting the second Animated
+     * value from the first Animated value.
+     */
+    export function subtract(a: Animated, b: Animated): AnimatedSubtraction;
+
+    class AnimatedSubtraction extends AnimatedInterpolation {}
 
     /**
      * Creates a new Animated value composed by dividing the first Animated

@@ -655,8 +655,8 @@ async function typedThemes() {
         createGlobalStyle,
         ThemeProvider,
         ThemeConsumer
-    } = (await import("styled-components")) as ThemedStyledComponentsModule<
-        typeof theme
+    } = (await import("styled-components")) as any as ThemedStyledComponentsModule<
+    typeof theme
     >;
 
     const ThemedDiv = styled.div`
@@ -753,10 +753,10 @@ async function themeAugmentation() {
         accent: string;
     }
 
-    const base = (await import("styled-components")) as ThemedStyledComponentsModule<
+    const base = (await import("styled-components")) as any as ThemedStyledComponentsModule<
         BaseTheme
     >;
-    const extra = (await import("styled-components")) as ThemedStyledComponentsModule<
+    const extra = (await import("styled-components")) as any as ThemedStyledComponentsModule<
         ExtraTheme,
         BaseTheme
     >;

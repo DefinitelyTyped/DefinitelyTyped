@@ -9,6 +9,7 @@
 //                 Bartek Szczepański <https://github.com/barnski>
 //                 Pirasis Leelatanon <https://github.com/1pete>
 //                 Stanislav Dzhus <https://github.com/blablapolicja>
+//                 Jake Ferrante <https://github.com/ferrantejake>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -76,7 +77,7 @@ export interface OverloadedKeyCommand<T, U, R> {
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
-    (key: string, arg1: T| T[], cb?: Callback<U>): R;
+    (key: string, arg1: T | T[], cb?: Callback<U>): R;
     (key: string, ...args: Array<T | Callback<U>>): R;
     (...args: Array<string | T | Callback<U>>): R;
 }
@@ -256,8 +257,8 @@ export interface Commands<R> {
     /**
      * Pop a value from a list, push it to another list and return it; or block until one is available.
      */
-    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
-    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
+    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string | null>): R;
+    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string | null>): R;
 
     /**
      * ADDSLOTS - Assign new hash slots to receiving node.
@@ -1238,3 +1239,12 @@ export function createClient(redis_url: string, options?: ClientOpts): RedisClie
 export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
+
+export class RedisError extends Error { }
+export class ReplyError extends RedisError { }
+export class AbortError extends RedisError { }
+export class ParserError extends RedisError {
+    offset: number;
+    buffer: Buffer;
+}
+export class AggregateError extends AbortError { }

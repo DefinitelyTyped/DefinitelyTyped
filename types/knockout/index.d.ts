@@ -196,7 +196,7 @@ interface KnockoutComputedStatic {
      * @param context Defines the value of 'this' when evaluating the computed observable
      * @param options An object with further properties for the computed observable
      */
-    <T>(evaluatorFunction: () => T, context?: any, options?: any): KnockoutComputed<T>;
+    <T>(evaluatorFunction: () => T, context?: any, options?: KnockoutComputedOptions<T>): KnockoutComputed<T>;
     /**
      * Creates computed observable
      * @param options An object that defines the computed observable options and behavior
@@ -300,11 +300,7 @@ interface KnockoutObservable<T> extends KnockoutReadonlyObservable<T> {
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
-interface KnockoutComputedDefine<T> {
-    /**
-     * A function that is used to evaluate the computed observable’s current value.
-     */
-    read(): T;
+interface KnockoutComputedOptions<T> {
     /**
      * Makes the computed observable writable. This is a function that receives values that other code is trying to write to your computed observable.
      * It’s up to you to supply custom logic to handle the incoming values, typically by writing the values to some underlying observable(s).
@@ -334,6 +330,13 @@ interface KnockoutComputedDefine<T> {
      * If true, the computed observable will be set up as a purecomputed observable. This option is an alternative to the ko.pureComputed constructor.
      */
     pure?: boolean;
+}
+
+interface KnockoutComputedDefine<T> extends KnockoutComputedOptions<T> {
+    /**
+     * A function that is used to evaluate the computed observable’s current value.
+     */
+    read(): T;
 }
 
 interface KnockoutBindingContext {
@@ -583,7 +586,7 @@ interface KnockoutTemplateSources {
 // nativeTemplateEngine.js
 //////////////////////////////////
 
-interface KnockoutNativeTemplateEngine {
+interface KnockoutNativeTemplateEngine extends KnockoutTemplateEngine {
 
     renderTemplateSource(templateSource: Object, bindingContext?: KnockoutBindingContext, options?: Object): any[];
 }
@@ -592,7 +595,7 @@ interface KnockoutNativeTemplateEngine {
 // templateEngine.js
 //////////////////////////////////
 
-interface KnockoutTemplateEngine extends KnockoutNativeTemplateEngine {
+interface KnockoutTemplateEngine {
 
     createJavaScriptEvaluatorBlock(script: string): string;
 
