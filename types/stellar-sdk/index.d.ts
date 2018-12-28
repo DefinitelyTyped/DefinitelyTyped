@@ -901,25 +901,6 @@ export class EffectCallBuilder extends CallBuilder<EffectRecord> {
     forTransaction(transactionId: string): this;
 }
 
-export interface FederationRecord {
-    account_id: string;
-    memo_type?: string;
-    memo?: string;
-}
-
-export interface FederationOptions {
-    allowHttp: boolean;
-}
-export class FederationServer {
-    static createForDomain(domain: string, options?: FederationOptions): Promise<FederationServer>;
-    static resolve(value: string, options?: FederationOptions): Promise<FederationRecord>;
-
-    constructor(serverURL: string, domain: string, options?: FederationOptions)
-    resolveAccountId(account: string): Promise<FederationRecord>;
-    resolveAddress(address: string): Promise<FederationRecord>;
-    resolveTransactionId(transactionId: string): Promise<FederationRecord>;
-}
-
 export class LedgerCallBuilder extends CallBuilder<LedgerRecord> { }
 
 export class OfferCallBuilder extends CallBuilder<OfferRecord> { }
@@ -982,6 +963,25 @@ export class TransactionCallBuilder extends CallBuilder<TransactionRecord> {
     transaction(transactionId: string): this;
     forAccount(accountId: string): this;
     forLedger(sequence: string | number): this;
+}
+
+export interface FederationRecord {
+    account_id: string;
+    memo_type?: string;
+    memo?: string;
+}
+
+export interface FederationOptions {
+    allowHttp: boolean;
+}
+export class FederationServer {
+    static createForDomain(domain: string, options?: FederationOptions): Promise<FederationServer>;
+    static resolve(value: string, options?: FederationOptions): Promise<FederationRecord>;
+
+    constructor(serverURL: string, domain: string, options?: FederationOptions)
+    resolveAccountId(account: string): Promise<FederationRecord>;
+    resolveAddress(address: string): Promise<FederationRecord>;
+    resolveTransactionId(transactionId: string): Promise<FederationRecord>;
 }
 
 export namespace StellarTomlResolver {
