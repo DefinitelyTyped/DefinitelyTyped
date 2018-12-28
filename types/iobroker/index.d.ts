@@ -1321,9 +1321,9 @@ declare global {
             /** Subscribe to changes of objects (which might not belong to this adapter) */
             subscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
             /** Unsubscribe from changes of objects in this instance */
-            unsubscribeObjects(pattern: string, options?: unknown): void;
+            unsubscribeObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
             /** Unsubscribe from changes of objects (which might not belong to this adapter) */
-            unsubscribeForeignObjects(pattern: string, options?: unknown): void;
+            unsubscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
 
             /** Subscribe to changes of states in this instance */
             subscribeStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
