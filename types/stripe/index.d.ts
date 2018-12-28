@@ -4000,16 +4000,9 @@ declare namespace Stripe {
             destination?: string;
 
             /**
-             * Only return transfers for the recipient specified by this
-             * recipient ID.
+             * Only return transfers with the specified transfer group.
              */
-            recipient?: string;
-
-            /**
-             * Only return transfers that have the given status:
-             * pending, paid, failed, in_transit, or canceled.
-             */
-            status: Statuses;
+            transfer_group?: string | null;
         }
 
         type SourceTypes = "alipay_account" | "bank_account" | "bitcoin_receiver" | "card";
