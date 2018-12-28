@@ -12,11 +12,6 @@
 /// <reference types="node" />
 
 export namespace StellarBase {
-    const hash: any;  // TODO
-    const sign: any;  // TODO
-    const verify: any;  // TODO
-    const FastSigning: any;  // TODO
-
     class Account {
         constructor(accountId: string, sequence: string | number)
         accountId(): string;
@@ -40,6 +35,8 @@ export namespace StellarBase {
         code: string;
         issuer: string;
     }
+
+    const FastSigning: boolean;
 
     class Keypair {
         static fromRawEd25519Seed(secretSeed: Buffer): Keypair;
@@ -409,6 +406,10 @@ export namespace StellarBase {
             static fromXDR(xdr: Buffer): TransactionResult;
         }
     }
+
+    function hash(data: Buffer): Buffer;
+    function sign(data: Buffer, rawSecret: Buffer): Buffer;
+    function verify(data: Buffer, signature: Buffer, rawPublicKey: Buffer): boolean;
 }
 
 // Re-export StellarBase
@@ -428,12 +429,12 @@ export import Networks = StellarBase.Networks;
 export import Operation = StellarBase.Operation;
 export import OperationType = StellarBase.OperationType;
 export import StrKey = StellarBase.StrKey;
+export import Transaction = StellarBase.Transaction;
+export import TransactionBuilder = StellarBase.TransactionBuilder;
 export import TransactionOperation = StellarBase.TransactionOperation;
 export import hash = StellarBase.hash;
 export import sign = StellarBase.sign;
 export import verify = StellarBase.verify;
-export import Transaction = StellarBase.Transaction;
-export import TransactionBuilder = StellarBase.TransactionBuilder;
 export import xdr = StellarBase.xdr;
 
 export class CallBuilder<T extends Record> {
