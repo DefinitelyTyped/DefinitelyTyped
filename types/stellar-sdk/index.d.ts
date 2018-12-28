@@ -412,7 +412,7 @@ export namespace StellarBase {
     function verify(data: Buffer, signature: Buffer, rawPublicKey: Buffer): boolean;
 }
 
-// Re-export StellarBase
+// Re-StellarBase
 export import Account = StellarBase.Account;
 export import Asset = StellarBase.Asset;
 export import FastSigning = StellarBase.FastSigning;
@@ -452,517 +452,519 @@ export namespace Config {
     function setDefault(): void;
 }
 
-export class CallBuilder<T extends Record> {
-    constructor(serverUrl: string)
-    call(): Promise<CollectionPage<T>>;
-    cursor(cursor: string): this;
-    limit(limit: number | string): this;
-    order(direction: 'asc' | 'desc'): this;
-    stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
-}
-
-export interface CollectionPage<T extends Record> {
-    records: T[];
-    next: () => Promise<CollectionPage<T>>;
-    prev: () => Promise<CollectionPage<T>>;
-}
-
-export interface Record {
-    _links: {
-        [key: string]: RecordLink
-    };
-}
-
-export interface RecordLink {
-    href: string;
-    templated?: boolean;
-}
-
-/* Due to a bug with the recursive function requests */
-export interface CollectionRecord<T extends Record> {
-    _links: {
-        next: RecordLink
-        prev: RecordLink
-        self: RecordLink
-    };
-    _embedded: {
-        records: T[]
-    };
-}
-
-export interface CallFunctionTemplateOptions {
-    cursor?: string | number;
-    limit?: number;
-    order?: 'asc' | 'desc';
-}
-
-export type CallFunction<T extends Record> = () => Promise<T>;
-export type CallCollectionFunction<T extends Record> =
-    (options?: CallFunctionTemplateOptions) => Promise<CollectionRecord<T>>;
-
-export enum ASSET_TYPE {
-    native = 'native',
-    credit4 = 'credit_alphanum4',
-    credit12 = 'credit_alphanum12',
-}
-
-export interface BalanceLineNative {
-    balance: string;
-    asset_type: ASSET_TYPE.native;
-}
-export interface BalanceLineAsset {
-    balance: string;
-    limit: string;
-    asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
-    asset_code: string;
-    asset_issuer: string;
-}
-export type BalanceLine = BalanceLineNative | BalanceLineAsset;
-
-export interface AccountRecord extends Record {
-    id: string;
-    paging_token: string;
-    account_id: string;
-    sequence: number;
-    subentry_count: number;
-    thresholds: {
-        low_threshold: number
-        med_threshold: number
-        high_threshold: number
-    };
-    flags: {
-        auth_required: boolean
-        auth_revocable: boolean
-    };
-    balances: BalanceLine[];
-    signers: Array<
-    {
-        public_key: string
-        weight: number
-    }
-    >;
-    data: (options: {value: string}) => Promise<{value: string}>;
-    data_attr: {
-        [key: string]: string
-    };
-    effects: CallCollectionFunction<EffectRecord>;
-    offers: CallCollectionFunction<OfferRecord>;
-    operations: CallCollectionFunction<OperationRecord>;
-    payments: CallCollectionFunction<PaymentOperationRecord>;
-    trades: CallCollectionFunction<TradeRecord>;
-}
-
-export interface AssetRecord extends Record {
-    asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
-    asset_code: string;
-    asset_issuer: string;
-    paging_token: string;
-    amount: string;
-    num_accounts: number;
-    flags: {
-        auth_required: boolean
-        auth_revocable: boolean
-    };
-}
-
-export interface EffectRecord extends Record {
-    account: string;
-    paging_token: string;
-    starting_balance: string;
-    type_i: string;
-    type: string;
-    amount?: any;
-
-    operation?: CallFunction<OperationRecord>;
-    precedes?: CallFunction<EffectRecord>;
-    succeeds?: CallFunction<EffectRecord>;
-}
-
-export interface LedgerRecord extends Record {
-    id: string;
-    paging_token: string;
-    hash: string;
-    prev_hash: string;
-    sequence: number;
-    transaction_count: number;
-    operation_count: number;
-    closed_at: string;
-    total_coins: string;
-    fee_pool: string;
-    base_fee: number;
-    base_reserve: string;
-    max_tx_set_size: number;
-    protocol_version: number;
-    header_xdr: string;
-    base_fee_in_stroops: number;
-    base_reserve_in_stroops: number;
-
-    effects: CallCollectionFunction<EffectRecord>;
-    operations: CallCollectionFunction<OperationRecord>;
-    self: CallFunction<LedgerRecord>;
-    transactions: CallCollectionFunction<TransactionRecord>;
-}
-
-export interface OfferRecord extends Record {
-    id: string;
-    paging_token: string;
-    seller_attr: string;
-    selling: Asset;
-    buying: Asset;
-    amount: string;
-    price_r: { numerator: number, denominator: number };
-    price: string;
-
-    seller?: CallFunction<AccountRecord>;
-}
-
-export interface BaseOperationRecord extends Record {
-    id: string;
-    paging_token: string;
-    type: string;
-    type_i: number;
-    source_account: string;
-
-    self: CallFunction<OperationRecord>;
-    succeeds: CallFunction<OperationRecord>;
-    precedes: CallFunction<OperationRecord>;
-    effects: CallCollectionFunction<EffectRecord>;
-    transaction: CallFunction<TransactionRecord>;
-}
-
-export interface CreateAccountOperationRecord extends BaseOperationRecord {
-    type: 'create_account';
-    account: string;
-    funder: string;
-    starting_balance: string;
-}
-
-export interface PaymentOperationRecord extends BaseOperationRecord {
-    type: 'payment';
-    from: string;
-    to: string;
-    asset_type: string;
-    asset_code?: string;
-    asset_issuer?: string;
-    amount: string;
-
-    sender: CallFunction<AccountRecord>;
-    receiver: CallFunction<AccountRecord>;
-}
-
-export interface PathPaymentOperationRecord extends BaseOperationRecord {
-    type: 'path_payment';
-    from: string;
-    to: string;
-    asset_code?: string;
-    asset_issuer?: string;
-    asset_type: string;
-    amount: string;
-    source_asset_code?: string;
-    source_asset_issuer?: string;
-    source_asset_type: string;
-    source_max: string;
-    source_amount: string;
-}
-
-export interface ManageOfferOperationRecord extends BaseOperationRecord {
-    type: 'manage_offer';
-    offer_id: number;
-    amount: string;
-    buying_asset_code?: string;
-    buying_asset_issuer?: string;
-    buying_asset_type: string;
-    price: string;
-    price_r: { numerator: number, denominator: number };
-    selling_asset_code?: string;
-    selling_asset_issuer?: string;
-    selling_asset_type: string;
-}
-
-export interface PassiveOfferOperationRecord extends BaseOperationRecord {
-    type: 'create_passive_offer';
-    offer_id: number;
-    amount: string;
-    buying_asset_code?: string;
-    buying_asset_issuer?: string;
-    buying_asset_type: string;
-    price: string;
-    price_r: { numerator: number, denominator: number };
-    selling_asset_code?: string;
-    selling_asset_issuer?: string;
-    selling_asset_type: string;
-}
-
-export interface SetOptionsOperationRecord extends BaseOperationRecord {
-    type: 'set_options';
-    signer_key?: string;
-    signer_weight?: number;
-    master_key_weight?: number;
-    low_threshold?: number;
-    med_threshold?: number;
-    high_threshold?: number;
-    home_domain?: string;
-    set_flags: Array<(1 | 2)>;
-    set_flags_s: Array<('auth_required_flag' | 'auth_revocable_flag')>;
-    clear_flags: Array<(1 | 2)>;
-    clear_flags_s: Array<('auth_required_flag' | 'auth_revocable_flag')>;
-}
-
-export interface ChangeTrustOperationRecord extends BaseOperationRecord {
-    type: 'change_trust';
-    asset_code: string;
-    asset_issuer: string;
-    asset_type: string;
-    trustee: string;
-    trustor: string;
-    limit: string;
-}
-
-export interface AllowTrustOperationRecord extends BaseOperationRecord {
-    type: 'allow_trust';
-    asset_code: string;
-    asset_issuer: string;
-    asset_type: string;
-    authorize: boolean;
-    trustee: string;
-    trustor: string;
-}
-
-export interface AccountMergeOperationRecord extends BaseOperationRecord {
-    type: 'account_merge';
-    into: string;
-}
-
-export interface InflationOperationRecord extends BaseOperationRecord {
-    type: 'inflation';
-}
-
-export interface ManageDataOperationRecord extends BaseOperationRecord {
-    type: 'manage_data';
-    name: string;
-    value: string;
-}
-
-export interface BumpSequenceOperationRecord extends BaseOperationRecord {
-    type: 'bump_sequence';
-    bump_to: string;
-}
-
-export type OperationRecord = CreateAccountOperationRecord
-    | PaymentOperationRecord
-    | PathPaymentOperationRecord
-    | ManageOfferOperationRecord
-    | PassiveOfferOperationRecord
-    | SetOptionsOperationRecord
-    | ChangeTrustOperationRecord
-    | AllowTrustOperationRecord
-    | AccountMergeOperationRecord
-    | InflationOperationRecord
-    | ManageDataOperationRecord
-    | BumpSequenceOperationRecord;
-
-export interface OrderbookRecord extends Record {
-    bids: Array<{ price_r: {}, price: number, amount: string }>;
-    asks: Array<{ price_r: {}, price: number, amount: string }>;
-    selling: Asset;
-    buying: Asset;
-}
-
-export interface PaymentPathRecord extends Record {
-    path: Array<{
-        asset_code: string
-        asset_issuer: string
-        asset_type: string
-    }>;
-    source_amount: string;
-    source_asset_type: string;
-    source_asset_code: string;
-    source_asset_issuer: string;
-    destination_amount: string;
-    destination_asset_type: string;
-    destination_asset_code: string;
-    destination_asset_issuer: string;
-}
-
-export interface TradeRecord extends Record {
-    id: string;
-    paging_token: string;
-    ledger_close_time: string;
-    base_account: string;
-    base_amount: string;
-    base_asset_type: string;
-    base_asset_code: string;
-    base_asset_issuer: string;
-    counter_account: string;
-    counter_amount: string;
-    counter_asset_type: string;
-    counter_asset_code: string;
-    counter_asset_issuer: string;
-    base_is_seller: boolean;
-
-    base: CallFunction<AccountRecord>;
-    counter: CallFunction<AccountRecord>;
-    operation: CallFunction<OperationRecord>;
-}
-
-export interface TradeAggregationRecord extends Record {
-    timestamp: string;
-    trade_count: number;
-    base_volume: string;
-    counter_volume: string;
-    avg: string;
-    high: string;
-    low: string;
-    open: string;
-    close: string;
-}
-
-export interface TransactionRecord extends Record {
-    id: string;
-    paging_token: string;
-    hash: string;
-    ledger_attr: number;
-    created_at: string;
-    max_fee: number;
-    fee_paid: number;
-    operation_count: number;
-    result_code: number;
-    result_code_s: string;
-    source_account: string;
-    source_account_sequence: string;
-    envelope_xdr: string;
-    result_xdr: string;
-    result_meta_xdr: string;
-    memo: string;
-    envelope: any;
-    memo_type: any;
-
-    account: CallFunction<AccountRecord>;
-    effects: CallCollectionFunction<EffectRecord>;
-    ledger: CallFunction<LedgerRecord>;
-    operations: CallCollectionFunction<OperationRecord>;
-    precedes: CallFunction<TransactionRecord>;
-    self: CallFunction<TransactionRecord>;
-    succeeds: CallFunction<TransactionRecord>;
-}
-
-export class AccountCallBuilder extends CallBuilder<AccountRecord> {
-    accountId(id: string): this;
-}
-export class AccountResponse implements AccountRecord {
-    _links: { [key: string]: { href: string } };
-    id: string;
-    paging_token: string;
-    account_id: string;
-    sequence: number;
-    subentry_count: number;
-    thresholds: {
-        low_threshold: number
-        med_threshold: number
-        high_threshold: number
-    };
-    flags: {
-        auth_required: boolean
-        auth_revocable: boolean
-    };
-    balances: BalanceLine[];
-    signers: Array<
-        {
-            public_key: string
-            weight: number
-        }
-        >;
-    data: (options: {value: string}) => Promise<{value: string}>;
-    data_attr: {
-        [key: string]: string
-    };
-    inflation_destination?: any;
-
-    effects: CallCollectionFunction<EffectRecord>;
-    offers: CallCollectionFunction<OfferRecord>;
-    operations: CallCollectionFunction<OperationRecord>;
-    payments: CallCollectionFunction<PaymentOperationRecord>;
-    trades: CallCollectionFunction<TradeRecord>;
-    constructor(response: AccountRecord)
-    accountId(): string;
-    sequenceNumber(): string;
-    incrementSequenceNumber(): void;
-}
-
-export class AssetsCallBuilder extends CallBuilder<AssetRecord> {
-    forCode(value: string): this;
-    forIssuer(value: string): this;
-}
-
-export class EffectCallBuilder extends CallBuilder<EffectRecord> {
-    forAccount(accountId: string): this;
-    forLedger(sequence: string): this;
-    forOperation(operationId: number): this;
-    forTransaction(transactionId: string): this;
-}
-
-export class LedgerCallBuilder extends CallBuilder<LedgerRecord> { }
-
-export class OfferCallBuilder extends CallBuilder<OfferRecord> { }
-
-export class OperationCallBuilder extends CallBuilder<OperationRecord> {
-    forAccount(accountId: string): this;
-    forLedger(sequence: string): this;
-    forTransaction(transactionId: string): this;
-}
-export class OrderbookCallBuilder extends CallBuilder<OrderbookRecord> { }
-export class PathCallBuilder extends CallBuilder<PaymentPathRecord> { }
-export class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> {
-    forAccount(accountId: string): this;
-    forLedger(sequence: string): this;
-    forTransaction(transactionId: string): this;
-}
-
-export interface ServerOptions {
-    allowHttp: boolean;
-}
-
 export class Server {
-    constructor(serverURL: string, options?: ServerOptions)
-    accounts(): AccountCallBuilder;
-    assets(): AssetsCallBuilder;
-    effects(): EffectCallBuilder;
-    ledgers(): LedgerCallBuilder;
-    loadAccount(accountId: string): Promise<AccountResponse>;
-    offers(resource: string, ...parameters: string[]): OfferCallBuilder;
-    operations(): OperationCallBuilder;
-    orderbook(selling: Asset, buying: Asset): OrderbookCallBuilder;
+    constructor(serverURL: string, options?: Server.ServerOptions)
+    accounts(): Server.AccountCallBuilder;
+    assets(): Server.AssetsCallBuilder;
+    effects(): Server.EffectCallBuilder;
+    ledgers(): Server.LedgerCallBuilder;
+    loadAccount(accountId: string): Promise<Server.AccountResponse>;
+    offers(resource: string, ...parameters: string[]): Server.OfferCallBuilder;
+    operations(): Server.OperationCallBuilder;
+    orderbook(selling: Asset, buying: Asset): Server.OrderbookCallBuilder;
     paths(
         source: string,
         destination: string,
         destinationAsset: Asset,
         destinationAmount: string,
-    ): PathCallBuilder;
-    payments(): PaymentCallBuilder;
-    submitTransaction(transaction: Transaction): Promise<TransactionRecord>;
+    ): Server.PathCallBuilder;
+    payments(): Server.PaymentCallBuilder;
+    submitTransaction(transaction: Transaction): Promise<Server.TransactionRecord>;
     tradeAggregation(
         base: Asset,
         counter: Asset,
         startTime: Date,
         endTime: Date,
         resolution: Date,
-    ): TradeAggregationCallBuilder;
-    trades(): TradesCallBuilder;
-    transactions(): TransactionCallBuilder;
+    ): Server.TradeAggregationCallBuilder;
+    trades(): Server.TradesCallBuilder;
+    transactions(): Server.TransactionCallBuilder;
 
     serverURL: any;  // TODO: require("urijs")
 }
 
-export class TradeAggregationCallBuilder extends CallBuilder<TradeAggregationRecord> { }
-export class TradesCallBuilder extends CallBuilder<TradeRecord> {
-    forAssetPair(base: Asset, counter: Asset): this;
-    forOffer(offerId: string): this;
-}
+export namespace Server {
+    class CallBuilder<T extends Record> {
+        constructor(serverUrl: string)
+        call(): Promise<CollectionPage<T>>;
+        cursor(cursor: string): this;
+        limit(limit: number | string): this;
+        order(direction: 'asc' | 'desc'): this;
+        stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
+    }
 
-export class TransactionCallBuilder extends CallBuilder<TransactionRecord> {
-    transaction(transactionId: string): this;
-    forAccount(accountId: string): this;
-    forLedger(sequence: string | number): this;
+    interface CollectionPage<T extends Record> {
+        records: T[];
+        next: () => Promise<CollectionPage<T>>;
+        prev: () => Promise<CollectionPage<T>>;
+    }
+
+    interface Record {
+        _links: {
+            [key: string]: RecordLink
+        };
+    }
+
+    interface RecordLink {
+        href: string;
+        templated?: boolean;
+    }
+
+    /* Due to a bug with the recursive function requests */
+    interface CollectionRecord<T extends Record> {
+        _links: {
+            next: RecordLink
+            prev: RecordLink
+            self: RecordLink
+        };
+        _embedded: {
+            records: T[]
+        };
+    }
+
+    interface CallFunctionTemplateOptions {
+        cursor?: string | number;
+        limit?: number;
+        order?: 'asc' | 'desc';
+    }
+
+    type CallFunction<T extends Record> = () => Promise<T>;
+    type CallCollectionFunction<T extends Record> =
+        (options?: CallFunctionTemplateOptions) => Promise<CollectionRecord<T>>;
+
+    enum ASSET_TYPE {
+        native = 'native',
+        credit4 = 'credit_alphanum4',
+        credit12 = 'credit_alphanum12',
+    }
+
+    interface BalanceLineNative {
+        balance: string;
+        asset_type: ASSET_TYPE.native;
+    }
+    interface BalanceLineAsset {
+        balance: string;
+        limit: string;
+        asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
+        asset_code: string;
+        asset_issuer: string;
+    }
+    type BalanceLine = BalanceLineNative | BalanceLineAsset;
+
+    interface AccountRecord extends Record {
+        id: string;
+        paging_token: string;
+        account_id: string;
+        sequence: number;
+        subentry_count: number;
+        thresholds: {
+            low_threshold: number
+            med_threshold: number
+            high_threshold: number
+        };
+        flags: {
+            auth_required: boolean
+            auth_revocable: boolean
+        };
+        balances: BalanceLine[];
+        signers: Array<
+        {
+            public_key: string
+            weight: number
+        }
+        >;
+        data: (options: {value: string}) => Promise<{value: string}>;
+        data_attr: {
+            [key: string]: string
+        };
+        effects: CallCollectionFunction<EffectRecord>;
+        offers: CallCollectionFunction<OfferRecord>;
+        operations: CallCollectionFunction<OperationRecord>;
+        payments: CallCollectionFunction<PaymentOperationRecord>;
+        trades: CallCollectionFunction<TradeRecord>;
+    }
+
+    interface AssetRecord extends Record {
+        asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
+        asset_code: string;
+        asset_issuer: string;
+        paging_token: string;
+        amount: string;
+        num_accounts: number;
+        flags: {
+            auth_required: boolean
+            auth_revocable: boolean
+        };
+    }
+
+    interface EffectRecord extends Record {
+        account: string;
+        paging_token: string;
+        starting_balance: string;
+        type_i: string;
+        type: string;
+        amount?: any;
+
+        operation?: CallFunction<OperationRecord>;
+        precedes?: CallFunction<EffectRecord>;
+        succeeds?: CallFunction<EffectRecord>;
+    }
+
+    interface LedgerRecord extends Record {
+        id: string;
+        paging_token: string;
+        hash: string;
+        prev_hash: string;
+        sequence: number;
+        transaction_count: number;
+        operation_count: number;
+        closed_at: string;
+        total_coins: string;
+        fee_pool: string;
+        base_fee: number;
+        base_reserve: string;
+        max_tx_set_size: number;
+        protocol_version: number;
+        header_xdr: string;
+        base_fee_in_stroops: number;
+        base_reserve_in_stroops: number;
+
+        effects: CallCollectionFunction<EffectRecord>;
+        operations: CallCollectionFunction<OperationRecord>;
+        self: CallFunction<LedgerRecord>;
+        transactions: CallCollectionFunction<TransactionRecord>;
+    }
+
+    interface OfferRecord extends Record {
+        id: string;
+        paging_token: string;
+        seller_attr: string;
+        selling: Asset;
+        buying: Asset;
+        amount: string;
+        price_r: { numerator: number, denominator: number };
+        price: string;
+
+        seller?: CallFunction<AccountRecord>;
+    }
+
+    interface BaseOperationRecord extends Record {
+        id: string;
+        paging_token: string;
+        type: string;
+        type_i: number;
+        source_account: string;
+
+        self: CallFunction<OperationRecord>;
+        succeeds: CallFunction<OperationRecord>;
+        precedes: CallFunction<OperationRecord>;
+        effects: CallCollectionFunction<EffectRecord>;
+        transaction: CallFunction<TransactionRecord>;
+    }
+
+    interface CreateAccountOperationRecord extends BaseOperationRecord {
+        type: 'create_account';
+        account: string;
+        funder: string;
+        starting_balance: string;
+    }
+
+    interface PaymentOperationRecord extends BaseOperationRecord {
+        type: 'payment';
+        from: string;
+        to: string;
+        asset_type: string;
+        asset_code?: string;
+        asset_issuer?: string;
+        amount: string;
+
+        sender: CallFunction<AccountRecord>;
+        receiver: CallFunction<AccountRecord>;
+    }
+
+    interface PathPaymentOperationRecord extends BaseOperationRecord {
+        type: 'path_payment';
+        from: string;
+        to: string;
+        asset_code?: string;
+        asset_issuer?: string;
+        asset_type: string;
+        amount: string;
+        source_asset_code?: string;
+        source_asset_issuer?: string;
+        source_asset_type: string;
+        source_max: string;
+        source_amount: string;
+    }
+
+    interface ManageOfferOperationRecord extends BaseOperationRecord {
+        type: 'manage_offer';
+        offer_id: number;
+        amount: string;
+        buying_asset_code?: string;
+        buying_asset_issuer?: string;
+        buying_asset_type: string;
+        price: string;
+        price_r: { numerator: number, denominator: number };
+        selling_asset_code?: string;
+        selling_asset_issuer?: string;
+        selling_asset_type: string;
+    }
+
+    interface PassiveOfferOperationRecord extends BaseOperationRecord {
+        type: 'create_passive_offer';
+        offer_id: number;
+        amount: string;
+        buying_asset_code?: string;
+        buying_asset_issuer?: string;
+        buying_asset_type: string;
+        price: string;
+        price_r: { numerator: number, denominator: number };
+        selling_asset_code?: string;
+        selling_asset_issuer?: string;
+        selling_asset_type: string;
+    }
+
+    interface SetOptionsOperationRecord extends BaseOperationRecord {
+        type: 'set_options';
+        signer_key?: string;
+        signer_weight?: number;
+        master_key_weight?: number;
+        low_threshold?: number;
+        med_threshold?: number;
+        high_threshold?: number;
+        home_domain?: string;
+        set_flags: Array<(1 | 2)>;
+        set_flags_s: Array<('auth_required_flag' | 'auth_revocable_flag')>;
+        clear_flags: Array<(1 | 2)>;
+        clear_flags_s: Array<('auth_required_flag' | 'auth_revocable_flag')>;
+    }
+
+    interface ChangeTrustOperationRecord extends BaseOperationRecord {
+        type: 'change_trust';
+        asset_code: string;
+        asset_issuer: string;
+        asset_type: string;
+        trustee: string;
+        trustor: string;
+        limit: string;
+    }
+
+    interface AllowTrustOperationRecord extends BaseOperationRecord {
+        type: 'allow_trust';
+        asset_code: string;
+        asset_issuer: string;
+        asset_type: string;
+        authorize: boolean;
+        trustee: string;
+        trustor: string;
+    }
+
+    interface AccountMergeOperationRecord extends BaseOperationRecord {
+        type: 'account_merge';
+        into: string;
+    }
+
+    interface InflationOperationRecord extends BaseOperationRecord {
+        type: 'inflation';
+    }
+
+    interface ManageDataOperationRecord extends BaseOperationRecord {
+        type: 'manage_data';
+        name: string;
+        value: string;
+    }
+
+    interface BumpSequenceOperationRecord extends BaseOperationRecord {
+        type: 'bump_sequence';
+        bump_to: string;
+    }
+
+    type OperationRecord = CreateAccountOperationRecord
+        | PaymentOperationRecord
+        | PathPaymentOperationRecord
+        | ManageOfferOperationRecord
+        | PassiveOfferOperationRecord
+        | SetOptionsOperationRecord
+        | ChangeTrustOperationRecord
+        | AllowTrustOperationRecord
+        | AccountMergeOperationRecord
+        | InflationOperationRecord
+        | ManageDataOperationRecord
+        | BumpSequenceOperationRecord;
+
+    interface OrderbookRecord extends Record {
+        bids: Array<{ price_r: {}, price: number, amount: string }>;
+        asks: Array<{ price_r: {}, price: number, amount: string }>;
+        selling: Asset;
+        buying: Asset;
+    }
+
+    interface PaymentPathRecord extends Record {
+        path: Array<{
+            asset_code: string
+            asset_issuer: string
+            asset_type: string
+        }>;
+        source_amount: string;
+        source_asset_type: string;
+        source_asset_code: string;
+        source_asset_issuer: string;
+        destination_amount: string;
+        destination_asset_type: string;
+        destination_asset_code: string;
+        destination_asset_issuer: string;
+    }
+
+    interface TradeRecord extends Record {
+        id: string;
+        paging_token: string;
+        ledger_close_time: string;
+        base_account: string;
+        base_amount: string;
+        base_asset_type: string;
+        base_asset_code: string;
+        base_asset_issuer: string;
+        counter_account: string;
+        counter_amount: string;
+        counter_asset_type: string;
+        counter_asset_code: string;
+        counter_asset_issuer: string;
+        base_is_seller: boolean;
+
+        base: CallFunction<AccountRecord>;
+        counter: CallFunction<AccountRecord>;
+        operation: CallFunction<OperationRecord>;
+    }
+
+    interface TradeAggregationRecord extends Record {
+        timestamp: string;
+        trade_count: number;
+        base_volume: string;
+        counter_volume: string;
+        avg: string;
+        high: string;
+        low: string;
+        open: string;
+        close: string;
+    }
+
+    interface TransactionRecord extends Record {
+        id: string;
+        paging_token: string;
+        hash: string;
+        ledger_attr: number;
+        created_at: string;
+        max_fee: number;
+        fee_paid: number;
+        operation_count: number;
+        result_code: number;
+        result_code_s: string;
+        source_account: string;
+        source_account_sequence: string;
+        envelope_xdr: string;
+        result_xdr: string;
+        result_meta_xdr: string;
+        memo: string;
+        envelope: any;
+        memo_type: any;
+
+        account: CallFunction<AccountRecord>;
+        effects: CallCollectionFunction<EffectRecord>;
+        ledger: CallFunction<LedgerRecord>;
+        operations: CallCollectionFunction<OperationRecord>;
+        precedes: CallFunction<TransactionRecord>;
+        self: CallFunction<TransactionRecord>;
+        succeeds: CallFunction<TransactionRecord>;
+    }
+
+    class AccountCallBuilder extends CallBuilder<AccountRecord> {
+        accountId(id: string): this;
+    }
+    class AccountResponse implements AccountRecord {
+        _links: { [key: string]: { href: string } };
+        id: string;
+        paging_token: string;
+        account_id: string;
+        sequence: number;
+        subentry_count: number;
+        thresholds: {
+            low_threshold: number
+            med_threshold: number
+            high_threshold: number
+        };
+        flags: {
+            auth_required: boolean
+            auth_revocable: boolean
+        };
+        balances: BalanceLine[];
+        signers: Array<
+            {
+                public_key: string
+                weight: number
+            }
+            >;
+        data: (options: {value: string}) => Promise<{value: string}>;
+        data_attr: {
+            [key: string]: string
+        };
+        inflation_destination?: any;
+
+        effects: CallCollectionFunction<EffectRecord>;
+        offers: CallCollectionFunction<OfferRecord>;
+        operations: CallCollectionFunction<OperationRecord>;
+        payments: CallCollectionFunction<PaymentOperationRecord>;
+        trades: CallCollectionFunction<TradeRecord>;
+        constructor(response: AccountRecord)
+        accountId(): string;
+        sequenceNumber(): string;
+        incrementSequenceNumber(): void;
+    }
+
+    class AssetsCallBuilder extends CallBuilder<AssetRecord> {
+        forCode(value: string): this;
+        forIssuer(value: string): this;
+    }
+
+    class EffectCallBuilder extends CallBuilder<EffectRecord> {
+        forAccount(accountId: string): this;
+        forLedger(sequence: string): this;
+        forOperation(operationId: number): this;
+        forTransaction(transactionId: string): this;
+    }
+
+    class LedgerCallBuilder extends CallBuilder<LedgerRecord> { }
+
+    class OfferCallBuilder extends CallBuilder<OfferRecord> { }
+
+    class OperationCallBuilder extends CallBuilder<OperationRecord> {
+        forAccount(accountId: string): this;
+        forLedger(sequence: string): this;
+        forTransaction(transactionId: string): this;
+    }
+    class OrderbookCallBuilder extends CallBuilder<OrderbookRecord> { }
+    class PathCallBuilder extends CallBuilder<PaymentPathRecord> { }
+    class PaymentCallBuilder extends CallBuilder<PaymentOperationRecord> {
+        forAccount(accountId: string): this;
+        forLedger(sequence: string): this;
+        forTransaction(transactionId: string): this;
+    }
+
+    interface ServerOptions {
+        allowHttp: boolean;
+    }
+
+    class TradeAggregationCallBuilder extends CallBuilder<TradeAggregationRecord> { }
+    class TradesCallBuilder extends CallBuilder<TradeRecord> {
+        forAssetPair(base: Asset, counter: Asset): this;
+        forOffer(offerId: string): this;
+    }
+
+    class TransactionCallBuilder extends CallBuilder<TransactionRecord> {
+        transaction(transactionId: string): this;
+        forAccount(accountId: string): this;
+        forLedger(sequence: string | number): this;
+    }
 }
 
 export interface FederationRecord {
