@@ -1483,6 +1483,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "sip.js",
+            "typingsPackageName": "sip.js",
+            "sourceRepoURL": "https://github.com/onsip/SIP.js",
+            "asOfVersion": "0.12.0"
+        },
+        {
             "libraryName": "smooth-scrollbar",
             "typingsPackageName": "smooth-scrollbar",
             "sourceRepoURL": "https://github.com/idiotWu/smooth-scrollbar",
