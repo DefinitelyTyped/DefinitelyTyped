@@ -4576,7 +4576,10 @@ declare namespace chrome.omnibox {
         description: string;
     }
 
-    export interface OmniboxInputEnteredEvent extends chrome.events.Event<(text: string) => void> { }
+    /** The window disposition for the omnibox query. This is the recommended context to display results. */
+    export type OnInputEnteredDisposition = 'currentTab' | 'newForegroundTab' | 'newBackgroundTab';
+
+    export interface OmniboxInputEnteredEvent extends chrome.events.Event<(text: string, disposition: OnInputEnteredDisposition) => void> { }
 
     export interface OmniboxInputChangedEvent extends chrome.events.Event<(text: string, suggest: (suggestResults: SuggestResult[]) => void) => void> { }
 
