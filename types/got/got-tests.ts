@@ -333,7 +333,7 @@ got('example.com', {
 });
 // Test async hooks.
 {
-    const doSomethingAsync = () => {
+    const doSomethingAsync = (): Promise<any> => {
         throw new Error('unimplemented');
     };
 
