@@ -314,6 +314,13 @@ export interface Options<State = {}, TStateProps = {}, TOwnProps = {}, TMergedPr
      * @default shallowEqual
      */
     areMergedPropsEqual?: (nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean;
+
+    /**
+     * If true, use React's forwardRef to expose a ref of the wrapped component
+     *
+     * @default false
+     */
+    forwardRef?: boolean;
 }
 
 /**
@@ -383,7 +390,7 @@ export interface ConnectOptions {
      */
     storeKey?: string;
     /**
-     * If true, stores a ref to the wrapped component instance and makes it available via getWrappedInstance() method.
+     * @deprecated Use forwardRef
      *
      * @default false
      */
