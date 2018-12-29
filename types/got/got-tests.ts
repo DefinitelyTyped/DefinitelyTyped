@@ -286,3 +286,75 @@ got('http://todomvc.com', {
 
 // Test got.TimeoutError.
 got('http://todomvc.com', {timeout: 1}).catch((err) => err instanceof got.TimeoutError);
+
+// Test hooks.
+got('example.com', {
+    hooks: {
+        beforeRedirect: [
+            options => {
+                if (options.hostname === 'deadSite') {
+                    options.hostname = 'fallbackSite';
+                }
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
+        beforeRetry: [
+            (options, error, retryCount) => {
+                if (error.statusCode === 413) { // Payload too large
+                    options.body = 'test';
+                }
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
+        afterResponse: [
+            (response, retryWithMergedOptions) => {
+                if (response.statusCode === 401) { // Unauthorized
+                    const updatedOptions = {
+                        headers: {
+                            token: 'new token' // Refresh the access token
+                        }
+                    };
+
+                    // Make a new retry
+                    return retryWithMergedOptions(updatedOptions);
+                }
+
+                // No changes otherwise
+                return response;
+            }
+        ]
+    }
+});
+// Test async hooks.
+{
+    const doSomethingAsync = () => {
+        throw new Error('unimplemented');
+    };
+
+    got('example.com', {
+        hooks: {
+            beforeRedirect: [
+                async () => {
+                    await doSomethingAsync();
+                }
+            ],
+            beforeRetry: [
+                async () => {
+                    await doSomethingAsync();
+                }
+            ],
+            afterResponse: [
+                async (response) => {
+                    await doSomethingAsync();
+                    return response;
+                }
+            ]
+        }
+    });
+}

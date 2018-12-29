@@ -1,4 +1,4 @@
-// Type definitions for got 9.2
+// Type definitions for got 9.3
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
@@ -102,12 +102,50 @@ declare namespace got {
 
     type GotUrl = string | https.RequestOptions | Url | URL;
 
-    type Hook<T> = (options: T) => any;
-    type Hooks<T> = Record<'beforeRequest', Array<Hook<T>>>;
+    /**
+     * Hooks allow modifications during the request lifecycle. Hook functions may be async and are
+     * run serially.
+     *
+     * @see https://github.com/sindresorhus/got#hooks
+     * @template Options Request options.
+     * @template Body Response body type.
+     */
+    interface Hooks<Options, Body extends Buffer | string | object> {
+        beforeRequest?: Array<BeforeRequestHook<Options>>;
+        beforeRedirect?: Array<BeforeRedirectHook<Options>>;
+        beforeRetry?: Array<BeforeRetryHook<Options>>;
+        afterResponse?: Array<AfterResponseHook<Options, Body>>;
+    }
+
+    /**
+     * @param options Normalized request options.
+     */
+    type BeforeRequestHook<Options> = (options: Options) => any;
+
+    /**
+     * @param options Normalized request options.
+     */
+    type BeforeRedirectHook<Options> = (options: Options) => any;
+
+    /**
+     * @param options Normalized request options.
+     * @param error Error from previous attempt.
+     * @param retryCount Number of retry.
+     */
+    type BeforeRetryHook<Options> = (options: Options, error: HTTPError, retryCount: number) => any;
+
+    /**
+     * @param options Normalized request options.
+     * @param retryWithMergedOptions Retries request with the updated options.
+     */
+    type AfterResponseHook<Options, Body extends Buffer | string | object > = (
+        response: Response<Body>,
+        retryWithMergedOptions: (updateOptions: Options) => GotPromise<Body>
+    ) => Response<Body> | Promise<Response<Body>>;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
         body?: string | Buffer | nodeStream.Readable;
-        hooks?: Hooks<GotBodyOptions<E>>;
+        hooks?: Hooks<GotBodyOptions<E>, string | Buffer | nodeStream.Readable>;
     }
 
     interface GotJSONOptions extends GotOptions<string | null> {
@@ -115,14 +153,14 @@ declare namespace got {
         body?: object;
         form?: boolean;
         json: true;
-        hooks?: Hooks<GotJSONOptions>;
+        hooks?: Hooks<GotJSONOptions, object>;
     }
 
     interface GotFormOptions<E extends string | null> extends GotOptions<E> {
-        body?: {[key: string]: any};
+        body?: Record<string, any>;
         form: true;
         json?: boolean;
-        hooks?: Hooks<GotFormOptions<E>>;
+        hooks?: Hooks<GotFormOptions<E>, Record<string, any>>;
     }
 
     interface GotOptions<E extends string | null> extends InternalRequestOptions {
