@@ -27,7 +27,9 @@ declare namespace download {
         /**
          * Request Headers
          */
-        headers?: any;
+        headers?: {
+            [name: string]: string;
+        };
     }
 }
 
