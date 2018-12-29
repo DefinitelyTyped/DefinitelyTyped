@@ -25,35 +25,22 @@ declare namespace objectPath {
 
         /**
          * Deletes a member from object or array
-         * @param object
-         * @param path
-         * @return object
          */
         del(object: object, path: Path): { [key: string]: any };
 
         /**
          * Tests path existence
-         * @param object
-         * @param path
-         * @return object
          */
         has(object: object, path: Path): boolean;
 
         /**
          * Get a path from an object
-         * @param object
-         * @param path
-         * @param [defaultValue=undefined]
          */
         get(object: object, path: Path): any;
         get<TResult>(object: object, path: Path, defaultValue: TResult): TResult;
 
         /**
          * Set a path to a value
-         * @param object
-         * @param path
-         * @param value
-         * @param [doNotReplace=false]
          * @return Any existing value on the path if any
          */
         set<TResult = any>(
@@ -65,18 +52,11 @@ declare namespace objectPath {
 
         /**
          * Create (if path isn't an array) and push the value to it. Can push unlimited number of values
-         * @param object
-         * @param path
-         * @param items
          */
         push(object: object, path: Path, ...items: any[]): void;
 
         /**
          * Get the first non undefined property
-         * @param object
-         * @param paths
-         * @param defaultValue
-         * @return
          */
         coalesce<TResult>(object: object, paths: Path | Path[], defaultValue: TResult): TResult;
         coalesce<TResult = any>(
@@ -88,16 +68,11 @@ declare namespace objectPath {
         /**
          * Empty a path. Arrays are set to length 0, objects have all elements deleted, strings
          * are set to empty, numbers to 0, everything else is set to null
-         * @param object
-         * @param path
          */
         empty(object: object, path: Path): any;
 
         /**
          * Set a value if it doesn't exist, do nothing if it does
-         * @param object
-         * @param path
-         * @param defaultValue
          */
         ensureExists<TResult>(object: object, path: Path, defaultValue: TResult): TResult;
         ensureExists<TResult = any>(
@@ -108,10 +83,6 @@ declare namespace objectPath {
 
         /**
          * Insert an item in an array path
-         * @param object
-         * @param path
-         * @param value
-         * @param [at=0]
          */
         insert(object: object, path: Path, value: any, at?: number): void;
     }
