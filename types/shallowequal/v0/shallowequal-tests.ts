@@ -1,9 +1,10 @@
 import shallowEqual_require = require('shallowequal');
 import * as shallowEqual_splat from 'shallowequal';
 
-const a = {}, b = {};
+const a = {};
+const b = {};
 function compare(a: any, b: any, indexOrKey?: number | string) {
-  return false;
+    return false;
 }
 
 shallowEqual_require(a, b);
