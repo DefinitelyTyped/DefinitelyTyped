@@ -4587,6 +4587,8 @@ declare namespace chrome.omnibox {
 
     export interface OmniboxInputCancelledEvent extends chrome.events.Event<() => void> { }
 
+    export interface OmniboxSuggestionDeletedEvent extends chrome.events.Event<(text: string) => void> { }
+
     /**
      * Sets the description and styling for the default suggestion. The default suggestion is the text that is displayed in the first suggestion row underneath the URL bar.
      * @param suggestion A partial SuggestResult object, without the 'content' parameter.
@@ -4601,6 +4603,11 @@ declare namespace chrome.omnibox {
     export var onInputStarted: OmniboxInputStartedEvent;
     /** User has ended the keyword input session without accepting the input. */
     export var onInputCancelled: OmniboxInputCancelledEvent;
+     /**
+     * User has deleted a suggested result
+     * @since Chrome 63.
+     */
+    export var onDeleteSuggestion: OmniboxSuggestionDeletedEvent;
 }
 
 ////////////////////
