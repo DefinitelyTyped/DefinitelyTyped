@@ -4,6 +4,7 @@
 //                 Errietta Kostala <https://github.com/errietta>
 //                 Daniel Montesinos <https://github.com/damonpam>
 //                 Carlos Villavicencio <https://github.com/po5i>
+//                 Eric Camellini <https://github.com/ecamellini>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace openpgp;
