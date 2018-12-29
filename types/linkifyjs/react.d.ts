@@ -1,7 +1,7 @@
 import * as React from "react";
 import { LinkifyOptions } from "./index";
 
-declare interface LinkifyProps {
+interface LinkifyProps {
     options: LinkifyOptions;
 }
 
