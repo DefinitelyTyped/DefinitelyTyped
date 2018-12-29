@@ -54,3 +54,6 @@ declare class RangeTree<T extends Date | number | string> {
      */
     search(valueOrRange: null | T | Range<T>): Array<Range<T>>;
 }
+
+declare namespace RangeTree {
+}

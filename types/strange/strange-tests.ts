@@ -1,5 +1,5 @@
-import Range = require('strange');
-import RangeTree = require('strange/tree');
+import * as Range from 'strange';
+import * as RangeTree from 'strange/tree';
 
 {
     new Range();
