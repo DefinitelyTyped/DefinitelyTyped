@@ -129,7 +129,7 @@ declare namespace got {
 
     /**
      * @param options Normalized request options.
-     * @param error Error from previous attempt.
+     * @param error Request error.
      * @param retryCount Number of retry.
      */
     type BeforeRetryHook<Options> = (options: Options, error: GotError, retryCount: number) => any;
