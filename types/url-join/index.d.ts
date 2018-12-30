@@ -5,7 +5,9 @@
 
 /**
  * Join all arguments together and normalize the resulting url.
- * This works similar to path.join but you shouldn't use path.join for urls since it will work different depending of the operative systems but also doesn't work for some cases.
+ *
+ * This works similar to path.join except it works properly for URIs and URLs. `path.join` shouldn't be used for URLs since
+ * it works differently depending on the operating system and doesn't work for some cases. 
  */
 
 declare var urljoin: (...parts: string[]) => string;
