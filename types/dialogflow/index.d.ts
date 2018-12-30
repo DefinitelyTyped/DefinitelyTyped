@@ -862,9 +862,9 @@ export interface Intent {
 }
 
 export enum PhraseType {
-    TYPE_UNSPECIFIED = "TYPE_UNSPECIFIED",
-    EXAMPLE = "EXAMPLE",
-    TEMPLATE = "TEMPLATE"
+    TYPE_UNSPECIFIED,
+    EXAMPLE,
+    TEMPLATE
 }
 
 export interface TrainingPhrase {
