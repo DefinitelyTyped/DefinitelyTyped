@@ -138,7 +138,7 @@ declare namespace got {
      * @param options Normalized request options.
      * @param retryWithMergedOptions Retries request with the updated options.
      */
-    type AfterResponseHook<Options, Body extends Buffer | string | object > = (
+    type AfterResponseHook<Options, Body extends Buffer | string | object> = (
         response: Response<Body>,
         retryWithMergedOptions: (updateOptions: Options) => GotPromise<Body>
     ) => Response<Body> | Promise<Response<Body>>;
