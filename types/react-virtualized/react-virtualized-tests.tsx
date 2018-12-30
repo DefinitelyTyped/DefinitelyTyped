@@ -1196,7 +1196,7 @@ export class GridExample3 extends PureComponent<{}, any> {
 
     _renderBodyCell(params: GridCellProps) {
         if (params.columnIndex < 1) {
-            return;
+            return null;
         }
 
         return this._renderLeftSideCell(params);
@@ -1204,7 +1204,7 @@ export class GridExample3 extends PureComponent<{}, any> {
 
     _renderHeaderCell(params: GridCellProps) {
         if (params.columnIndex < 1) {
-            return;
+            return null;
         }
 
         return this._renderLeftHeaderCell(params);

@@ -218,7 +218,7 @@ namespace FunctionComponent {
 
 const FunctionComponent2: React.FunctionComponent<SCProps> =
     // props is contextually typed
-    props => DOM.div(null, props.foo);
+    props => DOM.div(null, props.foo != null ? props.foo : null);
 FunctionComponent2.displayName = "FunctionComponent2";
 FunctionComponent2.defaultProps = {
     foo: 42
@@ -226,7 +226,7 @@ FunctionComponent2.defaultProps = {
 
 const LegacyStatelessComponent2: React.SFC<SCProps> =
     // props is contextually typed
-    props => DOM.div(null, props.foo);
+    props => DOM.div(null, props.foo != null ? props.foo : null);
 LegacyStatelessComponent2.displayName = "LegacyStatelessComponent2";
 LegacyStatelessComponent2.defaultProps = {
     foo: 42
@@ -235,12 +235,12 @@ LegacyStatelessComponent2.defaultProps = {
 const FunctionComponent3: React.FunctionComponent<SCProps> =
     // allows usage of props.children
     // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
+    props => props.foo ? DOM.div(null, props.foo, props.children ? props.children : null) : null;
 
 const LegacyStatelessComponent3: React.SFC<SCProps> =
     // allows usage of props.children
     // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
+    props => props.foo ? DOM.div(null, props.foo, props.children ? props.children : null) : null;
 
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;

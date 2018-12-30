@@ -169,7 +169,7 @@ declare namespace React {
 
     interface ReactNodeArray extends Array<ReactNode> {}
     type ReactFragment = {} | ReactNodeArray;
-    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null;
 
     //
     // Top Level API
