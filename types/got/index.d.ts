@@ -135,7 +135,7 @@ declare namespace got {
     type BeforeRetryHook<Options> = (options: Options, error: HTTPError, retryCount: number) => any;
 
     /**
-     * @param options Normalized request options.
+     * @param response Response object.
      * @param retryWithMergedOptions Retries request with the updated options.
      */
     type AfterResponseHook<Options, Body extends Buffer | string | object> = (
