@@ -153,8 +153,8 @@ describe("linkifyjs/react", () => {
 
     /* Usage */
 
-    var options: LinkifyOptions = {};
-    var content = "For help with GitHub.com, please email support@github.com";
+    const options: LinkifyOptions = {};
+    const content = "For help with GitHub.com, please email support@github.com";
     let rootElement = document.createElement("div");
     ReactDOM.render(
         React.createElement(
@@ -170,14 +170,14 @@ describe("linkifyjs/react", () => {
 
     /* Events */
 
-    let linkProps = {
+    const linkProps = {
         onClick: (event: any) => {
             if (!confirm("Are you sure you want to leave this page?")) {
                 event.preventDefault();
             }
         }
     };
-    var content = "For help with GitHub.com, please email support@github.com";
+
     rootElement = document.createElement("div");
     ReactDOM.render(
         React.createElement(
