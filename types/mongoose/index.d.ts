@@ -1894,7 +1894,13 @@ declare module "mongoose" {
      *   is an Array. See the examples.
      */
     geometry(object: { type: string, coordinates: any[] }): this;
-
+    
+    /**
+     * Returns the current query options as a JSON object.
+     * @returns current query options
+     */
+    getOptions(): any;
+                            
     /**
      * Returns the current query conditions as a JSON object.
      * @returns current query conditions
