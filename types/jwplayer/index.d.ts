@@ -5,6 +5,7 @@
 //                 Philipp Gürtler <https://github.com/philippguertler>
 //                 Daniel McGraw <https://github.com/danielmcgraw>
 //                 Benjamin Dobson <https://github.com/bpdsw>
+//                 Be Birchall <https://gitnub.com/bebebebebe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -241,6 +242,31 @@ interface Region {
     height: number;
 }
 
+interface CaptionOptions {
+    color: string;
+    fontSize: number;
+    fontFamily: string;
+    fontOpacity: number;
+    backgroundColor: string;
+    backgroundOpacity: number;
+    edgeStyle: string;
+    windowColor: string;
+    windowOpacity: number;
+}
+
+interface Level {
+    bitrate: number;
+    height: number;
+    width: number;
+    label: string;
+}
+
+interface QualityLevel {
+    mode: 'auto' | 'manual';
+    level: Level;
+    reason: 'auto' | 'api' | 'initial choice';
+}
+
 interface JWPlayer {
 	addButton(icon: string, label: string, handler: () => void, id: string): void;
 	getAudioTracks(): any[];
@@ -266,6 +292,7 @@ interface JWPlayer {
 	getContainer(): HTMLElement;
 	getEnvironment(): Environment;
 	getWidth(): number;
+    getVisualQuality(): QualityLevel | undefined;
 	load(playlist: any[]): void;
 	load(playlist: string): void;
 	on(event: 'adClick', callback: EventCallback<AdProgressParam>): void;
@@ -469,6 +496,7 @@ interface JWPlayer {
 	setMute(state?: boolean): void;
 	setup(options: any): JWPlayer;
 	setVolume(volume: number): void;
+    setCaptions(options: CaptionOptions): void;
 	stop(): void;
 }
 

@@ -33,7 +33,7 @@ declare namespace yargs {
     // Arguments<T> to simplify the inferred type signature in client code.
     interface Argv<T = {}> {
         (): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        (args: ReadonlyArray<string>, cwd?: string): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        (args: ReadonlyArray<string>, cwd?: string): Argv<T>;
 
         // Aliases for previously declared options can inherit the types of those options.
         alias<K1 extends keyof T, K2 extends string>(shortName: K1, longName: K2 | ReadonlyArray<K2>): Argv<T & { [key in K2]: T[K1] }>;
@@ -167,8 +167,8 @@ declare namespace yargs {
         options<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
         options<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O>>;
 
-        parse(): Arguments<T>;
-        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): Arguments<T>;
+        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         pkgConf(key: string | ReadonlyArray<string>, cwd?: string): Argv<T>;
 

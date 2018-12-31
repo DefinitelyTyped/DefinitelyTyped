@@ -2126,7 +2126,7 @@ export namespace Location {
     function getProviderStatusAsync(): Promise<ProviderStatus>;
     function getHeadingAsync(): Promise<HeadingStatus>;
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
-    function geocodeAsync(address: string): Promise<Coords>;
+    function geocodeAsync(address: string): Promise<Coords[]>;
     function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
     function setApiKey(key: string): void;
 }

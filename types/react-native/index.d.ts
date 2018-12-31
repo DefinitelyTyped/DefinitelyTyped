@@ -7688,9 +7688,19 @@ export interface PushNotification {
     getSound(): string;
 
     /**
+     * Gets the category string from the `aps` object
+     */
+    getCategory(): string;
+
+    /**
      * Gets the notification's main message from the `aps` object
      */
     getAlert(): string | Object;
+
+    /**
+     * Gets the content-available number from the `aps` object
+     */
+    getContentAvailable(): number;
 
     /**
      * Gets the badge count number from the `aps` object

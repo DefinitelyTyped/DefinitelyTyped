@@ -829,11 +829,11 @@ const webhookRequest = {
 };
 const webhookSecret = '';
 
-const event = stripe.webhooks.constructEvent(
+const event: Stripe.events.IEvent = stripe.webhooks.constructEvent(
   webhookRequest.rawBody,
   webhookRequest.headers['stripe-signature'],
   webhookSecret
-) as Stripe.webhooks.StripeWebhookEvent<Stripe.subscriptions.ISubscription>;
+);
 
 //#endregion
 

@@ -457,7 +457,7 @@ interface FlickityOptions {
      *
      * default: disabled
      */
-    asNavFor?: string;
+    asNavFor?: string | HTMLElement;
 
     /**
      * The number of pixels a mouse or touch has to move before dragging begins. Increase dragThreshold to allow for more wiggle room for vertical page scrolling on touch devices.
