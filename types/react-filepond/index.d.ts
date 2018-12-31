@@ -17,6 +17,7 @@ export interface FilePondFileProps {
     size?: number;
     type?: string;
     origin?: FilePondOrigin;
+    metadata?: {[key: string]: any};
 }
 
 export class FilePondFile extends React.Component<FilePondFileProps> { }
