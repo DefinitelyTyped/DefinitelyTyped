@@ -6,9 +6,9 @@ import Linkify from "linkifyjs/react";
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-// From the docs here: https://soapbox.github.io/linkifyjs/docs/options.html
-
 describe("linkifyjs/html", () => {
+    // From the docs here: https://soapbox.github.io/linkifyjs/docs/options.html
+
     /* attributes */
 
     linkifyHtml("github.com", {
@@ -149,14 +149,48 @@ describe("linkifyjs/html", () => {
 });
 
 describe("linkifyjs/react", () => {
+    // From the docs here: https://soapbox.github.io/linkifyjs/docs/linkify-react.html
+
     it("should render a Linkify component", () => {
         const rootElement = document.createElement("div");
         ReactDOM.render(
-            React.createElement(Linkify, {
-                options: {
-                    className: "custom-class-name"
-                }
-            }),
+            React.createElement(
+                Linkify,
+                {},
+                React.createElement("span", "Hello https://google.com")
+            ),
+            rootElement
+        );
+    });
+
+    it("should render a Linkify component with a custom className", () => {
+        const rootElement = document.createElement("div");
+        ReactDOM.render(
+            React.createElement(
+                Linkify,
+                {
+                    options: {
+                        className: "custom-class-name"
+                    }
+                },
+                React.createElement("span", "Hello https://google.com")
+            ),
+            rootElement
+        );
+    });
+
+    it("should render a Linkify component with a custom tagName", () => {
+        const rootElement = document.createElement("div");
+        ReactDOM.render(
+            React.createElement(
+                Linkify,
+                {
+                    options: {
+                        tagName: "p"
+                    }
+                },
+                React.createElement("span", "Hello https://google.com")
+            ),
             rootElement
         );
     });

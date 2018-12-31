@@ -2,7 +2,7 @@ import * as React from "react";
 import { LinkifyOptions } from "./index";
 
 interface LinkifyProps {
-    options: LinkifyOptions;
+    options?: LinkifyOptions;
 }
 
 declare class Linkify extends React.Component<LinkifyProps> {}
