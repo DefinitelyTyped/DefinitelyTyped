@@ -102,3 +102,8 @@ function HTML() {
         }
     `}</style>
 </Helmet>;
+
+// $ExpectError
+<Helmet link={[ invalidProp: 'foo' ]} />;
+// $ExpectError
+<Helmet meta={[ invalidProp: 'foo' ]} />;
