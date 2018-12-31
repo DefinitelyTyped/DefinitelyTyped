@@ -1717,18 +1717,6 @@ declare namespace GoogleAppsScript {
       bullet: Bullet
     }
 
-    // A List describes the look and feel of bullets belonging to paragraphs
-    // associated with a list. A paragraph that is part of a list has an implicit
-    // reference to that list's ID.
-    interface List {
-      // The ID of the list.
-      list_id: string
-      // A map of nesting levels to the properties of bullets at the associated
-      // level. A list has at most nine levels of nesting, so the possible values
-      // for the keys of this map are 0 through 8, inclusive.
-      nesting_level: Map<number, NestingLevel>
-    }
-
     // Describes the bullet of a paragraph.
     interface Bullet {
       // The ID of the list this paragraph belongs to.
