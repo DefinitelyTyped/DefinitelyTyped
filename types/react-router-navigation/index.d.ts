@@ -104,7 +104,7 @@ export interface Tab extends TabProps {
 
 // High-level wrappers
 export interface BottomNavigationProps extends TabBarProps {
-    children?: ReactNode[];
+    children?: ReactNode;
     lazy?: boolean;
     style?: StyleProp<ViewStyle>;
 }

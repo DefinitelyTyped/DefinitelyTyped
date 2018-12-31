@@ -29,7 +29,7 @@ export interface ReactDatePickerProps {
 	autoComplete?: string;
 	autoFocus?: boolean;
 	calendarClassName?: string;
-	calendarContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
+	calendarContainer?(props: { children: React.ReactNode }): React.ReactNode;
 	children?: React.ReactNode;
 	className?: string;
 	clearButtonTitle?: string;
@@ -81,7 +81,7 @@ export interface ReactDatePickerProps {
 	peekNextMonth?: boolean;
 	placeholderText?: string;
 	popperClassName?: string;
-	popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
+	popperContainer?(props: { children: React.ReactNode }): React.ReactNode;
 	popperModifiers?: Popper.Modifiers;
 	popperPlacement?: string;
 	popperProps?: {};

@@ -60,7 +60,7 @@ export type TabsRendererProps = {
 };
 
 export type CardStackProps = {
-    children?: ReactNode[];
+    children?: ReactNode;
     render: (props: CardsRendererProps) => ReactNode;
 };
 
@@ -86,7 +86,7 @@ export class CardStack extends PureComponent<
 }
 
 export type TabStackProps = {
-    children?: ReactNode[];
+    children?: ReactNode;
     render: (props: TabsRendererProps) => ReactNode;
     lazy?: boolean;
     forceSync?: boolean;

@@ -99,7 +99,7 @@ export interface CategoricalChartWrapper<L = LayoutType> {
     maxBarSize?: number;
     style?: object;
     className?: string;
-    children?: React.ReactNode | React.ReactNode[];
+    children?: React.ReactNode;
     onClick?: RechartsFunction;
     onMouseLeave?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
@@ -841,7 +841,7 @@ export interface TreemapProps extends EventAttributes, Animatable {
     className?: string;
     nameKey?: string | number | RechartsFunction;
     dataKey?: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
-    children?: React.ReactNode[] | React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export class Treemap extends React.Component<TreemapProps> { }
@@ -855,7 +855,7 @@ export interface LabelProps extends Partial<PresentationAttributes> {
     value?: number | string;
     offset?: number;
     position?: PositionType;
-    children?: React.ReactNode[] | React.ReactNode;
+    children?: React.ReactNode;
     className?: string;
     content?: React.ReactElement<any> | ContentRenderer<any>;
 }
@@ -864,7 +864,7 @@ export class LabelList extends React.Component<LabelListProps> { }
 
 export interface LabelListProps {
     angle?: number;
-    children?: React.ReactNode[] | React.ReactNode;
+    children?: React.ReactNode;
     className?: string;
     clockWise?: boolean;
     content?: React.ReactElement<any> | ContentRenderer<LabelProps>;

@@ -10,7 +10,7 @@ import * as React from 'react';
 interface DrawerProps {
     className?: string;
     prefixCls?: string;
-    children?: React.ReactNode | React.ReactNode[];
+    children?: React.ReactNode;
     style?: React.CSSProperties;
     sidebarStyle?: React.CSSProperties;
     contentStyle?: React.CSSProperties;

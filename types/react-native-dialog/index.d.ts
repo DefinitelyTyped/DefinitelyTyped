@@ -34,7 +34,7 @@ interface ButtonProps {
 
 interface ContainerProps {
     blurComponentIOS?: ReactNode;
-    children: React.ReactNode[];
+    children: React.ReactNode;
     /**
      * default: false
      */
