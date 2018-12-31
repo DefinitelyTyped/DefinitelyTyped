@@ -332,18 +332,18 @@ interface OverlayScrollbarsStatic {
         extensions?: string | ReadonlyArray<string> | { [extensionName: string]: {} }
     ): OverlayScrollbars;
     (
-        element: HTMLElement | Element | JQuery
+        element: HTMLElement | Element | JQuery | null
     ): OverlayScrollbars | undefined;
 
     (
         elements: NodeListOf<Element> | ReadonlyArray<Element> | JQuery,
         options: OverlayScrollbars.Options,
         extensions?: string | ReadonlyArray<string> | { [extensionName: string]: {} }
-    ): OverlayScrollbars[];
+    ): OverlayScrollbars | OverlayScrollbars[] | undefined;
     (
         elements: NodeListOf<Element> | ReadonlyArray<Element> | JQuery,
         filter?: string | ((element: Element, instance: OverlayScrollbars) => boolean)
-    ): OverlayScrollbars[];
+    ): OverlayScrollbars | OverlayScrollbars[] | undefined;
 
     globals(): OverlayScrollbars.Globals;
 
