@@ -2,11 +2,11 @@
 // Project: https://github.com/GoogleChromeLabs/task-worklet
 // Definitions by: Karol Majewski <https://github.com/karol-majewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 2.9
 
-declare class TaskQueue<T extends TaskDescriptor = any> {
+declare class TaskQueue {
     constructor(options?: Options);
-    postTask<U extends T = any>(taskName: U['name'], ...args: Parameters<U>): Task<ReturnType<U>>;
+    postTask(taskName: string, ...args: any[]): Task;
     addModule(moduleURL: string): Promise<void>;
 }
 
@@ -14,12 +14,7 @@ interface Options {
     size?: number;
 }
 
-interface TaskDescriptor {
-    name: string;
-    (...args: any): any;
-}
-
-export interface Task<T = unknown> {
+export interface Task<T = any> {
     id: number;
     state: State;
     result: Promise<T>;
