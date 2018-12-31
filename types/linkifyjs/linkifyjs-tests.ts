@@ -4,7 +4,6 @@ import linkifyHtml from "linkifyjs/html";
 import Linkify from "linkifyjs/react";
 
 declare function describe(desc: string, f: () => void): void;
-declare function it(desc: string, f: () => void): void;
 
 describe("linkifyjs/html", () => {
     // From the docs here: https://soapbox.github.io/linkifyjs/docs/options.html
@@ -180,9 +179,7 @@ describe("linkifyjs/react", () => {
         React.createElement(
             Linkify,
             {
-                options: {
-                    tagName: "p"
-                }
+                tagName: "p"
             },
             React.createElement("span", "Hello https://google.com")
         ),
