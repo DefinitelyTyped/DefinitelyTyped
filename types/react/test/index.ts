@@ -303,6 +303,7 @@ const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement
 
 React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
+React.cloneElement(element, {}, undefined);
 
 const clonedElement2: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, {
