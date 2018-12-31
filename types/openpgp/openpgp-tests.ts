@@ -110,6 +110,31 @@ openpgp.initWorker({ path:'openpgp.worker.js' });
 })();
 
 
+(async () => {
+    const publicKey = (await openpgp.key.readArmored(spubkey))
+    const privateKey = (await openpgp.key.readArmored(sprivkey))
+    const signOptions: openpgp.SignOptions = {
+        message: openpgp.message.fromText('hello world'),
+        privateKeys: privateKey.keys,
+        detached: true
+    };
+
+    const signed = await openpgp.sign(signOptions);
+
+    const signature = signed.signature as openpgp.Signature;
+    const message = signed.message;
+
+    const verifyOptions: openpgp.VerifyOptions = {
+        message,
+        signature,
+        publicKeys: publicKey.keys
+    };
+
+    let verified = await openpgp.verify(verifyOptions);
+
+    return verified.signatures[0].valid;
+})();
+
 // Open PGP Tests
 
 
