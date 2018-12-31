@@ -2787,6 +2787,7 @@ declare module "mongoose" {
      *   Model#ensureIndexes. If an error occurred it is passed with the event.
      *   The fields, options, and index name are also passed.
      */
+    new(doc?: Partial<T>): T;
     new(doc?: any): T;
 
     /**
