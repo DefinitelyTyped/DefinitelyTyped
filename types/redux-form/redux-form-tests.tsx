@@ -279,8 +279,8 @@ const Test = reduxForm<TestFormData>({
                             <Field
                                 name="field4"
                                 component="input"
-                                onChange={(event, newValue, previousValue) => {}}
-                                onBlur={(event, newValue, previousValue) => {}}
+                                onChange={(event, newValue, previousValue, fieldName) => {}}
+                                onBlur={(event, newValue, previousValue, fieldName) => {}}
                             />
 
                             <ImmutableField
