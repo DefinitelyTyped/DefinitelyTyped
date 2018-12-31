@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "html.d.ts", "react.d.ts", "linkifyjs-tests.ts"]
+    "files": ["index.d.ts", "html.d.ts", "react.d.ts", "linkifyjs-tests.tsx"]
 }
