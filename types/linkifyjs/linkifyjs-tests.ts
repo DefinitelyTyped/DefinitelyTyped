@@ -151,47 +151,41 @@ describe("linkifyjs/html", () => {
 describe("linkifyjs/react", () => {
     // From the docs here: https://soapbox.github.io/linkifyjs/docs/linkify-react.html
 
-    it("should render a Linkify component", () => {
-        const rootElement = document.createElement("div");
-        ReactDOM.render(
-            React.createElement(
-                Linkify,
-                {},
-                React.createElement("span", "Hello https://google.com")
-            ),
-            rootElement
-        );
-    });
+    let rootElement = document.createElement("div");
+    ReactDOM.render(
+        React.createElement(
+            Linkify,
+            {},
+            React.createElement("span", "Hello https://google.com")
+        ),
+        rootElement
+    );
 
-    it("should render a Linkify component with a custom className", () => {
-        const rootElement = document.createElement("div");
-        ReactDOM.render(
-            React.createElement(
-                Linkify,
-                {
-                    options: {
-                        className: "custom-class-name"
-                    }
-                },
-                React.createElement("span", "Hello https://google.com")
-            ),
-            rootElement
-        );
-    });
+    rootElement = document.createElement("div");
+    ReactDOM.render(
+        React.createElement(
+            Linkify,
+            {
+                options: {
+                    className: "custom-class-name"
+                }
+            },
+            React.createElement("span", "Hello https://google.com")
+        ),
+        rootElement
+    );
 
-    it("should render a Linkify component with a custom tagName", () => {
-        const rootElement = document.createElement("div");
-        ReactDOM.render(
-            React.createElement(
-                Linkify,
-                {
-                    options: {
-                        tagName: "p"
-                    }
-                },
-                React.createElement("span", "Hello https://google.com")
-            ),
-            rootElement
-        );
-    });
+    rootElement = document.createElement("div");
+    ReactDOM.render(
+        React.createElement(
+            Linkify,
+            {
+                options: {
+                    tagName: "p"
+                }
+            },
+            React.createElement("span", "Hello https://google.com")
+        ),
+        rootElement
+    );
 });
