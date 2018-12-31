@@ -2,7 +2,7 @@
 // Project: https://github.com/GoogleChromeLabs/task-worklet
 // Definitions by: Karol Majewski <https://github.com/karol-majewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.1
 
 declare class TaskQueue<T extends TaskDescriptor = any> {
     constructor(options?: Options);
