@@ -16,13 +16,13 @@ import {
 } from "yup";
 
 // reach function
-let schema = yup.object().shape({
+const schema1 = yup.object().shape({
     nested: yup.object().shape({
         arr: yup.array().of(yup.object().shape({ num: yup.number().max(4) }))
     })
 });
-reach(schema, "nested.arr.num");
-reach(schema, "nested.arr[].num");
+reach(schema1, "nested.arr.num");
+reach(schema1, "nested.arr[].num");
 
 // addMethod function
 yup.addMethod<NumberSchema>(yup.number, "minimum", function(
@@ -41,7 +41,7 @@ yup.addMethod(yup.date, "newMethod", function(
 });
 
 // ref function
-schema = yup.object().shape({
+const schema2 = yup.object().shape({
     baz: yup.ref("foo.bar"),
     foo: yup.object().shape({
         bar: yup.string()
@@ -49,7 +49,16 @@ schema = yup.object().shape({
     x: yup.ref("$x")
 });
 
-schema.cast({ foo: { bar: "boom" } }, { context: { x: 5 } });
+let ref: yup.Ref = yup.ref("foo.bar");
+
+// $ExpectError
+ref = {};
+
+// $ExpectError
+ref = { __isYupRef: true };
+
+// cast function
+schema2.cast({ foo: { bar: "boom" } }, { context: { x: 5 } });
 
 // lazy function
 const node: ObjectSchema<any> = yup.object().shape({
@@ -458,6 +467,40 @@ const testObject: MyInterface = {
 };
 
 typedSchema.validateSync(testObject); // $ExpectType MyInterface
+
+// Shape<T, U> and shape function
+interface AB {
+    a: string;
+    b: number;
+}
+
+interface BC {
+    b: string;
+    c: number;
+}
+
+interface ExpectedABC {
+    a: string;
+    b: string;
+    c: number;
+}
+
+const expectedAbc: ExpectedABC = {
+    a: 'qwerty',
+    b: 'asdfg',
+    c: 123
+};
+const actualAbc: yup.Shape<AB, BC> = expectedAbc;
+
+const definitionAB: yup.ObjectSchemaDefinition<AB> = {
+    a: yup.string(),
+    b: yup.number()
+};
+const definitionBC: yup.ObjectSchemaDefinition<BC> = {
+    b: yup.string(),
+    c: yup.number()
+};
+const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
 
 // $ExpectError
 yup.object<MyInterface>({
