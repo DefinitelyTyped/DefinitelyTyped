@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { LinkifyOptions } from "linkifyjs";
 import linkifyHtml from "linkifyjs/html";
 import Linkify from "linkifyjs/react";
 
@@ -150,7 +151,46 @@ describe("linkifyjs/html", () => {
 describe("linkifyjs/react", () => {
     // From the docs here: https://soapbox.github.io/linkifyjs/docs/linkify-react.html
 
+    /* Usage */
+
+    var options: LinkifyOptions = {};
+    var content = "For help with GitHub.com, please email support@github.com";
     let rootElement = document.createElement("div");
+    ReactDOM.render(
+        React.createElement(
+            Linkify,
+            {
+                tagName: "p",
+                options: options
+            },
+            React.createElement("span", content)
+        ),
+        rootElement
+    );
+
+    /* Events */
+
+    let linkProps = {
+        onClick: (event: any) => {
+            if (!confirm("Are you sure you want to leave this page?")) {
+                event.preventDefault();
+            }
+        }
+    };
+    var content = "For help with GitHub.com, please email support@github.com";
+    rootElement = document.createElement("div");
+    ReactDOM.render(
+        React.createElement(
+            Linkify,
+            {
+                options: { attributes: linkProps }
+            },
+            React.createElement("span", null)
+        ),
+        rootElement
+    );
+
+    rootElement = document.createElement("div");
     ReactDOM.render(
         React.createElement(
             Linkify,

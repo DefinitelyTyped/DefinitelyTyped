@@ -28,7 +28,7 @@ export interface LinkifyOptions {
      * (e.g., 'url', 'email', etc.) and returns the object.
      */
     attributes?: PossiblyFuncOfHrefAndType<{
-        [attrName: string]: string;
+        [attrName: string]: any;
     }> | null;
 
     /**
