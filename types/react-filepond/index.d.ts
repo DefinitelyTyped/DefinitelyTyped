@@ -11,7 +11,7 @@ import * as React from 'react';
 
 type FilePondOrigin = 'limbo' | 'local';
 
-export interface FilePondFileProps {
+export interface FileProps {
     src: string;
     name?: string;
     size?: number;
@@ -20,11 +20,15 @@ export interface FilePondFileProps {
     metadata?: {[key: string]: any};
 }
 
-export class FilePondFile extends React.Component<FilePondFileProps> { }
-export { FilePondFile as File };
+export class File extends React.Component<FileProps> { }
 
 export interface FilePondItem {
-    file: File;
+    // Note that this duplicates the JS File type declaration, but is necessary
+    // to avoid duplicating the name 'File' in this module
+    // see: https://developer.mozilla.org/en-US/docs/Web/API/File
+    // see: https://github.com/Microsoft/dtslint/issues/173
+    // see: https://stackoverflow.com/q/53876793/2517147
+    file: Blob & {readonly lastModified: number; readonly name: string};
     fileSize: number;
     fileType: string;
     filename: string;
@@ -115,7 +119,7 @@ interface FilePondHookProps {
 }
 
 interface FilePondBaseProps {
-    children?: React.ReactElement<FilePondFile> | Array<React.ReactElement<FilePondFile>>;
+    children?: React.ReactElement<File> | Array<React.ReactElement<File>>;
     id?: string;
     name?: string;
     className?: string;
