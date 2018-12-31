@@ -40,8 +40,8 @@ export interface FilePondItem {
     archived: boolean;
     abortLoad: () => void;
     abortProcessing: () => void;
-    getMetadata: (key: any) => any;
-    setMetadata: (key: any, value: any, silent: boolean) => void;
+    getMetadata: (key?: any) => any;
+    setMetadata: (key: any, value: any, silent?: boolean) => void;
 }
 
 interface FilePondDragDropProps {
