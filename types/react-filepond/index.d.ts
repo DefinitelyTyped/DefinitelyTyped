@@ -9,6 +9,12 @@
 
 import * as React from 'react';
 
+// This line shuts off automatic exporting for this module
+// I want to do this so that I can have internal types to this module that make
+// understanding the type definition more clear, while at the same time only
+// exporting the API that react-filepond exports.
+export {};
+
 type FilePondOrigin = 'limbo' | 'local';
 
 export interface FileProps {
