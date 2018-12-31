@@ -1627,8 +1627,8 @@ export class GridCellRangeRendererExample extends PureComponent<{}, any> {
         parent,
         visibleColumnIndices,
         visibleRowIndices
-    }: GridCellRangeProps): React.ReactNode[] {
-        const renderedCells: React.ReactNode[] = [];
+    }: GridCellRangeProps): React.ReactNodeArray {
+        const renderedCells: React.ReactNodeArray = [];
         const style: React.CSSProperties = {};
 
         for (

@@ -73,7 +73,7 @@ export type TableHeaderProps = {
 };
 export type TableHeaderRowProps = {
     className: string;
-    columns: React.ReactNode[];
+    columns: React.ReactNodeArray;
     style: React.CSSProperties;
     scrollbarWidth: number;
     height: number;

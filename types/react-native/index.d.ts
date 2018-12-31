@@ -348,7 +348,7 @@ export interface NativeMethodsMixinStatic {
 export function createElement<P>(
     type: React.ReactType,
     props?: P,
-    ...children: React.ReactNode[]
+    ...children: React.ReactNodeArray
 ): React.ReactElement<P>;
 
 export type Runnable = (appParameters: any) => void;

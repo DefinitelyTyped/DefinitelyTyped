@@ -130,33 +130,33 @@ declare namespace React {
     // Factories
     // ----------------------------------------------------------------------
 
-    type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
+    type Factory<P> = (props?: Attributes & P, ...children: ReactNodeArray) => ReactElement<P>;
 
     /**
      * @deprecated Please use `FunctionComponentFactory`
      */
     type SFCFactory<P> = FunctionComponentFactory<P>;
 
-    type FunctionComponentFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => FunctionComponentElement<P>;
+    type FunctionComponentFactory<P> = (props?: Attributes & P, ...children: ReactNodeArray) => FunctionComponentElement<P>;
 
     type ComponentFactory<P, T extends Component<P, ComponentState>> =
-        (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<P, T>;
+        (props?: ClassAttributes<T> & P, ...children: ReactNodeArray) => CElement<P, T>;
 
     type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
     type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
+        (props?: ClassAttributes<T> & P | null, ...children: ReactNodeArray) => DOMElement<P, T>;
 
     // tslint:disable-next-line:no-empty-interface
     interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
     interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        (props?: ClassAttributes<T> & P | null, ...children: ReactNodeArray): DetailedReactHTMLElement<P, T>;
     }
 
     interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
-        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
+        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNodeArray): ReactSVGElement;
     }
 
     //
@@ -196,74 +196,74 @@ declare namespace React {
     function createElement(
         type: "input",
         props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+        ...children: ReactNodeArray): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        ...children: ReactNodeArray): DetailedReactHTMLElement<P, T>;
     function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
         type: keyof ReactSVG,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): ReactSVGElement;
+        ...children: ReactNodeArray): ReactSVGElement;
     function createElement<P extends DOMAttributes<T>, T extends Element>(
         type: string,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: ReactNodeArray): DOMElement<P, T>;
 
     // Custom components
 
     function createElement<P extends {}>(
         type: FunctionComponent<P>,
         props?: Attributes & P | null,
-        ...children: ReactNode[]): FunctionComponentElement<P>;
+        ...children: ReactNodeArray): FunctionComponentElement<P>;
     function createElement<P extends {}>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
         props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
-        ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
+        ...children: ReactNodeArray): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P extends {}, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): CElement<P, T>;
+        ...children: ReactNodeArray): CElement<P, T>;
     function createElement<P extends {}>(
         type: FunctionComponent<P> | ComponentClass<P> | string,
         props?: Attributes & P | null,
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: ReactNodeArray): ReactElement<P>;
 
     // DOM Elements
     // ReactHTMLElement
     function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         element: DetailedReactHTMLElement<P, T>,
         props?: P,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        ...children: ReactNodeArray): DetailedReactHTMLElement<P, T>;
     // ReactHTMLElement, less specific
     function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         element: ReactHTMLElement<T>,
         props?: P,
-        ...children: ReactNode[]): ReactHTMLElement<T>;
+        ...children: ReactNodeArray): ReactHTMLElement<T>;
     // SVGElement
     function cloneElement<P extends SVGAttributes<T>, T extends SVGElement>(
         element: ReactSVGElement,
         props?: P,
-        ...children: ReactNode[]): ReactSVGElement;
+        ...children: ReactNodeArray): ReactSVGElement;
     // DOM Element (has to be the last, because type checking stops at first overload that fits)
     function cloneElement<P extends DOMAttributes<T>, T extends Element>(
         element: DOMElement<P, T>,
         props?: DOMAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: ReactNodeArray): DOMElement<P, T>;
 
     // Custom components
     function cloneElement<P>(
         element: FunctionComponentElement<P>,
         props?: Partial<P> & Attributes,
-        ...children: ReactNode[]): FunctionComponentElement<P>;
+        ...children: ReactNodeArray): FunctionComponentElement<P>;
     function cloneElement<P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         props?: Partial<P> & ClassAttributes<T>,
-        ...children: ReactNode[]): CElement<P, T>;
+        ...children: ReactNodeArray): CElement<P, T>;
     function cloneElement<P>(
         element: ReactElement<P>,
         props?: Partial<P> & Attributes,
-        ...children: ReactNode[]): ReactElement<P>;
+        ...children: ReactNodeArray): ReactElement<P>;
 
     // Context via RenderProps
     interface ProviderProps<T> {

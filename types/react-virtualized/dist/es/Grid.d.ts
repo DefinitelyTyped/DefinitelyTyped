@@ -153,7 +153,7 @@ export type GridCellRangeProps = {
 };
 export type GridCellRangeRenderer = (
     params: GridCellRangeProps
-) => React.ReactNode[];
+) => React.ReactNodeArray;
 
 export type GridCoreProps = {
     "aria-label"?: string;

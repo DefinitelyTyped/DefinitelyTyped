@@ -26,7 +26,7 @@ export type CollectionCellGroupRendererParams = {
 };
 export type CollectionCellGroupRenderer = (
     params: CollectionCellGroupRendererParams
-) => React.ReactNode[];
+) => React.ReactNodeArray;
 export type CollectionCellRendererParams = {
     index: number;
     isScrolling: boolean;
@@ -181,5 +181,5 @@ export class Collection extends PureComponent<CollectionProps> {
         params: {
             isScrolling: boolean;
         } & SizeInfo
-    ): React.ReactNode[];
+    ): React.ReactNodeArray;
 }
