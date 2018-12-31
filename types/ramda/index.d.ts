@@ -565,6 +565,8 @@ declare namespace R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
+        assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & U;
+        assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & U;
         assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
         assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
         assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
@@ -573,6 +575,8 @@ declare namespace R {
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
          * placing the specific value at the tail end of that path.
          */
+        assocPath<T, U>(__: Placeholder, val: T, obj: U): (path: Path) => U;
+        assocPath<T, U>(path: Path, __: Placeholder, obj: U): (val: T) => U;
         assocPath<T, U>(path: Path, val: T, obj: U): U;
         assocPath<T, U>(path: Path, val: T): (obj: U) => U;
         assocPath<T, U>(path: Path): CurriedFunction2<T, U, U>;
@@ -2069,7 +2073,7 @@ declare namespace R {
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
-        pluck<P extends string, T>(p: P, list: ReadonlyArray<Record<P, T>>): T[];
+        pluck<K extends keyof T, T>(p: K, list: ReadonlyArray<T>): Array<T[K]>;
         pluck<T>(p: number, list: ReadonlyArray<{ [k: number]: T }>): T[];
         pluck<P extends string>(p: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
         pluck(p: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[];
@@ -2095,6 +2099,7 @@ declare namespace R {
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          */
+        prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
         prop<P extends keyof T, T>(p: P, obj: T): T[P];
         prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
         prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
