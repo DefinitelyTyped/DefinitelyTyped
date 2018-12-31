@@ -343,7 +343,9 @@ export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
 export type SelectorFactory<S, TProps, TOwnProps, TFactoryOptions> =
     (dispatch: Dispatch<Action>, factoryOptions: TFactoryOptions) => Selector<S, TProps, TOwnProps>;
 
-export type Selector<S, TProps, TOwnProps> = (state: S, ownProps: TOwnProps) => TProps;
+export type Selector<S, TProps, TOwnProps = null> = TOwnProps extends null
+    ? (state: S) => TProps
+    : (state: S, ownProps: TOwnProps) => TProps;
 
 export interface ConnectOptions {
     /**

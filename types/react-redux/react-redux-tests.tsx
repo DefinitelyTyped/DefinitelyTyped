@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
-import { Connect, connect, createProvider, Provider, DispatchProp, MapStateToProps, Options } from 'react-redux';
+import { Connect, connect, createProvider, Provider, DispatchProp, MapStateToProps, Options, Selector } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -1209,4 +1209,17 @@ function TestLibraryManagedAttributes() {
 
     const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
     <ConnectedComponent2 fn={() => {}} />;
+}
+
+function TestSelector() {
+    interface OwnProps { key?: string; }
+    interface State { key: string; }
+
+    const simpleSelect: Selector<State, string> = (state: State) => state.key;
+    const notSimpleSelect: Selector<State, string, OwnProps> = (state: State, ownProps) => ownProps.key || state.key;
+
+    const ownProps = {};
+    const state = { key: 'value' };
+    simpleSelect(state);
+    notSimpleSelect(state, ownProps);
 }
