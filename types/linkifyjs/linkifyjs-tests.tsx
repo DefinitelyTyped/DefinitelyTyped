@@ -161,7 +161,7 @@ describe("linkifyjs/react", () => {
             Linkify,
             {
                 tagName: "p",
-                options: options
+                options
             },
             React.createElement("span", content)
         ),
