@@ -3,6 +3,8 @@
 // Definitions by: vargeek <https://github.com/vargeek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import functions from "../react-icons/md/functions";
+
 declare namespace wx {
     type NoneParamCallback = () => void;
     type OneParamCallback = (data: any) => void;
@@ -44,7 +46,7 @@ declare namespace wx {
         extraData: Object
     }
 
-    interface LaunchOptions {
+    interface onLaunchOptions {
         /** 启动小程序的路径 */
         path: string,
         /** 启动小程序的场景值 */
@@ -56,24 +58,34 @@ declare namespace wx {
         referrerInfo: referrerInfo
     }
 
-    type LaunchCallback = (options: LaunchOptions) => void;
+    type onLaunchCallback = (options: onLaunchOptions) => void;
+    type onShowOptions = onLaunchOptions;
 
     interface AppOptions {
         /**
          * 生命周期函数--监听小程序初始化
          * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
          */
-        onLaunch?: LaunchCallback;
+        onLaunch?: onLaunchCallback;
         /**
          * 生命周期函数--监听小程序显示
          * 当小程序启动，或从后台进入前台显示，会触发 onShow
          */
-        onShow?: NoneParamCallback;
+        onShow?: (options: onShowOptions) => void;
         /**
          * 生命周期函数--监听小程序隐藏
          * 当小程序从前台进入后台，会触发 onHide
          */
         onHide?: NoneParamCallback;
+        /** 小程序发生脚本错误或 API 调用报错时触发。也可以使用 wx.onError 绑定监听。*/
+        onError?: ErrorCallback;
+        /**
+         * 小程序要打开的页面不存在时触发
+         * 1. 开发者可以在回调中进行页面重定向，但必须在回调中同步处理，异步处理（例如 setTimeout 异步执行）无效。
+         * 2. 若开发者没有调用 wx.onPageNotFound 绑定监听，也没有声明 App.onPageNotFound，当跳转页面不存在时，将推入微信客户端原生的页面不存在提示页面。
+         * 3. 如果回调中又重定向到另一个不存在的页面，将推入微信客户端原生的页面不存在提示页面，并且不再第二次回调。
+         */
+        onPageNotFound?: NoneParamCallback;
         [key: string]: any
     }
 
@@ -608,7 +620,87 @@ declare namespace wx {
     /**
      * 获取小程序启动时的参数。与 App.onLaunch 的回调参数一致。
      */
-    function getLaunchOptionsSync(): LaunchCallback;
+    function getLaunchOptionsSync(): onLaunchCallback;
+
+    // 应用级事件
+    /**
+     * 取消监听小程序要打开的页面不存在事件
+     */
+    function offPageNotFound(): NoneParamCallback;
+    /**
+     * 监听小程序要打开的页面不存在事件。该事件与 App.onPageNotFound 的回调时机一致。
+     */
+    function onPageNotFound(): NoneParamCallback;
+    /**
+     * 取消监听小程序错误事件。
+     */
+    function offError(): NoneParamCallback;
+    /**
+     * 监听小程序错误事件。如脚本错误或 API 调用报错等。该事件与 App.onError 的回调时机与参数一致。
+     */
+    function onError(): ErrorCallback;
+    /**
+     *  取消监听小程序切前台事件
+     */
+    function offAppShow(): NoneParamCallback;
+    /**
+     * 监听小程序切前台事件。该事件与 App.onShow 的回调参数一致。
+     * @param callback
+     */
+    function onAppShow(callback: onShowOptions): void;
+    /**
+     * 取消监听小程序切后台事件
+     */
+    function offAppHide(): NoneParamCallback;
+    /**
+     * 监听小程序切后台事件。该事件与 App.onHide 的回调时机一致。
+     */
+    function onAppHide(): NoneParamCallback;
+
+    //  调试  TODO
+
+    // 路由
+    interface routerOptions {
+
+    }
+    /**
+     * 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages() 获取当前的页面栈，决定需要返回几层。
+     */
+    function navigateBack(): void;
+    function switchTab(): void;
+    function navigateTo(): void;
+    function reLaunch(): void;
+    function redirectTo(): void;
+
+    // 界面
+    // 交互
+    // tapIndex为用户点击的按钮序号，从上到下的顺序，从0开始
+    type ActionSheetSuccessCallback = (res: {tapIndex: number}) => void;
+
+    interface ActionSheetOptions {
+        // 必填，按钮的文字数组，数组长度最大为 6
+        itemList: Array<string>;
+        // 按钮的文字颜色
+        itemColor?: string;
+        success?: ActionSheetSuccessCallback;
+        fail?: ResponseCallback;
+        complete?: ResponseCallback;
+    }
+    /**
+     * 显示操作菜单
+     */
+    function showActionSheet(options: ActionSheetOptions): void;
+    function hideLoading(): void;
+    function showLoading(): void;
+    function hideToast(): void;
+    function showToast(): void;
+    function showModal(): void;
+
+    // 导航栏
+    function setNavigationBarColor(): void;
+    function hideNavigationBarLoading(): void;
+    function showNavigationBarLoading(): void;
+    function setNavigationBarTitle(): void;
 
     interface AccelerometerData {
         /** X 轴 */
@@ -1182,3 +1274,32 @@ declare var App: AppConstructor;
  * 我们提供了全局的 getApp() 函数，可以获取到小程序实例。
  */
 declare function getApp(): App;
+
+// 定时器
+/**
+ * 设定一个定时器。在定时到期以后执行注册的回调函数
+ * @param callback
+ * @param delay 延迟的时间，函数的调用会在该延迟之后发生，单位 ms。
+ * @param rest  param1, param2, ..., paramN 等附加参数，它们会作为参数传递给回调函数。
+ */
+declare function setTimeout(callback: functions, delay: number, rest: any): number;
+
+/**
+ * 取消由 setTimeout 设置的定时器。
+ * @param timeoutID 要取消的定时器的ID
+ */
+declare function clearTimeout(timeoutID: number): number;
+
+/**
+ * 设定一个定时器。按照指定的周期（以毫秒计）来执行注册的回调函数
+ * @param callback
+ * @param delay 延迟的时间，函数的调用会在该延迟之后发生，单位 ms。
+ * @param rest  param1, param2, ..., paramN 等附加参数，它们会作为参数传递给回调函数。
+ */
+declare function setInterval(callback: functions, delay: number, rest: any): number;
+
+/**
+ * 取消由 setInterval 设置的定时器。
+ * @param timeoutID 要取消的定时器的ID
+ */
+declare function clearInterval(timeoutID: number): number;
