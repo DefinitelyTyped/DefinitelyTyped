@@ -6,8 +6,23 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { ImageURISource } from 'react-native';
+import { StyleProp, TextStyle, ImageStyle, ViewStyle, ImageURISource } from 'react-native';
 import * as moment from 'moment';
+
+interface CustomStylesProps {
+    placeholderText?: StyleProp<TextStyle>;
+    dateText?: StyleProp<TextStyle>;
+    dateIcon?: StyleProp<ImageStyle>;
+    dateInput?: StyleProp<ViewStyle>;
+    dateTouchBody?: StyleProp<ViewStyle>;
+    datePickerCon?: StyleProp<ViewStyle>;
+    datePicker?: StyleProp<ViewStyle>;
+    btnCancel?: StyleProp<any>;
+    btnTextCancel?: StyleProp<TextStyle>;
+    btnConfirm?: StyleProp<any>;
+    btnTextConfirm?: StyleProp<TextStyle>;
+    disabled?: StyleProp<ViewStyle>;
+}
 
 export interface DatePickerProps {
     mode?: 'date' | 'datetime' | 'time';
@@ -33,8 +48,8 @@ export interface DatePickerProps {
     modalOnResponderTerminationRequest?(e: any): boolean;
     is24Hour?: boolean;
     getDateStr?: (date: Date) => string;
-    style?: any;
-    customStyles?: any;
+    style?: StyleProp<any>;
+    customStyles?: CustomStylesProps;
     minuteInterval?: number;
     TouchableComponent?: React.Component;
     locale?: string;
