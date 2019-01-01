@@ -29,7 +29,7 @@ declare namespace OSS {
 
     type StorageType = "Standard" | "IA" | "Archive";
 
-    type ACLType = "public-read-write" | "public-read" | "and private";
+    type ACLType = "public-read-write" | "public-read" | "private";
 
     type HTTPMethods = "GET" | "POST" | "DELETE" | "PUT";
 
