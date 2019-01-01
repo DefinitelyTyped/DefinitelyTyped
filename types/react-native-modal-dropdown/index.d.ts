@@ -39,6 +39,6 @@ declare namespace RNModalDropdown {
     }
 
     class ModalDropdown extends React.Component<ModalDropdownProps> {
-        public static default: typeof ModalDropdown;
+        static default: typeof ModalDropdown;
     }
 }
