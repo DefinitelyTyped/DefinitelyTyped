@@ -1,4 +1,3 @@
-
 import noble = require("noble-mac");
 
 function test_startScanning(): void {
@@ -41,7 +40,7 @@ noble.removeAllListeners("scanStop");
 noble.removeAllListeners("discover");
 noble.removeAllListeners();
 
-var peripheral: noble.Peripheral = new noble.Peripheral();
+const peripheral: noble.Peripheral = new noble.Peripheral();
 peripheral.uuid = "12ad4e81";
 peripheral.advertisement = {
     localName:        "device",
@@ -72,7 +71,7 @@ peripheral.on("disconnect", (error: string): void => {});
 peripheral.on("rssiUpdate", (rssi: number): void => {});
 peripheral.on("servicesDiscover", (services: noble.Service[]): void => {});
 
-var service: noble.Service = new noble.Service();
+const service: noble.Service = new noble.Service();
 service.uuid = "180a";
 service.name = "";
 service.type = "";
@@ -84,7 +83,7 @@ service.discoverCharacteristics(["2a38"], (error: string, characteristics: noble
 service.on("includedServicesDiscover", (includedServiceUuids: string[]): void => {});
 service.on("characteristicsDiscover", (characteristics: noble.Characteristic[]): void => {});
 
-var characteristic: noble.Characteristic = new noble.Characteristic();
+const characteristic: noble.Characteristic = new noble.Characteristic();
 characteristic.uuid = "2a37";
 characteristic.name = "";
 characteristic.type = "";
@@ -109,7 +108,7 @@ characteristic.subscribe((error: string) => {});
 characteristic.unsubscribe();
 characteristic.unsubscribe((error: string) => {});
 
-var descriptor: noble.Descriptor = new noble.Descriptor();
+const descriptor: noble.Descriptor = new noble.Descriptor();
 descriptor.uuid = "";
 descriptor.name = "";
 descriptor.type = "";

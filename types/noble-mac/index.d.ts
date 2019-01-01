@@ -1,4 +1,4 @@
-// Type definitions for noble-mac (type definitions copied from noble)
+// Type definitions for noble-mac 0.0.3
 // Project: https://github.com/Timeular/noble-mac
 // Definitions by: Seon-Wook Park <https://github.com/swook>
 //                 Shantanu Bhadoria <https://github.com/shantanubhadoria>
@@ -10,40 +10,37 @@
 
 /// <reference types="node" />
 
-
 import events = require("events");
 
-export declare function startScanning(callback?: (error?: Error) => void): void;
-export declare function startScanning(serviceUUIDs: string[], callback?: (error?: Error) => void): void;
-export declare function startScanning(serviceUUIDs: string[], allowDuplicates: boolean, callback?: (error?: Error) => void): void;
-export declare function stopScanning(callback?: () => void): void;
+export function startScanning(callback?: (error?: Error) => void): void;
+export function startScanning(serviceUUIDs: string[], callback?: (error?: Error) => void): void;
+export function startScanning(serviceUUIDs: string[], allowDuplicates: boolean, callback?: (error?: Error) => void): void;
+export function stopScanning(callback?: () => void): void;
 
-export declare function on(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
-export declare function on(event: "scanStart", listener: () => void): events.EventEmitter;
-export declare function on(event: "scanStop", listener: () => void): events.EventEmitter;
-export declare function on(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
-export declare function on(event: string, listener: Function): events.EventEmitter;
+export function on(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
+export function on(event: "scanStart" | "scanStop", listener: () => void): events.EventEmitter;
+export function on(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
+export function on(event: string, listener: Function): events.EventEmitter;
 
-export declare function removeListener(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
-export declare function removeListener(event: "scanStart", listener: () => void): events.EventEmitter;
-export declare function removeListener(event: "scanStop", listener: () => void): events.EventEmitter;
-export declare function removeListener(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
-export declare function removeListener(event: string, listener: Function): events.EventEmitter;
+export function removeListener(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
+export function removeListener(event: "scanStart" | "scanStop", listener: () => void): events.EventEmitter;
+export function removeListener(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
+export function removeListener(event: string, listener: Function): events.EventEmitter;
 
-export declare function removeAllListeners(event?: string): events.EventEmitter;
+export function removeAllListeners(event?: string): events.EventEmitter;
 
-export declare var state:string;
+export const state: string;
 
-export declare class Peripheral extends events.EventEmitter {
-    id:            string;
-    uuid:          string;
-    address:       string;
-    addressType:   string;
-    connectable:   boolean;
+export class Peripheral extends events.EventEmitter {
+    id: string;
+    uuid: string;
+    address: string;
+    addressType: string;
+    connectable: boolean;
     advertisement: Advertisement;
-    rssi:          number;
-    services:      Service[];
-    state:         'error' | 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
+    rssi: number;
+    services: Service[];
+    state: 'error' | 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
 
     connect(callback?: (error: string) => void): void;
     disconnect(callback?: () => void): void;
@@ -56,8 +53,7 @@ export declare class Peripheral extends events.EventEmitter {
     writeHandle(handle: Buffer, data: Buffer, withoutResponse: boolean, callback: (error: string) => void): void;
     toString(): string;
 
-    on(event: "connect", listener: (error: string) => void): this;
-    on(event: "disconnect", listener: (error: string) => void): this;
+    on(event: "connect" | "disconnect", listener: (error: string) => void): this;
     on(event: "rssiUpdate", listener: (rssi: number) => void): this;
 	on(event: "servicesDiscover", listener: (services: Service[]) => void): this;
 	on(event: string, listener: Function): this;
@@ -74,7 +70,7 @@ export interface Advertisement {
     serviceUuids: string[];
 }
 
-export declare class Service extends events.EventEmitter {
+export class Service extends events.EventEmitter {
     uuid: string;
     name: string;
     type: string;
@@ -90,7 +86,7 @@ export declare class Service extends events.EventEmitter {
 	on(event: string, listener: Function): this;
 }
 
-export declare class Characteristic extends events.EventEmitter {
+export class Characteristic extends events.EventEmitter {
     uuid: string;
     name: string;
     type: string;
@@ -108,14 +104,13 @@ export declare class Characteristic extends events.EventEmitter {
 
     on(event: "read", listener: (data: Buffer, isNotification: boolean) => void): this;
     on(event: "write", withoutResponse: boolean, listener: (error: string) => void): this;
-    on(event: "broadcast", listener: (state: string) => void): this;
-    on(event: "notify", listener: (state: string) => void): this;
+    on(event: "broadcast" | "notify", listener: (state: string) => void): this;
 	on(event: "descriptorsDiscover", listener: (descriptors: Descriptor[]) => void): this;
 	on(event: string, listener: Function): this;
     on(event: string, option: boolean, listener: Function): this;
 }
 
-export declare class Descriptor extends events.EventEmitter {
+export class Descriptor extends events.EventEmitter {
     uuid: string;
     name: string;
     type: string;
