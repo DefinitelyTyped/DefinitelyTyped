@@ -37,12 +37,33 @@ declare namespace wx {
         [key: string]: any;
     }
 
+    interface referrerInfo {
+        /** 来源小程序、公众号或 App 的 appId */
+        appId: string,
+        /** 来源小程序传过来的数据，scene=1037或1038时支持 */
+        extraData: Object
+    }
+
+    interface LaunchOptions {
+        /** 启动小程序的路径 */
+        path: string,
+        /** 启动小程序的场景值 */
+        scene: number,
+        /** 启动小程序的query参数 */
+        query: Object,
+        shareTicket: string,
+        /** 来源信息。从另一个小程序、公众号或App进入小程序时返回。范泽返回{} */
+        referrerInfo: referrerInfo
+    }
+
+    type LaunchCallback = (options: LaunchOptions) => void;
+
     interface AppOptions {
         /**
          * 生命周期函数--监听小程序初始化
          * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
          */
-        onLaunch?: NoneParamCallback;
+        onLaunch?: LaunchCallback;
         /**
          * 生命周期函数--监听小程序显示
          * 当小程序启动，或从后台进入前台显示，会触发 onShow
@@ -560,6 +581,34 @@ declare namespace wx {
      * 获取系统信息。
      */
     function getSystemInfo(options: GetSystemInfoOptions): void;
+
+    interface UpdateManager {
+        /**
+         * 强制小程序重启并使用新版本。在小程序新版本下载完成后（即收到 onUpdateReady 回调）调用。
+         */
+        applyUpdate(callback: DataResponseCallback): void;
+        /**
+         * 监听向微信后台请求检查更新结果事件。微信在小程序冷启动时自动检查更新，不需由开发者主动触发。
+         */
+        onCheckForUpdate(): void;
+        /**
+         * 监听小程序有版本更新事件。客户端主动触发下载（无需开发者触发），下载成功后回调
+         */
+        onUpdateReady(callback: NoneParamCallback): void;
+        /**
+         * 监听小程序更新失败事件。小程序有新版本，客户端主动触发下载（无需开发者触发），下载失败（可能是网络原因等）后回调
+         */
+        onUpdateFailed(callback: NoneParamCallback): void;
+    }
+    /**
+     * 获取全局唯一的版本更新管理器，用于管理小程序更新。关于小程序的更新机制，可以查看运行机制文档。
+     */
+    function getUpdateManager(): UpdateManager;
+
+    /**
+     * 获取小程序启动时的参数。与 App.onLaunch 的回调参数一致。
+     */
+    function getLaunchOptionsSync(): LaunchCallback;
 
     interface AccelerometerData {
         /** X 轴 */
