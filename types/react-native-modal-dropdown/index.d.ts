@@ -1,5 +1,5 @@
 // Type definitions for react-native-modal-dropdown 0.6
-// Project: https://github.com/nitin42/react-native-modal-dropdown
+// Project: https://github.com/sohobloo/react-native-modal-dropdown
 // Definitions by: Carlos Li <https://github.com/echoulen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -7,7 +7,7 @@
 import * as React from "react";
 
 import ModalDropdown = RNModalDropdown.ModalDropdown;
-export default ModalDropdown;
+export = ModalDropdown;
 
 declare namespace RNModalDropdown {
     interface PositionStyle {
@@ -39,5 +39,6 @@ declare namespace RNModalDropdown {
     }
 
     class ModalDropdown extends React.Component<ModalDropdownProps> {
+        public static default: typeof ModalDropdown;
     }
 }
