@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "ban-types": {
             "options": [
                 ["Object", "Avoid using the `Object` type. Did you mean `object`?"],
