@@ -18,6 +18,7 @@ declare namespace OSS {
         internal?: boolean; //  access OSS with aliyun internal network or not, default is false. If your servers are running on aliyun too, you can set true to save lot of money.
         secure?: boolean; // instruct OSS client to use HTTPS (secure: true) or HTTP (secure: false) protocol.
         timeout?: string | number; // instance level timeout for all operations, default is 60s
+        cname?: boolean; // use custom domain name
     }
 
     interface Bucket {
