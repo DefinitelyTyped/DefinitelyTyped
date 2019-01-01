@@ -5,6 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+import * as React from "react";
+
 export type PossiblyFuncOfHrefAndType<T> =
     | T
     | ((href: string, type: string) => T);
@@ -27,9 +29,9 @@ export interface LinkifyOptions {
      * Also accepts a function that takes the unformatted href, the link type
      * (e.g., 'url', 'email', etc.) and returns the object.
      */
-    attributes?: PossiblyFuncOfHrefAndType<{
-        [attrName: string]: any;
-    }> | null;
+    attributes?: PossiblyFuncOfHrefAndType<
+        React.AnchorHTMLAttributes<HTMLAnchorElement>
+    > | null;
 
     /**
      * className
