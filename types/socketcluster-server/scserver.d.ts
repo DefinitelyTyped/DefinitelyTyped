@@ -83,7 +83,7 @@ declare namespace SCServer {
         // This can be the name of an npm module or a path to a Node.js module
         // to use as the WebSocket server engine.
         // You can now set this to 'sc-uws' for a massive speedup of at least 2x!
-        wsEngine?: string;
+        wsEngine?: any;
 
         // An ID to associate with this specific instance of SC
         // this may be useful if you are running an SC app on multiple
