@@ -182,28 +182,38 @@ describe("linkifyjs/react", () => {
 
     /* Default values for all props */
     {
+        const content =
+            "For help with GitHub.com, please email support@github.com";
         <Linkify>
-            <span>Hello https://google.com</span>
-        </Linkify>
+            <span>{content}</span>
+        </Linkify>;
     }
-            
+
     /* Custom class name */
 
     {
-        <Linkify options= {{
-            className: "custom-class-name"
-        }}>
-            <span>Hello https://google.com</span>
-        </Linkify>
+        const content =
+            "For help with GitHub.com, please email support@github.com";
+        <Linkify
+            options={{
+                className: "custom-class-name"
+            }}
+        >
+            <span>{content}</span>
+        </Linkify>;
     }
 
     /* Custom tag name */
 
     {
-        <Linkify options= {{
-            tagName: "p"
-        }}>
-            <span>Hello https://google.com</span>
-        </Linkify>
+        const content =
+            "For help with GitHub.com, please email support@github.com";
+        <Linkify
+            options={{
+                tagName: "p"
+            }}
+        >
+            <span>{content}</span>
+        </Linkify>;
     }
 });
