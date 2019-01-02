@@ -1754,6 +1754,11 @@ MongoModel.populate(users, { path: 'weapon' }, function (err, users) {
 });
 MongoModel.remove({ title: 'baby born from alien father' }, cb);
 MongoModel.remove({_id: '999'}).exec().then(cb).catch(cb);
+MongoModel.remove({_id: '999'}).exec().then(res=>console.log(res.ok));
+MongoModel.deleteOne({_id: '999'}).then(res=>console.log(res.ok));
+MongoModel.deleteOne({_id: '999'}).exec().then(res=>console.log(res.ok));
+MongoModel.deleteMany({_id: '999'}).then(res=>console.log('Success?',!!res.ok, 'deleted count', res.n));
+MongoModel.deleteMany({_id: '999'}).exec().then(res=>console.log(res.ok));
 MongoModel.update({ age: { $gt: 18 } }, { oldEnough: true }, cb);
 MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
