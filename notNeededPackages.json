@@ -1513,6 +1513,12 @@
             "asOfVersion": "0.5.7"
         },
         {
+            "libraryName": "Spectacle",
+            "typingsPackageName": "spectacle",
+            "sourceRepoURL": "http://github.com/FormidableLabs/spectacle/",
+            "asOfVersion": "5.2.3"
+        },
+        {
             "libraryName": "Spin.js",
             "typingsPackageName": "spin.js",
             "sourceRepoURL": "http://fgnass.github.com/spin.js/",

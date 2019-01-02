@@ -626,10 +626,13 @@ declare namespace Sinon {
     }
 
     interface SinonStubStatic {
+        // Disable rule so assignment to typed stub works (see examples in tests).
         /**
          * Creates an anonymous stub function
          */
-        (): SinonStub;
+        // tslint:disable-next-line no-unnecessary-generics
+        <TArgs extends any[]= any[], R = any>(): SinonStub<TArgs, R>;
+
         /**
          * Stubs all the object’s methods.
          * Note that it’s usually better practice to stub individual methods, particularly on objects that you don’t understand or control all the methods for (e.g. library dependencies).

@@ -73,6 +73,7 @@ function default_singles() {
         ;
     console.log(argv.x + argv.y);
 }
+
 function default_hash() {
     const argv = yargs
         .default({ x: 10, y: 10 })
@@ -90,6 +91,7 @@ function boolean_single() {
     console.dir(argv.v);
     console.dir(argv._);
 }
+
 function boolean_double() {
     const argv = yargs
         .boolean(['x', 'y', 'z'])
@@ -120,11 +122,30 @@ function Argv$argv() {
     console.log("command: " + argv._[1]);
 }
 
-function Argv_parsing() {
+function Argv$parsing() {
     const argv1 = yargs.parse();
-    const argv2 = yargs(['-x', '1', '-y', '2']);
+    const argv2 = yargs(['-x', '1', '-y', '2']).argv;
     const argv3 = yargs.parse(['-x', '1', '-y', '2']);
-    console.log(argv1.x, argv2.x, argv3.x);
+    const argv4 = yargs();
+    console.log(argv1.x, argv2.x, argv3.x, argv4.x);
+
+    // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+    yargs.parse();
+
+    // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+    yargs([]).argv;
+
+    // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+    yargs.argv;
+
+    // $ExpectType { [x: string]: unknown; _: string[]; $0: string; }
+    yargs();
+
+    // $ExpectType { [x: string]: unknown; update: boolean | undefined; extern: boolean | undefined; _: string[]; $0: string; }
+    yargs(['--update'])
+        .boolean('update')
+        .boolean('extern')
+        .argv;
 }
 
 function Argv$options() {
