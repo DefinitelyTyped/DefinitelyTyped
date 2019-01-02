@@ -1125,9 +1125,9 @@ declare global {
             getForeignObjects(pattern: string, type: ObjectType, enums: EnumList, options: unknown, callback: GetObjectsCallback): void;
             // tslint:enable:unified-signatures
             /** Get foreign objects by pattern, by specific type and resolve their enums. */
-            getForeignObjectsAsync(pattern: string, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectCallback>>;
-            getForeignObjectsAsync(pattern: string, type: ObjectType, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectCallback>>;
-            getForeignObjectsAsync(pattern: string, type: ObjectType, enums: EnumList, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectCallback>>;
+            getForeignObjectsAsync(pattern: string, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            getForeignObjectsAsync(pattern: string, type: ObjectType, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
+            getForeignObjectsAsync(pattern: string, type: ObjectType, enums: EnumList, options?: unknown): Promise<CallbackReturnTypeOf<GetObjectsCallback>>;
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
             setForeignObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setForeignObject(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;

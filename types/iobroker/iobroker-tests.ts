@@ -170,6 +170,9 @@ adapter.getForeignObject("obj.id", (err, obj) => { });
 adapter.getObjectAsync("obj.id").then(obj => obj._id.toLowerCase());
 adapter.getForeignObjectAsync("obj.id").then(obj => obj._id.toLowerCase());
 
+adapter.getForeignObjects("*", (err, objs) => { objs["foo"]._id.toLowerCase(); })
+adapter.getForeignObjectsAsync("*").then(objs => objs["foo"]._id.toLowerCase());
+
 adapter.subscribeObjects("*");
 adapter.subscribeStates("*");
 adapter.subscribeForeignObjects("*");
