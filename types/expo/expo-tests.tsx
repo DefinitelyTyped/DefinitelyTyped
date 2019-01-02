@@ -47,6 +47,7 @@ import {
     Region,
     registerRootComponent,
     ScreenOrientation,
+    SecureStore,
     Svg,
     Updates
 } from 'expo';
@@ -483,6 +484,19 @@ async () => {
     isString(path2);
     isString(queryParams2['y'] || '');
 };
+
+// #region securestore
+async () => {
+    await SecureStore.setItemAsync('some-key', 'some-val', {
+        keychainAccessible: SecureStore.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
+    });
+    const result = await SecureStore.getItemAsync('some-key');
+    if (result != null) {
+        result.slice() === 'some-val';
+    }
+    await SecureStore.deleteItemAsync('some-key');
+};
+// #endregion
 
 () => (
     <Svg width={100} height={50}>
