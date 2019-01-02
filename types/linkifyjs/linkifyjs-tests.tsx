@@ -155,31 +155,29 @@ describe("linkifyjs/react", () => {
 
     {
         // render()
-        let options = {
+        const options = {
             /* … */
         };
-        let content =
+        const content =
             "For help with GitHub.com, please email support@github.com";
-        return (
-            <Linkify tagName="p" options={options}>
-                {content}
-            </Linkify>
-        );
+        <Linkify tagName="p" options={options}>
+            {content}
+        </Linkify>;
     }
 
     /* Events */
 
     {
-        let content =
+        const content =
             "For help with GitHub.com, please email support@github.com";
-        let linkProps = {
+        const linkProps = {
             onClick: (event: any) => {
                 if (!confirm("Are you sure you want to leave this page?")) {
                     event.preventDefault();
                 }
             }
         };
-        return <Linkify options={{ attributes: linkProps }}>{content}</Linkify>;
+        <Linkify options={{ attributes: linkProps }}>{content}</Linkify>;
     }
 
     /* A few more test cases */
