@@ -61806,7 +61806,7 @@ declare namespace Word {
         readonly id: number;
         /**
          *
-         * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+         * Gets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
          *
          * [Api set: WordApi 1.1]
          */
@@ -62041,7 +62041,7 @@ declare namespace Word {
         insertOoxml(ooxml: string, insertLocation: "Before" | "After" | "Start" | "End" | "Replace"): Word.Range;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
+         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'. This method is only supported if the content control encompasses one or more paragraphs in entirety.
          *
          * [Api set: WordApi 1.1]
          *
@@ -62051,7 +62051,7 @@ declare namespace Word {
         insertParagraph(paragraphText: string, insertLocation: Word.InsertLocation): Word.Paragraph;
         /**
          *
-         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'.
+         * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before', or 'After'. This method is only supported if the content control encompasses one or more paragraphs in entirety.
          *
          * [Api set: WordApi 1.1]
          *
