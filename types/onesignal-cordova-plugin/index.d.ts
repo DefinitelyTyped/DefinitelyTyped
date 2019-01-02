@@ -1,10 +1,14 @@
-// Type definitions for onesignal-cordova-plugin 2.2
+// Type definitions for onesignal-cordova-plugin 2.2.1
 // Project: https://github.com/onesignal/OneSignal-Cordova-SDK#readme
 // Definitions by: David Broder-Rodgers <https://github.com/broder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Window {
-    plugins: { OneSignal: OneSignalCordovaPlugin.OneSignalCordovaPlugin };
+    plugins: CordovaPlugins;
+}
+
+interface CordovaPlugins {
+    OneSignal: OneSignalCordovaPlugin.OneSignalCordovaPlugin;
 }
 
 declare namespace OneSignalCordovaPlugin {
