@@ -27,7 +27,7 @@ declare class PseudoAudioParam {
      * Apply scheduled methods to the provided audioParam. If reset is `true`,
      * cancel all events of AudioParam before applying
      */
-    applyTo(audioParam: AudioParam, reset: boolean): PseudoAudioParam;
+    applyTo(audioParam: AudioParam, reset?: boolean): PseudoAudioParam;
 
     setValueAtTime(value: number, time: number): PseudoAudioParam;
     linearRampToValueAtTime(value: number, time: number): PseudoAudioParam;
