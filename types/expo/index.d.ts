@@ -2353,6 +2353,14 @@ export namespace Speech {
 }
 
 /**
+ * SplashScreen
+ */
+export namespace SplashScreen {
+    function hide(): void;
+    function preventAutoHide(): void;
+}
+
+/**
  * SQLite
  */
 export namespace SQLite {
