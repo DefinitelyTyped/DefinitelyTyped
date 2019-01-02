@@ -9,7 +9,7 @@ import * as React from 'react';
 import { StyleProp, TextStyle, ImageStyle, ViewStyle, ImageURISource } from 'react-native';
 import * as moment from 'moment';
 
-interface CustomStylesProps {
+export interface DatePickerCustomStylesProps {
     placeholderText?: StyleProp<TextStyle>;
     dateText?: StyleProp<TextStyle>;
     dateIcon?: StyleProp<ImageStyle>;
@@ -49,7 +49,7 @@ export interface DatePickerProps {
     is24Hour?: boolean;
     getDateStr?: (date: Date) => string;
     style?: StyleProp<any>;
-    customStyles?: CustomStylesProps;
+    customStyles?: DatePickerCustomStylesProps;
     minuteInterval?: number;
     TouchableComponent?: React.Component;
     allowFontScaling?: boolean;
