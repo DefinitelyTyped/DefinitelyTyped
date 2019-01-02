@@ -686,15 +686,72 @@ declare namespace wx {
         fail?: ResponseCallback;
         complete?: ResponseCallback;
     }
+
+    interface CommonCallbackOptions {
+        success?: ResponseCallback;
+        fail?: ResponseCallback;
+        complete?: ResponseCallback;
+    }
+
+    interface LoadingOptions extends CommonCallbackOptions{
+        // must，提示的内容
+        title: string;
+        //  默认false。是否显示透明蒙层，防止触摸穿透
+        mask: boolean;
+    }
+
+    type icon = 'success' | 'loading' | 'none';
+    interface ToastOptions extends CommonCallbackOptions{
+        // 提示的内容
+        title: string;
+        // 图标，默认值'success'
+        icon?: icon;
+        //  自定义图标的本地路径，image 的优先级高于 icon
+        imgage?: string;
+        //  提示的延迟时间，默认值1500ms
+        duration?: number;
+        //  是否显示透明蒙层，防止触摸穿透，默认值false
+        mask: boolean;
+    }
+
+    interface ModalOptions extends CommonCallbackOptions{
+        // 提示的内容
+        title: string;
+        // 提示的内容
+        content: string;
+        //  是否显示取消按钮，默认值true
+        showCancel?: boolean;
+        //  取消按钮的文字，最多 4 个字符，默认值'取消'
+        cancelText?: string;
+        //  取消按钮的文字颜色，必须是 16 进制格式的颜色字符串，默认值'#000000'
+        cancelColor?: string;
+        //  确认按钮的文字，最多 4 个字符
+        confirmText?: string;
+        //  确认按钮的文字颜色，必须是 16 进制格式的颜色字符串，默认值'#3cc51f'
+        confirmColor?: boolean;
+    }
     /**
      * 显示操作菜单
      */
     function showActionSheet(options: ActionSheetOptions): void;
-    function hideLoading(): void;
-    function showLoading(): void;
-    function hideToast(): void;
-    function showToast(): void;
-    function showModal(): void;
+    /**
+     * 隐藏 loading 提示框
+     * @param options
+     */
+    function hideLoading(options?: CommonCallbackOptions): void;
+    /**
+     * 显示 loading 提示框。需主动调用 wx.hideLoading 才能关闭提示框
+     * @param options
+     */
+    function showLoading(options:  LoadingOptions): void;
+    function hideToast(options?: CommonCallbackOptions): void;
+    function showToast(options: ToastOptions): void;
+
+    /**
+     * 显示模态对话框
+     * @param options
+     */
+    function showModal(options: ModalOptions): void;
 
     // 导航栏
     function setNavigationBarColor(): void;
