@@ -7226,12 +7226,18 @@ export interface DatePickerAndroidOpenOptions {
 }
 
 // Deduced from DatePickerAndroid.android.js
-export interface DatePickerAndroidOpenReturn {
-    action: string; // "dateSetAction" | "dismissedAction"
-    year?: number;
-    month?: number;
-    day?: number;
+export interface DatePickerAndroidDateSetAction {
+    action: 'dateSetAction';
+    year: number;
+    month: number;
+    day: number;
 }
+
+export interface DatePickerAndroidDismissedAction {
+    action: 'dismissedAction';
+}
+
+export type DatePickerAndroidOpenReturn = DatePickerAndroidDateSetAction | DatePickerAndroidDismissedAction
 
 export interface DatePickerAndroidStatic {
     /**
@@ -7257,12 +7263,12 @@ export interface DatePickerAndroidStatic {
     /**
      * A date has been selected.
      */
-    dateSetAction: string;
+    dateSetAction: 'dateSetAction';
 
     /**
      * The dialog has been dismissed.
      */
-    dismissedAction: string;
+    dismissedAction: 'dismissedAction';
 }
 
 export interface IntentAndroidStatic {
@@ -8002,12 +8008,24 @@ export class StatusBar extends React.Component<StatusBarProps> {
  */
 export interface StatusBarIOSStatic extends NativeEventEmitter {}
 
-type TimePickerAndroidOpenOptions = {
+export interface TimePickerAndroidOpenOptions {
     hour?: number;
     minute?: number;
     is24Hour?: boolean;
     mode?: "clock" | "spinner" | "default";
-};
+}
+
+export interface TimePickerAndroidTimeSetAction {
+    action: 'timeSetAction';
+    hour: number;
+    minute: number;
+}
+
+export interface TimePickerAndroidDismissedAction {
+    action: 'dismissedAction';
+}
+
+export type TimePickerAndroidOpenReturn = TimePickerAndroidTimeSetAction | TimePickerAndroidDismissedAction;
 
 /**
  * Opens the standard Android time picker dialog.
@@ -8049,17 +8067,17 @@ export interface TimePickerAndroidStatic {
      * still be resolved with action being `TimePickerAndroid.dismissedAction` and all the other keys
      * being undefined. **Always** check whether the `action` before reading the values.
      */
-    open(options: TimePickerAndroidOpenOptions): Promise<{ action: string; hour: number; minute: number }>;
+    open(options: TimePickerAndroidOpenOptions): Promise<TimePickerAndroidOpenReturn>;
 
     /**
      * A time has been selected.
      */
-    timeSetAction: string;
+    timeSetAction: 'timeSetAction';
 
     /**
      * The dialog has been dismissed.
      */
-    dismissedAction: string;
+    dismissedAction: 'dismissedAction';
 }
 
 /**
