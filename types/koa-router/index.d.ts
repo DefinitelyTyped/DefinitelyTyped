@@ -19,12 +19,6 @@
 
 import * as Koa from "koa";
 
-declare module "koa" {
-    interface Context {
-        params: any;
-    }
-}
-
 declare namespace Router {
     export interface IRouterOptions {
         /**
@@ -49,7 +43,7 @@ declare namespace Router {
         strict?: boolean;
     }
 
-    export interface IRouterContext extends Koa.Context {
+    export interface IRouterContext {
         /**
          * url params
          */
@@ -61,11 +55,11 @@ declare namespace Router {
     }
 
     export interface IMiddleware {
-        (ctx: Router.IRouterContext, next: () => Promise<any>): any;
+        (ctx: Koa.ParameterizedContext<{}, IRouterContext>, next: () => Promise<any>): any;
     }
 
     export interface IParamMiddleware {
-        (param: string, ctx: Router.IRouterContext, next: () => Promise<any>): any;
+        (param: string, ctx: Koa.ParameterizedContext<{}, IRouterContext>, next: () => Promise<any>): any;
     }
 
     export interface IRouterAllowedMethodsOptions {
@@ -88,7 +82,7 @@ declare namespace Router {
         sensitive?: boolean;
         strict?: boolean;
     }
-    
+
     export interface IUrlOptionsQuery {
         query: object | string;
     }
@@ -190,19 +184,19 @@ declare class Router {
      */
     put(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
     put(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
-    
+
     /**
      * HTTP link method
      */
     link(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
     link(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
-    
+
     /**
      * HTTP unlink method
      */
     unlink(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
     unlink(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
-    
+
 
     /**
      * HTTP delete method
@@ -283,21 +277,21 @@ declare class Router {
     /**
      * Generate URL for route. Takes either map of named `params` or series of
      * arguments (for regular expression routes)
-     * 
+     *
      * router = new Router();
      * router.get('user', "/users/:id", ...
-     * 
+     *
      * router.url('user', { id: 3 });
      * // => "/users/3"
-     * 
+     *
      * Query can be generated from third argument:
-     * 
+     *
      * router.url('user', { id: 3 }, { query: { limit: 1 } });
      * // => "/users/3?limit=1"
-     * 
+     *
      * router.url('user', { id: 3 }, { query: "limit=1" });
      * // => "/users/3?limit=1"
-     * 
+     *
      */
     url(name: string, params: any, options?: Router.IUrlOptionsQuery): string;
     url(name: string, params: any, options?: Router.IUrlOptionsQuery): Error;
