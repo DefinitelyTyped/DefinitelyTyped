@@ -153,44 +153,38 @@ describe("linkifyjs/react", () => {
 
     /* Usage */
 
-    const options: LinkifyOptions = {};
-    const content = "For help with GitHub.com, please email support@github.com";
-    let rootElement = document.createElement("div");
-    ReactDOM.render(
-        React.createElement(
-            Linkify,
-            {
-                tagName: "p",
-                options
-            },
-            React.createElement("span", content)
-        ),
-        rootElement
-    );
+    {
+        // render()
+        let options = {
+            /* … */
+        };
+        let content =
+            "For help with GitHub.com, please email support@github.com";
+        return (
+            <Linkify tagName="p" options={options}>
+                {content}
+            </Linkify>
+        );
+    }
 
     /* Events */
 
-    const linkProps = {
-        onClick: (event: any) => {
-            if (!confirm("Are you sure you want to leave this page?")) {
-                event.preventDefault();
+    {
+        let content =
+            "For help with GitHub.com, please email support@github.com";
+        let linkProps = {
+            onClick: (event: any) => {
+                if (!confirm("Are you sure you want to leave this page?")) {
+                    event.preventDefault();
+                }
             }
-        }
-    };
+        };
+        return <Linkify options={{ attributes: linkProps }}>{content}</Linkify>;
+    }
 
-    rootElement = document.createElement("div");
-    ReactDOM.render(
-        React.createElement(
-            Linkify,
-            {
-                options: { attributes: linkProps }
-            },
-            React.createElement("span", null)
-        ),
-        rootElement
-    );
+    /* A few more test cases */
 
-    rootElement = document.createElement("div");
+    let rootElement = document.createElement("div");
     ReactDOM.render(
         React.createElement(
             Linkify,
