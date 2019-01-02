@@ -4,10 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type Vec3 = [number, number, number];
-
-declare namespace bunny {
-    const positions: Vec3[];
-    const cells: Vec3[];
-}
-
-export default bunny;
+export const positions: Vec3[];
+export const cells: Vec3[];

@@ -1,7 +1,7 @@
-import bunny from "bunny";
+import { cells, positions } from "bunny";
 
-bunny.cells; // $ExpectType [number, number, number][]
-bunny.cells[0]; // $ExpectType [number, number, number]
+cells; // $ExpectType [number, number, number][]
+cells[0]; // $ExpectType [number, number, number]
 
-bunny.positions; // $ExpectType [number, number, number][]
-bunny.positions[0]; // $ExpectType [number, number, number]
+positions; // $ExpectType [number, number, number][]
+positions[0]; // $ExpectType [number, number, number]
