@@ -26,6 +26,7 @@
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
+//                 Josh Junon <https://github.com/qix->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -715,6 +716,13 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
 
+    export interface WarningOptions {
+        type?: string;
+        code?: string;
+        ctor?: Function;
+        detail?: string;
+    }
+
     export interface Process extends EventEmitter {
         stdout: WriteStream;
         stderr: WriteStream;
@@ -728,7 +736,9 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
+        emitWarning(warning: string | Error, options?: WarningOptions): void;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, name?: string, code?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
         exitCode: number;

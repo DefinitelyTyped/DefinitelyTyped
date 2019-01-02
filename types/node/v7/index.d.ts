@@ -8,6 +8,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Sander Koenders <https://github.com/Archcry>
+//                 Josh Junon <https://github.com/qix->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -484,6 +485,7 @@ declare namespace NodeJS {
         cwd(): string;
         debugPort: number;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, name?: string, code?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
         exitCode: number;

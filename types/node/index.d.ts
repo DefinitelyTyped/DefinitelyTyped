@@ -32,6 +32,7 @@
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
 //                 Jeremie Rodriguez <https://github.com/jeremiergz>
 //                 Samuel Ainsworth <https://github.com/samuela>
+//                 Josh Junon <https://github.com/qix->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -770,6 +771,13 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
 
+    interface WarningOptions {
+        type?: string;
+        code?: string;
+        ctor?: Function;
+        detail?: string;
+    }
+
     interface Process extends EventEmitter {
         stdout: WriteStream;
         stderr: WriteStream;
@@ -783,7 +791,9 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
+        emitWarning(warning: string | Error, options?: WarningOptions): void;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, name?: string, code?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
         exitCode: number;
