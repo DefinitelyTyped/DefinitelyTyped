@@ -1,6 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "new-parens": false
-    }
+    "extends": "dtslint/dt.json"
 }
