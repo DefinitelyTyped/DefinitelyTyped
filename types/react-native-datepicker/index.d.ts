@@ -52,7 +52,9 @@ export interface DatePickerProps {
     customStyles?: CustomStylesProps;
     minuteInterval?: number;
     TouchableComponent?: React.Component;
+    allowFontScaling?: boolean;
     locale?: string;
+    timeZoneOffsetInMinutes?: number;
     testID?: string;
     cancelBtnTestID?: string;
     confirmBtnTestID?: string;
