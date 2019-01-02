@@ -83,4 +83,21 @@ declare namespace dateFormat {
         monthNames: string[];
         timeNames: string[];
     }
+
+    /**
+     * dateFormat()
+     *
+     * Accepts a date, a mask, or a date and a mask.
+     * Returns a formatted version of the given date.
+     * The date defaults to the current date/time.
+     * The mask defaults to dateFormat.masks.default.
+     *
+     * https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L18
+     */
+    interface DateFormatStatic {
+        (date?: Date | string | number, mask?: string, utc?: boolean, gmt?: boolean): string;
+        (mask?: string, utc?: boolean, gmt?: boolean): string;
+        masks: DateFormatMasks;
+        i18n: DateFormatI18n;
+    }
 }
