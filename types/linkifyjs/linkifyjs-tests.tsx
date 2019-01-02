@@ -182,39 +182,30 @@ describe("linkifyjs/react", () => {
 
     /* A few more test cases */
 
-    let rootElement = document.createElement("div");
-    ReactDOM.render(
-        React.createElement(
-            Linkify,
-            {},
-            React.createElement("span", "Hello https://google.com")
-        ),
-        rootElement
-    );
+    /* Default values for all props */
+    {
+        <Linkify>
+            <span>Hello https://google.com</span>
+        </Linkify>
+    }
+            
+    /* Custom class name */
 
-    rootElement = document.createElement("div");
-    ReactDOM.render(
-        React.createElement(
-            Linkify,
-            {
-                options: {
-                    className: "custom-class-name"
-                }
-            },
-            React.createElement("span", "Hello https://google.com")
-        ),
-        rootElement
-    );
+    {
+        <Linkify options= {{
+            className: "custom-class-name"
+        }}>
+            <span>Hello https://google.com</span>
+        </Linkify>
+    }
 
-    rootElement = document.createElement("div");
-    ReactDOM.render(
-        React.createElement(
-            Linkify,
-            {
-                tagName: "p"
-            },
-            React.createElement("span", "Hello https://google.com")
-        ),
-        rootElement
-    );
+    /* Custom tag name */
+
+    {
+        <Linkify options= {{
+            tagName: "p"
+        }}>
+            <span>Hello https://google.com</span>
+        </Linkify>
+    }
 });
