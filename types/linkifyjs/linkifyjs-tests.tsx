@@ -1,6 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { LinkifyOptions } from "linkifyjs";
 import linkifyHtml from "linkifyjs/html";
 import Linkify from "linkifyjs/react";
 
