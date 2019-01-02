@@ -1,4 +1,7 @@
+// with  tsc v 2.7 & esModuleInterop & allowSyntheticDefaultImports enabled in tsconfig.json
 import Gettext from 'node-gettext';
+// or without
+// import Gettext = require('node-getttext');
 
 const translations = {};
 const gt = new Gettext({ debug: true });

@@ -3,7 +3,8 @@
 // Definitions by: Sameer K.C. <https://github.com/sameercaresu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class GetText {
+export = GetText;
+declare class GetText {
     constructor(options?: { debug: boolean; });
     addTranslations(locale: string, domain: string, translations: object): void;
     dgettext(domain: string, msgid: string): string;
