@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.18
+// Type definitions for stripe 6.19
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -3683,25 +3683,6 @@ declare namespace Stripe {
         interface ISkuAttributes {}
     }
 
-    namespace webhooks {
-        interface StripeWebhookEvent<T> {
-            id: string;
-            object: string;
-            api_version: string;
-            created: number;
-            data: {
-              object: T;
-            };
-            livemode: boolean;
-            pending_webhooks: number;
-            /**
-             * One of https://stripe.com/docs/api#event_types
-             * E.g. account.updated
-             */
-            type: string;
-        }
-    }
-
     namespace ephemeralKeys {
         interface IStripeVersion {
             /**
@@ -7345,7 +7326,7 @@ declare namespace Stripe {
         }
 
         class WebHooks {
-            constructEvent(requestBody: any, signature: string | string[], endpointSecret: string, tolerance?: number): webhooks.StripeWebhookEvent<any>;
+            constructEvent(requestBody: any, signature: string | string[], endpointSecret: string, tolerance?: number): events.IEvent;
         }
 
         class EphemeralKeys {

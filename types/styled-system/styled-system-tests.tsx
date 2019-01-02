@@ -122,11 +122,19 @@ import {
     ButtonStyleProps,
     MixedProps,
     VerticalAlignProps,
-    verticalAlign
+    verticalAlign,
+    px,
+    createMediaQuery
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 declare const styled: (...props: any[]) => React.ComponentType;
+
+const breakpoints = [480, 960];
+
+const breakpointsPx = breakpoints.map(px);
+
+const mediaQueries = breakpoints.map(createMediaQuery);
 
 const boxStyle = variant({
     prop: 'boxStyle',

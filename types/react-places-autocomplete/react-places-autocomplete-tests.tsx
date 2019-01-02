@@ -14,18 +14,6 @@ class Test extends React.Component {
 
         const { address, placeId } = this.state;
 
-        // Old API
-        geocodeByAddress(address, (results, status) => {
-            const latLng = getLatLng(results[0]);
-            console.info(latLng, status);
-        });
-
-        geocodeByPlaceId(placeId, (results, status) => {
-            const latLng = getLatLng(results[0]);
-            console.info(latLng, status);
-        });
-
-        // New API
         geocodeByAddress(address)
             .then((results) => getLatLng(results[0]))
             .then((latLng) => console.log('Success', latLng))
@@ -42,7 +30,20 @@ class Test extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <PlacesAutocomplete value={this.state.address} onChange={this.onChange} googleCallbackName="google_callback_name" />
+                <PlacesAutocomplete value={this.state.address} onChange={this.onChange} googleCallbackName="google_callback_name">
+                    {({getInputProps, getSuggestionItemProps, suggestions}) => (
+                        <>
+                            <input {...getInputProps()} />
+                            <div>
+                                {suggestions.map(suggestion => (
+                                    <div {...getSuggestionItemProps(suggestion)} >
+                                        {suggestion.description}
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </PlacesAutocomplete>
             </form>
         );
     }

@@ -39,3 +39,33 @@ Invariant((done) => {
     done();
   }
 });
+
+Given((done) => {
+  if (done) {
+    done.fail();
+  }
+});
+
+When((done) => {
+  if (done) {
+    done.fail();
+  }
+});
+
+Then('expected condition 2', (done) => {
+  if (done) {
+    done.fail();
+  }
+});
+
+And((done) => {
+  if (done) {
+    done.fail();
+  }
+});
+
+Invariant((done) => {
+  if (done) {
+    done.fail();
+  }
+});

@@ -120,6 +120,7 @@ const myMatcher: fetchMock.MockMatcherFunction = (
 
 fetchMock.flush().then(resolved => resolved.forEach(console.log));
 fetchMock.flush().catch(r => r);
+fetchMock.flush(true).catch(r => r);
 
 fetchMock.get("http://test.com", {
     body: 'abc',

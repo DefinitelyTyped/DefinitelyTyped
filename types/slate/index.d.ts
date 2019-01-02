@@ -68,7 +68,7 @@ export interface ValueJSON {
     object?: "value";
 }
 
-export type Path = Immutable.List<number> | string;
+export type Path = Immutable.List<number> | string | number;
 
 export class Value extends Immutable.Record({}) {
     document: Document;
