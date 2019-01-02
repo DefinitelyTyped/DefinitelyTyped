@@ -1,4 +1,4 @@
-// Type definitions for react-native-datepicker 1.6
+// Type definitions for react-native-datepicker 1.7
 // Project: https://github.com/xgfe/react-native-datepicker
 // Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
 //                 Cheng Gibson <https://github.com/nossbigg>
