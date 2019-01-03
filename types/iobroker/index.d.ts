@@ -828,10 +828,12 @@ declare global {
             ca: Array<string | Buffer>;
         }
 
+        type MessagePayload = string | Record<string, any>;
+
         /** Callback information for a passed message */
         interface MessageCallbackInfo {
             /** The original message payload */
-            message: string | object;
+            message: MessagePayload;
             /** ID of this callback */
             id: number;
             // ???
@@ -839,14 +841,13 @@ declare global {
             /** Timestamp of this message */
             time: number;
         }
-        type MessageCallback = (result?: any) => void;
 
         /** A message being passed between adapter instances */
         interface Message {
             /** The command to be executed */
             command: string;
             /** The message payload */
-            message: string | object;
+            message: MessagePayload;
             /** The source of this message */
             from: string;
             /** ID of this message */
@@ -1038,8 +1039,8 @@ declare global {
              * @param command (optional) Command name of the target instance. Default: "send"
              * @param message The message (e.g. params) to send.
              */
-            sendTo(instanceName: string, message: string | object, callback?: MessageCallback | MessageCallbackInfo): void;
-            sendTo(instanceName: string, command: string, message: string | object, callback?: MessageCallback | MessageCallbackInfo): void;
+            sendTo(instanceName: string, message: MessagePayload, callback?: MessageCallback | MessageCallbackInfo): void;
+            sendTo(instanceName: string, command: string, message: MessagePayload, callback?: MessageCallback | MessageCallbackInfo): void;
             /**
              * Sends a message to a specific instance or all instances of some specific adapter.
              * @param instanceName The instance to send this message to.
@@ -1048,18 +1049,18 @@ declare global {
              * @param command (optional) Command name of the target instance. Default: "send"
              * @param message The message (e.g. params) to send.
              */
-            sendToAsync(instanceName: string, message: string | object): Promise<any>;
-            sendToAsync(instanceName: string, command: string, message: string | object): Promise<any>;
+            sendToAsync(instanceName: string, message: MessagePayload): Promise<Message | undefined>;
+            sendToAsync(instanceName: string, command: string, message: MessagePayload): Promise<Message | undefined>;
             /**
              * Sends a message to a specific host or all hosts.
              */
-            sendToHost(hostName: string, message: string | object, callback?: MessageCallback | MessageCallbackInfo): void;
-            sendToHost(hostName: string, command: string, message: string | object, callback?: MessageCallback | MessageCallbackInfo): void;
+            sendToHost(hostName: string, message: MessagePayload, callback?: MessageCallback | MessageCallbackInfo): void;
+            sendToHost(hostName: string, command: string, message: MessagePayload, callback?: MessageCallback | MessageCallbackInfo): void;
             /**
              * Sends a message to a specific host or all hosts.
              */
-            sendToHostAsync(hostName: string, message: string | object): Promise<any>;
-            sendToHostAsync(hostName: string, command: string, message: string | object): Promise<any>;
+            sendToHostAsync(hostName: string, message: MessagePayload): Promise<Message | undefined>;
+            sendToHostAsync(hostName: string, command: string, message: MessagePayload): Promise<Message | undefined>;
 
             /** Convert ID to {device: D, channel: C, state: S} */
             idToDCS(id: string): {
@@ -1584,6 +1585,7 @@ declare global {
         type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void;
         type StateChangeHandler = (id: string, obj: State | null | undefined) => void;
         type MessageHandler = (obj: Message) => void;
+        type MessageCallback = (response?: Message) => void;
         type UnloadHandler = (callback: EmptyCallback) => void;
 
         type EmptyCallback = () => void;
