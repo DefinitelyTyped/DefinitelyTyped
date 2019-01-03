@@ -3,10 +3,10 @@
 // Definitions by: geni429 <https://github.com/geni429>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="../types/react" />
-/// <reference types="../types/animejs" />
+/// <reference types="../react" />
+/// <reference types="../animejs" />
 
-import { CSSObject, SimpleInterpolation } from "../types/styled-components";
+import { CSSObject, SimpleInterpolation } from "../styled-components";
 
 export = styledAnime;
 export as namespace styledAnime;
@@ -81,6 +81,7 @@ declare namespace styledAnime {
         perspective?: VaildTransformsValue;
         offset?: number;
     };
+
     interface StyledAnimeComponentProps {
         children?: React.ReactNode;
         played?: boolean;
