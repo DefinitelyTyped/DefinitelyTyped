@@ -13,7 +13,6 @@ import {
 import mongoosePaginate = require('mongoose-paginate');
 import { Router, Request, Response } from 'express';
 
-
 //#region Test Models
 interface User extends Document {
   email: string;
@@ -29,20 +28,19 @@ const UserSchema: Schema = new Schema({
 
 UserSchema.plugin(mongoosePaginate);
 
-interface UserModel<T extends Document> extends PaginateModel<T> {};
+interface UserModel<T extends Document> extends PaginateModel<T> {}
 
-let UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
+const UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
 //#endregion
 
-
 //#region Test Paginate
-let router: Router = Router();
+const router: Router = Router();
 
-router.get('/users.json', function(req: Request, res: Response) {
-    let descending: boolean = true;
-    let options: PaginateOptions = {} as PaginateOptions;
+router.get('/users.json', (req: Request, res: Response) => {
+    const descending = true;
+    const options: PaginateOptions = {};
     options.select = 'email username';
-    options.sort = { 'username': (descending ? -1 : 1) };
+    options.sort = { username: (descending ? -1 : 1) };
     options.collation = { locale: 'en_US', strength: 1 };
     options.populate = '';
     options.lean = true;
@@ -78,6 +76,5 @@ router.get('/users.json', function(req: Request, res: Response) {
         console.dir(value.docsCustom);
         return res.json(value);
     });
-
 });
 //#endregion
