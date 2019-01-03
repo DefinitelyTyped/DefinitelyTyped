@@ -13,10 +13,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "styled-anime-tests.ts"
+        "styled-anime-tests.tsx"
     ]
 }
