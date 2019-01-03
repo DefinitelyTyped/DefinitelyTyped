@@ -48,6 +48,10 @@ class App extends React.Component<{}, AppState> {
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
+  onBeforeDragStart(dragStart: DragStart) {
+    //
+  }
+
   onDragStart(dragStart: DragStart, provided: ResponderProvided) {
     //
   }
@@ -80,7 +84,7 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <DragDropContext onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
+      <DragDropContext onBeforeDragStart={this.onBeforeDragStart} onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
           {(provided, snapshot) => (
             <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)} {...provided.droppableProps}>
