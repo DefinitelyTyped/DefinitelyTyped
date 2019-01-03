@@ -23,7 +23,7 @@ declare namespace core {
 
     type ReadableStream = NodeJS.ReadableStream;
 
-    type NeedleCallback = (error: Error, response: NeedleResponse, body: any) => void;
+    type NeedleCallback = (error: Error | null, response: NeedleResponse, body: any) => void;
 
     interface Cookies {
         [name: string]: any;
