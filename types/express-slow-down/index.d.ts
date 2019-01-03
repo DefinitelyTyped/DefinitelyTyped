@@ -9,6 +9,40 @@ import express = require("express");
 declare namespace SlowDown {
     type StoreIncrementCallback = (err?: {}, hits?: number) => void;
 
+    interface SlowDownRequestAugmentation {
+        /**
+         * The `options.delayAfter` value
+         */
+        limit: number;
+
+        /**
+         * The number of requests in the current window
+         */
+        current: number;
+
+        /**
+         * the number of requests remaining before rate-limiting begins
+         */
+        remaining: number;
+
+        /**
+         * When the window will reset, `current` will return to `0`, and `remaining` will return
+         * to limit. Represents milliseconds since epoch (compare to `Date.now()`). This field
+         * depends on store support. It will be `undefined` if the store does not provide the value.
+         */
+        resetTime?: number;
+
+        /**
+         * Amount of delay imposed on current request in milliseconds
+         */
+        delay: number;
+    }
+
+    /**
+     * Express Request with the added `slowDown` property
+     */
+    type RequestWithSlowDown = express.Request & { slowDown: SlowDownRequestAugmentation }
+
     interface Store {
         incr(key: string, cb: StoreIncrementCallback): void;
         decrement(key: string): void;
@@ -62,7 +96,7 @@ declare namespace SlowDown {
          * Function to execute the first time the limit is reached within `windowMs`.
          * Default: `(req, res, opts) => {}`
          */
-        onLimitReached?(req: express.Request, res: express.Response, optionsUsed: Options): void;
+        onLimitReached?(req: RequestWithSlowDown, res: express.Response, optionsUsed: Options): void;
 
         /**
          * The storage to use when persisting request attempts. By default, the MemoryStore is used.
@@ -71,5 +105,5 @@ declare namespace SlowDown {
     }
 }
 
-declare var SlowDown: new (options: SlowDown.Options) => express.RequestHandler;
+declare var SlowDown: (options: SlowDown.Options) => express.RequestHandler;
 export = SlowDown;

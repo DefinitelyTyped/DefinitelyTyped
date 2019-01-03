@@ -1,8 +1,8 @@
-import SlowDown = require("express-slow-down");
+import slowDown = require("express-slow-down");
 
-const slowerAllDefaults = new SlowDown({});
+const slowerAllDefaults = slowDown({});
 
-const slowerWithOptions = new SlowDown({
+const slowerWithOptions = slowDown({
     windowMs: 15 * 60 * 1000, // 15 minutes,
     delayAfter: 1,
     delayMs: 0, // disabled
@@ -10,18 +10,22 @@ const slowerWithOptions = new SlowDown({
     skipSuccessfulRequests: true,
 });
 
-const slowerWithCallbacks = new SlowDown({
+const slowerWithCallbacks = slowDown({
     keyGenerator: (req, res) => req.ip,
     skip: (req, res) => false,
-    onLimitReached: (req, res, opts) => {},
+    onLimitReached: (req, res, opts) => {
+        console.log(req.slowDown.current);
+        console.log(req.slowDown.remaining);
+        console.log(req.slowDown.limit);
+    },
 });
 
-class MockStore implements SlowDown.Store {
-    incr(key: string, cb: SlowDown.StoreIncrementCallback) { }
+class MockStore implements slowDown.Store {
+    incr(key: string, cb: slowDown.StoreIncrementCallback) { }
     decrement(key: string) { }
     resetKey(key: string) { }
 }
 
-const slowerWithStore = new SlowDown({
+const slowerWithStore = slowDown({
     store: new MockStore()
 });
