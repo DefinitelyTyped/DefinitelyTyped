@@ -8,11 +8,10 @@
 
 import { CSSObject, SimpleInterpolation } from "../styled-components";
 
-export = styledAnime;
 export as namespace styledAnime;
 
-declare namespace styledAnime {
-    type EasingOptions =
+export namespace styledAnime {
+    export type EasingOptions =
         | "linear"
         | "easeInQuad"
         | "easeInCubic"
@@ -42,21 +41,21 @@ declare namespace styledAnime {
         | "easeInOutBack"
         | "easeInOutElastic";
 
-    type DirectionOptions = "reverse" | "alternate" | "normal";
+    export type DirectionOptions = "reverse" | "alternate" | "normal";
 
-    type AnimeCallbackFunction = (anim: anime.AnimeInstance) => void;
+    export type AnimeCallbackFunction = (anim: anime.AnimeInstance) => void;
 
-    type FunctionBasedParameter = (
+    export type FunctionBasedParameter = (
         element: HTMLElement,
         index: number,
         length: number
     ) => number;
 
-    type Value = {
+    export type Value = {
         value: string | number;
     };
 
-    type VaildTransformsValue =
+    export type VaildTransformsValue =
         | string
         | number
         | Value
@@ -64,7 +63,7 @@ declare namespace styledAnime {
         | Array<number>
         | Array<Value>;
 
-    type AnimatedProperties = {
+    export type AnimatedProperties = {
         translateX?: VaildTransformsValue;
         translateY?: VaildTransformsValue;
         translateZ?: VaildTransformsValue;
@@ -82,12 +81,12 @@ declare namespace styledAnime {
         offset?: number;
     };
 
-    interface StyledAnimeComponentProps {
+    export interface StyledAnimeComponentProps {
         children?: React.ReactNode;
         played?: boolean;
     }
 
-    interface StyledAnimeParams extends AnimatedProperties {
+    export interface StyledAnimeParams extends AnimatedProperties {
         loop?: number | boolean;
         autoplay?: boolean;
         direction?: DirectionOptions | string;
@@ -105,20 +104,20 @@ declare namespace styledAnime {
         complete?: AnimeCallbackFunction;
     }
 
-    interface AnimeFunction {
+    export interface AnimeFunction {
         (config: StyledAnimeParams): React.PureComponent<
             StyledAnimeComponentProps
         >;
     }
 
-    interface StyledFunction {
+    export interface StyledFunction {
         (
             style: TemplateStringsArray | CSSObject,
             ...interpolations: SimpleInterpolation[]
         ): AnimeFunction;
     }
 
-    function styledAnime(
+    export function styledAnime(
         TargetComponent: keyof JSX.IntrinsicElements | React.ComponentType<any>
     ): StyledFunction;
 }
