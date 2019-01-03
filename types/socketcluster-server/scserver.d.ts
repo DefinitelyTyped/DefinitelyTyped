@@ -34,7 +34,7 @@ declare class SCServer extends EventEmitter {
 
     on(event: "connection", listener: SCServer.connectionListenerFunction): this;
     on(event: "ready", listener: () => void): this;
-    on(event: "error", listener: (error: Error) => void): this;
+    on(event: "warning" | "error", listener: (error: Error) => void): this;
     on(event: "disconnection" | "connectionAbort" | "closure", listener: SCServer.disconnectionListenerFunction): this;
     on(event: "subscription", listener: SCServer.subscriptionListenerFunction): this;
     on(event: "unsubscription", listener: SCServer.unsubscriptionListenerFunction): this;
@@ -323,7 +323,7 @@ declare namespace SCServer {
     type connectionListenerFunction = (scSocket: SCServerSocket, serverSocketStatus: SCServerSocketStatus) => void;
     type disconnectionListenerFunction = (scSocket: SCServerSocket, code: number, data: any) => void;
     type subscriptionListenerFunction = (scSocket: SCServerSocket, name: string, options: {channel: string}) => void;
-    type unsubscriptionListenerFunction = (scSocket: SCServerSocket, name: string, channel: string) => void;
+    type unsubscriptionListenerFunction = (scSocket: SCServerSocket, channel: string) => void;
     type handshakeListenerFunction = (scSocket: SCServerSocket) => void;
     type badSocketAuthTokenListenerFunction = (scSocket: SCServerSocket, status: badAuthStatus) => void;
 
