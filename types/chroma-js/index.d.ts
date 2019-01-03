@@ -11,7 +11,7 @@ declare namespace chroma {
     interface ColorSpaces {
         rgb: [number, number, number];
         rgba: [number, number, number, number];
-        hsl: [number, number, number];
+        hsl: [number, number, number, number?];
         hsv: [number, number, number];
         hsi: [number, number, number];
         lab: [number, number, number];
