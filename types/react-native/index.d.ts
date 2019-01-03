@@ -4269,6 +4269,8 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
      * Only enabled by default on iOS because that is the platform standard there.
      */
     stickySectionHeadersEnabled?: boolean;
+    
+    legacyImplementation?: boolean;
 }
 
 export interface SectionListScrollParams {
