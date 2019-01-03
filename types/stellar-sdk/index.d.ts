@@ -284,13 +284,49 @@ export namespace StellarBase {
             Revocable = 2,
             Immutable = 4,
         }
-        interface Signer {
-            ed25519PublicKey?: string;
-            sha256Hash?: Buffer | string;
-            preAuthTx?: Buffer | string;
+        interface SignerEd25519PublicKey {
+            ed25519PublicKey: string;
+            weight: number | undefined;
+        }
+        interface SignerSha256Hash {
+            sha256Hash: Buffer;
+            weight: number | undefined;
+        }
+        interface SignerPreAuthTx {
+            preAuthTx: Buffer;
+            weight: number | undefined;
+        }
+        type Signer = SignerEd25519PublicKey | SignerSha256Hash | SignerPreAuthTx;
+        interface SignerEd25519PublicKeyOptions {
+            ed25519PublicKey: string;
             weight?: number | string;
         }
-        interface SetOptions extends Operation<OperationType.setOptions> {
+        interface SignerSha256HashOptions {
+            sha256Hash: Buffer | string;
+            weight?: number | string;
+        }
+        interface SignerPreAuthTxOptions {
+            preAuthTx: Buffer | string;
+            weight?: number | string;
+        }
+        type SignerOptions = SignerEd25519PublicKeyOptions | SignerSha256HashOptions | SignerPreAuthTxOptions;
+        type SignerUnion = {ed25519PublicKey: any} | {sha256Hash: any} | {preAuthTx: any} | null;
+        interface SetOptions<T extends SignerUnion = never> extends Operation<OperationType.setOptions> {
+            inflationDest?: string;
+            clearFlags?: AuthFlags;
+            setFlags?: AuthFlags;
+            masterWeight?: number;
+            lowThreshold?: number;
+            medThreshold?: number;
+            highThreshold?: number;
+            homeDomain?: string;
+            signer:
+                T extends {ed25519PublicKey: any} ? SignerEd25519PublicKey :
+                T extends {sha256Hash: any} ? SignerSha256Hash :
+                T extends {preAuthTx: any} ? SignerPreAuthTx :
+                never;
+        }
+        interface SetOptionsOptions<T extends SignerUnion = never> extends OperationOptions {
             inflationDest?: string;
             clearFlags?: AuthFlags;
             setFlags?: AuthFlags;
@@ -299,20 +335,9 @@ export namespace StellarBase {
             medThreshold?: number | string;
             highThreshold?: number | string;
             homeDomain?: string;
-            signer?: Signer;
+            signer?: T;
         }
-        interface SetOptionsOptions extends OperationOptions {
-            inflationDest?: string;
-            clearFlags?: AuthFlags;
-            setFlags?: AuthFlags;
-            masterWeight?: number | string;
-            lowThreshold?: number | string;
-            medThreshold?: number | string;
-            highThreshold?: number | string;
-            signer?: Signer;
-            homeDomain?: string;
-        }
-        function setOptions(options: SetOptionsOptions): xdr.Operation<SetOptions>;
+        function setOptions<T extends SignerUnion = never>(options: SetOptionsOptions<T>): xdr.Operation<SetOptions<T>>;
 
         interface BumpSequence extends Operation<OperationType.bumpSequence> {
             bumpTo: string;
