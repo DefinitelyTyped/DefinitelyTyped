@@ -41,7 +41,7 @@ declare namespace SlowDown {
     /**
      * Express Request with the added `slowDown` property
      */
-    type RequestWithSlowDown = express.Request & { slowDown: SlowDownRequestAugmentation }
+    type RequestWithSlowDown = express.Request & { slowDown: SlowDownRequestAugmentation };
 
     interface Store {
         incr(key: string, cb: StoreIncrementCallback): void;
@@ -105,5 +105,4 @@ declare namespace SlowDown {
     }
 }
 
-declare var SlowDown: (options: SlowDown.Options) => express.RequestHandler;
-export = SlowDown;
+export function SlowDown(options: SlowDown.Options): express.RequestHandler;
