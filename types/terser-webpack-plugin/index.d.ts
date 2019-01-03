@@ -5,6 +5,8 @@
 // TypeScript Version: 3.0
 
 import { Plugin } from 'webpack';
+import { MinifyOptions } from 'terser';
+import webpack = require('webpack');
 
 export = TerserPlugin;
 
@@ -27,13 +29,13 @@ declare namespace TerserPlugin {
         test?: string | RegExp | Array<string | RegExp>;
         include?: string | RegExp | Array<string | RegExp>;
         exclude?: string | RegExp | Array<string | RegExp>;
-        chunkFilter?: (chunk: any) => boolean;
+        chunkFilter?: (chunk: webpack.compilation.Chunk) => boolean;
         cache?: boolean | string;
         cacheKeys?: (defaultCacheKeys: any, file: any) => object;
         parallel?: boolean | number;
         sourceMap?: boolean;
         minify?: (file: any, sourceMap: any) => MinifyResult;
-        terserOptions?: any;
+        terserOptions?: MinifyOptions;
         extractComments?: boolean | string | RegExp | object | ExtractCommentFn;
         warningsFilter?: (warning: any, source: any) => boolean;
     }
