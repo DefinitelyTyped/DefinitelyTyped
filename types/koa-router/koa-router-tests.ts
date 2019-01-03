@@ -1,7 +1,7 @@
 import Koa = require("koa");
 import Router = require("koa-router");
 
-const app = new Koa();
+const app = new Koa<{}, {}>();
 
 const router = new Router({
     prefix: "/users"
