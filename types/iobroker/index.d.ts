@@ -1585,13 +1585,14 @@ declare global {
         type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void;
         type StateChangeHandler = (id: string, obj: State | null | undefined) => void;
         type MessageHandler = (obj: Message) => void;
-        type MessageCallback = (response?: Message) => void;
         type UnloadHandler = (callback: EmptyCallback) => void;
 
         type EmptyCallback = () => void;
         type ErrorCallback = (err?: string) => void;
         // TODO: Redefine callbacks as subclass of GenericCallback
         type GenericCallback<T> = (err: string | null, result?: T) => void;
+
+        type MessageCallback = (response?: Message) => void;
 
         type SetObjectCallback = (err: string | null, obj: { id: string }) => void;
         type GetObjectCallback = (err: string | null, obj: ioBroker.Object | null | undefined) => void;
