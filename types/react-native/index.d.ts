@@ -3994,6 +3994,9 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      */
     keyExtractor?: (item: ItemT, index: number) => string;
 
+    /**
+     * Uses legacy MetroListView instead of default VirtualizedSectionList
+     */
     legacyImplementation?: boolean;
 
     /**
@@ -4269,7 +4272,10 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
      * Only enabled by default on iOS because that is the platform standard there.
      */
     stickySectionHeadersEnabled?: boolean;
-    
+
+    /**
+     * Uses legacy MetroListView instead of default VirtualizedSectionList
+     */
     legacyImplementation?: boolean;
 }
 
