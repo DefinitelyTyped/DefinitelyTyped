@@ -33,6 +33,7 @@ export interface StringifyOptions {
     strict?: boolean;
     encode?: boolean;
     arrayFormat?: 'bracket' | 'index' | 'none';
+    sort?: ((m: string, n: string) => boolean) | boolean;
 }
 
 /**
