@@ -481,7 +481,7 @@ export namespace Config {
 }
 
 export class Server {
-    constructor(serverURL: string, options?: Server.ServerOptions)
+    constructor(serverURL: string, options?: Server.Options)
     accounts(): Server.AccountCallBuilder;
     assets(): Server.AssetsCallBuilder;
     effects(): Server.EffectCallBuilder;
@@ -975,7 +975,7 @@ export namespace Server {
         forTransaction(transactionId: string): this;
     }
 
-    interface ServerOptions {
+    interface Options {
         allowHttp: boolean;
     }
 
