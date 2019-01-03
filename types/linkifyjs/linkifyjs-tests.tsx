@@ -5,7 +5,10 @@ import Linkify from "linkifyjs/react";
 declare function describe(desc: string, f: () => void): void;
 
 describe("linkifyjs/html", () => {
-    // From the docs here: https://soapbox.github.io/linkifyjs/docs/options.html
+    /**
+     * The following tests were taken directly from the documentation:
+     * https://soapbox.github.io/linkifyjs/docs/options.html
+     */
 
     /* attributes */
 
@@ -147,7 +150,10 @@ describe("linkifyjs/html", () => {
 });
 
 describe("linkifyjs/react", () => {
-    // From the docs here: https://soapbox.github.io/linkifyjs/docs/linkify-react.html
+    /**
+     * The following tests were taken directly from the documentation:
+     * https://soapbox.github.io/linkifyjs/docs/linkify-react.html
+     */
 
     /* Usage */
 
@@ -178,7 +184,9 @@ describe("linkifyjs/react", () => {
         <Linkify options={{ attributes: linkProps }}>{content}</Linkify>;
     }
 
-    /* A few more test cases */
+    /**
+     * The following tests were made specifically for DefinitelyTyped.
+     */
 
     /* Default values for all props */
     {
