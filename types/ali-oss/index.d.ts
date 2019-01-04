@@ -181,6 +181,7 @@ declare namespace OSS {
         name: string;
         data: object;
         res: NormalSuccessResponse;
+        headers?: object;
     }
 
     interface PutStreamOptions {
@@ -189,6 +190,7 @@ declare namespace OSS {
         mime: string; // custom mime, will send with Content-Type entity header
         meta: UserMeta;
         callback: ObjectCallback;
+        headers?: object;
     }
 
     interface AppendObjectOptions {
