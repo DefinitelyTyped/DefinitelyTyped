@@ -232,4 +232,22 @@ export class FilePond extends React.Component<FilePondProps> {
     context: () => void;
 }
 
+/** Creates a new FilePond instance */
+export function create(element?: any, options?: FilePondProps): void;
+/** Destroys the FilePond instance attached to the supplied element */
+export function destroy(element: any): void;
+/** Returns the FilePond instance attached to the supplied element */
+export function find(element: any): FilePond;
+/**
+ * Parses a given section of the DOM tree for elements with class
+ * .filepond and turns them into FilePond elements.
+ */
+export function parse(context: any): void;
+/** Registers a FilePond plugin for later use */
 export function registerPlugin(...plugins: any[]): void;
+/** Sets page level default options for all FilePond instances */
+export function setOptions(options: FilePondProps): void;
+/** Returns the current default options */
+export function getOptions(): FilePondProps;
+/** Determines whether or not the browser supports FilePond */
+export function supported(): boolean;
