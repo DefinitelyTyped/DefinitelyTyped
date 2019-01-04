@@ -57,6 +57,7 @@ export class DateRange {
 export interface MomentRangeMethods {
     range(range: string | Date[] | moment.Moment[]): DateRange;
     range(start: Date | moment.Moment, end: Date | moment.Moment): DateRange;
+    isRange(range: any): range is DateRange;
     within(range: DateRange): boolean;
 }
 
