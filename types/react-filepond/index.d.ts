@@ -48,6 +48,40 @@ export interface FilePondItem {
     abortProcessing: () => void;
     getMetadata: (key?: any) => any;
     setMetadata: (key: any, value: any, silent?: boolean) => void;
+
+interface ServerUrl {
+    url: string;
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    withCredentials?: boolean;
+    headers?: {[key: string]: string|boolean|number};
+    timeout?: number;
+
+    /**
+     * Called when server response is received, useful for getting
+     * the unique file id from the server response
+     */
+    onload?: () => any;
+    /**
+     * Called when server error is received, receives the response
+     * body, useful to select the relevant error data
+     */
+    onerror?: (responseBody: any) => any;
+    /**
+     * Called with the formdata object right before it is sent,
+     * return extended formdata object to make changes
+     */
+    ondata?: (data: any) => any;
+}
+
+interface FilePondServerConfigProps {
+    instantUpload?: boolean;
+    server?: string | {
+        process: string | ServerUrl;
+        revert: string | ServerUrl;
+        restore: string | ServerUrl;
+        load: string | ServerUrl;
+        fetch: string | ServerUrl;
+    };
 }
 
 interface FilePondDragDropProps {
@@ -55,11 +89,6 @@ interface FilePondDragDropProps {
     dropOnElement?: boolean;
     dropValidation?: boolean;
     ignoredFiles?: string[];
-}
-
-interface FilePondServerConfigProps {
-    server?: string;
-    instantUpload?: boolean;
 }
 
 interface FilePondLabelProps {
