@@ -1864,7 +1864,7 @@ declare namespace angular {
          *
          * @return   A promise whose value is the template content.
          */
-        (tpl: string, ignoreRequestError?: boolean): IPromise<string>;
+        (tpl: string|any /* TrustedResourceUrl */, ignoreRequestError?: boolean): IPromise<string>;
         /**
          * total amount of pending template requests being downloaded.
          */
