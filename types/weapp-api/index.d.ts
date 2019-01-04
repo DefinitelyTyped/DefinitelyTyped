@@ -1403,3 +1403,5 @@ declare function setInterval(callback: functions, delay: number, rest: any): num
  * @param timeoutID 要取消的定时器的ID
  */
 declare function clearInterval(timeoutID: number): number;
+
+export default wx
