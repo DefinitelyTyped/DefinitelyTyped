@@ -23,7 +23,15 @@ declare namespace TerserPlugin {
         extractedComments: any;
     }
 
+    interface ExtractCommentOptions {
+        condition: boolean | string | RegExp | ExtractCommentFn | object;
+        filename?: string | FormatFn;
+        banner?: boolean | string | FormatFn;
+    }
+
     type ExtractCommentFn = (node: any, comment: any) => (boolean | object);
+
+    type FormatFn = (input: string) => string;
 
     interface TerserPluginOptions {
         test?: string | RegExp | Array<string | RegExp>;
@@ -36,7 +44,11 @@ declare namespace TerserPlugin {
         sourceMap?: boolean;
         minify?: (file: any, sourceMap: any) => MinifyResult;
         terserOptions?: MinifyOptions;
-        extractComments?: boolean | string | RegExp | object | ExtractCommentFn;
+        extractComments?: boolean
+        | string
+        | RegExp
+        | ExtractCommentFn
+        | ExtractCommentOptions;
         warningsFilter?: (warning: any, source: any) => boolean;
     }
 }
