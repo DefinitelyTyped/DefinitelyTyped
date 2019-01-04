@@ -31,6 +31,10 @@ export type AsyncAutoTask<R1, R extends Dictionary<any>, E> = AsyncAutoTaskFunct
 export interface AsyncAutoTaskFunctionWithoutDependencies<R1, E = Error> { (cb: AsyncResultCallback<R1, E> | ErrorCallback<E>): void; }
 export interface AsyncAutoTaskFunction<R1, R extends Dictionary<any>, E = Error> { (results: R, cb: AsyncResultCallback<R1, E> | ErrorCallback<E>): void; }
 
+export interface DataContainer<T> {
+    data: T;
+}
+
 export interface AsyncQueue<T> {
     length(): number;
     started: boolean;
@@ -39,6 +43,7 @@ export interface AsyncQueue<T> {
     concurrency: number;
     push<R,E = Error>(task: T | T[], callback?: AsyncResultCallback<R, E>): void;
     unshift<E = Error>(task: T | T[], callback?: ErrorCallback<E>): void;
+    remove(filter: (node: DataContainer<T>) => boolean): void;
     saturated: () => any;
     empty: () => any;
     drain: () => any;
