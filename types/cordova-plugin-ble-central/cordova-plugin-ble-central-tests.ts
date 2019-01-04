@@ -62,10 +62,10 @@ var demoExtendedData : BLECentralPlugin.PeripheralDataExtended = {
 //get updates about the bluethooth states
 ble.startStateNotifications((state) => log(`BLE state ${state}`));
 
-ble.isEnabled(()=> log(`bluetooth is enabled`), ()=>log(`bluetooth is not enabled`));
+ble.isEnabled(()=> log(`bluetooth is enabled`), err =>log(`bluetooth is not enabled: ${err}`));
 
 //here we try to enable bluetooth
-ble.enable(() => log(`yes it worked, or it was already enabled `), () => log(`nope it didn't work, the user pressed cancel, or we are in iOS`));
+ble.enable(() => log(`yes it worked, or it was already enabled `), err => log(`nope it didn't work, the user pressed cancel, or we are in iOS: ${err}`));
 
 ble.showBluetoothSettings(() => log(`yes it worked`), () => log(`nope it didn't work`))
 
@@ -73,13 +73,14 @@ ble.showBluetoothSettings(() => log(`yes it worked`), () => log(`nope it didn't 
 ble.stopStateNotifications()
 
 //scan 5 seconds
-ble.scan([], 5000, (data) => { devices.push(data); }, ()=> log('couldn\'t connect') );
+ble.scan([], 5000, (data) => { devices.push(data); }, () => log(`couldn't connect`) );
+ble.scan([], 5000, (data) => { devices.push(data); }, err => log(`couldn't connect: ${err}`) );
 
 //scan continously
 ble.startScan([], (data) => { devices.push(data); }, ()=> log('couldn\'t connect')  )
 
 ////scan continously
-ble.startScanWithOptions([], {reportDuplicates:false }, (data) => { devices.push(data); }, ()=> log('couldn\'t connect')  )
+ble.startScanWithOptions([], {reportDuplicates:false }, (data) => { devices.push(data); }, err => log(`couldn't connect: ${err}`)  )
 
 //stop scanning
 ble.stopScan(()=> log('all good'), ()=> log('couldn\'t stop scanning'));
@@ -89,18 +90,19 @@ ble.isConnected(demoDevice.id, () => log(`already connected to this device`), ()
 
 //connect to a specific device
 var extendedData : BLECentralPlugin.PeripheralDataExtended;
-ble.connect(demoDevice.id, (data)=> extendedData = data, () => log(`couldn't connect to the device`) );
+ble.connect(demoDevice.id, (data)=> extendedData = data, err => log(`couldn't connect to the device: ${err}`) );
 
 //read some data from a characteristic
 var charsOfOneOfItsServices = demoExtendedData.characteristics.filter((value) => value.service == demoExtendedData.services[0]);
 ble.read(demoDevice.id, charsOfOneOfItsServices[0].service,  charsOfOneOfItsServices[0].characteristic, (data) => log(`we've received some data`), ()=> log(`couldn't read any data`));
 
 //read the rssi
-ble.readRSSI(demoDevice.id, (rssi)=>log(`Device ${demoDevice.name} has an RSSI of ${rssi}`));
+ble.readRSSI(demoDevice.id, (rssi)=>log(`Device ${demoDevice.name} has an RSSI of ${rssi}`), err => log(`Unable to read RSSI: ${err}`));
 
 var notificationsReceived : number = 0;
 //get notified of changes for that characteristic
-ble.startNotification(demoDevice.id, charsOfOneOfItsServices[0].service, charsOfOneOfItsServices[0].characteristic, (data)=> notificationsReceived++, ()=> log(`darn`));
+ble.startNotification(demoDevice.id, charsOfOneOfItsServices[0].service, charsOfOneOfItsServices[0].characteristic,
+    (data)=> notificationsReceived++, err => log(`darn: ${err}`));
 
 //write some data
 ble.write(demoDevice.id, charsOfOneOfItsServices[0].service, charsOfOneOfItsServices[0].characteristic, new ArrayBuffer(40), ()=> log(`all good`), ()=> log(`could't write`));
