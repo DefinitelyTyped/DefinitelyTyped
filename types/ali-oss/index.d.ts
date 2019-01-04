@@ -175,13 +175,13 @@ declare namespace OSS {
         mime?: string; // custom mime, will send with Content-Type entity header
         meta?: UserMeta; // user meta, will send with x-oss-meta- prefix string e.g.: { uid: 123, pid: 110 }
         callback: ObjectCallback;
+        headers?: object;
     }
 
     interface PutObjectResult {
         name: string;
         data: object;
         res: NormalSuccessResponse;
-        headers?: object;
     }
 
     interface PutStreamOptions {
