@@ -128,7 +128,52 @@ export class Configure extends React.Component<any, any> {}
 export function connectAutoComplete(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectBreadcrumb(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectConfigure(Composed: React.ComponentType<any>): React.ComponentClass<any>;
-export function connectCurrentRefinements(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+
+export type Refinement = {
+  label: string;
+  attribute: string;
+  index: string;
+  id: string;
+  value: RefinementValue;
+} & ({
+  currentRefinement: string;
+} | {
+  items: Array<{ label: string, value: RefinementValue }>;
+  currentRefinement: string[];
+});
+
+export type RefinementValue = (searchState: SearchState) => SearchState;
+
+export interface CurrentRefinementsExposed {
+  /**
+   * Function to modify the items being displayed, e.g. for filtering or sorting them.
+   * Takes an items as parameter and expects it back in return.
+   */
+  transformItems?: (...args: any[]) => any;
+  /** Pass true to also clear the search query */
+  clearsQuery?: boolean;
+}
+
+export interface CurrentRefinementsProvided {
+  /** a function to remove a single filter */
+  refine: (refinement: RefinementValue | RefinementValue[]) => void;
+  /**
+   * all the filters, the value is to pass to the refine function for removing all currentrefinements,
+   * label is for the display. When existing several refinements for the same atribute name, then you
+   * get a nested items object that contains a label and a value function to use to remove a single filter.
+   * attribute and currentRefinement are metadata containing row values.
+   */
+  items: Refinement[];
+  /** the search query */
+  query: string;
+}
+
+export function connectCurrentRefinements(
+  stateless: React.StatelessComponent<CurrentRefinementsProvided>,
+): React.ComponentClass<CurrentRefinementsExposed>;
+export function connectCurrentRefinements<TProps extends Partial<CurrentRefinementsProvided>>(
+  Composed: React.ComponentType<TProps>,
+): ConnectedComponentClass<TProps, CurrentRefinementsProvided, CurrentRefinementsExposed>;
 
 export interface NESW {
   northEast: { lat: number, lng: number };
@@ -263,13 +308,16 @@ export function connectRange(Composed: React.ComponentType<any>): React.Componen
 
 export interface RefinementListProvided {
   /** a function to toggle a refinement */
-  refine: (...args: any[]) => any;
+  refine: (value: string[]) => any;
   /** a function to generate a URL for the corresponding search state */
   createURL: (...args: any[]) => any;
   /** the refinement currently applied */
   currentRefinement: string[];
-  /** the list of items the RefinementList can display. */
-  items: Array<Hit<{ count: number, isRefined: boolean, label: string, value: string }>>;
+  /**
+   * The list of items the RefinementList can display.
+   * If isFromSearch is false, the hit properties like _highlightResult are undefined
+   */
+  items: Array<Hit<{ count: number, isRefined: boolean, label: string, value: string[] }>>;
   /** a function to toggle a search inside items values */
   searchForItems: (...args: any[]) => any;
   /** a boolean that says if the items props contains facet values from the global search or from the search inside items. */
@@ -455,12 +503,18 @@ export interface SearchResults<TDoc = BasicDoc> {
  */
 export type Hit<TDoc = BasicDoc> = TDoc & {
   objectID: string;
+  /**
+   * Contains the searchable attributes within the document and shows which part of the
+   * attribute was matched by the search terms.  Note that if the index has defined
+   * any searchable attributes, this object will only contain those keys and others
+   * will not exist.
+   */
   '_highlightResult': HighlightResult<TDoc>;
 };
 
 export type HighlightResult<TDoc> =
   TDoc extends { [k: string]: any } ?
-    { [K in keyof TDoc]: HighlightResultField<TDoc[K]> } :
+    { [K in keyof TDoc]?: HighlightResultField<TDoc[K]> } :
     never;
 
 type HighlightResultField<TField> =

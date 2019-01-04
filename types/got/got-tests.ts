@@ -253,7 +253,7 @@ got('todomvc', {
 }).then(res => res.fromCache);
 
 got('todomvc', {
-    cache: new QuickLRU(),
+    cache: new QuickLRU({maxSize: 10}),
 }).then(res => res.fromCache);
 
 got(new url.URL('http://todomvc.com'));
@@ -269,3 +269,92 @@ got('http://todomvc.com', { retry: 2 });
 got('http://todomvc.com', { retry: { retries: 2, methods: ['GET'], statusCodes: [408, 504], maxRetryAfter: 1 } });
 got('http://todomvc.com', { throwHttpErrors: false });
 got('http://todomvc.com', { hooks: { beforeRequest: [ () => 'foo']} });
+
+// Test timeout options.
+got('http://todomvc.com', {timeout: 1});
+got('http://todomvc.com', {
+    timeout: {
+        lookup: 1,
+        connect: 2,
+        secureConnect: 3,
+        socket: 4,
+        response: 5,
+        send: 6,
+        request: 7
+    }
+});
+
+// Test got.TimeoutError.
+got('http://todomvc.com', {timeout: 1}).catch((err) => err instanceof got.TimeoutError);
+
+// Test hooks.
+got('example.com', {
+    hooks: {
+        beforeRedirect: [
+            options => {
+                if (options.hostname === 'deadSite') {
+                    options.hostname = 'fallbackSite';
+                }
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
+        beforeRetry: [
+            (options, error, retryCount) => {
+                if (error instanceof got.HTTPError && error.statusCode === 413) { // Payload too large
+                    options.body = 'new body';
+                }
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
+        afterResponse: [
+            (response, retryWithMergedOptions) => {
+                if (response.statusCode === 401) { // Unauthorized
+                    const updatedOptions = {
+                        headers: {
+                            token: 'new token' // Refresh the access token
+                        }
+                    };
+
+                    // Make a new retry
+                    return retryWithMergedOptions(updatedOptions);
+                }
+
+                // No changes otherwise
+                return response;
+            }
+        ]
+    }
+});
+// Test async hooks.
+{
+    const doSomethingAsync = (): Promise<any> => {
+        throw new Error('unimplemented');
+    };
+
+    got('example.com', {
+        hooks: {
+            beforeRedirect: [
+                async () => {
+                    await doSomethingAsync();
+                }
+            ],
+            beforeRetry: [
+                async () => {
+                    await doSomethingAsync();
+                }
+            ],
+            afterResponse: [
+                async (response) => {
+                    await doSomethingAsync();
+                    return response;
+                }
+            ]
+        }
+    });
+}

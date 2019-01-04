@@ -162,7 +162,7 @@ declare namespace wx {
     /**
      * 获取“分享到QQ空间”按钮点击状态及自定义分享内容接口
      */
-    function onMenuShareQzone(config: MenuShareWeibo): void;
+    function onMenuShareQZone(config: MenuShareWeibo): void;
 
     interface ChooseImageConfig {
         /**
@@ -617,6 +617,14 @@ declare namespace wx {
          * 支付成功后的回调函数
          */
         success(res: any): void;
+        /**
+         * 支付取消后的回调函数
+         */
+        cancel?(res: any): void;
+        /**
+         * 支付失败后的回调函数
+         */
+        fail?(res: any): void;
     }
 
     /**

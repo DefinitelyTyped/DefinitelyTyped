@@ -637,7 +637,7 @@ R.times(i, 5);
 
 /*********************
  * List category
- ********************/
+ */
 () => {
     const lessThan2 = R.flip(R.lt)(2);
     const lessThan3 = R.flip(R.lt)(3);
@@ -970,6 +970,15 @@ interface Obj {
         R.indexBy(x => x),
     )(list);
 });
+
+() => {
+    R.includes('ba', 'banana'); // => true
+    R.includes('ba')('kiwi'); // => false
+    R.includes('ma', ['ma', 'ng', 'o']); // => true
+    R.includes('ma')(['li', 'me']); // => false
+    R.includes(8, [1, 8, 9, 17]); // => true
+    R.includes(1)([2, 3, 5, 8]); // => false
+};
 
 () => {
     R.indexOf(3, [1, 2, 3, 4]); // => 2
@@ -1306,14 +1315,21 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    const fn        = R.cond([
-        [R.equals(0), R.always("water freezes at 0°C")],
-        [R.equals(100), R.always("water boils at 100°C")],
-        [R.T, (temp: number) => `nothing special happens at ${temp}°C`]
+    const f = R.cond<number, string>([
+        [x => x === 0, () => "a"],
+        [() => true, () => "b"],
     ]);
-    const a: string = fn(0); // => 'water freezes at 0°C'
-    const b: string = fn(50); // => 'nothing special happens at 50°C'
-    const c: string = fn(100); // => 'water boils at 100°C'
+    f(0); // $ExpectType string
+    f(""); // $ExpectError
+    f(1, 2); // $ExpectType string
+
+    const g = R.cond([
+        [(a, b) => a === b, () => "a"],
+        [() => true, () => "b"],
+    ]);
+    g(0);
+    g("");
+    g(1, "");
 };
 
 () => {
@@ -1486,6 +1502,8 @@ type Pair = KeyValuePair<string, number>;
     const a: ABC = R.assoc("c", 3, {a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
     const b: ABC = R.assoc("c")(3, {a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
     const c: ABC = R.assoc("c", 3)({a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
+    const d: ABC = R.assoc(R.__, 3, {a: 1, b: 2})("c"); // => {a: 1, b: 2, c: 3}
+    const e: ABC = R.assoc("c", R.__, {a: 1, b: 2})(3); // => {a: 1, b: 2, c: 3}
 };
 
 () => {
@@ -1503,6 +1521,8 @@ type Pair = KeyValuePair<string, number>;
     const testPath = ["x", 0, "y"];
     const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
 
+    R.assocPath(R.__, 42, testObj)(testPath); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
+    R.assocPath(testPath, R.__, testObj)(42); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
     R.assocPath(testPath, 42, testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
     R.assocPath(testPath, 42)(testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
     R.assocPath(testPath)(42)(testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
@@ -1906,6 +1926,8 @@ class Rectangle {
 
     const strVal: string = R.prop('str', obj); // => 'string'
     const numVal: number = R.prop('num', obj); // => 5
+
+    const strValPl: string = R.prop(R.__, obj)('str'); // => 'string'
 
     const strValCur: string = R.prop('str')(obj); // => 'string'
     const numValCur: number = R.prop('num')(obj); // => 5
@@ -2648,6 +2670,17 @@ class Rectangle {
 
     flattenArrays([[0], [[10], [8]], 1234, {}]); // => [[0], [10, 8], 1234, {}]
     flattenArrays([[[10], 123], [8, [10]], "hello"]); // => [[10, 123], [8, 10], "hello"]
+};
+
+() => {
+    const incCount = R.ifElse(
+        R.has('count'),
+        R.over(R.lensProp('count'), R.inc),
+        R.assoc('count', 1)
+      );
+      incCount({});           // => { count: 1 }
+      incCount({ count: 1 }); // => { count: 2 }
+      R.ifElse(R.identical, R.add as (a: number, b: number) => number, R.always(""))(2, 2); // https://goo.gl/CVUSs9
 };
 
 () => {

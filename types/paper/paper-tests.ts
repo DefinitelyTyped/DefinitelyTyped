@@ -79,6 +79,8 @@ hitTestResults = paper.project.hitTestAll(hitTestPoint, hitOptionsInterfaceEmpty
 hitTestResults = paper.project.hitTestAll(hitTestPoint, hitOptionsInterfacePartial);
 hitTestResults = paper.project.hitTestAll(hitTestPoint, hitOptionsInterfaceFull);
 
+paper.view.scaling = new paper.Point(1, 1);
+
 function Examples() {
     function BooleanOperations(){
         let text = new paper.PointText({

@@ -15,7 +15,8 @@ const manifest = {
     {
       id: 0,
       name: './node_modules/react/index.js',
-      file: 'main.js'
+      file: 'main.js',
+      publicPath: 'http://127.0.0.1/main.js'
     }
   ]
 };

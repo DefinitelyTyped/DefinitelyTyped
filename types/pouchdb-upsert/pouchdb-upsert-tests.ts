@@ -15,7 +15,7 @@ function testUpsert_WithPromise_AndReturnDoc() {
     // `doc` may be empty if the document didn't already exist, so we have to
     // cast it to the type containing the required fields.  If the document type
     // had all optional fields, the cast would not be necessary.
-    return <UpsertDocModel> doc;
+    return doc as UpsertDocModel;
   }).then((res: PouchDB.UpsertResponse) => {
   });
 }
@@ -25,7 +25,7 @@ function testUpsert_WithPromise_AndReturnFalsey() {
     if (doc.readonly)
       return false;
     // Make some updates....
-    return <UpsertDocModel> doc;
+    return doc as UpsertDocModel;
   }).then((res: PouchDB.UpsertResponse) => {
   });
 }
@@ -41,7 +41,7 @@ function testUpsert_WithPromise_AndReturnNewObject() {
 function testUpsert_WithCallback_AndReturnDoc() {
   db.upsert(docToUpsert._id, (doc) => {
     // Make some updates....
-    return <UpsertDocModel> doc;
+    return doc as UpsertDocModel;
   }, (error: PouchDB.Core.Error, res: PouchDB.UpsertResponse) => {});
 }
 
@@ -51,7 +51,7 @@ function testUpsert_WithCallback_AndReturnFalsey() {
     if (doc.readonly)
       return false;
     // Make some updates....
-    return <UpsertDocModel> doc;
+    return doc as UpsertDocModel;
   }, (error: PouchDB.Core.Error, res: PouchDB.UpsertResponse) => {});
 }
 

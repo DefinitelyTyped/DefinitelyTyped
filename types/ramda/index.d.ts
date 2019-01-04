@@ -24,6 +24,7 @@
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 //                 Ryan McCuaig <https://github.com/rgm>
 //                 Drew Wyatt <https://github.com/drewwyatt>
+//                 John Ottenlips <https://github.com/jottenlips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -269,6 +270,7 @@
 /// <reference path="./es/zip.d.ts" />
 /// <reference path="./es/zipObj.d.ts" />
 /// <reference path="./es/zipWith.d.ts" />
+/// <reference path="./es/includes.d.ts" />
 
 declare let R: R.Static;
 
@@ -563,6 +565,8 @@ declare namespace R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
+        assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & U;
+        assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & U;
         assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
         assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
         assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
@@ -571,6 +575,8 @@ declare namespace R {
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
          * placing the specific value at the tail end of that path.
          */
+        assocPath<T, U>(__: Placeholder, val: T, obj: U): (path: Path) => U;
+        assocPath<T, U>(path: Path, __: Placeholder, obj: U): (val: T) => U;
         assocPath<T, U>(path: Path, val: T, obj: U): U;
         assocPath<T, U>(path: Path, val: T): (obj: U) => U;
         assocPath<T, U>(path: Path): CurriedFunction2<T, U, U>;
@@ -777,6 +783,7 @@ declare namespace R {
          * matches, fn returns undefined.
          */
         cond(fns: ReadonlyArray<[Pred, (...a: any[]) => any]>): (...a: any[]) => any;
+        cond<A, B>(fns: ReadonlyArray<[SafePred<A>, (...a: A[]) => B]>): (...a: A[]) => B;
 
         /**
          * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
@@ -1122,11 +1129,22 @@ declare namespace R {
          * of the condition predicate.
          */
         ifElse(fn: Pred, onTrue: Arity1Fn, onFalse: Arity1Fn): Arity1Fn;
+        ifElse(fn: Pred, onTrue: Arity2Fn, onFalse: Arity2Fn): Arity2Fn;
 
         /**
          * Increments its argument.
          */
         inc(n: number): number;
+
+        /**
+         * Given a target, this function checks a list for the target and returns a boolean.
+         * Given a string, this function checks for the string in another string or list and returns
+         * a boolean.
+         */
+        includes(s: string, list: ReadonlyArray<string> | string): boolean;
+        includes(s: string): (list: ReadonlyArray<string> | string)  => boolean;
+        includes<T>(target: T, list: ReadonlyArray<T>): boolean;
+        includes<T>(target: T): (list: ReadonlyArray<T>) => boolean;
 
         /**
          * Given a function that generates a key, turns a list of objects into an object indexing the objects
@@ -2055,7 +2073,7 @@ declare namespace R {
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
          */
-        pluck<P extends string, T>(p: P, list: ReadonlyArray<Record<P, T>>): T[];
+        pluck<K extends keyof T, T>(p: K, list: ReadonlyArray<T>): Array<T[K]>;
         pluck<T>(p: number, list: ReadonlyArray<{ [k: number]: T }>): T[];
         pluck<P extends string>(p: P): <T>(list: ReadonlyArray<Record<P, T>>) => T[];
         pluck(p: number): <T>(list: ReadonlyArray<{ [k: number]: T }>) => T[];
@@ -2081,6 +2099,7 @@ declare namespace R {
         /**
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          */
+        prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
         prop<P extends keyof T, T>(p: P, obj: T): T[P];
         prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
         prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;

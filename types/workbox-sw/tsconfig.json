@@ -8,7 +8,6 @@
         "target": "es2017",
         "lib": [
             "es2015",
-            "dom",
             "webworker"
         ],
         "noImplicitAny": true,

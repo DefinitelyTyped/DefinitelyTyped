@@ -251,7 +251,7 @@ declare namespace jest {
          * @param fn The function for your test
          * @param timeout The timeout for an async function test
          */
-        (name: string, fn: ProvidesCallback, timeout?: number): void;
+        (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /**
          * Only runs this test in the current file.
          */
@@ -981,7 +981,7 @@ declare function pending(reason?: string): void;
 /**
  * Fails a test when called within one.
  */
-declare function fail(error?: any): void;
+declare function fail(error?: any): never;
 declare namespace jasmine {
     let DEFAULT_TIMEOUT_INTERVAL: number;
     function clock(): Clock;
