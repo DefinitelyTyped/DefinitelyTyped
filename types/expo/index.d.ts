@@ -2302,10 +2302,13 @@ export namespace ScreenOrientation {
 export namespace SecureStore {
     interface SecureStoreOptions {
         keychainService?: string;
+    }
+
+    interface SecureStoreSetOptions extends SecureStoreOptions {
         keychainAccessible?: number;
     }
 
-    function setItemAsync(key: string, value: string, options?: SecureStoreOptions): Promise<void>;
+    function setItemAsync(key: string, value: string, options?: SecureStoreSetOptions): Promise<void>;
     function getItemAsync(key: string, options?: SecureStoreOptions): Promise<string | null>;
     function deleteItemAsync(key: string, options?: SecureStoreOptions): Promise<void>;
 
