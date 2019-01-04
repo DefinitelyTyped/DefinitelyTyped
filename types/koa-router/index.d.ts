@@ -43,7 +43,7 @@ declare namespace Router {
         strict?: boolean;
     }
 
-    export interface IRouterContext {
+    export interface IRouterContext extends Koa.Context {
         /**
          * url params
          */
