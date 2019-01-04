@@ -4,6 +4,7 @@
         "lib": [
             "es6"
         ],
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -12,13 +13,17 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@loadable/component": [
+                "loadable__component"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "bind.d.ts",
-        "classnames-tests.ts"
+        "loadable__component-tests.tsx"
     ]
 }
