@@ -29,7 +29,7 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from 'mimos';
 import { SealOptions, SealOptionsSub } from 'iron';
-import { AnySchema, ValidationOptions } from 'joi';
+import { AnySchema, ValidationOptions, SchemaMap, Schema } from 'joi';
 import Podium = require('podium');
 import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy } from 'catbox';
 
@@ -1442,8 +1442,8 @@ export interface ValidationObject {
 
 export type RouteOptionsResponseSchema =
     boolean
-    | ValidationObject
-    | AnySchema
+    | SchemaMap
+    | Schema
     | ((value: object | Buffer | string, options: ValidationOptions) => Promise<any>);
 
 /**
