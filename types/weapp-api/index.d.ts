@@ -687,6 +687,9 @@ declare namespace wx {
         complete?: ResponseCallback;
     }
 
+    /**
+     * 公共回调函数
+     */
     interface CommonCallbackOptions {
         success?: ResponseCallback;
         fail?: ResponseCallback;
@@ -744,20 +747,60 @@ declare namespace wx {
      * @param options
      */
     function showLoading(options:  LoadingOptions): void;
+    /**
+     * 隐藏消息提示框
+     * @param options
+     */
     function hideToast(options?: CommonCallbackOptions): void;
+    /**
+     * 显示消息提示框
+     * @param options
+     */
     function showToast(options: ToastOptions): void;
-
     /**
      * 显示模态对话框
      * @param options
      */
     function showModal(options: ModalOptions): void;
 
+
+    interface NavigationBarColorAnimationOptions {
+        //  动画变化时间，单位 ms，默认0
+        animation?: number;
+        //  动画变化方式.动画从头到尾的速度是相同的,动画以低速开始,动画以低速结束,动画以低速开始和结束
+        timingFunc?: 'linear' | 'easeIn' | 'easeOut' | 'easeInOut'
+    }
+    interface NavigationBarColorOptions extends CommonCallbackOptions{
+        // 前景颜色值，包括按钮、标题、状态栏的颜色，仅支持 #ffffff 和 #000000
+        frontColor: string;
+        // 背景颜色值，有效值为十六进制颜色
+        backgroundColor: string;
+        //  动画效果
+        animation: NavigationBarColorAnimationOptions;
+    }
+    interface NavigationBarTitleOptions extends CommonCallbackOptions{
+        //  动态设置当前页面的标题
+        title: string;
+    }
     // 导航栏
     function setNavigationBarColor(): void;
-    function hideNavigationBarLoading(): void;
-    function showNavigationBarLoading(): void;
-    function setNavigationBarTitle(): void;
+    /**
+     * 在当前页面隐藏导航条加载动画
+     */
+    function hideNavigationBarLoading(options?: CommonCallbackOptions): void;
+    /**
+     * 在当前页面显示导航条加载动画
+     */
+    function showNavigationBarLoading(options: CommonCallbackOptions): void;
+    /**
+     * 动态设置当前页面的标题
+     * @param options
+     */
+    function setNavigationBarTitle(options: NavigationBarTitleOptions): void;
+
+    //  背景
+    function setBackgroundTextStyle(): void;
+    function setBackgroundColor(): void;
 
     interface AccelerometerData {
         /** X 轴 */

@@ -14,7 +14,7 @@ App({
             wx.login({
                 success: function () {
                     wx.getUserInfo({
-                        success: function (res) {
+                        success: function (res: any) {
                             that.globalData.userInfo = res.userInfo;
                             typeof cb == "function" && cb(that.globalData.userInfo)
                         }
@@ -37,7 +37,6 @@ Page({
         foo: 'bar'
     },
     onLoad: function (options) {
-        console.log(options.title);
     }
 })
 
@@ -51,13 +50,13 @@ wx.request({
     header: {
         'Content-Type': 'application/json'
     },
-    success: function (res) {
+    success: function (res: any) {
         console.log(res.data)
     }
 })
 
 wx.chooseImage({
-    success: function (res) {
+    success: function (res: any) {
         var tempFilePaths = res.tempFilePaths
         wx.uploadFile({
             url: 'http://example.com/upload',
@@ -73,7 +72,7 @@ wx.chooseImage({
 wx.downloadFile({
     url: 'http://example.com/audio/123',
     type: 'audio',
-    success: function (res) {
+    success: function (res: any) {
         wx.playVoice({
             filePath: res.tempFilePath
         })
@@ -95,17 +94,17 @@ wx.connectSocket({
 wx.connectSocket({
     url: 'test.php'
 })
-wx.onSocketOpen(function (res) {
+wx.onSocketOpen(function (res: any) {
     console.log('WebSocket连接已打开！')
 })
 
 wx.connectSocket({
     url: 'test.php'
 })
-wx.onSocketOpen(function (res) {
+wx.onSocketOpen(function (res: any) {
     console.log('WebSocket连接已打开！')
 })
-wx.onSocketError(function (res) {
+wx.onSocketError(function (res: any) {
     console.log('WebSocket连接打开失败，请检查！')
 })
 
@@ -115,7 +114,7 @@ wx.connectSocket({
     url: 'test.php'
 })
 
-wx.onSocketOpen(function (res) {
+wx.onSocketOpen(function (res: any) {
     socketOpen = true
     for (var i = 0; i < socketMsgQueue.length; i++) {
         sendSocketMessage(socketMsgQueue[i])
@@ -137,7 +136,7 @@ wx.connectSocket({
     url: 'test.php'
 })
 
-wx.onSocketMessage(function (res) {
+wx.onSocketMessage(function (res: any) {
     console.log('收到服务器内容：' + res.data)
 })
 
@@ -152,7 +151,7 @@ wx.onSocketOpen(function () {
     wx.closeSocket()
 })
 
-wx.onSocketClose(function (res) {
+wx.onSocketClose(function (res: any) {
     console.log('WebSocket 已关闭！')
 })
 
@@ -160,7 +159,7 @@ wx.chooseImage({
     count: 1, // 默认9
     sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-    success: function (res) {
+    success: function (res: any) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths
     }
@@ -172,10 +171,10 @@ wx.previewImage({
 })
 
 wx.startRecord({
-    success: function (res) {
+    success: function (res: any) {
         var tempFilePath = res.tempFilePath
     },
-    fail: function (res) {
+    fail: function (res: any) {
         //录音失败
     }
 })
@@ -185,7 +184,7 @@ setTimeout(function () {
 }, 10000)
 
 wx.startRecord({
-    success: function (res) {
+    success: function (res: any) {
         var tempFilePath = res.tempFilePath
         wx.playVoice({
             filePath: tempFilePath,
@@ -196,7 +195,7 @@ wx.startRecord({
 })
 
 wx.startRecord({
-    success: function (res) {
+    success: function (res: any) {
         var tempFilePath = res.tempFilePath
         wx.playVoice({
             filePath: tempFilePath
@@ -210,7 +209,7 @@ wx.startRecord({
 })
 
 wx.startRecord({
-    success: function (res) {
+    success: function (res: any) {
         var tempFilePath = res.tempFilePath
         wx.playVoice({
             filePath: tempFilePath
@@ -223,7 +222,7 @@ wx.startRecord({
 })
 
 wx.getBackgroundAudioPlayerState({
-    success: function (res) {
+    success: function (res: any) {
         var status = res.status
         var dataUrl = res.dataUrl
         var currentPosition = res.currentPosition
@@ -246,11 +245,11 @@ wx.seekBackgroundAudio({
 wx.stopBackgroundAudio()
 
 wx.startRecord({
-    success: function (res) {
+    success: function (res: any) {
         var tempFilePath = res.tempFilePath
         wx.saveFile({
             tempFilePath: tempFilePath,
-            success: function (res) {
+            success: function (res: any) {
                 var savedFilePath = res.savedFilePath
             }
         })
@@ -265,7 +264,7 @@ Page({
             sourceType: ['album', 'camera'],
             maxDuration: 60,
             camera: ['front', 'back'],
-            success: function (res) {
+            success: function (res: any) {
                 that.setData({
                     src: res.tempFilePath
                 })
@@ -286,7 +285,7 @@ try {
 
 wx.getStorage({
     key: 'key',
-    success: function (res) {
+    success: function (res: any) {
         console.log(res.data)
     }
 })
@@ -309,7 +308,7 @@ try {
 
 wx.getLocation({
     type: 'wgs84',
-    success: function (res) {
+    success: function (res: any) {
         var latitude = res.latitude
         var longitude = res.longitude
         var speed = res.speed
@@ -319,7 +318,7 @@ wx.getLocation({
 
 wx.getLocation({
   type: 'gcj02', //返回可以用于wx.openLocation的经纬度
-  success: function(res) {
+  success: function(res: any) {
     var latitude = res.latitude
     var longitude = res.longitude
     wx.openLocation({
@@ -331,13 +330,13 @@ wx.getLocation({
 })
 
 wx.getNetworkType({
-  success: function(res) {
+  success: function(res: any) {
     var networkType = res.networkType // 返回网络类型2g，3g，4g，wifi
   }
 })
 
 wx.getSystemInfo({
-  success: function(res) {
+  success: function(res: any) {
     console.log(res.model)
     console.log(res.pixelRatio)
     console.log(res.windowWidth)
@@ -349,7 +348,7 @@ wx.getSystemInfo({
 
 const updateManager = wx.getUpdateManager()
 
-// updateManager.onCheckForUpdate(function (res) {
+// updateManager.onCheckForUpdate(function (res: any) {
 //     //请求完新版本信息的回调
 //     console.log(res.hasUpdate)
 // })
@@ -358,7 +357,7 @@ updateManager.onUpdateReady(function () {
     // wx.showModal({
     //     title: '更新提示',
     //     content: '新版本已经准备好，是否重启应用？',
-    //     success(res) {
+    //     success(res: any) {
     //         if (res.confirm) {
     //             // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
     //             updateManager.applyUpdate()
@@ -371,13 +370,13 @@ updateManager.onUpdateFailed(function () {
     // 新版本下载失败
 })
 
-wx.onAccelerometerChange(function(res) {
+wx.onAccelerometerChange(function(res: any) {
   console.log(res.x)
   console.log(res.y)
   console.log(res.z)
 })
 
-wx.onCompassChange(function (res) {
+wx.onCompassChange(function (res: any) {
   console.log(res.direction)
 })
 
@@ -543,7 +542,7 @@ Page({
   onReady: function() {
     var context = wx.createContext()
     wx.chooseImage({
-      success: function(res) {
+      success: function(res: any) {
         context.drawImage(res.tempFilePaths[0], 0, 0)
         wx.drawCanvas({
           canvasId: 1,
@@ -656,7 +655,7 @@ Page({
 App({
   onLaunch: function() {
     wx.login({
-      success: function(res) {
+      success: function(res: any) {
         if (res.code) {
           //发起网络请求
           wx.request({
@@ -675,7 +674,7 @@ App({
 
 
 wx.getUserInfo({
-  success: function(res) {
+  success: function(res: any) {
     var userInfo = res.userInfo
     var nickName = userInfo.nickName
     var avatarUrl = userInfo.avatarUrl
@@ -692,9 +691,9 @@ wx.requestPayment({
    'package': '',
    'signType': 'MD5',
    'paySign': '',
-   'success':function(res){
+   'success':function(res: any){
    },
-   'fail':function(res){
+   'fail':function(res: any){
    }
 })
 
