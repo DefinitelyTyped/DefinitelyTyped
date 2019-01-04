@@ -303,9 +303,9 @@ declare namespace Snap {
     }
 
     export interface Set {
-        animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Element;
-        animate(...params:Array<{attrs:any,duration:number,easing:(num:number)=>number,callback?:()=>void}>):Snap.Element;
-        attr(params: {[attr:string]:string|number|boolean|BBox|any}): Snap.Element;
+        animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Set;
+        animate(...params:Array<{attrs:any,duration:number,easing:(num:number)=>number,callback?:()=>void}>):Snap.Set;
+        attr(params: {[attr:string]:string|number|boolean|BBox|any}): Snap.Set;
         attr(param: "viewBox"): BBox;
         attr(param: string): string;
         bind(attr: string, callback: Function): Snap.Set;
@@ -315,10 +315,10 @@ declare namespace Snap {
         exclude(element:Snap.Element):boolean;
         forEach(callback:Function,thisArg?:Object):Snap.Set;
         pop():Snap.Element;
-        push(el:Snap.Element):Snap.Element;
-        push(els:Snap.Element[]):Snap.Element;
+        push(el:Snap.Element):Snap.Set;
+        push(...els:Snap.element[]):Snap.Set;
         remove(): Snap.Set;
-        splice(index:number,count:number,insertion?:Object[]):Snap.Element[];
+        splice(index:number,count:number,...insertion:Snap.Element[]):Snap.Set;
     }
 
     interface Filter {
