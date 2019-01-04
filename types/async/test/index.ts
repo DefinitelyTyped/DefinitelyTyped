@@ -359,7 +359,7 @@ let q2Length = q2.length();
 q2.push('testRemovalTask');
 q2.remove(x => x.data === 'testTaskRemoval');
 if (q2Length !== q2.length()) {
-    throw new Error('how can I fail the test?');
+    throw new Error('Failed to remove a task from queue.');
 }
 
 var aq = async.queue<number, number>(function (level: number, callback: (error?: Error, newLevel?: number) => void) {
