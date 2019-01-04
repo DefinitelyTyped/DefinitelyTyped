@@ -34,7 +34,7 @@
     function forEachTest() {
         const colors = ['red', 'green', 'blue'];
         return new Promise(resolve => {
-        rectSet.forEach((element, idx) => element.attr({ fill: colors[idx] || '#aaa' }));
+        rectSet.forEach((element,idx) => element.attr({ fill: colors[idx] || '#aaa' }));
         resolve();
       });
     }
