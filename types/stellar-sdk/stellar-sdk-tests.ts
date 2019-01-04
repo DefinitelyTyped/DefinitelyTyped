@@ -30,3 +30,15 @@ StellarSdk.Memo.hash('asdf').value; // $ExpectType Buffer
 // P.S. don't use Memo constructor
 (new StellarSdk.Memo(StellarSdk.MemoHash, 'asdf')).value; // $ExpectType AnyValue
 (new StellarSdk.Memo(StellarSdk.MemoHash, 'asdf')).type; // $ExpectType AnyType
+
+const noSignerXDR = StellarSdk.Operation.setOptions({lowThreshold: 1});
+StellarSdk.Operation.fromXDRObject(noSignerXDR).signer; // $ExpectType never
+
+const newSignerXDR1 = StellarSdk.Operation.setOptions({signer: {ed25519PublicKey: sourceKey.publicKey(), weight: '1'}});
+StellarSdk.Operation.fromXDRObject(newSignerXDR1).signer; // $ExpectType SignerEd25519PublicKey
+
+const newSignerXDR2 = StellarSdk.Operation.setOptions({signer: {sha256Hash: Buffer.from(''), weight: '1'}});
+StellarSdk.Operation.fromXDRObject(newSignerXDR2).signer; // $ExpectType SignerSha256Hash
+
+const newSignerXDR3 = StellarSdk.Operation.setOptions({signer: {preAuthTx: '', weight: 1}});
+StellarSdk.Operation.fromXDRObject(newSignerXDR3).signer; // $ExpectType SignerPreAuthTx

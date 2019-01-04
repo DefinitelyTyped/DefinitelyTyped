@@ -1,4 +1,4 @@
-// Type definitions for stellar-sdk 0.10
+// Type definitions for stellar-sdk 0.11
 // Project: https://github.com/stellar/js-stellar-sdk
 // Definitions by: Carl Foster <https://github.com/carl-foster>
 //                 Triston Jones <https://github.com/tristonj>
@@ -154,98 +154,89 @@ export namespace StellarBase {
     }
 
     namespace Operation {
-        interface Operation {
-            type: OperationType;
-            source: string | null;
-        }
-        interface AccountMerge extends Operation {
-            type: OperationType.accountMerge;
-            destination: string;
-        }
-        interface AccountMergeOptions {
-            destination: string;
+        interface Operation<T extends OperationType = OperationType> {
+            type: T;
             source?: string;
+        }
+        interface OperationOptions {
+            source?: string;
+        }
+
+        interface AccountMerge extends Operation<OperationType.accountMerge> {
+            destination: string;
+        }
+        interface AccountMergeOptions extends OperationOptions {
+            destination: string;
         }
         function accountMerge(options: AccountMergeOptions): xdr.Operation<AccountMerge>;
 
-        interface AllowTrust extends Operation {
-            type: OperationType.allowTrust;
+        interface AllowTrust extends Operation<OperationType.allowTrust> {
             trustor: string;
             assetCode: string;
-            authorize: boolean;
+            authorize: boolean | undefined;
         }
-        interface AllowTrustOptions {
+        interface AllowTrustOptions extends OperationOptions {
             trustor: string;
             assetCode: string;
-            authorize: boolean;
-            source?: string;
+            authorize?: boolean;
         }
         function allowTrust(options: AllowTrustOptions): xdr.Operation<AllowTrust>;
 
-        interface ChangeTrust extends Operation {
-            type: OperationType.changeTrust;
+        interface ChangeTrust extends Operation<OperationType.changeTrust> {
             line: Asset;
-            limit: string | number;
+            limit: string;
         }
-        interface ChangeTrustOptions {
+        interface ChangeTrustOptions extends OperationOptions {
             asset: Asset;
             limit?: string;
-            source?: string;
         }
         function changeTrust(options: ChangeTrustOptions): xdr.Operation<ChangeTrust>;
 
-        interface CreateAccount extends Operation {
-            type: OperationType.createAccount;
-            source: string;
-            destination: string;
-            startingBalance: string | number;
-        }
-        interface CreateAccountOptions {
+        interface CreateAccount extends Operation<OperationType.createAccount> {
             destination: string;
             startingBalance: string;
-            source?: string;
+        }
+        interface CreateAccountOptions extends OperationOptions {
+            destination: string;
+            startingBalance: string;
         }
         function createAccount(options: CreateAccountOptions): xdr.Operation<CreateAccount>;
 
-        interface CreatePassiveOffer extends Operation {
-            type: OperationType.createPassiveOffer;
-            selling: Asset;
-            buying: Asset;
-            amount: string | number;
-            price: string | number;
-        }
-        interface CreatePassiveOfferOptions {
+        interface CreatePassiveOffer extends Operation<OperationType.createPassiveOffer> {
             selling: Asset;
             buying: Asset;
             amount: string;
-            price: number | string | object;
-            source?: string;
+            price: string;
+        }
+        interface CreatePassiveOfferOptions extends OperationOptions {
+            selling: Asset;
+            buying: Asset;
+            amount: string;
+            price: number | string | object /* bignumber.js */;
         }
         function createPassiveOffer(options: CreatePassiveOfferOptions): xdr.Operation<CreatePassiveOffer>;
 
-        interface Inflation extends Operation {
-            type: OperationType.inflation;
+        interface Inflation extends Operation<OperationType.inflation> {
         }
-        function inflation(options: { source?: string }): xdr.Operation<Inflation>;
+        interface InflationOptions extends OperationOptions {  // tslint:disable-line
+        }
+        function inflation(options: InflationOptions): xdr.Operation<Inflation>;
 
-        interface ManageData extends Operation {
-            type: OperationType.manageData;
+        interface ManageData extends Operation<OperationType.manageData> {
             name: string;
             value: Buffer;
         }
-        interface ManageDataOptions {
+        interface ManageDataOptions extends OperationOptions {
             name: string;
             value: string | Buffer;
-            source?: string;
         }
         function manageData(options: ManageDataOptions): xdr.Operation<ManageData>;
 
-        interface ManageOffer extends Operation {
-            type: OperationType.manageOffer;
+        interface ManageOffer extends Operation<OperationType.manageOffer> {
             selling: Asset;
             buying: Asset;
-            amount: string | number;
-            price: string | number;
+            amount: string;
+            price: string;
             offerId: string;
         }
         interface ManageOfferOptions extends CreatePassiveOfferOptions {
@@ -253,37 +244,33 @@ export namespace StellarBase {
         }
         function manageOffer(options: ManageOfferOptions): xdr.Operation<ManageOffer>;
 
-        interface PathPayment extends Operation {
-            type: OperationType.pathPayment;
-            sendAsset: Asset;
-            sendMax: string | number;
-            destination: string;
-            destAsset: Asset;
-            destAmount: string | number;
-            path: Asset[];
-        }
-        interface PathPaymentOptions {
+        interface PathPayment extends Operation<OperationType.pathPayment> {
             sendAsset: Asset;
             sendMax: string;
             destination: string;
             destAsset: Asset;
             destAmount: string;
             path: Asset[];
-            source?: string;
+        }
+        interface PathPaymentOptions extends OperationOptions {
+            sendAsset: Asset;
+            sendMax: string;
+            destination: string;
+            destAsset: Asset;
+            destAmount: string;
+            path?: Asset[];
         }
         function pathPayment(options: PathPaymentOptions): xdr.Operation<PathPayment>;
 
-        interface Payment extends Operation {
-            type: OperationType.payment;
-            destination: string;
-            asset: Asset;
-            amount: string | number;
-        }
-        interface PaymentOptions {
-            destination: string;
-            asset: Asset;
+        interface Payment extends Operation<OperationType.payment> {
             amount: string;
-            source?: string;
+            asset: Asset;
+            destination: string;
+        }
+        interface PaymentOptions extends OperationOptions {
+            amount: string;
+            asset: Asset;
+            destination: string;
         }
         function payment(options: PaymentOptions): xdr.Operation<Payment>;
 
@@ -297,14 +284,49 @@ export namespace StellarBase {
             Revocable = 2,
             Immutable = 4,
         }
-        interface Signer {
-            ed25519PublicKey?: string;
-            sha256Hash?: Buffer | string;
-            preAuthTx?: Buffer | string;
+        interface SignerEd25519PublicKey {
+            ed25519PublicKey: string;
+            weight: number | undefined;
+        }
+        interface SignerSha256Hash {
+            sha256Hash: Buffer;
+            weight: number | undefined;
+        }
+        interface SignerPreAuthTx {
+            preAuthTx: Buffer;
+            weight: number | undefined;
+        }
+        type Signer = SignerEd25519PublicKey | SignerSha256Hash | SignerPreAuthTx;
+        interface SignerEd25519PublicKeyOptions {
+            ed25519PublicKey: string;
             weight?: number | string;
         }
-        interface SetOptions extends Operation {
-            type: OperationType.setOptions;
+        interface SignerSha256HashOptions {
+            sha256Hash: Buffer | string;
+            weight?: number | string;
+        }
+        interface SignerPreAuthTxOptions {
+            preAuthTx: Buffer | string;
+            weight?: number | string;
+        }
+        type SignerOptions = SignerEd25519PublicKeyOptions | SignerSha256HashOptions | SignerPreAuthTxOptions;
+        type SignerUnion = {ed25519PublicKey: any} | {sha256Hash: any} | {preAuthTx: any} | null;
+        interface SetOptions<T extends SignerUnion = never> extends Operation<OperationType.setOptions> {
+            inflationDest?: string;
+            clearFlags?: AuthFlags;
+            setFlags?: AuthFlags;
+            masterWeight?: number;
+            lowThreshold?: number;
+            medThreshold?: number;
+            highThreshold?: number;
+            homeDomain?: string;
+            signer:
+                T extends {ed25519PublicKey: any} ? SignerEd25519PublicKey :
+                T extends {sha256Hash: any} ? SignerSha256Hash :
+                T extends {preAuthTx: any} ? SignerPreAuthTx :
+                never;
+        }
+        interface SetOptionsOptions<T extends SignerUnion = never> extends OperationOptions {
             inflationDest?: string;
             clearFlags?: AuthFlags;
             setFlags?: AuthFlags;
@@ -313,29 +335,15 @@ export namespace StellarBase {
             medThreshold?: number | string;
             highThreshold?: number | string;
             homeDomain?: string;
-            signer?: Signer;
+            signer?: T;
         }
-        interface SetOptionsOptions {
-            inflationDest?: string;
-            clearFlags?: AuthFlags;
-            setFlags?: AuthFlags;
-            masterWeight?: number | string;
-            lowThreshold?: number | string;
-            medThreshold?: number | string;
-            highThreshold?: number | string;
-            signer?: Signer;
-            homeDomain?: string;
-            source?: string;
-        }
-        function setOptions(options: SetOptionsOptions): xdr.Operation<SetOptions>;
+        function setOptions<T extends SignerUnion = never>(options: SetOptionsOptions<T>): xdr.Operation<SetOptions<T>>;
 
-        interface BumpSequence extends Operation {
-            type: OperationType.bumpSequence;
+        interface BumpSequence extends Operation<OperationType.bumpSequence> {
             bumpTo: string;
         }
-        interface BumpSequenceOptions {
+        interface BumpSequenceOptions extends OperationOptions {
             bumpTo: string;
-            source?: string;
         }
         function bumpSequence(options: BumpSequenceOptions): xdr.Operation<BumpSequence>;
 
@@ -473,7 +481,7 @@ export namespace Config {
 }
 
 export class Server {
-    constructor(serverURL: string, options?: Server.ServerOptions)
+    constructor(serverURL: string, options?: Server.Options)
     accounts(): Server.AccountCallBuilder;
     assets(): Server.AssetsCallBuilder;
     effects(): Server.EffectCallBuilder;
@@ -967,7 +975,7 @@ export namespace Server {
         forTransaction(transactionId: string): this;
     }
 
-    interface ServerOptions {
+    interface Options {
         allowHttp: boolean;
     }
 
