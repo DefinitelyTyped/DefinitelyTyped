@@ -1,4 +1,4 @@
-// Type definitions for expo 32.0
+// Type definitions for expo 31.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -2264,6 +2264,10 @@ export namespace Permissions {
     const REMINDERS: 'reminders';
     const SYSTEM_BRIGHTNESS: 'systemBrightness';
     const USER_FACING_NOTIFICATIONS: 'userFacingNotifications';
+    /**
+     * Will be removed in SDK 32
+     */
+    const SMS: 'SMS';
 }
 
 /**
