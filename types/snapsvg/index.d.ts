@@ -313,7 +313,7 @@ declare namespace Snap {
         bind(attr:string,element:Snap.Element,eattr:string):Snap.Set;
         clear():Snap.Set;
         exclude(element:Snap.Element):boolean;
-        forEach(callback:(el:Snap.Element,index?:number)=>void|boolean),thisArg?:Object):Snap.Set;
+        forEach(callback:(el:Snap.Element,index?:number)=>void|boolean,thisArg?:Object):Snap.Set;
         pop():Snap.Element;
         push(el:Snap.Element):Snap.Set;
         push(...els:Snap.Element[]):Snap.Set;
