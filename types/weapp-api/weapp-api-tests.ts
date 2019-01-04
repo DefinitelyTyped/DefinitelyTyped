@@ -1,12 +1,13 @@
+import wx from './index'
 App({
     onLaunch: function () {
         //调用API从本地缓存中获取数据
-        var logs = wx.getStorageSync('logs') as Array<any> || []
+        let logs = wx.getStorageSync('logs') as Array<any> || []
         logs.unshift(Date.now())
         wx.setStorageSync('logs', logs)
     },
     getUserInfo: function (cb: Function) {
-        var that = this;
+        let that = this;
         if (this.globalData.userInfo) {
             typeof cb == "function" && cb(this.globalData.userInfo)
         } else {
