@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "weapp-api-tests.ts"
+        "weapp-api-tests.ts",
+        "../baidu-app/index.d.ts"
     ]
 }
