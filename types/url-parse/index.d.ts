@@ -44,9 +44,10 @@ interface URLParse {
 }
 
 declare const URLParse: {
+    new(address: string, parser?: boolean | URLParse.QueryParser): URLParse;
     new(address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
-    (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
     (address: string, parser?: boolean | URLParse.QueryParser): URLParse;
+    (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
 
     extractProtocol(url: string): {
         slashes: boolean;

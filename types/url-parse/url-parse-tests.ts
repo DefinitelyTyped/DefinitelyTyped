@@ -3,6 +3,7 @@ const parse = URL;
 
 new URL('foo/bar', 'https://github.com/');
 new URL('foo/bar', 'https://github.com/', (query: string) => ({ query }));
+new URL('foo/bar', 'https://github.com/', true);
 parse('foo/bar', 'https://github.com/');
 parse('foo/bar', 'https://github.com/', (query: string) => ({ query }));
 const result = parse('foo/bar?baz=quux', true);
