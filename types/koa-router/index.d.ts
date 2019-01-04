@@ -55,11 +55,11 @@ declare namespace Router {
     }
 
     export interface IMiddleware {
-        (ctx: Koa.ParameterizedContext<{}, IRouterContext>, next: () => Promise<any>): any;
+        (ctx: Koa.ParameterizedContext<any, IRouterContext>, next: () => Promise<any>): any;
     }
 
     export interface IParamMiddleware {
-        (param: string, ctx: Koa.ParameterizedContext<{}, IRouterContext>, next: () => Promise<any>): any;
+        (param: string, ctx: Koa.ParameterizedContext<any, IRouterContext>, next: () => Promise<any>): any;
     }
 
     export interface IRouterAllowedMethodsOptions {
