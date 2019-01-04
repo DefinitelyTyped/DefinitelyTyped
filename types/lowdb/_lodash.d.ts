@@ -459,7 +459,7 @@ declare module "./index" {
             predicate?: _.ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitSyncWrapper<boolean>;
         filter(
-            this: LoDashExplicitSyncWrapper<string | null | undefined>,
+            this: LoDashExplicitSyncWrapper<string | string[] | null | undefined>,
             predicate?: _.StringIterator<boolean>
         ): LoDashExplicitSyncWrapper<string[]>;
         filter<T, S extends T>(
@@ -2055,7 +2055,7 @@ declare module "./index" {
             predicate?: _.ObjectIterateeCustom<T, boolean>
         ): LoDashExplicitAsyncWrapper<boolean>;
         filter(
-            this: LoDashExplicitAsyncWrapper<string | null | undefined>,
+            this: LoDashExplicitAsyncWrapper<string | string[] | null | undefined>,
             predicate?: _.StringIterator<boolean>
         ): LoDashExplicitAsyncWrapper<string[]>;
         filter<T, S extends T>(

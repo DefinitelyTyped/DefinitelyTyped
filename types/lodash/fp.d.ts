@@ -918,8 +918,8 @@ declare namespace _ {
     type LodashFill2x14<T, U> = (start: number) => lodash.List<T | U>;
     interface LodashFilter {
         (predicate: (value: string) => boolean): LodashFilter1x1;
-        (predicate: lodash.__, collection: string | null | undefined): LodashFilter1x2;
-        (predicate: (value: string) => boolean, collection: string | null | undefined): string[];
+        (predicate: lodash.__, collection: string | string[] | null | undefined): LodashFilter1x2;
+        (predicate: (value: string) => boolean, collection: string | string[] | null | undefined): string[];
         <T, S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>): LodashFilter2x1<T, S>;
         <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashFilter2x2<T>;
         <T, S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>, collection: lodash.List<T> | null | undefined): S[];
@@ -930,7 +930,7 @@ declare namespace _ {
         <T extends object, S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>, collection: T | null | undefined): S[];
         <T extends object>(predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): Array<T[keyof T]>;
     }
-    type LodashFilter1x1 = (collection: string | null | undefined) => string[];
+    type LodashFilter1x1 = (collection: string | string[] | null | undefined) => string[];
     type LodashFilter1x2 = (predicate: (value: string) => boolean) => string[];
     type LodashFilter2x1<T, S> = (collection: lodash.List<T> | null | undefined) => S[];
     interface LodashFilter2x2<T> {
