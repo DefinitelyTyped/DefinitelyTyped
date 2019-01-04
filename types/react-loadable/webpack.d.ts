@@ -2,7 +2,7 @@ import webpack = require('webpack');
 
 export interface Bundle {
     id: string;
-    name: string;
+    name: string | null;
     file: string;
     publicPath: string;
 }
