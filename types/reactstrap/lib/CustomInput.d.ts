@@ -9,7 +9,7 @@ export type CustomInputType =
 
 export type CustomInputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
   type: CustomInputType;
-  label?: string;
+  label?: React.ReactNode;
   inline?: boolean;
   bsSize?: 'lg' | 'sm';
   valid?: boolean;
