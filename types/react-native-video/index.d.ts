@@ -93,7 +93,7 @@ export interface VideoProperties extends ViewProps {
   onPlaybackStalled?(): void;
   onPlaybackResume?(): void;
   onPlaybackRateChange?(): void;
-  onAudioFocusChanged?(): void;
+  onAudioFocusChanged?(event: any): void;
   onAudioBecomingNoisy?(): void;
   selectedTextTrack?: {
     type: 'system' | 'disabled' | 'title' | 'language' | 'index';
