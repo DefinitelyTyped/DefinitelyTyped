@@ -1,6 +1,9 @@
 // Type definitions for Snap-SVG 0.4.1
 // Project: https://github.com/adobe-webplatform/Snap.svg
-// Definitions by: Lars Klein <https://github.com/lhk>, Mattanja Kern <https://github.com/mattanja>, Andrey Kurdyumov <https://github.com/kant2002>
+// Definitions by: Lars Klein <https://github.com/lhk>,
+//                 Mattanja Kern <https://github.com/mattanja>,
+//                 Andrey Kurdyumov <https://github.com/kant2002>,
+//                 Terry Mun <https://github.com/terrymun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="mina" />
 
@@ -31,6 +34,7 @@ declare namespace Snap {
     export function plugin(f:Function):void;
     export function select(query:string):Snap.Element;
     export function selectAll(query:string):any;
+    export function set(...args:Snap.Element[]): Snap.Set;
     export function snapTo(values:Array<number>|number,value:number,tolerance?:number):number;
 
     export function animate(from:number|number[],to:number|number[],updater:(n:number)=>void,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
