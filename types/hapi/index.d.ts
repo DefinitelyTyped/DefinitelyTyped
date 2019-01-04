@@ -1436,13 +1436,11 @@ export interface RouteOptionsPreObject {
     failAction?: Lifecycle.FailAction;
 }
 
-export interface ValidationObject {
-    [key: string]: AnySchema;
-}
+export type ValidationObject = SchemaMap;
 
 export type RouteOptionsResponseSchema =
     boolean
-    | SchemaMap
+    | ValidationObject
     | Schema
     | ((value: object | Buffer | string, options: ValidationOptions) => Promise<any>);
 
