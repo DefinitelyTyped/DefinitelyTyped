@@ -1,7 +1,7 @@
 import webpack = require('webpack');
 
 export interface Bundle {
-    id: number;
+    id: string;
     name: string;
     file: string;
     publicPath: string;
