@@ -4,6 +4,8 @@
         "lib": [
             "es6"
         ],
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
