@@ -15,7 +15,11 @@ import * as React from 'react';
 // exporting the API that react-filepond exports.
 export {};
 
-type FilePondOrigin = 'limbo' | 'local';
+type FilePondOrigin =
+    | 'input' // Added by user
+    | 'limbo' // Temporary server file
+    | 'local' // Existing server file
+    ;
 
 export interface FileProps {
     src: string;
@@ -26,9 +30,7 @@ export interface FileProps {
     metadata?: {[key: string]: any};
 }
 
-export class File extends React.Component<FileProps> { }
-
-export interface FilePondItem {
+export class File extends React.Component<FileProps> {
     // Note that this duplicates the JS File type declaration, but is necessary
     // to avoid duplicating the name 'File' in this module
     // see: https://developer.mozilla.org/en-US/docs/Web/API/File
@@ -44,10 +46,20 @@ export interface FilePondItem {
     serverId: string;
     status: number;
     archived: boolean;
+
+    /** Aborts loading of this file */
     abortLoad: () => void;
+    /** Aborts processing of this file */
     abortProcessing: () => void;
-    getMetadata: (key?: any) => any;
-    setMetadata: (key: any, value: any, silent?: boolean) => void;
+    /**
+     * Retrieve metadata saved to the file, pass a key to retrieve
+     * a specific part of the metadata (e.g. 'crop' or 'resize').
+     * If no key is passed, the entire metadata object is returned.
+     */
+    getMetadata: (key?: string) => any;
+    /** Add additional metadata to the file */
+    setMetadata: (key: string, value: any) => void;
+}
 
 interface ServerUrl {
     url: string;
@@ -133,24 +145,50 @@ interface FilePondErrorDescription {
  * the first prop.    This is contradictory to the current docs.
  */
 interface FilePondCallbackProps {
+    /** FilePond instance has been created and is ready. */
     oninit?: () => void;
-    onwarning?: (error: any, file?: FilePondItem, status?: any) => void;
-    onerror?: (file?: FilePondItem, error?: FilePondErrorDescription, status?: any) => void;
-    onaddfilestart?: (file: FilePondItem) => void;
-    onaddfileprogress?: (file: FilePondItem, progress: number) => void;
-    onaddfile?: (file: FilePondItem, error: FilePondErrorDescription) => void;
-    onprocessfilestart?: (file: FilePondItem) => void;
-    onprocessfileprogress?: (file: FilePondItem, progress: number) => void;
-    onprocessfileabort?: (file: FilePondItem) => void;
-    onprocessfileundo?: (file: FilePondItem) => void;
-    onprocessfile?: (file: FilePondItem, error: FilePondErrorDescription) => void;
-    onremovefile?: (file: FilePondItem) => void;
-    onpreparefile?: (file: FilePondItem, output: any) => void;
-    onupdatefiles?: (fileItems: FilePondItem[]) => void;
+    /**
+     * FilePond instance throws a warning. For instance
+     * when the maximum amount of files has been reached.
+     * Optionally receives file if error is related to a
+     * file object
+     */
+    onwarning?: (error: any, file?: File, status?: any) => void;
+    /**
+     * FilePond instance throws an error. Optionally receives
+     * file if error is related to a file object.
+     */
+    onerror?: (file?: File, error?: FilePondErrorDescription, status?: any) => void;
+    /** Started file load */
+    onaddfilestart?: (file: File) => void;
+    /** Made progress loading a file */
+    onaddfileprogress?: (file: File, progress: number) => void;
+    /** If no error, file has been successfully loaded */
+    onaddfile?: (file: File, error: FilePondErrorDescription) => void;
+    /** Started processing a file */
+    onprocessfilestart?: (file: File) => void;
+    /** Made progress processing a file */
+    onprocessfileprogress?: (file: File, progress: number) => void;
+    /** Aborted processing of a file */
+    onprocessfileabort?: (file: File) => void;
+    /** Processing of a file has been undone */
+    onprocessfileundo?: (file: File) => void;
+    /** If no error, Processing of a file has been completed */
+    onprocessfile?: (file: File, error: FilePondErrorDescription) => void;
+    /** File has been removed. */
+    onremovefile?: (file: File) => void;
+    /**
+     * File has been transformed by the transform plugin or
+     * another plugin subscribing to the prepare_output filter.
+     * It receives the file item and the output data.
+     */
+    onpreparefile?: (file: File, output: any) => void;
+    /** A file has been added or removed, receives a list of file items */
+    onupdatefiles?: (fileItems: File[]) => void;
 }
 
 interface FilePondHookProps {
-    beforeRemoveFile?: (fileItem: FilePondItem) => boolean;
+    beforeRemoveFile?: (file: File) => boolean;
 }
 
 interface FilePondBaseProps {
@@ -182,14 +220,14 @@ export interface FilePondProps extends
 
 export class FilePond extends React.Component<FilePondProps> {
     setOptions: (options: FilePondProps) => void;
-    addFile: (source: FilePondItem) => void;
-    addFiles: (source: FilePondItem[]) => void;
+    addFile: (source: File) => void;
+    addFiles: (source: File[]) => void;
     removeFile: (query: string) => void;
     removeFiles: () => void;
     processFile: (query: string) => void;
     processFiles: () => void;
-    getFile: () => FilePondItem;
-    getFiles: () => FilePondItem[];
+    getFile: () => File;
+    getFiles: () => File[];
     browse: () => void;
     context: () => void;
 }
