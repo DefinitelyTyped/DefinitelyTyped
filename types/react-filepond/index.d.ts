@@ -97,33 +97,74 @@ interface FilePondServerConfigProps {
 }
 
 interface FilePondDragDropProps {
+    /** FilePond will catch all files dropped on the webpage */
     dropOnPage?: boolean;
+    /** Require drop on the FilePond element itself to catch the file. */
     dropOnElement?: boolean;
+    /**
+     * When enabled, files are validated before they are dropped.
+     * A file is not added when it’s invalid.
+     */
     dropValidation?: boolean;
+    /**
+     * Ignored file names when handling dropped directories.
+     * Dropping directories is not supported on all browsers.
+     */
     ignoredFiles?: string[];
 }
 
 interface FilePondLabelProps {
+    /**
+     * The decimal separator used to render numbers.
+     * By default this is determined automatically.
+     */
     labelDecimalSeparator?: string;
+    /**
+     * The thousands separator used to render numbers.
+     * By default this is determined automatically.
+     */
     labelThousandsSeparator?: string;
+    /**
+     * Default label shown to indicate this is a drop area.
+     * FilePond will automatically bind browse file events to
+     * the element with CSS class .filepond--label-action
+     */
     labelIdle?: string;
+    /** Label used while waiting for file size information */
     labelFileWaitingForSize?: string;
+    /** Label used when no file size information was received */
     labelFileSizeNotAvailable?: string;
+    /** Label used while loading a file */
     labelFileLoading?: string;
+    /** Label used when file load failed */
     labelFileLoadError?: string;
+    /** Label used when uploading a file */
     labelFileProcessing?: string;
+    /** Label used when file upload has completed */
     labelFileProcessingComplete?: string;
+    /** Label used when upload was cancelled */
     labelFileProcessingAborted?: string;
+    /** Label used when something went wrong during file upload */
     labelFileProcessingError?: string;
+    /** Label used to indicate to the user that an action can be cancelled. */
     labelTapToCancel?: string;
+    /** Label used to indicate to the user that an action can be retried. */
     labelTapToRetry?: string;
+    /** Label used to indicate to the user that an action can be undone. */
     labelTapToUndo?: string;
+    /** Label used for remove button */
     labelButtonRemoveItem?: string;
+    /** Label used for abort load button */
     labelButtonAbortItemLoad?: string;
+    /** Label used for retry load button */
     labelButtonRetryItemLoad?: string;
+    /** Label used for abort upload button */
     labelButtonAbortItemProcessing?: string;
+    /** Label used for undo upload button */
     labelButtonUndoItemProcessing?: string;
+    /** Label used for retry upload button */
     labelButtonRetryItemProcessing?: string;
+    /** Label used for upload button */
     labelButtonProcessItem?: string;
 }
 
@@ -196,15 +237,29 @@ interface FilePondBaseProps {
     id?: string;
     name?: string;
     className?: string;
+    /** Sets the required attribute to the output field */
     required?: boolean;
+    /** Sets the given value to the capture attribute */
     captureMethod?: any;
+    /** Enable or disable drag n’ drop */
     allowDrop?: boolean;
+    /** Enable or disable file browser */
     allowBrowse?: boolean;
+    /**
+     * Enable or disable pasting of files. Pasting files is not
+     * supported on all browsers.
+     */
     allowPaste?: boolean;
+    /** Enable or disable adding multiple files */
     allowMultiple?: boolean;
+    /** Allow drop to replace a file, only works when allowMultiple is false */
     allowReplace?: boolean;
+    /** Allows the user to undo file upload */
     allowRevert?: boolean;
+    /** The maximum number of files that the pond can handle */
     maxFiles?: number;
+    /** The maximum number of files that can be uploaded in parallel */
+    maxParallelUploads?: number;
     acceptedFileTypes?: string[];
     metadata?: {[key: string]: any};
 }
