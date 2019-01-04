@@ -5,6 +5,7 @@
 //                 Andrey Kurdyumov <https://github.com/kant2002>,
 //                 Terry Mun <https://github.com/terrymun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 /// <reference types="mina" />
 
 export = Snap;
