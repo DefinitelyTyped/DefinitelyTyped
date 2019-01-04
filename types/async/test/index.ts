@@ -358,7 +358,7 @@ q2.unshift(['task3', 'task4', 'task5'], function (error) {
 let q2Length = q2.length();
 q2.push('testRemovalTask');
 q2.remove(x => x.data === 'testTaskRemoval');
-console.log('how can I fail the test?');
+throw new Error('how can I fail the test?');
 
 var aq = async.queue<number, number>(function (level: number, callback: (error?: Error, newLevel?: number) => void) {
     console.log('hello ' + level);
