@@ -5,6 +5,10 @@ new URL('foo/bar', 'https://github.com/');
 new URL('foo/bar', 'https://github.com/', (query: string) => ({ query }));
 parse('foo/bar', 'https://github.com/');
 parse('foo/bar', 'https://github.com/', (query: string) => ({ query }));
+const result = parse('foo/bar?baz=quux', true);
+if (result.query.baz !== 'quux') {
+  throw new Error('bad query parsing');
+}
 
 const url1: URL = new URL('https://github.com/foo/bar?baz=true');
 url1.hash;
