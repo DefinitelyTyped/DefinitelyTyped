@@ -43,4 +43,4 @@ declare namespace urlencode {
 	function stringify(obj: any, prefix?: charsetParam, charsetParam?: charsetParam): string;
 }
 
-export default urlencode;
+export = urlencode;
