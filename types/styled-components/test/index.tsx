@@ -270,7 +270,7 @@ const MyOtherComponentWithProps = () => (
 
 // Create a <LinkFromStringWithPropsAndGenerics> react component that renders an <a>
 // which takes extra props passed as a generic type argument
-const LinkFromStringWithPropsAndGenerics = styled("a")<LinkProps>`
+const LinkFromStringWithPropsAndGenerics = styled("a") <LinkProps>`
     font-size: 1.5em;
     text-align: center;
     color: ${a => (a.canClick ? "palevioletred" : "gray")};
@@ -656,7 +656,7 @@ async function typedThemes() {
         ThemeProvider,
         ThemeConsumer
     } = (await import("styled-components")) as any as ThemedStyledComponentsModule<
-    typeof theme
+        typeof theme
     >;
 
     const ThemedDiv = styled.div`
@@ -945,4 +945,37 @@ function validateArgumentsAndReturns() {
     `);
     // $ExpectError
     createGlobalStyle([]);
+}
+
+function validateDefaultProps() {
+    interface Props {
+        requiredProp: boolean;
+        optionalProp: string; // Shouldn't need to be optional here
+    }
+
+    class MyComponent extends React.PureComponent<Props> {
+        static defaultProps = {
+            optionalProp: 'fallback'
+        };
+
+        render() {
+            const { requiredProp, optionalProp } = this.props;
+            return (
+                <span>
+                    {requiredProp.toString()}
+                    {optionalProp.toString()}
+                </span>
+            );
+        }
+    }
+
+    const StyledComponent = styled(MyComponent)`
+        color: red
+    `;
+
+    <MyComponent requiredProp />;
+    <StyledComponent requiredProp optionalProp="x" />;
+    <StyledComponent requiredProp />;
+    // still respects the type of optionalProp
+    <StyledComponent requiredProp optionalProp={1} />; // $ExpectError
 }

@@ -109,6 +109,9 @@ type ForwardRefExoticBase<P> = Pick<
     keyof React.ForwardRefExoticComponent<any>
 >;
 
+// extracts React defaultProps
+type ReactDefaultProps<C> = C extends { defaultProps: infer D; } ? D : never;
+
 // any doesn't count as assignable to never in the extends clause, and we default A to never
 export type AnyStyledComponent =
     | StyledComponent<any, any, any, any>
@@ -140,6 +143,8 @@ export interface StyledComponentBase<
     // <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
     //   props: StyledComponentPropsWithAs<AsC, T, O, A>
     // ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>
+
+    defaultProps: ReactDefaultProps<C>;
 
     // TODO (TypeScript 3.2): delete this overload
     (
