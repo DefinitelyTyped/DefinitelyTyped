@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType, ComponentClass } from 'react';
 
 import { TableProps } from '../../index';
 
@@ -49,8 +49,8 @@ export interface SelectTableHOCOptions {
 }
 
 declare function selectTableHOC<Props extends Partial<TableProps>>(
-    Component: ComponentType<Props>,
+    WrappedComponent: ComponentType<Props>,
     options?: SelectTableHOCOptions
-): ComponentType<Props & SelectTableAdditionalProps>;
+): ComponentClass<Props & SelectTableAdditionalProps>;
 
 export default selectTableHOC;

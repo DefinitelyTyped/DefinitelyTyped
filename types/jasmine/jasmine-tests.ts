@@ -171,6 +171,28 @@ describe("Included matchers:", () => {
         expect(foo).toThrowError(TypeError);
         expect(foo).toThrowError(TypeError, "foo bar baz");
     });
+
+    it("async matchers", async () => {
+        var badness = new Error("badness");
+        await expectAsync(Promise.resolve()).toBeResolved();
+        await expectAsync(Promise.resolve()).toBeResolved("good job");
+        await expectAsync(Promise.resolve(true)).toBeResolvedTo(true);
+        await expectAsync(Promise.reject(badness)).toBeRejected();
+        await expectAsync(Promise.reject(badness)).toBeRejected("bad mojo");
+        await expectAsync(Promise.reject(badness)).toBeRejectedWith(badness);
+        await expectAsync(Promise.resolve()).withContext("additional info").toBeResolved();
+    });
+
+    it("async matchers - not", async () => {
+        var badness = new Error("badness");
+        var malady = new Error("malady");
+        await expectAsync(Promise.reject(badness)).not.toBeResolved();
+        await expectAsync(Promise.resolve(true)).not.toBeResolvedTo(false);
+        await expectAsync(Promise.resolve()).not.toBeRejected();
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWith(malady);
+        await expectAsync(Promise.reject(badness)).not.withContext("additional info").toBeResolved();
+        await expectAsync(Promise.reject(badness)).withContext("additional info").not.toBeResolved();
+    });
 });
 
 describe("toThrowMatching", () => {
@@ -334,6 +356,12 @@ describe("A spy", () => {
 
     it("stops all execution on a function", () => {
         expect(bar).toBeNull();
+    });
+
+    it("tracks if it was called at all", function () {
+        foo.setBar();
+
+        expect(foo.setBar.calls.any()).toEqual(true);
     });
 });
 
@@ -695,11 +723,20 @@ describe("A spy, when created manually", () => {
 });
 
 describe("Multiple spies, when created manually", () => {
-    var tape: any;
+    interface Tape {
+        play(): void;
+        pause(): void;
+        rewind(pos: number): void;
+        stop(): void;
+        readonly isPlaying: boolean; // spy obj makes this writable
+    }
+
+    var tape: jasmine.SpyObj<Tape>;
     var el: jasmine.SpyObj<Element>;
 
     beforeEach(() => {
-        tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
+        tape = jasmine.createSpyObj<Tape>('tape', ['play', 'pause', 'stop', 'rewind']);
+        (tape as { isPlaying: boolean }).isPlaying = false;
         el = jasmine.createSpyObj<Element>('Element', ['hasAttribute']);
 
         el.hasAttribute.and.returnValue(false);
@@ -726,6 +763,29 @@ describe("Multiple spies, when created manually", () => {
 
     it("tracks all the arguments of its calls", () => {
         expect(tape.rewind).toHaveBeenCalledWith(0);
+    });
+
+    it("read isPlaying property", () => {
+        expect(tape.isPlaying).toBe(false);
+    })
+});
+
+describe("multiple spies, when created with spyOnAllFunctions", () => {
+
+    it("spies on all functions", () => {
+
+        const obj = {
+            x: (a: number) => a,
+            y: (a: number) => a,
+        }
+
+        spyOnAllFunctions(obj);
+
+        obj.x(0);
+        obj.y(1);
+
+        expect(obj.x).toHaveBeenCalled();
+        expect(obj.y).toHaveBeenCalledWith(1);
     });
 });
 
@@ -940,7 +1000,7 @@ describe("Asynchronous specs", () => {
     });
 
     it("should support async execution of test preparation and expectations", (done: DoneFn) => {
-        value++;
+        value += 1;
         expect(value).toBeGreaterThan(0);
         done();
     });
@@ -1118,7 +1178,7 @@ var myReporter: jasmine.CustomReporter = {
     specDone: (result: jasmine.CustomReporterResult) => {
         console.log("Spec: " + result.description + " was " + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log("Failure: " + result.failedExpectations[i].message);
             console.log("Actual: " + result.failedExpectations[i].actual);
             console.log("Expected: " + result.failedExpectations[i].expected);
@@ -1130,7 +1190,7 @@ var myReporter: jasmine.CustomReporter = {
     suiteDone: (result: jasmine.CustomReporterResult) => {
         console.log('Suite: ' + result.description + ' was ' + result.status);
         //tslint:disable-next-line:prefer-for-of
-        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i++) {
+        for (var i = 0; result.failedExpectations && i < result.failedExpectations.length; i += 1) {
             console.log('AfterAll ' + result.failedExpectations[i].message);
             console.log(result.failedExpectations[i].stack);
         }

@@ -3,6 +3,7 @@
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1428,7 +1429,7 @@ export interface RouteOptionsPreObject {
     /**
      * key name used to assign the response of the method to in request.pre and request.preResponses.
      */
-    assign: string;
+    assign?: string;
     /**
      * A failAction value which determine what to do when a pre-handler method throws an error. If assign is specified and the failAction setting is not 'error', the error will be assigned.
      */
@@ -2305,7 +2306,7 @@ export interface RequestEvent {
 export type LogEventHandler = (event: LogEvent, tags: { [key: string]: true }) => void;
 export type RequestEventHandler = (request: Request, event: RequestEvent, tags: { [key: string]: true }) => void;
 export type ResponseEventHandler = (request: Request) => void;
-export type RouteEventHandler = (route: ServerRoute) => void;
+export type RouteEventHandler = (route: RequestRoute) => void;
 export type StartEventHandler = () => void;
 export type StopEventHandler = () => void;
 

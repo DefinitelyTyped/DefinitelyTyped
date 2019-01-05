@@ -365,6 +365,7 @@ export interface LegendPayload {
     value: any;
     id: any;
     type: LegendType;
+    color?: string;
 }
 
 export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
@@ -449,6 +450,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     } | React.ReactElement<any> | ContentRenderer<any> | boolean;
     activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
+    blendStroke?: boolean;
 }
 
 export class Pie extends React.Component<PieProps> { }
@@ -865,7 +867,7 @@ export interface LabelListProps {
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
     clockWise?: boolean;
-    content?: React.ReactElement<any> | ContentRenderer<Label>;
+    content?: React.ReactElement<any> | ContentRenderer<LabelProps>;
     data?: number;
     dataKey: string | number | RechartsFunction;
     formatter?: LabelFormatter;

@@ -643,6 +643,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "Google Cloud Storage",
+            "typingsPackageName": "google-cloud__storage",
+            "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "graphene-pk11",
             "typingsPackageName": "graphene-pk11",
             "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
@@ -1477,6 +1483,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "sip.js",
+            "typingsPackageName": "sip.js",
+            "sourceRepoURL": "https://github.com/onsip/SIP.js",
+            "asOfVersion": "0.12.0"
+        },
+        {
             "libraryName": "smooth-scrollbar",
             "typingsPackageName": "smooth-scrollbar",
             "sourceRepoURL": "https://github.com/idiotWu/smooth-scrollbar",
@@ -1505,6 +1517,12 @@
             "typingsPackageName": "source-map",
             "sourceRepoURL": "https://github.com/mozilla/source-map",
             "asOfVersion": "0.5.7"
+        },
+        {
+            "libraryName": "Spectacle",
+            "typingsPackageName": "spectacle",
+            "sourceRepoURL": "http://github.com/FormidableLabs/spectacle/",
+            "asOfVersion": "5.2.3"
         },
         {
             "libraryName": "Spin.js",

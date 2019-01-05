@@ -367,7 +367,11 @@ export class KeystrokeHandler {
     destroy(): void;
     listenTo(emitter: Emitter): void;
     press(keyEvtData: KeystrokeInfo): boolean;
-    set(keystroke: string | Array<string | number>, callback: Function, options?: {priority?: PriorityString | number}): void;
+    set(
+        keystroke: string | Array<string | number>,
+        callback: (keyEvtData: KeystrokeInfo, cancel: () => void) => void,
+        options?: {priority?: PriorityString | number}
+    ): void;
 }
 
 // utils/locale
@@ -392,7 +396,7 @@ export function mapsEqual<K, V>(mapsA: Map<K, V>, mapsB: Map<K, V>): boolean;
 
 // utils/mix
 
-export function mix(baseClass: {new(): any}, ...mixins: any[]): void;
+export function mix<T>(baseClass: {new(...p: any[]): T}, ...mixins: Array<Partial<T>>): void;
 
 // utils/nth
 

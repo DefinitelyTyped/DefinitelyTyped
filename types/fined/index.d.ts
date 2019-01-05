@@ -11,7 +11,7 @@ declare namespace fined {
     interface PathSpec {
         path?: string;
         name?: string;
-        extensions?: string | string[] | { [extension: string]: string };
+        extensions?: string | string[] | { [extension: string]: string | null };
         cwd?: string;
         findUp?: boolean;
     }

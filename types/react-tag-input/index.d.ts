@@ -1,4 +1,4 @@
-// Type definitions for React-Tags (react-tag-input) 5.0
+// Type definitions for React-Tags (react-tag-input) 6.1
 // Project: https://github.com/prakhar1989/react-tags
 // Definitions by: Ogglas <https://github.com/Ogglas>
 //                  Jan Karres <https://github.com/jankarres>
@@ -38,6 +38,17 @@ export interface ReactTagsProps {
     inline?: boolean;
     allowUnique?: boolean;
     allowDragDrop?: boolean;
+
+    classNames?: {
+        tags?: string,
+        tagInput?: string,
+        tagInputField?: string,
+        selected?: string,
+        tag?: string,
+        remove?: string,
+        suggestions?: string,
+        activeSuggestion?: string
+    };
 }
 
 export class WithContext extends React.Component<ReactTagsProps> { }

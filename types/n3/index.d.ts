@@ -143,6 +143,7 @@ export interface ParserOptions {
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
 
 export interface N3Parser<Q extends BaseQuad = Quad> {
+    parse(input: string): Q[];
     parse(input: string, callback: ParseCallback<Q>): void;
 }
 

@@ -47,6 +47,37 @@ describe('mock-when test', () => {
     expect(fn(4)).rejects.toEqual('yes');
   });
 
+  it('Supports chained calls:', () => {
+    const fn = jest.fn();
+    when(fn)
+      .calledWith(1).mockReturnValue('no')
+      .calledWith(2).mockReturnValue('way?')
+      .calledWith(3).mockReturnValue('yes')
+      .calledWith(4).mockReturnValue('way!');
+
+    expect(fn(1)).toEqual('no');
+    expect(fn(2)).toEqual('way?');
+    expect(fn(3)).toEqual('yes');
+    expect(fn(4)).toEqual('way!');
+    expect(fn(5)).toEqual(undefined);
+  });
+
+  it('Supports chained calls with defaults:', () => {
+    const fn = jest.fn();
+    when(fn)
+      .mockReturnValue('nice')
+      .calledWith(1).mockReturnValue('no')
+      .calledWith(2).mockReturnValue('way?')
+      .calledWith(3).mockReturnValue('yes')
+      .calledWith(4).mockReturnValue('way!');
+
+    expect(fn(1)).toEqual('no');
+    expect(fn(2)).toEqual('way?');
+    expect(fn(3)).toEqual('yes');
+    expect(fn(4)).toEqual('way!');
+    expect(fn(5)).toEqual('nice');
+  });
+
   it('Assert the args:', () => {
     const fn = jest.fn();
     when(fn).expectCalledWith(1).mockReturnValue('x');

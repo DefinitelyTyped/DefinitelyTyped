@@ -152,7 +152,7 @@ declare module 'recompose' {
       [updaterName: string]: StateHandler<TState>;
     };
     type StateUpdaters<TOutter, TState, TUpdaters> = {
-      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => StateHandler<TState>;
+      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => TUpdaters[updaterName];
     };
     export function withStateHandlers<TState, TUpdaters extends StateHandlerMap<TState>, TOutter = {}>(
       createProps: TState | mapper<TOutter, TState>,
@@ -273,10 +273,10 @@ declare module 'recompose' {
 
     // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
     export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
-        RenderPropsComponent: StatelessComponent<any>,
-        propsMapper: (props: TRenderProps) => Partial<TInner>,
+        RenderPropsComponent: Component<any>,
+        propsMapper: (props: TRenderProps) => TInner,
         renderPropName?: string
-    ): ComponentEnhancer<TInner, TOutter>;
+    ): ComponentEnhancer<TInner & TOutter, TOutter>;
 
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
 

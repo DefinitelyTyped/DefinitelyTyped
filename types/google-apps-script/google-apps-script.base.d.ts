@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-12-26
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 
 declare namespace GoogleAppsScript {
   export module Base {
-    /** 
+    /**
      * A data interchange object for Apps Script services.
      */
     export interface Blob {
@@ -74,9 +74,10 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * This class provides access to G Suite specific dialog boxes.
+     * This class provides access to dialog boxes specific to Google Sheets.
      *
      * The methods in this class are only available for use in the context of a Google Spreadsheet.
+     * Please use G Suite dialogs instead.
      * See also
      *
      * ButtonSet
@@ -163,9 +164,9 @@ declare namespace GoogleAppsScript {
 
     /**
      * An enumeration that provides access to MIME-type declarations without typing the strings
-     * explicitly. Any method that expects a MIME type rendered as a string (for example,
-     * 'image/png') will also accept one of the values below, so long as the method
-     * supports the underlying MIME type.
+     * explicitly. Methods that expect a MIME type rendered as a string (for example,
+     * 'image/png') also accept any of the values below, so long as the method supports the
+     * underlying MIME type.
      *
      *     // Use MimeType enum to log the name of every Google Doc in the user's Drive.
      *     var docs = DriveApp.getFilesByType(MimeType.GOOGLE_DOCS);
@@ -305,11 +306,15 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface console {
+      error(): void;
       error(formatOrObject: Object, ...values: Object[]): void;
+      info(): void;
       info(formatOrObject: Object, ...values: Object[]): void;
+      log(): void;
       log(formatOrObject: Object, ...values: Object[]): void;
       time(label: string): void;
       timeEnd(label: string): void;
+      warn(): void;
       warn(formatOrObject: Object, ...values: Object[]): void;
     }
 
@@ -321,3 +326,4 @@ declare var Logger: GoogleAppsScript.Base.Logger;
 // conflicts with MimeType in lib.d.ts
 // declare var MimeType: GoogleAppsScript.Base.MimeType;
 declare var Session: GoogleAppsScript.Base.Session;
+declare var console: GoogleAppsScript.Base.console;

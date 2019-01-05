@@ -1,23 +1,21 @@
-// Type definitions for base-x v1.0.1
+// Type definitions for base-x 3.0
 // Project: https://github.com/cryptocoinjs/base-x
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var BaseX: BaseX.Base;
-export = BaseX;
+/// <reference types="node" />
 
-declare namespace BaseX {
-	interface EncodeBuffer {
-		[index: number]: number;
-		length: number;
-	}
+import { Buffer } from 'buffer';
 
-	interface BaseConverter {
-		encode: (buffer: EncodeBuffer) => string;
-		decode: (string: string) => number[];
-	}
+export = baseX;
 
-	interface Base {
-		(ALPHABET: string): BaseX.BaseConverter
-	}
+declare function baseX(ALPHABET: string): baseX.BaseConverter;
+
+declare namespace baseX {
+    interface BaseConverter {
+        encode(buffer: Buffer): string;
+        decodeUnsafe(string: string): Buffer | undefined;
+        decode(string: string): Buffer;
+    }
 }

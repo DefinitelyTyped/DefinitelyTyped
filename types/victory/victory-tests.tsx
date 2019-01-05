@@ -12,7 +12,8 @@ import {
     VictoryScatter,
     VictoryPie,
     VictoryTheme,
-    VictoryLegend
+    VictoryLegend,
+    VictoryBoxPlot
 } from "victory";
 
 // VictoryAnimation test
@@ -253,6 +254,9 @@ test = (
             {x: 4, y: 2},
             {x: 5, y: 1}
         ]}
+        barWidth={20}
+        barRatio={100}
+        cornerRadius={2}
     />
 );
 
@@ -315,6 +319,86 @@ test = (
     />
 );
 
+// VictoryBoxPlot test
+test = (
+    <VictoryBoxPlot
+        animate={{
+            duration: 1000,
+            onEnter: {
+                duration: 500,
+                before: () => ({ y: 0, label: " " }),
+                after: datum => ({ y: datum.y, label: "NEW" })
+            }
+        }}
+        boxWidth={10}
+        domain={[0, 10]}
+        domainPadding={5}
+        data={[
+            { x: 1, y: [1, 2, 3, 5] },
+            { x: 2, y: [3, 2, 8, 10] },
+            { x: 3, y: [2, 8, 6, 5] },
+            { x: 4, y: [1, 3, 2, 9] }
+        ]}
+        events={[
+            {
+                target: "data",
+                eventKey: 2,
+                eventHandlers: {
+                    onClick: evt => {
+                        evt.stopPropagation();
+                        return [
+                            {
+                                mutation: () => {
+                                    return {
+                                        style: { fill: "orange", width: 20 }
+                                    };
+                                }
+                            },
+                            {
+                                target: "labels",
+                                eventKey: 3,
+                                mutation: () => {
+                                    return { text: "now click me" };
+                                }
+                            }
+                        ];
+                    }
+                }
+            },
+            {
+                target: "parent",
+                eventHandlers: {
+                    onClick: () => {
+                        return [
+                            {
+                                target: "data",
+                                mutation: () => {
+                                    return {
+                                        style: { fill: "tomato", width: 10 }
+                                    };
+                                }
+                            }
+                        ];
+                    }
+                }
+            }
+        ]}
+        height={500}
+        labelOrientation="top"
+        labels={true}
+        name="BoxPlot"
+        style={{
+            min: { stroke: "tomato" },
+            max: { stroke: "orange" },
+            q1: { fill: "tomato" },
+            q3: { fill: "orange" },
+            median: { stroke: "white", strokeWidth: 2 },
+            minLabels: { fill: "tomato" },
+            maxLabels: { fill: "orange" }
+        }}
+        whiskerWidth={5}
+    />
+);
 
 // VictoryChart test
 test = (

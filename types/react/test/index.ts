@@ -696,6 +696,15 @@ React.createFactory(TransitionGroup)({ component: "div" });
 }
 
 //
+// Events
+// --------------------------------------------------------------------------
+function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
+
+function handler(e: React.MouseEvent) {
+    eventHandler(e);
+}
+
+//
 // The SyntheticEvent.target.value should be accessible for onChange
 // --------------------------------------------------------------------------
 class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
