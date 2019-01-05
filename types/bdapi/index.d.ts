@@ -1,5 +1,6 @@
 // Type definitions for bdapi 0.3
 // Project: https://github.com/rauenzi/BetterDiscordApp
+// Documentation: https://github.com/rauenzi/BetterDiscordApp/wiki/Creating-Plugins#bdapi
 // Definitions by: Ari Seyhun <https://github.com/Acidic9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
