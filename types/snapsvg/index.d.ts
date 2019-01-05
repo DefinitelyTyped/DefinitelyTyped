@@ -35,7 +35,7 @@ declare namespace Snap {
     export function plugin(f:Function):void;
     export function select(query:string):Snap.Element;
     export function selectAll(query:string):any;
-    export function set(...args:Snap.Element[]): Snap.Set;
+    export function set(...els:Snap.Element[]):Snap.Set;
     export function snapTo(values:Array<number>|number,value:number,tolerance?:number):number;
 
     export function animate(from:number|number[],to:number|number[],updater:(n:number)=>void,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
@@ -306,19 +306,21 @@ declare namespace Snap {
     export interface Set {
         animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Set;
         animate(...params:Array<{attrs:any,duration:number,easing:(num:number)=>number,callback?:()=>void}>):Snap.Set;
-        attr(params: {[attr:string]:string|number|boolean|BBox|any}): Snap.Set;
-        attr(param: "viewBox"): BBox;
-        attr(param: string): string;
-        bind(attr: string, callback: Function): Snap.Set;
+        attr(params:{[attr:string]:string|number|boolean|BBox|any}):Snap.Set;
+        attr(param:"viewBox"):Snap.Set;
+        attr(param:string):Snap.Set;
+        bind(attr:string,callback:Function):Snap.Set;
         bind(attr:string,element:Snap.Element):Snap.Set;
         bind(attr:string,element:Snap.Element,eattr:string):Snap.Set;
-        clear():Snap.Set;
-        exclude(element:Snap.Element):boolean;
+        clear():void;
+        exclude(el:Snap.Element):boolean;
         forEach(callback:(el:Snap.Element,index?:number)=>void|boolean,thisArg?:Object):Snap.Set;
+        getBBox():BBox;
+        insertAfter():Snap.Set;
         pop():Snap.Element;
         push(el:Snap.Element):Snap.Set;
         push(...els:Snap.Element[]):Snap.Set;
-        remove(): Snap.Set;
+        remove():Snap.Set;
         splice(index:number,count:number,...insertion:Snap.Element[]):Snap.Set;
     }
 
