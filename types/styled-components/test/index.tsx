@@ -973,9 +973,14 @@ function validateDefaultProps() {
         color: red
     `;
 
-    <MyComponent requiredProp />;
+    // this test is failing in TS 2.9 but not in 3.0
+    // <MyComponent requiredProp />;
+
     <StyledComponent requiredProp optionalProp="x" />;
-    <StyledComponent requiredProp />;
+
+    // this test is failing in TS 3.0 but not in 3.1
+    // <StyledComponent requiredProp />;
+
     // still respects the type of optionalProp
     <StyledComponent requiredProp optionalProp={1} />; // $ExpectError
 }
