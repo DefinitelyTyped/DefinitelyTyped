@@ -483,6 +483,23 @@ function testStub() {
     stub.withArgs('a', 2).returns(true);
 }
 
+function testTypedStub() {
+    class Foo {
+        bar(baz: number, qux: string): boolean {
+            return true;
+        }
+    }
+    let stub: sinon.SinonStub<[number, string], boolean> = sinon.stub();
+    let stub2 = sinon.stub<[number, string], boolean>();
+    const foo = new Foo();
+    stub = sinon.stub(foo, 'bar');
+    stub2 = sinon.stub(foo, 'bar');
+    const result: boolean = stub(42, 'qux');
+    const fooStub: sinon.SinonStubbedInstance<Foo> = {
+        bar: sinon.stub()
+    };
+}
+
 function testMock() {
     const obj = {};
     const mock = sinon.mock(obj);

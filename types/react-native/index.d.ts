@@ -3994,6 +3994,9 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      */
     keyExtractor?: (item: ItemT, index: number) => string;
 
+    /**
+     * Uses legacy MetroListView instead of default VirtualizedSectionList
+     */
     legacyImplementation?: boolean;
 
     /**
@@ -4269,6 +4272,11 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
      * Only enabled by default on iOS because that is the platform standard there.
      */
     stickySectionHeadersEnabled?: boolean;
+
+    /**
+     * Uses legacy MetroListView instead of default VirtualizedSectionList
+     */
+    legacyImplementation?: boolean;
 }
 
 export interface SectionListScrollParams {
@@ -7688,9 +7696,19 @@ export interface PushNotification {
     getSound(): string;
 
     /**
+     * Gets the category string from the `aps` object
+     */
+    getCategory(): string;
+
+    /**
      * Gets the notification's main message from the `aps` object
      */
     getAlert(): string | Object;
+
+    /**
+     * Gets the content-available number from the `aps` object
+     */
+    getContentAvailable(): number;
 
     /**
      * Gets the badge count number from the `aps` object
