@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "bdapi-tests.ts"
+        "bandagedbd__bdapi-tests.ts"
     ]
 }
