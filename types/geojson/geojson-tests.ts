@@ -1,8 +1,7 @@
 import {
-    BBox,
-    Feature, FeatureCollection, Geometry, GeometryCollection, LineString,
+    Feature, FeatureCollection, GeometryCollection, LineString,
     MultiLineString, MultiPoint, MultiPolygon, Point, Polygon, GeoJsonGeometryTypes,
-    GeometryObject, GeoJsonProperties
+    GeoJsonTypes, GeometryObject
 } from "geojson";
 
 let featureCollection: FeatureCollection = {
@@ -58,6 +57,9 @@ featureCollection.type;  // $ExpectType "FeatureCollection"
 featureCollection.features[0].type;  // $ExpectType "Feature"
 featureCollection.features[0].geometry;  // $ExpectType Geometry
 featureCollection.features[0].geometry.type;  // $ExpectType "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
+
+declare let tg: GeoJsonGeometryTypes;  // $ExpectType "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
+declare let t: GeoJsonTypes;  // $ExpectType "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection" | "Feature" | "FeatureCollection"
 
 const featureWithPolygon: Feature<Polygon> = {
     type: "Feature",
