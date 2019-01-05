@@ -1,5 +1,5 @@
 // Type definitions for bdapi 0.3
-// Project: https://betterdiscord.net (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/rauenzi/BetterDiscordApp
 // Definitions by: Ari Seyhun <https://github.com/Acidic9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -8,6 +8,48 @@ import * as ReactInstance from 'react';
 import * as ReactDOMInstance from 'react-dom';
 
 export const BdApi: typeof BdApiModule;
+
+/**
+ * Function with no arguments and no return value that may be called to revert changes made by monkeyPatch method,
+ * restoring (unpatching) original method.
+ */
+export type CancelPatch = () => void;
+
+/**
+ * A callback that modifies method logic.
+ * This callback is called on each call of the original method and is provided all data about original call.
+ * Any of the data can be modified if necessary, but do so wisely.
+ */
+export type PatchFunction = (data: PatchData) => any;
+
+/**
+ * A callback that modifies method logic.
+ * This callback is called on each call of the original method and is provided all data about original call.
+ * Any of the data can be modified if necessary, but do so wisely.
+ */
+export interface PatchData {
+    thisObject: object;
+    methodArguments: any[];
+    CancelPatch: CancelPatch;
+    originalMethod: () => void;
+    callOriginalMethod: () => void;
+    returnValue: any;
+}
+
+export interface MonkeyPatchOptions {
+    once?: boolean;
+    silent?: boolean;
+    displayName?: string;
+    before?: PatchFunction;
+    after?: PatchFunction;
+    instead?: PatchFunction;
+}
+
+export interface ToastOptions {
+    type?: string;
+    icon?: boolean;
+    timeout?: number;
+}
 
 export namespace BdApiModule {
 	/**
@@ -48,17 +90,17 @@ export namespace BdApiModule {
 	/**
 	 * Searches for an internal Discord webpack module that has every property passed.
 	 */
-	function findModuleByProps(): any;
+	function findModuleByProps(...props: string[]): any;
 
 	/**
 	 * Returns BandagedBD's instance of the core module. Only use this if you know what you are doing.
 	 */
-	function getCore(): any;
+	function getCore(): any; // TODO: This should not return 'any' but instead 'Core'
 
 	/**
 	 * Alias for [loadData(pluginName, key)](#loaddatapluginname-key)
 	 */
-	function getData(): void;
+	function getData(pluginName: string, key: string): any;
 
 	/**
 	 * Gets the internal react instance for a particular node.
@@ -93,7 +135,7 @@ export namespace BdApiModule {
 	 * - Display name of patched method is changed, so you can see if a function has been patched (and how many times) while debugging or in the stack trace.
 	 * Also, patched methods have property `__monkeyPatched` set to `true`, in case you want to check something programmatically.
 	 */
-	function monkeyPatch(module: object, methodName: string, options: object): void;
+	function monkeyPatch(module: object, methodName: string, options: MonkeyPatchOptions): CancelPatch;
 
 	/**
 	 * Adds a listener for when the node is removed from the document body.
@@ -109,17 +151,17 @@ export namespace BdApiModule {
 	 * Alias for [saveData(pluginName, key, data)](#savedatapluginname-key-data)
 	 *
 	 */
-	function setData(): void;
+	function setData(pluginName: string, key: string, data: any): void;
 
 	/**
 	 * Shows a simple toast message similar to on Android. An example of the `success` toast can be seen [here](https://i.zackrauen.com/zIagVa.png).
 	 */
-	function showToast(content: string): void;
+	function showToast(content: string, options?: ToastOptions): void;
 
 	/**
 	 * Wraps a function in a try catch block.
 	 */
-	function suppressErrors(method: () => void): () => void;
+	function suppressErrors(method: () => void, message?: string): () => void;
 
 	/**
 	 * Determines if the input is valid and parseable JSON.
