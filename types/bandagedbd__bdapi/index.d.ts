@@ -1,9 +1,9 @@
 // Type definitions for bdapi 0.3
 // Project: https://github.com/rauenzi/BetterDiscordApp
-// Documentation: https://github.com/rauenzi/BetterDiscordApp/wiki/Creating-Plugins#bdapi
 // Definitions by: Ari Seyhun <https://github.com/Acidic9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+// Documentation: https://github.com/rauenzi/BetterDiscordApp/wiki/Creating-Plugins#bdapi
 
 import * as ReactInstance from 'react';
 import * as ReactDOMInstance from 'react-dom';

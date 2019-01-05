@@ -1,4 +1,4 @@
-import { BdApi } from 'bdapi';
+import { BdApi } from 'bandagedbd__bdapi';
 
 BdApi.React; // $ExpectType typeof React
 BdApi.ReactDOM.render; // $ExpectType Renderer
