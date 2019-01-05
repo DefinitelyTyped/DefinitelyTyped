@@ -2,6 +2,9 @@
 // Project: https://github.com/miukimiu/react-kawaii#readme
 // Definitions by: cubbK <https://github.com/cubbK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
+
+import * as React from "react";
 
 interface Props {
     color?: string;
@@ -26,3 +29,5 @@ export const IceCream: React.FunctionComponent<Props>;
 export const Mug: React.FunctionComponent<Props>;
 export const Planet: React.FunctionComponent<Props>;
 export const SpeechBubble: React.FunctionComponent<Props>;
+
+export {};
