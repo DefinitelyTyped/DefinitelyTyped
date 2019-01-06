@@ -1419,11 +1419,11 @@ export interface MediaInformation {
     /**
      * The media metadata.
      */
-    metadata?: 
-    | MediaMetadata 
-    | GenericMediaMetadata 
-    | MovieMediaMetadata 
-    | MusicTrackMediaMetadata 
+    metadata?:
+    | MediaMetadata
+    | GenericMediaMetadata
+    | MovieMediaMetadata
+    | MusicTrackMediaMetadata
     | PhotoMediaMetadata
     | TvShowMediaMetadata;
 
