@@ -6,7 +6,7 @@
 //                 Brasten Sager <https://github.com/brasten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var debug: debug.IDebug;
+declare var debug: debug.IDebug & {debug:debug.IDebug, default:debug.IDebug};
 
 export = debug;
 export as namespace debug;
