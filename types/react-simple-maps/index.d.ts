@@ -17,17 +17,6 @@ interface ZoomableProps {
     onMoveEnd?: (newCenter: Point) => void;
 }
 
-interface Events<T> {
-    onClick?: (geography: object, evt: React.MouseEvent<T>) => void;
-    onMouseEnter?: (geography: object, evt: React.MouseEvent<T>) => void;
-    onMouseMove?: (geography: object, evt: React.MouseEvent<T>) => void;
-    onMouseLeave?: (geography: object, evt: React.MouseEvent<T>) => void;
-    onMouseDown?: (geography: object, evt: React.MouseEvent<T>) => void;
-    onMouseUp?: (geography: object, evt: React.MouseEvent<T>) => void;
-    onFocus?: (geography: object, evt: React.FocusEvent<T>) => void;
-    onBlur?: (geography: object, evt: React.FocusEvent<T>) => void;
-}
-
 export type Point = [number, number];
 
 export type MarkerType = {
@@ -77,7 +66,7 @@ export interface GeographiesProps {
     children?: (geographies: object[], projection: (point: Point) => void) => void;
 }
 
-export interface GeographyProps extends Events<SVGPathElement> {
+export interface GeographyProps {
     cacheId?: number | string | null;
     precision?: number;
     round?: boolean;
@@ -89,9 +78,17 @@ export interface GeographyProps extends Events<SVGPathElement> {
         hover?: React.CSSProperties;
         pressed?: React.CSSProperties;
     };
+    onClick?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseEnter?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseMove?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseLeave?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseDown?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseUp?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
+    onFocus?: (geography: object, evt: React.FocusEvent<SVGPathElement>) => void;
+    onBlur?: (geography: object, evt: React.FocusEvent<SVGPathElement>) => void;
 }
 
-export interface MarkerProps extends Events<SVGGElement> {
+export interface MarkerProps {
     marker?: MarkerType;
     tabable?: boolean;
     style?: {
@@ -100,6 +97,14 @@ export interface MarkerProps extends Events<SVGGElement> {
         pressed?: React.CSSProperties;
     };
     preserveMarkerAspect?: boolean;
+    onClick?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
+    onMouseEnter?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
+    onMouseMove?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
+    onMouseLeave?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
+    onMouseDown?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
+    onMouseUp?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
+    onFocus?: (marker: MarkerType, evt: React.FocusEvent<SVGGElement>) => void;
+    onBlur?: (marker: MarkerType, evt: React.FocusEvent<SVGGElement>) => void;
 }
 
 export interface AnnotationProps {
@@ -126,7 +131,7 @@ export interface GraticuleProps {
     Globe?: boolean;
 }
 
-export interface LineProps extends Events<SVGPathElement> {
+export interface LineProps {
     line?: Line;
     tabable?: boolean;
     style?: {
@@ -136,6 +141,14 @@ export interface LineProps extends Events<SVGPathElement> {
     };
     preserveMarkerAspect?: boolean;
     buildPath?: (start: Point, end: Point, line: Line) => string;
+    onClick?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseEnter?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseMove?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseLeave?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseDown?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
+    onMouseUp?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
+    onFocus?: (line: Line, evt: React.FocusEvent<SVGPathElement>) => void;
+    onBlur?: (line: Line, evt: React.FocusEvent<SVGPathElement>) => void;
 }
 
 export class ComposableMap extends React.Component<ComposableMapProps> {}
