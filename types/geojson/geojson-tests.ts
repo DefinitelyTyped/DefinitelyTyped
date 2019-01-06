@@ -58,10 +58,11 @@ featureCollection.features[0].type;  // $ExpectType "Feature"
 featureCollection.features[0].geometry;  // $ExpectType Geometry
 featureCollection.features[0].geometry.type;  // $ExpectType "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
 
-function testLiteralTypes(geojsonTypes: GeoJsonTypes, geometryTypes: GeoJsonGeometryTypes) {
-    geometryTypes; // $ExpectType "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
-    geojsonTypes; // $ExpectType "FeatureCollection" | "Feature" | "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
-}
+declare let geometryTypes: GeoJsonGeometryTypes;
+geometryTypes; // $ExpectType "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
+
+declare let geojsonTypes: GeoJsonTypes;
+geojsonTypes; // $ExpectType "FeatureCollection" | "Feature" | "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
 
 const featureWithPolygon: Feature<Polygon> = {
     type: "Feature",
