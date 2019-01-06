@@ -1424,8 +1424,8 @@ export interface MediaInformation {
     | GenericMediaMetadata 
     | MovieMediaMetadata 
     | MusicTrackMediaMetadata 
-    | PhotoMediaMetadata 
-    | PhotoMediaMetadata;
+    | PhotoMediaMetadata
+    | TvShowMediaMetadata;
 
     /**
      * The stream type.
