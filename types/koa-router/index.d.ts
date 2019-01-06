@@ -43,7 +43,7 @@ declare namespace Router {
         strict?: boolean;
     }
 
-    export interface IRouterContext extends Koa.Context {
+    export interface IRouterContext<StateT = any, CustomT = {}> {
         /**
          * url params
          */
@@ -51,11 +51,14 @@ declare namespace Router {
         /**
          * the router instance
          */
-        router: Router;
+        router: Router<StateT, CustomT>;
     }
 
-    export interface IMiddleware {
-        (ctx: Koa.ParameterizedContext<{}, IRouterContext>, next: () => Promise<any>): any;
+    export interface IMiddleware<StateT = any, CustomT = {}> {
+        (
+            ctx: Koa.ParameterizedContext<StateT, IRouterContext<StateT, CustomT> & CustomT>,
+            next: () => Promise<void>
+        ): void;
     }
 
     export interface IParamMiddleware {
@@ -148,7 +151,7 @@ declare namespace Router {
     }
 }
 
-declare class Router {
+declare class Router<StateT = any, CustomT = {}> {
     params: Object;
     stack: Array<Router.Layer>;
 
@@ -164,109 +167,195 @@ declare class Router {
      * sequentially, requests start at the first middleware and work their way
      * "down" the middleware stack.
      */
-    use(...middleware: Array<Router.IMiddleware>): Router;
-    use(path: string | string[] | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    use(...middleware: Array<Router.IMiddleware<StateT, CustomT>>): Router<StateT, CustomT>;
+    use(
+        path: string | string[] | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * HTTP get method
      */
-    get(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    get(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    get(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    get(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * HTTP post method
      */
-    post(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    post(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    post(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    post(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * HTTP put method
      */
-    put(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    put(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    put(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    put(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * HTTP link method
      */
-    link(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    link(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    link(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    link(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * HTTP unlink method
      */
-    unlink(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    unlink(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
-
+    unlink(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    unlink(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * HTTP delete method
      */
-    delete(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    delete(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    delete(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    delete(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * Alias for `router.delete()` because delete is a reserved word
      */
-    del(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    del(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    del(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    del(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * HTTP head method
      */
-    head(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    head(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    head(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    head(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * HTTP options method
      */
-    options(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    options(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    options(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    options(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * HTTP path method
      */
-    patch(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    patch(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    patch(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    patch(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * Register route with all methods.
      */
-    all(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    all(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    all(
+        name: string,
+        path: string | RegExp,
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
+    all(
+        path: string | RegExp | (string | RegExp)[],
+        ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
+    ): Router<StateT, CustomT>;
 
     /**
      * Set the path prefix for a Router instance that was already initialized.
      */
-    prefix(prefix: string): Router;
+    prefix(prefix: string): Router<StateT, CustomT>;
 
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    routes(): Koa.Middleware;
+    routes(): Koa.Middleware<StateT, CustomT & Router.IRouterContext<StateT, CustomT>>;
 
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    middleware(): Koa.Middleware;
+    middleware(): Koa.Middleware<StateT, CustomT & Router.IRouterContext<StateT, CustomT>>;
 
     /**
      * Returns separate middleware for responding to `OPTIONS` requests with
      * an `Allow` header containing the allowed methods, as well as responding
      * with `405 Method Not Allowed` and `501 Not Implemented` as appropriate.
      */
-    allowedMethods(options?: Router.IRouterAllowedMethodsOptions): Koa.Middleware;
+    allowedMethods(
+        options?: Router.IRouterAllowedMethodsOptions
+    ): Koa.Middleware<StateT, CustomT & Router.IRouterContext<StateT, CustomT>>;
 
     /**
      * Redirect `source` to `destination` URL with optional 30x status `code`.
      *
      * Both `source` and `destination` can be route names.
      */
-    redirect(source: string, destination: string, code?: number): Router;
+    redirect(source: string, destination: string, code?: number): Router<StateT, CustomT>;
 
     /**
      * Create and register a route.
      */
-    register(path: string | RegExp, methods: string[], middleware: Router.IMiddleware, opts?: Object): Router.Layer;
+    register(
+        path: string | RegExp,
+        methods: string[],
+        middleware: Router.IMiddleware<StateT, CustomT>,
+        opts?: Object
+    ): Router.Layer;
 
     /**
      * Lookup route with given `name`.
@@ -304,7 +393,7 @@ declare class Router {
     /**
      * Run middleware for named route parameters. Useful for auto-loading or validation.
      */
-    param(param: string, middleware: Router.IParamMiddleware): Router;
+    param(param: string, middleware: Router.IParamMiddleware): Router<StateT, CustomT>;
 
     /**
      * Generate URL from url pattern and given `params`.
