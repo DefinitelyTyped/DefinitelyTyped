@@ -107,5 +107,6 @@ Validator.stopOnError(true);
 
 const callback: Validator.RegisterCallback = (value, args, attribute) => true;
 Validator.register('custom', callback, 'error.custom');
+Validator.register('custom', callback);
 
 Validator.registerAsync('custom', () => {}, 'error.custom');
