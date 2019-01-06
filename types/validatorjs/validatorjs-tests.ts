@@ -109,4 +109,13 @@ const callback: Validator.RegisterCallback = (value, args, attribute) => true;
 Validator.register('custom', callback, 'error.custom');
 Validator.register('custom', callback);
 
-Validator.registerAsync('custom', () => {}, 'error.custom');
+const asyncCallback: Validator.RegisterAsyncCallback = (
+    value,
+    args,
+    attribute,
+    passes
+) => {
+    passes();
+    passes(false, 'error.custom');
+};
+Validator.registerAsync('custom', () => {}, 'error.default');
