@@ -6,6 +6,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Validator {
+    interface TypeCheckingRule {
+        [attribute: string]: Array<any>;
+    }
+    interface Rules {
+        [attribute: string]: string | Array<string | TypeCheckingRule> | Rules;
+    }
+
     interface ValidationErrors {
         [field: string]: string;
     }

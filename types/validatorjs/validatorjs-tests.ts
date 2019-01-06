@@ -1,6 +1,60 @@
 import Validator = require('validatorjs');
 
-var rules: any = {
+/**
+ * Validation rules
+ */
+
+function objectRules() {
+    const data: any = { name: 'John' };
+    const rules: Validator.Rules = { name: 'required' };
+    const validation = new Validator(data, rules);
+}
+
+function nestedRules() {
+    const data: any = { name: 'John', bio: { age: 28 } };
+
+    const nested: Validator.Rules = {
+        name: 'required',
+        bio: { age: 'min:18' }
+    };
+    const flattened: Validator.Rules = {
+        name: 'required',
+        'bio.age': 'min:18'
+    };
+
+    const validation1 = new Validator(data, nested);
+    const validation2 = new Validator(data, flattened);
+}
+
+function wildcardRules() {
+    const data: any = {
+        users: [{ name: 'John', bio: { age: 28 } }]
+    };
+
+    const rules: Validator.Rules = {
+        'users.*.name': 'required',
+        'users.*.bio.age': 'min:18'
+    };
+
+    const validation = new Validator(data, rules);
+}
+
+function arrayRules() {
+    const data: any = { name: 'John' };
+    const rules: Validator.Rules = { name: ['required', 'string'] };
+    const validation = new Validator(data, rules);
+}
+
+function typeCheckingRules() {
+    const data: any = { age: 30, name: '' };
+    const rules: Validator.Rules = {
+        age: ['required', { in: [29, 30] }],
+        name: [{ required_if: ['age', 30] }]
+    };
+    const validation = new Validator(data, rules);
+}
+
+var rules: Validator.Rules = {
     foo: 'required'
 };
 
