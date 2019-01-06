@@ -8,7 +8,8 @@
 //                 e-cloud <https://github.com/e-cloud>,
 //                 Georgii Dolzhykov <https://github.com/thorn0>,
 //                 Jack Moore <https://github.com/jtmthf>,
-//                 Dominique Rau <https://github.com/DomiR>
+//                 Dominique Rau <https://github.com/DomiR>,
+//                 Steven Langbroek <https://github.com/StevenLangbroek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 

@@ -216,7 +216,7 @@ declare module "../index" {
     type Comparator<T> = (a: T, b: T) => boolean;
     type Comparator2<T1, T2> = (a: T1, b: T2) => boolean;
 
-    type PropertyName = string | number | symbol;
+    type PropertyName = string | number | symbol | null | undefined;
     type PropertyPath = Many<PropertyName>;
 
     type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never })[keyof T]>;

@@ -4064,7 +4064,7 @@ fp.now(); // $ExpectType number
 
 // _.isEqualWith
 {
-    const customizer = (value: any, other: any, indexOrKey: number|string|symbol|undefined, parent: any, otherParent: any, stack: any) => true;
+    const customizer = (value: any, other: any, indexOrKey: number|string|symbol|null|undefined, parent: any, otherParent: any, stack: any) => true;
 
     _.isEqualWith(anything, anything, customizer); // $ExpectType boolean
     _(anything).isEqualWith(anything, customizer); // $ExpectType boolean
@@ -4205,14 +4205,14 @@ fp.now(); // $ExpectType number
 
 // _.isMatchWith
 {
-    const testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => true;
+    const testIsMatchCustomizerFn = (value: any, other: any, indexOrKey: number|string|symbol|null|undefined, object: object, source: object) => true;
 
-    _.isMatchWith({}, {}, testIsMatchCustiomizerFn); // $ExpectType boolean
-    _({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType boolean
-    _.chain({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType LoDashExplicitWrapper<boolean>
+    _.isMatchWith({}, {}, testIsMatchCustomizerFn); // $ExpectType boolean
+    _({}).isMatchWith({}, testIsMatchCustomizerFn); // $ExpectType boolean
+    _.chain({}).isMatchWith({}, testIsMatchCustomizerFn); // $ExpectType LoDashExplicitWrapper<boolean>
 
-    fp.isMatchWith(testIsMatchCustiomizerFn, {}, {}); // $ExpectType boolean
-    fp.isMatchWith(testIsMatchCustiomizerFn)({})({}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustomizerFn, {}, {}); // $ExpectType boolean
+    fp.isMatchWith(testIsMatchCustomizerFn)({})({}); // $ExpectType boolean
 }
 
 // _.isNaN
