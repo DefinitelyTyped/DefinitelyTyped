@@ -7,10 +7,6 @@
 
 declare namespace Validator {
 
-    interface ParsedRule {
-        attribute: Array<{ name: string, value: any }>
-    }
-
     interface ValidationErrors {
         [field: string]: string
     }
