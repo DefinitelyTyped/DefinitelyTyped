@@ -14,6 +14,7 @@
 //                 Troy Zarger <https://github.com/tzarger>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Slava Yultyyev Schick <https://github.com/yultyyev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -461,6 +462,16 @@ declare namespace Stripe {
              * "terms_of_service", or "other".
              */
             reason: "fraud" | "terms_of_service" | "other" ;
+        }
+
+        interface ILoginLink {
+            object: "login_link";
+            created: number;
+
+            /**
+             * A single-use login link for an Express account to access their Stripe dashboard.
+             */
+            url: string;
         }
     }
 
@@ -2352,6 +2363,7 @@ declare namespace Stripe {
             end: number;
         }
     }
+
     namespace invoiceItems {
         interface InvoiceItem extends IResourceObject {
             /**
@@ -3969,16 +3981,9 @@ declare namespace Stripe {
             destination?: string;
 
             /**
-             * Only return transfers for the recipient specified by this
-             * recipient ID.
+             * Only return transfers with the specified transfer group.
              */
-            recipient?: string;
-
-            /**
-             * Only return transfers that have the given status:
-             * pending, paid, failed, in_transit, or canceled.
-             */
-            status: Statuses;
+            transfer_group?: string | null;
         }
 
         type SourceTypes = "alipay_account" | "bank_account" | "bitcoin_receiver" | "card";
@@ -5498,6 +5503,14 @@ declare namespace Stripe {
              */
             listExternalAccounts(accId: string, data: accounts.ICardListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
             listExternalAccounts(accId: string, data: accounts.ICardListOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
+
+            /**
+             * Creates a single-use login link for an Express account to access their Stripe dashboard.
+             * You may only create login links for Express accounts connected to your platform.
+             * Returns a login link object if the call succeeded.
+             */
+            createLoginLink(accId: string, response?: IResponseFn<accounts.ILoginLink>): Promise<accounts.ILoginLink>;
+            createLoginLink(accId: string, redirectUrl?: string, response?: IResponseFn<accounts.ILoginLink>): Promise<accounts.ILoginLink>;
         }
 
         class ApplicationFees extends StripeResource {
@@ -7499,6 +7512,7 @@ declare namespace Stripe {
          */
         starting_after?: string;
     }
+
     interface IListOptionsCreated extends IListOptions {
         /**
          * A filter on the list based on the object created field. The value can be a string with an integer Unix timestamp, or it can

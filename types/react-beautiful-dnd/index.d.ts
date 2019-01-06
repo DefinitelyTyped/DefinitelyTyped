@@ -5,6 +5,7 @@
 //                 Austin Turner <https://github.com/paustint>
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Enrico Boccadifuoco <https://github.com/enricoboccadifuoco>
+//                 Taeheon Kim <https://github.com/lonyele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -85,6 +86,7 @@ export interface DropResult extends DragUpdate {
 }
 
 export interface DragDropContextProps {
+    onBeforeDragStart?(initial: DragStart): void;
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;
     onDragEnd(result: DropResult, provided: ResponderProvided): void;
