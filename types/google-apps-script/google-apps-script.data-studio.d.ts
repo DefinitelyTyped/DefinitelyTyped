@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-01-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -50,6 +50,8 @@ declare namespace GoogleAppsScript {
       FieldType: typeof FieldType;
       getConfig(): Config;
       getFields(): Fields;
+      newDebugError(): DebugError;
+      newUserError(): UserError;
     }
 
     /**
@@ -81,6 +83,21 @@ declare namespace GoogleAppsScript {
      */
     export interface DataStudioApp {
       createCommunityConnector(): CommunityConnector;
+    }
+
+    /**
+     * An error that is only visible to admins of the connector.
+     *
+     *     var cc = DataStudioApp.createCommunityConnector();
+     *
+     *     cc.newDebugError()
+     *       .setText("This is the debug error text.")
+     *       .throwException();
+     */
+    export interface DebugError {
+      printJson(): string;
+      setText(text: string): DebugError;
+      throwException(): void;
     }
 
     /**
@@ -293,6 +310,23 @@ declare namespace GoogleAppsScript {
       setId(id: string): TextInput;
       setName(name: string): TextInput;
       setPlaceholder(placeholder: string): TextInput;
+    }
+
+    /**
+     * An error that is shown to users of the connector.
+     *
+     *     var cc = DataStudioApp.createCommunityConnector();
+     *
+     *     cc.newUserError()
+     *       .setText("This is the debug error text.")
+     *       .setDebugText("This text is only shown to admins.")
+     *       .throwException();
+     */
+    export interface UserError {
+      printJson(): string;
+      setDebugText(text: string): UserError;
+      setText(text: string): UserError;
+      throwException(): void;
     }
 
   }
