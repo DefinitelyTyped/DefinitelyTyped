@@ -1419,7 +1419,7 @@ export interface MediaInformation {
     /**
      * The media metadata.
      */
-    metadata: 
+    metadata?: 
     | MediaMetadata 
     | GenericMediaMetadata 
     | MovieMediaMetadata 
