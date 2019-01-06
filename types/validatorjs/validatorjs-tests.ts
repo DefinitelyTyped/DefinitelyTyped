@@ -62,7 +62,10 @@ var data: any = {
     foo: 'bar'
 };
 
-var validator: Validator.Validator<any> = new Validator(data, rules);
+
+/**
+ * Passing validation
+ */
 
 var passes: boolean = validator.passes() as boolean;
 validator.passes(() => {});
@@ -72,11 +75,19 @@ validator.fails(() => {});
 
 var check: boolean = validator.check();
 
+/**
+ * Validation errors
+ */
+
 var errors: Validator.Errors = validator.errors;
 var all: Validator.ValidationErrors = errors.all();
 var error: Array<string> = errors.get('foo');
 var first: string | boolean = errors.first('foo');
 var has: boolean = errors.has('foo');
+
+/**
+ * Validator
+ */
 
 Validator.setMessages('en', {
     integer: 'The :attribute must be an integer.',
