@@ -1,13 +1,7 @@
 import { Event, DetailedErrorCode } from "./cast.framework.events";
 
-export as namespace messages
-export type UserAction =
-    | "LIKE"
-    | "DISLIKE"
-    | "FOLLOW"
-    | "UNFOLLOW"
-    | "FLAG"
-    | "SKIP_AD";
+export as namespace messages;
+export type UserAction = "LIKE" | "DISLIKE" | "FOLLOW" | "UNFOLLOW" | "FLAG" | "SKIP_AD";
 
 export type UserActionContext =
     | "UNKNOWN_CONTEXT"
@@ -22,12 +16,7 @@ export type UserActionContext =
     | "PLAYER"
     | "COACH";
 
-export type TextTrackType =
-    | "SUBTITLES"
-    | "CAPTIONS"
-    | "DESCRIPTIONS"
-    | "CHAPTERS"
-    | "METADATA";
+export type TextTrackType = "SUBTITLES" | "CAPTIONS" | "DESCRIPTIONS" | "CHAPTERS" | "METADATA";
 
 export type TextTrackWindowType = "NONE" | "NORMAL" | "ROUNDED_CORNERS";
 
@@ -44,12 +33,7 @@ export type TextTrackFontGenericFamily =
 
 export type TextTrackFontStyle = "NORMAL" | "BOLD" | "BOLD_ITALIC" | "ITALIC";
 
-export type TextTrackEdgeType =
-    | "NONE"
-    | "OUTLINE"
-    | "DROP_SHADOW"
-    | "RAISED"
-    | "DEPRESSED";
+export type TextTrackEdgeType = "NONE" | "OUTLINE" | "DROP_SHADOW" | "RAISED" | "DEPRESSED";
 
 export type Command =
     | "PAUSE"
@@ -64,11 +48,7 @@ export type Command =
 
 export type SeekResumeState = "PLAYBACK_START" | "PLAYBACK_PAUSE";
 
-export type StreamingProtocolType =
-    | "UNKNOWN"
-    | "MPEG_DASH"
-    | "HLS"
-    | "SMOOTH_STREAMING";
+export type StreamingProtocolType = "UNKNOWN" | "MPEG_DASH" | "HLS" | "SMOOTH_STREAMING";
 
 export type StreamType = "BUFFERED" | "LIVE" | "NONE";
 
@@ -101,11 +81,7 @@ export type ErrorReason =
     | "INVALID_REQUEST"
     | "GENERIC_LOAD_ERROR";
 
-export type RepeatMode =
-    | "REPEAT_OFF"
-    | "REPEAT_ALL"
-    | "REPEAT_SINGLE"
-    | "REPEAT_ALL_AND_SHUFFLE";
+export type RepeatMode = "REPEAT_OFF" | "REPEAT_ALL" | "REPEAT_SINGLE" | "REPEAT_ALL_AND_SHUFFLE";
 
 export type IdleReason = "CANCELLED" | "INTERRUPTED" | "FINISHED" | "ERROR";
 
@@ -160,12 +136,7 @@ export type MessageType =
 
 export type PlayerState = "IDLE" | "PLAYING" | "PAUSED" | "BUFFERING";
 
-export type QueueChangeType =
-    | "INSERT"
-    | "REMOVE"
-    | "ITEMS_CHANGE"
-    | "UPDATE"
-    | "NO_CHANGE";
+export type QueueChangeType = "INSERT" | "REMOVE" | "ITEMS_CHANGE" | "UPDATE" | "NO_CHANGE";
 
 export type QueueType =
     | "ALBUM"
@@ -178,12 +149,7 @@ export type QueueType =
     | "LIVE_TV"
     | "MOVIE";
 
-export type MetadataType =
-    | "GENERIC"
-    | "MOVIE"
-    | "TV_SHOW"
-    | "MUSIC_TRACK"
-    | "PHOTO";
+export type MetadataType = "GENERIC" | "MOVIE" | "TV_SHOW" | "MUSIC_TRACK" | "PHOTO";
 
 /**
  * RefreshCredentials request data.
@@ -1372,12 +1338,12 @@ export interface MediaInformation {
      * is playing or ones that receiver will play shortly after; instead of sending
      * whole list of clips. This is to avoid overflow of MediaStatus message.
      */
-    breakClips: BreakClip[];
+    breakClips?: BreakClip[];
 
     /**
      * List of breaks.
      */
-    breaks: Break[];
+    breaks?: Break[];
 
     /**
      * Typically the url of the media.
@@ -1414,12 +1380,18 @@ export interface MediaInformation {
     /**
      * The format of the HLS media segment.
      */
-    hlsSegmentFormat: HlsSegmentFormat;
+    hlsSegmentFormat?: HlsSegmentFormat;
 
     /**
      * The media metadata.
      */
-    metadata: MediaMetadata;
+    metadata?:
+        | MediaMetadata
+        | GenericMediaMetadata
+        | MovieMediaMetadata
+        | MusicTrackMediaMetadata
+        | PhotoMediaMetadata
+        | TvShowMediaMetadata;
 
     /**
      * The stream type.
@@ -1429,12 +1401,12 @@ export interface MediaInformation {
     /**
      * The style of text track.
      */
-    textTrackStyle: TextTrackStyle;
+    textTrackStyle?: TextTrackStyle;
 
     /**
      * The media tracks.
      */
-    tracks: Track[];
+    tracks?: Track[];
 }
 
 /**
@@ -1515,12 +1487,7 @@ export interface LoadByEntityRequestData {
  * attributes.
  */
 export class LiveSeekableRange {
-    constructor(
-        start?: number,
-        end?: number,
-        isMovingWindow?: boolean,
-        isLiveDone?: boolean
-    );
+    constructor(start?: number, end?: number, isMovingWindow?: boolean, isLiveDone?: boolean);
 
     /**
      * A boolean value indicates whether a live stream is ended. If it is done;
@@ -1659,10 +1626,7 @@ export class FetchItemsRequestData extends RequestData {
  * Extended media status information
  */
 export class ExtendedMediaStatus {
-    constructor(
-        playerState: MediaInformation,
-        opt_media?: MediaInformation
-    );
+    constructor(playerState: MediaInformation, opt_media?: MediaInformation);
 
     media: MediaInformation;
 
