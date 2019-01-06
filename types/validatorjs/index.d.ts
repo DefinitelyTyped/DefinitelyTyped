@@ -9,6 +9,7 @@ declare namespace Validator {
     interface TypeCheckingRule {
         [attribute: string]: Array<any>;
     }
+
     interface Rules {
         [attribute: string]: string | Array<string | TypeCheckingRule> | Rules;
     }
@@ -31,7 +32,7 @@ declare namespace Validator {
         errors: ValidationErrors;
         add(attribute: string, message: string): void;
         get(attribute: string): Array<string>;
-        first(attribute: string): string | boolean;
+        first(attribute: string): string | false;
         all(): ValidationErrors;
         has(attribute: string): boolean;
     }

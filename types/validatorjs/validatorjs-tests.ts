@@ -83,7 +83,7 @@ const check: boolean = validator.check();
 const errors: Validator.Errors = validator.errors;
 const all: Validator.ValidationErrors = errors.all();
 const error: Array<string> = errors.get('foo');
-const first: string | boolean = errors.first('foo');
+const first: string | false = errors.first('foo');
 const has: boolean = errors.has('foo');
 
 /**
