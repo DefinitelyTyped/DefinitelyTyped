@@ -14,7 +14,7 @@ declare namespace Validator {
     }
 
     interface ValidationErrors {
-        [field: string]: string;
+        [field: string]: Array<string>;
     }
 
     interface ErrorMessages {
