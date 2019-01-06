@@ -1,14 +1,16 @@
-// Type definitions for eureka-js-client 4.3
+// Type definitions for eureka-js-client 4.4
 // Project: https://github.com/jquatier/eureka-js-client
 // Definitions by: Ilko Hoffmann <https://github.com/Schnillz>
+//                 Karl O. <https://github.com/karl-run>
+//                 Tom Barton <https://github.com/tombarton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Eureka {
-    constructor(config: EurekaClient.EurekaConfig)
-    start(): void;
-    stop(): void;
-    getInstancesByAppId(appId: string): string[];
-    getInstancesByVipAddress(vidAddress: string): string [];
+    constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig)
+    start(cb?: (err: Error, ...rest: any[]) => void): void;
+    stop(cb?: (err: Error, ...rest: any[]) => void): void;
+    getInstancesByAppId(appId: string): EurekaClient.EurekaInstanceConfig[];
+    getInstancesByVipAddress(vidAddress: string): EurekaClient.EurekaInstanceConfig[];
 }
 
 export namespace EurekaClient {
@@ -26,11 +28,11 @@ export namespace EurekaClient {
         ipAddr: string;
         vipAddress: string;
         dataCenterInfo: DataCenterInfo;
-        port?: number;
+        port?: number | PortWrapper | LegacyPortWrapper;
         instanceId?: string;
         appGroupName?: string;
         sid?: string;
-        securePort?: PortWrapper;
+        securePort?: number | PortWrapper | LegacyPortWrapper;
         homePageUrl?: string;
         statusPageUrl?: string;
         healthCheckUrl?: string;
@@ -41,6 +43,12 @@ export namespace EurekaClient {
         overriddenstatus?: InstanceStatus;
         leaseInfo?: LeaseInfo;
         isCoordinatingDiscoveryServer?: boolean;
+        lastUpdatedTimestamp?: number;
+        lastDirtyTimestamp?: number;
+        actionType?: ActionType;
+        metadata?: {
+            [index: string]: string;
+        };
     }
     interface EurekaClientConfig {
         host: string;
@@ -60,16 +68,36 @@ export namespace EurekaClient {
         registerWithEureka?: boolean;
         useLocalMetadata?: boolean;
         preferIpAddress?: boolean;
+        shouldUseDelta?: boolean;
+        logger?: {
+            warn: (...args: any[]) => void;
+            info: (...args: any[]) => void;
+            debug: (...args: any[]) => void;
+            error: (...args: any[]) => void;
+        };
+    }
+    interface EurekaYmlConfig {
+        cwd: string;
+        filename?: string;
+    }
+    interface LegacyPortWrapper {
+        '$': number;
+        '@enabled': boolean;
     }
     interface PortWrapper {
         enabled: boolean;
         port: number;
     }
     interface LeaseInfo {
-        renewalIntervalInSecs: number;
-        durationInSecs: number;
+        renewalIntervalInSecs?: number;
+        durationInSecs?: number;
+        registrationTimestamp?: number;
+        lastRenewalTimestamp?: number;
+        evictionTimestamp?: number;
+        serviceUpTimestamp?: number;
     }
     interface DataCenterInfo {
         name: DataCenterName;
+        '@class'?: string;
     }
 }

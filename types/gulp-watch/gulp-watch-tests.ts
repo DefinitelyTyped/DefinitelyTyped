@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as watch from 'gulp-watch';
+import watch = require('gulp-watch');
 
 gulp.task('stream', () =>
     gulp.src('css/**/*.css')

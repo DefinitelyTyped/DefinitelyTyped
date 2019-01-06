@@ -8,13 +8,18 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "superagent": ["superagent/v2"],
-            "superagent/*": ["superagent/v2/*"]
+            "superagent": [
+                "superagent/v2"
+            ],
+            "superagent/*": [
+                "superagent/v2/*"
+            ]
         },
         "types": [],
         "noEmit": true,

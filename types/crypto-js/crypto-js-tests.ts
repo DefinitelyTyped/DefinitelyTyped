@@ -4,13 +4,19 @@ import CryptoJS = require('crypto-js');
 var wordArray: CryptoJS.WordArray;
 wordArray = CryptoJS.MD5('some message');
 wordArray = CryptoJS.MD5('some message', 'some key');
+wordArray = CryptoJS.MD5('some message', { any: true });
 
 wordArray = CryptoJS.SHA1('some message');
 wordArray = CryptoJS.SHA1('some message', 'some key', { any: true });
+wordArray = CryptoJS.SHA1('some message', { any: true });
 
 wordArray = CryptoJS.format.OpenSSL('some message');
 wordArray = CryptoJS.format.OpenSSL('some message', 'some key');
 
+var FR = new FileReader();
+FR.onloadend = () => {
+	var hash = CryptoJS.SHA1(CryptoJS.lib.WordArray.create(FR.result)).toString()
+}
 
 // Ciphers
 var encrypted: CryptoJS.WordArray;

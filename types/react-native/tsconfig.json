@@ -1,13 +1,11 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
@@ -20,7 +18,10 @@
     "files": [
         "index.d.ts",
         "test/index.tsx",
+        "test/globals.tsx",
         "test/animated.tsx",
-        "test/init-example.tsx"
+        "test/init-example.tsx",
+        "test/ART.tsx",
+        "test/legacy-properties.tsx"
     ]
 }

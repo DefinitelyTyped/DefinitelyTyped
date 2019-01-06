@@ -20,6 +20,12 @@ simpleExample.addArgument(
         help: 'bar foo',
     }
 );
+simpleExample.addArgument(
+    'positional',
+    {
+        help: 'bar foo',
+    }
+);
 
 simpleExample.printHelp();
 console.log('-----------');

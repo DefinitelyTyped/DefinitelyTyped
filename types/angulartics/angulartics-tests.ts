@@ -1,5 +1,5 @@
 import * as angular from 'angular';
-import { angulartics } from 'angulartics';
+import * as angulartics from 'angulartics';
 
 namespace Analytics {
     angular.module("angulartics.app", ["angulartics"])

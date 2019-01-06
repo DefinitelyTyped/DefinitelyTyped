@@ -2,6 +2,7 @@
 // Project: https://github.com/pinojs/koa-pino-logger
 // Definitions by: Cameron Yan <https://github.com/khell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node"/>
 
@@ -23,5 +24,11 @@ declare namespace logger {
         genReqId?(req: http.IncomingMessage): number;
         useLevel?: Level;
         stream?: stream.Writable | stream.Duplex | stream.Transform;
+    }
+}
+
+declare module 'koa' {
+    interface Context {
+        log: Logger;
     }
 }

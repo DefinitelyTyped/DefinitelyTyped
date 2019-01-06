@@ -102,12 +102,12 @@ function tester5() {
     }
 
     Snap.animate(sideLength, sideLength + 100, updater, 1500 /*ms*/);
-    setTimeout(500, () => { Snap.animate(sideLength + 100,
+    setTimeout(() => { Snap.animate(sideLength + 100,
                                          0,
                                          updater,
                                          100 /*ms*/,
                                          easer,
-                                         square.remove); });
+                                         square.remove); }, 500);
 }
 
 function tester6() {
@@ -125,6 +125,19 @@ function tester6() {
     console.log(!path.isPointInsideBBox(b3, 50, 50));
 }
 
+function tester7() {
+    var paper = Snap(600, 800);
+
+    Snap.load("http://snapsvg.io/assets/images/logo.svg", (fragment: Snap.Fragment) => {
+        // viewBox retrieveal
+        let fragmentViewBox = fragment.select("svg").attr("viewBox");
+        let symbol = paper.symbol(fragmentViewBox.x, fragmentViewBox.y, fragmentViewBox.width, fragmentViewBox.height);
+
+        symbol.add(fragment.selectAll("svg *"));
+        symbol.toDefs();
+   });
+}
+
 //$(function () {
 //    tester1();
 //});
@@ -134,3 +147,4 @@ function tester6() {
 //tester4();
 //tester5();
 //tester6();
+//tester7();

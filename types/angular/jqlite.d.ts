@@ -684,7 +684,7 @@ interface JQuery {
 }
 
 interface JQueryStatic {
-    (element: string | Element | Document | JQuery | ArrayLike<Element>): JQLite;
+    (element: string | Element | Document | JQuery | ArrayLike<Element> | (() => void)): JQLite;
 }
 
 /**
@@ -774,6 +774,7 @@ interface BaseJQueryEventObject extends Event {
     pageY: number;
     /**
      * For key or mouse events, this property indicates the specific key or button that was pressed.
+     * @deprecated Use `key` for KeyEvents or `button` for MouseEvents instead.
      * @see {@link https://api.jquery.com/event.which/}
      */
     which: number;
@@ -804,9 +805,12 @@ interface JQueryMouseEventObject extends JQueryInputEventObject {
 }
 
 interface JQueryKeyEventObject extends JQueryInputEventObject {
-    char: any;
+    /** @deprecated */
+    char: string;
+    /** @deprecated */
     charCode: number;
-    key: any;
+    key: string;
+    /** @deprecated */
     keyCode: number;
 }
 

@@ -41,6 +41,12 @@ function create() {
 
   kue.Job.get(job.id, function (err: any, _job: kue.Job) {
     console.log('get job', _job);
+
+    _job.created_at;
+    _job.promote_at;
+    _job.updated_at;
+    _job.failed_at;
+    _job.started_at;
   });
   kue.Job.get(job.id, 'video conversion', function (err: any, _job: kue.Job) {
     console.log('get job', _job);
@@ -87,6 +93,7 @@ var email = jobs.create('email', {
   .priority('high')
   .save();
 
+console.log('email job priority: ', email.priority());
 
 email.on('promotion', function() {
   console.log('renewal job promoted');

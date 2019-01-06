@@ -50,3 +50,31 @@ command.clone()
 
 // Save a converted version with the original size
 command.save('/path/to/output-original-size.mp4');
+
+ffmpeg.ffprobe('/path/to/file.avi', (err, metadata) => {
+    console.dir(metadata);
+});
+
+ffmpeg.setFfmpegPath('path/to/ffmpeg');
+ffmpeg.setFfprobePath('path/to/ffprobe');
+ffmpeg.setFfmpegPath('path/to/ffmpeg');
+
+ffmpeg.getAvailableFormats((err, formats) => {
+  console.log('Available formats:');
+  console.dir(formats);
+});
+
+ffmpeg.getAvailableCodecs((err, codecs) => {
+  console.log('Available codecs:');
+  console.dir(codecs);
+});
+
+ffmpeg.getAvailableEncoders((err, encoders) => {
+  console.log('Available encoders:');
+  console.dir(encoders);
+});
+
+ffmpeg.getAvailableFilters((err, filters) => {
+  console.log("Available filters:");
+  console.dir(filters);
+});

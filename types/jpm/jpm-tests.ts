@@ -37,7 +37,7 @@ import * as prefs from "sdk/simple-prefs";
 type prefType = {pref1: string};
 (prefs.prefs as prefType)["pref1"] = "value";
 prefs.on("pref1", () => console.log("pref1 changed"));
-prefs.removeListener("pref1", new Function());
+prefs.removeListener("pref1", () => {});
 
 import * as storage from "sdk/simple-storage";
 storage.storage.value = 10;

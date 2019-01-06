@@ -1,4 +1,4 @@
-import * as write from 'write-json-file';
+import write = require('write-json-file');
 
 // Basic
 write('foo.json', {foo: true}).then(() => { });

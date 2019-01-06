@@ -17,10 +17,8 @@ declare namespace lunr {
      * the search index. Uses `lunr.tokenizer.seperator` to split strings, change
      * the value of this property to change how strings are split into tokens.
      *
-     * @module
-     * @param {String} obj The string to convert into tokens
+     * @param obj The string to convert into tokens
      * @see lunr.tokenizer.seperator
-     * @returns {Array}
      */
     function tokenizer(obj: any): string[];
 
@@ -31,7 +29,6 @@ declare namespace lunr {
          * The sperator used to split a string into tokens. Override this property to change the behaviour of
          * `lunr.tokenizer` behaviour when tokenizing strings. By default this splits on whitespace and hyphens.
          *
-         * @static
          * @see lunr.tokenizer
          *
          * (Note: this is misspelled in the original API, kept for compatibility sake)
@@ -49,9 +46,8 @@ declare namespace lunr {
          *
          * Registering a function does not add it to an index, functions must still be associated with a specific index for them to be used when indexing and searching documents.
          *
-         * @param {Function} fn The function to register.
-         * @param {String} label The label to register this function with
-         * @memberOf tokenizer
+         * @param fn The function to register.
+         * @param label The label to register this function with
          */
         function registerFunction(fn: TokenizerFunction, label: string): void;
 
@@ -61,9 +57,7 @@ declare namespace lunr {
          * A tokenizer function to be loaded must already be registered with lunr.tokenizer.
          * If the serialised tokenizer has not been registered then an error will be thrown.
          *
-         * @param {String} label The label of the serialised tokenizer.
-         * @returns {Function}
-         * @memberOf tokenizer
+         * @param label The label of the serialised tokenizer.
          */
         function load(label: string): TokenizerFunction;
     }
@@ -133,7 +127,6 @@ declare namespace lunr {
          * Additional data can be passed to the event handler as arguments to emit after the event name.
          *
          * @param eventName The name of the event to emit.
-         * @param args
          */
         emit(eventName: string, ...args: any[]): void;
 
@@ -616,7 +609,6 @@ declare namespace lunr {
          * ```
          *
          * @param plugin  The plugin to apply.
-         * @param args
          */
         use(plugin: Function, ...args: any[]): void;
 
@@ -751,7 +743,6 @@ declare namespace lunr {
          * the store.
          *
          * @param token  The token to expand.
-         * @param memo
          */
         expand(token: string, memo?: string[]): string[];
 
@@ -775,8 +766,7 @@ declare namespace lunr {
         /**
          * Print a warning message to the console.
          *
-         * @param {String} message The message to be printed.
-         * @memberOf Utils
+         * @param message The message to be printed.
          */
         function warn(message: any): void;
 
@@ -787,9 +777,8 @@ declare namespace lunr {
          * the empty string, in all other cases the result of calling
          * `toString` on the passed object is returned.
          *
-         * @param {Any} obj The object to convert to a string.
-         * @return {String} string representation of the passed object.
-         * @memberOf Utils
+         * @param obj The object to convert to a string.
+         * @return string representation of the passed object.
          */
         function asString(obj: any): string;
     }

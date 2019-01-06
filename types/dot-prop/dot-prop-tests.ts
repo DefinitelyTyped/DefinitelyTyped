@@ -18,6 +18,6 @@ dotProp.has({foo: {bar: 'unicorn'}}, 'foo.bar');
 
 dotProp.delete(obj, 'foo.bar');
 console.log(obj);
-(<any> obj).foo.bar = {x: 'y', y: 'x'};
+(obj as any).foo.bar = {x: 'y', y: 'x'};
 dotProp.delete(obj, 'foo.bar.x');
 console.log(obj);

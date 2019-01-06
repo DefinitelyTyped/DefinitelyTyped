@@ -2,7 +2,7 @@
 // Project: http://angularjs.org
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>, Raphael Schweizer <https://github.com/rasch>, Cody Schaaf <https://github.com/codyschaaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare var _: string;
 export = _;
@@ -20,8 +20,11 @@ declare module 'angular' {
 
         interface IAnimateCallbackObject {
             eventFn?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+            beforeSetClass?: (element: JQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
             setClass?: (element: JQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+            beforeAddClass?: (element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
             addClass?: (element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+            beforeRemoveClass?: (element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
             removeClass?: (element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
             enter?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
             leave?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;

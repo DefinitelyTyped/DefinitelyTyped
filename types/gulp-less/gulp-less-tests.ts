@@ -1,8 +1,5 @@
-
-
-
 import * as gulp from "gulp";
-import * as less from "gulp-less";
+import less = require("gulp-less");
 
 // Without options
 gulp.task("less", () => {

@@ -1,4 +1,4 @@
-import PouchDB from 'pouchdb';
+import PouchDB = require('pouchdb');
 
 function isString(someString: string) {
 }

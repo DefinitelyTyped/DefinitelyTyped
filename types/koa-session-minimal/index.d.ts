@@ -2,6 +2,7 @@
 // Project: https://github.com/longztian/koa-session-minimal
 // Definitions by: Longzhang Tian <https://github.com/longztian>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 

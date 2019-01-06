@@ -1,8 +1,8 @@
-// Type definitions for bookshelfjs v0.9.3
+// Type definitions for bookshelfjs v0.9.4
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import Knex = require('knex');
 import knex = require('knex');
@@ -17,7 +17,7 @@ interface Bookshelf extends Bookshelf.Events<any> {
 	Collection: typeof Bookshelf.Collection;
 
 	plugin(name: string | string[] | Function, options?: any): Bookshelf;
-	transaction<T>(callback: (transaction: knex.Transaction) => BlueBird<T>): BlueBird<T>;
+	transaction<T>(callback: (transaction: knex.Transaction) => PromiseLike<T>): BlueBird<T>;
 }
 
 declare function Bookshelf(knex: knex): Bookshelf;
@@ -250,7 +250,7 @@ declare namespace Bookshelf {
 		detach(options?: SyncOptions): BlueBird<any>;
 		fetchOne(options?: CollectionFetchOneOptions): BlueBird<T>;
 		load(relations: string | string[], options?: SyncOptions): BlueBird<Collection<T>>;
-		orderBy(column: string, order?: SortOrder): T;
+		orderBy(column: string, order?: SortOrder): Collection<T>;
 
 		// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
 		query(): Knex.QueryBuilder;

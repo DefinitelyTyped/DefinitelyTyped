@@ -1,7 +1,9 @@
 // Type definitions for Mapbox 1.6
 // Project: https://www.mapbox.com/mapbox.js/
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
+//                 Florian Luccioni <https://github.com/Fluccioni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Leaflet from "leaflet";
 
@@ -151,6 +153,20 @@ declare global {
 			 */
 			getGeoJSON(): any;
 		}
+
+        // StyleLayer
+        //////////////////////////////////////////////////////////////////////
+
+        /**
+         * L.mapbox.styleLayer provides a way to integrate styles created with Mapbox Studio into your map.
+         */
+        function styleLayer(url: string, options?: StyleLayerOptions): StyleLayer;
+
+        interface StyleLayerOptions extends Leaflet.TileLayerOptions {
+            sanitizer?(template: string): string;
+        }
+
+        type StyleLayer = Leaflet.TileLayer;
 
 		//////////////////////////////////////////////////////////////////////
 		////////////////////////////// GEOCODING /////////////////////////////
@@ -366,12 +382,12 @@ declare global {
 		///////////////////////////// CONFIGURATION //////////////////////////
 		//////////////////////////////////////////////////////////////////////
 
-		class config {
-			static FORCE_HTTPS: boolean;
+		namespace config {
+			const FORCE_HTTPS: boolean;
 
-			static HTTP_URLS: string[];
+			const HTTP_URLS: string[];
 
-			static HTTPS_URLS: string[];
+			const HTTPS_URLS: string[];
 		}
 	}
 }

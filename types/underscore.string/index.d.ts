@@ -92,6 +92,13 @@ declare module 'underscore' {
         clean(str: string): string;
 
         /**
+         * Replace diacritic characters with closest ASCII equivalents.
+         * cleanDiacritics('ääkkönen') => 'aakkonen'
+         * @param str
+         */
+        cleanDiacritics(str: string): string;
+
+        /**
          * Count occurences of a sub string.
          * ('Hello world', 'l') => 3
          * @param str
@@ -200,7 +207,7 @@ declare module 'underscore' {
          * ('-moz-transform') => 'MozTransform'
          * @param str
          */
-        camelize(str: string): string;
+        camelize(str: string, decapitalize?: boolean): string;
 
         /**
          * Converts a camelized or dasherized string into an underscored one.

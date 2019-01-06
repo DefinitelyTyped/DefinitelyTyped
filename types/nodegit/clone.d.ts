@@ -13,25 +13,8 @@ export namespace Clone {
 export class Clone {
     /**
      * Patch repository cloning to automatically coerce objects.
-     *
-     * @static
-     * @param {string} url
-     * @param {string} localPath
-     * @param {CloneOptions} [options]
-     * @returns {Promise<Repository>}
-     *
-     * @memberof Clone
      */
     static clone(url: string, localPath: string, options?: CloneOptions): Promise<Repository>;
-    /**
-     *
-     *
-     * @static
-     * @param {CloneOptions} opts
-     * @param {number} version
-     * @returns {number}
-     *
-     * @memberof Clone
-     */
+
     static initOptions(opts: CloneOptions, version: number): number;
 }

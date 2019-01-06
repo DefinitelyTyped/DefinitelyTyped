@@ -2,6 +2,7 @@
 // Project: https://github.com/d3/d3-transition/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.1
 
@@ -562,6 +563,12 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
 }
 
 /**
+ * Represents the union of the Selection and Transition types for any usages that operate on both.
+ * Typically used for functions which take in either a selection or transition and set or update attributes.
+ */
+export type SelectionOrTransition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> = Selection<GElement, Datum, PElement, PDatum> | Transition<GElement, Datum, PElement, PDatum>;
+
+/**
  * Returns a new transition with the specified name. If a name is not specified, null is used.
  * The new transition is only exclusive with other transitions of the same name.
  *
@@ -569,7 +576,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
  *
  * @param name Name of the transition.
  */
-export function transition<OldDatum>(name: string): Transition<HTMLElement, OldDatum, null, undefined>;
+export function transition<OldDatum>(name?: string): Transition<HTMLElement, OldDatum, null, undefined>;
 
 /**
  * Returns a new transition from an existing transition.

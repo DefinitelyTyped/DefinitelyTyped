@@ -1,5 +1,5 @@
 import * as request from 'superagent';
-import * as plugin from 'superagent-no-cache';
+import plugin = require('superagent-no-cache');
 
 request
     .get('/some-url')

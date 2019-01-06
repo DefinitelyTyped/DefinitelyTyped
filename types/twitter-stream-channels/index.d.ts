@@ -2,6 +2,7 @@
 // Project: https://github.com/topheman/twitter-stream-channels
 // Definitions by: Adrian Bardan <https://github.com/adrianbardan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="twit" />
@@ -18,7 +19,7 @@ declare module 'twitter-stream-channels' {
       }
 
       export interface StreamChannelsOptions {
-        track?: Object,
+        track?: {},
         follow?: string,
         locations?: string,
         enableChannelsEvents?: boolean,
@@ -48,12 +49,12 @@ declare module 'twitter-stream-channels' {
       /**
        * Closes the opened stream with Twitter
        * @method stop
-       * @param {StreamChannelsOptions} [options]
-       * @param {StreamChannelsOptions} [options.removeAllListeners=false] If true removes all the listeners set on the stream
+       * @param {object} [options]
+       * @param {object} [options.removeAllListeners=false] If true removes all the listeners set on the stream
        * @returns {StreamChannels}
        * @see https://github.com/topheman/twitter-stream-channels/blob/master/lib/StreamChannels.js#L120
        */
-      stop(options?: StreamChannels.StreamChannelsOptions): StreamChannels;
+      stop(options?: {removeAllListeners: boolean}): StreamChannels;
 
 
       /**
@@ -89,7 +90,7 @@ declare module 'twitter-stream-channels' {
 
   /**
    * @class TwitterStreamChannels
-   * @param {Object} credentials
+   * @param {object} credentials
    * @param {String} credentials.consumer_key
    * @param {String} credentials.consumer_secret
    * @param {String} credentials.access_token
@@ -115,8 +116,8 @@ declare module 'twitter-stream-channels' {
     /**
      * Opens a Twitter Stream and returns you an other one on which you'll be able to attach events for each channels
      * @method streamChannels
-     * @param {Object} options You can use the same filter options as described in the Twitter stream API for `statuses/filter` https://dev.twitter.com/docs/api/1.1/post/statuses/filter
-     * @param {Object|Array} options.track Pass an object describing your channels. If you don't want to use channels, you can pass directly an array of keywords.
+     * @param {object} options You can use the same filter options as described in the Twitter stream API for `statuses/filter` https://dev.twitter.com/docs/api/1.1/post/statuses/filter
+     * @param {object|Array} options.track Pass an object describing your channels. If you don't want to use channels, you can pass directly an array of keywords.
      * @param {String} [options.follow] A comma separated list of user IDs, indicating the users to return statuses for in the stream
      * @param {String} [options.locations] Specifies a set of bounding boxes to track. More about how to format this parameter here : https://dev.twitter.com/docs/streaming-apis/parameters#locations
      * @param {Boolean} [options.enableChannelsEvents=true] If true, will fire the events like 'channels/channelName'

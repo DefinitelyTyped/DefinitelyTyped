@@ -17187,7 +17187,7 @@ declare namespace Ext {
 		/** [Method] Returns the value of scrollable
 		* @returns Boolean
 		*/
-		getScrollable?(): boolean;
+		getScrollable?(): Ext.scroll.IView;
 		/** [Method] Returns the value of selectedCls
 		* @returns String
 		*/

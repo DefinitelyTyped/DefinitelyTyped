@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-import * as uniqueValidator from "mongoose-unique-validator";
+import uniqueValidator = require("mongoose-unique-validator");
 
 const schema = new Schema({
     test: { type: String }

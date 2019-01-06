@@ -1,5 +1,4 @@
-
-import * as brorand from 'brorand';
+import brorand = require('brorand');
 
 {
 	let result: Buffer|Uint8Array = brorand(42);

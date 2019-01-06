@@ -9,11 +9,13 @@ class LeftNavArrow extends React.Component<CustomArrowProps> {
 
 function RightNavArrow(props: CustomArrowProps): JSX.Element {
   const { className, style, onClick } = props;
-  return <div
-    className={className}
-    style={{ ...style, display: 'block', background: 'green' }}
-    onClick={onClick}
-  ></div>;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'block', background: 'green' }}
+      onClick={onClick}
+    />
+  );
 }
 
 const defaultSettings: Settings = {
@@ -38,7 +40,7 @@ const defaultSettings: Settings = {
   focusOnSelect: false,
   infinite: true,
   initialSlide: 0,
-  lazyLoad: false,
+  lazyLoad: "progressive",
   pauseOnHover: true,
   responsive: [{ breakpoint: 1000, settings: "unslick" }, { breakpoint: 2000, settings: { arrows: false } }],
   rtl: false,
@@ -56,8 +58,8 @@ const defaultSettings: Settings = {
   waitForAnimate: true,
   afterChange: (currentSlide: number) => { },
   beforeChange: (currentSlide: number, nextSlide: number) => { },
-  edgeEvent: (swipeDirection: string) => { },
-  init: () => { },
+  onEdge: (swipeDirection: string) => { },
+  onInit: () => { },
   swipeEvent: (swipeDirection: string) => { },
   nextArrow: <LeftNavArrow />,
   prevArrow: <RightNavArrow />

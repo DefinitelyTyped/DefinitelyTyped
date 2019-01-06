@@ -47,8 +47,8 @@ declare namespace adone {
         /**
          * Converts a function that returns promises to a node.js style callback function
          *
-         * @param {Function} fn Function
-         * @returns {Promise} the original promise
+         * @param fn Function
+         * @returns the original promise
          */
         export function callbackify<R>(fn: () => Promise<R>): (callback: (err?: any, result?: R) => void) => Promise<R>;
         export function callbackify<T, R>(fn: (a: T) => Promise<R>): (a: T, callback: (err?: any, result?: R) => void) => Promise<R>;
@@ -125,5 +125,36 @@ declare namespace adone {
          */
         function _finally<T>(promise: Promise<T>, onFinally?: (...args: any[]) => void): Promise<T>;
         export { _finally as finally };
+
+        namespace I {
+            type ResolvableProps<T> = object & {[K in keyof T]: PromiseLike<T[K]> | T[K]};
+        }
+
+        /**
+         * Returns a promise that is fulfilled when all the object's values are fulfilled
+         */
+        export function props<T>(obj: I.ResolvableProps<T>): Promise<T>;
+
+        namespace I {
+            interface _RetryOptions {
+                max: number;
+
+                timeout: number;
+
+                match: (string | RegExp | Error) | Array<string | RegExp | Error>;
+
+                backOffBase: number;
+
+                backOffExponent: number;
+
+                report: (message: string, options: _RetryOptions, err: any) => void;
+
+                name: string;
+            }
+
+            type RetryOptions = Partial<_RetryOptions>;
+        }
+
+        export function retry<T>(fn: (info: { current: number }) => PromiseLike<T> | T, options?: number | I.RetryOptions): Promise<T>;
     }
 }

@@ -16,6 +16,9 @@ interface SortLogInfo {
   Text: string;
 }
 
+// Ensure that the jQuery-ui defined `sortable()` method is not overwritten
+jQuery().sortable(); // $ExpectType JQuery<HTMLElement>
+
 myApp.controller('sortableController', function ($scope: MySortableControllerScope) {
   $scope.sortableOptions = {
     activate: function(e, ui) {
@@ -84,6 +87,7 @@ myApp.controller('sortableController', function ($scope: MySortableControllerSco
     update: function(e, ui) {
       var jQueryEventObject: JQueryEventObject = e;
       var uiSortableUIParams: ng.ui.UISortableUIParams<SortableModelInfo> = ui;
+      ui.item.sortable; // $ExpectType UISortableProperties<SortableModelInfo>
       var voidcanceled: void = ui.item.sortable.cancel();
       var isCanceled: Boolean = ui.item.sortable.isCanceled();
       var isCustomHelperUsed: Boolean =ui.item.sortable.isCustomHelperUsed();
@@ -132,9 +136,8 @@ myApp.controller('sortableController', function ($scope: MySortableControllerSco
   $scope.sortableOptions.tolerance = 'pointer';
   $scope.sortableOptions.zIndex = 9999;
 
-  $scope.sortableOptions['ui-floating'] = undefined;
-  $scope.sortableOptions['ui-floating'] = null;
-  $scope.sortableOptions['ui-floating'] = false;
-  $scope.sortableOptions['ui-floating'] = true;
-  $scope.sortableOptions['ui-floating'] = "auto";
+  const sortableFloatingOption0: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': undefined };
+  const sortableFloatingOption1: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': false };
+  const sortableFloatingOption2: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': true };
+  const sortableFloatingOption3: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': 'auto' };
 });

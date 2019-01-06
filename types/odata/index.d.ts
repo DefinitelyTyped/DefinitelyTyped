@@ -1,7 +1,8 @@
-// Type definitions for odata v0.3.3
+// Type definitions for odata v0.3
 // Project: https://github.com/janhommes/odata
-// Definitions by: Jan Hommes <https://github.com/janhommes>
+// Definitions by: Jan Hommes <https://github.com/janhommes>, Jean-Christophe Chalte <https://github.com/jcchalte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare module 'odata' {
     import Q = require("q");
@@ -19,17 +20,22 @@ declare module 'odata' {
         username ?: string
         password ?: string
         isAsync ?: boolean
+        isCors ?: boolean
+        isHashRoute ?: boolean
+        appending ?: string
     }
 
     interface OHandler<T> {
-        inlinecount : number
-        data : T
+        inlinecount: number;        // if inlinecount is set, here the counting is gold
+        data: T;                    // holds the data after an callback
+        param: {};				    // this object holds all parameter for a route
 
         config<T>(options ?: Options) : OHandler<T>
         progress<T>(callback : () => any) : OHandler<T>
 
-        get<T>(callback ?: (data : T) => void) : Q.Promise<OHandler<T>>
-        save<T>(callback ?: (data : T) => void) : Q.Promise<OHandler<T>>
+        get<T>(callback ?: (data : T) => void, errorCallback?: (status: number) => void) : Q.Promise<OHandler<T>>
+        save<T>(callback ?: (data : T) => void, errorCallback?: (status: number) => void) : Q.Promise<OHandler<T>>
+        query: () => string;
 
         post<T>(params : any) : OHandler<T>
         patch<T>(params : any) : OHandler<T>
@@ -74,11 +80,14 @@ declare module 'odata' {
         deleteRef<T>(resource : string, id : string | number) : OHandler<T>
     }
 
-    interface OFn<T> extends OHandler<T> {
-        (options ?: string | Options) : OHandler<T>
+    interface OHandlerStatic {
+        (): OHandlerStatic;
+        (options?: string | Options): OHandler<{}>;
+        config: (config: Options) => OHandlerStatic;
+        isEndpoint: () => boolean;
     }
 
-    var o : OFn<{}>;
+    var o : OHandlerStatic;
 
     export = o
 }

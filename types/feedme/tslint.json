@@ -1,0 +1,11 @@
+{
+    "defaultSeverity": "error",
+    "extends": "dtslint/dt.json",
+    "jsRules": {},
+    "rules": {
+        // "ban-types": false,
+        // "no-single-declare-module": false,
+        // "no-var": false
+    },
+    "rulesDirectory": []
+}

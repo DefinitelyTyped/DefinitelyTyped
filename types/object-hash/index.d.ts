@@ -1,4 +1,4 @@
-// Type definitions for object-hash v0.5.0
+// Type definitions for object-hash v1.2.0
 // Project: https://github.com/puleos/object-hash
 // Definitions by: Michael Zabka <https://github.com/misak113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,13 @@ declare namespace ObjectHash {
 		algorithm?: string;
 		encoding?: string;
 		excludeValues?: boolean;
+		ignoreUnknown?: boolean;
+		replacer?: (value: any) => any;
+		respectFunctionProperties?: boolean;
+		respectFunctionNames?: boolean;
+		unorderedArrays?: boolean;
+		unorderedSets?: boolean;
+		excludeKeys?: (key: string) => boolean;
 	}
 
 	interface HashTableItem {

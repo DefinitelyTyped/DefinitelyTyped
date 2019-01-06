@@ -3,136 +3,35 @@ import { Repository } from './repository';
 import { Buf } from './buf';
 
 export class Object {
-    /**
-     *
-     *
-     * @static
-     * @param {number} type
-     * @returns {number}
-     *
-     * @memberof Object
-     */
-    static size(type: number): number;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Oid} id
-     * @param {number} type
-     * @returns {Promise<Object>}
-     *
-     * @memberof Object
-     */
-    static lookup(repo: Repository, id: Oid, type: number): Promise<Object>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Oid} id
-     * @param {number} len
-     * @param {number} type
-     * @returns {Promise<Object>}
-     *
-     * @memberof Object
-     */
-    static lookupPrefix(repo: Repository, id: Oid, len: number, type: number): Promise<Object>;
-    /**
-     *
-     *
-     * @static
-     * @param {string} str
-     * @returns {number}
-     *
-     * @memberof Object
-     */
-    static string2type(str: string): number;
-    /**
-     *
-     *
-     * @static
-     * @param {number} type
-     * @returns {string}
-     *
-     * @memberof Object
-     */
-    static type2string(type: number): string;
-    /**
-     *
-     *
-     * @static
-     * @param {number} type
-     * @returns {number}
-     *
-     * @memberof Object
-     */
-    static typeisloose(type: number): number;
+    static size(type: Object.TYPE): number;
+    static lookup(repo: Repository, id: Oid, type: Object.TYPE): Promise<Object>;
+    static lookupPrefix(repo: Repository, id: Oid, len: number, type: Object.TYPE): Promise<Object>;
+    static string2Type(str: string): Object.TYPE;
+    static type2String(type: Object.TYPE): string;
+    static typeisloose(type: Object.TYPE): number;
 
-    /**
-     *
-     *
-     * @returns {Promise<Object>}
-     *
-     * @memberof Object
-     */
     dup(): Promise<Object>;
-    /**
-     *
-     *
-     *
-     * @memberof Object
-     */
+
     free(): void;
-    /**
-     *
-     *
-     * @returns {Oid}
-     *
-     * @memberof Object
-     */
     id(): Oid;
-    /**
-     *
-     *
-     * @param {string} path
-     * @param {number} type
-     * @returns {Promise<Object>}
-     *
-     * @memberof Object
-     */
-    lookupByPath(path: string, type: number): Promise<Object>;
-    /**
-     *
-     *
-     * @returns {Repository}
-     *
-     * @memberof Object
-     */
+    lookupByPath(path: string, type: Object.TYPE): Promise<Object>;
     owner(): Repository;
-    /**
-     *
-     *
-     * @param {number} targetType
-     * @returns {Promise<Object>}
-     *
-     * @memberof Object
-     */
     peel(targetType: number): Promise<Object>;
-    /**
-     *
-     *
-     * @returns {Promise<Buf>}
-     *
-     * @memberof Object
-     */
     shortId(): Promise<Buf>;
-    /**
-     *
-     *
-     * @returns {number}
-     *
-     * @memberof Object
-     */
     type(): number;
+}
+
+export namespace Object {
+    const enum TYPE {
+        ANY = -2,
+        BAD = -1,
+        EXT1 = 0,
+        COMMIT = 1,
+        TREE = 2,
+        BLOB = 3,
+        TAG = 4,
+        EXT2 = 5,
+        OFS_DELTA = 6,
+        REF_DELTA = 7
+    }
 }

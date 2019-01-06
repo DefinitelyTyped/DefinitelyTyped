@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided } from 'react-beautiful-dnd';
 
 interface Item {
   id: string;
@@ -24,7 +24,7 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
   return result;
 };
 
-const getItemStyle = (draggableStyle: any, isDragging: any) => ({
+const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   userSelect: 'none',
   background: isDragging ? 'lightgreen' : 'grey',
   ...draggableStyle
@@ -40,16 +40,35 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
+  state = {
+    items: getItems(10)
+  };
   constructor(props: any) {
     super(props);
-
-    this.state = {
-      items: getItems(10)
-    };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-  onDragEnd(result: DropResult) {
+  onBeforeDragStart(dragStart: DragStart) {
+    //
+  }
+
+  onDragStart(dragStart: DragStart, provided: ResponderProvided) {
+    //
+  }
+
+  onDragUpdate(dragUpdate: DragUpdate, provided: ResponderProvided) {
+    //
+  }
+
+  onDragEnd(result: DropResult, provided: ResponderProvided) {
+    if (result.combine) {
+      // super simple: just removing the dragging item
+      const items: Item[] = [...this.state.items];
+      items.splice(result.source.index, 1);
+      this.setState({ items });
+      return;
+    }
+
     if (!result.destination) {
       return;
     }
@@ -65,24 +84,19 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable">
+      <DragDropContext onBeforeDragStart={this.onBeforeDragStart} onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
+        <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
           {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-              {this.state.items.map(item => (
-                <Draggable key={item.id} draggableId={item.id}>
+            <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)} {...provided.droppableProps}>
+              {this.state.items.map((item, index) => (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
                     <div>
                       <div
                         ref={provided.innerRef}
-                        style={getItemStyle(
-                          provided.draggableStyle,
-                          snapshot.isDragging
-                        )}
+                        {...provided.draggableProps}
                         {...provided.dragHandleProps}
+                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         {item.content}
                       </div>

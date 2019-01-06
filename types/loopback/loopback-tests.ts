@@ -1,5 +1,5 @@
-import * as loopback from 'loopback';
-import * as cookieParser from 'cookie-parser';
+import loopback = require('loopback');
+import cookieParser = require('cookie-parser');
 
 class TestModel {
     id: number;
@@ -17,6 +17,14 @@ class Server {
 
         this.app.use(cookieParser());
 
+        this.app.use(loopback.favicon());
+        this.app.use(loopback.rest());
+        this.app.use(loopback.static('.'));
+        this.app.use(loopback.status());
+        this.app.use(loopback.rewriteUserLiteral());
+        this.app.use(loopback.token());
+        this.app.use(loopback.urlNotFound());
+
         this.app.start = async () => {
             // start the web server
             const models = this.app.models();
@@ -28,7 +36,7 @@ class Server {
                 console.dir(data.name);
             }
 
-            model.findOne<TestModel>({}, (err: Error, instance: TestModel) => {
+            model.findOne<TestModel>({}, (err: Error | null, instance: TestModel) => {
                 if (err) {
                     console.dir(err);
                 }

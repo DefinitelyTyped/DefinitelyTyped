@@ -5,8 +5,8 @@
 
 import Client = require('nes/client');
 
-var options: Client.ClientConnectOptions = {
+const options: Client.ClientConnectOptions = {
     delay: 3
 }
 
-var client: Client = new Client('ws://localhost', options);
+const client: Client = new Client('ws://localhost', options);

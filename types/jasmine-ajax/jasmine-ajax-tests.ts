@@ -751,13 +751,12 @@ describe('FakeRequest', () => {
 });
 
 describe("Jasmine Mock Ajax (for toplevel)", () => {
-	// tslint:disable one-variable-per-declaration
-	let request, anotherRequest, response;
-	let success, error, complete;
-	let client, onreadystatechange;
+	// TODO: these are all `any`!
+	let request, anotherRequest, response; // tslint:disable-line one-variable-per-declaration
+	let success, error, complete; // tslint:disable-line one-variable-per-declaration
+	let client, onreadystatechange; // tslint:disable-line one-variable-per-declaration
 	const sharedContext: any = {};
-	let fakeGlobal, mockAjax;
-	// tslint:enable
+	let fakeGlobal, mockAjax; // tslint:disable-line one-variable-per-declaration
 
 	beforeEach(() => {
 		const fakeXMLHttpRequest = jasmine.createSpy('realFakeXMLHttpRequest');
@@ -1797,7 +1796,7 @@ describe("mockAjax", () => {
 		const mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
-		const request = new (<any> fakeGlobal.XMLHttpRequest)();
+		const request = new (fakeGlobal.XMLHttpRequest as any)();
 
 		expect(mockAjax.requests.count()).toBe(1);
 		expect(mockAjax.requests.mostRecent()).toBe(request);
@@ -1809,7 +1808,7 @@ describe("mockAjax", () => {
 		const mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
-		const request = new (<any> fakeGlobal.XMLHttpRequest)();
+		const request = new (fakeGlobal.XMLHttpRequest as any)();
 
 		expect(mockAjax.requests.mostRecent()).toBe(request);
 		mockAjax.requests.reset();

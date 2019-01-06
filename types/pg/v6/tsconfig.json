@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "pg": [ "pg/v6" ]
+            "pg": [
+                "pg/v6"
+            ]
         },
         "types": [],
         "noEmit": true,

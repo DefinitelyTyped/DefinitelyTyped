@@ -7,6 +7,10 @@
         "dt-header": false,
         "no-any-union": false,
         "unified-signatures": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-generics": false,
+        // TODO: left in redundant jsdoc that conflicts with type declarations
+        // Need to go over each and decide whether the jsdoc or type is correct
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false
     }
 }

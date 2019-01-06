@@ -1,8 +1,20 @@
-import elasticsearch = require("elasticsearch");
+import * as elasticsearch from "elasticsearch";
+import HttpConnector = require("elasticsearch/src/lib/connectors/http");
 
-var client = new elasticsearch.Client({
+class MyHttpConnector extends HttpConnector {
+  constructor(host: any, config: any) {
+    super(host, config);
+  }
+}
+
+let client = new elasticsearch.Client({
   host: 'localhost:9200',
   log: 'trace'
+});
+
+client = new elasticsearch.Client({
+  host: 'localhost:9200',
+  connectionClass: MyHttpConnector
 });
 
 client = new elasticsearch.Client({
@@ -10,26 +22,48 @@ client = new elasticsearch.Client({
     'box1.server.org',
     'box2.server.org'
   ],
-  selector: function (hosts: any) { }
+  selector: (hosts: any) => { }
 });
 
 client.ping({
   requestTimeout: 30000
-}, function (error) {
+}, (error) => {
 });
 
 client.search({
   q: 'pants'
-}).then(function (body) {
-  var hits = body.hits.hits;
-}, function (error) {
+}).then((body) => {
+  const hits = body.hits.hits;
+}, (error) => {
+});
+
+client.search({
+  body: {
+    query: {
+      match_all: {
+        _name: 'test'
+      }
+    }
+  }
+}
+).then((body) => {
+  const hit = body.hits.hits[0];
+  const names = hit && hit.matched_queries;
+}, (error) => {
 });
 
 client.indices.delete({
   index: 'test_index',
   ignore: [404]
-}).then(function (body) {
-}, function (error) {
+}).then((body) => {
+}, (error) => {
+});
+
+client.indices.delete({
+  index: 'test_index',
+  ignoreUnavailable: true
+}).then((body) => {
+}, (error) => {
 });
 
 client.deleteByQuery({
@@ -39,8 +73,8 @@ client.deleteByQuery({
     query: {
     }
   }
-}).then(function (response) {
-}, function (error) {
+}).then((response) => {
+}, (error) => {
 });
 
 client.create({
@@ -58,6 +92,14 @@ client.create({
   id: '123',
   index: 'index',
   type: 'type'
+}, (err, repsonse, status) => {
+});
+
+client.create({
+  id: '123',
+  index: 'index',
+  type: 'type',
+  routing: 'parent_123',
 }, (err, repsonse, status) => {
 });
 
@@ -103,7 +145,7 @@ client.cluster.stats({
 
 client.count({
   index: 'index_name'
-}, function (error, response) {
+}, (error, response) => {
   // ...
 });
 
@@ -120,7 +162,7 @@ client.count({
       }
     }
   }
-}, function (err, response) {
+}, (err, response) => {
   // ...
 });
 
@@ -132,7 +174,7 @@ client.explain({
 
   // the query to score it against
   q: 'field:value'
-}, function (error, response) {
+}, (error, response) => {
   // ...
 });
 
@@ -145,7 +187,7 @@ client.explain({
       match: { title: 'test' }
     }
   }
-}, function (error, response) {
+}, (error, response) => {
   // ...
 });
 
@@ -158,8 +200,16 @@ client.index({
     tags: ['y', 'z'],
     published: true,
   }
-}, function (error, response) {
+}, (error, response) => {
+});
 
+client.get({
+  index: 'myindex',
+  type: 'mytype',
+  id: '1',
+  routing: '1'
+}, (error, response) => {
+  const routing = response._routing;
 });
 
 client.mget({
@@ -170,7 +220,7 @@ client.mget({
       { _index: 'indexC', _type: 'typeC', _id: '1' }
     ]
   }
-}, function (error, response) {
+}, (error, response) => {
   // ...
 });
 
@@ -178,16 +228,17 @@ client.mget({
   index: 'myindex',
   type: 'mytype',
   body: {
-    ids: [1, 2, 3]
+    ids: [1, 2, 3],
+    _source: ['test']
   }
-}, function (error, response) {
+}, (error, response) => {
   // ...
 });
 
 client.search({
   index: 'myindex',
   q: 'title:test'
-}, function (error, response) {
+}, (error, response) => {
   // ...
 });
 
@@ -207,7 +258,7 @@ client.search({
       }
     }
   }
-}, function (error, response) {
+}, (error, response) => {
   // ...
 });
 
@@ -221,12 +272,11 @@ client.suggest({
       }
     }
   }
-}, function (error, response) {
+}, (error, response) => {
 });
 
-
 // first we do a search, and specify a scroll timeout
-var allTitles: string[] = [];
+const allTitles: string[] = [];
 client.search({
   index: 'myindex',
   // Set to 30 seconds because we are calling right back
@@ -236,19 +286,43 @@ client.search({
   q: 'title:test'
 }, function getMoreUntilDone(error, response) {
   // collect the title from each response
-  response.hits.hits.forEach(function (hit) {
+  response.hits.hits.forEach((hit) => {
     allTitles.push(hit.fields.title);
   });
 
   if (response.hits.total !== allTitles.length) {
     // now we can call scroll over and over
     client.scroll({
-      scrollId: response._scroll_id,
+      scrollId: response._scroll_id!,
       scroll: '30s'
     }, getMoreUntilDone);
   } else {
     console.log('every "test" title', allTitles);
   }
+});
+
+client.updateByQuery({
+  index: 'myIndex',
+  type: 'mytype',
+}, (error, response) => {
+  const {
+    took,
+    timed_out,
+    updated,
+    deleted,
+    batches,
+    version_conflicts,
+    noops,
+    retries,
+    throttled_millis,
+    throttled_until_millis,
+    total,
+    failures
+  } = response;
+
+  const { bulk, search } = retries;
+
+  // ...
 });
 
 client.indices.updateAliases({
@@ -258,8 +332,49 @@ client.indices.updateAliases({
       { add: { index: 'logstash-2014.05', alias: 'logstash-current' } }
     ]
   }
-}).then(function (response) {
+}).then((response) => {
   // ...
-}, function (error) {
+}, (error) => {
   // ...
 });
+
+client.indices.updateAliases({
+  body: {
+    actions: [
+      {
+        add: {
+          index: 'logstash-2018.11', alias: 'logstash-filtered', filter: {
+            query: {
+              exists: { field: 'id' }
+            }
+          },
+          routing: 'id'
+        }
+      }
+    ]
+  }
+}).then((response) => {
+  // ...
+}, (error) => {
+  // ...
+});
+
+client.reindex({
+  body: {
+    source: {
+      index: "twitter"
+    },
+    dest: {
+      index: "new_twitter"
+    }
+  }
+})
+  .then(response => {
+    const { took, timed_out } = response;
+    // ...
+  });
+
+// Errors
+function testErrors() {
+  throw new elasticsearch.errors.AuthenticationException();
+}

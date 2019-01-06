@@ -14,6 +14,9 @@ var lr: jsts.geom.LinearRing = new jsts.geom.LinearRing([c]);
 var ls: jsts.geom.LineString = new jsts.geom.LineString([c]);
 var p: jsts.geom.Point = new jsts.geom.Point(c);
 var poly: jsts.geom.Polygon = new jsts.geom.Polygon(lr);
+var precisionModel = new jsts.geom.PrecisionModel();
+var factory = new jsts.geom.GeometryFactory(precisionModel);
+var wktWriter = new jsts.io.WKTWriter(factory);
 
 str = jsts.version;
 

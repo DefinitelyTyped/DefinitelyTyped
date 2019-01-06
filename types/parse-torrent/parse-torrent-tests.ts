@@ -1,4 +1,4 @@
-import * as parseTorrent from 'parse-torrent';
+import parseTorrent = require('parse-torrent');
 import * as fs from 'fs';
 
 // info hash (as a hex string)

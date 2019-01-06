@@ -1,4 +1,4 @@
-import * as browserResolve from 'browser-resolve';
+import browserResolve = require('browser-resolve');
 
 function basic_test_async(callback: (err?: Error, resolved?: string) => void) {
   browserResolve('typescript', function(error, resolved) {

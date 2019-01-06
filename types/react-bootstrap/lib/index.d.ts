@@ -130,10 +130,22 @@ import PagerItem = require('./PagerItem');
 import { PagerItemProps } from './PagerItem';
 import Pagination = require('./Pagination');
 import { PaginationProps } from './Pagination';
-import PaginationButton = require('./PaginationButton');
-import { PaginationButtonProps } from './PaginationButton';
+import PaginationItem = require('./PaginationItem');
+import { PaginationItemProps } from './PaginationItem';
 import Panel = require('./Panel');
 import { PanelProps } from './Panel';
+import PanelHeading = require('./PanelHeading');
+import { PanelHeadingProps } from './PanelHeading';
+import PanelTitle = require('./PanelTitle');
+import { PanelTitleProps } from './PanelTitle';
+import PanelToggle = require('./PanelToggle');
+import { PanelToggleProps } from './PanelToggle';
+import PanelCollapse = require('./PanelCollapse');
+import { PanelCollapseProps } from './PanelCollapse';
+import PanelBody = require('./PanelBody');
+import { PanelBodyProps } from './PanelBody';
+import PanelFooter = require('./PanelFooter');
+import { PanelFooterProps } from './PanelFooter';
 import PanelGroup = require('./PanelGroup');
 import { PanelGroupProps } from './PanelGroup';
 import Popover = require('./Popover');
@@ -196,8 +208,6 @@ export {
     ButtonToolbarProps,
     Carousel,
     CarouselProps,
-    CarouselCaption,
-    CarouselCaptionProps,
     CarouselItem,
     CarouselItemProps,
     Checkbox,
@@ -214,20 +224,12 @@ export {
     DropdownProps,
     DropdownButton,
     DropdownButtonProps,
-    DropdownMenu,
-    DropdownMenuProps,
-    DropdownToggle,
-    DropdownToggleProps,
     Fade,
     FadeProps,
     Form,
     FormProps,
     FormControl,
     FormControlProps,
-    FormControlFeedback,
-    FormControlFeedbackProps,
-    FormControlStatic,
-    FormControlStaticProps,
     FormGroup,
     FormGroupProps,
     Glyphicon,
@@ -240,10 +242,6 @@ export {
     ImageProps,
     InputGroup,
     InputGroupProps,
-    InputGroupAddon,
-    InputGroupAddonProps,
-    InputGroupButton,
-    InputGroupButtonProps,
     Jumbotron,
     JumbotronProps,
     Label,
@@ -254,18 +252,6 @@ export {
     ListGroupItemProps,
     Media,
     MediaProps,
-    MediaBody,
-    MediaBodyProps,
-    MediaHeading,
-    MediaHeadingProps,
-    MediaLeft,
-    MediaLeftProps,
-    MediaList,
-    MediaListProps,
-    MediaListItem,
-    MediaListItemProps,
-    MediaRight,
-    MediaRightProps,
     MenuItem,
     MenuItemProps,
     Modal,
@@ -286,12 +272,6 @@ export {
     NavbarProps,
     NavbarBrand,
     NavbarBrandProps,
-    NavbarCollapse,
-    NavbarCollapseProps,
-    NavbarHeader,
-    NavbarHeaderProps,
-    NavbarToggle,
-    NavbarToggleProps,
     NavDropdown,
     NavDropdownProps,
     NavItem,
@@ -306,12 +286,8 @@ export {
     PageItemProps,
     Pager,
     PagerProps,
-    PagerItem,
-    PagerItemProps,
     Pagination,
     PaginationProps,
-    PaginationButton,
-    PaginationButtonProps,
     Panel,
     PanelProps,
     PanelGroup,
@@ -330,8 +306,6 @@ export {
     SafeAnchorProps,
     SplitButton,
     SplitButtonProps,
-    SplitToggle,
-    SplitToggleProps,
     Tab,
     TabProps,
     TabContainer,

@@ -2,7 +2,7 @@
 // Project: https://github.com/mapzen/leaflet-geocoder
 // Definitions by: Leonard Lausen <https://github.com/leezu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as L from 'leaflet';
 

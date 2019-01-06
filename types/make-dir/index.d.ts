@@ -3,6 +3,7 @@
 // Definitions by: Ika <https://github.com/ikatyang>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node"/>
 import * as fs from 'fs';
@@ -12,7 +13,6 @@ export = makeDir;
 /**
  * Returns a `Promise` for the path to the created directory.
  * @param path Directory to create.
- * @param options
  */
 declare function makeDir(path: string, options?: makeDir.Options): Promise<string>;
 
@@ -20,7 +20,6 @@ declare namespace makeDir {
     /**
      * Returns the path to the created directory.
      * @param path Directory to create.
-     * @param options
      */
     function sync(path: string, options?: Options): string;
 

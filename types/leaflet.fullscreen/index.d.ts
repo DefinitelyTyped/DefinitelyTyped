@@ -2,6 +2,7 @@
 // Project: https://github.com/brunob/leaflet.fullscreen
 // Definitions by: William Comartin <https://github.com/wcomartin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as L from 'leaflet';
 

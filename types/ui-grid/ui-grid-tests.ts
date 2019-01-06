@@ -22,6 +22,11 @@ columnDef.cellTooltip = 'blah';
 columnDef.cellTooltip = function (gridRow: uiGrid.IGridRow, gridCol: uiGrid.IGridColumn) {
     return `${gridRow.entity.unknownProperty}-${gridCol.displayName}`;
 };
+columnDef.defaultSort = {
+    direction: 'ASC',
+    ignoreSort: false,
+    priority: 1
+};
 columnDef.displayName = 'Jumper';
 columnDef.enableColumnMenu = false;
 columnDef.enableColumnMenus = false;
@@ -93,7 +98,7 @@ columnDef.sort = {
     priority: 1
 };
 columnDef.sortCellFiltered = false;
-columnDef.sortDirectionCycle = [null, 'asc' , 'desc'];
+columnDef.sortDirectionCycle = [null, 'asc', 'desc'];
 columnDef.sortingAlgorithm = (a: any, b: any, rowA: uiGrid.IGridRowOf<IMyEntity>, rowB: uiGrid.IGridRowOf<IMyEntity>, direction: string) => {
     return -1;
 };
@@ -108,10 +113,11 @@ var gridApi: uiGrid.IGridApiOf<IMyEntity>;
 var gridInstance: uiGrid.IGridInstanceOf<IMyEntity>;
 var menuItem: uiGrid.IMenuItem;
 var colProcessor: uiGrid.IColumnProcessor<IMyEntity>;
+var uiGridConstants: uiGrid.IUiGridConstants;
 
 gridApi.core.clearAllFilters(true);
 gridApi.core.addToGridMenu(gridInstance, [menuItem]);
-gridApi.core.getVisibleRows(gridInstance);
+gridApi.core.getVisibleRows();
 gridApi.core.handleWindowResize();
 gridApi.core.queueGridRefresh();
 gridApi.core.queueRefresh();
@@ -126,6 +132,12 @@ var gridOptions: uiGrid.IGridOptionsOf<IMyEntity> = {
     }
 };
 gridOptions.isRowSelectable = () => true;
+gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.ALWAYS;
+gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.WHEN_NEEDED;
+gridOptions.enableVerticalScrollbar = uiGridConstants.scrollbars.NEVER;
+gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.ALWAYS;
+gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.WHEN_NEEDED;
+gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER;
 
 interface IAnotherEntity {
     anObject: string

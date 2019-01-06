@@ -1,12 +1,10 @@
-/// <reference types="express" />
-
 /**
  * Based on the examples on: https://github.com/ramiel/mongoose-sequence
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
  */
 
 import { SequenceDocument, SequenceOptions, SequenceSchema, Document, Schema, Model, model } from 'mongoose';
-import * as mongooseSequence from 'mongoose-sequence';
+import mongooseSequence = require('mongoose-sequence');
 
 //#region Test Models
 interface User extends SequenceDocument {

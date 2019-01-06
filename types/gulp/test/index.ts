@@ -1,7 +1,7 @@
 import * as gulp from 'gulp';
 import * as undertaker from 'undertaker';
 import * as registry from 'undertaker-registry';
-import * as del from "del";
+import del = require("del");
 
 const minify: () => any = () => { };
 const jade: () => any = () => { };

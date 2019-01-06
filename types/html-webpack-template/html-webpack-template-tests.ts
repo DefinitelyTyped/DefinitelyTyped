@@ -1,4 +1,4 @@
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackPlugin = require('html-webpack-plugin');
 import * as template from 'html-webpack-template';
 
 const optionsArray: template.Options[] = [

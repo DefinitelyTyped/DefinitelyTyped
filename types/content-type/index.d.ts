@@ -18,7 +18,7 @@ export interface MediaType {
 }
 
 export interface RequestLike {
-    headers: {[header: string]: string | string[]};
+    headers: {[header: string]: string | string[] | undefined};
 }
 
 export interface ResponseLike {

@@ -11,10 +11,13 @@
         "no-inferrable-types": false,
         "no-mergeable-namespace": false,
         "no-single-declare-module": false,
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "one-line": false,
         "prefer-conditional-expression": false,
+        "prefer-readonly": false,
         "unified-signatures": false,
 
         "class-name": true,

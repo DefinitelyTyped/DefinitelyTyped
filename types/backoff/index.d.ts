@@ -101,7 +101,7 @@ export function call<T1, T2, T3, R1, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3
 export function call<T1, T2, T3, E>(wrappedFunction: (t1: T1, t2: T2, t3: T3, cb: (err: E) => void) => void,
                                     t1: T1, t2: T2, t3: T3,
                                     callback: (err: E) => void): TypedFunctionCall<[T1, T2, T3], E>;
-export function call<R>(wrappedFunction: (...args: any[]) => void, ...args: any[]): FunctionCallAny;
+export function call(wrappedFunction: (...args: any[]) => void, ...args: any[]): FunctionCallAny;
 
 export class Backoff extends EventEmitter {
     /**

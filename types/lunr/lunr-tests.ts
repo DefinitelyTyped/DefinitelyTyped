@@ -4,11 +4,18 @@ function basic_test() {
     const index = lunr(function() {
         this.field("title");
         this.field("body");
+        this.field("content", {
+            boost: 2,
+            extractor: (doc: object) => "oof"
+        });
         this.ref("id");
         this.add({
             id: 1,
             title: "Foo",
             body: "Foo foo foo!"
+        },
+        {
+            boost: 2
         });
         this.add({
             id: 2,
@@ -32,4 +39,10 @@ function pipeline_test() {
             return token;
         });
     });
+}
+
+function pipeline_function_test() {
+    const stemmer: lunr.PipelineFunction = lunr.stemmer;
+    const stopWordFilter: lunr.PipelineFunction = lunr.stopWordFilter;
+    const trimmer: lunr.PipelineFunction = lunr.trimmer;
 }

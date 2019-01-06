@@ -1,29 +1,25 @@
 import QuickLRU = require('quick-lru');
 
-let num: number;
-let numu: number | undefined;
-let str: string;
-let bool: boolean;
+const lru = new QuickLRU<string, number>({ maxSize: 1000 });
+new QuickLRU<string, number>(); // $ExpectError
 
-const lru = new QuickLRU<string, number>({maxSize: 1000});
-
-lru.set('🦄', 1).set('🌈', 2);
-numu = lru.get('🦄');
-bool = lru.has('🦄');
-numu = lru.peek('🦄');
-lru.delete('🦄');
-lru.clear();
-num = lru.size;
+lru.set('🦄', 1).set('🌈', 2); // $ExpectType QuickLRU<string, number>
+lru.get('🦄'); // $ExpectType number | undefined
+lru.has('🦄'); // $ExpectType boolean
+lru.peek('🦄'); // $ExpectType number | undefined
+lru.delete('🦄'); // $ExpectType boolean
+lru.clear(); // $ExpectType void
+lru.size; // $ExpectType number
 
 for (const [key, value] of lru) {
-    str = key;
-    num = value;
+    key; // $ExpectType string
+    value; // $ExpectType number
 }
 
 for (const key of lru.keys()) {
-    str = key;
+    key; // $ExpectType string
 }
 
 for (const value of lru.values()) {
-    num = value;
+    value; // $ExpectType number
 }

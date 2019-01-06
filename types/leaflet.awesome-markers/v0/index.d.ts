@@ -2,6 +2,7 @@
 // Project: https://github.com/sigma-geosistemas/Leaflet.awesome-markers#properties
 // Definitions by: Egor Komarov <https://github.com/Odrin>, Marcel Sebek <https://github.com/sebek64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Leaflet from "leaflet";
 

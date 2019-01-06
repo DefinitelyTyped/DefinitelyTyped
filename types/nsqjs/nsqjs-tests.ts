@@ -1,52 +1,50 @@
-import nsqjs = require("nsqjs")
+import nsqjs = require('nsqjs');
 
-
-/*
- * Enable reader
- */
-
-let reader = new nsqjs.Reader("sample_topic", 'test_channel', {
-    nsqdTCPAddresses: '127.0.0.1:4150',
-    //lookupdHTTPAddresses: ['127.0.0.1:4161']
-})
-reader.connect()
-
-
-reader.on("nsqd_connected", function (err: Error) {
-    console.log('reader connected => ', err)
-})
-
-reader.on('message', function (msg: nsqjs.Message) {
-    console.log('Received message [%s]: %s', msg.id, msg.body.toString());
-    msg.finish();
+// Reader
+const reader = new nsqjs.Reader('sample_topic', 'test_channel', {
+    nsqdTCPAddresses: '127.0.0.1:4150'
 });
 
+reader.connect();
+reader.pause();
+reader.unpause();
+reader.isPaused();
+reader.close();
 
-/*
- * Enable writer
- */
+reader.on('nsqd_connected', (host, port) => {});
+reader.on('nsqd_closed', (host, port) => {});
+reader.on('error', error => {});
+reader.on('discard', message => {});
 
-let writer = new nsqjs.Writer("127.0.0.1", 4150)
+reader.on('message', message => {
+    console.log('Received message [%s]', message.id);
+
+    message.body.toString();
+    message.json();
+
+    message.requeue();
+    message.requeue(100);
+    message.requeue(100, false);
+
+    message.finish();
+
+    message.on('backoff', () => {});
+    message.on('respond', (responseType, wireData) => {});
+});
+
+// Writer
+const writer = new nsqjs.Writer('127.0.0.1', 4150);
+
 writer.connect();
 
-writer.on('ready', function () {
-    console.log('writer ready')
-    writer.publish('sample_topic', 'it really tied the room together');
-    writer.publish('sample_topic', [
-        'Uh, excuse me. Mark it zero. Next frame.',
-        'Smokey, this is not \'Nam. This is bowling. There are rules.'
-    ]);
-    writer.publish('sample_topic', 'Wu?', function (err: Error) {
-        if (err) {
-            return console.error(err.message);
-        }
-        console.log('Message sent successfully');
+writer.on('closed', () => {});
+writer.on('error', error => {});
+
+writer.on('ready', () => {
+    writer.publish('sample_topic', 'message');
+    writer.publish('sample_topic', ['message 1', 'message 2']);
+    writer.publish('sample_topic', 'message', error => {
+        if (error) { return; }
         writer.close();
     });
 });
-
-writer.on('closed', function () {
-    console.log('Writer closed');
-});
-
-

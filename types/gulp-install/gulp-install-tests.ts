@@ -1,8 +1,5 @@
-
-
-
 import * as gulp from 'gulp';
-import * as install from 'gulp-install';
+import install = require('gulp-install');
 
 // Examples taken from https://www.npmjs.com/package/gulp-install
 

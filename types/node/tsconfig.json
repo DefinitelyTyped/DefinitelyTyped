@@ -1,16 +1,20 @@
 {
     "files": [
         "index.d.ts",
+        "inspector.d.ts",
         "node-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es6",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

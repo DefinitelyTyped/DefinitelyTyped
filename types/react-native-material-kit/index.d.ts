@@ -1,16 +1,17 @@
-// Type definitions for react-native-material-kit 0.4
+// Type definitions for react-native-material-kit 0.5
 // Project: https://github.com/xinthink/react-native-material-kit
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
+//                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import {
     ViewStyle,
     TextStyle,
-    TextInputProperties,
-    TouchableWithoutFeedbackProperties,
-    ViewProperties,
+    TextInputProps,
+    TouchableWithoutFeedbackProps,
+    ViewProps,
 } from 'react-native';
 
 ///////////////////////////////
@@ -177,7 +178,7 @@ export namespace MKPropTypes {
     type rippleLocation = 'tapLocation' | 'center';
 }
 
-export interface TickProperties extends ViewProperties {
+export interface TickProperties extends ViewProps {
     fillColor?: string;
     inset?: number;
 }
@@ -185,6 +186,10 @@ export interface TickProperties extends ViewProperties {
 ///////////////////////////////
 // COMPONENTS
 ///////////////////////////////
+
+export class MKComponent<P, S> extends React.Component<P, S> {
+    static Builder: any;
+}
 
 export interface MKColorStatic {
     Amber: string;
@@ -246,12 +251,12 @@ export interface MKColorStatic {
 }
 
 export interface MKButtonProperties extends
-    TouchableWithoutFeedbackProperties, MKRippleProperties {
+    TouchableWithoutFeedbackProps, MKRippleProperties {
         fab?: boolean;
         enabled?: boolean;
 }
 
-export interface MKTextFieldProperties extends TextInputProperties, FloatingLabelProperties {
+export interface MKTextFieldProperties extends TextInputProps, FloatingLabelProperties {
     text?: string;
     password?: boolean;
     underlineEnabled?: boolean;
@@ -260,11 +265,11 @@ export interface MKTextFieldProperties extends TextInputProperties, FloatingLabe
     tintColor?: string;
     textInputStyle?: TextStyle;
     allowFontScaling?: boolean;
-    additionalInputProps?: TextInputProperties;
+    additionalInputProps?: TextInputProps;
     onTextChange?(val: string): void;
 }
 
-export interface MKSwitchProperties extends TouchableWithoutFeedbackProperties {
+export interface MKSwitchProperties extends TouchableWithoutFeedbackProps {
     checked?: boolean;
     onColor?: string;
     offColor?: string;
@@ -279,12 +284,12 @@ export interface MKSwitchProperties extends TouchableWithoutFeedbackProperties {
     onCheckedChange?(checked: boolean): void;
 }
 
-export interface MKIconToggleProperties extends MKRippleProperties, TouchableWithoutFeedbackProperties {
+export interface MKIconToggleProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {
     checked?: boolean;
     onCheckedChange?(checked: boolean): void;
 }
 
-export interface MKRippleProperties extends ViewProperties {
+export interface MKRippleProperties extends ViewProps {
     rippleColor?: string;
     rippleDuration?: number;
     rippleLocation?: MKPropTypes.rippleLocation;
@@ -296,7 +301,7 @@ export interface MKRippleProperties extends ViewProperties {
     shadowAniEnabled?: boolean;
 }
 
-export interface MKProgressProperties extends ViewProperties {
+export interface MKProgressProperties extends ViewProps {
     progress?: number;
     buffer?: number;
     progressColor?: string;
@@ -305,12 +310,12 @@ export interface MKProgressProperties extends ViewProperties {
     bufferAniDuration?: number;
 }
 
-export interface IndeterminateProgressProperties extends ViewProperties {
+export interface IndeterminateProgressProperties extends ViewProps {
     progressColor?: string;
     progressAniDuration?: number;
 }
 
-export interface BaseSlider extends ViewProperties {
+export interface BaseSlider extends ViewProps {
     min?: number;
     max?: number;
     value?: number;
@@ -335,13 +340,13 @@ export interface MKRangeSliderProperties extends BaseSlider {
     onChange?(curValue: { min: number, max: number }): void;
 }
 
-export interface MKSpinnerProperties extends ViewProperties {
+export interface MKSpinnerProperties extends ViewProps {
     strokeColor?: string;
     strokeWidth?: number;
     spinnerAniDuration?: number;
 }
 
-export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWithoutFeedbackProperties {
+export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {
     borderOnColor?: string;
     borderOffColor?: string;
     fillColor?: string;
@@ -351,7 +356,7 @@ export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWi
     onCheckedChange?(opts: { checked: boolean }): void;
 }
 
-export interface MKCheckboxProperties extends MKRippleProperties, TickProperties, TouchableWithoutFeedbackProperties {
+export interface MKCheckboxProperties extends MKRippleProperties, TickProperties, TouchableWithoutFeedbackProps {
     borderOnColor?: string;
     borderOffColor?: string;
     fillColor?: string;
@@ -374,32 +379,29 @@ export const MKColor: MKColorStatic;
 export function setTheme(theme: ThemeStatic): void;
 export function getTheme(): ThemeStatic;
 
-export class MKButton extends React.Component<MKButtonProperties, any> {}
+export class MKButton extends MKComponent<MKButtonProperties, any> {}
 
-export class MKTextField extends React.Component<MKTextFieldProperties, any> {}
+export class MKTextField extends MKComponent<MKTextFieldProperties, any> {}
 
-export class MKSwitch extends React.Component<MKSwitchProperties, any> {}
+export class MKSwitch extends MKComponent<MKSwitchProperties, any> {}
 
-export class MKIconToggle extends
-    React.Component<MKIconToggleProperties, any> {}
+export class MKIconToggle extends MKComponent<MKIconToggleProperties, any> {}
 
-export class MKRipple extends React.Component<MKRippleProperties, any> {}
+export class MKRipple extends MKComponent<MKRippleProperties, any> {}
 
-export class MKProgress extends React.Component<MKProgressProperties, any> {}
+export class MKProgress extends MKComponent<MKProgressProperties, any> {}
 
 export namespace MKProgress {
     class Indeterminate extends React.Component<IndeterminateProgressProperties> {}
 }
 
-export class MKSlider extends React.Component<MKSliderProperties, any> {}
+export class MKSlider extends MKComponent<MKSliderProperties, any> {}
 
-export class MKRangeSlider extends
-    React.Component<MKRangeSliderProperties, any> {}
+export class MKRangeSlider extends MKComponent<MKRangeSliderProperties, any> {}
 
-export class MKSpinner extends React.Component<MKSpinnerProperties, any> {}
+export class MKSpinner extends MKComponent<MKSpinnerProperties, any> {}
 
-export class MKRadioButton extends
-React.Component<MKRadioButtonProperties, any> {}
+export class MKRadioButton extends MKComponent<MKRadioButtonProperties, any> {}
 
 export namespace MKRadioButton {
     class MKRadioButton {}
@@ -416,4 +418,4 @@ export namespace MKRadioButton {
     }
 }
 
-export class MKCheckbox extends React.Component<MKCheckboxProperties, any> {}
+export class MKCheckbox extends MKComponent<MKCheckboxProperties, any> {}

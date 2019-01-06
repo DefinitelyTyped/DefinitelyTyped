@@ -2,6 +2,7 @@
 // Project: https://github.com/devconcept/multer-gridfs-storage
 // Definitions by: devconcept <https://github.com/devconcept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { EventEmitter } from 'events';
 import { Express } from 'express';

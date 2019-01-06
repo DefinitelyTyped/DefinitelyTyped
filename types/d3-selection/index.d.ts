@@ -1,9 +1,13 @@
-// Type definitions for D3JS d3-selection module 1.1
+// Type definitions for D3JS d3-selection module 1.3
 // Project: https://github.com/d3/d3-selection/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.1
+// Last module patch version validated against: 1.3.0
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -22,7 +26,7 @@ export type BaseType = Element | EnterElement | Document | Window | null;
  */
 export interface ArrayLike<T> {
     length: number;
-    item(index: number): T;
+    item(index: number): T | null;
     [index: number]: T;
 }
 
@@ -43,6 +47,14 @@ export interface EnterElement {
  * Container element type usable for mouse/touch functions
  */
 export type ContainerElement = HTMLElement | SVGSVGElement | SVGGElement;
+
+/**
+ * A User interface event (e.g. mouse event, touch or MSGestureEvent) with captured clientX and clientY properties.
+ */
+export interface ClientPointEvent {
+    clientX: number;
+    clientY: number;
+}
 
 /**
  * Interface for optional parameters map, when dispatching custom events
@@ -70,7 +82,7 @@ export type ValueFn<T extends BaseType, Datum, Result> = (this: T, datum: Datum,
 
 /**
  * TransitionLike is a helper interface to represent a quasi-Transition, without specifying the full Transition  interface in this file.
- * For example, whereever d3-zoom allows a Transition to be passed in as an argument, it internally immediately invokes its `selection()`
+ * For example, wherever d3-zoom allows a Transition to be passed in as an argument, it internally immediately invokes its `selection()`
  * method to retrieve the underlying Selection object before proceeding.
  * d3-brush uses a subset of Transition methods internally.
  * The use of this interface instead of the full imported Transition interface is [referred] to achieve
@@ -463,6 +475,19 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * This method returns a new selection containing the appended elements.
      * Each new element inherits the data of the current elements, if any.
      *
+     * @param type A string representing the tag name.
+     */
+    append<K extends keyof ElementTagNameMap>(type: K): Selection<ElementTagNameMap[K], Datum, PElement, PDatum>;
+    /**
+     * Appends a new element of this type (tag name) as the last child of each selected element,
+     * or before the next following sibling in the update selection if this is an enter selection.
+     * The latter behavior for enter selections allows you to insert elements into the DOM in an order consistent with the new bound data;
+     * however, note that selection.order may still be required if updating elements change order
+     * (i.e., if the order of new data is inconsistent with old data).
+     *
+     * This method returns a new selection containing the appended elements.
+     * Each new element inherits the data of the current elements, if any.
+     *
      * The generic refers to the type of the child element to be appended.
      *
      * @param type A string representing the tag name. The specified name may have a namespace prefix, such as svg:text
@@ -471,8 +496,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * (for example, svg implies svg:svg)
      */
     append<ChildElement extends BaseType>(type: string): Selection<ChildElement, Datum, PElement, PDatum>;
+
     /**
-     * Appends a new element of the type provided by the element creator functionas the last child of each selected element,
+     * Appends a new element of the type provided by the element creator function as the last child of each selected element,
      * or before the next following sibling in the update selection if this is an enter selection.
      * The latter behavior for enter selections allows you to insert elements into the DOM in an order consistent with the new bound data;
      * however, note that selection.order may still be required if updating elements change order
@@ -489,6 +515,27 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      */
     append<ChildElement extends BaseType>(type: ValueFn<GElement, Datum, ChildElement>): Selection<ChildElement, Datum, PElement, PDatum>;
 
+    /**
+     * Inserts a new element of the specified type (tag name) before the first element matching the specified
+     * before selector for each selected element. For example, a before selector :first-child will prepend nodes before the first child.
+     * If before is not specified, it defaults to null. (To append elements in an order consistent with bound data, use selection.append.)
+     *
+     * This method returns a new selection containing the appended elements.
+     * Each new element inherits the data of the current elements, if any.
+     *
+     * The generic refers to the type of the child element to be appended.
+     *
+     * @param type A string representing the tag name for the element type to be inserted.
+     * @param before One of:
+     *   * A CSS selector string for the element before which the insertion should occur.
+     *   * A child selector function which is evaluated for each selected element, in order, being passed the current datum (d),
+     *     the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). This function should return the child element
+     *     before which the element should be inserted.
+     */
+    insert<K extends keyof ElementTagNameMap>(
+        type: K,
+        before?: string | ValueFn<GElement, Datum, BaseType>
+    ): Selection<ElementTagNameMap[K], Datum, PElement, PDatum>;
     /**
      * Inserts a new element of the specified type (tag name) before the first element matching the specified
      * before selector for each selected element. For example, a before selector :first-child will prepend nodes before the first child.
@@ -516,13 +563,22 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
     insert<ChildElement extends BaseType>(
         type: string | ValueFn<GElement, Datum, ChildElement>,
         before?: string | ValueFn<GElement, Datum, BaseType>
-        ): Selection<ChildElement, Datum, PElement, PDatum>;
+    ): Selection<ChildElement, Datum, PElement, PDatum>;
 
     /**
      * Removes the selected elements from the document.
      * Returns this selection (the removed elements) which are now detached from the DOM.
      */
     remove(): this;
+
+    /**
+     * Inserts clones of the selected elements immediately following the selected elements and returns a selection of the newly
+     * added clones. If deep is true, the descendant nodes of the selected elements will be cloned as well. Otherwise, only the elements
+     * themselves will be cloned.
+     *
+     * @param deep Perform deep cloning if this flag is set to true.
+     */
+    clone(deep?: boolean): Selection<GElement, Datum, PElement, PDatum>;
 
     /**
      * Returns a new selection merging this selection with the specified other selection.
@@ -670,7 +726,8 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * If a key function is not specified, then the first datum in data is assigned to the first selected element,
      * the second datum to the second selected element, and so on.
-     * A key function may be specified to control which datum is assigned to which element, replacing the default join-by-index.
+     * A key function may be specified to control which datum is assigned to which element, replacing the default join-by-index,
+     * by computing a string identifier for each datum and element.
      *
      * The update and enter selections are returned in data order, while the exit selection preserves the selection
      * order prior to the join. If a key function is specified, the order of elements in the selection may not match
@@ -684,9 +741,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param data The specified data is an array of arbitrary values (e.g., numbers or objects).
      * @param key An optional key function which is evaluated for each selected element, in order, being passed the
-     * current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
+     * current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]); the returned string is the element’s key.
      * The key function is then also evaluated for each new datum in data, being passed the current datum (d),
-     * the current index (i), and the group’s new data, with this as the group’s parent DOM element (nodes[i]).
+     * the current index (i), and the group’s new data, with this as the group’s parent DOM element (nodes[i]); the returned string is the datum’s key.
      * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
      * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
      */
@@ -700,7 +757,8 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * If a key function is not specified, then the first datum in data is assigned to the first selected element,
      * the second datum to the second selected element, and so on.
-     * A key function may be specified to control which datum is assigned to which element, replacing the default join-by-index.
+     * A key function may be specified to control which datum is assigned to which element, replacing the default join-by-index,
+     * by computing a string identifier for each datum and element.
      *
      * The update and enter selections are returned in data order, while the exit selection preserves the selection
      * order prior to the join. If a key function is specified, the order of elements in the selection may not match
@@ -716,9 +774,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * (d, which may be undefined), the group index (i), and the selection’s parent nodes (nodes),
      * with this as the group’s parent element. The function returns an array of values for each group.
      * @param key An optional key function which is evaluated for each selected element, in order, being passed the
-     * current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
+     * current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]); the returned string is the element’s key.
      * The key function is then also evaluated for each new datum in data, being passed the current datum (d),
-     * the current index (i), and the group’s new data, with this as the group’s parent DOM element.
+     * the current index (i), and the group’s new data, with this as the group’s parent DOM element (nodes[i]); the returned string is the datum’s key.
      * The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key,
      * the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
      */
@@ -726,16 +784,13 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
 
     /**
      * Return the enter selection: placeholder nodes for each datum that had no corresponding DOM element
-     * in the selection. The enter selection is determined by selection.data, and is empty on a selection that
-     * is not joined to data.
+     * in the selection. (The enter selection is empty for selections not returned by selection.data.)
      */
     enter(): Selection<EnterElement, Datum, PElement, PDatum>;
 
     /**
-     * Return the exit selection: existing DOM elements in the selection for which no new datum was found.
-     * The exit selection is determined by the previous selection.data, and is thus empty until the selection is
-     * joined to data. If the exit selection is retrieved more than once after a data join, subsequent calls return
-     * the empty selection.
+     * Returns the exit selection: existing DOM elements in the selection for which no new datum was found.
+     * (The exit selection is empty for selections not returned by selection.data.)
      *
      * IMPORTANT: The generic refers to the type of the old datum associated with the exit selection elements.
      * Ensure you set the generic to the correct type, if you need to access the data on the exit selection in
@@ -972,6 +1027,16 @@ export function touch(container: ContainerElement, touches: TouchList, identifie
  */
 export function touches(container: ContainerElement, touches?: TouchList): Array<[number, number]>;
 
+/**
+ * Returns the x and y coordinates of the specified event relative to the specified container.
+ * (The event may also be a touch.) The container may be an HTML or SVG container element, such as a G element or an SVG element.
+ * The coordinates are returned as a two-element array of numbers [x, y].
+ *
+ * @param container Container element relative to which coordinates are calculated.
+ * @param event A User interface event (e.g. mouse event, touch or MSGestureEvent) with captured clientX and clientY properties.
+ */
+export function clientPoint(container: ContainerElement, event: ClientPointEvent): [number, number];
+
 // ---------------------------------------------------------------------------
 // style
 // ---------------------------------------------------------------------------
@@ -1086,6 +1151,29 @@ export function window(DOMNode: Window | Document | Element): Window;
 // for explicit bound-context dependent use
 // ---------------------------------------------------------------------------
 
+/**
+ * Given the specified element name, returns a single-element selection containing
+ * a detached element of the given name in the current document.
+ *
+ * @param name tag name of the element to be added.
+ */
+export function create<K extends keyof ElementTagNameMap>(name: K): Selection<ElementTagNameMap[K], undefined, null, undefined>;
+/**
+ * Given the specified element name, returns a single-element selection containing
+ * a detached element of the given name in the current document.
+ *
+ * @param name Tag name of the element to be added. See "namespace" for details on supported namespace prefixes,
+ * such as for SVG elements.
+ */
+export function create<NewGElement extends Element>(name: string): Selection<NewGElement, undefined, null, undefined>;
+
+/**
+ * Given the specified element name, returns a function which creates an element of the given name,
+ * assuming that "this" is the parent element.
+ *
+ * @param name Tag name of the element to be added.
+ */
+export function creator<K extends keyof ElementTagNameMap>(name: K): (this: BaseType) => ElementTagNameMap[K];
 /**
  * Given the specified element name, returns a function which creates an element of the given name,
  * assuming that "this" is the parent element.

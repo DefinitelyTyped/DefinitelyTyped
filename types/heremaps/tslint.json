@@ -3,6 +3,9 @@
     "rules": {
         // TODOs
         "interface-name": false,
-        "no-unnecessary-qualifier": false
+        "no-unnecessary-class": false,
+        "no-unnecessary-qualifier": false,
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false
     }
 }

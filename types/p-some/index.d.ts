@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/p-some#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import AggregateErrorModule = require('aggregate-error');
 

@@ -12,6 +12,20 @@ import * as d3Format from 'd3-format';
 // Preparatory Steps
 // ----------------------------------------------------------------------
 
+class NumCoercible {
+  a: number;
+
+  constructor(a: number) {
+    this.a = a;
+  }
+
+  valueOf() {
+    return this.a;
+  }
+}
+
+const numeric: NumCoercible = new NumCoercible(10);
+
 let num: number;
 
 let formatFn: (n: number) => string;
@@ -30,6 +44,12 @@ formatFn = d3Format.format('.0%');
 
 formatFn = d3Format.formatPrefix(',.0', 1e-6);
 
+d3Format.format('.0%')(10);
+d3Format.format('.0%')(numeric);
+
+d3Format.formatPrefix(',.0', 1e-6)(10);
+d3Format.formatPrefix(',.0', 1e-6)(numeric);
+
 // ----------------------------------------------------------------------
 // Test Format Specifier
 // ----------------------------------------------------------------------
@@ -43,7 +63,8 @@ const symbol: '$' | '#' | '' = specifier.symbol;
 const zero: boolean = specifier.zero;
 const width: number | undefined = specifier.width;
 const comma: boolean = specifier.comma;
-const precision: number = specifier.precision;
+const precision: number | undefined = specifier.precision;
+const trim: boolean = specifier.trim;
 const type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n' = specifier.type;
 
 const formatString: string = specifier.toString();
@@ -63,10 +84,10 @@ num = d3Format.precisionRound(0.0005, 3000);
 // ----------------------------------------------------------------------
 
 localeDef = {
-    decimal: ',',
-    thousands: '.',
-    grouping: [3],
-    currency: ['EUR', '']
+  decimal: ',',
+  thousands: '.',
+  grouping: [3],
+  currency: ['EUR', '']
 };
 
 localeDef = {
