@@ -39,11 +39,15 @@ interface NodeRequire {
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
+     *
+     * @deprecated Use `jest.requireActual` instead.
      */
     requireActual(moduleName: string): any;
     /**
      * Returns a mock module instead of the actual module, bypassing all checks
      * on whether the module should be required normally or not.
+     *
+     * @deprecated Use `jest.requireMock`instead.
      */
     requireMock(moduleName: string): any;
 }
@@ -127,6 +131,16 @@ declare namespace jest {
      * Mocks a module with an auto-mocked version when it is being required.
      */
     function mock(moduleName: string, factory?: any, options?: MockOptions): typeof jest;
+    /**
+     * Returns the actual module instead of a mock, bypassing all checks on
+     * whether the module should receive a mock implementation or not.
+     */
+    function requireActual(moduleName: string): any;
+    /**
+     * Returns a mock module instead of the actual module, bypassing all checks
+     * on whether the module should be required normally or not.
+     */
+    function requireMock(moduleName: string): any;
     /**
      * Resets the module registry - the cache of all required modules. This is
      * useful to isolate modules where local state might conflict between tests.
