@@ -38,9 +38,11 @@ declare namespace Validator {
     }
 
     interface ValidatorStatic {
-        new <A>(data: A, rules: any, customMessages?: ErrorMessages): Validator<
-            A
-        >;
+        new <A>(
+            data: A,
+            rules: Rules,
+            customMessages?: ErrorMessages
+        ): Validator<A>;
         setMessages(lang: string, messages: ErrorMessages): any;
         getMessages(lang: string): ErrorMessages;
         useLang(lang: string): void;
@@ -58,7 +60,7 @@ declare namespace Validator {
         errors: Errors;
         errorCount: number;
         hasAsync: boolean;
-        rules: any;
+        rules: Rules;
         numericRules: Array<string>;
         attributeFormatter: AttributeFormatter;
         check(): boolean;
