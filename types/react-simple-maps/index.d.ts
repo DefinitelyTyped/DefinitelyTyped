@@ -6,7 +6,33 @@
 
 import * as React from 'react';
 
+interface ZoomableProps {
+    center?: Point;
+    zoom?: number;
+    disablePanning?: boolean;
+    style?: React.CSSProperties;
+    width?: number;
+    height?: number;
+    onMoveStart?: (currentCenter: Point) => void;
+    onMoveEnd?: (newCenter: Point) => void;
+}
+
+interface Events<T> {
+    onClick?: (geography: object, evt: React.MouseEvent<T>) => void;
+    onMouseEnter?: (geography: object, evt: React.MouseEvent<T>) => void;
+    onMouseMove?: (geography: object, evt: React.MouseEvent<T>) => void;
+    onMouseLeave?: (geography: object, evt: React.MouseEvent<T>) => void;
+    onMouseDown?: (geography: object, evt: React.MouseEvent<T>) => void;
+    onMouseUp?: (geography: object, evt: React.MouseEvent<T>) => void;
+    onFocus?: (geography: object, evt: React.FocusEvent<T>) => void;
+    onBlur?: (geography: object, evt: React.FocusEvent<T>) => void;
+}
+
 export type Point = [number, number];
+
+export type MarkerType = {
+    coordinates: Point;
+};
 
 export interface Line {
     coordinates: {
@@ -28,18 +54,21 @@ export interface ComposableMapProps {
     };
     style?: React.CSSProperties;
     defs?: SVGDefsElement;
+    className?: string;
+    showCenter?: boolean;
+    preserveAspectRatio?: string;
+    viewBox?: string;
 }
 
-export interface ZoomableProps {
-    zoom?: number;
-    center?: Point;
-    style?: React.CSSProperties;
-    onMoveStart?: (currentCenter: Point) => void;
-    onMoveEnd?: (newCenter: Point) => void;
+export interface ZoomableGlobeProps extends ZoomableProps {
+    sensitivity?: number;
 }
 
 export interface ZoomableGroupProps extends ZoomableProps {
-    disablePanning?: boolean;
+    backdrop?: {
+        x: Point;
+        y: Point;
+    };
 }
 
 export interface GeographiesProps {
@@ -48,7 +77,7 @@ export interface GeographiesProps {
     children?: (geographies: object[], projection: (point: Point) => void) => void;
 }
 
-export interface GeographyProps {
+export interface GeographyProps extends Events<SVGPathElement> {
     cacheId?: number | string | null;
     precision?: number;
     round?: boolean;
@@ -62,10 +91,8 @@ export interface GeographyProps {
     };
 }
 
-export interface MarkerProps {
-    marker?: {
-        coordinates: Point;
-    };
+export interface MarkerProps extends Events<SVGGElement> {
+    marker?: MarkerType;
     tabable?: boolean;
     style?: {
         default?: React.CSSProperties;
@@ -99,7 +126,7 @@ export interface GraticuleProps {
     Globe?: boolean;
 }
 
-export interface LineProps {
+export interface LineProps extends Events<SVGPathElement> {
     line?: Line;
     tabable?: boolean;
     style?: {
@@ -113,7 +140,7 @@ export interface LineProps {
 
 export class ComposableMap extends React.Component<ComposableMapProps> {}
 export class ZoomableGroup extends React.Component<ZoomableGroupProps> {}
-export class ZoomableGlobe extends React.Component<ZoomableProps> {}
+export class ZoomableGlobe extends React.Component<ZoomableGlobeProps> {}
 export class Geographies extends React.Component<GeographiesProps> {}
 export class Geography extends React.Component<GeographyProps> {}
 export class Markers extends React.Component {}
