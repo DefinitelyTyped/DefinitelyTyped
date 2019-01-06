@@ -296,11 +296,12 @@ declare namespace Showdown {
 
         /**
          * Converts an HTML string into a markdown string
-         * 
+         *
          * @param src The input text (HTML)
+         * @param [HTMLParser] A WHATWG DOM and HTML parser, such as JSDOM. If none is supplied, window.document will be used.
          * @returns The output markdown
          */
-        makeMarkdown(src: string): string;
+        makeMarkdown(src: string, HTMLParser?: HTMLDocument): string;
 
         /**
          * Setting a "local" option only affects the specified Converter object.
