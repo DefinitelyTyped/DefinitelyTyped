@@ -102,5 +102,10 @@ Validator.useLang('en');
 const lang: string = Validator.getDefaultLang();
 Validator.setAttributeFormatter((attributes: any) => ({}));
 Validator.stopOnError(true);
-Validator.register('custom', () => {}, 'error.custom');
+
+// Register custom validation rules
+
+const callback: Validator.RegisterCallback = (value, args, attribute) => true;
+Validator.register('custom', callback, 'error.custom');
+
 Validator.registerAsync('custom', () => {}, 'error.custom');

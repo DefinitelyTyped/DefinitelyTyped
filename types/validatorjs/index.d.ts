@@ -37,6 +37,12 @@ declare namespace Validator {
         has(attribute: string): boolean;
     }
 
+    type RegisterCallback = (
+        value: string | number | boolean,
+        args: string,
+        attribute: string
+    ) => boolean;
+
     interface ValidatorStatic {
         new <A>(
             data: A,
@@ -49,7 +55,7 @@ declare namespace Validator {
         getDefaultLang(): string;
         setAttributeFormatter(func: AttributeFormatter): void;
         stopOnError(attributes: boolean | Array<string>): void;
-        register(name: string, fn: Function, message: string): void;
+        register(name: string, fn: RegisterCallback, message: string): void;
         registerAsync(name: string, fn: Function, message: string): void;
     }
 
