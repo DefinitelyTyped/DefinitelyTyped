@@ -6,22 +6,11 @@
 
 import * as React from 'react';
 
-interface ZoomableProps {
-    center?: Point;
-    zoom?: number;
-    disablePanning?: boolean;
-    style?: React.CSSProperties;
-    width?: number;
-    height?: number;
-    onMoveStart?: (currentCenter: Point) => void;
-    onMoveEnd?: (newCenter: Point) => void;
-}
-
 export type Point = [number, number];
 
-export type MarkerType = {
+export interface MarkerType {
     coordinates: Point;
-};
+}
 
 export interface Line {
     coordinates: {
@@ -49,11 +38,27 @@ export interface ComposableMapProps {
     viewBox?: string;
 }
 
-export interface ZoomableGlobeProps extends ZoomableProps {
+export interface ZoomableGlobeProps {
+    center?: Point;
+    zoom?: number;
+    disablePanning?: boolean;
+    style?: React.CSSProperties;
+    width?: number;
+    height?: number;
+    onMoveStart?: (currentCenter: Point) => void;
+    onMoveEnd?: (newCenter: Point) => void;
     sensitivity?: number;
 }
 
-export interface ZoomableGroupProps extends ZoomableProps {
+export interface ZoomableGroupProps {
+    center?: Point;
+    zoom?: number;
+    disablePanning?: boolean;
+    style?: React.CSSProperties;
+    width?: number;
+    height?: number;
+    onMoveStart?: (currentCenter: Point) => void;
+    onMoveEnd?: (newCenter: Point) => void;
     backdrop?: {
         x: Point;
         y: Point;
