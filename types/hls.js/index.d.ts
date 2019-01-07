@@ -1,8 +1,9 @@
 // Type definitions for hls.js 0.10
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
+//                 Johan Brook <https://github.com/brookback>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 // Event Keys
 type K_MEDIA_ATTACHING = "hlsMediaAttaching";
@@ -307,6 +308,16 @@ declare namespace Hls {
 
     // interface SubtitleTracks {}
 
+    type CustomLogger = (...args: any[]) => void;
+
+    interface CustomLoggerObject {
+        warn?: CustomLogger;
+        info?: CustomLogger;
+        log?: CustomLogger;
+        debug?: CustomLogger;
+        error?: CustomLogger;
+    }
+
     interface Config {
         /**
          * (default: false)
@@ -319,7 +330,7 @@ declare namespace Hls {
          * setting config.debug = true; will turn on debug logs on JS console.
          * a logger object could also be provided for custom logging: config.debug = customLogger;
          */
-        debug: boolean;
+        debug: boolean | CustomLoggerObject;
         /**
          * (default: true)
          * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
