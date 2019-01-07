@@ -347,7 +347,7 @@ export namespace StellarBase {
         }
         function bumpSequence(options: BumpSequenceOptions): xdr.Operation<BumpSequence>;
 
-        function fromXDRObject<T extends Operation>(xdrOperation: xdr.Operation<T>): T;
+        function fromXDRObject<T extends TransactionOperation = TransactionOperation>(xdrOperation: xdr.Operation<T>): T;
     }
 
     namespace StrKey {
@@ -384,7 +384,7 @@ export namespace StellarBase {
 
     class TransactionBuilder {
         constructor(sourceAccount: Account, options?: TransactionBuilder.TransactionBuilderOptions)
-        addOperation(operation: xdr.Operation<Operation.Operation>): this;
+        addOperation(operation: xdr.Operation): this;
         addMemo(memo: Memo): this;
         build(): Transaction;
     }
@@ -407,8 +407,8 @@ export namespace StellarBase {
             toXDR(base?: string): Buffer;
             toXDR(encoding: string): string;
         }
-        class Operation<T extends Operation.Operation> extends XDRStruct {
-            static fromXDR(xdr: Buffer): Operation<Operation.Operation>;
+        class Operation<T extends TransactionOperation = TransactionOperation> extends XDRStruct {
+            static fromXDR(xdr: Buffer): Operation;
         }
         class Asset extends XDRStruct {
             static fromXDR(xdr: Buffer): Asset;
@@ -512,7 +512,7 @@ export class Server {
 }
 
 export namespace Server {
-    abstract class CallBuilder<T extends Record> {
+    abstract class CallBuilder<T extends Record = Record> {
         constructor(serverUrl: string)
         call(): Promise<CollectionPage<T>>;
         cursor(cursor: string): this;
@@ -521,7 +521,7 @@ export namespace Server {
         stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
     }
 
-    interface CollectionPage<T extends Record> {
+    interface CollectionPage<T extends Record = Record> {
         records: T[];
         next: () => Promise<CollectionPage<T>>;
         prev: () => Promise<CollectionPage<T>>;
@@ -539,7 +539,7 @@ export namespace Server {
     }
 
     /* Due to a bug with the recursive function requests */
-    interface CollectionRecord<T extends Record> {
+    interface CollectionRecord<T extends Record = Record> {
         _links: {
             next: RecordLink
             prev: RecordLink
@@ -556,8 +556,8 @@ export namespace Server {
         order?: 'asc' | 'desc';
     }
 
-    type CallFunction<T extends Record> = () => Promise<T>;
-    type CallCollectionFunction<T extends Record> =
+    type CallFunction<T extends Record = Record> = () => Promise<T>;
+    type CallCollectionFunction<T extends Record = Record> =
         (options?: CallFunctionTemplateOptions) => Promise<CollectionRecord<T>>;
 
     interface BalanceLineNative {
