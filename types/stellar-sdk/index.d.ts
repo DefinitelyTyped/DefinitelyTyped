@@ -311,7 +311,7 @@ export namespace StellarBase {
         }
         type SignerOptions = SignerEd25519PublicKeyOptions | SignerSha256HashOptions | SignerPreAuthTxOptions;
         type SignerUnion = {ed25519PublicKey: any} | {sha256Hash: any} | {preAuthTx: any} | null;
-        interface SetOptions<T extends SignerUnion = never> extends Operation<OperationType.setOptions> {
+        interface SetOptions<T extends SignerUnion = SignerUnion> extends Operation<OperationType.setOptions> {
             inflationDest?: string;
             clearFlags?: AuthFlags;
             setFlags?: AuthFlags;
