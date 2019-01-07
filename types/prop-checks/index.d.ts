@@ -1,4 +1,4 @@
-// Type definitions for prop-types 15.5
+// Type definitions for prop-checks 15.5
 // Project: https://github.com/reactjs/prop-types
 // Definitions by: DovydasNavickas <https://github.com/DovydasNavickas>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
