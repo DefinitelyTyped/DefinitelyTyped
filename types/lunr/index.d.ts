@@ -535,6 +535,24 @@ declare namespace lunr {
     }
 
     namespace Query {
+        /**
+         * Constants for indicating what kind of presence a term must have in matching documents.
+         */
+        enum presence {
+            /**
+             * Term's presence in a document is optional, this is the default value.
+             */
+            OPTIONAL = 1,
+            /**
+             * Term's presence in a document is required, documents that do not contain this term will not be returned.
+             */
+            REQUIRED = 2,
+            /**
+             * Term's presence in a document is prohibited, documents that do contain this term will not be returned.
+             */
+            PROHIBITED = 3
+        }
+
         enum wildcard {
             NONE = 0,
             LEADING = 1 << 0,
