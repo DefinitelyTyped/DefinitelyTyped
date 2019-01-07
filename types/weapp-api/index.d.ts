@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace wx {
+    // import startPullDownRefresh = swan.startPullDownRefresh;
     type NoneParamCallback = () => void;
     type OneParamCallback = (data: any) => void;
     type ResponseCallback = (res: any) => void;
@@ -87,6 +88,8 @@ declare namespace wx {
         [key: string]: any
     }
 
+    //  网络
+    //  发起请求
     interface RequestHeader {
         [key: string]: string;
     }
@@ -109,9 +112,79 @@ declare namespace wx {
     /**
      * wx.request发起的是https请求。一个微信小程序，同时只能有5个网络请求连接。
      */
-    function request(options: RequestOptions): void;
+    function request(options: RequestOptions): RequestTask;
+    /**
+     * 网络请求任务对象
+     */
+    interface RequestTask {
+        //  中断请求任务
+        abort(): void;
+        //  监听 HTTP Response Header 事件。会比请求完成事件更早
+        onHeadersReceived(callback: DataResponseCallback): void;
+        //  取消监听 HTTP Response Header 事件
+        offHeadersReceived(callback: DataResponseCallback): void;
+    }
 
+    //  下载
+    interface OnProgressCallbackOptions {
+        //  下载进度百分比
+        progress: number;
+        //  已经下载的数据长度，单位 Bytes
+        totalBytesWritten: number;
+        //  预期需要下载的数据总长度，单位 Bytes
+        totalBytesExpectedToWrite: number;
+    }
+    /**
+     * 一个可以监听下载进度变化事件，以及取消下载任务的对象
+     */
+    interface DownloadTask {
+        //  中断下载任务
+        abort(): void;
+        //  下载进度变化事件的回调函数
+        onProgressUpdate(callback: (res: OnProgressCallbackOptions) => {}): void;
+        //  取消监听下载进度变化事件
+        offProgressUpdate(callback: (res: OnProgressCallbackOptions) => {}): void;
+        //  监听 HTTP Response Header 事件。会比请求完成事件更早
+        onHeadersReceived(callback: DataResponseCallback): void;
+        //  取消监听 HTTP Response Header 事件
+        offHeadersReceived(callback: DataResponseCallback): void;
+    }
+    interface DownloadFileOptions {
+        /** 下载资源的 url */
+        url: string;
+        /** 下载资源的类型，用于客户端识别处理，有效值：image/audio/video */
+        type?: string;
+        /** HTTP 请求 Header */
+        header?: RequestHeader;
+        /** 下载成功后以 tempFilePath 的形式传给页面，res = {tempFilePath: '文件的临时路径'} */
+        success?: TempFileResponseCallback;
+        /** 接口调用失败的回调函数 */
+        fail?: ResponseCallback;
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: ResponseCallback;
+    }
+    /**
+     * 下载文件资源到本地。客户端直接发起一个 HTTP GET 请求，
+     * 把下载到的资源根据 type 进行处理，并返回文件的本地临时路径。
+     */
+    function downloadFile(options: DownloadFileOptions): DownloadTask;
 
+    // 上传
+    /**
+     * 一个可以监听上传进度变化事件，以及取消上传任务的对象
+     */
+    interface UploadTask {
+        //  中断上传任务
+        abort(): void;
+        //  上传进度变化事件的回调函数
+        onProgressUpdate(callback: (res: OnProgressCallbackOptions) => {}): void;
+        //  取消监听上传进度变化事件
+        offProgressUpdate(callback: (res: OnProgressCallbackOptions) => {}): void;
+        //  监听 HTTP Response Header 事件。会比请求完成事件更早
+        onHeadersReceived(callback: DataResponseCallback): void;
+        //  取消监听 HTTP Response Header 事件
+        offHeadersReceived(callback: DataResponseCallback): void;
+    }
     interface UploadFileOptions {
         /** 开发者服务器 url */
         url: string;
@@ -137,30 +210,9 @@ declare namespace wx {
      * 客户端发起一个 HTTPS POST 请求，
      * 其中 Content-Type 为 multipart/form-data 。
      */
-    function uploadFile(options: UploadFileOptions): void;
+    function uploadFile(options: UploadFileOptions): UploadTask;
 
-
-    interface DownloadFileOptions {
-        /** 下载资源的 url */
-        url: string;
-        /** 下载资源的类型，用于客户端识别处理，有效值：image/audio/video */
-        type?: string;
-        /** HTTP 请求 Header */
-        header?: RequestHeader;
-        /** 下载成功后以 tempFilePath 的形式传给页面，res = {tempFilePath: '文件的临时路径'} */
-        success?: TempFileResponseCallback;
-        /** 接口调用失败的回调函数 */
-        fail?: ResponseCallback;
-        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?: ResponseCallback;
-    }
-    /**
-     * 下载文件资源到本地。客户端直接发起一个 HTTP GET 请求，
-     * 把下载到的资源根据 type 进行处理，并返回文件的本地临时路径。
-     */
-    function downloadFile(options: DownloadFileOptions): void;
-
-
+    //  WebSocket
     interface ConnectSocketOptions {
         /** 开发者服务器接口地址，必须是 HTTPS 协议，且域名必须是后台配置的合法域名 */
         url: string;
@@ -440,6 +492,29 @@ declare namespace wx {
      */
     function chooseVideo(options: ChooseVideoOptions): void;
 
+    // 数据缓存
+    interface  StorageInfo {
+        //  当前 storage 中所有的 key
+        keys: Array<string>;
+        //  当前占用的空间大小, 单位 KB
+        currentSize: number;
+        //  限制的空间大小，单位 KB
+        limitSize: number;
+    }
+    type StorageInfoCallback = (res: StorageInfoOptions) => void;
+    interface StorageInfoOptions extends CommonCallbackOptions{
+        success?: StorageInfoCallback;
+    }
+    /**
+     * getStorageInfo的同步版本
+     */
+    function getStorageInfoSync(): StorageInfo;
+    /**
+     * 异步获取当前storage的相关信息
+     * @param options
+     */
+    function getStorageInfo(options: StorageInfoOptions): void;
+
     interface SetStorageOptions {
         /** 本地缓存中的指定的 key */
         key: string;
@@ -497,6 +572,9 @@ declare namespace wx {
      * 同步清理本地数据缓存
      */
     function clearStorageSync(): void;
+
+    // 媒体
+    //  地图  TODO
 
     interface LocationData {
         /** 纬度，浮点数，范围为-90~90，负数表示南纬 */
@@ -658,17 +736,36 @@ declare namespace wx {
     //  调试  TODO
 
     // 路由
-    interface routerOptions {
-
+    interface routerOptions extends CommonCallbackOptions{
+        //  需要跳转的应用内非 tabBar 的页面的路径, 路径后可以带参数。参数与路径之间使用 ? 分隔，参数键与参数值用 = 相连，不同参数用 & 分隔；如 'path?key=value&key2=value2'
+        url: string;
+    }
+    interface NavigateBackOptions extends CommonCallbackOptions {
+        //  返回的页面数，如果 delta 大于现有页面数，则返回到首页。
+        delta: number;
     }
     /**
      * 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages() 获取当前的页面栈，决定需要返回几层。
      */
-    function navigateBack(): void;
-    function switchTab(): void;
-    function navigateTo(): void;
-    function reLaunch(): void;
-    function redirectTo(): void;
+    function navigateBack(options: NavigateBackOptions): void;
+    /**
+     * 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面
+     * @param options
+     */
+    function switchTab(options: routerOptions): void;
+    /**
+     * 保留当前页面，跳转到应用内的某个页面。但是不能跳到 tabbar 页面。使用 wx.navigateBack 可以返回到原页面。
+     * @param options
+     */
+    function navigateTo(options: routerOptions): void;
+    /**
+     * 关闭所有页面，打开到应用内的某个页面
+     */
+    function reLaunch(options: routerOptions): void;
+    /**
+     * 关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面。
+     */
+    function redirectTo(options: routerOptions): void;
 
     // 界面
     // 交互
@@ -689,8 +786,11 @@ declare namespace wx {
      * 公共回调函数
      */
     interface CommonCallbackOptions {
+        //  接口调用成功回调函数
         success?: ResponseCallback;
+        //  接口调用失败回调函数
         fail?: ResponseCallback;
+        //  接口调用结束的回调函数
         complete?: ResponseCallback;
     }
 
@@ -798,7 +898,133 @@ declare namespace wx {
 
     //  背景
     function setBackgroundTextStyle(): void;
+    interface BackgroundColorOptions extends CommonCallbackOptions{
+        // 窗口的背景色，必须为十六进制颜色值
+        backgroundColor?: string;
+        // 顶部窗口的背景色，必须为十六进制颜色值，仅 iOS 支持
+        backgroundColorTop?: string;
+        //  底部窗口的背景色，必须为十六进制颜色值，仅 iOS 支持
+        backgroundColorBottom?: string;
+    }
     function setBackgroundColor(): void;
+    //  Tab Bar
+    interface TabBarItemOptions extends CommonCallbackOptions{
+        //  tabBar 的哪一项，从左边算起
+        index: number;
+        //  tab 上的按钮文字
+        text?: string;
+        //  图片路径，icon 大小限制为 40kb，建议尺寸为 81px * 81px，当 postion 为 top 时，此参数无效，不支持网络图片
+        iconPath?: string;
+        //  选中时的图片路径，icon 大小限制为 40kb，建议尺寸为 81px * 81px ，当 postion 为 top 时，此参数无效
+        selectedIconPath?: string;
+    }
+    /**
+     * 动态设置 tabBar 某一项的内容
+     * @param options
+     */
+    function setTabBarItem(options: TabBarItemOptions): void;
+
+    interface TabBarStyleOptions extends CommonCallbackOptions{
+        //  tab 上的文字默认颜色，HexColor
+        color: string;
+        //  tab 上的文字选中时的颜色，HexColor
+        selectedColor: string;
+        //  tab 的背景色，HexColor
+        backgroundColor: string;
+        //  tabBar上边框的颜色， 仅支持 black/white
+        borderStyle: string;
+    }
+    /**
+     * 动态设置tabBar的整体样式
+     */
+    function setTabBarStyle(options: TabBarItemOptions): void;
+
+    interface TabBarAnimationOptions extends CommonCallbackOptions{
+        //  是否需要动画效果
+        animation: boolean;
+    }
+    /**
+     * 隐藏tabBar
+     */
+    function hideTabBar(options: TabBarAnimationOptions): void;
+    /**
+     * 显示tabBar
+     */
+    function showTabBar(options: TabBarAnimationOptions): void;
+
+    interface TabBarRedDotOptions extends CommonCallbackOptions{
+        //  tabBar 的哪一项，从左边算起
+        index: number;
+    }
+    /**
+     * 隐藏 tabBar 某一项的右上角的红点
+     * @param options
+     */
+    function hideTabBarRedDot(options: TabBarBadgeOptions): void;
+    /**
+     * 显示 tabBar 某一项的右上角的红点
+     * @param options
+     */
+    function showTabBarRedDot(options: TabBarRedDotOptions): void;
+
+    interface TabBarBadgeOptions extends CommonCallbackOptions{
+        //  tabBar 的哪一项，从左边算起
+        index: number;
+        //  显示的文本，超过 4 个字符则显示成 ...
+        text: string;
+    }
+    /**
+     * 移除 tabBar 某一项右上角的文本
+     * @param options
+     */
+    function removeTabBarBadge(options: TabBarRedDotOptions): void;
+    /**
+     * 为 tabBar 某一项的右上角添加文本
+     * @param options
+     */
+    function setTabBarBadge(options: TabBarBadgeOptions): void;
+
+    interface FontDescOptions {
+        //  字体样式，可选值为 normal / italic / oblique
+        style?: string;
+        //  字体粗细，可选值为 normal / bold / 100 / 200../ 900
+        weight?: string;
+        //  设置小型大写字母的字体显示文本，可选值为 normal / small-caps / inherit
+        variant?: string;
+    }
+    //  字体
+    interface FontFaceOptions extends CommonCallbackOptions{
+        //  定义的字体名称
+        family: string;
+        //  字体资源的地址。建议格式为 TTF 和 WOFF，WOFF2 在低版本的iOS上会不兼容。
+        source: string;
+        //  可选的字体描述符
+        desc?: FontDescOptions;
+    }
+    function loadFontFace(options: FontFaceOptions): void;
+
+    //  下拉刷新
+    /**
+     * 停止当前页面下拉刷新。
+     */
+    function stopPullDownRefresh(options?: CommonCallbackOptions): void;
+
+    /**
+     * 开始下拉刷新。调用后触发下拉刷新动画，效果与用户手动下拉刷新一致。
+     */
+    function startPullDownRefresh(options?: CommonCallbackOptions): void;
+
+    //  滚动
+    interface PageScrollToOptions extends CommonCallbackOptions{
+        //  滚动到页面的目标位置，单位 px
+        scrollTop: number;
+        //  滚动动画的时长，单位 ms。默认300
+        duration: number;
+    }
+    /**
+     * 将页面滚动到
+     */
+    function pageScrollTo(): void;
 
     interface AccelerometerData {
         /** X 轴 */
@@ -845,46 +1071,9 @@ declare namespace wx {
      */
     function hideNavigationBarLoading(): void;
 
-    interface NavigateToOptions {
-        /** 需要跳转的应用内页面的路径 */
-        url: string;
-        /** 成功获取系统信息的回调 */
-        success?: ResponseCallback;
-        /** 接口调用失败的回调函数 */
-        fail?: ResponseCallback;
-        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?: ResponseCallback;
-    }
-    /**
-     * 保留当前页面，跳转到应用内的某个页面，使用wx.navigateBack可以返回到原页面。
-     *
-     * 注意：为了不让用户在使用小程序时造成困扰，
-     * 我们规定页面路径只能是五层，请尽量避免多层级的交互方式。
-     */
-    function navigateTo(options: NavigateToOptions): void;
-
-    interface RedirectToOptions {
-        /** 需要跳转的应用内页面的路径 */
-        url: string;
-        /** 成功获取系统信息的回调 */
-        success?: ResponseCallback;
-        /** 接口调用失败的回调函数 */
-        fail?: ResponseCallback;
-        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
-        complete?: ResponseCallback;
-    }
-    /**
-     * 关闭当前页面，跳转到应用内的某个页面。
-     */
-    function redirectTo(options: RedirectToOptions): void;
-
-    /**
-     * 关闭当前页面，回退前一页面。
-     */
-    function navigateBack(): void;
-
     type TimingFunction = 'linear' | 'ease' | 'ease-in' | 'ease-in-out' | 'ease-out' | 'step-start' | 'step-end';
 
+    // 动画
     interface CreateAnimationOptions {
         /** 动画持续时间，单位ms，默认值 400 */
         duration?: number;
