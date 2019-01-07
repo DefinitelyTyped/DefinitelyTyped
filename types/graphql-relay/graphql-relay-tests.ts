@@ -49,8 +49,8 @@ const resolve: GraphQLFieldResolver<any, any> = (source, args, context, info) =>
     context.flag = "f";
 };
 const fields: GraphQLFieldConfigMap<any, any> = {};
-let t: GraphQLObjectType;
-let e: GraphQLObjectType;
+let t: GraphQLObjectType<any, any>;
+let e: GraphQLObjectType<any, any>;
 const def = connectionDefinitions({
     connectionFields: fields,
     edgeFields: fields,

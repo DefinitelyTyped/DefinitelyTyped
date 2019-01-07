@@ -342,7 +342,7 @@ export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
  *     });
  *
  */
-export class GraphQLObjectType<TSource, TContext> {
+export class GraphQLObjectType<TSource = any, TContext = any> {
     name: string;
     description: Maybe<string>;
     astNode: Maybe<ObjectTypeDefinitionNode>;
