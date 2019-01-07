@@ -56,7 +56,7 @@ export const connectionArgs: GraphQLFieldConfigArgumentMap & ForwardConnectionAr
 
 export type ConnectionConfigNodeTypeNullable =
     | GraphQLScalarType
-    | GraphQLObjectType<any, any>
+    | GraphQLObjectType
     | GraphQLInterfaceType
     | GraphQLUnionType
     | GraphQLEnumType;
@@ -75,8 +75,8 @@ export interface ConnectionConfig {
 }
 
 export interface GraphQLConnectionDefinitions {
-    edgeType: GraphQLObjectType<any, any>;
-    connectionType: GraphQLObjectType<any, any>;
+    edgeType: GraphQLObjectType;
+    connectionType: GraphQLObjectType;
 }
 
 /**
@@ -256,8 +256,8 @@ export interface GraphQLNodeDefinitions {
     nodesField: GraphQLFieldConfig<any, any>;
 }
 
-export type typeResolverFn = ((any: any) => GraphQLObjectType<any, any>) |
-    ((any: any) => Promise<GraphQLObjectType<any, any>>);
+export type typeResolverFn = ((any: any) => GraphQLObjectType) |
+    ((any: any) => Promise<GraphQLObjectType>);
 
 /**
  * Given a function to map from an ID to an underlying object, and a function

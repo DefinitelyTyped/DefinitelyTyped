@@ -10,13 +10,13 @@ import {
 } from "./definition";
 import { GraphQLField } from "./definition";
 
-export const __Schema: GraphQLObjectType<any, any>;
-export const __Directive: GraphQLObjectType<any, any>;
+export const __Schema: GraphQLObjectType;
+export const __Directive: GraphQLObjectType;
 export const __DirectiveLocation: GraphQLEnumType;
-export const __Type: GraphQLObjectType<any, any>;
-export const __Field: GraphQLObjectType<any, any>;
-export const __InputValue: GraphQLObjectType<any, any>;
-export const __EnumValue: GraphQLObjectType<any, any>;
+export const __Type: GraphQLObjectType;
+export const __Field: GraphQLObjectType;
+export const __InputValue: GraphQLObjectType;
+export const __EnumValue: GraphQLObjectType;
 
 export const TypeKind: {
     SCALAR: "SCALAR";

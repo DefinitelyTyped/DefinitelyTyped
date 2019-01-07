@@ -20,7 +20,7 @@ export default class QueryComplexity {
     onOperationDefinitionEnter(operation: OperationDefinitionNode): void;
     onOperationDefinitionLeave(): GraphQLError | undefined;
     nodeComplexity(node: FieldNode | FragmentDefinitionNode | InlineFragmentNode |
-         OperationDefinitionNode, typeDef: GraphQLObjectType<any, any> | GraphQLInterfaceType | GraphQLUnionType, complexity?: number): number;
+         OperationDefinitionNode, typeDef: GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType, complexity?: number): number;
     createError(): GraphQLError;
     getDefaultComplexity(args: object, childScore: number): number;
 }

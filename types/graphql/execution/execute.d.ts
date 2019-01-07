@@ -136,7 +136,7 @@ export function buildExecutionContext(
  */
 export function collectFields(
     exeContext: ExecutionContext,
-    runtimeType: GraphQLObjectType<any, any>,
+    runtimeType: GraphQLObjectType,
     selectionSet: SelectionSetNode,
     fields: { [key: string]: Array<FieldNode> },
     visitedFragmentNames: { [key: string]: boolean }
@@ -146,7 +146,7 @@ export function buildResolveInfo(
     exeContext: ExecutionContext,
     fieldDef: GraphQLField<any, any>,
     fieldNodes: ReadonlyArray<FieldNode>,
-    parentType: GraphQLObjectType<any, any>,
+    parentType: GraphQLObjectType,
     path: ResponsePath
 ): GraphQLResolveInfo;
 
@@ -180,6 +180,6 @@ export const defaultFieldResolver: GraphQLFieldResolver<any, any>;
  */
 export function getFieldDef(
     schema: GraphQLSchema,
-    parentType: GraphQLObjectType<any, any>,
+    parentType: GraphQLObjectType,
     fieldName: string
 ): Maybe<GraphQLField<any, any>>;

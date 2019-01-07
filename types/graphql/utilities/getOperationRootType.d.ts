@@ -8,4 +8,4 @@ import { GraphQLObjectType } from "../type/definition";
 export function getOperationRootType(
     schema: GraphQLSchema,
     operation: OperationDefinitionNode | OperationTypeDefinitionNode
-): GraphQLObjectType<any, any>;
+): GraphQLObjectType;

@@ -41,14 +41,14 @@ export class GraphQLSchema {
 
     constructor(config: GraphQLSchemaConfig);
 
-    getQueryType(): Maybe<GraphQLObjectType<any, any>>;
-    getMutationType(): Maybe<GraphQLObjectType<any, any>>;
-    getSubscriptionType(): Maybe<GraphQLObjectType<any, any>>;
+    getQueryType(): Maybe<GraphQLObjectType>;
+    getMutationType(): Maybe<GraphQLObjectType>;
+    getSubscriptionType(): Maybe<GraphQLObjectType>;
     getTypeMap(): TypeMap;
     getType(name: string): Maybe<GraphQLNamedType>;
-    getPossibleTypes(abstractType: GraphQLAbstractType): ReadonlyArray<GraphQLObjectType<any, any>>;
+    getPossibleTypes(abstractType: GraphQLAbstractType): ReadonlyArray<GraphQLObjectType>;
 
-    isPossibleType(abstractType: GraphQLAbstractType, possibleType: GraphQLObjectType<any, any>): boolean;
+    isPossibleType(abstractType: GraphQLAbstractType, possibleType: GraphQLObjectType): boolean;
 
     getDirectives(): ReadonlyArray<GraphQLDirective>;
     getDirective(name: string): Maybe<GraphQLDirective>;
@@ -77,9 +77,9 @@ export interface GraphQLSchemaValidationOptions {
 }
 
 export interface GraphQLSchemaConfig extends GraphQLSchemaValidationOptions {
-    query: Maybe<GraphQLObjectType<any, any>>;
-    mutation?: Maybe<GraphQLObjectType<any, any>>;
-    subscription?: Maybe<GraphQLObjectType<any, any>>;
+    query: Maybe<GraphQLObjectType>;
+    mutation?: Maybe<GraphQLObjectType>;
+    subscription?: Maybe<GraphQLObjectType>;
     types?: Maybe<GraphQLNamedType[]>;
     directives?: Maybe<GraphQLDirective[]>;
     astNode?: Maybe<SchemaDefinitionNode>;
