@@ -5,7 +5,7 @@
 
 export interface BodyScrollOptions {
     reserveScrollBarGap?: boolean;
-    allowTouchMove?: () => void;
+    allowTouchMove?: (el: HTMLElement) => void;
 }
 
 export function disableBodyScroll(targetElement: HTMLElement, options?: BodyScrollOptions): void;
