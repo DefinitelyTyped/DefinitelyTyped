@@ -28,7 +28,7 @@ import { GraphQLSchema } from "./schema";
  */
 export type GraphQLType =
     | GraphQLScalarType
-    | GraphQLObjectType
+    | GraphQLObjectType<any, any>
     | GraphQLInterfaceType
     | GraphQLUnionType
     | GraphQLEnumType
@@ -44,9 +44,9 @@ export function isScalarType(type: any): type is GraphQLScalarType;
 
 export function assertScalarType(type: any): GraphQLScalarType;
 
-export function isObjectType(type: any): type is GraphQLObjectType;
+export function isObjectType(type: any): type is GraphQLObjectType<any, any>;
 
-export function assertObjectType(type: any): GraphQLObjectType;
+export function assertObjectType(type: any): GraphQLObjectType<any, any>;
 
 export function isInterfaceType(type: any): type is GraphQLInterfaceType;
 
@@ -91,14 +91,14 @@ export function assertInputType(type: any): GraphQLInputType;
  */
 export type GraphQLOutputType =
     | GraphQLScalarType
-    | GraphQLObjectType
+    | GraphQLObjectType<any, any>
     | GraphQLInterfaceType
     | GraphQLUnionType
     | GraphQLEnumType
     | GraphQLList<any>
     | GraphQLNonNull<
           | GraphQLScalarType
-          | GraphQLObjectType
+          | GraphQLObjectType<any, any>
           | GraphQLInterfaceType
           | GraphQLUnionType
           | GraphQLEnumType
@@ -121,7 +121,7 @@ export function assertLeafType(type: any): GraphQLLeafType;
 /**
  * These types may describe the parent context of a selection set.
  */
-export type GraphQLCompositeType = GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType;
+export type GraphQLCompositeType = GraphQLObjectType<any, any> | GraphQLInterfaceType | GraphQLUnionType;
 
 export function isCompositeType(type: any): type is GraphQLCompositeType;
 
@@ -214,7 +214,7 @@ export function assertWrappingType(type: any): GraphQLWrappingType;
  */
 export type GraphQLNullableType =
     | GraphQLScalarType
-    | GraphQLObjectType
+    | GraphQLObjectType<any, any>
     | GraphQLInterfaceType
     | GraphQLUnionType
     | GraphQLEnumType
@@ -234,7 +234,7 @@ export function getNullableType<T extends GraphQLNullableType>(type: GraphQLNonN
  */
 export type GraphQLNamedType =
     | GraphQLScalarType
-    | GraphQLObjectType
+    | GraphQLObjectType<any, any>
     | GraphQLInterfaceType
     | GraphQLUnionType
     | GraphQLEnumType
@@ -342,15 +342,15 @@ export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
  *     });
  *
  */
-export class GraphQLObjectType {
+export class GraphQLObjectType<TSource, TContext> {
     name: string;
     description: Maybe<string>;
     astNode: Maybe<ObjectTypeDefinitionNode>;
     extensionASTNodes: Maybe<ReadonlyArray<ObjectTypeExtensionNode>>;
-    isTypeOf: Maybe<GraphQLIsTypeOfFn<any, any>>;
+    isTypeOf: Maybe<GraphQLIsTypeOfFn<TSource, TContext>>;
 
-    constructor(config: GraphQLObjectTypeConfig<any, any>);
-    getFields(): GraphQLFieldMap<any, any>;
+    constructor(config: GraphQLObjectTypeConfig<TSource, TContext>);
+    getFields(): GraphQLFieldMap<any, TContext>;
     getInterfaces(): GraphQLInterfaceType[];
     toString(): string;
     toJSON(): string;
@@ -371,7 +371,7 @@ export type GraphQLTypeResolver<TSource, TContext> = (
     value: TSource,
     context: TContext,
     info: GraphQLResolveInfo
-) => MaybePromise<Maybe<GraphQLObjectType | string>>;
+) => MaybePromise<Maybe<GraphQLObjectType<TSource, TContext> | string>>;
 
 export type GraphQLIsTypeOfFn<TSource, TContext> = (
     source: TSource,
@@ -390,7 +390,7 @@ export interface GraphQLResolveInfo {
     readonly fieldName: string;
     readonly fieldNodes: ReadonlyArray<FieldNode>;
     readonly returnType: GraphQLOutputType;
-    readonly parentType: GraphQLObjectType;
+    readonly parentType: GraphQLObjectType<any, any>;
     readonly path: ResponsePath;
     readonly schema: GraphQLSchema;
     readonly fragments: { [key: string]: FragmentDefinitionNode };
@@ -533,7 +533,7 @@ export class GraphQLUnionType {
 
     constructor(config: GraphQLUnionTypeConfig<any, any>);
 
-    getTypes(): GraphQLObjectType[];
+    getTypes(): GraphQLObjectType<any, any>[];
 
     toString(): string;
     toJSON(): string;
@@ -542,7 +542,7 @@ export class GraphQLUnionType {
 
 export interface GraphQLUnionTypeConfig<TSource, TContext> {
     name: string;
-    types: Thunk<GraphQLObjectType[]>;
+    types: Thunk<GraphQLObjectType<any, any>[]>;
     /**
      * Optionally provide a custom type resolver function. If one is not provided,
      * the default implementation will call `isTypeOf` on each implementing
