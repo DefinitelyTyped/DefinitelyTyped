@@ -14,7 +14,7 @@ const FloatingRectangle = styledAnime("div")`
 });
 
 class Example extends React.Component {
-    public render() {
+    render() {
         return (
             <FloatingRectangle />
         );
