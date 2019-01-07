@@ -29,7 +29,7 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from 'mimos';
 import { SealOptions, SealOptionsSub } from 'iron';
-import { AnySchema, ValidationOptions, SchemaMap, Schema } from 'joi';
+import { ValidationOptions, SchemaMap, Schema } from 'joi';
 import Podium = require('podium');
 import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy } from 'catbox';
 
