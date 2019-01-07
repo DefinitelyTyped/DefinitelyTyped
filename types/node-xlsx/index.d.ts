@@ -25,7 +25,7 @@ export declare function parse(
  * @returns returns a buffer of worksheets
  */
 export declare function build(
-    worksheets: Array<{ name: string; data: Array<any[]> }>,
+    worksheets: Array<{ name: string; data: any[][] }>,
     options?: {}
 ): ArrayBuffer;
 declare const _default: {
