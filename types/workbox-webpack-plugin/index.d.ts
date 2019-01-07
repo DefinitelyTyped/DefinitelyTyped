@@ -2,9 +2,6 @@
 // Project: https://github.com/GoogleChrome/workbox/blob/master/packages/workbox-webpack-plugin
 // Definitions by: Kevin Groat <https://github.com/kgroat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
-import { Loader, Plugin } from 'webpack';
 
 /**
  * Workbox provides two webpack plugins: one that generates a complete service worker for you and one that generates a list of assets to precache that is injected into a service worker file.
@@ -12,6 +9,10 @@ import { Loader, Plugin } from 'webpack';
  */
 declare namespace WorkboxWebpackPlugin {
 	type ChacheStrategy = 'cacheFirst' | 'cacheOnly' | 'networkFirst' | 'networkOnly' | 'staleWhileRevalidate';
+
+	abstract class WebpackPlugin {
+		apply(...args: any[]): void;
+	}
 
 	interface ManifestEntry {
 		revision: string;
