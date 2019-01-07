@@ -2,7 +2,7 @@
 // Project: https://github.com/GoogleChrome/workbox/blob/master/packages/workbox-webpack-plugin
 // Definitions by: Kevin Groat <https://github.com/kgroat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// typesVerisons: 3.0, 3.1, 3.2
+// TypeScript Version: 3.2
 
 import { Loader, Plugin } from 'webpack';
 
