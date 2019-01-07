@@ -29,5 +29,3 @@ export const IceCream: React.FunctionComponent<Props>;
 export const Mug: React.FunctionComponent<Props>;
 export const Planet: React.FunctionComponent<Props>;
 export const SpeechBubble: React.FunctionComponent<Props>;
-
-export {};
