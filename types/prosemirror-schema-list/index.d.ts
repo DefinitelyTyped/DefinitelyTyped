@@ -40,8 +40,8 @@ export let listItem: NodeSpec;
  * given to assign a group name to the list node types, for example
  * `"block"`.
  */
-export function addListNodes(
-  nodes: OrderedMap<NodeSpec>,
+export function addListNodes<N extends string = any>(
+  nodes: { [name in N]: NodeSpec } | OrderedMap<NodeSpec>,
   itemContent: string,
   listGroup?: string
 ): OrderedMap<NodeSpec>;
