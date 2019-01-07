@@ -43,3 +43,49 @@ function exampleIgnoreUndefinedCheck() {
     // Using the ! after permissions will let you bypass the undefined-check
     nav.permissions!.query({ name: 'microphone' });
 }
+
+function exampleRevokeDoesNotSupportTheSameDescriptorsAsQuery() {
+    const cameraQueryPromise: Promise<NavigatorPermissions.PermissionStatus> = nav.permissions!.query({ name: 'camera' });
+    // Revoke only supports a subset of descriptors
+    // nav.permissions!.revoke({ name: 'camera' });
+    // For example name: 'notifications'
+    const notificationRevocalPromise: Promise<NavigatorPermissions.PermissionStatus> = nav.permissions!.revoke({ name: 'notifications' });
+}
+
+function exampleFromMdnForQueryMethod() {
+    if (nav.permissions === undefined) {
+        console.error('Permissions API not supported');
+        return;
+    }
+
+    function showLocalNewsWithGeolocation() { /* Not implemented */ }
+    function showButtonToEnableLocalNews() { /* Not implemented */ }
+    // Using .then instead of async-await
+    nav.permissions.query({ name: 'geolocation' }).then((result) => {
+        if (result.state === 'granted') {
+            showLocalNewsWithGeolocation();
+        } else if (result.state === 'prompt') {
+            showButtonToEnableLocalNews();
+        }
+        // Don't do anything if the permission was denied.
+    });
+}
+
+function exampleFromMdnForRevokeMethod() {
+    // Just an example report function I made up
+    function report(state: NavigatorPermissions.PermissionState) {
+        switch (state) {
+            case 'denied': console.error('State: DENIED'); break;
+            case 'granted': console.log('State: GRANTED'); break;
+            case 'prompt': console.info('State: PROMPT'); break;
+            // Using a string that's an invalid state would result in an error from TypeScript
+            // case 'invalid': console.warn('Type "invalid" is not comparable to type "PermissionState".');
+        }
+    }
+    // This is a slightly modified example from the MDN revoke method documentation
+    // https://developer.mozilla.org/en-US/docs/Web/API/Permissions/revoke#Example
+    // Using .then instead of async-await
+    nav.permissions!.revoke({ name: 'geolocation' }).then((result) => {
+        report(result.state);
+    });
+}
