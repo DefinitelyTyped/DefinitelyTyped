@@ -502,3 +502,20 @@ puppeteer.launch().then(async browser => {
         console.log(err instanceof TimeoutError);
     }
 });
+
+// domcontentloaded page event test
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  page.on('domcontentloaded', async () => {
+    page.evaluate(() => {
+      console.log('dom changed');
+    });
+  });
+
+  try {
+    await page.goto('https://www.google.com');
+  } catch (e) {
+    console.log("DOM CONTENT LOADED EVENT ERROR", e);
+  }
+});

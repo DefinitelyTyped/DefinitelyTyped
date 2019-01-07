@@ -1272,6 +1272,10 @@ export interface PageEventObj {
    * Puppeteer can respond to the dialog via Dialog's accept or dismiss methods.
    */
   dialog: Dialog;
+  /**
+   * 
+   */
+  domcontentloaded: undefined;
   /** Emitted when the page crashes. */
   error: Error;
   /** Emitted when a frame is attached. */
