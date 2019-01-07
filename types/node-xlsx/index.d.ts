@@ -12,10 +12,10 @@
 export declare function parse(
     mixed: any,
     options?: {}
-  ): {
+  ): Array<{
     name: string;
     data: {}[];
-  }[];
+  }>;
 
   /**
    * building a xlsx
