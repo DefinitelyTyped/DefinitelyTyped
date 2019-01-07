@@ -616,6 +616,12 @@ declare namespace lunr {
          * Adds a term to the current query, under the covers this will create a {@link lunr.Query~Clause}
          * to the list of clauses that make up this query.
          *
+         * The term is used as is, i.e. no tokenization will be performed by this method. Instead conversion
+         * to a token or token-like string should be done before calling this method.
+         *
+         * The term will be converted to a string by calling `toString`. Multiple terms can be passed as an
+         * array, each term in the array will share the same options.
+         *
          * @param term - The term to add to the query.
          * @param [options] - Any additional properties to add to the query clause.
          * @see lunr.Query#clause
@@ -629,7 +635,7 @@ declare namespace lunr {
          *   wildcard: lunr.Query.wildcard.TRAILING
          * })
          */
-        term(term: string, options: object): Query;
+        term(term: string | string[] | Token | Token[], options: object): Query;
     }
 
     class QueryParseError extends Error {
