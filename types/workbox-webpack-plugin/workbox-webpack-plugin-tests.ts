@@ -1,4 +1,4 @@
-import { GenerateSW, InjectManifest } from './index';
+import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
 
 // GenerateSW
 {

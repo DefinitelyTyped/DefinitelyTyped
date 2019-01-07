@@ -363,7 +363,7 @@ declare namespace WorkboxWebpackPlugin {
 	 * The `GenerateSW` plugin will create a service worker file for you and add it to the webpack asset pipeline.
 	 * @see https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 	 */
-	export class GenerateSW extends Plugin {
+	export class GenerateSW extends WebpackPlugin {
 		constructor (opts?: GenerateSWOptions);
 	}
 
@@ -371,7 +371,7 @@ declare namespace WorkboxWebpackPlugin {
 	 * The `InjectManifest` plugin will generate a list of URLs to precache and add that precache manifest to an existing service worker file. It will otherwise leave the file as-is.
 	 * @see https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 	 */
-	export class InjectManifest extends Plugin {
+	export class InjectManifest extends WebpackPlugin {
 		constructor (opts?: InjectManifestOptions);
 	}
 }
