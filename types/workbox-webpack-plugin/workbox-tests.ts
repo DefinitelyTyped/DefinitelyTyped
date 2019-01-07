@@ -1,15 +1,15 @@
 
-import { GenerateSW, InjectManifest } from './index'
+import { GenerateSW, InjectManifest } from './index';
 
 // GenerateSW
 {
-  let plugin: GenerateSW
+  let plugin: GenerateSW;
 
   // No options object
-  plugin = new GenerateSW()
+  plugin = new GenerateSW();
 
   // Empty options object
-  plugin = new GenerateSW({})
+  plugin = new GenerateSW({});
 
   // With all of the examples
   plugin = new GenerateSW({
@@ -120,24 +120,24 @@ import { GenerateSW, InjectManifest } from './index'
         const manifest = originalManifest.filter(
           (entry) => entry.url !== 'ignored.html');
         // Optionally, set warning messages.
-        const warnings = [];
-        return {manifest, warnings};
+        const warnings = ['warning'];
+        return {manifest, warnings: [] };
       }
     ]
-  })
+  });
 }
 
 // InjectManifest
 {
-  let plugin: InjectManifest
+  let plugin: InjectManifest;
 
   // No options object
-  plugin = new InjectManifest()
+  plugin = new InjectManifest();
 
   // Minimal options object (swSrc is required)
   plugin = new InjectManifest({
     swSrc: 'service-worker.js'
-  })
+  });
 
   // With all of the examples
   plugin = new InjectManifest({
@@ -182,9 +182,9 @@ import { GenerateSW, InjectManifest } from './index'
         const manifest = originalManifest.filter(
           (entry) => entry.url !== 'ignored.html');
         // Optionally, set warning messages.
-        const warnings = [];
+        const warnings = ['warning'];
         return {manifest, warnings};
       }
     ]
-  })
+  });
 }
