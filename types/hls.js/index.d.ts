@@ -1,4 +1,4 @@
-// Type definitions for hls.js 0.10
+// Type definitions for hls.js 0.12
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 //                 Johan Brook <https://github.com/brookback>
