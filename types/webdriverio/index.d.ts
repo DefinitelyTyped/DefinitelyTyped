@@ -278,6 +278,7 @@ declare namespace WebdriverIO {
         platformVersion?: string;
         automationName?: string;
         app?: string;
+        deviceName?: string;
 
         cleanSession?: boolean;
 
