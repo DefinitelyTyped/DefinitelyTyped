@@ -5,7 +5,7 @@
 //                 Andrey Kurdyumov <https://github.com/kant2002>,
 //                 Terry Mun <https://github.com/terrymun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.0
 /// <reference types="mina" />
 
 export = Snap;
@@ -305,7 +305,7 @@ declare namespace Snap {
 
     export interface Set {
         animate(attrs:{[attr:string]:string|number|boolean|any},duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Set;
-        animate(...params:Array<{attrs:any,duration:number,easing:(num:number)=>number,callback?:()=>void}>):Snap.Set;
+        animate(...attrs:[{[attr:string]:string|number|boolean|any},number?,((num:number)=>number)?,(()=>void)?][]):Snap.Element;
         attr(params:{[attr:string]:string|number|boolean|BBox|any}):Snap.Set;
         attr(param:"viewBox"):Snap.Set;
         attr(param:string):Snap.Set;

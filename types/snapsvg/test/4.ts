@@ -2,7 +2,7 @@
   // Tests by Terry Mun
   // Checks that Snap.set() is properly typed
 
-  const s = Snap(200, 500);
+  const s = Snap(300, 500);
   s.attr({
     viewBox: '0 0 200 500'
   });
@@ -35,6 +35,18 @@
   }
 
   // Animate elements individually
+  function animateMultipleTest() {
+    return new Promise(resolve => {
+      rectSet.animate(
+        [{ x: 100 }, 500, mina.linear],
+        [{ x: 100 }, 1000, mina.linear],
+        [{ x: 100 }, 1500, mina.linear],
+        [{ x: 100 }, 2000, mina.linear, resolve]
+      );
+    });
+  }
+
+  // Animate elements individually
   function forEachTest() {
     const colors = ['red', 'green', 'blue'];
     return new Promise(resolve => {
@@ -52,7 +64,7 @@
     return new Promise(resolve => {
       rectSet.exclude(rect4);
       rectSet.animate({
-        x: 100
+        x: 150
       }, 500, mina.bounce, resolve);
     });
   }
@@ -95,6 +107,7 @@
   // Start test
   async function startTest() {
     await animateTest();
+    await animateMultipleTest();
     await forEachTest();
     await excludeTest();
     await spliceTest();
