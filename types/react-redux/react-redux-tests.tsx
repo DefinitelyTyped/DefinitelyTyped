@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
-import { Connect, connect, createProvider, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextObject } from 'react-redux';
+import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -920,50 +920,6 @@ function TestWrappedComponent() {
     const TestConnected = (props: any) => <Connected />;
 }
 
-function TestCreateProvider() {
-    const STORE_KEY = 'myStore';
-
-    const MyStoreProvider = createProvider(STORE_KEY);
-
-    const myStoreConnect: Connect = (
-        mapStateToProps?: any,
-        mapDispatchToProps?: any,
-        mergeProps?: any,
-        options: Options = {},
-    ) => {
-        options.storeKey = STORE_KEY;
-        return connect(
-            mapStateToProps,
-            mapDispatchToProps,
-            mergeProps,
-            options,
-        );
-    };
-
-    interface State { a: number; }
-    const store = createStore<State, AnyAction, {}, {}>(() => ({ a: 1 }));
-    const myStore = createStore<State, AnyAction, {}, {}>(() => ({ a: 2 }));
-
-    interface AProps { a: number; }
-    const A = (props: AProps) => (<h1>A is {props.a}</h1>);
-    const A1 = connect<AProps, {}, {}, State>(state => state)(A);
-    const A2 = myStoreConnect<AProps, {}, {}, State>(state => state)(A);
-
-    const Combined = () => (
-        <Provider store={store}>
-            <MyStoreProvider store={myStore}>
-                <A1 />
-                <A2 />
-            </MyStoreProvider>
-        </Provider>
-    );
-
-    // This renders:
-    // <h1>A is 1</h1>
-    // <h1>A is 2</h1>
-    ReactDOM.render(<Combined />, document.body);
-}
-
 function TestWithoutTOwnPropsDecoratedInference() {
     interface ForwardedProps {
         forwarded: string;
@@ -1219,7 +1175,7 @@ function TestProviderContext() {
     <Provider store={store} context={nullContext}></Provider>; // $ExpectError
 
     // Providing a an object of the correct type ensures type safety when consuming the context.
-    const initialContextValue: ReactReduxContextObject = { storeState: null, store };
+    const initialContextValue: ReactReduxContextValue = { storeState: null, store };
     const context = React.createContext(initialContextValue);
 
     <Provider store={store} context={context}></Provider>;
