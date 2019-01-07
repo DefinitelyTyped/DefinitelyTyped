@@ -11,14 +11,19 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "jsx": "react",
         "experimentalDecorators": true,
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "react-redux": [
+                "react-redux/v6"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
