@@ -1,4 +1,3 @@
-
 import { GenerateSW, InjectManifest } from './index';
 
 // GenerateSW
