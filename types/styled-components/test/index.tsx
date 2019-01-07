@@ -25,6 +25,67 @@ import {} from "styled-components/cssprop";
  * general usage
  */
 
+interface AllOptionalProps {
+    text?: boolean;
+    altText?: boolean;
+}
+
+const AllOptionalPropComponent: React.SFC<AllOptionalProps> =
+    ({ text, altText, children }) => (
+        <div>
+            {text || altText || 'Hello World'}
+            {children}
+        </div>
+    );
+
+const StyledAllOptionalPropComponent = styled(AllOptionalPropComponent)`
+    max-width: 100px;
+`;
+
+// Check that passing no props to a component with only optional props works.
+// If we aren't explicitly setting a `children` prop, then this would produce
+// a "no properties in common" error.
+const UseStyledAllOptionalPropComponent: React.SFC = () => (
+    <StyledAllOptionalPropComponent>
+        blah
+    </StyledAllOptionalPropComponent>
+);
+
+interface CustomChildrenProps {
+    children?: (enabled: boolean) => JSX.Element;
+}
+
+const CustomChildrenComponent: React.SFC<CustomChildrenProps> = ({ children }) =>
+    children
+        ? children(Math.random() > 0.5)
+        : null;
+
+const StyledCustomChildrenComponent = styled(CustomChildrenComponent)``;
+
+// Check that we don't override the `children` prop if someone explicitly
+// declared it with a custom type.
+const UseStyledCustomChildrenComponent = () => (
+    <>
+        <CustomChildrenComponent>
+            {
+                (enabled) => (
+                    enabled
+                        ? <div>is on</div>
+                        : <div>is off</div>
+                )
+            }
+        </CustomChildrenComponent>
+        <CustomChildrenComponent // $ExpectError
+        >
+            Blah Blah Blah
+        </CustomChildrenComponent>
+        <CustomChildrenComponent // $ExpectError
+        >
+            <div>Blah Blah Blah</div>
+        </CustomChildrenComponent>
+    </>
+);
+
 // Create a <Title> react component that renders an <h1> which is
 // centered, palevioletred and sized at 1.5em
 const Title = styled.h1`

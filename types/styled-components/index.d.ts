@@ -4,6 +4,7 @@
 //                 Ihor Chulinda <https://github.com/Igmat>
 //                 Adam Lavin <https://github.com/lavoaster>
 //                 Jessica Franco <https://github.com/Kovensky>
+//                 Mike Deverell <https://github.com/devrelm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -41,10 +42,12 @@ export type StyledComponentProps<
     O extends object,
     // The props that are made optional by .attrs
     A extends keyof any
-> = WithOptionalTheme<
-    Omit<React.ComponentPropsWithRef<C> & O, A> &
-        Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
-    T
+> = WithChildren<
+    WithOptionalTheme<
+        Omit<React.ComponentPropsWithRef<C> & O, A> &
+            Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+        T
+    >
 >;
 
 type StyledComponentPropsWithAs<
@@ -307,6 +310,10 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
 
 // Helper type operators
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+type WithChildren<P extends object> =
+    P extends { children: any }
+        ? P
+        : P & { children?: React.ReactNode };
 type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
     theme?: T;
 };
