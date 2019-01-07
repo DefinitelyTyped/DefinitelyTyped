@@ -18,6 +18,7 @@ export interface Parameters {
     options?: any;
     data?: any;
     async?: any;
+    load?: (template: Template) => void;
 }
 
 export interface Template {
