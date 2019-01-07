@@ -1,4 +1,4 @@
-// Type definitions for styled-anime 0.1.4
+// Type definitions for styled-anime 0.1
 // Project: https://github.com/geni429/styled-anime
 // Definitions by: geni429 <https://github.com/geni429>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
