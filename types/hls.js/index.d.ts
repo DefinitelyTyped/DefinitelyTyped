@@ -487,6 +487,14 @@ declare namespace Hls {
          */
         liveDurationInfinity: boolean;
         /**
+         * (default: Infinity)
+         * Sets the maximum length of the buffer, in seconds, to keep during a live stream. Any video
+         * buffered past this time will be evicted. Infinity means no restriction on back buffer length;
+         * 0 keeps the minimum amount. The minimum amount is equal to the target duration of a segment
+         * to ensure that current playback is not interrupted.
+         */
+        liveBackBufferLength: number;
+        /**
          * (default: true)
          * Enable WebWorker (if available on browser) for TS demuxing/MP4 remuxing, to improve performance and avoid lag/frame drops.
          */
