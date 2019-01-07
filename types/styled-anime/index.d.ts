@@ -2,6 +2,7 @@
 // Project: https://github.com/geni429/styled-anime
 // Definitions by: geni429 <https://github.com/geni429>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 /// <reference types="animejs" />
@@ -10,7 +11,9 @@ import { CSSObject, SimpleInterpolation } from "styled-components";
 import { AnimeAnimParams } from "animejs";
 
 interface AnimeFunction {
-    (config: StyledAnimeParams): React.ComponentClass<StyledAnimeComponentProps>;
+    (config: StyledAnimeParams): React.ComponentClass<
+        StyledAnimeComponentProps
+    >;
 }
 
 interface StyledFunction {
