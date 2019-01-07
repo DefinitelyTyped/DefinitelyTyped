@@ -2,7 +2,7 @@
 // Project: https://github.com/geni429/styled-anime
 // Definitions by: geni429 <https://github.com/geni429>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 /// <reference types="react" />
 /// <reference types="animejs" />
