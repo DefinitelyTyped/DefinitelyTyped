@@ -421,15 +421,6 @@ export interface ProviderProps<A extends Action = AnyAction> {
 export class Provider<A extends Action = AnyAction> extends Component<ProviderProps<A>> { }
 
 /**
- * Creates a new <Provider> which will set the Redux Store on the passed key of the context. You probably only need this
- * if you are in the inadvisable position of having multiple stores. You will also need to pass the same storeKey to the
- * options argument of connect.
- *
- * @param storeKey The key of the context on which to set the store.
- */
-export function createProvider(storeKey: string): typeof Provider;
-
-/**
  * Exposes the internal context used in react-redux. It is generally advised to use the connect HOC to connect to the
  * redux store instead of this approeach.
  */
