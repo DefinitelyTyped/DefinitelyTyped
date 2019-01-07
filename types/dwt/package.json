@@ -1,0 +1,65 @@
+{
+  "_from": "@types/dwt",
+  "_id": "@types/dwt@14.2.1",
+  "_inBundle": false,
+  "_integrity": "sha512-Bkg6uOuneDoNg/eh+PDb6KrB19Jn3L3dbVqJcP7LZZ2JEpkSlsBC1WhlRPy4SbhESPGfW9OsLLINErTAnoeaUQ==",
+  "_location": "/@types/dwt",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@types/dwt",
+    "name": "@types/dwt",
+    "escapedName": "@types%2fdwt",
+    "scope": "@types",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/dwt/-/dwt-14.2.1.tgz",
+  "_shasum": "5a07cffad109a0897c621e6391115fc8d0b924db",
+  "_spec": "@types/dwt",
+  "_where": "E:\\Angular\\docscan",
+  "bugs": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Xiao Ling",
+      "url": "https://github.com/yushulx"
+    },
+    {
+      "name": "Josh Hall",
+      "url": "https://github.com/jbh"
+    },
+    {
+      "name": "Lincoln Hu",
+      "url": "https://github.com/lincoln2018"
+    },
+    {
+      "name": "Tom Kent",
+      "url": "https://github.com/Tom-Dynamsoft"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "TypeScript definitions for dwt",
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/dwt",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.2",
+  "types": "",
+  "typesPublisherContentHash": "73222d15418817dc9863c89f9e474e0be986d5c68846ec62e83500291e7b33f8",
+  "version": "14.2.1"
+}

@@ -6,7 +6,7 @@
 *
 * Copyright 2018, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 14.2
+* Version: 14.3.1
 */
 
 declare enum EnumDWT_ConvertMode {
@@ -72,8 +72,4 @@ interface PDF {
 
 interface WebTwainAddon {
     PDF: PDF;
-}
-
-interface WebTwain {
-    Addon: WebTwainAddon;
 }
