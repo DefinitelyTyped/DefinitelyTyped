@@ -144,8 +144,6 @@ export interface StyledComponentBase<
     //   props: StyledComponentPropsWithAs<AsC, T, O, A>
     // ): React.ReactElement<StyledComponentPropsWithAs<AsC, T, O, A>>
 
-    defaultProps: ReactDefaultProps<C>;
-
     // TODO (TypeScript 3.2): delete this overload
     (
         props: StyledComponentProps<C, T, O, A> & {
@@ -157,6 +155,9 @@ export interface StyledComponentBase<
             as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
         }
     ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
+
+    readonly defaultProps: ReactDefaultProps<C>;
+
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC
     ): StyledComponent<

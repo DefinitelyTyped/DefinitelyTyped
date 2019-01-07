@@ -270,7 +270,7 @@ const MyOtherComponentWithProps = () => (
 
 // Create a <LinkFromStringWithPropsAndGenerics> react component that renders an <a>
 // which takes extra props passed as a generic type argument
-const LinkFromStringWithPropsAndGenerics = styled("a") <LinkProps>`
+const LinkFromStringWithPropsAndGenerics = styled("a")<LinkProps>`
     font-size: 1.5em;
     text-align: center;
     color: ${a => (a.canClick ? "palevioletred" : "gray")};
