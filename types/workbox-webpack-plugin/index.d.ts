@@ -255,7 +255,7 @@ declare namespace WorkboxWebpackPlugin {
 		 * One or more [`ManifestTransform`](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.ManifestTransform) functions, which will be applied sequentially against the generated manifest.
      * If `modifyUrlPrefix` or `dontCacheBustUrlsMatching` are also specified, their corresponding transformations will be applied first.
 		 */
-		manifestTransforms?: ((originalManifest: ManifestEntry[]) => { manifest: ManifestEntry[], warnings?: string[] })[] | null;
+		manifestTransforms?: ((originalManifest: ReadonlyArray<ManifestEntry>) => { manifest: ManifestEntry[], warnings?: string[] })[] | null;
 	}
 
 	export interface GenerateSWOptions extends CommonOptions {
