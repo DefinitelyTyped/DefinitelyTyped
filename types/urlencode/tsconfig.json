@@ -4,6 +4,8 @@
         "lib": [
             "es6"
         ],
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -18,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "hibp-tests.ts"
+        "urlencode-tests.ts"
     ]
 }
