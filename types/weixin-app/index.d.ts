@@ -3756,7 +3756,7 @@ declare namespace wx {
 		Methods,
 		Props
 	> = object &
-		ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
+		ComponentOptions<V, Data, Methods, Props> &
 		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
 	interface ComponentRelation<D = any, P = any> {
