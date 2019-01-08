@@ -12,6 +12,7 @@
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Anatoli Papirovski <https://github.com/apapirovski>
 //                 Boris Sergeyev <https://github.com/surgeboris>
+//                 Søren Bruus Frank <https://github.com/soerenbf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
