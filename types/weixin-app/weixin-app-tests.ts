@@ -8,8 +8,25 @@ interface MyOwnEvent
 		}
 	> {}
 
-let behavior = Behavior({
-	behaviors: [],
+const parentBehavior = Behavior({
+	behaviors: ["wx://form-field"],
+	properties: {
+		myParentBehaviorProperty: {
+			type: String
+		}
+	},
+	data: {
+		myParentBehaviorData: "",
+	},
+	methods: {
+		myParentBehaviorMethod(input: number) {
+			const s: string = this.data.myParentBehaviorData;
+		}
+	}
+});
+
+const behavior = Behavior({
+	behaviors: [parentBehavior, "wx://form-field"],
 	properties: {
 		myBehaviorProperty: {
 			type: String
@@ -20,7 +37,7 @@ let behavior = Behavior({
 	},
 	attached() {},
 	methods: {
-		myBehaviorMethod() {
+		myBehaviorMethod(input: number) {
 			const s: string = this.data.myBehaviorData;
 		}
 	}
@@ -102,6 +119,14 @@ Component({
 	detached() {},
 
 	methods: {
+		testBehaviors() {
+			console.log(this.data.myBehaviorData);
+			console.log(this.data.myBehaviorProperty);
+			this.myBehaviorMethod(123);
+			console.log(this.data.myParentBehaviorData);
+			console.log(this.data.myParentBehaviorProperty);
+			this.myParentBehaviorMethod(456);
+		},
 		readMyDataAndMyProps() {
 			const stringValue1: string = this.data.myProperty;
 			const stringValue2: string = this.data.myProperty2;
