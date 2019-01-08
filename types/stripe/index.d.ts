@@ -5331,7 +5331,7 @@ declare namespace Stripe {
          * starting after summary starting_after. Each entry in the array is a separate summary object.
          * If no more summaries are available, the resulting array is empty.
          */
-        interface IUsageRecordSummaries extends IList<IUsageRecordSummariesItem>{
+        interface IUsageRecordSummaries extends IList<IUsageRecordSummariesItem> {
             object: 'list'
         }
 
@@ -5345,7 +5345,7 @@ declare namespace Stripe {
             total_usage: number;
         }
 
-        interface IUsageRecordSummariesListOptions extends IListOptions{
+        interface IUsageRecordSummariesListOptions extends IListOptions {
             /**
              * Only summary items for the given subscription item.
              */
