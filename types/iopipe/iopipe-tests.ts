@@ -1,7 +1,7 @@
 import iopipe, { label, mark, metric } from '@iopipe/iopipe'
 
 const configuredLib = iopipe({
-  token: 'ABCDEFG' 
+    token: 'ABCDEFG' 
 });
 
 const run = () => {}
