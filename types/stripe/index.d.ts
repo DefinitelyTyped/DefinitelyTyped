@@ -5332,7 +5332,7 @@ declare namespace Stripe {
          * If no more summaries are available, the resulting array is empty.
          */
         interface IUsageRecordSummaries extends IList<IUsageRecordSummariesItem> {
-            object: 'list'
+            object: 'list';
         }
 
         interface IUsageRecordSummariesItem {
