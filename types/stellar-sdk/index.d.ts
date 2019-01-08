@@ -512,7 +512,7 @@ export class Server {
 }
 
 export namespace Server {
-    abstract class CallBuilder<T extends Record = Record> {
+    abstract class CallBuilder<T extends Horizon.BaseResponse = Horizon.BaseResponse> {
         constructor(serverUrl: string)
         call(): Promise<CollectionPage<T>>;
         cursor(cursor: string): this;
@@ -521,29 +521,18 @@ export namespace Server {
         stream(options?: { onmessage?: (record: T) => void, onerror?: (error: Error) => void }): () => void;
     }
 
-    interface CollectionPage<T extends Record = Record> {
+    interface CollectionPage<T extends Horizon.BaseResponse = Horizon.BaseResponse> {
         records: T[];
         next: () => Promise<CollectionPage<T>>;
         prev: () => Promise<CollectionPage<T>>;
     }
 
-    interface Record {
-        _links: {
-            [key: string]: RecordLink
-        };
-    }
-
-    interface RecordLink {
-        href: string;
-        templated?: boolean;
-    }
-
     /* Due to a bug with the recursive function requests */
-    interface CollectionRecord<T extends Record = Record> {
+    interface CollectionRecord<T extends Horizon.BaseResponse = Horizon.BaseResponse> {
         _links: {
-            next: RecordLink
-            prev: RecordLink
-            self: RecordLink
+            next: Horizon.ResponseLink
+            prev: Horizon.ResponseLink
+            self: Horizon.ResponseLink
         };
         _embedded: {
             records: T[]
@@ -556,42 +545,19 @@ export namespace Server {
         order?: 'asc' | 'desc';
     }
 
-    type CallFunction<T extends Record = Record> = () => Promise<T>;
-    type CallCollectionFunction<T extends Record = Record> =
+    type CallFunction<T extends Horizon.BaseResponse = Horizon.BaseResponse> = () => Promise<T>;
+    type CallCollectionFunction<T extends Horizon.BaseResponse = Horizon.BaseResponse> =
         (options?: CallFunctionTemplateOptions) => Promise<CollectionRecord<T>>;
 
-    interface BalanceLineNative {
-        balance: string;
-        asset_type: ASSET_TYPE.native;
-    }
-    interface BalanceLineAsset<T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 = ASSET_TYPE.credit4 | ASSET_TYPE.credit12> {
-        balance: string;
-        limit: string;
-        asset_type: T;
-        asset_code: string;
-        asset_issuer: string;
-    }
-    type BalanceLine<T extends ASSET_TYPE = ASSET_TYPE> =
-        T extends ASSET_TYPE.native ? BalanceLineNative :
-        T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 ? BalanceLineAsset<T> :
-        BalanceLineNative | BalanceLineAsset;
-
-    interface AccountRecord extends Record {
+    interface AccountRecord extends Horizon.BaseResponse {
         id: string;
         paging_token: string;
         account_id: string;
         sequence: number;
         subentry_count: number;
-        thresholds: {
-            low_threshold: number
-            med_threshold: number
-            high_threshold: number
-        };
-        flags: {
-            auth_required: boolean
-            auth_revocable: boolean
-        };
-        balances: BalanceLine[];
+        thresholds: Horizon.AccountThresholds;
+        flags: Horizon.Flags;
+        balances: Horizon.BalanceLine[];
         signers: Array<
         {
             public_key: string
@@ -609,20 +575,17 @@ export namespace Server {
         trades: CallCollectionFunction<TradeRecord>;
     }
 
-    interface AssetRecord extends Record {
+    interface AssetRecord extends Horizon.BaseResponse {
         asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
         asset_code: string;
         asset_issuer: string;
         paging_token: string;
         amount: string;
         num_accounts: number;
-        flags: {
-            auth_required: boolean
-            auth_revocable: boolean
-        };
+        flags: Horizon.Flags;
     }
 
-    interface EffectRecord extends Record {
+    interface EffectRecord extends Horizon.BaseResponse {
         account: string;
         paging_token: string;
         starting_balance: string;
@@ -635,7 +598,7 @@ export namespace Server {
         succeeds?: CallFunction<EffectRecord>;
     }
 
-    interface LedgerRecord extends Record {
+    interface LedgerRecord extends Horizon.BaseResponse {
         id: string;
         paging_token: string;
         hash: string;
@@ -660,7 +623,7 @@ export namespace Server {
         transactions: CallCollectionFunction<TransactionRecord>;
     }
 
-    interface OfferRecord extends Record {
+    interface OfferRecord extends Horizon.BaseResponse {
         id: string;
         paging_token: string;
         seller_attr: string;
@@ -715,14 +678,14 @@ export namespace Server {
         | ManageDataOperationRecord
         | BumpSequenceOperationRecord;
 
-    interface OrderbookRecord extends Record {
+    interface OrderbookRecord extends Horizon.BaseResponse {
         bids: Array<{ price_r: {}, price: number, amount: string }>;
         asks: Array<{ price_r: {}, price: number, amount: string }>;
         selling: Asset;
         buying: Asset;
     }
 
-    interface PaymentPathRecord extends Record {
+    interface PaymentPathRecord extends Horizon.BaseResponse {
         path: Array<{
             asset_code: string
             asset_issuer: string
@@ -738,7 +701,7 @@ export namespace Server {
         destination_asset_issuer: string;
     }
 
-    interface TradeRecord extends Record {
+    interface TradeRecord extends Horizon.BaseResponse {
         id: string;
         paging_token: string;
         ledger_close_time: string;
@@ -759,7 +722,7 @@ export namespace Server {
         operation: CallFunction<OperationRecord>;
     }
 
-    interface TradeAggregationRecord extends Record {
+    interface TradeAggregationRecord extends Horizon.BaseResponse {
         timestamp: string;
         trade_count: number;
         base_volume: string;
@@ -771,7 +734,7 @@ export namespace Server {
         close: string;
     }
 
-    interface TransactionRecord extends Record {
+    interface TransactionRecord extends Horizon.BaseResponse {
         id: string;
         paging_token: string;
         hash: string;
@@ -804,28 +767,16 @@ export namespace Server {
         accountId(id: string): this;
     }
     class AccountResponse implements AccountRecord {
-        _links: { [key: string]: { href: string } };
+        _links: { [key in 'self']: Horizon.ResponseLink };
         id: string;
         paging_token: string;
         account_id: string;
         sequence: number;
         subentry_count: number;
-        thresholds: {
-            low_threshold: number
-            med_threshold: number
-            high_threshold: number
-        };
-        flags: {
-            auth_required: boolean
-            auth_revocable: boolean
-        };
-        balances: BalanceLine[];
-        signers: Array<
-            {
-                public_key: string
-                weight: number
-            }
-            >;
+        thresholds: Horizon.AccountThresholds;
+        flags: Horizon.Flags;
+        balances: Horizon.BalanceLine[];
+        signers: Horizon.AccountSigner[];
         data: (options: {value: string}) => Promise<{value: string}>;
         data_attr: {
             [key: string]: string
@@ -963,16 +914,16 @@ export namespace Horizon {
         T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 ? BalanceLineAsset<T> :
         BalanceLineNative | BalanceLineAsset;
 
-    interface AccountResponseThresholds {
+    interface AccountThresholds {
         low_threshold: number;
         med_threshold: number;
         high_threshold: number;
     }
-    interface AccountResponseFlags {
+    interface Flags {
         auth_required: boolean;
         auth_revocable: boolean;
     }
-    interface AccountResponseSigner {
+    interface AccountSigner {
         public_key: string;
         weight: number;
     }
@@ -982,10 +933,10 @@ export namespace Horizon {
         account_id: string;
         sequence: string;
         subentry_count: number;
-        thresholds: AccountResponseThresholds;
-        flags: AccountResponseFlags;
+        thresholds: AccountThresholds;
+        flags: Flags;
         balances: BalanceLine[];
-        signers: AccountResponseSigner[];
+        signers: AccountSigner[];
         data: {
             [key: string]: string
         };
