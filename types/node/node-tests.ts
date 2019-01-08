@@ -3462,7 +3462,7 @@ import * as p from "process";
         server = server.close((...args: any[]) => { });
 
         // test the types of the address object fields
-        const address: net.AddressInfo | string = server.address();
+        const address: net.AddressInfo | string | null = server.address();
     }
 
     {
