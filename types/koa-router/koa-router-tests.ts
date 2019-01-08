@@ -56,7 +56,11 @@ const match = router.match('/users/:id', 'GET');
 let layer: Router.Layer
 let layerOptions: Router.ILayerOptions
 
-const mw: Router.IMiddleware = (ctx: Koa.ParameterizedContext<any, Router.IRouterContext>, next: () => Promise<any>) => {
+const mw: Router.IMiddleware = (ctx: Koa.ParameterizedContext<any, Router.IRouterParamContext>, next: () => Promise<any>) => {
+  ctx.body = "Ok";
+};
+
+const mw2: Router.IMiddleware = (ctx: Router.IRouterContext, next: () => Promise<any>) => {
   ctx.body = "Ok";
 };
 
@@ -78,6 +82,9 @@ router3.get('/', (ctx) => {
     console.log(ctx.router.params);
     ctx.body = "Hello World!";
 });
+router3.get('/foo', (ctx: Router.IRouterContext) => {
+    ctx.body = "Yup";
+})
 new Koa()
     .use(async (ctx, next) => next())
     .use(router3.routes())
