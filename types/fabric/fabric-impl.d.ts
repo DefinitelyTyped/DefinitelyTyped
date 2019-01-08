@@ -1801,10 +1801,12 @@ export class Image {
 
 	initialize(element?: string | HTMLImageElement, options?: IImageOptions): void;
 	/**
-	 * Applies filters assigned to this image (from "filters" array)
-	 * @param callback Callback is invoked when all filters have been applied and new image is generated
+	 * Applies filters assigned to this image (from "filters" array) or from filter param
+	 * @param {Array} filters to be applied
+	 * @return {thisArg} return the fabric.Image object
+	 * @chainable
 	 */
-	applyFilters(callback: Function): void;
+	applyFilters(filters?: IBaseFilter[]): Image;
 	/**
 	 * Returns a clone of an instance
 	 * @param callback Callback is invoked with a clone as a first argument
@@ -3717,17 +3719,29 @@ interface IAllFilters {
 		 */
 		new(options?: any): IBaseFilter;
 	};
-	Blend: {
+	BlendColor: {
 		/**
 		 * Constructor
 		 * @param [options] Options object
 		 */
-		new(options?: { color?: string; mode?: string; alpha?: number; image?: Image }): IBlendFilter;
+		new(options?: { color?: string; mode?: string; alpha?: number; }): IBlendColorFilter;
 		/**
 		 * Returns filter instance from an object representation
 		 * @param object Object to create an instance from
 		 */
-		fromObject(object: any): IBlendFilter
+		fromObject(object: any): IBlendColorFilter
+	};
+	BlendImage: {
+		/**
+		 * Constructor
+		 * @param [options] Options object
+		 */
+		new(options?: { image?: Image; mode?: string; alpha?: number; }): IBlendImageFilter;
+		/**
+		 * Returns filter instance from an object representation
+		 * @param object Object to create an instance from
+		 */
+		fromObject(object: any): IBlendImageFilter
 	};
 	Brightness: {
 		new(options?: {
@@ -3910,7 +3924,14 @@ interface IBaseFilter {
 	 */
 	toJSON(): string;
 }
-interface IBlendFilter extends IBaseFilter {
+interface IBlendColorFilter extends IBaseFilter {
+	/**
+	 * Applies filter to canvas element
+	 * @param canvasEl Canvas element to apply filter to
+	 */
+	applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IBlendImageFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
