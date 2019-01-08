@@ -86,12 +86,12 @@ ReactIs.isForwardRef(<ForwardRefComponent />); // true
 ReactIs.typeOf(<ForwardRefComponent />) === ReactIs.ForwardRef; // true
 
 // Lazy
-ReactIs.isLazy(<LazyComponent />); // true
-ReactIs.typeOf(<LazyComponent />) === ReactIs.Lazy; // true
+ReactIs.isLazy(LazyComponent); // true
+ReactIs.typeOf(LazyComponent) === ReactIs.Lazy; // true
 
 // Memo
-ReactIs.isMemo(<MemoComponent />); // true
-ReactIs.typeOf(<MemoComponent />) === ReactIs.Memo; // true
+ReactIs.isMemo(MemoComponent); // true
+ReactIs.typeOf(MemoComponent) === ReactIs.Memo; // true
 
 // Suspense
 ReactIs.isForwardRef(<React.Suspense fallback={StatelessComponent} />); // true
