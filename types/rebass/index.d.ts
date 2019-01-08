@@ -3,12 +3,13 @@
 // Definitions by: rhysd <https://rhysd.github.io>
 //                 ryee-dev <https://github.com/ryee-dev>
 //                 jamesmckenzie <https://github.com/jamesmckenzie>
+//                 emilbaekdahl <https://github.com/emilbaekdahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
 
-export interface BaseProps<C> extends React.ClassAttributes<C> {
+export interface BaseProps<C> extends React.ClassAttributes<C>, React.HTMLAttributes<C> {
     className?: string;
     as?: string;
 }
