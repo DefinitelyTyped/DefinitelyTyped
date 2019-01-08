@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.42
+// Type definitions for plotly.js 1.43
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -481,7 +481,7 @@ export type ScatterData = PlotData;
 export interface PlotData {
 	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
 		'ohlc' | 'parcoords' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-		'scatterternary' | 'surface';
+		'scatterternary' | 'surface' | 'pie';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -544,7 +544,9 @@ export interface PlotData {
 		end: number | string;
 		size: number | string;
 	};
-}
+    values: Datum[];
+    labels: Datum[];
+  }
 
 /**
  * These interfaces are based on attribute descriptions in
