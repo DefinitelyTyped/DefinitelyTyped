@@ -2736,9 +2736,9 @@ declare module "net" {
     type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
 
     interface AddressInfo {
-      address: string;
-      family: string;
-      port: number;
+        address: string;
+        family: string;
+        port: number;
     }
 
     export interface SocketConstructorOpts {
