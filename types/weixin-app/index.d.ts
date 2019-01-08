@@ -3700,13 +3700,6 @@ declare namespace wx {
 
 	type DefaultProps = object | Record<string, any>;
 
-	type ExtendedComponent<
-		Instance extends Component<Data, Props>,
-		Data,
-		Methods,
-		Props
-	> = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
-
 	// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 	type CombinedInstance<
 		Instance extends Component<Data, Props>,
@@ -3870,7 +3863,7 @@ declare namespace wx {
 		 * 类似于mixins和traits的组件间代码复用机制
 		 * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
 		 */
-		behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
+		behaviors?: string[];
 
 		/**
 		 * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
@@ -4198,7 +4191,7 @@ declare function Component<D, M, P>(
 		M,
 		P
 	>
-): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
+): string;
 /**
  * behaviors 是用于组件间代码共享的特性
  * 类似于一些编程语言中的“mixins”或“traits”
@@ -4214,7 +4207,7 @@ declare function Behavior<D, M, P>(
 		M,
 		P
 	>
-): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
+): string;
 // #endregion
 // #region Page
 /**
