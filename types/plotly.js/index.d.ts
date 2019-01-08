@@ -544,9 +544,9 @@ export interface PlotData {
 		end: number | string;
 		size: number | string;
 	};
-    values: Datum[];
-    labels: Datum[];
-  }
+	values: Datum[];
+	labels: Datum[];
+}
 
 /**
  * These interfaces are based on attribute descriptions in
