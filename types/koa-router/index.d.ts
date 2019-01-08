@@ -43,10 +43,6 @@ declare namespace Router {
         strict?: boolean;
     }
 
-    // Deprecated - please use IRouterParamContext
-    export interface IRouterContext extends Koa.ParameterizedContext<any, IRouterParamContext> {
-    }
-
     export interface IRouterParamContext<StateT = any, CustomT = {}> {
         /**
          * url params
@@ -58,11 +54,15 @@ declare namespace Router {
         router: Router<StateT, CustomT>;
     }
 
-    export type RouterContext<T = any, U = {}> = Koa.ParameterizedContext<T, IRouterParamContext<T, U> & U>;
+    export type RouterContext<StateT = any, CustomT = {}> =
+        Koa.ParameterizedContext<StateT, CustomT & IRouterParamContext<StateT, CustomT>>;
 
-    export interface IMiddleware<StateT = any, CustomT = {}> {
-        (ctx: RouterContext<StateT, CustomT>, next: () => Promise<void>): void;
-    }
+    // For backward compatibility IRouterContext needs to be an interface
+    // But it's deprecated - please use `RouterContext` instead
+    export interface IRouterContext extends RouterContext {}
+
+    export type IMiddleware<StateT = any, CustomT = {}> =
+        Koa.Middleware<StateT, CustomT & IRouterParamContext<StateT, CustomT>>
 
     export interface IParamMiddleware {
         (param: string, ctx: RouterContext, next: () => Promise<any>): any;
@@ -327,12 +327,12 @@ declare class Router<StateT = any, CustomT = {}> {
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    routes(): Koa.Middleware<StateT, CustomT & Router.IRouterParamContext<StateT, CustomT>>;
+    routes(): Router.IMiddleware<StateT, CustomT>;
 
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    middleware(): Koa.Middleware<StateT, CustomT & Router.IRouterParamContext<StateT, CustomT>>;
+    middleware(): Router.IMiddleware<StateT, CustomT>;
 
     /**
      * Returns separate middleware for responding to `OPTIONS` requests with
@@ -341,7 +341,7 @@ declare class Router<StateT = any, CustomT = {}> {
      */
     allowedMethods(
         options?: Router.IRouterAllowedMethodsOptions
-    ): Koa.Middleware<StateT, CustomT & Router.IRouterParamContext<StateT, CustomT>>;
+    ): Router.IMiddleware<StateT, CustomT>;
 
     /**
      * Redirect `source` to `destination` URL with optional 30x status `code`.
