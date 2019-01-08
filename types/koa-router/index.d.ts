@@ -58,15 +58,14 @@ declare namespace Router {
         router: Router<StateT, CustomT>;
     }
 
+    export type RouterContext<T = any, U = {}> = Koa.ParameterizedContext<T, IRouterParamContext<T, U> & U>;
+
     export interface IMiddleware<StateT = any, CustomT = {}> {
-        (
-            ctx: Koa.ParameterizedContext<StateT, IRouterParamContext<StateT, CustomT> & CustomT>,
-            next: () => Promise<void>
-        ): void;
+        (ctx: RouterContext<StateT, CustomT>, next: () => Promise<void>): void;
     }
 
     export interface IParamMiddleware {
-        (param: string, ctx: Koa.ParameterizedContext<{}, IRouterParamContext>, next: () => Promise<any>): any;
+        (param: string, ctx: RouterContext, next: () => Promise<any>): any;
     }
 
     export interface IRouterAllowedMethodsOptions {
