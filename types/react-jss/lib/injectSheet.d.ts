@@ -60,14 +60,12 @@ export type PropInjector<InjectedProps, AdditionalProps = {}> = <
   AdditionalProps
   >;
 
-type cssNumberOrString = CSS.Properties<number | string>
-
 // Allow functions that take the properties of the component and return a CSS value
 export type CssRule<Props> = {
-  [K in keyof cssNumberOrString]:
-  | (cssNumberOrString[K])
-  | ((props: Props) => cssNumberOrString[K])
-}[keyof CSS.Properties]
+  [K in keyof CSS.Properties<number | string>]:
+  | (CSS.Properties<number | string>[K])
+  | ((props: Props) => CSS.Properties<number | string>[K])
+}[keyof CSS.Properties];
 
 export interface CSSProperties<Props> {
   // Allow pseudo selectors and media queries
