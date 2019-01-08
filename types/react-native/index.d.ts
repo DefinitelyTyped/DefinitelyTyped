@@ -8677,6 +8677,8 @@ export namespace Animated {
     export const Image: any;
     export const Text: any;
     export const ScrollView: any;
+    export const FlatList: any;
+    export const SectionList: any;
 }
 
 // tslint:disable-next-line:interface-name
