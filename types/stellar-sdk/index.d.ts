@@ -630,7 +630,7 @@ export namespace Server {
         selling: Asset;
         buying: Asset;
         amount: string;
-        price_r: { numerator: number, denominator: number };
+        price_r: Horizon.PriceR;
         price: string;
 
         seller?: CallFunction<AccountRecord>;
@@ -914,6 +914,10 @@ export namespace Horizon {
         T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 ? BalanceLineAsset<T> :
         BalanceLineNative | BalanceLineAsset;
 
+    interface PriceR {
+        numerator: number;
+        denominator: number;
+    }
     interface AccountThresholds {
         low_threshold: number;
         med_threshold: number;
@@ -1015,7 +1019,7 @@ export namespace Horizon {
         buying_asset_code?: string;
         buying_asset_issuer?: string;
         price: string;
-        price_r: { numerator: number, denominator: number };
+        price_r: PriceR;
         selling_asset_type: ASSET_TYPE;
         selling_asset_code?: string;
         selling_asset_issuer?: string;
@@ -1027,7 +1031,7 @@ export namespace Horizon {
         buying_asset_code?: string;
         buying_asset_issuer?: string;
         price: string;
-        price_r: { numerator: number, denominator: number };
+        price_r: PriceR;
         selling_asset_type: ASSET_TYPE;
         selling_asset_code?: string;
         selling_asset_issuer?: string;
