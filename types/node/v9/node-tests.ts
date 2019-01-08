@@ -2821,8 +2821,8 @@ namespace net_tests {
         // specified, so any callback function is permissible.
         server = server.close((...args: any[]) => { });
 
-        // test the types of the address object fields
-        let address: net.AddressInfo | string = server.address();
+        // test the types of the address
+        let address: net.AddressInfo | string | null = server.address();
     }
 
     {

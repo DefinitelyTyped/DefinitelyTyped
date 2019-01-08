@@ -3461,7 +3461,7 @@ import * as p from "process";
         // specified, so any callback function is permissible.
         server = server.close((...args: any[]) => { });
 
-        // test the types of the address object fields
+        // test the types of the address
         const address: net.AddressInfo | string | null = server.address();
     }
 

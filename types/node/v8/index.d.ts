@@ -2735,6 +2735,12 @@ declare module "net" {
 
     type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
 
+    interface AddressInfo {
+      address: string;
+      family: string;
+      port: number;
+    }
+
     export interface SocketConstructorOpts {
         fd?: number;
         allowHalfOpen?: boolean;
@@ -2898,7 +2904,7 @@ declare module "net" {
         listen(handle: any, backlog?: number, listeningListener?: Function): this;
         listen(handle: any, listeningListener?: Function): this;
         close(callback?: Function): this;
-        address(): { port: number; family: string; address: string; };
+        address(): AddressInfo | string | null;
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;
         unref(): this;
@@ -2974,16 +2980,11 @@ declare module "net" {
 }
 
 declare module "dgram" {
+    import { AddressInfo } from "net";
     import * as events from "events";
     import * as dns from "dns";
 
     interface RemoteInfo {
-        address: string;
-        family: string;
-        port: number;
-    }
-
-    interface AddressInfo {
         address: string;
         family: string;
         port: number;
