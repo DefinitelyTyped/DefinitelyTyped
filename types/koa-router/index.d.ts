@@ -44,15 +44,7 @@ declare namespace Router {
     }
 
     // Deprecated - please use IRouterParamContext
-    export interface IRouterContext extends Koa.ParameterizedContext {
-        /**
-         * url params
-         */
-        params: any;
-        /**
-         * the router instance
-         */
-        router: Router;
+    export interface IRouterContext extends Koa.ParameterizedContext<any, IRouterParamContext> {
     }
 
     export interface IRouterParamContext<StateT = any, CustomT = {}> {
