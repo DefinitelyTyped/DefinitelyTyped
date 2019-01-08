@@ -22,6 +22,12 @@ const ForwardRefComponent = React.forwardRef((props, ref) =>
   React.createElement(ClassComponent, { forwardedRef: ref, ...props })
 );
 
+const LazyComponent = React.lazy(() =>
+  Promise.resolve({ default: ForwardRefComponent })
+);
+
+const MemoComponent = React.memo(StatelessComponent);
+
 const Context = React.createContext(false);
 
 ReactIs.isValidElementType('div'); // true
@@ -31,6 +37,8 @@ ReactIs.isValidElementType(ForwardRefComponent); // true
 ReactIs.isValidElementType(Context.Provider); // true
 ReactIs.isValidElementType(Context.Consumer); // true
 ReactIs.isValidElementType(React.createFactory('div')); // true
+ReactIs.isValidElementType(LazyComponent);
+ReactIs.isValidElementType(MemoComponent);
 
 // Determining an Element's Type
 
@@ -76,3 +84,15 @@ ReactIs.typeOf(undefined) === undefined;
 // ForwardRef
 ReactIs.isForwardRef(<ForwardRefComponent />); // true
 ReactIs.typeOf(<ForwardRefComponent />) === ReactIs.ForwardRef; // true
+
+// Lazy
+ReactIs.isLazy(<LazyComponent />); // true
+ReactIs.typeOf(<LazyComponent />) === ReactIs.Lazy; // true
+
+// Memo
+ReactIs.isMemo(<MemoComponent />); // true
+ReactIs.typeOf(<MemoComponent />) === ReactIs.Memo; // true
+
+// Suspense
+ReactIs.isForwardRef(<React.Suspense fallback={StatelessComponent} />); // true
+ReactIs.typeOf(<React.Suspense fallback={StatelessComponent} />) === ReactIs.Suspense; // true
