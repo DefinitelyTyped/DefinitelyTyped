@@ -1,4 +1,4 @@
-// Type definitions for react-is 16.5
+// Type definitions for react-is 16.7
 // Project: https://reactjs.org/
 // Definitions by: Avi Vahl <https://github.com/AviVahl>
 //                 Christian Chown <https://github.com/christianchown>
@@ -22,8 +22,8 @@ export function isPortal(value: any): value is ReactElement<any>;
 export function isStrictMode(value: any): value is ReactElement<any>;
 
 export const AsyncMode: symbol;
-export const ContextProvider: symbol;
 export const ContextConsumer: symbol;
+export const ContextProvider: symbol;
 export const Element: symbol;
 export const ForwardRef: symbol;
 export const Fragment: symbol;
