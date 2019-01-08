@@ -1,17 +1,16 @@
-import iopipe, { label, mark, metric } from '@iopipe/iopipe'
+import iopipe, { mark, label, metric } from "@iopipe/iopipe";
 
-const configuredLib = iopipe({
-    token: 'ABCDEFG' 
+const configured = iopipe({
+  token: "ABCDEFG"
 });
 
-const run = () => {}
+const handler = () => {};
 
-configuredLib(run)
+configured(handler);
 
-label('a label');
+mark.start("api-call");
+mark.end("api-call");
 
-mark.start('trace');
-mark.end('trace');
+label("here is a label");
 
-metric('metric-label', 42);
-
+metric("magic number", 42);

@@ -1,22 +1,37 @@
-// Type definitions for iopipe
-// Project: https://github.com/iopipe/iopipe-js
+// Type definitions for iopipe 1.6
+// Project: https://github.com/iopipe/the-meta-package#readme
+// Definitions by: Javon Harper <https://github.com/javonharper>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface IOPipeConfig {
+interface LibraryConfig {
     debug?: boolean;
     token?: string;
     networkTimeout?: number;
     timeoutWindow?: number;
 }
-  
-interface Mark {
-    start(label: string): void;
-    end(label: string): void;
-}
-  
+
+type FunctionWrapper = (wrappedFunction: any) => void;
+
 declare module "@iopipe/iopipe" {
-    export function label(label: string): void;
-    export function metric(label: string, number: number): void;
-    export let mark: Mark
-  
-    export default function iopipe(config?: IOPipeConfig): Function;
+    namespace mark {
+        function start(label: string): void;
+        function end(label: string): void;
+    }
+
+    function label(label: string): void;
+    function metric(label: string, number: number): void;
+
+    export default function iopipe(config?: LibraryConfig): FunctionWrapper;
+}
+
+declare module "@iopipe/core" {
+    namespace mark {
+        function start(label: string): void;
+        function end(label: string): void;
+    }
+
+    function label(label: string): void;
+    function metric(label: string, number: number): void;
+
+    export default function iopipe(config?: LibraryConfig): FunctionWrapper;
 }
