@@ -673,137 +673,34 @@ export namespace Server {
         seller?: CallFunction<AccountRecord>;
     }
 
-    interface BaseOperationRecord extends Record {
-        id: string;
-        paging_token: string;
-        type: string;
-        type_i: number;
-        source_account: string;
-
-        self: CallFunction<OperationRecord>;
-        succeeds: CallFunction<OperationRecord>;
-        precedes: CallFunction<OperationRecord>;
-        effects: CallCollectionFunction<EffectRecord>;
-        transaction: CallFunction<TransactionRecord>;
+    import OperationResponseType = Horizon.OperationResponseType;
+    import OperationResponseTypeI = Horizon.OperationResponseTypeI;
+    interface BaseOperationRecord<
+            T extends OperationResponseType = OperationResponseType,
+            TI extends OperationResponseTypeI = OperationResponseTypeI,
+        > extends Horizon.BaseOperationResponse<T, TI> {
+            self: CallFunction<OperationRecord>;
+            succeeds: CallFunction<OperationRecord>;
+            precedes: CallFunction<OperationRecord>;
+            effects: CallCollectionFunction<EffectRecord>;
+            transaction: CallFunction<TransactionRecord>;
     }
 
-    interface CreateAccountOperationRecord extends BaseOperationRecord {
-        type: 'create_account';
-        account: string;
-        funder: string;
-        starting_balance: string;
-    }
-
-    interface PaymentOperationRecord extends BaseOperationRecord {
-        type: 'payment';
-        from: string;
-        to: string;
-        asset_type: string;
-        asset_code?: string;
-        asset_issuer?: string;
-        amount: string;
-
+    interface CreateAccountOperationRecord extends BaseOperationRecord<OperationResponseType.createAccount, OperationResponseTypeI.createAccount>, Horizon.CreateAccountOperationResponse {}
+    interface PaymentOperationRecord       extends BaseOperationRecord<OperationResponseType.payment, OperationResponseTypeI.payment>, Horizon.PaymentOperationResponse {
         sender: CallFunction<AccountRecord>;
         receiver: CallFunction<AccountRecord>;
     }
-
-    interface PathPaymentOperationRecord extends BaseOperationRecord {
-        type: 'path_payment';
-        from: string;
-        to: string;
-        asset_code?: string;
-        asset_issuer?: string;
-        asset_type: string;
-        amount: string;
-        source_asset_code?: string;
-        source_asset_issuer?: string;
-        source_asset_type: string;
-        source_max: string;
-        source_amount: string;
-    }
-
-    interface ManageOfferOperationRecord extends BaseOperationRecord {
-        type: 'manage_offer';
-        offer_id: number;
-        amount: string;
-        buying_asset_code?: string;
-        buying_asset_issuer?: string;
-        buying_asset_type: string;
-        price: string;
-        price_r: { numerator: number, denominator: number };
-        selling_asset_code?: string;
-        selling_asset_issuer?: string;
-        selling_asset_type: string;
-    }
-
-    interface PassiveOfferOperationRecord extends BaseOperationRecord {
-        type: 'create_passive_offer';
-        offer_id: number;
-        amount: string;
-        buying_asset_code?: string;
-        buying_asset_issuer?: string;
-        buying_asset_type: string;
-        price: string;
-        price_r: { numerator: number, denominator: number };
-        selling_asset_code?: string;
-        selling_asset_issuer?: string;
-        selling_asset_type: string;
-    }
-
-    interface SetOptionsOperationRecord extends BaseOperationRecord {
-        type: 'set_options';
-        signer_key?: string;
-        signer_weight?: number;
-        master_key_weight?: number;
-        low_threshold?: number;
-        med_threshold?: number;
-        high_threshold?: number;
-        home_domain?: string;
-        set_flags: Array<(1 | 2)>;
-        set_flags_s: Array<('auth_required_flag' | 'auth_revocable_flag')>;
-        clear_flags: Array<(1 | 2)>;
-        clear_flags_s: Array<('auth_required_flag' | 'auth_revocable_flag')>;
-    }
-
-    interface ChangeTrustOperationRecord extends BaseOperationRecord {
-        type: 'change_trust';
-        asset_code: string;
-        asset_issuer: string;
-        asset_type: string;
-        trustee: string;
-        trustor: string;
-        limit: string;
-    }
-
-    interface AllowTrustOperationRecord extends BaseOperationRecord {
-        type: 'allow_trust';
-        asset_code: string;
-        asset_issuer: string;
-        asset_type: string;
-        authorize: boolean;
-        trustee: string;
-        trustor: string;
-    }
-
-    interface AccountMergeOperationRecord extends BaseOperationRecord {
-        type: 'account_merge';
-        into: string;
-    }
-
-    interface InflationOperationRecord extends BaseOperationRecord {
-        type: 'inflation';
-    }
-
-    interface ManageDataOperationRecord extends BaseOperationRecord {
-        type: 'manage_data';
-        name: string;
-        value: Buffer;
-    }
-
-    interface BumpSequenceOperationRecord extends BaseOperationRecord {
-        type: 'bump_sequence';
-        bump_to: string;
-    }
+    interface PathPaymentOperationRecord   extends BaseOperationRecord<OperationResponseType.pathPayment, OperationResponseTypeI.pathPayment>, Horizon.PathPaymentOperationResponse {}
+    interface ManageOfferOperationRecord   extends BaseOperationRecord<OperationResponseType.manageOffer, OperationResponseTypeI.manageOffer>, Horizon.ManageOfferOperationResponse {}
+    interface PassiveOfferOperationRecord  extends BaseOperationRecord<OperationResponseType.createPassiveOffer, OperationResponseTypeI.createPassiveOffer>, Horizon.PassiveOfferOperationResponse {}
+    interface SetOptionsOperationRecord    extends BaseOperationRecord<OperationResponseType.setOptions, OperationResponseTypeI.setOptions>, Horizon.SetOptionsOperationResponse {}
+    interface ChangeTrustOperationRecord   extends BaseOperationRecord<OperationResponseType.changeTrust, OperationResponseTypeI.changeTrust>, Horizon.ChangeTrustOperationResponse {}
+    interface AllowTrustOperationRecord    extends BaseOperationRecord<OperationResponseType.allowTrust, OperationResponseTypeI.allowTrust>, Horizon.AllowTrustOperationResponse {}
+    interface AccountMergeOperationRecord  extends BaseOperationRecord<OperationResponseType.accountMerge, OperationResponseTypeI.accountMerge>, Horizon.AccountMergeOperationResponse {}
+    interface InflationOperationRecord     extends BaseOperationRecord<OperationResponseType.inflation, OperationResponseTypeI.inflation>, Horizon.InflationOperationResponse {}
+    interface ManageDataOperationRecord    extends BaseOperationRecord<OperationResponseType.manageData, OperationResponseTypeI.manageData>, Horizon.ManageDataOperationResponse {}
+    interface BumpSequenceOperationRecord  extends BaseOperationRecord<OperationResponseType.bumpSequence, OperationResponseTypeI.bumpSequence>, Horizon.BumpSequenceOperationResponse {}
 
     type OperationRecord = CreateAccountOperationRecord
         | PaymentOperationRecord
@@ -1020,4 +917,221 @@ export namespace StellarTomlResolver {
     }
 
     function resolve(domain: string, options?: StellarTomlResolveOptions): Promise<{ [key: string]: any }>;
+}
+
+export namespace Horizon {
+    interface ResponseLink {
+        href: string;
+        templated?: boolean;
+    }
+    interface BaseResponse<T extends string = never> {
+        _links: {
+            [key in T|'self']: ResponseLink
+        };
+    }
+    interface TransactionResponse extends BaseResponse<'account'|'ledger'|'operations'|'effects'|'succeeds'|'precedes'> {
+        created_at: string;
+        envelope_xdr: string;
+        fee_meta_xdr: string;
+        fee_paid: number;
+        hash: string;
+        id: string;
+        ledger: number;
+        memo_type: string;
+        operation_count: number;
+        paging_token: string;
+        result_meta_xdr: string;
+        result_xdr: string;
+        signatures: string[];
+        source_account: string;
+        source_account_sequence: string;
+    }
+
+    interface BalanceLineNative {
+        balance: string;
+        asset_type: ASSET_TYPE.native;
+    }
+    interface BalanceLineAsset<T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 = ASSET_TYPE.credit4 | ASSET_TYPE.credit12> {
+        balance: string;
+        limit: string;
+        asset_type: T;
+        asset_code: string;
+        asset_issuer: string;
+    }
+    type BalanceLine<T extends ASSET_TYPE = ASSET_TYPE> =
+        T extends ASSET_TYPE.native ? BalanceLineNative :
+        T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 ? BalanceLineAsset<T> :
+        BalanceLineNative | BalanceLineAsset;
+
+    interface AccountResponseThresholds {
+        low_threshold: number;
+        med_threshold: number;
+        high_threshold: number;
+    }
+    interface AccountResponseFlags {
+        auth_required: boolean;
+        auth_revocable: boolean;
+    }
+    interface AccountResponseSigner {
+        public_key: string;
+        weight: number;
+    }
+    interface AccountResponse extends BaseResponse<'transactions'|'operations'|'payments'|'effects'|'offers'|'trades'|'data'> {
+        id: string;
+        paging_token: string;
+        account_id: string;
+        sequence: string;
+        subentry_count: number;
+        thresholds: AccountResponseThresholds;
+        flags: AccountResponseFlags;
+        balances: BalanceLine[];
+        signers: AccountResponseSigner[];
+        data: {
+            [key: string]: string
+        };
+    }
+
+    enum OperationResponseType {
+        createAccount      = 'create_account',
+        payment            = 'payment',
+        pathPayment        = 'path_payment',
+        createPassiveOffer = 'create_passive_offer',
+        manageOffer        = 'manage_offer',
+        setOptions         = 'set_options',
+        changeTrust        = 'change_trust',
+        allowTrust         = 'allow_trust',
+        accountMerge       = 'account_merge',
+        inflation          = 'inflation',
+        manageData         = 'manage_data',
+        bumpSequence       = 'bump_sequence',
+    }
+    enum OperationResponseTypeI {
+        createAccount      = 0,
+        payment            = 1,
+        pathPayment        = 2,
+        createPassiveOffer = 3,
+        manageOffer        = 4,
+        setOptions         = 5,
+        changeTrust        = 6,
+        allowTrust         = 7,
+        accountMerge       = 8,
+        inflation          = 9,
+        manageData         = 10,
+        bumpSequence       = 11,
+    }
+    interface BaseOperationResponse<
+            T extends OperationResponseType = OperationResponseType,
+            TI extends OperationResponseTypeI = OperationResponseTypeI,
+        > extends BaseResponse<'succeeds'|'precedes'|'effects'|'transaction'> {
+            id: string;
+            paging_token: string;
+            source_account: string;
+            type: T;
+            type_i: TI;
+            created_at: string;
+            transaction_hash: string;
+    }
+    interface CreateAccountOperationResponse extends BaseOperationResponse<OperationResponseType.createAccount, OperationResponseTypeI.createAccount> {
+        account: string;
+        funder: string;
+        starting_balance: string;
+    }
+    interface PaymentOperationResponse extends BaseOperationResponse<OperationResponseType.payment, OperationResponseTypeI.payment> {
+        from: string;
+        to: string;
+        asset_type: ASSET_TYPE;
+        asset_code?: string;
+        asset_issuer?: string;
+        amount: string;
+    }
+    interface PathPaymentOperationResponse extends BaseOperationResponse<OperationResponseType.pathPayment, OperationResponseTypeI.pathPayment> {
+        from: string;
+        to: string;
+        asset_type: ASSET_TYPE;
+        asset_code?: string;
+        asset_issuer?: string;
+        amount: string;
+        source_asset_type: ASSET_TYPE;
+        source_asset_code?: string;
+        source_asset_issuer?: string;
+        source_max: string;
+        source_amount: string;
+    }
+    interface ManageOfferOperationResponse extends BaseOperationResponse<OperationResponseType.manageOffer, OperationResponseTypeI.manageOffer> {
+        offer_id: number;
+        amount: string;
+        buying_asset_type: ASSET_TYPE;
+        buying_asset_code?: string;
+        buying_asset_issuer?: string;
+        price: string;
+        price_r: { numerator: number, denominator: number };
+        selling_asset_type: ASSET_TYPE;
+        selling_asset_code?: string;
+        selling_asset_issuer?: string;
+    }
+    interface PassiveOfferOperationResponse extends BaseOperationResponse<OperationResponseType.createPassiveOffer, OperationResponseTypeI.createPassiveOffer> {
+        offer_id: number;
+        amount: string;
+        buying_asset_type: ASSET_TYPE;
+        buying_asset_code?: string;
+        buying_asset_issuer?: string;
+        price: string;
+        price_r: { numerator: number, denominator: number };
+        selling_asset_type: ASSET_TYPE;
+        selling_asset_code?: string;
+        selling_asset_issuer?: string;
+    }
+    interface SetOptionsOperationResponse extends BaseOperationResponse<OperationResponseType.setOptions, OperationResponseTypeI.setOptions> {
+        signer_key?: string;
+        signer_weight?: number;
+        master_key_weight?: number;
+        low_threshold?: number;
+        med_threshold?: number;
+        high_threshold?: number;
+        home_domain?: string;
+        set_flags: Array<(1 | 2)>;
+        set_flags_s: Array<('auth_required_flag' | 'auth_revocable_flag')>;
+        clear_flags: Array<(1 | 2)>;
+        clear_flags_s: Array<('auth_required_flag' | 'auth_revocable_flag')>;
+    }
+    interface ChangeTrustOperationResponse extends BaseOperationResponse<OperationResponseType.changeTrust, OperationResponseTypeI.changeTrust> {
+        asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
+        asset_code: string;
+        asset_issuer: string;
+        trustee: string;
+        trustor: string;
+        limit: string;
+    }
+    interface AllowTrustOperationResponse extends BaseOperationResponse<OperationResponseType.allowTrust, OperationResponseTypeI.allowTrust> {
+        asset_type: ASSET_TYPE;
+        asset_code: string;
+        asset_issuer: string;
+        authorize: boolean;
+        trustee: string;
+        trustor: string;
+    }
+    interface AccountMergeOperationResponse extends BaseOperationResponse<OperationResponseType.accountMerge, OperationResponseTypeI.accountMerge> {
+        into: string;
+    }
+    interface InflationOperationResponse extends BaseOperationResponse<OperationResponseType.inflation, OperationResponseTypeI.inflation> {
+    }
+    interface ManageDataOperationResponse extends BaseOperationResponse<OperationResponseType.manageData, OperationResponseTypeI.manageData> {
+        name: string;
+        value: Buffer;
+    }
+    interface BumpSequenceOperationResponse extends BaseOperationResponse<OperationResponseType.bumpSequence, OperationResponseTypeI.bumpSequence> {
+        bump_to: string;
+    }
+
+    interface ResponseCollection<T extends BaseResponse = BaseResponse> {
+        _links: {
+            self: ResponseLink
+            next: ResponseLink
+            prev: ResponseLink
+        };
+        _embedded: {
+            records: T[]
+        };
+    }
+    interface TransactionResponseCollection extends ResponseCollection<TransactionResponse> {}
 }
