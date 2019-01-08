@@ -574,7 +574,62 @@ declare namespace wx {
     function clearStorageSync(): void;
 
     // 媒体
-    //  地图  TODO
+    //  地图
+    interface LocationBaseOptions {
+        //  纬度，浮点数，范围为-90~90，负数表示南纬
+        latitude: number;
+        //  经度，浮点数，范围为-180~180，负数表示西经
+        longitude: number;
+    }
+    interface GetCenterLocationSuccCbOptions extends CommonCallbackOptions{
+        success(res: LocationBaseOptions): void;
+    }
+    interface translateMarkerOptions extends CommonCallbackOptions{
+        //  指定 marker
+        markerId: number;
+        //  指定 marker 移动到的目标点
+        destination: LocationBaseOptions;
+        //  移动过程中是否自动旋转 marker
+        autoRotate: boolean;
+        //  marker 的旋转角度
+        rotate: number;
+        //  动画持续时长，平移与旋转分别计算
+        duration?: number;
+        //  动画结束回调函数
+        animationEnd?(): void;
+    }
+    interface zoomPointsOptions extends CommonCallbackOptions {
+        //  要显示在可视区域内的坐标点列表
+        points: Array<LocationBaseOptions>;
+        //  坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的padding一致。开发者工具暂不支持padding参数。
+        padding?: Array<number>;
+    }
+    interface GetReginSuccessCallbackOptions {
+        //  西南角经纬度
+        southwest: number,
+        //  东北角经纬度
+        northeast: number;
+    }
+    interface GetReginOptions extends CommonCallbackOptions{
+        success?(callback: (res: GetReginSuccessCallbackOptions) => void): void;
+    }
+    interface GetScaleOptions extends CommonCallbackOptions{
+        success?(callback: (res: {scale: number}) => void): void;
+    }
+    interface MapContext {
+        //  获取当前地图中心的经纬度。返回的是 gcj02 坐标系，可以用于 wx.openLocation()
+        getCenterLocation(options: GetCenterLocationSuccCbOptions): void;
+        //  将地图中心移动到当前定位点。需要配合map组件的show-location使用
+        moveToLocation(): void;
+        //  平移marker，带动画
+        translateMarker(options: translateMarkerOptions): void;
+        //  缩放视野展示所有经纬度
+        includePoints(options: zoomPointsOptions): void;
+        //  获取当前地图的视野范围
+        getRegion(options: GetReginOptions): void;
+        //  获取当前地图的缩放级别
+        getScale(options: GetScaleOptions): void;
+    }
 
     interface LocationData {
         /** 纬度，浮点数，范围为-90~90，负数表示南纬 */
@@ -1440,6 +1495,8 @@ declare namespace wx {
      */
     function hideKeyboard(): void;
 
+    //  开放接口
+    //  登录
     interface LoginResponse {
         /** 调用结果 */
         errMsg: string;
@@ -1459,12 +1516,61 @@ declare namespace wx {
     }
 
     /**
+     *  检查登录态是否过期。
+     */
+    function checkSession(options: CommonCallbackOptions): void;
+    /**
      * 调用接口获取登录凭证（code）进而换取用户登录态信息，
      * 包括用户的唯一标识（openid） 及本次登录的 会话密钥（session_key）。
      * 用户数据的加解密通讯需要依赖会话密钥完成。
      */
     function login(option: LoginOptions): void;
 
+    type envVersion = 'develop' | 'trial' | 'release';
+    interface NavigateToMiniProgramOptions extends CommonCallbackOptions {
+        //  要打开的小程序 appId
+        appId: string;
+        //  打开的页面路径，如果为空则打开首页
+        path?: string;
+        //  需要传递给目标小程序的数据，目标小程序可在 App.onLaunch，App.onShow 中获取到这份数据。
+        extraData?: object;
+        //  要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。
+        envVersion?: envVersion;
+    }
+    /**
+     * 打开另一个小程序
+     */
+    function navigateToMiniProgram(options: NavigateToMiniProgramOptions): void;
+    interface NavigateBackMiniProgramOptions extends CommonCallbackOptions {
+        //  需要返回给上一个小程序的数据，上一个小程序可在 App.onShow 中获取到这份数据。
+        extraData: object;
+    }
+    /**
+     * 返回到上一个小程序。只有在当前小程序是被其他小程序打开时可以调用成功
+     */
+    function navigateBackMiniProgram(options: NavigateBackMiniProgramOptions): void;
+
+    // 帐号信息
+    interface AccountInfo {
+        //  小程序帐号信息
+        miniProgram: {
+            //  小程序appId
+            appId: string;
+        };
+        //  插件帐号信息（仅在插件中调用时包含这一项）
+        Plugin: {
+            //  插件appId
+            appId: string;
+            //  插件版本号
+            vetsion: string
+        };
+    }
+    /**
+     * 获取当前账号信息
+     */
+    function getAccountInfoSync(): AccountInfo;
+
+    //  帐号信息
     interface UserInfo {
         nickName: string;
         avatarUrl: string;
@@ -1515,11 +1621,63 @@ declare namespace wx {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: ResponseCallback;
     }
+    //  支付
     /**
      * 发起微信支付。
      */
     function requestPayment(options: RequestPaymentOptions): void;
+
+    //  授权
+    /**
+     * https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/authorize.html
+     * 用户信息 wx.getUserInfo、
+     * 地理位置 wx.getLocation,wx.chooseLocation、
+     * 通讯地址 wx.chooseAddress、
+     * 发票抬头 wx.chooseInvoiceTitle、
+     * 获取发票 wx.chooseInvoice、
+     * 微信运动步数 wx.getWeRunData、
+     * 录音功能 wx.startRecord、
+     * 保存到相册 wx.saveImageToPhotosAlbum, wx.saveVideoToPhotosAlbum、
+     * 摄像头 <camera />组件
+     */
+    type Scope = 'userInfo' | 'userLocation' | 'address' | 'invoiceTitle' | 'invoice' | 'werun' | 'record' | 'writePhotosAlbum' | 'camera';
+    interface AuthorizeOptions extends CommonCallbackOptions {
+        //  需要获取权限的 scope，详见 scope 列表
+        scope: Scope;
+    }
+    /**
+     * 提前向用户发起授权请求。调用后会立刻弹窗询问用户是否同意授权小程序使用某项功能或获取用户的某些数据，但不会实际调用对应接口。如果用户之前已经同意授权，则不会出现弹窗，直接返回成功。
+     */
+    function authorize(options: AuthorizeOptions): void;
+
+    // 设置
+    interface SettingOptions extends CommonCallbackOptions{
+        success?(res: AuthSetting): void;
+    }
+    /**
+     * 调起客户端小程序设置界面，返回用户设置的操作结果。设置界面只会出现小程序已经向用户请求过的权限。
+     */
+    function openSetting(options: SettingOptions): void;
+    /**
+     * 获取用户的当前设置。返回值中只会出现小程序已经向用户请求过的权限。
+     */
+    function getSetting(options: SettingOptions): void;
+    /**
+     * 用户授权结果，参考 type Scope
+     */
+    interface AuthSetting {
+        'scope.userInfo': boolean;
+        'scope.userLocation': boolean;
+        'scope.address': boolean;
+        'scope.invoiceTitle': boolean;
+        'scope.invoice': boolean;
+        'scope.werun': boolean;
+        'scope.record': boolean;
+        'scope.writePhotosAlbum': boolean;
+        'scope.camera': boolean;
+    }
 }
+//  end of wx namespace
 
 
 interface Page {
