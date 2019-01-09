@@ -2,7 +2,7 @@
 // Project: https://github.com/lennym/busboy-body-parser
 // Definitions by: Thibaut Severac <thibaut.severac@citopia.fr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// typesVerisons: 3.2
+// TypeScript Version: 3.2
 
 import * as express from "express";
 
