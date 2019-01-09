@@ -1,10 +1,9 @@
-// Type definitions for gulp-tap
+// Type definitions for gulp-tap 1.0
 // Project: https://github.com/geejs/gulp-tap
 // Definitions by: Takesi Tokugawa <https://github.com/TokugawaTakesi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="vinyl" />
 
 import Vinyl = require('vinyl');
 
@@ -18,6 +17,6 @@ declare namespace tap {
     }
 }
 
-declare var tap: tap.Tap;
+declare function tap(tapFunction: (file: Vinyl, t?: {}) => void): NodeJS.ReadWriteStream;
 
 export = tap;
