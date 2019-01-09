@@ -6,7 +6,7 @@ const app = express();
 //test types
 app.use("/form1", busboyBodyParser(), (req, res, next) => {
     //test multi
-    let multiFile = (<busboyBodyParser.File[]>req.files["a"])[0];
+    let multiFile = (<busboyBodyParser.File[]>(<busboyBodyParser.Files>req.files)["a"])[0];
     console.log(<Buffer>multiFile.data);
     console.log(<string>multiFile.encoding)
     console.log(<string>multiFile.mimetype)
@@ -15,7 +15,7 @@ app.use("/form1", busboyBodyParser(), (req, res, next) => {
     console.log(<boolean>multiFile.truncated)
 
     //test not multi
-    let singleFile = (<busboyBodyParser.File>req.files["a"]);
+    let singleFile = (<busboyBodyParser.File>(<busboyBodyParser.Files>req.files)["a"]);
     console.log(<Buffer>singleFile.data);
     console.log(<string>singleFile.encoding)
     console.log(<string>singleFile.mimetype)
