@@ -1,4 +1,4 @@
-// Type definitions for expo 32.0
+// Type definitions for expo 31.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -2162,7 +2162,7 @@ export const Linking: LinkingStatic;
  */
 export namespace Location {
     interface LocationOptions {
-        accuracy: number;
+        enableHighAccuracy?: boolean;
         timeInterval?: number;
         distanceInterval?: number;
         timeout?: number;
@@ -2208,20 +2208,6 @@ export namespace Location {
         name: string;
     }
 
-    interface LocationTaskOptions {
-        accuracy?: number;
-        showsBackgroundLocationIndicator?: boolean;
-    }
-
-    interface Region {
-        identifier?: string;
-        latitude: number;
-        longitude: number;
-        radius: number;
-        notifyOnEnter?: boolean;
-        notifyOnExit?: boolean;
-    }
-
     type LocationCallback = (data: LocationData) => void;
 
     function getCurrentPositionAsync(options: LocationOptions): Promise<LocationData>;
@@ -2231,14 +2217,6 @@ export namespace Location {
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
     function geocodeAsync(address: string): Promise<Coords>;
     function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
-    function requestPermissionsAsync(): Promise<void>;
-    function hasServicesEnabledAsync(): Promise<boolean>;
-    function startgeocodUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
-    function stopLocationUpdatesAsync(taskName: string): Promise<void>;
-    function hasStartedLocationUpdatesAsync(taskName: string): Promise<boolean>;
-    function startGeofencingAsync(taskName: string, regions: Region[]): Promise<void>;
-    function stopGeofencingAsync(taskName: string): Promise<void>;
-    function hasStartedGeofencingAsync(taskName: string): Promise<boolean>;
     function setApiKey(key: string): void;
 }
 
@@ -2276,72 +2254,46 @@ export namespace Notifications {
             sound?: boolean
         };
         android?: {
-            channelId?: string;
+            sound?: boolean;
             icon?: string;
             color?: string;
+            priority?: 'min' | 'low' | 'high' | 'max';
             sticky?: boolean;
+            vibrate?: boolean | number[];
+            link?: string;
         };
     }
 
-    type LocalNotificationId = string | number;
+    interface SchedulingOptions {
+        time: Date | number;
+        repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+        intervalMs?: number;
+    }
 
-    interface Channel {
+    interface ChannelAndroid {
         name: string;
         description?: string;
-        priority?: string;
         sound?: boolean;
+        priority?: 'min' | 'low' | 'default' | 'high' | 'max';
         vibrate?: boolean | number[];
         badge?: boolean;
     }
 
-    interface ActionType {
-        actionId: string;
-        buttonTitle: string;
-        isDestructive?: boolean;
-        isAuthenticationRequired?: boolean;
-        textInput?: {
-          submitButtonTitle: string;
-          placeholder: string;
-        };
-    }
-
-    function createCategoryAsync(categoryId: string, actions: ActionType[]): Promise<void>;
-    function deleteCategoryAsync(categoryId: string): Promise<void>;
-    function getExpoPushTokenAsync(): Promise<string>;
-    function getDevicePushTokenAsync(config: {
-        gcmSenderId?: string;
-    }): Promise<{ type: string; data: string }>;
-    function createChannelAndroidAsync(id: string, channel: Channel): Promise<void>;
-    function deleteChannelAndroidAsync(id: string): Promise<void>;
-
-    /* Shows a notification instantly */
-    function presentLocalNotificationAsync(
-        notification: LocalNotification
-    ): Promise<LocalNotificationId>;
-
-    /** Schedule a notification at a later date */
-    function scheduleLocalNotificationAsync(
-        notification: LocalNotification,
-        options?: {
-          time?: Date | number;
-          repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
-          intervalMs?: number;
-        }
-    ): Promise<LocalNotificationId>;
-
-    /** Dismiss currently shown notification with ID (Android only) */
-    function dismissNotificationAsync(notificationId: LocalNotificationId): Promise<void>;
-
-    /** Dismiss all currently shown notifications (Android only) */
-    function dismissAllNotificationsAsync(): Promise<void>;
-
-    /** Cancel scheduled notification notification with ID */
-    function cancelScheduledNotificationAsync(notificationId: LocalNotificationId): Promise<void>;
-
-    /** Cancel all scheduled notifications */
-    function cancelAllScheduledNotificationsAsync(): Promise<void>;
+    type LocalNotificationId = string | number;
 
     function addListener(listener: (notification: Notification) => any): EventSubscription;
+    function getExpoPushTokenAsync(): Promise<string>;
+    function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
+    function scheduleLocalNotificationAsync(
+        localNotification: LocalNotification,
+        schedulingOptions: { time: Date | number, repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' }
+    ): Promise<LocalNotificationId>;
+    function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
+    function dismissAllNotificationsAsync(): Promise<void>;
+    function cancelScheduledNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
+    function cancelAllScheduledNotificationsAsync(): Promise<void>;
+    function createChannelAndroidAsync(id: string, channel: ChannelAndroid): Promise<void>;
+    function deleteChannelAndroidAsync(id: string): Promise<void>;
     function getBadgeNumberAsync(): Promise<number>;
     function setBadgeNumberAsync(number: number): Promise<void>;
 }
@@ -2700,14 +2652,13 @@ export class Svg extends Component<{ width: number, height: number, viewBox?: st
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    node: number | React.ReactElement<any> | React.RefObject<any>,
+    view?: (number | React.ReactElement<any>),
     options?: {
-        width?: number;
-        height?: number;
-        format: 'png' | 'jpg' | 'raw' | 'webm';
-        quality: number;
-        snapshotContentContainer: boolean;
-        result: "tmpfile" | "base64" | "data-uri" | "zip-base64";
+        width?: number,
+        height?: number,
+        format?: 'png' | 'jpg' | 'jpeg' | 'webm',
+        quality?: number,
+        result?: 'file' | 'base64' | 'data-uri',
     }
 ): Promise<string>;
 
