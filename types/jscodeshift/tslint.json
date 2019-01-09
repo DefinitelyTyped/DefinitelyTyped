@@ -1,1 +1,8 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "no-declare-current-package": false,
+        "no-self-import": false,
+        "no-unnecessary-generics": false
+    }
+}

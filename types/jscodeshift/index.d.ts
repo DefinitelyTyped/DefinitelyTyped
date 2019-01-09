@@ -119,7 +119,7 @@ declare module "jscodeshift/src/template" {
 
     export default function withParser(parser: Parser): Template;
 
-    export {}; // force module
+    export {}; // to shut off automatic exporting
 }
 
 declare module "jscodeshift/src/Collection" {
@@ -131,7 +131,7 @@ declare module "jscodeshift/src/Collection" {
     type Type = typeof recast.types.Type;
     type ASTPath<N> = NodePath<N, N>;
 
-    interface Collection<N>
+    export interface Collection<N>
         extends NodeCollection.TraversalMethods,
             NodeCollection.MutationMethods<N>,
             VariableDeclarator.GlobalMethods,
@@ -144,32 +144,32 @@ declare module "jscodeshift/src/Collection" {
          * @param types An array of types all the paths in the collection
          *  have in common. If not passed, it will be inferred from the paths.
          */
-        new (paths: ASTPath<N>[], parent: Collection<any>, types?: Type[]): this;
+        new (paths: Array<ASTPath<N>>, parent: Collection<any>, types?: Type[]): this;
 
         /**
          * Returns a new collection containing the nodes for which the callback returns true.
          */
         filter<S extends N>(
-            callback: (path: ASTPath<N>, i: number, paths: ASTPath<N>[]) => path is ASTPath<S>
+            callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => path is ASTPath<S>
         ): Collection<S>;
         filter(
-            callback: (path: ASTPath<N>, i: number, paths: ASTPath<N>[]) => boolean
+            callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean
         ): Collection<N>;
 
         /**
          * Executes callback for each node/path in the collection.
          */
-        forEach(callback: (path: ASTPath<N>, i: number, paths: ASTPath<N>[]) => void): this;
+        forEach(callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => void): this;
 
         /**
          * Tests whether at-least one path passes the test implemented by the provided callback.
          */
-        some(callback: (path: ASTPath<N>, i: number, paths: ASTPath<N>[]) => boolean): boolean;
+        some(callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean): boolean;
 
         /**
          * Tests whether all paths pass the test implemented by the provided callback.
          */
-        every(callback: (path: ASTPath<N>, i: number, paths: ASTPath<N>[]) => boolean): boolean;
+        every(callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean): boolean;
 
         /**
          * Executes the callback for every path in the collection and returns a new
@@ -188,8 +188,8 @@ declare module "jscodeshift/src/Collection" {
             callback: (
                 path: ASTPath<N>,
                 i: number,
-                paths: ASTPath<N>[]
-            ) => ASTPath<T> | ASTPath<T>[] | null | undefined,
+                paths: Array<ASTPath<N>>
+            ) => ASTPath<T> | Array<ASTPath<T>> | null | undefined,
             type: Type
         ): Collection<T>;
 
@@ -203,9 +203,9 @@ declare module "jscodeshift/src/Collection" {
         nodes(): N[];
 
         /** Returns an array of ASTPaths in this this collection. */
-        paths(): ASTPath<N>[];
+        paths(): Array<ASTPath<N>>;
 
-        getAST(): ASTPath<any>[];
+        getAST(): Array<ASTPath<any>>;
 
         /**
          * Converts the AST back to a string, using recast.
@@ -222,7 +222,7 @@ declare module "jscodeshift/src/Collection" {
         at(index: number): Collection<N>;
 
         /** Calls "get" on the first path (same as "collection.paths(0).get(...)"). */
-        get<T>(...fields: (string | number)[]): T;
+        get(...fields: Array<string | number>): any;
 
         /**
          * Returns the type(s) of the collection. This is only used for unit tests,
@@ -245,6 +245,8 @@ declare module "jscodeshift/src/Collection" {
      * @param type Optional type to add the methods to
      */
     export function registerMethods(methods: object, type?: Type): void;
+
+    export {}; // to shut off automatic exporting
 }
 
 declare module "jscodeshift/src/collections/Node" {
@@ -255,9 +257,7 @@ declare module "jscodeshift/src/collections/Node" {
         /**
          * Find nodes of a specific type within the nodes of this collection.
          */
-        find<T>(type: Type<T>): Collection<T>;
-        find<T>(type: Type<T>, filter: (value: any) => boolean): Collection<T>;
-        find<T>(type: Type<T>, filter: object): Collection<T>;
+        find<T>(type: Type<T>, filter?: ((value: any) => boolean) | object): Collection<T>;
 
         /**
          * Returns a collection containing the paths that create the scope of the
@@ -277,7 +277,7 @@ declare module "jscodeshift/src/collections/Node" {
          *
          * If the callback returns a falsey value, the element is skipped.
          */
-        getVariableDeclarators<T>(nameGetter: Function): Collection<T>;
+        getVariableDeclarators<T>(nameGetter: (...args: any[]) => any): Collection<T>;
     }
 
     export interface MutationMethods<N> {
@@ -285,22 +285,16 @@ declare module "jscodeshift/src/collections/Node" {
          * Simply replaces the selected nodes with the provided node. If a function
          * is provided it is executed for every node and the node is replaced with the
          * functions return value.
-         *
-         * @param {Node|Array<Node>|function} nodes
          */
         replaceWith<T>(nodes: T | T[] | ((path: any, i: number) => T)): this;
 
         /**
          * Inserts a new node before the current one.
-         *
-         * @param {Node|Array<Node>|function} insert
          */
         insertBefore(insert: any): Collection<N>;
 
         /**
          * Inserts a new node after the current one.
-         *
-         * @param {Node|Array<Node>|function} insert
          */
         insertAfter(insert: any): Collection<N>;
 
@@ -309,7 +303,7 @@ declare module "jscodeshift/src/collections/Node" {
 
     export function register(): void;
 
-    export {}; // force module
+    export {}; // to shut off automatic exporting
 }
 
 declare module "jscodeshift/src/collections/VariableDeclarator" {
@@ -352,7 +346,7 @@ declare module "jscodeshift/src/collections/VariableDeclarator" {
     export function register(): void;
     export const filters: FilterMethods;
 
-    export {}; // force module
+    export {}; // to shut off automatic exporting
 }
 
 declare module "jscodeshift/src/collections/JSXElement" {
@@ -425,5 +419,5 @@ declare module "jscodeshift/src/collections/JSXElement" {
     export const filters: FilterMethods;
     export const mappings: MappingMethods;
 
-    export {}; // force module
+    export {}; // to shut off automatic exporting
 }
