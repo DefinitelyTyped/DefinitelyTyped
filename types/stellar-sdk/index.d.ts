@@ -371,7 +371,7 @@ export namespace StellarBase {
         function decodeSha256Hash(data: string): Buffer;
     }
 
-    class Transaction {
+    class Transaction<TMemo extends Memo.AnyType = Memo.AnyType, TOps extends TransactionOperation[] = TransactionOperation[]> {
         constructor(envelope: string | xdr.TransactionEnvelope)
         hash(): Buffer;
         sign(...keypairs: Keypair[]): void;
@@ -379,11 +379,11 @@ export namespace StellarBase {
         signHashX(preimage: Buffer | string): void;
         toEnvelope(): xdr.TransactionEnvelope;
 
-        operations: TransactionOperation[];
+        operations: TOps;
         sequence: number;
         fee: number;
         source: string;
-        memo: Memo;
+        memo: TMemo;
         signatures: xdr.DecoratedSignature[];
     }
 
