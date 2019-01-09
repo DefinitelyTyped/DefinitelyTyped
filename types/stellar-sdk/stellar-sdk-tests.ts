@@ -6,8 +6,7 @@ const account = new StellarSdk.Account(sourceKey.publicKey(), '1');
 const transaction = new StellarSdk.TransactionBuilder(account)
     .addOperation(StellarSdk.Operation.accountMerge({destination: destKey.publicKey()}))
     .addMemo(new StellarSdk.Memo(StellarSdk.MemoText, "memo"))
-    .build(); // $ExpectType () => Transaction
-transaction; // $ExpectType Transaction
+    .build(); // $ExpectType () => Transaction<AnyType, TransactionOperation[]>
 
 StellarSdk.StellarTomlResolver.resolve("example.com", {allowHttp: true, timeout: 100})
     .then(toml => toml.FEDERATION_SERVER);

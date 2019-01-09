@@ -7,7 +7,7 @@
 //                 Timur Ramazanov <https://github.com/charlie-wasp>
 //                 Kalvis Kalniņš <https://github.com/Akuukis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 /// <reference types="node" />
 
