@@ -3,6 +3,8 @@
 // Definitions by: Dimitri DO BAIRRO <https://github.com/rimiti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = replacer;
-
 declare function replacer(start?: string, end?: string): (val: string, replace: {} | string[] | number[]) => string;
+
+declare namespace replacer {}
+
+export = replacer;
