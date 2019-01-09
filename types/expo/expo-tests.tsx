@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, AccessibilityInfo } from 'react-native';
+import { Text } from 'react-native';
 
 import {
     Accelerometer,
@@ -21,9 +21,6 @@ import {
     Constants,
     Contacts,
     DocumentPicker,
-    EdgeInsets,
-    EdgePadding,
-    EventUserLocation,
     Facebook,
     FacebookAds,
     FaceDetector,
@@ -33,24 +30,29 @@ import {
     ImagePicker,
     IntentLauncherAndroid,
     KeepAwake,
-    KmlMapEvent,
     LinearGradient,
     Linking,
     Location,
     MailComposer,
-    MapEvent,
-    MapStyleElement,
     MapView,
     MediaLibrary,
     Permissions,
     PublisherBanner,
-    Region,
     registerRootComponent,
     ScreenOrientation,
     SecureStore,
     Svg,
     Updates
 } from 'expo';
+import {
+    EdgeInsets,
+    EdgePadding,
+    EventUserLocation,
+    KmlMapEvent,
+    MapEvent,
+    MapStyleElement,
+    Region
+} from 'react-native-maps';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
     latitude: 0,
@@ -154,7 +156,6 @@ Audio.setAudioModeAsync({
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
     allowsRecordingIOS: true,
-    playThroughEarpieceAndroid: false
 });
 Audio.setIsEnabledAsync(true);
 
@@ -233,7 +234,7 @@ Audio.RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE === 3;
 Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
-    const result = await Audio.Sound.create({uri: 'uri'}, {
+    const result = await Audio.Sound.createAsync({uri: 'uri'}, {
         volume: 0.55,
         rate: 16.5
     }, null, true);
@@ -262,13 +263,13 @@ async () => {
     <AppLoading />
 );
 
-const barCodeScannedCallback = () => {};
+const barcodeReadCallback = () => {};
 () => (
     <BarCodeScanner
         type="front"
         torchMode="off"
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
-        onBarCodeScanned={barCodeScannedCallback} />
+        onBarCodeScanned={barcodeReadCallback} />
 );
 
 () => (
@@ -408,7 +409,7 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', [
+    const result = await ImageManipulator.manipulateAsync('url', [
         { rotate: 90 },
         { resize: { width: 300 } },
         { resize: { height: 300 } },
@@ -963,7 +964,7 @@ const userLocationCallback = (event: EventUserLocation) =>  console.log(event);
 // #endregion
 
 async () => {
-    const updateEventListener: Updates.UpdateEventListener = ({ type, manifest, message }) => {
+    const updateEventListener: Updates.UpdateEventListener = ({ type }) => {
         switch (type) {
             case Updates.EventType.DOWNLOAD_STARTED:
             case Updates.EventType.DOWNLOAD_PROGRESS:
