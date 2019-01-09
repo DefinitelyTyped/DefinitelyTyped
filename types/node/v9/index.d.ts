@@ -1191,6 +1191,129 @@ declare module "http" {
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
+
+        /**
+         * Event emitter
+         * The defined events on documents including:
+         * 1. abort
+         * 2. connect
+         * 3. continue
+         * 4. response
+         * 5. socket
+         * 6. timeout
+         * 7. upgrade
+         * 8. close
+         * 9. drain
+         * 10. error
+         * 11. finish
+         * 12. pipe
+         * 13. unpipe
+         */
+
+        addListener(event: "abort", listener: () => void): this;
+        addListener(event: "connect", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        addListener(event: "continue", listener: () => void): this;
+        addListener(event: "response", listener: (response: IncomingMessage) => void): this;
+        addListener(event: "socket", listener: (socket: net.Socket) => void): this;
+        addListener(event: "timeout", listener: () => void): this;
+        addListener(event: "upgrade", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "finish", listener: () => void): this;
+        addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        emit(event: "abort"): boolean;
+        emit(event: "connect", response: IncomingMessage, socket: net.Socket, head: Buffer): boolean;
+        emit(event: "continue"): boolean;
+        emit(event: "response", response: IncomingMessage): boolean;
+        emit(event: "socket", socket: net.Socket): boolean;
+        emit(event: "timeout"): this;
+        emit(event: "upgrade", response: IncomingMessage, socket: net.Socket, head: Buffer): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "drain"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "finish"): boolean;
+        emit(event: "pipe", src: stream.Readable): boolean;
+        emit(event: "unpipe", src: stream.Readable): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        on(event: "abort", listener: () => void): this;
+        on(event: "connect", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        on(event: "continue", listener: () => void): this;
+        on(event: "response", listener: (response: IncomingMessage) => void): this;
+        on(event: "socket", listener: (socket: net.Socket) => void): this;
+        on(event: "timeout", listener: () => void): this;
+        on(event: "upgrade", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "drain", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "finish", listener: () => void): this;
+        on(event: "pipe", listener: (src: stream.Readable) => void): this;
+        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once(event: "abort", listener: () => void): this;
+        once(event: "connect", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        once(event: "continue", listener: () => void): this;
+        once(event: "response", listener: (response: IncomingMessage) => void): this;
+        once(event: "socket", listener: (socket: net.Socket) => void): this;
+        once(event: "timeout", listener: () => void): this;
+        once(event: "upgrade", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "drain", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "finish", listener: () => void): this;
+        once(event: "pipe", listener: (src: stream.Readable) => void): this;
+        once(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener(event: "abort", listener: () => void): this;
+        prependListener(event: "connect", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        prependListener(event: "continue", listener: () => void): this;
+        prependListener(event: "response", listener: (response: IncomingMessage) => void): this;
+        prependListener(event: "socket", listener: (socket: net.Socket) => void): this;
+        prependListener(event: "timeout", listener: () => void): this;
+        prependListener(event: "upgrade", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "finish", listener: () => void): this;
+        prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener(event: "abort", listener: () => void): this;
+        prependOnceListener(event: "connect", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        prependOnceListener(event: "continue", listener: () => void): this;
+        prependOnceListener(event: "response", listener: (response: IncomingMessage) => void): this;
+        prependOnceListener(event: "socket", listener: (socket: net.Socket) => void): this;
+        prependOnceListener(event: "timeout", listener: () => void): this;
+        prependOnceListener(event: "upgrade", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "finish", listener: () => void): this;
+        prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener(event: "abort", listener: () => void): this;
+        removeListener(event: "connect", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        removeListener(event: "continue", listener: () => void): this;
+        removeListener(event: "response", listener: (response: IncomingMessage) => void): this;
+        removeListener(event: "socket", listener: (socket: net.Socket) => void): this;
+        removeListener(event: "timeout", listener: () => void): this;
+        removeListener(event: "upgrade", listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
+        removeListener(event: "close", listener: () => void): this;
+        removeListener(event: "drain", listener: () => void): this;
+        removeListener(event: "error", listener: (err: Error) => void): this;
+        removeListener(event: "finish", listener: () => void): this;
+        removeListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        removeListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     export class IncomingMessage extends stream.Readable {

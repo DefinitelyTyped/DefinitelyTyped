@@ -1458,7 +1458,13 @@ namespace http_tests {
         req.connection.on('pause', () => { });
 
         // event
-        req.on('data', () => { });
+        req.on('abort', () => { });
+        req.on('connect', () => { });
+        req.on('continue', () => { });
+        req.on('response', () => { });
+        req.on('socket', () => { });
+        req.on('timeout', () => { });
+        req.on('upgrade', () => { });
     }
 
     {
