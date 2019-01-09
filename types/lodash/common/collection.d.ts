@@ -215,7 +215,7 @@ declare module "../index" {
          * @return Returns the new filtered array.
          */
         filter(
-            collection: string | string[] | null | undefined,
+            collection: string | null | undefined,
             predicate?: StringIterator<boolean>
         ): string[];
 
