@@ -3,10 +3,21 @@
 // Definitions by: Jakub Vrana <https://github.com/vrana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class TrustedHTML {}
-declare class TrustedScript {}
-declare class TrustedScriptURL {}
-declare class TrustedURL {}
+declare class TrustedHTML {
+	private readonly _TrustedHTMLBrand: true; // To prevent structural typing.
+}
+
+declare class TrustedScript {
+	private readonly _TrustedScriptBrand: true; // To prevent structural typing.
+}
+
+declare class TrustedScriptURL {
+	private readonly _TrustedScriptURLBrand: true; // To prevent structural typing.
+}
+
+declare class TrustedURL {
+	private readonly _TrustedURL: trueBrand; // To prevent structural typing.
+}
 
 declare class TrustedTypePolicy {
 	createHTML(s: string): TrustedHTML;
