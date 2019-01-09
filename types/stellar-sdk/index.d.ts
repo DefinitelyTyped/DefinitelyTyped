@@ -11,6 +11,11 @@
 
 /// <reference types="node" />
 
+// Dependency
+export type Key = string|number|symbol;
+export type Diff<T extends Key, U extends Key> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T];
+export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+
 export namespace StellarBase {
     class Account {
         constructor(accountId: string, sequence: string | number)
@@ -734,25 +739,8 @@ export namespace Server {
         close: string;
     }
 
-    interface TransactionRecord extends Horizon.BaseResponse {
-        id: string;
-        paging_token: string;
-        hash: string;
-        ledger_attr: number;
-        created_at: string;
-        max_fee: number;
-        fee_paid: number;
-        operation_count: number;
-        result_code: number;
-        result_code_s: string;
-        source_account: string;
-        source_account_sequence: string;
-        envelope_xdr: string;
-        result_xdr: string;
-        result_meta_xdr: string;
-        memo: string;
-        envelope: any;
-        memo_type: any;
+    interface TransactionRecord extends Omit<Horizon.TransactionResponse, 'ledger'> {
+        ledger_attr: Horizon.TransactionResponse['ledger'];
 
         account: CallFunction<AccountRecord>;
         effects: CallCollectionFunction<EffectRecord>;
@@ -888,7 +876,8 @@ export namespace Horizon {
         hash: string;
         id: string;
         ledger: number;
-        memo_type: string;
+        memo_type: Memo.AnyType;
+        memo?: string;
         operation_count: number;
         paging_token: string;
         result_meta_xdr: string;
