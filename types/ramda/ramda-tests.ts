@@ -2531,9 +2531,7 @@ class Rectangle {
     ];
 
     const list2 = [5, 4, 6];
-    function matchId(record: any, id: number): boolean {
-        return record.id === id;
-    }
+    const matchId = (record: { id: number, name: string }, id: number): boolean => record.id === id;
 
     R.innerJoin(matchId, list1, list2); // [{"id": 4, "name": "Four"}, {"id": 5, "name": "Five"}]
 
