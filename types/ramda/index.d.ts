@@ -1179,7 +1179,7 @@ declare namespace R {
          * `xs`, `ys`, and `xs'` are treated as sets, semantically, so ordering should
          * not be significant, but since `xs'` is ordered the implementation guarantees
          * that its values are in the same order as they appear in `xs`. Duplicates are
-         * not removed, so `xs` may contain duplicates if `xs` contains duplicates.
+         * not removed, so `xs'` may contain duplicates if `xs` contains duplicates.
          */
 
         innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
