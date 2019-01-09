@@ -16,5 +16,13 @@ proxy('www.google.com', {
         console.log(proxyReqOpts.headers, proxyReqOpts.method);
         console.log(srcReq.url, srcReq.cookies);
         return proxyReqOpts;
+    },
+    userResHeaderDecorator(headers, userReq, userRes, proxyReq, proxyRes) {
+        console.log(userReq.url, userRes.statusCode);
+        console.log(proxyReq.url, proxyRes.statusCode);
+        if (headers["content-type"] === "image/png") {
+            headers["x-custom-header"] = "additional-info";
+        }
+        return headers;
     }
 });
