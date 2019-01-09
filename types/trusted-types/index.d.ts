@@ -16,7 +16,7 @@ declare class TrustedScriptURL {
 }
 
 declare class TrustedURL {
-	private readonly _TrustedURL: trueBrand; // To prevent structural typing.
+	private readonly _TrustedURLBrand: true; // To prevent structural typing.
 }
 
 declare class TrustedTypePolicy {
