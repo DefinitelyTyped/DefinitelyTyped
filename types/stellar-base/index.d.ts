@@ -108,7 +108,7 @@ export class Memo<T extends MemoType = MemoType> {
     value:
         T extends MemoType.None ? null :
         T extends MemoType.ID ? string :
-        T extends MemoType.Text ? string :
+        T extends MemoType.Text ? string | Buffer :  // github.com/stellar/js-stellar-base/issues/152
         T extends MemoType.Hash ? Buffer :
         T extends MemoType.Return ? Buffer :
         MemoValue;

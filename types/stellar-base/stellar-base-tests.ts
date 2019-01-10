@@ -19,7 +19,7 @@ StellarSdk.Memo.return('asdf'); // $ExpectType Memo<"return">
 StellarSdk.Memo.hash('asdf'); // $ExpectType Memo<"hash">
 StellarSdk.Memo.none().value; // $ExpectType null
 StellarSdk.Memo.id('asdf').value; // $ExpectType string
-StellarSdk.Memo.text('asdf').value; // $ExpectType string
+StellarSdk.Memo.text('asdf').value; // $ExpectType string | Buffer
 StellarSdk.Memo.return('asdf').value; // $ExpectType Buffer
 StellarSdk.Memo.hash('asdf').value; // $ExpectType Buffer
 
