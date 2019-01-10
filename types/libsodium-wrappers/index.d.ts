@@ -1031,7 +1031,7 @@ export function crypto_stream_keygen(outputFormat?: Uint8ArrayOutputFormat | nul
 
 export function crypto_stream_keygen(outputFormat?: StringOutputFormat | null): string;
 
-export function from_base64(input: string, variant: base64_variants): Uint8Array;
+export function from_base64(input: string, variant?: base64_variants): Uint8Array;
 
 export function from_hex(input: string): Uint8Array;
 
@@ -1077,7 +1077,7 @@ export function sodium_version_string(): string;
 
 export function symbols(): string[];
 
-export function to_base64(input: string | Uint8Array, variant: base64_variants): string;
+export function to_base64(input: string | Uint8Array, variant?: base64_variants): string;
 
 export function to_hex(input: string | Uint8Array): string;
 
