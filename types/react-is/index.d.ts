@@ -8,7 +8,12 @@
 
 export as namespace ReactIs;
 
-import { ReactElement, ReactType } from 'react';
+import {
+  LazyExoticComponent,
+  MemoExoticComponent,
+  ReactElement,
+  ReactType
+} from "react";
 
 export function typeOf(value: any): symbol | undefined;
 export function isValidElementType(value: any): value is ReactType;
@@ -18,8 +23,8 @@ export function isContextProvider(value: any): value is ReactElement<any>;
 export function isElement(value: any): value is ReactElement<any>;
 export function isForwardRef(value: any): value is ReactElement<any>;
 export function isFragment(value: any): value is ReactElement<any>;
-export function isLazy(value: any): value is ReactElement<any>;
-export function isMemo(value: any): value is ReactElement<any>;
+export function isLazy(value: any): value is LazyExoticComponent<any>;
+export function isMemo(value: any): value is MemoExoticComponent<any>;
 export function isProfiler(value: any): value is ReactElement<any>;
 export function isPortal(value: any): value is ReactElement<any>;
 export function isStrictMode(value: any): value is ReactElement<any>;
