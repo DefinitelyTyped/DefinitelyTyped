@@ -637,6 +637,7 @@ export interface ColorBar {
 export interface PlotMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | Color[];
+	colors: Color[];
 	colorscale: string | string[] | Array<Array<(string | number)>>;
 	cauto: boolean;
 	cmax: number;
