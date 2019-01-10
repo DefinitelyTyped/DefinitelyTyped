@@ -389,17 +389,29 @@ function test_cloud_functions() {
         request.readPreference = Parse.Cloud.ReadPreferenceOption.Nearest
     });
 
-  Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
-    let query = request.query; // the Parse.Query
+    Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
+        let query = request.query; // the Parse.Query
 
-    return new Parse.Query("QueryMe!");
-  });
+        return new Parse.Query("QueryMe!");
+    });
 
-  Parse.Cloud.beforeFind('MyCustomClass', async (request: Parse.Cloud.BeforeFindRequest) => {
-    let query = request.query; // the Parse.Query
+    Parse.Cloud.beforeFind('MyCustomClass', async (request: Parse.Cloud.BeforeFindRequest) => {
+        let query = request.query; // the Parse.Query
 
-    return new Parse.Query("QueryMe, IN THE FUTURE!");
-  });
+        return new Parse.Query("QueryMe, IN THE FUTURE!");
+    });
+
+    Parse.Cloud.afterFind('MyCustomClass', async (request: Parse.Cloud.AfterFindRequest) => {
+        return new Parse.Object('MyCustomClass');
+    });
+
+    Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
+        return 'Some result';
+    });
+
+    Parse.Cloud.job('AJob', (request: Parse.Cloud.JobRequest) => {
+        request.message('Message to associate with this job run');
+    });
 }
 
 class PlaceObject extends Parse.Object { }
