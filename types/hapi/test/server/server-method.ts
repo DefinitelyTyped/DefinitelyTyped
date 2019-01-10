@@ -17,7 +17,8 @@ const methodObject: ServerMethodConfigurationObject = {
         cache: {
             expiresIn: 2000,
             generateTimeout: 100
-        }
+        },
+        generateKey: (a: string | undefined) => a === undefined ? null : a
     }
 };
 

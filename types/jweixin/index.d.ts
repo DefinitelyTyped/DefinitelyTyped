@@ -210,6 +210,7 @@ declare namespace wx {
 			localIds: string[];
 			errMsg: string;
 		}): void;
+		cancel(): void;
 	}
 	/**
 	 * 从本地相册选择图片或使用相机拍照。

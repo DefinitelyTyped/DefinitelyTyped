@@ -34,7 +34,9 @@ declare namespace MimeNode {
         /** If true, do not exclude Bcc from the generated headers */
         keepBcc?: boolean;
         /** either 'Q' (the default) or 'B' */
-        textEncoding: 'B' | 'Q';
+        textEncoding?: 'B' | 'Q';
+        /** method to normalize header keys for custom caseing */
+        normalizeHeaderKey?(key: string): string;
     }
 }
 
@@ -44,10 +46,10 @@ declare namespace MimeNode {
  * the options, assumes this is the root.
  */
 declare class MimeNode {
-    constructor(contentType: string, options: MimeNode.Options);
+    constructor(contentType: string, options?: MimeNode.Options);
 
     /** Creates and appends a child node.Arguments provided are passed to MimeNode constructor */
-    createChild(contentType: string, options: MimeNode.Options): MimeNode;
+    createChild(contentType: string, options?: MimeNode.Options): MimeNode;
 
     /** Appends an existing node to the mime tree. Removes the node from an existing tree if needed */
     appendChild(childNode: MimeNode): MimeNode;
@@ -63,7 +65,7 @@ declare class MimeNode {
      * You can set multiple values as well by using [{key:'', value:''}] or
      * {key: 'value'} as the first argument.
      */
-    setHeader(key: string, value: string): this;
+    setHeader(key: string, value: string | string[]): this;
     setHeader(headers: { [key: string]: string } | Array<{ key: string, value: string }>): this;
 
     /**

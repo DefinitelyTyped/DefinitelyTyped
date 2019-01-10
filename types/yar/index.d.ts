@@ -1,8 +1,8 @@
-// Type definitions for yar 9.0
+// Type definitions for yar 9.1
 // Project: https://github.com/hapijs/yar#readme
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 // From https://github.com/hapijs/yar/blob/master/API.md
 
 import {
@@ -10,30 +10,11 @@ import {
     ServerOptionsCache,
     Request,
     Plugin,
+    CachePolicyOptions,
 } from 'hapi';
+import { PolicyOptions, Id } from 'catbox';
 declare namespace yar {
     interface YarOptions {
-        /**
-         * Tells Hapi that it should not respond with a HTTP 400 error if the session cookie cannot decrypt.
-         * This could happen if the cookie is changed on the client, or more likely, if you change the cookie password in your settings.
-         * If you want to make this condition send an error like it did in prior versions, change this to `false`,
-         * but be aware that if you change your cookie password you will cause 400 errors to be returned to end users.
-         * In that case you should probably change this back to true for a short time to allow session cookies to get reset for the best user experience.
-         * Defaults to true.
-         */
-        ignoreErrors?: boolean;
-
-        /**
-         * Tells Hapi that if a session cookie is invalid for any reason,
-         * to clear it from the browser.
-         * This prevents Hapi from having to reprocess the bad cookie on future requests.
-         * In general you'll probably want this on,
-         * but if you'd prefer that session cookies be dealt with in some
-         * other way you may set this to false.
-         * Defaults to true
-         */
-        clearInvalid?: boolean;
-
         /**
          * Determines the name of the cookie used to store session information.
          * Defaults to session.
@@ -62,16 +43,32 @@ declare namespace yar {
         /**
          * hapi cache options which includes (among other options):
          */
-        cache?: ServerOptionsCache;
+        cache?: CachePolicyOptions<any>;
 
-        /**
-         * server-side storage expiration (defaults to 1 day).
-         */
-        expiresIn?: number;
         /**
          * the configuration for cookie-specific features:
          */
         cookieOptions: {
+            /**
+             * Tells Hapi that it should not respond with a HTTP 400 error if the session cookie cannot decrypt.
+             * This could happen if the cookie is changed on the client, or more likely, if you change the cookie password in your settings.
+             * If you want to make this condition send an error like it did in prior versions, change this to `false`,
+             * but be aware that if you change your cookie password you will cause 400 errors to be returned to end users.
+             * In that case you should probably change this back to true for a short time to allow session cookies to get reset for the best user experience.
+             * Defaults to true.
+             */
+            ignoreErrors?: boolean;
+
+            /**
+             * Tells Hapi that if a session cookie is invalid for any reason,
+             * to clear it from the browser.
+             * This prevents Hapi from having to reprocess the bad cookie on future requests.
+             * In general you'll probably want this on,
+             * but if you'd prefer that session cookies be dealt with in some
+             * other way you may set this to false.
+             * Defaults to true
+             */
+            clearInvalid?: boolean;
             /**
              * (Required) used to encrypt and sign the cookie data.
              * Must be at least 32 chars.
@@ -106,12 +103,17 @@ declare namespace yar {
              * an optional function to create custom session IDs.
              * Must retun a string and have the signature function (request) where:
              * request - (optional) is the original request received from the client.
+             * Defaults to uuidv4
              */
             customSessionIDGenerator?(req: Request): string;
         };
     }
 
     interface Yar {
+        /**
+         * Session id, see `customSessionIDGenerator`.
+         */
+        readonly id: string;
         /**
          * clears the session and assigns a new session id.
          */
@@ -157,12 +159,20 @@ declare namespace yar {
          */
         lazy(enabled: boolean): void;
     }
+
+    interface ServerYar {
+        revoke(id: Id): Promise<void>;
+    }
 }
 declare const yar: Plugin<yar.YarOptions>;
 export = yar;
 
-declare module 'hapi/definitions/request/request' {
+declare module 'hapi' {
     interface Request {
         yar: yar.Yar;
+    }
+
+    interface Server {
+        yar: yar.ServerYar;
     }
 }

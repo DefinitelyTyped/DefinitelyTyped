@@ -120,7 +120,7 @@ function CommonMethodsInEventStreamsAndProperties() {
     Bacon.fromArray([1, 2, 3]).withStateMachine(0, (sum, event) => {
         if (event.hasValue()) {
             // had to cast to `number` because event:Bacon.Next<number>|Bacon.Error<{}>
-            return [sum + <number>event.value(), []];
+            return [sum + (event.value() as number), []];
         }
         else if (event.isEnd()) {
             return [undefined, [new Bacon.Next(sum), event]];
@@ -140,8 +140,8 @@ function CommonMethodsInEventStreamsAndProperties() {
 
     {
         // This is handy for keeping track whether we are currently awaiting an AJAX response:
-        var ajaxRequest = <Bacon.Observable<Error, JQueryXHR>>{},
-            ajaxResponse = <Bacon.Observable<Error, JQueryXHR>>{},
+        var ajaxRequest = {} as Bacon.Observable<Error, JQueryXHR>,
+            ajaxResponse = {} as Bacon.Observable<Error, JQueryXHR>,
             showAjaxIndicator = ajaxRequest.awaiting(ajaxResponse);
     }
 

@@ -1,7 +1,10 @@
 // Type definitions for spotify-web-playback-sdk 0.1
 // Project: https://beta.developer.spotify.com/documentation/web-playback-sdk/reference/
 // Definitions by: Festify Dev Team <https://github.com/Festify>
+//                 Marcus Weiner <https://github.com/mraerino>
+//                 Moritz Gunz <https://github.com/NeoLegends>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 interface Window {
     onSpotifyWebPlaybackSDKReady(): void;
@@ -62,7 +65,12 @@ declare namespace Spotify {
         duration: number;
         paused: boolean;
         position: number;
-        repeat_mode: RepeatMode;
+        /**
+         * 0: NO_REPEAT
+         * 1: ONCE_REPEAT
+         * 2: FULL_REPEAT
+         */
+        repeat_mode: 0 | 1 | 2;
         shuffle: boolean;
         restrictions: PlaybackRestrictions;
         track_window: PlaybackTrackWindow;
@@ -80,11 +88,14 @@ declare namespace Spotify {
         volume?: number;
     }
 
-    enum RepeatMode {
-        NO_REPEAT = 0,
-        ONCE_REPEAT = 1,
-        FULL_REPEAT = 2,
-    }
+    type ErrorListener = (err: Error) => void;
+    type PlaybackInstanceListener = (inst: WebPlaybackInstance) => void;
+    type PlaybackStateListener = (s: PlaybackState) => void;
+
+    type AddListenerFn =
+        & ((event: 'ready' | 'not_ready', cb: PlaybackInstanceListener) => void)
+        & ((event: 'player_state_changed', cb: PlaybackStateListener) => void)
+        & ((event: ErrorTypes, cb: ErrorListener) => void);
 
     class SpotifyPlayer {
         constructor(options: PlayerInit);
@@ -95,9 +106,13 @@ declare namespace Spotify {
         getVolume(): Promise<number>;
         nextTrack(): Promise<void>;
 
-        on(event: 'ready', cb: (pb: WebPlaybackInstance) => void): void;
-        on(event: 'player_state_changed', cb: (pb: PlaybackState) => void): void;
-        on(event: ErrorTypes, cb: (err: Error) => void): void;
+        addListener: AddListenerFn;
+        on: AddListenerFn;
+
+        removeListener(
+            event: 'ready' | 'not_ready' | 'player_state_changed' | ErrorTypes,
+            cb?: ErrorListener | PlaybackInstanceListener | PlaybackStateListener,
+        ): void;
 
         pause(): Promise<void>;
         previousTrack(): Promise<void>;

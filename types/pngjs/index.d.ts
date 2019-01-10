@@ -24,7 +24,7 @@ export class PNG extends Duplex {
 
 	static sync: {
 		read(buffer: Buffer, options?: ParserOptions): PNG;
-		write(buffer: Buffer, options?: PackerOptions): PNG;
+		write(png: PNG, options?: PackerOptions): Buffer;
 	};
 
 	constructor(options?: PNGOptions);
@@ -85,7 +85,7 @@ export interface PackerOptions {
 
 export type PNGOptions = BaseOptions & ParserOptions & PackerOptions;
 
-export type ColorType = 0 | 1 | 2 | 4;
+export type ColorType = 0 | 2 | 4 | 6;
 
 export interface Metadata {
 	width: number;

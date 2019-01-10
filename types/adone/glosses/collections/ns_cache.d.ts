@@ -1,6 +1,6 @@
 declare namespace adone.collection {
     class NSCache<T = any> {
-        constructor(size: number, namespaces: string[]);
+        constructor(maxSize: number, namespaces: string[]);
 
         resize(newSize: number): void;
 

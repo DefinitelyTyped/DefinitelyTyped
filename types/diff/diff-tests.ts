@@ -3,11 +3,40 @@ const one = 'beep boop';
 const other = 'beep boob blah';
 
 let diff = jsdiff.diffChars(one, other);
+printDiff(diff);
 
-diff.forEach(part => {
-    const mark = part.added ? '+' :
-        part.removed ? '-' : ' ';
-    console.log(`${mark} ${part.value}`);
+const diffArraysResult = jsdiff.diffArrays<string>(['a', 'b', 'c'], ['a', 'c', 'd']);
+diffArraysResult.forEach(result => {
+    if (result.added) {
+        console.log(`added ${result.value.length} line(s):`, ...result.value);
+    } else if (result.removed) {
+        console.log(`removed ${result.value.length} line(s):`, ...result.value);
+    } else {
+        console.log(`no changes`);
+    }
+});
+
+interface DiffObj {
+    value: number;
+}
+const a: DiffObj = {value: 0};
+const b: DiffObj = {value: 1};
+const c: DiffObj = {value: 2};
+const d: DiffObj = {value: 3};
+const arrayOptions: jsdiff.IArrayOptions = {
+    comparator: (left: DiffObj, right: DiffObj) => {
+      return left.value === right.value;
+    }
+};
+const diffResult = jsdiff.diffArrays([a, b, c], [a, b, d], arrayOptions);
+diffResult.forEach(result => {
+    if (result.added) {
+        console.log(`added ${result.value.length} line(s):`, ...result.value);
+    } else if (result.removed) {
+        console.log(`removed ${result.value.length} line(s):`, ...result.value);
+    } else {
+        console.log(`no changes`);
+    }
 });
 
 // --------------------------
@@ -22,13 +51,13 @@ class LineDiffWithoutWhitespace extends jsdiff.Diff {
     }
 }
 
-const obj = new LineDiffWithoutWhitespace(true);
+const obj = new LineDiffWithoutWhitespace();
 diff = obj.diff(one, other);
 printDiff(diff);
 
 function printDiff(diff: jsdiff.IDiffResult[]) {
-    function addLineHeader(decorator: string, str: string) {
-        return str.split("\n").map((line, index, array) => {
+    function addLineHeader(decorator: string, str: string | string[]) {
+        return (typeof str === 'string' ? str.split("\n") : str).map((line, index, array) => {
             if (index === array.length - 1 && line === "") {
                 return line;
             } else {
@@ -52,7 +81,8 @@ function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUni
     const verifyPatch = jsdiff.parsePatch(
         jsdiff.createTwoFilesPatch("oldFile.ts", "newFile.ts", oldStr, newStr,
             "old", "new", { context: 1 }));
-    if (JSON.stringify(verifyPatch) !== JSON.stringify(uniDiff)) {
+
+    if (JSON.stringify(verifyPatch[0], Object.keys(verifyPatch[0]).sort()) !== JSON.stringify(uniDiff, Object.keys(uniDiff).sort())) {
         console.error("Patch did not match uniDiff");
     }
 }
@@ -82,7 +112,11 @@ function verifyApplyMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUni
     });
 }
 
-const uniDiff = jsdiff.structuredPatch("oldFile.ts", "newFile.ts", one, other,
+const uniDiffPatch = jsdiff.structuredPatch("oldFile.ts", "newFile.ts", one, other,
     "old", "new", { context: 1 });
-verifyPatchMethods(one, other, uniDiff);
-verifyApplyMethods(one, other, uniDiff);
+verifyPatchMethods(one, other, uniDiffPatch);
+
+const uniDiffStr = jsdiff.createPatch("file.ts", one, other, "old", "new",
+    { context: 1 });
+const uniDiffApply = jsdiff.parsePatch(uniDiffStr)[0];
+verifyApplyMethods(one, other, uniDiffApply);

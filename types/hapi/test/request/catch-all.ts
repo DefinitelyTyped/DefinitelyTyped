@@ -6,10 +6,9 @@ const options: ServerOptions = {
 };
 const server = new Server(options);
 
-const handler = (request: Request, h: ResponseToolkit) => {
+server.route({ method: '*', path: '/{p*}', handler(request, h) {
     return h.response('The page was not found').code(404);
-};
-server.route({ method: '*', path: '/{p*}', handler });
+}});
 
 server.start();
 console.log('Server started at: ' + server.info.uri);

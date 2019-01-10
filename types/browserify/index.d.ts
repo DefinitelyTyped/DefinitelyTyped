@@ -1,6 +1,9 @@
 // Type definitions for Browserify 12.0
 // Project: http://browserify.org/
-// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>, John Vilk <https://github.com/jvilk>, Leonard Thieu <https://github.com/leonard-thieu>
+// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>
+//                 John Vilk <https://github.com/jvilk>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -102,8 +105,7 @@ interface BrowserifyObject extends NodeJS.EventEmitter {
    * Add an entry file from file that will be executed when the bundle loads.
    * If file is an array, each item in file will be added as an entry file.
    */
-  add(file: InputFile[], opts?: FileOptions): BrowserifyObject;
-  add(file: InputFile, opts?: FileOptions): BrowserifyObject;
+  add(file: InputFile | InputFile[], opts?: FileOptions): BrowserifyObject;
   /**
    * Make file available from outside the bundle with require(file).
    * The file param is anything that can be resolved by require.resolve().

@@ -1,4 +1,4 @@
-// Type definitions for long.js 3.0.2
+// Type definitions for long.js 4.0.0
 // Project: https://github.com/dcodeIO/long.js
 // Definitions by: Peter Kooijmans <https://github.com/peterkooijmans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -89,6 +89,21 @@ declare class Long
      * Returns a Long representation of the given string, written using the specified radix.
      */
     static fromString( str: string, unsigned?: boolean | number, radix?: number ): Long;
+
+    /**
+     * Creates a Long from its byte representation.
+     */
+    static fromBytes( bytes: number[], unsigned?: boolean, le?: boolean ): Long;
+
+    /**
+     * Creates a Long from its little endian byte representation.
+     */
+    static fromBytesLE( bytes: number[], unsigned?: boolean ): Long;
+
+    /**
+     * Creates a Long from its little endian byte representation.
+     */
+    static fromBytesBE( bytes: number[], unsigned?: boolean ): Long;
 
     /**
      * Tests if the specified object is a Long.
@@ -329,6 +344,24 @@ declare class Long
      * Converts the Long to a the nearest floating-point representation of this value (double, 53 bit mantissa).
      */
     toNumber(): number;
+
+    /**
+     * Converts this Long to its byte representation.
+     */
+
+    toBytes( le?: boolean ): number[];
+
+    /**
+     * Converts this Long to its little endian byte representation.
+     */
+
+    toBytesLE(): number[];
+
+    /**
+     * Converts this Long to its big endian byte representation.
+     */
+
+    toBytesBE(): number[];
 
     /**
      * Converts this Long to signed.

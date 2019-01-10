@@ -27,6 +27,16 @@ myApp.config((RestangularProvider: restangular.IProvider) => {
       return elem;
   });
 
+  RestangularProvider.extendModel('accounts', function(model: any) {
+    model.prettifyAmount = function() {};
+    return model;
+  });
+
+  RestangularProvider.extendCollection('accounts', function(collection: any) {
+    collection.totalAmount = function() {};
+    return collection;
+  });
+
   RestangularProvider.setRestangularFields({
     id: "_id",
     route: "restangularRoute",

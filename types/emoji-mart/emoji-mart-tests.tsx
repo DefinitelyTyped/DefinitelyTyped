@@ -1,4 +1,4 @@
-// Port of https://github.com/missive/emoji-mart/blob/master/src/components/emoji.js
+// Port of https://github.com/missive/emoji-mart/blob/v2.8.0/stories/index.js
 
 import React = require('react');
 

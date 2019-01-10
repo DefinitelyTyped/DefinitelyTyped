@@ -1,6 +1,9 @@
-// Type definitions for Showdown 1.7.2
-// Project: https://github.com/coreyti/showdown
-// Definitions by: cbowdon <https://github.com/cbowdon>, Pei-Tang Huang <https://github.com/tan9>
+// Type definitions for Showdown 1.9.0
+// Project: https://github.com/showdownjs/showdown
+// Definitions by: Hamed Baatour <https://github.com/hamedbaatour>,
+//                 cbowdon <https://github.com/cbowdon>,
+//                 Pei-Tang Huang <https://github.com/tan9>,
+//                 Ariel-Saldana <https://github.com/arielsaldana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Showdown;
@@ -62,6 +65,10 @@ declare namespace Showdown {
     interface ConverterExtensions {
         language: ShowdownExtension[];
         output: ShowdownExtension[];
+    }
+
+    interface Metadata {
+        [meta: string]: string;
     }
 
     interface ShowdownOptions {
@@ -279,6 +286,43 @@ declare namespace Showdown {
          * @default false
          */
         backslashEscapesHTMLTags?: boolean;
+
+        /**
+         * Enable emoji support. Ex: `this is a :smile: emoji.
+         *
+         * @default false
+         */
+        emoji?: boolean;
+
+        /**
+         * Enable support for underline. Syntax is double or triple underscores: `__underline word__`. With this option enabled,
+         * underscores no longer parses into `<em>` and `<strong>`
+         *
+         * @default false
+         */
+        underline?: boolean;
+
+        /**
+         * Outputs a complete html document, including `<html>`, `<head>` and `<body>` tags
+         *
+         * @default false
+         */
+        completeHTMLDocument?: boolean;
+
+        /**
+         * Outputs a complete html document, including `<html>`, `<head>` and `<body>` tags
+         *
+         * @default false
+         */
+        metadata?: boolean;
+
+        /**
+         * Split adjacent blockquote blocks
+         *
+         * @default false
+         */
+        splitAdjacentBlockquotes?: boolean;
+
     }
 
 
@@ -293,6 +337,14 @@ declare namespace Showdown {
          * @return The output HTML
          */
         makeHtml(text: string): string;
+
+        /**
+         * Converts an HTML string into a markdown string
+         * @param src
+         * @param [HTMLParser] A WHATWG DOM and HTML parser, such as JSDOM. If none is supplied, window.document will be used.
+         * @returns {string}
+         */
+        makeMarkdown(src: string, HTMLParser?: any): string;
 
         /**
          * Setting a "local" option only affects the specified Converter object.
@@ -321,6 +373,7 @@ declare namespace Showdown {
          * @param name
          */
         addExtension(extension: ShowdownExtension, name: string): void;
+        addExtension(extension: ShowdownExtension[], name: string): void;
 
         /**
          * Use a global registered extension with THIS converter
@@ -351,7 +404,20 @@ declare namespace Showdown {
          *
          * @param flavor name
          */
-        setFlavor(name: string): void;
+        setFlavor(name: 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn'): void;
+
+        /**
+         * Get the metadata of the previously parsed document
+         * @param raw
+         * @returns {string|{}}
+         */
+        getMetadata(raw?: boolean): string | Metadata
+
+        /**
+         * Get the metadata format of the previously parsed document
+         * @returns {string}
+         */
+        getMetadataFormat(): string;
 
     }
 
@@ -362,14 +428,28 @@ declare namespace Showdown {
          */
         new (converterOptions?: ConverterOptions): Converter;
     }
+    /** 
+     * Helper Interface 
+     */
+    interface Helper {
+        replaceRecursiveRegExp(...args: any[]): string;
+    }
 
     /** Constructor function for a Converter */
     var Converter: ConverterStatic;
 
     /**
-     * Setting a "global" option affects all instances of showdown
+     * Showdown helper
      */
-    function setOption(optionKey: string, value: string): void;
+    var helper: Helper;
+
+    /**
+     * Setting a "global" option affects all instances of showdown
+     * 
+     * @param optionKey
+     * @param value
+     */
+    function setOption(optionKey: string, value: any): void;
 
     /**
      * Retrieve previous set global option.
@@ -454,5 +534,5 @@ declare namespace Showdown {
      *
      * @param name
      */
-    function setFlavor(name: string): void;
+    function setFlavor(name: 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn'): void;
 }

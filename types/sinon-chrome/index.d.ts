@@ -2,8 +2,9 @@
 // Project: https://github.com/vitalets/sinon-chrome
 // Definitions by: Tim Perry <https://github.com/pimterry>
 //                 CRIMX <https://github.com/crimx>
+//                 kobanyan <https://github.com/kobanyan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="chrome"/>
 /// <reference types="sinon"/>
@@ -36,6 +37,8 @@ declare namespace SinonChrome {
      * See https://github.com/cjohansen/Sinon.JS/issues/572
      */
     export function reset(): void;
+
+    export function registerPlugin(plugin: {}): void;
 
     export var csi: Sinon.SinonSpy;
     export var loadTimes: Sinon.SinonSpy;
@@ -133,10 +136,10 @@ declare namespace SinonChrome.browsingData {
 
 declare namespace SinonChrome.contentSettings {
     interface StubbedContentSetting {
-      clear: SinonChromeStub;
-      get: SinonChromeStub;
-      getResourceIdentifiers: SinonChromeStub;
-      set: SinonChromeStub;
+        clear: SinonChromeStub;
+        get: SinonChromeStub;
+        getResourceIdentifiers: SinonChromeStub;
+        set: SinonChromeStub;
     }
 
     export var cookies: StubbedContentSetting;
@@ -353,6 +356,27 @@ declare namespace SinonChrome.permissions {
     export var request: SinonChromeStub;
 }
 
+declare namespace SinonChrome.plugins {
+    export interface Translations {
+        [key: string]: {
+            message: string;
+            description?: string;
+            placeholders?: {
+                [key: string]: {
+                    content: string;
+                    example?: string;
+                };
+            };
+        };
+    }
+    export class I18nPlugin {
+        constructor(translations?: Translations);
+    }
+    export class CookiePlugin {
+        constructor(state?: Array<chrome.cookies.Cookie>);
+    }
+}
+
 declare namespace SinonChrome.power {
     export var releaseKeepAwake: SinonChromeStub;
     export var requestKeepAwake: SinonChromeStub;
@@ -382,9 +406,9 @@ declare namespace SinonChrome.privacy {
         translationServiceEnabled: SinonChrome.types.StubbedChromeSetting;
     };
     export var website: {
-      hyperlinkAuditingEnabled: SinonChrome.types.StubbedChromeSetting;
-      referrersEnabled: SinonChrome.types.StubbedChromeSetting;
-      thirdPartyCookiesAllowed: SinonChrome.types.StubbedChromeSetting;
+        hyperlinkAuditingEnabled: SinonChrome.types.StubbedChromeSetting;
+        referrersEnabled: SinonChrome.types.StubbedChromeSetting;
+        thirdPartyCookiesAllowed: SinonChrome.types.StubbedChromeSetting;
     };
 }
 
@@ -438,11 +462,11 @@ declare namespace SinonChrome.sessions {
 
 declare namespace SinonChrome.storage {
     interface StubbedStorageArea {
-      clear: SinonChromeStub;
-      get: SinonChromeStub;
-      getBytesInUse: SinonChromeStub;
-      remove: SinonChromeStub;
-      set: SinonChromeStub;
+        clear: SinonChromeStub;
+        get: SinonChromeStub;
+        getBytesInUse: SinonChromeStub;
+        remove: SinonChromeStub;
+        set: SinonChromeStub;
     }
 
     export var local: StubbedStorageArea;

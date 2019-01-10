@@ -52,6 +52,10 @@ declare namespace AceAjax {
     export interface TokenInfo {
 
         value: string;
+
+        index?: number;
+
+        start?: number;
     }
 
     export interface Position {
@@ -95,6 +99,29 @@ declare namespace AceAjax {
         createModeDelegates (mapping: any): void;
 
         transformAction(state: any, action: any, editor: any, session: any, param: any): any;
+    }
+
+    export interface OptionProvider {
+
+        /**
+         * Sets a Configuration Option
+        **/
+        setOption(optionName: string, optionValue: any): void;
+
+        /**
+         * Sets Configuration Options
+        **/
+        setOptions(keyValueTuples: any): void;
+
+        /**
+         * Get a Configuration Option
+        **/
+        getOption(name: string):any;
+
+        /**
+         * Get Configuration Options
+        **/
+        getOptions():any;
     }
 
     ////////////////
@@ -491,7 +518,7 @@ declare namespace AceAjax {
      * Stores all the data about [[Editor `Editor`]] state providing easy way to change editors state.
      * `EditSession` can be attached to only one [[Document `Document`]]. Same `Document` can be attached to several `EditSession`s.
     **/
-    export interface IEditSession {
+    export interface IEditSession extends OptionProvider {
 
         selection: Selection;
 
@@ -522,6 +549,16 @@ declare namespace AceAjax {
         getFoldsInRange(range: Range): any;
 
         highlight(text: string): void;
+        
+        
+        /**
+         * Highlight lines from `startRow` to `EndRow`.
+         * @param startRow Define the start line of the highlight
+         * @param endRow Define the end line of the highlight
+         * @param clazz Set the CSS class for the marker
+         * @param inFront Set to `true` to establish a front marker
+        **/
+        highlightLines(startRow:number, endRow: number, clazz: string, inFront: boolean): Range;
 
         /**
          * Sets the `EditSession` to point to a new `Document`. If a `BackgroundTokenizer` exists, it also points to `doc`.
@@ -575,7 +612,7 @@ declare namespace AceAjax {
          * @param row The row number to retrieve from
          * @param column The column number to retrieve from
         **/
-        getTokenAt(row: number, column: number): TokenInfo;
+        getTokenAt(row: number, column: number): TokenInfo|null;
 
         /**
          * Sets the undo manager.
@@ -805,8 +842,9 @@ declare namespace AceAjax {
 
         /**
          * [Sets the value of the distance between the left of the editor and the leftmost part of the visible content.]{: #EditSession.setScrollLeft}
+         * @param scrollLeft The new scroll left value
         **/
-        setScrollLeft(): void;
+        setScrollLeft(scrollLeft: number): void;
 
         /**
          * [Returns the value of the distance between the left of the editor and the leftmost part of the visible content.]{: #EditSession.getScrollLeft}
@@ -1070,7 +1108,7 @@ declare namespace AceAjax {
      * The `Editor` manages the [[EditSession]] (which manages [[Document]]s), as well as the [[VirtualRenderer]], which draws everything to the screen.
      * Event sessions dealing with the mouse and keyboard are bubbled up from `Document` to the `Editor`, which decides what to do with them.
     **/
-    export interface Editor {
+    export interface Editor extends OptionProvider {
 
         on(ev: string, callback: (e: any) => any): void;
 
@@ -1108,26 +1146,6 @@ declare namespace AceAjax {
         onChangeMode(e?: any): void;
 
         execCommand(command:string, args?: any): void;
-
-        /**
-         * Sets a Configuration Option
-         **/
-        setOption(optionName: any, optionValue: any): void;
-
-        /**
-         * Sets Configuration Options
-         **/
-        setOptions(keyValueTuples: any): void;
-
-        /**
-         * Get a Configuration Option
-         **/
-        getOption(name: any):any;
-
-        /**
-         * Get Configuration Options
-         **/
-        getOptions():any;
 
         /**
          * Get rid of console warning by setting this to Infinity
@@ -1215,7 +1233,7 @@ declare namespace AceAjax {
         /**
          * Returns `true` if the current `textInput` is in focus.
         **/
-        isFocused(): void;
+        isFocused(): boolean;
 
         /**
          * Blurs the current `textInput`.
@@ -2688,7 +2706,7 @@ declare namespace AceAjax {
     /**
      * The class that is responsible for drawing everything you see on the screen!
     **/
-    export interface VirtualRenderer {
+    export interface VirtualRenderer extends OptionProvider {
 
         scroller: any;
 
@@ -3032,6 +3050,37 @@ declare namespace AceAjax {
         **/
         new(container: HTMLElement, theme?: string): VirtualRenderer;
     }
+
+    export interface Completer {
+        /**
+         * Provides possible completion results asynchronously using the given callback.
+         * @param editor The editor to associate with
+         * @param session The `EditSession` to refer to
+         * @param pos An object containing the row and column
+         * @param prefix The prefixing string before the current position
+         * @param callback Function to provide the results or error
+         */
+        getCompletions: (editor: Editor, session: IEditSession, pos: Position, prefix: string, callback: CompletionCallback) => void;
+
+        /**
+         * Provides tooltip information about a completion result.
+         * @param item The completion result
+         */
+        getDocTooltip?: (item: Completion) => void;
+      }
+      
+      export interface Completion {
+        value: string;
+        meta: string;
+        type?: string;
+        caption?: string;
+        snippet?: any;
+        score?: number;
+        exactMatch?: number;
+        docHTML?: string;
+      }
+      
+      export type CompletionCallback = (error: Error, results: Completion[]) => void;
 }
 
 declare var ace: AceAjax.Ace;

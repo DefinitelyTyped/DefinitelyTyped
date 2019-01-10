@@ -1,11 +1,15 @@
 // Type definitions for redis 2.8
-// Project: https://github.com/mranney/node_redis
+// Project: https://github.com/NodeRedis/node_redis
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Peter Harris <https://github.com/CodeAnimal>
 //                 TANAKA Koichi <https://github.com/MugeSo>
 //                 Stuart Schechter <https://github.com/UppaJung>
 //                 Junyoung Choi <https://github.com/Rokt33r>
 //                 James Garbutt <https://github.com/43081j>
+//                 Bartek Szczepański <https://github.com/barnski>
+//                 Pirasis Leelatanon <https://github.com/1pete>
+//                 Stanislav Dzhus <https://github.com/blablapolicja>
+//                 Jake Ferrante <https://github.com/ferrantejake>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -73,7 +77,7 @@ export interface OverloadedKeyCommand<T, U, R> {
     (key: string, arg1: T, arg2: T, arg3: T, arg4: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, arg3: T, cb?: Callback<U>): R;
     (key: string, arg1: T, arg2: T, cb?: Callback<U>): R;
-    (key: string, arg1: T| T[], cb?: Callback<U>): R;
+    (key: string, arg1: T | T[], cb?: Callback<U>): R;
     (key: string, ...args: Array<T | Callback<U>>): R;
     (...args: Array<string | T | Callback<U>>): R;
 }
@@ -157,8 +161,8 @@ export interface Commands<R> {
     /**
      * Set multiple hash fields to multiple values.
      */
-    hmset: OverloadedSetCommand<string | number, boolean, R>;
-    HMSET: OverloadedSetCommand<string | number, boolean, R>;
+    hmset: OverloadedSetCommand<string | number, 'OK', R>;
+    HMSET: OverloadedSetCommand<string | number, 'OK', R>;
 
     /**
      * Listen for messages published to the given channels.
@@ -253,8 +257,8 @@ export interface Commands<R> {
     /**
      * Pop a value from a list, push it to another list and return it; or block until one is available.
      */
-    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
-    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string|null>): R;
+    brpoplpush(source: string, destination: string, timeout: number, cb?: Callback<string | null>): R;
+    BRPOPLPUSH(source: string, destination: string, timeout: number, cb?: Callback<string | null>): R;
 
     /**
      * ADDSLOTS - Assign new hash slots to receiving node.
@@ -391,8 +395,8 @@ export interface Commands<R> {
     /**
      * Remove all keys from the current database.
      */
-    flushdb(cb?: Callback<string>): R;
-    FLUSHDB(cb?: Callback<string>): R;
+    flushdb(cb?: Callback<'OK'>): R;
+    FLUSHDB(cb?: Callback<'OK'>): R;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.
@@ -487,8 +491,8 @@ export interface Commands<R> {
     /**
      * Increment the float value of a hash field by the given amount.
      */
-    hincrbyfloat(key: string, field: string, increment: number, cb?: Callback<number>): R;
-    HINCRBYFLOAT(key: string, field: string, increment: number, cb?: Callback<number>): R;
+    hincrbyfloat(key: string, field: string, increment: number, cb?: Callback<string>): R;
+    HINCRBYFLOAT(key: string, field: string, increment: number, cb?: Callback<string>): R;
 
     /**
      * Get all the fields of a hash.
@@ -547,8 +551,8 @@ export interface Commands<R> {
     /**
      * Increment the float value of a key by the given amount.
      */
-    incrbyfloat(key: string, increment: number, cb?: Callback<number>): R;
-    INCRBYFLOAT(key: string, increment: number, cb?: Callback<number>): R;
+    incrbyfloat(key: string, increment: number, cb?: Callback<string>): R;
+    INCRBYFLOAT(key: string, increment: number, cb?: Callback<string>): R;
 
     /**
      * Find all keys matching the given pattern.
@@ -1023,8 +1027,8 @@ export interface Commands<R> {
     /**
      * Increment the score of a member in a sorted set.
      */
-    zincrby(key: string, increment: number, member: string, cb?: Callback<number>): R;
-    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<number>): R;
+    zincrby(key: string, increment: number, member: string, cb?: Callback<string>): R;
+    ZINCRBY(key: string, increment: number, member: string, cb?: Callback<string>): R;
 
     /**
      * Intersect multiple sorted sets and store the resulting sorted set in a new key.
@@ -1167,9 +1171,7 @@ export interface Commands<R> {
     ZSCAN: OverloadedKeyCommand<string, [string, string[]], R>;
 }
 
-export const RedisClient: {
-    new (options: ClientOpts): RedisClient;
-};
+export const RedisClient: new (options: ClientOpts) => RedisClient;
 
 export interface RedisClient extends Commands<boolean>, EventEmitter {
     connected: boolean;
@@ -1219,9 +1221,7 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     BATCH(args?: Array<Array<string | number | Callback<any>>>): Multi;
 }
 
-export const Multi: {
-    new (): Multi;
-};
+export const Multi: new () => Multi;
 
 export interface Multi extends Commands<Multi> {
     exec(cb?: Callback<any[]>): boolean;
@@ -1238,4 +1238,13 @@ export function createClient(unix_socket: string, options?: ClientOpts): RedisCl
 export function createClient(redis_url: string, options?: ClientOpts): RedisClient;
 export function createClient(options?: ClientOpts): RedisClient;
 
-export function print(err: Error | undefined, reply: any): void;
+export function print(err: Error | null, reply: any): void;
+
+export class RedisError extends Error { }
+export class ReplyError extends RedisError { }
+export class AbortError extends RedisError { }
+export class ParserError extends RedisError {
+    offset: number;
+    buffer: Buffer;
+}
+export class AggregateError extends AbortError { }

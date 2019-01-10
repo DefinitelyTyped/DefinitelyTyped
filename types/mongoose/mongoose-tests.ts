@@ -1,9 +1,5 @@
 import * as mongoose from 'mongoose';
 
-// test compatibility with other libraries
-import * as _ from 'lodash';
-var fs = require('fs');
-
 // dummy variables
 var cb = function () {};
 
@@ -25,10 +21,14 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   user: 'larry',
   pass: 'housan',
   config: {
-    autoIndex: true
+    autoIndex: true,
   },
   mongos: true,
-  bufferCommands: false
+  bufferCommands: false,
+  useNewUrlParser: true,
+  useFindAndModify: true,
+  useCreateIndex: true,
+  autoIndex: true
 });
 const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
@@ -37,6 +37,11 @@ const connection3: null = mongoose.connect(connectUri, function (error) {
 var mongooseConnection: mongoose.Connection = mongoose.createConnection();
 mongooseConnection.dropDatabase().then(()=>{});
 mongooseConnection.dropCollection('foo').then(()=>{});
+mongoose.createConnection(connectUri).then((conn)=> {
+  return conn.collections;
+}, () => {
+
+});
 mongoose.createConnection(connectUri).open('');
 mongoose.createConnection(connectUri, {
   db: {
@@ -51,6 +56,7 @@ mongoose.model('Actor', new mongoose.Schema({
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
+mongoose.models.Actor.findOne({}).exec();
 new (new mongoose.Mongoose(9, 8, 7)).Mongoose(1, 2, 3).connect('');
 mongoose.plugin(cb, {}).connect('');
 mongoose.set('test', 'value');
@@ -64,6 +70,25 @@ mongoose.SchemaTypes.Decimal128;
 mongoose.Types.ObjectId;
 mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
+
+const sslConnections: {[key: string]: mongoose.Connection} = {
+  basic: mongoose.createConnection(connectUri, {ssl: true}),
+  customCA: mongoose.createConnection(
+    connectUri,
+    {
+      ssl: true,
+      sslCA: [new Buffer('ca string')],
+      sslCRL: [new Buffer('crl buffer')],
+      sslCert: 'ssl cert',
+      sslKey: new Buffer('ssl private key'),
+      sslPass: 'ssl password',
+      servername: 'localhost',
+      checkServerIdentity: true,
+      ciphers: 'ciphers',
+      ecdhCurve: 'ecdhCurve',
+    }
+  ),
+};
 
 /*
  * section collection.js
@@ -109,9 +134,20 @@ conn1.openSet('mongodb://localhost/test', 'db', {
   replset: null,
   mongos: true
 }, function (err) {}).then(cb).catch(cb);
-conn1.close().catch(function (err) {});
+conn1.openUri('mongodb://localhost/test', 'myDb', 27017, {
+  replset: null,
+  config: {
+    autoIndex: false
+  }
+}, function (err) {}).open('');
+conn1.close().then(function () {}).catch(function (err) {});
+conn1.close(true).then(function () {}).catch(function (err) {});
+conn1.close(function (err) {});
+conn1.close(true, function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+conn1.deleteModel('myModel');
+conn1.models.myModel.findOne().exec();
 interface IStatics {
   staticMethod1: (a: number) => string;
 }
@@ -126,15 +162,11 @@ mongoose.Connection.STATES.hasOwnProperty('');
 conn1.on('data', cb);
 conn1.addListener('close', cb);
 
-/*
- * section error/validation.js
- * http://mongoosejs.com/docs/api.html#error-validation-js
- */
-var validationError = <mongoose.ValidationError> {};
-validationError.toString().toLowerCase();
-/* inherited properties */
-validationError.stack;
-validationError.message;
+// The connection returned by useDb is *not* thenable.
+// From https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26057#issuecomment-396150819
+const getDB = async (tenant: string)=> {
+  return conn1.useDb(tenant);
+};
 
 /*
  * section error.js
@@ -149,7 +181,95 @@ mongooseError.stack;
 mongoose.Error.messages.hasOwnProperty('');
 mongoose.Error.Messages.hasOwnProperty('');
 
-const plural: string = mongoose.pluralize('foo');
+/*
+ * section error/cast.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.CastError
+ */
+var castError: mongoose.Error.CastError = new mongoose.Error.CastError('', '', '');
+castError.setModel('foo');
+castError.stringValue;
+castError.kind;
+castError.path;
+castError.value;
+/* inherited properties */
+castError.name;
+castError.stack;
+castError.message;
+
+/*
+ * section error/validator.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidatorError
+ */
+var validatorError: mongoose.Error.ValidatorError = new mongoose.Error.ValidatorError({ foo: 'bar' })
+validatorError.properties;
+validatorError.kind;
+validatorError.path;
+validatorError.value;
+validatorError.toString().toLowerCase();
+validatorError.formatMessage('foo', {});
+validatorError.formatMessage('foo', (bar: any)=>{ return bar; });
+/* inherited properties */
+validatorError.name;
+validatorError.stack;
+validatorError.message;
+
+/*
+ * section error/validation.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
+ */
+var doc = <mongoose.MongooseDocument> {};
+var validationError: mongoose.Error.ValidationError = new mongoose.Error.ValidationError(doc);
+validationError.toString().toLowerCase();
+validationError.inspect();
+validationError.toJSON().hasOwnProperty('');
+validationError.addError('foo', validatorError)
+/* inherited properties */
+validationError.name;
+validationError.stack;
+validationError.message;
+
+/*
+ * section error/parallelSave.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ParallelSaveError
+ */
+var parallelSaveError: mongoose.Error.ParallelSaveError = new mongoose.Error.ParallelSaveError(doc);
+/* inherited properties */
+parallelSaveError.name;
+parallelSaveError.stack;
+parallelSaveError.message;
+
+/*
+ * section error/overwriteModel.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.OverwriteModelError
+ */
+var overwriteModelError: mongoose.Error.OverwriteModelError = new mongoose.Error.OverwriteModelError('foo');
+/* inherited properties */
+overwriteModelError.name;
+overwriteModelError.stack;
+overwriteModelError.message;
+
+/*
+ * section error/missingSchema.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
+ */
+var missingSchemaError: mongoose.Error.MissingSchemaError = new mongoose.Error.MissingSchemaError('foo');
+/* inherited properties */
+missingSchemaError.name;
+missingSchemaError.stack;
+missingSchemaError.message;
+
+/*
+ * section error/divergentArray.js
+ * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
+ */
+var missingSchemaError: mongoose.Error.DivergentArrayError = new mongoose.Error.DivergentArrayError(['foo','bar']);
+/* inherited properties */
+missingSchemaError.name;
+missingSchemaError.stack;
+missingSchemaError.message;
+
+const pluralize = mongoose.pluralize();
+const plural: string = pluralize('foo');
 
 /*
  * section querycursor.js
@@ -253,20 +373,132 @@ schema.method('name', cb).method({
 });
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
-schema.plugin(function (schema, opts) {
+schema.plugin(function (schema: mongoose.Schema, opts?: any) {
   schema.get('path');
   if (opts) {
     opts.hasOwnProperty('');
   }
 }).plugin(cb, {opts: true});
 
+/* `.pre` hook tests */
+
+interface PreHookTestDocumentInterface extends mongoose.Document {}
+interface PreHookTestQueryInterface<T> extends mongoose.Query<T> {}
+interface PreHookTestAggregateInterface<T> extends mongoose.Aggregate<T> {}
+interface PreHookTestModelInterface<T extends mongoose.Document> extends mongoose.Model<T> {}
+
+// it is used to ensure that all testing cases return a value of mongoose.Schema type
+const preHookTestSchemaArr: mongoose.Schema[] = [];
+
+// testing order:
+//   serial with default value and returning void
+//   serial with a type argument and returning a promise
+//   parallel with default value and returning void
+//   parallel with a type argument and returning a promise
+
+// Document
+preHookTestSchemaArr.push(
+  schema.pre("init", function (next) {
+    const isDefaultType: mongoose.Document = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestDocumentInterface>("init", function (next) {
+    const isSpecificType: PreHookTestDocumentInterface = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("init", true, function (next, done) {
+    const isDefaultType: mongoose.Document = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestDocumentInterface>("init", true, function (next, done) {
+    const isSpecificType: PreHookTestDocumentInterface = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+
+// Query
+preHookTestSchemaArr.push(
+  schema.pre("count", function (next) {
+    const isDefaultType: mongoose.Query<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestQueryInterface<number>>("count", function (next) {
+    const isSpecificType: PreHookTestQueryInterface<number> = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("count", true, function (next, done) {
+    const isDefaultType: mongoose.Query<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestQueryInterface<number>>("count", true, function (next, done) {
+    const isSpecificType: PreHookTestQueryInterface<number> = this;
+    return Promise.resolve("");
+  }, err => {})
+);
+
+// Aggregate
+preHookTestSchemaArr.push(
+  schema.pre("aggregate", function(next) {
+    const isDefaultType: mongoose.Aggregate<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", function(next) {
+    const isSpecificType: PreHookTestAggregateInterface<number> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("aggregate", true, function(next, done) {
+    const isDefaultType: mongoose.Aggregate<any> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestAggregateInterface<number>>("aggregate", true, function(next, done) {
+    const isSpecificType: PreHookTestAggregateInterface<number> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+
+// Model<Document>
+preHookTestSchemaArr.push(
+  schema.pre("insertMany", function(next, docs) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next, docs) {
+    const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre("insertMany", true, function(next, done, docs) {
+    const isDefaultType: mongoose.Model<mongoose.Document> = this;
+  }, err => {})
+);
+preHookTestSchemaArr.push(
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done, docs) {
+    const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
+    return Promise.resolve("")
+  }, err => {})
+);
+
 schema
-.post('save', function (error, doc, next) {
+.post('save', function (error: mongoose.Error, doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
   error.stack;
   doc.model;
   next.apply;
 })
-.post('save', function (doc: mongoose.Document, next: Function) {
+.post('save', function (doc: mongoose.Document, next: (err?: mongoose.NativeError) => void) {
   doc.model;
   next(new Error());
 })
@@ -277,7 +509,7 @@ schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);
 schema.requiredPaths(true)[0].toLowerCase();
-schema.set('key', 999).set('key');
+schema.set('id', true).set('id');
 schema.static('static', cb).static({
   s1: cb,
   s2: cb
@@ -372,7 +604,15 @@ new mongoose.Schema({
         setImmediate(done, true);
       }
     }
-  }
+  },
+  promiseValidated: {
+    type: Number,
+    validate: {
+      validator: async (val: number) => {
+        return val === 2;
+      }
+    }
+  },
 });
 new mongoose.Schema({ name: { type: String, validate: [
   { validator: () => {return true}, msg: 'uh oh' },
@@ -412,25 +652,25 @@ new mongoose.Schema({
   }
 });
 
-(new mongoose.Schema({})).plugin(function (schema: any, options: any) {
+(new mongoose.Schema({})).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-}, { index: true }).plugin(function (schema: any, options: any) {
+}, { index: true }).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-});
+}, {index: true});
 
 new mongoose.Schema({foo: String}, {strict: 'throw'});
 
@@ -439,6 +679,35 @@ export default function(schema: mongoose.Schema) {
      console.log('success!');
   });
 }
+
+// plugins
+function MyPlugin(schema: mongoose.Schema, opts?: string) {
+}
+new mongoose.Schema({})
+    .plugin(MyPlugin)
+
+interface PluginOption {
+    modelName: string;
+    timestamp: string;
+}
+
+function logger(modelName: string, timestamp: string) {
+    // call special logger with options
+}
+
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options: PluginOption) {
+    if (options) {
+        schema.pre('save', function (next: Function) {
+            logger(options.modelName, options.timestamp)
+        })
+    }
+}
+
+new mongoose.Schema({})
+    .plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
+mongoose.plugin<PluginOption>(AwesomeLoggerPlugin, {modelName: 'Executive', timestamp: 'yyyy/MM/dd'})
+
 
 /*
  * section document.js
@@ -591,7 +860,7 @@ interface MyEntity extends mongoose.Document {
   sub: mongoose.Types.Array<MySubEntity>
 }
 var myEntity = <MyEntity> {};
-var subDocArray = _.filter(myEntity.sub, function (sd) {
+var subDocArray = myEntity.sub.filter(sd => {
   sd.property1;
   sd.property2.toLowerCase();
   return true;
@@ -758,6 +1027,7 @@ query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, {
 }, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, cb);
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'});
+query.findOneAndUpdate({}, {}, { upsert: true, new: true });
 query.findOneAndUpdate({name: 'bb'}, cb);
 query.findOneAndUpdate({name: 'bb'});
 query.findOneAndUpdate(cb);
@@ -811,6 +1081,7 @@ query.find().where('age').in([20, 21]);
 query.find().in('age', [20, 21]);
 query.nor([{ color: 'green' }, { status: 'ok' }]).nor([]);
 query.or([{ color: 'red' }, { status: 'emergency' }]).or([]);
+query.find({ color: 'blue' }).orFail();
 query.where('loc').within().polygon([10,20], [13, 25], [7,15]);
 query.polygon('loc', [10,20], [13, 25], [7,15]);
 query.findOne().populate('owner').exec(function (err, kitten) {
@@ -828,6 +1099,7 @@ query.find().populate('owner', 'name', null, {sort: { name: -1 }}).exec(function
   kittens[0].execPopulate();
 });
 query.read('primary', []).read('primary');
+query.readConcern('majority').readConcern('m');
 query.regex(/re/).regex('path', /re/);
 query.remove({}, cb);
 query.remove({});
@@ -846,6 +1118,7 @@ query.setOptions({
   batchSize: true,
   lean: false
 });
+query.setQuery({ age: 5 });
 query.size(0).size('age', 0);
 query.skip(100).skip(100);
 query.slaveOk().slaveOk(false);
@@ -1044,6 +1317,8 @@ aggregate.allowDiskUse(true).allowDiskUse(false, []);
 aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
+aggregate.count('countName');
+aggregate.facet({ fieldA: [{ a: 1 }], fieldB: [{ b: 1 }] });
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
 aggregate.option({foo: 'bar'}).exec();
@@ -1081,6 +1356,8 @@ aggregate.project({
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
+aggregate.replaceRoot("user");
+aggregate.replaceRoot({x: {$concat: ['$this', '$that']}});
 aggregate.sample(3).sample(3);
 aggregate.skip(10).skip(10);
 aggregate.sort({ field: 'asc', test: -1 });
@@ -1286,6 +1563,7 @@ var MongoModel = mongoose.model('MongoModel', new mongoose.Schema({
     required: true
   }
 }), 'myCollection', true);
+MongoModel.init().then(cb);
 MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
   docs[0].save();
   docs[0].__v;
@@ -1387,6 +1665,7 @@ MongoModel.findByIdAndRemove(999);
 MongoModel.findByIdAndRemove();
 MongoModel.findByIdAndUpdate(999, {}, {}, cb);
 MongoModel.findByIdAndUpdate(999, {}, {});
+MongoModel.findByIdAndUpdate(999, {}, { upsert: true, new: true });
 MongoModel.findByIdAndUpdate(999, {}, cb);
 MongoModel.findByIdAndUpdate(999, {});
 MongoModel.findByIdAndUpdate();
@@ -1415,6 +1694,7 @@ MongoModel.findOneAndRemove({});
 MongoModel.findOneAndRemove();
 MongoModel.findOneAndUpdate({}, {}, {}, cb);
 MongoModel.findOneAndUpdate({}, {}, {});
+MongoModel.findOneAndUpdate({}, {}, { upsert: true, new: true });
 MongoModel.findOneAndUpdate({}, {}, cb);
 MongoModel.findOneAndUpdate({}, {});
 MongoModel.findOneAndUpdate();
@@ -1479,7 +1759,7 @@ MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
 new (mongoModel.base.model(''))();
-mongoModel.baseModelName.toLowerCase();
+mongoModel.baseModelName && mongoModel.baseModelName.toLowerCase();
 mongoModel.collection.$format(99);
 mongoModel.collection.initializeOrderedBulkOp;
 mongoModel.collection.findOne;
@@ -1701,3 +1981,127 @@ MyModel.createIndexes((err: any): void => {}).then(() => {});
 mongoose.connection.createCollection('foo').then(() => {});
 mongoose.connection.createCollection('foo', {wtimeout: 5}).then(() => {});
 mongoose.connection.createCollection('foo', {wtimeout: 5}, (err: Error, coll): void => {coll.collectionName}).then(() => {});
+
+const db = mongoose.connection;
+const User = mongoose.model('User', new mongoose.Schema({ name: String }));
+
+let session: mongoose.ClientSession;
+mongoose.connection.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    User.findOne({ name: 'foo' }).session(session);
+    session.commitTransaction();
+    return User.create({ name: 'foo' });
+  });
+
+const Event = db.model('Event', new mongoose.Schema({ createdAt: Date }), 'Event');
+
+db.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    return User.create({ name: 'foo' });
+  }).
+  then(() => {
+    session.startTransaction();
+    return User.findOne({ name: 'foo' }).session(session).exec();
+  }).
+  then(() => {
+    session.commitTransaction();
+    return User.findOne({ name: 'bar' }).exec();
+  }).
+  catch(() => {
+    session.abortTransaction();
+  });
+  db.createCollection('Event').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    return Event.insertMany([
+      { createdAt: new Date('2018-06-01') },
+      { createdAt: new Date('2018-06-02') },
+      { createdAt: new Date('2017-06-01') },
+      { createdAt: new Date('2017-05-31') }
+    ], { session: session });
+  }).
+  then(() => Event.aggregate([
+    {
+      $group: {
+        _id: {
+          month: { $month: '$createdAt' },
+          year: { $year: '$createdAt' }
+        },
+        count: { $sum: 1 }
+      }
+    },
+    { $sort: { count: -1, '_id.year': -1, '_id.month': -1 } }
+  ]).session(session).exec()).
+  then((res: any) => {
+    session.commitTransaction();
+  });
+
+/** https://mongoosejs.com/docs/transactions.html */
+
+const Customer = db.model('Customer', new mongoose.Schema({ name: String }));
+
+db.createCollection('customers').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    // Start a transaction
+    session.startTransaction();
+    // This `create()` is part of the transaction because of the `session`
+    // option.
+    return Customer.create([{ name: 'Test' }], { session: session });
+  }).
+  // Transactions execute in isolation, so unless you pass a `session`
+  // to `findOne()` you won't see the document until the transaction
+  // is committed.
+  then((customer: mongoose.Document[]) => Customer.findOne({ name: 'Test' }).exec()).
+  // This `findOne()` will return the doc, because passing the `session`
+  // means this `findOne()` will run as part of the transaction.
+  then(() => Customer.findOne({ name: 'Test' }).session(session).exec()).
+  // Once the transaction is committed, the write operation becomes
+  // visible outside of the transaction.
+  then(() => session.commitTransaction()).
+  then(() => Customer.findOne({ name: 'Test' }).exec())
+
+/**
+ * https://mongoosejs.com/docs/guide.html#writeConcern
+ */
+new mongoose.Schema({ name: String }, {
+  writeConcern: {
+    w: 'majority',
+    j: true,
+    wtimeout: 1000
+  }
+});
+
+/* Query helpers: https://mongoosejs.com/docs/guide.html#query-helpers */
+
+interface Animal2 extends mongoose.Document {
+  name: string;
+  type: string;
+  tags: string[];
+}
+var animal2Schema = new mongoose.Schema({
+  name: String,
+  type: String,
+  tags: { type: [String], index: true } // field level
+});
+let animal2QueryHelpers = {
+  byName<Q extends mongoose.DocumentQuery<any, Animal2>>(this: Q, name: string) {
+    return this.where({ name: new RegExp(name, 'i') });
+  }
+};
+animal2Schema.query = animal2QueryHelpers;
+var Animal2 = mongoose.model<Animal2, mongoose.Model<Animal2, typeof animal2QueryHelpers>>('Animal', animal2Schema);
+Animal2.find().byName('fido').exec(function(err, animals) {
+  console.log(animals);
+});
+Animal2.findOne().byName('fido').exec(function(err, animal) {
+  console.log(animal);
+});

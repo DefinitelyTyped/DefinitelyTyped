@@ -1,14 +1,15 @@
-import * as pg from "pg";
+import { types, Client, QueryArrayConfig, Pool } from "pg";
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
-pg.types.setTypeParser(20, val => Number(val));
+types.setTypeParser(20, val => Number(val));
 
-const client = new pg.Client({
+const client = new Client({
   host: 'my.database-server.com',
   port: 5334,
   user: 'database-user',
   password: 'secretpassword!!',
+  keepAlive: true,
 });
 client.connect(err => {
     if (err) {
@@ -55,17 +56,27 @@ client.query(query, (err, res) => {
     console.error(err.stack);
   } else {
     console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
   }
 });
 client.query(query)
   .then(res => {
     console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
+  })
+  .catch(e => {
+    console.error(e.stack);
+  });
+client.query(query, ['brianc'])
+  .then(res => {
+    console.log(res.rows);
+    console.log(res.fields.map(f => f.name));
   })
   .catch(e => {
     console.error(e.stack);
   });
 
-const queryArrMode: pg.QueryArrayConfig = {
+const queryArrMode: QueryArrayConfig = {
   name: 'get-name-array',
   text: 'SELECT $1::text',
   values: ['brianc'],
@@ -103,11 +114,11 @@ client.end()
   .then(() => console.log('client has disconnected'))
   .catch(err => console.error('error during disconnection', err.stack));
 
-const poolOne = new pg.Pool({
+const poolOne = new Pool({
   connectionString: 'postgresql://dbuser:secretpassword@database.server.com:3211/mydb'
 });
 
-const pool = new pg.Pool({
+const pool = new Pool({
   host: 'localhost',
   port: 5432,
   user: 'database-user',
@@ -115,6 +126,7 @@ const pool = new pg.Pool({
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
+  keepAlive: false,
 });
 console.log(pool.totalCount);
 pool.connect((err, client, done) => {
@@ -154,6 +166,9 @@ pool.query('SELECT $1::text as name', ['brianc'], (err, result) => {
 pool.query('SELECT $1::text as name', ['brianc'])
   .then((res) => console.log(res.rows[0].name))
   .catch(err => console.error('Error executing query', err.stack));
+pool.query({ text: 'SELECT $1::text as name' }, ['brianc'])
+  .then((res) => console.log(res.rows[0].name))
+  .catch(err => console.error('Error executing query', err.stack));
 
 pool.end(() => {
   console.log('pool has ended');
@@ -166,3 +181,8 @@ pool.end().then(() => console.log('pool has ended'));
   await client.query('SELECT NOW()');
   client.release();
 })();
+
+// client constructor tests
+// client config object tested above
+let c = new Client(); // empty constructor allowed
+c = new Client('connectionString'); // connection string allowed

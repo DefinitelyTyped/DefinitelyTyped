@@ -1,27 +1,31 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverauthapi
 import {
-    Request,
-    ResponseToolkit,
     Server,
     ServerAuthScheme,
-    ServerAuthSchemeObject,
-    ServerAuthSchemeOptions
 } from "hapi";
 import * as Boom from "boom";
 
-const scheme: ServerAuthScheme = (server: Server, options: ServerAuthSchemeOptions): ServerAuthSchemeObject => {
+declare module 'hapi' {
+    interface ServerAuthSchemeObjectApi {
+        settings: {
+            x: number;
+        };
+    }
+}
+
+const scheme: ServerAuthScheme = (server, options) => {
     return {
         api: {
             settings: {
                 x: 5
             }
         },
-        authenticate: (request: Request, h: ResponseToolkit) => {
+        authenticate(request, h) {
             const authorization = request.headers.authorization;
             if (!authorization) {
                 throw Boom.unauthorized(null, 'Custom');
             }
-            return h.authenticated({ credentials: { user: 'john' } });
+            return h.authenticated({ credentials: { user: { a: 1 } } });
         }
     };
 };

@@ -13,7 +13,10 @@ import File = require('vinyl');
 // const spies = require('./spy');
 declare const spies: any;
 
-import 'mocha';
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 // TODO: These aren't useful as types tests since they take `any`.
 declare const should: ShouldStatic;
@@ -380,9 +383,9 @@ describe('dest stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -421,9 +424,9 @@ describe('dest stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: contentStream,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -464,10 +467,10 @@ describe('dest stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: null,
-         stat: <fs.Stats> {
+         stat: {
             isDirectory: () => true,
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -708,9 +711,9 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -749,9 +752,9 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: contentStream,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -792,10 +795,10 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: null,
-         stat: <fs.Stats> {
+         stat: {
             isDirectory: () => true,
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       const onEnd = () => {
@@ -867,9 +870,9 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: <fs.Stats> {
+         stat: {
             mode: expectedMode
-         }
+         } as fs.Stats
       });
 
       fs.mkdirSync(expectedBase);

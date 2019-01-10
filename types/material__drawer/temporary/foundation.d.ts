@@ -17,7 +17,7 @@
 import { MDCSlidableDrawerFoundation, MDCSlidableDrawerAdapter } from '../slidable';
 import { cssClasses, strings } from './constants';
 
-export class MDCTemporaryDrawerFoundation extends MDCSlidableDrawerFoundation {
+export default class MDCTemporaryDrawerFoundation extends MDCSlidableDrawerFoundation {
     static readonly cssClasses: cssClasses;
 
     static readonly strings: strings;
@@ -28,5 +28,3 @@ export class MDCTemporaryDrawerFoundation extends MDCSlidableDrawerFoundation {
 
     close(): void;
 }
-
-export default MDCTemporaryDrawerFoundation;

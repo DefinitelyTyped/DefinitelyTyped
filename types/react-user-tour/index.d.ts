@@ -2,7 +2,7 @@
 // Project: https://github.com/socialtables/react-user-tour
 // Definitions by: Carlo Cancellieri <https://github.com/ccancellieri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types='react' />
 

@@ -39,7 +39,7 @@ function testIsValidBBAN() {
  */
 function testPrintFormat() {
     var iban: string = 'BE68539007547034';
-    var separator: string[] = ['fr'];
+    var separator: string = ' ';
     var format: string = IBAN.printFormat(iban, separator);
 }
 
@@ -48,6 +48,6 @@ function testPrintFormat() {
  */
 function testToBBAN() {
     var iban: string = 'BE68539007547034';
-    var separator: string[] = ['-'];
+    var separator: string = '-';
     var bban: string = IBAN.toBBAN(iban, separator);
 }

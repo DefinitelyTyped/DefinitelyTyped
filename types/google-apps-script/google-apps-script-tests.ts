@@ -1,8 +1,4 @@
-
-
-
 // from https://developers.google.com/apps-script/overview
-
 function createAndSendDocument() {
   // Create a new Google Doc named 'Hello, world!'
   var doc = DocumentApp.create('Hello, world!');
@@ -27,7 +23,16 @@ function createAndSendDocument() {
 }
 
 // Regression
-
 ScriptApp.getService().getUrl();
-
 CalendarApp.GuestStatus.NO;
+
+// test for URLFetchRequestOptions.payload
+import URLFetchRequestOptions = GoogleAppsScript.URL_Fetch.URLFetchRequestOptions;
+const postTest = (payload: Object): string => {
+  const url = 'http://httpbin.org/post';
+  const params: URLFetchRequestOptions = {
+    method: 'post',
+    payload: payload
+  };
+  return UrlFetchApp.fetch(url, params).getContentText();
+};

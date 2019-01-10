@@ -54,6 +54,14 @@ const routeOptions: RouteOptions = {
     },
 };
 
+declare module 'hapi' {
+    interface ServerOptionsApp {
+        key1?: string;
+        key2?: string;
+        any_thing?: string;
+    }
+}
+
 const options: ServerOptions = {
     address: '0.0.0.0',
     app: {
@@ -95,7 +103,7 @@ const options: ServerOptions = {
         isSameSite: 'Strict',
         encoding: 'none'
     },
-    tls: undefined
+    tls: true
 };
 
 const server = new Server(options);

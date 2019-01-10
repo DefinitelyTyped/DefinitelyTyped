@@ -2,10 +2,7 @@
 // Project: https://github.com/Asana/node-asana
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-/// <reference types="bluebird" />
-
+// TypeScript Version: 2.8
 import * as Promise from 'bluebird';
 
 declare namespace asana {

@@ -36,6 +36,12 @@ is.all.error(new Error(), 'bar');
 is.any.error(new Error(), 'bar');
 is.all.error([new Error(), 'foo', 'bar']);
 
+is.fn(toString);
+is.not.fn({ foo: 'bar' });
+is.all.fn(toString, 'bar');
+is.any.fn(toString, 'bar');
+is.all.fn([toString, 'foo', 'bar']);
+
 is.function(toString);
 is.not.function({ foo: 'bar' });
 is.all.function(toString, 'bar');
@@ -97,6 +103,12 @@ is.not.undefined(null);
 is.all.undefined(undefined, 1);
 is.any.undefined(undefined, 2);
 is.all.undefined([{}, undefined]);
+
+is.defined(undefined);
+is.not.defined(null);
+is.all.defined(undefined, 1);
+is.any.defined(undefined, 2);
+is.all.defined([{}, undefined]);
 
 is.sameType(42, 7);
 is.sameType(42, '7');
@@ -434,32 +446,67 @@ is.all.sorted([[1, 2], [5, 4]]);
 //#region Environment checks
 
 is.ie();
-is.ie(6);
 is.not.ie();
+is.ie(10);
+is.ie('>=10');
+is.not.ie('<9');
 
 is.chrome();
 is.not.chrome();
+is.chrome(50);
+is.chrome('>=40');
+is.not.chrome('<30');
 
 is.firefox();
 is.not.firefox();
+is.firefox(41);
+is.firefox('>=40');
+is.not.firefox('<30');
+
+is.edge();
+is.not.edge();
+is.edge(13);
+is.edge('>=12');
+is.not.edge('<13');
 
 is.opera();
 is.not.opera();
+is.opera(36);
+is.opera('>=35');
+is.not.opera('<20');
 
 is.safari();
 is.not.safari();
+is.safari(9);
+is.safari('>=8');
+is.not.safari('<7');
+
+is.phantom();
+is.not.phantom();
+is.phantom(2);
+is.phantom('>=1');
+is.not.phantom('<2');
 
 is.ios();
 is.not.ios();
 
 is.iphone();
 is.not.iphone();
+is.iphone(9);
+is.iphone('>=7');
+is.not.iphone('<8');
 
 is.ipad();
 is.not.ipad();
+is.ipad(9);
+is.ipad('>=7');
+is.not.ipad('<8');
 
 is.ipod();
 is.not.ipod();
+is.ipod(7);
+is.ipod('>=5');
+is.not.ipod('<5');
 
 is.android();
 is.not.android();
@@ -471,7 +518,6 @@ is.androidTablet();
 is.not.androidTablet();
 
 is.blackberry();
-
 is.not.blackberry();
 
 is.windowsPhone();
@@ -503,6 +549,9 @@ is.not.online();
 
 is.offline();
 is.not.offline();
+
+is.touchDevice();
+is.not.touchDevice();
 
 //#endregion
 

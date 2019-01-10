@@ -22,8 +22,8 @@ declare namespace AnalyticsNode {
     },
     timestamp?: Date;
     messageId?: string;
-    anonymousId: string | number;
-    userId: string | number;
+    anonymousId?: string | number;
+    userId?: string | number;
   }
 
   interface Data {
@@ -39,13 +39,16 @@ declare namespace AnalyticsNode {
   export class Analytics {
     constructor(writeKey: string, opts?: {
       flushAt?: number,
-      flushAfter?: number
+      flushAfter?: number,
+      host?: string,
+      enable?: boolean
     });
 
     /* The identify method lets you tie a user to their actions and record
        traits about them. */
     identify(message: {
-      userId: string | number;
+      userId?: string | number;
+      anonymousId?: string | number;
       traits?: Object;
       timestamp?: Date;
       context?: Object;
@@ -54,7 +57,8 @@ declare namespace AnalyticsNode {
 
     /* The track method lets you record the actions your users perform. */
     track(message: {
-      userId: string | number;
+      userId?: string | number;
+      anonymousId?: string | number;
       event: string;
       properties?: Object;
       timestamp?: Date;
@@ -65,7 +69,8 @@ declare namespace AnalyticsNode {
     /* The page method lets you record page views on your website, along with
        optional extra information about the page being viewed. */
     page(message: {
-      userId: string | number;
+      userId?: string | number;
+      anonymousId?: string | number;
       category?: string;
       name?: string;
       properties?: Object;
@@ -77,19 +82,20 @@ declare namespace AnalyticsNode {
     /* alias is how you associate one identity with another. */
     alias(message: {
       previousId: string | number;
-      userId: string | number;
+      userId?: string | number;
+      anonymousId?: string | number;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
     /* Group calls can be used to associate individual users with shared
        accounts or companies. */
     group(message: {
-      userId: string | number;
+      userId?: string | number;
+      anonymousId?: string | number;
       groupId: string | number;
       traits?: Object;
       context?: Object;
       timestamp?: Date;
-      anonymous_id?: string | number;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 

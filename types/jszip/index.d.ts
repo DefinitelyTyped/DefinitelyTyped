@@ -31,6 +31,7 @@ interface InputByType {
     uint8array: Uint8Array;
     arraybuffer: ArrayBuffer;
     blob: Blob;
+    stream: NodeJS.ReadableStream;
 }
 
 interface OutputByType {
@@ -44,7 +45,7 @@ interface OutputByType {
     nodebuffer: Buffer;
 }
 
-type InputFileFormat = InputByType[keyof InputByType] | NodeJS.ReadableStream;
+type InputFileFormat = InputByType[keyof InputByType];
 
 declare namespace JSZip {
     type InputType = keyof InputByType;

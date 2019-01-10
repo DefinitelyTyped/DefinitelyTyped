@@ -1,52 +1,60 @@
-// Type definitions for Google Publisher Tag v104
+// Type definitions for Google Publisher Tag 238.0
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
+//                 Steven Joyce <https://github.com/steven-joyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace googletag {
-    export type SingleSizeArray = number[];
+    type SingleSizeArray = number[];
 
-    export type NamedSize = string;
+    type NamedSize = string | string[];
 
-    export type SingleSize = SingleSizeArray | NamedSize;
+    type SingleSize = SingleSizeArray | NamedSize;
 
-    export type MultiSize = SingleSize[];
+    type MultiSize = SingleSize[];
 
-    export type GeneralSize = SingleSize | MultiSize;
+    type GeneralSize = SingleSize | MultiSize;
 
-    export type SizeMapping = GeneralSize[];
+    type SizeMapping = GeneralSize[];
 
-    export type SizeMappingArray = SizeMapping[];
+    type SizeMappingArray = SizeMapping[];
 
-    export interface CommandArray {
-        push(f: Function): number;
+    interface CommandArray {
+        push(f: () => void): number;
     }
 
-    export interface Service {
+    interface Service {
         addEventListener(
           eventType: string,
             listener: (event: events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
         ): void;
+        getSlots(): Slot[];
     }
 
-    export interface CompanionAdsService extends Service {
+    interface CompanionAdsService extends Service {
         enableSyncLoading(): void;
         setRefreshUnfilledSlots(value: boolean): void;
     }
 
-    export interface ContentService extends Service {
-        setContent(slot: Slot, content: String): void;
+    interface ContentService extends Service {
+        setContent(slot: Slot, content: string): void;
     }
 
-    export interface ResponseInformation {
+    interface LazyLoadOptionsConfig {
+        fetchMarginPercent?: number;
+        renderMarginPercent?: number;
+        mobileScaling?: number;
+    }
+
+    interface ResponseInformation {
         advertiserId: string;
         campaignId: string;
         creativeId?: number;
-        labelIds: number[];
         lineItemId?: number;
     }
 
-    export interface SafeFrameConfig {
+    interface SafeFrameConfig {
         allowOverlayExpansion?: boolean;
         allowPushExpansion?: boolean;
         sandbox?: boolean;
@@ -61,7 +69,7 @@ declare namespace googletag {
         defineSlot(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
         destroySlots(opt_slots?: Slot[]): boolean;
         disablePublisherConsole(): void;
-        display(div?: string): void;
+        display(div?: string | Element): void;
         enableServices(): void;
         getVersion(): string;
         openConsole(opt_div?: string): void;
@@ -71,7 +79,7 @@ declare namespace googletag {
         sizeMapping(): SizeMappingBuilder;
     }
 
-    export interface Slot {
+    interface Slot {
         addService(service: Service): Slot;
         clearCategoryExclusions(): Slot;
         clearTargeting(opt_key?: string): Slot;
@@ -93,18 +101,19 @@ declare namespace googletag {
         setTargeting(key: string, value: string | string[]): Slot;
     }
 
-    export interface PassbackSlot {
+    interface PassbackSlot {
         display(): void;
         get(key: string): string;
         set(key: string, value: string): PassbackSlot;
         setClickUrl(url: string): PassbackSlot;
         setForceSafeFrame(forceSafeFrame: boolean): PassbackSlot;
         setTagForChildDirectedTreatment(value: number): PassbackSlot;
+        setTagForUnderAgeOfConsent(value: number): PassbackSlot;
         setTargeting(key: string, value: string | string[]): PassbackSlot;
-        updateTargetingFromMap(map: Object): PassbackSlot;
+        updateTargetingFromMap(map: object): PassbackSlot;
     }
 
-    export interface PubAdsService extends Service {
+    interface PubAdsService extends Service {
         clear(opt_slots?: Slot[]): boolean;
         clearCategoryExclusions(): PubAdsService;
         clearTagForChildDirectedTreatment(): PubAdsService;
@@ -113,8 +122,9 @@ declare namespace googletag {
         defineOutOfPagePassback(adUnitPath: string): PassbackSlot;
         definePassback(adUnitPath: string, size: GeneralSize): PassbackSlot;
         disableInitialLoad(): void;
-        display(adUnitPath: string, size: GeneralSize, opt_div?: string, opt_clickUrl?: string): Slot;
+        display(adUnitPath: string, size: GeneralSize, opt_div?: string | Element, opt_clickUrl?: string): Slot;
         enableAsyncRendering(): boolean;
+        enableLazyLoad(opt_config?: LazyLoadOptionsConfig): void;
         enableSingleRequest(): boolean;
         enableSyncRendering(): boolean;
         enableVideoAds(): void;
@@ -130,39 +140,44 @@ declare namespace googletag {
         setForceSafeFrame(forceSafeFrame: boolean): PubAdsService;
         setLocation(latitudeOrAddress: string | number, opt_longitude?: number, opt_radius?: number): PubAdsService;
         setPublisherProvidedId(ppid: string): PubAdsService;
+        setRequestNonPersonalizedAds(nonPersonalizedAds: 0 | 1): PubAdsService;
         setSafeFrameConfig(config: SafeFrameConfig): PubAdsService;
         setTagForChildDirectedTreatment(value: number): PubAdsService;
+        setTagForUnderAgeOfConsent(opt_value?: number): PubAdsService;
         setTargeting(key: string, value: string | string[]): PubAdsService;
         setVideoContent(videoContentId: string, videoCmsId: string): void;
         updateCorrelator(): PubAdsService;
     }
 
-    export interface SizeMappingBuilder {
+    interface SizeMappingBuilder {
         addSize(viewportSize: SingleSizeArray, slotSize: GeneralSize): SizeMappingBuilder;
         build(): SizeMappingArray;
     }
 
-    export namespace events {
-        export interface ImpressionViewableEvent {
+    namespace events {
+        interface ImpressionViewableEvent {
             serviceName: string;
             slot: Slot;
         }
 
-        export interface SlotOnloadEvent {
+        interface SlotOnloadEvent {
             serviceName: string;
             slot: Slot;
         }
 
-        export interface SlotRenderEndedEvent {
+        interface SlotRenderEndedEvent {
+            advertiserId?: number;
             creativeId?: number;
             isEmpty: boolean;
             lineItemId?: number;
             serviceName: string;
             size: number[] | string;
             slot: Slot;
+            sourceAgnosticCreativeId?: number;
+            sourceAgnosticLineItemId?: number;
         }
 
-        export interface slotVisibilityChangedEvent {
+        interface slotVisibilityChangedEvent {
             inViewPercentage: number;
             serviceName: string;
             slot: Slot;

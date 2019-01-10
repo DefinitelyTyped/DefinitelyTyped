@@ -16,78 +16,105 @@ interface SomeTestResult {
     someTestResultProp: string;
 }
 
-const withSourceAndResultTyped = createBatchResolver<
-    SomeTestSource,
-    SomeTestResult
->((sources, _, __) => {
-    return sources.map(source => {
-        const res: SomeTestResult = {
-            someTestResultProp: ""
-        };
+const batchFunction = (sources: ReadonlyArray<SomeTestSource>) => {
+    const someTestResult: SomeTestResult = {
+        someTestResultProp: "Hello"
+    };
 
-        return res;
+    return sources.map(source => someTestResult);
+};
+
+const asyncBatchFunction = async (sources: ReadonlyArray<SomeTestSource>) => {
+    return new Promise<SomeTestResult[]>(resolve => {
+        const res = [
+            {
+                someTestResultProp: ""
+            }
+        ];
+        resolve(res);
     });
-});
+};
 
-const withSourceAndResultTypedAsPromise = createBatchResolver<
+const asyncBatchFunctionWhenTReturnIsArray = async (
+    sources: ReadonlyArray<SomeTestSource>
+) => {
+    const sourceBatches = sources.map(() => {
+        return new Promise<SomeTestResult[]>(resolve => {
+            const res = [
+                {
+                    someTestResultProp: ""
+                }
+            ];
+            resolve(res);
+        });
+    });
+
+    return Promise.all(sourceBatches);
+};
+
+// $ExpectType ResolverFunction<SomeTestSource, any, any, SomeTestResult>
+const withSourceAndResultTyped = createBatchResolver<
     SomeTestSource,
     SomeTestResult
 >((sources, _, __) => {
     // $ExpectType ReadonlyArray<SomeTestSource>
     const verifySources = sources;
 
-    return sources.map(source => {
-        return new Promise<SomeTestResult>(resolve => {
-            const res: SomeTestResult = {
-                someTestResultProp: ""
-            };
-
-            resolve(res);
-        });
-    });
+    return batchFunction(sources);
 });
 
+// $ExpectType ResolverFunction<SomeTestSource, any, any, SomeTestResult>
+const withSourceAndResultTypedAsPromise = createBatchResolver<
+    SomeTestSource,
+    SomeTestResult
+>(async (sources, _, __) => {
+    // $ExpectType ReadonlyArray<SomeTestSource>
+    const verifySources = sources;
+    const result = await asyncBatchFunction(sources);
+    return result;
+});
+
+// $ExpectType ResolverFunction<SomeTestSource, SomeTestArgs, any, SomeTestResult>
 const withSourceAndArgsAndResultTyped = createBatchResolver<
     SomeTestSource,
     SomeTestResult,
     SomeTestArgs
->((sources, args, _) => {
+>(async (sources, args, _) => {
     // $ExpectType ReadonlyArray<SomeTestSource>
     const verifySources = sources;
     // $ExpectType string
     const verifyArgs = args.someArg;
 
-    return sources.map(source => {
-        return new Promise<SomeTestResult>(resolve => {
-            const res: SomeTestResult = {
-                someTestResultProp: ""
-            };
-
-            resolve(res);
-        });
-    });
+    const result = await asyncBatchFunction(sources);
+    return result;
 });
 
+// $ExpectType ResolverFunction<SomeTestSource, SomeTestArgs, SomeTestContext, SomeTestResult>
 const withSourceAndArgsAndContextTyped = createBatchResolver<
     SomeTestSource,
     SomeTestResult,
     SomeTestArgs,
     SomeTestContext
->((sources, args, context) => {
+>(async (sources, args, context, info) => {
     // $ExpectType ReadonlyArray<SomeTestSource>
     const verifySources = sources;
     // $ExpectType string
     const verifyArgs = args.someArg;
     // $ExpectType string
     const verifyContext = context.someContextProp;
+    // $ExpectType GraphQLResolveInfo
+    const verifyInfo = info;
 
-    return sources.map(source => {
-        return new Promise<SomeTestResult>(resolve => {
-            const res: SomeTestResult = {
-                someTestResultProp: ""
-            };
-
-            resolve(res);
-        });
-    });
+    const result = await asyncBatchFunction(sources);
+    return result;
 });
+
+// $ExpectType ResolverFunction<SomeTestSource, any, any, SomeTestResult[]>
+const withResultIsArray = createBatchResolver<SomeTestSource, SomeTestResult[]>(
+    (sources, _, __) => {
+        // $ExpectType ReadonlyArray<SomeTestSource>
+        const verifySources = sources;
+
+        return asyncBatchFunctionWhenTReturnIsArray(sources);
+    }
+);

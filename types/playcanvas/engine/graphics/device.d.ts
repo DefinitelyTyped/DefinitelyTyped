@@ -45,6 +45,10 @@ declare namespace pc {
          */
         readonly maxVolumeSize: number;
 
+        readonly canvas: HTMLCanvasElement;
+
+        maxPixelRatio: number;
+
         /**
          * @function
          * @name pc.GraphicsDevice#setViewport
@@ -68,13 +72,13 @@ declare namespace pc {
         setScissor(x: number, y: number, w: number, h: number): void;
 
         /**
-         * @private
+         * @public
          * @function
          * @name pc.GraphicsDevice#getProgramLibrary
          * @description Retrieves the program library assigned to the specified graphics device.
          * @returns {pc.ProgramLibrary} The program library assigned to the device.
          */
-        private getProgramLibrary(): pc.ProgramLibrary;
+        getProgramLibrary(): pc.ProgramLibrary;
 
         /**
          * @private

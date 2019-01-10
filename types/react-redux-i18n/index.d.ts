@@ -2,7 +2,7 @@
 // Project: https://github.com/zoover/react-redux-i18n
 // Definitions by: Clément Devos <https://github.com/clementdevos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare module 'react-redux-i18n' {
   import * as react from "react"
@@ -21,7 +21,7 @@ declare module 'react-redux-i18n' {
 
   type TranslationObjects = { [lang: string]: SubTranslationObject };
 
-  type DispatchCallback<S> = {
+  type DispatchCallback<S extends redux.Action> = {
     (dispatch?: redux.Dispatch<S>, getState?: () => S): any;
   }
 
@@ -31,14 +31,22 @@ declare module 'react-redux-i18n' {
   }
 
   type TranslateProps = {
+    className?: string;
+    dangerousHTML?: boolean;
+    style?: React.CSSProperties;
+    tag?: React.ReactType;
     value: string;
-    [prop: string]: string;
-
+    [prop: string]: any;
   }
+
   type LocalizeProps = {
-    value: string | number;
+    className?: string;
+    dangerousHTML?: boolean;
     dateFormat?: string;
     options?: Object;
+    style?: React.CSSProperties;
+    tag?: React.ReactType;
+    value: string | number | object;
   }
 
   /**

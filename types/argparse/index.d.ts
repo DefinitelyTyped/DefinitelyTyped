@@ -2,6 +2,7 @@
 // Project: https://github.com/nodeca/argparse
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -34,7 +35,7 @@ export class SubParser {
 }
 
 export class ArgumentGroup {
-    addArgument(args: string[], options?: ArgumentOptions): void;
+    addArgument(args: string[] | string, options?: ArgumentOptions): void;
     addArgumentGroup(options?: ArgumentGroupOptions): ArgumentGroup;
     addMutuallyExclusiveGroup(options?: { required: boolean }): ArgumentGroup;
     setDefaults(options?: {}): void;
@@ -68,6 +69,7 @@ export interface ArgumentParserOptions {
     prog?: string;
     usage?: string;
     version?: string;
+    debug?: boolean;
 }
 
 export interface ArgumentGroupOptions {

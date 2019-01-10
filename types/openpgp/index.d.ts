@@ -1,22 +1,96 @@
-// Type definitions for openpgpjs
+// Type definitions for openpgp 4.0.1
 // Project: http://openpgpjs.org/
 // Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
+//                 Errietta Kostala <https://github.com/errietta>
+//                 Daniel Montesinos <https://github.com/damonpam>
+//                 Carlos Villavicencio <https://github.com/po5i>
+//                 Eric Camellini <https://github.com/ecamellini>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace openpgp;
 
-export interface KeyPair {
+export interface UserId {
+    name?: string,
+    email?: string,
+}
+
+export interface SessionKey {
+    data: Uint8Array,
+    algorithm: string
+}
+
+export interface EncryptOptions {
+    message: message.Message
+    publicKeys?: key.Key | key.Key[],
+    privateKeys?: key.Key | key.Key[],
+    passwords?: string | string[],
+    sessionKey?: SessionKey,
+    compression?: enums.compression,
+    armor?: boolean,
+    streaming?: 'web' | 'node' | false
+    detached?: boolean,
+    signature?: Signature,
+    returnSessionKey?: boolean,
+    wildcard?: boolean,
+    date?: Date,
+    fromUserId?: UserId,
+    toUserId?: UserId,
+}
+
+export interface EncryptedMessage {
+    data?: string,
+    message?: message.Message,
+    signature?: string | ReadableStream | Signature // TODO add NodeStream
+    sessionKey?: SessionKey
+}
+
+export interface DecryptOptions {
+    message: message.Message,
+    privateKeys?: key.Key | key.Key[],
+    passwords?: string | string[],
+    sessionKeys?: SessionKey | SessionKey[],
+    publicKeys?: key.Key | key.Key[],
+    format?: string,
+    streaming?: 'web' | 'node' | false,
+    signature?: Signature,
+    date?: Date,
+}
+
+export interface SignOptions {
+    message: message.Message,
+    privateKeys?: key.Key | key.Key[],
+    armor?: boolean,
+    streaming?: 'web' | 'node' | false,
+    detached?: boolean
+    date?: Date,
+    fromUserIds?: UserId[]
+}
+
+export interface SignedMessage {
+    signature?: string | ReadableStream | Signature, // TODO add NodeStream
+    data?: string | ReadableStream, // TODO add NodeStream
+    message?: message.Message
+}
+
+export interface KeyContainer {
     key: key.Key,
+}
+
+export interface KeyPair extends KeyContainer {
     privateKeyArmored: string,
-    publicKeyArmored: string
+    publicKeyArmored: string,
+    revocationCertificate: string
 }
 
 export interface KeyOptions {
-    keyType?: enums.publicKey,
-    numBits: number,
-    userId: string,
-    passphrase: string,
-    unlocked?: boolean
+    userIds?: UserId[],
+    passphrase?: string,
+    numBits?: number,
+    keyExpirationTime?: number,
+    curve?: string,
+    date?: Date,
+    subkeys?: KeyOptions[]
 }
 
 export interface Keyid {
@@ -25,95 +99,274 @@ export interface Keyid {
 
 export interface Signature {
     keyid: Keyid,
-    valid: boolean
+    valid: boolean,
+    verified?: boolean
+}
+
+export interface VerifyOptions {
+    message: message.Message,
+    publicKeys: key.Key | key.Key[],
+    streaming?: 'web' | 'node' | false,
+    signature?: Signature,
+    date?: Date
 }
 
 export interface VerifiedMessage {
-    text: string,
-    signatures: Array<Signature>
+    data: Uint8Array | string | ReadableStream, // TODO add NodeStream
+    signatures: Array<Signature>,
 }
 
-/** Decrypts message and verifies signatures
+export interface DecryptedMessage {
+    data: Uint8Array | string | ReadableStream, // TODO add NodeStream
+    signatures: Array<Signature>,
+    filename: string
+}
 
-    @param privateKey private key with decrypted secret key data
-    @param publicKeys array of keys to verify signatures
-    @param msg the message object with signed and encrypted data
-    */
-export function decryptAndVerifyMessage(privateKey: key.Key, publicKeys: Array<key.Key>, msg: string): Promise<VerifiedMessage>;
-/** Decrypts message and verifies signatures
+export interface OpenPGPWorker {
+    randomCallback(): void;
+    configure(config: any): void;
+    seedRandom(buffer: ArrayBuffer): void;
+    delegate(id: number, method: string, options: any): void;
+    response(event: any): void;
+}
 
-    @param privateKey private key with decrypted secret key data
-    @param publicKey single key to verify signatures
-    @param msg the message object with signed and encrypted data
-    */
-export function decryptAndVerifyMessage(privateKey: key.Key, publicKey: key.Key, msg: string): Promise<VerifiedMessage>;
+export interface WorkerOptions {
+    path?: string,
+    n?: number,
+    workers?: OpenPGPWorker[],
+    config?: any
+}
 
-/** Decrypts message
+export class AsyncProxy {
+    constructor(options: WorkerOptions);
+    getId(): number;
+    seedRandom(workerId: number, size: number): Promise<void>;
+    terminate(): void;
+    delegate(method: string, options: any): void;
 
-    @param privateKey private key with decrypted secret key data
-    @param msg the message object with the encrypted data
-    */
-export function decryptMessage(privateKey: key.Key, msg: message.Message): Promise<string>;
+    workers: OpenPGPWorker[];
+}
 
-/** Encrypts message text with keys
-    @param keys array of keys used to encrypt the message
-    @param text message as native JavaScript string
-    @returns encrypted ASCII armored message
-    */
-export function encryptMessage(keys: Array<key.Key>, message: string): Promise<string>;
-/** Encrypts message text with keys
+/**
+ * Set the path for the web worker script and create an instance of the async proxy
+ * @param {String} path            relative path to the worker scripts, default: 'openpgp.worker.js'
+ * @param {Number} n               number of workers to initialize
+ * @param {Array<Object>} workers  alternative to path parameter: web workers initialized with 'openpgp.worker.js'
+ */
+export function initWorker(options: WorkerOptions): boolean;
 
-    @param single key used to encrypt the message
-    @param text message as native JavaScript string
-    */
-export function encryptMessage(key: key.Key, message: string): Promise<string>;
+/**
+ * Returns a reference to the async proxy if the worker was initialized with openpgp.initWorker()
+ * @returns {module:worker/async_proxy.AsyncProxy|null} the async proxy or null if not initialized
+ */
+export function getWorker(): AsyncProxy;
 
-/** Generates a new OpenPGP key pair. Currently only supports RSA keys. Primary and subkey will be of same type.
-    @param options
-    */
-export function generateKeyPair(options: KeyOptions): Promise<KeyPair>;
+/**
+ * Cleanup the current instance of the web worker.
+ */
+export function destroyWorker(): void;
 
-/** Signs message text and encrypts it
+/**
+ * Encrypts message text/data with public keys, passwords or both at once. At least either public keys or passwords
+ *   must be specified. If private keys are specified, those will be used to sign the message.
+ * @param  {Message} message                      message to be encrypted as created by openpgp.message.fromText or openpgp.message.fromBinary
+ * @param  {Key|Array<Key>} publicKeys            (optional) array of keys or single key, used to encrypt the message
+ * @param  {Key|Array<Key>} privateKeys           (optional) private keys for signing. If omitted message will not be signed
+ * @param  {String|Array<String>} passwords       (optional) array of passwords or a single password to encrypt the message
+ * @param  {Object} sessionKey                    (optional) session key in the form: { data:Uint8Array, algorithm:String }
+ * @param  {module:enums.compression} compression (optional) which compression algorithm to compress the message with, defaults to what is specified in config
+ * @param  {Boolean} armor                        (optional) if the return values should be ascii armored or the message/signature objects
+ * @param  {'web'|'node'|false} streaming         (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
+ * @param  {Boolean} detached                     (optional) if the signature should be detached (if true, signature will be added to returned object)
+ * @param  {Signature} signature                  (optional) a detached signature to add to the encrypted message
+ * @param  {Boolean} returnSessionKey             (optional) if the unencrypted session key should be added to returned object
+ * @param  {Boolean} wildcard                     (optional) use a key ID of 0 instead of the public key IDs
+ * @param  {Date} date                            (optional) override the creation date of the message signature
+ * @param  {Object} fromUserId                    (optional) user ID to sign with, e.g. { name:'Steve Sender', email:'steve@openpgp.org' }
+ * @param  {Object} toUserId                      (optional) user ID to encrypt for, e.g. { name:'Robert Receiver', email:'robert@openpgp.org' }
+ * @returns {Promise<Object>}                     Object containing encrypted (and optionally signed) message in the form:
+ *
+ *     {
+ *       data: String|ReadableStream<String>|NodeStream, (if `armor` was true, the default)
+ *       message: Message, (if `armor` was false)
+ *       signature: String|ReadableStream<String>|NodeStream, (if `detached` was true and `armor` was true)
+ *       signature: Signature (if `detached` was true and `armor` was false)
+ *       sessionKey: { data, algorithm, aeadAlgorithm } (if `returnSessionKey` was true)
+ *     }
+ * @async
+ * @static
+ */
+export function encrypt(options: EncryptOptions): Promise<EncryptedMessage>;
 
-    @param publicKeys array of keys used to encrypt the message
-    @param privateKey private key with decrypted secret key data for signing
-    @param text private key with decrypted secret key data for signing
-    */
-export function signAndEncryptMessage(publicKeys: Array<key.Key>, privateKey: key.Key, text: string): Promise<string>;
-/** Signs message text and encrypts it
+/**
+ * Decrypts a message with the user's private key, a session key or a password. Either a private key,
+ *   a session key or a password must be specified.
+ * @param  {Message} message                  the message object with the encrypted data
+ * @param  {Key|Array<Key>} privateKeys       (optional) private keys with decrypted secret key data or session key
+ * @param  {String|Array<String>} passwords   (optional) passwords to decrypt the message
+ * @param  {Object|Array<Object>} sessionKeys (optional) session keys in the form: { data:Uint8Array, algorithm:String }
+ * @param  {Key|Array<Key>} publicKeys        (optional) array of public keys or single key, to verify signatures
+ * @param  {String} format                    (optional) return data format either as 'utf8' or 'binary'
+ * @param  {'web'|'node'|false} streaming     (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
+ * @param  {Signature} signature              (optional) detached signature for verification
+ * @param  {Date} date                        (optional) use the given date for verification instead of the current time
+ * @returns {Promise<Object>}                 Object containing decrypted and verified message in the form:
+ *
+ *     {
+ *       data: String|ReadableStream<String>|NodeStream, (if format was 'utf8', the default)
+ *       data: Uint8Array|ReadableStream<Uint8Array>|NodeStream, (if format was 'binary')
+ *       filename: String,
+ *       signatures: [
+ *         {
+ *           keyid: module:type/keyid,
+ *           verified: Promise<Boolean>,
+ *           valid: Boolean (if streaming was false)
+ *         }, ...
+ *       ]
+ *     }
+ * @async
+ * @static
+ */
+export function decrypt(options: DecryptOptions): Promise<DecryptedMessage>;
 
-    @param publicKeys single key used to encrypt the message
-    @param privateKey private key with decrypted secret key data for signing
-    @param text private key with decrypted secret key data for signing
-    */
-export function signAndEncryptMessage(publicKey: key.Key, privateKey: key.Key, text: string): Promise<string>;
+/**
+ * Signs a cleartext message.
+ * @param  {CleartextMessage|Message} message (cleartext) message to be signed
+ * @param  {Key|Array<Key>} privateKeys       array of keys or single key with decrypted secret key data to sign cleartext
+ * @param  {Boolean} armor                    (optional) if the return value should be ascii armored or the message object
+ * @param  {'web'|'node'|false} streaming     (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
+ * @param  {Boolean} detached                 (optional) if the return value should contain a detached signature
+ * @param  {Date} date                        (optional) override the creation date of the signature
+ * @param  {Array} fromUserIds                (optional) array of user IDs to sign with, one per key in `privateKeys`, e.g. [{ name:'Steve Sender', email:'steve@openpgp.org' }]
+ * @returns {Promise<Object>}                 Object containing signed message in the form:
+ *
+ *     {
+ *       data: String|ReadableStream<String>|NodeStream, (if `armor` was true, the default)
+ *       message: Message (if `armor` was false)
+ *     }
+ *
+ * Or, if `detached` was true:
+ *
+ *     {
+ *       signature: String|ReadableStream<String>|NodeStream, (if `armor` was true, the default)
+ *       signature: Signature (if `armor` was false)
+ *     }
+ * @async
+ * @static
+ */
+export function sign(options: SignOptions): Promise<SignedMessage>;
 
-/** Signs a cleartext message
+/**
+ * Verifies signatures of cleartext signed message
+ * @param  {Key|Array<Key>} publicKeys         array of publicKeys or single key, to verify signatures
+ * @param  {CleartextMessage|Message} message  (cleartext) message object with signatures
+ * @param  {'web'|'node'|false} streaming      (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
+ * @param  {Signature} signature               (optional) detached signature for verification
+ * @param  {Date} date                         (optional) use the given date for verification instead of the current time
+ * @returns {Promise<Object>}                  Object containing verified message in the form:
+ *
+ *     {
+ *       data: String|ReadableStream<String>|NodeStream, (if `message` was a CleartextMessage)
+ *       data: Uint8Array|ReadableStream<Uint8Array>|NodeStream, (if `message` was a Message)
+ *       signatures: [
+ *         {
+ *           keyid: module:type/keyid,
+ *           verified: Promise<Boolean>,
+ *           valid: Boolean (if `streaming` was false)
+ *         }, ...
+ *       ]
+ *     }
+ * @async
+ * @static
+ */
+export function verify(options: VerifyOptions): Promise<VerifiedMessage>;
 
-    @param privateKeys array of keys with decrypted secret key data to sign cleartext
-    @param text cleartext
-    */
-export function signClearMessage(privateKeys: Array<key.Key>, text: string): Promise<string>;
-/** Signs a cleartext message
+/**
+ * Generates a new OpenPGP key pair. Supports RSA and ECC keys. Primary and subkey will be of same type.
+ * @param  {Array<Object>} userIds   array of user IDs e.g. [{ name:'Phil Zimmermann', email:'phil@openpgp.org' }]
+ * @param  {String} passphrase       (optional) The passphrase used to encrypt the resulting private key
+ * @param  {Number} numBits          (optional) number of bits for RSA keys: 2048 or 4096.
+ * @param  {Number} keyExpirationTime (optional) The number of seconds after the key creation time that the key expires
+ * @param  {String} curve            (optional) elliptic curve for ECC keys:
+ *                                              curve25519, p256, p384, p521, secp256k1,
+ *                                              brainpoolP256r1, brainpoolP384r1, or brainpoolP512r1.
+ * @param  {Date} date               (optional) override the creation date of the key and the key signatures
+ * @param  {Array<Object>} subkeys   (optional) options for each subkey, default to main key options. e.g. [{sign: true, passphrase: '123'}]
+ *                                              sign parameter defaults to false, and indicates whether the subkey should sign rather than encrypt
+ * @returns {Promise<Object>}         The generated key object in the form:
+ *                                     { key:Key, privateKeyArmored:String, publicKeyArmored:String, revocationCertificate:String }
+ * @async
+ * @static
+ */
+export function generateKey(options: KeyOptions): Promise<KeyPair>;
 
-    @param privateKeys single key with decrypted secret key data to sign cleartext
-    @param text cleartext
-    */
-export function signClearMessage(privateKey: key.Key, text: string): Promise<string>;
+/**
+ * Reformats signature packets for a key and rewraps key object.
+ * @param  {Key} privateKey          private key to reformat
+ * @param  {Array<Object>} userIds   array of user IDs e.g. [{ name:'Phil Zimmermann', email:'phil@openpgp.org' }]
+ * @param  {String} passphrase       (optional) The passphrase used to encrypt the resulting private key
+ * @param  {Number} keyExpirationTime (optional) The number of seconds after the key creation time that the key expires
+ * @param  {Boolean} revocationCertificate (optional) Whether the returned object should include a revocation certificate to revoke the public key
+ * @returns {Promise<Object>}         The generated key object in the form:
+ *                                     { key:Key, privateKeyArmored:String, publicKeyArmored:String, revocationCertificate:String }
+ * @async
+ * @static
+ */
+export function reformatKey(options: {
+    privateKey: key.Key,
+    userIds?: UserId[],
+    passphrase?: string,
+    keyExpirationTime?: number,
+    revocationCertificate?: boolean
+}): Promise<KeyPair>;
 
-/** Verifies signatures of cleartext signed message
+/**
+ * Revokes a key. Requires either a private key or a revocation certificate.
+ *   If a revocation certificate is passed, the reasonForRevocation parameters will be ignored.
+ * @param  {Key} key                 (optional) public or private key to revoke
+ * @param  {String} revocationCertificate (optional) revocation certificate to revoke the key with
+ * @param  {Object} reasonForRevocation (optional) object indicating the reason for revocation
+ * @param  {module:enums.reasonForRevocation} reasonForRevocation.flag (optional) flag indicating the reason for revocation
+ * @param  {String} reasonForRevocation.string (optional) string explaining the reason for revocation
+ * @returns {Promise<Object>}         The revoked key object in the form:
+ *                                     { privateKey:Key, privateKeyArmored:String, publicKey:Key, publicKeyArmored:String }
+ *                                     (if private key is passed) or { publicKey:Key, publicKeyArmored:String } (otherwise)
+ * @static
+ */
+export function revokeKey(options: {
+    key?: key.Key,
+    revocationCertificate?: string
+    reasonForRevocation?: {
+        flag: enums.reasonForRevocation,
+        'string': string
+    },
+}): Promise<KeyPair>;
 
-    @param publicKeys array of keys to verify signatures
-    @param msg cleartext message object with signatures
-    */
-export function verifyClearSignedMessage(publicKeys: Array<key.Key>, msg: cleartext.CleartextMessage): Promise<VerifiedMessage>;
-/** Verifies signatures of cleartext signed message
+/**
+ * Unlock a private key with your passphrase.
+ * @param  {Key} privateKey                    the private key that is to be decrypted
+ * @param  {String|Array<String>} passphrase   the user's passphrase(s) chosen during key generation
+ * @returns {Promise<Object>}                  the unlocked key object in the form: { key:Key }
+ * @async
+ */
+export function decryptKey(options: {
+    privateKey: key.Key,
+    passphrase?: string | string[],
+}): Promise<KeyContainer>;
 
-    @param publicKeys single key to verify signatures
-    @param msg cleartext message object with signatures
-    */
-export function verifyClearSignedMessage(publicKey: key.Key, msg: cleartext.CleartextMessage): Promise<VerifiedMessage>;
+/**
+ * Lock a private key with your passphrase.
+ * @param  {Key} privateKey                      the private key that is to be decrypted
+ * @param  {String|Array<String>} passphrase     the user's passphrase(s) chosen during key generation
+ * @returns {Promise<Object>}                    the locked key object in the form: { key:Key }
+ * @async
+ */
+export function encryptKey(options: {
+    privateKey: key.Key,
+    passphrase?: string | string[],
+}): Promise<KeyContainer>;
 
+// TODO add typings for encryptSessionKey and decryptSessionKeys
 
 export namespace armor {
     /** Armor an OpenPGP binary packet block
@@ -159,7 +412,12 @@ export namespace cleartext {
         verify(keys: Array<key.Key>): Array<VerifiedMessage>;
     }
 
-    function readArmored(armoredText: string): CleartextMessage;
+    /** creates new message object from text
+        @param text
+     */
+    function fromText(text: string): CleartextMessage;
+
+    function readArmored(armoredText: string): Promise<CleartextMessage>;
 }
 
 export namespace config {
@@ -368,6 +626,14 @@ export namespace enums {
         valid,
         no_self_cert
     }
+
+    enum reasonForRevocation {
+      no_reason,
+      key_superseded,
+      key_compromised,
+      key_retired,
+      userid_invalid
+    }
 }
 
 export namespace key {
@@ -404,7 +670,7 @@ export namespace key {
 
         @param armoredText text to be parsed
      */
-    function readArmored(armoredText: string): KeyResult;
+    function readArmored(armoredText: string): Promise<KeyResult>;
 }
 
 export namespace message {
@@ -454,12 +720,16 @@ export namespace message {
             @param keys array of keys to verify signatures
          */
         verify(keys: Array<key.Key>): Array<Object>,
+
+        packets: {
+            write(): Uint8Array,
+        },
     }
 
     /** creates new message object from binary data
         @param bytes
      */
-    function fromBinary(bytes: string): Message;
+    function fromBinary(bytes: Uint8Array | ReadableStream): Message;
 
     /** creates new message object from text
         @param text
@@ -470,7 +740,15 @@ export namespace message {
 
         @param armoredText text to be parsed
      */
-    function readArmored(armoredText: string): Message;
+    function readArmored(armoredText: string): Promise<Message>;
+
+    /**
+     * reads an OpenPGP message as byte array and returns a message object
+     * @param {Uint8Array} input   binary message
+     * @returns {Message}           new message object
+     * @static
+     */
+    function read(data: Uint8Array): Promise<Message>;
 }
 
 export namespace packet {
@@ -487,10 +765,10 @@ export namespace packet {
     }
 
     interface SecretKey extends PublicKey {
-        read(bytes:string): void;
+        read(bytes: string): void;
         write(): string;
         clearPrivateMPIs(str_passphrase: string): boolean;
-        encrypt(passphrase:string): void;
+        encrypt(passphrase: string): void;
     }
 
     /** Allocate a new packet from structured packet clone

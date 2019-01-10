@@ -34,7 +34,7 @@ declare namespace pc {
         constructor(system: pc.ModelComponentSystem, entity: pc.Entity)
 
         type: string;
-        asset: pc.Asset;
+        asset: pc.Asset | number;
         castShadows: boolean;
         receiveShadows: boolean;
         materialAsset: number;

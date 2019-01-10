@@ -10,6 +10,7 @@ declare namespace pc {
     * var v = new pc.Vec3(1,2,3);
     */
     class Vec3 {
+        data: Float32Array;
 
         constructor(x: number, y: number, z: number)
         constructor(x: [number, number, number])

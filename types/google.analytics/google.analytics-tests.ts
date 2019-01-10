@@ -33,6 +33,13 @@ describe('UniversalAnalytics', () => {
         ga('send', 'timing', {timingCategory: 'category', timingVar: 'lookup', timingValue: 123, timingLabel: 'label'});
         ga('trackerName.send', 'event', 'load');
 
+        ga('require', 'somePlugin');
+        ga('require', 'somePlugin', 'option');
+        ga('require', 'somePlugin', { some: 'options' });
+        ga('provide', 'somePlugin', () => {});
+        ga('provide', 'somePlugin', tracker => {});
+        ga('provide', 'somePlugin', (tracker, options) => {});
+
         ga.create('UA-65432-1', 'auto');
         ga.create('UA-65432-1', {some: 'config'});
         ga.create('UA-65432-1', 'auto', {some: 'config'});

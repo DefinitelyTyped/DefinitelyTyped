@@ -53,5 +53,6 @@ declare class NavbarText extends React.Component<NavbarTextProps> { }
 interface NavbarFormProps extends React.HTMLProps<NavbarForm> {
   componentClass?: React.ReactType;
   pullRight?: boolean;
+  pullLeft?: boolean;
 }
 declare class NavbarForm extends React.Component<NavbarFormProps> { }

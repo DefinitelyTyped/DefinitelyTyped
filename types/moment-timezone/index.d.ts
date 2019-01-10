@@ -1,6 +1,8 @@
 // Type definitions for moment-timezone.js 0.5
 // Project: http://momentjs.com/timezone/
-// Definitions by: Michel Salib <https://github.com/michelsalib>, Alan Brazil Lins <https://github.com/alanblins>
+// Definitions by: Michel Salib <https://github.com/michelsalib>
+//                 Alan Brazil Lins <https://github.com/alanblins>
+//                 Agustin Carrasco <https://github.com/asermax>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import moment = require('moment');
@@ -36,7 +38,7 @@ declare module "moment" {
         (date: moment.Moment, timezone: string): moment.Moment;
         (date: any, timezone: string): moment.Moment;
 
-        zone(timezone: string): MomentZone;
+        zone(timezone: string): MomentZone | null;
 
         add(packedZoneString: string): void;
         add(packedZoneString: string[]): void;
@@ -53,12 +55,12 @@ declare module "moment" {
         names(): string[];
         guess(ignoreCache?: boolean): string;
 
-        setDefault(timezone: string): void;
+        setDefault(timezone?: string): MomentTimezone;
     }
 
     interface Moment {
-        tz(): string;
-        tz(timezone: string): Moment;
+        tz(): string | undefined;
+        tz(timezone: string, keepLocalTime?: boolean): moment.Moment;
         zoneAbbr(): string;
         zoneName(): string;
     }

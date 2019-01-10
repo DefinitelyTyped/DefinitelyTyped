@@ -7,6 +7,9 @@ declare namespace pc {
      * @param {pc.GraphicsDevice} device The graphics device that will be rendering
      */
     class ModelHandler {
+
+        static DEFAULT_MATERIAL: pc.StandardMaterial;
+
         constructor(device: pc.GraphicsDevice)
 
         /**

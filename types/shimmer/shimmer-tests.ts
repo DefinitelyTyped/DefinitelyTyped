@@ -1,23 +1,24 @@
 import * as shimmer from 'shimmer';
 
-const isWrapped: boolean = [].forEach.__wrapped || false;
+const fish = {
+  name: 'shimmer',
+  age: 1,
+  getMotto: () => 'safer monkeypatching for Node.js'
+};
 
-shimmer.wrap(Array.prototype, 'forEach', (forEach) => {
-    return (...args: any[]) => {
-      forEach(...args);
-    };
+const turtle = {
+  name: 'node',
+  age: 9
+};
+
+shimmer.wrap(fish, 'name', (originalName) => {
+  return originalName + originalName;
 });
 
-shimmer.unwrap(Array.prototype, 'forEach');
-
-shimmer.massWrap([Map.prototype, Set.prototype], ['clear', 'forEach'], (fn) => {
-    return (...args: any[]) => {
-      const result = fn(...args);
-      if (result) {
-        throw new Error();
-      }
-      return result;
-    };
+shimmer.massWrap([fish, turtle], ['age'], (originalAge) => {
+  return Math.pow(originalAge, 2);
 });
 
-shimmer.massUnwrap([Map.prototype, Set.prototype], ['clear', 'forEach']);
+shimmer.unwrap(fish, 'name');
+
+shimmer.massUnwrap([fish, turtle], ['age']);

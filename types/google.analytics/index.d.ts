@@ -525,6 +525,8 @@ declare namespace UniversalAnalytics {
         socialTarget?: string;
         some?: string;
         step?: boolean | number;
+        storage?: string;
+        storeGac?: boolean;
         tax?: string;
         timingCategory?: string;
         timingLabel?: string;
@@ -601,6 +603,8 @@ declare namespace UniversalAnalytics {
             }): void;
         (command: 'send', fieldsObject: FieldsObject): void;
         (command: string, hitType: HitType, ...fields: any[]): void;
+        (command: 'require', pluginName: string, pluginOptions?: any): void;
+        (command: 'provide', pluginName: string, pluginConstructor: (tracker: Tracker, pluginOptions?: Object) => void): void;
 
         (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: FieldsObject): void;
         (command: 'remove'): void;

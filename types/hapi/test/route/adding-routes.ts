@@ -8,7 +8,7 @@ const options: ServerOptions = {
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: (request: Request, h: ResponseToolkit) => {
+    handler(request, h) {
         return 'ok: ' + request.path;
     }
 };
@@ -17,14 +17,14 @@ const serverRoutes: ServerRoute[] = [
     {
         path: '/test1',
         method: 'GET',
-        handler: (request: Request, h: ResponseToolkit) => {
+        handler(request, h) {
             return 'ok: ' + request.path;
         }
     },
     {
         path: '/test2',
         method: 'GET',
-        handler: (request: Request, h: ResponseToolkit) => {
+        handler(request, h) {
             return 'ok: ' + request.path;
         }
     },

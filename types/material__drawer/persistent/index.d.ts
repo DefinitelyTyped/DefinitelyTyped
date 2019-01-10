@@ -15,7 +15,7 @@
  */
 
 import { MDCComponent } from 'material__base';
-import { MDCPersistentDrawerFoundation } from './foundation';
+import MDCPersistentDrawerFoundation from './foundation';
 import { MDCSlidableDrawerAdapter } from '../slidable';
 import * as util from '../util';
 
@@ -28,6 +28,4 @@ export class MDCPersistentDrawer extends MDCComponent<MDCSlidableDrawerAdapter, 
 
     // Return the drawer element inside the component.
     readonly drawer: Element | null;
-
-    getDefaultFoundation(): MDCPersistentDrawerFoundation;
 }

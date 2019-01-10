@@ -14,6 +14,7 @@ export interface Namespace {
     get(key: string): any;
     run(fn: (...args: any[]) => void): void;
     runAndReturn<T>(fn: (...args: any[]) => T): T;
+    runPromise<T>(fn: (...args: any[]) => Promise<T>): Promise<T>;
     bind<F extends Function>(fn: F, context?: any): F; // tslint:disable-line: ban-types
     bindEmitter(emitter: EventEmitter): void;
     createContext(): any;

@@ -659,8 +659,8 @@ export interface HostKeys {
 }
 
 export interface HostKey {
-    privatekey: ParsedKey;
-    publickey: ParsedKey;
+    privateKey: ParsedKey;
+    publicKey: ParsedKey;
 }
 
 /**
@@ -1043,6 +1043,24 @@ export class SFTPStream extends stream.Transform {
      * Uploads a file from `localPath` to `remotePath` using parallel reads for faster throughput.
      */
     fastPut(localPath: string, remotePath: string, callback: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, options: ReadFileOptions, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, encoding: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, callback: (err: any, handle: Buffer) => void): void;
 
     /**
      * (Client-only)
@@ -1680,4 +1698,9 @@ export interface ParsedKey {
     publicOrig: Buffer;
     ppk?: boolean;
     privateMAC?: string;
+}
+
+export interface ReadFileOptions {
+    encoding?: string;
+    flag?: string;
 }

@@ -39,5 +39,5 @@ server.register(Basic).then(() => {
     server.auth.strategy('simple', 'basic', { validate });
 	server.auth.default('simple');
 
-    server.route({ method: 'GET', path: '/', config: { auth: 'simple' } });
+    server.route({ method: 'GET', path: '/', options: { auth: 'simple' } });
 });

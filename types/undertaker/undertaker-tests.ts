@@ -22,13 +22,6 @@ taker.task("task3", () => {
     });
 });
 
-taker.task("task3", ["task1"], () => {
-    return new Promise((resolve, reject) => {
-        // do things depending on "task1"
-        resolve(); // when everything is done
-    });
-});
-
 taker.task("combined", taker.series("task1", "task2"));
 
 taker.task("all", taker.parallel("combined", "task3"));

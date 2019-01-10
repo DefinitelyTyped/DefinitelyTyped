@@ -55,6 +55,10 @@ function testPromise() {
     assertType<RSVP.Promise<number>>(promiseOfString.then((s: string) => s.length));
 }
 
+function testPromiseWithLabel() {
+    new RSVP.Promise((resolve: any, reject: any) => resolve('foo'), 'my promise');
+}
+
 function testAll() {
     const imported = all([]);
     const empty = RSVP.Promise.all([]);

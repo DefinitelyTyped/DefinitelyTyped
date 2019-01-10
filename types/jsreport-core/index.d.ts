@@ -5,92 +5,104 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-import { Buffer } from 'buffer';
-import { Readable } from 'stream';
 
 declare namespace JsReport {
-	type helpers = string | { [fun: string]: (...args: any[]) => any };
+	type Helpers = string | { [fun: string]: (...args: any[]) => any };
 
-	interface RenderOptions {
-		template: {
-			content: string;
-			engine: 'jsrender' | 'handlebars' | 'ejs' | 'jade' | string;
-			helpers?: helpers;
-			recipe: 'phantom-pdf' | 'electron-pdf' | 'text' | 'xlsx' | 'html-to-xlsx' | 'phantom-image' | 'html-to-text' | 'fop-pdf' | 'client-html' | 'wrapped-html' | 'wkhtmltopdf' | string;
-		};
-		data?: any;
+	type Engine = "none";
+
+	type Recipe = "html";
+
+	interface Template {
+		content: string;
+		engine: Engine | string;
+		helpers: Helpers;
+		recipe: Recipe | string;
 	}
 
-	interface Report {
+	interface Request {
+		template: Partial<Template>;
+		options: object;
+		data: any;
+	}
+
+	interface Response {
 		content: Buffer;
-		stream: Readable;
+		stream: NodeJS.ReadableStream;
 		headers: {
 			[header: string]: string | number | boolean;
 		};
 	}
 
-	interface Request {
-		template: {
-			content: string;
-		};
-	}
-
-	// interface Response {
-	// 	// todo
-	// }
-
-	type Response = any;
-
-	interface Listener {
-		add(type: string, callback: (req: Request, res: Response, err: any) => void): void;
-	}
-
-	interface Logger {
-		add(logger: any, options?: {
-			level: 'debug' | 'info' | 'log' | 'warn' | 'error';
-		}): void;
+	interface ListenerCollection {
+		add(
+			type: string,
+			callback: (req: Request, res: Response, err?: any) => Promise<any> | void
+		): void;
 	}
 
 	interface Collection {
-		find(query: {
-			[field: string]: any;
-		}): Promise<any>;
+		find(query: { [field: string]: any }): Promise<object[]>;
+		update(query: { [field: string]: any }, update: object, options?: object): Promise<any>;
+		remove(query: { [field: string]: any }): Promise<any>;
+		insert(obj: object): Promise<object>;
 	}
 
 	interface DocumentStore {
-		collection(options: string): Collection;
+		collection(name: string): Collection;
 	}
 
-	interface JsReporter {
-		afterRenderListeners: Listener;
-		afterTemplatingEnginesExecutedListeners: Listener;
-		beforeRenderListeners: Listener;
+	type Extension = (reporter: Reporter, definition: object) => void;
+
+	interface ExtensionDefinition {
+		options: any;
+		main: any;
+		directory: string;
+	}
+
+	interface Reporter {
+		use(extension: Extension | ExtensionDefinition): Reporter;
+	}
+
+	interface Reporter {
+		afterRenderListeners: ListenerCollection;
+		afterTemplatingEnginesExecutedListeners: ListenerCollection;
+		beforeRenderListeners: ListenerCollection;
 		documentStore: DocumentStore;
-		initializeListeners: Listener;
-		logger: Logger;
-		validateRenderListeners: Listener;
-		init(): Promise<void>;
-		render(options: RenderOptions): Promise<Report>;
-		use(extension: any): any;
+		initializeListeners: ListenerCollection;
+		// it would be nice to add winston.LoggerInstance here
+		// however adding import winston = require('winston') breaks exported enums
+		logger: any;
+		validateRenderListeners: ListenerCollection;
+		version: string;
+		init(): Promise<Reporter>;
+		render(options: Partial<Request>): Promise<Response>;
+		discover(): Reporter;
+		createListenerCollection(): ListenerCollection;
+	}
+
+	interface Configuration {
+		autoTempCleanup: boolean;
+		dataDirectory: string;
+		extensionsLocationCache: boolean;
+		loadConfig: boolean;
+		logger: {
+			silent: boolean;
+		};
+		rootDirectory: string;
+		scripts: {
+			allowedModules: string[];
+		};
+		tasks: Partial<{
+			allowedModules: string[] | string;
+			strategy: "dedicated-process" | "http-server" | "in-process" | string;
+		}>;
+		tempDirectory: string;
 	}
 }
 
-declare function JsReport(options?: Partial<{
-	autoTempCleanup: boolean;
-	dataDirectory: string;
-	extensionsLocationCache: boolean;
-	loadConfig: boolean;
-	logger: {
-		silent: boolean;
-	};
-	rootDirectory: string;
-	scripts: {
-		allowedModules: string[];
-	};
-	tasks: {
-		[task: string]: any;
-	};
-	tempDirectory: string;
-}>): JsReport.JsReporter;
+declare function JsReport(
+	config?: Partial<JsReport.Configuration>
+): JsReport.Reporter;
 
 export = JsReport;

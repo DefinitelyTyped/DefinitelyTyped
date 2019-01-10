@@ -10,29 +10,56 @@ class ForeignPromise<T> {
 	constructor(private readonly value: T) {
 	}
 
-	then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U) { return new ForeignPromise<U>(onFulfilled(this.value)); }
-};
+	then<U>(onFulfilled?: (value: T) => U, onRejected?: (reason: any) => U): ForeignPromise<U>
+	then(onFulfilled?: (value: T) => T, onRejected?: (reason: any) => T): ForeignPromise<T> {
+		return new ForeignPromise(onFulfilled ? onFulfilled(this.value) : this.value);
+	}
+}
+
+interface IData {
+	timestamp: number;
+}
+
+class Data implements IData {
+	timestamp: number;
+	date: Date;
+
+	constructor({ timestamp }: IData) {
+		this.timestamp = timestamp;
+		this.date = new Date(timestamp);
+	}
+}
 
 var promise: when.Promise<number>;
+var promise2: when.Promise<Data>;
+var emptyPromise: when.Promise<void>;
 var foreign = new ForeignPromise<number>(1);
+var promiseOrValue = 1 as number | when.Promise<number>;
 var error = new Error("boom!");
 var example: () => void;
+var native: Promise<number>;
 
 /* * * * * * *
  *   Core    *
  * * * * * * */
+
+/* when() */
+
+emptyPromise = when();
 
 /* when(x) */
 
 promise = when(1);
 promise = when(when(1));
 promise = when(foreign);
+promise = when(promiseOrValue);
 
 /* when(x, f) */
 
 promise = when(1, val => val + val);
 promise = when(when(1), val => val + val);
 promise = when(foreign, val => val + val);
+promise = when(promiseOrValue, val => val + val);
 
 /* when.try(f, ...args) */
 
@@ -100,8 +127,16 @@ when.all<number[]>([when(1), when(2), when(3)]).then(results => {
 when.map<number[]>([when(1), 2, 3], (num: number, index: number) => num * index).then((results) => {
 	return results.reduce((r, x) => r + x, 0);
 });
+when.map<number[]>([when(1), 2, 3], (num: number) => num * num).then((results) => {
+	return results.reduce((r, x) => r + x, 0);
+});
 
 /* when.reduce(arr, reduceFunc, initialValue) */
+when.reduce<number>([when(1), 2, 3], (reduction: number, value: number, index: number) => {
+	return reduction += value * index;
+}, 0).then((result: number) => {
+	return result;
+});
 when.reduce<number>([when(1), 2, 3], (reduction: number, value: number) => {
 	return reduction += value;
 }, 0).then((result: number) => {
@@ -109,6 +144,12 @@ when.reduce<number>([when(1), 2, 3], (reduction: number, value: number) => {
 });
 
 /* when.reduceRight(arr, reduceFunc, initialValue) */
+when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number, index: number) => {
+	return when(value * index)
+	.then((v) => reduction += v);
+}, 0).then((result: number) => {
+	return result;
+});
 when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number) => {
 	return when(value)
 	.then((v) => reduction += v);
@@ -118,7 +159,24 @@ when.reduceRight<number>([when(1), 2, 3], (reduction: number, value: number) => 
 
 /* when.settle(arr) */
 when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(descriptors => {
-	return descriptors.filter(d => d.state === 'rejected').reduce((r, d) => r + d.value, 0);
+	return descriptors.reduce((r, d) => {
+		if (d.state === 'fulfilled') {
+			return r + d.value;
+		} else {
+			console.error(d.reason);
+			return r;
+		}
+	}, 0);
+});
+when.settle<number>([when(1), when(2), when.reject(new Error("Foo"))]).then(descriptors => {
+	return descriptors.reduce((r, d) => {
+		if (d.state === 'rejected') {
+			console.error(d.reason);
+			return r;
+		} else {
+			return r + d.value;
+		}
+	}, 0);
 });
 
 /* when.iterate(f, predicate, handler, seed) */
@@ -149,11 +207,16 @@ when.unfold(function (x) {
 promise = when.promise<number>(resolve => resolve(5));
 promise = when.promise<number>((resolve, reject) => reject(error));
 
+/* when.resolve() */
+
+emptyPromise = when.resolve();
+
 /* when.resolve(x) */
 
 promise = when.resolve(1);
 promise = when.resolve(promise);
 promise = when.resolve(foreign);
+promise = when.resolve(promiseOrValue);
 
 /* when.reject(error) */
 
@@ -174,15 +237,29 @@ deferred.reject(error);
 
 when(1).done();
 when(1).done((val: number) => console.log(val));
+when(1).done(undefined, (err: any) => console.log(err));
 when(1).done((val: number) => console.log(val), (err: any) => console.log(err));
 
 /* promise.then(onFulfilled) */
 
+promise = when(1).then();
 promise = when(1).then((val: number) => val + val);
 promise = when(1).then((val: number) => when(val + val));
 
+promise = when(1).then(undefined, (err: any) => 2);
 promise = when(1).then((val: number) => val + val, (err: any) => 2);
 promise = when(1).then((val: number) => when(val + val), (err: any) => 2);
+
+promise = when('1').then((val: string) => parseInt(val));
+
+// Tests for when TResult is a subtype of T
+const subData: IData = { timestamp: Date.now() };
+const errorData: Data = new Data({ timestamp: -1 });
+
+promise2 = when(subData).then((val: IData) => new Data(val));
+promise2 = when(subData).then((val: IData) => when(new Data(val)));
+promise2 = when(subData).then((val: IData) => new Data(val), (err: any) => errorData);
+promise2 = when(subData).then((val: IData) => when(new Data(val)), (err: any) => errorData);
 
 /* promise.spread(onFulfilledArray) */
 
@@ -260,6 +337,17 @@ var status: {
 };
 
 status = when(1).inspect()
+
+var status2: when.Snapshot<number>;
+
+status2 = when(1).inspect();
+if (status2.state === 'fulfilled') {
+	console.log(status2.value + 2);
+} else if (status2.state === 'rejected') {
+	console.log(status2.reason);
+} else {
+	console.log(status2.state === 'pending');
+}
 
 /* promise.with(thisArg) */
 
@@ -416,8 +504,8 @@ example = function () {
 /* node.liftCallback */
 
 example = function () {
-	var fetchData: (key: string) => when.Promise<number>;
-	var handleData: (err: any, result: number) => void;
+	var fetchData: (key: string) => when.Promise<number> = () => when(1);
+	var handleData: (err: any, result: number) => void = () => undefined;
 
 	var handlePromisedData: (result: when.Promise<number>) => when.Promise<number>;
 	handlePromisedData = nodefn.liftCallback(handleData);
@@ -428,8 +516,8 @@ example = function () {
 /* node.bindCallback */
 
 example = function () {
-	var fetchData: (key: string) => when.Promise<number>;
-	var handleData: (err: any, result: number) => void;
+	var fetchData: (key: string) => when.Promise<number> = () => when(1);
+	var handleData: (err: any, result: number) => void = () => undefined;
 
 	nodefn.bindCallback(fetchData('thing'), handleData);
 };
@@ -437,9 +525,16 @@ example = function () {
 /* node.createCallback */
 
 example = function () {
-	when.promise((resolve, reject) =>
+	when.promise<number>((resolve, reject) =>
 			nodeFn2(1, '2', nodefn.createCallback({ resolve: resolve, reject: reject })))
 		.then(
 			(value: number) => console.log(value),
 			(err: any) => console.error(err));
 };
+
+/* * * * * * * * * * *
+ *  Native Promises  *
+ * * * * * * * * * * */
+
+native = Promise.resolve(when(1));
+native = Promise.all([when(1)]).then(([x]) => x);

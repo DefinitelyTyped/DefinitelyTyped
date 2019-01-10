@@ -2,7 +2,7 @@
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -16,6 +16,7 @@ export interface Styles {
     bmCross: Partial<CSSStyleDeclaration>;
     bmCrossButton: Partial<CSSStyleDeclaration>;
     bmItemList: Partial<CSSStyleDeclaration>;
+    bmMenuWrap: Partial<CSSStyleDeclaration>;
     bmMenu: Partial<CSSStyleDeclaration>;
     bmMorphShape: Partial<CSSStyleDeclaration>;
     bmOverlay: Partial<CSSStyleDeclaration>;

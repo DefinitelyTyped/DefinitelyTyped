@@ -4,7 +4,9 @@ var analytics: Analytics;
 function testConfig(): void {
   analytics = new Analytics('YOUR_WRITE_KEY', {
     flushAt: 20,
-    flushAfter: 10000
+    flushAfter: 10000,
+    host: "http://example.com",
+    enable: true
   });
 }
 

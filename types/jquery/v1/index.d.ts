@@ -592,6 +592,7 @@ interface BaseJQueryEventObject extends Event {
     pageY: number;
     /**
      * For key or mouse events, this property indicates the specific key or button that was pressed.
+     * @deprecated Use `key` for KeyEvents or `button` for MouseEvents instead.
      * @see {@link https://api.jquery.com/event.which/}
      */
     which: number;
@@ -622,9 +623,12 @@ interface JQueryMouseEventObject extends JQueryInputEventObject {
 }
 
 interface JQueryKeyEventObject extends JQueryInputEventObject {
-    char: any;
+    /** @deprecated */
+    char: string;
+    /** @deprecated */
     charCode: number;
-    key: any;
+    key: string;
+    /** @deprecated */
     keyCode: number;
 }
 
@@ -824,7 +828,7 @@ interface JQueryStatic {
      * @see {@link https://api.jquery.com/jQuery.ajaxTransport/}
      */
     ajaxTransport(dataType: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
-    
+
     ajaxSettings: JQueryAjaxSettings;
 
      /**
@@ -1771,7 +1775,7 @@ interface JQuery {
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
      * @see {@link https://api.jquery.com/offset/#offset}
      */
-    offset(): JQueryCoordinates;
+    offset(): JQueryCoordinates | undefined;
     /**
      * An object containing the properties top and left, which are integers indicating the new top and left coordinates for the elements.
      *

@@ -1,16 +1,16 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverbindcontext
-import { Plugin, Request, ResponseToolkit, Server, ServerRegisterOptions } from "hapi";
+import { Lifecycle, Plugin, Request, ResponseToolkit, Server, ServerRegisterOptions } from "hapi";
 
 const server = new Server({
     port: 8000,
 });
-const handler = (request: Request, h: ResponseToolkit) => {
+const handler: Lifecycle.Method = (request, h) => {
     return h.context.message;    // Or h.context.message
 };
 
 const plugin: Plugin<any> = {
     name: 'example',
-    register: async (server: Server, options: ServerRegisterOptions) => {
+    register: async (server, options) => {
         const bind = {
             message: 'hello'
         };

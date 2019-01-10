@@ -10,14 +10,14 @@ const serverRoutes: ServerRoute[] = [
     {
         path: '/badRequest',
         method: 'GET',
-        handler: (request: Request, h: ResponseToolkit) => {
+        handler(request, h) {
             throw Boom.badRequest('Unsupported parameter');
         }
     },
     {
         path: '/internal',
         method: 'GET',
-        handler: (request: Request, h: ResponseToolkit) => {
+        handler(request, h) {
             throw new Error('unexpect error');
         }
     },

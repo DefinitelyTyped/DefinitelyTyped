@@ -2,12 +2,12 @@
 // Project: https://github.com/shouldjs/sinon
 // Definitions by: AryloYeung <https://github.com/Arylo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
-import * as s from "sinon";
-import should = require("should");
+import * as s from 'sinon';
+import should = require('should');
 
-declare module "sinon" {
+declare module 'sinon' {
     interface SinonSpy {
         should: ShouldSinonAssertion;
     }

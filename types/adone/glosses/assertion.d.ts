@@ -1019,7 +1019,7 @@ declare namespace adone {
             }
         }
 
-        class AssertionError extends exception.Exception {
+        class AssertionError extends error.Exception {
             constructor(message?: string, props?: object, ssf?: object)
         }
 
