@@ -10,6 +10,7 @@
 // TypeScript Version: 2.9
 
 /// <reference types="node" />
+export {};
 
 export class Account {
     constructor(accountId: string, sequence: string | number)
@@ -146,7 +147,253 @@ export type AuthFlag =
     | AuthFlag.rmmutable
 ;
 
-export type TransactionOperation =
+export namespace Signer {
+    interface Ed25519PublicKey {
+        ed25519PublicKey: string;
+        weight: number | undefined;
+    }
+    interface Sha256Hash {
+        sha256Hash: Buffer;
+        weight: number | undefined;
+    }
+    interface PreAuthTx {
+        preAuthTx: Buffer;
+        weight: number | undefined;
+    }
+}
+export type Signer =
+    | Signer.Ed25519PublicKey
+    | Signer.Sha256Hash
+    | Signer.PreAuthTx
+;
+
+export namespace SignerOptions {
+    interface Ed25519PublicKey {
+        ed25519PublicKey: string;
+        weight?: number | string;
+    }
+    interface Sha256Hash {
+        sha256Hash: Buffer | string;
+        weight?: number | string;
+    }
+    interface PreAuthTx {
+        preAuthTx: Buffer | string;
+        weight?: number | string;
+    }
+}
+export type SignerOptions =
+    | SignerOptions.Ed25519PublicKey
+    | SignerOptions.Sha256Hash
+    | SignerOptions.PreAuthTx
+;
+export type SignerUnion = {ed25519PublicKey: any} | {sha256Hash: any} | {preAuthTx: any} | null;
+
+export namespace OperationType {
+    type CreateAccount = 'createAccount';
+    type Payment = 'payment';
+    type PathPayment = 'pathPayment';
+    type CreatePassiveOffer = 'createPassiveOffer';
+    type ManageOffer = 'manageOffer';
+    type SetOptions = 'setOptions';
+    type ChangeTrust = 'changeTrust';
+    type AllowTrust = 'allowTrust';
+    type AccountMerge = 'accountMerge';
+    type Inflation = 'inflation';
+    type ManageData = 'manageData';
+    type BumpSequence = 'bumpSequence';
+}
+export type OperationType =
+    | OperationType.CreateAccount
+    | OperationType.Payment
+    | OperationType.PathPayment
+    | OperationType.CreatePassiveOffer
+    | OperationType.ManageOffer
+    | OperationType.SetOptions
+    | OperationType.ChangeTrust
+    | OperationType.AllowTrust
+    | OperationType.AccountMerge
+    | OperationType.Inflation
+    | OperationType.ManageData
+    | OperationType.BumpSequence
+;
+
+export namespace OperationOptions {
+    interface BaseOptions {
+        source?: string;
+    }
+    interface AccountMerge extends BaseOptions {
+        destination: string;
+    }
+    interface AllowTrust extends BaseOptions {
+        trustor: string;
+        assetCode: string;
+        authorize?: boolean;
+    }
+    interface ChangeTrust extends BaseOptions {
+        asset: Asset;
+        limit?: string;
+    }
+    interface CreateAccount extends BaseOptions {
+        destination: string;
+        startingBalance: string;
+    }
+    interface CreatePassiveOffer extends BaseOptions {
+        selling: Asset;
+        buying: Asset;
+        amount: string;
+        price: number | string | object /* bignumber.js */;
+    }
+    interface ManageOffer extends CreatePassiveOffer {
+        offerId?: number | string;
+    }
+    interface Inflation extends BaseOptions {  // tslint:disable-line
+    }
+    interface ManageData extends BaseOptions {
+        name: string;
+        value: string | Buffer;
+    }
+    interface PathPayment extends BaseOptions {
+        sendAsset: Asset;
+        sendMax: string;
+        destination: string;
+        destAsset: Asset;
+        destAmount: string;
+        path?: Asset[];
+    }
+    interface Payment extends BaseOptions {
+        amount: string;
+        asset: Asset;
+        destination: string;
+    }
+    interface SetOptions<T extends SignerUnion = never> extends BaseOptions {
+        inflationDest?: string;
+        clearFlags?: AuthFlag;
+        setFlags?: AuthFlag;
+        masterWeight?: number | string;
+        lowThreshold?: number | string;
+        medThreshold?: number | string;
+        highThreshold?: number | string;
+        homeDomain?: string;
+        signer?: T;
+    }
+    interface BumpSequence extends BaseOptions {
+        bumpTo: string;
+    }
+}
+export type OperationOptions =
+    | OperationOptions.CreateAccount
+    | OperationOptions.Payment
+    | OperationOptions.PathPayment
+    | OperationOptions.CreatePassiveOffer
+    | OperationOptions.ManageOffer
+    | OperationOptions.SetOptions
+    | OperationOptions.ChangeTrust
+    | OperationOptions.AllowTrust
+    | OperationOptions.AccountMerge
+    | OperationOptions.Inflation
+    | OperationOptions.ManageData
+    | OperationOptions.BumpSequence
+;
+
+export namespace Operation {
+    interface BaseOperation<T extends OperationType = OperationType> {
+        type: T;
+        source?: string;
+    }
+
+    interface AccountMerge extends BaseOperation<OperationType.AccountMerge> {
+        destination: string;
+    }
+    function accountMerge(options: OperationOptions.AccountMerge): xdr.Operation<AccountMerge>;
+
+    interface AllowTrust extends BaseOperation<OperationType.AllowTrust> {
+        trustor: string;
+        assetCode: string;
+        authorize: boolean | undefined;
+    }
+    function allowTrust(options: OperationOptions.AllowTrust): xdr.Operation<AllowTrust>;
+
+    interface ChangeTrust extends BaseOperation<OperationType.ChangeTrust> {
+        line: Asset;
+        limit: string;
+    }
+    function changeTrust(options: OperationOptions.ChangeTrust): xdr.Operation<ChangeTrust>;
+
+    interface CreateAccount extends BaseOperation<OperationType.CreateAccount> {
+        destination: string;
+        startingBalance: string;
+    }
+    function createAccount(options: OperationOptions.CreateAccount): xdr.Operation<CreateAccount>;
+
+    interface CreatePassiveOffer extends BaseOperation<OperationType.CreatePassiveOffer> {
+        selling: Asset;
+        buying: Asset;
+        amount: string;
+        price: string;
+    }
+    function createPassiveOffer(options: OperationOptions.CreatePassiveOffer): xdr.Operation<CreatePassiveOffer>;
+
+    interface Inflation extends BaseOperation<OperationType.Inflation> {
+    }
+    function inflation(options: OperationOptions.Inflation): xdr.Operation<Inflation>;
+
+    interface ManageData extends BaseOperation<OperationType.ManageData> {
+        name: string;
+        value: Buffer;
+    }
+    function manageData(options: OperationOptions.ManageData): xdr.Operation<ManageData>;
+
+    interface ManageOffer extends BaseOperation<OperationType.ManageOffer> {
+        selling: Asset;
+        buying: Asset;
+        amount: string;
+        price: string;
+        offerId: string;
+    }
+    function manageOffer(options: OperationOptions.ManageOffer): xdr.Operation<ManageOffer>;
+
+    interface PathPayment extends BaseOperation<OperationType.PathPayment> {
+        sendAsset: Asset;
+        sendMax: string;
+        destination: string;
+        destAsset: Asset;
+        destAmount: string;
+        path: Asset[];
+    }
+    function pathPayment(options: OperationOptions.PathPayment): xdr.Operation<PathPayment>;
+
+    interface Payment extends BaseOperation<OperationType.Payment> {
+        amount: string;
+        asset: Asset;
+        destination: string;
+    }
+    function payment(options: OperationOptions.Payment): xdr.Operation<Payment>;
+
+    interface SetOptions<T extends SignerUnion = SignerUnion> extends BaseOperation<OperationType.SetOptions> {
+        inflationDest?: string;
+        clearFlags?: AuthFlag;
+        setFlags?: AuthFlag;
+        masterWeight?: number;
+        lowThreshold?: number;
+        medThreshold?: number;
+        highThreshold?: number;
+        homeDomain?: string;
+        signer:
+            T extends {ed25519PublicKey: any} ? Signer.Ed25519PublicKey :
+            T extends {sha256Hash: any} ? Signer.Sha256Hash :
+            T extends {preAuthTx: any} ? Signer.PreAuthTx :
+            never;
+    }
+    function setOptions<T extends SignerUnion = never>(options: OperationOptions.SetOptions<T>): xdr.Operation<SetOptions<T>>;
+
+    interface BumpSequence extends BaseOperation<OperationType.BumpSequence> {
+        bumpTo: string;
+    }
+    function bumpSequence(options: OperationOptions.BumpSequence): xdr.Operation<BumpSequence>;
+
+    function fromXDRObject<T extends Operation = Operation>(xdrOperation: xdr.Operation<T>): T;
+}
+export type Operation =
     Operation.CreateAccount
     | Operation.Payment
     | Operation.PathPayment
@@ -158,223 +405,8 @@ export type TransactionOperation =
     | Operation.AccountMerge
     | Operation.Inflation
     | Operation.ManageData
-    | Operation.BumpSequence;
-
-export namespace OperationType {
-    type createAccount = 'createAccount';
-    type payment = 'payment';
-    type pathPayment = 'pathPayment';
-    type createPassiveOffer = 'createPassiveOffer';
-    type manageOffer = 'manageOffer';
-    type setOptions = 'setOptions';
-    type changeTrust = 'changeTrust';
-    type allowTrust = 'allowTrust';
-    type accountMerge = 'accountMerge';
-    type inflation = 'inflation';
-    type manageData = 'manageData';
-    type bumpSequence = 'bumpSequence';
-}
-export type OperationType =
-    | OperationType.createAccount
-    | OperationType.payment
-    | OperationType.pathPayment
-    | OperationType.createPassiveOffer
-    | OperationType.manageOffer
-    | OperationType.setOptions
-    | OperationType.changeTrust
-    | OperationType.allowTrust
-    | OperationType.accountMerge
-    | OperationType.inflation
-    | OperationType.manageData
-    | OperationType.bumpSequence
+    | Operation.BumpSequence
 ;
-
-export namespace Operation {
-    interface Operation<T extends OperationType = OperationType> {
-        type: T;
-        source?: string;
-    }
-    interface OperationOptions {
-        source?: string;
-    }
-
-    interface AccountMerge extends Operation<OperationType.accountMerge> {
-        destination: string;
-    }
-    interface AccountMergeOptions extends OperationOptions {
-        destination: string;
-    }
-    function accountMerge(options: AccountMergeOptions): xdr.Operation<AccountMerge>;
-
-    interface AllowTrust extends Operation<OperationType.allowTrust> {
-        trustor: string;
-        assetCode: string;
-        authorize: boolean | undefined;
-    }
-    interface AllowTrustOptions extends OperationOptions {
-        trustor: string;
-        assetCode: string;
-        authorize?: boolean;
-    }
-    function allowTrust(options: AllowTrustOptions): xdr.Operation<AllowTrust>;
-
-    interface ChangeTrust extends Operation<OperationType.changeTrust> {
-        line: Asset;
-        limit: string;
-    }
-    interface ChangeTrustOptions extends OperationOptions {
-        asset: Asset;
-        limit?: string;
-    }
-    function changeTrust(options: ChangeTrustOptions): xdr.Operation<ChangeTrust>;
-
-    interface CreateAccount extends Operation<OperationType.createAccount> {
-        destination: string;
-        startingBalance: string;
-    }
-    interface CreateAccountOptions extends OperationOptions {
-        destination: string;
-        startingBalance: string;
-    }
-    function createAccount(options: CreateAccountOptions): xdr.Operation<CreateAccount>;
-
-    interface CreatePassiveOffer extends Operation<OperationType.createPassiveOffer> {
-        selling: Asset;
-        buying: Asset;
-        amount: string;
-        price: string;
-    }
-    interface CreatePassiveOfferOptions extends OperationOptions {
-        selling: Asset;
-        buying: Asset;
-        amount: string;
-        price: number | string | object /* bignumber.js */;
-    }
-    function createPassiveOffer(options: CreatePassiveOfferOptions): xdr.Operation<CreatePassiveOffer>;
-
-    interface Inflation extends Operation<OperationType.inflation> {
-    }
-    interface InflationOptions extends OperationOptions {  // tslint:disable-line
-    }
-    function inflation(options: InflationOptions): xdr.Operation<Inflation>;
-
-    interface ManageData extends Operation<OperationType.manageData> {
-        name: string;
-        value: Buffer;
-    }
-    interface ManageDataOptions extends OperationOptions {
-        name: string;
-        value: string | Buffer;
-    }
-    function manageData(options: ManageDataOptions): xdr.Operation<ManageData>;
-
-    interface ManageOffer extends Operation<OperationType.manageOffer> {
-        selling: Asset;
-        buying: Asset;
-        amount: string;
-        price: string;
-        offerId: string;
-    }
-    interface ManageOfferOptions extends CreatePassiveOfferOptions {
-        offerId?: number | string;
-    }
-    function manageOffer(options: ManageOfferOptions): xdr.Operation<ManageOffer>;
-
-    interface PathPayment extends Operation<OperationType.pathPayment> {
-        sendAsset: Asset;
-        sendMax: string;
-        destination: string;
-        destAsset: Asset;
-        destAmount: string;
-        path: Asset[];
-    }
-    interface PathPaymentOptions extends OperationOptions {
-        sendAsset: Asset;
-        sendMax: string;
-        destination: string;
-        destAsset: Asset;
-        destAmount: string;
-        path?: Asset[];
-    }
-    function pathPayment(options: PathPaymentOptions): xdr.Operation<PathPayment>;
-
-    interface Payment extends Operation<OperationType.payment> {
-        amount: string;
-        asset: Asset;
-        destination: string;
-    }
-    interface PaymentOptions extends OperationOptions {
-        amount: string;
-        asset: Asset;
-        destination: string;
-    }
-    function payment(options: PaymentOptions): xdr.Operation<Payment>;
-
-    interface SignerEd25519PublicKey {
-        ed25519PublicKey: string;
-        weight: number | undefined;
-    }
-    interface SignerSha256Hash {
-        sha256Hash: Buffer;
-        weight: number | undefined;
-    }
-    interface SignerPreAuthTx {
-        preAuthTx: Buffer;
-        weight: number | undefined;
-    }
-    type Signer = SignerEd25519PublicKey | SignerSha256Hash | SignerPreAuthTx;
-    interface SignerEd25519PublicKeyOptions {
-        ed25519PublicKey: string;
-        weight?: number | string;
-    }
-    interface SignerSha256HashOptions {
-        sha256Hash: Buffer | string;
-        weight?: number | string;
-    }
-    interface SignerPreAuthTxOptions {
-        preAuthTx: Buffer | string;
-        weight?: number | string;
-    }
-    type SignerOptions = SignerEd25519PublicKeyOptions | SignerSha256HashOptions | SignerPreAuthTxOptions;
-    type SignerUnion = {ed25519PublicKey: any} | {sha256Hash: any} | {preAuthTx: any} | null;
-    interface SetOptions<T extends SignerUnion = SignerUnion> extends Operation<OperationType.setOptions> {
-        inflationDest?: string;
-        clearFlags?: AuthFlag;
-        setFlags?: AuthFlag;
-        masterWeight?: number;
-        lowThreshold?: number;
-        medThreshold?: number;
-        highThreshold?: number;
-        homeDomain?: string;
-        signer:
-            T extends {ed25519PublicKey: any} ? SignerEd25519PublicKey :
-            T extends {sha256Hash: any} ? SignerSha256Hash :
-            T extends {preAuthTx: any} ? SignerPreAuthTx :
-            never;
-    }
-    interface SetOptionsOptions<T extends SignerUnion = never> extends OperationOptions {
-        inflationDest?: string;
-        clearFlags?: AuthFlag;
-        setFlags?: AuthFlag;
-        masterWeight?: number | string;
-        lowThreshold?: number | string;
-        medThreshold?: number | string;
-        highThreshold?: number | string;
-        homeDomain?: string;
-        signer?: T;
-    }
-    function setOptions<T extends SignerUnion = never>(options: SetOptionsOptions<T>): xdr.Operation<SetOptions<T>>;
-
-    interface BumpSequence extends Operation<OperationType.bumpSequence> {
-        bumpTo: string;
-    }
-    interface BumpSequenceOptions extends OperationOptions {
-        bumpTo: string;
-    }
-    function bumpSequence(options: BumpSequenceOptions): xdr.Operation<BumpSequence>;
-
-    function fromXDRObject<T extends TransactionOperation = TransactionOperation>(xdrOperation: xdr.Operation<T>): T;
-}
 
 export namespace StrKey {
     function encodeEd25519PublicKey(data: Buffer): string;
@@ -392,7 +424,7 @@ export namespace StrKey {
     function decodeSha256Hash(data: string): Buffer;
 }
 
-export class Transaction<TMemo extends Memo = Memo, TOps extends TransactionOperation[] = TransactionOperation[]> {
+export class Transaction<TMemo extends Memo = Memo, TOps extends Operation[] = Operation[]> {
     constructor(envelope: string | xdr.TransactionEnvelope)
     hash(): Buffer;
     sign(...keypairs: Keypair[]): void;
@@ -426,6 +458,13 @@ export namespace TransactionBuilder {
     }
 }
 
+// Hidden namespace as hack to work around name collision.
+declare namespace xdrHidden {  // tslint:disable-line:strict-export-declare-modifiers
+    class Operation2<T extends Operation = Operation> extends xdr.XDRStruct {
+        static fromXDR(xdr: Buffer): xdr.Operation;
+    }
+}
+
 export namespace xdr {
     class XDRStruct {
         static fromXDR(xdr: Buffer): XDRStruct;
@@ -433,9 +472,7 @@ export namespace xdr {
         toXDR(base?: string): Buffer;
         toXDR(encoding: string): string;
     }
-    class Operation<T extends TransactionOperation = TransactionOperation> extends XDRStruct {
-        static fromXDR(xdr: Buffer): Operation;
-    }
+    export import Operation = xdrHidden.Operation2;  // tslint:disable-line:strict-export-declare-modifiers
     class Asset extends XDRStruct {
         static fromXDR(xdr: Buffer): Asset;
     }

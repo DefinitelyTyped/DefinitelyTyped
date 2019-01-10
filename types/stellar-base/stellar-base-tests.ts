@@ -6,7 +6,7 @@ const account = new StellarSdk.Account(sourceKey.publicKey(), '1');
 const transaction = new StellarSdk.TransactionBuilder(account)
     .addOperation(StellarSdk.Operation.accountMerge({destination: destKey.publicKey()}))
     .addMemo(new StellarSdk.Memo(StellarSdk.MemoText, "memo"))
-    .build(); // $ExpectType () => Transaction<Memo<MemoType>, TransactionOperation[]>
+    .build(); // $ExpectType () => Transaction<Memo<MemoType>, Operation[]>
 
 const sig = StellarSdk.xdr.DecoratedSignature.fromXDR(Buffer.of(1, 2)); // $ExpectType DecoratedSignature
 sig.hint(); // $ExpectType Buffer
@@ -31,10 +31,10 @@ const noSignerXDR = StellarSdk.Operation.setOptions({lowThreshold: 1});
 StellarSdk.Operation.fromXDRObject(noSignerXDR).signer; // $ExpectType never
 
 const newSignerXDR1 = StellarSdk.Operation.setOptions({signer: {ed25519PublicKey: sourceKey.publicKey(), weight: '1'}});
-StellarSdk.Operation.fromXDRObject(newSignerXDR1).signer; // $ExpectType SignerEd25519PublicKey
+StellarSdk.Operation.fromXDRObject(newSignerXDR1).signer; // $ExpectType Ed25519PublicKey
 
 const newSignerXDR2 = StellarSdk.Operation.setOptions({signer: {sha256Hash: Buffer.from(''), weight: '1'}});
-StellarSdk.Operation.fromXDRObject(newSignerXDR2).signer; // $ExpectType SignerSha256Hash
+StellarSdk.Operation.fromXDRObject(newSignerXDR2).signer; // $ExpectType Sha256Hash
 
 const newSignerXDR3 = StellarSdk.Operation.setOptions({signer: {preAuthTx: '', weight: 1}});
-StellarSdk.Operation.fromXDRObject(newSignerXDR3).signer; // $ExpectType SignerPreAuthTx
+StellarSdk.Operation.fromXDRObject(newSignerXDR3).signer; // $ExpectType PreAuthTx
