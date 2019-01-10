@@ -25,8 +25,9 @@
  * var a = c => c;
  *
  */
+import { Transform, MemberExpression, FunctionExpression } from "jscodeshift";
 
-module.exports = function(file, api) {
+const transform: Transform = function(file, api) {
   const j = api.jscodeshift;
 
   return j(file.source)
@@ -35,16 +36,24 @@ module.exports = function(file, api) {
     // Verify that .bind() is only being called with `this` as it's sole arguments.
     .filter(p => p.value.arguments.length == 1 && p.value.arguments[0].type == "ThisExpression")
   	.replaceWith(p => {
+      var callee = p.value.callee as MemberExpression;
+      var object = callee.object as FunctionExpression;
       // Grab the function body. Since we looked for the CallExpression originally, the "callee.object" would refer
       // to the FunctionExpression that's being called .bind(this) on. We need the body of that function
       // to transform into an ArrowFunctionExpression.
-    	var body = p.value.callee.object.body;
+    	var body = object.body;
       // We can get a bit clever here. If we have a function that consists of a single return statement in it's body,
       // we can transform it to the more compact arrowFunctionExpression (a, b) => a + b, vs (a + b) => { return a + b }
-      var useExpression = body.type == 'BlockStatement' && body.body.length == 1 && body.body[0].type == "ReturnStatement";
-      body = useExpression ? body.body[0].argument : body;
+      var useExpression = false;
+      if (body.type == 'BlockStatement' && body.body.length == 1) {
+        const first = body.body[0];
+        if (first.type == "ReturnStatement") {
+          useExpression = true;
+          body = first.argument!;
+        }
+      }
 
-      return j.arrowFunctionExpression(p.value.callee.object.params, body, useExpression);
+      return j.arrowFunctionExpression(object.params, body, useExpression);
     })
     .toSource();
 };

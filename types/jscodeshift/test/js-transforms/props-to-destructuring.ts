@@ -19,37 +19,40 @@
  * }
  *
  */
+import { Transform, VariableDeclarator, ObjectPattern, Identifier, BlockStatement } from "jscodeshift";
 
-let keywords = 'this function if return var else for new in typeof while case break try catch delete throw switch continue default instanceof do void finally with debugger implements interface package private protected public static class enum export extends import super true false null abstract boolean byte char const double final float goto int long native short synchronized throws transient volatile';
-keywords = keywords.split(' ').reduce((f, k) => {
+const keywordsStr = 'this function if return var else for new in typeof while case break try catch delete throw switch continue default instanceof do void finally with debugger implements interface package private protected public static class enum export extends import super true false null abstract boolean byte char const double final float goto int long native short synchronized throws transient volatile';
+let keywords = keywordsStr.split(' ').reduce<{ [key: string]: boolean }>((f, k) => {
   f[k] = true;
   return f;
 }, {});
-const isKeyword = k => keywords.hasOwnProperty(k);
+const isKeyword = (k: string) => keywords.hasOwnProperty(k);
 
-module.exports = function (file, api) {
+const transform: Transform = function (file, api) {
   const j = api.jscodeshift;
   const {statement} = j.template;
 
   return j(file.source)
     .find(j.FunctionExpression)
     .replaceWith(p => {
-      console.log(p);
+      // console.log(p);
       const root = j(p.value);
-      const variablesToReplace = {};
+      const variablesToReplace: { [name: string]: boolean } = {};
 
       // Figure out if the variable was defined from props, so that we can re-use that definition.
-      const isFromProps = (name, resolvedScope) => {
+      const isFromProps = (name: string, resolvedScope: any) => {
         return resolvedScope.getBindings()[name].every(
-            p => {
+            (p: any) => {
             const decl = j(p).closest(j.VariableDeclarator);
               // What happens when our VariableDeclarator is too high up the parent AST?
 
             if (!decl.size()) return false;
-            const node = decl.nodes()[0];
+            const node: VariableDeclarator = decl.nodes()[0];
 
-            if (!(node.init.type == 'MemberExpression' &&
+            if (!(node.init != null &&
+              node.init.type == 'MemberExpression' &&
               node.init.object.type == 'ThisExpression' &&
+              node.init.property.type == 'Identifier' &&
               node.init.property.name == 'props'))
               return false;
 
@@ -74,17 +77,17 @@ module.exports = function (file, api) {
           }
         })
         .filter(e => {
-          const resolvedScope = e.scope.lookup(e.value.property.name);
+          const resolvedScope = e.scope.lookup((e.value.property as Identifier).name);
           // If the scope is null, that means that this property isn't defined in the scope yet,
           // and we can use it. Otherwise, if it is defined, we should see if it was defined from `this.props`
           // if none of these cases are true, we can't do substitution.
-          return resolvedScope == null || isFromProps(e.value.property.name, resolvedScope);
+          return resolvedScope == null || isFromProps((e.value.property as Identifier).name, resolvedScope);
         })
         // Ensure that our substitution won't cause us to define a keyword, i.e. `this.props.while` won't
         // get converted into `while`. 
-        .filter(p => !isKeyword(p.value.property.name))
+        .filter(p => !isKeyword((p.value.property as Identifier).name))
         // Now, do the replacement, `this.props.xyz` => `xyz`.
-        .replaceWith(p => p.value.property)
+        .replaceWith(p => p.value.property as Identifier)
         // Finally, mark the variable as something we will need to define earlier in the function,
         // if it's not already defined.
         .forEach(p => {
@@ -117,7 +120,8 @@ module.exports = function (file, api) {
       if (propDefinitions.size()) {
         const nodePath = propDefinitions.paths()[0];
         const node = nodePath.value;
-        const newPattern = j.objectPattern(node.id.properties.concat(properties));
+        // TODO(brieb): support narrowing based on second argument to `find`
+        const newPattern = j.objectPattern((node.id as ObjectPattern).properties.concat(properties));
         nodePath.replace(j.variableDeclarator(newPattern, node.init));
         return p.value;
       }
@@ -130,7 +134,7 @@ module.exports = function (file, api) {
       return j.functionExpression(
         p.value.id,
         p.value.params,
-        j.blockStatement([decl].concat(p.value.body.body))
+        j.blockStatement([decl].concat((p.value.body as BlockStatement).body))
       );
     }
   ).toSource();

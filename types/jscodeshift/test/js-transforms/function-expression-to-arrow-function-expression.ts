@@ -25,8 +25,9 @@
  *  	return a + b + this.c;
  * }
  */
+import { Transform } from "jscodeshift";
 
-module.exports = function (file, api) {
+const transform: Transform = function (file, api) {
   const j = api.jscodeshift;
 
   return j(file.source)
@@ -38,8 +39,14 @@ module.exports = function (file, api) {
       var body = p.value.body;
       // We can get a bit clever here. If we have a function that consists of a single return statement in it's body,
       // we can transform it to the more compact arrowFunctionExpression (a, b) => a + b, vs (a + b) => { return a + b }
-      var useExpression = body.type == 'BlockStatement' && body.body.length == 1 && body.body[0].type == "ReturnStatement";
-      body = useExpression ? body.body[0].argument : body;
+      var useExpression = false;
+      if (body.type == 'BlockStatement' && body.body.length == 1) {
+        const first = body.body[0];
+        if (first.type == "ReturnStatement") {
+          useExpression = true;
+          body = first.argument!;
+        }
+      }
       return j.arrowFunctionExpression(p.value.params, body, useExpression);
     })
     .toSource();

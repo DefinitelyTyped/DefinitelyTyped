@@ -250,7 +250,9 @@ declare module "jscodeshift/src/Collection" {
 
 declare module "jscodeshift/src/collections/Node" {
     import { Collection } from "jscodeshift/src/Collection";
-    import { ASTNode, Type } from "recast";
+    import { ASTNode, Type, NodePath } from "recast";
+
+    type ASTPath<N> = NodePath<N, N>;
 
     export interface TraversalMethods {
         /**
@@ -285,7 +287,7 @@ declare module "jscodeshift/src/collections/Node" {
          * is provided it is executed for every node and the node is replaced with the
          * functions return value.
          */
-        replaceWith<T>(nodes: T | T[] | ((path: any, i: number) => T)): this;
+        replaceWith<T>(nodes: T | T[] | ((path: ASTPath<N>, i: number) => T)): Collection<T>;
 
         /**
          * Inserts a new node before the current one.
