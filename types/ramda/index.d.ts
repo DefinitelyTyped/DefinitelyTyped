@@ -1108,7 +1108,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T>(list: [T, ...T[]]): T;
+        head<T>(list: [T, ...any[]]): T;
         head<T>(list: ReadonlyArray<T>): T | undefined;
         head(list: string): string;
 
@@ -1584,12 +1584,12 @@ declare namespace R {
         /**
          * Returns the nth element in a list.
          */
-        nth<T>(n: 0, list: [T, ...T[]]): T;
-        nth<T>(n: 1, list: [T, T, ...T[]]): T;
-        nth<T>(n: 2, list: [T, T, T, ...T[]]): T;
-        nth<T>(n: 3, list: [T, T, T, T, ...T[]]): T;
-        nth<T>(n: 4, list: [T, T, T, T, T, ...T[]]): T;
-        nth<T>(n: 5, list: [T, T, T, T, T, T, ...T[]]): T;
+        nth<T>(n: 0, list: [T, ...any[]]): T;
+        nth<T>(n: 1, list: [any, T, ...any[]]): T;
+        nth<T>(n: 2, list: [any, any, T, ...any[]]): T;
+        nth<T>(n: 3, list: [any, any, any, T, ...any[]]): T;
+        nth<T>(n: 4, list: [any, any, any, any, T, ...any[]]): T;
+        nth<T>(n: 5, list: [any, any, any, any, any, T, ...any[]]): T;
         nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
         nth(n: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 

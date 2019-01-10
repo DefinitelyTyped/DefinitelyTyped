@@ -1135,12 +1135,12 @@ interface Obj {
     R.nth(0, [0]); // $ExpectType number
     const numbers: number[] = [0]; // array instead of tuple
     R.nth(0, numbers); // $ExpectType number | undefined
-    R.nth(1, [0, 1]); // $ExpectType number
-    R.nth(2, [0, 1, 2]); // $ExpectType number
-    R.nth(3, [0, 1, 2, 3]); // $ExpectType number
-    R.nth(4, [0, 1, 2, 3, 4]); // $ExpectType number
-    R.nth(5, [0, 1, 2, 3, 4, 5]); // $ExpectType number
-    R.nth(6, [0, 1, 2, 3, 4, 5, 6]); // $ExpectType number | undefined
+    R.nth(1, ['a', 1]); // $ExpectType number
+    R.nth(2, ['a', 'b', 2]); // $ExpectType number
+    R.nth(3, ['a', 'b', 'c', 3]); // $ExpectType number
+    R.nth(4, ['a', 'b', 'c', 'd', 4]); // $ExpectType number
+    R.nth(5, ['a', 'b', 'c', 'd', 'e', 5]); // $ExpectType number
+    R.nth(6, ['a', 'b', 'c', 'd', 'e', 'f', 6]); // $ExpectType string | number | undefined
 };
 
 () => {
