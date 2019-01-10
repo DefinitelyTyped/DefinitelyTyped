@@ -67,6 +67,7 @@ class SingleDatePickerFullTest extends React.Component {
                     verticalHeight={5}
                     regular={true}
                     small={true}
+                    horizontalMonthPadding={3}
                     />
     }
 }
@@ -125,6 +126,7 @@ class DateRangePickerFullTest extends React.Component {
                     monthFormat="MM"
                     renderDayContents={day => day.toString()}
                     onClose={(final:any) =>{}}
+                    horizontalMonthPadding={3}
                     />
     }
 }

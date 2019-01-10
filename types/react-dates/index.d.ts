@@ -1,4 +1,4 @@
-// Type definitions for react-dates v17.1.0
+// Type definitions for react-dates v17.2.0
 // Project: https://github.com/airbnb/react-dates
 // Definitions by: Artur Ampilogov <https://github.com/ArturAmpilogov>
 //                 Nathan Holland <https://github.com/NathanNZ>
@@ -98,6 +98,7 @@ declare namespace ReactDates {
         verticalHeight?: number;
         transitionDuration?: number;
         verticalSpacing?: number;
+        horizontalMonthPadding?: number;
 
         // navigation related props
         navPrev?: string | JSX.Element;
@@ -201,6 +202,7 @@ declare namespace ReactDates {
         isRTL?: boolean;
         verticalHeight?: number | null;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
 
         // navigation related props
         navPrev?: string | JSX.Element;
@@ -412,7 +414,7 @@ declare namespace ReactDates {
     type DayPickerRangeController = React.ClassicComponentClass<DayPickerRangeControllerShape>;
     var DayPickerRangeController: React.ClassicComponentClass<DayPickerRangeControllerShape>;
 
-    // components/DayPickerShape.jsx
+    // components/DayPicker.jsx
     interface DayPickerShape {
         renderMonthText?: (day: momentPropTypes.momentObj) => string | JSX.Element;
         renderMonthElement?: (
@@ -426,6 +428,7 @@ declare namespace ReactDates {
         numberOfMonths?: number;
         orientation?: ScrollableOrientationShape;
         withPortal?: boolean;
+        hidden?: boolean;
         initialVisibleMonth?: () => momentPropTypes.momentObj;
         firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
         hideKeyboardShortcutsPanel?: boolean;
@@ -433,9 +436,12 @@ declare namespace ReactDates {
         verticalHeight?: number;
         noBorder?: boolean;
         transitionDuration?: number;
+        verticalBorderSpacing?: number;
+        horizontalMonthPadding?: number;
 
         navPrev?: string | JSX.Element;
         navNext?: string | JSX.Element;
+        noNavButtons?: boolean;
 
         onPrevMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
