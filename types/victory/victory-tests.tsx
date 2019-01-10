@@ -12,7 +12,8 @@ import {
     VictoryScatter,
     VictoryPie,
     VictoryTheme,
-    VictoryLegend
+    VictoryLegend,
+    VictoryGroup
 } from "victory";
 
 // VictoryAnimation test
@@ -416,6 +417,23 @@ test = (
               {x: new Date(2015, 1, 1), y: 470}
             ]}/>
     </VictoryChart>
+);
+
+// VictoryGroup test
+test = (
+    <VictoryGroup
+        offset={40}
+    >
+        <VictoryBar
+            data={[{ x: "a", y: 2 }, { x: "b", y: 3 }, { x: "c", y: 5 }]}
+        />
+        <VictoryBar
+            data={[{ x: "a", y: 1 }, { x: "b", y: 4 }, { x: "c", y: 5 }]}
+        />
+        <VictoryBar
+            data={[{ x: "a", y: 3 }, { x: "b", y: 2 }, { x: "c", y: 6 }]}
+        />
+    </VictoryGroup>
 );
 
 // VictoryLine test
