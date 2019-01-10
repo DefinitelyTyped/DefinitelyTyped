@@ -61,16 +61,16 @@ export type PropInjector<InjectedProps, AdditionalProps = {}> = <
   >;
 
 // Allow functions that take the properties of the component and return a CSS value
-export type CssRule<Props> = {
+export type DynamicCSSRule<Props> = {
   [K in keyof CSS.Properties<number | string>]:
-  | (CSS.Properties<number | string>[K])
+  | CSS.Properties<number | string>[K]
   | ((props: Props) => CSS.Properties<number | string>[K])
 }[keyof CSS.Properties];
 
 export interface CSSProperties<Props> {
   // Allow pseudo selectors and media queries
   [k: string]:
-    | CssRule<Props>
+    | DynamicCSSRule<Props>
     | CSSProperties<Props>;
 }
 export type Styles<ClassKey extends string = string, Props = {}> = Record<
