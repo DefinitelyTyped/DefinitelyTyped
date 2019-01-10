@@ -250,7 +250,7 @@ export interface Layout {
 	ternary: {}; // TODO
 	geo: {}; // TODO
 	mapbox: {}; // TODO
-	radialaxis: {}; // TODO
+	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
 	direction: 'clockwise' | 'counterclockwise';
 	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
@@ -481,7 +481,7 @@ export type ScatterData = PlotData;
 export interface PlotData {
 	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
 		'ohlc' | 'parcoords' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-		'scatterternary' | 'surface' | 'pie';
+		'scatterternary' | 'surface' | 'pie' | 'scatterpolar';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -547,6 +547,8 @@ export interface PlotData {
 	values: Datum[];
 	labels: Datum[];
 	hole: number;
+	theta: Datum[];
+	r: Datum[];
 }
 
 /**
