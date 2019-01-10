@@ -1,4 +1,4 @@
-import { ASTNode, FileInfo, API, Transform } from "jscodeshift";
+import { ASTNode, FileInfo, API, Transform, Parser } from "jscodeshift";
 
 // Can define transform with `function`.
 function replaceWithFooTransform(fileInfo: FileInfo, api: API) {
@@ -28,21 +28,46 @@ const reverseIdentifiersTransform: Transform = (file, api) => {
         .toSource();
 };
 
+// Can define a custom parser.
+const parser: Parser = {
+    parse(source, options) {
+        // return estree compatible AST
+        return { type: "root" };
+    }
+};
+
+// Can pass options to recast
+const transformWithRecastFormattingOptions: Transform = (file, { j }) => {
+    return j(file.source).toSource({ quote: "single" });
+};
+
+const transformWithRecastParseOptions: Transform = (file, { j }) => {
+    return j(file.source, {
+        /* ...passes options to recast's parse method... */
+    }).toSource();
+};
+
 // `ASTNode` supports type narrowing.
 {
     const node = ({} as any) as ASTNode;
     if (node.type === "CatchClause") {
-        // `node` is narrowed to `CatchClause` here
+        // $ExpectType CatchClause
+        node;
+
         if (node.param && node.param.type === "Identifier") {
-            // `node.param` is narrowed to `Identifier` here
+            // $ExpectType Identifier
+            node.param;
+
             if (
                 node.param.typeAnnotation &&
                 node.param.typeAnnotation.type === "TSTypeAnnotation"
             ) {
-                // `node.param.typeAnnotation` is narrowed to `TSTypeAnnotation` here
+                // $ExpectType TSTypeAnnotation
+                node.param.typeAnnotation;
+
                 if (node.param.typeAnnotation.typeAnnotation.type === "TSArrayType") {
-                    // `node.param.typeAnnotation.typeAnnotation` is narrowed to `TSArrayType` here
-                    node.param.typeAnnotation.typeAnnotation.elementType;
+                    // $ExpectType TSArrayType
+                    node.param.typeAnnotation.typeAnnotation;
                 }
             }
         }

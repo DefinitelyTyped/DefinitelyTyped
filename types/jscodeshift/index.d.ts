@@ -126,9 +126,8 @@ declare module "jscodeshift/src/Collection" {
     import * as JSXElement from "jscodeshift/src/collections/JSXElement";
     import * as NodeCollection from "jscodeshift/src/collections/Node";
     import * as VariableDeclarator from "jscodeshift/src/collections/VariableDeclarator";
-    import recast, { ASTNode, NodePath, Options } from "recast";
+    import recast, { ASTNode, NodePath, Options, Type } from "recast";
 
-    type Type = typeof recast.types.Type;
     type ASTPath<N> = NodePath<N, N>;
 
     export interface Collection<N>
@@ -144,7 +143,7 @@ declare module "jscodeshift/src/Collection" {
          * @param types An array of types all the paths in the collection
          *  have in common. If not passed, it will be inferred from the paths.
          */
-        new (paths: Array<ASTPath<N>>, parent: Collection<any>, types?: Type[]): this;
+        new (paths: Array<ASTPath<N>>, parent: Collection<any>, types?: Array<Type<any>>): this;
 
         /**
          * Returns a new collection containing the nodes for which the callback returns true.
@@ -190,7 +189,7 @@ declare module "jscodeshift/src/Collection" {
                 i: number,
                 paths: Array<ASTPath<N>>
             ) => ASTPath<T> | Array<ASTPath<T>> | null | undefined,
-            type: Type
+            type: Type<any>
         ): Collection<T>;
 
         /** Returns the number of elements in this collection. */
@@ -233,7 +232,7 @@ declare module "jscodeshift/src/Collection" {
         /**
          * Returns true if this collection has the type 'type'.
          */
-        isOfType(type: Type): boolean;
+        isOfType(type: Type<any>): boolean;
     }
 
     /**
@@ -244,7 +243,7 @@ declare module "jscodeshift/src/Collection" {
      * @param methods Methods to add to the prototype
      * @param type Optional type to add the methods to
      */
-    export function registerMethods(methods: object, type?: Type): void;
+    export function registerMethods(methods: object, type?: Type<any>): void;
 
     export {}; // to shut off automatic exporting
 }
@@ -311,7 +310,6 @@ declare module "jscodeshift/src/collections/VariableDeclarator" {
     import { Collection } from "jscodeshift/src/Collection";
     import recast, { NodePath } from "recast";
 
-    type Node = typeof recast.types.namedTypes.Node;
     type ASTPath<N> = NodePath<N, N>;
 
     export interface GlobalMethods {
