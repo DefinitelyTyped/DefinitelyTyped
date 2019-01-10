@@ -685,6 +685,12 @@
             "asOfVersion": "0.35.0"
         },
         {
+            "libraryName": "hibp",
+            "typingsPackageName": "hibp",
+            "sourceRepoURL": "https://github.com/wKovacs64/hibp",
+            "asOfVersion": "7.3.0"
+        },
+        {
             "libraryName": "homeworks",
             "typingsPackageName": "homeworks",
             "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",
@@ -1481,6 +1487,12 @@
             "typingsPackageName": "simplesignal",
             "sourceRepoURL": "https://github.com/zeh/simplesignal",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "sip.js",
+            "typingsPackageName": "sip.js",
+            "sourceRepoURL": "https://github.com/onsip/SIP.js",
+            "asOfVersion": "0.12.0"
         },
         {
             "libraryName": "smooth-scrollbar",

@@ -78,6 +78,7 @@ import {
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
+    DatePickerAndroid,
     ViewPropTypes,
     requireNativeComponent,
 } from "react-native";
@@ -762,13 +763,29 @@ const AlertIOSTest = () => {
 
 const ModalTest = () => <Modal hardwareAccelerated />;
 
-const TimePickerAndroidTest = () =>
+const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({
         hour: 8,
         minute: 15,
         is24Hour: true,
         mode: "spinner",
+    }).then(result => {
+        if (result.action === TimePickerAndroid.timeSetAction) {
+            console.log('Time', result.hour, result.minute)
+        }
     });
+}
+
+const DatePickerAndroidTest = () => {
+    DatePickerAndroid.open({
+        date: new Date(),
+        mode: 'calendar'
+    }).then(result => {
+        if (result.action === DatePickerAndroid.dateSetAction) {
+            console.log('Date', result.year, result.month, result.day)
+        }
+    });
+}
 
 class BridgedComponentTest extends React.Component {
     static propTypes = {

@@ -1,5 +1,7 @@
 import * as React from 'react';
-import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
+import PlacesAutocomplete, {
+    geocodeByAddress, geocodeByPlaceId, getLatLng
+} from 'react-places-autocomplete';
 
 class Test extends React.Component {
     state = {
@@ -28,7 +30,7 @@ class Test extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <PlacesAutocomplete value={this.state.address} onChange={this.onChange}>
+                <PlacesAutocomplete value={this.state.address} onChange={this.onChange} googleCallbackName="google_callback_name">
                     {({getInputProps, getSuggestionItemProps, suggestions}) => (
                         <>
                             <input {...getInputProps()} />

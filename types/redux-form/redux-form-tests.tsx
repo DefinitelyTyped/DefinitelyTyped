@@ -7,7 +7,6 @@ import {
     FormName,
     GenericForm,
     FormSection,
-    GenericFormSection,
     formValues,
     formValueSelector,
     Field,
@@ -101,8 +100,8 @@ const ItemListObj = formValues({ fooBar : "foo" })(
 interface MyFormSectionProps {
     foo: string;
 }
-const MyFormSection: React.StatelessComponent<MyFormSectionProps> = ({ children }) => null;
-const FormSectionCustom = FormSection as new () => GenericFormSection<MyFormSectionProps>;
+
+const MyFormSection: React.StatelessComponent<MyFormSectionProps> = ({ children, foo }) => null;
 
 /* Custom Field */
 
@@ -253,10 +252,10 @@ const Test = reduxForm<TestFormData>({
             return (
                 <div>
                     <FormCustom onSubmit={ handleSubmit(this.handleSubmitForm) }>
-                        <FormSectionCustom
-                            name="test1"
-                            component={ MyFormSection }
-                            foo="bar"
+                        <FormSection<MyFormSectionProps>
+                            name="my-section"
+                            component={MyFormSection}
+                            foo="hello"
                         />
 
                         <FormSection name="test2">

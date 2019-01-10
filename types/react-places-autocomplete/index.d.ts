@@ -8,8 +8,7 @@
 // TypeScript Version: 2.8
 //
 /// <reference types="googlemaps" />
-
-import * as React from "react";
+import * as React from 'react';
 
 export type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
@@ -29,6 +28,8 @@ export interface Suggestion {
 }
 
 export interface PropTypes {
+    onChange?: (value: string) => void;
+    value?: string;
     onError?: (status: string, clearSuggestion: () => void) => void;
     onSelect?: (address: string, placeID: string) => void;
     searchOptions?: {
@@ -39,13 +40,10 @@ export interface PropTypes {
         radius?: number | string;
         types?: string[];
     };
-    value?: string;
-    onChange?: (value: string) => void;
-
     debounce?: number;
     highlightFirstSuggestion?: boolean;
     shouldFetchSuggestions?: boolean;
-
+    googleCallbackName?: string;
     children: (opts: Readonly<{
         loading: boolean;
         suggestions: ReadonlyArray<Suggestion>;

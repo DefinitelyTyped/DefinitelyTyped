@@ -725,6 +725,20 @@ stripe.accounts.retrieve("acct_17wV8KBoqMA9o2xk").then(
         const payouts_enabled: boolean = accounts.payouts_enabled;
     }
 );
+stripe.accounts.createLoginLink("acct_17wV8KBoqMA9o2xk").then(
+    (loginLink) => {
+        const object: string = loginLink.object;
+        const created: number = loginLink.created;
+        const url: string = loginLink.url;
+    }
+);
+stripe.accounts.createLoginLink("acct_17wV8KBoqMA9o2xk", "http://localhost:3000").then(
+    (loginLink) => {
+        const object: string = loginLink.object;
+        const created: number = loginLink.created;
+        const url: string = loginLink.url;
+    }
+);
 //#endregion
 
 //#region Application Fee Refunds tests
