@@ -1092,7 +1092,7 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
-    interface ParsedUrlQuery { [key: string]: string | string[]; }
+    interface ParsedUrlQuery { [key: string]: string | string[] | undefined; }
 
     function stringify(obj?: {}, sep?: string, eq?: string, options?: StringifyOptions): string;
     function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
