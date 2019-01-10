@@ -546,6 +546,7 @@ export interface PlotData {
 	};
 	values: Datum[];
 	labels: Datum[];
+	hole: number;
 }
 
 /**
