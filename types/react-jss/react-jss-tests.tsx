@@ -21,7 +21,6 @@ function createStyles<Props = {}, C extends string = string>(styles: Styles<C, P
   return styles;
 }
 
-
 interface ButtonProps {
   label: string;
   active?: boolean;
@@ -29,7 +28,7 @@ interface ButtonProps {
 
 const styles = (theme: MyTheme) => createStyles({
   myButton: {
-    color: (props: ButtonProps) => props.active ? 'red': theme.color.primary,
+    color: (props: ButtonProps) => props.active ? 'red' : theme.color.primary,
     margin: 1,
     "& span": {
       fontWeight: "revert"
