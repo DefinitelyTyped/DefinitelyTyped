@@ -35,6 +35,12 @@ StringSchema.validate({
     regExpString: "id"
 }, {keys: ['basicString']});
 
+StringSchema.validator();
+
+StringSchema.validator({
+    clean: true
+});
+
 const StringSchemaWithOptions = new SimpleSchema({
     basicString: {
         type: String

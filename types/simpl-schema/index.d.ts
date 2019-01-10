@@ -2,6 +2,7 @@
 // Project: https://github.com/aldeed/simple-schema-js
 // Definitions by: Andreas Richter <https://github.com/arichter83>
 //                 Qkramer <https://github.com/Qkramer>
+//                 Deskoh <https://github.com/deskoh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
@@ -133,7 +134,7 @@ interface SimpleSchemaStatic {
   newContext(): ValidationContext;
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
-  validator(options: ValidationOption): () => boolean;
+  validator(options?: ValidationOption): () => boolean;
   RegEx: {
       Email: RegExp;
       EmailWithTLD: RegExp;
