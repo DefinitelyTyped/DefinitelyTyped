@@ -11,16 +11,22 @@
 
 /// <reference types="node" />
 
-import { ASSET_TYPE, Asset, Memo, Transaction } from 'stellar-base';
+import { AssetType, Asset, Memo, MemoType, Transaction } from 'stellar-base';
 
 // Re-StellarBase
 export {
     Account,
-    ASSET_TYPE,
     Asset,
+    AssetType,
+    AuthFlag,
+    AuthImmutableFlag,
+    AuthRequiredFlag,
+    AuthRevocableFlag,
     FastSigning,
     Keypair,
     Memo,
+    MemoType,
+    MemoValue,
     MemoHash,
     MemoID,
     MemoNone,
@@ -157,7 +163,7 @@ export namespace Server {
     }
 
     interface AssetRecord extends Horizon.BaseResponse {
-        asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
+        asset_type: AssetType.credit4 | AssetType.credit12;
         asset_code: string;
         asset_issuer: string;
         paging_token: string;
@@ -452,7 +458,7 @@ export namespace Horizon {
         hash: string;
         id: string;
         ledger: number;
-        memo_type: Memo.AnyType;
+        memo_type: MemoType;
         memo?: string;
         operation_count: number;
         paging_token: string;
@@ -465,18 +471,18 @@ export namespace Horizon {
 
     interface BalanceLineNative {
         balance: string;
-        asset_type: ASSET_TYPE.native;
+        asset_type: AssetType.native;
     }
-    interface BalanceLineAsset<T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 = ASSET_TYPE.credit4 | ASSET_TYPE.credit12> {
+    interface BalanceLineAsset<T extends AssetType.credit4 | AssetType.credit12 = AssetType.credit4 | AssetType.credit12> {
         balance: string;
         limit: string;
         asset_type: T;
         asset_code: string;
         asset_issuer: string;
     }
-    type BalanceLine<T extends ASSET_TYPE = ASSET_TYPE> =
-        T extends ASSET_TYPE.native ? BalanceLineNative :
-        T extends ASSET_TYPE.credit4 | ASSET_TYPE.credit12 ? BalanceLineAsset<T> :
+    type BalanceLine<T extends AssetType = AssetType> =
+        T extends AssetType.native ? BalanceLineNative :
+        T extends AssetType.credit4 | AssetType.credit12 ? BalanceLineAsset<T> :
         BalanceLineNative | BalanceLineAsset;
 
     interface PriceR {
@@ -559,7 +565,7 @@ export namespace Horizon {
     interface PaymentOperationResponse extends BaseOperationResponse<OperationResponseType.payment, OperationResponseTypeI.payment> {
         from: string;
         to: string;
-        asset_type: ASSET_TYPE;
+        asset_type: AssetType;
         asset_code?: string;
         asset_issuer?: string;
         amount: string;
@@ -567,11 +573,11 @@ export namespace Horizon {
     interface PathPaymentOperationResponse extends BaseOperationResponse<OperationResponseType.pathPayment, OperationResponseTypeI.pathPayment> {
         from: string;
         to: string;
-        asset_type: ASSET_TYPE;
+        asset_type: AssetType;
         asset_code?: string;
         asset_issuer?: string;
         amount: string;
-        source_asset_type: ASSET_TYPE;
+        source_asset_type: AssetType;
         source_asset_code?: string;
         source_asset_issuer?: string;
         source_max: string;
@@ -580,24 +586,24 @@ export namespace Horizon {
     interface ManageOfferOperationResponse extends BaseOperationResponse<OperationResponseType.manageOffer, OperationResponseTypeI.manageOffer> {
         offer_id: number;
         amount: string;
-        buying_asset_type: ASSET_TYPE;
+        buying_asset_type: AssetType;
         buying_asset_code?: string;
         buying_asset_issuer?: string;
         price: string;
         price_r: PriceR;
-        selling_asset_type: ASSET_TYPE;
+        selling_asset_type: AssetType;
         selling_asset_code?: string;
         selling_asset_issuer?: string;
     }
     interface PassiveOfferOperationResponse extends BaseOperationResponse<OperationResponseType.createPassiveOffer, OperationResponseTypeI.createPassiveOffer> {
         offer_id: number;
         amount: string;
-        buying_asset_type: ASSET_TYPE;
+        buying_asset_type: AssetType;
         buying_asset_code?: string;
         buying_asset_issuer?: string;
         price: string;
         price_r: PriceR;
-        selling_asset_type: ASSET_TYPE;
+        selling_asset_type: AssetType;
         selling_asset_code?: string;
         selling_asset_issuer?: string;
     }
@@ -615,7 +621,7 @@ export namespace Horizon {
         clear_flags_s: Array<('auth_required_flag' | 'auth_revocable_flag')>;
     }
     interface ChangeTrustOperationResponse extends BaseOperationResponse<OperationResponseType.changeTrust, OperationResponseTypeI.changeTrust> {
-        asset_type: ASSET_TYPE.credit4 | ASSET_TYPE.credit12;
+        asset_type: AssetType.credit4 | AssetType.credit12;
         asset_code: string;
         asset_issuer: string;
         trustee: string;
@@ -623,7 +629,7 @@ export namespace Horizon {
         limit: string;
     }
     interface AllowTrustOperationResponse extends BaseOperationResponse<OperationResponseType.allowTrust, OperationResponseTypeI.allowTrust> {
-        asset_type: ASSET_TYPE;
+        asset_type: AssetType;
         asset_code: string;
         asset_issuer: string;
         authorize: boolean;

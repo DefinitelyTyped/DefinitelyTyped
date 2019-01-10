@@ -18,11 +18,17 @@ export class Account {
     incrementSequenceNumber(): void;
 }
 
-export enum ASSET_TYPE {
-    native = 'native',
-    credit4 = 'credit_alphanum4',
-    credit12 = 'credit_alphanum12',
+export namespace AssetType {
+    type native = 'native';
+    type credit4 = 'credit_alphanum4';
+    type credit12 = 'credit_alphanum12';
 }
+export type AssetType =
+    | AssetType.native
+    | AssetType.credit4
+    | AssetType.credit12
+;
+
 export class Asset {
     static native(): Asset;
     static fromOperation(xdr: xdr.Asset): Asset;
@@ -31,7 +37,7 @@ export class Asset {
 
     getCode(): string;
     getIssuer(): string;
-    getAssetType(): ASSET_TYPE;
+    getAssetType(): AssetType;
     isNative(): boolean;
     equals(other: Asset): boolean;
     toXDRObject(): xdr.Asset;
@@ -68,38 +74,45 @@ export const MemoID = 'id';
 export const MemoText = 'text';
 export const MemoHash = 'hash';
 export const MemoReturn = 'return';
-export type MemoNone = 'none';
-export type MemoID = 'id';
-export type MemoText = 'text';
-export type MemoHash = 'hash';
-export type MemoReturn = 'return';
-export class Memo<T extends Memo.AnyType = Memo.AnyType> {
-    static fromXDRObject(memo: xdr.Memo): Memo;
-    static hash(hash: string): Memo<MemoHash>;
-    static id(id: string): Memo<MemoID>;
-    static none(): Memo<MemoNone>;
-    static return(hash: string): Memo<MemoReturn>;
-    static text(text: string): Memo<MemoText>;
+export namespace MemoType {
+    type None = typeof MemoNone;
+    type ID = typeof MemoID;
+    type Text = typeof MemoText;
+    type Hash = typeof MemoHash;
+    type Return = typeof MemoReturn;
+}
+export type MemoType =
+    | MemoType.None
+    | MemoType.ID
+    | MemoType.Text
+    | MemoType.Hash
+    | MemoType.Return
+;
+export type MemoValue = null | string | Buffer;
 
-    constructor(type: MemoNone, value?: null);
-    constructor(type: MemoHash | MemoReturn, value: Buffer)
-    constructor(type: MemoHash | MemoReturn | MemoID | MemoText, value: string)
-    constructor(type: T, value: Memo.AnyValue)
+export class Memo<T extends MemoType = MemoType> {
+    static fromXDRObject(memo: xdr.Memo): Memo;
+    static hash(hash: string): Memo<MemoType.Hash>;
+    static id(id: string): Memo<MemoType.ID>;
+    static none(): Memo<MemoType.None>;
+    static return(hash: string): Memo<MemoType.Return>;
+    static text(text: string): Memo<MemoType.Text>;
+
+    constructor(type: MemoType.None, value?: null);
+    constructor(type: MemoType.Hash | MemoType.Return, value: Buffer)
+    constructor(type: MemoType.Hash | MemoType.Return | MemoType.ID | MemoType.Text, value: string)
+    constructor(type: T, value: MemoValue)
 
     type: T;
     value:
-        T extends MemoNone ? null :
-        T extends MemoID ? string :
-        T extends MemoText ? string :
-        T extends MemoHash ? Buffer :
-        T extends MemoReturn ? Buffer :
-        Memo.AnyValue;
+        T extends MemoType.None ? null :
+        T extends MemoType.ID ? string :
+        T extends MemoType.Text ? string :
+        T extends MemoType.Hash ? Buffer :
+        T extends MemoType.Return ? Buffer :
+        MemoValue;
 
     toXDRObject(): xdr.Memo;
-}
-export namespace Memo {
-    type AnyType = MemoNone | MemoID | MemoText | MemoHash | MemoReturn;
-    type AnyValue = null | string | Buffer;
 }
 
 export enum Networks {
@@ -122,6 +135,16 @@ export class Network {
 export const AuthRequiredFlag: 1;
 export const AuthRevocableFlag: 2;
 export const AuthImmutableFlag: 4;
+export namespace AuthFlag {
+    type required = typeof AuthRequiredFlag;
+    type revocable = typeof AuthRevocableFlag;
+    type rmmutable = typeof AuthImmutableFlag;
+}
+export type AuthFlag =
+    | AuthFlag.required
+    | AuthFlag.revocable
+    | AuthFlag.rmmutable
+;
 
 export type TransactionOperation =
     Operation.CreateAccount
@@ -137,20 +160,34 @@ export type TransactionOperation =
     | Operation.ManageData
     | Operation.BumpSequence;
 
-export enum OperationType {
-    createAccount = 'createAccount',
-    payment = 'payment',
-    pathPayment = 'pathPayment',
-    createPassiveOffer = 'createPassiveOffer',
-    manageOffer = 'manageOffer',
-    setOptions = 'setOptions',
-    changeTrust = 'changeTrust',
-    allowTrust = 'allowTrust',
-    accountMerge = 'accountMerge',
-    inflation = 'inflation',
-    manageData = 'manageData',
-    bumpSequence = 'bumpSequence',
+export namespace OperationType {
+    type createAccount = 'createAccount';
+    type payment = 'payment';
+    type pathPayment = 'pathPayment';
+    type createPassiveOffer = 'createPassiveOffer';
+    type manageOffer = 'manageOffer';
+    type setOptions = 'setOptions';
+    type changeTrust = 'changeTrust';
+    type allowTrust = 'allowTrust';
+    type accountMerge = 'accountMerge';
+    type inflation = 'inflation';
+    type manageData = 'manageData';
+    type bumpSequence = 'bumpSequence';
 }
+export type OperationType =
+    | OperationType.createAccount
+    | OperationType.payment
+    | OperationType.pathPayment
+    | OperationType.createPassiveOffer
+    | OperationType.manageOffer
+    | OperationType.setOptions
+    | OperationType.changeTrust
+    | OperationType.allowTrust
+    | OperationType.accountMerge
+    | OperationType.inflation
+    | OperationType.manageData
+    | OperationType.bumpSequence
+;
 
 export namespace Operation {
     interface Operation<T extends OperationType = OperationType> {
@@ -273,16 +310,6 @@ export namespace Operation {
     }
     function payment(options: PaymentOptions): xdr.Operation<Payment>;
 
-    /*
-    * Required = 1 << 0
-    * Revocable = 1 << 1
-    * Immutable = 1 << 2
-    */
-    enum AuthFlags {
-        Required = 1,
-        Revocable = 2,
-        Immutable = 4,
-    }
     interface SignerEd25519PublicKey {
         ed25519PublicKey: string;
         weight: number | undefined;
@@ -312,8 +339,8 @@ export namespace Operation {
     type SignerUnion = {ed25519PublicKey: any} | {sha256Hash: any} | {preAuthTx: any} | null;
     interface SetOptions<T extends SignerUnion = SignerUnion> extends Operation<OperationType.setOptions> {
         inflationDest?: string;
-        clearFlags?: AuthFlags;
-        setFlags?: AuthFlags;
+        clearFlags?: AuthFlag;
+        setFlags?: AuthFlag;
         masterWeight?: number;
         lowThreshold?: number;
         medThreshold?: number;
@@ -327,8 +354,8 @@ export namespace Operation {
     }
     interface SetOptionsOptions<T extends SignerUnion = never> extends OperationOptions {
         inflationDest?: string;
-        clearFlags?: AuthFlags;
-        setFlags?: AuthFlags;
+        clearFlags?: AuthFlag;
+        setFlags?: AuthFlag;
         masterWeight?: number | string;
         lowThreshold?: number | string;
         medThreshold?: number | string;

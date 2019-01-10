@@ -6,7 +6,7 @@ const account = new StellarSdk.Account(sourceKey.publicKey(), '1');
 const transaction = new StellarSdk.TransactionBuilder(account)
     .addOperation(StellarSdk.Operation.accountMerge({destination: destKey.publicKey()}))
     .addMemo(new StellarSdk.Memo(StellarSdk.MemoText, "memo"))
-    .build(); // $ExpectType () => Transaction<Memo<AnyType>, TransactionOperation[]>
+    .build(); // $ExpectType () => Transaction<Memo<MemoType>, TransactionOperation[]>
 
 const sig = StellarSdk.xdr.DecoratedSignature.fromXDR(Buffer.of(1, 2)); // $ExpectType DecoratedSignature
 sig.hint(); // $ExpectType Buffer
@@ -24,8 +24,8 @@ StellarSdk.Memo.return('asdf').value; // $ExpectType Buffer
 StellarSdk.Memo.hash('asdf').value; // $ExpectType Buffer
 
 // P.S. don't use Memo constructor
-(new StellarSdk.Memo(StellarSdk.MemoHash, 'asdf')).value; // $ExpectType AnyValue
-(new StellarSdk.Memo(StellarSdk.MemoHash, 'asdf')).type; // $ExpectType AnyType
+(new StellarSdk.Memo(StellarSdk.MemoHash, 'asdf')).value; // $ExpectType MemoValue
+(new StellarSdk.Memo(StellarSdk.MemoHash, 'asdf')).type; // $ExpectType MemoType
 
 const noSignerXDR = StellarSdk.Operation.setOptions({lowThreshold: 1});
 StellarSdk.Operation.fromXDRObject(noSignerXDR).signer; // $ExpectType never
