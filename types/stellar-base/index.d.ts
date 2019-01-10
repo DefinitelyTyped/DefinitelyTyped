@@ -186,7 +186,6 @@ export type SignerOptions =
     | SignerOptions.Sha256Hash
     | SignerOptions.PreAuthTx
 ;
-export type SignerUnion = {ed25519PublicKey: any} | {sha256Hash: any} | {preAuthTx: any} | null;
 
 export namespace OperationType {
     type CreateAccount = 'createAccount';
@@ -265,7 +264,7 @@ export namespace OperationOptions {
         asset: Asset;
         destination: string;
     }
-    interface SetOptions<T extends SignerUnion = never> extends BaseOptions {
+    interface SetOptions<T extends SignerOptions = never> extends BaseOptions {
         inflationDest?: string;
         clearFlags?: AuthFlag;
         setFlags?: AuthFlag;
@@ -369,7 +368,7 @@ export namespace Operation {
     }
     function payment(options: OperationOptions.Payment): xdr.Operation<Payment>;
 
-    interface SetOptions<T extends SignerUnion = SignerUnion> extends BaseOperation<OperationType.SetOptions> {
+    interface SetOptions<T extends SignerOptions = SignerOptions> extends BaseOperation<OperationType.SetOptions> {
         inflationDest?: string;
         clearFlags?: AuthFlag;
         setFlags?: AuthFlag;
@@ -384,7 +383,7 @@ export namespace Operation {
             T extends {preAuthTx: any} ? Signer.PreAuthTx :
             never;
     }
-    function setOptions<T extends SignerUnion = never>(options: OperationOptions.SetOptions<T>): xdr.Operation<SetOptions<T>>;
+    function setOptions<T extends SignerOptions = never>(options: OperationOptions.SetOptions<T>): xdr.Operation<SetOptions<T>>;
 
     interface BumpSequence extends BaseOperation<OperationType.BumpSequence> {
         bumpTo: string;
