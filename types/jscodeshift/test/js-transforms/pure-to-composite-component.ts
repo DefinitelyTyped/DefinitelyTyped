@@ -1,5 +1,6 @@
-/** For when you've gone too pure and want to go back. **/
-/** Converts
+/** For when you've gone too pure and want to go back. */
+/**
+ * Converts
  * let HistoryItem = (props) => {
  *   const {
  *     item
@@ -29,7 +30,7 @@
 
 import { Transform, ASTNode } from "jscodeshift";
 
-const transform: Transform = function (file, api) {
+const transform: Transform = (file, api) => {
   const j = api.jscodeshift;
   const {statement} = j.template;
 
@@ -39,7 +40,7 @@ const transform: Transform = function (file, api) {
 
   return j(file.source)
     .find(j.VariableDeclaration)
-    .filter(p => p.value.declarations.length == 1)
+    .filter(p => p.value.declarations.length === 1)
     .replaceWith(p => {
       const decl = p.value.declarations[0];
       if (decl.type === "VariableDeclarator" && decl.init != null) {
@@ -48,7 +49,7 @@ const transform: Transform = function (file, api) {
           return p.value;
 
         let body: any = decl.init.body;
-        body = body.type == "JSXElement" ? j.returnStatement(body) : body = body.body;
+        body = body.type === "JSXElement" ? j.returnStatement(body) : body = body.body;
 
         j(body)
           .find(j.Identifier, {name: 'props'})

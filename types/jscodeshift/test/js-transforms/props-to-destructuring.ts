@@ -5,7 +5,8 @@
  *   return <div foo={this.props.foo} bar={this.props.bar} />
  *  }
  * }
- *** To:
+ *
+ * To:
  *
  * class C extends React.Component() {
  *  render() {
@@ -21,14 +22,15 @@
  */
 import { Transform, VariableDeclarator, ObjectPattern, Identifier, BlockStatement } from "jscodeshift";
 
+// tslint:disable-next-line max-line-length
 const keywordsStr = 'this function if return var else for new in typeof while case break try catch delete throw switch continue default instanceof do void finally with debugger implements interface package private protected public static class enum export extends import super true false null abstract boolean byte char const double final float goto int long native short synchronized throws transient volatile';
-let keywords = keywordsStr.split(' ').reduce<{ [key: string]: boolean }>((f, k) => {
+const keywords = keywordsStr.split(' ').reduce<{ [key: string]: boolean }>((f, k) => {
   f[k] = true;
   return f;
 }, {});
 const isKeyword = (k: string) => keywords.hasOwnProperty(k);
 
-const transform: Transform = function (file, api) {
+const transform: Transform = (file, api) => {
   const j = api.jscodeshift;
   const {statement} = j.template;
 
@@ -50,15 +52,15 @@ const transform: Transform = function (file, api) {
             const node: VariableDeclarator = decl.nodes()[0];
 
             if (!(node.init != null &&
-              node.init.type == 'MemberExpression' &&
-              node.init.object.type == 'ThisExpression' &&
-              node.init.property.type == 'Identifier' &&
-              node.init.property.name == 'props'))
+              node.init.type === 'MemberExpression' &&
+              node.init.object.type === 'ThisExpression' &&
+              node.init.property.type === 'Identifier' &&
+              node.init.property.name === 'props'))
               return false;
 
             // Check for the case where it could be aliased (i.e.) { baz: foo } = this.props;
             // In this case, we won't do a substitution.
-            if (p.parentPath.value.type == 'Property' && p.parentPath.value.key.name !== name)
+            if (p.parentPath.value.type === 'Property' && p.parentPath.value.key.name !== name)
               return false;
 
             return true;
@@ -81,10 +83,10 @@ const transform: Transform = function (file, api) {
           // If the scope is null, that means that this property isn't defined in the scope yet,
           // and we can use it. Otherwise, if it is defined, we should see if it was defined from `this.props`
           // if none of these cases are true, we can't do substitution.
-          return resolvedScope == null || isFromProps((e.value.property as Identifier).name, resolvedScope);
+          return resolvedScope === null || isFromProps((e.value.property as Identifier).name, resolvedScope);
         })
         // Ensure that our substitution won't cause us to define a keyword, i.e. `this.props.while` won't
-        // get converted into `while`. 
+        // get converted into `while`.
         .filter(p => !isKeyword((p.value.property as Identifier).name))
         // Now, do the replacement, `this.props.xyz` => `xyz`.
         .replaceWith(p => p.value.property as Identifier)
@@ -95,7 +97,6 @@ const transform: Transform = function (file, api) {
           if (!p.scope.lookup(p.value.name))
             variablesToReplace[p.value.name] = true;
         });
-
 
       // Create property definitions for variables that we've replaced.
       const properties = Object.keys(variablesToReplace)
