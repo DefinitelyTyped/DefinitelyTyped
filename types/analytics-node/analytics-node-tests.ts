@@ -135,22 +135,28 @@ function testGroup(): void {
 
 function testIntegrations(): void {
   analytics.track({
-    event: 'Upgraded Membershipt',
+    event: 'Upgraded Membership',
     userId: '97234974',
     integrations: {
       'All': false,
       'Vero': true,
-      'Google Analytics': false
+      'Google Analytics': false,
+      'AppsFlyer': {
+        'appsflyer_id': 'example-id'
+      }
     }
   });
 
   analytics.track({
-    event: 'Upgraded Membershipt',
+    event: 'Upgraded Membership',
     userId: '97234974',
     integrations: {
       'All': false,
       'Vero': true,
-      'Google Analytics': false
+      'Google Analytics': false,
+      'AppsFlyer': {
+        'appsflyer_id': 'example-id'
+      }
     }
   }, (err, data) => {
     if (err) {

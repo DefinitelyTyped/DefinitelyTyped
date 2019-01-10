@@ -33,8 +33,10 @@ declare namespace AnalyticsNode {
   }
 
   interface Integrations {
-    [index: string]: boolean;
+    [integration_name: string]: IntegrationValue
   }
+
+  type IntegrationValue = boolean | { [integration_key: string] : any };
 
   export class Analytics {
     constructor(writeKey: string, opts?: {
