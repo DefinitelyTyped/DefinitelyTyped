@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
+    "include": [
         "index.d.ts",
-        "jscodeshift-tests.ts"
+        "test"
     ]
 }
