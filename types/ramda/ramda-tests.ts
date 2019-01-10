@@ -951,6 +951,10 @@ interface Obj {
     R.head(["10", 10]); // => '10'
     R.head("abc"); // => 'a'
     R.head(""); // => ''
+
+    const numbers: number[] = [1]; // array instead of tuple
+    R.head(numbers); // $ExpectType number | undefined
+    R.head([]); // $ExpectType undefined
 };
 
 (() => {
@@ -1127,6 +1131,16 @@ interface Obj {
     R.nth(-1, list); // => 'quux'
     R.nth(-99, list); // => undefined
     R.nth(-99)(list); // => undefined
+
+    R.nth(0, [0]); // $ExpectType number
+    const numbers: number[] = [0]; // array instead of tuple
+    R.nth(0, numbers); // $ExpectType number | undefined
+    R.nth(1, [0, 1]); // $ExpectType number
+    R.nth(2, [0, 1, 2]); // $ExpectType number
+    R.nth(3, [0, 1, 2, 3]); // $ExpectType number
+    R.nth(4, [0, 1, 2, 3, 4]); // $ExpectType number
+    R.nth(5, [0, 1, 2, 3, 4, 5]); // $ExpectType number
+    R.nth(6, [0, 1, 2, 3, 4, 5, 6]); // $ExpectType number | undefined
 };
 
 () => {

@@ -26,7 +26,7 @@
 //                 Drew Wyatt <https://github.com/drewwyatt>
 //                 John Ottenlips <https://github.com/jottenlips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference path="./es/add.d.ts" />
 /// <reference path="./es/addIndex.d.ts" />
@@ -1108,6 +1108,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
+        head<T>(list: [T, ...T[]]): T;
         head<T>(list: ReadonlyArray<T>): T | undefined;
         head(list: string): string;
 
@@ -1583,6 +1584,12 @@ declare namespace R {
         /**
          * Returns the nth element in a list.
          */
+        nth<T>(n: 0, list: [T, ...T[]]): T;
+        nth<T>(n: 1, list: [T, T, ...T[]]): T;
+        nth<T>(n: 2, list: [T, T, T, ...T[]]): T;
+        nth<T>(n: 3, list: [T, T, T, T, ...T[]]): T;
+        nth<T>(n: 4, list: [T, T, T, T, T, ...T[]]): T;
+        nth<T>(n: 5, list: [T, T, T, T, T, T, ...T[]]): T;
         nth<T>(n: number, list: ReadonlyArray<T>): T | undefined;
         nth(n: number): <T>(list: ReadonlyArray<T>) => T | undefined;
 
