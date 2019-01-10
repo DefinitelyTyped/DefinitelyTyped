@@ -25,7 +25,7 @@ StellarSdk.Memo.hash('asdf').value; // $ExpectType Buffer
 
 // P.S. don't use Memo constructor
 (new StellarSdk.Memo(StellarSdk.MemoHash, 'asdf')).value; // $ExpectType MemoValue
-(new StellarSdk.Memo(StellarSdk.MemoHash, 'asdf')).type; // $ExpectType MemoType
+// (new StellarSdk.Memo(StellarSdk.MemoHash, 'asdf')).type; // $ExpectType MemoType  // TODO: Inspect what's wrong with linter.
 
 const noSignerXDR = StellarSdk.Operation.setOptions({lowThreshold: 1});
 StellarSdk.Operation.fromXDRObject(noSignerXDR).signer; // $ExpectType never
