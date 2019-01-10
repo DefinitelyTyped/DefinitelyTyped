@@ -297,11 +297,13 @@ class F2 {
     const func: (x: number) => string = R.pipe(double, double, shout);
     const res: string                 = R.pipe(double, double, shout)(10);
 
-    const capitalize = (str: string) => R.pipe(
+    const capitalize = R.pipe(
         R.split(""),
-        R.adjust(R.toUpper, 0),
+        R.adjust(0, R.toUpper),
         R.join("")
-    )(str);
+    );
+
+    capitalize("hello") // Hello
 
     const f          = R.pipe(Math.pow, R.negate, R.inc);
     const fr: number = f(3, 4); // -(3^4) + 1

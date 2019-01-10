@@ -25,6 +25,7 @@
 //                 Ryan McCuaig <https://github.com/rgm>
 //                 Drew Wyatt <https://github.com/drewwyatt>
 //                 John Ottenlips <https://github.com/jottenlips>
+//                 Watcharin Kriengwatana <https://github.com/himkwtn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -469,8 +470,8 @@ declare namespace R {
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
          * element at the given index replaced with the result of the function application.
          */
-        adjust<T>(fn: (a: T) => T, index: number, list: ReadonlyArray<T>): T[];
-        adjust<T>(fn: (a: T) => T, index: number): (list: ReadonlyArray<T>) => T[];
+        adjust<T>(index: number, fn: (a: T) => T,list: ReadonlyArray<T>): T[];
+        adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 
         /**
          * Returns true if all elements of the list match the predicate, false if there are any that don't.
