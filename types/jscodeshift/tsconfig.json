@@ -16,8 +16,13 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": [
+    "files": [
         "index.d.ts",
-        "test"
+        "test/jscodeshift-tests.ts",
+        "test/js-transforms/bind-this-to-bind-expression.ts",
+        "test/js-transforms/call-expression-bind-this-to-arrow-function-expression.ts",
+        "test/js-transforms/function-expression-to-arrow-function-expression.ts",
+        "test/js-transforms/props-to-destructuring.ts",
+        "test/js-transforms/pure-to-composite-component.ts"
     ]
 }
