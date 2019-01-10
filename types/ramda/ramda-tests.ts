@@ -303,7 +303,7 @@ class F2 {
         R.join("")
     );
 
-    capitalize("hello") // Hello
+    capitalize("hello"); // Hello
 
     const f          = R.pipe(Math.pow, R.negate, R.inc);
     const fr: number = f(3, 4); // -(3^4) + 1

@@ -470,7 +470,7 @@ declare namespace R {
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
          * element at the given index replaced with the result of the function application.
          */
-        adjust<T>(index: number, fn: (a: T) => T,list: ReadonlyArray<T>): T[];
+        adjust<T>(index: number, fn: (a: T) => T, list: ReadonlyArray<T>): T[];
         adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 
         /**
