@@ -35,6 +35,7 @@ export {
     Network,
     Networks,
     Operation,
+    OperationOptions,
     OperationType,
     StrKey,
     Signer,
