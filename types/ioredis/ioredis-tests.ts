@@ -192,3 +192,12 @@ redis.xread('STREAMS', 'streamName', '0-0');
 redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '>');
 redis.xrevrange('streamName', '+', '-', 'COUNT', 1);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000);
+
+// ClusterRetryStrategy can return non-numbers to stop retrying
+new Redis.Cluster([], {
+    clusterRetryStrategy: () => null
+});
+
+new Redis.Cluster([], {
+    clusterRetryStrategy: () => 1
+});

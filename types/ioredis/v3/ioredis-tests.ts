@@ -153,3 +153,12 @@ new Redis.Cluster([{
     host: 'localhost',
     port: 6379
 }]);
+
+// ClusterRetryStrategy can return non-numbers to stop retrying
+new Redis.Cluster([], {
+    clusterRetryStrategy: () => null
+});
+
+new Redis.Cluster([], {
+    clusterRetryStrategy: () => 1
+});
