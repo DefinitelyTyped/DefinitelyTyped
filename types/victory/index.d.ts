@@ -2205,6 +2205,12 @@ declare module "victory" {
        */
       eventKey?: StringOrNumberOrCallback;
       /**
+        * Specifies the radius of the chart. If this property is not provided it is computed
+        * from width, height, and padding props
+        *
+        */
+      radius?: number;
+      /**
        * When creating a donut chart, this prop determines the number of pixels between
        * the center of the chart and the inner edge of a donut. When this prop is set to zero
        * a regular pie chart is rendered.
