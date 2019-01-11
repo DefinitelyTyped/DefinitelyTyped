@@ -6,6 +6,7 @@
 //                 Daniel McGraw <https://github.com/danielmcgraw>
 //                 Benjamin Dobson <https://github.com/bpdsw>
 //                 Be Birchall <https://github.com/bebebebebe>
+//                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
