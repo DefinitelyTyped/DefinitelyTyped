@@ -890,14 +890,14 @@ export function crypto_secretstream_xchacha20poly1305_pull(
     cipher: string | Uint8Array,
     ad?: string | Uint8Array | null,
     outputFormat?: Uint8ArrayOutputFormat | null,
-): { message: Uint8Array; tag: Uint8Array };
+): { message: Uint8Array; tag: number };
 
 export function crypto_secretstream_xchacha20poly1305_pull(
     state_address: secretstream_xchacha20poly1305_state_address,
     cipher: string | Uint8Array,
     ad?: string | Uint8Array | null,
     outputFormat?: StringOutputFormat | null,
-): { message: string; tag: Uint8Array };
+): { message: string; tag: number };
 
 export function crypto_secretstream_xchacha20poly1305_push(
     state_address: secretstream_xchacha20poly1305_state_address,
