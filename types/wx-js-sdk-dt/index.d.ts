@@ -159,7 +159,7 @@ declare namespace wx {
         /**
          * 分享图标
          */
-        imageUrl?: string;
+        imgUrl?: string;
 
         success?: () => void;
     }
@@ -713,4 +713,4 @@ declare namespace wx {
      * 发起一个微信支付请求
      */
     function chooseWXPay(config: ChooseWXPayConfig): void;
-}
+  }
