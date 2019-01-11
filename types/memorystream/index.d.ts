@@ -2,12 +2,13 @@
 // Project: https://github.com/JSBizon/node-memorystream
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
 import { Stream, Duplex } from "stream";
 
 type DataType = string | Buffer | Stream;
 
-interface IOptions {
+interface Options {
     readable: boolean;
     writeable: boolean;
     maxbufsize: number;
@@ -18,7 +19,7 @@ interface IOptions {
 declare class MemoryStream extends Duplex {
     constructor(
         data?: DataType | DataType[],
-        options?: IOptions,
+        options?: Options,
     );
 }
 
