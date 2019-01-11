@@ -1728,7 +1728,7 @@ declare function getApp(): App;
  * @param delay 延迟的时间，函数的调用会在该延迟之后发生，单位 ms。
  * @param rest  param1, param2, ..., paramN 等附加参数，它们会作为参数传递给回调函数。
  */
-declare function setTimeout(callback: any, delay: number, rest: any): number;
+declare function setTimeout(callback: any, delay: number, rest?: any): number;
 
 /**
  * 取消由 setTimeout 设置的定时器。
@@ -1750,4 +1750,13 @@ declare function setInterval(callback: any, delay: number, rest: any): number;
  */
 declare function clearInterval(timeoutID: number): number;
 
-export default wx
+export {
+    wx,
+    App,
+    Page,
+    getApp,
+    setTimeout,
+    clearTimeout,
+    setInterval,
+    clearInterval
+}

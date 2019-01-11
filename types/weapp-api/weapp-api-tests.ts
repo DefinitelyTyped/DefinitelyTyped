@@ -1,4 +1,4 @@
-import wx from './index'
+import {wx, App, Page, getApp, setTimeout, clearTimeout, setInterval, clearInterval} from './index'
 App({
     onLaunch: function () {
         //调用API从本地缓存中获取数据
