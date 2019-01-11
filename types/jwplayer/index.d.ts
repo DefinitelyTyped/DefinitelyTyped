@@ -506,4 +506,4 @@ interface JWPlayerStatic {
 	version: string;
 }
 
-declare const jwplayer:JWPlayerStatic;
+declare const jwplayer: JWPlayerStatic;
