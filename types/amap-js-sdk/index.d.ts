@@ -1,4 +1,4 @@
-// Type definitions for amap-js-sdk x.x
+// Type definitions for amap-js-sdk 1.4.12
 // Project: http://lbs.amap.com/api/javascript-api/summary/
 // Definitions by: Bian Zhongjie <https://github.com/agasbzj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -889,7 +889,7 @@ declare namespace AMap {
     /**
      * 坐标转换
      */
-    function convertFrom(lnglat: LngLat | LngLat[], type: string, result: (status: string, result: ConvertorResult) => void): void;
+    function convertFrom(lnglat: LngLat | LngLat[] | [number, number], type: string, result: (status: string, result: ConvertorResult) => void): void;
 
     interface CitySearchResult {
         city: string;
