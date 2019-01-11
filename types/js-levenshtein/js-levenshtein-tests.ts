@@ -1,3 +1,3 @@
-import levenshtein from 'js-levenshtein';
+import levenshtein = require('js-levenshtein');
 
 levenshtein('kittens', 'mittens'); // $ExpectType number

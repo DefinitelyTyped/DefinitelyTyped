@@ -9,4 +9,4 @@
  */
 declare function levenshtein(compareFrom: string, compareTo: string): number;
 
-export default levenshtein;
+export = levenshtein;
