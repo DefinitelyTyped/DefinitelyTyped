@@ -3,6 +3,7 @@
 // Definitions by: vargeek <https://github.com/vargeek>
 //                 pbestz <https://github.com/pbestz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace wx {
     // import startPullDownRefresh = swan.startPullDownRefresh;
