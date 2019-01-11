@@ -195,9 +195,9 @@ redis.xtrim('streamName', 'MAXLEN', '~', 1000);
 
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {
-    clusterRetryStrategy: () => null
+    clusterRetryStrategy: (times: number, reason?: Error) => null
 });
 
 new Redis.Cluster([], {
-    clusterRetryStrategy: () => 1
+    clusterRetryStrategy: (times: number, reason?: Error) => 1
 });

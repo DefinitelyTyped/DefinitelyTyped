@@ -156,9 +156,9 @@ new Redis.Cluster([{
 
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {
-    clusterRetryStrategy: () => null
+    clusterRetryStrategy: (times: number) => null
 });
 
 new Redis.Cluster([], {
-    clusterRetryStrategy: () => 1
+    clusterRetryStrategy: (times: number) => 1
 });
