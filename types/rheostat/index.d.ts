@@ -33,7 +33,7 @@ export interface Events {
 export interface Props extends Events {
   algorithm?: Algorithm;
   autoAdjustVerticalPosition?: boolean;
-  background: React.ReactType;
+  background?: React.ReactType;
   className?: string;
   disabled?: boolean;
   handle?: React.ReactType;
