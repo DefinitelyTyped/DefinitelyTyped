@@ -1069,6 +1069,12 @@
             "asOfVersion": "2.0.18"
         },
         {
+            "libraryName": "Nuka Carousel",
+            "typingsPackageName": "nuka-carousel",
+            "sourceRepoURL": "https://github.com/FormidableLabs/nuka-carousel/",
+            "asOfVersion": "4.4.6"
+        },
+        {
             "libraryName": "Numbro",
             "typingsPackageName": "numbro",
             "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
