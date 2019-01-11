@@ -1563,7 +1563,7 @@ declare module paper {
          * The shadow’s offset.
          * Default - 0
          */
-        shadowOffset: number;
+        shadowOffset: number | number[] | {x: number, y: number} | Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
@@ -4371,7 +4371,7 @@ declare module paper {
          * The shadow's offset.
          * Default: 0
          */
-        shadowOffset?: Point;
+        shadowOffset?: number | number[] | {x: number, y: number} | Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
