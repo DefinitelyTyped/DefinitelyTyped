@@ -71,8 +71,8 @@ declare namespace AMap {
         off(eventName: string, callback: EventCallback): void;
     }
 
-/* --------------------------- 基础类 --------------------------- */
-/* 参考地址:http://lbs.amap.com/api/javascript-api/reference/core */
+  /* --------------------------- 基础类 --------------------------- */
+  /* 参考地址:http://lbs.amap.com/api/javascript-api/reference/core */
 
     /**
      * 像素坐标，确定地图上的一个像素点。
@@ -419,8 +419,8 @@ declare namespace AMap {
         clearMap(): void;
         destroy(): void;
         plugin(name: string| string[], callback: () => void): void;
-        addControl(obj: MapControl): void;
-        removeControl(obj: MapControl): void;
+        addControl(obj: any): void;
+        removeControl(obj: any): void;
         clearInfoWindow(): void;
         pixelToLngLat(pixel: Pixel, level: number): LngLat;
         lnglatToPixel(lnglat: LngLat, level: number): Pixel;
@@ -565,6 +565,133 @@ declare namespace AMap {
         getShape(): MarkerShape;
         setExtData(ext: any): void;
         getExtData(): any;
+    }
+
+    interface MarkerClustererOptions {
+      gridSize?: number;
+      minClusterSize?: number;
+      maxZoom?: number;
+      averageCenter?: boolean;
+      styles?: any[];
+      renderCluserMarker?: (obj: any) => void;
+      zoomOnClick?: boolean;
+    }
+
+    /**
+     * 用于地图上加载大量点标记，提高地图的绘制和显示性能。
+     */
+    class MarkerClusterer extends EventBindable {
+      constructor(map: Map, markers: Marker[], opt?: MarkerClustererOptions);
+
+      /**
+       * 添加一个需进行聚合的点标记
+       * @param marker
+       */
+      addMarker(marker: Marker): void;
+
+      /**
+       * 删除一个聚合的点标记
+       * @param marker 点标记
+       */
+      removeMarker(marker: Marker): void;
+
+      /**
+       * 获取聚合点的总数量
+       */
+      getClustersCount(): number;
+
+      /**
+       * 获取聚合网格的像素大小
+       */
+      getGridSize(): number;
+
+      /**
+       * 获取地图中点标记的最大聚合级别
+       */
+      getMaxZoom(): number;
+
+      /**
+       * 获取单个聚合的最小数量
+       */
+      getMinClusterSize(): number;
+
+      /**
+       * 获取聚合的样式风格集合
+       */
+      getStyles(): any[];
+
+      /**
+       * 设置聚合网格的像素大小
+       * @param size
+       */
+      setGridSize(size: number): void;
+
+      /**
+       * 设置地图中点标记的最大聚合级别
+       * @param zoom
+       */
+      setMaxZoom(zoom: number): void;
+
+      /**
+       * 设置单个聚合的最小数量
+       * @param size
+       */
+      setMinClusterSize(size: number): void;
+
+      /**
+       * 设置聚合的样式风格
+       * @param styles
+       */
+      setStyles(styles: any[]): void;
+
+      /**
+       * 从地图上彻底清除所有聚合点标记
+       */
+      clearMarkers(): void;
+
+      /**
+       * 设置将进行点聚合的地图对象
+       * @param map
+       */
+      setMap(map: Map): void;
+
+      /**
+       * 设置将进行点聚合显示的点标记集合
+       * @param markers
+       */
+      setMarkers(markers: Marker[]): void;
+
+      /**
+       * 获取该点聚合的地图对象
+       */
+      getMap(): Map;
+
+      /**
+       * 获取该点聚合中的点标记集合
+       */
+      getMarkers(): Marker[];
+
+      /**
+       * 添加一组需进行聚合的点标记
+       */
+      addMarkers(markers: Marker[]): void;
+
+      /**
+       * 删除一组聚合的点标记
+       * @param markers
+       */
+      removeMarkers(markers: Marker[]): void;
+
+      /**
+       * 获取单个聚合点位置是否是聚合内所有标记的平均中心
+       */
+      isAverageCenter(): boolean;
+
+      /**
+       * 设置单个聚合点位置是否是聚合内所有标记的平均中心
+       * @param averageCenter
+       */
+      setAverageCenter(averageCenter: boolean): void;
     }
 
     interface CircleOptions {
@@ -1262,4 +1389,4 @@ declare namespace AMap {
         setLevel(level: string): void;
         setSubdistrict(district: number): void;
     }
-}
+  }

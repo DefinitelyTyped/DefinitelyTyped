@@ -65,22 +65,22 @@ declare namespace wx {
         /**
          * 接口调用成功时执行的回调函数
          */
-        success?(...params: any): void;
+        success?(res?: any): void;
 
         /**
          * 接口调用失败时执行的回调函数
          */
-        fail?(...params: any): void;
+        fail?(error?: any): void;
 
         /**
          * 接口调用完成时执行的回调函数，无论成功或失败都会执行
          */
-        complete?(...params: any): void;
+        complete?(res?: any): void;
 
         /**
          * 用户点击取消时的回调函数，仅部分有用户取消操作的api才会用到
          */
-        cancel?(...params: any): void;
+        cancel?(): void;
     }
 
     /**
