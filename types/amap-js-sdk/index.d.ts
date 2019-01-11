@@ -1,4 +1,4 @@
-// Type definitions for amap-js-sdk 1.4.12
+// Type definitions for amap-js-sdk 1.4
 // Project: http://lbs.amap.com/api/javascript-api/summary/
 // Definitions by: Bian Zhongjie <https://github.com/agasbzj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,28 +24,26 @@ declare namespace AMap {
     namespace event {
         /**
          * 注册DOM对象事件：给DOM对象注册事件，并返回eventListener。运行AMap.event.removeListener(eventListener)可以删除该事件的监听器。
-            参数：
-            instance：需注册事件的DOM对象（必填），
-            eventName：事件名称（必填），
-            handler：事件功能函数（必填），
-            context：事件上下文（可选，缺省时，handler中this指向参数instance引用的对象，否则this指向context引用的对象）
+         * @param instance：需注册事件的DOM对象（必填）
+         * @param eventName：事件名称（必填）
+         * @param handler：事件功能函数（必填）
+         * @param context：事件上下文（可选，缺省时，handler中this指向参数instance引用的对象，否则this指向context引用的对象）
          */
         const addDomListener: (instance: any, eventName: string, handler: EventCallback, context?: any) => EventListener;
 
         /**
          * 注册对象事件：给对象注册事件，并返回eventListener。运行AMap.event.removeListener(eventListener)可以删除该事件的监听器。
-            参数：
-            instance：需注册事件的对象（必填），
-            eventName：事件名称（必填），
-            handler：事件功能函数（必填），
-            context：事件上下文（可选，缺省时，handler中this指向参数instance引用的对象，否则this指向context引用的对象）
+         * @param instance：需注册事件的对象（必填）
+         * @param eventName：事件名称（必填）
+         * @param handler：事件功能函数（必填）
+         * @param context：事件上下文（可选，缺省时，handler中this指向参数instance引用的对象，否则this指向context引用的对象）
          */
-        const addListener: (instance: Object, eventName: string, handler: EventCallback, context?: any) => EventListener;
+        const addListener: (instance: any, eventName: string, handler: EventCallback, context?: any) => EventListener;
 
         /**
          * 类似于addListener，但处理程序会在处理完第一个事件后将自已移除。
          */
-        const addListenerOnce: (instance: Object, eventName: string, handler: EventCallback, context?: any) => EventListener;
+        const addListenerOnce: (instance: any, eventName: string, handler: EventCallback, context?: any) => EventListener;
 
         /**
          * 删除由上述 event.addDomListener 和 event.addListener 传回的指定侦听器。
@@ -55,9 +53,8 @@ declare namespace AMap {
         /**
          * 触发非DOM事件：触发非DOM事件eventName，extArgs将扩展到事件监听函数（handler）接受到的event参数中。如:在extArgs内写入{m:10,p:2}，eventName监听函数（handler）可以接收到包含m,p两个key值的event对象。
          */
-        const trigger: (instance: Object, eventName: string, extArgs: any) => void;
+        const trigger: (instance: any, eventName: string, extArgs: any) => void;
     }
-
 
     /**
      * 此对象用于表示地图、覆盖物、叠加层上的各种鼠标事件返回，包含以下字段：
@@ -66,14 +63,13 @@ declare namespace AMap {
         lnglat: LngLat;
         pixel: Pixel;
         type: string;
-        target: Object;
+        target: any;
     }
 
     abstract class EventBindable {
         on(eventName: string, callback: EventCallback): void;
         off(eventName: string, callback: EventCallback): void;
     }
-
 
 /* --------------------------- 基础类 --------------------------- */
 /* 参考地址:http://lbs.amap.com/api/javascript-api/reference/core */
@@ -82,7 +78,6 @@ declare namespace AMap {
      * 像素坐标，确定地图上的一个像素点。
      */
     class Pixel {
-
         /**
          * 构造一个像素坐标对象。
          */
@@ -112,11 +107,10 @@ declare namespace AMap {
      * 地物对象的像素尺寸
      */
     class Size {
-
         /**
          * 构造尺寸对象
-         * @param {number} width 宽度，单位：像素
-         * @param {number} height 高度，单位：像素
+         * @param width 宽度，单位：像素
+         * @param height 高度，单位：像素
          */
         constructor(width: number, height: number);
 
@@ -140,26 +134,25 @@ declare namespace AMap {
      * 经纬度坐标，确定地图上的一个点
      */
     class LngLat {
-
         /**
          * 构造一个地理坐标对象
-         * @param {number} lng 经度
-         * @param {number} lat 纬度
+         * @param lng 经度
+         * @param lat 纬度
          */
-        constructor(lng: number, lat:number);
+        constructor(lng: number, lat: number);
 
         /**
          * 当前经纬度坐标值经度移动w，纬度移动s，得到新的坐标。
          *
-         * @param {number} w 经度，向右移为正值，单位：米
-         * @param {number} s 纬度，向上移为正值，单位：米
+         * @param w 经度，向右移为正值，单位：米
+         * @param s 纬度，向上移为正值，单位：米
          */
-        offset(w:number, s:number): LngLat;
+        offset(w: number, s: number): LngLat;
 
         /**
          * 计算当前经纬度和传入经纬度或者经纬度数组连线之间的地面距离，单位为米
          *
-         * @param {(LngLat | [number, number])} lnglat 传入的经纬度
+         * @param lnglat 传入的经纬度
          */
         distance(lnglat: LngLat | [number, number]): number;
 
@@ -176,7 +169,7 @@ declare namespace AMap {
         /**
          * 判断当前坐标对象与传入坐标对象是否相等
          *
-         * @param {LngLat} lnglat 传入坐标对象
+         * @param lnglat 传入坐标对象
          */
         equals(lnglat: LngLat): boolean;
 
@@ -190,17 +183,16 @@ declare namespace AMap {
      * 地物对象的经纬度矩形范围
      */
     class Bounds {
-
         /**
          * 构造一个矩形范围
-         * @param {LngLat} southWest 西南角经纬度坐标
-         * @param {LngLat} northEast 东北角经纬度坐标
+         * @param southWest 西南角经纬度坐标
+         * @param northEast 东北角经纬度坐标
          */
         constructor(southWest: LngLat, northEast: LngLat);
 
         /**
          * 判断指定点坐标是否在矩形范围内
-         * @param {LngLat} point 指定点
+         * @param point 指定点
          */
         contains(point: LngLat): boolean;
 
@@ -264,7 +256,6 @@ declare namespace AMap {
     }
 
     namespace TileLayer {
-
         abstract class MapTypeLayer extends Layer {
             constructor(options?: {
                 map: Map,
@@ -297,8 +288,42 @@ declare namespace AMap {
         }
     }
 
-    interface IndoorMap {
+    class IndoorMap {
+        constructor(opts: {
+            zIndex?: number,
+            opacity?: number,
+            cursor?: string,
+            hideFloorBar?: boolean,
+            alwaysShow?: boolean
+        });
 
+        showIndoorMap(indoorid: string, floor: number, shopid: string): void;
+
+        showFloor(floor: number, noMove: boolean): void;
+
+        setMap(map: Map): void;
+
+        show(): void;
+
+        hide(): void;
+
+        setzIndex(): void;
+
+        showFloorBar(): void;
+
+        hideFloorBar(): void;
+
+        setOpacity(alpha: number): void;
+
+        getOpacity(): number;
+
+        showLabels(): void;
+
+        hideLabels(): void;
+
+        getSelectedBuildingId(): string;
+
+        getSelectedBuilding(): string;
     }
 
     interface MapOptions {
@@ -335,12 +360,16 @@ declare namespace AMap {
             center?: LngLat,
             rotation?: number,
             zoom?: number,
-            crs?: string
+            crs?: 'EPSG3857'|'EPSG3395'|'EPSG4326'
         });
+
+        /**
+         * To silence lint error, this class has to be exists.
+         */
+        toString(): string;
     }
 
     class Map extends EventBindable {
-
         constructor(mapDiv: string, opts?: MapOptions);
 
         getZoom(): number;
@@ -374,7 +403,7 @@ declare namespace AMap {
         getAllOverlays(type: string): Marker[] | Circle[] | Polygon[] | Polyline[];
         setCenter(position: LngLat): void;
         setZoomAndCenter(zoomLevel: number, center: LngLat): void;
-        setCity(city:string, callback: () => void): void;
+        setCity(city: string, callback: () => void): void;
         setBounds(bound: Bounds): void;
         setLimitBounds(bound: Bounds): void;
         clearLimitBounds(): void;
@@ -390,8 +419,8 @@ declare namespace AMap {
         clearMap(): void;
         destroy(): void;
         plugin(name: string| string[], callback: () => void): void;
-        addControl(obj: IMapControl|Object): void;
-        removeControl(obj: IMapControl|Object): void;
+        addControl(obj: MapControl): void;
+        removeControl(obj: MapControl): void;
         clearInfoWindow(): void;
         pixelToLngLat(pixel: Pixel, level: number): LngLat;
         lnglatToPixel(lnglat: LngLat, level: number): Pixel;
@@ -402,7 +431,6 @@ declare namespace AMap {
         setFeatures(features: string[]): void;
         getFeatures(): string[];
         setDefaultLayer(layer: TileLayer): void;
-
     }
 
     class Icon {
@@ -440,6 +468,11 @@ declare namespace AMap {
              */
             type?: string
         });
+
+        /**
+         * To silence lint error, this class has to be exists.
+         */
+        toString(): string;
     }
 
     interface MarkerOptions {
@@ -628,15 +661,14 @@ declare namespace AMap {
         setMap(map: Map): void;
         setExtData(ext: any): void;
         getExtData(): any;
-
     }
 
-    interface IMapControl {
+    interface MapControl {
         show(): void;
         hide(): void;
     }
 
-    class MapType implements IMapControl {
+    class MapType implements MapControl {
         constructor(options?: {
             defaultType?: number;
             showTraffic?: boolean;
@@ -647,7 +679,7 @@ declare namespace AMap {
         hide(): void;
     }
 
-    class OverView extends EventBindable implements IMapControl {
+    class OverView extends EventBindable implements MapControl {
         constructor(options?: {
             tileLayer?: TileLayer[],
             isOpen?: boolean,
@@ -662,7 +694,7 @@ declare namespace AMap {
         hide(): void;
     }
 
-    class Scale extends EventBindable implements IMapControl {
+    class Scale extends EventBindable implements MapControl {
         offset: Pixel;
         position: string;
 
@@ -670,7 +702,7 @@ declare namespace AMap {
         hide(): void;
     }
 
-    class ToolBar extends EventBindable implements IMapControl {
+    class ToolBar extends EventBindable implements MapControl {
         constructor(options?: {
             offset?: Pixel,
             position?: string,
@@ -689,11 +721,11 @@ declare namespace AMap {
         hideRuler(): void;
         showRuler(): void;
         hideDirection(): void;
-        showDirection(): void
+        showDirection(): void;
         hideLocation(): void;
         showLocation(): void;
         doLocation(): void;
-        getLocation(): { lng:number, lat:number };
+        getLocation(): { lng: number, lat: number };
         show(): void;
         hide(): void;
     }
@@ -875,7 +907,7 @@ declare namespace AMap {
 
         setCity(city: string): void;
 
-        getAddress(location:LngLat|LngLat[], callback: (status?: string, result?: string | ReGeocodeResult) => void): void;
+        getAddress(location: LngLat|LngLat[], callback: (status?: string, result?: string | ReGeocodeResult) => void): void;
     }
 
     /**
@@ -891,6 +923,30 @@ declare namespace AMap {
      */
     function convertFrom(lnglat: LngLat | LngLat[] | [number, number], type: string, result: (status: string, result: ConvertorResult) => void): void;
 
+    interface Poi {
+        id: string;
+        name: string;
+        type: string;
+        location: LngLat;
+        address: string;
+        distance: number;
+        tel: string;
+
+        website: string;
+        pcode: string;
+        citycode: string;
+        adcode: string;
+        postcode: string;
+        pname: string;
+        cityname: string;
+        adname: string;
+        email: string;
+        entr_location: LngLat;
+        exit_location: LngLat;
+        groupbuy: boolean;
+        discount: boolean;
+    }
+
     interface CitySearchResult {
         city: string;
         bounds: Bounds;
@@ -901,11 +957,7 @@ declare namespace AMap {
         getCityByIp(ip: string, callback: (status: string, result: string | CitySearchResult) => void): void;
     }
 
-    class Poi {
-
-    }
-
-    const enum DrivingPolicy {
+    enum DrivingPolicy {
         LEAST_TIME,
         LEAST_FEE,
         LEAST_DISTANCE,
@@ -916,7 +968,7 @@ declare namespace AMap {
         name: string;
         citycode: string;
         adcode: string;
-        districts: District[]
+        districts: District[];
     }
 
     interface District {
@@ -943,9 +995,9 @@ declare namespace AMap {
         tolls_distance: number;
         toll_road: string;
         time: number;
-        path: LngLat[],
-        cities?: ViaCity[],
-        tmcs?: TMC[]
+        path: LngLat[];
+        cities?: ViaCity[];
+        tmcs?: TMC[];
     }
 
     interface DriveRoute {
@@ -954,7 +1006,7 @@ declare namespace AMap {
         policy: string;
         tolls: number;
         tolls_distance: number;
-        steps: DriveStep[]
+        steps: DriveStep[];
     }
 
     interface DrivingResult {
@@ -964,7 +1016,7 @@ declare namespace AMap {
         start: Poi;
         waypoints: Poi;
         taxi_cost: number;
-        routes: DriveRoute[]
+        routes: DriveRoute[];
     }
 
     class Driving extends EventBindable {
@@ -977,14 +1029,14 @@ declare namespace AMap {
             showTraffic?: boolean
         });
 
-        search(origin:LngLat, destination: LngLat, opts?: {
+        search(origin: LngLat, destination: LngLat, opts?: {
             waypoints: LngLat[]
         }, callback?: (status: string, result: string|DrivingResult) => void): void;
 
-        search(point: {
+        search(point: Array<{
             keyword: string,
             city: string
-        }[], callback: (status: string, result: string|DrivingResult) => void): void;
+        }>, callback: (status: string, result: string|DrivingResult) => void): void;
 
         setPolicy(policy: DrivingPolicy): void;
         setAvoidPolygons(path: LngLat[][]): void;
@@ -1055,17 +1107,16 @@ declare namespace AMap {
         getForecast(district: string, callback: (errorStatus: any, result: WeatherForecastResult) => void): void;
     }
 
-
     interface Tip {
-        name: string,
-        district: string,
-        adcode: string
+        name: string;
+        district: string;
+        adcode: string;
     }
 
     interface AutocompleteResult {
-        info: string,
-        count: number,
-        tips: Tip[]
+        info: string;
+        count: number;
+        tips: Tip[];
     }
 
     class Autocomplete {
@@ -1077,76 +1128,76 @@ declare namespace AMap {
             input?: string
         });
 
-        search(keyword:string, callback: (status: string, result: string | AutocompleteResult) => void): void;
+        search(keyword: string, callback: (status: string, result: string | AutocompleteResult) => void): void;
     }
 
     interface SelectChangeEvent {
-        type: string,
-        id: string,
-        marker: Marker,
-        listElement: HTMLLIElement,
-        data: Poi
+        type: string;
+        id: string;
+        marker: Marker;
+        listElement: HTMLLIElement;
+        data: Poi;
     }
 
     interface PoiList {
-        pois: Poi[],
-        pageIndex: number,
-        pageSize: number,
-        count: number
+        pois: Poi[];
+        pageIndex: number;
+        pageSize: number;
+        count: number;
     }
 
     interface CityInfo {
-        name: string,
-        citycode: string,
-        adcode: string,
-        count: number
+        name: string;
+        citycode: string;
+        adcode: string;
+        count: number;
     }
 
     interface SearchResult {
-        info: string,
-        poiList: PoiList,
-        keywordList: string[],
-        cityList: CityInfo[]
+        info: string;
+        poiList: PoiList;
+        keywordList: string[];
+        cityList: CityInfo[];
     }
 
     interface Photo {
-        title: string,
-        url: string
+        title: string;
+        url: string;
     }
 
     interface Content {
-        id: string,
-        name: string
+        id: string;
+        name: string;
     }
 
     interface Discount {
-        title: string,
-        detail: string,
-        start_time: string,
-        end_time: string,
-        sold_num: string,
-        photos: Photo[],
-        url: string,
-        provider: string
+        title: string;
+        detail: string;
+        start_time: string;
+        end_time: string;
+        sold_num: string;
+        photos: Photo[];
+        url: string;
+        provider: string;
     }
 
     interface Groupbuy {
-        title: string,
-        type_code: string,
-        type: string,
-        detail: string,
-        stime: string,
-        etime: string,
-        count: number,
-        sold_num: number,
-        original_price: number,
-        groupbuy_price: number,
-        discount: number,
-        ticket_address: string,
-        ticket_tel: string,
-        photos: Photo[],
-        url: string,
-        provider: string
+        title: string;
+        type_code: string;
+        type: string;
+        detail: string;
+        stime: string;
+        etime: string;
+        count: number;
+        sold_num: number;
+        original_price: number;
+        groupbuy_price: number;
+        discount: number;
+        ticket_address: string;
+        ticket_tel: string;
+        photos: Photo[];
+        url: string;
+        provider: string;
     }
 
     class PlaceSearch {
@@ -1167,7 +1218,7 @@ declare namespace AMap {
         });
 
         search(keyword: string, callback: (status: string, result: string | SearchResult) => void): void;
-        searchNearBy(keyword: string, center: LngLat, radius: number, callback: (status: string,result: string|SearchResult) => void): void;
+        searchNearBy(keyword: string, center: LngLat, radius: number, callback: (status: string, result: string|SearchResult) => void): void;
         searchInBounds(keyword: string, bounds: Bounds|Polygon, callback: (status: string, result: string|SearchResult) => void): void;
         getDetails(POIID: string, callback: (status: string, result: string|SearchResult) => void): void;
         setType(type: string): void;
@@ -1178,36 +1229,36 @@ declare namespace AMap {
         setLang(lang: string): string;
         getLang(): string;
         clear(): void;
-        poiOnAMAP(obj: Object): void;
-        detailOnAMAP(obj: object): void;
+        poiOnAMAP(obj: any): void;
+        detailOnAMAP(obj: any): void;
     }
 
     interface DistrictSearchOptions {
-        level: string,
-        showbiz?: boolean,
-        extensions?: string,
-        subdistrict?: number
+        level: string;
+        showbiz?: boolean;
+        extensions?: string;
+        subdistrict?: number;
     }
 
     interface DistrictSearchResult {
-        info: string,
-        districtList: District[]
+        info: string;
+        districtList: District[];
     }
 
     interface District {
-        name: string,
-        center: LngLat,
-        citycode: string,
-        adcode: string,
-        level: string,
-        boundaries: LngLat[],
-        districtList: District[]
+        name: string;
+        center: LngLat;
+        citycode: string;
+        adcode: string;
+        level: string;
+        boundaries: LngLat[];
+        districtList: District[];
     }
 
     class DistrictSearch {
         constructor(opts: DistrictSearchOptions);
 
-        search(keywords: string, callback?: (status: string,result: string| DistrictSearchResult) => void, opts?: DistrictSearchOptions): void;
+        search(keywords: string, callback?: (status: string, result: string| DistrictSearchResult) => void, opts?: DistrictSearchOptions): void;
         setLevel(level: string): void;
         setSubdistrict(district: number): void;
     }
