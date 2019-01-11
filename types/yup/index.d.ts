@@ -8,7 +8,7 @@
 //                 Vincent Pizzo <https://github.com/vincentjames501>
 //                 Robert Bullen <https://github.com/robertbullen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export function reach<T>(
     schema: Schema<T>,
@@ -23,12 +23,6 @@ export function addMethod<T extends Schema<any>>(
 ): void;
 export function ref(path: string, options?: { contextPrefix: string }): Ref;
 export function lazy<T>(fn: (value: T) => Schema<T>): Lazy;
-export function ValidationError(
-    errors: string | string[],
-    value: any,
-    path: string,
-    type?: any
-): ValidationError;
 export function setLocale(customLocale: LocaleObject): void;
 
 export const mixed: MixedSchemaConstructor;
@@ -49,7 +43,8 @@ export type AnySchemaConstructor =
     | ArraySchemaConstructor
     | ObjectSchemaConstructor;
 
-export type TestOptionsMessage = string
+export type TestOptionsMessage =
+    | string
     | ((params: object & Partial<TestMessageParams>) => string);
 
 export interface Schema<T> {
@@ -171,14 +166,19 @@ export interface ArraySchema<T> extends Schema<T[]> {
     compact(rejector?: (value: any) => boolean): ArraySchema<T>;
 }
 
-export type ObjectSchemaDefinition<T extends object> = { [field in keyof T]: Schema<T[field]> | Ref };
+export type ObjectSchemaDefinition<T extends object> = {
+    [field in keyof T]: Schema<T[field]> | Ref
+};
 
 /**
  * Merges two interfaces. For properties in common, property types from `U` trump those of `T`.
  * This is conducive to the functionality of
  * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
  */
-export type Shape<T extends object, U extends object> = { [P in keyof T]: P extends keyof U ? U[P] : T[P] } & U;
+export type Shape<T extends object, U extends object> = {
+    [P in keyof T]: P extends keyof U ? U[P] : T[P]
+} &
+    U;
 
 export interface ObjectSchemaConstructor {
     <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
@@ -191,7 +191,10 @@ export interface ObjectSchema<T extends object> extends Schema<T> {
         noSortEdges?: Array<[string, string]>
     ): ObjectSchema<Shape<T, U>>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
-    noUnknown(onlyKnownKeys?: boolean, message?: TestOptionsMessage): ObjectSchema<T>;
+    noUnknown(
+        onlyKnownKeys?: boolean,
+        message?: TestOptionsMessage
+    ): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
@@ -292,7 +295,12 @@ export interface SchemaDescription {
     fields: object;
 }
 
-export interface ValidationError {
+// ValidationError works a lot more like a class vs. a constructor
+// function that returns an interface. It's also got a couple of
+// static methods and it inherits for the generic Error class in
+// the [yup codebase][1].
+// [1]: (https://github.com/jquense/yup/blob/master/src/ValidationError.js)
+export class ValidationError extends Error {
     name: string;
     message: string;
     value: any;
@@ -311,6 +319,19 @@ export interface ValidationError {
      */
     inner: ValidationError[];
     params?: object;
+
+    static isError(err: any): err is ValidationError;
+    static formatError(
+        message: string | ((params?: any) => string),
+        params?: any
+    ): string | ((params?: any) => string);
+
+    constructor(
+        errors: string | string[],
+        value: any,
+        path: string,
+        type?: any
+    );
 }
 
 // It is tempting to declare `Ref` very simply, but there are problems with these approaches:
