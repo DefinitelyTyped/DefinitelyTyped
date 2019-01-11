@@ -108,4 +108,4 @@ export interface Callback {
 
 export let Serializer: SerializerConstructor;
 export let Deserializer: DeserializerConstructor;
-export let JSONAPIError: ErrorConstructor;
+export let Error: ErrorConstructor;

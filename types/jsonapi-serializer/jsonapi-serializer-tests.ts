@@ -1,4 +1,4 @@
-import { Serializer, Deserializer, JSONAPIError } from "jsonapi-serializer";
+import { Serializer, Deserializer, Error } from "jsonapi-serializer";
 
 declare let firstName: string;
 declare let lastName: string;
@@ -21,7 +21,7 @@ const UserDeserializer = new Deserializer({
 
 UserDeserializer.deserialize(users);
 
-new JSONAPIError({
+new Error({
     code: "_code",
     detail: "_detail",
     id: "_id",
