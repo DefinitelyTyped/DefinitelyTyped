@@ -231,9 +231,7 @@ interface FirstFrameParam extends CallbackParam {
     viewable: 0 | 1;
 }
 
-interface EventCallback<T extends CallbackParam> {
-    (param: T): void;
-}
+type EventCallback<T extends CallbackParam> = (param: T) => void;
 
 interface Region {
     x: 0; // x and y will always be 0 according to https://developer.jwplayer.com/jw-player/docs/javascript-api-reference/#jwplayergetsaferegion
