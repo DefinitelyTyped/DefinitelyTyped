@@ -379,7 +379,7 @@ declare namespace Backbone {
         * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
-        routes: RoutesHash | any;
+        routes(): RoutesHash;
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
