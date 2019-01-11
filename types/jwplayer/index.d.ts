@@ -46,7 +46,7 @@ interface Features {
     iframe: boolean;
 }
 
-interface Environment{
+interface Environment {
     Browser: Browser;
     OS: OS;
     Features: Features;
