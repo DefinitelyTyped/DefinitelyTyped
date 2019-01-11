@@ -52,33 +52,30 @@ interface Environment{
     Features: Features;
 }
 
-interface CallbackParam {
-}
-
-interface AdProgressParam extends CallbackParam {
+interface AdProgressParam {
     client: 'vast' | 'googima';
     creativetype: string;
     tag: string;
 }
 
-interface AdCompanionsParam extends CallbackParam {
+interface AdCompanionsParam {
     companions: any[];
     tag: string;
 }
 
-interface AdErrorParam extends CallbackParam {
+interface AdErrorParam {
     message: string;
     tag: string;
 }
 
-interface AdRequestParam extends CallbackParam {
+interface AdRequestParam {
     adposition: 'pre' | 'mid' | 'post';
     client: 'vast' | 'googima';
     offset: 'pre' | 'mid' | 'post';
     tag: string;
 }
 
-interface AdImpressionParam extends CallbackParam {
+interface AdImpressionParam {
     adposition: 'pre' | 'mid' | 'post';
     adsystem: string;
     adtitle: string;
@@ -92,38 +89,38 @@ interface AdImpressionParam extends CallbackParam {
     wrapper: any[];
 }
 
-interface AdScheduleParam extends CallbackParam {
+interface AdScheduleParam {
     tag: string;
     client: string;
     adbreaks: object[];
 }
 
-interface AdStartedParam extends CallbackParam {
+interface AdStartedParam {
     creativetype: string;
     tag: string;
 }
 
-interface AdPlayParam extends CallbackParam {
+interface AdPlayParam {
     creativetype: string;
     newstate: string;
     oldstate: string;
     tag: string;
 }
 
-interface BufferParam extends CallbackParam {
+interface BufferParam {
     newstate: string;
     oldstate: string;
     reason: 'loading' | 'complete' | 'stalled' | 'error';
 }
 
-interface BufferChangeParam extends CallbackParam {
+interface BufferChangeParam {
     duration: number;
     bufferPercent: number;
     position: number;
     metadata: any;
 }
 
-interface AdTimeParam extends CallbackParam {
+interface AdTimeParam {
     client: 'vast' | 'googima';
     creativetype: string;
     duration: number;
@@ -132,106 +129,106 @@ interface AdTimeParam extends CallbackParam {
     tag: string;
 }
 
-interface AudioTracksParam extends CallbackParam {
+interface AudioTracksParam {
     levels: any[];
 }
 
-interface CaptionsChangedParam extends CallbackParam {
+interface CaptionsChangedParam {
     currentTrack: number;
 }
 
-interface CaptionsListParam extends CallbackParam {
+interface CaptionsListParam {
     tracks: any[];
 }
 
-interface AudioTrackChangedParam extends CallbackParam {
+interface AudioTrackChangedParam {
     currentTrack: number;
 }
 
-interface MetadataParam extends CallbackParam {
+interface MetadataParam {
     metadata: any;
 }
 
-interface ControlsParam extends CallbackParam {
+interface ControlsParam {
     controls: boolean;
 }
 
-interface ErrorParam extends CallbackParam {
+interface ErrorParam {
     message: string;
 }
 
-interface FullscreenParam extends CallbackParam {
+interface FullscreenParam {
     fullscreen: boolean;
 }
 
-interface IdleParam extends CallbackParam {
+interface IdleParam {
     oldstate: 'buffering' | 'playing' | 'paused';
 }
 
-interface LevelsChangedParam extends CallbackParam {
+interface LevelsChangedParam {
     currentQuality: number;
 }
 
-interface MuteParam extends CallbackParam {
+interface MuteParam {
     mute: boolean;
 }
 
-interface VolumeParam extends CallbackParam {
+interface VolumeParam {
     volume: boolean;
 }
 
-interface PlayParam extends CallbackParam {
+interface PlayParam {
     oldstate: 'buffering' | 'playing';
     viewable: 0 | 1;
 }
 
-interface PlaylistParam extends CallbackParam {
+interface PlaylistParam {
     playlist: any[];
 }
 
-interface PlaylistItemParam extends CallbackParam {
+interface PlaylistItemParam {
     index: number;
     item: any;
 }
 
-interface ReadyParam extends CallbackParam {
+interface ReadyParam {
     setupTime: number;
     viewable: 0 | 1;
 }
 
-interface ResizeParam extends CallbackParam {
+interface ResizeParam {
     width: number;
     height: number;
 }
 
-interface VisualQualityParam extends CallbackParam {
+interface VisualQualityParam {
     mode: string;
     label: string;
     reason: string;
 }
 
-interface LevelsParam extends CallbackParam {
+interface LevelsParam {
     width: number;
     levels: any[];
 }
 
-interface SeekParam extends CallbackParam {
+interface SeekParam {
     position: number;
     offset: number;
 }
 
-interface TimeParam extends CallbackParam {
+interface TimeParam {
     duration: number;
     position: number;
     viewable: 0 | 1;
 }
 
-interface FirstFrameParam extends CallbackParam {
+interface FirstFrameParam {
     loadTime: number;
     viewable: 0 | 1;
 }
 
-type EventCallback<T extends CallbackParam> = (param: T) => void;
+type EventCallback<T> = (param: T) => void;
 
 interface Region {
     x: 0; // x and y will always be 0 according to https://developer.jwplayer.com/jw-player/docs/javascript-api-reference/#jwplayergetsaferegion
