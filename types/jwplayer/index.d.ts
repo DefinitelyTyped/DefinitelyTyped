@@ -363,7 +363,7 @@ interface JWPlayer {
 }
 
 interface JWPlayerStatic {
-	(id: string): JWPlayer;
+	(query?: string | number | Element): JWPlayer;
 	key: string;
 	version: string;
 }
