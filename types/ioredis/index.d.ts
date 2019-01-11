@@ -972,14 +972,16 @@ declare namespace IORedis {
         count?: number;
     }
 
-    export type DNSLookupFunction = (hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void
-    export type NatMap = {[key: string]: {host: string, port: number}}
+    type DNSLookupFunction = (hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+    interface NatMap {
+        [key: string]: {host: string, port: number};
+    }
 
     interface ClusterOptions {
         clusterRetryStrategy?(times: number, reason?: Error): number | null;
         enableOfflineQueue?: boolean;
         enableReadyCheck?: boolean;
-        scaleReads?: string | Function;
+        scaleReads?: string;
         maxRedirections?: number;
         retryDelayOnFailover?: number;
         retryDelayOnClusterDown?: number;
