@@ -6,11 +6,11 @@
 /// <reference types="node" />
 
 
-
 interface ImageInfo {
     width: number;
     height: number;
     type: string;
+    orientation?: number;
 }
 
 declare function sizeOf(path: string): ImageInfo;
