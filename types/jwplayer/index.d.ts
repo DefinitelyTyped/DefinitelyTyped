@@ -14,7 +14,7 @@
 interface Version {
     version: string;
     major: number;
-    minor: number
+    minor: number;
 }
 
 interface Browser {
@@ -461,7 +461,7 @@ interface JWPlayer {
     on(event: 'seeked', callback: () => void): void;
     once(event: 'seeked', callback: () => void): void;
     off(event: 'seeked'): void;
-    trigger(event: 'seeked'): void
+    trigger(event: 'seeked'): void;
     on(event: 'setupError', callback: EventCallback<ErrorParam>): void;
 	once(event: 'setupError', callback: EventCallback<ErrorParam>): void;
 	off(event: 'setupError'): void;
