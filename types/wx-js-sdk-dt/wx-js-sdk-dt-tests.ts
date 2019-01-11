@@ -138,7 +138,7 @@ wx.updateAppMessageShareData({
     title: '',
     desc: '',
     link: '',
-    imageUrl: '',
+    imgUrl: '',
     success: () => {
     }
 });
