@@ -20,6 +20,7 @@ export interface PublicState {
 }
 
 export interface Events {
+  getNextHandlePosition?(handleIdx: number, percentPosition: number): number;
   onClick?(): any;
   onChange?(publicState: PublicState): any;
   onKeyPress?(): any;
@@ -31,6 +32,8 @@ export interface Events {
 
 export interface Props extends Events {
   algorithm?: Algorithm;
+  autoAdjustVerticalPosition?: boolean;
+  background: React.ReactType;
   className?: string;
   disabled?: boolean;
   handle?: React.ReactType;
