@@ -52,12 +52,12 @@ export type VerifyOIDCFunctionWithReq =
     ((req: Request, iss: string, sub: string, profile: IProfile, access_token: string, refresh_token: string, params: any, done: VerifyCallback) => void) |
     ((req: Request, iss: string, sub: string, profile: IProfile, jwtClaims: any, access_token: string, refresh_token: string, params: any, done: VerifyCallback) => void);
 
-export class OIDCStrategy extends passport.Strategy {
+export class OIDCStrategy implements passport.Strategy {
     constructor(
         options: IOIDCStrategyOptionWithRequest,
-        verify: VerifyOIDCFunction
+        verify: VerifyOIDCFunctionWithReq
     );
-    constructor(options: IOIDCStrategyOption, verify: VerifyOIDCFunctionWithReq);
+    constructor(options: IOIDCStrategyOption, verify: VerifyOIDCFunction);
 
     name: string;
 

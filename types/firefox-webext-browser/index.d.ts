@@ -1,4 +1,4 @@
-// Type definitions for WebExtension Development in FireFox 63.0
+// Type definitions for WebExtension Development in FireFox 65.0
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jasmin Bom <https://github.com/jsmnbom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -141,6 +141,9 @@ declare namespace browser._manifest {
         };
         hidden?: boolean;
         theme_experiment?: ThemeExperiment;
+        user_scripts?: {
+            api_script?: ExtensionURL;
+        };
         browser_action?: {
             default_title?: string;
             default_icon?: IconPath;
@@ -163,8 +166,10 @@ declare namespace browser._manifest {
                 instant_url?: string;
                 /** @deprecated Unsupported on Firefox at this time. */
                 image_url?: string;
-                /** @deprecated Unsupported on Firefox at this time. */
+                /** POST parameters to the search_url as a query string. */
                 search_url_post_params?: string;
+                /** POST parameters to the suggest_url as a query string. */
+                suggest_url_post_params?: string;
                 /** @deprecated Unsupported on Firefox at this time. */
                 instant_url_post_params?: string;
                 /** @deprecated Unsupported on Firefox at this time. */
@@ -173,8 +178,26 @@ declare namespace browser._manifest {
                 alternate_urls?: string[];
                 /** @deprecated Unsupported on Firefox. */
                 prepopulated_id?: number;
+                /** Encoding of the search term. */
+                encoding?: string;
                 /** Sets the default engine to a built-in engine only. */
                 is_default?: boolean;
+                /**
+                 * A list of optional search url parameters. This allows the additon of search url parameters based on
+                 * how the search is performed in Firefox.
+                 */
+                params?: Array<{
+                    /** A url parameter name */
+                    name: string;
+                    /** The type of param can be either "purpose" or "pref". */
+                    condition?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition;
+                    /** The preference to retreive the value from. */
+                    pref?: string;
+                    /** The context that initiates a search, required if condition is "purpose". */
+                    purpose?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose;
+                    /** A url parameter value. */
+                    value?: string;
+                }>;
             };
         };
         commands?: {
@@ -202,6 +225,7 @@ declare namespace browser._manifest {
             browser_style?: boolean;
             show_matches?: MatchPattern[];
             hide_matches?: MatchPatternRestricted[];
+            pinned?: boolean;
         };
         sidebar_action?: {
             default_title?: string;
@@ -363,9 +387,6 @@ declare namespace browser._manifest {
      */
     type MatchPatternUnestricted = string;
 
-    /** Same as MatchPattern above, but includes moz-extension protocol */
-    type MatchPatternInternal = string | _MatchPatternInternal;
-
     /**
      * Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be
      * set at the same time. Based on InjectDetails, but using underscore rather than camel case naming conventions.
@@ -436,14 +457,17 @@ declare namespace browser._manifest {
     interface ThemeType {
         images?: {
             additional_backgrounds?: ImageDataOrExtensionURL[];
+            /** @deprecated Please use _theme.images.theme_frame_, this alias will be removed in Firefox 69. */
             headerURL?: ImageDataOrExtensionURL;
             theme_frame?: ImageDataOrExtensionURL;
         };
         colors?: {
             tab_selected?: ThemeColor;
+            /** @deprecated Please use _theme.colors.frame_, this alias will be removed in Firefox 69. */
             accentcolor?: ThemeColor;
             frame?: ThemeColor;
             frame_inactive?: ThemeColor;
+            /** @deprecated Please use _theme.colors.tab_background_text_, this alias will be removed in Firefox 69. */
             textcolor?: ThemeColor;
             tab_background_text?: ThemeColor;
             tab_background_separator?: ThemeColor;
@@ -451,6 +475,7 @@ declare namespace browser._manifest {
             tab_text?: ThemeColor;
             tab_line?: ThemeColor;
             toolbar?: ThemeColor;
+            /** @deprecated Please use _theme.colors.bookmark_text_, this alias will be removed in Firefox 69. */
             toolbar_text?: ThemeColor;
             bookmark_text?: ThemeColor;
             toolbar_field?: ThemeColor;
@@ -475,6 +500,7 @@ declare namespace browser._manifest {
             ntp_background?: ThemeColor;
             ntp_text?: ThemeColor;
             sidebar?: ThemeColor;
+            sidebar_border?: ThemeColor;
             sidebar_text?: ThemeColor;
             sidebar_highlight?: ThemeColor;
             sidebar_highlight_text?: ThemeColor;
@@ -596,6 +622,7 @@ declare namespace browser._manifest {
         | "bookmarks"
         | "find"
         | "history"
+        | "menus.overrideContext"
         | "search"
         | "activeTab"
         | "tabs"
@@ -632,6 +659,17 @@ declare namespace browser._manifest {
         | "tabstrip"
         | "personaltoolbar";
 
+    /** The type of param can be either "purpose" or "pref". */
+    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = "purpose" | "pref";
+
+    /** The context that initiates a search, required if condition is "purpose". */
+    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose =
+        "contextmenu"
+        | "searchbar"
+        | "homepage"
+        | "keyword"
+        | "newtab";
+
     type _ProtocolHandlerProtocol =
         "bitcoin"
         | "dat"
@@ -660,8 +698,6 @@ declare namespace browser._manifest {
         | "xmpp";
 
     type _MatchPattern = "<all_urls>";
-
-    type _MatchPatternInternal = "<all_urls>";
 
     type _ThemeTypeAdditionalBackgroundsAlignment =
         "bottom"
@@ -785,12 +821,6 @@ declare namespace browser.clipboard {
 /** Not allowed in: Content scripts, Devtools pages */
 declare namespace browser.contentScripts {
     /* contentScripts types */
-    type ExtensionFileOrCode = {
-        file: _manifest.ExtensionURL;
-    } | {
-        code: string;
-    };
-
     /** Details of a content script registered programmatically */
     interface RegisteredContentScriptOptions {
         matches: _manifest.MatchPattern[];
@@ -798,9 +828,9 @@ declare namespace browser.contentScripts {
         includeGlobs?: string[];
         excludeGlobs?: string[];
         /** The list of CSS files to inject */
-        css?: ExtensionFileOrCode[];
+        css?: extensionTypes.ExtensionFileOrCode[];
         /** The list of JS files to inject */
-        js?: ExtensionFileOrCode[];
+        js?: extensionTypes.ExtensionFileOrCode[];
         /**
          * If allFrames is `true`, implies that the JavaScript or CSS should be injected into all frames of current
          * page. By default, it's `false` and is only injected into the top frame.
@@ -1912,6 +1942,22 @@ declare namespace browser.extensionTypes {
     }
 
     type Date = string | number | object/*Date*/;
+
+    type ExtensionFileOrCode = {
+        file: _manifest.ExtensionURL;
+    } | {
+        code: string;
+    };
+
+    /** A plain JSON value */
+    type PlainJSONValue = null | string | number | boolean | _PlainJSONArray | _PlainJSONObject;
+
+    interface _PlainJSONArray extends Array<PlainJSONValue> {
+    }
+
+    interface _PlainJSONObject {
+        [key: string]: PlainJSONValue;
+    }
 }
 
 /**
@@ -2403,7 +2449,7 @@ declare namespace browser.permissions {
 
     interface AnyPermissions {
         permissions?: _manifest.Permission[];
-        origins?: _manifest.MatchPatternInternal[];
+        origins?: _manifest.MatchPattern[];
     }
 
     /* permissions functions */
@@ -2524,7 +2570,8 @@ declare namespace browser.privacy.websites {
         "allow_all"
         | "reject_all"
         | "reject_third_party"
-        | "allow_visited";
+        | "allow_visited"
+        | "reject_trackers";
 
     /* privacy.websites properties */
     /**
@@ -3454,6 +3501,75 @@ declare namespace browser.types {
             incognitoSpecific?: boolean;
         }) => void>;
     }
+}
+
+/**
+ * Manifest keys: `user_scripts`, `user_scripts`
+ *
+ * Not allowed in: Devtools pages
+ */
+declare namespace browser.userScripts {
+    /* userScripts types */
+    /** Details of a user script */
+    interface UserScriptOptions {
+        /** The list of JS files to inject */
+        js?: extensionTypes.ExtensionFileOrCode[];
+        /** An opaque user script metadata value */
+        scriptMetadata?: extensionTypes.PlainJSONValue;
+        matches: _manifest.MatchPattern[];
+        excludeMatches?: _manifest.MatchPattern[];
+        includeGlobs?: string[];
+        excludeGlobs?: string[];
+        /**
+         * If allFrames is `true`, implies that the JavaScript should be injected into all frames of current page. By
+         * default, it's `false` and is only injected into the top frame.
+         */
+        allFrames?: boolean;
+        /**
+         * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your
+         * extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default
+         * it is `false`.
+         */
+        matchAboutBlank?: boolean;
+        /** The soonest that the JavaScript will be injected into the tab. Defaults to "document_idle". */
+        runAt?: extensionTypes.RunAt;
+    }
+
+    /** An object that represents a user script registered programmatically */
+    interface RegisteredUserScript {
+        /** Unregister a user script registered programmatically */
+        unregister(): Promise<any>;
+    }
+
+    /* userScripts functions */
+    /**
+     * Register a user script programmatically given its `userScripts.UserScriptOptions`, and resolves to a
+     * `userScripts.RegisteredUserScript` instance
+     */
+    function register(userScriptOptions: UserScriptOptions): Promise<RegisteredUserScript>;
+
+    /* userScripts events */
+    /**
+     * Event called when a new userScript global has been created
+     *
+     * Allowed in: Content scripts only
+     */
+    const onBeforeScript: WebExtEvent<(userScript: {
+        /** The userScript metadata (as set in userScripts.register) */
+        metadata: any;
+        /** The userScript global */
+        global: any;
+        /**
+         * Exports all the properties of a given plain object as userScript globals
+         * @param sourceObject A plain object whose properties are exported as userScript globals
+         */
+        defineGlobals: (sourceObject: object) => void;
+        /**
+         * Convert a given value to make it accessible to the userScript code
+         * @param value A value to convert into an object accessible to the userScript
+         */
+        export: (value: any) => any;
+    }) => void>;
 }
 
 /**
@@ -5302,9 +5418,8 @@ declare namespace browser.devtools.panels {
         /**
          * Sets an HTML page to be displayed in the sidebar pane.
          * @param path Relative path of an extension page to display within the sidebar.
-         * @deprecated Unsupported on Firefox at this time.
          */
-        setPage?(path: string): void;
+        setPage(path: _manifest.ExtensionURL): Promise<any>;
 
         /**
          * Fired when the sidebar pane becomes visible as a result of user switching to the panel that hosts it.
@@ -5472,16 +5587,24 @@ declare namespace browser.geckoProfiler {
         | "stackwalk"
         | "tasktracer"
         | "threads"
-        | "trackopts";
+        | "trackopts"
+        | "jstracer";
+
+    type Supports = "windowLength";
 
     /* geckoProfiler functions */
     /** Starts the profiler with the specified settings. */
     function start(settings: {
         /**
-         * The size in bytes of the buffer used to store profiling data. A larger value allows capturing a profile that
-         * covers a greater amount of time.
+         * The maximum size in bytes of the buffer used to store profiling data. A larger value allows capturing a
+         * profile that covers a greater amount of time.
          */
         bufferSize: number;
+        /**
+         * The length of the window of time that's kept in the buffer. Any collected samples are discarded as soon as
+         * they are older than the number of seconds specified in this setting. Zero means no duration restriction.
+         */
+        windowLength?: number;
         /**
          * Interval in milliseconds between samples of profiling data. A smaller value will increase the detail of the
          * profiles captured.
@@ -5706,6 +5829,8 @@ declare namespace browser.contextMenus {
         menuItemId: number | string;
         /** The parent ID, if any, for the item clicked. */
         parentMenuItemId?: number | string;
+        /** The type of view where the menu is clicked. May be unset if the menu is not associated with a view. */
+        viewType?: extension.ViewType;
         /**
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
@@ -5721,6 +5846,8 @@ declare namespace browser.contextMenus {
          * context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string;
+        /** The id of the frame of the element where the context menu was clicked. */
+        frameId?: number;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
         frameUrl?: string;
         /** The text for the context selection, if any. */
@@ -5735,6 +5862,8 @@ declare namespace browser.contextMenus {
         bookmarkId: string;
         /** An array of keyboard modifiers that were held while the menu item was clicked. */
         modifiers: _OnClickDataModifiers[];
+        /** An integer value of button by which menu item was clicked. */
+        button?: number;
         /**
          * An identifier of the clicked element, if any. Use menus.getTargetElement in the page to find the
          * corresponding element.
@@ -5748,6 +5877,12 @@ declare namespace browser.contextMenus {
         | "Command"
         | "Ctrl"
         | "MacCtrl";
+
+    /**
+     * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark' and
+     * 'tab' are supported. showDefaults cannot be used with this option.
+     */
+    type _OverrideContextContext = "bookmark" | "tab";
 
     /* contextMenus properties */
     /**
@@ -5789,6 +5924,11 @@ declare namespace browser.contextMenus {
         checked?: boolean;
         /** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
         contexts?: ContextType[];
+        /**
+         * List of view types where the menu item will be shown. Defaults to any view, including those without a
+         * viewType.
+         */
+        viewTypes?: extension.ViewType[];
         /** Whether the item is visible in the menu. */
         visible?: boolean;
         /**
@@ -5827,9 +5967,13 @@ declare namespace browser.contextMenus {
      */
     function update(id: number | string, updateProperties: {
         type?: ItemType;
+        icons?: {
+            [key: number]: string;
+        };
         title?: string;
         checked?: boolean;
         contexts?: ContextType[];
+        viewTypes?: extension.ViewType[];
         /** Whether the item is visible in the menu. */
         visible?: boolean;
         /**
@@ -5852,6 +5996,24 @@ declare namespace browser.contextMenus {
 
     /** Removes all context menu items added by this extension. */
     function removeAll(): Promise<void>;
+
+    /**
+     * Show the matching menu items from this extension instead of the default menu. This should be called during a
+     * 'contextmenu' DOM event handler, and only applies to the menu that opens after this event.
+     */
+    function overrideContext(contextOptions: {
+        /** Whether to also include default menu items in the menu. */
+        showDefaults?: boolean;
+        /**
+         * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark'
+         * and 'tab' are supported. showDefaults cannot be used with this option.
+         */
+        context?: _OverrideContextContext;
+        /** Required when context is 'bookmark'. Requires 'bookmark' permission. */
+        bookmarkId?: string;
+        /** Required when context is 'tab'. Requires 'tabs' permission. */
+        tabId?: number;
+    }): void;
 
     /**
      * Updates the extension items in the shown menu, including changes that have been made since the menu was shown.
@@ -5889,6 +6051,7 @@ declare namespace browser.contextMenus {
         menuIds: number | string[];
         /** A list of all contexts that apply to the menu. */
         contexts: ContextType[];
+        viewType?: extension.ViewType;
         editable: boolean;
         mediaType?: string;
         linkUrl?: string;
@@ -5947,6 +6110,8 @@ declare namespace browser.menus {
         menuItemId: number | string;
         /** The parent ID, if any, for the item clicked. */
         parentMenuItemId?: number | string;
+        /** The type of view where the menu is clicked. May be unset if the menu is not associated with a view. */
+        viewType?: extension.ViewType;
         /**
          * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
          */
@@ -5962,6 +6127,8 @@ declare namespace browser.menus {
          * context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string;
+        /** The id of the frame of the element where the context menu was clicked. */
+        frameId?: number;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
         frameUrl?: string;
         /** The text for the context selection, if any. */
@@ -5976,6 +6143,8 @@ declare namespace browser.menus {
         bookmarkId: string;
         /** An array of keyboard modifiers that were held while the menu item was clicked. */
         modifiers: _OnClickDataModifiers[];
+        /** An integer value of button by which menu item was clicked. */
+        button?: number;
         /**
          * An identifier of the clicked element, if any. Use menus.getTargetElement in the page to find the
          * corresponding element.
@@ -5989,6 +6158,12 @@ declare namespace browser.menus {
         | "Command"
         | "Ctrl"
         | "MacCtrl";
+
+    /**
+     * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark' and
+     * 'tab' are supported. showDefaults cannot be used with this option.
+     */
+    type _OverrideContextContext = "bookmark" | "tab";
 
     /* menus properties */
     /**
@@ -6030,6 +6205,11 @@ declare namespace browser.menus {
         checked?: boolean;
         /** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
         contexts?: ContextType[];
+        /**
+         * List of view types where the menu item will be shown. Defaults to any view, including those without a
+         * viewType.
+         */
+        viewTypes?: extension.ViewType[];
         /** Whether the item is visible in the menu. */
         visible?: boolean;
         /**
@@ -6068,9 +6248,13 @@ declare namespace browser.menus {
      */
     function update(id: number | string, updateProperties: {
         type?: ItemType;
+        icons?: {
+            [key: number]: string;
+        };
         title?: string;
         checked?: boolean;
         contexts?: ContextType[];
+        viewTypes?: extension.ViewType[];
         /** Whether the item is visible in the menu. */
         visible?: boolean;
         /**
@@ -6093,6 +6277,24 @@ declare namespace browser.menus {
 
     /** Removes all context menu items added by this extension. */
     function removeAll(): Promise<void>;
+
+    /**
+     * Show the matching menu items from this extension instead of the default menu. This should be called during a
+     * 'contextmenu' DOM event handler, and only applies to the menu that opens after this event.
+     */
+    function overrideContext(contextOptions: {
+        /** Whether to also include default menu items in the menu. */
+        showDefaults?: boolean;
+        /**
+         * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark'
+         * and 'tab' are supported. showDefaults cannot be used with this option.
+         */
+        context?: _OverrideContextContext;
+        /** Required when context is 'bookmark'. Requires 'bookmark' permission. */
+        bookmarkId?: string;
+        /** Required when context is 'tab'. Requires 'tabs' permission. */
+        tabId?: number;
+    }): void;
 
     /**
      * Updates the extension items in the shown menu, including changes that have been made since the menu was shown.
@@ -6130,6 +6332,7 @@ declare namespace browser.menus {
         menuIds: number | string[];
         /** A list of all contexts that apply to the menu. */
         contexts: ContextType[];
+        viewType?: extension.ViewType;
         editable: boolean;
         mediaType?: string;
         linkUrl?: string;
@@ -6765,6 +6968,8 @@ declare namespace browser.tabs {
         sharingState?: SharingState;
         /** Whether the tab is drawing attention. */
         attention?: boolean;
+        /** The ID of this tab's successor, if any; `tabs.TAB_ID_NONE` otherwise. */
+        successorTabId?: number;
     }
 
     /**
@@ -7108,6 +7313,13 @@ declare namespace browser.tabs {
     function highlight(highlightInfo: {
         /** The window that contains the tabs. */
         windowId?: number;
+        /**
+         * If true, the `windows.Window` returned will have a `tabs` property that contains a list of the `tabs.Tab`
+         * objects. The `Tab` objects only contain the `url`, `title` and `favIconUrl` properties if the extension's
+         * manifest file includes the `"tabs"` permission. If false, the `windows.Window` won't have the `tabs`
+         * property.
+         */
+        populate?: boolean;
         /** One or more tab indices to highlight. */
         tabs: number[] | number;
     }): Promise<windows.Window | undefined>;
@@ -7139,6 +7351,10 @@ declare namespace browser.tabs {
         openerTabId?: number;
         /** Whether the load should replace the current history entry for the tab. */
         loadReplace?: boolean;
+        /**
+         * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
+         */
+        successorTabId?: number;
     }): Promise<Tab | undefined>;
     /**
      * Modifies the properties of a tab. Properties that are not specified in `updateProperties` are not modified.
@@ -7168,6 +7384,10 @@ declare namespace browser.tabs {
         openerTabId?: number;
         /** Whether the load should replace the current history entry for the tab. */
         loadReplace?: boolean;
+        /**
+         * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
+         */
+        successorTabId?: number;
     }): Promise<Tab | undefined>;
 
     /**
@@ -7336,6 +7556,29 @@ declare namespace browser.tabs {
      */
     function hide(tabIds: number | number[]): Promise<number[]>;
 
+    /**
+     * Removes an array of tabs from their lines of succession and prepends or appends them in a chain to another tab.
+     * @param tabIds An array of tab IDs to move in the line of succession. For each tab in the array, the tab's
+     *     current predecessors will have their successor set to the tab's current successor, and each tab will then be
+     *     set to be the successor of the previous tab in the array. Any tabs not in the same window as the tab
+     *     indicated by the second argument (or the first tab in the array, if no second argument) will be skipped.
+     * @param [tabId] The ID of a tab to set as the successor of the last tab in the array, or `tabs.TAB_ID_NONE` to
+     *     leave the last tab without a successor. If options.append is true, then this tab is made the predecessor of
+     *     the first tab in the array instead.
+     */
+    function moveInSuccession(tabIds: number[], tabId?: number, options?: {
+        /** Whether to move the tabs before (false) or after (true) tabId in the succession. Defaults to false. */
+        append?: boolean;
+        /**
+         * Whether to link up the current predecessors or successor (depending on options.append) of tabId to the other
+         * side of the chain after it is prepended or appended. If true, one of the following happens: if
+         * options.append is false, the first tab in the array is set as the successor of any current predecessors of
+         * tabId; if options.append is true, the current successor of tabId is set as the successor of the last tab in
+         * the array. Defaults to false.
+         */
+        insert?: boolean;
+    }): Promise<any>;
+
     /* tabs events */
     /**
      * Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired, but you can
@@ -7390,6 +7633,8 @@ declare namespace browser.tabs {
     const onActivated: WebExtEvent<(activeInfo: {
         /** The ID of the tab that has become active. */
         tabId: number;
+        /** The ID of the tab that was previously active, if that tab is still open. */
+        previousTabId?: number;
         /** The ID of the window the active tab changed inside of. */
         windowId: number;
     }) => void>;
@@ -7632,6 +7877,8 @@ declare namespace browser.windows {
         state?: WindowState;
         /** Allow scripts to close the window. */
         allowScriptsToClose?: boolean;
+        /** The CookieStoreId to use for all tabs that were created when the window is opened. */
+        cookieStoreId?: string;
         /** A string to add to the beginning of the window title. */
         titlePreface?: string;
     }): Promise<Window | undefined>;

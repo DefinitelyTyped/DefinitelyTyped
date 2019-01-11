@@ -24,7 +24,7 @@ declare namespace supertest {
       serverAddress(app: any, path: string): string;
       expect(status: number, callback?: CallbackHandler): this;
       expect(status: number, body: any, callback?: CallbackHandler): this;
-      expect(checker: (res: Response) => any): this;
+      expect(checker: (res: Response) => any, callback?: CallbackHandler): this;
       expect(body: string, callback?: CallbackHandler): this;
       expect(body: RegExp, callback?: CallbackHandler): this;
       expect(body: Object, callback?: CallbackHandler): this;

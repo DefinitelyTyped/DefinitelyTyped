@@ -39,7 +39,7 @@ assert.equal(cookies[1].name, "foo");
 assert.equal(cookies[1].value, "bar");
 
 // HTTP response message test
-var message = <http.IncomingMessage>{};
+var message = {} as http.IncomingMessage;
 message.headers = { "set-cookie": ["bam=baz", "foo=bar"] };
 cookies = setCookie(message);
 assert.equal(cookies.length, 2);

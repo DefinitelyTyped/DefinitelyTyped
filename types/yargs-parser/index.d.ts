@@ -4,10 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Arguments as YargsArguments } from 'yargs';
-
 declare namespace yargsParser {
-    type Arguments = YargsArguments;
+    interface Arguments {
+        /** Non-option arguments */
+        _: string[];
+        /** The script name or node command */
+        $0: string;
+        /** All remaining options */
+        [argName: string]: any;
+    }
 
     interface DetailedArguments {
         argv: Arguments;

@@ -120,7 +120,7 @@ function test_runVMScript() {
     dom.runVMScript(s);
     dom.runVMScript(s);
 
-    (<any> dom.window).ran === 3;
+    (dom.window as any).ran === 3;
 }
 
 function test_reconfigure() {

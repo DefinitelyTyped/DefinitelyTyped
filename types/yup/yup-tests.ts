@@ -16,13 +16,13 @@ import {
 } from "yup";
 
 // reach function
-let schema = yup.object().shape({
+const schema1 = yup.object().shape({
     nested: yup.object().shape({
         arr: yup.array().of(yup.object().shape({ num: yup.number().max(4) }))
     })
 });
-reach(schema, "nested.arr.num");
-reach(schema, "nested.arr[].num");
+reach(schema1, "nested.arr.num");
+reach(schema1, "nested.arr[].num");
 
 // addMethod function
 yup.addMethod<NumberSchema>(yup.number, "minimum", function(
@@ -41,7 +41,7 @@ yup.addMethod(yup.date, "newMethod", function(
 });
 
 // ref function
-schema = yup.object().shape({
+const schema2 = yup.object().shape({
     baz: yup.ref("foo.bar"),
     foo: yup.object().shape({
         bar: yup.string()
@@ -49,7 +49,16 @@ schema = yup.object().shape({
     x: yup.ref("$x")
 });
 
-schema.cast({ foo: { bar: "boom" } }, { context: { x: 5 } });
+let ref: yup.Ref = yup.ref("foo.bar");
+
+// $ExpectError
+ref = {};
+
+// $ExpectError
+ref = { __isYupRef: true };
+
+// cast function
+schema2.cast({ foo: { bar: "boom" } }, { context: { x: 5 } });
 
 // lazy function
 const node: ObjectSchema<any> = yup.object().shape({
@@ -126,10 +135,15 @@ mixed.default(() => ({ number: 5 }));
 mixed.default();
 mixed.nullable(true);
 mixed.required();
+mixed.required('Foo');
+mixed.required(() => 'Foo');
 mixed.notRequired(); // $ExpectType MixedSchema
 mixed.typeError("type error");
+mixed.typeError(() => "type error");
 mixed.oneOf(["hello", "world"], "message");
+mixed.oneOf(["hello", "world"], () => "message");
 mixed.notOneOf(["hello", "world"], "message");
+mixed.notOneOf(["hello", "world"], () => "message");
 mixed.when("isBig", {
     is: value => true,
     then: yup.number().min(5),
@@ -174,6 +188,8 @@ const testContext = function(this: TestContext) {
     this.parent;
     // $ExpectType Schema<any>
     this.schema;
+    // $ExpectType (value: any) => any
+    this.resolve;
     // $ExpectType ValidationError
     this.createError({ path: "1", message: "1" });
     return true;
@@ -255,26 +271,56 @@ yup.object()
 const strSchema = yup.string(); // $ExpectType StringSchema
 strSchema.isValid("hello"); // => true
 strSchema.required();
+strSchema.required("req");
+strSchema.required(() => "req");
 strSchema.min(5, "message");
+strSchema.min(5, () => "message");
 strSchema.max(5, "message");
+strSchema.max(5, () => "message");
 strSchema.matches(/(hi|bye)/);
+strSchema.matches(/(hi|bye)/, "invalid");
+strSchema.matches(/(hi|bye)/, () => "invalid");
 strSchema.email();
+strSchema.email("invalid");
+strSchema.email(() => "invalid");
 strSchema.url();
+strSchema.url("bad url");
+strSchema.url(() => "bad url");
 strSchema.ensure();
 strSchema.trim();
+strSchema.trim("trimmed");
+strSchema.trim(() => "trimmed");
 strSchema.lowercase();
+strSchema.lowercase("lower");
+strSchema.lowercase(() => "lower");
 strSchema.uppercase();
+strSchema.uppercase("upper");
+strSchema.uppercase(() => "upper");
 
 // Number schema
 const numSchema = yup.number(); // $ExpectType NumberSchema
 numSchema.isValid(10); // => true
+numSchema.min(5);
 numSchema.min(5, "message");
+numSchema.min(5, () => "message");
+numSchema.max(5);
 numSchema.max(5, "message");
+numSchema.max(5, () => "message");
 numSchema.positive();
+numSchema.positive("pos");
+numSchema.positive(() => "pos");
 numSchema.negative();
+numSchema.negative("neg");
+numSchema.negative(() => "neg");
 numSchema.lessThan(5);
+numSchema.lessThan(5, "lt");
+numSchema.lessThan(5, () => "lt");
 numSchema.moreThan(5);
+numSchema.moreThan(5, "mt");
+numSchema.moreThan(5, () => "mt");
 numSchema.integer();
+numSchema.integer("int");
+numSchema.integer(() => "int");
 numSchema.truncate();
 numSchema.round("floor");
 numSchema
@@ -293,17 +339,27 @@ dateSchema.min(new Date());
 dateSchema.min("2017-11-12");
 dateSchema.min(new Date(), "message");
 dateSchema.min("2017-11-12", "message");
+dateSchema.min("2017-11-12", () => "message");
 dateSchema.max(new Date());
 dateSchema.max("2017-11-12");
 dateSchema.max(new Date(), "message");
 dateSchema.max("2017-11-12", "message");
+dateSchema.max("2017-11-12", () => "message");
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().min(2));
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false
 arrSchema.required();
+arrSchema.required("req");
+arrSchema.required(() => "req");
 arrSchema.ensure();
+arrSchema.max(5);
+arrSchema.max(5, "max");
+arrSchema.max(5, () => "max");
+arrSchema.min(5);
+arrSchema.min(5, "min");
+arrSchema.min(5, () => "min");
 arrSchema.compact(value => value === null);
 
 yup.array(); // $ExpectType ArraySchema<{}>
@@ -334,6 +390,7 @@ objSchema.from("prop", "myProp", true);
 objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, "message");
+objSchema.noUnknown(true, () => "message");
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
 objSchema.constantCase();
@@ -410,6 +467,40 @@ const testObject: MyInterface = {
 };
 
 typedSchema.validateSync(testObject); // $ExpectType MyInterface
+
+// Shape<T, U> and shape function
+interface AB {
+    a: string;
+    b: number;
+}
+
+interface BC {
+    b: string;
+    c: number;
+}
+
+interface ExpectedABC {
+    a: string;
+    b: string;
+    c: number;
+}
+
+const expectedAbc: ExpectedABC = {
+    a: 'qwerty',
+    b: 'asdfg',
+    c: 123
+};
+const actualAbc: yup.Shape<AB, BC> = expectedAbc;
+
+const definitionAB: yup.ObjectSchemaDefinition<AB> = {
+    a: yup.string(),
+    b: yup.number()
+};
+const definitionBC: yup.ObjectSchemaDefinition<BC> = {
+    b: yup.string(),
+    c: yup.number()
+};
+const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
 
 // $ExpectError
 yup.object<MyInterface>({

@@ -886,30 +886,30 @@ export function crypto_secretstream_xchacha20poly1305_keygen(outputFormat?: Uint
 export function crypto_secretstream_xchacha20poly1305_keygen(outputFormat?: StringOutputFormat | null): string;
 
 export function crypto_secretstream_xchacha20poly1305_pull(
-    state_address?: secretstream_xchacha20poly1305_state_address,
-    cipher?: string | Uint8Array,
+    state_address: secretstream_xchacha20poly1305_state_address,
+    cipher: string | Uint8Array,
     ad?: string | Uint8Array | null,
     outputFormat?: Uint8ArrayOutputFormat | null,
 ): { message: Uint8Array; tag: Uint8Array };
 
 export function crypto_secretstream_xchacha20poly1305_pull(
-    state_address?: secretstream_xchacha20poly1305_state_address,
-    cipher?: string | Uint8Array,
+    state_address: secretstream_xchacha20poly1305_state_address,
+    cipher: string | Uint8Array,
     ad?: string | Uint8Array | null,
     outputFormat?: StringOutputFormat | null,
 ): { message: string; tag: Uint8Array };
 
 export function crypto_secretstream_xchacha20poly1305_push(
-    state_address?: secretstream_xchacha20poly1305_state_address,
-    message_chunk?: string | Uint8Array,
+    state_address: secretstream_xchacha20poly1305_state_address,
+    message_chunk: string | Uint8Array,
     ad?: string | Uint8Array | null,
     tag?: number,
     outputFormat?: Uint8ArrayOutputFormat | null,
 ): Uint8Array;
 
 export function crypto_secretstream_xchacha20poly1305_push(
-    state_address?: secretstream_xchacha20poly1305_state_address,
-    message_chunk?: string | Uint8Array,
+    state_address: secretstream_xchacha20poly1305_state_address,
+    message_chunk: string | Uint8Array,
     ad?: string | Uint8Array | null,
     tag?: number,
     outputFormat?: StringOutputFormat | null,

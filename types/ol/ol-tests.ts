@@ -303,7 +303,7 @@ import VectorTile from 'ol/vectortile';
 import View from 'ol/view';
 
 // Map
-const map: ol.Map = new Map(<any> {});
+const map: ol.Map = new Map({} as any);
 declare const mapView: View;
 declare const layerBase: LayerBase;
 declare const control: ControlControl;
@@ -320,6 +320,6 @@ declare const size: ol.Size;
 declare const position: ol.Pixel;
 view = map.getView();
 view.getProjection();
-view.animate(<any> {});
-view.calculateExtent(<any> 'size');
+view.animate({} as any);
+view.calculateExtent('size' as any);
 view.centerOn(coordinate, size, position);

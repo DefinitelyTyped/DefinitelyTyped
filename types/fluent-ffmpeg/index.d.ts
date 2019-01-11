@@ -112,6 +112,19 @@ declare namespace Ffmpeg {
         options: string | string[] | {};
     }
 
+    // static methods
+    function setFfmpegPath(path: string): FfmpegCommand;
+    function setFfprobePath(path: string): FfmpegCommand;
+    function setFlvtoolPath(path: string): FfmpegCommand;
+    function availableFilters(callback: FiltersCallback): void;
+    function getAvailableFilters(callback: FiltersCallback): void;
+    function availableCodecs(callback: CodecsCallback): void;
+    function getAvailableCodecs(callback: CodecsCallback): void;
+    function availableEncoders(callback: EncodersCallback): void;
+    function getAvailableEncoders(callback: EncodersCallback): void;
+    function availableFormats(callback: FormatsCallback): void;
+    function getAvailableFormats(callback: FormatsCallback): void;
+
     class FfmpegCommand extends events.EventEmitter {
         constructor(options?: FfmpegCommandOptions);
         constructor(input?: string | stream.Readable, options?: FfmpegCommandOptions);

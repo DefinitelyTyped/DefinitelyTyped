@@ -28,12 +28,14 @@ ReactDOM.render(
         prefixCls="my-"
         transitionName="cool-transition"
         onVisibleChange={() => console.log('visible changed')}
+        afterVisibleChange={() => console.log('after visible changed')}
         visible
         defaultVisible
         onPopupAlign={(popup, align) => console.log('aligned:', popup, align)}
         arrowContent={<div className="arrow"/>}
         getTooltipContainer={() => document.querySelector('.foo')}
         destroyTooltipOnHide
+        id="tooltip-id"
     >
         <a href='#'>hover</a>
     </Tooltip>,

@@ -175,7 +175,7 @@ loadingStrategy = ol.loadingstrategy.tile(tilegrid);
 // ol.geom.Circle
 //
 booleanValue = circle.intersectsExtent(extent);
-circle = <ol.geom.Circle> circle.transform(projectionLike, projectionLike);
+circle = circle.transform(projectionLike, projectionLike) as ol.geom.Circle;
 
 //
 //
@@ -1031,6 +1031,18 @@ draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunctionAsArray
 });
+
+const itExtent = new ol.interaction.Extent({
+    extent: [10, 10, 20 , 20],
+    boxStyle: style,
+    pixelTolerance: 10,
+    pointerStyle: style,
+    wrapX: true
+});
+
+itExtent.setMap(map);
+itExtent.getExtent();
+itExtent.setExtent([20, 20, 30, 30]);
 
 const dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
     className: stringValue,

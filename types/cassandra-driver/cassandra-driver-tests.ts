@@ -7,11 +7,15 @@ const client = new cassandra.Client({
     keyspace: 'ks1',
     sslOptions: {
         cert: fs.readFileSync('certFilePath')
+    },
+    encoding: {
+        map: Map,
+        set: Set
     }
 });
 
 const query = 'SELECT email, last_name FROM user_profiles WHERE key=?';
-client.execute(query, ['guy'], function(err, result) {
+client.execute(query, ['guy'], (err, result) => {
   console.log('got user profile with email ' + result.rows[0].email);
 });
 

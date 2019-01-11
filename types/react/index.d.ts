@@ -8,7 +8,6 @@
 //                 Patricio Zavolinsky <https://github.com/pzavolinsky>
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
-//                 Albert Kurniawan <https://github.com/morcerf>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
@@ -20,6 +19,7 @@
 //                 Martin Hochel <https://github.com/hotell>
 //                 Frank Li <https://github.com/franklixuefei>
 //                 Jessica Franco <https://github.com/Kovensky>
+//                 Paul Sherman <https://github.com/pshrmn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -50,7 +50,11 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType<P = any> = string | ComponentType<P>;
+    type ReactType<P = any> =
+        {
+            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
+        }[keyof JSX.IntrinsicElements] |
+        ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type Key = string | number;
@@ -295,7 +299,7 @@ declare namespace React {
     }
 
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
     }
 
     type ContextType<C extends Context<any>> = C extends Context<infer T> ? T : never;
@@ -319,23 +323,25 @@ declare namespace React {
     const Children: ReactChildren;
     const Fragment: ExoticComponent<{ children?: ReactNode }>;
     const StrictMode: ExoticComponent<{ children?: ReactNode }>;
-    /**
-     * This feature is not yet available for server-side rendering.
-     * Suspense support will be added in a later release.
-     */
-    const Suspense: ExoticComponent<{
-        children?: ReactNode
+
+    interface SuspenseProps {
+        children?: ReactNode;
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
-        fallback: NonNullable<ReactNode>|null
+        fallback: NonNullable<ReactNode>|null;
 
         // I tried looking at the code but I have no idea what it does.
         // https://github.com/facebook/react/issues/13206#issuecomment-432489986
         /**
          * Not implemented yet, requires unstable_ConcurrentMode
          */
-        // maxDuration?: number
-    }>;
+        // maxDuration?: number;
+    }
+    /**
+     * This feature is not yet available for server-side rendering.
+     * Suspense support will be added in a later release.
+     */
+    const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
 
     //
@@ -456,7 +462,7 @@ declare namespace React {
 
     interface FunctionComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
@@ -464,7 +470,7 @@ declare namespace React {
 
     interface RefForwardingComponent<T, P = {}> {
         (props: P & { children?: ReactNode }, ref: Ref<T> | null): ReactElement<any> | null;
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
@@ -472,7 +478,7 @@ declare namespace React {
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
-        propTypes?: ValidationMap<P>;
+        propTypes?: WeakValidationMap<P>;
         contextType?: Context<any>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -492,8 +498,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
-        (new (props: P, context?: any) => T) &
-        (new (props: P, context?: any) => { props: P });
+        (new (props: P, context?: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -714,17 +719,17 @@ declare namespace React {
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
      * or ComponentPropsWithoutRef when refs are not supported.
      */
-    type ComponentProps<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+    type ComponentProps<T extends ReactType> =
         T extends ComponentType<infer P>
             ? P
             : T extends keyof JSX.IntrinsicElements
                 ? JSX.IntrinsicElements[T]
                 : {};
-    type ComponentPropsWithRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+    type ComponentPropsWithRef<T extends ReactType> =
         T extends ComponentClass<infer P>
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
-    type ComponentPropsWithoutRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+    type ComponentPropsWithoutRef<T extends ReactType> =
         PropsWithoutRef<ComponentProps<T>>;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
@@ -833,17 +838,6 @@ declare namespace React {
     // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T|null): RefObject<T>;
     /**
-     * The signature is identical to `useEffect`, but it fires synchronously during the same phase that
-     * React performs its DOM mutations, before sibling components have been updated. Use this to perform
-     * custom DOM mutations.
-     *
-     * Prefer the standard `useEffect` when possible to avoid blocking visual updates.
-     *
-     * @version experimental
-     * @see https://reactjs.org/docs/hooks-reference.html#usemutationeffect
-     */
-    function useMutationEffect(effect: EffectCallback, inputs?: InputIdentityList): void;
-    /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
      * `useLayoutEffect` will be flushed synchronously, before the browser has a chance to paint.
@@ -912,51 +906,47 @@ declare namespace React {
     //
     // Event System
     // ----------------------------------------------------------------------
-
-    interface SyntheticEvent<T = Element> {
+    // TODO: change any to unknown when moving to TS v3
+    interface BaseSyntheticEvent<E = object, C = any, T = any> {
+        nativeEvent: E;
+        currentTarget: C;
+        target: T;
         bubbles: boolean;
-        /**
-         * A reference to the element on which the event listener is registered.
-         */
-        currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
         eventPhase: number;
         isTrusted: boolean;
-        nativeEvent: Event;
         preventDefault(): void;
         isDefaultPrevented(): boolean;
         stopPropagation(): void;
         isPropagationStopped(): boolean;
         persist(): void;
-        // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
-        /**
-         * A reference to the element from which the event was originally dispatched.
-         * This might be a child element to the element on which the event listener is registered.
-         *
-         * @see currentTarget
-         */
-        target: EventTarget;
         timeStamp: number;
         type: string;
     }
 
-    interface ClipboardEvent<T = Element> extends SyntheticEvent<T> {
+    /**
+     * currentTarget - a reference to the element on which the event listener is registered.
+     *
+     * target - a reference to the element from which the event was originally dispatched.
+     * This might be a child element to the element on which the event listener is registered.
+     * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
+     */
+    interface SyntheticEvent<T = Element, E = Event> extends BaseSyntheticEvent<E, EventTarget & T, EventTarget> {}
+
+    interface ClipboardEvent<T = Element> extends SyntheticEvent<T, NativeClipboardEvent> {
         clipboardData: DataTransfer;
-        nativeEvent: NativeClipboardEvent;
     }
 
-    interface CompositionEvent<T = Element> extends SyntheticEvent<T> {
+    interface CompositionEvent<T = Element> extends SyntheticEvent<T, NativeCompositionEvent> {
         data: string;
-        nativeEvent: NativeCompositionEvent;
     }
 
-    interface DragEvent<T = Element> extends MouseEvent<T> {
+    interface DragEvent<T = Element> extends MouseEvent<T, NativeDragEvent> {
         dataTransfer: DataTransfer;
-        nativeEvent: NativeDragEvent;
     }
 
-    interface PointerEvent<T = Element> extends MouseEvent<T> {
+    interface PointerEvent<T = Element> extends MouseEvent<T, NativePointerEvent> {
         pointerId: number;
         pressure: number;
         tiltX: number;
@@ -965,11 +955,9 @@ declare namespace React {
         height: number;
         pointerType: 'mouse' | 'pen' | 'touch';
         isPrimary: boolean;
-        nativeEvent: NativePointerEvent;
     }
 
-    interface FocusEvent<T = Element> extends SyntheticEvent<T> {
-        nativeEvent: NativeFocusEvent;
+    interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
         relatedTarget: EventTarget;
         target: EventTarget & T;
     }
@@ -986,7 +974,7 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    interface KeyboardEvent<T = Element> extends SyntheticEvent<T> {
+    interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
@@ -1002,13 +990,12 @@ declare namespace React {
         locale: string;
         location: number;
         metaKey: boolean;
-        nativeEvent: NativeKeyboardEvent;
         repeat: boolean;
         shiftKey: boolean;
         which: number;
     }
 
-    interface MouseEvent<T = Element> extends SyntheticEvent<T> {
+    interface MouseEvent<T = Element, E = NativeMouseEvent> extends SyntheticEvent<T, E> {
         altKey: boolean;
         button: number;
         buttons: number;
@@ -1020,7 +1007,8 @@ declare namespace React {
          */
         getModifierState(key: string): boolean;
         metaKey: boolean;
-        nativeEvent: NativeMouseEvent;
+        movementX: number;
+        movementY: number;
         pageX: number;
         pageY: number;
         relatedTarget: EventTarget;
@@ -1029,7 +1017,7 @@ declare namespace React {
         shiftKey: boolean;
     }
 
-    interface TouchEvent<T = Element> extends SyntheticEvent<T> {
+    interface TouchEvent<T = Element> extends SyntheticEvent<T, NativeTouchEvent> {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
@@ -1038,36 +1026,31 @@ declare namespace React {
          */
         getModifierState(key: string): boolean;
         metaKey: boolean;
-        nativeEvent: NativeTouchEvent;
         shiftKey: boolean;
         targetTouches: TouchList;
         touches: TouchList;
     }
 
-    interface UIEvent<T = Element> extends SyntheticEvent<T> {
+    interface UIEvent<T = Element> extends SyntheticEvent<T, NativeUIEvent> {
         detail: number;
-        nativeEvent: NativeUIEvent;
         view: AbstractView;
     }
 
-    interface WheelEvent<T = Element> extends MouseEvent<T> {
+    interface WheelEvent<T = Element> extends MouseEvent<T, NativeWheelEvent> {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
-        nativeEvent: NativeWheelEvent;
     }
 
-    interface AnimationEvent<T = Element> extends SyntheticEvent<T> {
+    interface AnimationEvent<T = Element> extends SyntheticEvent<T, NativeAnimationEvent> {
         animationName: string;
         elapsedTime: number;
-        nativeEvent: NativeAnimationEvent;
         pseudoElement: string;
     }
 
-    interface TransitionEvent<T = Element> extends SyntheticEvent<T> {
+    interface TransitionEvent<T = Element> extends SyntheticEvent<T, NativeTransitionEvent> {
         elapsedTime: number;
-        nativeEvent: NativeTransitionEvent;
         propertyName: string;
         pseudoElement: string;
     }
@@ -1158,6 +1141,8 @@ declare namespace React {
         // Form Events
         onChange?: FormEventHandler<T>;
         onChangeCapture?: FormEventHandler<T>;
+        onBeforeInput?: FormEventHandler<T>;
+        onBeforeInputCapture?: FormEventHandler<T>;
         onInput?: FormEventHandler<T>;
         onInputCapture?: FormEventHandler<T>;
         onReset?: FormEventHandler<T>;
@@ -2564,6 +2549,14 @@ declare namespace React {
     type Requireable<T> = PropTypes.Requireable<T>;
 
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
+
+    type WeakValidationMap<T> = {
+        [K in keyof T]?: null extends T[K]
+            ? Validator<T[K] | null | undefined>
+            : undefined extends T[K]
+            ? Validator<T[K] | null | undefined>
+            : Validator<T[K]>
+    };
 
     interface ReactPropTypes {
         any: typeof PropTypes.any;

@@ -1,4 +1,4 @@
-// Type definitions for dd-trace-js 0.6
+// Type definitions for dd-trace-js 0.7
 // Project: https://github.com/DataDog/dd-trace-js
 // Definitions by: Colin Bradley <https://github.com/ColinBradley>
 //                 Eloy Durán <https://github.com/alloy>
@@ -55,6 +55,12 @@ declare class TraceProxy extends Tracer {
 
 interface TracerOptions {
     /**
+     * Whether to enable the tracer.
+     * @default true
+     */
+    enabled?: boolean;
+
+    /**
      * Enable debug logging in the tracer.
      * @default false
      */
@@ -76,6 +82,11 @@ interface TracerOptions {
      * @default 8126
      */
     port?: number | string;
+
+    /**
+     * Set an application’s environment e.g. prod, pre-prod, stage.
+     */
+    env?: string;
 
     /**
      * Percentage of spans to sample as a float between 0 and 1.
@@ -185,6 +196,7 @@ declare class Scope {
 type Plugin =
     | "amqp10"
     | "amqplib"
+    | "bluebird"
     | "elasticsearch"
     | "express"
     | "graphql"
@@ -197,8 +209,10 @@ type Plugin =
     | "mysql"
     | "mysql2"
     | "pg"
+    | "q"
     | "redis"
-    | "restify";
+    | "restify"
+    | "when";
 
 interface BasePluginOptions {
     /**

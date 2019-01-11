@@ -90,11 +90,16 @@ export class Scope {
 
     removeData(key: string): void;
 
-    push(opts: any): void;
+    push(opts: {
+        id: t.LVal,
+        init?: t.Expression,
+        unique?: boolean,
+        kind?: "var" | "let" | "const",
+    }): void;
 
     getProgramParent(): Scope;
 
-    getFunctionParent(): Scope;
+    getFunctionParent(): Scope | null;
 
     getBlockParent(): Scope;
 
@@ -138,17 +143,17 @@ export class Binding {
     constantViolations: NodePath[];
 }
 
-export type Visitor<S = Node> = VisitNodeObject<Node> & {
-    [P in Node["type"]]?: VisitNode<S, Extract<Node, { type: P; }>>;
+export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
+    [Type in Node["type"]]?: VisitNode<S, Extract<Node, { type: Type; }>>;
 };
 
-export type VisitNode<T, P> = VisitNodeFunction<T, P> | VisitNodeObject<T>;
+export type VisitNode<S, P> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
-export type VisitNodeFunction<T, P> = (this: T, path: NodePath<P>, state: any) => void;
+export type VisitNodeFunction<S, P> = (this: S, path: NodePath<P>, state: S) => void;
 
-export interface VisitNodeObject<T> {
-    enter?(path: NodePath<T>, state: any): void;
-    exit?(path: NodePath<T>, state: any): void;
+export interface VisitNodeObject<S, P> {
+    enter?: VisitNodeFunction<S, P>;
+    exit?: VisitNodeFunction<S, P>;
 }
 
 export class NodePath<T = Node> {
