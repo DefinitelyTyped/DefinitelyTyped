@@ -1216,7 +1216,7 @@ function TestSelector() {
     interface State { key: string; }
 
     const simpleSelect: Selector<State, string> = (state: State) => state.key;
-    const notSimpleSelect: Selector<State, string, OwnProps> = (state: State, ownProps) => ownProps.key || state.key;
+    const notSimpleSelect: Selector<State, string, OwnProps> = (state: State, ownProps: OwnProps) => ownProps.key || state.key;
 
     const ownProps = {};
     const state = { key: 'value' };
