@@ -1,5 +1,5 @@
-import { createStore, applyMiddleware, Action } from 'redux';
-import { createStateSyncMiddleware, initStateWithPrevTab, withReduxStateSync } from 'redux-state-sync';
+import { createStore, applyMiddleware, Action } from "redux";
+import { createStateSyncMiddleware, initStateWithPrevTab, withReduxStateSync } from "redux-state-sync";
 
 interface TestState {
     a: number;
