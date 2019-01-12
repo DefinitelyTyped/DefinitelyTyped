@@ -1,4 +1,4 @@
-// Type definitions for Passport 0.4
+﻿// Type definitions for Passport 0.4
 // Project: http://passportjs.org
 // Definitions by: Horiuchi_H <https://github.com/horiuchi>
 //                 Eric Naeseth <https://github.com/enaeseth>
@@ -50,7 +50,8 @@ declare namespace passport {
         successReturnToOrRedirect?: string;
         pauseStream?: boolean;
         userProperty?: string;
-        passReqToCallback?: boolean;
+        passReqToCallback?: boolean;	
+	[key: string]: any;
     }
 
     interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
