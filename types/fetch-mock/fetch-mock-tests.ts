@@ -154,4 +154,3 @@ fetchMock.config.fetch = (): Promise<Response> => new Promise(() => { });
 fetchMock.config.Headers = Headers;
 fetchMock.config.Request = Request;
 fetchMock.config.Response = Response;
-

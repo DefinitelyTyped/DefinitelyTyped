@@ -556,7 +556,7 @@ declare namespace fetchMock {
              * - false: Appends the new route to the list of routes
              * @default undefined
              */
-            overwriteRoutes?: boolean | undefined;
+            overwriteRoutes?: boolean;
 
             /**
              * Print a warning if any call is caught by a fallback handler (set
@@ -570,8 +570,8 @@ declare namespace fetchMock {
              * implementation.
              */
             Promise?: new (executor: (
-                resolve: Function,
-                reject: Function,
+                resolve: () => void,
+                reject: () => void,
             ) => void) => Promise<Response>;
 
             /**
