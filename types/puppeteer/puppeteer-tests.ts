@@ -512,10 +512,4 @@ puppeteer.launch().then(async browser => {
       console.log('dom changed');
     });
   });
-
-  try {
-    await page.goto('https://www.google.com');
-  } catch (e) {
-    console.log("DOM CONTENT LOADED EVENT ERROR", e);
-  }
 });
