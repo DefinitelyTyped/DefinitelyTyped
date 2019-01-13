@@ -1008,7 +1008,7 @@ export class ZAxis extends React.Component<ZAxisProps> { }
 export interface SurfaceProps {
     width?: number;
     height?: number;
-    viewBox?: ViewBox,
+    viewBox?: ViewBox;
     className?: string;
     style?: object;
     children?: React.ReactNode[] | React.ReactNode;
