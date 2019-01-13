@@ -124,6 +124,7 @@ iface.endpoints = [inEndpoint, outEndpoint];
 
 const findByDevice: usb.Device = usb.findByIds(1, 1);
 usb.on("hey", (device: usb.Device) => null);
+usb.removeListener("hey", (device: usb.Device) => null);
 const deviceList: usb.Device[] = usb.getDeviceList();
 usb.setDebugLevel(1);
 
