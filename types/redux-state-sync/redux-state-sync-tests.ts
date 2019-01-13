@@ -6,19 +6,17 @@ interface TestState {
     b: string;
     c: string;
 }
-const middlewares = [
-    createStateSyncMiddleware({
+const middleware = createStateSyncMiddleware({
         channel: 'test',
         predicate: (type) => true,
         blacklist: [],
         whitelist: [],
         broadcastChannelOption: {}
-    }),
-];
+    });
 
 function rootReducer(state: TestState, action: Action): TestState {
     return state;
 }
 
-const store = createStore(withReduxStateSync(rootReducer), ['test'], ...applyMiddleware(middlewares));
+const store = createStore(withReduxStateSync(rootReducer), ['test'], applyMiddleware(middleware));
 initStateWithPrevTab(store);

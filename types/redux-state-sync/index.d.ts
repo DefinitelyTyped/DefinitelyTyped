@@ -3,6 +3,7 @@
 // Definitions by: MU AOHUA <https://github.com/AOHUA>
 //                 AntonioMendez <https://github.com/AntonioMendez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 import { Store, Reducer, Middleware, AnyAction } from "redux";
 import BroadcastChannel from "broadcast-channel";
