@@ -129,6 +129,7 @@ export interface PresentationAttributes<X = number, Y = number> extends Pick<CSS
     colorInterpolation: string;
     colorProfile: string;
     colorRendering: string;
+    fill: string;
     fillOpacity: number | string;
     fontSize: number | string;
     fontSizeAdjust: number | string;
@@ -1003,3 +1004,25 @@ export interface ZAxisProps {
 }
 
 export class ZAxis extends React.Component<ZAxisProps> { }
+
+export interface SurfaceProps {
+    width?: number;
+    height?: number;
+    viewBox?: ViewBox,
+    className?: string;
+    style?: object;
+    children?: React.ReactNode[] | React.ReactNode;
+}
+
+export class Surface extends React.Component<SurfaceProps> { }
+
+export interface SymbolsProps extends Partial<PresentationAttributes> {
+    className?: string;
+    type?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye';
+    cx?: number;
+    cy?: number;
+    size?: number;
+    sizeType?: 'area' | 'diameter';
+}
+
+export class Symbols extends React.Component<SymbolsProps> { }
