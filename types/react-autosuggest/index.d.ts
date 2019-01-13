@@ -54,7 +54,7 @@ declare namespace Autosuggest {
 
     interface InputProps<TSuggestion>
         extends Omit<React.InputHTMLAttributes<any>, 'onChange' | 'onBlur'> {
-        onChange(event: React.FormEvent<any>, params?: ChangeEvent): void;
+        onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
         onBlur?(event: React.FormEvent<any>, params?: BlurEvent<TSuggestion>): void;
         value: string;
         [key: string]: any;

@@ -349,7 +349,7 @@ declare namespace gapi.signin2 {
     /**
      * The callback function to call when sign-in fails (default: none).
      */
-    onfailure?(): void;
+    onfailure?(reason: { error: string }): void;
 
     /**
      * The package name of the Android app to install over the air. See

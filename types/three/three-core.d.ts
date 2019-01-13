@@ -324,7 +324,7 @@ export namespace AnimationUtils {
 }
 
 export class KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 
     name: string;
     times: any[];
@@ -411,23 +411,23 @@ export class BooleanKeyframeTrack extends KeyframeTrack {
 }
 
 export class ColorKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class NumberKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class QuaternionKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class StringKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class VectorKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 // Cameras ////////////////////////////////////////////////////////////////////////////////////////
@@ -453,7 +453,7 @@ export class Camera extends Object3D {
 
     isCamera: true;
 
-    copy(source: this, recursive?: boolean): this;
+    copy(source: Camera, recursive?: boolean): this;
 
     getWorldDirection(target: Vector3): Vector3;
 
@@ -707,7 +707,7 @@ export class BufferAttribute {
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
     clone(): this;
-    copy(source: this): this;
+    copy(source: BufferAttribute): this;
     copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute;
     copyArray(array: ArrayLike<number>): BufferAttribute;
     copyColorsArray(colors: {r: number, g: number, b: number}[]): BufferAttribute;
@@ -927,7 +927,7 @@ export class BufferGeometry extends EventDispatcher {
 
     toJSON(): any;
     clone(): this;
-    copy(source: this): this;
+    copy(source: BufferGeometry): this;
 
     /**
      * Disposes the object from memory.
@@ -1059,7 +1059,7 @@ export class DirectGeometry extends EventDispatcher {
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: Event) => void ): void;
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
     removeEventListener(type: string, listener: (event: Event) => void): void;
     dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
 }
@@ -1099,17 +1099,17 @@ export class EventDispatcher {
 
     /**
      * Adds a listener to an event type.
-     * @param type The type of the listener that gets removed.
-     * @param listener The listener function that gets removed.
+     * @param type The type of event to listen to.
+     * @param listener The function that gets called when the event is fired.
      */
     addEventListener(type: string, listener: (event: Event) => void ): void;
 
     /**
-     * Adds a listener to an event type.
-     * @param type The type of the listener that gets removed.
-     * @param listener The listener function that gets removed.
+     * Checks if listener is added to an event type.
+     * @param type The type of event to listen to.
+     * @param listener The function that gets called when the event is fired.
      */
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
 
     /**
      * Removes a listener from an event type.
@@ -1127,7 +1127,8 @@ export class EventDispatcher {
 
 export interface Event {
     type: string;
-    target: any;
+    target?: any;
+    [attachment: string]: any;
 }
 
 /**
@@ -1195,7 +1196,7 @@ export class Face3 {
     materialIndex: number;
 
     clone(): this;
-    copy(source: this): this;
+    copy(source: Face3): this;
 }
 
 /**
@@ -1426,7 +1427,7 @@ export class Geometry extends EventDispatcher {
      */
     clone(): this;
 
-    copy(source: this): this;
+    copy(source: Geometry): this;
 
     /**
      * Removes The object from memory.
@@ -1442,7 +1443,7 @@ export class Geometry extends EventDispatcher {
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: Event) => void ): void;
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
     removeEventListener(type: string, listener: (event: Event) => void): void;
     dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
 }
@@ -1509,10 +1510,9 @@ export class InterleavedBuffer {
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): InterleavedBuffer;
     clone(): this;
-    copy(source: this): this;
+    copy(source: InterleavedBuffer): this;
     copyAt(index1: number, attribute: InterleavedBufferAttribute, index2: number): InterleavedBuffer;
     set(value: ArrayLike<number>, index: number): InterleavedBuffer;
-    clone(): this;
 }
 
 /**
@@ -1846,7 +1846,7 @@ export class Object3D extends EventDispatcher {
      * @param object
      * @param recursive
      */
-    copy(source: this, recursive?: boolean): this;
+    copy(source: Object3D, recursive?: boolean): this;
 }
 
 export interface Intersection {
@@ -1857,6 +1857,7 @@ export interface Intersection {
     face?: Face3 | null;
     faceIndex?: number;
     object: Object3D;
+    uv?: Vector2;
 }
 
 export interface RaycasterParameters {
@@ -2014,7 +2015,7 @@ export class LightShadow {
     map: RenderTarget;
     matrix: Matrix4;
 
-    copy(source: this): this;
+    copy(source: LightShadow): this;
     clone(recursive?: boolean): this;
     toJSON(): any;
 }
@@ -2238,6 +2239,7 @@ export class FileLoader {
     setPath(path: string) : FileLoader;
     setResponseType(responseType: string) : FileLoader;
     setWithCredentials(value: string): FileLoader;
+    setRequestHeader(value: {[header: string]: string}): FileLoader;
 }
 
 export class FontLoader {
@@ -2508,7 +2510,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendDst. Default is null.
      */
-    blendDstAlpha: number;
+    blendDstAlpha: number | null;
 
     /**
      * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.
@@ -2518,7 +2520,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendEquation. Default is null.
      */
-    blendEquationAlpha: number;
+    blendEquationAlpha: number | null;
 
     /**
      * Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
@@ -2533,7 +2535,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendSrc. Default is null.
      */
-    blendSrcAlpha: number;
+    blendSrcAlpha: number | null;
 
     /**
      * Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union. Default is false.
@@ -2695,7 +2697,7 @@ export class Material extends EventDispatcher {
      * Copy the parameters from the passed material into this material.
      * @param material
      */
-    copy(material: this): this;
+    copy(material: Material): this;
 
     /**
      * This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@link Texture}.
@@ -2747,14 +2749,13 @@ export interface LineDashedMaterialParameters extends MaterialParameters {
     gapSize?: number;
 }
 
-export class LineDashedMaterial extends Material {
+export class LineDashedMaterial extends LineBasicMaterial {
     constructor(parameters?: LineDashedMaterialParameters);
 
-    color: Color;
-    linewidth: number;
     scale: number;
     dashSize: number;
     gapSize: number;
+    isLineDashedMaterial: boolean;
 
     setValues(parameters: LineDashedMaterialParameters): void;
 }
@@ -2786,12 +2787,12 @@ export class MeshBasicMaterial extends Material {
     constructor(parameters?: MeshBasicMaterialParameters);
 
     color: Color;
-    map: Texture;
-    aoMap: Texture;
+    map: Texture | null;
+    aoMap: Texture | null;
     aoMapIntensity: number;
-    specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -2851,15 +2852,15 @@ export class MeshLambertMaterial extends Material {
     color: Color;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture;
-    map: Texture;
-    lightMap: Texture;
+    emissiveMap: Texture | null;
+    map: Texture | null;
+    lightMap: Texture | null;
     lightMapIntensity: number;
-    aoMap: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
-    specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -2913,25 +2914,25 @@ export class MeshStandardMaterial extends Material {
     color: Color;
     roughness: number;
     metalness: number;
-    map: Texture;
-    lightMap: Texture;
+    map: Texture | null;
+    lightMap: Texture | null;
     lightMapIntensity: number;
-    aoMap: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture;
-    bumpMap: Texture;
+    emissiveMap: Texture | null;
+    bumpMap: Texture | null;
     bumpScale: number;
-    normalMap: Texture;
+    normalMap: Texture | null;
     normalScale: number;
-    displacementMap: Texture;
+    displacementMap: Texture | null;
     displacementScale: number;
     displacementBias: number;
-    roughnessMap: Texture;
-    metalnessMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    roughnessMap: Texture | null;
+    metalnessMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     envMapIntensity: number;
     refractionRatio: number;
     wireframe: boolean;
@@ -3086,7 +3087,7 @@ export class PointsMaterial extends Material {
     constructor(parameters?: PointsMaterialParameters);
 
     color: Color;
-    map: Texture;
+    map: Texture | null;
     size: number;
     sizeAttenuation: boolean;
 
@@ -3142,7 +3143,7 @@ export class ShaderMaterial extends Material {
     derivatives: any;
     extensions: { derivatives: boolean; fragDepth: boolean; drawBuffers: boolean; shaderTextureLOD: boolean };
     defaultAttributeValues: any;
-    index0AttributeName: string;
+    index0AttributeName: string | undefined;
 
     setValues(parameters: ShaderMaterialParameters): void;
     toJSON(meta: any): any;
@@ -3162,10 +3163,12 @@ export class SpriteMaterial extends Material {
     constructor(parameters?: SpriteMaterialParameters);
 
     color: Color;
-    map: Texture;
+    map: Texture | null;
     rotation: number;
+    isSpriteMaterial: true;
 
     setValues(parameters: SpriteMaterialParameters): void;
+    copy(source: SpriteMaterial): this;
 }
 
 export class ShadowMaterial extends ShaderMaterial {
@@ -3184,7 +3187,7 @@ export class Box2 {
     setFromPoints(points: Vector2[]): Box2;
     setFromCenterAndSize(center: Vector2, size: Vector2): Box2;
     clone(): this;
-    copy(box: this): this;
+    copy(box: Box2): this;
     makeEmpty(): Box2;
     isEmpty(): boolean;
     getCenter(target: Vector2): Vector2;
@@ -3218,21 +3221,21 @@ export class Box3 {
     max: Vector3;
     min: Vector3;
 
-    set(min: Vector3, max: Vector3): Box3;
-    setFromArray(array: ArrayLike<number>): Box3;
-    setFromPoints(points: Vector3[]): Box3;
-    setFromCenterAndSize(center: Vector3, size: Vector3): Box3;
-    setFromObject(object: Object3D): Box3;
+    set(min: Vector3, max: Vector3): this;
+    setFromArray(array: ArrayLike<number>): this;
+    setFromPoints(points: Vector3[]): this;
+    setFromCenterAndSize(center: Vector3, size: Vector3): this;
+    setFromObject(object: Object3D): this;
     clone(): this;
-    copy(box: this): this;
-    makeEmpty(): Box3;
+    copy(box: Box3): this;
+    makeEmpty(): this;
     isEmpty(): boolean;
     getCenter(target: Vector3): Vector3;
     getSize(target: Vector3): Vector3;
-    expandByPoint(point: Vector3): Box3;
-    expandByVector(vector: Vector3): Box3;
-    expandByScalar(scalar: number): Box3;
-    expandByObject(object: Object3D): Box3;
+    expandByPoint(point: Vector3): this;
+    expandByVector(vector: Vector3): this;
+    expandByScalar(scalar: number): this;
+    expandByObject(object: Object3D): this;
     containsPoint(point: Vector3): boolean;
     containsBox(box: Box3): boolean;
     getParameter(point: Vector3): Vector3;
@@ -3242,10 +3245,10 @@ export class Box3 {
     clampPoint(point: Vector3, target: Vector3): Vector3;
     distanceToPoint(point: Vector3): number;
     getBoundingSphere(target: Sphere): Sphere;
-    intersect(box: Box3): Box3;
-    union(box: Box3): Box3;
-    applyMatrix4(matrix: Matrix4): Box3;
-    translate(offset: Vector3): Box3;
+    intersect(box: Box3): this;
+    union(box: Box3): this;
+    applyMatrix4(matrix: Matrix4): this;
+    translate(offset: Vector3): this;
     equals(box: Box3): boolean;
     /**
      * @deprecated Use {@link Box3#isEmpty .isEmpty()} instead.
@@ -3276,9 +3279,7 @@ export interface HSL {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color.js">src/math/Color.js</a>
  */
 export class Color {
-    constructor(color?: Color);
-    constructor(color?: string);
-    constructor(color?: number);
+    constructor(color?: Color|string|number);
     constructor(r: number, g: number, b: number);
 
     /**
@@ -3335,7 +3336,7 @@ export class Color {
      * Copies given color.
      * @param color Color to copy.
      */
-    copy(color: this): this;
+    copy(color: Color): this;
 
     /**
      * Copies given color making conversion from gamma to linear space.
@@ -3369,7 +3370,7 @@ export class Color {
      */
     getHexString(): string;
 
-    getHSL(): HSL;
+    getHSL(target: HSL): HSL;
 
     /**
      * Returns the value of this color in CSS context style.
@@ -3377,17 +3378,18 @@ export class Color {
      */
     getStyle(): string;
 
-    offsetHSL(h: number, s: number, l: number): Color;
+    offsetHSL(h: number, s: number, l: number): this;
 
-    add(color: Color): Color;
-    addColors(color1: Color, color2: Color): Color;
-    addScalar(s: number): Color;
-    sub(color: Color): Color;
-    multiply(color: Color): Color;
-    multiplyScalar(s: number): Color;
-    lerp(color: Color, alpha: number): Color;
+    add(color: Color): this;
+    addColors(color1: Color, color2: Color): this;
+    addScalar(s: number): this;
+    sub(color: Color): this;
+    multiply(color: Color): this;
+    multiplyScalar(s: number): this;
+    lerp(color: Color, alpha: number): this;
+    lerpHSL(color: Color, alpha: number): this;
     equals(color: Color): boolean;
-    fromArray(rgb: number[], offset?: number): Color;
+    fromArray(rgb: number[], offset?: number): this;
     toArray(array?: number[], offset?: number): number[];
 }
 
@@ -3552,7 +3554,7 @@ export class Euler {
 
     set(x: number, y: number, z: number, order?: string): Euler;
     clone(): this;
-    copy(euler: this): this;
+    copy(euler: Euler): this;
     setFromRotationMatrix(m: Matrix4, order?: string, update?: boolean): Euler;
     setFromQuaternion(q: Quaternion, order?: string, update?: boolean): Euler;
     setFromVector3( v: Vector3, order?: string ): Euler;
@@ -3561,7 +3563,7 @@ export class Euler {
     fromArray(xyzo: any[]): Euler;
     toArray(array?: number[], offset?: number): number[];
     toVector3(optionalResult?: Vector3): Vector3;
-    onChange(callback: Function): void;
+    onChange(callback: Function): this;
 
     static RotationOrders: string[];
     static DefaultOrder: string;
@@ -3580,7 +3582,7 @@ export class Frustum {
 
     set(p0?: number, p1?: number, p2?: number, p3?: number, p4?: number, p5?: number): Frustum;
     clone(): this;
-    copy(frustum: this): this;
+    copy(frustum: Frustum): this;
     setFromMatrix(m: Matrix4): Frustum;
     intersectsObject(object: Object3D): boolean;
     intersectsObject(sprite: Sprite): boolean;
@@ -3597,7 +3599,7 @@ export class Line3 {
 
     set(start?: Vector3, end?: Vector3): Line3;
     clone(): this;
-    copy(line: this): this;
+    copy(line: Line3): this;
     getCenter(target: Vector3): Vector3;
     delta(target: Vector3): Vector3;
     distanceSq(): number;
@@ -3759,7 +3761,7 @@ export class Matrix3 implements Matrix {
     set(n11: number, n12: number, n13: number, n21: number, n22: number, n23: number, n31: number, n32: number, n33: number): Matrix3;
     identity(): Matrix3;
     clone(): this;
-    copy(m: this): this;
+    copy(m: Matrix3): this;
     setFromMatrix4(m: Matrix4): Matrix3;
 
     /**
@@ -3851,7 +3853,7 @@ export class Matrix4 implements Matrix {
      */
     identity(): Matrix4;
     clone(): this;
-    copy(m: this): this;
+    copy(m: Matrix4): this;
     copyPosition(m: Matrix4): Matrix4;
     extractBasis( xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
     makeBasis( xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
@@ -4048,7 +4050,7 @@ export class Plane {
     setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): Plane;
     setFromCoplanarPoints(a: Vector3, b: Vector3, c: Vector3): Plane;
     clone(): this;
-    copy(plane: this): this;
+    copy(plane: Plane): this;
     normalize(): Plane;
     negate(): Plane;
     distanceToPoint(point: Vector3): number;
@@ -4078,7 +4080,7 @@ export class Spherical {
 
     set(radius: number, phi: number, theta: number): Spherical;
     clone(): this;
-    copy(other: this): this;
+    copy(other: Spherical): this;
     makeSafe(): void;
     setFromVector3(vec3: Vector3): Spherical;
 }
@@ -4091,7 +4093,7 @@ export class Cylindrical {
     y: number;
 
     clone(): this;
-    copy(other: this): this;
+    copy(other: Cylindrical): this;
     set(radius: number, theta: number, y: number): this;
     setFromVector3(vec3: Vector3): this;
 }
@@ -4132,7 +4134,7 @@ export class Quaternion {
     /**
      * Copies values of q to this quaternion.
      */
-    copy(q: this): this;
+    copy(q: Quaternion): this;
 
     /**
      * Sets this quaternion from rotation specified by Euler angles.
@@ -4215,7 +4217,7 @@ export class Ray {
 
     set(origin: Vector3, direction: Vector3): Ray;
     clone(): this;
-    copy(ray: this): this;
+    copy(ray: Ray): this;
     at(t: number, target: Vector3): Vector3;
     lookAt(v: Vector3): Vector3;
     recast(t: number): Ray;
@@ -4259,7 +4261,7 @@ export class Sphere {
     set(center: Vector3, radius: number): Sphere;
     setFromPoints(points: Vector3[], optionalCenter?: Vector3): Sphere;
     clone(): this;
-    copy(sphere: this): this;
+    copy(sphere: Sphere): this;
     empty(): boolean;
     containsPoint(point: Vector3): boolean;
     distanceToPoint(point: Vector3): number;
@@ -4289,7 +4291,7 @@ export class Triangle {
     set(a: Vector3, b: Vector3, c: Vector3): Triangle;
     setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): Triangle;
     clone(): this;
-    copy(triangle: this): this;
+    copy(triangle: Triangle): this;
     getArea(): number;
     getMidpoint(target: Vector3): Vector3;
     getNormal(target: Vector3): Vector3;
@@ -4425,7 +4427,7 @@ export interface Vector {
     /**
      * clone():T;
      */
-    clone(): Vector;
+    clone(): this;
 }
 
 /**
@@ -4475,12 +4477,12 @@ export class Vector2 implements Vector {
     /**
      * Returns a new Vector2 instance with the same `x` and `y` values.
      */
-    clone(): Vector2;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
      */
-    copy(v: this): this;
+    copy(v: Vector2): this;
 
     /**
      * Adds v to this vector.
@@ -4794,7 +4796,7 @@ export class Vector3 implements Vector {
     /**
      * Clones this vector.
      */
-    clone(): Vector3;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
@@ -5041,12 +5043,12 @@ export class Vector4 implements Vector {
     /**
      * Clones this vector.
      */
-    clone(): Vector4;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.
      */
-    copy(v: this): this;
+    copy(v: Vector4): this;
 
     /**
      * Adds v to this vector.
@@ -5232,26 +5234,15 @@ export class LOD extends Object3D {
     objects: any[];
 }
 
-
-/**
- * An intermediate material type that casts more precisely the possible materials assignable to a [[Line]] object.
- *
- * [[LineDashedMaterial]] is omitted as it extends [[LineBasicMaterial]].
- *
- * // Todo:
- * // - can [[Line]] take in an array of materials ?
- */
-export type LineMaterialType = LineBasicMaterial | ShaderMaterial | MeshDepthMaterial;
-
 export class Line extends Object3D {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineMaterialType | LineMaterialType[],
+        material?: Material | Material[],
         mode?: number
     );
 
-    geometry: Geometry|BufferGeometry;
-    material: LineBasicMaterial | LineDashedMaterial | ShaderMaterial;
+    geometry: Geometry | BufferGeometry;
+    material: Material | Material[];
 
     type: "Line";
     isLine: true;
@@ -5272,23 +5263,16 @@ export const LinePieces: number;
 export class LineSegments extends Line {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineMaterialType | LineMaterialType[],
+        material?: Material | Material[],
         mode?: number
     );
 }
 
-/**
- * An intermediate material type that casts more precisely the possible materials assignable to a [[Mesh]] object.
- *
- * `MeshToonMaterial` and [[MeshPhysicalMaterial]] are omitted as they extend [[MeshPhongMaterial]] and [[MeshStandardMaterial]] respectively.
- */
-export type MeshMaterialType = MeshBasicMaterial | MeshDepthMaterial | MeshFaceMaterial | MeshLambertMaterial | MeshNormalMaterial | MeshPhongMaterial | MeshStandardMaterial | ShaderMaterial | ShadowMaterial;
-
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry | BufferGeometry, material?: MeshMaterialType | MeshMaterialType[]);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[]);
 
-    geometry: Geometry|BufferGeometry;
-    material: MeshMaterialType | MeshMaterialType[];
+    geometry: Geometry | BufferGeometry;
+    material: Material | Material[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
@@ -5300,14 +5284,6 @@ export class Mesh extends Object3D {
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
     copy(source: this, recursive?: boolean): this;
 }
-
-/**
- * An intermediate material type that casts more precisely the possible materials assignable to a [[Points]] object.
- *
- * // Todo:
- * // - can [[Points]] take in an array of materials ?
- */
-export type PointsMaterialType = PointsMaterial | ShaderMaterial | MeshDepthMaterial;
 
 /**
  * A class for displaying particles in the form of variable size points. For example, if using the WebGLRenderer, the particles are displayed using GL_POINTS.
@@ -5322,7 +5298,7 @@ export class Points extends Object3D {
      */
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: PointsMaterialType | PointsMaterialType[]
+        material?: Material | Material[]
     );
 
     type: "Points";
@@ -5336,7 +5312,7 @@ export class Points extends Object3D {
     /**
      * An instance of Material, defining the object's appearance. Default is a PointsMaterial with randomised colour.
      */
-    material: PointsMaterial | ShaderMaterial;
+    material: Material | Material[];
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 }
@@ -5372,13 +5348,7 @@ export class Skeleton {
 }
 
 export class SkinnedMesh extends Mesh {
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshBasicMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshDepthMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MultiMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshLambertMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshNormalMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshPhongMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: ShaderMaterial, useVertexTexture?: boolean);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[], useVertexTexture?: boolean);
 
     bindMode: string;
     bindMatrix: Matrix4;
@@ -5397,7 +5367,7 @@ export class Sprite extends Object3D {
     type: "Sprite";
     isSprite: true;
 
-    material: SpriteMaterial;
+    material: Material;
     center: Vector2;
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
@@ -5424,6 +5394,14 @@ export interface WebGLRendererParameters {
      * A Canvas where the renderer draws its output.
      */
     canvas?: HTMLCanvasElement;
+
+
+    /**
+     * A WebGL Rendering Context.
+     * (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext)
+     *  Default is null
+     */
+    context?: WebGLRenderingContext
 
     /**
      *  shader precision. Can be "highp", "mediump" or "lowp".
@@ -5864,7 +5842,7 @@ export class WebGLRenderTarget extends EventDispatcher {
 
     setSize(width: number, height: number): void;
     clone(): this;
-    copy(source: this): this;
+    copy(source: WebGLRenderTarget): this;
     dispose(): void;
 }
 
@@ -6577,7 +6555,7 @@ export class Texture extends EventDispatcher {
     static DEFAULT_MAPPING: any;
 
     clone(): this;
-    copy(source: this): this;
+    copy(source: Texture): this;
     toJSON(meta: any): any;
     dispose(): void;
     transformUv(uv: Vector): void;
@@ -6710,11 +6688,17 @@ export namespace SceneUtils {
     export function attach(child: Object3D, scene: Scene, parent: Object3D): void;
 }
 
+interface Vec2
+{
+    x: number;
+    y: number;
+}
+
 export namespace ShapeUtils {
-    export function area(contour: number[]): number;
-    export function triangulate(contour: number[], indices: boolean): number[];
-    export function triangulateShape(contour: number[], holes: any[]): number[];
-    export function isClockWise(pts: number[]): boolean;
+    export function area(contour: Vec2[]): number;
+    export function triangulate(contour: Vec2[], indices: boolean): number[];
+    export function triangulateShape(contour: Vec2[], holes: Vec2[]): number[][];
+    export function isClockWise(pts: Vec2[]): boolean;
 }
 
 // Extras / Audio /////////////////////////////////////////////////////////////////////
@@ -7233,7 +7217,7 @@ export class EdgesGeometry extends BufferGeometry {
     constructor(geometry: BufferGeometry | Geometry, thresholdAngle?: number);
 }
 
-export interface ExtrueGeometryOptions {
+export interface ExtrudeGeometryOptions {
     curveSegments?: number;
     steps?: number;
     depth?: number;
@@ -7251,7 +7235,7 @@ export interface UVGenerator {
 }
 
 export class ExtrudeGeometry extends Geometry {
-    constructor(shape: Shape | Shape[], options?: ExtrueGeometryOptions);
+    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
 
     static WorldUVGenerator: UVGenerator;
 
@@ -7260,7 +7244,7 @@ export class ExtrudeGeometry extends Geometry {
 }
 
 export class ExtrudeBufferGeometry extends BufferGeometry {
-    constructor(shapes?: Shape[], options?: ExtrueGeometryOptions);
+    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
 
     static WorldUVGenerator: UVGenerator;
 

@@ -1,10 +1,13 @@
-// Type definitions for OpenFin API 29.0
+// Type definitions for OpenFin API 37.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
+//                 Roma <https://github.com/whyn07m3>
+//                 Li Cui <https://github.com/licui3936>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
-// based on v8.56.29.51
+// based on v9.61.37.14
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**
@@ -22,6 +25,52 @@
  * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "documennt" objects.
  */
 declare namespace fin {
+    var Application: import('./_v2/api/application/application').default;
+    var Clipboard: import('./_v2/api/clipboard/clipboard').default;
+    var ExternalApplication: import('./_v2/api/external-application/external-application').default
+    var Frame: import('./_v2/api/frame/frame').default;
+    var GlobalHotkey: import('./_v2/api/global-hotkey/index').default;
+    var InterApplicationBus: import('./_v2/api/interappbus/interappbus').default;
+    var Notification: import('./_v2/api/notification/notification').default;
+    var System: import('./_v2/api/system/system').default;
+    var Window: import('./_v2/api/window/window').default;
+
+    // v2 shapes
+    type Identity = import('./_v2/identity').Identity;
+    type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
+    type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
+    type TrayInfo = import('./_v2/api/application/application').TrayInfo;
+    type ApplicationOption = import('./_v2/api/application/applicationOption').ApplicationOption;
+    type ExternalApplicationInfo = import('./_v2/api/external-application/external-application').ExternalApplicationInfo;
+    type ApplicationInfo = import('./_v2/api/system/application').ApplicationInfo;
+    type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;
+    type CookieInfo = import('./_v2/api/system/cookie').CookieInfo;
+    type CookieOption = import('./_v2/api/system/cookie').CookieOption;
+    type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
+    type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
+    type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
+    type RuntimeDownloadProgress = import('./_v2/api/system/download-asset').RuntimeDownloadProgress;
+    type DownloadPreloadInfo = import('./_v2/api/system/download-preload').DownloadPreloadInfo;
+    type DownloadPreloadOption = import('./_v2/api/system/download-preload').DownloadPreloadOption;
+    type EntityInfo = import('./_v2/api/system/entity').EntityInfo;
+    type ExternalProcessRequestType = import('./_v2/api/system/external-process').ExternalProcessRequestType;
+    type ExternalProcessInfo = import('./_v2/api/system/external-process').ExternalProcessInfo;
+    type HostSpecs = import('./_v2/api/system/host-specs').HostSpecs;
+    type LogInfo = import('./_v2/api/system/log').LogInfo;
+    type MonitorInfo = import('./_v2/api/system/monitor').MonitorInfo;
+    type PointTopLeft = import('./_v2/api/system/point').PointTopLeft;
+    type ProcessInfo = import('./_v2/api/system/process').ProcessInfo;
+    type ProxyInfo = import('./_v2/api/system/proxy').ProxyInfo;
+    type RegistryInfo = import('./_v2/api/system/registry-info').RegistryInfo;
+    type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
+    type WindowDetail = import('./_v2/api/system/window').WindowDetail;
+    type WindowInfo = import('./_v2/api/system/window').WindowInfo;
+    type AnchorType = import('./_v2/api/window/anchor-type').AnchorType;
+    type Bounds = import('./_v2/api/window/bounds').default;
+    type Transition = import('./_v2/api/window/transition').Transition;
+    type TransitionOptions = import('./_v2/api/window/transition').TransitionOptions;
+    type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
+
     const desktop: OpenFinDesktop;
 
     interface OpenFinDesktop {
@@ -41,7 +90,7 @@ declare namespace fin {
          * An object representing an application. Allows the developer to create, execute, show/close an application as well as listen to application events.
          */
         new (
-            options: ApplicationOptions,
+            options: ApplicationOption,
             callback?: (successObj: { httpResponseCode: number }) => void,
             errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinApplication;
         /**
@@ -112,7 +161,7 @@ declare namespace fin {
         /**
          * Retrieves information about the system tray.
          */
-        getTrayIconInfo(callback?: (trayInfo: TrayIconInfo) => void, errorCallback?: (reason: string) => void): void;
+        getTrayIconInfo(callback?: (trayInfo: TrayInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Determines if the application is currently running.
          */
@@ -176,21 +225,6 @@ declare namespace fin {
         uuid: string;
     }
 
-    interface ShortCutConfig {
-        /**
-         * application has a shortcut on the desktop
-         */
-        desktop?: boolean;
-        /**
-         * application has no shortcut in the start menu
-         */
-        startMenu?: boolean;
-        /**
-         * application will be launched on system startup
-         */
-        systemStartup?: boolean;
-    }
-
     interface SuccessObj {
         httpResponseCode: number;
     }
@@ -202,192 +236,6 @@ declare namespace fin {
     interface ErrorInfo {
         stack: string;
         message: string;
-    }
-
-    interface ApplicationOptions {
-        /**
-         * The name of the application.
-         */
-        name?: string;
-        /**
-         * The url to the application.
-         */
-        url?: string;
-        /**
-         * The UUID of the application, unique within the set of all other applications running in the OpenFin Runtime. name and uuid must match.
-         */
-        uuid?: string;
-        /**
-         * Enable Flash at the application level. Default: false.
-         */
-        plugins?: boolean;
-        /**
-         * The options of the main window of the application.
-         */
-        mainWindowOptions?: WindowOptions;
-    }
-
-    interface WindowOptions {
-        /**
-         * Enable keyboard shortcuts for devtools and zoom. Default: false for both.
-         */
-        accelerator?: {
-            devtools?: boolean,
-            zoom?: boolean,
-            reload?: boolean,
-            reloadIgnoreCache?: boolean,
-        };
-        /**
-         * A flag to always position the window at the top of the window stack. Default: false.
-         * Updatable
-         */
-        alwaysOnTop?: boolean;
-        /**
-         * A flag to automatically show the Window when it is created. Default: false.
-         */
-        autoShow?: boolean;
-        /**
-         * A flag to show the context menu when right-clicking on a window. Gives access to the Developer Console for the Window. Default: true
-         * Updatable
-         */
-        contextMenu?: boolean;
-        /**
-         * This defines and applies rounded corners for a frameless window. Default for both width and height: 0.
-         * Updatable
-         */
-        cornerRounding?: {
-            width?: number;
-            height?: number;
-        };
-        /**
-         * A field that the user can attach serializable data to to be ferried around with the window options. Default: ''.
-         */
-        customData?: any;
-        /**
-         * Specifies that the window will be positioned in the center of the primary monitor when loaded for the first time on a machine.
-         * When the window corresponding to that id is loaded again, the position from before the window was closed is used.
-         * This option overrides defaultLeft and defaultTop. Default: false.
-         */
-        defaultCentered?: boolean;
-        /**
-         * The default height of the window. Specifies the height of the window when loaded for the first time on a machine.
-         *  When the window corresponding to that id is loaded again, the height is taken to be the last height of the window before it was closed. Default: 500.
-         */
-        defaultHeight?: number;
-        /**
-         * The default left position of the window. Specifies the position of the left of the window when loaded for the first time on a machine.
-         *  When the window corresponding to that id is loaded again, the value of left is taken to be the last value before the window was closed. Default: 100.
-         */
-        defaultWidth?: number;
-        /**
-         * The default top position of the window. Specifies the position of the top of the window when loaded for the first time on a machine.
-         * When the window corresponding to that id is loaded again, the value of top is taken to be the last value before the window was closed. Default: 100.
-         */
-        defaultTop?: number;
-        /**
-         * The default width of the window. Specifies the width of the window when loaded for the first time on a machine.
-         * When the window corresponding to that id is loaded again, the width is taken to be the last width of the window before it was closed. Default: 800.
-         */
-        defaultLeft?: number;
-        /**
-         * A flag to show the frame. Default: true.
-         * Updatable
-         */
-        frame?: boolean;
-        /**
-         * A flag to allow a window to be hidden when the close button is clicked.Default: false.
-         * Updatable
-         */
-        hideOnClose?: boolean;
-        /**
-         * A URL for the icon to be shown in the window title bar and the taskbar.Default: The parent application's applicationIcon.
-         * Updatable
-         */
-        icon?: string;
-        /**
-         * The maximum height of a window.Will default to the OS defined value if set to - 1. Default: -1.
-         * Updatable
-         */
-        maxHeight?: number;
-        /**
-         * A flag that lets the window be maximized.Default: true.
-         * Updatable
-         */
-        maximizable?: boolean;
-        /**
-         * The maximum width of a window.Will default to the OS defined value if set to - 1. Default: -1.
-         * Updatable
-         */
-        maxWidth?: number;
-        /**
-         * The minimum height of a window.Default: 0.
-         * Updatable
-         */
-        minHeight?: number;
-        /**
-         * A flag that lets the window be minimized.Default: true.
-         */
-        minimizable?: boolean;
-        /**
-         * The minimum width of a window.Default: 0.
-         */
-        minWidth?: number;
-        /**
-         * The name for the window which must be unique within the context of the invoking Application.
-         */
-        name?: string;
-        /**
-         * A flag that specifies how transparent the window will be.This value is clamped between 0.0 and 1.0.Default: 1.0.
-         * Updatable
-         */
-        opacity?: number;
-        /**
-         * A flag to drop to allow the user to resize the window.Default: true.
-         * Updatable
-         */
-        resizable?: boolean;
-        /**
-         * Defines a region in pixels that will respond to user mouse interaction for resizing a frameless window.
-         * Updatable
-         */
-        resizeRegion?: {
-            /**
-             * The size in pixels (Default: 2),
-             */
-            size?: number;
-            /**
-             * The size in pixels of an additional
-             * square resizable region located at the
-             * bottom right corner of a
-             * frameless window. (Default: 4)
-             */
-            bottomRightCorner?: number;
-        };
-        /**
-         * A flag to show the Window's icon in the taskbar. Default: true.
-         */
-        showTaskbarIcon?: boolean;
-        /**
-         * A flag to cache the location of the window or not. Default: true.
-         */
-        saveWindowState?: boolean;
-        /**
-         * Specify a taskbar group for the window. Default: app's uuid.
-         */
-        taskbarIconGroup?: string;
-        /**
-         * A string that sets the window to be "minimized", "maximized", or "normal" on creation. Default: "normal".
-         */
-        state?: string;
-        /**
-         * The URL of the window. Default: "about:blank".
-         */
-        url?: string;
-        /**
-         * When set to false, the window will render before the "load" event is fired on the content's window.
-         * Caution, when false you will see an initial empty white window. Default: true.
-         */
-        waitForPageLoad?: boolean;
     }
 
     /**
@@ -572,7 +420,7 @@ declare namespace fin {
         /**
          * The timeout for displaying a notification.Can be in milliseconds or "never".
          */
-        duration?: number | "never";
+        timeout?: number | "never";
         /**
          * The url of the notification
          */
@@ -625,7 +473,7 @@ declare namespace fin {
          * Clears cached data containing window state/positions,
          * application resource files (images, HTML, JavaScript files), cookies, and items stored in the Local Storage.
          */
-        clearCache(options: CacheOptions, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        clearCache(options: ClearCacheOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Clears all cached data when OpenFin Runtime exits.
          */
@@ -667,11 +515,11 @@ declare namespace fin {
         /**
          * Retrieves an array of data (name, ids, bounds) for all application windows.
          */
-        getAllWindows(callback?: (windowInfoList: WindowDetails[]) => void, errorCallback?: (reason: string) => void): void;
+        getAllWindows(callback?: (windowInfoList: WindowInfo[]) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns information about the app asset.
          */
-        getAppAssetInfo(options: AppAssetOptions, callback?: (appAssetInfo: AppAssetInfo) => void, errorCallback?: (reason: string) => void): void;
+        getAppAssetInfo(options: AppAssetRequest, callback?: (appAssetInfo: AppAssetInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Get additional info of cookies.
          */
@@ -703,7 +551,7 @@ declare namespace fin {
         /**
          * Retrieves system information.
          */
-        getHostSpecs(callback?: (info: HostSpecInfo) => void, errorCallback?: (reason: string) => void): void;
+        getHostSpecs(callback?: (info: HostSpecs) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves the contents of the log with the specified filename.
          */
@@ -723,7 +571,7 @@ declare namespace fin {
         /**
          * Returns the mouse in virtual screen coordinates (left, top).
          */
-        getMousePosition(callback?: (mousePosition: VirtualScreenCoordinates) => void, errorCallback?: (reason: string) => void): void;
+        getMousePosition(callback?: (mousePosition: PointTopLeft) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves an array of all of the runtime processes that are currently running.
          * Each element in the array is an object containing the uuid and the name of the application to which the process belongs.
@@ -736,7 +584,7 @@ declare namespace fin {
         /**
          * Returns information about the running RVM in an object.
          */
-        getRvmInfo(callback?: (rvmInfo: RvmInfo) => void, errorCallback?: (reason: string) => void): void;
+        getRvmInfo(callback?: (rvmInfo: RVMInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns the version of the runtime. The version contains the major, minor, build and revision numbers.
          */
@@ -744,7 +592,7 @@ declare namespace fin {
         /**
          * Runs an executable or batch file.
          */
-        launchExternalProcess(options: ExternalProcessLaunchInfo, callback?: (payload: { uuid: string }) => void, errorCallback?: (reason: string) => void): void;
+        launchExternalProcess(options: ExternalProcessRequestType, callback?: (payload: { uuid: string }) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Writes the passed message into both the log file and the console.
          */
@@ -817,340 +665,6 @@ declare namespace fin {
         updateProxySettings(type: string, address: string, port: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
     }
 
-    interface CacheOptions {
-        cache?: boolean;
-        cookies?: boolean;
-        localStorage?: boolean;
-        appcache?: boolean;
-        userData?: boolean;
-    }
-
-    interface AppAssetInfo {
-        src?: string;
-        alias?: string;
-        version?: string;
-        target?: string;
-        args?: string;
-        mandatory?: boolean;
-    }
-
-    interface AppAssetOptions {
-        alias: string;
-    }
-
-    interface ApplicationInfo {
-        /**
-         * true when the application is running.
-         */
-        isRunning?: boolean;
-        /**
-         * uuid of the application.
-         */
-        uuid?: string;
-        /**
-         * uuid of the application that launches this application.
-         */
-        parentUuid?: string;
-    }
-
-    interface Identity {
-        uuid: string;
-        name: string;
-    }
-
-    interface EntityInfo {
-        name: string;
-        uuid: string;
-        parent: Identity;
-        entityType: string;
-    }
-
-    interface DownloadPreloadOption {
-        url: string;
-    }
-
-    interface DownloadPreloadInfo {
-        success: boolean;
-        url?: string;
-        error: string;
-    }
-
-    interface CookieInfo {
-        name: string;
-        // expirationDate: Date;
-        domain: string;
-        path: string;
-    }
-
-    interface CookieOption {
-        name: string;
-    }
-
-    interface RegistryInfo {
-        data: any;
-        rootKey: string;
-        subkey: string;
-        type: string;
-        value: string;
-    }
-
-    interface RuntimeDownloadOptions {
-        version: string;
-    }
-
-    interface RuntimeDownloadProgress {
-        downloadedBytes: number;
-        totalBytes: number;
-    }
-
-    interface WindowDetails {
-        uuid?: string;
-        mainWindow?: WindowInfo;
-        childWindows?: WindowInfo[];
-    }
-
-    interface WindowInfo {
-        /**
-         * name of the child window
-         */
-        name?: string;
-        /**
-         * top-most coordinate of the child window
-         */
-        top?: number;
-        /**
-         * right-most coordinate of the child window
-         */
-        right?: number;
-        /**
-         * bottom-most coordinate of the child window
-         */
-        bottom?: number;
-        /**
-         * left-most coordinate of the child window
-         */
-        left?: number;
-    }
-
-    interface HostSpecInfo {
-        /**
-         * "x86" for 32-bit or "x86_64" for 64-bit
-         */
-        arch: string;
-        /**
-         * Same payload as Node's os.cpus()
-         */
-        cpus: NodeCpuInfo[];
-        gpu: {
-            /**
-             * Graphics card name
-             */
-            name: string;
-        };
-        /**
-         * Same payload as Node's os.totalmem()
-         */
-        memory: number;
-        /**
-         * OS name and version/edition
-         */
-        name: string;
-    }
-
-    interface NodeCpuInfo {
-        model: string;
-        /**
-         * in MHz
-         */
-        speed: number;
-        times: {
-            /**
-             * The number of milliseconds the CPU has spent in user mode.
-             */
-            user: number;
-            /**
-             * The number of milliseconds the CPU has spent in nice mode.
-             */
-            nice: number;
-            /**
-             * The number of milliseconds the CPU has spent in sys mode.
-             */
-            sys: number;
-            /**
-             * The number of milliseconds the CPU has spent in idle mode.
-             */
-            idle: number;
-            /**
-             * The number of milliseconds the CPU has spent in irq mode.
-             */
-            irq: number;
-        };
-    }
-
-    interface LogInfo {
-        /**
-         * the filename of the log
-         */
-        name?: string;
-        /**
-         * the size of the log in bytes
-         */
-        size?: number;
-        /**
-         * the unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)"
-         */
-        date?: string;
-    }
-
-    interface ProcessInfo {
-        /**
-         * the percentage of total CPU usage
-         */
-        cpuUsage?: number;
-        /**
-         * the application name
-         */
-        name?: string;
-        /**
-         * the current nonpaged pool usage in bytes
-         */
-        nonPagedPoolUsage?: number;
-        /**
-         * the number of page faults
-         */
-        pageFaultCount?: number;
-        /**
-         * the current paged pool usage in bytes
-         */
-        pagedPoolUsage?: number;
-        /**
-         * the total amount of memory in bytes that the memory manager has committed
-         */
-        pagefileUsage?: number;
-        /**
-         * the peak nonpaged pool usage in bytes
-         */
-        peakNonPagedPoolUsage?: number;
-        /**
-         * the peak paged pool usage in bytes
-         */
-        peakPagedPoolUsage?: number;
-        /**
-         * the peak value in bytes of pagefileUsage during the lifetime of this process
-         */
-        peakPagefileUsage?: number;
-        /**
-         * the peak working set size in bytes
-         */
-        peakWorkingSetSize?: number;
-        /**
-         * the native process identifier
-         */
-        processId?: number;
-        /**
-         * the application UUID
-         */
-        uuid?: string;
-        /**
-         * the current working set size (both shared and private data) in bytes
-         */
-        workingSetSize?: number;
-    }
-
-    interface ProxyInfo {
-        /**
-         * the configured Proxy Address
-         */
-        proxyAddress?: string;
-        /**
-         * the configured Proxy port
-         */
-        proxyPort?: number;
-        /**
-         * Proxy Type
-         */
-        type?: string;
-    }
-
-    interface RvmInfo {
-        version?: string;
-        "start-time"?: string;
-    }
-
-    interface ExternalProcessLaunchInfo {
-        path?: string;
-        /**
-         * Additionally note that the executable found in the zip file specified in appAssets
-         * will default to the one mentioned by appAssets.target
-         * If the the path below refers to a specific path it will override this default
-         */
-        alias?: string;
-        /**
-         * When using alias; if no arguments are passed then the arguments (if any)
-         * are taken from the 'app.json' file, from the  'args' parameter
-         * of the 'appAssets' Object with the relevant 'alias'.
-         * If 'arguments' is passed as a parameter it takes precedence
-         * over any 'args' set in the 'app.json'.
-         */
-        arguments?: string;
-        listener?(result: {
-            /**
-             * "Exited" Or "released" on a call to releaseExternalProcess
-             */
-            topic?: string;
-            /**
-             * The mapped UUID which identifies the launched process
-             */
-            uuid?: string;
-            /*
-             * Process exit code
-             */
-            exitCode?: number;
-        }): void;
-        certificate?: CertificationInfo;
-    }
-
-    interface CertificationInfo {
-        /**
-         * A hex string with or without spaces
-         */
-        serial?: string;
-        /**
-         * An internally tokenized and comma delimited string allowing partial or full checks of the subject fields
-         */
-        subject?: string;
-        /**
-         * A hex string with or without spaces
-         */
-        publickey?: string;
-        /**
-         * A hex string with or without spaces
-         */
-        thumbprint?: string;
-        /**
-         * A boolean indicating that the certificate is trusted and not revoked
-         */
-        trusted?: boolean;
-    }
-
-    interface ExternalProcessInfo {
-        pid?: number;
-        listener?(result: {
-            /**
-             * "Exited" Or "released" on a call to releaseExternalProcess
-             */
-            topic?: string;
-            /**
-             * The mapped UUID which identifies the launched process
-             */
-            uuid?: string;
-            /*
-             * Process exit code
-             */
-            exitCode?: number;
-        }): void;
-    }
-
     interface OpenFinWindowStatic {
         /**
          * Class: Window
@@ -1167,7 +681,7 @@ declare namespace fin {
          * @param [callback.successObj] - httpResponseCode
          */
         new (
-            options: WindowOptions,
+            options: WindowOption,
             callback?: (successObj: { httpResponseCode: number }) => void,
             errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinWindow;
         /**
@@ -1230,7 +744,7 @@ declare namespace fin {
         /**
          * Performs the specified window transitions
          */
-        animate(transitions: AnimationTransition, options: AnimationOptions, callback?: (event: any) => void, errorCallback?: (reason: string) => void): void;
+        animate(transitions: Transition, options: TransitionOptions, callback?: (event: any) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Provides credentials to authentication requests
          */
@@ -1275,7 +789,7 @@ declare namespace fin {
         /**
          * Gets the current bounds (top, left, width, height) of the window.
          */
-        getBounds(callback?: (bounds: WindowBounds) => void, errorCallback?: (reason: string) => void): void;
+        getBounds(callback?: (bounds: Bounds) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves an array containing wrapped fin.desktop.Windows that are grouped with this window. If a window is not in a group an empty array is returned.
          * Please note that calling window is included in the result array.
@@ -1284,15 +798,15 @@ declare namespace fin {
         /**
          * Gets the current settings of the window.
          */
-        getOptions(callback?: (options: WindowOptions) => void, errorCallback?: (reason: string) => void): void;
+        getOptions(callback?: (options: WindowOption) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Gets a base64 encoded PNG snapshot of the window.
          */
         getSnapshot(callback?: (base64Snapshot: string) => void, errorCallback?: (reason: string) => void): void;
         /**
-         * Gets the current state ("minimized", "maximized", or "restored") of the window.
+         * Gets the current state ("minimized", "maximized", or "normal") of the window.
          */
-        getState(callback?: (state: "minimized" | "maximized" | "restored") => void, errorCallback?: (reason: string) => void): void;
+        getState(callback?: (state: "minimized" | "maximized" | "normal") => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns the zoom level of the window.
          */
@@ -1351,11 +865,11 @@ declare namespace fin {
         /**
          * Resizes the window by a specified amount.
          */
-        resizeBy(deltaWidth: number, deltaHeight: number, anchor: OpenFinAnchor, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Resizes the window by a specified amount.
          */
-        resizeTo(width: number, height: number, anchor: OpenFinAnchor, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        resizeTo(width: number, height: number, anchor: AnchorType, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Restores the window to its normal state (i.e., unminimized, unmaximized).
          */
@@ -1388,7 +902,7 @@ declare namespace fin {
         /**
          * Updates the window using the passed options
          */
-        updateOptions(options: WindowOptions, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        updateOptions(options: WindowOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
     }
 
     interface OpenFinFrameStatic {
@@ -1455,51 +969,6 @@ declare namespace fin {
     interface MonitorInfoChangedEvent extends MonitorInfo {
         topic: "system";
         type: "monitor-info-changed";
-    }
-
-    interface MonitorInfo {
-        nonPrimaryMonitors: MonitorInfoDetail[];
-        primaryMonitor: MonitorInfoDetail;
-        reason: string;
-        taskbar: {
-            edge: "left" | "right" | "top" | "bottom",
-            rect: MontiorCoordinates
-        };
-        topic: "system";
-        type: "monitor-info-changed";
-        virtualScreen: MontiorCoordinates;
-    }
-
-	interface TrayIconInfo {
-		x: number;
-		y: number;
-		bounds: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-		monitorInfo: MonitorInfo;
-	}
-
-    interface MonitorInfoDetail {
-        availableRect: MontiorCoordinates;
-        deviceId: string;
-        displayDeviceActive: boolean;
-        monitorRect: MontiorCoordinates;
-        name: string;
-    }
-
-    interface MontiorCoordinates {
-        bottom: number;
-        left: number;
-        right: number;
-        top: number;
-    }
-
-    interface VirtualScreenCoordinates {
-        left: number;
-        top: number;
     }
 
     interface SystemBaseEvent {
@@ -1701,96 +1170,6 @@ declare namespace fin {
         uuid: string;
     }
 
-    interface AnimationTransition {
-        opacity?: {
-            /**
-             * This value is clamped from 0.0 to 1.0
-             */
-            opacity?: number;
-            /**
-             * The total time in milliseconds this transition should take.
-             */
-            duration?: number;
-            /**
-             * Treat 'opacity' as absolute or as a delta. Defaults to false.
-             */
-            relative?: boolean;
-        };
-        position?: {
-            /**
-             * Defaults to the window's current left position in virtual screen coordinates.
-             */
-            left?: number;
-            /**
-             * Defaults to the window's current top position in virtual screen coordinates.
-             */
-            top?: number;
-            /**
-             * The total time in milliseconds this transition should take.
-             */
-            duration?: number;
-            /**
-             * Treat 'left' and 'top' as absolute or as deltas. Defaults to false.
-             */
-            relative?: boolean;
-        };
-        size?: {
-            /**
-             * Optional if height is present. Defaults to the window's current width.
-             */
-            width?: number;
-            /**
-             * Optional if width is present. Defaults to the window's current height.
-             */
-            height?: number;
-            /**
-             * The total time in milliseconds this transition should take.
-             */
-            duration?: number;
-            /**
-             * Treat 'width' and 'height' as absolute or as deltas. Defaults to false.
-             */
-            relative?: boolean;
-        };
-    }
-
-    interface AnimationOptions {
-        /**
-         * This option interrupts the current animation. When false it pushes this animation onto the end of the animation queue.
-         */
-        interrupt?: boolean;
-        /**
-         * Transition effect. Defaults to 'ease-in-out'.
-         */
-        tween?: OpenFinTweenType;
-    }
-
-    interface WindowBounds {
-        /**
-         * the height of the window.
-         */
-        height?: number;
-        /**
-         * left-most coordinate of the window.
-         */
-        left?: number;
-        /**
-         * top-most coordinate of the window.
-         */
-        top?: number;
-        /**
-         * the width of the window.
-         */
-        width?: number;
-    }
-
-    interface ExternalApplicationInfo {
-        parent: {
-            uuid: string;
-            name: string;
-        };
-    }
-
     interface SessionChangedEvent {
         /**
          * the action that triggered this event:
@@ -1803,34 +1182,6 @@ declare namespace fin {
         topic: "system";
         type: "session-changed";
     }
-
-    interface LaunchInfo {
-        launchMode: "fin-protocol"
-            | "fins-protocol"
-            | "shortcut"
-            | "command-line"
-            | "adapter"
-            | "other"
-            | string;
-    }
-
-    type OpenFinTweenType = "linear"
-        | "ease-in"
-        | "ease-out"
-        | "ease-in-out"
-        | "ease-in-quad"
-        | "ease-out-quad"
-        | "ease-in-out-quad"
-        | "ease-in-cubic"
-        | "ease-out-cubic"
-        | "ease-in-out-cubic"
-        | "ease-out-bounce"
-        | "ease-in-back"
-        | "ease-out-back"
-        | "ease-in-out-back"
-        | "ease-in-elastic"
-        | "ease-out-elastic"
-        | "ease-in-out-elastic";
 
     type OpenFinApplicationEventType = "closed"
         | "connected"
@@ -1887,9 +1238,4 @@ declare namespace fin {
         | "restored"
         | "show-requested"
         | "shown";
-
-    type OpenFinAnchor = "top-left"
-        | "top-right"
-        | "bottom-left"
-        | "bottom-right";
 }

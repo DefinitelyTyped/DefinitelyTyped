@@ -158,7 +158,7 @@ declare namespace WebpackDevServer {
          * This option lets you precisely control what bundle information gets displayed.
          * This can be a nice middle ground if you want some bundle information, but not all of it.
          */
-        stats?: string | webpack.Options.Stats;
+        stats?: webpack.Options.Stats;
         /** This option lets the browser open with your local IP. */
         useLocalIp?: boolean;
         /** Tell the server to watch the files served by the devServer.contentBase option. File changes will trigger a full page reload. */

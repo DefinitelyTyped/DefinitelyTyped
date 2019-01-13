@@ -404,10 +404,12 @@ wx.getShareInfo({
     }
 });
 wx.hideShareMenu();
-wx.onShareAppMessage(res => {
-    res.imageUrl != null;
-    res.query != null;
-    res.title != null;
+wx.onShareAppMessage((): wx.types.ShareOption => {
+    return {
+    	imageUrl: "test.png",
+    	title: "test title",
+    	query: "__shareQueryStr"
+    };
 });
 wx.showShareMenu({
     withShareTicket: true

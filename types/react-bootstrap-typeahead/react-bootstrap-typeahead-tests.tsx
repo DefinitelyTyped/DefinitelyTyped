@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Typeahead } from 'react-bootstrap-typeahead';
+import { Typeahead, Highlighter, Menu, MenuItem } from 'react-bootstrap-typeahead';
 
 const options = [
     { name: 'Alabama', population: 4780127, capital: 'Montgomery', region: 'South' },
@@ -28,6 +28,47 @@ class BasicExample extends React.Component {
                     onInputChange={(value, e) => {}}
                     placeholder="Choose a state..."
                 />
+                <Typeahead
+                    labelKey="name"
+                    multiple={multiple}
+                    options={options}
+                    maxHeight='300px'
+                    filterBy={(option, props) => (props.text.indexOf(option) !== -1) }
+                    placeholder="Choose a state..."
+                />
+                <Typeahead
+                    labelKey="name"
+                    multiple={multiple}
+                    options={options}
+                    maxHeight='300px'
+                    filterBy={(option, {text}) => (text.indexOf(option) !== -1) }
+                    placeholder="Choose a state..."
+                />
+                <Typeahead
+                    labelKey="name"
+                    options={options}
+                    placeholder="Choose a state..."
+                    renderMenuItemChildren={ (option, props, index) =>
+                        <Highlighter key="name" search={props.text}>
+                            {option.name} {index}
+                        </Highlighter>
+                    }
+                />
+                <Typeahead
+                    labelKey="name"
+                    options={options}
+                    placeholder="Choose a state...">
+                    <Menu id="menu-id">
+                    {options.map((o, idx) => (
+                      <MenuItem
+                        key={idx}
+                        option={o}
+                        position={idx}>
+                        {o.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Typeahead>
             </div>
         );
     }

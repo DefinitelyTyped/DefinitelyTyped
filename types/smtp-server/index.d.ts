@@ -153,8 +153,8 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      */
     banner?: string;
     /**
-     * optional maximum allowed message size in bytes,
-     * see details:https://github.com/andris9/smtp-server#using-size-extension
+     * optional maximum allowed message size in bytes
+     * ([see details](https://github.com/andris9/smtp-server#using-size-extension))
      */
     size?: number;
     /**
@@ -176,7 +176,7 @@ export interface SMTPServerOptions extends tls.TlsOptions {
      * use ['AUTH'] as this value.
      * If you want to allow authentication in clear text, set it to ['STARTTLS'].
      */
-    disabledCommands?: string[]; // TODO ('AUTH' | 'STARTTLS' | 'XCLIENT' | 'XFORWARD')[];
+    disabledCommands?: string[]; // TODO: ('AUTH' | 'STARTTLS' | 'XCLIENT' | 'XFORWARD')[];
     /**
      * optional boolean, if set to true then allow using STARTTLS
      * but do not advertise or require it. It only makes sense
@@ -224,17 +224,17 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     maxClients?: number;
     /**
      * boolean, if set to true expects to be behind a proxy that emits a
-     * PROXY header{http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt} (version 1 only)
+     * [PROXY](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt) header (version 1 only)
      */
     useProxy?: boolean;
     /**
      * boolean, if set to true, enables usage of
-     * XCLIENT{http://www.postfix.org/XCLIENT_README.html} extension to override connection properties.
+     * [XCLIENT](http://www.postfix.org/XCLIENT_README.html) extension to override connection properties.
      * See session.xClient (Map object) for the details provided by the client
      */
     useXClient?: boolean;
     /**
-     * boolean, if set to true, enables usage of XFORWARD{http://www.postfix.org/XFORWARD_README.html} extension.
+     * boolean, if set to true, enables usage of [XFORWARD](http://www.postfix.org/XFORWARD_README.html) extension.
      * See session.xForward (Map object) for the details provided by the client
      */
     useXForward?: boolean;
@@ -248,27 +248,27 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     socketTimeout?: ms;
     /**
      * How many millisceonds to wait before disconnecting pending
-     * connections once server.close() has been called (defaults to 30 seconds)
+     * connections once `server.close()` has been called (defaults to 30 seconds)
      */
     closeTimeout?: ms;
     /**
-     * The callback to handle authentications (see details https://github.com/andris9/smtp-server#handling-authentication)
+     * The callback to handle authentications ([see details](https://github.com/andris9/smtp-server#handling-authentication))
      */
-    onAuth?(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response: SMTPServerAuthenticationResponse) => void): void;
+    onAuth?(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void): void;
     /**
-     * The callback to handle the client connection. (see details https://github.com/andris9/smtp-server#validating-client-connection)
+     * The callback to handle the client connection. ([see details](https://github.com/andris9/smtp-server#validating-client-connection))
      */
     onConnect?(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
-     * the callback to validate MAIL FROM commands (see details https://github.com/andris9/smtp-server#validating-sender-addresses)
+     * the callback to validate MAIL FROM commands ([see details](https://github.com/andris9/smtp-server#validating-sender-addresses))
      */
     onMailFrom?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
-     * The callback to validate RCPT TO commands (see details https://github.com/andris9/smtp-server#validating-recipient-addresses)
+     * The callback to validate RCPT TO commands ([see details](https://github.com/andris9/smtp-server#validating-recipient-addresses))
      */
     onRcptTo?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
-     * the callback to handle incoming messages (see details https://github.com/andris9/smtp-server#processing-incoming-message)
+     * the callback to handle incoming messages ([see details](https://github.com/andris9/smtp-server#processing-incoming-message))
      */
     onData?(stream: Readable, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
@@ -299,16 +299,21 @@ export class SMTPServer extends EventEmitter {
     listen(handle: any, listeningListener?: () => void): net.Server; // tslint:disable-line unified-signatures
 
     /** Closes the server */
-    close(callback: (err?: Error | null) => void): void;
+    close(callback: () => void): void;
 
     updateSecureContext(options: tls.TlsOptions): void;
 
     /** Authentication handler. Override this */
-    onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response: SMTPServerAuthenticationResponse) => void): void;
+    onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response?: SMTPServerAuthenticationResponse) => void): void;
+    /** Override this */
     onClose(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    /** Override this */
     onConnect(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    /** Override this */
     onData(stream: Readable, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    /** Override this */
     onMailFrom(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    /** Override this */
     onRcptTo(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
 
     addListener(event: 'close', listener: () => void): this;
@@ -316,6 +321,14 @@ export class SMTPServer extends EventEmitter {
 
     emit(event: 'close'): boolean;
     emit(event: 'error', err: Error): boolean;
+
+    listenerCount(event: 'close' | 'error'): number;
+
+    listeners(event: 'close'): Array<() => void>;
+    listeners(event: 'error'): Array<(err: Error) => void>;
+
+    off(event: 'close', listener: () => void): this;
+    off(event: 'error', listener: (err: Error) => void): this;
 
     on(event: 'close', listener: () => void): this;
     on(event: 'error', listener: (err: Error) => void): this;
@@ -329,6 +342,11 @@ export class SMTPServer extends EventEmitter {
     prependOnceListener(event: 'close', listener: () => void): this;
     prependOnceListener(event: 'error', listener: (err: Error) => void): this;
 
-    listeners(event: 'close'): Array<() => void>;
-    listeners(event: 'error'): Array<(err: Error) => void>;
+    rawListeners(event: 'close'): Array<() => void>;
+    rawListeners(event: 'error'): Array<(err: Error) => void>;
+
+    removeAllListener(event: 'close' | 'error'): this;
+
+    removeListener(event: 'close', listener: () => void): this;
+    removeListener(event: 'error', listener: (err: Error) => void): this;
 }

@@ -1,15 +1,16 @@
-// Type definitions for universal-router 6.0
+// Type definitions for universal-router 7.0
 // Project: https://github.com/kriasoft/universal-router
 // Definitions by: Jack Moore <https://github.com/jtmthf>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 //                 Lodin <https://github.com/Lodin>
+//                 acidghost <https://github.com/acidghost>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import pathToRegexp = require('path-to-regexp');
 
 /**
- * Params is a key/value object that represents extracted URL paramters.
+ * Params is a key/value object that represents extracted URL parameters.
  * Each URL parameter resolves to a string.
  */
 export interface Params {
@@ -101,7 +102,7 @@ export interface Options<C extends Context = Context, R = any> {
     context?: C;
     baseUrl?: string;
     resolveRoute?: (context: ActionContext<C, R> & C, params: Params) => any;
-    errorHandler?: (error: Error & { context: C, code: number }) => any;
+    errorHandler?: (error: Error & { status: number }, context: C) => any;
 }
 
 /**

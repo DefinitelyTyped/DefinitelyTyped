@@ -101,7 +101,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns whether or not the current node exists.
      */
-    exists(): boolean;
+    exists(selector?: EnzymeSelector): boolean;
 
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that don't match the provided selector.
@@ -220,6 +220,13 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * @param args?
      */
     simulate(event: string, ...args: any[]): this;
+
+    /**
+     * Used to simulate throwing a rendering error. Pass an error to throw.
+     * Returns itself.
+     * @param error
+     */
+    simulateError(error: any): this;
 
     /**
      * A method to invoke setState() on the root component instance similar to how you might in the definition of

@@ -391,9 +391,9 @@ type UserVerificationRequirement = "required" | "preferred" | "discouraged";
  */
 interface PublicKeyCredentialRequestOptions {
     challenge: BufferSource;
-    timeout: number;
-    rpId: string;
-    allowCredentials: PublicKeyCredentialDescriptor[];
+    timeout?: number;
+    rpId?: string;
+    allowCredentials?: PublicKeyCredentialDescriptor[];
     userVerification?: UserVerificationRequirement;
     extensions?: any;
 }

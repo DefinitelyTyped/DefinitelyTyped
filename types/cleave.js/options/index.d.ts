@@ -51,4 +51,5 @@ export interface CleaveOptions {
     noImmediatePrefix?: boolean;
     rawValueTrimPrefix?: boolean;
     uppercase?: boolean;
+    onValueChanged?(event: any): void;
 }

@@ -36,13 +36,13 @@ declare namespace Mithril {
 		oninit?(this: State, vnode: Vnode<Attrs, State>): any;
 		/** The oncreate hook is called after a DOM element is created and attached to the document. */
 		oncreate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
-		/** The onbeforeupdate hook is called before a vnode is diffed in a update. */
-		onbeforeremove?(this: State, vnode: VnodeDOM<Attrs, State>): Promise<any> | void;
-		/** The onupdate hook is called after a DOM element is updated, while attached to the document. */
-		onremove?(this: State, vnode: VnodeDOM<Attrs, State>): any;
 		/** The onbeforeremove hook is called before a DOM element is detached from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes. */
-		onbeforeupdate?(this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>): boolean | void;
+		onbeforeremove?(this: State, vnode: VnodeDOM<Attrs, State>): Promise<any> | void;
 		/** The onremove hook is called before a DOM element is removed from the document. */
+		onremove?(this: State, vnode: VnodeDOM<Attrs, State>): any;
+		/** The onbeforeupdate hook is called before a vnode is diffed in a update. */
+		onbeforeupdate?(this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>): boolean | void;
+		/** The onupdate hook is called after a DOM element is updated, while attached to the document. */
 		onupdate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
 		/** WORKAROUND: TypeScript 2.4 does not allow extending an interface with all-optional properties. */
 		[_: number]: any;
@@ -173,7 +173,7 @@ declare namespace Mithril {
 	type ChildArrayOrPrimitive = ChildArray | string | number | boolean;
 
 	/** Virtual DOM nodes, or vnodes, are Javascript objects that represent an element (or parts of the DOM). */
-	interface Vnode<Attrs = {}, State extends Lifecycle<Attrs, State> = Lifecycle<Attrs, State>> {
+	interface Vnode<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> {
 		/** The nodeName of a DOM element. It may also be the string [ if a vnode is a fragment, # if it's a text vnode, or < if it's a trusted HTML vnode. Additionally, it may be a component. */
 		tag: string | ComponentTypes<Attrs, State>;
 		/** A hashmap of DOM attributes, events, properties and lifecycle methods. */
@@ -194,7 +194,7 @@ declare namespace Mithril {
 
 	// In some lifecycle methods, Vnode will have a dom property
 	// and possibly a domSize property.
-	interface VnodeDOM<Attrs = {}, State extends Lifecycle<Attrs, State> = Lifecycle<Attrs, State>> extends Vnode<Attrs, State> {
+	interface VnodeDOM<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> extends Vnode<Attrs, State> {
 		/** Points to the element that corresponds to the vnode. */
 		dom: Element;
 		/** This defines the number of DOM elements that the vnode represents (starting from the element referenced by the dom property). */
@@ -210,7 +210,7 @@ declare namespace Mithril {
 	 * Any Javascript object that has a view method can be used as a Mithril component.
 	 * Components can be consumed via the m() utility.
 	 */
-	interface Component<Attrs = {}, State extends Lifecycle<Attrs, State> = Lifecycle<Attrs, State>> extends Lifecycle<Attrs, State> {
+	interface Component<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> extends Lifecycle<Attrs, State> {
 		/** Creates a view out of virtual elements. */
 		view(this: State, vnode: Vnode<Attrs, State>): Children | null | void;
 	}
@@ -225,13 +225,13 @@ declare namespace Mithril {
 		oninit?(vnode: Vnode<A, this>): any;
 		/** The oncreate hook is called after a DOM element is created and attached to the document. */
 		oncreate?(vnode: VnodeDOM<A, this>): any;
-		/** The onbeforeupdate hook is called before a vnode is diffed in a update. */
-		onbeforeremove?(vnode: VnodeDOM<A, this>): Promise<any> | void;
-		/** The onupdate hook is called after a DOM element is updated, while attached to the document. */
-		onremove?(vnode: VnodeDOM<A, this>): any;
 		/** The onbeforeremove hook is called before a DOM element is detached from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes. */
-		onbeforeupdate?(vnode: Vnode<A, this>, old: VnodeDOM<A, this>): boolean | void;
+		onbeforeremove?(vnode: VnodeDOM<A, this>): Promise<any> | void;
 		/** The onremove hook is called before a DOM element is removed from the document. */
+		onremove?(vnode: VnodeDOM<A, this>): any;
+		/** The onbeforeupdate hook is called before a vnode is diffed in a update. */
+		onbeforeupdate?(vnode: Vnode<A, this>, old: VnodeDOM<A, this>): boolean | void;
+		/** The onupdate hook is called after a DOM element is updated, while attached to the document. */
 		onupdate?(vnode: VnodeDOM<A, this>): any;
 		/** Creates a view out of virtual elements. */
 		view(vnode: Vnode<A, this>): Children | null | void;
@@ -242,16 +242,23 @@ declare namespace Mithril {
 	 * Any function that returns an object with a view method can be used as a Mithril component.
 	 * Components can be consumed via the m() utility.
 	 */
-	type FactoryComponent<A = {}> = (vnode: Vnode<A, {}>) => Component<A, {}>;
+	type FactoryComponent<A = {}> = (vnode: Vnode<A>) => Component<A>;
+
+	/**
+	 * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
+	 * Any function that returns an object with a view method can be used as a Mithril component.
+	 * Components can be consumed via the m() utility.
+	 */
+	type ClosureComponent<A = {}> = FactoryComponent<A>;
 
 	/**
 	 * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
 	 * Any Javascript object that has a view method is a Mithril component. Components can be consumed via the m() utility.
 	 */
-	type Comp<Attrs = {}, State extends Lifecycle<Attrs, State> = Lifecycle<Attrs, State>> = Component<Attrs, State> & State;
+	type Comp<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> = Component<Attrs, State> & State;
 
 	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Components can be consumed via the m() utility. */
-	type ComponentTypes<A = {}, S extends Lifecycle<A, S> = Lifecycle<A, S>> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>;
+	type ComponentTypes<A = {}, S extends Lifecycle<A, S> = {}> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>;
 
 	/** This represents the attributes available for configuring virtual elements, beyond the applicable DOM attributes. */
 	interface Attributes extends Lifecycle<any, any> {

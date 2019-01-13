@@ -1,12 +1,12 @@
-// Type definitions for reactstrap 6.0
+// Type definitions for reactstrap 6.4
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>
 //                 Marco Falkenberg <https://github.com/mfal>
 //                 Danilo Barros <https://github.com/danilobjr>
 //                 FaithForHumans <https://github.com/FaithForHumans>
-//                 Kurt Preston <https://github.com/KurtPreston>
 //                 Tim Chen <https://github.com/timc13>
 //                 Pat Gaffney <https://github.com/patrickrgaffney>
+//                 Prabodh Tiwari <https://github.com/prabodht>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -240,15 +240,21 @@ import {
   UncontrolledAlert as UncontrolledAlert_,
   UncontrolledButtonDropdown as UncontrolledButtonDropdown_,
   UncontrolledDropdown as UncontrolledDropdown_,
-  UncontrolledTooltip as UncontrolledTooltip_
+  UncontrolledTooltip as UncontrolledTooltip_,
+  UncontrolledCollapse as UncontrolledCollapse_,
+  UncontrolledCarousel as UncontrolledCarousel_
 } from './lib/Uncontrolled';
 export class UncontrolledAlert<T = {}> extends UncontrolledAlert_<T> {}
 export class UncontrolledButtonDropdown<T = {}> extends UncontrolledButtonDropdown_<T> {}
 export class UncontrolledDropdown<T = {}> extends UncontrolledDropdown_<T> {}
 export class UncontrolledTooltip<T = {}> extends UncontrolledTooltip_<T> {}
+export class UncontrolledCollapse<T = {}> extends UncontrolledCollapse_<T> {}
+export class UncontrolledCarousel<T = {}> extends UncontrolledCarousel_<T> {}
 export {
   UncontrolledButtonDropdownProps,
   UncontrolledAlertProps,
   UncontrolledDropdownProps,
-  UncontrolledTooltipProps
+  UncontrolledTooltipProps,
+  UncontrolledCollapseProps,
+  UncontrolledCarouselProps
 } from './lib/Uncontrolled';

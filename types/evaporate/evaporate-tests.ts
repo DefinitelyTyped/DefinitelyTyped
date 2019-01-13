@@ -25,3 +25,14 @@ Evaporate.create({
                 console.log(awsS3ObjectKey + '!!!');
             });
     });
+
+Evaporate.create({
+    bucket: 'test',
+    computeContentMd5: true,
+    cryptoMd5Method(data: ArrayBuffer) {
+        return '';
+    },
+    cryptoHexEncodedHash256(data: ArrayBuffer | string | null) {
+        return '';
+    },
+});

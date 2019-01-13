@@ -121,10 +121,20 @@ import {
     VariantArgs,
     ButtonStyleProps,
     MixedProps,
+    VerticalAlignProps,
+    verticalAlign,
+    px,
+    createMediaQuery
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 declare const styled: (...props: any[]) => React.ComponentType;
+
+const breakpoints = [480, 960];
+
+const breakpointsPx = breakpoints.map(px);
+
+const mediaQueries = breakpoints.map(createMediaQuery);
 
 const boxStyle = variant({
     prop: 'boxStyle',
@@ -166,7 +176,8 @@ interface BoxProps
         BackgroundSizeProps,
         ColorStyleProps,
         TextStyleProps,
-        MixedProps {
+        MixedProps,
+        VerticalAlignProps {
             boxStyle?: string;
         }
 const Box: React.ComponentType<BoxProps> = styled`
@@ -213,6 +224,7 @@ const Box: React.ComponentType<BoxProps> = styled`
   ${textStyle}
   ${colorStyle}
   ${mixed}
+  ${verticalAlign}
 `;
 
 Box.defaultProps = {
@@ -449,6 +461,8 @@ const test = () => (
             backgroundPosition="center"
             backgroundRepeat="repeat-x"
         />
+        // verticalAlign
+        <Box verticalAlign="middle" />
 
         <TestButton variant="primary" m={2} />
     </div>

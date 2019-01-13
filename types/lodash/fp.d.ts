@@ -2312,25 +2312,25 @@ declare namespace _ {
     type LodashOnce = <T extends (...args: any[]) => any>(func: T) => T;
     interface LodashOrderBy {
         <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>): LodashOrderBy1x1<T>;
-        (iteratees: lodash.__, orders: lodash.Many<boolean|string>): LodashOrderBy1x2;
-        <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>, orders: lodash.Many<boolean|string>): LodashOrderBy1x3<T>;
+        (iteratees: lodash.__, orders: lodash.Many<boolean|"asc"|"desc">): LodashOrderBy1x2;
+        <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>, orders: lodash.Many<boolean|"asc"|"desc">): LodashOrderBy1x3<T>;
         <T>(iteratees: lodash.__, orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy1x4<T>;
         <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>, orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy1x5<T>;
-        <T>(iteratees: lodash.__, orders: lodash.Many<boolean|string>, collection: lodash.List<T> | null | undefined): LodashOrderBy1x6<T>;
-        <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean | string>, collection: lodash.List<T> | null | undefined): T[];
+        <T>(iteratees: lodash.__, orders: lodash.Many<boolean|"asc"|"desc">, collection: lodash.List<T> | null | undefined): LodashOrderBy1x6<T>;
+        <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean | "asc" | "desc">, collection: lodash.List<T> | null | undefined): T[];
         <T>(iteratees: lodash.Many<lodash.ValueIteratee<T>>): LodashOrderBy2x1<T>;
-        <T>(iteratees: lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean|string>): LodashOrderBy2x3<T>;
+        <T>(iteratees: lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean|"asc"|"desc">): LodashOrderBy2x3<T>;
         <T>(iteratees: lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy2x5<T>;
         <T extends object>(iteratees: lodash.__, orders: lodash.__, collection: T | null | undefined): LodashOrderBy3x4<T>;
         <T extends object>(iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid>, orders: lodash.__, collection: T | null | undefined): LodashOrderBy3x5<T>;
-        <T extends object>(iteratees: lodash.__, orders: lodash.Many<boolean|string>, collection: T | null | undefined): LodashOrderBy3x6<T>;
-        <T extends object>(iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.Many<boolean | string>, collection: T | null | undefined): Array<T[keyof T]>;
+        <T extends object>(iteratees: lodash.__, orders: lodash.Many<boolean|"asc"|"desc">, collection: T | null | undefined): LodashOrderBy3x6<T>;
+        <T extends object>(iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.Many<boolean | "asc" | "desc">, collection: T | null | undefined): Array<T[keyof T]>;
         <T extends object>(iteratees: lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.__, collection: T | null | undefined): LodashOrderBy4x5<T>;
     }
     interface LodashOrderBy1x1<T> {
-        (orders: lodash.Many<boolean | string>): LodashOrderBy1x3<T>;
+        (orders: lodash.Many<boolean | "asc" | "desc">): LodashOrderBy1x3<T>;
         (orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy1x5<T>;
-        (orders: lodash.Many<boolean | string>, collection: lodash.List<T> | object | null | undefined): T[];
+        (orders: lodash.Many<boolean | "asc" | "desc">, collection: lodash.List<T> | object | null | undefined): T[];
         <T1 extends object>(orders: lodash.__, collection: T1 | null | undefined): LodashOrderBy3x5<T>;
     }
     interface LodashOrderBy1x2 {
@@ -2347,32 +2347,32 @@ declare namespace _ {
     }
     interface LodashOrderBy1x4<T> {
         (iteratees: lodash.Many<(value: T) => lodash.NotVoid>): LodashOrderBy1x5<T>;
-        (iteratees: lodash.__, orders: lodash.Many<boolean | string>): LodashOrderBy1x6<T>;
-        (iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean | string>): T[];
+        (iteratees: lodash.__, orders: lodash.Many<boolean | "asc" | "desc">): LodashOrderBy1x6<T>;
+        (iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean | "asc" | "desc">): T[];
         (iteratees: lodash.Many<lodash.ValueIteratee<T>>): LodashOrderBy2x5<T>;
     }
-    type LodashOrderBy1x5<T> = (orders: lodash.Many<boolean|string>) => T[];
+    type LodashOrderBy1x5<T> = (orders: lodash.Many<boolean|"asc"|"desc">) => T[];
     type LodashOrderBy1x6<T> = (iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>) => T[];
     interface LodashOrderBy2x1<T> {
-        (orders: lodash.Many<boolean | string>): LodashOrderBy2x3<T>;
+        (orders: lodash.Many<boolean | "asc" | "desc">): LodashOrderBy2x3<T>;
         (orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy2x5<T>;
-        (orders: lodash.Many<boolean | string>, collection: lodash.List<T> | object | null | undefined): T[];
+        (orders: lodash.Many<boolean | "asc" | "desc">, collection: lodash.List<T> | object | null | undefined): T[];
         <T1 extends object>(orders: lodash.__, collection: T1 | null | undefined): LodashOrderBy4x5<T>;
     }
     interface LodashOrderBy2x3<T> {
         (collection: lodash.List<T> | null | undefined): T[];
         (collection: object | null | undefined): object[];
     }
-    type LodashOrderBy2x5<T> = (orders: lodash.Many<boolean|string>) => T[];
+    type LodashOrderBy2x5<T> = (orders: lodash.Many<boolean|"asc"|"desc">) => T[];
     interface LodashOrderBy3x4<T> {
         (iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid>): LodashOrderBy3x5<T>;
-        (iteratees: lodash.__, orders: lodash.Many<boolean | string>): LodashOrderBy3x6<T>;
-        (iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.Many<boolean | string>): Array<T[keyof T]>;
+        (iteratees: lodash.__, orders: lodash.Many<boolean | "asc" | "desc">): LodashOrderBy3x6<T>;
+        (iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.Many<boolean | "asc" | "desc">): Array<T[keyof T]>;
         (iteratees: lodash.Many<lodash.ValueIteratee<T[keyof T]>>): LodashOrderBy4x5<T>;
     }
-    type LodashOrderBy3x5<T> = (orders: lodash.Many<boolean|string>) => Array<T[keyof T]>;
+    type LodashOrderBy3x5<T> = (orders: lodash.Many<boolean|"asc"|"desc">) => Array<T[keyof T]>;
     type LodashOrderBy3x6<T> = (iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>) => Array<T[keyof T]>;
-    type LodashOrderBy4x5<T> = (orders: lodash.Many<boolean|string>) => Array<T[keyof T]>;
+    type LodashOrderBy4x5<T> = (orders: lodash.Many<boolean|"asc"|"desc">) => Array<T[keyof T]>;
     interface LodashOverArgs {
         (func: (...args: any[]) => any): LodashOverArgs1x1;
         (func: lodash.__, transforms: lodash.Many<(...args: any[]) => any>): LodashOverArgs1x2;
