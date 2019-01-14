@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare class Portal extends React.Component<Portal.PortalProps> { }
 export = Portal;
@@ -6,5 +6,7 @@ export = Portal;
 declare namespace Portal {
   interface PortalProps {
     container?: React.ReactNode | Function;
+
+    onRendered?: Function;
   }
 }
