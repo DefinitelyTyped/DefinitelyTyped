@@ -19,6 +19,6 @@
   },
   "files": [
     "index.d.ts",
-    "ROS2D-tests.ts"
+    "ros2d-tests.ts"
   ]
 }
