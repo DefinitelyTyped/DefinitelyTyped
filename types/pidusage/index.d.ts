@@ -53,11 +53,11 @@ declare namespace pidusage {
     type Status = Stat;
 
     /**
-     * If needed this function can be used to clear the event loop. 
-     * Indeed, we're registering an interval to free up the in-memory metrics. 
+     * If needed this function can be used to clear the event loop.
+     * Indeed, we're registering an interval to free up the in-memory metrics.
      * By calling this, it will clear this interval and all delete all in-memory data
      */
-    export function clear(): void;
+    function clear(): void;
 }
 
 export = pidusage;
