@@ -9,19 +9,6 @@
 import { CSSObject, SimpleInterpolation } from "styled-components";
 import { AnimeAnimParams } from "animejs";
 
-export interface AnimeFunction {
-    (config: StyledAnimeParams): React.ComponentClass<
-        StyledAnimeComponentProps
-    >;
-}
-
-export interface StyledFunction {
-    (
-        style: TemplateStringsArray | CSSObject,
-        ...interpolations: SimpleInterpolation[]
-    ): AnimeFunction;
-}
-
 export type Value = {
     value?: string | number;
 } & StyledAnimeParams;
@@ -56,6 +43,19 @@ export interface StyledAnimeComponentProps {
 }
 
 export type StyledAnimeParams = Partial<AnimeAnimParams> & AnimatedProperties;
+
+export interface AnimeFunction {
+    (config: StyledAnimeParams): React.ComponentClass<
+        StyledAnimeComponentProps
+    >;
+}
+
+export interface StyledFunction {
+    (
+        style: TemplateStringsArray | CSSObject,
+        ...interpolations: SimpleInterpolation[]
+    ): AnimeFunction;
+}
 
 export function styledAnime(
     TargetComponent: keyof JSX.IntrinsicElements | React.ComponentType<any>
