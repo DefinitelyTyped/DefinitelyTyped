@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-lifecycles-compat.tsx"
+        "react-lifecycles-compat-tests.ts"
     ]
 }
