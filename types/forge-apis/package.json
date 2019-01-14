@@ -1,0 +1,38 @@
+{
+	"name": "forge-api.typescript",
+	"version": "0.0.1",
+	"homepage": "https://github.com/cyrillef/forge-api.typescript",
+	"author": "Cyrille Fauvel",
+	"contributors": [
+		"Cyrille Fauvel <cyrille@autodesk.com>"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cyrillef/forge-api.typescript.git"
+	},
+	"bugs": {
+		"url": "https://github.com/cyrillef/forge-api.typescript/issues"
+	},
+	"keywords": [
+		"typescript",
+		"forge",
+		"autodesk",
+		"api"
+	],
+	"engines": {
+		"node": ">=8.0.0"
+	},
+	"license": "MIT",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsc"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@types/three": "^0.93.15",
+		"typescript": "^3.2.1",
+		"typings": "^2.1.1"
+	},
+	"optionalDependencies": {}
+}
