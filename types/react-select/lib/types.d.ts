@@ -98,3 +98,15 @@ export type OptionProps = PropsWithInnerRef & {
   onMouseOver: MouseEventHandler,
   value: any,
 };
+
+export interface ThemeSpacing {
+  baseUnit: number;
+  controlHeight: number;
+  menuGutter: number;
+}
+
+export interface Theme {
+  borderRadius: number;
+  colors: { [key: string]: string };
+  spacing: ThemeSpacing;
+}

@@ -44,6 +44,7 @@ console.log(tokens2);
 const re: RegExp | marked.Rules = lexer.rules['code'];
 
 const renderer = new marked.Renderer();
-renderer.heading = (text, level, raw) => {
-    return text + level.toString() + raw;
+const slugger = new marked.Slugger();
+renderer.heading = (text, level, raw, slugger) => {
+    return text + level.toString() + slugger.slug(raw);
 };

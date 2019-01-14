@@ -1,4 +1,4 @@
-// Type definitions for wegame 1.1
+// Type definitions for wegame 2.3
 // Project: https://developers.weixin.qq.com/minigame/dev/index.html
 // Definitions by: J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -59,7 +59,7 @@ declare class Canvas {
      * @param contextType 上下文类型
      * @param contextAttributes webgl 上下文属性，仅当 contextType 为 webgl 时有效
      */
-    getContext(contextType: "2d" | "webgl", contextAttributes: wx.types.RenderingContextConfig): WxRenderingContext | WxWebGLRenderingContext;
+    getContext(contextType: "2d" | "webgl", contextAttributes?: wx.types.RenderingContextConfig): WxRenderingContext | WxWebGLRenderingContext;
     /**
      * 把画布上的绘制内容以一个 data URI 的格式返回
      */
@@ -242,7 +242,7 @@ declare class FileSystemManager {
     getFileInfo(param: wx.types.FileinfoParams): void;
 
     /**
-     * 删除该小程序下已保存的本地缓存文件
+     * 删除该小程序下已保存的本地缓存文件（新版本应使用unlink）
      */
     removeSavedFile(param: wx.types.RemovefileParams): void;
 
@@ -404,7 +404,7 @@ declare class FeedbackButton extends CreatedButton {
 
 declare class OpenDataContext {
     /**
-     * 开放数据域和主域共享的 sharedCanvas
+     * 开放数据域和主域共享的 sharedCanvas，注意在开放数据域内时getContext只能使用2d模式
      */
     canvas: Canvas;
     /**
@@ -1042,7 +1042,7 @@ declare namespace wx {
             complete?: () => void;
         }
 
-        type FileContentEncoding = "ascii" | "base64" | "binary" | "hex" | "ucs2/ucs-2/utf16le/utf-16le" | "utf-8/utf8" | "latin1";
+        type FileContentEncoding = "ascii" | "base64" | "binary" | "hex" | "ucs2" | "ucs-2" | "utf16le" | "utf-16le" | "utf-8" | "utf8" | "latin1";
 
         interface ReadfileParams {
             filePath: string;
@@ -1079,12 +1079,12 @@ declare namespace wx {
             zipFilePath: string;
             targetPath: string;
             success?: () => void;
-            fail?: () => void;
+            fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
 
         interface AccessfileParams {
-            filePath: string;
+            path: string;
             success?: () => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
@@ -1108,7 +1108,7 @@ declare namespace wx {
 
         interface FileinfoParams {
             filePath: string;
-            success?: (res: { size: number }) => void;
+            success?: (res: { size: number, digest: string }) => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
@@ -1153,6 +1153,7 @@ declare namespace wx {
             width: number;
             height: number;
             onload: () => void;
+            onerror: (e?: any) => void;
         }
 
         // --启动参数
@@ -1318,12 +1319,19 @@ declare namespace wx {
         interface DownfileParams {
             url: string;
             /**
+             * 在指定filePath之后success回调中将不会有res.tempFilePath路径值，下载的文件会直接写入filePath指定的路径（有写入权限的情况下，根目录请使用wx.env.USER_DATA_PATH，路径文件夹必须存在，否则写入失败）
+             */
+            filePath?: string;
+            /**
              * 	HTTP 请求的 Header，Header 中不能设置 Referer
              */
-            header: { [key: string]: string };
-            filePath: string;
+            header?: { [key: string]: string };
+            /**
+             * res.tempFilePath 临时文件路径。如果没传入 filePath 指定文件存储路径，则下载后的文件会存储到一个临时文件
+             * res.statusCode 开发者服务器返回的 HTTP 状态码
+             */
             success?: (res: { tempFilePath: string, statusCode: number }) => void;
-            fail?: () => void;
+            fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
 
@@ -1355,7 +1363,7 @@ declare namespace wx {
             /**
              * res.data usually can be string or ArrayBuffer
              */
-            success?: (res: { data: any, statusCode: number, header: { [key: string]: string } }) => void;
+            success?: (res: { data: any, statusCode: number, header?: { [key: string]: string } }) => void;
             fail?: () => void;
             complete?: () => void;
         }
@@ -1389,7 +1397,7 @@ declare namespace wx {
             complete?: () => void;
         }
 
-        type SocketOpenCallback = (res: { header: { [key: string]: string } }) => void;
+        type SocketOpenCallback = (res: { header?: { [key: string]: string } }) => void;
         type SocketMessageCallback = (res: { data: string | ArrayBuffer }) => void;
         type SocketErrorCallback = (res: { errMsg: string }) => void;
 
@@ -1566,7 +1574,7 @@ declare namespace wx {
              */
             imageUrl?: string;
             /**
-             * 查询字符串，必须是 key1=val1&key2=val2 的格式。从这条转发消息进入后，可通过 wx.onLaunch() 或 wx.onShow 获取启动参数中的 query。
+             * 查询字符串，必须是 key1=val1&key2=val2 的格式。从这条转发消息进入后，可通过 wx.getLaunchOptionsSync() 或 wx.onShow 获取启动参数中的 query。
              */
             query?: string;
         }
@@ -1801,6 +1809,16 @@ declare namespace wx {
 
     // --文件系统
     function getFileSystemManager(): FileSystemManager;
+
+    /**
+     * 系统环境变量
+     */
+    const env: {
+        /**
+         * 用户下载数据根目录
+         */
+        USER_DATA_PATH: string
+    };
 
     // --位置
     /**
@@ -2208,15 +2226,15 @@ declare namespace wx {
     /**
      * 监听用户点击右上角菜单的“转发”按钮时触发的事件
      */
-    function onShareAppMessage(cb: (data: types.ShareOption) => void): void;
+    function onShareAppMessage(cb: () => types.ShareOption): void;
     /**
      * 取消监听用户点击右上角菜单的“转发”按钮时触发的事件
      */
-    function offShareAppMessage(cb: (data: types.ShareOption) => void): void;
+    function offShareAppMessage(cb: () => types.ShareOption): void;
     /**
      * 显示当前页面的转发按钮
      */
-    function showShareMenu(param: {
+    function showShareMenu(param?: {
         /**
          * 是否使用带 shareTicket 的转发
          */

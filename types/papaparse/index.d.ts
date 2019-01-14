@@ -6,6 +6,8 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Alberto Restifo <https://github.com/albertorestifo>
 //                 Behind The Math <https://github.com/BehindTheMath>
+//                 3af <https://github.com/3af>
+//                 Janne Liuhtonen <https://github.com/jliuhtonen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -22,7 +24,7 @@ export function parse(file: File, config?: ParseConfig): ParseResult;
 
 export function parse(stream: NodeJS.ReadableStream, config?: ParseConfig): ParseResult;
 
-export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): NodeJS.ReadableStream;
+export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): NodeJS.ReadWriteStream;
 
 /**
  * Unparses javascript data objects and returns a csv string
@@ -49,7 +51,8 @@ export const UNIT_SEP: string;
 export const WORKERS_SUPPORTED: boolean;
 
 // The relative path to Papa Parse. This is automatically detected when Papa Parse is loaded synchronously.
-export const SCRIPT_PATH: string;
+// Assign it a value to override auto-detected path.
+export let SCRIPT_PATH: string;
 
 // When passed to Papa Parse a Readable stream is returned.
 export const NODE_STREAM_INPUT = 1;
@@ -93,13 +96,14 @@ export interface ParseConfig {
     newline?: string;              // default: "\r\n"
     quoteChar?: string;            // default: '"'
     header?: boolean;              // default: false
+    trimHeaders?: boolean;         // default: false
     dynamicTyping?: boolean;       // default: false
     preview?: number;              // default: 0
     encoding?: string;             // default: ""
     worker?: boolean;              // default: false
     comments?: boolean | string;   // default: false
     download?: boolean;            // default: false
-    skipEmptyLines?: boolean;      // default: false
+    skipEmptyLines?: boolean | 'greedy';      // default: false
     fastMode?: boolean;            // default: undefined
     withCredentials?: boolean;     // default: undefined
 
@@ -109,6 +113,7 @@ export interface ParseConfig {
     error?(error: ParseError, file?: File): void;       // default: undefined
     chunk?(results: ParseResult, parser: Parser): void; // default: undefined
     beforeFirstChunk?(chunk: string): string | void;    // default: undefined
+    transform?(value: string, field: string | number): any; // default: undefined
 }
 
 export interface UnparseConfig {
@@ -138,6 +143,7 @@ export interface ParseMeta {
     aborted: boolean;      // Whether process was aborted
     fields: Array<string>; // Array of field names
     truncated: boolean;    // Whether preview consumed all input
+    cursor: number;
 }
 
 /**

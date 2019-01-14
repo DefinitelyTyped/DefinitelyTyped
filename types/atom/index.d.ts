@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.28
+// Type definitions for Atom 1.31
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.28.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.31.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -2415,11 +2415,7 @@ export class TextEditor {
 
     // Gutters
     /** Add a custom Gutter. */
-    addGutter(options: {
-        name: string,
-        priority?: number,
-        visible?: boolean,
-    }): Gutter;
+    addGutter(options: GutterOptions): Gutter;
 
     /** Get this editor's gutters. */
     getGutters(): Gutter[];
@@ -2457,6 +2453,74 @@ export class TextEditor {
 
     /** Undocumented: Get syntax token at buffer position */
     tokenForBufferPosition(pos: PointCompatible): {value: string, scopes: string[]};
+}
+
+export interface GutterOptions {
+    /** (required) A unique String to identify this gutter. */
+    name: string;
+
+    /**
+     * A Number that determines stacking order between gutters.
+     * Lower priority items are forced closer to the edges of the window. (default: -100)
+     */
+    priority?: number;
+
+    /**
+     * Boolean specifying whether the gutter is visible initially after being created.
+     * (default: true)
+     */
+    visible?: boolean;
+
+    /**
+     * String specifying the type of gutter to create.
+     * 'decorated' gutters are useful as a destination for decorations created with
+     * Gutter::decorateMarker.
+     * 'line-number' gutters.
+     */
+    type?: 'decorated' | 'line-number';
+
+    /** String added to the CSS classnames of the gutter's root DOM element. */
+    class?: string;
+
+    /**
+     * Function called by a 'line-number' gutter to generate the label for each
+     * line number element. Should return a String that will be used to label the
+     * corresponding line.
+     */
+    labelFn?: (lineData: LineDataExtended) => string;
+
+    /**
+     * Function to be called when a mousedown event is received by a line-number
+     * element within this type: 'line-number' Gutter. If unspecified, the default
+     * behavior is to select the clicked buffer row.
+     */
+    onMouseDown?: (lineData: LineData) => void;
+
+    /**
+     * Function to be called when a mousemove event occurs on a line-number
+     * element within within this type: 'line-number' Gutter.
+     */
+    onMouseMove?: (lineData: LineData) => void;
+}
+
+export interface LineData {
+    /** Number indicating the zero-indexed buffer index of a line. */
+    bufferRow: number;
+
+    /** Number indicating the zero-indexed screen index. */
+    screenRow: number;
+}
+
+/** Object containing information about each line to label. */
+export interface LineDataExtended extends LineData {
+    /** Boolean that is true if a fold may be created here. */
+    foldable: boolean;
+
+    /** Boolean if this screen row is the soft-wrapped continuation of the same buffer row. */
+    softWrapped: boolean;
+
+    /** Number the maximum number of digits necessary to represent any known screen row. */
+    maxDigits: number;
 }
 
 export interface PixelPosition {
@@ -4497,6 +4561,12 @@ export interface Project {
      */
     getRepositories(): GitRepository[];
 
+    /** Invoke the given callback with all current and future repositories in the project. */
+    observeRepositories(callback: (repository: GitRepository) => void): Disposable;
+
+    /** Invoke the given callback when a repository is added to the project. */
+    onDidAddRepository(callback: (repository: GitRepository) => void): Disposable;
+
     /** Get the repository for a given directory asynchronously. */
     repositoryForDirectory(directory: Directory): Promise<GitRepository|null>;
 
@@ -5844,7 +5914,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.28.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.31.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under

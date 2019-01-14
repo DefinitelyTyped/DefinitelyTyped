@@ -8,6 +8,7 @@
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
+//                 Mei Qingguang <https://github.com/meikidd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,7 +33,7 @@
  * @return A player instance
  */
 declare function videojs(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
-export = videojs;
+export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
@@ -4379,7 +4380,7 @@ declare namespace videojs {
 		 *
 		 * @fires Player#fullscreenchange
 		 */
-		requestFullScreen(): Player;
+		requestFullscreen(): Player;
 
 		/**
 		 * Report user activity
@@ -4394,6 +4395,20 @@ declare namespace videojs {
 		 * and calls `reset` on the tech`.
 		 */
 		reset(): void;
+
+		/**
+		 * Returns whether or not the player is in the "seeking" state.
+		 *
+		 * @return boolean True if the player is in the seeking state, false if not.
+		 */
+		seeking(): boolean;
+
+		/**
+		 * Returns the TimeRanges of the media that are currently available for seeking to.
+		 *
+		 * @return TimeRanges Returns the TimeRanges of the media that are currently available for seeking to.
+		 */
+		 seekable(): TimeRanges;
 
 		/**
 		 * Select source based on tech-order or source-order

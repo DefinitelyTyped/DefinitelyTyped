@@ -7,7 +7,7 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-class TestComponent extends React.Component { }
+class TestComponent extends React.Component<{x: string}> { }
 
 describe('ReactDOM', () => {
     it('render', () => {

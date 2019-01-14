@@ -193,6 +193,10 @@ declare namespace MathJax {
         * below. The options and their default values are given in the Core Options reference page.
         */
         config?: Config;
+        /*The pause (in milliseconds) between input and output phases of MathJax’s processing. Set this to 0 to avoid
+        * jitter when updating output frequently (e.g., in a live preview environment).
+        */
+        processSectionDelay?: number;
         /*The minimum time (in milliseconds) between updates of the “Processing Math” message. After this amount of time
         * has passed, and after the next equation has finished being processed, MathJax will stop processing momentarily
         * so that the update message can be displayed, and so that the browser can handle user interaction.

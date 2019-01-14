@@ -4,6 +4,8 @@
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 JounQin <https://github.com/JounQin>
 //                 Romain Faust <https://github.com/romain-faust>
+//                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
+//                 Andrea Gueugnaut <https://github.com/falinor>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,12 +18,6 @@
 
 
 import * as Koa from "koa";
-
-declare module "koa" {
-    interface Context {
-        params: any;
-    }
-}
 
 declare namespace Router {
     export interface IRouterOptions {
@@ -59,11 +55,11 @@ declare namespace Router {
     }
 
     export interface IMiddleware {
-        (ctx: Router.IRouterContext, next: () => Promise<any>): any;
+        (ctx: Koa.ParameterizedContext<{}, IRouterContext>, next: () => Promise<any>): any;
     }
 
     export interface IParamMiddleware {
-        (param: string, ctx: Router.IRouterContext, next: () => Promise<any>): any;
+        (param: string, ctx: Koa.ParameterizedContext<{}, IRouterContext>, next: () => Promise<any>): any;
     }
 
     export interface IRouterAllowedMethodsOptions {
@@ -85,6 +81,16 @@ declare namespace Router {
         name: string;
         sensitive?: boolean;
         strict?: boolean;
+    }
+
+    export interface IUrlOptionsQuery {
+        query: object | string;
+    }
+
+    export interface IRoutesMatch {
+        path: Layer[];
+        pathAndMethod: Layer[];
+        route: boolean;
     }
 
     export class ParamName {
@@ -165,55 +171,68 @@ declare class Router {
      * HTTP get method
      */
     get(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    get(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    get(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP post method
      */
     post(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    post(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    post(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP put method
      */
     put(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    put(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    put(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * HTTP link method
+     */
+    link(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    link(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * HTTP unlink method
+     */
+    unlink(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    unlink(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+
 
     /**
      * HTTP delete method
      */
     delete(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    delete(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    delete(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * Alias for `router.delete()` because delete is a reserved word
      */
     del(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    del(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    del(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP head method
      */
     head(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    head(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    head(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP options method
      */
     options(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    options(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    options(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP path method
      */
     patch(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    patch(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    patch(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * Register route with all methods.
      */
     all(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    all(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    all(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * Set the path prefix for a Router instance that was already initialized.
@@ -258,14 +277,29 @@ declare class Router {
     /**
      * Generate URL for route. Takes either map of named `params` or series of
      * arguments (for regular expression routes)
+     *
+     * router = new Router();
+     * router.get('user', "/users/:id", ...
+     *
+     * router.url('user', { id: 3 });
+     * // => "/users/3"
+     *
+     * Query can be generated from third argument:
+     *
+     * router.url('user', { id: 3 }, { query: { limit: 1 } });
+     * // => "/users/3?limit=1"
+     *
+     * router.url('user', { id: 3 }, { query: "limit=1" });
+     * // => "/users/3?limit=1"
+     *
      */
-    url(name: string, params: Object): string;
-    url(name: string, params: Object): Error;
+    url(name: string, params: any, options?: Router.IUrlOptionsQuery): string;
+    url(name: string, params: any, options?: Router.IUrlOptionsQuery): Error;
 
     /**
      * Match given `path` and return corresponding routes.
      */
-    match(name: string, method: string): Object;
+    match(path: string, method: string): Router.IRoutesMatch;
 
     /**
      * Run middleware for named route parameters. Useful for auto-loading or validation.

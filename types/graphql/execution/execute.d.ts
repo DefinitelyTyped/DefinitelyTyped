@@ -127,11 +127,6 @@ export function buildExecutionContext(
 ): ReadonlyArray<GraphQLError> | ExecutionContext;
 
 /**
- * Extracts the root type of the operation from the schema.
- */
-export function getOperationRootType(schema: GraphQLSchema, operation: OperationDefinitionNode): GraphQLObjectType;
-
-/**
  * Given a selectionSet, adds all of the fields in that selection to
  * the passed in map of fields, and returns it at the end.
  *

@@ -136,7 +136,7 @@ export class SourceCode {
 
     isSpaceBetweenTokens(first: AST.Token, second: AST.Token): boolean;
 
-    getLocFromIndex(index: number): ESTree.SourceLocation;
+    getLocFromIndex(index: number): ESTree.Position;
 
     getIndexFromLoc(location: ESTree.Position): number;
 
@@ -471,7 +471,7 @@ export class CLIEngine {
 
     isPathIgnored(filePath: string): boolean;
 
-    getFormatter(format: string): CLIEngine.Formatter;
+    getFormatter(format?: string): CLIEngine.Formatter;
 
     getRules(): Map<string, Rule.RuleModule>;
 

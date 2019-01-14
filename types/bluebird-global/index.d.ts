@@ -29,6 +29,26 @@
  * Promises with the Bluebird promises. You can avoid this problem by just settling on using either
  * of them and not both of them at the same time.
  *
+ * 1.2. Further limitations of `bluebird-global` typings: the return type of Bluebird's methods.
+ *
+ * Due to the fact of how bluebird-specific methods are exposed on the global Promise, the
+ * return type of those methods is Bluebird<T> instead of Promise<T>. This is relevant in the
+ * following case:
+ *
+ *   function createDelayedPromise(): Promise<void> {
+ *     return Promise.delay(250);
+ *   }
+ *
+ * Since Promise.delay() returns a Bluebird<void> and the function is typed to return a Promise<void>,
+ * an implicit cast is performed from Bluebird<void> to Promise<void>. And since an instance
+ * of Bluebird isn't and instance of Promise (due to how `bluebird-global` works), this implicit
+ * cast fails to compile. In order to walk-around this problem, the following explicit cast should
+ * be used:
+ *
+ *   function createDelayedPromise(): Promise<void> {
+ *     return <Promise<void>> Promise.delay(250);
+ *   }
+ *
  * 2. How to use it?
  *
  * It should just work, but there are a couple of points to be wary about:

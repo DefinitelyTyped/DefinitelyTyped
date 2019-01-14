@@ -1,7 +1,7 @@
 import Maybe from "../tsutils/Maybe";
 import { GraphQLObjectType } from "./definition";
 import { GraphQLType, GraphQLNamedType, GraphQLAbstractType } from "./definition";
-import { SchemaDefinitionNode } from "../language/ast";
+import { SchemaDefinitionNode, SchemaExtensionNode } from "../language/ast";
 import { GraphQLDirective } from "./directives";
 
 /**
@@ -37,6 +37,7 @@ export function isSchema(schema: any): schema is GraphQLSchema;
  */
 export class GraphQLSchema {
     astNode: Maybe<SchemaDefinitionNode>;
+    extensionASTNodes: Maybe<ReadonlyArray<SchemaExtensionNode>>;
 
     constructor(config: GraphQLSchemaConfig);
 
@@ -70,8 +71,7 @@ export interface GraphQLSchemaValidationOptions {
      * in this list valid, even if they do not adhere to the specification's
      * schema validation rules.
      *
-     * This option is provided to ease adoption and may be removed in a future
-     * major release.
+     * This option is provided to ease adoption and will be removed in v15.
      */
     allowedLegacyNames?: Maybe<ReadonlyArray<string>>;
 }
@@ -83,4 +83,5 @@ export interface GraphQLSchemaConfig extends GraphQLSchemaValidationOptions {
     types?: Maybe<GraphQLNamedType[]>;
     directives?: Maybe<GraphQLDirective[]>;
     astNode?: Maybe<SchemaDefinitionNode>;
+    extensionASTNodes?: Maybe<ReadonlyArray<SchemaExtensionNode>>;
 }

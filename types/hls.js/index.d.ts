@@ -1,8 +1,9 @@
-// Type definitions for hls.js 0.10
+// Type definitions for hls.js 0.12
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
+//                 Johan Brook <https://github.com/brookback>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 // Event Keys
 type K_MEDIA_ATTACHING = "hlsMediaAttaching";
@@ -307,6 +308,16 @@ declare namespace Hls {
 
     // interface SubtitleTracks {}
 
+    type CustomLogger = (...args: any[]) => void;
+
+    interface CustomLoggerObject {
+        warn?: CustomLogger;
+        info?: CustomLogger;
+        log?: CustomLogger;
+        debug?: CustomLogger;
+        error?: CustomLogger;
+    }
+
     interface Config {
         /**
          * (default: false)
@@ -319,7 +330,7 @@ declare namespace Hls {
          * setting config.debug = true; will turn on debug logs on JS console.
          * a logger object could also be provided for custom logging: config.debug = customLogger;
          */
-        debug: boolean;
+        debug: boolean | CustomLoggerObject;
         /**
          * (default: true)
          * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
@@ -476,6 +487,14 @@ declare namespace Hls {
          */
         liveDurationInfinity: boolean;
         /**
+         * (default: Infinity)
+         * Sets the maximum length of the buffer, in seconds, to keep during a live stream. Any video
+         * buffered past this time will be evicted. Infinity means no restriction on back buffer length;
+         * 0 keeps the minimum amount. The minimum amount is equal to the target duration of a segment
+         * to ensure that current playback is not interrupted.
+         */
+        liveBackBufferLength: number;
+        /**
          * (default: true)
          * Enable WebWorker (if available on browser) for TS demuxing/MP4 remuxing, to improve performance and avoid lag/frame drops.
          */
@@ -567,7 +586,7 @@ declare namespace Hls {
          * (default: false)
          * Start prefetching start fragment although media not attached yet. Max number of append retries.
          */
-        startFragPrefech: boolean;
+        startFragPrefetch: boolean;
         /**
          * (default: 3)
          * Max number of sourceBuffer.appendBuffer() retry upon error. Such error could happen in loop with UHD streams, when internal buffer is full. (Quota Exceeding Error will be triggered).

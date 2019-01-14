@@ -8,9 +8,8 @@ import {
 import { Index, IndexRange, Alignment } from "../../index";
 import { CellMeasurerCache, CellPosition } from "./CellMeasurer";
 
-export type ListRowProps = GridCellProps & {
-    index: number;
-    style: React.CSSProperties;
+export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, 'rowIndex'>> & {
+    index: GridCellProps['rowIndex'];
 };
 
 export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;

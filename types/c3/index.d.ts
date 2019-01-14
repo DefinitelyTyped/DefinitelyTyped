@@ -807,6 +807,10 @@ export interface ZoomOptions {
      */
     enabled?: boolean;
     /**
+     * Set interaction type for zooming
+     */
+    type?: 'scroll' | 'drag';
+    /**
      * Enable to rescale after zooming. If true set, y domain will be updated according to the zoomed region.
      */
     rescale?: boolean;

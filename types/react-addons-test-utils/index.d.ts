@@ -160,11 +160,11 @@ declare namespace TestUtils {
         root: Component<any>,
         tagName: string): Element;
 
-    export function scryRenderedComponentsWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+    export function scryRenderedComponentsWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
         type: ClassType<any, T, C>): T[];
 
-    export function findRenderedComponentWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+    export function findRenderedComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
         type: ClassType<any, T, C>): T;
 

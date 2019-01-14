@@ -61,6 +61,11 @@ export interface OperationDefaults {
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// Constants
+// ~~~~~~~~~~~~~~~~~~~~~
+export const ROOT_ID: string;
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // RelayQL
 // ~~~~~~~~~~~~~~~~~~~~~
 export type RelayQL = (strings: string[], ...substitutions: any[]) => RelayConcreteNode;
@@ -134,6 +139,24 @@ export type SubscribeFunction = (
 ) => RelayObservable<QueryPayload> | Disposable;
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// RelayQueryResponseCache
+// Version: Relay 1.3.0
+// File: https://github.com/facebook/relay/blob/master/packages/relay-runtime/network/RelayQueryResponseCache.js
+// ~~~~~~~~~~~~~~~~~~~~~
+
+/**
+ * A cache for storing query responses, featuring:
+ * - `get` with TTL
+ * - cache size limiting, with least-recently *updated* entries purged first
+ */
+export class QueryResponseCache {
+    constructor(options: {size: number; ttl: number});
+    clear(): void;
+    get(queryID: string, variables: Variables): QueryPayload | null;
+    set(queryID: string, variables: Variables, payload: QueryPayload): void;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // RelayStoreTypes
 // Version: Relay 1.3.0
 // File: https://github.com/facebook/relay/blob/master/packages/relay-runtime/store/RelayStoreTypes.js
@@ -189,7 +212,7 @@ export interface RecordProxy {
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    get(dataID: DataID): Array<RecordProxy | null> | null;
+    get(dataID: DataID): RecordProxy | null;
     getRoot(): RecordProxy;
 }
 
@@ -1010,7 +1033,7 @@ export type Observable<T> = RelayObservable<T>;
 // commitLocalUpdate
 // ~~~~~~~~~~~~~~~~~~~~~
 // exposed through RelayModern, not Runtime directly
-export type commitLocalUpdate = (environment: Environment, updater: StoreUpdater) => void;
+export function commitLocalUpdate(environment: Environment, updater: StoreUpdater): void;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitRelayModernMutation

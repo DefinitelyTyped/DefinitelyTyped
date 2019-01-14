@@ -7,7 +7,6 @@ import {
     FormName,
     GenericForm,
     FormSection,
-    GenericFormSection,
     formValues,
     formValueSelector,
     Field,
@@ -24,7 +23,8 @@ import {
     FormAction,
     actionTypes,
     submit,
-    SubmissionError
+    SubmissionError,
+    FieldArrayFieldsProps
 } from "redux-form";
 import {
     Field as ImmutableField,
@@ -100,8 +100,8 @@ const ItemListObj = formValues({ fooBar : "foo" })(
 interface MyFormSectionProps {
     foo: string;
 }
-const MyFormSection: React.StatelessComponent<MyFormSectionProps> = ({ children }) => null;
-const FormSectionCustom = FormSection as new () => GenericFormSection<MyFormSectionProps>;
+
+const MyFormSection: React.StatelessComponent<MyFormSectionProps> = ({ children, foo }) => null;
 
 /* Custom Field */
 
@@ -230,6 +230,14 @@ const testFormWithInitialValuesAndValidationDecorator = reduxForm<MultivalueForm
     }
 });
 
+const testFormWithChangeFunctionDecorator = reduxForm<TestFormData, TestFormComponentProps>({
+    form: "testWithValidation",
+    onChange: (values: Partial<TestFormData>,
+        dispatch: Dispatch<any>,
+        props: TestFormComponentProps & InjectedFormProps<TestFormData, TestFormComponentProps>,
+        previousValues: Partial<TestFormData>) => {}
+});
+
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm<TestFormData>({
     form : "test"
@@ -244,10 +252,10 @@ const Test = reduxForm<TestFormData>({
             return (
                 <div>
                     <FormCustom onSubmit={ handleSubmit(this.handleSubmitForm) }>
-                        <FormSectionCustom
-                            name="test1"
-                            component={ MyFormSection }
-                            foo="bar"
+                        <FormSection<MyFormSectionProps>
+                            name="my-section"
+                            component={MyFormSection}
+                            foo="hello"
                         />
 
                         <FormSection name="test2">
@@ -270,8 +278,8 @@ const Test = reduxForm<TestFormData>({
                             <Field
                                 name="field4"
                                 component="input"
-                                onChange={(event, newValue, previousValue) => {}}
-                                onBlur={(event, newValue, previousValue) => {}}
+                                onChange={(event, newValue, previousValue, fieldName) => {}}
+                                onBlur={(event, newValue, previousValue, fieldName) => {}}
                             />
 
                             <ImmutableField
@@ -307,7 +315,7 @@ const Test = reduxForm<TestFormData>({
                                 foo="bar"
                             />
 
-                            <FieldArray
+                            <FieldArray<{}>
                                 name="field9"
                                 component={ MyArrayField }
                             />

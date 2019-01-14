@@ -12,9 +12,15 @@ const errorFunction = (error: string) => {
     const myError = error;
 };
 
-// example is from https://github.com/rchipka/node-osmosis#example
+const doneFunction = () => {};
+
+// modified example from https://github.com/rchipka/node-osmosis#example
 
 osmosis
+    .config({ headers: { 'test-header-name': 'test-header-value' } })
+    .headers({ 'test-header-name': 'test-header-value' })
+    .header('test-header-name', 'test-header-value')
+    .cookie('test-cookie-name', 'test-cookie-value')
     .get('www.craigslist.org/about/sites')
     .find('h1 + div a')
     .set('location')
@@ -39,4 +45,5 @@ osmosis
     })
     .log(logFunction)
     .error(errorFunction)
-    .debug(debugFunction);
+    .debug(debugFunction)
+    .done(doneFunction);

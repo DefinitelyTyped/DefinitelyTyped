@@ -74,6 +74,8 @@ import {
   UncontrolledButtonDropdown,
   UncontrolledDropdown,
   UncontrolledTooltip,
+  UncontrolledCollapse,
+  UncontrolledCarousel,
   TabContent,
   Table,
   Tag,
@@ -276,6 +278,14 @@ const Example13 = (
     <Button color="secondary" size="lg" disabled>Button</Button>
   </div>
 );
+
+interface CustomButtonProps extends ButtonProps {
+  customProp: string;
+}
+// NOTE: not adding the <{}> causes the generic parameter to be a spread type of CustomButtonProps,
+// for some reason this causes children to be inferred as being 'ReactNode & {}' which makes the spread
+// invalid. TS3.2 bug?
+const CustomButton: React.SFC<CustomButtonProps> = props => <Button<{}> {...props}/>;
 
 class Example14 extends React.Component<any, any> {
   state: any;
@@ -3741,10 +3751,11 @@ function Example117() {
     <UncontrolledButtonDropdown ref={ref}/>;
     <UncontrolledDropdown ref={ref}/>;
     <UncontrolledTooltip ref={ref} target={null as any}/>;
+    <UncontrolledCollapse ref={ref} target={null as any}/>;
 }
 
 function Example118() {
-    const ref: string | ((e: any) => void) | React.RefObject<any> = null as any;
+    const ref: React.Ref<any> = React.createRef();
 
     <Button innerRef={ref}/>;
     <CardLink innerRef={ref}/>;
@@ -3757,7 +3768,7 @@ import { default as Alert_ } from './lib/Alert'; /* tslint:disable-line: no-rela
 import { default as Badge_ } from './lib/Badge'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Breadcrumb_ } from './lib/Breadcrumb'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as BreadcrumbItem_ } from './lib/BreadcrumbItem'; /* tslint:disable-line: no-relative-import-in-test */
-import { default as Button_ } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Button_, ButtonProps } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonDropdown_ } from './lib/ButtonDropdown'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonGroup_ } from './lib/ButtonGroup'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonToolbar_ } from './lib/ButtonToolbar'; /* tslint:disable-line: no-relative-import-in-test */
@@ -3831,6 +3842,7 @@ import { UncontrolledAlert as UncontrolledAlert_ } from './lib/Uncontrolled'; /*
 import { UncontrolledButtonDropdown as UncontrolledButtonDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledDropdown as UncontrolledDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledTooltip as UncontrolledTooltip_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledCollapse as UncontrolledCollapse_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 
 function AnyPropExample() {
   return (
@@ -3913,6 +3925,7 @@ function AnyPropExample() {
       <UncontrolledButtonDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledTooltip_ foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapse_ foo={1} bar={false} foobar="example" target="" />
     </React.Fragment >
   );
 }
@@ -4000,6 +4013,7 @@ class UncontrolledAlertGeneric extends UncontrolledAlert<GenericInterface> {}
 class UncontrolledButtonDropdownGeneric extends UncontrolledButtonDropdown<GenericInterface> {}
 class UncontrolledDropdownGeneric extends UncontrolledDropdown<GenericInterface> {}
 class UncontrolledTooltipGeneric extends UncontrolledTooltip<GenericInterface> {}
+class UncontrolledCollapseGeneric extends UncontrolledCollapse<GenericInterface> {}
 
 function GenericPropExample() {
   return (
@@ -4082,6 +4096,7 @@ function GenericPropExample() {
       <UncontrolledButtonDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledTooltipGeneric foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapseGeneric foo={1} bar={false} foobar="example" target="" />
     </React.Fragment >
   );
 }
@@ -4263,4 +4278,48 @@ class Example122 extends React.Component<any, any> {
       </Dropdown>
     );
   }
+}
+
+function Example123() {
+  return(
+    <div>
+      <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
+        Toggle
+      </Button>
+      <UncontrolledCollapse toggler="#toggler">
+        <Card>
+          <CardBody>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+            similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+            dignissimos esse fuga! Minus, alias.
+          </CardBody>
+        </Card>
+      </UncontrolledCollapse>
+    </div>
+  );
+}
+
+function Example124()  {
+  // https://reactstrap.github.io/components/carousel/
+  const items = [
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 1',
+      caption: 'Slide 1'
+    },
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 2',
+      caption: 'Slide 2'
+    },
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 3',
+      caption: 'Slide 3'
+    }
+  ];
+
+  return (
+    <UncontrolledCarousel items={items} />
+  );
 }

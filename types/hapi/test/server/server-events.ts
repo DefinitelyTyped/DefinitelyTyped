@@ -14,7 +14,7 @@ const server = new Server({
 });
 
 server.events.on('route', route => {
-    console.log(route.path, route.method);
+    console.log(route.path, route.vhost, route.realm, route.method, route.settings, route.fingerprint);
 });
 
 server.event('test');

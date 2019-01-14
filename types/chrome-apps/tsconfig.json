@@ -1,10 +1,6 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es2017",
-            "dom"
-        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -12,6 +8,10 @@
         "baseUrl": "../",
         "typeRoots": [
             "../"
+        ],
+        "lib": [
+            "es2017",
+            "dom"
         ],
         "types": [],
         "noEmit": true,

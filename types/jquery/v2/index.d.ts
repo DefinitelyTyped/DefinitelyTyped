@@ -592,6 +592,7 @@ interface BaseJQueryEventObject extends Event {
     pageY: number;
     /**
      * For key or mouse events, this property indicates the specific key or button that was pressed.
+     * @deprecated Use `key` for KeyEvents or `button` for MouseEvents instead.
      * @see {@link https://api.jquery.com/event.which/}
      */
     which: number;
@@ -622,9 +623,12 @@ interface JQueryMouseEventObject extends JQueryInputEventObject {
 }
 
 interface JQueryKeyEventObject extends JQueryInputEventObject {
-    char: any;
+    /** @deprecated */
+    char: string;
+    /** @deprecated */
     charCode: number;
-    key: any;
+    key: string;
+    /** @deprecated */
     keyCode: number;
 }
 
@@ -824,7 +828,7 @@ interface JQueryStatic {
      * @see {@link https://api.jquery.com/jQuery.ajaxTransport/}
      */
     ajaxTransport(dataType: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
-    
+
     ajaxSettings: JQueryAjaxSettings;
 
      /**
@@ -1402,16 +1406,6 @@ interface JQueryStatic {
      * @see {@link https://api.jquery.com/jQuery.unique/}
      */
     unique<T extends Element>(array: T[]): T[];
-
-    /**
-     * Parses a string into an array of DOM nodes.
-     *
-     * @param data HTML string to be parsed
-     * @param context DOM element to serve as the context in which the HTML fragment will be created
-     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
-     * @see {@link https://api.jquery.com/jQuery.parseHTML/}
-     */
-    parseHTML(data: string, context?: HTMLElement, keepScripts?: boolean): any[];
 
     /**
      * Parses a string into an array of DOM nodes.
@@ -3286,7 +3280,7 @@ interface JQuery {
      * @name toArray
      * @see {@link https://api.jquery.com/toArray/}
      */
-    toArray(): HTMLElement[];
+    toArray(): Element[];
 
     /**
      * Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.
@@ -3353,13 +3347,13 @@ interface JQuery {
      * @param index A zero-based integer indicating which element to retrieve.
      * @see {@link https://api.jquery.com/get/#get-index}
      */
-    get(index: number): HTMLElement;
+    get(index: number): Element;
     /**
      * Retrieve the elements matched by the jQuery object.
      * @alias toArray
      * @see {@link https://api.jquery.com/get/#get}
      */
-    get(): HTMLElement[];
+    get(): Element[];
 
     /**
      * Search for a given element from among the matched elements.
@@ -3385,7 +3379,7 @@ interface JQuery {
      * @see {@link https://api.jquery.com/selector/}
      */
     selector: string;
-    [index: number]: HTMLElement;
+    [index: number]: Element;
 
     /**
      * Add elements to the set of matched elements.

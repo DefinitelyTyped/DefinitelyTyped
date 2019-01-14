@@ -1396,10 +1396,10 @@ declare namespace SPClientTemplates {
         /** Template overrides */
         Templates?: TemplateOverrides;
 
-        /** �allbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
+        /** Callbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPreRender?: RenderCallback | RenderCallback[];
 
-        /** �allbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
+        /** Callbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPostRender?: RenderCallback | RenderCallback[];
 
         /** View style (SPView.StyleID) for which the templates should be applied.
@@ -3639,7 +3639,7 @@ declare namespace SP {
         get_baseTemplate(): number;
         /** Gets base type for the list. */
         get_baseType(): SP.BaseType;
-        /** Gets a value that specifies the override of the web application�s BrowserFileHandling property at the list level. */
+        /** Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. */
         get_browserFileHandling(): SP.BrowserFileHandling;
         /** Gets the content types that are associated with the list. */
         get_contentTypes(): SP.ContentTypeCollection;
@@ -6145,10 +6145,10 @@ declare namespace SP {
             get_name(): string;
             /** Provides the attachment name. */
             set_name(value: string): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             get_previewUri(): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             set_previewUri(value: string): string;
             /** Provides the attachment URI. */
@@ -7556,7 +7556,7 @@ declare namespace SP {
 
         /** Provides methods for operations related to people.
             Note: The SocialFollowingManager object is the recommended object for performing Following People and Following Content tasks.
-            However, PeopleManager provides some methods that SocialFollowingManager doesn�t. */
+            However, PeopleManager provides some methods that SocialFollowingManager doesn't. */
         class PeopleManager extends SP.ClientObject {
             constructor(context: SP.ClientRuntimeContext);
             static getTrendingTags(context: SP.ClientRuntimeContext): HashTagCollection;
@@ -8328,7 +8328,7 @@ declare namespace SP.WorkflowServices {
         get_xaml(): string;
         /** XAML definition of the workflow */
         set_xaml(value: string): string;
-        /** This method adds a key-value pair (propertyName, value) to the workflow definition object�s property bag.  */
+        /** This method adds a key-value pair (propertyName, value) to the workflow definition object's property bag.  */
         setProperty(propertyName: string, value: string): void;
         /** This method is internal and is not intended to be used in your code. */
         initPropertiesFromJson(parentNode: any): void;

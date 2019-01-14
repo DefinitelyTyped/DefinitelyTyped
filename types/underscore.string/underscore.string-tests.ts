@@ -52,6 +52,7 @@ _.succ('A');
 _.titleize('my name is epeli');
 
 _.camelize('-moz-transform');
+_.camelize('-moz-transform', true);
 
 _.classify('some_class_name');
 

@@ -11,7 +11,7 @@ declare const exp: RegExp;
 declare const obj: object;
 declare const date: Date;
 declare const err: Error;
-declare const func: Function;
+declare const func: () => void;
 
 declare const numArr: number[];
 declare const strArr: string[];
@@ -117,6 +117,12 @@ uriOpts = { scheme: expArr };
 let base64Opts: Joi.Base64Options = null;
 
 base64Opts = { paddingRequired: bool };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+let dataUriOpts: Joi.DataUriOptions = null;
+
+dataUriOpts = { paddingRequired: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -508,15 +514,28 @@ binSchema = binSchema.length(num);
 
 dateSchema = Joi.date();
 
+dateSchema = dateSchema.greater('now');
+dateSchema = dateSchema.less('now');
+dateSchema = dateSchema.min('now');
+dateSchema = dateSchema.max('now');
+
+dateSchema = dateSchema.greater(date);
+dateSchema = dateSchema.less(date);
 dateSchema = dateSchema.min(date);
 dateSchema = dateSchema.max(date);
 
+dateSchema = dateSchema.greater(str);
+dateSchema = dateSchema.less(str);
 dateSchema = dateSchema.min(str);
 dateSchema = dateSchema.max(str);
 
+dateSchema = dateSchema.greater(num);
+dateSchema = dateSchema.less(num);
 dateSchema = dateSchema.min(num);
 dateSchema = dateSchema.max(num);
 
+dateSchema = dateSchema.greater(ref);
+dateSchema = dateSchema.less(ref);
 dateSchema = dateSchema.min(ref);
 dateSchema = dateSchema.max(ref);
 
@@ -599,6 +618,7 @@ numSchema = numSchema.greater(ref);
 numSchema = numSchema.less(num);
 numSchema = numSchema.less(ref);
 numSchema = numSchema.integer();
+numSchema = numSchema.unsafe();
 numSchema = numSchema.precision(num);
 numSchema = numSchema.multiple(num);
 numSchema = numSchema.positive();
@@ -818,6 +838,8 @@ strSchema = strSchema.normalize();
 strSchema = strSchema.normalize('NFKC');
 strSchema = strSchema.base64();
 strSchema = strSchema.base64(base64Opts);
+strSchema = strSchema.dataUri();
+strSchema = strSchema.dataUri(dataUriOpts);
 
 { // common
     strSchema = strSchema.allow(x);
@@ -885,7 +907,7 @@ schema = Joi.alt(schema, anySchema, boolSchema);
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-schema = Joi.lazy(() => schema);
+schema = Joi.lazy(() => schema, { once: true });
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -1134,3 +1156,9 @@ schema = Joi.raw(bool);
 schema = Joi.empty();
 schema = Joi.empty(str);
 schema = Joi.empty(anySchema);
+
+schema = Joi.symbol();
+schema = Joi.symbol().map(new Map<string, symbol>());
+schema = Joi.symbol().map({
+    key: Symbol('asd'),
+});

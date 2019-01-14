@@ -39,7 +39,7 @@ declare namespace Evaporate {
         onlyRetryForSameFileName?: boolean;
         timeUrl?: string;
         cryptoMd5Method?: null | ((data: ArrayBuffer) => string);
-        cryptoHexEncodedHash256?: null | ((data: ArrayBuffer) => string);
+        cryptoHexEncodedHash256?: null | ((data: string | ArrayBuffer | null) => string);
         aws_url?: string;
         aws_key?: string;
         awsRegion?: string;

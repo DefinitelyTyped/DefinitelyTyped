@@ -2,11 +2,18 @@ import * as webdriverio from "webdriverio";
 import { assert } from "chai";
 
 // Stub mocha functions
-const {describe, it, before, after, beforeEach, afterEach} = null as any as {
-    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+const { describe, it, before, after, beforeEach, afterEach } = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & { only: any, skip: any };
 };
 
-describe("webdriver.io page", () => {
+describe("my webdriverio tests", () => {
+    let client: webdriverio.Client<void>;
+
+    before(async () => {
+        client = webdriverio.remote({ deprecationWarnings: true, desiredCapabilities: { browserName: "phantomjs" } });
+        await client.init();
+    });
+
     it("should have the right title - the good old callback way", () => {
         assert.equal(
             browser
@@ -22,15 +29,6 @@ describe("webdriver.io page", () => {
             .getTitle().then((title) => {
                 assert.equal(title, "WebdriverIO - Selenium 2.0 javascript bindings for nodejs");
             });
-    });
-});
-
-describe.only("my webdriverio tests", () => {
-    let client: webdriverio.Client<void>;
-
-    before(async () => {
-        client = webdriverio.remote({ deprecationWarnings: true, desiredCapabilities: { browserName: "phantomjs" } });
-        await client.init();
     });
 
     it("Github test", async () => {
@@ -57,64 +55,101 @@ describe.only("my webdriverio tests", () => {
     });
 });
 
-const matrix = webdriverio.multiremote({
-        browserA: {
-            desiredCapabilities: {
-                browserName: "chrome",
-                chromeOptions: {
-                    args: [
-                        "use-fake-device-for-media-stream",
-                        "use-fake-ui-for-media-stream",
-                    ]
-                }
-            }
-        },
-        browserB: {
-            desiredCapabilities: {
-                browserName: "chrome",
-                chromeOptions: {
-                    args: [
-                        "use-fake-device-for-media-stream",
-                        "use-fake-ui-for-media-stream",
-                    ]
-                }
-            }
-        }
+describe("multiremote test", () => {
+    let matrix: webdriverio.Client<void>;
+
+    before(async () => {
+        matrix = webdriverio.multiremote({
+            browserA: {
+                desiredCapabilities: {
+                    browserName: "chrome",
+                    chromeOptions: {
+                        args: [
+                            "use-fake-device-for-media-stream",
+                            "use-fake-ui-for-media-stream",
+                        ],
+                    },
+                },
+            },
+            browserB: {
+                desiredCapabilities: {
+                    browserName: "chrome",
+                    chromeOptions: {
+                        args: [
+                            "use-fake-device-for-media-stream",
+                            "use-fake-ui-for-media-stream",
+                        ],
+                    },
+                },
+            },
+        });
     });
 
-const channel = Math.round(Math.random() * 100000000000);
+    it("clicks a button in a random channel at apprtc", () => {
+        const channel = Math.round(Math.random() * 100000000000);
 
-matrix
-    .init()
-    .url("https://apprtc.appspot.com/r/" + channel)
-    .click("#confirm-join-button")
-    .pause(5000)
-    .end();
+        matrix
+            .init()
+            .url("https://apprtc.appspot.com/r/" + channel)
+            .click("#confirm-join-button")
+            .pause(5000)
+            .end();
+    });
 
-const options = {
-    desiredCapabilities: {
-        browserName: "chrome"
+    after(async () => {
+        await matrix.end();
+    });
+});
+
+describe("testing feaures with chrome", () => {
+    const options = {
+        desiredCapabilities: {
+            browserName: "chrome",
+        },
+    };
+
+    it("can use selectorExecute", () => {
+        webdriverio
+            .remote(options)
+            .init()
+            .url("https://news.ycombinator.com/")
+            .selectorExecute("//div", (inputs: HTMLElement[], message: string) => {
+                return `${inputs.length} ${message}`;
+            }, "divs on the page")
+            .then((res: string) => {
+                console.log(res);
+            })
+            .end();
+    });
+
+    it("can waitForVisible", () => {
+        webdriverio
+            .remote(options)
+            .init()
+            .url("http://www.google.com/")
+            .waitForVisible("//input[@type='submit']", 5000)
+            .then((visible) => {
+                console.log(visible); // Should return true
+            })
+            .end();
+    });
+});
+
+let hooks: webdriverio.Hooks = {};
+
+hooks = {
+    // Hooks can be a noop function
+    onPrepare: () => undefined,
+    onError() {
+        // Hooks don't have to return a value
     }
 };
 
-webdriverio
-    .remote(options)
-    .init()
-    .url("https://news.ycombinator.com/")
-    .selectorExecute("//div", (inputs: HTMLElement[], message: string) => {
-        return `${inputs.length} ${message}`;
-    }, "divs on the page")
-    .then((res: string) => {
-        console.log(res);
-    })
-    .end();
+hooks.onComplete = async () => {
+    // Hooks can return a promise but the promise can be void
+};
 
-webdriverio
-    .remote(options)
-    .init()
-    .url("http://www.google.com/")
-    .waitForVisible("//input[@type='submit']", 5000)
-    .then((visible) => {
-        console.log(visible); // Should return true
-    })
-    .end();
+hooks.afterTest = async () => {
+    // Hooks can have a promise with a result but it is not typically used
+    return false;
+};

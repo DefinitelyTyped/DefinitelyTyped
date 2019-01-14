@@ -1,8 +1,10 @@
-// Type definitions for ember-qunit 3.0
+// Type definitions for ember-qunit 3.4
 // Project: https://github.com/emberjs/ember-qunit#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
+//                 Mike North <https://github.com/mike-north>
+//                 Steve Calvert <https://github.com/scalvert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="qunit" />
 
@@ -135,7 +137,7 @@ declare module 'ember-qunit' {
         /**
          * If `false` test isolation validation will be disabled.
          */
-        setupTestIsolationValidatoin?: boolean;
+        setupTestIsolationValidation?: boolean;
     }
 
     export function start(options?: QUnitStartOptions): void;
