@@ -21,7 +21,7 @@ export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React
     const buttonRef = React.useRef<HTMLButtonElement | null>(null);
     const [count, setCount] = React.useState(0);
 
-    React.useImperativeMethods(ref, () => ({
+    React.useImperativeHandle(ref, () => ({
         fancyClick() {
             buttonRef.current!; // $ExpectType HTMLButtonElement
         },
@@ -91,7 +91,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     const didLayout = React.useRef(false);
 
     const id = React.useMemo(() => Math.random(), []);
-    React.useImperativeMethods(ref, () => ({ id }), [id]);
+    React.useImperativeHandle(ref, () => ({ id }), [id]);
     // $ExpectError
     React.useImperativeMethods(ref, () => ({}), [id]);
 

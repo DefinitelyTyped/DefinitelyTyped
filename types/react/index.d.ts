@@ -863,15 +863,15 @@ declare namespace React {
     function useEffect(effect: EffectCallback, inputs?: InputIdentityList): void;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
-     * `useImperativeMethods` customizes the instance value that is exposed to parent components when using
+     * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
      * `ref`. As always, imperative code using refs should be avoided in most cases.
      *
-     * `useImperativeMethods` should be used with `React.forwardRef`.
+     * `useImperativeHandle` should be used with `React.forwardRef`.
      *
      * @version experimental
-     * @see https://reactjs.org/docs/hooks-reference.html#useimperativemethods
+     * @see https://reactjs.org/docs/hooks-reference.html#useimperativehandle
      */
-    function useImperativeMethods<T, R extends T>(ref: Ref<T>|undefined, init: () => R, inputs?: InputIdentityList): void;
+    function useImperativeHandle<T, R extends T>(ref: Ref<T>|undefined, init: () => R, inputs?: InputIdentityList): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
