@@ -4,100 +4,100 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Country {
-    alpha2: string;
-    alpha3: string;
-    countryCallingCodes: string[];
-    currencies: string[];
-    emoji: string;
-    ioc: string;
-    languages: string[];
-    name: string;
-    status: string;
+    readonly alpha2: string;
+    readonly alpha3: string;
+    readonly countryCallingCodes: ReadonlyArray<string>;
+    readonly currencies: ReadonlyArray<string>;
+    readonly emoji: string;
+    readonly ioc: string;
+    readonly languages: ReadonlyArray<string>;
+    readonly name: string;
+    readonly status: string;
 }
 
 export interface Currency {
-    code: string;
-    decimals: number;
-    name: string;
-    number: number;
+    readonly code: string;
+    readonly decimals: number;
+    readonly name: string;
+    readonly number: number;
 }
 
 export interface Language {
-    alpha2: string;
-    alpha3: string;
-    bibliographic: string;
-    name: string;
+    readonly alpha2: string;
+    readonly alpha3: string;
+    readonly bibliographic: string;
+    readonly name: string;
 }
 
 export interface Continent {
-    name: string;
-    regions: string[];
-    countries: Country[];
+    readonly name: string;
+    readonly regions: ReadonlyArray<string>;
+    readonly countries: ReadonlyArray<Country>;
 }
 
 export interface Region {
-    name: string;
-    countries: string[];
+    readonly name: string;
+    readonly countries: ReadonlyArray<string>;
 }
 
 export const countries: {
-    all: Country[];
+    readonly all: ReadonlyArray<Country>;
 };
 
 export const continents: {
-    africa: Continent;
-    antarctica: Continent;
-    asia: Continent;
-    europe: Continent;
-    northAmerica: Continent;
-    oceania: Continent;
-    southAmerica: Continent;
+    readonly africa: Continent;
+    readonly antarctica: Continent;
+    readonly asia: Continent;
+    readonly europe: Continent;
+    readonly northAmerica: Continent;
+    readonly oceania: Continent;
+    readonly southAmerica: Continent;
 };
 
 export const callingCodes: {
-    all: string[];
+    readonly all: ReadonlyArray<string>;
 };
 
 export const callingCountries: {
-    all: Country[];
+    readonly all: ReadonlyArray<Country>;
 };
 
 export const currencies: {
-    all: Currency[];
+    readonly all: ReadonlyArray<Currency>;
 };
 
 export const languages: {
-    all: Language[];
+    readonly all: ReadonlyArray<Language>;
 };
 
 export const regions: {
-    centralAsia: Region;
-    southernAsia: Region;
-    southeastAsia: Region;
-    eastAsia: Region;
-    westernAsia: Region;
-    centralAfrica: Region;
-    northAfrica: Region;
-    southernAfrica: Region;
-    eastAfrica: Region;
-    westAfrica: Region;
-    centralAmerica: Region;
-    northernAmerica: Region;
-    caribbean: Region;
-    southAmerica: Region;
-    antarctica: Region;
-    northernEurope: Region;
-    southernEurope: Region;
-    easternEurope: Region;
-    westernEurope: Region;
-    australia: Region;
-    melanesia: Region;
-    micronesia: Region;
-    polynesia: Region;
+    readonly centralAsia: Region;
+    readonly southernAsia: Region;
+    readonly southeastAsia: Region;
+    readonly eastAsia: Region;
+    readonly westernAsia: Region;
+    readonly centralAfrica: Region;
+    readonly northAfrica: Region;
+    readonly southernAfrica: Region;
+    readonly eastAfrica: Region;
+    readonly westAfrica: Region;
+    readonly centralAmerica: Region;
+    readonly northernAmerica: Region;
+    readonly caribbean: Region;
+    readonly southAmerica: Region;
+    readonly antarctica: Region;
+    readonly northernEurope: Region;
+    readonly southernEurope: Region;
+    readonly easternEurope: Region;
+    readonly westernEurope: Region;
+    readonly australia: Region;
+    readonly melanesia: Region;
+    readonly micronesia: Region;
+    readonly polynesia: Region;
 };
 
 export const lookup: {
-    countries: (query: any) => Country[];
-    currencies: (query: any) => Currency[];
-    languages: (query: any) => Language[];
+    readonly countries: (query: any) => ReadonlyArray<Country>;
+    readonly currencies: (query: any) => ReadonlyArray<Currency>;
+    readonly languages: (query: any) => ReadonlyArray<Language>;
 };
