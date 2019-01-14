@@ -2,7 +2,7 @@
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
 // Definitions by: Autodesk Forge Partner Development <forge.help@autodesk.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.8
 
 // Copyright (c) Autodesk, Inc. All rights reserved
 //
