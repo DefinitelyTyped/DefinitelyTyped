@@ -133,7 +133,7 @@ export namespace transports {
     port?: number;
     ca?: string;
     agent?: Agent;
-    rejectUnauthorized?: boolean
+    rejectUnauthorized?: boolean;
   }
   abstract class Transport extends EventEmitter {
     abstract send(
