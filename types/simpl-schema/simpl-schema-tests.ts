@@ -75,3 +75,5 @@ new SimpleSchema({
     shortArray: Array,
     subSchema: StringSchemaWithOptions
 });
+
+SimpleSchema.extendOptions(['autoform']);
