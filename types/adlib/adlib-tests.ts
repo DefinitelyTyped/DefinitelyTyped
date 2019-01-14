@@ -25,16 +25,16 @@ const transformsList: adlib.TransformsList = {
     firstXform: transform1
 };
 
-const template: any = {
+const template = {
     value: '{{ instance.color }}'
 };
 
-const settings: any = {
+const settings = {
     instance: {
         color: 'red'
     }
 };
 
-const interpolated: any = adlib.adlib(template, settings, transformsList);
+const interpolated = adlib.adlib(template, settings, transformsList);
 
 const list: string[] = adlib.listDependencies(template);
