@@ -21,7 +21,7 @@ const transform1: adlib.TransformFunction =
         return null;
     };
 
-    const transformsList: adlib.TransformsList = {
+const transformsList: adlib.TransformsList = {
     firstXform: transform1
 };
 
