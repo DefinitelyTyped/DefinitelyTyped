@@ -2,35 +2,36 @@
 // Project: http://wiki.ros.org/ros2djs
 // Definitions by: Jacob Davison <https://github.com/jmdavison>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="easeljs" />
 
-import {EventEmitter2} from "eventemitter2";
 import * as ROSLIB from "roslib";
-import {createjs} from 'easeljs';
 
 /**
  *  Augment the createjs Stage object with some ROS conversion methods
  */
-declare namespace createjs {
-    interface Stage {
-        /**
-         * Converts a point in map space to ROS space
-         * @param pos
-         * @return {{x: number; y: number}}
-         */
-        globalToRos(x: number, y:number): ROSLIB.Vector3;
-        /**
-         * Converts a point in ROS space to global screen space
-         * @param pos
-         * @return {{x: number; y: number}}
-         */
-        rosToGlobal(pos: any): {x:number,y:number};
-        /**
-         * Convert a ROS quaternion to theta in degrees.
-         *
-         * @param orientation - A ROSLIB.Qauternion object.
-         * @return globalTheta - A theta value in degrees (number).
-         */
-        rosQuaternionToGlobalTheta(orientation:ROSLIB.Quaternion): number;
+declare global {
+    namespace createjs {
+        interface Stage {
+            /**
+             * Converts a point in map space to ROS space
+             * @param pos
+             * @return {{x: number; y: number}}
+             */
+            globalToRos(x: number, y:number): ROSLIB.Vector3;
+            /**
+             * Converts a point in ROS space to global screen space
+             * @param pos
+             * @return {{x: number; y: number}}
+             */
+            rosToGlobal(pos: any): {x:number,y:number};
+            /**
+             * Convert a ROS quaternion to theta in degrees.
+             *
+             * @param orientation - A ROSLIB.Qauternion object.
+             * @return globalTheta - A theta value in degrees (number).
+             */
+            rosQuaternionToGlobalTheta(orientation:ROSLIB.Quaternion): number;
+        }
     }
 }
 
@@ -64,13 +65,14 @@ declare namespace ROS2D {
      *   * image - the image URL to load
      *   * rootObject (optional) - the root object to add this marker to
      */
-    class ImageMapClient extends EventEmitter2 {
+    class ImageMapClient {
         constructor(options: {
             ros: ROSLIB.Ros,
             topic?: string,
             image: string,
             rootObject: createjs.Container
         });
+        on(eventName:string, callback:(event:any) => void):void;
     }
 
     /**
@@ -99,13 +101,14 @@ declare namespace ROS2D {
      *   * rootObject (optional) - the root object to add this marker to
      *   * continuous (optional) - if the map should be continuously loaded (e.g., for SLAM)
      */
-    class OccupancyGridClient extends EventEmitter2 {
+    class OccupancyGridClient {
         constructor(options: {
             ros: ROSLIB.Ros,
             topic?: string,
             rootObject?: createjs.Container,
             continuous?: boolean
         });
+        on(eventName:string, callback:(event:any) => void):void;
     }
 
     /**
@@ -120,13 +123,14 @@ declare namespace ROS2D {
      *   * service (optional) - the map topic to listen to, like '/static_map'
      *   * rootObject (optional) - the root object to add this marker to
      */
-    class OccupancyGridSrvClient extends EventEmitter2 {
+    class OccupancyGridSrvClient {
         public currentGrid: ROS2D.OccupancyGrid;
         constructor(options: {
             ros: ROSLIB.Ros,
             service?: string,
             rootObject?: createjs.Container
         });
+        on(eventName:string, callback:(event:any) => void):void;
     }
 
     /**
@@ -185,7 +189,7 @@ declare namespace ROS2D {
             strokeSize?: number,
             strokeColor?: string,
             fillColor?: string,
-            publse?: boolean
+            pulse?: boolean
         });
     }
 
@@ -201,8 +205,8 @@ declare namespace ROS2D {
     class NavigationImage extends createjs.Bitmap {
         constructor(options: {
             size?: number,
-            image: Image,
-            publse?: boolean
+            image: any,
+            pulse?: boolean
         });
     }
 

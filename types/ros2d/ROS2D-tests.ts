@@ -1,11 +1,12 @@
-import * as createjs from 'easeljs'
+import {ROS2D} from './index'
+import ROSLIB = require('roslib');
 
-const stage = createjs.Stage();
+const stage = new createjs.Stage('canvas');
 
 // test merged defenitions in easeljs
-stage.rosQuaternionToGlobalTheta();
-stage.rosToGlobal();
-stage.globalToRos();
+stage.rosQuaternionToGlobalTheta(new ROSLIB.Quaternion({x:1,y:1,z:1,w:0}));
+stage.rosToGlobal({x:100,y:200});
+stage.globalToRos(100,200);
 
 // test constructor insights
 let viewer: ROS2D.Viewer = new ROS2D.Viewer({
