@@ -15,7 +15,6 @@
 // UNINTERRUPTED OR ERROR FREE.
 //
 /// <reference types="THREE" />
-/// <reference types="webvr-api" />
 
 declare module Autodesk {
     export module Viewing {
