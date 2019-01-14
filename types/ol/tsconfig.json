@@ -75,6 +75,7 @@
         "interaction/dragrotateandzoom.d.ts",
         "interaction/dragzoom.d.ts",
         "interaction/draw.d.ts",
+        "interaction/extent.d.ts",
         "interaction/interaction.d.ts",
         "interaction/keyboardpan.d.ts",
         "interaction/keyboardzoom.d.ts",

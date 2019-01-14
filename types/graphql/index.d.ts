@@ -16,6 +16,7 @@
 //                 Brad Zacher <https://github.com/bradzacher>
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Jonathan Cardoso <https://github.com/JCMais>
+//                 Pavel Lang <https://github.com/langpavel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 

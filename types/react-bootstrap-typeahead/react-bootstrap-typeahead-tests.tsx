@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Typeahead } from 'react-bootstrap-typeahead';
+import { Typeahead, Highlighter, Menu, MenuItem } from 'react-bootstrap-typeahead';
 
 const options = [
     { name: 'Alabama', population: 4780127, capital: 'Montgomery', region: 'South' },

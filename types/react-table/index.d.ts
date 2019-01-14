@@ -362,22 +362,22 @@ export interface ComponentProps {
 
 export interface TextProps {
     /** Default: 'Previous' */
-    previousText: string;
+    previousText: React.ReactNode;
 
     /** Default: 'Next' */
-    nextText: string;
+    nextText: React.ReactNode;
 
     /** Default: 'Loading...' */
-    loadingText: string;
+    loadingText: React.ReactNode;
 
     /** Default: 'No rows found' */
-    noDataText: string;
+    noDataText: React.ReactNode | React.ComponentType;
 
     /** Default: 'Page' */
-    pageText: string;
+    pageText: React.ReactNode;
 
     /** Default: 'of' */
-    ofText: string;
+    ofText: React.ReactNode;
 
     /** Default: 'rows' */
     rowsText: string;

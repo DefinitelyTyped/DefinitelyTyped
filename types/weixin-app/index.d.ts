@@ -1920,9 +1920,9 @@ declare namespace wx {
 		 */
 		title: string;
 		/**
-		 * 图标，只支持"success"、"loading"
+		 * 图标，只支持 "success", "loading", "none"
 		 */
-		icon?: "success" | "loading";
+		icon?: "success" | "loading" | "none";
 		/**
 		 * 自定义图标的本地路径，image 的优先级高于 icon
 		 */
@@ -3408,6 +3408,35 @@ declare namespace wx {
 	 * 选择用户的发票抬头。
 	 */
 	function chooseInvoiceTitle(options: ChooseInvoiceTitleOptions): void;
+
+	interface UpdateManager {
+		/**
+		 * 强制小程序重启并使用新版本。在小程序新版本下载完成后（即收到 `onUpdateReady` 回调）调用。
+		 */
+		applyUpdate(): void;
+		/**
+		 * 监听向微信后台请求检查更新结果事件。微信在小程序冷启动时自动检查更新，不需由开发者主动触发。
+		 */
+		onCheckForUpdate(
+			/** 向微信后台请求检查更新结果事件的回调函数 */
+			callback: (result: { hasUpdate: boolean }) => void
+		): void;
+		/** 监听小程序更新失败事件。小程序有新版本，客户端主动触发下载（无需开发者触发），下载失败（可能是网络原因等）后回调 */
+		onUpdateFailed(
+			/** 小程序更新失败事件的回调函数 */
+			callback: (res: { errMsg: string }) => void
+		): void;
+		/** 监听小程序有版本更新事件。客户端主动触发下载（无需开发者触发），下载成功后回调 */
+		onUpdateReady(
+			/** 小程序有版本更新事件的回调函数 */
+			callback: () => void
+		): void;
+	}
+
+	/**
+	 * 获取全局唯一的版本更新管理器，用于管理小程序更新。关于小程序的更新机制，可以查看运行机制文档。
+	 */
+	function getUpdateManager(): UpdateManager;
 
 	interface NavigateToMiniProgramOptions extends BaseOptions {
 		appId: string; // 要打开的小程序 appId

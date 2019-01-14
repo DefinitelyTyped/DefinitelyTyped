@@ -213,43 +213,167 @@ export interface SwiperOptions {
     on?: { [key in SwiperEvent]?: () => void };
 
     // Slides grid
+
+    /**
+     * Distance between slides in px.
+     */
     spaceBetween?: number;
+
+    /**
+     * Number of slides per view (slides visible at the same time on slider's container).
+     * If you use it with "auto" value and along with loop: true then you need to specify loopedSlides parameter with amount of slides to loop (duplicate)
+     * slidesPerView: 'auto' is currently not compatible with multirow mode, when slidesPerColumn > 1
+     */
     slidesPerView?: number | 'auto';
+
+    /**
+     * Number of slides per column, for multirow layout
+     * slidesPerColumn > 1 is currently not compatible with loop mode (loop: true)
+     */
     slidesPerColumn?: number;
+
+    /**
+     * Could be 'column' or 'row'. Defines how slides should fill rows, by column or by row
+     */
     slidesPerColumnFill?: 'row' | 'column';
+
+    /**
+     * Set numbers of slides to define and enable group sliding. Useful to use with slidesPerView > 1
+     */
     slidesPerGroup?: number;
+
+    /**
+     * If true, then active slide will be centered, not always on the left side.
+     */
     centeredSlides?: boolean;
+
+    /**
+     * Add (in px) additional slide offset in the beginning of the container (before all slides)
+     */
     slidesOffsetBefore?: number;
+
+    /**
+     * Add (in px) additional slide offset in the end of the container (after all slides)
+     */
     slidesOffsetAfter?: number;
+
+    /**
+     * Normalize slide index.
+     */
     normalizeSlideIndex?: boolean;
+
+    /**
+     * When enabled it center slides if the amount of slides less than `slidesPerView`. Not intended to be used loop mode and slidesPerColumn
+     */
     centerInsufficientSlides?: boolean;
 
     // Grab Cursor
     grabCursor?: boolean;
 
     // Touches
-    // @TODO: verify next property
+
+    /**
+     * Target element to listen touch events on. Can be 'container' (to listen for touch events on swiper-container) or 'wrapper'
+     * (to listen for touch events on swiper-wrapper)
+     */
     touchEventsTarget?: 'container' | 'wrapper';
+
+    /**
+     * Touch ratio
+     */
     touchRatio?: number;
+
+    /**
+     * Allowable angle (in degrees) to trigger touch move
+     */
     touchAngle?: number;
+
+    /**
+     * If true, Swiper will accept mouse events like touch events (click and drag to change slides)
+     */
     simulateTouch?: boolean;
+
+    /**
+     * Set to false if you want to disable short swipes
+     */
     shortSwipes?: boolean;
+
+    /**
+     * Set to false if you want to disable long swipes
+     */
     longSwipes?: boolean;
+
+    /**
+     * Ratio to trigger swipe to next/previous slide during long swipes
+     */
     longSwipesRatio?: number;
+
+    /**
+     * Minimal duration (in ms) to trigger swipe to next/previous slide during long swipes
+     */
     longSwipesMs?: number;
+
+    /**
+     * If disabled, then slider will be animated only when you release it, it will not move while you hold your finger on it
+     */
     followFinger?: boolean;
+
+    /**
+     * If false, then the only way to switch the slide is use of external API functions like slidePrev or slideNext
+     */
     allowTouchMove?: boolean;
+
+    /**
+     * Threshold value in px. If "touch distance" will be lower than this value then swiper will not move
+     */
     threshold?: number;
+
+    /**
+     * If disabled, `touchstart` (`mousedown`) event won't be prevented
+     */
     touchStartPreventDefault?: boolean;
+
+    /**
+     * Force to always prevent default for `touchstart` (`mousedown`) event
+     */
     touchStartForcePreventDefault?: boolean;
+
+    /**
+     * If enabled, then propagation of "touchmove" will be stopped
+     */
     touchMoveStopPropagation?: boolean;
+
+    /**
+     * Enable to release Swiper events for swipe-to-go-back work in iOS UIWebView
+     */
     iOSEdgeSwipeDetection?: boolean;
+
+    /**
+     * Area (in px) from left edge of the screen to release touch events for swipe-to-go-back in iOS UIWebView
+     */
     iOSEdgeSwipeThreshold?: number;
+
+    /**
+     * Enable to release touch events on slider edge position (beginning, end) to allow for further page scrolling
+     */
     touchReleaseOnEdges?: boolean;
+
+    /**
+     * Passive event listeners will be used by default where possible to improve scrolling performance on mobile devices.
+     * But if you need to use `e.preventDefault` and you have conflict with it, then you should disable this parameter
+     */
     passiveListeners?: boolean;
 
     // Touch Resistance
+
+    /**
+     * Set to false if you want to disable resistant bounds
+     */
     resistance?: boolean;
+
+    /**
+     * This option allows you to control resistance ratio
+     */
     resistanceRatio?: number;
 
     // Swiping / No swiping
@@ -543,17 +667,46 @@ export interface NavigationOptions {
 }
 
 export interface PaginationOptions {
+    /**
+     * String with CSS selector or HTML element of the container with pagination
+     */
     el: SelectableElement;
 
+    /**
+     * String with type of pagination. Can be "bullets", "fraction", "progressbar" or "custom"
+     */
     type?: 'bullets' | 'fraction' | 'progressbar' | 'custom';
 
+    /**
+     * Defines which HTML tag will be use to represent single pagination bullet. Only for bullets pagination type.
+     */
     bulletElement?: string;
 
+    /**
+     * Good to enable if you use bullets pagination with a lot of slides. So it will keep only few bullets visible at the same time.
+     */
     dynamicBullets?: boolean;
 
+    /**
+     * The number of main bullets visible when dynamicBullets enabled.
+     */
+    dynamicMainBullets?: number;
+
+    /**
+     * Toggle (hide/true) pagination container visibility after click on Slider's container
+     */
     hideOnClick?: boolean;
 
+    /**
+     * If true then clicking on pagination button will cause transition to appropriate slide. Only for bullets pagination type
+     */
     clickable?: boolean;
+
+    /**
+     * Makes pagination progressbar opposite to Swiper's `direction` parameter, means vertical progressbar for horizontal swiper
+     * direction and horizontal progressbar for vertical swiper direction
+     */
+    progressbarOpposite?: boolean;
 
     /**
      * format fraction pagination current number. Function receives current number,
@@ -567,10 +720,20 @@ export interface PaginationOptions {
      */
     formatFractionTotal?: (number: number) => number;
 
+    /**
+     * This parameter allows totally customize pagination bullets, you need to pass here a function that accepts index number of
+     * pagination bullet and required element class name (className). Only for bullets pagination type
+     */
     renderBullet?: (index: number, className: string) => void;
 
+    /**
+     * This parameter allows to customize "fraction" pagination html. Only for fraction pagination type
+     */
     renderFraction?: (currentClass: string, totalClass: string) => void;
 
+    /**
+     * This parameter allows to customize "progress" pagination. Only for progress pagination type
+     */
     renderProgressbar?: (progressbarFillClass: string) => void;
 
     /**
@@ -587,13 +750,44 @@ export interface PaginationOptions {
      */
     renderCustom?: (swiper: Swiper, current: number, total: number) => void;
 
+    /**
+     * CSS class name of single pagination bullet
+     */
     bulletClass?: string;
+
+    /**
+     * CSS class name of currently active pagination bullet
+     */
     bulletActiveClass?: string;
+
+    /**
+     * The beginning of the modifier CSS class name that will be added to pagination depending on parameters
+     */
     modifierClass?: string;
+
+    /**
+     * CSS class name of the element with currently active index in "fraction" pagination
+     */
     currentClass?: string;
+
+    /**
+     * CSS class name of the element with total number of "snaps" in "fraction" pagination
+     */
     totalClass?: string;
+
+    /**
+     * CSS class name of pagination when it becomes inactive
+     */
     hiddenClass?: string;
+
+    /**
+     * CSS class name of pagination progressbar fill element
+     */
     progressbarFillClass?: string;
+
+    /**
+     * CSS class name set to pagination when it is clickable
+     */
     clickableClass?: string;
 }
 
@@ -903,7 +1097,26 @@ export interface A11yOptions {
 
 // "Multiple imports from './dist/js/swiper.esm' can be combined into one" + "Line breaks are not allowed in import declaration" = ...
 // tslint:disable-next-line:max-line-length
-import { Virtual, Keyboard, Mousewheel, Navigation, Pagination, Scrollbar, Parallax, Zoom, Lazy, Controller, A11y, History, HashNavigation, Autoplay, EffectFade, EffectCube, EffectFlip, EffectCoverflow } from "./dist/js/swiper.esm";
+import {
+    Virtual,
+    Keyboard,
+    Mousewheel,
+    Navigation,
+    Pagination,
+    Scrollbar,
+    Parallax,
+    Zoom,
+    Lazy,
+    Controller,
+    A11y,
+    History,
+    HashNavigation,
+    Autoplay,
+    EffectFade,
+    EffectCube,
+    EffectFlip,
+    EffectCoverflow
+} from './dist/js/swiper.esm';
 
 /**
  * Core module
@@ -1229,7 +1442,7 @@ export default class Swiper {
     /**
      * Remove all slides
      */
-    removeAllSlides(): any;
+    removeAllSlides(): void;
 
     /**
      * Set custom css3 transform's translate value for swiper wrapper

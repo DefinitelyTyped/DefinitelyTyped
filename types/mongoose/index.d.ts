@@ -1,7 +1,6 @@
 // Type definitions for Mongoose 5.3.4
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
-//                 sindrenm <https://github.com/sindrenm>
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 Alorel <https://github.com/Alorel>
 //                 jendrikw <https://github.com/jendrikw>
@@ -1894,7 +1893,13 @@ declare module "mongoose" {
      *   is an Array. See the examples.
      */
     geometry(object: { type: string, coordinates: any[] }): this;
-
+    
+    /**
+     * Returns the current query options as a JSON object.
+     * @returns current query options
+     */
+    getOptions(): any;
+                            
     /**
      * Returns the current query conditions as a JSON object.
      * @returns current query conditions

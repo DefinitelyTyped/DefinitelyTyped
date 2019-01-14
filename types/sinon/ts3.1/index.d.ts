@@ -399,7 +399,7 @@ declare namespace Sinon {
          * The Promise library can be overwritten using the usingPromise method.
          * Since sinon@2.0.0
          */
-        resolves(value?: any): SinonStub<TArgs, TReturnValue>;
+        resolves(value?: TReturnValue extends Promise<infer TResolveValue> ? TResolveValue : never): SinonStub<TArgs, TReturnValue>;
         /**
          * Causes the stub to return a Promise which resolves to the argument at the provided index.
          * stub.resolvesArg(0); causes the stub to return a Promise which resolves to the first argument.
@@ -626,10 +626,13 @@ declare namespace Sinon {
     }
 
     interface SinonStubStatic {
+        // Disable rule so assignment to typed stub works (see examples in tests).
         /**
          * Creates an anonymous stub function
          */
-        (): SinonStub;
+        // tslint:disable-next-line no-unnecessary-generics
+        <TArgs extends any[]= any[], R = any>(): SinonStub<TArgs, R>;
+
         /**
          * Stubs all the object’s methods.
          * Note that it’s usually better practice to stub individual methods, particularly on objects that you don’t understand or control all the methods for (e.g. library dependencies).
@@ -1526,7 +1529,9 @@ declare namespace Sinon {
     /**
      * Replaces a type with a Sinon stub if it's a function.
      */
-    type SinonStubbedMember<T> = T extends Function ? SinonStub : T;
+    type SinonStubbedMember<T> = T extends (
+        ...args: infer TArgs
+    ) => infer TReturnValue ? SinonStub<TArgs, TReturnValue> : T;
 
     interface SinonFake {
         /**

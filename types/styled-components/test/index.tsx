@@ -655,7 +655,7 @@ async function typedThemes() {
         createGlobalStyle,
         ThemeProvider,
         ThemeConsumer
-    } = (await import("styled-components")) as ThemedStyledComponentsModule<
+    } = (await import("styled-components")) as any as ThemedStyledComponentsModule<
         typeof theme
     >;
 
@@ -753,10 +753,10 @@ async function themeAugmentation() {
         accent: string;
     }
 
-    const base = (await import("styled-components")) as ThemedStyledComponentsModule<
+    const base = (await import("styled-components")) as any as ThemedStyledComponentsModule<
         BaseTheme
     >;
-    const extra = (await import("styled-components")) as ThemedStyledComponentsModule<
+    const extra = (await import("styled-components")) as any as ThemedStyledComponentsModule<
         ExtraTheme,
         BaseTheme
     >;
@@ -945,4 +945,42 @@ function validateArgumentsAndReturns() {
     `);
     // $ExpectError
     createGlobalStyle([]);
+}
+
+function validateDefaultProps() {
+    interface Props {
+        requiredProp: boolean;
+        optionalProp: string; // Shouldn't need to be optional here
+    }
+
+    class MyComponent extends React.PureComponent<Props> {
+        static defaultProps = {
+            optionalProp: 'fallback'
+        };
+
+        render() {
+            const { requiredProp, optionalProp } = this.props;
+            return (
+                <span>
+                    {requiredProp.toString()}
+                    {optionalProp.toString()}
+                </span>
+            );
+        }
+    }
+
+    const StyledComponent = styled(MyComponent)`
+        color: red
+    `;
+
+    // this test is failing in TS 2.9 but not in 3.0
+    // <MyComponent requiredProp />;
+
+    <StyledComponent requiredProp optionalProp="x" />;
+
+    // this test is failing in TS 3.0 but not in 3.1
+    // <StyledComponent requiredProp />;
+
+    // still respects the type of optionalProp
+    <StyledComponent requiredProp optionalProp={1} />; // $ExpectError
 }

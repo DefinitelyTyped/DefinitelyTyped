@@ -68,7 +68,7 @@ export interface ValueJSON {
     object?: "value";
 }
 
-export type Path = Immutable.List<number> | string;
+export type Path = Immutable.List<number> | string | number;
 
 export class Value extends Immutable.Record({}) {
     document: Document;
@@ -327,6 +327,7 @@ export interface LeafProperties {
 export interface LeafJSON {
     marks?: MarkJSON[];
     text?: string;
+    object: "leaf";
 }
 
 export class Leaf extends Immutable.Record({}) {
@@ -521,6 +522,7 @@ export interface MarkProperties {
 export interface MarkJSON {
     type: string;
     data?: { [key: string]: any };
+    object: "mark";
 }
 
 export class Mark extends Immutable.Record({}) {

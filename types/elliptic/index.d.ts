@@ -144,8 +144,8 @@ export namespace ec {
 	}
 
 	interface SignatureOptions {
-		r: number;
-		s: number;
+		r: BNInput;
+		s: BNInput;
 		recoveryParam?: number;
 	}
 

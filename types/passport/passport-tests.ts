@@ -78,6 +78,12 @@ app.post('/login',
         res.redirect('/');
     });
 
+app.post('/login',
+    passport.authorize('local', { failureRedirect: '/login', failureFlash: true }),
+    (req, res) => {
+        res.redirect('/');
+    });
+
 app.post('/login', (req, res, next) => {
     passport.authenticate('local', (err: any, user: { username: string; }, info: { message: string; }) => {
         if (err) { return next(err); }
