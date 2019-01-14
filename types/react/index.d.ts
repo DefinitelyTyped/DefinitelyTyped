@@ -1,4 +1,4 @@
-// Type definitions for React 16.7
+// Type definitions for React 16.8
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -20,6 +20,7 @@
 //                 Frank Li <https://github.com/franklixuefei>
 //                 Jessica Franco <https://github.com/Kovensky>
 //                 Paul Sherman <https://github.com/pshrmn>
+//                 Sunil Pai <https://github.com/threepointone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
