@@ -5,46 +5,61 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare function pidusage(pid: number | string, callback: (err: Error | null, stats: Stat) => void): void;
-declare function pidusage(pids: Array<number | string>, callback: (err: Error | null, stats: { [key: string]: Stat }) => void): void;
-declare function pidusage(pid: number | string): Promise<Stat>;
-declare function pidusage(pids: Array<number | string>): Promise<{ [key: string]: Stat }>;
+interface IStat {
+    /**
+     * percentage (from 0 to 100*vcore)
+     */
+    cpu: number;
 
-export default pidusage;
+    /**
+     * bytes
+     */
+    memory: number;
 
-export interface Stat {
-        /**
-         * percentage (from 0 to 100*vcore)
-         */
-        cpu: number;
+    /**
+     * PPID
+     */
+    ppid: number;
 
-        /**
-         * bytes
-         */
-        memory: number;
+    /**
+     * PID
+     */
+    pid: number;
 
-        /**
-         * PPID
-         */
-        ppid: number;
+    /**
+     * ms user + system time
+     */
+    ctime: number;
 
-        /**
-         * PID
-         */
-        pid: number;
+    /**
+     * ms since the start of the process
+     */
+    elapsed: number;
 
-        /**
-         * ms user + system time
-         */
-        ctime: number;
+    /**
+     * ms since epoch
+     */
+    timestamp: number;
+}
 
-        /**
-         * ms since the start of the process
-         */
-        elapsed: number;
+declare function pidusage(pid: number | string, callback: (err: Error | null, stats: IStat) => void): void;
+declare function pidusage(pid: number | string, options: { [key: string]: any }, callback: (err: Error | null, stats: IStat) => void): void;
+declare function pidusage(pids: Array<number | string>, callback: (err: Error | null, stats: { [key: string]: IStat }) => void): void;
+declare function pidusage(pids: Array<number | string>, options: { [key: string]: any }, callback: (err: Error | null, stats: { [key: string]: IStat }) => void): void;
+declare function pidusage(pid: number | string): Promise<IStat>;
+declare function pidusage(pid: number | string, options: { [key: string]: any }): Promise<IStat>;
+declare function pidusage(pids: Array<number | string>): Promise<{ [key: string]: IStat }>;
+declare function pidusage(pids: Array<number | string>, options: { [key: string]: any }): Promise<{ [key: string]: IStat }>;
 
-        /**
-         * ms since epoch
-         */
-        timestamp: number;
-    }
+declare namespace pidusage {
+    export type Status = IStat;
+
+    /**
+     * If needed this function can be used to clear the event loop. 
+     * Indeed, we're registering an interval to free up the in-memory metrics. 
+     * By calling this, it will clear this interval and all delete all in-memory data
+     */
+    export const clear: () => void;
+}
+
+export = pidusage;
