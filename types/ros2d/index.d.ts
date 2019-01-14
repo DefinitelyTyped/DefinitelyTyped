@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import {EventEmitter2} from "eventemitter2";
-import createjs from "easeljs";
 import * as ROSLIB from "roslib";
+import {createjs} from 'easeljs';
 
 /**
  *  Augment the createjs Stage object with some ROS conversion methods
@@ -227,7 +227,7 @@ declare namespace ROS2D {
          *
          * @param path of type nav_msgs/Path
          */
-        public setPath(path:any);
+        public setPath(path:any):void;
     }
 
     /**
@@ -255,8 +255,8 @@ declare namespace ROS2D {
             pointSize?: number,
             pointColor?: string,
             fillColor?: string,
-            lineCallBack?: Function,
-            pointCallBack?: Function
+            lineCallBack?: (e: Event) => void,
+            pointCallBack?: (e: Event) => void
         });
         private createLineShape(startPoint: createjs.Point, endPoint: createjs.Point):createjs.Shape;
         private editLineShape(line: createjs.Shape, startPoint: createjs.Point, endPoint: createjs.Point):void;
@@ -281,7 +281,7 @@ declare namespace ROS2D {
          * Splits a line of the polygon: inserts a point at the center of the line
          * @param obj either an index (integer) or a line shape of the polygon
          */
-        public splitLine(obj: number|createjs.Shape);
+        public splitLine(obj: number|createjs.Shape):void;
         private drawFill();
     }
 
