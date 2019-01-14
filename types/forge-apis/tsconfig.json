@@ -1,24 +1,23 @@
 {
 	"compilerOptions": {
-		"lib": [
-			"es2017", "es7", "es6", "dom"
-		],
-		"target": "es6",
-		"module": "commonjs",
-		"strict": true,
-		"moduleResolution": "node",
-
-		"declaration": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"allowUnreachableCode": false,
-		"allowUnusedLabels": false,
-		"sourceMap": true,
-		"noImplicitAny":true,
-		"noImplicitThis":true,
-		"strictNullChecks":true,
-		"strictFunctionTypes":true,
-	}
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "forge-apis-tests.ts"
+    ]
 }
