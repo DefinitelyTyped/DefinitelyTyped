@@ -47,15 +47,17 @@ export = React;
 export as namespace React;
 
 declare namespace React {
+    // renderer agnostic React types
+
     //
     // React Elements
     // ----------------------------------------------------------------------
-
     type ReactType<P = any> =
-        {
-            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
-        }[keyof JSX.IntrinsicElements] |
-        ComponentType<P>;
+    {
+        [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
+    }[keyof JSX.IntrinsicElements] |
+    ComponentType<P>;
+
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type JSXElementConstructor<P> =
@@ -110,24 +112,6 @@ declare namespace React {
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
-    // string fallback for custom web-components
-    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P, string> {
-        ref: LegacyRef<T>;
-    }
-
-    // ReactHTML for ReactHTMLElement
-    // tslint:disable-next-line:no-empty-interface
-    interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> { }
-
-    interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
-        type: keyof ReactHTML;
-    }
-
-    // ReactSVG for ReactSVGElement
-    interface ReactSVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
-        type: keyof ReactSVG;
-    }
-
     interface ReactPortal extends ReactElement<any> {
         key: Key | null;
         children: ReactNode;
@@ -136,7 +120,6 @@ declare namespace React {
     //
     // Factories
     // ----------------------------------------------------------------------
-
     type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
 
     /**
@@ -151,20 +134,6 @@ declare namespace React {
 
     type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
-
-    type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
-
-    // tslint:disable-next-line:no-empty-interface
-    interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
-
-    interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
-    }
-
-    interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
-        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
-    }
 
     //
     // React Nodes
@@ -181,15 +150,6 @@ declare namespace React {
     //
     // Top Level API
     // ----------------------------------------------------------------------
-
-    // DOM Elements
-    function createFactory<T extends HTMLElement>(
-        type: keyof ReactHTML): HTMLFactory<T>;
-    function createFactory(
-        type: keyof ReactSVG): SVGFactory;
-    function createFactory<P extends DOMAttributes<T>, T extends Element>(
-        type: string): DOMFactory<P, T>;
-
     // Custom components
     function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
     function createFactory<P>(
@@ -197,25 +157,6 @@ declare namespace React {
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
-
-    // DOM Elements
-    // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
-    function createElement(
-        type: "input",
-        props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-    function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        type: keyof ReactHTML,
-        props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
-    function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
-        type: keyof ReactSVG,
-        props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): ReactSVGElement;
-    function createElement<P extends DOMAttributes<T>, T extends Element>(
-        type: string,
-        props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DOMElement<P, T>;
 
     // Custom components
 
@@ -235,28 +176,6 @@ declare namespace React {
         type: FunctionComponent<P> | ComponentClass<P> | string,
         props?: Attributes & P | null,
         ...children: ReactNode[]): ReactElement<P>;
-
-    // DOM Elements
-    // ReactHTMLElement
-    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        element: DetailedReactHTMLElement<P, T>,
-        props?: P,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
-    // ReactHTMLElement, less specific
-    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        element: ReactHTMLElement<T>,
-        props?: P,
-        ...children: ReactNode[]): ReactHTMLElement<T>;
-    // SVGElement
-    function cloneElement<P extends SVGAttributes<T>, T extends SVGElement>(
-        element: ReactSVGElement,
-        props?: P,
-        ...children: ReactNode[]): ReactSVGElement;
-    // DOM Element (has to be the last, because type checking stops at first overload that fits)
-    function cloneElement<P extends DOMAttributes<T>, T extends Element>(
-        element: DOMElement<P, T>,
-        props?: DOMAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
 
     // Custom components
     function cloneElement<P>(
@@ -762,7 +681,7 @@ declare namespace React {
         factory: () => Promise<{ default: T }>
     ): LazyExoticComponent<T>;
 
-    //
+        //
     // React Hooks
     // ----------------------------------------------------------------------
 
@@ -992,6 +911,193 @@ declare namespace React {
         type: string;
     }
 
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
+
+    type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
+
+    //
+    // Props
+    // ----------------------------------------------------------------------
+
+    /**
+     * @deprecated. This was used to allow clients to pass `ref` and `key`
+     * to `createElement`, which is no longer necessary due to intersection
+     * types. If you need to declare a props object before passing it to
+     * `createElement` or a factory, use `ClassAttributes<T>`:
+     *
+     * ```ts
+     * var b: Button | null;
+     * var props: ButtonProps & ClassAttributes<Button> = {
+     *     ref: b => button = b, // ok!
+     *     label: "I'm a Button"
+     * };
+     * ```
+     */
+    interface Props<T> {
+        children?: ReactNode;
+        key?: Key;
+        ref?: LegacyRef<T>;
+    }
+
+    //
+    // React.PropTypes
+    // ----------------------------------------------------------------------
+
+    type Validator<T> = PropTypes.Validator<T>;
+
+    type Requireable<T> = PropTypes.Requireable<T>;
+
+    type ValidationMap<T> = PropTypes.ValidationMap<T>;
+
+    type WeakValidationMap<T> = {
+        [K in keyof T]?: null extends T[K]
+            ? Validator<T[K] | null | undefined>
+            : undefined extends T[K]
+            ? Validator<T[K] | null | undefined>
+            : Validator<T[K]>
+    };
+
+    interface ReactPropTypes {
+        any: typeof PropTypes.any;
+        array: typeof PropTypes.array;
+        bool: typeof PropTypes.bool;
+        func: typeof PropTypes.func;
+        number: typeof PropTypes.number;
+        object: typeof PropTypes.object;
+        string: typeof PropTypes.string;
+        node: typeof PropTypes.node;
+        element: typeof PropTypes.element;
+        instanceOf: typeof PropTypes.instanceOf;
+        oneOf: typeof PropTypes.oneOf;
+        oneOfType: typeof PropTypes.oneOfType;
+        arrayOf: typeof PropTypes.arrayOf;
+        objectOf: typeof PropTypes.objectOf;
+        shape: typeof PropTypes.shape;
+        exact: typeof PropTypes.exact;
+    }
+
+    //
+    // React.Children
+    // ----------------------------------------------------------------------
+
+    interface ReactChildren {
+        map<T, C>(children: C | C[], fn: (child: C, index: number) => T): T[];
+        forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
+        count(children: any): number;
+        only<C>(children: C): C extends any[] ? never : C;
+        toArray<C>(children: C | C[]): C[];
+    }
+
+    //
+    // Error Interfaces
+    // ----------------------------------------------------------------------
+    interface ErrorInfo {
+        /**
+         * Captures which component contained the exception, and its ancestors.
+         */
+        componentStack: string;
+    }
+}
+
+// tslint:disable-next-line:no-mergeable-namespace
+declare namespace React {
+    // DOM React types
+
+    //
+    // React Elements
+    // ----------------------------------------------------------------------
+
+    // string fallback for custom web-components
+    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P, string> {
+        type: string;
+        ref: LegacyRef<T>;
+    }
+
+    // ReactHTML for ReactHTMLElement
+    // tslint:disable-next-line:no-empty-interface
+    interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> { }
+
+    interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
+        type: keyof ReactHTML;
+    }
+
+    // ReactSVG for ReactSVGElement
+    interface ReactSVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
+        type: keyof ReactSVG;
+    }
+
+    //
+    // Factories
+    // ----------------------------------------------------------------------
+    type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
+        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
+
+    // tslint:disable-next-line:no-empty-interface
+    interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
+
+    interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
+        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+    }
+
+    interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
+        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
+    }
+
+    //
+    // Top Level API
+    // ----------------------------------------------------------------------
+    // DOM Elements
+    function createFactory<T extends HTMLElement>(
+        type: keyof ReactHTML): HTMLFactory<T>;
+    function createFactory(
+        type: keyof ReactSVG): SVGFactory;
+    function createFactory<P extends DOMAttributes<T>, T extends Element>(
+        type: string): DOMFactory<P, T>;
+
+    // DOM Elements
+    // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
+    function createElement(
+        type: "input",
+        props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
+        ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+    function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
+        type: keyof ReactHTML,
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+    function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
+        type: keyof ReactSVG,
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]): ReactSVGElement;
+    function createElement<P extends DOMAttributes<T>, T extends Element>(
+        type: string,
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]): DOMElement<P, T>;
+
+    // DOM Elements
+    // ReactHTMLElement
+    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
+        element: DetailedReactHTMLElement<P, T>,
+        props?: P,
+        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+    // ReactHTMLElement, less specific
+    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
+        element: ReactHTMLElement<T>,
+        props?: P,
+        ...children: ReactNode[]): ReactHTMLElement<T>;
+    // SVGElement
+    function cloneElement<P extends SVGAttributes<T>, T extends SVGElement>(
+        element: ReactSVGElement,
+        props?: P,
+        ...children: ReactNode[]): ReactSVGElement;
+    // DOM Element (has to be the last, because type checking stops at first overload that fits)
+    function cloneElement<P extends DOMAttributes<T>, T extends Element>(
+        element: DOMElement<P, T>,
+        props?: DOMAttributes<T> & P,
+        ...children: ReactNode[]): DOMElement<P, T>;
+
+    //
+    // Event System
+    // ----------------------------------------------------------------------
     /**
      * currentTarget - a reference to the element on which the event listener is registered.
      *
@@ -1125,11 +1231,6 @@ declare namespace React {
     //
     // Event Handler Types
     // ----------------------------------------------------------------------
-
-    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
-
-    type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
-
     type ClipboardEventHandler<T = Element> = EventHandler<ClipboardEvent<T>>;
     type CompositionEventHandler<T = Element> = EventHandler<CompositionEvent<T>>;
     type DragEventHandler<T = Element> = EventHandler<DragEvent<T>>;
@@ -1148,27 +1249,6 @@ declare namespace React {
     //
     // Props / DOM Attributes
     // ----------------------------------------------------------------------
-
-    /**
-     * @deprecated. This was used to allow clients to pass `ref` and `key`
-     * to `createElement`, which is no longer necessary due to intersection
-     * types. If you need to declare a props object before passing it to
-     * `createElement` or a factory, use `ClassAttributes<T>`:
-     *
-     * ```ts
-     * var b: Button | null;
-     * var props: ButtonProps & ClassAttributes<Button> = {
-     *     ref: b => button = b, // ok!
-     *     label: "I'm a Button"
-     * };
-     * ```
-     */
-    interface Props<T> {
-        children?: ReactNode;
-        key?: Key;
-        ref?: LegacyRef<T>;
-    }
-
     interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {
     }
 
@@ -1439,8 +1519,7 @@ declare namespace React {
         security?: string;
         unselectable?: 'on' | 'off';
     }
-
-    // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
+// All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
     interface HTMLAttributes<T> extends DOMAttributes<T> {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
         'aria-activedescendant'?: string;
@@ -2426,7 +2505,7 @@ declare namespace React {
         webpreferences?: string;
     }
 
-    //
+        //
     // React.DOM
     // ----------------------------------------------------------------------
 
@@ -2608,55 +2687,6 @@ declare namespace React {
     interface ReactDOM extends ReactHTML, ReactSVG { }
 
     //
-    // React.PropTypes
-    // ----------------------------------------------------------------------
-
-    type Validator<T> = PropTypes.Validator<T>;
-
-    type Requireable<T> = PropTypes.Requireable<T>;
-
-    type ValidationMap<T> = PropTypes.ValidationMap<T>;
-
-    type WeakValidationMap<T> = {
-        [K in keyof T]?: null extends T[K]
-            ? Validator<T[K] | null | undefined>
-            : undefined extends T[K]
-            ? Validator<T[K] | null | undefined>
-            : Validator<T[K]>
-    };
-
-    interface ReactPropTypes {
-        any: typeof PropTypes.any;
-        array: typeof PropTypes.array;
-        bool: typeof PropTypes.bool;
-        func: typeof PropTypes.func;
-        number: typeof PropTypes.number;
-        object: typeof PropTypes.object;
-        string: typeof PropTypes.string;
-        node: typeof PropTypes.node;
-        element: typeof PropTypes.element;
-        instanceOf: typeof PropTypes.instanceOf;
-        oneOf: typeof PropTypes.oneOf;
-        oneOfType: typeof PropTypes.oneOfType;
-        arrayOf: typeof PropTypes.arrayOf;
-        objectOf: typeof PropTypes.objectOf;
-        shape: typeof PropTypes.shape;
-        exact: typeof PropTypes.exact;
-    }
-
-    //
-    // React.Children
-    // ----------------------------------------------------------------------
-
-    interface ReactChildren {
-        map<T, C>(children: C | C[], fn: (child: C, index: number) => T): T[];
-        forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
-        count(children: any): number;
-        only<C>(children: C): C extends any[] ? never : C;
-        toArray<C>(children: C | C[]): C[];
-    }
-
-    //
     // Browser Interfaces
     // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
     // ----------------------------------------------------------------------
@@ -2682,16 +2712,6 @@ declare namespace React {
         length: number;
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
-    }
-
-    //
-    // Error Interfaces
-    // ----------------------------------------------------------------------
-    interface ErrorInfo {
-        /**
-         * Captures which component contained the exception, and its ancestors.
-         */
-        componentStack: string;
     }
 }
 
@@ -2731,6 +2751,7 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
 
 declare global {
     namespace JSX {
+        // agnostic
         // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any, any> { }
         interface ElementClass extends React.Component<any> {
@@ -2752,6 +2773,11 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 
+        interface IntrinsicElements { }
+    }
+
+    // tslint:disable-next-line:no-mergeable-namespace
+    namespace JSX {
         interface IntrinsicElements {
             // HTML
             a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
