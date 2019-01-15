@@ -3,7 +3,7 @@
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import BN = require('bn.js');
+import BN from 'bn.js';
 
 // incomplete typings
 export const utils: any;

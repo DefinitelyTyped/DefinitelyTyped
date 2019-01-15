@@ -1,4 +1,4 @@
-import BigNumber = require("bn.js");
+import BigNumber from 'bn.js';
 import * as us from "underscore";
 
 type Unit =

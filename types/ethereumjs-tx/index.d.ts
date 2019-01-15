@@ -6,7 +6,7 @@
 
 /// <reference types="node"/>
 
-import BN = require("bn.js");
+import BN from 'bn.js';
 
 declare class EthereumTx {
     raw: Buffer[];

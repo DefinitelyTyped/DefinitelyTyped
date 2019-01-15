@@ -1,4 +1,4 @@
-import BigNumber = require("bn.js");
+import BigNumber from 'bn.js';
 import { Provider } from "../providers";
 import Contract, { CustomOptions as CustomContractOptions } from "./contract";
 import PromiEvent from "../promiEvent";

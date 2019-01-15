@@ -524,4 +524,4 @@ declare class BN {
     invm(b: BN): BN;
 }
 
-export = BN;
+export default BN;

@@ -1,5 +1,5 @@
 // test that it works as a require
-import BN = require('bn.js');
+import BN from 'bn.js';
 
 let bn = new BN(42);
 bn = bn.add(bn);

@@ -1,5 +1,5 @@
 import Web3 = require("web3");
-import BigNumber = require("bn.js");
+import BigNumber from "bn.js";
 import { TransactionReceipt } from "web3/types";
 import PromiEvent from "web3/promiEvent";
 import { NEW_ABI_STANDARD, OLD_ABI_STANDARD } from "web3/test/abi-tests";

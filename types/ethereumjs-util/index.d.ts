@@ -8,7 +8,7 @@
 // TODO: import types for [`rlp`](https://github.com/ethereumjs/rlp)
 // TODO: import types for [`secp256k1`](https://github.com/cryptocoinjs/secp256k1-node/)
 
-import BN = require("bn.js");
+import BN from 'bn.js';
 
 export const SHA3_NULL_S: string;
 
