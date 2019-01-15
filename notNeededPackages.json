@@ -685,6 +685,12 @@
             "asOfVersion": "0.35.0"
         },
         {
+            "libraryName": "hibp",
+            "typingsPackageName": "hibp",
+            "sourceRepoURL": "https://github.com/wKovacs64/hibp",
+            "asOfVersion": "7.3.0"
+        },
+        {
             "libraryName": "homeworks",
             "typingsPackageName": "homeworks",
             "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",

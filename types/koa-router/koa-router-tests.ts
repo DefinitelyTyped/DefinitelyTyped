@@ -49,6 +49,10 @@ const match = router.match('/users/:id', 'GET');
 let layer: Router.Layer
 let layerOptions: Router.ILayerOptions
 
+const mw: Router.IMiddleware = (ctx: Router.IRouterContext, next: () => Promise<any>) => {
+  ctx.body = "Ok";
+};
+
 app.use(router.routes());
 app.use(router.allowedMethods());
 
