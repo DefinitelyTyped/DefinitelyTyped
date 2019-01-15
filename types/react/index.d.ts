@@ -493,7 +493,7 @@ declare namespace React {
 
     type JSXElementConstructor<P> =
         | ((props: P) => ReactElement<any> | null)
-        | (new (props: P) => Component<P, any, any>)
+        | (new (props: P) => Component<P, any>);
 
     /**
      * We use an intersection type to infer multiple type parameters from
@@ -2633,7 +2633,9 @@ declare namespace React {
     }
 }
 
-type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false
+// naked 'any' type in a conditional type will short circuit and union both the then/else branches
+// so boolean is only resolved for T = any
+type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
 
 // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
 // If props is type any, use propTypes definitions, otherwise for each `any` property of props, use the propTypes type
