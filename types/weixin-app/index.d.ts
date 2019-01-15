@@ -1920,9 +1920,9 @@ declare namespace wx {
 		 */
 		title: string;
 		/**
-		 * 图标，只支持"success"、"loading"
+		 * 图标，只支持 "success", "loading", "none"
 		 */
-		icon?: "success" | "loading";
+		icon?: "success" | "loading" | "none";
 		/**
 		 * 自定义图标的本地路径，image 的优先级高于 icon
 		 */

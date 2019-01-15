@@ -1,4 +1,4 @@
-// Type definitions for simpl-schema 0.1
+// Type definitions for simpl-schema 0.2
 // Project: https://github.com/aldeed/simple-schema-js
 // Definitions by: Andreas Richter <https://github.com/arichter83>
 //                 Qkramer <https://github.com/Qkramer>
@@ -135,6 +135,7 @@ interface SimpleSchemaStatic {
   objectKeys(keyPrefix: any): any[];
   validate(obj: any, options?: ValidationOption): void;
   validator(options?: ValidationOption): () => boolean;
+  extendOptions(options: string[]): void;
   RegEx: {
       Email: RegExp;
       EmailWithTLD: RegExp;
@@ -236,7 +237,6 @@ export interface SimpleSchema extends SimpleSchemaStatic {
     /** Validate a data object. Options: {keys: []} to limit */
     validate(obj: any, options?: ValidationOption): void;
     addValidator(validator: () => boolean): any;
-    extendOptions(options: {[key: string]: any}): void;
     messages(messages: any): void;
 }
 
