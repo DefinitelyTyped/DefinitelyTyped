@@ -73,6 +73,9 @@ declare namespace node_geocoder {
         zipcode?: string;
         minConfidence?: number;
         limit?: number;
+        bounded?: number;
+        viewbox?: string;
+        countrycodes?: string;
     }
 
     interface BatchResult {
