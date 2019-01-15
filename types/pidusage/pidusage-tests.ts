@@ -1,4 +1,4 @@
-import * as pidusage from 'pidusage';
+import pidusage = require('pidusage');
 
 let cpu: number;
 let memory: number;
