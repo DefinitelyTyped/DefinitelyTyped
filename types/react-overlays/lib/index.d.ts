@@ -11,15 +11,15 @@ import RootCloseWrapper = require("./RootCloseWrapper");
 import WaitForContainer = require("./WaitForContainer");
 
 export {
-	Affix,
-	AutoAffix,
-	Dropdown,
-	DropdownMenu,
-	DropdownToggle,
-	Modal,
-	ModalManager,
-	Overlay,
-	Portal,
-	RootCloseWrapper,
-	WaitForContainer
+    Affix,
+    AutoAffix,
+    Dropdown,
+    DropdownMenu,
+    DropdownToggle,
+    Modal,
+    ModalManager,
+    Overlay,
+    Portal,
+    RootCloseWrapper,
+    WaitForContainer
 };
