@@ -78,6 +78,12 @@ class Test extends React.Component<React.Props<{}>> {
                     delay={300}
                     name="box"
                 />
+                <Combobox
+                    busy
+                    busySpinner={
+                      <span className="fas fa-sync fa-spin" />
+                    }
+                />
                 <DateTimePicker
                     autoFocus
                     open="date"
