@@ -1781,7 +1781,9 @@ declare module "zlib" {
     }
 
     interface Zlib {
+        /** @deprecated Use bytesWritten instead. */
         readonly bytesRead: number;
+        readonly bytesWritten: number;
         close(callback?: () => void): void;
         flush(kind?: number | (() => void), callback?: () => void): void;
     }
