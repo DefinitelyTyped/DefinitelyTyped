@@ -43,8 +43,8 @@ declare global {
       constructor(initial_size?: number);
 
       /**
-       * Reset all the state in this FlatBufferBuilder 
-       * so it can be reused to construct another buffer.             
+       * Reset all the state in this FlatBufferBuilder
+       * so it can be reused to construct another buffer.
        */
       clear(): void;
 
