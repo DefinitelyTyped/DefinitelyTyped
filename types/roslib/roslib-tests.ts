@@ -16,6 +16,12 @@ ros.on('close', function () {
 	console.log('Connection to websocket server closed.');
 });
 
+// Using base classes
+// ------------------
+var orientation = new ROSLIB.Quaternion({x: 0, y: 0, z: 1.2, w: 0.4 });
+var position = new ROSLIB.Vector3({x: 100, y: 150, z: 0});
+var pose = new ROSLIB.Pose({ position, orientation });
+
 // Publishing a Topic
 // ------------------
 

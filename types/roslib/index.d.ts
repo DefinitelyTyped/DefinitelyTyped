@@ -565,9 +565,24 @@ declare namespace ROSLIB {
          * Perform a normalization on this quaternion.
          */
         normalize(): void;
-    }
+	}
+	
+	/**
+	 * A Pose in 3D space. Values are copied into this object.
+	 *
+	 *  @constructor
+	 *  @param options - object with following keys:
+	 *   * position - the Vector3 describing the position
+	 *   * orientation - the ROSLIB.Quaternion describing the orientation
+	 */
+	export class Pose {
+		constructor(options: {
+			position: Vector3,
+			orientation: Quaternion
+		});
+	}
 
-	class ActionClient {
+	export class ActionClient {
 		/**
 		 * An actionlib action client.
 		 *
@@ -597,7 +612,7 @@ declare namespace ROSLIB {
 		cancel():void;
 	}
 
-	class Goal {
+	export class Goal {
 		/**
 		 * An actionlib goal goal is associated with an action server.
 		 *
