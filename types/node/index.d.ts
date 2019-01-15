@@ -163,6 +163,7 @@ interface Console {
 }
 
 interface Error {
+    code?: string | number;
     stack?: string;
 }
 
@@ -608,7 +609,7 @@ declare namespace NodeJS {
 
     interface ErrnoException extends Error {
         errno?: number;
-        code?: string;
+        code?: number;
         path?: string;
         syscall?: string;
         stack?: string;
