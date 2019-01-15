@@ -16,47 +16,46 @@
 //
 /// <reference types="THREE" />
 
-declare module Autodesk {
-    export module Viewing {
+declare namespace Autodesk {
+    namespace Viewing {
         // events
-        export var ESCAPE_EVENT: string;
-        export var PROGRESS_UPDATE_EVENT: string;
-        export var FULLSCREEN_MODE_EVENT: string;
-        export var NAVIGATION_MODE_CHANGED_EVENT: string;
-        export var VIEWER_STATE_RESTORED_EVENT: string;
-        export var VIEWER_RESIZE_EVENT: string;
-        export var VIEWER_UNINITIALIZED: string;
-        export var MODEL_ROOT_LOADED_EVENT: string;
-        export var GEOMETRY_LOADED_EVENT: string;
-        export var TOOLBAR_CREATED_EVENT: string;
-        export var OBJECT_TREE_CREATED_EVENT: string;
-        export var OBJECT_TREE_UNAVAILABLE_EVENT: string;
-        export var MODEL_UNLOADED_EVENT: string;
-        export var SELECTION_CHANGED_EVENT: string;
-        export var AGGREGATE_SELECTION_CHANGED_EVENT: string;
-        export var ISOLATE_EVENT: string;
-        export var HIDE_EVENT: string;
-        export var SHOW_EVENT: string;
-        export var HIGHLIGHT_EVENT: string;
-        export var CAMERA_CHANGE_EVENT: string;
-        export var EXPLODE_CHANGE_EVENT: string;
-        export var CUTPLANES_CHANGE_EVENT: string;
-        export var TOOL_CHANGE_EVENT: string;
-        export var TOOLBAR_CREATED_EVENT: string;
-        export var RENDER_OPTION_CHANGED_EVENT: string;
-        export var LAYER_VISIBILITY_CHANGED_EVENT: string;
-        export var RESET_EVENT: string;
-        export var ANIMATION_READY_EVENT: string;
+        let ESCAPE_EVENT: string;
+        let PROGRESS_UPDATE_EVENT: string;
+        let FULLSCREEN_MODE_EVENT: string;
+        let NAVIGATION_MODE_CHANGED_EVENT: string;
+        let VIEWER_STATE_RESTORED_EVENT: string;
+        let VIEWER_RESIZE_EVENT: string;
+        let VIEWER_UNINITIALIZED: string;
+        let MODEL_ROOT_LOADED_EVENT: string;
+        let GEOMETRY_LOADED_EVENT: string;
+        let TOOLBAR_CREATED_EVENT: string;
+        let OBJECT_TREE_CREATED_EVENT: string;
+        let OBJECT_TREE_UNAVAILABLE_EVENT: string;
+        let MODEL_UNLOADED_EVENT: string;
+        let SELECTION_CHANGED_EVENT: string;
+        let AGGREGATE_SELECTION_CHANGED_EVENT: string;
+        let ISOLATE_EVENT: string;
+        let HIDE_EVENT: string;
+        let SHOW_EVENT: string;
+        let HIGHLIGHT_EVENT: string;
+        let CAMERA_CHANGE_EVENT: string;
+        let EXPLODE_CHANGE_EVENT: string;
+        let CUTPLANES_CHANGE_EVENT: string;
+        let TOOL_CHANGE_EVENT: string;
+        let RENDER_OPTION_CHANGED_EVENT: string;
+        let LAYER_VISIBILITY_CHANGED_EVENT: string;
+        let RESET_EVENT: string;
+        let ANIMATION_READY_EVENT: string;
 
-        export enum SelectionMode {
+        enum SelectionMode {
             LEAF_OBJECT,
             FIRST_OBJECT,
             LAST_OBJECT
         }
 
-        export var theExtensionManager: ExtensionManager;
+        let theExtensionManager: ExtensionManager;
 
-        export interface InitializerOptions {
+        interface InitializerOptions {
             env?: string;
             language?: string;
             webGLHelpLink?: string;
@@ -64,43 +63,44 @@ declare module Autodesk {
             refreshToken?(callback?: (accessToken: string, expires?: number) => void): void;
         }
 
-        export function Initializer(options: InitializerOptions, callback?: () => void): void;
+        function Initializer(options: InitializerOptions, callback?: () => void): void;
 
-        export class Document {
-            static load(documentId: string, successCallback: (doc: Document) => void, errorCallback: (errorCode: number, errorMsg: string, messages: any[]) => void, accessControlProperties?: any): void;
-            static getSubItemsWithProperties(item: Object, properties: Properties, recursive: boolean): Object[];
+        class Document {
+            static load(documentId: string, successCallback: (doc: Document) => void,
+            errorCallback: (errorCode: number, errorMsg: string, messages: any[]) => void, accessControlProperties?: any): void;
+            static getSubItemsWithProperties(item: object, properties: Properties, recursive: boolean): object[];
 
             acmSessionId: string;
 
-            getRootItem(): Object;
-            getViewablePath(item: Object): string;
+            getRootItem(): object;
+            getViewablePath(item: object): string;
         }
 
-        export class Extension {
-            viewer: Autodesk.Viewing.Private.GuiViewer3D;
+        class Extension {
+            viewer: Private.GuiViewer3D;
             options: any;
-            constructor(viewer: Autodesk.Viewing.Private.GuiViewer3D, options: any);
+            constructor(viewer: Private.GuiViewer3D, options: any);
 
             load(): boolean;
             unload(): boolean;
         }
 
-        export class ExtensionManager {
+        class ExtensionManager {
             registerExtension(extensionId: string, extension: any): boolean;
             unregisterExtension(extensionId: string): boolean;
 
             getExtension(extensionId: string): any;
         }
 
-        export class InstanceTree {
+        class InstanceTree {
             maxDepth: number;
             nodeAccess: InstanceTreeAccess;
             numHidden: number;
             numOff: number;
             objectCount: number;
 
-            enumNodeChildren(node: number|any, callback: (dbId: number) => void, recursive?: boolean): void;
-            enumNodeFragments(node: number|any, callback: (fragId: number) => void, recursive?: boolean): void;
+            enumNodeChildren(node: any, callback: (dbId: number) => void, recursive?: boolean): void;
+            enumNodeFragments(node: any, callback: (fragId: number) => void, recursive?: boolean): void;
             getChildCount(dbId: number): number;
             getNodeBox(dbId: number, nodeBox: Float32Array): void;
             getNodeParentId(dbId: number): number;
@@ -109,7 +109,7 @@ declare module Autodesk {
             setFlagNode(dbId: number, flag: any, value: any): boolean;
         }
 
-        export class InstanceTreeAccess {
+        class InstanceTreeAccess {
             children: any;
             dbIdToIndex: any;
             nameSuffixes: any;
@@ -122,14 +122,14 @@ declare module Autodesk {
             visibleIds: number;
         }
 
-        export interface InstanceTreeNode {
+        interface InstanceTreeNode {
             dbId: number;
             name: string;
             fragments: number[];
             children: InstanceTreeNode[];
         }
 
-        export class Model {
+        class Model {
             getBoundingBox(): THREE.Box3;
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: any) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
@@ -138,7 +138,7 @@ declare module Autodesk {
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             getUnitScale(): number;
             getUnitString(): number;
-            //search(text: string, successCallback: (r: number[]) => void, errorCallback: (err: any) => void, attributeNames?: string[]): void;
+            // search(text: string, successCallback: (r: number[]) => void, errorCallback: (err: any) => void, attributeNames?: string[]): void;
             search(text: string, successCallback: (r: number[]) => void, errorCallback?: (err: any) => void, attributeNames?: string[]): void;
             clearThemingColors(): void;
 
@@ -146,14 +146,14 @@ declare module Autodesk {
             visibilityManager: Private.VisibilityManager;
         }
 
-        export interface PropertyResult {
+        interface PropertyResult {
             dbId: number;
             externalId?: string;
             name?: string;
             properties: Property[];
         }
 
-        export interface Property {
+        interface Property {
             displayCategory: string;
             displayName: string;
             displayValue: string;
@@ -162,7 +162,7 @@ declare module Autodesk {
             units: string;
         }
 
-        export class Navigation {
+        class Navigation {
             getCamera(): any;
             getEyeVector(): THREE.Vector3;
             getFovMin(): number;
@@ -179,27 +179,27 @@ declare module Autodesk {
             setCameraUpVector(up: THREE.Vector): void;
         }
 
-        export interface Properties {
+        interface Properties {
             type: string;
             role: string;
         }
 
-        export class ToolController {
+        class ToolController {
             activateTool(name: string): boolean;
             deactivateTool(name: string): boolean;
             registerTool(tool: any): boolean;
             deregisterTool(tool: any): boolean;
             getToolNames(): string[];
-            getActiveToolName (): string;
+            getActiveToolName(): string;
         }
 
-        export interface ToolInterface {
+        interface ToolInterface {
             getCursor?(): string;
             getName(): string;
             getNames(): string[];
             register(): void;
             deregister(): void;
-            activate(name: string, viewerApi?: Autodesk.Viewing.Private.GuiViewer3D): void;
+            activate(name: string, viewerApi?: Private.GuiViewer3D): void;
             deactivate(name: string): void;
             update(): boolean;
             handleSingleClick?(event: MouseEvent, button: number): boolean;
@@ -217,22 +217,22 @@ declare module Autodesk {
             handleResize?(): void;
         }
 
-        export class UnifiedCamera {
+        class UnifiedCamera {
         }
 
-        export interface ContextMenuCallbackStatus {
-            hasHidden: boolean,
-            hasSelected: boolean,
-            hasVisible: boolean,
-            numSelected: number
+        interface ContextMenuCallbackStatus {
+            hasHidden: boolean;
+            hasSelected: boolean;
+            hasVisible: boolean;
+            numSelected: number;
         }
 
-        export interface ContextMenuItem {
-            target: () => void,
-            title: string
+        interface ContextMenuItem {
+            target: () => void;
+            title: string;
         }
 
-        export class Viewer3D {
+        class Viewer3D {
             id: number;
 
             clearSelection(): void;
@@ -257,7 +257,7 @@ declare module Autodesk {
             search(text: string, successCallback: (r: number[]) => void, errorCallback: (err: any) => void, attributeNames?: string[]): void;
             select(dbIds: number | number[]): void;
             setCutPlanes(planes: THREE.Vector4[]): void;
-            setSelectionMode(mode: Autodesk.Viewing.SelectionMode): void;
+            setSelectionMode(mode: SelectionMode): void;
             setThemingColor(dbId: number, color: THREE.Vector4, model?: any): void;
             setUp(config?: any): void;
             setViewCube(face: string): void;
@@ -269,20 +269,19 @@ declare module Autodesk {
             worldToClient(point: THREE.Vector3): THREE.Vector3;
         }
 
-        export class ViewingUtilities {
+        class ViewingUtilities {
             getHitPoint(x: number, y: number): THREE.Vector3;
         }
 
-        export module Private {
+        namespace Private {
+            function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
 
-            export function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
-
-            export class GuiViewer3D extends Viewer3D {
-                constructor(container: HTMLElement, config?: Object);
+            class GuiViewer3D extends Viewer3D {
+                constructor(container: HTMLElement, config?: object);
 
                 canvas: HTMLCanvasElement;
                 container: Element;
-                toolController: Viewing.ToolController;
+                toolController: ToolController;
                 impl: Viewer3DImpl;
                 model: Model;
                 navigation: Navigation;
@@ -290,18 +289,20 @@ declare module Autodesk {
                 getCamera(): UnifiedCamera;
                 getToolbar(create: boolean): UI.ToolBar;
                 initialize(): any;
-                load(urn: string, sharedPropertyDbPath?: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
-                loadModel(urn: string, options?: any, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
-                start(path?: string, options?: Object): any;
+                load(urn: string, sharedPropertyDbPath?: string, onSuccesfullCallback?: () => void,
+                onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
+                loadModel(urn: string, options?: any, onSuccesfullCallback?: () => void,
+                onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
+                start(path?: string, options?: object): any;
                 finish(): any;
-                setUsePivotAlways(value: boolean):any;
+                setUsePivotAlways(value: boolean): any;
 
-                setGroundShadow (param: boolean):void ;
-		            setGroundReflection (param: boolean):void ;
-		            setOptimizeNavigation (param: boolean):void ;
-                setQualityLevel (useSAO: boolean, useFXAA: boolean):void ;
+                setGroundShadow(param: boolean): void ;
+		            setGroundReflection(param: boolean): void ;
+		            setOptimizeNavigation(param: boolean): void ;
+                setQualityLevel(useSAO: boolean, useFXAA: boolean): void;
 
-                loadExtension(extensionId: string, options?: Object): boolean;
+                loadExtension(extensionId: string, options?: object): boolean;
                 unloadExtension(extensionId: string): boolean;
                 getExtension(extensionId: string): Extension;
 
@@ -311,19 +312,18 @@ declare module Autodesk {
 
                 addEventListener(event: string, callback: (event: any) => void, useCapture?: boolean): void;
                 removeEventListener(event: string, callback: (event: any) => void, useCapture?: boolean): void;
-
             }
 
-            export interface HitTestResult {
+            interface HitTestResult {
                 dbId: number;
                 face: THREE.Face3;
                 fragId: number;
                 intersectPoint: THREE.Vector3;
-                model: Autodesk.Viewing.Model;
+                model: Model;
             }
 
-            export class HudMessage {
-                static displayMessage(container: Element, messageSpec: {
+            namespace HudMessage {
+               function displayMessage(container: Element, messageSpec: {
                     msgTitleKey: string,
                     msgTitleDefault?: string,
                     messageKey: string,
@@ -332,10 +332,10 @@ declare module Autodesk {
                     checkboxChecked?: boolean
                 }, closeCallback?: (event: any) => void, buttonCallback?: (event: any) => void, checkboxCallback?: (event: any) => void): void;
 
-                static dismiss(): boolean;
+                function dismiss(): boolean;
             }
 
-            export class Viewer3DImpl {
+            class Viewer3DImpl {
                 constructor(thecanvas: any, theapi: any);
 
                 visibilityManager: VisibilityManager;
@@ -352,28 +352,28 @@ declare module Autodesk {
                 sceneUpdated(param: boolean): void;
             }
 
-            export class VisibilityManager {
+            class VisibilityManager {
                 constructor(viewerImpl: any, model: any);
 
                 getHiddenNodes(): any;
                 getInstanceTree(): InstanceTree;
                 getIsolatedNodes(): any;
-                hide(node: number | Object): void;
+                hide(node: number | object): void;
                 isNodeVisible(dbId: number): boolean;
-                isolate(node: number | Object): void;
+                isolate(node: number | object): void;
                 isolateMultiple(nodeList: any[]): void;
                 isolateNone(): void;
                 setAllVisibility(visible: boolean): void;
-                setVisibilityOnNode(node: number | Object, visible: boolean): void;
-                setNodeOff(node: number | Object, isOff: boolean): void;
-                show(node: number | Object): void;
-                toggleVisibility(node: number | Object): void;
-                updateNodeVisibilityTracking(node: number | Object, visible: boolean): void;
+                setVisibilityOnNode(node: number | object, visible: boolean): void;
+                setNodeOff(node: number | object, isOff: boolean): void;
+                show(node: number | object): void;
+                toggleVisibility(node: number | object): void;
+                updateNodeVisibilityTracking(node: number | object, visible: boolean): void;
             }
         }
 
-        export module UI {
-            export class Control {
+        namespace UI {
+            class Control {
                 container: HTMLElement;
 
                 getId(): string;
@@ -385,23 +385,23 @@ declare module Autodesk {
                 setVisible(visible: boolean): boolean;
             }
 
-            export class Button extends Control {
+            class Button extends Control {
                 constructor(id: string, options?: any);
 
                 setIcon(iconClass: string): void;
-                getState(): Autodesk.Viewing.UI.Button.State;
-                setState(state: Autodesk.Viewing.UI.Button.State): boolean;
+                getState(): Button.State;
+                setState(state: Button.State): boolean;
                 onClick(event: MouseEvent): void;
                 onMouseOver(event: MouseEvent): void;
                 onMouseOut(event: MouseEvent): void;
             }
 
             // NOTE: TypeScript doesn't support enum inside class
-            module Button {
-                export enum State { ACTIVE, INACTIVE, DISABLED }
+            namespace Button {
+                enum State { ACTIVE, INACTIVE, DISABLED }
             }
 
-            export class ControlGroup extends Control {
+            class ControlGroup extends Control {
                 constructor(id: string, options?: any);
 
                 addClass(name: string): void;
@@ -411,22 +411,22 @@ declare module Autodesk {
                 getNumberOfControls(): number;
             }
 
-            export class ToolBar extends ControlGroup {
+            class ToolBar extends ControlGroup {
                 addEventListener(event: string, callback: () => void): void;
                 getDimensions(): { width: number, height: number };
             }
 
-            module ToolBar {
-                export class Event {
-                    static SIZE_CHANGED: string;
-                    static CONTROL_REMOVED: string;
-                    static CONTROL_ADDED: string;
-                    static COLLAPSED_CHANGED: string;
-                    static VISIBILITY_CHANGED: string;
+            namespace ToolBar {
+                 interface Event {
+                    SIZE_CHANGED: string;
+                    CONTROL_REMOVED: string;
+                    CONTROL_ADDED: string;
+                    COLLAPSED_CHANGED: string;
+                    VISIBILITY_CHANGED: string;
                 }
             }
 
-            export interface ClientRect {
+            interface ClientRect {
                 bottom: number;
                 height: number;
                 left: number;
@@ -435,12 +435,12 @@ declare module Autodesk {
                 width: number;
             }
 
-            export interface ContentSize {
+            interface ContentSize {
                 height: number;
                 width: number;
             }
 
-            export class DockingPanel {
+            class DockingPanel {
                 constructor(parentContainer: any, id: string, title: string, options?: any);
 
                 closer: HTMLElement;
@@ -477,8 +477,8 @@ declare module Autodesk {
 
                 addVisibilityListener(callback: (state: boolean) => void): void;
 
-                addEventListener(target: Object, eventId: string, callback: (event: any) => void): void;
-                removeEventListener(target: Object, eventId: string, callback: (event: any) => void): boolean;
+                addEventListener(target: object, eventId: string, callback: (event: any) => void): void;
+                removeEventListener(target: object, eventId: string, callback: (event: any) => void): boolean;
             }
         }
     }

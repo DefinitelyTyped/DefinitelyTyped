@@ -14,35 +14,35 @@
 // DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
 // UNINTERRUPTED OR ERROR FREE.
 //
-declare module Autodesk {
-    export module Forge {
-        export interface Credentials {
+declare namespace Autodesk {
+    namespace Forge {
+        interface Credentials {
             client_id: string;
             client_secret: string;
             grant_type: string;
             scope?: string;
         }
 
-        export interface AuthToken {
+        interface AuthToken {
             access_token: string;
             expires_in: number;
             token_type: string;
             refresh_token?: string;
         }
 
-        export module Dm {
-            export interface BucketResponse {
+        namespace Dm {
+            interface BucketResponse {
                 bucketKey: string;
                 bucketOwner: string;
                 createdDate: number;
-                permissions: {
+                permissions: Array<{
                     access: string;
                     authId: string;
-                }[];
+                }>;
                 policyKey: string;
             }
 
-            export interface ItemResponse {
+            interface ItemResponse {
                 data: any[];
                 included: Item[];
                 jsonapi: {
@@ -51,12 +51,12 @@ declare module Autodesk {
                 links: any;
             }
 
-            export interface Item {
+            interface Item {
                 attributes: {
                     createTime: string;
                     createUserId: string;
                     displayName: string;
-                    extension: Object;
+                    extension: object;
                     fileType: string;
                     lastModifiedTime: string;
                     lastModifiedUserId: string;

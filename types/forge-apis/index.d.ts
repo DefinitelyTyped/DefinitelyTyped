@@ -1,4 +1,4 @@
-// Type definitions for Forge Node.js SDK
+// sadsa
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
 // Definitions by: Autodesk Forge Partner Development <forge.help@autodesk.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,6 +20,5 @@
 // UNINTERRUPTED OR ERROR FREE.
 //
 /// <reference path='./src/viewer.d.ts' />
-/// <reference path='./src/viewer-extensions.d.ts' />
 /// <reference path='./src/forge.d.ts' />
 /// <reference path='./src/forge-apis.d.ts' />
