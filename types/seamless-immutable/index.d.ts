@@ -96,7 +96,7 @@ declare namespace SeamlessImmutable {
         /** New methods added by seamless-immutable. */
         interface Additions<T> {
             asMutable(opts?: AsMutableOptions): T[];
-            asObject(toKeyValue: (item: T) => [string, any]): Immutable<object>;
+            asObject<U extends object = {}, K extends keyof U = keyof U>(toKeyValue: (item: T) => [K, U[K]]): Immutable<U>;
             flatMap<TTarget>(mapFunction: (item: T) => TTarget): Immutable<TTarget extends any[] ? TTarget : TTarget[]>;
         }
 

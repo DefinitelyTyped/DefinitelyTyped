@@ -155,7 +155,10 @@ interface ExtendedUser extends User {
     );
 
     // asObject
-    const arrayToObject1: Immutable.Immutable<object> = array.asObject((value) => [value.toString(), value]);
+    interface ArrayToObjectResult {
+        theFirstName: string;
+    }
+    const arrayToObject1: Immutable.Immutable<ArrayToObjectResult> = array.asObject<ArrayToObjectResult>((value) => ['theFirstName', value.firstName]);
 }
 
 //
