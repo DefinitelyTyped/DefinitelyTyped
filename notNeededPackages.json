@@ -1657,6 +1657,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "Universal Router",
+            "typingsPackageName": "universal-router",
+            "sourceRepoURL": "https://github.com/kriasoft/universal-router",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
