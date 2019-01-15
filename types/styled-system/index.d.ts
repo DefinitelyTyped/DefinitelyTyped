@@ -40,7 +40,7 @@ export interface LowLevelStylefunctionArguments {
     scale?: Array<string | number>;
 }
 
-export function style(args: LowLevelStylefunctionArguments): any;
+export function style(args: LowLevelStylefunctionArguments): {[cssProp: string]: string};
 
 export type TLengthStyledSystem = string | 0 | number;
 export type ResponsiveValue<T> = T | Array<T | null>;
