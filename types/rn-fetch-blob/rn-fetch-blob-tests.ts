@@ -5,7 +5,7 @@ const PATH_TO_THE_FILE = '/some/path.png';
 
 // Download example: Fetch files that need authorization token
 RNFetchBlob
-    .fetch('GET', 'http://www.example.com/images/img1.png', {Authorization: 'Bearer access-token...'})
+    .fetch('GET', 'http://www.example.com/images/img1.png', { Authorization: 'Bearer access-token...' })
     .then(res => {
         const base64Str = res.base64();
         const text = res.text();
@@ -108,25 +108,25 @@ RNFetchBlob.fetch('POST', 'http://www.example.com/upload-form', {
     otherHeader: "foo",
     'Content-Type': 'multipart/form-data',
 }, [
-    // element with property `filename` will be transformed into `file` in form data
-    {name: 'avatar', filename: 'avatar.png', data: BASE64_IMAGE_STRING},
-    // custom content type
-    {name: 'avatar-png', filename: 'avatar-png.png', type: 'image/png', data: BASE64_IMAGE_STRING},
-    // part file from storage
-    {name: 'avatar-foo', filename: 'avatar-foo.png', type: 'image/foo', data: RNFetchBlob.wrap(PATH_TO_THE_FILE)},
-    // elements without property `filename` will be sent as plain text
-    {name: 'name', data: 'user'},
-    {
-        name: 'info', data: JSON.stringify({
-        mail: 'example@example.com',
-        tel: '12345678'
-    })
-    },
-]).then((resp) => {
-    // ...
-}).catch((err) => {
-    // ...
-});
+        // element with property `filename` will be transformed into `file` in form data
+        { name: 'avatar', filename: 'avatar.png', data: BASE64_IMAGE_STRING },
+        // custom content type
+        { name: 'avatar-png', filename: 'avatar-png.png', type: 'image/png', data: BASE64_IMAGE_STRING },
+        // part file from storage
+        { name: 'avatar-foo', filename: 'avatar-foo.png', type: 'image/foo', data: RNFetchBlob.wrap(PATH_TO_THE_FILE) },
+        // elements without property `filename` will be sent as plain text
+        { name: 'name', data: 'user' },
+        {
+            name: 'info', data: JSON.stringify({
+                mail: 'example@example.com',
+                tel: '12345678'
+            })
+        },
+    ]).then((resp) => {
+        // ...
+    }).catch((err) => {
+        // ...
+    });
 
 RNFetchBlob.fetch('POST', 'http://www.example.com/upload-form', {
     Authorization: "Bearer access-token",
@@ -134,42 +134,42 @@ RNFetchBlob.fetch('POST', 'http://www.example.com/upload-form', {
     // this is required, otherwise it won't be process as a multipart/form-data request
     'Content-Type': 'multipart/form-data',
 }, [
-    // append field data from file path
-    {
-        name: 'avatar',
-        filename: 'avatar.png',
-        // Change BASE64 encoded data to a file path with prefix `RNFetchBlob-file://`.
-        // Or simply wrap the file path with RNFetchBlob.wrap().
-        data: RNFetchBlob.wrap(PATH_TO_THE_FILE)
-    },
-    {
-        name: 'ringtone',
-        filename: 'ring.mp3',
-        // use custom MIME type
-        type: 'application/mp3',
-        // upload a file from asset is also possible in version >= 0.6.2
-        data: RNFetchBlob.wrap(RNFetchBlob.fs.asset('default-ringtone.mp3'))
-    },
-    // elements without property `filename` will be sent as plain text
-    {name: 'name', data: 'user'},
-    {
-        name: 'info', data: JSON.stringify({
-        mail: 'example@example.com',
-        tel: '12345678'
-    })
-    },
-]).then((resp) => {
-    // ...
-}).catch((err) => {
-    // ...
-});
+        // append field data from file path
+        {
+            name: 'avatar',
+            filename: 'avatar.png',
+            // Change BASE64 encoded data to a file path with prefix `RNFetchBlob-file://`.
+            // Or simply wrap the file path with RNFetchBlob.wrap().
+            data: RNFetchBlob.wrap(PATH_TO_THE_FILE)
+        },
+        {
+            name: 'ringtone',
+            filename: 'ring.mp3',
+            // use custom MIME type
+            type: 'application/mp3',
+            // upload a file from asset is also possible in version >= 0.6.2
+            data: RNFetchBlob.wrap(RNFetchBlob.fs.asset('default-ringtone.mp3'))
+        },
+        // elements without property `filename` will be sent as plain text
+        { name: 'name', data: 'user' },
+        {
+            name: 'info', data: JSON.stringify({
+                mail: 'example@example.com',
+                tel: '12345678'
+            })
+        },
+    ]).then((resp) => {
+        // ...
+    }).catch((err) => {
+        // ...
+    });
 
 // Upload/Download progress
 RNFetchBlob.fetch('POST', 'http://www.example.com/upload', {
     // ... some headers,
     'Content-Type': 'octet-stream'
 }, BASE64_IMAGE_STRING)
-// listen to upload progress event
+    // listen to upload progress event
     .uploadProgress((written, total) => {
         console.log('uploaded', written / total);
     })
@@ -188,12 +188,12 @@ RNFetchBlob.fetch('POST', 'http://www.example.com/upload', {
     // ... some headers,
     'Content-Type': 'octet-stream'
 }, BASE64_IMAGE_STRING)
-// listen to upload progress event, emit every 250ms
-    .uploadProgress({interval: 250}, (written, total) => {
+    // listen to upload progress event, emit every 250ms
+    .uploadProgress({ interval: 250 }, (written, total) => {
         console.log('uploaded', written / total);
     })
     // listen to download progress event, every 10%
-    .progress({count: 10}, (received, total) => {
+    .progress({ count: 10 }, (received, total) => {
         console.log('progress', received / total);
     })
     .then((resp) => {
@@ -207,7 +207,7 @@ RNFetchBlob.fetch('POST', 'http://www.example.com/upload', {
 const task = RNFetchBlob.fetch('GET', 'http://example.com/file/1');
 task.then(() => {
 })
-// handle request cancelled rejection
+    // handle request cancelled rejection
     .catch((err) => {
         console.log(err);
     });
@@ -222,7 +222,7 @@ RNFetchBlob
         path: dirs.DCIMDir + '/music.mp3'
     })
     .fetch('GET', 'http://example.com/music.mp3')
-    .then((res) => RNFetchBlob.fs.scanFile([{path: res.path(), mime: 'audio/mpeg'}]))
+    .then((res) => RNFetchBlob.fs.scanFile([{ path: res.path(), mime: 'audio/mpeg' }]))
     .then(() => {
         // scan file success
     })
@@ -326,7 +326,7 @@ RNFetchBlob.fs.writeStream(
 // Cache File Management
 // remove file using RNFetchblobResponse.flush() object method
 RNFetchBlob
-    .config({fileCache: true})
+    .config({ fileCache: true })
     .fetch('GET', 'http://example.com/download/file')
     .then((res) => {
         // remove cached file from storage
@@ -370,7 +370,7 @@ RNFetchBlob.session('foo').dispose().then(() => {
 });
 
 // Transfer Encoding
-RNFetchBlob.fetch('POST', 'http://example.com/upload', {'Transfer-Encoding': 'Chunked'}, 'bodyData');
+RNFetchBlob.fetch('POST', 'http://example.com/upload', { 'Transfer-Encoding': 'Chunked' }, 'bodyData');
 
 // Self-Signed SSL Server
 RNFetchBlob.config({

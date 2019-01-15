@@ -1,7 +1,6 @@
-// Type definitions for rn-fetch-blob
+// Type definitions for rn-fetch-blob 1.2
 // Project: https://github.com/joltup/rn-fetch-blob#readme
-// Definitions by: MNB <https://github.com/MNBuyskih>
-// Definitions by Peng Cao <https://github.com/pengcao1>
+// Definitions by: Cao Peng <https://github.com/pengcao1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export const RNFetchBlob: RNFetchBlobStatic;
@@ -9,7 +8,7 @@ export type RNFetchBlob = RNFetchBlobStatic;
 export default RNFetchBlob;
 
 interface RNFetchBlobStatic {
-    fetch(method: Methods, url: string, headers?: { [key: string]: string }, body?: any
+    fetch(method: Methods, url: string, headers?: { [key: string]: string }, body?: {}
         | null): StatefulPromise<FetchBlobResponse>;
     base64: { encode(input: string): string; decode(input: string): string };
     android: AndroidApi;
