@@ -40,18 +40,14 @@ declare namespace BLECentralPlugin {
     }
 
     export interface BLECentralPluginStatic {
-        scan(services: string[], seconds: number, success : (data: PeripheralData) => any): void;
-        scan(services: string[], seconds: number, success : (data: PeripheralData) => any, failure : (error: string) => any): void;
+        scan(services: string[], seconds: number, success : (data: PeripheralData) => any, failure? : (error: string) => any): void;
 
-        startScan(services: string[], success: (data: PeripheralData) => any): void;
-        startScan(services: string[], success: (data: PeripheralData) => any, failure: (error: string|BLEError) => any): void;
+        startScan(services: string[], success: (data: PeripheralData) => any, failure?: (error: string|BLEError) => any): void;
 
-        startScanWithOptions(services: string[], options: StartScanOptions, success: (data: PeripheralData) => any): void;
-        startScanWithOptions(services: string[], options: StartScanOptions, success: (data: PeripheralData) => any, failure: (error: string) => any): void;
+        startScanWithOptions(services: string[], options: StartScanOptions, success: (data: PeripheralData) => any, failure?: (error: string) => any): void;
 
         stopScan(): void;
-        stopScan(success: () => any): void;
-        stopScan(success: () => any, failure: () => any): void;
+        stopScan(success: () => any, failure?: () => any): void;
 
         connect(device_id:string, success: (data: PeripheralDataExtended) => any, failure: (error: string|BLEError) => any): void;
 
@@ -60,71 +56,49 @@ declare namespace BLECentralPlugin {
            [Android] this relies on the autoConnect argument of BluetoothDevice.connectGatt(). Not all Android devices implement this feature correctly. */
         autoConnect(device_id:string, success: (data: PeripheralDataExtended) => any, failure: (error: string|BLEError) => any): void;
 
-        disconnect(device_id:string): void;
-        disconnect(device_id:string, success: () => any): void;
-        disconnect(device_id:string, success: () => any, failure: (error: string|BLEError) => any): void;
+        disconnect(device_id:string, success?: () => any, failure?: (error: string|BLEError) => any): void;
 
-        read(device_id: string, service_uuid:string, characteristic_uuid:string): void;
-        read(device_id: string, service_uuid:string, characteristic_uuid:string, success: (rawData: ArrayBuffer) => any): void;
-        read(device_id: string, service_uuid:string, characteristic_uuid:string, success: (rawData: ArrayBuffer) => any, failure: (error: string|BLEError) => any): void;
+        read(device_id: string, service_uuid:string, characteristic_uuid:string, success?: (rawData: ArrayBuffer) => any, failure?: (error: string|BLEError) => any): void;
 
-        write(device_id: string, service_uuid:string, characteristic_uuid:string, data: ArrayBuffer): void;
-        write(device_id: string, service_uuid:string, characteristic_uuid:string, data: ArrayBuffer, success  : () => any): void;
-        write(device_id: string, service_uuid:string, characteristic_uuid:string, data: ArrayBuffer, success  : () => any, failure: (error: string|BLEError) => any): void;
+        write(device_id: string, service_uuid:string, characteristic_uuid:string, data: ArrayBuffer, success?: () => any, failure?: (error: string|BLEError) => any): void;
 
         /* Writes data to a characteristic without a response from the peripheral. You are not notified if the write fails in the BLE stack.
         The success callback is be called when the characteristic is written.*/
-        writeWithoutResponse(device_id: string, service_uuid:string, characteristic_uuid:string, data: ArrayBuffer): void;
-        writeWithoutResponse(device_id: string, service_uuid:string, characteristic_uuid:string, data: ArrayBuffer, success : () => any): void;
-        writeWithoutResponse(device_id: string, service_uuid:string, characteristic_uuid:string, data: ArrayBuffer, success : () => any, failure: (error: string) => any): void;
+        writeWithoutResponse(device_id: string, service_uuid:string, characteristic_uuid:string, data: ArrayBuffer, success?: () => any, failure?: (error: string) => any): void;
 
         /* Register to be notified when the value of a characteristic changes. */
-        startNotification(device_id: string, service_uuid:string, characteristic_uuid:string, success: (rawData: ArrayBuffer) => any): void;
-        startNotification(device_id: string, service_uuid:string, characteristic_uuid:string, success: (rawData: ArrayBuffer) => any, failure: (error: string|BLEError) => any): void;
+        startNotification(device_id: string, service_uuid:string, characteristic_uuid:string, success: (rawData: ArrayBuffer) => any, failure?: (error: string|BLEError) => any): void;
 
-        stopNotification(device_id: string, service_uuid:string, characteristic_uuid:string): void;
-        stopNotification(device_id: string, service_uuid:string, characteristic_uuid:string, success: () => any): void;
-        stopNotification(device_id: string, service_uuid:string, characteristic_uuid:string, success: () => any, failure: (error: string|BLEError) => any): void;
+        stopNotification(device_id: string, service_uuid:string, characteristic_uuid:string, success?: () => any, failure?: (error: string|BLEError) => any): void;
 
         /* Reports if bluetooth is enabled. */
         isEnabled(success: () => any , failure: (error: string) => any): void;
 
         /* Calls the success callback when the peripheral is connected and the failure callback when not connected. */
-        isConnected(device_id: string, success: () => any): void;
-        isConnected(device_id: string, success: () => any, failure: (error: string) => any): void;
+        isConnected(device_id: string, success: () => any, failure?: (error: string) => any): void;
 
         /* May be used to request (on Android) a larger MTU size to be able to send more data at once
            [iOS] requestMtu is not supported on iOS. */
-        requestMtu(device_id: string, mtu: number): void;
-        requestMtu(device_id: string, mtu: number, success: () => any): void;
-        requestMtu(device_id: string, mtu: number, success: () => any, failure: () => any): void;
+        requestMtu(device_id: string, mtu: number, success?: () => any, failure?: () => any): void;
 
         /* Clears cached services and characteristics info for some poorly behaved devices. Uses an undocumented API,
         so it is not guaranteed to work.
            [iOS] refreshDeviceCache is not supported on iOS. */
-        refreshDeviceCache(device_id: string, timeout_millis: number): void;
-        refreshDeviceCache(device_id: string, timeout_millis: number, success: (data: PeripheralDataExtended) => any): void;
-        refreshDeviceCache(device_id: string, timeout_millis: number, success: (data: PeripheralDataExtended) => any, failure: (error: string|BLEError) => any): void;
+        refreshDeviceCache(device_id: string, timeout_millis: number, success?: (data: PeripheralDataExtended) => any, failure?: (error: string|BLEError) => any): void;
 
-        startStateNotifications(success: (state: string) => any): void;
-        startStateNotifications(success: (state: string) => any, failure: (error: string) => any): void;
+        startStateNotifications(success: (state: string) => any, failure?: (error: string) => any): void;
 
-        stopStateNotifications(): void;
-        stopStateNotifications(success: () => any): void;
-        stopStateNotifications(success: () => any, failure: () => any): void;
+        stopStateNotifications(success?: () => any, failure?: () => any): void;
 
         /* Opens the Bluetooth settings for the operating systems.
            [iOS] showBluetoothSettings is not supported on iOS. */
-        showBluetoothSettings(): void;
-        showBluetoothSettings(success: () => any): void;
         showBluetoothSettings(success: () => any, failure: () => any): void;
 
         /* Enable Bluetooth on the device.
            [iOS] enable is not supported on iOS. */
         enable(success: () => any, failure: (error: string) => any): void;
 
-        readRSSI(device_id:string, success: (rssi: number) => any): void;
-        readRSSI(device_id:string, success: (rssi: number) => any, failure: (error: string) => any): void;
+        readRSSI(device_id:string, success: (rssi: number) => any, failure?: (error: string) => any): void;
 
         /* Find connected peripherals offering the listed service UUIDs.
         This function wraps CBCentralManager.retrieveConnectedPeripheralsWithServices.
