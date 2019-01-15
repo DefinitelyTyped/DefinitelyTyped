@@ -1,4 +1,4 @@
-// Type definitions for Forge-apis 0.4.4
+// Type definitions for Forge-apis 0.4
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
 // Definitions by: Autodesk Forge Partner Development <forge.help@autodesk.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
