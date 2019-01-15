@@ -578,10 +578,14 @@ declare namespace ROSLIB {
 	export class Pose {
 		public position: Vector3;
 		public orientation: Quaternion;
+
 		constructor(options: {
 			position: Vector3,
 			orientation: Quaternion
 		});
+
+		public applyTransform(tf: Transform):void;
+		public clone():Pose;
 	}
 
 	export class ActionClient {
