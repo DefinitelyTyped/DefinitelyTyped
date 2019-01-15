@@ -49,6 +49,8 @@ dt.plus({ hours: 3, minutes: 2 });
 dt.minus({ days: 7 });
 dt.startOf('day');
 dt.endOf('hour');
+dt.zone;
+dt.zoneName;
 
 dt.set({ hour: 3 }).hour;
 
@@ -87,6 +89,7 @@ i.length();
 i.length('years');
 i.contains(DateTime.local(2019));
 i.set({end: DateTime.local(2020)});
+i.mapEndpoints((d) => d);
 
 i.toISO();
 i.toString();
