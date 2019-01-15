@@ -395,7 +395,7 @@ declare module 'luxon' {
             toISO(options?: ISOTimeOptions): string;
             toString(): string;
             union(other: Interval): Interval;
-            mapEndpoints(cb: (d: DateTime) => DateTime): Interval
+            mapEndpoints(cb: (d: DateTime) => DateTime): Interval;
         }
 
         namespace Settings {
