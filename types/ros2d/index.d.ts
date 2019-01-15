@@ -204,9 +204,10 @@ declare namespace ROS2D {
      */
     class NavigationImage extends createjs.Bitmap {
         constructor(options: {
+            alpha?: number,
             size?: number,
             image: any,
-            pulse?: boolean
+            pulse?: boolean,
         });
     }
 
