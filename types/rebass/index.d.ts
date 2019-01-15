@@ -9,7 +9,7 @@
 
 import * as React from "react";
 
-export interface BaseProps<C> extends React.ClassAttributes<C>, React.AllHTMLAttributes<C> {
+export interface BaseProps<C> extends React.ClassAttributes<C>, React.HTMLAttributes<C> {
     className?: string;
     as?: string;
 }
