@@ -576,6 +576,8 @@ declare namespace ROSLIB {
 	 *   * orientation - the ROSLIB.Quaternion describing the orientation
 	 */
 	export class Pose {
+		public position: Vector3;
+		public orientation: Quaternion;
 		constructor(options: {
 			position: Vector3,
 			orientation: Quaternion
