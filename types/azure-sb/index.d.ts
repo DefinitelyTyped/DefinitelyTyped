@@ -146,6 +146,7 @@ export namespace Azure.ServiceBus {
     Tags?: string;
     WnsHeaders?: any;
   }
+    
   export interface NotificationHubInstallation {
     installationId: string;
     readonly lastActiveOn?: string;
