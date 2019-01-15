@@ -2242,7 +2242,8 @@ declare module "net" {
         setTimeout(timeout: number, callback?: Function): this;
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
-        address(): { port: number; family: string; address: string; };
+        // (new net.Socket()).address() produces {}
+        address(): { port: number; family: string; address: string; } | {};
         unref(): void;
         ref(): void;
 
@@ -2358,7 +2359,8 @@ declare module "net" {
         listen(handle: any, backlog?: number, listeningListener?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
         close(callback?: Function): Server;
-        address(): { port: number; family: string; address: string; };
+        // (net.createServer()).address() produces null
+        address(): { port: number; family: string; address: string; } | null;
         getConnections(cb: (error: Error, count: number) => void): void;
         ref(): Server;
         unref(): Server;
@@ -2459,7 +2461,8 @@ declare module "dgram" {
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(options: BindOptions, callback?: Function): void;
         close(callback?: () => void): void;
-        address(): AddressInfo;
+        // (new net.Socket()).address() produces {}
+        address(): AddressInfo | {};
         setBroadcast(flag: boolean): void;
         setTTL(ttl: number): void;
         setMulticastTTL(ttl: number): void;
@@ -3300,7 +3303,7 @@ declare module "tls" {
          * the operating system.
          * @returns An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
          */
-        address(): { port: number; family: string; address: string };
+        address(): { port: number; family: string; address: string } | null;
         /**
          * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
          */
@@ -3474,7 +3477,8 @@ declare module "tls" {
 
     export interface Server extends net.Server {
         close(callback?: Function): Server;
-        address(): { port: number; family: string; address: string; };
+        // (tls.createServer()).address() produces null
+        address(): { port: number; family: string; address: string; } | null;
         addContext(hostName: string, credentials: {
             key: string;
             cert: string;
