@@ -446,6 +446,11 @@ plugin = new webpack.HashedModuleIdsPlugin({
     hashDigest: 'hex',
     hashDigestLength: 20
 });
+plugin = new webpack.SingleEntryPlugin(
+    '/home',
+    './main.js',
+    'main'
+);
 
 //
 // http://webpack.github.io/docs/node.js-api.html
