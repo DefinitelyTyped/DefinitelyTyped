@@ -40,7 +40,7 @@ declare namespace ReactCrop {
         onDragStart?: () => void;
         onDragEnd?: () => void;
         disabled?: boolean;
-        crossorigin?: "anonymous" | 'use-credentials';
+        crossorigin?: 'anonymous' | 'use-credentials';
         children?: ReactNode;
         style?: CSSProperties;
         imageStyle?: CSSProperties;
