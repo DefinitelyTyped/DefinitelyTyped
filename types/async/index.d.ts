@@ -120,7 +120,14 @@ export function map<T, R, E = Error>(arr: T[] | IterableIterator<T>, iterator: A
 export function map<T, R, E = Error>(arr: Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export const mapSeries: typeof map;
 export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
-export function mapValuesLimit<T, R, E = Error>(obj: Dictionary<T>, limit: number, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
+
+export function mapValuesLimit<T, R, E = Error>(
+    obj: Dictionary<T>,
+    limit: number,
+    iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void,
+    callback: AsyncResultObjectCallback<R, E>
+    ): void;
+
 export function mapValues<T, R, E = Error>(obj: Dictionary<T>, iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void, callback: AsyncResultObjectCallback<R, E>): void;
 export const mapValuesSeries: typeof mapValues;
 export function filter<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
@@ -188,7 +195,16 @@ export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks
 export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, callback?: AsyncResultCallback<R, E>): void;
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
 export function retry<T, E = Error>(opts: number, task: (callback: AsyncResultCallback<T, E>, results: any) => void, callback: AsyncResultCallback<any, E>): void;
-export function retry<T, E = Error>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T, E>, results: any) => void, callback: AsyncResultCallback<any, E>): void;
+
+export function retry<T, E = Error>(
+    opts: {
+        times: number,
+        interval: number | ((retryCount: number) => number)
+    },
+    task: (callback: AsyncResultCallback<T, E>, results: any) => void,
+    callback: AsyncResultCallback<any, E>
+    ): void;
+
 export function retryable<T, E = Error>(opts: number | {times: number, interval: number}, task: AsyncFunction<T, E>): AsyncFunction<T, E>;
 export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>;
 export function nextTick(callback: Function, ...args: any[]): void;
@@ -207,8 +223,18 @@ export function timesLimit<T, E = Error>(n: number, limit: number, iterator: Asy
 export function transform<T, R, E = Error>(arr: T[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
 export function transform<T, R, E = Error>(arr: T[], acc: R[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
 
-export function transform<T, R, E = Error>(arr: {[key: string]: T}, iteratee: (acc: {[key: string]: R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
-export function transform<T, R, E = Error>(arr: {[key: string]: T}, acc: {[key: string]: R}, iteratee: (acc: {[key: string]: R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
+export function transform<T, R, E = Error>(
+    arr: {[key: string]: T},
+    iteratee: (acc: {[key: string]: R}, item: T, key: string, callback: (error?: E) => void) => void,
+    callback?: AsyncResultObjectCallback<T, E>
+    ): void;
+
+export function transform<T, R, E = Error>(
+    arr: {[key: string]: T},
+    acc: {[key: string]: R},
+    iteratee: (acc: {[key: string]: R}, item: T, key: string, callback: (error?: E) => void) => void,
+    callback?: AsyncResultObjectCallback<T, E>
+    ): void;
 
 export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultCallback<T, E>): void;
 
