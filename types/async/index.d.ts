@@ -32,12 +32,20 @@ export interface AsyncWorker<T, E = Error> { (task: T, callback: ErrorCallback<E
 export interface AsyncVoidFunction<E = Error> { (callback: ErrorCallback<E>): void; }
 
 export type AsyncAutoTasks<R extends Dictionary<any>, E> = { [K in keyof R]: AsyncAutoTask<R[K], R, E> }
-export type AsyncAutoTask<R1, R extends Dictionary<any>, E> = AsyncAutoTaskFunctionWithoutDependencies<R1, E> | (keyof R | AsyncAutoTaskFunction<R1, R, E>)[];
+export type AsyncAutoTask<R1, R extends Dictionary<any>, E> = AsyncAutoTaskFunctionWithoutDependencies<R1, E> | Array<keyof R | AsyncAutoTaskFunction<R1, R, E>>;
 export interface AsyncAutoTaskFunctionWithoutDependencies<R1, E = Error> { (cb: AsyncResultCallback<R1, E> | ErrorCallback<E>): void; }
 export interface AsyncAutoTaskFunction<R1, R extends Dictionary<any>, E = Error> { (results: R, cb: AsyncResultCallback<R1, E> | ErrorCallback<E>): void; }
 
 export interface DataContainer<T> {
     data: T;
+}
+
+export interface CallbackContainer {
+    callback: Function
+}
+
+export interface PriorityContainer {
+    priority: number;
 }
 
 export interface AsyncQueue<T> {
@@ -56,10 +64,7 @@ export interface AsyncQueue<T> {
     pause(): void
     resume(): void;
     kill(): void;
-    workersList(): {
-        data: T,
-        callback: Function
-    }[];
+    workersList<TWorker extends DataContainer<T>, CallbackContainer>(): TWorker[];
     error(error: Error, data: any): void;
     unsaturated(): void;
     buffer: number;
@@ -79,11 +84,7 @@ export interface AsyncPriorityQueue<T> {
     pause(): void;
     resume(): void;
     kill(): void;
-    workersList(): {
-        data: T,
-        priority: number,
-        callback: Function
-    }[];
+    workersList<TWorker extends DataContainer<T>, CallbackContainer, PriorityContainer>(): TWorker[];
     error(error: Error, data: any): void;
     unsaturated(): void;
     buffer: number;
@@ -161,7 +162,7 @@ export function concatLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: 
 export const concatSeries: typeof concat;
 
 // Control Flow
-export function series<T, E = Error>(tasks: AsyncFunction<T, E>[], callback?: AsyncResultArrayCallback<T, E>): void;
+export function series<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback?: AsyncResultArrayCallback<T, E>): void;
 export function series<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, callback?: AsyncResultObjectCallback<T, E>): void;
 export function parallel<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback?: AsyncResultArrayCallback<T, E>): void;
 export function parallel<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, callback?: AsyncResultObjectCallback<T, E>): void;
@@ -194,7 +195,7 @@ export function nextTick(callback: Function, ...args: any[]): void;
 export const setImmediate: typeof nextTick;
 
 export function reflect<T, E = Error>(fn: AsyncFunction<T, E>) : (callback: (err: null, result: {error?: E, value?: T}) => void) => void;
-export function reflectAll<T, E = Error>(tasks: AsyncFunction<T, E>[]): ((callback: (err: null, result: {error?: E, value?: T}) => void) => void)[];
+export function reflectAll<T, E = Error>(tasks: Array<AsyncFunction<T, E>>): Array<(callback: (err: null, result: {error?: E, value?: T}) => void) => void>;
 
 export function timeout<T, E = Error>(fn: AsyncFunction<T, E>, milliseconds: number, info?: any): AsyncFunction<T, E>;
 export function timeout<T, R, E = Error>(fn: AsyncResultIterator<T, R, E>, milliseconds: number, info?: any): AsyncResultIterator<T, R, E>;
@@ -209,7 +210,7 @@ export function transform<T, R, E = Error>(arr: T[], acc: R[], iteratee: (acc: R
 export function transform<T, R, E = Error>(arr: {[key: string] : T}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
 export function transform<T, R, E = Error>(arr: {[key: string] : T}, acc: {[key: string] : R}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
 
-export function race<T, E = Error>(tasks: (AsyncFunction<T, E>)[], callback: AsyncResultCallback<T, E>) : void;
+export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultCallback<T, E>) : void;
 
 // Utils
 export function memoize(fn: Function, hasher?: Function): Function;

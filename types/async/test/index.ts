@@ -12,20 +12,20 @@ declare var path: {
 function funcStringCbErrBoolean(v: string, cb: (err: Error, res: boolean) => void) {}
 function callback() { }
 
-async.map(['file1', 'file2', 'file3'], fs.stat, function (err: Error, results: Array<fs.Stats>) { });
-async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err: Error, results: Array<fs.Stats>) { });
-async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, function (err: Error, results: Array<fs.Stats>) { });
+async.map(['file1', 'file2', 'file3'], fs.stat, function (err: Error, results: fs.Stats[]) { });
+async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err: Error, results: fs.Stats[]) { });
+async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, function (err: Error, results: fs.Stats[]) { });
 
-async.filter(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
-async.filterSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
-async.filterLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
-async.select(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
-async.selectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
-async.selectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
+async.filter(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: string[]) { });
+async.filterSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: string[]) { });
+async.filterLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, results: string[]) { });
+async.select(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: string[]) { });
+async.selectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: string[]) { });
+async.selectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, results: string[]) { });
 
-async.reject(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
-async.rejectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
-async.rejectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
+async.reject(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: string[]) { });
+async.rejectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: string[]) { });
+async.rejectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, results: string[]) { });
 
 async.parallel([
     function () { },
@@ -445,7 +445,7 @@ async.parallel([
     function (callback: ( err: Error, val: string ) => void ) { },
     function (callback) { }
 ],
-function (err: Error, results: Array<string>) {
+function (err: Error, results: string[]) {
     async.series([
         function (callback) { },
         function email_link(callback) { }

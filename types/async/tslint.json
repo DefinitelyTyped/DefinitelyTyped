@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "array-type": false,                   // HAS ISSUES
         "ban-types": true,                     // PRODUCES ERRORS WHEN REMOVED
         "callable-types": false,               // HAS ISSUES
         "comment-format": true,                // PRODUCES ERRORS WHEN REMOVED
