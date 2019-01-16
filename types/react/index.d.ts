@@ -2812,6 +2812,7 @@ declare global {
             svg: React.SVGProps<SVGSVGElement>;
 
             animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
+            animateMotion: React.SVGProps<SVGElement>;
             animateTransform: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateTransformElement but is not in TypeScript's lib.dom.d.ts for now.
             circle: React.SVGProps<SVGCircleElement>;
             clipPath: React.SVGProps<SVGClipPathElement>;
@@ -2851,6 +2852,7 @@ declare global {
             marker: React.SVGProps<SVGMarkerElement>;
             mask: React.SVGProps<SVGMaskElement>;
             metadata: React.SVGProps<SVGMetadataElement>;
+            mpath: React.SVGProps<SVGElement>;
             path: React.SVGProps<SVGPathElement>;
             pattern: React.SVGProps<SVGPatternElement>;
             polygon: React.SVGProps<SVGPolygonElement>;
