@@ -284,6 +284,8 @@ configuration = {
                     callback
                 );
             });
+
+            this.hooks.beforeRun.tap("SomePlugin", (compiler: webpack.Compiler) => {})
         }
     ]
 };
