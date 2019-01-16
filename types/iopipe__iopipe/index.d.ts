@@ -1,4 +1,4 @@
-// Type definitions for iopipe__iopipe x.x
+// Type definitions for iopipe__iopipe 1.12
 // Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,5 +35,7 @@ export namespace subProp {
      *~   import * as yourMod from 'yourModule';
      *~   yourMod.subProp.foo();
      */
-    export function foo(): void;
+    function foo(): void;
 }
+
+export function label(value: string): void;
