@@ -57,6 +57,11 @@ export interface IOptions {
     [index: string]: any;
 }
 
+export interface ISecureFileOptions {
+    secret: string;
+    alg?: string;
+}
+
 export interface IFileOptions {
     type?: string;
     file?: string;
@@ -64,6 +69,7 @@ export interface IFileOptions {
     search?: boolean;
     format?: IFormat;
     json_spacing?: number;
+    secure?: ISecureOptions;
 }
 
 export interface ICallbackFunction {
