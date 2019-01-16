@@ -2,6 +2,7 @@
 // Project: https://github.com/indutny/bn.js
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
+//                 Gaylor Bosson <https://github.com/Gilthoniel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -9,36 +10,16 @@
 type Endianness = 'le' | 'be';
 type IPrimeName = 'k256' | 'p224' | 'p192' | 'p25519';
 
-declare class RedBN {
-    redAdd(b: RedBN): RedBN;
-    redIAdd(b: RedBN): RedBN;
-    redSub(b: RedBN): RedBN;
-    redISub(b: RedBN): RedBN;
-    redShl(num: number): RedBN;
-    redMul(b: RedBN): RedBN;
-    redIMul(b: RedBN): RedBN;
-    redSqr(): RedBN;
-    redISqr(): RedBN;
-    /**
-     * @description square root modulo reduction context's prime
-     */
-    redSqrt(): RedBN;
-    /**
-     * @description  modular inverse of the number
-     */
-    redInvm(): RedBN;
-    redNeg(): RedBN;
-    /**
-     * @description modular exponentiation
-     */
-    redPow(b: RedBN): RedBN;
-    fromRed(): BN;
+interface MPrime {
+    name: string;
+    p: BN;
+    n: number;
+    k: BN;
 }
 
-// FIXME: not sure how to specify the reduction context here
 interface ReductionContext {
     m: number;
-    prime: any;
+    prime: MPrime;
     [key: string]: any;
 }
 
@@ -77,11 +58,6 @@ declare class BN {
      * @description returns the minimum of 2 BN instances.
      */
     static min(left: BN, right: BN): BN;
-
-    /**
-     * @description  Convert number to red
-     */
-    toRed(reductionContext: ReductionContext): RedBN;
 
     /**
      * @description  clone number
@@ -522,6 +498,87 @@ declare class BN {
      * @description inverse `a` modulo `b`
      */
     invm(b: BN): BN;
+
+    /**
+     * @description Convert number to red
+     */
+    toRed(reductionContext: ReductionContext): RedBN;
+}
+
+/**
+ * Big-Number class with additionnal methods that are using modular
+ * operation.
+ */
+declare class RedBN extends BN {
+    /**
+     * @description Convert back a number using a reduction context
+     */
+    fromRed(): BN;
+
+    /**
+     * @description modular addition
+     */
+    redAdd(b: BN): RedBN;
+
+    /**
+     * @description in-place modular addition
+     */
+    redIAdd(b: BN): RedBN;
+
+    /**
+     * @description modular subtraction
+     */
+    redSub(b: BN): RedBN;
+
+    /**
+     * @description in-place modular subtraction
+     */
+    redISub(b: BN): RedBN;
+
+    /**
+     * @description modular shift left
+     */
+    redShl(num: number): RedBN;
+
+    /**
+     * @description modular multiplication
+     */
+    redMul(b: BN): RedBN;
+
+    /**
+     * @description in-place modular multiplication
+     */
+    redIMul(b: BN): RedBN;
+
+    /**
+     * @description modular square
+     */
+    redSqr(): RedBN;
+
+    /**
+     * @description in-place modular square
+     */
+    redISqr(): RedBN;
+
+    /**
+     * @description modular square root
+     */
+    redSqrt(): RedBN;
+
+    /**
+     * @description modular inverse of the number
+     */
+    redInvm(): RedBN;
+
+    /**
+     * @description modular negation
+     */
+    redNeg(): RedBN;
+
+    /**
+     * @description modular exponentiation
+     */
+    redPow(b: BN): RedBN;
 }
 
 export = BN;

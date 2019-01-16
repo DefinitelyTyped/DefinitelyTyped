@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-01-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -322,6 +322,8 @@ declare namespace GoogleAppsScript {
       insertTable(numRows: Integer, numColumns: Integer): Table;
       insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
       insertVideo(videoUrl: string): Video;
       insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
       insertVideo(video: Video): Video;
@@ -576,6 +578,8 @@ declare namespace GoogleAppsScript {
       insertTable(numRows: Integer, numColumns: Integer): Table;
       insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
       insertVideo(videoUrl: string): Video;
       insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
       insertVideo(video: Video): Video;
@@ -682,6 +686,8 @@ declare namespace GoogleAppsScript {
       insertTable(numRows: Integer, numColumns: Integer): Table;
       insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
       insertVideo(videoUrl: string): Video;
       insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
       insertVideo(video: Video): Video;
@@ -880,6 +886,7 @@ declare namespace GoogleAppsScript {
       appendSlide(layout: Layout): Slide;
       appendSlide(predefinedLayout: PredefinedLayout): Slide;
       appendSlide(slide: Slide): Slide;
+      appendSlide(slide: Slide, linkingMode: SlideLinkingMode): Slide;
       getEditors(): Base.User[];
       getId(): string;
       getLayouts(): Layout[];
@@ -900,6 +907,7 @@ declare namespace GoogleAppsScript {
       insertSlide(insertionIndex: Integer, layout: Layout): Slide;
       insertSlide(insertionIndex: Integer, predefinedLayout: PredefinedLayout): Slide;
       insertSlide(insertionIndex: Integer, slide: Slide): Slide;
+      insertSlide(insertionIndex: Integer, slide: Slide, linkingMode: SlideLinkingMode): Slide;
       removeEditor(emailAddress: string): Presentation;
       removeEditor(user: Base.User): Presentation;
       removeViewer(emailAddress: string): Presentation;
@@ -1102,6 +1110,9 @@ declare namespace GoogleAppsScript {
       getPlaceholders(): PageElement[];
       getShapes(): Shape[];
       getSheetsCharts(): SheetsChart[];
+      getSlideLinkingMode(): SlideLinkingMode;
+      getSourcePresentationId(): string;
+      getSourceSlideObjectId(): string;
       getTables(): Table[];
       getVideos(): Video[];
       getWordArts(): WordArt[];
@@ -1127,16 +1138,25 @@ declare namespace GoogleAppsScript {
       insertTable(numRows: Integer, numColumns: Integer): Table;
       insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
       insertVideo(videoUrl: string): Video;
       insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       move(index: Integer): void;
+      refreshSlide(): void;
       remove(): void;
       replaceAllText(findText: string, replaceText: string): Integer;
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
+      unlink(): void;
     }
+
+    /**
+     * The mode of links between slides.
+     */
+    export enum SlideLinkingMode { UNSUPPORTED, LINKED, NOT_LINKED }
 
     /**
      * The relative position of a Slide.
