@@ -7,21 +7,34 @@ const app = express();
 app.use("/form1", busboyBodyParser(), (req, res, next) => {
     //test multi
     let multiFile = (<busboyBodyParser.File[]>(<busboyBodyParser.Files>req.files)["a"])[0];
-    console.log(<Buffer>multiFile.data);
-    console.log(<string>multiFile.encoding)
-    console.log(<string>multiFile.mimetype)
-    console.log(<string>multiFile.name)
-    console.log(<number>multiFile.size)
-    console.log(<boolean>multiFile.truncated)
+
+    // $ExpectType Buffer
+    multiFile.data;
+    // $ExpectType string
+    multiFile.encoding
+    // $ExpectType string
+    multiFile.mimetype
+    // $ExpectType string
+    multiFile.name
+    // $ExpectType number
+    multiFile.size
+    // $ExpectType boolean
+    multiFile.truncated
 
     //test not multi
     let singleFile = (<busboyBodyParser.File>(<busboyBodyParser.Files>req.files)["a"]);
-    console.log(<Buffer>singleFile.data);
-    console.log(<string>singleFile.encoding)
-    console.log(<string>singleFile.mimetype)
-    console.log(<string>singleFile.name)
-    console.log(<number>singleFile.size)
-    console.log(<boolean>singleFile.truncated)
+    // $ExpectType Buffer
+    singleFile.data;
+    // $ExpectType string
+    singleFile.encoding;
+    // $ExpectType string
+    singleFile.mimetype;
+    // $ExpectType string
+    singleFile.name;
+    // $ExpectType number
+    singleFile.size;
+    // $ExpectType boolean
+    singleFile.truncated;
     next();
 });
 
