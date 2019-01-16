@@ -69,7 +69,7 @@ export interface IFileOptions {
     search?: boolean;
     format?: IFormat;
     json_spacing?: number;
-    secure?: ISecureOptions;
+    secure?: ISecureFileOptions;
 }
 
 export interface ICallbackFunction {
