@@ -989,7 +989,7 @@ declare namespace webpack {
             done: AsyncSeriesHook<Stats>;
             additionalPass: AsyncSeriesHook;
             beforeRun: AsyncSeriesHook<Compiler>;
-            run: AsyncSeriesHook<Compilation>;
+            run: AsyncSeriesHook<Compiler>;
             emit: AsyncSeriesHook<Compilation>;
             afterEmit: AsyncSeriesHook<Compilation>;
             thisCompilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
