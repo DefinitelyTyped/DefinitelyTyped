@@ -78,8 +78,10 @@ AirbnbPropTypes.elementType('*');
 // $ExpectError
 AirbnbPropTypes.elementType(ClassComp, FuncComp, 'div');
 
-// $ExpectType Requireable<null>
+// $ExpectType Requireable<null | undefined>
 AirbnbPropTypes.explicitNull();
+// $ExpectType Requireable<never>
+AirbnbPropTypes.explicitNull().isRequired;
 
 interface ForbidShape {
     foo: string;
@@ -92,13 +94,13 @@ AirbnbPropTypes.forbidExtraProps<ForbidShape>({
     bar: PropTypes.number.isRequired,
     baz: PropTypes.bool,
 });
+// $ExpectError foo should be required
 AirbnbPropTypes.forbidExtraProps<ForbidShape>({
-    // $ExpectError Is required
     foo: PropTypes.string,
 });
+// $ExpectError bar is wrong type
 AirbnbPropTypes.forbidExtraProps<ForbidShape>({
     foo: PropTypes.string.isRequired,
-    // $ExpectError Wrong type
     bar: PropTypes.bool.isRequired,
 });
 // $ExpectError Missing bar
@@ -144,7 +146,7 @@ AirbnbPropTypes.numericString();
 
 // $ExpectType Requireable<{}>
 AirbnbPropTypes.object();
-// $ExpectType Requireable<{ foo: string }>
+// $ExpectType Requireable<{ foo: string; }>
 AirbnbPropTypes.object<{ foo: string }>();
 
 AirbnbPropTypes.or([PropTypes.bool.isRequired, AirbnbPropTypes.explicitNull().isRequired]);
@@ -156,10 +158,10 @@ AirbnbPropTypes.range(0, 10);
 // $ExpectType Requireable<5>
 AirbnbPropTypes.range<5>(0, 10);
 
-// $ExpectType Requireable<string>
+// $ExpectType Requireable<string | null>
 AirbnbPropTypes.requiredBy('foo', PropTypes.string);
 // $ExpectType Requireable<number>
-AirbnbPropTypes.requiredBy('bar', PropTypes.number, 42);
+AirbnbPropTypes.requiredBy('bar', PropTypes.number, 42).isRequired;
 
 // $ExpectType Requireable<{}>
 AirbnbPropTypes.restrictedProp();
@@ -184,16 +186,16 @@ interface ShapeShape {
     bar?: number | null;
 }
 
-// $ExpectType Requireable<{ foo: string | null }>
+// $ExpectType Requireable<{ foo: string | null; }>
 AirbnbPropTypes.shape({
     foo: PropTypes.string,
 });
-// $ExpectType Requireable<{ foo: string | null, bar: number | null }>
+// $ExpectType Requireable<{ foo: string | null, bar: number | null; }>
 AirbnbPropTypes.shape({
     foo: PropTypes.string,
     bar: PropTypes.number,
 });
-// $ExpectType Requireable<{ foo: string, bar: number | null | undefined }>
+// $ExpectType Requireable<ShapeShape>
 AirbnbPropTypes.shape<ShapeShape>({
     foo: PropTypes.string.isRequired,
     bar: PropTypes.number,
