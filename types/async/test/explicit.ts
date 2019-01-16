@@ -44,12 +44,12 @@ interface NumberCallback { (err?: Error, result?: number): void; }
 interface AsyncNumberGetter { (callback: NumberCallback): void; }
 
 const taskDict: Lookup<AsyncNumberGetter> = {
-    one: function(callback) {
+    one: callback => {
         setTimeout(function() {
             callback(undefined, 1);
         }, 200);
     },
-    two: function(callback) {
+    two: callback => {
         setTimeout(function() {
             callback(undefined, 2);
         }, 100);

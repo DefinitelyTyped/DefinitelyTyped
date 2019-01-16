@@ -5,7 +5,6 @@
         "callable-types": false,               // HAS ISSUES
         "comment-format": true,                // PRODUCES ERRORS WHEN REMOVED
         "no-unnecessary-generics": false,      // HAS ISSUES
-        "object-literal-shorthand": false,     // HAS ISSUES
         "only-arrow-functions": false,         // HAS ISSUES
         "unified-signatures": false            // HAS ISSUES
     }

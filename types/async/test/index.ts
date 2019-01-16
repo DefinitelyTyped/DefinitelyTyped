@@ -125,12 +125,12 @@ async.series<string>([
 function(err, results) { });
 
 async.series({
-    one: function(callback) {
+    one: callback => {
         setTimeout(function() {
             callback(undefined, 1);
         }, 200);
     },
-    two: function(callback) {
+    two: callback => {
         setTimeout(function() {
             callback(undefined, 2);
         }, 100);
@@ -139,12 +139,12 @@ async.series({
 function(err, results) { });
 
 async.series<number>({
-    one: function(callback) {
+    one: callback => {
         setTimeout(function() {
             callback(undefined, 1);
         }, 200);
     },
-    two: function(callback) {
+    two: callback => {
         setTimeout(function() {
             callback(undefined, 2);
         }, 100);
@@ -193,12 +193,12 @@ async.parallel<string>([
 function(err, results) { });
 
 async.parallel({
-    one: function(callback) {
+    one: callback => {
         setTimeout(function() {
             callback(undefined, 1);
         }, 200);
     },
-    two: function(callback) {
+    two: callback => {
         setTimeout(function() {
             callback(undefined, 2);
         }, 100);
@@ -207,12 +207,12 @@ async.parallel({
 function(err, results) { });
 
 async.parallel<number>({
-    one: function(callback) {
+    one: callback => {
         setTimeout(function() {
             callback(undefined, 1);
         }, 200);
     },
-    two: function(callback) {
+    two: callback => {
         setTimeout(function() {
             callback(undefined, 2);
         }, 100);
@@ -221,12 +221,12 @@ async.parallel<number>({
     function(err, results) { });
 
 async.parallelLimit({
-    one: function(callback) {
+    one: callback => {
         setTimeout(function() {
             callback(undefined, 1);
         }, 200);
     },
-    two: function(callback) {
+    two: callback => {
         setTimeout(function() {
             callback(undefined, 2);
         }, 100);
@@ -389,8 +389,8 @@ cargo.push({ name: 'baz' }, function(err: Error) {
 
 const filename = '';
 async.auto({
-    get_data: function(callback: AsyncResultCallback<any>) { },
-    make_folder: function(callback: AsyncResultCallback<any>) { },
+    get_data: (callback: AsyncResultCallback<any>) => { },
+    make_folder: (callback: AsyncResultCallback<any>) => { },
     //arrays with different types are not accepted by TypeScript.
     write_file: ['get_data', 'make_folder', function(callback: AsyncResultCallback<any>) {
         callback(null, filename);
@@ -400,8 +400,8 @@ async.auto({
 });
 
 async.auto({
-    get_data: function(callback: AsyncResultCallback<any>) { },
-    make_folder: function(callback: AsyncResultCallback<any>) { },
+    get_data: (callback: AsyncResultCallback<any>) => { },
+    make_folder: (callback: AsyncResultCallback<any>) => { },
     //arrays with different types are not accepted by TypeScript.
     write_file: ['get_data', 'make_folder', function(callback: AsyncResultCallback<any>) {
         callback(null, filename);
@@ -420,8 +420,8 @@ interface A {
 }
 
 async.auto<A>({
-    get_data: function(callback: AsyncResultCallback<any>) { },
-    make_folder: function(callback: AsyncResultCallback<any>) { },
+    get_data: (callback: AsyncResultCallback<any>) => { },
+    make_folder: (callback: AsyncResultCallback<any>) => { },
     //arrays with different types are not accepted by TypeScript.
     write_file: ['get_data', 'make_folder', function(callback: AsyncResultCallback<any>) {
         callback(null, filename);
