@@ -3,16 +3,7 @@
 // Definitions by: Javon Harper <https://github.com/javonharper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface LibraryConfig {
-    debug?: boolean;
-    token?: string;
-    networkTimeout?: number;
-    timeoutWindow?: number;
-}
-
-type FunctionWrapper = (handler: any) => void;
-
-declare function iopipe(config?: LibraryConfig): FunctionWrapper;
+declare function iopipe(config?: iopipe.LibraryConfig): iopipe.FunctionWrapper;
 
 declare namespace iopipe {
     function label(label: string): void;
@@ -23,6 +14,15 @@ declare namespace iopipe {
         function start(label: string): void;
         function end(label: string): void;
     }
+        
+    interface LibraryConfig {
+        debug?: boolean;
+        token?: string;
+        networkTimeout?: number;
+        timeoutWindow?: number;
+    }
+
+    type FunctionWrapper = (handler: any) => void;
 }
 
 export = iopipe;
