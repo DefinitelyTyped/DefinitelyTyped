@@ -33,7 +33,7 @@ export interface PluginSpec<S extends Schema = any> {
    * Allows a plugin to define a [state field](#state.StateField), an
    * extra slot in the state object in which it can keep its own data.
    */
-  state?: StateField<any> | null;
+  state?: StateField<any, S> | null;
   /**
    * Can be used to make this a keyed plugin. You can have only one
    * plugin with a given key in a given state, but it is possible to
@@ -60,7 +60,7 @@ export interface PluginSpec<S extends Schema = any> {
    * applied by the state, allowing the plugin to cancel it (by
    * returning false).
    */
-  filterTransaction?: ((p1: Transaction, p2: EditorState<S>) => boolean) | null;
+  filterTransaction?: ((p1: Transaction<S>, p2: EditorState<S>) => boolean) | null;
   /**
    * Allows the plugin to append another transaction to be applied
    * after the given array of transactions. When another plugin
@@ -71,10 +71,10 @@ export interface PluginSpec<S extends Schema = any> {
    */
   appendTransaction?:
   | ((
-    transactions: Transaction[],
+    transactions: Transaction<S>[],
     oldState: EditorState<S>,
     newState: EditorState<S>
-  ) => Transaction | null | undefined | void)
+  ) => Transaction<S> | null | undefined | void)
   | null;
 }
 /**
@@ -120,7 +120,7 @@ export interface StateField<T, S extends Schema = Schema> {
    * constructed state does not yet contain the state from plugins
    * coming after this one.
    */
-  apply(tr: Transaction, value: T, oldState: EditorState<S>, newState: EditorState<S>): T;
+  apply(tr: Transaction<S>, value: T, oldState: EditorState<S>, newState: EditorState<S>): T;
   /**
    * Convert this field to JSON. Optional, can be left off to disable
    * JSON serialization for the field.
@@ -223,12 +223,12 @@ export class Selection<S extends Schema = any> {
    * Replace the selection with a slice or, if no slice is given,
    * delete the selection. Will append to the given transaction.
    */
-  replace(tr: Transaction, content?: Slice<S>): void;
+  replace(tr: Transaction<S>, content?: Slice<S>): void;
   /**
    * Replace the selection with the given node, appending the changes
    * to the given transaction.
    */
-  replaceWith(tr: Transaction, node: ProsemirrorNode<S>): void;
+  replaceWith(tr: Transaction<S>, node: ProsemirrorNode<S>): void;
   /**
    * Convert the selection to a JSON representation. When implementing
    * this for a custom selection class, make sure to give the object a
@@ -444,7 +444,7 @@ export class EditorState<S extends Schema = any> {
   /**
    * Apply the given transaction to produce a new state.
    */
-  apply(tr: Transaction): EditorState<S>;
+  apply(tr: Transaction<S>): EditorState<S>;
   /**
    * Verbose variant of [`apply`](#state.EditorState.apply) that
    * returns the precise transactions that were applied (which might
@@ -452,11 +452,11 @@ export class EditorState<S extends Schema = any> {
    * hooks](#state.PluginSpec.filterTransaction) of
    * plugins) along with the new state.
    */
-  applyTransaction(tr: Transaction): { state: EditorState<S>; transactions: Transaction[] };
+  applyTransaction(tr: Transaction<S>): { state: EditorState<S>; transactions: Transaction<S>[] };
   /**
    * Start a [transaction](#state.Transaction) from this state.
    */
-  tr: Transaction;
+  tr: Transaction<S>;
   /**
    * Create a new state based on this one, but with an adjusted set of
    * active plugins. State fields that exist in both sets of plugins
