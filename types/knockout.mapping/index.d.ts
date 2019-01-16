@@ -2,8 +2,9 @@
 // Project: https://github.com/SteveSanderson/knockout.mapping
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, 
 //                 Mathias Lorenzen <https://github.com/ffMathy>
+//                 Per Lindén <https://github.com/turdwaster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="knockout" />
 
@@ -13,8 +14,14 @@ declare var self: KnockoutMapping;
 export = self;
 
 declare global {
-    type KnockoutObservableType<T> = {	
-        [P in keyof T]: KnockoutObservable<KnockoutObservableType<T[P]>>|T[P];	
+	type KnockoutObservableType<T> = {
+		[P in keyof T]:
+        T[P] extends Date ? KnockoutObservable<Date> :
+        T[P] extends string ? KnockoutObservable<string> :
+        T[P] extends boolean ? KnockoutObservable<boolean> :
+        T[P] extends number ? KnockoutObservable<number> :
+        T[P] extends (infer ElType)[] ? KnockoutObservableArray<KnockoutObservableType<ElType>> :
+        T[P];
     };
     
     interface KnockoutMappingCreateOptions {
