@@ -16,7 +16,7 @@ var taskArray: AsyncStringGetter[] = [
 
 async.series(taskArray, function(err, results) {
     if (results) {
-        let first = results[0];
+        const first = results[0];
         if (first) {
             console.log(first.match(/o/));
         }
@@ -24,7 +24,7 @@ async.series(taskArray, function(err, results) {
 });
 async.parallel(taskArray, function(err, results) {
     if (results) {
-        let first = results[0];
+        const first = results[0];
         if (first) {
             console.log(first.match(/o/));
         }
@@ -32,7 +32,7 @@ async.parallel(taskArray, function(err, results) {
 });
 async.parallelLimit(taskArray, 3, function(err, results) {
     if (results) {
-        let first = results[0];
+        const first = results[0];
         if (first) {
             console.log(first.match(/o/));
         }
@@ -58,14 +58,14 @@ var taskDict: Lookup<AsyncNumberGetter> = {
 };
 
 async.series(taskDict, function(err, results) {
-    let one = results['one'];
+    const one = results['one'];
     console.log(one && one.toFixed(1));
 });
 async.parallel(taskDict, function(err, results) {
-    let one = results['one'];
+    const one = results['one'];
     console.log(one && one.toFixed(1));
 });
 async.parallelLimit(taskDict, 3, function(err, results) {
-    let one = results['one'];
+    const one = results['one'];
     console.log(one && one.toFixed(1));
 });

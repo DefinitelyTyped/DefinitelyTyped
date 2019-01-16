@@ -37,24 +37,25 @@ async.series([
     function() { }
 ]);
 
-var data: any[] = [];
+const data: any[] = [];
 function asyncProcess(item: any, callback: (err: Error, result: any) => void) { }
 async.map(data, asyncProcess, function(err, results) {
     console.log(results);
 });
 
-var openFiles = ['file1', 'file2'];
-var openFilesObj = {
+const openFiles = ['file1', 'file2'];
+const openFilesObj = {
     file1: "fileOne",
     file2: "fileTwo"
 };
 
-var saveFile = function(file: string, cb: (err: Error) => void) { };
+const saveFile = function(file: string, cb: (err: Error) => void) { };
 async.each(openFiles, saveFile, function(err: Error) { });
 async.eachSeries(openFiles, saveFile, function(err: Error) { });
 
-var documents: any, requestApi: any;
-async.eachLimit(documents, 20, requestApi, function(err) { });
+const documents: any[] = [];
+const requestApi: async.AsyncIterator<any> = function() {};
+async.eachLimit<any>(documents, 20, requestApi, function(err) { });
 
 // forEachOf* functions. May accept array or object.
 function forEachOfIterator(item: string, key: string, forEachOfIteratorCallback: any) {
@@ -68,7 +69,7 @@ async.forEachOfSeries(openFilesObj, forEachOfIterator, function(err) { });
 async.forEachOfLimit(openFiles, 2, forEachOfIterator, function(err) { });
 async.forEachOfLimit(openFilesObj, 2, forEachOfIterator, function(err) { });
 
-var numArray = [1, 2, 3];
+const numArray = [1, 2, 3];
 function reducer(memo: any, item: any, callback: any) {
     process.nextTick(function() {
         callback(null, memo + item);
@@ -273,7 +274,7 @@ async.waterfall([
 ], function(err, result) { });
 
 
-var q = async.queue<any>(function(task: any, callback: (err?: Error, msg?: string) => void) {
+const q = async.queue<any>(function(task: any, callback: (err?: Error, msg?: string) => void) {
     console.log('hello ' + task.name);
     callback(undefined, 'a message.');
 }, 2);
@@ -307,11 +308,11 @@ q.unshift([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function(err) {
     console.log('finished processing bar');
 });
 
-var qLength: number = q.length();
-var qStarted: boolean = q.started;
-var qPaused: boolean = q.paused;
-var qProcessingCount: number = q.running();
-var qIsIdle: boolean = q.idle();
+const qLength: number = q.length();
+const qStarted: boolean = q.started;
+const qPaused: boolean = q.paused;
+const qProcessingCount: number = q.running();
+const qIsIdle: boolean = q.idle();
 
 q.saturated = function() {
     console.log('queue is saturated.');
@@ -330,7 +331,7 @@ q.resume();
 q.kill();
 
 // tests for strongly typed tasks
-var q2 = async.queue<string>(function(task: string, callback: () => void) {
+const q2 = async.queue<string>(function(task: string, callback: () => void) {
     console.log('Task: ' + task);
     callback();
 }, 1);
@@ -355,14 +356,14 @@ q2.unshift(['task3', 'task4', 'task5'], function(error) {
     console.log('Finished tasks');
 });
 
-let q2Length = q2.length();
+const q2Length = q2.length();
 q2.push('testRemovalTask');
 q2.remove(x => x.data === 'testTaskRemoval');
 if (q2Length !== q2.length()) {
     throw new Error('Failed to remove a task from queue.');
 }
 
-var aq = async.queue<number, number>(function(level: number, callback: (error?: Error, newLevel?: number) => void) {
+const aq = async.queue<number, number>(function(level: number, callback: (error?: Error, newLevel?: number) => void) {
     console.log('hello ' + level);
     callback(undefined, level + 1);
 });
@@ -372,7 +373,7 @@ aq.push(1, function(err: Error, newLevel: number) {
 });
 
 // create a cargo object with payload 2
-var cargo = async.cargo(function(tasks, callback) {
+const cargo = async.cargo(function(tasks, callback) {
     for (var i = 0; i < tasks.length; i++) {
         console.log('hello ' + tasks[i].name);
     }
@@ -391,7 +392,7 @@ cargo.push({ name: 'baz' }, function(err: Error) {
     console.log('finished processing baz');
 });
 
-var filename = '';
+const filename = '';
 async.auto({
     get_data: function(callback: AsyncResultCallback<any>) { },
     make_folder: function(callback: AsyncResultCallback<any>) { },
@@ -467,16 +468,16 @@ async.parallel([
     },
 ]);
 
-var call_order: string[] = [];
+const call_order: string[] = [];
 async.nextTick(function() {
     call_order.push('two');
 });
 call_order.push('one');
 
-var slow_fn = function(name: string, callback: any) {
+const slow_fn = function(name: string, callback: any) {
     callback(null, 123);
 };
-var fn = async.memoize(slow_fn);
+const fn = async.memoize(slow_fn);
 fn('some name', function() {});
 async.unmemoize(fn);
 async.ensureAsync(function() { });
@@ -742,7 +743,7 @@ function myFunction1(foo: any, callback: (err?: Error, result?: any) => void): v
 	console.log(`async.timeout 1 ${foo}`);
 	return callback(undefined, foo);
 }
-var wrapped1 = async.timeout(myFunction1, 1000);
+const wrapped1 = async.timeout(myFunction1, 1000);
 wrapped1({ bar: 'bar' }, function(err: Error, data: any) {
     console.log(`async.timeout 1 end ${data}`);
 });
@@ -753,7 +754,7 @@ function myFunction2(callback: (err?: Error, result?: any) => void): void {
 	return callback(undefined, { bar: 'bar' });
 }
 
-var wrapped2 = async.timeout(myFunction2, 1000);
+const wrapped2 = async.timeout(myFunction2, 1000);
 wrapped2(function(err: Error, data: any) {
     console.log(`async.timeout 2 end ${data}`);
 });
@@ -763,7 +764,7 @@ function myFunction3(callback: (err?: Error, result?: any) => void): void {
 	return callback(undefined, { bar: 'bar' });
 }
 
-var wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });
+const wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });
 wrapped3(function(err: Error, data: any) {
     console.log(`async.timeout 3 end ${data}`);
 });
