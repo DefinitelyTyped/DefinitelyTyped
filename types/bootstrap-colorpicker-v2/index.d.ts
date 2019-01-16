@@ -5,13 +5,15 @@
 
 /// <reference types="jquery" />
 
+type ColorFormat = false | 'hex' | 'rgb' | 'rgba'
+
 type ColorPickerAlignOptions = 'right' | 'left';
 
-type ColorPickerEvents = 'create' | 
-    'showPicker' | 
-    'hidePicker' | 
-    'changeColor' | 
-    'disable' | 
+type ColorPickerEvents = 'create' |
+    'showPicker' |
+    'hidePicker' |
+    'changeColor' |
+    'disable' |
     'enable' |
     'destroy'
 
@@ -24,106 +26,106 @@ interface ColorPickerOptions {
      * 
      * Default: false
      */
-    format: string;
+    format?: ColorFormat;
 
     /**
      * If not false, sets the color to this value.
      * 
      * Default: false
      */
-    color: string;
+    color?: string;
 
     /**
      * If not false, the picker will be contained inside this element, otherwise it will be appended to the document body.
      * 
      * Default: false
      */
-    container: string | JQuery;
+    container?: boolean;
 
     /**
      * Children selector for the component or element that trigger the colorpicker and which background color will change (needs an inner <i> element).
      * 
      * Default: '.add-on, .input-group-addon'
      */
-    component: string | JQuery;
+    component?: string | JQuery;
 
     /**
      * Children selector for the input that will store the picker selected value.
      * 
      * Default: 'input'
      */
-    input: string | JQuery;
+    input?: string | JQuery;
 
     /**
      * If true, put a '#' (number sign) before hex strings.
      * 
      * Default: true
      */
-    hexNumberSignPrefix: boolean;
+    hexNumberSignPrefix?: boolean;
 
     /**
      * If true, the hue and alpha channel bars will be rendered horizontally, above the saturation selector.
      * 
      * Default: false
      */
-    horizontal: boolean;
+    horizontal?: boolean;
 
     /**
      * If true, forces to show the colorpicker as an inline element.
      * 
      * Default: false
      */
-    inline: boolean;
+    inline?: boolean;
 
     /**
      * Vertical sliders configuration (read source code if you really need to tweak this).
      */
-    sliders: object;
+    sliders?: object;
 
     /**
      * Horizontal sliders configuration (read source code if you really need to tweak this).
      */
-    slidersHorz: object;
+    slidersHorz?: object;
 
     /**
      * Customizes the default colorpicker HTML template.
      */
-    template: string;
+    template?: string;
 
     /**
      * 	By default, the colorpicker is aligned to the right of the input. If you need to switch it to the left, set align to 'left'.
      * 
      * Default: 'right'
      */
-    align: ColorPickerAlignOptions;
+    align?: ColorPickerAlignOptions;
 
     /**
      * Adds this class to the colorpicker widget.
      * 
      * Default: null
      */
-    customClass: string;
+    customClass?: string;
 
     /**
      * 	List of pre selected colors (hex format). If you choose one of these colors, the alias is returned instead of the hex code.
      * 
      * Default: null
      */
-    colorSelectors: object;
+    colorSelectors?: object;
 
     /**
      * Fallback color string that will be applied when the color failed to be parsed. If null, it will keep the current color if any.
      * 
      * Default: null
      */
-    fallbackColor: string;
+    fallbackColor?: string;
 
     /**
      * 	Fallback color format (e.g. when not specified or for alias mode, when selecting non aliased colors)
      * 
      * Default: hex
      */
-    fallbackFormat: string;
+    fallbackFormat?: string;
 }
 
 interface Color {
@@ -133,8 +135,8 @@ interface Color {
     hexNumberSignPrefix: boolean;
     origFormat: string;
     predefinedColors: {};
-    value: { 
-        h: number; 
+    value: {
+        h: number;
         s: number;
         b: number;
         a: number;
@@ -179,6 +181,11 @@ interface Color {
      * Returns a hash with HSLA values.
      */
     toHSL(): string;
+
+    /**
+     * Returns current color as string in specified format.
+     */
+    toString(format: ColorFormat): string;
 }
 
 interface ColorPicker {
@@ -193,8 +200,8 @@ interface ColorPicker {
     picker: JQuery;
 }
 
-interface ColorPickerEventObject {
-
+interface ColorPickerEventObject extends JQueryEventObject {
+    color: Color;
 }
 
 interface JQuery {
@@ -202,7 +209,7 @@ interface JQuery {
      * Initializes an colorpicker.
      */
     colorpicker(): JQuery;
-    
+
     /**
      * Initializes an colorpicker.
      */

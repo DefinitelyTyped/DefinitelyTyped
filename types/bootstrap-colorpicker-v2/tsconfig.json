@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "bootstrap-colorpicker@2.5.3-tests.ts"
+        "bootstrap-colorpicker-v2-tests.ts"
     ]
 }
