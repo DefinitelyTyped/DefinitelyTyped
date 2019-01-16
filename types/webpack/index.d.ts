@@ -988,8 +988,8 @@ declare namespace webpack {
             shouldEmit: SyncBailHook<Compilation>;
             done: AsyncSeriesHook<Stats>;
             additionalPass: AsyncSeriesHook;
-            beforeRun: AsyncSeriesHook<Compilation>;
-            run: AsyncSeriesHook<Compilation>;
+            beforeRun: AsyncSeriesHook<Compiler>;
+            run: AsyncSeriesHook<Compiler>;
             emit: AsyncSeriesHook<Compilation>;
             afterEmit: AsyncSeriesHook<Compilation>;
             thisCompilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
