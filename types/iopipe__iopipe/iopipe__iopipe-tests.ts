@@ -1,6 +1,6 @@
-import iopipe, { label, metric, mark, LibraryConfig } from "iopipe__iopipe";
+import iopipe, { label, metric, mark } from "iopipe__iopipe";
 
-const config: LibraryConfig = {
+const config = {
   token: "ABCDEFG"
 };
 
