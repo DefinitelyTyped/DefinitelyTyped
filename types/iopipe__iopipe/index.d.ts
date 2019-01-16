@@ -1,41 +1,24 @@
 // Type definitions for iopipe__iopipe 1.12
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: My Self <https://github.com/me>
+// Project: https://github.com/iopipe/iopipe (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Definitions by: Javon Harper <https://github.com/javonharper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
-
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+export interface LibraryConfig {
+    debug?: boolean;
+    token?: string;
+    networkTimeout?: number;
+    timeoutWindow?: number;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
+export type FunctionWrapper = (handler: any) => void;
 
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    function foo(): void;
+export function label(label: string): void;
+
+export function metric(label: string, value: number): void;
+
+export namespace mark {
+    function start(label: string): void;
+    function end(label: string): void;
 }
 
-export function label(value: string): void;
+export default function iopipe(config?: LibraryConfig): FunctionWrapper;
