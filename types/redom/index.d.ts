@@ -3,7 +3,7 @@
 // Definitions by: Rauli Laine <https://github.com/RauliL>
 //                 Felix Nehrke <https://github.com/nemoinho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.2
 
 export type RedomElement = Node | RedomComponent;
 export type RedomQuery = string | RedomElement;
