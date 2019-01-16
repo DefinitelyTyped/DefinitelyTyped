@@ -214,6 +214,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     hide?: boolean;
     shape?: React.ReactElement<any> | ContentRenderer<RectangleProps>;
     data?: BarData[];
+    background?: boolean | React.ReactElement<any> | ContentRenderer<any> | object;
     // see label section at http://recharts.org/#/en-US/api/Bar
     label?: boolean | Label | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
 }
