@@ -1578,7 +1578,7 @@ declare module "victory" {
          * components within chart.
          * @example {border: "1px solid #ccc", margin: "2%", maxWidth: "40%"}
          */
-        style?: React.CSSProperties;
+        style?: Pick<VictoryStyleInterface, 'parent'>;
     }
 
     /**
