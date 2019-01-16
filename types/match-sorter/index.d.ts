@@ -20,8 +20,8 @@ declare namespace matchSorter {
 }
 
 type ExtendedKeyOptions<T> = { key: string | ((item: T) => string) } & (
-    | { minRanking: number; threshold?: number }
-    | { maxRanking: number; threshold?: number }
+    | { minRanking: number }
+    | { maxRanking: number }
     | { threshold: number });
 
 interface Options<T> {
