@@ -21,7 +21,6 @@
         "semicolon": false,                    // HAS ISSUES
         "space-before-function-paren": false,  // HAS ISSUES
         "space-within-parens": false,          // HAS ISSUES
-        "trim-file": false,                    // HAS ISSUES
         "typedef-whitespace": false,           // HAS ISSUES
         "unified-signatures": false            // HAS ISSUES
     }

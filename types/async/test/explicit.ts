@@ -1,5 +1,3 @@
-
-
 interface StringCallback { (err?: Error, result?: string): void; }
 interface AsyncStringGetter { (callback: StringCallback): void; }
 
@@ -71,4 +69,3 @@ async.parallelLimit(taskDict, 3, function(err, results) {
     let one = results['one'];
     console.log(one && one.toFixed(1))
 });
-

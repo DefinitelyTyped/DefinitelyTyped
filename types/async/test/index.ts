@@ -767,4 +767,3 @@ var wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });
 wrapped3( function(err : Error, data : any) {
     console.log(`async.timeout 3 end ${data}`);
 });
-
