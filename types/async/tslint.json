@@ -1,7 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "arrow-return-shorthand": false,       // HAS ISSUES
+        "arrow-return-shorthand": true,
         "array-type": false,                   // HAS ISSUES
         "ban-types": true,
         "callable-types": false,               // HAS ISSUES
