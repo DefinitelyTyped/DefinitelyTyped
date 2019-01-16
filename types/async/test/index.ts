@@ -734,7 +734,7 @@ async.some<number>({
 
 function myFunction1(foo: any, callback: (err?: Error, result?: any) => void): void {
 	console.log(`async.timeout 1 ${foo}`);
-	return callback(undefined, foo);
+	callback(undefined, foo);
 }
 const wrapped1 = async.timeout(myFunction1, 1000);
 wrapped1({ bar: 'bar' }, function(err: Error, data: any) {
@@ -743,7 +743,7 @@ wrapped1({ bar: 'bar' }, function(err: Error, data: any) {
 
 function myFunction2(callback: (err?: Error, result?: any) => void): void {
 	console.log(`async.timeout 2`);
-	return callback(undefined, { bar: 'bar' });
+	callback(undefined, { bar: 'bar' });
 }
 
 const wrapped2 = async.timeout(myFunction2, 1000);
@@ -753,7 +753,7 @@ wrapped2(function(err: Error, data: any) {
 
 function myFunction3(callback: (err?: Error, result?: any) => void): void {
 	console.log(`async.timeout 3`);
-	return callback(undefined, { bar: 'bar' });
+	callback(undefined, { bar: 'bar' });
 }
 
 const wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });
