@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
-import { Connect, connect, createProvider, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue } from 'react-redux';
+import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue, Selector } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
