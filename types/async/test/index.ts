@@ -102,7 +102,6 @@ async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function(err: Err
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, function(err, files) { });
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, function(err, files) { });
 
-
 // Control Flow //
 
 async.series([
@@ -193,7 +192,6 @@ async.parallel<string>([
 ],
 function(err, results) { });
 
-
 async.parallel({
     one: function(callback) {
         setTimeout(function() {
@@ -238,7 +236,6 @@ async.parallelLimit({
     function(err, results) { }
 );
 
-
 function whileFn(callback: any) {
     setTimeout(() => callback(null, ++count), 1000);
 }
@@ -273,12 +270,10 @@ async.waterfall([
     }
 ], function(err, result) { });
 
-
 const q = async.queue<any>(function(task: any, callback: (err?: Error, msg?: string) => void) {
     console.log('hello ' + task.name);
     callback(undefined, 'a message.');
 }, 2);
-
 
 q.drain = function() {
     console.log('all items have been processed');
@@ -380,7 +375,6 @@ const cargo = async.cargo(function(tasks, callback) {
     callback();
 }, 2);
 
-
 // add some items
 cargo.push({ name: 'foo' }, function(err: Error) {
     console.log('finished processing foo');
@@ -441,7 +435,6 @@ async.retry(3, function(callback, results) { }, function(err, result) { });
 async.retry({ times: 3, interval: 200 }, function(callback, results) { }, function(err, result) { });
 async.retry({ times: 3, interval: (retryCount) => 200 * retryCount }, function(callback, results) { }, function(err, result) { });
 
-
 async.parallel([
     function(callback: (err: Error, val: string) => void) { },
     function(callback) { }
@@ -457,7 +450,6 @@ async.parallel([
     async.apply(fs.writeFile, 'testfile1', 'test1'),
     async.apply(fs.writeFile, 'testfile2', 'test2'),
 ]);
-
 
 async.parallel([
     function(callback) {
@@ -747,7 +739,6 @@ const wrapped1 = async.timeout(myFunction1, 1000);
 wrapped1({ bar: 'bar' }, function(err: Error, data: any) {
     console.log(`async.timeout 1 end ${data}`);
 });
-
 
 function myFunction2(callback: (err?: Error, result?: any) => void): void {
 	console.log(`async.timeout 2`);

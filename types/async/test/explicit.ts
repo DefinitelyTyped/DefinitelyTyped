@@ -39,7 +39,6 @@ async.parallelLimit(taskArray, 3, function(err, results) {
     }
 });
 
-
 interface Lookup<T> { [key: string]: T; }
 interface NumberCallback { (err?: Error, result?: number): void; }
 interface AsyncNumberGetter { (callback: NumberCallback): void; }
