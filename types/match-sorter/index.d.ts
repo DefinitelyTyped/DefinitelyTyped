@@ -19,12 +19,10 @@ declare namespace matchSorter {
     }
 }
 
-interface ExtendedKeyOptions<T> {
-    minRanking?: number;
-    maxRanking?: number;
-    treshold?: number;
-    key: string | ((item: T) => string);
-}
+type ExtendedKeyOptions<T> = { key: string | ((item: T) => string) } & (
+    | { minRanking: number; threshold?: number }
+    | { maxRanking: number; threshold?: number }
+    | { threshold: number });
 
 interface Options<T> {
     keys?: Array<string | ((item: T) => string) | ExtendedKeyOptions<T>>;
@@ -39,6 +37,10 @@ interface Options<T> {
  * @param options - Some options to configure the sorter
  * @return the new sorted array
  */
-declare function matchSorter<T>(items: ReadonlyArray<T>, value: string, options?: Options<T>): T[];
+declare function matchSorter<T>(
+    items: ReadonlyArray<T>,
+    value: string,
+    options?: Options<T>
+): T[];
 
 export = matchSorter;
