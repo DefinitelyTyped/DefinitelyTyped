@@ -58,7 +58,7 @@ async.eachLimit(documents, 20, requestApi, function(err) { });
 
 // forEachOf* functions. May accept array or object.
 function forEachOfIterator(item: string, key: string, forEachOfIteratorCallback: any) {
-    console.log("ForEach: item=" + item + ", key=" + key);
+    console.log(`ForEach: item=${item}, key=${key}`);
     forEachOfIteratorCallback();
 }
 async.forEachOf(openFiles, forEachOfIterator, function(err) { });
@@ -294,7 +294,7 @@ q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function(err) {
 });
 
 q.push<string>({name: 'foo'}, function(err, msg) {
-  console.log('foo finished with a message "' + msg! + '"');
+  console.log(`foo finished with a message "${msg!}"`);
 });
 
 q.unshift({ name: 'foo' });
