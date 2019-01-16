@@ -54,7 +54,7 @@ export class Verifier {
 
 export type JwtFromRequestFunction = (req: Request) => string;
 
-export const ExtractJWT: {
+export const ExtractJwt: {
     fromHeader(header_name: string): JwtFromRequestFunction;
     fromBodyField(field_name: string): JwtFromRequestFunction;
     fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;

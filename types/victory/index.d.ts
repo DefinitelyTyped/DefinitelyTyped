@@ -1578,7 +1578,7 @@ declare module "victory" {
          * components within chart.
          * @example {border: "1px solid #ccc", margin: "2%", maxWidth: "40%"}
          */
-        style?: React.CSSProperties;
+        style?: Pick<VictoryStyleInterface, 'parent'>;
     }
 
     /**
@@ -1682,6 +1682,13 @@ declare module "victory" {
        * or horizontal if the prop is set to true.
        */
       horizontal?: boolean;
+      /**
+       * The offset prop determines the number of pixels each element in a group should
+       * be offset from its original position of the on the independent axis. In the
+       * case of groups of bars, this number should be equal to the width of the bar
+       * plus the desired spacing between bars.
+       */
+      offset?:number
       /**
        * The style prop specifies styles for your grouped chart. These styles will be
        * applied to all grouped children
