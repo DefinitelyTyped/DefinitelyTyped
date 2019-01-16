@@ -47,9 +47,9 @@ var openFiles = ['file1', 'file2'];
 var openFilesObj = {
     file1: "fileOne",
     file2: "fileTwo"
-}
+};
 
-var saveFile = function (file: string, cb: (err: Error) => void) { }
+var saveFile = function (file: string, cb: (err: Error) => void) { };
 async.each(openFiles, saveFile, function (err: Error) { });
 async.eachSeries(openFiles, saveFile, function (err: Error) { });
 
@@ -71,7 +71,7 @@ async.forEachOfLimit(openFilesObj, 2, forEachOfIterator, function (err) { });
 var numArray = [1, 2, 3];
 function reducer(memo: any, item: any, callback: any) {
     process.nextTick(function () {
-        callback(null, memo + item)
+        callback(null, memo + item);
     });
 }
 async.reduce(numArray, 0, reducer, function (err, result) { });
@@ -153,16 +153,16 @@ async.series<number>({
 function (err, results) { });
 
 async.times(5, function(n, next) {
-    next(undefined as any, n)
+    next(undefined as any, n);
 }, function(err, results) {
-    console.log(results)
-})
+    console.log(results);
+});
 
 async.timesSeries(5, function(n, next) {
-    next(undefined as any, n)
+    next(undefined as any, n);
 }, function(err, results) {
-    console.log(results)
-})
+    console.log(results);
+});
 
 async.parallel([
     function (callback) {
@@ -250,8 +250,8 @@ async.until(whileTest, whileFn, function (err) { });
 async.doWhilst(whileFn, doWhileTest, function (err) { });
 async.doUntil(whileFn, doWhileTest, function (err) { });
 
-async.during(function (testCallback) { testCallback(new Error(), false); }, function (callback) { callback() }, function (error) { console.log(error) });
-async.doDuring(function (callback) { callback() }, function (testCallback) { testCallback(new Error(), false); }, function (error) { console.log(error) });
+async.during(function (testCallback) { testCallback(new Error(), false); }, function (callback) { callback(); }, function (error) { console.log(error); });
+async.doDuring(function (callback) { callback(); }, function (testCallback) { testCallback(new Error(), false); }, function (error) { console.log(error); });
 async.forever(function (errBack) {
     errBack(new Error("Not going on forever."));
 },
@@ -281,7 +281,7 @@ var q = async.queue<any>(function (task: any, callback: (err?: Error, msg?: stri
 
 q.drain = function () {
     console.log('all items have been processed');
-}
+};
 
 q.push({ name: 'foo' });
 
@@ -315,15 +315,15 @@ var qIsIdle : boolean = q.idle();
 
 q.saturated = function() {
     console.log('queue is saturated.');
-}
+};
 
 q.empty = function() {
     console.log('queue is empty.');
-}
+};
 
 q.drain = function() {
     console.log('queue was drained.');
-}
+};
 
 q.pause();
 q.resume();

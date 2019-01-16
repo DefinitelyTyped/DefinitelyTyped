@@ -18,7 +18,7 @@ async.series(taskArray, function (err, results) {
     if (results) {
         let first = results[0];
         if (first) {
-            console.log(first.match(/o/))
+            console.log(first.match(/o/));
         }
     }
 });
@@ -26,7 +26,7 @@ async.parallel(taskArray, function (err, results) {
     if (results) {
         let first = results[0];
         if (first) {
-            console.log(first.match(/o/))
+            console.log(first.match(/o/));
         }
     }
 });
@@ -34,7 +34,7 @@ async.parallelLimit(taskArray, 3, function (err, results) {
     if (results) {
         let first = results[0];
         if (first) {
-            console.log(first.match(/o/))
+            console.log(first.match(/o/));
         }
     }
 });
@@ -55,17 +55,17 @@ var taskDict: Lookup<AsyncNumberGetter> = {
             callback(undefined, 2);
         }, 100);
     }
-}
+};
 
 async.series(taskDict, function(err, results) {
     let one = results['one'];
-    console.log(one && one.toFixed(1))
+    console.log(one && one.toFixed(1));
 });
 async.parallel(taskDict, function(err, results) {
     let one = results['one'];
-    console.log(one && one.toFixed(1))
+    console.log(one && one.toFixed(1));
 });
 async.parallelLimit(taskDict, 3, function(err, results) {
     let one = results['one'];
-    console.log(one && one.toFixed(1))
+    console.log(one && one.toFixed(1));
 });

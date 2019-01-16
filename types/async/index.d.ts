@@ -12,7 +12,7 @@
 export as namespace async;
 
 export interface Dictionary<T> { [key: string]: T; }
-export type IterableCollection<T> = T[] | IterableIterator<T> | Dictionary<T>
+export type IterableCollection<T> = T[] | IterableIterator<T> | Dictionary<T>;
 
 export interface ErrorCallback<E = Error> { (err?: E | null): void; }
 export interface AsyncBooleanResultCallback<E = Error> { (err?: E | null, truthValue?: boolean): void; }
@@ -31,7 +31,7 @@ export interface AsyncBooleanIterator<T, E = Error> { (item: T, callback: AsyncB
 export interface AsyncWorker<T, E = Error> { (task: T, callback: ErrorCallback<E>): void; }
 export interface AsyncVoidFunction<E = Error> { (callback: ErrorCallback<E>): void; }
 
-export type AsyncAutoTasks<R extends Dictionary<any>, E> = { [K in keyof R]: AsyncAutoTask<R[K], R, E> }
+export type AsyncAutoTasks<R extends Dictionary<any>, E> = { [K in keyof R]: AsyncAutoTask<R[K], R, E> };
 export type AsyncAutoTask<R1, R extends Dictionary<any>, E> = AsyncAutoTaskFunctionWithoutDependencies<R1, E> | Array<keyof R | AsyncAutoTaskFunction<R1, R, E>>;
 export interface AsyncAutoTaskFunctionWithoutDependencies<R1, E = Error> { (cb: AsyncResultCallback<R1, E> | ErrorCallback<E>): void; }
 export interface AsyncAutoTaskFunction<R1, R extends Dictionary<any>, E = Error> { (results: R, cb: AsyncResultCallback<R1, E> | ErrorCallback<E>): void; }
@@ -41,7 +41,7 @@ export interface DataContainer<T> {
 }
 
 export interface CallbackContainer {
-    callback: Function
+    callback: Function;
 }
 
 export interface PriorityContainer {
@@ -61,7 +61,7 @@ export interface AsyncQueue<T> {
     empty: () => any;
     drain: () => any;
     paused: boolean;
-    pause(): void
+    pause(): void;
     resume(): void;
     kill(): void;
     workersList<TWorker extends DataContainer<T>, CallbackContainer>(): TWorker[];
