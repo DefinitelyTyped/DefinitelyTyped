@@ -153,7 +153,7 @@ declare module 'pdfmake/build/pdfmake' {
     }
 
     interface Content {
-        style?: 'string';
+        style?: string;
         margin?: Margins;
         text?: string | string[] | Content[];
         columns?: Content[];
@@ -175,7 +175,7 @@ declare module 'pdfmake/build/pdfmake' {
         compress?: boolean;
         header?: TDocumentHeaderFooterFunction;
         footer?: TDocumentHeaderFooterFunction;
-        content: string | Content;
+        content: (string | Content)[];
         styles?: Style;
         pageSize?: PageSize;
         pageOrientation?: PageOrientation;
