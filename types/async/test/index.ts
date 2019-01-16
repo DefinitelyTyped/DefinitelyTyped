@@ -374,8 +374,8 @@ aq.push(1, function(err: Error, newLevel: number) {
 
 // create a cargo object with payload 2
 const cargo = async.cargo(function(tasks, callback) {
-    for (var i = 0; i < tasks.length; i++) {
-        console.log('hello ' + tasks[i].name);
+    for (const task of tasks) {
+        console.log('hello ' + task.name);
     }
     callback();
 }, 2);
