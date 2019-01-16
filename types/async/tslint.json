@@ -1,11 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "arrow-return-shorthand": true,
         "array-type": false,                   // HAS ISSUES
-        "ban-types": true,
+        "ban-types": true,                     // PRODUCES ERRORS WHEN REMOVED
         "callable-types": false,               // HAS ISSUES
-        "comment-format": true,
+        "comment-format": true,                // PRODUCES ERRORS WHEN REMOVED
         "dt-header": false,                    // HAS ISSUES
         "max-line-length": false,              // HAS ISSUES
         "no-consecutive-blank-lines": false,   // HAS ISSUES
@@ -15,7 +14,6 @@
         "no-void-expression": false,           // HAS ISSUES
         "object-literal-key-quotes": false,    // HAS ISSUES
         "object-literal-shorthand": false,     // HAS ISSUES
-        "one-line": true,
         "one-variable-per-declaration": false, // HAS ISSUES
         "only-arrow-functions": false,         // HAS ISSUES
         "prefer-const": false,                 // HAS ISSUES
@@ -28,6 +26,6 @@
         "trim-file": false,                    // HAS ISSUES
         "typedef-whitespace": false,           // HAS ISSUES
         "unified-signatures": false,           // HAS ISSUES
-        "whitespace": true
+        "whitespace": true                     // PRODUCES ERRORS WHEN REMOVED
     }
 }
