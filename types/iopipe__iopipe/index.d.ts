@@ -14,7 +14,7 @@ declare namespace iopipe {
         function start(label: string): void;
         function end(label: string): void;
     }
-        
+
     interface LibraryConfig {
         debug?: boolean;
         token?: string;
