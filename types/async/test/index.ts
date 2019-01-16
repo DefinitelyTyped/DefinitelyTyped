@@ -493,8 +493,8 @@ async.dir(function(name: string, callback: any) {
 // each
 
 async.each<number>({
-    "a": 1,
-    "b": 2
+    a: 1,
+    b: 2
 }, function(val: number, next: ErrorCallback): void {
     setTimeout(function(): void {
         console.log(`async.each: ${val}`);
@@ -505,8 +505,8 @@ async.each<number>({
 });
 
 async.eachSeries<number>({
-    "a": 1,
-    "b": 2
+    a: 1,
+    b: 2
 }, function(val: number, next: ErrorCallback): void {
     setTimeout(function(): void {
         console.log(`async.eachSeries: ${val}`);
@@ -517,12 +517,12 @@ async.eachSeries<number>({
 });
 
 async.eachLimit<number>({
-    "a": 1,
-    "b": 2,
-    "c": 3,
-    "d": 4,
-    "e": 5,
-    "f": 6
+    a: 1,
+    b: 2,
+    c: 3,
+    d: 4,
+    e: 5,
+    f: 6
 }, 2, function(val: number, next: ErrorCallback): void {
     setTimeout(function(): void {
         console.log(`async.eachLimit: ${val}`);
@@ -535,8 +535,8 @@ async.eachLimit<number>({
 // forEachOf/eachOf
 
 async.eachOf<number>({
-    "a": 1,
-    "b": 2
+    a: 1,
+    b: 2
 }, function(val: number, key: string, next: ErrorCallback): void {
     setTimeout(function(): void {
         console.log(`async.forEachOf/eachOf: ${key} = ${val}`);
@@ -547,8 +547,8 @@ async.eachOf<number>({
 });
 
 async.forEachOfSeries<number>({
-    "a": 1,
-    "b": 2
+    a: 1,
+    b: 2
 }, function(val: number, key: string, next: ErrorCallback): void {
     setTimeout(function(): void {
         console.log(`async.forEachOfSeries: ${key} = ${val}`);
@@ -559,12 +559,12 @@ async.forEachOfSeries<number>({
 });
 
 async.forEachOfLimit<number>({
-    "a": 1,
-    "b": 2,
-    "c": 3,
-    "d": 4,
-    "e": 5,
-    "f": 6
+    a: 1,
+    b: 2,
+    c: 3,
+    d: 4,
+    e: 5,
+    f: 6
 }, 2, function(val: number, key: string, next: ErrorCallback): void {
     setTimeout(function(): void {
         console.log(`async.forEachOfLimit: ${key} = ${val}`);
@@ -577,9 +577,9 @@ async.forEachOfLimit<number>({
 // map
 
 async.map<number, string>({
-    "a": 1,
-    "b": 2,
-    "c": 3
+    a: 1,
+    b: 2,
+    c: 3
 }, function(val: number, next: AsyncResultCallback<string>): void {
     setTimeout(function(): void {
         console.log(`async.map: ${val}`);
@@ -590,9 +590,9 @@ async.map<number, string>({
 });
 
 async.mapSeries<number, string>({
-    "a": 1,
-    "b": 2,
-    "c": 3
+    a: 1,
+    b: 2,
+    c: 3
 }, function(val: number, next: AsyncResultCallback<string>): void {
     setTimeout(function(): void {
         console.log(`async.mapSeries: ${val}`);
@@ -603,12 +603,12 @@ async.mapSeries<number, string>({
 });
 
 async.mapLimit<number, string>({
-    "a": 1,
-    "b": 2,
-    "c": 3,
-    "d": 4,
-    "e": 5,
-    "f": 6
+    a: 1,
+    b: 2,
+    c: 3,
+    d: 4,
+    e: 5,
+    f: 6
 }, 2, function(val: number, next: AsyncResultCallback<string>): void {
     setTimeout(function(): void {
         console.log(`async.mapLimit: ${val}`);
@@ -621,9 +621,9 @@ async.mapLimit<number, string>({
 // mapValues
 
 async.mapValues<number, string>({
-    "a": 1,
-    "b": 2,
-    "c": 3
+    a: 1,
+    b: 2,
+    c: 3
 }, function(val: number, key: string, next: AsyncResultCallback<string>): void {
     setTimeout(function(): void {
         console.log(`async.mapValues: ${key} = ${val}`);
@@ -634,9 +634,9 @@ async.mapValues<number, string>({
 });
 
 async.mapValuesSeries<number, string>({
-    "a": 1,
-    "b": 2,
-    "c": 3
+    a: 1,
+    b: 2,
+    c: 3
 }, function(val: number, key: string, next: AsyncResultCallback<string>): void {
     setTimeout(function(): void {
         console.log(`async.mapValuesSeries: ${key} = ${val}`);
@@ -649,9 +649,9 @@ async.mapValuesSeries<number, string>({
 // filter/select/reject
 
 async.filter<number>({
-    "a": 1,
-    "b": 2,
-    "c": 3
+    a: 1,
+    b: 2,
+    c: 3
 }, function(val: number, next: AsyncBooleanResultCallback): void {
     setTimeout(function(): void {
         console.log(`async.filter/select: ${val}`);
@@ -662,9 +662,9 @@ async.filter<number>({
 });
 
 async.reject<number>({
-    "a": 1,
-    "b": 2,
-    "c": 3
+    a: 1,
+    b: 2,
+    c: 3
 }, function(val: number, next: AsyncBooleanResultCallback): void {
     setTimeout(function(): void {
         console.log(`async.reject: ${val}`);
@@ -677,9 +677,9 @@ async.reject<number>({
 // concat
 
 async.concat<string, string>({
-    "a": "1",
-    "b": "2",
-    "c": "3"
+    a: "1",
+    b: "2",
+    c: "3"
 }, function(item: string, next: AsyncResultCallback<string[]>): void {
     console.log(`async.concat: ${item}`);
     next(undefined as any, [item, item, item]);
@@ -690,9 +690,9 @@ async.concat<string, string>({
 // detect/find
 
 async.detect<number>({
-    "a": 1,
-    "b": 2,
-    "c": 3
+    a: 1,
+    b: 2,
+    c: 3
 }, function(item: number, next: AsyncBooleanResultCallback): void {
     console.log(`async.detect/find: ${item}`);
     next(undefined as any, item > 1);
@@ -707,9 +707,9 @@ async.detect<number>({
 // every/all
 
 async.every<number>({
-    "a": 1,
-    "b": 2,
-    "c": 3
+    a: 1,
+    b: 2,
+    c: 3
 }, function(item: number, next: AsyncBooleanResultCallback): void {
     console.log(`async.every/all: ${item}`);
     next(undefined as any, item > 0);
@@ -720,9 +720,9 @@ async.every<number>({
 // some/any
 
 async.some<number>({
-    "a": 1,
-    "b": 2,
-    "c": 3
+    a: 1,
+    b: 2,
+    c: 3
 }, function(item: number, next: AsyncBooleanResultCallback): void {
     console.log(`async.some/any: ${item}`);
     next(undefined as any, item > 2);
