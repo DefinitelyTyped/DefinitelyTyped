@@ -9,23 +9,23 @@ declare var path: {
     exists: (path: string, callback?: (err: Error, exists: boolean) => any) => void;
 };
 
-function funcStringCbErrBoolean(v:string, cb:(err:Error,res:boolean) => void) {}
+function funcStringCbErrBoolean(v: string, cb: (err: Error, res: boolean) => void) {}
 function callback() { }
 
-async.map(['file1', 'file2', 'file3'], fs.stat, function (err:Error, results:Array<fs.Stats>) { });
-async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err:Error, results:Array<fs.Stats>) { });
-async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, function (err:Error, results:Array<fs.Stats>) { });
+async.map(['file1', 'file2', 'file3'], fs.stat, function (err: Error, results: Array<fs.Stats>) { });
+async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err: Error, results: Array<fs.Stats>) { });
+async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, function (err: Error, results: Array<fs.Stats>) { });
 
-async.filter(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
-async.filterSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
-async.filterLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
-async.select(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
-async.selectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
-async.selectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
+async.filter(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
+async.filterSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
+async.filterLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
+async.select(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
+async.selectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
+async.selectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
 
-async.reject(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
-async.rejectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
-async.rejectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
+async.reject(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
+async.rejectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
+async.rejectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, results: Array<string>) { });
 
 async.parallel([
     function () { },
@@ -49,9 +49,9 @@ var openFilesObj = {
     file2: "fileTwo"
 }
 
-var saveFile = function (file:string,cb:(err:Error)=>void) { }
-async.each(openFiles, saveFile, function (err:Error) { });
-async.eachSeries(openFiles, saveFile, function (err:Error) { });
+var saveFile = function (file: string, cb: (err: Error) => void) { }
+async.each(openFiles, saveFile, function (err: Error) { });
+async.eachSeries(openFiles, saveFile, function (err: Error) { });
 
 var documents: any, requestApi: any;
 async.eachLimit(documents, 20, requestApi, function (err) { });
@@ -80,9 +80,9 @@ async.foldl(numArray, 0, reducer, function (err, result) { });
 async.reduceRight(numArray, 0, reducer, function (err, result) { });
 async.foldr(numArray, 0, reducer, function (err, result) { });
 
-async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error,result:string) { });
-async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err,result) { });
-async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err,result) { });
+async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, result: string) { });
+async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err, result) { });
+async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err, result) { });
 
 async.sortBy(['file1', 'file2', 'file3'], function (file, callback) {
     fs.stat(file, function (err, stats) {
@@ -90,13 +90,13 @@ async.sortBy(['file1', 'file2', 'file3'], function (file, callback) {
     });
 }, function (err, results) { });
 
-async.some(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,result:boolean) { });
-async.someLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,result:boolean) { });
-async.any(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,result:boolean) { });
+async.some(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, result: boolean) { });
+async.someLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, result: boolean) { });
+async.any(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, result: boolean) { });
 
-async.every(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,result:boolean) { });
-async.everyLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,result:boolean) { });
-async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,result:boolean) { });
+async.every(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, result: boolean) { });
+async.everyLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err: Error, result: boolean) { });
+async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err: Error, result: boolean) { });
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, function (err, files) { });
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, function (err, files) { });
@@ -273,9 +273,9 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue<any>(function (task: any, callback: (err?:Error,msg?:string) => void) {
+var q = async.queue<any>(function (task: any, callback: (err?: Error, msg?: string) => void) {
     console.log('hello ' + task.name);
-    callback(undefined,'a message.');
+    callback(undefined, 'a message.');
 }, 2);
 
 
@@ -294,7 +294,7 @@ q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
 });
 
 q.push<string>({name: 'foo'}, function (err, msg) {
-  console.log('foo finished with a message "'+ msg! + '"');
+  console.log('foo finished with a message "' + msg! + '"');
 });
 
 q.unshift({ name: 'foo' });
@@ -364,7 +364,7 @@ if (q2Length !== q2.length()) {
 
 var aq = async.queue<number, number>(function (level: number, callback: (error?: Error, newLevel?: number) => void) {
     console.log('hello ' + level);
-    callback(undefined, level+1);
+    callback(undefined, level + 1);
 });
 
 aq.push(1, function (err : Error, newLevel : number) {
@@ -442,10 +442,10 @@ async.retry({ times: 3, interval: (retryCount) => 200 * retryCount }, function (
 
 
 async.parallel([
-    function (callback: ( err:Error, val:string ) => void ) { },
+    function (callback: ( err: Error, val: string ) => void ) { },
     function (callback) { }
 ],
-function (err:Error,results:Array<string>) {
+function (err: Error, results: Array<string>) {
     async.series([
         function (callback) { },
         function email_link(callback) { }

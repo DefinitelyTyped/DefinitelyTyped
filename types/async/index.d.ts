@@ -46,7 +46,7 @@ export interface AsyncQueue<T> {
     running(): number;
     idle(): boolean;
     concurrency: number;
-    push<R,E = Error>(task: T | T[], callback?: AsyncResultCallback<R, E>): void;
+    push<R, E = Error>(task: T | T[], callback?: AsyncResultCallback<R, E>): void;
     unshift<E = Error>(task: T | T[], callback?: ErrorCallback<E>): void;
     remove(filter: (node: DataContainer<T>) => boolean): void;
     saturated: () => any;
@@ -70,7 +70,7 @@ export interface AsyncPriorityQueue<T> {
     concurrency: number;
     started: boolean;
     paused: boolean;
-    push<R,E = Error>(task: T | T[], priority: number, callback?: AsyncResultArrayCallback<R, E>): void;
+    push<R, E = Error>(task: T | T[], priority: number, callback?: AsyncResultArrayCallback<R, E>): void;
     saturated: () => any;
     empty: () => any;
     drain: () => any;
@@ -189,7 +189,7 @@ export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback
 export function retry<T, E = Error>(opts: number, task: (callback : AsyncResultCallback<T, E>, results: any) => void, callback:  AsyncResultCallback<any, E>): void;
 export function retry<T, E = Error>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T, E>, results : any) => void, callback:  AsyncResultCallback<any, E>): void;
 export function retryable<T, E = Error>(opts: number | {times: number, interval: number}, task: AsyncFunction<T, E>): AsyncFunction<T, E>;
-export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any,E>;
+export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>;
 export function nextTick(callback: Function, ...args: any[]): void;
 export const setImmediate: typeof nextTick;
 

@@ -25,7 +25,6 @@
         "space-within-parens": false,          // HAS ISSUES
         "trim-file": false,                    // HAS ISSUES
         "typedef-whitespace": false,           // HAS ISSUES
-        "unified-signatures": false,           // HAS ISSUES
-        "whitespace": true                     // PRODUCES ERRORS WHEN REMOVED
+        "unified-signatures": false            // HAS ISSUES
     }
 }
