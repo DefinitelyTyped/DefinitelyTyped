@@ -7,7 +7,6 @@
         "dt-header": false,                    // HAS ISSUES
         "max-line-length": false,              // HAS ISSUES
         "no-consecutive-blank-lines": false,   // HAS ISSUES
-        "no-padding": false,                   // HAS ISSUES
         "no-unnecessary-generics": false,      // HAS ISSUES
         "no-var-keyword": false,               // HAS ISSUES
         "no-void-expression": false,           // HAS ISSUES

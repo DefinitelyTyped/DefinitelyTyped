@@ -502,38 +502,24 @@ async.each<number>({
     "a": 1,
     "b": 2
 }, function(val: number, next: ErrorCallback): void {
-
     setTimeout(function(): void {
-
         console.log(`async.each: ${val}`);
-
         next();
-
     }, 500);
-
 }, function(err?: Error): void {
-
     console.log("async.each: done.");
-
 });
 
 async.eachSeries<number>({
     "a": 1,
     "b": 2
 }, function(val: number, next: ErrorCallback): void {
-
     setTimeout(function(): void {
-
         console.log(`async.eachSeries: ${val}`);
-
         next();
-
     }, 500);
-
 }, function(err?: Error): void {
-
     console.log("async.eachSeries: done.");
-
 });
 
 async.eachLimit<number>({
@@ -544,19 +530,12 @@ async.eachLimit<number>({
     "e": 5,
     "f": 6
 }, 2, function(val: number, next: ErrorCallback): void {
-
     setTimeout(function(): void {
-
         console.log(`async.eachLimit: ${val}`);
-
         next();
-
     }, 500);
-
 }, function(err?: Error): void {
-
     console.log("async.eachLimit: done.");
-
 });
 
 // forEachOf/eachOf
@@ -565,38 +544,24 @@ async.eachOf<number>({
     "a": 1,
     "b": 2
 }, function(val: number, key: string, next: ErrorCallback): void {
-
     setTimeout(function(): void {
-
         console.log(`async.forEachOf/eachOf: ${key} = ${val}`);
-
         next();
-
     }, 500);
-
 }, function(err?: Error): void {
-
     console.log("async.forEachOf/eachOf: done.");
-
 });
 
 async.forEachOfSeries<number>({
     "a": 1,
     "b": 2
 }, function(val: number, key: string, next: ErrorCallback): void {
-
     setTimeout(function(): void {
-
         console.log(`async.forEachOfSeries: ${key} = ${val}`);
-
         next();
-
     }, 500);
-
 }, function(err?: Error): void {
-
     console.log("async.forEachOfSeries: done.");
-
 });
 
 async.forEachOfLimit<number>({
@@ -607,19 +572,12 @@ async.forEachOfLimit<number>({
     "e": 5,
     "f": 6
 }, 2, function(val: number, key: string, next: ErrorCallback): void {
-
     setTimeout(function(): void {
-
         console.log(`async.forEachOfLimit: ${key} = ${val}`);
-
         next();
-
     }, 500);
-
 }, function(err?: Error): void {
-
     console.log("async.forEachOfLimit: done.");
-
 });
 
 // map
@@ -629,19 +587,12 @@ async.map<number, string>({
     "b": 2,
     "c": 3
 }, function(val: number, next: AsyncResultCallback<string>): void {
-
     setTimeout(function(): void {
-
         console.log(`async.map: ${val}`);
-
         next(undefined as any, val.toString());
-
     }, 500);
-
 }, function(err: Error, results: string[]): void {
-
     console.log("async.map: done with results", results);
-
 });
 
 async.mapSeries<number, string>({
@@ -649,19 +600,12 @@ async.mapSeries<number, string>({
     "b": 2,
     "c": 3
 }, function(val: number, next: AsyncResultCallback<string>): void {
-
     setTimeout(function(): void {
-
         console.log(`async.mapSeries: ${val}`);
-
         next(undefined as any, val.toString());
-
     }, 500);
-
 }, function(err: Error, results: string[]): void {
-
     console.log("async.mapSeries: done with results", results);
-
 });
 
 async.mapLimit<number, string>({
@@ -672,19 +616,12 @@ async.mapLimit<number, string>({
     "e": 5,
     "f": 6
 }, 2, function(val: number, next: AsyncResultCallback<string>): void {
-
     setTimeout(function(): void {
-
         console.log(`async.mapLimit: ${val}`);
-
         next(undefined as any, val.toString());
-
     }, 500);
-
 }, function(err: Error, results: string[]): void {
-
     console.log("async.mapLimit: done with results", results);
-
 });
 
 // mapValues
@@ -694,19 +631,12 @@ async.mapValues<number, string>({
     "b": 2,
     "c": 3
 }, function(val: number, key: string, next: AsyncResultCallback<string>): void {
-
     setTimeout(function(): void {
-
         console.log(`async.mapValues: ${key} = ${val}`);
-
         next(undefined as any, val.toString());
-
     }, 500);
-
 }, function(err: Error, results: Dictionary<string>): void {
-
     console.log("async.mapValues: done with results", results);
-
 });
 
 async.mapValuesSeries<number, string>({
@@ -714,19 +644,12 @@ async.mapValuesSeries<number, string>({
     "b": 2,
     "c": 3
 }, function(val: number, key: string, next: AsyncResultCallback<string>): void {
-
     setTimeout(function(): void {
-
         console.log(`async.mapValuesSeries: ${key} = ${val}`);
-
         next(undefined as any, val.toString());
-
     }, 500);
-
 }, function(err: Error, results: Dictionary<string>): void {
-
     console.log("async.mapValuesSeries: done with results", results);
-
 });
 
 // filter/select/reject
@@ -736,19 +659,12 @@ async.filter<number>({
     "b": 2,
     "c": 3
 }, function(val: number, next: AsyncBooleanResultCallback): void {
-
     setTimeout(function(): void {
-
         console.log(`async.filter/select: ${val}`);
-
         next(undefined as any, val % 2 === 0);
-
     }, 500);
-
 }, function(err: Error, results: number[]): void {
-
     console.log("async.filter/select: done with results", results);
-
 });
 
 async.reject<number>({
@@ -756,19 +672,12 @@ async.reject<number>({
     "b": 2,
     "c": 3
 }, function(val: number, next: AsyncBooleanResultCallback): void {
-
     setTimeout(function(): void {
-
         console.log(`async.reject: ${val}`);
-
         next(undefined as any, val % 2 === 0);
-
     }, 500);
-
 }, function(err: Error, results: number[]): void {
-
     console.log("async.reject: done with results", results);
-
 });
 
 // concat
@@ -778,15 +687,10 @@ async.concat<string, string>({
     "b": "2",
     "c": "3"
 }, function(item: string, next: AsyncResultCallback<string[]>): void {
-
     console.log(`async.concat: ${item}`);
-
     next(undefined as any, [item, item, item]);
-
 }, function(err: Error, results: string[]) {
-
     console.log("async.concat: done with results", results);
-
 });
 
 // detect/find
@@ -796,22 +700,14 @@ async.detect<number>({
     "b": 2,
     "c": 3
 }, function(item: number, next: AsyncBooleanResultCallback): void {
-
     console.log(`async.detect/find: ${item}`);
-
     next(undefined as any, item > 1);
-
 }, function(err: Error, result: number) {
-
     if (err) {
-
         console.log(err);
-
     } else {
-
         console.log("async.detect/find: done with result", result);
     }
-
 });
 
 // every/all
@@ -821,15 +717,10 @@ async.every<number>({
     "b": 2,
     "c": 3
 }, function(item: number, next: AsyncBooleanResultCallback): void {
-
     console.log(`async.every/all: ${item}`);
-
     next(undefined as any, item > 0);
-
 }, function(err: Error, result: boolean) {
-
     console.log("async.every/all: done with result", result);
-
 });
 
 // some/any
@@ -839,15 +730,10 @@ async.some<number>({
     "b": 2,
     "c": 3
 }, function(item: number, next: AsyncBooleanResultCallback): void {
-
     console.log(`async.some/any: ${item}`);
-
     next(undefined as any, item > 2);
-
 }, function(err: Error, result: boolean) {
-
     console.log("async.some/any: done with result", result);
-
 });
 
 // timeout
