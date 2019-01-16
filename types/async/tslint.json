@@ -14,7 +14,6 @@
         "object-literal-shorthand": false,     // HAS ISSUES
         "one-variable-per-declaration": false, // HAS ISSUES
         "only-arrow-functions": false,         // HAS ISSUES
-        "prefer-method-signature": false,      // HAS ISSUES
         "unified-signatures": false            // HAS ISSUES
     }
 }
