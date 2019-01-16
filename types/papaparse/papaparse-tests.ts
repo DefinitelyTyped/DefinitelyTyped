@@ -66,6 +66,7 @@ Papa.unparse({
 });
 
 Papa.unparse([{ a: 1, b: 1, c: 1 }], { quotes: false });
+Papa.unparse([{ a: 1, b: 1, c: 1 }], { quotes: [false, true, true] });
 Papa.unparse([[1, 2, 3], [4, 5, 6]], { delimiter: "," });
 Papa.unparse({
 	fields: ["3"],
