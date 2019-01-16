@@ -432,6 +432,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     cy?: number | string;
     startAngle?: number;
     endAngle?: number;
+    midAngle?: number;
     paddingAngle?: number;
     innerRadius?: number | string;
     outerRadius?: number | string;
