@@ -28,6 +28,6 @@
         "trim-file": false,                    // HAS ISSUES
         "typedef-whitespace": false,           // HAS ISSUES
         "unified-signatures": false,           // HAS ISSUES
-        "whitespace": false                    // HAS ISSUES
+        "whitespace": true
     }
 }
