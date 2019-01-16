@@ -23,7 +23,7 @@ interface BusboyBodyParserOptions {
 declare function busboyBodyParser(options?: BusboyBodyParserOptions): express.RequestHandler;
 
 declare namespace busboyBodyParser {
-    interface File{
+    interface File {
         data: Buffer,
         name: string,
         encoding: string,
