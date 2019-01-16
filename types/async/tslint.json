@@ -18,7 +18,6 @@
         "prefer-for-of": false,                // HAS ISSUES
         "prefer-method-signature": false,      // HAS ISSUES
         "prefer-template": false,              // HAS ISSUES
-        "space-before-function-paren": false,  // HAS ISSUES
         "unified-signatures": false            // HAS ISSUES
     }
 }

@@ -2,19 +2,19 @@ interface StringCallback { (err?: Error, result?: string): void; }
 interface AsyncStringGetter { (callback: StringCallback): void; }
 
 var taskArray: AsyncStringGetter[] = [
-    function (callback) {
-        setTimeout(function () {
+    function(callback) {
+        setTimeout(function() {
             callback(undefined, 'one');
         }, 200);
     },
-    function (callback) {
-        setTimeout(function () {
+    function(callback) {
+        setTimeout(function() {
             callback(undefined, 'two');
         }, 100);
     },
 ];
 
-async.series(taskArray, function (err, results) {
+async.series(taskArray, function(err, results) {
     if (results) {
         let first = results[0];
         if (first) {
@@ -22,7 +22,7 @@ async.series(taskArray, function (err, results) {
         }
     }
 });
-async.parallel(taskArray, function (err, results) {
+async.parallel(taskArray, function(err, results) {
     if (results) {
         let first = results[0];
         if (first) {
@@ -30,7 +30,7 @@ async.parallel(taskArray, function (err, results) {
         }
     }
 });
-async.parallelLimit(taskArray, 3, function (err, results) {
+async.parallelLimit(taskArray, 3, function(err, results) {
     if (results) {
         let first = results[0];
         if (first) {

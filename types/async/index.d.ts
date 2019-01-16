@@ -200,7 +200,7 @@ export function reflectAll<T, E = Error>(tasks: Array<AsyncFunction<T, E>>): Arr
 export function timeout<T, E = Error>(fn: AsyncFunction<T, E>, milliseconds: number, info?: any): AsyncFunction<T, E>;
 export function timeout<T, R, E = Error>(fn: AsyncResultIterator<T, R, E>, milliseconds: number, info?: any): AsyncResultIterator<T, R, E>;
 
-export function times<T, E> (n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
+export function times<T, E>(n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
 export function timesSeries<T, E = Error>(n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
 export function timesLimit<T, E = Error>(n: number, limit: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
 
