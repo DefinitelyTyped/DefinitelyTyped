@@ -71,7 +71,7 @@ export interface PluginSpec<S extends Schema = any> {
    */
   appendTransaction?:
   | ((
-    transactions: Transaction<S>[],
+    transactions: Array<Transaction<S>>,
     oldState: EditorState<S>,
     newState: EditorState<S>
   ) => Transaction<S> | null | undefined | void)
@@ -452,7 +452,7 @@ export class EditorState<S extends Schema = any> {
    * hooks](#state.PluginSpec.filterTransaction) of
    * plugins) along with the new state.
    */
-  applyTransaction(tr: Transaction<S>): { state: EditorState<S>; transactions: Transaction<S>[] };
+  applyTransaction(tr: Transaction<S>): { state: EditorState<S>; transactions: Array<Transaction<S>> };
   /**
    * Start a [transaction](#state.Transaction) from this state.
    */
