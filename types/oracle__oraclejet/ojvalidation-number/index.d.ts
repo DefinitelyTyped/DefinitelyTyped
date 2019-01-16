@@ -23,8 +23,13 @@ export namespace IntlNumberConverter {
         pattern?: string;
         roundingMode?: 'HALF_UP' | 'HALF_DOWN' | 'HALF_EVEN';
         roundDuringParse?: boolean;
-        separators?: object;
+        separators?: Separators;
         lenientParse?: 'full' | 'none';
+    };
+    // tslint:disable-next-line interface-over-type-literal
+    type Separators = {
+        decimal?: string;
+        group?: string;
     };
 }
 export class NumberConverter implements Converter<number> {

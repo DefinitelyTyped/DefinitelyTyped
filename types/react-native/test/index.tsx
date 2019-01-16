@@ -33,6 +33,7 @@ import {
     ImageResolvedAssetSource,
     ImageBackground,
     InteractionManager,
+    Linking,
     ListView,
     ListViewDataSource,
     StyleSheet,
@@ -405,6 +406,12 @@ export class CapsLockComponent extends React.Component<TextProps> {
         return <Text {...this.props}>{content.toUpperCase()}</Text>;
     }
 }
+
+const getInitialUrlTest = () => Linking.getInitialURL().then(val => {
+    if (val !== null) {
+        val.indexOf('val is now a string');
+    }
+})
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {

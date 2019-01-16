@@ -7315,7 +7315,7 @@ export interface IntentAndroidStatic {
 
         @deprecated
         */
-    getInitialURL(callback: (url: string) => void): void;
+    getInitialURL(callback: (url: string | null) => void): void;
 }
 
 export interface LinkingStatic extends NativeEventEmitter {
@@ -7350,7 +7350,7 @@ export interface LinkingStatic extends NativeEventEmitter {
      * If the app launch was triggered by an app link with, it will give the link url, otherwise it will give null
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
-    getInitialURL(): Promise<string>;
+    getInitialURL(): Promise<string | null>;
 }
 
 export interface LinkingIOSStatic {

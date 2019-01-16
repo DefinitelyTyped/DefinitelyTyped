@@ -137,6 +137,7 @@ export class EndpointDescriptor {
 
 export function findByIds(vid: number, pid: number): Device;
 export function on(event: string, callback: (device: Device) => void): void;
+export function removeListener(event: string, callback: (device: Device) => void): void;
 export function getDeviceList(): Device[];
 export function setDebugLevel(level: number): void;
 
