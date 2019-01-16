@@ -87,25 +87,18 @@ interface ForbidShape {
     baz?: boolean | null;
 }
 
+// $ExpectType ValidationMap<{ foo: string | null; bar: number; baz: boolean | null; }>
+AirbnbPropTypes.forbidExtraProps({
+    foo: PropTypes.string,
+    bar: PropTypes.number.isRequired,
+    baz: PropTypes.bool,
+});
+
+// $ExpectType ValidationMap<ForbidShape>
 AirbnbPropTypes.forbidExtraProps<ForbidShape>({
     foo: PropTypes.string.isRequired,
     bar: PropTypes.number.isRequired,
     baz: PropTypes.bool,
-});
-// $ExpectError foo should be required
-AirbnbPropTypes.forbidExtraProps<ForbidShape>({
-    // $ExpectError
-    foo: PropTypes.string,
-});
-// $ExpectError bar is wrong type
-AirbnbPropTypes.forbidExtraProps<ForbidShape>({
-    foo: PropTypes.string.isRequired,
-    // $ExpectError
-    bar: PropTypes.bool.isRequired,
-});
-// $ExpectError Missing bar
-AirbnbPropTypes.forbidExtraProps<ForbidShape>({
-    foo: PropTypes.string.isRequired,
 });
 
 // $ExpectType Requireable<number>
