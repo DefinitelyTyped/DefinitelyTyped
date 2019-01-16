@@ -257,7 +257,7 @@ declare module "../index" {
          * @see _.filter
          */
         filter(
-            this: LoDashImplicitWrapper<string | string[] | null | undefined>,
+            this: LoDashImplicitWrapper<string | null | undefined>,
             predicate?: StringIterator<boolean>
         ): LoDashImplicitWrapper<string[]>;
 
@@ -299,7 +299,7 @@ declare module "../index" {
          * @see _.filter
          */
         filter(
-            this: LoDashExplicitWrapper<string | string[] | null | undefined>,
+            this: LoDashExplicitWrapper<string | null | undefined>,
             predicate?: StringIterator<boolean>
         ): LoDashExplicitWrapper<string[]>;
 
