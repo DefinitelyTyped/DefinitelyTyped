@@ -4,7 +4,6 @@
         "ban-types": true,                     // PRODUCES ERRORS WHEN REMOVED
         "callable-types": false,               // HAS ISSUES
         "comment-format": true,                // PRODUCES ERRORS WHEN REMOVED
-        "dt-header": false,                    // HAS ISSUES
         "max-line-length": false,              // HAS ISSUES
         "no-consecutive-blank-lines": false,   // HAS ISSUES
         "no-unnecessary-generics": false,      // HAS ISSUES
