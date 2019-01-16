@@ -4,9 +4,9 @@ declare class Portal extends React.Component<Portal.PortalProps> {}
 export = Portal;
 
 declare namespace Portal {
-	interface PortalProps {
-		container?: React.ReactNode | Function;
+    interface PortalProps {
+        container?: React.ReactNode | Function;
 
-		onRendered?: Function;
-	}
+        onRendered?: Function;
+    }
 }
