@@ -69506,7 +69506,16 @@ declare namespace Visio {
 ///////////////////// Begin PowerPoint APIs ////////////////////
 ////////////////////////////////////////////////////////////////
 
-// Empty placeholder, for now
+declare namespace PowerPoint {
+    /**
+     * Creates and opens a new presentation. Optionally, the presentation can be pre-populated with a base64-encoded .pptx file.
+     *
+     * [Api set: PowerPointApi 1.1]
+     *
+     * @param base64File Optional. The base64-encoded .pptx file. The default value is null.
+     */
+    function createPresentation(base64File?: string): Promise<void>;
+}  
 
 ////////////////////////////////////////////////////////////////
 ////////////////////// End PowerPoint APIs /////////////////////
