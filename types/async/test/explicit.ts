@@ -1,7 +1,7 @@
 interface StringCallback { (err?: Error, result?: string): void; }
 interface AsyncStringGetter { (callback: StringCallback): void; }
 
-var taskArray: AsyncStringGetter[] = [
+const taskArray: AsyncStringGetter[] = [
     function(callback) {
         setTimeout(function() {
             callback(undefined, 'one');
@@ -43,7 +43,7 @@ interface Lookup<T> { [key: string]: T; }
 interface NumberCallback { (err?: Error, result?: number): void; }
 interface AsyncNumberGetter { (callback: NumberCallback): void; }
 
-var taskDict: Lookup<AsyncNumberGetter> = {
+const taskDict: Lookup<AsyncNumberGetter> = {
     one: function(callback) {
         setTimeout(function() {
             callback(undefined, 1);

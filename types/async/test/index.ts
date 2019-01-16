@@ -242,7 +242,8 @@ function whileFn(callback: any) {
 
 function whileTest() { return count < 5; }
 function doWhileTest(count: number) { return count < 5; }
-var count = 0;
+
+let count = 0;
 async.whilst(whileTest, whileFn, function(err) { });
 async.until(whileTest, whileFn, function(err) { });
 async.doWhilst(whileFn, doWhileTest, function(err) { });
