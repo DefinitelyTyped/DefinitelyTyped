@@ -307,11 +307,11 @@ q.unshift([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
     console.log('finished processing bar');
 });
 
-var qLength : number = q.length();
-var qStarted : boolean = q.started;
-var qPaused : boolean = q.paused;
-var qProcessingCount : number = q.running();
-var qIsIdle : boolean = q.idle();
+var qLength: number = q.length();
+var qStarted: boolean = q.started;
+var qPaused: boolean = q.paused;
+var qProcessingCount: number = q.running();
+var qIsIdle: boolean = q.idle();
 
 q.saturated = function() {
     console.log('queue is saturated.');
@@ -367,7 +367,7 @@ var aq = async.queue<number, number>(function (level: number, callback: (error?:
     callback(undefined, level + 1);
 });
 
-aq.push(1, function (err : Error, newLevel : number) {
+aq.push(1, function (err: Error, newLevel: number) {
     console.log('finished processing bar' + newLevel);
 });
 
@@ -738,32 +738,32 @@ async.some<number>({
 
 // timeout
 
-function myFunction1(foo : any, callback: (err?: Error, result?: any) => void ) : void {
+function myFunction1(foo: any, callback: (err?: Error, result?: any) => void ): void {
 	console.log(`async.timeout 1 ${foo}`);
 	return callback(undefined, foo);
 }
 var wrapped1 = async.timeout(myFunction1, 1000);
-wrapped1({ bar: 'bar' }, function(err : Error, data : any) {
+wrapped1({ bar: 'bar' }, function(err: Error, data: any) {
     console.log(`async.timeout 1 end ${data}`);
 });
 
 
-function myFunction2(callback: (err?: Error, result?: any) => void ) : void {
+function myFunction2(callback: (err?: Error, result?: any) => void ): void {
 	console.log(`async.timeout 2`);
 	return callback(undefined, { bar: 'bar' });
 }
 
 var wrapped2 = async.timeout(myFunction2, 1000);
-wrapped2( function(err : Error, data : any) {
+wrapped2( function(err: Error, data: any) {
     console.log(`async.timeout 2 end ${data}`);
 });
 
-function myFunction3(callback: (err?: Error, result?: any) => void ) : void {
+function myFunction3(callback: (err?: Error, result?: any) => void ): void {
 	console.log(`async.timeout 3`);
 	return callback(undefined, { bar: 'bar' });
 }
 
 var wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });
-wrapped3( function(err : Error, data : any) {
+wrapped3( function(err: Error, data: any) {
     console.log(`async.timeout 3 end ${data}`);
 });

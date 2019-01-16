@@ -93,7 +93,7 @@ export interface AsyncPriorityQueue<T> {
 export interface AsyncCargo {
     length(): number;
     payload?: number;
-    push(task: any, callback? : Function): void;
+    push(task: any, callback?: Function): void;
     saturated(): void;
     empty(): void;
     drain(): void;
@@ -172,9 +172,9 @@ export function whilst<E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>,
 export function doWhilst<T, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
 export function until<E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
 export function doUntil<T, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean, callback: ErrorCallback<E>): void;
-export function during<E = Error>(test: (testCallback : AsyncBooleanResultCallback<E>) => void, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
+export function during<E = Error>(test: (testCallback: AsyncBooleanResultCallback<E>) => void, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
 export function doDuring<E = Error>(fn: AsyncVoidFunction<E>, test: (testCallback: AsyncBooleanResultCallback<E>) => void, callback: ErrorCallback<E>): void;
-export function forever<E = Error>(next: (next : ErrorCallback<E>) => void, errBack: ErrorCallback<E>) : void;
+export function forever<E = Error>(next: (next: ErrorCallback<E>) => void, errBack: ErrorCallback<E>): void;
 export function waterfall<T, E = Error>(tasks: Function[], callback?: AsyncResultCallback<T, E>): void;
 export function compose(...fns: Function[]): Function;
 export function seq(...fns: Function[]): Function;
@@ -183,18 +183,18 @@ export function applyEachSeries(fns: Function[], ...argsAndCallback: any[]): voi
 export function queue<T, E = Error>(worker: AsyncWorker<T, E>, concurrency?: number): AsyncQueue<T>;
 export function queue<T, R, E = Error>(worker: AsyncResultIterator<T, R, E>, concurrency?: number): AsyncQueue<T>;
 export function priorityQueue<T, E = Error>(worker: AsyncWorker<T, E>, concurrency: number): AsyncPriorityQueue<T>;
-export function cargo<E = Error>(worker : (tasks: any[], callback : ErrorCallback<E>) => void, payload? : number) : AsyncCargo;
+export function cargo<E = Error>(worker: (tasks: any[], callback: ErrorCallback<E>) => void, payload?: number): AsyncCargo;
 export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, concurrency?: number, callback?: AsyncResultCallback<R, E>): void;
 export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, callback?: AsyncResultCallback<R, E>): void;
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
-export function retry<T, E = Error>(opts: number, task: (callback : AsyncResultCallback<T, E>, results: any) => void, callback:  AsyncResultCallback<any, E>): void;
-export function retry<T, E = Error>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T, E>, results : any) => void, callback:  AsyncResultCallback<any, E>): void;
+export function retry<T, E = Error>(opts: number, task: (callback: AsyncResultCallback<T, E>, results: any) => void, callback: AsyncResultCallback<any, E>): void;
+export function retry<T, E = Error>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T, E>, results: any) => void, callback: AsyncResultCallback<any, E>): void;
 export function retryable<T, E = Error>(opts: number | {times: number, interval: number}, task: AsyncFunction<T, E>): AsyncFunction<T, E>;
 export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>;
 export function nextTick(callback: Function, ...args: any[]): void;
 export const setImmediate: typeof nextTick;
 
-export function reflect<T, E = Error>(fn: AsyncFunction<T, E>) : (callback: (err: null, result: {error?: E, value?: T}) => void) => void;
+export function reflect<T, E = Error>(fn: AsyncFunction<T, E>): (callback: (err: null, result: {error?: E, value?: T}) => void) => void;
 export function reflectAll<T, E = Error>(tasks: Array<AsyncFunction<T, E>>): Array<(callback: (err: null, result: {error?: E, value?: T}) => void) => void>;
 
 export function timeout<T, E = Error>(fn: AsyncFunction<T, E>, milliseconds: number, info?: any): AsyncFunction<T, E>;
@@ -207,10 +207,10 @@ export function timesLimit<T, E = Error>(n: number, limit: number, iterator: Asy
 export function transform<T, R, E = Error>(arr: T[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
 export function transform<T, R, E = Error>(arr: T[], acc: R[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
 
-export function transform<T, R, E = Error>(arr: {[key: string] : T}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
-export function transform<T, R, E = Error>(arr: {[key: string] : T}, acc: {[key: string] : R}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
+export function transform<T, R, E = Error>(arr: {[key: string]: T}, iteratee: (acc: {[key: string]: R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
+export function transform<T, R, E = Error>(arr: {[key: string]: T}, acc: {[key: string]: R}, iteratee: (acc: {[key: string]: R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
 
-export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultCallback<T, E>) : void;
+export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultCallback<T, E>): void;
 
 // Utils
 export function memoize(fn: Function, hasher?: Function): Function;
