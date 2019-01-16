@@ -52,6 +52,7 @@ $("#carousel").carousel({
     slide: false,
     pause: "hover",
     wrap: true,
+    touch: false,
 });
 
 $("#carousel").carousel({
@@ -244,6 +245,26 @@ $("a[data-toggle=\"list\"]").on("shown.bs.tab", (e) => {
     const newlyActivatedTab: HTMLElement = e.target;
     const previousActiveTab: HTMLElement = e.relatedTarget;
 });
+
+// --------------------------------------------------------------------------------------
+// Toast
+// --------------------------------------------------------------------------------------
+
+// $ExpectType JQuery<HTMLElement>
+$("#toast").toast();
+
+// $ExpectType JQuery<HTMLElement>
+$("#toast").toast("show");
+
+$("#toast").on("shown.bs.toast", () => {});
+
+$("#toast").toast({
+    animation: false,
+    autohide: false,
+    delay: 100,
+});
+
+$("#toast").toast({});
 
 // --------------------------------------------------------------------------------------
 // Tooltip

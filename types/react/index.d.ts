@@ -491,6 +491,10 @@ declare namespace React {
         getDefaultProps?(): P;
     }
 
+    type JSXElementConstructor<P> =
+        | ((props: P) => ReactElement<any> | null)
+        | (new (props: P) => Component<P, any>);
+
     /**
      * We use an intersection type to infer multiple type parameters from
      * a single argument, which is useful for many top-level API defs.
@@ -719,8 +723,8 @@ declare namespace React {
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
      * or ComponentPropsWithoutRef when refs are not supported.
      */
-    type ComponentProps<T extends ReactType> =
-        T extends ComponentType<infer P>
+    type ComponentProps<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>> =
+        T extends JSXElementConstructor<infer P>
             ? P
             : T extends keyof JSX.IntrinsicElements
                 ? JSX.IntrinsicElements[T]
@@ -2629,9 +2633,20 @@ declare namespace React {
     }
 }
 
-// Declared props take priority over inferred props
+// naked 'any' type in a conditional type will short circuit and union both the then/else branches
+// so boolean is only resolved for T = any
+type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
+
+// Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
+// If props is type any, use propTypes definitions, otherwise for each `any` property of props, use the propTypes type
 // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
-type MergePropTypes<P, T> = P & Pick<T, Exclude<keyof T, keyof P>>;
+type MergePropTypes<P, T> = IsExactlyAny<P> extends true ? T : ({
+    [K in keyof P]: IsExactlyAny<P[K]> extends true
+        ? K extends keyof T
+        ? T[K]
+        : P[K]
+        : P[K]
+} & Pick<T, Exclude<keyof T, keyof P>>);
 
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
@@ -2797,6 +2812,7 @@ declare global {
             svg: React.SVGProps<SVGSVGElement>;
 
             animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
+            animateMotion: React.SVGProps<SVGElement>;
             animateTransform: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateTransformElement but is not in TypeScript's lib.dom.d.ts for now.
             circle: React.SVGProps<SVGCircleElement>;
             clipPath: React.SVGProps<SVGClipPathElement>;
@@ -2836,6 +2852,7 @@ declare global {
             marker: React.SVGProps<SVGMarkerElement>;
             mask: React.SVGProps<SVGMaskElement>;
             metadata: React.SVGProps<SVGMetadataElement>;
+            mpath: React.SVGProps<SVGElement>;
             path: React.SVGProps<SVGPathElement>;
             pattern: React.SVGProps<SVGPatternElement>;
             polygon: React.SVGProps<SVGPolygonElement>;

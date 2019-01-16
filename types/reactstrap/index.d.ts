@@ -241,17 +241,20 @@ import {
   UncontrolledButtonDropdown as UncontrolledButtonDropdown_,
   UncontrolledDropdown as UncontrolledDropdown_,
   UncontrolledTooltip as UncontrolledTooltip_,
-  UncontrolledCollapse as UncontrolledCollapse_
+  UncontrolledCollapse as UncontrolledCollapse_,
+  UncontrolledCarousel as UncontrolledCarousel_
 } from './lib/Uncontrolled';
 export class UncontrolledAlert<T = {}> extends UncontrolledAlert_<T> {}
 export class UncontrolledButtonDropdown<T = {}> extends UncontrolledButtonDropdown_<T> {}
 export class UncontrolledDropdown<T = {}> extends UncontrolledDropdown_<T> {}
 export class UncontrolledTooltip<T = {}> extends UncontrolledTooltip_<T> {}
 export class UncontrolledCollapse<T = {}> extends UncontrolledCollapse_<T> {}
+export class UncontrolledCarousel<T = {}> extends UncontrolledCarousel_<T> {}
 export {
   UncontrolledButtonDropdownProps,
   UncontrolledAlertProps,
   UncontrolledDropdownProps,
   UncontrolledTooltipProps,
-  UncontrolledCollapseProps
+  UncontrolledCollapseProps,
+  UncontrolledCarouselProps
 } from './lib/Uncontrolled';

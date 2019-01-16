@@ -146,7 +146,7 @@ declare namespace ReactIntl {
 
         interface Props extends MessageDescriptor {
             values?: {[key: string]: MessageValue | JSX.Element};
-            tagName?: string;
+            tagName?: React.ReactType;
             children?: (...formattedMessage: Array<string | JSX.Element>) => React.ReactNode;
         }
     }

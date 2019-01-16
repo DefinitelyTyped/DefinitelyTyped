@@ -16,6 +16,7 @@ import ElementChangeResponse = stripe.elements.ElementChangeResponse;
 import ElementsOptions = stripe.elements.ElementsOptions;
 import ElementsCreateOptions = stripe.elements.ElementsCreateOptions;
 import PatchedTokenResponse = ReactStripeElements.PatchedTokenResponse;
+import HTMLStripeElement = ReactStripeElements.HTMLStripeElement;
 
 const cardElementProps: ElementsOptions = {
     iconStyle: 'solid',
@@ -63,41 +64,46 @@ const fontElementsProps: ElementsCreateOptions = {
   locale: "es"
 };
 
+<CardElement
+    {...cardElementProps}
+    onReady={(el: HTMLStripeElement) => el.clear()}
+/>;
+
 const ElementsWithPropsTest: React.SFC = () => (
     <div>
         <CardElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={(el: HTMLElement) => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardNumberElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={(el: HTMLElement) => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardExpiryElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={(el: HTMLElement) => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardCVCElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={(el: HTMLElement) => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <PostalCodeElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={(el: HTMLElement) => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
     </div>

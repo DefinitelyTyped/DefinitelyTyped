@@ -87,6 +87,11 @@ pubnub.setState({ channels: [] }).then(res => {
   console.log(res.state);
 });
 
+pubnub.history({channel: 'channel-1', count: 2}, (status, res) => {
+  console.log(status);
+  console.log(res);
+});
+
 const cryptoOptions = {
   encryptKey: true,
   keyEncoding: 'utf8',

@@ -14,6 +14,7 @@
 //                 Levan Basharuli <https://github.com/levansuper>
 //                 Pavel Ihm <https://github.com/ihmpavel>
 //                 Bartosz Dotryw <https://github.com/burtek>
+//                 Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2126,7 +2127,7 @@ export namespace Location {
     function getProviderStatusAsync(): Promise<ProviderStatus>;
     function getHeadingAsync(): Promise<HeadingStatus>;
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
-    function geocodeAsync(address: string): Promise<Coords>;
+    function geocodeAsync(address: string): Promise<Coords[]>;
     function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
     function setApiKey(key: string): void;
 }
@@ -2301,12 +2302,23 @@ export namespace ScreenOrientation {
 export namespace SecureStore {
     interface SecureStoreOptions {
         keychainService?: string;
+    }
+
+    interface SecureStoreSetOptions extends SecureStoreOptions {
         keychainAccessible?: number;
     }
 
-    function setItemAsync(key: string, value: string, options?: SecureStoreOptions): Promise<void>;
+    function setItemAsync(key: string, value: string, options?: SecureStoreSetOptions): Promise<void>;
     function getItemAsync(key: string, options?: SecureStoreOptions): Promise<string | null>;
     function deleteItemAsync(key: string, options?: SecureStoreOptions): Promise<void>;
+
+    const WHEN_UNLOCKED: number;
+    const AFTER_FIRST_UNLOCK: number;
+    const ALWAYS: number;
+    const WHEN_UNLOCKED_THIS_DEVICE_ONLY: number;
+    const WHEN_PASSCODE_SET_THIS_DEVICE_ONLY: number;
+    const AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY: number;
+    const ALWAYS_THIS_DEVICE_ONLY: number;
 }
 
 /**

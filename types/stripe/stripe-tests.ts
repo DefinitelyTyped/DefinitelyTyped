@@ -725,6 +725,20 @@ stripe.accounts.retrieve("acct_17wV8KBoqMA9o2xk").then(
         const payouts_enabled: boolean = accounts.payouts_enabled;
     }
 );
+stripe.accounts.createLoginLink("acct_17wV8KBoqMA9o2xk").then(
+    (loginLink) => {
+        const object: string = loginLink.object;
+        const created: number = loginLink.created;
+        const url: string = loginLink.url;
+    }
+);
+stripe.accounts.createLoginLink("acct_17wV8KBoqMA9o2xk", "http://localhost:3000").then(
+    (loginLink) => {
+        const object: string = loginLink.object;
+        const created: number = loginLink.created;
+        const url: string = loginLink.url;
+    }
+);
 //#endregion
 
 //#region Application Fee Refunds tests
@@ -829,11 +843,11 @@ const webhookRequest = {
 };
 const webhookSecret = '';
 
-const event = stripe.webhooks.constructEvent(
+const event: Stripe.events.IEvent = stripe.webhooks.constructEvent(
   webhookRequest.rawBody,
   webhookRequest.headers['stripe-signature'],
   webhookSecret
-) as Stripe.webhooks.StripeWebhookEvent<Stripe.subscriptions.ISubscription>;
+);
 
 //#endregion
 
@@ -1318,8 +1332,8 @@ stripe.ephemeralKeys.create({ customer: "cus_5rfJKDJkuxzh5Q" }, { stripe_version
 stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }).then((usageRecord: Stripe.usageRecords.IUsageRecord) => {});
 stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }, (err, usageRecord: Stripe.usageRecords.IUsageRecord) => {});
 
-stripe.usageRecordSummarys.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }).then((usageRecordSummarys: Stripe.usageRecordSummarys.IUsageRecordSummarys) => {});
-stripe.usageRecordSummarys.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }, (err, usageRecordSummarys: Stripe.usageRecordSummarys.IUsageRecordSummarys) => {});
+stripe.usageRecordSummaries.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }).then((usageRecordSummaries: Stripe.usageRecordSummaries.IUsageRecordSummaries) => {});
+stripe.usageRecordSummaries.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }, (err, usageRecordSummaries: Stripe.usageRecordSummaries.IUsageRecordSummaries) => {});
 
 //#region Errors
 // ##################################################################################

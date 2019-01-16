@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-12-26
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -99,7 +99,7 @@ declare namespace GoogleAppsScript {
      *     var range = sheet.getRange("A1:B3");
      *     var rule = SpreadsheetApp.newConditionalFormatRule()
      *         .whenNumberBetween(1, 10)
-     *         .setBackgroundColor("#FF0000")
+     *         .setBackground("#FF0000")
      *         .setRanges([range])
      *         .build();
      *     var rules = sheet.getConditionalFormatRules();
@@ -267,6 +267,61 @@ declare namespace GoogleAppsScript {
      *     range.setDataValidations(rules);
      */
     export enum DataValidationCriteria { DATE_AFTER, DATE_BEFORE, DATE_BETWEEN, DATE_EQUAL_TO, DATE_IS_VALID_DATE, DATE_NOT_BETWEEN, DATE_ON_OR_AFTER, DATE_ON_OR_BEFORE, NUMBER_BETWEEN, NUMBER_EQUAL_TO, NUMBER_GREATER_THAN, NUMBER_GREATER_THAN_OR_EQUAL_TO, NUMBER_LESS_THAN, NUMBER_LESS_THAN_OR_EQUAL_TO, NUMBER_NOT_BETWEEN, NUMBER_NOT_EQUAL_TO, TEXT_CONTAINS, TEXT_DOES_NOT_CONTAIN, TEXT_EQUAL_TO, TEXT_IS_VALID_EMAIL, TEXT_IS_VALID_URL, VALUE_IN_LIST, VALUE_IN_RANGE, CUSTOM_FORMULA, CHECKBOX }
+
+    /**
+     * Access and modify developer metadata. To create new developer metadata use Range.addDeveloperMetadata(key), Sheet.addDeveloperMetadata(key), or Spreadsheet.addDeveloperMetadata(key).
+     */
+    export interface DeveloperMetadata {
+      getId(): Integer;
+      getKey(): string;
+      getLocation(): DeveloperMetadataLocation;
+      getValue(): string;
+      getVisibility(): DeveloperMetadataVisibility;
+      moveToColumn(column: Range): DeveloperMetadata;
+      moveToRow(row: Range): DeveloperMetadata;
+      moveToSheet(sheet: Sheet): DeveloperMetadata;
+      moveToSpreadsheet(): DeveloperMetadata;
+      remove(): void;
+      setKey(key: string): DeveloperMetadata;
+      setValue(value: string): DeveloperMetadata;
+      setVisibility(visibility: DeveloperMetadataVisibility): DeveloperMetadata;
+    }
+
+    /**
+     * Search for developer metadata in a spreadsheet. To create new developer metadata finder use
+     * Range.createDeveloperMetadataFinder(), Sheet.createDeveloperMetadataFinder(),
+     * or Spreadsheet.createDeveloperMetadataFinder().
+     */
+    export interface DeveloperMetadataFinder {
+      find(): DeveloperMetadata[];
+      onIntersectingLocations(): DeveloperMetadataFinder;
+      withId(id: Integer): DeveloperMetadataFinder;
+      withKey(key: string): DeveloperMetadataFinder;
+      withLocationType(locationType: DeveloperMetadataLocationType): DeveloperMetadataFinder;
+      withValue(value: string): DeveloperMetadataFinder;
+      withVisibility(visibility: DeveloperMetadataVisibility): DeveloperMetadataFinder;
+    }
+
+    /**
+     * Access developer metadata location information.
+     */
+    export interface DeveloperMetadataLocation {
+      getColumn(): Range;
+      getLocationType(): DeveloperMetadataLocationType;
+      getRow(): Range;
+      getSheet(): Sheet;
+      getSpreadsheet(): Spreadsheet;
+    }
+
+    /**
+     * An enumeration of the types of developer metadata location types.
+     */
+    export enum DeveloperMetadataLocationType { SPREADSHEET, SHEET, ROW, COLUMN }
+
+    /**
+     * An enumeration of the types of developer metadata visibility.
+     */
+    export enum DeveloperMetadataVisibility { DOCUMENT, PROJECT }
 
     /**
      * An enumeration of possible directions along which data can be stored in a spreadsheet.
@@ -897,6 +952,36 @@ declare namespace GoogleAppsScript {
     }
 
     /**
+     * Represents an image over the grid in a spreadsheet.
+     */
+    export interface OverGridImage {
+      assignScript(functionName: string): OverGridImage;
+      getAltTextDescription(): string;
+      getAltTextTitle(): string;
+      getAnchorCell(): Range;
+      getAnchorCellXOffset(): Integer;
+      getAnchorCellYOffset(): Integer;
+      getHeight(): Integer;
+      getInherentHeight(): Integer;
+      getInherentWidth(): Integer;
+      getScript(): string;
+      getSheet(): Sheet;
+      getUrl(): string;
+      getWidth(): Integer;
+      remove(): void;
+      replace(blob: Base.BlobSource): OverGridImage;
+      replace(url: string): OverGridImage;
+      resetSize(): OverGridImage;
+      setAltTextDescription(description: string): OverGridImage;
+      setAltTextTitle(title: string): OverGridImage;
+      setAnchorCell(cell: Range): OverGridImage;
+      setAnchorCellXOffset(offset: Integer): OverGridImage;
+      setAnchorCellYOffset(offset: Integer): OverGridImage;
+      setHeight(height: Integer): OverGridImage;
+      setWidth(width: Integer): OverGridImage;
+    }
+
+    /**
      *
      * Deprecated. For spreadsheets created in the newer version of Google Sheets, use the more powerful
      *     Protection class instead. Although this class is deprecated, it remains available
@@ -1091,6 +1176,10 @@ declare namespace GoogleAppsScript {
     export interface Range {
       activate(): Range;
       activateAsCurrentCell(): Range;
+      addDeveloperMetadata(key: string): Range;
+      addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Range;
+      addDeveloperMetadata(key: string, value: string): Range;
+      addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Range;
       applyColumnBanding(): Banding;
       applyColumnBanding(bandingTheme: BandingTheme): Banding;
       applyColumnBanding(bandingTheme: BandingTheme, showHeader: boolean, showFooter: boolean): Banding;
@@ -1115,6 +1204,7 @@ declare namespace GoogleAppsScript {
       copyTo(destination: Range, options: Object): void;
       copyValuesToRange(gridId: Integer, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
+      createDeveloperMetadataFinder(): DeveloperMetadataFinder;
       createFilter(): Filter;
       createPivotTable(sourceData: Range): PivotTable;
       deleteCells(shiftDimension: Dimension): void;
@@ -1130,6 +1220,7 @@ declare namespace GoogleAppsScript {
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
       getDataValidation(): DataValidation;
       getDataValidations(): DataValidation[][];
+      getDeveloperMetadata(): DeveloperMetadata[];
       getDisplayValue(): string;
       getDisplayValues(): string[][];
       getFilter(): Filter;
@@ -1178,7 +1269,7 @@ declare namespace GoogleAppsScript {
       getWrap(): boolean;
       getWrapStrategies(): WrapStrategy[][];
       getWrapStrategy(): WrapStrategy;
-      getWraps(): Boolean[][];
+      getWraps(): boolean[][];
       insertCells(shiftDimension: Dimension): Range;
       isBlank(): boolean;
       isEndColumnBounded(): boolean;
@@ -1328,6 +1419,10 @@ declare namespace GoogleAppsScript {
      */
     export interface Sheet {
       activate(): Sheet;
+      addDeveloperMetadata(key: string): Sheet;
+      addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Sheet;
+      addDeveloperMetadata(key: string, value: string): Sheet;
+      addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Sheet;
       appendRow(rowContents: Object[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
@@ -1341,6 +1436,7 @@ declare namespace GoogleAppsScript {
       collapseAllColumnGroups(): Sheet;
       collapseAllRowGroups(): Sheet;
       copyTo(spreadsheet: Spreadsheet): Sheet;
+      createDeveloperMetadataFinder(): DeveloperMetadataFinder;
       deleteColumn(columnPosition: Integer): Sheet;
       deleteColumns(columnPosition: Integer, howMany: Integer): void;
       deleteRow(rowPosition: Integer): Sheet;
@@ -1361,10 +1457,12 @@ declare namespace GoogleAppsScript {
       getConditionalFormatRules(): ConditionalFormatRule[];
       getCurrentCell(): Range;
       getDataRange(): Range;
+      getDeveloperMetadata(): DeveloperMetadata[];
       getFilter(): Filter;
       getFormUrl(): string;
       getFrozenColumns(): Integer;
       getFrozenRows(): Integer;
+      getImages(): OverGridImage[];
       getIndex(): Integer;
       getLastColumn(): Integer;
       getLastRow(): Integer;
@@ -1404,17 +1502,20 @@ declare namespace GoogleAppsScript {
       insertColumns(columnIndex: Integer, numColumns: Integer): void;
       insertColumnsAfter(afterPosition: Integer, howMany: Integer): Sheet;
       insertColumnsBefore(beforePosition: Integer, howMany: Integer): Sheet;
-      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): void;
-      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): void;
-      insertImage(url: string, column: Integer, row: Integer): void;
-      insertImage(url: string, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): void;
+      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): OverGridImage;
+      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): OverGridImage;
+      insertImage(url: string, column: Integer, row: Integer): OverGridImage;
+      insertImage(url: string, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): OverGridImage;
       insertRowAfter(afterPosition: Integer): Sheet;
       insertRowBefore(beforePosition: Integer): Sheet;
       insertRows(rowIndex: Integer): void;
       insertRows(rowIndex: Integer, numRows: Integer): void;
       insertRowsAfter(afterPosition: Integer, howMany: Integer): Sheet;
       insertRowsBefore(beforePosition: Integer, howMany: Integer): Sheet;
+      isColumnHiddenByUser(columnPosition: Integer): boolean;
       isRightToLeft(): boolean;
+      isRowHiddenByFilter(rowPosition: Integer): boolean;
+      isRowHiddenByUser(rowPosition: Integer): boolean;
       isSheetHidden(): boolean;
       moveColumns(columnSpec: Range, destinationIndex: Integer): void;
       moveRows(rowSpec: Range, destinationIndex: Integer): void;
@@ -1458,6 +1559,10 @@ declare namespace GoogleAppsScript {
      * collaborators.
      */
     export interface Spreadsheet {
+      addDeveloperMetadata(key: string): Spreadsheet;
+      addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Spreadsheet;
+      addDeveloperMetadata(key: string, value: string): Spreadsheet;
+      addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Spreadsheet;
       addEditor(emailAddress: string): Spreadsheet;
       addEditor(user: Base.User): Spreadsheet;
       addEditors(emailAddresses: string[]): Spreadsheet;
@@ -1468,6 +1573,7 @@ declare namespace GoogleAppsScript {
       appendRow(rowContents: Object[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       copy(name: string): Spreadsheet;
+      createDeveloperMetadataFinder(): DeveloperMetadataFinder;
       deleteActiveSheet(): Sheet;
       deleteColumn(columnPosition: Integer): Sheet;
       deleteColumns(columnPosition: Integer, howMany: Integer): void;
@@ -1485,11 +1591,13 @@ declare namespace GoogleAppsScript {
       getColumnWidth(columnPosition: Integer): Integer;
       getCurrentCell(): Range;
       getDataRange(): Range;
+      getDeveloperMetadata(): DeveloperMetadata[];
       getEditors(): Base.User[];
       getFormUrl(): string;
       getFrozenColumns(): Integer;
       getFrozenRows(): Integer;
       getId(): string;
+      getImages(): OverGridImage[];
       getLastColumn(): Integer;
       getLastRow(): Integer;
       getName(): string;
@@ -1517,10 +1625,10 @@ declare namespace GoogleAppsScript {
       insertColumnBefore(beforePosition: Integer): Sheet;
       insertColumnsAfter(afterPosition: Integer, howMany: Integer): Sheet;
       insertColumnsBefore(beforePosition: Integer, howMany: Integer): Sheet;
-      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): void;
-      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): void;
-      insertImage(url: string, column: Integer, row: Integer): void;
-      insertImage(url: string, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): void;
+      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): OverGridImage;
+      insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): OverGridImage;
+      insertImage(url: string, column: Integer, row: Integer): OverGridImage;
+      insertImage(url: string, column: Integer, row: Integer, offsetX: Integer, offsetY: Integer): OverGridImage;
       insertRowAfter(afterPosition: Integer): Sheet;
       insertRowBefore(beforePosition: Integer): Sheet;
       insertRowsAfter(afterPosition: Integer, howMany: Integer): Sheet;
@@ -1533,6 +1641,9 @@ declare namespace GoogleAppsScript {
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer, options: Object): Sheet;
       insertSheet(sheetName: string, options: Object): Sheet;
+      isColumnHiddenByUser(columnPosition: Integer): boolean;
+      isRowHiddenByFilter(rowPosition: Integer): boolean;
+      isRowHiddenByUser(rowPosition: Integer): boolean;
       moveActiveSheet(pos: Integer): void;
       removeEditor(emailAddress: string): Spreadsheet;
       removeEditor(user: Base.User): Spreadsheet;
@@ -1582,6 +1693,8 @@ declare namespace GoogleAppsScript {
       BorderStyle: typeof BorderStyle;
       CopyPasteType: typeof CopyPasteType;
       DataValidationCriteria: typeof DataValidationCriteria;
+      DeveloperMetadataLocationType: typeof DeveloperMetadataLocationType;
+      DeveloperMetadataVisibility: typeof DeveloperMetadataVisibility;
       Dimension: typeof Dimension;
       Direction: typeof Direction;
       GroupControlTogglePosition: typeof GroupControlTogglePosition;
