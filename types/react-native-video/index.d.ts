@@ -1,6 +1,7 @@
-// Type definitions for react-native-video 3.1
+// Type definitions for react-native-video 3.2
 // Project: https://github.com/react-native-community/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
+//                 CaoPeng <https://github.com/pengcao1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -49,6 +50,7 @@ export interface VideoProperties extends ViewProps {
   onVideoSeek?(): void;
   onVideoEnd?(): void;
   onTimedMetadata?(): void;
+  onVideoAudioBecomingNoisy?(): void;
   onVideoFullscreenPlayerWillPresent?(): void;
   onVideoFullscreenPlayerDidPresent?(): void;
   onVideoFullscreenPlayerWillDismiss?(): void;
@@ -73,6 +75,11 @@ export interface VideoProperties extends ViewProps {
   progressUpdateInterval?: number;
   useTextureView?: boolean;
   allowsExternalPlayback?: boolean;
+  audioOnly?: boolean;
+  stereoPan?: boolean;
+  selectedAudioTrack?: { type: string, value?: string | number };
+  selectedTextTrack?: { type: string, value?: string | number };
+  textTracks?: { minBufferMs?: number, maxBufferMs?: number, maxBufferMs?: number, bufferForPlaybackAfterRebufferMs?: number }
 
   onLoadStart?(): void;
   onLoad?(data: OnLoadData): void;
