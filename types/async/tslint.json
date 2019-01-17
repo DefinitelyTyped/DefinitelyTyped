@@ -3,8 +3,7 @@
     "rules": {
         "ban-types": true,                     // PRODUCES ERRORS WHEN REMOVED
         "callable-types": false,               // HAS ISSUES
-        "comment-format": true,                // PRODUCES ERRORS WHEN REMOVED
         "no-unnecessary-generics": false,      // HAS ISSUES
-        "only-arrow-functions": false         // HAS ISSUES
+        "only-arrow-functions": false          // HAS ISSUES
     }
 }
