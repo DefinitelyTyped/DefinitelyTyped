@@ -165,8 +165,8 @@ declare module 'pdfmake/build/pdfmake' {
         pageBreak?: 'before' | 'after';
         alignment?: Alignment;
         table?: Table;
-        ul?: Content[];
-        ol?: Content[];
+        ul?: Array<string | Content>;
+        ol?: Array<string | Content>;
         [additionalProperty: string]: any;
     }
 
