@@ -1,7 +1,7 @@
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
-const definitions = [
+const definitions: pdfMake.TDocumentDefinitions[] = [
     {
         content: [
             'First paragraph',
@@ -1328,7 +1328,7 @@ const createPdf = () => {
   pdf.vfs = pdfFonts.pdfMake.vfs;
 
   for (const definition of definitions) {
-      const typedDefinition: pdfMake.TDocumentDefinitions = definition;
+      const typedDefinition = definition;
       pdfMake.createPdf(typedDefinition).download();
   }
 };
