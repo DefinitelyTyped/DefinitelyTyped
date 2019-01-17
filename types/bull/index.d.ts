@@ -130,6 +130,25 @@ declare namespace Bull {
     finishedOn?: number;
 
     /**
+     * Which queue this job was part of
+     */
+    queue: Queue<T>;
+
+    timestamp: number;
+
+    /**
+     * The named processor name
+     */
+    name: string;
+
+    /**
+     * The stacktrace for any errors
+     */
+    stacktrace: string[];
+
+    returnvalue: any;
+
+    /**
      * Report progress on a job
      */
     progress(value: any): Promise<void>;
