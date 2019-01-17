@@ -12,6 +12,7 @@ declare namespace SegmentAnalytics {
   interface SegmentOpts {
     integrations?: any;
     anonymousId?: string;
+    context?: Object;
   }
 
   // The actual analytics.js object
