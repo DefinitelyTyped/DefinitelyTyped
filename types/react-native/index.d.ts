@@ -8206,6 +8206,25 @@ export interface UIManagerStatic {
      *     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
      */
     setLayoutAnimationEnabledExperimental(value: boolean): void;
+    
+    /**
+     * Used to display an Android PopupMenu. If a menu item is pressed, the success callback will
+     * be called with the following arguments:
+     *
+     *  - item - the menu item.
+     *  - index - index of the pressed item in array. Returns `undefined` if cancelled.
+     *
+     * To obtain a native node handle for a component, you can use
+     * `React.findNodeHandle(component)`.
+     * 
+     * Note that this works only on Android
+     */
+    showPopupMenu(
+        node: number,
+        items: string[],
+        error: () => void, /* currently unused */
+        success: (item: string, buttonIndex: number | undefined) => void
+    ): void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {
