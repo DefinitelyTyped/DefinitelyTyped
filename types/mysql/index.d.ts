@@ -224,7 +224,11 @@ export type TypeCast = boolean | (
         & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null |  GeometryType},
     next: () => void) => any);
 
-export type queryCallback = (err: MysqlError | null, results?: any, fields?: FieldInfo[]) => void;
+export type queryCallback<Result = any> = (
+    err: MysqlError | null,
+    results: Result,
+    fields?: FieldInfo[],
+) => void;
 
 // values can be non [], see custom format (https://github.com/mysqljs/mysql#custom-format)
 export interface QueryFunction {
