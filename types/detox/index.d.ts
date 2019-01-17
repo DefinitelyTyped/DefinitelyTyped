@@ -8,6 +8,7 @@ declare global {
     const device: Detox.Device;
     const element: Detox.Element;
     const waitFor: Detox.WaitFor;
+    const dexpect: Detox.Expect<Detox.Expect<any>>;
     const expect: Detox.Expect<Detox.Expect<any>>;
     const by: Detox.Matchers;
 
@@ -434,4 +435,4 @@ declare global {
     }
 }
 
-export { by, detox, device, element, expect, waitFor };
+export { by, detox, device, element, dexpect as expect, waitFor };
