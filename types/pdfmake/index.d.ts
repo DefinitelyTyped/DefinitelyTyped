@@ -170,12 +170,17 @@ declare module 'pdfmake/build/pdfmake' {
         [additionalProperty: string]: any;
     }
 
+    interface ContentStack {
+        stack?: Content;
+        [additionalProperty: string]: any;
+    }
+
     interface TDocumentDefinitions {
         info?: TDocumentInformation;
         compress?: boolean;
         header?: TDocumentHeaderFooterFunction;
         footer?: TDocumentHeaderFooterFunction;
-        content: Array<string | Content>;
+        content: Array<string | Content | ContentStack>;
         styles?: Style;
         pageSize?: PageSize;
         pageOrientation?: PageOrientation;
