@@ -10,7 +10,7 @@ interface ExtendedKeyboardEvent extends KeyboardEvent {
 
 interface MousetrapStatic {
     (el: Element): MousetrapInstance;
-    new (el: Element): MousetrapInstance;
+    new (el?: Element): MousetrapInstance;
     addKeycodes(keycodes: { [key: number]: string }): void;
     stopCallback: (e: ExtendedKeyboardEvent, element: Element, combo: string) => boolean;
     bind(keys: string|string[], callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): void;
