@@ -4,7 +4,10 @@
 //                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module amplitude {
+export = amplitude;
+export as namespace amplitude;
+
+declare namespace amplitude {
 
     type Callback = (responseCode: number, responseBody: string, details?: { reason: string; }) => void;
     type LogReturn = number | void;
