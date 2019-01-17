@@ -31,9 +31,9 @@ declare const Bull: {
 declare namespace Bull {
   interface RateLimiter {
     /** Max numbers of jobs processed */
-    max?: number;
+    max: number;
     /** Per duration in milliseconds */
-    duration?: number;
+    duration: number;
     /** When jobs get rate limited, they stay in the waiting queue and are not moved to the delayed queue */
     bounceBack?: boolean;
   }
