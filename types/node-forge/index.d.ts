@@ -8,6 +8,7 @@
 //                 Joe Flateau      <https://github.com/joeflateau>
 //                 Nikita Koryabkin <https://github.com/Apologiz>
 //                 timhwang21       <https://github.com/timhwang21>
+//                 supaiku0         <https://github.com/supaiku0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -430,7 +431,7 @@ declare module "node-forge" {
         function decodeUtf8(encoded: Utf8): string;
 
         function createBuffer(): ByteBuffer;
-        function createBuffer(input: Bytes | ArrayBuffer | ArrayBufferView | ByteStringBuffer, encode: string): ByteBuffer;
+        function createBuffer(input: Bytes | ArrayBuffer | ArrayBufferView | ByteStringBuffer, encoding?: 'raw' | 'utf8'): ByteBuffer;
 
         namespace binary {
             namespace raw {
@@ -514,6 +515,10 @@ declare module "node-forge" {
         }
 
         function createSignedData(): PkcsSignedData;
+    }
+
+    namespace pkcs5 {
+        function pbkdf2(password: string, salt: string, iterations: number, keySize: number): string;
     }
 
     namespace md {
