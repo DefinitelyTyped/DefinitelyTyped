@@ -116,8 +116,7 @@ export function forEachOfLimit<T, E = Error>(obj: IterableCollection<T>, limit: 
 export const eachOf: typeof forEachOf;
 export const eachOfSeries: typeof forEachOf;
 export const eachOfLimit: typeof forEachOfLimit;
-export function map<T, R, E = Error>(arr: T[] | IterableIterator<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
-export function map<T, R, E = Error>(arr: Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
+export function map<T, R, E = Error>(arr: T[] | IterableIterator<T> | Dictionary<T>, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
 export const mapSeries: typeof map;
 export function mapLimit<T, R, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncResultIterator<T, R, E>, callback?: AsyncResultArrayCallback<R, E>): void;
 
@@ -194,10 +193,9 @@ export function cargo<E = Error>(worker: (tasks: any[], callback: ErrorCallback<
 export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, concurrency?: number, callback?: AsyncResultCallback<R, E>): void;
 export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, callback?: AsyncResultCallback<R, E>): void;
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
-export function retry<T, E = Error>(opts: number, task: (callback: AsyncResultCallback<T, E>, results: any) => void, callback: AsyncResultCallback<any, E>): void;
 
 export function retry<T, E = Error>(
-    opts: {
+    opts: number | {
         times: number,
         interval: number | ((retryCount: number) => number)
     },

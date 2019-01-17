@@ -391,22 +391,26 @@ const filename = '';
 async.auto({
     get_data: (callback: AsyncResultCallback<any>) => { },
     make_folder: (callback: AsyncResultCallback<any>) => { },
-    //arrays with different types are not accepted by TypeScript.
+
+    // arrays with different types are not accepted by TypeScript.
     write_file: ['get_data', 'make_folder', function(callback: AsyncResultCallback<any>) {
         callback(null, filename);
     } as any],
-    //arrays with different types are not accepted by TypeScript.
+
+    // arrays with different types are not accepted by TypeScript.
     email_link: ['write_file', function(callback: AsyncResultCallback<any>, results: any) { } as any]
 });
 
 async.auto({
     get_data: (callback: AsyncResultCallback<any>) => { },
     make_folder: (callback: AsyncResultCallback<any>) => { },
-    //arrays with different types are not accepted by TypeScript.
+
+    // arrays with different types are not accepted by TypeScript.
     write_file: ['get_data', 'make_folder', function(callback: AsyncResultCallback<any>) {
         callback(null, filename);
     } as any],
-    //arrays with different types are not accepted by TypeScript.
+
+    // arrays with different types are not accepted by TypeScript.
     email_link: ['write_file', function(callback: AsyncResultCallback<any>, results: any) { } as any]
 }, function(err, results) {
     console.log('finished auto');
@@ -422,11 +426,13 @@ interface A {
 async.auto<A>({
     get_data: (callback: AsyncResultCallback<any>) => { },
     make_folder: (callback: AsyncResultCallback<any>) => { },
-    //arrays with different types are not accepted by TypeScript.
+
+    // arrays with different types are not accepted by TypeScript.
     write_file: ['get_data', 'make_folder', function(callback: AsyncResultCallback<any>) {
         callback(null, filename);
     } as any],
-    //arrays with different types are not accepted by TypeScript.
+
+    // arrays with different types are not accepted by TypeScript.
     email_link: ['write_file', function(callback: AsyncResultCallback<any>, results: any) { } as any]
 }, 1, function(err, results) {
     console.log('finished auto');
