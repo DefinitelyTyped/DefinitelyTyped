@@ -5,7 +5,7 @@
 
 // todo: get rid of all the anys
 
-export default function feathersRestClient(base: string): Transport;
+export default function feathersRestClient(base?: string): Transport;
 
 export interface HandlerResult extends Function {
     /**
