@@ -1,37 +1,32 @@
-// Type definitions for ros2d.js 0.9.0
+// Type definitions for ros2d.js 0.9
 // Project: http://wiki.ros.org/ros2djs
 // Definitions by: Jacob Davison <https://github.com/jmdavison>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="easeljs" />
-
-import * as ROSLIB from "roslib";
 
 /**
  *  Augment the createjs Stage object with some ROS conversion methods
  */
-declare global {
-    namespace createjs {
-        interface Stage {
-            /**
-             * Converts a point in map space to ROS space
-             * @param pos
-             * @return {{x: number; y: number}}
-             */
-            globalToRos(x: number, y:number): ROSLIB.Vector3;
-            /**
-             * Converts a point in ROS space to global screen space
-             * @param pos
-             * @return {{x: number; y: number}}
-             */
-            rosToGlobal(pos: any): {x:number,y:number};
-            /**
-             * Convert a ROS quaternion to theta in degrees.
-             *
-             * @param orientation - A ROSLIB.Qauternion object.
-             * @return globalTheta - A theta value in degrees (number).
-             */
-            rosQuaternionToGlobalTheta(orientation:ROSLIB.Quaternion): number;
-        }
+declare namespace createjs {
+    interface Stage {
+        /**
+         * Converts a point in map space to ROS space
+         * @param pos
+         * @return {{x: number; y: number}}
+         */
+        globalToRos(x: number, y:number): ROSLIB.Vector3;
+        /**
+         * Converts a point in ROS space to global screen space
+         * @param pos
+         * @return {{x: number; y: number}}
+         */
+        rosToGlobal(pos: any): {x:number,y:number};
+        /**
+         * Convert a ROS quaternion to theta in degrees.
+         *
+         * @param orientation - A ROSLIB.Qauternion object.
+         * @return globalTheta - A theta value in degrees (number).
+         */
+        rosQuaternionToGlobalTheta(orientation:ROSLIB.Quaternion): number;
     }
 }
 
@@ -102,6 +97,8 @@ declare namespace ROS2D {
      *   * continuous (optional) - if the map should be continuously loaded (e.g., for SLAM)
      */
     class OccupancyGridClient {
+        public currentGrid: OccupancyGrid;
+
         constructor(options: {
             ros: ROSLIB.Ros,
             topic?: string,
@@ -151,7 +148,7 @@ declare namespace ROS2D {
             strokeSize?: number,
             strokeColor?: string,
             fillColor?: string,
-            publse?: boolean
+            pulse?: boolean
         });
     }
 
