@@ -72,7 +72,7 @@ declare namespace JQuerySOAP {
         SOAPHeader?: Object;
         statusCode?: Object;
         success?: (SOAPResponse: SOAPResponse) => void;
-        timeout: number;
+        timeout?: number;
         url?: string;
         wss?: Object;
     }
