@@ -1837,6 +1837,8 @@ export class Object3D extends EventDispatcher {
      */
     updateMatrixWorld(force: boolean): void;
 
+    updateWorldMatrix(updateParents: boolean, updateChildren: boolean): void;
+
     toJSON(meta?: { geometries: any, materials: any, textures: any, images: any }): any;
 
     clone(recursive?: boolean): this;
