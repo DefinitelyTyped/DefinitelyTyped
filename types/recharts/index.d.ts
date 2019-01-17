@@ -927,6 +927,7 @@ export interface XAxisProps extends EventAttributes {
     // The margin between tick line and the label
     tickMargin?: number;
     interval?: AxisInterval;
+    textAnchor?: string;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/XAxis
     label?: string | number | Label | LabelProps;
