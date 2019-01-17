@@ -48,6 +48,7 @@ declare module "react-jsonschema-form" {
         autocomplete?: string;
         enctype?: string;
         acceptcharset?: string;
+        disabled?: boolean;
     }
 
     export default class Form<T> extends React.Component<FormProps<T>> {}

@@ -74,6 +74,11 @@ export default function ErrorListExample(props: ErrorListProps) {
     );
 }
 
+export const DisabledForm = (p:any) => 
+    <div className="react-jsonschema-form-example">
+        {<Form schema={{}} formData={{}} disabled />}
+    </div>;
+
 export class Example extends React.Component<any, IExampleState> {
     public state: IExampleState = {
         formData: {
