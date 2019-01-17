@@ -146,7 +146,7 @@ declare module 'pdfmake/build/pdfmake' {
 
     interface Table {
         widths?: Array<(string | number)>;
-        heights?: Array<(string | number)> | TableRowFunction;
+        heights?: string | number | TableRowFunction | Array<(string | number | TableRowFunction)>;
         headerRows?: number;
         body: Content[][] | TableCell[][];
         layout?: string | TableLayoutFunctions;
