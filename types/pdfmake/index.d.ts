@@ -181,6 +181,11 @@ declare module 'pdfmake/build/pdfmake' {
         pageOrientation?: PageOrientation;
         pageMargins?: Margins;
         defaultStyle?: Style;
+        images?: Image;
+    }
+
+    interface Image {
+        [imageName: string]: string;
     }
 
     type CreatedPdfParams = (
