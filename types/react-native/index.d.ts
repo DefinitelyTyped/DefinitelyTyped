@@ -15,6 +15,7 @@
 //                 Martin van Dam <https://github.com/mvdam>
 //                 Kacper Wiszczuk <https://github.com/esemesek>
 //                 Ryan Nickel <https://github.com/mrnickel>
+//                 Souvik Ghosh <https://github.com/souvik-ghosh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
