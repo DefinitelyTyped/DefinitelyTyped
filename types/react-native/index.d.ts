@@ -8224,7 +8224,7 @@ export interface UIManagerStatic {
         node: number,
         items: string[],
         error: () => void, /* currently unused */
-        success: (item: string, buttonIndex: number | undefined) => void
+        success: (item: string, index: number | undefined) => void
     ): void;
 }
 
