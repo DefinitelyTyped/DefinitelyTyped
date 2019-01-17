@@ -287,7 +287,6 @@ got('http://todomvc.com', {
 });
 
 got('http://todomvc.com', { throwHttpErrors: false });
-got('http://todomvc.com', { hooks: { beforeRequest: [ () => 'foo']} });
 
 // Test timeout options.
 got('http://todomvc.com', {timeout: 1});
@@ -307,6 +306,15 @@ got('http://todomvc.com', {
 got('http://todomvc.com', {timeout: 1}).catch((err) => err instanceof got.TimeoutError);
 
 // Test hooks.
+got('example.com', {
+    hooks: {
+        beforeRequest: [
+            options => {
+                options.headers!['x-foo'] = 'bar';
+            }
+        ]
+    }
+});
 got('example.com', {
     hooks: {
         beforeRedirect: [
@@ -358,6 +366,11 @@ got('example.com', {
 
     got('example.com', {
         hooks: {
+            beforeRequest: [
+                async () => {
+                    await doSomethingAsync();
+                }
+            ],
             beforeRedirect: [
                 async () => {
                     await doSomethingAsync();
