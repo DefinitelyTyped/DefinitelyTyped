@@ -30,15 +30,15 @@ $(() => {
 
     $('#cp8').colorpicker({
         colorSelectors: {
-            'black': '#000000',
-            'white': '#ffffff',
-            'red': '#FF0000',
-            'default': '#777777',
-            'primary': '#337ab7',
-            'success': '#5cb85c',
-            'info': '#5bc0de',
-            'warning': '#f0ad4e',
-            'danger': '#d9534f'
+            black: '#000000',
+            white: '#ffffff',
+            red: '#FF0000',
+            default: '#777777',
+            primary: '#337ab7',
+            success: '#5cb85c',
+            info: '#5bc0de',
+            warning: '#f0ad4e',
+            danger: '#d9534f'
         }
     });
 
@@ -58,16 +58,16 @@ $(() => {
         }
     });
 
-    $(".disable-button").click((e) => {
+    $('.disable-button').click((e) => {
         e.preventDefault();
 
-        $("#cp10").colorpicker('disable');
+        $('#cp10').colorpicker('disable');
     });
 
-    $(".enable-button").click((e) => {
+    $('.enable-button').click((e) => {
         e.preventDefault();
 
-        $("#cp10").colorpicker('enable');
+        $('#cp10').colorpicker('enable');
     });
 
     $('#cp10').colorpicker();

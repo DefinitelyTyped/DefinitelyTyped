@@ -1,11 +1,12 @@
-// Type definitions for bootstrap-colorpicker 2.5.3
+// Type definitions for bootstrap-colorpicker 2.5
 // Project: https://github.com/farbelous/bootstrap-colorpicker/tree/v2.x
 // Definitions by: Aleksandar Manukov <https://github.com/aleksandar-manukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
-type ColorFormat = false | 'hex' | 'rgb' | 'rgba'
+type ColorFormat = 'hex' | 'rgb' | 'rgba';
 
 type ColorPickerAlignOptions = 'right' | 'left';
 
@@ -15,7 +16,7 @@ type ColorPickerEvents = 'create' |
     'changeColor' |
     'disable' |
     'enable' |
-    'destroy'
+    'destroy';
 
 /**
  * You can set colorpicker options either as a plugin parameter or data-* attributes
@@ -140,7 +141,7 @@ interface Color {
         s: number;
         b: number;
         a: number;
-    }
+    };
 
     /**
      * Set a new color. The value is parsed and tries to do a quess on the format.
