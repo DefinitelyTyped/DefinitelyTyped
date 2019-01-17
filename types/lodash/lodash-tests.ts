@@ -5140,12 +5140,15 @@ fp.now(); // $ExpectType number
 
 // _.get
 {
+    const dictionary: { a?: string } = { };
+
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
     _.get("abc", 1); // $ExpectType string
     _.get("abc", ["0"], "_");
     _.get([42], 0, -1); // $ExpectType number
+    _.get(dictionary, "a", 'b'); // $ExpectType string
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
