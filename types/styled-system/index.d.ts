@@ -44,7 +44,7 @@ export interface LowLevelStylefunctionArguments {
 export function style(args: LowLevelStylefunctionArguments): {[cssProp: string]: string};
 
 export type TLengthStyledSystem = string | 0 | number;
-export type ResponsiveValue<T> = T | Array<T | null>;
+export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
 
 /**
  * Converts shorthand margin and padding props to margin and padding CSS declarations
