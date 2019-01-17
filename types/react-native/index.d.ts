@@ -8217,7 +8217,7 @@ export interface UIManagerStatic {
      *
      * To obtain a native node handle for a component, you can use
      * `React.findNodeHandle(component)`.
-     * 
+     *
      * Note that this works only on Android
      */
     showPopupMenu(
