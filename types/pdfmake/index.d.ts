@@ -153,7 +153,7 @@ declare module 'pdfmake/build/pdfmake' {
     }
 
     interface Content {
-        style?: string | string[];
+        style?: string;
         margin?: Margins;
         text?: string | string[] | Content[];
         columns?: Content[];
