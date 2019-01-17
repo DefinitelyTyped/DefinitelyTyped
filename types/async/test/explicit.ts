@@ -2,19 +2,11 @@ interface StringCallback { (err?: Error, result?: string): void; }
 interface AsyncStringGetter { (callback: StringCallback): void; }
 
 const taskArray: AsyncStringGetter[] = [
-    function(callback) {
-        setTimeout(function() {
-            callback(undefined, 'one');
-        }, 200);
-    },
-    function(callback) {
-        setTimeout(function() {
-            callback(undefined, 'two');
-        }, 100);
-    },
+    callback => { setTimeout(() => { callback(undefined, 'one'); }, 200); },
+    callback => { setTimeout(() => { callback(undefined, 'two'); }, 100); }
 ];
 
-async.series(taskArray, function(err, results) {
+async.series(taskArray, (err, results) => {
     if (results) {
         const first = results[0];
         if (first) {
@@ -22,7 +14,8 @@ async.series(taskArray, function(err, results) {
         }
     }
 });
-async.parallel(taskArray, function(err, results) {
+
+async.parallel(taskArray, (err, results) => {
     if (results) {
         const first = results[0];
         if (first) {
@@ -30,7 +23,8 @@ async.parallel(taskArray, function(err, results) {
         }
     }
 });
-async.parallelLimit(taskArray, 3, function(err, results) {
+
+async.parallelLimit(taskArray, 3, (err, results) => {
     if (results) {
         const first = results[0];
         if (first) {
@@ -44,27 +38,21 @@ interface NumberCallback { (err?: Error, result?: number): void; }
 interface AsyncNumberGetter { (callback: NumberCallback): void; }
 
 const taskDict: Lookup<AsyncNumberGetter> = {
-    one: callback => {
-        setTimeout(function() {
-            callback(undefined, 1);
-        }, 200);
-    },
-    two: callback => {
-        setTimeout(function() {
-            callback(undefined, 2);
-        }, 100);
-    }
+    one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
+    two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
 };
 
-async.series(taskDict, function(err, results) {
+async.series(taskDict, (err, results) => {
     const one = results['one'];
     console.log(one && one.toFixed(1));
 });
-async.parallel(taskDict, function(err, results) {
+
+async.parallel(taskDict, (err, results) => {
     const one = results['one'];
     console.log(one && one.toFixed(1));
 });
-async.parallelLimit(taskDict, 3, function(err, results) {
+
+async.parallelLimit(taskDict, 3, (err, results) => {
     const one = results['one'];
     console.log(one && one.toFixed(1));
 });
