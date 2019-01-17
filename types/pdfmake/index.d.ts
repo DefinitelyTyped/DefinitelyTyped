@@ -122,7 +122,7 @@ declare module 'pdfmake/build/pdfmake' {
         [additionalProperty: string]: any;
     }
 
-    type TableRowFunction = (row: number) => number;
+    type TableRowColFunction = (row: number) => number;
 
     interface TableLayoutFunctions {
         hLineWidth?: (i: number, node: any) => number;
@@ -145,8 +145,8 @@ declare module 'pdfmake/build/pdfmake' {
     }
 
     interface Table {
-        widths?: Array<(string | number)>;
-        heights?: string | number | TableRowFunction | Array<(string | number | TableRowFunction)>;
+        widths?: Array<(string | number | TableRowColFunction)>;
+        heights?: string | number | TableRowColFunction | Array<(string | number | TableRowColFunction)>;
         headerRows?: number;
         body: Content[][] | TableCell[][];
         layout?: string | TableLayoutFunctions;
