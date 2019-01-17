@@ -21,6 +21,7 @@ declare module "node-forge" {
     type Base64 = string;
     type Utf8 = string;
     type OID = string;
+    type Encoding = "raw" | "utf8";
 
     namespace jsbn {
         class BigInteger {
@@ -431,7 +432,7 @@ declare module "node-forge" {
         function decodeUtf8(encoded: Utf8): string;
 
         function createBuffer(): ByteBuffer;
-        function createBuffer(input: Bytes | ArrayBuffer | ArrayBufferView | ByteStringBuffer, encoding?: 'raw' | 'utf8'): ByteBuffer;
+        function createBuffer(input: Bytes | ArrayBuffer | ArrayBufferView | ByteStringBuffer, encoding?: Encoding): ByteBuffer;
 
         namespace binary {
             namespace raw {
@@ -522,9 +523,6 @@ declare module "node-forge" {
     }
 
     namespace md {
-
-        type Encoding = "raw" | "utf8"
-
         interface MessageDigest {
             update(msg: string, encoding?: Encoding): MessageDigest;
             digest(): util.ByteStringBuffer;
