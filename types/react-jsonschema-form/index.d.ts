@@ -1,6 +1,7 @@
-// Type definitions for react-jsonschema-form 1.0.1
+// Type definitions for react-jsonschema-form 1.2
 // Project: https://github.com/mozilla-services/react-jsonschema-form
-// Definitions by: Dan Fox <https://github.com/iamdanfox>
+// Definitions by: Carlo Cancellieri <https://github.com/ccancellieri>
+//                 Dan Fox <https://github.com/iamdanfox>
 //                 Ivan Jiang <https://github.com/iplus26>
 //                 Philippe Bourdages <https://github.com/phbou72>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
