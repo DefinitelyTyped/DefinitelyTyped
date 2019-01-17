@@ -329,7 +329,7 @@ declare namespace Chart {
     }
 
     interface ChartTooltipOptions {
-        axis?: 'y'; 
+        axis?: 'y';
         enabled?: boolean;
         custom?(a: any): void;
         mode?: InteractionMode;
