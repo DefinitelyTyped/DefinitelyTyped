@@ -8207,7 +8207,7 @@ export interface UIManagerStatic {
      *     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
      */
     setLayoutAnimationEnabledExperimental(value: boolean): void;
-    
+
     /**
      * Used to display an Android PopupMenu. If a menu item is pressed, the success callback will
      * be called with the following arguments:
