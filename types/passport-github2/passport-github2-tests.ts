@@ -17,15 +17,15 @@ const clientID = process.env.PASSPORT_GITHUB_CONSUMER_KEY;
 const clientSecret = process.env.PASSPORT_GITHUB_CONSUMER_SECRET;
 
 if (typeof callbackURL === "undefined") {
-    throw new Error("callbackURL is undefined");
+  throw new Error("callbackURL is undefined");
 }
 
 if (typeof clientID === "undefined") {
-    throw new Error("clientID is undefined");
+  throw new Error("clientID is undefined");
 }
 
 if (typeof clientSecret === "undefined") {
-    throw new Error("clientSecret is undefined");
+  throw new Error("clientSecret is undefined");
 }
 
 passport.use(new github.Strategy(
