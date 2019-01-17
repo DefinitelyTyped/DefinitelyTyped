@@ -3,6 +3,7 @@
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 //                 Christian Ruigrok <https://github.com/chrisru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare namespace matchSorter {
     namespace rankings {
