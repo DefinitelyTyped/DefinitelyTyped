@@ -146,7 +146,7 @@ declare namespace Bull {
      */
     stacktrace: string[];
 
-    returnvalue: any;
+    returnvalue: any | null;
 
     /**
      * Report progress on a job
