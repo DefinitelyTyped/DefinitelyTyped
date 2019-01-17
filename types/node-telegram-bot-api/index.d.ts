@@ -36,7 +36,33 @@ declare namespace TelegramBot {
 
     type DocumentMimeType = 'application/pdf' | 'application/zip';
 
-    type MessageType = 'text' | 'animation' | 'audio' | 'channel_chat_created' | 'contact' | 'delete_chat_photo' | 'document' | 'game' | 'group_chat_created' | 'invoice' | 'left_chat_member' | 'location' | 'migrate_from_chat_id' | 'migrate_to_chat_id' | 'new_chat_members' | 'new_chat_photo' | 'new_chat_title' | 'passport_data' | 'photo' | 'pinned_message' | 'sticker' | 'successful_payment' | 'supergroup_chat_created' | 'video' | 'video_note' | 'voice';
+    type MessageType =
+        'text' |
+        'animation' |
+        'audio' |
+        'channel_chat_created' |
+        'contact' |
+        'delete_chat_photo' |
+        'document' |
+        'game' |
+        'group_chat_created' |
+        'invoice' |
+        'left_chat_member' |
+        'location' |
+        'migrate_from_chat_id' |
+        'migrate_to_chat_id' |
+        'new_chat_members' |
+        'new_chat_photo' |
+        'new_chat_title' |
+        'passport_data' |
+        'photo' |
+        'pinned_message' |
+        'sticker' |
+        'successful_payment' |
+        'supergroup_chat_created' |
+        'video' |
+        'video_note' |
+        'voice';
 
     type MessageEntityType = 'mention' | 'hashtag' | 'bot_command' | 'url' | 'email' | 'bold' | 'italic' | 'code' | 'pre' | 'text_link' | 'text_mention';
 
@@ -1046,7 +1072,10 @@ declare class TelegramBot extends EventEmitter {
 
     addListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
-    addListener(event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption', listener: (message: TelegramBot.Message) => void): this;
+    addListener(
+        event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption',
+        listener: (message: TelegramBot.Message) => void
+    ): this;
 
     addListener(event: 'shipping_query', listener: (query: TelegramBot.ShippingQuery) => void): this;
 
@@ -1062,7 +1091,10 @@ declare class TelegramBot extends EventEmitter {
 
     on(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
-    on(event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption', listener: (message: TelegramBot.Message) => void): this;
+    on(
+        event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption',
+        listener: (message: TelegramBot.Message) => void
+    ): this;
 
     on(event: 'shipping_query', listener: (query: TelegramBot.ShippingQuery) => void): this;
 
@@ -1078,7 +1110,10 @@ declare class TelegramBot extends EventEmitter {
 
     once(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
-    once(event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption', listener: (message: TelegramBot.Message) => void): this;
+    once(
+        event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption',
+        listener: (message: TelegramBot.Message) => void
+    ): this;
 
     once(event: 'shipping_query', listener: (query: TelegramBot.ShippingQuery) => void): this;
 
@@ -1094,7 +1129,10 @@ declare class TelegramBot extends EventEmitter {
 
     prependListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
-    prependListener(event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption', listener: (message: TelegramBot.Message) => void): this;
+    prependListener(
+        event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption',
+        listener: (message: TelegramBot.Message) => void
+    ): this;
 
     prependListener(event: 'shipping_query', listener: (query: TelegramBot.ShippingQuery) => void): this;
 
@@ -1110,7 +1148,10 @@ declare class TelegramBot extends EventEmitter {
 
     prependOnceListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
-    prependOnceListener(event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption', listener: (message: TelegramBot.Message) => void): this;
+    prependOnceListener(
+        event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption',
+        listener: (message: TelegramBot.Message) => void
+    ): this;
 
     prependOnceListener(event: 'shipping_query', listener: (query: TelegramBot.ShippingQuery) => void): this;
 
@@ -1126,7 +1167,10 @@ declare class TelegramBot extends EventEmitter {
 
     removeListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
-    removeListener(event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption', listener: (message: TelegramBot.Message) => void): this;
+    removeListener(
+        event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption',
+        listener: (message: TelegramBot.Message) => void
+    ): this;
 
     removeListener(event: 'shipping_query', listener: (query: TelegramBot.ShippingQuery) => void): this;
 
@@ -1142,7 +1186,10 @@ declare class TelegramBot extends EventEmitter {
 
     off(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
-    off(event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption', listener: (message: TelegramBot.Message) => void): this;
+    off(
+        event: 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption',
+        listener: (message: TelegramBot.Message) => void
+    ): this;
 
     off(event: 'shipping_query', listener: (query: TelegramBot.ShippingQuery) => void): this;
 
@@ -1150,15 +1197,109 @@ declare class TelegramBot extends EventEmitter {
 
     off(event: 'polling_error' | 'webhook_error' | 'error', listener: (error: Error) => void): this;
 
-    removeAllListeners(event: TelegramBot.MessageType | 'message' | 'callback_query' | 'inline_query' | 'chosen_inline_result' | 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption' | 'shipping_query' | 'pre_checkout_query' | 'polling_error' | 'webhook_error' | 'error'): this;
+    removeAllListeners(
+        event:
+            TelegramBot.MessageType |
+            'message' |
+            'callback_query' |
+            'inline_query' |
+            'chosen_inline_result' |
+            'channel_post' |
+            'edited_message' |
+            'edited_message_text' |
+            'edited_message_caption' |
+            'edited_channel_post' |
+            'edited_channel_post_text' |
+            'edited_channel_post_caption' |
+            'shipping_query' |
+            'pre_checkout_query' |
+            'polling_error' |
+            'webhook_error' |
+            'error'
+    ): this;
 
-    listeners(event: TelegramBot.MessageType | 'message' | 'callback_query' | 'inline_query' | 'chosen_inline_result' | 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption' | 'shipping_query' | 'pre_checkout_query' | 'polling_error' | 'webhook_error' | 'error'): ((data: any, metadata?: TelegramBot.Metadata) => void)[];
+    listeners(
+        event:
+            TelegramBot.MessageType |
+            'message' |
+            'callback_query' |
+            'inline_query' |
+            'chosen_inline_result' |
+            'channel_post' |
+            'edited_message' |
+            'edited_message_text' |
+            'edited_message_caption' |
+            'edited_channel_post' |
+            'edited_channel_post_text' |
+            'edited_channel_post_caption' |
+            'shipping_query' |
+            'pre_checkout_query' |
+            'polling_error' |
+            'webhook_error' |
+            'error'
+    ): Array<(data: any, metadata?: TelegramBot.Metadata) => void>;
 
-    rawListeners(event: TelegramBot.MessageType | 'message' | 'callback_query' | 'inline_query' | 'chosen_inline_result' | 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption' | 'shipping_query' | 'pre_checkout_query' | 'polling_error' | 'webhook_error' | 'error'): ((data: any, metadata?: TelegramBot.Metadata) => void)[];
+    rawListeners(
+        event:
+            TelegramBot.MessageType |
+            'message' |
+            'callback_query' |
+            'inline_query' |
+            'chosen_inline_result' |
+            'channel_post' |
+            'edited_message' |
+            'edited_message_text' |
+            'edited_message_caption' |
+            'edited_channel_post' |
+            'edited_channel_post_text' |
+            'edited_channel_post_caption' |
+            'shipping_query' |
+            'pre_checkout_query' |
+            'polling_error' |
+            'webhook_error' |
+            'error'
+    ): Array<(data: any, metadata?: TelegramBot.Metadata) => void>;
 
-    eventNames(): (TelegramBot.MessageType | 'message' | 'callback_query' | 'inline_query' | 'chosen_inline_result' | 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption' | 'shipping_query' | 'pre_checkout_query' | 'polling_error' | 'webhook_error' | 'error')[];
+    eventNames(): Array<
+        TelegramBot.MessageType |
+        'message' |
+        'callback_query' |
+        'inline_query' |
+        'chosen_inline_result' |
+        'channel_post' |
+        'edited_message' |
+        'edited_message_text' |
+        'edited_message_caption' |
+        'edited_channel_post' |
+        'edited_channel_post_text' |
+        'edited_channel_post_caption' |
+        'shipping_query' |
+        'pre_checkout_query' |
+        'polling_error' |
+        'webhook_error' |
+        'error'
+    >;
 
-    listenerCount(event: TelegramBot.MessageType | 'message' | 'callback_query' | 'inline_query' | 'chosen_inline_result' | 'channel_post' | 'edited_message' | 'edited_message_text' | 'edited_message_caption' | 'edited_channel_post' | 'edited_channel_post_text' | 'edited_channel_post_caption' | 'shipping_query' | 'pre_checkout_query' | 'polling_error' | 'webhook_error' | 'error'): number;
+    listenerCount(
+        event:
+            TelegramBot.MessageType |
+            'message' |
+            'callback_query' |
+            'inline_query' |
+            'chosen_inline_result' |
+            'channel_post' |
+            'edited_message' |
+            'edited_message_text' |
+            'edited_message_caption' |
+            'edited_channel_post' |
+            'edited_channel_post_text' |
+            'edited_channel_post_caption' |
+            'shipping_query' |
+            'pre_checkout_query' |
+            'polling_error' |
+            'webhook_error' |
+            'error'
+    ): number;
 }
 
 export = TelegramBot;
