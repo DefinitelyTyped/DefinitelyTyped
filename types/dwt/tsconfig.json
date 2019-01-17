@@ -1,30 +1,32 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": false,
-    "strictFunctionTypes": true,
-    "baseUrl": "../",
-    "typeRoots": [
-      "../"
-    ],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "index.d.ts",
-    "Dynamsoft.d.ts",
-    "WebTWAIN.d.ts",
-    "addon.ocr.d.ts",
-    "addon.ocrp.d.ts",
-    "addon.pdf.d.ts",
-    "addon.webcam.d.ts",
-    "dwt-tests.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "Dynamsoft.d.ts",
+        "WebTWAIN.d.ts",
+        "mbc.d.ts",
+        "dbr.d.ts",
+        "addon.ocr.d.ts",
+        "addon.ocrp.d.ts",
+        "addon.pdf.d.ts",
+        "addon.webcam.d.ts",
+        "dwt-tests.ts"
+    ]
 }

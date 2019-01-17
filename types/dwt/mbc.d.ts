@@ -5,19 +5,15 @@
 //                 Lincoln Hu <https://github.com/lincoln2018>
 //                 Tom Kent <https://github.com/Tom-Dynamsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.2.2
 
 /*!
-* Based on Dynamsoft WebTwain JavaScript Intellisense
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2018, Dynamsoft Corporation
+* Copyright 2019, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-
 */
-
-
 
 /*
  
@@ -89,6 +85,22 @@ interface cornerPoints {
     rightTop: point,
     leftBottom: point,
     rightBottom: point
+}
+
+declare class TaskQueue {
+    _queue: Array<any>;
+    isWorking: boolean;
+    timeout: number;
+    /**
+     * Constructs a new task queue
+     */
+    constructor();
+}
+
+interface TaskQueue {
+    push(task: any, context?: any, args?: any): void;
+    unshift(task: any, context?: any, args?: any): void;
+    next(): void;
 }
 
 declare class KPainter {
@@ -1055,7 +1067,7 @@ painter.beforeAddImgFromGrabVideoBtn = function(canvas, callback){
 };
 ```
      */
-    beforeAddImgFromGrabVideoBtn: () => boolean;
+    beforeAddImgFromGrabVideoBtn: () => void;
 
     /**
      * Syntax:* `function(){}`
@@ -1067,5 +1079,5 @@ painter.afterAddImgFromGrabVideoBtn = function(bSuccess){
 };
 ```
      */
-    afterAddImgFromGrabVideoBtn: () => boolean;
+    afterAddImgFromGrabVideoBtn: () => void;
 }

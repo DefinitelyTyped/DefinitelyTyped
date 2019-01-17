@@ -5,16 +5,14 @@
 //                 Lincoln Hu <https://github.com/lincoln2018>
 //                 Tom Kent <https://github.com/Tom-Dynamsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.2.2
 
 /*!
-* Based on Dynamsoft WebTwain JavaScript Intellisense
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2018, Dynamsoft Corporation
+* Copyright 2019, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 14.3.1
 */
 
 /**
