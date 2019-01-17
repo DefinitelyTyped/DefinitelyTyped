@@ -156,7 +156,7 @@ declare module 'pdfmake/build/pdfmake' {
         style?: string;
         margin?: Margins;
         text?: string | string[] | Content[];
-        columns?: Content[];
+        columns?: Array<string | Content>;
         stack?: Content[];
         image?: string;
         width?: string | number;
