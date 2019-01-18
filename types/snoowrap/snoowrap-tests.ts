@@ -43,6 +43,10 @@ export function subreddit(name: string): Subreddit {
   return r.getSubreddit(name);
 }
 
+export function topSubmissions(name: string): Listing<Submission> {
+  return r.getTop(name, { time: 'all' });
+}
+
 export function wiki(subreddit: string, page: string): WikiPage {
   return r.getSubreddit(subreddit).getWikiPage(page);
 }

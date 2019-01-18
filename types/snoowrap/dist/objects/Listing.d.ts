@@ -18,6 +18,10 @@ export interface ListingOptions {
   count?: number;
 }
 
+export interface SortedListingOptions extends ListingOptions {
+  time?: 'all' | 'hour' | 'day' | 'week' | 'month' | 'year';
+}
+
 interface FetchMoreOptions {
   amount: number;
   skipReplies?: boolean;

@@ -11,6 +11,7 @@ import {
   Comment as _Comment,
   Listing as _Listing,
   ListingOptions,
+  SortedListingOptions,
   LiveThread as _LiveThread,
   LiveThreadSettings,
   MultiReddit as _MultiReddit,
@@ -58,7 +59,7 @@ declare class Snoowrap {
   getCaptchaImage(identifier: string): Promise<string>;
   getComment(commentId: string): _Comment;
   getContributorSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
-  getControversial(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
+  getControversial(subredditName?: string, options?: SortedListingOptions): _Listing<_Submission>;
   getDefaultSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
   getFriends(): Promise<_RedditUser[]>;
   getGoldSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
@@ -87,7 +88,7 @@ declare class Snoowrap {
   getSubmission(submissionId: string): _Submission;
   getSubreddit(displayName: string): _Subreddit;
   getSubscriptions(options?: ListingOptions): _Listing<_Subreddit>;
-  getTop(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
+  getTop(subredditName?: string, options?: SortedListingOptions): _Listing<_Submission>;
   getUnreadMessages(options?: ListingOptions): _Listing<_PrivateMessage>;
   getUser(name: string): _RedditUser;
   markAsVisited(links: _Submission[]): Promise<void>;
