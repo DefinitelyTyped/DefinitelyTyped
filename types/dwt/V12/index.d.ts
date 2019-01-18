@@ -9,7 +9,7 @@
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2019, Dynamsoft Corporation
+* Copyright 2017, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
 * Version: 12.3
 */
@@ -2370,7 +2370,7 @@ interface WebTwain {
      * Downloads an image from the HTTP server.
      * @method WebTwain#HTTPDownloadEx
      * @param {string} HTTPServer the name of the HTTP server.
-     * @param {string} HTTPRemoteFile the relative path of the file on the HTTP server, or path to an action page (with necessary parameters) which gets and sends back the image stream to the client (please check the sample for more info)
+     * @param {string} HTTPRemoteFile the relative path of the file on the HTTP server, or path to an action page (with necessary paramters) which gets and sends back the image stream to the client (please check the sample for more info)
      * @param {EnumDWT_ImageType} lImageType the image format of the file to be downloaded.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the download fails. Please refer to the function prototype OnFailure.
