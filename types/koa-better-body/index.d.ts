@@ -26,7 +26,7 @@ declare namespace KoaBetterBody {
     decodeURIComponent?: any;
     maxKeys?: number;
     buffer?: boolean;
-    QueryString?: string;
+    queryString?: string;
     encoding?: string;
     uploadDir?: string;
     keepExtensions?: boolean;
