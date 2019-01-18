@@ -897,10 +897,6 @@ declare namespace React {
         type: string;
     }
 
-    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
-
-    type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
-
     //
     // Props
     // ----------------------------------------------------------------------

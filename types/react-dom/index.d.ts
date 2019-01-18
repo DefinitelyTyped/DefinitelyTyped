@@ -12,7 +12,7 @@ import * as CSS from 'csstype';
 import {
     ReactInstance, Component, ComponentState,
     ReactElement, SFCElement, CElement,
-    DOMAttributes, DOMElement, ReactNode, ReactPortal
+    ReactNode, ReactPortal
 } from 'react';
 
 // tslint:disable-next-line:export-just-namespace
@@ -117,9 +117,8 @@ type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 
-declare module 'react' {
-    // DOM React types
-
+// tslint:disable-next-line:no-mergeable-namespace
+declare namespace ReactDOM {
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -127,7 +126,7 @@ declare module 'react' {
     // string fallback for custom web-components
     interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P> {
         type: string;
-        ref: LegacyRef<T>;
+        ref: React.LegacyRef<T>;
     }
 
     // ReactHTML for ReactHTMLElement
@@ -147,70 +146,18 @@ declare module 'react' {
     // Factories
     // ----------------------------------------------------------------------
     type DOMFactory<P extends DOMAttributes<T>, T extends Element> =
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
+        (props?: React.ClassAttributes<T> & P | null, ...children: ReactNode[]) => DOMElement<P, T>;
 
     // tslint:disable-next-line:no-empty-interface
     interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
     interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+        (props?: React.ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
     }
 
     interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
-        (props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
+        (props?: React.ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null, ...children: ReactNode[]): ReactSVGElement;
     }
-
-    //
-    // Top Level API
-    // ----------------------------------------------------------------------
-    // DOM Elements
-    function createFactory<T extends HTMLElement>(
-        type: keyof ReactHTML): HTMLFactory<T>;
-    function createFactory(
-        type: keyof ReactSVG): SVGFactory;
-    function createFactory<P extends DOMAttributes<T>, T extends Element>(
-        type: string): DOMFactory<P, T>;
-
-    // DOM Elements
-    // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
-    function createElement(
-        type: "input",
-        props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-    function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        type: keyof ReactHTML,
-        props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
-    function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
-        type: keyof ReactSVG,
-        props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): ReactSVGElement;
-    function createElement<P extends DOMAttributes<T>, T extends Element>(
-        type: string,
-        props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DOMElement<P, T>;
-
-    // DOM Elements
-    // ReactHTMLElement
-    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        element: DetailedReactHTMLElement<P, T>,
-        props?: P,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
-    // ReactHTMLElement, less specific
-    function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        element: ReactHTMLElement<T>,
-        props?: P,
-        ...children: ReactNode[]): ReactHTMLElement<T>;
-    // SVGElement
-    function cloneElement<P extends SVGAttributes<T>, T extends SVGElement>(
-        element: ReactSVGElement,
-        props?: P,
-        ...children: ReactNode[]): ReactSVGElement;
-    // DOM Element (has to be the last, because type checking stops at first overload that fits)
-    function cloneElement<P extends DOMAttributes<T>, T extends Element>(
-        element: DOMElement<P, T>,
-        props?: DOMAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
 
     //
     // Event System
@@ -222,7 +169,12 @@ declare module 'react' {
      * This might be a child element to the element on which the event listener is registered.
      * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
      */
-    interface SyntheticEvent<T = Element, E = Event> extends BaseSyntheticEvent<E, EventTarget & T, EventTarget> {}
+
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
+
+    type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
+
+    interface SyntheticEvent<T = Element, E = Event> extends React.BaseSyntheticEvent<E, EventTarget & T, EventTarget> {}
 
     interface ClipboardEvent<T = Element> extends SyntheticEvent<T, NativeClipboardEvent> {
         clipboardData: DataTransfer;
@@ -366,12 +318,12 @@ declare module 'react' {
     //
     // Props / DOM Attributes
     // ----------------------------------------------------------------------
-    interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {
+    interface HTMLProps<T> extends AllHTMLAttributes<T>, React.ClassAttributes<T> {
     }
 
-    type DetailedHTMLProps<E extends HTMLAttributes<T>, T> = ClassAttributes<T> & E;
+    type DetailedHTMLProps<E extends HTMLAttributes<T>, T> = React.ClassAttributes<T> & E;
 
-    interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
+    interface SVGProps<T> extends SVGAttributes<T>, React.ClassAttributes<T> {
     }
 
     interface DOMAttributes<T> {
@@ -569,19 +521,6 @@ declare module 'react' {
         onTransitionEndCapture?: TransitionEventHandler<T>;
     }
 
-    // TODO: this was exported while in @types/react, probably
-    // for namespace merging. Look into where this was happening?
-    interface CSSProperties extends CSS.Properties<string | number> {
-        /**
-         * The index signature was removed to enable closed typing for style
-         * using CSSType. You're able to use type assertion or module augmentation
-         * to add properties or an index signature of your own.
-         *
-         * For examples and more information, visit:
-         * https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
-         */
-    }
-
     interface HTMLAttributes<T> extends DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
@@ -602,7 +541,7 @@ declare module 'react' {
         placeholder?: string;
         slot?: string;
         spellCheck?: boolean;
-        style?: CSSProperties;
+        style?: React.CSSProperties;
         tabIndex?: number;
         title?: string;
 
@@ -1351,7 +1290,7 @@ declare module 'react' {
         method?: string;
         min?: number | string;
         name?: string;
-        style?: CSSProperties;
+        style?: React.CSSProperties;
         target?: string;
         type?: string;
         width?: number | string;
@@ -1834,185 +1773,252 @@ declare module 'react' {
     }
 }
 
+declare module 'react' {
+    //
+    // Top Level API
+    // ----------------------------------------------------------------------
+    // DOM Elements
+    function createFactory<T extends HTMLElement>(
+        type: keyof ReactDOM.ReactHTML): ReactDOM.HTMLFactory<T>;
+    function createFactory(
+        type: keyof ReactDOM.ReactSVG): ReactDOM.SVGFactory;
+    function createFactory<P extends ReactDOM.DOMAttributes<T>, T extends Element>(
+        type: string): ReactDOM.DOMFactory<P, T>;
+
+    // DOM Elements
+    // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
+    function createElement(
+        type: "input",
+        props?: ReactDOM.InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement> | null,
+        ...children: ReactNode[]): ReactDOM.DetailedReactHTMLElement<ReactDOM.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+    function createElement<P extends ReactDOM.HTMLAttributes<T>, T extends HTMLElement>(
+        type: keyof ReactDOM.ReactHTML,
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]): ReactDOM.DetailedReactHTMLElement<P, T>;
+    function createElement<P extends ReactDOM.SVGAttributes<T>, T extends SVGElement>(
+        type: keyof ReactDOM.ReactSVG,
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]): ReactDOM.ReactSVGElement;
+    function createElement<P extends ReactDOM.DOMAttributes<T>, T extends Element>(
+        type: string,
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]): ReactDOM.DOMElement<P, T>;
+
+    // DOM Elements
+    // ReactHTMLElement
+    function cloneElement<P extends ReactDOM.HTMLAttributes<T>, T extends HTMLElement>(
+        element: ReactDOM.DetailedReactHTMLElement<P, T>,
+        props?: P,
+        ...children: ReactNode[]): ReactDOM.DetailedReactHTMLElement<P, T>;
+    // ReactHTMLElement, less specific
+    function cloneElement<P extends ReactDOM.HTMLAttributes<T>, T extends HTMLElement>(
+        element: ReactDOM.ReactHTMLElement<T>,
+        props?: P,
+        ...children: ReactNode[]): ReactDOM.ReactHTMLElement<T>;
+    // SVGElement
+    function cloneElement<P extends ReactDOM.SVGAttributes<T>, T extends SVGElement>(
+        element: ReactDOM.ReactSVGElement,
+        props?: P,
+        ...children: ReactNode[]): ReactDOM.ReactSVGElement;
+    // DOM Element (has to be the last, because type checking stops at first overload that fits)
+    function cloneElement<P extends ReactDOM.DOMAttributes<T>, T extends Element>(
+        element: ReactDOM.DOMElement<P, T>,
+        props?: ReactDOM.DOMAttributes<T> & P,
+        ...children: ReactNode[]): ReactDOM.DOMElement<P, T>;
+
+    // TODO: this was exported while in @types/react, probably
+    // for namespace merging. Look into where this was happening?
+    interface CSSProperties extends CSS.Properties<string | number> {
+        /**
+         * The index signature was removed to enable closed typing for style
+         * using CSSType. You're able to use type assertion or module augmentation
+         * to add properties or an index signature of your own.
+         *
+         * For examples and more information, visit:
+         * https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
+         */
+    }
+}
+
 declare global {
     namespace JSX {
         interface IntrinsicElements {
             // HTML
-            a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
-            abbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            address: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            area: React.DetailedHTMLProps<React.AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
-            article: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            aside: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            audio: React.DetailedHTMLProps<React.AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
-            b: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            base: React.DetailedHTMLProps<React.BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
-            bdi: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            bdo: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            big: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            blockquote: React.DetailedHTMLProps<React.BlockquoteHTMLAttributes<HTMLElement>, HTMLElement>;
-            body: React.DetailedHTMLProps<React.HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
-            br: React.DetailedHTMLProps<React.HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
-            button: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-            canvas: React.DetailedHTMLProps<React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
-            caption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            cite: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            code: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            col: React.DetailedHTMLProps<React.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-            colgroup: React.DetailedHTMLProps<React.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-            data: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            datalist: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
-            dd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLElement>, HTMLElement>;
-            details: React.DetailedHTMLProps<React.DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
-            dfn: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            dialog: React.DetailedHTMLProps<React.DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
-            div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-            dl: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
-            dt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            em: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            embed: React.DetailedHTMLProps<React.EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
-            fieldset: React.DetailedHTMLProps<React.FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
-            figcaption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            figure: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            footer: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            form: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
-            h1: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-            h2: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-            h3: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-            h4: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-            h5: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-            h6: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-            head: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadElement>, HTMLHeadElement>;
-            header: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            hgroup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            hr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
-            html: React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
-            i: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            iframe: React.DetailedHTMLProps<React.IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
-            img: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
-            input: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-            ins: React.DetailedHTMLProps<React.InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
-            kbd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            keygen: React.DetailedHTMLProps<React.KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
-            label: React.DetailedHTMLProps<React.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
-            legend: React.DetailedHTMLProps<React.HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
-            li: React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
-            link: React.DetailedHTMLProps<React.LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
-            main: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            map: React.DetailedHTMLProps<React.MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
-            mark: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            menu: React.DetailedHTMLProps<React.MenuHTMLAttributes<HTMLElement>, HTMLElement>;
-            menuitem: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            meta: React.DetailedHTMLProps<React.MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
-            meter: React.DetailedHTMLProps<React.MeterHTMLAttributes<HTMLElement>, HTMLElement>;
-            nav: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            noindex: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            noscript: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            object: React.DetailedHTMLProps<React.ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
-            ol: React.DetailedHTMLProps<React.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
-            optgroup: React.DetailedHTMLProps<React.OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
-            option: React.DetailedHTMLProps<React.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
-            output: React.DetailedHTMLProps<React.OutputHTMLAttributes<HTMLElement>, HTMLElement>;
-            p: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
-            param: React.DetailedHTMLProps<React.ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
-            picture: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            pre: React.DetailedHTMLProps<React.HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
-            progress: React.DetailedHTMLProps<React.ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
-            q: React.DetailedHTMLProps<React.QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
-            rp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            rt: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            ruby: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            s: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            samp: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            script: React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
-            section: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            select: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
-            small: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            source: React.DetailedHTMLProps<React.SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
-            span: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
-            strong: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            style: React.DetailedHTMLProps<React.StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
-            sub: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            summary: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            sup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            table: React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
-            tbody: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-            td: React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
-            textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
-            tfoot: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-            th: React.DetailedHTMLProps<React.ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>;
-            thead: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-            time: React.DetailedHTMLProps<React.TimeHTMLAttributes<HTMLElement>, HTMLElement>;
-            title: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
-            tr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
-            track: React.DetailedHTMLProps<React.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
-            u: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            ul: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-            "var": React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
-            wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
+            a: ReactDOM.DetailedHTMLProps<ReactDOM.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+            abbr: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            address: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            area: ReactDOM.DetailedHTMLProps<ReactDOM.AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
+            article: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            aside: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            audio: ReactDOM.DetailedHTMLProps<ReactDOM.AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
+            b: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            base: ReactDOM.DetailedHTMLProps<ReactDOM.BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
+            bdi: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            bdo: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            big: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            blockquote: ReactDOM.DetailedHTMLProps<ReactDOM.BlockquoteHTMLAttributes<HTMLElement>, HTMLElement>;
+            body: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
+            br: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
+            button: ReactDOM.DetailedHTMLProps<ReactDOM.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+            canvas: ReactDOM.DetailedHTMLProps<ReactDOM.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
+            caption: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            cite: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            code: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            col: ReactDOM.DetailedHTMLProps<ReactDOM.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+            colgroup: ReactDOM.DetailedHTMLProps<ReactDOM.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+            data: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            datalist: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
+            dd: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            del: ReactDOM.DetailedHTMLProps<ReactDOM.DelHTMLAttributes<HTMLElement>, HTMLElement>;
+            details: ReactDOM.DetailedHTMLProps<ReactDOM.DetailsHTMLAttributes<HTMLElement>, HTMLElement>;
+            dfn: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            dialog: ReactDOM.DetailedHTMLProps<ReactDOM.DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
+            div: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+            dl: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
+            dt: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            em: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            embed: ReactDOM.DetailedHTMLProps<ReactDOM.EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
+            fieldset: ReactDOM.DetailedHTMLProps<ReactDOM.FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
+            figcaption: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            figure: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            footer: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            form: ReactDOM.DetailedHTMLProps<ReactDOM.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
+            h1: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h2: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h3: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h4: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h5: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            h6: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+            head: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLHeadElement>, HTMLHeadElement>;
+            header: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            hgroup: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            hr: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
+            html: ReactDOM.DetailedHTMLProps<ReactDOM.HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
+            i: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            iframe: ReactDOM.DetailedHTMLProps<ReactDOM.IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
+            img: ReactDOM.DetailedHTMLProps<ReactDOM.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
+            input: ReactDOM.DetailedHTMLProps<ReactDOM.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+            ins: ReactDOM.DetailedHTMLProps<ReactDOM.InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
+            kbd: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            keygen: ReactDOM.DetailedHTMLProps<ReactDOM.KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
+            label: ReactDOM.DetailedHTMLProps<ReactDOM.LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
+            legend: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
+            li: ReactDOM.DetailedHTMLProps<ReactDOM.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
+            link: ReactDOM.DetailedHTMLProps<ReactDOM.LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
+            main: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            map: ReactDOM.DetailedHTMLProps<ReactDOM.MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
+            mark: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            menu: ReactDOM.DetailedHTMLProps<ReactDOM.MenuHTMLAttributes<HTMLElement>, HTMLElement>;
+            menuitem: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            meta: ReactDOM.DetailedHTMLProps<ReactDOM.MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
+            meter: ReactDOM.DetailedHTMLProps<ReactDOM.MeterHTMLAttributes<HTMLElement>, HTMLElement>;
+            nav: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            noindex: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            noscript: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            object: ReactDOM.DetailedHTMLProps<ReactDOM.ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
+            ol: ReactDOM.DetailedHTMLProps<ReactDOM.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
+            optgroup: ReactDOM.DetailedHTMLProps<ReactDOM.OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
+            option: ReactDOM.DetailedHTMLProps<ReactDOM.OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
+            output: ReactDOM.DetailedHTMLProps<ReactDOM.OutputHTMLAttributes<HTMLElement>, HTMLElement>;
+            p: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
+            param: ReactDOM.DetailedHTMLProps<ReactDOM.ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
+            picture: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            pre: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
+            progress: ReactDOM.DetailedHTMLProps<ReactDOM.ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
+            q: ReactDOM.DetailedHTMLProps<ReactDOM.QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
+            rp: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            rt: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            ruby: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            s: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            samp: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            script: ReactDOM.DetailedHTMLProps<ReactDOM.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
+            section: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            select: ReactDOM.DetailedHTMLProps<ReactDOM.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
+            small: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            source: ReactDOM.DetailedHTMLProps<ReactDOM.SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
+            span: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
+            strong: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            style: ReactDOM.DetailedHTMLProps<ReactDOM.StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
+            sub: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            summary: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            sup: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            table: ReactDOM.DetailedHTMLProps<ReactDOM.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+            tbody: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+            td: ReactDOM.DetailedHTMLProps<ReactDOM.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
+            textarea: ReactDOM.DetailedHTMLProps<ReactDOM.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+            tfoot: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+            th: ReactDOM.DetailedHTMLProps<ReactDOM.ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>;
+            thead: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+            time: ReactDOM.DetailedHTMLProps<ReactDOM.TimeHTMLAttributes<HTMLElement>, HTMLElement>;
+            title: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
+            tr: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
+            track: ReactDOM.DetailedHTMLProps<ReactDOM.TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
+            u: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            ul: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
+            "var": ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            video: ReactDOM.DetailedHTMLProps<ReactDOM.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
+            wbr: ReactDOM.DetailedHTMLProps<ReactDOM.HTMLAttributes<HTMLElement>, HTMLElement>;
+            webview: ReactDOM.DetailedHTMLProps<ReactDOM.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
 
             // SVG
-            svg: React.SVGProps<SVGSVGElement>;
+            svg: ReactDOM.SVGProps<SVGSVGElement>;
 
-            animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
-            animateMotion: React.SVGProps<SVGElement>;
-            animateTransform: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateTransformElement but is not in TypeScript's lib.dom.d.ts for now.
-            circle: React.SVGProps<SVGCircleElement>;
-            clipPath: React.SVGProps<SVGClipPathElement>;
-            defs: React.SVGProps<SVGDefsElement>;
-            desc: React.SVGProps<SVGDescElement>;
-            ellipse: React.SVGProps<SVGEllipseElement>;
-            feBlend: React.SVGProps<SVGFEBlendElement>;
-            feColorMatrix: React.SVGProps<SVGFEColorMatrixElement>;
-            feComponentTransfer: React.SVGProps<SVGFEComponentTransferElement>;
-            feComposite: React.SVGProps<SVGFECompositeElement>;
-            feConvolveMatrix: React.SVGProps<SVGFEConvolveMatrixElement>;
-            feDiffuseLighting: React.SVGProps<SVGFEDiffuseLightingElement>;
-            feDisplacementMap: React.SVGProps<SVGFEDisplacementMapElement>;
-            feDistantLight: React.SVGProps<SVGFEDistantLightElement>;
-            feFlood: React.SVGProps<SVGFEFloodElement>;
-            feFuncA: React.SVGProps<SVGFEFuncAElement>;
-            feFuncB: React.SVGProps<SVGFEFuncBElement>;
-            feFuncG: React.SVGProps<SVGFEFuncGElement>;
-            feFuncR: React.SVGProps<SVGFEFuncRElement>;
-            feGaussianBlur: React.SVGProps<SVGFEGaussianBlurElement>;
-            feImage: React.SVGProps<SVGFEImageElement>;
-            feMerge: React.SVGProps<SVGFEMergeElement>;
-            feMergeNode: React.SVGProps<SVGFEMergeNodeElement>;
-            feMorphology: React.SVGProps<SVGFEMorphologyElement>;
-            feOffset: React.SVGProps<SVGFEOffsetElement>;
-            fePointLight: React.SVGProps<SVGFEPointLightElement>;
-            feSpecularLighting: React.SVGProps<SVGFESpecularLightingElement>;
-            feSpotLight: React.SVGProps<SVGFESpotLightElement>;
-            feTile: React.SVGProps<SVGFETileElement>;
-            feTurbulence: React.SVGProps<SVGFETurbulenceElement>;
-            filter: React.SVGProps<SVGFilterElement>;
-            foreignObject: React.SVGProps<SVGForeignObjectElement>;
-            g: React.SVGProps<SVGGElement>;
-            image: React.SVGProps<SVGImageElement>;
-            line: React.SVGProps<SVGLineElement>;
-            linearGradient: React.SVGProps<SVGLinearGradientElement>;
-            marker: React.SVGProps<SVGMarkerElement>;
-            mask: React.SVGProps<SVGMaskElement>;
-            metadata: React.SVGProps<SVGMetadataElement>;
-            mpath: React.SVGProps<SVGElement>;
-            path: React.SVGProps<SVGPathElement>;
-            pattern: React.SVGProps<SVGPatternElement>;
-            polygon: React.SVGProps<SVGPolygonElement>;
-            polyline: React.SVGProps<SVGPolylineElement>;
-            radialGradient: React.SVGProps<SVGRadialGradientElement>;
-            rect: React.SVGProps<SVGRectElement>;
-            stop: React.SVGProps<SVGStopElement>;
-            switch: React.SVGProps<SVGSwitchElement>;
-            symbol: React.SVGProps<SVGSymbolElement>;
-            text: React.SVGProps<SVGTextElement>;
-            textPath: React.SVGProps<SVGTextPathElement>;
-            tspan: React.SVGProps<SVGTSpanElement>;
-            use: React.SVGProps<SVGUseElement>;
-            view: React.SVGProps<SVGViewElement>;
+            animate: ReactDOM.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
+            animateMotion: ReactDOM.SVGProps<SVGElement>;
+            animateTransform: ReactDOM.SVGProps<SVGElement>; // TODO: It is SVGAnimateTransformElement but is not in TypeScript's lib.dom.d.ts for now.
+            circle: ReactDOM.SVGProps<SVGCircleElement>;
+            clipPath: ReactDOM.SVGProps<SVGClipPathElement>;
+            defs: ReactDOM.SVGProps<SVGDefsElement>;
+            desc: ReactDOM.SVGProps<SVGDescElement>;
+            ellipse: ReactDOM.SVGProps<SVGEllipseElement>;
+            feBlend: ReactDOM.SVGProps<SVGFEBlendElement>;
+            feColorMatrix: ReactDOM.SVGProps<SVGFEColorMatrixElement>;
+            feComponentTransfer: ReactDOM.SVGProps<SVGFEComponentTransferElement>;
+            feComposite: ReactDOM.SVGProps<SVGFECompositeElement>;
+            feConvolveMatrix: ReactDOM.SVGProps<SVGFEConvolveMatrixElement>;
+            feDiffuseLighting: ReactDOM.SVGProps<SVGFEDiffuseLightingElement>;
+            feDisplacementMap: ReactDOM.SVGProps<SVGFEDisplacementMapElement>;
+            feDistantLight: ReactDOM.SVGProps<SVGFEDistantLightElement>;
+            feFlood: ReactDOM.SVGProps<SVGFEFloodElement>;
+            feFuncA: ReactDOM.SVGProps<SVGFEFuncAElement>;
+            feFuncB: ReactDOM.SVGProps<SVGFEFuncBElement>;
+            feFuncG: ReactDOM.SVGProps<SVGFEFuncGElement>;
+            feFuncR: ReactDOM.SVGProps<SVGFEFuncRElement>;
+            feGaussianBlur: ReactDOM.SVGProps<SVGFEGaussianBlurElement>;
+            feImage: ReactDOM.SVGProps<SVGFEImageElement>;
+            feMerge: ReactDOM.SVGProps<SVGFEMergeElement>;
+            feMergeNode: ReactDOM.SVGProps<SVGFEMergeNodeElement>;
+            feMorphology: ReactDOM.SVGProps<SVGFEMorphologyElement>;
+            feOffset: ReactDOM.SVGProps<SVGFEOffsetElement>;
+            fePointLight: ReactDOM.SVGProps<SVGFEPointLightElement>;
+            feSpecularLighting: ReactDOM.SVGProps<SVGFESpecularLightingElement>;
+            feSpotLight: ReactDOM.SVGProps<SVGFESpotLightElement>;
+            feTile: ReactDOM.SVGProps<SVGFETileElement>;
+            feTurbulence: ReactDOM.SVGProps<SVGFETurbulenceElement>;
+            filter: ReactDOM.SVGProps<SVGFilterElement>;
+            foreignObject: ReactDOM.SVGProps<SVGForeignObjectElement>;
+            g: ReactDOM.SVGProps<SVGGElement>;
+            image: ReactDOM.SVGProps<SVGImageElement>;
+            line: ReactDOM.SVGProps<SVGLineElement>;
+            linearGradient: ReactDOM.SVGProps<SVGLinearGradientElement>;
+            marker: ReactDOM.SVGProps<SVGMarkerElement>;
+            mask: ReactDOM.SVGProps<SVGMaskElement>;
+            metadata: ReactDOM.SVGProps<SVGMetadataElement>;
+            mpath: ReactDOM.SVGProps<SVGElement>;
+            path: ReactDOM.SVGProps<SVGPathElement>;
+            pattern: ReactDOM.SVGProps<SVGPatternElement>;
+            polygon: ReactDOM.SVGProps<SVGPolygonElement>;
+            polyline: ReactDOM.SVGProps<SVGPolylineElement>;
+            radialGradient: ReactDOM.SVGProps<SVGRadialGradientElement>;
+            rect: ReactDOM.SVGProps<SVGRectElement>;
+            stop: ReactDOM.SVGProps<SVGStopElement>;
+            switch: ReactDOM.SVGProps<SVGSwitchElement>;
+            symbol: ReactDOM.SVGProps<SVGSymbolElement>;
+            text: ReactDOM.SVGProps<SVGTextElement>;
+            textPath: ReactDOM.SVGProps<SVGTextPathElement>;
+            tspan: ReactDOM.SVGProps<SVGTSpanElement>;
+            use: ReactDOM.SVGProps<SVGUseElement>;
+            view: ReactDOM.SVGProps<SVGViewElement>;
         }
     }
 }
