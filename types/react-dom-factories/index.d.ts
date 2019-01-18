@@ -7,6 +7,6 @@
 export as namespace ReactDOMFactories;
 export = ReactDOMFactories;
 
-import { ReactDOM } from "react";
+import { ReactDOM } from "react-dom";
 
 declare const ReactDOMFactories: ReactDOM;
