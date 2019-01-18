@@ -20,6 +20,7 @@ declare namespace toobusy_js {
      * @param  [newInterval] New interval to set. If not provided, will return the existing interval.
      * @return               New or existing interval.
      */
+    function interval(): number;
     function interval(newInterval?: number): number;
     /**
      * Returns last lag reading from last check interval.
@@ -37,6 +38,7 @@ declare namespace toobusy_js {
      * @param  [newLag] New maxLag (highwater) threshold.
      * @return          New or existing maxLag (highwater) threshold.
      */
+    function maxLag(): number;
     function maxLag(newLag?: number): number;
     /**
      * Set or get the smoothing factor. Default is 0.3333....
@@ -47,6 +49,7 @@ declare namespace toobusy_js {
      * @param  [newFactor] New smoothing factor.
      * @return             New or existing smoothing factor.
      */
+    function smoothingFactor(): number;
     function smoothingFactor(newFactor?: number): number;
     /**
      * Shuts down toobusy.
