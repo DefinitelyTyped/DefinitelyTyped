@@ -98,6 +98,7 @@ declare namespace sharp {
     const gravity: GravityEnum;
     const strategy: StrategyEnum;
     const kernel: KernelEnum;
+    const fit: FitEnum;
     const bool: BoolEnum;
 
     interface Sharp extends Duplex {
