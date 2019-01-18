@@ -4,10 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { AbstractView, Component, ComponentClass,
+import { Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
-    DOMElement, SFCElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC } from 'react';
+    SFCElement, CElement,
+    SFC } from 'react';
+import { AbstractView, DOMElement, ReactHTMLElement, DOMAttributes } from 'react-dom';
 
 export = TestUtils;
 
