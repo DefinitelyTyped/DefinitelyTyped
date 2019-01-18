@@ -47,7 +47,9 @@ export interface UserData {
   verify_email?: boolean;
   password?: string;
   phone_number?: string;
-  phone_verified?: boolean,
+  phone_verified?: boolean;
+  given_name?: string;
+  family_name?: string;
   user_metadata?: UserMetadata;
   app_metadata?: AppMetadata;
 }
