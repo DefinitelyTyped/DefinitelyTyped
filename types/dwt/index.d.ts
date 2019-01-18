@@ -1372,7 +1372,7 @@ declare enum EnumDWT_UploadDataFormat {
     Base64 = 1
 }
 
-/**
+/** 
  * interface for a DWT container which basically defines a DIV on the page
  */
 interface Container {
@@ -1381,7 +1381,7 @@ interface Container {
     Height: string | number;
 }
 
-/**
+/** 
  * interface for a base64 result
  */
 interface Base64Result {
@@ -2294,7 +2294,7 @@ interface WebTwain {
      */
     Zoom: number;
 
-    /* ignored
+    /* ignored 
     style
     _AutoCropMethod
     */
@@ -2490,7 +2490,7 @@ interface WebTwain {
      * @param {Array} indices indices specifies which images are to be converted to base64.
      * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
      * @return {Base64Result}
-
+ 
     ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType): Base64Result;
     */
 
@@ -2889,7 +2889,7 @@ interface WebTwain {
      * @return {number}
      */
     GetImageYResolution(sImageIndex: number): number;
-	
+
     /**
      * Return the runtime license info.
      * @method WebTwain#GetLicenseInfo
@@ -3289,7 +3289,7 @@ interface WebTwain {
      */
     MoveImage(sSourceImageIndex: number, sTargetImageIndex: number): boolean;
 
-    /*ignored
+    /*ignored 
     OnRefreshUI
     */
 
@@ -3527,7 +3527,7 @@ interface WebTwain {
      */
     SelectSource(): boolean;
 
-    /**
+    /**   
      * Selects the index-the source in SourceNameItems property as the current source.
      * @method WebTwain#SelectSourceByIndex
      * @param {number} index It is the index of SourceNameItems property.
@@ -3773,7 +3773,7 @@ interface WebTwain {
      */
     UnregisterEvent(name: string, evt: object): boolean;
 
-    /*ignored    
+    /*ignored
     checkErrorString
     first
     getInstance
