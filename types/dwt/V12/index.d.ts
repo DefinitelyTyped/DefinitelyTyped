@@ -11,7 +11,7 @@
 *
 * Copyright 2019, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 14.3.1
+* Version: 12.3
 */
 
 /**
