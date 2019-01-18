@@ -69,6 +69,11 @@ declare namespace Bull {
     lockDuration?: number;
 
     /**
+     * Interval in milliseconds on which to acquire the job lock.
+     */
+    lockRenewTime?: number;
+
+    /**
      * How often check for stalled jobs (use 0 for never checking)
      */
     stalledInterval?: number;
