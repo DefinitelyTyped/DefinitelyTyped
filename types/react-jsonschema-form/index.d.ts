@@ -15,6 +15,7 @@ declare module "react-jsonschema-form" {
 
     export interface FormProps<T> {
         schema: JSONSchema6;
+        disabled?: boolean;
         uiSchema?: UiSchema;
         formData?: T;
         formContext?: any;

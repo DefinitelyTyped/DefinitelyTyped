@@ -57,4 +57,5 @@ declare module 'mongoose' {
 }
 
 import mongoose = require('mongoose');
-export function _(schema: mongoose.Schema): void;
+declare function _(schema: mongoose.Schema): void;
+export = _;

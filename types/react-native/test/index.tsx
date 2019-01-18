@@ -54,6 +54,9 @@ import {
     ScrollView,
     ScrollViewProps,
     SectionListRenderItemInfo,
+    Share,
+    ShareDismissedAction,
+    ShareSharedAction,
     Switch,
     RefreshControl,
     RegisteredStyle,
@@ -817,3 +820,17 @@ const NativeIDTest = () => (
         <Text nativeID={"nativeID"}>Text</Text>
     </ScrollView>
 );
+
+const ShareTest = () => {
+    Share.share(
+        { title: "title", message: "message" },
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red" }
+    );
+    Share.share({ title: "title", url: "url" });
+    Share.share({ message: "message" }).then(result => {
+        if (result.action === Share.sharedAction) {
+            const activity = result.activityType;
+        } else if (result.action === Share.dismissedAction) {
+        }
+    });
+};

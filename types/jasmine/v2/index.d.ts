@@ -631,7 +631,7 @@ declare namespace jasmine {
         calls: Calls;
     }
 
-    type SpyObj<T> = {
+    type SpyObj<T> = T & {
         [k in keyof T]: T[k] extends Function ? T[k] & Spy : T[k];
     }
 

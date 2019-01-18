@@ -6709,6 +6709,17 @@ export type ShareOptions = {
     tintColor?: string;
 };
 
+export type ShareSharedAction = {
+    action: "sharedAction";
+    activityType?: string;
+};
+
+export type ShareDismissedAction = {
+    action: "dismissedAction"
+};
+
+export type ShareAction = ShareSharedAction | ShareDismissedAction;
+
 export interface ShareStatic {
     /**
      * Open a dialog to share text content.
@@ -6742,9 +6753,9 @@ export interface ShareStatic {
      * - `dialogTitle`
      *
      */
-    share(content: ShareContent, options?: ShareOptions): Promise<Object>;
-    sharedAction: string;
-    dismissedAction: string;
+    share(content: ShareContent, options?: ShareOptions): Promise<ShareAction>;
+    sharedAction: "sharedAction";
+    dismissedAction: "dismissedAction";
 }
 
 type AccessibilityEventName = "change" | "announcementFinished";

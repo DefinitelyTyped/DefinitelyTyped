@@ -4,7 +4,7 @@
 //                 AlexStacker <https://github.com/AlexStacker>
 //                 Jimexist <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 declare namespace wx {
 	// #region 基本参数
@@ -3729,13 +3729,44 @@ declare namespace wx {
 
 	type DefaultProps = object | Record<string, any>;
 
+	type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((
+		k: infer I,
+	) => void)
+		? I
+		: never;
+
+	type ArrayType<T extends any[]> = T extends Array<infer R> ? R : never;
+
+	interface Behavior<Data, Props, Methods> {
+		__DO_NOT_USE_INTERNAL_FIELD_DATA: Data;
+		__DO_NOT_USE_INTERNAL_FIELD_PROPS: Props;
+		__DO_NOT_USE_INTERNAL_FIELD_METHODS: Methods;
+	}
+
+  type UnboxBehaviorData<T> = T extends Behavior<{}, {}, {}> ? T['__DO_NOT_USE_INTERNAL_FIELD_DATA'] : {};
+  type UnboxBehaviorProps<T> = T extends Behavior<{}, {}, {}> ? T['__DO_NOT_USE_INTERNAL_FIELD_PROPS'] : {};
+	type UnboxBehaviorMethod<T> = T extends Behavior<{}, {}, {}> ? T['__DO_NOT_USE_INTERNAL_FIELD_METHODS'] : {};
+
+  type UnboxBehaviorsMethods<
+    Behaviors extends Array<Behavior<{}, {}, {}> | string>
+	> = UnionToIntersection<UnboxBehaviorMethod<ArrayType<Behaviors>>>;
+
+  type UnboxBehaviorsData<
+    Behaviors extends Array<Behavior<{}, {}, {}> | string>
+	> = UnionToIntersection<UnboxBehaviorData<ArrayType<Behaviors>>>;
+
+  type UnboxBehaviorsProps<
+    Behaviors extends Array<Behavior<{}, {}, {}> | string>
+	> = UnionToIntersection<UnboxBehaviorProps<ArrayType<Behaviors>>>;
+
 	// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 	type CombinedInstance<
-		Instance extends Component<Data, Props>,
+		Instance extends Component<Data, Props, Behaviors>,
 		Data,
 		Methods,
-		Props
-	> = Methods & Instance;
+		Props,
+    Behaviors extends Array<Behavior<{}, {}, {}> | string>
+	> = Methods & Instance & UnboxBehaviorsMethods<Behaviors>;
 
 	type Prop<T> = (() => T) | { new (...args: any[]): T & object };
 
@@ -3773,13 +3804,14 @@ declare namespace wx {
 		unlinked?: (target: Component<D, P>) => void;
 	}
 	type ThisTypedComponentOptionsWithRecordProps<
-		V extends Component<Data, Props>,
+		V extends Component<Data, Props, Behaviors>,
 		Data,
 		Methods,
-		Props
+		Props,
+    Behaviors extends Array<Behavior<{}, {}, {}> | string>
 	> = object &
-		ComponentOptions<V, Data, Methods, Props> &
-		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
+		ComponentOptions<V, Data, Methods, Props, Behaviors> &
+		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>, Behaviors>>;
 
 	interface ComponentRelation<D = any, P = any> {
 		/** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -3836,10 +3868,11 @@ declare namespace wx {
 	 * Component组件参数
 	 */
 	interface ComponentOptions<
-		Instance extends Component<Data, Props>,
+		Instance extends Component<Data, Props, Behaviors>,
 		Data = DefaultData<Instance>,
 		Methods = DefaultMethods<Instance>,
-		Props = PropsDefinition<DefaultProps>
+		Props = PropsDefinition<DefaultProps>,
+    Behaviors extends Array<Behavior<{}, {}, {}> | string> = []
 	> extends Partial<Lifetimes> {
 		/**
 		 * 组件的对外属性，是属性名到属性设置的映射表
@@ -3892,7 +3925,7 @@ declare namespace wx {
 		 * 类似于mixins和traits的组件间代码复用机制
 		 * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
 		 */
-		behaviors?: string[];
+    behaviors?: Behaviors;
 
 		/**
 		 * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
@@ -3920,7 +3953,7 @@ declare namespace wx {
 	 * Note this is different from PropOptions as it is the definitions you passed to Component function
 	 * whereas this type is for call-site.
 	 */
-	type DataValueType<Def> = Def extends {
+	type PropValueType<Def> = Def extends {
 		type: (...args: any[]) => infer T;
 		value?: infer T;
 	}
@@ -3932,7 +3965,7 @@ declare namespace wx {
 	/**
 	 * Component实例方法
 	 */
-	interface Component<D, P> {
+	interface Component<D, P, B extends Array<Behavior<{}, {}, {}> | string> = []> {
 		/**
 		 * 组件的文件路径
 		 */
@@ -3948,12 +3981,20 @@ declare namespace wx {
 		/**
 		 * 组件数据，包括内部数据和属性值
 		 */
-		data: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
+    data: D & UnboxBehaviorsData<B> & {
+      [key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
+        (P & UnboxBehaviorsProps<B>)[key]
+      >
+    };
 
 		/**
 		 * 组件数据，包括内部数据和属性值（与 data 一致）
 		 */
-		properties: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
+    properties: D & UnboxBehaviorsData<B> & {
+      [key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
+        (P & UnboxBehaviorsProps<B>)[key]
+      >
+    };
 		/**
 		 * 将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值
 		 * 1. 直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
@@ -4356,12 +4397,13 @@ declare function App<T extends wx.AppOptions>(
 declare function getApp(): wx.App;
 // #endregion
 // #region Compontent组件
-declare function Component<D, M, P>(
+declare function Component<D, M, P, B extends Array<wx.Behavior<{}, {}, {}> | string> = []>(
 	options?: wx.ThisTypedComponentOptionsWithRecordProps<
-		wx.Component<D, P>,
+		wx.Component<D, P, B>,
 		D,
 		M,
-		P
+		P,
+		B
 	>
 ): string;
 /**
@@ -4372,14 +4414,15 @@ declare function Component<D, M, P>(
  * 每个组件可以引用多个 behavior
  * behavior 也可以引用其他 behavior
  */
-declare function Behavior<D, M, P>(
+declare function Behavior<D, M, P, B extends Array<wx.Behavior<{}, {}, {}> | string> = []>(
 	options?: wx.ThisTypedComponentOptionsWithRecordProps<
-		wx.Component<D, P>,
+		wx.Component<D, P, B>,
 		D,
 		M,
-		P
+		P,
+		B
 	>
-): string;
+): wx.Behavior<D & wx.UnboxBehaviorsData<B>, P & wx.UnboxBehaviorsProps<B>, M & wx.UnboxBehaviorsMethods<B>>;
 // #endregion
 // #region Page
 /**
