@@ -120,12 +120,25 @@ declare namespace DotObject {
          */
         remove(path: string, obj: any): any;
         /**
+         *
+         * Replace/create with a string
+         *
          * @param {String} path dotted path
          * @param {String} v value to be set
          * @param {Object} obj object to be modified
          * @param {Function|Array} mods optional modifier
         */
         str(path: string, v: any, obj: Object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        /**
+         *
+         * Replace/merge an object to an existing object property
+         *
+         * @param {String} path dotted path
+         * @param {Object} v object to be set
+         * @param {Object} obj object to be modified
+         * @param {Boolean} merge optional merge
+        */
+		set(path: string, v: any, obj: Object, merge?: Boolean): void;
         /**
          *
          * Transfer a property from one object to another object.
