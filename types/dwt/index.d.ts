@@ -3527,7 +3527,7 @@ interface WebTwain {
      */
     SelectSource(): boolean;
 
-    /**   
+    /**
      * Selects the index-the source in SourceNameItems property as the current source.
      * @method WebTwain#SelectSourceByIndex
      * @param {number} index It is the index of SourceNameItems property.
@@ -3751,7 +3751,7 @@ interface WebTwain {
      */
     ShowImageEditorEx(x: number, y: number, cx: number, cy: number, nCmdShow: number): boolean;
 
-    /*ingored 
+    /*ingored    
     SourceNameItems
     */
 
