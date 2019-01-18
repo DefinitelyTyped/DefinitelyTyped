@@ -1,9 +1,13 @@
 import {
-    AbstractView, Component, ComponentClass,
+    Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
-    DOMElement, SFCElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC
+    SFCElement, CElement,
+    SFC
 } from 'react';
+import {
+    AbstractView, DOMElement,
+    ReactHTMLElement, DOMAttributes
+} from '../';
 
 import * as ReactTestUtils from ".";
 
