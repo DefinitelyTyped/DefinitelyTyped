@@ -2370,7 +2370,7 @@ interface WebTwain {
      * Downloads an image from the HTTP server.
      * @method WebTwain#HTTPDownloadEx
      * @param {string} HTTPServer the name of the HTTP server.
-     * @param {string} HTTPRemoteFile the relative path of the file on the HTTP server, or path to an action page (with necessary paramters) which gets and sends back the image stream to the client (please check the sample for more info)
+     * @param {string} HTTPRemoteFile the relative path of the file on the HTTP server, or path to an action page (with necessary parameters) which gets and sends back the image stream to the client (please check the sample for more info)
      * @param {EnumDWT_ImageType} lImageType the image format of the file to be downloaded.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the download fails. Please refer to the function prototype OnFailure.
@@ -2768,7 +2768,7 @@ interface WebTwain {
      * @param {string} InitialDir The initial directory. The algorithm for selecting the initial directory varies on different platforms.
      * @param {bool} AllowMultiSelect True -- allows users to select more than one file, False -- only allows to select one file.
      * @param {bool} OverwritePrompt True -- If a file already exists with the same name, the old file will be simply overwritten, False -- not allows to save and overwrite a same name file.
-     * @param {int} Flags If this parameter equals 0, the program will be initiated with the default flags, otherwise initiated with the cumstom value and parameters "AllowMultiSelect" and "OverwritePrompt" will be useless.
+     * @param {int} Flags If this parameter equals 0, the program will be initiated with the default flags, otherwise initiated with the cumstom value and paramters "AllowMultiSelect" and "OverwritePrompt" will be useless.
      * @return {bool}
      */
     ShowFileDialog(SaveDialog: boolean, Filter: string, FilterIndex: number, DefExtension: string, InitialDir: string, AllowMultiSelect: boolean, OverwritePrompt: boolean, Flags: number): boolean;
