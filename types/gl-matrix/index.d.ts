@@ -2667,7 +2667,7 @@ declare module 'gl-matrix' {
          *
          * @param out mat4 frustum matrix will be written into
          * @param eye Position of the viewer
-         * @param center Point the viewer is looking at
+         * @param target Point the viewer is looking at
          * @param up vec3 pointing up
          * @returns out
          */
