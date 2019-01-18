@@ -3920,7 +3920,7 @@ declare namespace wx {
 	 * Note this is different from PropOptions as it is the definitions you passed to Component function
 	 * whereas this type is for call-site.
 	 */
-	type DataValueType<Def> = Def extends {
+	type PropValueType<Def> = Def extends {
 		type: (...args: any[]) => infer T;
 		value?: infer T;
 	}
@@ -3948,12 +3948,12 @@ declare namespace wx {
 		/**
 		 * 组件数据，包括内部数据和属性值
 		 */
-		data: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
+		data: D & { [key in keyof P]: PropValueType<P[key]> };
 
 		/**
 		 * 组件数据，包括内部数据和属性值（与 data 一致）
 		 */
-		properties: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
+		properties: D & { [key in keyof P]: PropValueType<P[key]> };
 		/**
 		 * 将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值
 		 * 1. 直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
