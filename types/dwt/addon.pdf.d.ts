@@ -4,9 +4,9 @@
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2019, Dynamsoft Corporation
+* Copyright 2018, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 14.3.1
+* Version: 13.4
 */
 
 declare enum EnumDWT_ConvertMode {
