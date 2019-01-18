@@ -1,7 +1,17 @@
 import * as React from 'react';
 import { Typeahead, Highlighter, Menu, MenuItem } from 'react-bootstrap-typeahead';
 
-const options = [
+interface State {
+    capital: string;
+    name: string;
+    population: number;
+    region: string;
+}
+interface GroupedStates {
+    [key: string]: State[];
+}
+
+const options: State[] = [
     { name: 'Alabama', population: 4780127, capital: 'Montgomery', region: 'South' },
     { name: 'Alaska', population: 710249, capital: 'Juneau', region: 'West' },
     { name: 'Arizona', population: 6392307, capital: 'Phoenix', region: 'West' },
@@ -9,11 +19,36 @@ const options = [
     { name: 'California', population: 37254503, capital: 'Sacramento', region: 'West' },
     { name: 'Colorado', population: 5029324, capital: 'Denver', region: 'West' },
 ];
+const groups: GroupedStates = options.reduce((accum: GroupedStates, option: State) => {
+    const optKey = option.name.slice(0, 1).toLowerCase();
+    if (accum[optKey] !== undefined) {
+        accum[optKey].push(option);
+    } else {
+        accum[optKey] = [option];
+    }
+    return accum;
+}, {});
 
 class BasicExample extends React.Component {
     state = {
         multiple: false,
     };
+
+    genCustomMenu = () => {
+        const menuItems = Object.keys(groups).reduce((accum, letter) => {
+            const header = [
+                <Menu.Divider key={`${letter}-start`} />,
+                <Menu.Header key={`${letter}-header`}>{`States starting with: ${letter.toUpperCase()}`}</Menu.Header>,
+                <Menu.Divider key={`${letter}-end`} />,
+            ];
+            const states = groups[letter].map((state: State, index: number) => {
+                return (<MenuItem key={state.name} position={index} option={state}>{state.name}</MenuItem>);
+            });
+            return [...accum, ...header, ...states];
+        }, [] as JSX.Element[]);
+
+        return menuItems;
+    }
 
     render() {
         const { multiple } = this.state;
@@ -68,6 +103,13 @@ class BasicExample extends React.Component {
                       </MenuItem>
                     ))}
                   </Menu>
+                </Typeahead>
+                <Typeahead
+                    labelKey="name"
+                    options={options}
+                    placeholder="Choose a state..."
+                >
+                    <Menu id="menu-id">{...this.genCustomMenu()}</Menu>
                 </Typeahead>
             </div>
         );

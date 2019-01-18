@@ -4,6 +4,7 @@
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Paito Anderson <https://github.com/PaitoAnderson>
 //                 Andreas Richter <https://github.com/arichter83>
+//                 Dale Fenton <https://github.com/dalevfenton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // TODO: <Token> components
@@ -204,10 +205,15 @@ export interface MenuProps<T> {
     emptyLabel?: string;
     innerRef?: string;
     maxHeight?: string;
-    style?: CSS.Properties;
+    style?: React.CSSProperties;
 }
 
-export const Menu: React.ClassicComponentClass<MenuProps<any>>;
+export type MenuHeaderProps = Pick<React.HTMLProps<'li'>, Exclude<keyof React.HTMLProps<'li'>, 'className'>>;
+
+export class Menu extends React.Component<MenuProps<any>> {
+    static Divider: React.SFC;
+    static Header: React.SFC<MenuHeaderProps>;
+}
 
 export interface MenuItemProps<T> {
     option: T;
