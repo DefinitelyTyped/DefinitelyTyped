@@ -8,6 +8,7 @@
 //                 Matthieu Vachon <https://github.com/maoueh>
 //                 Adam Lavin <https://github.com/lavoaster>
 //                 Joachim Schuler <https://github.com/jschuler>
+//                 Adam Misiorny <https://github.com/adam187>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -43,7 +44,7 @@ export interface LowLevelStylefunctionArguments {
 export function style(args: LowLevelStylefunctionArguments): {[cssProp: string]: string};
 
 export type TLengthStyledSystem = string | 0 | number;
-export type ResponsiveValue<T> = T | Array<T | null>;
+export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
 
 /**
  * Converts shorthand margin and padding props to margin and padding CSS declarations
