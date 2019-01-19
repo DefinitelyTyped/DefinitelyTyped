@@ -7,6 +7,7 @@
 import * as H from 'history';
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { Connect } from 'react-redux';
 import { match } from "react-router";
@@ -24,13 +25,13 @@ export interface _model {
   name: string;
   reducers: any;
 }
-export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps extends ReactDOM.AnchorHTMLAttributes<HTMLAnchorElement> {
   to: H.LocationDescriptor;
   replace?: boolean;
 }
 export interface NavLinkProps extends LinkProps {
   activeClassName?: string;
-  activeStyle?: React.CSSProperties;
+  activeStyle?: ReactDOM.CSSProperties;
   exact?: boolean;
   strict?: boolean;
   isActive?(match: match<any>, location: H.Location): boolean;
@@ -111,13 +112,13 @@ export interface defaultOptions {
 
 export interface Renderer {
   <T extends Element>(
-    element: React.DOMElement<React.DOMAttributes<T>, T>,
+    element: ReactDOM.DOMElement<ReactDOM.DOMAttributes<T>, T>,
     container: Element | null,
     callback?: () => void
   ): T;
 
   (
-    element: Array<React.DOMElement<React.DOMAttributes<any>, any>>,
+    element: Array<ReactDOM.DOMElement<ReactDOM.DOMAttributes<any>, any>>,
     container: Element | null,
     callback?: () => void
   ): Element;
