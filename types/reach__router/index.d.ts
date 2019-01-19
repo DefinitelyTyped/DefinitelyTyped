@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { Location as HLocation } from "history";
 export type WindowLocation = Window["location"] & HLocation;
 
@@ -25,7 +26,7 @@ export interface History {
 }
 
 export class Router extends React.Component<
-  RouterProps & React.HTMLProps<HTMLDivElement>
+  RouterProps & ReactDOM.HTMLProps<HTMLDivElement>
 > {}
 
 export interface RouterProps {
@@ -46,8 +47,8 @@ export type RouteComponentProps<TParams = {}> = Partial<TParams> & {
 export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export type AnchorProps = Omit<
-    React.DetailedHTMLProps<
-    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+ReactDOM.DetailedHTMLProps<
+ReactDOM.AnchorHTMLAttributes<HTMLAnchorElement>,
     HTMLAnchorElement
     >,
     "href" // remove href, as it's ignored by the router
