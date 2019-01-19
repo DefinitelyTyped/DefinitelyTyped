@@ -442,7 +442,7 @@ declare namespace massive {
         /** Execute a query. */
         query(
             query: Select | Insert | Update | Delete | string,
-            params?: string[],
+            params?: string[] | any,
             options?: ResultProcessingOptions
         ): Promise<any>;
 
