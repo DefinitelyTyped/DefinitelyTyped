@@ -36,6 +36,8 @@ declare namespace Bull {
     max: number;
     /** Per duration in milliseconds */
     duration: number;
+    /** When jobs get rate limited, they stay in the waiting queue and are not moved to the delayed queue */
+    bounceBack?: boolean;
   }
 
   interface QueueOptions {
