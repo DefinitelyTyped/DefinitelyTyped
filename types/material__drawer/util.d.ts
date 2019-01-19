@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-import { MDCFoundation } from 'material__base';
-import { MDCSlidableDrawerAdapter } from './adapter';
+import { FocusTrap } from './focus-trap';
 
-export class MDCSlidableDrawerFoundation extends MDCFoundation<MDCSlidableDrawerAdapter> {
-    static readonly defaultAdapter: MDCSlidableDrawerAdapter;
-
-    constructor(adapter: MDCSlidableDrawerAdapter, rootCssClass: string, animatingCssClass: string, openCssClass: string);
-
-    open(): void;
-
-    close(): void;
-
-    isOpen(): boolean;
-}
+export function createFocusTrapInstance(surfaceEl: Element, focusTrapFactory: () => FocusTrap): FocusTrap;
