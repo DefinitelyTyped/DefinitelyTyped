@@ -1,7 +1,8 @@
-// Type definitions for snoowrap 1.16
+// Type definitions for snoowrap 1.15.2
 // Project: https://github.com/not-an-aardvark/snoowrap
 // Definitions by: Vito Samson <https://github.com/vitosamson>
 //                 TheAppleFreak <https://github.com/TheAppleFreak>
+//                 Willy Liu <https://github.com/willwull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
