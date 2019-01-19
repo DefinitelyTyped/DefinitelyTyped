@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ChangeEvent, ReactNode, CSSProperties, HTMLProps } from 'react';
+import { Component, ReactNode } from 'react';
+import { ChangeEvent, CSSProperties, HTMLProps } from 'react-dom';
 
 export = Autocomplete;
 declare namespace Autocomplete {
