@@ -7,6 +7,7 @@
 /// <reference types="swipe" />
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 declare class ReactSwipe extends React.Component<ReactSwipe.Props> {
     prev(): void;
@@ -18,9 +19,9 @@ declare class ReactSwipe extends React.Component<ReactSwipe.Props> {
 
 declare namespace ReactSwipe {
     interface Style {
-        container: React.CSSProperties;
-        wrapper: React.CSSProperties;
-        child: React.CSSProperties;
+        container: ReactDOM.CSSProperties;
+        wrapper: ReactDOM.CSSProperties;
+        child: ReactDOM.CSSProperties;
     }
 
     interface Props {
