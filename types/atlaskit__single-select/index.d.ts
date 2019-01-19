@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode, SyntheticEvent } from 'react';
+import { Component, ReactNode } from 'react';
+import { SyntheticEvent } from 'react-dom';
 
 export default class SingleSelect extends Component<Props> {}
 export class StatelessSelect extends Component<StatelessProps> {}
