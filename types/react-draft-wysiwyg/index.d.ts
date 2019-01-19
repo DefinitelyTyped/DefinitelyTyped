@@ -6,10 +6,11 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as Draft from 'draft-js';
 
-export type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
-export type SyntheticEvent = React.SyntheticEvent<{}>;
+export type SyntheticKeyboardEvent = ReactDOM.KeyboardEvent<{}>;
+export type SyntheticEvent = ReactDOM.SyntheticEvent<{}>;
 export type RawDraftContentState = Draft.RawDraftContentState;
 
 export class EditorState extends Draft.EditorState {}
@@ -38,8 +39,8 @@ export interface EditorProps {
     editorClassName?: string;
     wrapperClassName?: string;
     toolbarStyle?: object;
-    editorStyle?: React.CSSProperties;
-    wrapperStyle?: React.CSSProperties;
+    editorStyle?: ReactDOM.CSSProperties;
+    wrapperStyle?: ReactDOM.CSSProperties;
     uploadCallback?(file: object): Promise<object>;
     onFocus?(event: SyntheticEvent): void;
     onBlur?(event: SyntheticEvent): void;
