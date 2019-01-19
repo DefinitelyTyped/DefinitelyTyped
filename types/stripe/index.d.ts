@@ -14,7 +14,7 @@
 //                 Troy Zarger <https://github.com/tzarger>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Simon Schick <https://github.com/SimonSchick>
-//                 Slava Yultyyev Schick <https://github.com/yultyyev>
+//                 Slava Yultyyev <https://github.com/yultyyev>
 //                 Corey Psoinos <https://github.com/cpsoinos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -710,7 +710,7 @@ declare namespace Stripe {
             type: string;
         }
 
-        interface IBalanceListOptions extends IListOptions {
+        interface IBalanceListOptions extends IListOptionsCreated {
             available_on?: string | IDateFilter;
             currency?: string;
 
@@ -721,17 +721,10 @@ declare namespace Stripe {
             source?: string;
 
             /**
-             * For automatic Stripe transfers only, only returns transactions that were
-             * transferred out on the specified transfer ID.
+             * Only returns transactions of the given type.
              */
-            transfer?: string;
-
-            /**
-             * Only returns transactions of the given type. One of: "charge", "refund",
-             * "adjustment", "application_fee", "application_fee_refund", "transfer",
-             * or "transfer_failure"
-             */
-            type?: string;
+            type?: "charge" | "refund" | "adjustment" | "application_fee" |
+                "application_fee_refund" | "transfer" | "payment" | "payout" | "payout_failure" | "stripe_fee" | "network_cost";
 
             /**
              * For automatic Stripe payouts only, only returns transactions that were payed out on the specified payout ID.
