@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import Appbar from './lib/react/appbar';
 import Button from './lib/react/button';
 import Checkbox from './lib/react/checkbox';
@@ -38,12 +39,12 @@ export {
     Textarea
 };
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ReactDOM.ButtonHTMLAttributes<HTMLButtonElement> {
     size?: string;
     variant?: string;
 }
 
-export interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CheckboxProps extends ReactDOM.HTMLAttributes<HTMLDivElement> {
     name?: string;
     label?: React.ReactNode;
     autoFocus?: boolean;
@@ -71,16 +72,16 @@ export interface ContainerProps extends DivProps {
     fluid?: boolean;
 }
 
-export interface DivProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface DivProps extends ReactDOM.HTMLAttributes<HTMLDivElement> {}
 export type DividerProps = DivProps;
 
-export interface DropdownItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
+export interface DropdownItemProps extends ReactDOM.LiHTMLAttributes<HTMLLIElement> {
     link?: string;
     target?: string;
 }
 
-export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-    onOutsideClick?: React.MouseEventHandler<HTMLDivElement>;
+export interface DropdownProps extends ReactDOM.HTMLAttributes<HTMLDivElement> {
+    onOutsideClick?: ReactDOM.MouseEventHandler<HTMLDivElement>;
 
     variant?: string;
     size?: string;
@@ -89,20 +90,20 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
     disabled?: boolean;
 }
 
-export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
+export interface FormProps extends ReactDOM.FormHTMLAttributes<HTMLFormElement> {
     inline?: boolean;
 }
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends ReactDOM.InputHTMLAttributes<HTMLInputElement> {
     inputRef?: React.Ref<HTMLInputElement>;
-    onLabelClick?: React.MouseEventHandler<HTMLInputElement>;
+    onLabelClick?: ReactDOM.MouseEventHandler<HTMLInputElement>;
     hint?: string;
     invalid?: boolean;
     label?: React.ReactNode;
     floatingLabel?: boolean;
 }
 
-export interface OptionProps extends React.OptionHTMLAttributes<HTMLOptionElement> {
+export interface OptionProps extends ReactDOM.OptionHTMLAttributes<HTMLOptionElement> {
 }
 
 export type PanelProps = DivProps;
@@ -133,9 +134,9 @@ export interface TabsProps extends DivProps {
     justified?: boolean;
 }
 
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextareaProps extends ReactDOM.TextareaHTMLAttributes<HTMLTextAreaElement> {
     inputRef?: React.Ref<HTMLTextAreaElement>;
-    onLabelClick?: React.MouseEventHandler<HTMLInputElement>;
+    onLabelClick?: ReactDOM.MouseEventHandler<HTMLInputElement>;
     hint?: string;
     invalid?: boolean;
     label?: React.ReactNode;
