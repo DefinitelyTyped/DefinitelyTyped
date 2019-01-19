@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 ///<reference types="react" />
+///<reference types="react-dom" />
 
 declare module "react-file-input" {
     interface FileInputProps {
@@ -13,7 +14,7 @@ declare module "react-file-input" {
         accept: string;
         placeholder: string;
         disabled?: boolean;
-        onChange: (event: React.SyntheticEvent<any>) => void;
+        onChange: (event: ReactDOM.SyntheticEvent<any>) => void;
     }
 
     class FileInput extends React.Component<FileInputProps> {
