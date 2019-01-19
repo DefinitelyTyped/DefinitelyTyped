@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="react" />
+/// <reference types="react-dom" />
 /// <reference types="node" />
 
 // tslint:disable-next-line no-single-declare-module
@@ -71,7 +72,7 @@ declare module "meteor/universe:i18n" {
         _locale?: string;
         _tagType?: string;
         _namespace?: string;
-        _props?: React.HTMLAttributes<React.Component>;
+        _props?: ReactDOM.HTMLAttributes<React.Component>;
         _translateProps?: string[];
         _containerType?: string;
     }
