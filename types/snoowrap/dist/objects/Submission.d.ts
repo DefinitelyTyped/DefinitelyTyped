@@ -26,7 +26,7 @@ interface Media {
     type: 'video' | 'rich';
     version: string;
     width: number;
-  },
+  };
   reddit_video?: {
     dash_url: string;
     duration: number;
@@ -36,7 +36,7 @@ interface Media {
     is_gif: boolean;
     scrubber_media_url: string;
     transcoding_status: string;
-  }
+  };
   type?: string;
 }
 
@@ -71,7 +71,7 @@ export default class Submission extends VoteableContent<Submission> {
   link_flair_background_color: string;
   link_flair_css_class: string | null;
   link_flair_richtext: RichTextFlair[];
-  link_flair_template_id: string | null;
+  link_flair_template_id: string | null;
   link_flair_text: string | null;
   link_flair_text_color: 'dark' | 'light';
   link_flair_type: 'text' | 'richtext';
