@@ -1,8 +1,3 @@
-// Type definitions for Material Components Web 0.43
-// Project: https://material.io/components/
-// Definitions by: Arthur Groupp <https://github.com/agroupp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class MDCListAdapter {
     getListItemCount(): number;
     getFocusedElementIndex(): number;
@@ -30,7 +25,7 @@ export class MDCListAdapter {
     /**
      * Returns true if radio button is present at given list item index.
      */
-    hasRadioAtIndex(index: number): boolean
+    hasRadioAtIndex(index: number): boolean;
 
     /**
      * Returns true if checkbox is present at given list item index.

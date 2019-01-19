@@ -27,16 +27,14 @@ import { MDCDrawerAdapter } from './adapter';
 import { MDCList, MDCListFoundation } from 'material__list/index';
 import { strings } from './constants';
 import * as util from './util';
-import createFocusTrap from './focus-trap';
-import { FocusTrap } from './focus-trap';
+import createFocusTrap, { FocusTrap } from './focus-trap';
 
 export class MDCDrawer extends MDCComponent<MDCDrawer, MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation> {
-  constructor(...args: any);
+  constructor(...args: any[]);
   static attachTo(root: Element): MDCDrawer;
 
   /**
    * Returns true if drawer is in the open position.
-   * @return {boolean}
    */
   open: boolean;
 

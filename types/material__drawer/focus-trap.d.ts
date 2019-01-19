@@ -55,9 +55,9 @@ export interface Options {
     clickOutsideDeactivates?: boolean;
 }
 
-type ActivateOptions = Pick<Options, "onActivate">;
+export type ActivateOptions = Pick<Options, "onActivate">;
 
-interface DeactivateOptions extends Pick<Options, "onDeactivate"> {
+export interface DeactivateOptions extends Pick<Options, "onDeactivate"> {
     returnFocus?: boolean;
 }
 
@@ -79,4 +79,3 @@ export default function focusTrap(
     element: HTMLElement | string,
     userOptions?: Options
 ): FocusTrap;
-

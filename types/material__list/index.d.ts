@@ -22,7 +22,7 @@
  */
 
 import MDCComponent from 'material__base/component';
-import { MDCListFoundation } from './foundation'
+import { MDCListFoundation } from './foundation';
 import { MDCListAdapter } from './adapter';
 import { matches } from 'material__dom/ponyfill';
 import { cssClasses, strings, Index } from './constants'; // eslint-disable-line no-unused-vars
@@ -33,7 +33,7 @@ export class MDCList {
 
   destroy(): void;
 
-  initialSyncWithDOM():void;
+  initialSyncWithDOM(): void;
 
   layout(): void;
 

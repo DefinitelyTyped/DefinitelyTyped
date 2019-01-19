@@ -1,13 +1,8 @@
-// Type definitions for Material Components Web 0.43
-// Project: https://material.io/components/
-// Definitions by: Arthur Groupp <https://github.com/agroupp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import MDCFoundation from 'material__base/foundation';
 import { MDCListAdapter } from './adapter';
 import { strings, cssClasses, Index } from './constants';
 
-declare const ELEMENTS_KEY_ALLOWED_IN: string[];
+export const ELEMENTS_KEY_ALLOWED_IN: string[];
 
 export class MDCListFoundation extends MDCFoundation<MDCListFoundation> {
   static readonly strings: strings;
@@ -75,4 +70,3 @@ export class MDCListFoundation extends MDCFoundation<MDCListFoundation> {
 
   focusLastElement(): number;
 }
-

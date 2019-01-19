@@ -16,4 +16,4 @@
 
 import { FocusTrap } from './focus-trap';
 
-export function createFocusTrapInstance(surfaceEl: Element, focusTrapFactory: Function): FocusTrap
+export function createFocusTrapInstance(surfaceEl: Element, focusTrapFactory: () => FocusTrap): FocusTrap;

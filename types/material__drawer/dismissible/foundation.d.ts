@@ -1,8 +1,3 @@
-// Type definitions for Material Components Web 0.43
-// Project: https://material.io/components/
-// Definitions by: Arthur Groupp <https://github.com/agroupp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @license
  * Copyright 2018 Google Inc.
@@ -28,7 +23,7 @@
 
 import { MDCDrawerAdapter } from '../adapter';
 import MDCFoundation from 'material__base/foundation';
-import {cssClasses, strings} from '../constants';
+import { cssClasses, strings } from '../constants';
 
 export class MDCDismissibleDrawerFoundation extends MDCFoundation<MDCDrawerAdapter> {
   static readonly strings: strings;
