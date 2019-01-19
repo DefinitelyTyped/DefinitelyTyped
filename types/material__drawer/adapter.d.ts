@@ -2,7 +2,6 @@
 // Project: https://material.io/components/
 // Definitions by: Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
 
 /**
  * @license
