@@ -6,6 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 declare module "react-custom-scrollbars" {
     export interface positionValues {
@@ -19,8 +20,8 @@ declare module "react-custom-scrollbars" {
         scrollTop: number;
     }
 
-    export interface ScrollbarProps extends React.HTMLProps<Scrollbars> {
-        onScroll?: React.UIEventHandler<any>;
+    export interface ScrollbarProps extends ReactDOM.HTMLProps<Scrollbars> {
+        onScroll?: ReactDOM.UIEventHandler<any>;
         onScrollFrame?: (values: positionValues) => void;
         onScrollStart?: () => void;
         onScrollStop?: () => void;
