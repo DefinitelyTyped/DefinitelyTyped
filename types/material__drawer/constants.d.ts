@@ -17,14 +17,19 @@
 import { MDCStrings } from 'material__base';
 
 export interface cssClasses extends MDCStrings {
-    ROOT: 'mdc-drawer--persistent';
+    ROOT: 'mdc-drawer';
+    DISMISSIBLE: 'mdc-drawer--dismissible',
+    MODAL: 'mdc-drawer--modal',
     OPEN: 'mdc-drawer--open';
-    ANIMATING: 'mdc-drawer--animating';
+    ANIMATE: 'mdc-drawer--animate';
+    OPENING: 'mdc-drawer--opening',
+    CLOSING: 'mdc-drawer--closing',
 }
 
 export interface strings extends MDCStrings {
-    DRAWER_SELECTOR: '.mdc-drawer--persistent .mdc-drawer__drawer';
-    FOCUSABLE_ELEMENTS: 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex], [contenteditable]';
-    OPEN_EVENT: 'MDCPersistentDrawer:open';
-    CLOSE_EVENT: 'MDCPersistentDrawer:close';
+    APP_CONTENT_SELECTOR: '.mdc-drawer-app-content',
+    SCRIM_SELECTOR: '.mdc-drawer-scrim',
+    CLOSE_EVENT: 'MDCDrawer:closed',
+    OPEN_EVENT: 'MDCDrawer:opened',
 }
+
