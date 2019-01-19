@@ -300,8 +300,9 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
 
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
-// NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
-export type CellProps = Partial<PresentationAttributes>;
+export interface CellProps extends Partial<PresentationAttributes> {
+    onClick?: RechartsFunction;
+}
 
 export class Cell extends React.Component<CellProps> { }
 
@@ -434,6 +435,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     cy?: number | string;
     startAngle?: number;
     endAngle?: number;
+    midAngle?: number;
     paddingAngle?: number;
     innerRadius?: number | string;
     outerRadius?: number | string;
@@ -928,6 +930,7 @@ export interface XAxisProps extends EventAttributes {
     // The margin between tick line and the label
     tickMargin?: number;
     interval?: AxisInterval;
+    textAnchor?: string;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/XAxis
     label?: string | number | Label | LabelProps;
