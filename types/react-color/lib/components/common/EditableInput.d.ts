@@ -1,10 +1,11 @@
-import { Component, ClassAttributes, CSSProperties } from "react";
+import { Component, ClassAttributes } from "react";
+import * as ReactDOM from "react-dom";
 import { Color, ColorChangeHandler } from "../../..";
 
 export interface EditableInputStyles {
-    input?: CSSProperties;
-    label?: CSSProperties;
-    wrap?: CSSProperties;
+    input?: ReactDOM.CSSProperties;
+    label?: ReactDOM.CSSProperties;
+    wrap?: ReactDOM.CSSProperties;
 }
 
 export interface EditableInputProps extends ClassAttributes<EditableInput> {
