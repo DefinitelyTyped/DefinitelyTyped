@@ -1,8 +1,14 @@
 // Type definitions for parcel-bundler 1.10
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: pinage404 <https://github.com/pinage404>
+//                 hasparus <https://github.com/hasparus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
+
+/// <reference types="node" />
+
+import * as http from "http";
+import * as https from "https";
 
 declare namespace ParcelBundler {
     interface ParcelOptions {
@@ -173,6 +179,12 @@ declare class ParcelBundler {
     addPackager(type: string, packager: string): void;
 
     bundle(): Promise<ParcelBundler.ParcelBundle>;
+
+    serve(
+        port?: number,
+        https?: boolean | { cert: string; key: string },
+        host?: string
+    ): http.Server | https.Server;
 }
 
 export = ParcelBundler;
