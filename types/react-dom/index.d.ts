@@ -521,6 +521,19 @@ declare namespace ReactDOM {
         onTransitionEndCapture?: TransitionEventHandler<T>;
     }
 
+    // TODO: this was exported while in @types/react, probably
+    // for namespace merging. Look into where this was happening?
+    interface CSSProperties extends CSS.Properties<string | number> {
+        /**
+         * The index signature was removed to enable closed typing for style
+         * using CSSType. You're able to use type assertion or module augmentation
+         * to add properties or an index signature of your own.
+         *
+         * For examples and more information, visit:
+         * https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
+         */
+    }
+
     interface HTMLAttributes<T> extends DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
@@ -541,7 +554,7 @@ declare namespace ReactDOM {
         placeholder?: string;
         slot?: string;
         spellCheck?: boolean;
-        style?: React.CSSProperties;
+        style?: CSSProperties;
         tabIndex?: number;
         title?: string;
 
@@ -577,7 +590,8 @@ declare namespace ReactDOM {
         security?: string;
         unselectable?: 'on' | 'off';
     }
-// All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
+
+    // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
     interface HTMLAttributes<T> extends DOMAttributes<T> {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
         'aria-activedescendant'?: string;
@@ -1290,7 +1304,7 @@ declare namespace ReactDOM {
         method?: string;
         min?: number | string;
         name?: string;
-        style?: React.CSSProperties;
+        style?: CSSProperties;
         target?: string;
         type?: string;
         width?: number | string;
@@ -1825,19 +1839,6 @@ declare module 'react' {
         element: ReactDOM.DOMElement<P, T>,
         props?: ReactDOM.DOMAttributes<T> & P,
         ...children: ReactNode[]): ReactDOM.DOMElement<P, T>;
-
-    // TODO: this was exported while in @types/react, probably
-    // for namespace merging. Look into where this was happening?
-    interface CSSProperties extends CSS.Properties<string | number> {
-        /**
-         * The index signature was removed to enable closed typing for style
-         * using CSSType. You're able to use type assertion or module augmentation
-         * to add properties or an index signature of your own.
-         *
-         * For examples and more information, visit:
-         * https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
-         */
-    }
 }
 
 declare global {

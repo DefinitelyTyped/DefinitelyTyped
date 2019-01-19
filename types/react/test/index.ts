@@ -418,7 +418,7 @@ function RefCarryingComponent() {
 // --------------------------------------------------------------------------
 
 const children: any[] = ["Hello world", [null], DOM.span(null)];
-const divStyle: React.CSSProperties = { // CSSProperties
+const divStyle: ReactDOM.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
