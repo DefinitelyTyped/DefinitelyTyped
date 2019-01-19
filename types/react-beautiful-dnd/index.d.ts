@@ -10,6 +10,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type Id = string;
 export type DraggableId = Id;
@@ -156,16 +157,16 @@ export interface DraggableProvidedDraggableProps {
 }
 
 export interface DraggableProvidedDragHandleProps {
-    onMouseDown: React.MouseEventHandler<any>;
-    onKeyDown: React.KeyboardEventHandler<any>;
-    onTouchStart: React.TouchEventHandler<any>;
-    onTouchMove: React.TouchEventHandler<any>;
+    onMouseDown: ReactDOM.MouseEventHandler<any>;
+    onKeyDown: ReactDOM.KeyboardEventHandler<any>;
+    onTouchStart: ReactDOM.TouchEventHandler<any>;
+    onTouchMove: ReactDOM.TouchEventHandler<any>;
     'data-react-beautiful-dnd-drag-handle': string;
     'aria-roledescription': string;
     tabIndex: number;
     'aria-grabbed': boolean;
     draggable: boolean;
-    onDragStart: React.DragEventHandler<any>;
+    onDragStart: ReactDOM.DragEventHandler<any>;
 }
 
 export interface DraggableProvided {
