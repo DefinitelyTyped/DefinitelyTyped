@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type PaneId = string | number;
 
@@ -28,7 +29,7 @@ export interface PaneResizeData {
 
 export interface SortablePaneProps {
     className?: string;
-    style?: React.HTMLAttributes<HTMLElement>;
+    style?: ReactDOM.HTMLAttributes<HTMLElement>;
     direction?: 'horizontal' | 'vertical';
     margin?: number;
     zIndex?: number;
@@ -38,29 +39,29 @@ export interface SortablePaneProps {
     dragHandleClassName?: string;
     onOrderChange?: (oldPanes: PaneProperty[], newPanes: PaneProperty[]) => void;
     onResizeStart?: (
-        e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>,
+        e: ReactDOM.MouseEvent<HTMLElement> | ReactDOM.TouchEvent<HTMLElement>,
         id: PaneId,
         panes: PaneProperty[],
     ) => void;
     onResize?: (
-        e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>,
+        e: ReactDOM.MouseEvent<HTMLElement> | ReactDOM.TouchEvent<HTMLElement>,
         id: PaneId,
         panes: PaneProperty[],
         data: PaneResizeData,
     ) => void;
     onResizeStop?: (
-        e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>,
+        e: ReactDOM.MouseEvent<HTMLElement> | ReactDOM.TouchEvent<HTMLElement>,
         id: PaneId,
         panes: PaneProperty[],
         data: PaneResizeData,
     ) => void;
     onDragStart?: (
-        e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>,
+        e: ReactDOM.MouseEvent<HTMLElement> | ReactDOM.TouchEvent<HTMLElement>,
         id: PaneId,
         panes: PaneProperty[],
     ) => void;
     onDragStop?: (
-        e: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>,
+        e: ReactDOM.MouseEvent<HTMLElement> | ReactDOM.TouchEvent<HTMLElement>,
         id: PaneId,
         panes: PaneProperty[],
     ) => void;
@@ -79,7 +80,7 @@ export interface PaneProps {
     maxWidth?: string | number;
     maxHeight?: string | number;
     className?: string;
-    style?: React.HTMLAttributes<HTMLElement>;
+    style?: ReactDOM.HTMLAttributes<HTMLElement>;
     isResizable?: { x?: boolean; y?: boolean; xy?: boolean };
 }
 
