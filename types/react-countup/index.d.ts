@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export as namespace ReactCountUp;
 
@@ -57,7 +58,7 @@ declare namespace ReactCountUp {
             reset(): void;
             start(): void;
         }): void;
-        style?: React.CSSProperties;
+        style?: ReactDOM.CSSProperties;
         children?(data: RenderProps): React.ReactElement<any>;
     }
 }
