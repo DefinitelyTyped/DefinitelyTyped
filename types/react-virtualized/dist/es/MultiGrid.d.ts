@@ -1,4 +1,5 @@
 import { PureComponent, Validator, Requireable } from "react";
+import * as ReactDOM from "react-dom";
 import { GridProps } from "./Grid";
 import { CellPosition } from "./CellMeasurer";
 
@@ -11,11 +12,11 @@ export type MultiGridProps = {
     enableFixedRowScroll?: boolean;
     fixedColumnCount?: number;
     fixedRowCount?: number;
-    style?: React.CSSProperties;
-    styleBottomLeftGrid?: React.CSSProperties;
-    styleBottomRightGrid?: React.CSSProperties;
-    styleTopLeftGrid?: React.CSSProperties;
-    styleTopRightGrid?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
+    styleBottomLeftGrid?: ReactDOM.CSSProperties;
+    styleBottomRightGrid?: ReactDOM.CSSProperties;
+    styleTopLeftGrid?: ReactDOM.CSSProperties;
+    styleTopRightGrid?: ReactDOM.CSSProperties;
 } & GridProps;
 
 export type MultiGridState = {
@@ -40,11 +41,11 @@ export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
         enableFixedRowScroll: Validator<boolean>;
         fixedColumnCount: Validator<number>;
         fixedRowCount: Validator<number>;
-        style: Validator<React.CSSProperties>;
-        styleBottomLeftGrid: Validator<React.CSSProperties>;
-        styleBottomRightGrid: Validator<React.CSSProperties>;
-        styleTopLeftGrid: Validator<React.CSSProperties>;
-        styleTopRightGrid: Validator<React.CSSProperties>;
+        style: Validator<ReactDOM.CSSProperties>;
+        styleBottomLeftGrid: Validator<ReactDOM.CSSProperties>;
+        styleBottomRightGrid: Validator<ReactDOM.CSSProperties>;
+        styleTopLeftGrid: Validator<ReactDOM.CSSProperties>;
+        styleTopRightGrid: Validator<ReactDOM.CSSProperties>;
     };
 
     static defaultProps: {

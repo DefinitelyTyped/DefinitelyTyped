@@ -1,4 +1,5 @@
 import { PureComponent } from "react";
+import * as ReactDOM from "react-dom";
 
 export type CellMeasurerCacheInterface = {
     hasFixedWidth(): boolean;
@@ -65,7 +66,7 @@ export type CellMeasurerProps = {
     index?: number;
     parent: MeasuredCellParent;
     rowIndex?: number;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose

@@ -1,4 +1,5 @@
 import { PureComponent, Validator, Requireable } from "react";
+import * as ReactDOM from "react-dom";
 import * as PropTypes from "prop-types";
 
 export type Size = {
@@ -41,7 +42,7 @@ export type AutoSizerProps = {
      * Optional custom inline style to attach to root AutoSizer element.
      * This is an advanced property and is not typically necessary.
      */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose

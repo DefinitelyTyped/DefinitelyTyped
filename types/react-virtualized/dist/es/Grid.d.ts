@@ -1,4 +1,5 @@
 import { Validator, Requireable, PureComponent } from "react";
+import * as ReactDOM from "react-dom";
 import { List } from "./List";
 import { Table } from "./Table";
 import { CellMeasurerCache, MeasuredCellParent } from "./CellMeasurer";
@@ -22,7 +23,7 @@ export type GridCellProps = {
     key: string;
     parent: MeasuredCellParent;
     rowIndex: number;
-    style: React.CSSProperties;
+    style: ReactDOM.CSSProperties;
 };
 export type GridCellRenderer = (props: GridCellProps) => React.ReactNode;
 
@@ -146,7 +147,7 @@ export type GridCellRangeProps = {
     deferredMeasurementCache: CellMeasurerCache;
     horizontalOffsetAdjustment: number;
     parent: MeasuredCellParent;
-    styleCache: Map<React.CSSProperties>;
+    styleCache: Map<ReactDOM.CSSProperties>;
     verticalOffsetAdjustment: number;
     visibleColumnIndices: VisibleCellRange;
     visibleRowIndices: VisibleCellRange;
@@ -199,7 +200,7 @@ export type GridCoreProps = {
     /** ARIA role for the cell-container.  */
     containerRole?: string;
     /** Optional inline style applied to inner cell-container */
-    containerStyle?: React.CSSProperties;
+    containerStyle?: ReactDOM.CSSProperties;
     /**
      * If CellMeasurer is used to measure this Grid's children, this should be a pointer to its CellMeasurerCache.
      * A shared CellMeasurerCache reference enables Grid and CellMeasurer to share measurement data.
@@ -308,7 +309,7 @@ export type GridCoreProps = {
      */
     scrollToRow?: number;
     /** Optional inline style */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /** Tab index for focus */
     tabIndex?: number | null;
     /**

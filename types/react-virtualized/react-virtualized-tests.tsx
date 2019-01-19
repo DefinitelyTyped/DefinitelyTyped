@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { PureComponent } from "react";
 import {
     ArrowKeyStepper,
@@ -931,20 +932,20 @@ export class GridExample2 extends PureComponent<any, any> {
 
 import { MultiGrid } from "react-virtualized";
 
-const STYLE: React.CSSProperties = {
+const STYLE: ReactDOM.CSSProperties = {
     border: "1px solid #ddd",
     overflow: "hidden"
 };
-const STYLE_BOTTOM_LEFT_GRID: React.CSSProperties = {
+const STYLE_BOTTOM_LEFT_GRID: ReactDOM.CSSProperties = {
     borderRight: "2px solid #aaa",
     backgroundColor: "#f7f7f7"
 };
-const STYLE_TOP_LEFT_GRID: React.CSSProperties = {
+const STYLE_TOP_LEFT_GRID: ReactDOM.CSSProperties = {
     borderBottom: "2px solid #aaa",
     borderRight: "2px solid #aaa",
     fontWeight: "bold"
 };
-const STYLE_TOP_RIGHT_GRID: React.CSSProperties = {
+const STYLE_TOP_RIGHT_GRID: ReactDOM.CSSProperties = {
     borderBottom: "2px solid #aaa",
     fontWeight: "bold"
 };
@@ -1629,7 +1630,7 @@ export class GridCellRangeRendererExample extends PureComponent<{}, any> {
         visibleRowIndices
     }: GridCellRangeProps): React.ReactNode[] {
         const renderedCells: React.ReactNode[] = [];
-        const style: React.CSSProperties = {};
+        const style: ReactDOM.CSSProperties = {};
 
         for (
             let rowIndex = rowStartIndex;

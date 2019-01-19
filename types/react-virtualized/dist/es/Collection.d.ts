@@ -1,4 +1,5 @@
 import { PureComponent, Validator, Requireable } from "react";
+import * as ReactDOM from "react-dom";
 import {
     Alignment,
     Index,
@@ -31,7 +32,7 @@ export type CollectionCellRendererParams = {
     index: number;
     isScrolling: boolean;
     key: number;
-    style: React.CSSProperties;
+    style: ReactDOM.CSSProperties;
 };
 export type CollectionCellRenderer = (
     params: CollectionCellRendererParams
@@ -111,7 +112,7 @@ export type CollectionProps = {
     /**
      * Optional custom inline style to attach to root Collection element.
      */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     verticalOverscanSize?: number;
     /**
      * Width of Collection; this property determines the number of visible

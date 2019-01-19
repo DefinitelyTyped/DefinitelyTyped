@@ -1,4 +1,5 @@
 import { PureComponent, Validator, Requireable } from "react";
+import * as ReactDOM from "react-dom";
 import {
     Grid,
     GridCoreProps,
@@ -74,7 +75,7 @@ export type ListProps = GridCoreProps & {
     /** Vertical offset. */
     scrollTop?: number;
     /** Optional inline style */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /** Tab index for focus */
     tabIndex?: number | null;
     /** Width of list */

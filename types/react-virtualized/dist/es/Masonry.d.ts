@@ -1,4 +1,5 @@
 import { PureComponent, Validator, Requireable } from "react";
+import * as ReactDOM from "react-dom";
 import {
     CellMeasurerCacheInterface,
     KeyMapper,
@@ -31,7 +32,7 @@ export type MasonryCellProps = {
     isScrolling: boolean;
     key: React.Key;
     parent: MeasuredCellParent;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
 };
 
 export type CellRenderer = (props: MasonryCellProps) => React.ReactNode;
@@ -51,7 +52,7 @@ export type MasonryProps = {
     overscanByPixels?: number;
     role?: string;
     scrollingResetTimeInterval?: number;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     tabIndex?: number | null;
     width: number;
     /**

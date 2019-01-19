@@ -1,4 +1,5 @@
 import { Validator, ReactNode, Requireable, PureComponent, Component } from "react";
+import * as ReactDOM from "react-dom";
 import { CellMeasurerCache } from "./CellMeasurer";
 import {
     Index,
@@ -74,7 +75,7 @@ export type TableHeaderProps = {
 export type TableHeaderRowProps = {
     className: string;
     columns: React.ReactNode[];
-    style: React.CSSProperties;
+    style: ReactDOM.CSSProperties;
     scrollbarWidth: number;
     height: number;
     width: number;
@@ -137,7 +138,7 @@ export type ColumnProps = {
      */
     headerRenderer?: TableHeaderRenderer;
     /** Optional inline style to apply to this column's header */
-    headerStyle?: React.CSSProperties;
+    headerStyle?: ReactDOM.CSSProperties;
     /** Optional id to set on the column header; used for aria-describedby */
     id?: string;
     /** Header label for this column */
@@ -147,7 +148,7 @@ export type ColumnProps = {
     /** Minimum width of column. */
     minWidth?: number;
     /** Optional inline style to apply to cell */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /** Flex basis (width) for this column; This value can grow or shrink based on :flexGrow and :flexShrink properties. */
     width: number;
 };
@@ -167,7 +168,7 @@ export class Column extends Component<ColumnProps> {
         label: Requireable<string>;
         maxWidth: Requireable<number>;
         minWidth: Requireable<number>;
-        style: Requireable<React.CSSProperties>;
+        style: Requireable<ReactDOM.CSSProperties>;
         width: Validator<number>;
         id: Requireable<string>;
     };
@@ -189,13 +190,13 @@ export type RowMouseEventHandlerParams = {
         index: number;
     };
     index: number;
-    event: React.MouseEvent<any>;
+    event: ReactDOM.MouseEvent<any>;
 };
 
 export type HeaderMouseEventHandlerParams = {
     dataKey: string;
     columnData: any;
-    event: React.MouseEvent<any>;
+    event: ReactDOM.MouseEvent<any>;
 };
 
 // ref: https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md
@@ -319,7 +320,7 @@ export type TableProps = GridCoreProps & {
      */
     rowRenderer?: TableRowRenderer;
     /** Optional custom inline style to attach to table rows. */
-    rowStyle?: React.CSSProperties | ((info: Index) => React.CSSProperties);
+    rowStyle?: ReactDOM.CSSProperties | ((info: Index) => ReactDOM.CSSProperties);
     /** See Grid#scrollToAlignment */
     scrollToAlignment?: string;
     /** Row index to ensure visible (by forcefully scrolling if necessary) */
@@ -336,7 +337,7 @@ export type TableProps = GridCoreProps & {
     /** Table data is currently sorted in this direction (if it is sorted at all) */
     sortDirection?: SortDirectionType;
     /** Optional inline style */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /** Tab index for focus */
     tabIndex?: number | null;
     /** Width of list */
@@ -386,11 +387,11 @@ export class Table extends PureComponent<TableProps> {
         disableHeader: Requireable<boolean>;
         estimatedRowSize: Validator<number>;
         gridClassName: Requireable<string>;
-        gridStyle: Requireable<React.CSSProperties>;
+        gridStyle: Requireable<ReactDOM.CSSProperties>;
         headerClassName: Requireable<string>;
         headerHeight: Validator<number>;
         headerRowRenderer: Requireable<TableHeaderRowRenderer>;
-        headerStyle: Requireable<React.CSSProperties>;
+        headerStyle: Requireable<ReactDOM.CSSProperties>;
         height: Validator<number>;
         id: Requireable<string>;
         noRowsRenderer: Requireable<() => JSX.Element>;
@@ -418,7 +419,7 @@ export class Table extends PureComponent<TableProps> {
         rowCount: Validator<number>;
         rowRenderer: Requireable<(props: TableRowProps) => React.ReactNode>;
         rowStyle: Validator<
-            React.CSSProperties | ((params: Index) => React.CSSProperties)
+            ReactDOM.CSSProperties | ((params: Index) => ReactDOM.CSSProperties)
         >;
         scrollToAlignment: Validator<Alignment>;
         scrollToIndex: Validator<number>;
@@ -430,7 +431,7 @@ export class Table extends PureComponent<TableProps> {
         >;
         sortBy: Requireable<string>;
         sortDirection: Validator<SortDirectionType>;
-        style: Requireable<React.CSSProperties>;
+        style: Requireable<ReactDOM.CSSProperties>;
         tabIndex: Requireable<number>;
         width: Validator<number>;
     };
