@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import SmoothScrollbar from "smooth-scrollbar";
 import { ScrollbarOptions, ScrollStatus } from "smooth-scrollbar/interfaces";
 
@@ -26,7 +27,7 @@ declare namespace Scrollbar {
         /**
          * Optional style
          */
-        style?: React.CSSProperties;
+        style?: ReactDOM.CSSProperties;
     }
 }
 
