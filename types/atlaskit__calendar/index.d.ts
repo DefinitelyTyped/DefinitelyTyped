@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, HTMLAttributes, FocusEvent } from 'react';
+import { Component } from 'react';
+import { HTMLAttributes, FocusEvent } from 'react-dom';
 
 export type ArrowKeys = 'left' | 'up' | 'right' | 'down';
 
