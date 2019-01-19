@@ -15,9 +15,10 @@
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
+import * as ReactDOM from 'react-dom';
 
-type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
-type SyntheticEvent = React.SyntheticEvent<{}>;
+type SyntheticKeyboardEvent = ReactDOM.KeyboardEvent<{}>;
+type SyntheticEvent = ReactDOM.SyntheticEvent<{}>;
 export as namespace Draft;
 declare namespace Draft {
     namespace Component {

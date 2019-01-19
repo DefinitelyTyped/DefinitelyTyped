@@ -36,7 +36,7 @@ export const KEYCODES: Record<KeyName, KeyCode> = {
   ENTER: 13,
 };
 
-type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
+type SyntheticKeyboardEvent = ReactDOM.KeyboardEvent<{}>;
 
 const HANDLE_REGEX = /\@[\w]+/g;
 
