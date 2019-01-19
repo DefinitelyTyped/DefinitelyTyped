@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-export interface CollapseProps extends React.HTMLProps<Collapse> {
+export interface CollapseProps extends ReactDOM.HTMLProps<Collapse> {
     isOpened: boolean;
     children: React.ReactNode;
 
@@ -17,7 +18,7 @@ export interface CollapseProps extends React.HTMLProps<Collapse> {
         collapse: string
         content: string
     };
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     onRender?: ({ current, from, to }: { current: number; from: number; to: number; }) => void;
     onRest?: () => void;
     onMeasure?: ({ width, height }: { width: number; height: number; }) => void;

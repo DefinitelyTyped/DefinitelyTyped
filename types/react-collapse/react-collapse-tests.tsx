@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Collapse, UnmountClosed } from 'react-collapse';
 
 class TestRequired extends React.Component {
@@ -31,7 +32,7 @@ class TestAll extends React.Component {
             content: 'content-class'
         };
 
-        const style: React.CSSProperties = {
+        const style: ReactDOM.CSSProperties = {
             fontWeight: 'bold',
             fontSize: 16
         };
