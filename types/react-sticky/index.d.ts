@@ -7,13 +7,14 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export const StickyContainer: React.ComponentClass<
-    React.HTMLAttributes<HTMLDivElement>
+    ReactDOM.HTMLAttributes<HTMLDivElement>
 >;
 
 export interface StickyChildArgs {
-    style: React.CSSProperties;
+    style: ReactDOM.CSSProperties;
     isSticky: boolean;
     wasSticky: boolean;
     distanceFromTop: number;
