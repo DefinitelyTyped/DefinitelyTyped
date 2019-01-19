@@ -1,5 +1,6 @@
-import { Component, ReactType, HTMLProps, ReactElement } from "react";
+import { Component, ReactType, ReactElement } from "react";
 import { TransitionActions, TransitionProps } from "./Transition";
+import { HTMLProps } from "react-dom";
 
 declare namespace TransitionGroup {
     interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div"> extends TransitionActions {
