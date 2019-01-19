@@ -2,7 +2,7 @@
 // Project: https://material.io/components/
 // Definitions by: Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.1
 
 /**
  * @license
@@ -22,19 +22,13 @@
  */
 
 import MDCComponent from 'material__base/component';
-import { MDCListFoundation } from './foundation';
+import { MDCListFoundation } from './foundation'
 import { MDCListAdapter } from './adapter';
 import { matches } from 'material__dom/ponyfill';
 import { cssClasses, strings, Index } from './constants'; // eslint-disable-line no-unused-vars
 
-declare class MDCList {
-  /** @param {...?} args */
-  constructor(...args: any);
-
-  /**
-   * @param {!Element} root
-   * @return {!MDCList}
-   */
+export class MDCList {
+  constructor(...args: any[]);
   static attachTo(root: Element): MDCList;
 
   destroy(): void;
@@ -48,23 +42,13 @@ declare class MDCList {
    */
   initializeListType(): void;
 
-  /** @param {boolean} value */
   vertical: boolean;
-
-  /** @return Array<!Element>*/
   readonly listElements: Element[];
-
-  /** @param {boolean} value */
   wrapFocus: boolean;
-
-  /** @param {boolean} isSingleSelectionList */
   singleSelection: boolean;
-
-  /** @return {!Index} */
   selectedIndex: Index;
 
-  /** @return {!MDCListFoundation} */
   getDefaultFoundation(): MDCListFoundation;
 }
 
-export {MDCList, MDCListFoundation};
+export { MDCListFoundation};

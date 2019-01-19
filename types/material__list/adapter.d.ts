@@ -1,4 +1,10 @@
-declare class MDCListAdapter {
+// Type definitions for Material Components Web 0.43
+// Project: https://material.io/components/
+// Definitions by: Arthur Groupp <https://github.com/agroupp>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
+
+export class MDCListAdapter {
     getListItemCount(): number;
     getFocusedElementIndex(): number;
     setAttributeForElementIndex(index: number, attribute: string, value: string): void;
@@ -47,5 +53,3 @@ declare class MDCListAdapter {
      */
     isFocusInsideList(): boolean;
 }
-
-export { MDCListAdapter };
