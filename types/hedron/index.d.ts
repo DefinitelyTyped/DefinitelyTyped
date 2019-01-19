@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export interface ColumnProps {
     /**
@@ -160,12 +161,12 @@ export interface BreakpointsProps {
     breakpoints: Breakpoints;
 }
 
-export class Column extends React.Component<ColumnProps & React.HTMLProps<HTMLElement>> {}
-export class Page extends React.Component<PageProps & React.HTMLProps<HTMLElement>> {}
-export class Row extends React.Component<RowProps & React.HTMLProps<HTMLElement>> {}
-export class Hidden extends React.Component<HiddenProps & React.HTMLProps<HTMLElement>> {}
+export class Column extends React.Component<ColumnProps & ReactDOM.HTMLProps<HTMLElement>> {}
+export class Page extends React.Component<PageProps & ReactDOM.HTMLProps<HTMLElement>> {}
+export class Row extends React.Component<RowProps & ReactDOM.HTMLProps<HTMLElement>> {}
+export class Hidden extends React.Component<HiddenProps & ReactDOM.HTMLProps<HTMLElement>> {}
 export class BreakpointProvider extends React.Component<
-    BreakpointsProps & React.HTMLProps<HTMLElement>
+    BreakpointsProps & ReactDOM.HTMLProps<HTMLElement>
 > {}
 export function withBreakpoints<T>(
     wrappedComponent: React.ComponentClass<T & BreakpointsProps>
