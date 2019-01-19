@@ -5,7 +5,8 @@
 // TypeScript Version: 2.8
 
 import { StateNavigator } from 'navigation';
-import { Component, HTMLProps } from 'react';
+import { Component } from 'react';
+import { HTMLProps } from 'react-dom';
 
 /**
  * Defines the Link Props contract
