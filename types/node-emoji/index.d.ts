@@ -1363,4 +1363,4 @@ export function unemojify(str: string): string;
 export function find(emoji: string): Emoji;
 export function hasEmoji(str: string): boolean;
 export function strip(str: string): string;
-export function replace(str: string, replacement: (emoji: Emoji) => string | string, cleanSpaces?: boolean): string;
+export function replace(str: string, replacement: ((emoji: Emoji) => string) | string, cleanSpaces?: boolean): string;
