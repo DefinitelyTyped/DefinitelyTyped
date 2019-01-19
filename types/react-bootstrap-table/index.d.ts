@@ -10,7 +10,8 @@
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
-import { Component, CSSProperties, Props, ReactElement, SyntheticEvent } from 'react';
+import { Component, Props, ReactElement } from 'react';
+import * as ReactDOM from 'react-dom';
 
 /**
  * Table scroll position.
@@ -275,19 +276,19 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	 * Add css styles to the react-bs-table-container class.
 	 * For example: containerStyle={ { background: '#00ff00' } }
 	 */
-	containerStyle?: CSSProperties;
+	containerStyle?: ReactDOM.CSSProperties;
 	/**
 	 * Add css styles to the react-bs-table class.
 	 */
-	tableStyle?: CSSProperties;
+	tableStyle?: ReactDOM.CSSProperties;
 	/**
 	 * Add css styles to the react-bs-container-header class.
 	 */
-	headerStyle?: CSSProperties;
+	headerStyle?: ReactDOM.CSSProperties;
 	/**
 	 * Add css styles to the react-bs-container-body class.
 	 */
-	bodyStyle?: CSSProperties;
+	bodyStyle?: ReactDOM.CSSProperties;
 	/**
 	 * Add your own class names on the react-bs-table-container class
 	 */
@@ -379,7 +380,7 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	/**
 	 * Set a style to be used for the table rows. Example: https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/style/tr-style-table.js
 	 */
-	trStyle?: CSSProperties | ((rowData: any, rowIndex: number) => CSSProperties);
+	trStyle?: ReactDOM.CSSProperties | ((rowData: any, rowIndex: number) => ReactDOM.CSSProperties);
 	/**
 	 * Disable the automatic tabIndex for navigating between cells. This can be useful if you have a page with multiple
 	 * tables on the page, to stop the tab moving to another table. Default is false.
@@ -720,14 +721,14 @@ export interface Options<TRow extends object = any> {
 	 *   `rowIndex`: index of the row that was clicked on.
 	 *   `event`: the click event.
 	 */
-	onRowClick?(row: TRow, columnIndex: number, rowIndex: number, event: React.MouseEvent<any>): void;
+	onRowClick?(row: TRow, columnIndex: number, rowIndex: number, event: ReactDOM.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called after a row double click.
 	 * This function takes two arguments:
 	 *   `row`: which is the row data that was double clicked on.
 	 *   `event`: the double click event.
 	 */
-	onRowDoubleClick?(row: TRow, event: React.MouseEvent<any>): void;
+	onRowDoubleClick?(row: TRow, event: ReactDOM.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called when mouse enters the table.
 	 */
@@ -742,14 +743,14 @@ export interface Options<TRow extends object = any> {
 	 *   `row`: the row data the mouse entered
 	 *   `e`: the mouse event data
 	 */
-	onRowMouseOver?(row: TRow, e: React.MouseEvent<any>): void;
+	onRowMouseOver?(row: TRow, e: ReactDOM.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called when mouse leaves a row in table.
 	 * This function takes two arguments:
 	 *   `row`: the row data the mouse entered
 	 *   `e`: the mouse event data
 	 */
-	onRowMouseOut?(row: TRow, e: React.MouseEvent<any>): void;
+	onRowMouseOut?(row: TRow, e: ReactDOM.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called when deleting a row.
 	 * It gives you a chance to customize your confirmation for row deletion.
@@ -902,7 +903,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `InsertButton` component is also exported as a component, so that you can use it as the base
 	 * for your custom component.
 	 */
-	insertBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement<any>;
+	insertBtn?(onClick: (e: ReactDOM.MouseEvent<any>) => void): ReactElement<any>;
 	/**
 	 * It's available to customize delete button by configuring deleteBtn in options props, deleteBtn onl<y
 	 * accept a function and a JSX returned value is necessary. This function will take one argument: onClick.
@@ -910,7 +911,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `DeleteButton` component is also exported as a component, so that you can use it as the base
 	 * for your custom component.
 	 */
-	deleteBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement<any>;
+	deleteBtn?(onClick: (e: ReactDOM.MouseEvent<any>) => void): ReactElement<any>;
 	/**
 	 * It's available to customize the export csv button by configuring exportCSVBtn in options props, exportCSVBtn only
 	 * accept a function and a JSX returned value is necessary. This function will take one argument: onClick.
@@ -918,7 +919,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `ExportCSVButton` component is also exported as a component, so that you can use it as the base
 	 * for your custom component.
 	 */
-	exportCSVBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement<any>;
+	exportCSVBtn?(onClick: (e: ReactDOM.MouseEvent<any>) => void): ReactElement<any>;
 	/**
 	 * It's available to custom select only toggle button by configuring showSelectedOnlyBtn in options props.
 	 * showSelectedOnlyBtn only accept a function and a JSX returned value is necessary.
@@ -927,7 +928,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `ShowSelectedOnlyButton` component is also exported as a component, so that you can use it as
 	 * the base for your custom component.
 	 */
-	showSelectedOnlyBtn?(onClick: (e: React.MouseEvent<any>) => void, showSelected: boolean): ReactElement<any>;
+	showSelectedOnlyBtn?(onClick: (e: ReactDOM.MouseEvent<any>) => void, showSelected: boolean): ReactElement<any>;
 	/**
 	 * You can custom the whole search panel(right side) by searchPanel in options props. searchPanel only accept
 	 * a function and a JSX returned value is necessary. This function will take one argument: props, that contains:
@@ -954,7 +955,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `ClearSearchButton` component is also exported as a component, so that you can use it as the
 	 * base for your own custom component.
 	 */
-	clearSearchBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement<any>;
+	clearSearchBtn?(onClick: (e: ReactDOM.MouseEvent<any>) => void): ReactElement<any>;
 	/**
 	 * You can customize everything in the insert modal via options.insertModal and we give you the event
 	 * callback, props and some informations: onModalClose, onSave, columns, validateState, ignoreEditable
@@ -1064,7 +1065,7 @@ export interface Options<TRow extends object = any> {
 	 *   `isExpand`: True if the row is expanding, false if it is collapsing.
 	 *   `event`: The click event.
 	 */
-	onExpand?(rowKey: number | string, isExpand: boolean, event: React.MouseEvent<any>): void;
+	onExpand?(rowKey: number | string, isExpand: boolean, event: ReactDOM.MouseEvent<any>): void;
 	/**
 	 * Specify that only one row should be able to be expanded at the same time.
 	 */
@@ -1230,11 +1231,11 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 *   `rowIndex`: Index number for the current row data in the input data array.
 	 *   `columnIndex`: Index number for the current column that the cell is in.
 	 */
-	tdStyle?: CSSProperties | ((cell: any, row: any, rowIndex: number, columnIndex: number) => CSSProperties);
+	tdStyle?: ReactDOM.CSSProperties | ((cell: any, row: any, rowIndex: number, columnIndex: number) => ReactDOM.CSSProperties);
 	/**
 	 * Allow you to add your custom style object on TH element.
 	 */
-	thStyle?: CSSProperties;
+	thStyle?: ReactDOM.CSSProperties;
 	/**
 	 * When true, the column will filter using the value returned by the column's formatter.
 	 * When false (default), the column will filter using the pre-formatted value.
@@ -1484,7 +1485,7 @@ export interface Editable<TRow extends object, K extends keyof TRow> {
 	/**
 	 * CSS Style to use for the editor component.
 	 */
-	style?: CSSProperties;
+	style?: ReactDOM.CSSProperties;
 	/**
 	 * Validation function for the column. It takes the new "cell value" as argument. This function should return
 	 * a boolean true/false for isValid, or an EditValidatorObject (so that an error message can be provided).
@@ -1544,7 +1545,7 @@ export interface TextFilter {
 	/**
 	 * CSS Style to use for the select filter.
 	 */
-	style?: CSSProperties;
+	style?: ReactDOM.CSSProperties;
 }
 
 export interface SelectFilterOptionsType {
@@ -1579,7 +1580,7 @@ export interface SelectFilter {
 	/**
 	 * CSS Style to use for the select filter.
 	 */
-	style?: CSSProperties;
+	style?: ReactDOM.CSSProperties;
 	/**
 	 * Disable the empty option in the dropdown filter.
 	 */
@@ -1609,7 +1610,7 @@ export interface RegexFilter {
 	/**
 	 * CSS Style to use for the select filter.
 	 */
-	style?: CSSProperties;
+	style?: ReactDOM.CSSProperties;
 }
 
 /**
@@ -1665,8 +1666,8 @@ export interface NumberFilter {
 	 * CSS Style to use for the select filter.
 	 */
 	style?: {
-		number: CSSProperties;
-		comparator: CSSProperties;
+		number: ReactDOM.CSSProperties;
+		comparator: ReactDOM.CSSProperties;
 	};
 }
 
@@ -1703,8 +1704,8 @@ export interface DateFilter {
 	 * CSS Style to use for the select filter.
 	 */
 	style?: {
-		date: CSSProperties;
-		comparator: CSSProperties;
+		date: ReactDOM.CSSProperties;
+		comparator: ReactDOM.CSSProperties;
 	};
 }
 
@@ -1857,7 +1858,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the navigating cell.
 	 */
-	customStyle?(cell: any, row: any): CSSProperties;
+	customStyle?(cell: any, row: any): ReactDOM.CSSProperties;
 	/**
 	 * Set to false to disable click to navigate, usually user wants to click to select row instead of navigation.
 	 */
@@ -1865,7 +1866,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the both of navigating and editing cell.
 	 */
-	customStyleOnEditCell?(cell: any, row: any): CSSProperties;
+	customStyleOnEditCell?(cell: any, row: any): ReactDOM.CSSProperties;
 	/**
 	 * When set to true, pressing ENTER will begin to edit the cell if cellEdit is also enabled.
 	 */
@@ -2095,7 +2096,7 @@ export interface ColumnDescription<TRow extends object = any> {
 	 * CSS style properties to use for cells in this column.
 	 * Comes from TableHeader.tdStyle property.
 	 */
-	style: CSSProperties;
+	style: ReactDOM.CSSProperties;
 }
 
 /**
@@ -2376,7 +2377,7 @@ export interface ButtonProps {
 	/**
 	 * Function to be called to activate the normal onClick functionality for this button.
 	 */
-	onClick?(e: React.MouseEvent<any>): void;
+	onClick?(e: ReactDOM.MouseEvent<any>): void;
 }
 
 /**
@@ -2406,7 +2407,7 @@ export interface ShowSelectedButtonProps {
 	/**
 	 * Function to be called to activate the normal onClick functionality for this button.
 	 */
-	onClick?(e: React.MouseEvent<any>): void;
+	onClick?(e: ReactDOM.MouseEvent<any>): void;
 }
 
 /**
@@ -2428,7 +2429,7 @@ export interface SearchFieldProps {
 	/**
 	 * callback funciton to call when a key is released
 	 */
-	onKeyUp?(e: React.KeyboardEvent<any>): void;
+	onKeyUp?(e: ReactDOM.KeyboardEvent<any>): void;
 }
 
 /**
@@ -2522,7 +2523,7 @@ export interface InsertModalHeaderProps {
 	/**
 	 * Callback function to call prior to closing the Insert Modal window.
 	 */
-	beforeClose?(e: SyntheticEvent<any>): void;
+	beforeClose?(e: ReactDOM.SyntheticEvent<any>): void;
 	/**
 	 * Callback function to call to close the Insert Modal window.
 	 */
@@ -2572,7 +2573,7 @@ export interface InsertModalFooterProps {
 	/**
 	 * Callback function to call prior to closing the Insert Modal window.
 	 */
-	beforeClose?(e: SyntheticEvent<any>): void;
+	beforeClose?(e: ReactDOM.SyntheticEvent<any>): void;
 	/**
 	 * Callback function to call to close the Insert Modal window.
 	 */
@@ -2580,7 +2581,7 @@ export interface InsertModalFooterProps {
 	/**
 	 * Callback function to be called prior to saving the new row.
 	 */
-	beforeSave?(e: SyntheticEvent<any>): void;
+	beforeSave?(e: ReactDOM.SyntheticEvent<any>): void;
 	/**
 	 * Callback function to be called to save the new row.
 	 */

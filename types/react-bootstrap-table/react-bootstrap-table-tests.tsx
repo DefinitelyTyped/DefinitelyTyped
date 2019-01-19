@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import * as ReactDOM from 'react-dom';
 import {
   BootstrapTable,
   ButtonGroupProps,
@@ -92,7 +92,7 @@ function priceFormatter(cell: number, row: Product) {
   return '<i class="glyphicon glyphicon-usd"></i> ' + cell;
 }
 
-render(
+ReactDOM.render(
   <BootstrapTable data={products} striped={true} hover={true} ignoreSinglePage>
     <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
     <TableHeaderColumn dataField="name" dataSort={true} editable={{ type: 'textarea', rows: 10 }}>Product Name</TableHeaderColumn>
@@ -914,7 +914,7 @@ class MySearchField extends React.Component<SearchFieldProps> implements SearchF
   }
 }
 class CustomButtonGroup extends React.Component {
-  createInsertButton = (onClick: (e: React.MouseEvent<{}>) => void) => (
+  createInsertButton = (onClick: (e: ReactDOM.MouseEvent<{}>) => void) => (
     <InsertButton
       btnText='CustomInsertText'
       btnContextual='btn-warning'
@@ -923,7 +923,7 @@ class CustomButtonGroup extends React.Component {
       onClick={onClick} />
   )
 
-  createDeleteButton = (onClick: (e: React.MouseEvent<{}>) => void) => (
+  createDeleteButton = (onClick: (e: ReactDOM.MouseEvent<{}>) => void) => (
     <DeleteButton
       btnText='CustomDeleteText'
       btnContextual='btn-danger'
@@ -932,7 +932,7 @@ class CustomButtonGroup extends React.Component {
       onClick={onClick} />
   )
 
-  createExportCSVButton = (onClick: (e: React.MouseEvent<{}>) => void) => (
+  createExportCSVButton = (onClick: (e: ReactDOM.MouseEvent<{}>) => void) => (
       <ExportCSVButton
         btnText='CustomExportText'
         btnContextual='btn-danger'
@@ -941,7 +941,7 @@ class CustomButtonGroup extends React.Component {
         onClick={onClick} />
   )
 
-  createShowSelectedOnlyButton = (onClick: (e: React.MouseEvent<{}>) => void, showSelected: boolean) => (
+  createShowSelectedOnlyButton = (onClick: (e: ReactDOM.MouseEvent<{}>) => void, showSelected: boolean) => (
     <ShowSelectedOnlyButton
       showAllText='Show All'
       showOnlySelectText='Show Selected'
@@ -972,7 +972,7 @@ class CustomButtonGroup extends React.Component {
     />
   )
 
-  createCustomClearSearch = (onClick: (e: React.MouseEvent<{}>) => void) => (
+  createCustomClearSearch = (onClick: (e: ReactDOM.MouseEvent<{}>) => void) => (
     <button
       className='btn btn-success'
       onClick={onClick}>
@@ -1086,7 +1086,7 @@ class ExpandRowExample extends React.Component<{}, {expanding: number[]}> {
 
   onSelectAll = (isSelected: boolean) => (isSelected) ? products.map(row => row.id) : [];
 
-  onSelect = (row: Product, isSelected: boolean, e: React.MouseEvent<any>, rowIndex: number) => {
+  onSelect = (row: Product, isSelected: boolean, e: ReactDOM.MouseEvent<any>, rowIndex: number) => {
     const rowStr = `id: "${row.id}", name: ${row.name}, price: ${row.price}`;
     console.log(e);
     alert(`Selected: ${isSelected}, rowIndex: ${rowIndex}, row: ${rowStr}`);
@@ -1183,11 +1183,11 @@ class MouseEventTable extends React.Component {
     const options: Options<Product> = {
       onMouseLeave: () => { console.log('mouse left table'); },
       onMouseEnter: () => { console.log('mouse entered table'); },
-      onRowMouseOut: (row: any, e: React.MouseEvent<{}>) => {
+      onRowMouseOut: (row: any, e: ReactDOM.MouseEvent<{}>) => {
         console.log(e);
         console.log('mouse left row ' + row.id);
       },
-      onRowMouseOver: (row: any, e: React.MouseEvent<{}>) => {
+      onRowMouseOver: (row: any, e: ReactDOM.MouseEvent<{}>) => {
         console.log(e);
         console.log('mouse entered row ' + row.id);
       }
