@@ -4,11 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentClass, HTMLProps, StatelessComponent, ReactElement } from "react";
+import { Component, ComponentClass, StatelessComponent, ReactElement } from "react";
+import * as ReactDOM from "react-dom";
 
 // fake intermediate interface to remove typing on size, as the typing
 // is overrided by react-fa
-interface SizeOverrideHTMLProps<T> extends HTMLProps<T> {
+interface SizeOverrideHTMLProps<T> extends ReactDOM.HTMLProps<T> {
     size?: any;
 }
 
