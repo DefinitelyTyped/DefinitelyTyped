@@ -2,7 +2,7 @@
 // Project: https://material.io/components/
 // Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>, Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.1
 
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
@@ -30,7 +30,7 @@ import * as util from './util';
 import createFocusTrap from './focus-trap';
 import { FocusTrap } from './focus-trap';
 
-declare class MDCDrawer extends MDCComponent<MDCDrawer, MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation> {
+export class MDCDrawer extends MDCComponent<MDCDrawer, MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation> {
   constructor(...args: any);
   static attachTo(root: Element): MDCDrawer;
 
@@ -49,4 +49,4 @@ declare class MDCDrawer extends MDCComponent<MDCDrawer, MDCDismissibleDrawerFoun
   getDefaultFoundation(): MDCDismissibleDrawerFoundation | MDCModalDrawerFoundation;
 }
 
-export {MDCDrawer, MDCDismissibleDrawerFoundation, MDCModalDrawerFoundation, util};
+export { MDCDismissibleDrawerFoundation, MDCModalDrawerFoundation, util };

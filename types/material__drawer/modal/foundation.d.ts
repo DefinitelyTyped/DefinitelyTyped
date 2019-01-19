@@ -2,7 +2,7 @@
 // Project: https://material.io/components/
 // Definitions by: Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.1
 
 /**
  * @license
@@ -30,19 +30,14 @@
 import { MDCDrawerAdapter } from '../adapter';
 import { MDCDismissibleDrawerFoundation } from '../dismissible/foundation';
 
-/**
- * @extends {MDCDismissibleDrawerFoundation}
- */
-declare class MDCModalDrawerFoundation extends MDCDismissibleDrawerFoundation {
+export class MDCModalDrawerFoundation extends MDCDismissibleDrawerFoundation {
   /**
    * Called when drawer finishes open animation.
-   * @override
    */
   opened(): void;
 
   /**
    * Called when drawer finishes close animation.
-   * @override
    */
   closed(): void;
 
@@ -51,5 +46,3 @@ declare class MDCModalDrawerFoundation extends MDCDismissibleDrawerFoundation {
    */
   handleScrimClick(): void;
 }
-
-export { MDCModalDrawerFoundation };

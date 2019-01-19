@@ -2,7 +2,7 @@
 // Project: https://material.io/components/
 // Definitions by: Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.1
 
 /**
  * @license
@@ -31,16 +31,9 @@ import { MDCDrawerAdapter } from '../adapter';
 import MDCFoundation from 'material__base/foundation';
 import {cssClasses, strings} from '../constants';
 
-/**
- * @extends {MDCFoundation<!MDCDrawerAdapter>}
- */
-declare class MDCDismissibleDrawerFoundation extends MDCFoundation<MDCDrawerAdapter> {
-  /** @return enum {string} */
+export class MDCDismissibleDrawerFoundation extends MDCFoundation<MDCDrawerAdapter> {
   static readonly strings: strings;
-
-  /** @return enum {string} */
   static readonly cssClasses: cssClasses;
-
   static readonly defaultAdapter: MDCDrawerAdapter;
 
   constructor(adapter: MDCDrawerAdapter);
@@ -59,33 +52,26 @@ declare class MDCDismissibleDrawerFoundation extends MDCFoundation<MDCDrawerAdap
 
   /**
    * Returns true if drawer is in open state.
-   * @return {boolean}
    */
   isOpen(): boolean;
 
   /**
    * Returns true if drawer is animating open.
-   * @return {boolean}
    */
   isOpening(): boolean;
 
   /**
    * Returns true if drawer is animating closed.
-   * @return {boolean}
    */
   isClosing(): boolean;
 
   /**
    * Keydown handler to close drawer when key is escape.
-   * @param evt
    */
   handleKeydown(evt: KeyboardEvent): void;
 
   /**
    * Handles a transition end event on the root element.
-   * @param {!Event} evt
    */
   handleTransitionEnd(evt: Event): void;
 }
-
-export { MDCDismissibleDrawerFoundation };

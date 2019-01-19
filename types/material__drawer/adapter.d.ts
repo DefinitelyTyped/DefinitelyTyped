@@ -2,7 +2,7 @@
 // Project: https://material.io/components/
 // Definitions by: Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.1
 
 /**
  * @license
@@ -39,30 +39,22 @@
  *
  * @record
  */
-declare class MDCDrawerAdapter {
+export class MDCDrawerAdapter {
     /**
      * Adds a class to the root Element.
-     * @param {string} className
      */
     addClass(className: string): void;
 
     /**
      * Removes a class from the root Element.
-     * @param {string} className
      */
     removeClass(className: string): void;
 
     /**
      * Returns true if the root Element contains the given class.
-     * @param {string} className
-     * @return {boolean}
      */
     hasClass(className: string): boolean;
 
-    /**
-     * @param {!Element} element target element to verify class name
-     * @param {string} className class name
-     */
     elementHasClass(element: Element, className: string): void;
 
     /**
@@ -101,5 +93,3 @@ declare class MDCDrawerAdapter {
      */
     releaseFocus(): void;
 }
-
-export { MDCDrawerAdapter };
