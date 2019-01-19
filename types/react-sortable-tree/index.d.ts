@@ -9,6 +9,8 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
 import { ListProps, Index } from 'react-virtualized';
 import {
     ConnectDragSource,
@@ -106,7 +108,7 @@ export interface NodeRendererProps {
     toggleChildrenVisibility?(data: NodeData): void;
     buttons?: JSX.Element[];
     className?: string;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     title?: (data: NodeData) => JSX.Element | JSX.Element;
     subtitle?: (data: NodeData) => JSX.Element | JSX.Element;
     icons?: JSX.Element[];
@@ -166,8 +168,8 @@ export interface TreeRendererProps {
 }
 
 interface ThemeTreeProps {
-    style?: React.CSSProperties;
-    innerStyle?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
+    innerStyle?: ReactDOM.CSSProperties;
     reactVirtualizedListProps?: Partial<ListProps>;
     scaffoldBlockPxWidth?: number;
     slideRegionSize?: number;
