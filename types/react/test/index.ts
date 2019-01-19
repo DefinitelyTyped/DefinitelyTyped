@@ -261,9 +261,9 @@ const legacyStatelessComponentFactory: React.SFCFactory<SCProps> =
 const legacyStatelessComponentFactoryElement: React.SFCElement<SCProps> =
     legacyStatelessComponentFactory(props);
 
-const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
+const domFactory: ReactDOM.DOMFactory<ReactDOM.DOMAttributes<{}>, Element> =
     React.createFactory("div");
-const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
+const domFactoryElement: ReactDOM.DOMElement<ReactDOM.DOMAttributes<{}>, Element> =
     domFactory();
 
 // React.createElement
@@ -274,16 +274,16 @@ const functionComponentElement: React.FunctionComponentElement<SCProps> = React.
 const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
 const legacyStatelessComponentElement: React.SFCElement<SCProps> = React.createElement(FunctionComponent, scProps);
 const legacyStatelessComponentElementNullProps: React.SFCElement<SCProps> = React.createElement(FunctionComponent4, null);
-const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
+const domElement: ReactDOM.DOMElement<ReactDOM.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
-const inputElementNullProps: React.DOMElement<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> = React.createElement("input", null);
+const inputElementNullProps: ReactDOM.DOMElement<ReactDOM.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> = React.createElement("input", null);
 const svgElement = React.createElement("svg", { accentHeight: 12 });
 const svgElementNullProps = React.createElement("svg", null);
 const fragmentElement: React.ReactElement<{}> = React.createElement(React.Fragment, {}, [React.createElement("div"), React.createElement("div")]);
 const fragmentElementNullProps: React.ReactElement<{}> = React.createElement(React.Fragment, null, [React.createElement("div"), React.createElement("div")]);
 
-const customProps: React.HTMLProps<HTMLElement> = props;
+const customProps: ReactDOM.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
 const nonLiteralElement = React.createElement(customDomElement, customProps);
 const customDomElementNullProps = React.createElement(customDomElement, null);
@@ -318,17 +318,17 @@ const clonedfunctionComponentElement: React.FunctionComponentElement<SCProps> =
 const clonedlegacyStatelessComponentElement: React.SFCElement<SCProps> =
     React.cloneElement(legacyStatelessComponentElement, { foo: 44 });
 // Clone base DOMElement
-const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
+const clonedDOMElement: ReactDOM.DOMElement<ReactDOM.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
         className: "clonedDOMElement"
     });
 // Clone ReactHTMLElement
-const clonedHtmlElement: React.ReactHTMLElement<HTMLInputElement> =
+const clonedHtmlElement: ReactDOM.ReactHTMLElement<HTMLInputElement> =
     React.cloneElement(htmlElement, {
         className: "clonedHTMLElement"
     });
 // Clone ReactSVGElement
-const clonedSvgElement: React.ReactSVGElement =
+const clonedSvgElement: ReactDOM.ReactSVGElement =
     React.cloneElement(svgElement, {
         className: "clonedVGElement"
     });
@@ -422,18 +422,18 @@ const divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
-const htmlAttr: React.HTMLProps<HTMLElement> = {
+const htmlAttr: ReactDOM.HTMLProps<HTMLElement> = {
     key: 36,
     ref: "htmlComponent",
     children,
     className: "test-attr",
     style: divStyle,
     slot: "HTMLComponent",
-    onClick: (event: React.MouseEvent<{}>) => {
+    onClick: (event: ReactDOM.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
     },
-    onClickCapture: (event: React.MouseEvent<{}>) => {
+    onClickCapture: (event: ReactDOM.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
     },
@@ -717,7 +717,7 @@ React.createFactory(TransitionGroup)({ component: "div" });
 // --------------------------------------------------------------------------
 function eventHandler<T extends React.BaseSyntheticEvent>(e: T) {}
 
-function handler(e: React.MouseEvent) {
+function handler(e: ReactDOM.MouseEvent) {
     eventHandler(e);
 }
 
@@ -750,8 +750,8 @@ DOM.input({
 // A ChangeEvent is a valid FormEvent (maintain compatibility with existing
 // event handlers)
 
-type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
-type InputFormEvent = React.FormEvent<HTMLInputElement>;
+type InputChangeEvent = ReactDOM.ChangeEvent<HTMLInputElement>;
+type InputFormEvent = ReactDOM.FormEvent<HTMLInputElement>;
 const changeEvent: InputChangeEvent = undefined as any;
 const formEvent: InputFormEvent = changeEvent;
 
@@ -771,7 +771,7 @@ const formEvent: InputFormEvent = changeEvent;
 }
 
 // complex React.DOMElement type
-declare var x: React.DOMElement<{
+declare var x: ReactDOM.DOMElement<{
     className: string;
     style: {
         height: string;
