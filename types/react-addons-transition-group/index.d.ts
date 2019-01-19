@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import { ComponentClass, TransitionGroupProps } from 'react';
+import { HTMLAttributes } from 'react-dom';
 
 declare module 'react' {
     export interface HTMLTransitionGroupProps<T> extends HTMLAttributes<T> {
