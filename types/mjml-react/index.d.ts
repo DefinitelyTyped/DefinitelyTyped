@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export namespace extensions {
     class MjmlComment extends React.Component<{ children: string }> { }
@@ -96,7 +97,7 @@ export class MjmlBreakpoint extends React.Component<MjmlBreakpointProps> { }
 // mj-body
 export interface MjmlBodyProps {
     width ?: number;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
 }
 
 export class MjmlBody extends React.Component<RequiredChildrenProps & MjmlBodyProps & ClassNameProps> { }
@@ -131,23 +132,23 @@ export interface MjmlAccordionElementProps {
     iconPosition?: 'left' | 'right';
     iconHeight?: string;
     iconWidth?: string;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
 }
 
 export class MjmlAccordionElement extends React.Component<RequiredChildrenProps & MjmlAccordionElementProps & ClassNameProps> { }
 
 export interface MjmlAccordionTextProps {
-    color?: React.CSSProperties['color'];
+    color?: ReactDOM.CSSProperties['color'];
     fontFamily?: string;
     fontSize?: string | number;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
 }
 
 export class MjmlAccordionText extends React.Component<RequiredChildrenProps & MjmlAccordionTextProps & PaddingProps & ClassNameProps> { }
 
 export interface MjmlAccordionTitleProps {
-    color?: React.CSSProperties['color'];
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    color?: ReactDOM.CSSProperties['color'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
     fontFamily?: string;
     fontSize?: string | number;
 }
@@ -156,18 +157,18 @@ export class MjmlAccordionTitle extends React.Component<RequiredChildrenProps & 
 
 // mj-button
 export interface MjmlButtonProps {
-    backgroundColor?: React.CSSProperties['backgroundColor'];
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
+    containerBackgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
     fontStyle?: string;
     fontSize?: string | number;
     fontWeight?: number;
     fontFamily?: string;
-    color?: React.CSSProperties['color'];
-    textAlign?: React.CSSProperties['textAlign'];
+    color?: ReactDOM.CSSProperties['color'];
+    textAlign?: ReactDOM.CSSProperties['textAlign'];
     textDecoration?: string;
     textTransform?: string;
     align?: string;
-    verticalAlign?: React.CSSProperties['verticalAlign'];
+    verticalAlign?: ReactDOM.CSSProperties['verticalAlign'];
     lineHeight?: string | number;
     innerPadding?: string;
     width?: string | number;
@@ -178,12 +179,12 @@ export class MjmlButton extends React.Component<RequiredChildrenProps & MjmlButt
 
 // mj-carousel
 export interface MjmlCarouselProps {
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
     align?: string;
     borderRadius?: string | number;
     thumbnails?: 'hidden' | 'visible';
-    tbBorder?: React.CSSProperties['border'];
-    tbBorderRadius?: React.CSSProperties['borderRadius'];
+    tbBorder?: ReactDOM.CSSProperties['border'];
+    tbBorderRadius?: ReactDOM.CSSProperties['borderRadius'];
     tbHoverBorderColor?: string;
     tbSelectedBorderColor?: string;
     tbWidth?: string;
@@ -206,19 +207,19 @@ export class MjmlCarouselImage extends React.Component<MjmlCarouselImageProps & 
 // mj-carousel
 export interface MjmlColumnProps {
     width?: string | number;
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    verticalAlign?: ReactDOM.CSSProperties['verticalAlign'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
 }
 
 export class MjmlColumn extends React.Component<RequiredChildrenProps & MjmlColumnProps & PaddingProps & ClassNameProps & BorderProps> { }
 
 // mj-divider
 export interface MjmlDividerProps {
-    borderColor?: React.CSSProperties['borderColor'];
-    borderStyle?: React.CSSProperties['borderStyle'];
+    borderColor?: ReactDOM.CSSProperties['borderColor'];
+    borderStyle?: ReactDOM.CSSProperties['borderStyle'];
     borderWidth?: string | number;
     width?: string | number;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
+    containerBackgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
 }
 
 export class MjmlDivider extends React.Component<MjmlDividerProps & ClassNameProps & PaddingProps> { }
@@ -226,8 +227,8 @@ export class MjmlDivider extends React.Component<MjmlDividerProps & ClassNamePro
 // mj-group
 export interface MjmlGroupProps {
     width?: string | number;
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    verticalAlign?: ReactDOM.CSSProperties['verticalAlign'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
 }
 
 export class MjmlGroup extends React.Component<MjmlGroupProps & RequiredChildrenProps & ClassNameProps> { }
@@ -240,17 +241,17 @@ export interface MjmlHeroProps {
     backgroundWidth?: string;
     backgroundHeight?: string;
     backgroundUrl?: string;
-    backgroundPosition?: React.CSSProperties['backgroundPosition'];
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    backgroundPosition?: ReactDOM.CSSProperties['backgroundPosition'];
+    verticalAlign?: ReactDOM.CSSProperties['verticalAlign'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
 }
 
 export class MjmlHero extends React.Component<MjmlHeroProps & ClassNameProps & PaddingProps> { }
 
 // mj-image
 export interface MjmlImageProps {
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
-    border?: React.CSSProperties['border'];
+    containerBackgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
+    border?: ReactDOM.CSSProperties['border'];
     borderRadius?: string | number;
     width?: string | number;
     height?: string | number;
@@ -277,7 +278,7 @@ export interface MjmlNavbarProps {
     icoPaddingBottom?: string;
     icoPaddingLeft?: string;
     icoAlign?: string;
-    icoColor?: React.CSSProperties['color'];
+    icoColor?: ReactDOM.CSSProperties['color'];
     icoFontSize?: string;
     icoTextTransform?: string;
     icoTextDecoration?: string;
@@ -287,7 +288,7 @@ export interface MjmlNavbarProps {
 export class MjmlNavbar extends React.Component<MjmlNavbarProps & RequiredChildrenProps> { }
 
 export interface MjmlNavbarLinkProps {
-    color?: React.CSSProperties['color'];
+    color?: ReactDOM.CSSProperties['color'];
     fontFamily?: string;
     fontSize?: string | number;
     fontStyle?: string;
@@ -305,12 +306,12 @@ export class MjmlRaw extends React.Component<RequiredChildrenProps> { }
 // mj-section
 export interface MjmlSectionProps {
     fullWidth?: boolean;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
     backgroundUrl?: string;
-    backgroundRepeat?: React.CSSProperties['backgroundRepeat'];
-    backgroundSize?: React.CSSProperties['backgroundSize'];
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    textAlign?: React.CSSProperties['textAlign'];
+    backgroundRepeat?: ReactDOM.CSSProperties['backgroundRepeat'];
+    backgroundSize?: ReactDOM.CSSProperties['backgroundSize'];
+    verticalAlign?: ReactDOM.CSSProperties['verticalAlign'];
+    textAlign?: ReactDOM.CSSProperties['textAlign'];
     direction?: 'ltr' | 'rtl';
 }
 
@@ -327,16 +328,16 @@ export interface MjmlSocialProps {
     mode?: 'vertical' | 'horizontal';
     textDecoration?: string;
     align?: string;
-    color?: React.CSSProperties['color'];
+    color?: ReactDOM.CSSProperties['color'];
     innerPadding?: string;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
+    containerBackgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
 }
 
 export class MjmlSocial extends React.Component<MjmlSocialProps & PaddingProps> { }
 
 export interface MjmlSocialElementProps {
     borderRadius?: string | number;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
     fontFamily?: string;
     fontSize?: string | number;
     iconSize?: string;
@@ -345,7 +346,7 @@ export interface MjmlSocialElementProps {
     mode?: 'vertical' | 'horizontal';
     textDecoration?: string;
     align?: string;
-    color?: React.CSSProperties['color'];
+    color?: ReactDOM.CSSProperties['color'];
     name?: 'facebook' | 'facebook-noshare' | 'twitter' | 'twitter-noshare' | 'google' | 'google-noshare' | 'pinterest' | 'pinterest-noshare' |
         'linkedin' | 'linkedin-noshare' | 'tumblr' | 'tumblr-noshare' | 'xing' | 'xing-noshare' |
         'github' | 'instagram' | 'web' | 'snapchat' | 'youtube' | 'vimeo' | 'medium' | 'soundcloud' | 'dribbble';
@@ -359,22 +360,22 @@ export class MjmlSocialElement extends React.Component<MjmlSocialElementProps & 
 export interface MjmlSpacerProps {
     height?: string | number;
     width?: string | number;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
-    verticalAlign?: React.CSSProperties['verticalAlign'];
+    containerBackgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
+    verticalAlign?: ReactDOM.CSSProperties['verticalAlign'];
 }
 
 export class MjmlSpacer extends React.Component<MjmlSpacerProps & BorderProps & PaddingProps & ClassNameProps> { }
 
 // mj-table
 export interface MjmlTableProps {
-    color?: React.CSSProperties['color'];
+    color?: ReactDOM.CSSProperties['color'];
     cellpadding?: string;
     cellspacing?: string;
     fontFamily?: string;
     fontSize?: string | number;
     fontStyle?: string;
     lineHeight?: string | number;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
+    containerBackgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
     width?: string | number;
     tableLayout?: 'auto' | 'fixed' | 'initial' | 'inherit';
 }
@@ -383,7 +384,7 @@ export class MjmlTable extends React.Component<MjmlTableProps & RequiredChildren
 
 // mj-text
 export interface MjmlTextProps {
-    color?: React.CSSProperties['color'];
+    color?: ReactDOM.CSSProperties['color'];
     fontFamily?: string;
     fontSize?: string | number;
     fontStyle?: string;
@@ -394,7 +395,7 @@ export interface MjmlTextProps {
     textDecoration?: string;
     textTransform?: string;
     align?: string;
-    containerBackgroundColor?: React.CSSProperties['backgroundColor'];
+    containerBackgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
 }
 
 export class MjmlText extends React.Component<MjmlTextProps & RequiredChildrenProps & PaddingProps & ClassNameProps> { }
@@ -402,12 +403,12 @@ export class MjmlText extends React.Component<MjmlTextProps & RequiredChildrenPr
 // mj-wrapper
 export interface MjmlWrapperProps {
     fullWidth?: boolean;
-    backgroundColor?: React.CSSProperties['backgroundColor'];
+    backgroundColor?: ReactDOM.CSSProperties['backgroundColor'];
     backgroundUrl?: string;
-    backgroundRepeat?: React.CSSProperties['backgroundRepeat'];
-    backgroundSize?: React.CSSProperties['backgroundSize'];
-    verticalAlign?: React.CSSProperties['verticalAlign'];
-    textAlign?: React.CSSProperties['textAlign'];
+    backgroundRepeat?: ReactDOM.CSSProperties['backgroundRepeat'];
+    backgroundSize?: ReactDOM.CSSProperties['backgroundSize'];
+    verticalAlign?: ReactDOM.CSSProperties['verticalAlign'];
+    textAlign?: ReactDOM.CSSProperties['textAlign'];
 }
 
 export class MjmlWrapper extends React.Component<MjmlWrapperProps & RequiredChildrenProps & BorderProps & PaddingProps & ClassNameProps> { }
