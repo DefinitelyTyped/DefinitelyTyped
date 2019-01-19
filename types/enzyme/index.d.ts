@@ -12,7 +12,8 @@
 // TypeScript Version: 2.8
 
 /// <reference types="cheerio" />
-import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
+import { ReactElement, Component } from "react";
+import { AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react-dom";
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 

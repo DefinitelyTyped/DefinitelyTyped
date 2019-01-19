@@ -10,7 +10,8 @@ import {
     ShallowRendererProps,
     ComponentClass as EnzymeComponentClass
 } from "enzyme";
-import { Component, ReactElement, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
+import { Component, ReactElement, ComponentClass, StatelessComponent } from "react";
+import { HTMLAttributes } from "react-dom";
 
 // Help classes/interfaces
 interface MyComponentProps {
