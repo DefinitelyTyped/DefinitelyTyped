@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import ReactTimeago, { Unit, Suffix } from "react-timeago";
 import * as React from "react";
 

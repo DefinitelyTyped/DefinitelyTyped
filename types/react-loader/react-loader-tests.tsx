@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import Loader = require('react-loader');
 import * as React from 'react';
 

@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import CoinHive, { CoinHiveProps } from "react-coinhive";
 

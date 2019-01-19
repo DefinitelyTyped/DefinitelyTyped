@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import { Dropdown, DropDownData, RenderBaseProps } from 'react-native-material-dropdown';
 import { LayoutChangeEvent, LayoutRectangle, Text, View } from 'react-native';

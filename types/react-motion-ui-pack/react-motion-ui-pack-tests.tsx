@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import { spring } from "react-motion";
 import Transition from "react-motion-ui-pack";

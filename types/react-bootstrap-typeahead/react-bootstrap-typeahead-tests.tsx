@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import { ClearButton, Typeahead, Highlighter, Menu, MenuItem, Token } from 'react-bootstrap-typeahead';
 

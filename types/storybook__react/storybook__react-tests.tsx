@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import { storiesOf, setAddon, addDecorator, addParameters, configure, getStorybook, RenderFunction, Story, forceReRender, DecoratorParameters, clearDecorators } from '@storybook/react';
 

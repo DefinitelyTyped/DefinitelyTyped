@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import AliceCarousel, { Props, EventObject } from 'react-alice-carousel';
 

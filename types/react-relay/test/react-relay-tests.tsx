@@ -1,5 +1,5 @@
 // tslint:disable:interface-over-type-literal
-
+/// <reference types="react-dom" />
 import * as React from "react";
 import { Environment, Network, RecordSource, Store, ConnectionHandler, FragmentReference } from "relay-runtime";
 

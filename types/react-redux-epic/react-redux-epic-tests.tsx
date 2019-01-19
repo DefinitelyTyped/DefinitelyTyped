@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import { Epic } from 'redux-observable';
 import { renderToString, wrapRootEpic } from 'react-redux-epic';

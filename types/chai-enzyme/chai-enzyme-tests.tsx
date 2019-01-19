@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import chaiEnzyme = require("chai-enzyme");
 import { expect } from "chai";

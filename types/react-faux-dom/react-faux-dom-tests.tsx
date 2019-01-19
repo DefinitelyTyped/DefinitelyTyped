@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import * as d3 from 'd3';
 import { createElement, Element, ReactFauxDomProps, withFauxDOM } from 'react-faux-dom';

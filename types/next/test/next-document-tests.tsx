@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import Document, {
     DocumentProps,
     Enhancer,

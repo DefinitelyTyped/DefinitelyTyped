@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import PanelGroup, { PanelWidth } from "react-panelgroup";
 import * as React from "react";
 

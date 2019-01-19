@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import { StatelessComponent } from "react";
 import { UserAuthWrapper } from "redux-auth-wrapper";

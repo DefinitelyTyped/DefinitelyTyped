@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import { Dispatcher } from "flux";
 import { ReduceStore, Container } from "flux/utils";
 import * as React from "react";

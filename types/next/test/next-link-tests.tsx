@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import Link from "next/link";
 import * as React from "react";
 

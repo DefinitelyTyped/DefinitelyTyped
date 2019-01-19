@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import { Component, StatelessComponent } from "react";
 import { createStore } from "redux";

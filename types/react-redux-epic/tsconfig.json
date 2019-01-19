@@ -6,7 +6,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "jsx": "React",
+        "jsx": "react",
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": [],

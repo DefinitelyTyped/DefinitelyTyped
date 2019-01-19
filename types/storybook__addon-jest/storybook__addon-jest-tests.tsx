@@ -1,4 +1,5 @@
 /// <reference types="storybook__react" />
+/// <reference types="react-dom" />
 
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';

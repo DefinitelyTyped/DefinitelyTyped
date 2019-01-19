@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import Tree, { TreeNode, SelectData, CheckData, InternalTreeNode } from 'rc-tree';
 
@@ -56,7 +57,7 @@ export class Demo extends React.Component<Props, State> {
         }, 0);
     }
 
-    onDel(e: React.MouseEvent<HTMLSpanElement>) {
+    onDel(e: ReactDOM.MouseEvent<HTMLSpanElement>) {
         if (!window.confirm('sure to delete?')) {
             return;
         }

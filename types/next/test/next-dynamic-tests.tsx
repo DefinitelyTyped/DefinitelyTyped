@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import dynamic, { LoadingComponentProps } from "next/dynamic";
 

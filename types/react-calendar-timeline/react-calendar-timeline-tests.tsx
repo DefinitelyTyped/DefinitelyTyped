@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import ReactCalendarTimeline from 'react-calendar-timeline';
 // Don't want to add this as a dependency, because it is only used for tests.

@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import Joyride, { Step, State } from "react-joyride";
 

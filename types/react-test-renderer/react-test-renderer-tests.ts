@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import { create, ReactTestInstance } from "react-test-renderer";
 import { createRenderer } from 'react-test-renderer/shallow';

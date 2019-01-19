@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import shallowCompare = require('react-addons-shallow-compare');
 

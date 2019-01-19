@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import { Flex, Item } from "react-flex";
 import * as React from "react";
 

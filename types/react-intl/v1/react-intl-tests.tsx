@@ -1,7 +1,7 @@
 /**
  * Created by Bruno Grieder
  */
-
+/// <reference types="react-dom" />
 import * as React from 'react'
 
 import * as reactMixin from 'react-mixin'

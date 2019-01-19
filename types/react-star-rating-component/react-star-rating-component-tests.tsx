@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import StarRatingComponent from "react-star-rating-component";
 import * as React from "react";
 

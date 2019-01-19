@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as Sticky from "react-stickynode";
 import * as React from "react";
 

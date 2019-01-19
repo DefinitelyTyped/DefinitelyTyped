@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from "react";
 import Measure, { ContentRect, withContentRect, MeasuredComponentProps, MeasurementType } from "react-measure";
 

@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import { confirmable, createConfirmation, ReactConfirmProps } from 'react-confirm';
 

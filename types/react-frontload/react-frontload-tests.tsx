@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import { frontloadConnect, frontloadServerRender, Frontload } from 'react-frontload';

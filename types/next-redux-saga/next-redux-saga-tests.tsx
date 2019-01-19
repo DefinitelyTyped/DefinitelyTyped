@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';

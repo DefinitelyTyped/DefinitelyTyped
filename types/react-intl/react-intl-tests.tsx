@@ -2,7 +2,7 @@
  * Created by Bruno Grieder and Christian Droulers
  * Updated by Fedor Nezhivoi
  */
-
+/// <reference types="react-dom" />
 import * as React from "react";
 import * as PropTypes from "prop-types";
 import * as reactMixin from "react-mixin";

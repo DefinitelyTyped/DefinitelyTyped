@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import Collapsible from "react-collapsible";
 import * as React from "react";
 

@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import { Catalog, Catalogs, I18n } from '@lingui/core';
 import {

@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import SVGInline = require("react-svg-inline");
 import * as React from "react";
 

@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import Router, { withRouter, WithRouterProps } from "next/router";
 import * as React from "react";
 import * as qs from "querystring";

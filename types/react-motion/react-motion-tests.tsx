@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import { StaggeredMotion, Motion, spring, TransitionMotion, TransitionPlainStyle, TransitionStyle, Style, PlainStyle } from 'react-motion';
 

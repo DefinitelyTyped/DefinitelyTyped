@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as angular from "angular";
 import * as React from "react";
 import * as PropTypes from "prop-types";
