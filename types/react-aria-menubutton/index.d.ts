@@ -7,20 +7,21 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface WrapperState {
 	isOpen: boolean;
 }
 
 export interface WrapperProps<T extends HTMLElement>
-	extends React.HTMLAttributes<T> {
+	extends ReactDOM.HTMLAttributes<T> {
 	/**
 	 * A callback to run when the user makes a selection
 	 * (i.e. clicks or presses Enter or Space on a `MenuItem`).
 	 * It will be passed the value of the selected `MenuItem` and
 	 * the React `SyntheticEvent`.
 	 */
-	onSelection?(value: any, event: React.SyntheticEvent<T>): any;
+	onSelection?(value: any, event: ReactDOM.SyntheticEvent<T>): any;
 
 	/**
 	 * A callback to run when the menu is opened or closed.
@@ -58,7 +59,7 @@ export interface WrapperProps<T extends HTMLElement>
 export class Wrapper extends React.Component<WrapperProps<HTMLElement>> {}
 
 export interface ButtonProps<T extends HTMLElement>
-	extends React.HTMLAttributes<T> {
+	extends ReactDOM.HTMLAttributes<T> {
 	/**
 	 * If true, the element is disabled
 	 * (aria-disabled='true', not in tab order, clicking has no effect).
@@ -82,7 +83,7 @@ export interface ButtonProps<T extends HTMLElement>
 export class Button extends React.Component<ButtonProps<HTMLElement>> {}
 
 export interface MenuProps<T extends HTMLElement>
-	extends React.HTMLAttributes<T> {
+	extends ReactDOM.HTMLAttributes<T> {
 	/**
 	 * The HTML tag for this element. Default: 'span'.
 	 */
@@ -95,7 +96,7 @@ export interface MenuProps<T extends HTMLElement>
 export class Menu extends React.Component<MenuProps<HTMLElement>> {}
 
 export interface MenuItemProps<T extends HTMLElement>
-	extends React.HTMLAttributes<T> {
+	extends ReactDOM.HTMLAttributes<T> {
 	/**
 	 * If value has a value, it will be passed to the onSelection handler
 	 * when the `MenuItem` is selected
