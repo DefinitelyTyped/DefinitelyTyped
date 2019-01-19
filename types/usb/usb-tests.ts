@@ -14,6 +14,8 @@ device.open(true);
 device.close();
 const xferDevice: usb.Device = device.controlTransfer(1, 1, 1, 1, 1, (error: usb.LibUSBException, buf: Buffer): usb.Device => new usb.Device());
 device.getStringDescriptor(1, (error: string, buf: Buffer) => null);
+device.getBosDescriptor((error: string, descriptor: usb.BosDescriptor) => null);
+device.getCapabilities((error: string, capabilities: usb.Capability[]) => null);
 device.setConfiguration(1, (error: string) => null);
 device.reset((error: string) => null);
 
