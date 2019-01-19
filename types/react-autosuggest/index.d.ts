@@ -10,6 +10,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare class Autosuggest<T = any> extends React.Component<Autosuggest.AutosuggestProps<T>> {}
 
@@ -53,9 +54,9 @@ declare namespace Autosuggest {
     }
 
     interface InputProps<TSuggestion>
-        extends Omit<React.InputHTMLAttributes<any>, 'onChange' | 'onBlur'> {
-        onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
-        onBlur?(event: React.FormEvent<any>, params?: BlurEvent<TSuggestion>): void;
+        extends Omit<ReactDOM.InputHTMLAttributes<any>, 'onChange' | 'onBlur'> {
+        onChange(event: ReactDOM.FormEvent<any>, params: ChangeEvent): void;
+        onBlur?(event: ReactDOM.FormEvent<any>, params?: BlurEvent<TSuggestion>): void;
         value: string;
         [key: string]: any;
     }
@@ -85,8 +86,8 @@ declare namespace Autosuggest {
         | 'sectionTitle';
 
     type Theme =
-        | Record<string, string | React.CSSProperties>
-        | Partial<Record<ThemeKey, string | React.CSSProperties>>;
+        | Record<string, string | ReactDOM.CSSProperties>
+        | Partial<Record<ThemeKey, string | ReactDOM.CSSProperties>>;
 
     interface RenderSuggestionsContainerParams {
         containerProps: {
@@ -106,7 +107,7 @@ declare namespace Autosuggest {
     type SuggestionsFetchRequested = (request: SuggestionsFetchRequestedParams) => void;
     type OnSuggestionsClearRequested = () => void;
     type OnSuggestionSelected<TSuggestion> = (
-        event: React.FormEvent<any>,
+        event: ReactDOM.FormEvent<any>,
         data: SuggestionSelectedEventData<TSuggestion>,
     ) => void;
     type RenderInputComponent<TSuggestion> = (inputProps: InputProps<TSuggestion>) => React.ReactNode;

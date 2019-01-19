@@ -95,7 +95,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             theme={theme}/>;
     }
 
-    protected onSuggestionsSelected(event: React.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
+    protected onSuggestionsSelected(event: ReactDOM.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
@@ -104,7 +104,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         return <span className={className}>{suggestion.name}</span>;
     }
     // endregion region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
+    protected onChange(event: ReactDOM.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
         this.setState({value: newValue});
     }
 
@@ -214,7 +214,7 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
             theme={theme}/>;
     }
 
-    protected onSuggestionsSelected(event: React.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
+    protected onSuggestionsSelected(event: ReactDOM.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
@@ -223,7 +223,7 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
         return <span className={className}>{suggestion.name}</span>;
     }
     // endregion region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
+    protected onChange(event: ReactDOM.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
         this.setState({value: newValue});
     }
 
@@ -369,7 +369,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
             }}/>;
     }
 
-    protected onSuggestionSelected(event: React.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
+    protected onSuggestionSelected(event: ReactDOM.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
         const language: Language = data.suggestion;
         alert(`Selected language is ${language.name} (${language.year}).`);
     }
@@ -400,7 +400,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         );
     }
     // endregion region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
+    protected onChange(event: ReactDOM.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
         this.setState({value: newValue});
     }
 
@@ -527,7 +527,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
        </span>;
     }
     // endregion region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
+    protected onChange(event: ReactDOM.FormEvent<any>, {newValue, method}: Autosuggest.ChangeEvent): void {
         this.setState({value: newValue});
     }
 
