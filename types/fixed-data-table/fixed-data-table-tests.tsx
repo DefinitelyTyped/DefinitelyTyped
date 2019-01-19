@@ -172,11 +172,11 @@ class MyTable5 extends React.Component {
                 onScrollStart={(x: number, y: number) => {}}
                 onScrollEnd={(x: number, y: number) => {}}
                 onContentHeightChange={(newHeight: number) => {}}
-                onRowClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
-                onRowDoubleClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
-                onRowMouseDown={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
-                onRowMouseEnter={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
-                onRowMouseLeave={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowClick={(event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowDoubleClick={(event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowMouseDown={(event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowMouseEnter={(event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowMouseLeave={(event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => {}}
                 onColumnResizeEndCallback={(newColumnWidth: number, columnKey: string) => {}}>
                 // add columns
             </Table>

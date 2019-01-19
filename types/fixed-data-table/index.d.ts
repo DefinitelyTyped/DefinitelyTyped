@@ -7,6 +7,7 @@
 /// <reference types="react"/>
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export = FixedDataTable;
 export as namespace FixedDataTable;
@@ -213,30 +214,30 @@ declare namespace FixedDataTable {
         /**
           * Callback that is called when a row is clicked.
           */
-        onRowClick?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowClick?: (event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when a row is double clicked.
           */
-        onRowDoubleClick?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowDoubleClick?: (event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when a mouse-down event happens
           * on a row.
           */
-        onRowMouseDown?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowMouseDown?: (event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when a mouse-enter event happens
           * on a row.
           */
-        onRowMouseEnter?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowMouseEnter?: (event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when a mouse-leave event happens
           * on a row.
           */
-        onRowMouseLeave?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+        onRowMouseLeave?: (event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when resizer has been released
@@ -465,7 +466,7 @@ declare namespace FixedDataTable {
      *   />
      * );
      */
-    export interface CellProps extends React.HTMLAttributes<Cell> {
+    export interface CellProps extends ReactDOM.HTMLAttributes<Cell> {
         /**
          * The row index of the cell.
          */
