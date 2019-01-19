@@ -105,6 +105,24 @@ export interface BaseTheme {
     };
 }
 
+export type ObjectOrArray<T> = T[] | { [K: string]: T };
+
+export interface Theme extends BaseTheme {
+    fonts?: ObjectOrArray<CSS.FontFamilyProperty>;
+    fontWeights?: ObjectOrArray<CSS.FontWeightProperty>;
+    maxWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
+    minWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
+    heights?: ObjectOrArray<CSS.HeightProperty<{}>>;
+    maxHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
+    minHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
+    lineHeights?: ObjectOrArray<CSS.LineHeightProperty<{}>>;
+    letterSpacings?: ObjectOrArray<CSS.LetterSpacingProperty<{}>>;
+    shadows?: ObjectOrArray<CSS.BoxShadowProperty>;
+    borders?: ObjectOrArray<CSS.BorderProperty<{}>>;
+    radii?: ObjectOrArray<CSS.BorderRadiusProperty<{}>>;
+    opacity?: ObjectOrArray<CSS.GlobalsNumber>;
+}
+
 /**
  * Font Size
  */
