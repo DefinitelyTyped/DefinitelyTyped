@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export interface CommonProps {
   className?: string;
@@ -13,7 +14,7 @@ export interface CommonProps {
   strokeColor?: string;
   strokeLinecap?: 'butt' | 'square' | 'round';
   strokeWidth?: number | string;
-  style?: React.CSSProperties[] | React.CSSProperties;
+  style?: ReactDOM.CSSProperties[] | ReactDOM.CSSProperties;
   trailColor?: string;
   trailWidth?: number | string;
 }
@@ -28,8 +29,8 @@ export class Circle extends React.Component<CircleProps> {
 
   getPathStyles(): {
     pathString: string;
-    trailPathStyle: React.CSSProperties[] | React.CSSProperties;
-    strokePathStyle: React.CSSProperties[] | React.CSSProperties;
+    trailPathStyle: ReactDOM.CSSProperties[] | ReactDOM.CSSProperties;
+    strokePathStyle: ReactDOM.CSSProperties[] | ReactDOM.CSSProperties;
   };
 }
 
