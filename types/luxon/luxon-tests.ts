@@ -45,6 +45,28 @@ dt.toSQLDate();
 dt.toSQLTime();
 dt.toSQLTime({includeOffset: false, includeZone: true});
 
+dt.toRelative();
+dt.toRelativeCalendar();
+
+// $ExpectType string | null
+dt.toRelative({
+    base: DateTime.local(),
+    locale: 'fr',
+    style: 'long',
+    unit: 'day',
+    round: true,
+    padding: 10,
+    numberingSystem: 'bali',
+});
+
+// $ExpectType string | null
+dt.toRelativeCalendar({
+    base: DateTime.local(),
+    locale: 'fr',
+    unit: 'day',
+    numberingSystem: 'bali',
+});
+
 dt.plus({ hours: 3, minutes: 2 });
 dt.minus({ days: 7 });
 dt.startOf('day');
@@ -67,7 +89,7 @@ DateTime.utc().toLocal();
 
 DateTime.fromMillis(1527780819458).toMillis();
 
-const {input, result, zone} = DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy");
+const {input, result, zone} = DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d yyyy');
 
 /* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 });
