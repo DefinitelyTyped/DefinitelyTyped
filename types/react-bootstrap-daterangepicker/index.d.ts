@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="react" />
+/// <reference types="react-dom" />
 /// <reference types="daterangepicker" />
 
 declare namespace ReactBootstrapDaterangepicker {
@@ -20,7 +21,7 @@ declare namespace ReactBootstrapDaterangepicker {
         onCancel?: EventHandler;
         onEvent?: EventHandler;
         containerClass?: string;
-        containerStyles?: React.CSSProperties;
+        containerStyles?: ReactDOM.CSSProperties;
     }
 
     export class DateRangePicker extends React.Component<Props> { }
