@@ -8,9 +8,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
@@ -22,7 +22,6 @@
         "test/request/catch-all.ts",
         "test/request/event-types.ts",
         "test/request/get-log.ts",
-        "test/request/info.ts",
         "test/request/methods.ts",
         "test/request/parameters.ts",
         "test/request/query.ts",
