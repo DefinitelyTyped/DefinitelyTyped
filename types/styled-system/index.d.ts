@@ -96,16 +96,14 @@ export interface VariantArgs {
 
 export function variant(props: VariantArgs): (...args: any[]) => any;
 
+export type ObjectOrArray<T> = T[] | { [K: string]: T };
+
 export interface BaseTheme {
     breakpoints?: number[];
     space?: number[];
     fontSizes?: number[];
-    colors?: {
-        [name: string]: string;
-    };
+    colors?: ObjectOrArray<CSS.ColorProperty>;
 }
-
-export type ObjectOrArray<T> = T[] | { [K: string]: T };
 
 export interface Theme extends BaseTheme {
     fonts?: ObjectOrArray<CSS.FontFamilyProperty>;
@@ -121,6 +119,9 @@ export interface Theme extends BaseTheme {
     borders?: ObjectOrArray<CSS.BorderProperty<{}>>;
     radii?: ObjectOrArray<CSS.BorderRadiusProperty<{}>>;
     opacity?: ObjectOrArray<CSS.GlobalsNumber>;
+    textStyles?: ObjectOrArray<CSS.StandardProperties>;
+    colorStyles?: ObjectOrArray<CSS.StandardProperties>;
+    buttons?: ObjectOrArray<CSS.StandardProperties>;
 }
 
 /**
