@@ -7,11 +7,11 @@ interface Book {
 }
 
 const title = '';
-const titleStyle: React.CSSProperties = {};
+const titleStyle: ReactDOM.CSSProperties = {};
 const filterHintText = '';
 const fixedHeader = false;
 const fixedFooter = false;
-const footerToolbarStyle: React.CSSProperties = {};
+const footerToolbarStyle: ReactDOM.CSSProperties = {};
 const stripedRows = false;
 const showRowHover = false;
 const selectable = false;
@@ -33,13 +33,13 @@ const data: Book[] = [book];
 const page = 1;
 const toolbarIconRight: any = {};
 const count = 1;
-const tableStyle: React.CSSProperties = {};
-const tableBodyStyle: React.CSSProperties = {};
-const tableHeaderColumnStyle: React.CSSProperties = {};
-const tableHeaderStyle: React.CSSProperties = {};
-const tableRowColumnStyle: React.CSSProperties = {};
-const tableRowStyle: React.CSSProperties = {};
-const tableWrapperStyle: React.CSSProperties = {};
+const tableStyle: ReactDOM.CSSProperties = {};
+const tableBodyStyle: ReactDOM.CSSProperties = {};
+const tableHeaderColumnStyle: ReactDOM.CSSProperties = {};
+const tableHeaderStyle: ReactDOM.CSSProperties = {};
+const tableRowColumnStyle: ReactDOM.CSSProperties = {};
+const tableRowStyle: ReactDOM.CSSProperties = {};
+const tableWrapperStyle: ReactDOM.CSSProperties = {};
 const headerToolbarMode = 'filter';
 const filterValue = '';
 const showHeaderToolbarFilterIcon = false;

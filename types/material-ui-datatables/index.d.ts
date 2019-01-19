@@ -5,12 +5,13 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export interface Column {
     /** The element key */
     key?: string;
     /** Style for column */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /** Label */
     label?: string;
     /** Cell tooltip */
@@ -35,7 +36,7 @@ export interface DataTableProps {
     /** Table title */
     title: string;
     /** React Style object for the title */
-    titleStyle: React.CSSProperties;
+    titleStyle: ReactDOM.CSSProperties;
     /** Filter hint text */
     filterHintText: string;
     /** If the header should be fixed */
@@ -43,7 +44,7 @@ export interface DataTableProps {
     /** If the footer should be fixed */
     fixedFooter: boolean;
     /** React Style object applied to footer toolbar */
-    footerToolbarStyle: React.CSSProperties;
+    footerToolbarStyle: ReactDOM.CSSProperties;
     /** To display striped rows in the table */
     stripedRows: boolean;
     /** Display a hover in the row under the mouse */
@@ -85,18 +86,18 @@ export interface DataTableProps {
     toolbarIconRight: any;
     count: number;
     /** React style object for the table tag */
-    tableStyle: React.CSSProperties;
+    tableStyle: ReactDOM.CSSProperties;
     /** React style object for the tbody tag */
-    tableBodyStyle: React.CSSProperties;
+    tableBodyStyle: ReactDOM.CSSProperties;
     /** React style object for the th/td tag */
-    tableHeaderColumnStyle: React.CSSProperties;
+    tableHeaderColumnStyle: ReactDOM.CSSProperties;
     /** React style object for the th tag */
-    tableHeaderStyle: React.CSSProperties;
+    tableHeaderStyle: ReactDOM.CSSProperties;
     /** React style object for the tr tag */
-    tableRowStyle: React.CSSProperties;
+    tableRowStyle: ReactDOM.CSSProperties;
     /** React style object for the tr/td tag */
-    tableRowColumnStyle: React.CSSProperties;
-    tableWrapperStyle: React.CSSProperties;
+    tableRowColumnStyle: ReactDOM.CSSProperties;
+    tableWrapperStyle: ReactDOM.CSSProperties;
     /** 'default' or 'filter', filter mode shows a search box to reduce visible rows */
     headerToolbarMode: "default" | "filter" | string; // BUG https://github.com/Microsoft/TypeScript/issues/11465
     /** The current filter value */
