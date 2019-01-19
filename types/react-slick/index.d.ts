@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 type ComponentConstructor<TProps> =
     | React.ComponentClass<TProps>
@@ -14,8 +15,8 @@ type ComponentConstructor<TProps> =
 
 export interface CustomArrowProps {
     className?: string;
-    style?: React.CSSProperties;
-    onClick?: React.MouseEventHandler<any>;
+    style?: ReactDOM.CSSProperties;
+    onClick?: ReactDOM.MouseEventHandler<any>;
     currentSlide?: number;
     slideCount?: number;
 }
