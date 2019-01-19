@@ -110,7 +110,7 @@ export interface LocationProps {
 export class Location extends React.Component<LocationProps> { }
 
 export interface LocationProviderProps {
-    history: History;
+    history?: History;
     children?: React.ReactNode | LocationProviderRenderFn;
 }
 
