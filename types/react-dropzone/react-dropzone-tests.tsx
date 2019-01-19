@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DragEvent, SyntheticEvent } from "react";
+import { DragEvent, SyntheticEvent } from "react-dom";
 import Dropzone, { ImageFile } from "react-dropzone";
 
 class Test extends React.Component {

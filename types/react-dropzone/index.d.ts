@@ -11,34 +11,35 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { CSSProperties, Component, DragEvent, InputHTMLAttributes } from "react";
+import { Component } from "react";
+import * as ReactDOM from "react-dom";
 
 export interface ImageFile extends File {
     preview?: string;
 }
 
-export type DropFileEventHandler = (acceptedOrRejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
-export type DropFilesEventHandler = (accepted: ImageFile[], rejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
+export type DropFileEventHandler = (acceptedOrRejected: ImageFile[], event: ReactDOM.DragEvent<HTMLDivElement>) => void;
+export type DropFilesEventHandler = (accepted: ImageFile[], rejected: ImageFile[], event: ReactDOM.DragEvent<HTMLDivElement>) => void;
 
 type PickedAttributes = "className" | "multiple" | "name" | "onClick" | "onDragStart" | "onDragEnter" | "onDragOver" | "onDragLeave" | "style";
 
-export interface DropzoneProps extends Pick<InputHTMLAttributes<HTMLDivElement>, PickedAttributes> {
+export interface DropzoneProps extends Pick<ReactDOM.InputHTMLAttributes<HTMLDivElement>, PickedAttributes> {
     accept?: string | ReadonlyArray<string>;
     disableClick?: boolean;
     disabled?: boolean;
     disablePreview?: boolean;
     preventDropOnDocument?: boolean;
-    inputProps?: InputHTMLAttributes<HTMLInputElement>;
+    inputProps?: ReactDOM.InputHTMLAttributes<HTMLInputElement>;
     maxSize?: number;
     minSize?: number;
     activeClassName?: string;
     acceptClassName?: string;
     rejectClassName?: string;
     disabledClassName?: string;
-    activeStyle?: CSSProperties;
-    acceptStyle?: CSSProperties;
-    rejectStyle?: CSSProperties;
-    disabledStyle?: CSSProperties;
+    activeStyle?: ReactDOM.CSSProperties;
+    acceptStyle?: ReactDOM.CSSProperties;
+    rejectStyle?: ReactDOM.CSSProperties;
+    disabledStyle?: ReactDOM.CSSProperties;
     onDrop?: DropFilesEventHandler;
     onDropAccepted?: DropFileEventHandler;
     onDropRejected?: DropFileEventHandler;
