@@ -10,10 +10,11 @@
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-export type DayPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
-export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: React.CSSProperties };
-export type SlotPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
+export type DayPropGetter = (date: Date) => { className?: string, style?: ReactDOM.CSSProperties };
+export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: ReactDOM.CSSProperties };
+export type SlotPropGetter = (date: Date) => { className?: string, style?: ReactDOM.CSSProperties };
 export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
@@ -155,7 +156,7 @@ export interface ToolbarProps {
 
 export interface EventWrapperProps<T extends Event = Event> {
     // https://github.com/intljusticemission/react-big-calendar/blob/27a2656b40ac8729634d24376dff8ea781a66d50/src/TimeGridEvent.js#L28
-    style?: React.CSSProperties & { xOffset: number };
+    style?: ReactDOM.CSSProperties & { xOffset: number };
     className: string;
     event: T;
     isRtl: boolean;
@@ -164,8 +165,8 @@ export interface EventWrapperProps<T extends Event = Event> {
         slotProp?: SlotPropGetter;
         dayProp?: DayPropGetter;
     };
-    onClick: (e: React.MouseEvent<HTMLElement>) => void;
-    onDoubleClick: (e: React.MouseEvent<HTMLElement>) => void;
+    onClick: (e: ReactDOM.MouseEvent<HTMLElement>) => void;
+    onDoubleClick: (e: ReactDOM.MouseEvent<HTMLElement>) => void;
     accessors: {
         title?: (event: T) => string;
         tooltip?: (event: T) => string;
@@ -227,8 +228,8 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
     onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[], action: 'select' | 'click' | 'doubleClick' }) => void;
-    onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
-    onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
+    onDoubleClickEvent?: (event: TEvent, e: ReactDOM.SyntheticEvent<HTMLElement>) => void;
+    onSelectEvent?: (event: TEvent, e: ReactDOM.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate, end: stringOrDate }) => boolean | undefined | null;
     selected?: any;
     views?: Views;
@@ -265,7 +266,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     defaultView?: View;
     defaultDate?: Date;
     className?: string;
-    elementProps?: React.HTMLAttributes<HTMLElement>;
+    elementProps?: ReactDOM.HTMLAttributes<HTMLElement>;
 }
 
 export interface ViewStatic {
