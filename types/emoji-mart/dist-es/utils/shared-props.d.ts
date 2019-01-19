@@ -1,4 +1,5 @@
 import React = require('react');
+import ReactDOM = require('react-dom');
 
 import { EmojiData, EmojiSkin, CustomEmoji } from './emoji-index/nimble-emoji-index';
 
@@ -7,9 +8,9 @@ export type EmojiSet = 'apple' | 'google' | 'twitter' | 'emojione' | 'messenger'
 export type EmojiSheetSize = 16 | 20 | 32 | 64;
 
 export interface EmojiProps {
-    onOver?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
-    onLeave?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
-    onClick?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
+    onOver?(emoji: EmojiData, e: ReactDOM.MouseEvent<HTMLElement>): void;
+    onLeave?(emoji: EmojiData, e: ReactDOM.MouseEvent<HTMLElement>): void;
+    onClick?(emoji: EmojiData, e: ReactDOM.MouseEvent<HTMLElement>): void;
     fallback?(emoji: EmojiData, props: EmojiProps): React.Component;
     /** defaults to returning a png from unpkg.com-hosted emoji-datasource-${set} */
     backgroundImageFn?: BackgroundImageFn;
@@ -50,7 +51,7 @@ export interface CustomIcons {
 
 export interface PickerProps {
     /** NOTE: default is not preventable */
-    onClick?(emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void;
+    onClick?(emoji: EmojiData, e: ReactDOM.MouseEvent<HTMLElement>): void;
     onSelect?(emoji: EmojiData): void;
     onSkinChange?(skin: EmojiSkin): void;
     perLine?: number;
