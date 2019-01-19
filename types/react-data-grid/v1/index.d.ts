@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="react" />
+/// <reference types="react-dom" />
 
 declare namespace AdazzleReactDataGrid {
 
@@ -266,7 +267,7 @@ declare namespace AdazzleReactDataGrid {
          * @param ev The react event
          * @param args The row and column coordinates of the cell, and the name of the event.
          */
-        (ev: React.SyntheticEvent<any>, args: {rowIdx: number, idx: number, name: string}): void
+        (ev: ReactDOM.SyntheticEvent<any>, args: {rowIdx: number, idx: number, name: string}): void
     }
 
     /**
@@ -332,7 +333,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The double click event.
          */
-        e: React.SyntheticEvent<any>
+        e: ReactDOM.SyntheticEvent<any>
     }
 
     /**

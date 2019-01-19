@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import ReactDataGrid = require('react-data-grid');
 import * as ReactDataGridPlugins from 'react-data-grid/addons';
 import faker = require('faker');
@@ -198,7 +199,7 @@ class Example extends React.Component<any, any> {
     getColumns() {
         var clonedColumns = columns.slice();
         clonedColumns[2].events = {
-            onClick: (ev:React.SyntheticEvent<any>, args:{idx:number, rowIdx:number}) => {
+            onClick: (ev:ReactDOM.SyntheticEvent<any>, args:{idx:number, rowIdx:number}) => {
                 var idx = args.idx;
                 var rowIdx = args.rowIdx;
                 (this.refs.grid as ReactDataGrid)
