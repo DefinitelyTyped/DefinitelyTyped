@@ -7,6 +7,7 @@
 /// <reference types="react"/>
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import DataGrid = ReactDataGrid.DataGrid;
 export = DataGrid;
 
@@ -44,7 +45,7 @@ declare namespace ReactDataGrid {
           */
         sortInfo?: SortInfo[];
 
-        style?: React.CSSProperties;
+        style?: ReactDOM.CSSProperties;
 
         /**
           * Object/Function - you can specify either a style object to be
@@ -52,7 +53,7 @@ declare namespace ReactDataGrid {
           * (data, props) (so you have access to props.index for example) and
           * is expected to return a style object.
           */
-        rowStyle?: React.CSSProperties | ((data: any, props: RowProps) => React.CSSProperties);
+        rowStyle?: ReactDOM.CSSProperties | ((data: any, props: RowProps) => ReactDOM.CSSProperties);
 
         /**
           * Boolean - show a column menu to show/hide columns.
@@ -200,7 +201,7 @@ declare namespace ReactDataGrid {
           * Object - if you want cells in this column to be have a custom
           * style.
           */
-        style?: React.CSSProperties;
+        style?: ReactDOM.CSSProperties;
 
         /**
           * String - one of 'left', 'right', 'center'.
@@ -250,7 +251,7 @@ declare namespace ReactDataGrid {
         /**
           * a style for the cell
           */
-        style: React.CSSProperties;
+        style: ReactDOM.CSSProperties;
 
         /**
           * a class name for the cell
@@ -297,9 +298,9 @@ declare namespace ReactDataGrid {
         showRefreshIcon: boolean;
 				iconSize: number;
 				iconProps: {
-  					style: React.SVGAttributes<{}>,
-  					overStyle: React.SVGAttributes<{}>,
-  					disabledStyle: React.SVGAttributes<{}>
+  					style: ReactDOM.SVGAttributes<{}>,
+  					overStyle: ReactDOM.SVGAttributes<{}>,
+  					disabledStyle: ReactDOM.SVGAttributes<{}>
 				}
     }
 
