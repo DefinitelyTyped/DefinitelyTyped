@@ -1,4 +1,5 @@
 import { ComponentType, Component, ReactNode } from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps } from '../types';
@@ -18,9 +19,9 @@ export type MultiValueProps<OptionType> = CommonProps<OptionType> &{
   },
 };
 
-export function multiValueCSS(): React.CSSProperties;
-export function multiValueLabelCSS(props: MultiValueProps<any>): React.CSSProperties;
-export function multiValueRemoveCSS(props: MultiValueProps<any>): React.CSSProperties;
+export function multiValueCSS(): ReactDOM.CSSProperties;
+export function multiValueLabelCSS(props: MultiValueProps<any>): ReactDOM.CSSProperties;
+export function multiValueRemoveCSS(props: MultiValueProps<any>): ReactDOM.CSSProperties;
 
 export interface MultiValueGenericProps<OptionType> {
   children: ReactNode;

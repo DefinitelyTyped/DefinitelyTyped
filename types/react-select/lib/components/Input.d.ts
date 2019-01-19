@@ -1,4 +1,5 @@
 import { ComponentType, Ref as ElementRef } from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { colors, spacing } from '../theme';
 
@@ -15,8 +16,8 @@ export type InputProps = PropsWithStyles & {
   className?: string,
 };
 
-export function inputCSS(props: InputProps): React.CSSProperties;
-export function inputStyle(isHidden: boolean): React.CSSProperties;
+export function inputCSS(props: InputProps): ReactDOM.CSSProperties;
+export function inputStyle(isHidden: boolean): ReactDOM.CSSProperties;
 
 export const Input: ComponentType<InputProps>;
 

@@ -5,7 +5,7 @@ import {
   ReactNode,
   ComponentType
 } from 'react';
-import { createPortal } from 'react-dom';
+import { createPortal, CSSProperties } from 'react-dom';
 
 import {
   animatedScrollTo,
@@ -64,7 +64,7 @@ export type MenuProps<OptionType> = CommonProps<OptionType> & {
   menuShouldScrollIntoView: boolean,
 };
 
-export function menuCSS(state: MenuState): React.CSSProperties;
+export function menuCSS(state: MenuState): CSSProperties;
 
 export class Menu<OptionType> extends Component<MenuProps<OptionType>, MenuState> {
   static contextTypes: {
@@ -96,15 +96,15 @@ export interface MenuListProps {
 export type MenuListComponentProps<OptionType> = CommonProps<OptionType> &
   MenuListProps &
   MenuListState;
-export function menuListCSS(state: MenuState): React.CSSProperties;
+export function menuListCSS(state: MenuState): CSSProperties;
 export const MenuList: ComponentType<MenuListComponentProps<any>>;
 
 // ==============================
 // Menu Notices
 // ==============================
 
-export function noOptionsMessageCSS(): React.CSSProperties;
-export function loadingMessageCSS(): React.CSSProperties;
+export function noOptionsMessageCSS(): CSSProperties;
+export function loadingMessageCSS(): CSSProperties;
 
 export type NoticeProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered. */
@@ -143,7 +143,7 @@ interface PortalStyleArgs {
   rect: RectType;
 }
 
-export function menuPortalCSS(args: PortalStyleArgs): React.CSSProperties;
+export function menuPortalCSS(args: PortalStyleArgs): CSSProperties;
 
 export class MenuPortal<OptionType> extends Component<MenuPortalProps<OptionType>, MenuPortalState> {
   static childContextTypes: {

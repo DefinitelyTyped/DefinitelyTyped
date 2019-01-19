@@ -1,4 +1,5 @@
 import { ComponentType, ReactElement as ElementType } from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { colors, spacing } from '../theme';
 import { CommonProps } from '../types';
@@ -25,7 +26,7 @@ export type IndicatorProps<OptionType> = CommonProps<OptionType> & {
   isRtl: boolean,
 };
 
-export type baseCSS = (props: IndicatorProps<any>) => React.CSSProperties;
+export type baseCSS = (props: IndicatorProps<any>) => ReactDOM.CSSProperties;
 
 export const dropdownIndicatorCSS: baseCSS;
 export const DropdownIndicator: ComponentType<IndicatorProps<any>>;
@@ -39,7 +40,7 @@ export const ClearIndicator: ComponentType<IndicatorProps<any>>;
 
 export interface SeparatorState { isDisabled: boolean; }
 
-export function indicatorSeparatorCSS(state: SeparatorState): React.CSSProperties;
+export function indicatorSeparatorCSS(state: SeparatorState): ReactDOM.CSSProperties;
 
 export const IndicatorSeparator: ComponentType<IndicatorProps<any>>;
 
@@ -50,7 +51,7 @@ export const IndicatorSeparator: ComponentType<IndicatorProps<any>>;
 export function loadingIndicatorCSS(state: {
   isFocused: boolean,
   size: number,
-}): React.CSSProperties;
+}): ReactDOM.CSSProperties;
 
 export type LoadingIconProps<OptionType> = {
   /** Props that will be passed on to the children. */

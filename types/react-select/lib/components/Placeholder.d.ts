@@ -1,4 +1,5 @@
 import { ComponentType, ReactNode } from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { colors, spacing } from '../theme';
 import { CommonProps } from '../types';
@@ -10,7 +11,7 @@ export type PlaceholderProps<OptionType> = CommonProps<OptionType> & {
   innerProps: { [key: string]: any },
 };
 
-export function placeholderCSS(): React.CSSProperties;
+export function placeholderCSS(): ReactDOM.CSSProperties;
 
 export const Placeholder: ComponentType<PlaceholderProps<any>>;
 

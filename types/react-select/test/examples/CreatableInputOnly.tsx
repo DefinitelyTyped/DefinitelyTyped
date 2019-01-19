@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import CreatableSelect from 'react-select/lib/Creatable';
 
@@ -36,7 +37,7 @@ export default class CreatableInputOnly extends React.Component<any, State> {
   handleInputChange = (inputValue: string) => {
     this.setState({ inputValue });
   }
-  handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+  handleKeyDown = (event: ReactDOM.KeyboardEvent<HTMLElement>) => {
     const { inputValue, value } = this.state;
     if (!inputValue) return;
     switch (event.key) {

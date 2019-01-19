@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type OptionsType<OptionType> = OptionType[];
 
@@ -11,9 +12,9 @@ export type GroupedOptionsType<UnionOptionType> = Array<GroupType<UnionOptionTyp
 
 export type ValueType<OptionType> = OptionType | OptionsType<OptionType> | null | undefined;
 
-export type FocusEventHandler = (event: React.FocusEvent<HTMLElement>) => void;
-export type MouseEventHandler = (event: React.MouseEvent<HTMLElement>) => void;
-export type KeyboardEventHandler = (event: React.KeyboardEvent<HTMLElement>) => void;
+export type FocusEventHandler = (event: ReactDOM.FocusEvent<HTMLElement>) => void;
+export type MouseEventHandler = (event: ReactDOM.MouseEvent<HTMLElement>) => void;
+export type KeyboardEventHandler = (event: ReactDOM.KeyboardEvent<HTMLElement>) => void;
 
 export type InnerRef = React.Ref<any>;
 export interface PropsWithInnerRef {

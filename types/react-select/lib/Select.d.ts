@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { Option } from './filters';
 import {
@@ -41,8 +42,8 @@ import {
 } from './types';
 
 export type MouseOrTouchEvent =
-  | React.MouseEvent<HTMLElement>
-  | React.TouchEvent<HTMLElement>;
+  | ReactDOM.MouseEvent<HTMLElement>
+  | ReactDOM.TouchEvent<HTMLElement>;
 export type FormatOptionLabelContext = 'menu' | 'value';
 export interface FormatOptionLabelMeta<OptionType> {
   context: FormatOptionLabelContext;
@@ -175,9 +176,9 @@ export interface Props<OptionType = { label: string; value: string }> {
   /* Handle the menu closing */
   onMenuClose?: () => void;
   /* Fired when the user scrolls to the top of the menu */
-  onMenuScrollToTop?: (event: React.SyntheticEvent<HTMLElement>) => void;
+  onMenuScrollToTop?: (event: ReactDOM.SyntheticEvent<HTMLElement>) => void;
   /* Fired when the user scrolls to the bottom of the menu */
-  onMenuScrollToBottom?: (event: React.SyntheticEvent<HTMLElement>) => void;
+  onMenuScrollToBottom?: (event: ReactDOM.SyntheticEvent<HTMLElement>) => void;
   /* Allows control of whether the menu is opened when the Select is focused */
   openMenuOnFocus?: boolean;
   /* Allows control of whether the menu is opened when the Select is clicked */
@@ -351,8 +352,8 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
   // Mouse Handlers
   // ==============================
 
-  onMenuMouseDown: (event: React.MouseEvent<HTMLElement>) => void;
-  onMenuMouseMove: (event: React.MouseEvent<HTMLElement>) => void;
+  onMenuMouseDown: (event: ReactDOM.MouseEvent<HTMLElement>) => void;
+  onMenuMouseMove: (event: ReactDOM.MouseEvent<HTMLElement>) => void;
   onControlMouseDown: (event: MouseOrTouchEvent) => void;
   onDropdownIndicatorMouseDown: (event: MouseOrTouchEvent) => void;
   onClearIndicatorMouseDown: (event: MouseOrTouchEvent) => void;
@@ -376,17 +377,17 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
   onTouchStart: (event: TouchEvent) => void;
   onTouchMove: (event: TouchEvent) => void;
   onTouchEnd: (event: TouchEvent) => void;
-  onControlTouchEnd: (event: React.TouchEvent<HTMLElement>) => void;
-  onClearIndicatorTouchEnd: (event: React.TouchEvent<HTMLElement>) => void;
-  onDropdownIndicatorTouchEnd: (event: React.TouchEvent<HTMLElement>) => void;
+  onControlTouchEnd: (event: ReactDOM.TouchEvent<HTMLElement>) => void;
+  onClearIndicatorTouchEnd: (event: ReactDOM.TouchEvent<HTMLElement>) => void;
+  onDropdownIndicatorTouchEnd: (event: ReactDOM.TouchEvent<HTMLElement>) => void;
 
   // ==============================
   // Focus Handlers
   // ==============================
 
-  handleInputChange: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  onInputFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onInputBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  handleInputChange: (event: ReactDOM.KeyboardEvent<HTMLInputElement>) => void;
+  onInputFocus: (event: ReactDOM.FocusEvent<HTMLInputElement>) => void;
+  onInputBlur: (event: ReactDOM.FocusEvent<HTMLInputElement>) => void;
   onOptionHover: (focusedOption: OptionType) => void;
   shouldHideSelectedOptions: () => boolean;
 
@@ -394,7 +395,7 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
   // Keyboard Handlers
   // ==============================
 
-  onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
+  onKeyDown: (event: ReactDOM.KeyboardEvent<HTMLElement>) => void;
 
   // ==============================
   // Menu Options

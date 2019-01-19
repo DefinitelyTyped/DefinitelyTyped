@@ -1,4 +1,5 @@
-import { ComponentType, ReactNode, MouseEventHandler } from 'react';
+import { ComponentType, ReactNode } from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { colors, spacing } from '../theme';
 import { CommonProps, PropsWithStyles, InnerRef } from '../types';
@@ -14,8 +15,8 @@ interface State {
 interface InnerProps {
   id: string;
   key: string;
-  onClick: MouseEventHandler<HTMLDivElement>;
-  onMouseOver: MouseEventHandler<HTMLDivElement>;
+  onClick: ReactDOM.MouseEventHandler<HTMLDivElement>;
+  onMouseOver: ReactDOM.MouseEventHandler<HTMLDivElement>;
   tabIndex: number;
 }
 export type OptionProps<OptionType> = PropsWithStyles &
@@ -36,7 +37,7 @@ export type OptionProps<OptionType> = PropsWithStyles &
     data: any,
   };
 
-export function optionCSS(state: State): React.CSSProperties;
+export function optionCSS(state: State): ReactDOM.CSSProperties;
 
 export const Option: ComponentType<OptionProps<any>>;
 

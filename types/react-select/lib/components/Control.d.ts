@@ -1,4 +1,5 @@
 import { ComponentType, ReactNode, Ref as ElementRef } from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { borderRadius, colors, spacing } from '../theme';
 import { CommonProps, PropsWithStyles } from '../types';
@@ -18,11 +19,11 @@ export type ControlProps<OptionType> = CommonProps<OptionType> &
     innerRef: ElementRef<any>,
     /** The mouse down event and the innerRef to pass down to the controller element. */
     innerProps: {
-      onMouseDown: (event: React.MouseEvent<HTMLElement>) => void,
+      onMouseDown: (event: ReactDOM.MouseEvent<HTMLElement>) => void,
     },
   };
 
-export function css(state: State): React.CSSProperties;
+export function css(state: State): ReactDOM.CSSProperties;
 
 declare const Control: ComponentType<ControlProps<any>>;
 

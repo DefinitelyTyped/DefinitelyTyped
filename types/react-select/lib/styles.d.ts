@@ -27,7 +27,7 @@ import {
   multiValueLabelCSS,
   multiValueRemoveCSS,
 } from './components/MultiValue';
-import { CSSProperties } from 'react';
+import { CSSProperties } from 'react-dom';
 
 export interface Props { [key: string]: any; }
 

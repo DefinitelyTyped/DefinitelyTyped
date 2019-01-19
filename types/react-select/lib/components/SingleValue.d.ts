@@ -1,4 +1,6 @@
 import { ComponentType } from 'react';
+import * as ReactDOM from 'react-dom';
+
 import { colors, spacing } from '../theme';
 import { CommonProps } from '../types';
 
@@ -16,7 +18,7 @@ interface ValueProps<OptionType> {
 }
 export type SingleValueProps<OptionType> = CommonProps<OptionType> & ValueProps<OptionType> & State;
 
-export function css(props: SingleValueProps<any>): React.CSSProperties;
+export function css(props: SingleValueProps<any>): ReactDOM.CSSProperties;
 
 export const SingleValue: ComponentType<SingleValueProps<any>>;
 
