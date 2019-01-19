@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 /*
 Avatar Props Interface
@@ -157,7 +158,7 @@ export interface ButtonProps {
     disabled?: boolean;
     inline?: boolean;
     name?: string;
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
+    onClick?: (args: { event: ReactDOM.SyntheticEvent<ReactDOM.MouseEvent> }) => void;
     size?: "sm" | "md" | "lg";
     type?: "submit" | "button";
 }
@@ -172,10 +173,10 @@ export interface CardProps {
     children?: React.ReactNode;
     image?: React.ReactNode;
     onMouseEnter?: (
-        args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }
+        args: { event: ReactDOM.SyntheticEvent<ReactDOM.MouseEvent<HTMLDivElement>> }
     ) => void;
     onMouseLeave?: (
-        args: { event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>> }
+        args: { event: ReactDOM.SyntheticEvent<ReactDOM.MouseEvent<HTMLDivElement>> }
     ) => void;
 }
 
@@ -188,7 +189,7 @@ export interface CheckboxProps {
     id: string;
     onChange: (
         args: {
-            event: React.SyntheticEvent<HTMLInputElement>;
+            event: ReactDOM.SyntheticEvent<HTMLInputElement>;
             checked: boolean;
         }
     ) => void;
@@ -407,7 +408,7 @@ export interface IconButtonProps {
     accessibilityHaspopup?: boolean;
     bgColor?: "transparent" | "lightGray" | "white";
     iconColor?: "blue" | "darkGray" | "gray" | "red" | "white";
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
+    onClick?: (args: { event: ReactDOM.SyntheticEvent<ReactDOM.MouseEvent> }) => void;
     size?: "xs" | "sm" | "md" | "lg" | "xl";
 }
 
@@ -461,7 +462,7 @@ export interface LinkProps {
     children?: React.ReactNode;
     href?: string;
     inline?: boolean;
-    onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
+    onClick?: (args: { event: ReactDOM.SyntheticEvent<ReactDOM.MouseEvent> }) => void;
     target?: "null" | "self" | "blank";
 }
 
@@ -547,7 +548,7 @@ export interface RadioButtonProps {
     id: string;
     onChange: (
         args: {
-            event: React.SyntheticEvent<HTMLInputElement>;
+            event: ReactDOM.SyntheticEvent<HTMLInputElement>;
             checked: boolean;
         }
     ) => void;
@@ -569,14 +570,14 @@ export interface SearchFieldProps {
     onChange: (
         args: {
             value: string;
-            syntheticEvent: React.SyntheticEvent<HTMLInputElement>;
+            syntheticEvent: ReactDOM.SyntheticEvent<HTMLInputElement>;
         }
     ) => void;
-    onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
+    onBlur?: (args: { event: ReactDOM.SyntheticEvent<HTMLInputElement> }) => void;
     onFocus?: (
         args: {
             value: string;
-            syntheticEvent: React.SyntheticEvent<HTMLInputElement>;
+            syntheticEvent: ReactDOM.SyntheticEvent<HTMLInputElement>;
         }
     ) => void;
     placeholder?: string;
@@ -592,7 +593,7 @@ export interface SegmentedControlProps {
     items: ReadonlyArray<React.ReactNode>;
     onChange: (
         args: {
-            event: React.SyntheticEvent<React.MouseEvent>;
+            event: ReactDOM.SyntheticEvent<ReactDOM.MouseEvent>;
             activeIndex: number;
         }
     ) => void;
@@ -608,7 +609,7 @@ https://pinterest.github.io/gestalt/#/SelectList
 export interface SelectListProps {
     id: string;
     onChange: (
-        args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }
+        args: { event: ReactDOM.SyntheticEvent<HTMLInputElement>; value: string }
     ) => void;
     options: ReadonlyArray<{ label: string; value: string }>;
     disabled?: boolean;
@@ -651,7 +652,7 @@ https://pinterest.github.io/gestalt/#/Switch
 export interface SwitchProps {
     id: string;
     onChange: (
-        args: { event: React.SyntheticEvent<HTMLInputElement>; value: boolean }
+        args: { event: ReactDOM.SyntheticEvent<HTMLInputElement>; value: boolean }
     ) => void;
     disabled?: boolean;
     name?: string;
@@ -667,7 +668,7 @@ export interface TabsProps {
     activeTabIndex: number;
     onChange: (
         args: {
-            event: React.SyntheticEvent<React.MouseEvent>;
+            event: ReactDOM.SyntheticEvent<ReactDOM.MouseEvent>;
             activeTabIndex: number;
         }
     ) => void;
@@ -719,7 +720,7 @@ https://pinterest.github.io/gestalt/#/TextArea
 export interface TextAreaProps {
     id: string;
     onChange: (
-        args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }
+        args: { event: ReactDOM.SyntheticEvent<HTMLInputElement>; value: string }
     ) => void;
     disabled?: boolean;
     errorMessage?: string;
@@ -727,13 +728,13 @@ export interface TextAreaProps {
     name?: string;
     onBlur?: (
         args: {
-            event: React.SyntheticEvent<React.FocusEvent>;
+            event: ReactDOM.SyntheticEvent<ReactDOM.FocusEvent>;
             value: string;
         }
     ) => void;
     onFocus?: (
         args: {
-            event: React.SyntheticEvent<React.FocusEvent>;
+            event: ReactDOM.SyntheticEvent<ReactDOM.FocusEvent>;
             value: string;
         }
     ) => void;
@@ -751,7 +752,7 @@ export interface TextFieldProps {
     id: string;
     onChange: (
         args: {
-            event: React.SyntheticEvent<HTMLInputElement>;
+            event: ReactDOM.SyntheticEvent<HTMLInputElement>;
             value: string;
         }
     ) => void;
@@ -762,13 +763,13 @@ export interface TextFieldProps {
     name?: string;
     onBlur?: (
         args: {
-            event: React.SyntheticEvent<React.FocusEvent>;
+            event: ReactDOM.SyntheticEvent<ReactDOM.FocusEvent>;
             value: string;
         }
     ) => void;
     onFocus?: (
         args: {
-            event: React.SyntheticEvent<React.FocusEvent>;
+            event: ReactDOM.SyntheticEvent<ReactDOM.FocusEvent>;
             value: string;
         }
     ) => void;
@@ -812,8 +813,8 @@ export interface TouchableProps {
     onTouch: (
         args: {
             event:
-                | React.SyntheticEvent<React.MouseEvent<HTMLDivElement>>
-                | React.SyntheticEvent<React.KeyboardEvent<HTMLDivElement>>;
+                | ReactDOM.SyntheticEvent<ReactDOM.MouseEvent<HTMLDivElement>>
+                | ReactDOM.SyntheticEvent<ReactDOM.KeyboardEvent<HTMLDivElement>>;
         }
     ) => void;
     children?: React.ReactNode;
@@ -830,12 +831,12 @@ export interface TouchableProps {
         | "zoomOut";
     onMouseEnter?: (
         args: {
-            event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>>;
+            event: ReactDOM.SyntheticEvent<ReactDOM.MouseEvent<HTMLDivElement>>;
         }
     ) => void;
     onMouseLeave?: (
         args: {
-            event: React.SyntheticEvent<React.MouseEvent<HTMLDivElement>>;
+            event: ReactDOM.SyntheticEvent<ReactDOM.MouseEvent<HTMLDivElement>>;
         }
     ) => void;
     shape?:
@@ -873,36 +874,36 @@ export interface VideoProps {
     loop?: boolean;
     onDurationChange?: (
         args: {
-            event: React.SyntheticEvent<HTMLVideoElement>;
+            event: ReactDOM.SyntheticEvent<HTMLVideoElement>;
             duration: number;
         }
     ) => void;
-    onEnded?: (args: { event: React.SyntheticEvent<HTMLVideoElement> }) => void;
+    onEnded?: (args: { event: ReactDOM.SyntheticEvent<HTMLVideoElement> }) => void;
     onFullscreenChange?: (
         args: {
-            event: React.SyntheticEvent<HTMLDivElement>;
+            event: ReactDOM.SyntheticEvent<HTMLDivElement>;
             fullscreen: boolean;
         }
     ) => void;
     onLoadedChange?: (
         args: {
-            event: React.SyntheticEvent<HTMLVideoElement>;
+            event: ReactDOM.SyntheticEvent<HTMLVideoElement>;
             loaded: number;
         }
     ) => void;
-    onPause?: (args: { event: React.SyntheticEvent<HTMLDivElement> }) => void;
-    onPlay?: (args: { event: React.SyntheticEvent<HTMLDivElement> }) => void;
-    onReady?: (args: { event: React.SyntheticEvent<HTMLVideoElement> }) => void;
-    onSeek?: (args: { event: React.SyntheticEvent<HTMLVideoElement> }) => void;
+    onPause?: (args: { event: ReactDOM.SyntheticEvent<HTMLDivElement> }) => void;
+    onPlay?: (args: { event: ReactDOM.SyntheticEvent<HTMLDivElement> }) => void;
+    onReady?: (args: { event: ReactDOM.SyntheticEvent<HTMLVideoElement> }) => void;
+    onSeek?: (args: { event: ReactDOM.SyntheticEvent<HTMLVideoElement> }) => void;
     onTimeChange?: (
         args: {
-            event: React.SyntheticEvent<HTMLVideoElement>;
+            event: ReactDOM.SyntheticEvent<HTMLVideoElement>;
             time: number;
         }
     ) => void;
     onVolumeChange?: (
         args: {
-            event: React.SyntheticEvent<HTMLDivElement>;
+            event: ReactDOM.SyntheticEvent<HTMLDivElement>;
             volume: number;
         }
     ) => void;
