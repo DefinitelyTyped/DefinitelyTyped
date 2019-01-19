@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export as namespace FixedDataTable;
 
@@ -32,7 +33,7 @@ export interface ColumnReorderEndEvent {
 
 export type ElementOrFunc<P> = string | React.ReactElement<any> | ((props: P) => (string | React.ReactElement<any>));
 
-export type TableRowEventHandler = (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
+export type TableRowEventHandler = (event: ReactDOM.SyntheticEvent<Table>, rowIndex: number) => void;
 
 /**
  * Data grid component with fixed or scrollable header and columns.
@@ -645,7 +646,7 @@ export class ColumnGroup extends React.Component<ColumnGroupProps> {
  * );
  * ```
  */
-export interface CellProps extends React.HTMLAttributes<Cell> {
+export interface CellProps extends ReactDOM.HTMLAttributes<Cell> {
     /**
      * Outer height of the cell.
      */
