@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { createDragDropManager } from 'dnd-core';
 import MultiBackend, { createTransition, TouchTransition, Backends, Preview } from 'react-dnd-multi-backend';
 import HTML5ToTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
@@ -34,7 +35,7 @@ const multiCustomBackendsComponent = createDragDropManager(MultiBackend(CustomBa
  * Testing the Preview component.
  */
 class App extends React.Component {
-    generator = (type: string, item: any, style: React.CSSProperties) =>
+    generator = (type: string, item: any, style: ReactDOM.CSSProperties) =>
         (type === 'card')
             ? <div style={style}>{item.label}</div>
             : <div />

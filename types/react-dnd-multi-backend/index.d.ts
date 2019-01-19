@@ -5,7 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { CSSProperties, PureComponent } from "react";
+import { PureComponent } from "react";
+import * as ReactDOM from "react-dom";
 import { BackendFactory } from "dnd-core";
 
 /**
@@ -89,7 +90,7 @@ export interface PreviewProps {
      *               your component's style property and is used for positioning.
      * @returns The JSX element to display for the drag preview.
      */
-    generator(type: string, item: any, style: CSSProperties): JSX.Element;
+    generator(type: string, item: any, style: ReactDOM.CSSProperties): JSX.Element;
 }
 
 /**
