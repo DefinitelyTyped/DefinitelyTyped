@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import React = require('react');
+import ReactDOM = require('react-dom');
 
 export interface AriaModalProps {
     /**
@@ -70,7 +71,7 @@ export interface AriaModalProps {
     /**
      * Customize properties of the style prop that is passed to the dialog.
      */
-    dialogStyle?: React.CSSProperties;
+    dialogStyle?: ReactDOM.CSSProperties;
 
     /**
      * By default, when the modal activates its first focusable child will
@@ -109,7 +110,7 @@ export interface AriaModalProps {
      * top & bottom padding to the underlay.
      * This is illustrated in the demo examples.
      */
-    underlayStyle?: React.CSSProperties;
+    underlayStyle?: ReactDOM.CSSProperties;
 
     /**
      * Apply a class to the underlay in order to custom-style it.
