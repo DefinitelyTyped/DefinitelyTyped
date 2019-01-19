@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, CSSProperties } from 'react';
+import { Component } from 'react';
+import * as ReactDOM from 'react-dom';
 
 export default class CircularProgressbar extends Component<Props> {}
 
@@ -31,4 +32,4 @@ export interface GroupOverride<T> {
 
 export interface ProgressbarClasses extends GroupOverride<string> {}
 
-export interface ProgressbarStyles extends GroupOverride<CSSProperties> {}
+export interface ProgressbarStyles extends GroupOverride<ReactDOM.CSSProperties> {}
