@@ -13,6 +13,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import * as Popper from "popper.js";
 
 export function registerLocale(localeName: string, localeData: {}): void;
@@ -64,17 +65,17 @@ export interface ReactDatePickerProps {
 	monthsShown?: number;
 	name?: string;
 	nextMonthButtonLabel?: string;
-	onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
-	onChange(date: Date | null, event: React.SyntheticEvent<any> | undefined): void;
-	onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
-	onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
-	onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
+	onBlur?(event: ReactDOM.FocusEvent<HTMLInputElement>): void;
+	onChange(date: Date | null, event: ReactDOM.SyntheticEvent<any> | undefined): void;
+	onChangeRaw?(event: ReactDOM.FocusEvent<HTMLInputElement>): void;
+	onClickOutside?(event: ReactDOM.MouseEvent<HTMLDivElement>): void;
+	onFocus?(event: ReactDOM.FocusEvent<HTMLInputElement>): void;
 	onInputClick?(): void;
 	onInputError?(err: {code: number; msg: string}): void;
-	onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void;
+	onKeyDown?(event: ReactDOM.KeyboardEvent<HTMLDivElement>): void;
 	onMonthChange?(date: Date): void;
-	onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
-	onWeekSelect?(firstDayOfWeek: Date, weekNumber: string | number, event: React.SyntheticEvent<any> | undefined): void;
+	onSelect?(date: Date, event: ReactDOM.SyntheticEvent<any> | undefined): void;
+	onWeekSelect?(firstDayOfWeek: Date, weekNumber: string | number, event: ReactDOM.SyntheticEvent<any> | undefined): void;
 	onYearChange?(date: Date): void;
 	open?: boolean;
 	openToDate?: Date;
