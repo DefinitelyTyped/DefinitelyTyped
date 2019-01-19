@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export default Radium;
 
@@ -13,7 +14,7 @@ declare function Radium<TElement extends Function>(component: TElement): TElemen
 declare function Radium(config: Radium.RadiumConfig): (component?: any) => any;
 declare namespace Radium {
     interface StyleRules {
-        [index: string]: React.CSSProperties;
+        [index: string]: ReactDOM.CSSProperties;
     }
 
     /**
@@ -24,7 +25,7 @@ declare namespace Radium {
          * An object of styles, or an object of CSS rules to render. Each key of the rules object is a CSS
          * selector and the value is an object of styles. If rules is empty, the component will render nothing.
          */
-        rules: React.CSSProperties | StyleRules;
+        rules: ReactDOM.CSSProperties | StyleRules;
         /**
          * A string that any included selectors in rules will be appended to.
          * Use to scope styles in the component to a particular element. A good use case might be to generate a unique
@@ -42,7 +43,7 @@ declare namespace Radium {
     /**
      * StyleRoot component properties
      */
-    export interface StyleRootProps extends React.HTMLProps<StyleRoot> {
+    export interface StyleRootProps extends ReactDOM.HTMLProps<StyleRoot> {
          radiumConfig?: RadiumConfig
     }
     /**
