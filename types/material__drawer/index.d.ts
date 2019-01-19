@@ -2,6 +2,7 @@
 // Project: https://material.io/components/
 // Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>, Arthur Groupp <https://github.com/agroupp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
 
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
