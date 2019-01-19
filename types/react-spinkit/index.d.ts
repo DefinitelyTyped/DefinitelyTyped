@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="react" />
+/// <reference types="react-dom" />
 
 declare namespace spinner {
 	export interface SpinnerProps {
@@ -34,7 +35,7 @@ declare namespace spinner {
          */
         color?: string;
 
-        style?: React.CSSProperties
+        style?: ReactDOM.CSSProperties
 	}
 
 	export interface Spinner extends React.ComponentClass<SpinnerProps> {
