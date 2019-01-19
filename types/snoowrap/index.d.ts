@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { CoreOptions as RequestOptions } from 'request';
+import { Options as RequestOptions } from 'request';
 
 import {
   Comment as _Comment,

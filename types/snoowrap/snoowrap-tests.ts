@@ -66,3 +66,10 @@ export function getConfig(): Snoowrap.ConfigOptions {
 export function setConfig(options: Snoowrap.ConfigOptions): Snoowrap.ConfigOptions {
   return r.config(options);
 }
+
+export function oauthRequest(method: string, uri: string): Promise<any> {
+  return r.oauthRequest({
+    method,
+    uri,
+  });
+}
