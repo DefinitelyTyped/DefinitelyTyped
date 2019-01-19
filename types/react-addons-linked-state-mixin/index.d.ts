@@ -21,7 +21,7 @@ declare namespace LinkedStateMixin {
 	}
 }
 
-declare module 'react' {
+declare module 'react-dom' {
     interface HTMLAttributes<T> {
         checkedLink?: LinkedStateMixin.ReactLink<boolean>;
         valueLink?: LinkedStateMixin.ReactLink<boolean | string | number>;
