@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 
 declare namespace Well {
-    export interface WellProps extends React.HTMLProps<Well> {
+    export interface WellProps extends ReactDOM.HTMLProps<Well> {
         bsSize?: Sizes;
         bsStyle?: string;
         bsClass?: string;

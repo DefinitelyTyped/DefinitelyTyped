@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 
 declare namespace Tooltip {
-    export interface TooltipProps extends React.HTMLProps<Tooltip> {
+    export interface TooltipProps extends ReactDOM.HTMLProps<Tooltip> {
         // Optional
         arrowOffsetLeft?: number | string;
         arrowOffsetTop?: number | string;

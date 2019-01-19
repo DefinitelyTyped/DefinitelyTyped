@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes, SelectCallback } from 'react-bootstrap';
 import PaginationFirst = require('./PaginationFirst');
 import PaginationPrev = require('./PaginationPrev');
@@ -8,7 +9,7 @@ import PaginationEllipsis = require('./PaginationEllipsis');
 import PaginationItem = require('./PaginationItem');
 
 declare namespace Pagination {
-    export interface PaginationProps extends React.HTMLProps<Pagination> {
+    export interface PaginationProps extends ReactDOM.HTMLProps<Pagination> {
         bsSize?: Sizes;
     }
 }

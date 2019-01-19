@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace Image {
-    export interface ImageProps extends React.HTMLProps<Image> {
+    export interface ImageProps extends ReactDOM.HTMLProps<Image> {
         circle?: boolean;
         responsive?: boolean;
         rounded?: boolean;

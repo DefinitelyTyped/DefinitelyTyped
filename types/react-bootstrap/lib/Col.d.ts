@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace Col {
-    export interface ColProps extends React.HTMLProps<Col> {
+    export interface ColProps extends ReactDOM.HTMLProps<Col> {
         componentClass?: React.ReactType;
         lg?: number;
         lgHidden?: boolean;

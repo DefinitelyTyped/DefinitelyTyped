@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace Clearfix {
-    export interface ClearfixProps extends React.HTMLProps<Clearfix> {
+    export interface ClearfixProps extends ReactDOM.HTMLProps<Clearfix> {
         componentClass?: React.ReactType,
         visibleXsBlock?: boolean;
         visibleSmBlock?: boolean;

@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes, SelectCallback } from 'react-bootstrap';
 
 declare namespace NavItem {
-    export interface NavItemProps extends React.HTMLProps<NavItem> {
+    export interface NavItemProps extends ReactDOM.HTMLProps<NavItem> {
         active?: boolean;
         brand?: any; // TODO: Add more specific type
         bsSize?: Sizes;

@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 
 declare namespace Nav {
-    export interface NavProps extends React.HTMLProps<Nav> {
+    export interface NavProps extends ReactDOM.HTMLProps<Nav> {
         // Optional
         activeHref?: string;
         activeKey?: any;

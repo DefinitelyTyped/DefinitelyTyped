@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace FormControlFeedback {
-    export interface FormControlFeedbackProps extends React.HTMLProps<FormControlFeedback> {
+    export interface FormControlFeedbackProps extends ReactDOM.HTMLProps<FormControlFeedback> {
         bsClass?: string;
     }
 }

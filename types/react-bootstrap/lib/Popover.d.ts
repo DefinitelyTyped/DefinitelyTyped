@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes, Omit } from 'react-bootstrap';
 
 declare namespace Popover {
-    export interface PopoverProps extends Omit<React.HTMLProps<Popover>, "title"> {
+    export interface PopoverProps extends Omit<ReactDOM.HTMLProps<Popover>, "title"> {
         // Optional
         arrowOffsetLeft?: number | string;
         arrowOffsetTop?: number | string;

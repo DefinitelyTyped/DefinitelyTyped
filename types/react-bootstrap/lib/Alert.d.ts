@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 
 declare namespace Alert {
-    export interface AlertProps extends React.HTMLProps<Alert> {
+    export interface AlertProps extends ReactDOM.HTMLProps<Alert> {
         bsSize?: Sizes;
         bsStyle?: string;
         bsClass?: string;

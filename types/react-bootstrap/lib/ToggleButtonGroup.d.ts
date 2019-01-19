@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { ButtonGroup } from 'react-bootstrap';
 import { Omit } from "../index";
 
@@ -32,7 +33,7 @@ declare namespace ToggleButtonGroup {
   export type ToggleButtonGroupProps = BaseProps
     & (RadioProps | CheckboxProps)
     & Omit<ButtonGroup.ButtonGroupProps, "onChange">
-    & Omit<React.HTMLProps<ToggleButtonGroup>, "defaultValue" | "type" | "value" | "onChange">;
+    & Omit<ReactDOM.HTMLProps<ToggleButtonGroup>, "defaultValue" | "type" | "value" | "onChange">;
 }
 declare class ToggleButtonGroup extends React.Component<ToggleButtonGroup.ToggleButtonGroupProps> { }
 export = ToggleButtonGroup;

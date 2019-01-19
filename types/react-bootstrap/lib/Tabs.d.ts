@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { SelectCallback } from 'react-bootstrap';
 
 declare namespace Tabs {
-    export interface TabsProps extends React.HTMLProps<Tabs> {
+    export interface TabsProps extends ReactDOM.HTMLProps<Tabs> {
         activeKey?: any;
         animation?: boolean;
         bsStyle?: string;

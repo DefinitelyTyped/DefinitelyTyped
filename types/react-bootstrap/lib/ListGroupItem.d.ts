@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 
 declare namespace ListGroupItem {
-    export interface ListGroupItemProps extends React.HTMLProps<ListGroupItem> {
+    export interface ListGroupItemProps extends ReactDOM.HTMLProps<ListGroupItem> {
         active?: any;
         bsSize?: Sizes;
         bsStyle?: string;

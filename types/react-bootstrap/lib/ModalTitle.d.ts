@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace ModalTitle {
-    export interface ModalTitleProps extends React.HTMLProps<ModalTitle> {
+    export interface ModalTitleProps extends ReactDOM.HTMLProps<ModalTitle> {
         componentClass?: React.ReactType;
         bsClass?: string;
     }

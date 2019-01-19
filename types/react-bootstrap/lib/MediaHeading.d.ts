@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace MediaHeading {
-    interface MediaHeadingProps extends React.HTMLProps<MediaHeading> {
+    interface MediaHeadingProps extends ReactDOM.HTMLProps<MediaHeading> {
         componentClass?: React.ReactType;
     }
 }

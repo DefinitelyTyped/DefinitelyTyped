@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 
 declare namespace FormGroup {
-    export interface FormGroupProps extends React.HTMLProps<FormGroup> {
+    export interface FormGroupProps extends ReactDOM.HTMLProps<FormGroup> {
         bsClass?: string;
         bsSize?: Sizes;
         controlId?: string;

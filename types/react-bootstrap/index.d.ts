@@ -19,19 +19,20 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 export type Sizes = 'xs' | 'xsmall' | 'sm' | 'small' | 'medium' | 'lg' | 'large';
 
-export interface SelectCallback extends React.EventHandler<any> {
-  (eventKey: any, e: React.SyntheticEvent<{}>): void;
+export interface SelectCallback extends ReactDOM.EventHandler<any> {
+  (eventKey: any, e: ReactDOM.SyntheticEvent<{}>): void;
   /**
    * @deprecated
    * This signature is a hack so can still derive from HTMLProps.
    * It does not reflect the underlying event and should not be used.
    */
-  (e: React.MouseEvent<{}>): void;
+  (e: ReactDOM.MouseEvent<{}>): void;
 }
 
 export interface TransitionCallbacks {

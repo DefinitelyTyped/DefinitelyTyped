@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace PageHeader {
-    export interface PageHeaderProps extends React.HTMLProps<PageHeader> {
+    export interface PageHeaderProps extends ReactDOM.HTMLProps<PageHeader> {
         bsClass?: string;
     }
 }

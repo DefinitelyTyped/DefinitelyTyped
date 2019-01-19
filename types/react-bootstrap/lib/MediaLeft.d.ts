@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace MediaLeft {
-    export interface MediaLeftProps extends React.HTMLProps<MediaLeft> {
+    export interface MediaLeftProps extends ReactDOM.HTMLProps<MediaLeft> {
         align?: string;
     }
 }

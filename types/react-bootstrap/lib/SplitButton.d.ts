@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes, Omit } from 'react-bootstrap';
 
 declare namespace SplitButton {
-    export interface SplitButtonProps extends Omit<React.HTMLProps<SplitButton>, "title"> {
+    export interface SplitButtonProps extends Omit<ReactDOM.HTMLProps<SplitButton>, "title"> {
         bsStyle?: string;
         bsSize?: Sizes;
         dropdownTitle?: any; // TODO: Add more specific type

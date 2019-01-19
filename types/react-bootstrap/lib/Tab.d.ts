@@ -1,11 +1,12 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { TransitionCallbacks, Omit } from 'react-bootstrap';
 import TabContainer = require('./TabContainer');
 import TabPane = require('./TabPane');
 import TabContent = require('./TabContent');
 
 declare namespace Tab {
-    export interface TabProps extends TransitionCallbacks, Omit<React.HTMLProps<Tab>, "title"> {
+    export interface TabProps extends TransitionCallbacks, Omit<ReactDOM.HTMLProps<Tab>, "title"> {
         animation?: boolean;
         'aria-labelledby'?: string;
         bsClass?: string;

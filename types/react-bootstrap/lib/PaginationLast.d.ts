@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { SelectCallback } from 'react-bootstrap';
 
 declare namespace PaginationLast {
-    export interface PaginationLastProps extends React.HTMLProps<PaginationLast> {
+    export interface PaginationLastProps extends ReactDOM.HTMLProps<PaginationLast> {
         disabled?: boolean;
     }
 }

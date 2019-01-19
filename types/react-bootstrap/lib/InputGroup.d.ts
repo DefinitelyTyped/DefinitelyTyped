@@ -1,10 +1,11 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 import InputGroupAddon = require('./InputGroupAddon');
 import InputGroupButton = require('./InputGroupButton');
 
 declare namespace InputGroup {
-    export interface InputGroupProps extends React.HTMLProps<InputGroup> {
+    export interface InputGroupProps extends ReactDOM.HTMLProps<InputGroup> {
         bsClass?: string;
         bsSize?: Sizes;
     }

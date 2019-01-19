@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace ModalBody {
-    export interface ModalBodyProps extends React.HTMLProps<ModalBody> {
+    export interface ModalBodyProps extends ReactDOM.HTMLProps<ModalBody> {
         componentClass?: React.ReactType;
         bsClass?: string;
     }

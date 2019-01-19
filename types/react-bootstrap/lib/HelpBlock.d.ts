@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace HelpBlock {
-    export interface HelpBlockProps extends React.HTMLProps<HelpBlock> {
+    export interface HelpBlockProps extends ReactDOM.HTMLProps<HelpBlock> {
         bsClass?: string;
     }
 }

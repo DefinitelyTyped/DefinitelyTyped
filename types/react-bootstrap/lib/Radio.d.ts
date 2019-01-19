@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace Radio {
-    export interface RadioProps extends React.HTMLProps<Radio> {
+    export interface RadioProps extends ReactDOM.HTMLProps<Radio> {
         bsClass?: string;
         disabled?: boolean;
         inline?: boolean;

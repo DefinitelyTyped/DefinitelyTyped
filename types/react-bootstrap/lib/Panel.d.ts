@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { TransitionCallbacks, Sizes, SelectCallback } from 'react-bootstrap';
 import PanelHeading = require('./PanelHeading');
 import PanelTitle = require('./PanelTitle');
@@ -8,7 +9,7 @@ import PanelBody = require('./PanelBody');
 import PanelFooter = require('./PanelFooter');
 
 declare namespace Panel {
-    export interface PanelProps extends TransitionCallbacks, React.HTMLProps<Panel> {
+    export interface PanelProps extends TransitionCallbacks, ReactDOM.HTMLProps<Panel> {
         bsStyle?: string;
         defaultExpanded?: boolean;
         eventKey?: any;

@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace Form {
-    export interface FormProps extends React.HTMLProps<Form> {
+    export interface FormProps extends ReactDOM.HTMLProps<Form> {
         bsClass?: string;
         componentClass?: React.ReactType;
         horizontal?: boolean;

@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 
 declare namespace ModalDialog {
-    export interface ModalDialogProps extends React.HTMLProps<ModalDialog> {
+    export interface ModalDialogProps extends ReactDOM.HTMLProps<ModalDialog> {
         // TODO: these props are not correct https://github.com/react-bootstrap/react-bootstrap/blob/v0.31.1/src/ModalDialog.js#L9
         onHide?: Function;
         onEnter?: Function;

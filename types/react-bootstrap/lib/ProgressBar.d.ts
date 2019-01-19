@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes, Omit } from 'react-bootstrap';
 
 declare namespace ProgressBar {
-    export interface ProgressBarProps extends Omit<React.HTMLProps<ProgressBar>, "label"> {
+    export interface ProgressBarProps extends Omit<ReactDOM.HTMLProps<ProgressBar>, "label"> {
         // Optional
         active?: boolean;
         bsSize?: Sizes;

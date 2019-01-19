@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Component, CSSProperties } from 'react';
+import { Component } from 'react';
+import { CSSProperties } from 'react-dom';
 import {
     Button,
     ButtonToolbar,

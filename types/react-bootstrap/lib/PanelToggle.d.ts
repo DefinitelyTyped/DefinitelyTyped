@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { SelectCallback } from 'react-bootstrap';
 
 declare namespace PanelToggle {
-    export interface PanelToggleProps extends React.HTMLProps<PanelToggle> {
+    export interface PanelToggleProps extends ReactDOM.HTMLProps<PanelToggle> {
         componentClass?: string;
     }
 }

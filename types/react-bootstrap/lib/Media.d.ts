@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import MediaBody = require('./MediaBody');
 import MediaHeading = require('./MediaHeading');
 import MediaLeft = require('./MediaLeft');
@@ -7,7 +8,7 @@ import MediaListItem = require('./MediaListItem');
 import MediaRight = require('./MediaRight');
 
 declare namespace Media {
-    export interface MediaProps extends React.HTMLProps<Media> {
+    export interface MediaProps extends ReactDOM.HTMLProps<Media> {
         componentClass?: React.ReactType;
     }
 }

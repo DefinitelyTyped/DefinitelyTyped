@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Omit } from 'react-bootstrap';
 import { DropdownBaseProps } from './Dropdown';
 
@@ -10,7 +11,7 @@ declare namespace NavDropdown {
         title: React.ReactNode;
     }
 
-    export type NavDropdownProps = NavDropdownBaseProps & Omit<React.HTMLProps<NavDropdown>, 'title'>;
+    export type NavDropdownProps = NavDropdownBaseProps & Omit<ReactDOM.HTMLProps<NavDropdown>, 'title'>;
 }
 declare class NavDropdown extends React.Component<NavDropdown.NavDropdownProps> { }
 export = NavDropdown;

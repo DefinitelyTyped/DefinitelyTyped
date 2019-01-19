@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes, TransitionCallbacks } from 'react-bootstrap';
 import ModalBody = require('./ModalBody');
 import ModalHeader = require('./ModalHeader');
@@ -7,7 +8,7 @@ import ModalDialog = require('./ModalDialog');
 import ModalFooter = require('./ModalFooter');
 
 declare namespace Modal {
-    interface ModalProps extends TransitionCallbacks, React.HTMLProps<Modal> {
+    interface ModalProps extends TransitionCallbacks, ReactDOM.HTMLProps<Modal> {
         // Required
         onHide: Function;
 

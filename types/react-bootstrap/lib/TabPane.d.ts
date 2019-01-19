@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { TransitionCallbacks } from 'react-bootstrap';
 
 declare namespace TabPane {
-    export interface TabPaneProps extends TransitionCallbacks, React.HTMLProps<TabPane> {
+    export interface TabPaneProps extends TransitionCallbacks, ReactDOM.HTMLProps<TabPane> {
         animation?: boolean | React.ComponentClass<any>;
         'aria-labelledby'?: string;
         bsClass?: string;

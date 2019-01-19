@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 import NavbarBrand = require('./NavbarBrand');
 import NavbarCollapse = require('./NavbarCollapse');
@@ -6,7 +7,7 @@ import NavbarHeader = require('./NavbarHeader');
 import NavbarToggle = require('./NavbarToggle');
 
 declare namespace Navbar {
-    export interface NavbarProps extends React.HTMLProps<Navbar> {
+    export interface NavbarProps extends ReactDOM.HTMLProps<Navbar> {
         brand?: any; // TODO: Add more specific type
         bsSize?: Sizes;
         bsStyle?: string;
@@ -39,18 +40,18 @@ export = Navbar;
  * the classes below aren't present in lib/
  */
 
-interface NavbarLinkProps extends React.HTMLProps<NavbarLink> {
+interface NavbarLinkProps extends ReactDOM.HTMLProps<NavbarLink> {
   href: string;
-  onClick?: React.MouseEventHandler<any>;
+  onClick?: ReactDOM.MouseEventHandler<any>;
 }
 declare class NavbarLink extends React.Component<NavbarLinkProps> { }
 
-interface NavbarTextProps extends React.HTMLProps<NavbarText> {
+interface NavbarTextProps extends ReactDOM.HTMLProps<NavbarText> {
   pullRight?: boolean;
 }
 declare class NavbarText extends React.Component<NavbarTextProps> { }
 
-interface NavbarFormProps extends React.HTMLProps<NavbarForm> {
+interface NavbarFormProps extends ReactDOM.HTMLProps<NavbarForm> {
   componentClass?: React.ReactType;
   pullRight?: boolean;
   pullLeft?: boolean;

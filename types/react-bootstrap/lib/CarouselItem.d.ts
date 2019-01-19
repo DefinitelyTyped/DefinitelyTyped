@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace CarouselItem {
-    interface CarouselItemProps extends React.HTMLProps<CarouselItem> {
+    interface CarouselItemProps extends ReactDOM.HTMLProps<CarouselItem> {
         active?: boolean;
         animtateIn?: boolean;
         animateOut?: boolean;

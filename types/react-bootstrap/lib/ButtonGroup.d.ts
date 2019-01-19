@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Sizes } from 'react-bootstrap';
 
 declare namespace ButtonGroup {
-    export interface ButtonGroupProps extends React.HTMLProps<ButtonGroup> {
+    export interface ButtonGroupProps extends ReactDOM.HTMLProps<ButtonGroup> {
         block?: boolean;
         bsSize?: Sizes;
         bsStyle?: string;

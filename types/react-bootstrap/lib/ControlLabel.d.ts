@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace ControlLabel {
-    export interface ControlLabelProps extends React.HTMLProps<ControlLabel> {
+    export interface ControlLabelProps extends ReactDOM.HTMLProps<ControlLabel> {
         bsClass?: string;
         htmlFor?: string;
         srOnly?: boolean;

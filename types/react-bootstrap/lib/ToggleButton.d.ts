@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Button } from 'react-bootstrap';
 
 declare namespace ToggleButton {
-    export interface ToggleButtonProps extends React.HTMLProps<ToggleButton> {
+    export interface ToggleButtonProps extends ReactDOM.HTMLProps<ToggleButton> {
         checked?: boolean;
         name?: string;
         value: number | string;

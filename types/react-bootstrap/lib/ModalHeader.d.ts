@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace ModalHeader {
-    export interface ModalHeaderProps extends React.HTMLProps<ModalHeader> {
+    export interface ModalHeaderProps extends ReactDOM.HTMLProps<ModalHeader> {
         closeButton?: boolean;
         closeLabel?: string;
         onHide?: Function;

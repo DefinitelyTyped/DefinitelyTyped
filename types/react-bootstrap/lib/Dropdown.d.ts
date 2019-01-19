@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { SelectCallback } from 'react-bootstrap';
 import DropdownToggle = require('./DropdownToggle');
 import DropdownMenu = require('./DropdownMenu');
@@ -18,7 +19,7 @@ declare namespace Dropdown {
         role?: string;
     }
 
-    export type DropdownProps = Dropdown.DropdownBaseProps & React.HTMLProps<Dropdown>;
+    export type DropdownProps = Dropdown.DropdownBaseProps & ReactDOM.HTMLProps<Dropdown>;
 }
 
 declare class Dropdown extends React.Component<Dropdown.DropdownProps> {
