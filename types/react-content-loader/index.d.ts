@@ -6,9 +6,10 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export interface ContentLoaderProps {
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     animate?: boolean;
     speed?: number;
     width?: number;
