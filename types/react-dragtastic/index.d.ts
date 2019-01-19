@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactNode, Component, MouseEventHandler, TouchEventHandler } from 'react';
+import { ReactNode, Component } from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type Id = string | number;
 export type Type = string | number;
@@ -62,8 +63,8 @@ export interface DraggableProps {
         /** A boolean representing if the draggable is currently active. */
         isActive: boolean;
         events: {
-            onMouseDown: MouseEventHandler,
-            onTouchStart: TouchEventHandler
+            onMouseDown: ReactDOM.MouseEventHandler,
+            onTouchStart: ReactDOM.TouchEventHandler
         }
     }) => ReactNode;
 }
