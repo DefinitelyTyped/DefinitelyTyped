@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as moment from "moment-timezone";
 
 export type AnyDate = string | moment.Moment;
@@ -18,28 +19,28 @@ export interface DateContainerType {
 }
 
 export interface CalendarTheme {
-	DateRange?: React.CSSProperties;
-	Calendar?: React.CSSProperties;
-	Day?: React.CSSProperties;
-	DayPassive?: React.CSSProperties;
-	DayHover?: React.CSSProperties;
-	DayToday?: React.CSSProperties;
-	DaySunday?: React.CSSProperties;
-	DaySpecialDay?: React.CSSProperties;
-	DayActive?: React.CSSProperties;
-	DaySelected?: React.CSSProperties;
-	DayStartEdge?: React.CSSProperties;
-	DayEndEdge?: React.CSSProperties;
-	DayInRange?: React.CSSProperties;
-	Weekday?: React.CSSProperties;
-	MonthAndYear?: React.CSSProperties;
-	MonthButton?: React.CSSProperties;
-	MonthArrow?: React.CSSProperties;
-	MonthArrowPrev?: React.CSSProperties;
-	MonthArrowNext?: React.CSSProperties;
-	PredefinedRanges?: React.CSSProperties;
-	PredefinedRangesItem?: React.CSSProperties;
-	PredefinedRangesItemActive?: React.CSSProperties;
+	DateRange?: ReactDOM.CSSProperties;
+	Calendar?: ReactDOM.CSSProperties;
+	Day?: ReactDOM.CSSProperties;
+	DayPassive?: ReactDOM.CSSProperties;
+	DayHover?: ReactDOM.CSSProperties;
+	DayToday?: ReactDOM.CSSProperties;
+	DaySunday?: ReactDOM.CSSProperties;
+	DaySpecialDay?: ReactDOM.CSSProperties;
+	DayActive?: ReactDOM.CSSProperties;
+	DaySelected?: ReactDOM.CSSProperties;
+	DayStartEdge?: ReactDOM.CSSProperties;
+	DayEndEdge?: ReactDOM.CSSProperties;
+	DayInRange?: ReactDOM.CSSProperties;
+	Weekday?: ReactDOM.CSSProperties;
+	MonthAndYear?: ReactDOM.CSSProperties;
+	MonthButton?: ReactDOM.CSSProperties;
+	MonthArrow?: ReactDOM.CSSProperties;
+	MonthArrowPrev?: ReactDOM.CSSProperties;
+	MonthArrowNext?: ReactDOM.CSSProperties;
+	PredefinedRanges?: ReactDOM.CSSProperties;
+	PredefinedRangesItem?: ReactDOM.CSSProperties;
+	PredefinedRangesItemActive?: ReactDOM.CSSProperties;
 }
 
 export interface Range {
