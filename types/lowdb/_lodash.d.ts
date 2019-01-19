@@ -1445,7 +1445,7 @@ declare module "./index" {
         upperCase(): LoDashExplicitSyncWrapper<string>;
         upperFirst(): LoDashExplicitSyncWrapper<string>;
         words(pattern?: string|RegExp): LoDashExplicitSyncWrapper<string[]>;
-        attempt<TResult>(...args: any[]): LoDashExplicitSyncWrapper<TResult|Error>;
+        attempt<TResult>(...args: any[]): LoDashExplicitSyncWrapper<TResult | Error>;
         conforms<T>(this: LoDashExplicitSyncWrapper<_.ConformsPredicateObject<T>>): LoDashExplicitSyncWrapper<(value: T) => boolean>;
         constant(): LoDashExplicitSyncWrapper<() => TValue>;
         defaultTo<T>(this: LoDashExplicitSyncWrapper<T | null | undefined>, defaultValue: T): LoDashExplicitSyncWrapper<T>;
@@ -3041,7 +3041,7 @@ declare module "./index" {
         upperCase(): LoDashExplicitAsyncWrapper<string>;
         upperFirst(): LoDashExplicitAsyncWrapper<string>;
         words(pattern?: string|RegExp): LoDashExplicitAsyncWrapper<string[]>;
-        attempt<TResult>(...args: any[]): LoDashExplicitAsyncWrapper<TResult|Error>;
+        attempt<TResult>(...args: any[]): LoDashExplicitAsyncWrapper<TResult | Error>;
         conforms<T>(this: LoDashExplicitAsyncWrapper<_.ConformsPredicateObject<T>>): LoDashExplicitAsyncWrapper<(value: T) => boolean>;
         constant(): LoDashExplicitAsyncWrapper<() => TValue>;
         defaultTo<T>(this: LoDashExplicitAsyncWrapper<T | null | undefined>, defaultValue: T): LoDashExplicitAsyncWrapper<T>;

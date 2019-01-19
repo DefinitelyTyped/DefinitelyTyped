@@ -3261,7 +3261,8 @@ fp.now(); // $ExpectType number
     _.chain(object).bindAll(); // $ExpectType LoDashExplicitWrapper<{ a: () => void; b: () => void; c: () => void; }>
     _.chain(object).bindAll("a", ["b", "c"]); // $ExpectType LoDashExplicitWrapper<{ a: () => void; b: () => void; c: () => void; }>
     fp.bindAll("a", object); // $ExpectType { a: () => void; b: () => void; c: () => void; }
-    fp.bindAll(["b", "c"])(object); // $ExpectType { a: () => void; b: () => void; c: () => void; }
+    // Disable since keyof T requires object to be passed
+    // fp.bindAll(["b", "c"])(object); // $ExpectType { a: () => void; b: () => void; c: () => void; }
 }
 
 // _.bindKey

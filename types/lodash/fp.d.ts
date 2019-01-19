@@ -208,7 +208,7 @@ declare namespace _ {
     type LodashAt1x2<T> = (props: lodash.PropertyPath) => T[];
     type LodashAt2x1<T> = (object: T | null | undefined) => Array<T[keyof T]>;
     type LodashAt2x2<T> = (props: lodash.Many<keyof T>) => Array<T[keyof T]>;
-    type LodashAttempt = <TResult>(func: (...args: any[]) => TResult) => TResult|Error;
+    type LodashAttempt = <TResult>(func: (...args: any[]) => TResult) => TResult | Error;
     interface LodashBefore {
         <TFunc extends (...args: any[]) => any>(func: TFunc): LodashBefore1x1<TFunc>;
         (func: lodash.__, n: number): LodashBefore1x2;
@@ -225,12 +225,12 @@ declare namespace _ {
     type LodashBind1x1 = (thisArg: any) => (...args: any[]) => any;
     type LodashBind1x2 = (func: (...args: any[]) => any) => (...args: any[]) => any;
     interface LodashBindAll {
-        (methodNames: lodash.Many<string>): LodashBindAll1x1;
+        <T>(methodNames: lodash.Many<keyof T>): LodashBindAll1x1<T>;
         <T>(methodNames: lodash.__, object: T): LodashBindAll1x2<T>;
-        <T>(methodNames: lodash.Many<string>, object: T): T;
+        <T>(methodNames: lodash.Many<keyof T>, object: T): T;
     }
-    type LodashBindAll1x1 = <T>(object: T) => T;
-    type LodashBindAll1x2<T> = (methodNames: lodash.Many<string>) => T;
+    type LodashBindAll1x1<T> = (object: T) => T;
+    type LodashBindAll1x2<T> = (methodNames: lodash.Many<keyof T>) => T;
     interface LodashBindKey {
         (object: object): LodashBindKey1x1;
         (object: lodash.__, key: string): LodashBindKey1x2;

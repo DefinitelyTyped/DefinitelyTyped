@@ -10,21 +10,21 @@ declare module "../index" {
          * @param func The function to attempt.
          * @return Returns the func result or error object.
          */
-        attempt<TResult>(func: (...args: any[]) => TResult, ...args: any[]): TResult|Error;
+        attempt<TResult>(func: (...args: any[]) => TResult, ...args: any[]): TResult | Error;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(...args: any[]): TResult|Error;
+        attempt<TResult>(...args: any[]): TResult | Error;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(...args: any[]): LoDashExplicitWrapper<TResult|Error>;
+        attempt<TResult>(...args: any[]): LoDashExplicitWrapper<TResult | Error>;
     }
 
     // bindAll
@@ -44,7 +44,7 @@ declare module "../index" {
          */
         bindAll<T>(
             object: T,
-            ...methodNames: Array<Many<string>>
+            ...methodNames: Array<Many<keyof T>>
         ): T;
     }
 
@@ -52,7 +52,7 @@ declare module "../index" {
         /**
          * @see _.bindAll
          */
-        bindAll(...methodNames: Array<Many<string>>): this;
+        bindAll(...methodNames: Array<Many<keyof TValue>>): this;
     }
 
     // cond
