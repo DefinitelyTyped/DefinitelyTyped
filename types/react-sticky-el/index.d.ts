@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export default Sticky;
 
@@ -12,7 +13,7 @@ declare class Sticky extends React.Component<Sticky.Props> {}
 
 declare namespace Sticky {
     interface Props<HolderProps extends object = {}>
-        extends React.HTMLAttributes<HTMLElement> {
+        extends ReactDOM.HTMLAttributes<HTMLElement> {
         /**
          * 'top' or 'bottom' - to which side element should stick.
          *
@@ -41,7 +42,7 @@ declare namespace Sticky {
          *
          * Defaults to 'div'.
          */
-        wrapperCmp?: keyof React.ReactHTML | React.ReactElement<any>;
+        wrapperCmp?: keyof ReactDOM.ReactHTML | React.ReactElement<any>;
 
         /**
          * Anything that can be used by React.createElement. Used for holder
@@ -50,7 +51,7 @@ declare namespace Sticky {
          *
          * Defaults to 'div'.
          */
-        holderCmp?: keyof React.ReactHTML | React.ReactElement<HolderProps>;
+        holderCmp?: keyof ReactDOM.ReactHTML | React.ReactElement<HolderProps>;
 
         /**
          * These props will be used to create `holderElement`.
@@ -95,7 +96,7 @@ declare namespace Sticky {
          * Note: You likely want to avoid messing with the following attributes in
          * your stickyStyle: `left`, `top`, and `width`.
          */
-        stickyStyle?: React.CSSProperties;
+        stickyStyle?: ReactDOM.CSSProperties;
 
         /**
          * You can also specify a class name to be applied when the element becomes
