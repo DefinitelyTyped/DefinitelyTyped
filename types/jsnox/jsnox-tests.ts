@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import jsnox = require("jsnox");
 const $ = jsnox(React);
 
@@ -14,11 +15,11 @@ class Person extends React.Component<PersonProps> {
 
 const PersonTag = React.createFactory(Person);
 
-declare const clickHandler: React.MouseEventHandler<{}>;
+declare const clickHandler: ReactDOM.MouseEventHandler<{}>;
 
 // tests with spec string
 function spec_string(): void {
-    let result: React.DOMElement<React.DOMAttributes<Element>, Element>;
+    let result: ReactDOM.DOMElement<ReactDOM.DOMAttributes<Element>, Element>;
 
     // just spec string
     result = $("div");

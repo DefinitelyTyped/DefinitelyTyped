@@ -6,6 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 /*
  * JSnoX requires an object with a createElement method.
@@ -26,7 +27,7 @@ interface CreateElement {
      * @param children A single React node (string or ReactElement) or array of nodes.
      * Note that unlike with React itself, multiple children must be placed into an array.
      */
-    <P>(specString: string, children: React.ReactNode): React.DOMElement<P, Element>;
+    <P>(specString: string, children: React.ReactNode): ReactDOM.DOMElement<P, Element>;
 
     /**
      * Renders an HTML element from the given spec string, with optional props
@@ -37,7 +38,7 @@ interface CreateElement {
      * @param children A single React node (string or ReactElement) or array of nodes.
      * Note that unlike with React itself, multiple children must be placed into an array.
      */
-    <P>(specString: string, props?: React.HTMLAttributes<{}>, children?: React.ReactNode): React.DOMElement<P, Element>;
+    <P>(specString: string, props?: ReactDOM.HTMLAttributes<{}>, children?: React.ReactNode): ReactDOM.DOMElement<P, Element>;
 
     /**
      * Renders a React component, with children but no props
