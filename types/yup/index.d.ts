@@ -297,7 +297,7 @@ export interface SchemaDescription {
 
 // ValidationError works a lot more like a class vs. a constructor
 // function that returns an interface. It's also got a couple of
-// static methods and it inherits for the generic Error class in
+// static methods and it inherits from the generic Error class in
 // the [yup codebase][1].
 // [1]: (https://github.com/jquense/yup/blob/master/src/ValidationError.js)
 export class ValidationError extends Error {
