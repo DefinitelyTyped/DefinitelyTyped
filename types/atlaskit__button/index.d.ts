@@ -8,9 +8,11 @@ import {
     Component,
     ReactNode,
     ReactElement,
-    ComponentClass,
-    MouseEventHandler
+    ComponentClass
 } from "react";
+import {
+    MouseEventHandler
+} from "react-dom";
 
 export type ButtonAppearances =
     | "default"
