@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="react" />
+/// <reference types="react-dom" />
 
 declare module "react-easy-chart" {
 
@@ -111,7 +112,7 @@ declare module "react-easy-chart" {
 		/** Size in pixels in each dimension */
 		size?: number;
 
-		styles?: { [cssSelector: string]: React.CSSProperties };
+		styles?: { [cssSelector: string]: ReactDOM.CSSProperties };
 	}
 	class PieChart extends React.Component<PieChartProps> {
 	}
@@ -268,7 +269,7 @@ declare module "react-easy-chart" {
 		horizontal?: boolean;
 
 		/** Override the css styles of individual components, see http://rma-consulting.github.io/react-easy-chart/legend/index.html */
-		styles?: { [cssSelector: string]: React.CSSProperties };
+		styles?: { [cssSelector: string]: ReactDOM.CSSProperties };
 	}
 	class Legend extends React.Component<LegendProps> {
 
