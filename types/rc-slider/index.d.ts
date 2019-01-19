@@ -9,6 +9,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { RCTooltip } from 'rc-tooltip';
 
 export interface Marks {
@@ -85,32 +86,32 @@ export interface CommonApiProps {
     /**
      * The style used for the background and container. (both for slider(Object) and range(Array of Object), the array will be used for mutli handle follow element order)
      */
-    style?: React.CSSProperties[] | React.CSSProperties;
+    style?: ReactDOM.CSSProperties[] | ReactDOM.CSSProperties;
 
     /**
      * The style used for handle. (both for slider(Object) and range(Array of Object), the array will be used for mutli handle follow element order)
      */
-    handleStyle?: React.CSSProperties[] | React.CSSProperties;
+    handleStyle?: ReactDOM.CSSProperties[] | ReactDOM.CSSProperties;
 
     /**
      * The style used for track. (both for slider(Object) and range(Array of Object), the array will be used for mutli track follow element order)
      */
-    trackStyle?: React.CSSProperties[] | React.CSSProperties;
+    trackStyle?: ReactDOM.CSSProperties[] | ReactDOM.CSSProperties;
 
     /**
      * The style used for the track base color.
      */
-    railStyle?: React.CSSProperties;
+    railStyle?: ReactDOM.CSSProperties;
 
     /**
      * The style used for the dots.
      */
-    dotStyle?: React.CSSProperties;
+    dotStyle?: ReactDOM.CSSProperties;
 
     /**
      * The style used for the active dots.
      */
-    activeDotStyle?: React.CSSProperties;
+    activeDotStyle?: ReactDOM.CSSProperties;
 }
 
 export interface SliderProps extends CommonApiProps {
