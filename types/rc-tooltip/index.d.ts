@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export as namespace RCTooltip;
 
@@ -21,7 +22,7 @@ declare namespace RCTooltip {
 		trigger?: Trigger[];
 		mouseEnterDelay?: number;
 		mouseLeaveDelay?: number;
-		overlayStyle?: React.CSSProperties;
+		overlayStyle?: ReactDOM.CSSProperties;
 		prefixCls?: string;
 		transitionName?: string;
 		onVisibleChange?: (visible?: boolean) => void;
