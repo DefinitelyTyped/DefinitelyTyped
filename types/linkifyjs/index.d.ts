@@ -6,6 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export type PossiblyFuncOfHrefAndType<T> =
     | T
@@ -30,7 +31,7 @@ export interface LinkifyOptions {
      * (e.g., 'url', 'email', etc.) and returns the object.
      */
     attributes?: PossiblyFuncOfHrefAndType<
-        React.AnchorHTMLAttributes<HTMLAnchorElement>
+    ReactDOM.AnchorHTMLAttributes<HTMLAnchorElement>
     > | null;
 
     /**
