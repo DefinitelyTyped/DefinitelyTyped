@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="react"/>
+/// <reference types="react-dom"/>
 
 declare module "react-dropzone" {
     interface DropzoneProps {
@@ -18,9 +19,9 @@ declare module "react-dropzone" {
         onDragEnter?: Function;
         onDragLeave?: Function;
 
-        style?: React.CSSProperties; // CSS styles to apply
-        activeStyle?: React.CSSProperties; // CSS styles to apply when drop will be accepted
-        rejectStyle?: React.CSSProperties; // CSS styles to apply when drop will be rejected
+        style?: ReactDOM.CSSProperties; // CSS styles to apply
+        activeStyle?: ReactDOM.CSSProperties; // CSS styles to apply when drop will be accepted
+        rejectStyle?: ReactDOM.CSSProperties; // CSS styles to apply when drop will be rejected
         className?: string; // Optional className
         activeClassName?: string; // className for accepted state
         rejectClassName?: string; // className for rejected state
@@ -28,7 +29,7 @@ declare module "react-dropzone" {
         disablePreview?: boolean; // Enable/disable preview generation
         disableClick?: boolean; // Disallow clicking on the dropzone container to open file dialog
 
-        inputProps?: React.InputHTMLAttributes<HTMLInputElement>; // Pass additional attributes to the <input type="file"/> tag
+        inputProps?: ReactDOM.InputHTMLAttributes<HTMLInputElement>; // Pass additional attributes to the <input type="file"/> tag
         multiple?: boolean; // Allow dropping multiple files
         accept?: string; // Allow specific types of files. See https://github.com/okonet/attr-accept for more information
         name?: string; // name attribute for the input tag
