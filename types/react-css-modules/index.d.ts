@@ -29,7 +29,7 @@ declare let CSSModules: CSSModules;
 
 export = CSSModules;
 
-declare module 'react' {
+declare module 'react-dom' {
     interface HTMLAttributes<T> {
         styleName?: string;
     }
