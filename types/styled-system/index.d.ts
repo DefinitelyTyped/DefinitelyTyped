@@ -100,28 +100,28 @@ export type ObjectOrArray<T> = T[] | { [K: string]: T };
 
 export interface BaseTheme {
     breakpoints?: number[];
-    space?: number[];
-    fontSizes?: number[];
     colors?: ObjectOrArray<CSS.ColorProperty>;
+    fontSizes?: number[];
+    space?: number[];
 }
 
 export interface Theme extends BaseTheme {
-    fonts?: ObjectOrArray<CSS.FontFamilyProperty>;
-    fontWeights?: ObjectOrArray<CSS.FontWeightProperty>;
-    maxWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
-    minWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
-    heights?: ObjectOrArray<CSS.HeightProperty<{}>>;
-    maxHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
-    minHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
-    lineHeights?: ObjectOrArray<CSS.LineHeightProperty<{}>>;
-    letterSpacings?: ObjectOrArray<CSS.LetterSpacingProperty<{}>>;
-    shadows?: ObjectOrArray<CSS.BoxShadowProperty>;
     borders?: ObjectOrArray<CSS.BorderProperty<{}>>;
-    radii?: ObjectOrArray<CSS.BorderRadiusProperty<{}>>;
-    opacity?: ObjectOrArray<CSS.GlobalsNumber>;
-    textStyles?: ObjectOrArray<CSS.StandardProperties>;
-    colorStyles?: ObjectOrArray<CSS.StandardProperties>;
     buttons?: ObjectOrArray<CSS.StandardProperties>;
+    colorStyles?: ObjectOrArray<CSS.StandardProperties>;
+    fontWeights?: ObjectOrArray<CSS.FontWeightProperty>;
+    fonts?: ObjectOrArray<CSS.FontFamilyProperty>;
+    heights?: ObjectOrArray<CSS.HeightProperty<{}>>;
+    letterSpacings?: ObjectOrArray<CSS.LetterSpacingProperty<{}>>;
+    lineHeights?: ObjectOrArray<CSS.LineHeightProperty<{}>>;
+    maxHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
+    maxWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
+    minHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
+    minWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
+    opacity?: ObjectOrArray<CSS.GlobalsNumber>;
+    radii?: ObjectOrArray<CSS.BorderRadiusProperty<{}>>;
+    shadows?: ObjectOrArray<CSS.BoxShadowProperty>;
+    textStyles?: ObjectOrArray<CSS.StandardProperties>;
 }
 
 /**
