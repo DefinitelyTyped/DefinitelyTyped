@@ -1,6 +1,7 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export default class LinkTo extends React.PureComponent<
-  React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> &
+ReactDOM.DetailedHTMLProps<ReactDOM.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> &
   { story: string, kind?: string }
 > {}
