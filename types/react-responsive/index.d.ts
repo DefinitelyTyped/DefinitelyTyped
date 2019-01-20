@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface MediaQueryTypes {
     all?: boolean;
@@ -77,7 +78,7 @@ export interface MediaQueryAllQueryable extends MediaQueryFeatures, MediaQueryTy
 export interface MediaQueryProps extends MediaQueryAllQueryable {
     component?: string | React.SFC<any> | React.ClassType<any, any, any> | React.ComponentClass<any>;
     query?: string;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     className?: string;
     children?: React.ReactNode | ((matches: boolean) => React.ReactNode);
     values?: Partial<MediaQueryMatchers>;
