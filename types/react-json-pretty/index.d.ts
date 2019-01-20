@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, HTMLProps } from "react";
+import { ComponentClass } from "react";
+import * as ReactDOM from "react-dom";
 
 export as namespace JSONPretty;
 
@@ -14,7 +15,7 @@ declare const JSONPretty: JSONPretty;
 type JSONPretty = ComponentClass<JSONPretty.JSONPrettyProps>;
 
 declare namespace JSONPretty {
-    interface JSONPrettyProps extends HTMLProps<JSONPretty> {
+    interface JSONPrettyProps extends ReactDOM.HTMLProps<JSONPretty> {
         json: {} | string;
     }
 }
