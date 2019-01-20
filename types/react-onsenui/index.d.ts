@@ -8,9 +8,10 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-export type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Partial<Pick<React.HTMLAttributes<{}>, K>>;
-export type InputHTMLAttributes<K extends keyof React.InputHTMLAttributes<{}>> = Partial<Pick<React.InputHTMLAttributes<{}>, K>>;
+export type HTMLAttributes<K extends keyof ReactDOM.HTMLAttributes<{}>> = Partial<Pick<ReactDOM.HTMLAttributes<{}>, K>>;
+export type InputHTMLAttributes<K extends keyof ReactDOM.InputHTMLAttributes<{}>> = Partial<Pick<ReactDOM.InputHTMLAttributes<{}>, K>>;
 
 export class Component<P = {}, S = {}> extends React.Component<HTMLAttributes<'id' | 'className' | 'style'> & P, S> {}
 
@@ -85,7 +86,7 @@ export class BottomToolbar extends Component<{
 export class ToolbarButton extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onClick?(e?: React.MouseEvent<HTMLElement>): void
+    onClick?(e?: ReactDOM.MouseEvent<HTMLElement>): void
 }, any> {}
 
 /*** icon ***/
@@ -260,7 +261,7 @@ export class ActionSheet extends Component<{
 export class ActionSheetButton extends Component<{
     modifier?: string,
     icon?: string,
-    onClick?(e?: React.MouseEvent<HTMLElement>): void
+    onClick?(e?: ReactDOM.MouseEvent<HTMLElement>): void
 }, any> {}
 
 export class ProgressBar extends Component<{
@@ -290,7 +291,7 @@ export class Fab extends Component<{
     ripple?: boolean,
     position?: string,
     disabled?: boolean,
-    onClick?(e?: React.MouseEvent<HTMLElement>): void,
+    onClick?(e?: ReactDOM.MouseEvent<HTMLElement>): void,
     name?: string,
 }, any> {}
 
@@ -299,16 +300,16 @@ export class Button extends Component<{
     disabled?: boolean,
     ripple?: boolean,
     name?: string,
-    onClick?(e?: React.MouseEvent<HTMLElement>): void
+    onClick?(e?: ReactDOM.MouseEvent<HTMLElement>): void
 }, any> {}
 
 export class Input extends Component<InputHTMLAttributes<'min' | 'max' | 'step'> & {
     modifier?: string,
     disabled?: boolean,
     readOnly?: boolean,
-    onChange?: (e: React.ChangeEvent<any>) => void,
-    onBlur?: (e: React.FocusEvent<any>) => void,
-    onFocus?: (e: React.FocusEvent<any>) => void,
+    onChange?: (e: ReactDOM.ChangeEvent<any>) => void,
+    onBlur?: (e: ReactDOM.FocusEvent<any>) => void,
+    onFocus?: (e: ReactDOM.FocusEvent<any>) => void,
     value?: string,
     defaultValue?: string,
     checked?: boolean,
@@ -358,7 +359,7 @@ export class SearchInput extends Component<{
 export class Select extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onChange?: (e: React.ChangeEvent<any>) => void,
+    onChange?: (e: ReactDOM.ChangeEvent<any>) => void,
     value?: string,
     multiple?: boolean,
     autofocus?: boolean,
@@ -438,12 +439,12 @@ export class ListItem extends Component<{
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
-    onClick?: React.MouseEventHandler<any>,
+    onClick?: ReactDOM.MouseEventHandler<any>,
 }, any> {}
 
 export class ListTitle extends Component<{
     modifier?: string,
-    onClick?: React.MouseEventHandler<any>,
+    onClick?: ReactDOM.MouseEventHandler<any>,
 }, any> {}
 
 export class Card extends Component<{
@@ -485,5 +486,5 @@ export class SpeedDial extends Component<{
 
 export class SpeedDialItem extends Component<{
     modifier?: string;
-    onClick?(e?: React.MouseEvent<HTMLElement>): void,
+    onClick?(e?: ReactDOM.MouseEvent<HTMLElement>): void,
 }, any> {}

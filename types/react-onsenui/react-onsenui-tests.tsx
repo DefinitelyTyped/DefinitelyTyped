@@ -18,13 +18,13 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({ isOpen: false });
     }
 
-    onChange(event: React.ChangeEvent<HTMLInputElement>) {}
-    onBlur(event: React.FocusEvent<HTMLInputElement>) {}
-    onFocus(event: React.FocusEvent<HTMLInputElement>) {}
-    onClick(event: React.MouseEvent<HTMLButtonElement>) {}
+    onChange(event: ReactDOM.ChangeEvent<HTMLInputElement>) {}
+    onBlur(event: ReactDOM.FocusEvent<HTMLInputElement>) {}
+    onFocus(event: ReactDOM.FocusEvent<HTMLInputElement>) {}
+    onClick(event: ReactDOM.MouseEvent<HTMLButtonElement>) {}
     onRadioChange(event: Event) {}
     onCheckboxChange(event: Event) {}
-    onSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {}
+    onSelectChange(event: ReactDOM.ChangeEvent<HTMLSelectElement>) {}
     onSearchInputChange(event: Event) {}
 
     render() {
