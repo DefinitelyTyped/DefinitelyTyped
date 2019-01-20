@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface FacebookLoginInfo {
     id: string;
@@ -13,7 +14,7 @@ export interface FacebookLoginInfo {
     email?: string;
 }
 
-export interface FacebookLoginProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface FacebookLoginProps extends ReactDOM.ButtonHTMLAttributes<HTMLButtonElement> {
     socialId: string;
     xfbml?: boolean;
     version?: string;
