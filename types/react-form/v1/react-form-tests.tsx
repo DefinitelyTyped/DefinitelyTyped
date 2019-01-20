@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
 		Form,
 		FormError,
@@ -30,7 +31,7 @@ import {
 
 <FormError field="" />;
 
-const CustomInput: React.SFC<React.HTMLAttributes<HTMLInputElement> & {field?: string}> =
+const CustomInput: React.SFC<ReactDOM.HTMLAttributes<HTMLInputElement> & {field?: string}> =
 		({field, ...rest}) => {
 				return (
 						<FormInput field={field}>
@@ -49,10 +50,10 @@ const CustomInput: React.SFC<React.HTMLAttributes<HTMLInputElement> & {field?: s
 		};
 
 const events = {
-		onChange: (e: React.SyntheticEvent<HTMLElement>, cb: () => void): null => null,
-		onBlur: (e: React.SyntheticEvent<HTMLElement>, cb: () => void): null => null
+		onChange: (e: ReactDOM.SyntheticEvent<HTMLElement>, cb: () => void): null => null,
+		onBlur: (e: ReactDOM.SyntheticEvent<HTMLElement>, cb: () => void): null => null
 };
-const onClick = (e: React.SyntheticEvent<HTMLElement>, cb: () => void): null => null;
+const onClick = (e: ReactDOM.SyntheticEvent<HTMLElement>, cb: () => void): null => null;
 
 <Select options={[]} />;
 <Select field="" options={[{label: '', value: '', disabled: false}]} {...events} />;

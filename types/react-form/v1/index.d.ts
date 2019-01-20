@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type FormValue = any;
 export type FormError = string | undefined;
@@ -54,7 +55,7 @@ export interface FormApi {
     swapValues(field: string, index: number, destIndex: number): void;
     setAllTouched(dirty?: boolean, state?: Partial<FormState>): void;
     resetForm(): void;
-    submitForm(e?: Pick<React.SyntheticEvent<any>, 'preventDefault'>): void;
+    submitForm(e?: Pick<ReactDOM.SyntheticEvent<any>, 'preventDefault'>): void;
 }
 
 export interface FormFunctionProps extends FormProps, FormState, FormApi {}
@@ -93,7 +94,7 @@ export class Form
         swapValues(field: string, index: number, destIndex: number): void;
         setAllTouched(dirty?: boolean, state?: Partial<FormState>): void;
         resetForm(): void;
-        submitForm(e?: Pick<React.SyntheticEvent<any>, 'preventDefault'>): void;
+        submitForm(e?: Pick<ReactDOM.SyntheticEvent<any>, 'preventDefault'>): void;
 
         // Utils
         getAPI(): FormApi;
@@ -116,7 +117,7 @@ export interface FormFieldApi {
     swapValues(index: number, destIndex: number): void;
     setAllTouched(dirty?: boolean, state?: Partial<FormState>): void;
     resetForm(): void;
-    submitForm(e?: Pick<React.SyntheticEvent<any>, 'preventDefault'>): void;
+    submitForm(e?: Pick<ReactDOM.SyntheticEvent<any>, 'preventDefault'>): void;
 }
 
 export interface FormFieldPropsWithField {
@@ -133,7 +134,7 @@ export const FormField: React.SFC<FormFieldProps>;
 export interface FormErrorProps {
     field?: FormFieldPropsWithField['field'];
     className?: string;
-    style?: React.HTMLAttributes<HTMLElement>['style'];
+    style?: ReactDOM.HTMLAttributes<HTMLElement>['style'];
 }
 export const FormError: React.SFC<FormErrorProps>;
 
@@ -156,9 +157,9 @@ export const FormInput: React.SFC<FormInputPropsWithChildren>;
 // ==============================
 
 export type EventHandler<T, E> = (e: E, cb: () => void) => void;
-export type ChangeHandler<T> = EventHandler<T, React.ChangeEvent<T>>;
-export type FocusHandler<T> = EventHandler<T, React.FocusEvent<T>>;
-export type ClickHandler<T> = EventHandler<T, React.MouseEvent<T>>;
+export type ChangeHandler<T> = EventHandler<T, ReactDOM.ChangeEvent<T>>;
+export type FocusHandler<T> = EventHandler<T, ReactDOM.FocusEvent<T>>;
+export type ClickHandler<T> = EventHandler<T, ReactDOM.MouseEvent<T>>;
 
 // Prop interfaces are intermediate interfaces to "redefine" the type of some events
 // onChange:React.EventHandler => onChange:any => onChange:CustomEventHandler
@@ -168,7 +169,7 @@ export interface SelectOption {
     value: any;
     disabled?: boolean;
 }
-export interface SelectAttrs extends React.SelectHTMLAttributes<HTMLSelectElement> {
+export interface SelectAttrs extends ReactDOM.SelectHTMLAttributes<HTMLSelectElement> {
     onChange?: any;
     onBlur?: any;
 }
@@ -186,7 +187,7 @@ export interface SelectProps extends SelectAttrs {
 }
 export const Select: React.SFC<SelectProps>;
 
-export interface InputAttrs extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputAttrs extends ReactDOM.InputHTMLAttributes<HTMLInputElement> {
     onChange?: any;
     onBlur?: any;
 }
@@ -202,7 +203,7 @@ export interface CheckboxProps extends InputAttrs {
 }
 export const Checkbox: React.SFC<CheckboxProps>;
 
-export interface TextareaAttrs extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextareaAttrs extends ReactDOM.TextareaHTMLAttributes<HTMLTextAreaElement> {
     onChange?: any;
     onBlur?: any;
 }
