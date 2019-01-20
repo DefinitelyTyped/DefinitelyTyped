@@ -1,6 +1,7 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLUListElement> {
+interface Props extends ReactDOM.HTMLProps<HTMLUListElement> {
   inline?: boolean;
   disabled?: boolean;
   tabs?: boolean;

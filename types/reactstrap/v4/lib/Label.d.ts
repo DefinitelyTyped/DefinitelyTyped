@@ -1,7 +1,8 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 import { ColumnProps } from './Col';
 
-interface Intermediate extends React.LabelHTMLAttributes<HTMLLabelElement> {
+interface Intermediate extends ReactDOM.LabelHTMLAttributes<HTMLLabelElement> {
   size?: any;
 }
 

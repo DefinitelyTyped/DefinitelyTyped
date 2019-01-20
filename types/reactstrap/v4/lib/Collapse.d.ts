@@ -1,6 +1,7 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLElement> {
+interface Props extends ReactDOM.HTMLProps<HTMLElement> {
   isOpen?: boolean;
   classNames?: string;
   cssModule?: CSSModule;

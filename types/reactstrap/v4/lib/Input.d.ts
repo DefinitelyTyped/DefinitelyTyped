@@ -1,3 +1,4 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 type InputType =
@@ -29,7 +30,7 @@ type InputType =
 
 // Intermediate interface to "redefine" the type of size to string
 // size:number => size:any => size:string
-interface Intermediate extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Intermediate extends ReactDOM.InputHTMLAttributes<HTMLInputElement> {
   size?: any;
 }
 

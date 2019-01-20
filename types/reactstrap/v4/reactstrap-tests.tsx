@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
   Alert,
   UncontrolledAlert,
@@ -1996,7 +1997,7 @@ class ModalExample73 extends React.Component<any, any> {
     });
   }
 
-  changeBackdrop(e: React.ChangeEvent<HTMLInputElement>) {
+  changeBackdrop(e: ReactDOM.ChangeEvent<HTMLInputElement>) {
     let value = e.target.value;
     if (value !== 'static') {
       value = JSON.parse(value);

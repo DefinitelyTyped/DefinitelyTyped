@@ -1,6 +1,7 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLFormElement> {
+interface Props extends ReactDOM.HTMLProps<HTMLFormElement> {
   inline?: boolean;
   tag?: React.ReactType;
   getRef?: string | ((instance: HTMLButtonElement) => any);

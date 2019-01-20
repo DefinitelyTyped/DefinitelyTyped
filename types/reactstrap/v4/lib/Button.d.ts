@@ -1,6 +1,7 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLButtonElement> {
+interface Props extends ReactDOM.HTMLProps<HTMLButtonElement> {
   outline?: boolean;
   active?: boolean;
   block?: boolean;
@@ -9,10 +10,10 @@ interface Props extends React.HTMLProps<HTMLButtonElement> {
   tag?: React.ReactType;
   getRef?: string | ((instance: HTMLButtonElement) => any);
 
-  onClick?: React.MouseEventHandler<any>;
+  onClick?: ReactDOM.MouseEventHandler<any>;
   size?: any;
   id?: string;
-  style?: React.CSSProperties;
+  style?: ReactDOM.CSSProperties;
 
   cssModule?: CSSModule;
 }

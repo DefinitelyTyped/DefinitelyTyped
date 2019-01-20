@@ -1,5 +1,5 @@
 /// <reference types='tether' />
-
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   toggle: () => void;
   tether: Tether.ITetherOptions;
   tetherRef?: (tether: Tether) => void;
-  style?: React.CSSProperties;
+  style?: ReactDOM.CSSProperties;
 }
 
 declare var TetherContent: React.StatelessComponent<Props>;

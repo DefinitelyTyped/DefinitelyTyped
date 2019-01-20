@@ -1,6 +1,7 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLAnchorElement> {
+interface Props extends ReactDOM.HTMLProps<HTMLAnchorElement> {
   'aria-label'?: string;
   className?: string;
   cssModule?: CSSModule;

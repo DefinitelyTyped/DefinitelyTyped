@@ -1,6 +1,7 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLDivElement> {
+interface Props extends ReactDOM.HTMLProps<HTMLDivElement> {
   row?: boolean;
   check?: boolean;
   disabled?: boolean;

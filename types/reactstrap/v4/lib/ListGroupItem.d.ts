@@ -1,3 +1,4 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
   cssModule?: CSSModule;
   href?: string;
 
-  onClick?: React.MouseEventHandler<any>;
+  onClick?: ReactDOM.MouseEventHandler<any>;
 }
 
 declare var ListGroupItem: React.StatelessComponent<Props>;

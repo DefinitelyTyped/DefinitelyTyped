@@ -1,3 +1,4 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 interface Props {
@@ -5,7 +6,7 @@ interface Props {
   divider?: boolean;
   tag?: React.ReactType;
   header?: boolean;
-  onClick?: (event: React.MouseEvent<any>) => void;
+  onClick?: (event: ReactDOM.MouseEvent<any>) => void;
   className?: string;
   cssModule?: CSSModule;
   href?: string;

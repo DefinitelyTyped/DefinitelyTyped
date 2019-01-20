@@ -1,3 +1,4 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 interface Props {
@@ -5,7 +6,7 @@ interface Props {
   className?: string;
   cssModule?: CSSModule;
   disabled?: boolean;
-  onClick?: React.MouseEventHandler<any>;
+  onClick?: ReactDOM.MouseEventHandler<any>;
   'data-toggle'?: string;
   'aria-haspopup'?: boolean;
   split?: boolean;

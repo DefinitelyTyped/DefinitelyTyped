@@ -1,3 +1,4 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   outline?: boolean;
   className?: string;
   cssModule?: CSSModule;
-  style?: React.CSSProperties;
+  style?: ReactDOM.CSSProperties;
 }
 
 declare var Card: React.StatelessComponent<Props>;

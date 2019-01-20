@@ -1,3 +1,5 @@
+import * as ReactDOM from 'react-dom';
+
 export type ColumnProps
   = string
   | boolean
@@ -9,7 +11,7 @@ export type ColumnProps
     offset?: string | number
   };
 
-interface Props extends React.HTMLProps<HTMLDivElement> {
+interface Props extends ReactDOM.HTMLProps<HTMLDivElement> {
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;

@@ -1,6 +1,7 @@
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-interface Props extends React.HTMLProps<HTMLAnchorElement> {
+interface Props extends ReactDOM.HTMLProps<HTMLAnchorElement> {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
