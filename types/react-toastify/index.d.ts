@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Transition } from 'react-transition-group';
 
 export type ToastCloseButton = React.ReactElement<any & { closeToast(): void }>;
@@ -98,7 +99,7 @@ export interface ToastContainerProps extends ToastAndToastContainerOptions {
     /**
      * Add optional inline style to the container.
      */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
 
     /**
      * Add optional classes to the container.
