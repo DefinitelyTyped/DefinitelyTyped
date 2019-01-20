@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface ReactFacebookLoginProps {
     appId: string;
@@ -12,8 +13,8 @@ export interface ReactFacebookLoginProps {
     onFailure?(response: ReactFacebookFailureResponse): void;
 
     autoLoad?: boolean;
-    buttonStyle?: React.CSSProperties;
-    containerStyle?: React.CSSProperties;
+    buttonStyle?: ReactDOM.CSSProperties;
+    containerStyle?: ReactDOM.CSSProperties;
     cookie?: boolean;
     cssClass?: string;
     disableMobileRedirect?: boolean;
@@ -21,7 +22,7 @@ export interface ReactFacebookLoginProps {
     icon?: React.ReactNode;
     isDisabled?: boolean;
     language?: string;
-    onClick?(event: React.MouseEvent<HTMLDivElement>): void;
+    onClick?(event: ReactDOM.MouseEvent<HTMLDivElement>): void;
     reAuthenticate?: boolean;
     redirectUri?: string;
     scope?: string;
