@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CalloutColors, CalloutSizes } from '../enums';
 import { FlexboxPropTypes } from '../utils';
 /**
@@ -10,7 +11,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Callout: React.StatelessComponent<CalloutProps>;
-export interface CalloutProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface CalloutProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
     color?: CalloutColors;
     size?: CalloutSizes;
 }

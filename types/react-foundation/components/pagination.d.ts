@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { FlexboxPropTypes } from '../utils';
 /**
  * Pagination component.
@@ -9,7 +10,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Pagination: React.StatelessComponent<PaginationProps>;
-export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUListElement> {
+export interface PaginationProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLUListElement> {
     isCentered?: boolean;
 }
 /**
@@ -19,7 +20,7 @@ export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<
  * @returns {Object}
  */
 export declare const PaginationItem: React.StatelessComponent<PaginationItemProps>;
-export interface PaginationItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
+export interface PaginationItemProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLLIElement> {
     isCurrent?: boolean;
     isDisabled?: boolean;
 }

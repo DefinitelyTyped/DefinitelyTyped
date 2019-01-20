@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import * as React from 'react';
 import { Component } from 'react';
+import * as ReactDOM from 'react-dom';
 import * as PropTypes from 'prop-types';
 import { TopBarProps } from './top-bar';
 import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
@@ -62,7 +63,7 @@ export interface ResponsiveNavigationState {
     isTitleBarVisible: boolean;
     isTopBarVisible: boolean;
 }
-export interface ResponsiveNavigationProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface ResponsiveNavigationProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
     breakpoint?: number;
     titleBar?: TitleBarProps;
     menuIcon?: MenuIconProps;
@@ -76,7 +77,7 @@ export interface ResponsiveNavigationProps extends FlexboxPropTypes, React.HTMLA
  * @returns {Object}
  */
 export declare const TitleBar: React.StatelessComponent<TitleBarProps>;
-export interface TitleBarProps extends GeneralPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface TitleBarProps extends GeneralPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
 }
 /**
  * Title bar menu icon sub-component.
@@ -85,7 +86,7 @@ export interface TitleBarProps extends GeneralPropTypes, React.HTMLAttributes<HT
  * @returns {Object}
  */
 export declare const MenuIcon: React.StatelessComponent<MenuIconProps>;
-export interface MenuIconProps extends GeneralPropTypes, React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface MenuIconProps extends GeneralPropTypes, ReactDOM.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 /**
  * Title bar title sub-component.
@@ -94,5 +95,5 @@ export interface MenuIconProps extends GeneralPropTypes, React.ButtonHTMLAttribu
  * @returns {Object}
  */
 export declare const TitleBarTitle: React.StatelessComponent<TitleBarTitleProps>;
-export interface TitleBarTitleProps extends GeneralPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface TitleBarTitleProps extends GeneralPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
 }

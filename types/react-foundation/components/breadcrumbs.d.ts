@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
 /**
  * Breadcrumbs component.
@@ -9,7 +10,7 @@ import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Breadcrumbs: React.StatelessComponent<BreadcrumbsProps>;
-export interface BreadcrumbsProps extends GeneralPropTypes, React.HTMLAttributes<HTMLUListElement> {
+export interface BreadcrumbsProps extends GeneralPropTypes, ReactDOM.HTMLAttributes<HTMLUListElement> {
 }
 /**
  * Breadcrumb item component.
@@ -18,6 +19,6 @@ export interface BreadcrumbsProps extends GeneralPropTypes, React.HTMLAttributes
  * @returns {Object}
  */
 export declare const BreadcrumbItem: React.StatelessComponent<BreadcrumbItemProps>;
-export interface BreadcrumbItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
+export interface BreadcrumbItemProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLLIElement> {
     isDisabled?: boolean;
 }

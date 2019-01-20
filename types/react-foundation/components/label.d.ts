@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { LabelColors } from '../enums';
 import { FlexboxPropTypes } from '../utils';
 /**
@@ -10,6 +11,6 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Label: React.StatelessComponent<LabelProps>;
-export interface LabelProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLSpanElement> {
+export interface LabelProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLSpanElement> {
     color?: LabelColors;
 }

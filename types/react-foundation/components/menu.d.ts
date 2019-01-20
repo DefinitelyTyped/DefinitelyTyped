@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { MenuAlignments } from '../enums';
 import { FlexboxPropTypes } from '../utils';
 /**
@@ -10,7 +11,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Menu: React.StatelessComponent<MenuProps>;
-export interface MenuProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUListElement> {
+export interface MenuProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLUListElement> {
     alignment?: MenuAlignments;
     iconsOnTop?: boolean;
     isExpanded?: boolean;
@@ -27,7 +28,7 @@ export interface MenuProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUL
  * @returns {Object}
  */
 export declare const MenuItem: React.StatelessComponent<MenuItemProps>;
-export interface MenuItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
+export interface MenuItemProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLLIElement> {
     isActive?: boolean;
 }
 /**

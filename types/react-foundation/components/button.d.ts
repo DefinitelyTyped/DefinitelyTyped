@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { ButtonSizes, ButtonColors } from '../enums';
 import { FlexboxPropTypes } from '../utils';
 export interface ButtonPropsCommon extends FlexboxPropTypes {
@@ -10,7 +11,7 @@ export interface ButtonPropsCommon extends FlexboxPropTypes {
     isDropdown?: boolean;
     isArrowOnly?: boolean;
 }
-export interface ButtonProps extends ButtonPropsCommon, React.HTMLAttributes<HTMLDivElement> {
+export interface ButtonProps extends ButtonPropsCommon, ReactDOM.HTMLAttributes<HTMLDivElement> {
     color?: ButtonColors;
 }
 /**
@@ -21,7 +22,7 @@ export interface ButtonProps extends ButtonPropsCommon, React.HTMLAttributes<HTM
  * @returns {Object}
  */
 export declare const Button: React.StatelessComponent<ButtonProps>;
-export interface LinkProps extends ButtonPropsCommon, React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface LinkProps extends ButtonPropsCommon, ReactDOM.AnchorHTMLAttributes<HTMLAnchorElement> {
     color?: ButtonColors;
 }
 /**

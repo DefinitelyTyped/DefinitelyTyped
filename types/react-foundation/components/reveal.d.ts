@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { FlexboxPropTypes } from '../utils';
 /**
  * Reveal component.
@@ -9,7 +10,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Reveal: React.StatelessComponent<PaginationProps>;
-export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface PaginationProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
     isTiny?: boolean;
     isSmall?: boolean;
     isLarge?: boolean;

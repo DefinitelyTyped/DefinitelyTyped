@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Breakpoints, ButtonGroupColors, ButtonGroupSizes } from '../enums';
 import { FlexboxPropTypes } from '../utils';
 /**
@@ -10,7 +11,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const ButtonGroup: React.StatelessComponent<ButtonGroupProps>;
-export interface ButtonGroupProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface ButtonGroupProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
     color?: ButtonGroupColors;
     size?: ButtonGroupSizes;
     stackFor?: Breakpoints;

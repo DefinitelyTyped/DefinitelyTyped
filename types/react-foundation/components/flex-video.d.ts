@@ -1,7 +1,8 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { FlexboxPropTypes } from '../utils';
-export interface FlexVideoProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface FlexVideoProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
     isWidescreen?: boolean;
     isVimeo?: boolean;
 }

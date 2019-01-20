@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { FlexboxPropTypes } from '../utils';
 /**
  * Thumbnail component.
@@ -9,7 +10,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Thumbnail: React.StatelessComponent<ThumbnailProps>;
-export interface ThumbnailProps extends FlexboxPropTypes, React.ImgHTMLAttributes<HTMLImageElement> {
+export interface ThumbnailProps extends FlexboxPropTypes, ReactDOM.ImgHTMLAttributes<HTMLImageElement> {
 }
 /**
  * Thumbnail link component.

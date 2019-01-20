@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { GutterTypes, ExtendedBreakpoints } from '../enums';
 import { FlexboxPropTypes } from '../utils';
 /**
@@ -9,7 +10,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const GridContainer: React.StatelessComponent<GridContainerProps>;
-export interface GridContainerProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface GridContainerProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
     fluid?: boolean;
     full?: boolean;
 }
@@ -20,7 +21,7 @@ export interface GridContainerProps extends FlexboxPropTypes, React.HTMLAttribut
  * @returns {Object}
  */
 export declare const Grid: React.StatelessComponent<GridProps>;
-export interface GridProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface GridProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
     vertical?: boolean;
     gutters?: GutterTypes;
     upOnSmall?: number;
@@ -38,7 +39,7 @@ export interface GridProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDi
  * @returns {Object}
  */
 export declare const Cell: React.StatelessComponent<CellProps>;
-export interface CellProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface CellProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
     small?: number;
     medium?: number;
     large?: number;

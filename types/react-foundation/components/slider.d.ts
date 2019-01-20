@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import * as React from 'react';
 import { Component } from 'react';
+import * as ReactDOM from 'react-dom';
 /**
  * Slider component.
  * http://foundation.zurb.com/sites/docs/slider.html
@@ -10,7 +11,7 @@ export declare class Slider extends Component<SliderProps, SliderState> {
     componentWillMount(): void;
     render(): JSX.Element;
 }
-export interface SliderProps extends React.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
+export interface SliderProps extends ReactDOM.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
     initialStart?: number;
     fill?: SliderFillProps;
     handle?: SliderHandleProps;
@@ -27,7 +28,7 @@ export declare class TwoHandleSlider extends Component<TwoHandleSliderProps, Two
     componentWillMount(): void;
     render(): JSX.Element;
 }
-export interface TwoHandleSliderProps extends React.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
+export interface TwoHandleSliderProps extends ReactDOM.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
     initialStart?: number;
     initialEnd?: number;
     minHandle?: SliderHandleProps;
@@ -45,7 +46,7 @@ export interface TwoHandleSliderState {
  * @returns {XML}
  */
 export declare const SliderHandle: React.StatelessComponent<SliderHandleProps>;
-export interface SliderHandleProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface SliderHandleProps extends ReactDOM.HTMLAttributes<HTMLSpanElement> {
 }
 export interface SliderFillProps {
     className?: string;

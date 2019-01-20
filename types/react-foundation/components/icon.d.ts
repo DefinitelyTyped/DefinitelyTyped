@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { FlexboxPropTypes } from '../utils';
 /**
  * Icon component.
@@ -8,7 +9,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Icon: React.StatelessComponent<IconProps>;
-export interface IconProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLElement> {
+export interface IconProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLElement> {
     name: string;
     prefix?: string;
 }

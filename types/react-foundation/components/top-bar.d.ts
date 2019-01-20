@@ -1,7 +1,8 @@
 /// <reference types="react" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { FlexboxPropTypes } from '../utils';
-export interface TopBarProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
+export interface TopBarProps extends FlexboxPropTypes, ReactDOM.HTMLAttributes<HTMLDivElement> {
 }
 /**
  * Top bar component.
