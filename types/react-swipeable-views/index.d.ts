@@ -6,6 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type OnChangeIndexCallback = (index: number, indexLatest: number) => void;
 
@@ -23,11 +24,11 @@ export interface SpringConfig {
     delay: string;
 }
 
-export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
+export interface SwipeableViewsProps extends ReactDOM.HTMLProps<HTMLDivElement> {
     animateHeight?: boolean;
     animateTransitions?: boolean;
     axis?: AxisType;
-    containerStyle?: React.CSSProperties;
+    containerStyle?: ReactDOM.CSSProperties;
     disabled?: boolean;
     enableMouseEvents?: boolean;
     hysteresis?: number;
@@ -37,8 +38,8 @@ export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
     onSwitching?: OnSwitchingCallback;
     onTransitionEnd?: OnTransitionEndCallback;
     resistance?: boolean;
-    style?: React.CSSProperties;
-    slideStyle?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
+    slideStyle?: ReactDOM.CSSProperties;
     springConfig?: SpringConfig;
     slideClassName?: string;
     threshold?: number;

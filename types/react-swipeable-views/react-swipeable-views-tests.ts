@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import SwipeableViews,
 {
     OnChangeIndexCallback,
@@ -20,7 +21,7 @@ const onTransitionEnd: OnTransitionEndCallback = () => {
     console.log("Transition end.");
 };
 
-const style: React.CSSProperties = {
+const style: ReactDOM.CSSProperties = {
     height: 300
 };
 
