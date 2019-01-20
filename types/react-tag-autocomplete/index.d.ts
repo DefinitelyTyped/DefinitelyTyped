@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import { Component } from "react";
+import * as ReactDOM from "react-dom";
 
 export default class ReactTags extends Component<ReactTagsProps> {}
 
@@ -17,7 +18,7 @@ export interface Tag {
 export interface TagComponentProps {
     tag: Tag;
     classNames: ClassNames;
-    onDelete: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onDelete: (event: ReactDOM.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface ClassNames {
