@@ -2,10 +2,12 @@ import {
     Component,
     ComponentClass,
     ReactElement,
-    SyntheticEvent,
-    ReactEventHandler,
     StatelessComponent
 } from "react";
+import {
+    SyntheticEvent,
+    ReactEventHandler
+} from "react-dom";
 import { Dispatch } from "redux";
 import { DataShape, FieldValue, FormErrors, FormWarnings, RegisteredFieldState, ComponentConstructor } from "../index";
 

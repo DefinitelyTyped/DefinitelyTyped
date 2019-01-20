@@ -1,10 +1,12 @@
 import {
     Component,
-    ReactElement,
+    ReactElement
+} from "react";
+import {
     ChangeEvent,
     DragEvent,
     FocusEvent
-} from "react";
+} from "react-dom";
 import { Dispatch } from "redux";
 import { ComponentConstructor, DataShape, FieldValue } from "../index";
 

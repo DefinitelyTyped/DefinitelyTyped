@@ -1,4 +1,5 @@
-import { Component, HTMLProps, FormEvent } from "react";
+import { Component } from "react";
+import { HTMLProps, FormEvent } from "react-dom";
 import { Dispatch } from "redux";
 import { SubmitHandler, FormProps, FormErrors } from "../index";
 
