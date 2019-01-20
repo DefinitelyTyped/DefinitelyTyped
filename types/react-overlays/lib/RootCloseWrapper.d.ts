@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 declare class RootCloseWrapper extends React.Component<
     RootCloseWrapper.RootCloseWrapperProps
@@ -10,7 +11,7 @@ declare namespace RootCloseWrapper {
         /**
          * Callback fired after click or mousedown. Also triggers when user hits `esc`.
          */
-        onRootClose?(e: React.SyntheticEvent<any>): void;
+        onRootClose?(e: ReactDOM.SyntheticEvent<any>): void;
 
         /**
          * Children to render.

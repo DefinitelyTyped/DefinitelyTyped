@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 declare class Affix extends React.Component<Affix.AffixProps> {}
 export = Affix;
@@ -29,7 +30,7 @@ declare namespace Affix {
         /**
          * Style to apply when at top
          */
-        topStyle?: React.CSSProperties;
+        topStyle?: ReactDOM.CSSProperties;
 
         /**
          * CSS class or classes to apply when affixed
@@ -39,7 +40,7 @@ declare namespace Affix {
         /**
          * Style to apply when affixed
          */
-        affixStyle?: React.CSSProperties;
+        affixStyle?: ReactDOM.CSSProperties;
 
         /**
          * CSS class or classes to apply when at bottom
@@ -49,7 +50,7 @@ declare namespace Affix {
         /**
          * Style to apply when at bottom
          */
-        bottomStyle?: React.CSSProperties;
+        bottomStyle?: ReactDOM.CSSProperties;
 
         /**
          * Callback fired when the right before the `affixStyle` and `affixStyle` props are rendered

@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 import DropdownMenu = require("./DropdownMenu");
 import DropdownToggle = require("./DropdownToggle");
@@ -12,7 +13,7 @@ export = Dropdown;
 declare namespace Dropdown {
     interface DropdownRenderProps {
         props: {
-            onKeyDown(event: React.SyntheticEvent<any>): void;
+            onKeyDown(event: ReactDOM.SyntheticEvent<any>): void;
         };
     }
 
@@ -52,6 +53,6 @@ declare namespace Dropdown {
          * A callback fired when the Dropdown wishes to change visibility. Called with the requested
          * `show` value, the DOM event, and the source that fired it: `'click'`,`'keydown'`,`'rootClose'`, or `'select'`.
          */
-        onToggle?(isOpen: boolean, event: React.SyntheticEvent<any>): void;
+        onToggle?(isOpen: boolean, event: ReactDOM.SyntheticEvent<any>): void;
     }
 }
