@@ -1,4 +1,5 @@
-import { ComponentClass, KeyboardEvent, ReactElement, ReactType } from 'react';
+import { ComponentClass, ReactElement, ReactType } from 'react';
+import * as ReactDOM from "react-dom";
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePickerClass>, AutoFocus {
@@ -120,11 +121,11 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
     /**
      * The native onKeyDown event, called preventDefault will prevent any custom behavior, included keyboard shortcuts.
      */
-    onKeyDown?: (event: KeyboardEvent<any>) => void;
+    onKeyDown?: (event: ReactDOM.KeyboardEvent<any>) => void;
     /**
      * The native onKeyPress event, called preventDefault will stop any custom behavior.
      */
-    onKeyPress?: (event: KeyboardEvent<any>) => void;
+    onKeyPress?: (event: ReactDOM.KeyboardEvent<any>) => void;
     /**
      * This handler fires when an item has been selected from the list or calendar. It fires
      * before the onChange handler, and fires regardless of whether the value has actually
