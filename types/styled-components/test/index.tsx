@@ -978,9 +978,25 @@ function validateDefaultProps() {
 
     <StyledComponent requiredProp optionalProp="x" />;
 
-    // this test is failing in TS 3.0 but not in 3.1
-    // <StyledComponent requiredProp />;
+    <StyledComponent requiredProp />;
 
     // still respects the type of optionalProp
     <StyledComponent requiredProp optionalProp={1} />; // $ExpectError
+
+    // example of a simple helper that sets defaultProps and update the type
+    type WithDefaultProps<C, D> = C & { defaultProps: D };
+    function withDefaultProps<C, D>(component: C, defaultProps: D): WithDefaultProps<C, D> {
+        (component as WithDefaultProps<C, D>).defaultProps = defaultProps;
+        return component as WithDefaultProps<C, D>;
+    }
+
+    const OtherStyledComponent = withDefaultProps(
+        styled(MyComponent)` color: red `,
+        { requiredProp: true }
+    );
+
+    // this test is failing in TS 3.1 but not in 3.2
+    // <OtherStyledComponent />;
+
+    <OtherStyledComponent requiredProp="1" />; // $ExpectError
 }

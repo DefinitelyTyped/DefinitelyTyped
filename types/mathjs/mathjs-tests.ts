@@ -281,6 +281,12 @@ Matrices examples
       return value * value;
 	  });  // returns [1, 4, 9]
 	}
+
+	// filter matrix
+	{
+	  math.filter([6, -2, -1, 4, 3], function(x) { return x > 0; }); // returns [6, 4, 3]
+	  math.filter(["23", "foo", "100", "55", "bar"], /[0-9]+/); // returns ["23", "100", "55"]
+	}
 }
 
 /*

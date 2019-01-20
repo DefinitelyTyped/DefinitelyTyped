@@ -522,12 +522,15 @@ mongoose.Schema.reserved.hasOwnProperty('');
 /* inherited properties */
 schema.addListener('e', cb);
 /* practical examples */
-var animalSchema = new mongoose.Schema({
+interface Animal {
+  findSimilarTypes(cb: any): Promise<Animal>
+}
+var animalSchema = new mongoose.Schema<Animal>({
   name: String,
   type: String
 });
-animalSchema.methods.findSimilarTypes = function (cb: any) {
-  return this.model('Aminal').find({ type: this.type }, cb);
+animalSchema.methods.findSimilarTypes = function (cb) {
+  return this.model('Animal').find({ type: this.type }, cb);
 };
 var Animal: any = mongoose.model('Animal', animalSchema);
 var dog: any = new Animal({type: 'dog'});
