@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Dispatch, ActionCreator, Reducer } from 'redux';
 
 export const actionTypes: { [actionName: string]: string };
@@ -64,14 +65,14 @@ export interface FieldProp<T> {
      * either receive the React SyntheticEvent or the current value of the
      * field.
      */
-    onBlur(eventOrValue: React.SyntheticEvent<T> | FieldValue): void;
+    onBlur(eventOrValue: ReactDOM.SyntheticEvent<T> | FieldValue): void;
 
     /**
      * A function to call when the form field is changed. It expects to either
      * receive the React SyntheticEvent or the new value of the field.
      * @param eventOrValue
      */
-    onChange(eventOrValue: React.SyntheticEvent<T> | FieldValue): void;
+    onChange(eventOrValue: ReactDOM.SyntheticEvent<T> | FieldValue): void;
 
     /**
      * A function to call when the form field receives a 'dragStart' event.
@@ -190,9 +191,9 @@ export interface ReduxFormProps<T> {
      * that as if it were the error for a field called _error, and it will be
      * given as the error prop.
      */
-    handleSubmit?(event: React.SyntheticEvent<T>): void;
-    handleSubmit?(event: React.MouseEvent<HTMLButtonElement>): void;
-    handleSubmit?(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): React.FormEventHandler<T>;
+    handleSubmit?(event: ReactDOM.SyntheticEvent<T>): void;
+    handleSubmit?(event: ReactDOM.MouseEvent<HTMLButtonElement>): void;
+    handleSubmit?(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): ReactDOM.FormEventHandler<T>;
 
     /**
      * Initializes the form data to the given values. All dirty and pristine
