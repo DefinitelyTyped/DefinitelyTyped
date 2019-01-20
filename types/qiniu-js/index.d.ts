@@ -135,6 +135,7 @@ export interface Extra {
 export interface Config {
     useCdnDomain: boolean; // 是否使用CDN域名 默认false
     region: Region | string; // 区域
+    uphost: string; // 上传 host，类型为 string， 如果设定该参数则优先使用该参数作为上传地址
     disableStatisticsReport: boolean; //是否不允许上报日志 默认false
     retryCount: number; //上传自动重试次 默认3
     concurrentRequestLimit: number; //分片上传的并发请求量 默认3
