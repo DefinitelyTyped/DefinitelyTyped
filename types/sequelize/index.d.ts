@@ -2091,9 +2091,9 @@ declare namespace sequelize {
     /**
      * The Base Error all Sequelize Errors inherit from.
      */
-    interface BaseError extends Error, ErrorConstructor { }
+    class BaseError extends Error { }
 
-    interface ValidationError extends BaseError {
+    class ValidationError extends BaseError {
 
         /**
          * Validation Error. Thrown when the sequelize validation has failed. The error contains an `errors`
@@ -2102,7 +2102,7 @@ declare namespace sequelize {
          * @param message Error message
          * @param errors  Array of ValidationErrorItem objects describing the validation errors
          */
-        new (message: string, errors?: ValidationErrorItem[]): ValidationError;
+        constructor(message: string, errors?: ValidationErrorItem[]);
 
         /**
          * Gets all validation error items for the path / field specified.
@@ -2116,7 +2116,7 @@ declare namespace sequelize {
 
     }
 
-    interface ValidationErrorItem extends BaseError {
+    class ValidationErrorItem {
 
         /**
          * Validation Error Item
@@ -2127,7 +2127,7 @@ declare namespace sequelize {
          * @param path The field that triggered the validation error
          * @param value The value that generated the error
          */
-        new (message: string, type: string, path: string, value: string): ValidationErrorItem;
+        constructor(message: string, type: string, path: string, value: string);
 
         /** An error message */
         message: string;
@@ -2143,120 +2143,120 @@ declare namespace sequelize {
 
     }
 
-    interface DatabaseError extends BaseError {
+    class DatabaseError extends BaseError {
 
         /**
          * A base class for all database related errors.
          */
-        new (parent: Error): DatabaseError;
+        constructor(parent: Error);
 
     }
 
-    interface TimeoutError extends DatabaseError {
+    class TimeoutError extends DatabaseError {
 
         /**
          * Thrown when a database query times out because of a deadlock
          */
-        new (parent: Error): TimeoutError;
+        constructor(parent: Error);
 
     }
 
-    interface UniqueConstraintError extends ValidationError {
+    class UniqueConstraintError extends ValidationError {
 
         /**
          * Thrown when a unique constraint is violated in the database
          */
-        new (options: { parent?: Error, message?: string, errors?: Object }): UniqueConstraintError;
+        constructor(options: { parent?: Error, message?: string, errors?: Object });
 
     }
 
-    interface ForeignKeyConstraintError extends DatabaseError {
+    class ForeignKeyConstraintError extends DatabaseError {
 
         /**
          * Thrown when a foreign key constraint is violated in the database
          */
-        new (options: { parent?: Error, message?: string, index?: string, fields?: string[], table?: string }): ForeignKeyConstraintError;
+        constructor(options: { parent?: Error, message?: string, index?: string, fields?: string[], table?: string });
 
     }
 
-    interface ExclusionConstraintError extends DatabaseError {
+    class ExclusionConstraintError extends DatabaseError {
 
         /**
          * Thrown when an exclusion constraint is violated in the database
          */
-        new (options: { parent?: Error, message?: string, constraint?: string, fields?: string[], table?: string }): ExclusionConstraintError;
+        constructor(options: { parent?: Error, message?: string, constraint?: string, fields?: string[], table?: string });
 
     }
 
-    interface ConnectionError extends BaseError {
+    class ConnectionError extends BaseError {
 
         /**
          * A base class for all connection related errors.
          */
-        new (parent: Error): ConnectionError;
+        constructor(parent: Error);
 
     }
 
-    interface ConnectionRefusedError extends ConnectionError {
+    class ConnectionRefusedError extends ConnectionError {
 
         /**
          * Thrown when a connection to a database is refused
          */
-        new (parent: Error): ConnectionRefusedError;
+        constructor(parent: Error);
 
     }
 
-    interface AccessDeniedError extends ConnectionError {
+    class AccessDeniedError extends ConnectionError {
 
         /**
          * Thrown when a connection to a database is refused due to insufficient privileges
          */
-        new (parent: Error): AccessDeniedError;
+        constructor(parent: Error);
 
     }
 
-    interface HostNotFoundError extends ConnectionError {
+    class HostNotFoundError extends ConnectionError {
 
         /**
          * Thrown when a connection to a database has a hostname that was not found
          */
-        new (parent: Error): HostNotFoundError;
+        constructor(parent: Error);
 
     }
 
-    interface HostNotReachableError extends ConnectionError {
+    class HostNotReachableError extends ConnectionError {
 
         /**
          * Thrown when a connection to a database has a hostname that was not reachable
          */
-        new (parent: Error): HostNotReachableError;
+        constructor(parent: Error);
 
     }
 
-    interface InvalidConnectionError extends ConnectionError {
+    class InvalidConnectionError extends ConnectionError {
 
         /**
          * Thrown when a connection to a database has invalid values for any of the connection parameters
          */
-        new (parent: Error): InvalidConnectionError;
+        constructor(parent: Error);
 
     }
 
-    interface ConnectionTimedOutError extends ConnectionError {
+    class ConnectionTimedOutError extends ConnectionError {
 
         /**
          * Thrown when a connection to a database times out
          */
-        new (parent: Error): ConnectionTimedOutError;
+        constructor(parent: Error);
 
     }
 
-    interface EmptyResultError extends BaseError {
+    class EmptyResultError extends BaseError {
 
         /**
          * Thrown when a record was not found, Usually used with rejectOnEmpty mode (see message for details)
          */
-        new (parent: Error): EmptyResultError;
+        constructor(parent: Error);
 
     }
 
