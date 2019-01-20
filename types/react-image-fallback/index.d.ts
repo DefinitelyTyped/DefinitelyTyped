@@ -5,11 +5,12 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export default class ReactImageFallback extends React.Component<
     ReactImageFallbackProps &
-    React.DetailedHTMLProps<
-    React.ImgHTMLAttributes<HTMLImageElement>,
+    ReactDOM.DetailedHTMLProps<
+    ReactDOM.ImgHTMLAttributes<HTMLImageElement>,
     HTMLImageElement
     >,
     any
@@ -19,7 +20,7 @@ export interface ReactImageFallbackProps {
     src: string;
     fallbackImage: string | React.ReactElement<any> | string[] | Array<React.ReactElement<any>>;
     initialImage?: string | React.ReactElement<any>;
-    onLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
-    onError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+    onLoad?: (event: ReactDOM.SyntheticEvent<HTMLImageElement>) => void;
+    onError?: (event: ReactDOM.SyntheticEvent<HTMLImageElement>) => void;
     initialTimeout?: number;
 }
