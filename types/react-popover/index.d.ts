@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export = Popover;
 
@@ -31,7 +32,7 @@ declare namespace Popover {
         enterExitTransitionDurationMs?: number;
         tipSize?: number;
         className?: string;
-        style?: React.CSSProperties;
+        style?: ReactDOM.CSSProperties;
         target?: React.ReactElement<any>;
         appendTarget?: Element;
     }
