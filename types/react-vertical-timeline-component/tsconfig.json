@@ -1,7 +1,4 @@
 {
-    "files": [
-        "index.d.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [

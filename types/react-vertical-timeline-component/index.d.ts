@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface VerticalTimelineProps {
     animate?: boolean;
@@ -17,10 +18,10 @@ export interface VerticalTimelineElementProps {
     className?: string;
     date?: string;
     iconOnClick?: () => void;
-    iconStyle?: React.CSSProperties;
+    iconStyle?: ReactDOM.CSSProperties;
     icon?: React.ReactNode;
     position?: string;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     visibilitySensorProps?: any;
 }
 
