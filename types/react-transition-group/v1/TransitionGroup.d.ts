@@ -1,4 +1,4 @@
-import { Component, HTMLAttributes, ReactElement, ReactType } from "react";
+import { Component, ReactElement, ReactType } from "react";
 import { HTMLTransitionGroupProps } from "./index";
 
 declare namespace TransitionGroup {
