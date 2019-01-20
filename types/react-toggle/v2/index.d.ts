@@ -5,7 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, InputHTMLAttributes, ReactNode } from "react";
+import { ComponentClass, ReactNode } from "react";
+import * as ReactDOM from "react-dom";
 
 declare namespace Toggle {
     interface ToggleIcons {
@@ -13,7 +14,7 @@ declare namespace Toggle {
         unchecked?: ReactNode;
     }
 
-    interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
+    interface ToggleProps extends ReactDOM.InputHTMLAttributes<HTMLInputElement> {
         icons?: boolean | ToggleIcons;
         defaultChecked?: boolean;
     }
