@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import FileReaderInput = require('react-file-reader-input');
 
 class MyComponent extends React.Component {
-  handleChange = (event: React.SyntheticEvent<any>, results: FileReaderInput.Result[]) => {
+  handleChange = (event: ReactDOM.SyntheticEvent<any>, results: FileReaderInput.Result[]) => {
     results.forEach(result => {
       const [event, file] = result;
       console.log(`Selected file ${file.name}!`);

@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare class FileInput extends React.Component<FileInput.Props> {
 }
@@ -40,7 +41,7 @@ declare namespace FileInput {
          * @param event The event that triggered file changes
          * @param results The array of files
          */
-        onChange(event: React.SyntheticEvent<any>, results: Result[]): void;
+        onChange(event: ReactDOM.SyntheticEvent<any>, results: Result[]): void;
     }
 }
 
