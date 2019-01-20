@@ -249,7 +249,7 @@ export interface GenerateFuncFlags {
  *      * ttl - the cache ttl value in milliseconds. Set to 0 to skip storing in the cache. Defaults to the cache global policy.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-export type GenerateFunc<T> = (id: string, flags: GenerateFuncFlags) => Promise<T>;
+export type GenerateFunc<T> = (id: Id, flags: GenerateFuncFlags) => Promise<T>;
 
 /**
  * An object with logging information about the generation operation containing the following keys (as relevant):

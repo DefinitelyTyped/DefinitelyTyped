@@ -8,6 +8,7 @@
 //                 Joe Flateau      <https://github.com/joeflateau>
 //                 Nikita Koryabkin <https://github.com/Apologiz>
 //                 timhwang21       <https://github.com/timhwang21>
+//                 supaiku0         <https://github.com/supaiku0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -20,6 +21,7 @@ declare module "node-forge" {
     type Base64 = string;
     type Utf8 = string;
     type OID = string;
+    type Encoding = "raw" | "utf8";
 
     namespace jsbn {
         class BigInteger {
@@ -430,7 +432,7 @@ declare module "node-forge" {
         function decodeUtf8(encoded: Utf8): string;
 
         function createBuffer(): ByteBuffer;
-        function createBuffer(input: Bytes | ArrayBuffer | ArrayBufferView | ByteStringBuffer, encode: string): ByteBuffer;
+        function createBuffer(input: Bytes | ArrayBuffer | ArrayBufferView | ByteStringBuffer, encoding?: Encoding): ByteBuffer;
 
         namespace binary {
             namespace raw {
@@ -516,10 +518,11 @@ declare module "node-forge" {
         function createSignedData(): PkcsSignedData;
     }
 
+    namespace pkcs5 {
+        function pbkdf2(password: string, salt: string, iterations: number, keySize: number): string;
+    }
+
     namespace md {
-
-        type Encoding = "raw" | "utf8"
-
         interface MessageDigest {
             update(msg: string, encoding?: Encoding): MessageDigest;
             digest(): util.ByteStringBuffer;

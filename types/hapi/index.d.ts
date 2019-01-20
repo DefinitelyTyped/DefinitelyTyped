@@ -29,7 +29,7 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from 'mimos';
 import { SealOptions, SealOptionsSub } from 'iron';
-import { AnySchema, ValidationOptions } from 'joi';
+import { ValidationOptions, SchemaMap, Schema } from 'joi';
 import Podium = require('podium');
 import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy } from 'catbox';
 
@@ -1436,14 +1436,12 @@ export interface RouteOptionsPreObject {
     failAction?: Lifecycle.FailAction;
 }
 
-export interface ValidationObject {
-    [key: string]: AnySchema;
-}
+export type ValidationObject = SchemaMap;
 
 export type RouteOptionsResponseSchema =
     boolean
     | ValidationObject
-    | AnySchema
+    | Schema
     | ((value: object | Buffer | string, options: ValidationOptions) => Promise<any>);
 
 /**
@@ -2704,7 +2702,7 @@ export interface ServerInjectResponse extends Shot.ResponseObject {
  * * * ttl - 0 if result is valid but cannot be cached. Defaults to cache policy.
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
  */
-export type ServerMethod = (...args: any[]) => Promise<any>;
+export type ServerMethod = (...args: any[]) => any;
 
 /**
  * The same cache configuration used in server.cache().

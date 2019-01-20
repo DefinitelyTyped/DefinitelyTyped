@@ -6709,6 +6709,17 @@ export type ShareOptions = {
     tintColor?: string;
 };
 
+export type ShareSharedAction = {
+    action: "sharedAction";
+    activityType?: string;
+};
+
+export type ShareDismissedAction = {
+    action: "dismissedAction"
+};
+
+export type ShareAction = ShareSharedAction | ShareDismissedAction;
+
 export interface ShareStatic {
     /**
      * Open a dialog to share text content.
@@ -6742,9 +6753,9 @@ export interface ShareStatic {
      * - `dialogTitle`
      *
      */
-    share(content: ShareContent, options?: ShareOptions): Promise<Object>;
-    sharedAction: string;
-    dismissedAction: string;
+    share(content: ShareContent, options?: ShareOptions): Promise<ShareAction>;
+    sharedAction: "sharedAction";
+    dismissedAction: "dismissedAction";
 }
 
 type AccessibilityEventName = "change" | "announcementFinished";
@@ -7315,7 +7326,7 @@ export interface IntentAndroidStatic {
 
         @deprecated
         */
-    getInitialURL(callback: (url: string) => void): void;
+    getInitialURL(callback: (url: string | null) => void): void;
 }
 
 export interface LinkingStatic extends NativeEventEmitter {
@@ -7350,7 +7361,7 @@ export interface LinkingStatic extends NativeEventEmitter {
      * If the app launch was triggered by an app link with, it will give the link url, otherwise it will give null
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
-    getInitialURL(): Promise<string>;
+    getInitialURL(): Promise<string | null>;
 }
 
 export interface LinkingIOSStatic {

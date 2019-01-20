@@ -32,6 +32,21 @@ export interface ThemeProps<T> {
 export type ThemedStyledProps<P, T> = P & ThemeProps<T>;
 export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
 
+// Any prop that has a default prop becomes optional, but its type is unchanged
+// Undeclared default props are augmented into the resulting allowable attributes
+// If declared props have indexed properties, ignore default props entirely as keyof gets widened
+// Wrap in an outer-level conditional type to allow distribution over props that are unions
+type Defaultize<P, D> = P extends any
+    ? string extends keyof P ? P :
+        & Pick<P, Exclude<keyof P, keyof D>>
+        & Partial<Pick<P, Extract<keyof P, keyof D>>>
+        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+    : never;
+
+type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D; }
+    ? Defaultize<P, D>
+    : P;
+
 export type StyledComponentProps<
     // The Component from whose props are derived
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -42,8 +57,13 @@ export type StyledComponentProps<
     // The props that are made optional by .attrs
     A extends keyof any
 > = WithOptionalTheme<
-    Omit<React.ComponentPropsWithRef<C> & O, A> &
-        Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+    Omit<
+        ReactDefaultizedProps<
+            C,
+            React.ComponentPropsWithRef<C>
+        > & O,
+        A
+    > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
     T
 >;
 
@@ -155,8 +175,6 @@ export interface StyledComponentBase<
             as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
         }
     ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
-
-    readonly defaultProps: ReactDefaultProps<C>;
 
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC

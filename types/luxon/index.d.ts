@@ -23,6 +23,35 @@ declare module 'luxon' {
             round?: boolean;
         };
 
+        type ToRelativeOptions = {
+            /** The DateTime to use as the basis to which this time is compared. Defaults to now. */
+            base?: DateTime;
+            locale?: string;
+            style?: 'long' | 'short' | 'narrow';
+            /** If omitted, the method will pick the unit. */
+            unit?: 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
+            /** Defaults to `true`. */
+            round?: boolean;
+            /**
+             * Padding in milliseconds. This allows you to round up the result if it fits inside the threshold.
+             * Don't use in combination with {round: false} because the decimal output will include the padding.
+             * Defaults to 0.
+             */
+            padding?: number;
+            /** The Intl system may choose not to honor this */
+            numberingSystem?: string;
+        };
+
+        type ToRelativeCalendarOptions = {
+            /** The DateTime to use as the basis to which this time is compared. Defaults to now. */
+            base?: DateTime;
+            locale?: string;
+            /** If omitted, the method will pick the unit. */
+            unit?: 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
+            /** The Intl system may choose not to honor this. */
+            numberingSystem?: string;
+        };
+
         type ToSQLOptions = {
             includeOffset?: boolean;
             includeZone?: boolean;
@@ -229,6 +258,8 @@ declare module 'luxon' {
             toMillis(): number;
             toMillis(): number;
             toObject(options?: { includeConfig?: boolean }): DateObject;
+            toRelative(options?: ToRelativeOptions): string | null;
+            toRelativeCalendar(options?: ToRelativeCalendarOptions): string | null;
             toRFC2822(): string;
             toSQL(options?: ToSQLOptions): string;
             toSQLDate(): string;

@@ -737,7 +737,7 @@ declare module "mongoose" {
    * section schema.js
    * http://mongoosejs.com/docs/api.html#schema-js
    */
-  class Schema extends events.EventEmitter {
+  class Schema<T = any> extends events.EventEmitter {
     /**
      * Schema constructor.
      * When nesting schemas, (children in the example above), always declare
@@ -789,8 +789,10 @@ declare module "mongoose" {
      * Adds an instance method to documents constructed from Models compiled from this schema.
      * If a hash of name/fn pairs is passed as the only argument, each name/fn pair will be added as methods.
      */
-    method(method: string, fn: Function): this;
-    method(methodObj: { [name: string]: Function }): this;
+    method<F extends keyof T>(method: F, fn: T[F]): this;
+    method(methodObj: {
+      [F in keyof T]: T[F]
+    }): this;
 
     /**
      * Gets/sets schema paths.
@@ -954,7 +956,9 @@ declare module "mongoose" {
     static reserved: any;
 
     /** Object of currently defined methods on this schema. */
-    methods: any;
+    methods: {
+      [F in keyof T]: T[F]
+    };
     /** Object of currently defined statics on this schema. */
     statics: any;
     /** Object of currently defined query helpers on this schema. */
