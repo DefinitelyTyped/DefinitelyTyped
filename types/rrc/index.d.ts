@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import * as H from "history";
 import { RouteProps, RouteComponentProps, match as MatchObject } from "react-router-dom";
 
@@ -52,7 +53,7 @@ export interface WhenActiveOptions {
     strict?: boolean;
     pathProp?: string;
     className?: string;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     isActive?: IsActiveCallback;
 }
 
