@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type NavbarBrandProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
+export type NavbarBrandProps<T = {}> = ReactDOM.HTMLProps<HTMLAnchorElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;

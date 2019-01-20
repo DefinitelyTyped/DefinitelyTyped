@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type ProgressProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type ProgressProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   bar?: boolean;
   multi?: boolean;
   tag?: string;

@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type CarouselControlProps<T = {}> = React.HTMLProps<HTMLElement> & {
+export type CarouselControlProps<T = {}> = ReactDOM.HTMLProps<HTMLElement> & {
     direction: 'prev' | 'next';
     onClickHandler: () => void;
     cssModule?: CSSModule;

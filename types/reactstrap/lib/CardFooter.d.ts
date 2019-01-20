@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type CardFooterProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type CardFooterProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;

@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type ListGroupItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type ListGroupItemProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   active?: boolean;
   disabled?: boolean;
@@ -11,7 +12,7 @@ export type ListGroupItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
   href?: string;
 
-  onClick?: React.MouseEventHandler<any>;
+  onClick?: ReactDOM.MouseEventHandler<any>;
 } & T;
 
 declare class ListGroupItem<T = {[key: string]: any}> extends React.Component<ListGroupItemProps<T>> {}

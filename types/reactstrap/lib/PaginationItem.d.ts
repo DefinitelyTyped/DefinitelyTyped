@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type PaginationItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type PaginationItemProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   active?: boolean;

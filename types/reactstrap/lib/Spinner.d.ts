@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type SpinnerProps<T = {}> = React.HTMLProps<HTMLElement> & {
+export type SpinnerProps<T = {}> = ReactDOM.HTMLProps<HTMLElement> & {
   tag?: React.ReactType;
   type?: string;
   size?: any;

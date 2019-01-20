@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 export interface Transition {
@@ -10,7 +11,7 @@ export interface Transition {
     onExited?: () => void;
 }
 
-export type CarouselItemProps<T = {}> = React.HTMLProps<HTMLElement> & Transition & {
+export type CarouselItemProps<T = {}> = ReactDOM.HTMLProps<HTMLElement> & Transition & {
     tag?: React.ReactType;
     in?: boolean;
     cssModule?: CSSModule;

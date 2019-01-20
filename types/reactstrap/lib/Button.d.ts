@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type ButtonProps<T = {}> = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps<T = {}> = ReactDOM.ButtonHTMLAttributes<HTMLButtonElement> & {
   outline?: boolean;
   active?: boolean;
   block?: boolean;
@@ -10,10 +11,10 @@ export type ButtonProps<T = {}> = React.ButtonHTMLAttributes<HTMLButtonElement> 
   tag?: React.ReactType;
   innerRef?: React.Ref<HTMLButtonElement>;
 
-  onClick?: React.MouseEventHandler<any>;
+  onClick?: ReactDOM.MouseEventHandler<any>;
   size?: any;
   id?: string;
-  style?: React.CSSProperties;
+  style?: ReactDOM.CSSProperties;
 
   cssModule?: CSSModule;
 } & T;

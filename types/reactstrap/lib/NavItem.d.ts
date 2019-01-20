@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type NavItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type NavItemProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   active?: boolean;
   className?: string;

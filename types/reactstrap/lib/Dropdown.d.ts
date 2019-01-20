@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 export type Direction =
@@ -7,7 +8,7 @@ export type Direction =
   | "left"
   | "right";
 
-export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type UncontrolledProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
   toggle?: () => void;
   className?: string;

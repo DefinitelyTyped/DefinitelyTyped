@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type TabContentProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type TabContentProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   activeTab?: number | string;
   className?: string;

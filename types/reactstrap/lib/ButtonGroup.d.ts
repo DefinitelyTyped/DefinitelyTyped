@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type ButtonGroupProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type ButtonGroupProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   'aria-label'?: string;
   className?: string;

@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type TableProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type TableProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   size?: string;

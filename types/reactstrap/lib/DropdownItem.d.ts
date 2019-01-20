@@ -1,12 +1,13 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type DropdownItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type DropdownItemProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   disabled?: boolean;
   divider?: boolean;
   tag?: React.ReactType;
   header?: boolean;
-  onClick?: (event: React.MouseEvent<any>) => void;
+  onClick?: (event: ReactDOM.MouseEvent<any>) => void;
   className?: string;
   cssModule?: CSSModule;
   href?: string;

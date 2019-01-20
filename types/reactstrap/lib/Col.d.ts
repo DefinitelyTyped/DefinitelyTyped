@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type ColumnProps
   = string
@@ -12,7 +13,7 @@ export type ColumnProps
     order?: string | number
   };
 
-export type ColProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
+export type ColProps<T = {}> = ReactDOM.HTMLProps<HTMLDivElement> & {
   tag?: React.ReactType;
   xs?: ColumnProps;
   sm?: ColumnProps;

@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type NavProps<T = {}> = React.HTMLProps<HTMLUListElement> & {
+export type NavProps<T = {}> = ReactDOM.HTMLProps<HTMLUListElement> & {
   tabs?: boolean;
   pills?: boolean;
   vertical?: boolean | string;

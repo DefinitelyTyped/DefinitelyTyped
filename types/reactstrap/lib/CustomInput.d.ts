@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 export type CustomInputType =
@@ -8,7 +9,7 @@ export type CustomInputType =
   | 'checkbox'
   | 'switch';
 
-export type CustomInputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
+export type CustomInputProps<T = {}> = ReactDOM.InputHTMLAttributes<HTMLInputElement> & {
   type: CustomInputType;
   label?: string;
   inline?: boolean;

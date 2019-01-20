@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type InputGroupProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type InputGroupProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   size?: string;
   className?: string;

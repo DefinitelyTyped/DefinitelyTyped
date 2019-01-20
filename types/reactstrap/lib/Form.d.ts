@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type FormProps<T = {}> = React.HTMLProps<HTMLFormElement> & {
+export type FormProps<T = {}> = ReactDOM.HTMLProps<HTMLFormElement> & {
   inline?: boolean;
   tag?: React.ReactType;
   innerRef?: React.Ref<HTMLFormElement>;

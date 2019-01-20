@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type FormGroupProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
+export type FormGroupProps<T = {}> = ReactDOM.HTMLProps<HTMLDivElement> & {
   row?: boolean;
   check?: boolean;
   inline?: boolean;

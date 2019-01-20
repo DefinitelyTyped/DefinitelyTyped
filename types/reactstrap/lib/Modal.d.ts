@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 import { FadeProps } from './Fade';
 
-export type ModalProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type ModalProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
   autoFocus?: boolean;
   size?: string;

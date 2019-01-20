@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
 export type InputType =
@@ -28,7 +29,7 @@ export type InputType =
   | 'time'
   | 'color';
 
-export type InputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
+export type InputProps<T = {}> = ReactDOM.InputHTMLAttributes<HTMLInputElement> & {
   type?: InputType;
   bsSize?: 'lg' | 'sm';
   state?: string;

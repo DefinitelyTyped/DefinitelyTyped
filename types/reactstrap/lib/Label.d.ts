@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 import { ColumnProps } from './Col';
 
-type Intermediate = React.LabelHTMLAttributes<HTMLLabelElement> & {
+type Intermediate = ReactDOM.LabelHTMLAttributes<HTMLLabelElement> & {
   size?: any;
 };
 

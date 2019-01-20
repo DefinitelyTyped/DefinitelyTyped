@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type BreadcrumbItemProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type BreadcrumbItemProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   active?: boolean;
   className?: string;

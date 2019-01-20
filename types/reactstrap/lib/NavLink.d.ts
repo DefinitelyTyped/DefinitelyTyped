@@ -1,14 +1,15 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type NavLinkProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
+export type NavLinkProps<T = {}> = ReactDOM.HTMLProps<HTMLAnchorElement> & {
   tag?: React.ReactType;
   innerRef?: React.Ref<HTMLAnchorElement>;
   disabled?: boolean;
   active?: boolean;
   className?: string;
   cssModule?: CSSModule;
-  onClick?: React.MouseEventHandler<any>;
+  onClick?: ReactDOM.MouseEventHandler<any>;
   href?: string;
 } & T;
 

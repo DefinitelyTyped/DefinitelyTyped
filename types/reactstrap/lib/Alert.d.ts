@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 import { FadeProps } from './Fade';
 
-export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type UncontrolledProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   color?: string;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
   Alert,
   UncontrolledAlert,
@@ -365,7 +366,7 @@ class Example15 extends React.Component<any, any> {
           <DropdownItem disabled>Action</DropdownItem>
           <DropdownItem>Another Action</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem onClick={(event: React.MouseEvent<HTMLElement>) => {
+          <DropdownItem onClick={(event: ReactDOM.MouseEvent<HTMLElement>) => {
             // something happens here
           }}>Another Action</DropdownItem>
         </DropdownMenu>
@@ -2026,7 +2027,7 @@ class ModalExample73 extends React.Component<any, any> {
     });
   }
 
-  changeBackdrop(e: React.ChangeEvent<HTMLInputElement>) {
+  changeBackdrop(e: ReactDOM.ChangeEvent<HTMLInputElement>) {
     let value = e.target.value;
     if (value !== 'static') {
       value = JSON.parse(value);

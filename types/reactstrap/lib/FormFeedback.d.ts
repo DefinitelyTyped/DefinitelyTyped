@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type FormFeedbackProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type FormFeedbackProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: string;
   className?: string;
   cssModule?: CSSModule;

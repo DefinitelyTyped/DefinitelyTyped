@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type NavbarProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type NavbarProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   light?: boolean;
   dark?: boolean;
   inverse?: boolean;

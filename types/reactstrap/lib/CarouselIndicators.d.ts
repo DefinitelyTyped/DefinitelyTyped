@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type CarouselIndicatorsProps<T = {}> = React.HTMLProps<HTMLElement> & {
+export type CarouselIndicatorsProps<T = {}> = ReactDOM.HTMLProps<HTMLElement> & {
     items: object[];
     activeIndex: number;
     cssModule?: CSSModule;

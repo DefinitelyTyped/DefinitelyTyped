@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type MediaProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type MediaProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   body?: boolean;
   bottom?: boolean;
   className?: string;

@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type ButtonToolbarProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type ButtonToolbarProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   'aria-label'?: string;
   className?: string;

@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
-export type PopoverProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type PopoverProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
   toggle?: () => void;
   target: string | HTMLElement;

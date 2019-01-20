@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
-export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type UncontrolledProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   target: string | HTMLElement;
   container?: string | HTMLElement;
   delay?: number | {show: number, hide: number};

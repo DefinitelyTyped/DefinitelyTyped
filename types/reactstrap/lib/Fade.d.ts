@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type FadeProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type FadeProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   in?: boolean;
   baseClass?: string;
   baseClassIn?: string;

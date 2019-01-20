@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type BadgeProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type BadgeProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   color?: string;
   pill?: boolean;
   tag?: React.ReactType;

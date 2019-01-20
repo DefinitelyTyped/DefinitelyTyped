@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type CollapseProps<T = {}> = React.HTMLProps<HTMLElement> & {
+export type CollapseProps<T = {}> = ReactDOM.HTMLProps<HTMLElement> & {
   isOpen?: boolean;
   classNames?: string;
   cssModule?: CSSModule;
@@ -20,7 +21,7 @@ export type CollapseProps<T = {}> = React.HTMLProps<HTMLElement> & {
   onExited?: () => void;
 } & T;
 
-export type UncontrolledProps<T = {}> = React.HTMLProps<HTMLElement> & {
+export type UncontrolledProps<T = {}> = ReactDOM.HTMLProps<HTMLElement> & {
   isOpen?: boolean;
   className?: string;
   cssModule?: CSSModule;

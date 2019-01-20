@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type CardImgProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type CardImgProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   top?: boolean;
   bottom?: boolean;

@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type CarouselCaptionProps<T = {}> = React.HTMLProps<HTMLElement> & {
+export type CarouselCaptionProps<T = {}> = ReactDOM.HTMLProps<HTMLElement> & {
     captionHeader?: string;
     captionText: string;
     cssModule?: CSSModule;

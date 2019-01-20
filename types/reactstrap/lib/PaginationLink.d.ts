@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type PaginationLinkProps<T = {}> = React.HTMLProps<HTMLAnchorElement> & {
+export type PaginationLinkProps<T = {}> = ReactDOM.HTMLProps<HTMLAnchorElement> & {
   'aria-label'?: string;
   className?: string;
   cssModule?: CSSModule;

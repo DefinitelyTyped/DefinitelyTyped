@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type FormTextProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
+export type FormTextProps<T = {}> = ReactDOM.HTMLAttributes<HTMLElement> & {
   inline?: boolean;
   tag?: React.ReactType;
   color?: string;

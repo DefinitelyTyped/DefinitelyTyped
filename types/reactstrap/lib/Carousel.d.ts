@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { CSSModule } from '../index';
 
-export type CarouselProps<T = {}> = React.HTMLProps<HTMLElement> & {
+export type CarouselProps<T = {}> = ReactDOM.HTMLProps<HTMLElement> & {
     activeIndex?: number;
     next: () => void;
     previous: () => void;
@@ -15,7 +16,7 @@ export type CarouselProps<T = {}> = React.HTMLProps<HTMLElement> & {
     cssModule?: CSSModule
 } & T;
 
-export type UncontrolledProps<T = {}> = React.HTMLProps<HTMLElement> & {
+export type UncontrolledProps<T = {}> = ReactDOM.HTMLProps<HTMLElement> & {
     items: any[];
     activeIndex?: number;
     next?: () => void;
