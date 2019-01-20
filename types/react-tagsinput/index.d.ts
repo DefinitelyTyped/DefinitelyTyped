@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export as namespace ReactTagsInput;
 export = TagsInput;
@@ -26,7 +27,7 @@ declare namespace TagsInput {
 
     interface RenderInputProps extends InputProps {
         readonly addTag: (tag: Tag) => void;
-        readonly onChange: (e: React.ChangeEvent<{ readonly value: string }>) => void;
+        readonly onChange: (e: ReactDOM.ChangeEvent<{ readonly value: string }>) => void;
         readonly ref: (r: any) => void; // parameter is either a DOM element or a mounted React component
         readonly value: Tag;
     }
