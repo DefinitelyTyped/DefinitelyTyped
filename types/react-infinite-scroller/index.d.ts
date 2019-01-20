@@ -8,12 +8,13 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 declare namespace InfiniteScroll {
     /**
      * <InfiniteScroll /> properties.
      */
-    interface InfiniteScrollProps extends React.HTMLProps<InfiniteScroll> {
+    interface InfiniteScrollProps extends ReactDOM.HTMLProps<InfiniteScroll> {
         /**
          * Name of the element that the component should render as.
          * Defaults to 'div'.
