@@ -6,6 +6,7 @@
 // TypeScript Version: 3.0
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as MapboxGL from 'mapbox-gl';
 import * as GeoJSON from 'geojson';
 
@@ -326,7 +327,7 @@ export interface HTMLRedrawOptions {
 
 export interface HTMLOverlayProps extends BaseControlProps {
     redraw: (opts: HTMLRedrawOptions) => void;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
 }
 
 export class HTMLOverlay extends BaseControl<HTMLOverlayProps> {}
@@ -345,7 +346,7 @@ export type SVGRedrawOptions = HTMLRedrawOptions;
 
 export interface SVGOverlayProps extends BaseControlProps {
     redraw: (opts: SVGRedrawOptions) => void;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
 }
 
 export class SVGOverlay extends BaseControl<SVGOverlayProps> {}
