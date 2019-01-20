@@ -3,10 +3,12 @@ import {
     ComponentClass,
     ComponentType,
     ReactElement,
-    SyntheticEvent,
-    StatelessComponent,
-    FormEventHandler
+    StatelessComponent
 } from "react";
+import {
+    SyntheticEvent,
+    FormEventHandler
+} from "react-dom";
 import { Dispatch } from "redux";
 import {
     FormErrors,

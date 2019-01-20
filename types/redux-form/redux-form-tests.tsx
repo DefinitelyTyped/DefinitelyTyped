@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Action, Dispatch } from "redux";
 import {
     reduxForm,
@@ -116,16 +117,16 @@ const MyField: React.StatelessComponent<MyFieldProps> = ({
     foo
 }) => {
     input.onBlur("value");
-    input.onBlur({} as React.SyntheticEvent<HTMLDivElement>);
+    input.onBlur({} as ReactDOM.SyntheticEvent<HTMLDivElement>);
 
     input.onChange("value");
-    input.onChange({} as React.SyntheticEvent<HTMLDivElement>);
+    input.onChange({} as ReactDOM.SyntheticEvent<HTMLDivElement>);
 
-    input.onDragStart({} as React.DragEvent<HTMLDivElement>);
+    input.onDragStart({} as ReactDOM.DragEvent<HTMLDivElement>);
 
-    input.onDrop({} as React.DragEvent<HTMLDivElement>);
+    input.onDrop({} as ReactDOM.DragEvent<HTMLDivElement>);
 
-    input.onFocus({} as React.FocusEvent<HTMLDivElement>);
+    input.onFocus({} as ReactDOM.FocusEvent<HTMLDivElement>);
     return null;
 };
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;

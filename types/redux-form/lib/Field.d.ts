@@ -1,14 +1,16 @@
 import {
     Component,
     ComponentType,
-    ReactElement,
+    ReactElement
+} from "react";
+import {
     ChangeEvent,
     DragEvent,
     FocusEvent,
     InputHTMLAttributes,
     SelectHTMLAttributes,
     TextareaHTMLAttributes
-} from "react";
+} from "react-dom";
 import { Dispatch } from "redux";
 
 export type Normalizer = (value: any, previousValue?: any, allValues?: any, previousAllValues?: any) => any;
