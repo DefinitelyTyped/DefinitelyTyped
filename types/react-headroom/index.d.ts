@@ -4,21 +4,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { CSSProperties, ReactNode, Component } from 'react';
+import { ReactNode, Component } from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare class Headroom extends Component<ReactHeadroomProps> {
     constructor(props: ReactHeadroomProps);
 }
 
 export interface ReactHeadroomProps {
-    style?: CSSProperties;
+    style?: ReactDOM.CSSProperties;
     onPin?: () => void;
     onUnpin?: () => void;
     onUnfix?: () => void;
     upTolerance?: number;
     downTolerance?: number;
     disable?: boolean;
-    wrapperStyle?: CSSProperties;
+    wrapperStyle?: ReactDOM.CSSProperties;
     parent?: () => any;
     pinStart?: number;
     calcHeightOnResize?: boolean;
