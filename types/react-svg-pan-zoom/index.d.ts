@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 // String constants:
 export const MODE_IDLE = 'idle';
@@ -150,7 +151,7 @@ export interface Point {
 }
 
 export interface ViewerMouseEvent<T> {
-	originalEvent: React.MouseEvent<T>;
+	originalEvent: ReactDOM.MouseEvent<T>;
 	SVGViewer: SVGSVGElement;
 	point: Point;
 	x: number;
@@ -163,7 +164,7 @@ export interface ViewerMouseEvent<T> {
 }
 
 export interface ViewerTouchEvent<T> {
-	originalEvent: React.TouchEvent<T>;
+	originalEvent: ReactDOM.TouchEvent<T>;
 	SVGViewer: SVGSVGElement;
 	points: Point[];
 	changedPoints: Point[];
