@@ -1,12 +1,13 @@
-import { ComponentClass, CSSProperties, HTMLProps } from "react";
+import { ComponentClass } from "react";
+import * as ReactDOM from "react-dom";
 import { Location, LocationDescriptor } from "history";
 
 type ToLocationFunction = (location: Location) => LocationDescriptor;
 
-export interface IndexLinkProps extends HTMLProps<any> {
+export interface IndexLinkProps extends ReactDOM.HTMLProps<any> {
     to: LocationDescriptor | ToLocationFunction;
     activeClassName?: string;
-    activeStyle?: CSSProperties;
+    activeStyle?: ReactDOM.CSSProperties;
 }
 
 type IndexLink = ComponentClass<IndexLinkProps>;

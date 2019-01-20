@@ -1,4 +1,4 @@
-import { ComponentClass, CSSProperties, HTMLProps } from "react";
+import { ComponentClass } from "react";
 import { IndexLinkProps } from "react-router/lib/IndexLink";
 
 export interface LinkProps extends IndexLinkProps {
