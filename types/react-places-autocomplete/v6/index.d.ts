@@ -10,6 +10,7 @@
 /// <reference types="googlemaps" />
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface formattedSuggestionType {
     mainText: string;
@@ -17,9 +18,9 @@ export interface formattedSuggestionType {
 }
 
 export interface InputProps extends Pick<
-  React.InputHTMLAttributes<HTMLInputElement>,
+  ReactDOM.InputHTMLAttributes<HTMLInputElement>,
   Exclude<
-    keyof React.InputHTMLAttributes<HTMLInputElement>,
+    keyof ReactDOM.InputHTMLAttributes<HTMLInputElement>,
     "onChange"
   >
 > {
@@ -43,11 +44,11 @@ export interface PropTypes {
         autocompleteItemActive?: string;
     };
     styles?: {
-        root?: React.CSSProperties;
-        input?: React.CSSProperties;
-        autocompleteContainer?: React.CSSProperties;
-        autocompleteItem?: React.CSSProperties;
-        autocompleteItemActive?: React.CSSProperties;
+        root?: ReactDOM.CSSProperties;
+        input?: ReactDOM.CSSProperties;
+        autocompleteContainer?: ReactDOM.CSSProperties;
+        autocompleteItem?: ReactDOM.CSSProperties;
+        autocompleteItemActive?: ReactDOM.CSSProperties;
     };
     options?: {
         bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
