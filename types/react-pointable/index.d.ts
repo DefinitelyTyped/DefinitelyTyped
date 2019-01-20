@@ -6,10 +6,11 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type TouchAction = 'auto' | 'none' | 'pan-x' | 'pan-y' | 'manipulation';
 
-export interface PointableProps extends React.HTMLAttributes<Element>, React.SVGAttributes<Element> {
+export interface PointableProps extends ReactDOM.HTMLAttributes<Element>, ReactDOM.SVGAttributes<Element> {
     tagName?: keyof ElementTagNameMap;
     touchAction?: TouchAction;
     elementRef?(el: HTMLElement|SVGElement): void;

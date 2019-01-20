@@ -1,9 +1,10 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import Pointable from 'react-pointable';
 
 class Test extends React.Component<object, object> {
     elementRef(el: HTMLElement) {}
-    somePointerEvent(evt: React.PointerEvent) {}
+    somePointerEvent(evt: ReactDOM.PointerEvent) {}
 
     render() {
         return (
