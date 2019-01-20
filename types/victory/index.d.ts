@@ -12,6 +12,7 @@
 
 declare module "victory" {
   import * as React from "react";
+  import * as ReactDOM from "react-dom";
 
   /**
    * Single animation object to interpolate
@@ -40,10 +41,10 @@ declare module "victory" {
    * Style interface used in components/themeing
    */
   export interface VictoryStyleInterface {
-    parent?: React.CSSProperties;
-    data?: React.CSSProperties;
-    labels?: React.CSSProperties;
-    tickLabels?: React.CSSProperties;
+    parent?: ReactDOM.CSSProperties;
+    data?: ReactDOM.CSSProperties;
+    labels?: ReactDOM.CSSProperties;
+    tickLabels?: ReactDOM.CSSProperties;
   }
 
   export interface VictoryAnimationProps {
@@ -121,7 +122,7 @@ declare module "victory" {
      * The events prop attaches arbitrary event handlers to the label component.
      * Event handlers are currently only called with their corresponding events.
      */
-    events?: React.DOMAttributes<any>;
+    events?: ReactDOM.DOMAttributes<any>;
     /**
      * All Victory components will pass a text prop to their label component.
      * This defines the content of the label when child nodes are absent. It will be ignored if children are provided.
@@ -144,7 +145,7 @@ declare module "victory" {
     /**
      * The style prop applies CSS properties to the rendered `<text>` element.
      */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /**
      * The textAnchor prop defines how the text is horizontally positioned relative to the given `x` and `y` coordinates.
      */
@@ -197,7 +198,7 @@ declare module "victory" {
      * also be passed, if any exist.
      * @examples {border: 1px solid red}
      */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /**
      * The height props specifies the height the svg viewBox of the container.
      * This value should be given as a number of pixels. If no height prop
@@ -218,7 +219,7 @@ declare module "victory" {
      * data. `scale.x.invert(evt.offsetX)`.
      * @examples {{ onClick: (evt) => alert(`x: ${evt.clientX}, y: ${evt.clientY}`)}}
      */
-    events?: React.DOMAttributes<any>;
+    events?: ReactDOM.DOMAttributes<any>;
     /**
      * The title prop specifies the title to be applied to the SVG to assist
      * accessibility for screen readers. The more descriptive this title is, the more
@@ -351,7 +352,7 @@ declare module "victory" {
      * should be given as an object of SVG style attributes.
      * @default "brushStyle={{ stroke: "transparent", fill: "black", fillOpacity: 0.1 }}"
      */
-    brushStyle?: React.CSSProperties;
+    brushStyle?: ReactDOM.CSSProperties;
     /**
      * The defaultBrushArea prop specifies how the container will behave when a
      * region outside the active brush is clicked without selecting a new area. When the
@@ -381,7 +382,7 @@ declare module "victory" {
      * rendered. Handles are automatically styled with cursors appropriate to their orientation.
      * @default "handleStyle={{ stroke: 'transparent', fill: 'transparent' }}"
      */
-    handleStyle?: React.CSSProperties;
+    handleStyle?: ReactDOM.CSSProperties;
     /**
      * The optional onBrushDomainChange prop accepts an function to be called on
      * each update to the highlighted domain. The function accepts the parameters of
@@ -435,7 +436,7 @@ declare module "victory" {
      * should be given as an object of SVG style attributes.
      * @default "brushStyle={{ stroke: 'transparent', fill: 'black', fillOpacity: 0.1 }}"
      */
-    brushStyle?: React.CSSProperties;
+    brushStyle?: ReactDOM.CSSProperties;
     /**
      * The defaultBrushArea prop specifies how the container will behave when a
      * region outside the active brush is clicked without selecting a new area. When the
@@ -476,11 +477,11 @@ declare module "victory" {
   export interface VictoryThemeDefinition {
     area?: VictoryStyleInterface;
     axis?: {
-      axis: React.CSSProperties;
-      axisLabel: React.CSSProperties;
-      grid: React.CSSProperties;
-      ticks: React.CSSProperties;
-      tickLabels: React.CSSProperties;
+      axis: ReactDOM.CSSProperties;
+      axisLabel: ReactDOM.CSSProperties;
+      grid: ReactDOM.CSSProperties;
+      ticks: ReactDOM.CSSProperties;
+      tickLabels: ReactDOM.CSSProperties;
     };
     bar?: VictoryStyleInterface;
     candlestick?: VictoryStyleInterface & {
@@ -568,7 +569,7 @@ declare module "victory" {
     /**
      * The style prop applies SVG style properties to the rendered flyout container. These props will be passed to the flyoutComponent.
      */
-    flyoutStyle?: React.CSSProperties;
+    flyoutStyle?: ReactDOM.CSSProperties;
     /**
      * The flyoutComponent prop takes a component instance which will be used to create the flyout path for each tooltip.
      * The new element created from the passed flyoutComponent will be supplied with the following properties: x, y, dx, dy, index, datum, cornerRadius, pointerLength, pointerWidth, width, height, orientation, style, and events.
@@ -627,7 +628,7 @@ declare module "victory" {
     /**
      * The style prop applies CSS properties to the rendered `<text>` element.
      */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /**
      * The text prop defines the text VictoryTooltip will render. The text prop may be given as a string, number, or function of datum.
      * When VictoryLabel is used as the labelComponent, strings may include newline characters, which VictoryLabel will split in to separate <tspan/> elements.
@@ -744,8 +745,8 @@ declare module "victory" {
      */
     eventHandlers: {
       [key: string]: {
-        (event: React.SyntheticEvent<any>): EventCallbackInterface<TTarget, TEventKey> } |
-        { (event: React.SyntheticEvent<any>): EventCallbackInterface<TTarget, TEventKey>[]
+        (event: ReactDOM.SyntheticEvent<any>): EventCallbackInterface<TTarget, TEventKey> } |
+        { (event: ReactDOM.SyntheticEvent<any>): EventCallbackInterface<TTarget, TEventKey>[]
       }
     };
   }
@@ -1203,12 +1204,12 @@ declare module "victory" {
      * tickLabels: {fontSize: 10, padding: 5}, axisLabel: {fontSize: 16, padding: 20}}
      */
     style?: {
-      parent?: React.CSSProperties;
-      axis?: React.CSSProperties;
-      axisLabel?: React.CSSProperties;
-      grid?: React.CSSProperties;
-      ticks?: React.CSSProperties;
-      tickLabels?: React.CSSProperties;
+      parent?: ReactDOM.CSSProperties;
+      axis?: ReactDOM.CSSProperties;
+      axisLabel?: ReactDOM.CSSProperties;
+      grid?: ReactDOM.CSSProperties;
+      ticks?: ReactDOM.CSSProperties;
+      tickLabels?: ReactDOM.CSSProperties;
     };
     /**
      * The tickComponent prop takes in an entire component which will be used
@@ -1356,16 +1357,16 @@ declare module "victory" {
 
     export interface VictoryBoxPlotStyleInterface
         extends VictoryStyleInterface {
-        max?: React.CSSProperties;
-        maxLabels?: React.CSSProperties;
-        min?: React.CSSProperties;
-        minLabels?: React.CSSProperties;
-        median?: React.CSSProperties;
-        medianLabels?: React.CSSProperties;
-        q1?: React.CSSProperties;
-        q1Labels?: React.CSSProperties;
-        q3?: React.CSSProperties;
-        q3Labels?: React.CSSProperties;
+        max?: ReactDOM.CSSProperties;
+        maxLabels?: ReactDOM.CSSProperties;
+        min?: ReactDOM.CSSProperties;
+        minLabels?: ReactDOM.CSSProperties;
+        median?: ReactDOM.CSSProperties;
+        medianLabels?: ReactDOM.CSSProperties;
+        q1?: ReactDOM.CSSProperties;
+        q1Labels?: ReactDOM.CSSProperties;
+        q3?: ReactDOM.CSSProperties;
+        q3Labels?: ReactDOM.CSSProperties;
     }
 
     export interface VictoryBoxPlotProps
