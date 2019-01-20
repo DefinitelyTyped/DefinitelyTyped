@@ -5,20 +5,21 @@
 // TypeScript Version: 2.8
 
 /// <reference types="react" />
+/// <reference types="react-dom" />
 
 declare module "react-scrollbar" {
   interface ScrollAreaProps extends React.Props<ScrollArea> {
       className?: string,
-      style?: React.CSSProperties,
+      style?: ReactDOM.CSSProperties,
       speed?: number,
       contentClassName?: string,
-      contentStyle?: React.CSSProperties,
+      contentStyle?: ReactDOM.CSSProperties,
       vertical?: boolean,
-      verticalContainerStyle?: React.CSSProperties,
-      verticalScrollbarStyle?: React.CSSProperties,
+      verticalContainerStyle?: ReactDOM.CSSProperties,
+      verticalScrollbarStyle?: ReactDOM.CSSProperties,
       horizontal?: boolean,
-      horizontalContainerStyle?: React.CSSProperties,
-      horizontalScrollbarStyle?: React.CSSProperties,
+      horizontalContainerStyle?: ReactDOM.CSSProperties,
+      horizontalScrollbarStyle?: ReactDOM.CSSProperties,
       onScroll?: (value: {leftPosition: number, topPosition: number, containerHeight: number, containerWidth: number, realHeight: number, realWidth: number}) => void,
       contentWindow?: any,
       ownerDocument?: any,
