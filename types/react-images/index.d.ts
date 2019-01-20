@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare class Lightbox extends React.Component<LightboxProps> {
     constructor(props: LightboxProps);
@@ -34,7 +35,7 @@ export interface LightboxProps {
     /**
      * An array of elements to display as custom controls on the top of lightbox. Default value: undefined
      */
-    customControls?: Array<React.ReactHTMLElement<any>>;
+    customControls?: Array<ReactDOM.ReactHTMLElement<any>>;
 
     /**
      * Whether or not the lightbox is displayed. Default value: false;
@@ -124,7 +125,7 @@ export interface LightboxProps {
     /**
      * Handle click on image.
      */
-    onClickImage?: (e: React.MouseEvent<HTMLImageElement>) => void;
+    onClickImage?: (e: ReactDOM.MouseEvent<HTMLImageElement>) => void;
 
     /**
      * Handle click on thumbnail.
