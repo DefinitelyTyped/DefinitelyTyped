@@ -5,8 +5,9 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-export interface TruncateProps extends React.HTMLProps<Truncate> {
+export interface TruncateProps extends ReactDOM.HTMLProps<Truncate> {
     lines?: number | false;
     ellipsis?: React.ReactNode;
     trimWhitespace?: boolean;
