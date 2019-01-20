@@ -6,16 +6,17 @@
 
 import * as moment from "moment";
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 interface DrawerProps {
     className?: string;
     prefixCls?: string;
     children?: React.ReactNode | React.ReactNode[];
-    style?: React.CSSProperties;
-    sidebarStyle?: React.CSSProperties;
-    contentStyle?: React.CSSProperties;
-    overlayStyle?: React.CSSProperties;
-    dragHandleStyle?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
+    sidebarStyle?: ReactDOM.CSSProperties;
+    contentStyle?: ReactDOM.CSSProperties;
+    overlayStyle?: ReactDOM.CSSProperties;
+    dragHandleStyle?: ReactDOM.CSSProperties;
     sidebar?: React.ReactNode;
     onOpenChange?: (open: boolean, overlay?: { overlayClicked: boolean }) => void;
     open?: boolean;
