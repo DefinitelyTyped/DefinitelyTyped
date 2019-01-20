@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Track, track as _track, TrackingProp } from 'react-tracking';
 
 function customEventReporter(data: { page?: string }) {}
@@ -30,8 +31,8 @@ class ClassPage extends React.Component<Props, State> {
     // ... other stuff
     }
 
-    @track((_props, _state, [e]: [React.MouseEvent]) => ({ event: `drag started at ${e.screenX}x${e.screenY}` }))
-    handleDrag(event: React.MouseEvent) {
+    @track((_props, _state, [e]: [ReactDOM.MouseEvent]) => ({ event: `drag started at ${e.screenX}x${e.screenY}` }))
+    handleDrag(event: ReactDOM.MouseEvent) {
         // no-op
     }
 
