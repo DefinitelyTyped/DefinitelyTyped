@@ -6,7 +6,8 @@
 
 /// <reference types="googlemaps" />
 
-import { Component, InputHTMLAttributes } from "react";
+import { Component } from "react";
+import * as ReactDOM from "react-dom";
 
 export default class Geosuggest extends Component<GeosuggestProps> {
     focus(): void;
@@ -19,7 +20,7 @@ export default class Geosuggest extends Component<GeosuggestProps> {
 // Replace with Exclude once on 2.8+
 export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
-export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'style'> {
+export interface GeosuggestProps extends Omit<ReactDOM.InputHTMLAttributes<HTMLInputElement>, 'style'> {
     placeholder?: string;
     initialValue?: string;
     className?: string;
