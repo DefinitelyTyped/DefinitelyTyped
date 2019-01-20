@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type Axis = 'x' | 'y' | 'xy';
 
@@ -16,7 +17,7 @@ export interface SortStart {
     collection: Offset;
 }
 
-export type SortEvent = React.MouseEvent<any> | React.TouchEvent<any>;
+export type SortEvent = ReactDOM.MouseEvent<any> | ReactDOM.TouchEvent<any>;
 
 export type SortEventWithTag = SortEvent & {
   target: {
