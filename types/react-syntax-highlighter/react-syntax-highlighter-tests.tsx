@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import PrismSyntaxHighlighter from "react-syntax-highlighter/prism";
 import PrismLightHighlighter, { registerLanguage } from "react-syntax-highlighter/prism-light";
@@ -79,7 +80,7 @@ function codeTagProps() {
         style: {
             opacity: 0,
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo",
+        onMouseOver: (event: ReactDOM.MouseEvent<HTMLElement>) => "foo",
     }
 
     return (
@@ -106,7 +107,7 @@ function linePropsObject() {
         style: {
             opacity: 0,
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo"
+        onMouseOver: (event: ReactDOM.MouseEvent<HTMLElement>) => "foo"
     }
 
     return (
@@ -133,7 +134,7 @@ function lineTagPropsFunction() {
         style: {
             opacity: 0,
         },
-        onMouseOver: (event: React.MouseEvent<HTMLElement>) => lineNumber * 5
+        onMouseOver: (event: ReactDOM.MouseEvent<HTMLElement>) => lineNumber * 5
     })
 
     return (
