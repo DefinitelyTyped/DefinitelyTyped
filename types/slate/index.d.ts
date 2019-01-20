@@ -11,7 +11,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
-import { SyntheticEvent } from "react";
 
 export class Data extends Immutable.Record({}) {
     [key: string]: any;
