@@ -118,6 +118,7 @@ const { input, result, zone } = DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d
 /* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 });
 dt.plus(dur); // $ExpectType DateTime
+dt.plus({ quarters: 2, month: 1 }); // $ExpectType DateTime
 dur.hours; // $ExpectType number
 dur.minutes; // $ExpectType number
 dur.seconds; // $ExpectType number
@@ -274,7 +275,7 @@ end.diffNow(['months', 'days']); // $ExpectType Duration
 
 dur.as('days'); // $ExpectType number
 dur.shiftTo('days').toObject().days; // $ExpectType number | undefined
-dur.shiftTo('weeks', 'hours').toObject().weeks; // $ExpectType number | undefined
+dur.shiftTo('week', 'hours').toObject().weeks; // $ExpectType number | undefined
 DateTime.local().plus(dur.shiftTo('milliseconds')).year; // $ExpectType number
 
 Duration.fromISO('PY23', { conversionAccuracy: 'longterm' }); // $ExpectType Duration
