@@ -10,7 +10,7 @@ import { StyledComponent, AnyStyledComponent, CSSObject, InterpolationFunction }
 declare const BaseModalBackground: StyledComponent<'div', any>;
 
 interface ModalProps {
-  children?: React.ReactNode
+  children?: React.ReactNode;
   isOpen: boolean;
   allowScroll?: boolean;
   afterOpen?: () => void;
