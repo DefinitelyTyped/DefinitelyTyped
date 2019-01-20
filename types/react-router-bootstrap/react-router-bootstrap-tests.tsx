@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Component, CSSProperties } from 'react';
+import { Component } from 'react';
+import * as ReactDOM from 'react-dom';
 import { Button } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
@@ -9,7 +10,7 @@ export class ReactRouterBootstrapTest extends Component {
     }
 
     public render() {
-        let style: CSSProperties = { padding: '50px' };
+        let style: ReactDOM.CSSProperties = { padding: '50px' };
         return (
             <div style={style}>
 
