@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export interface ReactImageGalleryItem {
     original?: string;
@@ -50,27 +51,27 @@ export interface ReactImageGalleryProps {
     stopPropagation?: boolean;
     preventDefaultTouchmoveEvent?: boolean;
     startIndex?: number;
-    onImageError?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
-    onThumbnailError?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
-    onThumbnailClick?: (event: React.MouseEventHandler<HTMLAnchorElement>, index: number) => void;
-    onImageLoad?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
+    onImageError?: (event: ReactDOM.ReactEventHandler<HTMLImageElement>) => void;
+    onThumbnailError?: (event: ReactDOM.ReactEventHandler<HTMLImageElement>) => void;
+    onThumbnailClick?: (event: ReactDOM.MouseEventHandler<HTMLAnchorElement>, index: number) => void;
+    onImageLoad?: (event: ReactDOM.ReactEventHandler<HTMLImageElement>) => void;
     onSlide?: (currentIndex: number) => void;
     onScreenChange?: (fullScreenElement: Element) => void;
     onPause?: (currentIndex: number) => void;
     onPlay?: (currentIndex: number) => void;
-    onClick?: (event: React.MouseEventHandler<HTMLDivElement>) => void;
-    onTouchMove?: (event: React.TouchEventHandler<HTMLDivElement>) => void;
-    onTouchEnd?: (event: React.TouchEventHandler<HTMLDivElement>) => void;
-    onTouchStart?: (event: React.TouchEventHandler<HTMLDivElement>) => void;
-    onMouseOver?: (event: React.MouseEventHandler<HTMLDivElement>) => void;
-    onMouseLeave?: (event: React.MouseEventHandler<HTMLDivElement>) => void;
+    onClick?: (event: ReactDOM.MouseEventHandler<HTMLDivElement>) => void;
+    onTouchMove?: (event: ReactDOM.TouchEventHandler<HTMLDivElement>) => void;
+    onTouchEnd?: (event: ReactDOM.TouchEventHandler<HTMLDivElement>) => void;
+    onTouchStart?: (event: ReactDOM.TouchEventHandler<HTMLDivElement>) => void;
+    onMouseOver?: (event: ReactDOM.MouseEventHandler<HTMLDivElement>) => void;
+    onMouseLeave?: (event: ReactDOM.MouseEventHandler<HTMLDivElement>) => void;
     renderCustomControls?: () => React.ReactNode;
     renderItem?: (item: ReactImageGalleryItem) => React.ReactNode;
     renderThumbInner?: (item: ReactImageGalleryItem) => React.ReactNode;
-    renderLeftNav?: (onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
-    renderRightNav?: (onClick: React.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
-    renderPlayPauseButton?: (onClick: React.MouseEventHandler<HTMLElement>, isPlaying: boolean) => React.ReactNode;
-    renderFullscreenButton?: (onClick: React.MouseEventHandler<HTMLElement>, isFullscreen: boolean) => React.ReactNode;
+    renderLeftNav?: (onClick: ReactDOM.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
+    renderRightNav?: (onClick: ReactDOM.MouseEventHandler<HTMLElement>, isDisabled: boolean) => React.ReactNode;
+    renderPlayPauseButton?: (onClick: ReactDOM.MouseEventHandler<HTMLElement>, isPlaying: boolean) => React.ReactNode;
+    renderFullscreenButton?: (onClick: ReactDOM.MouseEventHandler<HTMLElement>, isFullscreen: boolean) => React.ReactNode;
 }
 
 declare class ReactImageGallery extends React.Component<ReactImageGalleryProps> {
