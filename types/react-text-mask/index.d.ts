@@ -7,11 +7,12 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export type maskArray = Array<string | RegExp>;
 
 export interface MaskedInputProps
-    extends React.InputHTMLAttributes<HTMLInputElement> {
+    extends ReactDOM.InputHTMLAttributes<HTMLInputElement> {
     mask?: maskArray | ((value: string) => maskArray);
 
     guide?: boolean;
