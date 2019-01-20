@@ -11,6 +11,7 @@
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
+    import * as ReactDOM from "react-dom";
     import { JSONSchema6 } from "json-schema";
 
     export interface FormProps<T> {
@@ -70,9 +71,9 @@ declare module "react-jsonschema-form" {
     };
 
     export interface WidgetProps extends Pick<
-        React.HTMLAttributes<HTMLElement>,
+        ReactDOM.HTMLAttributes<HTMLElement>,
         Exclude<
-            keyof React.HTMLAttributes<HTMLElement>,
+            keyof ReactDOM.HTMLAttributes<HTMLElement>,
             "onBlur"|"onFocus">
     > {
         id: string;
@@ -93,7 +94,7 @@ declare module "react-jsonschema-form" {
         | React.StatelessComponent<WidgetProps>
         | React.ComponentClass<WidgetProps>;
 
-    export interface FieldProps extends React.HTMLAttributes<HTMLElement> {
+    export interface FieldProps extends ReactDOM.HTMLAttributes<HTMLElement> {
         schema: JSONSchema6;
         uiSchema: UiSchema;
         idSchema: IdSchema;
