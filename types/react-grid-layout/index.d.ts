@@ -9,6 +9,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
@@ -108,7 +109,7 @@ declare namespace ReactGridLayout {
         /**
          * Inline-style object to pass to the root element.
          */
-        style?: React.CSSProperties;
+        style?: ReactDOM.CSSProperties;
 
         /**
          * If true, the container height swells and contracts to fit contents.
