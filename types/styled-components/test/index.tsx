@@ -226,7 +226,7 @@ const Article = styled.section`
 
 // A Link instance should be backed by an HTMLAnchorElement
 const ComposedLink = () => (
-    <Link onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />
+    <Link onClick={(e: ReactDOM.MouseEvent<HTMLAnchorElement>) => undefined} />
 );
 
 /**
@@ -244,7 +244,7 @@ const LinkFromString = styled("a")`
 // A LinkFromString instance should be backed by an HTMLAnchorElement
 const MyOtherComponent = () => (
     <LinkFromString
-        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined}
+        onClick={(e: ReactDOM.MouseEvent<HTMLAnchorElement>) => undefined}
     />
 );
 
@@ -264,7 +264,7 @@ const LinkFromStringWithProps = styled("a")`
 const MyOtherComponentWithProps = () => (
     <LinkFromStringWithProps
         canClick={false}
-        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined}
+        onClick={(e: ReactDOM.MouseEvent<HTMLAnchorElement>) => undefined}
     />
 );
 
@@ -280,7 +280,7 @@ const LinkFromStringWithPropsAndGenerics = styled("a")<LinkProps>`
 const MyOtherComponentWithPropsAndGenerics = () => (
     <LinkFromStringWithPropsAndGenerics
         canClick={false}
-        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined}
+        onClick={(e: ReactDOM.MouseEvent<HTMLAnchorElement>) => undefined}
     />
 );
 
