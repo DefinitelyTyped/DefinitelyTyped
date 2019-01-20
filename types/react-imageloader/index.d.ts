@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="react" />
+/// <reference types="react-dom" />
 
 declare module "react-imageloader" {
   interface ImageLoaderProps extends React.Props<ImageLoader> {
@@ -27,7 +28,7 @@ declare module "react-imageloader" {
       src: string;
 
       /** An optional object containing styles for the wrapper component. */
-      style?: React.CSSProperties;
+      style?: ReactDOM.CSSProperties;
 
       /** A function that takes a props argument and returns a React element to be used as the wrapper component. Defaults to React.DOM.span. */
       wrapper?: (props: any) => React.ReactElement<any>;
