@@ -1,3 +1,4 @@
+/// <reference types="react-dom" />
 import * as React from 'react';
 import { Resolver, resolve, context } from 'react-resolver';
 
