@@ -105,6 +105,9 @@ declare namespace massive {
         term: string;
     }
 
+    type QueryParamTypes = string | number | object;
+    type QueryParams = Array<QueryParamTypes> |  QueryParamTypes;
+
     interface EntitySpecification {
         /** A Database. */
         db: Database;
@@ -442,7 +445,7 @@ declare namespace massive {
         /** Execute a query. */
         query(
             query: Select | Insert | Update | Delete | string,
-            params?: string[] | object,
+            params?: QueryParams,
             options?: ResultProcessingOptions
         ): Promise<any>;
 
