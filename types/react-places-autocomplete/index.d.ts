@@ -9,6 +9,7 @@
 //
 /// <reference types="googlemaps" />
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 
@@ -55,7 +56,7 @@ export interface PropTypes {
             'aria-expanded': boolean;
             'aria-activedescendant': string | null;
             disabled: boolean;
-            onKeyDown: React.KeyboardEventHandler;
+            onKeyDown: ReactDOM.KeyboardEventHandler;
             onBlur: () => void;
             value: string | undefined;
             onChange: (ev: { target: { value: string }}) => void;
@@ -66,7 +67,7 @@ export interface PropTypes {
             role: 'option';
             onMouseEnter: () => void;
             onMouseLeave: () => void;
-            onMouseDown: React.MouseEventHandler;
+            onMouseDown: ReactDOM.MouseEventHandler;
             onMouseUp: () => void;
             onTouchStart: () => void;
             onTouchEnd: () => void;
