@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 // =============================================================================
 // Share buttons
@@ -21,7 +22,7 @@ export interface CommonShareButtonProps {
      * Style when button is disabled
      * @default { opacity: 0.6 }
      */
-    disabledStyle?: React.StyleHTMLAttributes<HTMLDivElement>;
+    disabledStyle?: ReactDOM.StyleHTMLAttributes<HTMLDivElement>;
     windowWidth?: number;
     windowHeight?: number;
     /**
@@ -36,7 +37,7 @@ export interface CommonShareButtonProps {
     /**
      * An object to pass any additional properties, such as `aria-*` attributes.
      */
-    additionalProps?: React.HTMLAttributes<HTMLDivElement>;
+    additionalProps?: ReactDOM.HTMLAttributes<HTMLDivElement>;
 }
 
 export const FacebookShareButton: React.StatelessComponent<
@@ -181,7 +182,7 @@ export interface IconComponentProps {
     /** Whether to show round or rect icons */
     round?: boolean;
     /** Customize background style, e.g. fill */
-    iconBgStyle?: React.CSSProperties;
+    iconBgStyle?: ReactDOM.CSSProperties;
     /**
      * Customize logo's fill color
      * @default 'white'
