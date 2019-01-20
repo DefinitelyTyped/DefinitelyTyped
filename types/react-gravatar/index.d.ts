@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export as namespace Gravatar;
 
@@ -76,6 +77,6 @@ declare namespace Gravatar {
 		protocol?: string;
 
 		className?: string;
-		style?: React.CSSProperties;
+		style?: ReactDOM.CSSProperties;
 	}
 }
