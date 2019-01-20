@@ -5,13 +5,14 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 declare namespace QrReader {
   interface props {
     onScan: (data: string | null) => void;
     onError: (err: any) => void;
     onLoad?: () => void;
-    onImageLoad?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+    onImageLoad?: (event: ReactDOM.SyntheticEvent<HTMLImageElement>) => void;
     delay?: number | false;
     facingMode?: 'user' | 'environment';
     legacyMode?: boolean;
