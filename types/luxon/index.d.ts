@@ -244,9 +244,9 @@ export class DateTime {
     minus(duration: Duration | number | DurationObject): DateTime;
     plus(duration: Duration | number | DurationObject): DateTime;
     reconfigure(properties: LocaleOptions): DateTime;
-    resolvedLocaleOpts(options?: DateTimeFormatOptions): LocaleOptions;
+    resolvedLocaleOpts(options?: DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
     set(values: DateObjectUnits): DateTime;
-    setLocale(locale: any): DateTime;
+    setLocale(locale: string): DateTime;
     setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
     startOf(unit: DurationUnit): DateTime;
     toBSON(): Date;
@@ -259,9 +259,8 @@ export class DateTime {
     toJSDate(): Date;
     toJSON(): string;
     toLocal(): DateTime;
-    toLocaleParts(options?: DateTimeFormatOptions): any[];
-    toLocaleString(options?: DateTimeFormatOptions): string;
-    toMillis(): number;
+    toLocaleParts(options?: LocaleOptions & DateTimeFormatOptions): any[];
+    toLocaleString(options?: LocaleOptions & DateTimeFormatOptions): string;
     toMillis(): number;
     toObject(options?: { includeConfig?: boolean }): DateObject;
     toRelative(options?: ToRelativeOptions): string | null;
