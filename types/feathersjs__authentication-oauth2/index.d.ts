@@ -22,7 +22,7 @@ export interface FeathersAuthenticationOAuth2Options<VerifierType = typeof Verif
     /**
      * The OAuth strategy to use
      */
-    Strategy: typeof Strategy;
+    Strategy: string | typeof Strategy;
     /**
      * The route to register the callback handler, defaults to `${path}/callback`
      */

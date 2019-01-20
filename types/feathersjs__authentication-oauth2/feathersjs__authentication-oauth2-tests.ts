@@ -16,7 +16,9 @@ class CustomVerifier extends Verifier {
 
 const handler: RequestHandler = (req: Request, res: Response, next: NextFunction) => { };
 
-class someStrategy extends Strategy { }
+class someStrategy extends Strategy {
+    something = "foo";
+}
 /**
  * Strongly Typed Verifier
  */
