@@ -8,10 +8,11 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export = FontAwesome;
 
-interface Intermediate extends React.AllHTMLAttributes<HTMLElement> {
+interface Intermediate extends ReactDOM.AllHTMLAttributes<HTMLElement> {
     size?: any;
 }
 
