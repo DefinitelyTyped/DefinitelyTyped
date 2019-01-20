@@ -5,7 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, CSSProperties, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
+import * as ReactDOM from 'react-dom';
 
 export as namespace ReactCrop;
 
@@ -42,9 +43,9 @@ declare namespace ReactCrop {
         disabled?: boolean;
         crossorigin?: 'anonymous' | 'use-credentials';
         children?: ReactNode;
-        style?: CSSProperties;
-        imageStyle?: CSSProperties;
-        onImageError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+        style?: ReactDOM.CSSProperties;
+        imageStyle?: ReactDOM.CSSProperties;
+        onImageError?: (event: ReactDOM.SyntheticEvent<HTMLImageElement>) => void;
         className?: string;
         locked?: boolean;
     }
@@ -61,7 +62,7 @@ declare class ReactCrop extends Component<ReactCrop.ReactCropProps> {
     onComponentKeyDown: (e: MouseEvent) => void;
     onDocMouseTouchEnd: (e: MouseEvent) => void;
     onImageLoad: (image: HTMLImageElement) => void;
-    getCropStyle: () => CSSProperties;
+    getCropStyle: () => ReactDOM.CSSProperties;
     getNewSize: () => {
         width: number,
         height: number,

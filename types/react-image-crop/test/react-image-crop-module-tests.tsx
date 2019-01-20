@@ -81,7 +81,7 @@ class CompleteTest extends React.Component<{}, TestState> {
         });
     }
 
-    onImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    onImageError = (event: ReactDOM.SyntheticEvent<HTMLImageElement>) => {
         console.warn('Error loading image');
     }
 
