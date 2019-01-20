@@ -381,6 +381,7 @@ export namespace Info {
     function features(): Features;
     function hasDST(zone: string | Zone): boolean;
     function isValidIANAZone(zone: string): boolean;
+    function normalizeZone(input?: number | string | Zone): Zone;
     function meridiems(options?: InfoOptions): string[];
     function months(length?: UnitLength, options?: UnitOptions): string[];
     function monthsFormat(length?: UnitLength, options?: UnitOptions): string[];
