@@ -5,11 +5,12 @@
 // TypeScript Version: 2.8
 
 import "react";
+import "react-dom";
 
 import * as css from "./css";
 import * as server from "./server";
 
-declare module "react" {
+declare module "react-dom" {
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
         jsx?: boolean;
         global?: boolean;
