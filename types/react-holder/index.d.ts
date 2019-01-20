@@ -7,8 +7,9 @@
 ///<reference types="react"/>
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-interface ReactHolderProp extends React.HTMLAttributes<ReactHolder> {
+interface ReactHolderProp extends ReactDOM.HTMLAttributes<ReactHolder> {
     width: string | number;
     height: string | number;
     updateOnResize: boolean;
