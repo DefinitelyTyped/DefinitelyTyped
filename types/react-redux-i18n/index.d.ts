@@ -6,6 +6,7 @@
 
 declare module 'react-redux-i18n' {
   import * as react from "react"
+  import * as ReactDOM from "react-dom"
   import * as redux from "redux"
 
   /**
@@ -33,7 +34,7 @@ declare module 'react-redux-i18n' {
   type TranslateProps = {
     className?: string;
     dangerousHTML?: boolean;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     tag?: React.ReactType;
     value: string;
     [prop: string]: any;
@@ -44,7 +45,7 @@ declare module 'react-redux-i18n' {
     dangerousHTML?: boolean;
     dateFormat?: string;
     options?: Object;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     tag?: React.ReactType;
     value: string | number | object;
   }
