@@ -1,4 +1,5 @@
-import { Component, ReactNode, CSSProperties } from "react";
+import { Component, ReactNode } from "react";
+import * as ReactDOM from "react-dom";
 import { Range } from "immutable";
 
 export interface LazyLogProps {
@@ -17,8 +18,8 @@ export interface LazyLogProps {
     onHighlight?: (range: Range) => any;
     rowHeight?: number;
     overscanRowCount?: number;
-    containerStyle?: CSSProperties;
-    style?: CSSProperties;
+    containerStyle?: ReactDOM.CSSProperties;
+    style?: ReactDOM.CSSProperties;
 }
 
 export class LazyLog extends Component<LazyLogProps> {

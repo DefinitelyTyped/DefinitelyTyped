@@ -1,10 +1,11 @@
-import { Component, ReactNode, CSSProperties, MouseEventHandler } from "react";
+import { Component, ReactNode } from "react";
+import * as ReactDOM from "react-dom";
 
 export interface LineNumberProps {
     number: number;
     highlight?: boolean;
-    onClick?: MouseEventHandler<HTMLAnchorElement>;
-    style?: CSSProperties;
+    onClick?: ReactDOM.MouseEventHandler<HTMLAnchorElement>;
+    style?: ReactDOM.CSSProperties;
 }
 
 export default class LinePart extends Component<LineNumberProps> {

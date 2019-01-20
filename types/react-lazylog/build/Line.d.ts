@@ -1,4 +1,5 @@
-import { Component, ReactNode, CSSProperties, MouseEventHandler } from "react";
+import { Component, ReactNode } from "react";
+import * as ReactDOM from "react-dom";
 
 export interface LineProps {
     data: Array<{ text: string }>;
@@ -6,9 +7,9 @@ export interface LineProps {
     rowHeight: number;
     highlight?: boolean;
     selectable?: boolean;
-    style?: CSSProperties;
+    style?: ReactDOM.CSSProperties;
     formatPart?: (text: string) => ReactNode;
-    onLineNumberClick?: MouseEventHandler<HTMLAnchorElement>;
+    onLineNumberClick?: ReactDOM.MouseEventHandler<HTMLAnchorElement>;
 
     /**
      * This is never called

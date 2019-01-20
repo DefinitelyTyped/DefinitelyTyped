@@ -1,9 +1,10 @@
-import { Component, ReactNode, CSSProperties } from "react";
+import { Component, ReactNode } from "react";
+import * as ReactDOM from "react-dom";
 
 export interface LinePartProps {
     part: { text: string };
     format?: (text: string) => ReactNode;
-    style?: CSSProperties;
+    style?: ReactDOM.CSSProperties;
 }
 
 export default class LinePart extends Component<LinePartProps> {
