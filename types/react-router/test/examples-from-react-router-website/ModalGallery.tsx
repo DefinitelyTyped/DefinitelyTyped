@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Switch,
@@ -132,7 +133,7 @@ const Modal: React.SFC<RouteComponentProps<{ id: string }>> = ({ match, history 
   if (!image) {
     return null;
   }
-  const back = (e: React.MouseEvent<HTMLElement>) => {
+  const back = (e: ReactDOM.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     history.goBack();
   };
