@@ -18,10 +18,6 @@ export interface ZoneOptions {
     keepCalendarTime?: boolean;
 }
 
-export interface ToFormatOptions extends DateTimeFormatOptions {
-    round?: boolean;
-}
-
 export type ToRelativeUnit =
     | "year"
     | "quarter"
@@ -248,13 +244,13 @@ export class DateTime {
     minus(duration: Duration | number | DurationObject): DateTime;
     plus(duration: Duration | number | DurationObject): DateTime;
     reconfigure(properties: LocaleOptions): DateTime;
-    resolvedLocaleOpts(options?: ToFormatOptions): LocaleOptions;
+    resolvedLocaleOpts(options?: DateTimeFormatOptions): LocaleOptions;
     set(values: DateObjectUnits): DateTime;
     setLocale(locale: any): DateTime;
     setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
     startOf(unit: DurationUnit): DateTime;
     toBSON(): Date;
-    toFormat(format: string, options?: ToFormatOptions): string;
+    toFormat(format: string, options?: DateTimeFormatOptions): string;
     toHTTP(): string;
     toISO(options?: ToISOTimeOptions): string;
     toISODate(): string;
@@ -320,6 +316,11 @@ export type DurationUnit =
     | "millisecond"
     | "milliseconds";
 
+export interface DurationToFormatOptions extends DateTimeFormatOptions {
+    floor?: boolean;
+    round?: boolean;
+}
+
 export class Duration {
     static fromISO(text: string, options?: DurationOptions): Duration;
     static fromMillis(count: number, options?: DurationOptions): Duration;
@@ -350,7 +351,7 @@ export class Duration {
     reconfigure(objectPattern: DurationOptions): Duration;
     set(values: DurationObjectUnits): Duration;
     shiftTo(...units: DurationUnit[]): Duration;
-    toFormat(format: string, options?: ToFormatOptions): string;
+    toFormat(format: string, options?: DurationToFormatOptions): string;
     toISO(): string;
     toJSON(): string;
     toObject(options?: { includeConfig?: boolean }): DurationObject;
