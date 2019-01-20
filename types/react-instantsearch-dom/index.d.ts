@@ -6,6 +6,7 @@
 // TypeScript Version: 2.9
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { Hit, BasicDoc } from 'react-instantsearch-core';
 
@@ -118,9 +119,9 @@ export interface SearchBoxProps extends CommonWidgetProps {
   reset?: JSX.Element;
   loadingIndicator?: JSX.Element;
 
-  onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-  onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-  onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+  onSubmit?: (event: ReactDOM.SyntheticEvent<HTMLFormElement>) => any;
+  onReset?: (event: ReactDOM.SyntheticEvent<HTMLFormElement>) => any;
+  onChange?: (event: ReactDOM.SyntheticEvent<HTMLInputElement>) => any;
 }
 /**
  * The SearchBox component displays a search box that lets the user search for a specific query.

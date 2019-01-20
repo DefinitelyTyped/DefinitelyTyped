@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { InstantSearch, Hits, Highlight, SearchBox, RefinementList, CurrentRefinements, ClearRefinements, Pagination, Menu, Configure, Index } from 'react-instantsearch/dom';
 import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-core';
 
@@ -217,13 +218,13 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 };
 
 (() => {
-  function onSearchBoxChange(event: React.SyntheticEvent<HTMLInputElement>) {
+  function onSearchBoxChange(event: ReactDOM.SyntheticEvent<HTMLInputElement>) {
   }
 
-  function onSearchBoxReset(event: React.SyntheticEvent<HTMLFormElement>) {
+  function onSearchBoxReset(event: ReactDOM.SyntheticEvent<HTMLFormElement>) {
   }
 
-  function onSearchBoxSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
+  function onSearchBoxSubmit(event: ReactDOM.SyntheticEvent<HTMLFormElement>) {
   }
 
   <SearchBox
