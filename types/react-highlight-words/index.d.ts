@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface FindChunks {
   autoEscape?: boolean;
@@ -27,7 +28,7 @@ interface HighlighterProps {
     /** Specify the match index that should be actively highlighted. Use along with activeClassName */
     activeIndex?: string;
     /** The inline style to be applied to an active match. Use along with activeIndex */
-    activeStyle?: React.CSSProperties;
+    activeStyle?: ReactDOM.CSSProperties;
     /** Escape characters in searchWords which are meaningful in regular expressions */
     autoEscape?: boolean;
     /** CSS class name applied to the outer/wrapper <span> */
@@ -43,7 +44,7 @@ interface HighlighterProps {
     /** CSS class name applied to highlighted text */
     highlightClassName?: string;
     /** Inline styles applied to highlighted text */
-    highlightStyle?: React.CSSProperties;
+    highlightStyle?: ReactDOM.CSSProperties;
     /**
      * Type of tag to wrap around highlighted matches; defaults to mark but can also be a React element
      * (class or functional)
@@ -61,7 +62,7 @@ interface HighlighterProps {
     /** CSS class name applied to unhighlighted text */
     unhighlightClassName?: string;
     /** Inline styles applied to unhighlighted text */
-    unhighlightStyle?: React.CSSProperties;
+    unhighlightStyle?: ReactDOM.CSSProperties;
 }
 
 declare class Highlighter extends React.Component<HighlighterProps> {}
