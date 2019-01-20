@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { Location } from 'redux-first-router';
 
 export type To = string | string[] | object;
@@ -17,7 +18,7 @@ export interface Match<P> {
 }
 
 // Unfortunately we can't pass `HTMLAnchorElement` since the `tagName` attribute allows you to use other tags than anchor.
-export interface LinkProps extends React.HTMLAttributes<HTMLElement> {
+export interface LinkProps extends ReactDOM.HTMLAttributes<HTMLElement> {
     to: To;
     redirect?: boolean;
     replace?: boolean;
@@ -31,7 +32,7 @@ export default class Link extends React.Component<LinkProps> {}
 
 export interface NavLinkProps extends LinkProps {
     activeClassName?: string;
-    activeStyle?: React.CSSProperties;
+    activeStyle?: ReactDOM.CSSProperties;
     ariaCurrent?: string;
     exact?: boolean;
     strict?: boolean;
