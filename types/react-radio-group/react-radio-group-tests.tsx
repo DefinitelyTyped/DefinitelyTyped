@@ -1,7 +1,8 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Radio, RadioGroup } from "react-radio-group";
 
-const DefaultComponent: React.SFC<React.HTMLProps<HTMLDivElement>> = ({ children, ...rest }) => {
+const DefaultComponent: React.SFC<ReactDOM.HTMLProps<HTMLDivElement>> = ({ children, ...rest }) => {
     return (
         <div style={{ display: 'flex' }} {...rest}>
             {children}
