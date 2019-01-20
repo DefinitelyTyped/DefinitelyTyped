@@ -6,6 +6,7 @@
 
 import * as Plotly from 'plotly.js';
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export interface Frame {
     name: string;
@@ -61,7 +62,7 @@ export interface PlotParams {
     /**
      * used to style the <div> into which the plot is rendered
      */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /**
      * Assign the graph div to window.gd for debugging
      */
