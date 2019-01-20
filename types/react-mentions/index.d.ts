@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 /**
  * MentionsInput is the main component rendering the textarea control. It takes one or multiple Mention components as its children.
@@ -34,9 +35,9 @@ export interface MentionsInputProps {
     displayTransform?: DisplayTransformFunc;
     onChange?: OnChangeHandlerFunc;
     placeholder?: string;
-    onBlur?: (event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>, clickedSuggestion: boolean) => void;
-    onSelect?: (event: React.UIEvent) => void;
-    onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>) => void;
+    onBlur?: (event: ReactDOM.FocusEvent<HTMLInputElement> | ReactDOM.FocusEvent<HTMLTextAreaElement>, clickedSuggestion: boolean) => void;
+    onSelect?: (event: ReactDOM.UIEvent) => void;
+    onKeyDown?: (event: ReactDOM.KeyboardEvent<HTMLTextAreaElement> | ReactDOM.KeyboardEvent<HTMLInputElement>) => void;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string;
     style?: any;
