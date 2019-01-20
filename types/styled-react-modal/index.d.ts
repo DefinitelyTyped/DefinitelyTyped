@@ -5,6 +5,7 @@
 // TypeScript Version: 2.9
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { StyledComponent, AnyStyledComponent, CSSObject, InterpolationFunction } from 'styled-components';
 
 declare const BaseModalBackground: StyledComponent<'div', any>;
@@ -18,7 +19,7 @@ interface ModalProps {
   beforeOpen?: Promise<void> | (() => void);
   beforeClose?: Promise<void> | (() => void);
   onEscapeKeydown?: (event: Event) => void;
-  onBackgroundClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onBackgroundClick?: (event: ReactDOM.MouseEvent<HTMLDivElement>) => void;
 }
 
 declare class Modal extends React.Component<ModalProps> {
