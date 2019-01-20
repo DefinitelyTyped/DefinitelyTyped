@@ -5,10 +5,11 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace OnClickOut {
     interface HandleClickOutside<T> {
-        handleClickOutside: React.MouseEventHandler<T>;
+        handleClickOutside: ReactDOM.MouseEventHandler<T>;
     }
 
     interface InjectedOnClickOutProps {
