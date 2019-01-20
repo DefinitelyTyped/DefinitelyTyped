@@ -7,17 +7,18 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare class ReactSwipeable<T extends Element = HTMLElement> extends React.Component<ReactSwipeable.SwipeableProps<T>> {}
 
 declare namespace ReactSwipeable {
-    type OnSwipingCallback<T extends Element = HTMLElement> = (event: React.TouchEvent<T>, deltaX: number, deltaY: number, absX: number, absY: number, velocity: number) => void;
-    type OnSwipedCallback<T extends Element = HTMLElement> = (event: React.TouchEvent<T>, deltaX: number, deltaY: number, isFlick: boolean, velocity: number) => void;
-    type OnSwipedDirectionCallback<T extends Element = HTMLElement> = (event: React.TouchEvent<T>, delta: number, isFlick: boolean) => void;
-    type OnSwipingDirectionCallback<T extends Element = HTMLElement> = (event: React.TouchEvent<T>, delta: number) => void;
-    type OnTapCallback<T extends Element = HTMLElement> = (event: React.TouchEvent<T>) => void;
+    type OnSwipingCallback<T extends Element = HTMLElement> = (event: ReactDOM.TouchEvent<T>, deltaX: number, deltaY: number, absX: number, absY: number, velocity: number) => void;
+    type OnSwipedCallback<T extends Element = HTMLElement> = (event: ReactDOM.TouchEvent<T>, deltaX: number, deltaY: number, isFlick: boolean, velocity: number) => void;
+    type OnSwipedDirectionCallback<T extends Element = HTMLElement> = (event: ReactDOM.TouchEvent<T>, delta: number, isFlick: boolean) => void;
+    type OnSwipingDirectionCallback<T extends Element = HTMLElement> = (event: ReactDOM.TouchEvent<T>, delta: number) => void;
+    type OnTapCallback<T extends Element = HTMLElement> = (event: ReactDOM.TouchEvent<T>) => void;
 
-    interface SwipeableProps<T extends Element = HTMLElement> extends React.ClassAttributes<ReactSwipeable<T>>, React.HTMLAttributes<T> {
+    interface SwipeableProps<T extends Element = HTMLElement> extends React.ClassAttributes<ReactSwipeable<T>>, ReactDOM.HTMLAttributes<T> {
         onSwiped?: OnSwipedCallback<T>;
         onSwiping?: OnSwipingCallback<T>;
         onSwipingUp?: OnSwipingDirectionCallback<T>;

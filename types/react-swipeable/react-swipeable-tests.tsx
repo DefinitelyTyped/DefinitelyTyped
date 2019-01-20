@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import Swipeable = require('react-swipeable');
 
 class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
@@ -50,7 +51,7 @@ class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
 
 class DivSwipeable extends Swipeable<HTMLDivElement> {}
 const TestComponent: React.StatelessComponent = (_) => {
-    const handleSwiped = (event: React.TouchEvent<HTMLDivElement>) => {};
+    const handleSwiped = (event: ReactDOM.TouchEvent<HTMLDivElement>) => {};
     return (
         <DivSwipeable
             nodeName="div"
