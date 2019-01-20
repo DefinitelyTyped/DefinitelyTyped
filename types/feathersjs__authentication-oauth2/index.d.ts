@@ -13,8 +13,8 @@ import { Profile, Strategy } from 'passport';
 declare const feathersAuthenticationOAuth2: ((options?: FeathersAuthenticationOAuth2Options) => () => void) & typeof self;
 export default feathersAuthenticationOAuth2;
 
-// we should declare them there and extend the type definiton here
-export interface FeathersAuthenticationOAuth2Options<VerifierType = typeof Verifier> {
+// todo: make a base options interface in feathers/authentication that we can extend here
+export interface FeathersAuthenticationOAuth2Options<VerifierType = typeof Verifier, ServiceType = any> {
     /**
      * The name of the OAuth2 provider
      */
@@ -69,7 +69,7 @@ export interface FeathersAuthenticationOAuth2Options<VerifierType = typeof Verif
      * the service to look up the entity
      * This can also be set on app.get('auth') or app.get('authentication')
      */
-    service: string | Service<any>;
+    service: string | Service<ServiceType>;
     /**
      * whether the request object should be passed to `verify`
      * This can also be set on app.get('auth') or app.get('authentication')
