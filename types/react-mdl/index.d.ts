@@ -5,12 +5,13 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export = __ReactMDL;
 
 declare namespace __ReactMDL {
     type __MDLClassProps = React.ClassAttributes<any>;
-    type __MDLOtherProps = React.HTMLProps<any>;
+    type __MDLOtherProps = ReactDOM.HTMLProps<any>;
     class __MDLComponent<P> extends React.Component<P> { }
     class __MDLBasicComponent extends __MDLComponent<__MDLOtherProps> { }
 
@@ -136,7 +137,7 @@ declare namespace __ReactMDL {
         srcSet?: string;
         start?: number;
         step?: number | string;
-        style?: React.CSSProperties;
+        style?: ReactDOM.CSSProperties;
         summary?: string;
         tabIndex?: number;
         target?: string;
@@ -182,89 +183,89 @@ declare namespace __ReactMDL {
         };
 
         // Clipboard Events
-        onCopy?: React.ClipboardEventHandler<T>;
-        onCut?: React.ClipboardEventHandler<T>;
-        onPaste?: React.ClipboardEventHandler<T>;
+        onCopy?: ReactDOM.ClipboardEventHandler<T>;
+        onCut?: ReactDOM.ClipboardEventHandler<T>;
+        onPaste?: ReactDOM.ClipboardEventHandler<T>;
 
         // Composition Events
-        onCompositionEnd?: React.CompositionEventHandler<T>;
-        onCompositionStart?: React.CompositionEventHandler<T>;
-        onCompositionUpdate?: React.CompositionEventHandler<T>;
+        onCompositionEnd?: ReactDOM.CompositionEventHandler<T>;
+        onCompositionStart?: ReactDOM.CompositionEventHandler<T>;
+        onCompositionUpdate?: ReactDOM.CompositionEventHandler<T>;
 
         // Focus Events
-        onFocus?: React.FocusEventHandler<T>;
-        onBlur?: React.FocusEventHandler<T>;
+        onFocus?: ReactDOM.FocusEventHandler<T>;
+        onBlur?: ReactDOM.FocusEventHandler<T>;
 
         // Form Events
-        onInput?: React.FormEventHandler<T>;
-        onSubmit?: React.FormEventHandler<T>;
+        onInput?: ReactDOM.FormEventHandler<T>;
+        onSubmit?: ReactDOM.FormEventHandler<T>;
 
         // Image Events
-        onLoad?: React.ReactEventHandler<T>;
-        onError?: React.ReactEventHandler<T>; // also a Media Event
+        onLoad?: ReactDOM.ReactEventHandler<T>;
+        onError?: ReactDOM.ReactEventHandler<T>; // also a Media Event
 
         // Keyboard Events
-        onKeyDown?: React.KeyboardEventHandler<T>;
-        onKeyPress?: React.KeyboardEventHandler<T>;
-        onKeyUp?: React.KeyboardEventHandler<T>;
+        onKeyDown?: ReactDOM.KeyboardEventHandler<T>;
+        onKeyPress?: ReactDOM.KeyboardEventHandler<T>;
+        onKeyUp?: ReactDOM.KeyboardEventHandler<T>;
 
         // Media Events
-        onAbort?: React.ReactEventHandler<T>;
-        onCanPlay?: React.ReactEventHandler<T>;
-        onCanPlayThrough?: React.ReactEventHandler<T>;
-        onDurationChange?: React.ReactEventHandler<T>;
-        onEmptied?: React.ReactEventHandler<T>;
-        onEncrypted?: React.ReactEventHandler<T>;
-        onEnded?: React.ReactEventHandler<T>;
-        onLoadedData?: React.ReactEventHandler<T>;
-        onLoadedMetadata?: React.ReactEventHandler<T>;
-        onLoadStart?: React.ReactEventHandler<T>;
-        onPause?: React.ReactEventHandler<T>;
-        onPlay?: React.ReactEventHandler<T>;
-        onPlaying?: React.ReactEventHandler<T>;
-        onProgress?: React.ReactEventHandler<T>;
-        onRateChange?: React.ReactEventHandler<T>;
-        onSeeked?: React.ReactEventHandler<T>;
-        onSeeking?: React.ReactEventHandler<T>;
-        onStalled?: React.ReactEventHandler<T>;
-        onSuspend?: React.ReactEventHandler<T>;
-        onTimeUpdate?: React.ReactEventHandler<T>;
-        onVolumeChange?: React.ReactEventHandler<T>;
-        onWaiting?: React.ReactEventHandler<T>;
+        onAbort?: ReactDOM.ReactEventHandler<T>;
+        onCanPlay?: ReactDOM.ReactEventHandler<T>;
+        onCanPlayThrough?: ReactDOM.ReactEventHandler<T>;
+        onDurationChange?: ReactDOM.ReactEventHandler<T>;
+        onEmptied?: ReactDOM.ReactEventHandler<T>;
+        onEncrypted?: ReactDOM.ReactEventHandler<T>;
+        onEnded?: ReactDOM.ReactEventHandler<T>;
+        onLoadedData?: ReactDOM.ReactEventHandler<T>;
+        onLoadedMetadata?: ReactDOM.ReactEventHandler<T>;
+        onLoadStart?: ReactDOM.ReactEventHandler<T>;
+        onPause?: ReactDOM.ReactEventHandler<T>;
+        onPlay?: ReactDOM.ReactEventHandler<T>;
+        onPlaying?: ReactDOM.ReactEventHandler<T>;
+        onProgress?: ReactDOM.ReactEventHandler<T>;
+        onRateChange?: ReactDOM.ReactEventHandler<T>;
+        onSeeked?: ReactDOM.ReactEventHandler<T>;
+        onSeeking?: ReactDOM.ReactEventHandler<T>;
+        onStalled?: ReactDOM.ReactEventHandler<T>;
+        onSuspend?: ReactDOM.ReactEventHandler<T>;
+        onTimeUpdate?: ReactDOM.ReactEventHandler<T>;
+        onVolumeChange?: ReactDOM.ReactEventHandler<T>;
+        onWaiting?: ReactDOM.ReactEventHandler<T>;
 
         // MouseEvents
-        onContextMenu?: React.MouseEventHandler<T>;
-        onDoubleClick?: React.MouseEventHandler<T>;
-        onDrag?: React.DragEventHandler<T>;
-        onDragEnd?: React.DragEventHandler<T>;
-        onDragEnter?: React.DragEventHandler<T>;
-        onDragExit?: React.DragEventHandler<T>;
-        onDragLeave?: React.DragEventHandler<T>;
-        onDragOver?: React.DragEventHandler<T>;
-        onDragStart?: React.DragEventHandler<T>;
-        onDrop?: React.DragEventHandler<T>;
-        onMouseDown?: React.MouseEventHandler<T>;
-        onMouseEnter?: React.MouseEventHandler<T>;
-        onMouseLeave?: React.MouseEventHandler<T>;
-        onMouseMove?: React.MouseEventHandler<T>;
-        onMouseOut?: React.MouseEventHandler<T>;
-        onMouseOver?: React.MouseEventHandler<T>;
-        onMouseUp?: React.MouseEventHandler<T>;
+        onContextMenu?: ReactDOM.MouseEventHandler<T>;
+        onDoubleClick?: ReactDOM.MouseEventHandler<T>;
+        onDrag?: ReactDOM.DragEventHandler<T>;
+        onDragEnd?: ReactDOM.DragEventHandler<T>;
+        onDragEnter?: ReactDOM.DragEventHandler<T>;
+        onDragExit?: ReactDOM.DragEventHandler<T>;
+        onDragLeave?: ReactDOM.DragEventHandler<T>;
+        onDragOver?: ReactDOM.DragEventHandler<T>;
+        onDragStart?: ReactDOM.DragEventHandler<T>;
+        onDrop?: ReactDOM.DragEventHandler<T>;
+        onMouseDown?: ReactDOM.MouseEventHandler<T>;
+        onMouseEnter?: ReactDOM.MouseEventHandler<T>;
+        onMouseLeave?: ReactDOM.MouseEventHandler<T>;
+        onMouseMove?: ReactDOM.MouseEventHandler<T>;
+        onMouseOut?: ReactDOM.MouseEventHandler<T>;
+        onMouseOver?: ReactDOM.MouseEventHandler<T>;
+        onMouseUp?: ReactDOM.MouseEventHandler<T>;
 
         // Selection Events
-        onSelect?: React.ReactEventHandler<T>;
+        onSelect?: ReactDOM.ReactEventHandler<T>;
 
         // Touch Events
-        onTouchCancel?: React.TouchEventHandler<T>;
-        onTouchEnd?: React.TouchEventHandler<T>;
-        onTouchMove?: React.TouchEventHandler<T>;
-        onTouchStart?: React.TouchEventHandler<T>;
+        onTouchCancel?: ReactDOM.TouchEventHandler<T>;
+        onTouchEnd?: ReactDOM.TouchEventHandler<T>;
+        onTouchMove?: ReactDOM.TouchEventHandler<T>;
+        onTouchStart?: ReactDOM.TouchEventHandler<T>;
 
         // UI Events
-        onScroll?: React.UIEventHandler<T>;
+        onScroll?: ReactDOM.UIEventHandler<T>;
 
         // Wheel Events
-        onWheel?: React.WheelEventHandler<T>;
+        onWheel?: ReactDOM.WheelEventHandler<T>;
     }
 
 
@@ -278,8 +279,8 @@ declare namespace __ReactMDL {
     class Badge extends __MDLComponent<BadgeProps> { }
 
     interface ChipProps extends __MDLOtherProps {
-        onClick?: React.MouseEventHandler<Chip>;
-        onClose?: React.MouseEventHandler<Chip>;
+        onClick?: ReactDOM.MouseEventHandler<Chip>;
+        onClose?: ReactDOM.MouseEventHandler<Chip>;
     }
 
     class Chip extends __MDLComponent<ChipProps> { }
@@ -328,7 +329,7 @@ declare namespace __ReactMDL {
     }
     class Checkbox extends __MDLComponent<CheckboxProps> { }
 
-    interface UndecoratedTableProps extends __MDLClassProps, MDLHTMLAttributes, React.DOMAttributes<UndecoratedTable>, ShadowedComponent {
+    interface UndecoratedTableProps extends __MDLClassProps, MDLHTMLAttributes, ReactDOM.DOMAttributes<UndecoratedTable>, ShadowedComponent {
         rows: Array<any>;
         rowKeyColumn?: string;
 
@@ -346,7 +347,7 @@ declare namespace __ReactMDL {
         cellFormatter?: (value: any, row: any, index: number) => React.ReactNode;
         numeric?: boolean;
         nosort?: boolean;
-        onClick?: (e: React.MouseEvent<TableHeader>, name: string) => any;
+        onClick?: (e: ReactDOM.MouseEvent<TableHeader>, name: string) => any;
         sortFn?: (a: any, b: any, isAsc: boolean) => number;
         tooltip?: React.ReactNode;
     }
@@ -423,7 +424,7 @@ declare namespace __ReactMDL {
     }
     interface HeaderTabsProps extends __MDLOtherProps, RippleComponent {
         activeTab?: number;
-        onChange?: React.FormEventHandler<Header>;
+        onChange?: ReactDOM.FormEventHandler<Header>;
     }
     interface LayoutProps extends __MDLOtherProps {
         fixedDrawer?: boolean;
@@ -440,21 +441,21 @@ declare namespace __ReactMDL {
     class Navigation extends __MDLComponent<NavigationProps> { }
     class Spacer extends __MDLBasicComponent { }
 
-    interface FooterProps extends MDLHTMLAttributes, React.DOMAttributes<Footer> {
+    interface FooterProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<Footer> {
         size?: string;
 
         title?: string;
     }
-    interface FooterDropDownSectionProps extends MDLHTMLAttributes, React.DOMAttributes<FooterDropDownSection> {
+    interface FooterDropDownSectionProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<FooterDropDownSection> {
         size?: string;
         title: React.ReactNode;
     }
-    interface FooterLinkListProps extends MDLHTMLAttributes, React.DOMAttributes<FooterLinkList> {
+    interface FooterLinkListProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<FooterLinkList> {
         size?: string;
 
         title?: string;
     }
-    interface FooterSectionProps extends MDLHTMLAttributes, React.DOMAttributes<FooterSection> {
+    interface FooterSectionProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<FooterSection> {
         size?: string;
         type?: string;
         logo?: React.ReactNode;
@@ -473,7 +474,7 @@ declare namespace __ReactMDL {
     interface ListItemActionProps extends __MDLOtherProps {
         info?: string;
     }
-    interface ListItemContentProps extends MDLHTMLAttributes, React.DOMAttributes<ListItemContent> {
+    interface ListItemContentProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<ListItemContent> {
         avatar?: string | JSX.Element;
         icon?: string | JSX.Element;
         subtitle?: React.ReactNode;
@@ -502,30 +503,30 @@ declare namespace __ReactMDL {
     class ProgressBar extends __MDLComponent<ProgressBarProps> { }
 
 
-    interface RadioProps extends MDLHTMLAttributes, React.DOMAttributes<Radio>, RippleComponent {
+    interface RadioProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<Radio>, RippleComponent {
         value: string | number;
         checked?: boolean;
         disabled?: boolean;
         name?: string;
-        onChange?: React.FormEventHandler<Radio>;
+        onChange?: ReactDOM.FormEventHandler<Radio>;
         label?: string;
     }
-    interface RadioGroupProps extends MDLHTMLAttributes, React.DOMAttributes<RadioGroup> {
+    interface RadioGroupProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<RadioGroup> {
         name: string;
         value: string | number;
         childContainer?: string;
         container?: string;
-        onChange?: React.FormEventHandler<RadioGroup>;
+        onChange?: ReactDOM.FormEventHandler<RadioGroup>;
         label?: string;
     }
     class Radio extends __MDLComponent<RadioProps> { }
     class RadioGroup extends __MDLComponent<RadioGroupProps> { }
 
 
-    interface SliderProps extends MDLHTMLAttributes, React.DOMAttributes<Slider> {
+    interface SliderProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<Slider> {
         max: number;
         min: number;
-        onChange?: React.FormEventHandler<Slider>;
+        onChange?: ReactDOM.FormEventHandler<Slider>;
         value?: number;
     }
     class Slider extends __MDLComponent<SliderProps> { }
@@ -535,7 +536,7 @@ declare namespace __ReactMDL {
         active: boolean;
         onTimeout: () => any;
         action?: string;
-        onActionClick?: React.MouseEventHandler<Snackbar>;
+        onActionClick?: ReactDOM.MouseEventHandler<Snackbar>;
         timeout?: number;
     }
     class Snackbar extends __MDLComponent<SnackbarProps> { }
@@ -550,7 +551,7 @@ declare namespace __ReactMDL {
     interface SwitchProps extends __MDLOtherProps, RippleComponent {
         checked?: boolean;
         disabled?: boolean;
-        onChange?: React.FormEventHandler<Switch>;
+        onChange?: ReactDOM.FormEventHandler<Switch>;
     }
     class Switch extends __MDLComponent<SwitchProps> { }
 
@@ -568,7 +569,7 @@ declare namespace __ReactMDL {
 
         name?: string;
         title?: string;
-        onClick?: React.MouseEventHandler<TabBar>;
+        onClick?: ReactDOM.MouseEventHandler<TabBar>;
     }
     interface TabsProps extends MDLHTMLAttributes, MDLDOMAttributes<Tabs> {
         activeTab?: number;
@@ -577,14 +578,14 @@ declare namespace __ReactMDL {
 
         name?: string;
         title?: string;
-        onClick?: React.MouseEventHandler<Tabs>;
+        onClick?: ReactDOM.MouseEventHandler<Tabs>;
     }
     class Tab extends __MDLComponent<TabProps> { }
     class TabBar extends __MDLComponent<TabBarProps> { }
     class Tabs extends __MDLComponent<TabsProps> { }
 
 
-    interface TextfieldProps extends MDLHTMLAttributes, React.DOMAttributes<HTMLInputElement> {
+    interface TextfieldProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<HTMLInputElement> {
         label: string;
         disabled?: boolean;
         error?: React.ReactNode;
@@ -594,7 +595,7 @@ declare namespace __ReactMDL {
         id?: string;
         inputClassName?: string;
         maxRows?: number;
-        onChange?: React.FormEventHandler<HTMLInputElement>;
+        onChange?: ReactDOM.FormEventHandler<HTMLInputElement>;
         pattern?: string;
         required?: boolean;
         rows?: number;
@@ -608,7 +609,7 @@ declare namespace __ReactMDL {
     }
 
 
-    interface TooltipProps extends MDLHTMLAttributes, React.DOMAttributes<Tooltip> {
+    interface TooltipProps extends MDLHTMLAttributes, ReactDOM.DOMAttributes<Tooltip> {
         label: React.ReactNode;
         large?: boolean;
         position?: string;
