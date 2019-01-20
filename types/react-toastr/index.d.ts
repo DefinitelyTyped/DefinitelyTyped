@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactHTML } from 'react';
+import { Component } from 'react';
+import * as ReactDOM from 'react-dom';
 
 export class ToastContainer extends Component<{
     toastMessageFactory: any;
@@ -16,5 +17,5 @@ export class ToastContainer extends Component<{
     warning: (message: React.ReactNode, title: React.ReactNode, optionsOverride?: {}) => void;
     clear: () => void;
 }
-export const ToastMessageAnimated: keyof ReactHTML;
-export const ToastMessagejQuery: keyof ReactHTML;
+export const ToastMessageAnimated: keyof ReactDOM.ReactHTML;
+export const ToastMessagejQuery: keyof ReactDOM.ReactHTML;
