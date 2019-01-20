@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 declare namespace NotificationSystem {
 
@@ -37,25 +38,25 @@ declare namespace NotificationSystem {
     }
 
     export interface ContainersStyle {
-        DefaultStyle: React.CSSProperties;
-        tl?: React.CSSProperties;
-        tr?: React.CSSProperties;
-        tc?: React.CSSProperties;
-        bl?: React.CSSProperties;
-        br?: React.CSSProperties;
-        bc?: React.CSSProperties;
+        DefaultStyle: ReactDOM.CSSProperties;
+        tl?: ReactDOM.CSSProperties;
+        tr?: ReactDOM.CSSProperties;
+        tc?: ReactDOM.CSSProperties;
+        bl?: ReactDOM.CSSProperties;
+        br?: ReactDOM.CSSProperties;
+        bc?: ReactDOM.CSSProperties;
     }
 
     export interface ItemStyle {
-        DefaultStyle?: React.CSSProperties;
-        success?: React.CSSProperties;
-        error?: React.CSSProperties;
-        warning?: React.CSSProperties;
-        info?: React.CSSProperties;
+        DefaultStyle?: ReactDOM.CSSProperties;
+        success?: ReactDOM.CSSProperties;
+        error?: ReactDOM.CSSProperties;
+        warning?: ReactDOM.CSSProperties;
+        info?: ReactDOM.CSSProperties;
     }
 
     export interface WrapperStyle {
-        DefaultStyle?: React.CSSProperties;
+        DefaultStyle?: ReactDOM.CSSProperties;
     }
 
     export interface Style {
