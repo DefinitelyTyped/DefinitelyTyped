@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react"
+import * as ReactDOM from "react-dom"
 
 interface LoopableProps extends React.Props<any> {
     "nth-child": number
@@ -23,7 +24,7 @@ interface Classes<T> {
     [scope: string]: Partial<T>
 }
 
-export type CSS = React.CSSProperties
+export type CSS = ReactDOM.CSSProperties
 export function hover<A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A>
 export function loop(index: number, length: number): LoopableProps
 export default function reactCSS<T>(classes: Classes<T>, ...activations: Array<any>): T
