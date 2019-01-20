@@ -10,6 +10,7 @@
 export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 import { ComponentType } from "react";
+import * as ReactDOM from "react-dom";
 import { StyledComponent, Interpolation } from "styled-components";
 
 export type ResponsiveProp = number | string | Array<string | number>;
@@ -75,4 +76,4 @@ export interface Theme {
 export const Box: BoxComponent;
 export const Flex: FlexComponent;
 export const theme: Theme;
-export const div: ComponentType<React.HTMLProps<HTMLDivElement>>;
+export const div: ComponentType<ReactDOM.HTMLProps<HTMLDivElement>>;
