@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export = Webcam;
 
@@ -24,7 +25,7 @@ declare namespace Webcam {
         height?: number|string;
         width?: number|string;
         screenshotFormat?: 'image/jpeg' | 'image/png' | 'image/webp';
-        style?: React.CSSProperties;
+        style?: ReactDOM.CSSProperties;
         className?: string;
         audioSource?: string;
         videoSource?: string;
