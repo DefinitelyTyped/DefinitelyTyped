@@ -3,8 +3,6 @@
 // Definitions by: Carlo Cancellieri <https://github.com/ccancellieri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types='react-dom' />
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 

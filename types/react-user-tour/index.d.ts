@@ -9,7 +9,8 @@
 declare module 'react-user-tour' {
 
     // Import React
-    import { HTMLAttributes, ComponentClass } from 'react';
+    import { ComponentClass } from 'react';
+    import * as ReactDOM from 'react-dom';
 
     interface TourStep {
         /**
@@ -42,7 +43,7 @@ declare module 'react-user-tour' {
         position?: 'left' | 'right' | 'top' | 'topLeft' | 'bottom' | 'bottomLeft';
     }
 
-    interface TourProps extends HTMLAttributes<any> {
+    interface TourProps extends ReactDOM.HTMLAttributes<any> {
         /**
         A boolean value representing whether or not the tour should currently be displayed
         */
