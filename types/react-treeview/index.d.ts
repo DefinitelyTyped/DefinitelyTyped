@@ -4,10 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, HTMLAttributes } from 'react';
+import { Component } from 'react';
+import * as ReactDOM from 'react-dom';
 
 declare namespace TreeView {
-  interface TreeProps extends HTMLAttributes<HTMLDivElement> {
+  interface TreeProps extends ReactDOM.HTMLAttributes<HTMLDivElement> {
     collapsed?: boolean;
     defaultCollapsed?: boolean;
     nodeLabel: React.ReactNode;
