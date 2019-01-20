@@ -32,6 +32,7 @@ import {
 } from "slate";
 import * as Immutable from "immutable";
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 // Values prefixed with "data-..." (Used for spellchecking according to docs)
 export interface RenderAttributes {
@@ -113,7 +114,7 @@ export interface BasicEditorProps {
     role?: string;
     schema?: SchemaProperties;
     spellCheck?: boolean;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     tabIndex?: number;
 }
 
