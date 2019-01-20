@@ -6,11 +6,12 @@
 
 declare module "react-textarea-autosize" {
     import * as React from "react";
+    import * as ReactDOM from "react-dom";
 
     /**
      * <TextareaAutosize/> properties
      */
-    export interface TextareaAutosizeProps extends React.HTMLProps<HTMLTextAreaElement> {
+    export interface TextareaAutosizeProps extends ReactDOM.HTMLProps<HTMLTextAreaElement> {
         /**
          * Current textarea value
          */
@@ -19,7 +20,7 @@ declare module "react-textarea-autosize" {
          * Callback on value change
          * @param event
          */
-        onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+        onChange?: (event: ReactDOM.ChangeEvent<HTMLTextAreaElement>) => void;
         /**
          * Callback on height change
          * @param height
