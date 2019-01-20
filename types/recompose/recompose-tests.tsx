@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import * as PropTypes from 'prop-types';
 import {
     // Higher-order components
@@ -132,7 +133,7 @@ function testWithHandlers() {
         foo: string;
     }
     interface HandlerProps {
-        onSubmit: React.MouseEventHandler<HTMLDivElement>;
+        onSubmit: ReactDOM.MouseEventHandler<HTMLDivElement>;
         onChange: Function;
     }
     const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps & OutterProps> = ({onChange, onSubmit, foo}) =>
@@ -140,7 +141,7 @@ function testWithHandlers() {
 
     const enhancer = withHandlers<OutterProps & InnerProps, HandlerProps>({
       onChange: (props) => (e: any) => {},
-      onSubmit: (props) => (e: React.MouseEvent<any>) => {},
+      onSubmit: (props) => (e: ReactDOM.MouseEvent<any>) => {},
     });
     const Enhanced = enhancer(InnerComponent);
     const rendered = (
@@ -152,7 +153,7 @@ function testWithHandlers() {
 
     const enhancer2 = withHandlers<OutterProps & InnerProps, HandlerProps>((props) => ({
       onChange: (props) => (e: any) => {},
-      onSubmit: (props) => (e: React.MouseEvent<any>) => {},
+      onSubmit: (props) => (e: ReactDOM.MouseEvent<any>) => {},
     }));
     const Enhanced2 = enhancer2(InnerComponent);
     const rendered2 = (
@@ -170,7 +171,7 @@ function testWithHandlers() {
     // The inner props should be fully inferrable
     const enhancer3 = withHandlers({
       onChange: (props: OutterProps) => (e: any) => {},
-      onSubmit: (props: OutterProps) => (e: React.MouseEvent<any>) => {},
+      onSubmit: (props: OutterProps) => (e: ReactDOM.MouseEvent<any>) => {},
     });
     const Enhanced3 = enhancer3(({onChange, onSubmit, out}) =>
         <div onClick={onSubmit}>{out}</div>);
@@ -182,7 +183,7 @@ function testWithHandlers() {
 
     const enhancer4 = withHandlers((props: OutterProps) => ({
       onChange: (props) => (e: any) => {},
-      onSubmit: (props) => (e: React.MouseEvent<any>) => {},
+      onSubmit: (props) => (e: ReactDOM.MouseEvent<any>) => {},
     }));
     const Enhanced4 = enhancer4(({onChange, onSubmit, out}) =>
         <div onClick={onSubmit}>{out}</div>);
