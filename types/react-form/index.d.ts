@@ -6,6 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 // Helper Types
 export type FormValue = any;
@@ -35,7 +36,7 @@ export interface FormProps {
     dontValidateOnMount?: boolean;
     validateOnSubmit?: boolean;
     defaultValues?: FormValues;
-    onSubmit?(values: FormValues, submissionEvent: React.SyntheticEvent<any>, formApi: FormApi): void;
+    onSubmit?(values: FormValues, submissionEvent: ReactDOM.SyntheticEvent<any>, formApi: FormApi): void;
     preSubmit?(values: FormValues, formApi: FormApi): FormValues;
     onSubmitFailure?(errors: FormErrors, formApi: FormApi): void;
     formDidUpdate?(formState: FormState): void;
@@ -65,7 +66,7 @@ export interface FormApi {
     validationFailed: {[field: string]: boolean};
 
     // Methods
-    submitForm(event: React.SyntheticEvent<any>): void;
+    submitForm(event: ReactDOM.SyntheticEvent<any>): void;
     setValue(fieldName: string, value: any): void;
     setAllValues(values: FormValues): void;
     setError(field: string, error: string): void;
@@ -140,15 +141,15 @@ export type SelectOptions = Array<{
     label: string
 }>;
 
-export interface SelectProps extends FieldProps, React.SelectHTMLAttributes<HTMLSelectElement> {
+export interface SelectProps extends FieldProps, ReactDOM.SelectHTMLAttributes<HTMLSelectElement> {
     options: SelectOptions;
     placeholder?: string;
 }
 
 export const Select: React.StatelessComponent<SelectProps>;
 
-export const Text: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
-export const TextArea: React.StatelessComponent<FieldProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
+export const Text: React.StatelessComponent<FieldProps & ReactDOM.InputHTMLAttributes<HTMLInputElement>>;
+export const TextArea: React.StatelessComponent<FieldProps & ReactDOM.TextareaHTMLAttributes<HTMLTextAreaElement>>;
 
 export interface RadioGroupContext {
     group: FieldApi;
@@ -164,8 +165,8 @@ export class RadioGroup
     };
 }
 
-export const Radio: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi}>;
-export const Checkbox: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
+export const Radio: React.StatelessComponent<FieldProps & ReactDOM.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi}>;
+export const Checkbox: React.StatelessComponent<FieldProps & ReactDOM.InputHTMLAttributes<HTMLInputElement>>;
 
 // Styled Fields
 
@@ -175,11 +176,11 @@ export interface StyledProps extends FieldProps {
     touchValidation?: boolean;
 }
 
-export const StyledCheckbox: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {label: string}>;
-export const StyledTextArea: React.StatelessComponent<StyledProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
-export const StyledSelect: React.StatelessComponent<StyledProps & SelectProps & React.InputHTMLAttributes<HTMLSelectElement>>;
-export const StyledText: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement>>;
-export const StyledRadio: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi, label: string}>;
+export const StyledCheckbox: React.StatelessComponent<StyledProps & ReactDOM.InputHTMLAttributes<HTMLInputElement> & {label: string}>;
+export const StyledTextArea: React.StatelessComponent<StyledProps & ReactDOM.TextareaHTMLAttributes<HTMLTextAreaElement>>;
+export const StyledSelect: React.StatelessComponent<StyledProps & SelectProps & ReactDOM.InputHTMLAttributes<HTMLSelectElement>>;
+export const StyledText: React.StatelessComponent<StyledProps & ReactDOM.InputHTMLAttributes<HTMLInputElement>>;
+export const StyledRadio: React.StatelessComponent<StyledProps & ReactDOM.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi, label: string}>;
 
 export class StyledRadioGroup
     extends React.Component<
