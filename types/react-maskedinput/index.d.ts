@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface FormatCharacter {
     validate(char: string): string;
@@ -17,7 +18,7 @@ export interface CharsFormatters {
   [char: string]: FormatCharacter;
 }
 
-export interface MaskedInputProps extends React.InputHTMLAttributes<any> {
+export interface MaskedInputProps extends ReactDOM.InputHTMLAttributes<any> {
   mask: string;
   formatCharacters?: CharsFormatters;
   placeholderChar?: string;
