@@ -176,6 +176,7 @@ export class DateTime {
         options?: DateTimeOptions
     ): ExplainedFormat;
     static invalid(reason: any): DateTime;
+    static isDateTime(o: any): o is DateTime;
     static local(
         year?: number,
         month?: number,
@@ -324,6 +325,7 @@ export class Duration {
     static fromMillis(count: number, options?: DurationOptions): Duration;
     static fromObject(Object: DurationObject): Duration;
     static invalid(reason?: string): Duration;
+    static isDuration(o: any): o is Duration;
     days: number;
     hours: number;
     invalidReason: string | null;
@@ -408,6 +410,7 @@ export class Interval {
     ): Interval;
     static fromISO(string: string, options?: DateTimeOptions): Interval;
     static invalid(reason?: string): Interval;
+    static isInterval(o: any): o is Interval;
     static merge(intervals: Interval[]): Interval[];
     static xor(intervals: Interval[]): Interval[];
     end: DateTime;
