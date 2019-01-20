@@ -5,8 +5,9 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-export interface IconBaseProps extends React.SVGProps<React.ReactSVGElement> {
+export interface IconBaseProps extends ReactDOM.SVGProps<ReactDOM.ReactSVGElement> {
     size?: string | number;
     style?: any;
     color?: string;
