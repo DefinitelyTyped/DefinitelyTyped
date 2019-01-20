@@ -6,6 +6,7 @@
 
 import * as Leaflet from 'leaflet';
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 // All events need to be lowercase so they don't collide with React.DOMAttributes<T>
 // which already declares things with some of the same names
@@ -138,7 +139,7 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     maxBounds?: Leaflet.LatLngBoundsExpression;
     maxZoom?: number;
     minZoom?: number;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     useFlyTo?: boolean;
     zoom?: number;
 }
@@ -159,7 +160,7 @@ export interface PaneProps {
     children?: Children;
     map?: Leaflet.Map;
     className?: string;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     pane?: string;
 }
 export interface PaneState {
