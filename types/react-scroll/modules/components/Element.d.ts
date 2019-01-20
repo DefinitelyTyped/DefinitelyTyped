@@ -1,6 +1,7 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-export interface ElementProps extends React.HTMLProps<HTMLDivElement> {
+export interface ElementProps extends ReactDOM.HTMLProps<HTMLDivElement> {
     name: string;
     id?: string;
 }

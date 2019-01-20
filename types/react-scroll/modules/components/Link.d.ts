@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface ReactScrollLinkProps {
     to: string;
@@ -18,6 +19,6 @@ export interface ReactScrollLinkProps {
     ignoreCancelEvents?: boolean;
 }
 
-export type LinkProps = ReactScrollLinkProps & React.HTMLProps<HTMLButtonElement>;
+export type LinkProps = ReactScrollLinkProps & ReactDOM.HTMLProps<HTMLButtonElement>;
 
 export default class Link extends React.Component<LinkProps> { }
