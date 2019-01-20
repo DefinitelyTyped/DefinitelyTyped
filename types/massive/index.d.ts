@@ -106,7 +106,7 @@ declare namespace massive {
     }
 
     type QueryParamTypes = string | number | object;
-    type QueryParams = Array<QueryParamTypes> |  QueryParamTypes;
+    type QueryParams = QueryParamTypes[] |  QueryParamTypes;
 
     interface EntitySpecification {
         /** A Database. */
