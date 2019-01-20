@@ -1,5 +1,6 @@
 import ReactTextareaAutocomplete from "webscopeio__react-textarea-autocomplete";
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 const Loading: React.SFC = () => {
     return <div>Loading</div>;
@@ -53,9 +54,9 @@ class Autocomplete extends React.Component {
             value="aaa"
             closeOnClickOutside={false}
             movePopupAsYouType={false}
-            onBlur={(evt: React.FocusEvent<HTMLTextAreaElement>) => { console.log(evt); }}
-            onSelect={(evt: React.SyntheticEvent<HTMLTextAreaElement>) => { console.log(evt); }}
-            onChange={(evt: React.ChangeEvent<HTMLTextAreaElement>) => { console.log(evt); }}
+            onBlur={(evt: ReactDOM.FocusEvent<HTMLTextAreaElement>) => { console.log(evt); }}
+            onSelect={(evt: ReactDOM.SyntheticEvent<HTMLTextAreaElement>) => { console.log(evt); }}
+            onChange={(evt: ReactDOM.ChangeEvent<HTMLTextAreaElement>) => { console.log(evt); }}
             scrollToItem={false}
             onCaretPositionChange={(pos: number) => { console.log(pos); }}
             containerClassName="container"

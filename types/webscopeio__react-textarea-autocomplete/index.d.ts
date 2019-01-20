@@ -8,6 +8,7 @@ export default ReactTextareaAutocomplete;
 export as namespace ReactTextareaAutocomplete;
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export type CaretPositionType = 'start' | 'end' | 'next' | number;
 
@@ -70,7 +71,7 @@ export interface TriggerType<TItem> {
 
 type PickedAttributes = "onChange" | "onSelect" | "onBlur" | "value";
 
-export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTMLTextAreaElement>, PickedAttributes> {
+export interface TextareaProps<TItem> extends Pick<ReactDOM.InputHTMLAttributes<HTMLTextAreaElement>, PickedAttributes> {
     /**
      * Define triggers and their corresponding behavior.
      */
@@ -110,27 +111,27 @@ export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTM
     /**
      * Styles of textarea
      */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /**
      * Styles of list's wrapper.
      */
-    listStyle?: React.CSSProperties;
+    listStyle?: ReactDOM.CSSProperties;
     /**
      * Styles of item's wrapper.
      */
-    itemStyle?: React.CSSProperties;
+    itemStyle?: ReactDOM.CSSProperties;
     /**
      * Styles of textarea's container.
      */
-    containerStyle?: React.CSSProperties;
+    containerStyle?: ReactDOM.CSSProperties;
     /**
      * Styles of loader's wrapper.
      */
-    loaderStyle?: React.CSSProperties;
+    loaderStyle?: ReactDOM.CSSProperties;
     /**
      * Styles of dropdown's wrapper.
      */
-    dropdownStyle?: React.CSSProperties;
+    dropdownStyle?: ReactDOM.CSSProperties;
     /**
      * ClassNames of the textarea.
      */
