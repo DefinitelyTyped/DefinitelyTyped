@@ -8,6 +8,7 @@ export default TetherComponent;
 export as namespace ReactTether;
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as Tether from 'tether';
 
 declare class TetherComponent extends React.Component<ReactTether.TetherComponentProps> { }
@@ -18,7 +19,7 @@ declare namespace ReactTether {
         renderElementTo?: string | { appendChild(element: HTMLElement): void };
         id?: string;
         className?: string;
-        style?: React.CSSProperties;
+        style?: ReactDOM.CSSProperties;
         onUpdate?(): void;
         onRepositioned?(): void;
     }
