@@ -38,6 +38,20 @@ const className = cx('foo', ['bar'], { baz: true }); // => "abc def xyz"
 
 // falsey values are just ignored
 cx(null, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
+// @todo we can't infer number types if the given styles map has only
+// string indexes. To be fair though, was this correct anyway? I don't think
+// css rules can be numbers only.
 
 // true is just ignored
 cx(true || "foo");
+// @todo but should it be?
+// Although correct, the definition between 'valid string-literal'
+// and 'everything else but strings' is weird.
+// A clearer definition could be:
+//    The only permitted 'truthy' values should be valid string-literals.
+//    Anything else should be falsey values, and these are ignored.
+
+// @todo is there a way to test bad types?
+// cx("bad");
+// cx({"i am bad": true});
+// cx(["still bad"]);
