@@ -6,6 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export = NumericInput;
 
@@ -13,7 +14,7 @@ declare namespace NumericInput {
     type BoundsFunctionProp = number | ((component: NumericInput) => number | undefined);
     type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;  // via TS 2.8 manual
     interface NumericInputProps extends Omit<
-        React.InputHTMLAttributes<HTMLInputElement>,
+        ReactDOM.InputHTMLAttributes<HTMLInputElement>,
         'min' | 'max' | 'step' | 'onChange' | 'defaultValue' | 'onInvalid' | 'style'
     > {
         addLabelText?: string;
@@ -25,20 +26,20 @@ declare namespace NumericInput {
         mobile?: boolean | 'auto' | ((component: NumericInput) => boolean);
         noStyle?: boolean;
         noValidate?: boolean | string;
-        onBlur?: React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
+        onBlur?: ReactDOM.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
         onChange?: ((value: number | null, stringValue: string, input: HTMLInputElement) => void);
-        onFocus?: React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
-        onInput?: React.FormEventHandler<HTMLInputElement>;
+        onFocus?: ReactDOM.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
+        onInput?: ReactDOM.FormEventHandler<HTMLInputElement>;
         onInvalid?: ((error: string, value: number | null, stringValue: string) => void);
-        onKeyDown?: React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
-        onSelect?: React.ReactEventHandler<HTMLInputElement>;
+        onKeyDown?: ReactDOM.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
+        onSelect?: ReactDOM.ReactEventHandler<HTMLInputElement>;
         onValid?: ((value: number | null, stringValue: string) => void);
         parse?: ((stringValue: string) => number | null);
         precision?: number | ((component: NumericInput) => number | null | undefined);
         snap?: boolean;
         step?: number | ((component: NumericInput, direction: string) => number | undefined);
         strict?: boolean;
-        style?: {[key: string]: React.CSSProperties} | boolean;
+        style?: {[key: string]: ReactDOM.CSSProperties} | boolean;
         value?: number | string;
     }
     // Exposed here for the function prop handlers that get the NumericInput instance as a parameter.
