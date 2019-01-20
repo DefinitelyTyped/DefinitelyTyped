@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface GoogleLoginInfo {
     getAuthResponse: () => {
@@ -12,7 +13,7 @@ export interface GoogleLoginInfo {
     };
 }
 
-export interface GoogleLoginProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface GoogleLoginProps extends ReactDOM.ButtonHTMLAttributes<HTMLButtonElement> {
     socialId: string;
     scope?: string;
     fetchBasicProfile?: boolean;
