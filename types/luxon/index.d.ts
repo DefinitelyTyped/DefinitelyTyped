@@ -202,7 +202,8 @@ export class DateTime {
     daysInMonth: number;
     daysInYear: number;
     hour: number;
-    invalidReason: string;
+    invalidReason: string | null;
+    invalidExplanation: string | null;
     isInDST: boolean;
     isInLeapYear: boolean;
     isOffsetFixed: boolean;
@@ -325,7 +326,8 @@ export class Duration {
     static invalid(reason?: string): Duration;
     days: number;
     hours: number;
-    invalidReason: string;
+    invalidReason: string | null;
+    invalidExplanation: string | null;
     isValid: boolean;
     locale: string;
     milliseconds: number;
@@ -409,7 +411,8 @@ export class Interval {
     static merge(intervals: Interval[]): Interval[];
     static xor(intervals: Interval[]): Interval[];
     end: DateTime;
-    invalidReason: string;
+    invalidReason: string | null;
+    invalidExplanation: string | null;
     isValid: boolean;
     start: DateTime;
     abutsEnd(other: Interval): boolean;
