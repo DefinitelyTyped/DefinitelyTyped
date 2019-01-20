@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import ReactSelect, * as ReactSelectModule from "react-select";
 import defaultMenuRenderer from 'react-select/lib/utils/defaultMenuRenderer';
 import DefaultOptionComponent from 'react-select/lib/Option';
@@ -146,8 +147,8 @@ describe("react-select", () => {
 
     it("Overriding default key-down behavior with onInputKeyDown", () => {
         const keyDownHandler: ReactSelectModule.OnInputKeyDownHandler = (event => {
-            const divEvent = event as React.KeyboardEvent<HTMLDivElement>;
-            const inputEvent = event as React.KeyboardEvent<HTMLInputElement>;
+            const divEvent = event as ReactDOM.KeyboardEvent<HTMLDivElement>;
+            const inputEvent = event as ReactDOM.KeyboardEvent<HTMLInputElement>;
         });
     });
 
@@ -164,8 +165,8 @@ describe("Focus events", () => {
             render() {
                 return (
                     <ReactSelect onFocus={(e) => {
-                        const inputEvent = e as React.FocusEvent<HTMLInputElement>;
-                        const divEvent = e as React.FocusEvent<HTMLDivElement>;
+                        const inputEvent = e as ReactDOM.FocusEvent<HTMLInputElement>;
+                        const divEvent = e as ReactDOM.FocusEvent<HTMLDivElement>;
                     }} />
                 );
             }
@@ -177,8 +178,8 @@ describe("Focus events", () => {
             render() {
                 return (
                     <ReactSelect onBlur={(e) => {
-                        const inputEvent = e as React.FocusEvent<HTMLInputElement>;
-                        const divEvent = e as React.FocusEvent<HTMLDivElement>;
+                        const inputEvent = e as ReactDOM.FocusEvent<HTMLInputElement>;
+                        const divEvent = e as ReactDOM.FocusEvent<HTMLDivElement>;
                     }} />
                 );
             }

@@ -19,6 +19,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export default class ReactSelectClass<TValue = OptionValues> extends React.Component<ReactSelectProps<TValue>> {
     focus(): void;
@@ -45,14 +46,14 @@ export type InputRendererHandler = (props: { [key: string]: any }) => HandlerRen
 export type MenuRendererHandler<TValue = OptionValues> = (props: MenuRendererProps<TValue>) => HandlerRendererResult;
 export type OnCloseHandler = () => void;
 export type OnInputChangeHandler = (inputValue: string) => string;
-export type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
+export type OnInputKeyDownHandler = ReactDOM.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OnMenuScrollToBottomHandler = () => void;
 export type OnOpenHandler = () => void;
-export type OnFocusHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
-export type OnBlurHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
+export type OnFocusHandler = ReactDOM.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
+export type OnBlurHandler = ReactDOM.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
 export type OptionRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
 export type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>, index?: number) => HandlerRendererResult;
-export type OnValueClickHandler<TValue = OptionValues> = (option: Option<TValue>, event: React.MouseEvent<HTMLAnchorElement>) => void;
+export type OnValueClickHandler<TValue = OptionValues> = (option: Option<TValue>, event: ReactDOM.MouseEvent<HTMLAnchorElement>) => void;
 export type IsOptionUniqueHandler<TValue = OptionValues> = (arg: { option: Option<TValue>, options: Options<TValue>, labelKey: string, valueKey: string }) => boolean;
 export type IsValidNewOptionHandler = (arg: { label: string }) => boolean;
 export type NewOptionCreatorHandler<TValue = OptionValues> = (arg: { label: string, labelKey: string, valueKey: string }) => Option<TValue>;
@@ -213,7 +214,7 @@ export interface ArrowRendererProps {
     /**
      * Arrow mouse down event handler.
      */
-    onMouseDown: React.MouseEventHandler<any>;
+    onMouseDown: ReactDOM.MouseEventHandler<any>;
 
     /**
      * whether the Select is open or not.
@@ -398,7 +399,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      * optional style to apply to the menu container
      */
-    menuContainerStyle?: React.CSSProperties;
+    menuContainerStyle?: ReactDOM.CSSProperties;
     /**
      * renders a custom menu with options
      */
@@ -406,7 +407,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      * optional style to apply to the menu
      */
-    menuStyle?: React.CSSProperties;
+    menuStyle?: ReactDOM.CSSProperties;
     /**
      * multi-value input
      * @default false
@@ -557,7 +558,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      *  optional style to apply to the control
      */
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
 
     /**
      *  optional tab index of the control
@@ -572,7 +573,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      *  optional style to apply to the component wrapper
      */
-    wrapperStyle?: React.CSSProperties;
+    wrapperStyle?: ReactDOM.CSSProperties;
 
     /**
      * onClick handler for value labels: function (value, event) {}
