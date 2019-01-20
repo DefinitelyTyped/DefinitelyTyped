@@ -6,6 +6,7 @@
 // TypeScript Version: 2.9
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 export interface Selection {
   start: number;
@@ -25,7 +26,7 @@ export interface MaskOptions {
   permanents: number[];
 }
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props extends ReactDOM.InputHTMLAttributes<HTMLInputElement> {
   /**
    * Mask string. Format characters are:
    * * `9`: `0-9`
