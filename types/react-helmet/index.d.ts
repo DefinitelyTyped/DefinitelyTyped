@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 type LinkProps = JSX.IntrinsicElements['link'];
 
@@ -56,12 +57,12 @@ export interface HelmetDatum {
 
 export interface HelmetHTMLBodyDatum {
     toString(): string;
-    toComponent(): React.HTMLAttributes<HTMLBodyElement>;
+    toComponent(): ReactDOM.HTMLAttributes<HTMLBodyElement>;
 }
 
 export interface HelmetHTMLElementDatum {
     toString(): string;
-    toComponent(): React.HTMLAttributes<HTMLElement>;
+    toComponent(): ReactDOM.HTMLAttributes<HTMLElement>;
 }
 
 export const peek: () => HelmetData;
