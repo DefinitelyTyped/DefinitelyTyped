@@ -5,6 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
 interface TwitterLoginProps {
     tag?: React.ReactType;
     text?: string;
@@ -13,7 +16,7 @@ interface TwitterLoginProps {
     onFailure: (msg: string) => void;
     onSuccess: (response: string) => void;
     disabled?: boolean;
-    style?: React.CSSProperties;
+    style?: ReactDOM.CSSProperties;
     dialogWidth?: number;
     dialogHeight?: number;
     showIcon?: boolean;
