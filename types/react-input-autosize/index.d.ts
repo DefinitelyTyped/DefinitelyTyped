@@ -6,11 +6,12 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-export interface AutosizeInputProps extends React.InputHTMLAttributes<HTMLInputElement>, React.ClassAttributes<HTMLInputElement> {
+export interface AutosizeInputProps extends ReactDOM.InputHTMLAttributes<HTMLInputElement>, React.ClassAttributes<HTMLInputElement> {
     inputClassName?: string;
     inputRef?: React.Ref<HTMLInputElement>;
-    inputStyle?: React.CSSProperties;
+    inputStyle?: ReactDOM.CSSProperties;
     minWidth?: string | number;
     onAutosize?: (inputWidth: string | number) => void;
     placeholderIsMinWidth?: boolean;
