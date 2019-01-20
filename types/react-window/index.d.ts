@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentType, CSSProperties, Ref, Key } from "react";
+import { Component, ComponentType, Ref, Key } from "react";
+import * as ReactDOM from "react-dom";
 
 export type Direction = "vertical" | "horizontal";
 export type ScrollDirection = "forward" | "backward";
@@ -12,13 +13,13 @@ export type Align = "auto" | "center" | "end" | "start";
 
 export interface ListChildComponentProps {
     index: number;
-    style: CSSProperties;
+    style: ReactDOM.CSSProperties;
 }
 
 export interface GridChildComponentProps {
     columnIndex: number;
     rowIndex: number;
-    style: CSSProperties;
+    style: ReactDOM.CSSProperties;
 }
 
 export interface CommonProps {
@@ -60,7 +61,7 @@ export interface CommonProps {
     /**
      * Optional inline style to attach to outermost <div> element.
      */
-    style?: CSSProperties;
+    style?: ReactDOM.CSSProperties;
     /**
      * Adds an additional isScrolling parameter to the children render function. This parameter can be used to show a placeholder row or column while the list is being scrolled.
      *
