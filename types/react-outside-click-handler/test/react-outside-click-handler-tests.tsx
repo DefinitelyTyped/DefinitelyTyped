@@ -1,8 +1,9 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 import OutsideClickHandler from "react-outside-click-handler";
 
-const onClickOutside: (event: React.MouseEvent<any>) => void = () => {};
+const onClickOutside: (event: ReactDOM.MouseEvent<any>) => void = () => {};
 
 <OutsideClickHandler onOutsideClick={onClickOutside}>
     <span>Child</span>

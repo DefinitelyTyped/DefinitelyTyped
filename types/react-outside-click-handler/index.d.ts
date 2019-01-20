@@ -5,6 +5,7 @@
 // TypeScript Version: 2.9
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface DefaultProps {
     disabled: boolean;
@@ -15,7 +16,7 @@ export interface DefaultProps {
 // TODO: Remove partial once DT support TS 3.0, so skipping mandatory listed in default props won't result in compile error
 export interface Props extends Partial<DefaultProps> {
     children: React.ReactNode;
-    onOutsideClick: (e: React.MouseEvent<HTMLElement>) => void;
+    onOutsideClick: (e: ReactDOM.MouseEvent<HTMLElement>) => void;
 }
 
 export default class OutsideClickHandler extends React.Component<Props> {
