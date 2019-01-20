@@ -6,9 +6,10 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 export interface HandleClickOutside<T> {
-    handleClickOutside: React.MouseEventHandler<T>;
+    handleClickOutside: ReactDOM.MouseEventHandler<T>;
 }
 
 export interface ConfigObject {

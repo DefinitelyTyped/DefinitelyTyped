@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Component, MouseEvent, StatelessComponent } from 'react';
-import { render } from 'react-dom';
+import { Component, StatelessComponent } from 'react';
+import { render, MouseEvent } from 'react-dom';
 import onClickOutside from 'react-onclickoutside';
 
 interface TestStatelessProps {
