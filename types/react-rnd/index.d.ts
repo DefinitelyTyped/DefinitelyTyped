@@ -6,8 +6,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-type CSSProperties = React.CSSProperties;
+type CSSProperties = ReactDOM.CSSProperties;
 
 export type Direction =
   | "bottom"
