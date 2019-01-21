@@ -33,8 +33,6 @@ export = React;
 export as namespace React;
 
 declare namespace React {
-    // renderer agnostic React types
-
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -1017,7 +1015,6 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
 
 declare global {
     namespace JSX {
-        // agnostic
         // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any, any> { }
         interface ElementClass extends React.Component<any> {
@@ -1039,11 +1036,6 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 
-        interface IntrinsicElements { }
-    }
-
-    // tslint:disable-next-line:no-mergeable-namespace
-    namespace JSX {
         interface IntrinsicElements { }
     }
 }
