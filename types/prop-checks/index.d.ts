@@ -1,7 +1,6 @@
-// Type definitions for prop-checks 15.5
+// Type definitions for prop-checks 1.1.0
 // Project: https://github.com/reactjs/prop-types
-// Definitions by: DovydasNavickas <https://github.com/DovydasNavickas>
-//                 Ferdy Budhidharma <https://github.com/ferdaber>
+// Definitions by: lirongfei123 <https://github.com/lirongfei123>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
