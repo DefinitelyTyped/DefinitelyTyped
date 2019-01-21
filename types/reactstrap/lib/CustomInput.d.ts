@@ -3,6 +3,7 @@ import { CSSModule } from '../index';
 
 export type CustomInputType =
   | 'select'
+  | 'switch'
   | 'file'
   | 'radio'
   | 'checkbox';
