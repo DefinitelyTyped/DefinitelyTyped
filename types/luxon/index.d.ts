@@ -144,6 +144,7 @@ declare module 'luxon' {
                 text: string,
                 options?: DateTimeOptions
             ): DateTime;
+            static fromSeconds(seconds: number, options?: DateTimeOptions): DateTime;
             static fromSQL(text: string, options?: DateTimeOptions): DateTime;
             static fromFormat(
                 text: string,
@@ -261,6 +262,7 @@ declare module 'luxon' {
             toRelative(options?: ToRelativeOptions): string | null;
             toRelativeCalendar(options?: ToRelativeCalendarOptions): string | null;
             toRFC2822(): string;
+            toSeconds(): number;
             toSQL(options?: ToSQLOptions): string;
             toSQLDate(): string;
             toSQLTime(options?: ToSQLOptions): string;
