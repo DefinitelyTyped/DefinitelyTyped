@@ -1,8 +1,8 @@
-import * as isFunction from "is-function";
+import isFunction from "is-function";
 
 const a: boolean = isFunction("string");
 const b: boolean = isFunction(true);
-const c: boolean = isFunction((a: number) => a * a);
+const c: boolean = isFunction((x: number) => x * x);
 const d: boolean = isFunction({ type: "number" });
 const e: boolean = isFunction(() => {
     return "I am anounymous!";
