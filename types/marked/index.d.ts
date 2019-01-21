@@ -119,7 +119,7 @@ declare namespace marked {
 
     type TokensList = Token[] & {
         links: {
-            [key: string]: { href: string; title: string; } | void
+            [key: string]: { href: string; title: string; } | undefined
         }
     };
 
