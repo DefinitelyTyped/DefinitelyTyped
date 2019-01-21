@@ -185,7 +185,6 @@ function log(e: string) {
     item.animate({ opacity: 1 }, 10000, 'linear', function () { item.animate({ opacity: 0 }, 2000, 'linear', function () { item.remove(); }); });
 }
 $("#e11")
-    // TS 0.9.5: correct overload not resolved https://typescript.codeplex.com/discussions/472172
     .on("change", function (e: Select2JQueryEventObject) { log(JSON.stringify({ val: e.val, added: e.added, removed: e.removed })); })
     .on("open", function () { log("open"); });
 $("#e11_2")
@@ -234,7 +233,7 @@ $("#id").select2({
             selectCallback();
             return null;
         } else if (options.allowClear) {
-        selectCallback(textInput + '_');
+            selectCallback(textInput + '_');
             return textInput + '_';
         }
         selection.push('extra');
