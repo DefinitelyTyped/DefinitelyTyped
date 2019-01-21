@@ -1,6 +1,7 @@
 // Type definitions for react-mentions 2.3
 // Project: https://github.com/signavio/react-mentions
 // Definitions by: Scott Willeke <https://github.com/activescott>
+//                 Eugene Fedorenko <https://github.com/efedorenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from "react";
@@ -104,7 +105,12 @@ export type DisplayTransformFunc = (id: string, display: string, type: string) =
 /**
  * Defines the function signature for implementing @see MentionsInputProps.onChange
  */
-export type OnChangeHandlerFunc = (event: { target: { value: string } }, newValue: string, newPlainTextValue: string, mentions: MentionItem[]) => void;
+export type OnChangeHandlerFunc = (
+    event: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>,
+    newValue: string,
+    newPlainTextValue: string,
+    mentions: MentionItem[]
+) => void;
 
 /**
  * The function to implement asynchronous loading of suggestions in @see MentionProps.data .
