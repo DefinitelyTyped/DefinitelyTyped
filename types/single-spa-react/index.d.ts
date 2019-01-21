@@ -9,16 +9,16 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 export = SingleSpaReact;
-declare function SingleSpaReact<T = React.ComponentClass>(
-    opts: SingleSpaReact.Options<T>
+declare function SingleSpaReact(
+    opts: SingleSpaReact.Options
 ): SingleSpaReact.Lifecycles;
 
 declare namespace SingleSpaReact {
-    interface Options<T> {
+    interface Options {
         React: typeof React;
         ReactDOM: typeof ReactDOM;
-        rootComponent?: T;
-        loadRootComponent?: () => Promise<React.ComponentClass>;
+        rootComponent?: React.ComponentClass<any, any>;
+        loadRootComponent?: () => Promise<React.ComponentClass<any, any>>;
         domElementGetter?: () => Element;
         suppressComponentDidCatchWarning?: boolean;
         parcelCanUpdate?: boolean;

@@ -7,9 +7,11 @@ interface customProps {
     name: string;
 }
 
-const rootComponent: React.SFC<customProps> = (props: customProps) => {
-    return <div> hello{props.name} !</div>;
-};
+class rootComponent extends React.Component<customProps> {
+    render() {
+        return <div> hello{this.props.name} !</div>;
+    }
+}
 
 // $ExpectType Lifecycles
 singleSpaReact({
