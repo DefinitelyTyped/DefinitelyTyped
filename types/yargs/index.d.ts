@@ -226,6 +226,7 @@ declare namespace yargs {
         skipValidation(key: string | ReadonlyArray<string>): Argv<T>;
 
         strict(): Argv<T>;
+        strict(enabled: boolean): Argv<T>;
 
         string<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToString<T[key]> }>;
         string<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: string | undefined }>;
