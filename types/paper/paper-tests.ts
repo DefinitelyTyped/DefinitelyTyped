@@ -81,6 +81,10 @@ hitTestResults = paper.project.hitTestAll(hitTestPoint, hitOptionsInterfaceFull)
 
 paper.view.scaling = new paper.Point(1, 1);
 
+paper.settings.insertItems = true
+const paperScope = new paper.PaperScope();
+paperScope.settings.insertItems = false;
+
 function Examples() {
     function BooleanOperations(){
         let text = new paper.PointText({

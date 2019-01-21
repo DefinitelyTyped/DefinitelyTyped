@@ -21,26 +21,7 @@ declare module paper {
     /**
     * Gives access to paper's configurable settings.
     */
-    export var settings: {
-        
-        /**
-         * controls whether newly created items are automatically inserted into the scene graph, by adding them to project.activeLayer — default: true
-         */
-        insertItems: boolean;
-        /**
-         * controls what value newly created items have their item.applyMatrix property set to (Note that not all items can set this to false) — default: true
-         */
-        applyMatrix: boolean;
-        /**
-         * the size of the curve handles when drawing selections — default: 4
-         */
-        handleSize: number;
-        /*
-         * the default tolerance for hit- tests, when no value is specified — default: 0
-         */
-        hitTolerance: number;
-
-    };
+    export var settings: Settings;
 
     /**
      * The currently active project.
@@ -1163,13 +1144,7 @@ declare module paper {
         /**
         * Gives access to paper's configurable settings.
         */
-        settings: {
-
-            applyMatrix: boolean;
-            handleSize: number;
-            hitTolerance: number;
-
-        };
+        settings: Settings;
 
         /**
          * The currently active project.
@@ -5480,6 +5455,25 @@ declare module paper {
          */
         type: 'mousedown' | 'mouseup' | 'mousedrag' | 'click' | 'doubleclick' | 'mousemove' | 'mouseenter' | 'mouseleave';
 
+    }
+	
+	export interface Settings {
+        /**
+         * controls whether newly created items are automatically inserted into the scene graph, by adding them to project.activeLayer — default: true
+         */
+        insertItems: boolean;
+        /**
+         * controls what value newly created items have their item.applyMatrix property set to (Note that not all items can set this to false) — default: true
+         */
+        applyMatrix: boolean;
+        /**
+         * the size of the curve handles when drawing selections — default: 4
+         */
+        handleSize: number;
+        /*
+         * the default tolerance for hit- tests, when no value is specified — default: 0
+         */
+        hitTolerance: number;
     }
 }
 
