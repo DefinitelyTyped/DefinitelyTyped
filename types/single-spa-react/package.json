@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "single-spa-react": "^2.9.0"
-    }
-}
