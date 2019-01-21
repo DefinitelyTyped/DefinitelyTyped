@@ -5,7 +5,11 @@
 // TypeScript Version: 2.2
 
 export class FeathersError extends Error {
-    constructor(msg: string | Error, name: string, code: number, className: string, data: any)
+    code: number;
+    className: string;
+    data: any;
+    errors: any;
+    constructor(msg: string | Error, name: string, code: number, className: string, data: any);
 }
 
 export class BadRequest extends FeathersError {
