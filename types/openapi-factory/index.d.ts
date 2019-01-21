@@ -2,7 +2,7 @@
 // Project: https://github.com/wparad/openapi-factory.js
 // Definitions by: Daan Boerlage <https://github.com/runebaas>, Daniel Hermyt <https://github.com/dhermyt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 declare namespace OpenApi {
     interface ApiOptions {
@@ -16,27 +16,27 @@ declare namespace OpenApi {
     }
 
     interface Authorizer {
-        jwt: string,
-        principalId: string
+        jwt: string;
+        principalId: string;
     }
 
     interface RequestContext {
-        authorizer: Authorizer
+        authorizer: Authorizer;
     }
 
-    interface HttpRequest {
-        headers?: {[key: string]: any},
-        queryStringParameters?: {[key: string]: any},
-        pathParameters?: {[key: string]: any},
-        httpMethod?: string,
-        body?: (object | string);
-        requestContext: RequestContext
+    interface HttpRequest<T> {
+        headers?: { [key: string]: string };
+        queryStringParameters?: { [key: string]: string };
+        pathParameters?: { [key: string]: string };
+        httpMethod?: string;
+        body?: T;
+        requestContext: RequestContext;
     }
 
-    interface HttpResponse {
+    interface HttpResponse<T> {
         statusCode?: number;
-        headers?: {[key: string]: any};
-        body?: (object | string);
+        headers?: { [key: string]: string };
+        body?: T;
     }
 }
 
@@ -47,29 +47,31 @@ declare class OpenApi {
     onEvent(onEventFunc: (req?: any) => Promise<any>): void;
     onSchedule(onScheduleFunc: (req?: any) => Promise<any>): void;
 
-    head(route: string, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
-    head(route: string, options: OpenApi.HttpMethodOptions, handler: (req?: any) => any): void;
+    /* tslint:disable:max-line-length no-unnecessary-generics */
+    head<RequestBodyType = void, ResponseBodyType = void>(route: string, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
+    head<RequestBodyType = void, ResponseBodyType = void>(route: string, options: OpenApi.HttpMethodOptions, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
 
-    get(route: string, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
-    get(route: string, options: OpenApi.HttpMethodOptions, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
+    get<RequestBodyType = void, ResponseBodyType = void>(route: string, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
+    get<RequestBodyType = void, ResponseBodyType = void>(route: string, options: OpenApi.HttpMethodOptions, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
 
-    post(route: string, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
-    post(route: string, options: OpenApi.HttpMethodOptions, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
+    post<RequestBodyType = void, ResponseBodyType = void>(route: string, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
+    post<RequestBodyType = void, ResponseBodyType = void>(route: string, options: OpenApi.HttpMethodOptions, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
 
-    put(route: string, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
-    put(route: string, options: OpenApi.HttpMethodOptions, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
+    put<RequestBodyType = void, ResponseBodyType = void>(route: string, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
+    put<RequestBodyType = void, ResponseBodyType = void>(route: string, options: OpenApi.HttpMethodOptions, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
 
-    patch(route: string, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
-    patch(route: string, options: OpenApi.HttpMethodOptions, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
+    patch<RequestBodyType = void, ResponseBodyType = void>(route: string, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
+    patch<RequestBodyType = void, ResponseBodyType = void>(route: string, options: OpenApi.HttpMethodOptions, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
 
-    delete(route: string, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
-    delete(route: string, options: OpenApi.HttpMethodOptions, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
+    delete<RequestBodyType = void, ResponseBodyType = void>(route: string, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
+    delete<RequestBodyType = void, ResponseBodyType = void>(route: string, options: OpenApi.HttpMethodOptions, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
 
-    options(route: string, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
-    options(route: string, options: OpenApi.HttpMethodOptions, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
+    options<RequestBodyType = void, ResponseBodyType = void>(route: string, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
+    options<RequestBodyType = void, ResponseBodyType = void>(route: string, options: OpenApi.HttpMethodOptions, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
 
-    any(route: string, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
-    any(route: string, options: OpenApi.HttpMethodOptions, handler: (req?: OpenApi.HttpRequest) => (OpenApi.HttpResponse | Promise<OpenApi.HttpResponse>)): void;
+    any<RequestBodyType = void, ResponseBodyType = void>(route: string, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
+    any<RequestBodyType = void, ResponseBodyType = void>(route: string, options: OpenApi.HttpMethodOptions, handler: (req: OpenApi.HttpRequest<RequestBodyType>) => (OpenApi.HttpResponse<ResponseBodyType | null> | Promise<OpenApi.HttpResponse<ResponseBodyType | null>>)): void;
+    /* tslint:enable:max-line-length no-unnecessary-generics */
 
     handler(event: object, context: object): Promise<any>;
 }
