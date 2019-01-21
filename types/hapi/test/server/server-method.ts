@@ -6,7 +6,7 @@ const server = new Server({
 });
 server.start();
 
-const add = (a: any, b: any) => {
+const add = (a: any, b: any): number => {
     return a + b;
 };
 

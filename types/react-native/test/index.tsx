@@ -33,6 +33,7 @@ import {
     ImageResolvedAssetSource,
     ImageBackground,
     InteractionManager,
+    Linking,
     ListView,
     ListViewDataSource,
     StyleSheet,
@@ -53,6 +54,9 @@ import {
     ScrollView,
     ScrollViewProps,
     SectionListRenderItemInfo,
+    Share,
+    ShareDismissedAction,
+    ShareSharedAction,
     Switch,
     RefreshControl,
     RegisteredStyle,
@@ -78,6 +82,7 @@ import {
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
+    DatePickerAndroid,
     ViewPropTypes,
     requireNativeComponent,
 } from "react-native";
@@ -404,6 +409,12 @@ export class CapsLockComponent extends React.Component<TextProps> {
         return <Text {...this.props}>{content.toUpperCase()}</Text>;
     }
 }
+
+const getInitialUrlTest = () => Linking.getInitialURL().then(val => {
+    if (val !== null) {
+        val.indexOf('val is now a string');
+    }
+})
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -762,13 +773,29 @@ const AlertIOSTest = () => {
 
 const ModalTest = () => <Modal hardwareAccelerated />;
 
-const TimePickerAndroidTest = () =>
+const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({
         hour: 8,
         minute: 15,
         is24Hour: true,
         mode: "spinner",
+    }).then(result => {
+        if (result.action === TimePickerAndroid.timeSetAction) {
+            console.log('Time', result.hour, result.minute)
+        }
     });
+}
+
+const DatePickerAndroidTest = () => {
+    DatePickerAndroid.open({
+        date: new Date(),
+        mode: 'calendar'
+    }).then(result => {
+        if (result.action === DatePickerAndroid.dateSetAction) {
+            console.log('Date', result.year, result.month, result.day)
+        }
+    });
+}
 
 class BridgedComponentTest extends React.Component {
     static propTypes = {
@@ -793,3 +820,17 @@ const NativeIDTest = () => (
         <Text nativeID={"nativeID"}>Text</Text>
     </ScrollView>
 );
+
+const ShareTest = () => {
+    Share.share(
+        { title: "title", message: "message" },
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red" }
+    );
+    Share.share({ title: "title", url: "url" });
+    Share.share({ message: "message" }).then(result => {
+        if (result.action === Share.sharedAction) {
+            const activity = result.activityType;
+        } else if (result.action === Share.dismissedAction) {
+        }
+    });
+};

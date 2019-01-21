@@ -8,3 +8,11 @@ bn.byteLength;
 
 bn.toArrayLike(Buffer, 'le', 2);
 const test = new BN(1, 'le');
+
+const ctx = BN.red('p224');
+ctx.prime.name;
+
+const red = bn.toRed(ctx);
+const newRed = red.redAdd(new BN(1));
+newRed.cmp(bn);
+newRed.fromRed();

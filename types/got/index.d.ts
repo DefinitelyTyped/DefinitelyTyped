@@ -1,4 +1,4 @@
-// Type definitions for got 9.3
+// Type definitions for got 9.4
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
@@ -226,6 +226,10 @@ declare namespace got {
         methods?: Array<'GET' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
         statusCodes?: Array<408 | 413 | 429 | 500 | 502 | 503 | 504>;
         maxRetryAfter?: number;
+        /**
+         * Allowed error codes.
+         */
+        errorCodes?: string[];
     }
 
     interface AgentOptions {

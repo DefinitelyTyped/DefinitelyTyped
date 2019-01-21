@@ -25,6 +25,7 @@
 //                 Ryan McCuaig <https://github.com/rgm>
 //                 Drew Wyatt <https://github.com/drewwyatt>
 //                 John Ottenlips <https://github.com/jottenlips>
+//                 Nitesh Phadatare <https://github.com/minitesh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -110,6 +111,7 @@
 /// <reference path="./es/indexBy.d.ts" />
 /// <reference path="./es/indexOf.d.ts" />
 /// <reference path="./es/init.d.ts" />
+/// <reference path="./es/innerJoin.d.ts" />
 /// <reference path="./es/insertAll.d.ts" />
 /// <reference path="./es/insert.d.ts" />
 /// <reference path="./es/intersection.d.ts" />
@@ -1166,6 +1168,23 @@ declare namespace R {
          */
         init<T>(list: ReadonlyArray<T>): T[];
         init(list: string): string;
+
+        /**
+         * Takes a predicate `pred`, a list `xs`, and a list `ys`, and returns a list
+         * `xs'` comprising each of the elements of `xs` which is equal to one or more
+         * elements of `ys` according to `pred`.
+         *
+         * `pred` must be a binary function expecting an element from each list.
+         *
+         * `xs`, `ys`, and `xs'` are treated as sets, semantically, so ordering should
+         * not be significant, but since `xs'` is ordered the implementation guarantees
+         * that its values are in the same order as they appear in `xs`. Duplicates are
+         * not removed, so `xs'` may contain duplicates if `xs` contains duplicates.
+         */
+
+        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
+        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
+        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
 
         /**
          * Inserts the supplied element into the list, at index index. Note that

@@ -26,7 +26,7 @@ import { Component, ComponentClass, ComponentType, Ref } from 'react';
 import { ImageRequireSource, ImageURISource, LinkingStatic as ReactNativeLinkingStatic, StyleProp, ViewProps, ViewStyle } from 'react-native';
 
 export type Axis = number;
-export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
+export type BarCodeScannedCallback = (params: { type: string; data: string; }) => void;
 export type Md5 = string;
 export type Orientation = 'portrait' | 'landscape';
 export type RequireSource = ImageRequireSource;
@@ -711,7 +711,7 @@ export interface BarCodeScannerProps extends ViewProps {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
-    onBarCodeRead?: BarCodeReadCallback;
+    onBarCodeScanned?: BarCodeScannedCallback;
 }
 
 export class BarCodeScanner extends Component<BarCodeScannerProps> {
@@ -805,7 +805,7 @@ export interface CameraProps extends ViewProps {
     flashMode?: string | number;
     /** Distance to plane of sharpest focus. A value between `0` and `1`. `0`: infinity focus, `1`: focus as close as possible. Default: `0`. For Android this is available only for some devices and when `useCamera2Api` is set to `true`. */
     focusDepth?: number;
-    onBarCodeRead?: BarCodeReadCallback;
+    onBarCodeScanned?: BarCodeScannedCallback;
     onCameraReady?: () => void;
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
     onMountError?: () => void;

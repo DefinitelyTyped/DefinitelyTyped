@@ -1299,8 +1299,8 @@ declare namespace math {
          * traversed. The function must return a boolean.
          */
         filter(
-            x: Matrix | MathArray,
-            test: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray) | RegExp
+            x: Matrix | MathArray | string[],
+            test: ((value: any, index: any, matrix: Matrix | MathArray | string[]) => boolean) | RegExp
         ): Matrix | MathArray;
 
         /**

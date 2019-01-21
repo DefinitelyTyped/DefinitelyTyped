@@ -1,6 +1,7 @@
-// Type definitions for auth0 2.9.2
+// Type definitions for auth0 2.9.3
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
+//                 Ian Howe <https://github.com/ianhowe76>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -32,7 +33,7 @@ export interface RetryOptions {
 }
 
 export interface UserMetadata {
-  [propName: string]: string
+  [propName: string]: any
 }
 
 export interface AppMetadata {
@@ -46,7 +47,9 @@ export interface UserData {
   verify_email?: boolean;
   password?: string;
   phone_number?: string;
-  phone_verified?: boolean,
+  phone_verified?: boolean;
+  given_name?: string;
+  family_name?: string;
   user_metadata?: UserMetadata;
   app_metadata?: AppMetadata;
 }

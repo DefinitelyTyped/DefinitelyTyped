@@ -208,6 +208,7 @@ function testMatch() {
     sinon.match.regexp.test('foo');
     sinon.match.date.test('foo');
     sinon.match.symbol.test('foo');
+    sinon.match.in([1, 2, 3]).test(1);
     sinon.match.same(obj);
     sinon.match.typeOf('string').test('foo');
     sinon.match.instanceOf(fn).test('foo');
