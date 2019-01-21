@@ -6,6 +6,6 @@
         "single-spa-react": "^2.9.0"
     },
     "scripts": {
-        "test": "tsc -p tsconfig.json"
+        "test": "dtslint -p tsconfig.json"
     }
 }
