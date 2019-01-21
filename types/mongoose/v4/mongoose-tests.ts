@@ -1361,10 +1361,6 @@ MongoModel.create([{ type: 'jelly bean' }, {
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
-MongoModel.syncIndexes({});
-MongoModel.syncIndexes({}, cb);
-MongoModel.listIndexes();
-MongoModel.listIndexes(cb);
 MongoModel.ensureIndexes({}, cb);
 MongoModel.find({ name: 'john', age: { $gte: 18 }});
 MongoModel.find({ name: 'john', age: { $gte: 18 }}, function (err, docs) {
