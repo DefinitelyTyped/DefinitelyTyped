@@ -1002,7 +1002,8 @@ let draw: ol.interaction.Draw = new ol.interaction.Draw({
     geometryName: stringValue,
     condition: ol.events.condition.never,
     freehandCondition: ol.events.condition.never,
-    wrapX: booleanValue
+    wrapX: booleanValue,
+    stopClick: booleanValue
 });
 draw = new ol.interaction.Draw({
     type: "Point",
