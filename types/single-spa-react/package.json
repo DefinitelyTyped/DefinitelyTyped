@@ -1,11 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "react": "^16.7.0",
-        "react-dom": "^16.7.0",
         "single-spa-react": "^2.9.0"
-    },
-    "scripts": {
-        "test": "dtslint -p tsconfig.json"
     }
 }
