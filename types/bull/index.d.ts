@@ -367,6 +367,11 @@ declare namespace Bull {
 
   interface Queue<T = any> {
     /**
+     * The name of the queue
+     */
+    name: string;
+
+    /**
      * Returns a promise that resolves when Redis is connected and the queue is ready to accept jobs.
      * This replaces the `ready` event emitted on Queue in previous verisons.
      */
