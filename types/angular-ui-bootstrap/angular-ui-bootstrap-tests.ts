@@ -1,4 +1,7 @@
-const testApp = angular.module('testApp');
+import * as angular from 'angular';
+import uiBootstrapModule from 'angular-ui-bootstrap';
+
+const testApp = angular.module('testApp', [uiBootstrapModule]);
 
 testApp.config((
     $accordionConfig: ng.ui.bootstrap.IAccordionConfig,

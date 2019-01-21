@@ -10,6 +10,9 @@
 
 import * as angular from 'angular';
 
+declare const defaultExport: 'ui.bootstrap';
+export default defaultExport;
+
 export type IAccordionConfig = angular.ui.bootstrap.IAccordionConfig;
 export type IButtonConfig = angular.ui.bootstrap.IButtonConfig;
 export type IDatepickerConfig = angular.ui.bootstrap.IDatepickerConfig;
