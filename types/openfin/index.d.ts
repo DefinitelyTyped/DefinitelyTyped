@@ -78,6 +78,7 @@ declare namespace fin {
         main(f: () => any): void;
         Application: OpenFinApplicationStatic;
         ExternalApp: OpenFinExternalApplicationStatic;
+        GlobalHotkey: OpenFinGlobalHotkey;
         InterApplicationBus: OpenFinInterApplicationBus;
         Notification: OpenFinNotificationStatic;
         System: OpenFinSystem;
@@ -310,6 +311,45 @@ declare namespace fin {
             listener: () => void,
             callback?: () => void,
             errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+    }
+
+   /**
+     * GlobalHotkey
+     * The Global Hotkey allows the registration and unregistration of given hotkeys at the OS level, meaning a Window/Application will receive the events regardless of focused state.
+     */
+    interface OpenFinGlobalHotkey {
+        /**
+         * Registers an event listener on the specified event.
+         */
+        addEventListener(
+            type: OpenFinGlobalHotkeyEventType,
+            listener: (event: GlobalHotkeyEvent) => void,
+            callback?: () => void,
+            errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Checks if a given hotkey has been registered
+         */
+        isRegistered(hotkey: string, callback?: (registered: boolean) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Registers a global hotkey with the operating system.
+         */
+        register(hotkey: string, listener: () => void, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Removes a previously registered event listener from the specified event.
+         */
+        removeEventListener(
+            type: OpenFinGlobalHotkeyEventType,
+            listener: (event: GlobalHotkeyEvent) => void,
+            callback?: () => void,
+            errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Unregisters a global hotkey with the operating system.
+         */
+        unregister(hotkey: string, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+        /**
+         * Unregisters all global hotkeys for the current application.
+         */
+        unregisterAll(callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
     }
 
     /**
@@ -982,6 +1022,21 @@ declare namespace fin {
         uuid: string;
     }
 
+    interface GlobalHotkeyEvent {
+        topic: string;
+        type: OpenFinGlobalHotkeyEventType;
+        /**
+         * The Identity that has just registered the hotkey
+         */
+        identity: {
+            name: string;
+            uuid: string;
+            parentFrame: string;
+            entityType: string;
+        },
+        hotkey: string;
+    }
+
     interface DesktopIconClickedEvent {
         mouse: {
             /**
@@ -1210,6 +1265,9 @@ declare namespace fin {
 
     type OpenFinExternalApplicationEventType = "connected"
         | "disconnected";
+
+    type OpenFinGlobalHotkeyEventType = "registered"
+        | "unregistered";
 
     type OpenFinSystemEventType = "application-closed"
         | "application-crashed"
