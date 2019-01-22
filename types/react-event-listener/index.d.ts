@@ -193,6 +193,8 @@ export interface EventListenerProps {
     onSeekingCapture?(ev: Event): any;
     onSelect?(ev: UIEvent): any;
     onSelectCapture?(ev: UIEvent): any;
+    onSelectionChange?(ev: UIEvent): any;
+    onSelectionChangeCapture?(ev: UIEvent): any;
     onStalled?(ev: Event): any;
     onStalledCapture?(ev: Event): any;
     onStorage?(ev: StorageEvent): any;
