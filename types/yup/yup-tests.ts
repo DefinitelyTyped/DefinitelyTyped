@@ -367,7 +367,7 @@ arrSchema.max(5, () => "max");
 arrSchema.min(5);
 arrSchema.min(5, "min");
 arrSchema.min(5, () => "min");
-arrSchema.compact(value => value === null);
+arrSchema.compact((value, index, array) => value === array[index]);
 
 yup.array(); // $ExpectType ArraySchema<{}>
 yup.array(yup.string()); // $ExpectType ArraySchema<string>
