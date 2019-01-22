@@ -91,7 +91,7 @@ export const graphql: GraphqlInterface;
 
 export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase = RelayRuntimeTypes.OperationDefaults> {
     cacheConfig?: RelayRuntimeTypes.CacheConfig;
-    dataFrom?: "NETWORK_ONLY" | "STORE_THEN_NETWORK";
+    dataFrom?: "NETWORK_ONLY"|"STORE_THEN_NETWORK";
     environment: RelayRuntimeTypes.Environment;
     query?: RelayRuntimeTypes.GraphQLTaggedNode | null;
     render(readyState: ReadyState<T["response"]>): React.ReactElement<any> | undefined | null;
