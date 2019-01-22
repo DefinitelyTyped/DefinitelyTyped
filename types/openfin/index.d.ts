@@ -62,6 +62,7 @@ declare namespace fin {
     type ProcessInfo = import('./_v2/api/system/process').ProcessInfo;
     type ProxyInfo = import('./_v2/api/system/proxy').ProxyInfo;
     type RegistryInfo = import('./_v2/api/system/registry-info').RegistryInfo;
+    type RuntimeInfo = import('./_v2/api/system/runtime-info').RuntimeInfo;
     type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
     type WindowDetail = import('./_v2/api/system/window').WindowDetail;
     type WindowInfo = import('./_v2/api/system/window').WindowInfo;
@@ -581,6 +582,10 @@ declare namespace fin {
          * Retrieves the Proxy settings.
          */
         getProxySettings(callback?: (proxy: ProxyInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Returns information about the running Runtime in an object.
+         */
+        getRuntimeInfo(callback?: (rvmInfo: RuntimeInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns information about the running RVM in an object.
          */

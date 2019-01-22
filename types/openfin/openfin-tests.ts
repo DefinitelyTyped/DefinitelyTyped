@@ -376,6 +376,13 @@ function test_system() {
     fin.desktop.System.getProxySettings(proxy => {
         console.log(proxy);
     });
+    // getRuntimeInfo
+    fin.desktop.System.getRuntimeInfo(runtimeInfoObject => {
+        console.log("Runtime version:", runtimeInfoObject.version);
+        console.log("Runtime architecture:", runtimeInfoObject["architecture"]);
+    }, err => {
+        console.log("Failed to get runtime info, error message:", err);
+    });
     // getRvmInfo
     fin.desktop.System.getRvmInfo(rvmInfoObject => {
         console.log("RVM version:", rvmInfoObject.version);
