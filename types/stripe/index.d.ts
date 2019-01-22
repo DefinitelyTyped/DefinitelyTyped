@@ -4606,7 +4606,7 @@ declare namespace Stripe {
              * cancel_at_period_end, canceled_at will still reflect the date of the initial cancellation request, not the end of the
              * subscription period when the subscription is automatically moved to a canceled state.
              */
-            canceled_at: number;
+            canceled_at: number | null;
 
             created: number;
 
@@ -4675,12 +4675,12 @@ declare namespace Stripe {
             /**
              * If the subscription has a trial, the end of that trial.
              */
-            trial_end: number;
+            trial_end: number | null;
 
             /**
              * If the subscription has a trial, the beginning of that trial.
              */
-            trial_start: number;
+            trial_start: number | null;
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the
