@@ -4642,9 +4642,10 @@ declare namespace Stripe {
             items: IList<subscriptionItems.ISubscriptionItem>;
 
             /**
-             * Hash describing the plan the customer is subscribed to
+             * Hash describing the plan the customer is subscribed to.  Only set if the subscription
+             * contains a single plan.
              */
-            plan: plans.IPlan;
+            plan?: plans.IPlan | null;
 
             /**
              * The number of subscriptions for the associated plan
