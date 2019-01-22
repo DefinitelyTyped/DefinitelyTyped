@@ -44,7 +44,7 @@ export type RequestHandlerParams = RequestHandler | ErrorRequestHandler | Array<
 export interface IRouterMatcher<T> {
     (path: PathParams, ...handlers: RequestHandler[]): T;
     (path: PathParams, ...handlers: RequestHandlerParams[]): T;
-    (path: PathParams, Application): T;
+    (path: PathParams, subApplication: Application): T;
 }
 
 export interface IRouterHandler<T> {
