@@ -3,4 +3,6 @@
 // Definitions by: Evangelos Zotos <https://github.com/evangeloszotos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function isFunction(fn: any): boolean;
+export = isFunction;
+declare function isFunction(fn: any): boolean;
+declare namespace isFunction {}
