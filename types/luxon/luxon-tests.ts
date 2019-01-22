@@ -39,6 +39,7 @@ dt.toLocaleString();
 dt.toLocaleString(DateTime.DATE_MED);
 dt.toISO();
 dt.toISO({includeOffset: true});
+dt.toSeconds();
 dt.toSQL();
 dt.toSQL({includeOffset: false, includeZone: true});
 dt.toSQLDate();
