@@ -6742,6 +6742,7 @@ export interface GetPhotosReturnType {
                 uri: string;
                 height: number;
                 width: number;
+                playableDuration: number;
                 isStored?: boolean;
             };
             timestamp: number;
