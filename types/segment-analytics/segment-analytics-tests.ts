@@ -13,6 +13,11 @@ var testProps = {
 var testOpts = {
   integrations: {
     Mixpanel: true
+  },
+  context: {
+    campaign: {
+      name: 'Cheese Promo'
+    }
   }
 };
 
