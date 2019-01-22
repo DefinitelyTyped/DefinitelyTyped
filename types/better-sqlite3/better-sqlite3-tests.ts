@@ -69,3 +69,12 @@ trans.default('name');
 trans.deferred('name');
 trans.immediate('name');
 trans.exclusive('name');
+
+const transTyped = db.transaction((param: number) => stmt.all(param));
+transTyped(1);
+trans.default(1);
+trans.deferred(1);
+trans.immediate(1);
+trans.exclusive(1);
+// $ExpectError
+transTyped('name');
