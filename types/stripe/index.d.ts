@@ -1999,7 +1999,7 @@ declare namespace Stripe {
              */
             description: string;
 
-            discount: coupons.IDiscount;
+            discount: coupons.IDiscount | null;
 
             /**
              * The date on which payment for this invoice is due. This value will be null for invoices where billing=charge_automatically.
@@ -4629,7 +4629,7 @@ declare namespace Stripe {
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
              * subscription overrides a discount applied on a customer-wide basis.
              */
-            discount: coupons.IDiscount;
+            discount: coupons.IDiscount | null;
 
             /**
              * If the subscription has ended (either because it was canceled or because the customer was switched to a subscription
