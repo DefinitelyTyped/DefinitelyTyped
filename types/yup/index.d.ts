@@ -7,6 +7,7 @@
 //                 Yash Kulshrestha <https://github.com/YashdalfTheGray>
 //                 Vincent Pizzo <https://github.com/vincentjames501>
 //                 Robert Bullen <https://github.com/robertbullen>
+//                 Yusuke Sato <https://github.com/sat0yu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
