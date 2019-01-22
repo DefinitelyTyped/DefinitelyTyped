@@ -137,6 +137,9 @@ namespace express_tests {
         req.next;
         res.req;
     });
+    
+    // Test mounting sub-apps
+    app.use('/sub-app', express());
 
     // Test on mount event
     app.on('mount', (parent) => true);
