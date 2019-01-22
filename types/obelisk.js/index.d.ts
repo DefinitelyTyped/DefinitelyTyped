@@ -1,8 +1,9 @@
-// Type definitions for obelisk.js v1.1.0
+// Type definitions for obelisk.js v1.2.1
 // Project: https://github.com/nosir/obelisk.js/
 // Definitions by: Brian Drupieski <https://github.com/bdrupieski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = obelisk;
 declare namespace obelisk {
 
     export var version: string;

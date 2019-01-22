@@ -1,3 +1,5 @@
+import * as obelisk from 'obelisk.js';
+
 function test_brick() {
     var canvas = <HTMLCanvasElement>document.getElementById('canvas-demo');
 
