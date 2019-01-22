@@ -18,4 +18,4 @@ interface DotDotDotProps {
 
 declare const Dotdotdot: ComponentType<DotDotDotProps>;
 
-export default Dotdotdot;
+export = Dotdotdot;
