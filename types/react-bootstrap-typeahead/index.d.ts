@@ -157,7 +157,7 @@ export interface TypeaheadProps<T> {
     renderMenuItemChildren?: (option: T, props: TypeaheadMenuProps<T>, index: number) => any;
 
     /* Provides a hook for customized rendering of tokens when multiple selections are enabled. */
-    renderToken?: (selectedItem: T | string, onRemove: () => void) => any;
+    renderToken?: (selectedItem: T | string, props: TypeaheadMenuProps<T>, index: number) => any;
 
     /* The selected option(s) displayed in the input. Use this prop if you want to control the component via its parent. */
     selected?: T[];
