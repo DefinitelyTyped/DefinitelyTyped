@@ -1156,9 +1156,18 @@ declare class Dockerode {
   listPlugins(callback: Callback<Dockerode.PluginInfo[]>): void;
   listPlugins(options?: {}): Promise<Dockerode.PluginInfo[]>;
 
-  listVolumes(options: {}, callback: Callback<any[]>): void;
-  listVolumes(callback: Callback<any[]>): void;
-  listVolumes(options?: {}): Promise<any[]>;
+  listVolumes(options: {}, callback: Callback<{
+    Volumes: Dockerode.VolumeInspectInfo[];
+    Warnings: string[];
+  }>): void;
+  listVolumes(callback: Callback<{
+    Volumes: Dockerode.VolumeInspectInfo[];
+    Warnings: string[];
+  }>): void;
+  listVolumes(options?: {}): Promise<{
+    Volumes: Dockerode.VolumeInspectInfo[];
+    Warnings: string[];
+  }>;
 
   listNetworks(options: {}, callback: Callback<any[]>): void;
   listNetworks(callback: Callback<any[]>): void;
