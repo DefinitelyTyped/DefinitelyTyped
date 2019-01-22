@@ -151,8 +151,8 @@ declare namespace Dockerode {
     modem: any;
     name: string;
 
-    inspect(callback: Callback<any>): void;
-    inspect(): Promise<any>;
+    inspect(callback: Callback<VolumeInspectInfo>): void;
+    inspect(): Promise<VolumeInspectInfo>;
 
     remove(options: {}, callback: Callback<any>): void;
     remove(callback: Callback<any>): void;
@@ -365,6 +365,22 @@ declare namespace Dockerode {
     Internal: boolean;
     Attachable: boolean;
     Ingress: boolean;
+  }
+
+  interface VolumeInspectInfo {
+    Name: string;
+    Driver: string;
+    Mountpoint: string;
+    Status?: { [key: string]: string };
+    Labels: { [key: string]: string };
+    Scope: 'local' | 'global';
+    // Field is always present, but sometimes is null
+    Options: { [key: string]: string } | null;
+    // Field is sometimes present, and sometimes null
+    UsageData?: {
+      Size: number;
+      RefCount: number;
+    } | null;
   }
 
   interface ContainerInspectInfo {
