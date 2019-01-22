@@ -11,7 +11,7 @@ new CleanCSS().minify(source, function (error, minified) {
 
 const pathToOutputDirectory = 'path';
 
-new CleanCSS({ sourceMap: true, target: pathToOutputDirectory })
+new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory })
   .minify(source, function (error, minified) {
     // access minified.sourceMap for SourceMapGenerator object
     // see https://github.com/mozilla/source-map/#sourcemapgenerator for more details
@@ -20,15 +20,15 @@ new CleanCSS({ sourceMap: true, target: pathToOutputDirectory })
 });
 
 const inputSourceMapAsString = 'input';
-new CleanCSS({ sourceMap: inputSourceMapAsString, target: pathToOutputDirectory })
-  .minify(source, function (error, minified) {
+new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory })
+  .minify(source, inputSourceMapAsString, function (error, minified) {
     // access minified.sourceMap to access SourceMapGenerator object
     // see https://github.com/mozilla/source-map/#sourcemapgenerator for more details
     // see https://github.com/jakubpawlowicz/clean-css/blob/master/bin/cleancss#L114 on how it's used in clean-css' CLI
-    console.log(minified.sourceMap);
+    console.log();
 });
 
-new CleanCSS({ sourceMap: true, target: pathToOutputDirectory }).minify({
+new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory }).minify({
   'path/to/source/1': {
     styles: '...styles...',
     sourceMap: '...source-map...'
