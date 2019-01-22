@@ -3,7 +3,6 @@
 // Definitions by: simonxca <https://github.com/simonxca>
 //                 horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
-//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -2501,29 +2500,6 @@ declare module "mongoose" {
     distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]>;
     distinct(field: string, conditions: any,
       callback?: (err: any, res: any[]) => void): Query<any[]>;
-
-    /**
-     * Makes the indexes in MongoDB match the indexes defined in this model's
-     * schema. This function will drop any indexes that are not defined in
-     * the model's schema except the `_id` index, and build any indexes that
-     * are in your schema but not in MongoDB.
-     * @param options options to pass to `ensureIndexes()`
-     * @param callback optional callback
-     * @return Returns `undefined` if callback is specified, returns a promise if no callback.
-     */
-    syncIndexes(options: object, callback?: (err: any) => void): void;
-    syncIndexes(options: object): Promise<void>;
-
-    /**
-     * Lists the indexes currently defined in MongoDB. This may or may not be
-     * the same as the indexes defined in your schema depending on whether you
-     * use the [`autoIndex` option](/docs/guide.html#autoIndex) and if you
-     * build indexes manually.
-     * @param cb optional callback
-     * @return Returns `undefined` if callback is specified, returns a promise if no callback.
-     */
-    listIndexes(callback: (err: any) => void): void;
-    listIndexes(): Promise<void>;
 
     /**
      * Sends ensureIndex commands to mongo for each index declared in the schema.
