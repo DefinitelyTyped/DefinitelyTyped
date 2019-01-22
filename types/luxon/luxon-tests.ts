@@ -91,6 +91,10 @@ DateTime.fromMillis(1527780819458).toMillis();
 
 const {input, result, zone} = DateTime.fromFormatExplain('Aug 6 1982', 'MMMM d yyyy');
 
+const guardedType: {} = {};
+function useDateTime(arg: DateTime) {}
+if (DateTime.isDateTime(guardedType)) useDateTime(guardedType);
+
 /* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 });
 dt.plus(dur);
@@ -102,6 +106,9 @@ dur.as('seconds');
 dur.toObject();
 dur.toISO();
 
+function useDuration(arg: Duration) {}
+if (Duration.isDuration(guardedType)) useDuration(guardedType);
+
 /* Interval */
 const later = DateTime.local();
 const i = Interval.fromDateTimes(now, later);
@@ -112,6 +119,9 @@ i.set({end: DateTime.local(2020)});
 
 i.toISO();
 i.toString();
+
+function useInterval(arg: Interval) {}
+if (Interval.isInterval(guardedType)) useInterval(guardedType);
 
 /* Info */
 Info.months();
