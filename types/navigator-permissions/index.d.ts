@@ -21,9 +21,9 @@ declare namespace NavigatorPermissions {
      * Permission state values.
      */
     type PermissionState =
-      'granted' |
-      'denied' |
-      'prompt';
+        'granted' |
+        'denied' |
+        'prompt';
 
     /**
      * The `PermissionStatus` interface of the Permissions API provides the state
@@ -54,22 +54,22 @@ declare namespace NavigatorPermissions {
      * Permission name options.
      */
     type PermissionName =
-      'accelerometer' |
-      'accessibility-events' |
-      'ambient-light-sensor' |
-      'background-sync' |
-      'camera' |
-      'clipboard-read' |
-      'clipboard-write' |
-      'geolocation' |
-      'gyroscope' |
-      'magnetometer' |
-      'microphone' |
-      'midi' |
-      'notifications' |
-      'payment-handler' |
-      'persistent-storage' |
-      'push';
+        'accelerometer' |
+        'accessibility-events' |
+        'ambient-light-sensor' |
+        'background-sync' |
+        'camera' |
+        'clipboard-read' |
+        'clipboard-write' |
+        'geolocation' |
+        'gyroscope' |
+        'magnetometer' |
+        'microphone' |
+        'midi' |
+        'notifications' |
+        'payment-handler' |
+        'persistent-storage' |
+        'push';
 
     /**
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Permissions/query}
@@ -103,31 +103,38 @@ declare namespace NavigatorPermissions {
     }
 
     // Map permission names to correctly typed descriptors.
-    interface NameDescriptorMap {
-      // ??? Question ???:
-      // Is there a better way to handle this case and remove repeated code,
-      // something like
-      // <N extends PermissionName, D extends PermissionDescriptor<N>> {
-      //   [n in N]: D; // this line to cover all basic cases
-      //   // and the custom permission descriptors for midi and push
-      // }
-      'accelerometer': PermissionDescriptor<'accelerometer'>;
-      'accessibility-events': PermissionDescriptor<'accessibility-events'>;
-      'ambient-light-sensor': PermissionDescriptor<'ambient-light-sensor'>;
-      'background-sync': PermissionDescriptor<'background-sync'>;
-      'camera': PermissionDescriptor<'camera'>;
-      'clipboard-read': PermissionDescriptor<'clipboard-read'>;
-      'clipboard-write': PermissionDescriptor<'clipboard-write'>;
-      'geolocation': PermissionDescriptor<'geolocation'>;
-      'gyroscope': PermissionDescriptor<'gyroscope'>;
-      'magnetometer': PermissionDescriptor<'magnetometer'>;
-      'microphone': PermissionDescriptor<'microphone'>;
-      'notifications': PermissionDescriptor<'notifications'>;
-      'payment-handler': PermissionDescriptor<'payment-handler'>;
-      'persistent-storage': PermissionDescriptor<'persistent-storage'>;
-      // These permission descriptors support extra properties
-      'midi': MidiPermissionDescriptor;
-      'push': PushPermissionDescriptor;
+    interface QueryNameDescriptorMap {
+        // ??? Question ???:
+        // Is there a better way to handle this case and remove repeated code,
+        // something like
+        // <N extends PermissionName, D extends PermissionDescriptor<N>> {
+        //   [n in N]: D; // this line to cover all basic cases
+        //   // and the custom permission descriptors for midi and push
+        // }
+        'accelerometer': PermissionDescriptor<'accelerometer'>;
+        'accessibility-events': PermissionDescriptor<'accessibility-events'>;
+        'ambient-light-sensor': PermissionDescriptor<'ambient-light-sensor'>;
+        'background-sync': PermissionDescriptor<'background-sync'>;
+        'camera': PermissionDescriptor<'camera'>;
+        'clipboard-read': PermissionDescriptor<'clipboard-read'>;
+        'clipboard-write': PermissionDescriptor<'clipboard-write'>;
+        'geolocation': PermissionDescriptor<'geolocation'>;
+        'gyroscope': PermissionDescriptor<'gyroscope'>;
+        'magnetometer': PermissionDescriptor<'magnetometer'>;
+        'microphone': PermissionDescriptor<'microphone'>;
+        'notifications': PermissionDescriptor<'notifications'>;
+        'payment-handler': PermissionDescriptor<'payment-handler'>;
+        'persistent-storage': PermissionDescriptor<'persistent-storage'>;
+        // These permission descriptors support extra properties
+        'midi': MidiPermissionDescriptor;
+        'push': PushPermissionDescriptor;
+    }
+
+    interface RevokeNameDescriptorMap {
+        'geolocation': PermissionDescriptor<'geolocation'>;
+        'notifications': PermissionDescriptor<'notifications'>;
+        'midi': MidiPermissionDescriptor;
+        'push': PushPermissionDescriptor;
     }
 
     /**
@@ -153,14 +160,14 @@ declare namespace NavigatorPermissions {
          * unsupported (e.g. `midi`, or `push` with `userVisibleOnly`).
          * @see  {@link https://developer.mozilla.org/en-US/docs/Web/API/Permissions/query}
          */
-        query(permissionDescriptor: NameDescriptorMap[keyof NameDescriptorMap]): Promise<PermissionStatus>;
+        query(permissionDescriptor: QueryNameDescriptorMap[keyof QueryNameDescriptorMap]): Promise<PermissionStatus>;
         /**
          * The `Permissions.revoke()` method of the `Permissions` interface reverts a
          * currently set permission back to its default state, which is usually `prompt`.
          *
          * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Permissions/revoke}
          */
-        revoke(permissionDescriptor: NameDescriptorMap[keyof NameDescriptorMap]): Promise<PermissionStatus>;
+        revoke(permissionDescriptor: RevokeNameDescriptorMap[keyof RevokeNameDescriptorMap]): Promise<PermissionStatus>;
     }
 
     /**
