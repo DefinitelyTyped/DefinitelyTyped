@@ -1,3 +1,5 @@
+declare let aHtmlElement: HTMLElement;
+
 // --------------------------------------------------------------------------------------
 // Modal
 // --------------------------------------------------------------------------------------
@@ -29,6 +31,10 @@ $(".dropdown").dropdown();
 
 $(".dropdown").dropdown("toggle");
 
+$(".dropdown").on("show.bs.dropdown", (e) => {
+    aHtmlElement = e.relatedTarget;
+});
+
 // --------------------------------------------------------------------------------------
 // Scrollspy
 // --------------------------------------------------------------------------------------
@@ -42,15 +48,32 @@ $(".navbar").scrollspy({
     offset: 10,
 });
 
+$('.navbar').on("activate.bs.scrollspy", () => {
+    // do something...
+});
+
+// --------------------------------------------------------------------------------------
+// Togglable tabs
+// --------------------------------------------------------------------------------------
+
+$(".tab").tab();
+
+$(".tab").tab("show");
+
+$(".tab").on("shown.bs.tab", (e) => {
+    aHtmlElement = e.target; // newly activated tab
+    aHtmlElement = e.relatedTarget; // previous active tab
+});
+
 // --------------------------------------------------------------------------------------
 // Tooltip
 // --------------------------------------------------------------------------------------
 
-$("#element").tooltip();
+$(".tooltip").tooltip();
 
-$("#element").tooltip("show");
+$(".tooltip").tooltip("show");
 
-$("#element").tooltip({
+$(".tooltip").tooltip({
     animation: true,
     container: false,
     delay: 0,
@@ -63,26 +86,26 @@ $("#element").tooltip({
     viewport: { selector: "body", padding: 0 },
 });
 
-$("#element").tooltip({
+$(".tooltip").tooltip({
     container: "body",
 });
 
-$("#element").tooltip({
+$(".tooltip").tooltip({
     delay: { show: 500, hide: 100 },
 });
 
-$("#element").tooltip({
+$(".tooltip").tooltip({
     placement() { return "top"; },
 });
 
-$("#element").tooltip({
+$(".tooltip").tooltip({
     placement(tooltip: HTMLElement, trigger: Element) {
         console.log(this.options.delay);
         return "top";
     },
 });
 
-$("#element").tooltip({
+$(".tooltip").tooltip({
     placement(tooltip: HTMLElement, trigger: Element) {
         // $ExpectError
         console.log(this.options.content); // only for PopoverOption, not TooltipOption
@@ -90,23 +113,27 @@ $("#element").tooltip({
     },
 });
 
-$("#element").tooltip({
+$(".tooltip").tooltip({
     title() { return this.id; },
 });
 
-$("#element").tooltip({
+$(".tooltip").tooltip({
     viewport: "body",
+});
+
+$(".tooltip").on("hidden.bs.tooltip", () => {
+    // do something...
 });
 
 // --------------------------------------------------------------------------------------
 // Popover
 // --------------------------------------------------------------------------------------
 
-$("#element").popover();
+$(".popover").popover();
 
-$("#element").popover("show");
+$(".popover").popover("show");
 
-$("#element").popover({
+$(".popover").popover({
     animation: true,
     container: false,
     content: "content",
@@ -120,35 +147,39 @@ $("#element").popover({
     viewport: { selector: "body", padding: 0 },
 });
 
-$("#element").popover({
+$(".popover").popover({
     container: "body",
 });
 
-$("#element").popover({
+$(".popover").popover({
     content() { return `Elem id: ${this.id}`; },
 });
 
-$("#element").popover({
+$(".popover").popover({
     delay: { show: 500, hide: 100 },
 });
 
-$("#element").popover({
+$(".popover").popover({
     placement() { return "top"; },
 });
 
-$("#element").popover({
+$(".popover").popover({
     placement(tooltip: HTMLElement, trigger: Element) {
         console.log(this.options.content);
         return "top";
     },
 });
 
-$("#element").popover({
+$(".popover").popover({
     title() { return `Elem id: ${this.id}`; },
 });
 
-$("#element").popover({
+$(".popover").popover({
     viewport: "body",
+});
+
+$(".popover").on("hidden.bs.popover", () => {
+    // do something...
 });
 
 // --------------------------------------------------------------------------------------
@@ -158,6 +189,10 @@ $("#element").popover({
 $(".alert").alert();
 
 $(".alert").alert("close");
+
+$(".alert").on("closed.bs.alert", () => {
+    // do something...
+});
 
 // --------------------------------------------------------------------------------------
 // Button
@@ -184,6 +219,10 @@ $(".collapse").collapse({
     toggle: false,
 });
 
+$(".collapse").on("hidden.bs.collapse", () => {
+    // do something...
+});
+
 // --------------------------------------------------------------------------------------
 // Carousel
 // --------------------------------------------------------------------------------------
@@ -207,6 +246,11 @@ $(".carousel").carousel({
 
 $(".carousel").carousel({
     pause: null,
+});
+
+$('#myCarousel').on('slide.bs.carousel', (e) => {
+    const dir: "left" | "right" = e.direction;
+    aHtmlElement = e.relatedTarget;
 });
 
 // --------------------------------------------------------------------------------------
