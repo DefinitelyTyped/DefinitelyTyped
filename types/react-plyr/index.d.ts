@@ -1,11 +1,15 @@
-// Type definitions for react-plyr 2.1.1
+// Type definitions for react-plyr 2.1
 // Project: https://github.com/xDae/react-plyr
 // Definitions by: baorv <https://github.com/baorv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {Component} from "react";
-import Player from "plyr";
+import { Component } from "react";
+
+interface OnVolumeChangeParam {
+    muted: boolean;
+    volume: number;
+}
 
 interface Props {
     type?: "youtube" | "vimeo" | "video" | "audio";
@@ -13,7 +17,7 @@ interface Props {
     videoId?: string;
     url?: string;
 
-    onReady?: (player?: Player) => void;
+    onReady?: (player?: any) => void;
     onPlay?: () => void;
     onPause?: () => void;
     onEnd?: () => void;
@@ -22,7 +26,7 @@ interface Props {
     onTimeUpdate?: (time?: number) => void;
     onEnterFullscreen?: () => void;
     onExitFullscreen?: () => void;
-    onVolumeChange?: ({muted: boolean, volume: number}) => void;
+    onVolumeChange?: (params: OnVolumeChangeParam) => void;
     onCaptionsEnabled?: () => void;
     onCaptionsDisabled?: () => void;
 
@@ -65,10 +69,6 @@ interface Props {
     tooltips?: {
         controls?: boolean;
         seek?: boolean
-    }
-    captions?: {
-        active?: boolean;
-        language?: string
     };
     fullscreen?: {
         enabled?: boolean;
@@ -84,65 +84,63 @@ interface Props {
 
     poster?: string;
     sources?: Array<{
-        src: string.isRequired;
-        type: string.isRequired;
+        src: string;
+        type: string;
         size?: string;
     }>;
     captions?: Array<{
         kind?: string;
         label?: string;
-        src: string.isRequired;
+        src: string;
         srclang?: string;
         default?: boolean;
-        key?: PropTypes.any;
+        key?: any;
     }>;
 }
 
 declare class Plyr extends Component<Props> {
-    public getType(): any
+    getType(): any;
 
-    public play()
+    play(): void;
 
-    public pause()
+    pause(): void;
 
-    public togglePlay()
+    togglePlay(): void;
 
-    public stop()
+    stop(): void;
 
-    public restart()
+    restart(): void;
 
-    public rewind(time: number)
+    rewind(time: number): void;
 
-    public forward(time: number)
+    forward(time: number): void;
 
-    public getCurrentTime(): number
+    getCurrentTime(): number;
 
-    public setCurrentTime(time: number)
+    setCurrentTime(time: number): void;
 
-    public getDuration(): number
+    getDuration(): number;
 
-    public getVolume(): number
+    getVolume(): number;
 
-    public isMuted(): boolean
+    isMuted(): boolean;
 
-    public isPaused(): boolean
+    isPaused(): boolean;
 
-    public toggleMute()
+    toggleMute(): void;
 
-    public setMuted(muted?: boolean)
+    setMuted(muted?: boolean): void;
 
-    public increaseVolume(step: boolean)
+    increaseVolume(step: boolean): void;
 
-    public decreaseVolume(step: boolean)
+    decreaseVolume(step: boolean): void;
 
-    public setVolume(amount: boolean)
+    setVolume(amount: boolean): void;
 
-    public enterFullscreen()
+    enterFullscreen(): void;
 
-    public exitFullscreen()
+    exitFullscreen(): void;
 
-    public toggleFullscreen()
-
+    toggleFullscreen(): void;
 }
-
 export default Plyr;
