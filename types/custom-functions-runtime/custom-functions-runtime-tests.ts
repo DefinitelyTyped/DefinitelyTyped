@@ -17,10 +17,10 @@ async function getStockValues(ticker: string): Promise<number> {
 
 async function getStockValuesCancellable(
     ticker: string,
-    handler: CustomFunctions.CancelableHandler
+    invocation: CustomFunctions.CancelableInvocation
 ): Promise<number> {
     let shouldStop = false;
-    handler.onCanceled = () => (shouldStop = true);
+    invocation.onCanceled = () => (shouldStop = true);
     await pause(1000);
 
     if (shouldStop) {
@@ -33,7 +33,7 @@ async function getStockValuesCancellable(
 
 function stockPriceStream(
     ticker: string,
-    handler: CustomFunctions.StreamingHandler<number>
+    invocation: CustomFunctions.StreamingInvocation<number>
 ) {
     const updateFrequency = 10 /* milliseconds*/;
     let isPending = false;
@@ -49,14 +49,14 @@ function stockPriceStream(
         try {
             const response = await fetch(url);
             const data = await response.json();
-            handler.setResult(data.price);
+            invocation.setResult(data.price);
         } catch (error) {
-            handler.setResult(error);
+            invocation.setResult(error);
         }
         isPending = false;
     }, updateFrequency);
 
-    handler.onCanceled = () => {
+    invocation.onCanceled = () => {
         clearInterval(timer);
     };
 }

@@ -15,41 +15,77 @@ Copyright (c) Microsoft Corporation
  */
 declare namespace CustomFunctions {
     /**
-     * @beta
      * Associates the JavaScript function to the name given by the "id" property in the metadata JSON file.
+     * @beta
      */
     function associate(id: string, functionObject: Function): void;
     /**
-     * @beta
      * Associates the JavaScript functions to the names given by the "id" properties in the metadata JSON file.
+     * @beta
      */
     function associate(mappings: { [key: string]: Function }): void;
 
     /**
-     * A handler passed automatically as the last parameter
-     * to a streaming function. With this parameter, a
-     * function can use handler.setResult to set a cell value
-     * or hook into the handler.onCanceled event to
-     * to handle what happens when the function stops streaming.
+     * Provides information about the invocation of a custom function.
      * @beta
      */
-    interface StreamingHandler<T> extends CancelableHandler {
+    interface Invocation {
         /**
-         * Sets the returned result for a streaming custom function.
-         * @beta
+         * The cell address where the function is being called, if requested, otherwise undefined.
+         * 
+         * To request the address for the function, in the metadata JSON file, the function options should specify:
+         * 
+         * {
+         *     "requiresAddress": "true"
+         * }
+         * 
+         * If the metadata JSON file is being generated from JSDoc comments, include the tag "@requiresAddress".
          */
-        setResult: (value: T | Error) => void;
+        address?: string;
     }
 
     /**
+     * Provides information about the invocation of a cancelable custom function,
+     * and allows providing a function to be called when the function is canceled.
      * @beta
-     * CancelableHandler interface
      */
-    interface CancelableHandler {
+    interface CancelableInvocation extends Invocation {
         /**
-         * Handles what should occur when a custom function is canceled.
+         * Event handler called when the custom function is canceled.
          * @beta
          */
         onCanceled: () => void;
+    }
+
+    /**
+     * Provides information and events for the invocation of a cancelable custom function.
+     * @beta
+     * @deprecated Use CancelableInvocation instead.
+     */
+    interface CancelableHandler extends CancelableInvocation {        
+    }
+
+    /**
+     * Provides information and events for the invocation of a streaming custom function whose result
+     * can change over time. Call setResult() one or more times to provide the result 
+     * rather than returning a value from the function.
+     * @beta
+     */
+    interface StreamingInvocation<ResultType> extends CancelableInvocation {
+        /**
+         * Sets the result for the custom function. May be called more than once.
+         * @beta
+         */
+        setResult: (value: ResultType | Error) => void;
+    }
+
+    /**
+     * Provides information and events for the invocation of a streaming custom function whose result
+     * can change over time. Call setResult() one or more times to provide the result 
+     * rather than returning a value from the function.
+     * @beta
+     * @deprecated Use StreamingInvocation<ResultType> instead.
+     */
+    interface StreamingHandler<ResultType> extends StreamingInvocation<ResultType> {
     }
 }
