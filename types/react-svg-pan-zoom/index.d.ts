@@ -1,4 +1,4 @@
-// Type definitions for react-svg-pan-zoom 2.5
+// Type definitions for react-svg-pan-zoom 2.18
 // Project: https://github.com/chrvadala/react-svg-pan-zoom#readme
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,6 +22,7 @@ export const POSITION_TOP = 'top';
 export const POSITION_RIGHT = 'right';
 export const POSITION_BOTTOM = 'bottom';
 export const POSITION_LEFT = 'left';
+export const POSITION_CENTER = 'center';
 
 export type Mode = typeof MODE_IDLE | typeof MODE_PANNING | typeof MODE_ZOOMING;
 
@@ -49,83 +50,141 @@ export type Tool = typeof TOOL_AUTO | typeof TOOL_NONE | typeof TOOL_PAN |
 										typeof TOOL_ZOOM_IN | typeof TOOL_ZOOM_OUT;
 export type ToolbarPosition = typeof POSITION_NONE | typeof POSITION_TOP | typeof POSITION_RIGHT |
 										typeof POSITION_BOTTOM | typeof POSITION_LEFT;
+export type MiniaturePosition = typeof POSITION_NONE | typeof POSITION_RIGHT | typeof POSITION_LEFT;
+
+export type SVGAlignX = typeof POSITION_LEFT | typeof  POSITION_CENTER | typeof POSITION_RIGHT;
+export type SVGAlignY = typeof POSITION_TOP | typeof POSITION_CENTER | typeof  POSITION_BOTTOM;
+
+export type ToolbarProps = {
+	// X Alignment used for "Fit to Viewer" action
+	SVGAlignX: SVGAlignX,
+
+	// Y Alignment used for "Fit to Viewer" action
+	SVGAlignY: SVGAlignY,
+};
 
 export interface OptionalProps {
-	// background of the viewer
-	background: string;
+	// Lock the viewer to a specific value
+	value: Value | null;
 
-	// background of the svg
+	// Callback called when the viewer changes its value
+	onChangeValue(value: Value): void;
+
+	// Callback called when the zoom level changes
+	onZoom(value: Value): void;
+
+	// Callback called when a pan action is performed
+	onPan(value: Value): void;
+
+	// Lock the viewer to a specific tool
+	tool: Tool;
+
+	// Callback called when the viewer changes the used tool
+	onChangeTool(tool: Tool): void;
+	// current active tool (TOOL_NONE, TOOL_PAN, TOOL_ZOOM_IN, TOOL_ZOOM_OUT)
+
+	// Background of the SVG
 	SVGBackground: string;
 
-	// value of the viewer (current point of view)
-	value: Value | null;
+	// Style of the SVG
+	SVGStyle: object;
+
+	// Background of the viewer
+	background: string;
 
 	// CSS style of the Viewer
 	style: object;
 
-	// className of the Viewer
+	// CSS class of the Viewer
 	className: string;
 
-	// detect zoom operation performed trough pinch gesture or mouse scroll
+	// Perform zoom operation on mouse scroll
 	detectWheel: boolean;
 
-	// perform PAN if the mouse is on viewer border
+	// Perform PAN if the mouse is on the border of the viewer
 	detectAutoPan: boolean;
 
-	// amount to scale by on scrollwheel zoom
-	scaleFactorOnWheel: number;
-
-	// miniature position
-	miniaturePosition: ToolbarPosition;
+	// Perform zoom operation on pinch gesture
+	detectPinchGesture: boolean;
 
 	// toolbar position
 	toolbarPosition: ToolbarPosition;
 
-	// handler something changed
-	onChangeValue(value: Value): void;
+	// Override toolbar component
+	customToolbar: React.Component<any> | React.StatelessComponent<any>;
 
-	// handler tool changed
-	onChangeTool(tool: Tool): void;
-
-	// Note: The `T` type parameter is the type of the `target` of the event:
-	// handler click
-	onClick<T>(event: ViewerMouseEvent<T>): void;
-
-	// handler double click
-	onDoubleClick<T>(event: ViewerMouseEvent<T>): void;
-
-	// handler mouseup
-	onMouseUp<T>(event: ViewerMouseEvent<T>): void;
-
-	// handler mousemove
-	onMouseMove<T>(event: ViewerMouseEvent<T>): void;
-
-	// handler mousedown
-	onMouseDown<T>(event: ViewerMouseEvent<T>): void;
-
-	// if disabled the user can move the image outside the viewer
-	preventPanOutside: boolean;
-
-	// how much scale in or out
-	scaleFactor: number;
-
-	// current active tool (TOOL_NONE, TOOL_PAN, TOOL_ZOOM_IN, TOOL_ZOOM_OUT)
-	tool: Tool;
-
+	// Array with modifier keys used with the tool auto to swap zoom in and zoom out
 	// modifier keys //https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
 	modifierKeys: string[];
 
-	// override default toolbar component
-	// TODO: specify function type more clearly
-	customToolbar: React.Component<any> | React.StatelessComponent<any>;
+	// User can't move the image outside the viewer
+	preventPanOutside: boolean;
 
-	// How about touch events? They are in README but not in `propTypes`.
+	// How much scale in or out (%)
+	scaleFactor: number;
+
+	// How much scale in or out on mouse wheel (requires detectWheel to be enabled) (%)
+	scaleFactorOnWheel: number;
+
+	// Maximum amount of scale a user can zoom in to
+	scaleFactorMax: number;
+
+	// Minimum amount of scale a user can zoom in to
+	scaleFactorMin: number;
+
+	// Miniature position
+	miniaturePosition: MiniaturePosition;
+
+	// Background of the miniature
+	miniatureBackground: string;
+
+	// Miniature width (px)
+	miniatureWidth: number;
+
+	// Miniature height (px)
+	miniatureHeight: number;
+
+	// Override miniature component
+	customMiniature: React.Component<any> | React.StatelessComponent<any>;
+
+	// Turn off zoom on double click
+	disableDoubleClickZoomWithToolAuto: boolean;
+
+	// Handler for click
+	onClick<T>(event: ViewerMouseEvent<T>): void;
+
+	// Handler for double click
+	onDoubleClick<T>(event: ViewerMouseEvent<T>): void;
+
+	// Handler for mouseup
+	onMouseUp<T>(event: ViewerMouseEvent<T>): void;
+
+	// Handler for mousemove
+	onMouseMove<T>(event: ViewerMouseEvent<T>): void;
+
+	// Handler for mousedown
+	onMouseDown<T>(event: ViewerMouseEvent<T>): void;
+
+	// Handler for touchstart
+	onTouchStart<T>(event: ViewerTouchEvent<T>): void;
+
+	// Handler for touchmove
+	onTouchMove<T>(event: ViewerTouchEvent<T>): void;
+
+	// Handler for touchend
+	onTouchEnd<T>(event: ViewerTouchEvent<T>): void;
+
+	// Handler for touchcancel
+	onTouchCancel<T>(event: ViewerTouchEvent<T>): void;
+
+	// Toolbar settings
+	toolbarProps: ToolbarProps;
 }
 
 export interface RequiredProps {
-	// width of the viewer displayed on screen
+	// Width of the viewer displayed on screen
 	width: number;
-	// height of the viewer displayed on screen
+	// Height of the viewer displayed on screen
 	height: number;
 
 	// accept only one node SVG
@@ -140,7 +199,7 @@ export class ReactSVGPanZoom extends React.Component<Props> {
 	pan(SVGDeltaX: number, SVGDeltaY: number): void;
 	zoom(SVGPointX: number, SVGPointY: number, scaleFactor: number): void;
 	fitSelection(selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): void;
-	fitToViewer(): void;
+	fitToViewer(SVGAlignX?: SVGAlignX, SVGAlignY?: SVGAlignY): void;
 	setPointOnViewerCenter(SVGPointX: number, SVGPointY: number, zoomLevel: number): void;
 	reset(): void;
 	zoomOnViewerCenter(scaleFactor: number): void;
@@ -181,17 +240,20 @@ export interface ViewerTouchEvent<T> {
 }
 
 // Utility functions exposed:
-export function pan(value: Value, SVGDeltaX: number, SVGDeltaY: number, panLimit?: number): Value;
+export function pan(value: Value, SVGDeltaX: number, SVGDeltaY: number): Value;
 
 export function zoom(value: Value, SVGPointX: number, SVGPointY: number, scaleFactor: number): Value;
 
-export function fitSelection(
-	value: Value, selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): Value;
+export function fitSelection(value: Value, selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): Value;
 
-export function fitToViewer(value: Value): Value;
-
-export function zoomOnViewerCenter(value: Value, scaleFactor: number): Value;
+export function fitToViewer(value: Value, SVGAlignX?: SVGAlignX, SVGAlignY?: SVGAlignY): Value;
 
 export function setPointOnViewerCenter(value: Value, SVGPointX: number, SVGPointY: number, zoomLevel: number): Value;
 
-export function reset(value: Value): Value;
+export function reset(value: Value, ): Value;
+
+export function zoomOnViewerCenter(value: Value, scaleFactor: number): Value;
+
+export function getTool(value: Value, ): Tool;
+
+export function setTool(value: Value, tool: Tool): Value;
