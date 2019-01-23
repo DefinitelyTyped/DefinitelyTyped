@@ -72,6 +72,12 @@ export interface OptionalProps {
 	// perform PAN if the mouse is on viewer border
 	detectAutoPan: boolean;
 
+	// amount to scale by on scrollwheel zoom
+	scaleFactorOnWheel: number;
+
+	// miniature position
+	miniaturePosition: ToolbarPosition;
+
 	// toolbar position
 	toolbarPosition: ToolbarPosition;
 
