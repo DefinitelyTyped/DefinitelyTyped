@@ -262,13 +262,13 @@ async () => {
     <AppLoading />
 );
 
-const barcodeReadCallback = () => {};
+const barCodeScannedCallback = () => {};
 () => (
     <BarCodeScanner
         type="front"
         torchMode="off"
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
-        onBarCodeRead={barcodeReadCallback} />
+        onBarCodeScanned={barCodeScannedCallback} />
 );
 
 () => (

@@ -1013,6 +1013,10 @@ export interface TextInputIOSProps {
      * For iOS 11+ you can set `textContentType` to `username` or `password` to
      * enable autofill of login details from the device keychain.
      *
+     * For iOS 12+ `newPassword` can be used to indicate a new password input the
+     * user may want to save in the keychain, and `oneTimeCode` can be used to indicate
+     * that a field can be autofilled by a code arriving in an SMS.
+     *
      * To disable autofill, set textContentType to `none`.
      *
      * Possible values for `textContentType` are:
@@ -1043,6 +1047,8 @@ export interface TextInputIOSProps {
      *  - `'telephoneNumber'`
      *  - `'username'`
      *  - `'password'`
+     *  - `'newPassword'`
+     *  - `'oneTimeCode'`
      *
      */
     textContentType?:
@@ -1071,7 +1077,9 @@ export interface TextInputIOSProps {
         | "sublocality"
         | "telephoneNumber"
         | "username"
-        | "password";
+        | "password"
+        | "newPassword"
+        | "oneTimeCode";
 
     /**
      * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
@@ -6709,6 +6717,17 @@ export type ShareOptions = {
     tintColor?: string;
 };
 
+export type ShareSharedAction = {
+    action: "sharedAction";
+    activityType?: string;
+};
+
+export type ShareDismissedAction = {
+    action: "dismissedAction"
+};
+
+export type ShareAction = ShareSharedAction | ShareDismissedAction;
+
 export interface ShareStatic {
     /**
      * Open a dialog to share text content.
@@ -6742,9 +6761,9 @@ export interface ShareStatic {
      * - `dialogTitle`
      *
      */
-    share(content: ShareContent, options?: ShareOptions): Promise<Object>;
-    sharedAction: string;
-    dismissedAction: string;
+    share(content: ShareContent, options?: ShareOptions): Promise<ShareAction>;
+    sharedAction: "sharedAction";
+    dismissedAction: "dismissedAction";
 }
 
 type AccessibilityEventName = "change" | "announcementFinished";
@@ -7138,6 +7157,7 @@ export interface GetPhotosReturnType {
                 uri: string;
                 height: number;
                 width: number;
+                playableDuration: number;
                 isStored?: boolean;
             };
             timestamp: number;
@@ -7234,12 +7254,18 @@ export interface DatePickerAndroidOpenOptions {
 }
 
 // Deduced from DatePickerAndroid.android.js
-export interface DatePickerAndroidOpenReturn {
-    action: string; // "dateSetAction" | "dismissedAction"
-    year?: number;
-    month?: number;
-    day?: number;
+export interface DatePickerAndroidDateSetAction {
+    action: 'dateSetAction';
+    year: number;
+    month: number;
+    day: number;
 }
+
+export interface DatePickerAndroidDismissedAction {
+    action: 'dismissedAction';
+}
+
+export type DatePickerAndroidOpenReturn = DatePickerAndroidDateSetAction | DatePickerAndroidDismissedAction
 
 export interface DatePickerAndroidStatic {
     /**
@@ -7265,12 +7291,12 @@ export interface DatePickerAndroidStatic {
     /**
      * A date has been selected.
      */
-    dateSetAction: string;
+    dateSetAction: 'dateSetAction';
 
     /**
      * The dialog has been dismissed.
      */
-    dismissedAction: string;
+    dismissedAction: 'dismissedAction';
 }
 
 export interface IntentAndroidStatic {
@@ -7309,7 +7335,7 @@ export interface IntentAndroidStatic {
 
         @deprecated
         */
-    getInitialURL(callback: (url: string) => void): void;
+    getInitialURL(callback: (url: string | null) => void): void;
 }
 
 export interface LinkingStatic extends NativeEventEmitter {
@@ -7344,7 +7370,7 @@ export interface LinkingStatic extends NativeEventEmitter {
      * If the app launch was triggered by an app link with, it will give the link url, otherwise it will give null
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
-    getInitialURL(): Promise<string>;
+    getInitialURL(): Promise<string | null>;
 }
 
 export interface LinkingIOSStatic {
@@ -8010,12 +8036,24 @@ export class StatusBar extends React.Component<StatusBarProps> {
  */
 export interface StatusBarIOSStatic extends NativeEventEmitter {}
 
-type TimePickerAndroidOpenOptions = {
+export interface TimePickerAndroidOpenOptions {
     hour?: number;
     minute?: number;
     is24Hour?: boolean;
     mode?: "clock" | "spinner" | "default";
-};
+}
+
+export interface TimePickerAndroidTimeSetAction {
+    action: 'timeSetAction';
+    hour: number;
+    minute: number;
+}
+
+export interface TimePickerAndroidDismissedAction {
+    action: 'dismissedAction';
+}
+
+export type TimePickerAndroidOpenReturn = TimePickerAndroidTimeSetAction | TimePickerAndroidDismissedAction;
 
 /**
  * Opens the standard Android time picker dialog.
@@ -8057,17 +8095,17 @@ export interface TimePickerAndroidStatic {
      * still be resolved with action being `TimePickerAndroid.dismissedAction` and all the other keys
      * being undefined. **Always** check whether the `action` before reading the values.
      */
-    open(options: TimePickerAndroidOpenOptions): Promise<{ action: string; hour: number; minute: number }>;
+    open(options: TimePickerAndroidOpenOptions): Promise<TimePickerAndroidOpenReturn>;
 
     /**
      * A time has been selected.
      */
-    timeSetAction: string;
+    timeSetAction: 'timeSetAction';
 
     /**
      * The dialog has been dismissed.
      */
-    dismissedAction: string;
+    dismissedAction: 'dismissedAction';
 }
 
 /**
@@ -8677,6 +8715,8 @@ export namespace Animated {
     export const Image: any;
     export const Text: any;
     export const ScrollView: any;
+    export const FlatList: any;
+    export const SectionList: any;
 }
 
 // tslint:disable-next-line:interface-name

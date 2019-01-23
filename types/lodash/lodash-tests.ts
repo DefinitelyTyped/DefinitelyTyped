@@ -1766,6 +1766,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     fp.filter("", dictionary); // $ExpectType AbcObject[]
     fp.filter({ a: 42 }, dictionary); // $ExpectType AbcObject[]
     fp.filter(["a", 42], dictionary); // $ExpectType AbcObject[]
+    fp.filter((s: string) => s === "a")(["a", "b"]); // $ExpectType string[]
+    fp.filter((s: string) => s === "a")("ab"); // $ExpectType string[]
 
     // Test filtering with type guard
     const a2: Array<string | number> | null | undefined = anything;
@@ -2337,7 +2339,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
-    fp.forEach(stringIterator, ""); // $ExpectType string
+    fp.forEach(stringIterator, ""); // $ExpectType ArrayLike<string>
     fp.forEach(valueIterator, array); // $ExpectType AbcObject[]
     fp.forEach(valueIterator)(array); // $ExpectType AbcObject[]
     fp.forEach(valueIterator, list); // $ExpectType ArrayLike<AbcObject>

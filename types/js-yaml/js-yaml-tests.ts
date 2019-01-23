@@ -73,6 +73,9 @@ dumpOpts = {
 	indent: num
 };
 dumpOpts = {
+	noArrayIndent: bool
+};
+dumpOpts = {
 	skipInvalid: bool
 };
 dumpOpts = {

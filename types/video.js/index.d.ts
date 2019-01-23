@@ -4613,6 +4613,7 @@ declare namespace videojs {
 		languages?: { [code: string]: LanguageTranslations };
 		loop?: boolean;
 		muted?: boolean;
+		nativeControlsForTouch?: boolean;
 		notSupportedMessage?: string;
 		playbackRates?: number[];
 		plugins?: any;

@@ -2773,6 +2773,7 @@ declare namespace sequelize {
          * Defaults to false
          */
         silent?: boolean;
+        hooks?: boolean;
 
     }
 

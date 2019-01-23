@@ -907,7 +907,9 @@ export interface DirectionsRoute {
      * contains a single `points` object that holds an encoded polyline representation of the route.
      * This polyline is an approximate (smoothed) path of the resulting directions.
      */
-    overview_polyline: string;
+    overview_polyline: {
+        points: string;
+    };
     /** contains the viewport bounding box of the `overview_polyline`. */
     bounds: LatLngBounds;
     /** contains the copyrights text to be displayed for this route. You must handle and display this information yourself. */

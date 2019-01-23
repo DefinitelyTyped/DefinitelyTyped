@@ -32,7 +32,7 @@ export interface SpaceProps<C> extends BaseProps<C> {
 
 export interface BoxProps extends SpaceProps<BoxClass> {
     className?: string;
-    width?: number | ReadonlyArray<number>;
+    width?: number | string | ReadonlyArray<number>;
     fontSize?: number | ReadonlyArray<number>;
     css?: Object;
     color?: string;
