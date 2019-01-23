@@ -112,6 +112,10 @@ declare namespace obelisk {
         getByHorizontalColor(horizontal: number): SlopeColor;
     }
 
+    export class LineColor extends AbstractColor {
+        constructor(border?: number, inner?: number);
+    }
+
     export class AbstractDimension {
         constructor();
 
@@ -143,6 +147,18 @@ declare namespace obelisk {
 
     export class SlopeDimension extends AbstractDimension {
         constructor(xAxis?: number, yAxis?: number);
+    }
+
+    export class LineXDimension extends AbstractDimension {
+        constructor(axis?: number);
+    }
+
+    export class LineYDimension extends AbstractDimension {
+        constructor(axis?: number);
+    }
+
+    export class LineZDimension extends AbstractDimension {
+        constructor(axis?: number);
     }
 
     export class BitmapData {
@@ -225,5 +241,17 @@ declare namespace obelisk {
 
     export class SlopeWest extends AbstractPrimitive {
         constructor(dimension?: SlopeDimension, color?: SlopeColor, border?: boolean, useDefaultCanvas?: boolean);
+    }
+
+    export class LineX extends AbstractPrimitive {
+        constructor(dimension?: LineXDimension, color?: LineColor, useDefaultCanvas?: boolean);
+    }
+
+    export class LineY extends AbstractPrimitive {
+        constructor(dimension?: LineYDimension, color?: LineColor, useDefaultCanvas?: boolean);
+    }
+
+    export class LineZ extends AbstractPrimitive {
+        constructor(dimension?: LineZDimension, color?: LineColor, useDefaultCanvas?: boolean);
     }
 }
