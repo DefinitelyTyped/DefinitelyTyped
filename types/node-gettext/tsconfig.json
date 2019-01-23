@@ -15,7 +15,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",
