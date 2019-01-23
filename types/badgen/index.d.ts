@@ -2,9 +2,9 @@
 // Project: https://github.com/amio/badgen
 // Definitions by: m5d215 <https://github.com/m5d215>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.7
 
-export type ColorPresets =
+type ColorPresets =
     | 'green'
     | 'blue'
     | 'red'
@@ -17,7 +17,7 @@ export type ColorPresets =
     | 'cyan'
     | 'black';
 
-export interface BadgeCreationParams {
+interface BadgeCreationParams {
     /**
      * Text representing the subject.
      */
@@ -50,4 +50,6 @@ export interface BadgeCreationParams {
     iconWidth?: number;
 }
 
-export default function badgen(params: BadgeCreationParams): string;
+declare function badgen(params: BadgeCreationParams): string;
+
+export = badgen;
