@@ -1,8 +1,8 @@
 // Type definitions for Custom Functions 1.4
 // Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, 
+// Definitions by: OfficeDev <https://github.com/OfficeDev>,
 //                 Adam Krantz <https://github.com/akrantz>,
-//                 Michael Zlatkovsky <https://github.com/Zlatkovsky>, 
+//                 Michael Zlatkovsky <https://github.com/Zlatkovsky>,
 //                 Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -36,10 +36,10 @@ declare namespace CustomFunctions {
         /**
          * @beta
          * The cell address where the function is being called, if requested, otherwise undefined.
-         * 
+         *
          * To request the address for the function, in the metadata JSON file, the function options should specify:
          * `{ "requiresAddress": true }`
-         * 
+         *
          * If the metadata JSON file is being generated from JSDoc comments, include the tag `@requiresAddress`.
          */
         address?: string;
@@ -49,10 +49,10 @@ declare namespace CustomFunctions {
      * @beta
      * Provides information about the invocation of a cancelable custom function.
      * A cancelable custom function can provide a handler for the onCanceled event.
-     * 
+     *
      * To indicate that a function is cancelable, in the metadata JSON file, the function options should specify:
      * `{ "cancelable": true }`
-     * 
+     *
      * If the metadata JSON file is being generated from JSDoc comments, include the tag `@cancelable`.
      */
     interface CancelableInvocation extends Invocation {
@@ -67,14 +67,14 @@ declare namespace CustomFunctions {
      * @beta
      * @deprecated Use `CancelableInvocation` instead.
      */
-    interface CancelableHandler extends CancelableInvocation {        
+    interface CancelableHandler extends CancelableInvocation {
     }
 
     /**
      * @beta
      * Provides information about the invocation of a streaming custom function.
      * A streaming custom function can provide results which can change over time.
-     * 
+     *
      * Call `setResult()` one or more times to provide the result instead of returning
      * a result from the function.
      */
