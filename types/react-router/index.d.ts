@@ -83,8 +83,8 @@ export interface RouteChildrenProps<
 
 export interface RouteProps {
   location?: H.Location;
-  // Use {} to prevent weak type detection
-  component?: React.ComponentType<RouteComponentProps| {}>;
+  // Use React.ComponentType to prevent weak type detection because no properties are supplied
+  component?: React.ComponentType<RouteComponentProps> | React.ComponentType;
   render?: ((props: RouteComponentProps) => React.ReactNode);
   children?: ((props: RouteChildrenProps) => React.ReactNode) | React.ReactNode;
   path?: string | string[];
