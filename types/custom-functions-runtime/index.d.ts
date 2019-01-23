@@ -1,6 +1,9 @@
 // Type definitions for Custom Functions 1.4
 // Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Michelle Scharlock <https://github.com/mscharlock>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>, 
+//                 Adam Krantz <https://github.com/akrantz>,
+//                 Michael Zlatkovsky <https://github.com/Zlatkovsky>, 
+//                 Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -36,7 +39,7 @@ declare namespace CustomFunctions {
          * To request the address for the function, in the metadata JSON file, the function options should specify:
          * 
          * {
-         *     "requiresAddress": "true"
+         *     "requiresAddress": true
          * }
          * 
          * If the metadata JSON file is being generated from JSDoc comments, include the tag "@requiresAddress".
@@ -45,9 +48,17 @@ declare namespace CustomFunctions {
     }
 
     /**
-     * Provides information about the invocation of a cancelable custom function,
-     * and allows providing a function to be called when the function is canceled.
+     * Provides information about the invocation of a cancelable custom function.
+     * A cancelable custom function can provide a handler for the onCanceled event.
      * @beta
+     * 
+     * To indicate that a function is cancelable, in the metadata JSON file, the function options should specify:
+     * 
+     * {
+     *     "cancelable": true
+     * }
+     * 
+     * If the metadata JSON file is being generated from JSDoc comments, include the tag "@cancelable".
      */
     interface CancelableInvocation extends Invocation {
         /**
@@ -58,7 +69,7 @@ declare namespace CustomFunctions {
     }
 
     /**
-     * Provides information and events for the invocation of a cancelable custom function.
+     * Provides information about the invocation of a cancelable custom function.
      * @beta
      * @deprecated Use CancelableInvocation instead.
      */
@@ -66,9 +77,11 @@ declare namespace CustomFunctions {
     }
 
     /**
-     * Provides information and events for the invocation of a streaming custom function whose result
-     * can change over time. Call setResult() one or more times to provide the result 
-     * rather than returning a value from the function.
+     * Provides information about the invocation of a streaming custom function.
+     * A streaming custom function can provide results which can change over time.
+     * 
+     * Call setResult() one or more times to provide the result instead of returning
+     * a result from the function.
      * @beta
      */
     interface StreamingInvocation<ResultType> extends CancelableInvocation {
@@ -80,9 +93,7 @@ declare namespace CustomFunctions {
     }
 
     /**
-     * Provides information and events for the invocation of a streaming custom function whose result
-     * can change over time. Call setResult() one or more times to provide the result 
-     * rather than returning a value from the function.
+     * Provides information about the invocation of a streaming custom function.
      * @beta
      * @deprecated Use StreamingInvocation<ResultType> instead.
      */
