@@ -1,6 +1,6 @@
 // Type definitions for react-svg-pan-zoom 2.18
 // Project: https://github.com/chrvadala/react-svg-pan-zoom#readme
-// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
+// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>, Eamonn Hayden <https://github.com/EamonnES>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
