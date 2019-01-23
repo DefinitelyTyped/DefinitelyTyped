@@ -68,6 +68,9 @@ export interface ToISOTimeOptions {
     includeOffset?: boolean;
 }
 
+// alias for backwards compatibility
+export type ISOTimeOptions = ToISOTimeOptions;
+
 export interface LocaleOptions {
     locale?: string;
     outputCalendar?: string;
