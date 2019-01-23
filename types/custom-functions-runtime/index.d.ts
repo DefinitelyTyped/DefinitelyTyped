@@ -16,9 +16,14 @@ Copyright (c) Microsoft Corporation
 declare namespace CustomFunctions {
     /**
      * @beta
-     * Ties together the function's JavaScript name with the JSON id property
+     * Associates the JavaScript function to the name given by the "id" property in the metadata JSON file.
      */
     function associate(id: string, functionObject: Function): void;
+    /**
+     * @beta
+     * Associates the JavaScript functions to the names given by the "id" properties in the metadata JSON file.
+     */
+    function associate(mappings: { [key: string]: Function }): void;
 
     /**
      * A handler passed automatically as the last parameter
@@ -28,7 +33,6 @@ declare namespace CustomFunctions {
      * to handle what happens when the function stops streaming.
      * @beta
      */
-
     interface StreamingHandler<T> extends CancelableHandler {
         /**
          * Sets the returned result for a streaming custom function.
@@ -36,6 +40,7 @@ declare namespace CustomFunctions {
          */
         setResult: (value: T | Error) => void;
     }
+
     /**
      * @beta
      * CancelableHandler interface

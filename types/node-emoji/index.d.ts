@@ -2,6 +2,7 @@
 // Project: https://github.com/omnidan/node-emoji#readme
 // Definitions by: Tristan Jones <https://github.com/jonestristand>
 //                 styu <https://github.com/styu>
+//                 rimiti <https://github.com/rimiti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export const emoji: {
@@ -1362,4 +1363,4 @@ export function unemojify(str: string): string;
 export function find(emoji: string): Emoji;
 export function hasEmoji(str: string): boolean;
 export function strip(str: string): string;
-export function replace(str: string, callback: (emoji: Emoji) => string): string;
+export function replace(str: string, replacement: ((emoji: Emoji) => string) | string, cleanSpaces?: boolean): string;

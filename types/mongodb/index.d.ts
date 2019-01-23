@@ -1022,7 +1022,7 @@ export type Condition<T, P extends keyof T> = {
         $caseSensitive?: boolean;
         $diacraticSensitive?: boolean;
     };
-    $where: Object;
+    $where?: Object;
     $geoIntersects?: Object;
     $geoWithin?: Object;
     $near?: Object;

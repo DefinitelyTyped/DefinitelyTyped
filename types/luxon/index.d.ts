@@ -1,9 +1,10 @@
-// Type definitions for luxon 1.4
+// Type definitions for luxon 1.10
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
 //                 Jonathan Siebern <https://github.com/jsiebern>
 //                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Pietro Vismara <https://github.com/pietrovismara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -21,6 +22,35 @@ declare module 'luxon' {
 
         type ToFormatOptions = DateTimeFormatOptions & {
             round?: boolean;
+        };
+
+        type ToRelativeOptions = {
+            /** The DateTime to use as the basis to which this time is compared. Defaults to now. */
+            base?: DateTime;
+            locale?: string;
+            style?: 'long' | 'short' | 'narrow';
+            /** If omitted, the method will pick the unit. */
+            unit?: 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
+            /** Defaults to `true`. */
+            round?: boolean;
+            /**
+             * Padding in milliseconds. This allows you to round up the result if it fits inside the threshold.
+             * Don't use in combination with {round: false} because the decimal output will include the padding.
+             * Defaults to 0.
+             */
+            padding?: number;
+            /** The Intl system may choose not to honor this */
+            numberingSystem?: string;
+        };
+
+        type ToRelativeCalendarOptions = {
+            /** The DateTime to use as the basis to which this time is compared. Defaults to now. */
+            base?: DateTime;
+            locale?: string;
+            /** If omitted, the method will pick the unit. */
+            unit?: 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second';
+            /** The Intl system may choose not to honor this. */
+            numberingSystem?: string;
         };
 
         type ToSQLOptions = {
@@ -115,6 +145,7 @@ declare module 'luxon' {
                 text: string,
                 options?: DateTimeOptions
             ): DateTime;
+            static fromSeconds(seconds: number, options?: DateTimeOptions): DateTime;
             static fromSQL(text: string, options?: DateTimeOptions): DateTime;
             static fromFormat(
                 text: string,
@@ -196,6 +227,7 @@ declare module 'luxon' {
             weeksInWeekYear: number;
             year: number;
             zoneName: string;
+            zone: Zone;
             diff(
                 other: DateTime,
                 unit?: DurationUnit | DurationUnit[],
@@ -229,7 +261,10 @@ declare module 'luxon' {
             toMillis(): number;
             toMillis(): number;
             toObject(options?: { includeConfig?: boolean }): DateObject;
+            toRelative(options?: ToRelativeOptions): string | null;
+            toRelativeCalendar(options?: ToRelativeCalendarOptions): string | null;
             toRFC2822(): string;
+            toSeconds(): number;
             toSQL(options?: ToSQLOptions): string;
             toSQLDate(): string;
             toSQLTime(options?: ToSQLOptions): string;
@@ -393,6 +428,7 @@ declare module 'luxon' {
             toISO(options?: ISOTimeOptions): string;
             toString(): string;
             union(other: Interval): Interval;
+            mapEndpoints(cb: (d: DateTime) => DateTime): Interval;
         }
 
         namespace Settings {

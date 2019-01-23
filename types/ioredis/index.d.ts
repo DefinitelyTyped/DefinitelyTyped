@@ -10,6 +10,7 @@
 //                 Dmitry Motovilov <https://github.com/funthing>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 Ting-Wai To <https://github.com/tingwai-to>
+//                 Alex Petty <https://github.com/pettyalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -971,8 +972,13 @@ declare namespace IORedis {
         count?: number;
     }
 
+    type DNSLookupFunction = (hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+    interface NatMap {
+        [key: string]: {host: string, port: number};
+    }
+
     interface ClusterOptions {
-        clusterRetryStrategy?(times: number): number;
+        clusterRetryStrategy?(times: number, reason?: Error): number | null;
         enableOfflineQueue?: boolean;
         enableReadyCheck?: boolean;
         scaleReads?: string;
@@ -980,7 +986,12 @@ declare namespace IORedis {
         retryDelayOnFailover?: number;
         retryDelayOnClusterDown?: number;
         retryDelayOnTryAgain?: number;
+        slotsRefreshTimeout?: number;
+        slotsRefreshInterval?: number;
         redisOptions?: RedisOptions;
+        lazyConnect?: boolean;
+        dnsLookup?: DNSLookupFunction;
+        natMap?: NatMap;
     }
 
     interface MultiOptions {

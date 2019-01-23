@@ -1442,6 +1442,10 @@ declare namespace Sinon {
          */
         symbol: SinonMatcher;
         /**
+         * Requires the value to be in the specified array.
+         */
+        in(allowed: any[]): SinonMatcher;
+        /**
          * Requires the value to strictly equal ref.
          */
         same(obj: any): SinonMatcher;

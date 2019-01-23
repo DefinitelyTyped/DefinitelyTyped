@@ -22,9 +22,22 @@ declare module paper {
     * Gives access to paper's configurable settings.
     */
     export var settings: {
-
+        
+        /**
+         * controls whether newly created items are automatically inserted into the scene graph, by adding them to project.activeLayer — default: true
+         */
+        insertItems: boolean;
+        /**
+         * controls what value newly created items have their item.applyMatrix property set to (Note that not all items can set this to false) — default: true
+         */
         applyMatrix: boolean;
+        /**
+         * the size of the curve handles when drawing selections — default: 4
+         */
         handleSize: number;
+        /*
+         * the default tolerance for hit- tests, when no value is specified — default: 0
+         */
         hitTolerance: number;
 
     };
@@ -1563,7 +1576,7 @@ declare module paper {
          * The shadow’s offset.
          * Default - 0
          */
-        shadowOffset: number;
+        shadowOffset: number | number[] | {x: number, y: number} | Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
@@ -4371,7 +4384,7 @@ declare module paper {
          * The shadow's offset.
          * Default: 0
          */
-        shadowOffset?: Point;
+        shadowOffset?: number | number[] | {x: number, y: number} | Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.

@@ -171,7 +171,7 @@ declare namespace WebdriverIO {
     }
 
     interface Capabilities {
-        browserName: string;
+        browserName?: string;
         acceptInsecureCerts?: boolean;
         browserVersion?: string;
         platformName?: string;
@@ -278,6 +278,7 @@ declare namespace WebdriverIO {
         platformVersion?: string;
         automationName?: string;
         app?: string;
+        deviceName?: string;
 
         cleanSession?: boolean;
 

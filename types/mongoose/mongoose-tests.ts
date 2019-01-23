@@ -522,12 +522,15 @@ mongoose.Schema.reserved.hasOwnProperty('');
 /* inherited properties */
 schema.addListener('e', cb);
 /* practical examples */
-var animalSchema = new mongoose.Schema({
+interface Animal {
+  findSimilarTypes(cb: any): Promise<Animal>
+}
+var animalSchema = new mongoose.Schema<Animal>({
   name: String,
   type: String
 });
-animalSchema.methods.findSimilarTypes = function (cb: any) {
-  return this.model('Aminal').find({ type: this.type }, cb);
+animalSchema.methods.findSimilarTypes = function (cb) {
+  return this.model('Animal').find({ type: this.type }, cb);
 };
 var Animal: any = mongoose.model('Animal', animalSchema);
 var dog: any = new Animal({type: 'dog'});
@@ -1633,6 +1636,10 @@ MongoModel.create([{ type: 'jelly bean' }, {
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
+MongoModel.syncIndexes({});
+MongoModel.syncIndexes({}, cb);
+MongoModel.listIndexes();
+MongoModel.listIndexes(cb);
 MongoModel.ensureIndexes({}, cb);
 MongoModel.find({ name: 'john', age: { $gte: 18 }});
 MongoModel.find({ name: 'john', age: { $gte: 18 }}, function (err, docs) {
