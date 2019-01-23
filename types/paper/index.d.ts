@@ -1803,7 +1803,7 @@ declare module paper {
          * @param options.insert: Boolean — whether the imported items should be added to the item that importSVG() is called on.
          * @param options.applyMatrix  Boolean — whether the imported items should have their transformation matrices applied to their contents or not.
          */
-        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: true; applyMatrix?: Matrix; }): Item;
+        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: boolean; applyMatrix?: Matrix; }): Item;
 
          /**
          * Converts the provided SVG content into Paper.js items and adds them to the active layer of this project.
