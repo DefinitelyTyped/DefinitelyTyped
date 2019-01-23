@@ -3,6 +3,7 @@
 // Definitions by: C Lentfort <https://github.com/clentfort>,
 //                 J Giancono <https://github.com/jasongi-at-sportsbet>,
 //                 Alex Shakun <https://github.com/sashashakun>
+//                 Hiep Le <https://github.com/hieptuanle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
