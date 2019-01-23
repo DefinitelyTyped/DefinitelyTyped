@@ -5,9 +5,9 @@
 
 declare function defaultFaviconPlugin(): void;
 
-declare namespace fastifyFavicon {
+declare namespace defaultFaviconPlugin {
   interface FastifyFaviconOptions {
-    path: string;
+    path?: string;
   }
 }
 
