@@ -11,7 +11,11 @@ import {
   CurrentRefinementsProvided,
   connectCurrentRefinements,
   RefinementListProvided,
-  Refinement
+  Refinement,
+  connectHighlight,
+  connectHits,
+  HighlightProvided,
+  HighlightProps
 } from 'react-instantsearch-core';
 
 () => {
@@ -219,3 +223,57 @@ import {
   <ConnectedRefinementList attribute={'test'} searchable={true} operator={'and'}
     showMore={true} limit={8} showMoreLimit={99} />;
 };
+
+() => {
+  interface MyDoc {
+    a: 1;
+    b: {
+      c: '2'
+    };
+  }
+
+  const CustomHighlight = connectHighlight<MyDoc>(
+    ({ highlight, attribute, hit }) => {
+      const highlights = highlight({
+        highlightProperty: '_highlightResult',
+        attribute,
+        hit
+      });
+
+      return <>
+        {highlights.map(part => part.isHighlighted ? (
+          <mark>{part.value}</mark>
+        ) : (
+          <span>{part.value}</span>
+        ))
+      }</>;
+    }
+  );
+
+  class CustomHighlight2 extends React.Component<HighlightProps & { limit: number }> {
+    render() {
+      const {highlight, attribute, hit, limit} = this.props;
+      const highlights = highlight({
+        highlightProperty: '_highlightResult',
+        attribute,
+        hit
+      });
+
+      return <>
+        {highlights.slice(0, limit).map(part => part.isHighlighted ? (
+          <mark>{part.value}</mark>
+        ) : (
+          <span>{part.value}</span>
+        ))
+      }</>;
+    }
+  }
+  const ConnectedCustomHighlight2 = connectHighlight(CustomHighlight2);
+
+  connectHits<MyDoc>(({ hits }) => (
+    <p>
+      <CustomHighlight attribute="name" hit={hits[0]} />
+      <ConnectedCustomHighlight2 attribute="name" hit={hits[1]} limit={7} />
+    </p>
+  ));
+}

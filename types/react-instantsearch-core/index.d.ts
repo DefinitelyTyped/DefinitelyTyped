@@ -208,7 +208,52 @@ export function connectGeoSearch(stateless: React.StatelessComponent<GeoSearchPr
 export function connectGeoSearch<TProps extends Partial<GeoSearchProvided<THit>>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, GeoSearchProvided<THit>, GeoSearchExposed>;
 
 export function connectHierarchicalMenu(Composed: React.ComponentType<any>): React.ComponentClass<any>;
-export function connectHighlight(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+
+
+export interface HighlightProvided<TDoc = any> {
+  /**
+   * function to retrieve and parse an attribute from a hit. It takes a configuration object with 3 attributes:
+   * * highlightProperty which is the property that contains the highlight structure from the records,
+   * * attribute which is the name of the attribute (it can be either a string or an array of strings) to look for,
+   * * hit which is the hit from Algolia.
+   * It returns an array of objects {value: string, isHighlighted: boolean}.
+   * If the element that corresponds to the attribute is an array of strings, it will return a nested array of objects.
+   * In this case you should cast the result:
+   * ```ts
+   * highlight({
+   *  attribute: 'my_string_array',
+   *  hit,
+   *  highlightProperty: '_highlightResult'
+   * }) as Array<Array<{value: string, isHighlighted: boolean}>>
+   * ```
+   */
+  highlight(configuration: {
+    attribute: string,
+    hit: Hit<TDoc>,
+    highlightProperty: string,
+    preTag?: string,
+    postTag?: string,
+  }): Array<{value: string, isHighlighted: boolean}>
+}
+
+interface HighlightPassedThru<TDoc = any> {
+  hit: Hit<TDoc>
+  attribute: string
+  highlightProperty?: string
+}
+
+export type HighlightProps<TDoc = any> = HighlightProvided<TDoc> & HighlightPassedThru<TDoc>
+
+/**
+ * connectHighlight connector provides the logic to create an highlighter component that will retrieve, parse and render an highlighted attribute from an Algolia hit.
+ */
+export function connectHighlight<TDoc = any>(stateless: React.StatelessComponent<HighlightProps<TDoc>>): React.ComponentClass<HighlightPassedThru<TDoc>>;
+export function connectHighlight<TProps extends Partial<HighlightProps<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, HighlightProvided<TDoc>>;
+
+interface HitsProvided<THit> {
+  /** the records that matched the search state */
+  hits: Hit<THit>[]
+}
 
 /**
  * connectHits connector provides the logic to create connected components that will render the results retrieved from Algolia.
@@ -217,7 +262,8 @@ export function connectHighlight(Composed: React.ComponentType<any>): React.Comp
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
-export function connectHits<TProps extends { hits: THit[] }, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, { hits?: THit[] }>;
+export function connectHits<THit = BasicDoc>(stateless: React.StatelessComponent<HitsProvided<THit>>): React.ComponentClass<HighlightPassedThru>;
+export function connectHits<TProps extends HitsProvided<THit>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, HitsProvided<THit>>;
 
 export function connectHitsPerPage(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
