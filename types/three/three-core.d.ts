@@ -4850,7 +4850,7 @@ export class Vector3 implements Vector {
 
     applyQuaternion(q: Quaternion): this;
 
-    project(camrea: Camera): this;
+    project(camera: Camera): this;
 
     unproject(camera: Camera): this;
 
