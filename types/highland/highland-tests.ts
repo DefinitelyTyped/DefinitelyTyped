@@ -305,7 +305,7 @@ barStream = barStreamStream.sequence();
 
 barStream = fooStream.series<Bar>();
 
-barStream = fooStream.through(x => bar);
+bar = fooStream.through(x => bar);
 barStream = fooStream.through(readwritable);
 
 fooStream = fooStream.zip(fooStream);
