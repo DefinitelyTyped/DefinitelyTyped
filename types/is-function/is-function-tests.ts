@@ -1,4 +1,4 @@
-import * as isFunction from "is-function";
+import isFunction = require("is-function");
 
 const a: boolean = isFunction("string");
 const b: boolean = isFunction(true);
