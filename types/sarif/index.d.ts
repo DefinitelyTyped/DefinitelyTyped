@@ -26,10 +26,8 @@ export interface Log {
 }
 
 export namespace Log {
-    // tslint:disable-next-line no-const-enum
-    const enum version {
-        v2_0_0_csd_2_beta_2018_10_10 = "2.0.0-csd.2.beta.2018-10-10",
-    }
+    type version =
+        "2.0.0-csd.2.beta.2018-10-10";
 }
 
 /**
@@ -304,21 +302,19 @@ export interface File {
 }
 
 export namespace File {
-    // tslint:disable-next-line no-const-enum
-    const enum roles {
-        analysisTarget = "analysisTarget",
-        attachment = "attachment",
-        responseFile = "responseFile",
-        resultFile = "resultFile",
-        standardStream = "standardStream",
-        traceFile = "traceFile",
-        unmodifiedFile = "unmodifiedFile",
-        modifiedFile = "modifiedFile",
-        addedFile = "addedFile",
-        deletedFile = "deletedFile",
-        renamedFile = "renamedFile",
-        uncontrolledFile = "uncontrolledFile",
-    }
+    type roles =
+        "analysisTarget" |
+        "attachment" |
+        "responseFile" |
+        "resultFile" |
+        "standardStream" |
+        "traceFile" |
+        "unmodifiedFile" |
+        "modifiedFile" |
+        "addedFile" |
+        "deletedFile" |
+        "renamedFile" |
+        "uncontrolledFile";
 }
 
 /**
@@ -789,12 +785,10 @@ export interface Notification {
 }
 
 export namespace Notification {
-    // tslint:disable-next-line no-const-enum
-    const enum level {
-        note = "note",
-        warning = "warning",
-        error = "error",
-    }
+    type level =
+        "note" |
+        "warning" |
+        "error";
 }
 
 /**
@@ -1098,26 +1092,22 @@ export interface Result {
 }
 
 export namespace Result {
-    // tslint:disable-next-line no-const-enum
-    const enum level {
-        notApplicable = "notApplicable",
-        pass = "pass",
-        note = "note",
-        warning = "warning",
-        error = "error",
-        open = "open",
-    }
-    // tslint:disable-next-line no-const-enum
-    const enum suppressionStates {
-        suppressedInSource = "suppressedInSource",
-        suppressedExternally = "suppressedExternally",
-    }
-    // tslint:disable-next-line no-const-enum
-    const enum baselineState {
-        new = "new",
-        existing = "existing",
-        absent = "absent",
-    }
+    type level =
+        "notApplicable" |
+        "pass" |
+        "note" |
+        "warning" |
+        "error" |
+        "open";
+
+    type suppressionStates =
+        "suppressedInSource" |
+        "suppressedExternally";
+
+    type baselineState =
+        "new" |
+        "existing" |
+        "absent";
 }
 
 /**
@@ -1207,13 +1197,11 @@ export interface RuleConfiguration {
 }
 
 export namespace RuleConfiguration {
-    // tslint:disable-next-line no-const-enum
-    const enum defaultLevel {
-        note = "note",
-        warning = "warning",
-        error = "error",
-        open = "open",
-    }
+    type defaultLevel =
+        "note" |
+        "warning" |
+        "error" |
+        "open";
 }
 
 /**
@@ -1324,11 +1312,9 @@ export interface Run {
 }
 
 export namespace Run {
-    // tslint:disable-next-line no-const-enum
-    const enum columnKind {
-        utf16CodeUnits = "utf16CodeUnits",
-        unicodeCodePoints = "unicodeCodePoints",
-    }
+    type columnKind =
+        "utf16CodeUnits" |
+        "unicodeCodePoints";
 }
 
 /**
@@ -1509,12 +1495,10 @@ export interface ThreadFlowLocation {
 }
 
 export namespace ThreadFlowLocation {
-    // tslint:disable-next-line no-const-enum
-    const enum importance {
-        important = "important",
-        essential = "essential",
-        unimportant = "unimportant",
-    }
+    type importance =
+        "important" |
+        "essential" |
+        "unimportant";
 }
 
 /**
