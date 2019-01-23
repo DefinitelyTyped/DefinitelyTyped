@@ -19,6 +19,7 @@
 //                 Maksim Sharipov <https://github.com/pret-a-porter>
 //                 Duong Tran <https://github.com/t49tran>
 //                 Ben Smith <https://github.com/8enSmith>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -81,16 +82,27 @@ export interface RouteChildrenProps<
   match: match<Params> | null;
 }
 
-export interface RouteProps {
+// Denote the three ways to render something with a router
+export interface RoutePropsRenderMethodComponent {
+  component: React.ComponentType<RouteComponentProps> | React.ComponentType;
+}
+export interface RoutePropsRenderMethodRender {
+  render: ((props: RouteComponentProps) => React.ReactNode);
+}
+export interface RoutePropsRenderMethodChildren {
+  children: ((props: RouteChildrenProps) => React.ReactNode) | React.ReactNode;
+}
+export type RoutePropsRenderMethod = RoutePropsRenderMethodComponent | RoutePropsRenderMethodRender | RoutePropsRenderMethodChildren;
+
+export interface BaseRouteProps {
   location?: H.Location;
-  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-  render?: ((props: RouteComponentProps<any>) => React.ReactNode);
-  children?: ((props: RouteChildrenProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string | string[];
   exact?: boolean;
   sensitive?: boolean;
   strict?: boolean;
 }
+export type RouteProps = BaseRouteProps & RoutePropsRenderMethod;
+
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
 
 export interface RouterProps {
