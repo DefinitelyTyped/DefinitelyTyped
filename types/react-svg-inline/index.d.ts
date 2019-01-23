@@ -1,6 +1,7 @@
-// Type definitions for react-svg-inline 2.1
+// Type definitions for react-svg-inline 3.1
 // Project: https://github.com/MoOx/react-svg-inline
 // Definitions by: kiyopikko <https://github.com/kiyopikko>
+//                 Hiroshi Ioka <https://github.com/hirochachacha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -15,8 +16,8 @@ declare namespace svgInline {
         fill?: string;
         cleanup?: boolean | Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup">;
         cleanupExceptions?: Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup">;
-        width?: string;
-        height?: string;
+        width?: string | number;
+        height?: string | number;
         accessibilityLabel?: string;
         accessibilityDesc?: string;
     }

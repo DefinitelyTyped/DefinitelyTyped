@@ -24,7 +24,9 @@ const svgInlines = [
     <SVGInline svg={"<svg><g></g></svg>"} cleanup={["desc", "sketchMSPage", "sketchMSShapeGroup", "sketchMSLayerGroup"]} />,
     <SVGInline svg={"<svg><g></g></svg>"} cleanupExceptions={["title"]} />,
     <SVGInline svg={"<svg><g></g></svg>"} width={"16"} />,
+    <SVGInline svg={"<svg><g></g></svg>"} width={16} />,
     <SVGInline svg={"<svg><g></g></svg>"} height={"32px"} />,
+    <SVGInline svg={"<svg><g></g></svg>"} height={32} />,
     <SVGInline svg={"<svg><g></g></svg>"} accessibilityLabel={"User-friendly Label"} />,
     <SVGInline svg={"<svg><g></g></svg>"} accessibilityDesc={"This description is easy to understand."} />,
 ];
