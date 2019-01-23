@@ -27,7 +27,8 @@
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
     },
     "bundleDependencies": [],
-    "contributors": [{
+    "contributors": [
+        {
             "name": "Xiao Ling",
             "url": "https://github.com/yushulx"
         },
