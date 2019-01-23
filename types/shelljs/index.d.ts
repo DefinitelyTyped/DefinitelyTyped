@@ -4,6 +4,7 @@
 //                 Vojtech Jasny <https://github.com/voy>
 //                 George Kalpakas <https://github.com/gkalpak>
 //                 Paul Huynh <https://github.com/pheromonez>
+//                 Alexander Futász <https://github.com/aldafu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -50,7 +51,7 @@ export function find(...path: Array<string | string[]>): ShellArray;
  * @param source  The source.
  * @param   dest  The destination.
  */
-export function cp(source: string | string[], dest: string): void;
+export function cp(source: string | string[], dest: string): ShellArray;
 
 /**
  * Copies files. The wildcard * is accepted.
