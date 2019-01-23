@@ -21,7 +21,7 @@ export default class CoreObject {
      * An overridable method called when objects are instantiated. By default,
      * does nothing unless it is overridden during class definition.
      */
-    init(): void;
+    init(...args: any[]): void;
 
     /**
      * Defines the properties that will be concatenated from the superclass (instead of overridden).
@@ -56,7 +56,7 @@ export default class CoreObject {
     /**
      * Override to implement teardown.
      */
-    willDestroy(): void;
+    willDestroy(...arguments: any[]): void;
 
     /**
      * Returns a string representation which attempts to provide more information than Javascript's toString
