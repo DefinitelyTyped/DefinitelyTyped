@@ -19,7 +19,6 @@
 // DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
 // UNINTERRUPTED OR ERROR FREE.
 //
-/// <reference path='./src/viewer.d.ts' />
 
 export class AuthClientTwoLegged {
     constructor(clientId: string, clientSecret: string, scope: string[]);
