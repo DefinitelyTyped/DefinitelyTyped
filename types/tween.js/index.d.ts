@@ -1,4 +1,4 @@
-// Type definitions for tween.js v16.9.0
+// Type definitions for tween.js v17.2.0
 // Project: https://github.com/tweenjs/tween.js/
 // Definitions by: jordan <https://github.com/Amos47>, sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>, alexburner <https://github.com/alexburner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,11 +13,14 @@ declare namespace TWEEN {
 
     export class Tween {
         constructor(object?: any, group?: Group);
+        getId(): number;
+        isPlaying():boolean;
         to(properties: any, duration: number): Tween;
         start(time?: number): Tween;
         stop(): Tween;
         end(): Tween;
         stopChainedTweens(): Tween;
+        group(group: Group): Tween;
         delay(amount: number): Tween;
         repeat(times: number): Tween;
         repeatDelay(times: number): Tween;
@@ -73,7 +76,7 @@ interface Easing {
         In(k: number): number;
         Out(k: number): number;
         InOut(k: number): number;
-    };
+    };group
     Exponential: {
         In(k: number): number;
         Out(k: number): number;
