@@ -7,6 +7,7 @@
 //                 Yash Kulshrestha <https://github.com/YashdalfTheGray>
 //                 Vincent Pizzo <https://github.com/vincentjames501>
 //                 Robert Bullen <https://github.com/robertbullen>
+//                 Yusuke Sato <https://github.com/sat0yu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -163,7 +164,7 @@ export interface ArraySchema<T> extends Schema<T[]> {
     min(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
     max(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
     ensure(): ArraySchema<T>;
-    compact(rejector?: (value: any) => boolean): ArraySchema<T>;
+    compact(rejector?: (value: T, index: number, array: T[]) => boolean): ArraySchema<T>;
 }
 
 export type ObjectSchemaDefinition<T extends object> = {
