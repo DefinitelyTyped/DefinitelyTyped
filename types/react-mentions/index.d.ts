@@ -46,6 +46,24 @@ export interface MentionsInputProps {
 }
 
 /**
+ * Exposes the type for use with the @see MentionsInputComponent.wrappedInstance which is added by react-mentions' use of substyle (https://github.com/jfschwarz/substyle).
+ */
+export interface MentionsInputComponentUnrwapped extends React.Component<MentionsInputProps> {
+    /**
+     * @deprecated since version 2.4.0. Please use @see MentionsInputProps.inputRef
+     */
+    inputRef?: HTMLInputElement | HTMLTextAreaElement;
+}
+
+/**
+ * Used with @see React.RefObject<MentionsInputComponent>.
+ */
+export interface MentionsInputComponent extends React.Component<MentionsInputProps> {
+    // MentionsInput uses substyle (https://github.com/jfschwarz/substyle) which adds this wrappedInstance
+    wrappedInstance?: MentionsInputComponentUnrwapped;
+}
+
+/**
  * Used to reference MentionsInput element in a TSX file.
  */
 export interface MentionsInputClass extends React.ComponentClass<MentionsInputProps> {
