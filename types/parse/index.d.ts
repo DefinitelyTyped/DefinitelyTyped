@@ -1,4 +1,4 @@
-// Type definitions for parse 2.1.0 and parse-server 3.1.3
+// Type definitions for parse 2.1.0
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
