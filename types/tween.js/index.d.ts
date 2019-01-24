@@ -14,7 +14,7 @@ declare namespace TWEEN {
     export class Tween {
         constructor(object?: any, group?: Group);
         getId(): number;
-        isPlaying():boolean;
+        isPlaying(): boolean;
         to(properties: any, duration: number): Tween;
         start(time?: number): Tween;
         stop(): Tween;
@@ -76,7 +76,7 @@ interface Easing {
         In(k: number): number;
         Out(k: number): number;
         InOut(k: number): number;
-    };group
+    };
     Exponential: {
         In(k: number): number;
         Out(k: number): number;
