@@ -3,7 +3,6 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Andrew Potter <https://github.com/GolaWaya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /// <reference types="node" />
 import { RequestOptions as HttpsRequestOptions } from "https";
