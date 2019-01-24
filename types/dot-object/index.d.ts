@@ -128,7 +128,7 @@ declare namespace DotObject {
          * @param {Object} obj object to be modified
          * @param {Function|Array} mods optional modifier
         */
-        str(path: string, v: any, obj: Object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        str(path: string, v: any, obj: object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
         /**
          *
          * Replace/merge an object to an existing object property
@@ -138,7 +138,7 @@ declare namespace DotObject {
          * @param {Object} obj object to be modified
          * @param {Boolean} merge optional merge
         */
-		set(path: string, v: any, obj: Object, merge?: Boolean): void;
+		set(path: string, v: any, obj: object, merge?: boolean): void;
         /**
          *
          * Transfer a property from one object to another object.
