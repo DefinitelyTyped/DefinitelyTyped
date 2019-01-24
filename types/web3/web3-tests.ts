@@ -37,7 +37,7 @@ web3.eth.setProvider(myProvider);
 //
 // web3.eth
 // --------------------------------------------------------------------------
-const logs: Promise<Log[]> = web3.eth.getPastLogs({ 
+const logs: Promise<Log[]> = web3.eth.getPastLogs({
     fromBlock: "latest",
     address: contractAddress,
     topics: [
