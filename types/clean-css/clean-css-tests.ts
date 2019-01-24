@@ -1,18 +1,18 @@
 
 import * as CleanCSS from 'clean-css';
 
-var source = 'a{font-weight:bold;}';
-var minified = new CleanCSS().minify(source).styles;
+let source = 'a{font-weight:bold;}';
+console.log(new CleanCSS().minify(source).styles);
 
-var source = '@import url(http://path/to/remote/styles);';
-new CleanCSS().minify(source, function (error, minified) {
+source = '@import url(http://path/to/remote/styles);';
+new CleanCSS().minify(source, (error: any, minified: CleanCSS.Output): void => {
   console.log(minified.styles);
 });
 
 const pathToOutputDirectory = 'path';
 
 new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory })
-  .minify(source, function (error, minified) {
+  .minify(source, (error: any, minified: CleanCSS.Output): void => {
     // access minified.sourceMap for SourceMapGenerator object
     // see https://github.com/mozilla/source-map/#sourcemapgenerator for more details
     // see https://github.com/jakubpawlowicz/clean-css/blob/master/bin/cleancss#L114 on how it's used in clean-css' CLI
@@ -21,7 +21,7 @@ new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory })
 
 const inputSourceMapAsString = 'input';
 new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory })
-  .minify(source, inputSourceMapAsString, function (error, minified) {
+  .minify(source, inputSourceMapAsString, (error: any, minified: CleanCSS.Output): void => {
     // access minified.sourceMap to access SourceMapGenerator object
     // see https://github.com/mozilla/source-map/#sourcemapgenerator for more details
     // see https://github.com/jakubpawlowicz/clean-css/blob/master/bin/cleancss#L114 on how it's used in clean-css' CLI
@@ -37,7 +37,7 @@ new CleanCSS({ sourceMap: true, rebaseTo: pathToOutputDirectory }).minify({
     styles: '...styles...',
     sourceMap: '...source-map...'
   }
-}, function (error, minified) {
+}, (error: any, minified: CleanCSS.Output): void => {
   // access minified.sourceMap as above
   console.log(minified.sourceMap);
 });

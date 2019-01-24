@@ -1,4 +1,4 @@
-// Type definitions for clean-css v4.2.1
+// Type definitions for clean-css v4.2
 // Project: https://github.com/jakubpawlowicz/clean-css
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Andrew Potter <https://github.com/GolaWaya>
@@ -32,13 +32,13 @@ declare namespace CleanCSS {
 
         /**
          * inline option whitelists which @import rules will be processed.  Defaults to `'local'`
-         * Accepts the following values: 
-         *  'local': enables local inlining; 
-         *  'remote': enables remote inlining; 
-         *  'none': disables all inlining; 
-         *  'all': enables all inlining, same as ['local', 'remote']; 
-         *  '[uri]': enables remote inlining from the specified uri; 
-         *  '![url]': disables remote inlining from the specified uri; 
+         * Accepts the following values:
+         *  'local': enables local inlining;
+         *  'remote': enables remote inlining;
+         *  'none': disables all inlining;
+         *  'all': enables all inlining, same as ['local', 'remote'];
+         *  '[uri]': enables remote inlining from the specified uri;
+         *  '![url]': disables remote inlining from the specified uri;
          */
         inline?: string[] | false;
 
@@ -147,7 +147,7 @@ declare namespace CleanCSS {
              * Controls `rgba()` / `hsla()` color support; defaults to `true`
              */
             opacity?: boolean;
-        },
+        };
         /**
          * A hash of properties that can be set with compatibility
          */
@@ -216,7 +216,7 @@ declare namespace CleanCSS {
              * Controls removal of units `0` value; defaults to `true`
              */
             zeroUnits?: boolean;
-        },
+        };
         /**
          * A hash of options related to compatibility of selectors
          */
@@ -250,7 +250,7 @@ declare namespace CleanCSS {
              * Controls merging of rules with multiple pseudo classes / elements (since 4.1.0); defaults to `true`
              */
             multiplePseudoMerging: boolean;
-        },
+        };
         /**
          * A hash of options related to comparability of supported units
          */
@@ -299,7 +299,7 @@ declare namespace CleanCSS {
              * Controls treating `vmin` as a supported unit; defaults to `true`
              */
             vmin?: boolean;
-        }
+        };
     }
 
     /**
@@ -354,7 +354,7 @@ declare namespace CleanCSS {
              * Controls if a line break comes between selectors; defaults to `false`
              */
             betweenSelectors?: boolean;
-        },
+        };
         /**
          * Controls the new line character, can be `'\r\n'` or `'\n'`(aliased as `'windows'` and `'unix'`
          * or `'crlf'` and `'lf'`); defaults to system one, so former on Windows and latter on Unix
@@ -389,7 +389,7 @@ declare namespace CleanCSS {
              * Controls if a space comes before a value; e.g. `width: 1rem`; defaults to `false`
              */
             beforeValue?: boolean;
-        },
+        };
         /**
          * Controls maximum line length; defaults to `false`
          */
@@ -521,7 +521,7 @@ declare namespace CleanCSS {
              * Defines a callback for fine-grained property optimization; defaults to no-op
              */
             transform?: (propertyName: string, propertyValue: string, selector?: string) => string;
-        },
+        };
         2?: {
             /**
              * Sets all optimizations at this level unless otherwise specified
@@ -597,7 +597,7 @@ declare namespace CleanCSS {
              * Controls which properties won't be optimized, defaults to `[]` which means all will be optimized (since 4.1.0)
              */
             skipProperties?: string[];
-        }
+        };
     }
 
     /**
@@ -618,7 +618,7 @@ declare namespace CleanCSS {
              * The source map of the file, if needed
              */
             sourceMap?: string;
-        }
+        };
     }
 
     /**
@@ -636,7 +636,7 @@ declare namespace CleanCSS {
      */
     type Minifier = MinifierOutput | MinifierPromise;
 
-     /**
+    /**
      * Interface exposed when a new CleanCSS object is created
      */
     interface MinifierOutput {
