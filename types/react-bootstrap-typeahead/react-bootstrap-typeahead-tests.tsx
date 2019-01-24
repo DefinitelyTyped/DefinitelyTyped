@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Typeahead, Highlighter, Menu, MenuItem } from 'react-bootstrap-typeahead';
+import { ClearButton, Typeahead, Highlighter, Menu, MenuItem, BaseMenuItem, Token } from 'react-bootstrap-typeahead';
 
 interface State {
     capital: string;
@@ -19,6 +19,9 @@ const options: State[] = [
     { name: 'California', population: 37254503, capital: 'Sacramento', region: 'West' },
     { name: 'Colorado', population: 5029324, capital: 'Denver', region: 'West' },
 ];
+
+const stateNames = options.map(o => o.name);
+
 const groups: GroupedStates = options.reduce((accum: GroupedStates, option: State) => {
     const optKey = option.name.slice(0, 1).toLowerCase();
     if (accum[optKey] !== undefined) {
@@ -38,7 +41,10 @@ class BasicExample extends React.Component {
         const menuItems = Object.keys(groups).reduce((accum, letter) => {
             const header = [
                 <Menu.Divider key={`${letter}-start`} />,
-                <Menu.Header key={`${letter}-header`}>{`States starting with: ${letter.toUpperCase()}`}</Menu.Header>,
+                <Menu.Header key={`${letter}-header`}>
+                    {`States starting with: ${letter.toUpperCase()}`}
+                    <ClearButton onClick={() => {}} />
+                </Menu.Header>,
                 <Menu.Divider key={`${letter}-end`} />,
             ];
             const states = groups[letter].map((state: State, index: number) => {
@@ -56,6 +62,16 @@ class BasicExample extends React.Component {
         return (
             <div>
                 <Typeahead
+                    options={stateNames}
+                    placeholder="Choose a name"
+                />
+                <Typeahead
+                    options={stateNames}
+                    placeholder="Choose a name"
+                    multiple
+                    filterBy={(option, props) => (props.text.indexOf(option) !== -1)}
+                />
+                <Typeahead
                     labelKey="name"
                     multiple={multiple}
                     options={options}
@@ -68,7 +84,7 @@ class BasicExample extends React.Component {
                     multiple={multiple}
                     options={options}
                     maxHeight='300px'
-                    filterBy={(option, props) => (props.text.indexOf(option) !== -1) }
+                    filterBy={(option, props) => (props.text.indexOf(option.name) !== -1) }
                     placeholder="Choose a state..."
                 />
                 <Typeahead
@@ -76,7 +92,7 @@ class BasicExample extends React.Component {
                     multiple={multiple}
                     options={options}
                     maxHeight='300px'
-                    filterBy={(option, {text}) => (text.indexOf(option) !== -1) }
+                    filterBy={(option, {text}) => (text.indexOf(option.name) !== -1) }
                     placeholder="Choose a state..."
                 />
                 <Typeahead
@@ -84,7 +100,7 @@ class BasicExample extends React.Component {
                     options={options}
                     placeholder="Choose a state..."
                     renderMenuItemChildren={ (option, props, index) =>
-                        <Highlighter key="name" search={props.text}>
+                        <Highlighter key="name" search={props.text || ""}>
                             {option.name} {index}
                         </Highlighter>
                     }
@@ -108,6 +124,16 @@ class BasicExample extends React.Component {
                     labelKey="name"
                     options={options}
                     placeholder="Choose a state..."
+                    renderToken={(selectedItem, props, index) => {
+                        return <Token
+                            active
+                            disabled={false}
+                            tabIndex={5}
+                            href="https://test.com"
+                            onRemove={() => console.log(props.text)}>
+                            {selectedItem.name}
+                            </Token>;
+                    }}
                 >
                     <Menu id="menu-id">{...this.genCustomMenu()}</Menu>
                 </Typeahead>
