@@ -9,10 +9,18 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "clean-css": [
+                "clean-css/v3"
+            ],
+            "clean-css/*": [
+                "clean-css/v3/*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

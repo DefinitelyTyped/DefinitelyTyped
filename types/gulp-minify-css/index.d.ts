@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as CleanCSS from 'clean-css';
+import * as CleanCSS from 'clean-css/v3';
 
 declare function minifyCSS(options?: CleanCSS.Options): NodeJS.ReadWriteStream;
 

@@ -1,7 +1,9 @@
 // Type definitions for clean-css v4.2.1
 // Project: https://github.com/jakubpawlowicz/clean-css
-// Definitions by: Andrew Potter <https://github.com/GolaWaya>
+// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Andrew Potter <https://github.com/GolaWaya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 import { RequestOptions as HttpsRequestOptions } from "https";
@@ -27,7 +29,7 @@ declare namespace CleanCSS {
          * Controls output CSS formatting; defaults to `false`.
          *  Format hash exposes the following properties: `breaks`, `breakWith`, `indentBy`, `indentWith`, `spaces`, and `wrapAt`.
          */
-        format?: "beautify" | "keep-breaks" | Format | false;
+        format?: "beautify" | "keep-breaks" | FormatOptions | false;
 
         /**
          * inline option whitelists which @import rules will be processed.  Defaults to `'local'`
@@ -55,7 +57,7 @@ declare namespace CleanCSS {
          * Controls optimization level used; defaults to `1`.
          * Level hash exposes `1`, and `2`.
          */
-        level?: 0 | 1 | 2 | optimizationsOptions;
+        level?: 0 | 1 | 2 | OptimizationsOptions;
 
         /**
          * Controls URL rebasing; defaults to `true`;
@@ -192,7 +194,7 @@ declare namespace CleanCSS {
             ieSuffixHack?: boolean;
 
             /**
-             * Controls property merging based on understandability; defaults to `true`
+             * Controls property merging based on understandably; defaults to `true`
              */
             merging?: boolean;
 
@@ -304,7 +306,7 @@ declare namespace CleanCSS {
     /**
      * Fine grained options for configuring the CSS formatting
      */
-    interface Format {
+    interface FormatOptions {
         /**
          *  Controls where to insert breaks
          */
@@ -398,7 +400,7 @@ declare namespace CleanCSS {
     /**
      * Fine grained options for configuring optimizations
      */
-    interface optimizationsOptions {
+    interface OptimizationsOptions {
         1?: {
             /**
              * Sets all optimizations at this level unless otherwise specified
@@ -553,7 +555,7 @@ declare namespace CleanCSS {
             mergeSemantically?: boolean;
 
             /**
-             * Controls property overriding based on understandability; defaults to true
+             * Controls property overriding based on understandably; defaults to true
              */
             overrideProperties?: boolean;
 
@@ -600,30 +602,66 @@ declare namespace CleanCSS {
     }
 
     /**
+     * Hash of input source(s).  Passing an array of hashes allows you to explicitly specify the order in which the input files
+     *  are concatenated. Whereas when you use a single hash the order is determined by the traversal order of object properties
+     */
+    interface Source {
+        /**
+         * Path to file
+         */
+        [path: string]: {
+            /**
+             * The contents of the file, should be css
+             */
+            styles: string;
+
+            /**
+             * The source map of the file, if needed
+             */
+            sourceMap?: string;
+        }
+    }
+
+    /**
      * Callback type when fetch is used
      */
     type FetchCallback = (message: string | number, body: string) => void;
 
     /**
-     * Interface exposed when a new CleanCSS option is created
+     * Union of all types acceptable as input for the minify function
      */
-    interface Function<T extends (Output | Promise<Output>)> {
-        minify(sources: string | Array<string> | Object, callback?: (error: any, output: T) => void): T;
-        minify(sources: string | Array<string> | Object, inputSourceMap?: string): T;
-        minify(sources: string | Array<string> | Object, inputSourceMap?: string, callback?: (error: any, output: T) => void): T;
+    type Sources = string | ReadonlyArray<string> | Source | ReadonlyArray<Source> | Buffer;
+
+    /**
+     * Union type for both types of minifier functions
+     */
+    type Minifier = MinifierOutput | MinifierPromise;
+
+     /**
+     * Interface exposed when a new CleanCSS object is created
+     */
+    interface MinifierOutput {
+        minify(sources: Sources, callback?: (error: any, output: Output) => void): Output;
+        minify(sources: Sources, sourceMap: string, callback?: (error: any, output: Output) => void): Output;
+    }
+    /**
+     * Interface exposed when a new CleanCSS object is created with returnPromise set to true
+     */
+    interface MinifierPromise {
+        minify(sources: Sources, sourceMap?: string): Promise<Output>;
     }
 
     /**
      * Constructor interface for CleanCSS
      */
     interface Constructor {
-        new(options: CleanCSS.Options & { returnPromise: true }): Function<Promise<Output>>;
-        new(options?: CleanCSS.Options): Function<Output>;
+        new(options: Options & { returnPromise: true }): MinifierPromise;
+        new(options?: Options): MinifierOutput;
     }
 }
 
 /**
- * Creates a new CleanCSS object
+ * Creates a new CleanCSS object which can be used to minify css
  */
 declare const CleanCSS: CleanCSS.Constructor;
 
