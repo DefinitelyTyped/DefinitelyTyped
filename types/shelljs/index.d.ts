@@ -50,16 +50,18 @@ export function find(...path: Array<string | string[]>): ShellArray;
  * Copies files. The wildcard * is accepted.
  * @param source  The source.
  * @param   dest  The destination.
+ * @return        Object with shell exit code.
  */
-export function cp(source: string | string[], dest: string): ShellArray;
+export function cp(source: string | string[], dest: string): ShellString;
 
 /**
  * Copies files. The wildcard * is accepted.
  * @param options Available options: -f: force (default behavior) -n: no-clobber -u: only copy if source is newer than dest -r, -R: recursive -L: follow symlinks -P: don't follow symlinks
  * @param source  The source.
  * @param dest    The destination.
+ * @return        Object with shell exit code.
  */
-export function cp(options: string, source: string | string[], dest: string): void;
+export function cp(options: string, source: string | string[], dest: string): ShellString;
 
 /**
  * Removes files. The wildcard * is accepted.
