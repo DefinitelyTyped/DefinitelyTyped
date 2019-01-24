@@ -13,17 +13,19 @@ declare namespace CleanCSS {
      */
     interface Options {
         /**
-         * Controls compatibility mode used; defaults to ie10+ using `'*'`
+         * Controls compatibility mode used; defaults to ie10+ using `'*'`.
+         *  Compatibility hash exposes the following properties: `colors`, `properties`, `selectors`, and `units`
          */
         compatibility?: "*" | "ie9" | "ie8" | "ie7" | CompatibilityOptions;
 
         /**
          * Controls a function for handling remote requests; Defaults to the build in `loadRemoteResource` function
          */
-        fetch?: (uri: string, inlineRequest: HttpRequestOptions | HttpsRequestOptions, inlineTimeout: number, callback: FetchCallback) => void;
+        fetch?: (uri: string, inlineRequest: HttpRequestOptions | HttpsRequestOptions, inlineTimeout: number, done: (message: string | number, body: string) => void) => void;
 
         /**
-         * Controls output CSS formatting; defaults to `false`
+         * Controls output CSS formatting; defaults to `false`.
+         *  Format hash exposes the following properties: `breaks`, `breakWith`, `indentBy`, `indentWith`, `spaces`, and `wrapAt`.
          */
         format?: "beautify" | "keep-breaks" | Format | false;
 
@@ -50,7 +52,8 @@ declare namespace CleanCSS {
         inlineTimeout?: number;
 
         /**
-         * Controls optimization level used; defaults to `1`
+         * Controls optimization level used; defaults to `1`.
+         * Level hash exposes `1`, and `2`.
          */
         level?: 0 | 1 | 2 | optimizationsOptions;
 
@@ -98,12 +101,12 @@ declare namespace CleanCSS {
         /**
          * A list of errors raised
          */
-        errors: Array<string>;
+        errors: string[];
 
         /**
          * A list of warnings raised
          */
-        warnings: Array<string>;
+        warnings: string[];
 
         /**
          * Contains statistics on the minify process
@@ -516,7 +519,7 @@ declare namespace CleanCSS {
             /**
              * Defines a callback for fine-grained property optimization; defaults to no-op
              */
-            transform?: (propertyName: string, propertyValue: string, selector: string) => string;
+            transform?: (propertyName: string, propertyValue: string, selector?: string) => string;
         },
         2?: {
             /**
@@ -602,7 +605,7 @@ declare namespace CleanCSS {
     type FetchCallback = (message: string | number, body: string) => void;
 
     /**
-     * 
+     * Interface exposed when a new CleanCSS option is created
      */
     interface Function<T extends (Output | Promise<Output>)> {
         minify(sources: string | Array<string> | Object, callback?: (error: any, output: T) => void): T;
@@ -610,15 +613,17 @@ declare namespace CleanCSS {
         minify(sources: string | Array<string> | Object, inputSourceMap?: string, callback?: (error: any, output: T) => void): T;
     }
 
+    /**
+     * Constructor interface for CleanCSS
+     */
     interface Constructor {
-        new(options: CleanCSS.Options & { returnPromise?: false }): Function<Output>;
         new(options: CleanCSS.Options & { returnPromise: true }): Function<Promise<Output>>;
-        new(): Function<Output>;
+        new(options?: CleanCSS.Options): Function<Output>;
     }
 }
 
 /**
- * 
+ * Creates a new CleanCSS object
  */
 declare const CleanCSS: CleanCSS.Constructor;
 
