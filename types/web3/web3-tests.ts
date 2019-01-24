@@ -53,7 +53,7 @@ web3.eth.getBalance(contractAddress, "latest", (error: Error, balance: BigNumber
 web3.eth.getBalance(contractAddress, 1, (error: Error, balance: BigNumber) => { });
 
 const sendSignedTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("",
-(error: Error, txHash: string) => { });
+    (error: Error, txHash: string) => { });
 const sendSignedTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
     .on("transactionHash", (txHash: string) => { });
 const sendSignedTransactionTxReceipt2: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
