@@ -19,7 +19,7 @@
             "clean-css/*": [
                 "clean-css/v3/*"
             ]
-        }, 
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
