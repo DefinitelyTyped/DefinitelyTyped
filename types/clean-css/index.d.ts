@@ -3,8 +3,8 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Andrew Potter <https://github.com/GolaWaya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
+
 import { RequestOptions as HttpsRequestOptions } from "https";
 import { RequestOptions as HttpRequestOptions } from "http";
 
