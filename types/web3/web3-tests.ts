@@ -163,6 +163,9 @@ const shhPromise: Promise<string> = web3.shh.generateSymKeyFromPassword("xyz");
 // --------------------------------------------------------------------------
 const weiStr: string = web3.utils.toWei("100", "gwei");
 const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
+// $ExpectError
+const weiNumber = web3.utils.toWei(100);
+
 const rndHex: string = Web3.utils.randomHex(10);
 const sha3: string = web3.utils.soliditySha3(0, 1, "abc");
 const fromWei1: string = web3.utils.fromWei(new BigNumber(1));

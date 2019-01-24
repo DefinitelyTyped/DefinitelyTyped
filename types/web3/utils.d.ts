@@ -88,7 +88,7 @@ export default interface Utils {
     toDecimal(val: any): number;
     toHex(val: any): string;
     toUtf8(val: any): string;
-    toWei(val: string | number, unit?: Unit): string;
+    toWei(val: string, unit?: Unit): string;
     toWei(val: BigNumber, unit?: Unit): BigNumber;
     unitMap: any;
 }
