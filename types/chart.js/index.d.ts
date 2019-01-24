@@ -33,8 +33,8 @@ declare class Chart {
     clear: () => {};
     toBase64Image: () => string;
     generateLegend: () => {};
-    getElementAtEvent: (e: any) => {};
-    getElementsAtEvent: (e: any) => Array<{}>;
+    getElementAtEvent: (e: any) => {any};
+    getElementsAtEvent: (e: any) => Array<{any}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
     getDatasetMeta: (index: number) => Meta;
     ctx: CanvasRenderingContext2D | null;
