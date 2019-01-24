@@ -26,7 +26,7 @@ class TestApp extends React.Component {
     }
 
     render() {
-        return React.createElement(Tabs, {onSelect: this.onSelect, selectedIndex: 1},
+        return React.createElement(Tabs, {onSelect: this.onSelect, selectedIndex: 1, defaultFocus:true, name:'Tabs', autoFocus:true},
                    React.createElement(TabList, {className: "test-class"},
                        React.createElement(Tab, {disabled: true}, "Tab1"),
                        React.createElement(Tab, {selectedClassName: "active"}, "Tab2"),
