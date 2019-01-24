@@ -9656,7 +9656,7 @@ declare namespace Office {
          * 
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is anOffice.AsyncResult object.
+         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter, asyncResult, which is an asyncResult object.
          *                  The `value` property of the result is message's organizer value, as an EmailAddressDetails object.
          */
         getAsync(options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<EmailAddressDetails>) => void): void;
