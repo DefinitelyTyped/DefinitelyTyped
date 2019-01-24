@@ -40,7 +40,7 @@ declare namespace CleanCSS {
          *  '[uri]': enables remote inlining from the specified uri;
          *  '![url]': disables remote inlining from the specified uri;
          */
-        inline?: string[] | false;
+        inline?: ReadonlyArray<string> | false;
 
         /**
          * Controls extra options for inlining remote @import rules
@@ -234,12 +234,12 @@ declare namespace CleanCSS {
             /**
              * Controls a whitelist of mergeable pseudo classes; defaults to `[':active', ...]`
              */
-            mergeablePseudoClasses?: string[];
+            mergeablePseudoClasses?: ReadonlyArray<string>;
 
             /**
              * Controls a whitelist of mergeable pseudo elements; defaults to `['::after', ...]`
              */
-            mergeablePseudoElements: string[];
+            mergeablePseudoElements: ReadonlyArray<string>;
 
             /**
              * Controls maximum number of selectors in a single rule (since 4.1.0); defaults to `8191`
@@ -596,7 +596,7 @@ declare namespace CleanCSS {
             /**
              * Controls which properties won't be optimized, defaults to `[]` which means all will be optimized (since 4.1.0)
              */
-            skipProperties?: string[];
+            skipProperties?: ReadonlyArray<string>;
         };
     }
 
