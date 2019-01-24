@@ -2,6 +2,7 @@ import { Azure } from 'azure-sb';
 import Callback = Azure.ServiceBus.ResponseCallback;
 import NotificationHubRegistration = Azure.ServiceBus.NotificationHubRegistration;
 import ListNotificationHubsOptions = Azure.ServiceBus.ListNotificationHubsOptions;
+import NotificationHubInstallation = Azure.ServiceBus.NotificationHubInstallation;
 
 import ApnsService = require('./apnsservice');
 import GcmService = require('./gcmservice');
@@ -29,10 +30,10 @@ declare class NotificationHubService {
                 options: { headers: object },
                 callback: Callback): void;
 
-    public createOrUpdateInstallation(installation: string,
+    public createOrUpdateInstallation(installation: NotificationHubInstallation,
                                       callback: Callback): void;
 
-    public createOrUpdateInstallation(installation: string,
+    public createOrUpdateInstallation(installation: NotificationHubInstallation,
                                       options: any,
                                       callback: Callback): void;
 
