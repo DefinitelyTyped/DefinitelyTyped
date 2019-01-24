@@ -94,13 +94,8 @@ export interface InjectedProps {
 // https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#predefined-conditional-types
 export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-// Injects `getString` and removes it from the prop requirements.
-// Will not pass through `getString` if it's passed in during
-// render.
-export interface WithLocalization {
-  <TNeedProps, C extends React.ComponentType<Matching<InjectedProps, GetProps<C>>>>(
-    component: C
-  ): React.ComponentType<Omit< GetProps<C>, keyof Shared<InjectedProps, GetProps<C>>> & TNeedProps>;
-}
-
-export const withLocalization: WithLocalization;
+// Injects `getString` and removes it from the prop requirements. Will not pass
+// through `getString` if it's passed in during render.
+export function withLocalization<C extends React.ComponentType<Matching<InjectedProps, GetProps<C>>>>(
+  component: C
+): React.ComponentType<Omit< GetProps<C>, keyof Shared<InjectedProps, GetProps<C>>>>;

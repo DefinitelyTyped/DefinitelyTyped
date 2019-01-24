@@ -7,8 +7,5 @@ export interface LanguageNegotiationOptions {
     strategy?: 'filtering' | 'matching' | 'lookup';
     defaultLocale?: string;
 }
-export interface NegotiateLanguages {
-    (requestedLocales: ReadonlyArray<string>, availableLocales: ReadonlyArray<string>, options?: LanguageNegotiationOptions): string[];
-}
 
-export const negotiateLanguages: NegotiateLanguages;
+export function negotiateLanguages(requestedLocales: ReadonlyArray<string>, availableLocales: ReadonlyArray<string>, options?: LanguageNegotiationOptions): string[];

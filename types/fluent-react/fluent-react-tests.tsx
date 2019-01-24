@@ -29,6 +29,7 @@ ReactDOM.render(
 interface Props {
   getString: GetString;
   otherProp: number;
+  someOtherProp: string;
 }
 function HelloButton(props: Props) {
     const { getString } = props;
@@ -42,6 +43,18 @@ function HelloButton(props: Props) {
 
 const LocalizedHelloButton = withLocalization(HelloButton);
 
+// Remove `getString` from list of required props:
 const Test2 = () => (
+  <LocalizedHelloButton otherProp={2} someOtherProp='abc'/>
+);
+// Should not allow `getString` prop:
+const Test3 = () => (
+  // $ExpectError
+  <LocalizedHelloButton otherProp={2} someOtherProp='abc' getString={() => {}}/>
+);
+
+// Should not allow any other props to be omitted:
+const Test4 = () => (
+  // $ExpectError
   <LocalizedHelloButton otherProp={2}/>
 );
