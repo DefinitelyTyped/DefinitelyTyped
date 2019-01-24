@@ -12,6 +12,7 @@
 //                 Harry Cruse <https://github.com/crusectrl>
 //                 Andrew Palugniok <https://github.com/apalugniok>
 //                 Robert Stigsson <https://github.com/RobertStigsson>
+//                 Kosaku Kurino <https://github.com/kousaku-maron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -455,6 +456,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
     blendStroke?: boolean;
+    index?: number;
 }
 
 export class Pie extends React.Component<PieProps> { }
