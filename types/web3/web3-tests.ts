@@ -37,15 +37,14 @@ web3.eth.setProvider(myProvider);
 //
 // web3.eth
 // --------------------------------------------------------------------------
-const logs: Promise<Log[]> = web3.eth.getPastLogs(
-    { 
-        fromBlock: "latest", 
-        address: contractAddress,
-        topics: [
-            null,
-            "0x1"
-        ]
-})
+const logs: Promise<Log[]> = web3.eth.getPastLogs({ 
+    fromBlock: "latest",
+    address: contractAddress,
+    topics: [
+        null,
+        "0x1"
+    ]
+});
 const storage: Promise<string> = web3.eth.getStorageAt(contractAddress, 0);
 const balance1: Promise<BigNumber> = web3.eth.getBalance(contractAddress);
 const balance2: Promise<BigNumber> = web3.eth.getBalance(contractAddress, "latest");
@@ -54,7 +53,7 @@ web3.eth.getBalance(contractAddress, "latest", (error: Error, balance: BigNumber
 web3.eth.getBalance(contractAddress, 1, (error: Error, balance: BigNumber) => { });
 
 const sendSignedTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("",
-    (error: Error, txHash: string) => { });
+(error: Error, txHash: string) => { });
 const sendSignedTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
     .on("transactionHash", (txHash: string) => { });
 const sendSignedTransactionTxReceipt2: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
