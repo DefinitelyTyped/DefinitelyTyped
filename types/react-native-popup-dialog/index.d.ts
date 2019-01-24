@@ -7,41 +7,52 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { GestureResponderEvent, StyleProp, ViewStyle, TextStyle } from 'react-native';
+import { GestureResponderEvent, StyleProp, ViewStyle, TextStyle, View } from 'react-native';
 
 export type AlignTypes = 'left' | 'right' | 'center';
 export type OverlayPointerEventTypes = 'auto' | 'none';
 export type SlideFromTypes = 'top' | 'bottom' | 'left' | 'right';
 
+export interface DialogContentProps {
+    style?: StyleProp<ViewStyle>;
+}
+
+export interface DialogActionListProps {
+    bordered?: boolean;
+    style?: StyleProp<ViewStyle>;
+}
+
 export interface DialogButtonProps {
     text: string;
     align?: AlignTypes;
     onPress?: (event: GestureResponderEvent) => void;
-    buttonStyle?: StyleProp<ViewStyle>;
     textStyle?: StyleProp<TextStyle>;
-    textContainerStyle?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
     disabled?: boolean;
     activeOpacity?: number;
+    bordered?: boolean;
 }
 
 export interface DialogTitleProps {
     title: string;
-    titleStyle?: StyleProp<ViewStyle>;
-    titleTextStyle?: StyleProp<ViewStyle>;
-    titleAlign?: AlignTypes;
-    haveTitleBar?: boolean;
+    style?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
+    align?: AlignTypes;
+    hasTitleBar?: boolean;
 }
 
 export interface OverlayProps {
+    visible?: boolean;
     onPress: (event: GestureResponderEvent) => void;
     backgroundColor?: string;
     opacity?: number;
     animationDuration?: number;
     showOverlay?: boolean;
     pointerEvents?: string;
+    useNativeDriver?: boolean;
 }
 
-export interface PopupDialogProps {
+export interface DialogProps {
     dialogTitle?: any;
     width?: number;
     height?: number;
@@ -49,16 +60,20 @@ export interface PopupDialogProps {
     dialogStyle?: StyleProp<ViewStyle>;
     containerStyle?: StyleProp<ViewStyle>;
     animationDuration?: number;
+    hasOverlay?: boolean;
     overlayPointerEvents?: OverlayPointerEventTypes;
     overlayBackgroundColor?: string;
     overlayOpacity?: number;
-    dismissOnTouchOutside?: boolean;
-    dismissOnHardwareBackPress?: boolean;
-    haveOverlay?: boolean;
     visible?: boolean;
-    onShown?: () => void;
-    onDismissed?: () => void;
+    rounded?: boolean;
+    onShow?: () => void;
+    onDismiss?: () => void;
+    onTouchOutside?: () => void;
+    onHardwareBackPress?: () => boolean;
     actions?: any[];
+    actionContainerStyle?: StyleProp<ViewStyle>;
+    actionsBordered?: boolean;
+    useNativeDriver?: boolean;
 }
 
 export class FadeAnimation {
@@ -81,10 +96,12 @@ export class SlideAnimation {
     createAnimations(): object;
 }
 
+export class DialogContent extends React.Component<DialogContentProps, any> { }
+export class DialogActionList extends React.Component<DialogActionListProps, any> { }
 export class DialogButton extends React.Component<DialogButtonProps, any> { }
 export class DialogTitle extends React.Component<DialogTitleProps, any> { }
 export class Overlay extends React.Component<OverlayProps, any> { }
-export default class PopupDialog extends React.Component<PopupDialogProps, any> {
+export default class Dialog extends React.Component<DialogProps, any> {
     show(onShown?: () => void): void;
     dismiss(onDismissed?: () => void): void;
 }
