@@ -16,11 +16,11 @@
             "html-minifier": [
                 "html-minifier/v1"
             ],
-            "uglify-js": [
-                "uglify-js/v2"
-            ],
             "html-minifier/*": [
                 "html-minifier/v1/*"
+            ],
+            "uglify-js": [
+                "uglify-js/v2"
             ],
             "clean-css": [
                 "clean-css/v3"
