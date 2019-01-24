@@ -21,6 +21,12 @@
             ],
             "html-minifier/*": [
                 "html-minifier/v1/*"
+            ],
+            "clean-css": [
+                "clean-css/v3"
+            ],
+            "clean-css/*": [
+                "clean-css/v3/*"
             ]
         },
         "types": [],
