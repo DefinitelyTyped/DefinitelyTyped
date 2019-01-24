@@ -1204,4 +1204,6 @@ function TestSelector() {
     const state = { key: 'value' };
     simpleSelect(state);
     notSimpleSelect(state, ownProps);
+    simpleSelect(state, ownProps); // $ExpectError
+    notSimpleSelect(state); // $ExpectError
 }
