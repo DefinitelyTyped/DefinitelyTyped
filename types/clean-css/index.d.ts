@@ -1,4 +1,4 @@
-// Type definitions for clean-css v4.2
+// Type definitions for clean-css 4.2.1
 // Project: https://github.com/jakubpawlowicz/clean-css
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Andrew Potter <https://github.com/GolaWaya>
@@ -170,7 +170,7 @@ declare namespace CleanCSS {
             /**
              * controls color optimizations; defaults to `true`
              */
-            colors?: boolean, // 
+            colors?: boolean,
 
             /**
              * Controls keeping IE bang hack; defaults to `false`
@@ -314,42 +314,42 @@ declare namespace CleanCSS {
              * Controls if a line break comes after an at-rule; e.g. `@charset`; defaults to `false`
              */
             afterAtRule?: boolean;
-    
+
             /**
              * Controls if a line break comes after a block begins; e.g. `@media`; defaults to `false`
              */
             afterBlockBegins?: boolean;
-    
+
             /**
              * Controls if a line break comes after a block ends, defaults to `false`
              */
             afterBlockEnds?: boolean;
-    
+
             /**
              * Controls if a line break comes after a comment; defaults to `false`
              */
             afterComment?: boolean;
-    
+
             /**
              * Controls if a line break comes after a property; defaults to `false`
              */
             afterProperty?: boolean;
-    
+
             /**
              * Controls if a line break comes after a rule begins; defaults to `false`
              */
             afterRuleBegins?: boolean;
-    
+
             /**
              * Controls if a line break comes after a rule ends; defaults to `false`
              */
             afterRuleEnds?: boolean;
-    
+
             /**
              * Controls if a line break comes before a block ends; defaults to `false`
              */
             beforeBlockEnds?: boolean;
-    
+
             /**
              * Controls if a line break comes between selectors; defaults to `false`
              */
@@ -360,17 +360,17 @@ declare namespace CleanCSS {
          * or `'crlf'` and `'lf'`); defaults to system one, so former on Windows and latter on Unix
          */
         breakWith?: string;
-    
+
         /**
          * Controls number of characters to indent with; defaults to `0`
          */
         indentBy?: number;
-    
+
         /**
          * Controls a character to indent with, can be `'space'` or `'tab'`; defaults to `'space'`
          */
         indentWith?: "space" | "tab";
-    
+
         /**
          * Controls where to insert spaces
          */
@@ -379,12 +379,12 @@ declare namespace CleanCSS {
              * Controls if spaces come around selector relations; e.g. `div > a`; defaults to `false`
              */
             aroundSelectorRelation?: boolean;
-    
+
             /**
              * Controls if a space comes before a block begins; e.g. `.block {`; defaults to `false`
              */
             beforeBlockBegins?: boolean;
-    
+
             /**
              * Controls if a space comes before a value; e.g. `width: 1rem`; defaults to `false`
              */
@@ -460,7 +460,7 @@ declare namespace CleanCSS {
              * Controls removing quotes when unnecessary; defaults to `true`
              */
             removeQuotes?: boolean;
-            
+
             /**
              * Controls removing unused whitespace; defaults to `true`
              */
