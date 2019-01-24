@@ -122,7 +122,7 @@ export default interface Eth {
             fromBlock?: BlockType;
             toBlock?: BlockType;
             address?: string;
-            topics?: Array<string | string[]>;
+            topics?: Array<string | string[] | null>;
         },
         cb?: Callback<Log[]>
     ): Promise<Log[]>;

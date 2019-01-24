@@ -1,6 +1,6 @@
 import Web3 = require("web3");
 import BigNumber = require("bn.js");
-import { TransactionReceipt } from "web3/types";
+import { TransactionReceipt, Log } from "web3/types";
 import PromiEvent from "web3/promiEvent";
 import { NEW_ABI_STANDARD, OLD_ABI_STANDARD } from "web3/test/abi-tests";
 import { Provider, JsonRPCResponse } from "web3/providers";
@@ -37,6 +37,14 @@ web3.eth.setProvider(myProvider);
 //
 // web3.eth
 // --------------------------------------------------------------------------
+const logs: Promise<Log[]> = web3.eth.getPastLogs({
+    fromBlock: "latest",
+    address: contractAddress,
+    topics: [
+        null,
+        "0x1"
+    ]
+});
 const storage: Promise<string> = web3.eth.getStorageAt(contractAddress, 0);
 const balance1: Promise<BigNumber> = web3.eth.getBalance(contractAddress);
 const balance2: Promise<BigNumber> = web3.eth.getBalance(contractAddress, "latest");
