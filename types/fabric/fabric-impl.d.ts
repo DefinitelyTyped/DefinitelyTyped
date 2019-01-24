@@ -3952,63 +3952,63 @@ interface IConvoluteFilter extends IBaseFilter {
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IGradientTransparencyFilter {
+interface IGradientTransparencyFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IGrayscaleFilter {
+interface IGrayscaleFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IInvertFilter {
+interface IInvertFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IMaskFilter {
+interface IMaskFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IMultiplyFilter {
+interface IMultiplyFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface INoiseFilter {
+interface INoiseFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IPixelateFilter {
+interface IPixelateFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IRemoveWhiteFilter {
+interface IRemoveWhiteFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IResizeFilter {
+interface IResizeFilter extends IBaseFilter {
 	/**
 	 * Resize type
 	 */
@@ -4034,21 +4034,21 @@ interface IResizeFilter {
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ISepiaFilter {
+interface ISepiaFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ISepia2Filter {
+interface ISepia2Filter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ITintFilter {
+interface ITintFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
