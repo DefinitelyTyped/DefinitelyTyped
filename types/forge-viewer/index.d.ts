@@ -64,15 +64,15 @@ declare namespace Autodesk {
             env?: string;
             language?: string;
             webGLHelpLink?: string;
-            getAccessToken?(callback?: (accessToken: string, expires?: number) => void): void;
-            refreshToken?(callback?: (accessToken: string, expires?: number) => void): void;
+            getAccessToken?(callback?: (accessToken: string, expires: number) => void): void;
+            refreshToken?(callback?: (accessToken: string, expires: number) => void): void;
         }
 
         function Initializer(options: InitializerOptions, callback?: () => void): void;
 
         class Document {
             static load(documentId: string, successCallback: (doc: Document) => void,
-            errorCallback: (errorCode: number, errorMsg: string, messages: any[]) => void, accessControlProperties?: any): void;
+            errorCallback: (errorCode: number, errorMsg: string, messages: any[]) => void, accessControlProperties: any): void;
             static getSubItemsWithProperties(item: object, properties: Properties, recursive: boolean): object[];
 
             acmSessionId: string;
@@ -143,7 +143,7 @@ declare namespace Autodesk {
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
             getUnitScale(): number;
             getUnitString(): number;
-            // search(text: string, successCallback: (r: number[]) => void, errorCallback: (err: any) => void, attributeNames?: string[]): void;
+
             search(text: string, successCallback: (r: number[]) => void, errorCallback?: (err: any) => void, attributeNames?: string[]): void;
             clearThemingColors(): void;
 
