@@ -5,7 +5,6 @@
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
-//                 Teddy Cross <https://github.com/tkazec>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
