@@ -7,7 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { GestureResponderEvent, StyleProp, ViewStyle, TextStyle, View } from 'react-native';
+import { GestureResponderEvent, StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 export type AlignTypes = 'left' | 'right' | 'center';
 export type OverlayPointerEventTypes = 'auto' | 'none';
