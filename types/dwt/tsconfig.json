@@ -18,6 +18,9 @@
     },
     "files": [
         "index.d.ts",
+        "Dynamsoft.d.ts",
+        "dwt.d.ts",
+        "addon.ocrp.d.ts",
         "addon.pdf.d.ts",
         "dwt-tests.ts"
     ]

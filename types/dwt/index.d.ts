@@ -5,15 +5,8 @@
 //                 Lincoln Hu <https://github.com/lincoln2018>
 //                 Tom Kent <https://github.com/Tom-Dynamsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2.2
+// TypeScript Version: 2.3
 
-/*!
-* Product: Dynamsoft Web Twain
-* Web Site: http://www.dynamsoft.com
-*
-* Copyright 2019, Dynamsoft Corporation
-* Author: Dynamsoft Support Team
-*/
 
 /// <reference path="Dynamsoft.d.ts" />
 /// <reference path="dwt.d.ts" />
