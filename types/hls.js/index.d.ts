@@ -192,7 +192,7 @@ declare namespace Hls {
         /**
          * attribute list
          */
-        attrs: Array<{[key: string]: string}>;
+        attrs: LevelAttr[];
         /**
          * audio codec
          */
@@ -230,7 +230,7 @@ declare namespace Hls {
          */
         unkownCodecs: string[];
         /**
-         * level url. might contain sever items if failover/redundant streams are found in the manifest
+         * level url. might contain several items if failover/redundant streams are found in the manifest
          */
         url: string[];
         /**
@@ -245,6 +245,10 @@ declare namespace Hls {
          * video width
          */
         width: number;
+    }
+
+    interface LevelAttr {
+        [key: string]: string;
     }
 
     /**
