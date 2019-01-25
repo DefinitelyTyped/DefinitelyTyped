@@ -3155,9 +3155,9 @@ declare module "mongoose" {
       callback?: (err: any, res: T) => void): Promise<T>;
 
     /** Removes documents from the collection. */
-    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
-    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
-    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
+    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
+    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
+    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
 
     /**
      * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).
