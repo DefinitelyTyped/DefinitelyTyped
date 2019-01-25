@@ -1,7 +1,8 @@
 import NextGenEvents = require("nextgen-events");
 
-import Terminal = require("./Terminal");
-import ScreenBufferHD = require("./ScreenBufferHD");
+import Terminal from "./Terminal";
+import ScreenBufferHD from "./ScreenBufferHD";
+import Rect from "./Rect";
 
 export as namespace ScreenBuffer;
 
@@ -82,7 +83,7 @@ declare class ScreenBuffer extends NextGenEvents {
   saveSync(filepath: string): void;
 }
 
-export = ScreenBuffer;
+export default ScreenBuffer;
 
 declare namespace ScreenBuffer {
   interface Options {

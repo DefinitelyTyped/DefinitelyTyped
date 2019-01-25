@@ -1,3 +1,6 @@
+import ScreenBuffer from "./ScreenBuffer";
+import Rect from "./Rect";
+
 export as namespace TextBuffer;
 
 declare class TextBuffer {
@@ -16,11 +19,7 @@ declare class TextBuffer {
 
   setEmptyCellAttr(attr: ScreenBuffer.Attributes | number): void;
 
-  setAttrAt(
-    attr: ScreenBuffer.Attributes | number,
-    x: number,
-    y: number
-  ): void;
+  setAttrAt(attr: ScreenBuffer.Attributes | number, x: number, y: number): void;
   setAttrCodeAt(attr: number, x: number, y: number): void;
 
   setAttrRegion(
@@ -78,7 +77,7 @@ declare class TextBuffer {
   save(filepath: string, callback: (error?: any) => void): void;
 }
 
-export = TextBuffer;
+export default TextBuffer;
 
 declare namespace TextBuffer {
   interface Options {

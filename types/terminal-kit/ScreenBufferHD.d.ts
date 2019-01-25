@@ -1,4 +1,4 @@
-import ScreenBuffer = require("./ScreenBuffer");
+import ScreenBuffer from "./ScreenBuffer";
 
 export as namespace ScreenBufferHD;
 
@@ -37,7 +37,7 @@ declare class ScreenBufferHD extends ScreenBuffer {
   ): void;
 }
 
-export = ScreenBufferHD;
+export default ScreenBufferHD;
 
 declare namespace ScreenBufferHD {
   interface Attributes {

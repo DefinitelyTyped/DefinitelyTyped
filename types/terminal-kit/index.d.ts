@@ -4,11 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import Terminal = require("./Terminal");
-import * as SB from "./ScreenBuffer";
-import * as SBHD from "./ScreenBufferHD";
-import * as R from "./Rect";
-import * as TB from "./TextBuffer";
+import Terminal from "./Terminal";
 
 export as namespace termkit;
 

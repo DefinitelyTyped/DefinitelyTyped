@@ -1,3 +1,7 @@
+import Terminal from "./Terminal";
+import ScreenBuffer from "./ScreenBuffer";
+import TextBuffer from "./TextBuffer";
+
 export as namespace Rect;
 
 declare class Rect {
@@ -9,7 +13,15 @@ declare class Rect {
   readonly ymax: number;
   readonly isNull: boolean;
 
-  constructor(options: Rect.AbsoluteOptions | Rect.Region | Rect | Terminal | ScreenBuffer | TextBuffer);
+  constructor(
+    options:
+      | Rect.AbsoluteOptions
+      | Rect.Region
+      | Rect
+      | Terminal
+      | ScreenBuffer
+      | TextBuffer
+  );
   constructor(xmin: number, xmax: number, ymin: number, ymax: number);
 
   static wrappingRect(params: {
@@ -30,7 +42,7 @@ declare class Rect {
   ): void;
 }
 
-export = Rect;
+export default Rect;
 
 declare namespace Rect {
   type Options = AbsoluteOptions | Region;
