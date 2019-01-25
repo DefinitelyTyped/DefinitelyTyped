@@ -452,13 +452,14 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     labelLine?: object | ContentRenderer<LineProps & any> | React.ReactElement<any> | boolean;
     label?: {
         offsetRadius: number;
-    } | React.ReactElement<any> | ContentRenderer<PieLabelRenderProps & any> | boolean;
+    } | React.ReactElement<any> | ContentRenderer<PieLabelRenderProps> | boolean;
     activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
     blendStroke?: boolean;
 }
 
 export interface PieLabelRenderProps extends PieProps {
+    className?: string;
     index?: number;
     percent?: number;
 }
