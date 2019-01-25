@@ -3,7 +3,7 @@
 // Definitions by:  Jan Lohage <https://github.com/j2L4e>
 //                  Nick Bolles <https://github.com/NickBolles>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as self from '@feathersjs/authentication-oauth2';
 import { Application, Paginated, Service } from '@feathersjs/feathers';
