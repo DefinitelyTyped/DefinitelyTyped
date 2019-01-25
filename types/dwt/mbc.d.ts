@@ -150,7 +150,7 @@ declare class KPainter {
      */
     onFinishLoading: () => void;
 
-    //# Image Store
+    // Image Store
 
     /**
      * Show file choose window by click the hidden file input.Can't process during `Editing` mode.
@@ -371,7 +371,6 @@ declare class KPainter {
      */
     getWidth(index: number): number;
 
-
     /**
      * Get height of current image in the MBC instance.
     
@@ -460,7 +459,7 @@ declare class KPainter {
      */
     unbindThumbnailBox(container: HTMLElement): boolean;
 
-    //# Gesture
+    // Gesture
 
     /**
      * 
@@ -501,7 +500,6 @@ declare class KPainter {
      */
     onUpdateImgPosZoom: () => void;
 
-
     /**
      * Get the zoom of current image or canvas(in `Editing` mode).
     
@@ -512,7 +510,6 @@ declare class KPainter {
     | * (return value)* | `Number` | |
      */
     getZoom(): number;
-
 
     /**
      * Set the zoom of current image or canvas(in `Editing` mode).
@@ -527,7 +524,7 @@ declare class KPainter {
      */
     setZoom(num: number, isRate: boolean): number;
 
-    //# Basic Editor
+    // Basic Editor
 
     /**
      * The can - not - store step(freeTransform, brush) will generate a step image.If the step images' count over `stepImgsGCThreshold`, oldest not protected one would be GC.
@@ -592,7 +589,6 @@ declare class KPainter {
     
      */
     removeProtectedStep(index: number): boolean;
-
 
     /**
      * Get All protected steps.Can only process in `Editing` mode.
@@ -728,7 +724,6 @@ declare class KPainter {
      */
     mirror(): boolean;
 
-
     /**
      * Flip.Can only process in `Editing` mode.
     
@@ -775,7 +770,7 @@ declare class KPainter {
      */
     getEditHeight(): number;
 
-    //# Crop
+    // Crop
 
     /**
      * Whether show`Crop Rect` UI when enter`Editing` mode
@@ -881,8 +876,7 @@ declare class KPainter {
      */
     cropAsync(callback?: () => void, array?: rectangle[]): void;
 
-
-    //# Free Transform
+    // Free Transform
 
     /**
      * You should call`KPainter.loadCvScriptAsync()` first before use`FreeTransform` mode.
@@ -983,11 +977,11 @@ declare class KPainter {
      */
     exitFreeTransformModeAsync(callback?: () => void): any;
 
-    //# Video
+    // Video
 
     videoSettings: MediaStreamConstraints;
 
-    //## `MediaStreamConstraints`.videoSettings
+    // `MediaStreamConstraints`.videoSettings
     /**
     A[MediaStreamConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints).
     
@@ -1001,7 +995,6 @@ declare class KPainter {
     | videoSettings * (optional) * | `MediaStreamConstraints` | A[MediaStreamConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints). *reference:* [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) |
      */
     showVideo(callback?: () => void, videoSettings?: MediaStreamConstraints): boolean;
-
 
     /**
      * Syntax:* `.grabVideo()`

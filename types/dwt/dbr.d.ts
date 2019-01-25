@@ -137,7 +137,7 @@ declare namespace dynamsoft {
         static name: string;
         static length: number;
         static version: string;
-        //appendTplStringToRuntimeSettings(b, d):
+        // appendTplStringToRuntimeSettings(b, d):
         /**
          * Read barcode from the source image.
          * @method BarcodeReader#decode
