@@ -5,6 +5,7 @@
 //                 Brice BERNARD <https://github.com/brikou>,
 //                 Veli-Pekka Kestilä <https://github.com/vpk>,
 //                 Daniel Parker <https://github.com/rlgod>
+//                 Sam Jeffress <https://github.com/samjeffress>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -184,4 +185,4 @@ export function verify(
 export function decode(
     token: string,
     options?: DecodeOptions,
-): null | { [key: string]: any } | string;
+): null | { [key: string]: any, payload?: object, header?: object } | string;

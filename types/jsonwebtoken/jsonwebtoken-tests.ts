@@ -138,3 +138,9 @@ if (decoded !== null && typeof decoded === "object") {
 decoded = jwt.decode(token, { json: false });
 
 decoded = jwt.decode(token, { complete: false, json: false });
+
+decoded = jwt.decode(token, { complete: true });
+if (decoded !== null && typeof decoded === "object") {
+    console.log(decoded.payload);
+    console.log(decoded.header);
+}
