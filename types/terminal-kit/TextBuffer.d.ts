@@ -77,7 +77,7 @@ declare class TextBuffer {
   save(filepath: string, callback: (error?: any) => void): void;
 }
 
-export default TextBuffer;
+export = TextBuffer;
 
 declare namespace TextBuffer {
   interface Options {

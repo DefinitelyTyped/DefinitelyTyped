@@ -37,7 +37,7 @@ declare class ScreenBufferHD extends ScreenBuffer {
   ): void;
 }
 
-export default ScreenBufferHD;
+export = ScreenBufferHD;
 
 declare namespace ScreenBufferHD {
   interface Attributes {

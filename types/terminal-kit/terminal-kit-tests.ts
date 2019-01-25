@@ -1,5 +1,5 @@
 // Require the lib, get a working terminal
-import {
+import t, {
   terminal as term,
   autoComplete as ac,
   getDetectedTerminal,
@@ -10,9 +10,10 @@ import {
 import "node";
 import * as fs from "fs";
 
+new t.Rect({width: 4, height: 4});
 // The term() function simply output a string to stdout, using current style
 // output "Hello world!" in default terminal's colors
-term("Hello world!\n");
+t.terminal("Hello world!\n");
 
 // This output 'red' in red
 term.red("red");
@@ -408,7 +409,7 @@ term("My name is ")
   .green("32\n");
 term("My name is ^rJack^ and I'm ^g32\n");
 
-getDetectedTerminal((error, term) => {
+getDetectedTerminal((error: any, term: any) => {
   term.cyan("Terminal name: %s\n", term.appName);
   term.cyan("Terminal app: %s\n", term.app);
   term.cyan("Terminal generic: %s\n", term.generic);

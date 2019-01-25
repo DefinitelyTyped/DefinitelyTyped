@@ -42,7 +42,7 @@ declare class Rect {
   ): void;
 }
 
-export default Rect;
+export = Rect;
 
 declare namespace Rect {
   type Options = AbsoluteOptions | Region;

@@ -3,7 +3,7 @@ import EventEmitter = require("nextgen-events");
 
 type Terminal = Terminal.Impl & EventEmitter;
 
-export default Terminal;
+export = Terminal;
 
 type Callback<T> = ((err: any) => void) | ((err: undefined, arg: T) => void);
 

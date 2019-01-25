@@ -83,7 +83,7 @@ declare class ScreenBuffer extends NextGenEvents {
   saveSync(filepath: string): void;
 }
 
-export default ScreenBuffer;
+export = ScreenBuffer;
 
 declare namespace ScreenBuffer {
   interface Options {
