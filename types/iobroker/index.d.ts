@@ -1334,7 +1334,7 @@ declare global {
 
             /** Subscribe to changes of states (which might not belong to this adapter) */
             subscribeForeignStates(pattern: string, callback?: ErrorCallback): void;
-            subscribeForeignStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeForeignStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
             /** Subscribe to changes of states (which might not belong to this adapter) */
             subscribeForeignStatesAsync(pattern: string, options?: unknown): Promise<void>;
 
@@ -1343,7 +1343,7 @@ declare global {
              * @param pattern - Must match the pattern used to subscribe
              */
             unsubscribeStates(pattern: string, callback?: ErrorCallback): void;
-            unsubscribeStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
             /**
              * Subscribe from changes of states in this instance
              * @param pattern - Must match the pattern used to subscribe
@@ -1354,7 +1354,7 @@ declare global {
              * @param pattern - Must match the pattern used to subscribe
              */
             unsubscribeForeignStates(pattern: string, callback?: ErrorCallback): void;
-            unsubscribeForeignStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeForeignStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
             /**
              * Subscribe from changes of states (which might not belong to this adapter)
              * @param pattern - Must match the pattern used to subscribe
