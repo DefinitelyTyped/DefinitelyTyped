@@ -1,4 +1,4 @@
-// Type definitions for nconf
+// Type definitions for nconf 0.10
 // Project: https://github.com/flatiron/nconf
 // Definitions by: Jeff Goddard <https://github.com/jedigo>, 
 //                 Jean-Martin Thibault <https://github.com/jmthibault>
