@@ -1,4 +1,4 @@
-// Type definitions for react-paginate 6.2.1
+// Type definitions for react-paginate 6.2
 // Project: https://github.com/AdeleD/react-paginate
 // Definitions by: Simon Hartcher <https://github.com/deevus>
 //                 Wouter Hardeman <https://github.com/wouterhardeman>
