@@ -79,7 +79,8 @@ import {
   TabContent,
   Table,
   Tag,
-  Tooltip
+  Tooltip,
+  Spinner
 } from 'reactstrap';
 
 // --------------- Alert
@@ -4321,5 +4322,18 @@ function Example124()  {
 
   return (
     <UncontrolledCarousel items={items} />
+  );
+}
+
+function Example125() {
+  return (
+    <div>
+      <Spinner />
+      <Spinner color="primary" />
+      <Spinner size="sm" />
+      <Spinner type="grow" />
+      <Spinner color="success" size="sm" type="grow" />
+      <Spinner className="customClass" />
+    </div>
   );
 }
