@@ -1,49 +1,46 @@
 import { PassThrough } from 'stream';
-import Ora = require('ora');
+import ora = require('ora');
 
-const spinner = Ora('Loading unicorns').start();
+const spinner = ora('Loading unicorns');
+ora({ text: 'Loading unicorns' });
+ora({ spinner: 'squish' });
+ora({ spinner: { frames: ['-', '+', '-'] } });
+ora({ spinner: { interval: 80, frames: ['-', '+', '-'] } });
+ora({ color: 'cyan' });
+ora({ color: 'foo' }); // $ExpectError
+ora({ hideCursor: true });
+ora({ interval: 80 });
+ora({ stream: new PassThrough() });
+ora({ isEnabled: true });
 
-const spinnerNothing = Ora().start();
-
-const spinnerNew = new Ora({
-    text: 'Loading unicorns',
-    spinner: 'squish'
-});
-
-const spinnerNew2 = new Ora({
-    stream: new PassThrough(),
-    text: 'foo',
-    color: 'cyan',
-    enabled: true
-});
+spinner.color = 'yellow';
+spinner.text = 'Loading rainbows';
+spinner.isSpinning; // $ExpectType boolean
+spinner.isSpinning = true; // $ExpectError
 
 spinner.start();
 spinner.start('Test text');
-
-setTimeout(() => {
-    spinner.color = 'yellow';
-    spinner.text = 'Loading rainbows';
-}, 1000);
-
-setTimeout(() => {
-    spinner.succeed();
-}, 2000);
-
+spinner.stop();
 spinner.succeed();
 spinner.succeed('fooed');
 spinner.fail();
 spinner.fail('failed to foo');
 spinner.warn();
+spinner.warn('warn foo');
 spinner.info();
+spinner.info('info foo');
 spinner.stopAndPersist();
-spinner.stopAndPersist('@');
-spinner.stopAndPersist({text: 'all done'});
-spinner.stopAndPersist({symbol: '@', text: 'all done'});
+spinner.stopAndPersist({ text: 'all done' });
+spinner.stopAndPersist({ symbol: '@', text: 'all done' });
+spinner.clear();
+spinner.render();
+spinner.frame();
 
 const resolves = Promise.resolve(1);
-Ora.promise(resolves, {
+ora.promise(resolves, 'foo');
+ora.promise(resolves, {
     stream: new PassThrough(),
     text: 'foo',
     color: 'blue',
-    enabled: true
+    isEnabled: true,
 });

@@ -49,7 +49,11 @@ Mousetrap.reset();
 // event handler to the form element only, instead of the entire document.
 var element = document.querySelector('form');
 var instance = new Mousetrap(element);
-instance.bind('mod+s', function(){ console.log('Instance Saved'); });
+instance.bind('mod+s', function () { console.log('Instance Saved'); });
+
+// Test that we can create an instance of mousetrap without passing element to the constructor.
+var documentInstance = new Mousetrap();
+documentInstance.bind('mod+s', function () { console.log('documentInstance Saved'); });
 
 // Test that the factory method works as well.
 Mousetrap(element).bind('mod+s', function(){ console.log('Factory Saved'); });

@@ -36,6 +36,8 @@ declare namespace Bull {
     max: number;
     /** Per duration in milliseconds */
     duration: number;
+    /** When jobs get rate limited, they stay in the waiting queue and are not moved to the delayed queue */
+    bounceBack?: boolean;
   }
 
   interface QueueOptions {
@@ -67,6 +69,11 @@ declare namespace Bull {
      * Key expiration time for job locks
      */
     lockDuration?: number;
+
+    /**
+     * Interval in milliseconds on which to acquire the job lock.
+     */
+    lockRenewTime?: number;
 
     /**
      * How often check for stalled jobs (use 0 for never checking)
@@ -118,6 +125,35 @@ declare namespace Bull {
      * How many attempts where made to run this job
      */
     attemptsMade: number;
+
+    /**
+     * When this job was started (unix milliseconds)
+     */
+    processedOn?: number;
+
+    /**
+     * When this job was completed (unix milliseconds)
+     */
+    finishedOn?: number;
+
+    /**
+     * Which queue this job was part of
+     */
+    queue: Queue<T>;
+
+    timestamp: number;
+
+    /**
+     * The named processor name
+     */
+    name: string;
+
+    /**
+     * The stacktrace for any errors
+     */
+    stacktrace: string[];
+
+    returnvalue: any;
 
     /**
      * Report progress on a job
@@ -330,6 +366,11 @@ declare namespace Bull {
   }
 
   interface Queue<T = any> {
+    /**
+     * The name of the queue
+     */
+    name: string;
+
     /**
      * Returns a promise that resolves when Redis is connected and the queue is ready to accept jobs.
      * This replaces the `ready` event emitted on Queue in previous verisons.

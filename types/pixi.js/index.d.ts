@@ -2,7 +2,7 @@
 // Project: https://github.com/pixijs/pixi.js/tree/dev
 // Definitions by: clark-stevenson <https://github.com/clark-stevenson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare namespace PIXI {
     // from CONST
@@ -281,7 +281,7 @@ declare namespace PIXI {
     }
     class Container extends DisplayObject {
         // begin extras.getChildByName
-        getChildByName(name: string): DisplayObject;
+        getChildByName<T extends DisplayObject = Container>(name: string): T;
         // end extras.getChildByName
 
         children: DisplayObject[];
@@ -294,10 +294,15 @@ declare namespace PIXI {
         swapChildren(child: DisplayObject, child2: DisplayObject): void;
         getChildIndex(child: DisplayObject): number;
         setChildIndex(child: DisplayObject, index: number): void;
-        getChildAt(index: number): DisplayObject;
-        removeChild(child: DisplayObject): DisplayObject;
-        removeChildAt(index: number): DisplayObject;
-        removeChildren(beginIndex?: number, endIndex?: number): DisplayObject[];
+        getChildAt<T extends DisplayObject = Container>(index: number): T;
+        removeChild<T extends DisplayObject = Container>(
+            child: DisplayObject
+        ): T;
+        removeChildAt<T extends DisplayObject = Container>(index: number): T;
+        removeChildren<T extends DisplayObject = Container>(
+            beginIndex?: number,
+            endIndex?: number
+        ): T[];
         updateTransform(): void;
         calculateBounds(): void;
         protected _calculateBounds(): void;
@@ -310,14 +315,14 @@ declare namespace PIXI {
         destroy(options?: DestroyOptions | boolean): void;
 
         once(
-            event: "added" | "removed",
+            event: interaction.InteractionEventTypes | "added" | "removed",
             fn: (displayObject: DisplayObject) => void,
             context?: any
         ): this;
         //tslint:disable-next-line:ban-types forbidden-types
         once(event: string, fn: Function, context?: any): this;
         on(
-            event: "added" | "removed",
+            event: interaction.InteractionEventTypes | "added" | "removed",
             fn: (displayObject: DisplayObject) => void,
             context?: any
         ): this;
@@ -482,6 +487,7 @@ declare namespace PIXI {
         worldTransform: Matrix;
         localTransform: Matrix;
         protected _worldID: number;
+        protected _parentID: number;
         updateLocalTransform(): void;
         updateTransform(parentTransform: TransformBase): void;
         updateWorldTransform(parentTransform: TransformBase): void;
@@ -497,14 +503,13 @@ declare namespace PIXI {
         protected _cr?: number;
         protected _cy?: number;
         protected _sy?: number;
-        protected _nsx?: number;
+        protected _sx?: number;
         protected _cx?: number;
+        protected _localID: number;
         protected _currentLocalID: number;
 
         protected onChange(): void;
         updateSkew(): void;
-        updateLocalTransform(): void;
-        updateTransform(parentTransform: TransformBase): void;
         setFromMatrix(matrix: Matrix): void;
         rotation: number;
     }
@@ -892,7 +897,12 @@ declare namespace PIXI {
         getBounds(): Rectangle;
     }
     class Ellipse implements HitArea {
-        constructor(x?: number, y?: number, width?: number, height?: number);
+        constructor(
+            x?: number,
+            y?: number,
+            halfWidth?: number,
+            halfHeight?: number
+        );
 
         x: number;
         y: number;

@@ -67,7 +67,7 @@ function testSandbox() {
     sb.replaceSetter(replaceMe, 'setter', (v) => { });
 
     const cls = class {
-        foo() { }
+        foo(arg1: string, arg2: number) { return 1; }
         bar: number;
     };
     const PrivateFoo = class {
@@ -81,8 +81,8 @@ function testSandbox() {
 
     const stubInstance = sb.createStubInstance(cls);
     const privateFooStubbedInstance = sb.createStubInstance(PrivateFoo);
-    stubInstance.foo.calledWith('foo');
-    privateFooStubbedInstance.foo.calledWith('foo');
+    stubInstance.foo.calledWith('foo', 1);
+    privateFooStubbedInstance.foo.calledWith();
     const clsFoo: sinon.SinonStub = stubInstance.foo;
     const privateFooFoo: sinon.SinonStub = privateFooStubbedInstance.foo;
     const clsBar: number = stubInstance.bar;
@@ -208,6 +208,7 @@ function testMatch() {
     sinon.match.regexp.test('foo');
     sinon.match.date.test('foo');
     sinon.match.symbol.test('foo');
+    sinon.match.in([1, 2, 3]).test(1);
     sinon.match.same(obj);
     sinon.match.typeOf('string').test('foo');
     sinon.match.instanceOf(fn).test('foo');
@@ -417,6 +418,7 @@ function testSpy() {
 function testStub() {
     const obj = class {
         foo() { }
+        promiseFunc() { return Promise.resolve('foo'); }
     };
     const instance = new obj();
 
@@ -424,6 +426,10 @@ function testStub() {
     stub = sinon.stub(instance, 'foo').named('namedStub');
 
     const spy: sinon.SinonSpy = stub;
+
+    function promiseFunc(n: number) { return Promise.resolve('foo'); }
+    const promiseStub = sinon.stub(instance, 'promiseFunc');
+    promiseStub.resolves('test');
 
     sinon.stub(instance);
 
@@ -476,6 +482,23 @@ function testStub() {
     stub.yieldsToAsync('foo', 'a', 2);
     stub.yieldsToOnAsync('foo', instance, 'a', 2);
     stub.withArgs('a', 2).returns(true);
+}
+
+function testTypedStub() {
+    class Foo {
+        bar(baz: number, qux: string): boolean {
+            return true;
+        }
+    }
+    let stub: sinon.SinonStub<[number, string], boolean> = sinon.stub();
+    let stub2 = sinon.stub<[number, string], boolean>();
+    const foo = new Foo();
+    stub = sinon.stub(foo, 'bar');
+    stub2 = sinon.stub(foo, 'bar');
+    const result: boolean = stub(42, 'qux');
+    const fooStub: sinon.SinonStubbedInstance<Foo> = {
+        bar: sinon.stub()
+    };
 }
 
 function testMock() {

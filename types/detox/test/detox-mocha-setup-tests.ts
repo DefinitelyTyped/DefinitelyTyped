@@ -5,7 +5,7 @@ declare var beforeEach: (callback: () => void) => void;
 declare var after: (callback: () => void) => void;
 declare var afterEach: (callback: () => void) => void;
 
-import adapter from "detox/runners/mocha/adapters";
+import adapter from "detox/runners/mocha/adapter";
 
 // Normally the Detox configuration from the project's package.json like so:
 // const config = require("./package.json").detox;

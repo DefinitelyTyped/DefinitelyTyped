@@ -71,7 +71,11 @@ const chart: Chart = new Chart(ctx, {
                 padding: 40
             }
         },
-        devicePixelRatio: 2
+        devicePixelRatio: 2,
+        plugins: {
+            bar: false,
+            foo: {}
+        }
     }
 });
 chart.update();

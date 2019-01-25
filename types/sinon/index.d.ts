@@ -8,6 +8,8 @@
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Greg Jednaszewski <https://github.com/gjednaszewski>
 //                 John Wood <https://github.com/johnjesse>
+//                 Alec Flett <https://github.com/alecf>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1357,6 +1359,10 @@ declare namespace Sinon {
          * Requires the value to be a Symbol.
          */
         symbol: SinonMatcher;
+        /**
+         * Requires the value to be in the specified array.
+         */
+        in(allowed: any[]): SinonMatcher;
         /**
          * Requires the value to strictly equal ref.
          */

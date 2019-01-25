@@ -838,6 +838,8 @@ user.previous();
 user.save().then( ( p ) => p );
 user.save( { fields : ['a'] } ).then( ( p ) => p );
 user.save( { transaction : t } );
+user.save( { hooks: false } );
+user.save( { hooks: true } );
 
 user.reload();
 user.reload( { attributes : ['bNumber'] } );

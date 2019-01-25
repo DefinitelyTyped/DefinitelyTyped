@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 2.13
+// Type definitions for react-navigation 3.0
 // Project: https://github.com/react-navigation/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
@@ -29,11 +29,13 @@
 //                 Jason Killian <https://github.com/jkillian>
 //                 Jeroen Vervaeke <https://github.com/jeroenvervaeke>
 //                 Fellipe Chagas <https://github.com/chagasaway>
+//                 Deniss Borisovs <https://github.com/denissb>
+//                 Kenneth Skovhus <https://github.com/skovhus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /**
- * Reference: https://github.com/react-navigation/react-navigation/tree/a37473c5e4833f48796ee6c7c9cb4a8ac49d9c06
+ * Reference: https://github.com/react-navigation/react-navigation/tree/4fb6b163acc4e57bb9d0be169b90b07a7d9bf4a8
  *
  * NOTE: Please update the commit/link above when updating to a new Flow
  * react-navigation/flow/react-navigation.js reference, so we can conveniently just look at diffs on
@@ -416,7 +418,7 @@ export interface NavigationSwitchRouterConfig {
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+  defaultNavigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   order?: string[];
   backBehavior?: 'none' | 'initialRoute'; // defaults to `'none'`
   resetOnBlur?: boolean; // defaults to `true`
@@ -456,6 +458,7 @@ export interface NavigationStackRouterConfig {
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
+  defaultNavigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   initialRouteKey?: string;
 }
@@ -519,10 +522,12 @@ interface NavigationTabRouterConfigBase {
   backBehavior?: 'none' | 'initialRoute'; // defaults `initialRoute`
 }
 export interface NavigationTabRouterConfig extends NavigationTabRouterConfigBase {
-  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+  defaultNavigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+  navigationOptions?: NavigationTabRouterConfigBase;
 }
 export interface NavigationBottomTabRouterConfig extends NavigationTabRouterConfigBase {
-  navigationOptions?: NavigationScreenConfig<NavigationBottomTabScreenOptions>;
+  defaultNavigationOptions?: NavigationScreenConfig<NavigationBottomTabScreenOptions>;
+  navigationOptions?: NavigationTabRouterConfigBase;
 }
 export interface TabScene {
   route: NavigationRoute;
@@ -1140,7 +1145,7 @@ export namespace StackActions {
 
   function pop(options: NavigationPopActionPayload): NavigationPopAction;
   function popToTop(
-    options: NavigationPopToTopActionPayload
+    options?: NavigationPopToTopActionPayload
   ): NavigationPopToTopAction;
 
   function push(options: NavigationPushActionPayload): NavigationPushAction;
@@ -1250,6 +1255,16 @@ export function createNavigator<S, Options>(
 export function createNavigationContainer(
   Component: NavigationNavigator<any, any, any>
 ): NavigationContainer;
+
+/**
+ * Create an app container to wrap the root navigator
+ *
+ * @see https://github.com/react-navigation/react-navigation-native/blob/098e2e52b349d37357109d5aee545fa74699d3d4/src/createAppContainer.js#L64
+ */
+export function createAppContainer(
+  Component: NavigationNavigator<any, any, any>
+): NavigationContainer;
+
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */

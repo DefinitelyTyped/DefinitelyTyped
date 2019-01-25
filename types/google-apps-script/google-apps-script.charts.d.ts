@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-12-26
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -536,7 +536,7 @@ declare namespace GoogleAppsScript {
      *     function doGet() {
      *       // This example creates two table charts side by side. One uses a data view definition to
      *       // restrict the number of displayed columns.
-     *       var app = UiApp.createApplication();
+     *
      *       // Get sample data from a spreadsheet.
      *       var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=A1%3AF' +
      *           '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=4&headers=-1';
@@ -555,9 +555,17 @@ declare namespace GoogleAppsScript {
      *           .setDataViewDefinition(dataViewDefinition)
      *           .build();
      *
-     *       var panel = app.createHorizontalPanel().setSpacing(15);
-     *       panel.add(originalChart).add(limitedChart);
-     *       return app.add(panel);
+     *       var htmlOutput = HtmlService.createHtmlOutput();
+     *       var originalChartData = Utilities.base64Encode(originalChart.getAs('image/png').getBytes());
+     *       var originalChartUrl = "data:image/png;base64," + encodeURI(originalChartData);
+     *       var limitedChartData = Utilities.base64Encode(limitedChart.getAs('image/png').getBytes());
+     *       var limitedChartUrl = "data:image/png;base64," + encodeURI(limitedChartData);
+     *       htmlOutput.append("<table><tr><td>");
+     *       htmlOutput.append("<img border=\"1\" src=\"" + originalChartUrl + "\">");
+     *       htmlOutput.append("</td><td>");
+     *       htmlOutput.append("<img border=\"1\" src=\"" + limitedChartUrl + "\">");
+     *       htmlOutput.append("</td></tr></table>");
+     *       return htmlOutput;
      *     }
      */
     export interface DataViewDefinitionBuilder {

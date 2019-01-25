@@ -6,6 +6,7 @@
 //                 rileymiller <https://github.com/rileymiller>
 //                 toddself <https://github.com/toddself>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = CodeMirror;
 export as namespace CodeMirror;

@@ -43,5 +43,7 @@ function test_client() {
             });
     };
 
-    connection.open();
+    if (!connection.isOpen && !connection.isRetrying && connection.session == null) {
+        connection.open();
+    }
 }

@@ -16,13 +16,13 @@ import {
 } from "yup";
 
 // reach function
-let schema = yup.object().shape({
+const schema1 = yup.object().shape({
     nested: yup.object().shape({
         arr: yup.array().of(yup.object().shape({ num: yup.number().max(4) }))
     })
 });
-reach(schema, "nested.arr.num");
-reach(schema, "nested.arr[].num");
+reach(schema1, "nested.arr.num");
+reach(schema1, "nested.arr[].num");
 
 // addMethod function
 yup.addMethod<NumberSchema>(yup.number, "minimum", function(
@@ -41,7 +41,7 @@ yup.addMethod(yup.date, "newMethod", function(
 });
 
 // ref function
-schema = yup.object().shape({
+const schema2 = yup.object().shape({
     baz: yup.ref("foo.bar"),
     foo: yup.object().shape({
         bar: yup.string()
@@ -49,7 +49,16 @@ schema = yup.object().shape({
     x: yup.ref("$x")
 });
 
-schema.cast({ foo: { bar: "boom" } }, { context: { x: 5 } });
+let ref: yup.Ref = yup.ref("foo.bar");
+
+// $ExpectError
+ref = {};
+
+// $ExpectError
+ref = { __isYupRef: true };
+
+// cast function
+schema2.cast({ foo: { bar: "boom" } }, { context: { x: 5 } });
 
 // lazy function
 const node: ObjectSchema<any> = yup.object().shape({
@@ -68,12 +77,21 @@ const renderable = yup.lazy(value => {
 });
 const renderables = yup.array().of(renderable);
 
+// ValidationError static methods
+// $ExpectType boolean
+ValidationError.isError(new ValidationError("error", "value", "path"));
+// $ExpectType string | ((params?: any) => string)
+ValidationError.formatError("error", { path: "path" });
+ValidationError.formatError("error");
+ValidationError.formatError(() => "error");
+ValidationError.formatError(() => "error", { path: "path" });
+
 // ValidationError
-let error: ValidationError = yup.ValidationError("error", "value", "path");
-error = yup.ValidationError(["error", "error2"], true, "path");
-error = yup.ValidationError(["error", "error2"], 5, "path");
-error = yup.ValidationError(["error", "error2"], { name: "value" }, "path");
-error = yup.ValidationError(
+let error: ValidationError = new yup.ValidationError("error", "value", "path");
+error = new yup.ValidationError(["error", "error2"], true, "path");
+error = new yup.ValidationError(["error", "error2"], 5, "path");
+error = new yup.ValidationError(["error", "error2"], { name: "value" }, "path");
+error = new yup.ValidationError(
     ["error", "error2"],
     { name: "value" },
     "path",
@@ -84,7 +102,7 @@ error = {
     message: "error",
     path: "path",
     errors: ["error"],
-    inner: [yup.ValidationError("error", true, "path")],
+    inner: [new yup.ValidationError("error", true, "path")],
     type: "date",
     value: { start: "2017-11-10" }
 };
@@ -126,8 +144,8 @@ mixed.default(() => ({ number: 5 }));
 mixed.default();
 mixed.nullable(true);
 mixed.required();
-mixed.required('Foo');
-mixed.required(() => 'Foo');
+mixed.required("Foo");
+mixed.required(() => "Foo");
 mixed.notRequired(); // $ExpectType MixedSchema
 mixed.typeError("type error");
 mixed.typeError(() => "type error");
@@ -146,10 +164,8 @@ mixed
         then: yup.number().min(5),
         otherwise: yup.number().min(0)
     })
-    .when(
-        "$other",
-        (value: any, schema: MixedSchema) =>
-            value === 4 ? schema.required() : schema
+    .when("$other", (value: any, schema: MixedSchema) =>
+        value === 4 ? schema.required() : schema
     );
 // tslint:disable-next-line:no-invalid-template-strings
 mixed.test("is-jimmy", "${path} is not Jimmy", value => value === "jimmy");
@@ -351,7 +367,7 @@ arrSchema.max(5, () => "max");
 arrSchema.min(5);
 arrSchema.min(5, "min");
 arrSchema.min(5, () => "min");
-arrSchema.compact(value => value === null);
+arrSchema.compact((value, index, array) => value === array[index]);
 
 yup.array(); // $ExpectType ArraySchema<{}>
 yup.array(yup.string()); // $ExpectType ArraySchema<string>
@@ -458,6 +474,40 @@ const testObject: MyInterface = {
 };
 
 typedSchema.validateSync(testObject); // $ExpectType MyInterface
+
+// Shape<T, U> and shape function
+interface AB {
+    a: string;
+    b: number;
+}
+
+interface BC {
+    b: string;
+    c: number;
+}
+
+interface ExpectedABC {
+    a: string;
+    b: string;
+    c: number;
+}
+
+const expectedAbc: ExpectedABC = {
+    a: "qwerty",
+    b: "asdfg",
+    c: 123
+};
+const actualAbc: yup.Shape<AB, BC> = expectedAbc;
+
+const definitionAB: yup.ObjectSchemaDefinition<AB> = {
+    a: yup.string(),
+    b: yup.number()
+};
+const definitionBC: yup.ObjectSchemaDefinition<BC> = {
+    b: yup.string(),
+    c: yup.number()
+};
+const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
 
 // $ExpectError
 yup.object<MyInterface>({

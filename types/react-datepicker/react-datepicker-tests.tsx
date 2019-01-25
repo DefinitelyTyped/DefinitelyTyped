@@ -34,7 +34,7 @@ const defaultLocale = getDefaultLocale();
 	forceShowMonthNavigation
 	formatWeekDay={date => ''}
 	formatWeekNumber={date => 0}
-	highlightDates={[new Date()]}
+	highlightDates={[{ someClassName: [new Date()]}]}
 	id=""
 	includeDates={[new Date()]}
 	includeTimes={[new Date()]}

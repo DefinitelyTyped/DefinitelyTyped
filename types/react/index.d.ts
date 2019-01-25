@@ -19,6 +19,7 @@
 //                 Martin Hochel <https://github.com/hotell>
 //                 Frank Li <https://github.com/franklixuefei>
 //                 Jessica Franco <https://github.com/Kovensky>
+//                 Paul Sherman <https://github.com/pshrmn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -490,6 +491,10 @@ declare namespace React {
         getDefaultProps?(): P;
     }
 
+    type JSXElementConstructor<P> =
+        | ((props: P) => ReactElement<any> | null)
+        | (new (props: P) => Component<P, any>);
+
     /**
      * We use an intersection type to infer multiple type parameters from
      * a single argument, which is useful for many top-level API defs.
@@ -718,8 +723,8 @@ declare namespace React {
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
      * or ComponentPropsWithoutRef when refs are not supported.
      */
-    type ComponentProps<T extends ReactType> =
-        T extends ComponentType<infer P>
+    type ComponentProps<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>> =
+        T extends JSXElementConstructor<infer P>
             ? P
             : T extends keyof JSX.IntrinsicElements
                 ? JSX.IntrinsicElements[T]
@@ -905,51 +910,47 @@ declare namespace React {
     //
     // Event System
     // ----------------------------------------------------------------------
-
-    interface SyntheticEvent<T = Element> {
+    // TODO: change any to unknown when moving to TS v3
+    interface BaseSyntheticEvent<E = object, C = any, T = any> {
+        nativeEvent: E;
+        currentTarget: C;
+        target: T;
         bubbles: boolean;
-        /**
-         * A reference to the element on which the event listener is registered.
-         */
-        currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
         eventPhase: number;
         isTrusted: boolean;
-        nativeEvent: Event;
         preventDefault(): void;
         isDefaultPrevented(): boolean;
         stopPropagation(): void;
         isPropagationStopped(): boolean;
         persist(): void;
-        // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
-        /**
-         * A reference to the element from which the event was originally dispatched.
-         * This might be a child element to the element on which the event listener is registered.
-         *
-         * @see currentTarget
-         */
-        target: EventTarget;
         timeStamp: number;
         type: string;
     }
 
-    interface ClipboardEvent<T = Element> extends SyntheticEvent<T> {
+    /**
+     * currentTarget - a reference to the element on which the event listener is registered.
+     *
+     * target - a reference to the element from which the event was originally dispatched.
+     * This might be a child element to the element on which the event listener is registered.
+     * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
+     */
+    interface SyntheticEvent<T = Element, E = Event> extends BaseSyntheticEvent<E, EventTarget & T, EventTarget> {}
+
+    interface ClipboardEvent<T = Element> extends SyntheticEvent<T, NativeClipboardEvent> {
         clipboardData: DataTransfer;
-        nativeEvent: NativeClipboardEvent;
     }
 
-    interface CompositionEvent<T = Element> extends SyntheticEvent<T> {
+    interface CompositionEvent<T = Element> extends SyntheticEvent<T, NativeCompositionEvent> {
         data: string;
-        nativeEvent: NativeCompositionEvent;
     }
 
-    interface DragEvent<T = Element> extends MouseEvent<T> {
+    interface DragEvent<T = Element> extends MouseEvent<T, NativeDragEvent> {
         dataTransfer: DataTransfer;
-        nativeEvent: NativeDragEvent;
     }
 
-    interface PointerEvent<T = Element> extends MouseEvent<T> {
+    interface PointerEvent<T = Element> extends MouseEvent<T, NativePointerEvent> {
         pointerId: number;
         pressure: number;
         tiltX: number;
@@ -958,11 +959,9 @@ declare namespace React {
         height: number;
         pointerType: 'mouse' | 'pen' | 'touch';
         isPrimary: boolean;
-        nativeEvent: NativePointerEvent;
     }
 
-    interface FocusEvent<T = Element> extends SyntheticEvent<T> {
-        nativeEvent: NativeFocusEvent;
+    interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
         relatedTarget: EventTarget;
         target: EventTarget & T;
     }
@@ -979,7 +978,7 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    interface KeyboardEvent<T = Element> extends SyntheticEvent<T> {
+    interface KeyboardEvent<T = Element> extends SyntheticEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
@@ -995,13 +994,12 @@ declare namespace React {
         locale: string;
         location: number;
         metaKey: boolean;
-        nativeEvent: NativeKeyboardEvent;
         repeat: boolean;
         shiftKey: boolean;
         which: number;
     }
 
-    interface MouseEvent<T = Element> extends SyntheticEvent<T> {
+    interface MouseEvent<T = Element, E = NativeMouseEvent> extends SyntheticEvent<T, E> {
         altKey: boolean;
         button: number;
         buttons: number;
@@ -1015,7 +1013,6 @@ declare namespace React {
         metaKey: boolean;
         movementX: number;
         movementY: number;
-        nativeEvent: NativeMouseEvent;
         pageX: number;
         pageY: number;
         relatedTarget: EventTarget;
@@ -1024,7 +1021,7 @@ declare namespace React {
         shiftKey: boolean;
     }
 
-    interface TouchEvent<T = Element> extends SyntheticEvent<T> {
+    interface TouchEvent<T = Element> extends SyntheticEvent<T, NativeTouchEvent> {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
@@ -1033,36 +1030,31 @@ declare namespace React {
          */
         getModifierState(key: string): boolean;
         metaKey: boolean;
-        nativeEvent: NativeTouchEvent;
         shiftKey: boolean;
         targetTouches: TouchList;
         touches: TouchList;
     }
 
-    interface UIEvent<T = Element> extends SyntheticEvent<T> {
+    interface UIEvent<T = Element> extends SyntheticEvent<T, NativeUIEvent> {
         detail: number;
-        nativeEvent: NativeUIEvent;
         view: AbstractView;
     }
 
-    interface WheelEvent<T = Element> extends MouseEvent<T> {
+    interface WheelEvent<T = Element> extends MouseEvent<T, NativeWheelEvent> {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
-        nativeEvent: NativeWheelEvent;
     }
 
-    interface AnimationEvent<T = Element> extends SyntheticEvent<T> {
+    interface AnimationEvent<T = Element> extends SyntheticEvent<T, NativeAnimationEvent> {
         animationName: string;
         elapsedTime: number;
-        nativeEvent: NativeAnimationEvent;
         pseudoElement: string;
     }
 
-    interface TransitionEvent<T = Element> extends SyntheticEvent<T> {
+    interface TransitionEvent<T = Element> extends SyntheticEvent<T, NativeTransitionEvent> {
         elapsedTime: number;
-        nativeEvent: NativeTransitionEvent;
         propertyName: string;
         pseudoElement: string;
     }
@@ -2641,9 +2633,20 @@ declare namespace React {
     }
 }
 
-// Declared props take priority over inferred props
+// naked 'any' type in a conditional type will short circuit and union both the then/else branches
+// so boolean is only resolved for T = any
+type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
+
+// Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
+// If props is type any, use propTypes definitions, otherwise for each `any` property of props, use the propTypes type
 // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
-type MergePropTypes<P, T> = P & Pick<T, Exclude<keyof T, keyof P>>;
+type MergePropTypes<P, T> = IsExactlyAny<P> extends true ? T : ({
+    [K in keyof P]: IsExactlyAny<P[K]> extends true
+        ? K extends keyof T
+        ? T[K]
+        : P[K]
+        : P[K]
+} & Pick<T, Exclude<keyof T, keyof P>>);
 
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
@@ -2809,6 +2812,7 @@ declare global {
             svg: React.SVGProps<SVGSVGElement>;
 
             animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
+            animateMotion: React.SVGProps<SVGElement>;
             animateTransform: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateTransformElement but is not in TypeScript's lib.dom.d.ts for now.
             circle: React.SVGProps<SVGCircleElement>;
             clipPath: React.SVGProps<SVGClipPathElement>;
@@ -2848,6 +2852,7 @@ declare global {
             marker: React.SVGProps<SVGMarkerElement>;
             mask: React.SVGProps<SVGMaskElement>;
             metadata: React.SVGProps<SVGMetadataElement>;
+            mpath: React.SVGProps<SVGElement>;
             path: React.SVGProps<SVGPathElement>;
             pattern: React.SVGProps<SVGPatternElement>;
             polygon: React.SVGProps<SVGPolygonElement>;

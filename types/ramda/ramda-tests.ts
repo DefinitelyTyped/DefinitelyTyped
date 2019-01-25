@@ -637,7 +637,7 @@ R.times(i, 5);
 
 /*********************
  * List category
- ********************/
+ */
 () => {
     const lessThan2 = R.flip(R.lt)(2);
     const lessThan3 = R.flip(R.lt)(3);
@@ -970,6 +970,15 @@ interface Obj {
         R.indexBy(x => x),
     )(list);
 });
+
+() => {
+    R.includes('ba', 'banana'); // => true
+    R.includes('ba')('kiwi'); // => false
+    R.includes('ma', ['ma', 'ng', 'o']); // => true
+    R.includes('ma')(['li', 'me']); // => false
+    R.includes(8, [1, 8, 9, 17]); // => true
+    R.includes(1)([2, 3, 5, 8]); // => false
+};
 
 () => {
     R.indexOf(3, [1, 2, 3, 4]); // => 2
@@ -1493,6 +1502,8 @@ type Pair = KeyValuePair<string, number>;
     const a: ABC = R.assoc("c", 3, {a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
     const b: ABC = R.assoc("c")(3, {a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
     const c: ABC = R.assoc("c", 3)({a: 1, b: 2}); // => {a: 1, b: 2, c: 3}
+    const d: ABC = R.assoc(R.__, 3, {a: 1, b: 2})("c"); // => {a: 1, b: 2, c: 3}
+    const e: ABC = R.assoc("c", R.__, {a: 1, b: 2})(3); // => {a: 1, b: 2, c: 3}
 };
 
 () => {
@@ -1510,6 +1521,8 @@ type Pair = KeyValuePair<string, number>;
     const testPath = ["x", 0, "y"];
     const testObj  = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
 
+    R.assocPath(R.__, 42, testObj)(testPath); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
+    R.assocPath(testPath, R.__, testObj)(42); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
     R.assocPath(testPath, 42, testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
     R.assocPath(testPath, 42)(testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
     R.assocPath(testPath)(42)(testObj); // => {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
@@ -1913,6 +1926,8 @@ class Rectangle {
 
     const strVal: string = R.prop('str', obj); // => 'string'
     const numVal: number = R.prop('num', obj); // => 5
+
+    const strValPl: string = R.prop(R.__, obj)('str'); // => 'string'
 
     const strValCur: string = R.prop('str')(obj); // => 'string'
     const numValCur: number = R.prop('num')(obj); // => 5
@@ -2504,6 +2519,24 @@ class Rectangle {
     const l2 = ['aaa', 'bb', 'c'];
     R.symmetricDifferenceWith(eqL, l1, l2); // => ['dddd', 'c']
     R.symmetricDifferenceWith(eqL)(l1, l2); // => ['dddd', 'c']
+};
+
+() => {
+    const list1 = [
+        {id: 1, name: 'One'},
+        {id: 2, name: 'Two'},
+        {id: 3, name: 'Three'},
+        {id: 4, name: 'Four'},
+        {id: 5, name: 'Five'}
+    ];
+
+    const list2 = [5, 4, 6];
+    const matchId = (record: { id: number, name: string }, id: number): boolean => record.id === id;
+
+    R.innerJoin(matchId, list1, list2); // [{"id": 4, "name": "Four"}, {"id": 5, "name": "Five"}]
+
+    const innerJoinCurried = R.innerJoin(matchId);
+    innerJoinCurried(list1, list2); // [{"id": 4, "name": "Four"}, {"id": 5, "name": "Five"}]
 };
 
 /*****************************************************************

@@ -12,6 +12,7 @@ interface Select2QueryOptions {
     page?: number;
     context?: any;
     callback?: (result: { results: any; more?: boolean; context?: any; }) => void;
+    element?: JQuery;
 }
 
 interface AjaxFunction {
@@ -64,7 +65,7 @@ interface Select2Options {
     formatLoadMore?: (pageNumber: number) => string;
     createSearchChoice?: (term: string, data: any) => any;
     initSelection?: (element: JQuery, callback: (data: any) => void) => void;
-    tokenizer?: (input: string, selection: any[], selectCallback: () => void, options: Select2Options) => string;
+    tokenizer?: (input: string, selection: any[], selectCallback: (token?: any) => void, options: Select2Options) => string | undefined | null;
     tokenSeparators?: string[];
     query?: (options: Select2QueryOptions) => void;
     ajax?: Select2AjaxOptions;

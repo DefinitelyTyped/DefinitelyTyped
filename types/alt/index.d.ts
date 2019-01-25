@@ -58,8 +58,8 @@ declare namespace AltJS {
     remote(state:any, ...args: any[]):Promise<S>;
     shouldFetch?(fetchFn:(...args:Array<any>) => boolean):void;
     loading?:(args:any) => void;
-    success?:(state:S) => void;
-    error?:(args:any) => void;
+    success:(state:S) => void;
+    error:(args:any) => void;
     interceptResponse?(response:any, action:Action<any>, ...args:Array<any>):any;
   }
 

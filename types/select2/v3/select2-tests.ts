@@ -20,6 +20,7 @@ $("#e4").select2({
 $("#e5").select2({
     minimumInputLength: 1,
     query: function (query) {
+        console.info('current element value:', query.element.val());
         var data = { results: [] }, i, j, s;
         for (i = 1; i < 5; i++) {
             s = "";
@@ -213,6 +214,19 @@ alert("Selected value is: " + $("#e8").select2("val")); $("#e8").select2("val", 
 $("#e19").select2({nextSearchTerm: function(selectedObject: object, currentSearchTerm: string) {
     return currentSearchTerm;
 }});
+
+$('#e20').select2({
+  tokenizer: (textInput, selection, selectCallback, options) => {
+    if (options.dropdownAutoWidth) {
+      selectCallback();
+      return null;
+    } else if (options.allowClear) {
+      selectCallback(textInput + '_');
+      return textInput + '_';
+    }
+    selection.push('extra');
+  }
+});
 
 $("#e8").select2("val");
 $("#e8").select2("val", "CA");

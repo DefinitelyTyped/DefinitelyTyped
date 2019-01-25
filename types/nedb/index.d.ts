@@ -5,10 +5,14 @@
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
+import { EventEmitter } from 'events';
+
 export = Nedb;
 export as namespace Nedb;
 
-declare class Nedb {
+declare class Nedb extends EventEmitter {
     constructor(pathOrOptions?: string | Nedb.DataStoreOptions);
 
     persistence: Nedb.Persistence;
@@ -153,6 +157,17 @@ declare class Nedb {
      */
     remove(query: any, options: Nedb.RemoveOptions, cb?: (err: Error, n: number) => void): void;
     remove(query: any, cb?: (err: Error, n: number) => void): void;
+
+    addListener(event: 'compaction.done', listener: () => void): this;
+    on(event: 'compaction.done', listener: () => void): this;
+    once(event: 'compaction.done', listener: () => void): this;
+    prependListener(event: 'compaction.done', listener: () => void): this;
+    prependOnceListener(event: 'compaction.done', listener: () => void): this;
+    removeListener(event: 'compaction.done', listener: () => void): this;
+    off(event: 'compaction.done', listener: () => void): this;
+    listeners(event: 'compaction.done'): Array<() => void>;
+    rawListeners(event: 'compaction.done'): Array<() => void>;
+    listenerCount(type: 'compaction.done'): number;
 }
 
 declare namespace Nedb {
