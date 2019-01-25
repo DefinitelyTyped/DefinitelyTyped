@@ -10,6 +10,7 @@
 
 import * as React from 'react';
 export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+export type StringPropertyNames<T extends object> = { [K in keyof T]: T[K] extends string ? K : never }[keyof T];
 
 /* ---------------------------------------------------------------------------
                        Constants and Enumerated Types
@@ -17,7 +18,9 @@ export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 export type TypeaheadModel = string|object;
 export type TypeaheadBsSizes = 'large' | 'lg' | 'small' | 'sm';
 export type TypeaheadAlign = 'justify' | 'left' | 'right';
-export type TypeaheadLabelKey<T extends TypeaheadModel> = T extends string ? never : keyof T | ((option: T) => string);
+// if options is an object, only let labelKey be a key of that object, whose value is a string
+// or a custom label function that takes a single option and returns a string for the label
+export type TypeaheadLabelKey<T extends TypeaheadModel> = T extends object ? (StringPropertyNames<T> | ((option: T) => string)) : never;
 // don't allow onBlur, onChange, onFocus or onKeyDown as members of inputProps
 // those props should be supplied directly to <Typeahead /> or <AsyncTypeahead />
 export interface InputProps extends Omit<React.InputHTMLAttributes<'input'>, 'onBlur'|'onChange'|'onFocus'|'onKeyDown'> { }
@@ -184,7 +187,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
 
     /* Specify which option key to use for display or a render function.
        By default, the selector will use the label key. */
-    labelKey?: T extends string ? never : keyof T | ((option: T) => string);
+    labelKey?: TypeaheadLabelKey<T>;
 
     /* Maximum height of the dropdown menu. */
     maxHeight?: string;

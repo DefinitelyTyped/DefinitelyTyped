@@ -1,23 +1,25 @@
 import * as React from 'react';
-import { ClearButton, Typeahead, Highlighter, Menu, MenuItem, BaseMenuItem, Token } from 'react-bootstrap-typeahead';
+import { ClearButton, Typeahead, Highlighter, Menu, MenuItem, Token } from 'react-bootstrap-typeahead';
 
 interface State {
     capital: string;
     name: string;
     population: number;
     region: string;
+    setValue: (value: State) => void;
 }
 interface GroupedStates {
     [key: string]: State[];
 }
-
+type StringPropertyNames<T> = { [K in keyof T]: T[K] extends string ? K : never }[keyof T];
+type StateKeysValid = StringPropertyNames<State>;
 const options: State[] = [
-    { name: 'Alabama', population: 4780127, capital: 'Montgomery', region: 'South' },
-    { name: 'Alaska', population: 710249, capital: 'Juneau', region: 'West' },
-    { name: 'Arizona', population: 6392307, capital: 'Phoenix', region: 'West' },
-    { name: 'Arkansas', population: 2915958, capital: 'Little Rock', region: 'South' },
-    { name: 'California', population: 37254503, capital: 'Sacramento', region: 'West' },
-    { name: 'Colorado', population: 5029324, capital: 'Denver', region: 'West' },
+    { name: 'Alabama', population: 4780127, capital: 'Montgomery', region: 'South', setValue: () => {} },
+    { name: 'Alaska', population: 710249, capital: 'Juneau', region: 'West', setValue: () => {} },
+    { name: 'Arizona', population: 6392307, capital: 'Phoenix', region: 'West', setValue: () => {} },
+    { name: 'Arkansas', population: 2915958, capital: 'Little Rock', region: 'South', setValue: () => {} },
+    { name: 'California', population: 37254503, capital: 'Sacramento', region: 'West', setValue: () => {} },
+    { name: 'Colorado', population: 5029324, capital: 'Denver', region: 'West', setValue: () => {} },
 ];
 
 const stateNames = options.map(o => o.name);
