@@ -47,12 +47,12 @@ interface ReactPaginateProps {
      * The classname on tag `li` of the ellipsis element.
      */
     breakClassName?: string;
-    
+
     /**
      * The classname on tag `a` of the ellipsis element.
      */
     breakLinkClassName?: string;
-    
+
     /**
      * The method to call when a page is clicked. Exposes the current page object as an argument.
      */
