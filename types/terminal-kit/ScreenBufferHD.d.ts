@@ -1,7 +1,5 @@
 import ScreenBuffer = require("./ScreenBuffer");
 
-export as namespace ScreenBufferHD;
-
 declare class ScreenBufferHD extends ScreenBuffer {
   constructor(
     options: { blending: ScreenBufferHD.IsBlending } | ScreenBuffer.Options

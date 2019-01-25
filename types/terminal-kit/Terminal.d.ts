@@ -1,4 +1,3 @@
-export as namespace Terminal;
 import EventEmitter = require("nextgen-events");
 
 type Terminal = Terminal.Impl & EventEmitter;

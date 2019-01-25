@@ -2,8 +2,6 @@ import Terminal = require("./Terminal");
 import ScreenBuffer = require("./ScreenBuffer");
 import TextBuffer = require("./TextBuffer");
 
-export as namespace Rect;
-
 declare class Rect {
   readonly width: number;
   readonly height: number;

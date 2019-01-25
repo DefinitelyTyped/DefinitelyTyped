@@ -4,9 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
+import Rect = require("./Rect");
+import ScreenBuffer = require("./ScreenBuffer");
+import ScreenBufferHD = require("./ScreenBufferHD");
 import Terminal = require("./Terminal");
-
-export as namespace termkit;
+import TextBuffer = require("./TextBuffer");
 
 export const terminal: Terminal;
 
@@ -38,8 +40,4 @@ export function stringWidth(str: string): number;
 
 export function truncateString(str: string, maxWidth: number): string;
 
-export { default as ScreenBufferHD } from "./ScreenBufferHD";
-export { default as ScreenBuffer } from "./ScreenBuffer";
-export { default as Rect } from "./Rect";
-export { default as TextBuffer } from "./TextBuffer";
-export { default as Terminal } from "./Terminal";
+export { Rect, ScreenBuffer, ScreenBufferHD, Terminal, TextBuffer };

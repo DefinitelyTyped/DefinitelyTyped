@@ -4,8 +4,6 @@ import Terminal = require("./Terminal");
 import ScreenBufferHD = require("./ScreenBufferHD");
 import Rect = require("./Rect");
 
-export as namespace ScreenBuffer;
-
 declare class ScreenBuffer extends NextGenEvents {
   readonly dst: Terminal | ScreenBuffer;
   readonly x: number;
