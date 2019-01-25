@@ -1,29 +1,23 @@
-/*## `constructor` MBC()
- 
-*Syntax:* `new MBC(license)`
- 
-| parameter | type | description |
-|  |  |  |
-| license | `String` | |
- 
-*example:*
+/**`constructor` MBC()
+ * Syntax:* `new MBC(license)`
+ * | parameter | type | description |
+ * |  |  |  |
+ * | license | `String` | |
+ * example:*
 ```javascript
-// MBC without a license can be used for evaluation purposes. It is not stable for long time usage.
-var painter = new MBC();
-// MBC need a license in production environments.
-painter = new MBC('xxxxx');
+    // MBC without a license can be used for evaluation purposes. It is not stable for long time usage.
+    var painter = new MBC();
+    // MBC need a license in production environments.
+    painter = new MBC('xxxxx');
 ```
-*/
-
-//export = KPainter;
-
-declare class MBC {
+ */
+declare namespace MBC {
     /**
      * Tell this painter the directory where you place`cv-wasm.js` and`cv-wasm.wasm`.
     
     * Syntax:* `MBC.cvFolder = 'js';`
      */
-    static cvFolder: string;
+    let cvFolder: string;
 
     /**
      * You should call`MBC.loadCvScriptAsync()` first before use`Free Transform` and`Brush` module.
@@ -36,18 +30,17 @@ declare class MBC {
     
     @example
 ```javascript
-MBC.loadCvScriptAsync(function(bSuccess){
-    if(bSuccess){
-        console.log('load cv script success.');
-        painter.enterFreeTransformModeAsync();
-    }else{
-        console.log('load cv script fail.');
-    }
-});
+    MBC.loadCvScriptAsync(function(bSuccess){
+        if(bSuccess){
+            console.log('load cv script success.');
+            painter.enterFreeTransformModeAsync();
+        }else{
+            console.log('load cv script fail.');
+        }
+    });
 ```
      */
-    static loadCvScriptAsync: () => void;
-    constructor();
+    function loadCvScriptAsync(): any;
 }
 
 interface rectangle {
@@ -70,7 +63,7 @@ interface cornerPoints {
 }
 
 declare class TaskQueue {
-    _queue: Array<any>;
+    _queue: any[];
     isWorking: boolean;
     timeout: number;
     /**
@@ -86,21 +79,17 @@ interface TaskQueue {
 }
 
 declare class KPainter {
-
     /**
      * Constructs a new KPainter
      */
     constructor(mbcKey?: string);
-}
-
-interface KPainter {
     /**
      * @example    
 ```javascript
-var painterDom = painter.getHtmlElement();
-painterDom.style.width = '100%';
-painterDom.style.height = '100%';
-document.getElementById('painter-container').appendChild(painterDom);
+    var painterDom = painter.getHtmlElement();
+    painterDom.style.width = '100%';
+    painterDom.style.height = '100%';
+    document.getElementById('painter-container').appendChild(painterDom);
 ```
     * 
     */
@@ -123,27 +112,27 @@ document.getElementById('painter-container').appendChild(painterDom);
 
     /**
      *
-@example```javascript
-// A way to access to inner data. Don't modify it if you are not sure.
-var imgOri = painter.getImage(true);
-// This image can be used in any place and free to modify it.
-var imgCopyed = painter.getImage();
-imgCopyed.style.width = '100px';
-imgCopyed.style.height = '100px';
-document.getElementById('image-container').appendChild(imgCopyed);
+@example
+```javascript
+    // A way to access to inner data. Don't modify it if you are not sure.
+    var imgOri = painter.getImage(true);
+    // This image can be used in any place and free to modify it.
+    var imgCopyed = painter.getImage();
+    imgCopyed.style.width = '100px';
+    imgCopyed.style.height = '100px';
+    document.getElementById('image-container').appendChild(imgCopyed);
 ```
      */
     getImage(isOri: boolean, index: number): HTMLImageElement;
 
-
-
     /**
      * Binding a function that would be called when starting an expensive operation.    
     * Syntax:* `function(){}`    
-@example```javascript
-painter.onStartLoading = function(){
-    document.getElementById('animation').show();
-};
+@example
+```javascript
+    painter.onStartLoading = function(){
+        document.getElementById('animation').show();
+    };
 ```
      */
     onStartLoading: () => void;
@@ -167,9 +156,9 @@ painter.onStartLoading = function(){
      * Show file choose window by click the hidden file input.Can't process during `Editing` mode.
      * @example
 ```javascript
-document.getElementById('btn-add-image').addEventListener('click', function(){
-    painter.showFileChooseWindow();
-});
+    document.getElementById('btn-add-image').addEventListener('click', function(){
+        painter.showFileChooseWindow();
+    });
 ```
      */
     showFileChooseWindow(): boolean;
@@ -177,10 +166,10 @@ document.getElementById('btn-add-image').addEventListener('click', function(){
     /**
      * @example
 ```javascript
-// warning: never redefine it if you are not sure
-// painter.defaultFileInput = document.createElement('input');
-painter.defaultFileInput.accept = "image/png";
-painter.defaultFileInput.multiple = false;
+    // warning: never redefine it if you are not sure
+    // painter.defaultFileInput = document.createElement('input');
+    painter.defaultFileInput.accept = "image/png";
+    painter.defaultFileInput.multiple = false;
 ```
      */
     defaultFileInput: HTMLInputElement;
@@ -192,20 +181,20 @@ painter.defaultFileInput.multiple = false;
     
     @example
 ```javascript
-painter.beforeAddImgFromFileChooseWindow = function(ev, callback){
-    var files = ev.target.files;
-    var newBlobs = [];
-    var finishedIndex = 0;
-    for(var i = 0; i < files.length; ++i){
-        var file = files[i];
-        doSomeWorkToGetANewBlob(file, function(blob){
-            newBlobs.push(blob);
-            if(files.length == ++finishedIndex){
-                callback(newBlobs);
-            }
-        });
-    }
-};
+    painter.beforeAddImgFromFileChooseWindow = function(ev, callback){
+        var files = ev.target.files;
+        var newBlobs = [];
+        var finishedIndex = 0;
+        for(var i = 0; i < files.length; ++i){
+            var file = files[i];
+            doSomeWorkToGetANewBlob(file, function(blob){
+                newBlobs.push(blob);
+                if(files.length == ++finishedIndex){
+                    callback(newBlobs);
+                }
+            });
+        }
+    };
 ```
      */
     beforeAddImgFromFileChooseWindow: () => void;
@@ -217,9 +206,9 @@ painter.beforeAddImgFromFileChooseWindow = function(ev, callback){
     
     @example
 ```javascript
-painter.afterAddImgFromFileChooseWindow = function(bSuccess){
-    if(bSuccess){console.log('The new image(s) has been added from file choose window.');}
-};
+    painter.afterAddImgFromFileChooseWindow = function(bSuccess){
+        if(bSuccess){console.log('The new image(s) has been added from file choose window.');}
+    };
 ```
      */
     afterAddImgFromFileChooseWindow: () => void;
@@ -228,20 +217,20 @@ painter.afterAddImgFromFileChooseWindow = function(bSuccess){
      * Syntax:* `function(event, callback){}`    
     @example
 ```javascript
-painter.beforeAddImgFromDropFile = function(ev, callback){
-    var files = ev.dataTransfer.files;
-    var newBlobs = [];
-    var finishedIndex = 0;
-    for(var i = 0; i < files.length; ++i){
-        var file = files[i];
-        doSomeWorkToGetANewBlob(file, function(blob){
-            newBlobs.push(blob);
-            if(files.length == ++finishedIndex){
-                callback(newBlobs);
-            }
-        });
-    }
-};
+    painter.beforeAddImgFromDropFile = function(ev, callback){
+        var files = ev.dataTransfer.files;
+        var newBlobs = [];
+        var finishedIndex = 0;
+        for(var i = 0; i < files.length; ++i){
+            var file = files[i];
+            doSomeWorkToGetANewBlob(file, function(blob){
+                newBlobs.push(blob);
+                if(files.length == ++finishedIndex){
+                    callback(newBlobs);
+                }
+            });
+        }
+    };
 ```
      */
     beforeAddImgFromDropFile: () => any;
@@ -252,9 +241,9 @@ painter.beforeAddImgFromDropFile = function(ev, callback){
     
     @example
 ```javascript
-painter.afterAddImgFromDropFile = function(bSuccess){
-    if(bSuccess){console.log('The new image(s) has been added from dropping.');}
-};
+    painter.afterAddImgFromDropFile = function(bSuccess){
+        if(bSuccess){console.log('The new image(s) has been added from dropping.');}
+    };
 ```
      * 
      */
@@ -270,12 +259,12 @@ painter.afterAddImgFromDropFile = function(bSuccess){
     
     @example
 ```javascript
-painter.addImageAsync(image, function(bSuccess){
-    console.log('Add success');
-});
+    painter.addImageAsync(image, function(bSuccess){
+        console.log('Add success');
+    });
 ```
      */
-    addImageAsync(imgData: Blob | HTMLCanvasElement | HTMLImageElement | string | Array<string>, callback?: () => void): void;
+    addImageAsync(imgData: Blob | HTMLCanvasElement | HTMLImageElement | string | string[], callback?: () => void): void;
 
     /**
     The image whose width or height larger than`addedImageMaxWH` would be compressed when adding.
@@ -303,11 +292,11 @@ painter.addImageAsync(image, function(bSuccess){
     
     @example
 ```javascript
-window.addEventListener('resize',function(){
-    painter.updateUIOnResize(true, function(){
-        console.log('painter update');
+    window.addEventListener('resize',function(){
+        painter.updateUIOnResize(true, function(){
+            console.log('painter update');
+        });
     });
-});
 ```
      */
     updateUIOnResize(isLazy?: boolean, callback?: () => void): void;
@@ -319,9 +308,9 @@ window.addEventListener('resize',function(){
     
     @example
 ```javascript
-painter.onNumChange = function(curIndex, length){
-    console.log('curIndex: '+curIndex+', length:'+length);
-};
+    painter.onNumChange = function(curIndex, length){
+        console.log('curIndex: '+curIndex+', length:'+length);
+    };
 ``` 
     */
     onNumChange: (curIndex: number, length: number) => void;
@@ -338,21 +327,21 @@ painter.onNumChange = function(curIndex, length){
     
     @example
 ```javascript
-document.getElementById('btn-first').addEventListener('click', function(){
-    painter.changePage('f');
-});
-document.getElementById('btn-pre').addEventListener('click', function(){
-    painter.changePage('p');
-});
-document.getElementById('btn-next').addEventListener('click', function(){
-    painter.changePage('n');
-});
-document.getElementById('btn-last').addEventListener('click', function(){
-    painter.changePage('l');
-});
-document.getElementById('btn-toThisPage').addEventListener('click', function(){
-    painter.changePage(parseInt(document.getElementById('ipt-page').value));
-});
+    document.getElementById('btn-first').addEventListener('click', function(){
+        painter.changePage('f');
+    });
+    document.getElementById('btn-pre').addEventListener('click', function(){
+        painter.changePage('p');
+    });
+    document.getElementById('btn-next').addEventListener('click', function(){
+        painter.changePage('n');
+    });
+    document.getElementById('btn-last').addEventListener('click', function(){
+        painter.changePage('l');
+    });
+    document.getElementById('btn-toThisPage').addEventListener('click', function(){
+        painter.changePage(parseInt(document.getElementById('ipt-page').value));
+    });
 ```
      */
     changePage(cmd: number | string): boolean;
@@ -420,11 +409,11 @@ document.getElementById('btn-toThisPage').addEventListener('click', function(){
     
     @example
 ```javascript
-document.getElementById('btn-download').addEventListener('click', function(){
-    for(var i = 0; i < painter.getCount(); ++i){
-        painter.download(null, i);
-    }
-});
+    document.getElementById('btn-download').addEventListener('click', function(){
+        for(var i = 0; i < painter.getCount(); ++i){
+            painter.download(null, i);
+        }
+    });
 ```
      */
     download(filename?: string, index?: number): number;
@@ -441,17 +430,17 @@ document.getElementById('btn-download').addEventListener('click', function(){
     
     @example
 ```javascript
-painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'), function(cvs){
-    console.log(cvs.className);// 'kPainterThumbnailCanvas', never remove this class
-    var box = document.createElement('div');
-    box.className = 'div-thumbnailBox';
-    box.appendChild(cvs);
-    box.addEventListener('click', function(){
-        var idx = box.getKPainterIndex();// get index
-        painter.changePage(idx);
+    painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'), function(cvs){
+        console.log(cvs.className);// 'kPainterThumbnailCanvas', never remove this class
+        var box = document.createElement('div');
+        box.className = 'div-thumbnailBox';
+        box.appendChild(cvs);
+        box.addEventListener('click', function(){
+            var idx = box.getKPainterIndex();// get index
+            painter.changePage(idx);
+        });
+        return box;
     });
-    return box;
-});
 ```
      */
     bindThumbnailBox(container: HTMLElement, funWrap?: () => HTMLElement, maxWH?: number): boolean;
@@ -466,7 +455,7 @@ painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'), func
     
     @example
 ```javascript
-painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'));
+    painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'));
 ```
      */
     unbindThumbnailBox(container: HTMLElement): boolean;
@@ -503,11 +492,11 @@ painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'));
     
     @example
 ```javascript
-painter.onUpdateImgPosZoom(function(){
-    console.log(painter.getZoom());
-    console.log(painter.getEditWidth());
-    console.log(painter.getEditHeight());
-});
+    painter.onUpdateImgPosZoom(function(){
+        console.log(painter.getZoom());
+        console.log(painter.getEditWidth());
+        console.log(painter.getEditHeight());
+    });
 ```
      */
     onUpdateImgPosZoom: () => void;
@@ -559,35 +548,35 @@ painter.onUpdateImgPosZoom(function(){
     @example
 ```javascript
     // sample code: save and give up editing about freeTransform mode 
-document.getElementById('btn-enterFreeTransformMode').addEventListener('click', function(){
-    // pretect step when enter freeTransform mode
-    painter.addProtectedStep(painter.getCurStep());
-    // presume that `MBC.loadCvScriptAsync(callback)` has been called and success
-    painter.enterFreeTransformModeAsync();
-});
- 
-document.getElementById('btn-saveFreeTransform').addEventListener('click', function(){
-    // remove the the last pretect step
-    var protectedSteps = painter.getProtectedSteps();
-    painter.removeProtectedStep(protectedSteps[protectedSteps.length - 1]);
-    // transform and exitFreeTransformMode
-    painter.freeTransformAsync(function(){
-        painter.exitFreeTransformModeAsync();
+    document.getElementById('btn-enterFreeTransformMode').addEventListener('click', function(){
+        // pretect step when enter freeTransform mode
+        painter.addProtectedStep(painter.getCurStep());
+        // presume that `MBC.loadCvScriptAsync(callback)` has been called and success
+        painter.enterFreeTransformModeAsync();
     });
-});
  
-document.getElementById('btn-giveUpFreeTransform').addEventListener('click', function(){
-    // pretect step when enter freeTransform mode
-    var protectedSteps = painter.getProtectedSteps();
-    var lastPretectedStep = protectedSteps[protectedSteps.length - 1];
-    // remove the the last pretect step
-    painter.removeProtectedStep(lastPretectedStep);
-    // exitFreeTransformMode
-    painter.exitFreeTransformModeAsync(function(){
-        // jump to the last pretect step
-        painter.setCurStepAsync(lastPretectedStep);
+    document.getElementById('btn-saveFreeTransform').addEventListener('click', function(){
+        // remove the the last pretect step
+        var protectedSteps = painter.getProtectedSteps();
+        painter.removeProtectedStep(protectedSteps[protectedSteps.length - 1]);
+        // transform and exitFreeTransformMode
+        painter.freeTransformAsync(function(){
+            painter.exitFreeTransformModeAsync();
+        });
     });
-});
+    
+    document.getElementById('btn-giveUpFreeTransform').addEventListener('click', function(){
+        // pretect step when enter freeTransform mode
+        var protectedSteps = painter.getProtectedSteps();
+        var lastPretectedStep = protectedSteps[protectedSteps.length - 1];
+        // remove the the last pretect step
+        painter.removeProtectedStep(lastPretectedStep);
+        // exitFreeTransformMode
+        painter.exitFreeTransformModeAsync(function(){
+            // jump to the last pretect step
+            painter.setCurStepAsync(lastPretectedStep);
+        });
+    });
 ```
      */
     addProtectedStep(index: number): boolean;
@@ -614,7 +603,7 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
     |  |  |  |
     | * (return value)* | `Array` | A array of the protected numbers. |
      */
-    getProtectedSteps(): Array<number>;
+    getProtectedSteps(): number[];
 
     /**
      * Undo an editing step.Can only process in `Editing` mode.
@@ -844,11 +833,11 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
     
     @example
 ```javascript
-painter.onCropRectChange = function(){
-    var cropArea = painter.getCropRectArea(true);
-    document.getElementById('cropWidth').innerText = cropArea[2] - cropArea[0];
-    document.getElementById('cropHeight').innerText = cropArea[3] - cropArea[1];
-};
+    painter.onCropRectChange = function(){
+        var cropArea = painter.getCropRectArea(true);
+        document.getElementById('cropWidth').innerText = cropArea[2] - cropArea[0];
+        document.getElementById('cropHeight').innerText = cropArea[3] - cropArea[1];
+    };
 ```
      */
     onCropRectChange: () => void;
@@ -877,7 +866,7 @@ painter.onCropRectChange = function(){
     | isAbsolute | `boolean` | Default`false`, get precentage(-50 % ~50 %) array. |
     
      */
-    getCropRectArea(isAbsolute: boolean): Array<rectangle>;
+    getCropRectArea(isAbsolute: boolean): rectangle[];
 
     /**
      * Crop the selected area.Can only process in `Editing` mode.
@@ -890,7 +879,7 @@ painter.onCropRectChange = function(){
     | array * (optional) * | `Array` | A array of[left, top, right, bottom]\(each - 0.5 ~0.5\).Default use an area accroding to`Crop Rect`. |
      
      */
-    cropAsync(callback?: () => void, array?: Array<rectangle>): void;
+    cropAsync(callback?: () => void, array?: rectangle[]): void;
 
 
     //# Free Transform
@@ -933,7 +922,7 @@ painter.onCropRectChange = function(){
     | * (return value)* | `Array` | A array of[[x0, y0], [x1, y1], [x2, y2], [x3, y3]].x0, y0...is from - 0.5 to 0.5.|
     
      */
-    getFreeTransformCornerPos(): Array<cornerPoints>;
+    getFreeTransformCornerPos(): cornerPoints[];
 
     /**
      * Binding a function that would be called when the`FreeTransform` corner position change.
@@ -942,9 +931,9 @@ painter.onCropRectChange = function(){
     
     @example
 ```javascript
-painter.onFreeTransformCornerPosChange = function(){
-    console.log(painter.getFreeTransformCornerPos());
-};
+    painter.onFreeTransformCornerPosChange = function(){
+        console.log(painter.getFreeTransformCornerPos());
+    };
 ```
      */
     onFreeTransformCornerPosChange: () => void;
@@ -969,7 +958,7 @@ painter.onFreeTransformCornerPosChange = function(){
     | cornerPoints * (optional) * | `Array` | A array of[[x0, y0], [x1, y1], [x2, y2], [x3, y3]].x0, y0...is from - 0.5 to 0.5. |
     | importSrc * (optional) * | | TUDO.Not show for user. |
      */
-    freeTransformAsync(callback?: () => void, cornerPoints?: Array<cornerPoints>, importSrc?: any): any;
+    freeTransformAsync(callback?: () => void, cornerPoints?: cornerPoints[], importSrc?: any): any;
 
     /**
      * 
@@ -1042,11 +1031,11 @@ painter.onFreeTransformCornerPosChange = function(){
     
     @example
 ```javascript
-painter.beforeAddImgFromGrabVideoBtn = function(canvas, callback){
-    doSomeWorkToGetNewSrc(canvas, function(srcValidForAddImage){
-        callback(srcValidForAddImage);
-    });
-};
+    painter.beforeAddImgFromGrabVideoBtn = function(canvas, callback){
+        doSomeWorkToGetNewSrc(canvas, function(srcValidForAddImage){
+            callback(srcValidForAddImage);
+        });
+    };
 ```
      */
     beforeAddImgFromGrabVideoBtn: () => void;
@@ -1056,9 +1045,9 @@ painter.beforeAddImgFromGrabVideoBtn = function(canvas, callback){
     
     @example
 ```javascript
-painter.afterAddImgFromGrabVideoBtn = function(bSuccess){
-    if(bSuccess){console.log('The new image(s) has been added from video.');}
-};
+    painter.afterAddImgFromGrabVideoBtn = function(bSuccess){
+        if(bSuccess){console.log('The new image(s) has been added from video.');}
+    };
 ```
      */
     afterAddImgFromGrabVideoBtn: () => void;

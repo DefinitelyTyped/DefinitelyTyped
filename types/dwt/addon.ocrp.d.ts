@@ -107,7 +107,6 @@ declare enum EnumDWT_OCRProType {
 }
 
 interface OCRPro {
-
     /**
      * Returns whether OCR Pro addon is installed
      * @return {boolean}

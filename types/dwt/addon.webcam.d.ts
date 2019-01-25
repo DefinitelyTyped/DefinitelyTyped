@@ -161,7 +161,6 @@ interface VideoPropertySetting {
  * @class
  */
 interface Webcam {
-
     IsModuleInstalled(): boolean;
     GetFramePartURL(): string;
     GetFrameURL(): string;
@@ -300,7 +299,6 @@ interface Webcam {
      * @return {class CameraControlPropertyMoreSetting}
      */
     GetCameraControlPropertyMoreSetting(property: EnumDWT_CameraControlProperty): CameraControlMoreSetting;
-
 
     /**
      *  Sets video quality for a specified property. 
