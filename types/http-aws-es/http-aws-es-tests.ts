@@ -3,7 +3,7 @@ import { Client } from "elasticsearch";
 import HttpAmazonESConnector = require("http-aws-es");
 
 new Client({
-    amazonES: {
+    awsConfig: {
         accessKey: "AKID",
         region: "us-east-1",
         secretKey: "secret",
@@ -13,7 +13,7 @@ new Client({
 });
 
 new Client({
-    amazonES: {
+    awsConfig: {
         accessKey: "AKID",
         region: "us-east-1",
         secretKey: "secret",
@@ -24,7 +24,7 @@ new Client({
 
 const myCredentials = new EnvironmentCredentials("AWS");
 new Client({
-    amazonES: {
+    awsConfig: {
         credentials: myCredentials,
         region: "us-east-1",
     },
@@ -33,7 +33,7 @@ new Client({
 });
 
 new Client({
-    amazonES: {
+    awsConfig: {
         credentials: myCredentials,
         region: "us-east-1",
     },
