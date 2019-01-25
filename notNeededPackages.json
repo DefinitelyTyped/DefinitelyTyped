@@ -1723,6 +1723,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "Web3.js",
+            "typingsPackageName": "web3",
+            "sourceRepoURL": "https://github.com/ethereum/web3.js",
+            "asOfVersion": "1.0.0-beta.38"
+        },
+        {
             "libraryName": "webcola",
             "typingsPackageName": "webcola",
             "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
