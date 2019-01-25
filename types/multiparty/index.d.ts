@@ -36,7 +36,7 @@ export interface File {
     /**
      * the filename that the user reports for the file
      */
-    originalFileName: string;
+    originalFilename: string;
     /**
      * the absolute path of the uploaded file on disk
      */
