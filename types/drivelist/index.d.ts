@@ -1,6 +1,6 @@
-// Type definitions for drivelist v6.4.3
+// Type definitions for drivelist 6.4
 // Project: https://github.com/resin-io-modules/drivelist
-// Definitions by: Xiao <https://github.com/WholeMilk>
+// Definitions by: Xiao Deng <https://github.com/WholeMilk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type BusType = "SATA" | "SCSI" | "ATA" | "IDE" | "PCI" | "UNKNOWN";
@@ -18,7 +18,7 @@ export interface Drive {
     devicePath: string | null;
     raw: string;
     description: string;
-    error: any | null;
+    error: any; // can be null
     size: number | null;
     blockSize: number | null;
     logicalBlockSize: number | null;
