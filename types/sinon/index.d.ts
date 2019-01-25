@@ -352,7 +352,7 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T>(obj: T, method: keyof T): SinonSpy;
+        <T>(obj: T, method: keyof T, types?: string[]): SinonSpy;
     }
 
     interface SinonStub extends SinonSpy {
