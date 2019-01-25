@@ -1,13 +1,13 @@
 declare namespace Dynamsoft {
-    let Lib: DynamsoftLib
-    let WebTwainEnv: dwtEnv
+    let Lib: DynamsoftLib;
+    let WebTwainEnv: dwtEnv;
     namespace WebTwain {
         namespace Addon {
-            let OCRPro: OCRProAddon
+            let OCRPro: OCRProAddon;
         }
     }
     namespace DWT {
-        let defaultEnv: dwtEnv
+        let defaultEnv: dwtEnv;
     }
 }
 
@@ -72,7 +72,7 @@ interface DynamsoftLib {
         cUrlIndex  dcpCallbackType  dcpStatus  detectType  getVersionArray  global_dlg  hideMask  isDWTVersionLatest  onNoControl
         onNotAllowedForChrome  ports  scriptLoaded  showMask  starting  tryTimes*/
         ssl: boolean;
-    }
+    };
 
     /*ignored
     detectButton  dialog  dialogShowStatus  dlgProgress  dlgRef  drawBoxBorder  drawImageWithHermite
@@ -85,7 +85,7 @@ interface DynamsoftLib {
         bIE: boolean, bLinux: boolean, bMac: boolean, bSafari: boolean, bWin: boolean, bWin64: boolean,
         basePath: string, iPluginLength: number, isX64: boolean, pathType: number,
         strChromeVersion: string, strFirefoxVersion: string, strIEVersion: string
-    }
+    };
 
     /*ignored
     error  escapeHtml  escapeRegExp  extend  filter  fireEvent  fromUnicode  get  getColor  getCss
