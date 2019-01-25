@@ -459,7 +459,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
 }
 
 export interface PieLabelRenderProps extends PieProps {
-    name?: string;
+    name: string;
     index?: number;
     percent?: number;
 }
