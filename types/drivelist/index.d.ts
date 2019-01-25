@@ -1,8 +1,7 @@
-// Type definitions for drivelist 6.4.3
+// Type definitions for drivelist v6.4.3
 // Project: https://github.com/resin-io-modules/drivelist
 // Definitions by: Xiao <https://github.com/WholeMilk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1.3
 
 export type BusType = "SATA" | "SCSI" | "ATA" | "IDE" | "PCI" | "UNKNOWN";
 
