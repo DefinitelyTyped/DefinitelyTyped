@@ -15,7 +15,7 @@ import glob = require("glob");
 /**
  * Changes to directory dir for the duration of the script. Changes to home directory if no argument is supplied.
  * @param dir Directory to change in.
- * @return    Object with shell exit code.
+ * @return    Object with shell exit code, stderr and stdout.
  */
 export function cd(dir?: string): ShellString;
 
@@ -51,7 +51,7 @@ export function find(...path: Array<string | string[]>): ShellArray;
  * Copies files. The wildcard * is accepted.
  * @param source  The source.
  * @param   dest  The destination.
- * @return        Object with shell exit code.
+ * @return        Object with shell exit code, stderr and stdout.
  */
 export function cp(source: string | string[], dest: string): ShellString;
 
@@ -60,14 +60,14 @@ export function cp(source: string | string[], dest: string): ShellString;
  * @param options Available options: -f: force (default behavior) -n: no-clobber -u: only copy if source is newer than dest -r, -R: recursive -L: follow symlinks -P: don't follow symlinks
  * @param source  The source.
  * @param dest    The destination.
- * @return        Object with shell exit code.
+ * @return        Object with shell exit code, stderr and stdout.
  */
 export function cp(options: string, source: string | string[], dest: string): ShellString;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param ...files Files to remove.
- * @return        Object with shell exit code.
+ * @return        Object with shell exit code, stderr and stdout.
  */
 export function rm(...files: Array<string | string[]>): ShellString;
 
@@ -75,7 +75,7 @@ export function rm(...files: Array<string | string[]>): ShellString;
  * Removes files. The wildcard * is accepted.
  * @param   options  Available options: -f (force), -r, -R (recursive)
  * @param ...files Files to remove.
- * @return         Object with shell exit code.
+ * @return         Object with shell exit code, stderr and stdout.
  */
 export function rm(options: string, ...files: Array<string | string[]>): ShellString;
 
@@ -83,7 +83,7 @@ export function rm(options: string, ...files: Array<string | string[]>): ShellSt
  * Moves files. The wildcard * is accepted.
  * @param source The source.
  * @param dest   The destination.
- * @return       Object with shell exit code.
+ * @return       Object with shell exit code, stderr and stdout.
  */
 export function mv(source: string | string[], dest: string): ShellString;
 
@@ -92,14 +92,14 @@ export function mv(source: string | string[], dest: string): ShellString;
  * @param options Available options: -f: force (default behavior) -n: no-clobber
  * @param source The source.
  * @param dest   The destination.
- * @return       Object with shell exit code.
+ * @return       Object with shell exit code, stderr and stdout.
  */
 export function mv(options: string, source: string | string[], dest: string): ShellString;
 
 /**
  * Creates directories.
  * @param ...dir Directories to create.
- * @return       Object with shell exit code.
+ * @return       Object with shell exit code, stderr and stdout.
  */
 export function mkdir(...dir: Array<string | string[]>): ShellString;
 
@@ -107,7 +107,7 @@ export function mkdir(...dir: Array<string | string[]>): ShellString;
  * Creates directories.
  * @param   options Available options: p (full paths, will create intermediate dirs if necessary)
  * @param ...dir  The directories to create.
- * @return        Object with shell exit code.
+ * @return        Object with shell exit code, stderr and stdout.
  */
 export function mkdir(options: string, ...dir: Array<string | string[]>): ShellString;
 
@@ -314,7 +314,7 @@ export function dirs(options: string): any;
  * Links source to dest. Use -f to force the link, should dest already exist.
  * @param source The source.
  * @param dest   The destination.
- * @return       Object with shell exit code.
+ * @return       Object with shell exit code, stderr and stdout.
  */
 export function ln(source: string, dest: string): ShellString;
 
@@ -323,7 +323,7 @@ export function ln(source: string, dest: string): ShellString;
  * @param options Available options: s (symlink), f (force)
  * @param source The source.
  * @param dest   The destination.
- * @return       Object with shell exit code.
+ * @return       Object with shell exit code, stderr and stdout.
  */
 export function ln(options: string, source: string, dest: string): ShellString;
 
@@ -412,7 +412,7 @@ export type ShellArray = string[] & ShellReturnValue;
  * - There is no "quiet" option since default behavior is to run silent.
  * @param octalMode The access mode. Octal.
  * @param file      The file to use.
- * @return          Object with shell exit code.
+ * @return          Object with shell exit code, stderr and stdout.
  */
 export function chmod(octalMode: number, file: string): ShellString;
 
@@ -423,7 +423,7 @@ export function chmod(octalMode: number, file: string): ShellString;
  * @param options   Available options: -v (output a diagnostic for every file processed), -c (like -v but report only when a change is made), -R (change files and directories recursively)
  * @param octalMode The access mode. Octal.
  * @param file      The file to use.
- * @return          Object with shell exit code.
+ * @return          Object with shell exit code, stderr and stdout.
  */
 export function chmod(options: string, octalMode: number, file: string): ShellString;
 
@@ -433,7 +433,7 @@ export function chmod(options: string, octalMode: number, file: string): ShellSt
  * - There is no "quiet" option since default behavior is to run silent.
  * @param mode      The access mode. Can be an octal string or a symbolic mode string.
  * @param file      The file to use.
- * @return          Object with shell exit code.
+ * @return          Object with shell exit code, stderr and stdout.
  */
 export function chmod(mode: string, file: string): ShellString;
 
@@ -444,7 +444,7 @@ export function chmod(mode: string, file: string): ShellString;
  * @param options   Available options: -v (output a diagnostic for every file processed), -c (like -v but report only when a change is made), -R (change files and directories recursively)
  * @param mode      The access mode. Can be an octal string or a symbolic mode string.
  * @param file      The file to use.
- * @return          Object with shell exit code.
+ * @return          Object with shell exit code, stderr and stdout.
  */
 export function chmod(options: string, mode: string, file: string): ShellString;
 
