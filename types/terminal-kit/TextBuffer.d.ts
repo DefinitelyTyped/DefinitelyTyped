@@ -1,5 +1,5 @@
-import ScreenBuffer from "./ScreenBuffer";
-import Rect from "./Rect";
+import ScreenBuffer = require("./ScreenBuffer");
+import Rect = require("./Rect");
 
 export as namespace TextBuffer;
 

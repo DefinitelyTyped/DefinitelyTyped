@@ -1,6 +1,6 @@
-import Terminal from "./Terminal";
-import ScreenBuffer from "./ScreenBuffer";
-import TextBuffer from "./TextBuffer";
+import Terminal = require("./Terminal");
+import ScreenBuffer = require("./ScreenBuffer");
+import TextBuffer = require("./TextBuffer");
 
 export as namespace Rect;
 

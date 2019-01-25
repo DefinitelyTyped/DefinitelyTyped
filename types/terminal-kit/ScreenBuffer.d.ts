@@ -1,8 +1,8 @@
 import NextGenEvents = require("nextgen-events");
 
-import Terminal from "./Terminal";
-import ScreenBufferHD from "./ScreenBufferHD";
-import Rect from "./Rect";
+import Terminal = require("./Terminal");
+import ScreenBufferHD = require("./ScreenBufferHD");
+import Rect = require("./Rect");
 
 export as namespace ScreenBuffer;
 

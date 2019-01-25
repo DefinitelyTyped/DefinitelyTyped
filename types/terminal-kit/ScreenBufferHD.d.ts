@@ -1,4 +1,4 @@
-import ScreenBuffer from "./ScreenBuffer";
+import ScreenBuffer = require("./ScreenBuffer");
 
 export as namespace ScreenBufferHD;
 
