@@ -914,7 +914,7 @@ export class Buy implements Resource {
      * When a buy isn’t executed instantly, it will receive a payout date for the time it will be executed. ISO timestamp
      */
     payout_at?: string;
-    
+
     /**
      * Transaction worth in fiat.
      */
