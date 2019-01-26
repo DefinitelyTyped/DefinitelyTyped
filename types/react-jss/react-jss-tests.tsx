@@ -17,8 +17,8 @@ interface MyTheme {
 /**
  * helper function to counter typescripts type widening
  */
-function createStyles<Props = {}, C extends string = string>(styles: Styles<C, Props>): Styles<C, Props> {
-  return styles;
+function createStyles<Props = {}, C extends string = string>(styles: Styles<C, Props>): Styles<C> {
+  return styles as Styles<C>;
 }
 
 interface ButtonProps {
