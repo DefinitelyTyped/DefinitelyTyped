@@ -27,36 +27,45 @@ export interface PaginationComponentProps {
     onClick: () => void;
 }
 
+export enum ITEM_TYPES {
+    PAGE = "PAGE",
+    ELLIPSIS = "ELLIPSIS",
+    FIRST_PAGE_LINK = "FIRST_PAGE_LINK",
+    PREVIOUS_PAGE_LINK = "PREVIOUS_PAGE_LINK",
+    NEXT_PAGE_LINK = "NEXT_PAGE_LINK",
+    LAST_PAGE_LINK = "LAST_PAGE_LINK",
+}
+
 export interface ItemTypeToComponent {
     /**
      * A link to a page
      */
-    PAGE: React.ComponentType<PaginationComponentProps>,
+    PAGE: React.ComponentType<PaginationComponentProps>;
 
     /**
      * An item that represents groups of pages that currently are not visible in paginator (can be used to navigate to the page in the group that is the nearest to the current page)
      */
-    ELLIPSIS: React.ComponentType<PaginationComponentProps>,
+    ELLIPSIS: React.ComponentType<PaginationComponentProps>;
 
     /**
      * A link to the first page
      */
-    FIRST_PAGE_LINK: React.ComponentType<PaginationComponentProps>,
+    FIRST_PAGE_LINK: React.ComponentType<PaginationComponentProps>;
 
     /**
      * A link to the previous page
      */
-    PREVIOUS_PAGE_LINK: React.ComponentType<PaginationComponentProps>,
+    PREVIOUS_PAGE_LINK: React.ComponentType<PaginationComponentProps>;
 
     /**
      * A link to the next page
      */
-    NEXT_PAGE_LINK: React.ComponentType<PaginationComponentProps>,
+    NEXT_PAGE_LINK: React.ComponentType<PaginationComponentProps>;
 
     /**
      * A link to the last page
      */
-    LAST_PAGE_LINK: React.ComponentType<PaginationComponentProps>,
+    LAST_PAGE_LINK: React.ComponentType<PaginationComponentProps>;
 }
 
 export interface CreateUltimatePaginationOptions {
@@ -66,9 +75,9 @@ export interface CreateUltimatePaginationOptions {
     itemTypeToComponent: ItemTypeToComponent;
 
     /**
-     * A React.js component that will be used as a wrapper for pagination items 
+     * A React.js component that will be used as a wrapper for pagination items
      */
-    WrapperComponent: string|React.ComponentType;
+    WrapperComponent?: string|React.ComponentType;
 }
 
 export interface UltimatePaginationProps {
@@ -108,7 +117,7 @@ export interface UltimatePaginationProps {
     hideFirstAndLastPageLinks?: boolean;
 
     /**
-     * Callback that will be called with new page when it should be changed by user interaction 
+     * Callback that will be called with new page when it should be changed by user interaction
      */
     onChange?: (newPage: number) => void;
 
