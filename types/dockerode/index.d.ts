@@ -174,7 +174,7 @@ declare namespace Dockerode {
 
     update(options: {}, callback: Callback<any>): void;
     update(options: {}): Promise<any>;
-      
+
     logs(options: ContainerLogsOptions, callback: Callback<NodeJS.ReadableStream>): void;
     logs(callback: Callback<NodeJS.ReadableStream>): void;
     logs(options?: ContainerLogsOptions): Promise<NodeJS.ReadableStream>;
