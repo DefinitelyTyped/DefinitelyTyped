@@ -1,8 +1,12 @@
 /// <reference types="node" />
 
-// import * as gax from "google-gax";
 import { Transform } from "stream";
-import { GoogleAuthOptions, GoogleError, CallOptions, GoogleAuth } from "google-gax";
+import {
+  GoogleAuthOptions,
+  GoogleError,
+  CallOptions,
+  GoogleAuth
+} from "google-gax";
 
 export interface CloudTasksConfig extends GoogleAuthOptions {
   key?: string;
@@ -80,9 +84,7 @@ export interface Location {
     [key: string]: string;
   };
   locationId: string;
-  metadata: {
-    [key: string]: any;
-  };
+  metadata: object;
   name: string;
 }
 
@@ -125,9 +127,7 @@ export interface SetIamPolicyRequest {
 
 export interface Status {
   code: number;
-  details: Array<{
-    [key: string]: any;
-  }>;
+  details: object[];
   message: string;
 }
 

@@ -1,5 +1,5 @@
 // Type definitions for @google-cloud/tasks 0.2
-// Project: https://github.com/googleapis/nodejs-tasks (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/googleapis/nodejs-tasks
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -7,9 +7,7 @@
 
 /// <reference types="node" />
 
-// import * as gax from "google-gax";
 import { Transform } from "stream";
-// import { GoogleAuthOptions, GoogleError, CallOptions, GoogleAuth } from "google-gax";
 export type GoogleError = any;
 export type GoogleAuthOptions = any;
 export type CallOptions = any;
@@ -91,9 +89,7 @@ export interface Location {
     [key: string]: string;
   };
   locationId: string;
-  metadata: {
-    [key: string]: any;
-  };
+  metadata: object;
   name: string;
 }
 
@@ -136,9 +132,7 @@ export interface SetIamPolicyRequest {
 
 export interface Status {
   code: number;
-  details: Array<{
-    [key: string]: any;
-  }>;
+  details: object[];
   message: string;
 }
 
