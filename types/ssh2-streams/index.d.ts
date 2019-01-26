@@ -1628,7 +1628,7 @@ export interface TransferOptions {
      * Called every time a part of a file was transferred
      */
     step?: (total_transferred: number, chunk: number, total: number) => void;
-    
+
     /**
      * Integer or string representing the file mode to set for the uploaded file.
      */
