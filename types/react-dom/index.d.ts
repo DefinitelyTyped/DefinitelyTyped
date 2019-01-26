@@ -1577,7 +1577,7 @@ declare namespace ReactDOM {
         webpreferences?: string;
     }
 
-        //
+    //
     // React.DOM
     // ----------------------------------------------------------------------
 

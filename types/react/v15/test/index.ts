@@ -75,8 +75,8 @@ const ClassicComponent: React.ClassicComponentClass<Props> =
             this.replaceState(this.getInitialState());
         },
         render() {
-            return React.DOM.div(null,
-                React.DOM.input({
+            return ReactDOM.DOM.div(null,
+                ReactDOM.DOM.input({
                     ref: input => this._input = input,
                     value: this.state.inputValue
                 }));
@@ -122,12 +122,12 @@ class ModernComponent extends React.Component<Props, State>
     private _input: HTMLInputElement | null;
 
     render() {
-        return React.DOM.div(null,
-            React.DOM.input({
+        return ReactDOM.DOM.div(null,
+            ReactDOM.DOM.input({
                 ref: input => this._input = input,
                 value: this.state.inputValue
             }),
-            React.DOM.input({
+            ReactDOM.DOM.input({
                 onChange: event => console.log(event.target)
             }));
     }
@@ -145,7 +145,7 @@ interface SCProps {
 }
 
 function StatelessComponent(props: SCProps) {
-    return props.foo ? React.DOM.div(null, props.foo) : null;
+    return props.foo ? ReactDOM.DOM.div(null, props.foo) : null;
 }
 
 // tslint:disable-next-line:no-namespace
@@ -156,7 +156,7 @@ namespace StatelessComponent {
 
 const StatelessComponent2: React.SFC<SCProps> =
     // props is contextually typed
-    props => React.DOM.div(null, props.foo);
+    props => ReactDOM.DOM.div(null, props.foo);
 StatelessComponent2.displayName = "StatelessComponent2";
 StatelessComponent2.defaultProps = {
     foo: 42
@@ -165,7 +165,7 @@ StatelessComponent2.defaultProps = {
 const StatelessComponent3: React.SFC<SCProps> =
     // allows usage of props.children
     // allows null return
-    props => props.foo ? React.DOM.div(null, props.foo, props.children) : null;
+    props => props.foo ? ReactDOM.DOM.div(null, props.foo, props.children) : null;
 
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
@@ -183,9 +183,9 @@ const classicFactory: React.ClassicFactory<Props> =
 const classicFactoryElement: React.ClassicElement<Props> =
     classicFactory(props);
 
-const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
+const domFactory: ReactDOM.DOMFactory<ReactDOM.DOMAttributes<{}>, Element> =
     React.createFactory("div");
-const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
+const domFactoryElement: ReactDOM.DOMElement<ReactDOM.DOMAttributes<{}>, Element> =
     domFactory();
 
 // React.createElement
@@ -193,11 +193,11 @@ const element: React.CElement<Props, ModernComponent> = React.createElement(Mode
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
 const statelessElement: React.SFCElement<SCProps> = React.createElement(StatelessComponent, props);
 const classicElement: React.ClassicElement<Props> = React.createElement(ClassicComponent, props);
-const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
+const domElement: ReactDOM.DOMElement<ReactDOM.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const htmlElement = React.createElement("input", { type: "text" });
 const svgElement = React.createElement("svg", { accentHeight: 12 });
 
-const customProps: React.HTMLProps<HTMLElement> = props;
+const customProps: ReactDOM.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
 const nonLiteralElement = React.createElement(customDomElement, customProps);
 
@@ -232,17 +232,17 @@ const clonedStatelessElement: React.SFCElement<SCProps> =
 const clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
 // Clone base DOMElement
-const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
+const clonedDOMElement: ReactDOM.DOMElement<ReactDOM.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
         className: "clonedDOMElement"
     });
 // Clone ReactHTMLElement
-const clonedHtmlElement: React.ReactHTMLElement<HTMLInputElement> =
+const clonedHtmlElement: ReactDOM.ReactHTMLElement<HTMLInputElement> =
     React.cloneElement(htmlElement, {
         className: "clonedHTMLElement"
     });
 // Clone ReactSVGElement
-const clonedSvgElement: React.ReactSVGElement =
+const clonedSvgElement: ReactDOM.ReactSVGElement =
     React.cloneElement(svgElement, {
         className: "clonedVGElement"
     });
@@ -318,34 +318,34 @@ RefComponent.create({ ref: c => componentRef = c });
 componentRef.refMethod();
 
 let domNodeRef: Element | null;
-React.DOM.div({ ref: "domRef" });
+ReactDOM.DOM.div({ ref: "domRef" });
 // type of node should be inferred
-React.DOM.div({ ref: node => domNodeRef = node });
+ReactDOM.DOM.div({ ref: node => domNodeRef = node });
 
 let inputNodeRef: HTMLInputElement | null;
-React.DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
+ReactDOM.DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
 
 //
 // Attributes
 // --------------------------------------------------------------------------
 
-const children: any[] = ["Hello world", [null], React.DOM.span(null)];
-const divStyle: React.CSSProperties = { // CSSProperties
+const children: any[] = ["Hello world", [null], ReactDOM.DOM.span(null)];
+const divStyle: ReactDOM.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')"
 };
-const htmlAttr: React.HTMLProps<HTMLElement> = {
+const htmlAttr: ReactDOM.HTMLProps<HTMLElement> = {
     key: 36,
     ref: "htmlComponent",
     children,
     className: "test-attr",
     style: divStyle,
     slot: "HTMLComponent",
-    onClick: (event: React.MouseEvent<{}>) => {
+    onClick: (event: ReactDOM.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
     },
-    onClickCapture: (event: React.MouseEvent<{}>) => {
+    onClickCapture: (event: ReactDOM.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
     },
@@ -360,15 +360,15 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     'aria-colcount': 7,
     'aria-label': 'test'
 };
-React.DOM.div(htmlAttr);
-React.DOM.span(htmlAttr);
-React.DOM.input(htmlAttr);
+ReactDOM.DOM.div(htmlAttr);
+ReactDOM.DOM.span(htmlAttr);
+ReactDOM.DOM.input(htmlAttr);
 
-React.DOM.svg({
+ReactDOM.DOM.svg({
     viewBox: "0 0 48 48",
     xmlns: "http://www.w3.org/2000/svg"
 },
-    React.DOM.rect({
+    ReactDOM.DOM.rect({
         className: 'foobar',
         id: 'foo',
         color: 'black',
@@ -379,7 +379,7 @@ React.DOM.svg({
         strokeDasharray: '30%',
         strokeDashoffset: '20%'
     }),
-    React.DOM.rect({
+    ReactDOM.DOM.rect({
         x: 10,
         y: 22,
         width: 28,
@@ -387,7 +387,7 @@ React.DOM.svg({
         strokeDasharray: 30,
         strokeDashoffset: 20
     }),
-    React.DOM.path({
+    ReactDOM.DOM.path({
         d: "M0,0V3H3V0ZM1,1V2H2V1Z",
         fill: "#999999",
         fillRule: "evenodd"
@@ -498,7 +498,7 @@ const mappedChildrenArrayWithKnownChildren: number[] =
     React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
-let onlyChild: React.ReactElement<any> = React.Children.only(React.DOM.div()); // ok
+let onlyChild: React.ReactElement<any> = React.Children.only(ReactDOM.DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
@@ -526,7 +526,7 @@ class Timer extends React.Component<{}, TimerState> {
         clearInterval(this._interval);
     }
     render() {
-        return React.DOM.div(
+        return ReactDOM.DOM.div(
             null,
             "Seconds Elapsed: ",
             this.state.secondsElapsed
@@ -539,7 +539,7 @@ ReactDOM.render(React.createElement(Timer), container);
 // createFragment addon
 // --------------------------------------------------------------------------
 createFragment({
-    a: React.DOM.div(),
+    a: ReactDOM.DOM.div(),
     b: ["a", false, React.createElement("span")]
 });
 
@@ -582,12 +582,12 @@ React.createClass({
         };
     },
     render() {
-        return React.DOM.div(null,
-            React.DOM.input({
+        return ReactDOM.DOM.div(null,
+            ReactDOM.DOM.input({
                 type: "checkbox",
                 checkedLink: this.linkState("isChecked")
             }),
-            React.DOM.input({
+            ReactDOM.DOM.input({
                 type: "text",
                 valueLink: this.linkState("message")
             })
@@ -628,7 +628,7 @@ Perf.printDOM();
 // --------------------------------------------------------------------------
 React.createClass({
     mixins: [PureRenderMixin],
-    render() { return React.DOM.div(null); }
+    render() { return ReactDOM.DOM.div(null); }
 });
 
 //
@@ -636,7 +636,7 @@ React.createClass({
 // --------------------------------------------------------------------------
 
 const inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
-const node: Element = TestUtils.renderIntoDocument(React.DOM.div());
+const node: Element = TestUtils.renderIntoDocument(ReactDOM.DOM.div());
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
@@ -708,14 +708,14 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
         this.state = { value: 'a' };
     }
     render() {
-        return React.DOM.textarea({
+        return ReactDOM.DOM.textarea({
             value: this.state.value,
             onChange: e => this.setState({ value: e.target.value })
         });
     }
 }
 
-React.DOM.input({
+ReactDOM.DOM.input({
     onChange: event => {
         // `event.target` is guaranteed to be HTMLInputElement
         event.target.value;
@@ -725,8 +725,8 @@ React.DOM.input({
 // A ChangeEvent is a valid FormEvent (maintain compatibility with existing
 // event handlers)
 
-type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
-type InputFormEvent = React.FormEvent<HTMLInputElement>;
+type InputChangeEvent = ReactDOM.ChangeEvent<HTMLInputElement>;
+type InputFormEvent = ReactDOM.FormEvent<HTMLInputElement>;
 const changeEvent: InputChangeEvent = undefined as any;
 const formEvent: InputFormEvent = changeEvent;
 
@@ -745,8 +745,8 @@ const formEvent: InputFormEvent = changeEvent;
     const VariableWithAClass: React.ComponentClass<ComponentProps> = ComponentWithDefaultProps;
 }
 
-// complex React.DOMElement type
-declare var x: React.DOMElement<{
+// complex ReactDOM.DOMElement type
+declare var x: ReactDOM.DOMElement<{
     className: string;
     style: {
         height: string;
