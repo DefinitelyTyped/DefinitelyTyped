@@ -645,7 +645,7 @@ export class Account implements Resource {
      * Lists buys for an account.
      * Scope: wallet:buys:read
      */
-    getBuys(cb: (error: Error, result: Buy[]) => void): void;
+    getBuys(opts: null, cb: (error: Error, result: Buy[]) => void): void;
 
     /**
      * Show an individual buy.
