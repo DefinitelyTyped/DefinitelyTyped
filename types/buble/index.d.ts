@@ -17,6 +17,7 @@ export interface TransformOptions {
   // used for sourcemaps
   file?: string;
   source?: string;
+  includeContent?: boolean;
 
   // custom JSX pragma (https://buble.surge.sh/guide/#jsx)
   jsx?: string; // default: 'React.createElement'

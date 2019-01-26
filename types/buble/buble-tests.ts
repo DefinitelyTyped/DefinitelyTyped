@@ -26,6 +26,7 @@ const input = 'const answer = () => 42;';
   const output = buble.transform(input, {
     file: 'output.js',
     input: 'input.js',
+    includeContent: true,
   });
 })();
 
