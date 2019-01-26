@@ -15,7 +15,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
-        "strictFunctionTypes": false
+        "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",
