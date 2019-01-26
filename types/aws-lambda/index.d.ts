@@ -964,7 +964,6 @@ export interface LexResult {
     dialogAction: LexDialogAction;
 }
 
-
 /**
  * AWS Lambda handler function.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
