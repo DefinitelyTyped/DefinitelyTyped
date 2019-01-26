@@ -547,7 +547,7 @@ export class Account implements Resource {
     allow_withdrawals: boolean;
 
     /**
-     * Account worth in native balance.
+     * Account worth in fiat.
      */
     native_balance: MoneyHash;
 
@@ -914,6 +914,11 @@ export class Buy implements Resource {
      * When a buy isn’t executed instantly, it will receive a payout date for the time it will be executed. ISO timestamp
      */
     payout_at?: string;
+    
+    /**
+     * Transaction worth in fiat.
+     */
+    native_balance: MoneyHash;
 
     /**
      * Completes a buy that is created in commit: false state.
