@@ -3,7 +3,7 @@
 // Definitions by: Kocal <https://github.com/Kocal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface TransformOptions {
+export interface TransformOptions {
   // source: https://github.com/Rich-Harris/buble/blob/master/src/support.js
   target?: {
     chrome?: 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71;
@@ -53,7 +53,7 @@ interface TransformOptions {
   namedFunctionExpressions?: boolean;
 }
 
-interface TransformOutput {
+export interface TransformOutput {
   code: string;
   map: {
     toString(): string;
