@@ -537,6 +537,21 @@ export class Account implements Resource {
     balance: MoneyHash;
 
     /**
+     * Allow deposits
+     */
+    allow_deposits: boolean;
+
+    /**
+     * Allow withdrawls
+     */
+    allow_withdrawals: boolean;
+
+    /**
+     * Account worth in native balance.
+     */
+    native_balance: MoneyHash;
+
+    /**
      * Promote an account as primary account.
      * Scope: wallet:accounts:update
      */
