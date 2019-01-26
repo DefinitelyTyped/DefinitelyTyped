@@ -26,8 +26,8 @@ import * as Redis from "ioredis";
 declare const Bull: {
   (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
   (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
-  new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  new (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
+  new(queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
+  new(queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
 };
 
 declare namespace Bull {
@@ -553,6 +553,11 @@ declare namespace Bull {
      * Returns a promise that resolves with the job counts for the given queue.
      */
     getJobCounts(): Promise<JobCounts>;
+
+    /**
+     * Returns a promise that resolves with the job counts for the given queue of the given types.
+     */
+    getJobCountByTypes(types: string[]): Promise<JobCounts>;
 
     /**
      * Returns a promise that resolves with the quantity of completed jobs.
