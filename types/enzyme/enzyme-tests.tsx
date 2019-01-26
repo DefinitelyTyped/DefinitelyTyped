@@ -868,10 +868,10 @@ function ReactWrapperTest() {
 
     function test_component_type() {
       const wrapper1 = shallow(<div><ComponentType stringProp={"S"} numberProp={1} /></div>);
-      wrapper1.find(ComponentType);
+      wrapper1.find(ComponentType).props().stringProp; // $ExpectType string
 
       const wrapper2 = mount(<div><ComponentType stringProp={"S"} numberProp={1} /></div>);
-      wrapper2.find(ComponentType);
+      wrapper2.find(ComponentType).props().stringProp; // $ExpectType string
     }
 }
 
