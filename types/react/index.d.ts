@@ -57,6 +57,10 @@ declare namespace React {
         ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
+    type JSXElementConstructor<P> =
+        | ((props: P) => ReactElement<any> | null)
+        | (new (props: P) => Component<P, any>);
+
     type Key = string | number;
 
     interface RefObject<T> {
@@ -78,33 +82,35 @@ declare namespace React {
         ref?: LegacyRef<T>;
     }
 
-    interface ReactElement<P> {
-        type: string | ComponentClass<P> | FunctionComponent<P>;
+    interface ReactElement<P, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
+        type: T;
         props: P;
         key: Key | null;
     }
+
+    interface ReactComponentElement<
+        T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
+        P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>
+    > extends ReactElement<P, T> { }
 
     /**
      * @deprecated Please use `FunctionComponentElement`
      */
     type SFCElement<P> = FunctionComponentElement<P>;
 
-    interface FunctionComponentElement<P> extends ReactElement<P> {
-        type: FunctionComponent<P>;
+    interface FunctionComponentElement<P> extends ReactElement<P, FunctionComponent<P>> {
         ref?: 'ref' extends keyof P ? P extends { ref?: infer R } ? R : never : never;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
-    interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
-        type: ComponentClass<P>;
+    interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P, ComponentClass<P>> {
         ref?: LegacyRef<T>;
     }
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     // string fallback for custom web-components
-    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P> {
-        type: string;
+    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P, string> {
         ref: LegacyRef<T>;
     }
 
@@ -490,10 +496,6 @@ declare namespace React {
         new (props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
-
-    type JSXElementConstructor<P> =
-        | ((props: P) => ReactElement<any> | null)
-        | (new (props: P) => Component<P, any>);
 
     /**
      * We use an intersection type to infer multiple type parameters from
@@ -2586,12 +2588,11 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T, C extends ReactElement<any>>(children: C[], fn: (child: C, index: number) => T): T[];
-        map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
-        forEach(children: ReactNode, fn: (child: ReactChild, index: number) => void): void;
-        count(children: ReactNode): number;
-        only(children: ReactNode): ReactElement<any>;
-        toArray(children: ReactNode): ReactChild[];
+        map<T, C>(children: C | C[], fn: (child: C, index: number) => T): T[];
+        forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
+        count(children: any): number;
+        only<C>(children: C): C extends any[] ? never : C;
+        toArray<C>(children: C | C[]): C[];
     }
 
     //
@@ -2670,7 +2671,7 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
-        interface Element extends React.ReactElement<any> { }
+        interface Element extends React.ReactElement<any, any> { }
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }

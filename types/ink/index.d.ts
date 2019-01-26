@@ -59,7 +59,7 @@ export abstract class Component<
     S extends Record<string, any> = {},
     C extends Record<string, any> = {}
 > {
-    readonly props: P;
+    readonly props: P & { children?: InkNode };
     readonly context: C;
 
     setState(
