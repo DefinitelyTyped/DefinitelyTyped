@@ -26,8 +26,8 @@ import * as Redis from "ioredis";
 declare const Bull: {
   (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
   (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
-  new(queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  new(queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
+  new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
+  new (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
 };
 
 declare namespace Bull {
