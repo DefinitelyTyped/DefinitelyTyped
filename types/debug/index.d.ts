@@ -25,14 +25,14 @@ declare namespace debug {
 
         formatters: Formatters;
     }
-    
-    type IDebug=Debug;
+
+    type IDebug = Debug;
 
     interface Formatters {
         [formatter: string]: (v: any) => string;
     }
-    
-    type IDebugger=Debugger;
+
+    type IDebugger = Debugger;
 
     interface Debugger {
         (formatter: any, ...args: any[]): void;
