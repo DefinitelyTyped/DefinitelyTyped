@@ -8,3 +8,6 @@ interface Obj {
 }
 
 export default function defaultDeep(obj?: Obj, ...objs: Obj[]): Obj;
+
+// strict-export-declare-modifiers
+export {};
