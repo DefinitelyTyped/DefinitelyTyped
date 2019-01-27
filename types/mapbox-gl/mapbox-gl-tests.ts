@@ -50,7 +50,8 @@ map.on('load', function(){
 		"type": "symbol",
 		"source": "data",
 		"layout": {
-			"icon-image": "marker-15"
+			"icon-image": "marker-15",
+			"text-field": ['get', 'property']
 		}
 	});
 

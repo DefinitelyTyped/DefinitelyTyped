@@ -1389,7 +1389,7 @@ declare namespace mapboxgl {
         'symbol-spacing'?: number | Expression;
         'symbol-avoid-edges'?: boolean;
         'symbol-z-order'?: 'viewport-y' | 'source';
-        'icon-allow-overlap'?: boolean | StyleFunction;
+        'icon-allow-overlap'?: boolean | StyleFunction | Expression;
         'icon-ignore-placement'?: boolean;
         'icon-optional'?: boolean;
         'icon-rotation-alignment'?: 'map' | 'viewport' | 'auto';
@@ -1405,7 +1405,7 @@ declare namespace mapboxgl {
         'icon-pitch-alignment'?: 'map' | 'viewport' | 'auto';
         'text-pitch-alignment'?: 'map' | 'viewport' | 'auto';
         'text-rotation-alignment'?: 'map' | 'viewport' | 'auto';
-        'text-field'?: string | StyleFunction;
+        'text-field'?: string | StyleFunction | Expression;
         'text-font'?: string | string[];
         'text-size'?: number | StyleFunction | Expression;
         'text-max-width'?: number | Expression;
