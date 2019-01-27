@@ -3,7 +3,8 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Tom Wanzek <https://github.com/tomwanzek>
-//                 denisname <https://github.com/denisname>
+//                 denisname <https://github.com/denisname>,
+//                 Hugues Stefanski <https://github.com/ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -173,6 +174,44 @@ export interface Bisector<T, U> {
 export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
 export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
 
+/**
+ * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
+ * 
+ * @param array The array to partially sort (in place).
+ * @param k The middle index for partial sorting. 
+ */
+export function quickselect<T>(array: Array<T>, k: number): Array<T>;
+
+/**
+ * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
+ * 
+ * @param array The array to partially sort (in place).
+ * @param k The middle index for partial sorting. 
+ * @param left The left index of the range to sort.
+ */
+export function quickselect<T>(array: Array<T>, k: number, left: number): Array<T>;
+
+/**
+ * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
+ * 
+ * @param array The array to partially sort (in place).
+ * @param k The middle index for partial sorting. 
+ * @param left The left index of the range to sort.
+ * @param right The right index.
+ */
+export function quickselect<T>(array: Array<T>, k: number, left: number, right: number): Array<T>;
+
+/**
+ * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
+ * 
+ * @param array The array to partially sort (in place).
+ * @param k The middle index for partial sorting. 
+ * @param left The left index of the range to sort.
+ * @param right The right index.
+ * @param compare The compare function.
+ */
+export function quickselect<T>(array: Array<T>, k: number, left: number, right: number, compare: (a: Primitive | undefined, b: Primitive | undefined) => number): Array<T>;
+
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
  * Compares two primitive values for sorting (in ascending order).
@@ -188,6 +227,22 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
 // --------------------------------------------------------------------------------------
 // Transforming Arrays
 // --------------------------------------------------------------------------------------
+
+/**
+ * Groups the specified array of values into a Map from key to array of value.
+ * @param a The array to group.
+ * @param key The key function.
+ */
+export function group<TObject, TKey>(a: ArrayLike<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject>;
+
+
+/**
+ * Groups and reduces the specified array of values into a Map from key to value. 
+ * @param a The array to group.
+ * @param reduce The reduce function.
+ * @param key The key function.
+ */
+export function rollup<TObject, TKey>(a: ArrayLike<TObject>, reduce: (value: Array<TObject>) => number, key: (value: TObject) => TKey): Map<TKey, TObject>;
 
 /**
  * Returns the Cartesian product of the two arrays a and b.

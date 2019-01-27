@@ -485,6 +485,12 @@ num = mixedObjectDateBisectorObject.right(readonlyMixedObjectArray, new Date(201
 num = mixedObjectDateBisectorObject.right(readonlyMixedObjectArray, new Date(2015, 3, 14), 1);
 num = mixedObjectDateBisectorObject.right(readonlyMixedObjectArray, new Date(2015, 3, 14), 3, 4);
 
+// quickselect
+numbersArray = d3Array.quickselect(numbersArray, 3);
+numbersArray = d3Array.quickselect(numbersArray, 3, 0);
+numbersArray = d3Array.quickselect(numbersArray, 3, 0, 5);
+numbersArray = d3Array.quickselect(numbersArray, 3, 0, 5, d3Array.descending);
+
 // ascending() -----------------------------------------------------------------
 
 num = d3Array.ascending(undefined, 20);
@@ -535,6 +541,24 @@ mergedArray = d3Array.merge([testArray1, [15, 30]]); // fails, type mismatch
 
 mergedArray = d3Array.merge(readonlyTestArrays); // inferred type
 mergedArray = d3Array.merge<MixedObject>(readonlyTestArrays); // explicit type
+
+interface ObjDefinition {
+    name: string;
+    amount: string;
+    date: string;
+}
+
+const objArray: Array<ObjDefinition> = [
+    { name: "jim", amount: "34.0", date: "11/12/2015" },
+    { name: "carl", amount: "120.11", date: "11/12/2015" },
+    { name: "stacy", amount: "12.01", date: "01/04/2016" },
+    { name: "stacy", amount: "34.05", date: "01/04/2016" }
+];
+
+let myMap: Map<string, ObjDefinition>;
+
+myMap = d3Array.group(objArray, d => d.name);
+myMap = d3Array.rollup(objArray, d => d.length, d => d.name);
 
 // cross() ---------------------------------------------------------------------
 
@@ -779,7 +803,7 @@ histoMixedObject_Date = histoMixedObject_Date.domain(timeScale.domain()); // fai
 domainFnDate = histoMixedObject_Date.domain();
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([domain[0], domain[domain.length]]);
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) =>  [values[0]!, values[values.length]!]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) => [values[0]!, values[values.length]!]);
 
 // thresholds(...) -------------------------------------------------------------
 
