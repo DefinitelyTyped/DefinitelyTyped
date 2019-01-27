@@ -78,9 +78,20 @@ function API_get() {
             // if no http:// is found, Needle will automagically prepend it.
         });
 
+    // be able to type the response
+    function getResponse(): Promise<needle.NeedleResponse> {
+        return needle('get', 'google.com/search?q=syd+barrett');
+    }
+
     // using callback
     needle.get('google.com/search?q=syd+barrett', (err, resp) => {
         // if no http:// is found, Needle will automagically prepend it.
+    });
+
+    // assign response
+    let resp: needle.NeedleResponse;
+    needle.get('google.com/search?q=syd+barrett', (err, _resp) => {
+        resp = _resp;
     });
 }
 
