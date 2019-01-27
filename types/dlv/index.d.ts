@@ -11,12 +11,12 @@ declare module 'dlv' {
      *
      * @param {object} object Object to look up the key on
      * @param {(string | string[])} key Key in dot notation to lookup. Can also be an array key.
-     * @param {T} [defaultValue] Default value to return if the full key path does not exist on the object
-     * @returns {(any | T))} Value if found in path, the default if not found, undefined if no default provided
+     * @param {any} [defaultValue] Default value to return if the full key path does not exist on the object
+     * @returns {any} Value if found in path, the default if not found, undefined if no default provided
     */
-    export default function dlv<T>(
+    export default function dlv(
         object       : object,
         key          : string | string[],
-        defaultValue?: T,
-    ): any | T;
+        defaultValue?: any,
+    ): any;
 }
