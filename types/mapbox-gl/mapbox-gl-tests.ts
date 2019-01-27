@@ -788,3 +788,14 @@ expectType<mapboxgl.Map>(map.on('touchcancel', 'text', (ev) => {
 	expectType<mapboxgl.MapLayerTouchEvent>(ev);
 	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
 }));
+
+/*
+ * Expression
+ */
+expectType<mapboxgl.Expression>(['id']);
+expectType<mapboxgl.Expression>(['get', 'property']);
+expectType<mapboxgl.Expression>([
+	'format',
+	['concat', ['get', 'name'], '\n'], {},
+	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
+]);

@@ -1,8 +1,10 @@
 // Type definitions for Mapbox GL JS v0.51.0
 // Project: https://github.com/mapbox/mapbox-gl-js
-// Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
+// Definitions by: Dominik Bruderer <https://github.com/dobrud>
+//                 Patrick Reames <https://github.com/patrickr>
+//                 Karl-Aksel Puulmann <https://github.com/macobo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="geojson" />
 
@@ -20,7 +22,33 @@ declare namespace mapboxgl {
     type LngLatLike = LngLat | { lng: number; lat: number; } | { lon: number; lat: number; } | [number, number];
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number];
     type PointLike = Point | [number, number];
-    type Expression = any[];
+
+    type ExpressionName =
+        // Types
+        | 'array' | 'boolean' | 'collator' | 'format' | 'literal' | 'number' | 'object' | 'string'
+        | 'to-boolean' | 'to-color' | 'to-number' | 'to-string' | 'typeof'
+        // Feature data
+        | 'feature-state' | 'geometry-type' | 'id' | 'line-progress' | 'properties'
+        // Lookup
+        | 'at' | 'get' | 'has' | 'length'
+        // Decision
+        | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
+        // Ramps, scales, curves
+        | 'interpolate' | 'interpolate-hcl' | 'interpolate-lab' | 'step'
+        // Variable binding
+        | 'let' | 'var'
+        // String
+        | 'concat' | 'downcase' | 'is-supported-script' | 'resolved-locale' | 'upcase'
+        // Color
+        | 'rgb' | 'rgba'
+        // Math
+        | '-' | '*' | '/' | '%' | '^' | '+' | 'abs' | 'acos' | 'asin' | 'atan' | 'ceil' | 'cos' | 'e'
+        | 'floor' | 'ln' | 'ln2' | 'log10' | 'log2' | 'max' | 'min' | 'pi' | 'round' | 'sin' | 'sqrt' | 'tan'
+        // Zoom, Heatmap
+        | 'zoom' | 'heatmap-density';
+
+    type Expression = [ExpressionName, ...any[]]
+
     type Anchor = 'center' | 'left' | 'right' | 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
     /**
