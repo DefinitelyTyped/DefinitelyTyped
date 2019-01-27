@@ -548,7 +548,7 @@ interface ObjDefinition {
     date: string;
 }
 
-const objArray: Array<ObjDefinition> = [
+const objArray: ObjDefinition[] = [
     { name: "jim", amount: "34.0", date: "11/12/2015" },
     { name: "carl", amount: "120.11", date: "11/12/2015" },
     { name: "stacy", amount: "12.01", date: "01/04/2016" },
