@@ -101,7 +101,7 @@ declare namespace mapboxgl {
 
         isStyleLoaded(): boolean;
 
-        addSource(id: string, source: VectorSource | RasterSource | RasterDemSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw): this;
+        addSource(id: string, source: AnySourceData): this;
 
         isSourceLoaded(id: string): boolean;
 
@@ -109,7 +109,7 @@ declare namespace mapboxgl {
 
         removeSource(id: string): this;
 
-        getSource(id: string): VectorSource | RasterSource | RasterDemSource | GeoJSONSource | ImageSource | VideoSource;
+        getSource(id: string): AnySourceImpl;
 
         addImage(name: string, image: HTMLImageElement | ArrayBufferView | { width: number, height: number, data: Uint8Array | Uint8ClampedArray } | ImageData, options?: { pixelRatio?: number, sdf?: boolean }): this;
 
@@ -654,7 +654,7 @@ declare namespace mapboxgl {
         name?: string;
         pitch?: number;
         light?: Light;
-        sources?: any;
+        sources?: Sources;
         sprite?: string;
         transition?: Transition;
         version: number;
@@ -675,6 +675,14 @@ declare namespace mapboxgl {
         'intensity'?: number;
         'intensity-transition'?: Transition;
     }
+
+    export interface Sources {
+        [sourceName: string]: AnySourceData;
+    }
+
+    export type AnySourceData = GeoJSONSourceRaw | VideoSourceRaw | ImageSourceRaw | CanvasSourceRaw | VectorSource | RasterSource | RasterDemSource
+
+    export type AnySourceImpl = GeoJSONSource | VideoSource | ImageSource | CanvasSource | VectorSource | RasterSource | RasterDemSource
 
     export interface Source {
         type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas';
@@ -727,10 +735,11 @@ declare namespace mapboxgl {
     /**
      * VideoSource
      */
-    export interface VideoSource extends VideoSourceOptions {
+    export interface VideoSourceRaw extends Source, VideoSourceOptions {
+        type: 'video';
     }
 
-    export class VideoSource implements Source {
+    export class VideoSource implements VideoSourceRaw {
         type: 'video';
 
         constructor(options?: mapboxgl.VideoSourceOptions);
@@ -749,10 +758,11 @@ declare namespace mapboxgl {
     /**
      * ImageSource
      */
-    export interface ImageSource extends ImageSourceOptions {
+    export interface ImageSourceRaw extends Source, ImageSourceOptions {
+        type: 'image';
     }
 
-    export class ImageSource implements Source {
+    export class ImageSource implements ImageSourceRaw {
         type: 'image';
 
         constructor(options?: mapboxgl.ImageSourceOptions);
@@ -769,7 +779,11 @@ declare namespace mapboxgl {
     /**
      * CanvasSource
      */
-    export class CanvasSource implements Source, CanvasSourceOptions {
+    export interface CanvasSourceRaw extends Source, CanvasSourceOptions {
+        type: 'canvas';
+    }
+
+    export class CanvasSource implements CanvasSourceRaw {
         type: 'canvas';
 
         coordinates: number[][];
@@ -1274,7 +1288,7 @@ declare namespace mapboxgl {
         metadata?: any;
         ref?: string;
 
-        source?: string | VectorSource | RasterSource | RasterDemSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw;
+        source?: string | AnySourceData;
 
         'source-layer'?: string;
 
