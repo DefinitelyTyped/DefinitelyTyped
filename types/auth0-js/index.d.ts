@@ -813,7 +813,7 @@ export interface AuthorizeOptions {
 	prompt?: string;
     mode?: "login" | "signUp";
     acccessType?: string;
-    approvalPrompt?; string
+    approvalPrompt?: string;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {
