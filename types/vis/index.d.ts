@@ -14,11 +14,10 @@
 //                 Dmitriy Trifonov <https://github.com/divideby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
 export type MomentConstructor1 =
-  (inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean) => Moment;
+    (inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, strict?: boolean) => moment.Moment;
 export type MomentConstructor2 =
-  (inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean) => Moment;
+    (inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean) => moment.Moment;
 
 export type MomentConstructor = MomentConstructor1 | MomentConstructor2;
 
