@@ -8,6 +8,7 @@
 //                 Matthieu Vachon <https://github.com/maoueh>
 //                 Adam Lavin <https://github.com/lavoaster>
 //                 Joachim Schuler <https://github.com/jschuler>
+//                 Adam Misiorny <https://github.com/adam187>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -40,10 +41,10 @@ export interface LowLevelStylefunctionArguments {
     scale?: Array<string | number>;
 }
 
-export function style(args: LowLevelStylefunctionArguments): any;
+export function style(args: LowLevelStylefunctionArguments): {[cssProp: string]: string};
 
 export type TLengthStyledSystem = string | 0 | number;
-export type ResponsiveValue<T> = T | Array<T | null>;
+export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
 
 /**
  * Converts shorthand margin and padding props to margin and padding CSS declarations
@@ -96,13 +97,32 @@ export interface VariantArgs {
 
 export function variant(props: VariantArgs): (...args: any[]) => any;
 
+export type ObjectOrArray<T> = T[] | { [K: string]: T };
+
 export interface BaseTheme {
     breakpoints?: number[];
-    space?: number[];
+    colors?: ObjectOrArray<CSS.ColorProperty>;
     fontSizes?: number[];
-    colors?: {
-        [name: string]: string;
-    };
+    space?: number[];
+}
+
+export interface Theme extends BaseTheme {
+    borders?: ObjectOrArray<CSS.BorderProperty<{}>>;
+    buttons?: ObjectOrArray<CSS.StandardProperties>;
+    colorStyles?: ObjectOrArray<CSS.StandardProperties>;
+    fontWeights?: ObjectOrArray<CSS.FontWeightProperty>;
+    fonts?: ObjectOrArray<CSS.FontFamilyProperty>;
+    heights?: ObjectOrArray<CSS.HeightProperty<{}>>;
+    letterSpacings?: ObjectOrArray<CSS.LetterSpacingProperty<{}>>;
+    lineHeights?: ObjectOrArray<CSS.LineHeightProperty<{}>>;
+    maxHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
+    maxWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
+    minHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
+    minWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
+    opacity?: ObjectOrArray<CSS.GlobalsNumber>;
+    radii?: ObjectOrArray<CSS.BorderRadiusProperty<{}>>;
+    shadows?: ObjectOrArray<CSS.BoxShadowProperty>;
+    textStyles?: ObjectOrArray<CSS.StandardProperties>;
 }
 
 /**

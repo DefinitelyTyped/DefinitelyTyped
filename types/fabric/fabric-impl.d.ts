@@ -1801,10 +1801,12 @@ export class Image {
 
 	initialize(element?: string | HTMLImageElement, options?: IImageOptions): void;
 	/**
-	 * Applies filters assigned to this image (from "filters" array)
-	 * @param callback Callback is invoked when all filters have been applied and new image is generated
+	 * Applies filters assigned to this image (from "filters" array) or from filter param
+	 * @param {Array} filters to be applied
+	 * @return {thisArg} return the fabric.Image object
+	 * @chainable
 	 */
-	applyFilters(callback: Function): void;
+	applyFilters(filters?: IBaseFilter[]): Image;
 	/**
 	 * Returns a clone of an instance
 	 * @param callback Callback is invoked with a clone as a first argument
@@ -3717,17 +3719,29 @@ interface IAllFilters {
 		 */
 		new(options?: any): IBaseFilter;
 	};
-	Blend: {
+	BlendColor: {
 		/**
 		 * Constructor
 		 * @param [options] Options object
 		 */
-		new(options?: { color?: string; mode?: string; alpha?: number; image?: Image }): IBlendFilter;
+		new(options?: { color?: string; mode?: string; alpha?: number; }): IBlendColorFilter;
 		/**
 		 * Returns filter instance from an object representation
 		 * @param object Object to create an instance from
 		 */
-		fromObject(object: any): IBlendFilter
+		fromObject(object: any): IBlendColorFilter
+	};
+	BlendImage: {
+		/**
+		 * Constructor
+		 * @param [options] Options object
+		 */
+		new(options?: { image?: Image; mode?: string; alpha?: number; }): IBlendImageFilter;
+		/**
+		 * Returns filter instance from an object representation
+		 * @param object Object to create an instance from
+		 */
+		fromObject(object: any): IBlendImageFilter
 	};
 	Brightness: {
 		new(options?: {
@@ -3910,7 +3924,14 @@ interface IBaseFilter {
 	 */
 	toJSON(): string;
 }
-interface IBlendFilter extends IBaseFilter {
+interface IBlendColorFilter extends IBaseFilter {
+	/**
+	 * Applies filter to canvas element
+	 * @param canvasEl Canvas element to apply filter to
+	 */
+	applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IBlendImageFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
@@ -3931,63 +3952,63 @@ interface IConvoluteFilter extends IBaseFilter {
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IGradientTransparencyFilter {
+interface IGradientTransparencyFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IGrayscaleFilter {
+interface IGrayscaleFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IInvertFilter {
+interface IInvertFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IMaskFilter {
+interface IMaskFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IMultiplyFilter {
+interface IMultiplyFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface INoiseFilter {
+interface INoiseFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IPixelateFilter {
+interface IPixelateFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IRemoveWhiteFilter {
+interface IRemoveWhiteFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IResizeFilter {
+interface IResizeFilter extends IBaseFilter {
 	/**
 	 * Resize type
 	 */
@@ -4013,21 +4034,21 @@ interface IResizeFilter {
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ISepiaFilter {
+interface ISepiaFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ISepia2Filter {
+interface ISepia2Filter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ITintFilter {
+interface ITintFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to

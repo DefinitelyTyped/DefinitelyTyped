@@ -237,6 +237,34 @@ interface Assert {
     raises(block: () => void, expected?: any, message?: any): void;
 
     /**
+     * Test if the provided promise rejects, and optionally compare the
+     * rejection value.
+     *
+     * When testing code that is expected to return a rejected promise based on
+     * a specific set of circumstances, use assert.rejects() for testing and
+     * comparison.
+     *
+     * The expectedMatcher argument can be:
+     *      A function that returns true when the assertion should be considered passing.
+     *      An Error object
+     *      A base constructor to use ala rejectionValue instanceof expectedMatcher
+     *      A RegExp that matches (or partially matches) rejectionValue.toString()
+     *
+     * Note: in order to avoid confusion between the message and the expectedMatcher,
+     * the expectedMatcher can not be a string.
+     *
+     * @param promise promise to test for rejection
+     * @param expectedMatcher Rejection value matcher
+     * @param message A short description of the assertion
+     */
+    rejects(promise: Promise<any>, message?: string): void;
+    rejects(
+        promise: Promise<any>,
+        expectedMatcher?: any,
+        message?: string,
+    ): void;
+
+    /**
      * A marker for progress in a given test.
      *
      * The `step()` assertion registers a passing assertion with a provided message. This makes

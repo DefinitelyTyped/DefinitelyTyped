@@ -241,3 +241,14 @@ adapter.sendToHostAsync("host-foo", "command", "message").then(handleMessageResp
 adapter.sendToHostAsync("host-foo", "message").then(handleMessageResponse);
 adapter.sendToHostAsync("host-foo", "command", {msg: "message"}).then(handleMessageResponse);
 adapter.sendToHostAsync("host-foo", {msg: "message"}).then(handleMessageResponse);
+
+function handleError(err?: string) { }
+adapter.subscribeStates("*", handleError);
+adapter.subscribeForeignStates("*", handleError);
+adapter.unsubscribeStates("*", handleError);
+adapter.unsubscribeForeignStates("*", handleError);
+
+adapter.subscribeStatesAsync("*").catch(handleError);
+adapter.subscribeForeignStatesAsync("*").catch(handleError);
+adapter.unsubscribeStatesAsync("*").catch(handleError);
+adapter.unsubscribeForeignStatesAsync("*").catch(handleError);
