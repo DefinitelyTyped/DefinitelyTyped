@@ -14,7 +14,7 @@ export as namespace debug;
 
 declare namespace debug {
     interface Debug {
-        (namespace: string): debug.Debugger;
+        (namespace: string): Debugger;
         coerce: (val: any) => any;
         disable: () => void;
         enable: (namespaces: string) => void;
@@ -27,15 +27,15 @@ declare namespace debug {
     }
 
     interface Formatters {
-        [formatter: string]: (v:Object)=>string;
+        [formatter: string]: (v: any) => string;
     }
 
     interface Debugger {
         (formatter: any, ...args: any[]): void;
 
         enabled: boolean;
-        log: Function;
+        log: (v: any) => string;
         namespace: string;
-        extend: (namespace: string, delimiter?: string) => debug.Debugger;
+        extend: (namespace: string, delimiter?: string) => Debugger;
     }
 }
