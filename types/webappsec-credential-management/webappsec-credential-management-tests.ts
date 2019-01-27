@@ -352,3 +352,16 @@ function webauthnAuthenticate() {
         console.log(e.message);
     });
 }
+
+function mockAuthenticatorAssertionResponse() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    const sampleResponse: AuthenticatorAssertionResponse = {
+        clientDataJSON: new ArrayBuffer(0),
+        authenticatorData: new ArrayBuffer(0),
+        signature: new ArrayBuffer(0),
+    };
+    sampleResponse.userHandle === undefined;
+}
