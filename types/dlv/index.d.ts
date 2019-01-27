@@ -2,6 +2,7 @@
 // Project: https://github.com/developit/dlv#readme
 // Definitions by: Ryan Sonshine <https://github.com/ryansonshine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /**
  * Safely get a dot-notated path within a nested object, with ability to
