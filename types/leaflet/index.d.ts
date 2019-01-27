@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.2
+// Type definitions for Leaflet.js 1.4
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
@@ -323,7 +323,7 @@ export abstract class Evented extends Class {
      * Note that if you passed a custom context to on, you must pass the same context
      * to off in order to remove the listener.
      */
-    removeEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
+    removeEventListener(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Alias for off(...)
@@ -1181,6 +1181,12 @@ export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     maxZoom?: number;
 }
 
+export interface PanInsideOptions {
+    paddingTopLeft?: PointExpression;
+    paddingBottomRight?: PointExpression;
+    padding?: PointExpression;
+}
+
 export interface LocateOptions {
     watch?: boolean;
     setView?: boolean;
@@ -1355,6 +1361,7 @@ export class Map extends Evented {
     setMaxBounds(bounds: LatLngBoundsExpression): this;
     setMinZoom(zoom: number): this;
     setMaxZoom(zoom: number): this;
+    panInside(latLng: LatLngExpression, options?: PanInsideOptions): this;
     panInsideBounds(bounds: LatLngBoundsExpression, options?: PanOptions): this;
     /**
      * Boolean for animate or advanced ZoomPanOptions

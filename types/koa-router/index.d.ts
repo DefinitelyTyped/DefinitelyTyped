@@ -52,6 +52,11 @@ declare namespace Router {
          * the router instance
          */
         router: Router<StateT, CustomT>;
+        /**
+         * Matched route
+         */
+        _matchedRoute: string | RegExp | undefined;
+        _matchedRouteName: string | undefined;
     }
 
     export type RouterContext<StateT = any, CustomT = {}> =

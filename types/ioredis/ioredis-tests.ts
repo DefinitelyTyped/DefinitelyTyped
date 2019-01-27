@@ -38,6 +38,7 @@ redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
 redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 
 redis.exists('foo').then(result => result * 1);
+redis.exists('foo', ((err, data) => data * 1));
 
 // Should support usage of Buffer
 redis.set(Buffer.from('key'), '100');

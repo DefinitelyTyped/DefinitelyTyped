@@ -1452,6 +1452,10 @@ declare namespace webpack {
         constructor(paths: Array<string | RegExp>);
     }
 
+    class SingleEntryPlugin extends Plugin {
+        constructor(context: string, entry: string, name: string);
+    }
+
     namespace optimize {
         /** @deprecated use config.optimization.concatenateModules */
         class ModuleConcatenationPlugin extends Plugin { }

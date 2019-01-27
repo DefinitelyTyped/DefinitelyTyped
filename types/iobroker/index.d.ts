@@ -1327,19 +1327,39 @@ declare global {
             unsubscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
 
             /** Subscribe to changes of states in this instance */
-            subscribeStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeStates(pattern: string, callback?: ErrorCallback): void;
+            subscribeStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of states in this instance */
+            subscribeStatesAsync(pattern: string, options?: unknown): Promise<void>;
+
             /** Subscribe to changes of states (which might not belong to this adapter) */
-            subscribeForeignStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeForeignStates(pattern: string, callback?: ErrorCallback): void;
+            subscribeForeignStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of states (which might not belong to this adapter) */
+            subscribeForeignStatesAsync(pattern: string, options?: unknown): Promise<void>;
+
             /**
              * Subscribe from changes of states in this instance
              * @param pattern - Must match the pattern used to subscribe
              */
-            unsubscribeStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeStates(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Subscribe from changes of states in this instance
+             * @param pattern - Must match the pattern used to subscribe
+             */
+            unsubscribeStatesAsync(pattern: string, options?: unknown): Promise<void>;
             /**
              * Subscribe from changes of states (which might not belong to this adapter)
              * @param pattern - Must match the pattern used to subscribe
              */
-            unsubscribeForeignStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeForeignStates(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeForeignStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Subscribe from changes of states (which might not belong to this adapter)
+             * @param pattern - Must match the pattern used to subscribe
+             */
+            unsubscribeForeignStatesAsync(pattern: string, options?: unknown): Promise<void>;
 
             // ==============================
             // devices and channels

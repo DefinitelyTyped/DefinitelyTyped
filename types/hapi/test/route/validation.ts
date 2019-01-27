@@ -19,7 +19,10 @@ const routeOptions: RouteOptions = {
         params: {
             name: Joi.string().min(3).max(10),
             nameRef: Joi.ref("name")
-        }
+        },
+        state: {
+            woop: Joi.string().allow('doop'),
+        },
     },
     response: {
         schema: Joi.object({
