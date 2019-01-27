@@ -758,6 +758,12 @@ function TestLogging() {
     type = webdriver.logging.Type.DRIVER;
     type = webdriver.logging.Type.PERFORMANCE;
     type = webdriver.logging.Type.SERVER;
+
+    let logger: webdriver.logging.Logger = webdriver.logging.getLogger();
+    webdriver.logging.addConsoleHandler();
+    webdriver.logging.addConsoleHandler(logger);
+    webdriver.logging.removeConsoleHandler();
+    webdriver.logging.removeConsoleHandler(logger);
 }
 
 function TestLoggingEntry() {

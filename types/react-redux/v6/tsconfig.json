@@ -1,0 +1,31 @@
+{
+    "files": [
+        "index.d.ts",
+        "react-redux-tests.tsx"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "react-redux": [
+                "react-redux/v6"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

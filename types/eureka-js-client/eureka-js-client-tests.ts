@@ -1,4 +1,4 @@
-import { Eureka } from 'eureka-js-client';
+import { Eureka, EurekaClient } from 'eureka-js-client';
 
 // example configuration
 const client = new Eureka({
@@ -43,3 +43,50 @@ const newerClient = new Eureka({
     port: 32768,
   }
 });
+
+const ymlInitClient = new Eureka({
+  cwd: `/opt/config`,
+  filename: 'eureka-config'
+});
+
+// Test callbacks
+newerClient.start((err: Error) => {});
+newerClient.start(() => {});
+newerClient.start();
+newerClient.stop((err: Error) => {});
+newerClient.start(() => {});
+newerClient.stop();
+
+const fakeInstanceResponse: EurekaClient.EurekaInstanceConfig[] = [
+  {
+    instanceId: 'config-server:8888',
+    hostName: '10.10.10.10',
+    app: 'CONFIG-SERVER',
+    ipAddr: '10.10.10.10',
+    status: 'UP',
+    overriddenstatus: 'UNKNOWN',
+    port: {
+      $: 8888,
+      '@enabled': true
+    },
+    securePort: {
+      $: 443,
+      '@enabled': true
+    },
+    countryId: 1,
+    dataCenterInfo: {
+      '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
+      name: 'MyOwn'
+    },
+    metadata: { '@class': 'java.util.Collections$EmptyMap' },
+    homePageUrl: 'http://10.10.10.10:8888/',
+    statusPageUrl: 'http://10.10.10.10:8888/info',
+    healthCheckUrl: 'http://10.10.10.10:8888/v1/service-health',
+    vipAddress: 'config-server',
+    secureVipAddress: 'config-server',
+    isCoordinatingDiscoveryServer: false,
+    lastUpdatedTimestamp: 1544691255230,
+    lastDirtyTimestamp: 1544691254634,
+    actionType: 'ADDED'
+  }
+];

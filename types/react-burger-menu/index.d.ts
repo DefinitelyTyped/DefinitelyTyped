@@ -16,6 +16,7 @@ export interface Styles {
     bmCross: Partial<CSSStyleDeclaration>;
     bmCrossButton: Partial<CSSStyleDeclaration>;
     bmItemList: Partial<CSSStyleDeclaration>;
+    bmMenuWrap: Partial<CSSStyleDeclaration>;
     bmMenu: Partial<CSSStyleDeclaration>;
     bmMorphShape: Partial<CSSStyleDeclaration>;
     bmOverlay: Partial<CSSStyleDeclaration>;

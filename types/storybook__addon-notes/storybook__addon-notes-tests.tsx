@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { withNotes, withMarkdownNotes, WithNotes } from '@storybook/addon-notes';
+import { withNotes, withMarkdownNotes, } from '@storybook/addon-notes';
 
 const SIMPLE_MARKDOWN = `
 ## Markdown for component
@@ -10,18 +10,31 @@ A very simple component with markdown notes
 `;
 
 storiesOf('Component', module)
-  .add('with some emoji', () => (
-    <WithNotes notes={'A very simple component'}>
-      my component
-    </WithNotes>
-  ))
+  .addDecorator(withNotes())
   .add('with withNotes',
-    withNotes('A very simple component')(
-      () => (<div>my component</div>)
-    )
-  )
-  .add('with withMarkdownNotes',
-    withMarkdownNotes(SIMPLE_MARKDOWN)(
-      () => (<div>my component</div>)
-    )
+    () => (<div>my component</div>)
+  );
+
+storiesOf('Component', module)
+  .addDecorator(withNotes('Some text'))
+  .add('with withNotes',
+    () => (<div>my component</div>)
+  );
+
+storiesOf('Component', module)
+  .addDecorator(withNotes({ text: 'Some text' }))
+  .add('with withNotes',
+    () => (<div>my component</div>)
+  );
+
+storiesOf('Component', module)
+  .addDecorator(withNotes({ markdown: 'Some text' }))
+  .add('with withNotes',
+    () => (<div>my component</div>)
+  );
+
+storiesOf('Component', module)
+  .addDecorator(withNotes({ markdown: 'Some text', markdownOptions: { sanitize: true } }))
+  .add('with withNotes',
+    () => (<div>my component</div>)
   );

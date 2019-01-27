@@ -10,17 +10,21 @@ Copyright (c) Microsoft Corporation
 */
 
 /**
- * Specific to Excel Custom Functions.
- * Enables you to set key-value pairs which map
- * a function's id in the JSON metadata to the JS function name.
- * @beta
- */
-declare let CustomFunctionMappings: { [key: string]: Function };
-/**
  * CustomFunctions namespace, used by Excel Custom Functions
  * @beta
  */
 declare namespace CustomFunctions {
+    /**
+     * @beta
+     * Associates the JavaScript function to the name given by the "id" property in the metadata JSON file.
+     */
+    function associate(id: string, functionObject: Function): void;
+    /**
+     * @beta
+     * Associates the JavaScript functions to the names given by the "id" properties in the metadata JSON file.
+     */
+    function associate(mappings: { [key: string]: Function }): void;
+
     /**
      * A handler passed automatically as the last parameter
      * to a streaming function. With this parameter, a
@@ -36,7 +40,9 @@ declare namespace CustomFunctions {
          */
         setResult: (value: T | Error) => void;
     }
+
     /**
+     * @beta
      * CancelableHandler interface
      */
     interface CancelableHandler {

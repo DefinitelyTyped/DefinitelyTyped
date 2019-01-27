@@ -1,4 +1,4 @@
-// Type definitions for react-loadable 5.4
+// Type definitions for react-loadable 5.5
 // Project: https://github.com/thejameskyle/react-loadable#readme
 // Definitions by: Jessica Franco <https://github.com/Kovensky>
 //                 Oden S. <https://github.com/odensc>

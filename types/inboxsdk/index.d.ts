@@ -657,6 +657,9 @@ declare namespace InboxSDK {
       handleCustomListRoute(routeID: string, handler: (offset: number, max: number) => CustomListDescriptor | Promise<CustomListDescriptor>): () => void;
 
       getCurrentRouteView(): RouteView;
+
+      NativeListRouteIDs: typeof NativeListRouteIDs;
+      NativeRouteIDs: typeof NativeRouteIDs;
     }
 
     interface CustomListDescriptor {
@@ -754,43 +757,45 @@ declare namespace InboxSDK {
       onClick?: () => void;
     }
 
-    type NativeRouteIDs =
-      'INBOX' |
-      'ALL_MAIL' |
-      'SENT' |
-      'STARRED' |
-      'DRAFTS' |
-      'SNOOZED' |
-      'DONE' |
-      'REMINDERS' |
-      'LABEL' |
-      'TRASH' |
-      'SPAM' |
-      'IMPORTANT' |
-      'SEARCH' |
-      'THREAD' |
-      'CHATS' |
-      'CHAT' |
-      'CONTACTS' |
-      'CONTACT' |
-      'SETTINGS' |
-      'ANY_LIST';
+    enum NativeRouteIDs {
+        INBOX,
+        ALL_MAIL,
+        SENT,
+        STARRED,
+        DRAFTS,
+        SNOOZED,
+        DONE,
+        REMINDERS,
+        LABEL,
+        TRASH,
+        SPAM,
+        IMPORTANT,
+        SEARCH,
+        THREAD,
+        CHATS,
+        CHAT,
+        CONTACTS,
+        CONTACT,
+        SETTINGS,
+        ANY_LIST
+    }
 
-    type NativeListRouteIDs =
-      'INBOX'
-      | 'ALL_MAIL'
-      | 'SENT'
-      | 'STARRED'
-      | 'DRAFTS'
-      | 'SNOOZED'
-      | 'DONE'
-      | 'REMINDERS'
-      | 'LABEL'
-      | 'TRASH'
-      | 'SPAM'
-      | 'IMPORTANT'
-      | 'SEARCH'
-      | 'ANY_LIST';
+    enum NativeListRouteIDs {
+        INBOX,
+        ALL_MAIL,
+        SENT,
+        STARRED,
+        DRAFTS,
+        SNOOZED,
+        DONE,
+        REMINDERS,
+        LABEL,
+        TRASH,
+        SPAM,
+        IMPORTANT,
+        SEARCH,
+        ANY_LIST
+    }
   }
 
   export namespace NavMenu {

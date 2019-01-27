@@ -284,8 +284,7 @@ declare namespace Chart {
         circumference?: number;
         rotation?: number;
         devicePixelRatio?: number;
-        // Plugins can require any options
-        plugins?: { [pluginId: string]: any };
+        plugins?: ChartPluginsOptions;
     }
 
     interface ChartFontOptions {
@@ -365,6 +364,12 @@ declare namespace Chart {
         displayColors?: boolean;
         borderColor?: ChartColor;
         borderWidth?: number;
+    }
+
+    // NOTE: declare plugin options as interface instead of inline '{ [plugin: string]: any }'
+    // to allow module augmentation in case some plugins want to strictly type their options.
+    interface ChartPluginsOptions {
+        [pluginId: string]: any;
     }
 
     interface ChartTooltipsStaticConfiguration {
