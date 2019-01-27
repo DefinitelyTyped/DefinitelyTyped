@@ -13,29 +13,29 @@ export = debug;
 export as namespace debug;
 
 declare namespace debug {
-    export interface IDebug {
-        (namespace: string): debug.IDebugger,
-        coerce: (val: any) => any,
-        disable: () => void,
-        enable: (namespaces: string) => void,
-        enabled: (namespaces: string) => boolean,
+    interface Debug {
+        (namespace: string): debug.Debugger;
+        coerce: (val: any) => any;
+        disable: () => void;
+        enable: (namespaces: string) => void;
+        enabled: (namespaces: string) => boolean;
 
-        names: RegExp[],
-        skips: RegExp[],
+        names: RegExp[];
+        skips: RegExp[];
 
-        formatters: IFormatters
+        formatters: Formatters;
     }
 
-    export interface IFormatters {
-        [formatter: string]: Function
+    interface Formatters {
+        [formatter: string]: (v:Object)=>string;
     }
 
-    export interface IDebugger {
+    interface Debugger {
         (formatter: any, ...args: any[]): void;
 
         enabled: boolean;
         log: Function;
         namespace: string;
-        extend: (namespace: string, delimiter?: string) => debug.IDebugger;
+        extend: (namespace: string, delimiter?: string) => debug.Debugger;
     }
 }
