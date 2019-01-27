@@ -1,6 +1,7 @@
-// Type definitions for react-mentions 2.3
+// Type definitions for react-mentions 2.4
 // Project: https://github.com/signavio/react-mentions
 // Definitions by: Scott Willeke <https://github.com/activescott>
+//                 Eugene Fedorenko <https://github.com/efedorenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from "react";
@@ -41,12 +42,16 @@ export interface MentionsInputProps {
     style?: any;
     regex?: RegExp;
     suggestionsPortalHost?: Element;
+    inputRef?: React.RefObject<HTMLTextAreaElement> | React.RefObject<HTMLInputElement>;
 }
 
 /**
  * Exposes the type for use with the @see MentionsInputComponent.wrappedInstance which is added by react-mentions' use of substyle (https://github.com/jfschwarz/substyle).
  */
 export interface MentionsInputComponentUnrwapped extends React.Component<MentionsInputProps> {
+    /**
+     * @deprecated since version 2.4.0. Please use @see MentionsInputProps.inputRef
+     */
     inputRef?: HTMLInputElement | HTMLTextAreaElement;
 }
 

@@ -1,6 +1,9 @@
 // Type definitions for url-parse 1.4
 // Project: https://github.com/unshiftio/url-parse
-// Definitions by: Pavlo Chernenko <https://github.com/ChernenkoPaul>, Hari Sivaramakrishnan <https://github.com/harisiva>, Dmitry Dushkin <https://github.com/DimitryDushkin>
+// Definitions by: Pavlo Chernenko <https://github.com/ChernenkoPaul>
+//                 Hari Sivaramakrishnan <https://github.com/harisiva>
+//                 Dmitry Dushkin <https://github.com/DimitryDushkin>
+//                 David Golightly <https://github.com/davidgoli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -41,7 +44,9 @@ interface URLParse {
 }
 
 declare const URLParse: {
+    new(address: string, parser?: boolean | URLParse.QueryParser): URLParse;
     new(address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
+    (address: string, parser?: boolean | URLParse.QueryParser): URLParse;
     (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
 
     extractProtocol(url: string): {

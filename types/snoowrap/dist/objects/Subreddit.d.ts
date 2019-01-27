@@ -6,30 +6,54 @@ import RedditContent from './RedditContent';
 import RedditUser from './RedditUser';
 import Submission from './Submission';
 import WikiPage, { WikiPageRevision } from './WikiPage';
+import { RichTextFlair } from './VoteableContent';
 
 export default class Subreddit extends RedditContent<Subreddit> {
   accounts_active_is_fuzzed: boolean;
   accounts_active: number;
   active_user_count: number;
   advertiser_category: string | null;
+  all_original_content: boolean;
+  allow_discovery: boolean;
   allow_images: boolean;
+  allow_videogifs: boolean;
+  allow_videos: boolean;
+  /** HEX color code */
+  banner_background_color: string;
+  /** URL of the banner image used on desktop Reddit */
+  banner_background_image: string;
+  /** URL of the banner image used on the mobile Reddit app */
   banner_img: string;
   banner_size: [number, number] | null;
+  can_assign_link_flair: boolean;
+  can_assign_user_flair: boolean;
   collapse_deleted_comments: boolean;
   comment_score_hide_mins: number;
+  /** Image URL of the subreddit icon */
+  community_icon: string;
   description_html: string;
   description: string;
-  display_name_prefixed: string;
   display_name: string;
-  header_img: string;
+  display_name_prefixed: string;
+  emojis_custom_size: [number, number] | null;
+  emojis_enabled: boolean;
+  has_menu_widget: boolean;
+  header_img: string | null;
   header_size: [number, number] | null;
   header_title: string | null;
   hide_ads: boolean;
   icon_img: string;
   icon_size: [number, number] | null;
+  is_enrolled_in_new_modmail: boolean | null;
   key_color: string;
   lang: string;
+  link_flair_enabled: boolean;
+  link_flair_position: '' | 'left' | 'right';
+  /** Will be null if user is not subscribed to this subreddit */
+  notification_level: string | null;
   over18: boolean;
+  /** HEX color code */
+  primary_color: string;
   public_description_html: string;
   public_description: string;
   public_traffic: boolean;
@@ -47,14 +71,26 @@ export default class Subreddit extends RedditContent<Subreddit> {
   suggested_comment_sort: Sort | null;
   title: string;
   url: string;
+  user_can_flair_in_sr: boolean;
+  user_flair_background_color: string | null;
+  user_flair_css_class: string | null;
+  user_flair_enabled_in_sr: boolean;
+  user_flair_position: '' | 'left' | 'right';
+  user_flair_richtext: RichTextFlair[];
+  user_flair_template_id: string | null;
+  user_flair_text: string | null;
+  user_flair_text_color: 'dark' | 'light' | null;
+  user_has_favorited: boolean;
   user_is_banned: boolean;
   user_is_contributor: boolean;
   user_is_moderator: boolean;
   user_is_muted: boolean;
   user_is_subscriber: boolean;
+  user_sr_flair_enabled: boolean;
   user_sr_theme_enabled: boolean;
   whitelist_status: string;
   wiki_enabled: boolean;
+  wls: number;
 
   acceptModeratorInvite(): Promise<this>;
   addContributor(options: { name: string; }): Promise<this>;

@@ -18,8 +18,8 @@ export declare function arraySplice(form: string, field: string, index: number, 
 export declare function arraySwap(form: string, field: string, indexA: number, indexB: number): FormAction;
 export declare function arrayUnshift(form: string, field: string, value: any): FormAction;
 export declare function autofill(form: string, field: string, value: any): FormAction;
-export declare function blur(form: string, field: string, value: any): FormAction;
-export declare function change(form: string, field: string, value: any): FormAction;
+export declare function blur(form: string, field: string, value: any, touch?: boolean): FormAction;
+export declare function change(form: string, field: string, value: any, touch?: boolean, persistentSubmitErrors?: boolean): FormAction;
 export declare function destroy(...form: string[]): FormAction;
 export declare function focus(form: string, field: string): FormAction;
 

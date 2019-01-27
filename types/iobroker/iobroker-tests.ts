@@ -99,7 +99,8 @@ function messageHandler(msg: ioBroker.Message) {
     msg.callback.time.toFixed();
     msg.command.toLowerCase();
     msg.from.toLowerCase();
-    msg.message.toString();
+    typeof msg.message === "object" && msg.message.anything;
+    typeof msg.message === "string" && msg.message.toLowerCase();
 }
 
 function unloadHandler(callback: ioBroker.EmptyCallback) {
@@ -198,3 +199,56 @@ switch (adapter.log.level) {
     default:
         assertNever(adapter.log.level);
 }
+
+adapter.sendTo("foo.0", "command", "message");
+adapter.sendTo("foo.0", "message");
+adapter.sendTo("foo.0", "command", {msg: "message"});
+adapter.sendTo("foo.0", {msg: "message"});
+
+function handleMessageResponse(response?: ioBroker.Message) {
+    if (!response) return;
+    response._id.toFixed();
+    response.callback.ack.valueOf();
+    response.callback.id.toFixed();
+    response.callback.message.toString();
+    response.callback.time.toFixed();
+    response.command.toLowerCase();
+    response.from.toLowerCase();
+    typeof response.message === "object" && response.message.anything;
+    typeof response.message === "string" && response.message.toLowerCase();
+}
+adapter.sendTo("foo.0", "command", "message", handleMessageResponse);
+adapter.sendTo("foo.0", "message", handleMessageResponse);
+adapter.sendTo("foo.0", "command", {msg: "message"}, handleMessageResponse);
+adapter.sendTo("foo.0", {msg: "message"}, handleMessageResponse);
+
+adapter.sendToAsync("foo.0", "command", "message").then(handleMessageResponse);
+adapter.sendToAsync("foo.0", "message").then(handleMessageResponse);
+adapter.sendToAsync("foo.0", "command", {msg: "message"}).then(handleMessageResponse);
+adapter.sendToAsync("foo.0", {msg: "message"}).then(handleMessageResponse);
+
+adapter.sendToHost("host-foo", "command", "message");
+adapter.sendToHost("host-foo", "message");
+adapter.sendToHost("host-foo", "command", {msg: "message"});
+adapter.sendToHost("host-foo", {msg: "message"});
+
+adapter.sendToHost("host-foo", "command", "message", handleMessageResponse);
+adapter.sendToHost("host-foo", "message", handleMessageResponse);
+adapter.sendToHost("host-foo", "command", {msg: "message"}, handleMessageResponse);
+adapter.sendToHost("host-foo", {msg: "message"}, handleMessageResponse);
+
+adapter.sendToHostAsync("host-foo", "command", "message").then(handleMessageResponse);
+adapter.sendToHostAsync("host-foo", "message").then(handleMessageResponse);
+adapter.sendToHostAsync("host-foo", "command", {msg: "message"}).then(handleMessageResponse);
+adapter.sendToHostAsync("host-foo", {msg: "message"}).then(handleMessageResponse);
+
+function handleError(err?: string) { }
+adapter.subscribeStates("*", handleError);
+adapter.subscribeForeignStates("*", handleError);
+adapter.unsubscribeStates("*", handleError);
+adapter.unsubscribeForeignStates("*", handleError);
+
+adapter.subscribeStatesAsync("*").catch(handleError);
+adapter.subscribeForeignStatesAsync("*").catch(handleError);
+adapter.unsubscribeStatesAsync("*").catch(handleError);
+adapter.unsubscribeForeignStatesAsync("*").catch(handleError);

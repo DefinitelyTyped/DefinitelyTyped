@@ -361,7 +361,7 @@ interface TestPropTypesProps3 {
 const testPropTypes = {
     foo: PropTypes.string
 };
-type DeclaredPropTypes<P> = Required<Exclude<React.ComponentType<P>['propTypes'], undefined>>;
+type DeclaredPropTypes<P> = Required<Exclude<React.FunctionComponent<P>['propTypes'], undefined>>;
 // $ExpectType false
 type propTypesTest = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps> ? true : false;
 // $ExpectType true

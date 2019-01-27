@@ -31,7 +31,7 @@ type DynamicComponent<P> = React.ComponentType<P> & LoadableComponent;
  * https://github.com/zeit/next.js/blob/7.0.0/lib/dynamic.js#L55
  */
 declare function dynamic<P = {}>(
-    options: AsyncComponent<P> | NextDynamicOptions<P>
+    options: AsyncComponentLoader<P> | AsyncComponent<P> | NextDynamicOptions<P>
 ): DynamicComponent<P>;
 declare function dynamic<P = {}>(
     asyncModule: AsyncComponent<P>,

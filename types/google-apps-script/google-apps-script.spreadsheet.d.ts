@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-01-23
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1254,6 +1254,8 @@ declare namespace GoogleAppsScript {
       getNumRows(): Integer;
       getNumberFormat(): string;
       getNumberFormats(): string[][];
+      getRichTextValue(): RichTextValue;
+      getRichTextValues(): RichTextValue[][];
       getRow(): Integer;
       getRowIndex(): Integer;
       getSheet(): Sheet;
@@ -1261,6 +1263,8 @@ declare namespace GoogleAppsScript {
       getTextDirections(): TextDirection[][];
       getTextRotation(): TextRotation;
       getTextRotations(): TextRotation[][];
+      getTextStyle(): TextStyle;
+      getTextStyles(): TextStyle[][];
       getValue(): Object;
       getValues(): Object[][];
       getVerticalAlignment(): string;
@@ -1315,12 +1319,16 @@ declare namespace GoogleAppsScript {
       setNotes(notes: Object[][]): Range;
       setNumberFormat(numberFormat: string): Range;
       setNumberFormats(numberFormats: Object[][]): Range;
+      setRichTextValue(value: RichTextValue): Range;
+      setRichTextValues(values: RichTextValue[][]): Range;
       setShowHyperlink(showHyperlink: boolean): Range;
       setTextDirection(direction: TextDirection): Range;
       setTextDirections(directions: TextDirection[][]): Range;
       setTextRotation(degrees: Integer): Range;
       setTextRotation(rotation: TextRotation): Range;
       setTextRotations(rotations: TextRotation[][]): Range;
+      setTextStyle(style: TextStyle): Range;
+      setTextStyles(styles: TextStyle[][]): Range;
       setValue(value: Object): Range;
       setValues(values: Object[][]): Range;
       setVerticalAlignment(alignment: string): Range;
@@ -1382,6 +1390,34 @@ declare namespace GoogleAppsScript {
      * date-based BooleanCriteria.
      */
     export enum RelativeDate { TODAY, TOMORROW, YESTERDAY, PAST_WEEK, PAST_MONTH, PAST_YEAR }
+
+    /**
+     * A stylized text string used to represent cell text. Substrings of the text can have different
+     * text styles.
+     *
+     * A run is the longest unbroken substring having the same text style. For example, the
+     * sentence "This kid has two apples." has four runs: ["This ", "kid ", "has two ",
+     * "apples."].
+     */
+    export interface RichTextValue {
+      copy(): RichTextValueBuilder;
+      getEndIndex(): Integer;
+      getRuns(): RichTextValue[];
+      getStartIndex(): Integer;
+      getText(): string;
+      getTextStyle(): TextStyle;
+      getTextStyle(startOffset: Integer, endOffset: Integer): TextStyle;
+    }
+
+    /**
+     * A builder for Rich Text values.
+     */
+    export interface RichTextValueBuilder {
+      build(): RichTextValue;
+      setText(text: string): RichTextValueBuilder;
+      setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle): RichTextValueBuilder;
+      setTextStyle(textStyle: TextStyle): RichTextValueBuilder;
+    }
 
     /**
      * Access the current active selection in the active sheet. A selection is the set of cells the user
@@ -1720,6 +1756,8 @@ declare namespace GoogleAppsScript {
       newConditionalFormatRule(): ConditionalFormatRuleBuilder;
       newDataValidation(): DataValidationBuilder;
       newFilterCriteria(): FilterCriteriaBuilder;
+      newRichTextValue(): RichTextValueBuilder;
+      newTextStyle(): TextStyleBuilder;
       open(file: Drive.File): Spreadsheet;
       openById(id: string): Spreadsheet;
       openByUrl(url: string): Spreadsheet;
@@ -1742,6 +1780,38 @@ declare namespace GoogleAppsScript {
     export interface TextRotation {
       getDegrees(): Integer;
       isVertical(): boolean;
+    }
+
+    /**
+     * The rendered style of text in a cell.
+     *
+     * Text styles can have a corresponding RichTextValue. If the RichTextValue spans multiple text runs that have different values for a given text style read
+     * method, the method returns null. To avoid this, query for text styles using the Rich Text
+     * values returned by the RichTextValue.getRuns() method.
+     */
+    export interface TextStyle {
+      copy(): TextStyleBuilder;
+      getFontFamily(): string;
+      getFontSize(): Integer;
+      getForegroundColor(): string;
+      isBold(): boolean;
+      isItalic(): boolean;
+      isStrikethrough(): boolean;
+      isUnderline(): boolean;
+    }
+
+    /**
+     * A builder for text styles.
+     */
+    export interface TextStyleBuilder {
+      build(): TextStyle;
+      setBold(bold: boolean): TextStyleBuilder;
+      setFontFamily(fontFamily: string): TextStyleBuilder;
+      setFontSize(fontSize: Integer): TextStyleBuilder;
+      setForegroundColor(cssString: string): TextStyleBuilder;
+      setItalic(italic: boolean): TextStyleBuilder;
+      setStrikethrough(strikethrough: boolean): TextStyleBuilder;
+      setUnderline(underline: boolean): TextStyleBuilder;
     }
 
     /**

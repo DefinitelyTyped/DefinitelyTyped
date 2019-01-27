@@ -40,8 +40,8 @@ point = new L.Point(12, 13);
 point = new L.Point(12, 13, true);
 
 let distance: number;
-point.distanceTo(point);
-point.distanceTo(pointTuple);
+distance = point.distanceTo(point);
+distance = point.distanceTo(pointTuple);
 
 const transformation = new L.Transformation(1, 2, 3, 4);
 point = transformation.transform(point);
@@ -162,6 +162,16 @@ map = new L.Map(htmlElement, mapOptions);
 
 let doesItHaveLayer: boolean;
 doesItHaveLayer = map.hasLayer(L.tileLayer(''));
+
+map.off('moveend');
+map.off('moveend', () => {});
+map.off('moveend', () => {}, {});
+
+map.removeEventListener('moveend');
+map.removeEventListener('moveend', () => {});
+map.removeEventListener('moveend', () => {}, {});
+
+map.panInside(latLng, {padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100]});
 
 // map.getRenderer
 

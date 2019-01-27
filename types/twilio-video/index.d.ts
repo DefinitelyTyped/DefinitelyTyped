@@ -404,7 +404,7 @@ export class TrackNameTooLongError extends TwilioError {
     code: 53302;
     message: 'Track name is too long';
 }
-export class TrackPublication {
+export class TrackPublication extends EventEmitter {
     trackName: string;
     trackSid: Track.SID;
 }

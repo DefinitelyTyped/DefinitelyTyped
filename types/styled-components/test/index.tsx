@@ -656,7 +656,7 @@ async function typedThemes() {
         ThemeProvider,
         ThemeConsumer
     } = (await import("styled-components")) as any as ThemedStyledComponentsModule<
-    typeof theme
+        typeof theme
     >;
 
     const ThemedDiv = styled.div`
@@ -945,4 +945,58 @@ function validateArgumentsAndReturns() {
     `);
     // $ExpectError
     createGlobalStyle([]);
+}
+
+function validateDefaultProps() {
+    interface Props {
+        requiredProp: boolean;
+        optionalProp: string; // Shouldn't need to be optional here
+    }
+
+    class MyComponent extends React.PureComponent<Props> {
+        static defaultProps = {
+            optionalProp: 'fallback'
+        };
+
+        render() {
+            const { requiredProp, optionalProp } = this.props;
+            return (
+                <span>
+                    {requiredProp.toString()}
+                    {optionalProp.toString()}
+                </span>
+            );
+        }
+    }
+
+    const StyledComponent = styled(MyComponent)`
+        color: red
+    `;
+
+    // this test is failing in TS 2.9 but not in 3.0
+    // <MyComponent requiredProp />;
+
+    <StyledComponent requiredProp optionalProp="x" />;
+
+    <StyledComponent requiredProp />;
+
+    // still respects the type of optionalProp
+    <StyledComponent requiredProp optionalProp={1} />; // $ExpectError
+
+    // example of a simple helper that sets defaultProps and update the type
+    type WithDefaultProps<C, D> = C & { defaultProps: D };
+    function withDefaultProps<C, D>(component: C, defaultProps: D): WithDefaultProps<C, D> {
+        (component as WithDefaultProps<C, D>).defaultProps = defaultProps;
+        return component as WithDefaultProps<C, D>;
+    }
+
+    const OtherStyledComponent = withDefaultProps(
+        styled(MyComponent)` color: red `,
+        { requiredProp: true }
+    );
+
+    // this test is failing in TS 3.1 but not in 3.2
+    // <OtherStyledComponent />;
+
+    <OtherStyledComponent requiredProp="1" />; // $ExpectError
 }
