@@ -67,7 +67,7 @@ export interface Schema<T> {
     strict(isStrict: boolean): this;
     strip(strip: boolean): this;
     withMutation(fn: (current: this) => void): void;
-    default(value?: any): this;
+    default(value: any): this;
     default(): T;
     nullable(isNullable: boolean): this;
     required(message?: TestOptionsMessage): this;
