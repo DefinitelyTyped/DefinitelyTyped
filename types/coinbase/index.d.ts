@@ -898,7 +898,7 @@ export class Buy implements Resource {
     /**
      * Fee associated to this buy
      */
-    fee: MoneyHash;
+    fees: Fee[];
 
     /**
      * Has this buy been committed?
@@ -915,10 +915,13 @@ export class Buy implements Resource {
      */
     payout_at?: string;
 
-    /**
-     * Transaction worth in fiat.
-     */
-    native_balance: MoneyHash;
+    unit_price: UnitPrice;
+
+    hold_business_days: number;
+    
+    is_first_buy: boolean;
+    
+    requires_completion_step: boolean;
 
     /**
      * Completes a buy that is created in commit: false state.
@@ -928,6 +931,17 @@ export class Buy implements Resource {
      * Scope: wallet:buys:create
      */
     commit(cb: (error: Error, transaction: Buy) => void): void;
+}
+
+export interface Fee {
+  amount: string;
+  type: string;
+}
+
+export interface UnitPrice {
+  amount: string;
+  currency: string;
+  scale: number;
 }
 
 export type SellStatus = "created" | "completed" | "canceled";
