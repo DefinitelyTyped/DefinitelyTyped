@@ -79,7 +79,7 @@ export { Refspec } from './ref-spec';
 export { Reference } from './reference';
 export { RemoteCallbacks } from './remote-callbacks';
 export { Remote } from './remote';
-export { Repository } from './repository';
+export { Repository, RepositoryInitOptions } from './repository';
 export { Reset } from './reset';
 export { Revparse } from './rev-parse';
 export { Revwalk } from './rev-walk';
