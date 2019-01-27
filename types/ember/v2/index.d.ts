@@ -274,6 +274,12 @@ declare module 'ember' {
         triggerAction(opts: TriggerActionOptions): boolean;
     }
 
+    interface DeprecationOptions {
+        id: string;
+        until: string;
+        url?: string;
+    }
+
     export namespace Ember {
         interface FunctionPrototypeExtensions {
             /**
@@ -2574,14 +2580,14 @@ declare module 'ember' {
              */
             deprecatingAlias(
                 dependentKey: string,
-                options: { id: string; until: string }
+                options: DeprecationOptions
             ): ComputedProperty<any>;
             /**
              * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
              */
             deprecatingAlias(
                 dependentKey: string,
-                options?: { id?: string; until?: string }
+                options?: Partial<DeprecationOptions>
             ): ComputedProperty<any>;
             /**
              * A computed property that returns the sum of the values
@@ -2977,7 +2983,7 @@ declare module 'ember' {
         function deprecate(
             message: string,
             test: boolean,
-            options: { id: string; until: string }
+            options: DeprecationOptions
         ): any;
         /**
          * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
@@ -2985,7 +2991,7 @@ declare module 'ember' {
         function deprecate(
             message: string,
             test: boolean,
-            options?: { id?: string; until?: string }
+            options?: Partial<DeprecationOptions>
         ): any;
         /**
          * Define an assertion that will throw an exception if the condition is not met.
@@ -3012,7 +3018,7 @@ declare module 'ember' {
          */
         function deprecateFunc<Func extends ((...args: any[]) => any)>(
             message: string,
-            options: { id: string; until: string },
+            options: DeprecationOptions,
             func: Func
         ): Func;
         /**
