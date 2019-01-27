@@ -2,7 +2,7 @@
 // Project: https://github.com/mjrussell/redux-auth-wrapper
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.0
 
 import { ComponentClass, StatelessComponent, ComponentType, ReactType } from "react";
 

@@ -16,25 +16,18 @@
 
 import { MDCFoundation } from 'material__base';
 import { cssClasses, strings } from './constants';
-import { MDCSimpleMenuFoundation } from 'material__menu';
-import { MDCSelectAdapter } from './adapter';
+import MDCSelectAdapter from './adapter';
 
 export default class MDCSelectFoundation extends MDCFoundation<MDCSelectAdapter> {
-  static readonly cssClasses: cssClasses;
+    static readonly cssClasses: cssClasses;
 
-  static readonly strings: strings;
+    static readonly strings: strings;
 
-  static readonly defaultAdapter: MDCSelectAdapter;
+    static readonly defaultAdapter: MDCSelectAdapter;
 
-  getValue(): string;
+    setSelectedIndex(index: number): void;
 
-  getSelectedIndex(): number;
+    setValue(value: string): void;
 
-  setSelectedIndex(index: number): void;
-
-  isDisabled(): boolean;
-
-  setDisabled(disabled: boolean): void;
-
-  resize(): void;
+    setDisabled(disabled: boolean): void;
 }

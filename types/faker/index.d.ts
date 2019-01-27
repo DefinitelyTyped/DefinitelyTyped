@@ -11,7 +11,8 @@ declare const fakerStatic: Faker.FakerStatic;
 declare namespace Faker {
 	interface FakerStatic {
 		locale: string;
-
+		setLocale(locale: string): void;
+		
 		address: {
 			zipCode(format?: string): string;
 			city(format?: number): string;
@@ -116,7 +117,7 @@ declare namespace Faker {
 		image: {
 			image(): string;
 			avatar(): string;
-			imageUrl(width?: number, height?: number, category?: string): string;
+			imageUrl(width?: number, height?: number, category?: string, randomize?: boolean, https?: boolean): string;
 			abstract(width?: number, height?: number): string;
 			animals(width?: number, height?: number): string;
 			business(width?: number, height?: number): string;
@@ -200,8 +201,8 @@ declare namespace Faker {
 		};
 
 		system: {
-			fileName(ext: string, type: string): string;
-			commonFileName(ext: string, type: string): string;
+			fileName(ext?: string, type?: string): string;
+			commonFileName(ext: string, type?: string): string;
 			mimeType(): string;
 			commonFileType(): string;
 			commonFileExt(): string;

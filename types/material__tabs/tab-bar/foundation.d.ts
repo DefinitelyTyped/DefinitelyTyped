@@ -15,10 +15,8 @@
  */
 
 import MDCFoundation from 'material__base/foundation';
-import { getCorrectPropertyName } from 'material__animation';
-
 import { cssClasses, strings } from './constants';
-import { MDCTabBarAdapter } from './adapter';
+import MDCTabBarAdapter from './adapter';
 
 export default class MDCTabBarFoundation extends MDCFoundation<MDCTabBarAdapter> {
     static readonly cssClasses: cssClasses;

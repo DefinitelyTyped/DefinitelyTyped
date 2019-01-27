@@ -1,7 +1,8 @@
-// Type definitions for twig 1.10
+// Type definitions for twig 1.12
 // Project: https://github.com/twigjs/twig.js
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Tim Schumacher <https://github.com/enko>
+//                 Maik Tizziani <https://github.com/mtizziani>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/twig.d.ts
@@ -12,11 +13,13 @@ export interface Parameters {
     macros?: any;
     base?: any;
     path?: any;
-    url?: any;
+    href?: any;
     name?: any;
     method?: any;
     options?: any;
     data?: any;
+    async?: any;
+    load?: (template: Template) => void;
 }
 
 export interface Template {

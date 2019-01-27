@@ -1,12 +1,29 @@
-// Type definitions for react-bootstrap-typeahead 2.3
+// Type definitions for react-bootstrap-typeahead 3.4
 // Project: https://github.com/ericgio/react-bootstrap-typeahead
 // Definitions by: Guymestef <https://github.com/Guymestef>
 //                 Rajab Shakirov <https://github.com/radziksh>
+//                 Paito Anderson <https://github.com/PaitoAnderson>
+//                 Andreas Richter <https://github.com/arichter83>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-// TODO: <Highlighter>, <Menu>, <MenuItem>, <Token> components
+// TypeScript Version: 2.8
+// TODO: <Token> components
 
 import * as React from 'react';
+import * as CSS from 'csstype';
+
+export interface TypeaheadFilterbyProps {
+    filterBy: string[];
+    labelKey: (string | (() => void));
+    multiple: boolean;
+    selected: any[];
+    caseSensitive: boolean;
+    ignoreDiacritics: boolean;
+    text: string;
+}
+
+export interface TypeaheadMenuProps<T> {
+    text: string;
+}
 
 export interface TypeaheadProps<T> {
     /* For localized accessibility: Should return a string indicating the number of results for screen readers. Receives the current results. */
@@ -57,7 +74,7 @@ export interface TypeaheadProps<T> {
     emptyLabel?: string;
 
     /* Either an array of fields in option to search, or a custom filtering callback. */
-    filterBy?: (string[] | ((option: T | string, text: string) => boolean));
+    filterBy?: (string[] | ((option: T | string, props: TypeaheadFilterbyProps) => boolean));
 
     /* Highlights the menu item if there is only one result and allows selecting that item by hitting enter.
        Does not work with allowNew. */
@@ -69,14 +86,20 @@ export interface TypeaheadProps<T> {
     /* Props to be applied directly to the input. onBlur, onChange, onFocus, and onKeyDown are ignored. */
     inputProps?: object;
 
+    /* Bootstrap 4 only. Adds the `is-invalid` classname to the `form-control`. */
+    isInvalid?: boolean;
+
     /* Indicate whether an asynchronous data fetch is happening. */
     isLoading?: boolean;
+
+    /* Bootstrap 4 only. Adds the `is-valid` classname to the `form-control`. */
+    isValid?: boolean;
 
     /* Specify which option key to use for display or a render function. By default, the selector will use the label key. */
     labelKey?: string | ((option: T | string) => string);
 
-    /* Maximum height of the dropdown menu, in px. */
-    maxHeight?: number;
+    /* Maximum height of the dropdown menu. */
+    maxHeight?: string;
 
     /* Maximum number of results to display by default. Mostly done for performance reasons
        so as not to render too many DOM nodes in the case of large data sets. */
@@ -100,8 +123,8 @@ export interface TypeaheadProps<T> {
     /* Invoked when the input is focused. Receives an event. */
     onFocus?: (e: Event) => any;
 
-    /* Invoked when the input value changes. Receives the string value of the input. */
-    onInputChange?: (input: string) => any;
+    /* Invoked when the input value changes. Receives the string value of the input, as well as the original event. */
+    onInputChange?: (input: string, e: Event) => any;
 
     /* Invoked when a key is pressed. Receives an event. */
     onKeyDown?: (e: Event) => any;
@@ -131,7 +154,7 @@ export interface TypeaheadProps<T> {
     renderMenu?: (results: Array<T | string>, menuProps: any) => any;
 
     /* Provides a hook for customized rendering of menu item contents. */
-    renderMenuItemChildren?: (option: T, props: TypeaheadProps<T>, index: number) => any;
+    renderMenuItemChildren?: (option: T, props: TypeaheadMenuProps<T>, index: number) => any;
 
     /* Provides a hook for customized rendering of tokens when multiple selections are enabled. */
     renderToken?: (selectedItem: T | string, onRemove: () => void) => any;
@@ -141,9 +164,6 @@ export interface TypeaheadProps<T> {
 
     /* Allows selecting the hinted result by pressing enter. */
     selectHintOnEnter?: boolean;
-
-    /* Propagate event to parent form. */
-    submitFormOnEnter?: boolean;
 }
 
 export const Typeahead: React.ClassicComponentClass<TypeaheadProps<any>>;
@@ -169,3 +189,35 @@ export interface AsyncTypeaheadProps<T> extends TypeaheadProps<T> {
 }
 
 export const AsyncTypeahead: React.ClassicComponentClass<AsyncTypeaheadProps<any>>;
+
+export interface HighligherProps<T> {
+    key?: string;
+    search: string;
+    optionId?: any;
+}
+
+export const Highlighter: React.ClassicComponentClass<HighligherProps<any>>;
+
+export interface MenuProps<T> {
+    id: string;
+    className?: string;
+    emptyLabel?: string;
+    innerRef?: string;
+    maxHeight?: string;
+    style?: CSS.Properties;
+}
+
+export const Menu: React.ClassicComponentClass<MenuProps<any>>;
+
+export interface MenuItemProps<T> {
+    option: T;
+    position: number;
+    label?: string;
+    active?: boolean;
+    className?: string;
+    disabled?: boolean;
+    onClick?: (e: Event) => any;
+    onMouseDown?: (e: Event) => any;
+}
+
+export const MenuItem: React.ClassicComponentClass<MenuItemProps<any>>;

@@ -1,4 +1,6 @@
-import * as MarkdownIt from "markdown-it";
+import MarkdownIt = require("markdown-it");
+import Renderer = require("markdown-it/lib/renderer");
+import Token = require("markdown-it/lib/token");
 
 {
     const md = new MarkdownIt();
@@ -141,7 +143,7 @@ function myToken(tokens: any, idx: number, options: any, env: any, self: any) {
             return "";
         },
     });
-    md.renderer.rules["image"] = (tokens: MarkdownIt.Token[], index: number, options: any, env: any, self: MarkdownIt.Renderer) => {
+    md.renderer.rules["image"] = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => {
         const token = tokens[index];
         const aIndex = token.attrIndex("src");
         token.attrs[aIndex][1];
@@ -154,11 +156,11 @@ function myToken(tokens: any, idx: number, options: any, env: any, self: any) {
     if (md.renderer.rules["link_open"]) {
         defaultLinkRender = md.renderer.rules["link_open"];
     } else {
-        defaultLinkRender = (tokens: MarkdownIt.Token[], index: number, options: any, env: any, self: MarkdownIt.Renderer) => {
+        defaultLinkRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => {
             return self.renderToken(tokens, index, options);
         };
     }
-    md.renderer.rules["link_open"] = (tokens: MarkdownIt.Token[], index: number, options: any, env: any, self: MarkdownIt.Renderer) => {
+    md.renderer.rules["link_open"] = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => {
         tokens[index].attrPush(["target", "_blank"]);
         tokens[index].attrPush(["rel", "nofollow"]);
         return defaultLinkRender(tokens, index, options, env, self);

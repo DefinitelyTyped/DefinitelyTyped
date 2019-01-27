@@ -14,10 +14,27 @@ class ForeignPromise<T> {
 	then(onFulfilled?: (value: T) => T, onRejected?: (reason: any) => T): ForeignPromise<T> {
 		return new ForeignPromise(onFulfilled ? onFulfilled(this.value) : this.value);
 	}
-};
+}
+
+interface IData {
+	timestamp: number;
+}
+
+class Data implements IData {
+	timestamp: number;
+	date: Date;
+
+	constructor({ timestamp }: IData) {
+		this.timestamp = timestamp;
+		this.date = new Date(timestamp);
+	}
+}
 
 var promise: when.Promise<number>;
+var promise2: when.Promise<Data>;
+var emptyPromise: when.Promise<void>;
 var foreign = new ForeignPromise<number>(1);
+var promiseOrValue = 1 as number | when.Promise<number>;
 var error = new Error("boom!");
 var example: () => void;
 var native: Promise<number>;
@@ -26,17 +43,23 @@ var native: Promise<number>;
  *   Core    *
  * * * * * * */
 
+/* when() */
+
+emptyPromise = when();
+
 /* when(x) */
 
 promise = when(1);
 promise = when(when(1));
 promise = when(foreign);
+promise = when(promiseOrValue);
 
 /* when(x, f) */
 
 promise = when(1, val => val + val);
 promise = when(when(1), val => val + val);
 promise = when(foreign, val => val + val);
+promise = when(promiseOrValue, val => val + val);
 
 /* when.try(f, ...args) */
 
@@ -184,11 +207,16 @@ when.unfold(function (x) {
 promise = when.promise<number>(resolve => resolve(5));
 promise = when.promise<number>((resolve, reject) => reject(error));
 
+/* when.resolve() */
+
+emptyPromise = when.resolve();
+
 /* when.resolve(x) */
 
 promise = when.resolve(1);
 promise = when.resolve(promise);
 promise = when.resolve(foreign);
+promise = when.resolve(promiseOrValue);
 
 /* when.reject(error) */
 
@@ -221,6 +249,17 @@ promise = when(1).then((val: number) => when(val + val));
 promise = when(1).then(undefined, (err: any) => 2);
 promise = when(1).then((val: number) => val + val, (err: any) => 2);
 promise = when(1).then((val: number) => when(val + val), (err: any) => 2);
+
+promise = when('1').then((val: string) => parseInt(val));
+
+// Tests for when TResult is a subtype of T
+const subData: IData = { timestamp: Date.now() };
+const errorData: Data = new Data({ timestamp: -1 });
+
+promise2 = when(subData).then((val: IData) => new Data(val));
+promise2 = when(subData).then((val: IData) => when(new Data(val)));
+promise2 = when(subData).then((val: IData) => new Data(val), (err: any) => errorData);
+promise2 = when(subData).then((val: IData) => when(new Data(val)), (err: any) => errorData);
 
 /* promise.spread(onFulfilledArray) */
 

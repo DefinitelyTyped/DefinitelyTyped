@@ -158,6 +158,7 @@ declare namespace Nightmare {
         typeInterval?: number;
         x?: number;
         y?: number;
+        electronPath?: string;
         openDevTools?: {
             /**
              * Opens the devtools with specified dock state, can be right, bottom, undocked, detach.

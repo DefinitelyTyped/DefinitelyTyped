@@ -18,7 +18,7 @@
   You should not modify these scripts directly - you should use a script to re-generate them (see below).
 - `scripts` directory: contains code generation scripts.
   - Before running any scripts, run `npm install` in this directory (it contains its own `package.json`).
-  - Most notable script is `npm run fp`, which re-generates all of the `fp` files.
+  - Most notable script is `npm run generate`, which re-generates all of the `fp` files and `lowdb` wrapper extensions.
 - `v3` directory: contains types for lodash v3.
 
 ## Different ways people might use lodash
@@ -38,7 +38,7 @@
 ## Before creating a PR
 
 - For every function you modify, don't forget to update the corresponding wrapper functions.
-- Re-generate the `fp` types by opening a terminal in the `scripts` directory and running `npm run fp`.
+- Re-generate the `fp` types by opening a terminal in the `scripts` directory and running `npm run generate`.
   - Note that this directory has its own `package.json`, so you'll need to run `npm install` first if you haven't already.
 - Back at the root directory, do `npm run lint lodash` and make sure there are no errors.
 

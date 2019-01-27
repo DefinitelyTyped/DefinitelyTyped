@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { ValueNode } from "../language/ast";
 
 /**
@@ -16,4 +17,4 @@ import { ValueNode } from "../language/ast";
  * | Null                 | null             |
  *
  */
-export function valueFromASTUntyped(valueNode: ValueNode, variables?: { [key: string]: any } | void): any;
+export function valueFromASTUntyped(valueNode: ValueNode, variables?: Maybe<{ [key: string]: any }>): any;

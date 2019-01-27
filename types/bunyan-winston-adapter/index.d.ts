@@ -2,9 +2,9 @@
 // Project: https://github.com/gluwer/bunyan-winston-adapter
 // Definitions by: Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 import * as bunyan from "bunyan";
-import { LoggerInstance } from "winston";
+import { Logger } from "winston";
 
-export function createAdapter(logger: LoggerInstance, mapping?: any): bunyan;
+export function createAdapter(logger: Logger, mapping?: any): bunyan;

@@ -16,6 +16,9 @@ interface Datum {
 }
 
 let dispatch: d3Dispatch.Dispatch<HTMLElement>;
+let callback: (this: HTMLElement, ...args: any[]) => void;
+let callbackOrUndef: ((this: HTMLElement, ...args: any[]) => void) | undefined;
+let undef: undefined;
 
 // Signature Tests ----------------------------------------
 
@@ -33,9 +36,15 @@ function cbFn2(this: SVGElement, d: Datum, i: number) {
 }
 
 dispatch.on('foo', cbFn);
-// dispatch.on('foo', cbFn2); // test fails as 'this' context type is mismatched between dispatch and callback function
+// $ExpectError
+dispatch.on('foo', cbFn2); // test fails as 'this' context type is mismatched between dispatch and callback function
 
-dispatch.on('bar', dispatch.on('bar'));
+callback = dispatch.on('bar')!;
+callbackOrUndef = dispatch.on('bar');
+callbackOrUndef = dispatch.on('unknown');
+undef = dispatch.on('unknown') as undefined;
+
+dispatch.on('bar', dispatch.on('bar')!);
 
 dispatch.call('foo');
 dispatch.call('foo', document.body);
@@ -49,4 +58,5 @@ dispatch.on('bar', null);
 
 // Copy dispatch -----------------------------------------------
 const copy: d3Dispatch.Dispatch<HTMLElement> = dispatch.copy();
-// const copy2: d3Dispatch.Dispatch<SVGElement> = dispatch.copy(); // test fails type mismatch of underlying event target
+// $ExpectError
+const copy2: d3Dispatch.Dispatch<SVGElement> = dispatch.copy(); // test fails type mismatch of underlying event target

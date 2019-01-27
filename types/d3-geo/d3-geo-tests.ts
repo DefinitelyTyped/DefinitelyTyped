@@ -371,8 +371,9 @@ const gnomonicRaw: d3Geo.GeoRawProjection = d3Geo.geoGnomonicRaw();
 const mercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoMercatorRaw();
 const orthographicRaw: d3Geo.GeoRawProjection = d3Geo.geoOrthographicRaw();
 const stereographicRaw: d3Geo.GeoRawProjection = d3Geo.geoStereographicRaw();
+const equalEarthRaw: d3Geo.GeoRawProjection = d3Geo.geoEqualEarthRaw();
 const transverseMercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoTransverseMercatorRaw();
-const naturalEart1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw();
+const naturalEarth1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw();
 
 // Use Raw Projection =====================================================
 
@@ -393,13 +394,14 @@ const azimuthalEquidistant: d3Geo.GeoProjection = d3Geo.geoAzimuthalEquidistant(
 let conicConformal: d3Geo.GeoConicProjection = d3Geo.geoConicConformal();
 const conicEqualArea: d3Geo.GeoConicProjection = d3Geo.geoConicEqualArea();
 const conicEquidistant: d3Geo.GeoConicProjection = d3Geo.geoConicEquidistant();
-const cquirectangular: d3Geo.GeoProjection = d3Geo.geoEquirectangular();
+const equirectangular: d3Geo.GeoProjection = d3Geo.geoEquirectangular();
 const gnomonic: d3Geo.GeoProjection = d3Geo.geoGnomonic();
 const mercator: d3Geo.GeoProjection = d3Geo.geoMercator();
 const orthographic: d3Geo.GeoProjection = d3Geo.geoOrthographic();
 const stereographic: d3Geo.GeoProjection = d3Geo.geoStereographic();
+const equalEarth: d3Geo.GeoProjection = d3Geo.geoEqualEarth();
 const transverseMercator: d3Geo.GeoProjection = d3Geo.geoTransverseMercator();
-const natualEarth1: d3Geo.GeoProjection = d3Geo.geoNaturalEarth1();
+const naturalEarth1: d3Geo.GeoProjection = d3Geo.geoNaturalEarth1();
 
 // ----------------------------------------------------------------------
 // Create New Projections
@@ -558,7 +560,7 @@ const geoPathProjection: d3Geo.GeoProjection = geoPathCanvas.projection<d3Geo.Ge
 
 geoPathSVG = geoPathSVG.projection(conicConformal);
 const geoPathConicProjection: d3Geo.GeoConicProjection = geoPathSVG.projection<d3Geo.GeoConicProjection>();
-// geoPathConicProjection = geoPathSVG.projection(); // fails without casting to GeoConicProjection, or alternatively custom typeguard
+// geoPathConicProjection = geoPathSVG.projection(); // fails without casting to GeoConicProjection, or alternatively custom type guard
 // geoPathConicProjection = geoPathSVG.projection<SampleProperties1>(); // fails as SampleProperties does not extend minimal interface
 
 // context(...) ------------------------------------------------------
@@ -719,11 +721,11 @@ const context: d3Geo.GeoContext = {
 
 const transformFunction: { stream(s: d3Geo.GeoStream): {} } = d3Geo.geoTransform({});
 
-interface CustomTranformProto extends d3Geo.GeoTransformPrototype {
+interface CustomTransformProto extends d3Geo.GeoTransformPrototype {
     a: number;
 }
 
-let customTransformProto: CustomTranformProto;
+let customTransformProto: CustomTransformProto;
 
 customTransformProto = {
     point(x, y) {
@@ -732,11 +734,11 @@ customTransformProto = {
     a: 10
 };
 
-const t: { stream(s: d3Geo.GeoStream): CustomTranformProto & d3Geo.GeoStream } = d3Geo.geoTransform(customTransformProto);
+const t: { stream(s: d3Geo.GeoStream): CustomTransformProto & d3Geo.GeoStream } = d3Geo.geoTransform(customTransformProto);
 
 // geoIdentity() ========================================================
 
-let identityTransform: d3Geo.GeoIdentityTranform;
+let identityTransform: d3Geo.GeoIdentityTransform;
 
 identityTransform = d3Geo.geoIdentity();
 

@@ -4,7 +4,8 @@
 //   Yuki Kokubun <https://github.com/Kuniwak>,
 //   Craig Nishina <https://github.com/cnishina>,
 //   Simon Gellis <https://github.com/SupernaviX>,
-//   Ben Dixon <https://github.com/bendxn>
+//   Ben Dixon <https://github.com/bendxn>,
+//   Ziyu <https://github.com/oddui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -540,7 +541,7 @@ export namespace logging {
      * @param {string} name the logger's name.
      * @return {!Logger} the requested logger.
      */
-    getLogger(name: string): Logger;
+    getLogger(name?: string): Logger;
 
     /**
      * Creates a new logger.
@@ -552,6 +553,34 @@ export namespace logging {
      */
     createLogger_(name: string, parent: Logger): Logger;
   }
+
+  /**
+   * Retrieves a named logger, creating it in the process. This function will
+   * implicitly create the requested logger, and any of its parents, if they
+   * do not yet exist.
+   *
+   * @param {string} name the logger's name.
+   * @return {!Logger} the requested logger.
+   */
+  function getLogger(name?: string): Logger;
+
+  /**
+   * Adds the console handler to the given logger. The console handler will log
+   * all messages using the JavaScript Console API.
+   *
+   * @param {Logger=} opt_logger The logger to add the handler to; defaults
+   *     to the root logger.
+   */
+  function addConsoleHandler(opt_logger?: Logger): void;
+
+  /**
+   * Removes the console log handler from the given logger.
+   *
+   * @param {Logger=} opt_logger The logger to remove the handler from; defaults
+   *     to the root logger.
+   * @see exports.addConsoleHandler
+   */
+  function removeConsoleHandler(opt_logger?: Logger): void;
 }
 
 export namespace promise {
@@ -2161,6 +2190,21 @@ export class Builder {
   setChromeOptions(options: chrome.Options): Builder;
 
   /**
+   * @return {chrome.Options} the Chrome specific options currently configured
+   *     for this builder.
+   */
+  getChromeOptions(): chrome.Options;
+
+  /**
+   * Sets the service builder to use for managing the chromedriver child process
+   * when creating new Chrome sessions.
+   *
+   * @param {chrome.ServiceBuilder} service the service to use.
+   * @return {!Builder} A self reference.
+   */
+  setChromeService(service: chrome.ServiceBuilder): Builder;
+
+  /**
    * Sets the control flow that created drivers should execute actions in. If
    * the flow is never set, or is set to {@code null}, it will use the active
    * flow at the time {@link #build()} is called.
@@ -2182,6 +2226,15 @@ export class Builder {
   setEdgeOptions(options: edge.Options): Builder;
 
   /**
+   * Sets the {@link edge.ServiceBuilder} to use to manage the
+   * MicrosoftEdgeDriver child process when creating sessions locally.
+   *
+   * @param {edge.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setEdgeService(service: edge.ServiceBuilder): Builder;
+
+  /**
    * Sets whether native events should be used.
    * @param {boolean} enabled Whether to enable native events.
    * @return {!Builder} A self reference.
@@ -2198,6 +2251,21 @@ export class Builder {
    * @return {!Builder} A self reference.
    */
   setFirefoxOptions(options: firefox.Options): Builder;
+
+  /**
+   * @return {firefox.Options} the Firefox specific options currently configured
+   *     for this instance.
+   */
+  getFirefoxOptions(): firefox.Options;
+
+  /**
+   * Sets the {@link firefox.ServiceBuilder} to use to manage the geckodriver
+   * child process when creating Firefox sessions locally.
+   *
+   * @param {firefox.ServiceBuilder} service the service to use.
+   * @return {!Builder} a self reference.
+   */
+  setFirefoxService(service: firefox.ServiceBuilder): Builder;
 
   /**
    * Set Internet Explorer specific {@linkplain ie.Options options} for drivers
@@ -2246,7 +2314,13 @@ export class Builder {
    * @param {!safari.Options} options The Safari options to use.
    * @return {!Builder} A self reference.
    */
-  setSafari(options: safari.Options): Builder;
+  setSafariOptions(options: safari.Options): Builder;
+
+  /**
+   * @return {safari.Options} the Safari specific options currently configured
+   *     for this instance.
+   */
+  getSafariOptions(): safari.Options;
 
   /**
    * Sets how elements should be scrolled into view for interaction.
@@ -3403,7 +3477,7 @@ export class TargetLocator {
    * @return {!promise.Promise<void>} A promise that will be resolved
    *     when the driver has changed focus to the specified frame.
    */
-  frame(nameOrIndex: number | WebElement): promise.Promise<void>;
+  frame(nameOrIndex: number | WebElement | null): promise.Promise<void>;
 
   /**
    * Schedules a command to switch the focus of all future commands to another

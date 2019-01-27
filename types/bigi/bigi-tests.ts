@@ -14,3 +14,6 @@ const b6 = b4.multiply(b5);
 
 console.log(b6);
 // => BigInteger { '0': 420, '1': 0, t: 1, s: 0 }
+
+console.log(b1.compareTo(b2));
+// => 70

@@ -2,14 +2,14 @@
 // Project: https://github.com/alwx/react-native-photo-view
 // Definitions by: Christian Chown <https://github.com/christianchown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
-import { ImagePropertiesSourceOptions, ViewProperties } from 'react-native';
+import { ImageSourcePropType, ViewProps } from 'react-native';
 
 export interface ReactNativePhotoViewProps {
-    source?: ImagePropertiesSourceOptions;
-    loadingIndicatorSource?: ImagePropertiesSourceOptions;
+    source?: ImageSourcePropType;
+    loadingIndicatorSource?: ImageSourcePropType;
     fadeDuration?: number;
     minimumZoomScale?: number;
     maximumZoomScale?: number;
@@ -27,4 +27,4 @@ export interface ReactNativePhotoViewProps {
     onScale?: (scale: number, target?: React.ReactElement<any>) => void;
 }
 
-export default class ReactNativePhotoView extends React.Component<ReactNativePhotoViewProps & ViewProperties> {}
+export default class ReactNativePhotoView extends React.Component<ReactNativePhotoViewProps & ViewProps> {}

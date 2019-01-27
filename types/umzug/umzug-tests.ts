@@ -1,5 +1,6 @@
 import Umzug = require('umzug');
 import Sequelize = require('sequelize');
+import MongoDB = require('mongodb');
 
 let someVar: Umzug.Umzug;
 const umzug = new Umzug({});
@@ -44,7 +45,7 @@ umzug.on('reverted', (name: string, migration: Umzug.Migration) => null);
 
 new Umzug({
     // The storage.
-    // Possible values: 'json', 'sequelize', an object
+    // Possible values: 'json', 'sequelize', 'mongodb' an object
     storage: 'json',
 
     // The options for the storage.
@@ -80,7 +81,7 @@ new Umzug({
 
 new Umzug({
     // The storage.
-    // Possible values: 'json', 'sequelize', an object
+    // Possible values: 'json', 'sequelize', 'mongodb' an object
     storage: 'json',
     storageOptions: {
         path: '/db/sequelize-meta.json',
@@ -118,6 +119,33 @@ new Umzug({
         // The type of the column holding migration name.
         // Defaults to `Sequelize.STRING`
         columnType: Sequelize.STRING(100),
+    },
+
+});
+
+const mongodb = new MongoDB.Db('database', new MongoDB.Server('host', 21017));
+
+new Umzug({
+    // The storage.
+    // Possible values: 'json', 'sequelize', 'mongodb' an object
+    storage: 'mongodb',
+    storageOptions: {
+        /**
+         * The MongoDB database connection instance.
+         */
+        connection: mongodb,
+
+        /**
+         * The to be used Mongo collection cursor.
+         * Defaults to collection created from collectionName attribute.
+         */
+        collection: mongodb.collection,
+
+        /**
+         * The name of the collection used by the connection.
+         * Defaults to 'migrations'
+         */
+        collectionName: 'migrations'
     },
 
 });

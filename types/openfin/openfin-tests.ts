@@ -78,8 +78,8 @@ function test_application() {
     });
     // getTrayIconInfo
     application.getTrayIconInfo(info => {
-        console.log(info.x, info.y, info.bounds.x, info.bounds.y, info.bounds.height, info.bounds.width,
-                    info.monitorInfo.type, info.monitorInfo.reason);
+        console.log(info.x, info.y, info.bounds.left, info.bounds.top, info.bounds.height, info.bounds.width,
+                    info.monitorInfo.reason);
     });
     // isRunning
     application.isRunning(running => {
@@ -164,6 +164,51 @@ function test_external_application() {
     }, err => console.log(err));
 }
 
+function test_global_hot_key() {
+    // addEventListener
+    fin.desktop.GlobalHotkey.addEventListener('registered', (event) => {
+        console.log(` window ${event.identity.name} has registered ${event.hotkey}`, event);
+    }, () => {
+        console.log('The registration was successful');
+    }, (reason, err) => {
+        console.log(`Error Message: ${err.message} Error Stack: ${err.stack}`);
+    });
+    // isRegister
+    const hotkey = 'CommandOrControl+X';
+    fin.desktop.GlobalHotkey.isRegistered(hotkey, registered => {
+        console.log(`hotkey ${hotkey} is registered ? ${registered}`);
+    }, (reason, err) => {
+        console.log('Error unregistering the hotkey', err);
+    });
+    // register
+    fin.desktop.GlobalHotkey.register(hotkey, () => {
+        console.log(`${hotkey} pressed`);
+    }, () => {
+        console.log('Success');
+    }, (reason, err) => {
+        console.log('Error registering the hotkey', err);
+    });
+    // removeEventListener
+    const previousCallback = () => { };
+    fin.desktop.GlobalHotkey.removeEventListener('registered', previousCallback, () => {
+        console.log('The unregistration was successful');
+    }, (reason, err) => {
+        console.log(`Error Message: ${err.message} Error Stack: ${err.stack}`);
+    });
+    // unregister
+    fin.desktop.GlobalHotkey.unregister(hotkey, () => {
+        console.log('Success');
+    }, (reason, err) => {
+        console.log('Error unregistering the hotkey', err);
+    });
+    // unregisterAll
+    fin.desktop.GlobalHotkey.unregisterAll(() => {
+        console.log('Success');
+    }, (reason, err) => {
+        console.log('Error unregistering all hotkeys for this application', err);
+    });
+}
+
 function test_inter_application_bus() {
     // addSubscribeListener
     fin.desktop.InterApplicationBus.addSubscribeListener((uuid, topic, name) => {
@@ -207,7 +252,7 @@ function test_notification() {
     notification.close();
     // sendMessage
     notification = new fin.desktop.Notification({
-        duration: 10,
+        timeout: 10,
         url: "http://localhost:5000/Account/Register",
         message: "Hello",
         onShow: () => { },
@@ -235,8 +280,7 @@ function test_system() {
         cache: true,
         cookies: true,
         localStorage: true,
-        appcache: true,
-        userData: true
+        appcache: true
     });
     // deleteCacheOnExit
     fin.desktop.System.deleteCacheOnExit(() => {
@@ -376,6 +420,13 @@ function test_system() {
     // getProxySettings
     fin.desktop.System.getProxySettings(proxy => {
         console.log(proxy);
+    });
+    // getRuntimeInfo
+    fin.desktop.System.getRuntimeInfo(runtimeInfoObject => {
+        console.log("Runtime version:", runtimeInfoObject.version);
+        console.log("Runtime architecture:", runtimeInfoObject["architecture"]);
+    }, err => {
+        console.log("Failed to get runtime info, error message:", err);
     });
     // getRvmInfo
     fin.desktop.System.getRvmInfo(rvmInfoObject => {

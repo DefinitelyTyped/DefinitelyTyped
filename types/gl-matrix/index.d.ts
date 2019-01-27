@@ -344,7 +344,7 @@ declare module 'gl-matrix' {
          * @param b the second operand
          * @returns out
          */
-        public static cross(out: vec3, a: vec2 | number[], b: vec2 | number[]): vec2;
+        public static cross(out: vec3, a: vec2 | number[], b: vec2 | number[]): vec3;
 
         /**
          * Performs a linear interpolation between two vec2's
@@ -373,6 +373,17 @@ declare module 'gl-matrix' {
          * @returns out
          */
         public static random(out: vec2, scale: number): vec2;
+
+        /**
+         * Rotate a 2D vector
+         *
+         * @param out The receiving vec2
+         * @param a The vec2 point to rotate
+         * @param b The origin of the rotation
+         * @param c The angle of rotation
+         * @returns out
+         */
+        public static rotate(out: vec2, a: vec2, b: vec2, c: number): vec2;
 
         /**
          * Transforms the vec2 with a mat2
@@ -430,6 +441,14 @@ declare module 'gl-matrix' {
          */
         public static forEach(a: Float32Array, stride: number, offset: number, count: number,
                               fn: (a: vec2 | number[], b: vec2 | number[], arg: any) => void, arg: any): Float32Array;
+
+        /**
+         * Get the angle between two 2D vectors
+         * @param a The first operand
+         * @param b The second operand
+         * @returns The angle in radians
+         */
+        public static angle(a: vec2 | number[], b: vec2 | number[]): number;
 
         /**
          * Perform some operation over an array of vec2s.
@@ -1951,13 +1970,13 @@ declare module 'gl-matrix' {
          * @returns out
          */
         public static transpose(out: mat3, a: mat3): mat3;
-        
+
          /**
          * Generates a 2D projection matrix with the given bounds
          *
          * @param out the receiving matrix
          * @param width width of your gl context
-         * @param height height of gl context 
+         * @param height height of gl context
          * @returns out
          */
         public static projection(out: mat3, width: number, height: number): mat3;
@@ -2017,7 +2036,7 @@ declare module 'gl-matrix' {
          * @param v vector to translate by
          * @returns out
          */
-        public static translate(out: mat3, a: mat3, v: vec3 | number[]): mat3;
+        public static translate(out: mat3, a: mat3, v: vec2 | number[]): mat3;
 
         /**
          * Rotates a mat3 by the given angle
@@ -2502,9 +2521,9 @@ declare module 'gl-matrix' {
         public static getTranslation(out: vec3, mat: mat4): vec3;
 
         /**
-         * Returns the scaling factor component of a transformation matrix. 
-         * If a matrix is built with fromRotationTranslationScale with a 
-         * normalized Quaternion parameter, the returned vector will be 
+         * Returns the scaling factor component of a transformation matrix.
+         * If a matrix is built with fromRotationTranslationScale with a
+         * normalized Quaternion parameter, the returned vector will be
          * the same as the scaling vector originally supplied.
          * @param {vec3} out Vector to receive scaling factor component
          * @param {mat4} mat Matrix to be decomposed (input)
@@ -2642,6 +2661,17 @@ declare module 'gl-matrix' {
          * @returns out
          */
         public static lookAt(out: mat4, eye: vec3 | number[], center: vec3 | number[], up: vec3 | number[]): mat4;
+
+        /**
+         * Generates a matrix that makes something look at something else.
+         *
+         * @param out mat4 frustum matrix will be written into
+         * @param eye Position of the viewer
+         * @param target Point the viewer is looking at
+         * @param up vec3 pointing up
+         * @returns out
+         */
+        public static targetTo(out: mat4, eye: vec3 | number[], target: vec3 | number[], up: vec3 | number[]): mat4;
 
         /**
          * Returns a string representation of a mat4

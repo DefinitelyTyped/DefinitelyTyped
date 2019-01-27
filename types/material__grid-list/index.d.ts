@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
+// Type definitions for Material Components Web 0.35
 // Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -21,13 +21,11 @@
  */
 
 import { MDCComponent } from 'material__base';
-import { MDCGridListAdapter } from './adapter';
+import MDCGridListAdapter from './adapter';
 import MDCGridListFoundation from './foundation';
 
-export {MDCGridListAdapter, MDCGridListFoundation};
+export { MDCGridListAdapter, MDCGridListFoundation };
 
 export class MDCGridList extends MDCComponent<MDCGridListAdapter, MDCGridListFoundation> {
-  static attachTo(root: Element): MDCGridList;
-
-  getDefaultFoundation(): MDCGridListFoundation;
+    static attachTo(root: Element): MDCGridList;
 }

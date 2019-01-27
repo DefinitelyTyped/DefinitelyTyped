@@ -53,7 +53,7 @@ export interface Passport {
 
     getJWT(): Promise<any>;
 
-    verifyJWT(token: string): Promise<string>;
+    verifyJWT(token: string): Promise<any>;
 
     payloadIsValid(payload: string): boolean;
 

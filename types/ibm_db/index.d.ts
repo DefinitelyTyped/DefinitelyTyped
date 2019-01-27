@@ -104,9 +104,9 @@ export class Database implements Options {
 
     rollbackTransactionSync(): Database;
 
-    columns(catalog: string | null, schema: string | null, table: string | null, column: string | null, cb: (error: Error, res: ODBCResult) => void): void;
+    columns(catalog: string | null, schema: string | null, table: string | null, column: string | null, cb: (error: Error, res: any[]) => void): void;
 
-    tables(catalog: string | null, schema: string | null, table: string | null, type: string | null, cb: (error: Error, res: ODBCResult) => void): void;
+    tables(catalog: string | null, schema: string | null, table: string | null, type: string | null, cb: (error: Error, res: any[]) => void): void;
 
     describe(obj: DescribeObject,  cb: (error: Error, res: any[]) => void): void;
 
@@ -150,7 +150,7 @@ export class ODBCStatement {
     // TODO: type of outparams is unknown
     _execute(cb: (err: Error, result: any[]) => void): void;
 
-    _executeSync(params: any[]): ODBCResult;
+    _executeSync(params?: any[]): ODBCResult;
 
     _executeDirect(sql: string, cb: (err: Error, result: any[]) => void): void;
 
@@ -170,7 +170,7 @@ export class ODBCStatement {
     execute(cb: (err: Error, result: any[], outparams: any) => void): void;
     execute(params: any[]): Promise<{result: any[], outparams: any}>;
 
-    executeSync(params: any[]): ODBCResult;
+    executeSync(params?: any[]): ODBCResult;
 
     executeDirect(sql: string, cb: (err: Error, result: any[]) => void): void;
 
@@ -187,6 +187,10 @@ export class ODBCStatement {
 
 export class ODBCResult {
     fetchMode: number;
+    fetchSync(): any[];
+    fetchAllSync(): any[];
+    moreResultsSync(): any[];
+    closeSync(): void;
 } // Class ODBCResult
 
 export function getElapsedTime(): string;

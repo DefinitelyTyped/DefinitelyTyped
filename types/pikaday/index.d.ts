@@ -1,7 +1,8 @@
-// Type definitions for pikaday 1.6
+// Type definitions for pikaday 1.7
 // Project: https://github.com/dbushell/Pikaday
 // Definitions by: Rudolph Gottesheim <https://github.com/MidnightDesign>
 //                 Åke Wivänge <https://github.com/wake42>
+//                 Istvan Mezo <https://github.com/mezoistvan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -54,7 +55,7 @@ declare class Pikaday {
     /**
      * Set the current selection with a Moment.js object (see setDate).
      */
-    setMoment(moment: any): void;
+    setMoment(moment: any, preventOnSelect?: boolean): void;
 
     /**
      * Change the current view to see a specific date.
@@ -174,6 +175,11 @@ declare namespace Pikaday {
         bound?: boolean;
 
         /**
+         * Data-attribute on the input field with an aria assistance test (only applied when bound is set)
+         */
+        ariaLabel?: string;
+
+        /**
          * Preferred position of the datepicker relative to the form field
          * (e.g. 'top right'). Automatic adjustment may occur to avoid
          * displaying outside the viewport. Default: 'bottom left'.
@@ -242,6 +248,11 @@ declare namespace Pikaday {
         showWeekNumber?: boolean;
 
         /**
+         * Select a whole week instead of a day (default false)
+         */
+        pickWholeWeek?: boolean;
+
+        /**
          * Reverse the calendar for right-to-left languages. Default: false.
          */
         isRTL?: boolean;
@@ -267,6 +278,11 @@ declare namespace Pikaday {
         showDaysInNextAndPreviousMonths?: boolean;
 
         /**
+         * Allows user to select date that is in the next or previous months (default: false)
+         */
+        enableSelectionDaysInNextAndPreviousMonths?: boolean;
+
+        /**
          * Number of visible calendars.
          */
         numberOfMonths?: number;
@@ -279,15 +295,31 @@ declare namespace Pikaday {
         mainCalendar?: string;
 
         /**
+         * Array of dates that you would like to differentiate from regular days (e.g. ['Sat Jun 28 2017', 'Sun Jun 29 2017', 'Tue Jul 01 2017',])
+         */
+        events?: string[];
+
+        /**
          * Define a class name that can be used as a hook for styling different
          * themes. Default: null.
          */
         theme?: string;
 
         /**
+         * Defines if the field is blurred when a date is selected (default true)
+         */
+        blurFieldOnSelect?: boolean;
+
+        /**
          * The default flag for moment's strict date parsing (requires Moment.js for custom formatting). Default: false
          */
         formatStrict?: boolean;
+
+        /**
+         * Function which will be used for formatting date object to string.
+         * This function will take precedence over moment.
+         */
+        toString?(date: Date, format?: string): string;
 
         /**
          * Function which will be used for parsing input string and getting a date object from it.
@@ -314,5 +346,10 @@ declare namespace Pikaday {
          * Callback function for when the picker draws a new month.
          */
         onDraw?(): void;
+
+        /**
+         * Enable keyboard input support. Default: true
+         */
+        keyboardInput?: boolean;
     }
 }

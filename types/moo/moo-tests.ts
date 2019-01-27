@@ -75,3 +75,13 @@ lexer.next();
 lexer.next();
 lexer.reset('a different line\n', info);
 lexer.next();
+
+// Transform: https://github.com/no-context/moo#transform
+moo.compile({
+    STRING: [
+        { match: /"""[^]*?"""/, lineBreaks: true, value: x => x.slice(3, -3) },
+        { match: /"(?:\\["\\rn]|[^"\\])*?"/, lineBreaks: true, value: x => x.slice(1, -1) },
+        { match: /'(?:\\['\\rn]|[^'\\])*?'/, lineBreaks: true, value: x => x.slice(1, -1) },
+    ],
+    // ...
+});

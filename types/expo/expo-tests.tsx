@@ -1,37 +1,61 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Text, AccessibilityInfo } from 'react-native';
 
 import {
     Accelerometer,
+    AdMobAppEvent,
+    AdMobBanner,
+    AdMobInterstitial,
+    AdMobRewarded,
     Amplitude,
-    Asset,
-    AuthSession,
-    Audio,
     AppLoading,
+    Asset,
+    Audio,
+    AuthSession,
     BarCodeScanner,
-    BlurViewProps,
     BlurView,
     Brightness,
+    Calendar,
     Camera,
     CameraObject,
+    Constants,
+    Contacts,
     DocumentPicker,
+    EdgeInsets,
+    EdgePadding,
+    EventUserLocation,
     Facebook,
     FacebookAds,
-    FileSystem,
-    ImagePicker,
-    ImageManipulator,
     FaceDetector,
-    Svg,
+    FileSystem,
+    Haptic,
+    ImageManipulator,
+    ImagePicker,
     IntentLauncherAndroid,
     KeepAwake,
+    KmlMapEvent,
     LinearGradient,
+    Linking,
+    Location,
+    MailComposer,
+    MapEvent,
+    MapStyleElement,
+    MapView,
+    MediaLibrary,
     Permissions,
+    PublisherBanner,
+    Region,
     registerRootComponent,
     ScreenOrientation,
-    SQLite,
-    Calendar,
-    MailComposer
+    SecureStore,
+    Svg,
+    Updates
 } from 'expo';
+
+const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
+    latitude: 0,
+    longitude: 0
+});
 
 Accelerometer.addListener((obj) => {
     obj.x;
@@ -40,6 +64,41 @@ Accelerometer.addListener((obj) => {
 });
 Accelerometer.removeAllListeners();
 Accelerometer.setUpdateInterval(1000);
+
+() => (
+    <AdMobBanner
+        bannerSize="leaderboard"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        testDeviceID="EMULATOR"
+        didFailToReceiveAdWithError={(error: string) => console.log(error)}
+        style={{ flex: 1 }}
+    />
+);
+
+() => (
+    <PublisherBanner
+        bannerSize="leaderboard"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        testDeviceID="EMULATOR"
+        didFailToReceiveAdWithError={(error: string) => console.log(error)}
+        onAdMobDispatchAppEvent={(event: AdMobAppEvent) => console.log(event)}
+        style={{ flex: 1 }}
+    />
+);
+
+AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
+AdMobInterstitial.setTestDeviceID('EMULATOR');
+async () => {
+    await AdMobInterstitial.requestAdAsync();
+    await AdMobInterstitial.showAdAsync();
+};
+
+AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
+AdMobRewarded.setTestDeviceID('EMULATOR');
+async () => {
+    await AdMobRewarded.requestAdAsync();
+    await AdMobRewarded.showAdAsync();
+};
 
 Amplitude.initialize('key');
 Amplitude.setUserId('userId');
@@ -94,7 +153,8 @@ Audio.setAudioModeAsync({
     playsInSilentModeIOS: true,
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
-    allowsRecordingIOS: true
+    allowsRecordingIOS: true,
+    playThroughEarpieceAndroid: false
 });
 Audio.setIsEnabledAsync(true);
 
@@ -174,8 +234,8 @@ Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
     const result = await Audio.Sound.create({uri: 'uri'}, {
-        volume: 0.5,
-        rate: 0.6
+        volume: 0.55,
+        rate: 16.5
     }, null, true);
 
     const sound = result.sound;
@@ -202,13 +262,13 @@ async () => {
     <AppLoading />
 );
 
-const barcodeReadCallback = () => {};
+const barCodeScannedCallback = () => {};
 () => (
     <BarCodeScanner
         type="front"
         torchMode="off"
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
-        onBarCodeRead={barcodeReadCallback} />
+        onBarCodeScanned={barCodeScannedCallback} />
 );
 
 () => (
@@ -218,8 +278,8 @@ const barcodeReadCallback = () => {};
 );
 
 async () => {
-    await Brightness.setBrightnessAsync(.6);
-    await Brightness.setSystemBrightnessAsync(.7);
+    await Brightness.setBrightnessAsync(0.65);
+    await Brightness.setSystemBrightnessAsync(0.75);
     const br1 = await Brightness.getBrightnessAsync();
     const br2 = await Brightness.getSystemBrightnessAsync();
 };
@@ -236,6 +296,30 @@ Camera.Constants.BarCodeType;
             component.recordAsync();
         }
     }} />);
+};
+async (camera: CameraObject) => {
+    const picture = await camera.takePictureAsync({
+        quality: 0.5,
+        base64: true,
+        exif: true
+    });
+
+    picture.uri;
+    picture.width;
+    picture.height;
+    picture.exif;
+    picture.base64;
+
+    camera.takePictureAsync({
+        quality: 1,
+        onPictureSaved: pic => {
+            pic.uri;
+            pic.width;
+            pic.height;
+            pic.exif;
+            pic.base64;
+        }
+    });
 };
 
 async () => {
@@ -324,10 +408,28 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', {
-        rotate: 90
-    }, {
-        compress: 0.5
+    const result = await ImageManipulator.manipulate('url', [
+        { rotate: 90 },
+        { resize: { width: 300 } },
+        { resize: { height: 300 } },
+        { resize: { height: 300, width: 300 } },
+    ], {
+        compress: 0.75
+    });
+
+    result.height;
+    result.uri;
+    result.width;
+};
+
+async () => {
+    const result = await ImageManipulator.manipulateAsync('url', [
+        { rotate: 360 },
+        { resize: { width: 300 } },
+        { resize: { height: 300 } },
+        { resize: { height: 300, width: 300 } },
+    ], {
+        compress: 0.75
     });
 
     result.height;
@@ -351,6 +453,62 @@ async () => {
     result.faces[0];
 };
 
+async () => {
+    function isBoolean(x: boolean) {
+    }
+    function isString(x: string) {
+    }
+    // Two examples of members inherited from react-native Linking
+    // to prove that inheritence is working.
+    Linking.addEventListener('url', (e) => {
+        e.url === '';
+    });
+    isBoolean(await Linking.canOpenURL('expo://'));
+
+    // Extensions added by expo.
+
+    isString(Linking.makeUrl('path'));
+    isString(Linking.makeUrl('path', { q: 2, u: 'ery', }));
+
+    const {
+        path,
+        queryParams,
+    } = Linking.parse('');
+    isString(path);
+    isString(queryParams['x'] || '');
+
+    const {
+        path: path2,
+        queryParams: queryParams2,
+    } = await Linking.parseInitialURLAsync();
+    isString(path2);
+    isString(queryParams2['y'] || '');
+};
+
+// #region securestore
+async () => {
+    await SecureStore.setItemAsync('some-key', 'some-val', {
+        keychainService: "some-service",
+        keychainAccessible: SecureStore.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
+    });
+    const result = await SecureStore.getItemAsync('some-key', { keychainService: "some-service" });
+    if (result != null) {
+        result.slice() === 'some-val';
+    }
+    await SecureStore.deleteItemAsync('some-key', { keychainService: "some-service" });
+};
+
+const allSecureStoreKeychainAccessibleValues: number[] = [
+    SecureStore.WHEN_UNLOCKED,
+    SecureStore.AFTER_FIRST_UNLOCK,
+    SecureStore.ALWAYS,
+    SecureStore.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
+    SecureStore.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
+    SecureStore.AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY,
+    SecureStore.ALWAYS_THIS_DEVICE_ONLY,
+];
+// #endregion
+
 () => (
     <Svg width={100} height={50}>
         <Svg.Rect
@@ -361,12 +519,14 @@ async () => {
             fill='rgb(0,0,255)'
             strokeWidth={3}
             stroke='rgb(0,0,0)'
+            transform="translate(0, 0)"
         />
         <Svg.Circle
             cx={50}
             cy={50}
             r={50}
             fill="pink"
+            transform="translate(0, 0)"
         />
         <Svg.Ellipse
             cx={55}
@@ -376,6 +536,7 @@ async () => {
             stroke="purple"
             strokeWidth={2}
             fill="yellow"
+            transform="translate(0, 0)"
         />
         <Svg.Line
             x1={0}
@@ -384,18 +545,21 @@ async () => {
             y2={100}
             stroke="red"
             strokeWidth={2}
+            transform="translate(0, 0)"
         />
         <Svg.Polygon
             points="40,5 70,80 25,95"
             fill="lime"
             stroke="purple"
             strokeWidth={1}
+            transform="translate(0, 0)"
         />
         <Svg.Polyline
             points="10,10 20,12 30,20 40,60 60,70 95,90"
             fill="none"
             stroke="black"
             strokeWidth={3}
+            transform="translate(0, 0)"
         />
         <Svg.Text
             fill="none"
@@ -405,6 +569,7 @@ async () => {
             x={100}
             y={20}
             textAnchor="middle"
+            transform="translate(0, 0)"
         >
             STROKED TEXT
         </Svg.Text>
@@ -414,8 +579,8 @@ async () => {
                 d=""
             />
         </Svg.Defs>
-        <Svg.G y={20}>
-            <Svg.Text fill="blue"        >
+        <Svg.G transform="translate(0, 0)" y={20}>
+            <Svg.Text fill="blue" transform={{ translateX: 0, translateY: 0 }}>
                 <Svg.TextPath href="#path" startOffset="-10%">
                     We go up and down,
                     <Svg.TSpan fill="red" dy="5,5,5">then up again</Svg.TSpan>
@@ -428,7 +593,8 @@ async () => {
                 strokeWidth={1}
             />
         </Svg.G>
-        <Svg.Use href="#shape" x="20" y="0" />
+        <Svg.Use href="#shape" transform="translate(0, 0)" x="20" y="0" />
+        <Svg.Use href="#shape" transform={{ translateX: 0, translateY: 0 }} x="20" y="0" width="20" height="20"/>
         <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
@@ -449,6 +615,10 @@ async () => {
             </Svg.LinearGradient>
         </Svg.Defs>
     </Svg>
+);
+
+() => (
+    <Svg width={100} height={50} preserveAspectRatio="none" />
 );
 
 IntentLauncherAndroid.ACTION_ACCESSIBILITY_SETTINGS === 'android.settings.ACCESSIBILITY_SETTINGS';
@@ -551,11 +721,12 @@ Permissions.CAMERA === 'camera';
 Permissions.CAMERA_ROLL === 'cameraRoll';
 Permissions.AUDIO_RECORDING === 'audioRecording';
 Permissions.CONTACTS === 'contacts';
-Permissions.NOTIFICATIONS === 'remoteNotifications';
-Permissions.REMOTE_NOTIFICATIONS === 'remoteNotifications';
+Permissions.NOTIFICATIONS === 'notifications';
 Permissions.SYSTEM_BRIGHTNESS === 'systemBrightness';
+Permissions.USER_FACING_NOTIFICATIONS === 'userFacingNotifications';
+Permissions.REMINDERS === 'reminders';
 async () => {
-    const result = await Permissions.askAsync(Permissions.CAMERA);
+    const result = await Permissions.askAsync(Permissions.CAMERA, Permissions.CONTACTS);
 
     result.status === 'granted';
     result.status === 'denied';
@@ -696,3 +867,398 @@ async () => {
 
     result.status === 'saved';
 };
+
+// #region MapView
+const initialRegion: Region = {
+  latitude: 0,
+  longitude: 0,
+  latitudeDelta: 0,
+  longitudeDelta: 0,
+};
+
+const edgePadding: EdgePadding = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+};
+
+const edgeInsets: EdgeInsets = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+};
+
+const mapStyleElements: MapStyleElement[] = [{
+  featureType: 'featureType',
+  elementType: 'elementType',
+  stylers: [{}, {}],
+}];
+
+const mapEventCallback = (event: MapEvent) => console.log(event);
+const regionCallback = (region: Region) =>  console.log(region);
+const kmlCallback = (kml: KmlMapEvent) =>  console.log(kml);
+const userLocationCallback = (event: EventUserLocation) =>  console.log(event);
+
+() => (
+    <MapView
+        provider="google"
+        customMapStyle={mapStyleElements}
+        customMapStyleString="some-string"
+        showsUserLocation={true}
+        userLocationAnnotationTitle="title"
+        showsMyLocationButton={true}
+        followsUserLocation={true}
+        showsPointsOfInterest={true}
+        showsCompass={true}
+        zoomEnabled={true}
+        zoomControlEnabled={true}
+        rotateEnabled={true}
+        cacheEnabled={true}
+        loadingEnabled={true}
+        loadingBackgroundColor="#000"
+        loadingIndicatorColor="#000"
+        scrollEnabled={true}
+        pitchEnabled={true}
+        toolbarEnabled={true}
+        moveOnMarkerPress={true}
+        showsScale={true}
+        showsBuildings={true}
+        showsTraffic={true}
+        showsIndoors={true}
+        showsIndoorLevelPicker={true}
+        mapType="standard"
+        region={initialRegion}
+        initialRegion={initialRegion}
+        liteMode={true}
+        mapPadding={edgePadding}
+        maxDelta={0}
+        minDelta={0}
+        legalLabelInsets={edgeInsets}
+
+        onMapReady={() => ({})}
+        onKmlReady={kmlCallback}
+        onRegionChange={regionCallback}
+        onRegionChangeComplete={regionCallback}
+        onPress={mapEventCallback}
+        onLongPress={mapEventCallback}
+        onUserLocationChange={userLocationCallback}
+        onPanDrag={mapEventCallback}
+        onPoiClick={(event: MapEvent<{ placeId: string, name: string }>) => console.log(event)}
+        onMarkerPress={(event: MapEvent<{ action: 'marker-press', id: string }>) =>  console.log(event)}
+        onMarkerSelect={(event: MapEvent<{ action: 'marker-select', id: string }>) => console.log(event)}
+        onMarkerDeselect={(event: MapEvent<{ action: 'marker-deselect', id: string }>) => console.log(event)}
+        onCalloutPress={(event: MapEvent<{ action: 'callout-press' }>) => console.log(event)}
+        onMarkerDragStart={mapEventCallback}
+        onMarkerDrag={mapEventCallback}
+        onMarkerDragEnd={mapEventCallback}
+
+        minZoomLevel={0}
+        maxZoomLevel={0}
+        kmlSrc="src"
+        style={{ flex: 1 }}
+    />
+);
+// #endregion
+
+async () => {
+    const updateEventListener: Updates.UpdateEventListener = ({ type, manifest, message }) => {
+        switch (type) {
+            case Updates.EventType.DOWNLOAD_STARTED:
+            case Updates.EventType.DOWNLOAD_PROGRESS:
+            case Updates.EventType.DOWNLOAD_FINISHED:
+            case Updates.EventType.NO_UPDATE_AVAILABLE:
+            case Updates.EventType.ERROR:
+                return true;
+        }
+    };
+
+    Updates.reload();
+
+    Updates.reloadFromCache();
+
+    Updates.addListener(updateEventListener);
+
+    const updateCheckResult = await Updates.checkForUpdateAsync();
+
+    if (updateCheckResult.isAvailable) {
+        console.log(updateCheckResult.manifest);
+    }
+
+    Updates.fetchUpdateAsync({ eventListener: updateEventListener });
+
+    const bundleFetchResult = await Updates.fetchUpdateAsync();
+
+    if (bundleFetchResult.isNew) {
+        console.log(bundleFetchResult.manifest);
+    }
+};
+
+async () => {
+  const asset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('some-url');
+  const getAssetsOptions: MediaLibrary.GetAssetsOptions = {
+    first: 0,
+    after: 'lastAssetId',
+    album: 'albumId',
+    sortBy: MediaLibrary.SortBy.creationTime,
+    mediaType: MediaLibrary.MediaType.photo
+  };
+  const assetsList: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync(getAssetsOptions);
+  const endCursor: string = assetsList.endCursor;
+  const hasNextPage: boolean = assetsList.hasNextPage;
+  const totalCount: number = assetsList.totalCount;
+  const asset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(asset);
+  if (await MediaLibrary.deleteAssetsAsync(assetsList.assets)) {
+    console.log('assets deleted');
+  }
+  const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
+  const album: MediaLibrary.Album | null = await MediaLibrary.getAlbumAsync('albumName');
+  const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('albumName', asset1);
+  if (await MediaLibrary.addAssetsToAlbumAsync([asset, asset1], album1, true)) {
+    console.log('assets added');
+  }
+
+  const moments: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
+
+  switch (getAssetsOptions.mediaType) {
+    case MediaLibrary.MediaType.audio:
+    case MediaLibrary.MediaType.photo:
+    case MediaLibrary.MediaType.video:
+    case MediaLibrary.MediaType.unknow:
+      return true;
+  }
+
+  switch (getAssetsOptions.sortBy) {
+    case MediaLibrary.SortBy.default:
+    case MediaLibrary.SortBy.id:
+    case MediaLibrary.SortBy.creationTime:
+    case MediaLibrary.SortBy.modificationTime:
+    case MediaLibrary.SortBy.mediaType:
+    case MediaLibrary.SortBy.width:
+    case MediaLibrary.SortBy.height:
+    case MediaLibrary.SortBy.duration:
+      return true;
+  }
+};
+
+// #region MediaLibrary
+async () => {
+  const mlAsset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('localUri');
+  const mlAssetResult: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync({
+    first: 0,
+    after: '',
+    album: 'Album',
+    sortBy: MediaLibrary.SortBy.creationTime,
+    mediaType: MediaLibrary.MediaType.photo
+  });
+  const mlAsset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(mlAsset);
+  const areDeleted: boolean = await MediaLibrary.deleteAssetsAsync([mlAsset]);
+  const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
+  const album: MediaLibrary.Album = await MediaLibrary.getAlbumAsync('album');
+  const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('album', mlAsset);
+  const areAddedToAlbum: boolean = await MediaLibrary.addAssetsToAlbumAsync([mlAsset, mlAsset1], 'album');
+  const areDeletedFromAlbum: boolean = await MediaLibrary.removeAssetsFromAlbumAsync([mlAsset, mlAsset1], 'album');
+  const momuents: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
+};
+//#endregion
+
+// #region Haptic
+Haptic.impact(Haptic.ImpactStyles.Heavy);
+Haptic.impact(Haptic.ImpactStyles.Light);
+Haptic.impact(Haptic.ImpactStyles.Medium);
+
+Haptic.notification(Haptic.NotificationType.Error);
+Haptic.notification(Haptic.NotificationType.Success);
+Haptic.notification(Haptic.NotificationType.Error);
+
+Haptic.selection();
+// #endregion
+
+// #region Constants
+async () => {
+    const appOwnerShip = Constants.appOwnership;
+    const expoVersion = Constants.expoVersion;
+    const installationId = Constants.installationId;
+    const deviceId = Constants.deviceId;
+    const deviceName = Constants.deviceName;
+    const deviceYearClass = Constants.deviceYearClass;
+    const isDevice = Constants.isDevice;
+    const platform = Constants.platform;
+    const sessionId = Constants.sessionId;
+    const statusBarHeight = Constants.statusBarHeight;
+    const systemFonts = Constants.systemFonts;
+    const manifest = Constants.manifest;
+    const linkingUri = Constants.linkingUri;
+    const userAgent: string = await Constants.getWebViewUserAgentAsync();
+};
+// #endregion
+
+// #region Contacts
+Contacts.Fields.ID === 'id';
+Contacts.Fields.Name === 'name';
+Contacts.Fields.FirstName === 'firstName';
+Contacts.Fields.MiddleName === 'middleName';
+Contacts.Fields.LastName === 'lastName';
+Contacts.Fields.NamePrefix === 'namePrefix';
+Contacts.Fields.NameSuffix === 'nameSuffix';
+Contacts.Fields.PhoneticFirstName === 'phoneticFirstName';
+Contacts.Fields.PhoneticMiddleName === 'phoneticMiddleName';
+Contacts.Fields.PhoneticLastName === 'phoneticLastName';
+Contacts.Fields.Birthday === 'birthday';
+Contacts.Fields.Emails === 'emails';
+Contacts.Fields.PhoneNumbers === 'phoneNumbers';
+Contacts.Fields.Addresses === 'addresses';
+Contacts.Fields.InstantMessageAddresses === 'instantMessageAddresses';
+Contacts.Fields.UrlAddresses === 'urlAddresses';
+Contacts.Fields.Company === 'company';
+Contacts.Fields.JobTitle === 'jobTitle';
+Contacts.Fields.Department === 'department';
+Contacts.Fields.ImageAvailable === 'imageAvailable';
+Contacts.Fields.Image === 'image';
+Contacts.Fields.Note === 'note';
+Contacts.Fields.Dates === 'dates';
+Contacts.Fields.Relationships === 'relationships';
+Contacts.Fields.Nickname === 'nickname';
+Contacts.Fields.RawImage === 'rawImage';
+Contacts.Fields.MaidenName === 'maidenName';
+Contacts.Fields.ContactType === 'contactType';
+Contacts.Fields.SocialProfiles === 'socialProfiles';
+Contacts.Fields.NonGregorianBirthday === 'nonGregorianBirthday';
+
+const contact: Contacts.Contact = {
+    [Contacts.Fields.ID]: 'id',
+    [Contacts.Fields.Name]: 'name',
+    [Contacts.Fields.FirstName]: 'firstName',
+    [Contacts.Fields.MiddleName]: 'middleName',
+    [Contacts.Fields.LastName]: 'lastName',
+    [Contacts.Fields.NamePrefix]: 'namePrefix',
+    [Contacts.Fields.NameSuffix]: 'nameSuffix',
+    [Contacts.Fields.PhoneticFirstName]: 'phoneticFirstName',
+    [Contacts.Fields.PhoneticMiddleName]: 'phoneticMiddleName',
+    [Contacts.Fields.PhoneticLastName]: 'phoneticLastName',
+    [Contacts.Fields.Birthday]: {
+        day: 1,
+        month: 1,
+        year: 2010,
+        format: Contacts.CalendarFormats.Gregorian,
+        id: 'id',
+        label: 'label'
+    },
+    [Contacts.Fields.Emails]: [{
+        email: 'email',
+        isPrimary: true,
+        id: 'id',
+        label: 'label'
+    }],
+    [Contacts.Fields.PhoneNumbers]: [{
+        number: 'number',
+        isPrimary: true,
+        digits: 'digits',
+        countryCode: 'countryCode',
+        id: 'id',
+        label: 'label'
+    }],
+    [Contacts.Fields.Addresses]: [{
+        street: 'street',
+        city: 'city',
+        country: 'country',
+        region: 'region',
+        neighborhood: 'neighborhood',
+        postalCode: 'postalCode',
+        poBox: 'poBox',
+        isoCountryCode: 'isoCountryCode',
+        id: 'id',
+        label: 'label'
+    }],
+    [Contacts.Fields.InstantMessageAddresses]: [{
+        service: 'service',
+        username: 'username',
+        localizedProfile: 'localizedProfile',
+        id: 'id',
+        label: 'label'
+    }],
+    [Contacts.Fields.UrlAddresses]: [{
+        url: 'url',
+        id: 'id',
+        label: 'label'
+    }],
+    [Contacts.Fields.Company]: 'company',
+    [Contacts.Fields.JobTitle]: 'jobTitle',
+    [Contacts.Fields.Department]: 'department',
+    [Contacts.Fields.ImageAvailable]: true,
+    [Contacts.Fields.Image]: {
+        uri: 'uri'
+    },
+    [Contacts.Fields.Note]: 'note',
+    [Contacts.Fields.Dates]: [{
+        day: 1,
+        month: 1,
+        year: 2010,
+        format: Contacts.CalendarFormats.Gregorian,
+        id: 'id',
+        label: 'label'
+    }],
+    [Contacts.Fields.Relationships]: [{
+        name: 'name',
+        id: 'id',
+        label: 'label'
+    }],
+    [Contacts.Fields.Nickname]: 'nickname',
+    [Contacts.Fields.RawImage]: {
+        uri: 'uri'
+    },
+    [Contacts.Fields.MaidenName]: 'maidenName',
+    [Contacts.Fields.ContactType]: Contacts.ContactTypes.Person,
+    [Contacts.Fields.SocialProfiles]: [{
+        service: 'service',
+        username: 'username',
+        localizedProfile: 'localizedProfile',
+        url: 'url',
+        userId: 'userId',
+        id: 'id',
+        label: 'label'
+    }],
+    [Contacts.Fields.NonGregorianBirthday]: {
+        day: 1,
+        month: 1,
+        year: 2010,
+        format: Contacts.CalendarFormats.Hebrew,
+        id: 'id',
+        label: 'label'
+    }
+};
+
+async () => {
+    const response1: Contacts.ContactResponse = await Contacts.getContactsAsync();
+    const response2: Contacts.ContactResponse = await Contacts.getContactsAsync({ id: 'contactId' });
+
+    const response3: Contacts.Contact = await Contacts.getContactByIdAsync('contactId');
+    const response4: Contacts.Contact = await Contacts.getContactByIdAsync('contactId', [Contacts.Fields.Name]);
+
+    const response5: string = await Contacts.addContactAsync(contact);
+    const response6: string = await Contacts.addContactAsync(contact, 'containerId');
+
+    const response7: string = await Contacts.updateContactAsync(contact);
+    await Contacts.removeContactAsync('contactId');
+    const response8: string = await Contacts.writeContactToFileAsync({ id: 'contactId' });
+    await Contacts.presentFormAsync('contactId');
+    await Contacts.addExistingGroupToContainerAsync('groupId', 'containerId');
+
+    const response9: string = await Contacts.createGroupAsync('groupId');
+    const response10: string = await Contacts.createGroupAsync('groupId', 'containerId');
+
+    await Contacts.updateGroupNameAsync('groupName', 'groupId');
+    await Contacts.removeGroupAsync('groupId');
+    await Contacts.addExistingContactToGroupAsync('contactId', 'groupId');
+    await Contacts.removeContactFromGroupAsync('contactId', 'groupId');
+
+    const response11 = await Contacts.getGroupsAsync({ groupName: 'groupName' });
+    response11.forEach((_: Contacts.Group) => _);
+
+    const response12: string = await Contacts.getDefaultContainerIdAsync();
+
+    const response13 = await Contacts.getContainersAsync({ containerId: 'containerId' });
+    response13.forEach((_: Contacts.Container) => _);
+};
+// #endregion

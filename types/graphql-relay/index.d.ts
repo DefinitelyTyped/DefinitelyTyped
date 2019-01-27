@@ -2,7 +2,7 @@
 // Project: https://github.com/graphql/graphql-relay-js
 // Definitions by: Arvitaly <https://github.com/arvitaly>, nitintutlani <https://github.com/nitintutlani>, Grelinfo <https://github.com/Grelinfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import {
     GraphQLBoolean,
@@ -34,27 +34,20 @@ import {
  * whose return type is a connection type with forward pagination.
  */
 export interface ForwardConnectionArgs {
-    after: ConnectionCursor;
-    first: number;
+    after: { type: GraphQLScalarType };
+    first: { type: GraphQLScalarType };
 }
-export const forwardConnectionArgs: GraphQLFieldConfigArgumentMap & {
-    after: ConnectionCursor;
-    first: number;
-};
+export const forwardConnectionArgs: GraphQLFieldConfigArgumentMap & ForwardConnectionArgs;
 
 /**
  * Returns a GraphQLFieldConfigArgumentMap appropriate to include on a field
  * whose return type is a connection type with backward pagination.
  */
 export interface BackwardConnectionArgs {
-    before: ConnectionCursor;
-    last: number;
+    before: { type: GraphQLScalarType };
+    last: { type: GraphQLScalarType };
 }
-export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap & {
-    before: ConnectionCursor;
-    last: number;
-};
-
+export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap & BackwardConnectionArgs;
 /**
  * Returns a GraphQLFieldConfigArgumentMap appropriate to include on a field
  * whose return type is a connection type with bidirectional pagination.
@@ -105,10 +98,10 @@ export type ConnectionCursor = string;
  * A flow type designed to be exposed as `PageInfo` over GraphQL.
  */
 export interface PageInfo {
-    startCursor: ConnectionCursor;
-    endCursor: ConnectionCursor;
-    hasPreviousPage: boolean;
-    hasNextPage: boolean;
+    startCursor?: ConnectionCursor | null;
+    endCursor?: ConnectionCursor | null;
+    hasPreviousPage?: boolean | null;
+    hasNextPage?: boolean | null;
 }
 
 /**
@@ -131,10 +124,10 @@ export interface Edge<T> {
  * A flow type describing the arguments a connection field receives in GraphQL.
  */
 export interface ConnectionArguments {
-    before?: ConnectionCursor;
-    after?: ConnectionCursor;
-    first?: number;
-    last?: number;
+    before?: ConnectionCursor | null;
+    after?: ConnectionCursor | null;
+    first?: number | null;
+    last?: number | null;
 }
 
 // connection/arrayconnection.js
@@ -212,8 +205,8 @@ export function cursorForObjectInConnection<T>(
  * otherwise it will be the default.
  */
 export function getOffsetWithDefault(
-    cursor?: ConnectionCursor,
-    defaultOffset?: number
+    cursor?: ConnectionCursor | null,
+    defaultOffset?: number | null
 ): number;
 
 // mutation/mutation.js
@@ -244,6 +237,7 @@ export interface MutationConfig {
     inputFields: Thunk<GraphQLInputFieldConfigMap>;
     outputFields: Thunk<GraphQLFieldConfigMap<any, any>>;
     mutateAndGetPayload: mutationFn;
+    deprecationReason?: string;
 }
 
 /**

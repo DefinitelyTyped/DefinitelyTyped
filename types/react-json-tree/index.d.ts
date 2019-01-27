@@ -2,7 +2,7 @@
 // Project: https://github.com/alexkuz/react-json-tree/
 // Definitions by: Grant Nestor <https://github.com/gnestor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import {
     Component,
@@ -19,7 +19,7 @@ export interface JSONTreeProps extends Props<JSONTreeComponent> {
     shouldExpandNode?: (keyPath: (string | number)[], data: [any] | {}, level: number) => boolean;
     getItemString?: (type: string, data: [any] | {}, itemType: string, itemString: string) => JSX.Element;
     labelRenderer?: (raw: [string, string]) => JSX.Element;
-    valueRenderer?: (raw: string) => JSX.Element;
+    valueRenderer?: (displayValue: string|number, rawValue?: string|number|boolean|null, ...keyPath: (string|number)[]) => JSX.Element;
     postprocessValue?: (raw: string) => JSX.Element;
     isCustomNode?: () => boolean;
     collectionLimit?: number;

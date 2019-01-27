@@ -104,7 +104,7 @@ export function warn(...values: any[]): void;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Data Object Interfaces - These intrface are not specific part of fabric,
-// They are just helpful for for defining function paramters
+// They are just helpful for for defining function parameters
 //////////////////////////////////////////////////////////////////////////////
 interface IDataURLOptions {
 	/**
@@ -140,6 +140,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
+    transform?: { corner: string };
 }
 
 interface IFillOptions {
@@ -283,7 +284,7 @@ interface IObservable<T> {
 	 * Observes specified event
 	 * @param eventName Object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
 	 */
-	on(events: {[eventName: string]: (e: IEvent) => void}): T;
+	on(events: { [eventName: string]: (e: IEvent) => void }): T;
 	/**
 	 * Fires event with an optional options object
 	 * @param eventName Event name to fire
@@ -296,7 +297,7 @@ interface IObservable<T> {
 	 * @param eventName Event name (eg. 'after:render') or object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
 	 * @param handler Function to be deleted from EventListeners
 	 */
-	off(eventName?: string|any, handler?: (e: IEvent) => void): T;
+	off(eventName?: string | any, handler?: (e: IEvent) => void): T;
 }
 
 interface Callbacks {
@@ -337,7 +338,7 @@ interface IObjectAnimation<T> {
 	 * @param value Value to animate property
 	 * @param options The animation options
 	 */
-	animate(property: string, value: number|string, options?: IAnimationOptions): Object;
+	animate(property: string, value: number | string, options?: IAnimationOptions): Object;
 	/**
 	 * Animates object's properties
 	 * object.animate({ left: ..., top: ... }, { duration: ... });
@@ -350,7 +351,7 @@ interface IAnimationOptions {
 	/**
 	 * Allows to specify starting value of animatable property (if we don't want current value to be used).
 	 */
-	from?: string|number;
+	from?: string | number;
 	/**
 	 * Defaults to 500 (ms). Can be used to change duration of an animation.
 	 */
@@ -443,7 +444,7 @@ export class Color {
 	/**
 	 * Overlays color with another color
 	 */
-	overlayWith(otherColor: string|Color): Color;
+	overlayWith(otherColor: string | Color): Color;
 
 	/**
 	 * Returns new color object, when given a color in RGB format
@@ -551,7 +552,7 @@ interface IGradient extends IGradientOptions {
 	toLive(ctx: CanvasRenderingContext2D, object?: PathGroup): CanvasGradient;
 }
 interface IGrandientStatic {
-	new (options?: IGradientOptions): IGradient;
+	new(options?: IGradientOptions): IGradient;
 	/**
 	 * Returns instance from an SVG element
 	 * @param el SVG gradient element
@@ -612,10 +613,10 @@ interface IPatternOptions {
 	/**
 	 * The source for the pattern
 	 */
-	source: string|HTMLImageElement;
+	source: string | HTMLImageElement;
 }
-export interface Pattern extends IPatternOptions {}
-export class Pattern  {
+export interface Pattern extends IPatternOptions { }
+export class Pattern {
 	constructor(options?: IPatternOptions);
 
 	initialise(options?: IPatternOptions): Pattern;
@@ -797,10 +798,10 @@ interface IShadowOptions {
 	 */
 	offsetY: number;
 }
-export interface Shadow extends IShadowOptions {}
+export interface Shadow extends IShadowOptions { }
 export class Shadow {
 	constructor(options?: IShadowOptions);
-	initialize(options?: IShadowOptions|string): Shadow;
+	initialize(options?: IShadowOptions | string): Shadow;
 	/**
 	 * Returns object representation of a shadow
 	 */
@@ -851,6 +852,12 @@ interface IStaticCanvasOptions {
 	 * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas
 	 */
 	allowTouchScrolling?: boolean;
+
+	/**
+	 * When true, canvas is scaled by devicePixelRatio for better rendering on retina screens
+	 */
+	enableRetinaScaling?: boolean;
+
 	/**
 	 * Indicates whether this canvas will use image smoothing, this is on by default in browsers
 	 */
@@ -874,7 +881,7 @@ interface IStaticCanvasOptions {
 	 * Background color of canvas instance.
 	 * Should be set via setBackgroundColor
 	 */
-	backgroundColor?: string|Pattern;
+	backgroundColor?: string | Pattern;
 	/**
 	 * Background image of canvas instance.
 	 * Should be set via setBackgroundImage
@@ -902,7 +909,7 @@ interface IStaticCanvasOptions {
 	 * Overlay color of canvas instance.
 	 * Should be set via setOverlayColor
 	 */
-	overlayColor?: string|Pattern;
+	overlayColor?: string | Pattern;
 	/**
 	 * Overlay image of canvas instance.
 	 * Should be set via setOverlayImage
@@ -922,14 +929,14 @@ interface IStaticCanvasOptions {
 	 */
 	stateful?: boolean;
 }
-export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas> {}
+export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas> { }
 export class StaticCanvas {
 	/**
 	 * Constructor
 	 * @param element <canvas> element to initialize instance on
 	 * @param [options] Options object
 	 */
-	constructor(element: HTMLCanvasElement|string, options?: ICanvasOptions);
+	constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
 
 	/**
 	 * Calculates canvas element offset relative to the document
@@ -943,7 +950,7 @@ export class StaticCanvas {
 	 * @param callback callback to invoke when image is loaded and set as an overlay
 	 * @param [options] Optional options to set for the {@link fabric.Image|overlay image}.
 	 */
-	setOverlayImage(image: Image|string, callback: (img: HTMLImageElement) => void, options?: IImageOptions): this;
+	setOverlayImage(image: Image | string, callback: (img: HTMLImageElement) => void, options?: IImageOptions): this;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundImage|background image} for this canvas
@@ -951,21 +958,21 @@ export class StaticCanvas {
 	 * @param callback Callback to invoke when image is loaded and set as background
 	 * @param [options] Optional options to set for the {@link fabric.Image|background image}.
 	 */
-	setBackgroundImage(image: Image|string, callback?: (img: HTMLImageElement) => void, options?: IImageOptions): this;
+	setBackgroundImage(image: Image | string, callback?: (img: HTMLImageElement) => void, options?: IImageOptions): this;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayColor|background color} for this canvas
 	 * @param overlayColor Color or pattern to set background color to
 	 * @param callback Callback to invoke when background color is set
 	 */
-	setOverlayColor(overlayColor: string|Pattern, callback: (pattern: Pattern | undefined) => void): this;
+	setOverlayColor(overlayColor: string | Pattern, callback: (pattern: Pattern | undefined) => void): this;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundColor|background color} for this canvas
 	 * @param backgroundColor Color or pattern to set background color to
 	 * @param callback Callback to invoke when background color is set
 	 */
-	setBackgroundColor(backgroundColor: string|Pattern, callback: (pattern: Pattern | undefined) => void): StaticCanvas;
+	setBackgroundColor(backgroundColor: string | Pattern, callback: (pattern: Pattern | undefined) => void): StaticCanvas;
 
 	/**
 	 * Returns canvas width (in px)
@@ -982,14 +989,14 @@ export class StaticCanvas {
 	 * @param value                         Value to set width to
 	 * @param        [options]                     Options object
 	 */
-	setWidth(value: number|string, options?: ICanvasDimensionsOptions): this;
+	setWidth(value: number | string, options?: ICanvasDimensionsOptions): this;
 
 	/**
 	 * Sets height of this canvas instance
 	 * @param value                         Value to set height to
 	 * @param        [options]                     Options object
 	 */
-	setHeight(value: number|string, options?: ICanvasDimensionsOptions): this;
+	setHeight(value: number | string, options?: ICanvasDimensionsOptions): this;
 
 	/**
 	 * Sets dimensions (width, height) of this canvas instance. when options.cssOnly flag active you should also supply the unit of measure (px/%/em)
@@ -1213,7 +1220,7 @@ export class StaticCanvas {
 	 *                            are initialized
 	 * @param [reviver] Method for further parsing of JSON elements, called after each fabric object created.
 	 */
-	loadFromJSON(json: string|any, callback: () => void, reviver?: Function): this;
+	loadFromJSON(json: string | any, callback: () => void, reviver?: Function): this;
 	/**
 	 * Clones canvas instance
 	 * @param [callback] Receives cloned instance as a first argument
@@ -1364,8 +1371,8 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 */
 	isDrawingMode?: boolean;
 }
-export interface Canvas extends StaticCanvas {}
-export interface Canvas extends ICanvasOptions {}
+export interface Canvas extends StaticCanvas { }
+export interface Canvas extends ICanvasOptions { }
 export class Canvas {
 	/**
 	 * Constructor
@@ -1509,7 +1516,7 @@ interface ICircleOptions extends IObjectOptions {
 	 */
 	endAngle?: number;
 }
-export interface Circle extends Object, ICircleOptions {}
+export interface Circle extends Object, ICircleOptions { }
 export class Circle {
 	constructor(options?: ICircleOptions);
 
@@ -1571,7 +1578,7 @@ interface IEllipseOptions extends IObjectOptions {
 	 */
 	ry?: number;
 }
-export interface Ellipse extends Object, IEllipseOptions {}
+export interface Ellipse extends Object, IEllipseOptions { }
 export class Ellipse {
 	constructor(options?: IEllipseOptions);
 
@@ -1621,7 +1628,7 @@ export class Ellipse {
 	static fromObject(object: any): Ellipse;
 }
 
-export interface Group extends Object, ICollection<Group> {}
+export interface Group extends Object, ICollection<Group> { }
 export class Group {
 	/**
 	 * Constructor
@@ -1644,11 +1651,13 @@ export class Group {
 	 * @chainable
 	 */
 	destroy(): Group;
-	/**
-	 * Returns requested property
-	 * @param prop Property to get
-	 */
-	get(prop: string): any;
+    /**
+     * make a group an active selection, remove the group from canvas
+     * the group has to be on canvas for this to work.
+     * @return {fabric.ActiveSelection} thisArg
+     * @chainable
+     */
+    toActiveSelection(): ActiveSelection;
 	/**
 	 * Checks whether this group was moved (since `saveCoords` was called last)
 	 * @return true if an object was moved (since fabric.Group#saveCoords was called)
@@ -1713,7 +1722,7 @@ export class Group {
 ///////////////////////////////////////////////////////////////////////////////
 // ActiveSelection
 //////////////////////////////////////////////////////////////////////////////
-export interface ActiveSelection extends Object, ICollection<Group> {}
+export interface ActiveSelection extends Object, ICollection<Group> { }
 export class ActiveSelection {
 	/**
 	 * Constructor
@@ -1781,7 +1790,7 @@ interface IImageOptions extends IObjectOptions {
 	 */
 	filters?: IBaseFilter[];
 }
-interface Image extends Object, IImageOptions {}
+interface Image extends Object, IImageOptions { }
 export class Image {
 	/**
 	 * Constructor
@@ -1790,12 +1799,14 @@ export class Image {
 	 */
 	constructor(element: HTMLImageElement, objObjects: IObjectOptions);
 
-	initialize(element?: string|HTMLImageElement, options?: IImageOptions): void;
+	initialize(element?: string | HTMLImageElement, options?: IImageOptions): void;
 	/**
-	 * Applies filters assigned to this image (from "filters" array)
-	 * @param callback Callback is invoked when all filters have been applied and new image is generated
+	 * Applies filters assigned to this image (from "filters" array) or from filter param
+	 * @param {Array} filters to be applied
+	 * @return {thisArg} return the fabric.Image object
+	 * @chainable
 	 */
-	applyFilters(callback: Function): void;
+	applyFilters(filters?: IBaseFilter[]): Image;
 	/**
 	 * Returns a clone of an instance
 	 * @param callback Callback is invoked with a clone as a first argument
@@ -1867,7 +1878,7 @@ export class Image {
 	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
 	 * @param [imgOptions] Options object
 	 */
-	static fromURL(url: string, callback?: (image: Image) => void, objObjects?: IObjectOptions): Image;
+	static fromURL(url: string, callback?: (image: Image) => void, imgOptions?: IImageOptions): Image;
 	/**
 	 * Creates an instance of fabric.Image from its object representation
 	 * @param object Object to create an instance from
@@ -1907,7 +1918,7 @@ interface ILineOptions extends IObjectOptions {
 	 */
 	y2: number;
 }
-export interface Line extends Object, ILineOptions {}
+export interface Line extends Object, ILineOptions { }
 export class Line {
 	/**
 	 * Constructor
@@ -1997,7 +2008,17 @@ interface IObjectOptions {
 	 */
 	scaleY?: number;
 
-	/**
+    /**
+     * Object skew factor (horizontal)
+     */
+    skewX?: number;
+
+    /**
+     * Object skew factor (vertical)
+     */
+    skewY?: number;
+
+    /**
 	 * When true, an object is rendered as flipped horizontally
 	 */
 	flipX?: boolean;
@@ -2036,6 +2057,11 @@ interface IObjectOptions {
 	 * Color of controlling borders of an object (when it's active)
 	 */
 	borderColor?: string;
+
+    /**
+     * Array specifying dash pattern of an object's border (hasBorder must be true)
+     */
+    borderDashArray?: number[];
 
 	/**
 	 * Color of controlling corners of an object (when it's active)
@@ -2099,6 +2125,11 @@ interface IObjectOptions {
 	backgroundColor?: string;
 
 	/**
+	 * When `true`, object is cached on an additional canvas.
+	 */
+	objectCaching?: boolean;
+
+	/**
 	 * When defined, an object is rendered via stroke and this property specifies its color
 	 */
 	stroke?: string;
@@ -2131,7 +2162,7 @@ interface IObjectOptions {
 	/**
 	 * Shadow object representing shadow of this shape
 	 */
-	shadow?: Shadow|string;
+	shadow?: Shadow | string;
 
 	/**
 	 * Opacity of object's controlling borders when object is active and moving
@@ -2249,8 +2280,13 @@ interface IObjectOptions {
 	 * Not used by fabric, just for convenience
 	 */
 	data?: any;
+
+    /**
+     * Describes the object's corner position in canvas object absolute properties.
+     */
+    aCoords?: {bl: Point, br: Point, tl: Point, tr: Point};
 }
-export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> {}
+export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> { }
 export class Object {
 	getCurrentWidth(): number;
 	getCurrentHeight(): number;
@@ -2297,7 +2333,13 @@ export class Object {
 	getScaleY(): number;
 	setScaleY(value: number): Object;
 
-	setShadow(options: any): Object;
+    getSkewX(): number;
+    setSkewX(value: number): Object;
+
+    getSkewY(): number;
+    setSkewY(value: number): Object;
+
+    setShadow(options: any): Object;
 	getShadow(): Object;
 
 	stateProperties: any[];
@@ -2656,7 +2698,8 @@ export class Object {
 		mt?: boolean;
 		tl?: boolean;
 		tr?: boolean;
-		mtr?: boolean; }): this;
+		mtr?: boolean;
+	}): this;
 
 	// functions from geometry mixin
 	// -------------------------------------------------------------------------------------------------------------------------------
@@ -2667,9 +2710,11 @@ export class Object {
 	setCoords(): this;
 	/**
 	 * Returns coordinates of object's bounding rectangle (left, top, width, height)
+     * @param absoluteopt use coordinates without viewportTransform
+     * @param calculateopt use coordinates of current position instead of .oCoords / .aCoords
 	 * @return Object with left, top, width, height properties
 	 */
-	getBoundingRect(): { left: number; top: number; width: number; height: number };
+	getBoundingRect(absoluteopt?: boolean, calculateopt?: boolean): { left: number; top: number; width: number; height: number };
 	/**
 	 * Checks if object is fully contained within area of another object
 	 * @param other Object to test
@@ -2731,14 +2776,14 @@ interface IPathOptions extends IObjectOptions {
 	 */
 	minY?: number;
 }
-export interface Path extends Object, IPathOptions {}
+export interface Path extends Object, IPathOptions { }
 export class Path {
 	/**
 	 * Constructor
 	 * @param path Path data (sequence of coordinates and corresponding "command" tokens)
 	 * @param [options] Options object
 	 */
-	constructor(path?: string|any[], options?: IPathOptions);
+	constructor(path?: string | any[], options?: IPathOptions);
 
 	pathOffset: Point;
 
@@ -2871,7 +2916,7 @@ interface IPolygonOptions extends IObjectOptions {
 	 */
 	minY?: number;
 }
-export interface Polygon extends IPolygonOptions {}
+export interface Polygon extends IPolygonOptions { }
 export class Polygon extends Object {
 	/**
 	 * Constructor
@@ -2933,7 +2978,7 @@ interface IPolylineOptions extends IObjectOptions {
 	 */
 	minY?: number;
 }
-export interface Polyline extends IPolylineOptions {}
+export interface Polyline extends IPolylineOptions { }
 export class Polyline extends Object {
 	/**
 	 * Constructor
@@ -2993,7 +3038,7 @@ interface IRectOptions extends IObjectOptions {
 	ry?: number;
 }
 
-export interface Rect extends IRectOptions {}
+export interface Rect extends IRectOptions { }
 export class Rect extends Object {
 	/**
 	 * Constructor
@@ -3044,15 +3089,34 @@ interface ITextOptions extends IObjectOptions {
 	/**
 	 * Font weight (e.g. bold, normal, 400, 600, 800)
 	 */
-	fontWeight?: number|string;
+	fontWeight?: number | string;
 	/**
 	 * Font family
 	 */
 	fontFamily?: string;
 	/**
 	 * Text decoration Possible values?: "", "underline", "overline" or "line-through".
+     * Feels like this has been deprecated in favor of underline, overline, linethrough props
 	 */
 	textDecoration?: string;
+    /**
+     * Text decoration underline.
+     * @type Boolean
+     * @default
+     */
+    underline?: boolean;
+    /**
+     * Text decoration overline.
+     * @type Boolean
+     * @default
+     */
+    overline?: boolean;
+    /**
+     * Text decoration linethrough.
+     * @type Boolean
+     * @default
+     */
+    linethrough?: boolean;
 	/**
 	 * Text alignment. Possible values?: "left", "center", or "right".
 	 */
@@ -3065,6 +3129,10 @@ interface ITextOptions extends IObjectOptions {
 	 * Line height
 	 */
 	lineHeight?: number;
+    /**
+     * Character spacing
+     */
+    charSpacing?: number;
 	/**
 	 * When defined, an object is rendered via stroke and this property specifies its color.
 	 * <b>Backwards incompatibility note?:</b> This property was named "strokeStyle" until v1.1.6
@@ -3074,7 +3142,7 @@ interface ITextOptions extends IObjectOptions {
 	 * Shadow object representing shadow of this shape.
 	 * <b>Backwards incompatibility note?:</b> This property was named "textShadow" (String) until v1.2.11
 	 */
-	shadow?: Shadow|string;
+	shadow?: Shadow | string;
 	/**
 	 * Background color of text lines
 	 */
@@ -3084,7 +3152,7 @@ interface ITextOptions extends IObjectOptions {
 	useNative?: boolean;
 	text?: string;
 }
-export interface Text extends ITextOptions {}
+export interface Text extends ITextOptions { }
 export class Text extends Object {
 	/**
 	 * Constructor
@@ -3127,12 +3195,12 @@ export class Text extends Object {
 	/**
 	 * Retrieves object's fontWeight
 	 */
-	getFontWeight(): number|string;
+	getFontWeight(): number | string;
 	/**
 	 * Sets object's fontWeight
 	 * @param fontWeight Font weight
 	 */
-	setFontWeight(fontWeight: string|number): Text;
+	setFontWeight(fontWeight: string | number): Text;
 	/**
 	 * Retrieves object's fontFamily
 	 */
@@ -3160,6 +3228,33 @@ export class Text extends Object {
 	 * @param textDecoration Text decoration
 	 */
 	setTextDecoration(textDecoration: string): Text;
+    /**
+     * Retrieves object's underline
+     */
+    getUnderline(): boolean;
+    /**
+     * Sets object's underline
+     * @param underline Text underline
+     */
+    setUnderline(underline: boolean): Text;
+    /**
+     * Retrieves object's overline
+     */
+    getOverline(): boolean;
+    /**
+     * Sets object's overline
+     * @param overline Text overline
+     */
+    setOverline(overline: boolean): Text;
+    /**
+     * Retrieves object's linethrough
+     */
+    getLinethrough(): boolean;
+    /**
+     * Sets object's linethrough
+     * @param linethrough Text linethrough
+     */
+    setLinethrough(linethrough: boolean): Text;
 	/**
 	 * Retrieves object's fontStyle
 	 */
@@ -3178,6 +3273,15 @@ export class Text extends Object {
 	 * @param lineHeight Line height
 	 */
 	setLineHeight(lineHeight: number): Text;
+    /**
+     * Retrieves object's charSpacing
+     */
+    getCharSpacing(): number;
+    /**
+     * Sets object's charSpacing
+     * @param charSpacing Character spacing
+     */
+    setCharSpacing(charSpacing: number): Text;
 	/**
 	 * Retrieves object's textAlign
 	 */
@@ -3281,7 +3385,53 @@ interface IITextOptions extends IObjectOptions, ITextOptions {
 	 */
 	caching?: boolean;
 }
-export interface IText extends Text, IITextOptions {}
+export interface Textbox extends IText {}
+export class Textbox extends IText {
+    /**
+     * Constructor
+     * @param text Text string
+     * @param [options] Options object
+     */
+    constructor(text: string, options?: IITextOptions);
+    /**
+     * Detect if the text line is ended with an hard break
+     * text and itext do not have wrapping, return false
+     * @param {Number} lineIndex text to split
+     * @return {Boolean}
+     */
+    isEndOfWrapping(lineIndex: number): boolean;
+    /**
+     * Get minimum width of text box
+     * @return {Number}
+     */
+    getMinWidth(): number;
+    /**
+     * Selects entire text
+     * @return {fabric.Text} thisArg
+     * @chainable
+     */
+    selectAll(): Textbox;
+    /**
+     * Selects a line based on the index
+     * @param {Number} selectionStart Index of a character
+     * @return {fabric.IText} thisArg
+     * @chainable
+     */
+    selectLine(selectionStart: number): Textbox;
+    /**
+     * Enters editing state
+     * @return {fabric.Textbox} thisArg
+     * @chainable
+     */
+    enterEditing(): Textbox;
+    /**
+     * Exits from editing state
+     * @return {fabric.Textbox} thisArg
+     * @chainable
+     */
+    exitEditing(): Textbox;
+}
+export interface IText extends Text, IITextOptions { }
 export class IText extends Object {
 	/**
 	 * Constructor
@@ -3290,9 +3440,10 @@ export class IText extends Object {
 	 */
 	constructor(text: string, options?: IITextOptions);
 	/**
-	 * Returns true if object has no styling
+     * Returns true if object has no styling or no styling in a line
+     * @param {Number} lineIndex , lineIndex is on wrapped lines.
 	 */
-	isEmptyStyles(): boolean;
+	isEmptyStyles(lineIndex: number): boolean;
 	render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
 	/**
 	 * Returns object representation of an instance
@@ -3318,7 +3469,7 @@ export class IText extends Object {
 	 * @param [endIndex] End index to get styles at
 	 * @return styles Style object at a specified (or current) index
 	 */
-	getSelectionStyles(startIndex: number, endIndex: number): any;
+	getSelectionStyles(startIndex: number, endIndex: number, complete?: boolean): any;
 	/**
 	 * Sets style of a current selection
 	 * @param [styles] Styles object
@@ -3566,22 +3717,34 @@ interface IAllFilters {
 		 * Constructor
 		 * @param [options] Options object
 		 */
-		new (options?: any): IBaseFilter;
+		new(options?: any): IBaseFilter;
 	};
-	Blend: {
+	BlendColor: {
 		/**
 		 * Constructor
 		 * @param [options] Options object
 		 */
-		new (options?: { color?: string; mode?: string; alpha?: number; image?: Image }): IBlendFilter;
+		new(options?: { color?: string; mode?: string; alpha?: number; }): IBlendColorFilter;
 		/**
 		 * Returns filter instance from an object representation
 		 * @param object Object to create an instance from
 		 */
-		fromObject(object: any): IBlendFilter
+		fromObject(object: any): IBlendColorFilter
+	};
+	BlendImage: {
+		/**
+		 * Constructor
+		 * @param [options] Options object
+		 */
+		new(options?: { image?: Image; mode?: string; alpha?: number; }): IBlendImageFilter;
+		/**
+		 * Returns filter instance from an object representation
+		 * @param object Object to create an instance from
+		 */
+		fromObject(object: any): IBlendImageFilter
 	};
 	Brightness: {
-		new (options?: {
+		new(options?: {
 			/**
 			 * Value to brighten the image up (0..255)
 			 * @default 0
@@ -3595,7 +3758,7 @@ interface IAllFilters {
 		fromObject(object: any): IBrightnessFilter
 	};
 	Convolute: {
-		new (options?: {
+		new(options?: {
 			opaque?: boolean,
 			/** Filter matrix */
 			matrix?: number[],
@@ -3607,7 +3770,7 @@ interface IAllFilters {
 		fromObject(object: any): IConvoluteFilter
 	};
 	GradientTransparency: {
-		new (options?: {
+		new(options?: {
 			/** @default 100 */
 			threshold?: number;
 		}): IGradientTransparencyFilter;
@@ -3618,7 +3781,7 @@ interface IAllFilters {
 		fromObject(object: any): IGradientTransparencyFilter
 	};
 	Grayscale: {
-		new (options?: any): IGrayscaleFilter;
+		new(options?: any): IGrayscaleFilter;
 		/**
 		 * Returns filter instance from an object representation
 		 * @param object Object to create an instance from
@@ -3630,7 +3793,7 @@ interface IAllFilters {
 		 * Constructor
 		 * @param [options] Options object
 		 */
-		new (options?: any): IInvertFilter;
+		new(options?: any): IInvertFilter;
 		/**
 		 * Returns filter instance from an object representation
 		 * @param object Object to create an instance from
@@ -3638,7 +3801,7 @@ interface IAllFilters {
 		fromObject(object: any): IInvertFilter
 	};
 	Mask: {
-		new (options?: {
+		new(options?: {
 			/** Mask image object */
 			mask?: Image,
 			/**
@@ -3654,7 +3817,7 @@ interface IAllFilters {
 		fromObject(object: any): IMaskFilter
 	};
 	Multiply: {
-		new (options?: {
+		new(options?: {
 			/**
 			 * Color to multiply the image pixels with
 			 * @default #000000
@@ -3668,7 +3831,7 @@ interface IAllFilters {
 		fromObject(object: any): IMultiplyFilter
 	};
 	Noise: {
-		new (options?: {
+		new(options?: {
 			/** @default 0 */
 			noise: number,
 		}): INoiseFilter;
@@ -3679,7 +3842,7 @@ interface IAllFilters {
 		fromObject(object: any): INoiseFilter
 	};
 	Pixelate: {
-		new (options?: {
+		new(options?: {
 			/**
 			 * Blocksize for pixelate
 			 * @default 4
@@ -3693,7 +3856,7 @@ interface IAllFilters {
 		fromObject(object: any): IPixelateFilter
 	};
 	RemoveWhite: {
-		new (options?: {
+		new(options?: {
 			/** @default 30 */
 			threshold?: number,
 			/** @default 20 */
@@ -3706,7 +3869,7 @@ interface IAllFilters {
 		fromObject(object: any): IRemoveWhiteFilter
 	};
 	Resize: {
-		new (options?: any): IResizeFilter;
+		new(options?: any): IResizeFilter;
 		/**
 		 * Returns filter instance from an object representation
 		 * @param object Object to create an instance from
@@ -3714,7 +3877,7 @@ interface IAllFilters {
 		fromObject(object: any): IResizeFilter
 	};
 	Sepia2: {
-		new (options?: any): ISepia2Filter;
+		new(options?: any): ISepia2Filter;
 		/**
 		 * Returns filter instance from an object representation
 		 * @param object Object to create an instance from
@@ -3722,7 +3885,7 @@ interface IAllFilters {
 		fromObject(object: any): ISepia2Filter
 	};
 	Sepia: {
-		new (options?: any): ISepiaFilter;
+		new(options?: any): ISepiaFilter;
 		/**
 		 * Returns filter instance from an object representation
 		 * @param object Object to create an instance from
@@ -3730,7 +3893,7 @@ interface IAllFilters {
 		fromObject(object: any): ISepiaFilter
 	};
 	Tint: {
-		new (options?: {
+		new(options?: {
 			/**
 			 * Color to tint the image with
 			 * @default #000000
@@ -3761,7 +3924,14 @@ interface IBaseFilter {
 	 */
 	toJSON(): string;
 }
-interface IBlendFilter extends IBaseFilter {
+interface IBlendColorFilter extends IBaseFilter {
+	/**
+	 * Applies filter to canvas element
+	 * @param canvasEl Canvas element to apply filter to
+	 */
+	applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IBlendImageFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
@@ -3782,63 +3952,63 @@ interface IConvoluteFilter extends IBaseFilter {
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IGradientTransparencyFilter {
+interface IGradientTransparencyFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IGrayscaleFilter {
+interface IGrayscaleFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IInvertFilter {
+interface IInvertFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IMaskFilter {
+interface IMaskFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IMultiplyFilter {
+interface IMultiplyFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface INoiseFilter {
+interface INoiseFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IPixelateFilter {
+interface IPixelateFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IRemoveWhiteFilter {
+interface IRemoveWhiteFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IResizeFilter {
+interface IResizeFilter extends IBaseFilter {
 	/**
 	 * Resize type
 	 */
@@ -3864,21 +4034,21 @@ interface IResizeFilter {
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ISepiaFilter {
+interface ISepiaFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ISepia2Filter {
+interface ISepia2Filter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ITintFilter {
+interface ITintFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
@@ -3905,7 +4075,7 @@ export class BaseBrush {
 	 * <b>Backwards incompatibility note:</b> This property replaces "shadowColor" (String), "shadowOffsetX" (Number),
 	 * "shadowOffsetY" (Number) and "shadowBlur" (Number) since v1.2.12
 	 */
-	shadow: Shadow|string;
+	shadow: Shadow | string;
 	/**
 	 * Line endings style of a brush (one of "butt", "round", "square")
 	 */
@@ -3925,7 +4095,7 @@ export class BaseBrush {
 	 * Sets shadow of an object
 	 * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
 	 */
-	setShadow(options: string|any): BaseBrush;
+	setShadow(options: string | any): BaseBrush;
 }
 
 export class CircleBrush extends BaseBrush {
@@ -4133,7 +4303,7 @@ interface IUtilDomMisc {
 	/**
 	 * Takes id and returns an element with that id (if one exists in a document)
 	 */
-	getById(id: string|HTMLElement): HTMLElement;
+	getById(id: string | HTMLElement): HTMLElement;
 	/**
 	 * Converts an array-like object (e.g. arguments or NodeList) to an array
 	 */
@@ -4157,7 +4327,7 @@ interface IUtilDomMisc {
 	 * @param wrapper Element to wrap with
 	 * @param [attributes] Attributes to set on a wrapper
 	 */
-	wrapElement(element: HTMLElement, wrapper: HTMLElement|string, attributes?: any): HTMLElement;
+	wrapElement(element: HTMLElement, wrapper: HTMLElement | string, attributes?: any): HTMLElement;
 	/**
 	 * Returns element scroll offsets
 	 * @param element Element to operate on
@@ -4353,7 +4523,7 @@ interface IUtilMisc {
 	 * Returns converted pixels or original value not converted.
 	 * @param value number to operate on
 	 */
-	parseUnit(value: number|string, fontSize?: number): number|string;
+	parseUnit(value: number | string, fontSize?: number): number | string;
 
 	/**
 	 * Function which always returns `false`.
@@ -4380,7 +4550,7 @@ interface IUtilMisc {
 	 * @param [context] Context to invoke callback in
 	 * @param [crossOrigin] crossOrigin value to set image element to
 	 */
-	loadImage(url: string, callback: (image: HTMLImageElement) => void, context?: any, crossOrigin?: boolean): void;
+	loadImage(url: string, callback: (image: HTMLImageElement) => void, context?: any, crossOrigin?: string): void;
 
 	/**
 	 * Creates corresponding fabric instances from their object representations
@@ -4479,4 +4649,58 @@ interface IUtil extends IUtilAnimation, IUtilArc, IObservable<IUtil>, IUtilDomEv
 	array: IUtilArray;
 	object: IUtilObject;
 	string: IUtilString;
+}
+
+export interface Resources {
+	[key: string]: HTMLCanvasElement
+}
+export interface FilterBackend {
+	resources: Resources;
+
+	applyFilters(filters: IBaseFilter[], sourceElement: HTMLImageElement | HTMLCanvasElement, sourceWidth: number, sourceHeight: number, targetCanvas: HTMLCanvasElement,cacheKey?: string): any;
+
+	evictCachesForKey(cacheKey: string): void;
+
+	dispose(): void;
+
+	clearWebGLCaches(): void;
+
+}
+export let filterBackend: FilterBackend;
+export interface Canvas2dFilterBackend extends FilterBackend { }
+export class Canvas2dFilterBackend {
+	constructor();
+}
+
+export interface GPUInfo{
+	renderer:string;
+	vendor:string;
+}
+
+export interface WebglFilterBackendOptions {
+	tileSize: number;
+}
+export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOptions {
+	setupGLContext(width: number, height: number): void;
+
+	chooseFastestCopyGLTo2DMethod(width: number, height: number): void;
+
+	createWebGLCanvas(width: number, height: number): void;
+
+	applyFiltersDebug(filters: IBaseFilter[], sourceElement: HTMLImageElement | HTMLCanvasElement, sourceWidth: number, sourceHeight: number, targetCanvas: HTMLCanvasElement, cacheKey?: string): any;
+
+	glErrorToString(context: any, errorCode: any): string;
+
+	createTexture(gl: WebGLRenderingContext, width: number, height: number, textureImageSource?: HTMLImageElement | HTMLCanvasElement): WebGLTexture;
+
+	getCachedTexture(uniqueId: string, textureImageSource: HTMLImageElement | HTMLCanvasElement): WebGLTexture;
+
+	copyGLTo2D(gl: WebGLRenderingContext, pipelineState: any): void;
+
+	captureGPUInfo(): GPUInfo;
+
+}
+
+export class WebglFilterBackend {
+	constructor(options?: WebglFilterBackendOptions);
 }

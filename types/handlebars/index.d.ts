@@ -35,11 +35,17 @@ declare namespace Handlebars {
         [key: string]: HelperDelegate;
     }
 
+    export interface ParseOptions {
+        srcName?: string,
+        ignoreStandalone?: boolean
+    }
+
     export function registerHelper(name: string, fn: HelperDelegate): void;
     export function registerHelper(name: HelperDeclareSpec): void;
     export function unregisterHelper(name: string): void;
 
     export function registerPartial(name: string, fn: Template): void;
+    export function registerPartial(spec: { [name: string]: HandlebarsTemplateDelegate }): void;
     export function unregisterPartial(name: string): void;
 
     // TODO: replace Function with actual signature
@@ -51,7 +57,7 @@ declare namespace Handlebars {
     export function blockParams(obj: any[], ids: any[]): any[];
     export function Exception(message: string): void;
     export function log(level: number, obj: any): void;
-    export function parse(input: string): hbs.AST.Program;
+    export function parse(input: string, options?: ParseOptions): hbs.AST.Program;
     export function compile<T = any>(input: any, options?: CompileOptions): HandlebarsTemplateDelegate<T>;
     export function precompile(input: any, options?: PrecompileOptions): TemplateSpecification;
     export function template<T = any>(precompilation: TemplateSpecification): HandlebarsTemplateDelegate<T>;
@@ -338,6 +344,6 @@ declare module "handlebars" {
     export = Handlebars;
 }
 
-declare module "handlebars/handlebars.runtime" {
+declare module "handlebars/runtime" {
     export = Handlebars;
 }

@@ -1,4 +1,3 @@
-import _ = require('lodash');
 import { Configuration, HotModuleReplacementPlugin, Plugin } from 'webpack';
 import webpackMerge = require('webpack-merge');
 
@@ -16,7 +15,7 @@ const f: Configuration = webpackMerge(
     {
         customizeArray(x: any[], y: any[], key: string): any[] | undefined {
             if (key === 'extensions') {
-                return _.uniq([...x, ...y]);
+                return Array.from(new Set([...x, ...y]));
             }
             // Fall back to default merging
             return undefined;
@@ -24,7 +23,7 @@ const f: Configuration = webpackMerge(
         customizeObject(x: {}, y: {}, key: string): {} | undefined {
             if (key === 'module') {
                 // Custom merging
-                return _.merge({}, x, y);
+                return { ...x, ...y };
             }
 
             // Fall back to default merging

@@ -1,12 +1,23 @@
-# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
-
-[![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# DefinitelyTyped
 
 > The repository for *high quality* TypeScript type definitions.
 
 Also see the [definitelytyped.org](http://definitelytyped.org) website, although information in this README is more up-to-date.
 
-*[You can also read this README in Spanish!](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)*
+*You can also read this README in [Spanish](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Korean](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), and [Russian](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)!*
+
+## Current status
+
+This section tracks the health of the repository and publishing process.
+It may be helpful for contributors experiencing any issues with their PRs and packages.
+
+* All packages are type-checking/linting cleanly: [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+* All packages are being published to npm in under 10,000 seconds: [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
+* [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
+
+If anything here seems wrong, or any of the above are failing, please raise an issue in [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
+
+[![Join the chat at https://gitter.im/DefinitelyTyped/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DefinitelyTyped/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## What are declaration files?
 
@@ -54,7 +65,7 @@ Before you share your improvement with the world, use it yourself.
 
 #### Test editing an existing package
 
-To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html).
+To add new features you can use [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation).
 You can also directly edit the types in `node_modules/@types/foo/index.d.ts`, or copy them from there and follow the steps below.
 
 
@@ -87,6 +98,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
+  If you make breaking changes, do not forget to [update a major version](#i-want-to-update-a-package-to-a-new-major-version).
 * You may also want to add yourself to "Definitions by" section of the package header.
   - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
@@ -120,7 +132,7 @@ Your package should have this structure:
 | tsconfig.json | This allows you to run `tsc` within the package. |
 | tslint.json | Enables linting. |
 
-Generate these by running `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module`.
+Generate these by running `npx dts-gen --dt --name my-package-name --template module` if you have npm ≥ 5.2.0, `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module` otherwise.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
 You may edit the `tsconfig.json` to add new files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
@@ -168,8 +180,14 @@ If a package was never on DefinitelyTyped, it does not need to be added to `notN
 
 #### Lint
 
-To lint a package, just add a `tslint.json` to that package containing `{ "extends": "dtslint/dt.json" }`. All new packages must be linted.
-If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
+All new packages must be linted. To lint a package, add a `tslint.json` to that package containing
+```js
+{
+    "extends": "dtslint/dt.json"
+}
+```
+
+This should be the only content in a finished project's `tslint.json` file. If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
 
 ```js
 {
@@ -247,6 +265,41 @@ For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the 
 #### I want to use features from TypeScript 2.1 or above.
 
 Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
+
+#### I want to use features from TypeScript 3.1 or above.
+
+You will need to use the `typesVersions` feature of TypeScript 3.1 and above. You can find a detailed explanation
+of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
+
+Here's a short explanation to get you started:
+
+1. You'll have to add a `package.json` file to your package definition, with the following contents:
+
+```json
+{
+    "private": true,
+    "types": "index",
+    "typesVersions": {
+        ">=3.1.0-0": { "*": ["ts3.1/*"] }
+    }
+}
+```
+
+2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.1/` in this example)
+and add the types and tests specific for the new TypeScript version. You don't need the typical definition header
+in any of the files from the `ts3.1/` directory.
+
+3. Set the `baseUrl` and `typeRoots` options in `ts3.1/tsconfig.json` to the correct paths, they should look something like this:
+```json
+{
+    "compilerOptions": {
+        "baseUrl": "../../",
+        "typeRoots": ["../../"]
+    }
+}
+```
+
+You can look [here](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) and [here](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/create-html-element) for examples.
 
 #### I want to add a DOM API not present in TypeScript by default.
 

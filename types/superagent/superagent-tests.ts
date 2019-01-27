@@ -83,6 +83,12 @@ request
     .set({ 'API-Key': 'foobar', Accept: 'application/json' })
     .end(callback);
 
+// Setting cookie header
+request
+    .get('/search')
+    .set('Cookie', ['name1=value1; Domain=.test.com; Path=/', 'name2=value2; Domain=.test.com; Path=/'])
+    .end(callback);
+
 // GET requests
 request
     .get('/search')
@@ -198,6 +204,12 @@ request('/search')
         const charset: string = res.charset;
     });
 
+// Getting response 'Set-Cookie'
+request('/search')
+    .end((res: request.Response) => {
+      const setCookie: string[] = res.get('Set-Cookie');
+    });
+
 // Custom parsers
 request
     .post('/search')
@@ -230,11 +242,27 @@ const reqCookies: string = req.cookies;
 
 console.log(`${reqMethod} request to ${reqUrl} cookies ${reqCookies}`);
 
-// Basic authentication
+// Authentication
 request.get('http://tobi:learnboost@local').end(callback);
+
 request
     .get('http://local')
     .auth('tobo', 'learnboost')
+    .end(callback);
+
+request
+    .get('http://local')
+    .auth('user', 'pass', { type: 'basic' })
+    .end(callback);
+
+request
+    .get('http://local')
+    .auth('user', 'pass', {type: 'auto'})
+    .end(callback);
+
+request
+    .get('http://local')
+    .auth('abearertoken', { type: 'bearer' })
     .end(callback);
 
 // Following redirects
@@ -373,6 +401,16 @@ request
     .pfx(pfx)
     .end(callback);
 
+// pfx with passphrase, from: https://github.com/visionmedia/superagent/pull/1230/commits/96af65ffc6256df633f893095d1dc828694bbfbc
+const passpfx = fs.readFileSync('passcert.pfx');
+request
+    .post('/secure')
+    .pfx({
+        pfx: passpfx,
+        passphrase: 'test'
+    })
+    .end(callback);
+
 // ok, from: https://github.com/visionmedia/superagent/commit/34533bbc29833889090847c45a82b0ea81b2f06d
 request
     .get('/404')
@@ -380,3 +418,31 @@ request
     .then(response => {
         // reads 404 page as a successful response
     });
+
+// Test that the "Plugin" type from "use" provides a SuperAgentRequest rather than a Request,
+// which has additional properties.
+const echoPlugin = (request: request.SuperAgentRequest) => {
+  req.url = '' + req.url;
+  req.cookies = '' + req.cookies;
+  if (req.method) {
+    req.url = '/echo';
+  }
+};
+
+request
+    .get('/echo')
+    .use(echoPlugin)
+    .end();
+
+async function testDefaultOptions() {
+    // Default options for multiple requests
+    const agentWithDefaultOptions = request
+        .agent()
+        .use(() => null)
+        .auth('digest', 'secret', { type: 'auto' });
+
+    await agentWithDefaultOptions.get('/with-plugin-and-auth');
+    await agentWithDefaultOptions.get('/also-with-plugin-and-auth');
+}
+
+testDefaultOptions();

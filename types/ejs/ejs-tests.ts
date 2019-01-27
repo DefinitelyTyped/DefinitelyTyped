@@ -3,7 +3,7 @@
 import ejs = require("ejs");
 import { readFileSync as read } from 'fs';
 import LRU = require("lru-cache");
-import { TemplateFunction, Options } from "ejs";
+import { TemplateFunction, AsyncTemplateFunction, Options } from "ejs";
 
 const fileName = 'test.ejs';
 const people = ['geddy', 'neil', 'alex'];
@@ -12,6 +12,8 @@ const template = '<%= people.join(", "); %>';
 const options = { filename: fileName };
 let result: string;
 let ejsFunction: TemplateFunction;
+let asyncResult: Promise<string>;
+let ejsAsyncFunction: AsyncTemplateFunction;
 
 const SimpleCallback = (err: any, html?: string) => {
     if (err) {
@@ -27,6 +29,9 @@ result = ejs.render(template, data, options);
 result = ejs.renderFile(fileName, SimpleCallback);
 result = ejs.renderFile(fileName, data, SimpleCallback);
 result = ejs.renderFile(fileName, data, options, SimpleCallback);
+asyncResult = ejs.renderFile(fileName);
+asyncResult = ejs.renderFile(fileName, data);
+asyncResult = ejs.renderFile(fileName, data, options);
 
 ejsFunction = ejs.compile('');
 ejsFunction = ejs.compile(read(fileName, "utf8"));
@@ -44,10 +49,18 @@ ejsFunction = ejs.compile('<%= it.people.join(", "); %>', { _with: false, locals
 ejsFunction = ejs.compile(template, { rmWhitespace: true });
 const customEscape = (str: string) => !str ? '' : str.toUpperCase();
 ejsFunction = ejs.compile(template, { escape: customEscape });
+ejsFunction = ejs.compile(template, { async: false });
+
+ejsAsyncFunction = ejs.compile(template, { async: true });
+ejsAsyncFunction = ejs.compile(template, { client: true, async: true });
 
 result = ejsFunction();
 result = ejsFunction({});
 result = ejsFunction(data);
+
+asyncResult = ejsAsyncFunction();
+asyncResult = ejsAsyncFunction({});
+asyncResult = ejsAsyncFunction(data);
 
 /** @see https://github.com/mde/ejs/tree/v2.5.7#custom-fileloader */
 ejs.fileLoader = (path: string) => "";

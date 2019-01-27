@@ -1,7 +1,6 @@
 // Type definitions for noble
 // Project: https://github.com/sandeepmistry/noble
 // Definitions by: Seon-Wook Park <https://github.com/swook>
-//                 Hans Bakker <https://github.com/wind-rider>
 //                 Shantanu Bhadoria <https://github.com/shantanubhadoria>
 //                 Luke Libraro <https://github.com/lukel99>
 //                 Dan Chao <https://github.com/bioball>
@@ -31,6 +30,8 @@ export declare function removeListener(event: "scanStop", listener: () => void):
 export declare function removeListener(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
 export declare function removeListener(event: string, listener: Function): events.EventEmitter;
 
+export declare function removeAllListeners(event?: string): events.EventEmitter;
+
 export declare var state:string;
 
 export declare class Peripheral extends events.EventEmitter {
@@ -42,7 +43,7 @@ export declare class Peripheral extends events.EventEmitter {
     advertisement: Advertisement;
     rssi:          number;
     services:      Service[];
-    state:         string;
+    state:         'error' | 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
 
     connect(callback?: (error: string) => void): void;
     disconnect(callback?: () => void): void;

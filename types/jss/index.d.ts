@@ -3,6 +3,7 @@
 // Definitions by: Brenton Simpson <https://github.com/appsforartists>
 //                 Oleg Slobodskoi <https://github.com/kof>
 //                 Thomas Crockett <https://github.com/pelotom>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -76,7 +77,7 @@ export interface StyleSheet<RuleName extends string = any> {
 export type GenerateClassName<Name extends string = any> = (rule: Rule, sheet?: StyleSheet<Name>) => string;
 
 export interface JSSPlugin {
-	[key: string]: () => Partial<{
+	[key: string]: Partial<{
 		onCreateRule(name: string, style: Style, options: RuleOptions): Rule;
 		onProcessRule(rule: Rule, sheet: StyleSheet): void;
 		onProcessStyle(style: Style, rule: Rule, sheet: StyleSheet): Style;
@@ -104,27 +105,28 @@ export interface RuleOptions {
 	className: string;
 }
 export declare class SheetsRegistry {
-    constructor();
-    registry: ReadonlyArray<StyleSheet>;
-    readonly index: number;
-    add(sheet: StyleSheet): void;
-    reset(): void;
-    remove(sheet: StyleSheet): void;
-    toString(options?: ToCssOptions): string;
+	constructor();
+	registry: ReadonlyArray<StyleSheet>;
+	readonly index: number;
+	add(sheet: StyleSheet): void;
+	reset(): void;
+	remove(sheet: StyleSheet): void;
+	toString(options?: ToCssOptions): string;
 }
-declare class JSS {
+export type CreateStyleSheetOptions<Name extends string = any> = Partial<{
+	media: string;
+	meta: string;
+	link: boolean;
+	element: HTMLStyleElement;
+	index: number;
+	generateClassName: GenerateClassName<Name>;
+	classNamePrefix: string;
+}>;
+export declare class JSS {
 	constructor(options?: Partial<JSSOptions>);
 	createStyleSheet<Name extends string>(
 		styles: Partial<Styles<Name>>,
-		options?: Partial<{
-			media: string;
-			meta: string;
-			link: boolean;
-			element: HTMLStyleElement;
-			index: number;
-			generateClassName: GenerateClassName<Name>;
-			classNamePrefix: string;
-		}>,
+		options?: CreateStyleSheetOptions<Name>,
 	): StyleSheet<Name>;
 	removeStyleSheet(sheet: StyleSheet): this;
 	setup(options?: Partial<JSSOptions>): this;
@@ -136,6 +138,7 @@ declare class JSS {
  * Creates a new instance of JSS.
  */
 export function create(options?: Partial<JSSOptions>): JSS;
+export function createGenerateClassName(): GenerateClassName;
 declare const sharedInstance: JSS;
 /**
  * A global JSS instance.

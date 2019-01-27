@@ -1,8 +1,9 @@
+import * as React from 'react';
 import { DropdownProps } from './Dropdown';
 
-export interface InputGroupButtonDropdownProps extends DropdownProps {
+export type InputGroupButtonDropdownProps<T = {}> = DropdownProps & {
     addonType: 'prepend' | 'append';
-}
+} & T;
 
-declare const InputGroupButtonDropdown: React.StatelessComponent<InputGroupButtonDropdownProps>;
+declare class InputGroupButtonDropdown<T = {[key: string]: any}> extends React.Component<InputGroupButtonDropdownProps<T>> {}
 export default InputGroupButtonDropdown;

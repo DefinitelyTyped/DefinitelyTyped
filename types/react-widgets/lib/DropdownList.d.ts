@@ -3,15 +3,23 @@ import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownListClass>, AutoFocus {
     /**
+     * Allow to create a new option on the data list.
+     */
+    allowCreate?: boolean | 'onFilter';
+    /**
      * The current value of the DropdownList. This can be an object (such as a member of the
      * data array) or a primitive value, hinted to by the valueField. The widget value does not
      * need to be in the data array; widgets can have values that are not in their list.
      */
     value?: any;
-      /**
+    /**
      * Default value.
      */
     defaultValue?: any;
+    /**
+     * Create event Handler that is called when a new option is added to the data list.
+     */
+    onCreate?: (value: any) => void;
     /**
      * Change event Handler that is called when the value is changed.
      */
@@ -40,6 +48,10 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * @default 250
      */
     delay?: number;
+    /**
+     * Change the opening direction of the popup
+     */
+    dropUp?: boolean;
     /**
      * A dataItem field name for uniquely identifying items in the data list. A valueField is
      * required when the value prop is not itself a dataItem. A valueField is useful when
@@ -110,9 +122,8 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * There are a few built-in filtering methods that can be specified by passing the String name.
      * To handle custom filtering techniques provide a function that returns true or false
      * for each passed in item (analogous to the array.filter builtin)
-     * @enum false "startsWith" "endsWith" "contains"
      */
-    filter?: boolean | "startsWith" | "endsWith" | "contains" | ((dataItem: any, str: string) => boolean);
+    filter?: false | "startsWith" | "endsWith" | "contains" | ((dataItem: any, str: string) => boolean);
     /**
      * Use in conjunction with the filter prop. Filter the list without regard for case. This
      * only applies to non function values for filter
@@ -177,9 +188,14 @@ interface DropdownListMessages {
      * @default: "The filter returned no results"
      */
     emptyFilter?: string | ((props: DropdownListProps) => string);
+    /**
+     * Text to display for the create option
+     * @default: "Create option {text}"
+     */
+    createOption?: string | ((props: DropdownListProps) => string);
 }
 
-interface DropdownList extends React.ReactElement<DropdownListProps> {}
-interface DropdownListClass extends React.ComponentClass<DropdownListProps> {}
+interface DropdownList extends React.ReactElement<DropdownListProps> { }
+interface DropdownListClass extends React.ComponentClass<DropdownListProps> { }
 declare var DropdownList: DropdownListClass;
 export = DropdownList;

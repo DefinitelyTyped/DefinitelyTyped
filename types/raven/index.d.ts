@@ -133,6 +133,7 @@ export namespace transports {
     port?: number;
     ca?: string;
     agent?: Agent;
+    rejectUnauthorized?: boolean;
   }
   abstract class Transport extends EventEmitter {
     abstract send(
@@ -158,4 +159,6 @@ export namespace transports {
   }
   class HTTPSTransport extends HTTPTransport {
   }
+  const https: HTTPSTransport;
+  const http: HTTPTransport;
 }

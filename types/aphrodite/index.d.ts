@@ -2,7 +2,7 @@
 // Project: https://github.com/Khan/aphrodite
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as CSS from "csstype";
 
@@ -12,20 +12,15 @@ type FontFamily =
     | BaseCSSProperties['fontFamily']
     | CSS.FontFace;
 
-// Replace with Exclude once on 2.8+
-type Diff<T extends string, U extends string> = (
-    & { [P in T]: P }
-    & { [P in U]: never }
-    & { [x: string]: never }
-)[T];
-type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-type CSSProperties = Omit<BaseCSSProperties, 'fontFamily'> & {
+type CSSProperties = Omit<BaseCSSProperties, 'fontFamily' | 'transition' | 'animationName' > & {
     fontFamily?: FontFamily | FontFamily[];
+    animationName?: string | OpenCSSProperties | OpenCSSProperties[];
 };
 
 // For pseudo selectors and media queries
-interface OpenCSSProperties  extends CSSProperties {
+interface OpenCSSProperties extends CSSProperties {
     [k: string]: CSSProperties[keyof CSSProperties] | CSSProperties;
 }
 

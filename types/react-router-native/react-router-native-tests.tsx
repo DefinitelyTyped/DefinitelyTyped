@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProperties, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import { AndroidBackButton, BackButton, Link, NativeRouter as Router, Route } from 'react-router-native';
 
 const Home: React.SFC = () => {
@@ -24,7 +24,7 @@ const About: React.SFC = () => {
  );
 };
 
-interface ButtonTextProps extends TouchableOpacityProperties {
+interface ButtonTextProps extends TouchableOpacityProps {
     text: string;
 }
 

@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import { GraphQLError } from "../error";
 import {
     DocumentNode,
@@ -17,27 +18,44 @@ import {
 } from "../type/definition";
 import { GraphQLDirective } from "../type/directives";
 import { TypeInfo } from "../utilities/TypeInfo";
+import { ASTVisitor } from "../language/visitor";
 
 type NodeWithSelectionSet = OperationDefinitionNode | FragmentDefinitionNode;
-type VariableUsage = { node: VariableNode; type: GraphQLInputType | void };
+type VariableUsage = {
+    readonly node: VariableNode;
+    readonly type: Maybe<GraphQLInputType>;
+    readonly defaultValue: Maybe<any>;
+};
 
 /**
  * An instance of this class is passed as the "this" context to all validators,
  * allowing access to commonly useful contextual information from within a
  * validation rule.
  */
-export default class ValidationContext {
-    constructor(schema: GraphQLSchema, ast: DocumentNode, typeInfo: TypeInfo);
+export class ASTValidationContext {
+    constructor(ast: DocumentNode);
 
     reportError(error: GraphQLError): undefined;
 
     getErrors(): ReadonlyArray<GraphQLError>;
 
+    getDocument(): DocumentNode;
+}
+
+export class SDLValidationContext extends ASTValidationContext {
+    constructor(ast: DocumentNode, schema?: Maybe<GraphQLSchema>);
+
+    getSchema(): Maybe<GraphQLSchema>;
+}
+
+export type SDLValidationRule = (context: SDLValidationContext) => ASTVisitor;
+
+export class ValidationContext extends ASTValidationContext {
+    constructor(schema: GraphQLSchema, ast: DocumentNode, typeInfo: TypeInfo);
+
     getSchema(): GraphQLSchema;
 
-    getDocument(): DocumentNode;
-
-    getFragment(name: string): FragmentDefinitionNode | void;
+    getFragment(name: string): Maybe<FragmentDefinitionNode>;
 
     getFragmentSpreads(node: SelectionSetNode): ReadonlyArray<FragmentSpreadNode>;
 
@@ -47,17 +65,19 @@ export default class ValidationContext {
 
     getRecursiveVariableUsages(operation: OperationDefinitionNode): ReadonlyArray<VariableUsage>;
 
-    getType(): GraphQLOutputType | void;
+    getType(): Maybe<GraphQLOutputType>;
 
-    getParentType(): GraphQLCompositeType | void;
+    getParentType(): Maybe<GraphQLCompositeType>;
 
-    getInputType(): GraphQLInputType | void;
+    getInputType(): Maybe<GraphQLInputType>;
 
-    getParentInputType(): GraphQLInputType | void;
+    getParentInputType(): Maybe<GraphQLInputType>;
 
-    getFieldDef(): GraphQLField<any, any> | void;
+    getFieldDef(): Maybe<GraphQLField<any, any>>;
 
-    getDirective(): GraphQLDirective | void;
+    getDirective(): Maybe<GraphQLDirective>;
 
-    getArgument(): GraphQLArgument | void;
+    getArgument(): Maybe<GraphQLArgument>;
 }
+
+export type ValidationRule = (context: ValidationContext) => ASTVisitor;

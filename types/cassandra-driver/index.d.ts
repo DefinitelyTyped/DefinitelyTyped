@@ -1,4 +1,4 @@
-// Type definitions for cassandra-driver v3.4.1
+// Type definitions for cassandra-driver 3.6
 // Project: https://github.com/datastax/nodejs-driver
 // Definitions by: Marc Fisher <https://github.com/Svjard>
 //                 Christian D <https://github.com/pc-jedi>
@@ -6,7 +6,6 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-/// <reference types="long" />
 
 export type Callback = Function;
 export type ResultCallback = (err: Error, result: types.ResultSet) => void;
@@ -50,8 +49,8 @@ export namespace policies {
     }
 
     interface DCAwareRoundRobinPolicy extends LoadBalancingPolicy {
-      localHostsArray: Array<Host>;
-      remoteHostsArray: Array<Host>;
+      localHostsArray: Host[];
+      remoteHostsArray: Host[];
     }
 
     interface RoundRobinPolicyStatic {
@@ -67,7 +66,7 @@ export namespace policies {
     interface TokenAwarePolicy extends LoadBalancingPolicy { }
 
     interface WhiteListPolicyStatic {
-      new (childPolicy: LoadBalancingPolicy, whiteList: Array<string>): WhiteListPolicy;
+      new (childPolicy: LoadBalancingPolicy, whiteList: string[]): WhiteListPolicy;
     }
 
     interface WhiteListPolicy extends LoadBalancingPolicy { }
@@ -78,7 +77,9 @@ export namespace policies {
     let ExponentialReconnectionPolicy: ExponentialReconnectionPolicyStatic;
 
     interface ReconnectionPolicy {
-      newSchedule(): { next: Function };
+      newSchedule(): {
+        next(): { delay: number; done: boolean; }
+      };
     }
 
     interface ConstantReconnectionPolicyStatic {
@@ -103,8 +104,8 @@ export namespace policies {
     }
 
     interface RequestInfo {
-      request: any,
-      nbRetry: number
+      request: any;
+      nbRetry: number;
     }
 
     enum retryDecision {
@@ -133,41 +134,41 @@ export namespace policies {
   }
 
   namespace speculativeExecution {
-    let NoSpeculativeExecutionPolicy: NoSpeculativeExecutionPolicyStatic
+    let NoSpeculativeExecutionPolicy: NoSpeculativeExecutionPolicyStatic;
 
     interface SpeculativeExecutionPolicy {
       init(client: Client): void;
-      newPlan(keyspace: string, queryInfo: string | Array<string>): {
-          nextExecution: Function
-      }
+      newPlan(keyspace: string, queryInfo: string | string[]): {
+          nextExecution: () => number;
+      };
     }
 
     interface NoSpeculativeExecutionPolicyStatic {
-      new (): NoSpeculativeExecutionPolicy
+      new (): NoSpeculativeExecutionPolicy;
     }
 
     interface NoSpeculativeExecutionPolicy extends SpeculativeExecutionPolicy { }
-    
+
     interface ConstantSpeculativeExecutionPolicyStatic {
-      new (delay: number, maxSpeculativeExecutions: number): ConstantSpeculativeExecutionPolicy
+      new (delay: number, maxSpeculativeExecutions: number): ConstantSpeculativeExecutionPolicy;
     }
 
     interface ConstantSpeculativeExecutionPolicy extends SpeculativeExecutionPolicy { }
   }
 
   namespace timestampGeneration {
-      let MonotonicTimestampGenerator: MonotonicTimestampGeneratorStatic
+      let MonotonicTimestampGenerator: MonotonicTimestampGeneratorStatic;
 
       interface TimestampGenerator {
-        next(client: Client): null | number | _Long
+        next(client: Client): null | number | _Long;
       }
 
       interface MonotonicTimestampGeneratorStatic {
-        new (warningThreshold?: number, minLogInterval?: number): MonotonicTimestampGeneratorStatic
+        new (warningThreshold?: number, minLogInterval?: number): MonotonicTimestampGeneratorStatic;
       }
 
       interface MonotonicTimestampGenerator extends TimestampGenerator {
-        getDate(): number
+        getDate(): number;
       }
   }
 }
@@ -297,11 +298,11 @@ export namespace types {
   }
 
   interface IntegerStatic {
-    new (bits: Array<number>, sign: number): Integer;
+    new (bits: number[], sign: number): Integer;
 
     fromInt(value: number): Integer;
     fromNumber(value: number): Integer;
-    fromBits(bits: Array<number>): Integer;
+    fromBits(bits: number[]): Integer;
     fromString(str: string, opt_radix?: number): Integer;
     fromBuffer(bits: Buffer): Integer;
     toBuffer(value: Integer): Buffer;
@@ -404,16 +405,16 @@ export namespace types {
       speculativeExecutions: number,
       achievedConsistency: consistencies,
       traceId: Uuid,
-      warnings: Array<string>,
+      warnings: string[],
       customPayload: any
     };
-    rows: Array<Row>;
+    rows: Row[];
     rowLength: number;
     columns: Array<{ [key: string]: string; }>;
     pageState: string;
-    nextPage: Function;
+    nextPage: () => void;
 
-    first(): Row;
+    first(): Row | null;
     getPageState(): string;
     getColumns(): Array<{ [key: string]: string; }>;
     wasApplied(): boolean;
@@ -428,7 +429,7 @@ export namespace types {
     buffer: Buffer;
     paused: boolean;
 
-    _valve(readNext: Function): void;
+    _valve(readNext: () => void): void;
     add(chunk: Buffer): void;
   }
 
@@ -439,7 +440,7 @@ export namespace types {
   interface Row {
     get(columnName: string | number): { [key: string]: any; };
     values(): Array<{ [key: string]: any; }>;
-    keys(): Array<string>;
+    keys(): string[];
     forEach(callback: Callback): void;
     [key: string]: any;
   }
@@ -462,19 +463,19 @@ export namespace types {
   }
 
   interface TupleStatic {
-    new (...args: Array<any>): Tuple;
+    new (...args: any[]): Tuple;
 
-    fromArray(elements: Array<any>): Tuple;
+    fromArray(elements: any[]): Tuple;
   }
 
   interface Tuple {
-    elements: Array<any>;
+    elements: any[];
     length: number;
 
     get(index: number): any;
     toString(): string;
     toJSON(): string;
-    values(): Array<any>;
+    values(): any[];
   }
 
   interface UuidStatic {
@@ -488,6 +489,7 @@ export namespace types {
     buffer: Buffer;
 
     getBuffer(): Buffer;
+    // tslint:disable-next-line:no-unnecessary-qualifier
     equals(other: types.Uuid): boolean;
     toString(): string;
     inspect(): string;
@@ -501,52 +503,53 @@ export let HostMap: HostMapStatic;
 export let Encoder: EncoderStatic;
 
 export interface ClientOptions {
-  contactPoints: Array<string>,
-  keyspace?: string,
-  refreshSchemaDelay?: number,
-  isMetadataSyncEnabled?: boolean,
-  prepareOnAllHosts?: boolean,
-  rePrepareOnUp?: boolean,
-  maxPrepared?: number,
+  contactPoints: string[];
+  keyspace?: string;
+  refreshSchemaDelay?: number;
+  isMetadataSyncEnabled?: boolean;
+  prepareOnAllHosts?: boolean;
+  rePrepareOnUp?: boolean;
+  maxPrepared?: number;
   policies?: {
-    loadBalancing?: policies.loadBalancing.LoadBalancingPolicy,
-    retry?: policies.retry.RetryPolicy,
-    reconnection?: policies.reconnection.ReconnectionPolicy,
-    addressResolution?: policies.addressResolution.AddressTranslator,
-    speculativeExecution?: policies.speculativeExecution.SpeculativeExecutionPolicy,
-    timestampGeneration?: policies.timestampGeneration.TimestampGenerator,
-  },
-  queryOptions?: QueryOptions,
+    loadBalancing?: policies.loadBalancing.LoadBalancingPolicy;
+    retry?: policies.retry.RetryPolicy;
+    reconnection?: policies.reconnection.ReconnectionPolicy;
+    addressResolution?: policies.addressResolution.AddressTranslator;
+    speculativeExecution?: policies.speculativeExecution.SpeculativeExecutionPolicy;
+    timestampGeneration?: policies.timestampGeneration.TimestampGenerator;
+  };
+  queryOptions?: QueryOptions;
   pooling?: {
-    heartBeatInterval?: number,
-    coreConnectionsPerHost?: { [key: number]: number; },
-    maxRequestsPerConnection?: number,
+    heartBeatInterval?: number;
+    coreConnectionsPerHost?: { [key: number]: number; };
+    maxRequestsPerConnection?: number;
     warmup?: boolean;
-  },
+  };
   protocolOptions?: {
-    port?: number,
-    maxSchemaAgreementWaitSeconds?: number,
-    maxVersion?: number
-  },
+    port?: number;
+    maxSchemaAgreementWaitSeconds?: number;
+    maxVersion?: number;
+    noCompact?: boolean;
+  };
   socketOptions?: {
-    connectTimeout?: number,
-    defunctReadTimeoutThreshold?: number,
-    keepAlive?: boolean,
-    keepAliveDelay?: number,
-    readTimeout?: number,
-    tcpNoDelay?: boolean,
-    coalescingThreshold?: number
-  },
-  authProvider?: auth.AuthProvider,
-  sslOptions?: tls.ConnectionOptions,
+    connectTimeout?: number;
+    defunctReadTimeoutThreshold?: number;
+    keepAlive?: boolean;
+    keepAliveDelay?: number;
+    readTimeout?: number;
+    tcpNoDelay?: boolean;
+    coalescingThreshold?: number;
+  };
+  authProvider?: auth.AuthProvider;
+  sslOptions?: tls.ConnectionOptions;
   encoding?: {
-    map?: Function,
-    set?: Function,
-    copyBuffer?: boolean,
-    useUndefinedAsUnset?: boolean
-  },
-  profiles?: Array<ExecutionProfile>,
-  promiseFactory?: Function,
+    map?: typeof Map | ((...args: any[]) => any);
+    set?: typeof Set | ((...args: any[]) => any);
+    copyBuffer?: boolean;
+    useUndefinedAsUnset?: boolean;
+  };
+  profiles?: ExecutionProfile[];
+  promiseFactory?: (handler: (callback: (err?: any, result?: any) => void) => void) => Promise<any>;
 }
 
 export interface QueryOptions {
@@ -556,7 +559,7 @@ export interface QueryOptions {
   customPayload?: any;
   executionProfile?: string | ExecutionProfile;
   fetchSize?: number;
-  hints?: Array<string> | Array<Array<string>>;
+  hints?: string[] | string[][];
   isIdempotent?: boolean;
   keyspace?: string;
   logged?: boolean;
@@ -565,12 +568,13 @@ export interface QueryOptions {
   readTimeout?: number;
   retry?: policies.retry.RetryPolicy;
   retryOnTimeout?: boolean;
-  routingIndexes?: Array<number>;
-  routingKey?: Buffer | Array<Buffer>;
-  routingNames?: Array<string>;
+  routingIndexes?: number[];
+  routingKey?: Buffer | Buffer[];
+  routingNames?: string[];
   serialConsistency?: number;
   timestamp?: number | _Long;
   traceQuery?: boolean;
+  host?: Host;
 }
 
 export interface ClientStatic {
@@ -582,9 +586,9 @@ export interface Client extends events.EventEmitter {
   keyspace: string;
   metadata: metadata.Metadata;
 
-  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
-  batch(queries: Array<string> | Array<{ query: string, params?: any }>, callback: ResultCallback): void;
-  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<types.ResultSet>;
+  batch(queries: string[] | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
+  batch(queries: string[] | Array<{ query: string, params?: any }>, callback: ResultCallback): void;
+  batch(queries: string[] | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<types.ResultSet>;
 
   connect(callback: Callback): void;
   connect(): Promise<void>;
@@ -593,7 +597,7 @@ export interface Client extends events.EventEmitter {
   execute(query: string, params: any, callback: ResultCallback): void;
   execute(query: string, callback: ResultCallback): void;
   execute(query: string, params?: any, options?: QueryOptions): Promise<types.ResultSet>;
-  getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
+  getReplicas(keyspace: string, token: Buffer): any[]; // TODO: Should this be a more explicit return?
   getState(): metadata.ClientState;
   shutdown(callback?: Callback): void;
   shutdown(): Promise<void>;
@@ -609,10 +613,10 @@ export interface Host extends events.EventEmitter {
   cassandraVersion: string;
   dataCenter: string;
   rack: string;
-  tokens: Array<string>;
+  tokens: string[];
 
   canBeConsideredAsUp(): boolean;
-  getCassandraVersion(): Array<number>;
+  getCassandraVersion(): number[];
   isUp(): boolean;
 }
 
@@ -623,14 +627,14 @@ export interface HostMapStatic {
 export interface HostMap extends events.EventEmitter {
   length: number;
 
-  clear(): Array<Host>;
+  clear(): Host[];
   forEach(callback: Callback): void;
   get(key: string): Host;
-  keys(): Array<string>;
+  keys(): string[];
   remove(key: string): void;
-  removeMultiple(keys: Array<string>): void;
+  removeMultiple(keys: string[]): void;
   set(key: string, value: Host): void;
-  values(): Array<Host>;
+  values(): Host[];
 }
 
 export interface EncoderStatic {
@@ -642,21 +646,20 @@ export interface Encoder {
   encode(value: any, typeInfo?: string | number | { code: number, info?: any }): Buffer;
 }
 
-interface ExecutionProfileOptions {
-  consistency: number,
-    loadBalancing: policies.loadBalancing.LoadBalancingPolicy,
-    name: string,
-    readTimeout: number,
-    retry: policies.retry.RetryPolicy,
-    serialConsistency: number
+export interface ExecutionProfileOptions {
+  consistency: number;
+  loadBalancing: policies.loadBalancing.LoadBalancingPolicy;
+  name: string;
+  readTimeout: number;
+  retry: policies.retry.RetryPolicy;
+  serialConsistency: number;
 }
 
 export interface ExecutionProfileStatic {
-  new (name: string, options: ExecutionProfileOptions): ExecutionProfile
+  new (name: string, options: ExecutionProfileOptions): ExecutionProfile;
 }
 
-export interface ExecutionProfile extends ExecutionProfileOptions {
-}
+export interface ExecutionProfile extends ExecutionProfileOptions {}
 
 export namespace auth {
   let Authenticator: AuthenticatorStatic;
@@ -686,8 +689,10 @@ export namespace auth {
 }
 
 export namespace errors {
-  abstract class DriverError {
+  abstract class DriverError extends Error {
     constructor(message: string, constructor?: any);
+
+    info: string;
   }
 
   class ArgumentError extends DriverError {
@@ -704,16 +709,28 @@ export namespace errors {
 
   class NoHostAvailableError extends DriverError {
     constructor(innerErrors: any, message?: string);
+
+    innerErrors: any;
   }
 
   class NotSupportedError extends DriverError {
     constructor(message: string);
   }
 
-  class OperationTimedOutError extends DriverError { }
+  class OperationTimedOutError extends DriverError {
+    constructor(message: string, host?: string);
+
+    host?: string;
+  }
 
   class ResponseError extends DriverError {
     constructor(code: number, message: string);
+
+    code: number;
+  }
+
+  class BusyConnectionError extends DriverError {
+    constructor(address: string, maxRequestsPerConnection: number, connectionLength: number);
   }
 }
 
@@ -735,44 +752,44 @@ export namespace metadata {
     argumentTypes: Array<{ code: number, info: any }>;
     finalFunction: string;
     initCondition: string;
-    keyspaceName: string,
+    keyspaceName: string;
     returnType: string;
-    signature: Array<string>;
+    signature: string[];
     stateFunction: string;
     stateType: string;
   }
-  
+
   interface ClientStateStatic {
     new (): ClientState;
   }
-  
+
   interface ClientState {
-    getConnectedHosts(): Array<Host>;
+    getConnectedHosts(): Host[];
     getInFlightQueries(host: Host): number;
     getOpenConnections(host: Host): number;
     toString(): string;
   }
 
   interface DataTypeInfo {
-    code: number,
-    info: string | DataTypeInfo | Array<DataTypeInfo>,
+    code: number;
+    info: string | DataTypeInfo | DataTypeInfo[];
     options: {
-      frozen: boolean,
-      reversed: boolean
-    }
+      frozen: boolean;
+      reversed: boolean;
+    };
   }
 
   interface ColumnInfo {
-    name: string,
-    type: DataTypeInfo
+    name: string;
+    type: DataTypeInfo;
   }
 
   interface DataCollection {
     bloomFilterFalsePositiveChance: number;
     caching: caching;
     clusterKeys: Array<{ c: ColumnInfo, index: number, order: string }>;
-    clusteringOrder: Array<string>;
-    columns: Array<ColumnInfo>;
+    clusteringOrder: string[];
+    columns: ColumnInfo[];
     columnsByName: { [key: string]: ColumnInfo };
     comment: string;
     compactionClass: string;
@@ -786,7 +803,7 @@ export namespace metadata {
     maxIndexInterval?: number;
     minIndexInterval?: number;
     name: string;
-    partitionKeys: Array<{ c: ColumnInfo, index: number }>
+    partitionKeys: Array<{ c: ColumnInfo, index: number }>;
     populateCacheOnFlush: boolean;
     readRepairChance: number;
     speculateRetry: string;
@@ -799,16 +816,16 @@ export namespace metadata {
   }
 
   interface IndexStatic {
-    new (name: string, target: string, kind: IndexType, options: Object): Index;
+    new (name: string, target: string, kind: string | IndexType, options: object): Index;
 
-    fromRows(indexRows: Array<types.Row>): Array<Index>;
-    fromColumnRows(columnRows: Array<types.Row>, columnsByName: { [key: string]: ColumnInfo }): Array<Index>;
+    fromRows(indexRows: types.Row[]): Index[];
+    fromColumnRows(columnRows: types.Row[], columnsByName: { [key: string]: ColumnInfo }): Index[];
   }
 
   interface Index {
     kind: IndexType;
     name: string;
-    options: Object;
+    options: object;
     target: string;
 
     isCompositesKind(): boolean;
@@ -829,12 +846,12 @@ export namespace metadata {
   interface Metadata {
     clearPrepared(): void;
 
-    getAggregate(keyspaceName: string, name: string, signature: Array<string> | Array<{ code: number, info: any }>, callback: Callback): void;
+    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: Callback): void;
     getAggregates(keyspaceName: string, name: string, callback: Callback): void;
-    getFunction(keyspaceName: string, name: string, signature: Array<string> | Array<{ code: number, info: any }>, callback: Callback): void;
+    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: Callback): void;
     getFunctions(keyspaceName: string, name: string, callback: Callback): void;
     getMaterializedView(keyspaceName: string, name: string, callback: Callback): void;
-    getReplicas(keyspaceName: string, tokenBuffer: Buffer): Array<any>;
+    getReplicas(keyspaceName: string, tokenBuffer: Buffer): any[];
     getTable(keyspaceName: string, name: string, callback: Callback): void;
     getTrace(traceId: types.Uuid, callback: Callback): void;
     getUdt(keyspaceName: string, name: string, callback: Callback): void;
@@ -847,15 +864,15 @@ export namespace metadata {
   }
 
   interface SchemaFunction {
-    argumentNames: Array<string>;
+    argumentNames: string[];
     argumentTypes: Array<{ code: number, info: any }>;
     body: string;
     calledOnNullInput: boolean;
-    keyspaceName: string,
+    keyspaceName: string;
     language: string;
     name: string;
     returnType: string;
-    signature: Array<string>;
+    signature: string[];
   }
 
   interface TableMetadataStatic {
@@ -863,10 +880,12 @@ export namespace metadata {
   }
 
   interface TableMetadata extends DataCollection {
-    indexes: Array<Index>;
+    indexes: Index[];
     indexInterval?: number;
     isCompact: boolean;
     memtableFlushPeriod: number;
     replicateOnWrite: boolean;
+    cdc?: boolean;
+    virtual: boolean;
   }
 }

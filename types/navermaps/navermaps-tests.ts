@@ -1,4 +1,6 @@
 let map = new naver.maps.Map('map');
+
+map = new naver.maps.Map(document.createElement('div'));
 map.setMapTypeId(naver.maps.MapTypeId.HYBRID);
 
 const jeju = new naver.maps.LatLng(33.3590628, 126.534361);

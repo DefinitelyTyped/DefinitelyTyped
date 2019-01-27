@@ -1,9 +1,10 @@
-// Type definitions for tempy 0.1
+// Type definitions for tempy 0.2
 // Project: https://github.com/sindresorhus/tempy#readme
-// Definitions by: Douglas Duteil <https://github.com/douglasduteil>
+// Definitions by: Douglas Duteil <https://github.com/douglasduteil>, Gustav Bylund <https://github.com/maistho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function directoryAsync(): Promise<string>;
 export function directory(): string;
-export function file(options?: {extension: string}): string;
+export function file(
+    options?: { extension: string } | { name: string }
+): string;
 export const root: string;

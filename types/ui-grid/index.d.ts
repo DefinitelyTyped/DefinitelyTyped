@@ -927,10 +927,9 @@ declare namespace uiGrid {
         clearRowInvisible(rowEntity: TEntity): void;
         /**
          * Returns all visible rows
-         * @param {IGridInstance} grid the grid you want to get visible rows from
          * @returns {Array<IGridRow>} an array of gridRow
          */
-        getVisibleRows(grid: IGridInstanceOf<TEntity>): Array<IGridRowOf<TEntity>>;
+        getVisibleRows(): Array<IGridRowOf<TEntity>>;
         /**
          * Trigger a grid resize, normally this would be picked
          * up by a watch on window size, but in some circumstances it is necessary
@@ -1691,6 +1690,16 @@ declare namespace uiGrid {
              * @default true
              */
             exporterMenuCsv?: boolean;
+            /**
+             * Add excel export menu items to the ui-grid grid menu, if it's present. Defaults to true.
+             * @default true
+             */
+            exporterMenuExcel?: boolean;
+            /**
+             * An option to determine the starting point for the menu items created by the exporter
+             * @default 200
+             */
+            exporterMenuItemOrder?: number;
             /**
              * The text to show on the exporter menu button link
              * Defaults to 'Export'

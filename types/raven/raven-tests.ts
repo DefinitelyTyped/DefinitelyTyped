@@ -16,6 +16,11 @@ Raven.config({
     release: 'foobar',
     transport
 });
+
+Raven.config({
+  transport: Raven.transports.https
+});
+
 client.setContext({});
 client.on('logged', () => { });
 client.process({});

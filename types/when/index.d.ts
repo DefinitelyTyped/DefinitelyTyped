@@ -3,13 +3,9 @@
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function When<T>(value: When.Promise<T>): When.Promise<T>;
-declare function When<T>(value: When.Thenable<T>): When.Promise<T>;
-declare function When<T>(value: T): When.Promise<T>;
-
-declare function When<T, U>(value: When.Promise<T>, transform: (val: T) => U): When.Promise<U>;
-declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
-declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
+declare function When(): When.Promise<void>;
+declare function When<T>(promiseOrValue: T | When.Promise<T> | When.Thenable<T>): When.Promise<T>;
+declare function When<T, U>(promiseOrValue: T | When.Promise<T> | When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
 
 declare namespace When {
     // Helper interfaces
@@ -236,9 +232,8 @@ declare namespace When {
      *    - fulfilled with promiseOrValue's value after it is fulfilled
      *    - rejected with promiseOrValue's reason after it is rejected
      */
-    function resolve<T>(promise: Promise<T>): Promise<T>;
-    function resolve<T>(foreign: Thenable<T>): Promise<T>;
-    function resolve<T>(value?: T): Promise<T>;
+    function resolve(): Promise<void>;
+    function resolve<T>(promiseOrValue: T | Promise<T> | Thenable<T>): Promise<T>;
 
     interface Deferred<T> {
         notify(update: any): void;
@@ -285,11 +280,11 @@ declare namespace When {
         // be a constructor with prototype set to an instance of Error.
         otherwise<U>(exceptionType: any, onRejected?: (reason: any) => U | Promise<U>): Promise<U>;
 
-        then(
-            onFulfilled?: ((value: T) => T | Thenable<T>) | undefined | null,
-            onRejected?: ((reason: any) => T | Thenable<T>) | undefined | null,
+        then<TResult1, TResult2>(
+            onFulfilled: ((value: T) => TResult1 | Thenable<TResult1>),
+            onRejected: ((reason: any) => TResult2 | Thenable<TResult2>),
             onProgress?: (update: any) => void
-        ): Promise<T>;
+        ): Promise<TResult1 | TResult2>;
         then<TResult>(
             onFulfilled: ((value: T) => TResult | Thenable<TResult>),
             onRejected?: ((reason: any) => TResult | Thenable<TResult>) | undefined | null,
@@ -300,11 +295,11 @@ declare namespace When {
             onRejected: ((reason: any) => TResult | Thenable<TResult>),
             onProgress?: (update: any) => void
         ): Promise<T | TResult>;
-        then<TResult1, TResult2>(
-            onFulfilled: ((value: T) => TResult1 | Thenable<TResult1>),
-            onRejected: ((reason: any) => TResult2 | Thenable<TResult2>),
+        then(
+            onFulfilled?: ((value: T) => T | Thenable<T>) | undefined | null,
+            onRejected?: ((reason: any) => T | Thenable<T>) | undefined | null,
             onProgress?: (update: any) => void
-        ): Promise<TResult1 | TResult2>;
+        ): Promise<T>;
 
         spread<T>(onFulfilled: _.Fn0<Promise<T> | T>): Promise<T>;
         spread<A1, T>(onFulfilled: _.Fn1<A1, Promise<T> | T>): Promise<T>;

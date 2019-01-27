@@ -31,13 +31,22 @@ intro.setOptions({
             position: 'left'
         },
         {
-            element : '#step4',
-            intro   : "Another step.",
-            position: 'bottom'
+            element       : '#step4',
+            intro         : "Another step.",
+            position      : 'bottom',
+            tooltipClass  : 'step4Class',
+            highlightClass: ''
         },
         {
-            element: '#step5',
-            intro  : 'Get it, use it.'
+            element : '#step4',
+            intro   : "Another step.",
+            position: 'bottom',
+            scrollTo: 'tooltip'
+        },
+        {
+            element           : '#step5',
+            intro             : 'Get it, use it.',
+            disableInteraction: true
         }
     ],
     hints: [

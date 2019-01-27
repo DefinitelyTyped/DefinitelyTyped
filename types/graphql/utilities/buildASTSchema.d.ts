@@ -1,3 +1,4 @@
+import Maybe from "../tsutils/Maybe";
 import {
     DocumentNode,
     Location,
@@ -6,8 +7,10 @@ import {
     NamedTypeNode,
     DirectiveDefinitionNode,
     FieldDefinitionNode,
+    InputValueDefinitionNode,
+    EnumValueDefinitionNode,
 } from "../language/ast";
-import { GraphQLNamedType, GraphQLFieldConfig } from "../type/definition";
+import { GraphQLNamedType, GraphQLFieldConfig, GraphQLInputField, GraphQLEnumValueConfig } from "../type/definition";
 import { GraphQLDirective } from "../type/directives";
 import { Source } from "../language/source";
 import { GraphQLSchema, GraphQLSchemaValidationOptions } from "../type/schema";
@@ -19,10 +22,18 @@ interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
      * Descriptions are defined as preceding string literals, however an older
      * experimental version of the SDL supported preceding comments as
      * descriptions. Set to true to enable this deprecated behavior.
+     * This option is provided to ease adoption and will be removed in v16.
      *
      * Default: false
      */
     commentDescriptions?: boolean;
+
+    /**
+     * Set to true to assume the SDL is valid.
+     *
+     * Default: false
+     */
+    assumeValidSDL?: boolean;
 }
 
 /**
@@ -41,13 +52,13 @@ interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
  *        Provide true to use preceding comments as the description.
  *
  */
-export function buildASTSchema(ast: DocumentNode, options?: BuildSchemaOptions): GraphQLSchema;
+export function buildASTSchema(documentAST: DocumentNode, options?: BuildSchemaOptions): GraphQLSchema;
 
 type TypeDefinitionsMap = { [key: string]: TypeDefinitionNode };
 type TypeResolver = (typeRef: NamedTypeNode) => GraphQLNamedType;
 
 export class ASTDefinitionBuilder {
-    constructor(typeDefinitionsMap: TypeDefinitionsMap, options: BuildSchemaOptions | void, resolveType: TypeResolver);
+    constructor(typeDefinitionsMap: TypeDefinitionsMap, options: Maybe<BuildSchemaOptions>, resolveType: TypeResolver);
 
     buildTypes(nodes: ReadonlyArray<NamedTypeNode | TypeDefinitionNode>): Array<GraphQLNamedType>;
 
@@ -56,10 +67,15 @@ export class ASTDefinitionBuilder {
     buildDirective(directiveNode: DirectiveDefinitionNode): GraphQLDirective;
 
     buildField(field: FieldDefinitionNode): GraphQLFieldConfig<any, any>;
+
+    buildInputField(value: InputValueDefinitionNode): GraphQLInputField;
+
+    buildEnumValue(value: EnumValueDefinitionNode): GraphQLEnumValueConfig;
 }
 
 /**
  * Given an ast node, returns its string description.
+ * @deprecated: provided to ease adoption and will be removed in v16.
  *
  * Accepts options as a second argument:
  *
@@ -69,7 +85,7 @@ export class ASTDefinitionBuilder {
  */
 export function getDescription(
     node: { readonly description?: StringValueNode; readonly loc?: Location },
-    options: BuildSchemaOptions | void
+    options: Maybe<BuildSchemaOptions>
 ): string | undefined;
 
 /**

@@ -654,9 +654,10 @@ namespace url_tests {
         const searchParams = new url.URLSearchParams('abc=123');
 
         assert.equal(searchParams.toString(), 'abc=123');
-        searchParams.forEach((value: string, name: string): void => {
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
             assert.equal(name, 'abc');
             assert.equal(value, '123');
+            assert.equal(me, searchParams);
         });
 
         assert.equal(searchParams.get('abc'), '123');
@@ -818,6 +819,8 @@ namespace util_tests {
         var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
         var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
         var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
+        // The following test requires typescript >= 2.4, but definitions currently tested with typescript@2.1
+        // var cbOptionalError: () => Promise<void> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -825,6 +828,35 @@ namespace util_tests {
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
         // $ExpectType <T extends Function>(fn: T, message: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+
+        // util.TextDecoder()
+        var td = new util.TextDecoder();
+        new util.TextDecoder("utf-8");
+        new util.TextDecoder("utf-8", { fatal: true });
+        new util.TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
+        var ignoreBom: boolean = td.ignoreBOM;
+        var fatal: boolean = td.fatal;
+        var encoding: string = td.encoding;
+        td.decode(new Int8Array(1));
+        td.decode(new Int16Array(1));
+        td.decode(new Int32Array(1));
+        td.decode(new Uint8Array(1));
+        td.decode(new Uint16Array(1));
+        td.decode(new Uint32Array(1));
+        td.decode(new Uint8ClampedArray(1));
+        td.decode(new Float32Array(1));
+        td.decode(new Float64Array(1));
+        td.decode(new DataView(new Int8Array(1).buffer));
+        td.decode(new ArrayBuffer(1));
+        td.decode(null);
+        td.decode(null, { stream: true });
+        td.decode(new Int8Array(1), { stream: true });
+        var decode: string = td.decode(new Int8Array(1));
+
+        // util.TextEncoder()
+        var te = new util.TextEncoder();
+        var teEncoding: string = te.encoding;
+        var teEncodeRes: Uint8Array = te.encode("TextEncoder");
     }
 }
 
@@ -884,8 +916,9 @@ function simplified_stream_ctor_test() {
         read(size) {
             size.toFixed();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         }
     });
 
@@ -900,8 +933,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         },
         final(cb) {
             cb(null);
@@ -921,6 +955,10 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy(error, cb) {
+            error.stack;
+            cb(error);
         },
         readableObjectMode: true,
         writableObjectMode: true
@@ -948,8 +986,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -2661,6 +2700,57 @@ namespace console_tests {
         var writeStream = fs.createWriteStream('./index.d.ts');
         var consoleInstance = new console.Console(writeStream);
     }
+    {
+        console.assert('value');
+        console.assert('value', 'message');
+        console.assert('value', 'message', 'foo', 'bar');
+        console.clear();
+        console.count();
+        console.count('label');
+        console.countReset();
+        console.countReset('label');
+        console.debug();
+        console.debug('message');
+        console.debug('message', 'foo', 'bar');
+        console.dir('obj');
+        console.dir('obj', { depth: 1 });
+        console.error();
+        console.error('message');
+        console.error('message', 'foo', 'bar');
+        console.group();
+        console.group('label');
+        console.group('label1', 'label2');
+        console.groupCollapsed();
+        console.groupEnd();
+        console.info();
+        console.info('message');
+        console.info('message', 'foo', 'bar');
+        console.log();
+        console.log('message');
+        console.log('message', 'foo', 'bar');
+        console.time('label');
+        console.timeEnd('label');
+        console.trace();
+        console.trace('message');
+        console.trace('message', 'foo', 'bar');
+        console.warn();
+        console.warn('message');
+        console.warn('message', 'foo', 'bar');
+
+        // --- Inspector mode only ---
+        console.markTimeline();
+        console.markTimeline('label');
+        console.profile();
+        console.profile('label');
+        console.profileEnd();
+        console.profileEnd('label');
+        console.timeStamp();
+        console.timeStamp('label');
+        console.timeline();
+        console.timeline('label');
+        console.timelineEnd();
+        console.timelineEnd('label');
+    }
 }
 
 ///////////////////////////////////////////////////
@@ -3036,6 +3126,10 @@ namespace dns_tests {
         const _err: NodeJS.ErrnoException = err;
         const _address: dns.LookupAddress[] = addresses;
     });
+    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
 
     function trueOrFalse(): boolean {
         return Math.random() > 0.5 ? true : false;
@@ -3044,6 +3138,12 @@ namespace dns_tests {
         const _err: NodeJS.ErrnoException = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
+    });
+
+    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _hostname: string = hostname;
+        const _service: string = service;
     });
 
     dns.resolve("nodejs.org", (err, addresses) => {
@@ -3083,6 +3183,14 @@ namespace dns_tests {
         dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
+    }
+    {
+        const resolver = new dns.Resolver();
+        resolver.setServers(["4.4.4.4"]);
+        resolver.resolve("nodejs.org", (err, addresses) => {
+            const _addresses: string[] = addresses;
+        });
+        resolver.cancel();
     }
 }
 

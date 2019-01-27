@@ -634,8 +634,8 @@ declare namespace Microsoft.Live {
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
-         * - public�the event is visible to anyone who can view the calendar.
-         * - private"�the event is visible only to the event owner.
+         * - public   the event is visible to anyone who can view the calendar.
+         * - private  the event is visible only to the event owner.
          * @default "public"
          */
         visibility: string;
@@ -696,8 +696,8 @@ declare namespace Microsoft.Live {
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
-         * - public�the event is visible to anyone who can view the calendar.
-         * - private"�the event is visible only to the event owner.
+         * - public  the event is visible to anyone who can view the calendar.
+         * - private the event is visible only to the event owner.
          * @default "public"
          */
         visibility?: string;
@@ -768,8 +768,8 @@ declare namespace Microsoft.Live {
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
-         * - public�the event is visible to anyone who can view the calendar.
-         * - private"�the event is visible only to the event owner.
+         * - public  the event is visible to anyone who can view the calendar.
+         * - private the event is visible only to the event owner.
          * @default "public"
          */
         visibility: string;
@@ -1042,10 +1042,10 @@ declare namespace Microsoft.Live {
         source: string;
         /**
          * The type of this image of this particular size. Valid values are:
-         * full (maximum size: 2048 � 2048 pixels)
-         * - normal (maximum size 800 � 800 pixels)
-         * - album (maximum size 176 � 176 pixels)
-         * - small (maximum size 96 � 96 pixels)
+         * full (maximum size: 2048 x 2048 pixels)
+         * - normal (maximum size 800 x 800 pixels)
+         * - album (maximum size 176 x 176 pixels)
+         * - small (maximum size 96 x 96 pixels)
          */
         type: string;
     }

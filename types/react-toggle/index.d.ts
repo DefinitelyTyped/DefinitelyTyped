@@ -2,7 +2,7 @@
 // Project: https://github.com/aaronshaf/react-toggle
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, InputHTMLAttributes, ReactNode } from "react";
 

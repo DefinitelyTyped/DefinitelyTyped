@@ -1,6 +1,6 @@
 // AUTO-GENERATED: do not modify this file directly.
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
-// npm run fp
+// npm install && npm run generate
 
 import lodash = require("./index");
 
@@ -60,7 +60,14 @@ declare namespace _ {
     }
     type LodashAssign1x1<TObject> = <TSource>(source: TSource) => TObject & TSource;
     type LodashAssign1x2<TSource> = <TObject>(object: TObject) => TObject & TSource;
-    type LodashAssignAll = (object: ReadonlyArray<any>) => any;
+    interface LodashAssignAll {
+        <TObject, TSource>(object: [TObject, TSource]): TObject & TSource;
+        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): TObject & TSource1 & TSource2;
+        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): TObject & TSource1 & TSource2 & TSource3;
+        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        <TObject>(object: [TObject]): TObject;
+        (object: ReadonlyArray<any>): any;
+    }
     interface LodashAssignAllWith {
         (customizer: lodash.AssignCustomizer): LodashAssignAllWith1x1;
         (customizer: lodash.__, args: ReadonlyArray<any>): LodashAssignAllWith1x2;
@@ -75,7 +82,14 @@ declare namespace _ {
     }
     type LodashAssignIn1x1<TObject> = <TSource>(source: TSource) => TObject & TSource;
     type LodashAssignIn1x2<TSource> = <TObject>(object: TObject) => TObject & TSource;
-    type LodashAssignInAll = <TResult>(object: ReadonlyArray<any>) => TResult;
+    interface LodashAssignInAll {
+        <TObject, TSource>(object: [TObject, TSource]): TObject & TSource;
+        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): TObject & TSource1 & TSource2;
+        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): TObject & TSource1 & TSource2 & TSource3;
+        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        <TObject>(object: [TObject]): TObject;
+        <TResult>(object: ReadonlyArray<any>): TResult;
+    }
     interface LodashAssignInAllWith {
         (customizer: lodash.AssignCustomizer): LodashAssignInAllWith1x1;
         (customizer: lodash.__, args: ReadonlyArray<any>): LodashAssignInAllWith1x2;
@@ -286,7 +300,12 @@ declare namespace _ {
     }
     type LodashCloneWith2x1<T, TResult> = (value: T) => TResult | T;
     type LodashCompact = <T>(array: lodash.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
-    type LodashNegate = <T extends (...args: any[]) => any>(predicate: T) => T;
+    interface LodashNegate {
+        (predicate: () => boolean): () => boolean;
+        <A1>(predicate: (a1: A1) => boolean): (a1: A1) => boolean;
+        <A1, A2>(predicate: (a1: A1, a2: A2) => boolean): (a1: A1, a2: A2) => boolean;
+        (predicate: (...args: any[]) => any): (...args: any[]) => boolean;
+    }
     interface LodashFlowRight {
         <R2, R1>(f2: (a: R1) => R2, f1: () => R1): () => R2;
         <R3, R2, R1>(f3: (a: R2) => R3, f2: (a: R1) => R2, f1: () => R1): () => R3;
@@ -350,20 +369,15 @@ declare namespace _ {
     type LodashContains1x1<T> = (collection: lodash.List<T> | lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => boolean;
     type LodashContains1x2<T> = (target: T) => boolean;
     interface LodashCountBy {
-        <T>(iteratee: (value: string) => T): LodashCountBy1x1;
-        (iteratee: lodash.__, collection: string | null | undefined): LodashCountBy1x2;
-        <T>(iteratee: (value: string) => T, collection: string | null | undefined): lodash.Dictionary<number>;
-        <T>(iteratee: lodash.ValueIteratee<T>): LodashCountBy2x1<T>;
-        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashCountBy2x2<T>;
+        <T>(iteratee: lodash.ValueIteratee<T>): LodashCountBy1x1<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashCountBy1x2<T>;
         <T>(iteratee: lodash.ValueIteratee<T>, collection: lodash.List<T> | null | undefined): lodash.Dictionary<number>;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashCountBy3x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashCountBy2x2<T>;
         <T extends object>(iteratee: lodash.ValueIteratee<T[keyof T]>, collection: T | null | undefined): lodash.Dictionary<number>;
     }
-    type LodashCountBy1x1 = (collection: string | null | undefined) => lodash.Dictionary<number>;
-    type LodashCountBy1x2 = <T>(iteratee: (value: string) => T) => lodash.Dictionary<number>;
-    type LodashCountBy2x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<number>;
-    type LodashCountBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<number>;
-    type LodashCountBy3x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<number>;
+    type LodashCountBy1x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<number>;
+    type LodashCountBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<number>;
+    type LodashCountBy2x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<number>;
     type LodashCreate = <T extends object, U extends object>(prototype: T) => T & U;
     interface LodashCurry {
         <T1, R>(func: (t1: T1) => R): lodash.CurriedFunction1<T1, R>;
@@ -458,7 +472,14 @@ declare namespace _ {
     }
     type LodashDefaults1x1<TSource> = <TObject>(object: TObject) => TSource & TObject;
     type LodashDefaults1x2<TObject> = <TSource>(source: TSource) => TSource & TObject;
-    type LodashDefaultsAll = (object: ReadonlyArray<any>) => any;
+    interface LodashDefaultsAll {
+        <TObject, TSource>(object: [TObject, TSource]): TSource & TObject;
+        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): TSource2 & TSource1 & TObject;
+        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): TSource3 & TSource2 & TSource1 & TObject;
+        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): TSource4 & TSource3 & TSource2 & TSource1 & TObject;
+        <TObject>(object: [TObject]): TObject;
+        (object: ReadonlyArray<any>): any;
+    }
     interface LodashDefaultsDeep {
         (sources: any): LodashDefaultsDeep1x1;
         (sources: lodash.__, object: any): LodashDefaultsDeep1x2;
@@ -551,11 +572,11 @@ declare namespace _ {
     type LodashDifferenceWith1x6<T1, T2> = (comparator: lodash.Comparator2<T1, T2>) => T1[];
     interface LodashUnset {
         (path: lodash.PropertyPath): LodashUnset1x1;
-        (path: lodash.__, object: any): LodashUnset1x2;
-        (path: lodash.PropertyPath, object: any): boolean;
+        <T>(path: lodash.__, object: T): LodashUnset1x2<T>;
+        <T>(path: lodash.PropertyPath, object: T): T;
     }
-    type LodashUnset1x1 = (object: any) => boolean;
-    type LodashUnset1x2 = (path: lodash.PropertyPath) => boolean;
+    type LodashUnset1x1 = <T>(object: T) => T;
+    type LodashUnset1x2<T> = (path: lodash.PropertyPath) => T;
     interface LodashDivide {
         (dividend: number): LodashDivide1x1;
         (dividend: lodash.__, divisor: number): LodashDivide1x2;
@@ -595,20 +616,15 @@ declare namespace _ {
         <T>(iteratee: (value: T) => any): LodashForEach1x1<T>;
         <T>(iteratee: lodash.__, collection: ReadonlyArray<T>): LodashForEach1x2<T>;
         <T>(iteratee: (value: T) => any, collection: ReadonlyArray<T>): T[];
-        (iteratee: (value: string) => any): LodashForEach2x1;
-        (iteratee: lodash.__, collection: string): LodashForEach2x2;
-        (iteratee: (value: string) => any, collection: string): string;
-        <T>(iteratee: lodash.__, collection: lodash.List<T>): LodashForEach3x2<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T>): LodashForEach2x2<T>;
         <T>(iteratee: (value: T) => any, collection: lodash.List<T>): lodash.List<T>;
-        <T extends object>(iteratee: lodash.__, collection: T): LodashForEach4x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T): LodashForEach3x2<T>;
         <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T): T;
-        <T, TArray extends T[] | null | undefined>(iteratee: lodash.__, collection: TArray & (T[] | null | undefined)): LodashForEach5x2<T, TArray>;
+        <T, TArray extends T[] | null | undefined>(iteratee: lodash.__, collection: TArray & (T[] | null | undefined)): LodashForEach4x2<T, TArray>;
         <T, TArray extends T[] | null | undefined>(iteratee: (value: T) => any, collection: TArray & (T[] | null | undefined)): TArray;
-        <TString extends string | null | undefined>(iteratee: lodash.__, collection: TString): LodashForEach6x2<TString>;
-        <TString extends string | null | undefined>(iteratee: (value: string) => any, collection: TString): TString;
-        <T, TList extends lodash.List<T> | null | undefined>(iteratee: lodash.__, collection: TList & (lodash.List<T> | null | undefined)): LodashForEach7x2<T, TList>;
+        <T, TList extends lodash.List<T> | null | undefined>(iteratee: lodash.__, collection: TList & (lodash.List<T> | null | undefined)): LodashForEach5x2<T, TList>;
         <T, TList extends lodash.List<T> | null | undefined>(iteratee: (value: T) => any, collection: TList & (lodash.List<T> | null | undefined)): TList;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashForEach8x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashForEach6x2<T>;
         <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T | null | undefined): T | null | undefined;
     }
     interface LodashForEach1x1<T> {
@@ -620,35 +636,24 @@ declare namespace _ {
         <T1 extends object>(collection: T1 | null | undefined): T1 | null | undefined;
     }
     type LodashForEach1x2<T> = (iteratee: (value: T) => any) => T[];
-    interface LodashForEach2x1 {
-        (collection: string): string;
-        <TString extends string | null | undefined>(collection: TString): TString;
-    }
-    type LodashForEach2x2 = (iteratee: (value: string) => any) => string;
-    type LodashForEach3x2<T> = (iteratee: (value: T) => any) => lodash.List<T>;
-    type LodashForEach4x2<T> = (iteratee: (value: T[keyof T]) => any) => T;
-    type LodashForEach5x2<T, TArray> = (iteratee: (value: T) => any) => TArray;
-    type LodashForEach6x2<TString> = (iteratee: (value: string) => any) => TString;
-    type LodashForEach7x2<T, TList> = (iteratee: (value: T) => any) => TList;
-    type LodashForEach8x2<T> = (iteratee: (value: T[keyof T]) => any) => T | null | undefined;
+    type LodashForEach2x2<T> = (iteratee: (value: T) => any) => lodash.List<T>;
+    type LodashForEach3x2<T> = (iteratee: (value: T[keyof T]) => any) => T;
+    type LodashForEach4x2<T, TArray> = (iteratee: (value: T) => any) => TArray;
+    type LodashForEach5x2<T, TList> = (iteratee: (value: T) => any) => TList;
+    type LodashForEach6x2<T> = (iteratee: (value: T[keyof T]) => any) => T | null | undefined;
     interface LodashForEachRight {
         <T>(iteratee: (value: T) => any): LodashForEachRight1x1<T>;
         <T>(iteratee: lodash.__, collection: ReadonlyArray<T>): LodashForEachRight1x2<T>;
         <T>(iteratee: (value: T) => any, collection: ReadonlyArray<T>): T[];
-        (iteratee: (value: string) => any): LodashForEachRight2x1;
-        (iteratee: lodash.__, collection: string): LodashForEachRight2x2;
-        (iteratee: (value: string) => any, collection: string): string;
-        <T>(iteratee: lodash.__, collection: lodash.List<T>): LodashForEachRight3x2<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T>): LodashForEachRight2x2<T>;
         <T>(iteratee: (value: T) => any, collection: lodash.List<T>): lodash.List<T>;
-        <T extends object>(iteratee: lodash.__, collection: T): LodashForEachRight4x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T): LodashForEachRight3x2<T>;
         <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T): T;
-        <T, TArray extends T[] | null | undefined>(iteratee: lodash.__, collection: TArray & (T[] | null | undefined)): LodashForEachRight5x2<T, TArray>;
+        <T, TArray extends T[] | null | undefined>(iteratee: lodash.__, collection: TArray & (T[] | null | undefined)): LodashForEachRight4x2<T, TArray>;
         <T, TArray extends T[] | null | undefined>(iteratee: (value: T) => any, collection: TArray & (T[] | null | undefined)): TArray;
-        <TString extends string | null | undefined>(iteratee: lodash.__, collection: TString): LodashForEachRight6x2<TString>;
-        <TString extends string | null | undefined>(iteratee: (value: string) => any, collection: TString): TString;
-        <T, TList extends lodash.List<T> | null | undefined>(iteratee: lodash.__, collection: TList & (lodash.List<T> | null | undefined)): LodashForEachRight7x2<T, TList>;
+        <T, TList extends lodash.List<T> | null | undefined>(iteratee: lodash.__, collection: TList & (lodash.List<T> | null | undefined)): LodashForEachRight5x2<T, TList>;
         <T, TList extends lodash.List<T> | null | undefined>(iteratee: (value: T) => any, collection: TList & (lodash.List<T> | null | undefined)): TList;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashForEachRight8x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashForEachRight6x2<T>;
         <T extends object>(iteratee: (value: T[keyof T]) => any, collection: T | null | undefined): T | null | undefined;
     }
     interface LodashForEachRight1x1<T> {
@@ -660,17 +665,11 @@ declare namespace _ {
         <T1 extends object>(collection: T1 | null | undefined): T1 | null | undefined;
     }
     type LodashForEachRight1x2<T> = (iteratee: (value: T) => any) => T[];
-    interface LodashForEachRight2x1 {
-        (collection: string): string;
-        <TString extends string | null | undefined>(collection: TString): TString;
-    }
-    type LodashForEachRight2x2 = (iteratee: (value: string) => any) => string;
-    type LodashForEachRight3x2<T> = (iteratee: (value: T) => any) => lodash.List<T>;
-    type LodashForEachRight4x2<T> = (iteratee: (value: T[keyof T]) => any) => T;
-    type LodashForEachRight5x2<T, TArray> = (iteratee: (value: T) => any) => TArray;
-    type LodashForEachRight6x2<TString> = (iteratee: (value: string) => any) => TString;
-    type LodashForEachRight7x2<T, TList> = (iteratee: (value: T) => any) => TList;
-    type LodashForEachRight8x2<T> = (iteratee: (value: T[keyof T]) => any) => T | null | undefined;
+    type LodashForEachRight2x2<T> = (iteratee: (value: T) => any) => lodash.List<T>;
+    type LodashForEachRight3x2<T> = (iteratee: (value: T[keyof T]) => any) => T;
+    type LodashForEachRight4x2<T, TArray> = (iteratee: (value: T) => any) => TArray;
+    type LodashForEachRight5x2<T, TList> = (iteratee: (value: T) => any) => TList;
+    type LodashForEachRight6x2<T> = (iteratee: (value: T[keyof T]) => any) => T | null | undefined;
     interface LodashEndsWith {
         (target: string): LodashEndsWith1x1;
         (target: lodash.__, string: string): LodashEndsWith1x2;
@@ -709,7 +708,14 @@ declare namespace _ {
     }
     type LodashExtend1x1<TObject> = <TSource>(source: TSource) => TObject & TSource;
     type LodashExtend1x2<TSource> = <TObject>(object: TObject) => TObject & TSource;
-    type LodashExtendAll = <TResult>(object: ReadonlyArray<any>) => TResult;
+    interface LodashExtendAll {
+        <TObject, TSource>(object: [TObject, TSource]): TObject & TSource;
+        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): TObject & TSource1 & TSource2;
+        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): TObject & TSource1 & TSource2 & TSource3;
+        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        <TObject>(object: [TObject]): TObject;
+        <TResult>(object: ReadonlyArray<any>): TResult;
+    }
     interface LodashExtendAllWith {
         (customizer: lodash.AssignCustomizer): LodashExtendAllWith1x1;
         (customizer: lodash.__, args: ReadonlyArray<any>): LodashExtendAllWith1x2;
@@ -744,7 +750,7 @@ declare namespace _ {
     }
     type LodashExtendWith1x5<TSource> = <TObject>(object: TObject) => TObject & TSource;
     type LodashExtendWith1x6<TObject, TSource> = (customizer: lodash.AssignCustomizer) => TObject & TSource;
-    type LodashStubFalse = () => boolean;
+    type LodashStubFalse = () => false;
     interface LodashFill {
         (start: number): LodashFill1x1;
         (start: lodash.__, end: number): LodashFill1x2;
@@ -889,29 +895,24 @@ declare namespace _ {
     type LodashFill2x13<T, U> = (end: number) => lodash.List<T | U>;
     type LodashFill2x14<T, U> = (start: number) => lodash.List<T | U>;
     interface LodashFilter {
-        (predicate: (value: string) => boolean): LodashFilter1x1;
-        (predicate: lodash.__, collection: string | null | undefined): LodashFilter1x2;
-        (predicate: (value: string) => boolean, collection: string | null | undefined): string[];
-        <T, S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>): LodashFilter2x1<T, S>;
-        <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashFilter2x2<T>;
+        <T, S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>): LodashFilter1x1<T, S>;
+        <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashFilter1x2<T>;
         <T, S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>, collection: lodash.List<T> | null | undefined): S[];
-        <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashFilter3x1<T>;
+        <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashFilter2x1<T>;
         <T>(predicate: lodash.ValueIterateeCustom<T, boolean>, collection: lodash.List<T> | null | undefined): T[];
-        <T extends object, S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>): LodashFilter4x1<T, S>;
-        <T extends object>(predicate: lodash.__, collection: T | null | undefined): LodashFilter4x2<T>;
+        <T extends object, S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>): LodashFilter3x1<T, S>;
+        <T extends object>(predicate: lodash.__, collection: T | null | undefined): LodashFilter3x2<T>;
         <T extends object, S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>, collection: T | null | undefined): S[];
         <T extends object>(predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): Array<T[keyof T]>;
     }
-    type LodashFilter1x1 = (collection: string | null | undefined) => string[];
-    type LodashFilter1x2 = (predicate: (value: string) => boolean) => string[];
-    type LodashFilter2x1<T, S> = (collection: lodash.List<T> | null | undefined) => S[];
-    interface LodashFilter2x2<T> {
+    type LodashFilter1x1<T, S> = (collection: lodash.List<T> | null | undefined) => S[];
+    interface LodashFilter1x2<T> {
         <S extends T>(predicate: lodash.ValueIteratorTypeGuard<T, S>): S[];
         (predicate: lodash.ValueIterateeCustom<T, boolean>): T[];
     }
-    type LodashFilter3x1<T> = (collection: lodash.List<T> | object | null | undefined) => T[];
-    type LodashFilter4x1<T, S> = (collection: T | null | undefined) => S[];
-    interface LodashFilter4x2<T> {
+    type LodashFilter2x1<T> = (collection: lodash.List<T> | object | null | undefined) => T[];
+    type LodashFilter3x1<T, S> = (collection: T | null | undefined) => S[];
+    interface LodashFilter3x2<T> {
         <S extends T[keyof T]>(predicate: lodash.ValueIteratorTypeGuard<T[keyof T], S>): S[];
         (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>): Array<T[keyof T]>;
     }
@@ -1580,20 +1581,15 @@ declare namespace _ {
     type LodashGetOr4x5 = (path: lodash.PropertyPath) => any;
     type LodashGetOr4x6 = (defaultValue: any) => any;
     interface LodashGroupBy {
-        (iteratee: (value: string) => lodash.NotVoid): LodashGroupBy1x1;
-        (iteratee: lodash.__, collection: string | null | undefined): LodashGroupBy1x2;
-        (iteratee: (value: string) => lodash.NotVoid, collection: string | null | undefined): lodash.Dictionary<string[]>;
-        <T>(iteratee: lodash.ValueIteratee<T>): LodashGroupBy2x1<T>;
-        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashGroupBy2x2<T>;
+        <T>(iteratee: lodash.ValueIteratee<T>): LodashGroupBy1x1<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashGroupBy1x2<T>;
         <T>(iteratee: lodash.ValueIteratee<T>, collection: lodash.List<T> | null | undefined): lodash.Dictionary<T[]>;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashGroupBy3x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashGroupBy2x2<T>;
         <T extends object>(iteratee: lodash.ValueIteratee<T[keyof T]>, collection: T | null | undefined): lodash.Dictionary<Array<T[keyof T]>>;
     }
-    type LodashGroupBy1x1 = (collection: string | null | undefined) => lodash.Dictionary<string[]>;
-    type LodashGroupBy1x2 = (iteratee: (value: string) => lodash.NotVoid) => lodash.Dictionary<string[]>;
-    type LodashGroupBy2x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<T[]>;
-    type LodashGroupBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<T[]>;
-    type LodashGroupBy3x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<Array<T[keyof T]>>;
+    type LodashGroupBy1x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<T[]>;
+    type LodashGroupBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => lodash.Dictionary<T[]>;
+    type LodashGroupBy2x2<T> = (iteratee: lodash.ValueIteratee<T[keyof T]>) => lodash.Dictionary<Array<T[keyof T]>>;
     interface LodashGt {
         (value: any): LodashGt1x1;
         (value: lodash.__, other: any): LodashGt1x2;
@@ -1661,20 +1657,15 @@ declare namespace _ {
     type LodashIncludesFrom1x5 = (fromIndex: number) => boolean;
     type LodashIncludesFrom1x6<T> = (target: T) => boolean;
     interface LodashKeyBy {
-        (iteratee: (value: string) => lodash.PropertyName): LodashKeyBy1x1;
-        (iteratee: lodash.__, collection: string | null | undefined): LodashKeyBy1x2;
-        (iteratee: (value: string) => lodash.PropertyName, collection: string | null | undefined): lodash.Dictionary<string>;
-        <T>(iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>): LodashKeyBy2x1<T>;
-        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashKeyBy2x2<T>;
+        <T>(iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>): LodashKeyBy1x1<T>;
+        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashKeyBy1x2<T>;
         <T>(iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>, collection: lodash.List<T> | null | undefined): lodash.Dictionary<T>;
-        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashKeyBy3x2<T>;
+        <T extends object>(iteratee: lodash.__, collection: T | null | undefined): LodashKeyBy2x2<T>;
         <T extends object>(iteratee: lodash.ValueIterateeCustom<T[keyof T], lodash.PropertyName>, collection: T | null | undefined): lodash.Dictionary<T[keyof T]>;
     }
-    type LodashKeyBy1x1 = (collection: string | null | undefined) => lodash.Dictionary<string>;
-    type LodashKeyBy1x2 = (iteratee: (value: string) => lodash.PropertyName) => lodash.Dictionary<string>;
-    type LodashKeyBy2x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<T>;
-    type LodashKeyBy2x2<T> = (iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>) => lodash.Dictionary<T>;
-    type LodashKeyBy3x2<T> = (iteratee: lodash.ValueIterateeCustom<T[keyof T], lodash.PropertyName>) => lodash.Dictionary<T[keyof T]>;
+    type LodashKeyBy1x1<T> = (collection: lodash.List<T> | object | null | undefined) => lodash.Dictionary<T>;
+    type LodashKeyBy1x2<T> = (iteratee: lodash.ValueIterateeCustom<T, lodash.PropertyName>) => lodash.Dictionary<T>;
+    type LodashKeyBy2x2<T> = (iteratee: lodash.ValueIterateeCustom<T[keyof T], lodash.PropertyName>) => lodash.Dictionary<T[keyof T]>;
     interface LodashIndexOf {
         <T>(value: T): LodashIndexOf1x1<T>;
         <T>(value: lodash.__, array: lodash.List<T> | null | undefined): LodashIndexOf1x2<T>;
@@ -2113,45 +2104,40 @@ declare namespace _ {
     type LodashMapKeys2x1 = <T extends object>(object: T | null | undefined) => lodash.Dictionary<T[keyof T]>;
     type LodashMapKeys2x2<T> = (iteratee: lodash.ValueIteratee<string>) => lodash.Dictionary<T[keyof T]>;
     interface LodashMapValues {
-        <TResult>(callback: (value: string) => TResult): LodashMapValues1x1<TResult>;
-        (callback: lodash.__, obj: string | null | undefined): LodashMapValues1x2;
-        <TResult>(callback: (value: string) => TResult, obj: string | null | undefined): lodash.NumericDictionary<TResult>;
-        <T, TResult>(callback: (value: T) => TResult): LodashMapValues2x1<T, TResult>;
-        <T>(callbackOrIterateeOrIterateeOrIteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues2x2<T>;
+        <T, TResult>(callback: (value: T) => TResult): LodashMapValues1x1<T, TResult>;
+        <T>(callbackOrIterateeOrIterateeOrIteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues1x2<T>;
         <T, TResult>(callback: (value: T) => TResult, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<TResult>;
-        <T extends object, TResult>(callback: (value: T[keyof T]) => TResult): LodashMapValues3x1<T, TResult>;
-        <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues3x2<T>;
+        <T extends object, TResult>(callback: (value: T[keyof T]) => TResult): LodashMapValues2x1<T, TResult>;
+        <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues2x2<T>;
         <T extends object, TResult>(callback: (value: T[keyof T]) => TResult, obj: T | null | undefined): { [P in keyof T]: TResult };
-        (iteratee: object): LodashMapValues4x1;
+        (iteratee: object): LodashMapValues3x1;
         <T>(iteratee: object, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(iteratee: object, obj: T | null | undefined): { [P in keyof T]: boolean };
-        <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues6x1<T, TKey>;
+        <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues5x1<T, TKey>;
         <T, TKey extends keyof T>(iteratee: TKey, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<T[TKey]>;
-        (iteratee: string): LodashMapValues7x1;
+        (iteratee: string): LodashMapValues6x1;
         <T>(iteratee: string, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<any>;
         <T extends object>(iteratee: string, obj: T | null | undefined): { [P in keyof T]: any };
     }
-    type LodashMapValues1x1<TResult> = (obj: string | null | undefined) => lodash.NumericDictionary<TResult>;
-    type LodashMapValues1x2 = <TResult>(callback: (value: string) => TResult) => lodash.NumericDictionary<TResult>;
-    type LodashMapValues2x1<T, TResult> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<TResult>;
-    interface LodashMapValues2x2<T> {
+    type LodashMapValues1x1<T, TResult> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<TResult>;
+    interface LodashMapValues1x2<T> {
         <TResult>(callback: (value: T) => TResult): lodash.Dictionary<TResult>;
         (iteratee: object): lodash.Dictionary<boolean>;
         <TKey extends keyof T>(iteratee: TKey): lodash.Dictionary<T[TKey]>;
         (iteratee: string): lodash.Dictionary<any>;
     }
-    type LodashMapValues3x1<T, TResult> = (obj: T | null | undefined) => { [P in keyof T]: TResult };
-    interface LodashMapValues3x2<T> {
+    type LodashMapValues2x1<T, TResult> = (obj: T | null | undefined) => { [P in keyof T]: TResult };
+    interface LodashMapValues2x2<T> {
         <TResult>(callback: (value: T[keyof T]) => TResult): { [P in keyof T]: TResult };
         (iteratee: object): { [P in keyof T]: boolean };
         (iteratee: string): { [P in keyof T]: any };
     }
-    interface LodashMapValues4x1 {
+    interface LodashMapValues3x1 {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: boolean };
     }
-    type LodashMapValues6x1<T, TKey extends keyof T> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<T[TKey]>;
-    interface LodashMapValues7x1 {
+    type LodashMapValues5x1<T, TKey extends keyof T> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<T[TKey]>;
+    interface LodashMapValues6x1 {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<any>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: any };
     }
@@ -2186,7 +2172,13 @@ declare namespace _ {
     }
     type LodashMerge1x1<TObject> = <TSource>(source: TSource) => TObject & TSource;
     type LodashMerge1x2<TSource> = <TObject>(object: TObject) => TObject & TSource;
-    type LodashMergeAll = (object: ReadonlyArray<any>) => any;
+    interface LodashMergeAll {
+        <TObject, TSource>(object: [TObject, TSource]): TObject & TSource;
+        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): TObject & TSource1 & TSource2;
+        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): TObject & TSource1 & TSource2 & TSource3;
+        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        (object: ReadonlyArray<any>): any;
+    }
     interface LodashMergeAllWith {
         (customizer: lodash.MergeWithCustomizer): LodashMergeAllWith1x1;
         (customizer: lodash.__, args: ReadonlyArray<any>): LodashMergeAllWith1x2;
@@ -2250,47 +2242,63 @@ declare namespace _ {
     type LodashNth1x2<T> = (n: number) => T | undefined;
     type LodashNthArg = (n: number) => (...args: any[]) => any;
     interface LodashOmit {
-        (paths: lodash.PropertyPath): LodashOmit1x1;
+        (paths: lodash.Many<lodash.PropertyName>): LodashOmit1x1;
         <T extends lodash.AnyKindOfDictionary>(paths: lodash.__, object: T | null | undefined): LodashOmit1x2<T>;
-        <T extends lodash.AnyKindOfDictionary>(paths: lodash.PropertyPath, object: T | null | undefined): T;
+        <T extends lodash.AnyKindOfDictionary>(paths: lodash.Many<lodash.PropertyName>, object: T | null | undefined): T;
+        <T extends object, K extends keyof T>(paths: lodash.Many<K>): LodashOmit2x1<T, K>;
         <T extends object>(paths: lodash.__, object: T | null | undefined): LodashOmit2x2<T>;
-        <T extends object>(paths: lodash.PropertyPath, object: T | null | undefined): lodash.PartialObject<T>;
+        <T extends object, K extends keyof T>(paths: lodash.Many<K>, object: T | null | undefined): lodash.Omit<T, K>;
+        <T extends object>(paths: lodash.Many<lodash.PropertyName>, object: T | null | undefined): lodash.PartialObject<T>;
     }
     interface LodashOmit1x1 {
         <T extends lodash.AnyKindOfDictionary>(object: T | null | undefined): T;
         <T extends object>(object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashOmit1x2<T> = (paths: lodash.PropertyPath) => T;
-    type LodashOmit2x2<T> = (paths: lodash.PropertyPath) => lodash.PartialObject<T>;
+    type LodashOmit1x2<T> = (paths: lodash.Many<lodash.PropertyName>) => T;
+    type LodashOmit2x1<T, K extends keyof T> = (object: T | null | undefined) => lodash.Omit<T, K>;
+    interface LodashOmit2x2<T> {
+        <K extends keyof T>(paths: lodash.Many<K>): lodash.Omit<T, K>;
+        (paths: lodash.Many<lodash.PropertyName>): lodash.PartialObject<T>;
+    }
     interface LodashOmitBy {
         <T>(predicate: lodash.ValueKeyIteratee<T>): LodashOmitBy1x1<T>;
-        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashOmitBy1x2<T>;
+        <T>(predicate: lodash.__, object: lodash.Dictionary<T> | null | undefined): LodashOmitBy1x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        <T>(predicate: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashOmitBy2x2<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashOmitBy3x2<T>;
         <T extends object>(predicate: lodash.ValueKeyIteratee<T[keyof T]>, object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashOmitBy1x1<T> = <T1 extends object>(object: T1 | null | undefined) => lodash.PartialObject<T1>;
-    type LodashOmitBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
+    interface LodashOmitBy1x1<T> {
+        (object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        (object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T1 extends object>(object: T1 | null | undefined): lodash.PartialObject<T1>;
+    }
+    type LodashOmitBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.Dictionary<T>;
+    type LodashOmitBy2x2<T> = (predicate: lodash.ValueKeyIteratee<T>) => lodash.NumericDictionary<T>;
+    type LodashOmitBy3x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
     type LodashOnce = <T extends (...args: any[]) => any>(func: T) => T;
     interface LodashOrderBy {
         <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>): LodashOrderBy1x1<T>;
-        (iteratees: lodash.__, orders: lodash.Many<boolean|string>): LodashOrderBy1x2;
-        <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>, orders: lodash.Many<boolean|string>): LodashOrderBy1x3<T>;
+        (iteratees: lodash.__, orders: lodash.Many<boolean|"asc"|"desc">): LodashOrderBy1x2;
+        <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>, orders: lodash.Many<boolean|"asc"|"desc">): LodashOrderBy1x3<T>;
         <T>(iteratees: lodash.__, orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy1x4<T>;
         <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid>, orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy1x5<T>;
-        <T>(iteratees: lodash.__, orders: lodash.Many<boolean|string>, collection: lodash.List<T> | null | undefined): LodashOrderBy1x6<T>;
-        <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean | string>, collection: lodash.List<T> | null | undefined): T[];
+        <T>(iteratees: lodash.__, orders: lodash.Many<boolean|"asc"|"desc">, collection: lodash.List<T> | null | undefined): LodashOrderBy1x6<T>;
+        <T>(iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean | "asc" | "desc">, collection: lodash.List<T> | null | undefined): T[];
         <T>(iteratees: lodash.Many<lodash.ValueIteratee<T>>): LodashOrderBy2x1<T>;
-        <T>(iteratees: lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean|string>): LodashOrderBy2x3<T>;
+        <T>(iteratees: lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean|"asc"|"desc">): LodashOrderBy2x3<T>;
         <T>(iteratees: lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy2x5<T>;
         <T extends object>(iteratees: lodash.__, orders: lodash.__, collection: T | null | undefined): LodashOrderBy3x4<T>;
         <T extends object>(iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid>, orders: lodash.__, collection: T | null | undefined): LodashOrderBy3x5<T>;
-        <T extends object>(iteratees: lodash.__, orders: lodash.Many<boolean|string>, collection: T | null | undefined): LodashOrderBy3x6<T>;
-        <T extends object>(iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.Many<boolean | string>, collection: T | null | undefined): Array<T[keyof T]>;
+        <T extends object>(iteratees: lodash.__, orders: lodash.Many<boolean|"asc"|"desc">, collection: T | null | undefined): LodashOrderBy3x6<T>;
+        <T extends object>(iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.Many<boolean | "asc" | "desc">, collection: T | null | undefined): Array<T[keyof T]>;
         <T extends object>(iteratees: lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.__, collection: T | null | undefined): LodashOrderBy4x5<T>;
     }
     interface LodashOrderBy1x1<T> {
-        (orders: lodash.Many<boolean | string>): LodashOrderBy1x3<T>;
+        (orders: lodash.Many<boolean | "asc" | "desc">): LodashOrderBy1x3<T>;
         (orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy1x5<T>;
-        (orders: lodash.Many<boolean | string>, collection: lodash.List<T> | object | null | undefined): T[];
+        (orders: lodash.Many<boolean | "asc" | "desc">, collection: lodash.List<T> | object | null | undefined): T[];
         <T1 extends object>(orders: lodash.__, collection: T1 | null | undefined): LodashOrderBy3x5<T>;
     }
     interface LodashOrderBy1x2 {
@@ -2307,32 +2315,32 @@ declare namespace _ {
     }
     interface LodashOrderBy1x4<T> {
         (iteratees: lodash.Many<(value: T) => lodash.NotVoid>): LodashOrderBy1x5<T>;
-        (iteratees: lodash.__, orders: lodash.Many<boolean | string>): LodashOrderBy1x6<T>;
-        (iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean | string>): T[];
+        (iteratees: lodash.__, orders: lodash.Many<boolean | "asc" | "desc">): LodashOrderBy1x6<T>;
+        (iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>, orders: lodash.Many<boolean | "asc" | "desc">): T[];
         (iteratees: lodash.Many<lodash.ValueIteratee<T>>): LodashOrderBy2x5<T>;
     }
-    type LodashOrderBy1x5<T> = (orders: lodash.Many<boolean|string>) => T[];
+    type LodashOrderBy1x5<T> = (orders: lodash.Many<boolean|"asc"|"desc">) => T[];
     type LodashOrderBy1x6<T> = (iteratees: lodash.Many<(value: T) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T>>) => T[];
     interface LodashOrderBy2x1<T> {
-        (orders: lodash.Many<boolean | string>): LodashOrderBy2x3<T>;
+        (orders: lodash.Many<boolean | "asc" | "desc">): LodashOrderBy2x3<T>;
         (orders: lodash.__, collection: lodash.List<T> | null | undefined): LodashOrderBy2x5<T>;
-        (orders: lodash.Many<boolean | string>, collection: lodash.List<T> | object | null | undefined): T[];
+        (orders: lodash.Many<boolean | "asc" | "desc">, collection: lodash.List<T> | object | null | undefined): T[];
         <T1 extends object>(orders: lodash.__, collection: T1 | null | undefined): LodashOrderBy4x5<T>;
     }
     interface LodashOrderBy2x3<T> {
         (collection: lodash.List<T> | null | undefined): T[];
         (collection: object | null | undefined): object[];
     }
-    type LodashOrderBy2x5<T> = (orders: lodash.Many<boolean|string>) => T[];
+    type LodashOrderBy2x5<T> = (orders: lodash.Many<boolean|"asc"|"desc">) => T[];
     interface LodashOrderBy3x4<T> {
         (iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid>): LodashOrderBy3x5<T>;
-        (iteratees: lodash.__, orders: lodash.Many<boolean | string>): LodashOrderBy3x6<T>;
-        (iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.Many<boolean | string>): Array<T[keyof T]>;
+        (iteratees: lodash.__, orders: lodash.Many<boolean | "asc" | "desc">): LodashOrderBy3x6<T>;
+        (iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>, orders: lodash.Many<boolean | "asc" | "desc">): Array<T[keyof T]>;
         (iteratees: lodash.Many<lodash.ValueIteratee<T[keyof T]>>): LodashOrderBy4x5<T>;
     }
-    type LodashOrderBy3x5<T> = (orders: lodash.Many<boolean|string>) => Array<T[keyof T]>;
+    type LodashOrderBy3x5<T> = (orders: lodash.Many<boolean|"asc"|"desc">) => Array<T[keyof T]>;
     type LodashOrderBy3x6<T> = (iteratees: lodash.Many<(value: T[keyof T]) => lodash.NotVoid> | lodash.Many<lodash.ValueIteratee<T[keyof T]>>) => Array<T[keyof T]>;
-    type LodashOrderBy4x5<T> = (orders: lodash.Many<boolean|string>) => Array<T[keyof T]>;
+    type LodashOrderBy4x5<T> = (orders: lodash.Many<boolean|"asc"|"desc">) => Array<T[keyof T]>;
     interface LodashOverArgs {
         (func: (...args: any[]) => any): LodashOverArgs1x1;
         (func: lodash.__, transforms: lodash.Many<(...args: any[]) => any>): LodashOverArgs1x2;
@@ -2450,21 +2458,252 @@ declare namespace _ {
     type LodashParseInt1x1 = (string: string) => number;
     type LodashParseInt1x2 = (radix: number) => number;
     interface LodashPartial {
-        (args: ReadonlyArray<any>): LodashPartial1x1;
-        (args: lodash.__, func: (...args: any[]) => any): LodashPartial1x2;
-        (args: ReadonlyArray<any>, func: (...args: any[]) => any): (...args: any[]) => any;
+        <T1, R>(func: lodash.Function1<T1, R>): LodashPartial1x1<T1, R>;
+        <T1>(func: lodash.__, arg1: [T1]): LodashPartial1x2<T1>;
+        <T1, R>(func: lodash.Function1<T1, R>, arg1: [T1]): lodash.Function0<R>;
+        <T1, T2, R>(func: lodash.Function2<T1, T2, R>): LodashPartial2x1<T1, T2, R>;
+        <T1, T2, R>(func: lodash.Function2<T1, T2, R>, arg1: [T1]): lodash.Function1<    T2, R>;
+        <T2>(func: lodash.__, plc1: [lodash.__, T2]): LodashPartial3x2<T2>;
+        <T1, T2, R>(func: lodash.Function2<T1, T2, R>, plc1: [lodash.__, T2]): lodash.Function1<T1,     R>;
+        <T1, T2>(func: lodash.__, arg1: [T1, T2]): LodashPartial4x2<T1, T2>;
+        <T1, T2, R>(func: lodash.Function2<T1, T2, R>, arg1: [T1, T2]): lodash.Function0<        R>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>): LodashPartial5x1<T1, T2, T3, R>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg1: [T1]): lodash.Function2<    T2, T3, R>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, plc1: [lodash.__, T2]): lodash.Function2<T1,     T3, R>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg1: [T1, T2]): lodash.Function1<        T3, R>;
+        <T3>(func: lodash.__, plc1: [lodash.__, lodash.__, T3]): LodashPartial8x2<T3>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, plc1: [lodash.__, lodash.__, T3]): lodash.Function2<T1, T2,     R>;
+        <T1, T3>(func: lodash.__, arg1: [T1, lodash.__, T3]): LodashPartial9x2<T1, T3>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg1: [T1, lodash.__, T3]): lodash.Function1<    T2,     R>;
+        <T2, T3>(func: lodash.__, plc1: [lodash.__, T2, T3]): LodashPartial10x2<T2, T3>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, plc1: [lodash.__, T2, T3]): lodash.Function1<T1,         R>;
+        <T1, T2, T3>(func: lodash.__, arg1: [T1, T2, T3]): LodashPartial11x2<T1, T2, T3>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg1: [T1, T2, T3]): lodash.Function0<            R>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>): LodashPartial12x1<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1]): lodash.Function3<    T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, plc1: [lodash.__, T2]): lodash.Function3<T1,     T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, T2]): lodash.Function2<        T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, plc1: [lodash.__, lodash.__, T3]): lodash.Function3<T1, T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, lodash.__, T3]): lodash.Function2<    T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, plc1: [lodash.__, T2, T3]): lodash.Function2<T1,         T4, R>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, T2, T3]): lodash.Function1<            T4, R>;
+        <T4>(func: lodash.__, plc1: [lodash.__, lodash.__, lodash.__, T4]): LodashPartial19x2<T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, plc1: [lodash.__, lodash.__, lodash.__, T4]): lodash.Function3<T1, T2, T3,     R>;
+        <T1, T4>(func: lodash.__, arg1: [T1, lodash.__, lodash.__, T4]): LodashPartial20x2<T1, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, lodash.__, lodash.__, T4]): lodash.Function2<    T2, T3,     R>;
+        <T2, T4>(func: lodash.__, plc1: [lodash.__, T2, lodash.__, T4]): LodashPartial21x2<T2, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, plc1: [lodash.__, T2, lodash.__, T4]): lodash.Function2<T1,     T3,     R>;
+        <T1, T2, T4>(func: lodash.__, arg1: [T1, T2, lodash.__, T4]): LodashPartial22x2<T1, T2, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, T2, lodash.__, T4]): lodash.Function1<        T3,     R>;
+        <T3, T4>(func: lodash.__, plc1: [lodash.__, lodash.__, T3, T4]): LodashPartial23x2<T3, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, plc1: [lodash.__, lodash.__, T3, T4]): lodash.Function2<T1, T2,         R>;
+        <T1, T3, T4>(func: lodash.__, arg1: [T1, lodash.__, T3, T4]): LodashPartial24x2<T1, T3, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, lodash.__, T3, T4]): lodash.Function1<    T2,         R>;
+        <T2, T3, T4>(func: lodash.__, plc1: [lodash.__, T2, T3, T4]): LodashPartial25x2<T2, T3, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, plc1: [lodash.__, T2, T3, T4]): lodash.Function1<T1,             R>;
+        <T1, T2, T3, T4>(func: lodash.__, arg1: [T1, T2, T3, T4]): LodashPartial26x2<T1, T2, T3, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, T2, T3, T4]): lodash.Function0<                R>;
+        (func: (...args: any[]) => any): LodashPartial27x1;
+        (func: lodash.__, args: ReadonlyArray<any>): LodashPartial27x2;
+        (func: (...args: any[]) => any, args: ReadonlyArray<any>): (...args: any[]) => any;
         placeholder: lodash.__;
     }
-    type LodashPartial1x1 = (func: (...args: any[]) => any) => (...args: any[]) => any;
-    type LodashPartial1x2 = (args: ReadonlyArray<any>) => (...args: any[]) => any;
+    type LodashPartial1x1<T1, R> = (arg1: [T1]) => lodash.Function0<R>;
+    interface LodashPartial1x2<T1> {
+        <R>(func: lodash.Function1<T1, R>): lodash.Function0<R>;
+        <T2, R>(func: lodash.Function2<T1, T2, R>): lodash.Function1<    T2, R>;
+        <T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>): lodash.Function2<    T2, T3, R>;
+        <T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>): lodash.Function3<    T2, T3, T4, R>;
+    }
+    interface LodashPartial2x1<T1, T2, R> {
+        (arg1: [T1]): lodash.Function1<    T2, R>;
+        (plc1: [lodash.__, T2]): lodash.Function1<T1,     R>;
+        (arg1: [T1, T2]): lodash.Function0<        R>;
+    }
+    interface LodashPartial3x2<T2> {
+        <T1, R>(func: lodash.Function2<T1, T2, R>): lodash.Function1<T1,     R>;
+        <T1, T3, R>(func: lodash.Function3<T1, T2, T3, R>): lodash.Function2<T1,     T3, R>;
+        <T1, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>): lodash.Function3<T1,     T3, T4, R>;
+    }
+    interface LodashPartial4x2<T1, T2> {
+        <R>(func: lodash.Function2<T1, T2, R>): lodash.Function0<        R>;
+        <T3, R>(func: lodash.Function3<T1, T2, T3, R>): lodash.Function1<        T3, R>;
+        <T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>): lodash.Function2<        T3, T4, R>;
+    }
+    interface LodashPartial5x1<T1, T2, T3, R> {
+        (arg1: [T1]): lodash.Function2<    T2, T3, R>;
+        (plc1: [lodash.__, T2]): lodash.Function2<T1,     T3, R>;
+        (arg1: [T1, T2]): lodash.Function1<        T3, R>;
+        (plc1: [lodash.__, lodash.__, T3]): lodash.Function2<T1, T2,     R>;
+        (arg1: [T1, lodash.__, T3]): lodash.Function1<    T2,     R>;
+        (plc1: [lodash.__, T2, T3]): lodash.Function1<T1,         R>;
+        (arg1: [T1, T2, T3]): lodash.Function0<            R>;
+    }
+    interface LodashPartial8x2<T3> {
+        <T1, T2, R>(func: lodash.Function3<T1, T2, T3, R>): lodash.Function2<T1, T2,     R>;
+        <T1, T2, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>): lodash.Function3<T1, T2,     T4, R>;
+    }
+    interface LodashPartial9x2<T1, T3> {
+        <T2, R>(func: lodash.Function3<T1, T2, T3, R>): lodash.Function1<    T2,     R>;
+        <T2, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>): lodash.Function2<    T2,     T4, R>;
+    }
+    interface LodashPartial10x2<T2, T3> {
+        <T1, R>(func: lodash.Function3<T1, T2, T3, R>): lodash.Function1<T1,         R>;
+        <T1, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>): lodash.Function2<T1,         T4, R>;
+    }
+    interface LodashPartial11x2<T1, T2, T3> {
+        <R>(func: lodash.Function3<T1, T2, T3, R>): lodash.Function0<            R>;
+        <T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>): lodash.Function1<            T4, R>;
+    }
+    interface LodashPartial12x1<T1, T2, T3, T4, R> {
+        (arg1: [T1]): lodash.Function3<    T2, T3, T4, R>;
+        (plc1: [lodash.__, T2]): lodash.Function3<T1,     T3, T4, R>;
+        (arg1: [T1, T2]): lodash.Function2<        T3, T4, R>;
+        (plc1: [lodash.__, lodash.__, T3]): lodash.Function3<T1, T2,     T4, R>;
+        (arg1: [T1, lodash.__, T3]): lodash.Function2<    T2,     T4, R>;
+        (plc1: [lodash.__, T2, T3]): lodash.Function2<T1,         T4, R>;
+        (arg1: [T1, T2, T3]): lodash.Function1<            T4, R>;
+        (plc1: [lodash.__, lodash.__, lodash.__, T4]): lodash.Function3<T1, T2, T3,     R>;
+        (arg1: [T1, lodash.__, lodash.__, T4]): lodash.Function2<    T2, T3,     R>;
+        (plc1: [lodash.__, T2, lodash.__, T4]): lodash.Function2<T1,     T3,     R>;
+        (arg1: [T1, T2, lodash.__, T4]): lodash.Function1<        T3,     R>;
+        (plc1: [lodash.__, lodash.__, T3, T4]): lodash.Function2<T1, T2,         R>;
+        (arg1: [T1, lodash.__, T3, T4]): lodash.Function1<    T2,         R>;
+        (plc1: [lodash.__, T2, T3, T4]): lodash.Function1<T1,             R>;
+        (arg1: [T1, T2, T3, T4]): lodash.Function0<                R>;
+    }
+    type LodashPartial19x2<T4> = <T1, T2, T3, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function3<T1, T2, T3,     R>;
+    type LodashPartial20x2<T1, T4> = <T2, T3, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function2<    T2, T3,     R>;
+    type LodashPartial21x2<T2, T4> = <T1, T3, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function2<T1,     T3,     R>;
+    type LodashPartial22x2<T1, T2, T4> = <T3, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function1<        T3,     R>;
+    type LodashPartial23x2<T3, T4> = <T1, T2, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function2<T1, T2,         R>;
+    type LodashPartial24x2<T1, T3, T4> = <T2, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function1<    T2,         R>;
+    type LodashPartial25x2<T2, T3, T4> = <T1, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function1<T1,             R>;
+    type LodashPartial26x2<T1, T2, T3, T4> = <R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function0<                R>;
+    type LodashPartial27x1 = (args: ReadonlyArray<any>) => (...args: any[]) => any;
+    type LodashPartial27x2 = (func: (...args: any[]) => any) => (...args: any[]) => any;
     interface LodashPartialRight {
-        (args: ReadonlyArray<any>): LodashPartialRight1x1;
-        (args: lodash.__, func: (...args: any[]) => any): LodashPartialRight1x2;
-        (args: ReadonlyArray<any>, func: (...args: any[]) => any): (...args: any[]) => any;
+        <T1, R>(func: lodash.Function1<T1, R>): LodashPartialRight1x1<T1, R>;
+        <T1>(func: lodash.__, arg1: [T1]): LodashPartialRight1x2<T1>;
+        <T1, R>(func: lodash.Function1<T1, R>, arg1: [T1]): lodash.Function0<R>;
+        <T1, T2, R>(func: lodash.Function2<T1, T2, R>): LodashPartialRight2x1<T1, T2, R>;
+        <T1>(func: lodash.__, arg1: [T1, lodash.__]): LodashPartialRight2x2<T1>;
+        <T1, T2, R>(func: lodash.Function2<T1, T2, R>, arg1: [T1, lodash.__]): lodash.Function1<    T2, R>;
+        <T2>(func: lodash.__, arg2: [T2]): LodashPartialRight3x2<T2>;
+        <T1, T2, R>(func: lodash.Function2<T1, T2, R>, arg2: [T2]): lodash.Function1<T1,     R>;
+        <T1, T2>(func: lodash.__, arg1: [T1, T2]): LodashPartialRight4x2<T1, T2>;
+        <T1, T2, R>(func: lodash.Function2<T1, T2, R>, arg1: [T1, T2]): lodash.Function0<        R>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>): LodashPartialRight5x1<T1, T2, T3, R>;
+        <T1>(func: lodash.__, arg1: [T1, lodash.__, lodash.__]): LodashPartialRight5x2<T1>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg1: [T1, lodash.__, lodash.__]): lodash.Function2<    T2, T3, R>;
+        <T2>(func: lodash.__, arg2: [T2, lodash.__]): LodashPartialRight6x2<T2>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg2: [T2, lodash.__]): lodash.Function2<T1,     T3, R>;
+        <T1, T2>(func: lodash.__, arg1: [T1, T2, lodash.__]): LodashPartialRight7x2<T1, T2>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg1: [T1, T2, lodash.__]): lodash.Function1<        T3, R>;
+        <T3>(func: lodash.__, arg3: [T3]): LodashPartialRight8x2<T3>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg3: [T3]): lodash.Function2<T1, T2,     R>;
+        <T1, T3>(func: lodash.__, arg1: [T1, lodash.__, T3]): LodashPartialRight9x2<T1, T3>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg1: [T1, lodash.__, T3]): lodash.Function1<    T2,     R>;
+        <T2, T3>(func: lodash.__, arg2: [T2, T3]): LodashPartialRight10x2<T2, T3>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg2: [T2, T3]): lodash.Function1<T1,         R>;
+        <T1, T2, T3>(func: lodash.__, arg1: [T1, T2, T3]): LodashPartialRight11x2<T1, T2, T3>;
+        <T1, T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>, arg1: [T1, T2, T3]): lodash.Function0<            R>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>): LodashPartialRight12x1<T1, T2, T3, T4, R>;
+        <T1>(func: lodash.__, arg1: [T1, lodash.__, lodash.__, lodash.__]): LodashPartialRight12x2<T1>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, lodash.__, lodash.__, lodash.__]): lodash.Function3<    T2, T3, T4, R>;
+        <T2>(func: lodash.__, arg2: [T2, lodash.__, lodash.__]): LodashPartialRight13x2<T2>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg2: [T2, lodash.__, lodash.__]): lodash.Function3<T1,     T3, T4, R>;
+        <T1, T2>(func: lodash.__, arg1: [T1, T2, lodash.__, lodash.__]): LodashPartialRight14x2<T1, T2>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, T2, lodash.__, lodash.__]): lodash.Function2<        T3, T4, R>;
+        <T3>(func: lodash.__, arg3: [T3, lodash.__]): LodashPartialRight15x2<T3>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg3: [T3, lodash.__]): lodash.Function3<T1, T2,     T4, R>;
+        <T1, T3>(func: lodash.__, arg1: [T1, lodash.__, T3, lodash.__]): LodashPartialRight16x2<T1, T3>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, lodash.__, T3, lodash.__]): lodash.Function2<    T2,     T4, R>;
+        <T2, T3>(func: lodash.__, arg2: [T2, T3, lodash.__]): LodashPartialRight17x2<T2, T3>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg2: [T2, T3, lodash.__]): lodash.Function2<T1,         T4, R>;
+        <T1, T2, T3>(func: lodash.__, arg1: [T1, T2, T3, lodash.__]): LodashPartialRight18x2<T1, T2, T3>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, T2, T3, lodash.__]): lodash.Function1<            T4, R>;
+        <T4>(func: lodash.__, arg4: [T4]): LodashPartialRight19x2<T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg4: [T4]): lodash.Function3<T1, T2, T3,     R>;
+        <T1, T4>(func: lodash.__, arg1: [T1, lodash.__, lodash.__, T4]): LodashPartialRight20x2<T1, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, lodash.__, lodash.__, T4]): lodash.Function2<    T2, T3,     R>;
+        <T2, T4>(func: lodash.__, arg2: [T2, lodash.__, T4]): LodashPartialRight21x2<T2, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg2: [T2, lodash.__, T4]): lodash.Function2<T1,     T3,     R>;
+        <T1, T2, T4>(func: lodash.__, arg1: [T1, T2, lodash.__, T4]): LodashPartialRight22x2<T1, T2, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, T2, lodash.__, T4]): lodash.Function1<        T3,     R>;
+        <T3, T4>(func: lodash.__, arg3: [T3, T4]): LodashPartialRight23x2<T3, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg3: [T3, T4]): lodash.Function2<T1, T2,         R>;
+        <T1, T3, T4>(func: lodash.__, arg1: [T1, lodash.__, T3, T4]): LodashPartialRight24x2<T1, T3, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, lodash.__, T3, T4]): lodash.Function1<    T2,         R>;
+        <T2, T3, T4>(func: lodash.__, arg2: [T2, T3, T4]): LodashPartialRight25x2<T2, T3, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg2: [T2, T3, T4]): lodash.Function1<T1,             R>;
+        <T1, T2, T3, T4>(func: lodash.__, arg1: [T1, T2, T3, T4]): LodashPartialRight26x2<T1, T2, T3, T4>;
+        <T1, T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>, arg1: [T1, T2, T3, T4]): lodash.Function0<                R>;
+        (func: (...args: any[]) => any): LodashPartialRight27x1;
+        (func: lodash.__, args: ReadonlyArray<any>): LodashPartialRight27x2;
+        (func: (...args: any[]) => any, args: ReadonlyArray<any>): (...args: any[]) => any;
         placeholder: lodash.__;
     }
-    type LodashPartialRight1x1 = (func: (...args: any[]) => any) => (...args: any[]) => any;
-    type LodashPartialRight1x2 = (args: ReadonlyArray<any>) => (...args: any[]) => any;
+    type LodashPartialRight1x1<T1, R> = (arg1: [T1]) => lodash.Function0<R>;
+    type LodashPartialRight1x2<T1> = <R>(func: lodash.Function1<T1, R>) => lodash.Function0<R>;
+    interface LodashPartialRight2x1<T1, T2, R> {
+        (arg1: [T1, lodash.__]): lodash.Function1<    T2, R>;
+        (arg2: [T2]): lodash.Function1<T1,     R>;
+        (arg1: [T1, T2]): lodash.Function0<        R>;
+    }
+    type LodashPartialRight2x2<T1> = <T2, R>(func: lodash.Function2<T1, T2, R>) => lodash.Function1<    T2, R>;
+    type LodashPartialRight3x2<T2> = <T1, R>(func: lodash.Function2<T1, T2, R>) => lodash.Function1<T1,     R>;
+    type LodashPartialRight4x2<T1, T2> = <R>(func: lodash.Function2<T1, T2, R>) => lodash.Function0<        R>;
+    interface LodashPartialRight5x1<T1, T2, T3, R> {
+        (arg1: [T1, lodash.__, lodash.__]): lodash.Function2<    T2, T3, R>;
+        (arg2: [T2, lodash.__]): lodash.Function2<T1,     T3, R>;
+        (arg1: [T1, T2, lodash.__]): lodash.Function1<        T3, R>;
+        (arg3: [T3]): lodash.Function2<T1, T2,     R>;
+        (arg1: [T1, lodash.__, T3]): lodash.Function1<    T2,     R>;
+        (arg2: [T2, T3]): lodash.Function1<T1,         R>;
+        (arg1: [T1, T2, T3]): lodash.Function0<            R>;
+    }
+    type LodashPartialRight5x2<T1> = <T2, T3, R>(func: lodash.Function3<T1, T2, T3, R>) => lodash.Function2<    T2, T3, R>;
+    type LodashPartialRight6x2<T2> = <T1, T3, R>(func: lodash.Function3<T1, T2, T3, R>) => lodash.Function2<T1,     T3, R>;
+    type LodashPartialRight7x2<T1, T2> = <T3, R>(func: lodash.Function3<T1, T2, T3, R>) => lodash.Function1<        T3, R>;
+    type LodashPartialRight8x2<T3> = <T1, T2, R>(func: lodash.Function3<T1, T2, T3, R>) => lodash.Function2<T1, T2,     R>;
+    type LodashPartialRight9x2<T1, T3> = <T2, R>(func: lodash.Function3<T1, T2, T3, R>) => lodash.Function1<    T2,     R>;
+    type LodashPartialRight10x2<T2, T3> = <T1, R>(func: lodash.Function3<T1, T2, T3, R>) => lodash.Function1<T1,         R>;
+    type LodashPartialRight11x2<T1, T2, T3> = <R>(func: lodash.Function3<T1, T2, T3, R>) => lodash.Function0<            R>;
+    interface LodashPartialRight12x1<T1, T2, T3, T4, R> {
+        (arg1: [T1, lodash.__, lodash.__, lodash.__]): lodash.Function3<    T2, T3, T4, R>;
+        (arg2: [T2, lodash.__, lodash.__]): lodash.Function3<T1,     T3, T4, R>;
+        (arg1: [T1, T2, lodash.__, lodash.__]): lodash.Function2<        T3, T4, R>;
+        (arg3: [T3, lodash.__]): lodash.Function3<T1, T2,     T4, R>;
+        (arg1: [T1, lodash.__, T3, lodash.__]): lodash.Function2<    T2,     T4, R>;
+        (arg2: [T2, T3, lodash.__]): lodash.Function2<T1,         T4, R>;
+        (arg1: [T1, T2, T3, lodash.__]): lodash.Function1<            T4, R>;
+        (arg4: [T4]): lodash.Function3<T1, T2, T3,     R>;
+        (arg1: [T1, lodash.__, lodash.__, T4]): lodash.Function2<    T2, T3,     R>;
+        (arg2: [T2, lodash.__, T4]): lodash.Function2<T1,     T3,     R>;
+        (arg1: [T1, T2, lodash.__, T4]): lodash.Function1<        T3,     R>;
+        (arg3: [T3, T4]): lodash.Function2<T1, T2,         R>;
+        (arg1: [T1, lodash.__, T3, T4]): lodash.Function1<    T2,         R>;
+        (arg2: [T2, T3, T4]): lodash.Function1<T1,             R>;
+        (arg1: [T1, T2, T3, T4]): lodash.Function0<                R>;
+    }
+    type LodashPartialRight12x2<T1> = <T2, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function3<    T2, T3, T4, R>;
+    type LodashPartialRight13x2<T2> = <T1, T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function3<T1,     T3, T4, R>;
+    type LodashPartialRight14x2<T1, T2> = <T3, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function2<        T3, T4, R>;
+    type LodashPartialRight15x2<T3> = <T1, T2, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function3<T1, T2,     T4, R>;
+    type LodashPartialRight16x2<T1, T3> = <T2, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function2<    T2,     T4, R>;
+    type LodashPartialRight17x2<T2, T3> = <T1, T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function2<T1,         T4, R>;
+    type LodashPartialRight18x2<T1, T2, T3> = <T4, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function1<            T4, R>;
+    type LodashPartialRight19x2<T4> = <T1, T2, T3, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function3<T1, T2, T3,     R>;
+    type LodashPartialRight20x2<T1, T4> = <T2, T3, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function2<    T2, T3,     R>;
+    type LodashPartialRight21x2<T2, T4> = <T1, T3, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function2<T1,     T3,     R>;
+    type LodashPartialRight22x2<T1, T2, T4> = <T3, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function1<        T3,     R>;
+    type LodashPartialRight23x2<T3, T4> = <T1, T2, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function2<T1, T2,         R>;
+    type LodashPartialRight24x2<T1, T3, T4> = <T2, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function1<    T2,         R>;
+    type LodashPartialRight25x2<T2, T3, T4> = <T1, R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function1<T1,             R>;
+    type LodashPartialRight26x2<T1, T2, T3, T4> = <R>(func: lodash.Function4<T1, T2, T3, T4, R>) => lodash.Function0<                R>;
+    type LodashPartialRight27x1 = (args: ReadonlyArray<any>) => (...args: any[]) => any;
+    type LodashPartialRight27x2 = (func: (...args: any[]) => any) => (...args: any[]) => any;
     interface LodashPartition {
         <T>(callback: lodash.ValueIteratee<T>): LodashPartition1x1<T>;
         <T>(callback: lodash.__, collection: lodash.List<T> | null | undefined): LodashPartition1x2<T>;
@@ -2616,12 +2855,35 @@ declare namespace _ {
     type LodashPick2x1 = <T>(object: T | null | undefined) => lodash.PartialDeep<T>;
     type LodashPick2x2<T> = (props: lodash.PropertyPath) => lodash.PartialDeep<T>;
     interface LodashPickBy {
-        <T>(predicate: lodash.ValueKeyIteratee<T>): LodashPickBy1x1<T>;
-        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashPickBy1x2<T>;
+        <T, S extends T>(predicate: lodash.ValueKeyIterateeTypeGuard<T, S>): LodashPickBy1x1<T, S>;
+        <T>(predicate: lodash.__, object: lodash.Dictionary<T> | null | undefined): LodashPickBy1x2<T>;
+        <T, S extends T>(predicate: lodash.ValueKeyIterateeTypeGuard<T, S>, object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<S>;
+        <T>(predicate: lodash.__, object: lodash.NumericDictionary<T> | null | undefined): LodashPickBy2x2<T>;
+        <T, S extends T>(predicate: lodash.ValueKeyIterateeTypeGuard<T, S>, object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<S>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>): LodashPickBy3x1<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        <T>(predicate: lodash.ValueKeyIteratee<T>, object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T extends object>(predicate: lodash.__, object: T | null | undefined): LodashPickBy5x2<T>;
         <T extends object>(predicate: lodash.ValueKeyIteratee<T[keyof T]>, object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashPickBy1x1<T> = <T1 extends object>(object: T1 | null | undefined) => lodash.PartialObject<T1>;
-    type LodashPickBy1x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
+    interface LodashPickBy1x1<T, S> {
+        (object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<S>;
+        (object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<S>;
+    }
+    interface LodashPickBy1x2<T> {
+        <S extends T>(predicate: lodash.ValueKeyIterateeTypeGuard<T, S>): lodash.Dictionary<S>;
+        (predicate: lodash.ValueKeyIteratee<T>): lodash.Dictionary<T>;
+    }
+    interface LodashPickBy2x2<T> {
+        <S extends T>(predicate: lodash.ValueKeyIterateeTypeGuard<T, S>): lodash.NumericDictionary<S>;
+        (predicate: lodash.ValueKeyIteratee<T>): lodash.NumericDictionary<T>;
+    }
+    interface LodashPickBy3x1<T> {
+        (object: lodash.Dictionary<T> | null | undefined): lodash.Dictionary<T>;
+        (object: lodash.NumericDictionary<T> | null | undefined): lodash.NumericDictionary<T>;
+        <T1 extends object>(object: T1 | null | undefined): lodash.PartialObject<T1>;
+    }
+    type LodashPickBy5x2<T> = (predicate: lodash.ValueKeyIteratee<T[keyof T]>) => lodash.PartialObject<T>;
     interface LodashProp {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashProp1x1<TObject, TKey>;
         <TObject extends object>(path: lodash.__, object: TObject): LodashProp1x2<TObject>;
@@ -3242,20 +3504,15 @@ declare namespace _ {
     type LodashReduceRight3x5<TResult> = (accumulator: TResult) => TResult;
     type LodashReduceRight3x6<T, TResult> = (callback: lodash.MemoIteratorCappedRight<T[keyof T], TResult>) => TResult;
     interface LodashReject {
-        (predicate: (value: string) => boolean): LodashReject1x1;
-        (predicate: lodash.__, collection: string | null | undefined): LodashReject1x2;
-        (predicate: (value: string) => boolean, collection: string | null | undefined): string[];
-        <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashReject2x1<T>;
-        <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashReject2x2<T>;
+        <T>(predicate: lodash.ValueIterateeCustom<T, boolean>): LodashReject1x1<T>;
+        <T>(predicate: lodash.__, collection: lodash.List<T> | null | undefined): LodashReject1x2<T>;
         <T>(predicate: lodash.ValueIterateeCustom<T, boolean>, collection: lodash.List<T> | null | undefined): T[];
-        <T extends object>(predicate: lodash.__, collection: T | null | undefined): LodashReject3x2<T>;
+        <T extends object>(predicate: lodash.__, collection: T | null | undefined): LodashReject2x2<T>;
         <T extends object>(predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>, collection: T | null | undefined): Array<T[keyof T]>;
     }
-    type LodashReject1x1 = (collection: string | null | undefined) => string[];
-    type LodashReject1x2 = (predicate: (value: string) => boolean) => string[];
-    type LodashReject2x1<T> = (collection: lodash.List<T> | object | null | undefined) => T[];
-    type LodashReject2x2<T> = (predicate: lodash.ValueIterateeCustom<T, boolean>) => T[];
-    type LodashReject3x2<T> = (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>) => Array<T[keyof T]>;
+    type LodashReject1x1<T> = (collection: lodash.List<T> | object | null | undefined) => T[];
+    type LodashReject1x2<T> = (predicate: lodash.ValueIterateeCustom<T, boolean>) => T[];
+    type LodashReject2x2<T> = (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>) => Array<T[keyof T]>;
     interface LodashRemove {
         <T>(predicate: lodash.ValueIteratee<T>): LodashRemove1x1<T>;
         <T>(predicate: lodash.__, array: lodash.List<T>): LodashRemove1x2<T>;
@@ -3546,17 +3803,12 @@ declare namespace _ {
     type LodashSortedLastIndexOf1x2<T> = (value: T) => number;
     type LodashSortedUniq = <T>(array: lodash.List<T> | null | undefined) => T[];
     interface LodashSortedUniqBy {
-        (iteratee: (value: string) => lodash.NotVoid): LodashSortedUniqBy1x1;
-        (iteratee: lodash.__, array: string | null | undefined): LodashSortedUniqBy1x2;
-        (iteratee: (value: string) => lodash.NotVoid, array: string | null | undefined): string[];
-        <T>(iteratee: lodash.ValueIteratee<T>): LodashSortedUniqBy2x1<T>;
-        <T>(iteratee: lodash.__, array: lodash.List<T> | null | undefined): LodashSortedUniqBy2x2<T>;
+        <T>(iteratee: lodash.ValueIteratee<T>): LodashSortedUniqBy1x1<T>;
+        <T>(iteratee: lodash.__, array: lodash.List<T> | null | undefined): LodashSortedUniqBy1x2<T>;
         <T>(iteratee: lodash.ValueIteratee<T>, array: lodash.List<T> | null | undefined): T[];
     }
-    type LodashSortedUniqBy1x1 = (array: string | null | undefined) => string[];
-    type LodashSortedUniqBy1x2 = (iteratee: (value: string) => lodash.NotVoid) => string[];
-    type LodashSortedUniqBy2x1<T> = (array: lodash.List<T> | null | undefined) => T[];
-    type LodashSortedUniqBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
+    type LodashSortedUniqBy1x1<T> = (array: lodash.List<T> | null | undefined) => T[];
+    type LodashSortedUniqBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
     interface LodashSplit {
         (separator: RegExp|string): LodashSplit1x1;
         (separator: lodash.__, string: string): LodashSplit1x2;
@@ -3583,7 +3835,7 @@ declare namespace _ {
     type LodashStubArray = () => any[];
     type LodashStubObject = () => any;
     type LodashStubString = () => string;
-    type LodashStubTrue = () => boolean;
+    type LodashStubTrue = () => true;
     interface LodashSubtract {
         (minuend: number): LodashSubtract1x1;
         (minuend: lodash.__, subtrahend: number): LodashSubtract1x2;
@@ -3900,17 +4152,12 @@ declare namespace _ {
     type LodashUnionWith1x6<T> = (comparator: lodash.Comparator<T>) => T[];
     type LodashUniq = <T>(array: lodash.List<T> | null | undefined) => T[];
     interface LodashUniqBy {
-        (iteratee: (value: string) => lodash.NotVoid): LodashUniqBy1x1;
-        (iteratee: lodash.__, array: string | null | undefined): LodashUniqBy1x2;
-        (iteratee: (value: string) => lodash.NotVoid, array: string | null | undefined): string[];
-        <T>(iteratee: lodash.ValueIteratee<T>): LodashUniqBy2x1<T>;
-        <T>(iteratee: lodash.__, array: lodash.List<T> | null | undefined): LodashUniqBy2x2<T>;
+        <T>(iteratee: lodash.ValueIteratee<T>): LodashUniqBy1x1<T>;
+        <T>(iteratee: lodash.__, array: lodash.List<T> | null | undefined): LodashUniqBy1x2<T>;
         <T>(iteratee: lodash.ValueIteratee<T>, array: lodash.List<T> | null | undefined): T[];
     }
-    type LodashUniqBy1x1 = (array: string | null | undefined) => string[];
-    type LodashUniqBy1x2 = (iteratee: (value: string) => lodash.NotVoid) => string[];
-    type LodashUniqBy2x1<T> = (array: lodash.List<T> | null | undefined) => T[];
-    type LodashUniqBy2x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
+    type LodashUniqBy1x1<T> = (array: lodash.List<T> | null | undefined) => T[];
+    type LodashUniqBy1x2<T> = (iteratee: lodash.ValueIteratee<T>) => T[];
     type LodashUniqueId = (prefix: string) => string;
     interface LodashUniqWith {
         <T>(comparator: lodash.Comparator<T>): LodashUniqWith1x1<T>;
@@ -4080,7 +4327,13 @@ declare namespace _ {
     }
     type LodashZip1x1<T1> = <T2>(arrays2: lodash.List<T2>) => Array<[T1 | undefined, T2 | undefined]>;
     type LodashZip1x2<T2> = <T1>(arrays1: lodash.List<T1>) => Array<[T1 | undefined, T2 | undefined]>;
-    type LodashZipAll = <T>(arrays: ReadonlyArray<lodash.List<T> | null | undefined>) => Array<Array<T | undefined>>;
+    interface LodashZipAll {
+        <T1, T2>(arrays1: [lodash.List<T1>, lodash.List<T2>]): Array<[T1 | undefined, T2 | undefined]>;
+        <T1, T2, T3>(arrays1: [lodash.List<T1>, lodash.List<T2>, lodash.List<T3>]): Array<[T1 | undefined, T2 | undefined, T3 | undefined]>;
+        <T1, T2, T3, T4>(arrays1: [lodash.List<T1>, lodash.List<T2>, lodash.List<T3>, lodash.List<T4>]): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined]>;
+        <T1, T2, T3, T4, T5>(arrays1: [lodash.List<T1>, lodash.List<T2>, lodash.List<T3>, lodash.List<T4>, lodash.List<T5>]): Array<[T1 | undefined, T2 | undefined, T3 | undefined, T4 | undefined, T5 | undefined]>;
+        <T>(arrays: ReadonlyArray<lodash.List<T> | null | undefined>): Array<Array<T | undefined>>;
+    }
     interface LodashZipObject {
         (props: lodash.List<lodash.PropertyName>): LodashZipObject1x1;
         <T>(props: lodash.__, values: lodash.List<T>): LodashZipObject1x2<T>;
@@ -4508,6 +4761,6 @@ declare namespace _ {
         zipObjectDeep: LodashZipObjectDeep;
         zipWith: LodashZipWith;
         __: lodash.__;
-        placehodler: lodash.__;
+        placeholder: lodash.__;
     }
 }

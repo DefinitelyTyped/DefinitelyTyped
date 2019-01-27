@@ -1,4 +1,4 @@
-import { Validator, Requireable, PureComponent, Component } from "react";
+import { Validator, ReactNode, Requireable, PureComponent, Component } from "react";
 import { CellMeasurerCache } from "./CellMeasurer";
 import {
     Index,
@@ -67,7 +67,7 @@ export type TableHeaderProps = {
     columnData?: any;
     dataKey: string;
     disableSort?: boolean;
-    label?: string;
+    label?: ReactNode;
     sortBy?: string;
     sortDirection?: SortDirectionType;
 };
@@ -141,7 +141,7 @@ export type ColumnProps = {
     /** Optional id to set on the column header; used for aria-describedby */
     id?: string;
     /** Header label for this column */
-    label?: string;
+    label?: ReactNode;
     /** Maximum width of column; this property will only be used if :flexGrow is > 0. */
     maxWidth?: number;
     /** Minimum width of column. */
@@ -189,13 +189,13 @@ export type RowMouseEventHandlerParams = {
         index: number;
     };
     index: number;
-    event: React.SyntheticEvent<React.MouseEvent<any>>;
+    event: React.MouseEvent<any>;
 };
 
 export type HeaderMouseEventHandlerParams = {
     dataKey: string;
     columnData: any;
-    event: React.SyntheticEvent<React.MouseEvent<any>>;
+    event: React.MouseEvent<any>;
 };
 
 // ref: https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md

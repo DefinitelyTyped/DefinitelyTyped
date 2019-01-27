@@ -43,10 +43,41 @@ export function subreddit(name: string): Subreddit {
   return r.getSubreddit(name);
 }
 
+export function topSubmissions(name: string): Promise<Listing<Submission>> {
+  return r.getTop(name, { time: 'all' });
+}
+
 export function wiki(subreddit: string, page: string): WikiPage {
   return r.getSubreddit(subreddit).getWikiPage(page);
 }
 
-export function getNewComments(subreddit: string): Listing<Comment> {
+export function getNewComments(subreddit: string): Promise<Listing<Comment>> {
   return r.getNewComments(subreddit);
+}
+
+export function thenable(): Promise<string> {
+  return r.getMe().then(me => me.name);
+}
+
+export function getConfig(): Snoowrap.ConfigOptions {
+  return r.config();
+}
+
+export function setConfig(options: Snoowrap.ConfigOptions): Snoowrap.ConfigOptions {
+  return r.config(options);
+}
+
+export function oauthRequest(method: string, uri: string): Promise<any> {
+  return r.oauthRequest({
+    method,
+    uri,
+  });
+}
+
+export function submissionSearch(query: string, subreddit: string): Promise<Listing<Submission>> {
+  return r.search({ query, subreddit });
+}
+
+export function subredditSearch(query: string): Promise<Listing<Subreddit>> {
+  return r.searchSubreddits({ query });
 }

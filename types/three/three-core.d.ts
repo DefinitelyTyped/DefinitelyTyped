@@ -218,6 +218,9 @@ export function warn(message?: any, ...optionalParams: any[]): void;
 export function error(message?: any, ...optionalParams: any[]): void;
 export function log(message?: any, ...optionalParams: any[]): void;
 
+// typed array parameters
+type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+
 // Animation ////////////////////////////////////////////////////////////////////////////////////////
 
 export class AnimationAction {
@@ -321,7 +324,7 @@ export namespace AnimationUtils {
 }
 
 export class KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 
     name: string;
     times: any[];
@@ -408,23 +411,23 @@ export class BooleanKeyframeTrack extends KeyframeTrack {
 }
 
 export class ColorKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class NumberKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class QuaternionKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class StringKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class VectorKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 // Cameras ////////////////////////////////////////////////////////////////////////////////////////
@@ -448,12 +451,20 @@ export class Camera extends Object3D {
      */
     projectionMatrix: Matrix4;
 
+    isCamera: true;
+
+    copy(source: Camera, recursive?: boolean): this;
+
     getWorldDirection(target: Vector3): Vector3;
+
+    updateMatrixWorld(force: boolean): void;
 
 }
 
 export class CubeCamera extends Object3D {
     constructor(near?: number, far?: number, cubeResolution?: number);
+
+    type: "CubeCamera";
 
     renderTarget: WebGLRenderTargetCube;
 
@@ -462,7 +473,7 @@ export class CubeCamera extends Object3D {
      */
     updateCubeMap(renderer: Renderer, scene: Scene): void;
 
-    update(renderer: Renderer, scene: Scene): void;
+    update(renderer: WebGLRenderer, scene: Scene): void;
 }
 
 /**
@@ -485,8 +496,13 @@ export class OrthographicCamera extends Camera {
      */
     constructor(left: number, right: number, top: number, bottom: number, near?: number, far?: number);
 
+    type: "OrthographicCamera";
+
+    isOrthographicCamera: true;
+
     zoom: number;
-    view: {
+    view: null | {
+        enabled: boolean,
         fullWidth: number,
         fullHeight: number,
         offsetX: number,
@@ -552,6 +568,10 @@ export class PerspectiveCamera extends Camera {
      */
     constructor(fov?: number, aspect?: number, near?: number, far?: number);
 
+    type: "PerspectiveCamera";
+
+    isPerspectiveCamera: true;
+
     zoom: number;
 
     /**
@@ -575,7 +595,8 @@ export class PerspectiveCamera extends Camera {
     far: number;
 
     focus: number;
-    view: {
+    view: null | {
+        enabled: boolean,
         fullWidth: number,
         fullHeight: number,
         offsetX: number,
@@ -591,6 +612,7 @@ export class PerspectiveCamera extends Camera {
     getEffectiveFOV(): number;
     getFilmWidth(): number;
     getFilmHeight(): number;
+
     /**
      * Sets an offset in a larger frustum. This is useful for multi-window or multi-monitor/multi-machine setups.
      * For example, if you have 3x2 monitors and each monitor is 1920x1080 and the monitors are in grid like this:
@@ -646,6 +668,8 @@ export class PerspectiveCamera extends Camera {
 export class StereoCamera extends Camera {
     constructor();
 
+    type: "StereoCamera";
+
     aspect: number;
     eyeSep: number;
     cameraL: PerspectiveCamera;
@@ -683,7 +707,7 @@ export class BufferAttribute {
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): BufferAttribute;
     clone(): this;
-    copy(source: this): this;
+    copy(source: BufferAttribute): this;
     copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute;
     copyArray(array: ArrayLike<number>): BufferAttribute;
     copyColorsArray(colors: {r: number, g: number, b: number}[]): BufferAttribute;
@@ -772,39 +796,39 @@ export class Float64Attribute extends BufferAttribute {
 }
 
 export class Int8BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint8BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint8ClampedBufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Int16BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint16BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Int32BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Uint32BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Float32BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 export class Float64BufferAttribute extends BufferAttribute {
-    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number, normalized?: boolean);
 }
 
 /**
@@ -835,7 +859,9 @@ export class BufferGeometry extends EventDispatcher {
     name: string;
     type: string;
     index: BufferAttribute;
-    attributes: BufferAttribute|InterleavedBufferAttribute[];
+    attributes: {
+      [name: string]: BufferAttribute|InterleavedBufferAttribute;
+    };
     morphAttributes: any;
     groups: {start: number, count: number, materialIndex?: number}[];
     boundingBox: Box3;
@@ -870,7 +896,7 @@ export class BufferGeometry extends EventDispatcher {
     center(): BufferGeometry;
 
     setFromObject(object: Object3D): BufferGeometry;
-    setFromPoints(points: Vector3[]): BufferGeometry;
+    setFromPoints(points: Vector3[]|Vector2[]): BufferGeometry;
     updateFromObject(object: Object3D): void;
 
     fromGeometry(geometry: Geometry, settings?: any): BufferGeometry;
@@ -901,7 +927,7 @@ export class BufferGeometry extends EventDispatcher {
 
     toJSON(): any;
     clone(): this;
-    copy(source: this): this;
+    copy(source: BufferGeometry): this;
 
     /**
      * Disposes the object from memory.
@@ -1033,7 +1059,7 @@ export class DirectGeometry extends EventDispatcher {
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: Event) => void ): void;
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
     removeEventListener(type: string, listener: (event: Event) => void): void;
     dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
 }
@@ -1065,6 +1091,7 @@ export class DirectGeometry extends EventDispatcher {
  * @source src/core/EventDispatcher.js
  */
 export class EventDispatcher {
+
     /**
      * Creates eventDispatcher object. It needs to be call with '.call' to add the functionality to an object.
      */
@@ -1072,17 +1099,17 @@ export class EventDispatcher {
 
     /**
      * Adds a listener to an event type.
-     * @param type The type of the listener that gets removed.
-     * @param listener The listener function that gets removed.
+     * @param type The type of event to listen to.
+     * @param listener The function that gets called when the event is fired.
      */
     addEventListener(type: string, listener: (event: Event) => void ): void;
 
     /**
-     * Adds a listener to an event type.
-     * @param type The type of the listener that gets removed.
-     * @param listener The listener function that gets removed.
+     * Checks if listener is added to an event type.
+     * @param type The type of event to listen to.
+     * @param listener The function that gets called when the event is fired.
      */
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
 
     /**
      * Removes a listener from an event type.
@@ -1100,7 +1127,8 @@ export class EventDispatcher {
 
 export interface Event {
     type: string;
-    target: any;
+    target?: any;
+    [attachment: string]: any;
 }
 
 /**
@@ -1168,7 +1196,7 @@ export class Face3 {
     materialIndex: number;
 
     clone(): this;
-    copy(source: this): this;
+    copy(source: Face3): this;
 }
 
 /**
@@ -1399,7 +1427,7 @@ export class Geometry extends EventDispatcher {
      */
     clone(): this;
 
-    copy(source: this): this;
+    copy(source: Geometry): this;
 
     /**
      * Removes The object from memory.
@@ -1415,9 +1443,18 @@ export class Geometry extends EventDispatcher {
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: Event) => void ): void;
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
     removeEventListener(type: string, listener: (event: Event) => void): void;
     dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
+}
+
+/**
+ * @see <a href="https://github.com/mrdoob/three.js/blob/master/examples/js/BufferGeometryUtils.js">examples/js/BufferGeometryUtils.js</a>
+ */
+export namespace BufferGeometryUtils {
+    export function mergeBufferGeometries(geometries: BufferGeometry[]): BufferGeometry;
+    export function computeTangents(geometry: BufferGeometry): null;
+    export function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;
 }
 
 /**
@@ -1473,10 +1510,9 @@ export class InterleavedBuffer {
     setArray(array?: ArrayBufferView): void;
     setDynamic(dynamic: boolean): InterleavedBuffer;
     clone(): this;
-    copy(source: this): this;
+    copy(source: InterleavedBuffer): this;
     copyAt(index1: number, attribute: InterleavedBufferAttribute, index2: number): InterleavedBuffer;
     set(value: ArrayLike<number>, index: number): InterleavedBuffer;
-    clone(): this;
 }
 
 /**
@@ -1547,7 +1583,7 @@ export class Object3D extends EventDispatcher {
     /**
      * Object's parent in the scene graph.
      */
-    parent: Object3D;
+    parent: Object3D | null;
 
     /**
      * Array with object's children.
@@ -1629,13 +1665,13 @@ export class Object3D extends EventDispatcher {
     /**
      * An object that can be used to store custom data about the Object3d. It should not hold references to functions as these will not be cloned.
      */
-    userData: any;
+    userData: {[key: string]: any};
 
     /**
      * Used to check whether this or derived classes are Object3Ds. Default is true.
      * You should not change this, as it is used internally for optimisation.
      */
-    isObject3D: boolean;
+    isObject3D: true;
 
     /**
      * Calls before rendering object
@@ -1649,9 +1685,7 @@ export class Object3D extends EventDispatcher {
     onAfterRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry,
                     material: Material, group: Group) => void;
 
-    /**
-     *
-     */
+
     static DefaultUp: Vector3;
     static DefaultMatrixAutoUpdate: boolean;
 
@@ -1659,6 +1693,8 @@ export class Object3D extends EventDispatcher {
      * This updates the position, rotation and scale with the matrix.
      */
     applyMatrix(matrix: Matrix4): void;
+
+    applyQuaternion(quaternion: Quaternion): this;
 
     /**
      *
@@ -1685,56 +1721,56 @@ export class Object3D extends EventDispatcher {
      * @param axis  A normalized vector in object space.
      * @param angle  The angle in radians.
      */
-    rotateOnAxis(axis: Vector3, angle: number): Object3D;
+    rotateOnAxis(axis: Vector3, angle: number): this;
 
     /**
      * Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
      * @param axis  A normalized vector in object space.
      * @param angle  The angle in radians.
      */
-    rotateOnWorldAxis(axis: Vector3, angle: number): Object3D;
+    rotateOnWorldAxis(axis: Vector3, angle: number): this;
 
     /**
      *
      * @param angle
      */
-    rotateX(angle: number): Object3D;
+    rotateX(angle: number): this;
 
     /**
      *
      * @param angle
      */
-    rotateY(angle: number): Object3D;
+    rotateY(angle: number): this;
 
     /**
      *
      * @param angle
      */
-    rotateZ(angle: number): Object3D;
+    rotateZ(angle: number): this;
 
     /**
      * @param axis  A normalized vector in object space.
      * @param distance  The distance to translate.
      */
-    translateOnAxis(axis: Vector3, distance: number): Object3D;
+    translateOnAxis(axis: Vector3, distance: number): this;
 
     /**
      * Translates object along x axis by distance.
      * @param distance Distance.
      */
-    translateX(distance: number): Object3D;
+    translateX(distance: number): this;
 
     /**
      * Translates object along y axis by distance.
      * @param distance Distance.
      */
-    translateY(distance: number): Object3D;
+    translateY(distance: number): this;
 
     /**
      * Translates object along z axis by distance.
      * @param distance Distance.
      */
-    translateZ(distance: number): Object3D;
+    translateZ(distance: number): this;
 
     /**
      * Updates the vector from local space to world space.
@@ -1752,39 +1788,38 @@ export class Object3D extends EventDispatcher {
      * Rotates object to face point in space.
      * @param vector A world vector to look at.
      */
-    lookAt(vector: Vector3): void;
-    lookAt(x: number, y: number, z: number): void;
+    lookAt(vector: Vector3 | number, y?: number, z?: number): void;
 
     /**
      * Adds object as child of this object.
      */
-    add(...object: Object3D[]): void;
+    add(...object: Object3D[]): this;
 
     /**
      * Removes object as child of this object.
      */
-    remove(...object: Object3D[]): void;
+    remove(...object: Object3D[]): this;
 
     /**
-     * Searches through the object's children and returns the first with a matching id, optionally recursive.
+     * Searches through the object's children and returns the first with a matching id.
      * @param id  Unique number of the object instance
      */
-    getObjectById(id: number): Object3D;
+    getObjectById(id: number): Object3D | undefined;
 
     /**
-     * Searches through the object's children and returns the first with a matching name, optionally recursive.
+     * Searches through the object's children and returns the first with a matching name.
      * @param name  String to match to the children's Object3d.name property.
      */
-    getObjectByName(name: string): Object3D;
+    getObjectByName(name: string): Object3D | undefined;
 
-    getObjectByProperty( name: string, value: string ): Object3D;
+    getObjectByProperty( name: string, value: string ): Object3D | undefined;
 
     getWorldPosition(target: Vector3): Vector3;
     getWorldQuaternion(target: Quaternion): Quaternion;
     getWorldScale(target: Vector3): Vector3;
     getWorldDirection(target: Vector3): Vector3;
 
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 
     traverse(callback: (object: Object3D) => any): void;
 
@@ -1802,6 +1837,8 @@ export class Object3D extends EventDispatcher {
      */
     updateMatrixWorld(force: boolean): void;
 
+    updateWorldMatrix(updateParents: boolean, updateChildren: boolean): void;
+
     toJSON(meta?: { geometries: any, materials: any, textures: any, images: any }): any;
 
     clone(recursive?: boolean): this;
@@ -1811,17 +1848,18 @@ export class Object3D extends EventDispatcher {
      * @param object
      * @param recursive
      */
-    copy(source: this, recursive?: boolean): this;
+    copy(source: Object3D, recursive?: boolean): this;
 }
 
 export interface Intersection {
     distance: number;
-    distanceToRay: number;
+    distanceToRay?: number;
     point: Vector3;
-    index: number;
-    face: Face3;
-    faceIndex: number;
+    index?: number;
+    face?: Face3 | null;
+    faceIndex?: number;
     object: Object3D;
+    uv?: Vector2;
 }
 
 export interface RaycasterParameters {
@@ -1833,19 +1871,66 @@ export interface RaycasterParameters {
 }
 
 export class Raycaster {
+    /**
+     * This creates a new raycaster object.
+     * @param origin The origin vector where the ray casts from.
+     * @param direction The direction vector that gives direction to the ray. Should be normalized.
+     * @param near All results returned are further away than near. Near can't be negative. Default value is 0.
+     * @param far All results returned are closer then far. Far can't be lower then near . Default value is Infinity.
+     */
     constructor(origin?: Vector3, direction?: Vector3, near?: number, far?: number);
 
+    /** The Ray used for the raycasting. */
     ray: Ray;
+
+    /**
+     * The near factor of the raycaster. This value indicates which objects can be discarded based on the
+     * distance. This value shouldn't be negative and should be smaller than the far property.
+     */
     near: number;
+
+    /**
+     * The far factor of the raycaster. This value indicates which objects can be discarded based on the
+     * distance. This value shouldn't be negative and should be larger than the near property.
+     */
     far: number;
+
     params: RaycasterParameters;
-    precision: number;
+
+    /**
+     * The precision factor of the raycaster when intersecting Line objects.
+     */
     linePrecision: number;
 
+    /**
+     * Updates the ray with a new origin and direction.
+     * @param origin The origin vector where the ray casts from.
+     * @param direction The normalized direction vector that gives direction to the ray.
+     */
     set(origin: Vector3, direction: Vector3): void;
+
+    /**
+     * Updates the ray with a new origin and direction.
+     * @param coords 2D coordinates of the mouse, in normalized device coordinates (NDC)---X and Y components should be between -1 and 1.
+     * @param camera camera from which the ray should originate
+     */
     setFromCamera(coords: { x: number; y: number; }, camera: Camera ): void;
-    intersectObject(object: Object3D, recursive?: boolean): Intersection[];
-    intersectObjects(objects: Object3D[], recursive?: boolean): Intersection[];
+
+    /**
+     * Checks all intersection between the ray and the object with or without the descendants. Intersections are returned sorted by distance, closest first.
+     * @param object The object to check for intersection with the ray.
+     * @param recursive If true, it also checks all descendants. Otherwise it only checks intersecton with the object. Default is false.
+     * @param optionalTarget (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
+     */
+    intersectObject(object: Object3D, recursive?: boolean, optionalTarget?: Intersection[]): Intersection[];
+
+    /**
+     * Checks all intersection between the ray and the objects with or without the descendants. Intersections are returned sorted by distance, closest first. Intersections are of the same form as those returned by .intersectObject.
+     * @param objects The objects to check for intersection with the ray.
+     * @param recursive If true, it also checks all descendants of the objects. Otherwise it only checks intersecton with the objects. Default is false.
+     * @param optionalTarget (optional) target to set the result. Otherwise a new Array is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
+     */
+    intersectObjects(objects: Object3D[], recursive?: boolean, optionalTarget?: Intersection[]): Intersection[];
 }
 
 export class Layers {
@@ -1861,7 +1946,7 @@ export class Layers {
 }
 
 export class Font {
-    constructor(jsondata: string);
+    constructor(jsondata: any);
 
     data: string;
 
@@ -1932,7 +2017,7 @@ export class LightShadow {
     map: RenderTarget;
     matrix: Matrix4;
 
-    copy(source: this): this;
+    copy(source: LightShadow): this;
     clone(recursive?: boolean): this;
     toJSON(): any;
 }
@@ -2151,11 +2236,12 @@ export class FileLoader {
     responseType: string;
     withCredentials: string;
 
-    load(url: string, onLoad?: (responseText: string) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
+    load(url: string, onLoad?: (response: string | ArrayBuffer) => void, onProgress?: (request: ProgressEvent) => void, onError?:(event: ErrorEvent) => void): any;
     setMimeType(mimeType: MimeType): FileLoader;
     setPath(path: string) : FileLoader;
     setResponseType(responseType: string) : FileLoader;
     setWithCredentials(value: string): FileLoader;
+    setRequestHeader(value: {[header: string]: string}): FileLoader;
 }
 
 export class FontLoader {
@@ -2164,7 +2250,7 @@ export class FontLoader {
     manager: LoadingManager;
 
     load(url: string, onLoad?: (responseFont: Font) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
-    parse(json: string): Font;
+    parse(json: any): Font;
 }
 
 /**
@@ -2209,7 +2295,7 @@ export class JSONLoader extends Loader {
 export class LoadingManager {
     constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: () => void);
 
-    onStart: () => void;
+    onStart?: (url: string, loaded: number, total: number) => void;
 
     /**
      * Will be called when load starts.
@@ -2227,7 +2313,22 @@ export class LoadingManager {
      * Will be called when each element in the scene completes loading.
      * The default is a function with empty body.
      */
-    onError: () => void;
+    onError: (url: string) => void;
+
+    /**
+     * If provided, the callback will be passed each resource URL before a request is sent.
+     * The callback may return the original URL, or a new URL to override loading behavior.
+     * This behavior can be used to load assets from .ZIP files, drag-and-drop APIs, and Data URIs.
+     * @param callback URL modifier callback. Called with url argument, and must return resolvedURL.
+     */
+    setURLModifier(callback?: (url: string) => string): void;
+
+    /**
+     * Given a URL, uses the URL modifier callback (if any) and returns a resolved URL.
+     * If no URL modifier is set, returns the original URL.
+     * @param url the url to load
+     */
+    resolveURL(url: string): string;
 
     itemStart(url: string): void;
     itemEnd(url: string): void;
@@ -2350,6 +2451,11 @@ export namespace Cache {
     export function clear(): void;
 }
 
+export class LoaderUtils {
+    static decodeText(array: TypedArray): string;
+    static extractUrlBase(url: string): string;
+}
+
 // Materials //////////////////////////////////////////////////////////////////////////////////
 export let MaterialIdCount: number;
 
@@ -2406,7 +2512,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendDst. Default is null.
      */
-    blendDstAlpha: number;
+    blendDstAlpha: number | null;
 
     /**
      * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.
@@ -2416,7 +2522,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendEquation. Default is null.
      */
-    blendEquationAlpha: number;
+    blendEquationAlpha: number | null;
 
     /**
      * Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
@@ -2431,7 +2537,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendSrc. Default is null.
      */
-    blendSrcAlpha: number;
+    blendSrcAlpha: number | null;
 
     /**
      * Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union. Default is false.
@@ -2593,7 +2699,7 @@ export class Material extends EventDispatcher {
      * Copy the parameters from the passed material into this material.
      * @param material
      */
-    copy(material: this): this;
+    copy(material: Material): this;
 
     /**
      * This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@link Texture}.
@@ -2645,14 +2751,13 @@ export interface LineDashedMaterialParameters extends MaterialParameters {
     gapSize?: number;
 }
 
-export class LineDashedMaterial extends Material {
+export class LineDashedMaterial extends LineBasicMaterial {
     constructor(parameters?: LineDashedMaterialParameters);
 
-    color: Color;
-    linewidth: number;
     scale: number;
     dashSize: number;
     gapSize: number;
+    isLineDashedMaterial: boolean;
 
     setValues(parameters: LineDashedMaterialParameters): void;
 }
@@ -2684,12 +2789,12 @@ export class MeshBasicMaterial extends Material {
     constructor(parameters?: MeshBasicMaterialParameters);
 
     color: Color;
-    map: Texture;
-    aoMap: Texture;
+    map: Texture | null;
+    aoMap: Texture | null;
     aoMapIntensity: number;
-    specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -2713,6 +2818,7 @@ export class MeshDepthMaterial extends Material {
 
     wireframe: boolean;
     wireframeLinewidth: number;
+    depthPacking: DepthPackingStrategies;
 
     setValues(parameters: MeshDepthMaterialParameters): void;
 }
@@ -2748,15 +2854,15 @@ export class MeshLambertMaterial extends Material {
     color: Color;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture;
-    map: Texture;
-    lightMap: Texture;
+    emissiveMap: Texture | null;
+    map: Texture | null;
+    lightMap: Texture | null;
     lightMapIntensity: number;
-    aoMap: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
-    specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -2810,25 +2916,25 @@ export class MeshStandardMaterial extends Material {
     color: Color;
     roughness: number;
     metalness: number;
-    map: Texture;
-    lightMap: Texture;
+    map: Texture | null;
+    lightMap: Texture | null;
     lightMapIntensity: number;
-    aoMap: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture;
-    bumpMap: Texture;
+    emissiveMap: Texture | null;
+    bumpMap: Texture | null;
     bumpScale: number;
-    normalMap: Texture;
+    normalMap: Texture | null;
     normalScale: number;
-    displacementMap: Texture;
+    displacementMap: Texture | null;
     displacementScale: number;
     displacementBias: number;
-    roughnessMap: Texture;
-    metalnessMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    roughnessMap: Texture | null;
+    metalnessMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     envMapIntensity: number;
     refractionRatio: number;
     wireframe: boolean;
@@ -2900,24 +3006,24 @@ export class MeshPhongMaterial extends Material {
     color: Color;
     specular: Color;
     shininess: number;
-    map: Texture;
-    lightMap: Texture;
+    map: Texture | null;
+    lightMap: Texture | null;
     lightMapIntensity: number;
-    aoMap: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture;
-    bumpMap: Texture;
+    emissiveMap: Texture | null;
+    bumpMap: Texture | null;
     bumpScale: number;
-    normalMap: Texture;
+    normalMap: Texture | null;
     normalScale: Vector2;
-    displacementMap: Texture;
+    displacementMap: Texture | null;
     displacementScale: number;
     displacementBias: number;
-    specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -2983,7 +3089,7 @@ export class PointsMaterial extends Material {
     constructor(parameters?: PointsMaterialParameters);
 
     color: Color;
-    map: Texture;
+    map: Texture | null;
     size: number;
     sizeAttenuation: boolean;
 
@@ -3039,7 +3145,7 @@ export class ShaderMaterial extends Material {
     derivatives: any;
     extensions: { derivatives: boolean; fragDepth: boolean; drawBuffers: boolean; shaderTextureLOD: boolean };
     defaultAttributeValues: any;
-    index0AttributeName: string;
+    index0AttributeName: string | undefined;
 
     setValues(parameters: ShaderMaterialParameters): void;
     toJSON(meta: any): any;
@@ -3059,10 +3165,12 @@ export class SpriteMaterial extends Material {
     constructor(parameters?: SpriteMaterialParameters);
 
     color: Color;
-    map: Texture;
+    map: Texture | null;
     rotation: number;
+    isSpriteMaterial: true;
 
     setValues(parameters: SpriteMaterialParameters): void;
+    copy(source: SpriteMaterial): this;
 }
 
 export class ShadowMaterial extends ShaderMaterial {
@@ -3081,7 +3189,7 @@ export class Box2 {
     setFromPoints(points: Vector2[]): Box2;
     setFromCenterAndSize(center: Vector2, size: Vector2): Box2;
     clone(): this;
-    copy(box: this): this;
+    copy(box: Box2): this;
     makeEmpty(): Box2;
     isEmpty(): boolean;
     getCenter(target: Vector2): Vector2;
@@ -3115,21 +3223,21 @@ export class Box3 {
     max: Vector3;
     min: Vector3;
 
-    set(min: Vector3, max: Vector3): Box3;
-    setFromArray(array: ArrayLike<number>): Box3;
-    setFromPoints(points: Vector3[]): Box3;
-    setFromCenterAndSize(center: Vector3, size: Vector3): Box3;
-    setFromObject(object: Object3D): Box3;
+    set(min: Vector3, max: Vector3): this;
+    setFromArray(array: ArrayLike<number>): this;
+    setFromPoints(points: Vector3[]): this;
+    setFromCenterAndSize(center: Vector3, size: Vector3): this;
+    setFromObject(object: Object3D): this;
     clone(): this;
-    copy(box: this): this;
-    makeEmpty(): Box3;
+    copy(box: Box3): this;
+    makeEmpty(): this;
     isEmpty(): boolean;
     getCenter(target: Vector3): Vector3;
     getSize(target: Vector3): Vector3;
-    expandByPoint(point: Vector3): Box3;
-    expandByVector(vector: Vector3): Box3;
-    expandByScalar(scalar: number): Box3;
-    expandByObject(object: Object3D): Box3;
+    expandByPoint(point: Vector3): this;
+    expandByVector(vector: Vector3): this;
+    expandByScalar(scalar: number): this;
+    expandByObject(object: Object3D): this;
     containsPoint(point: Vector3): boolean;
     containsBox(box: Box3): boolean;
     getParameter(point: Vector3): Vector3;
@@ -3139,10 +3247,10 @@ export class Box3 {
     clampPoint(point: Vector3, target: Vector3): Vector3;
     distanceToPoint(point: Vector3): number;
     getBoundingSphere(target: Sphere): Sphere;
-    intersect(box: Box3): Box3;
-    union(box: Box3): Box3;
-    applyMatrix4(matrix: Matrix4): Box3;
-    translate(offset: Vector3): Box3;
+    intersect(box: Box3): this;
+    union(box: Box3): this;
+    applyMatrix4(matrix: Matrix4): this;
+    translate(offset: Vector3): this;
     equals(box: Box3): boolean;
     /**
      * @deprecated Use {@link Box3#isEmpty .isEmpty()} instead.
@@ -3173,9 +3281,7 @@ export interface HSL {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color.js">src/math/Color.js</a>
  */
 export class Color {
-    constructor(color?: Color);
-    constructor(color?: string);
-    constructor(color?: number);
+    constructor(color?: Color|string|number);
     constructor(r: number, g: number, b: number);
 
     /**
@@ -3232,7 +3338,7 @@ export class Color {
      * Copies given color.
      * @param color Color to copy.
      */
-    copy(color: this): this;
+    copy(color: Color): this;
 
     /**
      * Copies given color making conversion from gamma to linear space.
@@ -3266,7 +3372,7 @@ export class Color {
      */
     getHexString(): string;
 
-    getHSL(): HSL;
+    getHSL(target: HSL): HSL;
 
     /**
      * Returns the value of this color in CSS context style.
@@ -3274,18 +3380,20 @@ export class Color {
      */
     getStyle(): string;
 
-    offsetHSL(h: number, s: number, l: number): Color;
+    offsetHSL(h: number, s: number, l: number): this;
 
-    add(color: Color): Color;
-    addColors(color1: Color, color2: Color): Color;
-    addScalar(s: number): Color;
-    sub(color: Color): Color;
-    multiply(color: Color): Color;
-    multiplyScalar(s: number): Color;
-    lerp(color: Color, alpha: number): Color;
+    add(color: Color): this;
+    addColors(color1: Color, color2: Color): this;
+    addScalar(s: number): this;
+    sub(color: Color): this;
+    multiply(color: Color): this;
+    multiplyScalar(s: number): this;
+    lerp(color: Color, alpha: number): this;
+    lerpHSL(color: Color, alpha: number): this;
     equals(color: Color): boolean;
-    fromArray(rgb: number[], offset?: number): Color;
+    fromArray(rgb: number[], offset?: number): this;
     toArray(array?: number[], offset?: number): number[];
+    toArray(xyz: ArrayLike<number>, offset?: number): ArrayLike<number>;
 }
 
 export namespace ColorKeywords {
@@ -3449,7 +3557,7 @@ export class Euler {
 
     set(x: number, y: number, z: number, order?: string): Euler;
     clone(): this;
-    copy(euler: this): this;
+    copy(euler: Euler): this;
     setFromRotationMatrix(m: Matrix4, order?: string, update?: boolean): Euler;
     setFromQuaternion(q: Quaternion, order?: string, update?: boolean): Euler;
     setFromVector3( v: Vector3, order?: string ): Euler;
@@ -3458,7 +3566,7 @@ export class Euler {
     fromArray(xyzo: any[]): Euler;
     toArray(array?: number[], offset?: number): number[];
     toVector3(optionalResult?: Vector3): Vector3;
-    onChange(callback: Function): void;
+    onChange(callback: Function): this;
 
     static RotationOrders: string[];
     static DefaultOrder: string;
@@ -3477,7 +3585,7 @@ export class Frustum {
 
     set(p0?: number, p1?: number, p2?: number, p3?: number, p4?: number, p5?: number): Frustum;
     clone(): this;
-    copy(frustum: this): this;
+    copy(frustum: Frustum): this;
     setFromMatrix(m: Matrix4): Frustum;
     intersectsObject(object: Object3D): boolean;
     intersectsObject(sprite: Sprite): boolean;
@@ -3494,7 +3602,7 @@ export class Line3 {
 
     set(start?: Vector3, end?: Vector3): Line3;
     clone(): this;
-    copy(line: this): this;
+    copy(line: Line3): this;
     getCenter(target: Vector3): Vector3;
     delta(target: Vector3): Vector3;
     distanceSq(): number;
@@ -3569,6 +3677,17 @@ export namespace Math {
     export function radToDeg(radians: number): number;
 
     export function isPowerOfTwo(value: number): boolean;
+
+	/**
+     * Returns a value linearly interpolated from two known points based
+     * on the given interval - t = 0 will return x and t = 1 will return y.
+     *
+     * @param x Start point.
+     * @param y End point.
+     * @param t interpolation factor in the closed interval [0, 1]
+     * @return {number}
+     */
+    export function lerp (x: number, y: number, t: number): number;
 
     /**
      * @deprecated Use {@link Math#floorPowerOfTwo .floorPowerOfTwo()}
@@ -3645,7 +3764,7 @@ export class Matrix3 implements Matrix {
     set(n11: number, n12: number, n13: number, n21: number, n22: number, n23: number, n31: number, n32: number, n33: number): Matrix3;
     identity(): Matrix3;
     clone(): this;
-    copy(m: this): this;
+    copy(m: Matrix3): this;
     setFromMatrix4(m: Matrix4): Matrix3;
 
     /**
@@ -3737,7 +3856,7 @@ export class Matrix4 implements Matrix {
      */
     identity(): Matrix4;
     clone(): this;
-    copy(m: this): this;
+    copy(m: Matrix4): this;
     copyPosition(m: Matrix4): Matrix4;
     extractBasis( xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
     makeBasis( xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
@@ -3934,7 +4053,7 @@ export class Plane {
     setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): Plane;
     setFromCoplanarPoints(a: Vector3, b: Vector3, c: Vector3): Plane;
     clone(): this;
-    copy(plane: this): this;
+    copy(plane: Plane): this;
     normalize(): Plane;
     negate(): Plane;
     distanceToPoint(point: Vector3): number;
@@ -3964,7 +4083,7 @@ export class Spherical {
 
     set(radius: number, phi: number, theta: number): Spherical;
     clone(): this;
-    copy(other: this): this;
+    copy(other: Spherical): this;
     makeSafe(): void;
     setFromVector3(vec3: Vector3): Spherical;
 }
@@ -3977,7 +4096,7 @@ export class Cylindrical {
     y: number;
 
     clone(): this;
-    copy(other: this): this;
+    copy(other: Cylindrical): this;
     set(radius: number, theta: number, y: number): this;
     setFromVector3(vec3: Vector3): this;
 }
@@ -4018,7 +4137,7 @@ export class Quaternion {
     /**
      * Copies values of q to this quaternion.
      */
-    copy(q: this): this;
+    copy(q: Quaternion): this;
 
     /**
      * Sets this quaternion from rotation specified by Euler angles.
@@ -4101,7 +4220,7 @@ export class Ray {
 
     set(origin: Vector3, direction: Vector3): Ray;
     clone(): this;
-    copy(ray: this): this;
+    copy(ray: Ray): this;
     at(t: number, target: Vector3): Vector3;
     lookAt(v: Vector3): Vector3;
     recast(t: number): Ray;
@@ -4145,7 +4264,7 @@ export class Sphere {
     set(center: Vector3, radius: number): Sphere;
     setFromPoints(points: Vector3[], optionalCenter?: Vector3): Sphere;
     clone(): this;
-    copy(sphere: this): this;
+    copy(sphere: Sphere): this;
     empty(): boolean;
     containsPoint(point: Vector3): boolean;
     distanceToPoint(point: Vector3): number;
@@ -4175,7 +4294,7 @@ export class Triangle {
     set(a: Vector3, b: Vector3, c: Vector3): Triangle;
     setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): Triangle;
     clone(): this;
-    copy(triangle: this): this;
+    copy(triangle: Triangle): this;
     getArea(): number;
     getMidpoint(target: Vector3): Vector3;
     getNormal(target: Vector3): Vector3;
@@ -4202,49 +4321,62 @@ export class Triangle {
  * v.addVectors(new THREE.Vector2(0, 1), new THREE.Vector2(2, 3));    // invalid but compiled successfully
  */
 export interface Vector {
-    setComponent(index: number, value: number): void;
+    setComponent(index: number, value: number): this;
 
     getComponent(index: number): number;
+
+    set(...args: number[]): this;
+
+    setScalar(scalar: number): this;
 
     /**
      * copy(v:T):T;
      */
-    copy(v: this): this;
+    copy(v: Vector): this;
 
     /**
+     * NOTE: The second argument is deprecated.
+     *
      * add(v:T):T;
      */
-    add(v: Vector): Vector;
+    add(v: Vector, w?: Vector): this;
 
     /**
      * addVectors(a:T, b:T):T;
      */
-    addVectors(a: Vector, b: Vector): Vector;
+    addVectors(a: Vector, b: Vector): this;
+
+    addScaledVector(vector: Vector, scale: number): this;
+
+    /**
+     * Adds the scalar value s to this vector's values.
+     */
+    addScalar(scalar: number): this;
 
     /**
      * sub(v:T):T;
      */
-    sub(v: Vector): Vector;
+    sub(v: Vector): this;
 
     /**
      * subVectors(a:T, b:T):T;
      */
-    subVectors(a: Vector, b: Vector): Vector;
+    subVectors(a: Vector, b: Vector): this;
 
     /**
      * multiplyScalar(s:number):T;
      */
-    multiplyScalar(s: number): Vector;
+    multiplyScalar(s: number): this;
 
     /**
      * divideScalar(s:number):T;
      */
-    divideScalar(s: number): Vector;
+    divideScalar(s: number): this;
 
     /**
      * negate():T;
      */
-    negate(): Vector;
+    negate(): this;
 
     /**
      * dot(v:T):T;
@@ -4264,7 +4396,7 @@ export interface Vector {
     /**
      * normalize():T;
      */
-    normalize(): Vector;
+    normalize(): this;
 
     /**
      * NOTE: Vector4 doesn't have the property.
@@ -4283,12 +4415,12 @@ export interface Vector {
     /**
      * setLength(l:number):T;
      */
-    setLength(l: number): Vector;
+    setLength(l: number): this;
 
     /**
      * lerp(v:T, alpha:number):T;
      */
-    lerp(v: Vector, alpha: number): Vector;
+    lerp(v: Vector, alpha: number): this;
 
     /**
      * equals(v:T):boolean;
@@ -4313,107 +4445,118 @@ export class Vector2 implements Vector {
     y: number;
     width: number;
     height: number;
+    isVector2: true;
 
     /**
      * Sets value of this vector.
      */
-    set(x: number, y: number): Vector2;
+    set(x: number, y: number): this;
 
     /**
      * Sets the x and y values of this vector both equal to scalar.
      */
-    setScalar(scalar: number): Vector2;
+    setScalar(scalar: number): this;
 
     /**
      * Sets X component of this vector.
      */
-    setX(x: number): Vector2;
+    setX(x: number): this;
 
     /**
      * Sets Y component of this vector.
      */
-    setY(y: number): Vector2;
+    setY(y: number): this;
 
     /**
      * Sets a component of this vector.
      */
-    setComponent(index: number, value: number): void;
+    setComponent(index: number, value: number): this;
+
     /**
      * Gets a component of this vector.
      */
     getComponent(index: number): number;
 
     /**
-     * Clones this vector.
+     * Returns a new Vector2 instance with the same `x` and `y` values.
      */
     clone(): this;
+
     /**
      * Copies value of v to this vector.
      */
-    copy(v: this): this;
+    copy(v: Vector2): this;
 
     /**
      * Adds v to this vector.
      */
-    add(v: Vector2): Vector2;
+    add(v: Vector2, w?: Vector2): this;
+
     /**
      * Adds the scalar value s to this vector's x and y values.
      */
-    addScalar(s: number): Vector2;
+    addScalar(s: number): this;
+
     /**
      * Sets this vector to a + b.
      */
-    addVectors(a: Vector2, b: Vector2): Vector2;
+    addVectors(a: Vector2, b: Vector2): this;
+
     /**
      * Adds the multiple of v and s to this vector.
      */
-    addScaledVector(v: Vector2, s: number): Vector2;
+    addScaledVector(v: Vector2, s: number): this;
 
     /**
      * Subtracts v from this vector.
     */
-    sub(v: Vector2): Vector2;
+    sub(v: Vector2): this;
+
     /**
      * Subtracts s from this vector's x and y components.
      */
-    subScalar(s: number): Vector2;
+    subScalar(s: number): this;
+
     /**
      * Sets this vector to a - b.
      */
-    subVectors(a: Vector2, b: Vector2): Vector2;
+    subVectors(a: Vector2, b: Vector2): this;
 
     /**
      * Multiplies this vector by v.
      */
-    multiply(v: Vector2): Vector2;
+    multiply(v: Vector2): this;
+
     /**
      * Multiplies this vector by scalar s.
      */
-    multiplyScalar(scalar: number): Vector2;
+    multiplyScalar(scalar: number): this;
 
     /**
      * Divides this vector by v.
      */
-    divide(v: Vector2): Vector2;
+    divide(v: Vector2): this;
+
     /**
      * Divides this vector by scalar s.
      * Set vector to ( 0, 0 ) if s == 0.
      */
-    divideScalar(s: number): Vector2;
+    divideScalar(s: number): this;
 
     /**
      * Multiplies this vector (with an implicit 1 as the 3rd component) by m.
      */
-    applyMatrix3(m: Matrix3): Vector2;
+    applyMatrix3(m: Matrix3): this;
 
     /**
      * If this vector's x or y value is greater than v's x or y value, replace that value with the corresponding min value.
      */
-    min(v: Vector2): Vector2;
+    min(v: Vector2): this;
+
     /**
      * If this vector's x or y value is less than v's x or y value, replace that value with the corresponding max value.
      */
-    max(v: Vector2): Vector2;
+    max(v: Vector2): this;
 
     /**
      * If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value.
@@ -4421,43 +4564,48 @@ export class Vector2 implements Vector {
      * @param min the minimum x and y values.
      * @param max the maximum x and y values in the desired range.
      */
-    clamp(min: Vector2, max: Vector2): Vector2;
+    clamp(min: Vector2, max: Vector2): this;
+
     /**
      * If this vector's x or y values are greater than the max value, they are replaced by the max value.
      * If this vector's x or y values are less than the min value, they are replaced by the min value.
      * @param min the minimum value the components will be clamped to.
      * @param max the maximum value the components will be clamped to.
      */
-    clampScalar(min: number, max: number): Vector2;
+    clampScalar(min: number, max: number): this;
+
     /**
      * If this vector's length is greater than the max value, it is replaced by the max value.
      * If this vector's length is less than the min value, it is replaced by the min value.
      * @param min the minimum value the length will be clamped to.
      * @param max the maximum value the length will be clamped to.
      */
-    clampLength(min: number, max: number): Vector2;
+    clampLength(min: number, max: number): this;
 
     /**
      * The components of the vector are rounded down to the nearest integer value.
      */
-    floor(): Vector2;
+    floor(): this;
+
     /**
      * The x and y components of the vector are rounded up to the nearest integer value.
      */
-    ceil(): Vector2;
+    ceil(): this;
+
     /**
      * The components of the vector are rounded to the nearest integer value.
      */
-    round(): Vector2;
+    round(): this;
+
     /**
      * The components of the vector are rounded towards zero (up if negative, down if positive) to an integer value.
      */
-    roundToZero(): Vector2;
+    roundToZero(): this;
 
     /**
      * Inverts this vector.
      */
-    negate(): Vector2;
+    negate(): this;
 
     /**
      * Computes dot product of this vector and v.
@@ -4480,9 +4628,18 @@ export class Vector2 implements Vector {
     lengthManhattan(): number;
 
     /**
+     * Computes the Manhattan length of this vector.
+     *
+     * @return {number}
+     *
+     * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+     */
+    manhattanLength(): number;
+
+    /**
      * Normalizes this vector.
      */
-    normalize(): Vector2;
+    normalize(): this;
 
     /**
      * computes the angle in radians with respect to the positive x-axis
@@ -4493,33 +4650,47 @@ export class Vector2 implements Vector {
      * Computes distance of this vector to v.
      */
     distanceTo(v: Vector2): number;
+
     /**
      * Computes squared distance of this vector to v.
      */
     distanceToSquared(v: Vector2): number;
+
     /**
      * @deprecated Use {@link Vector2#manhattanDistanceTo .manhattanDistanceTo()} instead.
      */
     distanceToManhattan(v: Vector2): number;
 
     /**
+     * Computes the Manhattan length (distance) from this vector to the given vector v
+     *
+     * @param {Vector2} v
+     *
+     * @return {number}
+     *
+     * @see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
+     */
+    manhattanDistanceTo(v: Vector2): number;
+
+    /**
      * Normalizes this vector and multiplies it by l.
      */
-    setLength(length: number): Vector2;
+    setLength(length: number): this;
 
     /**
      * Linearly interpolates between this vector and v, where alpha is the distance along the line - alpha = 0 will be this vector, and alpha = 1 will be v.
      * @param v vector to interpolate towards.
      * @param alpha interpolation factor in the closed interval [0, 1].
      */
-    lerp(v: Vector2, alpha: number): Vector2;
+    lerp(v: Vector2, alpha: number): this;
+
     /**
      * Sets this vector to be the vector linearly interpolated between v1 and v2 where alpha is the distance along the line connecting the two vectors - alpha = 0 will be v1, and alpha = 1 will be v2.
      * @param v1 the starting vector.
      * @param v2 vector to interpolate towards.
      * @param alpha interpolation factor in the closed interval [0, 1].
      */
-    lerpVectors(v1: Vector2, v2: Vector2, alpha: number): Vector2;
+    lerpVectors(v1: Vector2, v2: Vector2, alpha: number): this;
 
     /**
      * Checks for strict equality of this vector and v.
@@ -4531,27 +4702,37 @@ export class Vector2 implements Vector {
      * @param array the source array.
      * @param offset (optional) offset into the array. Default is 0.
      */
-    fromArray(array: number[], offset?: number): Vector2;
+    fromArray(array: number[], offset?: number): this;
+
     /**
      * Returns an array [x, y], or copies x and y into the provided array.
      * @param array (optional) array to store the vector to. If this is not provided, a new array will be created.
      * @param offset (optional) optional offset into the array.
+     * @return The created or provided array.
      */
     toArray(array?: number[], offset?: number): number[];
+
+    /**
+     * Copies x and y into the provided array-like.
+     * @param array array-like to store the vector to.
+     * @param offset (optional) optional offset into the array.
+     * @return The provided array-like.
+     */
+    toArray(array: ArrayLike<number>, offset?: number): ArrayLike<number>;
 
     /**
      * Sets this vector's x and y values from the attribute.
      * @param attribute the source attribute.
      * @param index index in the attribute.
      */
-    fromBufferAttribute(attribute: BufferAttribute, index: number): Vector2;
+    fromBufferAttribute(attribute: BufferAttribute, index: number): this;
 
     /**
      * Rotates the vector around center by angle radians.
      * @param center the point around which to rotate.
      * @param angle the angle to rotate, in radians.
      */
-    rotateAround(center: Vector2, angle: number): Vector2;
+    rotateAround(center: Vector2, angle: number): this;
 
     /**
      * Computes the Manhattan length of this vector.
@@ -4593,16 +4774,17 @@ export class Vector3 implements Vector {
     x: number;
     y: number;
     z: number;
+    isVector3: true;
 
     /**
      * Sets value of this vector.
      */
-    set(x: number, y: number, z: number): Vector3;
+    set(x: number, y: number, z: number): this;
 
     /**
      * Sets all values of this vector.
      */
-    setScalar(scalar: number): Vector3;
+    setScalar(scalar: number): this;
 
     /**
      * Sets x value of this vector.
@@ -4619,76 +4801,102 @@ export class Vector3 implements Vector {
      */
     setZ(z: number): Vector3;
 
-    setComponent(index: number, value: number): void;
+    setComponent(index: number, value: number): this;
+
     getComponent(index: number): number;
+
     /**
      * Clones this vector.
      */
     clone(): this;
+
     /**
      * Copies value of v to this vector.
      */
-    copy(v: this): this;
+    copy(v: Vector3): this;
 
     /**
      * Adds v to this vector.
      */
-    add(a: Vector3): Vector3;
-    addScalar(s: number): Vector3;
-    addScaledVector(v: Vector3, s: number): Vector3;
+    add(a: Vector3, b?: Vector3): this;
+
+    addScalar(s: number): this;
+
+    addScaledVector(v: Vector3, s: number): this;
 
     /**
      * Sets this vector to a + b.
      */
-    addVectors(a: Vector3, b: Vector3): Vector3;
+    addVectors(a: Vector3, b: Vector3): this;
 
     /**
      * Subtracts v from this vector.
      */
-    sub(a: Vector3): Vector3;
+    sub(a: Vector3): this;
 
-    subScalar( s: number ): Vector3;
+    subScalar( s: number ): this;
 
     /**
      * Sets this vector to a - b.
      */
-    subVectors(a: Vector3, b: Vector3): Vector3;
+    subVectors(a: Vector3, b: Vector3): this;
 
-    multiply(v: Vector3): Vector3;
+    multiply(v: Vector3): this;
+
     /**
      * Multiplies this vector by scalar s.
      */
-    multiplyScalar(s: number): Vector3;
-    multiplyVectors(a: Vector3, b: Vector3): Vector3;
-    applyEuler(euler: Euler): Vector3;
-    applyAxisAngle(axis: Vector3, angle: number): Vector3;
-    applyMatrix3(m: Matrix3): Vector3;
-    applyMatrix4(m: Matrix4): Vector3;
-    applyQuaternion(q: Quaternion): Vector3;
-    project(camrea: Camera): Vector3;
-    unproject(camera: Camera): Vector3;
-    transformDirection(m: Matrix4): Vector3;
-    divide(v: Vector3): Vector3;
+    multiplyScalar(s: number): this;
+
+    multiplyVectors(a: Vector3, b: Vector3): this;
+
+    applyEuler(euler: Euler): this;
+
+    applyAxisAngle(axis: Vector3, angle: number): this;
+
+    applyMatrix3(m: Matrix3): this;
+
+    applyMatrix4(m: Matrix4): this;
+
+    applyQuaternion(q: Quaternion): this;
+
+    project(camera: Camera): this;
+
+    unproject(camera: Camera): this;
+
+    transformDirection(m: Matrix4): this;
+
+    divide(v: Vector3): this;
+
 
     /**
      * Divides this vector by scalar s.
      * Set vector to ( 0, 0, 0 ) if s == 0.
      */
-    divideScalar(s: number): Vector3;
-    min(v: Vector3): Vector3;
-    max(v: Vector3): Vector3;
-    clamp(min: Vector3, max: Vector3): Vector3;
-    clampScalar(min: number, max: number): Vector3;
-    clampLength(min: number, max: number): Vector3;
-    floor(): Vector3;
-    ceil(): Vector3;
-    round(): Vector3;
-    roundToZero(): Vector3;
+    divideScalar(s: number): this;
+
+    min(v: Vector3): this;
+
+    max(v: Vector3): this;
+
+    clamp(min: Vector3, max: Vector3): this;
+
+    clampScalar(min: number, max: number): this;
+
+    clampLength(min: number, max: number): this;
+
+    floor(): this;
+
+    ceil(): this;
+
+    round(): this;
+
+    roundToZero(): this;
 
     /**
      * Inverts this vector.
      */
-    negate(): Vector3;
+    negate(): this;
 
     /**
      * Computes dot product of this vector and v.
@@ -4736,28 +4944,28 @@ export class Vector3 implements Vector {
     /**
      * Normalizes this vector.
      */
-    normalize(): Vector3;
+    normalize(): this;
 
     /**
      * Normalizes this vector and multiplies it by l.
      */
-    setLength(l: number): Vector3;
-    lerp(v: Vector3, alpha: number): Vector3;
+    setLength(l: number): this;
+    lerp(v: Vector3, alpha: number): this;
 
-    lerpVectors(v1: Vector3, v2: Vector3, alpha: number): Vector3;
+    lerpVectors(v1: Vector3, v2: Vector3, alpha: number): this;
 
     /**
      * Sets this vector to cross product of itself and v.
      */
-    cross(a: Vector3): Vector3;
+    cross(a: Vector3, w?: Vector3): this;
 
     /**
      * Sets this vector to cross product of a and b.
      */
-    crossVectors(a: Vector3, b: Vector3): Vector3;
-    projectOnVector(v: Vector3): Vector3;
-    projectOnPlane(planeNormal: Vector3): Vector3;
-    reflect(vector: Vector3): Vector3;
+    crossVectors(a: Vector3, b: Vector3): this;
+    projectOnVector(v: Vector3): this;
+    projectOnPlane(planeNormal: Vector3): this;
+    reflect(vector: Vector3): this;
     angleTo(v: Vector3): number;
 
     /**
@@ -4775,10 +4983,11 @@ export class Vector3 implements Vector {
      */
     distanceToManhattan(v: Vector3): number;
 
-    setFromSpherical(s: Spherical): Vector3;
-    setFromMatrixPosition(m: Matrix4): Vector3;
-    setFromMatrixScale(m: Matrix4): Vector3;
-    setFromMatrixColumn(matrix: Matrix4, index: number): Vector3;
+    setFromSpherical(s: Spherical): this;
+    setFromCylindrical(s: Cylindrical): this;
+    setFromMatrixPosition(m: Matrix4): this;
+    setFromMatrixScale(m: Matrix4): this;
+    setFromMatrixColumn(matrix: Matrix4, index: number): this;
 
     /**
      * Checks for strict equality of this vector and v.
@@ -4786,23 +4995,24 @@ export class Vector3 implements Vector {
     equals(v: Vector3): boolean;
 
     fromArray(xyz: number[], offset?: number): Vector3;
+
+    /**
+     * Returns an array [x, y, z], or copies x, y and z into the provided array.
+     * @param array (optional) array to store the vector to. If this is not provided, a new array will be created.
+     * @param offset (optional) optional offset into the array.
+     * @return The created or provided array.
+     */
     toArray(xyz?: number[], offset?: number): number[];
-    fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector3;
 
     /**
-     * @deprecated Use {@link Vector3#setFromMatrixPosition .setFromMatrixPosition()} instead.
+     * Copies x, y and z into the provided array-like.
+     * @param array array-like to store the vector to.
+     * @param offset (optional) optional offset into the array.
+     * @return The provided array-like.
      */
-    getPositionFromMatrix(m: Matrix4): Vector3;
+    toArray(xyz: ArrayLike<number>, offset?: number): ArrayLike<number>;
 
-    /**
-     * @deprecated Use {@link Vector3#setFromMatrixScale .setFromMatrixScale()} instead.
-     */
-    getScaleFromMatrix(m: Matrix4): Vector3;
-
-    /**
-     * @deprecated Use {@link Vector3#setFromMatrixColumn .setFromMatrixColumn()} instead.
-     */
-    getColumnFromMatrix(index: number, matrix: Matrix4): Vector3;
+    fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): this;
 }
 
 /**
@@ -4822,108 +5032,115 @@ export class Vector4 implements Vector {
     y: number;
     z: number;
     w: number;
+    isVector4: true;
 
     /**
      * Sets value of this vector.
      */
-    set(x: number, y: number, z: number, w: number): Vector4;
+    set(x: number, y: number, z: number, w: number): this;
 
     /**
      * Sets all values of this vector.
      */
-    setScalar(scalar: number): Vector4;
+    setScalar(scalar: number): this;
 
     /**
      * Sets X component of this vector.
      */
-    setX(x: number): Vector4;
+    setX(x: number): this;
 
     /**
      * Sets Y component of this vector.
      */
-    setY(y: number): Vector4;
+    setY(y: number): this;
 
     /**
      * Sets Z component of this vector.
      */
-    setZ(z: number): Vector4;
+    setZ(z: number): this;
 
     /**
      * Sets w component of this vector.
      */
-    setW(w: number): Vector4;
+    setW(w: number): this;
 
-    setComponent(index: number, value: number): void;
+    setComponent(index: number, value: number): this;
+
     getComponent(index: number): number;
+
     /**
      * Clones this vector.
      */
     clone(): this;
+
     /**
      * Copies value of v to this vector.
      */
-    copy(v: this): this;
+    copy(v: Vector4): this;
 
     /**
      * Adds v to this vector.
      */
-    add(v: Vector4): Vector4;
-    addScalar(s: number): Vector4;
+    add(v: Vector4, w?: Vector4): this;
+
+    addScalar(scalar: number): this;
 
     /**
      * Sets this vector to a + b.
      */
-    addVectors(a: Vector4, b: Vector4): Vector4;
-    addScaledVector( v: Vector4, s: number ): Vector4;
+    addVectors(a: Vector4, b: Vector4): this;
+
+    addScaledVector( v: Vector4, s: number ): this;
     /**
      * Subtracts v from this vector.
      */
-    sub(v: Vector4): Vector4;
+    sub(v: Vector4): this;
 
-    subScalar(s: number): Vector4;
+    subScalar(s: number): this;
 
     /**
      * Sets this vector to a - b.
      */
-    subVectors(a: Vector4, b: Vector4): Vector4;
+    subVectors(a: Vector4, b: Vector4): this;
 
     /**
      * Multiplies this vector by scalar s.
      */
-    multiplyScalar(s: number): Vector4;
-    applyMatrix4(m: Matrix4): Vector4;
+    multiplyScalar(s: number): this;
+
+    applyMatrix4(m: Matrix4): this;
 
     /**
      * Divides this vector by scalar s.
      * Set vector to ( 0, 0, 0 ) if s == 0.
      */
-    divideScalar(s: number): Vector4;
+    divideScalar(s: number): this;
 
     /**
      * http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
      * @param q is assumed to be normalized
      */
-    setAxisAngleFromQuaternion(q: Quaternion): Vector4;
+    setAxisAngleFromQuaternion(q: Quaternion): this;
 
     /**
      * http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
      * @param m assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
      */
-    setAxisAngleFromRotationMatrix(m: Matrix3): Vector4;
+    setAxisAngleFromRotationMatrix(m: Matrix3): this;
 
-    min(v: Vector4): Vector4;
-    max(v: Vector4): Vector4;
-    clamp(min: Vector4, max: Vector4): Vector4;
-    clampScalar(min: number, max: number): Vector4;
-    floor(): Vector4;
-    ceil(): Vector4;
-    round(): Vector4;
-    roundToZero(): Vector4;
+    min(v: Vector4): this;
+    max(v: Vector4): this;
+    clamp(min: Vector4, max: Vector4): this;
+    clampScalar(min: number, max: number): this;
+    floor(): this;
+    ceil(): this;
+    round(): this;
+    roundToZero(): this;
 
     /**
      * Inverts this vector.
      */
-    negate(): Vector4;
+    negate(): this;
 
     /**
      * Computes dot product of this vector and v.
@@ -4941,11 +5158,6 @@ export class Vector4 implements Vector {
     length(): number;
 
     /**
-     * @deprecated Use {@link Vector4#manhattanLength .manhattanLength()} instead.
-     */
-    lengthManhattan(): number;
-
-    /**
      * Computes the Manhattan length of this vector.
      *
      * @return {number}
@@ -4957,29 +5169,29 @@ export class Vector4 implements Vector {
     /**
      * Normalizes this vector.
      */
-    normalize(): Vector4;
+    normalize(): this;
     /**
      * Normalizes this vector and multiplies it by l.
      */
-    setLength(length: number): Vector4;
+    setLength(length: number): this;
 
     /**
      * Linearly interpolate between this vector and v with alpha factor.
      */
-    lerp(v: Vector4, alpha: number): Vector4;
+    lerp(v: Vector4, alpha: number): this;
 
-    lerpVectors(v1: Vector4, v2: Vector4, alpha: number): Vector4;
+    lerpVectors(v1: Vector4, v2: Vector4, alpha: number): this;
 
     /**
      * Checks for strict equality of this vector and v.
      */
     equals(v: Vector4): boolean;
 
-    fromArray(xyzw: number[], offset?: number): Vector4;
+    fromArray(xyzw: number[], offset?: number): this;
 
     toArray(xyzw?: number[], offset?: number): number[];
 
-    fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector4;
+    fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): this;
 }
 
 export abstract class Interpolant {
@@ -5021,20 +5233,26 @@ export class QuaternionLinearInterpolant extends Interpolant {
 
 export class Bone extends Object3D {
     constructor();
+    isBone: true;
+    type: "Bone";
 }
 
 export class Group extends Object3D {
     constructor();
+    type: "Group";
+    isGroup: true;
 }
 
 export class LOD extends Object3D {
     constructor();
 
-    levels: any[];
+    type: "LOD";
+
+    levels: {distance: number, object: Object3D}[];
 
     addLevel(object: Object3D, distance?: number): void;
     getObjectForDistance(distance: number): Object3D;
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
     update(camera: Camera): void;
     toJSON(meta: any): any;
 
@@ -5044,44 +5262,21 @@ export class LOD extends Object3D {
     objects: any[];
 }
 
-export interface LensFlareProperty {
-    texture: Texture;             // Texture
-    size: number;             // size in pixels (-1 = use texture.width)
-    distance: number;             // distance (0-1) from light source (0=at light source)
-    x: number;
-    y: number;
-    z: number;            // screen position (-1 =>  1) z = 0 is ontop z = 1 is back
-    scale: number;             // scale
-    rotation: number;             // rotation
-    opacity: number;            // opacity
-    color: Color;                // color
-    blending: Blending;
-}
-
-export class LensFlare extends Object3D {
-    constructor(texture?: Texture, size?: number, distance?: number, blending?: Blending, color?: Color);
-
-    lensFlares: LensFlareProperty[];
-    positionScreen: Vector3;
-    customUpdateCallback: (object: LensFlare) => void;
-
-    add(object: Object3D): void;
-    add(texture: Texture, size?: number, distance?: number, blending?: Blending, color?: Color): void;
-    updateLensFlares(): void;
-}
-
 export class Line extends Object3D {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial,
+        material?: Material | Material[],
         mode?: number
     );
 
-    geometry: Geometry|BufferGeometry;
-    material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
+    geometry: Geometry | BufferGeometry;
+    material: Material | Material[];
+
+    type: "Line";
+    isLine: true;
 
     computeLineDistances(): this;
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 }
 
 /**
@@ -5096,7 +5291,7 @@ export const LinePieces: number;
 export class LineSegments extends Line {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial | (LineDashedMaterial | LineBasicMaterial | ShaderMaterial)[],
+        material?: Material | Material[],
         mode?: number
     );
 }
@@ -5104,17 +5299,18 @@ export class LineSegments extends Line {
 export class Mesh extends Object3D {
     constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[]);
 
-    geometry: Geometry|BufferGeometry;
+    geometry: Geometry | BufferGeometry;
     material: Material | Material[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
-	isMesh: boolean;
+    isMesh: true;
+    type: string;
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
-    getMorphTargetIndexByName(name: string): number;
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+    copy(source: this, recursive?: boolean): this;
 }
 
 /**
@@ -5130,8 +5326,11 @@ export class Points extends Object3D {
      */
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: Material
+        material?: Material | Material[]
     );
+
+    type: "Points";
+    isPoints: true;
 
     /**
      * An instance of Geometry or BufferGeometry, where each vertex designates the position of a particle in the system.
@@ -5141,9 +5340,9 @@ export class Points extends Object3D {
     /**
      * An instance of Material, defining the object's appearance. Default is a PointsMaterial with randomised colour.
      */
-    material: Material;
+    material: Material | Material[];
 
-    raycast(raycaster: Raycaster, intersects: any): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 }
 
 /**
@@ -5177,13 +5376,7 @@ export class Skeleton {
 }
 
 export class SkinnedMesh extends Mesh {
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshBasicMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshDepthMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MultiMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshLambertMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshNormalMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshPhongMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: ShaderMaterial, useVertexTexture?: boolean);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[], useVertexTexture?: boolean);
 
     bindMode: string;
     bindMatrix: Matrix4;
@@ -5199,10 +5392,14 @@ export class SkinnedMesh extends Mesh {
 export class Sprite extends Object3D {
     constructor(material?: Material);
 
-    geometry: BufferGeometry;
-    material: SpriteMaterial;
+    type: "Sprite";
+    isSprite: true;
 
-    raycast(raycaster: Raycaster, intersects: any): void;
+    material: Material;
+    center: Vector2;
+
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+    copy(source: this, recursive?: boolean): this;
 }
 
 /**
@@ -5225,6 +5422,14 @@ export interface WebGLRendererParameters {
      * A Canvas where the renderer draws its output.
      */
     canvas?: HTMLCanvasElement;
+
+
+    /**
+     * A WebGL Rendering Context.
+     * (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext)
+     *  Default is null
+     */
+    context?: WebGLRenderingContext
 
     /**
      *  shader precision. Can be "highp", "mediump" or "lowp".
@@ -5358,21 +5563,7 @@ export class WebGLRenderer implements Renderer {
      */
     maxMorphNormals: number;
 
-    /**
-     * An object with a series of statistical information about the graphics board memory and the rendering process. Useful for debugging or just for the sake of curiosity. The object contains the following fields:
-     */
-    info: {
-        memory: {
-            geometries: number;
-            textures: number;
-        };
-        render: {
-            calls: number;
-            faces: number;
-            points: number;
-        };
-        programs: number;
-    };
+    info: WebGLInfo;
 
     shadowMap: WebGLShadowMap;
 
@@ -5406,6 +5597,9 @@ export class WebGLRenderer implements Renderer {
     getPixelRatio(): number;
     setPixelRatio(value: number): void;
 
+    getDrawingBufferSize(): { width: number; height: number; };
+    setDrawingBufferSize(width: number, height: number, pixelRatio: number): void;
+
     getSize(): { width: number; height: number; };
 
     /**
@@ -5413,6 +5607,7 @@ export class WebGLRenderer implements Renderer {
      */
     setSize(width: number, height: number, updateStyle?: boolean): void;
 
+    getCurrentViewport(): Vector4;
     /**
      * Sets the viewport to render from (x, y) to (x + width, y + height).
      */
@@ -5473,6 +5668,17 @@ export class WebGLRenderer implements Renderer {
     renderBufferImmediate(object: Object3D, program: Object, material: Material): void;
 
     renderBufferDirect(camera: Camera, fog: Fog, material: Material, geometryGroup: any, object: Object3D): void;
+
+    /**
+     * A build in function that can be used instead of requestAnimationFrame. For WebVR projects this function must be used.
+     * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
+     */
+    setAnimationLoop(callback: Function): void;
+
+    /**
+     * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
+     */
+    animate(callback: Function): void;
 
     /**
      * Render a scene using a camera.
@@ -5605,6 +5811,7 @@ export interface WebGLRenderTargetOptions {
     anisotropy?: number; // 1;
     depthBuffer?: boolean; // true;
     stencilBuffer?: boolean; // true;
+    generateMipmaps?: boolean; // true;
 }
 
 export class WebGLRenderTarget extends EventDispatcher {
@@ -5663,7 +5870,7 @@ export class WebGLRenderTarget extends EventDispatcher {
 
     setSize(width: number, height: number): void;
     clone(): this;
-    copy(source: this): this;
+    copy(source: WebGLRenderTarget): this;
     dispose(): void;
 }
 
@@ -5822,13 +6029,18 @@ export let UniformsLib: {
         diffuse: IUniform;
         opacity: IUniform;
         map: IUniform;
-        offsetRepeat: IUniform;
-        specularMap: IUniform;
+        uvTransform: IUniform;
         alphaMap: IUniform;
+    };
+    specularmap: {
+        specularMap: IUniform;
+    };
+    envmap: {
         envMap: IUniform;
         flipEnvMap: IUniform;
         reflectivity: IUniform;
-        refractionRation: IUniform;
+        refractionRatio: IUniform;
+        maxMipLevel: IUniform;
     };
     aomap: {
         aoMap: IUniform;
@@ -5838,7 +6050,9 @@ export let UniformsLib: {
         lightMap: IUniform;
         lightMapIntensity: IUniform;
     };
-    emissivemap: { emissiveMap: IUniform };
+    emissivemap: {
+        emissiveMap: IUniform
+    };
     bumpmap: {
         bumpMap: IUniform;
         bumpScale: IUniform;
@@ -5852,8 +6066,15 @@ export let UniformsLib: {
         displacementScale: IUniform;
         displacementBias: IUniform;
     };
-    roughnessmap: { roughnessMap: IUniform };
-    metalnessmap: { metalnessMap: IUniform };
+    roughnessmap: {
+        roughnessMap: IUniform
+    };
+    metalnessmap: {
+        metalnessMap: IUniform
+    };
+    gradientmap: {
+        gradientMap: IUniform
+    };
     fog: {
         fogDensity: IUniform;
         fogNear: IUniform;
@@ -5908,7 +6129,7 @@ export let UniformsLib: {
         };
         pointShadowMap: IUniform;
         pointShadowMatrix: IUniform;
-        hemisphereLigtts: {
+        hemisphereLights: {
             value: any[];
             properties: {
                 direction: {};
@@ -5916,6 +6137,15 @@ export let UniformsLib: {
                 groundColor: {};
             };
         };
+        rectAreaLights: {
+            value: any[];
+            properties: {
+                color: {};
+                position: {};
+                width: {};
+                height: {};
+            }
+        }
     };
     points: {
         diffuse: IUniform;
@@ -5923,7 +6153,7 @@ export let UniformsLib: {
         size: IUniform;
         scale: IUniform;
         map: IUniform;
-        offsetRepeat: IUniform;
+        uvTransform: IUniform;
     };
 };
 
@@ -6018,6 +6248,26 @@ export class WebGLLights {
     get(light: any): any;
 }
 
+/**
+ * An object with a series of statistical information about the graphics board memory and the rendering process.
+ */
+export class WebGLInfo {
+    autoReset: boolean;
+    memory: {
+        geometries: number;
+        textures: number;
+    };
+    programs: WebGLProgram[] | null;
+    render: {
+        calls: number;
+        frame: number;
+        lines: number;
+        points: number;
+        triangles: number;
+    };
+    reset(): void;
+}
+
 export class WebGLIndexedBufferRenderer {
     constructor(gl: WebGLRenderingContext, properties: any, info: any);
 
@@ -6061,7 +6311,7 @@ export class WebGLProgram {
 export class WebGLPrograms {
     constructor(renderer: WebGLRenderer, capabilities: any);
 
-    programs: any[];
+    programs: WebGLProgram[];
 
     getParameters(material: ShaderMaterial, lights: any, fog: any, nClipPlanes: number, object: any): any;
     getProgramCode(material: ShaderMaterial, parameters: any): string;
@@ -6139,7 +6389,7 @@ export class WebGLState {
     enable(id: string): void;
     disable(id: string): void;
     getCompressedTextureFormats(): any[];
-    setBlending(blending: number, blendEquation: number, blendSrc: number, blendDst: number, blendEquationAlpha: number, blendSrcAlpha: number, blendDstAlpha: number): void;
+    setBlending(blending: number, blendEquation?: number, blendSrc?: number, blendDst?: number, blendEquationAlpha?: number, blendSrcAlpha?: number, blendDstAlpha?: number, premultiplyAlpha?: boolean): void;
     setColorWrite(colorWrite: number): void;
     setDepthTest(depthTest: number): void;
     setDepthWrite(depthWrite: number): void;
@@ -6156,7 +6406,9 @@ export class WebGLState {
     getScissorTest(): boolean;
     activeTexture(webglSlot: any): void;
     bindTexture(webglType: any, webglTexture: any): void;
+    // Same interface as https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/compressedTexImage2D
     compressedTexImage2D(): void;
+    // Same interface as https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
     texImage2D(): void;
     clearColor(r: number, g: number, b: number, a: number): void;
     clearDepth(depth: number): void;
@@ -6179,8 +6431,8 @@ export class WebGLDepthBuffer {
     constructor(gl: any, state: any);
 
     setTest(depthTest: boolean): void;
-    sertMask(depthMask: number): void;
-    setFunc(depthFunc: Function): void;
+    setMask(depthMask: number): void;
+    setFunc(depthFunc: number): void;
     setLocked(lock: boolean): void;
     setClear(depth: any): void;
     reset(): void;
@@ -6190,19 +6442,12 @@ export class WebGLStencilBuffer {
     constructor(gl: any, state: any);
 
     setTest(stencilTest: boolean): void;
-    sertMask(stencilMask: number): void;
-    setFunc(stencilFunc: Function, stencilRef: any, stencilMask: number): void;
+    setMask(stencilMask: number): void;
+    setFunc(stencilFunc: number, stencilRef: any, stencilMask: number): void;
     setOp(stencilFail: any, stencilZFail: any, stencilZPass: any): void;
     setLocked(lock: boolean): void;
     setClear(stencil: any): void;
     reset(): void;
-}
-
-// Renderers / WebGL / Plugins /////////////////////////////////////////////////////////////////////
-export class LensFlarePlugin {
-    constructor(renderer: WebGLRenderer, flares: any[]);
-
-    render(scene: Scene, camera: Camera, viewportWidth: number, viewportHeight: number): void;
 }
 
 export class SpritePlugin {
@@ -6219,18 +6464,21 @@ export class SpritePlugin {
 export class Scene extends Object3D {
     constructor();
 
+    type: "Scene";
+
     /**
      * A fog instance defining the type of fog that affects everything rendered in the scene. Default is null.
      */
-    fog: IFog;
+    fog: IFog | null;
 
     /**
      * If not null, it will force everything in the scene to be rendered with that material. Default is null.
      */
-    overrideMaterial: Material;
+    overrideMaterial: Material | null;
     autoUpdate: boolean;
-    background: any;
+    background: null | Color | Texture;
 
+    copy(source: this, recursive?: boolean): this;
     toJSON(meta?: any): any;
 }
 
@@ -6335,7 +6583,7 @@ export class Texture extends EventDispatcher {
     static DEFAULT_MAPPING: any;
 
     clone(): this;
-    copy(source: this): this;
+    copy(source: Texture): this;
     toJSON(meta: any): any;
     dispose(): void;
     transformUv(uv: Vector): void;
@@ -6409,7 +6657,7 @@ export class CompressedTexture extends Texture {
 
 export class DataTexture extends Texture {
     constructor(
-        data: ArrayBuffer | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array,
+        data: ArrayBuffer | TypedArray,
         width: number,
         height: number,
         format?: PixelFormat,
@@ -6468,49 +6716,59 @@ export namespace SceneUtils {
     export function attach(child: Object3D, scene: Scene, parent: Object3D): void;
 }
 
+interface Vec2
+{
+    x: number;
+    y: number;
+}
+
 export namespace ShapeUtils {
-    export function area(contour: number[]): number;
-    export function triangulate(contour: number[], indices: boolean): number[];
-    export function triangulateShape(contour: number[], holes: any[]): number[];
-    export function isClockWise(pts: number[]): boolean;
+    export function area(contour: Vec2[]): number;
+    export function triangulate(contour: Vec2[], indices: boolean): number[];
+    export function triangulateShape(contour: Vec2[], holes: Vec2[]): number[][];
+    export function isClockWise(pts: Vec2[]): boolean;
 }
 
 // Extras / Audio /////////////////////////////////////////////////////////////////////
 
 export class Audio extends Object3D {
     constructor(listener: AudioListener);
+    type: "Audio";
 
-    type: string;
     context: AudioContext;
-    source: AudioBufferSourceNode;
     gain: GainNode;
     autoplay: boolean;
+    buffer: null | Audio;
+    loop: boolean;
     startTime: number;
+    offset: number;
     playbackRate: number;
-    hasPlaybackControl: boolean;
     isPlaying: boolean;
+    hasPlaybackControl: boolean;
     sourceType: string;
+    source: AudioBufferSourceNode;
     filters: any[];
 
     getOutput(): GainNode;
-    setNodeSource(audioNode: AudioBufferSourceNode): Audio;
-    setBuffer(audioBuffer: AudioBuffer): Audio;
-    play(): Audio;
-    pause(): Audio;
-    stop(): Audio;
-    connect(): Audio;
-    disconnect(): Audio;
-    getFilters(): any[];
-    setFilter(value: any[]): Audio;
-    getFilter(): any;
-    setFilter(filter: any): Audio;
-    setPlaybackRate(value: number): Audio;
-    getPlaybackRate(): number;
+    setNodeSource(audioNode: AudioBufferSourceNode): this;
+    setMediaElementSource(mediaElement: MediaElementAudioSourceNode): this;
+    setBuffer(audioBuffer: AudioBuffer): this;
+    play(): this;
     onEnded(): void;
+    pause(): this;
+    stop(): this;
+    connect(): this;
+    disconnect(): this;
+    getFilters(): any[];
+    setFilter(value: any[]): this;
+    getFilter(): any;
+    setFilter(filter: any): this;
+    setPlaybackRate(value: number): this;
+    getPlaybackRate(): number;
     getLoop(): boolean;
     setLoop(value: boolean): void;
     getVolume(): number;
-    setVolume(value: number): Audio;
+    setVolume(value: number): this;
     /**
      * @deprecated Use {@link AudioLoader} instead.
      */
@@ -6563,9 +6821,10 @@ export class PositionalAudio extends Audio {
 export class AudioListener extends Object3D {
     constructor();
 
-    type: string;
+    type: "AudioListener";
     context: AudioContext;
     gain: GainNode;
+    filter: null | any;
 
     getInput(): GainNode;
     removeFilter(): void;
@@ -6573,6 +6832,7 @@ export class AudioListener extends Object3D {
     getFilter(): any;
     setMasterVolume(value: number): void;
     getMasterVolume(): number;
+    updateMatrixWorld(force?: boolean): void;
 }
 
 // Extras / Core /////////////////////////////////////////////////////////////////////
@@ -6582,14 +6842,14 @@ export class AudioListener extends Object3D {
  * class Curve&lt;T extends Vector&gt;
  */
 export class Curve<T extends Vector> {
-	
+
     /**
-     * This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via .getLengths. 
-     * To ensure precision when using methods like .getSpacedPoints, it is recommended to increase .arcLengthDivisions if the curve is very large. 
+     * This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via .getLengths.
+     * To ensure precision when using methods like .getSpacedPoints, it is recommended to increase .arcLengthDivisions if the curve is very large.
      * Default is 200.
      */
     arcLengthDivisions:number;
-	
+
     /**
      * Returns a vector for point t of the curve where t is between 0 and 1
      * getPoint(t: number): T;
@@ -6773,7 +7033,7 @@ export namespace CurveUtils {
 }
 
 export class CatmullRomCurve3 extends Curve<Vector3> {
-    constructor(points?: Vector3[]);
+    constructor(points?: Vector3[], closed?: boolean, curveType?: string, tension?: number);
 
     points: Vector3[];
 
@@ -6859,7 +7119,7 @@ export class SplineCurve extends Curve<Vector2> {
 
 // Extras / Geometries /////////////////////////////////////////////////////////////////////
 export class BoxBufferGeometry extends BufferGeometry {
-    constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
+    constructor(width?: number, height?: number, depth?: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
 
     parameters: {
         width: number;
@@ -6883,7 +7143,7 @@ export class BoxGeometry extends Geometry {
      * @param heightSegments — Number of segmented faces along the height of the sides.
      * @param depthSegments — Number of segmented faces along the depth of the sides.
      */
-    constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
+    constructor(width?: number, height?: number, depth?: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
 
     parameters: {
         width: number;
@@ -6982,29 +7242,39 @@ export class DodecahedronGeometry extends Geometry {
 }
 
 export class EdgesGeometry extends BufferGeometry {
-    constructor(geometry: BufferGeometry, thresholdAngle: number);
+    constructor(geometry: BufferGeometry | Geometry, thresholdAngle?: number);
+}
+
+export interface ExtrudeGeometryOptions {
+    curveSegments?: number;
+    steps?: number;
+    depth?: number;
+    bevelEnabled?: boolean;
+    bevelThickness?: number;
+    bevelSize?: number;
+    bevelSegments?: number;
+    extrudePath?: CurvePath<Vector3>;
+    UVGenerator?: UVGenerator;
+}
+
+export interface UVGenerator {
+  generateTopUV(geometry: ExtrudeBufferGeometry, vertices: number[], indexA: number, indexB: number, indexC: number): Vector2[];
+  generateSideWallUV(geometry: ExtrudeBufferGeometry, vertices: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
 }
 
 export class ExtrudeGeometry extends Geometry {
-    constructor(shape?: Shape, options?: any);
-    constructor(shapes?: Shape[], options?: any);
+    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
 
-    static WorldUVGenerator: {
-        generateTopUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number): Vector2[];
-        generateSideWallUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
-    };
+    static WorldUVGenerator: UVGenerator;
 
     addShapeList(shapes: Shape[], options?: any): void;
     addShape(shape: Shape, options?: any): void;
 }
 
 export class ExtrudeBufferGeometry extends BufferGeometry {
-    constructor(shapes?: Shape[], options?: any);
+    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
 
-    static WorldUVGenerator: {
-        generateTopUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number): Vector2[];
-        generateSideWallUV(geometry: Geometry, vertices: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
-    };
+    static WorldUVGenerator: UVGenerator;
 
     addShapeList(shapes: Shape[], options?: any): void;
     addShape(shape: Shape, options?: any): void;
@@ -7048,18 +7318,28 @@ export class OctahedronGeometry extends PolyhedronGeometry {
     constructor(radius?: number, detail?: number);
 }
 
+export class ParametricBufferGeometry extends BufferGeometry {
+  constructor(func: (u: number, v: number, dest: Vector3) => void, slices: number, stacks: number);
+
+  parameters: {
+    func: (u: number, v: number, dest:Vector3) => void;
+    slices: number;
+    stacks: number;
+  };
+}
+
 export class ParametricGeometry extends Geometry {
-    constructor(func: (u: number, v: number) => Vector3, slices: number, stacks: number);
+    constructor(func: (u: number, v: number, dest: Vector3) => void, slices: number, stacks: number);
 
     parameters: {
-        func: (u: number, v: number) => Vector3;
+        func: (u: number, v: number, dest:Vector3) => void;
         slices: number;
         stacks: number;
     };
 }
 
 export class PlaneBufferGeometry extends BufferGeometry {
-    constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
+    constructor(width?: number, height?: number, widthSegments?: number, heightSegments?: number);
 
     parameters: {
         width: number;
@@ -7070,7 +7350,7 @@ export class PlaneBufferGeometry extends BufferGeometry {
 }
 
 export class PlaneGeometry extends Geometry {
-    constructor(width: number, height: number, widthSegments?: number, heightSegments?: number);
+    constructor(width?: number, height?: number, widthSegments?: number, heightSegments?: number);
 
     parameters: {
         width: number;
@@ -7081,7 +7361,7 @@ export class PlaneGeometry extends Geometry {
 }
 
 export class PolyhedronBufferGeometry extends BufferGeometry {
-	constructor(vertices: number[], indices: number[], radius: number, detail: number);
+	constructor(vertices: number[], indices: number[], radius?: number, detail?: number);
 
 	parameters: {
 		vertices: number[];
@@ -7130,8 +7410,7 @@ export class RingGeometry extends Geometry {
 }
 
 export class ShapeGeometry extends Geometry {
-    constructor(shape: Shape, options?: any);
-    constructor(shapes: Shape[], options?: any);
+    constructor(shapes: Shape | Shape[], curveSegments?: number);
 
     addShapeList(shapes: Shape[], options: any): ShapeGeometry;
     addShape(shape: Shape, options?: any): void;
@@ -7143,7 +7422,7 @@ export class ShapeBufferGeometry extends BufferGeometry
 }
 
 export class SphereBufferGeometry extends BufferGeometry {
-    constructor(radius: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
+    constructor(radius?: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
 
     parameters: {
         radius: number;
@@ -7171,7 +7450,7 @@ export class SphereGeometry extends Geometry {
      * @param thetaStart — specify vertical starting angle. Default is 0.
      * @param thetaLength — specify vertical sweep angle size. Default is Math.PI.
      */
-    constructor(radius: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
+    constructor(radius?: number, widthSegments?: number, heightSegments?: number, phiStart?: number, phiLength?: number, thetaStart?: number, thetaLength?: number);
 
     parameters: {
         radius: number;
@@ -7258,13 +7537,13 @@ export class TorusGeometry extends Geometry {
 }
 
 export class TorusKnotBufferGeometry extends BufferGeometry {
-    constructor(radius?: number, tube?: number, radialSegments?: number, tubularSegments?: number, p?: number, q?: number, heightScale?: number);
+    constructor(radius?: number, tube?: number, tubularSegments?: number, radialSegments?: number, p?: number, q?: number);
 
     parameters: {
         radius: number;
         tube: number;
-        radialSegments: number;
         tubularSegments: number;
+        radialSegments: number;
         p: number;
         q: number;
         heightScale: number;
@@ -7272,13 +7551,13 @@ export class TorusKnotBufferGeometry extends BufferGeometry {
 }
 
 export class TorusKnotGeometry extends Geometry {
-    constructor(radius?: number, tube?: number, radialSegments?: number, tubularSegments?: number, p?: number, q?: number, heightScale?: number);
+    constructor(radius?: number, tube?: number, tubularSegments?: number, radialSegments?: number, p?: number, q?: number);
 
     parameters: {
         radius: number;
         tube: number;
-        radialSegments: number;
         tubularSegments: number;
+        radialSegments: number;
         p: number;
         q: number;
         heightScale: number;
@@ -7286,31 +7565,26 @@ export class TorusKnotGeometry extends Geometry {
 }
 
 export class TubeGeometry extends Geometry {
-    constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean, taper?: (u: number) => number);
+    constructor(path: Curve<Vector3>, tubularSegments?: number, radius?: number, radiusSegments?: number, closed?: boolean);
 
     parameters: {
         path: Curve<Vector3>;
-        segments: number;
+        tubularSegments: number;
         radius: number;
         radialSegments: number;
         closed: boolean;
-        taper: (u: number) => number; // NoTaper or SinusoidalTaper;
     };
     tangents: Vector3[];
     normals: Vector3[];
     binormals: Vector3[];
-
-    static NoTaper(u?: number): number;
-    static SinusoidalTaper(u: number): number;
-    static FrenetFrames(path: Path, segments: number, closed: boolean): void;
 }
 
 export class TubeBufferGeometry extends BufferGeometry {
-    constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean);
+    constructor(path: Curve<Vector3>, tubularSegments?: number, radius?: number, radiusSegments?: number, closed?: boolean);
 
     parameters: {
         path: Curve<Vector3>;
-        segments: number;
+        tubularSegments: number;
         radius: number;
         radialSegments: number;
         closed: boolean;
@@ -7334,7 +7608,7 @@ export class ArrowHelper extends Object3D {
 
     setDirection(dir: Vector3): void;
     setLength(length: number,  headLength?: number, headWidth?: number): void;
-    setColor(hex: number): void;
+    setColor(color: Color): void;
 }
 
 export class AxesHelper extends LineSegments {
@@ -7369,10 +7643,14 @@ export class CameraHelper extends LineSegments {
 }
 
 export class DirectionalLightHelper extends Object3D {
-    constructor(light: Light, size?: number);
+    constructor(light: DirectionalLight, size?: number, color?: Color | string | number);
 
-    light: Light;
+    light: DirectionalLight;
     lightPlane: Line;
+    targetPlane: Line;
+    color: Color | string | number | undefined;
+    matrix: Matrix4;
+    matrixAutoUpdate: boolean;
 
     dispose(): void;
     update(): void;
@@ -7403,20 +7681,26 @@ export class GridHelper extends LineSegments {
 }
 
 export class HemisphereLightHelper extends Object3D {
-    constructor(light: Light, sphereSize: number);
+    constructor(light: HemisphereLight, size: number, color?: Color | number | string);
 
-    light: Light;
-    colors: Color[];
-    lightSphere: Mesh;
+    light: HemisphereLight;
+    matrix: Matrix4;
+    matrixAutoUpdate: boolean;
+    material: MeshBasicMaterial;
+
+    color: Color | string | number | undefined;
 
     dispose(): void;
     update(): void;
 }
 
 export class PointLightHelper extends Object3D {
-    constructor(light: Light, sphereSize: number);
+    constructor(light: PointLight, sphereSize?: number, color?: Color | string | number);
 
-    light: Light;
+    light: PointLight;
+    color: Color | string | number | undefined;
+    matrix: Matrix4;
+    matrixAutoUpdate: boolean;
 
     dispose(): void;
     update(): void;
@@ -7433,9 +7717,12 @@ export class SkeletonHelper extends LineSegments {
 }
 
 export class SpotLightHelper extends Object3D {
-    constructor(light: Light);
+    constructor(light: Light, color?: Color | string | number);
 
     light: Light;
+    matrix: Matrix4;
+    matrixAutoUpdate: boolean;
+    color: Color | string | number | undefined;
 
     dispose(): void;
     update(): void;

@@ -19,7 +19,7 @@ declare namespace AsyncRetry {
 		onRetry?: (e: Error) => any;
 	}
 
-	type RetryFunction<A> = (bail: (e: Error) => A, attempt: number) => A|Promise<A>;
+	type RetryFunction<A> = (bail: (e: Error) => void, attempt: number) => A|Promise<A>;
 }
 
 export = AsyncRetry;

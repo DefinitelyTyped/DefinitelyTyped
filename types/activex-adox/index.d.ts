@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
 /// <reference types="activex-adodb" />
 
 declare namespace ADOX {
@@ -318,10 +319,6 @@ declare namespace ADOX {
         Refresh(): void;
         (Item: string | number): View;
     }
-}
-
-interface ActiveXObject {
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

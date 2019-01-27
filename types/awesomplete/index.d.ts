@@ -1,6 +1,9 @@
 // Type definitions for Awesomplete 1.1
 // Project: https://leaverou.github.io/awesomplete/
-// Definitions by: webbiesdk <https://github.com/webbiesdk>, Ben Dixon <https://github.com/bmdixon>, Trevor Bekolay <https://github.com/tbekolay>
+// Definitions by: webbiesdk <https://github.com/webbiesdk>
+//                 Ben Dixon <https://github.com/bmdixon>
+//                 Trevor Bekolay <https://github.com/tbekolay>
+//                 Chris LoPresto <https://github.com/chrislopresto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Awesomplete {
@@ -35,10 +38,12 @@ declare class Awesomplete {
     selected: boolean;
     open: () => void;
     status: HTMLElement;
+    destroy: () => void;
 }
 
 declare namespace Awesomplete {
-    type Suggestion = string | {label: string | any, value: string | any} | [string, string];
+    type Suggestion = string | { label: string | any, value: string | any } | [string, string];
+    type SortFunction = (left: number | any[], right: number | any[]) => number;
 
     interface Options {
         list?: string | string[] | Element | Array<{ label: string, value: any }> | Array<[string, string]>;
@@ -47,7 +52,7 @@ declare namespace Awesomplete {
         autoFirst?: boolean;
         data?(item: Suggestion, input: string): string;
         filter?(text: string, input: string): boolean;
-        sort?(left: number | any[], right: number | any[]): number;
+        sort?: boolean | SortFunction;
         item?(text: string, input: string): HTMLElement;
         replace?(text: string): void;
     }

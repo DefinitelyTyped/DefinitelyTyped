@@ -102,12 +102,12 @@ function tester5() {
     }
 
     Snap.animate(sideLength, sideLength + 100, updater, 1500 /*ms*/);
-    setTimeout(500, () => { Snap.animate(sideLength + 100,
+    setTimeout(() => { Snap.animate(sideLength + 100,
                                          0,
                                          updater,
                                          100 /*ms*/,
                                          easer,
-                                         square.remove); });
+                                         square.remove); }, 500);
 }
 
 function tester6() {

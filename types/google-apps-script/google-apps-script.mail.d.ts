@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,12 +10,12 @@ declare namespace GoogleAppsScript {
     /**
      * Sends email.
      *
-     * This service allows users to send emails with complete control over the
-     *  content of the email. Unlike GmailApp, MailApp's sole purpose is sending email. MailApp cannot
-     *  access a user's Gmail inbox.
+     * This service allows users to send emails with complete control over the content of the email.
+     * Unlike GmailApp, MailApp's sole purpose is sending email. MailApp cannot access a user's Gmail
+     * inbox.
      *
      * Changes to scripts written using GmailApp are more likely to trigger a re-authorization
-     *  request from a user than MailApp scripts.
+     * request from a user than MailApp scripts.
      */
     export interface MailApp {
       getRemainingDailyQuota(): Integer;

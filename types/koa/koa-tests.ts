@@ -1,11 +1,20 @@
 import Koa = require("koa");
 
-const app = new Koa();
+interface DbBaseContext {
+    db(): void;
+}
+
+interface UserContext {
+    user: {};
+}
+
+const app = new Koa<{}, DbBaseContext>();
 
 app.context.db = () => {};
 
-app.use(async ctx => {
+app.use<{}, UserContext>(async ctx => {
     console.log(ctx.db);
+    ctx.user = {};
 });
 
 app.use((ctx, next) => {

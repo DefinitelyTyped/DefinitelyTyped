@@ -1,6 +1,6 @@
 // Type definitions for html2canvas.js 1.0-alpha
 // Project: https://github.com/niklasvh/html2canvas
-// Definitions by: Richard Hepburn <https://github.com/rwhepburn>, Pei-Tang Huang <https://github.com/tan9>, Sebastian Schocke <https://github.com/sschocke>
+// Definitions by: Richard Hepburn <https://github.com/rwhepburn>, Pei-Tang Huang <https://github.com/tan9>, Sebastian Schocke <https://github.com/sschocke>, Rickard Staaf <https://github.com/Ristaaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,8 +14,8 @@ declare namespace Html2Canvas {
         /** Whether to allow cross-origin images to taint the canvas */
         allowTaint?: boolean;
 
-        /** Canvas background color, if none is specified in DOM. Set undefined for transparent */
-        backgroundColor?: string;
+        /** Canvas background color, if none is specified in DOM. Set null for transparent */
+        backgroundColor?: string | null;
 
         /** Existing canvas element to use as a base for drawing on */
         canvas?: any;
@@ -34,6 +34,9 @@ declare namespace Html2Canvas {
 
         /** Whether to log events in the console. */
         logging?: boolean;
+
+        /** Callback function which is called when the Document has been cloned for rendering, can be used to modify the contents that will be rendered without affecting the original source document. */
+        onclone?: { (doc: HTMLDocument): void };
 
         /** Url to the proxy which is to be used for loading cross-origin images. If left empty, cross-origin images won't be loaded. */
         proxy?: string;

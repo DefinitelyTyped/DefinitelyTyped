@@ -1,3 +1,6 @@
+// Import needed for mathjs.import functionality (declaring/extending module)
+import * as math from 'mathjs';
+
 /*
 Basic usage examples
 */
@@ -33,7 +36,7 @@ Bignumbers examples
 {
 	// configure the default type of numbers as BigNumbers
 	math.config({
-		number: 'bignumber',
+		number: 'BigNumber',
 		precision: 20,
 	});
 
@@ -108,16 +111,13 @@ Complex numbers examples
 
 	// create a complex number from polar coordinates
 	{
-		const p: math.PolarCoordinates = { r: math.sqrt(2), phi: math.pi / 4 };
-		const c: math.Complex = math
-			.complex(p);
+        const p: math.PolarCoordinates = { r: math.sqrt(2), phi: math.pi / 4 };
+		const c: math.Complex = math.complex(p);
 	}
 
 	// get polar coordinates of a complex number
 	{
-		const p: math.PolarCoordinates = math
-			.complex(3, 4)
-			.toPolar();
+		const p: math.PolarCoordinates = math.complex(3, 4).toPolar();
 	}
 }
 
@@ -175,8 +175,14 @@ Expressions examples
 
 	// get and set variables and functions
 	{
+        parser.eval('x = 7 / 2');               // 3.5
+     	parser.eval('x + 3');                   // 6.5
+        parser.eval('f(x, y) = x^y');           // f(x, y)
+        parser.eval('f(2, 3)');                 // 8
+
 		const x = parser.get('x');
 		const f = parser.get('f');
+		const y = parser.getAll();
 		const g = f(3, 3);
 
 		parser.set('h', 500);
@@ -193,7 +199,7 @@ Fractions examples
 {
 	// configure the default type of numbers as Fractions
 	math.config({
-		number: 'fraction',
+		number: 'Fraction',
 	});
 
 	const x = math.fraction(0.125);
@@ -205,9 +211,6 @@ Fractions examples
 
 	// output formatting
 	const a = math.fraction('2/3');
-	console.log(math.format(a));
-	console.log(math.format(a, {fraction: 'ratio'}));
-	console.log(math.format(a, {fraction: 'decimal'}));
 }
 
 /*
@@ -237,7 +240,8 @@ Matrices examples
 
 		b.subset(math.index(1, [0, 1]), [[7, 8]]);
 		const c = math.multiply(a, b);
-		const d: math.Matrix = c.subset(math.index(1, 0));
+		const f: math.Matrix = math.matrix([1, 0]);
+		const d: math.Matrix = f.subset(math.index(1, 0));
 	}
 
 	// get a sub matrix
@@ -270,6 +274,19 @@ Matrices examples
 		math.range('2:-1:-3');
 		math.factorial(math.range('1:6'));
 	}
+
+	// map matrix
+	{
+  	math.map([1, 2, 3], function(value) {
+      return value * value;
+	  });  // returns [1, 4, 9]
+	}
+
+	// filter matrix
+	{
+	  math.filter([6, -2, -1, 4, 3], function(x) { return x > 0; }); // returns [6, 4, 3]
+	  math.filter(["23", "foo", "100", "55", "bar"], /[0-9]+/); // returns ["23", "100", "55"]
+	}
 }
 
 /*
@@ -282,8 +299,9 @@ Sparse matrices examples
 	// do operations with a sparse matrix
 	const b = math.multiply(a, a);
 	const c = math.multiply(b, math.complex(2, 2));
-	const d = math.transpose(c);
-	const e = math.multiply(d, a);
+	const d = math.matrix([0, 1]);
+	const e = math.transpose(d);
+	const f = math.multiply(e, a);
 }
 
 /*
@@ -299,8 +317,8 @@ Units examples
 	math.createUnit('foo');
 	math.createUnit('furlong', '220 yards');
 	math.createUnit('furlong', '220 yards', {override: true});
-	math.createUnit('fahrenheit', {definition: '0.555556 kelvin', offset: 459.67});
-	math.createUnit('fahrenheit', {definition: '0.555556 kelvin', offset: 459.67}, {override: true});
+	math.createUnit('testunit', {definition: '0.555556 kelvin', offset: 459.67});
+	math.createUnit('testunit', {definition: '0.555556 kelvin', offset: 459.67}, {override: true});
 	math.createUnit('knot', {definition: '0.514444 m/s', aliases: ['knots', 'kt', 'kts']});
 	math.createUnit('knot', {definition: '0.514444 m/s', aliases: ['knots', 'kt', 'kts']}, {override: true});
 	math.createUnit('knot', {
@@ -309,7 +327,7 @@ Units examples
 		prefixes: 'long'
 	}, {override: true});
 	math.createUnit({
-		foo: {
+		foo_2: {
 			prefixes: 'long'
 		},
 		bar: '40 foo',
@@ -338,6 +356,12 @@ Units examples
 
 	// the expression parser supports units too
 	math.eval('2 inch to cm');
+
+	// units can be converted to SI
+	math.unit('1 inch').toSI();
+
+	// units can be split into other units
+	math.unit('1 m').splitUnit(['ft', 'in']);
 }
 
 /*
@@ -364,4 +388,40 @@ Expression tree examples
 				return node.type === 'any string at all';
 		}
 	});
+}
+
+/*
+JSON serialization/deserialization
+*/
+{
+	const data = {
+		bigNumber: math.bignumber('1.5')
+	};
+	const stringified = JSON.stringify(data);
+	const parsed = JSON.parse(stringified, math.json.reviver);
+	parsed.bigNumber === math.bignumber('1.5'); // true
+}
+
+/*
+Extend functionality with import
+ */
+
+declare module 'mathjs' {
+    interface MathJsStatic {
+        testFun(): number;
+        value: number;
+    }
+}
+
+{
+    const testFun = () => 5;
+
+    math.import({
+        testFun,
+        value: 10
+    }, {});
+
+    math.testFun();
+
+    const a = math.value * 2;
 }
