@@ -17,6 +17,7 @@ interface MyTheme {
 /**
  * helper function to counter typescripts type widening
  */
+// tslint:disable-next-line:no-unnecessary-generics
 function createStyles<Props = {}, C extends string = string>(styles: Styles<C, Props>): Styles<C> {
   return styles as Styles<C>;
 }
