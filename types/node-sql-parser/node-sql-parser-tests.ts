@@ -1,6 +1,6 @@
 import { Parser } from 'node-sql-parser';
 
-const parser: Parser = new Parser();
+const parser = new Parser();
 const sql = 'select id from tableA';
 const selectAst = parser.astify(sql);
 parser.sqlify(selectAst);
