@@ -133,7 +133,7 @@ class BasicExample extends React.Component {
                             tabIndex={5}
                             href="https://test.com"
                             onRemove={() => console.log(props.text)}>
-                            {selectedItem.name}
+                            {selectedItem.name}<ClearButton onClick={() => {}} />
                             </Token>;
                     }}
                 >
