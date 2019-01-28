@@ -460,8 +460,13 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
 
 export interface PieLabelRenderProps extends PieProps {
     name: string;
-    index?: number;
     percent?: number;
+    stroke: string;
+    index?: number;
+    textAnchor: string;
+    x: number;
+    y: number;
+    [key: string]: any;
 }
 
 export class Pie extends React.Component<PieProps> { }
