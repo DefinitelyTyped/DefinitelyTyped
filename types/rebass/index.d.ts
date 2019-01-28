@@ -3,6 +3,7 @@
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 ryee-dev <https://github.com/ryee-dev>
 //                 jamesmckenzie <https://github.com/jamesmckenzie>
+//                 chuckdries <https://github.com/chuckdries>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -38,6 +39,8 @@ export interface BoxProps extends SpaceProps<BoxClass> {
     color?: string;
     bg?: string;
 }
+type BoxClass = React.StatelessComponent<BoxProps & React.HTMLProps<HTMLDivElement>> ;
+export declare const Box: BoxClass;
 // tslint:disable-next-line:strict-export-declare-modifiers
 type BoxClass = React.FunctionComponent<BoxProps>;
 export const Box: BoxClass;
@@ -49,6 +52,8 @@ export interface ButtonProps extends BoxProps {
     borderRadius?: number | string;
     variant?: string;
 }
+type ButtonClass = React.StatelessComponent<ButtonProps & React.HTMLProps<HTMLButtonElement>> ;
+export declare const Button: ButtonClass;
 export const Button: React.FunctionComponent<ButtonProps>;
 
 export interface CardProps extends BoxProps {
@@ -63,6 +68,8 @@ export interface CardProps extends BoxProps {
     opacity?: number;
     variant?: string;
 }
+type CardClass = React.StatelessComponent<CardProps & React.HTMLProps<HTMLDivElement>>;
+export declare const Card: CardClass;
 export const Card: React.FunctionComponent<CardProps>;
 
 export interface FlexProps extends BoxProps {
@@ -71,6 +78,8 @@ export interface FlexProps extends BoxProps {
     flexDirection?: string;
     flexWrap?: string;
 }
+type FlexClass = React.StatelessComponent<FlexProps & React.HTMLProps<HTMLDivElement>>;
+export declare const Flex: FlexClass;
 export const Flex: React.FunctionComponent<FlexProps>;
 
 export interface ImageProps extends BoxProps {
@@ -79,11 +88,15 @@ export interface ImageProps extends BoxProps {
     src?: string;
     alt?: string;
 }
+type ImageClass = React.StatelessComponent<ImageProps & React.HTMLProps<HTMLImageElement>>;
+export declare const Image: ImageClass;
 export const Image: React.FunctionComponent<ImageProps>;
 
 export interface LinkProps extends BoxProps {
     href?: string;
 }
+type LinkClass = React.StatelessComponent<LinkProps & React.HTMLProps<HTMLAnchorElement>>;
+export declare const Link: LinkClass;
 export const Link: React.FunctionComponent<LinkProps>;
 
 export interface TextProps extends BoxProps {
@@ -95,7 +108,12 @@ export interface TextProps extends BoxProps {
     lineHeight?: number | string;
     letterSpacing?: number | string;
 }
+type TextClass = React.StatelessComponent<TextProps & React.HTMLProps<HTMLDivElement>>;
+export declare const Text: TextClass;
 export const Text: React.FunctionComponent<TextProps>;
 
+export interface HeadingProps extends TextProps {}
+type HeadingClass = React.StatelessComponent<HeadingProps & React.HTMLProps<HTMLHeadingElement>>;
+export declare const Heading: HeadingClass;
 export type HeadingProps = TextProps;
 export const Heading: React.FunctionComponent<HeadingProps>;

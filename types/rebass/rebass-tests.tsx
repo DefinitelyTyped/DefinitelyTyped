@@ -27,7 +27,7 @@ import { Box, Flex, Text, Heading, Button, Link, Image, Card } from 'rebass';
                 borderRadius="1em"
             />
             <Link href="https://rebassjs.org">Link</Link>
-            <Button bg="magenta" border="1em" borderRadius="1em">
+            <Button bg="magenta" border="1em" borderRadius="1em" onClick={() => {}}>
                 Button
             </Button>
         </Flex>
