@@ -15,7 +15,12 @@ import {
   connectHighlight,
   connectHits,
   HighlightProvided,
-  HighlightProps
+  HighlightProps,
+  AutocompleteProvided,
+  connectAutoComplete,
+  Hit,
+  TranslatableProvided,
+  translatable
 } from 'react-instantsearch-core';
 
 () => {
@@ -36,7 +41,13 @@ import {
 
 // https://community.algolia.com/react-instantsearch/guide/Custom_connectors.html
 () => {
-  const CoolWidget = createConnector({
+  interface Provided {
+    query: string;
+    page: string;
+    refine: (newQuery: string, newPage: number) => void;
+  }
+
+  const CoolWidget = createConnector<Provided>({
     displayName: 'CoolWidget',
 
     getProvidedProps(props, searchState) {
@@ -62,7 +73,7 @@ import {
         queryAndPage: [newQuery, newPage],
       };
     },
-  })(props =>
+  })((props: Provided) =>
     <div>
       The query is {props.query}, the page is {props.page}.
       {/*
@@ -276,4 +287,254 @@ import {
       <ConnectedCustomHighlight2 attribute="name" hit={hits[1]} limit={7} />
     </p>
   ));
-}
+};
+
+// https://github.com/algolia/react-instantsearch/blob/master/examples/autocomplete/src/App-Mentions.js
+() => {
+  const Mention: any = null; // import Mention from 'antd/lib/mention';
+
+  const AsyncMention = ({ hits, refine }: AutocompleteProvided) => (
+    <Mention
+      style={{ width: 500, height: 100 }}
+      prefix="@"
+      notFoundContent={'No suggestion'}
+      placeholder="give someone an @-mention here"
+      suggestions={hits.map(hit => hit.name)}
+      onSearchChange={refine}
+    />
+  );
+
+  const ConnectedAsyncMention = connectAutoComplete(AsyncMention);
+
+  <ConnectedAsyncMention />;
+};
+
+// https://github.com/algolia/react-instantsearch/blob/master/examples/autocomplete/src/App-Multi-Index.js
+import * as Autosuggest from 'react-autosuggest';
+() => {
+  class Example extends React.Component<AutocompleteProvided> {
+    state = {
+      value: this.props.currentRefinement,
+    };
+
+    onChange = (_event: any, { newValue }: { newValue: string }) => {
+      this.setState({
+        value: newValue,
+      });
+    }
+
+    onSuggestionsFetchRequested = ({ value }: { value: string }) => {
+      this.props.refine(value);
+    }
+
+    onSuggestionsClearRequested = () => {
+      this.props.refine();
+    }
+
+    getSuggestionValue(hit: Hit) {
+      return hit.name;
+    }
+
+    renderSuggestion(hit: Hit) {
+      const Highlight: any = null; // import {Highlight} from 'react-instantsearch-dom'
+      return <Highlight attribute="name" hit={hit} tagName="mark" />;
+    }
+
+    renderSectionTitle(section: any) {
+      return section.index;
+    }
+
+    getSectionSuggestions(section: any) {
+      return section.hits;
+    }
+
+    render() {
+      const { hits } = this.props;
+      const { value } = this.state;
+
+      const inputProps = {
+        placeholder: 'Search for a product...',
+        onChange: this.onChange,
+        value,
+      };
+
+      return (
+        <Autosuggest
+          suggestions={hits}
+          multiSection={true}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={this.renderSuggestion}
+          inputProps={inputProps}
+          renderSectionTitle={this.renderSectionTitle}
+          getSectionSuggestions={this.getSectionSuggestions}
+        />
+      );
+    }
+  }
+
+  const AutoComplete = connectAutoComplete(Example);
+
+  <AutoComplete />;
+};
+
+() => {
+  type Props = SearchBoxProvided & TranslatableProvided & {
+    className?: string
+    showLoadingIndicator?: boolean
+
+    submit?: JSX.Element;
+    reset?: JSX.Element;
+    loadingIndicator?: JSX.Element;
+
+    onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
+    onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
+    onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+  };
+  interface State {
+    query: string | null;
+  }
+
+  class SearchBox extends React.Component<Props, State> {
+    static defaultProps = {
+      currentRefinement: '',
+      className: 'ais-SearchBox',
+      focusShortcuts: ['s', '/'],
+      autoFocus: false,
+      searchAsYouType: true,
+      showLoadingIndicator: false,
+      isSearchStalled: false,
+      reset: <i className="material-icons">clear</i>,
+      submit: <i className="material-icons">search</i>,
+    };
+
+    constructor(props: SearchBox['props']) {
+      super(props);
+
+      this.state = {
+        query: null,
+      };
+    }
+
+    getQuery = () => this.props.currentRefinement;
+
+    onSubmit = (e: React.SyntheticEvent<any>) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const { refine, onSubmit } = this.props;
+
+      if (onSubmit) {
+        onSubmit(e);
+      }
+      return false;
+    }
+
+    onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { onChange } = this.props;
+      const value = event.target.value;
+
+      this.setState({ query: value });
+
+      if (onChange) {
+        onChange(event);
+      }
+    }
+
+    onReset = (event: React.FormEvent<HTMLFormElement>) => {
+      const { refine, onReset } = this.props;
+
+      refine('');
+
+      this.setState({ query: '' });
+
+      if (onReset) {
+        onReset(event);
+      }
+    }
+
+    render() {
+      const {
+        className,
+        translate,
+        loadingIndicator,
+        submit,
+        reset,
+      } = this.props;
+      const query = this.getQuery();
+
+      const isSearchStalled =
+        this.props.showLoadingIndicator && this.props.isSearchStalled;
+
+      const isCurrentQuerySubmitted =
+        query && query === this.props.currentRefinement;
+
+      const button =
+        isSearchStalled ? 'loading' :
+          isCurrentQuerySubmitted ? 'reset' : 'submit';
+
+      return (
+        <div className={className}>
+          <form
+            noValidate
+            onSubmit={this.onSubmit}
+            onReset={this.onReset}
+            className={`${className}-${isSearchStalled ? 'form--stalledSearch' : 'form'}`}
+            action=""
+            role="search"
+          >
+            <button
+              type="submit"
+              title={translate('submitTitle')}
+              className={`${className}-submit`}
+              hidden={button !== 'submit'}
+            >
+              {submit}
+            </button>
+            <button
+              type="reset"
+              title={translate('resetTitle')}
+              className={`${className}-reset`}
+              hidden={button !== 'reset'}
+            >
+              {reset}
+            </button>
+            <span className={`${className}-loadingIndicator`}
+              hidden={button !== 'loading'}>
+              {loadingIndicator}
+            </span>
+            <input
+              {...{
+                onChange: this.onChange,
+                value: query,
+                type: 'search',
+                placeholder: translate('placeholder'),
+                autoComplete: 'off',
+                autoCorrect: 'off',
+                autoCapitalize: 'off',
+                spellCheck: false,
+                required: true,
+                maxLength: 512,
+                className: `${className}-input`,
+              }}
+            />
+          </form>
+        </div>
+      );
+    }
+  }
+
+  const TranslatableSearchBox = translatable({
+    resetTitle: 'Clear the search query.',
+    submitTitle: 'Submit your search query.',
+    placeholder: 'Search here…',
+  })(SearchBox);
+
+  const ConnectedSearchBox = connectSearchBox(TranslatableSearchBox);
+
+  <ConnectedSearchBox className="ais-search"
+    loadingIndicator={<i className="material-icons">search</i>}
+    onSubmit={(evt) => { console.log('submitted', evt); }}
+     />;
+};

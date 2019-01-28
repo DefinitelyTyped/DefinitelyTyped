@@ -7,6 +7,7 @@
 // TypeScript Version: 2.9
 
 import * as React from 'react';
+import { SearchParameters } from 'algoliasearch-helper'
 
 // Core
 /**
@@ -29,7 +30,7 @@ export function createInstantSearch(
  */
 export function createIndex(defaultRoot: object): React.ComponentClass<any>;
 
-export interface ConnectorDescription {
+export interface ConnectorDescription<TProvided, TExposed> {
   displayName: string;
   propTypes?: any;
   defaultProps?: any;
@@ -43,14 +44,26 @@ export interface ConnectorDescription {
    * meta is the list of metadata from all widgets whose connector defines a getMetadata method.
    * searchForFacetValuesResults holds the search for facet values results.
    */
-  getProvidedProps?(...args: any[]): any;
+  getProvidedProps(
+    this: React.Component<TExposed>,
+    props: TExposed,
+    searchState: SearchState,
+    searchResults: SearchResults,
+    metadata: any,
+    resultsFacetValues: any,
+  ): TProvided;
 
   /**
    * This method defines exactly how the refine prop of widgets affects the search state.
    * It takes in the current props of the higher-order component, the search state of all widgets, as well as all arguments passed
    * to the refine and createURL props of stateful widgets, and returns a new state.
    */
-  refine?(...args: any[]): any;
+  refine?(
+    this: React.Component<TExposed>,
+    props: TExposed,
+    searchState: SearchState,
+    ...args: any[],
+  ): any;
 
   /**
    * This method applies the current props and state to the provided SearchParameters, and returns a new SearchParameters. The SearchParameters
@@ -59,7 +72,12 @@ export interface ConnectorDescription {
    * to produce a new SearchParameters. Then, if the output SearchParameters differs from the previous one, a new search is triggered.
    * As such, the getSearchParameters method allows you to describe how the state and props of a widget should affect the search parameters.
    */
-  getSearchParameters?(...args: any[]): any;
+  getSearchParameters?(
+    this: React.Component<TExposed>,
+    searchParameters: SearchParameters,
+    props: TExposed,
+    searchState: SearchState,
+  ): any;
 
   /**
    * This method allows the widget to register a custom metadata object for any props and state combination.
@@ -70,7 +88,11 @@ export interface ConnectorDescription {
    * The CurrentRefinements widget leverages this mechanism in order to allow any widget to declare the filters it has applied. If you want to add
    * your own filter, declare a filters property on your widget’s metadata
    */
-  getMetadata?(...args: any[]): any;
+  getMetadata?(
+    this: React.Component<TExposed>,
+    props: TExposed,
+    searchState: SearchState,
+    ...args: any[]): any;
 
   /**
    * This method needs to be implemented if you want to have the ability to perform a search for facet values inside your widget.
@@ -78,7 +100,11 @@ export interface ConnectorDescription {
    * props of stateful widgets, and returns an object of the shape: {facetName: string, query: string, maxFacetHits?: number}. The default value for the
    * maxFacetHits is the one set by the API which is 10.
    */
-  searchForFacetValues?(...args: any[]): any;
+  searchForFacetValues?(
+      this: React.Component<TExposed>,
+      searchState: SearchState,
+      nextRefinement?: any,
+    ): any;
 
   /**
    * This method is called when a widget is about to unmount in order to clean the searchState.
@@ -87,7 +113,7 @@ export interface ConnectorDescription {
    * searchState holds the searchState of all widgets, with the shape {[widgetId]: widgetState}. Stateful widgets describe the format of their searchState
    * in their respective documentation entry.
    */
-  cleanUp?(...args: any[]): any;
+  cleanUp?(this: React.Component<TExposed>, props: TExposed, searchState: SearchState): SearchState;
 }
 
 /**
@@ -100,7 +126,10 @@ export interface ConnectorDescription {
  * @return a function that wraps a component into
  * an instantsearch connected one.
  */
-export function createConnector(connectorDesc: ConnectorDescription): (Composed: React.ComponentType<any>) => React.ComponentClass<any>;
+export function createConnector<TProvided = {}, TExposed = {}>(
+  connectorDesc: ConnectorDescription<TProvided, TExposed>,
+): <TProps extends Partial<TProvided>>(Composed: React.ComponentType<TProps>) =>
+  ConnectedComponentClass<TProps, TProvided, TExposed>;
 
 // Utils
 export const HIGHLIGHT_TAGS: {
@@ -108,7 +137,18 @@ export const HIGHLIGHT_TAGS: {
   highlightPostTag: string,
 };
 export const version: string;
-export function translatable(defaultTranslations: any): (Composed: React.ComponentType<any>) => React.ComponentClass<any>;
+
+
+export interface TranslatableProvided {
+  translate(key: string, ...params: any[]): string
+}
+export interface TranslatableExposed {
+  translations?: { [key: string]: string | ((...args: any[]) => string) }
+}
+
+export function translatable(defaultTranslations: { [key: string]: string | ((...args: any[]) => string) }):
+  <TProps extends TranslatableProvided>(ctor: React.ComponentType<TProps>) =>
+    ConnectedComponentClass<TProps, TranslatableProvided, TranslatableExposed>
 
 // Widgets
 /**
@@ -125,7 +165,19 @@ export function translatable(defaultTranslations: any): (Composed: React.Compone
 export class Configure extends React.Component<any, any> {}
 
 // Connectors
-export function connectAutoComplete(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export interface AutocompleteProvided<TDoc = BasicDoc> {
+  hits: Array<Hit<TDoc>>;
+  currentRefinement: string;
+  refine(value?: string): void;
+}
+
+export interface AutocompleteExposed {
+  defaultRefinement?: string;
+}
+
+export function connectAutoComplete<TDoc = BasicDoc>(stateless: React.StatelessComponent<AutocompleteProvided<TDoc>>,): React.ComponentClass<AutocompleteExposed>;
+export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc>(Composed: React.ComponentType<Props>): ConnectedComponentClass<Props, AutocompleteProvided<TDoc>, AutocompleteExposed>;
+
 export function connectBreadcrumb(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectConfigure(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
@@ -474,6 +526,8 @@ export type ConnectedComponentClass<TProps, TProvidedProps, TExposedProps = {}>
  * https://community.algolia.com/react-instantsearch/guide/Search_state.html
  */
 export interface SearchState {
+  [widgetId: string]: any
+
   range?: {
     [key: string]: {
       min: number;
@@ -533,7 +587,7 @@ export interface SearchResults<TDoc = BasicDoc> {
   nbPages: number;
   page: number;
   processingTimeMS: number;
-  exhaustiveNbHits: true;
+  exhaustiveNbHits: boolean;
   disjunctiveFacets: any[];
   hierarchicalFacets: any[];
   facets: any[];
