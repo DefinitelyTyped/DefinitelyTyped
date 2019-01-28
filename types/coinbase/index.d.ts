@@ -918,9 +918,9 @@ export class Buy implements Resource {
     unit_price: UnitPrice;
 
     hold_business_days: number;
-    
+
     is_first_buy: boolean;
-    
+
     requires_completion_step: boolean;
 
     /**
