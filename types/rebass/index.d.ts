@@ -32,12 +32,14 @@ export interface SpaceProps<C> extends BaseProps<C> {
 }
 
 export interface BoxProps extends SpaceProps<BoxClass> {
-    className?: string;
     width?: number | string | ReadonlyArray<number>;
     fontSize?: number | ReadonlyArray<number>;
     css?: object;
     color?: string;
     bg?: string;
+    flex?: string;
+    order?: string;
+    alignSelf?: string;
 }
 type BoxClass = React.StatelessComponent<BoxProps & React.HTMLProps<HTMLDivElement>> ;
 export declare const Box: BoxClass;
@@ -85,16 +87,12 @@ export const Flex: React.FunctionComponent<FlexProps>;
 export interface ImageProps extends BoxProps {
     height?: number | string;
     borderRadius?: number | string;
-    src?: string;
-    alt?: string;
 }
 type ImageClass = React.StatelessComponent<ImageProps & React.HTMLProps<HTMLImageElement>>;
 export declare const Image: ImageClass;
 export const Image: React.FunctionComponent<ImageProps>;
 
-export interface LinkProps extends BoxProps {
-    href?: string;
-}
+export interface LinkProps extends BoxProps {}
 type LinkClass = React.StatelessComponent<LinkProps & React.HTMLProps<HTMLAnchorElement>>;
 export declare const Link: LinkClass;
 export const Link: React.FunctionComponent<LinkProps>;
