@@ -7,7 +7,7 @@
 // TypeScript Version: 2.9
 
 import * as React from 'react';
-import { SearchParameters } from 'algoliasearch-helper'
+import { SearchParameters } from 'algoliasearch-helper';
 
 // Core
 /**
@@ -118,7 +118,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
 
 export type ConnectorProvided<TProvided> = TProvided &
   { refine: (...args: any[]) => any, createURL: (...args: any[]) => string } &
-  { searchForItems: (...args: any[]) => any }
+  { searchForItems: (...args: any[]) => any };
 
 /**
  * Connectors are the HOC used to transform React components
@@ -146,17 +146,16 @@ export const HIGHLIGHT_TAGS: {
 };
 export const version: string;
 
-
 export interface TranslatableProvided {
-  translate(key: string, ...params: any[]): string
+  translate(key: string, ...params: any[]): string;
 }
 export interface TranslatableExposed {
-  translations?: { [key: string]: string | ((...args: any[]) => string) }
+  translations?: { [key: string]: string | ((...args: any[]) => string) };
 }
 
 export function translatable(defaultTranslations: { [key: string]: string | ((...args: any[]) => string) }):
   <TProps extends TranslatableProvided>(ctor: React.ComponentType<TProps>) =>
-    ConnectedComponentClass<TProps, TranslatableProvided, TranslatableExposed>
+    ConnectedComponentClass<TProps, TranslatableProvided, TranslatableExposed>;
 
 // Widgets
 /**
@@ -183,8 +182,10 @@ export interface AutocompleteExposed {
   defaultRefinement?: string;
 }
 
-export function connectAutoComplete<TDoc = BasicDoc>(stateless: React.StatelessComponent<AutocompleteProvided<TDoc>>,): React.ComponentClass<AutocompleteExposed>;
-export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc>(Composed: React.ComponentType<Props>): ConnectedComponentClass<Props, AutocompleteProvided<TDoc>, AutocompleteExposed>;
+// tslint:disable-next-line:no-unnecessary-generics
+export function connectAutoComplete<TDoc = BasicDoc>(stateless: React.StatelessComponent<AutocompleteProvided<TDoc>>): React.ComponentClass<AutocompleteExposed>;
+export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc>(Composed: React.ComponentType<Props>):
+  ConnectedComponentClass<Props, AutocompleteProvided<TDoc>, AutocompleteExposed>;
 
 export function connectBreadcrumb(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectConfigure(Composed: React.ComponentType<any>): React.ComponentClass<any>;
@@ -269,7 +270,6 @@ export function connectGeoSearch<TProps extends Partial<GeoSearchProvided<THit>>
 
 export function connectHierarchicalMenu(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
-
 export interface HighlightProvided<TDoc = any> {
   /**
    * function to retrieve and parse an attribute from a hit. It takes a configuration object with 3 attributes:
@@ -288,21 +288,21 @@ export interface HighlightProvided<TDoc = any> {
    * ```
    */
   highlight(configuration: {
-    attribute: string,
-    hit: Hit<TDoc>,
-    highlightProperty: string,
-    preTag?: string,
-    postTag?: string,
-  }): Array<{value: string, isHighlighted: boolean}>
+    attribute: string;
+    hit: Hit<TDoc>;
+    highlightProperty: string;
+    preTag?: string;
+    postTag?: string;
+  }): Array<{value: string, isHighlighted: boolean}>;
 }
 
 interface HighlightPassedThru<TDoc = any> {
-  hit: Hit<TDoc>
-  attribute: string
-  highlightProperty?: string
+  hit: Hit<TDoc>;
+  attribute: string;
+  highlightProperty?: string;
 }
 
-export type HighlightProps<TDoc = any> = HighlightProvided<TDoc> & HighlightPassedThru<TDoc>
+export type HighlightProps<TDoc = any> = HighlightProvided<TDoc> & HighlightPassedThru<TDoc>;
 
 /**
  * connectHighlight connector provides the logic to create an highlighter component that will retrieve, parse and render an highlighted attribute from an Algolia hit.
@@ -312,7 +312,7 @@ export function connectHighlight<TProps extends Partial<HighlightProps<TDoc>>, T
 
 interface HitsProvided<THit> {
   /** the records that matched the search state */
-  hits: Hit<THit>[]
+  hits: Array<Hit<THit>>;
 }
 
 /**
@@ -322,6 +322,7 @@ interface HitsProvided<THit> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function connectHits<THit = BasicDoc>(stateless: React.StatelessComponent<HitsProvided<THit>>): React.ComponentClass<HighlightPassedThru>;
 export function connectHits<TProps extends HitsProvided<THit>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, HitsProvided<THit>>;
 
@@ -534,7 +535,7 @@ export type ConnectedComponentClass<TProps, TProvidedProps, TExposedProps = {}>
  * https://community.algolia.com/react-instantsearch/guide/Search_state.html
  */
 export interface SearchState {
-  [widgetId: string]: any
+  [widgetId: string]: any;
 
   range?: {
     [key: string]: {

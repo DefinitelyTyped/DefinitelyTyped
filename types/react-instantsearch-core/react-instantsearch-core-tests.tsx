@@ -71,7 +71,9 @@ import {
   })((props) =>
     <div>
       The query is {props.query}, the page is {props.page}.
-      This is an error: {props.somethingElse} { /* $ExpectError */}
+      This is an error: {
+        props.somethingElse // $ExpectError
+      }
       {/*
         Clicking on this button will update the searchState to:
         {
@@ -141,7 +143,9 @@ import {
   const TypedCoolWidgetStateless = typedCoolConnector((props) =>
     <div>
       The query is {props.query}, the page is {props.page}.
-      This is an error: {props.somethingElse} { /* $ExpectError */}
+      This is an error: {
+        props.somethingElse // $ExpectError
+      }
       {/*
         Clicking on this button will update the searchState to:
         {
@@ -202,7 +206,6 @@ import {
     defaultRefinement={'asdf'}
     startAtPage={10}
     passThruName={'test'} />;
-
 };
 
 () => {
