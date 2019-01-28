@@ -2700,6 +2700,13 @@ declare module "mongoose" {
      */
     default(val: any): any;
 
+    /**
+     * Adds a discriminator type.
+     * @param name discriminator model name
+     * @param schema discriminator model schema
+     */
+    discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+
     /** Adds a getter to this schematype. */
     get(fn: Function): this;
 

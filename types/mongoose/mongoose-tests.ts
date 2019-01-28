@@ -1421,6 +1421,7 @@ STSchema.path('name').set(cb).set(cb);
 schematype.sparse(true).sparse(true);
 schematype.text(true).text(true);
 schematype.unique(true).unique(true);
+schematype.discriminator('disc', new mongoose.Schema({ prop: String }));
 schematype.validate(/re/)
   .validate({}, 'error')
   .validate(cb, 'try', 'tri');
