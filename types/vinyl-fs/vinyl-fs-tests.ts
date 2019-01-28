@@ -383,7 +383,7 @@ describe('dest stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: {
+         stat: <any> {
             mode: expectedMode
          } as fs.Stats
       });
@@ -424,7 +424,7 @@ describe('dest stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: contentStream,
-         stat: {
+         stat: <any> {
             mode: expectedMode
          } as fs.Stats
       });
@@ -467,7 +467,7 @@ describe('dest stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: null,
-         stat: {
+         stat: <any> {
             isDirectory: () => true,
             mode: expectedMode
          } as fs.Stats
@@ -711,7 +711,7 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: {
+         stat: <any> {
             mode: expectedMode
          } as fs.Stats
       });
@@ -752,7 +752,7 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: contentStream,
-         stat: {
+         stat: <any> {
             mode: expectedMode
          } as fs.Stats
       });
@@ -795,7 +795,7 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: null,
-         stat: {
+         stat: <any> {
             isDirectory: () => true,
             mode: expectedMode
          } as fs.Stats
@@ -870,7 +870,7 @@ describe('symlink stream', () => {
          cwd: __dirname,
          path: inputPath,
          contents: expectedContents,
-         stat: {
+         stat: <any> {
             mode: expectedMode
          } as fs.Stats
       });
