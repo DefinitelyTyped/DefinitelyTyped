@@ -1,6 +1,7 @@
-// Type definitions for supercluster 3.0
+// Type definitions for supercluster 5.0
 // Project: https://github.com/mapbox/supercluster
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+//                 Nick Zahn <https://github.com/Manc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,113 +9,164 @@ import * as GeoJSON from 'geojson';
 
 export as namespace supercluster;
 
-export interface Options {
+export interface Options<P, C> {
     /**
      * Minimum zoom level at which clusters are generated.
+     *
+     * @default 0
      */
     minZoom?: number;
+
     /**
      * Maximum zoom level at which clusters are generated.
+     *
+     * @default 16
      */
     maxZoom?: number;
+
     /**
      * Cluster radius, in pixels.
+     *
+     * @default 40
      */
     radius?: number;
+
     /**
      * (Tiles) Tile extent. Radius is calculated relative to this value.
+     *
+     * @default 512
      */
     extent?: number;
+
     /**
      * Size of the KD-tree leaf node. Affects performance.
+     *
+     * @default 64
      */
     nodeSize?: number;
+
     /**
      * Whether timing info should be logged.
+     *
+     * @default false
      */
     log?: boolean;
+
     /**
-     * a reduce function for calculating custom cluster properties
+     * A function that returns cluster properties corresponding to a single point.
      *
      * @example
-     * function (accumulated, props) { accumulated.sum += props.sum; }
+     * (props) => ({sum: props.myValue})
      */
-    reduce?: (accumulated: any, props: any) => void;
+    map?: (props: P) => C;
+
     /**
-     * initial properties of a cluster (before running the reducer)
+     * A reduce function that merges properties of two clusters into one.
      *
      * @example
-     * function () { return {sum: 0}; }
+     * (accumulated, props) => { accumulated.sum += props.sum; }
      */
-    initial?: () => any;
-    /**
-     * properties to use for individual points when running the reducer
-     *
-     * @example
-     * function (props) { return {sum: props.my_value}; }
-     */
-    map?: (props: any) => any;
-}
-
-export class Supercluster {
-    /**
-     * Loads an array of GeoJSON.Feature objects. Each feature's geometry must be a GeoJSON.Point. Once loaded, index is immutable.
-     */
-    load(points: Points): Supercluster;
-    /**
-     * For the given bbox array ([westLng, southLat, eastLng, northLat]) and integer zoom, returns an array of clusters and points as GeoJSON.Feature objects.
-     */
-    getClusters(bbox: BBox, zoom: number): Clusters;
-
-    /**
-     * For a given zoom and x/y coordinates, returns a geojson-vt-compatible JSON tile object with cluster/point features.
-     */
-    getTile(z: number, x: number, y: number): Tile;
-
-    /**
-     * Returns the children of a cluster (on the next zoom level) given its id (cluster_id value from feature properties) and zoom the cluster was from.
-     */
-    getChildren(clusterId: number, clusterZoom: number): Clusters;
-
-    /**
-     * Returns all the points of a cluster (given its cluster_id and zoom),
-     * with pagination support: limit is the number of points to return (set to Infinity for all points),
-     * and offset is the amount of points to skip (for pagination).
-     */
-    getLeaves(clusterId: number, clusterZoom: number, limit?: number, offset?: number): Clusters;
-
-    /**
-     * Returns the zoom on which the cluster expands into several children (useful for "click to zoom" feature), given the cluster's cluster_id and zoom.
-     */
-    getClusterExpansionZoom(clusterId: number, clusterZoom: number): number;
+    reduce?: (accumulated: C, props: Readonly<C>) => void;
 }
 
 /**
- * A very fast JavaScript library for geospatial point clustering for browsers and Node.
+ * Default properties type, allowing any properties.
+ * Try to avoid this for better typesafety by using proper types.
  */
-export default function supercluster(options: Options): Supercluster;
+export interface AnyProps {
+    [name: string]: any;
+}
 
-export type Point = GeoJSON.Feature<GeoJSON.Point>;
-export type Points = Point[];
-export type Clusters = Cluster[];
-export type TileFeatures = TileFeature[];
-export type BBox = [number, number, number, number];
+/**
+ * A very fast geospatial point clustering library for browsers and Node.
+ */
+export default class Supercluster<P extends GeoJSON.GeoJsonProperties = AnyProps, C extends GeoJSON.GeoJsonProperties = AnyProps> {
+    constructor(options?: Options<P, C>);
+
+    /**
+     * Loads an array of GeoJSON Feature objects. Each feature's geometry
+     * must be a GeoJSON Point. Once loaded, index is immutable.
+     *
+     * @param points Array of GeoJSON Features, the geometries being GeoJSON Points.
+     */
+    load(points: Array<PointFeature<P>>): Supercluster<P, C>;
+
+    /**
+     * Returns an array of clusters and points as `GeoJSON.Feature` objects
+     * for the given bounding box (`bbox`) and zoom level (`zoom`).
+     *
+     * @param bbox Bounding box (`[westLng, southLat, eastLng, northLat]`).
+     * @param zoom Zoom level.
+     */
+    getClusters(bbox: GeoJSON.BBox, zoom: number): Array<ClusterFeature<C> | PointFeature<P>>;
+
+    /**
+     * For a given zoom and x/y coordinates, returns a
+     * [geojson-vt](https://github.com/mapbox/geojson-vt)-compatible JSON
+     * tile object with cluster any point features.
+     */
+    getTile(zoom: number, x: number, y: number): Tile<C, P> | null;
+
+    /**
+     * Returns the children of a cluster (on the next zoom level).
+     *
+     * @param clusterId Cluster ID (`cluster_id` value from feature properties).
+     * @throws {Error} If `clusterId` does not exist.
+     */
+    getChildren(clusterId: number): Array<ClusterFeature<C> | PointFeature<P>>;
+
+    /**
+     * Returns all the points of a cluster (with pagination support).
+     *
+     * @param clusterId Cluster ID (`cluster_id` value from feature properties).
+     * @param limit The number of points to return (set to `Infinity` for all points).
+     * @param offset The amount of points to skip (for pagination).
+     */
+    getLeaves(clusterId: number, limit?: number, offset?: number): Array<ClusterFeature<C> | PointFeature<P>>; // Cluster[];
+
+    /**
+     * Returns the zoom level on which the cluster expands into several
+     * children (useful for "click to zoom" feature).
+     *
+     * @param clusterId Cluster ID (`cluster_id` value from feature properties).
+     */
+    getClusterExpansionZoom(clusterId: number): number;
+}
+
+/**
+ * [GeoJSON Feature](https://tools.ietf.org/html/rfc7946#section-3.2),
+ * with the geometry being a
+ * [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2).
+ */
+export type PointFeature<P> = GeoJSON.Feature<GeoJSON.Point, P>;
+
 export interface ClusterProperties {
-    cluster?: boolean;
-    cluster_id?: number;
-    point_count?: number;
-    point_count_abbreviated?: number;
-    sum?: number;
-    [key: string]: any;
+    /**
+     * Always `true` to indicate that the Feature is a Cluster and not
+     * an individual point.
+     */
+    cluster: true;
+    /** Cluster ID */
+    cluster_id: number;
+    /** Number of points in the cluster. */
+    point_count: number;
+    /**
+     * Abbreviated number of points in the cluster as string if the number
+     * is 1000 or greater (e.g. `1.3k` if the number is 1298).
+     *
+     * For less than 1000 points it is the same value as `point_count`.
+     */
+    point_count_abbreviated: string | number;
 }
-export interface Cluster extends Point {
-    properties: ClusterProperties;
-}
-export interface TileFeature {
+
+export type ClusterFeature<C> = PointFeature<ClusterProperties & C>;
+
+export interface TileFeature<C, P> {
     type: 1;
     geometry: Array<[number, number]>;
-    tags: ClusterProperties;
+    tags: (ClusterProperties & C) | P;
 }
-export interface Tile {
-    features: TileFeatures;
+
+export interface Tile<C, P> {
+    features: Array<TileFeature<C, P>>;
 }
