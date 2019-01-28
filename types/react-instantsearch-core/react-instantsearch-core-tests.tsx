@@ -20,7 +20,8 @@ import {
   connectAutoComplete,
   Hit,
   TranslatableProvided,
-  translatable
+  translatable,
+  ConnectorProvided
 } from 'react-instantsearch-core';
 
 () => {
@@ -41,13 +42,7 @@ import {
 
 // https://community.algolia.com/react-instantsearch/guide/Custom_connectors.html
 () => {
-  interface Provided {
-    query: string;
-    page: string;
-    refine: (newQuery: string, newPage: number) => void;
-  }
-
-  const CoolWidget = createConnector<Provided>({
+  const CoolWidget = createConnector({
     displayName: 'CoolWidget',
 
     getProvidedProps(props, searchState) {
@@ -73,9 +68,10 @@ import {
         queryAndPage: [newQuery, newPage],
       };
     },
-  })((props: Provided) =>
+  })((props) =>
     <div>
       The query is {props.query}, the page is {props.page}.
+      This is an error: {props.somethingElse} { /* $ExpectError */}
       {/*
         Clicking on this button will update the searchState to:
         {
@@ -100,6 +96,113 @@ import {
   <CoolWidget>
     <div></div>
   </CoolWidget>;
+};
+
+() => {
+  interface Provided {
+    query: string;
+    page: number;
+  }
+
+  interface Exposed {
+    defaultRefinement: string;
+    startAtPage: number;
+  }
+
+  const typedCoolConnector = createConnector<Provided, Exposed>({
+    displayName: 'CoolWidget',
+
+    getProvidedProps(props, searchState) {
+      // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
+      // to default its value.
+      const [query, page] = searchState.queryAndPage ||
+        [props.defaultRefinement, props.startAtPage];
+
+      // Connect the underlying component to the `queryAndPage` searchState entry.
+      return {
+        query,
+        page,
+      };
+    },
+
+    refine(props, searchState, newQuery, newPage) {
+      // When the underlying component calls its `refine` prop, update the searchState
+      // with the new query and page.
+      return {
+        // `searchState` represents the search state of *all* widgets. We need to extend it
+        // instead of replacing it, otherwise other widgets will lose their
+        // respective state.
+        ...searchState,
+        queryAndPage: [newQuery, newPage],
+      };
+    },
+  });
+
+  const TypedCoolWidgetStateless = typedCoolConnector((props) =>
+    <div>
+      The query is {props.query}, the page is {props.page}.
+      This is an error: {props.somethingElse} { /* $ExpectError */}
+      {/*
+        Clicking on this button will update the searchState to:
+        {
+          ...otherSearchState,
+          query: 'algolia',
+          page: 20,
+        }
+      */}
+      <button onClick={() => props.refine('algolia', 20)} />
+      {/*
+        Clicking on this button will update the searchState to:
+        {
+          ...otherSearchState,
+          query: 'instantsearch',
+          page: 15,
+        }
+      */}
+      <button onClick={() => props.refine('instantsearch', 15)} />
+    </div>
+  );
+
+  <TypedCoolWidgetStateless
+      defaultRefinement={'asdf'}
+      startAtPage={10}
+      />;
+
+  const TypedCoolWidget = typedCoolConnector(
+    class extends React.Component<ConnectorProvided<Provided> & { passThruName: string }> {
+      render() {
+        const props = this.props;
+        return <div>
+          The query is {props.query}, the page is {props.page}.
+          The name is {props.passThruName}
+          {/*
+            Clicking on this button will update the searchState to:
+            {
+              ...otherSearchState,
+              query: 'algolia',
+              page: 20,
+            }
+          */}
+          <button onClick={() => props.refine('algolia', 20)} />
+          {/*
+            Clicking on this button will update the searchState to:
+            {
+              ...otherSearchState,
+              query: 'instantsearch',
+              page: 15,
+            }
+          */}
+          <button onClick={() => props.refine('instantsearch', 15)} />
+        </div>;
+      }
+    }
+  );
+
+  <TypedCoolWidget
+    defaultRefinement={'asdf'}
+    startAtPage={10}
+    passThruName={'test'} />;
+
 };
 
 () => {

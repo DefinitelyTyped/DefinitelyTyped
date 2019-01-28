@@ -116,6 +116,10 @@ export interface ConnectorDescription<TProvided, TExposed> {
   cleanUp?(this: React.Component<TExposed>, props: TExposed, searchState: SearchState): SearchState;
 }
 
+export type ConnectorProvided<TProvided> = TProvided &
+  { refine: (...args: any[]) => any, createURL: (...args: any[]) => string } &
+  { searchForItems: (...args: any[]) => any }
+
 /**
  * Connectors are the HOC used to transform React components
  * into InstantSearch widgets.
@@ -128,8 +132,12 @@ export interface ConnectorDescription<TProvided, TExposed> {
  */
 export function createConnector<TProvided = {}, TExposed = {}>(
   connectorDesc: ConnectorDescription<TProvided, TExposed>,
-): <TProps extends Partial<TProvided>>(Composed: React.ComponentType<TProps>) =>
-  ConnectedComponentClass<TProps, TProvided, TExposed>;
+): (
+    (stateless: React.StatelessComponent<ConnectorProvided<TProvided>>) => React.ComponentClass<TExposed>
+  ) & (
+    <TProps extends Partial<ConnectorProvided<TProvided>>>(Composed: React.ComponentType<TProps>) =>
+      ConnectedComponentClass<TProps, ConnectorProvided<TProvided>, TExposed>
+  );
 
 // Utils
 export const HIGHLIGHT_TAGS: {
