@@ -275,6 +275,10 @@ declare namespace jest {
          */
         skip: It;
         /**
+         * Sketch out which tests to write in the future.
+         */
+        todo: It;
+        /**
          * Experimental and should be avoided.
          */
         concurrent: It;
