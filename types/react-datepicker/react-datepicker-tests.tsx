@@ -76,7 +76,8 @@ const defaultLocale = getDefaultLocale();
 	popperProps={{}}
 	preventOpenOnFocus
 	previousMonthButtonLabel=""
-	readOnly
+    readOnly
+    ref={handleRef}
 	renderCustomHeader={({
 		date,
 		changeYear,
@@ -119,3 +120,13 @@ const defaultLocale = getDefaultLocale();
 	<div />
 	<span />
 </DatePicker>;
+
+function handleRef(ref: DatePicker | null) {
+    if (ref) {
+        ref.setBlur();
+        ref.setFocus();
+        if (ref.isCalendarOpen()) {
+            ref.setOpen(false);
+        }
+    }
+}
