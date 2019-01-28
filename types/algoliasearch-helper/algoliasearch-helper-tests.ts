@@ -1,5 +1,6 @@
 import * as algoliasearch from 'algoliasearch';
 import * as algoliasearchHelper from 'algoliasearch-helper';
+// tslint:disable-next-line:no-duplicate-imports
 import { SearchResults, SearchParameters } from 'algoliasearch-helper';
 
 // https://community.algolia.com/algoliasearch-helper-js/reference.html#module:algoliasearchHelper
