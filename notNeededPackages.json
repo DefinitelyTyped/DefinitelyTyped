@@ -685,6 +685,12 @@
             "asOfVersion": "0.35.0"
         },
         {
+            "libraryName": "hibp",
+            "typingsPackageName": "hibp",
+            "sourceRepoURL": "https://github.com/wKovacs64/hibp",
+            "asOfVersion": "7.3.0"
+        },
+        {
             "libraryName": "homeworks",
             "typingsPackageName": "homeworks",
             "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",
@@ -1061,6 +1067,12 @@
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
             "asOfVersion": "2.0.18"
+        },
+        {
+            "libraryName": "Nuka Carousel",
+            "typingsPackageName": "nuka-carousel",
+            "sourceRepoURL": "https://github.com/FormidableLabs/nuka-carousel/",
+            "asOfVersion": "4.4.6"
         },
         {
             "libraryName": "Numbro",
@@ -1651,6 +1663,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "Universal Router",
+            "typingsPackageName": "universal-router",
+            "sourceRepoURL": "https://github.com/kriasoft/universal-router",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
@@ -1709,6 +1727,12 @@
             "typingsPackageName": "webcola",
             "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
             "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "WebdriverIO",
+            "typingsPackageName": "webdriverio",
+            "sourceRepoURL": "git@github.com:webdriverio/webdriverio.git",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "webgme",

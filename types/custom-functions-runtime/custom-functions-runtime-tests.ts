@@ -5,6 +5,11 @@ function add10(n: number) {
 
 CustomFunctions.associate('ADD10', add10);
 
+CustomFunctions.associate({
+    ADD10: add10,
+    RANDOM: (n: number) => n * Math.random()
+});
+
 async function getStockValues(ticker: string): Promise<number> {
     const response = await fetch(`myService.com/prices/${ticker}`);
     return (await response.json())["price"];

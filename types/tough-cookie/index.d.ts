@@ -73,18 +73,16 @@ export class Cookie {
 
     constructor(properties?: Cookie.Properties);
 
-    // TODO: Some of the following properties might actually be nullable.
-
     key: string;
     value: string;
-    expires: Date;
+    expires: Date | 'Infinity';
     maxAge: number | 'Infinity' | '-Infinity';
-    domain: string;
-    path: string;
+    domain: string | null;
+    path: string | null;
     secure: boolean;
     httpOnly: boolean;
-    extensions: string[];
-    creation: Date;
+    extensions: string[] | null;
+    creation: Date | null;
     creationIndex: number;
 
     hostOnly: boolean | null;

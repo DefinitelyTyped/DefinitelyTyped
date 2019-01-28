@@ -342,15 +342,15 @@ export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
  *     });
  *
  */
-export class GraphQLObjectType {
+export class GraphQLObjectType<TSource = any, TContext = any> {
     name: string;
     description: Maybe<string>;
     astNode: Maybe<ObjectTypeDefinitionNode>;
     extensionASTNodes: Maybe<ReadonlyArray<ObjectTypeExtensionNode>>;
-    isTypeOf: Maybe<GraphQLIsTypeOfFn<any, any>>;
+    isTypeOf: Maybe<GraphQLIsTypeOfFn<TSource, TContext>>;
 
-    constructor(config: GraphQLObjectTypeConfig<any, any>);
-    getFields(): GraphQLFieldMap<any, any>;
+    constructor(config: GraphQLObjectTypeConfig<TSource, TContext>);
+    getFields(): GraphQLFieldMap<any, TContext>;
     getInterfaces(): GraphQLInterfaceType[];
     toString(): string;
     toJSON(): string;
@@ -371,7 +371,7 @@ export type GraphQLTypeResolver<TSource, TContext> = (
     value: TSource,
     context: TContext,
     info: GraphQLResolveInfo
-) => MaybePromise<Maybe<GraphQLObjectType | string>>;
+) => MaybePromise<Maybe<GraphQLObjectType<TSource, TContext> | string>>;
 
 export type GraphQLIsTypeOfFn<TSource, TContext> = (
     source: TSource,

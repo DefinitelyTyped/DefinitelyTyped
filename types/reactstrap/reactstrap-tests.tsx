@@ -75,10 +75,12 @@ import {
   UncontrolledDropdown,
   UncontrolledTooltip,
   UncontrolledCollapse,
+  UncontrolledCarousel,
   TabContent,
   Table,
   Tag,
-  Tooltip
+  Tooltip,
+  Spinner
 } from 'reactstrap';
 
 // --------------- Alert
@@ -4294,6 +4296,44 @@ function Example123() {
           </CardBody>
         </Card>
       </UncontrolledCollapse>
+    </div>
+  );
+}
+
+function Example124()  {
+  // https://reactstrap.github.io/components/carousel/
+  const items = [
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 1',
+      caption: 'Slide 1'
+    },
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 2',
+      caption: 'Slide 2'
+    },
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 3',
+      caption: 'Slide 3'
+    }
+  ];
+
+  return (
+    <UncontrolledCarousel items={items} />
+  );
+}
+
+function Example125() {
+  return (
+    <div>
+      <Spinner />
+      <Spinner color="primary" />
+      <Spinner size="sm" />
+      <Spinner type="grow" />
+      <Spinner color="success" size="sm" type="grow" />
+      <Spinner className="customClass" />
     </div>
   );
 }

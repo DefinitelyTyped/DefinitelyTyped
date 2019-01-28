@@ -23,7 +23,7 @@ export = P;
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom): P.Logger;
+declare function P(optionsOrStream?: P.LoggerOptions | P.DestinationStream): P.Logger;
 
 /**
  * @param [options]: an options object
@@ -31,7 +31,7 @@ declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom): P.Logger;
+declare function P(options: P.LoggerOptions, stream: P.DestinationStream): P.Logger;
 
 declare namespace P {
     /**
@@ -127,6 +127,7 @@ declare namespace P {
         labels: { [level: number]: string; };
     }
     type TimeFn = () => string;
+    type DestinationStream = stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom;
 
     interface LoggerOptions {
         /**

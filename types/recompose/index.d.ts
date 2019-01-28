@@ -360,7 +360,8 @@ declare module 'recompose' {
 
     // hoistStatics: https://github.com/acdlite/recompose/blob/master/docs/API.md#hoistStatics
     export function hoistStatics<TProps>(
-        hoc: InferableComponentEnhancer<TProps>
+        hoc: InferableComponentEnhancer<TProps>,
+        blacklist?: {[key: string]: boolean}
     ): InferableComponentEnhancer<TProps>;
 
 

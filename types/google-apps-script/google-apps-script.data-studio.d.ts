@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-01-23
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,11 @@ declare namespace GoogleAppsScript {
      * An enum that defines the aggregation types that can be set for a Field.
      */
     export enum AggregationType { NO_AGGREGATION, AVG, COUNT, COUNT_DISTINCT, MAX, MIN, SUM }
+
+    /**
+     * An enum that defines the authentication types that can be set for a connector.
+     */
+    export enum AuthType { NONE, OAUTH2, USER_PASS, KEY, USER_TOKEN }
 
     /**
      * Contains checkbox information for the config. Its properties determine how the checkbox is
@@ -47,9 +52,13 @@ declare namespace GoogleAppsScript {
      */
     export interface CommunityConnector {
       AggregationType: typeof AggregationType;
+      AuthType: typeof AuthType;
       FieldType: typeof FieldType;
       getConfig(): Config;
       getFields(): Fields;
+      newAuthTypeResponse(): GetAuthTypeResponse;
+      newDebugError(): DebugError;
+      newUserError(): UserError;
     }
 
     /**
@@ -81,6 +90,21 @@ declare namespace GoogleAppsScript {
      */
     export interface DataStudioApp {
       createCommunityConnector(): CommunityConnector;
+    }
+
+    /**
+     * An error that is only visible to admins of the connector.
+     *
+     *     var cc = DataStudioApp.createCommunityConnector();
+     *
+     *     cc.newDebugError()
+     *       .setText("This is the debug error text.")
+     *       .throwException();
+     */
+    export interface DebugError {
+      printJson(): string;
+      setText(text: string): DebugError;
+      throwException(): void;
     }
 
     /**
@@ -150,6 +174,26 @@ declare namespace GoogleAppsScript {
     }
 
     /**
+     * Builder to create a getAuthType() response for your script project.
+     *
+     *     function getAuthType() {
+     *       var cc = DataStudioApp.createCommunityConnector();
+     *       var authTypes = cc.AuthType;
+     *
+     *       return cc.newGetAuthTypeResponse()
+     *         .setAuthType(authTypes.USER_PASS)
+     *         .setHelpUrl("https://www.example.org/connector-auth-help")
+     *         .build();
+     *     }
+     */
+    export interface GetAuthTypeResponse {
+      build(): Object;
+      printJson(): string;
+      setAuthType(authType: AuthType): GetAuthTypeResponse;
+      setHelpUrl(helpUrl: string): GetAuthTypeResponse;
+    }
+
+    /**
      * Contains info data for the config. Its properties determine how the info is displayed in Data
      * Studio.
      *
@@ -157,7 +201,7 @@ declare namespace GoogleAppsScript {
      *     var config = cc.getConfig();
      *
      *     var info1 = config.newInfo()
-     *       .setName("info1")
+     *       .setId("info1")
      *       .setText("This text gives some context on the configuration.");
      */
     export interface Info {
@@ -293,6 +337,23 @@ declare namespace GoogleAppsScript {
       setId(id: string): TextInput;
       setName(name: string): TextInput;
       setPlaceholder(placeholder: string): TextInput;
+    }
+
+    /**
+     * An error that is shown to users of the connector.
+     *
+     *     var cc = DataStudioApp.createCommunityConnector();
+     *
+     *     cc.newUserError()
+     *       .setText("This is the debug error text.")
+     *       .setDebugText("This text is only shown to admins.")
+     *       .throwException();
+     */
+    export interface UserError {
+      printJson(): string;
+      setDebugText(text: string): UserError;
+      setText(text: string): UserError;
+      throwException(): void;
     }
 
   }

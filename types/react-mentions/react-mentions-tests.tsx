@@ -11,19 +11,32 @@ interface TestProps {
 }
 
 export const TestSimple: React.SFC<TestProps> = (props) => {
+    const inputEl = React.createRef<HTMLTextAreaElement>();
+
+    function handleClick() {
+        if (inputEl.current) {
+            inputEl.current.focus();
+        }
+    }
+
     return (
-        <MentionsInput
-            value={props.value}
-            onChange={props.onChange}
-            placeholder={"Mention people using '@'"}
-            displayTransform={login => `@${login}`}
-        >
-        <Mention
-            trigger="@"
-            data={props.data}
-            onAdd={props.onAdd}
-        />
-        </MentionsInput>
+        <>
+            <MentionsInput
+                value={props.value}
+                onChange={props.onChange}
+                placeholder={"Mention people using '@'"}
+                displayTransform={login => `@${login}`}
+                inputRef={inputEl}
+            >
+                <Mention
+                    trigger="@"
+                    data={props.data}
+                    onAdd={props.onAdd}
+                />
+            </MentionsInput>
+
+            <button onClick={handleClick}>Focus</button>
+        </>
     );
 };
 

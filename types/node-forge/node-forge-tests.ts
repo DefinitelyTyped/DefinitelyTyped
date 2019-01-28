@@ -222,3 +222,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         return true;
     });
 }
+
+{
+    const key: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32);
+}

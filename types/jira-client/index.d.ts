@@ -89,7 +89,7 @@ declare class JiraApi {
 
     createCustomField(field: JiraApi.FieldObject): Promise<JiraApi.JsonResponse>;
 
-    listFields(): Promise<JiraApi.JsonResponse>;
+    listFields(): Promise<JiraApi.FieldObject[]>;
 
     createFieldOption(fieldKey: string, option: JiraApi.FieldOptionObject): Promise<JiraApi.JsonResponse>;
 
