@@ -27,7 +27,12 @@ export type Format =
     | "list.scss"
     | "module.js"
     | "common.js"
-    | "html";
+    | "html"
+    | "json"
+    | "raw.json"
+    | "ios.json"
+    | "android.xml"
+    | "aura.tokens";
 
 export type Transform = "raw" | "ios" | "android" | "web";
 
@@ -43,7 +48,7 @@ export type ValueTransform =
 export function convert(options: ConvertOptions): Promise<string>;
 export function convertSync(options: ConvertOptions): string;
 export function registerFormat(
-    name: Format,
+    name: string,
     format: FormatResultFn | string
 ): void;
 export function registerTransform(
@@ -77,6 +82,8 @@ export interface ImmutableStyleMap extends Map<string, any> {
 export interface ConvertOptions {
     transform: TransformOptions;
     format: FormatOptions;
+    resolveAliases?: boolean;
+    resolveMetaAliases?: boolean;
 }
 
 export interface TransformOptions {
