@@ -915,12 +915,24 @@ export class Buy implements Resource {
      */
     payout_at?: string;
 
+    /**
+     * Unit price of the base currency.
+     */
     unit_price: UnitPrice;
 
+    /**
+     * Hold period for transfer.
+     */
     hold_business_days: number;
 
+    /**
+     * Is it the first buy for this symbol?
+     */
     is_first_buy: boolean;
 
+    /**
+     * Is there another action required to make the transfer pass?
+     */
     requires_completion_step: boolean;
 
     /**
@@ -934,13 +946,28 @@ export class Buy implements Resource {
 }
 
 export interface Fee {
-  amount: string;
+  /**
+   * Amount associated to this fee
+   */
+  amount: MoneyHash;
+  /**
+   * Fee beneficiary ("bank", "coinbase", ...)
+   */
   type: string;
 }
 
 export interface UnitPrice {
+  /**
+   * Amount as floating-point in a string
+   */
   amount: string;
+  /**
+   * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
+   */
   currency: string;
+  /**
+   * Type of price
+   */
   scale: number;
 }
 
