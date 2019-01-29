@@ -72,6 +72,7 @@ const config: WebpackDevServer.Configuration = {
         aggregateTimeout: 300,
         poll: 1000
     },
+    writeToDisk: true,
     // It's a required option.
     publicPath: "/assets/",
     headers: { "X-Custom-Header": "yes" }
@@ -82,6 +83,9 @@ const c2: WebpackDevServer.Configuration = {
 };
 const c3: WebpackDevServer.Configuration = {
     stats: "verbose",
+};
+const c4: WebpackDevServer.Configuration = {
+    writeToDisk: (filePath: string) => true,
 };
 
 // API example

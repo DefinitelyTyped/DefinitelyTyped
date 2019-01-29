@@ -5,6 +5,7 @@
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Artur Androsovych <https://github.com/arturovt>
+//                 Dave Cardwell <https://github.com/davecardwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -165,6 +166,8 @@ declare namespace WebpackDevServer {
         watchContentBase?: boolean;
         /** Control options related to watching the files. */
         watchOptions?: webpack.WatchOptions;
+        /** Tells devServer to write generated assets to the disk. */
+        writeToDisk?: boolean | ((filePath: string) => boolean);
     }
 }
 
