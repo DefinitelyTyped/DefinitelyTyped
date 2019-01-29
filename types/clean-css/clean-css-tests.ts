@@ -1,5 +1,6 @@
 // Original by Tanguy Krotoff <https://github.com/tkrotoff>
 // Updated by Andrew Potter <https://github.com/GolaWaya>
+// TypeScript Version: 2.4
 
 import * as CleanCSS from 'clean-css';
 
@@ -96,7 +97,6 @@ CleanCssOptions = { returnPromise: false };
 new CleanCSS(CleanCssOptions).minify(source, (error: any, minified: CleanCSS.Output): void => {
     console.log(minified.styles);
 });
-
 
 // type conversion
 CleanCssOptions = {};

@@ -9,7 +9,6 @@ import { RequestOptions as HttpsRequestOptions } from "https";
 import { RequestOptions as HttpRequestOptions } from "http";
 
 declare namespace CleanCSS {
-    
     /**
      * Shared options passed when initializing a new instance of CleanCSS that returns either a promise or output
      */
@@ -18,7 +17,7 @@ declare namespace CleanCSS {
          * Controls compatibility mode used; defaults to ie10+ using `'*'`.
          *  Compatibility hash exposes the following properties: `colors`, `properties`, `selectors`, and `units`
          */
-        compatibility?: "*" | "ie9" | "ie8" | "ie7" | CleanCSS.CompatibilityOptions;
+        compatibility?: "*" | "ie9" | "ie8" | "ie7" | CompatibilityOptions;
 
         /**
          * Controls a function for handling remote requests; Defaults to the build in `loadRemoteResource` function
@@ -29,7 +28,7 @@ declare namespace CleanCSS {
          * Controls output CSS formatting; defaults to `false`.
          *  Format hash exposes the following properties: `breaks`, `breakWith`, `indentBy`, `indentWith`, `spaces`, and `wrapAt`.
          */
-        format?: "beautify" | "keep-breaks" | CleanCSS.FormatOptions | false;
+        format?: "beautify" | "keep-breaks" | FormatOptions | false;
 
         /**
          * inline option whitelists which @import rules will be processed.  Defaults to `'local'`
@@ -57,7 +56,7 @@ declare namespace CleanCSS {
          * Controls optimization level used; defaults to `1`.
          * Level hash exposes `1`, and `2`.
          */
-        level?: 0 | 1 | 2 | CleanCSS.OptimizationsOptions;
+        level?: 0 | 1 | 2 | OptimizationsOptions;
 
         /**
          * Controls URL rebasing; defaults to `true`;
