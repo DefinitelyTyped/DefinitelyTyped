@@ -812,7 +812,7 @@ export interface AuthorizeOptions {
     login_hint?: string;
 	prompt?: string;
     mode?: "login" | "signUp";
-    acccessType?: string;
+    accessType?: string;
     approvalPrompt?: string;
 }
 
