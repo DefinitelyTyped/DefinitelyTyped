@@ -24,6 +24,7 @@ theo.registerValueTransform(
     "relative/pixelValue",
     prop => prop.get("category") === "sizing",
     prop => {
+        // @ts-ignore: prop can be undefined
         const value = prop.get("value").toString();
         return parseFloat(value.replace(/rem/g, "")) * 16;
     }

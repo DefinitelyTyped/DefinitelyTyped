@@ -1,10 +1,11 @@
-// Type definitions for theo 8.0
+// Type definitions for theo 8.1.1
 // Project: https://github.com/salesforce-ux/theo
 // Definitions by: Pete Petrash <https://github.com/petekp>
+//                 Niko Laitinen <https://github.com/laitine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.2.4
 
-import { Iterable, Collection, Map, List, OrderedMap } from "immutable";
+import { Collection, Map, List, OrderedMap } from "immutable";
 
 export type StyleProperty =
     | "name"
