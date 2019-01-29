@@ -135,7 +135,7 @@ const transform: Transform = (file, api) => {
       return j.functionExpression(
         p.value.id,
         p.value.params,
-        j.blockStatement([decl].concat((p.value.body as BlockStatement).body))
+        j.blockStatement([decl].concat(p.value.body.body))
       );
     }
   ).toSource();

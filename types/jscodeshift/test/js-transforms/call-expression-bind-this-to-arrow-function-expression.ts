@@ -26,7 +26,7 @@
  * var a = c => c;
  *
  */
-import { Transform, MemberExpression, FunctionExpression } from "jscodeshift";
+import { Transform, MemberExpression, FunctionExpression, ArrowFunctionExpression } from "jscodeshift";
 
 const transform: Transform = (file, api) => {
   const j = api.jscodeshift;
@@ -42,7 +42,7 @@ const transform: Transform = (file, api) => {
       // Grab the function body. Since we looked for the CallExpression originally, the "callee.object" would refer
       // to the FunctionExpression that's being called .bind(this) on. We need the body of that function
       // to transform into an ArrowFunctionExpression.
-    	let body = object.body;
+    	let body: ArrowFunctionExpression['body'] = object.body;
       // We can get a bit clever here. If we have a function that consists of a single return statement in it's body,
       // we can transform it to the more compact arrowFunctionExpression (a, b) => a + b, vs (a + b) => { return a + b }
       let useExpression = false;

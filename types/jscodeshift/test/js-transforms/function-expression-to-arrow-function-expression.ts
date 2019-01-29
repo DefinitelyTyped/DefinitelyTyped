@@ -25,7 +25,7 @@
  *  	return a + b + this.c;
  * }
  */
-import { Transform } from "jscodeshift";
+import { Transform, ArrowFunctionExpression } from "jscodeshift";
 
 const transform: Transform = (file, api) => {
   const j = api.jscodeshift;
@@ -36,7 +36,7 @@ const transform: Transform = (file, api) => {
     // using the arrowFunctionExpression. As that could potentially have some unintended consequences.
     .filter(p => j(p).find(j.ThisExpression).size() === 0)
     .replaceWith(p => {
-      let body = p.value.body;
+      let body: ArrowFunctionExpression['body'] = p.value.body;
       // We can get a bit clever here. If we have a function that consists of a single return statement in it's body,
       // we can transform it to the more compact arrowFunctionExpression (a, b) => a + b, vs (a + b) => { return a + b }
       let useExpression = false;
