@@ -168,6 +168,6 @@ export interface MUIDataTableProps {
     options?: MUIDataTableOptions;
 }
 
-export const MUIDataTable: React.ComponentType<MUIDataTableProps>;
+declare const MUIDataTable: React.ComponentType<MUIDataTableProps>;
 
 export default MUIDataTable;
