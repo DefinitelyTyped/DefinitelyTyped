@@ -259,8 +259,8 @@ jest.requireMock("./thisAlwaysReturnsTheMock");
 
 /* Mocks and spies */
 
-// $ExpectType Mock<{}, any[]>
-const mock1 = jest.fn();
+// $ExpectType Mock<any, any>
+const mock1: jest.Mock<number> = jest.fn();
 // $ExpectType Mock<undefined, []>
 const mock2 = jest.fn(() => undefined);
 // $ExpectType Mock<string, []>
@@ -275,16 +275,25 @@ const mock6 = jest.fn((arg: {}) => arg);
 const mock7 = jest.fn((arg: number) => arg);
 // $ExpectType Mock<number, [number]>
 const mock8: jest.Mock = jest.fn((arg: number) => arg);
+// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]>
+const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise.resolve(_makeItStop));
+// $ExpectType Mock<never, [never]>
+const mock10 = jest.fn((arg: never) => { throw new Error(arg); });
+// $ExpectType Mock<unknown, [unknown]>
+const mock11 = jest.fn((arg: unknown) => arg);
+
+// $ExpectType number
+mock1('test');
 
 // $ExpectError
 mock7('abc');
 // $ExpectError
 mock7.mockImplementation((arg: string) => 1);
+
 // compiles because mock8 is declared as jest.Mock<{}, any>
 mock8('abc');
 mock8.mockImplementation((arg: string) => 1);
 
-const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise.resolve(_makeItStop));
 // mockImplementation not required to declare all arguments
 mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
 
@@ -372,6 +381,9 @@ const spy6 = jest.spyOn(spiedTarget2, "value", "set");
 
 let spy7: jest.SpyInstance;
 spy7 = jest.spyOn(spiedTarget, "setValue");
+
+// should compile
+jest.fn().mockImplementation((test: number) => test);
 
 /* Snapshot serialization */
 
