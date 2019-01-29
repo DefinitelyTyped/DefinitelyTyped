@@ -678,7 +678,7 @@ export class Account implements Resource {
      * Lists sells for an account.
      * Scope: wallet:sells:read
      */
-    getSells(cb: (error: Error, result: Sell[]) => void): void;
+    getSells(opts: null, cb: (error: Error, result: Sell[]) => void): void;
 
     /**
      * Show an individual sell.
