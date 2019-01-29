@@ -101,6 +101,16 @@ declare namespace gapi.auth2 {
      * Optional if fetch_basic_profile is not set to false.
      */
     scope?: string;
+    /**
+     * The UX mode to use for the sign-in flow.
+     * By default, it will open the consent flow in a popup.
+     */
+    ux_mode?: "popup" | "redirect";
+    /**
+     * If using ux_mode='redirect', this parameter allows you to override the default redirect_uri that will be used at the end of the consent flow.
+     * The default redirect_uri is the current URL stripped of query parameters and hash fragment.
+     */
+    redirect_uri?: string;
   }
 
   /**
