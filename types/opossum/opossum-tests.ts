@@ -39,6 +39,7 @@ breaker.closed; // $ExpectType boolean
 breaker.opened; // $ExpectType boolean
 breaker.halfOpen; // $ExpectType boolean
 breaker.warmUp; // $ExpectType boolean
+breaker.isShutdown; // $ExpectType boolean
 breaker.volumeThreshold; // $ExpectType number
 breaker.status.stats.latencyMean; // $ExpectType number
 breaker.stats.latencyTimes; // $ExpectType number[]
@@ -49,6 +50,7 @@ breaker.open(); // $ExpectType void
 breaker.close(); // $ExpectType void
 breaker.disable(); // $ExpectType void
 breaker.enable(); // $ExpectType void
+breaker.shutdown(); // $ExpectType void
 
 // The following are examples are from the libs README and official documentation
 // https://nodeshift.github.io/opossum/index.html.
