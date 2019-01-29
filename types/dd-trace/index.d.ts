@@ -12,9 +12,9 @@ import { Tracer, Span, SpanContext } from "opentracing";
 import DatadogSpanContext = require("./src/opentracing/span_context");
 
 declare var trace: TraceProxy;
-export = trace;
+export default trace;
 
-declare class TraceProxy extends Tracer {
+export declare class TraceProxy extends Tracer {
     /**
      * Initializes the tracer. This should be called before importing other libraries.
      */
