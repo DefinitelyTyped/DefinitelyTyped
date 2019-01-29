@@ -5062,7 +5062,7 @@ declare namespace Stripe {
             /**
              * Balance transaction that describes the impact of this reversal on your account balance.
              */
-            balance_transaction: string;
+            balance_transaction: string | balance.IBalanceTransaction;
 
             /**
              * ID of the charge that was refunded. [Expandable]
