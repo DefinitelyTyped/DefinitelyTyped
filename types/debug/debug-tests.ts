@@ -1,8 +1,8 @@
 import * as debug1 from "debug";
-
+/*tslint:disable-next-line:no-duplicate-imports*/
 import debug2 from 'debug';
 
-const log2:debug1.Debugger = debug2("DefinitelyTyped:log");
+const log2: debug1.Debugger = debug2("DefinitelyTyped:log");
 log2("Just text");
 log2("Formatted test (%d arg)", 1);
 log2("Formatted %s (%d args)", "test", 2);
