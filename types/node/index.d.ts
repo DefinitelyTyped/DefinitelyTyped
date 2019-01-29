@@ -40,6 +40,7 @@
 
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
+    bogus: number;
     Console: NodeJS.ConsoleConstructor;
     /**
      * A simple assertion test that verifies whether `value` is truthy.

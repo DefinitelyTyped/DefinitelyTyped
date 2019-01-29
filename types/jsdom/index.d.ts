@@ -13,7 +13,6 @@ import * as tough from 'tough-cookie';
 import { Script } from 'vm';
 
 export class JSDOM {
-    static lololololol: number;
     static fromURL(url: string, options?: FromUrlOptions): Promise<JSDOM>;
 
     static fromFile(url: string, options?: FromFileOptions): Promise<JSDOM>;
