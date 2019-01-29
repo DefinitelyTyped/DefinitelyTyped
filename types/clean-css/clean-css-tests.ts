@@ -1,6 +1,5 @@
 // Original by Tanguy Krotoff <https://github.com/tkrotoff>
 // Updated by Andrew Potter <https://github.com/GolaWaya>
-// TypeScript Version: 2.4
 
 import * as CleanCSS from 'clean-css';
 
@@ -97,16 +96,3 @@ CleanCssOptions = { returnPromise: false };
 new CleanCSS(CleanCssOptions).minify(source, (error: any, minified: CleanCSS.Output): void => {
     console.log(minified.styles);
 });
-
-// type conversion
-CleanCssOptions = {};
-// in this case, the compiler will think its an OptionsOutput
-//  so if we want to make it a promise, we will need to cast it specifically its a promise type return
-(CleanCssOptions = CleanCssOptions as CleanCSS.OptionsPromise).returnPromise = true;
-new CleanCSS(CleanCssOptions).minify(source)
-    .then((minified: CleanCSS.Output): void => {
-        console.log(minified.styles);
-    }).catch((error: any): void => {
-        console.log(error);
-    }
-);
