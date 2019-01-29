@@ -18,7 +18,7 @@
         "compile-scripts": "tsc -p scripts",
         "not-needed": "node scripts/not-needed.js",
         "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
-        "lint": "dtslint types"
+        "lint": "node node_modules/dtslint/bin/index.js types"
     },
     "devDependencies": {
         "dtslint": "github:Microsoft/dtslint#production",
