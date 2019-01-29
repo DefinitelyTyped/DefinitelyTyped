@@ -11,10 +11,7 @@
 import { Tracer, Span, SpanContext } from "opentracing";
 import DatadogSpanContext = require("./src/opentracing/span_context");
 
-declare var trace: TraceProxy;
-export default trace;
-
-declare class TraceProxy extends Tracer {
+export interface TraceProxy extends Tracer {
     /**
      * Initializes the tracer. This should be called before importing other libraries.
      */
@@ -162,7 +159,7 @@ interface TraceOptions {
     tags?: { [key: string]: any } | string;
 }
 
-declare class ScopeManager {
+export interface ScopeManager {
     /**
      * Get the current active scope or null if there is none.
      *
@@ -181,7 +178,7 @@ declare class ScopeManager {
     activate(span: Span, finishSpanOnClose?: boolean): Scope;
 }
 
-declare class Scope {
+export interface Scope {
     /**
      * Get the span wrapped by this scope.
      */
@@ -273,3 +270,6 @@ type PluginConfiguration = { [K in Plugin]: BasePluginOptions } & {
     koa: KoaPluginOptions;
     restify: RestifyPluginOptions;
 };
+
+declare var trace: TraceProxy;
+export default trace;

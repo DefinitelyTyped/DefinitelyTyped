@@ -1,4 +1,4 @@
-import * as tracer from "dd-trace";
+import tracer, { TraceProxy } from "dd-trace";
 import SpanContext = require("dd-trace/src/opentracing/span_context");
 
 tracer.init({
@@ -10,7 +10,7 @@ tracer.init({
     logger: {
         debug: msg => {},
         error: err => {},
-    }
+    },
 });
 
 function useWebFrameworkPlugin(plugin: "express" | "hapi" | "koa" | "restify") {
@@ -54,3 +54,9 @@ const span = tracer.startSpan("memcached", {
         "span.type": "memcached",
     },
 });
+
+interface MyContext {
+    tracer: TraceProxy;
+}
+
+const ctx: MyContext = { tracer };
