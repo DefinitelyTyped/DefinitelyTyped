@@ -5,6 +5,7 @@
 // TypeScript Version: 2.2
 
 export interface Location {
+    bogus: number;
     /**
      * One-based line index of the first character
      */
