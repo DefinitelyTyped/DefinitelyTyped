@@ -67,6 +67,7 @@ export function permutePath(path: string): string[];
 // region Cookie
 
 export class Cookie {
+    bogus: number;
     static parse(cookieString: string, options?: Cookie.ParseOptions): Cookie | undefined;
 
     static fromJSON(strOrObj: string | object): Cookie | null;
