@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.0
+// Type definitions for ioredis 4.1
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -11,6 +11,7 @@
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 Ting-Wai To <https://github.com/tingwai-to>
 //                 Alex Petty <https://github.com/pettyalex>
+//                 Justin Reich <https://github.com/reichjustin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -216,6 +217,8 @@ declare namespace IORedis {
         smembers(key: KeyType): Promise<any>;
 
         zadd(key: KeyType, ...args: string[]): Promise<number | string>;
+        zadd(key: KeyType, score: number, member: string): Promise<number | string>;
+        zadd(key: KeyType, ...args: Array<[ number, string ]>): Promise<number | string>;
 
         zincrby(key: KeyType, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: KeyType, increment: number, member: string): Promise<any>;
@@ -632,6 +635,8 @@ declare namespace IORedis {
         smembers(key: KeyType, callback?: (err: Error, res: any) => void): Pipeline;
 
         zadd(key: KeyType, ...args: string[]): Pipeline;
+        zadd(key: KeyType, score: number, member: string): Pipeline;
+        zadd(key: KeyType, ...args: Array<[ number, string ]>): Pipeline;
 
         zincrby(key: KeyType, increment: number, member: string, callback?: (err: Error, res: any) => void): Pipeline;
 

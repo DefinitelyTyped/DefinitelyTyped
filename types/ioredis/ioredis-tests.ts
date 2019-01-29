@@ -90,6 +90,9 @@ pipeline.hset('hash', 'foo', 4);
 pipeline.hget('hash', 'foo');
 pipeline.hsetBuffer('hash', 'fooBuffer', 4);
 pipeline.hgetBuffer('hash', 'fooBuffer');
+pipeline.zadd('zAddPipeline', '1', 'pipelineAdd');
+pipeline.zadd('zAddPipeline2', 2, 'value2');
+pipeline.zadd('zAddPipeline3', [3, 'value3'], [4, 'value4']);
 pipeline.exec((err, results) => {
     // `err` is always null, and `results` is an array of responses
     // corresponding to the sequence of queued commands.
@@ -193,6 +196,9 @@ redis.xread('STREAMS', 'streamName', '0-0');
 redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '>');
 redis.xrevrange('streamName', '+', '-', 'COUNT', 1);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000);
+redis.zadd("zAdd", '0', 'value0');
+redis.zadd("zAdd", 1, 'value1');
+redis.zadd("zAdd", [2, 'value2'], [3, 'value3']);
 
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {
