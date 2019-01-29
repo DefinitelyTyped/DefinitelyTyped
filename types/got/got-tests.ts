@@ -266,6 +266,10 @@ got('/examples/angularjs', { baseUrl: 'http://todomvc.com' });
 got('http://todomvc.com', { headers: { foo: 'bar'} });
 got('http://todomvc.com', { cookieJar: new tough.CookieJar() });
 
+// Test extension
+got.extend({ method: 'POST' })('/example');
+got.extend({ method: 'POST' }).extend({ headers: {} }).stream('/example');
+
 // Test retry options.
 got('http://todomvc.com', { retry: 2 });
 got('http://todomvc.com', {

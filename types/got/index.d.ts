@@ -4,6 +4,7 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Konstantin Ikonnikov <https://github.com/ikokostya>
 //                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
+//                 Matthew Bull <https://github.com/wingsbob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -72,6 +73,7 @@ declare const got: got.GotFn &
     Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotFn> &
     {
         stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>;
+        extend: (options: got.GotJSONOptions | got.GotFormOptions<string> | got.GotFormOptions<null> | got.GotBodyOptions<string> | got.GotBodyOptions<null>) => typeof got;
         RequestError: typeof RequestError;
         ReadError: typeof ReadError;
         ParseError: typeof ParseError;
