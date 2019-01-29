@@ -37,6 +37,7 @@ declare namespace fin {
 
     // v2 shapes
     type Identity = import('./_v2/identity').Identity;
+    type applicationLogInfo = import('./_v2/api/application/application').LogInfo;
     type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
     type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
     type TrayInfo = import('./_v2/api/application/application').TrayInfo;
@@ -145,6 +146,10 @@ declare namespace fin {
          */
         getGroups(callback?: (groups: OpenFinWindow[][]) => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Retrieves information about the application.
+         */
+        getInfo(callback?: (info: LaunchInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Retrieves the JSON manifest that was used to create the application. Invokes the error callback if the application was not created from a manifest.
          */
         getManifest(callback?: (manifest: any) => void, errorCallback?: (reason: string) => void): void;
@@ -157,13 +162,13 @@ declare namespace fin {
          */
         getShortcuts(callback?: (config: ShortCutConfig) => void, errorCallback?: (reason: string) => void): void;
         /**
-         * Retrieves information about the application.
-         */
-        getInfo(callback?: (info: LaunchInfo) => void, errorCallback?: (reason: string) => void): void;
-        /**
          * Retrieves information about the system tray.
          */
         getTrayIconInfo(callback?: (trayInfo: TrayInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Returns the current zoom level of the application.
+         */
+        getZoomLevel(callback?: (level: number) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Determines if the application is currently running.
          */
@@ -203,6 +208,14 @@ declare namespace fin {
          */
         scheduleRestart(callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Sends a message to the RVM to upload the application's logs. On success, an object containing logId is returned.
+         */
+        sendApplicationLog(callback?: (logInfo: applicationLogInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Sets an associated username with that app for Application Log Management use
+         */
+        setAppLogUsername(username: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Sets new shortcut configuration for current application.
          * Application has to be launched with a manifest and has to have shortcut configuration (icon url, name, etc.) in its manifest to
          * be able to change shortcut states.
@@ -212,6 +225,11 @@ declare namespace fin {
          * Adds a customizable icon in the system tray and notifies the application when clicked.
          */
         setTrayIcon(iconUrl: string, listener: (clickInfo: TrayIconClickedEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Sets the zoom level of the application. The original size is 0 and each increment above or below represents zooming 20%
+         * larger or smaller to default limits of 300% and 50% of original size, respectively.
+         */
+        setZoomLevel(level: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Closes the application by terminating its process.
          */

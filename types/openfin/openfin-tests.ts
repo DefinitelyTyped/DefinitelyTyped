@@ -56,6 +56,10 @@ function test_application() {
             ++groupCounter;
         });
     });
+    // getInfo
+    application.getInfo(info => {
+        console.log(`Launch mode: ${info.launchMode}`);
+    });
     // getManifest
     application.getManifest(manifest => {
         console.log("Application manifest:");
@@ -72,14 +76,15 @@ function test_application() {
         console.log("Start Menu shortcut is enabled: ", config.startMenu);
         console.log("System Startup shortcut is enabled: ", config.systemStartup);
     });
-    // getInfo
-    application.getInfo(info => {
-        console.log(`Launch mode: ${info.launchMode}`);
-    });
     // getTrayIconInfo
     application.getTrayIconInfo(info => {
         console.log(info.x, info.y, info.bounds.left, info.bounds.top, info.bounds.height, info.bounds.width,
                     info.monitorInfo.reason);
+    });
+    // getZoomLevel
+    application.getZoomLevel(level => {
+        console.log("Application zoom level:");
+        console.log(level);
     });
     // isRunning
     application.isRunning(running => {
@@ -107,11 +112,28 @@ function test_application() {
     }, err => {
         console.log("failure:", err);
     });
+    // run
+    application.run(() => {
+        console.log("Application is running.");
+    }, err => {
+        console.log("failure:", err);
+    });
     // schedule restart
     application.scheduleRestart(() => {
         console.log("You will not read this.");
     }, err => {
         console.log("failure:", err);
+    });
+    // sendApplicationLog
+    application.sendApplicationLog(info => {
+        console.log("Application logId:");
+        console.log(info.logId);
+    });
+    // setAppLogUsername
+    application.setAppLogUsername("username", () => {
+        console.log("Successfully set app log username");
+    }, error => {
+        console.log("Failed to set app log username. Error: ", error);
     });
     // setShortcuts
     application.setShortcuts({
@@ -126,6 +148,12 @@ function test_application() {
     // setTrayIcon
     application.setTrayIcon("https://developer.openf.in/download/openfin.png", clickInfo => {
         console.log(`The mouse has clicked at (${clickInfo.x}, ${clickInfo.y})`);
+    });
+    // setZoomLevel
+    application.setZoomLevel(2, () => {
+        console.log("Successfully set application zoom level");
+    }, error => {
+        console.log("Failed to set application zoom level. Error: ", error);
     });
     // terminate
     application.terminate();
