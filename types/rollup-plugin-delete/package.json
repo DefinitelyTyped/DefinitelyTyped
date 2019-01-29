@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/del": "^3.0.1",
         "rollup": ">=0.60.0"
     }
 }
