@@ -263,13 +263,15 @@ imageOverlayOptions = {
     alt: 'alt',
     interactive: true,
     attribution: 'attribution',
-    crossOrigin: true,
+	crossOrigin: true,
+	errorOverlayUrl: 'http://www.test.com/error.png',
+	zIndex: 1,
     className: 'className',
     bubblingMouseEvents: false,
     pane: 'pane'
 };
 
-const imageOverlayBounds = latLngBounds;
+let imageOverlayBounds = latLngBounds;
 let imageOverlay: L.ImageOverlay;
 imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds);
 imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds, imageOverlayOptions);
@@ -278,6 +280,14 @@ imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/
     alt: 'alt',
     className: 'className',
 });
+imageOverlay.setOpacity(100);
+imageOverlay.bringToFront();
+imageOverlay.bringToBack();
+imageOverlay.setUrl('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png');
+imageOverlay.setBounds(imageOverlayBounds);
+imageOverlay.setZIndex(1);
+imageOverlayBounds = imageOverlay.getBounds();
+html = imageOverlay.getElement();
 
 const eventHandler = () => {};
 const domEvent: Event = {} as Event;
