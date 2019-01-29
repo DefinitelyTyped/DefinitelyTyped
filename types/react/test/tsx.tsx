@@ -22,6 +22,22 @@ FunctionComponent2.defaultProps = {
 };
 <FunctionComponent2>24</FunctionComponent2>;
 
+const FunctionComponentChildrenIsFunction: React.FunctionComponent<{}, () => string> = ({children}) => {
+    if (children) {
+        return <div>{children()}</div>;
+    }
+    return null;
+};
+<FunctionComponentChildrenIsFunction>{() => "Hello World!"}</FunctionComponentChildrenIsFunction>;
+<FunctionComponentChildrenIsFunction><div/></FunctionComponentChildrenIsFunction>; // $ExpectError
+
+const FunctionalComponentShouldNotReturnObject: React.FunctionComponent = () => { // $ExpectError
+    return {
+        hello: "world"
+    };
+};
+<FunctionalComponentShouldNotReturnObject/>;
+
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
     <g>
@@ -370,3 +386,11 @@ type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTyp
 type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
 // $ExpectType true
 type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
+
+class ComponentShouldNotReturnObject extends React.Component {
+    render() { // $ExpectError
+        return {
+            hello: "world"
+        };
+    }
+}
