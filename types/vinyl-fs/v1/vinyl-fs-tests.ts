@@ -3,14 +3,13 @@
 import * as vfs from 'vinyl-fs';
 
 import * as path from 'path';
-import * as fs from 'fs';
-import * as stream from 'stream';
+import * as fs from 'fs'; // require('graceful-fs');
 
 // import bufEqual = require('buffer-equal');
 declare const bufEqual: any;
-import gulp = require('gulp');
+// import through = require('through2');
+declare const through: any;
 import File = require('vinyl');
-import through = require('through2');
 // const spies = require('./spy');
 declare const spies: any;
 
@@ -31,7 +30,8 @@ declare global {
 	}
 }
 
-let bufferStream: stream.Transform;
+declare const gulp: any;
+let bufferStream: any;
 
 let dataWrap = (fn: any) => {
    return (data: any, enc: any, cb: any) => {
@@ -44,7 +44,7 @@ describe('source stream', () => {
    it('should explode on invalid glob (empty)', done => {
       let stream: any;
       try {
-         stream = (<any> gulp).src();
+         stream = gulp.src();
       } catch (err) {
          should.exist(err);
          should.not.exist(stream);
@@ -55,7 +55,7 @@ describe('source stream', () => {
    it('should explode on invalid glob (number)', done => {
       let stream: any;
       try {
-         stream = gulp.src(<any> 123);
+         stream = gulp.src(123);
       } catch (err) {
          should.exist(err);
          should.not.exist(stream);
@@ -243,7 +243,7 @@ describe('dest stream', () => {
    it('should explode on invalid folder', done => {
       let stream: any;
       try {
-         stream = (<any> gulp).dest();
+         stream = gulp.dest();
       } catch (err) {
          should.exist(err);
          should.not.exist(stream);
@@ -502,7 +502,7 @@ describe('dest stream', () => {
       const stream1 = vfs.dest('./out-fixtures/', { cwd: __dirname });
       const stream2 = vfs.dest('./out-fixtures/', { cwd: __dirname });
       const content = fs.readFileSync(srcPath);
-      const rename = through.obj(function t(this: stream.Transform, file: any, _: any, next: any) {
+      const rename = through.obj((file: any, _: any, next: any) => {
          file.path = inputPath2;
          this.push(file);
          next();
@@ -563,7 +563,7 @@ describe('symlink stream', () => {
    it('should explode on invalid folder', (done: any) => {
       let stream: any;
       try {
-         stream = (<any> gulp).symlink();
+         stream = gulp.symlink();
       } catch (err) {
          should.exist(err);
          should.not.exist(stream);
