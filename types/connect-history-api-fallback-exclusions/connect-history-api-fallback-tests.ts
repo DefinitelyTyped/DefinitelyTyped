@@ -13,6 +13,13 @@ historyApiFallback({
 });
 
 historyApiFallback({
+    exclusions: [
+      '/api/*',
+      '/health',
+    ],
+});
+
+historyApiFallback({
     rewrites: [
         { from: /\/soccer/, to: '/soccer.html' }
     ]
