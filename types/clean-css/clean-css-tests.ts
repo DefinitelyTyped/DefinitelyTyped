@@ -81,3 +81,32 @@ new CleanCSS({ returnPromise: true, sourceMap: true }).minify(source, inputSourc
         console.log(error);
     }
 );
+
+// test object return when passing options as object
+let CleanCssOptions: CleanCSS.Options = { returnPromise: true };
+new CleanCSS(CleanCssOptions).minify(source)
+    .then((minified: CleanCSS.Output): void => {
+        console.log(minified.styles);
+    }).catch((error: any): void => {
+        console.log(error);
+    }
+);
+
+CleanCssOptions = { returnPromise: false };
+new CleanCSS(CleanCssOptions).minify(source, (error: any, minified: CleanCSS.Output): void => {
+    console.log(minified.styles);
+});
+
+
+// type conversion
+CleanCssOptions = {};
+// in this case, the compiler will think its an OptionsOutput
+//  so if we want to make it a promise, we will need to cast it specifically its a promise type return
+(CleanCssOptions = CleanCssOptions as CleanCSS.OptionsPromise).returnPromise = true;
+new CleanCSS(CleanCssOptions).minify(source)
+    .then((minified: CleanCSS.Output): void => {
+        console.log(minified.styles);
+    }).catch((error: any): void => {
+        console.log(error);
+    }
+);

@@ -9,15 +9,16 @@ import { RequestOptions as HttpsRequestOptions } from "https";
 import { RequestOptions as HttpRequestOptions } from "http";
 
 declare namespace CleanCSS {
+    
     /**
-     * Options passed when initializing a new instance of CleanCSS
+     * Shared options passed when initializing a new instance of CleanCSS that returns either a promise or output
      */
-    interface Options {
+    interface OptionsBase {
         /**
          * Controls compatibility mode used; defaults to ie10+ using `'*'`.
          *  Compatibility hash exposes the following properties: `colors`, `properties`, `selectors`, and `units`
          */
-        compatibility?: "*" | "ie9" | "ie8" | "ie7" | CompatibilityOptions;
+        compatibility?: "*" | "ie9" | "ie8" | "ie7" | CleanCSS.CompatibilityOptions;
 
         /**
          * Controls a function for handling remote requests; Defaults to the build in `loadRemoteResource` function
@@ -28,7 +29,7 @@ declare namespace CleanCSS {
          * Controls output CSS formatting; defaults to `false`.
          *  Format hash exposes the following properties: `breaks`, `breakWith`, `indentBy`, `indentWith`, `spaces`, and `wrapAt`.
          */
-        format?: "beautify" | "keep-breaks" | FormatOptions | false;
+        format?: "beautify" | "keep-breaks" | CleanCSS.FormatOptions | false;
 
         /**
          * inline option whitelists which @import rules will be processed.  Defaults to `'local'`
@@ -56,7 +57,7 @@ declare namespace CleanCSS {
          * Controls optimization level used; defaults to `1`.
          * Level hash exposes `1`, and `2`.
          */
-        level?: 0 | 1 | 2 | OptimizationsOptions;
+        level?: 0 | 1 | 2 | CleanCSS.OptimizationsOptions;
 
         /**
          * Controls URL rebasing; defaults to `true`;
@@ -68,11 +69,6 @@ declare namespace CleanCSS {
          * will live; defaults to the current directory;
          */
         rebaseTo?: string;
-
-        /**
-         * If you prefer clean-css to return a Promise object then you need to explicitely ask for it; defaults to `false`
-         */
-        returnPromise?: boolean;
 
         /**
          *  Controls whether an output source map is built; defaults to `false`
@@ -651,11 +647,29 @@ declare namespace CleanCSS {
     }
 
     /**
+     * Options when returning a promise
+     */
+    type OptionsPromise = OptionsBase & { returnPromise: true };
+
+    /**
+     * Options when returning an output
+     */
+    type OptionsOutput = OptionsBase & { returnPromise?: false };
+
+    /**
+     * Discriminant union of both sets of options types.  If you initialize without setting `returnPromise: true`
+     *  and want to return a promise, you will need to cast to the correct options type so that TypeScript
+     *  knows what the expected return type will be:
+     *  `(options = options as CleanCSS.OptionsPromise).returnPromise = true`
+     */
+    type Options = OptionsPromise | OptionsOutput;
+
+    /**
      * Constructor interface for CleanCSS
      */
     interface Constructor {
-        new(options: Options & { returnPromise: true }): MinifierPromise;
-        new(options?: Options): MinifierOutput;
+        new(options: OptionsPromise): MinifierPromise;
+        new(options?: OptionsOutput): MinifierOutput;
     }
 }
 
