@@ -2,7 +2,7 @@
 // Project: https://github.com/glittershark/reactable
 // Definitions by: Christoph Spielmann <https://github.com/spielc>, Priscila Moneo <https://github.com/priscila-moneo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1.6
 
 import * as React from 'react';
 
