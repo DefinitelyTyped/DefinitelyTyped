@@ -1,4 +1,4 @@
-import defaults from 'defaults-deep';
+import defaults = require('defaults-deep');
 
 defaults();
 defaults({a: 'foo'});
