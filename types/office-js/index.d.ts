@@ -7736,7 +7736,7 @@ declare namespace Office {
             /**
              * A conference room or similar resource.
              */
-            ConferenceRoom = "conferenceRoom"
+            Room = "room"
         }
         /**
          * Specifies the month.
@@ -9429,15 +9429,15 @@ declare namespace Office {
          * 
          * In addition to this signature, this method also has the following signatures:
          * 
-         * `addAsync(locationIds: LocationIdentifier[], callback?: (result: Office.AsyncResult<LocationDetails[]>) => void): void;`
+         * `addAsync(locationIdentifiers: LocationIdentifier[], callback?: (result: Office.AsyncResultStatus) => void): void;`
          * 
-         * @param locationIds The locations to be added to the current list of locations.
+         * @param locationIdentifiers The locations to be added to the current list of locations.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
+         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
          */
-        addAsync(locationIds: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<LocationDetails[]>) => void): void;
+        addAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResultStatus) => void): void;
         /**
          * Adds to the set of locations associated with the appointment.
          * 
@@ -9453,11 +9453,11 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * @param locationIds The locations to be added to the current list of locations.
+         * @param locationIdentifiers The locations to be added to the current list of locations.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
+         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
          */
-        addAsync(locationIds: LocationIdentifier[], callback?: (result: Office.AsyncResult<LocationDetails[]>) => void): void;
+        addAsync(locationIdentifiers: LocationIdentifier[], callback?: (result: Office.AsyncResultStatus) => void): void;
         /**
          * Gets the set of locations associated with the appointment.
          * 
@@ -9469,7 +9469,7 @@ declare namespace Office {
          *   </tr>
          *   <tr>
          *     <td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td>
-         *     <td>Compose</td>
+         *     <td>Compose or read</td>
          *   </tr>
          * </table>
          * 
@@ -9494,7 +9494,7 @@ declare namespace Office {
          *   </tr>
          *   <tr>
          *     <td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td>
-         *     <td>Compose</td>
+         *     <td>Compose or read</td>
          *   </tr>
          * </table>
          * 
@@ -9505,10 +9505,7 @@ declare namespace Office {
         /**
          * Removes the set of locations associated with the appointment.
          * 
-         * Any included conference rooms (i.e., in the `LocationDetails` object, the `type` is **ConferenceRoom** and there is an email address) 
-         * should be removed from the locations and the resources lists.
-         * 
-         * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIds.
+         * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIdentifiers.
          * 
          * @remarks
          * <table>
@@ -9524,22 +9521,19 @@ declare namespace Office {
          * 
          * In addition to this signature, this method also has the following signatures:
          * 
-         * `removeAsync(locationIds: LocationIdentifier[], callback?: (result: Office.AsyncResult<LocationDetails[]>) => void): void;`
+         * `removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (result: Office.AsyncResultStatus) => void): void;`
          * 
-         * @param locationIds The locations to be removed from the current list of locations.
+         * @param locationIdentifiers The locations to be removed from the current list of locations.
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
+         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
          */
-        removeAsync(locationIds: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<LocationDetails[]>) => void): void;
+        removeAsync(locationIdentifiers: LocationIdentifier[], options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResultStatus) => void): void;
         /**
          * Removes the set of locations associated with the appointment.
          * 
-         * Any included conference rooms (i.e., in the `LocationDetails` object, the `type` is **ConferenceRoom** and there is an email address) 
-         * should be removed from the locations and the resources lists.
-         * 
-         * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIds.
+         * If there are multiple locations with the same name, all matching locations will be removed even if only one was specified in locationIdentifiers.
          * 
          * @remarks
          * <table>
@@ -9553,11 +9547,11 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * @param locationIds The locations to be removed from the current list of locations.
+         * @param locationIdentifiers The locations to be removed from the current list of locations.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
-         *                asyncResult, which is an Office.AsyncResult object.
+         *                asyncResult, which is an Office.AsyncResult object. Check the `status` property of asyncResult to determine if the call succeeded.
          */
-        removeAsync(locationIds: LocationIdentifier[], callback?: (result: Office.AsyncResult<LocationDetails[]>) => void): void;
+        removeAsync(locationIdentifiers: LocationIdentifier[], callback?: (result: Office.AsyncResultStatus) => void): void;
     }
     /**
      * Represents a collection of entities found in an email message or appointment. Read mode only.
@@ -9833,9 +9827,9 @@ declare namespace Office {
      */
     export interface LocationDetails {
         /**
-         * The location's id.
+         * The LocationIdentifier of the location.
          */
-        locationId: LocationIdentifier;
+        locationIdentifier: LocationIdentifier;
         /**
          * The location's display name.
          */
@@ -9844,10 +9838,6 @@ declare namespace Office {
          * The email address associated with the location.
          */
         emailAddress: string;
-        /**
-         * Additional properties for the location.
-         */
-        properties: any;
     }
 
     /**
@@ -9861,7 +9851,7 @@ declare namespace Office {
         /**
          * The location's unique id.
          * 
-         * For **ConferenceRoom** type, it's the room's email address.
+         * For **Room** type, it's the room's email address.
          * 
          * For **Custom** type, it's the displayName.
          */
@@ -9974,7 +9964,7 @@ declare namespace Office {
          */
         end: Time;
         /**
-         * Gets or sets the locations of the appointment. The `enhancedLocations` property returns an {@link EnhancedLocation} object that 
+         * Gets or sets the locations of the appointment. The `enhancedLocation` property returns an {@link EnhancedLocation} object that 
          * provides methods to get, remove, or add locations on an item.
          * 
          * [Api set: Mailbox Preview]
@@ -9994,7 +9984,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        enhancedLocations: EnhancedLocation;
+        enhancedLocation: EnhancedLocation;
         /**
          * Gets the type of item that an instance represents.
          *
@@ -11083,7 +11073,10 @@ declare namespace Office {
          */
         end: Date;
         /**
-         * Gets a set of LocationDetails objects that represents the locations of the appointment.
+         * Gets the locations of an appointment.
+         *
+         * The enhancedLocation property returns an {@link EnhancedLocation} object that allows you to get the set of locations (each represented by 
+         * a {@link LocationDetails} object) associated with the appointment.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -11102,7 +11095,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        enhancedLocations: LocationDetails[];
+        enhancedLocation: EnhancedLocation;
         /**
          * Gets the Exchange Web Services item class of the selected item.
          *
