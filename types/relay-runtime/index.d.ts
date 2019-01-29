@@ -23,6 +23,7 @@ export type RelayMutationRequest = any;
 export type RelayQueryRequest = any;
 export type ConcreteFragmentDefinition = object;
 export type ConcreteOperationDefinition = object;
+export type ReaderFragment = object;
 
 /**
  * FIXME: RelayContainer used to be typed with ReactClass<any>, but
