@@ -177,6 +177,9 @@ declare namespace React {
     type ReactFragment = {} | ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
+    interface ReactRenderableArray extends Array<ReactRenderable> {}
+    type ReactRenderable = JSX.Element | string | number | null | ReactRenderableArray;
+
     //
     // Top Level API
     // ----------------------------------------------------------------------
@@ -414,7 +417,7 @@ declare namespace React {
         ): void;
 
         forceUpdate(callBack?: () => void): void;
-        render(): ReactNode;
+        render(): ReactRenderable;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -2673,7 +2676,7 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any, any> { }
         interface ElementClass extends React.Component<any> {
-            render(): React.ReactNode;
+            render(): React.ReactRenderable;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
