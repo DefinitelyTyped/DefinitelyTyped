@@ -42,6 +42,8 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.gotoYear(2015);
     picker.setMinDate(new Date());
     picker.setMaxDate(new Date());
+    picker.setMinDate(null);
+    picker.setMaxDate(null);
     picker.setStartRange(new Date());
     picker.setEndRange(new Date());
     picker.isVisible();
