@@ -15,7 +15,7 @@
 /// <reference types="node" />
 
 declare module "node-forge" {
-    type Byte = string;
+    type Byte = number;
     type Bytes = string;
     type Hex = string;
     type Base64 = string;
