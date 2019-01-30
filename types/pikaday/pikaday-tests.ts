@@ -30,6 +30,7 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.toString('YYYY-MM-DD');
     picker.getDate();
     picker.setDate('2015-01-01');
+    picker.setDate('2015-01-01', true);
     picker.getMoment();
     picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'));
     picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'), true);
