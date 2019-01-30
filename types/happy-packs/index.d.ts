@@ -19,4 +19,3 @@ declare namespace happypack {
 declare class happypack extends Plugin {
     constructor(options: happypack.PluginOptions);
 }
-
