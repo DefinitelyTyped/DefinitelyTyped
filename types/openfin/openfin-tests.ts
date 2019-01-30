@@ -395,6 +395,8 @@ function test_system() {
         const cookie1 = cookies[0];
         console.log(cookie1.name, cookie1.domain, cookie1.path);
     }, err => console.log(err));
+    // getCrashReporterState
+    fin.desktop.System.getCrashReporterState(state => console.log(state), err => console.error(err));
     // getDeviceId
     fin.desktop.System.getDeviceId(id => {
         console.log("The id of the device is: " + id);
@@ -429,6 +431,8 @@ function test_system() {
             console.log(`The filename of the log is ${logInfo.name}, the size is ${logInfo.size}, and the date of creation is ${logInfo.date}`);
         });
     });
+    // getMachineId
+    fin.desktop.System.getMachineId(id => console.log(id), err => console.error(err));
     // getMinLogLevel
     fin.desktop.System.getMinLogLevel(level => console.log(level), err => console.log(err));
     // getMonitorInfo
@@ -586,6 +590,12 @@ function test_system() {
     }, err => {
         console.log("failure: " + err);
     });
+    // startCrashReporter
+    fin.desktop.System.startCrashReporter({diagnosticMode: true}, () => {
+        console.log('success');
+    }, err => {
+        console.log(err);
+    });
     // terminateExternalProcess
     fin.desktop.System.launchExternalProcess({
         // notepad is in the system's PATH
@@ -599,7 +609,7 @@ function test_system() {
 
         // Attempt to close the process. Terminate after 4 seconds if it
         // has not done so.
-        fin.desktop.System.terminateExternalProcess(result.uuid, 4000, info => {
+        fin.desktop.System.terminateExternalProcess(result.uuid, 4000, true, info => {
             console.log("Termination result " + info.result);
         }, reason => {
             console.log("failure: " + reason);

@@ -47,6 +47,7 @@ declare namespace fin {
     type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;
     type CookieInfo = import('./_v2/api/system/cookie').CookieInfo;
     type CookieOption = import('./_v2/api/system/cookie').CookieOption;
+    type CrashReporterOption = import('./_v2/api/system/crashReporterOption').CrashReporterOption;
     type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
     type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
     type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
@@ -582,13 +583,17 @@ declare namespace fin {
          */
         getAppAssetInfo(options: AppAssetRequest, callback?: (appAssetInfo: AppAssetInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Retrieves the command line argument string that started OpenFin Runtime.
+         */
+        getCommandLineArguments(callback?: (args: string) => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Get additional info of cookies.
          */
         getCookies(option: CookieOption, callback?: (info: CookieInfo[]) => void, errorCallback?: (reason: string) => void): void;
         /**
-         * Retrieves the command line argument string that started OpenFin Runtime.
+         * Get the current state of the crash reporter.
          */
-        getCommandLineArguments(callback?: (args: string) => void, errorCallback?: (reason: string) => void): void;
+        getCrashReporterState(callback?: (state: CrashReporterOption) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves the configuration object that started the OpenFin Runtime.
          */
@@ -621,6 +626,10 @@ declare namespace fin {
          * Retrieves an array containing information for each log file.
          */
         getLogList(callback?: (logInfoList: LogInfo[]) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Returns a unique identifier (UUID) provided by the machine.
+         */
+        getMachineId(callback?: (uuid: string) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves the minimum (inclusive) logging level that is currently being written to the logs.
          */
@@ -711,17 +720,18 @@ declare namespace fin {
          */
         showDeveloperTools(uuid: string, name: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Start the crash reporter for the browser process if not already running.
+         * You can optionally specify `diagnosticMode` to have the logs sent to
+         * OpenFin on runtime close
+         */
+        startCrashReporter(options: CrashReporterOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Attempt to close an external process. The process will be terminated if it has not closed after the elapsed timeout in milliseconds.
          */
         terminateExternalProcess(
             processUuid: string,
             timeout: number,
             killTree: boolean,
-            callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
-            errorCallback?: (reason: string) => void): void;
-        terminateExternalProcess(
-            processUuid: string,
-            timeout: number,
             callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
             errorCallback?: (reason: string) => void): void;
         /**
