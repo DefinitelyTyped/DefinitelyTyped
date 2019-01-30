@@ -566,6 +566,8 @@ declare namespace Autodesk {
         }
 
         class Viewer3D {
+            constructor(container: HTMLElement, config?: Viewer3DConfig);
+
             id: number;
             activateLayerState(stateName: string): void;
             activateExtension(extensionID: string, mode: string): boolean;
