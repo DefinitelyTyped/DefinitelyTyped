@@ -69,20 +69,7 @@ declare class StdError extends Error {
     response?: any;
 }
 
-declare const got: got.GotFn &
-    Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotFn> &
-    {
-        stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>;
-        extend: (options: got.GotJSONOptions | got.GotFormOptions<string> | got.GotFormOptions<null> | got.GotBodyOptions<string> | got.GotBodyOptions<null>) => typeof got;
-        RequestError: typeof RequestError;
-        ReadError: typeof ReadError;
-        ParseError: typeof ParseError;
-        HTTPError: typeof HTTPError;
-        MaxRedirectsError: typeof MaxRedirectsError;
-        UnsupportedProtocolError: typeof UnsupportedProtocolError;
-        CancelError: typeof CancelError;
-        TimeoutError: typeof TimeoutError;
-    };
+declare const got: got.DefaultGotInstance;
 
 interface InternalRequestOptions extends https.RequestOptions {
     // Redeclare options with `any` type for allow specify types incompatible with http.RequestOptions.
@@ -98,6 +85,36 @@ declare namespace got {
         (url: GotUrl, options: GotFormOptions<null>): GotPromise<Buffer>;
         (url: GotUrl, options: GotBodyOptions<string>): GotPromise<string>;
         (url: GotUrl, options: GotBodyOptions<null>): GotPromise<Buffer>;
+    }
+
+    interface GotJSONFn {
+        (url: GotUrl): GotPromise<any>;
+        (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
+        (url: GotUrl, options: GotFormOptions<string>): GotPromise<any>;
+        (url: GotUrl, options: GotBodyOptions<string>): GotPromise<any>;
+    }
+
+    type GotInstance<T = GotFn> = T &
+        Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', T> &
+        {
+            stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>;
+            extend: GotExtend;
+            RequestError: typeof RequestError;
+            ReadError: typeof ReadError;
+            ParseError: typeof ParseError;
+            HTTPError: typeof HTTPError;
+            MaxRedirectsError: typeof MaxRedirectsError;
+            UnsupportedProtocolError: typeof UnsupportedProtocolError;
+            CancelError: typeof CancelError;
+            TimeoutError: typeof TimeoutError;
+        };
+
+    type DefaultGotInstance = GotInstance;
+    type JSONGotInstance = GotInstance<GotJSONFn>;
+
+    interface GotExtend {
+        (options: got.GotFormOptions<string> | got.GotBodyOptions<string> | got.GotFormOptions<null> | got.GotBodyOptions<null>): DefaultGotInstance;
+        (options: got.GotJSONOptions): JSONGotInstance;
     }
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
