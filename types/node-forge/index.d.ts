@@ -69,7 +69,7 @@ declare module "node-forge" {
         function privateKeyFromPem(pem: PEM): PrivateKey;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
         function certificateFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
-        function createCaStore(): CAStore;
+        function createCaStore(certs?: ReadonlyArray<Certificate | pki.PEM>): CAStore;
         function verifyCertificateChain(caStore: CAStore, chain: Certificate[], customVerifyCallback?: (verified: boolean | string, depth: number, chain: Certificate[]) => boolean): boolean;
 
         interface oids {
