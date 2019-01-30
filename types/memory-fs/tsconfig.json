@@ -22,6 +22,7 @@
         "lib/normalize.d.ts",
         "test/index.ts",
         "test/join.ts",
-        "test/normalize.ts"
+        "test/normalize.ts",
+        "test/webpack.ts"
     ]
 }

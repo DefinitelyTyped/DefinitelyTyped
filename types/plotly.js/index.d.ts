@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.38
+// Type definitions for plotly.js 1.43
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -13,7 +13,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="d3" />
+import * as _d3 from "d3";
 export as namespace Plotly;
 
 export interface StaticPlots {
@@ -39,8 +39,19 @@ export interface PlotScatterDataPoint {
 	yaxis: LayoutAxis;
 }
 
+export interface PlotDatum {
+	curveNumber: number;
+	data: PlotData;
+	pointIndex: number;
+	pointNumber: number;
+	x: Datum;
+	xaxis: LayoutAxis;
+	y: Datum;
+	yaxis: LayoutAxis;
+}
+
 export interface PlotMouseEvent {
-	points: PlotScatterDataPoint[];
+	points: PlotDatum[];
 	event: MouseEvent;
 }
 
@@ -55,10 +66,10 @@ export interface SelectionRange {
 	y: number[];
 }
 
-export type PlotSelectedData = Partial<PlotScatterDataPoint>;
+export type PlotSelectedData = Partial<PlotDatum>;
 
 export interface PlotSelectionEvent {
-	points: PlotScatterDataPoint[];
+	points: PlotDatum[];
 	range?: SelectionRange;
 	lassoPoints?: SelectionRange;
 }
@@ -155,6 +166,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
 	on(event: 'plotly_afterexport' | 'plotly_afterplot' | 'plotly_animated' | 'plotly_animationinterrupted' | 'plotly_autosize' |
 		'plotly_beforeexport' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_framework' | 'plotly_redraw' |
 		'plotly_transitioning' | 'plotly_transitioninterrupted', callback: () => void): void;
+	removeAllListeners: (handler: string) => void;
 }
 
 export interface ToImgopts {
@@ -177,7 +189,7 @@ export function plot(root: Root, data: Data[], layout?: Partial<Layout>, config?
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
-export const d3: any;
+export const d3: typeof _d3;
 export function restyle(root: Root, aobj: Data, traces?: number[] | number): Promise<PlotlyHTMLElement>;
 export function update(root: Root, traceUpdate: Data, layoutUpdate: Partial<Layout>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
 export function addTraces(root: Root, traces: Data | Data[], newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
@@ -238,7 +250,7 @@ export interface Layout {
 	ternary: {}; // TODO
 	geo: {}; // TODO
 	mapbox: {}; // TODO
-	radialaxis: {}; // TODO
+	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
 	direction: 'clockwise' | 'counterclockwise';
 	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
@@ -251,6 +263,7 @@ export interface Layout {
 	legend: Partial<Legend>;
 	font: Partial<Font>;
 	scene: Partial<Scene>;
+	barmode: "stack" | "group" | "overlay" | "relative";
 }
 
 export interface Legend extends Label {
@@ -318,22 +331,27 @@ export interface Axis {
 export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' |
 	'nanakshahi' | 'nepali' | 'persian' | 'jalali' | 'taiwan' | 'thai' | 'ummalqura';
 
+export type AxisName =
+	| 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9'
+	| 'y' | 'y2' | 'y3' | 'y4' | 'y5' | 'y6' | 'y7' | 'y8' | 'y9';
+
 export interface LayoutAxis extends Axis {
 	fixedrange: boolean;
-	scaleanchor: '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+	scaleanchor: AxisName;
 	scaleratio: number;
 	constrain: 'range' | 'domain';
 	constraintoward: 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom';
 	spikedash: string;
 	spikemode: string;
-	anchor: 'free' | '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+	anchor: 'free' | AxisName;
 	side: 'top' | 'bottom' | 'left' | 'right';
-	overlaying: 'free' | '/^x([2-9]|[1-9][0-9]+)?$/' | '/^y([2-9]|[1-9][0-9]+)?$/';
+	overlaying: 'free' | AxisName;
 	layer: 'above traces' | 'below traces';
 	domain: number[];
 	position: number;
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
+	automargin: boolean;
 }
 
 export interface SceneAxis extends Axis {
@@ -434,6 +452,25 @@ export interface ModeBarButton {
 export type Datum = string | number | Date | null;
 export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
 
+export interface ErrorOptions {
+	visible: boolean;
+	symmetric: boolean;
+	color: Color;
+	thickness: number;
+	width: number;
+	opacity: number;
+}
+
+export type ErrorBar = Partial<ErrorOptions> & ({
+	type: 'constant' | 'percent',
+	value: number,
+	valueminus?: number
+} | {
+	type: 'data',
+	array: Datum[],
+	arrayminus?: Datum[]
+});
+
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
 export type Data = Partial<PlotData>;
@@ -442,11 +479,15 @@ export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' | 'surface';
+	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
+		'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
+		'scatterpolar' | 'scatterternary' | 'surface';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
 	xy: Float32Array;
+	error_x: ErrorBar;
+	error_y: ErrorBar;
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];
@@ -491,6 +532,23 @@ export interface PlotData {
 	visible: boolean | 'legendonly';
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
+	boxmean: boolean | 'sd';
+	colorscale: string | Array<[number, string]>;
+	zsmooth: 'fast' | 'best' | false;
+	ygap: number;
+	xgap: number;
+	transpose: boolean;
+	autobinx: boolean;
+	xbins: {
+		start: number | string;
+		end: number | string;
+		size: number | string;
+	};
+	values: Datum[];
+	labels: Datum[];
+	hole: number;
+	theta: Datum[];
+	r: Datum[];
 }
 
 /**
@@ -523,6 +581,54 @@ export interface Transform {
 	value: any;
 	order: 'ascending' | 'descending';
 }
+
+export interface ColorBar {
+	thicknessmode: 'fraction' | 'pixels';
+	thickness: number;
+	lenmode: 'fraction' | 'pixels';
+	len: number;
+	x: number;
+	xanchor: 'left' | 'center' | 'right';
+	xpad: number;
+	y: number;
+	yanchor: 'top' | 'middle' | 'bottom';
+	ypad: number;
+	outlinecolor: Color;
+	outlinewidth: number;
+	bordercolor: Color;
+	borderwidth: Color;
+	bgcolor: Color;
+	tickmode: 'auto' | 'linear' | 'array';
+	nticks: number;
+	tick0: number | string;
+	dtick: number | string;
+	tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+	ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+	ticks: 'outside' | 'inside' | '';
+	ticklen: number;
+	tickwidth: number;
+	tickcolor: Color;
+	showticklabels: boolean;
+	tickfont: Font;
+	tickangle: number;
+	tickformat: string;
+	tickformatstops: {
+		dtickrange: any[];
+		value: string;
+	};
+	tickprefix: string;
+	showtickprefix: 'all' | 'first' | 'last' | 'none';
+	ticksuffix: string;
+	showticksuffix: 'all' | 'first' | 'last' | 'none';
+	separatethousands: boolean;
+	exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
+	showexponent: 'all' | 'first' | 'last' | 'none';
+	title: string;
+	titlefont: Font;
+	titleside: 'right' | 'top' | 'bottom';
+	tickvalssrc: any;
+	ticktextsrc: any;
+}
 /**
  * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
  * examples: "x", "y", "x+y", "x+y+z", "all"
@@ -531,6 +637,7 @@ export interface Transform {
 export interface PlotMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | Color[];
+	colors: Color[];
 	colorscale: string | string[] | Array<Array<(string | number)>>;
 	cauto: boolean;
 	cmax: number;
@@ -547,53 +654,7 @@ export interface PlotMarker {
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
 	width: number;
-	colorbar: {
-		thicknessmode: 'fraction' | 'pixels',
-		thickness: number,
-		lenmode: 'fraction' | 'pixels',
-		len: number,
-		x: number,
-		xanchor: 'left' | 'center' | 'right',
-		xpad: number,
-		y: number,
-		yanchor: 'top' | 'middle' | 'bottom',
-		ypad: number,
-		outlinecolor: Color,
-		outlinewidth: number,
-		bordercolor: Color,
-		borderwidth: Color,
-		bgcolor: Color,
-		tickmode: 'auto' | 'linear' | 'array',
-		nticks: number,
-		tick0: number | string,
-		dtick: number | string,
-		tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray,
-		ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray,
-		ticks: 'outside' | 'inside' | '',
-		ticklen: number,
-		tickwidth: number,
-		tickcolor: Color,
-		showticklabels: boolean,
-		tickfont: Font,
-		tickangle: number,
-		tickformat: string,
-		tickformatstops: {
-			dtickrange: any[],
-			value: string,
-		},
-		tickprefix: string,
-		showtickprefix: 'all' | 'first' | 'last' | 'none',
-		ticksuffix: string,
-		showticksuffix: 'all' | 'first' | 'last' | 'none',
-		separatethousands: boolean,
-		exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B',
-		showexponent: 'all' | 'first' | 'last' | 'none',
-		title: string,
-		titlefont: Font,
-		titleside: 'right' | 'top' | 'bottom',
-		tickvalssrc: any,
-		ticktextsrc: any,
-	};
+	colorbar: Partial<ColorBar>;
 	gradient: {
 		type: 'radial' | 'horizontal' | 'vertical' | 'none',
 		color: Color,
@@ -751,6 +812,9 @@ export interface Config {
 
 	/** Which localization should we use? Should be a string like 'en' or 'en-US' */
 	locale: string;
+
+	/** Make the chart responsive to window size */
+	responsive: boolean;
 }
 
 // Components

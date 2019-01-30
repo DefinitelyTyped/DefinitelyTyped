@@ -10,7 +10,10 @@ export default class Comment extends VoteableContent<Comment> {
   collapsed_reason: any; // ?
   collapsed: boolean;
   controversiality: number;
+  depth: number;
   ignore_reports: boolean;
+  /** True if comment author is the same as the Submission author */
+  is_submitter: boolean;
   link_id: string;
   parent_id: string;
   removed: boolean;

@@ -61,7 +61,7 @@ declare namespace Q {
 		 * The then method from the Promises/A+ specification, with an additional progress handler.
 		 */
 		then<U>(onFulfill?: ((value: T) => IWhenable<U>) | null, onReject?: ((error: any) => IWhenable<U>) | null, onProgress?: ((progress: any) => any) | null): Promise<U>;
-
+		then<U = T, V = never>(onFulfill?: ((value: T) => IWhenable<U>) | null, onReject?: ((error: any) => IWhenable<V>) | null, onProgress?: ((progress: any) => any) | null): Promise<U | V>;
 		/**
 		 * Like a finally clause, allows you to observe either the fulfillment or rejection of a promise, but to do so
 		 * without modifying the final value. This is useful for collecting resources regardless of whether a job succeeded,

@@ -1766,6 +1766,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
     fp.filter("", dictionary); // $ExpectType AbcObject[]
     fp.filter({ a: 42 }, dictionary); // $ExpectType AbcObject[]
     fp.filter(["a", 42], dictionary); // $ExpectType AbcObject[]
+    fp.filter((s: string) => s === "a")(["a", "b"]); // $ExpectType string[]
+    fp.filter((s: string) => s === "a")("ab"); // $ExpectType string[]
 
     // Test filtering with type guard
     const a2: Array<string | number> | null | undefined = anything;
@@ -2337,7 +2339,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
-    fp.forEach(stringIterator, ""); // $ExpectType string
+    fp.forEach(stringIterator, ""); // $ExpectType ArrayLike<string>
     fp.forEach(valueIterator, array); // $ExpectType AbcObject[]
     fp.forEach(valueIterator)(array); // $ExpectType AbcObject[]
     fp.forEach(valueIterator, list); // $ExpectType ArrayLike<AbcObject>
@@ -3467,7 +3469,7 @@ fp.now(); // $ExpectType number
         delete(key: string) { return true; },
         get(key: string): any { return 1; },
         has(key: string) { return true; },
-        set(key: string, value: any): _.Dictionary<any> { return {}; },
+        set(key: string, value: any): _.MapCache { return this; },
         clear() { },
     };
 
@@ -3484,6 +3486,11 @@ fp.now(); // $ExpectType number
 
     // $ExpectType MapCache
     new _.memoize.Cache();
+    _.memoize.Cache = WeakMap;
+    _.memoize.Cache = Map;
+    const memoizedFn = _.memoize(memoizeFn);
+    memoizedFn.cache = new WeakMap();
+    memoizedFn.cache = new Map();
 }
 
 // _.overArgs
@@ -4200,7 +4207,7 @@ fp.now(); // $ExpectType number
 
 // _.isMatchWith
 {
-    const testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol) => true;
+    const testIsMatchCustiomizerFn = (value: any, other: any, indexOrKey: number|string|symbol, object: object, source: object) => true;
 
     _.isMatchWith({}, {}, testIsMatchCustiomizerFn); // $ExpectType boolean
     _({}).isMatchWith({}, testIsMatchCustiomizerFn); // $ExpectType boolean

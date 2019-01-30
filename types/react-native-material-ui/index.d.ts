@@ -1,11 +1,14 @@
-// Type definitions for react-native-material-ui 1.30
+// Type definitions for react-native-material-ui 1.31
 // Project: https://github.com/xotahal/react-native-material-ui
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import { Component } from 'react';
-import { ViewStyle, TextStyle, Image } from 'react-native';
+import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image } from 'react-native';
+
+export type ViewStyle = StyleProp<ViewStyleRaw>;
+export type TextStyle = StyleProp<TextStyleRaw>;
 
 export interface ActionButtonProps {
     actions?: string[] | JSX.Element[] | Array<{

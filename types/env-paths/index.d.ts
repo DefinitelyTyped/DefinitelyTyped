@@ -5,7 +5,7 @@
 
 export = envPaths;
 
-declare function envPaths(name: string, opts?: { suffix: string; }): envPaths.Paths;
+declare function envPaths(name: string, opts?: { suffix: string | boolean }): envPaths.Paths;
 
 declare namespace envPaths {
   interface Paths {

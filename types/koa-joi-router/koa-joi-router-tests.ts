@@ -1,3 +1,4 @@
+import koa = require('koa');
 import router = require('koa-joi-router');
 
 const { Joi } = router;
@@ -5,7 +6,7 @@ const { Joi } = router;
 const spec1: router.Spec = {
     path: '/user',
     method: 'POST',
-    handler: (ctx: router.Context) => ctx.body = '',
+    handler: (ctx: koa.Context) => ctx.body = '',
 };
 
 router().route(spec1);
@@ -16,7 +17,7 @@ const spec2: router.Spec = {
   validate: {
     type: 'json',
   },
-  handler: (ctx: router.Context) => ctx.status = 201,
+  handler: (ctx: koa.Context) => ctx.status = 201,
 };
 
 router().route(spec2);
@@ -28,7 +29,7 @@ const spec3: router.Spec = {
     type: 'json',
     body: Joi.any(),
   },
-  handler: (ctx: router.Context) => ctx.status = 201,
+  handler: (ctx: koa.Context) => ctx.status = 201,
 };
 
 router().route(spec3);
@@ -42,7 +43,7 @@ const spec4: router.Spec = {
       201: Joi.object(),
     }
   },
-  handler: (ctx: router.Context) => {
+  handler: (ctx: koa.Context) => {
     ctx.status = 201;
     ctx.body = {};
   },
@@ -53,7 +54,7 @@ router().route(spec4);
 const spec5: router.Spec = {
   method: 'PUT',
   path: '/user',
-  handler: (ctx: router.Context) => {
+  handler: (ctx: koa.Context) => {
     ctx.status = 201;
     ctx.body = ctx.request.body;
   },
@@ -64,7 +65,7 @@ router().route(spec5);
 const spec6: router.Spec = {
   method: 'GET',
   path: '/user',
-  handler: (ctx: router.Context) => {
+  handler: (ctx: koa.Context) => {
     ctx.status = 201;
     ctx.body = ctx.request.params;
   },
@@ -81,7 +82,7 @@ const spec7: router.Spec = {
       name: Joi.string(),
     }
   },
-  handler: (ctx: router.Context) => {
+  handler: (ctx: koa.Context) => {
     ctx.status = 201;
     ctx.body = ctx.request.params;
   },
@@ -97,7 +98,7 @@ const spec8: router.Spec = {
       authentication: Joi.string(),
     }
   },
-  handler: (ctx: router.Context) => {
+  handler: (ctx: koa.Context) => {
     ctx.status = 201;
     ctx.body = ctx.request.params;
   },
@@ -108,3 +109,34 @@ router().route(spec8);
 router().route([spec1, spec2, spec3]);
 
 router().routes.map(({ path }) => path);
+
+const handler1 = async (ctx: koa.Context) => {
+  ctx.body = 'hello world';
+};
+
+router().get('/', handler1);
+
+router().get('/', {meta: {desc: 'desc'}}, handler1);
+
+const middleware1 = async (ctx: koa.Context, next: () => Promise<any>) => {
+  console.log('middleware1');
+  await next();
+};
+
+router().get('/', middleware1, handler1);
+
+const middleware2 = async (ctx: koa.Context, next: () => Promise<any>) => {
+  console.log('middleware2');
+  await next();
+};
+
+router().get('/', [middleware1, middleware2], handler1);
+
+router().use(middleware1);
+
+router().use('/:id', middleware1);
+
+router().param('/:id', async (id: string, ctx: koa.Context, next: () => Promise<any>) => {
+  ctx.state.id = id;
+  await next();
+});

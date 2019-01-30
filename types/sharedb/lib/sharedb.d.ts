@@ -1,3 +1,5 @@
+import { EventEmitter } from 'events';
+
 export type Path = ReadonlyArray<string|number>;
 export type Snapshot = number;
 
@@ -29,7 +31,6 @@ export interface RawOp {
     d: string;
 }
 export type OTType = 'ot-text' | 'ot-json0' | 'ot-text-tp2' | 'rich-text';
-export type Action = 'connect'|'op'|'doc'|'query'|'submit'|'apply'|'commit'|'after submit'|'receive';
 export interface Error {
     code: number;
     message: string;
@@ -41,27 +42,44 @@ export interface ShareDBSourceOptions { source?: boolean; }
 
 export type Callback = (err: Error) => any;
 
-export class Doc {
+export type DocEvent = 'load' | 'create' | 'before op' | 'op' | 'del' | 'error' | 'no write pending' | 'nothing pending';
+
+export class Doc extends EventEmitter {
     type: string;
     id: string;
     data: any;
     fetch: (callback: (err: Error) => void) => void;
     subscribe: (callback: (err: Error) => void) => void;
-    on: (event: 'load'|'create'|'before op'|'op'|'del'|'error', callback: (...args: any[]) => any) => void;
-    ingestSnapshot: (snapshot: Snapshot, callback: Callback) => void;
-    destroy: () => void;
+
+    on(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
+    on(event: 'create', callback: (source: boolean) => void): this;
+    on(event: 'op' | 'before op', callback: (ops: Op[], source: boolean) => void): this;
+    on(event: 'del', callback: (data: any, source: boolean) => void): this;
+    on(event: 'error', callback: (err: Error) => void): this;
+
+    addListener(event: 'load' | 'no write pending' | 'nothing pending', callback: () => void): this;
+    addListener(event: 'create', callback: (source: boolean) => void): this;
+    addListener(event: 'op' | 'before op', callback: (ops: Op[], source: boolean) => void): this;
+    addListener(event: 'del', callback: (data: any, source: boolean) => void): this;
+    addListener(event: 'error', callback: (err: Error) => void): this;
+
+    ingestSnapshot(snapshot: Snapshot, callback: Callback): void;
+    destroy(): void;
     create(data: any, callback?: Callback): void;
     create(data: any, type?: OTType, callback?: Callback): void;
     create(data: any, type?: OTType, options?: ShareDBSourceOptions, callback?: Callback): void;
-    submitOp: (data: ReadonlyArray<Op>, options?: ShareDBSourceOptions, callback?: Callback) => void;
-    del: (options: ShareDBSourceOptions, callback: (err: Error) => void) => void;
-    removeListener: (eventName: string, listener: () => any) => void;
+    submitOp(data: ReadonlyArray<Op>, options?: ShareDBSourceOptions, callback?: Callback): void;
+    del(options: ShareDBSourceOptions, callback: (err: Error) => void): void;
+    whenNothingPending(callback: (err: Error) => void): void;
 }
 
-export class Query {
+export type QueryEvent = 'ready' | 'error' | 'changed' | 'insert' | 'move' | 'remove' | 'extra';
+export class Query extends EventEmitter {
     ready: boolean;
     results: Doc[];
     extra: any;
-    on: (event: 'ready'|'error'|'changed'|'insert'|'move'|'remove'|'extra', callback: (...args: any[]) => any) => any;
-    destroy: () => void;
+    on(event: QueryEvent, callback: (...args: any[]) => any): this;
+    addListener(event: QueryEvent, callback: (...args: any[]) => any): this;
+    removeListener(event: QueryEvent, listener: (...args: any[]) => any): this;
+    destroy(): void;
 }

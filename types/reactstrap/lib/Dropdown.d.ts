@@ -5,7 +5,7 @@ export type Direction =
   | "up"
   | "down"
   | "left"
-  | "right"
+  | "right";
 
 export type UncontrolledProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;

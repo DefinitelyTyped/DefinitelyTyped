@@ -1,4 +1,4 @@
-// Type definitions for nodegit 0.22
+// Type definitions for nodegit 0.24
 // Project: https://github.com/nodegit/nodegit
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>, Tobias Nießen <https://github.com/tniessen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -79,7 +79,7 @@ export { Refspec } from './ref-spec';
 export { Reference } from './reference';
 export { RemoteCallbacks } from './remote-callbacks';
 export { Remote } from './remote';
-export { Repository } from './repository';
+export { Repository, RepositoryInitOptions } from './repository';
 export { Reset } from './reset';
 export { Revparse } from './rev-parse';
 export { Revwalk } from './rev-walk';

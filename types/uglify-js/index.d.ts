@@ -165,7 +165,7 @@ export interface OutputOptions {
     indent_start?: boolean;
     inline_script?: boolean;
     keep_quoted_props?: boolean;
-    max_line_len?: boolean;
+    max_line_len?: boolean | number;
     preamble?: string;
     preserve_line?: boolean;
     quote_keys?: boolean;

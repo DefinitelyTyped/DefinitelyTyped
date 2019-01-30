@@ -46,8 +46,8 @@ class Message extends DS.Model.extend({
     comments: DS.belongsTo('comment')
 }) {}
 
-declare module 'ember-data' {
-    interface ModelRegistry {
+declare module 'ember-data/types/registries/model' {
+    export default interface ModelRegistry {
         'message-for-serializer': Message;
     }
 }

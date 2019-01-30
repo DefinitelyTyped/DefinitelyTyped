@@ -23,6 +23,7 @@ export type RelayMutationRequest = any;
 export type RelayQueryRequest = any;
 export type ConcreteFragmentDefinition = object;
 export type ConcreteOperationDefinition = object;
+export type ReaderFragment = object;
 
 /**
  * FIXME: RelayContainer used to be typed with ReactClass<any>, but
@@ -137,6 +138,24 @@ export type SubscribeFunction = (
     cacheConfig: CacheConfig,
     observer: LegacyObserver<QueryPayload>
 ) => RelayObservable<QueryPayload> | Disposable;
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// RelayQueryResponseCache
+// Version: Relay 1.3.0
+// File: https://github.com/facebook/relay/blob/master/packages/relay-runtime/network/RelayQueryResponseCache.js
+// ~~~~~~~~~~~~~~~~~~~~~
+
+/**
+ * A cache for storing query responses, featuring:
+ * - `get` with TTL
+ * - cache size limiting, with least-recently *updated* entries purged first
+ */
+export class QueryResponseCache {
+    constructor(options: {size: number; ttl: number});
+    clear(): void;
+    get(queryID: string, variables: Variables): QueryPayload | null;
+    set(queryID: string, variables: Variables, payload: QueryPayload): void;
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayStoreTypes

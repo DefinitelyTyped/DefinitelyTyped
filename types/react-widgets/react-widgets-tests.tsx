@@ -78,6 +78,12 @@ class Test extends React.Component<React.Props<{}>> {
                     delay={300}
                     name="box"
                 />
+                <Combobox
+                    busy
+                    busySpinner={
+                      <span className="fas fa-sync fa-spin" />
+                    }
+                />
                 <DateTimePicker
                     autoFocus
                     open="date"
@@ -103,6 +109,9 @@ class Test extends React.Component<React.Props<{}>> {
                     tabIndex={-1}
                     name="list"
                 />
+            </div>
+            <div>
+                <DateTimePicker dropUp={true} containerClassName="d-flex" timeIcon={<i className="fa fa-clock" />} />
             </div>
         </div>
         );

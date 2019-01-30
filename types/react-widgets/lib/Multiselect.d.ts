@@ -122,10 +122,9 @@ interface MultiselectProps extends ReactWidgetsCommonDropdownProps<MultiselectCl
      * You can explicitly opt out of filtering by setting filter to false. To handle custom
      * filtering techniques provide a function that returns true or false for each passed in
      * item (analogous to the array.filter builtin)
-     * @enum false "startsWith" "endsWith" "contains" function(String item)
      * @default startsWith
      */
-    filter?: boolean | "startsWith" | "endsWith" | "contains" | ((dataItem: any, searchTerm: string) => boolean);
+    filter?: false | "startsWith" | "endsWith" | "contains" | ((dataItem: any, searchTerm: string) => boolean);
     /**
      * Use in conjunction with the filter prop. Filter the list without regard for case. This
      * only applies to non function values for filter.

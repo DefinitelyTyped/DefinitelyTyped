@@ -2,6 +2,7 @@
 // Project: https://github.com/captbaritone/raven-for-redux
 // Definitions by: Daniel Chiu <https://github.com/chiubaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Action, Middleware } from "redux";
 import * as Raven from "raven-js";

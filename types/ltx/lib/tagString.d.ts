@@ -1,1 +1,1 @@
-export declare function tagString(d: any): string;
+export function tagString(literals: string[], ...substitutions: string[]): string;

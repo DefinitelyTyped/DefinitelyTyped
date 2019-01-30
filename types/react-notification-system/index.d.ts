@@ -18,8 +18,8 @@ declare namespace NotificationSystem {
     export type CallBackFunction = (notification: Notification) => void;
 
     export interface Notification {
-        title?: string;
-        message?: string;
+        title?: string | JSX.Element;
+        message?: string | JSX.Element;
         level?: "error" | "warning" | "info" | "success";
         position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc";
         autoDismiss?: number;

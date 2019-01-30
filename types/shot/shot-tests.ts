@@ -2,28 +2,19 @@
 
 // Load modules
 
-import Http = require('http');
-import Shot = require('shot');
+import { IncomingMessage, ServerResponse, createServer } from 'http';
+import { inject } from 'shot';
 
 // Declare internals
 
-const internals: any = {};
-
-internals.main = function () {
-
-    const dispatch = function (req: Http.IncomingMessage, res: Http.ServerResponse) {
-
+async function main() {
+    const dispatch = (req: IncomingMessage, res: ServerResponse) => {
         const reply = 'Hello World';
         res.writeHead(200, { 'Content-Type': 'text/plain', 'Content-Length': reply.length });
         res.end(reply);
     };
 
-    const server = Http.createServer(dispatch);
+    const server = createServer(dispatch);
 
-    Shot.inject(dispatch, { method: 'get', url: '/' }, (res) => {
-
-        console.log(res.payload);
-    });
-};
-
-internals.main();
+    console.log((await inject(dispatch, { method: 'get', url: '/', headers: { test: 'asd', test2: ['a', 'b'] } })).payload);
+}

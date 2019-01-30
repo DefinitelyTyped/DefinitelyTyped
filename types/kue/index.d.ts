@@ -78,6 +78,8 @@ export declare class Job extends events.EventEmitter {
     public failed_at: string | number;
     public started_at: string | number;
     public client: redisClientFactory.RedisClient;
+    public workerId: string;
+    private _error: string;
     private _max_attempts;
 
     static priorities: Priorities;

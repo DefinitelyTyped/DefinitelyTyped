@@ -21,7 +21,7 @@ export function encodeRaw(
 ): Buffer;
 
 export function encode(
-    version: number | WIFReturn,
+    version: number,
     privateKey: Buffer,
     compressed: boolean
-): Buffer;
+): string;

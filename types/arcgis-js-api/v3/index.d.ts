@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.25
+// Type definitions for ArcGIS API for JavaScript 3.27
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -560,7 +560,7 @@ declare module "esri" {
     /** An array of driving time break values. */
     breakValues?: number[];
     /** The point feature layer around which drive-time areas will be drawn. */
-    inputLayer: FeatureLayer;
+    inputLayers: FeatureLayer[];
     /** The geometry type of the input layer. */
     inputType?: string;
     /** Reference to the map object. */
@@ -1351,6 +1351,8 @@ declare module "esri" {
     clip?: number;
     /** If the widget is enabled and layers can be swiped. */
     enabled?: boolean;
+    /** Indicates whether layer placement should be inverted (switched). */
+    invertPlacement?: boolean;
     /** The layers to be swiped. */
     layers: Layer[];
     /** The number of pixels to place the tool from the left of the map. */
@@ -1897,6 +1899,8 @@ declare module "esri" {
   export interface ReportPlayerOptions {
     /** Indicates whether left and right arrows key can be used to paginate when viewMode is set to PlayerViewModes.PANELS_IN_SLIDES. */
     allowKeyboardNavigation?: boolean;
+    /** As of version 3.26 Configuration to specify the location of the JavaScript API to use when exporting an Infographic to Dynamic HTML. */
+    config?: any;
     /** Specifies which export options are available for the report. */
     dataProvider?: DataProviderGE;
     /** Specifies how the ReportPlayer should zoom by default. */
@@ -2530,7 +2534,7 @@ declare module "esri/Credential" {
   class Credential {
     /** Token expiration time specified as number of milliseconds since 1 January 1970 00:00:00 UTC. */
     expires: number;
-    /** Indicates whether this credential belongs to a user with admin privileges. */
+    /** Indicates that this credential was created to access the ArcGIS REST Admin service */
     isAdmin: boolean;
     /** The Identity Manager's  setOAuthRedirectionHandler returns an object that contains a "state" parameter. */
     oAuthState: any;
@@ -2598,6 +2602,12 @@ declare module "esri/IdentityManagerBase" {
     tokenValidity: number;
     /** If your application is on the same domain as *.arcgis.com or ArcGIS Enterprise Server, the IdentityManager will redirect the user to its sign-in page. */
     useSignInPage: boolean;
+    /**
+     * Returns a Credential object if the user has already signed in to access the given resource and is allowed to do so when using the given application id.
+     * @param resUrl The resource URL.
+     * @param appId The registered OAuth application id.
+     */
+    checkAppAccess(resUrl: string, appId: string): any;
     /**
      * Returns the credential (via Deferred) if the user has already signed in to access the given resource.
      * @param resUrl The resource URL.
@@ -2889,7 +2899,7 @@ declare module "esri/SnappingManager" {
 }
 
 declare module "esri/SpatialReference" {
-  /** The spatial reference of a map, layer, or inputs to and outputs from a task. */
+  /** Defines the spatial reference of a map, layer, or task parameters. */
   class SpatialReference {
     /** The well-known ID of a spatial reference. */
     wkid: number;
@@ -2949,6 +2959,54 @@ declare module "esri/TimeExtent" {
     offset(offsetValue: number, offsetUnits: string): TimeExtent;
   }
   export = TimeExtent;
+}
+
+declare module "esri/arcadeProfiles/fieldCalculateProfile" {
+  /** Module that implements the Arcade field calculate profile in web apps that calculate field values using Arcade expressions. */
+  var fieldCalculateProfile: {
+    /**
+     * Initializes the field calculate profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in the calculate profile.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = fieldCalculateProfile;
+}
+
+declare module "esri/arcadeProfiles/labelingProfile" {
+  /** Module that implements the Arcade labeling profile in web apps that label features using Arcade expressions. */
+  var labelingProfile: {
+    /**
+     * Initializes the labeling profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in a label class.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = labelingProfile;
+}
+
+declare module "esri/arcadeProfiles/popupProfile" {
+  /** Module that implements the Arcade popup profile for web apps that contain popups that reference Arcade expressions. */
+  var popupProfile: {
+    /**
+     * Initializes the popup profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in a popup template.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = popupProfile;
+}
+
+declare module "esri/arcadeProfiles/visualizationProfile" {
+  /** Module that implements the Arcade visualization profile in web apps that render features using Arcade expressions. */
+  var visualizationProfile: {
+    /**
+     * Initializes the visualization profile for the given Arcade expressions.
+     * @param expressions An array of Arcade expressions intended for use in a renderer.
+     */
+    initialize(expressions: string[]): any;
+  };
+  export = visualizationProfile;
 }
 
 declare module "esri/arcgis/OAuthInfo" {
@@ -3506,7 +3564,7 @@ declare module "esri/dijit/Attribution" {
     /**
      * Creates a new Attribution object.
      * @param options An object that defines the attribution options.
-     * @param srcNodeRef HTML element where the time slider should be rendered.
+     * @param srcNodeRef HTML element where the attribution widget should be rendered.
      */
     constructor(options: esri.AttributionOptions, srcNodeRef: Node | string);
     /** Destroy the attribution widget. */
@@ -4825,6 +4883,8 @@ declare module "esri/dijit/LayerSwipe" {
     clip: number;
     /** If the widget is enabled and layers can be swiped. */
     enabled: boolean;
+    /** Indicates whether layer placement should be inverted (switched). */
+    invertPlacement: boolean;
     /** The layers to be swiped. */
     layers: Layer[];
     /** The number of pixels to place the tool from the left of the map. */
@@ -6283,7 +6343,7 @@ declare module "esri/dijit/analysis/CreateDriveTimeAreas" {
     /** An array of driving time break values. */
     breakValues: number[];
     /** The point feature layer around which drive-time areas will be drawn. */
-    inputLayer: FeatureLayer;
+    inputLayers: FeatureLayer[];
     /** The geometry type of the input layer. */
     inputType: string;
     /** Reference to the map object. */
@@ -7584,6 +7644,8 @@ declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
   class ReportPlayer {
     /** Indicates whether left and right arrows key can be used to paginate when viewMode is set to PlayerViewModes.PANELS_IN_SLIDES. */
     allowKeyboardNavigation: boolean;
+    /** Configuration to specify the location of the JavaScript API to use when exporting an Infographic to Dynamic HTML. */
+    config: any;
     /** Data Provider for the ReportPlayer which allows you to specify which export options are available when running the report. */
     dataProvider: DataProviderGE;
     /** Specifies how the ReportPlayer should zoom by default. */
@@ -7607,7 +7669,7 @@ declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
      * @param params Various parameters that can be used to configure the ReportPlayer.
      * @param srcNode Reference or id of the HTML element where the widget should be rendered.
      */
-    constructor(params: esri.ReportPlayerOptions, srcNode?: Node | string);
+    constructor(params?: esri.ReportPlayerOptions, srcNode?: Node | string);
     /**
      * Generates the report for the supplied parameters.
      * @param dataProviderParams See the object specifications table below for the structure of the dataProviderParams object.
@@ -9069,6 +9131,8 @@ declare module "esri/graphic" {
     getNode(): any;
     /** Returns one or more DOM nodes used to draw the graphic. */
     getNodes(): any;
+    /** Applicable to label graphics. */
+    getParentGraphic(): Graphic;
     /** Returns the dojox/gfx/shape.Shape of the Esri graphic. */
     getShape(): any;
     /** Returns one or more dojox/gfx/shape.Shape used to draw the graphic. */
@@ -10310,6 +10374,8 @@ declare module "esri/layers/FeatureLayer" {
     on(type: "query-limit-exceeded", listener: (event: { target: FeatureLayer }) => void): esri.Handle;
     /** Fires when queryRelatedFeatures() is complete. */
     on(type: "query-related-features-complete", listener: (event: { relatedFeatures: any; target: FeatureLayer }) => void): esri.Handle;
+    /** Fires right before the actual refresh kicks in for the layer, and only fires when the refresh is triggered by the refreshInterval. */
+    on(type: "refresh-tick", listener: (event: { target: FeatureLayer }) => void): esri.Handle;
     /** Fires when a layer resumes drawing. */
     on(type: "resume", listener: (event: { target: FeatureLayer }) => void): esri.Handle;
     /** Fires when a layer's minScale and/or maxScale is changed. */
@@ -12415,7 +12481,7 @@ declare module "esri/map" {
     getMinScale(): number;
     /** Returns the minimum zoom level of the map. */
     getMinZoom(): number;
-    /** Returns the current map scale. */
+    /** Returns the map scale at the center of the view. */
     getScale(): number;
     /** Returns the current zoom level of the map. */
     getZoom(): number;

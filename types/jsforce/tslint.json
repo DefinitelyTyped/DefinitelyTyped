@@ -2,9 +2,19 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODOs
+        "array-type": false,
         "ban-types": false,
+        "eofline": false,
+        "max-line-length": false,
         "no-any-union": false,
+        "no-empty-interface": false,
+        "no-redundant-undefined": false,
         "no-unnecessary-class": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-generics": false,
+        "semicolon": false,
+        "space-within-parens": false,
+        "strict-export-declare-modifiers": false,
+        "typedef-whitespace": false,
+        "whitespace": false
     }
 }

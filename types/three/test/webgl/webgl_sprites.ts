@@ -129,7 +129,7 @@
         var width = window.innerWidth / 2;
         var height = window.innerHeight / 2;
 
-        var material = spriteTL.material;
+        var material = spriteTL.material as THREE.SpriteMaterial;
 
         var imageWidth = material.map.image.width / 2;
         var imageHeight = material.map.image.height / 2;
@@ -176,7 +176,7 @@
         for ( var i = 0, l = group.children.length; i < l; i ++ ) {
 
             var sprite = group.children[ i ] as THREE.Sprite;
-            var material = sprite.material;
+            var material = sprite.material as THREE.SpriteMaterial;
             var scale = Math.sin( time + sprite.position.x * 0.01 ) * 0.3 + 1.0;
 
             var imageWidth = 1;
@@ -189,7 +189,7 @@
 
             }
 
-            sprite.material.rotation += 0.1 * ( i / l );
+            material.rotation += 0.1 * ( i / l );
             sprite.scale.set( scale * imageWidth, scale * imageHeight, 1.0 );
 
             if ( material.map !== mapC ) {

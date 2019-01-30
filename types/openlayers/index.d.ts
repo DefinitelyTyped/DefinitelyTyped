@@ -5349,6 +5349,75 @@ export namespace interaction {
         static createRegularPolygon(opt_sides?: number, opt_angle?: number): ol.DrawGeometryFunctionType;
     }
 
+    namespace Extent {
+        /**
+         * @classdesc
+         * Events emitted by {@link ol.interaction.Extent} instances are instances of
+         * this type.
+         *
+         * @param extent the new extent
+         */
+        class Event extends events.Event {
+            /**
+             * @classdesc
+             * Events emitted by {@link ol.interaction.Extent} instances are instances of
+             * this type.
+             *
+             * @param type Type.
+             * @param feature The feature drawn.
+             */
+            constructor(type: ExtentEventType, extent: ol.Extent);
+
+            /**
+             * The current extent.
+             * @api stable
+             */
+            extent: ol.Extent;
+        }
+    }
+
+    type ExtentEventType = string;
+
+    /**
+     * @classdesc
+     * Allows the user to draw a vector box by clicking and dragging on the map.
+     * Once drawn, the vector box can be modified by dragging its vertices or edges.
+     * This interaction is only supported for mouse devices.
+     *
+     * @fires ol.interaction.Extent.Event
+     * @param options Options.
+     * @api stable
+     */
+    class Extent extends Pointer {
+        /**
+         * @fires ol.interaction.Extent.Event
+         * @param options Options.
+         * @api stable
+         */
+        constructor(options: olx.interaction.ExtentOptions);
+
+        /**
+         * @inheritDoc
+         */
+        setMap(map: ol.Map): void;
+
+        /**
+         * Returns the current drawn extent in the view projection
+         *
+         * @return Drawn extent in the view projection.
+         * @api
+         */
+        getExtent(): ol.Extent;
+
+        /**
+         * Manually sets the drawn extent, using the view projection.
+         *
+         * @param extent Extent
+         * @api
+         */
+        setExtent(extent: ol.Extent): void;
+    }
+
     /**
      * Set of interactions included in maps by default. Specific interactions can be
      * excluded by setting the appropriate option to false in the constructor
@@ -11786,6 +11855,15 @@ export namespace olx {
             freehandCondition?: ol.EventsConditionType;
             freehand?: boolean;
             wrapX?: boolean;
+            stopClick?: boolean;
+        }
+
+        interface ExtentOptions {
+            extent?: ol.Extent;
+            boxStyle?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
+            pixelTolerance?: number;
+            pointerStyle?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
+            wrapX?: boolean;
         }
 
         interface TranslateOptions {
@@ -12494,6 +12572,7 @@ export namespace olx {
         renderer?: (ol.RendererType | Array<(ol.RendererType | string)> | string);
         target?: (Element | string);
         view?: ol.View;
+        moveTolerance?: number;
     }
 
     /**

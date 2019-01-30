@@ -46,6 +46,7 @@ export type PluginName =
     'estree' |
     'jsx' |
     'flow' |
+    'typescript' |
     'classConstructorCall' |
     'doExpressions' |
     'objectRestSpread' |

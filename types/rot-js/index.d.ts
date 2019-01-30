@@ -2,6 +2,7 @@
 // Project: https://github.com/ondras/rot.js
 // Definitions by: Roger Ostrander <https://github.com/atiaxi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // Extensions (thanks, https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html )
 declare global {
@@ -353,7 +354,7 @@ export interface RNGable {
     getUniformInt(lowerBound: number, upperBound: number): number;
     getNormal(mean?: number, stddev?: number): number;
     getPercentage(): number;
-    getWeightedValue<T>(data: { T: number }): T;
+    getWeightedValue<K extends string>(data: Record<K, number>): K;
     getState(): [number, number, number, number];
     setState(state: [number, number, number, number]): RNGable;
     clone(): RNGable;

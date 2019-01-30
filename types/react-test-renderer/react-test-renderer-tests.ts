@@ -43,14 +43,14 @@ function testInstance(inst: ReactTestInstance) {
     inst.props = {
         prop1: "p",
     };
-    inst.type = "t";
-    testInstance(inst.find(n => n.type === "t"));
+    inst.type = "a";
+    testInstance(inst.find(n => n.type === "a"));
     testInstance(inst.findByProps({ prop1: "p" }));
-    testInstance(inst.findByType("t"));
+    testInstance(inst.findByType("a"));
     testInstance(inst.findByType(TestComponent));
     inst.findAll(n => n.type === "t", { deep: true }).map(testInstance);
     inst.findAllByProps({ prop1: "p" }, { deep: true }).map(testInstance);
-    inst.findAllByType("t", { deep: true }).map(testInstance);
+    inst.findAllByType("a", { deep: true }).map(testInstance);
     inst.findAllByType(TestComponent, { deep: true }).map(testInstance);
 }
 

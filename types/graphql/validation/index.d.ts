@@ -1,7 +1,6 @@
 export { validate } from "./validate";
 
-import ValidationContext from "./ValidationContext";
-export { ValidationContext };
+export { ValidationContext } from "./ValidationContext";
 
 export { specifiedRules } from "./specifiedRules";
 
@@ -45,7 +44,7 @@ export { OverlappingFieldsCanBeMerged as OverlappingFieldsCanBeMergedRule } from
 export { PossibleFragmentSpreads as PossibleFragmentSpreadsRule } from "./rules/PossibleFragmentSpreads";
 
 // Spec Section: "Argument Optionality"
-export { ProvidedNonNullArguments as ProvidedNonNullArgumentsRule } from "./rules/ProvidedNonNullArguments";
+export { ProvidedRequiredArguments as ProvidedRequiredArgumentsRule } from "./rules/ProvidedRequiredArguments";
 
 // Spec Section: "Leaf Field Selections"
 export { ScalarLeafs as ScalarLeafsRule } from "./rules/ScalarLeafs";
@@ -76,9 +75,6 @@ export { ValuesOfCorrectType as ValuesOfCorrectTypeRule } from "./rules/ValuesOf
 
 // Spec Section: "Variables are Input Types"
 export { VariablesAreInputTypes as VariablesAreInputTypesRule } from "./rules/VariablesAreInputTypes";
-
-// Spec Section: "Variables Default Value Is Allowed"
-export { VariablesDefaultValueAllowed as VariablesDefaultValueAllowedRule } from "./rules/VariablesDefaultValueAllowed";
 
 // Spec Section: "All Variable Usages Are Allowed"
 export { VariablesInAllowedPosition as VariablesInAllowedPositionRule } from "./rules/VariablesInAllowedPosition";

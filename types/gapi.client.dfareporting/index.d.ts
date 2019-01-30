@@ -2237,7 +2237,7 @@ declare namespace gapi.client {
             /** Tag format type for the floodlight activity. If left blank, the tag format will default to HTML. */
             tagFormat?: string;
             /**
-             * Value of the cat= paramter in the floodlight tag, which the ad servers use to identify the activity. This is optional: if empty, a new tag string will
+             * Value of the cat= parameter in the floodlight tag, which the ad servers use to identify the activity. This is optional: if empty, a new tag string will
              * be generated for you. This string must be 1 to 8 characters long, with valid characters being [a-z][A-Z][0-9][-][ _ ]. This tag string must also be
              * unique among activities of the same activity group. This field is read-only after insertion.
              */

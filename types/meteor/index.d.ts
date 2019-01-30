@@ -8,6 +8,8 @@
 //                 Arda TANRIKULU <https://github.com/ardatan>
 //                 Stefan Holzapfel <https://github.com/stefanholzapfel>
 //                 Andrey Markeev <https://github.com/andrei-markeev>
+//                 Leon Machens <https://github.com/lmachens>
+//                 Arthur Gunn <https://github.com/gunn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
