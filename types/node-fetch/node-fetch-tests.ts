@@ -79,6 +79,6 @@ function test_headersRaw() {
 }
 
 function test_isRedirect() {
-        fetch.isRedirect(301);
-        fetch.isRedirect(201);
+    fetch.isRedirect(301);
+    fetch.isRedirect(201);
 }
