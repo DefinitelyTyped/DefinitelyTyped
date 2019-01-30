@@ -139,7 +139,8 @@ export type RelayPaginationProp = RelayProp & {
     isLoading(): boolean;
     loadMore(
         pageSize: number,
-        callback?: (error?: Error) => void
+        callback?: ((error?: Error) => void) | null,
+        options?: RefetchOptions
     ): RelayRuntimeTypes.Disposable | undefined | null;
     refetchConnection(
         totalCount: number,
