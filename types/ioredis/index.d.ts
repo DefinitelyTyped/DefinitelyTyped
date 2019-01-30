@@ -216,9 +216,8 @@ declare namespace IORedis {
         smembers(key: KeyType, callback: (err: Error, res: any) => void): void;
         smembers(key: KeyType): Promise<any>;
 
-        zadd(key: KeyType, ...args: string[]): Promise<number | string>;
+        zadd(key: KeyType, ...args: Array<[ number, string ] | string>): Promise<number | string>;
         zadd(key: KeyType, score: number, member: string): Promise<number | string>;
-        zadd(key: KeyType, ...args: Array<[ number, string ]>): Promise<number | string>;
 
         zincrby(key: KeyType, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: KeyType, increment: number, member: string): Promise<any>;
@@ -636,7 +635,7 @@ declare namespace IORedis {
 
         zadd(key: KeyType, ...args: string[]): Pipeline;
         zadd(key: KeyType, score: number, member: string): Pipeline;
-        zadd(key: KeyType, ...args: Array<[ number, string ]>): Pipeline;
+        zadd(key: KeyType, ...args: Array<[ number, string ] | string>): Pipeline;
 
         zincrby(key: KeyType, increment: number, member: string, callback?: (err: Error, res: any) => void): Pipeline;
 

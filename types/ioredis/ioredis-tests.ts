@@ -199,6 +199,7 @@ redis.xtrim('streamName', 'MAXLEN', '~', 1000);
 redis.zadd("zAdd", '0', 'value0');
 redis.zadd("zAdd", 1, 'value1');
 redis.zadd("zAdd", [2, 'value2'], [3, 'value3']);
+redis.zadd("AA", [4, 'value4'], '5', 'value5');
 
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {
