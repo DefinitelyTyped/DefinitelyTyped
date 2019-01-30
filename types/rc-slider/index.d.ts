@@ -140,7 +140,7 @@ export interface SliderProps extends CommonApiProps {
      * Set the tabIndex of the slider handle.
      * @default 0
      */
-    tabIndex: number;
+    tabIndex?: number;
 }
 
 export interface RangeProps extends CommonApiProps {
@@ -172,7 +172,7 @@ export interface RangeProps extends CommonApiProps {
      * Set the tabIndex of each handle.
      * @default [0,0]
      */
-    tabIndex: number[];
+    tabIndex?: number[];
     /**
      * Determine how many ranges to render, and multiple handles will be rendered (number + 1).
      *  @default 1
