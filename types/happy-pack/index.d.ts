@@ -6,9 +6,9 @@
 
 import { Plugin } from 'webpack';
 
-export = HappyPack;
+export = happypack;
 
-declare namespace HappyPack {
+declare namespace happypack {
     interface PluginOptions {
         id?: string;
         threads?: number;
@@ -16,6 +16,7 @@ declare namespace HappyPack {
     }
 }
 
-declare class HappyPack extends Plugin {
-    constructor(options: HappyPack.PluginOptions);
+declare class happypack extends Plugin {
+    constructor(options: happypack.PluginOptions);
 }
+
