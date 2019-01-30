@@ -28,12 +28,11 @@ interface ConsumerPropsExplicitRender<T> extends ConsumerPropsBase<T> {
 }
 
 interface ConsumerPropsImplicitRender<T> extends ConsumerPropsBase<T> {
-    children?: RenderFn<T>;
 }
 
 type ConsumerProps<T> = ConsumerPropsExplicitRender<T> | ConsumerPropsImplicitRender<T>;
 
-declare class Consumer<T> extends Component<ConsumerProps<T>> {}
+declare class Consumer<T> extends Component<ConsumerProps<T>, any, any, RenderFn<T>> {}
 
 interface ProviderProps<T> {
     children: JSX.Element | JSX.Element[];

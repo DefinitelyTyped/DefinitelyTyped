@@ -91,7 +91,10 @@ export interface FormContext {
 
 export class Form
     extends React.Component<
-        FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn }
+        FormProps,
+        any,
+        any, 
+        ((props: FormFunctionProps) => RenderReturn) | RenderReturn
     >
     implements React.ChildContextProvider<FormContext> {
         static defaultProps: FormProps;
@@ -156,7 +159,10 @@ export interface RadioGroupContext {
 
 export class RadioGroup
     extends React.Component<
-        FieldProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn }
+        FieldProps,
+        any,
+        any,
+        ((props: FieldApi) => RenderReturn) | RenderReturn
     >
     implements React.ChildContextProvider<RadioGroupContext> {
     getChildContext(): {
@@ -183,7 +189,10 @@ export const StyledRadio: React.StatelessComponent<StyledProps & React.InputHTML
 
 export class StyledRadioGroup
     extends React.Component<
-        StyledProps & { children?: ((props: FieldApi) => RenderReturn) | RenderReturn }
+        StyledProps,
+        any,
+        any,
+        ((props: FieldApi) => RenderReturn) | RenderReturn
     >
     implements React.ChildContextProvider<RadioGroupContext> {
     getChildContext(): {

@@ -119,10 +119,9 @@ export interface DroppableProps {
     isDropDisabled?: boolean;
     isCombineEnabled?: boolean;
     direction?: 'vertical' | 'horizontal';
-    children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<any>;
 }
 
-export class Droppable extends React.Component<DroppableProps> { }
+export class Droppable extends React.Component<DroppableProps, any, any, (provided: DroppableProvided, snapshot: DroppableStateSnapshot)=> React.ReactElement<any>> { }
 
 /**
  *  Draggable
@@ -202,8 +201,7 @@ export interface DraggableProps {
     index: number;
     isDragDisabled?: boolean;
     disableInteractiveElementBlocking?: boolean;
-    children(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement<any>;
     type?: TypeId;
 }
 
-export class Draggable extends React.Component<DraggableProps> { }
+export class Draggable extends React.Component<DraggableProps, any, any, (provided: DraggableProvided, snapshot: DraggableStateSnapshot) => React.ReactElement<any>> { }

@@ -104,14 +104,13 @@ export interface NavigateOptions<TState> {
 }
 
 export interface LocationProps {
-    children: LocationProviderRenderFn;
+    
 }
 
-export class Location extends React.Component<LocationProps> { }
+export class Location extends React.Component<LocationProps, any, any, LocationProviderRenderFn> { }
 
 export interface LocationProviderProps {
     history?: History;
-    children?: React.ReactNode | LocationProviderRenderFn;
 }
 
 export type LocationProviderRenderFn = (
@@ -123,7 +122,7 @@ export interface LocationContext {
     navigate: NavigateFn;
 }
 
-export class LocationProvider extends React.Component<LocationProviderProps> { }
+export class LocationProvider extends React.Component<LocationProviderProps, any, any, React.ReactNode | LocationProviderRenderFn> { }
 
 export interface ServerLocationProps {
     url: string;

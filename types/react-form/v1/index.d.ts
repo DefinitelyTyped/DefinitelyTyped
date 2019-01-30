@@ -65,8 +65,10 @@ export interface FormContext {
 
 export class Form
     extends React.Component<
-        FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn },
-        FormState
+        FormProps,
+        FormState,
+        any,
+        ((props: FormFunctionProps) => RenderReturn) | RenderReturn
     >
     implements FormApi, React.ChildContextProvider<FormContext> {
         static defaultProps: FormProps;
@@ -146,10 +148,7 @@ export interface FormInputProps {
     errorProps?: FormErrorProps;
 }
 
-export interface FormInputPropsWithChildren extends FormInputProps {
-    children(api: FormFieldApi): React.ReactElement<any> | null;
-}
-export const FormInput: React.SFC<FormInputPropsWithChildren>;
+export const FormInput: React.SFC<FormInputProps, (api: FormFieldApi) => React.ReactElement<any> | null>;
 
 // ==============================
 //             Inputs

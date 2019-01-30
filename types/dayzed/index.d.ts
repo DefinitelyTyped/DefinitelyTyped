@@ -40,13 +40,12 @@ interface Props {
     firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
     showOutsideDays?: boolean;
     selected?: Date | Date[];
-    children?: RenderFn;
     render?: RenderFn;
     offset?: number;
     onOffsetChanged?(offset: number): void;
     onDateSelected(selectedDate: DateObj): void;
 }
 
-declare class Dayzed extends Component<Props> { }
+declare class Dayzed extends Component<Props, any, any, RenderFn> { }
 
 export default Dayzed;

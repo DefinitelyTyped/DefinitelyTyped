@@ -57,21 +57,19 @@ export interface DraggableProps {
     subscribeTo?: ReadonlyArray<string> | null;
     /** An optional int representing the distance in pixels the user's pointer must travel to activate the draggable. Defaults to 8 */
     delay?: number;
-
-    children: (arg: State & {
-        /** A boolean representing if the draggable is currently active. */
-        isActive: boolean;
-        events: {
-            onMouseDown: MouseEventHandler,
-            onTouchStart: TouchEventHandler
-        }
-    }) => ReactNode;
 }
 
 /**
  * This defines a draggable zone. At a minimum, spread the events over the element that should be draggable (usually the root element).
  */
-export class Draggable extends Component<DraggableProps, any> { }
+export class Draggable extends Component<DraggableProps, any, any, (arg: State & {
+    /** A boolean representing if the draggable is currently active. */
+    isActive: boolean;
+    events: {
+        onMouseDown: MouseEventHandler,
+        onTouchStart: TouchEventHandler
+    }
+}) => ReactNode> { }
 
 // ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 // DROPPABLE
@@ -99,24 +97,22 @@ export interface DroppableProps {
      * For example, you may pass ['type', 'data'] to only rerender if these keys change.
      */
     subscribeTo?: ReadonlyArray<string> | null;
-
-    children: (arg: State & {
-        /** A boolean representing if the user is currently hovering the <Droppable/>. */
-        isOver: boolean,
-        /** A boolean representing if this droppable will accept the currently dragging <DragComponent/>. */
-        willAccept: boolean,
-        events: {
-            onMouseEnter: () => void,
-            onMouseLeave: () => void,
-            onMouseUp: () => void,
-        }
-    }) => ReactNode;
 }
 
 /**
  * This defines a droppable zone. At a minimum, spread the events over the element that should be droppable (usually the root element).
  */
-export class Droppable extends Component<DroppableProps, any> { }
+export class Droppable extends Component<DroppableProps, any, any, (arg: State & {
+    /** A boolean representing if the user is currently hovering the <Droppable/>. */
+    isOver: boolean,
+    /** A boolean representing if this droppable will accept the currently dragging <DragComponent/>. */
+    willAccept: boolean,
+    events: {
+        onMouseEnter: () => void,
+        onMouseLeave: () => void,
+        onMouseUp: () => void,
+    }
+}) => ReactNode> { }
 
 // ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 // DRAG
@@ -134,17 +130,15 @@ export interface DragComponentProps {
      * For example, you may pass ['type', 'data'] to only rerender if these keys change.
      */
     subscribeTo?: ReadonlyArray<string> | null;
-
-    children: (arg: State & {
-        /** A boolean representing whether the user is currently hovering a <Droppable/> that accepts the type of the currently active <Draggable/> */
-        isOverAccepted: boolean
-    }) => ReactNode;
 }
 
 /**
  * By default, children passed to this component will only render if the user is currently dragging, but this can be overridden.
  */
-export class DragComponent extends Component<DragComponentProps, any> { }
+export class DragComponent extends Component<DragComponentProps, any, any, (arg: State & {
+    /** A boolean representing whether the user is currently hovering a <Droppable/> that accepts the type of the currently active <Draggable/> */
+    isOverAccepted: boolean
+}) => ReactNode> { }
 
 // ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 // DRAG STATE
@@ -156,12 +150,10 @@ export interface DragStateProps {
      * For example, you may pass ['type', 'data'] to only rerender if these keys change.
      */
     subscribeTo?: ReadonlyArray<string> | null;
-
-    children: (arg: State) => ReactNode;
 }
 
 /**
  * This component is used just like a draggable or droppable, but does not accept or trigger any drag events.
  * Use it if you need to notify a component about changes in the dragState without making that component a draggable or droppable zone.
  */
-export class DragState extends Component<DragStateProps, any> { }
+export class DragState extends Component<DragStateProps, any, any, (arg: State) => ReactNode> { }

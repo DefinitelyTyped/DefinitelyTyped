@@ -62,4 +62,4 @@ export type StepProps = StepObject & (
  *   }
  * }
  */
-export const Step: React.ComponentType<StepProps>;
+export const Step: React.ComponentType<StepProps, React.ReactNode | ((wizard: WizardContext) => React.ReactNode)>;

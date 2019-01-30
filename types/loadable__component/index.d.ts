@@ -19,9 +19,8 @@ export interface Options {
 export type LoadableComponent<T> = React.ComponentType<T & { fallback?: JSX.Element }>;
 export type LoadableLibrary<TModule> = React.ComponentType<{
 	fallback?: JSX.Element;
-	children?: (module: TModule) => React.ReactNode;
 	ref?: React.Ref<TModule>;
-}> &
+}, (module: TModule) => React.ReactNode> &
 	TModule;
 
 declare function lib<T>(

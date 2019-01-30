@@ -28,10 +28,9 @@ export interface SubscriptionConfig<S, T> {
 }
 
 export interface SubscriptionProps<S, T> {
-    children: (value: T) => React.ReactNode;
     source: S;
 }
 
-export interface Subscription<S, T> extends React.ComponentClass<SubscriptionProps<S, T>> {}
+export interface Subscription<S, T> extends React.ComponentClass<SubscriptionProps<S, T>, any, (value: T) => React.ReactNode> {}
 
 export function createSubscription<S, T>(config: SubscriptionConfig<S, T>): Subscription<S, T>;

@@ -58,8 +58,7 @@ declare namespace ReactCountUp {
             start(): void;
         }): void;
         style?: React.CSSProperties;
-        children?(data: RenderProps): React.ReactElement<any>;
     }
 }
 
-declare class ReactCountUp extends React.PureComponent<ReactCountUp.Props> {}
+declare class ReactCountUp extends React.PureComponent<ReactCountUp.Props, any, any, (data: ReactCountUp.RenderProps) => React.ReactElement<any>> {}

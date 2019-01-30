@@ -46,7 +46,7 @@ ReactDOM.render(
     <Tooltip
         placement="bottomRight"
         trigger={['click', 'focus']}
-        overlay={() => <span>tooltip</span>}
+        overlay={<span>tooltip</span>}
     >
         <a href='#'>hover</a>
     </Tooltip>,
@@ -56,5 +56,5 @@ ReactDOM.render(
 const props: RCTooltip.Props = {
     placement: "bottomRight",
     trigger: ['click', 'focus'],
-    overlay: () => <span>tooltip</span>,
+    overlay: <span>tooltip</span>,
 };
