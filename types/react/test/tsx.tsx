@@ -22,13 +22,13 @@ FunctionComponent2.defaultProps = {
 };
 <FunctionComponent2>24</FunctionComponent2>;
 
-const FunctionComponentChildrenIsFunction: React.FunctionComponent<{}, () => string> = ({children}) => {
+const FunctionComponentChildrenIsFunction: React.FunctionComponent<{foo: string}, () => string> = ({children}) => {
     if (children) {
         return <div>{children()}</div>;
     }
     return null;
 };
-<FunctionComponentChildrenIsFunction>{() => "Hello World!"}</FunctionComponentChildrenIsFunction>;
+<FunctionComponentChildrenIsFunction foo="bar">{() => "Hello World!"}</FunctionComponentChildrenIsFunction>;
 <FunctionComponentChildrenIsFunction><div/></FunctionComponentChildrenIsFunction>; // $ExpectError
 
 const FunctionalComponentShouldNotReturnObject: React.FunctionComponent = () => { // $ExpectError
@@ -394,3 +394,21 @@ class ComponentShouldNotReturnObject extends React.Component {
         };
     }
 }
+
+class ComponentOnlyWantsFunction extends React.Component<{}, {}, {}, () => string> {
+    render() {
+        return <div>{this.props.children!()}</div>;
+    }
+}
+<ComponentOnlyWantsFunction>{() => "hi"}</ComponentOnlyWantsFunction>;
+
+export interface SubscriptionProps<S, T> {
+    children: (value: T) => React.ReactNode;
+    source: S;
+}
+export interface Subscription<S, T> extends React.ComponentClass<SubscriptionProps<S, T>, any, (value: T) => React.ReactNode> {}
+
+declare const Foo: Subscription<string, number>;
+const q = <Foo source="world">{(value: number) => "What"}</Foo>;
+<Foo source="world"/>; // $ExpectError
+<Foo source="world">Hi</Foo> // $ExpectError

@@ -58,7 +58,7 @@ declare namespace React {
     type ComponentType<P = {}, T_Children = ReactNode> = ComponentClass<P, any, T_Children> | FunctionComponent<P, T_Children>;
 
     type JSXElementConstructor<P, T_Children> =
-        | ((props: P & {children?: T_Children}) => ReactElement<any> | null)
+        | ((props: P & {children?: T_Children}) => ReactElement<any, any, T_Children> | null)
         | (new (props: P & {children?: T_Children}) => Component<P, any, any, T_Children>);
 
     type Key = string | number;
@@ -136,7 +136,7 @@ declare namespace React {
     // Factories
     // ----------------------------------------------------------------------
 
-    type Factory<P, T_Children> = (props?: Attributes & P, ...children: T_Children[]) => ReactElement<P>;
+    type Factory<P, T_Children> = (props?: Attributes & P, ...children: T_Children[]) => ReactElement<P, any, T_Children>;
 
     /**
      * @deprecated Please use `FunctionComponentFactory`
@@ -196,7 +196,7 @@ declare namespace React {
     function createFactory<P, T_Children>(type: FunctionComponent<P>): FunctionComponentFactory<P, T_Children>;
     function createFactory<P, T_Children>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>, T_Children>): CFactory<P, ClassicComponent<P, ComponentState>, T_Children>;
-    function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P, any, T_Children>, T_Children>(
+    function createFactory<P, T extends Component<P, ComponentState, any, T_Children>, C extends ComponentClass<P, any, T_Children>, T_Children>(
         type: ClassType<P, T, C, T_Children>): CFactory<P, T, T_Children>;
     function createFactory<P, T_Children>(type: ComponentClass<P, any, T_Children>): Factory<P, T_Children>;
 
@@ -224,19 +224,19 @@ declare namespace React {
     function createElement<P extends {}, T_Children = ReactNode>(
         type: FunctionComponent<P, T_Children>,
         props?: Attributes & P | null,
-        ...children: Array<T_Children | undefined>): FunctionComponentElement<P, T_Children>;
+        ...children: T_Children[]): FunctionComponentElement<P, T_Children>;
     function createElement<P extends {}, T_Children = ReactNode>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>, T_Children>,
         props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
-        ...children: Array<T_Children | undefined>): CElement<P, ClassicComponent<P, ComponentState>, T_Children>;
-    function createElement<P extends {}, T extends Component<P, ComponentState>, C extends ComponentClass<P, any, T_Children>, T_Children = ReactNode>(
+        ...children: T_Children[]): CElement<P, ClassicComponent<P, ComponentState>, T_Children>;
+    function createElement<P extends {}, T extends Component<P, ComponentState, any, T_Children>, C extends ComponentClass<P, any, T_Children>, T_Children = ReactNode>(
         type: ClassType<P, T, C, T_Children>,
         props?: ClassAttributes<T> & P | null,
-        ...children: Array<T_Children | undefined>): CElement<P, T, T_Children>;
+        ...children: T_Children[]): CElement<P, T, T_Children>;
     function createElement<P extends {}, T_Children = ReactNode>(
         type: FunctionComponent<P, T_Children> | ComponentClass<P, any, T_Children> | string,
         props?: Attributes & P | null,
-        ...children: Array<T_Children | undefined>): ReactElement<P>;
+        ...children: T_Children[]): ReactElement<P>;
 
     // DOM Elements
     // ReactHTMLElement
@@ -2675,7 +2675,7 @@ declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any, any> { }
-        interface ElementClass extends React.Component<any> {
+        interface ElementClass extends React.Component<any, any, any, any> {
             render(): React.ReactNode;
         }
         interface ElementAttributesProperty { props: {}; }
