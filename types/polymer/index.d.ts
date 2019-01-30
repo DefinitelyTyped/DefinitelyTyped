@@ -219,9 +219,9 @@ declare global {
 
       attributeChanged?(name: string, oldValue: any, newValue: any): void;
         
-      getEffectiveChildren(): Node[];
+      getEffectiveChildren?(): Node[];
 
-      getEffectiveChildNodes(): Node[];
+      getEffectiveChildNodes?(): Node[];
     }
 
     // This is the type of a Polymer element after it has gone through the
