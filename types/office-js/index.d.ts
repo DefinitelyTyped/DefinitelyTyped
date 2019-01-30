@@ -5181,7 +5181,7 @@ declare namespace Office {
         setTableOptionsAsync(tableOptions: any, callback?: (result: AsyncResult<void>) => void): void;
     }
     /**
-     * Represents the data in a table or a {@link Office.TableBinding}.
+     * Represents the data in a table or an {@link Office.TableBinding}.
      *
      * @remarks
      * <table><tr><td>Hosts</td><td>Excel, Word</td></tr>
@@ -11108,7 +11108,7 @@ declare namespace Office {
          * Gets the locations of an appointment.
          *
          * The enhancedLocation property returns an {@link Office.EnhancedLocation} object that allows you to get the set of locations (each represented by 
-         * a {@link Office.LocationDetails} object) associated with the appointment.
+         * an {@link Office.LocationDetails} object) associated with the appointment.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -13389,7 +13389,7 @@ declare namespace Office {
          * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
          * current item.
          *
-         * The cc property returns a {@link Office.Recipients} object that provides methods to get or update the recipients on the Cc line of 
+         * The cc property returns an {@link Office.Recipients} object that provides methods to get or update the recipients on the Cc line of 
          * the message.
          *
          * [Api set: Mailbox 1.0]
