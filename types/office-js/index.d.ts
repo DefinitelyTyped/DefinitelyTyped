@@ -7714,7 +7714,7 @@ declare namespace Office {
             Appointment = "appointment"
         }
         /**
-         * Specifies an appointment's location type.
+         * Specifies an appointment location's type.
          * 
          * [Api set: Mailbox Preview]
          * 
