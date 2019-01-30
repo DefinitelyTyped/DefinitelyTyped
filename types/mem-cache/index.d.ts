@@ -1,4 +1,4 @@
-// Type definitions for mem-cache v0.1.0
+// Type definitions for mem-cache v1.0.0
 // Project: https://github.com/silviom/node-mem-cache
 // Definitions by: Pedro Mutter <https://github.com/MutterPedro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
