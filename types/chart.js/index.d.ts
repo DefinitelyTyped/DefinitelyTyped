@@ -537,6 +537,7 @@ declare namespace Chart {
     interface LinearTickOptions extends TickOptions {
         maxTicksLimit?: number;
         stepSize?: number;
+        precision?: number;
         suggestedMin?: number;
         suggestedMax?: number;
     }
