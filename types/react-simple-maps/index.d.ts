@@ -21,7 +21,7 @@ export interface Line {
     };
 }
 
-export type ProjectionConfig = {
+export interface ProjectionConfig {
     scale: number;
     xOffset: number;
     yOffset: number;
