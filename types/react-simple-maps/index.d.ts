@@ -27,7 +27,7 @@ export interface ProjectionConfig {
     yOffset: number;
     rotation: [number, number, number];
     precision: number;
-};
+}
 
 export type ProjectionFunction = (width: number, height: number, config: ProjectionConfig) => GeoProjection;
 
