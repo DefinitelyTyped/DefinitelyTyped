@@ -1,4 +1,4 @@
-// Type definitions for happypack
+// Type definitions for happypack 5.0
 // Project: https://github.com/amireh/happypack
 // Definitions by: Akash Vishwakarma <https://github.com/akashishu777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,17 +6,16 @@
 
 import { Plugin } from 'webpack';
 
-declare class HappyPack extends Plugin {
-
-    constructor(options?: HappyPack.PluginOptions);
-}
+export = HappyPack;
 
 declare namespace HappyPack {
     interface PluginOptions {
         id?: string;
         threads?: number;
-        loaders?: any;
+        loaders: any;
     }
 }
 
-export = HappyPack;
+declare class HappyPack extends Plugin {
+    constructor(options: HappyPack.PluginOptions);
+}
