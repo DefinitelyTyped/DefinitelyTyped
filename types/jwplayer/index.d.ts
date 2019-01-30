@@ -266,10 +266,10 @@ declare namespace jwplayer {
     }
 
     interface CastParam {
-      available: boolean;
-      active: boolean;
-      deviceName: string;
-      type: 'cast';
+        available: boolean;
+        active: boolean;
+        deviceName: string;
+        type: 'cast';
     }
 
     interface EventParams {
