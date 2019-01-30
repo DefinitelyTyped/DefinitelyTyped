@@ -359,10 +359,10 @@ declare module "node-forge" {
             type: Type;
             constructed: boolean;
             composed: boolean;
-            value: Asn1[];
+            value: Bytes | Asn1[];
         }
 
-        function create(tagClass: Class, type: Type, constructed: boolean, value: string | Asn1[]): Asn1;
+        function create(tagClass: Class, type: Type, constructed: boolean, value: Bytes | Asn1[]): Asn1;
         function fromDer(bytes: Bytes | util.ByteBuffer, strict?: boolean): Asn1;
         function toDer(obj: Asn1): util.ByteBuffer;
         function oidToDer(oid: OID): util.ByteStringBuffer;
