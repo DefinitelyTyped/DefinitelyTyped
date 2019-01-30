@@ -585,7 +585,7 @@ export interface VideoOverlayOptions extends ImageOverlayOptions {
     loop?: boolean;
 }
 
-export class VideoOverlay extends Layer {
+export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because ImageOverlay.getElement returns HTMLImageElement */
     constructor(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions);
     setOpacity(opacity: number): this;
     bringToFront(): this;
