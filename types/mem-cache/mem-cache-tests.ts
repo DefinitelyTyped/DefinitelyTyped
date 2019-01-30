@@ -14,4 +14,3 @@ cache.remove('foo'); // $ExpectType void
 cache.clean(); // $ExpectType void
 cache.length; // $ExpectType number
 cache.keys; // $ExpectType string[]
-

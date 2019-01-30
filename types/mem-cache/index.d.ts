@@ -1,24 +1,24 @@
-// Type definitions for mem-cache v0.0.5
+// Type definitions for mem-cache v0.1.0
 // Project: https://github.com/silviom/node-mem-cache
 // Definitions by: Pedro Mutter <https://github.com/MutterPedro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
 
-export interface ICacheOptions {
+export interface CacheOptions {
     timeout?: number;
     doesNotRenewTimeout?: boolean;
     timeoutDisabled?: boolean;
 }
 
 export default class Cache extends EventEmitter {
-    public keys: string[];
-    public length: number;
+    keys: string[];
+    length: number;
 
-    constructor(options?: number | ICacheOptions);
+    constructor(options?: number | CacheOptions);
 
-    public set(key: string, value: any, timeout?: number): void;
-    public get(key: string): any;
-    public remove(key: string): void;
-    public clean(): void;
+    set(key: string, value: any, timeout?: number): void;
+    get(key: string): any;
+    remove(key: string): void;
+    clean(): void;
 }
