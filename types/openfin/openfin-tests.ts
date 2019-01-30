@@ -736,6 +736,8 @@ function test_window() {
     finWindow.bringToFront();
     // close
     finWindow.close();
+    // executeJavaScript
+    finWindow.executeJavaScript("console.log('Hello world');");
     // disableFrame
     finWindow.disableFrame();
     // enableFrame
@@ -744,9 +746,21 @@ function test_window() {
     finWindow.flash();
     // focus
     finWindow.focus();
+    // getAllFrames
+    finWindow.getAllFrames(frames => {
+        console.log(`name: ${frames[0].name} uuid: ${frames[0].uuid}`);
+    });
     // getBounds
     finWindow.getBounds(bounds => {
         console.log(`top: ${bounds.top} left: ${bounds.left} height: ${bounds.height} width: ${bounds.width}`);
+    });
+    // getGroups
+    finWindow.getGroup(windowGroup => {
+        console.log(`There are a total of ${windowGroup.length} windows in this group.`);
+    });
+    // getInfo
+    finWindow.getInfo(info => {
+        console.log(`Window title: ${info.title}`);
     });
     // getOptions
     finWindow.getOptions(options => {
@@ -830,6 +844,14 @@ function test_window() {
     finWindow.moveBy(10, 10);
     // moveTo
     finWindow.moveTo(100, 200);
+    // navigate
+    finWindow.navigate("https://openfin.co");
+    // navigateBack
+    finWindow.navigateBack();
+    // navigateForward
+    finWindow.navigateForward();
+    // reload
+    finWindow.reload();
     // removeEventListener
     finWindow.removeEventListener("bounds-changed", event => {
 		console.log(event);
@@ -852,6 +874,8 @@ function test_window() {
     finWindow.showAt(10, 10, false);
     // stopFlashing
     finWindow.stopFlashing();
+    // stopNavigation
+    finWindow.stopNavigation();
     // updateOptions
     finWindow.updateOptions({
         frame: false,

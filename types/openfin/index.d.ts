@@ -66,12 +66,14 @@ declare namespace fin {
     type RuntimeInfo = import('./_v2/api/system/runtime-info').RuntimeInfo;
     type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
     type WindowDetail = import('./_v2/api/system/window').WindowDetail;
-    type WindowInfo = import('./_v2/api/system/window').WindowInfo;
+    type SystemWindowInfo = import('./_v2/api/system/window').WindowInfo;
     type AnchorType = import('./_v2/api/window/anchor-type').AnchorType;
     type Bounds = import('./_v2/api/window/bounds').default;
     type Transition = import('./_v2/api/window/transition').Transition;
     type TransitionOptions = import('./_v2/api/window/transition').TransitionOptions;
     type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
+    type WindowInfo = import('./_v2/api/window/window').WindowInfo;
+    type FrameInfo = import('./_v2/api/window/window').FrameInfo;
 
     const desktop: OpenFinDesktop;
 
@@ -574,7 +576,7 @@ declare namespace fin {
         /**
          * Retrieves an array of data (name, ids, bounds) for all application windows.
          */
-        getAllWindows(callback?: (windowInfoList: WindowInfo[]) => void, errorCallback?: (reason: string) => void): void;
+        getAllWindows(callback?: (windowInfoList: SystemWindowInfo[]) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns information about the app asset.
          */
@@ -826,6 +828,11 @@ declare namespace fin {
          */
         close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Executes Javascript on the window, restricted to windows you own or windows owned by applications you have created.
+         * @param code JavaScript code to be executed on the window.
+         */
+        executeJavaScript(code: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Prevents a user from changing a window's size/position when using the window's frame.
          * 'disabled-frame-bounds-changing' is generated at the start of and during a user move/size operation.
          * 'disabled-frame-bounds-changed' is generated after a user move/size operation.
@@ -850,6 +857,11 @@ declare namespace fin {
          */
         focus(callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Retrieves an array of frame info objects representing the main frame and any
+         * iframes that are currently on the page.
+         */
+        getAllFrames(callback?: (frames: FrameInfo[]) => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Gets the current bounds (top, left, width, height) of the window.
          */
         getBounds(callback?: (bounds: Bounds) => void, errorCallback?: (reason: string) => void): void;
@@ -858,6 +870,10 @@ declare namespace fin {
          * Please note that calling window is included in the result array.
          */
         getGroup(callback?: (group: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Gets an information object for the window.
+         */
+        getInfo(callback?: (info: WindowInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Gets the current settings of the window.
          */
@@ -911,6 +927,22 @@ declare namespace fin {
          */
         moveTo(left: number, top: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Navigates the window to a specified URL.
+         */
+        navigate(url: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Navigates the window back one page.
+         */
+        navigateBack(callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Navigates the window forward one page.
+         */
+        navigateForward(callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Reloads the window current page.
+         */
+        reload(ignoreCacheopt?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Removes a previously registered event listener from the specified event.
          */
         removeEventListener(
@@ -962,6 +994,10 @@ declare namespace fin {
          * Stops the taskbar icon from flashing.
          */
         stopFlashing(callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Stops any current navigation the window is performing.
+         */
+        stopNavigation(callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Updates the window using the passed options
          */
