@@ -3858,8 +3858,8 @@ export class ImageBackground extends ImageBackgroundBase {
     queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
 }
 
-export interface ViewToken {
-    item: any;
+export interface ViewToken<T = any> {
+    item: T;
     key: string;
     index: number | null;
     isViewable: boolean;
