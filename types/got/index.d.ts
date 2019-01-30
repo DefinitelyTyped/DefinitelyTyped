@@ -97,7 +97,7 @@ declare namespace got {
     type GotInstance<T = GotFn> = T &
         Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', T> &
         {
-            stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>;
+            stream: GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', GotStreamFn>;
             extend: GotExtend;
             RequestError: typeof RequestError;
             ReadError: typeof ReadError;
@@ -113,8 +113,8 @@ declare namespace got {
     type JSONGotInstance = GotInstance<GotJSONFn>;
 
     interface GotExtend {
-        (options: got.GotFormOptions<string> | got.GotBodyOptions<string> | got.GotFormOptions<null> | got.GotBodyOptions<null>): DefaultGotInstance;
-        (options: got.GotJSONOptions): JSONGotInstance;
+        (options: GotJSONOptions): JSONGotInstance;
+        (options: GotFormOptions<string> | GotBodyOptions<string> | GotFormOptions<null> | GotBodyOptions<null>): DefaultGotInstance;
     }
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
