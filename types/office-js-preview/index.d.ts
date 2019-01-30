@@ -9427,6 +9427,10 @@ declare namespace Office {
          *     <td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td>
          *     <td>Compose</td>
          *   </tr>
+         *   <tr>
+         *     <td>Errors</td>
+         *     <td>InvalidFormatError - The format of the specified data object is not valid.</td>
+         *   </tr>
          * </table>
          * 
          * In addition to this signature, this method also has the following signatures:
@@ -9456,6 +9460,10 @@ declare namespace Office {
          *   <tr>
          *     <td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td>
          *     <td>Compose</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Errors</td>
+         *     <td>InvalidFormatError - The format of the specified data object is not valid.</td>
          *   </tr>
          * </table>
          * 
