@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "happy-pack-tests.ts"
+        "happypack-tests.ts"
     ]
 }
