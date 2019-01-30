@@ -495,6 +495,30 @@ declare module "node-forge" {
 
         function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string): Pkcs12Pfx;
         function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
+
+        function toPkcs12Asn1(
+            key: pki.PrivateKey,
+            cert: pki.Certificate | pki.Certificate[],
+            password: string | null,
+            options?: {
+                algorithm?: 'aes128' | 'aes192' | 'aes256' | '3des',
+                count?: number,
+                saltSize?: number,
+                useMac?: boolean,
+                localKeyId?: Hex,
+                friendlyName?: string,
+                generateLocalKeyId?: boolean,
+            },
+        ): asn1.Asn1;
+
+        function generateKey(
+            password: string | null | undefined,
+            salt: util.ByteBuffer,
+            id: Byte,
+            iter: number,
+            n: number,
+            md?: md.MessageDigest,
+        ): util.ByteBuffer;
     }
 
     namespace pkcs7 {
