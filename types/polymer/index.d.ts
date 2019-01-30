@@ -281,8 +281,6 @@ declare global {
       observeNodes(callback: (info: ObservedNodeInfo) => void): {};
 
       unobserveNodes(observer: {}): void;
-        
-      getEffectiveChildren(): Node[];
 
       getEffectiveChildNodes(): Node[];
 
