@@ -648,7 +648,7 @@ declare namespace CleanCSS {
     /**
      * Options when returning a promise
      */
-    type OptionsPromise = OptionsBase & { 
+    type OptionsPromise = OptionsBase & {
         /**
          * If you prefer clean-css to return a Promise object then you need to explicitly ask for it; defaults to `false`
          */
@@ -658,7 +658,7 @@ declare namespace CleanCSS {
     /**
      * Options when returning an output
      */
-    type OptionsOutput = OptionsBase & { 
+    type OptionsOutput = OptionsBase & {
         /**
          * If you prefer clean-css to return a Promise object then you need to explicitly ask for it; defaults to `false`
          */
