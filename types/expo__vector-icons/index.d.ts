@@ -1,4 +1,4 @@
-// Type definitions for @expo/vector-icons 9.0.0
+// Type definitions for @expo/vector-icons 9.0
 // Project: https://github.com/expo/vector-icons
 // Definitions by: Hyeonsu Lee <https://github.com/incleaf>
 //                 Robert Ying <https://github.com/robertying>
