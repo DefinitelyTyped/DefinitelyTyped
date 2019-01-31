@@ -19,6 +19,7 @@
 //                 Maksim Sharipov <https://github.com/pret-a-porter>
 //                 Duong Tran <https://github.com/t49tran>
 //                 Ben Smith <https://github.com/8enSmith>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -43,13 +44,13 @@ export interface MemoryRouterProps {
   keyLength?: number;
 }
 
-export class MemoryRouter extends React.Component<MemoryRouterProps, any> { }
+export class MemoryRouter extends React.Component<MemoryRouterProps, React.ComponentState> { }
 
 export interface PromptProps {
   message: string | ((location: H.Location) => string | boolean);
   when?: boolean;
 }
-export class Prompt extends React.Component<PromptProps, any> { }
+export class Prompt extends React.Component<PromptProps, React.ComponentState> { }
 
 export interface RedirectProps {
   to: H.LocationDescriptor;
@@ -59,7 +60,7 @@ export interface RedirectProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Redirect extends React.Component<RedirectProps, any> { }
+export class Redirect extends React.Component<RedirectProps, React.ComponentState> { }
 
 export interface StaticContext {
   statusCode?: number;
@@ -81,23 +82,25 @@ export interface RouteChildrenProps<
   match: match<Params> | null;
 }
 
-export interface RouteProps {
+export interface RouteProps<C extends StaticContext = StaticContext> {
   location?: H.Location;
-  // Use React.ComponentType to prevent weak type detection because no properties are supplied
-  component?: React.ComponentType<RouteComponentProps> | React.ComponentType;
-  render?: ((props: RouteComponentProps) => React.ReactNode);
-  children?: ((props: RouteChildrenProps) => React.ReactNode) | React.ReactNode;
+  // In principle, component accepts a component type with RouteComponentProps.
+  // However, if a component has no props, typescript will warn that there is
+  // no overlap. Hence, also have a variant with {} as property.
+  component?: React.ComponentType<RouteComponentProps<{}, C>> | React.ComponentType;
+  render?: ((props: RouteComponentProps<{}, C>) => React.ReactNode);
+  children?: ((props: RouteChildrenProps<{}, C>) => React.ReactNode) | React.ReactNode;
   path?: string | string[];
   exact?: boolean;
   sensitive?: boolean;
   strict?: boolean;
 }
-export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
+export class Route<T extends RouteProps = RouteProps> extends React.Component<T, React.ComponentState> { }
 
 export interface RouterProps {
   history: H.History;
 }
-export class Router extends React.Component<RouterProps, any> { }
+export class Router extends React.Component<RouterProps, React.ComponentState> { }
 
 export interface StaticRouterContext extends StaticContext {
   url?: string;
@@ -110,12 +113,12 @@ export interface StaticRouterProps {
   context?: StaticRouterContext;
 }
 
-export class StaticRouter extends React.Component<StaticRouterProps, any> { }
+export class StaticRouter extends React.Component<StaticRouterProps, React.ComponentState> { }
 export interface SwitchProps {
   children?: React.ReactNode;
   location?: H.Location;
 }
-export class Switch extends React.Component<SwitchProps, any> { }
+export class Switch extends React.Component<SwitchProps, React.ComponentState> { }
 
 export interface match<Params extends { [K in keyof Params]?: string } = {}> {
   params: Params;
@@ -135,4 +138,4 @@ export function generatePath(pattern: string, params?: { [paramName: string]: st
 // they are decorating. Due to this, if you are using @withRouter decorator in your code,
 // you will see a bunch of errors from TypeScript. The current workaround is to use withRouter() as a function call
 // on a separate line instead of as a decorator.
-export function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
+export function withRouter<P extends RouteComponentProps>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps>>;
