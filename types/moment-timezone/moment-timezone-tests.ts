@@ -1,4 +1,4 @@
-import moment = require('moment-timezone');
+import * as moment from 'moment-timezone';
 
 const june = moment("2014-06-01T12:00:00Z");
 june.tz('America/Los_Angeles').format('ha z');
@@ -86,3 +86,20 @@ const zoneAbbr: string = moment.tz('America/Los_Angeles').zoneAbbr();
 const zoneName: string = moment.tz('America/Los_Angeles').zoneName();
 
 const zoneType: string | undefined = moment.tz('2013-11-18 11:55').tz();
+
+const unpacked = {
+    name    : 'Indian/Mauritius',
+    abbrs   : ['LMT', 'MUT', 'MUST', 'MUT', 'MUST', 'MUT'],
+    offsets : [-230, -240, -300, -240, -300, -240],
+    untils  : [-1988164200000, 403041600000, 417034800000, 1224972000000, 1238274000000, null]
+};
+
+const res = moment.tz.pack(unpacked);
+
+const packed = "Indian/Mauritius|LMT MUT MUST|-3O -40 -50|012121|-2xorO 34unO 14L0 12kr0 11z0";
+
+const out = moment.tz.unpack(packed);
+
+const ans = moment.tz.packBase60(1 / 6, 1);
+
+const data = moment.tz.unpackBase60('9');
