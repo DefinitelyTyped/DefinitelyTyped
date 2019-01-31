@@ -348,12 +348,12 @@ declare namespace CKEDITOR {
             getDocument(): document;
             getIndex(normalized?: boolean): number;
             getNext(evaluator?: (node: node) => boolean): node;
-            getNextSourceNode(startFromSibling?: boolean, nodeType?: number, guard?: node | ((node: node) => boolean)): void;
+            getNextSourceNode(startFromSibling?: boolean, nodeType?: number, guard?: node | ((node: node) => boolean)): node;
             getParent(allowFragmentParent?: boolean): element;
             getParents(closerFirst?: boolean): node[];
             getPosition(otherNode: node): void;
             getPrevious(evaluator?: (node: node) => boolean): node;
-            getPreviousSourceNode(startFromSibling?: boolean, nodeType?: number, guard?: node | ((node: node) => boolean)): void;
+            getPreviousSourceNode(startFromSibling?: boolean, nodeType?: number, guard?: node | ((node: node) => boolean)): node;
             hasAscendant(name: string, includeSelf: boolean): boolean;
             remove(preserveChildren?: boolean): node;
             replace(nodeToReplace: node): void;
