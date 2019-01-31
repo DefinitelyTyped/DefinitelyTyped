@@ -5,6 +5,7 @@
 //                 Jonathan Siebern <https://github.com/jsiebern>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Pietro Vismara <https://github.com/pietrovismara>
+//                 Janeene Beeforth <https://github.com/dawnmist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -467,11 +468,11 @@ export interface ZoneOffsetOptions {
 }
 
 export class Zone {
-    static offsetName(ts: number, options?: ZoneOffsetOptions): string;
-    static isValid: boolean;
-    static name: string;
-    static type: string;
-    static universal: boolean;
+    offsetName(ts: number, options?: ZoneOffsetOptions): string;
+    isValid: boolean;
+    name: string;
+    type: string;
+    universal: boolean;
     equals(other: Zone): boolean;
     offset(ts: number): number;
 }
