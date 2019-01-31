@@ -61,7 +61,7 @@ export interface ToolbarProps {
 
 	// Y Alignment used for "Fit to Viewer" action
 	SVGAlignY: SVGAlignY,
-};
+}
 
 export interface OptionalProps {
 	// Lock the viewer to a specific value
