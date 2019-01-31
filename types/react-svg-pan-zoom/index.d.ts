@@ -57,10 +57,10 @@ export type SVGAlignY = typeof POSITION_TOP | typeof POSITION_CENTER | typeof  P
 
 export interface ToolbarProps {
 	// X Alignment used for "Fit to Viewer" action
-	SVGAlignX: SVGAlignX,
+	SVGAlignX: SVGAlignX;
 
 	// Y Alignment used for "Fit to Viewer" action
-	SVGAlignY: SVGAlignY,
+	SVGAlignY: SVGAlignY;
 }
 
 export interface OptionalProps {
