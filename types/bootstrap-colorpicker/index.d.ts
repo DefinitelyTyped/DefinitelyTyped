@@ -209,12 +209,7 @@ interface JQuery {
     /**
      * Initializes an colorpicker.
      */
-    colorpicker(): JQuery;
-
-    /**
-     * Initializes an colorpicker.
-     */
-    colorpicker(options: ColorPickerOptions): JQuery;
+    colorpicker(options?: ColorPickerOptions): JQuery;
 
     /**
      * Gets the value from the input or the data attribute (if has no input), otherwise returns the default value, which defaults to #000000 if not specified.
