@@ -1,4 +1,4 @@
-import Cache from 'mem-cache';
+import Cache = require('mem-cache');
 
 const cache = new Cache(); // $ExpectType Cache
 
