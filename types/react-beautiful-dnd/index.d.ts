@@ -53,6 +53,7 @@ export interface DroppableProvided {
 
 export interface DroppableStateSnapshot {
     isDraggingOver: boolean;
+    draggingOverWith?: DraggableId;
 }
 
 export interface DroppableProps {
