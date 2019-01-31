@@ -55,7 +55,7 @@ export type MiniaturePosition = typeof POSITION_NONE | typeof POSITION_RIGHT | t
 export type SVGAlignX = typeof POSITION_LEFT | typeof  POSITION_CENTER | typeof POSITION_RIGHT;
 export type SVGAlignY = typeof POSITION_TOP | typeof POSITION_CENTER | typeof  POSITION_BOTTOM;
 
-export type ToolbarProps = {
+export interface ToolbarProps {
 	// X Alignment used for "Fit to Viewer" action
 	SVGAlignX: SVGAlignX,
 
@@ -250,10 +250,10 @@ export function fitToViewer(value: Value, SVGAlignX?: SVGAlignX, SVGAlignY?: SVG
 
 export function setPointOnViewerCenter(value: Value, SVGPointX: number, SVGPointY: number, zoomLevel: number): Value;
 
-export function reset(value: Value, ): Value;
+export function reset(value: Value): Value;
 
 export function zoomOnViewerCenter(value: Value, scaleFactor: number): Value;
 
-export function getTool(value: Value, ): Tool;
+export function getTool(value: Value): Tool;
 
 export function setTool(value: Value, tool: Tool): Value;
