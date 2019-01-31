@@ -17,6 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "tron-web-tests.ts",
         "index.d.ts"
     ]
 }
