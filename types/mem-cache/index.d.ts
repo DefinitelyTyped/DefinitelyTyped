@@ -5,13 +5,13 @@
 
 import { EventEmitter } from 'events';
 
-export interface CacheOptions {
+interface CacheOptions {
     timeout?: number;
     doesNotRenewTimeout?: boolean;
     timeoutDisabled?: boolean;
 }
 
-export default class Cache extends EventEmitter {
+declare class Cache extends EventEmitter {
     keys: string[];
     length: number;
 
@@ -22,3 +22,5 @@ export default class Cache extends EventEmitter {
     remove(key: string): void;
     clean(): void;
 }
+
+export = Cache;
