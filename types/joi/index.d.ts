@@ -793,6 +793,11 @@ export interface ObjectSchema extends AnySchema {
     length(limit: number): this;
 
     /**
+     * Requires the object to be a Joi schema instance.
+     */
+    schema(): this;
+
+    /**
      * Specify validation rules for unknown keys matching a pattern.
      *
      * @param pattern - a pattern that can be either a regular expression or a joi schema that will be tested against the unknown key names
