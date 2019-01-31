@@ -29,7 +29,7 @@ export interface MessageListenerConfig {
 }
 
 export function generateUuidForAction(action: AnyAction): StampedAction;
-export function isActionAllowed(config: Config): (type?: any) => boolean;
+export function isActionAllowed(config: Config): (type: string) => boolean;
 export function createMessageListener(config: MessageListenerConfig): void;
 export function createStateSyncMiddleware(config?: Config): Middleware;
 export function withReduxStateSync(
