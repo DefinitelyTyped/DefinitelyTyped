@@ -103,7 +103,7 @@ export function variant(props: VariantArgs): (...args: any[]) => any;
 export type ObjectOrArray<T> = T[] | { [K: string]: T };
 
 export interface BaseTheme {
-    breakpoints?: string[] | number[] | Object;
+    breakpoints?: string[] | number[] | object;
     colors?: ObjectOrArray<CSS.ColorProperty>;
     fontSizes?: number[];
     space?: number[];
