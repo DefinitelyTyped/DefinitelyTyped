@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "tronweb": "^2.1.30"
-    }
-}
