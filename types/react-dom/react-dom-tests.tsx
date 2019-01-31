@@ -30,6 +30,8 @@ describe('ReactDOM', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
+        ReactDOM.findDOMNode(null);
+        ReactDOM.findDOMNode(undefined);
     });
 
     it('createPortal', () => {
