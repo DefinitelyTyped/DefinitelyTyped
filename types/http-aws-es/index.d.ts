@@ -7,18 +7,11 @@
 /// <reference types="node" />
 
 import * as e from "elasticsearch";
-import { Credentials } from "aws-sdk/lib/core";
+import * as AWS from "aws-sdk";
 
 declare module "elasticsearch" {
-    interface AmazonESOptions {
-        accessKey?: string;
-        credentials?: Credentials;
-        region: string;
-        secretKey?: string;
-    }
-
     interface ConfigOptions {
-        awsConfig?: AmazonESOptions;
+        awsConfig?: AWS.Config;
     }
 }
 
