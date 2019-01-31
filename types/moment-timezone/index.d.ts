@@ -63,9 +63,6 @@ declare module "moment" {
         unpack(data: string): object;
 
         unpackBase60(data: string): number;
-
-        setDefault(timezone?: string): MomentTimezone;
-
     }
 
     interface Moment {
