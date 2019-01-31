@@ -1,4 +1,4 @@
-import { TronWeb } from "tronweb";
+import {TronWeb} from "tronweb";
 
 const HttpProvider = TronWeb.providers.HttpProvider; // $ExpectType Plugin
 const fullNode = new HttpProvider('https://api.trongrid.io'); // $ExpectType Plugin
