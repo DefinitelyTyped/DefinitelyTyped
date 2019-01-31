@@ -90,8 +90,6 @@ declare namespace got {
     interface GotJSONFn {
         (url: GotUrl): GotPromise<any>;
         (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
-        (url: GotUrl, options: GotFormOptions<string>): GotPromise<any>;
-        (url: GotUrl, options: GotBodyOptions<string>): GotPromise<any>;
     }
 
     type GotInstance<T = GotFn> = T &
@@ -114,7 +112,10 @@ declare namespace got {
 
     interface GotExtend {
         (options: GotJSONOptions): JSONGotInstance;
-        (options: GotFormOptions<string> | GotBodyOptions<string> | GotFormOptions<null> | GotBodyOptions<null>): DefaultGotInstance;
+        (options: GotFormOptions<string>): DefaultGotInstance;
+        (options: GotBodyOptions<string>): DefaultGotInstance;
+        (options: GotFormOptions<null>): DefaultGotInstance;
+        (options: GotBodyOptions<null>): DefaultGotInstance;
     }
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;

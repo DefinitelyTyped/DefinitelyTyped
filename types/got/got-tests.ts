@@ -270,9 +270,12 @@ got('http://todomvc.com', { cookieJar: new tough.CookieJar() });
 got.extend({ method: 'POST' })('/example');
 got.extend({ method: 'POST' }).extend({ headers: {} }).stream('/example');
 
-got.extend({ json: true })('/example').then(({ body }) => body.value); // Body is `any`
-got.extend({ baseUrl: 'https://localhost' }).extend({ json: true })('/example').then(({ body }) => body.value); // Body is `any`
-got.extend({})('/example').then(({ body }) => '' + body); // Body is `string`
+// $ExpectType Promise<any>
+got.extend({ json: true })('/example').then(({ body }) => body);
+// $ExpectType Promise<any>
+got.extend({ baseUrl: 'https://localhost' }).extend({ json: true })('/example').then(({ body }) => body);
+// $ExpectType Promise<string>
+got.extend({})('/example').then(({ body }) => body);
 
 // Test retry options.
 got('http://todomvc.com', { retry: 2 });
