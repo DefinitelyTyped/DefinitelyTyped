@@ -1,4 +1,4 @@
-// Type definitions for Rebass 3.0.1
+// Type definitions for Rebass 3.0
 // Project: https://github.com/jxnblk/rebass
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 ryee-dev <https://github.com/ryee-dev>
@@ -82,8 +82,8 @@ export interface ImageProps extends BoxProps {
 }
 export const Image: React.FunctionComponent<ImageProps | React.HTMLProps<HTMLImageElement>>;
 
-export interface LinkProps extends BoxProps {}
-export const Link: React.FunctionComponent<LinkProps | React.HTMLProps<HTMLAnchorElement>>;
+// export interface LinkProps extends BoxProps {}
+export const Link: React.FunctionComponent<BoxProps | React.HTMLProps<HTMLAnchorElement>>;
 
 export interface TextProps extends BoxProps {
     fontSize?: number | ReadonlyArray<number>;
