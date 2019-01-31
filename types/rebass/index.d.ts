@@ -41,10 +41,8 @@ export interface BoxProps extends SpaceProps<BoxClass> {
     order?: string;
     alignSelf?: string;
 }
-type BoxClass = React.StatelessComponent<BoxProps | React.HTMLProps<HTMLDivElement>> ;
-export declare const Box: BoxClass;
 // tslint:disable-next-line:strict-export-declare-modifiers
-type BoxClass = React.FunctionComponent<BoxProps>;
+type BoxClass = React.FunctionComponent<BoxProps | React.HTMLProps<HTMLDivElement>>;
 export const Box: BoxClass;
 
 export interface ButtonProps extends BoxProps {
@@ -54,9 +52,7 @@ export interface ButtonProps extends BoxProps {
     borderRadius?: number | string;
     variant?: string;
 }
-type ButtonClass = React.StatelessComponent<ButtonProps | React.HTMLProps<HTMLButtonElement>> ;
-export declare const Button: ButtonClass;
-export const Button: React.FunctionComponent<ButtonProps>;
+export const Button: React.FunctionComponent<ButtonProps | React.HTMLProps<HTMLButtonElement>>;
 
 export interface CardProps extends BoxProps {
     border?: number | string;
@@ -70,9 +66,7 @@ export interface CardProps extends BoxProps {
     opacity?: number;
     variant?: string;
 }
-type CardClass = React.StatelessComponent<CardProps | React.HTMLProps<HTMLDivElement>>;
-export declare const Card: CardClass;
-export const Card: React.FunctionComponent<CardProps>;
+export const Card: React.FunctionComponent<CardProps | React.HTMLProps<HTMLDivElement>>;
 
 export interface FlexProps extends BoxProps {
     alignItems?: string;
@@ -80,22 +74,16 @@ export interface FlexProps extends BoxProps {
     flexDirection?: string;
     flexWrap?: string;
 }
-type FlexClass = React.StatelessComponent<FlexProps | React.HTMLProps<HTMLDivElement>>;
-export declare const Flex: FlexClass;
-export const Flex: React.FunctionComponent<FlexProps>;
+export const Flex: React.FunctionComponent<FlexProps | React.HTMLProps<HTMLDivElement>>;
 
 export interface ImageProps extends BoxProps {
     height?: number | string;
     borderRadius?: number | string;
 }
-type ImageClass = React.StatelessComponent<ImageProps | React.HTMLProps<HTMLImageElement>>;
-export declare const Image: ImageClass;
-export const Image: React.FunctionComponent<ImageProps>;
+export const Image: React.FunctionComponent<ImageProps | React.HTMLProps<HTMLImageElement>>;
 
 export interface LinkProps extends BoxProps {}
-type LinkClass = React.StatelessComponent<LinkProps | React.HTMLProps<HTMLAnchorElement>>;
-export declare const Link: LinkClass;
-export const Link: React.FunctionComponent<LinkProps>;
+export const Link: React.FunctionComponent<LinkProps | React.HTMLProps<HTMLAnchorElement>>;
 
 export interface TextProps extends BoxProps {
     fontSize?: number | ReadonlyArray<number>;
@@ -106,12 +94,7 @@ export interface TextProps extends BoxProps {
     lineHeight?: number | string;
     letterSpacing?: number | string;
 }
-type TextClass = React.StatelessComponent<TextProps | React.HTMLProps<HTMLDivElement>>;
-export declare const Text: TextClass;
-export const Text: React.FunctionComponent<TextProps>;
+export const Text: React.FunctionComponent<TextProps | React.HTMLProps<HTMLDivElement>>;
 
-export interface HeadingProps extends TextProps {}
-type HeadingClass = React.StatelessComponent<HeadingProps | React.HTMLProps<HTMLHeadingElement>>;
-export declare const Heading: HeadingClass;
 export type HeadingProps = TextProps;
-export const Heading: React.FunctionComponent<HeadingProps>;
+export const Heading: React.FunctionComponent<HeadingProps | React.HTMLProps<HTMLHeadingElement>>;
