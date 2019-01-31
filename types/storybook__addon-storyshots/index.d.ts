@@ -14,13 +14,13 @@ export type Test = (options: {
     renderShallowTree: RenderTree;
     renderTree: RenderTree;
     snapshotFileName: string;
-}) => void | undefined | Promise<void>;
+}) => undefined | void | Promise<void>;
 
 export type RenderTree = (
     story: StoryObject,
     context: StoryContext,
     options?: SnapshotOptions
-) => void | undefined | Promise<void>;
+) => undefined | void | Promise<void>;
 
 export interface SnapshotOptions {
     createNodeMock?: (element: any) => any;

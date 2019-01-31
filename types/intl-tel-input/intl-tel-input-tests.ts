@@ -1,5 +1,10 @@
 /// <reference types="jquery" />
 
+// Global
+
+// $ExpectType (node: Element, options?: Options) => Plugin
+intlTelInput;
+
 // Normal version
 
 const input = document.querySelector("#phone");

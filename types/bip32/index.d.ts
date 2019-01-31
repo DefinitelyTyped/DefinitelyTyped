@@ -17,6 +17,7 @@ export class BIP32 {
 
     identifier: Buffer;
     fingerprint: Buffer;
+    chainCode: Buffer;
     privateKey: Buffer;
     publicKey: Buffer;
 

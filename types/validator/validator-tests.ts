@@ -425,7 +425,9 @@ let any: any;
   result = validator.isEmail('sample');
   result = validator.isEmail('sample', isEmailOptions);
 
+  let isEmptyOptions: ValidatorJS.IsEmptyOptions = {};
   result = validator.isEmpty('sample');
+  result = validator.isEmpty('sample', isEmptyOptions);
 
   let isFQDNOptions: ValidatorJS.IsFQDNOptions = {};
   result = validator.isFQDN('sample');

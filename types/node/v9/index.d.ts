@@ -111,6 +111,13 @@ interface Console {
     // --- Inspector mode only ---
     /**
      * This method does not display anything unless used in the inspector.
+     *  The console.markTimeline() method is the deprecated form of console.timeStamp().
+     *
+     * @deprecated Use console.timeStamp() instead.
+     */
+    markTimeline(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
      *  Starts a JavaScript CPU profile with an optional label.
      */
     profile(label?: string): void;
@@ -118,7 +125,7 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Stops the current JavaScript CPU profiling session if one has been started and prints the report to the Profiles panel of the inspector.
      */
-    profileEnd(): void;
+    profileEnd(label?: string): void;
     /**
      * This method does not display anything unless used in the inspector.
      *  Prints to `stdout` the array `array` formatted as a table.
@@ -129,6 +136,20 @@ interface Console {
      *  Adds an event with the label `label` to the Timeline panel of the inspector.
      */
     timeStamp(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  The console.timeline() method is the deprecated form of console.time().
+     *
+     * @deprecated Use console.time() instead.
+     */
+    timeline(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  The console.timelineEnd() method is the deprecated form of console.timeEnd().
+     *
+     * @deprecated Use console.timeEnd() instead.
+     */
+    timelineEnd(label?: string): void;
 }
 
 interface Error {

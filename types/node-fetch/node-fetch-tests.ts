@@ -77,3 +77,8 @@ function test_headersRaw() {
 	const myHeader = 'foo';
 	headers.raw()[myHeader]; // $ExpectType string[]
 }
+
+function test_isRedirect() {
+    fetch.isRedirect(301);
+    fetch.isRedirect(201);
+}

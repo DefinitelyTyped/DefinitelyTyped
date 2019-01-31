@@ -27,7 +27,9 @@ export interface ComponentClass<Props> {
     new(props: Props, context?: any): Component<Props>;
 }
 
-export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
+export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element | null;
+
+export type ComponentType<Props> = ComponentClass<Props> | StatelessComponent<Props>;
 
 /**
  * Many methods in Enzyme's API accept a selector as an argument. Selectors in Enzyme can fall into one of the
@@ -372,8 +374,8 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Find every node in the render tree that matches the provided selector.
      * @param selector The selector to match.
      */
-    find<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     find<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    find<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     find(props: EnzymePropSelector): ShallowWrapper<any, any>;
     find(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
@@ -381,8 +383,8 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    filter<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     filter(props: EnzymePropSelector | string): ShallowWrapper<P, S>;
 
     /**
@@ -394,8 +396,8 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
      * can be provided and it will filter the children by this selector.
      */
-    children<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     children<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    children<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     children(selector: string): ShallowWrapper<HTMLAttributes, any>;
     children(props?: EnzymePropSelector): ShallowWrapper<any, any>;
 
@@ -425,8 +427,8 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    parents<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     parents<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    parents<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     parents(selector: string): ShallowWrapper<HTMLAttributes, any>;
     parents(props?: EnzymePropSelector): ShallowWrapper<any, any>;
 
@@ -436,8 +438,8 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    closest<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     closest<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
+    closest<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     closest(props: EnzymePropSelector): ShallowWrapper<any, any>;
     closest(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
@@ -487,8 +489,8 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      * Find every node in the render tree that matches the provided selector.
      * @param selector The selector to match.
      */
-    find<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     find<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    find<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
 
@@ -501,16 +503,16 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      * Removes nodes in the current wrapper that do not match the provided selector.
      * @param selector The selector to match.
      */
-    filter<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     filter<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    filter<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     filter(props: EnzymePropSelector | string): ReactWrapper<P, S>;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
      * can be provided and it will filter the children by this selector.
      */
-    children<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     children<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    children<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     children(selector: string): ReactWrapper<HTMLAttributes, any>;
     children(props?: EnzymePropSelector): ReactWrapper<any, any>;
 
@@ -526,8 +528,8 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    parents<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     parents<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    parents<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     parents(selector: string): ReactWrapper<HTMLAttributes, any>;
     parents(props?: EnzymePropSelector): ReactWrapper<any, any>;
 
@@ -537,8 +539,8 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    closest<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     closest<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
+    closest<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
     closest(props: EnzymePropSelector): ReactWrapper<any, any>;
     closest(selector: string): ReactWrapper<HTMLAttributes, any>;
 

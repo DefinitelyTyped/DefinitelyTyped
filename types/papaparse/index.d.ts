@@ -103,7 +103,7 @@ export interface ParseConfig {
     worker?: boolean;              // default: false
     comments?: boolean | string;   // default: false
     download?: boolean;            // default: false
-    skipEmptyLines?: boolean;      // default: false
+    skipEmptyLines?: boolean | 'greedy';      // default: false
     fastMode?: boolean;            // default: undefined
     withCredentials?: boolean;     // default: undefined
 
@@ -117,12 +117,12 @@ export interface ParseConfig {
 }
 
 export interface UnparseConfig {
-    quotes?: boolean;      // default: false
-	quoteChar?: string;    // default: '"'
-	escapeChar?: string;   // default: '"'
-	delimiter?: string;    // default: ","
-	header?: boolean;      // default: true
-	newline?: string;      // default: "\r\n"
+    quotes?: boolean | boolean[];   // default: false
+	quoteChar?: string;             // default: '"'
+	escapeChar?: string;            // default: '"'
+	delimiter?: string;             // default: ","
+	header?: boolean;               // default: true
+	newline?: string;               // default: "\r\n"
 }
 
 export interface UnparseObject {
