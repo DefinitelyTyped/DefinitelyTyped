@@ -2,6 +2,13 @@
 // Project: https://github.com/koajs/compose
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+import * as Koa from "koa";
+
+declare function compose<T, U, V, W>(
+    middleware: [Koa.Middleware<T, U>, Koa.Middleware<V, W>]
+): Koa.Middleware<T & V, U & W>;
 
 declare function compose<T>(middleware: Array<compose.Middleware<T>>): compose.ComposedMiddleware<T>;
 
