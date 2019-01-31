@@ -1,4 +1,4 @@
-// Type definitions for react-paginate 6.0
+// Type definitions for react-paginate 6.2
 // Project: https://github.com/AdeleD/react-paginate
 // Definitions by: Simon Hartcher <https://github.com/deevus>
 //                 Wouter Hardeman <https://github.com/wouterhardeman>
@@ -6,6 +6,7 @@
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Yasunori Ohoka <https://github.com/yasupeke>
 //                 Shingo Sato <https://github.com/sugarshin>
+//                 SPWizard01 <https://github.com/SPWizard01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -46,6 +47,11 @@ interface ReactPaginateProps {
      * The classname on tag `li` of the ellipsis element.
      */
     breakClassName?: string;
+
+    /**
+     * The classname on tag `a` of the ellipsis element.
+     */
+    breakLinkClassName?: string;
 
     /**
      * The method to call when a page is clicked. Exposes the current page object as an argument.

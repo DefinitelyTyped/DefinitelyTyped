@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-01-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -126,6 +126,14 @@ declare namespace GoogleAppsScript {
     export enum ColorType { UNSUPPORTED, RGB, THEME }
 
     /**
+     * The connection site on a PageElement that can connect to a connector.
+     */
+    export interface ConnectionSite {
+      getIndex(): Integer;
+      getPageElement(): PageElement;
+    }
+
+    /**
      * The content alignments for a Shape or TableCell. The supported alignments
      * correspond to predefined text anchoring types from the ECMA-376 standard.
      *
@@ -172,8 +180,11 @@ declare namespace GoogleAppsScript {
      */
     export interface Group {
       alignOnPage(alignmentPosition: AlignmentPosition): Group;
+      bringForward(): Group;
+      bringToFront(): Group;
       duplicate(): PageElement;
       getChildren(): PageElement[];
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
       getHeight(): Number;
       getInherentHeight(): Number;
@@ -194,9 +205,13 @@ declare namespace GoogleAppsScript {
       scaleWidth(ratio: Number): Group;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): Group;
+      sendToBack(): Group;
+      setDescription(description: string): Group;
       setHeight(height: Number): Group;
       setLeft(left: Number): Group;
       setRotation(angle: Number): Group;
+      setTitle(title: string): Group;
       setTop(top: Number): Group;
       setTransform(transform: AffineTransform): Group;
       setWidth(width: Number): Group;
@@ -208,10 +223,13 @@ declare namespace GoogleAppsScript {
      */
     export interface Image {
       alignOnPage(alignmentPosition: AlignmentPosition): Image;
+      bringForward(): Image;
+      bringToFront(): Image;
       duplicate(): PageElement;
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getBorder(): Border;
+      getConnectionSites(): ConnectionSite[];
       getContentUrl(): string;
       getDescription(): string;
       getHeight(): Number;
@@ -240,6 +258,9 @@ declare namespace GoogleAppsScript {
       scaleWidth(ratio: Number): Image;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): Image;
+      sendToBack(): Image;
+      setDescription(description: string): Image;
       setHeight(height: Number): Image;
       setLeft(left: Number): Image;
       setLinkSlide(slideIndex: Integer): Link;
@@ -247,6 +268,7 @@ declare namespace GoogleAppsScript {
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
       setRotation(angle: Number): Image;
+      setTitle(title: string): Image;
       setTop(top: Number): Image;
       setTransform(transform: AffineTransform): Image;
       setWidth(width: Number): Image;
@@ -267,6 +289,7 @@ declare namespace GoogleAppsScript {
       getLines(): Line[];
       getMaster(): Master;
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -285,6 +308,7 @@ declare namespace GoogleAppsScript {
       insertImage(imageUrl: string): Image;
       insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
       insertLine(line: Line): Line;
+      insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
       insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
@@ -298,6 +322,8 @@ declare namespace GoogleAppsScript {
       insertTable(numRows: Integer, numColumns: Integer): Table;
       insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
       insertVideo(videoUrl: string): Video;
       insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
       insertVideo(video: Video): Video;
@@ -313,15 +339,20 @@ declare namespace GoogleAppsScript {
      */
     export interface Line {
       alignOnPage(alignmentPosition: AlignmentPosition): Line;
+      bringForward(): Line;
+      bringToFront(): Line;
       duplicate(): PageElement;
+      getConnectionSites(): ConnectionSite[];
       getDashStyle(): DashStyle;
       getDescription(): string;
       getEnd(): Point;
       getEndArrow(): ArrowStyle;
+      getEndConnection(): ConnectionSite;
       getHeight(): Number;
       getInherentHeight(): Number;
       getInherentWidth(): Number;
       getLeft(): Number;
+      getLineCategory(): LineCategory;
       getLineFill(): LineFill;
       getLineType(): LineType;
       getLink(): Link;
@@ -332,24 +363,32 @@ declare namespace GoogleAppsScript {
       getRotation(): Number;
       getStart(): Point;
       getStartArrow(): ArrowStyle;
+      getStartConnection(): ConnectionSite;
       getTitle(): string;
       getTop(): Number;
       getTransform(): AffineTransform;
       getWeight(): Number;
       getWidth(): Number;
+      isConnector(): boolean;
       preconcatenateTransform(transform: AffineTransform): Line;
       remove(): void;
       removeLink(): void;
+      reroute(): Line;
       scaleHeight(ratio: Number): Line;
       scaleWidth(ratio: Number): Line;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): Line;
+      sendToBack(): Line;
       setDashStyle(style: DashStyle): Line;
+      setDescription(description: string): Line;
       setEnd(left: Number, top: Number): Line;
       setEnd(point: Point): Line;
       setEndArrow(style: ArrowStyle): Line;
+      setEndConnection(connectionSite: ConnectionSite): Line;
       setHeight(height: Number): Line;
       setLeft(left: Number): Line;
+      setLineCategory(lineCategory: LineCategory): Line;
       setLinkSlide(slideIndex: Integer): Link;
       setLinkSlide(slide: Slide): Link;
       setLinkSlide(slidePosition: SlidePosition): Link;
@@ -358,6 +397,8 @@ declare namespace GoogleAppsScript {
       setStart(left: Number, top: Number): Line;
       setStart(point: Point): Line;
       setStartArrow(style: ArrowStyle): Line;
+      setStartConnection(connectionSite: ConnectionSite): Line;
+      setTitle(title: string): Line;
       setTop(top: Number): Line;
       setTransform(transform: AffineTransform): Line;
       setWeight(points: Number): Line;
@@ -370,7 +411,7 @@ declare namespace GoogleAppsScript {
      * The exact LineType created is determined based on the category and how it's routed to
      * connect to other page elements.
      */
-    export enum LineCategory { STRAIGHT, BENT, CURVED }
+    export enum LineCategory { UNSUPPORTED, STRAIGHT, BENT, CURVED }
 
     /**
      * Describes the fill of a line or outline
@@ -504,6 +545,7 @@ declare namespace GoogleAppsScript {
       getLayouts(): Layout[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -522,6 +564,7 @@ declare namespace GoogleAppsScript {
       insertImage(imageUrl: string): Image;
       insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
       insertLine(line: Line): Line;
+      insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
       insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
@@ -535,6 +578,8 @@ declare namespace GoogleAppsScript {
       insertTable(numRows: Integer, numColumns: Integer): Table;
       insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
       insertVideo(videoUrl: string): Video;
       insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
       insertVideo(video: Video): Video;
@@ -556,6 +601,7 @@ declare namespace GoogleAppsScript {
       getImages(): Image[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
       getPlaceholder(placeholderType: PlaceholderType, placeholderIndex: Integer): PageElement;
@@ -579,6 +625,7 @@ declare namespace GoogleAppsScript {
       getImages(): Image[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
       getPlaceholder(placeholderType: PlaceholderType, placeholderIndex: Integer): PageElement;
@@ -606,6 +653,7 @@ declare namespace GoogleAppsScript {
       getImages(): Image[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -624,6 +672,7 @@ declare namespace GoogleAppsScript {
       insertImage(imageUrl: string): Image;
       insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
       insertLine(line: Line): Line;
+      insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
       insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
@@ -637,6 +686,8 @@ declare namespace GoogleAppsScript {
       insertTable(numRows: Integer, numColumns: Integer): Table;
       insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
       insertVideo(videoUrl: string): Video;
       insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
       insertVideo(video: Video): Video;
@@ -686,7 +737,10 @@ declare namespace GoogleAppsScript {
       asTable(): Table;
       asVideo(): Video;
       asWordArt(): WordArt;
+      bringForward(): PageElement;
+      bringToFront(): PageElement;
       duplicate(): PageElement;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
       getHeight(): Number;
       getInherentHeight(): Number;
@@ -707,9 +761,13 @@ declare namespace GoogleAppsScript {
       scaleWidth(ratio: Number): PageElement;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): PageElement;
+      sendToBack(): PageElement;
+      setDescription(description: string): PageElement;
       setHeight(height: Number): PageElement;
       setLeft(left: Number): PageElement;
       setRotation(angle: Number): PageElement;
+      setTitle(title: string): PageElement;
       setTop(top: Number): PageElement;
       setTransform(transform: AffineTransform): PageElement;
       setWidth(width: Number): PageElement;
@@ -828,6 +886,7 @@ declare namespace GoogleAppsScript {
       appendSlide(layout: Layout): Slide;
       appendSlide(predefinedLayout: PredefinedLayout): Slide;
       appendSlide(slide: Slide): Slide;
+      appendSlide(slide: Slide, linkingMode: SlideLinkingMode): Slide;
       getEditors(): Base.User[];
       getId(): string;
       getLayouts(): Layout[];
@@ -836,9 +895,11 @@ declare namespace GoogleAppsScript {
       getNotesMaster(): NotesMaster;
       getNotesPageHeight(): Number;
       getNotesPageWidth(): Number;
+      getPageElementById(id: string): PageElement;
       getPageHeight(): Number;
       getPageWidth(): Number;
       getSelection(): Selection;
+      getSlideById(id: string): Slide;
       getSlides(): Slide[];
       getUrl(): string;
       getViewers(): Base.User[];
@@ -846,6 +907,7 @@ declare namespace GoogleAppsScript {
       insertSlide(insertionIndex: Integer, layout: Layout): Slide;
       insertSlide(insertionIndex: Integer, predefinedLayout: PredefinedLayout): Slide;
       insertSlide(insertionIndex: Integer, slide: Slide): Slide;
+      insertSlide(insertionIndex: Integer, slide: Slide, linkingMode: SlideLinkingMode): Slide;
       removeEditor(emailAddress: string): Presentation;
       removeEditor(user: Base.User): Presentation;
       removeViewer(emailAddress: string): Presentation;
@@ -901,8 +963,11 @@ declare namespace GoogleAppsScript {
      */
     export interface Shape {
       alignOnPage(alignmentPosition: AlignmentPosition): Shape;
+      bringForward(): Shape;
+      bringToFront(): Shape;
       duplicate(): PageElement;
       getBorder(): Border;
+      getConnectionSites(): ConnectionSite[];
       getContentAlignment(): ContentAlignment;
       getDescription(): string;
       getFill(): Fill;
@@ -938,7 +1003,10 @@ declare namespace GoogleAppsScript {
       scaleWidth(ratio: Number): Shape;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): Shape;
+      sendToBack(): Shape;
       setContentAlignment(contentAlignment: ContentAlignment): Shape;
+      setDescription(description: string): Shape;
       setHeight(height: Number): Shape;
       setLeft(left: Number): Shape;
       setLinkSlide(slideIndex: Integer): Link;
@@ -946,6 +1014,7 @@ declare namespace GoogleAppsScript {
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
       setRotation(angle: Number): Shape;
+      setTitle(title: string): Shape;
       setTop(top: Number): Shape;
       setTransform(transform: AffineTransform): Shape;
       setWidth(width: Number): Shape;
@@ -966,8 +1035,11 @@ declare namespace GoogleAppsScript {
     export interface SheetsChart {
       alignOnPage(alignmentPosition: AlignmentPosition): SheetsChart;
       asImage(): Image;
+      bringForward(): SheetsChart;
+      bringToFront(): SheetsChart;
       duplicate(): PageElement;
       getChartId(): Integer;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
       getEmbedType(): SheetsChartEmbedType;
       getHeight(): Number;
@@ -993,6 +1065,9 @@ declare namespace GoogleAppsScript {
       scaleWidth(ratio: Number): SheetsChart;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): SheetsChart;
+      sendToBack(): SheetsChart;
+      setDescription(description: string): SheetsChart;
       setHeight(height: Number): SheetsChart;
       setLeft(left: Number): SheetsChart;
       setLinkSlide(slideIndex: Integer): Link;
@@ -1000,6 +1075,7 @@ declare namespace GoogleAppsScript {
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
       setRotation(angle: Number): SheetsChart;
+      setTitle(title: string): SheetsChart;
       setTop(top: Number): SheetsChart;
       setTransform(transform: AffineTransform): SheetsChart;
       setWidth(width: Number): SheetsChart;
@@ -1026,6 +1102,7 @@ declare namespace GoogleAppsScript {
       getLines(): Line[];
       getNotesPage(): NotesPage;
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -1033,6 +1110,9 @@ declare namespace GoogleAppsScript {
       getPlaceholders(): PageElement[];
       getShapes(): Shape[];
       getSheetsCharts(): SheetsChart[];
+      getSlideLinkingMode(): SlideLinkingMode;
+      getSourcePresentationId(): string;
+      getSourceSlideObjectId(): string;
       getTables(): Table[];
       getVideos(): Video[];
       getWordArts(): WordArt[];
@@ -1044,6 +1124,7 @@ declare namespace GoogleAppsScript {
       insertImage(imageUrl: string): Image;
       insertImage(imageUrl: string, left: Number, top: Number, width: Number, height: Number): Image;
       insertLine(line: Line): Line;
+      insertLine(lineCategory: LineCategory, startConnectionSite: ConnectionSite, endConnectionSite: ConnectionSite): Line;
       insertLine(lineCategory: LineCategory, startLeft: Number, startTop: Number, endLeft: Number, endTop: Number): Line;
       insertPageElement(pageElement: PageElement): PageElement;
       insertShape(shape: Shape): Shape;
@@ -1057,16 +1138,25 @@ declare namespace GoogleAppsScript {
       insertTable(numRows: Integer, numColumns: Integer): Table;
       insertTable(numRows: Integer, numColumns: Integer, left: Number, top: Number, width: Number, height: Number): Table;
       insertTable(table: Table): Table;
+      insertTextBox(text: string): Shape;
+      insertTextBox(text: string, left: Number, top: Number, width: Number, height: Number): Shape;
       insertVideo(videoUrl: string): Video;
       insertVideo(videoUrl: string, left: Number, top: Number, width: Number, height: Number): Video;
       insertVideo(video: Video): Video;
       insertWordArt(wordArt: WordArt): WordArt;
       move(index: Integer): void;
+      refreshSlide(): void;
       remove(): void;
       replaceAllText(findText: string, replaceText: string): Integer;
       replaceAllText(findText: string, replaceText: string, matchCase: boolean): Integer;
       selectAsCurrentPage(): void;
+      unlink(): void;
     }
+
+    /**
+     * The mode of links between slides.
+     */
+    export enum SlideLinkingMode { UNSUPPORTED, LINKED, NOT_LINKED }
 
     /**
      * The relative position of a Slide.
@@ -1142,9 +1232,12 @@ declare namespace GoogleAppsScript {
       alignOnPage(alignmentPosition: AlignmentPosition): Table;
       appendColumn(): TableColumn;
       appendRow(): TableRow;
+      bringForward(): Table;
+      bringToFront(): Table;
       duplicate(): PageElement;
       getCell(rowIndex: Integer, columnIndex: Integer): TableCell;
       getColumn(columnIndex: Integer): TableColumn;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
       getHeight(): Number;
       getInherentHeight(): Number;
@@ -1170,9 +1263,13 @@ declare namespace GoogleAppsScript {
       scaleWidth(ratio: Number): Table;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): Table;
+      sendToBack(): Table;
+      setDescription(description: string): Table;
       setHeight(height: Number): Table;
       setLeft(left: Number): Table;
       setRotation(angle: Number): Table;
+      setTitle(title: string): Table;
       setTop(top: Number): Table;
       setTransform(transform: AffineTransform): Table;
       setWidth(width: Number): Table;
@@ -1341,8 +1438,11 @@ declare namespace GoogleAppsScript {
      */
     export interface Video {
       alignOnPage(alignmentPosition: AlignmentPosition): Video;
+      bringForward(): Video;
+      bringToFront(): Video;
       duplicate(): PageElement;
       getBorder(): Border;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
       getHeight(): Number;
       getInherentHeight(): Number;
@@ -1367,9 +1467,13 @@ declare namespace GoogleAppsScript {
       scaleWidth(ratio: Number): Video;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): Video;
+      sendToBack(): Video;
+      setDescription(description: string): Video;
       setHeight(height: Number): Video;
       setLeft(left: Number): Video;
       setRotation(angle: Number): Video;
+      setTitle(title: string): Video;
       setTop(top: Number): Video;
       setTransform(transform: AffineTransform): Video;
       setWidth(width: Number): Video;
@@ -1385,7 +1489,10 @@ declare namespace GoogleAppsScript {
      */
     export interface WordArt {
       alignOnPage(alignmentPosition: AlignmentPosition): WordArt;
+      bringForward(): WordArt;
+      bringToFront(): WordArt;
       duplicate(): PageElement;
+      getConnectionSites(): ConnectionSite[];
       getDescription(): string;
       getHeight(): Number;
       getInherentHeight(): Number;
@@ -1409,6 +1516,9 @@ declare namespace GoogleAppsScript {
       scaleWidth(ratio: Number): WordArt;
       select(): void;
       select(replace: boolean): void;
+      sendBackward(): WordArt;
+      sendToBack(): WordArt;
+      setDescription(description: string): WordArt;
       setHeight(height: Number): WordArt;
       setLeft(left: Number): WordArt;
       setLinkSlide(slideIndex: Integer): Link;
@@ -1416,6 +1526,7 @@ declare namespace GoogleAppsScript {
       setLinkSlide(slidePosition: SlidePosition): Link;
       setLinkUrl(url: string): Link;
       setRotation(angle: Number): WordArt;
+      setTitle(title: string): WordArt;
       setTop(top: Number): WordArt;
       setTransform(transform: AffineTransform): WordArt;
       setWidth(width: Number): WordArt;

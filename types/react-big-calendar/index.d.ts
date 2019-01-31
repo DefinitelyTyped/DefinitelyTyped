@@ -216,19 +216,19 @@ export class DateLocalizer {
     format(value: FormatInput, format: string, culture: Culture): string;
 }
 
-export interface BigCalendarProps<T extends Event = Event> extends React.Props<BigCalendar<T>> {
+export interface BigCalendarProps<TEvent extends Event = Event, TResource extends object = object> extends React.Props<BigCalendar<TEvent, TResource>> {
     localizer: DateLocalizer;
 
     date?: stringOrDate;
     now?: Date;
     view?: View;
-    events?: T[];
-    onNavigate?: (newDate: Date, action: Navigate) => void;
+    events?: TEvent[];
+    onNavigate?: (newDate: Date, view: View, action: Navigate) => void;
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
     onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[], action: 'select' | 'click' | 'doubleClick' }) => void;
-    onDoubleClickEvent?: (event: T, e: React.SyntheticEvent<HTMLElement>) => void;
-    onSelectEvent?: (event: T, e: React.SyntheticEvent<HTMLElement>) => void;
+    onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
+    onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate, end: stringOrDate }) => boolean | undefined | null;
     selected?: any;
     views?: Views;
@@ -243,7 +243,7 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     step?: number;
     timeslots?: number;
     rtl?: boolean;
-    eventPropGetter?: EventPropGetter<T>;
+    eventPropGetter?: EventPropGetter<TEvent>;
     slotPropGetter?: SlotPropGetter;
     dayPropGetter?: DayPropGetter;
     showMultiDayTimes?: boolean;
@@ -254,14 +254,14 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     formats?: Formats;
     components?: Components;
     messages?: Messages;
-    titleAccessor?: keyof T | ((event: T) => string);
-    allDayAccessor?: keyof T | ((event: T) => boolean);
-    startAccessor?: keyof T | ((event: T) => Date);
-    endAccessor?: keyof T | ((event: T) => Date);
-    resourceAccessor?: keyof T | ((event: T) => any);
-    resources?: any[];
-    resourceIdAccessor?: keyof T | ((event: T) => any);
-    resourceTitleAccessor?: keyof T | ((event: T) => string);
+    titleAccessor?: keyof TEvent | ((event: TEvent) => string);
+    allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean);
+    startAccessor?: keyof TEvent | ((event: TEvent) => Date);
+    endAccessor?: keyof TEvent | ((event: TEvent) => Date);
+    resourceAccessor?: keyof TEvent | ((event: TEvent) => any);
+    resources?: TResource[];
+    resourceIdAccessor?: keyof TResource | ((resource: TResource) => any);
+    resourceTitleAccessor?: keyof TResource | ((resource: TResource) => string);
     defaultView?: View;
     defaultDate?: Date;
     className?: string;
@@ -278,7 +278,7 @@ export interface MoveOptions {
     today: Date;
 }
 
-export default class BigCalendar<T extends Event = Event> extends React.Component<BigCalendarProps<T>> {
+export default class BigCalendar<TEvent extends Event = Event, TResource extends object = object> extends React.Component<BigCalendarProps<TEvent, TResource>> {
     components: {
         dateCellWrapper: React.ComponentType,
         dayWrapper: React.ComponentType,

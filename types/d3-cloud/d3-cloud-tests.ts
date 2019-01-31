@@ -1,3 +1,12 @@
+import d3Cloud = require('./index.d');
+import d3 = require('d3');
+
+// $ExpectType Cloud<Word>
+d3Cloud();
+
+// $ExpectType Cloud<Word>
+d3.layout.cloud();
+
 interface ICompTextSize{
   text:string;
   size:number;

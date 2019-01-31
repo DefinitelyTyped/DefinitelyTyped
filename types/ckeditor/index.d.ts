@@ -498,7 +498,7 @@ declare namespace CKEDITOR {
 
         class walker {
             evaluator: (node: node) => boolean;
-            guard: (node: node) => boolean;
+            guard: (node: node, movingOut?: boolean) => boolean;
 
             static validEmptyBlockContainers: { [key: string]: any };
 
@@ -761,7 +761,7 @@ declare namespace CKEDITOR {
         pasteFromWordNumberedHeadingToList?: boolean;
         pasteFromWordPromptCleanup?: boolean;
         pasteFromWordRemoveFontStyles?: boolean;
-        pasteFromWorkRemoveStyles?: boolean;
+        pasteFromWordRemoveStyles?: boolean;
         pasteFromWord_heuristicsEdgeList?: boolean;
         pasteFromWord_inlineImages?: boolean;
         plugins?: string;

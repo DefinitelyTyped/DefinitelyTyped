@@ -251,6 +251,12 @@ jest
     .useFakeTimers()
     .useRealTimers();
 
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+jest.requireActual("./thisReturnsTheActualModule");
+
+// https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
+jest.requireMock("./thisAlwaysReturnsTheMock");
+
 /* Mocks and spies */
 
 const mock1: jest.Mock = jest.fn();

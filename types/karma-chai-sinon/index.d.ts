@@ -2,7 +2,7 @@
 // Project: https://github.com/tubalmartin/karma-chai-sinon
 // Definitions by: Václav Ostrožlík <https://github.com/vasek17>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 /// <reference types="chai" />
 import Sinon = require('sinon');

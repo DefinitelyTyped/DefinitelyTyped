@@ -34,7 +34,7 @@ declare module 'backbone' {
 
         fetchRelated(key:string, options?:any, update?:boolean):any;
 
-        toJSON():any;
+        toJSON(options?: any):any;
 
         static setup();
 

@@ -138,6 +138,9 @@ namespace express_tests {
         res.req;
     });
 
+    // Test mounting sub-apps
+    app.use('/sub-app', express());
+
     // Test on mount event
     app.on('mount', (parent) => true);
 

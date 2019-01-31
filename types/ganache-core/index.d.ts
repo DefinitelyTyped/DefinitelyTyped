@@ -16,5 +16,6 @@ export interface GanacheOpts {
     mnemonic?: string;
     gasLimit?: number;
     vmErrorsOnRPCResponse?: boolean;
+    db_path?: string;
 }
 export function provider(opts: GanacheOpts): Provider;

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { StyleSheet, View, Button } from 'react-native';
-import PopupDialog, {
+import Dialog, {
     DialogTitle,
+    DialogContent,
     DialogButton,
     SlideAnimation,
     ScaleAnimation,
@@ -13,17 +14,17 @@ const scaleAnimation = new ScaleAnimation();
 const fadeAnimation = new FadeAnimation({ animationDuration: 150 });
 
 class Test extends React.Component<any> {
-    fadingPopupDialog: PopupDialog | null;
-    scalingPopupDialog: PopupDialog | null;
-    slidingPopupDialog: PopupDialog | null;
+    fadingPopupDialog: Dialog | null;
+    scalingPopupDialog: Dialog | null;
+    slidingPopupDialog: Dialog | null;
 
-    showPopupDialog(popupDialog: PopupDialog | null) {
+    showPopupDialog(popupDialog: Dialog | null) {
         if (popupDialog !== null) {
             popupDialog.show(() => console.log('show callback'));
         }
     }
 
-    dismissPopupDialog(popupDialog: PopupDialog | null) {
+    dismissPopupDialog(popupDialog: Dialog | null) {
         if (popupDialog !== null) {
             popupDialog.dismiss(() => console.log('dismiss callback'));
         }
@@ -42,11 +43,11 @@ class Test extends React.Component<any> {
                     onPress={() => this.showPopupDialog(this.slidingPopupDialog)}
                     title="Show Sliding Dialog" />
 
-                <PopupDialog ref={(popupDialog) => this.fadingPopupDialog = popupDialog}
+                <Dialog ref={(popupDialog) => this.fadingPopupDialog = popupDialog}
                     dialogTitle={<DialogTitle title="Popup Dialog - Fade Animation" />}
                     dialogAnimation={fadeAnimation}
                 />
-                <PopupDialog ref={(popupDialog) => this.scalingPopupDialog = popupDialog}
+                <Dialog ref={(popupDialog) => this.scalingPopupDialog = popupDialog}
                     dialogTitle={<DialogTitle title="Popup Dialog - Scale Animation" />}
                     dialogAnimation={scaleAnimation}
                     actions={[
@@ -58,7 +59,7 @@ class Test extends React.Component<any> {
                         />,
                     ]}
                 />
-                <PopupDialog ref={(popupDialog) => this.slidingPopupDialog = popupDialog}
+                <Dialog ref={(popupDialog) => this.slidingPopupDialog = popupDialog}
                     dialogTitle={<DialogTitle title="Popup Dialog - Slide Animation" />}
                     width={300}
                     height={300}
@@ -69,13 +70,17 @@ class Test extends React.Component<any> {
                     overlayPointerEvents='auto'
                     overlayBackgroundColor='white'
                     overlayOpacity={0.5}
-                    dismissOnTouchOutside={false}
-                    dismissOnHardwareBackPress={false}
-                    haveOverlay={true}
+                    hasOverlay={true}
                     visible={true}
-                    onShown={() => { console.log('onShown'); }}
-                    onDismissed={() => { console.log('onDismissed'); }}
-                />
+                    onShow={() => { console.log('onShow'); }}
+                    onDismiss={() => { console.log('onDismiss'); }}
+                    onTouchOutside={() => { console.log('onTouchOutside'); }}
+                    onHardwareBackPress={() => true }
+                >
+                <DialogContent>
+
+                </DialogContent>
+                ></Dialog>
             </View>);
     }
 }

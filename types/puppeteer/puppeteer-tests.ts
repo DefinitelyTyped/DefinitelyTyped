@@ -1,5 +1,6 @@
 import * as puppeteer from "puppeteer";
 import { TimeoutError } from "puppeteer/Errors";
+import * as Devices from "puppeteer/DeviceDescriptors";
 
 // Accessibility
 
@@ -118,6 +119,7 @@ puppeteer.launch().then(async browser => {
   });
 
   await page.emulateMedia("screen");
+  await page.emulate(Devices['test']);
   await page.pdf({ path: "page.pdf" });
 
   await page.setRequestInterception(true);
@@ -198,6 +200,13 @@ puppeteer.launch().then(async browser => {
   await page.screenshot({ path: "example.png" });
 
   browser.close();
+})();
+
+// Launching with default viewport disabled
+(async () => {
+  await puppeteer.launch({
+    defaultViewport: null
+  });
 })();
 
 // Test v0.12 features
@@ -492,4 +501,15 @@ puppeteer.launch().then(async browser => {
     } catch (err) {
         console.log(err instanceof TimeoutError);
     }
+});
+
+// domcontentloaded page event test
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  page.on('domcontentloaded', async () => {
+    page.evaluate(() => {
+      console.log('dom changed');
+    });
+  });
 });

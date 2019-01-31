@@ -153,6 +153,10 @@ declare module 'angular' {
             defaultFontSet(name: string): IIconProvider;
         }
 
+        interface IInkRippleProvider {
+            disableInkRipple(): void;
+        }
+
         type IMedia = (media: string) => boolean;
 
         interface ISidenavObject {
@@ -340,6 +344,7 @@ declare module 'angular' {
         }
 
         interface IMenuService {
+            close(): void;
             hide(response?: any, options?: any): IPromise<any>;
             open(event?: MouseEvent): void;
         }

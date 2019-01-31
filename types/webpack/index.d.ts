@@ -15,6 +15,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
 //                 Kyle Uehlein <https://github.com/kuehlein>
+//                 Grgur Grisogono <https://github.com/grgur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -538,12 +539,13 @@ declare namespace webpack {
 
     namespace Options {
         // tslint:disable-next-line:max-line-length
-        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
-            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
-            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
-            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
-            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
-            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map'
+            | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | 'inline-cheap-source-map' | 'inline-cheap-module-source-map' | '@eval'
+            | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map'
+            | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' | '#cheap-eval-source-map'
+            | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map'
+            | '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map'
+            | '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
 
         interface Performance {
             /** This property allows webpack to control what files are used to calculate performance hints. */
@@ -986,8 +988,8 @@ declare namespace webpack {
             shouldEmit: SyncBailHook<Compilation>;
             done: AsyncSeriesHook<Stats>;
             additionalPass: AsyncSeriesHook;
-            beforeRun: AsyncSeriesHook<Compilation>;
-            run: AsyncSeriesHook<Compilation>;
+            beforeRun: AsyncSeriesHook<Compiler>;
+            run: AsyncSeriesHook<Compiler>;
             emit: AsyncSeriesHook<Compilation>;
             afterEmit: AsyncSeriesHook<Compilation>;
             thisCompilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
@@ -1227,7 +1229,7 @@ declare namespace webpack {
 
         interface ToStringOptionsObject extends ToJsonOptionsObject {
             /** `webpack --colors` equivalent */
-            colors?: boolean;
+            colors?: boolean | string;
         }
 
         type ToStringOptions = Preset | ToStringOptionsObject;
@@ -1448,6 +1450,10 @@ declare namespace webpack {
 
     class WatchIgnorePlugin extends Plugin {
         constructor(paths: Array<string | RegExp>);
+    }
+
+    class SingleEntryPlugin extends Plugin {
+        constructor(context: string, entry: string, name: string);
     }
 
     namespace optimize {
