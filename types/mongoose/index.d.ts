@@ -17,6 +17,7 @@
 //                 stablio <https://github.com/stablio>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Frontend Monster <https://github.com/frontendmonster>
+//                 Ming Chen <https://github.com/mingchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -317,6 +318,16 @@ declare module "mongoose" {
     readyState: number;
   }
 
+  /**
+   * Connection optional settings.
+   *
+   * see
+   *   https://mongoosejs.com/docs/api.html#mongoose_Mongoose-connect
+   * and
+   *   http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html
+   * for all available options.
+   *
+   */
   interface ConnectionOptionsBase {
     /** database Name for Mongodb Atlas Connection */
     dbName?: string;
@@ -340,11 +351,13 @@ declare module "mongoose" {
     poolSize?: number;
     /** Reconnect on error (default: true) */
     autoReconnect?: boolean;
-    /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
-    keepAlive?: number;
-    /** TCP Connection timeout setting (default: 0) */
+    /** TCP Connection keep alive enabled (default: true) */
+    keepAlive?: boolean;
+    /** The number of milliseconds to wait before initiating keepAlive on the TCP socket (default 30000) */
+    keepAliveInitialDelay?: number;
+    /** TCP Connection timeout setting (default: 30000) */
     connectTimeoutMS?: number;
-    /** TCP Socket timeout setting (default: 0) */
+    /** TCP Socket timeout setting (default: 360000) */
     socketTimeoutMS?: number;
     /** If the database authentication is dependent on another databaseName. */
     authSource?: string;
