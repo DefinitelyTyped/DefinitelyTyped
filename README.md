@@ -286,8 +286,9 @@ Then you will have to add a comment to the last line of your definition header (
 
 #### I want to use features from TypeScript 3.1 or above.
 
-You will need to use the `typesVersions` feature of TypeScript 3.1 and above. You can find a detailed explanation
-of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
+You can use the same `// TypeScript Version: 3.1` comment as above.
+However, if your project needs to maintain types that are compatible with 3.1 and above *at the same time as* types that are compatible with 3.0 or below, you will need to use the `typesVersions` feature, which is available in TypeScript 3.1 and above.
+You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
 
 Here's a short explanation to get you started:
 
