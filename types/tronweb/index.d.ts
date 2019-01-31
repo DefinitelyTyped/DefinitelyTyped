@@ -1,12 +1,9 @@
-/**
- * Copyright (c) iEXBase. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
+// Type definitions for TronWeb 1.0
+// Project: https://www.npmjs.com/package/tronweb
+// Definitions by: Shamsudin Serderov <https://github.com/iexbase>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
 export declare class TronWeb
 {
     trx: Trx;
