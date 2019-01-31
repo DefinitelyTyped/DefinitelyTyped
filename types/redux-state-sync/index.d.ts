@@ -8,11 +8,6 @@
 import { Store, Reducer, Middleware, AnyAction } from "redux";
 import BroadcastChannel from "broadcast-channel";
 
-export let lastUuid: number;
-export const GET_INIT_STATE: string;
-export const SEND_INIT_STATE: string;
-export const RECEIVE_INIT_STATE: string;
-
 export interface Stamp {
     $uuid: string;
     $wuid: string;
@@ -32,19 +27,6 @@ export interface MessageListenerConfig {
     dispatch: (action: AnyAction | StampedAction) => void;
     allowed: (type?: string) => boolean;
 }
-
-export const defaultConfig: Config;
-export const WINDOW_STATE_SYNC_ID: string;
-export let isMessageListenerCreated: boolean;
-
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-export function getIniteState(): AnyAction;
-export function sendIniteState(): AnyAction;
-export function receiveIniteState(store: Store): AnyAction;
-export function s4(): string;
-export function guid(): string;
 
 export function generateUuidForAction(action: AnyAction): StampedAction;
 export function isActionAllowed(config: Config): (type?: any) => boolean;
