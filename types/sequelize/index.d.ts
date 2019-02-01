@@ -3155,8 +3155,9 @@ declare namespace sequelize {
      * We did put Object in the end, because there where query might be a JSON Blob. It cripples a bit the
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
+    type Primitives = string | number | boolean | Buffer;
     type WhereOptions<T> = {
-        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | WhereNested | Array<string | number> | null;
+        [P in keyof T]?: Primitives | Array<Primitives> | WhereLogic | (T[P] extends Primitives ? null : WhereOptions<T[P]>) | col | and | or | WhereGeometryOptions | WhereNested | null;
     };
 
     /**
