@@ -3,6 +3,7 @@
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 ryee-dev <https://github.com/ryee-dev>
 //                 jamesmckenzie <https://github.com/jamesmckenzie>
+//                 sara f-p <https://github.com/gretzky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -10,7 +11,7 @@ import * as React from "react";
 
 export interface BaseProps<C> extends React.ClassAttributes<C> {
     className?: string;
-    as?: string;
+    as?: any;
 }
 
 export interface SpaceProps<C> extends BaseProps<C> {
