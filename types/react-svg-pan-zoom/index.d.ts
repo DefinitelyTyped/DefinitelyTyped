@@ -111,7 +111,7 @@ export interface OptionalProps {
 	toolbarPosition: ToolbarPosition;
 
 	// Override toolbar component
-	customToolbar: React.Component<any> | React.StatelessComponent<any>;
+	customToolbar: React.ComponentType<any>
 
 	// Array with modifier keys used with the tool auto to swap zoom in and zoom out
 	// modifier keys //https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
