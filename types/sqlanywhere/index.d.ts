@@ -1,6 +1,7 @@
 // Type definitions for sqlanywhere 1.0
 // Project: https://github.com/sqlanywhere/node-sqlanywhere
 // Definitions by: Peter Keuter <https://github.com/pkeuter>
+// Updated by: James Russo <https://github.com/jamesrusso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export function createConnection(): SybaseConnection;
 
