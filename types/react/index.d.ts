@@ -782,8 +782,6 @@ declare namespace React {
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
     type DependencyList = ReadonlyArray<any>;
-    // compatibility alias; `inputs` were renamed to `deps` at one point
-    type InputIdentityList = DependencyList;
 
     // NOTE: Currently, in alpha.0, the effect callbacks are actually allowed to return anything,
     // but functions are treated specially. The next version published with hooks will warn if you actually
@@ -907,7 +905,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#uselayouteffect
      */
-    function useLayoutEffect(effect: EffectCallback, deps?: InputIdentityList): void;
+    function useLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
     /**
      * Accepts a function that contains imperative, possibly effectful code.
      *
@@ -917,7 +915,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useeffect
      */
-    function useEffect(effect: EffectCallback, deps?: InputIdentityList): void;
+    function useEffect(effect: EffectCallback, deps?: DependencyList): void;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
@@ -928,7 +926,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useimperativehandle
      */
-    function useImperativeHandle<T, R extends T>(ref: Ref<T>|undefined, init: () => R, deps?: InputIdentityList): void;
+    function useImperativeHandle<T, R extends T>(ref: Ref<T>|undefined, init: () => R, deps?: DependencyList): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
@@ -939,7 +937,7 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usecallback
      */
     // TODO (TypeScript 3.0): <T extends (...args: never[]) => unknown>
-    function useCallback<T extends (...args: any[]) => any>(callback: T, deps: InputIdentityList): T;
+    function useCallback<T extends (...args: any[]) => any>(callback: T, deps: DependencyList): T;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
@@ -958,7 +956,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usememo
      */
-    function useMemo<T>(factory: () => T, deps: InputIdentityList): T;
+    function useMemo<T>(factory: () => T, deps: DependencyList): T;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
