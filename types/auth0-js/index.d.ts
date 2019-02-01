@@ -569,6 +569,14 @@ export type SpecErrorCodes =
 export interface Auth0Error {
     error: LibErrorCodes | SpecErrorCodes | string;
     errorDescription: string;
+    // Need to include non-intuitive error fields that Auth0 uses
+    code?: string;
+    description?: string;
+    name?: string;
+    policy?: string;
+    original?: any;
+    statusCode?: number;
+    statusText?: string;
 }
 
 export type Auth0ParseHashError = Auth0Error & {
