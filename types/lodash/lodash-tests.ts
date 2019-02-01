@@ -5898,6 +5898,12 @@ fp.now(); // $ExpectType number
     _.values(numDict); // $ExpectType AbcObject[]
     _.values(list); // $ExpectType AbcObject[]
     _.values(abcObject); // $ExpectType (string | number | boolean)[]
+    const abcObjectLiteral: {
+        a: 'a';
+        b: 'b';
+        c: 'c';
+    } = anything;
+    _.values(abcObjectLiteral); // $ExpectType ('a' | 'b' | 'c')[]
 
     _(true).values(); // $ExpectType LoDashImplicitWrapper<any[]>
     _("hi").values(); // $ExpectType LoDashImplicitWrapper<string[]>
