@@ -35,17 +35,6 @@ export type Format =
     | "android.xml"
     | "aura.tokens";
 
-export type Transform = "raw" | "ios" | "android" | "web";
-
-export type ValueTransform =
-    | "color/rgb"
-    | "color/hex"
-    | "color/hex8rgba"
-    | "color/hex8argb"
-    | "percentage/float"
-    | "relative/pixel"
-    | "relative/pixelValue";
-
 export function convert(options: ConvertOptions): Promise<string>;
 export function convertSync(options: ConvertOptions): string;
 export function registerFormat(
@@ -53,11 +42,11 @@ export function registerFormat(
     format: FormatResultFn | string
 ): void;
 export function registerTransform(
-    name: Transform,
-    valueTransforms: ValueTransform[]
+    name: string,
+    valueTransforms: string[]
 ): void;
 export function registerValueTransform(
-    name: ValueTransform,
+    name: string,
     predicate: (prop: Prop) => boolean,
     transform: (prop: Prop) => string | number
 ): void;
@@ -90,7 +79,7 @@ export interface ConvertOptions {
 }
 
 export interface TransformOptions {
-    type?: Transform;
+    type?: string;
     file: string;
     data?: string;
 }
