@@ -3,7 +3,7 @@
 // Definitions by: Pete Petrash <https://github.com/petekp>
 //                 Niko Laitinen <https://github.com/laitine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2.4
+// TypeScript Version: 3.2
 
 import { Collection, Map, List, OrderedMap } from "immutable";
 
@@ -70,6 +70,8 @@ export type FormatResultFn = (result: ImmutableStyleMap) => string;
 
 export interface StyleMap {
     aliases: Aliases;
+    global?: Props;
+    imports?: string[];
     props: Props;
     meta: Meta;
     options: object;

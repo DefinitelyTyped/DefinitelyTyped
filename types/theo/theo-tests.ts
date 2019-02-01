@@ -21,11 +21,12 @@ theo.registerFormat(
 );
 
 theo.registerValueTransform(
-    "relative/pixelValue",
-    prop => prop.get("category") === "sizing",
+    "easing/web",
+    prop => prop.get("category") === "easing",
     prop => {
-        // @ts-ignore: prop can be undefined
-        const value = prop.get("value").toString();
-        return parseFloat(value.replace(/rem/g, "")) * 16;
+        const [x1, y1, x2, y2] = prop.get("value").toArray();
+        return `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
     }
 );
+
+theo.registerTransform("web", ["color/rgb", "easing/web"]);
