@@ -5904,6 +5904,8 @@ fp.now(); // $ExpectType number
         c: 'c';
     } = anything;
     _.values(abcObjectLiteral); // $ExpectType ('a' | 'b' | 'c')[]
+    enum AbcEnum { a = 'a', b = 'b', c = 'c' };
+    _.values(AbcEnum); // $ExpectType AbcEnum[]
 
     _(true).values(); // $ExpectType LoDashImplicitWrapper<any[]>
     _("hi").values(); // $ExpectType LoDashImplicitWrapper<string[]>
