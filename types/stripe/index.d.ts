@@ -4870,6 +4870,18 @@ declare namespace Stripe {
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
             /**
+             * Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items.
+             */
+            invoice_now?: boolean;
+
+            /**
+             * Will generate a proration invoice item that credits remaining unused time until the subscription period end.
+             */
+            prorate?: boolean;
+
+            /**
+             * @deprecated Use subscription update with cancel_at_period_end option as of 2018-08-23.
+             *
              * A flag that if set to true will delay the cancellation of the subscription until the end of the current period.
              */
             at_period_end?: boolean;
