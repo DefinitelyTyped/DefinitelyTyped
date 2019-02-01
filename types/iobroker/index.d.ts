@@ -1205,9 +1205,15 @@ declare global {
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, options: unknown, callback?: SetStateChangedCallback): void;
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown, callback?: SetStateChangedCallback): void;
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
-            setForeignStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
-            setForeignStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
-            setForeignStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setForeignStateChangedAsync(
+                id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean
+            ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setForeignStateChangedAsync(
+                id: string, state: string | number | boolean | State | Partial<State>, options?: unknown
+            ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setForeignStateChangedAsync(
+                id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown
+            ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             // tslint:enable:unified-signatures
 
             /** Read a value from the states DB. */
@@ -1420,7 +1426,9 @@ declare global {
             /**
              * Creates a state and the corresponding object. It must be located in a channel under a device
              */
-            createStateAsync(parentDevice: string, parentChannel: string, stateName: string, roleOrCommon?: string | Partial<ioBroker.StateCommon>): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            createStateAsync(
+                parentDevice: string, parentChannel: string, stateName: string, roleOrCommon?: string | Partial<ioBroker.StateCommon>
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             createStateAsync(
                 parentDevice: string, parentChannel: string, stateName: string, roleOrCommon: string | Partial<ioBroker.StateCommon>,
                 native?: Record<string, any>
