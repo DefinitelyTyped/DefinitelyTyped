@@ -67,7 +67,7 @@ class Example1 extends React.Component {
                     detectAutoPan={true}
                     detectPinchGesture={true}
                     toolbarPosition={POSITION_RIGHT}
-                    customToolbar={<CustomToolbar />}
+                    customToolbar={<div></div>}
                     modifierKeys={['Shift']}
                     preventPanOutside={true}
                     scaleFactor={1.1}
@@ -78,7 +78,7 @@ class Example1 extends React.Component {
                     miniatureBackground={"#00ff00"}
                     miniatureWidth={100}
                     miniatureHeight={80}
-                    customMiniature={<CustomMiniature />}
+                    customMiniature={<div></div>}
                     disableDoubleClickZoomWithToolAuto={true}
                     onClick={(event: ViewerMouseEvent<any>)  => console.log('click', event.x, event.y, event.originalEvent)}
                     onMouseUp={(event: ViewerMouseEvent<any>) => console.log('up', event.x, event.y)}
