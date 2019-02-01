@@ -8,14 +8,8 @@ declare global {
     const device: Detox.Device;
     const element: Detox.Element;
     const waitFor: Detox.WaitFor;
-    /**
-     * `dexpect` ("Detox-expect") intentionally has the same type as `expect`.
-     * `expect` conflicts with the global `expect` of jest and therefore
-     * exporting it doesn't work which is why `dexpect` was introduced. `expect`
-     * is kept for backwards compatibility.
-     */
-    const dexpect: Detox.Expect<Detox.Expect<any>>;
     const expect: Detox.Expect<Detox.Expect<any>>;
+    const ffffexpect: Detox.Expect<Detox.Expect<any>>;
     const by: Detox.Matchers;
 
     namespace Detox {
@@ -440,5 +434,11 @@ declare global {
         }
     }
 }
+
+// `dexpect` ("Detox-expect") intentionally has the same type as `expect`.
+// `expect` conflicts with the global `expect` of jest and therefore
+// exporting it doesn't work which is why `dexpect` was introduced. `expect`
+// is kept for backwards compatibility.
+declare const dexpect: Detox.Expect<Detox.Expect<any>>;
 
 export { by, detox, device, element, dexpect as expect, waitFor };
