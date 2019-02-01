@@ -145,7 +145,7 @@ export interface OptionalProps {
 	miniatureHeight: number;
 
 	// Override miniature component
-	customMiniature: React.Component<any> | React.StatelessComponent<any>;
+	customMiniature: React.ComponentType<any>
 
 	// Turn off zoom on double click
 	disableDoubleClickZoomWithToolAuto: boolean;
