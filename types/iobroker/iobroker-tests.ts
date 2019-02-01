@@ -149,6 +149,13 @@ adapter.setForeignStateChangedAsync("state.name", "value").then(id => id.toLower
 adapter.setForeignStateChangedAsync("state.name", "value", true).then(id => id.toLowerCase());
 adapter.setForeignStateChangedAsync("state.name", { val: "value", ack: true }).then(id => id.toLowerCase());
 
+adapter.getState("state.id", (err, state) => state && state.from.toLowerCase());
+adapter.getStateAsync("state.id").then(state => state && state.from.toLowerCase());
+adapter.getForeignState("state.id", (err, state) => state && state.from.toLowerCase());
+adapter.getForeignStateAsync("state.id").then(state => state && state.from.toLowerCase());
+adapter.getBinaryState("state.id", (err, state) => state && state.writeUInt16BE(0, 0));
+adapter.getBinaryStateAsync("state.id").then(state => state && state.writeUInt16BE(0, 0));
+
 adapter.setObject("obj.id", { type: "state", common: { name: "foo" }, native: {} });
 adapter.setObject("obj.id", { type: "state", common: { name: "foo" }, native: {} }, (err, id) => { });
 adapter.setForeignObject("obj.id", { type: "state", common: { name: "foo" }, native: {} });
@@ -168,8 +175,8 @@ adapter.setForeignObjectNotExistsAsync("obj.id", { type: "state", common: { name
 adapter.getObject("obj.id", (err, obj) => { });
 adapter.getForeignObject("obj.id", (err, obj) => { });
 
-adapter.getObjectAsync("obj.id").then(obj => obj._id.toLowerCase());
-adapter.getForeignObjectAsync("obj.id").then(obj => obj._id.toLowerCase());
+adapter.getObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
+adapter.getForeignObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase());
 
 adapter.getForeignObjects("*", (err, objs) => objs["foo"]._id.toLowerCase());
 adapter.getForeignObjectsAsync("*").then(objs => objs["foo"]._id.toLowerCase());
