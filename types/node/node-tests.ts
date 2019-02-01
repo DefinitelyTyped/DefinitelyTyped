@@ -473,11 +473,7 @@ function bufferTests() {
         const arrUint8: Uint8Array = new Uint8Array(2);
         const buf5: Buffer = Buffer.from(arrUint8);
         const buf6: Buffer = Buffer.from(buf1);
-        const sharedArrayBuffer: SharedArrayBuffer = {
-            byteLength: 10,
-            slice: (begin?: number, end?: number) => sharedArrayBuffer
-        };
-        const buf7: Buffer = Buffer.from(sharedArrayBuffer);
+        const buf7: Buffer = Buffer.from(undefined as SharedArrayBuffer);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])

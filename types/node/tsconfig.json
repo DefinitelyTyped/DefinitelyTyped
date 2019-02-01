@@ -1,6 +1,7 @@
 {
     "files": [
         "index.d.ts",
+        "base.d.ts",
         "globals.d.ts",
         "assert.d.ts",
         "async_hooks.d.ts",
