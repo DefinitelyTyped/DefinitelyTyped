@@ -26,6 +26,7 @@
 //                 Drew Wyatt <https://github.com/drewwyatt>
 //                 John Ottenlips <https://github.com/jottenlips>
 //                 Nitesh Phadatare <https://github.com/minitesh>
+//                 Krantisinh Deshmukh <https://github.com/krantisinh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -163,6 +164,7 @@
 /// <reference path="./es/minBy.d.ts" />
 /// <reference path="./es/min.d.ts" />
 /// <reference path="./es/modulo.d.ts" />
+/// <reference path="./es/move.d.ts" />
 /// <reference path="./es/multiply.d.ts" />
 /// <reference path="./es/nAry.d.ts" />
 /// <reference path="./es/negate.d.ts" />
@@ -1574,6 +1576,12 @@ declare namespace R {
          */
         multiply(a: number, b: number): number;
         multiply(a: number): (b: number) => number;
+
+        /**
+         * Moves an item, at index `from`, to index `to`, in a list of elements.
+         * A new list will be created containing the new elements order.
+         */
+        move: CurriedFunction3<number, number, any[], any[]>;
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly n parameters.
