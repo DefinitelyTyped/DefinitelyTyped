@@ -9,7 +9,6 @@ declare global {
     const element: Detox.Element;
     const waitFor: Detox.WaitFor;
     const expect: Detox.Expect<Detox.Expect<any>>;
-    const ffffexpect: Detox.Expect<Detox.Expect<any>>;
     const by: Detox.Matchers;
 
     namespace Detox {
