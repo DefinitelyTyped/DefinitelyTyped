@@ -12,6 +12,7 @@
 //                 Harry Cruse <https://github.com/crusectrl>
 //                 Andrew Palugniok <https://github.com/apalugniok>
 //                 Robert Stigsson <https://github.com/RobertStigsson>
+//                 Kosaku Kurino <https://github.com/kousaku-maron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -451,10 +452,21 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     labelLine?: object | ContentRenderer<LineProps & any> | React.ReactElement<any> | boolean;
     label?: {
         offsetRadius: number;
-    } | React.ReactElement<any> | ContentRenderer<any> | boolean;
+    } | React.ReactElement<any> | ContentRenderer<PieLabelRenderProps> | boolean;
     activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
     blendStroke?: boolean;
+}
+
+export interface PieLabelRenderProps extends PieProps {
+    name: string;
+    percent?: number;
+    stroke: string;
+    index?: number;
+    textAnchor: string;
+    x: number;
+    y: number;
+    [key: string]: any;
 }
 
 export class Pie extends React.Component<PieProps> { }

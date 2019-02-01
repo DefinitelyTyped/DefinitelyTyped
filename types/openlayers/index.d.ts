@@ -11855,6 +11855,7 @@ export namespace olx {
             freehandCondition?: ol.EventsConditionType;
             freehand?: boolean;
             wrapX?: boolean;
+            stopClick?: boolean;
         }
 
         interface ExtentOptions {

@@ -145,6 +145,8 @@ export class Binding {
 
 export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
     [Type in Node["type"]]?: VisitNode<S, Extract<Node, { type: Type; }>>;
+} & {
+    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>
 };
 
 export type VisitNode<S, P> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
