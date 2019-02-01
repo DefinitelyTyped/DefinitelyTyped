@@ -1,25 +1,24 @@
-    var fileName = "PointerEventsCordovaPlugin.wmv",
-        uriString = "http://media.ch9.ms/ch9/8c03/f4fe2512-59e5-4a07-bded-124b06ac8c03/PointerEventsCordovaPlugin.wmv";
-    
+    let fileName = "PointerEventsCordovaPlugin.wmv";
+    let uriString = "http://media.ch9.ms/ch9/8c03/f4fe2512-59e5-4a07-bded-124b06ac8c03/PointerEventsCordovaPlugin.wmv";
+
     // open target file for download
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-        fileSystem.root.getFile(fileName, { create: true }, function (targetFile) {
-            
+    (window as any).requestFileSystem(1, 0, (fileSystem: any) => {
+        fileSystem.root.getFile(fileName, { create: true }, (targetFile: File) => {
 			// plugin callbacks to track operation execution status and progress
-            var onSuccess = function() {
+            const onSuccess = () => {
                 console.log('Done');
 			};
-			var onError = function (err) {
+			const onError = (err: any) => {
 				console.log(err);
 			};
-			var onProgress = function(progress) {
+			const onProgress = (progress: BackgroundDownloadProgress) => {
 				console.log((100 * progress.bytesReceived / progress.totalBytesToReceive) + '%');
 			};
-    
-            var downloader = new BackgroundTransfer.BackgroundDownloader();
+
+            const downloader = new BackgroundTransfer.BackgroundDownloader();
             // Create a new download operation.
-            var download = downloader.createDownload(uriString, targetFile);
+            const download = downloader.createDownload(uriString, targetFile);
             // Start the download and persist the promise to be able to cancel the download.
-            app.downloadPromise = download.startAsync().then(onSuccess, onError, onProgress);
+            const downloadPromise = download.startAsync().then(onSuccess, onError, onProgress);
         });
-    });
+	});
