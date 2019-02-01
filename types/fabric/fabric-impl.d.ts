@@ -2242,7 +2242,7 @@ interface IObjectOptions {
      * of the object cacheCanvas.
      * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
      */
-    clipPath?: fabric.Object;
+    clipPath?: Object;
 
     /**
      * When set to `true`, object's cache will be rerendered next render call.
