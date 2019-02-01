@@ -435,10 +435,10 @@ declare global {
     }
 }
 
-// `dexpect` ("Detox-expect") intentionally has the same type as `expect`.
-// `expect` conflicts with the global `expect` of jest and therefore
-// exporting it doesn't work which is why `dexpect` was introduced. `expect`
-// is kept for backwards compatibility.
-declare const dexpect: Detox.Expect<Detox.Expect<any>>;
+export { by, detox, device, element, waitFor };
 
-export { by, detox, device, element, dexpect as expect, waitFor };
+// Not exporting the global `expect` from the top of the file here
+// because `expect` conflicts with the global `expect` of jest and
+// therefore exporting it doesn't work. The global `expect` is kept
+// for backwards compatibility though.
+export const expect: Detox.Expect<Detox.Expect<any>>;
