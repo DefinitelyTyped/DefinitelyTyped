@@ -2,8 +2,7 @@ import Transport from "@ledgerhq/hw-transport-u2f";
 
 // $ExpectType Promise<boolean>
 Transport.isSupported();
-// $ExpectType Promise<ReadonlyArray<string>>
-Transport.list();
+const list: Promise<ReadonlyArray<string>> = Transport.list();
 // $ExpectType Promise<TransportU2F>
 Transport.open("test");
 

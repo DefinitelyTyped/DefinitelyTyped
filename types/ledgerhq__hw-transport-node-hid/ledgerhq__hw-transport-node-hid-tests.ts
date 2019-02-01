@@ -2,8 +2,7 @@ import Transport from "@ledgerhq/hw-transport-node-hid";
 
 // $ExpectType Promise<boolean>
 Transport.isSupported();
-// $ExpectType Promise<ReadonlyArray<string>>
-Transport.list();
+const list: Promise<ReadonlyArray<string>> = Transport.list();
 // $ExpectType Promise<TransportNodeHid>
 Transport.open("test");
 
