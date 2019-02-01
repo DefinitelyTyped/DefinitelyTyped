@@ -21,16 +21,22 @@ export type JSONSchema4TypeName = 'string' | 'number' | 'integer' | 'boolean'
 export type JSONSchema4Type = any[] | boolean | number | null | object | string
 
 /**
+ * Meta schema
+ * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-5
+ */
+export type JSONSchema4Version = 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
+    | 'http://json-schema.org/draft-04/schema#' | 'http://json-schema.org/draft-04/hyper-schema#'
+    | 'http://json-schema.org/draft-03/schema#' | 'http://json-schema.org/draft-03/hyper-schema#'
+    | string;
+
+/**
  * JSON Schema V4
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04
  */
 export interface JSONSchema4 {
     id?: string
     $ref?: string
-    $schema?: 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
-    | 'http://json-schema.org/draft-04/schema#' | 'http://json-schema.org/draft-04/hyper-schema#'
-    | 'http://json-schema.org/draft-03/schema#' | 'http://json-schema.org/draft-03/hyper-schema#'
-    | string
+    $schema?: JSONSchema4Version
 
     /**
      * This attribute is a string that provides a short description of the
@@ -211,6 +217,14 @@ export type JSONSchema6TypeName = 'string' | 'number' | 'integer' | 'boolean' | 
 export type JSONSchema6Type = any[] | boolean | number | null | object | string
 
 /**
+ * Meta schema
+ * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-5
+ */
+export type JSONSchema6Version = 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
+    | 'http://json-schema.org/draft-06/schema#' | 'http://json-schema.org/draft-06/hyper-schema#'
+    | string;
+
+/**
  * JSON Schema V6
  * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01
  */
@@ -218,8 +232,7 @@ export type JSONSchema6Definition = JSONSchema6 | boolean;
 export interface JSONSchema6 {
     $id?: string
     $ref?: string
-    $schema?: 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#' |
-    'http://json-schema.org/draft-06/schema#' | 'http://json-schema.org/draft-06/hyper-schema#'
+    $schema?: JSONSchema6Version
 
     /**
      * Must be strictly greater than 0.
@@ -504,10 +517,9 @@ export interface JSONSchema7Array extends Array<JSONSchema7Type> {}
  * Meta schema
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-5
  */
-export type JSONSchema7Version = 'http://json-schema.org/schema#'
-    | 'http://json-schema.org/hyper-schema#'
-    | 'http://json-schema.org/draft-07/schema#'
-    | 'http://json-schema.org/draft-07/hyper-schema#';
+export type JSONSchema7Version = 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
+    | 'http://json-schema.org/draft-07/schema#' | 'http://json-schema.org/draft-07/hyper-schema#'
+    | string;
 
 /**
  * JSON Schema v7
