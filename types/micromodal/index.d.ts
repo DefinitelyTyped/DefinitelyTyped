@@ -7,7 +7,6 @@
  * MicroModal configuration options
  */
 export interface MicroModalConfig {
-
     /** This is fired when the modal is opening. */
     onShow?: (modal?: HTMLElement) => void;
 
@@ -40,24 +39,23 @@ export interface MicroModalConfig {
  * MicroModal controller
  */
 declare namespace MicroModal {
-
     /**
      * Binds click handlers to all modal triggers
      * @param config configuration options
      */
-    export function init(config?: MicroModalConfig): void;
+    function init(config?: MicroModalConfig): void;
 
     /**
      * Shows a particular modal
      * @param targetModal The id of the modal to display
      * @param config configuration options
      */
-    export function show(targetModal: string, config?: MicroModalConfig): void;
+    function show(targetModal: string, config?: MicroModalConfig): void;
 
     /**
      * Closes the active modal
      */
-    export function close(): void;
+    function close(): void;
 }
 
 export default MicroModal;
