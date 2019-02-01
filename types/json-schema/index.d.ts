@@ -22,12 +22,18 @@ export type JSONSchema4Type = any[] | boolean | number | null | object | string
 
 /**
  * Meta schema
+ *
+ * Recommended values:
+ * - 'http://json-schema.org/schema#'
+ * - 'http://json-schema.org/hyper-schema#'
+ * - 'http://json-schema.org/draft-04/schema#'
+ * - 'http://json-schema.org/draft-04/hyper-schema#'
+ * - 'http://json-schema.org/draft-03/schema#'
+ * - 'http://json-schema.org/draft-03/hyper-schema#'
+ *
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-5
  */
-export type JSONSchema4Version = 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
-    | 'http://json-schema.org/draft-04/schema#' | 'http://json-schema.org/draft-04/hyper-schema#'
-    | 'http://json-schema.org/draft-03/schema#' | 'http://json-schema.org/draft-03/hyper-schema#'
-    | string;
+export type JSONSchema4Version = string;
 
 /**
  * JSON Schema V4
@@ -218,11 +224,16 @@ export type JSONSchema6Type = any[] | boolean | number | null | object | string
 
 /**
  * Meta schema
+ *
+ * Recommended values:
+ * - 'http://json-schema.org/schema#'
+ * - 'http://json-schema.org/hyper-schema#'
+ * - 'http://json-schema.org/draft-06/schema#'
+ * - 'http://json-schema.org/draft-06/hyper-schema#'
+ *
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-5
  */
-export type JSONSchema6Version = 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
-    | 'http://json-schema.org/draft-06/schema#' | 'http://json-schema.org/draft-06/hyper-schema#'
-    | string;
+export type JSONSchema6Version = string;
 
 /**
  * JSON Schema V6
@@ -515,11 +526,16 @@ export interface JSONSchema7Array extends Array<JSONSchema7Type> {}
 
 /**
  * Meta schema
+ *
+ * Recommended values:
+ * - 'http://json-schema.org/schema#'
+ * - 'http://json-schema.org/hyper-schema#'
+ * - 'http://json-schema.org/draft-07/schema#'
+ * - 'http://json-schema.org/draft-07/hyper-schema#'
+ *
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-5
  */
-export type JSONSchema7Version = 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
-    | 'http://json-schema.org/draft-07/schema#' | 'http://json-schema.org/draft-07/hyper-schema#'
-    | string;
+export type JSONSchema7Version = string;
 
 /**
  * JSON Schema v7
