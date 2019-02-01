@@ -35,7 +35,9 @@ class MyDocumentDefault extends Document {
 }
 
 class MyDoc extends Document<WithUrlProps> {
-    static getInitialProps({ req, renderPage }: NextDocumentContext) {
+    static async getInitialProps(ctx: NextDocumentContext) {
+        const { req, renderPage } = ctx;
+
         // without callback
         const _page = renderPage();
 
@@ -43,7 +45,9 @@ class MyDoc extends Document<WithUrlProps> {
         const enhancer: Enhancer<PageProps, {}> = App => props => <App />;
         const { html, head, buildManifest } = renderPage(enhancer);
 
-        const styles = [<style />];
+        const initialProps = await Document.getInitialProps(ctx);
+
+        const styles = [...(initialProps.styles ? initialProps.styles : []), <style />];
 
         // Custom prop
         const url = req!.url;

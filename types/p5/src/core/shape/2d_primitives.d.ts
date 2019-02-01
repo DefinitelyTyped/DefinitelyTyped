@@ -84,6 +84,7 @@ declare module "../../../index" {
      *   @param w width of the ellipse.
      *   @param h height of the ellipse.
      *   @param detail number of radial sectors to draw
+     *   (for WebGL mode)
      */
     ellipse(
       x: number,
@@ -92,6 +93,28 @@ declare module "../../../index" {
       h: number,
       detail: number
     ): void;
+
+    /**
+     *   Draws a circle to the screen. A circle is a simple
+     *   closed shape. It is the set of all points in a
+     *   plane that are at a given distance from a given
+     *   point, the centre. This function is a special case
+     *   of the ellipse() function, where the width and
+     *   height of the ellipse are the same. Height and
+     *   width of the ellipse is equal to twice the radius
+     *   of the circle.. By default, the first two
+     *   parameters set the location of the centre of the
+     *   circle, the third sets the radius of the circle.
+     *   @param x x-coordinate of the centre of the circle.
+     *   @param y y-coordinate of the centre of the circle.
+     *   @param r radius of the circle.
+     *   @chainable
+     */
+    circle(
+      x: number,
+      y: number,
+      r: number
+    ): p5;
 
     /**
      *   Draws a line (a direct path between two points) to
@@ -149,7 +172,7 @@ declare module "../../../index" {
      *   the point is determined by the current stroke.
      *   @param x the x-coordinate
      *   @param y the y-coordinate
-     *   @param [z] the z-coordinate (for WEBGL mode)
+     *   @param [z] the z-coordinate (for WebGL mode)
      *   @chainable
      */
     point(
@@ -279,9 +302,9 @@ declare module "../../../index" {
      *   @param w width of the rectangle.
      *   @param h height of the rectangle.
      *   @param [detailX] number of segments in the
-     *   x-direction
+     *   x-direction (for WebGL mode)
      *   @param [detailY] number of segments in the
-     *   y-direction
+     *   y-direction (for WebGL mode)
      *   @chainable
      */
     rect(
@@ -291,6 +314,44 @@ declare module "../../../index" {
       h: number,
       detailX?: number,
       detailY?: number
+    ): p5;
+
+    /**
+     *   Draws a square to the screen. A square is a
+     *   four-sided shape with every angle at ninety
+     *   degrees, and equal side size. This function is a
+     *   special case of the rect() function, where the
+     *   width and height are the same, and the parameter
+     *   is called "s" for side size. By default, the first
+     *   two parameters set the location of the upper-left
+     *   corner, the third sets the side size of the
+     *   square. The way these parameters are interpreted,
+     *   however, may be changed with the rectMode()
+     *   function.  The fourth, fifth, sixth and seventh
+     *   parameters, if specified, determine corner radius
+     *   for the top-left, top-right, lower-right and
+     *   lower-left corners, respectively. An omitted
+     *   corner radius parameter is set to the value of the
+     *   previously specified radius value in the parameter
+     *   list.
+     *   @param x x-coordinate of the square.
+     *   @param y y-coordinate of the square.
+     *   @param s side size of the square.
+     *   @param [tl] optional radius of top-left corner.
+     *   @param [tr] optional radius of top-right corner.
+     *   @param [br] optional radius of bottom-right
+     *   corner.
+     *   @param [bl] optional radius of bottom-left corner.
+     *   @chainable
+     */
+    square(
+      x: number,
+      y: number,
+      s: number,
+      tl?: number,
+      tr?: number,
+      br?: number,
+      bl?: number
     ): p5;
 
     /**
