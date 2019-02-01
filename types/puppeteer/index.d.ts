@@ -18,6 +18,19 @@ export type WrapElementHandle<X> = X extends Element ? ElementHandle<X> : X;
 /** Unwraps a DOM element out of an ElementHandle instance */
 export type UnwrapElementHandle<X> = X extends ElementHandle<infer E> ? E : X;
 
+export type Serializable =
+  | number
+  | string
+  | boolean
+  | null
+  | JSONArray
+  | JSONObject;
+export interface JSONArray extends Array<Serializable> { }
+export interface JSONObject {
+  [key: string]: Serializable;
+}
+export type SerializableOrJSHandle = Serializable | JSHandle;
+
 /** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
 export interface Evalable {
   /**
@@ -106,7 +119,7 @@ export interface Evalable {
   $eval<R>(
     selector: string,
     pageFunction: (element: Element, ...args: any[]) => R | Promise<R>,
-    ...args: any[],
+    ...args: SerializableOrJSHandle[],
   ): Promise<WrapElementHandle<R>>;
 
   /**
@@ -195,7 +208,7 @@ export interface Evalable {
   $$eval<R>(
     selector: string,
     pageFunction: (elements: Element[], ...args: any[]) => R | Promise<R>,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<WrapElementHandle<R>>;
 }
 
@@ -718,7 +731,7 @@ export interface Worker {
    */
   evaluate<T>(
     pageFunction: (...args: any[]) => T | Promise<T>,
-    ...args: any[],
+    ...args: SerializableOrJSHandle[],
   ): Promise<T>;
 
   /**
@@ -727,7 +740,7 @@ export interface Worker {
    */
   evaluateHandle<T>(
     pageFunction: (...args: any[]) => T | Promise<T>,
-    ...args: any[],
+    ...args: SerializableOrJSHandle[],
   ): Promise<T>;
 
   executionContext(): Promise<ExecutionContext>;
@@ -830,11 +843,11 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
 export interface ExecutionContext {
   evaluate(
     fn: EvaluateFn,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<any>;
   evaluateHandle(
     fn: EvaluateFn,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<JSHandle>;
   queryObjects(prototypeHandle: JSHandle): JSHandle;
 }
@@ -1141,7 +1154,7 @@ export interface FrameBase extends Evalable {
    */
   evaluate(
     fn: EvaluateFn,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<any>;
 
   /**
@@ -1154,7 +1167,7 @@ export interface FrameBase extends Evalable {
    */
   evaluateHandle(
     fn: EvaluateFn,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<JSHandle>;
 
   /** This method fetches an element with selector and focuses it. */
@@ -1219,7 +1232,11 @@ export interface FrameBase extends Evalable {
   /**
    * Shortcut for waitForFunction.
    */
-  waitFor(selector: ((...args: any[]) => any) | string, options?: WaitForSelectorOptions, ...args: any[]): Promise<any>;
+  waitFor(
+    selector: ((...args: any[]) => any) | string,
+    options?: WaitForSelectorOptions,
+    ...args: SerializableOrJSHandle[]
+  ): Promise<any>;
 
   /**
    * Allows waiting for various conditions.
@@ -1227,7 +1244,7 @@ export interface FrameBase extends Evalable {
   waitForFunction(
     fn: string | ((...args: any[]) => any),
     options?: PageFnOptions,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<any>;
 
   /**
@@ -1539,7 +1556,7 @@ export interface Page extends EventEmitter, FrameBase {
    */
   evaluateHandle(
     fn: EvaluateFn,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<JSHandle>;
 
   /**
@@ -1550,7 +1567,7 @@ export interface Page extends EventEmitter, FrameBase {
    */
   evaluateOnNewDocument(
     fn: EvaluateFn,
-    ...args: any[]
+    ...args: SerializableOrJSHandle[]
   ): Promise<void>;
 
   /**

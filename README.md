@@ -255,12 +255,30 @@ Here are the [currently requested definitions](https://github.com/DefinitelyType
 
 If types are part of a web standard, they should be contributed to [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) so that they can become part of the default `lib.dom.d.ts`.
 
+#### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
+
+Some packages, like [chai-http](https://github.com/chaijs/chai-http), export a function.
+
+Importing this module with an ES6 style import in the form `import * as foo from "foo";` leads to the error:
+
+> error TS2497: Module 'foo' resolves to a non-module entity and cannot be imported using this construct
+
+This error can be suppressed by merging the function declaration with an empty namespace of the same name, but this practice is discouraged.
+This is a commonly cited [Stack Overflow answer](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this) regarding this matter.
+
+It is more appropriate to import the module using the `import foo = require("foo");` syntax.
+Nevertheless, if you want to use a default import like `import foo from "foo";` you have two options:
+- you can use the [`--allowSyntheticDefaultImports` compiler option](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs) if your module runtime supports an interop scheme for non-ECMAScript modules, i.e. if default imports work in your environment (e.g. Webpack, SystemJS, esm).
+- you can use the [`--esModuleInterop` compiler option](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop) if you want TypeScript to take care of non-ECMAScript interop (since Typescript 2.7).
+
 #### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
 
-If you are using TypeScript 2.7 or later, use `--esModuleInterop` in your project.
-Otherwise, if default imports work in your environment (e.g. Webpack, SystemJS, esm), consider turning on the [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) compiler option.
+Like in the previous question, refer to using either the [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs)
+or [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)
+compiler options.
+
 Do not change the type definition if it is accurate.
-For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the export, and `export default` is accurate if `node -p 'require("foo").default'` is the export.
+For an NPM package, `export =` is accurate if `node -p 'require("foo")'` works to import a module, and `export default` is accurate if `node -p 'require("foo").default'` works to import a module.
 
 #### I want to use features from TypeScript 2.1 or above.
 
@@ -268,8 +286,9 @@ Then you will have to add a comment to the last line of your definition header (
 
 #### I want to use features from TypeScript 3.1 or above.
 
-You will need to use the `typesVersions` feature of TypeScript 3.1 and above. You can find a detailed explanation
-of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
+You can use the same `// TypeScript Version: 3.1` comment as above.
+However, if your project needs to maintain types that are compatible with 3.1 and above *at the same time as* types that are compatible with 3.0 or below, you will need to use the `typesVersions` feature, which is available in TypeScript 3.1 and above.
+You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
 
 Here's a short explanation to get you started:
 
@@ -367,19 +386,6 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 #### The file history in GitHub looks incomplete.
 
 GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
-
-#### Should I add an empty namespace to a package that doesn't export a module to use ES6 style imports?
-
-Some packages, like [chai-http](https://github.com/chaijs/chai-http), export a function.
-
-Importing this module with an ES6 style import in the form `import * as foo from "foo";` leads to the error:
-
-> error TS2497: Module 'foo' resolves to a non-module entity and cannot be imported using this construct
-
-This error can be suppressed by merging the function declaration with an empty namespace of the same name, but this practice is discouraged.
-This is a commonly cited [Stack Overflow answer](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this) regarding this matter.
-
-It is more appropriate to import the module using the `import foo = require("foo");` syntax, or to use a default import like `import foo from "foo";` if using the `--allowSyntheticDefaultImports` flag if your module runtime supports an interop scheme for non-ECMAScript modules as such.
 
 ## License
 

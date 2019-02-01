@@ -812,6 +812,8 @@ export interface AuthorizeOptions {
     login_hint?: string;
 	prompt?: string;
     mode?: "login" | "signUp";
+    accessType?: string;
+    approvalPrompt?: string;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

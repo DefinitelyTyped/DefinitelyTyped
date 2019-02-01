@@ -8,6 +8,7 @@
 //                 Vincent Pizzo <https://github.com/vincentjames501>
 //                 Robert Bullen <https://github.com/robertbullen>
 //                 Yusuke Sato <https://github.com/sat0yu>
+//                 Dan Rumney <https://github.com/dancrumb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -66,7 +67,8 @@ export interface Schema<T> {
     strict(isStrict: boolean): this;
     strip(strip: boolean): this;
     withMutation(fn: (current: this) => void): void;
-    default(value?: any): this;
+    default(value: any): this;
+    default(): T;
     nullable(isNullable: boolean): this;
     required(message?: TestOptionsMessage): this;
     notRequired(): this;

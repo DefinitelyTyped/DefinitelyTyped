@@ -726,6 +726,7 @@ doc.execPopulate().then(function (arg) {
 doc.get('path', Number);
 doc.init(doc).init(doc, {});
 doc.inspect();
+doc.invalidate('path', new Error('hi')).toString();
 doc.invalidate('path', new Error('hi'), 999).toString();
 doc.isDirectModified('path').valueOf();
 doc.isInit('path').valueOf();

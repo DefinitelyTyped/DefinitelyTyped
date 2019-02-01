@@ -2451,6 +2451,8 @@ export interface SvgCommonProps {
 export interface SvgRectProps extends SvgCommonProps {
     width: number | string;
     height: number | string;
+    rx?: number | string;
+    ry?: number | string;
 }
 
 export interface SvgCircleProps extends SvgCommonProps {

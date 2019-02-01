@@ -1,4 +1,4 @@
-// Type definitions for React 16.7
+// Type definitions for React 16.8
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -18,8 +18,9 @@
 //                 Olivier Pascal <https://github.com/pascaloliv>
 //                 Martin Hochel <https://github.com/hotell>
 //                 Frank Li <https://github.com/franklixuefei>
-//                 Jessica Franco <https://github.com/Kovensky>
+//                 Jessica Franco <https://github.com/Jessidhia>
 //                 Paul Sherman <https://github.com/pshrmn>
+//                 Sunil Pai <https://github.com/threepointone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -869,15 +870,15 @@ declare namespace React {
     function useEffect(effect: EffectCallback, inputs?: InputIdentityList): void;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
-     * `useImperativeMethods` customizes the instance value that is exposed to parent components when using
+     * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
      * `ref`. As always, imperative code using refs should be avoided in most cases.
      *
-     * `useImperativeMethods` should be used with `React.forwardRef`.
+     * `useImperativeHandle` should be used with `React.forwardRef`.
      *
      * @version experimental
-     * @see https://reactjs.org/docs/hooks-reference.html#useimperativemethods
+     * @see https://reactjs.org/docs/hooks-reference.html#useimperativehandle
      */
-    function useImperativeMethods<T, R extends T>(ref: Ref<T>|undefined, init: () => R, inputs?: InputIdentityList): void;
+    function useImperativeHandle<T, R extends T>(ref: Ref<T>|undefined, init: () => R, inputs?: InputIdentityList): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**

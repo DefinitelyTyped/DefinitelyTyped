@@ -539,4 +539,12 @@ ruleTester.run('my-rule', rule, {
     ]
 });
 
+ruleTester.run('simple-valid-test', rule, {
+    valid: [
+        'foo',
+        'bar',
+        { code: 'foo', options: [{ allowFoo: true }] },
+    ]
+});
+
 //#endregion
