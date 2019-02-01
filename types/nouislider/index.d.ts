@@ -11,7 +11,7 @@ declare namespace noUiSlider {
 	/**
      * To create a slider, call noUiSlider.create() with an element and your options.
      */
-	function create(target: HTMLElement, options: Options): void;
+	function create(target: HTMLElement, options: Options): noUiSlider.noUiSlider;
 
 	interface Options {
 		/**
