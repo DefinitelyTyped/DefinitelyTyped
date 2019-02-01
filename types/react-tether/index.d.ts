@@ -2,7 +2,7 @@
 // Project: https://github.com/souporserious/react-tether
 // Definitions by: Ryan Price <https://github.com/ryprice>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export default TetherComponent;
 export as namespace ReactTether;

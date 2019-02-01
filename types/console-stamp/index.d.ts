@@ -1,6 +1,7 @@
 // Type definitions for console-stamp 0.2.0
 // Project: https://github.com/starak/node-console-stamp
 // Definitions by: Eric Byers <https://github.com/ericbyers>
+//                 Guus De Graeve <https://github.com/guusdegraeve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -15,6 +16,16 @@ declare function consoleStamp(console: {}, options?: {
      * If true it will show the label (LOG | INFO | WARN | ERROR)
      */
     label?: boolean;
+
+    /**
+     * A custom prefix for the label.
+     */
+    labelPrefix?: string;
+
+    /**
+     * A custom suffix for the label.
+     */
+    labelSuffix?: string;
 
     /**
      * An array containing the methods to include in the patch

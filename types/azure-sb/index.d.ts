@@ -75,7 +75,7 @@ export namespace Azure.ServiceBus {
         DefaultMessageTimeToLive: string;
         DuplicateDetectionHistoryTimeWindow: string;
         EnablePartitioning: boolean;
-        MaxSizeInMegaBytes: number;
+        MaxSizeInMegabytes: number;
         RequiresDuplicateDetection: boolean;
     }
 
@@ -139,6 +139,32 @@ export namespace Azure.ServiceBus {
         Tags?: string;
         WnsHeaders?: any;
     }
+
+    export interface NotificationHubInstallation {
+        installationId: string;
+        readonly lastActiveOn?: string;
+        readonly expirationTime?: string;
+        readonly lastUpdate?: string;
+        platform: "apns" | "wns" | "mpns" | "adm" | "gcm";
+        pushChannel: string;
+        readonly expiredPushChannel?: string;
+        tags?: Array<string>;
+        templates?: {
+          [name: string]: {
+            body: string;
+            headers?: any;
+            expiry?: string;
+            tags?: Array<string>;
+          };
+        };
+        secondaryTile?: {
+          [titleId: string]: {
+            pushChannel: string;
+            tags?: Array<string>;
+            templates?: any;
+          };
+        };
+      }
 
     export interface Response {
         body: Dictionary<string | object>;
@@ -214,15 +240,15 @@ export namespace Azure.ServiceBus {
         //   [x: string]: string | Dictionary<string | object>;
         // }
 
+        export const ActiveMessageCount = 'd2p1:ActiveMessageCount';
+        export const DeadLetterMessageCount = 'd2p1:DeadLetterMessageCount';
+        export const ScheduledMessageCount = 'd2p1:ScheduledMessageCount';
+        export const TransferMessageCount = 'd2p1:TransferMessageCount';
+        export const TransferDeadLetterMessageCount = 'd2p1:TransferDeadLetterMessageCount';
+
         export interface Topic extends ExtendedBase {
             AccessedAt: DateString;
-            CountDetails: {
-                'd2p1:ActiveMessageCount': string;
-                'd2p1:DeadLetterMessageCount': string;
-                'd2p1:ScheduledMessageCount': string;
-                'd2p1:TransferMessageCount': string;
-                'd2p1:TransferDeadLetterMessageCount': string;
-            };
+            CountDetails: { [key: string]: string };
             EnableSubscriptionPartitioning: string;
             FilteringMessagesBeforePublishing: string;
             IsExpress: string;
@@ -242,13 +268,7 @@ export namespace Azure.ServiceBus {
         }
 
         export interface Subscription extends ExtendedBase {
-            CountDetails: {
-                'd3p1:ActiveMessageCount': string;
-                'd3p1:DeadLetterMessageCount': string;
-                'd3p1:ScheduledMessageCount': string;
-                'd3p1:TransferMessageCount': string;
-                'd3p1:TransferDeadLetterMessageCount': string;
-            };
+            CountDetails: { [key: string]: string };
             DeadLetteringOnFilterEvaluationExceptions: string;
             DeadLetteringOnMessageExpiration: string;
             LockDuration: string;
@@ -315,6 +335,8 @@ export namespace Azure.ServiceBus {
     export type CreateSubscriptionOptions = Partial<ICreateSubscriptionOptions>;
     export type ListSubscriptionsOptions = Partial<PaginationOptions>;
     export type ListRulesOptions = Partial<PaginationOptions>;
+    export type ListTopicsOptions = Partial<PaginationOptions>;
+    export type ListQueuesOptions = Partial<PaginationOptions>;
     export type CreateRuleOptions = Partial<ICreateRuleOptions>;
     export type CreateNotificationHubOptions = Partial<ICreateNotificationHubOptions>;
     export type ListNotificationHubsOptions = Partial<PaginationOptions>;

@@ -11,7 +11,7 @@ interface State {
     bar: number;
 }
 
-const props: Props & React.ClassAttributes<{}> = {
+const props: Props = {
     foo: "foo"
 };
 

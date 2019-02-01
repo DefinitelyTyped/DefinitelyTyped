@@ -584,3 +584,103 @@ inquirer.prompt(
         console.log(JSON.stringify(answers, null, '  '));
     }
 );
+
+//
+// Other tests not covered in the examples provided with inquirer
+//
+
+// Tests promises from default, choices, validate, filter, and when
+
+interface AsyncAnswers {
+    choice: 'ONE' | 'TWO' | 'THREE';
+    choseTwo: boolean;
+    confirmation: string;
+}
+
+async function testAsyncPrompt(): Promise<void> {
+    const answers: AsyncAnswers = await inquirer.prompt<AsyncAnswers>([
+        {
+            type: 'list',
+            name: 'choice',
+            message: 'How many do you want?',
+            default: () => Promise.resolve('two'),
+            choices: () => Promise.resolve(['one', 'two', 'three']),
+            filter: (input: string) => Promise.resolve(input.toUpperCase()),
+        },
+        {
+            type: 'confirm',
+            name: 'choseTwo',
+            message: 'Are you sure you want two?',
+            when: (choices: AsyncAnswers) => Promise.resolve(choices.choice === 'TWO'),
+        },
+        {
+            type: 'input',
+            name: 'confirmation',
+            message: 'Type YES if you really, really want it',
+            validate: (input: string) => Promise.resolve(input.toUpperCase() === 'YES' ? true : 'Enter YES'),
+            transformer: (input: string) => input.toUpperCase(),
+        },
+    ]);
+
+    console.log(JSON.stringify(answers, null, '  '));
+}
+
+testAsyncPrompt();
+
+/**
+ * Different prompt output example
+ */
+
+"use strict";
+//var inquirer = require("../lib/inquirer");
+
+var questions = [
+    {
+        type: "input",
+        name: "first_name",
+        message: "What's your first name",
+        prefix: "1 - "
+    },
+    {
+        type: "input",
+        name: "last_name",
+        message: "What's your last name",
+        default: function() {
+            return "Doe";
+        },
+        suffix: "!!"
+    },
+    {
+        type: "input",
+        name: "phone",
+        message: "What's your phone number",
+        validate: function(value: string): string | boolean {
+            var pass = value.match(
+                /^([01]{1})?[\-\.\s]?\(?(\d{3})\)?[\-\.\s]?(\d{3})[\-\.\s]?(\d{4})\s?((?:#|ext\.?\s?|x\.?\s?){1}(?:\d+)?)?$/i
+            );
+            if (pass) {
+                return true;
+            } else {
+                return "Please enter a valid phone number";
+            }
+        }
+    }
+];
+
+inquirer.createPromptModule({ output: process.stderr })(questions, function(answers) {
+    console.log(JSON.stringify(answers, null, "  "));
+});
+
+// Work with JS inquirer but rejected by typing.
+inquirer.prompt([
+    {
+        type: "input",
+        name: "listOfThings",
+        filter(value: string): string[] {
+            return ["abc", "def"];
+        },
+        validate(value: string[]): boolean {
+            return value.length > 0;
+        }
+    }
+]);

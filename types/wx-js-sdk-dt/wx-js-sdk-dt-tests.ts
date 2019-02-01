@@ -16,7 +16,13 @@ wx.error((res: any) => {
 
 wx.checkJsApi({
     jsApiList: [''],
-    success: (res) => {
+    success: res => {
+        res.checkResult;
+        if (res.errMsg) {
+            res.errMsg.msg;
+        }
+    },
+    complete: () => {
     }
 });
 
@@ -61,7 +67,9 @@ wx.chooseWXPay({
     nonceStr: '',
     package: '',
     paySign: '',
-    success: (res) => {}
+    success: () => {},
+    cancel: () => {},
+    fail: () => {}
 });
 
 wx.getLocation({
@@ -124,4 +132,19 @@ wx.onVoicePlayEnd((res) => {
 
 wx.openProductSpecificView({
     productId: ''
+});
+
+wx.updateAppMessageShareData({
+    title: '',
+    desc: '',
+    link: '',
+    imgUrl: '',
+    success: () => {
+    }
+});
+
+wx.updateTimelineShareData({
+    title: '',
+    link: '',
+    imageUrl: ''
 });

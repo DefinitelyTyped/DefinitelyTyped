@@ -1,10 +1,6 @@
-import AuthenticationContext, {
-    AuthenticationContextOptions,
-    TokenCallback,
-    UserCallback
-} from "adal-angular";
+import AuthenticationContext = require("adal-angular");
 
-const onLogin: TokenCallback = (errorDescription, idToken, error) => {
+const onLogin: AuthenticationContext.TokenCallback = (errorDescription, idToken, error) => {
     if (error) {
         console.error(errorDescription, error);
         return;
@@ -14,7 +10,7 @@ const onLogin: TokenCallback = (errorDescription, idToken, error) => {
     }
 };
 
-const onToken: TokenCallback = (errorDesc, token, error) => {
+const onToken: AuthenticationContext.TokenCallback = (errorDesc, token, error) => {
     if (error) {
         console.error(error);
         return;
@@ -22,7 +18,7 @@ const onToken: TokenCallback = (errorDesc, token, error) => {
     console.log('Making request with token:', token);
 };
 
-const onUser: UserCallback = (error, user) => {
+const onUser: AuthenticationContext.UserCallback = (error, user) => {
     if (error) {
         console.error(error);
         return;
@@ -57,7 +53,7 @@ const acquireAnAccessToken = () => {
     );
 };
 
-const config: AuthenticationContextOptions = {
+const config: AuthenticationContext.Options = {
     clientId: "7cee0f68-5051-41f6-9e45-80463d21d65d",
     redirectUri: "http://localhost:16969/",
     instance: "https://login.microsoftonline.com/",
@@ -70,6 +66,7 @@ const config: AuthenticationContextOptions = {
 };
 
 const authenticationContext = new AuthenticationContext(config);
+window.Logging.level = authenticationContext.CONSTANTS.LOGGING_LEVEL.ERROR;
 
 if (authenticationContext.isCallback(window.location.hash)) {
     authenticationContext.handleWindowCallback();
@@ -78,6 +75,11 @@ if (authenticationContext.isCallback(window.location.hash)) {
 } else {
     acquireAnAccessToken();
 }
+
+const injectedContext = AuthenticationContext.inject({
+    clientId: "7cee0f68-5051-41f6-9e45-80463d21d65d",
+});
+injectedContext.handleWindowCallback();
 
 setTimeout(() => {
     authenticationContext.logOut();

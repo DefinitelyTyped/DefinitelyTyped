@@ -17,7 +17,7 @@ new Nightmare()
   .click('.searchsubmit')
   .wait('.url.breadcrumb')
   .evaluate(() => {
-    return (<HTMLElement>document.querySelector('.url.breadcrumb')).innerText;
+    return (document.querySelector('.url.breadcrumb') as HTMLElement).innerText;
   }, (breadcrumb: string) => {
     // expect(breadcrumb).to.equal('github.com');
   })
@@ -51,6 +51,16 @@ new Nightmare()
   .exists('a.blahblahblah', function (exists) {
   })
   .run(done);
+
+new Nightmare()
+  .goto('http://www.wikipedia.org/')
+  .exists('a.link-box')
+  .then((exists: boolean) => { })
+
+new Nightmare()
+  .goto('http://www.wikipedia.org/')
+  .visible('a.link-box')
+  .then((isVisible: boolean) => { })
 
 new Nightmare()
   .goto('http://www.wikipedia.org/')
@@ -155,7 +165,7 @@ new Nightmare()
   .goto('http://validator.w3.org/#validate_by_upload')
   .upload('#uploaded_file', 'test/files/jquery-2.1.1.min.js')
   .evaluate(function () {
-    return (<HTMLInputElement>document.getElementById('uploaded_file')).value;
+    return (document.getElementById('uploaded_file') as HTMLInputElement).value;
   }, function (value) {
   })
   .run(done);
@@ -190,6 +200,13 @@ new Nightmare()
   .run(done);
 
 new Nightmare()
+  .goto("http://yahoo.com")
+  .pdf((err,data)=>{
+    console.log(Buffer.isBuffer(data))
+  })
+  .run(done)
+
+new Nightmare()
   .goto('http://www.google.com/')
   .wait('input')
   .run(done);
@@ -197,7 +214,7 @@ new Nightmare()
 
 var seconds = function () {
   var gifs = document.querySelectorAll('img');
-  var split = (<HTMLImageElement>gifs[gifs.length - 2]).src.split('.gif')[0];
+  var split = (gifs[gifs.length - 2] as HTMLImageElement).src.split('.gif')[0];
   var seconds = split.split('.com/c')[1];
   return parseInt(seconds, 10);
 };
@@ -302,7 +319,7 @@ new Nightmare()
   .headers(headers)
   .goto('http://httpbin.org/headers')
   .evaluate(function () {
-    return (<HTMLElement>document.body.children[0]).innerHTML;
+    return (document.body.children[0] as HTMLElement).innerHTML;
   }, function (data: string) {
   })
   .run(done);
@@ -387,7 +404,3 @@ new Nightmare({ executionTimeout: 1000 })
       }, 2000)
     })
   })
-
-
-
-

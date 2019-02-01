@@ -25,6 +25,15 @@ const filteredCombinations:string[][] = combination.filter((i:string[]) => i.len
 const allCombinations:string[][] = combination.toArray();
 const combinationsCount = combination.length;
 
+const limitedBigCombination = Combinatorics.bigCombination(["a", "b", "c"], 2);
+const bigCombination = Combinatorics.bigCombination(["a", "b", "c"]);
+const nextBigCombination:string[] = bigCombination.next();
+bigCombination.forEach((i:string[]) => console.log(i));
+const bigCombinationsLengths:number[] = bigCombination.map((i:string[]) => i.length);
+const filteredBigCombinations:string[][] = bigCombination.filter((i:string[]) => i.length > 0);
+const allBigCombinations:string[][] = bigCombination.toArray();
+const bigCombinationsCount = bigCombination.length;
+
 const limitedPermutation = Combinatorics.permutation(["a", "b", "c"], 2);
 const permutation = Combinatorics.permutation(["a", "b", "c"]);
 const nextPermutation:string[] = permutation.next();

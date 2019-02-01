@@ -1,114 +1,185 @@
-// Type definitions for Libxmljs v0.14.2
-// Project: https://github.com/polotek/libxmljs
+// Type definitions for Libxmljs 0.18
+// Project: https://github.com/libxmljs/libxmljs
 // Definitions by: François de Campredon <https://github.com/fdecampredon>
+//                 ComFreek <https://github.com/ComFreek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
+import { EventEmitter } from 'events';
 
+export const version: string;
+export const libxml_version: string;
+export const libxml_parser_version: string;
 
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface StringMap { [key: string]: string; }
 
-import events = require('events');
+export function parseXml(source: string, options?: StringMap): Document;
+export function parseXmlString(source: string, options?: StringMap): Document;
 
-export declare function parseXml(source: string): XMLDocument;
-export declare function parseHtml(source: string): HTMLDocument;
-export declare function parseXmlString(source: string, options?: { [key: string]: string }): XMLDocument;
-export declare function parseHtmlString(source: string): HTMLDocument;
+export function parseHtml(source: string, options?: StringMap): Document;
+export function parseHtmlString(source: string, options?: StringMap): Document;
+export function parseHtmlFragment(source: string, options?: StringMap): Document;
 
+export function memoryUsage(): number;
+export function nodeCount(): number;
 
-export declare class XMLDocument {
-    constructor(version: number, encoding: string);
-    child(idx: number): Element | undefined;
+export class Document {
+    /**
+     * Create a new XML Document
+     * @param version XML document version, defaults to 1.0
+     * @param encoding Encoding, defaults to utf8
+     */
+    constructor(version?: number, encoding?: string);
+
+    errors: SyntaxError[];
+    validationErrors: ValidationError[];
+
+    child(idx: number): Element|null;
     childNodes(): Element[];
-    errors(): SyntaxError[];
     encoding(): string;
-    encoding(enc: string): void;
+    encoding(enc: string): this;
     find(xpath: string): Element[];
-    get(xpath: string): Element | undefined;
-    node(name: string, content: string): Element;
-    root(): Element;
-    toString(): string;
-    validate(xsdDoc: XMLDocument): boolean;
-    validationErrors: XmlError[];
-    version(): Number;
+    get(xpath: string, namespaces?: StringMap): Element|null;
+    node(name: string, content?: string): Element;
+    root(): Element|null;
+    root(newRoot: Node): Node;
+    toString(formatted?: boolean): string;
+    type(): 'document';
+    validate(xsdDoc: Document): boolean;
+    version(): string;
+    setDtd(name: string, ext: string, sys: string): void;
+    getDtd(): {
+        name: string;
+        externalId: string;
+        systemId: string;
+    };
 }
 
-export declare class HTMLDocument extends XMLDocument {
+export class Node {
+    doc(): Document;
+    parent(): Element|Document;
+    /**
+     * The namespace or null in case of comment nodes
+     */
+    namespace(): Namespace|null;
 
+    /**
+     * An array of namespaces that the object belongs to.
+     *
+     * @param local If it is true, only the namespace declarations local to this
+     *              node are returned, rather than all of the namespaces in scope
+     *              at this node (including the ones from the parent elements).
+     */
+    namespaces(local?: boolean): Namespace[];
+
+    prevSibling(): Node|null;
+    nextSibling(): Node|null;
+
+    type(): 'comment'|'element'|'text'|'attribute';
+    remove(): this;
+    clone(): this;
+    /**
+     * Serializes the node to a string. The string will contain all contents of the node formatted as XML and can be used to print the node.
+     */
+    toString(format?: boolean|{
+        declaration: boolean;
+        selfCloseEmpty: boolean;
+        whitespace: boolean;
+        type: 'xml'|'html'|'xhtml'
+    }): string;
 }
 
-
-export declare class Element {
-    constructor(doc: XMLDocument, name: string, content?: string);
+export class Element extends Node {
+    constructor(doc: Document, name: string, content?: string);
+    node(name: string, content?: string): Element;
     name(): string;
-    name(newName: string): void;
+    name(newName: string): this;
     text(): string;
-    attr(name: string): Attribute;
-    attr(attr: Attribute): void;
-    attr(attrObject: { [key: string]: string; }): void;
+    text(newText: string): this;
+    attr(name: string): Attribute|null;
+    attr(attrObject: StringMap): this;
     attrs(): Attribute[];
-    parent(): Element;
-    doc(): XMLDocument;
-    child(idx: number): Element | undefined;
-    childNodes(): Element[];
-    addChild(child: Element): Element;
-    nextSibling(): Element;
-    nextElement(): Element;
-    addNextSibling(siblingNode: Element): Element;
-    prevSibling(): Element;
-    prevElement(): Element;
-    addPrevSibling(siblingNode: Element): Element;
-    find(xpath: string): Element[];
-    find(xpath: string, ns_uri: string): Element[];
-    find(xpath: string, namespaces: { [key: string]: string; }): Element[];
-    get(xpath: string): Element | undefined;
-    get(xpath: string, ns_uri: string): Element | undefined;
-    get(xpath: string, ns_uri: { [key: string]: string; }): Element | undefined;
-    defineNamespace(href: string): Namespace;
-    defineNamespace(prefix: string, href: string): Namespace;
-    namespace(): Namespace;
-    namespace(ns: Namespace): void;
-    namespace(href: string): void;
-    namespace(prefix: string, href: string): void;
-    remove(): void;
+
+    doc(): Document;
+    child(idx: number): Node | null;
+    childNodes(): Node[];
+
+    /**
+     * @return The original element, not the child.
+     */
+    addChild(child: Element): this;
+
+    prevElement(): Element|null;
+    nextElement(): Element|null;
+    addNextSibling(siblingNode: Node): Node;
+
+    find(xpath: string, ns_uri?: string): Node[];
+    find(xpath: string, namespaces: StringMap): Node[];
+    get(xpath: string, ns_uri?: string): Element|null;
+
+    defineNamespace(prefixOrHref: string, hrefInCaseOfPrefix?: string): Namespace;
+
+    namespace(): Namespace|null;
+    namespace(newNamespace: Namespace): this;
+    namespace(prefixOrHref: string, hrefInCaseOfPrefix?: string): Namespace;
+
+    replace(replacement: string): string;
+    replace(replacement: Element): Element;
+
     path(): string;
-    type(): string;
 }
 
-
-export declare class Attribute {
-    constructor(node: Element, name: string, value: string);
-    constructor(node: Element, name: string, value: string, ns: Namespace);
+export class Attribute {
     name(): string;
-    namespace(): Namespace;
-    namespace(ns: Namespace): Namespace;
-    nextSibling(): Attribute;
-    node(): Element;
-    prevSibling(): Attribute;
-    remove(): void;
     value(): string;
+    value(newValue: string): Attribute;
+    namespace(): Namespace;
+
+    remove(): void;
 }
 
-export declare class Namespace {
-    constructor(node: Element, prefix: string, href: string);
+export class Namespace {
     href(): string;
     prefix(): string;
 }
 
-export declare class SaxParser extends events.EventEmitter {
+export class SaxParser extends EventEmitter {
+    constructor();
     parseString(source: string): boolean;
 }
 
-
-export declare class SaxPushParser extends events.EventEmitter {
+export class SaxPushParser extends EventEmitter {
+    constructor();
     push(source: string): boolean;
 }
 
-export interface XmlError {
-    domain: number;
-    code: number;
-    message: string;
-    level: number;
-    file?: string;
+export interface SyntaxError {
+    domain: number|null;
+    code: number|null;
+    message: string|null;
+    level: number|null;
+    file: string|null;
+    line: number|null;
+    /**
+     * 1-based column number, 0 if not applicable/available.
+     */
     column: number;
-    line: number;
+
+    str1: number|null;
+    str2: number|null;
+    str3: number|null;
+    int1: number|null;
+}
+
+export interface ValidationError extends Error {
+    domain: number|null;
+    code: number|null;
+    level: number|null;
+
+    line: number|null;
+    /**
+     * 1-based column number, 0 if not applicable/available.
+     */
+    column: number;
 }

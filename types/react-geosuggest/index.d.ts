@@ -2,7 +2,7 @@
 // Project: https://github.com/ubilabs/react-geosuggest
 // Definitions by: Brad Menchl <https://github.com/brmenchl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="googlemaps" />
 
@@ -16,7 +16,10 @@ export default class Geosuggest extends Component<GeosuggestProps> {
     selectSuggest(value?: Suggest): void;
 }
 
-export interface GeosuggestProps extends InputHTMLAttributes<HTMLInputElement> {
+// Replace with Exclude once on 2.8+
+export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+
+export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'style'> {
     placeholder?: string;
     initialValue?: string;
     className?: string;
@@ -63,7 +66,8 @@ export interface Styles {
 }
 
 export type QueryType
-    = 'establishment'
+    = 'address'
+    | 'establishment'
     | 'geocode'
     | '(cities)'
     | '(regions)';

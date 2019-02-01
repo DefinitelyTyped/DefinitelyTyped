@@ -1,6 +1,6 @@
-// Type definitions for pigpio 0.4
+// Type definitions for pigpio 1.2
 // Project: https://github.com/fivdi/pigpio
-// Definitions by: ManerFan <https://github.com/manerfan>
+// Definitions by: ManerFan <https://github.com/manerfan>, erikma <https://github.com/erikma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -160,14 +160,20 @@ export class Gpio extends NodeJS.EventEmitter {
     disableInterrupt(): Gpio;
 
     /**
-     * Enables alerts for the GPIO.
+     * Enables alerts for the GPIO. Returns this.
      */
     enableAlert(): Gpio;
 
     /**
-     * Disables aterts for the GPIO.
+     * Disables aterts for the GPIO. Returns this.
      */
     disableAlert(): Gpio;
+
+    /**
+     * Sets a glitch filter on a GPIO. Returns this.
+     * @param steady    Time, in microseconds, during which the level must be stable. Maximum value: 300000
+     */
+    glitchFilter(steady: number): Gpio;
 
     /*----------------------*
      * mode
@@ -410,3 +416,35 @@ export function terminate(): void;
  * @param peripheral    an unsigned integer specifying the peripheral for timing (CLOCK_PWM or CLOCK_PCM)
  */
 export function configureClock(microseconds: number, peripheral: number): void;
+
+/**
+ * Configures pigpio to use the specified socket port.
+ * The default setting is to use port 8888.
+ * If configureSocketPort is called, it must be called before creating Gpio objects.
+ * @param port          an unsigned integer specifying the pigpio socket port number
+ */
+export function configureSocketPort(port: number): void;
+
+/**
+ * Returns the Raspberry Pi hardware revision as an unsigned integer. Returns 0
+ * if the hardware revision can not be determined.
+ */
+export function hardwareRevision(): number;
+
+/**
+ * Gets the current unsigned 32-bit integer value of the number of microseconds
+ * since system boot. This value wraps around the 32-bit space in just over an hour.
+ * Use tickDiff() to get the difference between two tick values, to
+ * ensure the correct JavaScript operations are used to account for the possibility
+ * of overflow.
+ */
+export function getTick(): number;
+
+/**
+ * Returns the difference in microseconds between the end and start tick counts.
+ * The tick counts can be retrieved using getTick(), or may be passed
+ * in a GPIO event callback.
+ * @param startTick    The start of the measured interval. An unsigned integer tick value.
+ * @param endTick      The end of the measured interval. An unsigned integer tick value.
+ */
+export function tickDiff(startTick: number, endTick: number): number;

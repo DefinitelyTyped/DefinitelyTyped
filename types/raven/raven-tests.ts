@@ -10,9 +10,17 @@ Raven.config(dsn, {
 });
 console.log(Raven.version);
 
+const transport = new Raven.transports.HTTPTransport();
+
 Raven.config({
-    release: 'foobar'
+    release: 'foobar',
+    transport
 });
+
+Raven.config({
+  transport: Raven.transports.https
+});
+
 client.setContext({});
 client.on('logged', () => { });
 client.process({});

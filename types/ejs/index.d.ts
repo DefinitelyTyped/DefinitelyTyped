@@ -1,4 +1,4 @@
-// Type definitions for ejs.js 2.5
+// Type definitions for ejs.js 2.6
 // Project: http://ejs.co/
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,14 +28,20 @@ export function resolveInclude(name: string, filename: string, isDir: boolean): 
 /**
  * Compile the given `str` of ejs into a template function.
  */
-export function compile(template: string, opts?: Options): (TemplateFunction);
+export function compile(template: string, opts?: Options & { async: false }): TemplateFunction;
+export function compile(template: string, opts: Options & { async: true }): AsyncTemplateFunction;
+export function compile(template: string, opts: Options & { async?: never }): TemplateFunction;
+export function compile(template: string, opts?: Options): TemplateFunction | AsyncTemplateFunction;
 /**
  * Render the given `template` of ejs.
  *
  * If you would like to include options but not data, you need to explicitly
  * call this function with `data` being an empty object or `null`.
  */
-export function render(template: string, data?: Data, opts?: Options): string;
+export function render(template: string, data?: Data, opts?: Options & { async: false }): string;
+export function render(template: string, data: Data | undefined, opts: Options & { async: true }): Promise<string>;
+export function render(template: string, data: Data | undefined, opts: Options & { async?: never }): string;
+export function render(template: string, data?: Data, opts?: Options): string | Promise<string>;
 
 export type RenderFileCallback<T> = (err: Error, str?: string) => T;
 
@@ -48,6 +54,8 @@ export type RenderFileCallback<T> = (err: Error, str?: string) => T;
 export function renderFile<T>(path: string, cb: RenderFileCallback<T>): T;
 export function renderFile<T>(path: string, data: Data, cb: RenderFileCallback<T>): T;
 export function renderFile<T>(path: string, data: Data, opts: Options, cb: RenderFileCallback<T>): T;
+// tslint:disable-next-line no-unnecessary-generics
+export function renderFile<T>(path: string, data?: Data, opts?: Options): Promise<T>;
 
 /**
  * Clear intermediate JavaScript cache. Calls {@link Cache#reset}.
@@ -55,6 +63,7 @@ export function renderFile<T>(path: string, data: Data, opts: Options, cb: Rende
 export function clearCache(): void;
 
 export type TemplateFunction = (data?: Data) => string;
+export type AsyncTemplateFunction = (data?: Data) => Promise<string>;
 export interface Options {
     /** Compiled functions are cached, requires `filename` */
     cache?: boolean;
@@ -95,6 +104,8 @@ export interface Options {
      * (By default escapes XML).
      */
     escape?(str: string): string;
+    /** Whether or not to use a Promise */
+    async?: boolean;
 }
 
 export function escapeRegexChars(s: string): string;
@@ -108,7 +119,7 @@ export function escapeRegexChars(s: string): string;
 export function escapeXML(markup: string): string;
 export interface Cache {
     set(key: string, val: TemplateFunction): void;
-    get(key: string): TemplateFunction;
+    get(key: string): TemplateFunction | undefined;
 }
 export let delimiter: string;
 

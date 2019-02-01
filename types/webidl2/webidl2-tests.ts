@@ -106,6 +106,9 @@ function logExtAttrs(extAttrs: webidl2.ExtendedAttributes[]) {
     console.log(extAttrs[0].name);
     logArguments(extAttrs[0].arguments);
     const { rhs } = extAttrs[0];
+    if (rhs === null) {
+        return;
+    }
     if (rhs.type === "identifier") {
         console.log(rhs);
     } else {

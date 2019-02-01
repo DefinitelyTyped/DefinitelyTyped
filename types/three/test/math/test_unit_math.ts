@@ -3,7 +3,7 @@ declare function ok(cond: any, desc?: string): void;
 declare function deepEqual<T>(a: T, b: T, desc?: string): void;
 declare function equal<T>(a: T, b: T, desc?: string): void;
 
-// https://github.com/mrdoob/three.js/tree/master/test/unit/math
+// https://github.com/mrdoob/three.js/tree/master/test/unit/src/math
 
 ()=>{
     // -------------------------------------------- Constants
@@ -91,57 +91,62 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "center", function() {
         var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var center = new THREE.Vector2();
 
-        ok( a.getCenter().equals( zero2 ), "Passed!" );
+        ok( a.getCenter(center).equals( zero2 ), "Passed!" );
 
         a = new THREE.Box2( zero2, one2 );
         var midpoint = one2.clone().multiplyScalar( 0.5 );
-        ok( a.getCenter().equals( midpoint ), "Passed!" );
+        ok( a.getCenter(center).equals( midpoint ), "Passed!" );
     });
 
     test( "size", function() {
         var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var size = new THREE.Vector2();
 
-        ok( a.getSize().equals( zero2 ), "Passed!" );
+        ok( a.getSize(size).equals( zero2 ), "Passed!" );
 
         a = new THREE.Box2( zero2.clone(), one2.clone() );
-        ok( a.getSize().equals( one2 ), "Passed!" );
+        ok( a.getSize(size).equals( one2 ), "Passed!" );
     });
 
     test( "expandByPoint", function() {
         var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var size = new THREE.Vector2();
 
         a.expandByPoint( zero2 );
-        ok( a.getSize().equals( zero2 ), "Passed!" );
+        ok( a.getSize(size).equals( zero2 ), "Passed!" );
 
         a.expandByPoint( one2 );
-        ok( a.getSize().equals( one2 ), "Passed!" );
+        ok( a.getSize(size).equals( one2 ), "Passed!" );
 
         a.expandByPoint( one2.clone().negate() );
-        ok( a.getSize().equals( one2.clone().multiplyScalar( 2 ) ), "Passed!" );
-        ok( a.getCenter().equals( zero2 ), "Passed!" );
+        ok( a.getSize(size).equals( one2.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.getCenter(new THREE.Vector2()).equals( zero2 ), "Passed!" );
     });
 
     test( "expandByVector", function() {
         var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var size = new THREE.Vector2();
 
         a.expandByVector( zero2 );
-        ok( a.getSize().equals( zero2 ), "Passed!" );
+        ok( a.getSize(size).equals( zero2 ), "Passed!" );
 
         a.expandByVector( one2 );
-        ok( a.getSize().equals( one2.clone().multiplyScalar( 2 ) ), "Passed!" );
-        ok( a.getCenter().equals( zero2 ), "Passed!" );
+        ok( a.getSize(size).equals( one2.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.getCenter(new THREE.Vector2()).equals( zero2 ), "Passed!" );
     });
 
     test( "expandByScalar", function() {
         var a = new THREE.Box2( zero2.clone(), zero2.clone() );
+        var size = new THREE.Vector2();
 
         a.expandByScalar( 0 );
-        ok( a.getSize().equals( zero2 ), "Passed!" );
+        ok( a.getSize(size).equals( zero2 ), "Passed!" );
 
         a.expandByScalar( 1 );
-        ok( a.getSize().equals( one2.clone().multiplyScalar( 2 ) ), "Passed!" );
-        ok( a.getCenter().equals( zero2 ), "Passed!" );
+        ok( a.getSize(size).equals( one2.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.getCenter(new THREE.Vector2()).equals( zero2 ), "Passed!" );
     });
 
     test( "containsPoint", function() {
@@ -185,16 +190,17 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
     test( "clampPoint", function() {
         var a = new THREE.Box2( zero2.clone(), zero2.clone() );
         var b = new THREE.Box2( one2.clone().negate(), one2.clone() );
+        var target = new THREE.Vector2();
 
-        ok( a.clampPoint( new THREE.Vector2( 0, 0 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
-        ok( a.clampPoint( new THREE.Vector2( 1, 1 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
-        ok( a.clampPoint( new THREE.Vector2( -1, -1 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector2( 0, 0 ), target ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector2( 1, 1 ), target ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector2( -1, -1 ), target ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
 
-        ok( b.clampPoint( new THREE.Vector2( 2, 2 ) ).equals( new THREE.Vector2( 1, 1 ) ), "Passed!" );
-        ok( b.clampPoint( new THREE.Vector2( 1, 1 ) ).equals( new THREE.Vector2( 1, 1 ) ), "Passed!" );
-        ok( b.clampPoint( new THREE.Vector2( 0, 0 ) ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
-        ok( b.clampPoint( new THREE.Vector2( -1, -1 ) ).equals( new THREE.Vector2( -1, -1 ) ), "Passed!" );
-        ok( b.clampPoint( new THREE.Vector2( -2, -2 ) ).equals( new THREE.Vector2( -1, -1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector2( 2, 2 ), target ).equals( new THREE.Vector2( 1, 1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector2( 1, 1 ), target ).equals( new THREE.Vector2( 1, 1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector2( 0, 0 ), target ).equals( new THREE.Vector2( 0, 0 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector2( -1, -1 ), target ).equals( new THREE.Vector2( -1, -1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector2( -2, -2 ), target ).equals( new THREE.Vector2( -1, -1 ) ), "Passed!" );
     });
 
     test( "distanceToPoint", function() {
@@ -332,57 +338,62 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "center", function() {
         var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var center = new THREE.Vector3();
 
-        ok( a.getCenter().equals( zero3 ), "Passed!" );
+        ok( a.getCenter(center).equals( zero3 ), "Passed!" );
 
         a = new THREE.Box3( zero3.clone(), one3.clone() );
         var midpoint = one3.clone().multiplyScalar( 0.5 );
-        ok( a.getCenter().equals( midpoint ), "Passed!" );
+        ok( a.getCenter(center).equals( midpoint ), "Passed!" );
     });
 
     test( "size", function() {
         var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var size = new THREE.Vector3();
 
-        ok( a.getSize().equals( zero3 ), "Passed!" );
+        ok( a.getSize(size).equals( zero3 ), "Passed!" );
 
         a = new THREE.Box3( zero3.clone(), one3.clone() );
-        ok( a.getSize().equals( one3 ), "Passed!" );
+        ok( a.getSize(size).equals( one3 ), "Passed!" );
     });
 
     test( "expandByPoint", function() {
         var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var size = new THREE.Vector3();
 
         a.expandByPoint( zero3 );
-        ok( a.getSize().equals( zero3 ), "Passed!" );
+        ok( a.getSize(size).equals( zero3 ), "Passed!" );
 
         a.expandByPoint( one3 );
-        ok( a.getSize().equals( one3 ), "Passed!" );
+        ok( a.getSize(size).equals( one3 ), "Passed!" );
 
         a.expandByPoint( one3.clone().negate() );
-        ok( a.getSize().equals( one3.clone().multiplyScalar( 2 ) ), "Passed!" );
-        ok( a.getCenter().equals( zero3 ), "Passed!" );
+        ok( a.getSize(size).equals( one3.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.getCenter(new THREE.Vector3()).equals( zero3 ), "Passed!" );
     });
 
     test( "expandByVector", function() {
         var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var size = new THREE.Vector3();
 
         a.expandByVector( zero3 );
-        ok( a.getSize().equals( zero3 ), "Passed!" );
+        ok( a.getSize(size).equals( zero3 ), "Passed!" );
 
         a.expandByVector( one3 );
-        ok( a.getSize().equals( one3.clone().multiplyScalar( 2 ) ), "Passed!" );
-        ok( a.getCenter().equals( zero3 ), "Passed!" );
+        ok( a.getSize(size).equals( one3.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.getCenter(new THREE.Vector3()).equals( zero3 ), "Passed!" );
     });
 
     test( "expandByScalar", function() {
         var a = new THREE.Box3( zero3.clone(), zero3.clone() );
+        var size = new THREE.Vector3();
 
         a.expandByScalar( 0 );
-        ok( a.getSize().equals( zero3 ), "Passed!" );
+        ok( a.getSize(size).equals( zero3 ), "Passed!" );
 
         a.expandByScalar( 1 );
-        ok( a.getSize().equals( one3.clone().multiplyScalar( 2 ) ), "Passed!" );
-        ok( a.getCenter().equals( zero3 ), "Passed!" );
+        ok( a.getSize(size).equals( one3.clone().multiplyScalar( 2 ) ), "Passed!" );
+        ok( a.getCenter(new THREE.Vector3()).equals( zero3 ), "Passed!" );
     });
 
     test( "containsPoint", function() {
@@ -426,16 +437,17 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
     test( "clampPoint", function() {
         var a = new THREE.Box3( zero3.clone(), zero3.clone() );
         var b = new THREE.Box3( one3.clone().negate(), one3.clone() );
+        var target = new THREE.Vector3();
 
-        ok( a.clampPoint( new THREE.Vector3( 0, 0, 0 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
-        ok( a.clampPoint( new THREE.Vector3( 1, 1, 1 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
-        ok( a.clampPoint( new THREE.Vector3( -1, -1, -1 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector3( 0, 0, 0 ), target ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector3( 1, 1, 1 ), target ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector3( -1, -1, -1 ), target ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
 
-        ok( b.clampPoint( new THREE.Vector3( 2, 2, 2 ) ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
-        ok( b.clampPoint( new THREE.Vector3( 1, 1, 1 ) ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
-        ok( b.clampPoint( new THREE.Vector3( 0, 0, 0 ) ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
-        ok( b.clampPoint( new THREE.Vector3( -1, -1, -1 ) ).equals( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
-        ok( b.clampPoint( new THREE.Vector3( -2, -2, -2 ) ).equals( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector3( 2, 2, 2 ), target ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector3( 1, 1, 1 ), target ).equals( new THREE.Vector3( 1, 1, 1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector3( 0, 0, 0 ), target ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector3( -1, -1, -1 ), target ).equals( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
+        ok( b.clampPoint( new THREE.Vector3( -2, -2, -2 ), target ).equals( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
     });
 
     test( "distanceToPoint", function() {
@@ -491,10 +503,11 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         var a = new THREE.Box3( zero3.clone(), zero3.clone() );
         var b = new THREE.Box3( zero3.clone(), one3.clone() );
         var c = new THREE.Box3( one3.clone().negate(), one3.clone() );
+        var target = new THREE.Sphere();
 
-        ok( a.getBoundingSphere().equals( new THREE.Sphere( zero3, 0 ) ), "Passed!" );
-        ok( b.getBoundingSphere().equals( new THREE.Sphere( one3.clone().multiplyScalar( 0.5 ), Math.sqrt( 3 ) * 0.5 ) ), "Passed!" );
-        ok( c.getBoundingSphere().equals( new THREE.Sphere( zero3, Math.sqrt( 12 ) * 0.5 ) ), "Passed!" );
+        ok( a.getBoundingSphere( target ).equals( new THREE.Sphere( zero3, 0 ) ), "Passed!" );
+        ok( b.getBoundingSphere( target ).equals( new THREE.Sphere( one3.clone().multiplyScalar( 0.5 ), Math.sqrt( 3 ) * 0.5 ) ), "Passed!" );
+        ok( c.getBoundingSphere( target ).equals( new THREE.Sphere( zero3, Math.sqrt( 12 ) * 0.5 ) ), "Passed!" );
     });
 
     test( "intersect", function() {
@@ -742,7 +755,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "getHSL", function () {
         var c = new THREE.Color( 0x80ffff );
-        var hsl = c.getHSL();
+        var hsl = c.getHSL( { h: 0, s: 0, l: 0 } );
 
         ok( hsl.h == 0.5, "hue: " + hsl.h );
         ok( hsl.s == 1.0, "saturation: " + hsl.s );
@@ -752,7 +765,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
     test( "setHSL", function () {
         var c = new THREE.Color();
         c.setHSL(0.75, 1.0, 0.25);
-        var hsl = c.getHSL();
+        var hsl = c.getHSL( { h: 0, s: 0, l: 0 } );
 
         ok( hsl.h == 0.75, "hue: " + hsl.h );
         ok( hsl.s == 1.00, "saturation: " + hsl.s );
@@ -1080,34 +1093,36 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "at", function() {
         var a = new THREE.Line3( one3.clone(), new THREE.Vector3( 1, 1, 2 ) );
+        var target = new THREE.Vector3();
 
-        ok( a.at( -1 ).distanceTo( new THREE.Vector3( 1, 1, 0 ) ) < 0.0001, "Passed!" );
-        ok( a.at( 0 ).distanceTo( one3.clone() ) < 0.0001, "Passed!" );
-        ok( a.at( 1 ).distanceTo( new THREE.Vector3( 1, 1, 2 ) ) < 0.0001, "Passed!" );
-        ok( a.at( 2 ).distanceTo( new THREE.Vector3( 1, 1, 3 ) ) < 0.0001, "Passed!" );
+        ok( a.at( -1, target ).distanceTo( new THREE.Vector3( 1, 1, 0 ) ) < 0.0001, "Passed!" );
+        ok( a.at( 0, target ).distanceTo( one3.clone() ) < 0.0001, "Passed!" );
+        ok( a.at( 1, target ).distanceTo( new THREE.Vector3( 1, 1, 2 ) ) < 0.0001, "Passed!" );
+        ok( a.at( 2, target ).distanceTo( new THREE.Vector3( 1, 1, 3 ) ) < 0.0001, "Passed!" );
     });
 
     test( "closestPointToPoint/closestPointToPointParameter", function() {
         var a = new THREE.Line3( one3.clone(), new THREE.Vector3( 1, 1, 2 ) );
+        var target = new THREE.Vector3();
 
         // nearby the ray
         ok( a.closestPointToPointParameter( zero3.clone(), true ) == 0, "Passed!" );
-        var b1 = a.closestPointToPoint( zero3.clone(), true );
+        var b1 = a.closestPointToPoint( zero3.clone(), true, target );
         ok( b1.distanceTo( new THREE.Vector3( 1, 1, 1 ) ) < 0.0001, "Passed!" );
 
         // nearby the ray
         ok( a.closestPointToPointParameter( zero3.clone(), false ) == -1, "Passed!" );
-        var b2 = a.closestPointToPoint( zero3.clone(), false );
+        var b2 = a.closestPointToPoint( zero3.clone(), false, target );
         ok( b2.distanceTo( new THREE.Vector3( 1, 1, 0 ) ) < 0.0001, "Passed!" );
 
         // nearby the ray
         ok( a.closestPointToPointParameter( new THREE.Vector3( 1, 1, 5 ), true ) == 1, "Passed!" );
-        var b = a.closestPointToPoint( new THREE.Vector3( 1, 1, 5 ), true );
+        var b = a.closestPointToPoint( new THREE.Vector3( 1, 1, 5 ), true, target );
         ok( b.distanceTo( new THREE.Vector3( 1, 1, 2 ) ) < 0.0001, "Passed!" );
 
         // exactly on the ray
         ok( a.closestPointToPointParameter( one3.clone(), true ) == 0, "Passed!" );
-        var c = a.closestPointToPoint( one3.clone(), true );
+        var c = a.closestPointToPoint( one3.clone(), true, target );
         ok( c.distanceTo( one3.clone() ) < 0.0001, "Passed!" );
     });
 
@@ -1752,7 +1767,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         var a = new THREE.Plane( new THREE.Vector3( 2, 0, 0 ), -2 );
 
         a.normalize();
-        ok( a.distanceToPoint( a.projectPoint( zero3.clone() ) ) === 0, "Passed!" );
+        ok( a.distanceToPoint( a.projectPoint( zero3.clone(), new THREE.Vector3() ) ) === 0, "Passed!" );
         ok( a.distanceToPoint( new THREE.Vector3( 4, 0, 0 ) ) === 3, "Passed!" );
     });
 
@@ -1771,54 +1786,57 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "isInterestionLine/intersectLine", function() {
         var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
+        var target = new THREE.Vector3();
 
         var l1 = new THREE.Line3( new THREE.Vector3( -10, 0, 0 ), new THREE.Vector3( 10, 0, 0 ) );
         ok( a.intersectsLine( l1 ), "Passed!" );
-        ok( a.intersectLine( l1 ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.intersectLine( l1, target ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
 
         a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), -3 );
 
         ok( a.intersectsLine( l1 ), "Passed!" );
-        ok( a.intersectLine( l1 ).equals( new THREE.Vector3( 3, 0, 0 ) ), "Passed!" );
+        ok( a.intersectLine( l1, target ).equals( new THREE.Vector3( 3, 0, 0 ) ), "Passed!" );
 
 
         a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), -11 );
 
         ok( ! a.intersectsLine( l1 ), "Passed!" );
-        ok( a.intersectLine( l1 ) === undefined, "Passed!" );
+        ok( a.intersectLine( l1, target ) === undefined, "Passed!" );
 
         a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 11 );
 
         ok( ! a.intersectsLine( l1 ), "Passed!" );
-        ok( a.intersectLine( l1 ) === undefined, "Passed!" );
+        ok( a.intersectLine( l1, target ) === undefined, "Passed!" );
 
     });
 
     test( "projectPoint", function() {
         var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
+        var target = new THREE.Vector3();
 
-        ok( a.projectPoint( new THREE.Vector3( 10, 0, 0 ) ).equals( zero3 ), "Passed!" );
-        ok( a.projectPoint( new THREE.Vector3( -10, 0, 0 ) ).equals( zero3 ), "Passed!" );
+        ok( a.projectPoint( new THREE.Vector3( 10, 0, 0 ), target ).equals( zero3 ), "Passed!" );
+        ok( a.projectPoint( new THREE.Vector3( -10, 0, 0 ), target ).equals( zero3 ), "Passed!" );
 
         a = new THREE.Plane( new THREE.Vector3( 0, 1, 0 ), -1 );
-        ok( a.projectPoint( new THREE.Vector3( 0, 0, 0 ) ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
-        ok( a.projectPoint( new THREE.Vector3( 0, 1, 0 ) ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+        ok( a.projectPoint( new THREE.Vector3( 0, 0, 0 ), target ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+        ok( a.projectPoint( new THREE.Vector3( 0, 1, 0 ), target ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
 
     });
 
     test( "orthoPoint", function() {
         var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
+        var target = new THREE.Vector3();
 
-        ok( a.orthoPoint( new THREE.Vector3( 10, 0, 0 ) ).equals( new THREE.Vector3( 10, 0, 0 ) ), "Passed!" );
-        ok( a.orthoPoint( new THREE.Vector3( -10, 0, 0 ) ).equals( new THREE.Vector3( -10, 0, 0 ) ), "Passed!" );
+        ok( a.orthoPoint( new THREE.Vector3( 10, 0, 0 ), target ).equals( new THREE.Vector3( 10, 0, 0 ) ), "Passed!" );
+        ok( a.orthoPoint( new THREE.Vector3( -10, 0, 0 ), target ).equals( new THREE.Vector3( -10, 0, 0 ) ), "Passed!" );
     });
 
     test( "coplanarPoint", function() {
         var a = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 0 );
-        ok( a.distanceToPoint( a.coplanarPoint() ) === 0, "Passed!" );
+        ok( a.distanceToPoint( a.coplanarPoint( new THREE.Vector3() ) ) === 0, "Passed!" );
 
         a = new THREE.Plane( new THREE.Vector3( 0, 1, 0 ), -1 );
-        ok( a.distanceToPoint( a.coplanarPoint() ) === 0, "Passed!" );
+        ok( a.distanceToPoint( a.coplanarPoint( new THREE.Vector3() ) ) === 0, "Passed!" );
     });
 
     test( "applyMatrix4/translate", function() {
@@ -2080,10 +2098,11 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "at", function() {
         var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+        var target = new THREE.Vector3();
 
-        ok( a.at( 0 ).equals( one3 ), "Passed!" );
-        ok( a.at( -1 ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
-        ok( a.at( 1 ).equals( new THREE.Vector3( 1, 1, 2 ) ), "Passed!" );
+        ok( a.at( 0, target ).equals( one3 ), "Passed!" );
+        ok( a.at( -1, target ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
+        ok( a.at( 1, target ).equals( new THREE.Vector3( 1, 1, 2 ) ), "Passed!" );
     });
 
     test( "recast/clone", function() {
@@ -2106,17 +2125,18 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "closestPointToPoint", function() {
         var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+        var target = new THREE.Vector3();
 
         // behind the ray
-        var b = a.closestPointToPoint( zero3 );
+        var b = a.closestPointToPoint( zero3, target );
         ok( b.equals( one3 ), "Passed!" );
 
         // front of the ray
-        var c = a.closestPointToPoint( new THREE.Vector3( 0, 0, 50 ) );
+        var c = a.closestPointToPoint( new THREE.Vector3( 0, 0, 50 ), target );
         ok( c.equals( new THREE.Vector3( 1, 1, 50 ) ), "Passed!" );
 
         // exactly on the ray
-        var d = a.closestPointToPoint( one3 );
+        var d = a.closestPointToPoint( one3, target );
         ok( d.equals( one3 ), "Passed!" );
     });
 
@@ -2159,34 +2179,35 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         var a0 = new THREE.Ray( zero3.clone(), new THREE.Vector3( 0, 0, -1 ) );
         // ray a1 origin located at ( 1, 1, 1 ) and points left in negative-x direction
         var a1 = new THREE.Ray( one3.clone(), new THREE.Vector3( -1, 0, 0 ) );
+        var target = new THREE.Vector3();
 
         // sphere (radius of 2) located behind ray a0, should result in null
         var b = new THREE.Sphere( new THREE.Vector3( 0, 0, 3 ), 2 );
-        ok( a0.intersectSphere( b ) === null, "Passed!" );
+        ok( a0.intersectSphere( b, target ) === null, "Passed!" );
 
         // sphere (radius of 2) located in front of, but too far right of ray a0, should result in null
         var b = new THREE.Sphere( new THREE.Vector3( 3, 0, -1 ), 2 );
-        ok( a0.intersectSphere( b ) === null, "Passed!" );
+        ok( a0.intersectSphere( b, target ) === null, "Passed!" );
 
         // sphere (radius of 2) located below ray a1, should result in null
         var b = new THREE.Sphere( new THREE.Vector3( 1, -2, 1 ), 2 );
-        ok( a1.intersectSphere( b ) === null, "Passed!" );
+        ok( a1.intersectSphere( b, target ) === null, "Passed!" );
 
         // sphere (radius of 1) located to the left of ray a1, should result in intersection at 0, 1, 1
         var b = new THREE.Sphere( new THREE.Vector3( -1, 1, 1 ), 1 );
-        ok( a1.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 1, 1 ) ) < TOL, "Passed!" );
+        ok( a1.intersectSphere( b, target ).distanceTo( new THREE.Vector3( 0, 1, 1 ) ) < TOL, "Passed!" );
 
         // sphere (radius of 1) located in front of ray a0, should result in intersection at 0, 0, -1
         var b = new THREE.Sphere( new THREE.Vector3( 0, 0, -2 ), 1 );
-        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -1 ) ) < TOL, "Passed!" );
+        ok( a0.intersectSphere( b, target ).distanceTo( new THREE.Vector3( 0, 0, -1 ) ) < TOL, "Passed!" );
 
         // sphere (radius of 2) located in front & right of ray a0, should result in intersection at 0, 0, -1, or left-most edge of sphere
         var b = new THREE.Sphere( new THREE.Vector3( 2, 0, -1 ), 2 );
-        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -1 ) ) < TOL, "Passed!" );
+        ok( a0.intersectSphere( b, target ).distanceTo( new THREE.Vector3( 0, 0, -1 ) ) < TOL, "Passed!" );
 
         // same situation as above, but move the sphere a fraction more to the right, and ray a0 should now just miss
         var b = new THREE.Sphere( new THREE.Vector3( 2.01, 0, -1 ), 2 );
-        ok( a0.intersectSphere( b ) === null, "Passed!" );
+        ok( a0.intersectSphere( b, target ) === null, "Passed!" );
 
         // following tests are for situations where the ray origin is inside the sphere
 
@@ -2194,19 +2215,19 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         // is behind ray a0.  Therefore, second exit point on back of sphere will be returned: 0, 0, -1
         // thus keeping the intersection point always in front of the ray.
         var b = new THREE.Sphere( zero3.clone(), 1 );
-        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -1 ) ) < TOL, "Passed!" );
+        ok( a0.intersectSphere( b, target ).distanceTo( new THREE.Vector3( 0, 0, -1 ) ) < TOL, "Passed!" );
 
         // sphere (radius of 4) center located behind ray a0 origin / sphere surrounds the ray origin, so the first intersect point 0, 0, 5,
         // is behind ray a0.  Therefore, second exit point on back of sphere will be returned: 0, 0, -3
         // thus keeping the intersection point always in front of the ray.
         var b = new THREE.Sphere( new THREE.Vector3( 0, 0, 1 ), 4 );
-        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -3 ) ) < TOL, "Passed!" );
+        ok( a0.intersectSphere( b, target ).distanceTo( new THREE.Vector3( 0, 0, -3 ) ) < TOL, "Passed!" );
 
         // sphere (radius of 4) center located in front of ray a0 origin / sphere surrounds the ray origin, so the first intersect point 0, 0, 3,
         // is behind ray a0.  Therefore, second exit point on back of sphere will be returned: 0, 0, -5
         // thus keeping the intersection point always in front of the ray.
         var b = new THREE.Sphere( new THREE.Vector3( 0, 0, -1 ), 4 );
-        ok( a0.intersectSphere( b ).distanceTo( new THREE.Vector3( 0, 0, -5 ) ) < TOL, "Passed!" );
+        ok( a0.intersectSphere( b, target ).distanceTo( new THREE.Vector3( 0, 0, -5 ) ) < TOL, "Passed!" );
 
     });
 
@@ -2236,26 +2257,27 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "intersectPlane", function() {
         var a = new THREE.Ray( one3.clone(), new THREE.Vector3( 0, 0, 1 ) );
+        var target = new THREE.Vector3();
 
         // parallel plane behind
         var b = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 1, 1, -1 ) );
-        ok( a.intersectPlane( b ) === null, "Passed!" );
+        ok( a.intersectPlane( b, target ) === null, "Passed!" );
 
         // parallel plane coincident with origin
         var c = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 1, 1, 0 ) );
-        ok( a.intersectPlane( c ) === null, "Passed!" );
+        ok( a.intersectPlane( c, target ) === null, "Passed!" );
 
         // parallel plane infront
         var d = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 1, 1, 1 ) );
-        ok( a.intersectPlane( d ).equals( a.origin ), "Passed!" );
+        ok( a.intersectPlane( d, target ).equals( a.origin ), "Passed!" );
 
         // perpendical ray that overlaps exactly
         var e = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 1, 0, 0 ), one3 );
-        ok( a.intersectPlane( e ).equals( a.origin ), "Passed!" );
+        ok( a.intersectPlane( e, target ).equals( a.origin ), "Passed!" );
 
         // perpendical ray that doesn't overlap
         var f = new THREE.Plane().setFromNormalAndCoplanarPoint( new THREE.Vector3( 1, 0, 0 ), zero3 );
-        ok( a.intersectPlane( f ) === null, "Passed!" );
+        ok( a.intersectPlane( f, target ) === null, "Passed!" );
     });
 
 
@@ -2324,36 +2346,37 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         var TOL = 0.0001;
 
         var box = new THREE.Box3( new THREE.Vector3(  -1, -1, -1 ), new THREE.Vector3( 1, 1, 1 ) );
+        var target = new THREE.Vector3();
 
         var a = new THREE.Ray( new THREE.Vector3( -2, 0, 0 ), new THREE.Vector3( 1, 0, 0) );
         //ray should intersect box at -1,0,0
         ok( a.intersectsBox(box) === true, "Passed!" );
-        ok( a.intersectBox(box).distanceTo( new THREE.Vector3( -1, 0, 0 ) ) < TOL, "Passed!" );
+        ok( a.intersectBox(box, target).distanceTo( new THREE.Vector3( -1, 0, 0 ) ) < TOL, "Passed!" );
 
         var b = new THREE.Ray( new THREE.Vector3( -2, 0, 0 ), new THREE.Vector3( -1, 0, 0) );
         //ray is point away from box, it should not intersect
         ok( b.intersectsBox(box) === false, "Passed!" );
-        ok( b.intersectBox(box) === null, "Passed!" );
+        ok( b.intersectBox(box, target) === null, "Passed!" );
 
         var c = new THREE.Ray( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0) );
         // ray is inside box, should return exit point
         ok( c.intersectsBox(box) === true, "Passed!" );
-        ok( c.intersectBox(box).distanceTo( new THREE.Vector3( 1, 0, 0 ) ) < TOL, "Passed!" );
+        ok( c.intersectBox(box, target).distanceTo( new THREE.Vector3( 1, 0, 0 ) ) < TOL, "Passed!" );
 
         var d = new THREE.Ray( new THREE.Vector3( 0, 2, 1 ), new THREE.Vector3( 0, -1, -1).normalize() );
         //tilted ray should intersect box at 0,1,0
         ok( d.intersectsBox(box) === true, "Passed!" );
-        ok( d.intersectBox(box).distanceTo( new THREE.Vector3( 0, 1, 0 ) ) < TOL, "Passed!" );
+        ok( d.intersectBox(box, target).distanceTo( new THREE.Vector3( 0, 1, 0 ) ) < TOL, "Passed!" );
 
         var e = new THREE.Ray( new THREE.Vector3( 1, -2, 1 ), new THREE.Vector3( 0, 1, 0).normalize() );
         //handle case where ray is coplanar with one of the boxes side - box in front of ray
         ok( e.intersectsBox(box) === true, "Passed!" );
-        ok( e.intersectBox(box).distanceTo( new THREE.Vector3( 1, -1, 1 ) ) < TOL, "Passed!" );
+        ok( e.intersectBox(box, target).distanceTo( new THREE.Vector3( 1, -1, 1 ) ) < TOL, "Passed!" );
 
         var f = new THREE.Ray( new THREE.Vector3( 1, -2, 0 ), new THREE.Vector3( 0, -1, 0).normalize() );
         //handle case where ray is coplanar with one of the boxes side - box behind ray
         ok( f.intersectsBox(box) === false, "Passed!" );
-        ok( f.intersectBox(box) == null, "Passed!" );
+        ok( f.intersectBox(box, target) == null, "Passed!" );
 
     });
 
@@ -2425,18 +2448,20 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     test( "clampPoint", function() {
         var a = new THREE.Sphere( one3.clone(), 1 );
+        var target = new THREE.Vector3();
 
-        ok( a.clampPoint( new THREE.Vector3( 1, 1, 3 ) ).equals( new THREE.Vector3( 1, 1, 2 ) ), "Passed!" );
-        ok( a.clampPoint( new THREE.Vector3( 1, 1, -3 ) ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector3( 1, 1, 3 ), target ).equals( new THREE.Vector3( 1, 1, 2 ) ), "Passed!" );
+        ok( a.clampPoint( new THREE.Vector3( 1, 1, -3 ), target ).equals( new THREE.Vector3( 1, 1, 0 ) ), "Passed!" );
     });
 
     test( "getBoundingBox", function() {
         var a = new THREE.Sphere( one3.clone(), 1 );
+        var target = new THREE.Box3();
 
-        ok( a.getBoundingBox().equals( new THREE.Box3( zero3, two3 ) ), "Passed!" );
+        ok( a.getBoundingBox( target ).equals( new THREE.Box3( zero3, two3 ) ), "Passed!" );
 
         a.set( zero3, 0 )
-        ok( a.getBoundingBox().equals( new THREE.Box3( zero3, zero3 ) ), "Passed!" );
+        ok( a.getBoundingBox( target ).equals( new THREE.Box3( zero3, zero3 ) ), "Passed!" );
     });
 
     test( "applyMatrix4", function() {
@@ -2444,7 +2469,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
         var m = new THREE.Matrix4().makeTranslation( 1, -2, 1 );
 
-        ok( a.clone().applyMatrix4( m ).getBoundingBox().equals( a.getBoundingBox().applyMatrix4( m ) ), "Passed!" );
+        ok( a.clone().applyMatrix4( m ).getBoundingBox( new THREE.Box3() ).equals( a.getBoundingBox( new THREE.Box3() ).applyMatrix4( m ) ), "Passed!" );
     });
 
     test( "translate", function() {
@@ -2505,88 +2530,92 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     });
 
-    test( "area", function() {
+    test( "getArea", function() {
         var a = new THREE.Triangle();
 
-        ok( a.area() == 0, "Passed!" );
+        ok( a.getArea() == 0, "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
-        ok( a.area() == 0.5, "Passed!" );
+        ok( a.getArea() == 0.5, "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
-        ok( a.area() == 2, "Passed!" );
+        ok( a.getArea() == 2, "Passed!" );
 
         // colinear triangle.
         a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 3, 0, 0 ) );
-        ok( a.area() == 0, "Passed!" );
+        ok( a.getArea() == 0, "Passed!" );
     });
 
-    test( "midpoint", function() {
+    test( "getMidpoint", function() {
         var a = new THREE.Triangle();
+        var target = new THREE.Vector3();
 
-        ok( a.midpoint().equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.getMidpoint( target ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
-        ok( a.midpoint().equals( new THREE.Vector3( 1/3, 1/3, 0 ) ), "Passed!" );
+        ok( a.getMidpoint( target ).equals( new THREE.Vector3( 1/3, 1/3, 0 ) ), "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
-        ok( a.midpoint().equals( new THREE.Vector3( 2/3, 0, 2/3 ) ), "Passed!" );
+        ok( a.getMidpoint( target ).equals( new THREE.Vector3( 2/3, 0, 2/3 ) ), "Passed!" );
     });
 
-    test( "normal", function() {
+    test( "getNormal", function() {
         var a = new THREE.Triangle();
+        var target = new THREE.Vector3();
 
-        ok( a.normal().equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
+        ok( a.getNormal( target ).equals( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
-        ok( a.normal().equals( new THREE.Vector3( 0, 0, 1 ) ), "Passed!" );
+        ok( a.getNormal( target ).equals( new THREE.Vector3( 0, 0, 1 ) ), "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
-        ok( a.normal().equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+        ok( a.getNormal( target ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
     });
 
-    test( "plane", function() {
+    test( "getPlane", function() {
         var a = new THREE.Triangle();
+        var target = new THREE.Vector3();
 
         // artificial normal is created in this case.
-        ok( a.plane().distanceToPoint( a.a ) == 0, "Passed!" );
-        ok( a.plane().distanceToPoint( a.b ) == 0, "Passed!" );
-        ok( a.plane().distanceToPoint( a.c ) == 0, "Passed!" );
-        ok( a.plane().normal.equals( a.normal() ), "Passed!" );
+        ok( a.getPlane( target ).distanceToPoint( a.a ) == 0, "Passed!" );
+        ok( a.getPlane( target ).distanceToPoint( a.b ) == 0, "Passed!" );
+        ok( a.getPlane( target ).distanceToPoint( a.c ) == 0, "Passed!" );
+        ok( a.getPlane( target ).normal.equals( a.getNormal( new THREE.Vector3() ) ), "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
-        ok( a.plane().distanceToPoint( a.a ) == 0, "Passed!" );
-        ok( a.plane().distanceToPoint( a.b ) == 0, "Passed!" );
-        ok( a.plane().distanceToPoint( a.c ) == 0, "Passed!" );
-        ok( a.plane().normal.equals( a.normal() ), "Passed!" );
+        ok( a.getPlane( target ).distanceToPoint( a.a ) == 0, "Passed!" );
+        ok( a.getPlane( target ).distanceToPoint( a.b ) == 0, "Passed!" );
+        ok( a.getPlane( target ).distanceToPoint( a.c ) == 0, "Passed!" );
+        ok( a.getPlane( target ).normal.equals( a.getNormal( new THREE.Vector3() ) ), "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
-        ok( a.plane().distanceToPoint( a.a ) == 0, "Passed!" );
-        ok( a.plane().distanceToPoint( a.b ) == 0, "Passed!" );
-        ok( a.plane().distanceToPoint( a.c ) == 0, "Passed!" );
-        ok( a.plane().normal.clone().normalize().equals( a.normal() ), "Passed!" );
+        ok( a.getPlane( target ).distanceToPoint( a.a ) == 0, "Passed!" );
+        ok( a.getPlane( target ).distanceToPoint( a.b ) == 0, "Passed!" );
+        ok( a.getPlane( target ).distanceToPoint( a.c ) == 0, "Passed!" );
+        ok( a.getPlane( target ).normal.clone().normalize().equals( a.getNormal( new THREE.Vector3() ) ), "Passed!" );
     });
 
-    test( "barycoordFromPoint", function() {
+    test( "getBarycoord", function() {
         var a = new THREE.Triangle();
+        var target = new THREE.Vector3();
 
         var bad = new THREE.Vector3( -2, -1, -1 );
 
-        ok( a.barycoordFromPoint( a.a ).equals( bad ), "Passed!" );
-        ok( a.barycoordFromPoint( a.b ).equals( bad ), "Passed!" );
-        ok( a.barycoordFromPoint( a.c ).equals( bad ), "Passed!" );
+        ok( a.getBarycoord( a.a, target ).equals( bad ), "Passed!" );
+        ok( a.getBarycoord( a.b, target ).equals( bad ), "Passed!" );
+        ok( a.getBarycoord( a.c, target ).equals( bad ), "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 1, 0 ) );
-        ok( a.barycoordFromPoint( a.a ).equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
-        ok( a.barycoordFromPoint( a.b ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
-        ok( a.barycoordFromPoint( a.c ).equals( new THREE.Vector3( 0, 0, 1 ) ), "Passed!" );
-        ok( a.barycoordFromPoint( a.midpoint() ).distanceTo( new THREE.Vector3( 1/3, 1/3, 1/3 ) ) < 0.0001, "Passed!" );
+        ok( a.getBarycoord( a.a, target ).equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
+        ok( a.getBarycoord( a.b, target ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+        ok( a.getBarycoord( a.c, target ).equals( new THREE.Vector3( 0, 0, 1 ) ), "Passed!" );
+        ok( a.getBarycoord( a.getMidpoint( new THREE.Vector3() ), target ).distanceTo( new THREE.Vector3( 1/3, 1/3, 1/3 ) ) < 0.0001, "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
-        ok( a.barycoordFromPoint( a.a ).equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
-        ok( a.barycoordFromPoint( a.b ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
-        ok( a.barycoordFromPoint( a.c ).equals( new THREE.Vector3( 0, 0, 1 ) ), "Passed!" );
-        ok( a.barycoordFromPoint( a.midpoint() ).distanceTo( new THREE.Vector3( 1/3, 1/3, 1/3 ) ) < 0.0001, "Passed!" );
+        ok( a.getBarycoord( a.a, target ).equals( new THREE.Vector3( 1, 0, 0 ) ), "Passed!" );
+        ok( a.getBarycoord( a.b, target ).equals( new THREE.Vector3( 0, 1, 0 ) ), "Passed!" );
+        ok( a.getBarycoord( a.c, target ).equals( new THREE.Vector3( 0, 0, 1 ) ), "Passed!" );
+        ok( a.getBarycoord( a.getMidpoint( new THREE.Vector3() ), target ).distanceTo( new THREE.Vector3( 1/3, 1/3, 1/3 ) ) < 0.0001, "Passed!" );
     });
 
     test( "containsPoint", function() {
@@ -2600,14 +2629,14 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         ok( a.containsPoint( a.a ), "Passed!" );
         ok( a.containsPoint( a.b ), "Passed!" );
         ok( a.containsPoint( a.c ), "Passed!" );
-        ok( a.containsPoint( a.midpoint() ), "Passed!" );
+        ok( a.containsPoint( a.getMidpoint( new THREE.Vector3() ) ), "Passed!" );
         ok( ! a.containsPoint( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
 
         a = new THREE.Triangle( new THREE.Vector3( 2, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, 2 ) );
         ok( a.containsPoint( a.a ), "Passed!" );
         ok( a.containsPoint( a.b ), "Passed!" );
         ok( a.containsPoint( a.c ), "Passed!" );
-        ok( a.containsPoint( a.midpoint() ), "Passed!" );
+        ok( a.containsPoint( a.getMidpoint( new THREE.Vector3() ) ), "Passed!" );
         ok( ! a.containsPoint( new THREE.Vector3( -1, -1, -1 ) ), "Passed!" );
     });
 
@@ -2714,6 +2743,14 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         ok( b.y == -y, "Passed!" );
     });
 
+    test( "applyMatrix3", function () {
+        var a = new THREE.Vector2( x, y );
+        var m = new THREE.Matrix3().set( 2, 3, 5, 7, 11, 13, 17, 19, 23 );
+
+        a.applyMatrix3( m );
+        ok( a.x == 18, "Passed!" );
+        ok( a.y == 60, "Passed!" );
+    });
 
     test( "min/max/clamp", function() {
         var a = new THREE.Vector2( x, y );
@@ -2867,6 +2904,15 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
         ok( a.equals( b ), "Passed!" );
         ok( b.equals( a ), "Passed!" );
+    });
+
+    test( "fromBufferAttribute", function() {
+        var a = new THREE.Vector2();
+        var attr = new THREE.BufferAttribute( new Float32Array( [ 1, 2, 3, 4 ] ), 2 );
+
+        a.fromBufferAttribute( attr, 0 );
+        ok( a.x == 1, "Passed!" );
+        ok( a.y == 2, "Passed!" );
     });
 
     // -------------------------------------------- Vector3

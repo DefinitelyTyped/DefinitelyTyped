@@ -1,10 +1,14 @@
-
-
 // All tracking tests below are code taken verbatim (or, as close as possible) from the tracking docs: https://trackingjs.com/docs.html
 
-var colors = new tracking.ColorTracker(['magenta', 'cyan', 'yellow']);
+/*
+ * ColorTracker tests 
+ */
 
-colors.on('track', function(event) {
+// Constructor accepts string or array
+var colorTracker = new tracking.ColorTracker(['magenta', 'cyan', 'yellow']);
+colorTracker = new tracking.ColorTracker('magenta');
+
+colorTracker.on('track', function(event) {
   if (event.data.length === 0) {
     // No colors were detected in this frame.
   } else {
@@ -14,25 +18,19 @@ colors.on('track', function(event) {
   }
 });
 
-tracking.track('#myVideo', colors);
+// Tracker task accepts selector or HMTLElement
+var videoEl = document.createElement('video');
+var colorTrackerTask = tracking.track('#myVideo', colorTracker);
+colorTrackerTask = tracking.track(videoEl, colorTracker)
 
-var myTracker = new tracking.Tracker('target');
+// Also accepts tracking options
+colorTrackerTask = tracking.track(videoEl, colorTracker, { camera: true, audio: false })
 
-myTracker.on('track', function(event) {
-  if (event.data.length === 0) {
-    // No targets were detected in this frame.
-  } else {
-    event.data.forEach(function(data) {
-      // Plots the detected targets here.
-    });
-  }
-});
+// Start and stop tracking
+colorTrackerTask.stop();
+colorTrackerTask.run();
 
-var trackerTask = tracking.track('#myVideo', myTracker);
-
-trackerTask.stop(); // Stops the tracking
-trackerTask.run(); // Runs it again anytime
-
+// Register color takes a function that accepts rgb values and returns boolean
 tracking.ColorTracker.registerColor('green', function(r, g, b) {
   if (r < 50 && g > 200 && b < 50) {
     return true;
@@ -40,16 +38,27 @@ tracking.ColorTracker.registerColor('green', function(r, g, b) {
   return false;
 });
 
-var objects = new tracking.ObjectTracker(['face', 'eye', 'mouth']);
+/*
+ * ObjectTacker tests
+ */
 
-objects.on('track', function(event) {
+// Constructor accepts string or array
+var objectTracker = new tracking.ObjectTracker(['face', 'eye', 'mouth']);
+objectTracker = new tracking.ObjectTracker('face');
+
+objectTracker.on('track', function(event) {
   if (event.data.length === 0) {
     // No objects were detected in this frame.
   } else {
     event.data.forEach(function(rect) {
-      // rect.x, rect.y, rect.height, rect.width
+      console.log(rect.x, rect.y, rect.height, rect.width)
     });
   }
 });
 
-tracking.track('#myVideo', objects);
+var objectTrackerTask = tracking.track('#myVideo', objectTracker);
+
+// Start and stop tracking
+objectTrackerTask.stop();
+objectTrackerTask.run();
+

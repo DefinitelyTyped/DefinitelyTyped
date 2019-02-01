@@ -1,42 +1,31 @@
 import getFieldNames = require("graphql-list-fields");
 
-import {
-    GraphQLID,
-    GraphQLInterfaceType,
-    GraphQLObjectType,
-    GraphQLResolveInfo,
-    GraphQLSchema,
-    GraphQLString
-} from "graphql";
+import { GraphQLID, GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
 
-const sampleGraphQLResolveInfo: GraphQLResolveInfo = {
-    fieldName: "",
-    fieldNodes: [],
-    returnType: GraphQLString,
-    parentType: new GraphQLInterfaceType({
-        name: "Sample",
+const schema = new GraphQLSchema({
+    query: new GraphQLObjectType({
+        name: "SampleType",
         fields: {
-            name: { type: GraphQLString }
-        }
+            scalarField: {
+                type: GraphQLString,
+                resolve(source, args, context, info) {
+                    const fieldNames: string[] = getFieldNames(info);
+                },
+            },
+            someType: {
+                type: new GraphQLObjectType({
+                    name: "SomeType",
+                    fields: {
+                        a: { type: GraphQLID },
+                        b: { type: GraphQLString },
+                        c: { type: GraphQLString },
+                        d: { type: GraphQLString },
+                    },
+                }),
+                resolve(source, args, context, info) {
+                    const fieldNames: string[] = getFieldNames(info);
+                },
+            },
+        },
     }),
-    path: undefined,
-    schema: new GraphQLSchema({
-        query: new GraphQLObjectType({
-            name: "SampleType",
-            fields: {}
-        })
-    }),
-    fragments: {},
-    rootValue: null,
-    operation: {
-        kind: "OperationDefinition",
-        operation: "query",
-        selectionSet: {
-            kind: "SelectionSet",
-            selections: []
-        }
-    },
-    variableValues: {}
-};
-
-const fieldNames: string[] = getFieldNames(sampleGraphQLResolveInfo);
+});

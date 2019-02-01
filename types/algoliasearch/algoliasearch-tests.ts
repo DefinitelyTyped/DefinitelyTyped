@@ -2,16 +2,17 @@ import * as algoliasearch from 'algoliasearch';
 import {
   ClientOptions,
   SynonymOption,
-  AlgoliaApiKeyOptions,
+  ApiKeyOptions,
   SearchSynonymOptions,
-  AlgoliaResponse,
-  AlgoliaSecuredApiOptions,
-  AlgoliaIndexSettings,
-  AlgoliaQueryParameters,
-  AlgoliaIndex,
+  SecuredApiOptions,
+  Index,
+  Response,
+  IndexSettings,
+  QueryParameters,
+  Client
 } from 'algoliasearch';
 
-let _algoliaResponse: AlgoliaResponse = {
+let _algoliaResponse: Response = {
   hits: [{}, {}],
   page: 0,
   nbHits: 12,
@@ -20,6 +21,7 @@ let _algoliaResponse: AlgoliaResponse = {
   processingTimeMS: 32,
   query: '',
   params: '',
+  index: '',
 };
 
 let _clientOptions: ClientOptions = {
@@ -33,7 +35,7 @@ let _synonymOption: SynonymOption = {
   replaceExistingSynonyms: false,
 };
 
-let _algoliaApiKeyOptions: AlgoliaApiKeyOptions = {
+let _algoliaApiKeyOptions: ApiKeyOptions = {
   validity: 0,
   maxQueriesPerIPPerHour: 0,
   indexes: [''],
@@ -48,14 +50,14 @@ let _searchSynonymOptions: SearchSynonymOptions = {
   hitsPerPage: 0,
 };
 
-let _algoliaSecuredApiOptions: AlgoliaSecuredApiOptions = {
+let _algoliaSecuredApiOptions: SecuredApiOptions = {
   filters: '',
   validUntil: 0,
   restrictIndices: '',
   userToken: '',
 };
 
-let _algoliaIndexSettings: AlgoliaIndexSettings = {
+let _algoliaIndexSettings: IndexSettings = {
   attributesToIndex: [''],
   attributesForFaceting: [''],
   unretrievableAttributes: [''],
@@ -63,7 +65,7 @@ let _algoliaIndexSettings: AlgoliaIndexSettings = {
   ranking: [''],
   customRanking: [''],
   replicas: [''],
-  maxValuesPerFacet: '',
+  maxValuesPerFacet: 100,
   attributesToHighlight: [''],
   attributesToSnippet: [''],
   highlightPreTag: '',
@@ -78,7 +80,7 @@ let _algoliaIndexSettings: AlgoliaIndexSettings = {
   ignorePlurals: false,
   disableTypoToleranceOnAttributes: '',
   separatorsToIndex: '',
-  queryType: '',
+  queryType: 'prefixAll',
   removeWordsIfNoResults: '',
   advancedSyntax: false,
   optionalWords: [''],
@@ -86,23 +88,25 @@ let _algoliaIndexSettings: AlgoliaIndexSettings = {
   disablePrefixOnAttributes: [''],
   disableExactOnAttributes: [''],
   exactOnSingleWordQuery: '',
-  alternativesAsExact: false,
+  alternativesAsExact: ['ignorePlurals'],
   attributeForDistinct: '',
   distinct: false,
   numericAttributesToIndex: [''],
   allowCompressionOfIntegerArray: false,
   altCorrections: [{}],
   minProximity: 0,
-  placeholders: '',
+  placeholders: { '': [''] },
+  camelCaseAttributes: [''],
 };
 
-let _algoliaQueryParameters: AlgoliaQueryParameters = {
+let _algoliaQueryParameters: QueryParameters = {
   query: '',
   filters: '',
   attributesToRetrieve: [''],
   restrictSearchableAttributes: [''],
-  facets: '',
-  maxValuesPerFacet: '',
+  facets: [''],
+  facetingAfterDistinct: true,
+  maxValuesPerFacet: 2,
   attributesToHighlight: [''],
   attributesToSnippet: [''],
   highlightPreTag: '',
@@ -118,28 +122,29 @@ let _algoliaQueryParameters: AlgoliaQueryParameters = {
   typoTolerance: false,
   allowTyposOnNumericTokens: false,
   ignorePlurals: false,
-  disableTypoToleranceOnAttributes: '',
+  disableTypoToleranceOnAttributes: [''],
   aroundLatLng: '',
   aroundLatLngViaIP: '',
   aroundRadius: 0,
   aroundPrecision: 0,
   minimumAroundRadius: 0,
   insideBoundingBox: [[0]],
-  queryType: '',
+  queryType: 'prefixAll',
   insidePolygon: [[0]],
-  removeWordsIfNoResults: '',
+  removeWordsIfNoResults: 'firstWords',
   advancedSyntax: false,
   optionalWords: [''],
   removeStopWords: [''],
   disableExactOnAttributes: [''],
-  exactOnSingleWordQuery: '',
-  alternativesAsExact: true,
+  exactOnSingleWordQuery: 'attribute',
+  alternativesAsExact: ["ignorePlurals"],
   distinct: 0,
   getRankingInfo: false,
   numericAttributesToIndex: [''],
+  numericAttributesForFiltering: [''],
   numericFilters: [''],
-  tagFilters: '',
-  facetFilters: '',
+  tagFilters: [''],
+  facetFilters: [''],
   analytics: false,
   analyticsTags: [''],
   synonyms: true,
@@ -147,7 +152,60 @@ let _algoliaQueryParameters: AlgoliaQueryParameters = {
   minProximity: 0,
 };
 
-let index: AlgoliaIndex = algoliasearch('', '').initIndex('');
+let client: Client = algoliasearch('', '');
+let index: Index = client.initIndex('');
 
 let search = index.search({ query: '' });
+
 index.search({ query: '' }, (err, res) => {});
+
+// partialUpdateObject
+index.partialUpdateObject({}, () => {});
+index.partialUpdateObject({}, false, () => {});
+index.partialUpdateObject({}).then(() => {});
+index.partialUpdateObject({}, false).then(() => {});
+
+// partialUpdateObjects
+index.partialUpdateObjects([{}], () => {});
+index.partialUpdateObjects([{}], false, () => {});
+index.partialUpdateObjects([{}]).then(() => {});
+index.partialUpdateObjects([{}], false).then(() => {});
+
+let indexName : string = index.indexName;
+
+// complete copy
+client.copyIndex('from', 'to').then(()=>{});
+client.copyIndex('from', 'to', ()=> {});
+// with scope
+client.copyIndex('from', 'to', ['settings']).then(()=>{});
+client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {});
+
+// Browsing
+const browser = index.browseAll();
+index.browseAll('query');
+index.browseAll('', {
+  filters: 'dog',
+});
+
+let hits: Object[] = [];
+
+browser.on('result', function onResult(content) {
+  hits = hits.concat(content.hits);
+});
+
+browser.on('end', function onEnd() {
+  const _message = `We got ${hits.length} hits`
+});
+
+browser.on('error', function onError(err) {
+  throw err;
+});
+
+browser.stop();
+
+index.browse("", {
+  advancedSyntax: false,
+  attributesToRetrieve: ['dogs']
+});
+client.copyIndex('from', 'to', ['settings']).then(()=>{});
+client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {});

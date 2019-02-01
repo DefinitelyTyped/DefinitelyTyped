@@ -3,7 +3,7 @@
 import * as DbMigratePg from "db-migrate-pg";
 
 // Throw together a dummy driver
-let db = <DbMigratePg.PgDriver>{};
+let db = {} as DbMigratePg.PgDriver;
 
 let callback = (err: any, response: any) => {
   // Do nothing.

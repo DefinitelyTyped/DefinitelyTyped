@@ -4,7 +4,8 @@ hello.init({
         oauth: {
             version: 2,
             auth: '',
-            grant: ''
+            grant: '',
+            response_type: 'id_token token'
         },
         refresh: true,
         scope_delim: ' ',

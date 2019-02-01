@@ -1,9 +1,10 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface InputGroupTextProps extends React.HTMLAttributes<HTMLElement>  {
+export type InputGroupTextProps<T = {}> = React.HTMLAttributes<HTMLElement>  & {
   tag?: React.ReactType;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare const InputGroupText: React.StatelessComponent<InputGroupTextProps>;
+declare class InputGroupText<T = {[key: string]: any}> extends React.Component<InputGroupTextProps<T>> {}
 export default InputGroupText;

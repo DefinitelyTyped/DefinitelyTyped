@@ -2,7 +2,7 @@
 // Project: https://github.com/nkbt/react-collapse
 // Definitions by: Adam Binford <https://github.com/Kimahriman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 import * as React from 'react';
 
 export interface CollapseProps extends React.HTMLProps<Collapse> {

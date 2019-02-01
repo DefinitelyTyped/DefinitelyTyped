@@ -5,6 +5,10 @@
 //                 Jouderian <https://github.com/jouderianjr>
 //                 Qibang <https://github.com/bang88>
 //                 Jason Dreyzehner <https://github.com/bitjson>
+//                 Synarque <https://github.com/synarque>
+//                 Justin Rockwood <https://github.com/jrockwood>
+//                 Keith Kelly <https://github.com/kwkelly>
+//                 Junyoung Clare Jang <https://github.com/Ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.3
@@ -15,10 +19,17 @@ import through = require('through');
 declare namespace inquirer {
     type Prompts = { [name: string]: PromptModule };
     type ChoiceType = string | objects.ChoiceOption | objects.Separator;
-    type Questions<T> =
+    type Questions<T = Answers> =
         | Question<T>
         | ReadonlyArray<Question<T>>
         | Rx.Observable<Question<T>>;
+    interface OutputStreamOption {
+        output: NodeJS.WriteStream
+    }
+    interface InputStreamOption {
+        input: NodeJS.ReadStream
+    }
+    type StreamOptions = InputStreamOption | OutputStreamOption | (InputStreamOption & OutputStreamOption);
 
     interface Inquirer {
         restoreDefaultPrompts(): void;
@@ -30,8 +41,9 @@ declare namespace inquirer {
         registerPrompt(name: string, prompt: PromptModule): void;
         /**
          * Create a new self-contained prompt module.
+         * @param opt Object specifying input and output streams for the prompt
          */
-        createPromptModule(): PromptModule;
+        createPromptModule(opt?: StreamOptions): PromptModule;
         /**
          * Public CLI helper interface
          * @param questions Questions settings array
@@ -90,7 +102,7 @@ declare namespace inquirer {
          * Default value(s) to use if nothing is entered, or a function that returns the default value(s).
          * If defined as a function, the first parameter will be the current inquirer session answers.
          */
-        default?: any | ((answers: T) => any);
+        default?: any | ((answers: T) => any) | ((answers: T) => Promise<any>);
         /**
          * Choices array or a function returning a choices array. If defined as a function,
          * the first parameter will be the current inquirer session answers.
@@ -99,22 +111,29 @@ declare namespace inquirer {
          */
         choices?:
             | ReadonlyArray<ChoiceType>
-            | ((answers: T) => ReadonlyArray<ChoiceType>);
+            | ((answers: T) => ReadonlyArray<ChoiceType>)
+            | ((answers: T) => Promise<ReadonlyArray<ChoiceType>>);
         /**
          * Receive the user input and should return true if the value is valid, and an error message (String)
          * otherwise. If false is returned, a default error message is provided.
          */
-        validate?(input: string, answers?: T): boolean | string;
+        validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
         /**
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the Answers hash.
          */
-        filter?(input: string): string;
+        filter?(input: string): any;
+        /**
+         * Receive the user input and return the transformed value to be displayed to the user. The
+         * transformation only impacts what is shown while editing. It does not impact the answers
+         * hash.
+         */
+        transformer?(input: string): string;
         /**
          * Receive the current user answers hash and should return true or false depending on whether or
          * not this question should be asked. The value can also be a simple boolean.
          */
-        when?: boolean | ((answers: T) => boolean);
+        when?: boolean | ((answers: T) => boolean) | ((answers: T) => Promise<boolean>);
         paginated?: boolean;
         /**
          * Change the number of lines that will be rendered when using list, rawList, expand or checkbox.
@@ -240,7 +259,7 @@ declare namespace inquirer {
 
         interface ChoiceOption {
             name?: string;
-            value?: string;
+            value?: any;
             type?: string;
             extra?: any;
             key?: string;

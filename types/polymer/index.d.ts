@@ -20,19 +20,17 @@ declare global {
       observer?: string;
     }
 
-    interface Base {
-      /** Need to allow all properties for callback methods. */
-      [prop: string]: any;
-
+    interface CommonBase {
       /* polymer-micro */
 
       // Attributes
 
-      hostAttributes?: {[name:string]:any};
+      hostAttributes?: {[name: string]: any};
 
       reflectPropertiesToAttribute?(name: string): void;
 
-      serializeValueToAttribute?(value: any, attribute: string, node?: Element): void;
+      serializeValueToAttribute?
+          (value: any, attribute: string, node?: Element): void;
 
       deserialize?(value: string, type: NumberConstructor): number;
       deserialize?(value: string, type: BooleanConstructor): boolean;
@@ -120,7 +118,8 @@ declare global {
 
       notifyPath?(path: string, value: any, fromAbove: any): void;
 
-      set?<Value>(path: string|(string|number)[], value: Value, root?: Object): void;
+      set?<Value>(path: string|(string|number)[], value: Value, root?: Object):
+          void;
 
       get?(path: string|(string|number)[], root?: Object): any;
 
@@ -139,6 +138,9 @@ declare global {
 
       unshift?(path: string, ...item: any[]): number;
 
+      notifySplices?
+          (path: string, splices: ReadonlyArray<polymer.PolymerSplice>): void;
+
       // ResolveUrl
 
       resolveUrl?(url: string): string;
@@ -152,8 +154,6 @@ declare global {
       $$?(selector: string): Element;
 
       toggleClass?(name: string, bool?: boolean, node?: HTMLElement): void;
-
-      toggleAttribute?(name: string, bool?: boolean, node?: HTMLElement): void;
 
       classFollows?(name: string, toElement: HTMLElement, fromElement: HTMLElement): void;
 
@@ -218,7 +218,19 @@ declare global {
       detached?(): void;
 
       attributeChanged?(name: string, oldValue: any, newValue: any): void;
+    }
 
+    // This is the type of a Polymer element after it has gone through the
+    // Polymer() function.
+    interface PolymerElement extends CommonBase, HTMLElement {}
+
+    interface Base extends CommonBase {
+      /** Need to allow all properties for callback methods. */
+      [prop: string]: any;
+
+      // Has to live on Base because it is incompatible with
+      // HTMLElement#toggleAttribute
+      toggleAttribute?(name: string, bool?: boolean, node?: HTMLElement): void;
     }
 
     interface DomApiStatic {
@@ -228,6 +240,12 @@ declare global {
       (obj: Event):EventApi;
 
       flush():void;
+    }
+
+    interface ObservedNodeInfo {
+      target: Node;
+      addedNodes: Node[];
+      removedNode: Node[];
     }
 
     interface DomApi {
@@ -255,6 +273,10 @@ declare global {
       setAttribute(name: string, value: any):void;
 
       removeAttribute(name: string):void;
+
+      observeNodes(callback: (info: ObservedNodeInfo) => void): {};
+
+      unobserveNodes(observer: {}): void;
 
       childNodes:Node[];
 
@@ -312,8 +334,26 @@ declare global {
       whenReady(cb: Function): void;
     }
 
+    interface PolymerSplice {
+      index: number;
+      removed: Array<{}>;
+      addedCount: number;
+      object: Array<{}>;
+      type: string;
+    }
+
+    interface ArraySplice {
+      calculateSplices<T>(current: ReadonlyArray<T>, previous: ReadonlyArray<T>): PolymerSplice[];
+    }
+
     interface ImportStatus extends RenderStatus {
       whenLoaded(cb: Function): void;
+    }
+
+    interface Templatizer {
+      templatize(template: HTMLTemplateElement, mutableData?: boolean): void;
+      stamp(model: {}): Base;
+      modelForElement: (elem: HTMLElement) => Base;
     }
 
     interface PolymerStatic {
@@ -327,10 +367,14 @@ declare global {
 
       Class(prototype: Base | { new (): Base }): CustomElementConstructor;
 
-      RenderStatus: RenderStatus
+      RenderStatus: RenderStatus;
+
+      ArraySplice: ArraySplice;
 
       /** @deprecated */
-      ImportStatus: ImportStatus
+      ImportStatus: ImportStatus;
+
+      Templatizer: Templatizer;
     }
   }
 

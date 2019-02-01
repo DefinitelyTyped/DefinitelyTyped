@@ -1,4 +1,4 @@
-// Type definitions for Gijgo v1.8.2
+// Type definitions for Gijgo v1.9.12
 // Project: http://gijgo.com
 // Definitions by: Atanas Atanasov <https://github.com/atatanasov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -88,6 +88,7 @@ declare module Types {
         //Configuration options
         autoGenerateColumns?: boolean;
         autoLoad?: boolean;
+        bodyRowHeight?: string;
         columnReorder?: boolean;
         columns?: Array<GridColumn>;
         dataSource?: any;
@@ -97,6 +98,7 @@ declare module Types {
         fontSize?: string;
         grouping?: GridGrouping;
         headerFilter?: GridHeaderFilter;
+        headerRowHeight?: string;
         icons?: GridIcons;
         iconsLibrary?: string;
         inlineEditing?: GridInlineEditing;
@@ -158,7 +160,7 @@ declare module Types {
         edit(id: string): Grid<Entity, Params>;
         expandAll(): Grid<Entity, Params>;
         //get(position: number): Entity; //TODO: rename to getByPosition to avoid conflicts with jquery.get
-        getAll(): Array<Entity>;
+        getAll(includeAllRecords?: boolean): Array<Entity>;
         getById(id: string): Entity;
         getChanges(): Array<Entity>;
         getCSV(includeAllRecords?: boolean): string;
@@ -256,11 +258,18 @@ declare module Types {
         keyboardNavigation?: boolean;
         locale?: string;
         icons?: DatePickerIcons;
+        size?: string;
+        modal?: boolean;
+        header?: boolean;
+        footer?: boolean;
+        showOnFocus?: boolean;
+        showRightIcon?: boolean;
 
         //Events
         change?: (e: any) => any;
         open?: (e: any) => any;
         close?: (e: any) => any;
+        select?: (e: any, type: string) => any;
     }
 
     interface DatePicker extends JQuery {
@@ -285,6 +294,7 @@ declare module Types {
         uiLibrary?: string;
         iconsLibrary?: string;
         icons?: DropDownIcons;
+        placeholder?: string;
 
         //Events
         change?: (e: any) => any;
@@ -325,11 +335,13 @@ declare module Types {
         value?: string;
         mode?: string;
         locale?: string;
+        size?: string;
 
         //Events
         change?: (e: any) => any;
         open?: (e: any) => any;
         close?: (e: any) => any;
+        select?: (e: any, type: string) => any;
     }
 
     interface TimePicker extends JQuery {
@@ -337,6 +349,45 @@ declare module Types {
         destroy(): void;
         open(): TimePicker;
         value(value?: string):  string | TimePicker;
+    }
+
+    // DateTimePicker
+    interface DateTimePickerSettings {
+        datepicker?: Types.DatePickerSettings;
+        footer?: boolean;
+        format?: string;
+        locale?: string;
+        modal?: boolean;
+        size?: string;
+        uiLibrary?: string;
+        value?: string;
+        width?: number;
+
+        //Events
+        change?: (e: any) => any;
+    }
+
+    interface DateTimePicker extends JQuery {
+        destroy(): void;
+        value(value?: string):  string | DateTimePicker;
+    }
+
+    // Slider
+    interface SliderSettings {
+        min?: number;
+        max?: number;
+        uiLibrary?: string;
+        value?: string;
+        width?: number;
+
+        //Events
+        change?: (e: any) => any;
+        slide?: (e: any, value: number) => any;
+    }
+
+    interface Slider extends JQuery {
+        destroy(): void;
+        value(value?: string):  string | Slider;
     }
 
     // Tree
@@ -397,6 +448,7 @@ declare module Types {
         render(response: any): any;
         addNode(data: any, parentNode: any, position: number): Tree;
         removeNode(node: any): Tree;
+        updateNode(id: string, record: any) : Tree;
         destroy(): void;
         expand(node: any, cascade: boolean): Tree;
         collapse(node: any, cascade: boolean) : Tree;
@@ -417,6 +469,7 @@ declare module Types {
         disable(node: any, cascade?: boolean) : Tree;
         enableAll() : Tree;
         disableAll() : Tree;
+        //parents(id: string): Array<string>;
 
         getCheckedNodes() : Array<string>;
         checkAll() : Tree;
@@ -443,6 +496,10 @@ interface JQuery {
     editor(settings: Types.EditorSettings): Types.Editor;
 
     timepicker(settings: Types.TimePickerSettings): Types.TimePicker;
+
+    datetimepicker(settings: Types.DateTimePickerSettings): Types.DateTimePicker;
+
+    slider(settings: Types.SliderSettings): Types.Slider;
 
     tree(settings: Types.TreeSettings): Types.Tree;
 }

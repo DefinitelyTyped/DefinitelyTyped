@@ -2,10 +2,10 @@
 // Project: https://github.com/jechav/tiny-slider-react#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 import * as React from "react";
 
-interface CommonOptions {
+export interface CommonOptions {
     /**
      * The initial index of the slider.
      * @defaultValue 0

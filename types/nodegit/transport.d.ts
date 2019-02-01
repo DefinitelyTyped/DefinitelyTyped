@@ -9,7 +9,7 @@ export namespace Transport {
 }
 
 export class Transport {
-    static sshWithPaths(owner: Remote, payload: Strarray): Promise<Transport>;
+    static sshWithPaths(owner: Remote, payload: Strarray | string | string[]): Promise<Transport>;
     static unregister(prefix: string): number;
     init(version: number): number;
     smartCertificateCheck(cert: Cert, valid: number, hostName: string): number;

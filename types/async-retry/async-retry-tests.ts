@@ -1,4 +1,5 @@
-import { Options, RetryFunction, retry } from 'async-retry';
+import { Options, RetryFunction } from 'async-retry';
+import retry = require("async-retry");
 
 const o: Options = {
   retries: 1,
@@ -9,12 +10,12 @@ const o: Options = {
   onRetry: (e: Error) => 42
 };
 
-retry(
+const hello: Promise<string> = retry(
   bail => 'hello',
   { retries: 3 }
 );
 
-retry(
+const answer: Promise<number> = retry(
   bail => Promise.resolve(42),
   { retries: 3 }
 );

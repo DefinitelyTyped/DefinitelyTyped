@@ -25,6 +25,15 @@ lolex.install<lolex.BrowserClock>({
 	toFake: ["setTimeout", "nextTick", "hrtime"]
 });
 
+lolex.install<lolex.BrowserClock>({
+	advanceTimeDelta: 20,
+	loopLimit: 10,
+	now: new Date(0),
+	shouldAdvanceTime: true,
+	target: {},
+	toFake: ["setTimeout", "nextTick", "hrtime"]
+});
+
 const browserNow: number = browserClock.now;
 const browserDate: Date = new browserClock.Date();
 

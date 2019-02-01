@@ -1,8 +1,10 @@
 // Type definitions for bcryptjs v2.4.0
 // Project: https://github.com/dcodeIO/bcrypt.js
-// Definitions by: Joshua Filby <https://github.com/Joshua-F/>, Rafael Kraut <https://github.com/RafaelKr>
+// Definitions by: Joshua Filby <https://github.com/Joshua-F/>
+//                 Rafael Kraut <https://github.com/RafaelKr>
+//                 Branislav Holý <https://github.com/branoholy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.1
 
 
 /**
@@ -103,3 +105,19 @@ export declare function getRounds(hash: string): number;
  * @return Extracted salt part
  */
 export declare function getSalt(hash: string): string;
+
+/**
+ * Encodes a byte array to base64 with up to len bytes of input, using the custom bcrypt alphabet.
+ * @function
+ * @param b Byte array
+ * @param len Maximum input length
+ */
+export declare function encodeBase64(b: Readonly<ArrayLike<number>>, len: number): string;
+
+/**
+ * Decodes a base64 encoded string to up to len bytes of output, using the custom bcrypt alphabet.
+ * @function
+ * @param s String to decode
+ * @param len Maximum output length
+ */
+export declare function decodeBase64(s: string, len: number): number[];

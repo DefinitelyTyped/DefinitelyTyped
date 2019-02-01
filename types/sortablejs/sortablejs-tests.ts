@@ -2,9 +2,9 @@
 import Sortable = require("sortablejs");
 
 
-var simpleList = document.getElementById('list');
+var simpleList = document.createElement('ul');
 var list = simpleList;
-var el = document.getElementById('el');
+var el = document.createElement('div');
 var sortable = new Sortable(simpleList, {});
 var order = sortable.toArray();
 var angular: any;
@@ -28,7 +28,7 @@ Sortable.create(list, {
             control = event.target;
 
         if (Sortable.utils.is(control, ".js-remove")) {
-            item.parentNode.removeChild(item);
+            item.parentNode!.removeChild(item);
         }
         else if (Sortable.utils.is(control, ".js-edit")) {
             // ..
@@ -40,14 +40,14 @@ Sortable.create(el, {
     group: "localStorage-example",
     store: {
         get: function(sortable) {
-            var order = localStorage.getItem(sortable.options.group);
+            var order = localStorage.getItem(sortable.options.group as string);
 
             return order ? order.split('|') : [];
         },
         set: function(sortable) {
             var order = sortable.toArray();
 
-            localStorage.setItem(sortable.options.group, order.join('|'));
+            localStorage.setItem(sortable.options.group as string, order.join('|'));
         }
     }
 });
@@ -86,7 +86,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
 (function() {
     'use strict';
 
-    var byId = function(id: string) { return document.getElementById(id); },
+    var byId = function(id: string) { return document.getElementById(id)!; },
 
         loadScripts = function(desc: any, callback: any) {
             var deps: string[] = [];
@@ -124,12 +124,12 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
         animation: 150,
         store: {
             get: function(sortable) {
-                var order = localStorage.getItem(sortable.options.group);
+                var order = localStorage.getItem(sortable.options.group as string);
                 return order ? order.split('|') : [];
             },
             set: function(sortable) {
                 var order = sortable.toArray();
-                localStorage.setItem(sortable.options.group, order.join('|'));
+                localStorage.setItem(sortable.options.group as string, order.join('|'));
             }
         },
         onAdd: function(evt) { console.log('onAdd.foo:', [evt.item, evt.from]); },
@@ -172,7 +172,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
         animation: 150,
         filter: '.js-remove',
         onFilter: function(evt) {
-            evt.item.parentNode.removeChild(evt.item);
+            evt.item.parentNode!.removeChild(evt.item);
         }
     });
 
@@ -197,7 +197,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
     },
         {
             name: 'advanced',
-            pull: 'clone',
+            pull: 'clone' as 'clone',
             put: false
         }, {
             name: 'advanced',
@@ -279,7 +279,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
 document.addEventListener("DOMContentLoaded", function() {
     function setNoiseBackground(el: any, width: number, height: number, opacity: number) {
         var canvas = document.createElement("canvas");
-        var context = canvas.getContext("2d");
+        var context = canvas.getContext("2d")!;
 
         canvas.width = width;
         canvas.height = height;
@@ -297,3 +297,72 @@ document.addEventListener("DOMContentLoaded", function() {
 
     setNoiseBackground(document.getElementsByTagName('body')[0], 50, 50, 0.02);
 }, false);
+
+Sortable.create(simpleList, {
+    group: 'foo',
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: 'bar',
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: {
+        name: 'qux',
+        put: ['foo', 'bar']
+    },
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: 'foo',
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: {
+        name: 'bar',
+        put: 'qux',
+        pull: function (to, from) {
+            return from.el.children.length > 2 || 'clone';
+        }
+    },
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: {
+        name: 'qux',
+        put: function (to) {
+            return to.el.children.length < 4;
+        }
+    },
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    animation: 200,
+    group: {
+        name: "shared",
+        pull: "clone",
+        revertClone: true,
+    },
+    sort: true
+});
+
+Sortable.create(simpleList, {
+    group: "shared",
+    sort: false
+});
+
+// List with handle
+Sortable.create(simpleList, {
+    handle: '.glyphicon-move',
+    animation: 150,
+    filter: ".disabled",
+    onMove: function (evt) {
+        return evt.related.className.indexOf('disabled') === -1;
+    }
+});

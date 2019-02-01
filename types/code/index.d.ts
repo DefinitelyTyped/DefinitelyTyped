@@ -125,9 +125,9 @@ export interface Values<T> {
     /** Asserts that the reference value has a length property matching the provided size or an object with the specified number of keys. */
     length(size: number): AssertionChain<T>;
     /** Asserts that the reference value equals the provided value. */
-    equal(value: T, options?: any): AssertionChain<T>;
+    equal(value: T | T[], options?: any): AssertionChain<T>;
     /** Asserts that the reference value equals the provided value. */
-    equals(value: T, options?: any): AssertionChain<T>;
+    equals(value: T | T[], options?: any): AssertionChain<T>;
     /** Asserts that the reference value is greater than (>) the provided value. */
     above(value: T): AssertionChain<T>;
     /** Asserts that the reference value is greater than (>) the provided value. */

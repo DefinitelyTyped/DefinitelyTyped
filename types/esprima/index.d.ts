@@ -30,6 +30,7 @@ export interface ParseOptions {
 }
 
 export interface TokenizeOptions {
+    tolerant?: boolean;
     range?: boolean;
     loc?: boolean;
     comment?: boolean;

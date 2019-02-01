@@ -1,6 +1,6 @@
 import * as React from "react";
-import { StyleRoot, Style } from "radium";
-import Radium = require('radium');
+import Radium from "radium";
+
 
 @Radium
 class TestComponent extends React.Component<{ a: number }> {
@@ -29,7 +29,7 @@ class TestComponentWithConfig extends React.Component<{ a?: number }> {
         return (
             <div>
                 <Radium.StyleRoot >
-                    <Style scopeSelector="test"
+                    <Radium.Style scopeSelector="test"
                         rules={{
                             a: {
                                 background: "green"
@@ -39,13 +39,13 @@ class TestComponentWithConfig extends React.Component<{ a?: number }> {
                             }
                         }}
                     >
-                    </Style>
-                    <Style scopeSelector="test"
+                    </Radium.Style>
+                    <Radium.Style scopeSelector="test"
                         rules={{
                             background: "green"
                         }}
                     >
-                    </Style>
+                    </Radium.Style>
                 </Radium.StyleRoot>
             </div>
         )
@@ -62,7 +62,7 @@ class TestComponentWithConfigInStyleRoot
                     userAgent: "test",
                     matchMedia: window.matchMedia
                 }} >
-                    <Style scopeSelector="test"
+                    <Radium.Style scopeSelector="test"
                         rules={{
                             a: {
                                 background: "green"
@@ -72,13 +72,13 @@ class TestComponentWithConfigInStyleRoot
                             }
                         }}
                     >
-                    </Style>
-                    <Style scopeSelector="test"
+                    </Radium.Style>
+                    <Radium.Style scopeSelector="test"
                         rules={{
                             background: "green"
                         }}
                     >
-                    </Style>
+                    </Radium.Style>
                 </Radium.StyleRoot>
             </div>
         )

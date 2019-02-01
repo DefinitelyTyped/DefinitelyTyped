@@ -1,20 +1,82 @@
 // Type definitions for upng-js 2.1
 // Project: https://github.com/photopea/UPNG.js
-// Definitions by: York Yao <https://github.com/plantain-00>
+// Definitions by: York Yao <https://github.com/plantain-00>, Sophie Kirschner <https://github.com/pineapplemachine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function decode(buff: ArrayBuffer): PngData;
+export interface ImageFrameRect {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
 
-export function encode(bufs: ArrayBuffer, width: number, height: number, ps?: number, dels?: any[]): ArrayBuffer;
+export interface ImageFrame {
+    rect: ImageFrameRect;
+    delay: number;
+    dispose: number;
+    blend: number;
+}
 
-export function toRGBA8(out: PngData): ArrayBuffer;
+export interface ImageTabACTL {
+    num_frames: number;
+    num_plays: number;
+}
 
-export interface PngData {
+export interface ImageTabText {
+    [key: string]: string;
+}
+
+export interface ImageTabs {
+    acTL?: ImageTabACTL;
+    pHYs?: number[];
+    cHRM?: number[];
+    tEXt?: ImageTabText;
+    iTXt?: ImageTabText;
+    PLTE?: number[];
+    hIST?: number[];
+    tRNS?: (number | number[]); // Depends on ctype
+    gAMA?: number;
+    sRGB?: number;
+    bKGD?: (number | number[]); // Depends on ctype
+}
+
+export interface Image {
     width: number;
     height: number;
     depth: number;
-    ctype: any;
-    frames: any;
-    tabs: any;
+    ctype: number;
+    frames: ImageFrame[];
+    tabs: ImageTabs;
     data: ArrayBuffer;
 }
+
+export interface QuantizeResult {
+    abuf: ArrayBuffer;
+    inds: Uint8Array;
+    // Type is complicated and I am too lazy to work it out right now, sorry!
+    plte: any[];
+}
+
+export function encode(
+    imgs: ArrayBuffer[],
+    w: number,
+    h: number,
+    cnum: number,
+    dels?: number[]
+): ArrayBuffer;
+
+export function encodeLL(
+    imgs: ArrayBuffer[],
+    w: number,
+    h: number,
+    cc: number,
+    ac: number,
+    depth: number,
+    dels?: number[]
+): ArrayBuffer;
+
+export function decode(buffer: ArrayBuffer): Image;
+
+export function toRGBA8(out: Image): ArrayBuffer[];
+
+export function quantize(data: ArrayBuffer, psize: number): QuantizeResult;

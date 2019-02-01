@@ -62,7 +62,9 @@ sourceCode.getNodeByRangeIndex(0);
 
 sourceCode.isSpaceBetweenTokens(TOKEN, TOKEN);
 
-sourceCode.getLocFromIndex(0);
+const loc = sourceCode.getLocFromIndex(0);
+loc.line; // $ExpectType number
+loc.column; // $ExpectType number
 
 sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 
@@ -336,6 +338,7 @@ rule = {
             onCodePathSegmentStart(segment, node) {},
             onCodePathSegmentEnd(segment, node) {},
             onCodePathSegmentLoop(fromSegment, toSegment, node) {},
+            IfStatement(node) {},
             'Program:exit'() {},
         };
     },
@@ -445,6 +448,7 @@ let cli: CLIEngine;
 
 cli = new CLIEngine({ allowInlineConfig: false });
 cli = new CLIEngine({ baseConfig: false });
+cli = new CLIEngine({ baseConfig: { extends: ['lynt'] }});
 cli = new CLIEngine({ cache: true });
 cli = new CLIEngine({ cacheFile: 'foo' });
 cli = new CLIEngine({ configFile: 'foo' });
@@ -456,6 +460,7 @@ cli = new CLIEngine({ globals: ['foo'] });
 cli = new CLIEngine({ ignore: true });
 cli = new CLIEngine({ ignorePath: 'foo' });
 cli = new CLIEngine({ ignorePattern: 'foo' });
+cli = new CLIEngine({ ignorePattern: ['foo', 'bar'] });
 cli = new CLIEngine({ useEslintrc: false });
 cli = new CLIEngine({ parserOptions: {} });
 cli = new CLIEngine({ plugins: ['foo'] });
@@ -475,7 +480,10 @@ cli.addPlugin('my-fancy-plugin', {});
 
 cli.isPathIgnored('./dist/index.js');
 
-const formatter = cli.getFormatter('codeframe');
+let formatter: CLIEngine.Formatter;
+
+formatter = cli.getFormatter('codeframe');
+formatter = cli.getFormatter();
 
 formatter(cliReport.results);
 
@@ -528,6 +536,14 @@ ruleTester.run('my-rule', rule, {
         { code: 'foo', errors: [{ message: 'foo', type: 'foo' }] },
         { code: 'foo', errors: [{ message: 'foo', data: { foo: true } }] },
         { code: 'foo', errors: [{ message: 'foo', line: 0 }] },
+    ]
+});
+
+ruleTester.run('simple-valid-test', rule, {
+    valid: [
+        'foo',
+        'bar',
+        { code: 'foo', options: [{ allowFoo: true }] },
     ]
 });
 
