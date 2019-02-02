@@ -134,7 +134,7 @@ declare namespace Autodesk {
         }
 
         interface ViewerEvent {
-          [key: string]: any;
+          (event: any): void;
         }
 
         interface Viewer3DConfig {
@@ -371,7 +371,7 @@ declare namespace Autodesk {
             getThumbnailOptions(item: object, width: number, height: number): ThumbnailOptions;
             getThumbnailPath(item: string, width: number, height: number): string;
             getViewableItems(document: Document): void;
-            getViewablePath(item: object, outLoadOptions: object): string;
+            getViewablePath(item: object, outLoadOptions?: object): string;
             getViewGeometry(item: object): object;
             load(documentId: string, onSuccessCallback: () => void, onErrorCallback: () => void, accessControlProperties?: object): void;
             requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
