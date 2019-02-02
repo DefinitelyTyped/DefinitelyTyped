@@ -96,7 +96,7 @@ declare namespace Mithril {
 		prefix(urlFragment: string): void;
 		/** This method is meant to be used in conjunction with an <a> Vnode's oncreate/onupdate hooks. */
         link(vnode: Vnode<any, any>): (e?: Event) => any;
-        link(options: {replace: boolean}): (vnode: Vnode<any, any>) => (e?: Event) => any;
+        link(options: RouteOptions): (vnode: Vnode<any, any>) => (e?: Event) => any;
 		/** Returns the named parameter value from the current route. */
 		param(name: string): string;
 		/** Gets all route parameters. */
