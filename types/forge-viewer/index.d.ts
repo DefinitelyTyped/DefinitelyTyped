@@ -707,6 +707,14 @@ declare namespace Autodesk {
             uninitialize(): void;
             unregisterContextMenuCallback(id: string): void;
             worldToClient(point: THREE.Vector3): THREE.Vector3;
+
+            addEventListener(type: string,
+                    listener?: ViewerEvent,
+                    options?: boolean | AddEventListenerOptions): void;
+            dispatchEvent(evt: Event): boolean;
+            removeEventListener(type: string,
+                       listener?: ViewerEvent,
+                       options?: boolean | EventListenerOptions): void;
         }
 
         class ViewingApplication {
