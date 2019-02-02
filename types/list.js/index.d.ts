@@ -60,4 +60,5 @@ declare class ListItem {
     visible(): boolean;
 }
 
-export = List;
+export default List;
+export {ListOptions, SortOptions, ListItem, List};
