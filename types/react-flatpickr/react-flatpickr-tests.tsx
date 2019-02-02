@@ -6,7 +6,6 @@ const noParamsElement = <DatePicker />;
 
 const classNameElement = <DatePicker className={"test"} />;
 
-
 const defaultValueElement = <DatePicker defaultValue={"Default value"} />;
 
 const options = {
