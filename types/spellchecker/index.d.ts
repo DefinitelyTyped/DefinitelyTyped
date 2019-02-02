@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export as namespace Spellchecker;
-
 /* ---------------------------------------------------------------------------
                        Custom Types / Interfaces
 --------------------------------------------------------------------------- */
