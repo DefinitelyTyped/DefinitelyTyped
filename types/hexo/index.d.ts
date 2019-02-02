@@ -603,7 +603,7 @@ declare namespace Hexo {
             /**
              * Executed when creating a post to determine the path of new posts.
              */
-            register(type: 'new_post_path', fn: (data: Post.Data, replace?: boolean) => void, priority?: number): void;
+            register(type: 'new_post_path', fn: (data: Post.Data, replace: boolean|undefined) => void, priority?: number): void;
 
             /**
              * Used to determine the permalink of posts.
@@ -675,13 +675,13 @@ declare namespace Hexo {
         }
 
         interface Renderer {
-            register(srcExt: string, outExt: string, fn: (data: HexoRendererData, options?: any) => string, sync: true): void;
-            register(srcExt: string, outExt: string, fn: (data: HexoRendererData, options?: any) => Promise<string>, sync: false): void;
-            register(srcExt: string, outExt: string, fn: (data: HexoRendererData, options?: any) => Promise<string>): void;
+            register(srcExt: string, outExt: string, fn: (data: HexoRendererData, options: any) => string, sync: true): void;
+            register(srcExt: string, outExt: string, fn: (data: HexoRendererData, options: any) => Promise<string>, sync: false): void;
+            register(srcExt: string, outExt: string, fn: (data: HexoRendererData, options: any) => Promise<string>): void;
         }
 
         interface Tag {
-            register(name: string, fn: (args: string[], content?: string) => string, options?: Tag.Options): void;
+            register(name: string, fn: (args: string[], content: string|undefined) => string, options?: Tag.Options): void;
         }
         namespace Tag {
             interface Options {
