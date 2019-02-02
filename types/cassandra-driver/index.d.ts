@@ -1009,10 +1009,7 @@ export namespace mapping {
       mappingInfo: ModelMappingInfo
     ): ModelBatchItem;
   }
-  interface ModelBatchItem {
-    pushQueries(arr: MappingQuery[]): { isIdempotent: boolean, isCounter: boolean };
-    getMappingInfo(): ModelMappingInfo;
-  }
+  interface ModelBatchItem {}
 
   interface MappingHandlerStatic {
     new (client: Client, mappingInfo: ModelMappingInfo): MappingHandler;
