@@ -14,6 +14,11 @@
             "../../"
         ],
         "types": [],
+        "paths": {
+            "d3-array": [
+                "d3-array/v1"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
