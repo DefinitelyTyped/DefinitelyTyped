@@ -779,7 +779,7 @@ histoMixedObject_Date = histoMixedObject_Date.domain(timeScale.domain()); // fai
 domainFnDate = histoMixedObject_Date.domain();
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([domain[0], domain[domain.length]]);
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) => [values[0]!, values[values.length]!]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) =>  [values[0]!, values[values.length]!]);
 
 // thresholds(...) -------------------------------------------------------------
 
