@@ -70,7 +70,7 @@ const mixedObjectArray = [
 ];
 
 const mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined];
-const mixedObjectArrayLike = mixedObjectArray as ArrayLike<MixedObject>;
+const mixedObjectArrayLike = mixedObjectArray as Iterable<MixedObject>;
 
 let typedArray = Uint8Array.from(numbersArray);
 let readonlyNumbersArray = numbersArray as ReadonlyArray<number>;
@@ -81,55 +81,55 @@ const readonlyDateArray = dateArray as ReadonlyArray<Date>;
 const readonlyMixedObjectArray = mixedObjectArray as ReadonlyArray<MixedObject>;
 const readonlyMixedObjectOrUndefinedArray = mixedObjectOrUndefinedArray as ReadonlyArray<MixedObject | undefined>;
 
-function accessorMixedObjectToNum(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): number {
+function accessorMixedObjectToNum(datum: MixedObject, index: number, array: Iterable<MixedObject>): number {
     return datum.num;
 }
 
-function accessorMixedObjectToStr(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): string {
+function accessorMixedObjectToStr(datum: MixedObject, index: number, array: Iterable<MixedObject>): string {
     return datum.str;
 }
 
-function accessorMixedObjectToNumeric(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): NumCoercible {
+function accessorMixedObjectToNumeric(datum: MixedObject, index: number, array: Iterable<MixedObject>): NumCoercible {
     return datum.numeric;
 }
 
-function accessorMixedObjectToDate(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): Date {
+function accessorMixedObjectToDate(datum: MixedObject, index: number, array: Iterable<MixedObject>): Date {
     return datum.date;
 }
 
-function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject | undefined>): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
-function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject>): string | undefined | null {
+function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject>): string | undefined | null {
     return datum ? datum.str : undefined;
 }
 
-function accessorLikeMixedObjectToNum(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): number {
+function accessorLikeMixedObjectToNum(datum: MixedObject, index: number, array: Iterable<MixedObject>): number {
     return datum.num;
 }
 
-function accessorLikeMixedObjectToStr(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): string {
+function accessorLikeMixedObjectToStr(datum: MixedObject, index: number, array: Iterable<MixedObject>): string {
     return datum.str;
 }
 
-function accessorLikeMixedObjectToNumeric(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): NumCoercible {
+function accessorLikeMixedObjectToNumeric(datum: MixedObject, index: number, array: Iterable<MixedObject>): NumCoercible {
     return datum.numeric;
 }
 
-function accessorLikeMixedObjectToDate(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): Date {
+function accessorLikeMixedObjectToDate(datum: MixedObject, index: number, array: Iterable<MixedObject>): Date {
     return datum.date;
 }
 
-function accessorLikeMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+function accessorLikeMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject | undefined>): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
-function accessorLikeMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject>): string | undefined | null {
+function accessorLikeMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject>): string | undefined | null {
     return datum ? datum.str : undefined;
 }
 
-function accessorReadOnlyMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+function accessorReadOnlyMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: Iterable<MixedObject | undefined>): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 

@@ -33,142 +33,142 @@ export interface Numeric {
 /**
  * Return the maximum value in the array of strings using natural order.
  */
-export function max(array: ArrayLike<string>): string | undefined;
+export function max(array: Iterable<string>): string | undefined;
 
 /**
  * Return the maximum value in the array of numbers using natural order.
  */
-export function max<T extends Numeric>(array: ArrayLike<T>): T | undefined;
+export function max<T extends Numeric>(array: Iterable<T>): T | undefined;
 
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to strings.
  */
-export function max<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => string | undefined | null): string | undefined;
+export function max<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null): string | undefined;
 
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to easily-sorted values.
  */
-export function max<T, U extends Numeric>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => U | undefined | null): U | undefined;
+export function max<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min(array: ArrayLike<string>): string | undefined;
+export function min(array: Iterable<string>): string | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T extends Numeric>(array: ArrayLike<T>): T | undefined;
+export function min<T extends Numeric>(array: Iterable<T>): T | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => string | undefined | null): string | undefined;
+export function min<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null): string | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T, U extends Numeric>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => U | undefined | null): U | undefined;
+export function min<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): U | undefined;
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent(array: ArrayLike<string>): [string, string] | [undefined, undefined];
+export function extent(array: Iterable<string>): [string, string] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T extends Numeric>(array: ArrayLike<T>): [T, T] | [undefined, undefined];
+export function extent<T extends Numeric>(array: Iterable<T>): [T, T] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => string | undefined | null): [string, string] | [undefined, undefined];
+export function extent<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => string | undefined | null): [string, string] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T, U extends Numeric>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => U | undefined | null): [U, U] | [undefined, undefined];
+export function extent<T, U extends Numeric>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => U | undefined | null): [U, U] | [undefined, undefined];
 
 /**
  * Return the mean of an array of numbers
  */
-export function mean<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
+export function mean<T extends Numeric>(array: Iterable<T | undefined | null>): number | undefined;
 
 /**
  * Return the mean of an array of numbers
  */
-export function mean<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+export function mean<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null): number | undefined;
 
 /**
  * Return the median of an array of numbers
  */
-export function median<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
+export function median<T extends Numeric>(array: Iterable<T | undefined | null>): number | undefined;
 
 /**
  * Return the median of an array of numbers
  */
-export function median<T>(array: ArrayLike<T>, accessor: (element: T, i: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+export function median<T>(array: Iterable<T>, accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null): number | undefined;
 
 /**
  * Returns the p-quantile of an array of numbers
  */
-export function quantile<T extends Numeric>(array: ArrayLike<T | undefined | null>, p: number): number | undefined;
+export function quantile<T extends Numeric>(array: Iterable<T | undefined | null>, p: number): number | undefined;
 
-export function quantile<T>(array: ArrayLike<T>, p: number, accessor: (element: T, i: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+export function quantile<T>(array: Iterable<T>, p: number, accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null): number | undefined;
 
 /**
  * Compute the sum of an array of numbers.
  */
-export function sum<T extends Numeric>(array: ArrayLike<T | undefined | null>): number;
+export function sum<T extends Numeric>(array: Iterable<T | undefined | null>): number;
 
 /**
  * Compute the sum of an array, using the given accessor to convert values to numbers.
  */
-export function sum<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number;
+export function sum<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null): number;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array of numbers.
  */
-export function deviation<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
+export function deviation<T extends Numeric>(array: Iterable<T | undefined | null>): number | undefined;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function deviation<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+export function deviation<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array of numbers.
  */
-export function variance<T extends Numeric>(array: ArrayLike<T | undefined | null>): number | undefined;
+export function variance<T extends Numeric>(array: Iterable<T | undefined | null>): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function variance<T>(array: ArrayLike<T>, accessor: (datum: T, index: number, array: ArrayLike<T>) => number | undefined | null): number | undefined;
+export function variance<T>(array: Iterable<T>, accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null): number | undefined;
 
 // --------------------------------------------------------------------------------------
 // Searching Arrays
 // --------------------------------------------------------------------------------------
 
-export function scan(array: ArrayLike<number>, comparator?: (a: number, b: number) => number): number | undefined;
-export function scan<T>(array: ArrayLike<T>, comparator: (a: T, b: T) => number): number | undefined;
+export function scan(array: Iterable<number>, comparator?: (a: number, b: number) => number): number | undefined;
+export function scan<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
 
-export function bisectLeft(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
-export function bisectLeft(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
-export function bisectLeft(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
+export function bisectLeft(array: Iterable<number>, x: number, lo?: number, hi?: number): number;
+export function bisectLeft(array: Iterable<string>, x: string, lo?: number, hi?: number): number;
+export function bisectLeft(array: Iterable<Date>, x: Date, lo?: number, hi?: number): number;
 
-export function bisectRight(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
-export function bisectRight(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
-export function bisectRight(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
+export function bisectRight(array: Iterable<number>, x: number, lo?: number, hi?: number): number;
+export function bisectRight(array: Iterable<string>, x: string, lo?: number, hi?: number): number;
+export function bisectRight(array: Iterable<Date>, x: Date, lo?: number, hi?: number): number;
 
 export const bisect: typeof bisectRight;
 
 export interface Bisector<T, U> {
-    left(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
-    right(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
+    left(array: Iterable<T>, x: U, lo?: number, hi?: number): number;
+    right(array: Iterable<T>, x: U, lo?: number, hi?: number): number;
 }
 
 export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
@@ -180,7 +180,7 @@ export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
  * @param array The array to partially sort (in place).
  * @param k The middle index for partial sorting.
  */
-export function quickselect<T>(array: ArrayLike<T>, k: number): T[];
+export function quickselect<T>(array: Iterable<T>, k: number): T[];
 
 /**
  * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
@@ -189,7 +189,7 @@ export function quickselect<T>(array: ArrayLike<T>, k: number): T[];
  * @param k The middle index for partial sorting.
  * @param left The left index of the range to sort.
  */
-export function quickselect<T>(array: ArrayLike<T>, k: number, left: number): T[];
+export function quickselect<T>(array: Iterable<T>, k: number, left: number): T[];
 
 /**
  * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
@@ -199,7 +199,7 @@ export function quickselect<T>(array: ArrayLike<T>, k: number, left: number): T[
  * @param left The left index of the range to sort.
  * @param right The right index.
  */
-export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, right: number): T[];
+export function quickselect<T>(array: Iterable<T>, k: number, left: number, right: number): T[];
 
 /**
  * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
@@ -210,7 +210,7 @@ export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, rig
  * @param right The right index.
  * @param compare The compare function.
  */
-export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, right: number, compare: (a: Primitive | undefined, b: Primitive | undefined) => number): T[];
+export function quickselect<T>(array: Iterable<T>, k: number, left: number, right: number, compare: (a: Primitive | undefined, b: Primitive | undefined) => number): T[];
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
@@ -233,7 +233,7 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
  * @param a The array to group.
  * @param key The key function.
  */
-export function group<TObject, TKey>(a: ArrayLike<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
+export function group<TObject, TKey>(a: Iterable<TObject>, key: (value: TObject) => TKey): Map<TKey, TObject[]>;
 
 /**
  * Groups and reduces the specified array of values into a Map from key to value.
@@ -242,7 +242,7 @@ export function group<TObject, TKey>(a: ArrayLike<TObject>, key: (value: TObject
  * @param reduce The reduce function.
  * @param key The key function.
  */
-export function rollup<TObject, TKey, TReduce>(a: ArrayLike<TObject>, reduce: (value: TObject[]) => TReduce, key: (value: TObject) => TKey): Map<TKey, TReduce>;
+export function rollup<TObject, TKey, TReduce>(a: Iterable<TObject>, reduce: (value: TObject[]) => TReduce, key: (value: TObject) => TKey): Map<TKey, TReduce>;
 
 /**
  * Returns the Cartesian product of the two arrays a and b.
@@ -252,7 +252,7 @@ export function rollup<TObject, TKey, TReduce>(a: ArrayLike<TObject>, reduce: (v
  * @param a First input array.
  * @param b Second input array.
  */
-export function cross<S, T>(a: ArrayLike<S>, b: ArrayLike<T>): Array<[S, T]>;
+export function cross<S, T>(a: Iterable<S>, b: ArrayLike<T>): Array<[S, T]>;
 
 /**
  * Returns the Cartesian product of the two arrays a and b.
@@ -263,12 +263,12 @@ export function cross<S, T>(a: ArrayLike<S>, b: ArrayLike<T>): Array<[S, T]>;
  * @param b Second input array.
  * @param reducer A reducer function taking as input an element from "a" and "b" and returning a reduced value.
  */
-export function cross<S, T, U>(a: ArrayLike<S>, b: ArrayLike<T>, reducer: (a: S, b: T) => U): U[];
+export function cross<S, T, U>(a: Iterable<S>, b: Iterable<T>, reducer: (a: S, b: T) => U): U[];
 
 /**
  * Merges the specified arrays into a single array.
  */
-export function merge<T>(arrays: ArrayLike<ArrayLike<T>>): T[];
+export function merge<T>(arrays: Iterable<Iterable<T>>): T[];
 
 /**
  * For each adjacent pair of elements in the specified array, returns a new array of tuples of elements i and i - 1.
@@ -276,7 +276,7 @@ export function merge<T>(arrays: ArrayLike<ArrayLike<T>>): T[];
  *
  * @param array Array of input elements
  */
-export function pairs<T>(array: ArrayLike<T>): Array<[T, T]>;
+export function pairs<T>(array: Iterable<T>): Array<[T, T]>;
 /**
  * For each adjacent pair of elements in the specified array, in order, invokes the specified reducer function passing the element i and element i - 1.
  * Returns the resulting array of pair-wise reduced elements.
@@ -285,7 +285,7 @@ export function pairs<T>(array: ArrayLike<T>): Array<[T, T]>;
  * @param array Array of input elements
  * @param reducer A reducer function taking as input to adjacent elements of the input array and returning a reduced value.
  */
-export function pairs<T, U>(array: ArrayLike<T>, reducer: (a: T, b: T) => U): U[];
+export function pairs<T, U>(array: Iterable<T>, reducer: (a: T, b: T) => U): U[];
 
 /**
  * Returns a permutation of the specified array using the specified array of indexes.
@@ -415,14 +415,14 @@ export type ThresholdArrayGenerator = ThresholdNumberArrayGenerator<number>;
  * @deprecated Use `HistogramGeneratorNumber<Datum, Value>` for `number` values and `HistogramGeneratorDate<Datum, Value> for `Date` values.
  */
 export interface HistogramGenerator<Datum, Value extends number | Date | undefined> {
-    (data: ArrayLike<Datum>): Array<Bin<Datum, Value>>;
+    (data: Iterable<Datum>): Array<Bin<Datum, Value>>;
 
-    value(): (d: Datum, i: number, data: ArrayLike<Datum>) => Value;
-    value(valueAccessor: (d: Datum, i: number, data: ArrayLike<Datum>) => Value): this;
+    value(): (d: Datum, i: number, data: Iterable<Datum>) => Value;
+    value(valueAccessor: (d: Datum, i: number, data: Iterable<Datum>) => Value): this;
 
-    domain(): (values: ArrayLike<Value>) => [Value, Value] | [undefined, undefined];
+    domain(): (values: Iterable<Value>) => [Value, Value] | [undefined, undefined];
     domain(domain: [Value, Value]): this;
-    domain(domainAccessor: (values: ArrayLike<Value>) => [Value, Value] | [undefined, undefined]): this;
+    domain(domainAccessor: (values: Iterable<Value>) => [Value, Value] | [undefined, undefined]): this;
 
     /**
      * Set the array of values to be used as thresholds in determining the bins.
