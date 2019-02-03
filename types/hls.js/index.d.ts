@@ -1683,6 +1683,11 @@ declare class Hls {
      */
     subtitleDisplay: boolean;
     /**
+     * (default: NaN)
+     * Return current download bandwidth in bits/s if available
+     */
+    bandwidthEstimate: number;
+    /**
      * calling this method will:
      *      bind videoElement and hls instances
      *      create MediaSource and set it as video source
