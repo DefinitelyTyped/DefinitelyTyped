@@ -555,10 +555,9 @@ const objArray: ObjDefinition[] = [
     { name: "stacy", amount: "34.05", date: "01/04/2016" }
 ];
 
-let myMap: Map<string, ObjDefinition>;
-
-myMap = d3Array.group(objArray, d => d.name);
-myMap = d3Array.rollup(objArray, d => d.length, d => d.name);
+const grouped: Map<string, ObjDefinition[]> = d3Array.group(objArray, d => d.name);
+const rolledup: Map<string, number> = d3Array.rollup(objArray, d => d.length, d => d.name);
+const rolledup2: Map<string, string> = d3Array.rollup(objArray, d => d.map(u => u.name).join(' '), d => d.name);
 
 // cross() ---------------------------------------------------------------------
 
