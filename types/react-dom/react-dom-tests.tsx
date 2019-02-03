@@ -178,4 +178,13 @@ describe('React dom test utils', () => {
             shallowRenderer.getRenderOutput();
         });
     });
+    
+    it('act', () => {
+        const rootElement = document.createElement('div');
+        let value = ReactTestUtils.act(() => {
+            ReactDOM.render(<div />, rootElement);
+            return { count: 123 };
+        });
+        value.count === 123;
+    });
 });
