@@ -15,6 +15,7 @@
 //                 Pavel Ihm <https://github.com/ihmpavel>
 //                 Bartosz Dotryw <https://github.com/burtek>
 //                 Jason Killian <https://github.com/jkillian>
+//                 Ben Beshara <https://github.com/benbeshara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2117,6 +2118,7 @@ export namespace Location {
         region: string;
         postalCode: string;
         country: string;
+        isoCountryCode: string;
         name: string;
     }
 
