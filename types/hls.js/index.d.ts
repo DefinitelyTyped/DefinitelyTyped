@@ -1,6 +1,7 @@
 // Type definitions for hls.js 0.10
 // Project: https://github.com/video-dev/hls.js
-// Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
+// Definitions by:  John G. Gainfort, Jr. <https://github.com/jgainfort>
+//                  Alexey I. Berezin <https://github.com/beraliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
