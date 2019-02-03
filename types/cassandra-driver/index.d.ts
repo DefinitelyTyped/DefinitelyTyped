@@ -504,6 +504,7 @@ export let Encoder: EncoderStatic;
 
 export interface ClientOptions {
   contactPoints: string[];
+  localDataCenter?: string;
   keyspace?: string;
   refreshSchemaDelay?: number;
   isMetadataSyncEnabled?: boolean;
