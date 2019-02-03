@@ -15,7 +15,7 @@ export interface MonitorDetails {
     displayDeviceActive: boolean;
     deviceScaleFactor: number;
     monitorRect: Rect;
-    name: number;
+    name: string;
     dpi: Point;
     monitor: DipScaleRects;
 }

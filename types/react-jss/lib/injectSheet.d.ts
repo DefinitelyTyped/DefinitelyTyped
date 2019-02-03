@@ -53,26 +53,33 @@ export type PropsOf<C> = C extends new (props: infer P) => React.Component
  */
 export type PropInjector<InjectedProps, AdditionalProps = {}> = <
   C extends React.ComponentType<ConsistentWith<PropsOf<C>, InjectedProps>>
->(
+  >(
   component: C
 ) => React.ComponentType<
   Omit<JSX.LibraryManagedAttributes<C, PropsOf<C>>, keyof InjectedProps> &
-    AdditionalProps
->;
+  AdditionalProps
+  >;
 
-export interface CSSProperties extends CSS.Properties<number | string> {
+// Allow functions that take the properties of the component and return a CSS value
+export type DynamicCSSRule<Props> = {
+  [K in keyof CSS.Properties<number | string>]:
+  | CSS.Properties<number | string>[K]
+  | ((props: Props) => CSS.Properties<number | string>[K])
+}[keyof CSS.Properties];
+
+export interface CSSProperties<Props> {
   // Allow pseudo selectors and media queries
   [k: string]:
-    | CSS.Properties<number | string>[keyof CSS.Properties]
-    | CSSProperties;
+    | DynamicCSSRule<Props>
+    | CSSProperties<Props>;
 }
-export type Styles<ClassKey extends string = string> = Record<
+export type Styles<ClassKey extends string = string, Props = {}> = Record<
   ClassKey,
-  CSSProperties
->;
-export type StyleCreator<C extends string = string, T extends {} = {}> = (
+  CSSProperties<Props>
+  >;
+export type StyleCreator<C extends string = string, T extends {} = {}, Props = {}> = (
   theme: T
-) => Styles<C>;
+) => Styles<C, Props>;
 
 export interface Theming {
   channel: string;
@@ -89,15 +96,16 @@ export interface InjectOptions extends CreateStyleSheetOptions {
 export type ClassNameMap<C extends string> = Record<C, string>;
 export type WithSheet<
   S extends string | Styles | StyleCreator<string, any>,
-  GivenTheme = undefined
-> = {
+  GivenTheme = undefined,
+  Props = {}
+  > = {
   classes: ClassNameMap<
     S extends string
       ? S
-      : S extends StyleCreator<infer C, any>
-        ? C
-        : S extends Styles<infer C> ? C : never
-  >;
+      : S extends StyleCreator<infer C, any, Props>
+      ? C
+      : S extends Styles<infer C, Props> ? C : never
+    >;
 } & WithTheme<S extends StyleCreator<string, infer T> ? T : GivenTheme>;
 
 export interface WithTheme<T> {
@@ -110,7 +118,7 @@ export interface StyledComponentProps<ClassKey extends string = string> {
   innerRef?: React.Ref<any> | React.RefObject<any>;
 }
 
-export default function injectSheet<C extends string, T extends object>(
-  stylesOrCreator: Styles<C> | StyleCreator<C, T>,
+export default function injectSheet<C extends string, T extends object, Props = {}>(
+  stylesOrCreator: Styles<C, Props> | StyleCreator<C, T, Props>,
   options?: InjectOptions
-): PropInjector<WithSheet<C, T>, StyledComponentProps<C>>;
+): PropInjector<WithSheet<C, T, Props>, StyledComponentProps<C>>;

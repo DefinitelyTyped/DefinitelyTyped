@@ -1,5 +1,5 @@
 import * as React from "react";
-import Joyride, { Step } from "react-joyride";
+import Joyride, { Step, State } from "react-joyride";
 
 class NewComponent extends React.Component<undefined, undefined> {
     j: Joyride;
@@ -42,7 +42,7 @@ class NewComponent extends React.Component<undefined, undefined> {
     }];
 
     render() {
-        return <Joyride ref="j" run={true} steps={this.steps} />;
+        return <Joyride ref="j" run={true} steps={this.steps} callback={this.onCallback} />;
     }
 
     doStuff() {
@@ -55,5 +55,9 @@ class NewComponent extends React.Component<undefined, undefined> {
         this.j.addTooltip(this.steps[0]);
 
         const { title, placement } = this.j.getProgress().step;
+    }
+
+    onCallback(data: State) {
+        return;
     }
 }

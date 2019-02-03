@@ -562,6 +562,53 @@ QUnit.test( "throws", function( assert ) {
   );
 });
 
+QUnit.test( "rejects", function( assert ) {
+
+  assert.rejects(Promise.reject("some error description"));
+
+  assert.rejects(
+    Promise.reject(new Error("some error description")),
+    "rejects with just a message, not using the 'expectedMatcher' argument"
+  );
+
+  assert.rejects(
+    Promise.reject(new Error("some error description")),
+    /description/,
+    "`rejectionValue.toString()` contains `description`"
+  );
+
+  // Using a custom error like object
+  class CustomError {
+    message?: string;
+    constructor(message?: string) {
+       this.message = message;
+    }
+    toString() {
+       return this.message;
+    }
+  }
+
+  assert.rejects(
+    Promise.reject(new CustomError()),
+    CustomError,
+    "raised error is an instance of CustomError"
+  );
+
+  assert.rejects(
+    Promise.reject(new CustomError("some error description")),
+    new CustomError("some error description"),
+    "raised error instance matches the CustomError instance"
+  );
+
+  assert.rejects(
+    Promise.reject(new CustomError("some error description")),
+    function( err ) {
+      return err.toString() === "some error description";
+    },
+    "raised error instance satisfies the callback function"
+  );
+});
+
 QUnit.module( "module", {
   beforeEach: function( assert ) {
     assert.ok( true, "one extra assert per test" );

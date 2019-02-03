@@ -112,19 +112,17 @@ interface DeployOptions {
     singlePackage?:	boolean;
 }
 
-export class AsyncResultLocator<T> extends EventEmitter implements Promise<T> {
+export class AsyncResultLocator<T> extends EventEmitter implements PromiseLike<T> {
     check(callback?: Callback<T>): Promise<T>
 
     complete(callback?: Callback<T>): Promise<T>
 
     poll(interval: number, timeout: number): void;
 
-    catch<TResult>(onrejected?: ((reason: any) => (PromiseLike<TResult> | TResult)) | null | undefined): Promise<T | TResult>;
-
     then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | null | undefined,
                              onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | null | undefined): Promise<TResult1 | TResult2>;
 
-    readonly [Symbol.toStringTag]: "Promise";
+    finally(onfinally?: () => void): Promise<T>;
 }
 
 export class DeployResultLocator<T> extends AsyncResultLocator<T> {}

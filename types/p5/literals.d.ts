@@ -11,6 +11,7 @@ declare module "./index" {
   type BLEND = "source-over";
   type BLUR = "blur";
   type BOLD = "bold";
+  type BOLDITALIC = "bolditalic";
   type BOTTOM = "bottom";
   type BURN = "color-burn";
   type CENTER = "center";
@@ -32,6 +33,7 @@ declare module "./index" {
   type HARD_LIGHT = "hard-light";
   type HSB = "hsb";
   type HSL = "hsl";
+  type IMAGE = "image";
   type INVERT = "invert";
   type ITALIC = "italic";
   type LANDSCAPE = "landscape";

@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "moment": ">=2.14.0",
         "popper.js": "^1.14.1"
     }
 }

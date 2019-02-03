@@ -1,15 +1,24 @@
-import shallowEqual_require = require('shallowequal');
-import * as shallowEqual_splat from 'shallowequal';
+import shallowEqual = require('shallowequal');
 
-const a = {}, b = {};
-function compare(a: any, b: any, indexOrKey?: number | string) {
-  return false;
-}
+const a = {};
+const b = {};
 
-shallowEqual_require(a, b);
-shallowEqual_require(a, b, compare);
-shallowEqual_require(a, b, compare, {});
+shallowEqual(a, b); // $ExpectType boolean
+// $ExpectType boolean
+shallowEqual(a, b, (a, b, indexOrKey) => {
+    a; // $ExpectType any
+    b; // $ExpectType any
+    indexOrKey; // $ExpectType string | number | undefined
 
-shallowEqual_splat(a, b);
-shallowEqual_splat(a, b, compare);
-shallowEqual_splat(a, b, compare, {});
+    return false;
+});
+shallowEqual(a, b, () => {}); // $ExpectType boolean
+// $ExpectType boolean
+shallowEqual(
+    a,
+    b,
+    function() {
+        this; // $ExpectType { foo: string; }
+    },
+    { foo: 'bar' }
+);

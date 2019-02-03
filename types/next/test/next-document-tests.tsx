@@ -1,4 +1,5 @@
 import Document, {
+    DocumentProps,
     Enhancer,
     Head,
     Main,
@@ -12,8 +13,31 @@ interface WithUrlProps {
     url: string;
 }
 
+class MyDocumentDefault extends Document {
+    static async getInitialProps(ctx: NextDocumentContext) {
+        const initialProps = await Document.getInitialProps(ctx);
+        return { ...initialProps };
+    }
+
+    render() {
+        return (
+            <html>
+                <Head>
+                    <style>{`body { margin: 0 } /* custom! */`}</style>
+                </Head>
+                <body className="custom_class">
+                    <Main />
+                    <NextScript />
+                </body>
+            </html>
+        );
+    }
+}
+
 class MyDoc extends Document<WithUrlProps> {
-    static getInitialProps({ req, renderPage }: NextDocumentContext) {
+    static async getInitialProps(ctx: NextDocumentContext) {
+        const { req, renderPage } = ctx;
+
         // without callback
         const _page = renderPage();
 
@@ -21,12 +45,22 @@ class MyDoc extends Document<WithUrlProps> {
         const enhancer: Enhancer<PageProps, {}> = App => props => <App />;
         const { html, head, buildManifest } = renderPage(enhancer);
 
-        const styles = [<style />];
+        const initialProps = await Document.getInitialProps(ctx);
+
+        const styles = [...(initialProps.styles ? initialProps.styles : []), <style />];
 
         // Custom prop
         const url = req!.url;
 
         return { html, head, buildManifest, styles, url };
+    }
+
+    constructor(props: WithUrlProps & DocumentProps) {
+        super(props);
+        const { __NEXT_DATA__, url } = props;
+
+        // Custom __NEXT_DATA__ attribute
+        __NEXT_DATA__.url = url;
     }
 
     render() {

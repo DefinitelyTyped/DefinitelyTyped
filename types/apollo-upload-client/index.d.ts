@@ -2,7 +2,7 @@
 // Project: https://github.com/jaydenseric/apollo-upload-client#readme
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.6
 
 import { ApolloLink } from "apollo-link";
 import { HttpOptions } from "apollo-link-http-common";

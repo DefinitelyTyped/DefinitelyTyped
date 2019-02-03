@@ -1172,7 +1172,7 @@ declare namespace Highland {
 		 *   console.log(err); // => SyntaxError: Unexpected token z
 		 * });
 		 */
-		through<R, U>(f: (x: R) => U): Stream<U>;
+		through<R, U>(f: (x: R) => U): U;
 		through(thru: NodeJS.ReadWriteStream): Stream<any>;
 
 

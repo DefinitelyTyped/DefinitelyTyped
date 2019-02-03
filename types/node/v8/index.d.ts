@@ -1,7 +1,7 @@
-// Type definitions for Node.js 8.10.x
+// Type definitions for Node.js 8.10
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
@@ -32,15 +32,32 @@
 interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
-    dir(obj: any, options?: NodeJS.InspectOptions): void;
+    clear(): void;
+    count(label?: string): void;
+    countReset(label?: string): void;
     debug(message?: any, ...optionalParams: any[]): void;
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
     error(message?: any, ...optionalParams: any[]): void;
+    group(...label: any[]): void;
+    groupCollapsed(): void;
+    groupEnd(): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
     time(label: string): void;
     timeEnd(label: string): void;
     trace(message?: any, ...optionalParams: any[]): void;
     warn(message?: any, ...optionalParams: any[]): void;
+
+    // --- Inspector mode only ---
+    /** @deprecated Use console.timeStamp() instead. */
+    markTimeline(label?: string): void;
+    profile(label?: string): void;
+    profileEnd(label?: string): void;
+    timeStamp(label?: string): void;
+    /** @deprecated Use console.time() instead. */
+    timeline(label?: string): void;
+    /** @deprecated Use console.timeEnd() instead. */
+    timelineEnd(label?: string): void;
 }
 
 interface Error {
@@ -2434,6 +2451,7 @@ declare module "dns" {
         family?: number;
         hints?: number;
         all?: boolean;
+        verbatim?: boolean;
     }
 
     export interface LookupOneOptions extends LookupOptions {
@@ -4769,7 +4787,7 @@ declare module "path" {
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
-     * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
+     * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
      *
      * If {to} isn't already absolute, {from} arguments are prepended in right to left order, until an absolute path is found. If after using all {from} paths still no absolute path is found, the current working directory is used as well. The resulting path is normalized, and trailing slashes are removed unless the path gets resolved to the root directory.
      *
@@ -5326,8 +5344,8 @@ declare module "crypto" {
     export interface Signer extends NodeJS.WritableStream {
         update(data: string | Buffer | DataView): Signer;
         update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: string | { key: string; passphrase: string }): Buffer;
-        sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: string | { key: string; passphrase?: string }): Buffer;
+        sign(private_key: string | { key: string; passphrase?: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {

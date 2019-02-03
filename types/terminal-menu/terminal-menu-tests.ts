@@ -1,6 +1,6 @@
 import * as tty from "tty"; // For typing
 
-let stdin = (<tty.ReadStream> process.stdin);
+let stdin = (process.stdin as tty.ReadStream);
 
 if(!stdin.isTTY) {
     console.log("Terminal not supported");

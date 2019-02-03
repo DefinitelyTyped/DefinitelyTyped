@@ -251,6 +251,12 @@ jest
     .useFakeTimers()
     .useRealTimers();
 
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+jest.requireActual("./thisReturnsTheActualModule");
+
+// https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
+jest.requireMock("./thisAlwaysReturnsTheMock");
+
 /* Mocks and spies */
 
 const mock1: jest.Mock = jest.fn();
@@ -312,6 +318,11 @@ const spy3Mock: jest.Mock<() => string> = spy3
     .mockResolvedValueOnce("value")
     .mockRejectedValue("value")
     .mockRejectedValueOnce("value");
+
+let spy4: jest.SpyInstance;
+
+spy4 = jest.spyOn(spiedTarget, "returnsString");
+spy4.mockRestore();
 
 /* Snapshot serialization */
 
@@ -429,6 +440,14 @@ expect.extend({
     }
 });
 expect.extend({
+    foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: JSON.stringify(received),
+            pass: false,
+        };
+    }
+});
+expect.extend({
     async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
         return {
             message: () => JSON.stringify(received),
@@ -437,8 +456,17 @@ expect.extend({
     }
 });
 expect.extend({
+    async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: JSON.stringify(received),
+            pass: false
+        };
+    }
+});
+expect.extend({
     foo(this: jest.MatcherUtils) {
         const isNot: boolean = this.isNot;
+        const expand: boolean = this.expand;
 
         const expectedColor = this.utils.EXPECTED_COLOR("blue");
         const receivedColor = this.utils.EXPECTED_COLOR("red");
@@ -622,8 +650,16 @@ describe("", () => {
         expect({
             one: 1,
             two: "2",
+            three: 3,
+            four: { four: 3 },
             date: new Date(),
-        }).toMatchSnapshot({ one: expect.any(Number), date: expect.any(Date) });
+        }).toMatchSnapshot({
+            one: expect.any(Number),
+            // Leave 'two' to the auto-generated snapshot
+            three: 3,
+            four: { four: expect.any(Number) },
+            date: expect.any(Date),
+        });
 
         expect({}).toMatchInlineSnapshot();
         expect({}).toMatchInlineSnapshot("snapshot");
@@ -631,8 +667,16 @@ describe("", () => {
         expect({
             one: 1,
             two: "2",
+            three: 3,
+            four: { four: 3 },
             date: new Date(),
-        }).toMatchInlineSnapshot({ one: expect.any(Number), date: expect.any(Date) });
+        }).toMatchInlineSnapshot({
+            one: expect.any(Number),
+            // leave out two
+            three: 3,
+            four: { four: expect.any(Number) },
+            date: expect.any(Date),
+        });
 
         expect(jest.fn()).toReturn();
 
@@ -707,6 +751,13 @@ describe("", () => {
             }),
             ghi: expect.stringMatching("foo"),
         }));
+
+        /* Inverse type matchers */
+
+        expect('How are you?').toEqual(expect.not.stringContaining('Hello world!'));
+        expect('How are you?').toEqual(expect.not.stringMatching(/Hello world!/));
+        expect({bar: 'baz'}).toEqual(expect.not.objectContaining({foo: 'bar'}));
+        expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha']));
 
         /* Miscellaneous */
 

@@ -46,6 +46,7 @@ npm-debug.log
 .settings/launch.json
 .vs
 .vscode
+.history
 
 # yarn
 yarn.lock

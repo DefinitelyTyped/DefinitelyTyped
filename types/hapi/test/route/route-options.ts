@@ -89,6 +89,7 @@ const routeOptionsResponse: RouteOptionsResponse = {
         302: true,
         404: false,
     },
+    disconnectStatusCode: 123,
 };
 
 const routeOptionSecure: RouteOptionsSecureObject = {

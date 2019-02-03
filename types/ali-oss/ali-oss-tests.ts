@@ -1,34 +1,25 @@
-import OSS from "ali-oss";
+import * as OSS from 'ali-oss';
 
-const client = new OSS({
+const ossOptions: OSS.Options = {
     accessKeyId: 'your access key',
     accessKeySecret: 'your access secret',
     bucket: 'your bucket name',
     region: 'oss-cn-hangzhou'
-});
+};
 
-const ImageClient = OSS.ImageClient({
-    imageHost: 'host',
-    accessKeySecret: "secret",
-    accessKeyId: 'id',
-    bucket: "",
-    internal: false,
-    region: "",
-    timeout: 2000
-});
+const client = new OSS(ossOptions);
 
-const cluster = OSS.Cluster({
-    clusters: [
-        {
-            accessKeyId: 'id',
-            accessKeySecret: 'secret',
-            host: ""
-        },
-        {
-            accessKeyId: 'id',
-            accessKeySecret: 'secret',
-            host: ""
-        },
-    ],
-    schedule: 'masterSlave',
-});
+const clusterOptions: OSS.ClusterOptions = {
+    clusters: [],
+};
+
+const clusterClient = new OSS.Cluster(clusterOptions);
+
+const imageOptions: OSS.ImageClientOptions = {
+    imageHost: 'xxxx',
+    accessKeyId: 'xxxx',
+    accessKeySecret: 'xxxx',
+    bucket: 'xxxx'
+};
+
+const imageClient = new OSS.ImageClient(imageOptions);

@@ -10,6 +10,8 @@ crate.insert('users', {id: 'test', password: 'password'});
 
 crate.create({users: {id: 'string primary key', password: 'string'}});
 
+crate.createIfNotExists({users: {id: 'string primary key', password: 'string'}});
+
 crate.drop('users');
 
 crate.update('users', {password: 'newPassword'}, "id = 'test'");

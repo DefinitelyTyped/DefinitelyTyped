@@ -10,8 +10,10 @@
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Tim de Koning <https://github.com/reggino>
 //                 Maddi Joyce <https://github.com/maddijoyce>
+//                 Kamil Wojcik <https://github.com/smifun>
+//                 Mohamed Shaaban <https://github.com/mshaaban088>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 import {
   ComponentClass,
   StatelessComponent,

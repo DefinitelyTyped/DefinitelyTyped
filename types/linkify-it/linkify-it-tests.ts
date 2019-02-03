@@ -30,7 +30,9 @@ linkifier
 const matches = linkifier.match(
     "https://github.com/DefinitelyTyped/DefinitelyTyped/"
 );
-matches.forEach(({ index, lastIndex, raw, schema, text, url }) => {});
+if (matches !== null) {
+    matches.forEach(({ index, lastIndex, raw, schema, text, url }) => {});
+}
 
 // complex rule
 linkifier.add("@", {

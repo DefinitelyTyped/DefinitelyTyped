@@ -1,6 +1,9 @@
 declare class BusyContext {
     addBusyState(options: {
-        description: object | (() => string);
+        description: {
+            toString: () => string;
+            [propName: string]: any;
+        } | (() => string) | string;
     }): (() => void);
     applicationBootstrapComplete(): undefined;
     clear(): undefined;
@@ -16,7 +19,10 @@ declare class BusyContext {
 declare namespace Context {
     interface BusyContext {
         addBusyState(options: {
-            description: object | (() => string);
+            description: {
+                toString: () => string;
+                [propName: string]: any;
+            } | (() => string) | string;
         }): (() => void);
         applicationBootstrapComplete(): undefined;
         clear(): undefined;

@@ -1,117 +1,101 @@
-// Type definitions for Rebass 0.3.7
+// Type definitions for Rebass 3.0
 // Project: https://github.com/jxnblk/rebass
-// Definitions by: rhysd <https://rhysd.github.io>
+// Definitions by: rhysd <https://github.com/rhysd>
 //                 ryee-dev <https://github.com/ryee-dev>
+//                 jamesmckenzie <https://github.com/jamesmckenzie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
 
 export interface BaseProps<C> extends React.ClassAttributes<C> {
-  className?: string;
-  m?: number;
-  mt?: number;
-  mr?: number;
-  mb?: number;
-  ml?: number;
-  mx?: number;
-  my?: number;
-  p?: number;
-  pt?: number;
-  pr?: number;
-  pb?: number;
-  pl?: number;
-  px?: number;
-  py?: number;
+    className?: string;
+    as?: string;
 }
 
-export interface BoxProps extends BaseProps<BoxClass> {
+export interface SpaceProps<C> extends BaseProps<C> {
+    m?: number | string | ReadonlyArray<number>;
+    mt?: number | string | ReadonlyArray<number>;
+    mr?: number | string | ReadonlyArray<number>;
+    mb?: number | string | ReadonlyArray<number>;
+    ml?: number | string | ReadonlyArray<number>;
+    mx?: number | string | ReadonlyArray<number>;
+    my?: number | string | ReadonlyArray<number>;
+    p?: number | string | ReadonlyArray<number>;
+    pt?: number | string | ReadonlyArray<number>;
+    pr?: number | string | ReadonlyArray<number>;
+    pb?: number | string | ReadonlyArray<number>;
+    pl?: number | string | ReadonlyArray<number>;
+    px?: number | string | ReadonlyArray<number>;
+    py?: number | string | ReadonlyArray<number>;
+}
+
+export interface BoxProps extends SpaceProps<BoxClass> {
     className?: string;
-    width?: number | number[];
-    fontSize?: number | number[];
-    css?: Object;
+    width?: number | string | ReadonlyArray<number>;
+    fontSize?: number | ReadonlyArray<number>;
+    css?: object;
     color?: string;
     bg?: string;
 }
-type BoxClass = React.StatelessComponent<BoxProps>;
-export declare const Box: BoxClass;
+// tslint:disable-next-line:strict-export-declare-modifiers
+type BoxClass = React.FunctionComponent<BoxProps>;
+export const Box: BoxClass;
 
-export interface ButtonProps extends BaseProps<ButtonClass> {
-  fontWeight?: string;
-  border?: number;
-  borderColor?: string;
-  borderRadius?: number;
-  variant?: string;
-  bg?: string;
-  color?: string;
+export interface ButtonProps extends BoxProps {
+    fontWeight?: string;
+    border?: number | string;
+    borderColor?: string;
+    borderRadius?: number | string;
+    variant?: string;
 }
-type ButtonClass = React.StatelessComponent<ButtonProps>;
-export declare const Button: ButtonClass;
+export const Button: React.FunctionComponent<ButtonProps>;
 
-export interface CardProps extends BaseProps<CardClass> {
-  border?: number;
-  borderColor?: string;
-  borderRadius?: number;
-  boxShadow?: string;
-  bg?: string;
-  backgroundImage?: string;
-  backgroundSize?: string;
-  backgroundPosition?: string;
-  backgroundRepeat?: string;
-  opacity?: number;
-  fontSize?: number | number[];
-  fontWeight?: string;
-  width?: number | number[];
+export interface CardProps extends BoxProps {
+    border?: number | string;
+    borderColor?: string;
+    borderRadius?: number | string;
+    boxShadow?: string;
+    backgroundImage?: string;
+    backgroundSize?: string;
+    backgroundPosition?: string;
+    backgroundRepeat?: string;
+    opacity?: number;
+    variant?: string;
 }
-type CardClass = React.StatelessComponent<CardProps>;
-export declare const Card: CardClass;
+export const Card: React.FunctionComponent<CardProps>;
 
-export interface FlexProps extends BaseProps<FlexClass> {
-  alignItems?: string;
-  justifyContent?: string,
-  flexDirection?: string,
-  flexWrap?: string,
-  width?: number | number[];
+export interface FlexProps extends BoxProps {
+    alignItems?: string;
+    justifyContent?: string;
+    flexDirection?: string;
+    flexWrap?: string;
 }
-type FlexClass = React.StatelessComponent<FlexProps>
-export declare const Flex: FlexClass;
+export const Flex: React.FunctionComponent<FlexProps>;
 
-export interface HeadingProps extends BaseProps<ImageClass> {
-  fontSize?: number | number[];
-  fontWeight?: string;
-  color?: string;
-  fontFamily?: string;
-  textAlign?: string;
-  lineHeight?: number;
-  letterSpacing?: number;
-}
-type HeadingClass = React.StatelessComponent<HeadingProps>
-export declare const Heading: HeadingClass;
-
-export interface ImageProps extends BaseProps<ImageClass> {
-    height?: number;
-    borderRadius?: number;
+export interface ImageProps extends BoxProps {
+    height?: number | string;
+    borderRadius?: number | string;
     src?: string;
     alt?: string;
-    width?: number | number[];
 }
-type ImageClass = React.StatelessComponent<ImageProps>
-export declare const Image: ImageClass;
+export const Image: React.FunctionComponent<ImageProps>;
 
-export interface LinkProps extends BaseProps<LinkClass> {
-  href?: string;
+export interface LinkProps extends BoxProps {
+    href?: string;
 }
-type LinkClass = React.StatelessComponent<LinkProps>
-export declare const Link: LinkClass;
+export const Link: React.FunctionComponent<LinkProps>;
 
-export interface TextProps extends BaseProps<ImageClass> {
-  fontSize?: number | number[];
-  fontWeight?: string;
-  color?: string;
-  fontFamily?: string;
-  textAlign?: string;
-  lineHeight?: number;
-  letterSpacing?: number;
+export interface TextProps extends BoxProps {
+    fontSize?: number | ReadonlyArray<number>;
+    fontWeight?: string;
+    color?: string;
+    fontFamily?: string;
+    textAlign?: string;
+    lineHeight?: number | string;
+    letterSpacing?: number | string;
 }
-type TextClass = React.StatelessComponent<TextProps>
-export declare const Text: TextClass;
+export const Text: React.FunctionComponent<TextProps>;
+
+export type HeadingProps = TextProps;
+export const Heading: React.FunctionComponent<HeadingProps>;

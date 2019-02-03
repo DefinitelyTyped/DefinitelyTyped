@@ -220,7 +220,7 @@ barcode.setProduct(product, { save: true }).then(() => { });
 
 barcode.createProduct();
 barcode.createProduct({ id: 1, name: 'Crowbar' });
-barcode.createProduct({ id: 1 }, { save: true, silent: true }).then((product) => { });
+barcode.createProduct({ id: 1 }, { save: true, silent: true }).then((product: ProductInstance) => { });
 
 product.getWarehouse();
 product.getWarehouse({ scope: null }).then(w => w.capacity);
@@ -365,7 +365,7 @@ interface ProductInstance extends Sequelize.Instance<ProductAttributes>, Product
     // belongsTo association mixins:
     getWarehouse: Sequelize.BelongsToGetAssociationMixin<WarehouseInstance>;
     setWarehouse: Sequelize.BelongsToSetAssociationMixin<WarehouseInstance, number>;
-    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
+    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes, WarehouseInstance>;
 };
 
 interface BarcodeAttributes {
@@ -378,7 +378,7 @@ interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, Barcode
     // belongsTo association mixins:
     getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
     setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
-    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes>;
+    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes, ProductInstance>;
 };
 
 interface WarehouseAttributes {
@@ -838,6 +838,8 @@ user.previous();
 user.save().then( ( p ) => p );
 user.save( { fields : ['a'] } ).then( ( p ) => p );
 user.save( { transaction : t } );
+user.save( { hooks: false } );
+user.save( { hooks: true } );
 
 user.reload();
 user.reload( { attributes : ['bNumber'] } );
@@ -946,6 +948,8 @@ User.findAll( { where : { user_id : 1 }, attributes : ['a', 'b'], include : [{ m
 User.findAll( { order : s.literal( 'email =' ) } );
 User.findAll( { order : [s.literal( 'email = ' + s.escape( 'test@sequelizejs.com' ) )] } );
 User.findAll( { order : [['id', ';DELETE YOLO INJECTIONS']] } );
+User.findAll( { order : s.random() } );
+User.findAll( { order : [s.random()] } );
 User.findAll( { include : [User], order : [[User, 'id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id', 'DESC NULLS FIRST']] } );
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
@@ -980,6 +984,10 @@ User.findById( Buffer.from('a buffer') );
 User.findByPrimary( 'a string' );
 User.findByPrimary( 42 );
 User.findByPrimary( Buffer.from('a buffer') );
+
+User.findByPk( 'a string' );
+User.findByPk( 42 );
+User.findByPk( Buffer.from('a buffer') );
 
 User.findOne( { where : { username : 'foo' } } );
 User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } );

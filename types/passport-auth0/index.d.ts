@@ -2,6 +2,7 @@
 // Project: https://github.com/auth0/passport-auth0
 // Definitions by: John Umeh <https://github.com/johnbendi>
 //                 Vishnu Sankar <https://github.com/iamvishnusankar>
+//                 Duncan Hall <https://github.com/duncanhall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,6 +37,7 @@ export interface StrategyOption {
     scopeSeparator?: string;
     enableProof?: boolean;
     profileFields?: string[];
+    state?: boolean;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {

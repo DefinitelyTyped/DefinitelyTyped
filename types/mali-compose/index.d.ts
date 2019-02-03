@@ -2,7 +2,7 @@
 // Project: https://github.com/malijs/mali-compose
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { Context } from "mali";
 

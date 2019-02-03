@@ -12,6 +12,17 @@ function test_quill() {
     });
 }
 
+function test_quill_opts() {
+    const quillEditor = new Quill('#editor', {
+        modules:
+        {
+            toolbar: { container: "#toolbar" }
+        },
+        theme: 'snow',
+        debug: true,
+    });
+}
+
 function test_scroll() {
     const quillEditor = new Quill('#editor');
     const blot: Blot = quillEditor.scroll;

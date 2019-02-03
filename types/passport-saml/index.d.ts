@@ -1,7 +1,8 @@
-// Type definitions for passport-saml 0.15
+// Type definitions for passport-saml 1.0
 // Project: https://github.com/bergie/passport-saml
 // Definitions by: Chris Barth <https://github.com/cjbarth>
 //                 Damian Assennato <https://github.com/dassennato>
+//                 Karol Samborski <https://github.com/ksamborski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -29,8 +30,10 @@ export class Strategy extends passport.Strategy {
     constructor(config: SamlConfig, verify: VerifyWithRequest | VerifyWithoutRequest);
     authenticate(req: express.Request, options: AuthenticateOptions | AuthorizeOptions): void;
     logout(req: express.Request, callback: (err: Error | null, url: string) => void): void;
-    generateServiceProviderMetadata(decryptionCert: string): string;
+    generateServiceProviderMetadata(decryptionCert?: string, signingCert?: string): string;
 }
+
+export type CertCallback = (callback: (err: Error | null, cert?: string | string[]) => void) => void;
 
 export interface SamlConfig {
     // Core
@@ -41,7 +44,7 @@ export interface SamlConfig {
     entryPoint: string;
     issuer: string;
     privateCert?: string;
-    cert?: string;
+    cert?: string | string[] | CertCallback;
     decryptionPvk?: string;
     signatureAlgorithm?: 'sha1' | 'sha256' | 'sha512';
 

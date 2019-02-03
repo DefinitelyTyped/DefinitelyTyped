@@ -14,7 +14,6 @@ let strOrTrueOrUndef: string | true | undefined;
 const buffer: Buffer = new Buffer('foo');
 let num = 0;
 let bool: boolean;
-let date: Date;
 let obj: object;
 const dest = 'foo';
 
@@ -58,8 +57,8 @@ obj = req.toJSON();
 let cookie: request.Cookie = request.cookie('foo')!;
 str = cookie.key;
 str = cookie.value;
-date = cookie.expires;
-str = cookie.path;
+const expires: Date | 'Infinity' = cookie.expires;
+const cpath: string | null = cookie.path;
 str = cookie.toString();
 bool = cookie.httpOnly;
 
@@ -550,7 +549,9 @@ request.get(options);
 request.get({
     url: 'https://api.some-server.com/',
     agentOptions: {
-        secureProtocol: 'SSLv3_method'
+        secureProtocol: 'SSLv3_method',
+        maxCachedSessions: 3,
+        keepAlive: true,
     }
 });
 
@@ -626,25 +627,26 @@ request.get('http://10.255.255.1', {timeout: 1500}, (err) => {
 });
 
 const rand = Math.floor(Math.random() * 100000000).toString();
-  request(
-    { method: 'PUT'
-    , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
-    , multipart:
-      [ { headers: { 'content-type': 'application/json' }
-        , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
-        }
-      , { body: 'I am an attachment' }
-      ]
+
+request(
+{ method: 'PUT'
+, uri: 'http://mikeal.iriscouch.com/testjs/' + rand
+, multipart:
+    [ { headers: { 'content-type': 'application/json' }
+    , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
     }
-  , (error, response, body) => {
-      if (response.statusCode === 201) {
-        console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
-      } else {
-        console.log('error: ' + response.statusCode);
-        console.log(body);
-      }
+    , { body: 'I am an attachment' }
+    ]
+}
+, (error, response, body) => {
+    if (response.statusCode === 201) {
+    console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
+    } else {
+    console.log('error: ' + response.statusCode);
+    console.log(body);
     }
-  );
+}
+);
 
 request(
     { method: 'GET'

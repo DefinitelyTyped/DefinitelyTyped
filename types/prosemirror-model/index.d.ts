@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.5
+// Type definitions for prosemirror-model 1.7
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -1240,6 +1240,11 @@ export interface NodeSpec {
    * parsing rules in your schema.
    */
   parseDOM?: ParseRule[] | null;
+  /**
+   * Defines the default way a node of this type should be serialized
+   * to a string representation for debugging (e.g. in error messages).
+   */
+  toDebugString?: ((node: ProsemirrorNode) => string) | null;
 }
 export interface MarkSpec {
   /**
@@ -1272,6 +1277,11 @@ export interface MarkSpec {
    * The group or space-separated groups to which this mark belongs.
    */
   group?: string | null;
+  /**
+   * Determines whether marks of this type can span multiple adjacent
+   * nodes when serialized to DOM/HTML. Defaults to true.
+   */
+  spanning?: boolean | null;
   /**
    * Defines the default way marks of this type should be serialized
    * to DOM/HTML.
@@ -1323,7 +1333,7 @@ export class Schema<N extends string = any, M extends string = any> {
   /**
    * A map from mark names to mark type objects.
    */
-  marks: { [name in M]: MarkType<Schema<N, M>> } & { [key: string]: NodeType<Schema<N, M>> };
+  marks: { [name in M]: MarkType<Schema<N, M>> } & { [key: string]: MarkType<Schema<N, M>> };
   /**
    * The type of the [default top node](#model.SchemaSpec.topNode)
    * for this schema.

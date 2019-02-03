@@ -1,13 +1,14 @@
 // Type definitions for mailgun-js 0.16
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
+//                 Andi Pätzold <https://github.com/andipaetzold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
 
-declare const out: Mailgun.MailgunExport;
-export = out;
+declare const Mailgun: Mailgun.MailgunExport;
+export = Mailgun;
 
 declare namespace Mailgun {
     interface ConstructorParams {
@@ -41,14 +42,15 @@ declare namespace Mailgun {
         contentType?: string;
     }
 
-    class Attachment {
-        constructor(params: AttachmentParams);
+    interface Attachment {
         data: string | Buffer | NodeJS.ReadWriteStream;
         filename?: string;
         knownLength?: number;
         contentType?: string;
         getType(): string;
     }
+
+    type AttachmentData = string | Buffer | NodeJS.ReadWriteStream | Attachment;
 
     interface MailgunExport {
         new (options: ConstructorParams): Mailgun;
@@ -64,7 +66,8 @@ declare namespace Mailgun {
             subject?: string;
             text?: string;
             html?: string;
-            attachment?: string | Buffer | NodeJS.ReadWriteStream | Attachment;
+            attachment?: AttachmentData | ReadonlyArray<AttachmentData>;
+            inline?: AttachmentData | ReadonlyArray<AttachmentData>;
         }
 
         interface BatchData extends SendData {
@@ -126,30 +129,54 @@ declare namespace Mailgun {
             unparseable: string[];
         }
 
+        type ValidationCallback = (error: Error, body: ValidateResponse) => void;
+
+        interface ValidationOptionsPublic {
+            api_key?: string;
+            mailbox_verification?: boolean | "true" | "false";
+        }
+
+        interface ValidationOptionsPrivate {
+            mailbox_verification?: boolean | "true" | "false";
+        }
+
         interface ValidateResponse {
+            address: string;
+            did_you_mean: string | null;
+            is_disposable_address: boolean;
+            is_role_address: boolean;
             is_valid: boolean;
+            mailbox_verification: "true" | "false" | "unknown" | null;
+            parts: {
+                display_name: string | null;
+                domain: string;
+                local_part: string;
+            };
         }
     }
 
     interface Mailgun {
         messages(): Messages;
         lists(list: string): Lists;
-        Attachment: typeof Attachment;
+        Attachment: new (params: AttachmentParams) => Attachment;
         validateWebhook(
             bodyTimestamp: number,
             bodyToken: string,
             bodySignature: string
         ): boolean;
 
-        parse(
-            addressList: string[],
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ParseResponse>;
+        parse(addressList: string[], callback?: validation.ValidationCallback): Promise<validation.ParseResponse>;
 
-        validate(
-            address: string,
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ValidateResponse>;
+        validate(address: string, callback: validation.ValidationCallback): void;
+        validate(address: string, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
+        // tslint:disable-next-line unified-signatures
+        validate(address: string, isPrivate: boolean, callback: validation.ValidationCallback): void;
+        validate(address: string, isPrivate: false, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
+        validate(address: string, isPrivate: true, opts: validation.ValidationOptionsPrivate, callback: validation.ValidationCallback): void;
+
+        validate(address: string, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
+        validate(address: string, isPrivate: false, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
+        validate(address: string, isPrivate: true, opts?: validation.ValidationOptionsPrivate): Promise<validation.ValidateResponse>;
     }
 
     interface Lists {

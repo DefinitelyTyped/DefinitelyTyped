@@ -1,4 +1,4 @@
-// Type definitions for Sinon 5.0
+// Type definitions for Sinon 7.0
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
@@ -7,6 +7,9 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Greg Jednaszewski <https://github.com/gjednaszewski>
+//                 John Wood <https://github.com/johnjesse>
+//                 Alec Flett <https://github.com/alecf>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -349,7 +352,7 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T>(obj: T, method: keyof T): SinonSpy;
+        <T>(obj: T, method: keyof T, types?: string[]): SinonSpy;
     }
 
     interface SinonStub extends SinonSpy {
@@ -404,6 +407,10 @@ declare namespace Sinon {
          * If the argument at the provided index is not available, a TypeError will be thrown.
          */
         resolvesArg(index: number): SinonStub;
+        /**
+         * Causes the stub to return a Promise which resolves to its this value.
+         */
+        resolvesThis(): SinonStub;
         /**
          * Causes the stub to throw an exception (Error).
          * @param type
@@ -1352,6 +1359,10 @@ declare namespace Sinon {
          * Requires the value to be a Symbol.
          */
         symbol: SinonMatcher;
+        /**
+         * Requires the value to be in the specified array.
+         */
+        in(allowed: any[]): SinonMatcher;
         /**
          * Requires the value to strictly equal ref.
          */
