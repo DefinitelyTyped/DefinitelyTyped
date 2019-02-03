@@ -608,7 +608,7 @@ const testObject = {
 };
 
 const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
-const p2: Array<Date | number[]> = d3Array.permute(testObject, ['when', 'more']);
+const p2: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['when', 'more']);
 // $ExpectError
 const p3 = d3Array.permute(testObject, ['when', 'unknown']);
 
@@ -779,7 +779,7 @@ histoMixedObject_Date = histoMixedObject_Date.domain(timeScale.domain()); // fai
 domainFnDate = histoMixedObject_Date.domain();
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([domain[0], domain[domain.length]]);
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) => [values[0]!, values[values.length]!]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) =>  [values[0]!, values[values.length]!]);
 
 // thresholds(...) -------------------------------------------------------------
 
