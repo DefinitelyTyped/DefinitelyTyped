@@ -26,7 +26,7 @@ declare module "crypto" {
     interface Credentials { context?: any; }
     function createCredentials(details: CredentialDetails): Credentials;
     function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
-    function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Hmac;
+    function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView | KeyObject, options?: stream.TransformOptions): Hmac;
 
     type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
     type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
@@ -46,6 +46,18 @@ declare module "crypto" {
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
+
+    interface KeyObject {
+        asymmetricKeyType?: KeyType;
+        export(options?: {
+            type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1',
+            format: KeyFormat,
+            cipher?: string,
+            passphrase?: string
+        }): string | Buffer;
+        symmetricSize: number;
+        type: 'secret' | 'public' | 'private';
+    }
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
     interface CipherCCMOptions extends stream.TransformOptions {
@@ -61,9 +73,21 @@ declare module "crypto" {
     /** @deprecated since v10.0.0 use createCipheriv() */
     function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
 
-    function createCipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
-    function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
-    function createCipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
+    function createCipheriv(
+        algorithm: CipherCCMTypes,
+        key: string | Buffer | NodeJS.TypedArray | DataView | KeyObject,
+        iv: string | Buffer | NodeJS.TypedArray | DataView,
+        options: CipherCCMOptions
+    ): CipherCCM;
+    function createCipheriv(
+        algorithm: CipherGCMTypes,
+        key: string | Buffer | NodeJS.TypedArray | DataView | KeyObject,
+        iv: string | Buffer | NodeJS.TypedArray | DataView,
+        options?: CipherGCMOptions
+    ): CipherGCM;
+    function createCipheriv(
+        algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView | KeyObject, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions
+    ): Cipher;
 
     interface Cipher extends NodeJS.ReadWriteStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
@@ -128,19 +152,39 @@ declare module "crypto" {
         setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plaintextLength: number }): this;
     }
 
+    interface PrivateKeyInput {
+        key: string | Buffer;
+        format?: KeyFormat;
+        type?: 'pkcs1' | 'spki';
+        passphrase?: string | Buffer;
+    }
+
+    interface PublicKeyInput {
+        key: string | Buffer;
+        format?: KeyFormat;
+        type?: 'pkcs1' | 'spki';
+    }
+
+    function createPrivateKey(key: PrivateKeyInput | string | Buffer): KeyObject;
+    function createPublicKey(key: PublicKeyInput | string | Buffer): KeyObject;
+    function createSecretKey(key: Buffer): KeyObject;
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
+
+    interface PrivateKeyInputForSigning extends PrivateKeyInput {
+        saltLength?: number;
+    }
     interface Signer extends NodeJS.WritableStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: string | { key: string; passphrase?: string, padding?: number, saltLength?: number }): Buffer;
-        sign(private_key: string | { key: string; passphrase?: string, padding?: number, saltLength?: number }, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: PrivateKeyInputForSigning | string | Buffer | KeyObject): Buffer;
+        sign(private_key: PrivateKeyInputForSigning | string | Buffer | KeyObject, output_format: HexBase64Latin1Encoding): string;
     }
     function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
     interface Verify extends NodeJS.WritableStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: string | Object, signature: Buffer | NodeJS.TypedArray | DataView): boolean;
-        verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        verify(object: Object | string | Buffer | KeyObject, signature: Buffer | NodeJS.TypedArray | DataView): boolean;
+        verify(object: Object | string | Buffer | KeyObject, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
@@ -212,18 +256,18 @@ declare module "crypto" {
     function scryptSync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, options?: ScryptOptions): Buffer;
 
     interface RsaPublicKey {
-        key: string;
+        key: string | Buffer | KeyObject;
         padding?: number;
     }
     interface RsaPrivateKey {
-        key: string;
+        key: string | Buffer | KeyObject;
         passphrase?: string;
         padding?: number;
     }
-    function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    function publicEncrypt(public_key: RsaPublicKey | string | Buffer | KeyObject, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    function privateDecrypt(private_key: RsaPrivateKey | string | Buffer | KeyObject, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    function privateEncrypt(private_key: RsaPrivateKey | string | Buffer | KeyObject, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    function publicDecrypt(public_key: RsaPublicKey | string | Buffer | KeyObject, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
     function getCiphers(): string[];
     function getCurves(): string[];
     function getHashes(): string[];
