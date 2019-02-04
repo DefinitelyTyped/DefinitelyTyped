@@ -40,6 +40,7 @@ export type InputProps<T = {}> = React.InputHTMLAttributes<HTMLInputElement> & {
   addon?: boolean;
   className?: string;
   cssModule?: CSSModule;
+  rows?: number;
 } & T;
 
 declare class Input<T> extends React.Component<InputProps<T>> {}
