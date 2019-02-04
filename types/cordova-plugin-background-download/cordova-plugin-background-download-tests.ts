@@ -11,7 +11,7 @@
 			const onError = (err: any) => {
 				console.log(err);
 			};
-			const onProgress = (progress: BackgroundDownloadProgress) => {
+			const onProgress = (progress: BackgroundTransfer.Progress) => {
 				console.log((100 * progress.bytesReceived / progress.totalBytesToReceive) + '%');
 			};
 
