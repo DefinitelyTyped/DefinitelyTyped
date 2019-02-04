@@ -332,6 +332,14 @@ InteractionManager.runAfterInteractions(() => {
 }).then(() => "done");
 
 export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
+    list: FlatList<any> | null = null;
+
+    componentDidMount(): void {
+        if (this.list) {
+            this.list.flashScrollIndicators();
+        }
+    }
+
     _renderItem = (rowData: any) => {
         return (
             <View>
@@ -345,6 +353,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     render() {
         return (
             <FlatList
+                ref={list => (this.list = list)}
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}

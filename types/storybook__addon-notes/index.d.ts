@@ -17,5 +17,9 @@ export type WithNotesOptions = string | {
     markdownOptions?: MarkedOptions;
 };
 
+// It would be preferable to infer the argument types, but that requires TS v 3.1
+// export function withNotes(...args: StoryDecorator extends (...a: infer A) => any ? A : never): ReturnType<StoryDecorator>;
+export function withNotes(story: RenderFunction, context: { kind: string, story: string }): ReturnType<StoryDecorator>;
+// Less-preferred but still supported:
 export function withNotes(options?: WithNotesOptions): StoryDecorator;
 export function withMarkdownNotes(markdown: string, options?: MarkedOptions): StoryDecorator;

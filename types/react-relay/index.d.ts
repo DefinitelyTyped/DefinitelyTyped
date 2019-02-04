@@ -6,6 +6,7 @@
 //                 Nicolas Pirotte <https://github.com/npirotte>
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Kaare Hoff Skovgaard <https://github.com/kastermester>
+//                 Matt Krick <https://github.com/mattkrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -131,14 +132,14 @@ export interface PageInfo {
 }
 export interface ConnectionData {
     edges?: ReadonlyArray<any>;
-    pageInfo?: Partial<PageInfo>;
+    pageInfo?: Partial<PageInfo> | null;
 }
 export type RelayPaginationProp = RelayProp & {
     hasMore(): boolean;
     isLoading(): boolean;
     loadMore(
         pageSize: number,
-        callback: (error?: Error) => void,
+        callback?: ((error?: Error) => void) | null,
         options?: RefetchOptions
     ): RelayRuntimeTypes.Disposable | undefined | null;
     refetchConnection(
