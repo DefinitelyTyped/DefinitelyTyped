@@ -366,8 +366,9 @@ const spy3Mock = spy3
     .mockRejectedValueOnce("value");
 
 let spy4: jest.SpyInstance;
+// $ExpectType SpyInstance<string, [void]>
 spy4 = jest.spyOn(spiedTarget, "returnsString");
-// compiles because spy4 is declared as jest.SpyInstance<{}, any>
+// compiles because spy4 is declared as jest.SpyInstance<any, any>
 spy4.mockImplementation(() => 1);
 spy4.mockRestore();
 
@@ -378,9 +379,6 @@ spy5.mockReturnValue('5');
 
 // $ExpectType SpyInstance<void, [number]>
 const spy6 = jest.spyOn(spiedTarget2, "value", "set");
-
-let spy7: jest.SpyInstance;
-spy7 = jest.spyOn(spiedTarget, "setValue");
 
 // should compile
 jest.fn().mockImplementation((test: number) => test);
