@@ -1,4 +1,4 @@
-// Type definitions for force-graph 1.x
+// Type definitions for force-graph >= 1.14
 // Project: https://github.com/vasturiano/force-graph
 // Definitions by: Peter Kimberley <https://github.com/p-kimberley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -64,6 +64,14 @@ declare namespace ForceGraph {
 
     type DagMode = 'td' | 'bu' | 'lr' | 'rl' | 'radialout' | 'radialin';
     type ForceFn = (node: { x: number, y: number }) => number;
+
+    /**
+     * Represents ForceGraph runtime object
+     * @example:
+     *  let forceGraph = ForceGraph();
+     *  forceGraph(myHtmlElement);
+     *  forceGraph.graphData([])
+     */
 
     interface ForceGraphInstance {
         (element: HTMLElement): ForceGraphInstance;
