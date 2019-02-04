@@ -33,8 +33,8 @@ const {
 
 // getLinkTags
 {
-    // Should return an arary of strings
-    const tags: string[] = getLinkTags();
+    // Should return a string
+    const tags: string = getLinkTags();
 }
 
 // getScriptElements
@@ -45,8 +45,8 @@ const {
 
 // getScriptTags
 {
-    // Should return an arary of strings
-    const tags: string[] = getScriptTags();
+    // Should return a string
+    const tags: string = getScriptTags();
 }
 
 // getStyleElements
@@ -57,8 +57,8 @@ const {
 
 // getStyleTags
 {
-    // Should return an arary of strings
-    const tags: string[] = getStyleTags();
+    // Should return a string
+    const tags: string = getStyleTags();
 }
 
 // requireEntrypoint
