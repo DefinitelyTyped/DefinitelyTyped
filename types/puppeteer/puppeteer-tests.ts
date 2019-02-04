@@ -513,3 +513,31 @@ puppeteer.launch().then(async browser => {
     });
   });
 });
+
+// evaluate returns type of inner function
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const s = await page.evaluate(() => document.body.innerHTML);
+  console.log('body html has length', s.length);
+});
+
+// even through a double promise.
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const s = await page.evaluate(() => Promise.resolve(document.body.innerHTML));
+  console.log('body html has length', s.length);
+});
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const s = await page
+    .waitForFunction(
+      (searchStrs: string[]) => searchStrs.find(v => document.body.innerText.includes(v)),
+      { timeout: 2000 },
+      ['once', 'upon', 'a', 'midnight', 'dreary'])
+    .then(j => j.jsonValue());
+  console.log('found in page', s.toLowerCase());
+});
