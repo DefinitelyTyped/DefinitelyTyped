@@ -80,7 +80,8 @@ import {
   Table,
   Tag,
   Tooltip,
-  Spinner
+  Spinner,
+  UncontrolledPopover,
 } from 'reactstrap';
 
 // --------------- Alert
@@ -4336,4 +4337,19 @@ function Example125() {
       <Spinner className="customClass" />
     </div>
   );
+}
+
+function Example126() {
+    return (
+        <div>
+            <UncontrolledPopover placement="bottom" target="UncontrolledPopover">
+                <PopoverHeader>Popover Title</PopoverHeader>
+                <PopoverBody>Lorem ipsum dolor sit amet</PopoverBody>
+            </UncontrolledPopover>
+            <UncontrolledPopover defaultOpen={true} placement="bottom" target="UncontrolledPopover">
+                <PopoverHeader>Popover Title</PopoverHeader>
+                <PopoverBody>Lorem ipsum dolor sit amet</PopoverBody>
+            </UncontrolledPopover>
+        </div>
+    );
 }
