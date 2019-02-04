@@ -446,6 +446,7 @@ export class ServerStyleSheet {
         readableStream: NodeJS.ReadableStream
     ): NodeJS.ReadableStream;
     readonly instance: this;
+    seal(): void;
 }
 
 type StyleSheetManagerProps =
