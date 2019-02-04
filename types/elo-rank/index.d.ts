@@ -3,7 +3,7 @@
 // Definitions by: Antonio Pavlinovic <https://github.com/apavlinovic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class EloRank {
+export default class EloRank {
 	constructor(kFactor?: number);
 	
 	setKFactor(kFactor: number): void;
