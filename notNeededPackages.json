@@ -565,6 +565,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "Fastify-JWT",
+            "typingsPackageName": "fastify-jwt",
+            "sourceRepoURL": "https://github.com/fastify/fastify-jwt",
+            "asOfVersion": "0.8.1"
+        },
+        {
             "libraryName": "fecha",
             "typingsPackageName": "fecha",
             "sourceRepoURL": "https://github.com/taylorhakes/fecha",
