@@ -12,7 +12,7 @@
 //                 obedm503 <https://github.com/obedm503>
 //                 anion155 <https://github.com/anion155>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 2.8
 
 declare namespace ReactIntl {
     type DateSource = Date | string | number;
