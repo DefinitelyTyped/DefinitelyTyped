@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "connect-history-api-fallback-tests.ts"
+        "connect-history-api-fallback-exclusions-tests.ts"
     ]
 }
