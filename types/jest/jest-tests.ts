@@ -366,7 +366,7 @@ const spy3Mock = spy3
     .mockRejectedValueOnce("value");
 
 let spy4: jest.SpyInstance;
-// $ExpectType SpyInstance<string, [void]>
+// $ExpectType SpyInstance<string, []>
 spy4 = jest.spyOn(spiedTarget, "returnsString");
 // compiles because spy4 is declared as jest.SpyInstance<any, any>
 spy4.mockImplementation(() => 1);
