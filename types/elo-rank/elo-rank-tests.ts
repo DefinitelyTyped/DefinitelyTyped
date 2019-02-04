@@ -1,6 +1,6 @@
 import EloRank from 'elo-rank';
 
-var test = new EloRank();
+const test = new EloRank();
 
 test.getKFactor(); // $ExpectType number
 test.getExpected(1200, 1500);  // $ExpectType number
