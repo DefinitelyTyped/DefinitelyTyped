@@ -1578,10 +1578,12 @@ declare namespace R {
         multiply(a: number): (b: number) => number;
 
         /**
-         * Moves an item, at index `from`, to index `to`, in a list of elements.
+         * Moves an item, at index `from`, to index `to`, in a `list` of elements.
          * A new list will be created containing the new elements order.
          */
-        move: CurriedFunction3<number, number, any[], any[]>;
+        move<T>(from: number, to: number, list: ReadonlyArray<T>): T[];
+        move(from: number, to: number): <T>(list: ReadonlyArray<T>) => T[];
+        move(from: number): (<T>(to: number, list: ReadonlyArray<T>) => T[]);
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly n parameters.
