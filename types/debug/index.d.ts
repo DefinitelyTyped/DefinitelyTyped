@@ -8,7 +8,7 @@
 
 declare var debug: debug.IDebug;
 
-export = debug;
+export default debug;
 export as namespace debug;
 
 declare namespace debug {
