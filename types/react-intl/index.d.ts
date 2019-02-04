@@ -10,8 +10,9 @@
 //                 Martin Raedlinger <https://github.com/formatlos>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 obedm503 <https://github.com/obedm503>
+//                 anion155 <https://github.com/anion155>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.3
 
 declare namespace ReactIntl {
     type DateSource = Date | string | number;
@@ -35,11 +36,11 @@ declare namespace ReactIntl {
 
     function addLocaleData(data: Locale[] | Locale): void;
 
-    interface Messages {
-        [key: string]: FormattedMessage.MessageDescriptor;
-    }
+    type Messages<Names extends keyof any = string> = {
+        [key in Names]: FormattedMessage.MessageDescriptor;
+    };
 
-    function defineMessages<T extends Messages>(messages: T): T;
+    function defineMessages<Names extends keyof any>(messages: Messages<Names>): Messages<Names>;
 
     interface IntlConfig {
         locale: React.Requireable<any>;
