@@ -176,7 +176,7 @@ export class ec {
 
     keyPair(options: ec.KeyPairOptions): ec.KeyPair;
     keyFromPrivate(priv: Buffer | string | ec.KeyPair, enc?: string): ec.KeyPair;
-    keyFromPublic(pub: Buffer | string | ec.KeyPair, enc?: string): ec.KeyPair;
+    keyFromPublic(pub: Buffer | string | {x: string, y: string} | ec.KeyPair, enc?: string): ec.KeyPair;
     genKeyPair(options?: ec.GenKeyPairOptions): ec.KeyPair;
     sign(msg: BNInput, key: Buffer | ec.KeyPair, enc: string, options?: ec.SignOptions): ec.Signature;
     sign(msg: BNInput, key: Buffer | ec.KeyPair, options?: ec.SignOptions): ec.Signature;
@@ -201,7 +201,7 @@ export namespace ec {
     }
 
     class KeyPair {
-        static fromPublic(ec: ec, pub: Buffer | string | KeyPair, enc?: string): KeyPair;
+        static fromPublic(ec: ec, pub: Buffer | string | {x: string, y: string} | KeyPair, enc?: string): KeyPair;
         static fromPrivate(ec: ec, priv: Buffer | string | KeyPair, enc?: string): KeyPair;
 
         ec: ec;
