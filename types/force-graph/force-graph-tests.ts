@@ -1,9 +1,10 @@
-import * as ForceGraph from 'force-graph';
+import ForceGraph from 'force-graph';
 
-const graph = ForceGraph(new HTMLElement());
+const graph = ForceGraph();
+graph(new HTMLElement());
 
 graph
-    .graphData([])
+    .graphData({nodes: [], links: []})
     .nodeId('testNode')
     .linkSource('source')
     .linkTarget('target')
