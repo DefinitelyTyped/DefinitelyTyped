@@ -90,5 +90,3 @@ graph
 
 // Test a property getter
 const nodeDraggingEnabled: boolean = graph.enableNodeDrag();
-if (typeof nodeDraggingEnabled !== "boolean")
-    throw new Error('ForceGraph.enableNodeDrag() did not return a result of type boolean as expected');
