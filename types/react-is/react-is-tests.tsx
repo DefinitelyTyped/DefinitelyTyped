@@ -6,7 +6,7 @@ import * as ReactIs from 'react-is';
 // Determining if a Component is Valid
 
 interface CompProps {
-    forwardedRef: React.Ref<any> | null;
+    forwardedRef: React.Ref<any>;
     children?: React.ReactNode;
 }
 

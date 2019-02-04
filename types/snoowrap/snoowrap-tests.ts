@@ -81,3 +81,7 @@ export function submissionSearch(query: string, subreddit: string): Promise<List
 export function subredditSearch(query: string): Promise<Listing<Subreddit>> {
   return r.searchSubreddits({ query });
 }
+
+export function getHotFromSubreddit(subreddit: string): Promise<Listing<Submission>> {
+  return r.getSubreddit(subreddit).getHot({ limit: 10 });
+}

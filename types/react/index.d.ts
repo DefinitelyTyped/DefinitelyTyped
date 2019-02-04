@@ -475,7 +475,7 @@ declare namespace React {
     }
 
     interface RefForwardingComponent<T, P = {}> {
-        (props: P & { children?: ReactNode }, ref: Ref<T> | null): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, ref: Ref<T>): ReactElement<any> | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
