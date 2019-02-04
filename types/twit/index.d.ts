@@ -5,6 +5,8 @@
 //                 abraham <https://github.com/abraham>
 //                 siwalik <https://github.com/siwalikm>
 //                 plhery <https://github.com/plhery>
+//                 justGoscha <https://github.com/justgoscha>
+//
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
