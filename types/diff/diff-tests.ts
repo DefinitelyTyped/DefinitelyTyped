@@ -86,18 +86,19 @@ function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: diff.Parsed
         throw new Error('Patch did not match uniDiff');
     }
 }
-function verifyApplyMethods(oldStr: string, newStr: string, uniDiff: diff.ParsedDiff) {
+function verifyApplyMethods(oldStr: string, newStr: string, uniDiffStr: string) {
+    const uniDiff = diff.parsePatch(uniDiffStr)[0];
     const verifyApply = [diff.applyPatch(oldStr, uniDiff), diff.applyPatch(oldStr, [uniDiff])];
-    diff.applyPatches([uniDiff], {
-        loadFile: (index, callback) => {
+    const options: diff.ApplyPatchesOptions = {
+        loadFile(index, callback) {
             index; // $ExpectType ParsedDiff
             callback(undefined, one);
         },
-        patched: (index, content) => {
+        patched(index, content) {
             index; // $ExpectType ParsedDiff
             verifyApply.push(content);
         },
-        complete: (err?: Error) => {
+        complete(err) {
             if (err) {
                 throw err;
             }
@@ -108,7 +109,16 @@ function verifyApplyMethods(oldStr: string, newStr: string, uniDiff: diff.Parsed
                 }
             });
         },
-    });
+        compareLine(_, line, operator, patchContent) {
+            if (operator === ' ') {
+                return true;
+            }
+            return line === patchContent;
+        },
+        fuzzFactor: 0
+    };
+    diff.applyPatches([uniDiff], options);
+    diff.applyPatches(uniDiffStr, options);
 }
 
 const uniDiffPatch = diff.structuredPatch('oldFile.ts', 'newFile.ts', one, other, 'old', 'new', {
@@ -117,5 +127,4 @@ const uniDiffPatch = diff.structuredPatch('oldFile.ts', 'newFile.ts', one, other
 verifyPatchMethods(one, other, uniDiffPatch);
 
 const uniDiffStr = diff.createPatch('file.ts', one, other, 'old', 'new', { context: 1 });
-const uniDiffApply = diff.parsePatch(uniDiffStr)[0];
-verifyApplyMethods(one, other, uniDiffApply);
+verifyApplyMethods(one, other, uniDiffStr);

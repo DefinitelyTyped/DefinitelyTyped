@@ -2236,7 +2236,20 @@ interface IObjectOptions {
 	 */
 	clipTo?: Function;
 
-	/**
+    /**
+     * A fabricObject that, without stroke define a clipping area with their shape. filled in black
+     * the clipPath object gets used when the object has rendered, and the context is placed in the center
+     * of the object cacheCanvas.
+     * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
+     */
+    clipPath?: Object;
+
+    /**
+     * When set to `true`, object's cache will be rerendered next render call.
+     */
+    dirty?: boolean;
+
+    /**
 	 * When `true`, object horizontal movement is locked
 	 */
 	lockMovementX?: boolean;
