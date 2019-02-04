@@ -19,5 +19,9 @@ export type PopoverProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   cssModule?: CSSModule;
 } & T;
 
+export type UncontrolledPopoverProps<T = {}> = PopoverProps<T> & {
+    defaultOpen?: boolean;
+};
+
 declare class Popover<T> extends React.Component<PopoverProps<T>> {}
 export default Popover;
