@@ -531,6 +531,35 @@ puppeteer.launch().then(async browser => {
   });
 });
 
+// evaluates return type of inner function
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const s = await page.evaluate(() => document.body.innerHTML);
+  console.log('body html has length', s.length);
+});
+
+// even through a double promise.
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const s = await page.evaluate(() => Promise.resolve(document.body.innerHTML));
+  console.log('body html has length', s.length);
+});
+
+// JSHandle.jsonValue produces compatible type
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const s = await page
+    .waitForFunction(
+      (searchStrs: string[]) => searchStrs.find(v => document.body.innerText.includes(v)),
+      { timeout: 2000 },
+      ['once', 'upon', 'a', 'midnight', 'dreary'])
+    .then(j => j.jsonValue());
+  console.log('found in page', s.toLowerCase());
+});
+
 // Element access
 (async () => {
   const browser = await puppeteer.launch();
@@ -546,4 +575,46 @@ puppeteer.launch().then(async browser => {
   await page.setExtraHTTPHeaders({
     a: '1'
   });
+});
+
+// ElementHandles are well-typed
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const link: puppeteer.JSHandle = await page.evaluateHandle(
+    () => document.body.querySelector('a')
+  );
+  const linkEl: puppeteer.ElementHandle | null = link.asElement();
+  if (linkEl !== null) {
+    const href = await page.evaluate(
+      (el: HTMLElement): string | null => el.getAttribute('href'),
+      linkEl);
+    console.log('href is', href);
+  }
+});
+
+// test $$eval return type
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const paragraphContents: string[] = await page.$$eval(
+    'p', (ps: Element[]): string[] => ps.map(p => p.textContent || ''));
+  console.log('pgraph contents', paragraphContents);
+});
+
+// JSHandle of non-serializable works
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const reHandle: puppeteer.JSHandle = await page.evaluateHandle(
+    () => /\s*bananas?\s*/i,
+  );
+  const numMatchingEls: number = await page.$$eval(
+    'p', (els: Element[], re: RegExp) =>
+      els.filter(el => el.textContent && re.test(el.textContent)).length,
+      reHandle
+  );
+  console.log('there are', numMatchingEls, 'banana paragaphs');
 });

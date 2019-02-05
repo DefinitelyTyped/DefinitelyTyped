@@ -70,8 +70,8 @@ let $grid = $('.grid').isotope({
 
 // test the ones not used in upper test
 $grid = $('.grid').isotope({
-    filter: (): boolean => {
-        return true;
+    filter: (itemElem): boolean => {
+        return itemElem ? true : false;
     },
     sortAscending: {
         key: true

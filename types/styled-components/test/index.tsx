@@ -472,6 +472,7 @@ const sheet = new ServerStyleSheet();
 const html = sheet.collectStyles(<SSRTitle>Hello world</SSRTitle>);
 const styleHtml = sheet.getStyleTags();
 const styleElement = sheet.getStyleElement();
+sheet.seal();
 
 const sheet2 = new ServerStyleSheet();
 const element = (
