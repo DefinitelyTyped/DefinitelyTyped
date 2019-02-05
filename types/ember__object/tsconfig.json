@@ -49,6 +49,7 @@
         "test/extend.ts",
         "test/object.ts",
         "test/observable.ts",
+        "test/proxy.ts",
         "test/reopen.ts"
     ]
 }
