@@ -1,4 +1,4 @@
-// Type definitions for react-flatpickr 3.6
+// Type definitions for react-flatpickr 3.7
 // Project: https://github.com/coderhaoxin/react-flatpickr
 // Definitions by: begincalendar <https://github.com/begincalendar>
 //                 snaveevans <https://github.com/snaveevans>
@@ -20,6 +20,7 @@ export interface DateTimePickerProps {
     onValueUpdate?: flatpickr.Options.Hook;
     onDayCreate?: flatpickr.Options.Hook;
     value?: string | Date | number | ReadonlyArray<string | Date | number>;
+    className?: string;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}

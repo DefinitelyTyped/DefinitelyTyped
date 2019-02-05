@@ -1,8 +1,9 @@
-// Type definitions for Leaflet.js 1.2
+// Type definitions for Leaflet.js 1.4
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
 //                 Michael Auer <https://github.com/mcauer>
+//                 Roni Karilkar <https://github.com/ronikar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -323,7 +324,7 @@ export abstract class Evented extends Class {
      * Note that if you passed a custom context to on, you must pass the same context
      * to off in order to remove the listener.
      */
-    removeEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
+    removeEventListener(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Alias for off(...)
@@ -578,6 +579,32 @@ export class ImageOverlay extends Layer {
 }
 
 export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
+
+export interface VideoOverlayOptions extends ImageOverlayOptions {
+    autoplay?: boolean;
+    loop?: boolean;
+}
+
+export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because ImageOverlay.getElement returns HTMLImageElement */
+    constructor(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions);
+    setOpacity(opacity: number): this;
+    bringToFront(): this;
+    bringToBack(): this;
+    setUrl(url: string): this;
+
+    /** Update the bounds that this VideoOverlay covers */
+    setBounds(bounds: LatLngBounds): this;
+
+    /** Get the bounds that this VideoOverlay covers */
+    getBounds(): LatLngBounds;
+
+    /** Get the video element that represents the VideoOverlay on the map */
+    getElement(): HTMLVideoElement | undefined;
+
+    options: VideoOverlayOptions;
+}
+
+export function videoOverlay(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions): VideoOverlay;
 
 export type LineCapShape = 'butt' | 'round' | 'square' | 'inherit';
 
@@ -1181,6 +1208,12 @@ export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     maxZoom?: number;
 }
 
+export interface PanInsideOptions {
+    paddingTopLeft?: PointExpression;
+    paddingBottomRight?: PointExpression;
+    padding?: PointExpression;
+}
+
 export interface LocateOptions {
     watch?: boolean;
     setView?: boolean;
@@ -1355,6 +1388,7 @@ export class Map extends Evented {
     setMaxBounds(bounds: LatLngBoundsExpression): this;
     setMinZoom(zoom: number): this;
     setMaxZoom(zoom: number): this;
+    panInside(latLng: LatLngExpression, options?: PanInsideOptions): this;
     panInsideBounds(bounds: LatLngBoundsExpression, options?: PanOptions): this;
     /**
      * Boolean for animate or advanced ZoomPanOptions

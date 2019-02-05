@@ -1,7 +1,10 @@
 import * as React from 'react';
 
-import { storiesOf } from '@storybook/react';
+import { addDecorator, storiesOf } from '@storybook/react';
 import { withNotes, withMarkdownNotes, } from '@storybook/addon-notes';
+
+// New, preferred global registration:
+addDecorator(withNotes);
 
 const SIMPLE_MARKDOWN = `
 ## Markdown for component

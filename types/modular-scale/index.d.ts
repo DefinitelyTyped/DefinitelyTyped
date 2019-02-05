@@ -8,7 +8,7 @@ export interface ModularScaleOptions {
     ratio?: number;
 
     /** The base font size (in pixels) to use for the type scale. Defaults to 16 */
-    base?: number;
+    base?: number | string;
 }
 
 export interface ModularScaleRatio {

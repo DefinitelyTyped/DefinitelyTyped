@@ -1,6 +1,8 @@
-// Type definitions for Mongoose 4.7.1
+// Type definitions for Mongoose 4.7.2
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, lukasz-zak <https://github.com/lukasz-zak>
+// Definitions by: simonxca <https://github.com/simonxca>
+//                 horiuchi <https://github.com/horiuchi>
+//                 lukasz-zak <https://github.com/lukasz-zak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

@@ -1,16 +1,11 @@
 {
     "files": [
-        "persistent/constants.d.ts",
-        "persistent/index.d.ts",
-        "persistent/foundation.d.ts",
-        "slidable/constants.d.ts",
-        "slidable/adapter.d.ts",
-        "slidable/index.d.ts",
-        "slidable/foundation.d.ts",
-        "temporary/constants.d.ts",
-        "temporary/index.d.ts",
-        "temporary/foundation.d.ts",
+        "dismissible/foundation.d.ts",
+        "modal/foundation.d.ts",
         "util.d.ts",
+        "adapter.d.ts",
+        "constants.d.ts",
+        "focus-trap.d.ts",
         "index.d.ts"
     ],
     "compilerOptions": {

@@ -488,7 +488,7 @@ DOM.svg({
 // --------------------------------------------------------------------------
 
 const mappedChildrenArray: number[] =
-    React.Children.map<number>(children, (child) => 42);
+    React.Children.map(children, (child: any) => 42);
 const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
 const mappedChildrenArrayWithKnownChildren: number[] =
     React.Children.map(childrenArray, (child) => child.props.p);
@@ -497,6 +497,23 @@ const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement<any> = React.Children.only(DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
+
+declare const numberChildren: number[];
+declare const elementChildren: JSX.Element[];
+declare const mixedChildren: Array<JSX.Element | string>;
+declare const singlePluralChildren: JSX.Element | JSX.Element[];
+declare const renderPropsChildren: () => JSX.Element;
+
+// $ExpectType number[]
+const mappedChildrenArray2 = React.Children.map(numberChildren, num => num);
+// $ExpectType Element[]
+const mappedChildrenArray3 = React.Children.map(elementChildren, element => element);
+// $ExpectType (string | Element)[]
+const mappedChildrenArray4 = React.Children.map(mixedChildren, elementOrString => elementOrString);
+// $ExpectType (string | number | null)[]
+const mappedChildrenArray5 = React.Children.map(singlePluralChildren, element => element.key);
+// $ExpectType string[]
+const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
 
 //
 // Example from http://facebook.github.io/react/
@@ -774,7 +791,7 @@ class RenderChildren extends React.Component {
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
 React.createElement(Memoized1, { foo: 'string' });
 
-const Memoized2 = React.memo(
+const Memoized2 = React.memo<{ bar: string }>(
     function Bar(props: { bar: string }) { return null; },
     (prevProps, nextProps) => prevProps.bar === nextProps.bar
 );

@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-12-26
+// Type definitions for Google Apps Script 2019-01-23
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -284,15 +284,13 @@ declare namespace GoogleAppsScript {
      *       // A simple INFO log message, using sprintf() formatting.
      *       console.info('Timing the %s function (%d arguments)', 'myFunction', 1);
      *
-     *       // Log a JSON object at a DEBUG level. The log is labeled
-     *       // with the message string in the log viewer, and the JSON content
-     *       // is displayed in the expanded log structure under "structPayload".
+     *       // Log a JSON object at a DEBUG level. Writes the stringified object to the log.
      *       var parameters = {
      *         isValid: true,
      *         content: 'some string',
      *         timestamp: new Date()
      *       };
-     *       console.log({message: 'Function Input', initialData: parameters});
+     *       console.log(parameters);
      *
      *       var label = 'myFunction() time';  // Labels the timing log entry.
      *       console.time(label);              // Starts the timer.
@@ -326,4 +324,3 @@ declare var Logger: GoogleAppsScript.Base.Logger;
 // conflicts with MimeType in lib.d.ts
 // declare var MimeType: GoogleAppsScript.Base.MimeType;
 declare var Session: GoogleAppsScript.Base.Session;
-declare var console: GoogleAppsScript.Base.console;

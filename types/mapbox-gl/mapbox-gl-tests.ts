@@ -50,7 +50,8 @@ map.on('load', function(){
 		"type": "symbol",
 		"source": "data",
 		"layout": {
-			"icon-image": "marker-15"
+			"icon-image": "marker-15",
+			"text-field": ['get', 'property']
 		}
 	});
 
@@ -788,3 +789,14 @@ expectType<mapboxgl.Map>(map.on('touchcancel', 'text', (ev) => {
 	expectType<mapboxgl.MapLayerTouchEvent>(ev);
 	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
 }));
+
+/*
+ * Expression
+ */
+expectType<mapboxgl.Expression>(['id']);
+expectType<mapboxgl.Expression>(['get', 'property']);
+expectType<mapboxgl.Expression>([
+	'format',
+	['concat', ['get', 'name'], '\n'], {},
+	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
+]);

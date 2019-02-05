@@ -1081,12 +1081,12 @@ declare global {
             setObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setObject(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
             /** Creates or overwrites an object in the object db */
-            setObjectAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            setObjectAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Creates an object in the object db. Existing objects are not overwritten. */
             setObjectNotExists(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setObjectNotExists(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
             /** Creates an object in the object db. Existing objects are not overwritten. */
-            setObjectNotExistsAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            setObjectNotExistsAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Get all states, channels and devices of this adapter */
             getAdapterObjects(callback: (objects: Record<string, ioBroker.Object>) => void): void;
             /** Get all states, channels and devices of this adapter */
@@ -1095,7 +1095,7 @@ declare global {
             extendObject(id: string, objPart: PartialObject, callback?: SetObjectCallback): void;
             extendObject(id: string, objPart: PartialObject, options: unknown, callback?: SetObjectCallback): void;
             /** Extend an object and create it if it might not exist */
-            extendObjectAsync(id: string, objPart: PartialObject, options?: unknown): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            extendObjectAsync(id: string, objPart: PartialObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /**
              * Deletes an object from the object db
              * @param id - The id of the object without namespace
@@ -1133,17 +1133,17 @@ declare global {
             setForeignObject(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setForeignObject(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
             /** Creates or overwrites an object (which might not belong to this adapter) in the object db */
-            setForeignObjectAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            setForeignObjectAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
             setForeignObjectNotExists(id: string, obj: ioBroker.SettableObject, callback?: SetObjectCallback): void;
             setForeignObjectNotExists(id: string, obj: ioBroker.SettableObject, options: unknown, callback?: SetObjectCallback): void;
             /** Creates an object (which might not belong to this adapter) in the object db. Existing objects are not overwritten. */
-            setForeignObjectNotExistsAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            setForeignObjectNotExistsAsync(id: string, obj: ioBroker.SettableObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
             extendForeignObject(id: string, objPart: PartialObject, callback?: SetObjectCallback): void;
             extendForeignObject(id: string, objPart: PartialObject, options: unknown, callback?: SetObjectCallback): void;
             /** Extend an object (which might not belong to this adapter) and create it if it might not exist */
-            extendForeignObjectAsync(id: string, objPart: PartialObject, options?: unknown): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            extendForeignObjectAsync(id: string, objPart: PartialObject, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /**
              * Finds an object by its ID or name
              * @param type - common.type of the state
@@ -1178,36 +1178,42 @@ declare global {
             setState(id: string, state: string | number | boolean | State | Partial<State>, options: unknown, callback?: SetStateCallback): void;
             setState(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown, callback?: SetStateCallback): void;
             /** Writes a value into the states DB. */
-            setStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<CallbackReturnTypeOf<SetStateCallback>>;
-            setStateAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<CallbackReturnTypeOf<SetStateCallback>>;
-            setStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<CallbackReturnTypeOf<SetStateCallback>>;
+            setStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
+            setStateAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
+            setStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             /** Writes a value into the states DB only if it has changed. */
             setStateChanged(id: string, state: string | number | boolean | State | Partial<State>, callback?: SetStateChangedCallback): void;
             setStateChanged(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, callback?: SetStateChangedCallback): void;
             setStateChanged(id: string, state: string | number | boolean | State | Partial<State>, options: unknown, callback?: SetStateChangedCallback): void;
             setStateChanged(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown, callback?: SetStateChangedCallback): void;
             /** Writes a value into the states DB only if it has changed. */
-            setStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<CallbackReturnTypeOf<SetStateChangedCallback>>;
-            setStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<CallbackReturnTypeOf<SetStateChangedCallback>>;
-            setStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<CallbackReturnTypeOf<SetStateChangedCallback>>;
+            setStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
             setForeignState(id: string, state: string | number | boolean | State | Partial<State>, callback?: SetStateCallback): void;
             setForeignState(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, callback?: SetStateCallback): void;
             setForeignState(id: string, state: string | number | boolean | State | Partial<State>, options: unknown, callback?: SetStateCallback): void;
             setForeignState(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown, callback?: SetStateCallback): void;
             /** Writes a value (which might not belong to this adapter) into the states DB. */
-            setForeignStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<CallbackReturnTypeOf<SetStateCallback>>;
-            setForeignStateAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<CallbackReturnTypeOf<SetStateCallback>>;
-            setForeignStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<CallbackReturnTypeOf<SetStateCallback>>;
+            setForeignStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
+            setForeignStateAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
+            setForeignStateAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, callback?: SetStateChangedCallback): void;
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, callback?: SetStateChangedCallback): void;
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, options: unknown, callback?: SetStateChangedCallback): void;
             setForeignStateChanged(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown, callback?: SetStateChangedCallback): void;
             /** Writes a value (which might not belong to this adapter) into the states DB only if it has changed. */
-            setForeignStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean): Promise<CallbackReturnTypeOf<SetStateChangedCallback>>;
-            setForeignStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, options?: unknown): Promise<CallbackReturnTypeOf<SetStateChangedCallback>>;
-            setForeignStateChangedAsync(id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown): Promise<CallbackReturnTypeOf<SetStateChangedCallback>>;
+            setForeignStateChangedAsync(
+                id: string, state: string | number | boolean | State | Partial<State>, ack?: boolean
+            ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setForeignStateChangedAsync(
+                id: string, state: string | number | boolean | State | Partial<State>, options?: unknown
+            ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
+            setForeignStateChangedAsync(
+                id: string, state: string | number | boolean | State | Partial<State>, ack: boolean, options: unknown
+            ): Promise<NonNullCallbackReturnTypeOf<SetStateChangedCallback>>;
             // tslint:enable:unified-signatures
 
             /** Read a value from the states DB. */
@@ -1266,7 +1272,7 @@ declare global {
              * @param binary The data to be written
              * @param options (optional) Some internal options.
              */
-            setBinaryStateAsync(id: string, binary: Buffer, options?: unknown): Promise<CallbackReturnTypeOf<SetStateCallback>>;
+            setBinaryStateAsync(id: string, binary: Buffer, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetStateCallback>>;
             /**
              * Reads a binary state from Redis
              * @param id The id of the state
@@ -1296,7 +1302,7 @@ declare global {
             getEnums(enumList: EnumList, callback: GetEnumsCallback): void;
             getEnums(enumList: EnumList, options: unknown, callback: GetEnumsCallback): void;
             /** Returns the enum tree, filtered by the optional enum name */
-            getEnumsAsync(enumList: EnumList, options?: unknown): Promise<CallbackReturnTypeOf<GetEnumsCallback>>;
+            getEnumsAsync(enumList: EnumList, options?: unknown): Promise<NonNullCallbackReturnTypeOf<GetEnumsCallback>>;
 
             addChannelToEnum(enumName: string, addTo: string, parentDevice: string, channelName: string, callback?: ErrorCallback): void;
             addChannelToEnum(enumName: string, addTo: string, parentDevice: string, channelName: string, options: unknown, callback?: ErrorCallback): void;
@@ -1327,19 +1333,39 @@ declare global {
             unsubscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
 
             /** Subscribe to changes of states in this instance */
-            subscribeStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeStates(pattern: string, callback?: ErrorCallback): void;
+            subscribeStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of states in this instance */
+            subscribeStatesAsync(pattern: string, options?: unknown): Promise<void>;
+
             /** Subscribe to changes of states (which might not belong to this adapter) */
-            subscribeForeignStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeForeignStates(pattern: string, callback?: ErrorCallback): void;
+            subscribeForeignStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of states (which might not belong to this adapter) */
+            subscribeForeignStatesAsync(pattern: string, options?: unknown): Promise<void>;
+
             /**
              * Subscribe from changes of states in this instance
              * @param pattern - Must match the pattern used to subscribe
              */
-            unsubscribeStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeStates(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Subscribe from changes of states in this instance
+             * @param pattern - Must match the pattern used to subscribe
+             */
+            unsubscribeStatesAsync(pattern: string, options?: unknown): Promise<void>;
             /**
              * Subscribe from changes of states (which might not belong to this adapter)
              * @param pattern - Must match the pattern used to subscribe
              */
-            unsubscribeForeignStates(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeForeignStates(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeForeignStates(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /**
+             * Subscribe from changes of states (which might not belong to this adapter)
+             * @param pattern - Must match the pattern used to subscribe
+             */
+            unsubscribeForeignStatesAsync(pattern: string, options?: unknown): Promise<void>;
 
             // ==============================
             // devices and channels
@@ -1351,9 +1377,9 @@ declare global {
             createDevice(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native: Record<string, any>, callback?: SetObjectCallback): void;
             createDevice(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native: Record<string, any>, options: unknown, callback?: SetObjectCallback): void;
             /** creates an object with type device */
-            createDeviceAsync(deviceName: string, common?: Partial<ioBroker.ObjectCommon>): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
-            createDeviceAsync(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native?: Record<string, any>): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
-            createDeviceAsync(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native: Record<string, any>, options?: unknown): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            createDeviceAsync(deviceName: string, common?: Partial<ioBroker.ObjectCommon>): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            createDeviceAsync(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native?: Record<string, any>): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
+            createDeviceAsync(deviceName: string, common: Partial<ioBroker.ObjectCommon>, native: Record<string, any>, options?: unknown): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** deletes a device, its channels and states */
             deleteDevice(deviceName: string, callback?: ErrorCallback): void;
             deleteDevice(deviceName: string, options: unknown, callback?: ErrorCallback): void;
@@ -1369,14 +1395,14 @@ declare global {
                 native: Record<string, any>, options: unknown, callback?: SetObjectCallback
             ): void;
             /** Creates an object with type channel. It must be located under a device */
-            createChannelAsync(parentDevice: string, channelName: string, roleOrCommon?: string | Partial<ioBroker.ChannelCommon>): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            createChannelAsync(parentDevice: string, channelName: string, roleOrCommon?: string | Partial<ioBroker.ChannelCommon>): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             createChannelAsync(
                 parentDevice: string, channelName: string, roleOrCommon: string | Partial<ioBroker.ChannelCommon>, native?: Record<string, any>
-            ): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             createChannelAsync(
                 parentDevice: string, channelName: string, roleOrCommon: string | Partial<ioBroker.ChannelCommon>, native: Record<string, any>,
                 options?: unknown
-            ): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Deletes a channel and its states. It must have been created with `createChannel` */
             deleteChannel(channelName: string, options?: unknown, callback?: ErrorCallback): void;
             deleteChannel(parentDevice: string, channelName: string, options?: unknown, callback?: ErrorCallback): void;
@@ -1400,15 +1426,17 @@ declare global {
             /**
              * Creates a state and the corresponding object. It must be located in a channel under a device
              */
-            createStateAsync(parentDevice: string, parentChannel: string, stateName: string, roleOrCommon?: string | Partial<ioBroker.StateCommon>): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            createStateAsync(
+                parentDevice: string, parentChannel: string, stateName: string, roleOrCommon?: string | Partial<ioBroker.StateCommon>
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             createStateAsync(
                 parentDevice: string, parentChannel: string, stateName: string, roleOrCommon: string | Partial<ioBroker.StateCommon>,
                 native?: Record<string, any>
-            ): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             createStateAsync(
                 parentDevice: string, parentChannel: string, stateName: string, roleOrCommon: string | Partial<ioBroker.StateCommon>,
                 native: Record<string, any>, options?: unknown
-            ): Promise<CallbackReturnTypeOf<SetObjectCallback>>;
+            ): Promise<NonNullCallbackReturnTypeOf<SetObjectCallback>>;
             /** Deletes a state. It must have been created with `createState` */
             deleteState(stateName: string, options?: unknown, callback?: ErrorCallback): void;
             deleteState(parentChannel: string, stateName: string, options?: unknown, callback?: ErrorCallback): void;
@@ -1498,7 +1526,7 @@ declare global {
              * @param adapterName - adapter name. If adapter name is null, default will be the name of the current adapter.
              * @param path - path to directory without adapter name. E.g. If you want to read "/vis.0/main/views.json", here must be "/main/views.json" and _adapter must be equal to "vis.0".
              */
-            readDirAsync(adapterName: string | null, path: string, options?: unknown): Promise<CallbackReturnTypeOf<ReadDirCallback>>;
+            readDirAsync(adapterName: string | null, path: string, options?: unknown): Promise<NonNullCallbackReturnTypeOf<ReadDirCallback>>;
 
             mkDir(adapterName: string | null, path: string, callback: ErrorCallback): void;
             mkDir(adapterName: string | null, path: string, options: unknown, callback: ErrorCallback): void;
@@ -1624,7 +1652,10 @@ declare global {
         type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: Array<GetObjectsItem<T>>) => void;
 
         type SecondParameterOf<T extends (...args: any[]) => any> = T extends (arg0: any, arg1: infer R, ...args: any[]) => any ? R : never;
-        type CallbackReturnTypeOf<T extends (...args: any[]) => any> = Exclude<SecondParameterOf<T>, null | undefined>;
+        /** Infers the return type from a callback-style API and strips out null and undefined */
+        type NonNullCallbackReturnTypeOf<T extends (...args: any[]) => any> = Exclude<SecondParameterOf<T>, null | undefined>;
+        /** Infers the return type from a callback-style API and and leaves null and undefined in */
+        type CallbackReturnTypeOf<T extends (...args: any[]) => any> = SecondParameterOf<T>;
         type GetStateCallback = (err: string | null, state: State | null | undefined) => void;
         type GetStatesCallback = (err: string | null, states: Record<string, State>) => void;
         /** Version of the callback used by States.getStates */

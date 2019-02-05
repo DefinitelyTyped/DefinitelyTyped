@@ -37,6 +37,7 @@ app.use(session({
             console.log(key);
         },
     },
+    path: "/",
 }, app));
 
 app.use((ctx, next) => {

@@ -34,7 +34,7 @@ const opts = {
     priorityRange: 5,
     autostart: false,
     evictionRunIntervalMillis: 200,
-    numTestsPerRun: 3,
+    numTestsPerEvictionRun: 3,
     softIdleTimeoutMillis: 100,
     idleTimeoutMillis: 5000
 };

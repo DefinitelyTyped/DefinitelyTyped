@@ -838,6 +838,8 @@ user.previous();
 user.save().then( ( p ) => p );
 user.save( { fields : ['a'] } ).then( ( p ) => p );
 user.save( { transaction : t } );
+user.save( { hooks: false } );
+user.save( { hooks: true } );
 
 user.reload();
 user.reload( { attributes : ['bNumber'] } );
@@ -920,6 +922,9 @@ User.findAll( { include : [{ model : Task, paranoid: false }] } );
 User.findAll( { transaction : t } );
 User.findAll( { where : { data : { name : { last : 's' }, employment : { $ne : 'a' } } }, order : [['id', 'ASC']] } );
 User.findAll( { where : { username : ['boo', 'boo2'] } } );
+User.findAll( { where : { username : Buffer.from("a name") } } );
+User.findAll( { where : { username : [Buffer.from("a name")] } } );
+User.findAll( { where : { username : [true] } } );
 User.findAll( { where : { username : { like : '%2' } } } );
 User.findAll( { where : { theDate : { '..' : ['2013-01-02', '2013-01-11'] } } } );
 User.findAll( { where : { intVal : { '!..' : [8, 10] } } } );

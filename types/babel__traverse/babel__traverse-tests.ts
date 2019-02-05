@@ -150,3 +150,8 @@ const VisitorStateTest: Visitor<SomeVisitorState> = {
         }
     }
 };
+
+const VisitorAliasTest: Visitor = {
+    Function() {},
+    Expression() {},
+};

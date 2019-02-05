@@ -33,6 +33,7 @@ import {
     ImageResolvedAssetSource,
     ImageBackground,
     InteractionManager,
+    Linking,
     ListView,
     ListViewDataSource,
     StyleSheet,
@@ -53,6 +54,9 @@ import {
     ScrollView,
     ScrollViewProps,
     SectionListRenderItemInfo,
+    Share,
+    ShareDismissedAction,
+    ShareSharedAction,
     Switch,
     RefreshControl,
     RegisteredStyle,
@@ -328,6 +332,14 @@ InteractionManager.runAfterInteractions(() => {
 }).then(() => "done");
 
 export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
+    list: FlatList<any> | null = null;
+
+    componentDidMount(): void {
+        if (this.list) {
+            this.list.flashScrollIndicators();
+        }
+    }
+
     _renderItem = (rowData: any) => {
         return (
             <View>
@@ -341,6 +353,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     render() {
         return (
             <FlatList
+                ref={list => (this.list = list)}
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
@@ -405,6 +418,12 @@ export class CapsLockComponent extends React.Component<TextProps> {
         return <Text {...this.props}>{content.toUpperCase()}</Text>;
     }
 }
+
+const getInitialUrlTest = () => Linking.getInitialURL().then(val => {
+    if (val !== null) {
+        val.indexOf('val is now a string');
+    }
+})
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -810,3 +829,17 @@ const NativeIDTest = () => (
         <Text nativeID={"nativeID"}>Text</Text>
     </ScrollView>
 );
+
+const ShareTest = () => {
+    Share.share(
+        { title: "title", message: "message" },
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red" }
+    );
+    Share.share({ title: "title", url: "url" });
+    Share.share({ message: "message" }).then(result => {
+        if (result.action === Share.sharedAction) {
+            const activity = result.activityType;
+        } else if (result.action === Share.dismissedAction) {
+        }
+    });
+};

@@ -15,6 +15,7 @@
 //                 Martin van Dam <https://github.com/mvdam>
 //                 Kacper Wiszczuk <https://github.com/esemesek>
 //                 Ryan Nickel <https://github.com/mrnickel>
+//                 Souvik Ghosh <https://github.com/souvik-ghosh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1013,6 +1014,10 @@ export interface TextInputIOSProps {
      * For iOS 11+ you can set `textContentType` to `username` or `password` to
      * enable autofill of login details from the device keychain.
      *
+     * For iOS 12+ `newPassword` can be used to indicate a new password input the
+     * user may want to save in the keychain, and `oneTimeCode` can be used to indicate
+     * that a field can be autofilled by a code arriving in an SMS.
+     *
      * To disable autofill, set textContentType to `none`.
      *
      * Possible values for `textContentType` are:
@@ -1043,6 +1048,8 @@ export interface TextInputIOSProps {
      *  - `'telephoneNumber'`
      *  - `'username'`
      *  - `'password'`
+     *  - `'newPassword'`
+     *  - `'oneTimeCode'`
      *
      */
     textContentType?:
@@ -1071,7 +1078,9 @@ export interface TextInputIOSProps {
         | "sublocality"
         | "telephoneNumber"
         | "username"
-        | "password";
+        | "password"
+        | "newPassword"
+        | "oneTimeCode";
 
     /**
      * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
@@ -4102,6 +4111,11 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
      * by taps on items or by navigation actions.
      */
     recordInteraction: () => void;
+
+    /**
+     * Displays the scroll indicators momentarily.
+     */
+    flashScrollIndicators: () => void;
 }
 
 /**
@@ -6709,6 +6723,17 @@ export type ShareOptions = {
     tintColor?: string;
 };
 
+export type ShareSharedAction = {
+    action: "sharedAction";
+    activityType?: string;
+};
+
+export type ShareDismissedAction = {
+    action: "dismissedAction"
+};
+
+export type ShareAction = ShareSharedAction | ShareDismissedAction;
+
 export interface ShareStatic {
     /**
      * Open a dialog to share text content.
@@ -6742,9 +6767,9 @@ export interface ShareStatic {
      * - `dialogTitle`
      *
      */
-    share(content: ShareContent, options?: ShareOptions): Promise<Object>;
-    sharedAction: string;
-    dismissedAction: string;
+    share(content: ShareContent, options?: ShareOptions): Promise<ShareAction>;
+    sharedAction: "sharedAction";
+    dismissedAction: "dismissedAction";
 }
 
 type AccessibilityEventName = "change" | "announcementFinished";
@@ -7138,6 +7163,7 @@ export interface GetPhotosReturnType {
                 uri: string;
                 height: number;
                 width: number;
+                playableDuration: number;
                 isStored?: boolean;
             };
             timestamp: number;
@@ -7315,7 +7341,7 @@ export interface IntentAndroidStatic {
 
         @deprecated
         */
-    getInitialURL(callback: (url: string) => void): void;
+    getInitialURL(callback: (url: string | null) => void): void;
 }
 
 export interface LinkingStatic extends NativeEventEmitter {
@@ -7350,7 +7376,7 @@ export interface LinkingStatic extends NativeEventEmitter {
      * If the app launch was triggered by an app link with, it will give the link url, otherwise it will give null
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
-    getInitialURL(): Promise<string>;
+    getInitialURL(): Promise<string | null>;
 }
 
 export interface LinkingIOSStatic {
@@ -8206,6 +8232,25 @@ export interface UIManagerStatic {
      *     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
      */
     setLayoutAnimationEnabledExperimental(value: boolean): void;
+
+    /**
+     * Used to display an Android PopupMenu. If a menu item is pressed, the success callback will
+     * be called with the following arguments:
+     *
+     *  - item - the menu item.
+     *  - index - index of the pressed item in array. Returns `undefined` if cancelled.
+     *
+     * To obtain a native node handle for a component, you can use
+     * `React.findNodeHandle(component)`.
+     *
+     * Note that this works only on Android
+     */
+    showPopupMenu(
+        node: number,
+        items: string[],
+        error: () => void, /* currently unused */
+        success: (item: string, index: number | undefined) => void
+    ): void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {

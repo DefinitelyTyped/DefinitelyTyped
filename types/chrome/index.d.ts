@@ -1,6 +1,6 @@
 // Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>, MatCarlson <https://github.com/MatCarlson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1097,6 +1097,13 @@ declare namespace chrome.contextMenus {
         menuItemId: any;
         /**
          * Optional.
+         * Since Chrome 35.
+         * The ID of the frame of the element where the context menu was
+         * clicked, if it was in a frame.
+         */
+        frameId?: number;
+        /**
+         * Optional.
           * Since Chrome 35.
          * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
          */
@@ -1177,6 +1184,12 @@ declare namespace chrome.contextMenus {
          * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
          */
         id?: string;
+        /**
+         * Optional.
+         * Since Chrome 62.
+         * Whether the item is visible in the menu.
+         */
+        visible?: boolean;
     }
 
     export interface UpdateProperties {
@@ -6506,7 +6519,7 @@ declare namespace chrome.tabs {
         zoomSettings: ZoomSettings;
     }
 
-    export interface TabHighlightedEvent extends chrome.events.Event<(highlightInfo: HighlightInfo) => void> { }
+    export interface TabHighlightedEvent extends chrome.events.Event<(highlightInfo: TabHighlightInfo) => void> { }
 
     export interface TabRemovedEvent extends chrome.events.Event<(tabId: number, removeInfo: TabRemoveInfo) => void> { }
 

@@ -6,6 +6,7 @@ declare namespace TabContent {
         animation?: boolean | React.ReactType;
         mountOnEnter?: boolean;
         unmountOnExit?: boolean;
+        bsClass?: string;
     }
 }
 declare class TabContent extends React.Component<TabContent.TabContentProps> { }

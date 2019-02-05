@@ -565,6 +565,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "Fastify-JWT",
+            "typingsPackageName": "fastify-jwt",
+            "sourceRepoURL": "https://github.com/fastify/fastify-jwt",
+            "asOfVersion": "0.8.1"
+        },
+        {
             "libraryName": "fecha",
             "typingsPackageName": "fecha",
             "sourceRepoURL": "https://github.com/taylorhakes/fecha",
@@ -1067,6 +1073,12 @@
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
             "asOfVersion": "2.0.18"
+        },
+        {
+            "libraryName": "Nuka Carousel",
+            "typingsPackageName": "nuka-carousel",
+            "sourceRepoURL": "https://github.com/FormidableLabs/nuka-carousel/",
+            "asOfVersion": "4.4.6"
         },
         {
             "libraryName": "Numbro",
@@ -1657,6 +1669,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "Universal Router",
+            "typingsPackageName": "universal-router",
+            "sourceRepoURL": "https://github.com/kriasoft/universal-router",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
@@ -1715,6 +1733,12 @@
             "typingsPackageName": "webcola",
             "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
             "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "WebdriverIO",
+            "typingsPackageName": "webdriverio",
+            "sourceRepoURL": "git@github.com:webdriverio/webdriverio.git",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "webgme",
