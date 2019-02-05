@@ -3,6 +3,7 @@
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 //                 Niklas Lindgren <https://github.com/nikcorg>
 //                 Vinay Bedre <https://github.com/vinaybedre>
+//                 Antonio Román <https://github.com/kyranet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -134,6 +135,9 @@ export class Body {
 export class FetchError extends Error {
     name: "FetchError";
     constructor(message: string, type: string, systemError: string);
+    type: string;
+    code?: string;
+    errno?: string;
 }
 
 export class Response extends Body {
