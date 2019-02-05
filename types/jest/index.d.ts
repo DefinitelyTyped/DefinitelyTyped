@@ -1,4 +1,4 @@
-// Type definitions for Jest 23.3
+// Type definitions for Jest 24.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -279,6 +279,10 @@ declare namespace jest {
          * Skips running this test in the current file.
          */
         skip: It;
+        /**
+         * Sketch out which tests to write in the future.
+         */
+        todo: It;
         /**
          * Experimental and should be avoided.
          */

@@ -83,6 +83,12 @@ it.skip("name", () => {}, 9001);
 it.skip("name", async () => {}, 9001);
 it.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
+it.todo("name", () => {});
+it.todo("name", async () => {});
+it.todo("name", () => {}, 9001);
+it.todo("name", async () => {}, 9001);
+it.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+
 it.concurrent("name", () => {});
 it.concurrent("name", async () => {});
 it.concurrent("name", () => {}, 9001);
@@ -106,6 +112,12 @@ fit.skip("name", async () => {});
 fit.skip("name", () => {}, 9001);
 fit.skip("name", async () => {}, 9001);
 fit.skip("name", (callback: jest.DoneCallback) => {}, 9001);
+
+fit.todo("name", () => {});
+fit.todo("name", async () => {});
+fit.todo("name", () => {}, 9001);
+fit.todo("name", async () => {}, 9001);
+fit.todo("name", (callback: jest.DoneCallback) => {}, 9001);
 
 fit.concurrent("name", () => {});
 fit.concurrent("name", async () => {});
@@ -131,6 +143,12 @@ xit.skip("name", () => {}, 9001);
 xit.skip("name", async () => {}, 9001);
 xit.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
+xit.todo("name", () => {});
+xit.todo("name", async () => {});
+xit.todo("name", () => {}, 9001);
+xit.todo("name", async () => {}, 9001);
+xit.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+
 xit.concurrent("name", () => {});
 xit.concurrent("name", async () => {});
 xit.concurrent("name", () => {}, 9001);
@@ -155,6 +173,12 @@ test.skip("name", () => {}, 9001);
 test.skip("name", async () => {}, 9001);
 test.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
+test.todo("name", () => {});
+test.todo("name", async () => {});
+test.todo("name", () => {}, 9001);
+test.todo("name", async () => {}, 9001);
+test.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+
 test.concurrent("name", () => {});
 test.concurrent("name", async () => {});
 test.concurrent("name", () => {}, 9001);
@@ -178,6 +202,12 @@ xtest.skip("name", async () => {});
 xtest.skip("name", () => {}, 9001);
 xtest.skip("name", async () => {}, 9001);
 xtest.skip("name", (callback: jest.DoneCallback) => {}, 9001);
+
+xtest.todo("name", () => {});
+xtest.todo("name", async () => {});
+xtest.todo("name", () => {}, 9001);
+xtest.todo("name", async () => {}, 9001);
+xtest.todo("name", (callback: jest.DoneCallback) => {}, 9001);
 
 xtest.concurrent("name", () => {});
 xtest.concurrent("name", async () => {});
