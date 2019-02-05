@@ -49,6 +49,8 @@ export class Asset {
 
 export const FastSigning: boolean;
 
+export type KeypairType = 'ed25519';
+
 export class Keypair {
     static fromRawEd25519Seed(secretSeed: Buffer): Keypair;
     static fromBase58Seed(secretSeed: string): Keypair;
@@ -57,17 +59,18 @@ export class Keypair {
     static fromPublicKey(publicKey: string): Keypair;
     static random(): Keypair;
 
-    constructor(keys: { type: 'ed25519', secretKey: string } | { type: 'ed25519', Key: string })
+    constructor(keys: { type: KeypairType, secretKey: string, publicKey?: string } | { type: KeypairType, publicKey: string })
 
+    readonly type: KeypairType;
     publicKey(): string;
     secret(): string;
     rawPublicKey(): Buffer;
     rawSecretKey(): Buffer;
     canSign(): boolean;
-    sign(data: Buffer): Buffer;
+    sign(data: Buffer): xdr.Signature;
     signDecorated(data: Buffer): xdr.DecoratedSignature;
     signatureHint(): xdr.SignatureHint;
-    verify(data: Buffer, signature: Buffer): boolean;
+    verify(data: Buffer, signature: xdr.Signature): boolean;
 }
 
 export const MemoNone = 'none';
@@ -498,5 +501,5 @@ export namespace xdr {
 }
 
 export function hash(data: Buffer): Buffer;
-export function sign(data: Buffer, rawSecret: Buffer): Buffer;
-export function verify(data: Buffer, signature: Buffer, rawPublicKey: Buffer): boolean;
+export function sign(data: Buffer, rawSecret: Buffer): xdr.Signature;
+export function verify(data: Buffer, signature: xdr.Signature, rawPublicKey: Buffer): boolean;
