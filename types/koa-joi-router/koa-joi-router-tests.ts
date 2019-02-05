@@ -30,6 +30,7 @@ const spec3: router.Spec = {
     body: Joi.any(),
   },
   handler: (ctx: koa.Context) => ctx.status = 201,
+  pre: (_ctx, next) => next(),
 };
 
 router().route(spec3);
@@ -42,9 +43,12 @@ const spec4: router.Spec = {
     output: {
       201: Joi.object(),
       '400,404': Joi.object(),
+    },
+    jsonOptions: {
+        limit: '10kb'
     }
   },
-  handler: (ctx: koa.Context) => {
+  handler(ctx) {
     ctx.status = 201;
     ctx.body = {};
   },
@@ -59,6 +63,7 @@ const spec5: router.Spec = {
     ctx.status = 201;
     ctx.body = ctx.request.body;
   },
+  meta: 'meta data',
 };
 
 router().route(spec5);
