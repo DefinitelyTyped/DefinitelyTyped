@@ -798,7 +798,6 @@ export namespace metadata {
 
   interface MaterializedView extends DataCollection { }
 
-
   interface QueryTrace {
     requestType: any;
     coordinator: any;
@@ -843,12 +842,9 @@ export namespace metadata {
     newTokenRange(start: token.Token, end: token.Token): token.TokenRange;
     refreshKeyspace(name: string, callback: Callback): void;
     refreshKeyspace(name: string): Promise<void>;
-    refreshKeyspaces(waitReconnect: () => boolean, callback: Callback): void;
-    refreshKeyspaces(waitReconnect: () => boolean): Promise<void>;
     refreshKeyspaces(waitReconnect: boolean, callback: Callback): void;
-    refreshKeyspaces(waitReconnect: boolean): Promise<void>;
+    refreshKeyspaces(waitReconnect?: boolean): Promise<void>;
     refreshKeyspaces(callback: Callback): void;
-    refreshKeyspaces(): Promise<void>;
   }
 
   interface SchemaFunction {
@@ -1150,5 +1146,5 @@ export namespace token {
   }
 }
 
-export const defaultOptions: () => ClientOptions;
+export function defaultOptions(): ClientOptions;
 export const version: string;
