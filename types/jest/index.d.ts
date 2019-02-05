@@ -912,7 +912,7 @@ declare namespace jest {
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.resolve(value));`
          */
-        mockResolvedValue(value: T | PromiseLike<T>): Mock<Promise<T>, Y>;
+        mockResolvedValue<v = T>(value: v | PromiseLike<v>): Mock<Promise<v>, Y>;
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.resolve(value));`
          *
@@ -932,7 +932,7 @@ declare namespace jest {
          * });
          *
          */
-        mockResolvedValueOnce(value: T | PromiseLike<T>): Mock<Promise<T>, Y>;
+        mockResolvedValueOnce<v = T>(value: v | PromiseLike<v>): Mock<Promise<v>, Y>;
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.reject(value));`
          *
@@ -944,7 +944,7 @@ declare namespace jest {
          *   await asyncMock(); // throws "Async error"
          * });
          */
-        mockRejectedValue(value: any): Mock<Promise<T>, Y>;
+        mockRejectedValue<v = T>(value: any): Mock<Promise<v>, Y>;
 
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.reject(value));`
@@ -962,7 +962,7 @@ declare namespace jest {
          * });
          *
          */
-        mockRejectedValueOnce(value: any): Mock<Promise<T>, Y>;
+        mockRejectedValueOnce<v = T>(value: any): Mock<Promise<v>, Y>;
     }
 
     /**

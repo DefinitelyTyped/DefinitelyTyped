@@ -315,6 +315,17 @@ const mock11 = jest.fn((arg: unknown) => arg);
 // $ExpectType number
 mock1('test');
 
+// mockResolved/mockRejected shouldn't wrap Mock return in Promise
+mock1.mockResolvedValue(1)
+    .mockResolvedValueOnce(1)
+    .mockResolvedValueOnce(1)
+    .mockResolvedValueOnce(1);
+
+mock1.mockRejectedValue(1)
+    .mockRejectedValueOnce(1)
+    .mockRejectedValueOnce(1)
+    .mockRejectedValueOnce(1);
+
 // $ExpectError
 mock7('abc');
 // $ExpectError
