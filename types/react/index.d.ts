@@ -21,6 +21,7 @@
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Paul Sherman <https://github.com/pshrmn>
 //                 Sunil Pai <https://github.com/threepointone>
+//                 Peter Keuter <https://github.com/pkeuter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -297,7 +298,7 @@ declare namespace React {
         /**
          * **NOTE**: Exotic components are not callable.
          */
-        (props: P): (ReactElement<any>|null);
+        (props: P & { children?: ReactNode }): (ReactElement<any>|null);
         readonly $$typeof: symbol;
     }
 
