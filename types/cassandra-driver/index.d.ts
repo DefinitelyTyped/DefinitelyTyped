@@ -34,43 +34,29 @@ export namespace policies {
   }
 
   namespace loadBalancing {
-    let DCAwareRoundRobinPolicy: DCAwareRoundRobinPolicyStatic;
-    let RoundRobinPolicy: RoundRobinPolicyStatic;
-    let TokenAwarePolicy: TokenAwarePolicyStatic;
-    let WhiteListPolicy: WhiteListPolicyStatic;
-
-    interface LoadBalancingPolicy {
+    class LoadBalancingPolicy {
       init(client: Client, hosts: HostMap, callback: Callback): void;
       getDistance(host: Host): types.distance;
       newQueryPlan(keyspace: string, queryOptions: ExecutionOptions | null, callback: Callback): void;
+      getOptions(): Map<string, any>;
     }
 
-    interface DCAwareRoundRobinPolicyStatic {
-      new (localDc?: string): DCAwareRoundRobinPolicy;
-    }
-
-    interface DCAwareRoundRobinPolicy extends LoadBalancingPolicy {
+    class DCAwareRoundRobinPolicy extends LoadBalancingPolicy {
+      localDc: string;
       localHostsArray: Host[];
-      remoteHostsArray: Host[];
+
+      constructor(localDc?: string);
     }
 
-    interface RoundRobinPolicyStatic {
-      new (): RoundRobinPolicy;
+    class RoundRobinPolicy extends LoadBalancingPolicy {}
+
+    class TokenAwarePolicy extends LoadBalancingPolicy {
+      constructor(childPolicy: LoadBalancingPolicy);
     }
 
-    interface RoundRobinPolicy extends LoadBalancingPolicy { }
-
-    interface TokenAwarePolicyStatic {
-      new (childPolicy: LoadBalancingPolicy): TokenAwarePolicy;
+    class WhiteListPolicy extends LoadBalancingPolicy {
+      constructor(childPolicy: LoadBalancingPolicy, whiteList: string[]);
     }
-
-    interface TokenAwarePolicy extends LoadBalancingPolicy { }
-
-    interface WhiteListPolicyStatic {
-      new (childPolicy: LoadBalancingPolicy, whiteList: string[]): WhiteListPolicy;
-    }
-
-    interface WhiteListPolicy extends LoadBalancingPolicy { }
   }
 
   namespace reconnection {
