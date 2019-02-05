@@ -4112,7 +4112,8 @@ class Example119 extends React.Component<any, any> {
           <div>
             <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
             <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
-            <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="But not this disabled one" disabled />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox3" label={<span>Or this one</span>} />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="But not this disabled one" disabled />
           </div>
         </FormGroup>
         <FormGroup>
@@ -4120,7 +4121,8 @@ class Example119 extends React.Component<any, any> {
           <div>
             <CustomInput type="radio" id="exampleCustomRadio" name="customRadio" label="Select this custom radio" />
             <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Or this one" />
-            <CustomInput type="radio" id="exampleCustomRadio3" label="But not this disabled one" disabled />
+            <CustomInput type="radio" id="exampleCustomRadio3" name="customRadio" label={<span>Or this one</span>} />
+            <CustomInput type="radio" id="exampleCustomRadio4" label="But not this disabled one" disabled />
           </div>
         </FormGroup>
         <FormGroup>
@@ -4128,6 +4130,7 @@ class Example119 extends React.Component<any, any> {
           <div>
             <CustomInput type="checkbox" id="exampleCustomInline" label="An inline custom input" inline />
             <CustomInput type="checkbox" id="exampleCustomInline2" label="and another one" inline />
+            <CustomInput type="checkbox" id="exampleCustomInline3" label={<span>and this one</span>} inline />
           </div>
         </FormGroup>
         <FormGroup>
@@ -4181,6 +4184,7 @@ class Example119 extends React.Component<any, any> {
         <FormGroup>
           <Label for="exampleCustomFileBrowser">File Browser with Custom Label</Label>
           <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" label="Yo, pick a file!" />
+          <CustomInput type="file" id="exampleCustomFileBrowser1" name="customFile" label={<span>Yo, pick a file!</span>} />
         </FormGroup>
         <FormGroup>
           <Label for="exampleCustomFileBrowser">File Browser Disabled</Label>
