@@ -499,8 +499,6 @@ export namespace types {
 }
 
 export let Client: ClientStatic;
-export let Host: HostStatic;
-export let HostMap: HostMapStatic;
 export let Encoder: EncoderStatic;
 
 export interface ClientOptions {
@@ -611,24 +609,16 @@ export interface Client extends events.EventEmitter {
   stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
 }
 
-export interface HostStatic {
-  new (address: string, protocolVersion: number, options: ClientOptions): Host;
-}
-
 export interface Host extends events.EventEmitter {
   address: string;
   cassandraVersion: string;
-  dataCenter: string;
+  datacenter: string;
   rack: string;
   tokens: string[];
 
   canBeConsideredAsUp(): boolean;
   getCassandraVersion(): number[];
   isUp(): boolean;
-}
-
-export interface HostMapStatic {
-  new (): HostMap;
 }
 
 export interface HostMap extends events.EventEmitter {
