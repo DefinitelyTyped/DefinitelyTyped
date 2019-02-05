@@ -8,14 +8,14 @@ interface Emitter {
     on(event: string, listener: Function): Emitter;
     once(event: string, listener: Function): Emitter;
     off(event?: string, listener?: Function): Emitter;
-    emit(event: string, ...args: any[]): boolean;
+    emit(event: string, ...args: any[]): Emitter;
     listeners(event: string): Function[];
     hasListeners(event: string): boolean;
 }
 
 declare const Emitter: {
-    (obj?: any): Emitter;
-    new (obj?: any): Emitter;
+    (obj?: object): Emitter;
+    new (obj?: object): Emitter;
 };
 
 export = Emitter;
