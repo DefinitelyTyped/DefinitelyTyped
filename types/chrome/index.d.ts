@@ -13,25 +13,6 @@ interface Window {
     chrome: typeof chrome;
 }
 
-declare namespace chrome {
-  // #region internal
-  //////////////
-  // INTERNAL //
-  //////////////
-
-  /**
-   * Convert constant and variables that function as enums to string literals.
-   * Makes it possible to use both the enum and string.
-   * String enums are a combination of 'enum type' and string literal type.
-   */
-  export type IDict<T, K, F = K extends keyof T ? T[K] : never> = F;
-  export type ToStringLiteral<
-      C extends Object,
-      K = keyof C,
-      V = K extends keyof C ? Exclude<K, C[K]> : never> = IDict<C, V>;
-  // #endregion internal
-}
-
 ////////////////////
 // Accessibility Features
 ////////////////////
@@ -6160,7 +6141,7 @@ declare namespace chrome.system.display {
        * This will be ignored for the root.
        * @see enum
        */
-      position: ToStringLiteral<typeof DisplayPosition>;
+      position: typeof DisplayPosition[keyof typeof DisplayPosition];
       /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
       offset: number;
   }
