@@ -507,6 +507,7 @@ export interface EmulateOptions {
 }
 
 export type EvaluateFn = string | ((...args: any[]) => any);
+export type EvaluateFnReturnType<T extends EvaluateFn> = T extends ((...args: any[]) => infer R) ? R : any;
 
 export type LoadEvent =
   | "load"
@@ -746,10 +747,10 @@ export interface Worker {
    * If the function passed to the `worker.evaluate` returns a non-Serializable value,
    * then `worker.evaluate` resolves to `undefined`.
    */
-  evaluate<T>(
-    pageFunction: (...args: any[]) => T | Promise<T>,
+  evaluate<T extends EvaluateFn>(
+    pageFunction: T,
     ...args: SerializableOrJSHandle[],
-  ): Promise<T>;
+  ): Promise<EvaluateFnReturnType<T>>;
 
   /**
    * The only difference between `worker.evaluate` and `worker.evaluateHandle` is
@@ -858,10 +859,10 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
 
 /** The class represents a context for JavaScript execution. */
 export interface ExecutionContext {
-  evaluate(
-    fn: EvaluateFn,
+  evaluate<F extends EvaluateFn>(
+    fn: F,
     ...args: SerializableOrJSHandle[]
-  ): Promise<any>;
+  ): Promise<EvaluateFnReturnType<F>>;
   evaluateHandle(
     fn: EvaluateFn,
     ...args: SerializableOrJSHandle[]
@@ -1173,10 +1174,10 @@ export interface FrameBase extends Evalable {
    * @param fn Function to be evaluated in browser context
    * @param args Arguments to pass to `fn`
    */
-  evaluate(
-    fn: EvaluateFn,
+  evaluate<F extends EvaluateFn>(
+    fn: F,
     ...args: SerializableOrJSHandle[]
-  ): Promise<any>;
+  ): Promise<EvaluateFnReturnType<F>>;
 
   /**
    * Evaluates a function in the page context.
@@ -1255,19 +1256,19 @@ export interface FrameBase extends Evalable {
    * Shortcut for waitForFunction.
    */
   waitFor(
-    selector: ((...args: any[]) => any) | string,
+    selector: EvaluateFn,
     options?: WaitForSelectorOptions,
     ...args: SerializableOrJSHandle[]
-  ): Promise<any>;
+  ): Promise<JSHandle>;
 
   /**
    * Allows waiting for various conditions.
    */
   waitForFunction(
-    fn: string | ((...args: any[]) => any),
+    fn: EvaluateFn,
     options?: PageFnOptions,
     ...args: SerializableOrJSHandle[]
-  ): Promise<any>;
+  ): Promise<JSHandle>;
 
   /**
    * Wait for the page navigation occur.
