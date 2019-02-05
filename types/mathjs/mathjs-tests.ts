@@ -1,3 +1,6 @@
+// Import needed for mathjs.import functionality (declaring/extending module)
+import * as math from 'mathjs';
+
 /*
 Basic usage examples
 */
@@ -278,6 +281,12 @@ Matrices examples
       return value * value;
 	  });  // returns [1, 4, 9]
 	}
+
+	// filter matrix
+	{
+	  math.filter([6, -2, -1, 4, 3], function(x) { return x > 0; }); // returns [6, 4, 3]
+	  math.filter(["23", "foo", "100", "55", "bar"], /[0-9]+/); // returns ["23", "100", "55"]
+	}
 }
 
 /*
@@ -285,7 +294,7 @@ Sparse matrices examples
 */
 {
 	// create a sparse matrix
-	const a = math.eye(1000, 1000, 'sparse');
+	const a = math.identity(1000, 1000, 'sparse');
 
 	// do operations with a sparse matrix
 	const b = math.multiply(a, a);
@@ -391,4 +400,28 @@ JSON serialization/deserialization
 	const stringified = JSON.stringify(data);
 	const parsed = JSON.parse(stringified, math.json.reviver);
 	parsed.bigNumber === math.bignumber('1.5'); // true
+}
+
+/*
+Extend functionality with import
+ */
+
+declare module 'mathjs' {
+    interface MathJsStatic {
+        testFun(): number;
+        value: number;
+    }
+}
+
+{
+    const testFun = () => 5;
+
+    math.import({
+        testFun,
+        value: 10
+    }, {});
+
+    math.testFun();
+
+    const a = math.value * 2;
 }

@@ -1,4 +1,4 @@
-// Type definitions for validator.js v9.4
+// Type definitions for validator.js v10.9.0
 // Project: https://github.com/chriso/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -83,7 +83,7 @@ declare namespace ValidatorJS {
     isEmail(str: string, options?: IsEmailOptions): boolean;
 
     // check if the string has a length of zero.
-    isEmpty(str: string): boolean;
+    isEmpty(str: string, options?: IsEmptyOptions): boolean;
 
     // check if the string is a fully qualified domain name (e.g. domain.com).
     isFQDN(str: string, options?: IsFQDNOptions): boolean;
@@ -310,6 +310,11 @@ declare namespace ValidatorJS {
     require_tld?: boolean;
   }
 
+  // options for isEmpty
+  interface IsEmptyOptions {
+    ignore_whitespace?: boolean;
+  }
+
   // options for isFQDN
   interface IsFQDNOptions {
     require_tld?: boolean;
@@ -369,6 +374,7 @@ declare namespace ValidatorJS {
     host_blacklist?: (string | RegExp)[];
     allow_trailing_dot?: boolean;
     allow_protocol_relative_urls?: boolean;
+    disallow_auth?: boolean;
   }
 
   // options for normalizeEmail

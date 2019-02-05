@@ -459,7 +459,7 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * @returns When no item is found, null is returned when a single item was requested,
    * and and empty Array is returned in case of multiple id's.
    */
-  get(id: IdType, options?: DataSelectionOptions<T>): T;
+  get(id: IdType, options?: DataSelectionOptions<T>): T|null;
 
   /**
    * Get multiple items from the DataSet.
@@ -494,7 +494,7 @@ export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
    * @param [options] Optional options.
    * @returns The mapped items.
    */
-  map(callback: (item: T, id: IdType) => any, options?: DataSelectionOptions<T>): any[];
+  map<M>(callback: (item: T, id: IdType) => M, options?: DataSelectionOptions<T>): M[];
 
   /**
    * Find the item with maximum value of specified field.
@@ -589,7 +589,7 @@ export interface DataSelectionOptions<T> {
   /**
    * Order the items by a field name or custom sort function.
    */
-  order?: string | any;
+  order?: string | ((a: T, b: T) => number);
 
   /**
    * Determine the type of output of the get function.
@@ -597,7 +597,7 @@ export interface DataSelectionOptions<T> {
    * The default returnType is an Array.
    * The Object type will return a JSON object with the ID's as keys.
    */
-  returnType?: string;
+  returnType?: "Array" | "Object";
 }
 
 export class DataView<T extends DataItem | DataGroup> {

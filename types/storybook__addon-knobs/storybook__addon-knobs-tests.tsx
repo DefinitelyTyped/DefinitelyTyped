@@ -14,7 +14,7 @@ import {
   array,
   button,
   knob,
-  selectV2,
+  radios,
 } from '@storybook/addon-knobs';
 
 enum SomeEnum {
@@ -35,10 +35,11 @@ stories.add('with all knobs', () => {
   const selectedColor = color('Color', 'black');
   const favoriteNumber = number('Favorite Number', 42);
   const comfortTemp = number('Comfort Temp', 72, { range: true, min: 60, max: 90, step: 1 });
+  const radioStation = radios('Favorite Radio Station', { 1100: "1100", 2200: "2200", 3300: "3300" });
   const textDecoration = select('Decoration', {
-    none: 'None',
-    underline: 'Underline',
-    'line-through': 'Line-Through'
+    None: 'none',
+    Underline: 'underline',
+    'Line-through': 'line-through'
   }, 'none');
 
   const customStyle = object('Style', {
@@ -50,15 +51,12 @@ stories.add('with all knobs', () => {
 
   type X = 'a' | 'b';
 
-  const genericSelect: X = select<X>('Some generic select', { a: 'type a', b: 'type b' }, 'b');
-
   const enumSelectOptions: { [s: number]: string } = {};
   enumSelectOptions[SomeEnum.Type1] = "Type 1";
   enumSelectOptions[SomeEnum.Type2] = "Type 2";
-  const genericSelect2: SomeEnum = select<SomeEnum>('Some generic select', enumSelectOptions, SomeEnum.Type1);
 
-  const genericSelectV2: X = selectV2<X>('Some generic select', { 'type a': 'a', 'type b': 'b' }, 'b');
-  const genericSelectV2Enum: SomeEnum = selectV2<SomeEnum>('Some generic select v2', { 'type a': SomeEnum.Type1, 'type b': SomeEnum.Type2 }, SomeEnum.Type2);
+  const genericSelectV2: X = select<X>('Some generic select', { 'type a': 'a', 'type b': 'b' }, 'b');
+  const genericSelectV2Enum: SomeEnum = select<SomeEnum>('Some generic select v2', { 'type a': SomeEnum.Type1, 'type b': SomeEnum.Type2 }, SomeEnum.Type2);
 
   const genericArray: string[] = array<string>('Some generic array', ['red', 'green', 'blue']);
 
@@ -78,6 +76,7 @@ stories.add('with all knobs', () => {
       I'm {name} and I was born on "{dob}"
       <p>My favorite number is {favoriteNumber}.</p>
       <p>My most comfortable room temperature is {comfortTemp} degrees Fahrenheit.</p>
+      <p>My favorite radio station is: {radioStation}</p>
     </div>
   );
 });
@@ -111,6 +110,7 @@ number('label', 1, {}, groupId);
 color('label', '#ffffff', groupId);
 object('label', {}, groupId);
 array('label', [], ',', groupId);
+radios('label', {}, null, groupId);
 select<any>('label', { option: 'Option' }, null, groupId);
 files('label', 'image/*', []);
 date('label', new Date(), groupId);

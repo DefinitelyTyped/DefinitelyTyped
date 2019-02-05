@@ -21,7 +21,7 @@ export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React
     const buttonRef = React.useRef<HTMLButtonElement | null>(null);
     const [count, setCount] = React.useState(0);
 
-    React.useImperativeMethods(ref, () => ({
+    React.useImperativeHandle(ref, () => ({
         fancyClick() {
             buttonRef.current!; // $ExpectType HTMLButtonElement
         },
@@ -63,7 +63,13 @@ export function App() {
     const birthdayRef = React.useRef<FancyButton>(null);
 
     React.useLayoutEffect(() => {
-        birthdayRef.current!.fancyClick();
+        if (birthdayRef.current !== null) {
+            birthdayRef.current.fancyClick();
+        } else {
+            // this looks redundant but it ensures the type actually has "null" in it instead of "never"
+            // $ExpectType null
+            birthdayRef.current;
+        }
     });
 
     return <>
@@ -85,13 +91,22 @@ const context = React.createContext<Context>({ test: true });
 function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     const value: Context = React.useContext(context);
     const [, setState] = React.useState(() => 0);
-    const [reducerState, dispatch] = React.useReducer(reducer, initialState, { type: 'resetAge' });
+    // Bonus typescript@next version
+    // const [reducerState, dispatch] = React.useReducer(reducer, true as const, arg => arg && initialState);
+    // Compile error in typescript@3.0 but not in typescript@3.1.
+    // const [reducerState, dispatch] = React.useReducer(reducer, true as true, arg => arg && initialState);
+    const [reducerState, dispatch] = React.useReducer(reducer, true as true, (arg: true): AppState => arg && initialState);
+
+    // inline object, to (manually) check if autocomplete works
+    React.useReducer(reducer, { age: 42, name: 'The Answer' });
+
     // make sure this is not going to the |null overload
     // $ExpectType MutableRefObject<boolean>
     const didLayout = React.useRef(false);
 
     const id = React.useMemo(() => Math.random(), []);
-    React.useImperativeMethods(ref, () => ({ id }), [id]);
+    React.useImperativeHandle(ref, () => ({ id }), [id]);
+    // was named like this in the first alpha, renamed before release
     // $ExpectError
     React.useImperativeMethods(ref, () => ({}), [id]);
 
@@ -104,6 +119,9 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
         dispatch({ type: 'getOlder' });
         setState(reducerState.age);
     }, []);
+
+    React.useDebugValue(id, value => value.toFixed());
+    React.useDebugValue(id);
 
     return React.useCallback(() => didLayout.current, []);
 }
@@ -118,5 +136,6 @@ const UsesEveryHook = React.forwardRef(
 );
 const everyHookRef = React.createRef<{ id: number }>();
 <UsesEveryHook ref={everyHookRef}/>;
+
 // TODO: "implicit any" in typescript@3.0 but not in typescript@3.1
 // <UsesEveryHook ref={ref => { ref && console.log(ref.id); }}/>;

@@ -37,7 +37,7 @@ export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> exte
  * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L16
  */
 export interface DefaultDocumentIProps extends RenderPageResponse {
-    styles?: React.ReactNode;
+    styles?: React.ReactNode[];
 }
 
 /**

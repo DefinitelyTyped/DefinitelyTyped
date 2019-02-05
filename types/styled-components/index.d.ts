@@ -3,7 +3,7 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
 //                 Adam Lavin <https://github.com/lavoaster>
-//                 Jessica Franco <https://github.com/Kovensky>
+//                 Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -32,6 +32,21 @@ export interface ThemeProps<T> {
 export type ThemedStyledProps<P, T> = P & ThemeProps<T>;
 export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
 
+// Any prop that has a default prop becomes optional, but its type is unchanged
+// Undeclared default props are augmented into the resulting allowable attributes
+// If declared props have indexed properties, ignore default props entirely as keyof gets widened
+// Wrap in an outer-level conditional type to allow distribution over props that are unions
+type Defaultize<P, D> = P extends any
+    ? string extends keyof P ? P :
+        & Pick<P, Exclude<keyof P, keyof D>>
+        & Partial<Pick<P, Extract<keyof P, keyof D>>>
+        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+    : never;
+
+type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D; }
+    ? Defaultize<P, D>
+    : P;
+
 export type StyledComponentProps<
     // The Component from whose props are derived
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -42,8 +57,13 @@ export type StyledComponentProps<
     // The props that are made optional by .attrs
     A extends keyof any
 > = WithOptionalTheme<
-    Omit<React.ComponentPropsWithRef<C> & O, A> &
-        Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+    Omit<
+        ReactDefaultizedProps<
+            C,
+            React.ComponentPropsWithRef<C>
+        > & O,
+        A
+    > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
     T
 >;
 
@@ -73,7 +93,7 @@ export type SimpleInterpolation =
     | InterpolationValue
     | FlattenSimpleInterpolation;
 // must be an interface to be self-referential
-interface FlattenSimpleInterpolation
+export interface FlattenSimpleInterpolation
     extends ReadonlyArray<SimpleInterpolation> {}
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
@@ -108,6 +128,9 @@ type ForwardRefExoticBase<P> = Pick<
     React.ForwardRefExoticComponent<P>,
     keyof React.ForwardRefExoticComponent<any>
 >;
+
+// extracts React defaultProps
+type ReactDefaultProps<C> = C extends { defaultProps: infer D; } ? D : never;
 
 // any doesn't count as assignable to never in the extends clause, and we default A to never
 export type AnyStyledComponent =
@@ -152,6 +175,7 @@ export interface StyledComponentBase<
             as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
         }
     ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
+
     withComponent<WithC extends AnyStyledComponent>(
         component: WithC
     ): StyledComponent<
@@ -176,10 +200,9 @@ export interface ThemedStyledFunctionBase<
     (
         first:
             | TemplateStringsArray
-            | NonNullable<
-                  Interpolation<
-                      ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
-                  >
+            | CSSObject
+            | InterpolationFunction<
+                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
               >,
         ...rest: Array<
             Interpolation<
@@ -187,17 +210,12 @@ export interface ThemedStyledFunctionBase<
             >
         >
     ): StyledComponent<C, T, O, A>;
-    // at least the first argument is required, whatever it is
     <U extends object>(
         first:
             | TemplateStringsArray
-            | NonNullable<
-                  Interpolation<
-                      ThemedStyledProps<
-                          StyledComponentPropsWithRef<C> & O & U,
-                          T
-                      >
-                  >
+            | CSSObject
+            | InterpolationFunction<
+                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
               >,
         ...rest: Array<
             Interpolation<
@@ -288,19 +306,21 @@ export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
 export interface BaseThemedCssFunction<T extends object> {
     (
-        first: TemplateStringsArray | NonNullable<SimpleInterpolation>,
+        first: TemplateStringsArray | CSSObject,
         ...interpolations: SimpleInterpolation[]
     ): FlattenSimpleInterpolation;
     (
         first:
             | TemplateStringsArray
-            | NonNullable<Interpolation<ThemedStyledProps<{}, T>>>,
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<{}, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<{}, T>>>
     ): FlattenInterpolation<ThemedStyledProps<{}, T>>;
     <P extends object>(
         first:
             | TemplateStringsArray
-            | NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): FlattenInterpolation<ThemedStyledProps<P, T>>;
 }
@@ -333,7 +353,8 @@ export interface ThemedStyledComponentsModule<
     createGlobalStyle<P extends object = {}>(
         first:
             | TemplateStringsArray
-            | NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
+            | CSSObject
+            | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): GlobalStyleComponent<P, T>;
 
@@ -405,7 +426,8 @@ export function keyframes(
 export function createGlobalStyle<P extends object = {}>(
     first:
         | TemplateStringsArray
-        | NonNullable<Interpolation<ThemedStyledProps<P, DefaultTheme>>>,
+        | CSSObject
+        | InterpolationFunction<ThemedStyledProps<P, DefaultTheme>>,
     ...interpolations: Array<Interpolation<ThemedStyledProps<P, DefaultTheme>>>
 ): GlobalStyleComponent<P, DefaultTheme>;
 
@@ -424,6 +446,7 @@ export class ServerStyleSheet {
         readableStream: NodeJS.ReadableStream
     ): NodeJS.ReadableStream;
     readonly instance: this;
+    seal(): void;
 }
 
 type StyleSheetManagerProps =
@@ -468,7 +491,7 @@ export class StyleSheetManager extends React.Component<
  */
 // ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
 export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
-      string |
-      FlattenInterpolation<ThemeProps<T>>;
+    | string
+    | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;

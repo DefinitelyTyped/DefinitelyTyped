@@ -3,7 +3,7 @@
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 import * as MapboxGL from 'mapbox-gl';
@@ -300,8 +300,8 @@ export class Popup extends BaseControl<PopupProps> {}
 
 export interface NavigationControlProps extends BaseControlProps {
     className?: string;
-    onViewStateChange: (info: ViewStateChangeInfo) => void;
-    onViewportChange: (viewport: ViewState) => void;
+    onViewStateChange?: (info: ViewStateChangeInfo) => void;
+    onViewportChange?: (viewport: ViewState) => void;
     showCompass?: boolean;
     showZoom?: boolean;
 }

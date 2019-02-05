@@ -1146,6 +1146,7 @@ declare namespace cytoscape {
         extends
         CollectionGraphManipulation, CollectionEvents,
         CollectionData, CollectionPosition,
+        CollectionTraversing,
         CollectionLayout,
         CollectionSelection, CollectionStyle, CollectionAnimation,
         CollectionComparision, CollectionIteration<TIn, TOut>,

@@ -36,6 +36,37 @@ interface ExtendedUser extends User {
         lastName: 'Monkey'
     });
     const error: Error = Immutable.ImmutableError('error');
+
+    const date: Immutable.ImmutableDate = Immutable(new Date());
+
+    // Constructing with a promise wraps the result value as an immutable
+    const promise = new Promise<User>(resolve => resolve({
+        firstName: 'Angry',
+        lastName: 'Monkey',
+    }));
+    const immutablePromise = Immutable(promise);
+    immutablePromise.then((user: Immutable.Immutable<User>) => user.asMutable());
+
+    // Construction with Immutable() multiple times only creates an Immutable once
+    const user3: Immutable.Immutable<User> = Immutable(Immutable(Immutable({
+        firstName: 'Angry',
+        lastName: 'Monkey',
+    })));
+    user3.asMutable();
+    // Can't call asMutable() multiple times since there is only one level of immutability
+    // user3.asMutable().asMutable();
+
+    // Primitives are not made immutable
+    const str: string = Immutable("Hello World");
+    const num: number = Immutable(123);
+    const bool: boolean = Immutable(true);
+    const sym: symbol = Immutable(Symbol("A symbol"));
+    const undef: undefined = Immutable(undefined);
+    const nul: null = Immutable(null);
+    const fun: () => User = Immutable((): User => ({
+       firstName: 'Angry',
+       lastName: 'Monkey',
+    }));
 }
 
 //
@@ -58,6 +89,58 @@ interface ExtendedUser extends User {
 {
     const array: Immutable.Immutable<User[]> = Immutable.from([ { firstName: 'Angry', lastName: 'Monkey' } ]);
 
+    // keys. Call the mutable array's 'keys' to ensure compatability
+    const mutableKeys = array.asMutable().keys();
+    const keys: typeof mutableKeys = array.keys();
+
+    // map. Call the mutable array's 'map' with the same function to ensure compatability. Make sure the output array is immutable.
+    interface FirstName { firstNameOnly: string; }
+    array.asMutable().map((value: User) => ({ firstNameOnly: value.firstName }));
+    const map: Immutable.Immutable<FirstName[]> = array.map((value: User) => ({ firstNameOnly: value.firstName }));
+    map.asMutable();
+
+    // filter. Call the mutable array's 'filter' with the same function to ensure compatability. Make sure the output array is immutable.
+    array.asMutable().filter((value: User) => value.firstName === 'test');
+    const filter: Immutable.Immutable<User[]> = array.filter((value: User) => value.firstName === 'test');
+    filter.asMutable();
+
+    // slice. Call the mutable array's 'slice' with the same args to ensure compatability. Make sure the output array is immutable.
+    array.asMutable().slice();
+    const slice1: Immutable.Immutable<User[]> = array.slice();
+    slice1.asMutable();
+    array.asMutable().slice(1);
+    const slice2: Immutable.Immutable<User[]> = array.slice(1);
+    slice2.asMutable();
+    array.asMutable().slice(1, 2);
+    const slice3: Immutable.Immutable<User[]> = array.slice(1, 2);
+    slice3.asMutable();
+    array.asMutable().slice(undefined, 2);
+    const slice4: Immutable.Immutable<User[]> = array.slice(undefined, 2);
+    slice4.asMutable();
+
+    // concat. Call the mutable array's 'concat' with the same args to ensure compatability. Make sure the output array is immutable.
+    array.asMutable().concat({ firstName: 'Happy', lastName: 'Cat' });
+    const concat: Immutable.Immutable<User[]> = array.concat({ firstName: 'Happy', lastName: 'Cat' });
+    concat.asMutable();
+
+    // reduce. Call the mutable array's 'reduce' with the same function to ensure compatability. Make sure the output array is immutable.
+    array.asMutable().reduce((previous, current) => ({ ...previous, lastName: current.lastName }));
+    const reduce1: Immutable.Immutable<User> = array.reduce((previous, current) => ({ ...previous, lastName: current.lastName }));
+    reduce1.asMutable();
+    // NOTE: this is effectively a map function
+    array.asMutable().reduce<FirstName[]>((previous, current) => previous.concat({ firstNameOnly: current.firstName }), []);
+    const reduce2: Immutable.Immutable<FirstName[]> = array.reduce<FirstName[]>((previous, current) => previous.concat({ firstNameOnly: current.firstName }), []);
+    reduce2.asMutable();
+
+    // reduceRight. Call the mutable array's 'reduceRight' with the same function to ensure compatability. Make sure the output array is immutable.
+    array.asMutable().reduceRight((previous, current) => ({ ...previous, lastName: current.lastName }));
+    const reduceRight1: Immutable.Immutable<User> = array.reduceRight((previous, current) => ({ ...previous, lastName: current.lastName }));
+    reduceRight1.asMutable();
+    // NOTE: this is effectively a map function
+    array.asMutable().reduceRight<FirstName[]>((previous, current) => previous.concat({ firstNameOnly: current.firstName }), []);
+    const reduceRight2: Immutable.Immutable<FirstName[]> = array.reduceRight<FirstName[]>((previous, current) => previous.concat({ firstNameOnly: current.firstName }), []);
+    reduceRight2.asMutable();
+
     // asMutable
     const mutableArray1: User[] = array.asMutable();
     const mutableArray2: User[] = array.asMutable({ deep: true });
@@ -72,7 +155,10 @@ interface ExtendedUser extends User {
     );
 
     // asObject
-    const arrayToObject1: Immutable.Immutable<object> = array.asObject((value) => [value.toString(), value]);
+    interface ArrayToObjectResult {
+        theFirstName: string;
+    }
+    const arrayToObject1: Immutable.Immutable<ArrayToObjectResult> = array.asObject<ArrayToObjectResult>((value) => ['theFirstName', value.firstName]);
 }
 
 //
@@ -140,4 +226,22 @@ interface ExtendedUser extends User {
     // replace
     const replacedUser01 = immutableUser.replace({ firstName: 'Super', lastName: 'Monkey' });
     const replacedUser02 = immutableUser.replace({ firstName: 'Super', lastName: 'Monkey' }, { deep: true });
+}
+
+//
+// Instance syntax: immutable date
+// ---------------------------------------------------------------
+
+{
+    // ImmutableDate cannot access mutable methods like setDate, etc, but CAN access getDate().
+    // Once we make it mutable (i.e, a regular Date), we can use those methods
+    const immutableDate: Immutable.ImmutableDate = Immutable.from(new Date());
+    // immutableDate.setDate(1);
+    immutableDate.getDate();
+    immutableDate.asMutable().setDate(1);
+
+    const immutableDate2: Immutable.ImmutableDate = Immutable(new Date());
+    // immutableDate2.setDate(1)
+    immutableDate2.getDate();
+    immutableDate2.asMutable().setDate(1);
 }

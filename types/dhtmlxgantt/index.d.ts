@@ -1455,13 +1455,13 @@ interface GanttStatic {
 	 * exports a Gantt chart into the PDF format
 	 * @param _export_ an object with export settings (see the details)
 	*/
-	exportToPDF(_export_: any): void;
+	exportToPDF(_export_?: any): void;
 
 	/**
 	 * exports a Gantt chart into the PNG format
 	 * @param _export_ an object with export settings (see the details)
 	*/
-	exportToPNG(_export_: any): void;
+	exportToPNG(_export_?: any): void;
 
 	/**
 	 * returns all dependency loops in the chart

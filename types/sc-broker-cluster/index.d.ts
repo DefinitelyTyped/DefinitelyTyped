@@ -117,7 +117,7 @@ export class Server extends EventEmitter {
     on(event: "ready", listener: () => void): this;
     on(event: "error", listener: (err?: Error) => void): this;
 
-    sendToBroker(brokerId: string, data: any, callback: (err: Error | null, data: any) => void): void;
+    sendToBroker(brokerId: string, data: any, callback?: (err: Error | null, data: any) => void): void;
     killBrokers(): void;
     destroy(): void;
 }

@@ -271,6 +271,13 @@ export class WebAuth {
     passwordlessVerify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>): void;
 
     /**
+     * Logs in a user with the verification code sent to the user
+     * @param options
+     * @param callback
+     */
+    passwordlessLogin(options: PasswordlessLoginOptions, callback: Auth0Callback<any>): void;
+
+    /**
      * Renews an existing session on Auth0's servers using `response_mode=web_message` (i.e. Auth0's hosted login page)
      *
      * @param options options used in {@link authorize} call
@@ -562,6 +569,14 @@ export type SpecErrorCodes =
 export interface Auth0Error {
     error: LibErrorCodes | SpecErrorCodes | string;
     errorDescription: string;
+    // Need to include non-intuitive error fields that Auth0 uses
+    code?: string;
+    description?: string;
+    name?: string;
+    policy?: string;
+    original?: any;
+    statusCode?: number;
+    statusText?: string;
 }
 
 export type Auth0ParseHashError = Auth0Error & {
@@ -613,6 +628,13 @@ export interface PasswordlessVerifyOptions {
     phoneNumber?: string;
     email?: string;
     send?: string;
+}
+
+export interface PasswordlessLoginOptions {
+    connection: string;
+    verificationCode: string;
+    phoneNumber?: string;
+    email?: string;
 }
 
 export interface Auth0UserProfile {
@@ -798,6 +820,8 @@ export interface AuthorizeOptions {
     login_hint?: string;
 	prompt?: string;
     mode?: "login" | "signUp";
+    accessType?: string;
+    approvalPrompt?: string;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

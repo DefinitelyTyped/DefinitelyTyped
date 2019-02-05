@@ -23,6 +23,7 @@ export type RelayMutationRequest = any;
 export type RelayQueryRequest = any;
 export type ConcreteFragmentDefinition = object;
 export type ConcreteOperationDefinition = object;
+export type ReaderFragment = object;
 
 /**
  * FIXME: RelayContainer used to be typed with ReactClass<any>, but
@@ -41,9 +42,40 @@ export type RelayContainer = any;
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // File: https://github.com/facebook/relay/blob/fe0e70f10bbcba1fff89911313ea69f24569464b/packages/relay-runtime/util/RelayConcreteNode.js
-export type ConcreteFragment = any;
-export type ConcreteRequest = any;
-export type ConcreteBatchRequest = any;
+export interface ConcreteFragment {
+    kind: string;
+    name: string;
+    type: string;
+    metadata: {[key: string]: any} | null;
+    argumentDefinitions: any[];
+    selections: any[];
+}
+export interface ConcreteRequest {
+    kind: string;
+    operationKind: string;
+    name: string;
+    id: string | null;
+    text: string | null;
+    metadata: {[key: string]: any};
+    fragment: ConcreteFragment;
+    operation: any;
+}
+export interface ConcreteBatchRequest {
+    kind: string;
+    operationKind: string;
+    name: string;
+    metadata: {[key: string]: any};
+    fragment: ConcreteFragment;
+    requests: Array<{
+        name: string;
+        id: string | null;
+        text: string | null;
+        argumentDependencies: any[] | null;
+        operation: any;
+    }>;
+}
+
+export function getRequest(taggedNode: GraphQLTaggedNode): ConcreteRequest;
 
 export type RequestNode = ConcreteRequest | ConcreteBatchRequest;
 
@@ -137,6 +169,24 @@ export type SubscribeFunction = (
     cacheConfig: CacheConfig,
     observer: LegacyObserver<QueryPayload>
 ) => RelayObservable<QueryPayload> | Disposable;
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// RelayQueryResponseCache
+// Version: Relay 1.3.0
+// File: https://github.com/facebook/relay/blob/master/packages/relay-runtime/network/RelayQueryResponseCache.js
+// ~~~~~~~~~~~~~~~~~~~~~
+
+/**
+ * A cache for storing query responses, featuring:
+ * - `get` with TTL
+ * - cache size limiting, with least-recently *updated* entries purged first
+ */
+export class QueryResponseCache {
+    constructor(options: {size: number; ttl: number});
+    clear(): void;
+    get(queryID: string, variables: Variables): QueryPayload | null;
+    set(queryID: string, variables: Variables, payload: QueryPayload): void;
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayStoreTypes

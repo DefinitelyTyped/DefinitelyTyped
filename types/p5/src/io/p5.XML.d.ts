@@ -189,5 +189,13 @@ declare module "../../index" {
     setContent(
       text: string
     ): void;
+
+    /**
+     *   Serializes the element into a string. This
+     *   function is useful for preparing the content to be
+     *   sent over a http request or saved to file.
+     *   @return Serialized string of the element
+     */
+    serialize(): string;
   }
 }

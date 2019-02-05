@@ -23,7 +23,7 @@ export type ComponentPropsGetterC = (finalState: any, rowInfo?: undefined, colum
 export type ComponentPropsGetterRC = (finalState: any, rowInfo?: RowInfo, column?: Column, instance?: any) => object | undefined;
 
 export type DefaultFilterFunction = (filter: Filter, row: any, column: any) => boolean;
-export type FilterFunction = (filter: Filter, rows: any[], column: any) => boolean;
+export type FilterFunction = (filter: Filter, rows: any[], column: any) => any[];
 export type SubComponentFunction = (rowInfo: RowInfo) => React.ReactNode;
 export type PageChangeFunction = (page: number) => void;
 export type PageSizeChangeFunction = (newPageSize: number, newPage: number) => void;
@@ -362,22 +362,22 @@ export interface ComponentProps {
 
 export interface TextProps {
     /** Default: 'Previous' */
-    previousText: string;
+    previousText: React.ReactNode;
 
     /** Default: 'Next' */
-    nextText: string;
+    nextText: React.ReactNode;
 
     /** Default: 'Loading...' */
-    loadingText: string;
+    loadingText: React.ReactNode;
 
     /** Default: 'No rows found' */
-    noDataText: string;
+    noDataText: React.ReactNode | React.ComponentType;
 
     /** Default: 'Page' */
-    pageText: string;
+    pageText: React.ReactNode;
 
     /** Default: 'of' */
-    ofText: string;
+    ofText: React.ReactNode;
 
     /** Default: 'rows' */
     rowsText: string;

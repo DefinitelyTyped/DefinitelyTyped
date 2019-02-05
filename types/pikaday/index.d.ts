@@ -44,7 +44,7 @@ declare class Pikaday {
      * can optionally be passed as the second parameter to prevent triggering
      * of the onSelect callback, allowing the date to be set silently.
      */
-    setDate(date: string | Date, triggerOnSelect?: boolean): void;
+    setDate(date: string | Date, preventOnSelect?: boolean): void;
 
     /**
      * Returns a Moment.js object for the selected date (Moment must be
@@ -90,12 +90,12 @@ declare class Pikaday {
     /**
      * Update the minimum/earliest date that can be selected.
      */
-    setMinDate(date: Date): void;
+    setMinDate(date: Date | null): void;
 
     /**
      * Update the maximum/latest date that can be selected.
      */
-    setMaxDate(date: Date): void;
+    setMaxDate(date: Date | null): void;
 
     /**
      * Update the range start date. For using two Pikaday instances to

@@ -2,7 +2,7 @@
 // Project: https://github.com/storybooks/storybook/tree/master/addons/storyshots
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 import { StoryObject } from '@storybook/react';
@@ -14,13 +14,13 @@ export type Test = (options: {
     renderShallowTree: RenderTree;
     renderTree: RenderTree;
     snapshotFileName: string;
-}) => void | undefined | Promise<void>;
+}) => undefined | void | Promise<void>;
 
 export type RenderTree = (
     story: StoryObject,
     context: StoryContext,
     options?: SnapshotOptions
-) => void | undefined | Promise<void>;
+) => undefined | void | Promise<void>;
 
 export interface SnapshotOptions {
     createNodeMock?: (element: any) => any;
