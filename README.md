@@ -11,8 +11,8 @@ Also see the [definitelytyped.org](http://definitelytyped.org) website, although
 This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
-* All packages are type-checking/linting cleanly: [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
-* All packages are being published to npm in under 10,000 seconds: [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
+* All packages are [type-checking/linting](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+* All packages are being [published to npm](https://github.com/Microsoft/types-publisher) in under an hour: [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
 * [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
 
 If anything here seems wrong, or any of the above are failing, please raise an issue in [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
@@ -229,7 +229,7 @@ It depends, but most pull requests will be merged within a week. PRs that have b
 
 #### My PR is merged; when will the `@types` NPM package be updated?
 
-NPM packages should update within a few hours. If it's been more than 24 hours, ping @RyanCavanaugh and @andy-ms on the PR to investigate.
+NPM packages should update within a few minutes. If it's been more than an hour, mention the PR number on [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped) and the current maintainer will get the correct team member to investigate.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
