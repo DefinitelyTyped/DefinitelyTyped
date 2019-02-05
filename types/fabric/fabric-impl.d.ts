@@ -617,7 +617,7 @@ interface IPatternOptions {
     /**
      * Transform matrix to change the pattern, imported from svgs
      */
-    patternTransform?: Array<number>;
+    patternTransform?: number[];
 }
 export interface Pattern extends IPatternOptions { }
 export class Pattern {
@@ -4645,7 +4645,7 @@ interface IUtilMisc {
     /**
      * Creates a transform matrix with the specified scale and skew
      */
-    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): Array<number>;
+    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
 
 	/**
 	 * Returns string representation of function body
