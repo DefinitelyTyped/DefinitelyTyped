@@ -732,18 +732,9 @@ export namespace errors {
 }
 
 export namespace metadata {
-  let Aggregate: AggregateStatic;
-  let Index: IndexStatic;
-  let MaterializedView: MaterializedViewStatic;
   let Metadata: MetadataStatic;
-  let SchemaFunction: SchemaFunctionStatic;
-  let TableMetadata: TableMetadataStatic;
 
   type caching = "all" | "keys_only" | "rows_only" | "none";
-
-  interface AggregateStatic {
-    new (): Aggregate;
-  }
 
   interface Aggregate {
     argumentTypes: Array<{ code: number, info: any }>;
@@ -754,10 +745,6 @@ export namespace metadata {
     signature: string[];
     stateFunction: string;
     stateType: string;
-  }
-
-  interface ClientStateStatic {
-    new (): ClientState;
   }
 
   interface ClientState {
@@ -812,13 +799,6 @@ export namespace metadata {
     composites
   }
 
-  interface IndexStatic {
-    new (name: string, target: string, kind: string | IndexType, options: object): Index;
-
-    fromRows(indexRows: types.Row[]): Index[];
-    fromColumnRows(columnRows: types.Row[], columnsByName: { [key: string]: ColumnInfo }): Index[];
-  }
-
   interface Index {
     kind: IndexType;
     name: string;
@@ -830,11 +810,43 @@ export namespace metadata {
     isKeysKind(): boolean;
   }
 
-  interface MaterializedViewStatic {
-    new (name: string): MaterializedView;
+  interface MaterializedView extends DataCollection { }
+
+  class Token {
+    getType(): types.dataTypes;
+    getValue(): any;
+    compare(other: Token): number;
+    equals(other: Token): boolean;
   }
 
-  interface MaterializedView extends DataCollection { }
+  interface TokenRange {
+    start: Token;
+    end: Token;
+
+    splitEvenly(numberOfSplits: number): TokenRange[];
+    isEmpty(): boolean;
+    isWrappedAround(): boolean;
+    unwrap(): TokenRange[];
+    contains(token: Token): boolean;
+    equals(other: TokenRange): boolean;
+    compare(other: TokenRange): number;
+  }
+
+  class ByteOrderedToken extends Token {}
+  class Murmur3Token extends Token {}
+  class BytRandomToken extends Token {}
+
+  interface QueryTrace {
+    requestType: any;
+    coordinator: any;
+    parameters: any;
+    startedAt: any;
+    duration: any;
+    clientAddress: any;
+    events: Array<{ id: any; activity: any; source: any; elapsed: any; thread: any }>;
+  }
+
+  type MetadataCallback<T> = (err: any, retVal: T) => void;
 
   interface MetadataStatic {
     new (options: ClientOptions, controlConnection: any): Metadata;
@@ -843,21 +855,37 @@ export namespace metadata {
   interface Metadata {
     clearPrepared(): void;
 
-    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: Callback): void;
-    getAggregates(keyspaceName: string, name: string, callback: Callback): void;
-    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: Callback): void;
-    getFunctions(keyspaceName: string, name: string, callback: Callback): void;
-    getMaterializedView(keyspaceName: string, name: string, callback: Callback): void;
-    getReplicas(keyspaceName: string, tokenBuffer: Buffer): any[];
-    getTable(keyspaceName: string, name: string, callback: Callback): void;
-    getTrace(traceId: types.Uuid, callback: Callback): void;
-    getUdt(keyspaceName: string, name: string, callback: Callback): void;
-    refreshKeyspace(name: string, callback?: Callback): void;
-    refreshKeyspaces(callback?: Callback): void;
-  }
-
-  interface SchemaFunctionStatic {
-    new (): SchemaFunction;
+    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: MetadataCallback<Aggregate>): void;
+    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>): Promise<Aggregate>;
+    getAggregates(keyspaceName: string, name: string, callback: MetadataCallback<Aggregate[]>): void;
+    getAggregates(keyspaceName: string, name: string): Promise<Aggregate[]>;
+    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: MetadataCallback<SchemaFunction>): void;
+    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>): Promise<SchemaFunction>;
+    getFunctions(keyspaceName: string, name: string, callback: MetadataCallback<SchemaFunction[]>): void;
+    getFunctions(keyspaceName: string, name: string): Promise<SchemaFunction[]>;
+    getMaterializedView(keyspaceName: string, name: string, callback: MetadataCallback<MaterializedView>): void;
+    getMaterializedView(keyspaceName: string, name: string, callback: Callback): Promise<MaterializedView>;
+    getReplicas(keyspaceName: string, token: Buffer | Token | TokenRange): any[]; // TODO
+    getTable(keyspaceName: string, name: string, callback: MetadataCallback<TableMetadata>): void;
+    getTable(keyspaceName: string, name: string): Promise<TableMetadata>;
+    getTokenRanges(): Set<TokenRange>;
+    getTokenRangesForHost(keyspaceName: string, host: Host): Set<TokenRange> | null;
+    getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: MetadataCallback<QueryTrace>): void;
+    getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: Callback): Promise<QueryTrace>;
+    getTrace(traceId: types.Uuid, callback: MetadataCallback<QueryTrace>): void;
+    getTrace(traceId: types.Uuid): Promise<QueryTrace>;
+    getUdt(keyspaceName: string, name: string, callback: MetadataCallback<any>): void; // TODO
+    getUdt(keyspaceName: string, name: string): Promise<any>; // TODO
+    newToken(components: Buffer[] | Buffer | string): Token;
+    newTokenRange(start: Token, end: Token): TokenRange;
+    refreshKeyspace(name: string, callback: Callback): void;
+    refreshKeyspace(name: string): Promise<void>;
+    refreshKeyspaces(waitReconnect: () => boolean, callback: Callback): void;
+    refreshKeyspaces(waitReconnect: () => boolean): Promise<void>;
+    refreshKeyspaces(waitReconnect: boolean, callback: Callback): void;
+    refreshKeyspaces(waitReconnect: boolean): Promise<void>;
+    refreshKeyspaces(callback: Callback): void;
+    refreshKeyspaces(): Promise<void>;
   }
 
   interface SchemaFunction {
@@ -870,10 +898,6 @@ export namespace metadata {
     name: string;
     returnType: string;
     signature: string[];
-  }
-
-  interface TableMetadataStatic {
-    new (name: string): TableMetadata;
   }
 
   interface TableMetadata extends DataCollection {
