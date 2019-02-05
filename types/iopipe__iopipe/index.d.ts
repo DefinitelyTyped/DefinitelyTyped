@@ -22,7 +22,7 @@ declare namespace iopipe {
         timeoutWindow?: number;
     }
 
-    type FunctionWrapper = (handler: any) => void;
+    type FunctionWrapper = <T>(handler: T) => T;
 }
 
 export = iopipe;
