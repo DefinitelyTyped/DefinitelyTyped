@@ -57,6 +57,8 @@ videojs("example_video_1").ready(function() {
 
 	this.height(480);
 
+	const readyState: videojs.ReadyState = this.readyState();
+
 	this.requestFullscreen();
 
 	testEvents(this);

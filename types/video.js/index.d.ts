@@ -3713,6 +3713,14 @@ declare namespace videojs {
 		new (player: Player, options?: ComponentOptions): MouseTimeDisplay
 	};
 
+	enum ReadyState {
+		HaveNothing = 0,
+		HaveMetadata = 1,
+		HaveCurrentData = 2,
+		HaveFutureData = 3,
+		HaveEnoughData = 4
+	}
+
 	/**
 	 * An instance of the `Player` class is created when any of the Video.js setup methods
 	 * are used to initialize a video.
@@ -4341,6 +4349,12 @@ declare namespace videojs {
 		 * @return The preload attribute value when getting
 		 */
 		preload(value?: boolean): string;
+
+		/**
+		 * Returns a value that expresses the current state of the element
+		 * with respect to rendering the current playback position.
+		 */
+		readyState(): ReadyState;
 
 		/**
 		 * Calculates how much time is left in the video. Not part
