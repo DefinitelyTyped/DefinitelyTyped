@@ -3721,6 +3721,13 @@ declare namespace videojs {
 		HaveEnoughData = 4
 	}
 
+	enum NetworkState {
+		Empty = 0,
+		Idle = 1,
+		Loading = 2,
+		NoSource = 3
+	}
+
 	/**
 	 * An instance of the `Player` class is created when any of the Video.js setup methods
 	 * are used to initialize a video.
@@ -4256,6 +4263,13 @@ declare namespace videojs {
 		muted(muted: boolean): void;
 
 		muted(): boolean;
+
+		/**
+		 * Returns the current state of network activity for the element
+		 *
+		 * @return The current network state
+		 */
+		networkState(): NetworkState;
 
 		/**
 		 * Pause the video playback
