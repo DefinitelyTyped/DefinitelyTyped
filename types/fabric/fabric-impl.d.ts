@@ -614,6 +614,10 @@ interface IPatternOptions {
 	 * The source for the pattern
 	 */
 	source: string | HTMLImageElement;
+    /**
+     * Transform matrix to change the pattern, imported from svgs
+     */
+    patternTransform?: number[];
 }
 export interface Pattern extends IPatternOptions { }
 export class Pattern {
@@ -4637,6 +4641,11 @@ interface IUtilMisc {
 	 * @param a transformMatrix
 	 */
 	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number };
+
+    /**
+     * Creates a transform matrix with the specified scale and skew
+     */
+    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
 
 	/**
 	 * Returns string representation of function body
