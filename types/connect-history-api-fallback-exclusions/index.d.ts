@@ -22,13 +22,13 @@ declare namespace historyApiFallback {
         rewrites?: Rewrite[];
         verbose?: boolean;
     }
-    
+
     interface Context {
         match: RegExpMatchArray;
         parsedUrl: Url;
     }
     type RewriteTo = (context: Context) => string;
-    
+
     interface Rewrite {
         from: RegExp;
         to: string | RegExp | RewriteTo;
