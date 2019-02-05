@@ -442,10 +442,13 @@ export class Transaction<TMemo extends Memo = Memo, TOps extends Operation[] = O
     signatures: xdr.DecoratedSignature[];
 }
 
+export const TimeoutInfinite = 0;
+
 export class TransactionBuilder {
     constructor(sourceAccount: Account, options?: TransactionBuilder.TransactionBuilderOptions)
     addOperation(operation: xdr.Operation): this;
     addMemo(memo: Memo): this;
+    setTimeout(timeoutInSeconds: number): this;
     build(): Transaction;
 }
 
