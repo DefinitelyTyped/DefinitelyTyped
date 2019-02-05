@@ -48,3 +48,5 @@ emitter.emit('some-recurring-event', event_data)
 emitter.listeners('some-recurring-event')
 
 emitter.hasListeners('some-recurring-event')
+
+emitter.emit('some-event').emit("I can use chaining!")
