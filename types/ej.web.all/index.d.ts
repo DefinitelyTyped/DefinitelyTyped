@@ -8,8 +8,8 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.4.0.42
-*  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
+*  version : 16.4.0.52
+*  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
 *  licensing@syncfusion.com. Any infringement will be prosecuted under
@@ -46630,6 +46630,11 @@ declare namespace ej {
          * @returns {void}
          */
         searchPrevious(): void;
+
+        /** Aborts the search operation.
+         * @returns {void}
+         */
+        cancelSearchText(): void;
 
         /** Set the JSON data that are formed for rendering the document content in PDF viewer.
          * @param {any} Set the JSON data that are formed for rendering the document content.
