@@ -26,7 +26,7 @@ declare module "crypto" {
     interface Credentials { context?: any; }
     function createCredentials(details: CredentialDetails): Credentials;
     function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
-    function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView | KeyObject, options?: stream.TransformOptions): Hmac;
+    function createHmac(algorithm: string, key: CipherKey, options?: stream.TransformOptions): Hmac;
 
     type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
     type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
@@ -60,6 +60,7 @@ declare module "crypto" {
     }
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
+    type CipherKey = string | Buffer | NodeJS.TypedArray | DataView | KeyObject;
     interface CipherCCMOptions extends stream.TransformOptions {
         authTagLength: number;
     }
@@ -75,18 +76,18 @@ declare module "crypto" {
 
     function createCipheriv(
         algorithm: CipherCCMTypes,
-        key: string | Buffer | NodeJS.TypedArray | DataView | KeyObject,
+        key: CipherKey,
         iv: string | Buffer | NodeJS.TypedArray | DataView,
         options: CipherCCMOptions
     ): CipherCCM;
     function createCipheriv(
         algorithm: CipherGCMTypes,
-        key: string | Buffer | NodeJS.TypedArray | DataView | KeyObject,
+        key: CipherKey,
         iv: string | Buffer | NodeJS.TypedArray | DataView,
         options?: CipherGCMOptions
     ): CipherGCM;
     function createCipheriv(
-        algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView | KeyObject, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions
+        algorithm: string, key: CipherKey, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions
     ): Cipher;
 
     interface Cipher extends NodeJS.ReadWriteStream {
