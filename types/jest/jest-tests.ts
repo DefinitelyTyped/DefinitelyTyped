@@ -259,12 +259,43 @@ jest.requireMock("./thisAlwaysReturnsTheMock");
 
 /* Mocks and spies */
 
-const mock1: jest.Mock = jest.fn();
-const mock2: jest.Mock<undefined> = jest.fn<undefined>(() => undefined);
-const mock3: jest.Mock<string> = jest.fn(() => "abc");
-const mock4: jest.Mock<"abc"> = jest.fn((): "abc" => "abc");
-const mock5: jest.Mock<string> = jest.fn((...args: string[]) => args.join(""));
-const mock6: jest.Mock = jest.fn((arg: {}) => arg);
+// $ExpectType Mock<any, any>
+const mock1: jest.Mock<number> = jest.fn();
+// $ExpectType Mock<undefined, []>
+const mock2 = jest.fn(() => undefined);
+// $ExpectType Mock<string, []>
+const mock3 = jest.fn(() => "abc");
+// $ExpectType Mock<"abc", []>
+const mock4 = jest.fn((): "abc" => "abc");
+// $ExpectType Mock<string, string[]>
+const mock5 = jest.fn((...args: string[]) => args.join(""));
+// $ExpectType Mock<{}, [{}]>
+const mock6 = jest.fn((arg: {}) => arg);
+// $ExpectType Mock<number, [number]>
+const mock7 = jest.fn((arg: number) => arg);
+// $ExpectType Mock<number, [number]>
+const mock8: jest.Mock = jest.fn((arg: number) => arg);
+// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]>
+const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise.resolve(_makeItStop));
+// $ExpectType Mock<never, [never]>
+const mock10 = jest.fn((arg: never) => { throw new Error(arg); });
+// $ExpectType Mock<unknown, [unknown]>
+const mock11 = jest.fn((arg: unknown) => arg);
+
+// $ExpectType number
+mock1('test');
+
+// $ExpectError
+mock7('abc');
+// $ExpectError
+mock7.mockImplementation((arg: string) => 1);
+
+// compiles because mock8 is declared as jest.Mock<{}, any>
+mock8('abc');
+mock8.mockImplementation((arg: string) => 1);
+
+// mockImplementation not required to declare all arguments
+mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
 
 const genMockModule1: {} = jest.genMockFromModule("moduleName");
 const genMockModule2: { a: "b" } = jest.genMockFromModule<{ a: "b" }>("moduleName");
@@ -278,8 +309,8 @@ if (jest.isMockFunction(maybeMock)) {
 }
 
 const mockName: string = jest.fn().getMockName();
-const mockContextVoid: jest.MockContext<void> = jest.fn<void>().mock;
-const mockContextString: jest.MockContext<string> = jest.fn(() => "").mock;
+const mockContextVoid = jest.fn().mock;
+const mockContextString = jest.fn(() => "").mock;
 
 jest.fn().mockClear();
 
@@ -289,14 +320,28 @@ jest.fn().mockRestore();
 
 const spiedTarget = {
     returnsVoid(): void { },
+    setValue(value: string): void {
+        this.value = value;
+    },
     returnsString(): string {
         return "";
     }
 };
 
+class SpiedTargetClass {
+    private _value = 3;
+    get value() {
+        return this._value;
+    }
+    set value(value) {
+        this._value = value;
+    }
+}
+const spiedTarget2 = new SpiedTargetClass();
+
 const spy1 = jest.spyOn(spiedTarget, "returnsVoid");
 const spy2 = jest.spyOn(spiedTarget, "returnsVoid", "get");
-const spy3 = jest.spyOn(spiedTarget, "returnsString", "set");
+const spy3 = jest.spyOn(spiedTarget, "returnsString");
 const spy1Name: string = spy1.getMockName();
 
 const spy2Calls: any[][] = spy2.mock.calls;
@@ -304,9 +349,10 @@ const spy2Calls: any[][] = spy2.mock.calls;
 spy2.mockClear();
 spy2.mockReset();
 
-const spy3Mock: jest.Mock<() => string> = spy3
+const spy3Mock = spy3
     .mockImplementation(() => "")
     .mockImplementation()
+    // $ExpectError
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(""))
     .mockImplementationOnce(() => "")
@@ -320,9 +366,22 @@ const spy3Mock: jest.Mock<() => string> = spy3
     .mockRejectedValueOnce("value");
 
 let spy4: jest.SpyInstance;
-
+// $ExpectType SpyInstance<string, []>
 spy4 = jest.spyOn(spiedTarget, "returnsString");
+// compiles because spy4 is declared as jest.SpyInstance<any, any>
+spy4.mockImplementation(() => 1);
 spy4.mockRestore();
+
+// $ExpectType SpyInstance<number, []>
+const spy5 = jest.spyOn(spiedTarget2, "value", "get");
+// $ExpectError
+spy5.mockReturnValue('5');
+
+// $ExpectType SpyInstance<void, [number]>
+const spy6 = jest.spyOn(spiedTarget2, "value", "set");
+
+// should compile
+jest.fn().mockImplementation((test: number) => test);
 
 /* Snapshot serialization */
 

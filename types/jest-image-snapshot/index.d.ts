@@ -2,7 +2,7 @@
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="jest" />
 
