@@ -184,6 +184,6 @@ describe('React dom test utils', () => {
         ReactTestUtils.act(() => {
             ReactDOM.render(<div />, rootElement);
             return { count: 123 };
-        });        
+        });
     });
 });
