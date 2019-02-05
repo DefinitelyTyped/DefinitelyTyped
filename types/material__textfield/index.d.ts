@@ -78,4 +78,12 @@ export class MDCTextField extends MDCComponent<MDCTextFieldAdapter, MDCTextField
      * Recomputes the outline SVG path for the outline element.
      */
     layout(): void;
+
+    /**
+     * Ideally we would use a 'writeonly' modifier here since this is a setter,
+     * but such a thing does not exist.
+     * https://github.com/Microsoft/TypeScript/issues/4839
+     * https://github.com/Microsoft/TypeScript/issues/21759
+     */
+    useNativeValidation: boolean;
 }
