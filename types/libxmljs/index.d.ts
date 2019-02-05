@@ -14,12 +14,15 @@ export const libxml_parser_version: string;
 // tslint:disable-next-line:strict-export-declare-modifiers
 interface StringMap { [key: string]: string; }
 
-export function parseXml(source: string, options?: StringMap): Document;
-export function parseXmlString(source: string, options?: StringMap): Document;
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface ParserOptions { [key: string]: boolean | string; }
 
-export function parseHtml(source: string, options?: StringMap): Document;
-export function parseHtmlString(source: string, options?: StringMap): Document;
-export function parseHtmlFragment(source: string, options?: StringMap): Document;
+export function parseXml(source: string, options?: ParserOptions): Document;
+export function parseXmlString(source: string, options?: ParserOptions): Document;
+
+export function parseHtml(source: string, options?: ParserOptions): Document;
+export function parseHtmlString(source: string, options?: ParserOptions): Document;
+export function parseHtmlFragment(source: string, options?: ParserOptions): Document;
 
 export function memoryUsage(): number;
 export function nodeCount(): number;
