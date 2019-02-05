@@ -105,7 +105,7 @@ declare class SCClientSocket extends Emitter {
     on(event: string, listener: Function): this;
     once(event: string, listener: Function): this;
     off(event?: string, listener?: Function): this;
-    emit(event: string, ...args: any[]): boolean;
+    emit(event: string, ...args: any[]): this;
     listeners(event: string): Function[];
     hasListeners(event: string): boolean;
     // tslint:enable:adjacent-overload-signatures
