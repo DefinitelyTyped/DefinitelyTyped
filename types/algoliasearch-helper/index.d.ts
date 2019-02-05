@@ -27,7 +27,7 @@ declare namespace algoliasearchHelper {
     derivedHelpers: AlgoliaSearchHelper[];
 
     on(event: 'change' | 'search', cb: (state: SearchParameters, lastResults: SearchResults | null) => any): this;
-    on(event: 'searchForFacetValues', cb: (state: SearchParameters, facet?: string, query?: string) => any): this;
+    on(event: 'searchForFacetValues', cb: (state: SearchParameters, facet: string, query: string) => any): this;
     on(event: 'searchOnce', cb: (state: SearchParameters) => any): this;
     on(event: 'result', cb: (results: SearchResults, state: SearchParameters) => any): this;
     on(event: 'error', cb: (error: any) => any): this;
@@ -142,7 +142,7 @@ declare namespace algoliasearchHelper {
      * }).search();
      */
     clearRefinements(name?: string): this;
-    clearRefinements(func: (value: any, attribute?: string, type?: string) => boolean): this;
+    clearRefinements(func: (value: any, attribute: string, type: string) => boolean): this;
 
     /**
      * Remove all the tag filters.
