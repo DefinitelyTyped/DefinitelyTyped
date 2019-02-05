@@ -23,7 +23,7 @@ declare namespace URLParse {
         | 'username';
 
     type QueryParser = (query: string) => object;
-    
+
     type StringifyQuery = (query: object) => string;
 }
 
