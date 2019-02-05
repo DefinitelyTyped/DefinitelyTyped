@@ -3,6 +3,7 @@
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
 //                 Michael Auer <https://github.com/mcauer>
+//                 Roni Karilkar <https://github.com/ronikar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -578,6 +579,32 @@ export class ImageOverlay extends Layer {
 }
 
 export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
+
+export interface VideoOverlayOptions extends ImageOverlayOptions {
+    autoplay?: boolean;
+    loop?: boolean;
+}
+
+export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because ImageOverlay.getElement returns HTMLImageElement */
+    constructor(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions);
+    setOpacity(opacity: number): this;
+    bringToFront(): this;
+    bringToBack(): this;
+    setUrl(url: string): this;
+
+    /** Update the bounds that this VideoOverlay covers */
+    setBounds(bounds: LatLngBounds): this;
+
+    /** Get the bounds that this VideoOverlay covers */
+    getBounds(): LatLngBounds;
+
+    /** Get the video element that represents the VideoOverlay on the map */
+    getElement(): HTMLVideoElement | undefined;
+
+    options: VideoOverlayOptions;
+}
+
+export function videoOverlay(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions): VideoOverlay;
 
 export type LineCapShape = 'butt' | 'round' | 'square' | 'inherit';
 
