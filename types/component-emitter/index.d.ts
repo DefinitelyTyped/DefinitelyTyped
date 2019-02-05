@@ -3,6 +3,7 @@
 // Definitions by: Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/emitter-component
 
+// TypeScript Version: 2.2
 
 interface Emitter {
     on(event: string, listener: Function): Emitter;
