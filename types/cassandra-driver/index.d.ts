@@ -812,29 +812,6 @@ export namespace metadata {
 
   interface MaterializedView extends DataCollection { }
 
-  class Token {
-    getType(): types.dataTypes;
-    getValue(): any;
-    compare(other: Token): number;
-    equals(other: Token): boolean;
-  }
-
-  interface TokenRange {
-    start: Token;
-    end: Token;
-
-    splitEvenly(numberOfSplits: number): TokenRange[];
-    isEmpty(): boolean;
-    isWrappedAround(): boolean;
-    unwrap(): TokenRange[];
-    contains(token: Token): boolean;
-    equals(other: TokenRange): boolean;
-    compare(other: TokenRange): number;
-  }
-
-  class ByteOrderedToken extends Token {}
-  class Murmur3Token extends Token {}
-  class BytRandomToken extends Token {}
 
   interface QueryTrace {
     requestType: any;
@@ -865,19 +842,19 @@ export namespace metadata {
     getFunctions(keyspaceName: string, name: string): Promise<SchemaFunction[]>;
     getMaterializedView(keyspaceName: string, name: string, callback: MetadataCallback<MaterializedView>): void;
     getMaterializedView(keyspaceName: string, name: string, callback: Callback): Promise<MaterializedView>;
-    getReplicas(keyspaceName: string, token: Buffer | Token | TokenRange): any[]; // TODO
+    getReplicas(keyspaceName: string, token: Buffer | token.Token | token.TokenRange): any[]; // TODO
     getTable(keyspaceName: string, name: string, callback: MetadataCallback<TableMetadata>): void;
     getTable(keyspaceName: string, name: string): Promise<TableMetadata>;
-    getTokenRanges(): Set<TokenRange>;
-    getTokenRangesForHost(keyspaceName: string, host: Host): Set<TokenRange> | null;
+    getTokenRanges(): Set<token.TokenRange>;
+    getTokenRangesForHost(keyspaceName: string, host: Host): Set<token.TokenRange> | null;
     getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: MetadataCallback<QueryTrace>): void;
     getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: Callback): Promise<QueryTrace>;
     getTrace(traceId: types.Uuid, callback: MetadataCallback<QueryTrace>): void;
     getTrace(traceId: types.Uuid): Promise<QueryTrace>;
     getUdt(keyspaceName: string, name: string, callback: MetadataCallback<any>): void; // TODO
     getUdt(keyspaceName: string, name: string): Promise<any>; // TODO
-    newToken(components: Buffer[] | Buffer | string): Token;
-    newTokenRange(start: Token, end: Token): TokenRange;
+    newToken(components: Buffer[] | Buffer | string): token.Token;
+    newTokenRange(start: token.Token, end: token.Token): token.TokenRange;
     refreshKeyspace(name: string, callback: Callback): void;
     refreshKeyspace(name: string): Promise<void>;
     refreshKeyspaces(waitReconnect: () => boolean, callback: Callback): void;
@@ -941,6 +918,7 @@ export interface ExecutionOptions {
 }
 
 export let ExecutionOptions: ExecutionOptionsStatic;
+export let ExecutionProfile: ExecutionProfileStatic;
 
 export namespace mapping {
   let Mapper: MapperStatic;
@@ -1150,3 +1128,41 @@ export namespace metrics {
   }
   interface DefaultMetrics extends ClientMetrics {}
 }
+
+export namespace token {
+  interface Tokenizer {
+    hash(value: Buffer | number[]): Token;
+    parse(value: string): Token;
+    minToken(): Token;
+    split(start: Token, end: Token, numberOfSplits: number): TokenRange[];
+    splitBase(start: number, end: number, ringEnd: number, ringLength: number, numberOfSplits: number): number[];
+    stringify(token: Token): string;
+  }
+
+  class Token {
+    constructor(value: any);
+
+    getType(): { code: number, info: any };
+    getValue(): any;
+    compare(other: Token): number;
+    equals(other: Token): boolean;
+  }
+
+  class TokenRange {
+    start: Token;
+    end: Token;
+
+    constructor(start: Token, end: Token, tokenizer: Tokenizer);
+
+    splitEvenly(numberOfSplits: number): TokenRange[];
+    isEmpty(): boolean;
+    isWrappedAround(): boolean;
+    unwrap(): TokenRange[];
+    contains(token: Token): boolean;
+    equals(other: TokenRange): boolean;
+    compare(other: TokenRange): number;
+  }
+}
+
+export const defaultOptions: () => ClientOptions;
+export const version: string;
