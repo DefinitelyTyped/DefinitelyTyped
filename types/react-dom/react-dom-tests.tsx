@@ -181,10 +181,9 @@ describe('React dom test utils', () => {
 
     it('act', () => {
         const rootElement = document.createElement('div');
-        const value = ReactTestUtils.act(() => {
+        ReactTestUtils.act(() => {
             ReactDOM.render(<div />, rootElement);
             return { count: 123 };
-        });
-        value.count === 123;
+        });        
     });
 });

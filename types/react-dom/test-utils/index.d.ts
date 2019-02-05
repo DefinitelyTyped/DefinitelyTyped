@@ -282,4 +282,4 @@ export function createRenderer(): ShallowRenderer;
 /**
  *  Wrap test interactions with .act(...) to batch updates and effects
  */
-export function act<X>(callback: () => X): X;
+export function act(callback: () => void): void;
