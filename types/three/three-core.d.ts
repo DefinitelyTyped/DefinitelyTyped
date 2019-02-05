@@ -2294,7 +2294,7 @@ export class JSONLoader extends Loader {
  * Handles and keeps track of loaded and pending data.
  */
 export class LoadingManager {
-    constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: () => void);
+    constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: (url: string) => void);
 
     onStart?: (url: string, loaded: number, total: number) => void;
 
