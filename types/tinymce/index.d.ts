@@ -324,13 +324,13 @@ export interface Settings {
 
 export namespace settings {
   interface Menu {
-    file: MenuItem;
-    edit: MenuItem;
-    insert: MenuItem;
-    view: MenuItem;
-    format: MenuItem;
-    table: MenuItem;
-    tools: MenuItem;
+    file?: MenuItem;
+    edit?: MenuItem;
+    insert?: MenuItem;
+    view?: MenuItem;
+    format?: MenuItem;
+    table?: MenuItem;
+    tools?: MenuItem;
   }
 
   interface MenuItem {
