@@ -170,14 +170,14 @@ declare module "crypto" {
     function createSecretKey(key: Buffer): KeyObject;
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
 
-    interface PrivateKeyInputForSigning extends PrivateKeyInput {
+    interface SignPrivateKeyInput extends PrivateKeyInput {
         saltLength?: number;
     }
     interface Signer extends NodeJS.WritableStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: PrivateKeyInputForSigning | string | Buffer | KeyObject): Buffer;
-        sign(private_key: PrivateKeyInputForSigning | string | Buffer | KeyObject, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: SignPrivateKeyInput | string | Buffer | KeyObject): Buffer;
+        sign(private_key: SignPrivateKeyInput | string | Buffer | KeyObject, output_format: HexBase64Latin1Encoding): string;
     }
     function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
     interface Verify extends NodeJS.WritableStream {
