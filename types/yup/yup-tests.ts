@@ -199,6 +199,12 @@ const testContext = function(this: TestContext) {
     this.resolve;
     // $ExpectType ValidationError
     this.createError({ path: "1", message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ path: "1"});
+    // $ExpectType ValidationError
+    this.createError();
     return true;
 };
 mixed.test("with-context", "it uses function context", testContext);
