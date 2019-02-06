@@ -297,7 +297,7 @@ export function act(callback: () => void | undefined): DebugPromiseLike | {};
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.
-interface DebugPromiseLike {
+export interface DebugPromiseLike {
     // the actual then() in here is 0-ary, but that doesn't count as a PromiseLike.
     then(onfulfilled: (value: never) => never, onrejected: (reason: never) => never): never;
 }
