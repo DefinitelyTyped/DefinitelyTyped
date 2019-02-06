@@ -227,7 +227,7 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params: { path: string; message: string }) => ValidationError;
+    createError: (params: { path?: string; message?: string }) => ValidationError;
 }
 
 export interface ValidateOptions {
