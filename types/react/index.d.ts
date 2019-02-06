@@ -783,11 +783,9 @@ declare namespace React {
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
     type DependencyList = ReadonlyArray<any>;
 
-    // NOTE: Currently, in alpha.0, the effect callbacks are actually allowed to return anything,
-    // but functions are treated specially. The next version published with hooks will warn if you actually
-    // return anything besides `void` or a callback. Async effects need to call an async function inside
-    // them.
-    type EffectCallback = () => (void | (() => void));
+    // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
+    // The destructor is itself only allowed to return void.
+    type EffectCallback = () => (void | (() => void | undefined));
 
     interface MutableRefObject<T> {
         current: T;
@@ -853,12 +851,16 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usereducer
      */
+
     // I'm not sure if I keep this 2-ary or if I make it (2,3)-ary; it's currently (2,3)-ary.
     // The Flow types do have an overload for 3-ary invocation with undefined initializer.
-    // NOTE: the documentation or any alphas aren't updated, this is current for master.
-    // NOTE 2: without the ReducerState indirection, TypeScript would reduce S to be the most common
+
+    // NOTE: without the ReducerState indirection, TypeScript would reduce S to be the most common
     // supertype between the reducer's return type and the initialState (or the initializer's return type),
     // which would prevent autocompletion from ever working.
+
+    // TODO: double-check if this weird overload logic is necessary. It is possible it's either a bug
+    // in older versions, or a regression in newer versions of the typescript completion service.
     function useReducer<R extends Reducer<any, any>>(
         reducer: R,
         initialState: ReducerState<R>,
