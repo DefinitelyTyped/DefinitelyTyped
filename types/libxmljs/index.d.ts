@@ -116,6 +116,7 @@ export class Element extends Node {
     prevElement(): Element|null;
     nextElement(): Element|null;
     addNextSibling(siblingNode: Node): Node;
+    addPrevSibling(siblingNode: Node): Node;
 
     find(xpath: string, ns_uri?: string): Node[];
     find(xpath: string, namespaces: StringMap): Node[];
