@@ -232,11 +232,15 @@ export interface TileLayerProps extends TileLayerEvents, Leaflet.TileLayerOption
 }
 export class TileLayer<P extends TileLayerProps = TileLayerProps, E extends Leaflet.TileLayer = Leaflet.TileLayer> extends GridLayer<P, E> { }
 
-export interface WMSTileLayerProps extends TileLayerEvents, Leaflet.WMSOptions {
+export interface WMSTileLayerProps extends TileLayerEvents, Leaflet.WMSOptions, GridLayerProps {
     children?: Children;
     url: string;
 }
-export class WMSTileLayer<P extends WMSTileLayerProps = WMSTileLayerProps,  E extends Leaflet.TileLayer.WMS = Leaflet.TileLayer.WMS> extends GridLayer<P, E> { }
+export class WMSTileLayer<P extends WMSTileLayerProps = WMSTileLayerProps,  E extends Leaflet.TileLayer.WMS = Leaflet.TileLayer.WMS> extends GridLayer<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+    getOptions(params: P): P;
+}
 
 export interface ImageOverlayProps extends Leaflet.ImageOverlayOptions {
     bounds: Leaflet.LatLngBoundsExpression;
