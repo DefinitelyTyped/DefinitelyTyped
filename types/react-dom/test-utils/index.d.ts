@@ -291,4 +291,13 @@ export function createRenderer(): ShallowRenderer;
  * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
  */
 // the "void | undefined" is here to forbid any sneaky "Promise" returns.
-export function act(callback: () => void | undefined): void;
+// the actual return value is always a "DebugPromiseLike",
+// but having an "| {}" makes it harder to accidentally use.
+export function act(callback: () => void | undefined): DebugPromiseLike | {};
+
+// Intentionally doesn't extend PromiseLike<never>.
+// Ideally this should be as hard to accidentally use as possible.
+interface DebugPromiseLike {
+    // the actual then() in here is 0-ary, but that doesn't count as a PromiseLike.
+    then(onfulfilled: (value: never) => never, onrejected: (reason: never) => never): never;
+}

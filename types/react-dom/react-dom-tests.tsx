@@ -191,5 +191,10 @@ describe('React dom test utils', () => {
             // $ExpectError
             ReactTestUtils.act(() => null);
         });
+        it('returns a Promise-like that errors out on use', () => {
+            const result = ReactTestUtils.act(() => {});
+            // $ExpectError
+            Promise.resolve(result);
+        });
     });
 });

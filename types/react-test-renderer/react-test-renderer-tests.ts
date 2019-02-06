@@ -73,3 +73,5 @@ act(() => {});
 act(async () => {});
 // $ExpectError
 act(() => null);
+// $ExpectError
+Promise.resolve(act(() => {}));
