@@ -1267,6 +1267,12 @@
             "asOfVersion": "8.1.0"
         },
         {
+            "libraryName": "React Icons",
+            "typingsPackageName": "react-icons",
+            "sourceRepoURL": "https://www.npmjs.com/package/react-icons",
+            "asOfVersion": "3"
+        },
+        {
             "libraryName": "react-monaco-editor",
             "typingsPackageName": "react-monaco-editor",
             "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
