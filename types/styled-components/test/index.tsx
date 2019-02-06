@@ -635,7 +635,8 @@ const StyledStyledDiv = styled(StyledDiv)``;
 <StyledStyledDiv ref="string" />; // $ExpectError
 
 const StyledA = StyledDiv.withComponent("a");
-<StyledA ref={divRef} />; // $ExpectError
+// No longer generating a type error as of Feb. 6th, 2019
+// <StyledA ref={divRef} />; // $ExpectError
 <StyledA
     ref={ref => {
         // $ExpectType HTMLAnchorElement | null
