@@ -15,7 +15,40 @@ export const libxml_parser_version: string;
 interface StringMap { [key: string]: string; }
 
 // tslint:disable-next-line:strict-export-declare-modifiers
-interface ParserOptions { [key: string]: boolean | string; }
+interface ParserOptions {
+    recover?: boolean;
+    noent?: boolean;
+    dtdload?: boolean;
+    doctype?: boolean;
+    dtdattr?: any;
+    dtdvalid?: boolean;
+    noerror?: boolean;
+    errors?: boolean;
+    nowarning?: boolean;
+    warnings?: boolean;
+    pedantic?: boolean;
+    noblanks?: boolean;
+    blanks?: boolean;
+    sax1?: boolean;
+    xinclude?: boolean;
+    nonet?: boolean;
+    net?: boolean;
+    nodict?: boolean;
+    dict?: boolean;
+    nsclean?: boolean;
+    implied?: boolean;
+    nocdata?: boolean;
+    cdata?: boolean;
+    noxincnode?: boolean;
+    compact?: boolean;
+    old?: boolean;
+    nobasefix?: boolean;
+    basefix?: boolean;
+    huge?: boolean;
+    oldsax?: boolean;
+    ignore_enc?: boolean;
+    big_lines?: boolean;
+}
 
 export function parseXml(source: string, options?: ParserOptions): Document;
 export function parseXmlString(source: string, options?: ParserOptions): Document;
