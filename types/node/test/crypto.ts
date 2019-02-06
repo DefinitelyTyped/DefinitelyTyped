@@ -485,3 +485,76 @@ import { promisify } from 'util';
 {
     crypto.createSecretKey(Buffer.from('asdf'));
 }
+
+{
+    // crypto_constants_test
+    let num: number;
+    let str: string;
+
+    num = crypto.constants.OPENSSL_VERSION_NUMBER;
+    num = crypto.constants.SSL_OP_ALL;
+    num = crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION;
+    num = crypto.constants.SSL_OP_CIPHER_SERVER_PREFERENCE;
+    num = crypto.constants.SSL_OP_CISCO_ANYCONNECT;
+    num = crypto.constants.SSL_OP_COOKIE_EXCHANGE;
+    num = crypto.constants.SSL_OP_CRYPTOPRO_TLSEXT_BUG;
+    num = crypto.constants.SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
+    num = crypto.constants.SSL_OP_EPHEMERAL_RSA;
+    num = crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT;
+    num = crypto.constants.SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER;
+    num = crypto.constants.SSL_OP_MICROSOFT_SESS_ID_BUG;
+    num = crypto.constants.SSL_OP_MSIE_SSLV2_RSA_PADDING;
+    num = crypto.constants.SSL_OP_NETSCAPE_CA_DN_BUG;
+    num = crypto.constants.SSL_OP_NETSCAPE_CHALLENGE_BUG;
+    num = crypto.constants.SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG;
+    num = crypto.constants.SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG;
+    num = crypto.constants.SSL_OP_NO_COMPRESSION;
+    num = crypto.constants.SSL_OP_NO_QUERY_MTU;
+    num = crypto.constants.SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION;
+    num = crypto.constants.SSL_OP_NO_SSLv2;
+    num = crypto.constants.SSL_OP_NO_SSLv3;
+    num = crypto.constants.SSL_OP_NO_TICKET;
+    num = crypto.constants.SSL_OP_NO_TLSv1;
+    num = crypto.constants.SSL_OP_NO_TLSv1_1;
+    num = crypto.constants.SSL_OP_NO_TLSv1_2;
+    num = crypto.constants.SSL_OP_PKCS1_CHECK_1;
+    num = crypto.constants.SSL_OP_PKCS1_CHECK_2;
+    num = crypto.constants.SSL_OP_SINGLE_DH_USE;
+    num = crypto.constants.SSL_OP_SINGLE_ECDH_USE;
+    num = crypto.constants.SSL_OP_SSLEAY_080_CLIENT_DH_BUG;
+    num = crypto.constants.SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG;
+    num = crypto.constants.SSL_OP_TLS_BLOCK_PADDING_BUG;
+    num = crypto.constants.SSL_OP_TLS_D5_BUG;
+    num = crypto.constants.SSL_OP_TLS_ROLLBACK_BUG;
+    num = crypto.constants.ENGINE_METHOD_RSA;
+    num = crypto.constants.ENGINE_METHOD_DSA;
+    num = crypto.constants.ENGINE_METHOD_DH;
+    num = crypto.constants.ENGINE_METHOD_RAND;
+    num = crypto.constants.ENGINE_METHOD_EC;
+    num = crypto.constants.ENGINE_METHOD_CIPHERS;
+    num = crypto.constants.ENGINE_METHOD_DIGESTS;
+    num = crypto.constants.ENGINE_METHOD_PKEY_METHS;
+    num = crypto.constants.ENGINE_METHOD_PKEY_ASN1_METHS;
+    num = crypto.constants.ENGINE_METHOD_ALL;
+    num = crypto.constants.ENGINE_METHOD_NONE;
+    num = crypto.constants.DH_CHECK_P_NOT_SAFE_PRIME;
+    num = crypto.constants.DH_CHECK_P_NOT_PRIME;
+    num = crypto.constants.DH_UNABLE_TO_CHECK_GENERATOR;
+    num = crypto.constants.DH_NOT_SUITABLE_GENERATOR;
+    num = crypto.constants.ALPN_ENABLED;
+    num = crypto.constants.RSA_PKCS1_PADDING;
+    num = crypto.constants.RSA_SSLV23_PADDING;
+    num = crypto.constants.RSA_NO_PADDING;
+    num = crypto.constants.RSA_PKCS1_OAEP_PADDING;
+    num = crypto.constants.RSA_X931_PADDING;
+    num = crypto.constants.RSA_PKCS1_PSS_PADDING;
+    num = crypto.constants.RSA_PSS_SALTLEN_DIGEST;
+    num = crypto.constants.RSA_PSS_SALTLEN_MAX_SIGN;
+    num = crypto.constants.RSA_PSS_SALTLEN_AUTO;
+    num = crypto.constants.POINT_CONVERSION_COMPRESSED;
+    num = crypto.constants.POINT_CONVERSION_UNCOMPRESSED;
+    num = crypto.constants.POINT_CONVERSION_HYBRID;
+
+    str = crypto.constants.defaultCoreCipherList;
+    str = crypto.constants.defaultCipherList;
+}
