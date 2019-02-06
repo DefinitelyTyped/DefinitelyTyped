@@ -1583,7 +1583,10 @@ declare namespace R {
          */
         move<T>(from: number, to: number, list: ReadonlyArray<T>): T[];
         move(from: number, to: number): <T>(list: ReadonlyArray<T>) => T[];
-        move(from: number): (<T>(to: number, list: ReadonlyArray<T>) => T[]);
+        move(from: number): {
+            <T>(to: number, list: ReadonlyArray<T>): T[];
+            (to: number): <T>(list: ReadonlyArray<T>) => T[];
+        };
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly n parameters.

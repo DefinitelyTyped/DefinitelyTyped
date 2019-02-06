@@ -1126,6 +1126,10 @@ interface Obj {
 
     const moveCurried2 = R.move(0);
     moveCurried2<string>(2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+
+    const moveCurried3 = R.move(0);
+    const moveCurried4 = moveCurried3(2);
+    moveCurried4<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
 };
 
 () => {
