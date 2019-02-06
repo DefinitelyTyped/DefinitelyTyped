@@ -1,6 +1,5 @@
-import * as ReactNative from 'react-native'
-import * as React from 'react'
-import { StatelessComponent, ComponentClass } from 'react'
+import * as ReactNative from 'react-native';
+import * as React from 'react';
 
 export {
   DefaultTheme,
@@ -21,7 +20,7 @@ import {
   ThemedStyledFunction,
   ThemedStyledInterface,
   DefaultTheme
-} from './index'
+} from './index';
 
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
@@ -157,7 +156,7 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
   SwipeableListView: ReactNativeThemedStyledFunction<
     typeof ReactNative.SwipeableListView,
     T
-  >
+  >;
   SwitchAndroid: ReactNativeThemedStyledFunction<
     typeof ReactNative.Switch,
     T
@@ -208,14 +207,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
   >;
   WebView: ReactNativeThemedStyledFunction<
     typeof ReactNative.WebView,
-    T
-  >;
-  FlatList: ReactNativeThemedStyledFunction<
-    typeof ReactNative.FlatList,
-    T
-  >;
-  SectionList: ReactNativeThemedStyledFunction<
-    typeof ReactNative.SectionList,
     T
   >;
 }
