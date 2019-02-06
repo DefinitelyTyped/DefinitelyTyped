@@ -1645,6 +1645,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "terser",
+            "typingsPackageName": "terser",
+            "sourceRepoURL": "https://github.com/terser-js/terser",
+            "asOfVersion": "3.12"
+        },
+        {
             "libraryName": "timezonecomplete",
             "typingsPackageName": "timezonecomplete",
             "sourceRepoURL": "https://github.com/SpiritIT/timezonecomplete",
