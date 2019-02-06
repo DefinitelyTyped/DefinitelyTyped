@@ -804,7 +804,7 @@ declare namespace jest {
      *  myApi.myApiMethod.mockImplementation(() => "test");
      */
     type Mocked<T> = {
-        [P in keyof T]: T[P] & MockInstance<T[P], ArgsType<T[P]>>;
+        [P in keyof T]: T[P] extends (...args: any[]) => any ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>>: T[P];
     } & T;
 
     interface MockInstance<T, Y extends any[]> {
@@ -912,7 +912,7 @@ declare namespace jest {
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.resolve(value));`
          */
-        mockResolvedValue(value: T | PromiseLike<T>): Mock<Promise<T>, Y>;
+        mockResolvedValue(value: T extends PromiseLike<infer U> ? U | T : never): Mock<T, Y>;
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.resolve(value));`
          *
@@ -932,7 +932,7 @@ declare namespace jest {
          * });
          *
          */
-        mockResolvedValueOnce(value: T | PromiseLike<T>): Mock<Promise<T>, Y>;
+        mockResolvedValueOnce(value: T extends PromiseLike<infer U> ? U | T : never): Mock<T, Y>;
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.reject(value));`
          *
@@ -944,7 +944,7 @@ declare namespace jest {
          *   await asyncMock(); // throws "Async error"
          * });
          */
-        mockRejectedValue(value: any): Mock<Promise<T>, Y>;
+        mockRejectedValue(value: T extends PromiseLike<any> ? any : never): Mock<T, Y>;
 
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.reject(value));`
@@ -962,7 +962,7 @@ declare namespace jest {
          * });
          *
          */
-        mockRejectedValueOnce(value: any): Mock<Promise<T>, Y>;
+        mockRejectedValueOnce(value: T extends PromiseLike<any> ? any : never): Mock<T, Y>;
     }
 
     /**

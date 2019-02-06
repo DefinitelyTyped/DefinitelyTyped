@@ -412,6 +412,61 @@ const spy6 = jest.spyOn(spiedTarget2, "value", "set");
 
 // should compile
 jest.fn().mockImplementation((test: number) => test);
+jest.fn().mockResolvedValue(1);
+
+interface Type1 { a: number; }
+interface Type2 { b: number; }
+class TestMocked {
+    field: string;
+    test1(x: Type1): Promise<Type1> {
+        return Promise.resolve(x);
+    }
+    test2(x: Promise<Type1>): Promise<Type1> {
+        return x;
+    }
+    test3(x: Promise<Type1>): Promise<Type2> {
+        return x.then(() => ({ b: 1 }));
+    }
+    test4(x: Type1): Type1 {
+        return x;
+    }
+}
+
+const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
+mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
+mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
+// $ExpectType Mock<Promise<Type1>, [Type1]>
+mocked.test1.mockResolvedValue({ a: 1 });
+mocked.test1.mockResolvedValueOnce({ a: 1 });
+// $ExpectType Mock<Promise<Type1>, [Type1]>
+mocked.test1.mockResolvedValue(Promise.resolve({ a: 1 }));
+mocked.test1.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+// $ExpectType Mock<Promise<Type1>, [Promise<Type1>]>
+mocked.test2.mockResolvedValue({ a: 1 });
+mocked.test2.mockResolvedValueOnce({ a: 1 });
+// $ExpectType Mock<Promise<Type1>, [Promise<Type1>]>
+mocked.test2.mockResolvedValue(Promise.resolve({ a: 1 }));
+mocked.test2.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+// $ExpectType Mock<Promise<Type2>, [Promise<Type1>]>
+mocked.test3.mockResolvedValue({ b: 1 });
+mocked.test3.mockResolvedValueOnce({ b: 1 });
+// $ExpectType Mock<Promise<Type2>, [Promise<Type1>]>
+mocked.test3.mockResolvedValue(Promise.resolve({ b: 1 }));
+mocked.test3.mockResolvedValueOnce(Promise.resolve({ b: 1 }));
+mocked.test3.mockRejectedValue(new Error());
+mocked.test3.mockRejectedValueOnce(new Error());
+// $ExpectError
+mocked.test4.mockResolvedValue({ a: 1 });
+// $ExpectError
+mocked.test4.mockResolvedValueOnce({ a: 1 });
+// $ExpectError
+mocked.test4.mockResolvedValue(Promise.resolve({ a: 1 }));
+// $ExpectError
+mocked.test4.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+// $ExpectError
+mocked.test4.mockRejectedValue(new Error());
+// $ExpectError
+mocked.test4.mockRejectedValueOnce(new Error());
 
 /* Snapshot serialization */
 
