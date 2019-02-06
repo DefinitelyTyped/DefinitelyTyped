@@ -15,3 +15,5 @@ export class FFT extends AbstractKissFFT {
 
 export class FFTR extends AbstractKissFFT {
 }
+
+export {}
