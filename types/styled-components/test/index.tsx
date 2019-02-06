@@ -1001,3 +1001,18 @@ function validateDefaultProps() {
 
     <OtherStyledComponent requiredProp="1" />; // $ExpectError
 }
+
+// failing example from https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31491#issuecomment-459353227
+
+interface WrapperClassProps {
+    className?: string
+}
+export class WrapperClassComponent extends React.Component<WrapperClassProps> {
+    render() {
+        return <div className={this.props.className}>{this.props.children}</div>
+    }
+}
+const WrapperClass = styled(WrapperClassComponent)`
+    border: 1px solid grey;
+`
+const wrapperClass = <WrapperClass>Text</WrapperClass>
