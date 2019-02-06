@@ -4172,6 +4172,11 @@ import * as constants from 'constants';
         const deflate = zlib.deflateSync('test');
         const inflate = zlib.inflateSync(deflate.toString());
     }
+
+    {
+        const gzip = zlib.createGzip();
+        const written: number = gzip.bytesWritten;
+    }
 }
 
 ///////////////////////////////////////////////////////////

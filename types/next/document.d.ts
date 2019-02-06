@@ -27,8 +27,15 @@ export type Enhancer<E extends PageProps = AnyPageProps, P extends any = E> = (
  */
 export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> extends NextContext<Q> {
     /** A callback that executes the actual React rendering logic (synchronously) */
-    renderPage<E extends PageProps = AnyPageProps, P extends any = E>(
-        enhancer?: Enhancer<E, P> // tslint:disable-line no-unnecessary-generics
+    renderPage<
+        E extends PageProps = AnyPageProps,
+        P = E,
+        EA extends PageProps = AnyPageProps,
+        PA = EA,
+    >(
+        enhancer?:
+            | Enhancer<E, P> // tslint:disable-line no-unnecessary-generics
+            | { enhanceApp?: Enhancer<EA, PA>; enhanceComponent?: Enhancer<E, P> } // tslint:disable-line no-unnecessary-generics
     ): RenderPageResponse;
 }
 
@@ -37,7 +44,7 @@ export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> exte
  * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L16
  */
 export interface DefaultDocumentIProps extends RenderPageResponse {
-    styles?: React.ReactNode;
+    styles?: React.ReactNode[];
 }
 
 /**

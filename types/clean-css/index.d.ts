@@ -8,83 +8,78 @@
 import { RequestOptions as HttpsRequestOptions } from "https";
 import { RequestOptions as HttpRequestOptions } from "http";
 
-declare namespace CleanCSS {
+/**
+ * Shared options passed when initializing a new instance of CleanCSS that returns either a promise or output
+ */
+interface OptionsBase {
     /**
-     * Options passed when initializing a new instance of CleanCSS
+     * Controls compatibility mode used; defaults to ie10+ using `'*'`.
+     *  Compatibility hash exposes the following properties: `colors`, `properties`, `selectors`, and `units`
      */
-    interface Options {
-        /**
-         * Controls compatibility mode used; defaults to ie10+ using `'*'`.
-         *  Compatibility hash exposes the following properties: `colors`, `properties`, `selectors`, and `units`
-         */
-        compatibility?: "*" | "ie9" | "ie8" | "ie7" | CompatibilityOptions;
+    compatibility?: "*" | "ie9" | "ie8" | "ie7" | CleanCSS.CompatibilityOptions;
 
-        /**
-         * Controls a function for handling remote requests; Defaults to the build in `loadRemoteResource` function
-         */
-        fetch?: (uri: string, inlineRequest: HttpRequestOptions | HttpsRequestOptions, inlineTimeout: number, done: (message: string | number, body: string) => void) => void;
+    /**
+     * Controls a function for handling remote requests; Defaults to the build in `loadRemoteResource` function
+     */
+    fetch?: (uri: string, inlineRequest: HttpRequestOptions | HttpsRequestOptions, inlineTimeout: number, done: (message: string | number, body: string) => void) => void;
 
-        /**
-         * Controls output CSS formatting; defaults to `false`.
-         *  Format hash exposes the following properties: `breaks`, `breakWith`, `indentBy`, `indentWith`, `spaces`, and `wrapAt`.
-         */
-        format?: "beautify" | "keep-breaks" | FormatOptions | false;
+    /**
+     * Controls output CSS formatting; defaults to `false`.
+     *  Format hash exposes the following properties: `breaks`, `breakWith`, `indentBy`, `indentWith`, `spaces`, and `wrapAt`.
+     */
+    format?: "beautify" | "keep-breaks" | CleanCSS.FormatOptions | false;
 
-        /**
-         * inline option whitelists which @import rules will be processed.  Defaults to `'local'`
-         * Accepts the following values:
-         *  'local': enables local inlining;
-         *  'remote': enables remote inlining;
-         *  'none': disables all inlining;
-         *  'all': enables all inlining, same as ['local', 'remote'];
-         *  '[uri]': enables remote inlining from the specified uri;
-         *  '![url]': disables remote inlining from the specified uri;
-         */
-        inline?: ReadonlyArray<string> | false;
+    /**
+     * inline option whitelists which @import rules will be processed.  Defaults to `'local'`
+     * Accepts the following values:
+     *  'local': enables local inlining;
+     *  'remote': enables remote inlining;
+     *  'none': disables all inlining;
+     *  'all': enables all inlining, same as ['local', 'remote'];
+     *  '[uri]': enables remote inlining from the specified uri;
+     *  '![url]': disables remote inlining from the specified uri;
+     */
+    inline?: ReadonlyArray<string> | false;
 
-        /**
-         * Controls extra options for inlining remote @import rules
-         */
-        inlineRequest?: HttpRequestOptions | HttpsRequestOptions;
+    /**
+     * Controls extra options for inlining remote @import rules
+     */
+    inlineRequest?: HttpRequestOptions | HttpsRequestOptions;
 
-        /**
-         * Controls number of milliseconds after which inlining a remote @import fails; defaults to `5000`;
-         */
-        inlineTimeout?: number;
+    /**
+     * Controls number of milliseconds after which inlining a remote @import fails; defaults to `5000`;
+     */
+    inlineTimeout?: number;
 
-        /**
-         * Controls optimization level used; defaults to `1`.
-         * Level hash exposes `1`, and `2`.
-         */
-        level?: 0 | 1 | 2 | OptimizationsOptions;
+    /**
+     * Controls optimization level used; defaults to `1`.
+     * Level hash exposes `1`, and `2`.
+     */
+    level?: 0 | 1 | 2 | CleanCSS.OptimizationsOptions;
 
-        /**
-         * Controls URL rebasing; defaults to `true`;
-         */
-        rebase?: boolean;
+    /**
+     * Controls URL rebasing; defaults to `true`;
+     */
+    rebase?: boolean;
 
-        /**
-         * controls a directory to which all URLs are rebased, most likely the directory under which the output file
-         * will live; defaults to the current directory;
-         */
-        rebaseTo?: string;
+    /**
+     * controls a directory to which all URLs are rebased, most likely the directory under which the output file
+     * will live; defaults to the current directory;
+     */
+    rebaseTo?: string;
 
-        /**
-         * If you prefer clean-css to return a Promise object then you need to explicitely ask for it; defaults to `false`
-         */
-        returnPromise?: boolean;
+    /**
+     *  Controls whether an output source map is built; defaults to `false`
+     */
+    sourceMap?: boolean;
 
-        /**
-         *  Controls whether an output source map is built; defaults to `false`
-         */
-        sourceMap?: boolean;
+    /**
+     *  Controls embedding sources inside a source map's `sourcesContent` field; defaults to `false`
+     */
+    sourceMapInlineSources?: boolean;
+}
 
-        /**
-         *  Controls embedding sources inside a source map's `sourcesContent` field; defaults to `false`
-         */
-        sourceMapInlineSources?: boolean;
-    }
-
+declare namespace CleanCSS {
     /**
      * Output returned when calling minify functions
      */
@@ -651,11 +646,39 @@ declare namespace CleanCSS {
     }
 
     /**
+     * Options when returning a promise
+     */
+    type OptionsPromise = OptionsBase & {
+        /**
+         * If you prefer clean-css to return a Promise object then you need to explicitly ask for it; defaults to `false`
+         */
+        returnPromise: true
+    };
+
+    /**
+     * Options when returning an output
+     */
+    type OptionsOutput = OptionsBase & {
+        /**
+         * If you prefer clean-css to return a Promise object then you need to explicitly ask for it; defaults to `false`
+         */
+        returnPromise?: false
+    };
+
+    /**
+     * Discriminant union of both sets of options types.  If you initialize without setting `returnPromise: true`
+     *  and want to return a promise, you will need to cast to the correct options type so that TypeScript
+     *  knows what the expected return type will be:
+     *  `(options = options as CleanCSS.OptionsPromise).returnPromise = true`
+     */
+    type Options = OptionsPromise | OptionsOutput;
+
+    /**
      * Constructor interface for CleanCSS
      */
     interface Constructor {
-        new(options: Options & { returnPromise: true }): MinifierPromise;
-        new(options?: Options): MinifierOutput;
+        new(options: OptionsPromise): MinifierPromise;
+        new(options?: OptionsOutput): MinifierOutput;
     }
 }
 

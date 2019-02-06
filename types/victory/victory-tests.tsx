@@ -34,7 +34,7 @@ let test = <VictoryAnimation
     {(style: AnimationStyle) =>
         <span style={{color: style["color"] as string}}>Hello!</span>
     }
-</VictoryAnimation>
+</VictoryAnimation>;
 
 // VictoryLabel test
 test = <VictoryLabel x={50} y={10}
@@ -51,7 +51,7 @@ test = <VictoryLabel x={50} y={10}
                      dy={10}
                      lineHeight={1.5}>
     {"data viz \n is \n fun!"}
-</VictoryLabel>
+</VictoryLabel>;
 
 // VictoryArea test
 test = (
@@ -91,19 +91,19 @@ test = (
                     onClick: () => {
                         return {
                             mutation: (props) => {
-                                return { style: { fill: "orange" } }
+                                return { style: { fill: "orange" } };
                             }
-                        }
+                        };
                     },
                     onMouseEnter: () => {
                         return [
                             {
                                 target: "labels",
                                 mutation: (props) => {
-                                    return { text: "hey" }
+                                    return { text: "hey" };
                                 }
                             }
-                        ]
+                        ];
                     }
                 }
             }
@@ -189,7 +189,7 @@ test = (
         dependentAxis
         padding={{left: 50, top: 20, bottom: 20}}
         scale="log"
-        domain={{ x: [new Date(Date.UTC(2016, 0, 1)), new Date()], y: [1,5] }}
+        domain={{ x: [new Date(Date.UTC(2016, 0, 1)), new Date()], y: [1, 5] }}
     />
 );
 
@@ -278,6 +278,9 @@ test = (
             {x: 4, y: 2},
             {x: 5, y: 1}
         ]}
+        alignment="start"
+        barWidth={(datum, active) => active ? datum.x : datum.y}
+        cornerRadius={{top: 2, bottom: 4}}
         events={[
             {
               target: "data",

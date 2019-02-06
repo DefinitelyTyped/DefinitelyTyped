@@ -19,6 +19,7 @@ declare namespace Modal {
         backdropStyle?: any;
         backdropTransitionTimeout?: number;
         bsSize?: Sizes;
+        bsClass?: string;
         container?: any; // TODO: Add more specific type
         containerClassName?: string;
         dialogClassName?: string;

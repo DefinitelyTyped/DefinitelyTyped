@@ -4642,9 +4642,10 @@ declare namespace Stripe {
             items: IList<subscriptionItems.ISubscriptionItem>;
 
             /**
-             * Hash describing the plan the customer is subscribed to
+             * Hash describing the plan the customer is subscribed to.  Only set if the subscription
+             * contains a single plan.
              */
-            plan: plans.IPlan;
+            plan?: plans.IPlan | null;
 
             /**
              * The number of subscriptions for the associated plan
@@ -5062,7 +5063,7 @@ declare namespace Stripe {
             /**
              * Balance transaction that describes the impact of this reversal on your account balance.
              */
-            balance_transaction: string;
+            balance_transaction: string | balance.IBalanceTransaction;
 
             /**
              * ID of the charge that was refunded. [Expandable]

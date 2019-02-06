@@ -43,7 +43,7 @@ export interface Options {
     priorityRange?: number;
     autostart?: boolean;
     evictionRunIntervalMillis?: number;
-    numTestsPerRun?: number;
+    numTestsPerEvictionRun?: number;
     softIdleTimeoutMillis?: number;
     idleTimeoutMillis?: number;
 }
