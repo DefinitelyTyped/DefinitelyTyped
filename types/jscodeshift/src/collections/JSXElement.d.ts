@@ -1,14 +1,15 @@
-import { JSXElement } from "ast-types/gen/nodes";
-import { NodePath } from "recast";
-import { Collection } from "../Collection";
+import nodes = require("ast-types/gen/nodes");
+import recast = require("recast");
+import Collection = require("../Collection");
 
-type ASTPath<N> = NodePath<N, N>;
+type ASTPath<N> = recast.NodePath<N, N>;
+type JSXElement = nodes.JSXElement;
 
 export interface GlobalMethods {
     /**
      * Finds all JSXElements optionally filtered by name
      */
-    findJSXElements(name?: string): Collection<JSXElement>;
+    findJSXElements(name?: string): Collection.Collection<JSXElement>;
 
     /**
      * Finds all JSXElements by module name. Given
@@ -19,7 +20,7 @@ export interface GlobalMethods {
      * findJSXElementsByModuleName('Foo') will find <Bar />, without having to
      * know the variable name.
      */
-    findJSXElementsByModuleName(moduleName: string): Collection<JSXElement>;
+    findJSXElementsByModuleName(moduleName: string): Collection.Collection<JSXElement>;
 }
 
 type Defined<T> = T extends undefined ? never : T;
@@ -30,13 +31,13 @@ export interface TraversalMethods {
      * Returns all child nodes, including literals and expressions.
      * This method only applies to JSXElement typed collections.
      */
-    childNodes(): Collection<JSXElementChild>;
+    childNodes(): Collection.Collection<JSXElementChild>;
 
     /**
      * Returns all children that are JSXElements.
      * This method only applies to JSXElement typed collections.
      */
-    childElements(): Collection<JSXElement>;
+    childElements(): Collection.Collection<JSXElement>;
 }
 
 interface Filter {
@@ -67,4 +68,4 @@ export function register(): void;
 export const filters: FilterMethods;
 export const mappings: MappingMethods;
 
-export { }; // to shut off automatic exporting
+export {}; // shut off automatic exporting

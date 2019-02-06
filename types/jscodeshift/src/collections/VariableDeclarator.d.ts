@@ -1,14 +1,14 @@
-import { VariableDeclarator } from "ast-types/gen/nodes";
-import { NodePath } from "recast";
-import { Collection } from "../Collection";
+import nodes = require("ast-types/gen/nodes");
+import recast = require("recast");
+import Collection = require("../Collection");
 
-type ASTPath<N> = NodePath<N, N>;
+type ASTPath<N> = recast.NodePath<N, N>;
 
 export interface GlobalMethods {
     /**
      * Finds all variable declarators, optionally filtered by name.
      */
-    findVariableDeclarators(name?: string): Collection<VariableDeclarator>;
+    findVariableDeclarators(name?: string): Collection.Collection<nodes.VariableDeclarator>;
 }
 
 export interface TransformMethods<N> {
@@ -16,7 +16,7 @@ export interface TransformMethods<N> {
      * Renames a variable and all its occurrences.
      * This method only applies to VariableDeclarator typed collections.
      */
-    renameTo(newName: string): Collection<N>;
+    renameTo(newName: string): Collection.Collection<N>;
 }
 
 interface Filter {
@@ -36,4 +36,4 @@ export interface FilterMethods {
 export function register(): void;
 export const filters: FilterMethods;
 
-export { }; // to shut off automatic exporting
+export {}; // shut off automatic exporting

@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "src/core.d.ts",
         "src/Collection.d.ts",
         "src/collections/JSXElement.d.ts",
         "src/collections/Node.d.ts",

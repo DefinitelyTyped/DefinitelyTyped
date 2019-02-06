@@ -1,9 +1,9 @@
-import { ASTNode, NodePath, Options, Type } from "recast";
-import * as JSXElement from "./collections/JSXElement";
-import * as NodeCollection from "./collections/Node";
-import * as VariableDeclarator from "./collections/VariableDeclarator";
+import recast = require("recast");
+import JSXElement = require("./collections/JSXElement");
+import NodeCollection = require("./collections/Node");
+import VariableDeclarator = require("./collections/VariableDeclarator");
 
-type ASTPath<N> = NodePath<N, N>;
+type ASTPath<N> = recast.NodePath<N, N>;
 
 export interface Collection<N>
     extends NodeCollection.TraversalMethods,
@@ -18,7 +18,7 @@ export interface Collection<N>
      * @param types An array of types all the paths in the collection
      *  have in common. If not passed, it will be inferred from the paths.
      */
-    new (paths: Array<ASTPath<N>>, parent: Collection<any>, types?: Array<Type<any>>): this;
+    new (paths: Array<ASTPath<N>>, parent: Collection<any>, types?: Array<recast.Type<any>>): this;
 
     /**
      * Returns a new collection containing the nodes for which the callback returns true.
@@ -58,13 +58,13 @@ export interface Collection<N>
      * @param callback
      * @param type Force the new collection to be of a specific type
      */
-    map<T = ASTNode>(
+    map<T = recast.ASTNode>(
         callback: (
             path: ASTPath<N>,
             i: number,
             paths: Array<ASTPath<N>>
         ) => ASTPath<T> | Array<ASTPath<T>> | null | undefined,
-        type: Type<any>
+        type: recast.Type<any>
     ): Collection<T>;
 
     /** Returns the number of elements in this collection. */
@@ -85,7 +85,7 @@ export interface Collection<N>
      * Converts the AST back to a string, using recast.
      * @param options directly passed to recast's printer
      */
-    toSource(options?: Options): string;
+    toSource(options?: recast.Options): string;
 
     /**
      * Returns a new collection containing only the element at position index.
@@ -107,8 +107,12 @@ export interface Collection<N>
     /**
      * Returns true if this collection has the type 'type'.
      */
-    isOfType(type: Type<any>): boolean;
+    isOfType(type: recast.Type<any>): boolean;
 }
+
+export function fromPaths(...args: any[]): any;
+
+export function fromNodes(...args: any[]): any;
 
 /**
  * This function adds the provided methods to the prototype of the corresponding
@@ -118,6 +122,10 @@ export interface Collection<N>
  * @param methods Methods to add to the prototype
  * @param type Optional type to add the methods to
  */
-export function registerMethods(methods: object, type?: Type<any>): void;
+export function registerMethods(methods: object, type?: recast.Type<any>): void;
 
-export { }; // to shut off automatic exporting
+export function hasConflictingRegistration(...args: any[]): any;
+
+export function setDefaultCollectionType(...args: any[]): any;
+
+export {}; // shut off automatic exporting

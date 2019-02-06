@@ -8,9 +8,9 @@
  *  let x = ::this.foo;
  *
  */
-import { Transform, MemberExpression } from "jscodeshift";
+import j = require("jscodeshift");
 
-const transform: Transform = (file, api) => {
+const transform: j.Transform = (file, api) => {
   const j = api.jscodeshift;
   return j(file.source)
     // Find stuff that looks like this.xyz.bind(this)
@@ -18,6 +18,8 @@ const transform: Transform = (file, api) => {
     // Ensure that .bind() is being called with only one argument, and that argument is "this".
     .filter(p => p.value.arguments.length === 1 && p.value.arguments[0].type === "ThisExpression")
     // We can now replace it with ::this.xyz
-    .replaceWith(p => j.bindExpression(null, (p.value.callee as MemberExpression).object))
+    .replaceWith(p => j.bindExpression(null, (p.value.callee as j.MemberExpression).object))
     .toSource();
 };
+
+export = transform;
