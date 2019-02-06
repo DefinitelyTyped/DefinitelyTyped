@@ -8,7 +8,7 @@ interface State {
   isDisabled: boolean;
   /** Wether the option is focused. */
   isFocused: boolean;
-  /** Whether the option is selected. */
+  /** Wether the option is selected. */
   isSelected: boolean;
 }
 interface InnerProps {
