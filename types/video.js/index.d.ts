@@ -4609,6 +4609,7 @@ declare namespace videojs {
 		fluid?: boolean;
 		height?: number;
 		html5?: any;
+		inactivityTimeout?: number;
 		language?: string;
 		languages?: { [code: string]: LanguageTranslations };
 		loop?: boolean;
