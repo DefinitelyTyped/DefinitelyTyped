@@ -85,6 +85,7 @@ import {
     DatePickerAndroid,
     ViewPropTypes,
     requireNativeComponent,
+    Keyboard,
 } from "react-native";
 
 declare module "react-native" {
@@ -843,3 +844,8 @@ const ShareTest = () => {
         }
     });
 };
+
+const KeyboardTest = () => {
+    const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
+    subscriber.remove();
+}
