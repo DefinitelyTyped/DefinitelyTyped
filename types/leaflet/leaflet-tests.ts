@@ -263,7 +263,6 @@ imageOverlayOptions = {
 	alt: 'alt',
 	interactive: true,
 	attribution: 'attribution',
-  crossOrigin: true,
 	errorOverlayUrl: 'http://www.test.com/error.png',
 	zIndex: 1,
 	crossOrigin: true,
