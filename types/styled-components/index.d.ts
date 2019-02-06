@@ -8,8 +8,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-/// <reference types="node" />
-
 import * as CSS from "csstype";
 import * as React from "react";
 
