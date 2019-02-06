@@ -109,7 +109,7 @@ export type LeafletEvents = MapEvents
     & TileLayerEvents
     & PathEvents
     & FeatureGroupEvents
-    & LayersControlEvents;
+    & LayersControlEvents
 
 // Most react-leaflet components take two type parameters:
 // - P : the component's props object
@@ -123,7 +123,7 @@ export type MapComponentProps = {
     pane?: string
 }
 
-export type DivOverlayProps = MapComponentProps & Leaflet.DivOverlayOptions;
+export type DivOverlayProps = MapComponentProps & Leaflet.DivOverlayOptions
 
 
 export class MapComponent<P, E extends Leaflet.Class> extends React.Component<P> {
@@ -403,3 +403,14 @@ export type ZoomControlProps = Leaflet.Control.ZoomOptions & MapControlProps;
 export class ZoomControl<P extends ZoomControlProps = ZoomControlProps, E extends Leaflet.Control.Zoom = Leaflet.Control.Zoom> extends MapControl<P, E> {
     createLeafletElement(props: P): E;
 }
+
+// context.js
+export class LeafletConsumer extends React.Component<React.ConsumerProps<LeafletContext>> {}
+export class LeafletProvider extends React.Component<React.ProviderProps<LeafletContext>> {}
+
+type ContextProps = {
+    leaflet: LeafletContext;
+}
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
+export function withLeaflet<T extends ContextProps>(WrappedComponent: React.Component<T>): React.Component<Omit<T, 'leaflet'>>
