@@ -14,11 +14,11 @@ import {} from "styled-components/cssprop";
 
 const StyledView = styled.View`
   background-color: papayawhip;
-`
+`;
 
 const StyledText = styled(ReactNative.Text)`
   color: palevioletred;
-`
+`;
 
 class MyReactNativeComponent extends React.Component {
   render() {
@@ -26,7 +26,7 @@ class MyReactNativeComponent extends React.Component {
       <StyledView collapsable>
         <StyledText adjustsFontSizeToFit>Hello World!</StyledText>
       </StyledView>
-    )
+    );
   }
 }
 
@@ -55,4 +55,4 @@ const TomatoButton = styled(MyButton)`
 `;
 
 // needs name prop, but not theme prop
-const tomatoElement = <TomatoButton name="needed" />
+const tomatoElement = <TomatoButton name="needed" />;

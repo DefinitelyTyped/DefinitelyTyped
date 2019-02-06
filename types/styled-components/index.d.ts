@@ -8,6 +8,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
+// forward declarations
+declare global {
+    namespace NodeJS {
+        // tslint:disable-next-line:no-empty-interface
+        interface ReadableStream {}
+    }
+}
+
 import * as CSS from "csstype";
 import * as React from "react";
 
