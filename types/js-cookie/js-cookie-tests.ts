@@ -20,7 +20,7 @@ Cookies.remove('name');
 Cookies.remove('name', { path: '' });
 
 const Cookies2 = Cookies.noConflict!();
-Cookies2; // $ExpectType CookiesStatic
+Cookies2; // $ExpectType CookiesStatic<object>
 
 Cookies.set('name', { foo: 'bar' });
 
