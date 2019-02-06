@@ -63,11 +63,16 @@ declare module "meteor/meteor" {
         /** Method **/
 
         /** Url **/
-        function absoluteUrl(path?: string, options?: {
-            secure?: boolean;
-            replaceLocalhost?: boolean;
-            rootUrl?: string;
-        }): string;
+        var absoluteUrl: {
+          (path?: string, options?: absoluteUrlOptions): string;
+          defaultOptions: absoluteUrlOptions;
+        }
+
+        interface absoluteUrlOptions {
+          secure?: boolean;
+          replaceLocalhost?: boolean;
+          rootUrl?: string;
+        }
         /** Url **/
 
         /** Timeout **/
