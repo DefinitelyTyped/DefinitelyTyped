@@ -812,3 +812,10 @@ const collectionWithoutConnection = new Mongo.Collection<MonkeyDAO>("monkey", {
 });
 
 }  // End of namespace
+
+// absoluteUrl
+Meteor.absoluteUrl('/sub', {rootUrl: 'http://wonderful.com'});
+Meteor.absoluteUrl.defaultOptions = {
+  rootUrl: 'http://123.com',
+  secure: false
+};
