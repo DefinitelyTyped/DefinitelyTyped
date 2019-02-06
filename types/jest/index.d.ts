@@ -37,6 +37,8 @@ declare var xtest: jest.It;
 declare const expect: jest.Expect;
 
 type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
+type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
 
 interface NodeRequire {
     /**
@@ -912,7 +914,7 @@ declare namespace jest {
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.resolve(value));`
          */
-        mockResolvedValue(value: T extends PromiseLike<infer U> ? U | T : never): Mock<T, Y>;
+        mockResolvedValue(value: ResolvedValue<T>): Mock<T, Y>;
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.resolve(value));`
          *
@@ -932,7 +934,7 @@ declare namespace jest {
          * });
          *
          */
-        mockResolvedValueOnce(value: T extends PromiseLike<infer U> ? U | T : never): Mock<T, Y>;
+        mockResolvedValueOnce(value: ResolvedValue<T>): Mock<T, Y>;
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.reject(value));`
          *
@@ -944,7 +946,7 @@ declare namespace jest {
          *   await asyncMock(); // throws "Async error"
          * });
          */
-        mockRejectedValue(value: T extends PromiseLike<any> ? any : never): Mock<T, Y>;
+        mockRejectedValue(value: RejectedValue<T>): Mock<T, Y>;
 
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.reject(value));`
@@ -962,7 +964,7 @@ declare namespace jest {
          * });
          *
          */
-        mockRejectedValueOnce(value: T extends PromiseLike<any> ? any : never): Mock<T, Y>;
+        mockRejectedValueOnce(value: RejectedValue<T>): Mock<T, Y>;
     }
 
     /**
