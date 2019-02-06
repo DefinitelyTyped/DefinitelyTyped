@@ -1,12 +1,12 @@
-// Type definitions for Hedron 1.0.0
+// Type definitions for Hedron 1.0
 // Project: https://github.com/garetmckinley/hedron
 // Definitions by: James Best <https://github.com/jim-at-jibba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.3
 
 import * as React from "react";
 
-interface Styleable {
+export interface Styleable {
   /**
    * The amount of padding added
    */
@@ -48,7 +48,8 @@ interface Styleable {
    */
   hidden?: boolean;
 }
-interface ProviderProps {
+
+export interface ProviderProps {
   /**
    * The amount of padding added
    */
@@ -60,7 +61,7 @@ interface ProviderProps {
   breakpoints?: any;
 }
 
-interface BoundsProps extends Styleable {
+export interface BoundsProps extends Styleable {
   /**
    * Draws all child columns with "bounding boxes" for easy
    * visualization of the grid. This enables debug mode for all the
@@ -91,7 +92,7 @@ interface BoundsProps extends Styleable {
   [x: string]: any;
 }
 
-interface BoxProps extends Styleable {
+export interface BoxProps extends Styleable {
   /**
    * Draws all child columns with "bounding boxes" for easy
    * visualization of the grid. This enables debug mode for all the
@@ -144,4 +145,3 @@ export class Bounds extends React.Component<
 export class Box extends React.Component<
   BoxProps & React.HTMLProps<HTMLElement>
 > {}
-
