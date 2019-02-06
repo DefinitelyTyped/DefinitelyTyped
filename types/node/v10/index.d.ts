@@ -1,4 +1,4 @@
-// Type definitions for Node.js 11.9
+// Type definitions for Node.js 10.12
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -33,7 +33,6 @@
 //                 Jeremie Rodriguez <https://github.com/jeremiergz>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
-//                 Benjamin Toueg <https://github.com/btoueg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="globals.d.ts" />
