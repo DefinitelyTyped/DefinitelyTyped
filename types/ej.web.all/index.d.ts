@@ -2,7 +2,7 @@
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version:2.3
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -46630,11 +46630,6 @@ declare namespace ej {
          * @returns {void}
          */
         searchPrevious(): void;
-
-        /** Aborts the search operation.
-         * @returns {void}
-         */
-        cancelSearchText(): void;
 
         /** Set the JSON data that are formed for rendering the document content in PDF viewer.
          * @param {any} Set the JSON data that are formed for rendering the document content.
