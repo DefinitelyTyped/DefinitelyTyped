@@ -178,4 +178,18 @@ describe('React dom test utils', () => {
             shallowRenderer.getRenderOutput();
         });
     });
+
+    describe('act', () => {
+        it('accepts a sync callback that is void', () => {
+            ReactTestUtils.act(() => {});
+        });
+        it('rejects an async callback even if void', () => {
+            // $ExpectError
+            ReactTestUtils.act(async () => {});
+        });
+        it('rejects a callback that returns null', () => {
+            // $ExpectError
+            ReactTestUtils.act(() => null);
+        });
+    });
 });
