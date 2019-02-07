@@ -3774,7 +3774,18 @@ interface IAllFilters {
 		 */
 		fromObject(object: any): IBrightnessFilter
 	};
-	Convolute: {
+    ColorMatrix: {
+        new(options?: {
+            /** Filter matrix */
+            matrix?: number[]
+        }): IColorMatrix;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IColorMatrix
+    };
+    Convolute: {
 		new(options?: {
 			opaque?: boolean,
 			/** Filter matrix */
@@ -3961,6 +3972,13 @@ interface IBrightnessFilter extends IBaseFilter {
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IColorMatrix extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IConvoluteFilter extends IBaseFilter {
 	/**
