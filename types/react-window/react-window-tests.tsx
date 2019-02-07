@@ -185,7 +185,8 @@ const VariableSizeGridTestOptionalProps: React.SFC = () => (
         }) => undefined}
         outerRef={anyRef}
         outerTagName="div"
-        overscanCount={5}
+        overscanColumnsCount={5}
+        overscanRowsCount={5}
         ref="ref"
         style={{ color: "red" }}
         useIsScrolling={true}

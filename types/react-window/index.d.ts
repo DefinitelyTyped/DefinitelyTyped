@@ -53,15 +53,6 @@ export interface CommonProps {
      */
     outerTagName?: string;
     /**
-     * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
-     *
-     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
-     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
-     *
-     * Note that overscanning too much can negatively impact performance. By default, List overscans by one item.
-     */
-    overscanCount?: number;
-    /**
      * Optional inline style to attach to outermost <div> element.
      */
     style?: CSSProperties;
@@ -140,6 +131,15 @@ export interface ListProps extends CommonProps {
      */
     itemKey?: ListItemKeySelector;
     /**
+     * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
+     *
+     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
+     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
+     *
+     * Note that overscanning too much can negatively impact performance. By default, List overscans by one item.
+     */
+    overscanCount?: number;
+    /**
      * Called when the items rendered by the list change.
      */
     onItemsRendered?: (props: ListOnItemsRenderedProps) => any;
@@ -212,6 +212,35 @@ export interface GridProps extends CommonProps {
      * Called when the grid scroll positions changes, as a result of user scrolling or scroll-to method calls.
      */
     onScroll?: (props: GridOnScrollProps) => any;
+    /**
+     * The number of columns to render outside of the visible area. This property can be important for two reasons:
+     *
+     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
+     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
+     *
+     * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
+     */
+    overscanColumnsCount?: number;
+    /**
+     * The number of rows to render outside of the visible area. This property can be important for two reasons:
+     *
+     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
+     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
+     *
+     * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
+     */
+    overscanRowsCount?: number;
+    /**
+     * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
+     *
+     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
+     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
+     *
+     * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
+     *
+     * @deprecated since version 1.4.0
+     */
+    overscanCount?: number;
     /**
      * Number of rows in the grid. Note that only a few rows will be rendered and displayed at a time.
      */
