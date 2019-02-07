@@ -1,4 +1,4 @@
-// Type definitions for @feathersjs/errors 3.2
+// Type definitions for @feathersjs/errors 3.3
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 //                 RazzM13 <https://github.com/RazzM13>
