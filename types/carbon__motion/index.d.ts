@@ -18,11 +18,8 @@ export const easings: {
     };
 };
 
-export function motion(name: any, mode: any): any;
+export function motion(name: string, mode: string): string;
 
 export namespace motion {
-    const prototype: {
-    };
-
+    const prototype: {};
 }
-
