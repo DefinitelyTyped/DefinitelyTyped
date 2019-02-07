@@ -5,12 +5,22 @@
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 // TypeScript Version: 2.2
 
+export interface FeathersErrorJSON {
+    readonly name: string;
+    readonly message: string;
+    readonly code: number;
+    readonly className: string;
+    readonly data: any;
+    readonly errors: any;
+}
+
 export class FeathersError extends Error {
     readonly code: number;
     readonly className: string;
     readonly data: any;
     readonly errors: any;
     constructor(msg: string | Error, name: string, code: number, className: string, data: any);
+    toJSON(): FeathersErrorJSON;
 }
 
 export class BadRequest extends FeathersError {
