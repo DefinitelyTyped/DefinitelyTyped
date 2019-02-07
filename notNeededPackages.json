@@ -709,6 +709,12 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "i18next-xhr-backend",
+            "typingsPackageName": "i18next-xhr-backend",
+            "sourceRepoURL": "https://github.com/i18next/i18next-xhr-backend",
+            "asOfVersion": "1.4.2"
+        },
+        {
             "libraryName": "iconv-lite",
             "typingsPackageName": "iconv-lite",
             "sourceRepoURL": "https://github.com/ashtuchkin/iconv-lite",
