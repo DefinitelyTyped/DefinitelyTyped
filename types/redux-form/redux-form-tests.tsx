@@ -287,6 +287,12 @@ const Test = reduxForm<TestFormData>({
                                 component="select"
                             />
 
+                            <Field
+                                name="field4"
+                                component={ MyField }
+                                foo="bar"
+                            />
+
                             <FieldCustom
                                 name="field4"
                                 component={ MyField }
