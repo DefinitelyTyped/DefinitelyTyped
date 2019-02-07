@@ -494,7 +494,7 @@ interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
 interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
     readonly authenticatorData: ArrayBuffer;
     readonly signature: ArrayBuffer;
-    readonly userHandle?: ArrayBuffer;
+    readonly userHandle: ArrayBuffer | null;
 }
 
 /**
