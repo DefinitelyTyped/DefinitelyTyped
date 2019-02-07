@@ -271,7 +271,6 @@ declare namespace algoliasearchHelper {
   }
 
   export interface QueryParameters extends algoliasearch.QueryParameters {
-
     /**
      * Targeted index. This parameter is mandatory.
      */
@@ -483,70 +482,70 @@ declare namespace algoliasearchHelper {
   }
 
   export class SearchParameters implements QueryParameters {
-    index?: string | undefined;
-    disjunctiveFacets?: string[] | undefined;
-    hierarchicalFacets?: string[] | object[] | undefined;
-    facetsRefinements?: { [facet: string]: string[]; } | undefined;
-    facetsExcludes?: { [facet: string]: string[]; } | undefined;
-    disjunctiveFacetsRefinements?: { [facet: string]: string[]; } | undefined;
-    numericRefinements?: { [facet: string]: { "="?: (number | number[])[] | undefined; ">"?: (number | number[])[] | undefined; ">="?: (number | number[])[] | undefined; "<"?: (number | number[])[] | undefined; "<="?: (number | number[])[] | undefined; "!="?: (number | number[])[] | undefined; }; } | undefined;
-    tagRefinements?: string[] | undefined;
-    hierarchicalFacetsRefinements?: { [facet: string]: string[]; } | undefined;
-    optionalTagFilters?: string | undefined;
-    optionalFacetFilters?: string | undefined;
-    hitsPerPage?: number | undefined;
-    maxValuesPerFacet?: number | undefined;
-    minWordSizefor1Typo?: number | undefined;
-    minWordSizefor2Typos?: number | undefined;
+    index?: string ;
+    disjunctiveFacets?: string[] ;
+    hierarchicalFacets?: string[] | object[] ;
+    facetsRefinements?: { [facet: string]: string[]; } ;
+    facetsExcludes?: { [facet: string]: string[]; } ;
+    disjunctiveFacetsRefinements?: { [facet: string]: string[]; } ;
+    numericRefinements?: { [facet: string]: SearchParameters.OperatorList };
+    tagRefinements?: string[] ;
+    hierarchicalFacetsRefinements?: { [facet: string]: string[]; } ;
+    optionalTagFilters?: string ;
+    optionalFacetFilters?: string ;
+    hitsPerPage?: number ;
+    maxValuesPerFacet?: number ;
+    minWordSizefor1Typo?: number ;
+    minWordSizefor2Typos?: number ;
     minProximity?: any;
-    allowTyposOnNumericTokens?: boolean | undefined;
-    ignorePlurals?: boolean | undefined;
-    advancedSyntax?: boolean | undefined;
-    analytics?: boolean | undefined;
-    synonyms?: boolean | undefined;
-    replaceSynonymsInHighlight?: boolean | undefined;
-    highlightPreTag?: string | undefined;
-    highlightPostTag?: string | undefined;
-    distinct?: number | boolean | undefined;
-    aroundLatLng?: string | undefined;
-    aroundRadius?: number | undefined;
-    minimumAroundRadius?: number | undefined;
-    aroundPrecision?: number | undefined;
+    allowTyposOnNumericTokens?: boolean ;
+    ignorePlurals?: boolean ;
+    advancedSyntax?: boolean ;
+    analytics?: boolean ;
+    synonyms?: boolean ;
+    replaceSynonymsInHighlight?: boolean ;
+    highlightPreTag?: string ;
+    highlightPostTag?: string ;
+    distinct?: number | boolean ;
+    aroundLatLng?: string ;
+    aroundRadius?: number ;
+    minimumAroundRadius?: number ;
+    aroundPrecision?: number ;
     snippetEllipsisText?: string;
-    enableExactOnSingleWordQuery?: boolean | undefined;
-    query?: string | undefined;
-    filters?: string | undefined;
-    attributesToRetrieve?: string[] | undefined;
-    restrictSearchableAttributes?: string[] | undefined;
-    facets?: string[] | undefined;
-    facetingAfterDistinct?: boolean | undefined;
-    attributesToHighlight?: string[] | undefined;
-    attributesToSnippet?: string[] | undefined;
-    restrictHighlightAndSnippetArrays?: boolean | undefined;
-    page?: number | undefined;
-    offset?: number | undefined;
-    length?: number | undefined;
-    typoTolerance?: boolean | undefined;
-    disableTypoToleranceOnAttributes?: string[] | undefined;
-    aroundLatLngViaIP?: boolean | undefined;
-    insideBoundingBox?: number[][] | undefined;
-    queryType?: "prefixAll" | "prefixLast" | "prefixNone" | undefined;
-    insidePolygon?: number[][] | undefined;
-    removeWordsIfNoResults?: "none" | "lastWords" | "firstWords" | "allOptional" | undefined;
-    optionalWords?: string[] | undefined;
-    removeStopWords?: boolean | string[] | undefined;
-    disableExactOnAttributes?: string[] | undefined;
-    exactOnSingleWordQuery?: "none" | "attribute" | "word" | undefined;
-    alternativesAsExact?: ("ignorePlurals" | "singleWordSynonym" | "multiWordsSynonym")[] | undefined;
-    getRankingInfo?: boolean | undefined;
-    numericAttributesToIndex?: string[] | undefined;
-    numericAttributesForFiltering?: string[] | undefined;
-    numericFilters?: string[] | undefined;
-    tagFilters?: string[] | undefined;
-    facetFilters?: string[] | string[][] | undefined;
-    analyticsTags?: string[] | undefined;
-    nbShards?: number | undefined;
-    userData?: string | object | undefined;
+    enableExactOnSingleWordQuery?: boolean ;
+    query?: string ;
+    filters?: string ;
+    attributesToRetrieve?: string[] ;
+    restrictSearchableAttributes?: string[] ;
+    facets?: string[] ;
+    facetingAfterDistinct?: boolean ;
+    attributesToHighlight?: string[] ;
+    attributesToSnippet?: string[] ;
+    restrictHighlightAndSnippetArrays?: boolean ;
+    page?: number ;
+    offset?: number ;
+    length?: number ;
+    typoTolerance?: boolean ;
+    disableTypoToleranceOnAttributes?: string[] ;
+    aroundLatLngViaIP?: boolean ;
+    insideBoundingBox?: number[][] ;
+    queryType?: "prefixAll" | "prefixLast" | "prefixNone" ;
+    insidePolygon?: number[][] ;
+    removeWordsIfNoResults?: "none" | "lastWords" | "firstWords" | "allOptional" ;
+    optionalWords?: string[] ;
+    removeStopWords?: boolean | string[] ;
+    disableExactOnAttributes?: string[] ;
+    exactOnSingleWordQuery?: "none" | "attribute" | "word" ;
+    alternativesAsExact?: Array<"ignorePlurals" | "singleWordSynonym" | "multiWordsSynonym"> ;
+    getRankingInfo?: boolean ;
+    numericAttributesToIndex?: string[] ;
+    numericAttributesForFiltering?: string[] ;
+    numericFilters?: string[] ;
+    tagFilters?: string[] ;
+    facetFilters?: string[] | string[][] ;
+    analyticsTags?: string[] ;
+    nbShards?: number ;
+    userData?: string | object ;
 
     constructor(newParameters?: QueryParameters)
 

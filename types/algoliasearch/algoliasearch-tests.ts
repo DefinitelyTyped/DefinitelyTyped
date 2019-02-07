@@ -124,7 +124,7 @@ let _algoliaQueryParameters: QueryParameters = {
   ignorePlurals: false,
   disableTypoToleranceOnAttributes: [''],
   aroundLatLng: '',
-  aroundLatLngViaIP: '',
+  aroundLatLngViaIP: true,
   aroundRadius: 0,
   aroundPrecision: 0,
   minimumAroundRadius: 0,
