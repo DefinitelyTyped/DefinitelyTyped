@@ -209,8 +209,8 @@ switch (adapter.log.level) {
 
 adapter.sendTo("foo.0", "command", "message");
 adapter.sendTo("foo.0", "message");
-adapter.sendTo("foo.0", "command", {msg: "message"});
-adapter.sendTo("foo.0", {msg: "message"});
+adapter.sendTo("foo.0", "command", { msg: "message" });
+adapter.sendTo("foo.0", { msg: "message" });
 
 function handleMessageResponse(response?: ioBroker.Message) {
     if (!response) return;
@@ -226,28 +226,28 @@ function handleMessageResponse(response?: ioBroker.Message) {
 }
 adapter.sendTo("foo.0", "command", "message", handleMessageResponse);
 adapter.sendTo("foo.0", "message", handleMessageResponse);
-adapter.sendTo("foo.0", "command", {msg: "message"}, handleMessageResponse);
-adapter.sendTo("foo.0", {msg: "message"}, handleMessageResponse);
+adapter.sendTo("foo.0", "command", { msg: "message" }, handleMessageResponse);
+adapter.sendTo("foo.0", { msg: "message" }, handleMessageResponse);
 
 adapter.sendToAsync("foo.0", "command", "message").then(handleMessageResponse);
 adapter.sendToAsync("foo.0", "message").then(handleMessageResponse);
-adapter.sendToAsync("foo.0", "command", {msg: "message"}).then(handleMessageResponse);
-adapter.sendToAsync("foo.0", {msg: "message"}).then(handleMessageResponse);
+adapter.sendToAsync("foo.0", "command", { msg: "message" }).then(handleMessageResponse);
+adapter.sendToAsync("foo.0", { msg: "message" }).then(handleMessageResponse);
 
 adapter.sendToHost("host-foo", "command", "message");
 adapter.sendToHost("host-foo", "message");
-adapter.sendToHost("host-foo", "command", {msg: "message"});
-adapter.sendToHost("host-foo", {msg: "message"});
+adapter.sendToHost("host-foo", "command", { msg: "message" });
+adapter.sendToHost("host-foo", { msg: "message" });
 
 adapter.sendToHost("host-foo", "command", "message", handleMessageResponse);
 adapter.sendToHost("host-foo", "message", handleMessageResponse);
-adapter.sendToHost("host-foo", "command", {msg: "message"}, handleMessageResponse);
-adapter.sendToHost("host-foo", {msg: "message"}, handleMessageResponse);
+adapter.sendToHost("host-foo", "command", { msg: "message" }, handleMessageResponse);
+adapter.sendToHost("host-foo", { msg: "message" }, handleMessageResponse);
 
 adapter.sendToHostAsync("host-foo", "command", "message").then(handleMessageResponse);
 adapter.sendToHostAsync("host-foo", "message").then(handleMessageResponse);
-adapter.sendToHostAsync("host-foo", "command", {msg: "message"}).then(handleMessageResponse);
-adapter.sendToHostAsync("host-foo", {msg: "message"}).then(handleMessageResponse);
+adapter.sendToHostAsync("host-foo", "command", { msg: "message" }).then(handleMessageResponse);
+adapter.sendToHostAsync("host-foo", { msg: "message" }).then(handleMessageResponse);
 
 function handleError(err?: string) { }
 adapter.subscribeStates("*", handleError);
@@ -267,5 +267,18 @@ const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {
         && obj.common.custom
         && obj.common.custom["adapter.0"]
         && obj.common.custom["adapter.0"].enabled
-    ;
+        ;
 };
+
+// Repro from https://github.com/ioBroker/adapter-core/issues/4
+function repro2() {
+    // Prepare custom object
+    const obj = {
+        common: {
+            custom: {
+                "adapter.namespace": { start_day: null as any }
+            }
+        }
+    };
+    adapter.extendForeignObject("obj.id", obj, (err) => { });
+}
