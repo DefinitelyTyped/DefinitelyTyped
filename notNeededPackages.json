@@ -571,6 +571,12 @@
             "asOfVersion": "0.8.1"
         },
         {
+            "libraryName": "fastify-static",
+            "typingsPackageName": "fastify-static",
+            "sourceRepoURL": "https://github.com/fastify/fastify-static",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "fecha",
             "typingsPackageName": "fecha",
             "sourceRepoURL": "https://github.com/taylorhakes/fecha",
