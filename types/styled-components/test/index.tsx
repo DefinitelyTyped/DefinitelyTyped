@@ -1003,17 +1003,22 @@ function validateDefaultProps() {
     <OtherStyledComponent requiredProp="1" />; // $ExpectError
 }
 
-// failing example from https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31491#issuecomment-459353227
-
-interface WrapperClassProps {
+interface WrapperProps {
     className?: string;
 }
-export class WrapperClassComponent extends React.Component<WrapperClassProps> {
-    render() {
-        return <div className={this.props.className}>{this.props.children}</div>;
-    }
+export class WrapperClass extends React.Component<WrapperProps> {
+    render() { return <div />; }
 }
-const WrapperClass = styled(WrapperClassComponent)`
-    border: 1px solid grey;
-`;
-const wrapperClass = <WrapperClass>Text</WrapperClass>;
+const StyledWrapperClass = styled(WrapperClass)``;
+// React.Component typings always add `children` to props, so this should accept children
+const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>;
+
+const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
+const StyledWrapperFunction = styled(WrapperFunction)``;
+// React.FunctionComponent typings always add `children` to props, so this should accept children
+const wrapperFunction = <StyledWrapperFunction>Text</StyledWrapperFunction>;
+
+const WrapperFunc = (props: WrapperProps) => <div />;
+const StyledWrapperFunc = styled(WrapperFunc)``;
+// No `children` in props, so this should generate an error
+const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError

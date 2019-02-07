@@ -23,13 +23,14 @@ const StyledText = styled(ReactNative.Text)`
 class MyReactNativeComponent extends React.Component {
   render() {
     return (
-      <StyledView collapsable>
-        <StyledText adjustsFontSizeToFit>Hello World!</StyledText>
+      <StyledView>
+        <StyledText>Hello World!</StyledText>
       </StyledView>
     );
   }
 }
 
+const ValidProp = <StyledText adjustsFontSizeToFit />;
 const invalidProp = <StyledText randoName={2} />; // $ExpectError
 const invalidTag = styled.div` margin-top: 5px; `; // $ExpectError
 

@@ -72,7 +72,15 @@ export type StyledComponentProps<
         A
     > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
     T
-> & { children?: React.ReactNode };
+> & WithChildrenIfReactComponentClass<C>;
+
+// Because of React typing quirks, when getting props from a React.ComponentClass,
+// we need to manually add a `children` field.
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/31945
+// and https://github.com/DefinitelyTyped/DefinitelyTyped/pull/32843
+type WithChildrenIfReactComponentClass<
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
+> = C extends React.ComponentClass<any> ? { children?: React.ReactNode } : {};
 
 type StyledComponentPropsWithAs<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
