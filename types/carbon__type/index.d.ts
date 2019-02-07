@@ -2,6 +2,7 @@
 // Project: https://github.com/IBM/carbon-elements/tree/master/packages/type
 // Definitions by: Vince Picone <https://github.com/vpicone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export const bodyLong01: {
     fontFamily: string;
@@ -692,13 +693,21 @@ export const styles: {
     };
 };
 
-export function fontFamily(name: any): any;
+export function fontFamily(
+    name: string
+): {
+    fontFamily: string;
+};
 
-export function fontWeight(weight: any): any;
+export function fontWeight(
+    weight: string
+): {
+    fontWeight: number;
+};
 
-export function getTypeSize(step: any): any;
+export function getTypeSize(step: number): number;
 
-export function print(block: any): any;
+export function print(block: object): string;
 
 export namespace fontFamily {
     const prototype: {};
