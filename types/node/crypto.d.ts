@@ -53,7 +53,7 @@ declare module "crypto" {
             type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1',
             format: KeyFormat,
             cipher?: string,
-            passphrase?: string
+            passphrase?: string | Buffer
         }): string | Buffer;
         symmetricSize?: number;
         type: 'secret' | 'public' | 'private';
