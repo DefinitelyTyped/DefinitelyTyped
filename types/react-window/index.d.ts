@@ -4,7 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentType, CSSProperties, Ref, Key } from "react";
+import {
+    Component,
+    ComponentType,
+    CSSProperties,
+    Ref,
+    Key,
+    FunctionComponent,
+    ComponentClass
+} from "react";
 
 export type Direction = "vertical" | "horizontal";
 export type ScrollDirection = "forward" | "backward";
@@ -25,17 +33,27 @@ export interface GridChildComponentProps {
     isScrolling?: boolean;
 }
 
+// This is supposed to represent the type of the first parameter to
+// React.createElement.
+type ReactElementType = FunctionComponent<any> | ComponentClass<any> | string;
+
 export interface CommonProps {
     /**
      * Optional CSS class to attach to outermost <div> element.
      */
     className?: string;
     /**
+     * Tag name passed to document.createElement to create the inner container element. This is an advanced property; in most cases, the default ("div") should be used.
+     */
+    innerElementType?: ReactElementType;
+    /**
      * Ref to attach to the inner container element. This is an advanced property.
      */
     innerRef?: Ref<any>;
     /**
      * Tag name passed to document.createElement to create the inner container element. This is an advanced property; in most cases, the default ("div") should be used.
+     *
+     * @deprecated since 1.4.0
      */
     innerTagName?: string;
     /**
@@ -45,11 +63,17 @@ export interface CommonProps {
      */
     itemData?: any;
     /**
+     * Tag name passed to document.createElement to create the outer container element. This is an advanced property; in most cases, the default ("div") should be used.
+     */
+    outerElementType?: ReactElementType;
+    /**
      * Ref to attach to the outer container element. This is an advanced property.
      */
     outerRef?: Ref<any>;
     /**
      * Tag name passed to document.createElement to create the outer container element. This is an advanced property; in most cases, the default ("div") should be used.
+     *
+     * @deprecated since 1.4.0
      */
     outerTagName?: string;
     /**
