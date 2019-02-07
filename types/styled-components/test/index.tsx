@@ -1013,6 +1013,14 @@ const StyledWrapperClass = styled(WrapperClass)``;
 // React.Component typings always add `children` to props, so this should accept children
 const wrapperClass = <StyledWrapperClass>Text</StyledWrapperClass>;
 
+export class WrapperClassFuncChild extends React.Component<WrapperProps & {children: () => any}> {
+    render() { return <div />; }
+}
+const StyledWrapperClassFuncChild = styled(WrapperClassFuncChild)``;
+// React.Component typings always add `children` to props, so this should accept children
+const wrapperClassNoChildrenGood = <StyledWrapperClassFuncChild>{() => "text"}</StyledWrapperClassFuncChild>;
+const wrapperClassNoChildren = <StyledWrapperClassFuncChild>Text</StyledWrapperClassFuncChild>; // $ExpectError
+
 const WrapperFunction: React.FunctionComponent<WrapperProps> = () => <div />;
 const StyledWrapperFunction = styled(WrapperFunction)``;
 // React.FunctionComponent typings always add `children` to props, so this should accept children
