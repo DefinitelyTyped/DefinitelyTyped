@@ -1,4 +1,4 @@
-// Type definitions for redux-form 8.1.0
+// Type definitions for redux-form 7.5
 // Project: https://github.com/erikras/redux-form
 // Definitions by: Carson Full <https://github.com/carsonf>
 //                 Daniel Lytkin <https://github.com/aikoven>
