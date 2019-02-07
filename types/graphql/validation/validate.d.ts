@@ -2,6 +2,7 @@ import { GraphQLError } from "../error";
 import { DocumentNode } from "../language/ast";
 import { GraphQLSchema } from "../type/schema";
 import { TypeInfo } from "../utilities/TypeInfo";
+import { ValidationRule } from "./ValidationContext";
 
 /**
  * Implements the "Validation" section of the spec.
@@ -21,7 +22,23 @@ import { TypeInfo } from "../utilities/TypeInfo";
  */
 export function validate(
     schema: GraphQLSchema,
-    ast: DocumentNode,
-    rules?: ReadonlyArray<any>,
+    documentAST: DocumentNode,
+    rules?: ReadonlyArray<ValidationRule>,
     typeInfo?: TypeInfo
 ): ReadonlyArray<GraphQLError>;
+
+/**
+ * Utility function which asserts a SDL document is valid by throwing an error
+ * if it is invalid.
+ *
+ * @internal
+ */
+export function assertValidSDL(documentAST: DocumentNode): undefined;
+
+/**
+ * Utility function which asserts a SDL document is valid by throwing an error
+ * if it is invalid.
+ *
+ * @internal
+ */
+export function assertValidSDLExtension(documentAST: DocumentNode, schema: GraphQLSchema): undefined;

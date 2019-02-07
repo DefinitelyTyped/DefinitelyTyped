@@ -12,7 +12,9 @@ import {
     VictoryScatter,
     VictoryPie,
     VictoryTheme,
-    VictoryLegend
+    VictoryLegend,
+    VictoryBoxPlot,
+    VictoryGroup
 } from "victory";
 
 // VictoryAnimation test
@@ -32,7 +34,7 @@ let test = <VictoryAnimation
     {(style: AnimationStyle) =>
         <span style={{color: style["color"] as string}}>Hello!</span>
     }
-</VictoryAnimation>
+</VictoryAnimation>;
 
 // VictoryLabel test
 test = <VictoryLabel x={50} y={10}
@@ -49,7 +51,28 @@ test = <VictoryLabel x={50} y={10}
                      dy={10}
                      lineHeight={1.5}>
     {"data viz \n is \n fun!"}
-</VictoryLabel>
+</VictoryLabel>;
+
+test = (
+    <VictoryLabel
+        text={datum => datum.label}
+        labelPlacement='perpendicular'
+        renderInPortal={true}
+    >
+        {"data viz \n is \n fun!"}
+    </VictoryLabel>
+);
+
+test = (
+    <VictoryLabel
+        text={['some', 'text', 'strings']}
+        labelPlacement='vertical'
+        renderInPortal={true}
+        lineHeight={'12'}
+    >
+        {"data viz \n is \n fun!"}
+    </VictoryLabel>
+);
 
 // VictoryArea test
 test = (
@@ -89,19 +112,19 @@ test = (
                     onClick: () => {
                         return {
                             mutation: (props) => {
-                                return { style: { fill: "orange" } }
+                                return { style: { fill: "orange" } };
                             }
-                        }
+                        };
                     },
                     onMouseEnter: () => {
                         return [
                             {
                                 target: "labels",
                                 mutation: (props) => {
-                                    return { text: "hey" }
+                                    return { text: "hey" };
                                 }
                             }
-                        ]
+                        ];
                     }
                 }
             }
@@ -154,32 +177,37 @@ test = (
 test = (
     <VictoryAxis
         style={{
-          axis: {stroke: "black"},
-          grid: {strokeWidth: 2},
-          ticks: {stroke: "red"},
-          tickLabels: {fontSize: 12},
-          axisLabel: {fontSize: 16}
+            axis: { stroke: "black" },
+            grid: { strokeWidth: 2 },
+            ticks: { stroke: "red" },
+            tickLabels: { fontSize: 12 },
+            axisLabel: { fontSize: 16 }
         }}
         label="Planets"
         tickValues={[
-          "Mercury",
-          "Venus",
-          "Earth",
-          "Mars",
-          "Jupiter"
-        ]}/>
+            "Mercury",
+            "Venus",
+            "Earth",
+            "Mars",
+            "Jupiter"
+        ]} />
 );
 
 test = (
     <VictoryAxis
         scale="time"
+        style={{
+            grid: { strokeWidth: tick => tick.x },
+            ticks: { stroke: tick => tick.color },
+            tickLabels: { fontSize: tick => tick.y },
+        }}
         tickValues={[
             new Date(1980, 1, 1),
             new Date(1990, 1, 1),
             new Date(2000, 1, 1),
             new Date(2010, 1, 1),
             new Date(2020, 1, 1)]}
-        tickFormat={(x) => x.getFullYear()}/>
+        tickFormat={(x) => x.getFullYear()} />
 );
 
 test = (
@@ -187,7 +215,7 @@ test = (
         dependentAxis
         padding={{left: 50, top: 20, bottom: 20}}
         scale="log"
-        domain={{ x: [new Date(Date.UTC(2016, 0, 1)), new Date()], y: [1,5] }}
+        domain={{ x: [new Date(Date.UTC(2016, 0, 1)), new Date()], y: [1, 5] }}
     />
 );
 
@@ -253,6 +281,9 @@ test = (
             {x: 4, y: 2},
             {x: 5, y: 1}
         ]}
+        barWidth={20}
+        barRatio={100}
+        cornerRadius={2}
     />
 );
 
@@ -273,6 +304,9 @@ test = (
             {x: 4, y: 2},
             {x: 5, y: 1}
         ]}
+        alignment="start"
+        barWidth={(datum, active) => active ? datum.x : datum.y}
+        cornerRadius={{top: 2, bottom: 4}}
         events={[
             {
               target: "data",
@@ -315,6 +349,86 @@ test = (
     />
 );
 
+// VictoryBoxPlot test
+test = (
+    <VictoryBoxPlot
+        animate={{
+            duration: 1000,
+            onEnter: {
+                duration: 500,
+                before: () => ({ y: 0, label: " " }),
+                after: datum => ({ y: datum.y, label: "NEW" })
+            }
+        }}
+        boxWidth={10}
+        domain={[0, 10]}
+        domainPadding={5}
+        data={[
+            { x: 1, y: [1, 2, 3, 5] },
+            { x: 2, y: [3, 2, 8, 10] },
+            { x: 3, y: [2, 8, 6, 5] },
+            { x: 4, y: [1, 3, 2, 9] }
+        ]}
+        events={[
+            {
+                target: "data",
+                eventKey: 2,
+                eventHandlers: {
+                    onClick: evt => {
+                        evt.stopPropagation();
+                        return [
+                            {
+                                mutation: () => {
+                                    return {
+                                        style: { fill: "orange", width: 20 }
+                                    };
+                                }
+                            },
+                            {
+                                target: "labels",
+                                eventKey: 3,
+                                mutation: () => {
+                                    return { text: "now click me" };
+                                }
+                            }
+                        ];
+                    }
+                }
+            },
+            {
+                target: "parent",
+                eventHandlers: {
+                    onClick: () => {
+                        return [
+                            {
+                                target: "data",
+                                mutation: () => {
+                                    return {
+                                        style: { fill: "tomato", width: 10 }
+                                    };
+                                }
+                            }
+                        ];
+                    }
+                }
+            }
+        ]}
+        height={500}
+        labelOrientation="top"
+        labels={true}
+        name="BoxPlot"
+        style={{
+            min: { stroke: "tomato" },
+            max: { stroke: "orange" },
+            q1: { fill: "tomato" },
+            q3: { fill: "orange" },
+            median: { stroke: "white", strokeWidth: 2 },
+            minLabels: { fill: "tomato" },
+            maxLabels: { fill: "orange" }
+        }}
+        whiskerWidth={5}
+    />
+);
 
 // VictoryChart test
 test = (
@@ -415,6 +529,23 @@ test = (
     </VictoryChart>
 );
 
+// VictoryGroup test
+test = (
+    <VictoryGroup
+        offset={40}
+    >
+        <VictoryBar
+            data={[{ x: "a", y: 2 }, { x: "b", y: 3 }, { x: "c", y: 5 }]}
+        />
+        <VictoryBar
+            data={[{ x: "a", y: 1 }, { x: "b", y: 4 }, { x: "c", y: 5 }]}
+        />
+        <VictoryBar
+            data={[{ x: "a", y: 3 }, { x: "b", y: 2 }, { x: "c", y: 6 }]}
+        />
+    </VictoryGroup>
+);
+
 // VictoryLine test
 test = (
     <VictoryLine
@@ -472,12 +603,19 @@ test = (
 test = (
     <VictoryScatter
         data={[
-            {amount: 1, yield: 1, error: 0.5},
-            {amount: 2, yield: 2, error: 1.1},
-            {amount: 3, yield: 3, error: 0},
-            {amount: 4, yield: 2, error: 0.1},
-            {amount: 5, yield: 1, error: 1.5}
+            { amount: 1, yield: 1, error: 0.5 },
+            { amount: 2, yield: 2, error: 1.1 },
+            { amount: 3, yield: 3, error: 0 },
+            { amount: 4, yield: 2, error: 0.1 },
+            { amount: 5, yield: 1, error: 1.5 }
         ]}
+        style={{
+            data: {
+                fill: d => d.x,
+                stroke: (datum, active) => active ? datum.x : datum.y,
+                strokeWidth: 3
+            }
+        }}
         x={"amount"}
         y={(data) => (data.yield + data.error)}
     />

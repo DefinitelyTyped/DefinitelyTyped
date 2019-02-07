@@ -3,10 +3,10 @@
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 //                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Animated, ScrollViewProps, ViewStyle, TextStyle } from 'react-native';
+import { Animated, ScrollViewProps, ViewStyle, TextStyle, StyleProp } from 'react-native';
 
 export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
     /**
@@ -57,7 +57,7 @@ export interface ScrollableTabViewProperties extends React.Props<ScrollableTabVi
     /**
      * style of the default tab bar's underline
      */
-    tabBarUnderlineStyle?: ViewStyle;
+    tabBarUnderlineStyle?: StyleProp<ViewStyle>;
 
     /**
      * color of the default tab bar's background, defaults to white
@@ -77,12 +77,12 @@ export interface ScrollableTabViewProperties extends React.Props<ScrollableTabVi
     /**
      * additional styles to the tab bar's text
      */
-    tabBarTextStyle?: TextStyle;
+    tabBarTextStyle?: StyleProp<TextStyle>;
 
     /**
      * style (View.propTypes.style)
      */
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
 
     /**
      * props that are applied to root ScrollView/ViewPagerAndroid.
@@ -125,7 +125,7 @@ export default class ScrollableTabView extends React.Component<ScrollableTabView
 // Each top-level child component should have a tabLabel prop
 // that can be used by the tab bar component to render out the labels.
 export type TabProps<T = {}> = T & {
-    tabLabel: React.ReactType;
+    tabLabel: React.ReactChild;
 };
 
 export interface DefaultTabBarProps {

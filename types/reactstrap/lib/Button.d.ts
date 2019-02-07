@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type ButtonProps<T = {}> = React.HTMLProps<HTMLButtonElement> & {
+export type ButtonProps<T = {}> = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   outline?: boolean;
   active?: boolean;
   block?: boolean;

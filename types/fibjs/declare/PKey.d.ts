@@ -144,7 +144,7 @@ declare class Class_PKey extends Class__object {
 	 * 
 	 * 
 	 */
-	constructor(jsonKey: Object);
+	constructor(jsonKey: object);
 
 	/**
 	 * 
@@ -258,7 +258,7 @@ declare class Class_PKey extends Class__object {
 	 * 
 	 * 
 	 */
-	importKey(jsonKey: Object): void;
+	importKey(jsonKey: object): void;
 
 	/**
 	 * 
@@ -299,7 +299,7 @@ declare class Class_PKey extends Class__object {
 	 * 
 	 * 
 	 */
-	exportJson(): Object;
+	exportJson(): object;
 
 	/**
 	 * 

@@ -7,7 +7,7 @@
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Kevin Ross <https://github.com/rosskevin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -54,7 +54,7 @@ declare namespace Autosuggest {
 
     interface InputProps<TSuggestion>
         extends Omit<React.InputHTMLAttributes<any>, 'onChange' | 'onBlur'> {
-        onChange(event: React.FormEvent<any>, params?: ChangeEvent): void;
+        onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
         onBlur?(event: React.FormEvent<any>, params?: BlurEvent<TSuggestion>): void;
         value: string;
         [key: string]: any;

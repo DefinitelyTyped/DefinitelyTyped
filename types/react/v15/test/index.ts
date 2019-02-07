@@ -11,6 +11,14 @@ import * as TestUtils from "react-addons-test-utils";
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 
+// NOTE: forward declarations for tests
+declare function setInterval(...args: any[]): any;
+declare function clearInterval(...args: any[]): any;
+declare var console: Console;
+interface Console {
+    log(...args: any[]): void;
+}
+
 interface Props extends React.Attributes {
     hello: string;
     world?: string;
@@ -256,7 +264,7 @@ const markup: string = ReactDOMServer.renderToStaticMarkup(element);
 const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
 let domNode = ReactDOM.findDOMNode(component);
-domNode = ReactDOM.findDOMNode(domNode as Element);
+domNode = ReactDOM.findDOMNode(domNode);
 
 //
 // React Elements
@@ -485,6 +493,9 @@ const ContextTypesSpecification: React.ComponentSpec<any, any> = {
 
 const mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => 42);
+const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
+const mappedChildrenArrayWithKnownChildren: number[] =
+    React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement<any> = React.Children.only(React.DOM.div()); // ok
@@ -502,7 +513,7 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    private _interval: NodeJS.Timer;
+    private _interval: number;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1

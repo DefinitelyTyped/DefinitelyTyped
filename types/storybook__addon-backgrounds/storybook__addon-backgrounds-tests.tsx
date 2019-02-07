@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import backgrounds from '@storybook/addon-backgrounds';
+import { withBackgrounds } from '@storybook/addon-backgrounds';
 
 storiesOf('Text', module)
     .addDecorator(
-        backgrounds([
+        withBackgrounds([
             {
                 name: 'white',
                 value: '#fff',

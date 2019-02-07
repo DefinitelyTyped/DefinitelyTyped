@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
-const FormatCurrencyHelper = Ember.Helper.helper(function(params, hash: { currency: string }) {
-    let cents = params[0];
-    let currency = hash.currency;
+const FormatCurrencyHelper = Ember.Helper.helper((params, hash: { currency: string }) => {
+    const cents = params[0];
+    const currency = hash.currency;
     return `${currency}${cents * 0.01}`;
 });
 

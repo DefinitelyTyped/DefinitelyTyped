@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "moment-duration-format-tests.ts"
+        "moment-duration-format-tests.ts",
+        "test/module-tests.ts"
     ]
 }

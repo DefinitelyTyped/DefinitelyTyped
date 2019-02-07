@@ -34,18 +34,21 @@ const opts = {
     priorityRange: 5,
     autostart: false,
     evictionRunIntervalMillis: 200,
-    numTestsPerRun: 3,
+    numTestsPerEvictionRun: 3,
     softIdleTimeoutMillis: 100,
     idleTimeoutMillis: 5000
 };
 
 const pool = genericPool.createPool<Connection>(factory, opts);
 
+pool.start();
+
 pool.use((conn: Connection) => 'test')
     .then((result: string) => { });
 
 pool.acquire()
     .then((conn: Connection) => {
+        console.log(pool.isBorrowedResource(conn));  // => true
         return pool.release(conn);
     }).then(() => {
         return pool.acquire(5);

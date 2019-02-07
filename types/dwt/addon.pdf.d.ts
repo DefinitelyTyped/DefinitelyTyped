@@ -1,14 +1,3 @@
-/*!
-* Dynamsoft WebTwain PDF Addon
-* Based on Dynamsoft WebTwain JavaScript Intellisense
-* Product: Dynamsoft Web Twain
-* Web Site: http://www.dynamsoft.com
-*
-* Copyright 2018, Dynamsoft Corporation
-* Author: Dynamsoft Support Team
-* Version: 13.4
-*/
-
 declare enum EnumDWT_ConvertMode {
     CM_DEFAULT = 0,
     CM_RENDERALL = 1
@@ -72,8 +61,4 @@ interface PDF {
 
 interface WebTwainAddon {
     PDF: PDF;
-}
-
-interface WebTwain {
-    Addon: WebTwainAddon;
 }

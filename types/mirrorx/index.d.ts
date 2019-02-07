@@ -2,7 +2,7 @@
 // Project: https://github.com/mirrorjs/mirror
 // Definitions by: Aaronphy <https://github.com/aaronphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as H from 'history';
 
@@ -51,8 +51,8 @@ export interface RedirectProps {
   strict?: boolean;
 }
 
-export interface RouteComponentProps<P> {
-  match: match<P>;
+export interface RouteComponentProps<Params extends { [K in keyof Params]?: string }> {
+  match: match<Params>;
   location: H.Location;
   history: H.History;
   staticContext?: any;

@@ -2,7 +2,7 @@
 // Project: https://github.com/onemolegames/react-native-toast-native/blob/master/README.md
 // Definitions by: Michele Bombardi <https://github.com/bm-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Platform } from 'react-native';
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/ptomasroos/react-native-multi-slider#readme
 // Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import { ViewStyle } from "react-native";

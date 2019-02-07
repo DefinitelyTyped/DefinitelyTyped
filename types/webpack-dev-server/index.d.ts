@@ -1,10 +1,11 @@
-// Type definitions for webpack-dev-server 2.9
+// Type definitions for webpack-dev-server 3.1
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Artur Androsovych <https://github.com/arturovt>
+//                 Dave Cardwell <https://github.com/davecardwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,6 +15,7 @@ import * as express from 'express';
 import * as serveStatic from 'serve-static';
 import * as https from 'https';
 import * as http from 'http';
+import { Url } from "url";
 
 declare namespace WebpackDevServer {
     interface ListeningApp {
@@ -31,9 +33,16 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
 
+    interface Context {
+        match: RegExpMatchArray;
+        parsedUrl: Url;
+    }
+
+    type RewriteTo = (context: Context) => string;
+
     interface Rewrite {
         from: RegExp;
-        to: string;
+        to: string | RegExp | RewriteTo;
     }
 
     interface HistoryApiFallbackConfig {
@@ -150,13 +159,15 @@ declare namespace WebpackDevServer {
          * This option lets you precisely control what bundle information gets displayed.
          * This can be a nice middle ground if you want some bundle information, but not all of it.
          */
-        stats?: string | webpack.Stats;
+        stats?: webpack.Options.Stats;
         /** This option lets the browser open with your local IP. */
         useLocalIp?: boolean;
         /** Tell the server to watch the files served by the devServer.contentBase option. File changes will trigger a full page reload. */
         watchContentBase?: boolean;
         /** Control options related to watching the files. */
         watchOptions?: webpack.WatchOptions;
+        /** Tells devServer to write generated assets to the disk. */
+        writeToDisk?: boolean | ((filePath: string) => boolean);
     }
 }
 

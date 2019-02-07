@@ -6,7 +6,7 @@
 
 // Currently maintained by https://github.com/TomFrost/Jexl
 
-type TransformFunction = (value: any, args?: object) => any;
+type TransformFunction = (value: any, ...args: any[]) => any;
 
 type BinaryOpFunction = (left: any, right: any) => any;
 
@@ -54,12 +54,9 @@ declare class Jexl {
      * @param name The name of the transform function, as it will be used
      *      within Jexl expressions
      * @param fn The function to be executed when this transform is
-     *      invoked.  It will be provided with two arguments:
+     *      invoked.  It will be provided with at least one argument:
      *          - {*} value: The value to be transformed
-     *          - {{}} args: The arguments for this transform
-     *          - {function} cb: A callback function to be called with an error
-     *            if the transform fails, or a null first argument and the
-     *            transformed value as the second argument on success.
+     *          - {...*} args: The arguments for this transform
      */
     addTransform(name: string, fn: TransformFunction): void;
 

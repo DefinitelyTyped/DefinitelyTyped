@@ -1,3 +1,5 @@
+declare let aHtmlElement: HTMLElement;
+
 // --------------------------------------------------------------------------------------
 // Alert
 // --------------------------------------------------------------------------------------
@@ -32,12 +34,16 @@ $("#carousel").carousel("pause");
 
 $("#carousel").carousel(100);
 
-$("#carousel").on("slide.bs.carousel", function(ev) {
+$("#carousel").on("slide.bs.carousel", function(e) {
     const that: HTMLElement = this;
-    const from: number = ev.from;
-    const to: number = ev.to;
-    const direction: string = ev.direction;
-    const data: undefined = ev.data;
+
+    const data: undefined = e.data;
+    const carousel: HTMLElement = e.target;
+
+    const direction: string = e.direction;
+    const relatedTarget: HTMLElement = e.relatedTarget;
+    const from: number = e.from;
+    const to: number = e.to;
 });
 
 $("#carousel").carousel({
@@ -46,6 +52,7 @@ $("#carousel").carousel({
     slide: false,
     pause: "hover",
     wrap: true,
+    touch: false,
 });
 
 $("#carousel").carousel({
@@ -78,7 +85,7 @@ $("#collapse").collapse({
 });
 
 $("#collapse").collapse({
-    parent: document.body,
+    parent: aHtmlElement,
 });
 
 $("#collapse").collapse({
@@ -99,7 +106,11 @@ $("#dropdown").dropdown();
 // $ExpectType JQuery<HTMLElement>
 $("#dropdown").dropdown("update");
 
-$("#dropdown").on("hide.bs.dropdown", () => {});
+$("#dropdown").on("hide.bs.dropdown", (e) => {
+    const data: undefined = e.data;
+    const container: HTMLElement = e.target;
+    const togglingAnchorElement: HTMLElement = e.relatedTarget;
+});
 
 $("#dropdown").dropdown({
     offset: 10,
@@ -122,11 +133,11 @@ $("#dropdown").dropdown({
 });
 
 $("#dropdown").dropdown({
-    boundary: document.body,
+    boundary: aHtmlElement,
 });
 
 $("#dropdown").dropdown({
-    reference: document.body,
+    reference: aHtmlElement,
 });
 
 // --------------------------------------------------------------------------------------
@@ -139,7 +150,13 @@ $("#modal").modal();
 // $ExpectType JQuery<HTMLElement>
 $("#modal").modal("show");
 
-$("#modal").on("hide.bs.modal", () => {});
+$("#modal").on("show.bs.modal", (e) => {
+    const data: undefined = e.data;
+    const modal: HTMLElement = e.target;
+    if (e.relatedTarget) {
+        const clickedElement: HTMLElement = e.relatedTarget;
+    }
+});
 
 $("#modal").modal({
     backdrop: false,
@@ -224,9 +241,30 @@ $("#scrollspy").scrollspy({
 $("#someListItem").tab("show");
 
 $("a[data-toggle=\"list\"]").on("shown.bs.tab", (e) => {
-    e.target; // newly activated tab
-    e.relatedTarget; // previous active tab
+    const data: undefined = e.data;
+    const newlyActivatedTab: HTMLElement = e.target;
+    const previousActiveTab: HTMLElement = e.relatedTarget;
 });
+
+// --------------------------------------------------------------------------------------
+// Toast
+// --------------------------------------------------------------------------------------
+
+// $ExpectType JQuery<HTMLElement>
+$("#toast").toast();
+
+// $ExpectType JQuery<HTMLElement>
+$("#toast").toast("show");
+
+$("#toast").on("shown.bs.toast", () => {});
+
+$("#toast").toast({
+    animation: false,
+    autohide: false,
+    delay: 100,
+});
+
+$("#toast").toast({});
 
 // --------------------------------------------------------------------------------------
 // Tooltip
@@ -340,5 +378,5 @@ $("#tooltip").tooltip({
 });
 
 $("#tooltip").tooltip({
-    boundary: document.body,
+    boundary: aHtmlElement,
 });

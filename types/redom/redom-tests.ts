@@ -14,3 +14,26 @@ redom.setStyle(el3, { color: 'blue' });
 redom.setChildren(el1, [el2, el3]);
 
 redom.mount(document.body, redom.text('Hello, World!'));
+
+class Td implements redom.RedomComponent {
+    el: HTMLElement;
+    constructor() {
+        this.el = redom.h('td');
+    }
+    update(value: any) {
+        this.el.textContent = value;
+    }
+    onmount() {
+        console.log('mounted td');
+    }
+}
+const Tr = redom.list.extend('tr', Td);
+const table = redom.list('table', Tr);
+table.onmount = () => console.log('mounted table');
+
+table.update([
+    [1, 2],
+    [3, 4],
+]);
+
+redom.mount(document.body, table);

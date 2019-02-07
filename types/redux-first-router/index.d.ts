@@ -1,10 +1,12 @@
-// Type definitions for redux-first-router 1.10
+// Type definitions for redux-first-router 2.1
 // Project: https://github.com/faceyspacey/redux-first-router#readme
 // Definitions by: Valbrand <https://github.com/Valbrand>
 //                 viggyfresh <https://github.com/viggyfresh>
 //                 janb87 <https://github.com/janb87>
 //                 corydeppen <https://github.com/corydeppen>
 //                 jscinoz <https://github.com/jscinoz>
+//                 surgeboris <https://github.com/surgeboris>
+//                 geirsagberg <https://github.com/geirsagberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -23,6 +25,8 @@ export type StateGetter<TState = any> = () => TState;
 
 export type RouteString = string;
 
+export type ConfirmLeave = (state: object, action: object) => Nullable<string>;
+
 export type RouteThunk<TState = any> = (
     dispatch: Dispatch<any>,
     getState: StateGetter<TState>,
@@ -35,6 +39,9 @@ export type RouteObject<TKeys = {}, TState = any> = TKeys & {
     thunk?: RouteThunk<TState>;
     fromPath?(path: string, key?: string): string;
     toPath?(param: string, key?: string): string;
+    coerceNumbers?: boolean;
+    confirmLeave?: ConfirmLeave;
+    meta?: Meta;
 };
 
 export type Route<TKeys = {}, TState = any> = RouteString | RouteObject<TKeys, TState>;
@@ -64,8 +71,10 @@ export interface ReceivedActionMeta {
     };
 }
 
+export type HistoryEntries = Array<{ pathname: string }>;
+
 export interface HistoryData {
-    entries: Array<{ pathname: string }>;
+    entries: HistoryEntries;
     index: number;
     length: number;
 }
@@ -191,22 +200,106 @@ export interface NavigatorsConfig<TKeys = {}, TState = any> {
         };
 }
 
+export interface Bag {
+    action: ReceivedAction | Action;
+    extra: any;
+}
+
 export interface Options<TKeys = {}, TState = any> {
-    title?: string | SelectTitleState<TState>;
+    /**
+     * A prefix that will be prepended to the URL. For example, using a basename of '/playground',
+     * a route with the path '/home' would correspond to the URL path '/playground/home'.
+     */
+    basename?: string;
+    /**
+     *  Whether or not a trailing delimiter is allowed when matching path.
+     */
+    strict?: boolean;
+    /**
+     * The name of the state key or a selector function to specify where in your Redux state tree
+     * Redux First Router should expect your page location reducer to be attached to.
+     */
     location?: string | SelectLocationState<TKeys, TState>;
-    notFoundPath?: string;
-    scrollTop?: boolean;
-    onBeforeChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>): void;
-    onAfterChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>): void;
-    onBackNext?(dispatch: Dispatch<any>, getState: StateGetter<TState>): void;
-    restoreScroll?(history: History): ScrollBehavior;
+    /**
+     * The name of the state key or a selector function to specify where in your Redux state tree
+     * Redux First Router should expect your page title reducer to be attached to.
+     * This can be omitted if you attach the reducer at state.title.
+     */
+    title?: string | SelectTitleState<TState>;
+    /**
+     * Can be set to false to bypass the initial dispatch, so you can do it manually, perhaps after running sagas.
+     */
     initialDispatch?: boolean;
+    /**
+     * An array of entries to initialise history object. Useful for server side rendering and tests.
+     */
+    initialEntries?: HistoryEntries;
+    /**
+     * An object with parse and stringify methods, such as the `query-string` or `qs` libraries (or anything handmade).
+     * This will be used to handle querystrings. Without this option, query strings are ignored silently.
+     */
     querySerializer?: QuerySerializer;
+    /**
+     * The path where users may be redirected in 2 situations: when you dispatch an action with no matching path,
+     *  or if you manually call dispatch(redirect({ type: NOT_FOUND })), where NOT_FOUND is an export from this package.
+     *  The type in actions and state will be NOT_FOUND, which you can use to show a 404 page.
+     */
+    notFoundPath?: string;
+    /**
+     * Whether or not window.scrollTo(0, 0) should be run on route changes so the user starts each page at the top.
+     */
+    scrollTop?: boolean;
+    /**
+     * A function to update window/elements scroll position.
+     */
+    restoreScroll?(history: History): ScrollBehavior;
+    /**
+     * A simple function that will be called before the routes change.
+     * It's passed your standard `dispatch` and `getState` arguments like a thunk,
+     * as well as the `bag` object as a third parameter, which contains the dispatched `action` and the configured `extra` value.
+     */
+    onBeforeChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>, bag: Bag): void;
+    /**
+     * A simple function that will be called after the routes change.
+     * It's passed your standard `dispatch` and `getState` arguments like a thunk,
+     * as well as the `bag` object as a third parameter, which contains the dispatched `action` and the configured `extra` value.
+     */
+    onAfterChange?(dispatch: Dispatch<any>, getState: StateGetter<TState>, bag: Bag): void;
+    /**
+     * A simple function that will be called whenever the user uses the browser back/next buttons.
+     * It's passed your standard `dispatch` and `getState` arguments like a thunk,
+     * as well as the `bag` object as a third parameter, which contains the dispatched `action`
+     * and the configured `extra` value. Actions with kinds `back`, `next`, and `pop` trigger this.
+     */
+    onBackNext?(dispatch: Dispatch<any>, getState: StateGetter<TState>, bag: Bag): void;
+    /**
+     * A function receiving `message` and `callback` when navigation is blocked with `confirmLeave`.
+     * The message is the return value from `confirmLeave`.
+     * The callback can be called with `true` to unblock the navigation, or with `false` to cancel the navigation.
+     */
+    displayConfirmLeave?: DisplayConfirmLeave;
+    /**
+     * A function returning a history object compatible with the popular `history` package.
+     */
+    createHistory?(): History;
+    /**
+     * A map of of your Redux state keys to _React Navigation_ navigators.
+     */
     navigators?: NavigatorsConfig<TKeys, TState>;
+    /**
+     * An optional value that will be passed as part of the third `bag` argument to all options callbacks and routes thunk.
+     * It works much like the `withExtraArgument` feature of `redux-thunk` or the `context` argument of GraphQL resolvers.
+     * You can use it to pass any required context to your thunks without having to tightly couple them to it.
+     * For example, you could pass an instance of an API client initialised with authentication cookies,
+     * or a function `addReducer` to inject new code split reducers into the store.
+     */
+    extra?: any;
 }
 
 export type Params = object;
 export type Payload = object;
+
+export type DisplayConfirmLeave = (message: string, callback: (unblock: boolean) => void) => void;
 
 export type ScrollUpdater = (performedByUser: boolean) => void;
 
@@ -227,9 +320,8 @@ export function canGoBack(): boolean;
 export function canGoForward(): boolean;
 
 export function connectRoutes<TKeys = {}, TState = any>(
-    history: History,
     routesMap: RoutesMap<TKeys, TState>,
-    options?: Options<TKeys, TState>
+    options?: Options<TKeys, TState>,
 ): {
         reducer: Reducer<LocationState<TKeys, TState>>;
         middleware: Middleware;

@@ -1,9 +1,13 @@
 // Type definitions for D3JS d3-voronoi module 1.1
 // Project: https://github.com/d3/d3-voronoi/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 1.1.4
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -61,6 +65,7 @@ export interface VoronoiSite<T> extends VoronoiPoint {
      * The Voronoi Site’s index, corresponding to the associated input point.
      */
     index: number;
+
     /**
      * The input data corresponding to this site.
      */
@@ -78,6 +83,7 @@ export interface VoronoiCell<T> {
      * The Voronoi Site of the cell’s associated input point.
      */
     site: VoronoiSite<T>;
+
     /**
      * An array of indexes into diagram.edges representing the cell’s polygon.
      */
@@ -95,8 +101,9 @@ export interface VoronoiEdge<T> extends VoronoiPointPair {
      * The Voronoi site on the left side of the edge.
      */
     left: VoronoiSite<T>;
+
     /**
-     * The Voronoi site on the right side of the edge. null for a clipped border edge.
+     * The Voronoi site on the right side of the edge; `null` for a clipped border edge.
      */
     right: VoronoiSite<T> | null;
 }
@@ -112,6 +119,7 @@ export interface VoronoiLink<T> {
      * The source node, an element in data.
      */
     source: T;
+
     /**
      * The target node, an element in data.
      */
@@ -137,6 +145,7 @@ export interface VoronoiLayout<T> {
     x(): (d: T) => number;
     /**
      * Set the x-coordinate accessor and return the layout.
+     *
      * @param x An accessor function which takes a data element as input and return a
      * numeric value for the x-coordinate.
      */
@@ -149,6 +158,7 @@ export interface VoronoiLayout<T> {
     y(): (d: T) => number;
     /**
      * Set the y-coordinate accessor and return the layout.
+     *
      * @param y An accessor function which takes a data element as input and return a
      * numeric value for the y-coordinate.
      */
@@ -207,6 +217,7 @@ export interface VoronoiLayout<T> {
      * @param data Array of data points.
      */
     polygons(data: T[]): Array<VoronoiPolygon<T>>;
+
     /**
      * Return the Delaunay triangulation of the specified data array as an array of triangles.
      * Each triangle is a three-element array of elements from data.
@@ -214,6 +225,7 @@ export interface VoronoiLayout<T> {
      * @param data Array of data points.
      */
     triangles(data: T[]): Array<VoronoiTriangle<T>>;
+
     /**
      * Return the Delaunay triangulation of the specified data array as an array of links.
      * Each link has source and target attributes referring to elements in data.
@@ -233,10 +245,12 @@ export interface VoronoiDiagram<T> {
      * Array of Voronoi Edges
      */
     edges: Array<VoronoiEdge<T>>;
+
     /**
      * Array of Voronoi Cells, one per input point; a cell may be null for a coincident point.
      */
     cells: Array<VoronoiCell<T> | null>;
+
     /**
      * Return an array of polygons clipped to the extent, one for each cell in the diagram.
      * Each polygon is represented as an array of points [x, y] where x and y are the point coordinates,
@@ -284,16 +298,11 @@ export interface VoronoiDiagram<T> {
 
 /**
  * Creates a new Voronoi layout with default x- and y- accessors and a null extent.
- *
- * Without specifying a generic the layout is assumed to be based on data represented
- * by a two-dimensional coordinate [number, number] for x- and y-coordinate, respectively.
- */
-export function voronoi(): VoronoiLayout<[number, number]>;
-/**
- * Creates a new Voronoi layout with default x- and y- accessors and a null extent.
  * x- and y-accessors may have to be set to correspond to the data type provided by the
  * generic.
  *
  * The generic refers to the type of the data for the corresponding element.
+ * Without specifying a generic the layout is assumed to be based on data represented
+ * by a two-dimensional coordinate `[number, number]` for x- and y-coordinate, respectively.
  */
-export function voronoi<T>(): VoronoiLayout<T>;
+export function voronoi<T = [number, number]>(): VoronoiLayout<T>;

@@ -1,1 +1,3 @@
-export declare function stringify(el: any, indent: any, level: any): string;
+import { Element } from './Element';
+
+export function stringify(el: Element, indent?: number, level?: number): string;

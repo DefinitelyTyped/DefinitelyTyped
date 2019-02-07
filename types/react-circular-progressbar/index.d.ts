@@ -2,7 +2,7 @@
 // Project: https://github.com/iqnivek/react-circular-progressbar#readme
 // Definitions by: Lee Standen <https://github.com/lstanden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component, CSSProperties } from 'react';
 

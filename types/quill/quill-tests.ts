@@ -1,5 +1,6 @@
-import { Quill, Delta, DeltaStatic, RangeStatic, StringMap } from 'quill';
+import { Quill, RangeStatic, StringMap } from 'quill';
 import { Blot } from 'parchment/src/blot/abstract/blot';
+import Delta = require('quill-delta');
 
 function test_quill() {
     const quillEditor = new Quill('#editor', {
@@ -8,6 +9,17 @@ function test_quill() {
             toolbar: { container: "#toolbar" }
         },
         theme: 'snow'
+    });
+}
+
+function test_quill_opts() {
+    const quillEditor = new Quill('#editor', {
+        modules:
+        {
+            toolbar: { container: "#toolbar" }
+        },
+        theme: 'snow',
+        debug: true,
     });
 }
 
@@ -38,7 +50,7 @@ function test_enable_false() {
 
 function test_getContents() {
     const quillEditor = new Quill('#editor');
-    const delta: DeltaStatic = quillEditor.getContents();
+    const delta: Delta = quillEditor.getContents();
 }
 
 function test_getLength() {
@@ -129,7 +141,7 @@ function test_updateContents() {
     }));
 }
 
-function test_setContents() {
+function test_setDeltaContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setContents(new Delta({ ops: [
         { insert: 'Hello ' },
@@ -138,9 +150,17 @@ function test_setContents() {
     ]}));
 }
 
-function test_setText() {
+function test_setTextContents() {
     const quillEditor = new Quill('#editor');
     quillEditor.setText('Hello\n');
+}
+
+function test_setHtmlContents() {
+    const quillEditor = new Quill('#editor');
+    const html = "<b>this is a bold text</b>";
+    const delta = quillEditor.clipboard.convert(html);
+    quillEditor.setContents(delta);
+    quillEditor.clipboard.convert();
 }
 
 function test_getSelection() {
@@ -184,7 +204,7 @@ function test_addContainer() {
 }
 
 function test_on_Events() {
-    const textChangeHandler = (newDelta: DeltaStatic, oldDelta: DeltaStatic, source: string) => { };
+    const textChangeHandler = (newDelta: Delta, oldDelta: Delta, source: string) => { };
     const selectionChangeHandler = (newRange: RangeStatic, oldRange: RangeStatic, source: string) => { };
     const editorChangeHandler = (name: string, ...args: any[]) => { };
 
@@ -310,7 +330,7 @@ function test_DeltaEachLine() {
                            .insert('\n', { align: 'right' })
                            .insert('!');
 
-    delta.eachLine((line: DeltaStatic, attributes: StringMap, i: number) => console.log(line, attributes, i));
+    delta.eachLine((line: Delta, attributes: StringMap, i: number) => console.log(line, attributes, i));
     // Should log:
     // { ops: [{ insert: 'Hello' }] }, {}, 0
     // { ops: [] }, {}, 1
@@ -322,8 +342,8 @@ function test_DeltaTransform() {
     const a = new Delta().insert('a');
     const b = new Delta().insert('b').retain(5).insert('c');
 
-    const d1: DeltaStatic = a.transform(b, true);  // new Delta().retain(1).insert('b').retain(5).insert('c');
-    const d2: DeltaStatic = a.transform(b, false); // new Delta().insert('b').retain(6).insert('c');
+    const d1: Delta = a.transform(b, true);  // new Delta().retain(1).insert('b').retain(5).insert('c');
+    const d2: Delta = a.transform(b, false); // new Delta().insert('b').retain(6).insert('c');
     const n1: number = a.transform(5);
     const n2: number = a.transform(5, true);
     const n3: number = a.transform(5, false);

@@ -3,6 +3,7 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 //                 Gaurav Lahoti <https://github.com/dante-101>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { Transform } from "redux-persist";
 

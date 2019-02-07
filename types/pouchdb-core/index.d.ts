@@ -1,13 +1,21 @@
-// Type definitions for pouchdb-core 6.4
+// Type definitions for pouchdb-core 7.0
 // Project: https://pouchdb.com/
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>,
 //                 Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>,
-//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>
+//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>,
+//                 Katy Moe <https://github.com/kmoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="debug" />
 /// <reference types="pouchdb-find" />
+/// <reference types="node-fetch" />
+
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    slice(start?: number, end?: number, contentType?: string): Blob;
+}
 
 interface Buffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
@@ -81,6 +89,11 @@ interface EventEmitter {
     eventNames(): Array<string | symbol>;
 }
 
+type Fetch = (
+    url: string | Request,
+    opts?: RequestInit
+) => Promise<Response>;
+
 declare namespace PouchDB {
     namespace Core {
         interface Error {
@@ -104,7 +117,7 @@ declare namespace PouchDB {
         type AttachmentData = string | Blob | Buffer;
 
         interface Options {
-          ajax?: Configuration.RemoteRequesterConfiguration;
+          fetch?: Fetch;
         }
 
         interface BasicResponse {
@@ -560,35 +573,15 @@ declare namespace PouchDB {
              * ex_ new PouchDB("dbName", {size:100});
              */
             size?: number;
-        }
-
-        interface RemoteRequesterConfiguration {
             /**
-             * Time before HTTP requests time out (in ms).
+             * A special constructor option, which appends a prefix to the database name
+             * and can be helpful for URL-based or file-based LevelDOWN path names.
              */
-            timeout?: number;
-            /**
-             * Appends a random string to the end of all HTTP GET requests to avoid
-             * them being cached on IE. Set this to true to prevent this happening.
-             */
-            cache?: boolean;
-            /**
-             * HTTP headers to add to requests.
-             */
-            headers?: {
-                [name: string]: string;
-            };
-
-            /**
-             * Enables transferring cookies and HTTP Authorization information.
-             *
-             * Defaults to true.
-             */
-            withCredentials?: boolean;
+            prefix?: string;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
-            ajax?: RemoteRequesterConfiguration;
+            fetch?: Fetch;
 
             auth?: {
                 username?: string;
@@ -609,6 +602,8 @@ declare namespace PouchDB {
 
         version: string;
 
+        fetch: Fetch;
+
         on(event: 'created' | 'destroyed', listener: (dbName: string) => any): this;
 
         debug: debug.IDebug;
@@ -626,7 +621,7 @@ declare namespace PouchDB {
         };
     }
 
-    interface Database<Content extends {} = {}>  {
+    interface Database<Content extends {} = {}> extends EventEmitter {
         /** The name passed to the PouchDB constructor and unique identifier of the database. */
         name: string;
 

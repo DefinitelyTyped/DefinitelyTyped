@@ -19,6 +19,13 @@
 //                 Chris Redekop <https://github.com/repl-chris>
 //                 Aneil Mallavarapu <https://github.com/aneilbaboo>
 //                 Jeremy Nagel <https://github.com/jeznag>
+//                 Louis Larry <https://github.com/louislarry>
+//                 Daniel Papukchiev <https://github.com/dpapukchiev>
+//                 Oliver Hookins <https://github.com/ohookins>
+//                 Trevor Leach <https://github.com/trevor-leach>
+//                 James Gregory <https://github.com/jagregory>
+//                 Erik Dalén <https://github.com/dalen>
+//                 Loïk Gaonac'h <https://github.com/loikg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -27,6 +34,11 @@ export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
     authorizer?: AuthResponseContext | null;
+    connectedAt: number;
+    connectionId?: string;
+    domainName?: string;
+    eventType?: string;
+    extendedRequestId?: string;
     httpMethod: string;
     identity: {
         accessKey: string | null;
@@ -43,23 +55,29 @@ export interface APIGatewayEventRequestContext {
         userAgent: string | null;
         userArn: string | null;
     };
+    messageDirection?: string;
+    messageId?: string | null;
     path: string;
     stage: string;
     requestId: string;
+    requestTime?: string;
     requestTimeEpoch: number;
     resourceId: string;
     resourcePath: string;
+    routeKey?: string;
 }
 
 // API Gateway "event"
 export interface APIGatewayProxyEvent {
     body: string | null;
     headers: { [name: string]: string };
+    multiValueHeaders: { [name: string]: string[] };
     httpMethod: string;
     isBase64Encoded: boolean;
     path: string;
     pathParameters: { [name: string]: string } | null;
     queryStringParameters: { [name: string]: string } | null;
+    multiValueQueryStringParameters: { [name: string]: string[] } | null;
     stageVariables: { [name: string]: string } | null;
     requestContext: APIGatewayEventRequestContext;
     resource: string;
@@ -71,10 +89,18 @@ export interface CustomAuthorizerEvent {
     type: string;
     methodArn: string;
     authorizationToken?: string;
+    resource?: string;
+    path?: string;
+    httpMethod?: string;
     headers?: { [name: string]: string };
+    multiValueHeaders?: { [name: string]: string[] };
     pathParameters?: { [name: string]: string } | null;
     queryStringParameters?: { [name: string]: string } | null;
+    multiValueQueryStringParameters?: { [name: string]: string[] } | null;
+    stageVariables?: { [name: string]: string };
     requestContext?: APIGatewayEventRequestContext;
+    domainName?: string;
+    apiId?: string;
 }
 
 // Context
@@ -211,27 +237,29 @@ export type S3CreateEvent = S3Event; // old name
 export interface CognitoUserPoolTriggerEvent {
     version: number;
     triggerSource:
-        | "PreSignUp_SignUp"
-        | "PostConfirmation_ConfirmSignUp"
-        | "PreAuthentication_Authentication"
-        | "PostAuthentication_Authentication"
-        | "CustomMessage_SignUp"
-        | "CustomMessage_AdminCreateUser"
-        | "CustomMessage_ResendCode"
-        | "CustomMessage_ForgotPassword"
-        | "CustomMessage_UpdateUserAttribute"
-        | "CustomMessage_VerifyUserAttribute"
-        | "CustomMessage_Authentication"
-        | "DefineAuthChallenge_Authentication"
-        | "CreateAuthChallenge_Authentication"
-        | "VerifyAuthChallengeResponse_Authentication"
-        | "PreSignUp_AdminCreateUser"
-        | "PostConfirmation_ConfirmForgotPassword"
-        | "TokenGeneration_HostedAuth"
-        | "TokenGeneration_Authentication"
-        | "TokenGeneration_NewPasswordChallenge"
-        | "TokenGeneration_AuthenticateDevice"
-        | "TokenGeneration_RefreshTokens";
+    | "PreSignUp_SignUp"
+    | "PostConfirmation_ConfirmSignUp"
+    | "PreAuthentication_Authentication"
+    | "PostAuthentication_Authentication"
+    | "CustomMessage_SignUp"
+    | "CustomMessage_AdminCreateUser"
+    | "CustomMessage_ResendCode"
+    | "CustomMessage_ForgotPassword"
+    | "CustomMessage_UpdateUserAttribute"
+    | "CustomMessage_VerifyUserAttribute"
+    | "CustomMessage_Authentication"
+    | "DefineAuthChallenge_Authentication"
+    | "CreateAuthChallenge_Authentication"
+    | "VerifyAuthChallengeResponse_Authentication"
+    | "PreSignUp_AdminCreateUser"
+    | "PostConfirmation_ConfirmForgotPassword"
+    | "TokenGeneration_HostedAuth"
+    | "TokenGeneration_Authentication"
+    | "TokenGeneration_NewPasswordChallenge"
+    | "TokenGeneration_AuthenticateDevice"
+    | "TokenGeneration_RefreshTokens"
+    | "UserMigration_Authentication"
+    | "UserMigration_ForgotPassword";
     region: string;
     userPoolId: string;
     userName?: string;
@@ -240,19 +268,20 @@ export interface CognitoUserPoolTriggerEvent {
         clientId: string;
     };
     request: {
-        userAttributes: {[key: string]: string};
-        validationData?: {[key: string]: string};
+        userAttributes: { [key: string]: string };
+        validationData?: { [key: string]: string };
         codeParameter?: string;
         usernameParameter?: string;
         newDeviceUsed?: boolean;
         session?: Array<{
             challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";
             challengeResult: boolean;
-            challengeMetaData?: string;
+            challengeMetadata?: string;
         }>;
         challengeName?: string;
-        privateChallengeParameters?: {[key: string]: string};
-        challengeAnswer?: {[key: string]: string};
+        privateChallengeParameters?: { [key: string]: string };
+        challengeAnswer?: string;
+        password?: string;
     };
     response: {
         autoConfirmUser?: boolean;
@@ -262,10 +291,15 @@ export interface CognitoUserPoolTriggerEvent {
         challengeName?: string;
         issueTokens?: boolean;
         failAuthentication?: boolean;
-        publicChallengeParameters?: {[key: string]: string};
-        privateChallengeParameters?: {[key: string]: string};
-        challengeMetaData?: string;
+        publicChallengeParameters?: { [key: string]: string };
+        privateChallengeParameters?: { [key: string]: string };
+        challengeMetadata?: string;
         answerCorrect?: boolean;
+        userAttributes?: { [key: string]: string };
+        finalUserStatus?: "CONFIRMED" | "RESET_REQUIRED";
+        messageAction?: "SUPPRESS";
+        desiredDeliveryMediums?: Array<"EMAIL" | "SMS">;
+        forceAliasCreation?: boolean;
     };
 }
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
@@ -369,6 +403,7 @@ export interface CloudWatchLogsLogEvent {
     id: string;
     timestamp: number;
     message: string;
+    extractedFields?: {[key: string]: string};
 }
 
 // Context
@@ -428,6 +463,9 @@ export interface APIGatewayProxyResult {
     statusCode: number;
     headers?: {
         [header: string]: boolean | number | string;
+    };
+    multiValueHeaders?: {
+        [header: string]: Array<boolean | number | string>;
     };
     body: string;
     isBase64Encoded?: boolean;
@@ -549,21 +587,150 @@ export interface CodePipelineEvent {
             inputArtifacts: Artifact[];
             outputArtifacts: Artifact[];
             artifactCredentials: Credentials;
-            encryptionKey?: EncryptionKey & {type: 'KMS'};
+            encryptionKey?: EncryptionKey & { type: 'KMS' };
             continuationToken?: string;
         };
     };
 }
 
 /**
+ * CodePipeline CloudWatch Events
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
+ *
+ * The above CodePipelineEvent is when a lambda is invoked by a CodePipeline.
+ * These events are when you subsribe to CodePipeline events in CloudWatch.
+ *
+ * Their documentation says that detail.version is a string, but it is actually an integer
+ */
+export type CodePipelineState =
+    | 'STARTED'
+    | 'SUCCEEDED'
+    | 'RESUMED'
+    | 'FAILED'
+    | 'CANCELED'
+    | 'SUPERSEDED';
+
+export type CodePipelineStageState =
+    | 'STARTED'
+    | 'SUCCEEDED'
+    | 'RESUMED'
+    | 'FAILED'
+    | 'CANCELED';
+
+export type CodePipelineActionState =
+    | 'STARTED'
+    | 'SUCCEEDED'
+    | 'FAILED'
+    | 'CANCELED';
+
+export interface CodePipelineCloudWatchPipelineEvent {
+    version: string;
+    id: string;
+    'detail-type': 'CodePipeline Pipeline Execution State Change';
+    source: 'aws.codepipeline';
+    account: string;
+    time: string;
+    region: string;
+    resources: string[];
+    detail: {
+        pipeline: string;
+        version: number;
+        state: CodePipelineState;
+        'execution-id': string;
+    };
+}
+
+export interface CodePipelineCloudWatchStageEvent {
+    version: string;
+    id: string;
+    'detail-type': 'CodePipeline Stage Execution State Change';
+    source: 'aws.codepipeline';
+    account: string;
+    time: string;
+    region: string;
+    resources: string[];
+    detail: {
+        pipeline: string;
+        version: number;
+        'execution-id': string;
+        stage: string;
+        state: CodePipelineStageState;
+    };
+}
+
+export type CodePipelineActionCategory =
+    | 'Approval'
+    | 'Build'
+    | 'Deploy'
+    | 'Invoke'
+    | 'Source'
+    | 'Test';
+
+export interface CodePipelineCloudWatchActionEvent {
+    version: string;
+    id: string;
+    'detail-type': 'CodePipeline Action Execution State Change';
+    source: 'aws.codepipeline';
+    account: string;
+    time: string;
+    region: string;
+    resources: string[];
+    detail: {
+        pipeline: string;
+        version: number;
+        'execution-id': string;
+        stage: string;
+        action: string;
+        state: CodePipelineActionState;
+        type: {
+            owner: 'AWS' | 'Custom' | 'ThirdParty';
+            category: CodePipelineActionCategory;
+            provider: string;
+            version: number;
+        };
+    };
+}
+
+export type CodePipelineCloudWatchEvent =
+    | CodePipelineCloudWatchPipelineEvent
+    | CodePipelineCloudWatchStageEvent
+    | CodePipelineCloudWatchActionEvent;
+
+/**
  * CloudFront events
  * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
+ * Bear in mind that the "example" event structure in the page above includes
+ * both an S3 and a Custom origin, which is not strictly allowed. Only one
+ * of these per event may be present.
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
         key: string;
         value: string;
     }>;
+}
+
+export type CloudFrontOrigin =
+    | { s3: CloudFrontS3Origin, custom?: never }
+    | { custom: CloudFrontCustomOrigin, s3?: never };
+
+export interface CloudFrontCustomOrigin {
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    keepaliveTimeout: number;
+    path: string;
+    port: number;
+    protocol: 'http' | 'https';
+    readTimeout: number;
+    sslProtocols: string[];
+}
+
+export interface CloudFrontS3Origin {
+    authMethod: 'origin-access-identity' | 'none';
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    path: string;
+    region: string;
 }
 
 export interface CloudFrontResponse {
@@ -578,11 +745,14 @@ export interface CloudFrontRequest {
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
+    origin?: CloudFrontOrigin;
 }
 
 export interface CloudFrontEvent {
     config: {
+        distributionDomainName: string;
         distributionId: string;
+        eventType: 'origin-request' | 'origin-response' | 'viewer-request' | 'viewer-response';
         requestId: string;
     };
 }
@@ -642,6 +812,47 @@ export interface KinesisStreamEvent {
     Records: KinesisStreamRecord[];
 }
 
+// Kinesis Data Firehose Event
+// https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-firehose
+// https://docs.aws.amazon.com/firehose/latest/dev/data-transformation.html
+// https://aws.amazon.com/blogs/compute/amazon-kinesis-firehose-data-transformation-with-aws-lambda/
+// Examples in the lambda blueprints
+export interface FirehoseTransformationEvent {
+    invocationId: string;
+    deliveryStreamArn: string;
+    region: string;
+    records: FirehoseTransformationEventRecord[];
+}
+
+export interface FirehoseTransformationEventRecord {
+    recordId: string;
+    approximateArrivalTimestamp: number;
+    /** Base64 encoded */
+    data: string;
+    kinesisRecordMetadata?: FirehoseRecordMetadata;
+}
+
+export interface FirehoseRecordMetadata {
+    shardId: string;
+    partitionKey: string;
+    approximateArrivalTimestamp: string;
+    sequenceNumber: string;
+    subsequenceNumber: string;
+}
+
+export type FirehoseRecordTransformationStatus = 'Ok' | 'Dropped' | 'ProcessingFailed';
+
+export interface FirehoseTransformationResultRecord {
+    recordId: string;
+    result: FirehoseRecordTransformationStatus;
+    /** Encode in Base64 */
+    data: string;
+}
+
+export interface FirehoseTransformationResult {
+    records: FirehoseTransformationResultRecord[];
+}
+
 // SQS
 // https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-sqs
 export interface SQSRecord {
@@ -654,7 +865,7 @@ export interface SQSRecord {
     eventSource: string;
     eventSourceARN: string;
     awsRegion: string;
-  }
+}
 
 export interface SQSEvent {
     Records: SQSRecord[];
@@ -673,6 +884,100 @@ export interface SQSMessageAttribute {
 }
 export interface SQSMessageAttributes {
     [name: string]: SQSMessageAttribute;
+}
+
+// Lex
+// https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-lex
+export interface LexEvent {
+    currentIntent: {
+        name: string;
+        slots: { [name: string]: string | null };
+        slotDetails: LexSlotDetails;
+        confirmationStatus: 'None' | 'Confirmed' | 'Denied';
+    };
+    bot: {
+        name: string;
+        alias: string;
+        version: string;
+    };
+    userId: string;
+    inputTranscript: string;
+    invocationSource: 'DialogCodeHook' | 'FulfillmentCodeHook';
+    outputDialogMode: 'Text' | 'Voice';
+    messageVersion: '1.0';
+    sessionAttributes: { [key: string]: string };
+    requestAttributes: { [key: string]: string } | null;
+}
+
+export interface LexSlotResolution {
+    value: string;
+}
+
+export interface LexSlotDetails {
+    [name: string]: {
+        // The following line only works in TypeScript Version: 3.0, The array should have at least 1 and no more than 5 items
+        // resolutions: [LexSlotResolution, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?];
+        resolutions: LexSlotResolution[]
+        originalValue: string;
+    };
+}
+
+export interface LexGenericAttachment {
+    title: string;
+    subTitle: string;
+    imageUrl: string;
+    attachmentLinkUrl: string;
+    buttons: Array<{
+        text: string;
+        value: string;
+    }>;
+}
+
+export interface LexDialogActionBase {
+    type: 'Close' | 'ElicitIntent' | 'ElicitSlot' | 'ConfirmIntent';
+    message?: {
+        contentType: 'PlainText' | 'SSML' | 'CustomPayload';
+        content: string;
+    };
+    responseCard?: {
+        version: number;
+        contentType: 'application/vnd.amazonaws.card.generic';
+        genericAttachments: LexGenericAttachment[];
+    };
+}
+
+export interface LexDialogActionClose extends LexDialogActionBase {
+    type: 'Close';
+    fulfillmentState: 'Fulfilled' | 'Failed';
+}
+
+export interface LexDialogActionElicitIntent extends LexDialogActionBase {
+    type: 'ElicitIntent';
+}
+
+export interface LexDialogActionElicitSlot extends LexDialogActionBase {
+    type: 'ElicitSlot';
+    intentName: string;
+    slots: { [name: string]: string | null };
+    slotToElicit: string;
+}
+
+export interface LexDialogActionConfirmIntent extends LexDialogActionBase {
+    type: 'ConfirmIntent';
+    intentName: string;
+    slots: { [name: string]: string | null };
+}
+
+export interface LexDialogActionDelegate {
+    type: 'Delegate';
+    slots: { [name: string]: string | null };
+}
+
+export type LexDialogAction = LexDialogActionClose | LexDialogActionElicitIntent | LexDialogActionElicitSlot | LexDialogActionConfirmIntent | LexDialogActionDelegate;
+
+export interface LexResult {
+    sessionAttributes?: { [key: string]: string };
+    dialogAction: LexDialogAction;
 }
 
 /**
@@ -737,6 +1042,9 @@ export type ScheduledHandler = Handler<ScheduledEvent, void>;
 
 // TODO: Alexa
 
+export type LexHandler = Handler<LexEvent, LexResult>;
+export type LexCallback = Callback<LexResult>;
+
 export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 export type ProxyHandler = APIGatewayProxyHandler; // Old name
@@ -746,6 +1054,11 @@ export type ProxyCallback = APIGatewayProxyCallback; // Old name
 
 export type CodePipelineHandler = Handler<CodePipelineEvent, void>;
 
+export type CodePipelineCloudWatchHandler = Handler<CodePipelineCloudWatchEvent, void>;
+export type CodePipelineCloudWatchPipelineHandler = Handler<CodePipelineCloudWatchPipelineEvent, void>;
+export type CodePipelineCloudWatchStageHandler = Handler<CodePipelineCloudWatchStageEvent, void>;
+export type CodePipelineCloudWatchActionHandler = Handler<CodePipelineCloudWatchActionEvent, void>;
+
 export type CloudFrontRequestHandler = Handler<CloudFrontRequestEvent, CloudFrontRequestResult>;
 export type CloudFrontRequestCallback = Callback<CloudFrontRequestResult>;
 
@@ -754,7 +1067,8 @@ export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
 
 export type KinesisStreamHandler = Handler<KinesisStreamEvent, void>;
 
-// TODO: Kinesis Firehose
+export type FirehoseTransformationCallback = Callback<FirehoseTransformationResult>;
+export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent, FirehoseTransformationResult>;
 
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;

@@ -1,8 +1,9 @@
 // Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.3
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
+//                 Joao Peixoto <https://github.com/Hartimer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.7
 
 // Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
@@ -23,6 +24,9 @@ declare function fetch(
 
 interface GlobalFetch {
     // variant for navigator.credentials monkey patching
+    fetch(url: Request|string, init?: CMRequestInit): Promise<Response>;
+}
+interface WindowOrWorkerGlobalScope {
     fetch(url: Request|string, init?: CMRequestInit): Promise<Response>;
 }
 
@@ -314,6 +318,11 @@ interface CredentialRequestOptions {
      * This property specifies options for requesting a public-key signature.
      */
     publicKey?: PublicKeyCredentialRequestOptions;
+
+    /**
+     * This property lets the developer abort an ongoing get() operation.
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -342,6 +351,10 @@ interface CredentialCreationOptions {
      * @see {@link https://w3c.github.io/webauthn/#dictionary-makecredentialoptions}
      */
     publicKey?: PublicKeyCredentialCreationOptions;
+    /**
+     * @see {@link https://w3c.github.io/webappsec-credential-management/#dom-credentialrequestoptions-signal}
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -379,9 +392,9 @@ type UserVerificationRequirement = "required" | "preferred" | "discouraged";
  */
 interface PublicKeyCredentialRequestOptions {
     challenge: BufferSource;
-    timeout: number;
-    rpId: string;
-    allowCredentials: PublicKeyCredentialDescriptor[];
+    timeout?: number;
+    rpId?: string;
+    allowCredentials?: PublicKeyCredentialDescriptor[];
     userVerification?: UserVerificationRequirement;
     extensions?: any;
 }
@@ -481,7 +494,7 @@ interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
 interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
     readonly authenticatorData: ArrayBuffer;
     readonly signature: ArrayBuffer;
-    readonly userHandle: ArrayBuffer;
+    readonly userHandle: ArrayBuffer | null;
 }
 
 /**

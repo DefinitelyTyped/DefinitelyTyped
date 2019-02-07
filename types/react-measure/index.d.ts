@@ -2,7 +2,7 @@
 // Project: https://github.com/souporserious/react-measure
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, Marc Fallows <https://github.com/marcfallows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -46,7 +46,7 @@ export interface MeasuredComponentProps {
 
 type MeasuredComponent<T> = React.ComponentType<T & MeasuredComponentProps>;
 
-export interface MeasureProps<T> {
+export interface MeasureProps {
     client?: boolean;
     offset?: boolean;
     scroll?: boolean;
@@ -60,5 +60,5 @@ export interface MeasureProps<T> {
 export declare function withContentRect(types: ReadonlyArray<MeasurementType> | MeasurementType):
     <T extends {}>(fn: MeasuredComponent<T>) => React.ComponentType<T>;
 
-declare class Measure<T> extends React.Component<MeasureProps<T>> {}
+declare class Measure extends React.Component<MeasureProps> {}
 export default Measure;

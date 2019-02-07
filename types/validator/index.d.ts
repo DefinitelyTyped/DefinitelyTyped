@@ -1,4 +1,4 @@
-// Type definitions for validator.js v9.4
+// Type definitions for validator.js v10.9.0
 // Project: https://github.com/chriso/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -83,7 +83,7 @@ declare namespace ValidatorJS {
     isEmail(str: string, options?: IsEmailOptions): boolean;
 
     // check if the string has a length of zero.
-    isEmpty(str: string): boolean;
+    isEmpty(str: string, options?: IsEmptyOptions): boolean;
 
     // check if the string is a fully qualified domain name (e.g. domain.com).
     isFQDN(str: string, options?: IsFQDNOptions): boolean;
@@ -122,7 +122,7 @@ declare namespace ValidatorJS {
     isISIN(str: string): boolean;
 
     // check if the string is a valid ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) date.
-    isISO8601(str: string): boolean;
+    isISO8601(str: string, options?: IsISO8601Options): boolean;
 
     // check if the string is a valid ISO 3166-1 alpha-2 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned
     // country code.
@@ -177,7 +177,7 @@ declare namespace ValidatorJS {
     isMultibyte(str: string): boolean;
 
     // check if the string contains only numbers.
-    isNumeric(str: string): boolean;
+    isNumeric(str: string, options?: IsNumericOptions): boolean;
 
     // check if the string is a valid port number.
     isPort(str: string): boolean;
@@ -310,6 +310,11 @@ declare namespace ValidatorJS {
     require_tld?: boolean;
   }
 
+  // options for isEmpty
+  interface IsEmptyOptions {
+    ignore_whitespace?: boolean;
+  }
+
   // options for isFQDN
   interface IsFQDNOptions {
     require_tld?: boolean;
@@ -341,6 +346,11 @@ declare namespace ValidatorJS {
     gt?: number;
   }
 
+  // options for isISO8601
+  interface IsISO8601Options {
+    strict?: boolean;
+  }
+
   // options for IsLength
   interface IsLengthOptions {
     min?: number;
@@ -364,6 +374,7 @@ declare namespace ValidatorJS {
     host_blacklist?: (string | RegExp)[];
     allow_trailing_dot?: boolean;
     allow_protocol_relative_urls?: boolean;
+    disallow_auth?: boolean;
   }
 
   // options for normalizeEmail
@@ -379,6 +390,13 @@ declare namespace ValidatorJS {
     yahoo_remove_subaddress?: boolean;
     icloud_lowercase?: boolean;
     icloud_remove_subaddress?: boolean;
+  }
+
+  /**
+   * Options for isNumeric
+   */
+  interface IsNumericOptions {
+    no_symbols?: boolean;
   }
 }
 

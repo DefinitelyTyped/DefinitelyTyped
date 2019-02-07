@@ -136,7 +136,7 @@ people2.isAny('isHappy', 'true');
 people2.isAny('isHappy');
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
-const promise = new Ember.RSVP.Promise<string>((resolve: Function, reject: Function) => {
+const promise = new Ember.RSVP.Promise<string>((resolve: (...args: any[]) => any, reject: (...args: any[]) => any) => {
     // on success
     resolve('ok!');
 
@@ -168,3 +168,6 @@ const component1 = Ember.Component.extend(mix1, mix2, {
     lyft: Ember.inject.service(),
     cars: Ember.computed.readOnly('lyft.cars'),
 });
+
+// make sure htmlSafe returns a SafeString
+Ember.String.htmlSafe("hello"); // $ExpectType SafeString

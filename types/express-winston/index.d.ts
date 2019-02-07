@@ -1,4 +1,4 @@
-// Type definitions for express-winston 2.4
+// Type definitions for express-winston 3.0
 // Project: https://github.com/bithavoc/express-winston#readme
 // Definitions by: Alex Brick <https://github.com/bricka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -44,7 +44,7 @@ export interface LoggerOptionsWithTransports extends BaseLoggerOptions {
 }
 
 export interface LoggerOptionsWithWinstonInstance extends BaseLoggerOptions {
-  winstonInstance: typeof winston;
+  winstonInstance: winston.Logger;
 }
 
 export type LoggerOptions = LoggerOptionsWithTransports | LoggerOptionsWithWinstonInstance;
@@ -66,7 +66,7 @@ export interface ErrorLoggerOptionsWithTransports extends BaseErrorLoggerOptions
 }
 
 export interface ErrorLoggerOptionsWithWinstonInstance extends BaseErrorLoggerOptions {
-  winstonInstance: typeof winston;
+  winstonInstance: winston.Logger;
 }
 
 export type ErrorLoggerOptions = ErrorLoggerOptionsWithTransports | ErrorLoggerOptionsWithWinstonInstance;

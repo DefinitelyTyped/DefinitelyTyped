@@ -1,26 +1,33 @@
 // Type definitions for url-parse 1.4
 // Project: https://github.com/unshiftio/url-parse
-// Definitions by: Pavlo Chernenko <https://github.com/ChernenkoPaul>, Hari Sivaramakrishnan <https://github.com/harisiva>, Dmitry Dushkin <https://github.com/DimitryDushkin>
+// Definitions by: Pavlo Chernenko <https://github.com/ChernenkoPaul>
+//                 Hari Sivaramakrishnan <https://github.com/harisiva>
+//                 Dmitry Dushkin <https://github.com/DimitryDushkin>
+//                 David Golightly <https://github.com/davidgoli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-type URLPart = 'auth'
-    | 'hash'
-    | 'host'
-    | 'hostname'
-    | 'href'
-    | 'origin'
-    | 'password'
-    | 'pathname'
-    | 'port'
-    | 'protocol'
-    | 'query'
-    | 'slashes'
-    | 'username';
+declare namespace URLParse {
+    type URLPart = 'auth'
+        | 'hash'
+        | 'host'
+        | 'hostname'
+        | 'href'
+        | 'origin'
+        | 'password'
+        | 'pathname'
+        | 'port'
+        | 'protocol'
+        | 'query'
+        | 'slashes'
+        | 'username';
 
-type QueryParser = (query: string) => object;
+    type QueryParser = (query: string) => object;
 
-declare class URLParse {
+    type StringifyQuery = (query: object) => string;
+}
+
+interface URLParse {
     readonly auth: string;
     readonly hash: string;
     readonly host: string;
@@ -34,13 +41,15 @@ declare class URLParse {
     readonly query: { [key: string]: string | undefined };
     readonly slashes: boolean;
     readonly username: string;
-    set(part: URLPart, value: string | object | number | undefined, fn?: boolean | QueryParser): URLParse;
-    toString(): string;
+    set(part: URLParse.URLPart, value: string | object | number | undefined, fn?: boolean | URLParse.QueryParser): URLParse;
+    toString(stringify?: URLParse.StringifyQuery): string;
 }
 
-declare const parse: {
-    new(address: string, location?: string | object, parser?: boolean | QueryParser): URLParse;
-    (address: string, location?: string | object, parser?: boolean | QueryParser): URLParse;
+declare const URLParse: {
+    new(address: string, parser?: boolean | URLParse.QueryParser): URLParse;
+    new(address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
+    (address: string, parser?: boolean | URLParse.QueryParser): URLParse;
+    (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
 
     extractProtocol(url: string): {
         slashes: boolean;
@@ -49,9 +58,9 @@ declare const parse: {
     };
     location(url: string): object;
     qs: {
-        parse: QueryParser;
-        stringify(query: object): string;
+        parse: URLParse.QueryParser;
+        stringify: URLParse.StringifyQuery;
     };
 };
 
-export = parse;
+export = URLParse;

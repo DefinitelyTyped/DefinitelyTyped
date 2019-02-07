@@ -83,6 +83,12 @@ it.skip("name", () => {}, 9001);
 it.skip("name", async () => {}, 9001);
 it.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
+it.todo("name", () => {});
+it.todo("name", async () => {});
+it.todo("name", () => {}, 9001);
+it.todo("name", async () => {}, 9001);
+it.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+
 it.concurrent("name", () => {});
 it.concurrent("name", async () => {});
 it.concurrent("name", () => {}, 9001);
@@ -106,6 +112,12 @@ fit.skip("name", async () => {});
 fit.skip("name", () => {}, 9001);
 fit.skip("name", async () => {}, 9001);
 fit.skip("name", (callback: jest.DoneCallback) => {}, 9001);
+
+fit.todo("name", () => {});
+fit.todo("name", async () => {});
+fit.todo("name", () => {}, 9001);
+fit.todo("name", async () => {}, 9001);
+fit.todo("name", (callback: jest.DoneCallback) => {}, 9001);
 
 fit.concurrent("name", () => {});
 fit.concurrent("name", async () => {});
@@ -131,6 +143,12 @@ xit.skip("name", () => {}, 9001);
 xit.skip("name", async () => {}, 9001);
 xit.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
+xit.todo("name", () => {});
+xit.todo("name", async () => {});
+xit.todo("name", () => {}, 9001);
+xit.todo("name", async () => {}, 9001);
+xit.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+
 xit.concurrent("name", () => {});
 xit.concurrent("name", async () => {});
 xit.concurrent("name", () => {}, 9001);
@@ -155,6 +173,12 @@ test.skip("name", () => {}, 9001);
 test.skip("name", async () => {}, 9001);
 test.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
+test.todo("name", () => {});
+test.todo("name", async () => {});
+test.todo("name", () => {}, 9001);
+test.todo("name", async () => {}, 9001);
+test.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+
 test.concurrent("name", () => {});
 test.concurrent("name", async () => {});
 test.concurrent("name", () => {}, 9001);
@@ -178,6 +202,12 @@ xtest.skip("name", async () => {});
 xtest.skip("name", () => {}, 9001);
 xtest.skip("name", async () => {}, 9001);
 xtest.skip("name", (callback: jest.DoneCallback) => {}, 9001);
+
+xtest.todo("name", () => {});
+xtest.todo("name", async () => {});
+xtest.todo("name", () => {}, 9001);
+xtest.todo("name", async () => {}, 9001);
+xtest.todo("name", (callback: jest.DoneCallback) => {}, 9001);
 
 xtest.concurrent("name", () => {});
 xtest.concurrent("name", async () => {});
@@ -251,14 +281,51 @@ jest
     .useFakeTimers()
     .useRealTimers();
 
+// https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
+jest.requireActual("./thisReturnsTheActualModule");
+
+// https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
+jest.requireMock("./thisAlwaysReturnsTheMock");
+
 /* Mocks and spies */
 
-const mock1: jest.Mock = jest.fn();
-const mock2: jest.Mock<undefined> = jest.fn<undefined>(() => undefined);
-const mock3: jest.Mock<string> = jest.fn(() => "abc");
-const mock4: jest.Mock<"abc"> = jest.fn((): "abc" => "abc");
-const mock5: jest.Mock<string> = jest.fn((...args: string[]) => args.join(""));
-const mock6: jest.Mock = jest.fn((arg: {}) => arg);
+// $ExpectType Mock<any, any>
+const mock1: jest.Mock<number> = jest.fn();
+// $ExpectType Mock<undefined, []>
+const mock2 = jest.fn(() => undefined);
+// $ExpectType Mock<string, []>
+const mock3 = jest.fn(() => "abc");
+// $ExpectType Mock<"abc", []>
+const mock4 = jest.fn((): "abc" => "abc");
+// $ExpectType Mock<string, string[]>
+const mock5 = jest.fn((...args: string[]) => args.join(""));
+// $ExpectType Mock<{}, [{}]>
+const mock6 = jest.fn((arg: {}) => arg);
+// $ExpectType Mock<number, [number]>
+const mock7 = jest.fn((arg: number) => arg);
+// $ExpectType Mock<number, [number]>
+const mock8: jest.Mock = jest.fn((arg: number) => arg);
+// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]>
+const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise.resolve(_makeItStop));
+// $ExpectType Mock<never, [never]>
+const mock10 = jest.fn((arg: never) => { throw new Error(arg); });
+// $ExpectType Mock<unknown, [unknown]>
+const mock11 = jest.fn((arg: unknown) => arg);
+
+// $ExpectType number
+mock1('test');
+
+// $ExpectError
+mock7('abc');
+// $ExpectError
+mock7.mockImplementation((arg: string) => 1);
+
+// compiles because mock8 is declared as jest.Mock<{}, any>
+mock8('abc');
+mock8.mockImplementation((arg: string) => 1);
+
+// mockImplementation not required to declare all arguments
+mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
 
 const genMockModule1: {} = jest.genMockFromModule("moduleName");
 const genMockModule2: { a: "b" } = jest.genMockFromModule<{ a: "b" }>("moduleName");
@@ -272,23 +339,39 @@ if (jest.isMockFunction(maybeMock)) {
 }
 
 const mockName: string = jest.fn().getMockName();
-const mockContextVoid: jest.MockContext<void> = jest.fn<void>().mock;
-const mockContextString: jest.MockContext<string> = jest.fn(() => "").mock;
+const mockContextVoid = jest.fn().mock;
+const mockContextString = jest.fn(() => "").mock;
 
 jest.fn().mockClear();
 
 jest.fn().mockReset();
 
+jest.fn().mockRestore();
+
 const spiedTarget = {
     returnsVoid(): void { },
+    setValue(value: string): void {
+        this.value = value;
+    },
     returnsString(): string {
         return "";
     }
 };
 
+class SpiedTargetClass {
+    private _value = 3;
+    get value() {
+        return this._value;
+    }
+    set value(value) {
+        this._value = value;
+    }
+}
+const spiedTarget2 = new SpiedTargetClass();
+
 const spy1 = jest.spyOn(spiedTarget, "returnsVoid");
 const spy2 = jest.spyOn(spiedTarget, "returnsVoid", "get");
-const spy3 = jest.spyOn(spiedTarget, "returnsString", "set");
+const spy3 = jest.spyOn(spiedTarget, "returnsString");
 const spy1Name: string = spy1.getMockName();
 
 const spy2Calls: any[][] = spy2.mock.calls;
@@ -296,8 +379,10 @@ const spy2Calls: any[][] = spy2.mock.calls;
 spy2.mockClear();
 spy2.mockReset();
 
-const spy3Mock: jest.Mock<() => string> = spy3
+const spy3Mock = spy3
     .mockImplementation(() => "")
+    .mockImplementation()
+    // $ExpectError
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(""))
     .mockImplementationOnce(() => "")
@@ -309,6 +394,24 @@ const spy3Mock: jest.Mock<() => string> = spy3
     .mockResolvedValueOnce("value")
     .mockRejectedValue("value")
     .mockRejectedValueOnce("value");
+
+let spy4: jest.SpyInstance;
+// $ExpectType SpyInstance<string, []>
+spy4 = jest.spyOn(spiedTarget, "returnsString");
+// compiles because spy4 is declared as jest.SpyInstance<any, any>
+spy4.mockImplementation(() => 1);
+spy4.mockRestore();
+
+// $ExpectType SpyInstance<number, []>
+const spy5 = jest.spyOn(spiedTarget2, "value", "get");
+// $ExpectError
+spy5.mockReturnValue('5');
+
+// $ExpectType SpyInstance<void, [number]>
+const spy6 = jest.spyOn(spiedTarget2, "value", "set");
+
+// should compile
+jest.fn().mockImplementation((test: number) => test);
 
 /* Snapshot serialization */
 
@@ -426,6 +529,14 @@ expect.extend({
     }
 });
 expect.extend({
+    foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: JSON.stringify(received),
+            pass: false,
+        };
+    }
+});
+expect.extend({
     async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
         return {
             message: () => JSON.stringify(received),
@@ -434,8 +545,17 @@ expect.extend({
     }
 });
 expect.extend({
+    async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: JSON.stringify(received),
+            pass: false
+        };
+    }
+});
+expect.extend({
     foo(this: jest.MatcherUtils) {
         const isNot: boolean = this.isNot;
+        const expand: boolean = this.expand;
 
         const expectedColor = this.utils.EXPECTED_COLOR("blue");
         const receivedColor = this.utils.EXPECTED_COLOR("red");
@@ -503,6 +623,9 @@ describe("", () => {
         expect(jest.fn()).lastReturnedWith("jest");
         expect(jest.fn()).lastReturnedWith({});
 
+        expect(jest.fn()).nthCalledWith(0, "jest");
+        expect(jest.fn()).nthCalledWith(1, {});
+
         expect(jest.fn()).nthReturnedWith(0, "jest");
         expect(jest.fn()).nthReturnedWith(1, {});
 
@@ -511,6 +634,8 @@ describe("", () => {
         expect(10).toBe(10);
 
         expect(jest.fn()).toBeCalled();
+
+        expect(jest.fn()).toBeCalledTimes(1);
 
         expect(jest.fn()).toBeCalledWith();
         expect(jest.fn()).toBeCalledWith("jest");
@@ -614,8 +739,16 @@ describe("", () => {
         expect({
             one: 1,
             two: "2",
+            three: 3,
+            four: { four: 3 },
             date: new Date(),
-        }).toMatchSnapshot({ one: expect.any(Number), date: expect.any(Date) });
+        }).toMatchSnapshot({
+            one: expect.any(Number),
+            // Leave 'two' to the auto-generated snapshot
+            three: 3,
+            four: { four: expect.any(Number) },
+            date: expect.any(Date),
+        });
 
         expect({}).toMatchInlineSnapshot();
         expect({}).toMatchInlineSnapshot("snapshot");
@@ -623,8 +756,16 @@ describe("", () => {
         expect({
             one: 1,
             two: "2",
+            three: 3,
+            four: { four: 3 },
             date: new Date(),
-        }).toMatchInlineSnapshot({ one: expect.any(Number), date: expect.any(Date) });
+        }).toMatchInlineSnapshot({
+            one: expect.any(Number),
+            // leave out two
+            three: 3,
+            four: { four: expect.any(Number) },
+            date: expect.any(Date),
+        });
 
         expect(jest.fn()).toReturn();
 
@@ -699,6 +840,13 @@ describe("", () => {
             }),
             ghi: expect.stringMatching("foo"),
         }));
+
+        /* Inverse type matchers */
+
+        expect('How are you?').toEqual(expect.not.stringContaining('Hello world!'));
+        expect('How are you?').toEqual(expect.not.stringMatching(/Hello world!/));
+        expect({bar: 'baz'}).toEqual(expect.not.objectContaining({foo: 'bar'}));
+        expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha']));
 
         /* Miscellaneous */
 

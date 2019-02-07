@@ -2,6 +2,7 @@
 // Project: https://github.com/bitinn/node-fetch
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 //                 Niklas Lindgren <https://github.com/nikcorg>
+//                 Vinay Bedre <https://github.com/vinaybedre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -168,7 +169,13 @@ export type HeaderInit = Headers | string[];
 export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
 export type RequestInfo = string | Request;
 
-export default function fetch(
+declare function fetch(
     url: string | Request,
     init?: RequestInit
 ): Promise<Response>;
+
+declare namespace fetch {
+    function isRedirect(code: number): boolean;
+}
+
+export default fetch;

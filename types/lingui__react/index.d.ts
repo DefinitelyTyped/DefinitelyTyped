@@ -1,4 +1,4 @@
-// Type definitions for @lingui/react 2.1
+// Type definitions for @lingui/react 2.5
 // Project: https://lingui.github.io/js-lingui/
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
 // Definitions: https://github.com/huan086/lingui-typings
@@ -9,7 +9,7 @@ import { ComponentClass } from 'react';
 import { FormatPropsWithoutI18n } from './createFormat';
 
 export { default as withI18n, withI18nProps } from './withI18n';
-
+export { default as I18n } from './I18n';
 export { default as I18nProvider } from './I18nProvider';
 export { default as Trans } from './Trans';
 export { Plural, Select, SelectOrdinal } from './Select';

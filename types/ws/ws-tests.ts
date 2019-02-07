@@ -22,6 +22,8 @@ import * as https from 'https';
     wss.on('connection', (ws, req) => {
         ws.on('message', (message) => console.log('received: %s', message));
         ws.send('something');
+        ws.send('something', (error?: Error) => {});
+        ws.send('something', {}, (error?: Error) => {});
     });
 
     wss.on('upgrade', (res) => {
@@ -88,7 +90,27 @@ import * as https from 'https';
             clientNoContextTakeover: true,
             serverMaxWindowBits: 0,
             clientMaxWindowBits: 0,
-            memLevel: 0
+            zlibDeflateOptions: {
+                flush: 0,
+                finishFlush: 0,
+                chunkSize: 0,
+                windowBits: 0,
+                level: 0,
+                memLevel: 0,
+                strategy: 0,
+                dictionary: new Buffer('test'),
+                info: false
+            }
+        },
+        verifyClient: (info: any, cb: any) => {
+            cb(true, 123, 'message', { Upgrade: "websocket" });
         }
     });
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path', {
+        maxPayload: 10 * 1024 * 1024
+    });
+    ws.on('open', () => ws.send('something assume to be really long'));
 }

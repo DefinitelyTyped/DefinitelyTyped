@@ -96,6 +96,30 @@ declare class Class_HttpClient extends Class__object {
 	
 	userAgent: string
 	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询和设置 keep-alive 最大缓存连接数，缺省 128
+	 * 
+	 * 
+	 * @type Integer
+	 */
+	
+	poolSize: number
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询和设置 keep-alive 缓存连接超时时间，缺省 10000 ms
+	 * 
+	 * 
+	 * @type Integer
+	 */
+	
+	poolTimeout: number
+	
 	
 	
 	/**
@@ -139,7 +163,7 @@ declare class Class_HttpClient extends Class__object {
 	 * 
 	 * @async
 	 */
-	request(method: string, url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+	request(method: string, url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 	 * 
@@ -161,7 +185,7 @@ declare class Class_HttpClient extends Class__object {
 	 * 
 	 * @async
 	 */
-	get(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+	get(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 	 * 
@@ -183,7 +207,7 @@ declare class Class_HttpClient extends Class__object {
 	 * 
 	 * @async
 	 */
-	post(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+	post(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 	 * 
@@ -205,7 +229,7 @@ declare class Class_HttpClient extends Class__object {
 	 * 
 	 * @async
 	 */
-	del(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+	del(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 	 * 
@@ -227,7 +251,7 @@ declare class Class_HttpClient extends Class__object {
 	 * 
 	 * @async
 	 */
-	put(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+	put(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 	/**
 	 * 
@@ -249,7 +273,7 @@ declare class Class_HttpClient extends Class__object {
 	 * 
 	 * @async
 	 */
-	patch(url: string, opts?: Object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
+	patch(url: string, opts?: object/** = v8::Object::New(isolate)*/): Class_HttpResponse;
 
 } /** endof class */
 

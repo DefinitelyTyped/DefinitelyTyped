@@ -1,13 +1,14 @@
-// Type definitions for react-modal 3.2
+// Type definitions for react-modal 3.8
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
 //                 Thomas B Homburg <https://github.com/homburg>,
 //                 Tatu Tamminen <https://github.com/ttamminen>,
 //                 Uwe Wiemer <https://github.com/hallowatcher>,
-//                 Peter Blazejewicz <https://github.com/peterblazejewicz>
+//                 Peter Blazejewicz <https://github.com/peterblazejewicz>,
+//                 Justin Powell <https://github.com/jpowell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -48,6 +49,9 @@ declare namespace ReactModal {
         /* String className to be applied to the document.body. */
         bodyOpenClassName?: string;
 
+        /* String className to be applied to the document.html. */
+        htmlOpenClassName?: string;
+
         /* String or object className to be applied to the modal content. */
         className?: string | Classes;
 
@@ -59,6 +63,9 @@ declare namespace ReactModal {
 
         /* Function that will be run after the modal has opened. */
         onAfterOpen?(): void;
+
+        /* Function that will be run after the modal has closed. */
+        onAfterClose?(): void;
 
         /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
         onRequestClose?(event: (MouseEvent | KeyboardEvent)): void;
@@ -86,6 +93,9 @@ declare namespace ReactModal {
 
         /* Additional aria attributes. */
         aria?: Aria;
+
+        /* Additional data attributes to be applied to to the modal content in the form of "data-*" */
+        data?: any;
 
         /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
         role?: string;

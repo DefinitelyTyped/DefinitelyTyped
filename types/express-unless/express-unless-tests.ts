@@ -1,11 +1,11 @@
-
-import express = require('express');
-import unless = require('express-unless');
+import express = require("express");
+import unless = require("express-unless");
 
 var app = express();
 
-var middleware:unless.RequestHandler = function (req, res, next) {
+var middleware: unless.RequestHandler = function(req, res, next) {
     next();
-}
+};
 middleware.unless = unless;
-app.use(middleware.unless({ method: 'OPTIONS' }));
+app.use(middleware.unless({ method: "OPTIONS" }));
+app.use(middleware.unless(req => req.path === "test"));

@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-12-26
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,8 +15,8 @@ declare namespace GoogleAppsScript {
      * An enumeration that identifies which categories of authorized services Apps Script is able to
      * execute through a triggered function. These values are exposed in triggered functions as the authMode
      * property of the event parameter, e. For
-     * more information, see the guide to the authorization
-     * lifecycle for add-ons.
+     * more information, see the guide to the
+     * authorization lifecycle for add-ons.
      *
      *     function onOpen(e) {
      *       var menu = SpreadsheetApp.getUi().createAddonMenu();

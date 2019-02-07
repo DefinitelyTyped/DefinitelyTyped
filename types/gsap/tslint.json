@@ -1,9 +1,16 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
+        // All are TODOs
         "dt-header": false,
+        "jsdoc-format": false,
+        "max-line-length": false,
+        "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
-        "no-single-declare-module": false
+        "no-padding": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-class": false,
+        "no-var-keyword": false,
+        "strict-export-declare-modifiers": false
     }
 }

@@ -25,6 +25,8 @@ export {
     isWrappingType,
     isNullableType,
     isNamedType,
+    isRequiredArgument,
+    isRequiredInputField,
     // Assertions
     assertType,
     assertScalarType,
@@ -92,6 +94,9 @@ export {
     GraphQLScalarTypeConfig,
     GraphQLTypeResolver,
     GraphQLUnionTypeConfig,
+    GraphQLScalarSerializer,
+    GraphQLScalarValueParser,
+    GraphQLScalarLiteralParser,
 } from "./definition";
 
 export {

@@ -5,7 +5,7 @@ import {
     CartesianGrid, Line, LineChart, PieChart, Pie,
     Sector, XAxis, YAxis, Tooltip, ReferenceLine,
     ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart
+    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text
 } from 'recharts';
 
 interface ComponentState {
@@ -19,6 +19,14 @@ class Component extends React.Component<{}, ComponentState> {
 
     private clickHandler(...args: any[]) {
         console.log(`Handling a click on a chart: ${JSON.stringify(args)}`);
+    }
+
+    renderYAxisTitle = () => {
+        return (
+            <Text textAnchor="start" verticalAnchor="start" capHeight="0.8em" lineHeight="2em">
+              pv of page
+            </Text>
+        );
     }
 
     render() {
@@ -85,12 +93,12 @@ class Component extends React.Component<{}, ComponentState> {
         };
         return (
             <div style={{width: "100%", height: "100%"}}>
-                <ResponsiveContainer>
+                <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
                             <Label fontSize="8px">X axis - name</Label>
                         </XAxis>
-                        <YAxis>
+                        <YAxis stroke="#8884d8">
                             <Label>Y axis</Label>
                         </YAxis>
                         <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]}  />
@@ -98,7 +106,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip />
                         <Brush dataKey="name" />
-                        <ReferenceLine />
+                        <ReferenceLine label={"reference"} />
                         <ReferenceArea
                             stroke="red"
                             fill="red"
@@ -108,7 +116,7 @@ class Component extends React.Component<{}, ComponentState> {
                         />
                     </LineChart>
                 </ResponsiveContainer>
-                <ResponsiveContainer>
+                <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
                             <Label>X axis - name</Label>
@@ -131,7 +139,7 @@ class Component extends React.Component<{}, ComponentState> {
                         />
                     </LineChart>
                 </ResponsiveContainer>
-                <ResponsiveContainer>
+                <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name" label={{ value: "X axis - name" }} />
                         <YAxis label={{ value: "Y axis" }} />
@@ -150,14 +158,14 @@ class Component extends React.Component<{}, ComponentState> {
                         />
                     </LineChart>
                 </ResponsiveContainer>
-                <ResponsiveContainer>
+                <ResponsiveContainer height={400}>
                     <PieChart width={800} height={400}>
                         <Pie
                             label={(props: {name: string}) => <Label>{name}</Label>}
                             dataKey="value"
                             activeIndex={this.state.activeIndex}
                             activeShape={renderActiveShape}
-                            data={data}
+                            data={data2}
                             cx={300}
                             cy={200}
                             innerRadius={60}
@@ -168,7 +176,7 @@ class Component extends React.Component<{}, ComponentState> {
                         </Pie>
                     </PieChart>
                 </ResponsiveContainer>
-                <ResponsiveContainer>
+                <ResponsiveContainer height={300}>
                     <ScatterChart width={500} height={300}>
                         <XAxis type="number" dataKey="uv" name="stature" unit="cm" />
                         <YAxis dataKey="pv" name="weight" unit="kg" />
@@ -178,7 +186,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <Scatter name="A school" data={data} fill="#8884d8" />
                     </ScatterChart>
                 </ResponsiveContainer>
-                <ResponsiveContainer>
+                <ResponsiveContainer height={250}>
                     <BarChart
                         width={730}
                         height={250}
@@ -190,8 +198,9 @@ class Component extends React.Component<{}, ComponentState> {
                         <Label value="Pages of my website" offset={0} position="insideBottom" />
                     </XAxis>
                     <YAxis>
-                        <Label value="pv of page" angle={90} />
+                      <Label position="top" content={this.renderYAxisTitle} />
                     </YAxis>
+                    <Legend align="right" verticalAlign="top" height={36} width={800} wrapperStyle={{ top: 5 }}/>
                     <Bar dataKey="pv" fill="#8884d8">
                         <LabelList dataKey="name" position="insideTop" angle={45}  />
                     </Bar>

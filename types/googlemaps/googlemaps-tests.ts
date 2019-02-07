@@ -418,7 +418,8 @@ let service = new google.maps.places.PlacesService(new HTMLDivElement());
 
 service.getDetails({
     placeId: '-a1',
-    fields: ['name']
+    fields: ['name'],
+    sessionToken: new google.maps.places.AutocompleteSessionToken()
 }, (result, status) => {
     if (status === google.maps.places.PlacesServiceStatus.NOT_FOUND) {
         return;
@@ -429,6 +430,17 @@ service.getDetails({
 
 service.findPlaceFromQuery({
     query: 'Big Ben London',
+    fields: ['name']
+}, (results, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        return;
+    }
+
+    results[0].name; // $ExpectType string
+});
+
+service.findPlaceFromPhoneNumber({
+    phoneNumber: '123456',
     fields: ['name']
 }, (results, status) => {
     if (status === google.maps.places.PlacesServiceStatus.ERROR) {

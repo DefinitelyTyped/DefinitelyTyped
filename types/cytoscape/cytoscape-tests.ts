@@ -36,7 +36,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
       'text-halign': 'center',
       shape: 'rectangle',
       'min-zoomed-font-size': 20,
-      opacity: 1
+      opacity: 1,
+      width: 'mapData(weight, 40, 80, 20, 60)'
     }
   },
   {
@@ -125,7 +126,7 @@ cy.on('zoom', (event) => {
 cy.off('zoom');
 // events(cy); - TODO
 
-cy.add({ data: { id: 'g' }, position: {x: 200, y: 150} });
+cy.add({ data: { id: 'g', someOtherKey: 'value' }, position: {x: 200, y: 150} });
 cy.add([
   { data: { id: 'h' }, position: {x: 250, y: 100} }
 ]);
@@ -341,7 +342,8 @@ const positions = oneOf({a: {x: 100, y: 100}}, (node: cytoscape.NodeCollection):
 //   layout.stop();
 // });
 
-// TODO: cy.style
+cy.style(cy.style());
+cy.style([cy.style()]);
 
 // $ExpectType string
 cy.png({
@@ -548,11 +550,17 @@ cy.collection().merge(diff.left).merge(diff.right).merge(diff.both).unmerge(coll
 nodes.map(n => n.degree(false));
 edges.map(e => e.source());
 eles.map(e => e.id());
+eles.map(e => e.isNode() ? e.degree(false) : e.source());
+eles.map(e => e.isEdge() ? e.source() : e.degree(false));
 
-eles.sort((a, b) => 1).map((ele, i, eles) => [i, ele]);
+eles.sort((a, b) => a.id.length - b.id.length).map((ele, i, eles) => [i, ele]);
 eles.reduce<any[]>((prev, ele, i, eles) => [...prev, [ele, i]], []).concat(['finish']);
-const min = eles.min((ele, i, eles) => ele.id.length + i); min.ele.scratch('min', min.value).scratch('min').value;
-const max = eles.max((ele, i, eles) => ele.id.length + i); max.ele.scratch('max', max.value);
+
+const min = eles.min((ele, i, eles) => ele.isNode() ? ele.degree(false) : ele.source().degree(false));
+min.ele.scratch('min', min.value).scratch('min').value;
+const max = eles.max((ele, i, eles) => ele.isEdge() ? ele.source().degree(false) : ele.degree(false));
+max.ele.scratch('max', max.value);
+
 nodes.min(n => n.degree(false));
 nodes.max(n => n.degree(false));
 edges.max(n => n.source().id().length);

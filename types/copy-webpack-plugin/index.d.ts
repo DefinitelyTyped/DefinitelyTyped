@@ -61,7 +61,7 @@ interface CopyWebpackPluginConfiguration {
 }
 
 interface CopyWebpackPlugin {
-    new (patterns?: CopyPattern[], options?: CopyWebpackPluginConfiguration): Plugin
+    new (patterns?: (string | CopyPattern)[], options?: CopyWebpackPluginConfiguration): Plugin
 }
 
 declare const copyWebpackPlugin: CopyWebpackPlugin

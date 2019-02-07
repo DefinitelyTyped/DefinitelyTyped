@@ -12,7 +12,7 @@ import {
 import { Request } from 'express';
 import * as self from '@feathersjs/authentication-local';
 
-declare const feathersAuthenticationLocal: ((options?: FeathersAuthenticationLocalOptions) => () => void) & typeof self;
+declare const feathersAuthenticationLocal: ((options?: Partial<FeathersAuthenticationLocalOptions>) => () => void) & typeof self;
 export default feathersAuthenticationLocal;
 
 export interface FeathersAuthenticationLocalOptions {

@@ -1,8 +1,9 @@
-// Type definitions for Marked 0.4
-// Project: https://github.com/chjj/marked
+// Type definitions for Marked 0.6
+// Project: https://github.com/markedjs/marked
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
 //                 CrossR <https://github.com/CrossR>
+//                 Mike Wickett <https://github.com/mwickett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -33,6 +34,15 @@ declare namespace marked {
      * @param options Hash of options
      */
     function lexer(src: string, options?: MarkedOptions): TokensList;
+
+    /**
+     * @param src String of markdown source to be compiled
+     * @param links Array of links
+     * @param options Hash of options
+     * @return String of compiled HTML
+     */
+
+    function inlineLexer(src: string, links: string[], options?: MarkedOptions): string;
 
     /**
      * Compiles markdown to HTML.
@@ -71,9 +81,9 @@ declare namespace marked {
         code(code: string, language: string, isEscaped: boolean): string;
         blockquote(quote: string): string;
         html(html: string): string;
-        heading(text: string, level: number, raw: string): string;
+        heading(text: string, level: number, raw: string, slugger: Slugger): string;
         hr(): string;
-        list(body: string, ordered: boolean): string;
+        list(body: string, ordered: boolean, start: number): string;
         listitem(text: string): string;
         paragraph(text: string): string;
         table(header: string, body: string): string;
@@ -97,6 +107,10 @@ declare namespace marked {
         tokens: TokensList;
         constructor(options?: MarkedOptions);
         lex(src: string): TokensList;
+    }
+
+    class Slugger {
+        slug(value: string): string;
     }
 
     interface Rules {

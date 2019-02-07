@@ -808,6 +808,24 @@ function frozen() {
     expect(Object.freeze({})).to.be.frozen;
     ({}).should.be.not.frozen;
     Object.freeze({}).should.be.frozen;
+
+    expect([1, 2, 3]).to.have.all.members([1, 2, 3]);
+    expect([1, 2, 3]).to.have.all.members(Object.freeze([1, 2, 3]));
+
+    expect({1: "", 2: "", 3: ""}).to.have.all.keys([1, 2, 3]);
+    expect({1: "", 2: "", 3: ""}).to.have.all.keys(Object.freeze([1, 2, 3]));
+
+    assert.notDeepInclude([1, 2, 3], 1);
+    assert.notDeepInclude(Object.freeze([1, 2, 3]), 1);
+
+    assert.include([1, 2, 3], 1);
+    assert.include(Object.freeze([1, 2, 3]), 1);
+
+    assert.notInclude([1, 2, 3], 1);
+    assert.notInclude(Object.freeze([1, 2, 3]), 1);
+
+    expect([1, 2, 3]).to.have.oneOf([1, 2, 3]);
+    expect([1, 2, 3]).to.have.oneOf(Object.freeze([1, 2, 3]));
 }
 
 class PoorlyConstructedError {
@@ -1145,6 +1163,8 @@ function members() {
     expect([5, 4]).not.members([]);
     expect([5, 4]).not.members([6, 3]);
     expect([5, 4]).not.members([5, 4, 2]);
+
+    expect([5, 4]).to.have.all.members([4, 5]);
 }
 
 function increaseDecreaseChange() {

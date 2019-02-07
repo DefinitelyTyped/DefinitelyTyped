@@ -774,7 +774,7 @@ const selectedData: Select2.OptionData[] = $("#mySelect2").select2("data");
 // jQuery Generic
 
 declare let select: HTMLSelectElement;
-const $select: JQuery<HTMLSelectElement> = $(select) as JQuery<HTMLSelectElement>;
+const $select: JQuery<HTMLSelectElement> = $(select);
 
 select = $select.select2().get(0);
 select = $select.select2({tags: true}).get(0);

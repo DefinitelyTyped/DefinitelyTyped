@@ -8,12 +8,11 @@
 //                 Patricio Zavolinsky <https://github.com/pzavolinsky>
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
-//                 Albert Kurniawan <https://github.com/morcerf>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /*
 Known Problems & Workarounds
@@ -3582,6 +3581,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
+        map<T, C extends ReactElement<any>>(children: C[], fn: (child: C, index: number) => T): T[];
         map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
         forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
         count(children: ReactNode): number;

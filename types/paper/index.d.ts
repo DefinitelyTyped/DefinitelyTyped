@@ -1,4 +1,4 @@
-// Type definitions for Paper.js v0.11.5
+// Type definitions for Paper.js v0.11.8
 // Project: http://paperjs.org/
 // Definitions by:  Clark Stevenson <https://github.com/clark-stevenson>,
 //                  Jon Lucas <https://github.com/Xakaloz>,
@@ -21,13 +21,7 @@ declare module paper {
     /**
     * Gives access to paper's configurable settings.
     */
-    export var settings: {
-
-        applyMatrix: boolean;
-        handleSize: number;
-        hitTolerance: number;
-
-    };
+    export var settings: Settings;
 
     /**
      * The currently active project.
@@ -1115,6 +1109,37 @@ declare module paper {
         modulo(size: number[]): Size;
         modulo(size: number): Size;
 
+		/**
+		 * Sets the size with the given width and height values.
+         * @param width - the width
+         * @param height - the height
+		 */
+		set(width: number, height: number): Size;
+
+		/**
+		 * Sets the size using the numbers in the given array as dimensions.
+         * @param array - an array of numbers
+		 */
+		set(array: number[]): Size;
+		
+		/**
+		 * Sets the size using the properties in the given object.
+         * @param object - the object literal containing properies (width:10, height:10 etc)
+		 */
+		set(object: any): Size;
+		
+		/**
+		 * Sets the size using the coordinates of the given Size object.
+         * @param size - the size to duplicate from
+         */
+		set(size: Size): Size;
+		
+		/**
+         * Sets the size using the point.x and point.y values of the given Point object.
+         * @param point - the point from which to create a size
+         */
+        set(point: Point): Size;
+
     }
     export interface IFrameEvent {
 
@@ -1150,13 +1175,7 @@ declare module paper {
         /**
         * Gives access to paper's configurable settings.
         */
-        settings: {
-
-            applyMatrix: boolean;
-            handleSize: number;
-            hitTolerance: number;
-
-        };
+        settings: Settings;
 
         /**
          * The currently active project.
@@ -1332,7 +1351,12 @@ declare module paper {
          * The path style of the item.
          */
         style: Style;
-
+        
+        /**
+         * Specifies whether the item is locked. When set to true, item interactions with the mouse are disabled.
+         */
+        locked: boolean;
+        
         /**
          * Specifies whether the item is visible. When set to false, the item won't be drawn.
          */
@@ -1486,7 +1510,7 @@ declare module paper {
         /**
          * The color of the stroke.
          */
-        strokeColor: Color | string;
+        strokeColor: Color | string | null;
 
         /**
          * The width of the stroke.
@@ -1534,7 +1558,7 @@ declare module paper {
         /**
          * The fill color of the item.
          */
-        fillColor: Color | string;
+        fillColor: Color | string | null;
 
         /**
          * The fill-rule with which the shape gets filled. Please note that only modern browsers support fill-rules other than 'nonzero'.
@@ -1546,7 +1570,7 @@ declare module paper {
         /**
          * The shadow color.
          */
-        shadowColor: Color | string;
+        shadowColor: Color | string | null;
 
         /**
          * The shadow’s blur radius.
@@ -1558,7 +1582,7 @@ declare module paper {
          * The shadow’s offset.
          * Default - 0
          */
-        shadowOffset: number;
+        shadowOffset: number | number[] | {x: number, y: number} | Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
@@ -1785,7 +1809,7 @@ declare module paper {
          * @param options.insert: Boolean — whether the imported items should be added to the item that importSVG() is called on.
          * @param options.applyMatrix  Boolean — whether the imported items should have their transformation matrices applied to their contents or not.
          */
-        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: true; applyMatrix?: Matrix; }): Item;
+        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: boolean; applyMatrix?: Matrix; }): Item;
 
          /**
          * Converts the provided SVG content into Paper.js items and adds them to the active layer of this project.
@@ -4225,7 +4249,7 @@ declare module paper {
          * @param options.insert: Boolean — whether the imported items should be added to the item that importSVG() is called on.
          * @param options.applyMatrix  Boolean — whether the imported items should have their transformation matrices applied to their contents or not.
          */
-        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: true; applyMatrix?: Matrix; }): Item;
+        importSVG(svg: SVGElement | string, options?: { expandShapes?: boolean; onLoad?: (item: Item, svg: string) => void; onError?: (message: string, status: number) => void; insert?: boolean; applyMatrix?: Matrix; }): Item;
 
          /**
          * Converts the provided SVG content into Paper.js items and adds them to the active layer of this project.
@@ -4366,7 +4390,7 @@ declare module paper {
          * The shadow's offset.
          * Default: 0
          */
-        shadowOffset?: Point;
+        shadowOffset?: number | number[] | {x: number, y: number} | Point;
 
         /**
          * The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.
@@ -4860,7 +4884,7 @@ declare module paper {
         /**
          * The current scale factor of the view, as described by its matrix.
          */
-        scaling: number;
+        scaling: Point;
 
         /**
          * The view’s transformation matrix, defining the view onto the project’s contents (position, zoom level, rotation, etc).
@@ -5462,6 +5486,25 @@ declare module paper {
          */
         type: 'mousedown' | 'mouseup' | 'mousedrag' | 'click' | 'doubleclick' | 'mousemove' | 'mouseenter' | 'mouseleave';
 
+    }
+	
+	export interface Settings {
+        /**
+         * controls whether newly created items are automatically inserted into the scene graph, by adding them to project.activeLayer — default: true
+         */
+        insertItems: boolean;
+        /**
+         * controls what value newly created items have their item.applyMatrix property set to (Note that not all items can set this to false) — default: true
+         */
+        applyMatrix: boolean;
+        /**
+         * the size of the curve handles when drawing selections — default: 4
+         */
+        handleSize: number;
+        /*
+         * the default tolerance for hit- tests, when no value is specified — default: 0
+         */
+        hitTolerance: number;
     }
 }
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/vayser/react-js-pagination
 // Definitions by: Ernesto Cruz <https://github.com/netoisc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, HookProvided } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult, DragStart, DragUpdate, ResponderProvided } from 'react-beautiful-dnd';
 
 interface Item {
   id: string;
@@ -48,15 +48,27 @@ class App extends React.Component<{}, AppState> {
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-  onDragStart(dragStart: DragStart, provided: HookProvided) {
+  onBeforeDragStart(dragStart: DragStart) {
     //
   }
 
-  onDragUpdate(dragUpdate: DragUpdate, provided: HookProvided) {
+  onDragStart(dragStart: DragStart, provided: ResponderProvided) {
     //
   }
 
-  onDragEnd(result: DropResult, provided: HookProvided) {
+  onDragUpdate(dragUpdate: DragUpdate, provided: ResponderProvided) {
+    //
+  }
+
+  onDragEnd(result: DropResult, provided: ResponderProvided) {
+    if (result.combine) {
+      // super simple: just removing the dragging item
+      const items: Item[] = [...this.state.items];
+      items.splice(result.source.index, 1);
+      this.setState({ items });
+      return;
+    }
+
     if (!result.destination) {
       return;
     }
@@ -72,8 +84,8 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <DragDropContext onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable">
+      <DragDropContext onBeforeDragStart={this.onBeforeDragStart} onDragStart={this.onDragStart} onDragUpdate={this.onDragUpdate} onDragEnd={this.onDragEnd}>
+        <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
           {(provided, snapshot) => (
             <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)} {...provided.droppableProps}>
               {this.state.items.map((item, index) => (

@@ -1,48 +1,91 @@
-import * as React from "react";
-import AlertContainer, { AlertContainerProps, AlertShowOptions } from "react-alert";
+import * as React from 'react';
+import {
+    Provider as AlertProvider,
+    Alert,
+    withAlert,
+    AlertPosition,
+    AlertTransition,
+    ProviderOptions,
+    InjectedAlertProp
+} from 'react-alert';
 
-export class ReactAlertTest extends React.Component {
-    private _alert: AlertContainer;
+class AppWithoutAlert extends React.Component<{ alert: InjectedAlertProp }> {
     render() {
-        const props: AlertContainerProps = {
-            offset: 14,
-            position: "bottom left",
-            theme: "dark",
-            time: 5000,
-            transition: "scale"
-        };
+        return (
+            <button
+                onClick={() => {
+                    this.props.alert.show('Oh look, an alert!');
+                }}
+            >
+                Show Alert
+            </button>
+        );
+    }
+}
+
+const App = withAlert(AppWithoutAlert);
+
+class AppAlert extends React.Component {
+    render() {
+        return (
+            <Alert>
+                {alert => (
+                    <button
+                        onClick={() => {
+                            alert.show('Oh look, an alert!');
+                        }}
+                    >
+                        Show Alert
+                    </button>
+                )}
+            </Alert>
+        );
+    }
+}
+
+class AlertTemplate extends React.Component<any> {
+    render() {
+        // the style contains only the margin given as offset
+        // options contains all alert given options
+        // message is the alert message...
+        // close is a function that closes the alert
+        const { style, options, message, close } = this.props;
 
         return (
-            <div>
-                <AlertContainer ref={a => this._alert = a as AlertContainer} {...props} />
+            <div style={style}>
+                {options.type === 'info' && '!'}
+                {options.type === 'success' && ':)'}
+                {options.type === 'error' && ':('}
+                {message}
+                <button onClick={close}>X</button>
             </div>
         );
     }
+}
 
-    private _testMethods(): void {
-        const options: AlertShowOptions = {
-            time: 5000,
-            type: "info",
-            onClose: this._onAlertClosed,
-            icon: <img src="path/to/some/image/32x32.png" />
-        };
+const options: ProviderOptions = {
+    position: 'bottom center' as AlertPosition,
+    timeout: 5000,
+    offset: '30px',
+    transition: 'scale' as AlertTransition
+};
 
-        let alertId: string;
-        alertId = this._alert.show("show without options");
-        alertId = this._alert.show("show with options", options);
-
-        alertId = this._alert.error("error without options");
-        alertId = this._alert.error("error with options", options);
-
-        alertId = this._alert.info("info without options");
-        alertId = this._alert.info("info with options", options);
-
-        alertId = this._alert.success("success without options");
-        alertId = this._alert.success("success with options", options);
-
-        this._alert.remove(alertId);
-        this._alert.removeAll();
+class Root extends React.Component {
+    render() {
+        return (
+            <AlertProvider template={AlertTemplate} {...options}>
+                <App />
+            </AlertProvider>
+        );
     }
+}
 
-    private _onAlertClosed(): void { }
+class RootAlert extends React.Component {
+    render() {
+        return (
+            <AlertProvider template={AlertTemplate} {...options}>
+                <AppAlert />
+            </AlertProvider>
+        );
+    }
 }

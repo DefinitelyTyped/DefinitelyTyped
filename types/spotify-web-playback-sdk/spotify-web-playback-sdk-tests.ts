@@ -24,6 +24,10 @@ player.addListener("ready", (data) => {
     console.log("The Web Playback SDK is ready to play music!");
 });
 
+player.addListener("not_ready", ({ device_id }) => {
+    console.log("The Web Playback SDK is not ready to play music!");
+});
+
 player.getCurrentState().then((playbackState: Spotify.PlaybackState | null) => {
     if (playbackState) {
         const { current_track, next_tracks } = playbackState.track_window;
@@ -70,6 +74,11 @@ player.nextTrack().then(() => {
 });
 
 player.on("ready", (data: Spotify.WebPlaybackInstance) => {
+    const { device_id } = data;
+    console.log("Connected with Device ID", device_id);
+});
+
+player.on("not_ready", (data: Spotify.WebPlaybackInstance) => {
     const { device_id } = data;
     console.log("Connected with Device ID", device_id);
 });

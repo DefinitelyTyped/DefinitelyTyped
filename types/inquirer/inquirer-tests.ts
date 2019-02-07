@@ -670,3 +670,17 @@ var questions = [
 inquirer.createPromptModule({ output: process.stderr })(questions, function(answers) {
     console.log(JSON.stringify(answers, null, "  "));
 });
+
+// Work with JS inquirer but rejected by typing.
+inquirer.prompt([
+    {
+        type: "input",
+        name: "listOfThings",
+        filter(value: string): string[] {
+            return ["abc", "def"];
+        },
+        validate(value: string[]): boolean {
+            return value.length > 0;
+        }
+    }
+]);

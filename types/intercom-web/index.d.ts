@@ -43,7 +43,8 @@ declare namespace Intercom_ {
     | 'onShow'
     | 'onUnreadCountChange'
     | 'onActivatorClick'
-    | 'trackEvent';
+    | 'trackEvent'
+    | 'getVisitorId';
 
   interface IntercomStatic {
     (command: 'boot', param: IntercomSettings): void;
@@ -53,7 +54,9 @@ declare namespace Intercom_ {
     (command: 'onHide' | 'onShow' | 'onActivatorClick', param?: () => void): void;
     (command: 'trackEvent', tag?: string, metadata?: any): void;
     (command: 'onUnreadCountChange', cb: (unreadCount: number) => void): void;
+    (command: 'getVisitorId'): string;
     (command: IntercomCommand, param1?: any, param2?: any): void;
+    booted: boolean;
   }
 }
 

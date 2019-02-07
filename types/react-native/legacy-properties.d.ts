@@ -66,7 +66,7 @@ import {
     StatusBarPropsIOS,
     StatusBarPropsAndroid,
     SwitchProps,
-    SwitchPropsIOS
+    SwitchPropsIOS,
 } from "react-native";
 
 declare module "react-native" {

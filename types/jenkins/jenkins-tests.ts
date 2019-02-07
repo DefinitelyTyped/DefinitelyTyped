@@ -38,6 +38,10 @@ jenkins.build.stop('example', 1, (err) => {
   if (err) throw err;
 });
 
+jenkins.build.term('example', 1, (err) => {
+  if (err) throw err;
+});
+
 jenkins.job.build('example', (err, data) => {
   if (err) throw err;
 
