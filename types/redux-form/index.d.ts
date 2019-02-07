@@ -12,6 +12,7 @@
 //                 Maddi Joyce <https://github.com/maddijoyce>
 //                 Kamil Wojcik <https://github.com/smifun>
 //                 Mohamed Shaaban <https://github.com/mshaaban088>
+//                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 import {
