@@ -29,11 +29,22 @@ export declare function genSaltSync(rounds?: number): string;
  */
 export declare function genSalt(rounds?: number): Promise<string>;
 
-/**
- * Asynchronously generates a salt.
- * @param callback Callback receiving the error, if any, and the resulting salt
- */
-export declare function genSalt(callback: (err: Error, salt: string) => void): void;
+// I have the following code in my typescript project:
+// ```
+// import {genSalt} from 'bcryptjs';
+// import {promisify} from 'util';
+// const genSaltAsync = promisify(genSalt);
+// const salt = genSaltAsync(10);
+// ```
+// The overloading doesn't work as expect,
+// it only recognizes the callback signature but not the one takes in `round` as arg1.
+// To use the expected signature I have to remove the following declaration.
+
+// /**
+//  * Asynchronously generates a salt.
+//  * @param callback Callback receiving the error, if any, and the resulting salt
+//  */
+// export declare function genSalt(callback: (err: Error, salt: string) => void): void;
 
 /**
  * Asynchronously generates a salt.
