@@ -6,10 +6,10 @@
 // TypeScript Version: 2.2
 
 export class FeathersError extends Error {
-    code: number;
-    className: string;
-    data: any;
-    errors: any;
+    readonly code: number;
+    readonly className: string;
+    readonly data: any;
+    readonly errors: any;
     constructor(msg: string | Error, name: string, code: number, className: string, data: any);
 }
 
