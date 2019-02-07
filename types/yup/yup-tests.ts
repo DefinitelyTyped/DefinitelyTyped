@@ -443,7 +443,7 @@ const validateOptions: ValidateOptions = {
 
 yup.setLocale({
     mixed: {
-        notType: 'This field must be a valid ${type}'
+        notType: "This field is not valid",
     },
     number: { max: "Max message", min: "Min message" },
     string: { email: "String message" }
