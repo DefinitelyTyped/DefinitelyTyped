@@ -25,6 +25,7 @@
 //                 Trevor Leach <https://github.com/trevor-leach>
 //                 James Gregory <https://github.com/jagregory>
 //                 Erik Dalén <https://github.com/dalen>
+//                 Loïk Gaonac'h <https://github.com/loikg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -33,6 +34,11 @@ export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
     authorizer?: AuthResponseContext | null;
+    connectedAt: number;
+    connectionId?: string;
+    domainName?: string;
+    eventType?: string;
+    extendedRequestId?: string;
     httpMethod: string;
     identity: {
         accessKey: string | null;
@@ -49,12 +55,16 @@ export interface APIGatewayEventRequestContext {
         userAgent: string | null;
         userArn: string | null;
     };
+    messageDirection?: string;
+    messageId?: string | null;
     path: string;
     stage: string;
     requestId: string;
+    requestTime?: string;
     requestTimeEpoch: number;
     resourceId: string;
     resourcePath: string;
+    routeKey?: string;
 }
 
 // API Gateway "event"
