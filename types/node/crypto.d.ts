@@ -55,7 +55,7 @@ declare module "crypto" {
             cipher?: string,
             passphrase?: string
         }): string | Buffer;
-        symmetricSize: number;
+        symmetricSize?: number;
         type: 'secret' | 'public' | 'private';
     }
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
