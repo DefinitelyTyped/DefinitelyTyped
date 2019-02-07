@@ -3,7 +3,7 @@
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Alex Guerra <https://github.com/heyimalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import {
     Component,
@@ -36,7 +36,10 @@ export interface GridChildComponentProps {
 
 // This is supposed to represent the type of the first parameter to
 // React.createElement.
-type ReactElementType = FunctionComponent<any> | ComponentClass<any> | string;
+export type ReactElementType =
+    | FunctionComponent<any>
+    | ComponentClass<any>
+    | string;
 
 export interface CommonProps {
     /**
