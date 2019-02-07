@@ -52,7 +52,7 @@ declare namespace algoliasearchHelper {
      * for the hits
      * @return Query Parameters
      */
-    getQuery(): { [param: string]: any };
+    getQuery(): QueryParameters;
 
     /**
      * Start a search using a modified version of the current state. This method does
@@ -90,8 +90,8 @@ declare namespace algoliasearchHelper {
      *   // }
      * }
      */
-    searchOnce(options: { [key: string]: any }): Promise<{ content: SearchResults, state: SearchParameters }>;
-    searchOnce(options: { [key: string]: any }, cb: (error: any, content: SearchResults, state: SearchParameters) => any): undefined;
+    searchOnce(options: QueryParameters): Promise<{ content: SearchResults, state: SearchParameters }>;
+    searchOnce(options: QueryParameters, cb: (error: any, content: SearchResults, state: SearchParameters) => any): undefined;
 
     /**
      * Search for facet values based on an query and the name of a faceted attribute. This
@@ -203,7 +203,7 @@ declare namespace algoliasearchHelper {
      * @fires change
      * @chainable
      */
-    setState(newState: Partial<SearchParameters>): this;
+    setState(newState: QueryParameters): this;
 
     /**
      * Get the current search state stored in the helper. This object is immutable.
@@ -219,7 +219,7 @@ declare namespace algoliasearchHelper {
      * helper.getState(['query', 'attribute:category']);
      */
     getState(): SearchParameters;
-    getState(filters: string[]): Partial<SearchParameters>;
+    getState(filters: string[]): QueryParameters;
 
     getStateAsQueryString(...args: any[]): any;
     setStateFromQueryString(...args: any[]): any;
@@ -588,7 +588,7 @@ declare namespace algoliasearchHelper {
     isHierarchicalFacet(facet: string): boolean;
     isNumericRefined(attribute: string, operator: SearchParameters.Operator, value?: string): boolean;
     isTagRefined(tag: string): boolean;
-    static make(newParameters: Partial<SearchParameters>): SearchParameters;
+    static make(newParameters: QueryParameters): SearchParameters;
     removeExcludeRefinement(facet: string, value: string): SearchParameters;
     removeFacet(facet: string): SearchParameters;
     removeFacetRefinement(facet: string, value?: string): SearchParameters;
