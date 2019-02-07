@@ -61,6 +61,8 @@ videojs("example_video_1").ready(function() {
 
 	this.requestFullscreen();
 
+	const networkState: videojs.NetworkState = this.networkState();
+
 	testEvents(this);
 
 	testComponents(this);
