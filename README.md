@@ -261,10 +261,10 @@ When it graduates draft mode, we may remove it from DefinitelyTyped and deprecat
 _NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)_
 
 Each DefinitelyTyped package is versioned when published to NPM. 
-The [automated tools](https://github.com/Microsoft/types-publisher) that publish type declaration packages to NPM will set the type declaration package's version using the version number listed in the first line of its `index.d.ts` file. 
-For example, below are the first few lines of the latest (as of late 2018) [node.js type declarations](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/index.d.ts) for node.js library versions `10.12.x`.  
+The [types-publisher](https://github.com/Microsoft/types-publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor` version number listed in the first line of its `index.d.ts` file. 
+For example, here are the first few lines of [Node's type declarations](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) for version `10.12.x` at the time of writing:
 
-```javascript
+```js
 // Type definitions for Node.js 10.12
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
@@ -272,21 +272,24 @@ For example, below are the first few lines of the latest (as of late 2018) [node
 //                 Alberto Schiabel <https://github.com/jkomyno>
 ```
 
-Because `10.12` is at the end the first line, the NPM version of the `@types/node` package will also be `10.12.x`. 
-Note that the first-line comment in the `index.d.ts` file should only contain major/minor versions (e.g. `10.12`) and should not contain a patch version (e.g. `10.12.4`). 
+Because `10.12` is at the end the first line, the npm version of the `@types/node` package will also be `10.12.x`. 
+Note that the first-line comment in the `index.d.ts` file should only contain the `major.minor` version (e.g. `10.12`) and should not contain a patch version (e.g. `10.12.4`).
 This is because only the major and minor release numbers are aligned between library packages and type declaration packages. 
 The patch release number of the type declaration package (e.g. `.0` in `10.12.0`) is initialized to zero by DefinitelyTyped and is incremented each time a new `@types/node` package is published to NPM for the same major/minor version of the corresponding library.
 
-Sometimes type declaration package versions and library package versions can get out of sync. 
-Below are a few common reasons why, in order of how much they inconvenience users of a library. 
+Sometimes type declaration package versions and library package versions can get out of sync.
+Below are a few common reasons why, in order of how much they inconvenience users of a library.
 Only the last case is typically problematic.
 
-* As noted above, the patch version of the type declaration package is unrelated to the library patch version. This allows DefinitelyTyped to safely update type declarations for the same major/minor version of a library. 
-* If a minor release adds new features that don't impact the type system, then there's no need to publish updated type declarations.  In cases like this, updates are often skipped to the type declaration package.  For example, imagine a contrived example of a library that formats only integers in its `2.0` release.  If a `2.1` release of the library adds the capability to format floating point numbers too without changing API type signatures, then the type declaration package version might remain `2.0.3` even as the library goes to `2.1.0`.
-* Users who are updating type declarations for a library sometimes forget to increment the type declaration package's version to match the library version. This doesn't usually result in any problems because `npm update` will usually pick the latest type declaration package version, although it may be confusing for users because they might assume that a library update is missing types that are really present. It will also cause problems when libraries are (see below) updated to a new major release with breaking changes, because users won't know which type declaration package version is the right one to use for older versions of the library.
-* It's common for type declaration package updates to lag behind library updates because it's often library users, not maintainers, who update DefinitelyTyped when new library features are released.  So there may be a lag of days, weeks, or even months before a helpful community member sends a PR to update the type declaration package for a new library release.
+* As noted above, the patch version of the type declaration package is unrelated to the library patch version.
+  This allows DefinitelyTyped to safely update type declarations for the same major/minor version of a library. 
+* If updating a package for new functionality, don't forget to update the version number to line up with that version of the library.
+  If users make sure versions correspond between JavaScript packages and their respective `@types` packages, then `npm update` should typically just work.
+* It's common for type declaration package updates to lag behind library updates because it's often library users, not maintainers, who update DefinitelyTyped when new library features are released.
+  So there may be a lag of days, weeks, or even months before a helpful community member sends a PR to update the type declaration package for a new library release.
+  If you're impacted by this, you can be the change you want to see in the world and you can be that helpful community member!
 
-:exclamation:If you're updating type declarations for a library, always set the major/minor version in the first line of `index.d.ts` to match the library version that you're documenting!:exclamation:
+:exclamation: If you're updating type declarations for a library, always set the `major.minor` version in the first line of `index.d.ts` to match the library version that you're documenting! :exclamation:
 
 #### If a library is updated to a new major version with breaking changes, how should I update its type declaration package?
 
@@ -305,9 +308,8 @@ Because the root folder should always contain the type declarations for the late
 2. Add path mapping rules to ensure that tests are running against the intended version.
 
 For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.  
-Many developers waited a while to update their `package.json` to depend on version `3.x` of `history`. 
-Therefore, a maintainer of the type declarations for this library added a `v2` folder inside the history repository that contains type declarations for the older version. 
-The [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
+Because many users still consumed the older `2.x` version, a maintainer who wanted to update the type declarations for this library to `3.x` added a `v2` folder inside the history repository that contains type declarations for the older version. 
+At the time of writing, the [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
 
 ```json
 {
