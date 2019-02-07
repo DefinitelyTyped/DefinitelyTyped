@@ -10541,7 +10541,7 @@ declare namespace Office {
     /**
      * Represents an attachment on an item from the server. Read mode only.
      *
-     * An array of `AttachmentDetails` objects is returned as the attachments property of an appointment or message item.
+     * An array of **AttachmentDetails** objects is returned as the attachments property of an appointment or message item.
      *
      * [Api set: Mailbox 1.0]
      *
@@ -13702,7 +13702,7 @@ declare namespace Office {
         addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: Office.AsyncResult<void>) => void): void;
 
         /**
-         * Gets an attachment from a message or appointment and returns it as an `AttachmentContent` object.
+         * Gets an attachment from a message or appointment and returns it as an **AttachmentContent** object.
          * 
          * The `getAttachmentContentAsync` method gets the attachment with the specified identifier from the item. As a best practice, you should use 
          * the identifier to retrieve an attachment in the same session that the attachmentIds were retrieved with the `getAttachmentsAsync` or 
