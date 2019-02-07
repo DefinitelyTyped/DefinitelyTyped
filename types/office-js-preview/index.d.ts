@@ -12849,7 +12849,7 @@ declare namespace Office {
          */
         body: Body;
         /**
-         * Gets the date and time that an item was created. Read mode only.
+         * Gets the date and time that an item was created.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -12861,7 +12861,7 @@ declare namespace Office {
          */
         dateTimeCreated: Date;
         /**
-         * Gets the date and time that an item was last modified. Read mode only.
+         * Gets the date and time that an item was last modified.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -16205,7 +16205,7 @@ declare namespace Office {
          */
         conversationId: string;
         /**
-         * Gets the date and time that an item was created. Read mode only.
+         * Gets the date and time that an item was created.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -16217,7 +16217,7 @@ declare namespace Office {
          */
         dateTimeCreated: Date;
         /**
-         * Gets the date and time that an item was last modified. Read mode only.
+         * Gets the date and time that an item was last modified.
          *
          * [Api set: Mailbox 1.0]
          *
