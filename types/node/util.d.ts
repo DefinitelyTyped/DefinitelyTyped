@@ -12,18 +12,17 @@ declare module "util" {
     function print(...param: any[]): void;
     /** @deprecated since v0.11.3 - use a third party module instead. */
     function log(string: string): void;
-    const inspect: {
-        (object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
-        (object: any, options: InspectOptions): string;
-        colors: {
+    function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
+    function inspect(object: any, options: InspectOptions): string;
+    namespace inspect {
+        let colors: {
             [color: string]: [number, number] | undefined
-        }
-        styles: {
+        };
+        let styles: {
             [style: string]: string | undefined
-        }
-        defaultOptions: InspectOptions;
-        custom: symbol;
-    };
+        };
+        let defaultOptions: InspectOptions;
+    }
     /** @deprecated since v4.0.0 - use `Array.isArray()` instead. */
     function isArray(object: any): object is any[];
     /** @deprecated since v4.0.0 - use `util.types.isRegExp()` instead. */
@@ -108,9 +107,6 @@ declare module "util" {
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: Error | null) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     function promisify(fn: Function): Function;
-    namespace promisify {
-        const custom: symbol;
-    }
 
     namespace types {
         function isAnyArrayBuffer(object: any): boolean;
