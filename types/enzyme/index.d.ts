@@ -619,7 +619,7 @@ export class EnzymeAdapter {
 }
 
 /**
- * Configure enzyme to use the correct adapter for the react verstion
+ * Configure enzyme to use the correct adapter for the react version
  * This is enabling the Enzyme configuration with adapters in TS
  */
 export function configure(options: {
