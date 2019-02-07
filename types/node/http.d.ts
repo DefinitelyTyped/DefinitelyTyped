@@ -95,6 +95,11 @@ declare module "http" {
         setTimeout(callback: () => void): this;
         maxHeadersCount: number;
         timeout: number;
+        /**
+         * Limit the amount of time the parser will wait to receive the complete HTTP headers.
+         * @default 40000
+         */
+        headersTimeout: number;
         keepAliveTimeout: number;
     }
 
@@ -244,4 +249,10 @@ declare module "http" {
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     let globalAgent: Agent;
+
+    /**
+     * Read-only property specifying the maximum allowed size of HTTP headers in bytes.
+     * Defaults to 8KB. Configurable using the [`--max-http-header-size`][] CLI option.
+     */
+    const maxHeaderSize: number;
 }

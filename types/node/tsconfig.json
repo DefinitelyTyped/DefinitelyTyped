@@ -42,14 +42,20 @@
         "vm.d.ts",
         "worker_threads.d.ts",
         "zlib.d.ts",
-        "node-tests.ts"
+        "node-tests.ts",
+        "test/http.ts",
+        "test/readline.ts",
+        "test/global.ts",
+        "test/worker_threads.ts",
+        "test/util.ts",
+        "test/net.ts",
+        "test/dgram.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

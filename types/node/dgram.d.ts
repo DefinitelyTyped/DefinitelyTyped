@@ -5,8 +5,9 @@ declare module "dgram" {
 
     interface RemoteInfo {
         address: string;
-        family: string;
+        family: 'IPv4' | 'IPv6';
         port: number;
+        size: number;
     }
 
     interface BindOptions {
@@ -20,6 +21,10 @@ declare module "dgram" {
     interface SocketOptions {
         type: SocketType;
         reuseAddr?: boolean;
+        /**
+         * @default false
+         */
+        ipv6Only?: boolean;
         recvBufferSize?: number;
         sendBufferSize?: number;
         lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
@@ -62,36 +67,36 @@ declare module "dgram" {
         addListener(event: "close", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
-        addListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        addListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
-        emit(event: "message", msg: Buffer, rinfo: AddressInfo): boolean;
+        emit(event: "message", msg: Buffer, rinfo: RemoteInfo): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "listening", listener: () => void): this;
-        on(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        on(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "listening", listener: () => void): this;
-        once(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        once(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        prependListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
+        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
     }
 }

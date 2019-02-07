@@ -14,17 +14,7 @@ declare module "crypto" {
     /** @deprecated since v10.0.0 */
     const fips: boolean;
 
-    interface CredentialDetails {
-        pfx: string;
-        key: string;
-        passphrase: string;
-        cert: string;
-        ca: string | string[];
-        crl: string | string[];
-        ciphers: string;
-    }
     interface Credentials { context?: any; }
-    function createCredentials(details: CredentialDetails): Credentials;
     function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
     function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Hmac;
 
@@ -164,7 +154,13 @@ declare module "crypto" {
         getPublicKey(encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
+        /**
+         * @deprecated
+         */
         setPublicKey(public_key: Buffer | NodeJS.TypedArray | DataView): void;
+        /**
+         * @deprecated
+         */
         setPublicKey(public_key: string, encoding: string): void;
         setPrivateKey(private_key: Buffer | NodeJS.TypedArray | DataView): void;
         setPrivateKey(private_key: string, encoding: string): void;

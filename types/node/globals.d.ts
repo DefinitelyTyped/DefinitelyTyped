@@ -181,6 +181,11 @@ declare namespace setImmediate {
 }
 declare function clearImmediate(immediateId: NodeJS.Immediate): void;
 
+/**
+ * @experimental
+ */
+declare function queueMicrotask(callback: () => void): void;
+
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
     /* tslint:disable-next-line:callable-types */
@@ -190,6 +195,9 @@ interface NodeRequireFunction {
 interface NodeRequire extends NodeRequireFunction {
     resolve: RequireResolve;
     cache: any;
+    /**
+     * @deprecated
+     */
     extensions: NodeExtensions;
     main: NodeModule | undefined;
 }
@@ -245,45 +253,45 @@ interface Buffer extends Uint8Array {
     compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
-    writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    writeIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
-    readUIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readUInt8(offset: number, noAssert?: boolean): number;
-    readUInt16LE(offset: number, noAssert?: boolean): number;
-    readUInt16BE(offset: number, noAssert?: boolean): number;
-    readUInt32LE(offset: number, noAssert?: boolean): number;
-    readUInt32BE(offset: number, noAssert?: boolean): number;
-    readInt8(offset: number, noAssert?: boolean): number;
-    readInt16LE(offset: number, noAssert?: boolean): number;
-    readInt16BE(offset: number, noAssert?: boolean): number;
-    readInt32LE(offset: number, noAssert?: boolean): number;
-    readInt32BE(offset: number, noAssert?: boolean): number;
-    readFloatLE(offset: number, noAssert?: boolean): number;
-    readFloatBE(offset: number, noAssert?: boolean): number;
-    readDoubleLE(offset: number, noAssert?: boolean): number;
-    readDoubleBE(offset: number, noAssert?: boolean): number;
+    writeUIntLE(value: number, offset: number, byteLength: number): number;
+    writeUIntBE(value: number, offset: number, byteLength: number): number;
+    writeIntLE(value: number, offset: number, byteLength: number): number;
+    writeIntBE(value: number, offset: number, byteLength: number): number;
+    readUIntLE(offset: number, byteLength: number): number;
+    readUIntBE(offset: number, byteLength: number): number;
+    readIntLE(offset: number, byteLength: number): number;
+    readIntBE(offset: number, byteLength: number): number;
+    readUInt8(offset: number): number;
+    readUInt16LE(offset: number): number;
+    readUInt16BE(offset: number): number;
+    readUInt32LE(offset: number): number;
+    readUInt32BE(offset: number): number;
+    readInt8(offset: number): number;
+    readInt16LE(offset: number): number;
+    readInt16BE(offset: number): number;
+    readInt32LE(offset: number): number;
+    readInt32BE(offset: number): number;
+    readFloatLE(offset: number): number;
+    readFloatBE(offset: number): number;
+    readDoubleLE(offset: number): number;
+    readDoubleBE(offset: number): number;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
-    writeUInt8(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt32LE(value: number, offset: number, noAssert?: boolean): number;
-    writeUInt32BE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt8(value: number, offset: number, noAssert?: boolean): number;
-    writeInt16LE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt16BE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt32LE(value: number, offset: number, noAssert?: boolean): number;
-    writeInt32BE(value: number, offset: number, noAssert?: boolean): number;
-    writeFloatLE(value: number, offset: number, noAssert?: boolean): number;
-    writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
-    writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
-    writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt8(value: number, offset: number): number;
+    writeUInt16LE(value: number, offset: number): number;
+    writeUInt16BE(value: number, offset: number): number;
+    writeUInt32LE(value: number, offset: number): number;
+    writeUInt32BE(value: number, offset: number): number;
+    writeInt8(value: number, offset: number): number;
+    writeInt16LE(value: number, offset: number): number;
+    writeInt16BE(value: number, offset: number): number;
+    writeInt32LE(value: number, offset: number): number;
+    writeInt32BE(value: number, offset: number): number;
+    writeFloatLE(value: number, offset: number): number;
+    writeFloatBE(value: number, offset: number): number;
+    writeDoubleLE(value: number, offset: number): number;
+    writeDoubleBE(value: number, offset: number): number;
     fill(value: any, offset?: number, end?: number): this;
     indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
     lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
@@ -444,7 +452,19 @@ declare const Buffer: {
 *-----------------------------------------------*/
 declare namespace NodeJS {
     interface InspectOptions {
+        /**
+         * If set to `true`, getters are going to be
+         * inspected as well. If set to `'get'` only getters without setter are going
+         * to be inspected. If set to `'set'` only getters having a corresponding
+         * setter are going to be inspected. This might cause side effects depending on
+         * the getter function.
+         * @default `false`
+         */
+        getters?: 'get' | 'set' | boolean;
         showHidden?: boolean;
+        /**
+         * @default 2
+         */
         depth?: number | null;
         colors?: boolean;
         customInspect?: boolean;
@@ -460,6 +480,7 @@ declare namespace NodeJS {
         stderr?: WritableStream;
         ignoreErrors?: boolean;
         colorMode?: boolean | 'auto';
+        inspectOptions?: InspectOptions;
     }
 
     interface ConsoleConstructor {
@@ -707,7 +728,13 @@ declare namespace NodeJS {
     }
 
     interface Process extends EventEmitter {
+        /**
+         * Can also be a tty.WriteStream, not typed due to limitation.s
+         */
         stdout: WriteStream;
+        /**
+         * Can also be a tty.WriteStream, not typed due to limitation.s
+         */
         stderr: WriteStream;
         stdin: ReadStream;
         openStdin(): Socket;
@@ -774,6 +801,9 @@ declare namespace NodeJS {
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
         release: ProcessRelease;
+        /**
+         * Can only be set if not in worker thread.
+         */
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?: [number, number]): [number, number];
@@ -957,6 +987,7 @@ declare namespace NodeJS {
         setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
         setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
         setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
+        queueMicrotask: typeof queueMicrotask;
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;

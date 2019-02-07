@@ -77,32 +77,34 @@ declare module "child_process" {
 
     type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | stream.Stream | number | null | undefined)>;
 
-    interface SpawnOptions {
+    interface CommonOptions {
+        /**
+         * @default true
+         */
+        windowsHide?: boolean;
+        uid?: number;
+        gid?: number;
         cwd?: string;
         env?: NodeJS.ProcessEnv;
+    }
+
+    interface SpawnOptions extends CommonOptions {
         argv0?: string;
         stdio?: StdioOptions;
         detached?: boolean;
-        uid?: number;
-        gid?: number;
         shell?: boolean | string;
         windowsVerbatimArguments?: boolean;
-        windowsHide?: boolean;
     }
 
     function spawn(command: string, options?: SpawnOptions): ChildProcess;
     function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
-    interface ExecOptions {
-        cwd?: string;
+    interface ExecOptions extends CommonOptions {
         env?: NodeJS.ProcessEnv;
         shell?: string;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-        uid?: number;
-        gid?: number;
-        windowsHide?: boolean;
     }
 
     interface ExecOptionsWithStringEncoding extends ExecOptions {
@@ -152,15 +154,10 @@ declare module "child_process" {
         function __promisify__(command: string, options?: ({ encoding?: string | null } & ExecOptions) | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ExecFileOptions {
-        cwd?: string;
-        env?: NodeJS.ProcessEnv;
+    interface ExecFileOptions extends CommonOptions {
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-        uid?: number;
-        gid?: number;
-        windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
     }
     interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
@@ -264,21 +261,16 @@ declare module "child_process" {
     }
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
-    interface SpawnSyncOptions {
+    interface SpawnSyncOptions extends CommonOptions {
         argv0?: string; // Not specified in the docs
-        cwd?: string;
         input?: string | Buffer | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
-        env?: NodeJS.ProcessEnv;
-        uid?: number;
-        gid?: number;
         timeout?: number;
         killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
         shell?: boolean | string;
         windowsVerbatimArguments?: boolean;
-        windowsHide?: boolean;
     }
     interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
@@ -303,19 +295,14 @@ declare module "child_process" {
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
-    interface ExecSyncOptions {
-        cwd?: string;
+    interface ExecSyncOptions extends CommonOptions {
         input?: string | Buffer | Uint8Array;
         stdio?: StdioOptions;
-        env?: NodeJS.ProcessEnv;
         shell?: string;
-        uid?: number;
-        gid?: number;
         timeout?: number;
         killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
-        windowsHide?: boolean;
     }
     interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
@@ -333,13 +320,11 @@ declare module "child_process" {
         input?: string | Buffer | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
         env?: NodeJS.ProcessEnv;
-        uid?: number;
-        gid?: number;
         timeout?: number;
         killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
-        windowsHide?: boolean;
+
         shell?: boolean | string;
     }
     interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
