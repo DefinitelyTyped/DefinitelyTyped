@@ -2,7 +2,10 @@ import {
     FixedSizeList,
     VariableSizeList,
     FixedSizeGrid,
-    VariableSizeGrid
+    VariableSizeGrid,
+    ListChildComponentProps,
+    areEqual,
+    shouldComponentUpdate
 } from "react-window";
 import * as React from "react";
 
@@ -198,3 +201,18 @@ const VariableSizeGridTestOptionalProps: React.SFC = () => (
         )}
     </VariableSizeGrid>
 );
+
+const RowWithAreEqual = React.memo((props: ListChildComponentProps) => {
+    const { index, style } = props;
+    return <div style={style}>Row {index}</div>;
+}, areEqual);
+
+class RowWithShouldComponentUpdate extends React.Component<
+    ListChildComponentProps
+> {
+    shouldComponentUpdate = shouldComponentUpdate.bind(this);
+    render() {
+        const { index, style } = this.props;
+        return <div style={style}>Row {index}</div>;
+    }
+}

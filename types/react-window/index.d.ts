@@ -459,3 +459,26 @@ export class VariableSizeGrid extends Component<VariableSizeGridProps> {
      */
     resetAfterRowIndex(index: number, shouldForceUpdate?: boolean): void;
 }
+
+/**
+ * Custom comparison function for React.memo().
+ * It knows to compare individual style props and ignore the wrapper object.
+ *
+ * @see https://reactjs.org/docs/react-api.html#reactmemo
+ */
+export function areEqual(
+    prevProps: Readonly<object>,
+    nextProps: Readonly<object>
+): boolean;
+
+/**
+ * Custom shouldComponentUpdate for class components.
+ * It knows to compare individual style props and ignore the wrapper object.
+ *
+ * @see https://reactjs.org/docs/react-component.html#shouldcomponentupdate
+ */
+export function shouldComponentUpdate<P = {}, S = {}>(
+    this: { props: P; state: S },
+    nextProps: Readonly<P>,
+    nextState: Readonly<S>
+): boolean;
