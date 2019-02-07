@@ -262,6 +262,10 @@ adapter.unsubscribeForeignStatesAsync("*").catch(handleError);
 
 // Repro from https://github.com/ioBroker/adapter-core/issues/3
 const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {
+    if (!obj || !obj.common) return;
+    if (obj.common.custom) {
+        const test1: ioBroker.StateCommon = obj.common;
+    }
     obj
         && obj.common
         && obj.common.custom
