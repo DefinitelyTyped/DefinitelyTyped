@@ -254,6 +254,9 @@ declare global {
             icon?: string;
             /** role of the object */
             role?: string;
+
+            /** Custom settings for this object */
+            custom?: Record<string, any>;
         }
 
         interface StateCommon extends ObjectCommon {

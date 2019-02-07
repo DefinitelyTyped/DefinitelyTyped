@@ -259,3 +259,13 @@ adapter.subscribeStatesAsync("*").catch(handleError);
 adapter.subscribeForeignStatesAsync("*").catch(handleError);
 adapter.unsubscribeStatesAsync("*").catch(handleError);
 adapter.unsubscribeForeignStatesAsync("*").catch(handleError);
+
+// Repro from https://github.com/ioBroker/adapter-core/issues/3
+const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {
+    obj
+        && obj.common
+        && obj.common.custom
+        && obj.common.custom["adapter.0"]
+        && obj.common.custom["adapter.0"].enabled
+    ;
+};
