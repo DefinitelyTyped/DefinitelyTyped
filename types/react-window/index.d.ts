@@ -69,7 +69,7 @@ export interface CommonProps {
     useIsScrolling?: boolean;
 }
 
-export type ListItemKeySelector = (index: number) => Key;
+export type ListItemKeySelector = (index: number, data: any) => Key;
 
 export interface ListOnItemsRenderedProps {
     overscanStartIndex: number;
@@ -146,7 +146,7 @@ export interface ListProps extends CommonProps {
 }
 
 export type GridItemKeySelector = (
-    params: { columnIndex: number; rowIndex: number }
+    params: { columnIndex: number; rowIndex: number; data: any }
 ) => Key;
 
 export interface GridOnItemsRenderedProps {
