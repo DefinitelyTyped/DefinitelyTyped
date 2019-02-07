@@ -172,6 +172,7 @@ declare module "crypto" {
     function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
 
     interface SignPrivateKeyInput extends PrivateKeyInput {
+        padding?: number;
         saltLength?: number;
     }
     interface Signer extends NodeJS.WritableStream {
