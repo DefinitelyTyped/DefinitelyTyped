@@ -10541,7 +10541,7 @@ declare namespace Office {
     /**
      * Represents an attachment on an item from the server. Read mode only.
      *
-     * An array of AttachmentDetail objects is returned as the attachments property of an Appointment or Message object.
+     * An array of `AttachmentDetails` objects is returned as the attachments property of an appointment or message item.
      *
      * [Api set: Mailbox 1.0]
      *
@@ -11765,32 +11765,6 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr></table>
          */
         body: Body;
-        /**
-         * Gets the date and time that an item was created.  Read mode only.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr></table>
-         */
-        dateTimeCreated: Date;
-        /**
-         * Gets the date and time that an item was last modified. Read mode only.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr></table>
-         *
-         * Note: This member is not supported in Outlook for iOS or Outlook for Android.
-         */
-        dateTimeModified: Date;
         /**
          * Gets or sets the date and time that the appointment is to end.
          *
@@ -13623,32 +13597,6 @@ declare namespace Office {
          */
         body: Body;
         /**
-         * Gets the date and time that an item was created. Read mode only.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Read</td></tr></table>
-         */
-        dateTimeCreated: Date;
-        /**
-         * Gets the date and time that an item was last modified. Read mode only.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Read</td></tr></table>
-         *
-         * Note: This member is not supported in Outlook for iOS or Outlook for Android.
-         */
-        dateTimeModified: Date;
-        /**
          * Gets the type of item that an instance represents.
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
@@ -13675,29 +13623,6 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
          */
         notificationMessages: NotificationMessages;
-
-        /**
-         * Gets or sets the recurrence pattern of an appointment. Gets the recurrence pattern of a meeting request. 
-         * Read and compose modes for appointment items. Read mode for meeting request items.
-         * 
-         * The recurrence property returns a recurrence object for recurring appointments or meetings requests if an item is a series or an instance 
-         * in a series. `null` is returned for single appointments and meeting requests of single appointments. 
-         * `undefined` is returned for messages that are not meeting requests.
-         * 
-         * Note: Meeting requests have an itemClass value of IPM.Schedule.Meeting.Request.
-         * 
-         * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment 
-         * and NOT a part of a series.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * 
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         * 
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
-         */
-        recurrence: Recurrence;
 
         /**
          * Gets the id of the series that an instance belongs to.
@@ -15235,32 +15160,6 @@ declare namespace Office {
          */
         conversationId: string;
         /**
-         * Gets the date and time that an item was created. Read mode only.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
-         */
-        dateTimeCreated: Date;
-        /**
-         * Gets the date and time that an item was last modified. Read mode only.
-         *
-         * [Api set: Mailbox 1.0]
-         *
-         * @remarks
-         *
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         *
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
-         *
-         * Note: This member is not supported in Outlook for iOS or Outlook for Android.
-         */
-        dateTimeModified: Date;
-        /**
          * Gets the email address of the sender of a message.
          *
          * The from and sender properties represent the same person unless the message is sent by a delegate. 
@@ -15320,28 +15219,6 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
          */
         notificationMessages: NotificationMessages;
-        /**
-         * Gets or sets the recurrence pattern of an appointment. Gets the recurrence pattern of a meeting request. 
-         * Read and compose modes for appointment items. Read mode for meeting request items.
-         * 
-         * The recurrence property returns a recurrence object for recurring appointments or meetings requests if an item is a series or an instance 
-         * in a series. `null` is returned for single appointments and meeting requests of single appointments. 
-         * `undefined` is returned for messages that are not meeting requests.
-         * 
-         * Note: Meeting requests have an itemClass value of IPM.Schedule.Meeting.Request.
-         * 
-         * Note: If the recurrence object is null, this indicates that the object is a single appointment or a meeting request of a single appointment 
-         * and NOT a part of a series.
-         * 
-         * [Api set: Mailbox 1.7]
-         * 
-         * @remarks
-         * 
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         * 
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
-         */
-        recurrence: Recurrence;
         /**
          * Gets the id of the series that an instance belongs to.
          * 
@@ -17779,7 +17656,7 @@ declare namespace Office {
         /**
          * Gets a string that was identified as a meeting suggestion.
          */
-        meetingstring: string;
+        meetingString: string;
         /**
          * Gets the date and time that a suggested meeting is to begin.
          */
