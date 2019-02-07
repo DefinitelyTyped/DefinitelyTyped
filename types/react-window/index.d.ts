@@ -13,12 +13,16 @@ export type Align = "auto" | "center" | "end" | "start";
 export interface ListChildComponentProps {
     index: number;
     style: CSSProperties;
+    data: any;
+    isScrolling?: boolean;
 }
 
 export interface GridChildComponentProps {
     columnIndex: number;
     rowIndex: number;
     style: CSSProperties;
+    data: any;
+    isScrolling?: boolean;
 }
 
 export interface CommonProps {
