@@ -6,6 +6,7 @@
 
 import { Client } from 'algoliasearch';
 import { EventEmitter } from 'events';
+import algoliasearch = require('algoliasearch');
 
 /**
  * The algoliasearchHelper module is the function that will let its
@@ -269,34 +270,18 @@ declare namespace algoliasearchHelper {
     }
   }
 
-  export class SearchParameters {
-    [rawParam: string]: any;
+  export interface QueryParameters extends algoliasearch.QueryParameters {
 
     /**
      * Targeted index. This parameter is mandatory.
      */
-    index: string;
-
-    // Query
-    /**
-     * Query string of the instant search. The empty string is a valid query.
-     * @see https://www.algolia.com/doc/rest#param-query
-     */
-    query: string;
-
-    // Facets
-    /**
-     * This attribute contains the list of all the conjunctive facets
-     * used. This list will be added to requested facets in the
-     * [facets attribute](https://www.algolia.com/doc/rest-api/search#param-facets) sent to algolia.
-     */
-    facets: string[];
+    index?: string;
     /**
      * This attribute contains the list of all the disjunctive facets
      * used. This list will be added to requested facets in the
      * [facets attribute](https://www.algolia.com/doc/rest-api/search#param-facets) sent to algolia.
      */
-    disjunctiveFacets: string[];
+    disjunctiveFacets?: string[];
     /**
      * This attribute contains the list of all the hierarchical facets
      * used. This list will be added to requested facets in the
@@ -304,7 +289,7 @@ declare namespace algoliasearchHelper {
      * Hierarchical facets are a sub type of disjunctive facets that
      * let you filter faceted attributes hierarchically.
      */
-    hierarchicalFacets: string[] | object[];
+    hierarchicalFacets?: string[] | object[];
 
     // Refinements
     /**
@@ -318,7 +303,7 @@ declare namespace algoliasearchHelper {
      * When querying algolia, the values stored in this attribute will
      * be translated into the `facetFilters` attribute.
      */
-    facetsRefinements: { [facet: string]: SearchParameters.FacetList };
+    facetsRefinements?: { [facet: string]: SearchParameters.FacetList };
     /**
      * This attribute contains all the filters that need to be
      * excluded from the conjunctive facets. Each facet must be properly
@@ -330,7 +315,7 @@ declare namespace algoliasearchHelper {
      * When querying algolia, the values stored in this attribute will
      * be translated into the `facetFilters` attribute.
      */
-    facetsExcludes: { [facet: string]: SearchParameters.FacetList };
+    facetsExcludes?: { [facet: string]: SearchParameters.FacetList };
     /**
      * This attribute contains all the filters that need to be
      * applied on the disjunctive facets. Each facet must be properly
@@ -342,7 +327,7 @@ declare namespace algoliasearchHelper {
      * When querying algolia, the values stored in this attribute will
      * be translated into the `facetFilters` attribute.
      */
-    disjunctiveFacetsRefinements: { [facet: string]: SearchParameters.FacetList };
+    disjunctiveFacetsRefinements?: { [facet: string]: SearchParameters.FacetList };
     /**
      * This attribute contains all the filters that need to be
      * applied on the numeric attributes.
@@ -353,14 +338,14 @@ declare namespace algoliasearchHelper {
      * When querying algolia, the values stored in this attribute will
      * be translated into the `numericFilters` attribute.
      */
-    numericRefinements: { [facet: string]: SearchParameters.OperatorList };
+    numericRefinements?: { [facet: string]: SearchParameters.OperatorList };
     /**
      * This attribute contains all the tags used to refine the query.
      *
      * When querying algolia, the values stored in this attribute will
      * be translated into the `tagFilters` attribute.
      */
-    tagRefinements: string[];
+    tagRefinements?: string[];
     /**
      * This attribute contains all the filters that need to be
      * applied on the hierarchical facets. Each facet must be properly
@@ -374,228 +359,196 @@ declare namespace algoliasearchHelper {
      * When querying algolia, the values stored in this attribute will
      * be translated into the `facetFilters` attribute.
      */
-    hierarchicalFacetsRefinements: { [facet: string]: SearchParameters.FacetList };
-
-    /**
-     * Contains the numeric filters in the raw format of the Algolia API. Setting
-     * this parameter is not compatible with the usage of numeric filters methods.
-     * @see https://www.algolia.com/doc/javascript#numericFilters
-     */
-    numericFilters: string;
-
-    /**
-     * Contains the tag filters in the raw format of the Algolia API. Setting this
-     * parameter is not compatible with the of the add/remove/toggle methods of the
-     * tag api.
-     * @see https://www.algolia.com/doc/rest#param-tagFilters
-     */
-    tagFilters: string;
+    hierarchicalFacetsRefinements?: { [facet: string]: SearchParameters.FacetList };
 
     /**
      * Contains the optional tag filters in the raw format of the Algolia API.
      * @see https://www.algolia.com/doc/rest#param-tagFilters
      */
-    optionalTagFilters: string;
+    optionalTagFilters?: string;
 
     /**
      * Contains the optional facet filters in the raw format of the Algolia API.
      * @see https://www.algolia.com/doc/rest#param-tagFilters
      */
-    optionalFacetFilters: string;
+    optionalFacetFilters?: string;
 
     // Misc. parameters
     /**
      * Number of hits to be returned by the search API
      * @see https://www.algolia.com/doc/rest#param-hitsPerPage
      */
-    hitsPerPage: number;
+    hitsPerPage?: number;
     /**
      * Number of values for each faceted attribute
      * @see https://www.algolia.com/doc/rest#param-maxValuesPerFacet
      */
-    maxValuesPerFacet: number;
-    /**
-     * The current page number
-     * @see https://www.algolia.com/doc/rest#param-page
-     */
-    page: number;
-    /**
-     * How the query should be treated by the search engine.
-     * Possible values: prefixAll, prefixLast, prefixNone
-     * @see https://www.algolia.com/doc/rest#param-queryType
-     */
-    queryType: string;
-    /**
-     * How the typo tolerance behave in the search engine.
-     * Possible values: true, false, min, strict
-     * @see https://www.algolia.com/doc/rest#param-typoTolerance
-     */
-    typoTolerance: string;
+    maxValuesPerFacet?: number;
 
     /**
      * Number of characters to wait before doing one character replacement.
      * @see https://www.algolia.com/doc/rest#param-minWordSizefor1Typo
      */
-    minWordSizefor1Typo: number;
+    minWordSizefor1Typo?: number;
     /**
      * Number of characters to wait before doing a second character replacement.
      * @see https://www.algolia.com/doc/rest#param-minWordSizefor2Typos
      */
-    minWordSizefor2Typos: number;
+    minWordSizefor2Typos?: number;
     /**
      * Configure the precision of the proximity ranking criterion
      * @see https://www.algolia.com/doc/rest#param-minProximity
      */
-    minProximity: any;
+    minProximity?: any;
     /**
      * Should the engine allow typos on numerics.
      * @see https://www.algolia.com/doc/rest#param-allowTyposOnNumericTokens
      */
-    allowTyposOnNumericTokens: boolean;
+    allowTyposOnNumericTokens?: boolean;
     /**
      * Should the plurals be ignored
      * @see https://www.algolia.com/doc/rest#param-ignorePlurals
      */
-    ignorePlurals: boolean;
-    /**
-     * Restrict which attribute is searched.
-     * @see https://www.algolia.com/doc/rest#param-restrictSearchableAttributes
-     */
-    restrictSearchableAttributes: string;
+    ignorePlurals?: boolean;
     /**
      * Enable the advanced syntax.
      * @see https://www.algolia.com/doc/rest#param-advancedSyntax
      */
-    advancedSyntax: boolean;
+    advancedSyntax?: boolean;
     /**
      * Enable the analytics
      * @see https://www.algolia.com/doc/rest#param-analytics
      */
-    analytics: boolean;
-    /**
-     * Tag of the query in the analytics.
-     * @see https://www.algolia.com/doc/rest#param-analyticsTags
-     */
-    analyticsTags: string;
+    analytics?: boolean;
     /**
      * Enable the synonyms
      * @see https://www.algolia.com/doc/rest#param-synonyms
      */
-    synonyms: boolean;
+    synonyms?: boolean;
     /**
      * Should the engine replace the synonyms in the highlighted results.
      * @see https://www.algolia.com/doc/rest#param-replaceSynonymsInHighlight
      */
-    replaceSynonymsInHighlight: boolean;
-    /**
-     * Add some optional words to those defined in the dashboard
-     * @see https://www.algolia.com/doc/rest#param-optionalWords
-     */
-    optionalWords: string;
-    /**
-     * Possible values are "lastWords" "firstWords" "allOptional" "none" (default)
-     * @see https://www.algolia.com/doc/rest#param-removeWordsIfNoResults
-     */
-    removeWordsIfNoResults: string;
-    /**
-     * List of attributes to retrieve
-     * @see https://www.algolia.com/doc/rest#param-attributesToRetrieve
-     */
-    attributesToRetrieve: string;
-    /**
-     * List of attributes to highlight
-     * @see https://www.algolia.com/doc/rest#param-attributesToHighlight
-     */
-    attributesToHighlight: string;
+    replaceSynonymsInHighlight?: boolean;
     /**
      * Code to be embedded on the left part of the highlighted results
      * @see https://www.algolia.com/doc/rest#param-highlightPreTag
      */
-    highlightPreTag: string;
+    highlightPreTag?: string;
     /**
      * Code to be embedded on the right part of the highlighted results
      * @see https://www.algolia.com/doc/rest#param-highlightPostTag
      */
-    highlightPostTag: string;
-    /**
-     * List of attributes to snippet
-     * @see https://www.algolia.com/doc/rest#param-attributesToSnippet
-     */
-    attributesToSnippet: string;
-    /**
-     * Enable the ranking informations in the response, set to 1 to activate
-     * @see https://www.algolia.com/doc/rest#param-getRankingInfo
-     */
-    getRankingInfo: number;
+    highlightPostTag?: string;
     /**
      * Remove duplicates based on the index setting attributeForDistinct
      * @see https://www.algolia.com/doc/rest#param-distinct
      */
-    distinct: boolean | number;
+    distinct?: boolean | number;
     /**
      * Center of the geo search.
      * @see https://www.algolia.com/doc/rest#param-aroundLatLng
      */
-    aroundLatLng: string;
-    /**
-     * Center of the search, retrieve from the user IP.
-     * @see https://www.algolia.com/doc/rest#param-aroundLatLngViaIP
-     */
-    aroundLatLngViaIP: boolean;
+    aroundLatLng?: string;
     /**
      * Radius of the geo search.
      * @see https://www.algolia.com/doc/rest#param-aroundRadius
      */
-    aroundRadius: number;
+    aroundRadius?: number;
     /**
      * Precision of the geo search.
      * @see https://www.algolia.com/doc/rest#param-aroundPrecision
      */
-    minimumAroundRadius: number;
+    minimumAroundRadius?: number;
     /**
      * Precision of the geo search.
      * @see https://www.algolia.com/doc/rest#param-minimumAroundRadius
      */
-    aroundPrecision: number;
-    /**
-     * Geo search inside a box.
-     * @see https://www.algolia.com/doc/rest#param-insideBoundingBox
-     */
-    insideBoundingBox: string;
-    /**
-     * Geo search inside a polygon.
-     * @see https://www.algolia.com/doc/rest#param-insidePolygon
-     */
-    insidePolygon: string;
+    aroundPrecision?: number;
     /**
      * Allows to specify an ellipsis character for the snippet when we truncate the text
      * (added before and after if truncated).
      * The default value is an empty string and we recommend to set it to "…"
      * @see https://www.algolia.com/doc/rest#param-insidePolygon
      */
-    snippetEllipsisText: string;
-    /**
-     * Allows to specify some attributes name on which exact won't be applied.
-     * Attributes are separated with a comma (for example "name,address" ), you can also use a
-     * JSON string array encoding (for example encodeURIComponent('["name","address"]') ).
-     * By default the list is empty.
-     * @see https://www.algolia.com/doc/rest#param-disableExactOnAttributes
-     */
-    disableExactOnAttributes: string|string[];
+    snippetEllipsisText?: string;
     /**
      * Applies 'exact' on single word queries if the word contains at least 3 characters
      * and is not a stop word.
-     * Can take two values: true or false.
+     * Can take two values?: true or false.
      * By default, its set to false.
      * @see https://www.algolia.com/doc/rest#param-enableExactOnSingleWordQuery
      */
-    enableExactOnSingleWordQuery: boolean;
+    enableExactOnSingleWordQuery?: boolean;
+  }
 
-    // Undocumented parameters, still needed otherwise we fail
-    offset: any;
-    length: any;
+  export class SearchParameters implements QueryParameters {
+    index?: string | undefined;
+    disjunctiveFacets?: string[] | undefined;
+    hierarchicalFacets?: string[] | object[] | undefined;
+    facetsRefinements?: { [facet: string]: string[]; } | undefined;
+    facetsExcludes?: { [facet: string]: string[]; } | undefined;
+    disjunctiveFacetsRefinements?: { [facet: string]: string[]; } | undefined;
+    numericRefinements?: { [facet: string]: { "="?: (number | number[])[] | undefined; ">"?: (number | number[])[] | undefined; ">="?: (number | number[])[] | undefined; "<"?: (number | number[])[] | undefined; "<="?: (number | number[])[] | undefined; "!="?: (number | number[])[] | undefined; }; } | undefined;
+    tagRefinements?: string[] | undefined;
+    hierarchicalFacetsRefinements?: { [facet: string]: string[]; } | undefined;
+    optionalTagFilters?: string | undefined;
+    optionalFacetFilters?: string | undefined;
+    hitsPerPage?: number | undefined;
+    maxValuesPerFacet?: number | undefined;
+    minWordSizefor1Typo?: number | undefined;
+    minWordSizefor2Typos?: number | undefined;
+    minProximity?: any;
+    allowTyposOnNumericTokens?: boolean | undefined;
+    ignorePlurals?: boolean | undefined;
+    advancedSyntax?: boolean | undefined;
+    analytics?: boolean | undefined;
+    synonyms?: boolean | undefined;
+    replaceSynonymsInHighlight?: boolean | undefined;
+    highlightPreTag?: string | undefined;
+    highlightPostTag?: string | undefined;
+    distinct?: number | boolean | undefined;
+    aroundLatLng?: string | undefined;
+    aroundRadius?: number | undefined;
+    minimumAroundRadius?: number | undefined;
+    aroundPrecision?: number | undefined;
+    snippetEllipsisText?: string;
+    enableExactOnSingleWordQuery?: boolean | undefined;
+    query?: string | undefined;
+    filters?: string | undefined;
+    attributesToRetrieve?: string[] | undefined;
+    restrictSearchableAttributes?: string[] | undefined;
+    facets?: string[] | undefined;
+    facetingAfterDistinct?: boolean | undefined;
+    attributesToHighlight?: string[] | undefined;
+    attributesToSnippet?: string[] | undefined;
+    restrictHighlightAndSnippetArrays?: boolean | undefined;
+    page?: number | undefined;
+    offset?: number | undefined;
+    length?: number | undefined;
+    typoTolerance?: boolean | undefined;
+    disableTypoToleranceOnAttributes?: string[] | undefined;
+    aroundLatLngViaIP?: boolean | undefined;
+    insideBoundingBox?: number[][] | undefined;
+    queryType?: "prefixAll" | "prefixLast" | "prefixNone" | undefined;
+    insidePolygon?: number[][] | undefined;
+    removeWordsIfNoResults?: "none" | "lastWords" | "firstWords" | "allOptional" | undefined;
+    optionalWords?: string[] | undefined;
+    removeStopWords?: boolean | string[] | undefined;
+    disableExactOnAttributes?: string[] | undefined;
+    exactOnSingleWordQuery?: "none" | "attribute" | "word" | undefined;
+    alternativesAsExact?: ("ignorePlurals" | "singleWordSynonym" | "multiWordsSynonym")[] | undefined;
+    getRankingInfo?: boolean | undefined;
+    numericAttributesToIndex?: string[] | undefined;
+    numericAttributesForFiltering?: string[] | undefined;
+    numericFilters?: string[] | undefined;
+    tagFilters?: string[] | undefined;
+    facetFilters?: string[] | string[][] | undefined;
+    analyticsTags?: string[] | undefined;
+    nbShards?: number | undefined;
+    userData?: string | object | undefined;
 
-    constructor(newParameters?: Partial<SearchParameters>)
+    constructor(newParameters?: QueryParameters)
 
     /* Add a disjunctive facet to the disjunctiveFacets attribute of the helper configuration, if it isn't already present. */
     addDisjunctiveFacet(facet: string): SearchParameters;
@@ -635,7 +588,7 @@ declare namespace algoliasearchHelper {
     isHierarchicalFacet(facet: string): boolean;
     isNumericRefined(attribute: string, operator: SearchParameters.Operator, value?: string): boolean;
     isTagRefined(tag: string): boolean;
-    make(newParameters: Partial<SearchParameters>): SearchParameters;
+    static make(newParameters: Partial<SearchParameters>): SearchParameters;
     removeExcludeRefinement(facet: string, value: string): SearchParameters;
     removeFacet(facet: string): SearchParameters;
     removeFacetRefinement(facet: string, value?: string): SearchParameters;
@@ -658,14 +611,14 @@ declare namespace algoliasearchHelper {
     toggleHierarchicalFacetRefinement(facet: string, value: any): SearchParameters;
     toggleFacetRefinement(facet: string, value: any): SearchParameters;
     toggleTagRefinement(tag: string): SearchParameters;
-    validate(currentState: SearchParameters, parameters: Partial<SearchParameters>): null | Error;
+    static validate(currentState: SearchParameters, parameters: QueryParameters): null | Error;
   }
 
   namespace SearchParameters {
     type FacetList = string[];
 
     type OperatorList = {
-      [k in Operator]: Array<number | number[]>
+      [k in Operator]?: Array<number | number[]>
     };
     type Operator = '=' | '>' | '>=' | '<' | '<=' | '!=';
   }

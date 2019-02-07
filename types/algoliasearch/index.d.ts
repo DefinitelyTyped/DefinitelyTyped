@@ -1279,7 +1279,7 @@ declare namespace algoliasearch {
      * default: ""
      * https://www.algolia.com/doc/api-reference/api-parameters/aroundLatLngViaIP/
      */
-    aroundLatLngViaIP?: string;
+    aroundLatLngViaIP?: boolean;
     /**
      * Control the radius associated with a geo search. Defined in meters.
      * default: null

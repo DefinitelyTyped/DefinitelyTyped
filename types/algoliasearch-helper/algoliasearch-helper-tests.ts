@@ -154,3 +154,172 @@ searchparameter.addNumericRefinement('price', '=', [50, 40]);
 // for size = 38 and 40
 searchparameter.addNumericRefinement('size', '=', 38);
 searchparameter.addNumericRefinement('size', '=', 40);
+
+let queryParameters = new SearchParameters({}); // everything is optional
+queryParameters = new SearchParameters({
+    advancedSyntax: true,
+    allowTyposOnNumericTokens: true,
+    analytics: true,
+    analyticsTags: ['test'],
+    aroundLatLng: 'latitude',
+    aroundLatLngViaIP: true,
+    aroundPrecision: 1,
+    aroundRadius: 1,
+    attributesToHighlight: ['test'],
+    attributesToRetrieve: ['test'],
+    attributesToSnippet: ['test'],
+    disableExactOnAttributes: ['test'],
+    disjunctiveFacets: ['test'],
+    disjunctiveFacetsRefinements: { test: ['test'] },
+    distinct: 2,
+    enableExactOnSingleWordQuery: true,
+    facets: ['test'],
+    facetsExcludes: { test: ['test'] },
+    facetsRefinements: { test: ['test'] },
+    getRankingInfo: true,
+    hierarchicalFacets: ['test'],
+    hierarchicalFacetsRefinements: { test: ['test'] },
+    highlightPostTag: 'test',
+    highlightPreTag: 'test',
+    hitsPerPage: 1,
+    ignorePlurals: true,
+    index: 'test',
+    insideBoundingBox: [[1, 2, 3, 4]],
+    insidePolygon: [[1, 2, 3, 4]],
+    length: 2,
+    maxValuesPerFacet: 1,
+    minimumAroundRadius: 1,
+    minProximity: {},
+    minWordSizefor1Typo: 1,
+    minWordSizefor2Typos: 1,
+    numericFilters: ['test'],
+    numericRefinements: { test: { '=': [1], '>': [[2, 3]] } },
+    offset: 1,
+    optionalFacetFilters: 'test',
+    optionalTagFilters: 'test',
+    optionalWords: ['test'],
+    page: 1,
+    query: 'test',
+    queryType: 'prefixAll',
+    removeWordsIfNoResults: 'none',
+    replaceSynonymsInHighlight: true,
+    restrictSearchableAttributes: ['test'],
+    snippetEllipsisText: '...',
+    synonyms: true,
+    tagFilters: ['test'],
+    tagRefinements: ['test'],
+    typoTolerance: true,
+});
+
+queryParameters.advancedSyntax;
+queryParameters.allowTyposOnNumericTokens;
+queryParameters.analytics;
+queryParameters.analyticsTags;
+queryParameters.aroundLatLng;
+queryParameters.aroundLatLngViaIP;
+queryParameters.aroundPrecision;
+queryParameters.aroundRadius;
+queryParameters.attributesToHighlight;
+queryParameters.attributesToRetrieve;
+queryParameters.attributesToSnippet;
+queryParameters.disableExactOnAttributes;
+queryParameters.disjunctiveFacets;
+queryParameters.disjunctiveFacetsRefinements;
+queryParameters.distinct;
+queryParameters.enableExactOnSingleWordQuery;
+queryParameters.facets;
+queryParameters.facetsExcludes;
+queryParameters.facetsRefinements;
+queryParameters.getRankingInfo;
+queryParameters.hierarchicalFacets;
+queryParameters.hierarchicalFacetsRefinements;
+queryParameters.highlightPostTag;
+queryParameters.highlightPreTag;
+queryParameters.hitsPerPage;
+queryParameters.ignorePlurals;
+queryParameters.index;
+queryParameters.insideBoundingBox;
+queryParameters.insidePolygon;
+queryParameters.length;
+queryParameters.maxValuesPerFacet;
+queryParameters.minimumAroundRadius;
+queryParameters.minProximity;
+queryParameters.minWordSizefor1Typo;
+queryParameters.minWordSizefor2Typos;
+queryParameters.numericFilters;
+queryParameters.numericRefinements;
+queryParameters.offset;
+queryParameters.optionalFacetFilters;
+queryParameters.optionalTagFilters;
+queryParameters.optionalWords;
+queryParameters.page;
+queryParameters.query;
+queryParameters.queryType;
+queryParameters.removeWordsIfNoResults;
+queryParameters.replaceSynonymsInHighlight;
+queryParameters.restrictSearchableAttributes;
+queryParameters.snippetEllipsisText;
+queryParameters.synonyms;
+queryParameters.tagFilters;
+queryParameters.tagRefinements;
+queryParameters.typoTolerance;
+
+queryParameters.addDisjunctiveFacet('test');
+queryParameters.addDisjunctiveFacetRefinement('test', 'test');
+queryParameters.addExcludeRefinement('test', 'test');
+queryParameters.addFacet('test');
+queryParameters.addFacetRefinement('test', 'test');
+queryParameters.addHierarchicalFacet({});
+queryParameters.addHierarchicalFacetRefinement('test', 'test');
+queryParameters.addNumericRefinement('test', '>', [7]);
+queryParameters.addTagRefinement('test');
+queryParameters.clearRefinements('test');
+queryParameters.clearTags();
+queryParameters.filter(['test']);
+queryParameters.getConjunctiveRefinements('test');
+queryParameters.getDisjunctiveRefinements('test');
+queryParameters.getExcludeRefinements('test');
+queryParameters.getHierarchicalFacetBreadcrumb('test');
+queryParameters.getHierarchicalFacetByName('test');
+queryParameters.getHierarchicalRefinement('test');
+queryParameters.getNumericRefinement('test', '=');
+queryParameters.getNumericRefinements('test');
+queryParameters.getQueryParameter('test');
+queryParameters.getRefinedDisjunctiveFacets('test', {});
+queryParameters.getRefinedHierarchicalFacets('test', {});
+queryParameters.getUnrefinedDisjunctiveFacets();
+queryParameters.isConjunctiveFacet('test');
+queryParameters.isDisjunctiveFacet('test');
+queryParameters.isDisjunctiveFacetRefined('test', 'test');
+queryParameters.isExcludeRefined('test', 'test');
+queryParameters.isFacetRefined('test', 'test');
+queryParameters.isHierarchicalFacet('test');
+queryParameters.isHierarchicalFacetRefined('test', 'test');
+queryParameters.isNumericRefined('test', '>', 'test');
+queryParameters.isTagRefined('test');
+queryParameters.removeDisjunctiveFacet('test');
+queryParameters.removeDisjunctiveFacetRefinement('test', 'test');
+queryParameters.removeExcludeRefinement('test', 'test');
+queryParameters.removeFacet('test');
+queryParameters.removeFacetRefinement('test', 'test');
+queryParameters.removeHierarchicalFacet('test');
+queryParameters.removeHierarchicalFacetRefinement('test');
+queryParameters.removeTagRefinement('test');
+queryParameters.setDisjunctiveFacets(['test']);
+queryParameters.setFacets(['test']);
+queryParameters.setHitsPerPage(1);
+queryParameters.setPage(1);
+queryParameters.setQuery('test');
+queryParameters.setQueryParameter('test', {});
+queryParameters.setQueryParameters({ test: {} });
+queryParameters.setTypoTolerance('test');
+queryParameters.toggleConjunctiveFacetRefinement('test', {});
+queryParameters.toggleDisjunctiveFacetRefinement('test', {});
+queryParameters.toggleExcludeFacetRefinement('test', {});
+queryParameters.toggleFacetRefinement('test', {});
+queryParameters.toggleHierarchicalFacetRefinement('test', {});
+queryParameters.toggleTagRefinement('test');
+
+// static methods
+SearchParameters.make(queryParameters);
+SearchParameters.validate(queryParameters, { queryType: 'prefixAll' });
