@@ -115,12 +115,11 @@ export interface HeaderProps {
 export interface Components {
     event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     eventWrapper?: React.ComponentType<EventWrapperProps>;
+    eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    /**
-     * component used as a header for each column in the TimeGridHeader
-     */
-    header?: React.ComponentType<HeaderProps>;
+    timeSlotWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    timeGutterWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     toolbar?: React.ComponentType<ToolbarProps>;
     agenda?: {
         date?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -140,6 +139,10 @@ export interface Components {
         dateHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
         event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     };
+    /**
+     * component used as a header for each column in the TimeGridHeader
+     */
+    header?: React.ComponentType<HeaderProps>;
 }
 
 export interface ToolbarProps {
