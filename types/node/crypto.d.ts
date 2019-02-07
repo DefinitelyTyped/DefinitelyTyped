@@ -156,7 +156,7 @@ declare module "crypto" {
     interface PrivateKeyInput {
         key: string | Buffer;
         format?: KeyFormat;
-        type?: 'pkcs1' | 'spki';
+        type?: 'pkcs1' | 'pkcs8' | 'sec1';
         passphrase?: string | Buffer;
     }
 
