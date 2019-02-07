@@ -9,6 +9,7 @@
 //                 Robert Bullen <https://github.com/robertbullen>
 //                 Yusuke Sato <https://github.com/sat0yu>
 //                 Dan Rumney <https://github.com/dancrumb>
+//                 Josh Pensky <https://github.com/joshpensky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -99,6 +100,10 @@ export interface MixedSchemaConstructor {
 
 // tslint:disable-next-line:no-empty-interface
 export interface MixedSchema extends Schema<any> {}
+
+export interface MixedSchemaLocale extends MixedSchema {
+    notType(ref?: { path: string, type: string, value: any, originalValue: any }): string;
+}
 
 export interface StringSchemaConstructor {
     (): StringSchema;
@@ -369,7 +374,7 @@ export class Ref {
 export interface Lazy extends Schema<any> {}
 
 export interface LocaleObject {
-    mixed?: { [key in keyof MixedSchema]?: string };
+    mixed?: { [key in keyof MixedSchemaLocale]?: string };
     string?: { [key in keyof StringSchema]?: string };
     number?: { [key in keyof NumberSchema]?: string };
     boolean?: { [key in keyof BooleanSchema]?: string };
