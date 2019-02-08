@@ -6,15 +6,15 @@
 
 /// <reference types="jest" />
 
-export interface WhenMock<T = any, Y extends any[] = any> extends jest.Mock<T, Y> {
+export interface WhenMock<T = any, Y extends any[]= any> extends jest.Mock<T, Y> {
   calledWith(...matchers: Y): WhenMock<T, Y>;
   expectCalledWith(...matchers: Y): WhenMock<T, Y>;
   mockReturnValue(value: T): WhenMock<T, Y>;
   mockReturnValueOnce(value: T): WhenMock<T, Y>;
-  mockResolvedValue(value: T | PromiseLike<T>): WhenMock<Promise<T>, Y>;
-  mockResolvedValueOnce(value: T | PromiseLike<T>): WhenMock<Promise<T>, Y>;
-  mockRejectedValue(value: T | PromiseLike<T>): WhenMock<Promise<T>, Y>;
-  mockRejectedValueOnce(value: T | PromiseLike<T>): WhenMock<Promise<T>, Y>;
+  mockResolvedValue<V>(value: T extends PromiseLike<V> ? V | PromiseLike<V> : never): WhenMock<T, Y>;
+  mockResolvedValueOnce<V>(value: T extends PromiseLike<V> ? V | PromiseLike<V> : never): WhenMock<T, Y>;
+  mockRejectedValue<V>(value: T extends PromiseLike<V> ? V | PromiseLike<V> : never): WhenMock<T, Y>;
+  mockRejectedValueOnce<V>(value: T extends PromiseLike<V> ? V | PromiseLike<V> : never): WhenMock<T, Y>;
 }
 
 export type When = <T, Y extends any[]>(fn: jest.Mock<T, Y>) => WhenMock<T, Y>;

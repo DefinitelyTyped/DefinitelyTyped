@@ -1,3 +1,4 @@
+// TypeScript Version: 2.1
 /* Lifecycle events */
 
 beforeAll(() => {});
@@ -319,6 +320,8 @@ mock1('test');
 mock7('abc');
 // $ExpectError
 mock7.mockImplementation((arg: string) => 1);
+// $ExpectError
+mock7.mockResolvedValue(5 as number); // Should not compile as the mocked function does not return promises.
 
 // compiles because mock8 is declared as jest.Mock<{}, any>
 mock8('abc');
@@ -326,6 +329,31 @@ mock8.mockImplementation((arg: string) => 1);
 
 // mockImplementation not required to declare all arguments
 mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
+
+// $ExpectType Mock<Promise<number>, []>
+const mockDeferred = jest.fn(() => Promise.resolve(3));
+
+// Obs: Primitives or const variables will be inferred
+// as literals if not hinted, asserted or cast.
+// See: https://mariusschulz.com/blog/typescript-2-1-literal-type-widening
+let mockNumber = 5;
+const mockLiteral = 5;
+// Commented tests: see https://github.com/Microsoft/TypeScript/issues/29825
+// TS version < TypeScript@3.0.0: pass, TS version >TypeScript@3.1.0+: fail
+// mockDeferred.mockResolvedValue(5);
+// mockDeferred.mockResolvedValue(mockLiteral);
+mockDeferred.mockResolvedValue(5 as number);
+mockDeferred.mockResolvedValue(Number(mockLiteral));
+mockDeferred.mockResolvedValue<number>(5);
+mockDeferred.mockResolvedValue(Promise.resolve(5));
+mockDeferred.mockResolvedValueOnce(mockNumber);
+mockDeferred.mockResolvedValueOnce(Promise.resolve(5));
+mockDeferred.mockRejectedValue(mockNumber);
+mockDeferred.mockRejectedValue(Promise.resolve(mockNumber));
+mockDeferred.mockRejectedValueOnce(mockNumber);
+mockDeferred.mockRejectedValueOnce(Promise.resolve(5));
+// $ExpectError
+mockDeferred.mockRejectedValueOnce<string>(mockNumber);
 
 const genMockModule1: {} = jest.genMockFromModule("moduleName");
 const genMockModule2: { a: "b" } = jest.genMockFromModule<{ a: "b" }>("moduleName");
