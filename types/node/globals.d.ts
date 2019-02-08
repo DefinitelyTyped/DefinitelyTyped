@@ -223,16 +223,6 @@ declare var module: NodeModule;
 
 // Same as module.exports
 declare var exports: any;
-declare const SlowBuffer: {
-    new(str: string, encoding?: string): Buffer;
-    new(size: number): Buffer;
-    new(size: Uint8Array): Buffer;
-    new(array: any[]): Buffer;
-    prototype: Buffer;
-    isBuffer(obj: any): boolean;
-    byteLength(string: string, encoding?: string): number;
-    concat(list: Buffer[], totalLength?: number): Buffer;
-};
 
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
