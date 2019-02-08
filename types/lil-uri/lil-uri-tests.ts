@@ -1,4 +1,4 @@
-import uri from 'lil-uri';
+import uri = require('lil-uri');
 
 //
 // Tests are based on code samples on https://github.com/lil-js/uri#readme
