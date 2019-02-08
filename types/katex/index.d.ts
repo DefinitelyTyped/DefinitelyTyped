@@ -4,6 +4,7 @@
 //                 Kevin Nguyen <https://github.com/knguyen0125>
 //                 bLue <https://github.com/dreamerblue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference path="contrib/index.d.ts" />
 
