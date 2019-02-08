@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.15
+// Type definitions for prettier 1.16
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,9 @@ export interface FastPath<T = any> {
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
-    | 'babylon'
+    | 'babylon' // deprecated
+    | 'babel'
+    | 'babel-flow'
     | 'flow'
     | 'typescript'
     | 'postcss' // deprecated
