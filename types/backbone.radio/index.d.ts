@@ -1,6 +1,7 @@
 // Type definitions for Backbone.Radio v0.8.3
 // Project: https://github.com/marionettejs/backbone.radio
 // Definitions by: Peter Palotas <https://github.com/alphaleonis>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -73,7 +74,7 @@ declare module "backbone" {
 
         class Channel implements Commands, Requests, Backbone.Events {
             on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-            on(eventMap: EventsHash): any;
+            on(eventMap: EventMap): any;
             on(eventName: any, callback?: any, context?: any): any;
             off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
             trigger(eventName: string, ...args: any[]): any;

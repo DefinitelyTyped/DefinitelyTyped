@@ -4,6 +4,7 @@
 //                 Natan Vivo <https://github.com/nvivo>
 //                 kenjiru <https://github.com/kenjiru>
 //                 jjoekoullas <https://github.com/jjoekoullas>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -91,14 +92,27 @@ declare namespace Backbone {
         [routePattern: string]: string | {(...urlParts: string[]): void};
     }
 
+    /**
+     * DOM events (used in the events property of a View)
+     */
     interface EventsHash {
         [selector: string]: string | {(eventObject: JQuery.TriggeredEvent): void};
+    }
+
+    /**
+     * JavaScript events (used in the methods of the Events interface)
+     */
+    interface EventHandler {
+        (...args: any[]): void;
+    }
+    interface EventMap {
+        [event: string]: EventHandler;
     }
 
     export const Events: Events;
     interface Events {
         on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-        on(eventMap: EventsHash): any;
+        on(eventMap: EventMap): any;
         off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
         bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
@@ -112,7 +126,7 @@ declare namespace Backbone {
 
     class ModelBase implements Events {
         on(eventName: string, callback?: Function, context?: any): any;
-        on(eventMap: EventsHash): any;
+        on(eventMap: EventMap): any;
         on(eventName: any, callback?: any, context?: any): any
         off(eventName?: string, callback?: Function, context?: any): any
         trigger(eventName: string, ...args: any[]): any
@@ -492,7 +506,7 @@ declare namespace Backbone {
  */
 declare abstract class EventSignatures implements Backbone.Events {
         on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-        on(eventMap: Backbone.EventsHash): any;
+        on(eventMap: Backbone.EventMap): any;
         off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
         bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;

@@ -6,6 +6,7 @@
 //                 Volker Nauruhn <https://github.com/razorness>,
 //                 Ard Timmerman <https://github.com/confususs>,
 //                 J. Joe Koullas <https://github.com/jjoekoullas>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -411,7 +412,7 @@ export class Object implements CommonMixin, RadioMixin, Backbone.Events {
     constructor(options?: ObjectOptions);
 
     on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-    on(eventMap: EventsHash): any;
+    on(eventMap: Backbone.EventMap): any;
     on(eventName: any, callback?: any, context?: any): any;
     off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
     trigger(eventName: string, ...args: any[]): any;

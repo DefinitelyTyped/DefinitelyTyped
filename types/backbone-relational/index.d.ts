@@ -7,7 +7,7 @@
 
 /// <reference types="jquery" />
 
-import { Events, EventsHash, Model as BModel, Collection } from 'backbone';
+import { Events, EventMap, Model as BModel, Collection } from 'backbone';
 
 declare module 'backbone-relational' {
     class Model extends BModel {
@@ -125,7 +125,7 @@ declare module 'backbone-relational' {
 
     export class Store implements Events {
         on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-        on(eventMap: EventsHash): any;
+        on(eventMap: EventMap): any;
         on(eventName: any, callback?: any, context?: any): any;
         off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;

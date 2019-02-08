@@ -398,7 +398,7 @@ namespace v1Changes {
     namespace Collection {
         function test_fetch() {
             var collection = new EmployeeCollection;
-            collection.fetch({ 
+            collection.fetch({
                 reset: true,
                 remove: false
             });
