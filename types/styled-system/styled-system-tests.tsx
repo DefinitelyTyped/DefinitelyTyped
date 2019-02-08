@@ -43,6 +43,8 @@ import {
     alignContent,
     justifyContent,
     JustifyContentProps,
+    justifyItems,
+    JustifyItemsProps,
     FlexWrapProps,
     flexWrap,
     flexBasis,
@@ -273,7 +275,8 @@ interface GridComponentProps
         GridAutoColumnsProps,
         GridAutoRowsProps,
         GridTemplatesRowsProps,
-        GridTemplatesColumnsProps {}
+        GridTemplatesColumnsProps,
+        JustifyItemsProps {}
 const Grid: React.ComponentType<GridComponentProps> = styled`
     ${gridGap};
     ${gridRowGap};
@@ -285,6 +288,7 @@ const Grid: React.ComponentType<GridComponentProps> = styled`
     ${gridAutoColumns};
     ${gridTemplateRows};
     ${gridTemplateColumns};
+    ${justifyItems};
 `;
 
 interface ButtonProps
@@ -467,6 +471,10 @@ const test = () => (
         <Grid gridTemplateColumns="auto" />
         <Grid gridTemplateColumns={["auto", "1fr"]} />
         <Grid gridTemplateColumns={{ sm: "auto", md: "1fr" }} />
+        // justifyItems
+        <Grid justifyItems="baseline" />
+        <Grid justifyItems={["baseline", "center"]} />
+        <Grid justifyItems={{ sm: "baseline", md: "center" }} />
         // flex (responsive)
         <Box flex="1 1 auto" />
         <Box flex={["1 1 auto"]} />

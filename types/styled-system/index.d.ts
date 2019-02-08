@@ -1,4 +1,4 @@
-// Type definitions for styled-system 3.2
+// Type definitions for styled-system 3.2.1
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
@@ -420,6 +420,8 @@ export interface JustifyItemsProps {
      */
     justifyItems?: ResponsiveValue<CSS.JustifyItemsProperty>;
 }
+
+export function justifyItems(...args: any[]): any;
 
 export interface JustifyContentProps {
     /**
