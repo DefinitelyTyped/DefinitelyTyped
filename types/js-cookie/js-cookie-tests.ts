@@ -40,7 +40,7 @@ cookies.get('escaped');
 Cookies.defaults.path = '';
 delete Cookies.defaults.path;
 
-const PHPCookies = Cookies.withConverter({
+const PHPCookies = Cookies.withConverter<object>({
     write(value) {
         value; // $ExpectType string | object
         return encodeURIComponent(value as string)
