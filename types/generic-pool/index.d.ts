@@ -38,6 +38,7 @@ export interface Options {
     min?: number;
     maxWaitingClients?: number;
     testOnBorrow?: boolean;
+    testOnReturn?: boolean;
     acquireTimeoutMillis?: number;
     fifo?: boolean;
     priorityRange?: number;
