@@ -560,6 +560,8 @@ expect.extend({
         const expectedColor = this.utils.EXPECTED_COLOR("blue");
         const receivedColor = this.utils.EXPECTED_COLOR("red");
 
+        const diff: string = this.utils.diff({}, {});
+
         this.utils.ensureActualIsNumber({});
         this.utils.ensureActualIsNumber({}, "matcher");
 
@@ -604,8 +606,6 @@ expect.extend({
         const stringifiedWithMaxDepth: string = this.utils.stringify({}, 3);
 
         const equals: boolean = this.equals({}, {});
-
-        const diff: string = this.diff({}, {});
 
         return {
             message: () => "",
