@@ -7,7 +7,7 @@
 
 /// <reference types="jquery" />
 
-import { Events, EventMap, Model as BModel, Collection } from 'backbone';
+import { EventsMixin, Events, Model as BModel, Collection } from 'backbone';
 
 declare module 'backbone-relational' {
     class Model extends BModel {
@@ -123,22 +123,7 @@ declare module 'backbone-relational' {
 
     }
 
-    export class Store implements Events {
-        on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-        on(eventMap: EventMap, context?: any): any;
-        on(eventName: any, callback?: any, context?: any): any;
-        off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
-        trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
-        unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
-        once(events: string, callback: (...args: any[]) => void, context?: any): any;
-        once(eventMap: EventMap, context?: any): any;
-        listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
-        listenTo(object: any, eventMap: EventMap): any;
-        listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
-        listenToOnce(object: any, eventMap: EventMap): any;
-        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
-
+    export class Store extends EventsMixin implements Events {
         initializeRelation(model, relation, options);
 
         addModelScope(scope:any):void;

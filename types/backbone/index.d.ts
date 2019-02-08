@@ -109,8 +109,16 @@ declare namespace Backbone {
         [event: string]: EventHandler;
     }
 
-    export const Events: Events;
-    interface Events {
+    /**
+     * Helper to avoid code repetition. Backbone.Events cannot be extended,
+     * hence a separate abstract class with a different name.
+     * Both classes and interfaces can extend from this helper class to
+     * reuse the signatures, but only in type declarations.
+     * Classes that already extend another base class can still
+     * `implements Events`, but in this case, unfortunately you have to
+     * repeat all signatures below.
+     */
+    abstract class EventsMixin implements Events {
         on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
         on(eventMap: EventMap, context?: any): any;
         off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
@@ -127,28 +135,16 @@ declare namespace Backbone {
         stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
     }
 
-    class ModelBase implements Events {
-        on(eventName: string, callback?: Function, context?: any): any;
-        on(eventMap: EventMap, context?: any): any;
-        on(eventName: any, callback?: any, context?: any): any
-        off(eventName?: string, callback?: Function, context?: any): any
-        trigger(eventName: string, ...args: any[]): any
-        bind(eventName: string, callback: Function, context?: any): any
-        unbind(eventName?: string, callback?: Function, context?: any): any
-        once(events: string, callback: Function, context?: any): any
-        once(eventMap: EventMap, context?: any): any;
-        listenTo(object: any, events: string, callback: Function):any
-        listenTo(object: any, eventMap: EventMap): any;
-        listenToOnce(object: any, events: string, callback: Function): any
-        listenToOnce(object: any, eventMap: EventMap): any;
-        stopListening(object?: any, events?: string, callback?: Function): any
+    export const Events: Events;
+    interface Events extends EventsMixin { }
 
+    class ModelBase extends EventsMixin {
         parse(response: any, options?: any): any;
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model extends ModelBase {
+    class Model extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -249,7 +245,7 @@ declare namespace Backbone {
         matches(attrs: any): boolean;
     }
 
-    class Collection<TModel extends Model> extends ModelBase {
+    class Collection<TModel extends Model> extends ModelBase implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -387,7 +383,7 @@ declare namespace Backbone {
         without(...values: TModel[]): TModel[];
     }
 
-    class Router extends EventSignatures {
+    class Router extends EventsMixin implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -416,7 +412,7 @@ declare namespace Backbone {
 
     var history: History;
 
-    class History extends EventSignatures {
+    class History extends EventsMixin implements Events {
 
         handlers: any[];
         interval: number;
@@ -453,7 +449,7 @@ declare namespace Backbone {
       attributes?: {[id: string]: any};
     }
 
-    class View<TModel extends Model> extends EventSignatures {
+    class View<TModel extends Model> extends EventsMixin implements Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -504,25 +500,4 @@ declare namespace Backbone {
     // Utility
     function noConflict(): typeof Backbone;
     var $: JQueryStatic;
-}
-
-/**
- * This is not for external use and is only here as a convenient way to
- * specify signatures for internal implementers of Backbone.Events
- */
-declare abstract class EventSignatures implements Backbone.Events {
-        on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-        on(eventMap: Backbone.EventMap, context?: any): any;
-        off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
-        trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
-        unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
-
-        once(events: string, callback: (...args: any[]) => void, context?: any): any;
-        once(eventMap: Backbone.EventMap, context?: any): any;
-        listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
-        listenTo(object: any, eventMap: Backbone.EventMap): any;
-        listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
-        listenToOnce(object: any, eventMap: Backbone.EventMap): any;
-        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
 }

@@ -408,24 +408,14 @@ export interface ObjectOptions extends RadioMixinOptions {
  * A base class which other classes can extend from. Object incorporates many
  * backbone conventions and utilities like initialize and Backbone.Events.
  */
-export class Object implements CommonMixin, RadioMixin, Backbone.Events {
+export class Object extends Backbone.EventsMixin implements CommonMixin, RadioMixin, Backbone.Events {
     constructor(options?: ObjectOptions);
 
-    on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-    on(eventMap: Backbone.EventMap, context?: any): any;
+    /**
+     * Faulty overgeneralization of Backbone.Events.on, for historical
+     * reasons.
+     */
     on(eventName: any, callback?: any, context?: any): any;
-    off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
-    trigger(eventName: string, ...args: any[]): any;
-    bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
-    unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
-
-    once(events: string, callback: (...args: any[]) => void, context?: any): any;
-    once(eventMap: Backbone.EventMap, context?: any): any;
-    listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
-    listenTo(object: any, eventMap: Backbone.EventMap): any;
-    listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
-    listenToOnce(object: any, eventMap: Backbone.EventMap): any;
-    stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
 
     /**
      * Receives a hash of event names and functions and/or function names,
