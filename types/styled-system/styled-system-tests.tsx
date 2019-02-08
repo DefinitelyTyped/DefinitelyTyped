@@ -255,7 +255,8 @@ interface FlexComponentProps
         JustifyContentProps,
         FlexWrapProps,
         FlexBasisProps,
-        FlexDirectionProps {}
+        FlexDirectionProps,
+        JustifyItemsProps {}
 const Flex: React.ComponentType<FlexComponentProps> = styled`
     ${alignItems};
     ${alignContent};
@@ -263,6 +264,7 @@ const Flex: React.ComponentType<FlexComponentProps> = styled`
     ${flexWrap};
     ${flexBasis};
     ${flexDirection};
+    ${justifyItems};
 `;
 
 interface GridComponentProps
@@ -275,8 +277,7 @@ interface GridComponentProps
         GridAutoColumnsProps,
         GridAutoRowsProps,
         GridTemplatesRowsProps,
-        GridTemplatesColumnsProps,
-        JustifyItemsProps {}
+        GridTemplatesColumnsProps{}
 const Grid: React.ComponentType<GridComponentProps> = styled`
     ${gridGap};
     ${gridRowGap};
@@ -288,7 +289,6 @@ const Grid: React.ComponentType<GridComponentProps> = styled`
     ${gridAutoColumns};
     ${gridTemplateRows};
     ${gridTemplateColumns};
-    ${justifyItems};
 `;
 
 interface ButtonProps
@@ -431,6 +431,10 @@ const test = () => (
         <Flex flexDirection="column" />
         <Flex flexDirection={["column"]} />
         <Flex flexDirection={{ sm: "column" }} />
+        // justifyItems
+        <Flex justifyItems="baseline" />
+        <Flex justifyItems={["baseline", "center"]} />
+        <Flex justifyItems={{ sm: "baseline", md: "center" }} />
         // gridGap
         <Grid gridGap="1px" />
         <Grid gridGap={["1", "2"]} />
@@ -471,10 +475,6 @@ const test = () => (
         <Grid gridTemplateColumns="auto" />
         <Grid gridTemplateColumns={["auto", "1fr"]} />
         <Grid gridTemplateColumns={{ sm: "auto", md: "1fr" }} />
-        // justifyItems
-        <Grid justifyItems="baseline" />
-        <Grid justifyItems={["baseline", "center"]} />
-        <Grid justifyItems={{ sm: "baseline", md: "center" }} />
         // flex (responsive)
         <Box flex="1 1 auto" />
         <Box flex={["1 1 auto"]} />
