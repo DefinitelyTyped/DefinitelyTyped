@@ -37,6 +37,9 @@ declare var xtest: jest.It;
 declare const expect: jest.Expect;
 
 type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+// see https://github.com/Microsoft/TypeScript/issues/25215
+type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] & string;
+type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] & string;
 
 interface NodeRequire {
     /**
@@ -215,9 +218,9 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType: 'get'): SpyInstance<T[M], []>;
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType: 'set'): SpyInstance<void, [T[M]]>;
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M): T[M] extends (...args: any[]) => any ? SpyInstance<ReturnType<T[M]>, ArgsType<T[M]>> : never;
+    function spyOn<T extends {}, M extends NonFunctionPropertyNames<T>>(object: T, method: M, accessType: 'get'): SpyInstance<T[M], []>;
+    function spyOn<T extends {}, M extends NonFunctionPropertyNames<T>>(object: T, method: M, accessType: 'set'): SpyInstance<void, [T[M]]>;
+    function spyOn<T extends {}, M extends FunctionPropertyNames<T>>(object: T, method: M): T[M] extends (...args: any[]) => any ? SpyInstance<ReturnType<T[M]>, ArgsType<T[M]>> : never;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
