@@ -143,4 +143,4 @@ declare class Client {
     ): void;
 }
 
-export = Client;
+export { Client };
