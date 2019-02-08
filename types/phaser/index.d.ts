@@ -10,7 +10,7 @@
 // please consider submitting a pull request to improve the jsdocs of the library itself at https://github.com/photonstorm/phaser instead
 // You can also help improve the typings generation and parsing at the Phaser 3 documentation repository at https://github.com/photonstorm/phaser3-docs
 
-declare type CallCallback = (item: Phaser.GameObjects.GameObject)=>void;
+declare type CallCallback = (item: Phaser.GameObjects.GameObject) => void;
 
 declare type GridAlignConfig = {
     /**
@@ -182,15 +182,15 @@ declare type InputJSONCameraObject = {
     "bounds.height"?: number;
 };
 
-declare type CameraFadeCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number)=>void;
+declare type CameraFadeCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number) => void;
 
-declare type CameraFlashCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number)=>void;
+declare type CameraFlashCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number) => void;
 
-declare type CameraPanCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number, x: number, y: number)=>void;
+declare type CameraPanCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number, x: number, y: number) => void;
 
-declare type CameraShakeCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number)=>void;
+declare type CameraShakeCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number) => void;
 
-declare type CameraZoomCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number, zoom: number)=>void;
+declare type CameraZoomCallback = (camera: Phaser.Cameras.Scene2D.Camera, progress: number, zoom: number) => void;
 
 declare type FixedKeyControlConfig = {
     /**
@@ -277,9 +277,9 @@ declare type SmoothedKeyControlConfig = {
 /**
  * This callback type is completely empty, a no-operation.
  */
-declare type NOOP = ()=>void;
+declare type NOOP = () => void;
 
-declare type BootCallback = (game: Phaser.Game)=>void;
+declare type BootCallback = (game: Phaser.Game) => void;
 
 /**
  * Config object containing various sound settings.
@@ -781,9 +781,9 @@ declare namespace module {
 
 }
 
-declare type TimeStepCallback = (time: number, average: number, interpolation: number)=>void;
+declare type TimeStepCallback = (time: number, average: number, interpolation: number) => void;
 
-declare type GenerateTextureRendererCallback = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D)=>void;
+declare type GenerateTextureRendererCallback = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => void;
 
 declare type GenerateTextureConfig = {
     /**
@@ -999,7 +999,7 @@ declare type JSONPath = {
     curves: JSONCurve[];
 };
 
-declare type DataEachCallback = (parent: any, key: string, value: any, ...args: any[])=>void;
+declare type DataEachCallback = (parent: any, key: string, value: any, ...args: any[]) => void;
 
 /**
  * Checks for support of the Full Screen API.
@@ -1059,7 +1059,7 @@ declare type HSVColorObject = {
     v: number;
 };
 
-declare type ContentLoadedCallback = ()=>void;
+declare type ContentLoadedCallback = () => void;
 
 declare type DisplayCallbackConfig = {
     /**
@@ -1100,7 +1100,7 @@ declare type DisplayCallbackConfig = {
     data: any;
 };
 
-declare type DisplayCallback = (display: DisplayCallbackConfig)=>void;
+declare type DisplayCallback = (display: DisplayCallbackConfig) => void;
 
 declare type BitmapTextConfig = GameObjectConfig & {
     /**
@@ -1217,7 +1217,7 @@ declare type BitmapFontCharacterData = {
     /**
      * Kerning values, keyed by character code.
      */
-    kerning: {[key: string]: number};
+    kerning: { [key: string]: number };
 };
 
 /**
@@ -1243,7 +1243,7 @@ declare type BitmapFontData = {
     /**
      * The character data of the font, keyed by character code. Each character datum includes a position, size, offset and more.
      */
-    chars: {[key: number]:  BitmapFontCharacterData};
+    chars: { [key: number]: BitmapFontCharacterData };
 };
 
 declare type JSONBitmapText = JSONGameObject & {
@@ -1269,7 +1269,7 @@ declare type JSONBitmapText = JSONGameObject & {
     align: integer;
 };
 
-declare type CreateCallback = (bob: Phaser.GameObjects.Bob, index: integer)=>void;
+declare type CreateCallback = (bob: Phaser.GameObjects.Bob, index: integer) => void;
 
 declare type GameObjectConfig = {
     /**
@@ -1417,7 +1417,7 @@ declare type JSONGameObject = {
     data: object;
 };
 
-declare type EachContainerCallback<I> = (item: any, ...args: any[])=>void;
+declare type EachContainerCallback<I> = (item: any, ...args: any[]) => void;
 
 /**
  * Graphics line style (or stroke style) settings.
@@ -1498,9 +1498,9 @@ declare type RoundedRectRadius = {
     bl?: number;
 };
 
-declare type GroupCallback = (item: Phaser.GameObjects.GameObject)=>void;
+declare type GroupCallback = (item: Phaser.GameObjects.GameObject) => void;
 
-declare type GroupMultipleCreateCallback = (items: Phaser.GameObjects.GameObject[])=>void;
+declare type GroupMultipleCreateCallback = (items: Phaser.GameObjects.GameObject[]) => void;
 
 declare type GroupConfig = {
     /**
@@ -1666,19 +1666,19 @@ declare type GroupCreateConfig = {
 /**
  * A constructor function (class) that can be assigned to `classType`.
  */
-declare type GroupClassTypeConstructor = (scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | integer)=>void;
+declare type GroupClassTypeConstructor = (scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | integer) => void;
 
-declare type LightForEach = (light: Phaser.GameObjects.Light)=>void;
+declare type LightForEach = (light: Phaser.GameObjects.Light) => void;
 
 /**
  * The returned value sets what the property will be at the START of the particle's life, on emit.
  */
-declare type EmitterOpOnEmitCallback = (particle: Phaser.GameObjects.Particles.Particle, key: string, value: number)=>void;
+declare type EmitterOpOnEmitCallback = (particle: Phaser.GameObjects.Particles.Particle, key: string, value: number) => void;
 
 /**
  * The returned value updates the property for the duration of the particle's life.
  */
-declare type EmitterOpOnUpdateCallback = (particle: Phaser.GameObjects.Particles.Particle, key: string, t: number, value: number)=>void;
+declare type EmitterOpOnUpdateCallback = (particle: Phaser.GameObjects.Particles.Particle, key: string, t: number, value: number) => void;
 
 /**
  * Defines an operation yielding a random value within a range.
@@ -1799,9 +1799,9 @@ declare type GravityWellConfig = {
     gravity?: number;
 };
 
-declare type ParticleEmitterCallback = (particle: Phaser.GameObjects.Particles.Particle, emitter: Phaser.GameObjects.Particles.ParticleEmitter)=>void;
+declare type ParticleEmitterCallback = (particle: Phaser.GameObjects.Particles.Particle, emitter: Phaser.GameObjects.Particles.ParticleEmitter) => void;
 
-declare type ParticleDeathCallback = (particle: Phaser.GameObjects.Particles.Particle)=>void;
+declare type ParticleDeathCallback = (particle: Phaser.GameObjects.Particles.Particle) => void;
 
 declare type ParticleEmitterBounds = {
     /**
@@ -2116,13 +2116,13 @@ declare type ParticleEmitterFrameConfig = {
     quantity?: integer;
 };
 
-declare type DeathZoneSourceCallback = (x: number, y: number)=>void;
+declare type DeathZoneSourceCallback = (x: number, y: number) => void;
 
 declare type DeathZoneSource = {
     contains: DeathZoneSourceCallback;
 };
 
-declare type EdgeZoneSourceCallback = (quantity: integer, stepRate?: number)=>void;
+declare type EdgeZoneSourceCallback = (quantity: integer, stepRate?: number) => void;
 
 declare type EdgeZoneSource = {
     /**
@@ -2131,7 +2131,7 @@ declare type EdgeZoneSource = {
     getPoints: EdgeZoneSourceCallback;
 };
 
-declare type RandomZoneSourceCallback = (point: Phaser.Math.Vector2)=>void;
+declare type RandomZoneSourceCallback = (point: Phaser.Math.Vector2) => void;
 
 declare type RandomZoneSource = {
     /**
@@ -2207,7 +2207,7 @@ declare type SpriteConfig = GameObjectConfig & {
 /**
  * A custom function that will be responsible for wrapping the text.
  */
-declare type TextStyleWordWrapCallback = (text: string, textObject: Phaser.GameObjects.Text)=>void;
+declare type TextStyleWordWrapCallback = (text: string, textObject: Phaser.GameObjects.Text) => void;
 
 /**
  * Font metrics for a Text Style object.
@@ -2254,9 +2254,9 @@ declare type TileSprite = GameObjectConfig & {
     frame?: string;
 };
 
-declare type CenterFunction = (triangle: Phaser.Geom.Triangle)=>void;
+declare type CenterFunction = (triangle: Phaser.Geom.Triangle) => void;
 
-declare type HitAreaCallback = (hitArea: any, x: number, y: number, gameObject: Phaser.GameObjects.GameObject)=>void;
+declare type HitAreaCallback = (hitArea: any, x: number, y: number, gameObject: Phaser.GameObjects.GameObject) => void;
 
 declare type Pad = {
     /**
@@ -2284,7 +2284,7 @@ declare type InputPluginContainer = {
     mapping?: string;
 };
 
-declare type KeyboardKeydownCallback = (event: KeyboardEvent)=>void;
+declare type KeyboardKeydownCallback = (event: KeyboardEvent) => void;
 
 declare type KeyComboConfig = {
     /**
@@ -4030,7 +4030,7 @@ declare namespace Phaser {
              * An object that contains your own custom BaseCache entries.
              * Add to this via the `addCustom` method.
              */
-            custom: {[key: string]: Phaser.Cache.BaseCache};
+            custom: { [key: string]: Phaser.Cache.BaseCache };
 
             /**
              * Add your own custom Cache for storing your own files.
@@ -8265,7 +8265,7 @@ declare namespace Phaser {
             /**
              * The data list.
              */
-            list: {[key: string]:  any};
+            list: { [key: string]: any };
 
             /**
              * The public values list. You can use this to access anything you have stored
@@ -8287,7 +8287,7 @@ declare namespace Phaser {
              * Do not modify this object directly. Adding properties directly to this object will not
              * emit any events. Always use `DataManager.set` to create new items the first time around.
              */
-            values: {[key: string]:  any};
+            values: { [key: string]: any };
 
             /**
              * Retrieves the value for the given key, or undefined if it doesn't exist.
@@ -8318,13 +8318,13 @@ declare namespace Phaser {
             /**
              * Retrieves all data values in a new object.
              */
-            getAll(): {[key: string]:  any};
+            getAll(): { [key: string]: any };
 
             /**
              * Queries the DataManager for the values of keys matching the given regular expression.
              * @param search A regular expression object. If a non-RegExp object obj is passed, it is implicitly converted to a RegExp by using new RegExp(obj).
              */
-            query(search: RegExp): {[key: string]:  any};
+            query(search: RegExp): { [key: string]: any };
 
             /**
              * Sets a value for the given key. If the key doesn't already exist in the Data Manager then it is created.
@@ -8380,7 +8380,7 @@ declare namespace Phaser {
              * @param data The data to merge.
              * @param overwrite Whether to overwrite existing data. Defaults to true. Default true.
              */
-            merge(data: {[key: string]:  any}, overwrite?: boolean): Phaser.Data.DataManager;
+            merge(data: { [key: string]: any }, overwrite?: boolean): Phaser.Data.DataManager;
 
             /**
              * Remove the value for the given key.
@@ -53064,7 +53064,7 @@ declare namespace Phaser {
                 /**
                  * Static Bodies marked for deletion.
                  */
-                pendingDestroy: Phaser.Structs.Set<(Phaser.Physics.Arcade.Body|Phaser.Physics.Arcade.StaticBody)>;
+                pendingDestroy: Phaser.Structs.Set<(Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody)>;
 
                 /**
                  * This simulation's collision processors.
@@ -63618,7 +63618,7 @@ declare namespace Phaser {
          *
          * To find out what each mode does please see [Phaser.Scale.Center]{@link Phaser.Scale.Center}.
          */
-        type CenterType = ()=>void;
+        type CenterType = () => void;
 
         /**
          * Phaser Scale Manager constants for orientation.
@@ -63641,7 +63641,7 @@ declare namespace Phaser {
          *
          * To find out what each mode does please see [Phaser.Scale.Orientation]{@link Phaser.Scale.Orientation}.
          */
-        type OrientationType = ()=>void;
+        type OrientationType = () => void;
 
         /**
          * Phaser Scale Manager constants for the different scale modes available.
@@ -63689,7 +63689,7 @@ declare namespace Phaser {
          *
          * To find out what each mode does please see [Phaser.Scale.ScaleModes]{@link Phaser.Scale.ScaleModes}.
          */
-        type ScaleModeType = ()=>void;
+        type ScaleModeType = () => void;
 
         /**
          * Phaser Scale Manager constants for zoom modes.
@@ -63723,7 +63723,7 @@ declare namespace Phaser {
          *
          * To find out what each mode does please see [Phaser.Scale.Zoom]{@link Phaser.Scale.Zoom}.
          */
-        type ZoomType = ()=>void;
+        type ZoomType = () => void;
 
         namespace Events {
             /**
@@ -65271,11 +65271,11 @@ declare namespace Phaser {
                 /**
                  * Overwrites the default injection map for a scene.
                  */
-                map?: {[key: string]:  string};
+                map?: { [key: string]: string };
                 /**
                  * Extends the injection map for a scene.
                  */
-                mapAdd?: {[key: string]:  string};
+                mapAdd?: { [key: string]: string };
                 /**
                  * The physics configuration object for the Scene.
                  */
@@ -65342,7 +65342,7 @@ declare namespace Phaser {
                 /**
                  * The Scene's Injection Map.
                  */
-                map: {[key: string]:  string};
+                map: { [key: string]: string };
                 /**
                  * The physics configuration object for the Scene.
                  */
@@ -65875,7 +65875,7 @@ declare namespace Phaser {
             /**
              * Object containing markers definitions.
              */
-            readonly markers: {[key: string]:  SoundMarker};
+            readonly markers: { [key: string]: SoundMarker };
 
             /**
              * Currently playing marker.
@@ -67201,7 +67201,7 @@ declare namespace Phaser {
             /**
              * The entries in this Map.
              */
-            entries: {[key: string]:  V};
+            entries: { [key: string]: V };
 
             /**
              * The number of key / value pairs in this Map.
@@ -76214,7 +76214,7 @@ declare type ArcadeBodyCollision = {
     right: boolean;
 };
 
-declare type ArcadePhysicsCallback = (object1: Phaser.GameObjects.GameObject, object2: Phaser.GameObjects.GameObject)=>void;
+declare type ArcadePhysicsCallback = (object1: Phaser.GameObjects.GameObject, object2: Phaser.GameObjects.GameObject) => void;
 
 declare type PhysicsGroupConfig = GroupConfig & {
     /**
@@ -76577,9 +76577,9 @@ declare type ArcadeWorldTreeMinMax = {
 /**
  * An Arcade Physics Collider Type.
  */
-declare type ArcadeColliderType = ()=>void;
+declare type ArcadeColliderType = () => void;
 
-declare type BodyUpdateCallback = (body: Phaser.Physics.Impact.Body)=>void;
+declare type BodyUpdateCallback = (body: Phaser.Physics.Impact.Body) => void;
 
 declare type JSONImpactBody = {
     /**
@@ -76636,7 +76636,7 @@ declare type JSONImpactBody = {
     collides: Phaser.Physics.Impact.COLLIDES;
 };
 
-declare type CollideCallback = (body: Phaser.Physics.Impact.Body, other: Phaser.Physics.Impact.Body, axis: string)=>void;
+declare type CollideCallback = (body: Phaser.Physics.Impact.Body, other: Phaser.Physics.Impact.Body, axis: string) => void;
 
 declare type CollisionOptions = {
     /**
@@ -76790,7 +76790,7 @@ declare type GlobalPlugin = {
     mapping?: string;
 };
 
-declare type SnapshotCallback = (snapshot: Phaser.Display.Color | HTMLImageElement)=>void;
+declare type SnapshotCallback = (snapshot: Phaser.Display.Color | HTMLImageElement) => void;
 
 declare type SnapshotState = {
     /**
@@ -76934,7 +76934,7 @@ declare interface ModelViewProjection {
     projPersp(): void;
 }
 
-declare type WebGLContextCallback = (renderer: Phaser.Renderer.WebGL.WebGLRenderer)=>void;
+declare type WebGLContextCallback = (renderer: Phaser.Renderer.WebGL.WebGLRenderer) => void;
 
 declare type SceneTransitionConfig = {
     /**
@@ -76975,7 +76975,7 @@ declare type SceneTransitionConfig = {
     data?: any;
 };
 
-declare type EachActiveSoundCallback = (manager: Phaser.Sound.BaseSoundManager, sound: Phaser.Sound.BaseSound, index: number, sounds: Phaser.Sound.BaseSound[])=>void;
+declare type EachActiveSoundCallback = (manager: Phaser.Sound.BaseSoundManager, sound: Phaser.Sound.BaseSound, index: number, sounds: Phaser.Sound.BaseSound[]) => void;
 
 /**
  * Audio sprite sound type.
@@ -77043,11 +77043,11 @@ declare type SoundMarker = {
     config?: SoundConfig;
 };
 
-declare type EachListCallback<I> = (item: I, ...args: any[])=>void;
+declare type EachListCallback<I> = (item: I, ...args: any[]) => void;
 
-declare type EachMapCallback<E> = (key: string, entry: E)=>void;
+declare type EachMapCallback<E> = (key: string, entry: E) => void;
 
-declare type EachSetCallback<E> = (entry: E, index: number)=>void;
+declare type EachSetCallback<E> = (entry: E, index: number) => void;
 
 /**
  * An object containing the position and color data for a single pixel in a CanvasTexture.
@@ -77071,7 +77071,7 @@ declare type PixelConfig = {
     alpha: number;
 };
 
-declare type EachTextureCallback = (texture: Phaser.Textures.Texture, ...args: any[])=>void;
+declare type EachTextureCallback = (texture: Phaser.Textures.Texture, ...args: any[]) => void;
 
 declare type SpriteSheetConfig = {
     /**
@@ -77135,9 +77135,9 @@ declare type SpriteSheetFromAtlasConfig = {
     spacing?: integer;
 };
 
-declare type FindTileCallback = (value: Phaser.Tilemaps.Tile, index: integer, array: Phaser.Tilemaps.Tile[])=>void;
+declare type FindTileCallback = (value: Phaser.Tilemaps.Tile, index: integer, array: Phaser.Tilemaps.Tile[]) => void;
 
-declare type EachTileCallback = (value: Phaser.Tilemaps.Tile, index: integer, array: Phaser.Tilemaps.Tile[])=>void;
+declare type EachTileCallback = (value: Phaser.Tilemaps.Tile, index: integer, array: Phaser.Tilemaps.Tile[]) => void;
 
 declare type GetTilesWithinFilteringOptions = {
     /**
@@ -77233,9 +77233,9 @@ declare type MapDataConfig = {
     tiles?: any[];
 };
 
-declare type TilemapFilterCallback = (value: Phaser.GameObjects.GameObject, index: number, array: Phaser.GameObjects.GameObject[])=>void;
+declare type TilemapFilterCallback = (value: Phaser.GameObjects.GameObject, index: number, array: Phaser.GameObjects.GameObject[]) => void;
 
-declare type TilemapFindCallback = (value: Phaser.GameObjects.GameObject, index: number, array: Phaser.GameObjects.GameObject[])=>void;
+declare type TilemapFindCallback = (value: Phaser.GameObjects.GameObject, index: number, array: Phaser.GameObjects.GameObject[]) => void;
 
 declare type FilteringOptions = {
     /**
@@ -77605,23 +77605,3 @@ declare module 'phaser' {
     export = Phaser;
 
 }
-
-// DISABLING THESE SINCE THE TYPINGS AREN'T HAND WRITTEN BUT GENERATED
-// tslint:disable:no-unnecessary-qualifier
-// tslint:disable:max-line-length
-// tslint:disable:no-padding
-// tslint:disable:ban-types
-// tslint:disable:no-any-union
-// tslint:disable:no-var-keyword
-// tslint:disable:interface-over-type-literal
-// tslint:disable:strict-export-declare-modifiers
-// tslint:disable:whitespace
-// tslint:disable:no-redundant-undefined
-// tslint:disable:typedef-whitespace
-// tslint:disable:no-unnecessary-generics
-// tslint:disable:no-unnecessary-class
-// tslint:disable:no-mergeable-namespace
-// tslint:disable:no-single-declare-module
-// tslint:disable:no-declare-current-package
-// tslint:disable:no-empty-interface
-// SORRY
