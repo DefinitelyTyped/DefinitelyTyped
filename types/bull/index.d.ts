@@ -241,7 +241,7 @@ declare namespace Bull {
       delay: number,
       timestamp: number,
       attemptsMade: number,
-      failedReason: string,
+      failedReason: any,
       stacktrace: string[] | null,
       returnvalue: any,
       finishedOn: number | null,
