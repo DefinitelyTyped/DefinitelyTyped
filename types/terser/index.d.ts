@@ -141,6 +141,8 @@ export interface CompressOptions {
     drop_debugger?: boolean;
     /** Attempt to evaluate constant expressions */
     evaluate?: boolean;
+    /** Pass 6 or greater to enable compress options that will transform ES5 code into smaller ES6+ equivalent forms. */
+    ecma?: number;
     /** Pass `true` to preserve completion values from terminal statements without `return`, e.g. in bookmarklets. */
     expression?: boolean;
     global_defs?: object;
