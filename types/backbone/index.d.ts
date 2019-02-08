@@ -119,20 +119,20 @@ declare namespace Backbone {
      * repeat all signatures below.
      */
     abstract class EventsMixin implements Events {
-        on(eventName: string, callback?: EventHandler, context?: any): any;
-        on(eventMap: EventMap, context?: any): any;
-        off(eventName?: string, callback?: EventHandler, context?: any): any;
-        trigger(eventName: string, ...args: any[]): any;
-        bind(eventName: string, callback: EventHandler, context?: any): any;
-        unbind(eventName?: string, callback?: EventHandler, context?: any): any;
+        on(eventName: string, callback?: EventHandler, context?: any): this;
+        on(eventMap: EventMap, context?: any): this;
+        off(eventName?: string, callback?: EventHandler, context?: any): this;
+        trigger(eventName: string, ...args: any[]): this;
+        bind(eventName: string, callback: EventHandler, context?: any): this;
+        unbind(eventName?: string, callback?: EventHandler, context?: any): this;
 
-        once(events: string, callback: EventHandler, context?: any): any;
-        once(eventMap: EventMap, context?: any): any;
-        listenTo(object: any, events: string, callback: EventHandler): any;
-        listenTo(object: any, eventMap: EventMap): any;
-        listenToOnce(object: any, events: string, callback: EventHandler): any;
-        listenToOnce(object: any, eventMap: EventMap): any;
-        stopListening(object?: any, events?: string, callback?: EventHandler): any;
+        once(events: string, callback: EventHandler, context?: any): this;
+        once(eventMap: EventMap, context?: any): this;
+        listenTo(object: any, events: string, callback: EventHandler): this;
+        listenTo(object: any, eventMap: EventMap): this;
+        listenToOnce(object: any, events: string, callback: EventHandler): this;
+        listenToOnce(object: any, eventMap: EventMap): this;
+        stopListening(object?: any, events?: string, callback?: EventHandler): this;
     }
 
     export const Events: Events;
