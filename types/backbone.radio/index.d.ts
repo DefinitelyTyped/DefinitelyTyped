@@ -74,7 +74,7 @@ declare module "backbone" {
 
         class Channel implements Commands, Requests, Backbone.Events {
             on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-            on(eventMap: EventMap): any;
+            on(eventMap: EventMap, context?: any): any;
             on(eventName: any, callback?: any, context?: any): any;
             off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
             trigger(eventName: string, ...args: any[]): any;

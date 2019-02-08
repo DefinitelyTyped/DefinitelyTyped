@@ -412,7 +412,7 @@ export class Object implements CommonMixin, RadioMixin, Backbone.Events {
     constructor(options?: ObjectOptions);
 
     on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-    on(eventMap: Backbone.EventMap): any;
+    on(eventMap: Backbone.EventMap, context?: any): any;
     on(eventName: any, callback?: any, context?: any): any;
     off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
     trigger(eventName: string, ...args: any[]): any;

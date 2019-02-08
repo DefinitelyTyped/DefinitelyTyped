@@ -125,7 +125,7 @@ declare module 'backbone-relational' {
 
     export class Store implements Events {
         on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-        on(eventMap: EventMap): any;
+        on(eventMap: EventMap, context?: any): any;
         on(eventName: any, callback?: any, context?: any): any;
         off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;

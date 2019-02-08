@@ -112,7 +112,7 @@ declare namespace Backbone {
     export const Events: Events;
     interface Events {
         on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-        on(eventMap: EventMap): any;
+        on(eventMap: EventMap, context?: any): any;
         off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
         bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
@@ -126,7 +126,7 @@ declare namespace Backbone {
 
     class ModelBase implements Events {
         on(eventName: string, callback?: Function, context?: any): any;
-        on(eventMap: EventMap): any;
+        on(eventMap: EventMap, context?: any): any;
         on(eventName: any, callback?: any, context?: any): any
         off(eventName?: string, callback?: Function, context?: any): any
         trigger(eventName: string, ...args: any[]): any
@@ -506,7 +506,7 @@ declare namespace Backbone {
  */
 declare abstract class EventSignatures implements Backbone.Events {
         on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
-        on(eventMap: Backbone.EventMap): any;
+        on(eventMap: Backbone.EventMap, context?: any): any;
         off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
         trigger(eventName: string, ...args: any[]): any;
         bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
