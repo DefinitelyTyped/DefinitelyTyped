@@ -1,4 +1,4 @@
-import * as colorSupport from 'color-support';
+import colorSupport = require('color-support');
 
 (() => {
   const result = colorSupport();
