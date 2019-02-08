@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Eureka {
-    constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig);
+    constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig | EurekaClient.EurekaMiddlewareConfig);
     start(cb?: (err: Error, ...rest: any[]) => void): void;
     stop(cb?: (err: Error, ...rest: any[]) => void): void;
     getInstancesByAppId(appId: string): EurekaClient.EurekaInstanceConfig[];
@@ -20,9 +20,9 @@ export namespace EurekaClient {
     type DataCenterName = 'Netflix' | 'Amazon' | 'MyOwn';
 
     interface EurekaConfig {
-        requestMiddleware?: (requestOpts: any, done: (opts: any) => void) => void;
-        instance?: EurekaInstanceConfig;
-        eureka?: EurekaClientConfig;
+        requestMiddleware?: EurekaMiddlewareConfig;
+        instance: EurekaInstanceConfig;
+        eureka: EurekaClientConfig;
     }
     interface EurekaInstanceConfig {
         app: string;
@@ -81,6 +81,9 @@ export namespace EurekaClient {
     interface EurekaYmlConfig {
         cwd: string;
         filename?: string;
+    }
+    interface EurekaMiddlewareConfig {
+        requestMiddleware: (requestOpts: any, done: (opts: any) => void) => void;
     }
     interface LegacyPortWrapper {
         $: number;
