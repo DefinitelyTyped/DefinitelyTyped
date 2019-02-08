@@ -605,6 +605,8 @@ expect.extend({
 
         const equals: boolean = this.equals({}, {});
 
+        const diff: string = this.diff({}, {});
+
         return {
             message: () => "",
             pass: false,
