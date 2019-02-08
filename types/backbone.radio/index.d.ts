@@ -80,9 +80,13 @@ declare module "backbone" {
             trigger(eventName: string, ...args: any[]): any;
             bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
             unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
+
             once(events: string, callback: (...args: any[]) => void, context?: any): any;
+            once(eventMap: EventMap, context?: any): any;
             listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
+            listenTo(object: any, eventMap: EventMap): any;
             listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
+            listenToOnce(object: any, eventMap: EventMap): any;
             stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
             channelName: string;
             reset(): Channel;

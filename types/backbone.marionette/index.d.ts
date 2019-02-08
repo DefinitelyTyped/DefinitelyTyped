@@ -418,9 +418,13 @@ export class Object implements CommonMixin, RadioMixin, Backbone.Events {
     trigger(eventName: string, ...args: any[]): any;
     bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
     unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
+
     once(events: string, callback: (...args: any[]) => void, context?: any): any;
+    once(eventMap: Backbone.EventMap, context?: any): any;
     listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
+    listenTo(object: any, eventMap: Backbone.EventMap): any;
     listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
+    listenToOnce(object: any, eventMap: Backbone.EventMap): any;
     stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
 
     /**

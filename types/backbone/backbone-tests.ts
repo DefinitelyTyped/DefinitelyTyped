@@ -272,18 +272,22 @@ namespace v1Changes {
             var model = new Employee;
             model.once('invalid', () => { }, this);
             model.once('invalid', () => { });
+            model.once({invalid: () => { }, success: () => { }}, this);
+            model.once({invalid: () => { }, success: () => { }});
         }
 
         function test_listenTo() {
             var model = new Employee;
             var view = new Backbone.View<Employee>();
             view.listenTo(model, 'invalid', () => { });
+            view.listenTo(model, {invalid: () => { }, success: () => { }});
         }
 
         function test_listenToOnce() {
             var model = new Employee;
             var view = new Backbone.View<Employee>();
             view.listenToOnce(model, 'invalid', () => { });
+            view.listenToOnce(model, {invalid: () => { }, success: () => { }});
         }
 
         function test_stopListening() {

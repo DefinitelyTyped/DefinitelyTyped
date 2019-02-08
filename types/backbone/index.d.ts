@@ -119,8 +119,11 @@ declare namespace Backbone {
         unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
 
         once(events: string, callback: (...args: any[]) => void, context?: any): any;
+        once(eventMap: EventMap, context?: any): any;
         listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
+        listenTo(object: any, eventMap: EventMap): any;
         listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
+        listenToOnce(object: any, eventMap: EventMap): any;
         stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
     }
 
@@ -133,8 +136,11 @@ declare namespace Backbone {
         bind(eventName: string, callback: Function, context?: any): any
         unbind(eventName?: string, callback?: Function, context?: any): any
         once(events: string, callback: Function, context?: any): any
+        once(eventMap: EventMap, context?: any): any;
         listenTo(object: any, events: string, callback: Function):any
+        listenTo(object: any, eventMap: EventMap): any;
         listenToOnce(object: any, events: string, callback: Function): any
+        listenToOnce(object: any, eventMap: EventMap): any;
         stopListening(object?: any, events?: string, callback?: Function): any
 
         parse(response: any, options?: any): any;
@@ -513,7 +519,10 @@ declare abstract class EventSignatures implements Backbone.Events {
         unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
 
         once(events: string, callback: (...args: any[]) => void, context?: any): any;
+        once(eventMap: Backbone.EventMap, context?: any): any;
         listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
+        listenTo(object: any, eventMap: Backbone.EventMap): any;
         listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
+        listenToOnce(object: any, eventMap: Backbone.EventMap): any;
         stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
 }
