@@ -350,8 +350,6 @@ export interface TooltipProps extends Leaflet.TooltipOptions, DivOverlayProps { 
 export class Tooltip<P extends TooltipProps = TooltipProps, E extends Leaflet.Tooltip = Leaflet.Tooltip> extends DivOverlay<P, E> {
     onTooltipOpen(arg: { tooltip: E }): void;
     onTooltipClose(arg: { tooltip: E }): void;
-    renderTooltipContent(): void;
-    removeTooltipContent(): void;
 }
 
 export type MapControlProps = {
