@@ -39,6 +39,13 @@ const task3 = cron.schedule('* * * * *', () => {
 
 task3.destroy();
 
+const taskWithAsync = cron.schedule('* * * * *', () => new Promise((resolve) => {
+    log('will execute every minute until stopped');
+    resolve();
+}));
+
+taskWithAsync.destroy();
+
 const valid = cron.validate('59 * * * *');
 const invalid = cron.validate('60 * * * *');
 
