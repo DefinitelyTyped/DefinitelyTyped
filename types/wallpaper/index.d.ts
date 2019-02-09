@@ -1,8 +1,8 @@
 // Type definitions for wallpaper 4.2
 // Project: https://github.com/sindresorhus/wallpaper
-// Definitions
-//      by: BendingBender <https://github.com/BendingBender>
-//      by: Federico Vitale <https://github.com/Rawnly>
+// Definitions by:
+//      BendingBender <https://github.com/BendingBender>
+//      Federico Vitale <https://github.com/Rawnly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function get(options?: WallpaperGetOptions): Promise<string>;
