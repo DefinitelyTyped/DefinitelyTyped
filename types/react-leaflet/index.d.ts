@@ -183,23 +183,23 @@ export class DivOverlay<P extends DivOverlayProps, E extends DivOverlayTypes> ex
 }
 
 export interface PaneProps {
-    name?: string;
     children?: Children;
-    map?: Leaflet.Map;
     className?: string;
+    leaflet: LeafletContext;
+    name?: string;
     style?: React.CSSProperties;
     pane?: string;
 }
 export interface PaneState {
-    name?: string;
+    name: string | null | undefined;
+    context: LeafletContext | null | undefined;
 }
 export class Pane<P extends PaneProps = PaneProps, S extends PaneState = PaneState> extends React.Component<P, S> {
-    getChildContext(): { pane: string };
     createPane(props: P): void;
     removePane(): void;
     setStyle(arg: { style?: string, className?: string }): void;
-    getParentPane(): HTMLElement | undefined;
-    getPane(name: string): HTMLElement | undefined;
+    getParentPane(): HTMLElement | null | undefined;
+    getPane(name: string | null | undefined): HTMLElement | null | undefined;
 }
 
 export interface MapLayerProps extends MapComponentProps {
