@@ -2,6 +2,7 @@ declare var beforeAll: (callback: () => void) => void;
 declare var beforeEach: (callback: () => void) => void;
 declare var afterAll: (callback: () => void) => void;
 
+import defaultDetox from "detox";
 import adapter from "detox/runners/jest/adapter";
 
 // Normally the Detox configuration from the project's package.json like so:
@@ -18,7 +19,7 @@ beforeAll(async () => {
         initGlobals: false,
         launchApp: false,
     };
-    await detox.init(config, initOptions);
+    await defaultDetox.init(config, initOptions);
 });
 
 beforeEach(async () => {
