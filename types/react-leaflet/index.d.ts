@@ -175,7 +175,7 @@ export interface DivOverlayTypes extends Leaflet.Evented {
 }
 
 export class DivOverlay<P extends DivOverlayProps, E extends DivOverlayTypes> extends MapComponent<P, E> {
-    createLeafletElement(_props: P): Error;
+    createLeafletElement(_props: P): void;
     updateLeafletElement(_prevProps: P, _props: P): void;
     onClose(): void;
     onOpen(): void;
@@ -277,7 +277,7 @@ export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E ext
 
 export interface LayerGroupProps extends MapLayerProps { }
 export class LayerGroup<P extends LayerGroupProps = LayerGroupProps, E extends Leaflet.LayerGroup = Leaflet.LayerGroup> extends MapLayer<P, E> {
-    getChildContext(): { layerContainer: E };
+    createLeafletElement(props: P): E;
 }
 
 export interface MarkerProps extends MapLayerProps, MarkerEvents, Leaflet.MarkerOptions {
@@ -354,10 +354,12 @@ export interface PopupProps extends Leaflet.PopupOptions, DivOverlayProps {
     position?: Leaflet.LatLngExpression;
 }
 export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = Leaflet.Popup> extends DivOverlay<P, E> {
+    getOptions(props: P): P;
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
     onPopupOpen(arg: { popup: E }): void;
     onPopupClose(arg: { popup: E }): void;
-    renderPopupContent(): void;
-    removePopupContent(): void;
+    onRender: () => void;
 }
 
 export interface TooltipProps extends Leaflet.TooltipOptions, DivOverlayProps { }
