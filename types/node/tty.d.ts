@@ -35,7 +35,10 @@ declare module "tty" {
         clearLine(dir: Direction): void;
         clearScreenDown(): void;
         cursorTo(x: number, y: number): void;
-        getColorDepth(env: {}): number;
+        /**
+         * @default `process.env`
+         */
+        getColorDepth(env?: {}): number;
         getWindowSize(): [number, number];
         columns: number;
         rows: number;

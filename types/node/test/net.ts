@@ -31,7 +31,7 @@ import { LookupOneOptions } from 'dns';
     server = server.close((...args: any[]) => { });
 
     // test the types of the address object fields
-    const address: net.AddressInfo | string = server.address();
+    const address: net.AddressInfo | string | null = server.address();
 }
 
 {
@@ -55,11 +55,11 @@ import { LookupOneOptions } from 'dns';
      */
     let _socket: net.Socket = new net.Socket(constructorOpts);
 
-    let bool: boolean;
-    let buffer: Buffer;
-    let error: Error;
-    let str: string;
-    let num: number;
+    let bool = true;
+    let buffer = Buffer.from('123');
+    let error = new Error('asd');
+    let str = '123';
+    let num = 123;
 
     const ipcConnectOpts: net.IpcSocketConnectOpts = {
         path: "/"
@@ -239,11 +239,11 @@ import { LookupOneOptions } from 'dns';
      *   3. error
      *   4. listening
      */
-    let _server: net.Server;
+    let _server = net.createServer();
 
-    let _socket: net.Socket;
+    let _socket = net.connect('');
     let bool: boolean;
-    let error: Error;
+    let error = new Error();
 
     /// addListener
     _server = _server.addListener("close", () => { });

@@ -95,8 +95,8 @@ import * as net from 'net';
 
 {
     // Status codes
-    let codeMessage: string = http.STATUS_CODES['400'];
-    codeMessage = http.STATUS_CODES[400];
+    let codeMessage: string = http.STATUS_CODES['400']!;
+    codeMessage = http.STATUS_CODES[400]!;
 }
 
 {

@@ -49,17 +49,20 @@
         "test/worker_threads.ts",
         "test/util.ts",
         "test/net.ts",
-        "test/dgram.ts"
+        "test/dgram.ts",
+        "test/buffer.ts",
+        "test/tty.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [

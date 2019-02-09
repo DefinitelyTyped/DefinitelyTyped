@@ -154,13 +154,7 @@ declare module "crypto" {
         getPublicKey(encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
-        /**
-         * @deprecated
-         */
         setPublicKey(public_key: Buffer | NodeJS.TypedArray | DataView): void;
-        /**
-         * @deprecated
-         */
         setPublicKey(public_key: string, encoding: string): void;
         setPrivateKey(private_key: Buffer | NodeJS.TypedArray | DataView): void;
         setPrivateKey(private_key: string, encoding: string): void;

@@ -231,24 +231,16 @@ declare var module: NodeModule;
 
 // Same as module.exports
 declare var exports: any;
-declare const SlowBuffer: {
-    new(str: string, encoding?: string): Buffer;
-    new(size: number): Buffer;
-    new(size: Uint8Array): Buffer;
-    new(array: any[]): Buffer;
-    prototype: Buffer;
-    isBuffer(obj: any): boolean;
-    byteLength(string: string, encoding?: string): number;
-    concat(list: Buffer[], totalLength?: number): Buffer;
-};
 
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends Uint8Array {
     constructor: typeof Buffer;
-    write(string: string, offset?: number, length?: number, encoding?: string): number;
+    write(string: string, encoding?: string): number;
+    write(string: string, offset: number, encoding?: string): number;
+    write(string: string, offset: number, length: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
-    toJSON(): { type: 'Buffer', data: any[] };
+    toJSON(): { type: 'Buffer', data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
     compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;

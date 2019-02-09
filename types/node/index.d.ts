@@ -1,4 +1,4 @@
-// Type definitions for Node.js 11.6
+// Type definitions for Node.js 11.9
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -70,7 +70,8 @@ interface SymbolConstructor {
     readonly asyncIterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
-interface SharedArrayBuffer {
+declare class SharedArrayBuffer {
+    constructor(byteSize: number);
     readonly byteLength: number;
     slice(begin?: number, end?: number): SharedArrayBuffer;
 }

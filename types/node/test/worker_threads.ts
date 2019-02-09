@@ -18,7 +18,7 @@ import assert = require("assert");
         };
     } else {
         const script = workerThreads.workerData;
-        workerThreads.parentPort.postMessage(script);
+        workerThreads.parentPort!.postMessage(script);
     }
 }
 
@@ -37,7 +37,7 @@ import assert = require("assert");
             console.log('received:', value);
         });
     } else {
-        workerThreads.parentPort.once('message', (value) => {
+        workerThreads.parentPort!.once('message', (value) => {
             assert(value.hereIsYourPort instanceof workerThreads.MessagePort);
             value.hereIsYourPort.postMessage('the worker is sending this');
             value.hereIsYourPort.close();

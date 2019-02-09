@@ -86,6 +86,10 @@ declare module "child_process" {
         gid?: number;
         cwd?: string;
         env?: NodeJS.ProcessEnv;
+        /**
+         * @default 0
+         */
+        timeout?: number;
     }
 
     interface SpawnOptions extends CommonOptions {
@@ -100,9 +104,7 @@ declare module "child_process" {
     function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     interface ExecOptions extends CommonOptions {
-        env?: NodeJS.ProcessEnv;
         shell?: string;
-        timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
     }
@@ -155,7 +157,6 @@ declare module "child_process" {
     }
 
     interface ExecFileOptions extends CommonOptions {
-        timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
         windowsVerbatimArguments?: boolean;
@@ -265,7 +266,6 @@ declare module "child_process" {
         argv0?: string; // Not specified in the docs
         input?: string | Buffer | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
-        timeout?: number;
         killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
@@ -299,7 +299,6 @@ declare module "child_process" {
         input?: string | Buffer | Uint8Array;
         stdio?: StdioOptions;
         shell?: string;
-        timeout?: number;
         killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
@@ -315,16 +314,12 @@ declare module "child_process" {
     function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
     function execSync(command: string, options?: ExecSyncOptions): Buffer;
 
-    interface ExecFileSyncOptions {
-        cwd?: string;
+    interface ExecFileSyncOptions extends CommonOptions {
         input?: string | Buffer | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
-        env?: NodeJS.ProcessEnv;
-        timeout?: number;
         killSignal?: string | number;
         maxBuffer?: number;
         encoding?: string;
-
         shell?: boolean | string;
     }
     interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {

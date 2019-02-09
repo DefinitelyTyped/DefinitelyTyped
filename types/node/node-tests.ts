@@ -10,7 +10,6 @@ import * as tls from "tls";
 import * as http from "http";
 import * as https from "https";
 import * as net from "net";
-import * as tty from "tty";
 import * as querystring from "querystring";
 import * as path from "path";
 import * as childProcess from "child_process";
@@ -31,9 +30,6 @@ import * as perf_hooks from "perf_hooks";
 import * as trace_events from "trace_events";
 import Module = require("module");
 
-// Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
-
 //////////////////////////////////////////////////////////
 /// Assert Tests : https://nodejs.org/api/assert.html ///
 //////////////////////////////////////////////////////////
@@ -49,7 +45,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
         assert.doesNotThrow(() => {
             const b = false;
             if (b) { throw new Error("a hammer at your face"); }
-        }, undefined, "What the...*crunch*");
+        }, () => 1, "What the...*crunch*");
 
         assert.equal(3, "3", "uses == comparator");
 
@@ -72,7 +68,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
 
         assert.strictEqual(1, 1, "uses === comparator");
 
-        assert.throws(() => { throw new Error("a hammer at your face"); }, undefined, "DODGED IT");
+        assert.throws(() => { throw new Error("a hammer at your face"); }, Error, "DODGED IT");
 
         assert.strict.strict.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
     }
@@ -238,7 +234,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
         listS = fs.readdirSync('path');
         listS = fs.readdirSync('path', { encoding: 'utf8' });
         listS = fs.readdirSync('path', { encoding: null });
-        listS = fs.readdirSync('path', { encoding: undefined });
+        listS = fs.readdirSync('path', { encoding: undefined }) as string[];
         listS = fs.readdirSync('path', 'utf8');
         listS = fs.readdirSync('path', null);
         listS = fs.readdirSync('path', undefined);
@@ -304,7 +300,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
     }
 
     {
-        let s: string;
+        let s = '123';
         let b: Buffer;
         fs.readlink('/path/to/folder', (err, linkString) => s = linkString);
         fs.readlink('/path/to/folder', undefined, (err, linkString) => s = linkString);
@@ -333,7 +329,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
     }
 
     {
-        let s: string;
+        let s = '123';
         let b: Buffer;
         fs.realpath('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
         fs.realpath('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
@@ -415,209 +411,6 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
     }
 }
 
-///////////////////////////////////////////////////////
-/// Buffer tests : https://nodejs.org/api/buffer.html
-///////////////////////////////////////////////////////
-
-function bufferTests() {
-    const utf8Buffer = new Buffer('test');
-    const base64Buffer = new Buffer('', 'base64');
-    const octets: Uint8Array = null;
-    const octetBuffer = new Buffer(octets);
-    const sharedBuffer = new Buffer(octets.buffer);
-    const copiedBuffer = new Buffer(utf8Buffer);
-    console.log(Buffer.isBuffer(octetBuffer));
-    console.log(Buffer.isEncoding('utf8'));
-    console.log(Buffer.byteLength('xyz123'));
-    console.log(Buffer.byteLength('xyz123', 'ascii'));
-    const result1 = Buffer.concat([utf8Buffer, base64Buffer]);
-    const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
-
-    // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
-    {
-        const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
-        buf.swap16();
-        buf.swap32();
-        buf.swap64();
-    }
-
-    // Class Method: Buffer.from(data)
-    {
-        // Array
-        const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
-        // Buffer
-        const buf2: Buffer = Buffer.from(buf1);
-        // String
-        const buf3: Buffer = Buffer.from('this is a tést');
-        // ArrayBuffer
-        const arrUint16: Uint16Array = new Uint16Array(2);
-        arrUint16[0] = 5000;
-        arrUint16[1] = 4000;
-        const buf4: Buffer = Buffer.from(arrUint16.buffer);
-        const arrUint8: Uint8Array = new Uint8Array(2);
-        const buf5: Buffer = Buffer.from(arrUint8);
-        const buf6: Buffer = Buffer.from(buf1);
-        const buf7: Buffer = Buffer.from(undefined as SharedArrayBuffer);
-    }
-
-    // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
-    {
-        const arr: Uint16Array = new Uint16Array(2);
-        arr[0] = 5000;
-        arr[1] = 4000;
-
-        let buf: Buffer;
-        buf = Buffer.from(arr.buffer, 1);
-        buf = Buffer.from(arr.buffer, 0, 1);
-    }
-
-    // Class Method: Buffer.from(str[, encoding])
-    {
-        const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
-    }
-
-    // Class Method: Buffer.alloc(size[, fill[, encoding]])
-    {
-        const buf1: Buffer = Buffer.alloc(5);
-        const buf2: Buffer = Buffer.alloc(5, 'a');
-        const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
-    }
-    // Class Method: Buffer.allocUnsafe(size)
-    {
-        const buf: Buffer = Buffer.allocUnsafe(5);
-    }
-    // Class Method: Buffer.allocUnsafeSlow(size)
-    {
-        const buf: Buffer = Buffer.allocUnsafeSlow(10);
-    }
-
-    // Class Method byteLenght
-    {
-        let len: number;
-        len = Buffer.byteLength("foo");
-        len = Buffer.byteLength("foo", "utf8");
-
-        const b = Buffer.from("bar");
-        len = Buffer.byteLength(b);
-        len = Buffer.byteLength(b, "utf16le");
-
-        const ab = new ArrayBuffer(15);
-        len = Buffer.byteLength(ab);
-        len = Buffer.byteLength(ab, "ascii");
-
-        const dv = new DataView(ab);
-        len = Buffer.byteLength(dv);
-        len = Buffer.byteLength(dv, "utf16le");
-    }
-
-    // Class Method poolSize
-    {
-        let s: number;
-        s = Buffer.poolSize;
-        Buffer.poolSize = 4096;
-    }
-
-    // Test that TS 1.6 works with the 'as Buffer' annotation
-    // on isBuffer.
-    let a: Buffer | number;
-    a = new Buffer(10);
-    if (Buffer.isBuffer(a)) {
-        a.writeUInt8(3, 4);
-    }
-
-    // write* methods return offsets.
-    const b = new Buffer(16);
-    let result: number = b.writeUInt32LE(0, 0);
-    result = b.writeUInt16LE(0, 4);
-    result = b.writeUInt8(0, 6);
-    result = b.writeInt8(0, 7);
-    result = b.writeDoubleLE(0, 8);
-
-    // fill returns the input buffer.
-    b.fill('a').fill('b');
-
-    {
-        const buffer = new Buffer('123');
-        let index: number;
-        index = buffer.indexOf("23");
-        index = buffer.indexOf("23", 1);
-        index = buffer.indexOf("23", 1, "utf8");
-        index = buffer.indexOf(23);
-        index = buffer.indexOf(buffer);
-    }
-
-    {
-        const buffer = new Buffer('123');
-        let index: number;
-        index = buffer.lastIndexOf("23");
-        index = buffer.lastIndexOf("23", 1);
-        index = buffer.lastIndexOf("23", 1, "utf8");
-        index = buffer.lastIndexOf(23);
-        index = buffer.lastIndexOf(buffer);
-    }
-
-    {
-        const buffer = new Buffer('123');
-        const val: [number, number] = [1, 1];
-
-        /* comment out for --target es5
-        for (let entry of buffer.entries()) {
-            val = entry;
-        }
-         */
-    }
-
-    {
-        const buffer = new Buffer('123');
-        let includes: boolean;
-        includes = buffer.includes("23");
-        includes = buffer.includes("23", 1);
-        includes = buffer.includes("23", 1, "utf8");
-        includes = buffer.includes(23);
-        includes = buffer.includes(23, 1);
-        includes = buffer.includes(23, 1, "utf8");
-        includes = buffer.includes(buffer);
-        includes = buffer.includes(buffer, 1);
-        includes = buffer.includes(buffer, 1, "utf8");
-    }
-
-    {
-        const buffer = new Buffer('123');
-        const val = 1;
-
-        /* comment out for --target es5
-        for (let key of buffer.keys()) {
-            val = key;
-        }
-         */
-    }
-
-    {
-        const buffer = new Buffer('123');
-        const val = 1;
-
-        /* comment out for --target es5
-        for (let value of buffer.values()) {
-            val = value;
-        }
-         */
-    }
-
-    // Imported Buffer from buffer module works properly
-    {
-        const b = new ImportedBuffer('123');
-        b.writeUInt8(0, 6);
-        const sb = new ImportedSlowBuffer(43);
-        b.writeUInt8(0, 6);
-    }
-
-    // Buffer has Uint8Array's buffer field (an ArrayBuffer).
-    {
-        const buffer = new Buffer('123');
-        const octets = new Uint8Array(buffer.buffer);
-    }
-}
-
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
 ////////////////////////////////////////////////////
@@ -646,10 +439,10 @@ function bufferTests() {
         assert.equal(helloUrl.query['hello'], 'world');
 
         let strUrl = url.parse('http://example.com/?hello=world');
-        let queryStr: string = strUrl.query;
+        let queryStr: string = strUrl.query!;
 
         strUrl = url.parse('http://example.com/?hello=world', false);
-        queryStr = strUrl.query;
+        queryStr = strUrl.query!;
 
         function getBoolean(): boolean { return false; }
         const urlUrl = url.parse('http://example.com/?hello=world', getBoolean());
@@ -754,8 +547,10 @@ function bufferTests() {
         const params = new url.URLSearchParams([
             ['user', 'abc'],
             ['query', 'first'],
-            ['query', 'second']
-        ]);
+            ['query', 'second'],
+        // ts 2.1/2.* compatibility
+        // tslint:disable-next-line no-unnecessary-type-assertion
+        ] as Array<[string, string]>);
         assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
 
@@ -797,30 +592,60 @@ function stream_readable_pipe_test() {
 const compressMe = new Buffer("some data");
 const compressMeString = "compress me!";
 
-zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMe, (err: Error | null, result: Buffer) => zlib.inflate(result, (err: Error | null, result: Buffer) => result));
+zlib.deflate(
+    compressMe,
+    { finishFlush: zlib.Z_SYNC_FLUSH },
+    (err: Error | null, result: Buffer) => zlib.inflate(
+        result,
+        { finishFlush: zlib.Z_SYNC_FLUSH },
+        (err: Error | null, result: Buffer) => result
+    )
+);
+zlib.deflate(compressMeString, (err: Error | null, result: Buffer) => zlib.inflate(result, (err: Error | null, result: Buffer) => result));
+zlib.deflate(
+    compressMeString,
+    { finishFlush: zlib.Z_SYNC_FLUSH },
+    (err: Error | null, result: Buffer) => zlib.inflate(
+        result,
+        { finishFlush: zlib.Z_SYNC_FLUSH },
+        (err: Error | null, result: Buffer) => result
+    )
+);
 const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
 const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
 
-zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMe, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, (err: Error | null, result: Buffer) => result));
+zlib.deflateRaw(
+    compressMe,
+    { finishFlush: zlib.Z_SYNC_FLUSH },
+    (err: Error | null, result: Buffer) => zlib.inflateRaw(
+        result, { finishFlush: zlib.Z_SYNC_FLUSH },
+        (err: Error | null, result: Buffer) => result
+    )
+);
+zlib.deflateRaw(compressMeString, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, (err: Error | null, result: Buffer) => result));
 zlib.deflateRaw(
     compressMeString,
     { finishFlush: zlib.Z_SYNC_FLUSH },
-    (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result),
+    (err: Error | null, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result),
 );
 const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
 const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
 
-zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
-zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.gzip(compressMe, (err: Error | null, result: Buffer) => zlib.gunzip(result, (err: Error | null, result: Buffer) => result));
+zlib.gzip(
+    compressMe,
+    { finishFlush: zlib.Z_SYNC_FLUSH },
+    (err: Error | null, result: Buffer) => zlib.gunzip(
+        result, { finishFlush: zlib.Z_SYNC_FLUSH },
+        (err: Error | null, result: Buffer) => result
+    )
+);
 const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
 
-zlib.unzip(compressMe, (err: Error, result: Buffer) => result);
-zlib.unzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result);
+zlib.unzip(compressMe, (err: Error | null, result: Buffer) => result);
+zlib.unzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result);
 const unzipped: Buffer = zlib.unzipSync(compressMe);
 
 // Simplified constructors
@@ -833,9 +658,9 @@ function simplified_stream_ctor_test() {
             size;
         },
         destroy(error, cb) {
-            // $ExpectType Error
+            // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error) => void
+            // $ExpectType (error: Error | null) => void
             cb;
         }
     });
@@ -848,7 +673,7 @@ function simplified_stream_ctor_test() {
             chunk;
             // $ExpectType string
             enc;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         writev(chunks, cb) {
@@ -856,21 +681,21 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType { chunk: any; encoding: string; }[]
             chunks;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         destroy(error, cb) {
             // $ExpectType Writable
             this;
-            // $ExpectType Error
+            // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error) => void
+            // $ExpectType (error: Error | null) => void
             cb;
         },
         final(cb) {
             // $ExpectType Writable
             this;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         }
     });
@@ -889,7 +714,7 @@ function simplified_stream_ctor_test() {
             chunk;
             // $ExpectType string
             enc;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         writev(chunks, cb) {
@@ -897,21 +722,21 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType { chunk: any; encoding: string; }[]
             chunks;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         destroy(error, cb) {
             // $ExpectType Duplex
             this;
-            // $ExpectType Error
+            // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error) => void
+            // $ExpectType (error: Error | null) => void
             cb;
         },
         final(cb) {
             // $ExpectType Duplex
             this;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         readableObjectMode: true,
@@ -932,7 +757,7 @@ function simplified_stream_ctor_test() {
             chunk;
             // $ExpectType string
             enc;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         writev(chunks, cb) {
@@ -940,21 +765,21 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType { chunk: any; encoding: string; }[]
             chunks;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         destroy(error, cb) {
             // $ExpectType Transform
             this;
-            // $ExpectType Error
+            // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error) => void
+            // $ExpectType (error: Error | null) => void
             cb;
         },
         final(cb) {
             // $ExpectType Transform
             this;
-            // $ExpectType (error?: Error) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         transform(chunk, enc, cb) {
@@ -1258,9 +1083,9 @@ async function asyncStreamPipelineFinished() {
         crypto.randomFillSync(buffer, 2);
         crypto.randomFillSync(buffer, 2, 3);
 
-        crypto.randomFill(buffer, (err: Error, buf: Buffer) => void {});
-        crypto.randomFill(buffer, 2, (err: Error, buf: Buffer) => void {});
-        crypto.randomFill(buffer, 2, 3, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, (err: Error | null, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, (err: Error | null, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, 3, (err: Error | null, buf: Buffer) => void {});
 
         // crypto_randomfill_uint8array_test
         const ui8arr: Uint8Array = new Uint8Array(10);
@@ -1268,9 +1093,9 @@ async function asyncStreamPipelineFinished() {
         crypto.randomFillSync(ui8arr, 2);
         crypto.randomFillSync(ui8arr, 2, 3);
 
-        crypto.randomFill(ui8arr, (err: Error, buf: Uint8Array) => void {});
-        crypto.randomFill(ui8arr, 2, (err: Error, buf: Uint8Array) => void {});
-        crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, (err: Error | null, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, (err: Error | null, buf: Uint8Array) => void {});
+        crypto.randomFill(ui8arr, 2, 3, (err: Error | null, buf: Uint8Array) => void {});
 
         // crypto_randomfill_int32array_test
         const i32arr: Int32Array = new Int32Array(10);
@@ -1278,9 +1103,9 @@ async function asyncStreamPipelineFinished() {
         crypto.randomFillSync(i32arr, 2);
         crypto.randomFillSync(i32arr, 2, 3);
 
-        crypto.randomFill(i32arr, (err: Error, buf: Int32Array) => void {});
-        crypto.randomFill(i32arr, 2, (err: Error, buf: Int32Array) => void {});
-        crypto.randomFill(i32arr, 2, 3, (err: Error, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, (err: Error | null, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, (err: Error | null, buf: Int32Array) => void {});
+        crypto.randomFill(i32arr, 2, 3, (err: Error | null, buf: Int32Array) => void {});
     }
 
     {
@@ -1493,7 +1318,7 @@ async function asyncStreamPipelineFinished() {
     }
 
     {
-        let _server: tls.Server;
+        let _server = tls.createServer({});
         let _boolean: boolean;
         const _func1 = (err: Error, resp: Buffer) => { };
         const _func2 = (err: Error, sessionData: any) => { };
@@ -1637,7 +1462,8 @@ async function asyncStreamPipelineFinished() {
     }
 
     {
-        let _TLSSocket: tls.TLSSocket;
+        let _TLSSocket = tls.connect({
+        });
         let _boolean: boolean;
         /**
          * events.EventEmitter
@@ -1734,23 +1560,6 @@ async function asyncStreamPipelineFinished() {
         const keepAliveTimeout: number = server.keepAliveTimeout;
         server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
     }
-}
-
-////////////////////////////////////////////////////
-/// TTY tests : http://nodejs.org/api/tty.html
-////////////////////////////////////////////////////
-
-{
-    const rs: tty.ReadStream = new tty.ReadStream();
-    const ws: tty.WriteStream = new tty.WriteStream();
-
-    const rsIsRaw: boolean = rs.isRaw;
-    rs.setRawMode(true);
-
-    const wsColumns: number = ws.columns;
-    const wsRows: number = ws.rows;
-
-    const isTTY: boolean = tty.isatty(1);
 }
 
 ////////////////////////////////////////////////////
@@ -1886,7 +1695,7 @@ async function asyncStreamPipelineFinished() {
     // returns
     //        ['foo', 'bar', 'baz']
 
-    process.env["PATH"]; // $ExpectType string
+    process.env["PATH"]; // $ExpectType string | undefined
 
     path.parse('/home/user/dir/file.txt');
     // returns
@@ -2029,7 +1838,7 @@ async function asyncStreamPipelineFinished() {
     }
 
     {
-        let _cp: childProcess.ChildProcess;
+        let _cp = childProcess.spawn('asd');
         const _socket: net.Socket = net.createConnection(1);
         const _server: net.Server = net.createServer();
         let _boolean: boolean;
@@ -2157,8 +1966,8 @@ async function asyncStreamPipelineFinished() {
             const _err: Error = err;
         });
         _cp = _cp.addListener("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            const _code: number | null = code;
+            const _signal: string | null  = signal;
         });
         _cp = _cp.addListener("message", (message, sendHandle) => {
             const _message: any = message;
@@ -2180,8 +1989,8 @@ async function asyncStreamPipelineFinished() {
             const _err: Error = err;
         });
         _cp = _cp.on("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            const _code: number | null  = code;
+            const _signal: string | null  = signal;
         });
         _cp = _cp.on("message", (message, sendHandle) => {
             const _message: any = message;
@@ -2197,8 +2006,8 @@ async function asyncStreamPipelineFinished() {
             const _err: Error = err;
         });
         _cp = _cp.once("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            const _code: number | null  = code;
+            const _signal: string | null  = signal;
         });
         _cp = _cp.once("message", (message, sendHandle) => {
             const _message: any = message;
@@ -2214,8 +2023,8 @@ async function asyncStreamPipelineFinished() {
             const _err: Error = err;
         });
         _cp = _cp.prependListener("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            const _code: number | null  = code;
+            const _signal: string | null  = signal;
         });
         _cp = _cp.prependListener("message", (message, sendHandle) => {
             const _message: any = message;
@@ -2231,8 +2040,8 @@ async function asyncStreamPipelineFinished() {
             const _err: Error = err;
         });
         _cp = _cp.prependOnceListener("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            const _code: number | null  = code;
+            const _signal: string | null  = signal;
         });
         _cp = _cp.prependOnceListener("message", (message, sendHandle) => {
             const _message: any = message;
@@ -2280,7 +2089,7 @@ async function asyncStreamPipelineFinished() {
         cluster.fork();
         Object.keys(cluster.workers).forEach(key => {
             const worker = cluster.workers[key];
-            if (worker.isDead()) {
+            if (worker && worker.isDead()) {
                 console.log('worker %d is dead', worker.process.pid);
             }
         });
@@ -2572,19 +2381,19 @@ async function asyncStreamPipelineFinished() {
     }
     {
         const frames: NodeJS.CallSite[] = [];
-        Error.prepareStackTrace(new Error(), frames);
+        Error.prepareStackTrace!(new Error(), frames);
     }
     {
-        const frame: NodeJS.CallSite = null;
+        const frame: NodeJS.CallSite = null!;
         const frameThis: any = frame.getThis();
-        const typeName: string = frame.getTypeName();
-        const func: Function = frame.getFunction();
-        const funcName: string = frame.getFunctionName();
-        const meth: string = frame.getMethodName();
-        const fname: string = frame.getFileName();
-        const lineno: number = frame.getLineNumber();
-        const colno: number = frame.getColumnNumber();
-        const evalOrigin: string = frame.getEvalOrigin();
+        const typeName: string | null  = frame.getTypeName();
+        const func: Function | undefined  = frame.getFunction();
+        const funcName: string | null = frame.getFunctionName();
+        const meth: string | null  = frame.getMethodName();
+        const fname: string | null  = frame.getFileName();
+        const lineno: number | null  = frame.getLineNumber();
+        const colno: number | null  = frame.getColumnNumber();
+        const evalOrigin: string | undefined  = frame.getEvalOrigin();
         const isTop: boolean = frame.isToplevel();
         const isEval: boolean = frame.isEval();
         const isNative: boolean = frame.isNative();
@@ -2739,7 +2548,7 @@ import * as p from "process";
 
 {
     {
-        let _server: repl.REPLServer;
+        let _server = repl.start();
         let _boolean: boolean;
         const _ctx: vm.Context = {};
 
@@ -3230,10 +3039,10 @@ import * as constants from 'constants';
 
         http2Session.destroy();
 
-        const alpnProtocol: string = http2Session.alpnProtocol;
-        const destroyed: boolean = http2Session.destroyed;
-        const encrypted: boolean = http2Session.encrypted;
-        const originSet: string[] = http2Session.originSet;
+        const alpnProtocol: string | undefined = http2Session.alpnProtocol;
+        const destroyed: boolean | undefined = http2Session.destroyed;
+        const encrypted: boolean | undefined = http2Session.encrypted;
+        const originSet: string[] | undefined = http2Session.originSet;
         const pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
         let settings: http2.Settings = http2Session.localSettings;
         const closed: boolean = http2Session.closed;
@@ -3339,7 +3148,7 @@ import * as constants from 'constants';
         clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders & http2.IncomingHttpStatusHeader, flags: number) => {
-            const s: number = headers[':status'];
+            const s: number = headers[':status']!;
         });
 
         // ServerHttp2Stream
@@ -3401,7 +3210,8 @@ import * as constants from 'constants';
 
     // Public API (except constants)
     {
-        let settings: http2.Settings;
+        let settings: http2.Settings = {
+        };
         const serverOptions: http2.ServerOptions = {
             maxDeflateDynamicTableSize: 0,
             maxReservedRemoteStreams: 0,
@@ -3434,7 +3244,8 @@ import * as constants from 'constants';
 
             // Http2ServerResponse
 
-            let outgoingHeaders: http2.OutgoingHttpHeaders;
+            let outgoingHeaders: http2.OutgoingHttpHeaders = {
+            };
             response.addTrailers(outgoingHeaders);
             socket = response.connection;
             const finished: boolean = response.finished;
@@ -3782,10 +3593,10 @@ import * as constants from 'constants';
         // Known post method
         const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
         session.post('Runtime.evaluate', parameter,
-            (err: Error, params: inspector.Runtime.EvaluateReturnType) => {});
+            (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {});
         session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
-            const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails;
-            const resultClassName: string = params.result.className;
+            const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails!;
+            const resultClassName: string = params.result.className!;
         });
         session.post('Runtime.evaluate');
 

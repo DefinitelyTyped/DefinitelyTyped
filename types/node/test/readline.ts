@@ -68,7 +68,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
     const key: readline.Key = {};
 
     rl.write(data);
-    rl.write(null, key);
+    rl.write('asd', key);
 }
 
 {
@@ -108,7 +108,9 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 }
 
 {
-    let _rl: readline.ReadLine;
+    let _rl = readline.createInterface({
+        input: process.stdin,
+    });
     let _boolean: boolean;
 
     _rl = _rl.addListener("close", () => { });

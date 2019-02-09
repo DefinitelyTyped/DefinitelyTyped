@@ -12,7 +12,7 @@ import * as dns from 'dns';
     ds.bind(4123, () => { });
     ds.bind(() => { });
     const addr: net.AddressInfo | string = ds.address();
-    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error | null, bytes: number): void => {
     });
     ds.send(new Buffer("hello"), 5000, "127.0.0.1");
     ds.setMulticastInterface("127.0.0.1");
@@ -20,7 +20,7 @@ import * as dns from 'dns';
 }
 
 {
-    let _socket: dgram.Socket;
+    let _socket = new dgram.Socket();
     let _boolean: boolean;
     const _err: Error = new Error();
     const _str = '';

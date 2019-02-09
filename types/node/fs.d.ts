@@ -275,7 +275,6 @@ declare module "fs" {
     /**
      * Asynchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @deprecated
      */
     function lchown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
 
@@ -291,7 +290,6 @@ declare module "fs" {
     /**
      * Synchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @deprecated
      */
     function lchownSync(path: PathLike, uid: number, gid: number): void;
 
