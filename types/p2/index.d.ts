@@ -900,7 +900,7 @@ declare namespace p2 {
 
     export interface SharedShapeOptions {
 
-        position?: number[];
+        position?: [number, number];
         angle?: number;
         collisionGroup?: number;
         collisionMask?: number;
