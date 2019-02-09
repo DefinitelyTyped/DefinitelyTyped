@@ -21,8 +21,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import jestDiff = require('jest-diff');
-
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
 declare var afterAll: jest.Lifecycle;
@@ -348,7 +346,7 @@ declare namespace jest {
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
             readonly RECEIVED_COLOR: (text: string) => string;
-            diff: typeof jestDiff;
+            diff: typeof import('jest-diff');
             ensureActualIsNumber(actual: any, matcherName?: string): void;
             ensureExpectedIsNumber(actual: any, matcherName?: string): void;
             ensureNoExpected(actual: any, matcherName?: string): void;
