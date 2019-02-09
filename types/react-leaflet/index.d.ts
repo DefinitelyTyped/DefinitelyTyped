@@ -265,9 +265,11 @@ export class WMSTileLayer<P extends WMSTileLayerProps = WMSTileLayerProps,  E ex
 export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOptions {
     bounds?: Leaflet.LatLngBoundsExpression;
     url: string | HTMLImageElement;
+    zIndex?: number;
 }
 export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay> extends MapLayer<P, E> {
-    getChildContext(): { popupContainer: E };
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
 export interface LayerGroupProps extends MapLayerProps { }
