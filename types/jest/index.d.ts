@@ -37,9 +37,6 @@ declare var xtest: jest.It;
 declare const expect: jest.Expect;
 
 type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
-// see https://github.com/Microsoft/TypeScript/issues/25215
-type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] & string;
-type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] & string;
 
 interface NodeRequire {
     /**
@@ -240,6 +237,9 @@ declare namespace jest {
     }
 
     type EmptyFunction = () => void;
+    // see https://github.com/Microsoft/TypeScript/issues/25215
+    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] & string;
+    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] & string;
 
     interface DoneCallback {
         (...args: any[]): any;
