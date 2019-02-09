@@ -277,7 +277,7 @@ interface GridComponentProps
         GridAutoColumnsProps,
         GridAutoRowsProps,
         GridTemplatesRowsProps,
-        GridTemplatesColumnsProps{}
+        GridTemplatesColumnsProps {}
 const Grid: React.ComponentType<GridComponentProps> = styled`
     ${gridGap};
     ${gridRowGap};
