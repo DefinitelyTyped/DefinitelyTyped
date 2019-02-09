@@ -1,22 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-unnecessary-qualifier": false,
-        "max-line-length": false,
-        "no-padding": false,
-        "ban-types": false,
-        "no-any-union": false,
-        "no-var-keyword": false,
-        "interface-over-type-literal": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false,
-        "no-redundant-undefined": false,
-        "typedef-whitespace": false,
-        "no-unnecessary-generics": false,
-        "no-unnecessary-class": false,
-        "no-mergeable-namespace": false,
+        // not sure how to sort these ones out
         "no-single-declare-module": false,
-        "no-declare-current-package": false,
-        "no-empty-interface": false
+        "no-declare-current-package": false
     }
 }

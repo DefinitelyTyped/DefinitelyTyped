@@ -4,6 +4,8 @@ export class TestScene extends Phaser.Scene {
     keys: Phaser.Input.Keyboard.CursorKeys;
     player: Phaser.GameObjects.Sprite;
     collectibles: Phaser.GameObjects.Group;
+    map: Phaser.Tilemaps.Tilemap;
+    collisionLayer: Phaser.Tilemaps.StaticTilemapLayer;
 
     constructor() {
         super({ key: 'test' });
@@ -16,6 +18,9 @@ export class TestScene extends Phaser.Scene {
     }
 
     create(): void {
+        this.map = this.add.tilemap('testMap');
+        this.collisionLayer = this.map.createStaticLayer('collision', 'tileSet');
+
         this.keys = this.input.keyboard.createCursorKeys();
         this.player = this.add.sprite(100, 50, 'testSpriteSheet');
         this.physics.world.enable(this.player);
@@ -33,10 +38,23 @@ export class TestScene extends Phaser.Scene {
             },
             loop: true
         });
+
+        this.physics.world.addCollider(this.player, this.collisionLayer);
+        this.physics.world.addCollider(this.player, this.collectibles, (player, apple) => {
+            const currentScore = player.data.get('score') as number;
+            player.data.set('score', currentScore + 1);
+            apple.destroy();
+        });
     }
 
     update(time: number, delta: number): void {
-        if (this.keys.up.isDown) {
+        const isTouchingApple = this.physics.world.collide(this.player, this.collectibles);
+
+        if (isTouchingApple) {
+            this.sound.play('ding');
+        }
+
+        if (this.keys.up && this.keys.up.isDown) {
             this.player.y -= 5;
         }
         if (this.keys.down.isDown) {
