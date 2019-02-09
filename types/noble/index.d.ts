@@ -66,10 +66,10 @@ export declare class Peripheral extends events.EventEmitter {
 
 export interface Advertisement {
     localName: string;
-    serviceData: [{
+    serviceData: Array<{
         uuid: string,
         data: Buffer
-    }];
+    }>;
     txPowerLevel: number;
     manufacturerData: Buffer;
     serviceUuids: string[];
