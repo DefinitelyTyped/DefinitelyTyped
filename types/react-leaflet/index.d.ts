@@ -250,7 +250,10 @@ export class GridLayer<P extends GridLayerProps = GridLayerProps, E extends Leaf
 export interface TileLayerProps extends GridLayerProps, TileLayerEvents, Leaflet.TileLayerOptions {
     url: string;
 }
-export class TileLayer<P extends TileLayerProps = TileLayerProps, E extends Leaflet.TileLayer = Leaflet.TileLayer> extends GridLayer<P, E> { }
+export class TileLayer<P extends TileLayerProps = TileLayerProps, E extends Leaflet.TileLayer = Leaflet.TileLayer> extends GridLayer<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
 
 export interface WMSTileLayerProps extends TileLayerEvents, Leaflet.WMSOptions, GridLayerProps {
     children?: Children;
@@ -326,17 +329,26 @@ export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.Ge
 export interface PolylineProps extends PathProps, PathEvents, Leaflet.PolylineOptions {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][];
 }
-export class Polyline<P extends PolylineProps = PolylineProps, E extends Leaflet.Polyline = Leaflet.Polyline> extends Path<P, E> { }
+export class Polyline<P extends PolylineProps = PolylineProps, E extends Leaflet.Polyline = Leaflet.Polyline> extends Path<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
 
 export interface PolygonProps extends PathProps, PathEvents, Leaflet.PolylineOptions {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][] | Leaflet.LatLngExpression[][][];
 }
-export class Polygon<P extends PolygonProps = PolygonProps, E extends Leaflet.Polygon = Leaflet.Polygon> extends Path<P, E> { }
+export class Polygon<P extends PolygonProps = PolygonProps, E extends Leaflet.Polygon = Leaflet.Polygon> extends Path<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
 
 export interface RectangleProps extends PathProps, PathEvents, Leaflet.PolylineOptions {
     bounds: Leaflet.LatLngBoundsExpression;
 }
-export class Rectangle<P extends RectangleProps = RectangleProps, E extends Leaflet.Rectangle = Leaflet.Rectangle> extends Path<P, E> { }
+export class Rectangle<P extends RectangleProps = RectangleProps, E extends Leaflet.Rectangle = Leaflet.Rectangle> extends Path<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
 
 export interface PopupProps extends Leaflet.PopupOptions, DivOverlayProps {
     position?: Leaflet.LatLngExpression;
