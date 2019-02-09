@@ -41,8 +41,16 @@ const spec4: router.Spec = {
   validate: {
     type: 'json',
     output: {
-      201: Joi.object(),
-      '400,404': Joi.object(),
+      201: {
+        body: Joi.object(),
+      },
+      '400,404': {
+        headers: Joi.object(),
+        body: Joi.object(),
+      },
+      '500-599': {
+        headers: Joi.object(),
+      },
     },
     jsonOptions: {
         limit: '10kb'
