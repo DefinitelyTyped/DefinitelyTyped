@@ -1,11 +1,19 @@
-// Type definitions for wallpaper 2.5
-// Project: https://github.com/sindresorhus/wallpaper#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
+// Type definitions for wallpaper 4.2
+// Project: https://github.com/sindresorhus/wallpaper
+// Definitions
+//      by: BendingBender <https://github.com/BendingBender>
+//      by: Federico Vitale <https://github.com/Rawnly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function get(): Promise<string>;
-export function set(imagePath: string, options?: WallpaperOptions): Promise<void>;
+export function get(options?: WallpaperGetOptions): Promise<string>;
+export function set(imagePath: string, options?: WallpaperSetOptions): Promise<void>;
+export function screens(): string[]
 
-export interface WallpaperOptions {
-    scale?: 'fill' | 'fit' | 'stretch' | 'center';
+export interface WallpaperSetOptions {
+    scale?: "auto" | "fill" | "fit" | "stretch" | "center"
+    screen?: number | "all" | "main";
+}
+
+export interface WallpaperGetOptions {
+    screen?: number | "all" | "main";
 }
