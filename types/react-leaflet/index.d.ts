@@ -241,7 +241,11 @@ export class MapLayer<P extends MapLayerProps = MapLayerProps, E extends Leaflet
 }
 
 export interface GridLayerProps extends MapLayerProps, Leaflet.GridLayerOptions { }
-export class GridLayer<P extends GridLayerProps = GridLayerProps, E extends Leaflet.GridLayer = Leaflet.GridLayer> extends MapLayer<P, E> {}
+export class GridLayer<P extends GridLayerProps = GridLayerProps, E extends Leaflet.GridLayer = Leaflet.GridLayer> extends MapLayer<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+    getOptions(props: P): P;
+}
 
 export interface TileLayerProps extends GridLayerProps, TileLayerEvents, Leaflet.TileLayerOptions {
     url: string;
@@ -312,7 +316,10 @@ export class FeatureGroup<P extends FeatureGroupProps = FeatureGroupProps, E ext
 export interface GeoJSONProps extends PathProps, FeatureGroupEvents, Leaflet.GeoJSONOptions {
     data: GeoJSON.GeoJsonObject;
 }
-export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends FeatureGroup<P, E> { }
+export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends FeatureGroup<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
 
 export interface PolylineProps extends PathProps, PathEvents, Leaflet.PolylineOptions {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][];
