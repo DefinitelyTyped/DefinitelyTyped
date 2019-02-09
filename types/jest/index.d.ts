@@ -36,10 +36,6 @@ declare var xtest: jest.It;
 
 declare const expect: jest.Expect;
 
-type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
-type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
-type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
-
 interface NodeRequire {
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
@@ -239,6 +235,9 @@ declare namespace jest {
     }
 
     type EmptyFunction = () => void;
+    type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+    type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
+    type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
 
     interface DoneCallback {
         (...args: any[]): any;
