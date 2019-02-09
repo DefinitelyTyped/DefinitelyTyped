@@ -810,8 +810,8 @@ declare namespace p2 {
 
     export interface ConvexOptions extends SharedShapeOptions {
 
-        vertices: [number, number]|ArrayLike<number>[];
-        axes: [number, number]|ArrayLike<number>[];
+        vertices?: [number, number]|ArrayLike<number>[];
+        axes?: [number, number]|ArrayLike<number>[];
 
     }
 
