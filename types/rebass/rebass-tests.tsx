@@ -1,8 +1,17 @@
 import * as React from "react";
+import styled from "styled-components";
 import { Box, Flex, Text, Heading, Button, Link, Image, Card } from "rebass";
 
 const CustomComponent: React.FunctionComponent = ({ children }) => {
     return <div>{children}</div>;
+};
+
+const ExtendedBox = styled(Box)`
+    color: red;
+`;
+
+ExtendedBox.defaultProps = {
+    p: 3
 };
 
 () => (
@@ -33,10 +42,13 @@ const CustomComponent: React.FunctionComponent = ({ children }) => {
             <Link href="https://rebassjs.org" title="Rebass" target="_blank">
                 Link
             </Link>
-            <Box as={CustomComponent}>CustomComponent</Box>
             <Button bg="magenta" border="1em" borderRadius="1em">
                 Button
             </Button>
+            <Box as={CustomComponent} bg="red">
+                CustomComponent
+            </Box>
+            <ExtendedBox m={2}>ExtendedBox</ExtendedBox>
         </Flex>
     </Box>
 );
