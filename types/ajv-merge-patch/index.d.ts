@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import * as Ajv from "ajv";
+import { Ajv } from "ajv";
 
 declare namespace ajvMergePatch {}
 declare function ajvMergePatch(ajv: Ajv): void;
