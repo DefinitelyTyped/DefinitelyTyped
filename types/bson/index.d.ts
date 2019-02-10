@@ -20,12 +20,12 @@ export interface SerializeOptions extends CommonSerializeOptions {
     /** {default:1024*1024*17}, minimum size of the internal temporary serialization buffer. */
     minInternalBufferSize?: number;
 }
-  
+
 export interface SerializeWithBufferAndIndexOptions extends CommonSerializeOptions {
     /** {default:0}, the index in the buffer where we wish to start serializing into. */
     index?: number;
 }
-  
+
 export interface DeserializeOptions {
     /** {default:false}, evaluate functions in the BSON document scoped to the object deserialized. */
     evalFunctions?: boolean;
@@ -46,15 +46,15 @@ export interface DeserializeOptions {
     /** {default:false}, allows the buffer to be larger than the parsed BSON object. */
     allowObjectSmallerThanBufferSize?: boolean;
 }
-  
+
 export interface CalculateObjectSizeOptions {
     /** {default:false}, serialize the javascript functions */
     serializeFunctions?: boolean;
     /** {default:true}, ignore undefined fields. */
     ignoreUndefined?: boolean;
 }
-  
-  
+
+
 /**
  * Serialize a Javascript object.
  * 
@@ -144,7 +144,7 @@ export function deserializeStream(
   
 /** A class representation of the BSON Binary type. */
 export class Binary {
-  
+
     static readonly SUBTYPE_DEFAULT: number;
     static readonly SUBTYPE_FUNCTION: number;
     static readonly SUBTYPE_BYTE_ARRAY: number;
@@ -152,18 +152,18 @@ export class Binary {
     static readonly SUBTYPE_UUID: number;
     static readonly SUBTYPE_MD5: number;
     static readonly SUBTYPE_USER_DEFINED: number;
-  
+
     /**
      * @param buffer A buffer object containing the binary data
      * @param subType Binary data subtype
      */
     constructor(buffer: Buffer, subType?: number);
-  
+
     /** The underlying Buffer which stores the binary data. */
     readonly buffer: Buffer;
     /** Binary data subtype */
     readonly sub_type?: number;
-  
+
     /** The length of the binary. */
     length(): number;
     /** Updates this binary with byte_value */
@@ -175,25 +175,25 @@ export class Binary {
     /** Writes a buffer or string to the binary */
     write(buffer: Buffer | string, offset: number): void;
 }
-  
+
 /** A class representation of the BSON Code type. */
 export class Code {
-  
+
     /**
      * @param code A string or function.
      * @param scope An optional scope for the function.
      */
     constructor(code: string | Function, scope?: any);
-  
+
     readonly code: string | Function;
     readonly scope?: any;
-  
+
 }
-  
+
 /**
-* A class representation of the BSON DBRef type.
-* @deprecated
-*/
+ * A class representation of the BSON DBRef type.
+ * @deprecated
+ */
 export class DBRef {
     /**
      * @param namespace The collection name.
@@ -205,14 +205,14 @@ export class DBRef {
     oid: ObjectId;
     db?: string;
 }
-  
+
 /** A class representation of the BSON Double type. */
 export class Double {
     /**
      * @param value The number we want to represent as a double.
      */
     constructor(value: number);
-  
+
     valueOf(): number;
 }
   
@@ -227,10 +227,10 @@ export class Int32 {
 }
 
 /**
-* Base class for Long and Timestamp.
-* In original js-node@1.0.x code 'Timestamp' is a 100% copy-paste of 'Long'
-* with 'Long' replaced by 'Timestamp' (changed to inheritance in js-node@2.0.0)
-*/
+ * Base class for Long and Timestamp.
+ * In original js-node@1.0.x code 'Timestamp' is a 100% copy-paste of 'Long'
+ * with 'Long' replaced by 'Timestamp' (changed to inheritance in js-node@2.0.0)
+ */
 declare class LongLike<T> {
 
     /**
