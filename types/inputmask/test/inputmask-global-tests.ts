@@ -78,9 +78,15 @@ Inputmask("9", { repeat: 10 }).mask("selector");
 Inputmask({ regex: "\\d*" }).mask("selector");
 Inputmask({ regex: String.raw`\d*` }).mask("selector");
 
-let inputElement!: HTMLInputElement;
-Inputmask().mask(inputElement);
-Inputmask().mask([inputElement, inputElement]);
+function testMask() {
+    const inputElement = document.querySelector("input");
+    if (inputElement) {
+        Inputmask().mask(inputElement);
+        Inputmask().mask([inputElement, inputElement]);
+        Inputmask().mask(document.querySelectorAll("input"));
+        Inputmask().mask(document.getElementsByTagName("input"));
+    }
+}
 
 Inputmask.extendDefaults({
 	autoUnmask: true

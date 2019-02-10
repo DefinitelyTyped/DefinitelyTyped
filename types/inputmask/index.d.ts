@@ -543,7 +543,7 @@ declare namespace Inputmask {
          *
          * @param el Element selector, a single element or an array of elements.
          */
-        mask(selectorOrElement: string | HTMLElement | ReadonlyArray<HTMLElement>): Instance;
+        mask(selectorOrElement: string | HTMLElement | ArrayLike<HTMLElement>): Instance;
         /**
          * Get an option on an existing inputmask.
          *
@@ -687,7 +687,7 @@ declare namespace Inputmask {
         /**
          * Remove the inputmask.
          */
-        remove(selectorOrElement: string | HTMLElement | ReadonlyArray<HTMLElement>): void;
+        remove(selectorOrElement: string | HTMLElement | ArrayLike<HTMLElement>): void;
         /**
          * The setvalue functionality is to set a value to the inputmask like you would do with jQuery.val, BUT it will
          * trigger the internal event used by the inputmask always, whatever the case. This is particular usefull when
@@ -696,7 +696,7 @@ declare namespace Inputmask {
          * However when setting the value with jQuery.val there is none of the events triggered in that case. The
          * setvalue functionality does this for you.
          */
-        setValue(selectorOrElement: string | HTMLElement | ReadonlyArray<HTMLElement>, value: string): void;
+        setValue(selectorOrElement: string | HTMLElement | ArrayLike<HTMLElement>, value: string): void;
         /**
          * Unmask a given value against the mask.
          *
