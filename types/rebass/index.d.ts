@@ -35,7 +35,7 @@ export interface BoxProps
         Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
 export const Box: React.FunctionComponent<BoxProps>;
 
-export interface ButtonKnownProps
+interface ButtonKnownProps
     extends BoxKnownProps,
         StyledSystem.FontWeightProps,
         StyledSystem.BorderProps,
@@ -48,7 +48,7 @@ export interface ButtonProps
         Omit<React.HTMLProps<HTMLButtonElement>, keyof ButtonKnownProps> {}
 export const Button: React.FunctionComponent<ButtonProps>;
 
-export interface CardKnownProps
+interface CardKnownProps
     extends BoxKnownProps,
         StyledSystem.BorderProps,
         StyledSystem.BordersProps,
@@ -67,7 +67,7 @@ export interface CardProps
         Omit<React.HTMLProps<HTMLDivElement>, keyof CardKnownProps> {}
 export const Card: React.FunctionComponent<CardProps>;
 
-export interface FlexKnownProps
+interface FlexKnownProps
     extends BoxKnownProps,
         StyledSystem.FlexWrapProps,
         StyledSystem.FlexDirectionProps,
@@ -78,7 +78,7 @@ export interface FlexProps
         Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
 export const Flex: React.FunctionComponent<FlexProps>;
 
-export interface ImageKnownProps
+interface ImageKnownProps
     extends BoxKnownProps,
         StyledSystem.HeightProps,
         StyledSystem.BorderRadiusProps {}
@@ -88,13 +88,13 @@ export interface ImageProps
 export const Image: React.FunctionComponent<ImageProps>;
 
 // tslint:disable-next-line no-empty-interface
-export interface LinkKnownProps extends BoxKnownProps {}
+interface LinkKnownProps extends BoxKnownProps {}
 export interface LinkProps
     extends LinkKnownProps,
         Omit<React.HTMLProps<HTMLAnchorElement>, keyof LinkKnownProps> {}
 export const Link: React.FunctionComponent<LinkProps>;
 
-export interface TextKnownProps
+interface TextKnownProps
     extends BoxKnownProps,
         StyledSystem.FontFamilyProps,
         StyledSystem.FontWeightProps,
@@ -107,7 +107,7 @@ export interface TextProps
 export const Text: React.FunctionComponent<TextProps>;
 
 // tslint:disable-next-line no-empty-interface
-export interface HeadingKnownProps extends TextKnownProps {}
+interface HeadingKnownProps extends TextKnownProps {}
 export interface HeadingProps
     extends HeadingKnownProps,
         Omit<React.HTMLProps<HTMLHeadingElement>, keyof HeadingKnownProps> {}
