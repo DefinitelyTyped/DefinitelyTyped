@@ -27,3 +27,6 @@ folder.get('parent').then(parent => {
 folder.set('parent', folder);
 folder.set('parent', folder.get('parent'));
 folder.set('parent', store.findRecord('folder', 3));
+
+// $ExpectType Model | null
+folder.belongsTo('parent').value();

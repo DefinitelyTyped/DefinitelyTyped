@@ -12,6 +12,7 @@ import { Bulk } from './bulk';
 import { Cache } from './cache'
 import { OAuth2, Streaming } from '.';
 import { HttpApiOptions } from './http-api'
+import { LimitsInfo } from './limits-info';
 
 export type Callback<T> = (err: Error | null, result: T) => void;
 // The type for these options was determined by looking at the usage
@@ -160,9 +161,13 @@ export class Connection extends BaseConnection {
     login(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginByOAuth2(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginBySoap(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
+    logout(revoke: boolean, callback?: (err: Error, res: undefined) => void): Promise<void>;
     logout(callback?: (err: Error, res: undefined) => void): Promise<void>;
+    logoutByOAuth2(revoke: boolean, callback?: (err: Error, res: undefined) => void): Promise<void>;
     logoutByOAuth2(callback?: (err: Error, res: undefined) => void): Promise<void>;
+    logoutBySoap(revoke: boolean, callback?: (err: Error, res: undefined) => void): Promise<void>;
     logoutBySoap(callback?: (err: Error, res: undefined) => void): Promise<void>;
+    limits(callback?: (err: Error, res: undefined) => void): Promise<LimitsInfo>;
 }
 
 export class Tooling extends BaseConnection {

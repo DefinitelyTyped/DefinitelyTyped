@@ -246,9 +246,7 @@ declare namespace acorn {
     let LooseParser: ILooseParserClass | undefined;
     let pluginsLoose: PluginsObject | undefined;
 
-    interface ILooseParserClass {
-        new (input: string, options?: Options): ILooseParser;
-    }
+    type ILooseParserClass = new (input: string, options?: Options) => ILooseParser;
 
     interface ILooseParser {}
 

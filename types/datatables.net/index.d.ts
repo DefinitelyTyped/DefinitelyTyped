@@ -1602,7 +1602,7 @@ declare namespace DataTables {
         /**
          * Class to assign to each cell in the column. Since: 1.10
          */
-        data?: number | string | ObjectColumnData | FunctionColumnData;
+        data?: number | string | ObjectColumnData | FunctionColumnData | null;
 
         /**
          * Set default, static, content for a column. Since: 1.10

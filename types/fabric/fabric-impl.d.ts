@@ -104,7 +104,7 @@ export function warn(...values: any[]): void;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Data Object Interfaces - These intrface are not specific part of fabric,
-// They are just helpful for for defining function paramters
+// They are just helpful for for defining function parameters
 //////////////////////////////////////////////////////////////////////////////
 interface IDataURLOptions {
 	/**
@@ -140,6 +140,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
+    transform?: { corner: string };
 }
 
 interface IFillOptions {
@@ -613,6 +614,10 @@ interface IPatternOptions {
 	 * The source for the pattern
 	 */
 	source: string | HTMLImageElement;
+    /**
+     * Transform matrix to change the pattern, imported from svgs
+     */
+    patternTransform?: number[];
 }
 export interface Pattern extends IPatternOptions { }
 export class Pattern {
@@ -1650,6 +1655,13 @@ export class Group {
 	 * @chainable
 	 */
 	destroy(): Group;
+    /**
+     * make a group an active selection, remove the group from canvas
+     * the group has to be on canvas for this to work.
+     * @return {fabric.ActiveSelection} thisArg
+     * @chainable
+     */
+    toActiveSelection(): ActiveSelection;
 	/**
 	 * Checks whether this group was moved (since `saveCoords` was called last)
 	 * @return true if an object was moved (since fabric.Group#saveCoords was called)
@@ -1793,10 +1805,12 @@ export class Image {
 
 	initialize(element?: string | HTMLImageElement, options?: IImageOptions): void;
 	/**
-	 * Applies filters assigned to this image (from "filters" array)
-	 * @param callback Callback is invoked when all filters have been applied and new image is generated
+	 * Applies filters assigned to this image (from "filters" array) or from filter param
+	 * @param {Array} filters to be applied
+	 * @return {thisArg} return the fabric.Image object
+	 * @chainable
 	 */
-	applyFilters(callback: Function): void;
+	applyFilters(filters?: IBaseFilter[]): Image;
 	/**
 	 * Returns a clone of an instance
 	 * @param callback Callback is invoked with a clone as a first argument
@@ -2226,7 +2240,20 @@ interface IObjectOptions {
 	 */
 	clipTo?: Function;
 
-	/**
+    /**
+     * A fabricObject that, without stroke define a clipping area with their shape. filled in black
+     * the clipPath object gets used when the object has rendered, and the context is placed in the center
+     * of the object cacheCanvas.
+     * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
+     */
+    clipPath?: Object;
+
+    /**
+     * When set to `true`, object's cache will be rerendered next render call.
+     */
+    dirty?: boolean;
+
+    /**
 	 * When `true`, object horizontal movement is locked
 	 */
 	lockMovementX?: boolean;
@@ -3459,7 +3486,7 @@ export class IText extends Object {
 	 * @param [endIndex] End index to get styles at
 	 * @return styles Style object at a specified (or current) index
 	 */
-	getSelectionStyles(startIndex: number, endIndex: number): any;
+	getSelectionStyles(startIndex: number, endIndex: number, complete?: boolean): any;
 	/**
 	 * Sets style of a current selection
 	 * @param [styles] Styles object
@@ -3709,17 +3736,29 @@ interface IAllFilters {
 		 */
 		new(options?: any): IBaseFilter;
 	};
-	Blend: {
+	BlendColor: {
 		/**
 		 * Constructor
 		 * @param [options] Options object
 		 */
-		new(options?: { color?: string; mode?: string; alpha?: number; image?: Image }): IBlendFilter;
+		new(options?: { color?: string; mode?: string; alpha?: number; }): IBlendColorFilter;
 		/**
 		 * Returns filter instance from an object representation
 		 * @param object Object to create an instance from
 		 */
-		fromObject(object: any): IBlendFilter
+		fromObject(object: any): IBlendColorFilter
+	};
+	BlendImage: {
+		/**
+		 * Constructor
+		 * @param [options] Options object
+		 */
+		new(options?: { image?: Image; mode?: string; alpha?: number; }): IBlendImageFilter;
+		/**
+		 * Returns filter instance from an object representation
+		 * @param object Object to create an instance from
+		 */
+		fromObject(object: any): IBlendImageFilter
 	};
 	Brightness: {
 		new(options?: {
@@ -3735,7 +3774,18 @@ interface IAllFilters {
 		 */
 		fromObject(object: any): IBrightnessFilter
 	};
-	Convolute: {
+    ColorMatrix: {
+        new(options?: {
+            /** Filter matrix */
+            matrix?: number[]
+        }): IColorMatrix;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IColorMatrix
+    };
+    Convolute: {
 		new(options?: {
 			opaque?: boolean,
 			/** Filter matrix */
@@ -3902,7 +3952,14 @@ interface IBaseFilter {
 	 */
 	toJSON(): string;
 }
-interface IBlendFilter extends IBaseFilter {
+interface IBlendColorFilter extends IBaseFilter {
+	/**
+	 * Applies filter to canvas element
+	 * @param canvasEl Canvas element to apply filter to
+	 */
+	applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IBlendImageFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
@@ -3916,6 +3973,13 @@ interface IBrightnessFilter extends IBaseFilter {
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
+interface IColorMatrix extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
 interface IConvoluteFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
@@ -3923,63 +3987,63 @@ interface IConvoluteFilter extends IBaseFilter {
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IGradientTransparencyFilter {
+interface IGradientTransparencyFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IGrayscaleFilter {
+interface IGrayscaleFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IInvertFilter {
+interface IInvertFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IMaskFilter {
+interface IMaskFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IMultiplyFilter {
+interface IMultiplyFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface INoiseFilter {
+interface INoiseFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IPixelateFilter {
+interface IPixelateFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IRemoveWhiteFilter {
+interface IRemoveWhiteFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface IResizeFilter {
+interface IResizeFilter extends IBaseFilter {
 	/**
 	 * Resize type
 	 */
@@ -4005,21 +4069,21 @@ interface IResizeFilter {
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ISepiaFilter {
+interface ISepiaFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ISepia2Filter {
+interface ISepia2Filter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
-interface ITintFilter {
+interface ITintFilter extends IBaseFilter {
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
@@ -4521,7 +4585,7 @@ interface IUtilMisc {
 	 * @param [context] Context to invoke callback in
 	 * @param [crossOrigin] crossOrigin value to set image element to
 	 */
-	loadImage(url: string, callback: (image: HTMLImageElement) => void, context?: any, crossOrigin?: boolean): void;
+	loadImage(url: string, callback: (image: HTMLImageElement) => void, context?: any, crossOrigin?: string): void;
 
 	/**
 	 * Creates corresponding fabric instances from their object representations
@@ -4595,6 +4659,11 @@ interface IUtilMisc {
 	 * @param a transformMatrix
 	 */
 	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number };
+
+    /**
+     * Creates a transform matrix with the specified scale and skew
+     */
+    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
 
 	/**
 	 * Returns string representation of function body
@@ -4675,4 +4744,3 @@ export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOpt
 export class WebglFilterBackend {
 	constructor(options?: WebglFilterBackendOptions);
 }
-

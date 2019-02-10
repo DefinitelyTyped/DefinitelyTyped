@@ -1,23 +1,25 @@
 /// <reference types="node" />
 
-import PCancelableCtor = require('p-cancelable');
-import { EventEmitter } from "events";
+import PCancelable = require('p-cancelable');
+import { EventEmitter } from 'events';
 
-const cancelablePromise: PCancelableCtor.PCancelable<{}> = new PCancelableCtor((resolve, reject, onCancel) => {
-    class Worker extends EventEmitter {
-        close() {
+const cancelablePromise: PCancelable.PCancelable<{}> = new PCancelable(
+    (resolve, reject, onCancel) => {
+        class Worker extends EventEmitter {
+            close() {}
         }
+
+        const worker = new Worker();
+
+        onCancel.shouldReject = false;
+        onCancel(() => {
+            worker.close();
+        });
+
+        worker.on('finish', resolve);
+        worker.on('error', reject);
     }
-
-    const worker = new Worker();
-
-    onCancel(() => {
-        worker.close();
-    });
-
-    worker.on('finish', resolve);
-    worker.on('error', reject);
-});
+);
 
 cancelablePromise
     .then(value => {
@@ -35,30 +37,52 @@ cancelablePromise
 
 setTimeout(() => {
     cancelablePromise.cancel();
+    cancelablePromise.cancel('foo');
 }, 10000);
 
-const fn = PCancelableCtor.fn((onCancel: (fn?: () => void) => void, input: string) => {
-    const job = {
-        start() {
-            return Promise.resolve(10);
-        },
-        cleanup() {
-        }
-    };
+const fn0 = PCancelable.fn(onCancel => {
+    // $ExpectType OnCancelFn
+    onCancel;
 
-    onCancel(() => {
-        job.cleanup();
-    });
-
-    return job.start();
+    return Promise.resolve(10);
 });
+// $ExpectType () => PCancelable<number>
+fn0;
 
-const promise = fn('input');
+const fn1 = PCancelable.fn((p1: string, onCancel: PCancelable.OnCancelFn) => {
+    return Promise.resolve(10);
+});
+// $ExpectType (param1: string) => PCancelable<number>
+fn1;
+
+const fn2 = PCancelable.fn((p1: string, p2: boolean, onCancel: PCancelable.OnCancelFn) => {
+    return Promise.resolve(10);
+});
+// $ExpectType (param1: string, param2: boolean) => PCancelable<number>
+fn2;
+
+const fn3 = PCancelable.fn(
+    (p1: string, p2: boolean, p3: number, onCancel: PCancelable.OnCancelFn) => {
+        return Promise.resolve(10);
+    }
+);
+// $ExpectType (param1: string, param2: boolean, param3: number) => PCancelable<number>
+fn3;
+
+const fn4 = PCancelable.fn(
+    (p1: string, p2: boolean, p3: number, p4: null, onCancel: PCancelable.OnCancelFn) => {
+        return Promise.resolve(10);
+    }
+);
+// $ExpectType (param1: string, param2: boolean, param3: number, param4: null) => PCancelable<number>
+fn4;
+
+const promise = fn0();
 let num: number;
-promise.then(innum => num = innum);
+promise.then(innum => (num = innum));
 if (!promise.isCanceled) {
     promise.cancel();
 }
 
-const err: PCancelableCtor.CancelError = new PCancelableCtor.CancelError();
+const err: PCancelable.CancelError = new PCancelable.CancelError();
 throw err;

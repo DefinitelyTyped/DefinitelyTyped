@@ -2,11 +2,10 @@ import * as React from 'react';
 import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
 interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownListClass>, AutoFocus {
-
     /**
      * Allow to create a new option on the data list.
      */
-    allowCreate?: boolean | 'onFilter'
+    allowCreate?: boolean | 'onFilter';
     /**
      * The current value of the DropdownList. This can be an object (such as a member of the
      * data array) or a primitive value, hinted to by the valueField. The widget value does not
@@ -14,8 +13,8 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      */
     value?: any;
     /**
-   * Default value.
-   */
+     * Default value.
+     */
     defaultValue?: any;
     /**
      * Create event Handler that is called when a new option is added to the data list.
@@ -123,9 +122,8 @@ interface DropdownListProps extends ReactWidgetsCommonDropdownProps<DropdownList
      * There are a few built-in filtering methods that can be specified by passing the String name.
      * To handle custom filtering techniques provide a function that returns true or false
      * for each passed in item (analogous to the array.filter builtin)
-     * @enum false "startsWith" "endsWith" "contains"
      */
-    filter?: boolean | "startsWith" | "endsWith" | "contains" | ((dataItem: any, str: string) => boolean);
+    filter?: false | "startsWith" | "endsWith" | "contains" | ((dataItem: any, str: string) => boolean);
     /**
      * Use in conjunction with the filter prop. Filter the list without regard for case. This
      * only applies to non function values for filter

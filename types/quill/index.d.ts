@@ -52,7 +52,7 @@ export interface ClipboardStatic {
 }
 
 export interface QuillOptionsStatic {
-    debug?: string;
+    debug?: string | boolean;
     modules?: StringMap;
     placeholder?: string;
     readOnly?: boolean;

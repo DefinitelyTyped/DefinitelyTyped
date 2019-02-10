@@ -1,10 +1,12 @@
 /// <reference types="storybook__react" />
 
 import * as React from 'react';
-import { storiesOf } from '@storybook/react';
+import { addDecorator, storiesOf } from '@storybook/react';
 import { setDefaults, withInfo } from '@storybook/addon-info';
 
 const { Component } = React;
+
+addDecorator(withInfo);
 
 setDefaults({
     inline: false,

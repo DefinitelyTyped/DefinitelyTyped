@@ -359,7 +359,15 @@ export type Icons =
     | "sound"
     | "speech"
     | "speech-ellipsis"
-    | "tag";
+    | "tag"
+    | "terms"
+    | "text-align-left"
+    | "text-align-center"
+    | "text-align-right"
+    | "twitter"
+    | "view-type-default"
+    | "view-type-dense"
+    | "view-type-list";
 
 export interface IconProps {
     accessibilityLabel: string;

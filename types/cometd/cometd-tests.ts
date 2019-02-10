@@ -1,4 +1,4 @@
-import { CometD, Listener, Message } from "cometd";
+import { CometD, Listener, Message, SubscriptionHandle } from "cometd";
 
 const cometd = new CometD();
 
@@ -78,7 +78,7 @@ cometd.unsubscribe(subscription3, additionalInfoUnsubscribe, unsubscribeReply =>
 // Subscribers versus Listeners
 // ============================
 
-let _reportListener: Listener | undefined;
+let _reportListener: SubscriptionHandle | undefined;
 
 cometd.addListener("/meta/handshake", message => {
     // Only subscribe if the handshake is successful
@@ -106,7 +106,7 @@ cometd.addListener("/meta/handshake", message => {
 // Dynamic Resubscription
 // ======================
 
-let _subscription: Listener | undefined;
+let _subscription: SubscriptionHandle | undefined;
 
 class Controller {
     dynamicSubscribe = () => {

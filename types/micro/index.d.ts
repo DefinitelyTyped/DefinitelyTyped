@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+/// <reference types="node" />
+
 import { IncomingMessage, ServerResponse, Server } from 'http';
 
 export type RequestHandler = (req: IncomingMessage, res: ServerResponse) => any;

@@ -205,3 +205,6 @@ declare module 'ember-data/types/registries/serializer' {
 
 assertType<UserAdapter>(store.adapterFor('user'));
 assertType<UserSerializer>(store.serializerFor('user'));
+
+store.unloadAll();
+store.unloadAll('user');

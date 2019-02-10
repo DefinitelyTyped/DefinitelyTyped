@@ -2,13 +2,15 @@ import * as tracer from "dd-trace";
 import SpanContext = require("dd-trace/src/opentracing/span_context");
 
 tracer.init({
+    enabled: true,
     service: "MyLovelyService",
     hostname: "localhost",
     port: 8126,
+    env: "dev",
     logger: {
         debug: msg => {},
         error: err => {},
-    },
+    }
 });
 
 function useWebFrameworkPlugin(plugin: "express" | "hapi" | "koa" | "restify") {

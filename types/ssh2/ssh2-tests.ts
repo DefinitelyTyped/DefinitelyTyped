@@ -313,7 +313,7 @@ var buffersEqual = require('buffer-equal-constant-time'),
     //ssh2 = require('ssh2'),
     utils = ssh2.utils;
 
-var pubKey = utils.genPublicKey(<ssh2_streams.ParsedKey>utils.parseKey(fs.readFileSync('user.pub')));
+var pubKey = utils.genPublicKey(utils.parseKey(fs.readFileSync('user.pub')) as ssh2_streams.ParsedKey);
 
 new ssh2.Server({
     hostKeys: [fs.readFileSync('host.key')]

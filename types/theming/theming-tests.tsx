@@ -54,6 +54,7 @@ function customWithTheme<P>(
 ) {
   return class CustomWithTheme extends React.Component<P, { theme: object }> {
     static contextTypes = themeListener.contextTypes;
+    context: any;
 
     setTheme = (theme: object) => this.setState({ theme });
     subscription: number | undefined;

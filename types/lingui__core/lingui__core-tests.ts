@@ -80,8 +80,17 @@ const catalog: Catalog = {
         }
     }
 };
+
+function missingFn(language: string, id: string) {
+   return id;
+}
+
 const catalogs: Catalogs = { es: catalog };
 const setupResult: I18n = setupI18n({ catalogs, language: 'es' });
+const setupResultLocales: I18n = setupI18n({ locales: ['en-UK', 'ar-AS'] });
+const setupResultMissingText: I18n = setupI18n({ missing: 'missing' });
+const setupResultMissingFn: I18n = setupI18n({ missing: missingFn });
+const setupResultCombined: I18n = setupI18n({ catalogs, language: 'de', locales: ['en-UK', 'ar-AS'], missing: missingFn });
 
 const formattedDate: string = date('en', { timeZone: 'UTC' })(new Date());
 const formattedNumber: string = number('en', { style: 'currency', currency: 'EUR' })(1234.56);

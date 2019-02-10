@@ -18,11 +18,6 @@ OfficeRuntime.AsyncStorage.removeItem("foo", () => {
     // perform an action
 });
 
-OfficeRuntime.AsyncStorage.clear();
-OfficeRuntime.AsyncStorage.clear(() => {
-    // perform an action
-});
-
 OfficeRuntime.AsyncStorage.getAllKeys().then(keys => {
     keys.forEach(item => console.log(item));
 });

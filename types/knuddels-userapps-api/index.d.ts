@@ -1,22 +1,22 @@
-// Type definitions for Knuddels UserApps API 1.00109481
+// Type definitions for Knuddels UserApps API 1.00111486
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // helper types
-export type JsonData = string | number | boolean | Date | Json | JsonArray;
-export type KnuddelsJsonData = string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable;
-export type KnuddelsSerializable = string | number | boolean | User | BotUser;
+export type JsonData = string | number | boolean | Date | Json | JsonArray | undefined;
+export type KnuddelsJsonData = string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable | undefined;
+export type KnuddelsSerializable = string | number | boolean | User | BotUser | undefined;
 export type KnuddelsEvent = string | Json | KnuddelsEventArray;
 
 // helper interfaces
 declare global {
 	interface Json {
-		[x: string]: JsonData;
+		[x: string]: JsonData | undefined;
 	}
 
 	interface KnuddelsJson {
-		[x: string]: KnuddelsJsonData;
+		[x: string]: KnuddelsJsonData | undefined;
 	}
 
 	interface JsonArray extends Array<JsonData> {
@@ -1026,12 +1026,12 @@ declare global {
 			 * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_getAppViewMode
 			 * @since Applet: 9.0byl
 			 */
-			getAppViewMode(): void;
+			getAppViewMode(): string;
 			/**
 			 * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_getBrowserType
 			 * @since Applet: 9.0bzp
 			 */
-			getBrowserType(): void;
+			getBrowserType(): string;
 		}
 	}
 

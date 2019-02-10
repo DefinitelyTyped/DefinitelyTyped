@@ -30,6 +30,8 @@ export declare function removeListener(event: "scanStop", listener: () => void):
 export declare function removeListener(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
 export declare function removeListener(event: string, listener: Function): events.EventEmitter;
 
+export declare function removeAllListeners(event?: string): events.EventEmitter;
+
 export declare var state:string;
 
 export declare class Peripheral extends events.EventEmitter {

@@ -12,6 +12,7 @@ declare namespace SegmentAnalytics {
   interface SegmentOpts {
     integrations?: any;
     anonymousId?: string;
+    context?: object;
   }
 
   // The actual analytics.js object
@@ -40,7 +41,7 @@ declare namespace SegmentAnalytics {
 
     /* The page method lets you record page views on your website, along with
        optional extra information about the page being viewed. */
-    page(category: string, name: string, properties?: Object,
+    page(category?: string, name?: string, properties?: Object,
          options?: SegmentOpts, callback?: () => void): void;
     page(name?: string, properties?: Object,
          options?: SegmentOpts, callback?: () => void): void;

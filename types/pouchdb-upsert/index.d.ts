@@ -59,7 +59,10 @@ declare namespace PouchDB {
   }
 
   type CancelUpsert = '' | 0 | false | null | undefined; // falsey values
-  type UpsertDiffCallback<Content extends {}> = (doc: Core.Document<Content> | {}) => Content & Partial<Core.IdMeta> | CancelUpsert;
+  // `Partial<Core.Document<Content>>` seems more useful than
+  // `{} | Core.Document<Content>` since there isn't an easy way to narrow
+  // `{} | Core.Document<Content>` to `Core.Document<Content>`.
+  type UpsertDiffCallback<Content extends {}> = (doc: Partial<Core.Document<Content>>) => Content & Partial<Core.IdMeta> | CancelUpsert;
 
   interface UpsertResponse {
     id: Core.DocumentId;

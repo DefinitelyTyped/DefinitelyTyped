@@ -11,6 +11,8 @@
 //                 Paul Melnikow <https://github.com/paulmelnikow>
 //                 Harry Cruse <https://github.com/crusectrl>
 //                 Andrew Palugniok <https://github.com/apalugniok>
+//                 Robert Stigsson <https://github.com/RobertStigsson>
+//                 Kosaku Kurino <https://github.com/kousaku-maron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -45,6 +47,7 @@ export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouett
 export type LineType =
     'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' |
     'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | CurveFactory;
+export type IfOverflowType = 'hidden' | 'visible' | 'discard' | 'extendDomain';
 export type AxisInterval = number | 'preserveStart' | 'preserveEnd' | 'preserveStartEnd';
 
 export type PickedCSSStyleDeclarationKeys =
@@ -127,6 +130,7 @@ export interface PresentationAttributes<X = number, Y = number> extends Pick<CSS
     colorInterpolation: string;
     colorProfile: string;
     colorRendering: string;
+    fill: string;
     fillOpacity: number | string;
     fontSize: number | string;
     fontSizeAdjust: number | string;
@@ -212,6 +216,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     hide?: boolean;
     shape?: React.ReactElement<any> | ContentRenderer<RectangleProps>;
     data?: BarData[];
+    background?: boolean | React.ReactElement<any> | ContentRenderer<any> | object;
     // see label section at http://recharts.org/#/en-US/api/Bar
     label?: boolean | Label | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
 }
@@ -296,8 +301,9 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
 
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
-// NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
-export type CellProps = Partial<PresentationAttributes>;
+export interface CellProps extends Partial<PresentationAttributes> {
+    onClick?: RechartsFunction;
+}
 
 export class Cell extends React.Component<CellProps> { }
 
@@ -363,6 +369,7 @@ export interface LegendPayload {
     value: any;
     id: any;
     type: LegendType;
+    color?: string;
 }
 
 export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
@@ -429,6 +436,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     cy?: number | string;
     startAngle?: number;
     endAngle?: number;
+    midAngle?: number;
     paddingAngle?: number;
     innerRadius?: number | string;
     outerRadius?: number | string;
@@ -444,9 +452,21 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     labelLine?: object | ContentRenderer<LineProps & any> | React.ReactElement<any> | boolean;
     label?: {
         offsetRadius: number;
-    } | React.ReactElement<any> | ContentRenderer<any> | boolean;
+    } | React.ReactElement<any> | ContentRenderer<PieLabelRenderProps> | boolean;
     activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
     activeIndex?: number | number[];
+    blendStroke?: boolean;
+}
+
+export interface PieLabelRenderProps extends PieProps {
+    name: string;
+    percent?: number;
+    stroke: string;
+    index?: number;
+    textAnchor: string;
+    x: number;
+    y: number;
+    [key: string]: any;
 }
 
 export class Pie extends React.Component<PieProps> { }
@@ -634,6 +654,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x1?: number | string;
     x2?: number | string;
     y1?: number | string;
@@ -657,6 +678,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
     yAxis?: ReferenceDotAxisConfiguration;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
     xAxisId?: string | number;
@@ -677,6 +699,7 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
     label?: string | number | ContentRenderer<any> | React.ReactElement<any>;
@@ -761,6 +784,8 @@ export interface TextProps extends Partial<PresentationAttributes> {
     textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
     verticalAnchor?: 'start' | 'middle' | 'end';
     style?: object;
+    capHeight?: string;
+    lineHeight?: string;
 }
 
 export class Text extends React.Component<TextProps> { }
@@ -794,6 +819,7 @@ export interface TooltipPayload {
     fill?: string;
     dataKey?: DataKey;
     formatter?: TooltipFormatter;
+    payload?: any;
 }
 
 export interface TooltipProps extends Animatable {
@@ -857,7 +883,7 @@ export interface LabelListProps {
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
     clockWise?: boolean;
-    content?: React.ReactElement<any> | ContentRenderer<Label>;
+    content?: React.ReactElement<any> | ContentRenderer<LabelProps>;
     data?: number;
     dataKey: string | number | RechartsFunction;
     formatter?: LabelFormatter;
@@ -916,6 +942,7 @@ export interface XAxisProps extends EventAttributes {
     // The margin between tick line and the label
     tickMargin?: number;
     interval?: AxisInterval;
+    textAnchor?: string;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/XAxis
     label?: string | number | Label | LabelProps;
@@ -993,3 +1020,25 @@ export interface ZAxisProps {
 }
 
 export class ZAxis extends React.Component<ZAxisProps> { }
+
+export interface SurfaceProps {
+    width?: number;
+    height?: number;
+    viewBox?: ViewBox;
+    className?: string;
+    style?: object;
+    children?: React.ReactNode[] | React.ReactNode;
+}
+
+export class Surface extends React.Component<SurfaceProps> { }
+
+export interface SymbolsProps extends Partial<PresentationAttributes> {
+    className?: string;
+    type?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye';
+    cx?: number;
+    cy?: number;
+    size?: number;
+    sizeType?: 'area' | 'diameter';
+}
+
+export class Symbols extends React.Component<SymbolsProps> { }

@@ -1,4 +1,4 @@
-// Type definitions for webpack-chain 4.8
+// Type definitions for webpack-chain 5.0
 // Project: https://github.com/mozilla-neutrino/webpack-chain
 // Definitions by: Eirikur Nilsson <https://github.com/eirikurn>, Paul Sachs <https://github.com/psachs21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -209,7 +209,7 @@ declare namespace Config {
 		flagIncludedChunks(value: boolean): this;
 		mergeDuplicateChunks(value: boolean): this;
 		minimize(value: boolean): this;
-		minimizer(value: webpack.Plugin[]): this;
+		minimizer(name: string): Plugin<this>;
 		namedChunks(value: boolean): this;
 		namedModules(value: boolean): this;
 		nodeEnv(value: boolean | string): this;

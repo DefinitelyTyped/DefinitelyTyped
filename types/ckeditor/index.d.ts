@@ -2,6 +2,7 @@
 // Project: https://ckeditor.com/ckeditor-4/
 // Definitions by: Thomas Wittwer <https://github.com/wittwert>
 //                 Stuart Long <https://github.com/stuartlong>
+//                 Viktor Pegy <https://github.com/viktorpegy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
@@ -332,6 +333,7 @@ declare namespace CKEDITOR {
         }
 
         class node extends domObject {
+            type: number;
             constructor(domNode: Node);
             appendTo(element: element): element;
             clone(includeChildren: boolean, cloneId: boolean): node;
@@ -346,12 +348,12 @@ declare namespace CKEDITOR {
             getDocument(): document;
             getIndex(normalized?: boolean): number;
             getNext(evaluator?: (node: node) => boolean): node;
-            getNextSourceNode(startFromSibling: boolean, nodeType: number, guard: node | ((node: node) => boolean)): void;
+            getNextSourceNode(startFromSibling?: boolean, nodeType?: number, guard?: node | ((node: node) => boolean)): node;
             getParent(allowFragmentParent?: boolean): element;
             getParents(closerFirst?: boolean): node[];
             getPosition(otherNode: node): void;
             getPrevious(evaluator?: (node: node) => boolean): node;
-            getPreviousSourceNode(startFromSibling: boolean, nodeType: number, guard: node | ((node: node) => boolean)): void;
+            getPreviousSourceNode(startFromSibling?: boolean, nodeType?: number, guard?: node | ((node: node) => boolean)): node;
             hasAscendant(name: string, includeSelf: boolean): boolean;
             remove(preserveChildren?: boolean): node;
             replace(nodeToReplace: node): void;
@@ -497,7 +499,7 @@ declare namespace CKEDITOR {
 
         class walker {
             evaluator: (node: node) => boolean;
-            guard: (node: node) => boolean;
+            guard: (node: node, movingOut?: boolean) => boolean;
 
             static validEmptyBlockContainers: { [key: string]: any };
 
@@ -760,7 +762,7 @@ declare namespace CKEDITOR {
         pasteFromWordNumberedHeadingToList?: boolean;
         pasteFromWordPromptCleanup?: boolean;
         pasteFromWordRemoveFontStyles?: boolean;
-        pasteFromWorkRemoveStyles?: boolean;
+        pasteFromWordRemoveStyles?: boolean;
         pasteFromWord_heuristicsEdgeList?: boolean;
         pasteFromWord_inlineImages?: boolean;
         plugins?: string;
@@ -2168,6 +2170,8 @@ declare namespace CKEDITOR {
         // tslint:disable-next-line:no-duplicate-variable
         var name: string;
         var ua: { [name: string]: any };
+        var ua_dialog: string;
+        var ua_editor: string;
 
         function addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
         function chameleon(editor: string, part: string): void;

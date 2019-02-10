@@ -27,6 +27,8 @@ export interface setupI18nProps {
     language?: string;
     catalogs?: Catalogs;
     development?: object;
+    locales?: string[];
+    missing?: string | ((language: string, id: string) => string);
 }
 
 export class I18n {

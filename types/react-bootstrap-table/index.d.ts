@@ -1291,7 +1291,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 * generated automatically after a row insertion. If a function given, you can customize the value by yourself and
 	 * remember to return the value for the cell from the function.
 	 */
-	autovalue?: boolean | (() => any);
+	autoValue?: boolean | (() => any);
 	/**
 	 * False to disable search functionality on column, default is true.
 	 */

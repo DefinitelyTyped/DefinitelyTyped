@@ -1,7 +1,8 @@
-// Type definitions for filesize 3.6
+// Type definitions for filesize 4.0
 // Project: https://github.com/avoidwork/filesize.js
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Renaud Chaput <https://github.com/renchap>
+//                 Roman Nuritdinov <https://github.com/Ky6uk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var fileSize: Filesize.Filesize;
@@ -80,11 +81,6 @@ declare namespace Filesize {
          * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
          */
         symbols?: SiJedec;
-        /**
-         * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
-         * @deprecated: use `symbols`
-         */
-        suffixes?: SiJedec;
         /**
          *  Enables unix style human readable output, e.g ls -lh, default is false
          */

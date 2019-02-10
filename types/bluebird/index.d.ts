@@ -35,7 +35,8 @@
  *   THE SOFTWARE.
  */
 
-type CatchFilter<E> = (new (...args: any[]) => E) | ((error: E) => boolean) | (object & E);
+type Constructor<E> = new (...args: any[]) => E;
+type CatchFilter<E> = ((error: E) => boolean) | (object & E);
 type IterableItem<R> = R extends Iterable<infer U> ? U : never;
 type IterableOrNever<R> = Extract<R, Iterable<any>>;
 type Resolvable<R> = R | PromiseLike<R>;
@@ -85,69 +86,74 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
-  catch<E1, E2, E3, E4, E5>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    filter3: CatchFilter<E3>,
-    filter4: CatchFilter<E4>,
-    filter5: CatchFilter<E5>,
-    onReject: (error: E1 | E2 | E3 | E4 | E5) => Resolvable<R>,
-  ): Bluebird<R>;
   catch<U, E1, E2, E3, E4, E5>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    filter3: CatchFilter<E3>,
-    filter4: CatchFilter<E4>,
-    filter5: CatchFilter<E5>,
+    filter1: Constructor<E1>,
+    filter2: Constructor<E2>,
+    filter3: Constructor<E3>,
+    filter4: Constructor<E4>,
+    filter5: Constructor<E5>,
     onReject: (error: E1 | E2 | E3 | E4 | E5) => Resolvable<U>,
   ): Bluebird<U | R>;
 
-  catch<E1, E2, E3, E4>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    filter3: CatchFilter<E3>,
-    filter4: CatchFilter<E4>,
-    onReject: (error: E1 | E2 | E3 | E4) => Resolvable<R>,
-  ): Bluebird<R>;
+  catch<U, E1, E2, E3, E4, E5>(
+    filter1: Constructor<E1> | CatchFilter<E1>,
+    filter2: Constructor<E2> | CatchFilter<E2>,
+    filter3: Constructor<E3> | CatchFilter<E3>,
+    filter4: Constructor<E4> | CatchFilter<E4>,
+    filter5: Constructor<E5> | CatchFilter<E5>,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => Resolvable<U>,
+  ): Bluebird<U | R>;
 
   catch<U, E1, E2, E3, E4>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    filter3: CatchFilter<E3>,
-    filter4: CatchFilter<E4>,
+    filter1: Constructor<E1>,
+    filter2: Constructor<E2>,
+    filter3: Constructor<E3>,
+    filter4: Constructor<E4>,
     onReject: (error: E1 | E2 | E3 | E4) => Resolvable<U>,
   ): Bluebird<U | R>;
 
-  catch<E1, E2, E3>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    filter3: CatchFilter<E3>,
-    onReject: (error: E1 | E2 | E3) => Resolvable<R>,
-  ): Bluebird<R>;
+  catch<U, E1, E2, E3, E4>(
+    filter1: Constructor<E1> | CatchFilter<E1>,
+    filter2: Constructor<E2> | CatchFilter<E2>,
+    filter3: Constructor<E3> | CatchFilter<E3>,
+    filter4: Constructor<E4> | CatchFilter<E4>,
+    onReject: (error: E1 | E2 | E3 | E4) => Resolvable<U>,
+  ): Bluebird<U | R>;
+
   catch<U, E1, E2, E3>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    filter3: CatchFilter<E3>,
+    filter1: Constructor<E1>,
+    filter2: Constructor<E2>,
+    filter3: Constructor<E3>,
     onReject: (error: E1 | E2 | E3) => Resolvable<U>,
   ): Bluebird<U | R>;
 
-  catch<E1, E2>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    onReject: (error: E1 | E2) => Resolvable<R>,
-  ): Bluebird<R>;
+  catch<U, E1, E2, E3>(
+    filter1: Constructor<E1> | CatchFilter<E1>,
+    filter2: Constructor<E2> | CatchFilter<E2>,
+    filter3: Constructor<E3> | CatchFilter<E3>,
+    onReject: (error: E1 | E2 | E3) => Resolvable<U>,
+  ): Bluebird<U | R>;
+
   catch<U, E1, E2>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
+    filter1: Constructor<E1>,
+    filter2: Constructor<E2>,
     onReject: (error: E1 | E2) => Resolvable<U>,
   ): Bluebird<U | R>;
 
-  catch<E1>(
-    filter1: CatchFilter<E1>,
-    onReject: (error: E1) => Resolvable<R>,
-  ): Bluebird<R>;
+  catch<U, E1, E2>(
+    filter1: Constructor<E1> | CatchFilter<E1>,
+    filter2: Constructor<E2> | CatchFilter<E2>,
+    onReject: (error: E1 | E2) => Resolvable<U>,
+  ): Bluebird<U | R>;
+
   catch<U, E1>(
-    filter1: CatchFilter<E1>,
+    filter1: Constructor<E1>,
+    onReject: (error: E1) => Resolvable<U>,
+  ): Bluebird<U | R>;
+
+  catch<U, E1>(
+    // tslint:disable-next-line:unified-signatures
+    filter1: Constructor<E1> | CatchFilter<E1>,
     onReject: (error: E1) => Resolvable<U>,
   ): Bluebird<U | R>;
 
@@ -201,33 +207,64 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   tapCatch(onReject: (error?: any) => Resolvable<any>): Bluebird<R>;
 
   tapCatch<E1, E2, E3, E4, E5>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    filter3: CatchFilter<E3>,
-    filter4: CatchFilter<E4>,
-    filter5: CatchFilter<E5>,
+    filter1: Constructor<E1>,
+    filter2: Constructor<E2>,
+    filter3: Constructor<E3>,
+    filter4: Constructor<E4>,
+    filter5: Constructor<E5>,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => Resolvable<any>,
+  ): Bluebird<R>;
+  tapCatch<E1, E2, E3, E4, E5>(
+    filter1: Constructor<E1> | CatchFilter<E1>,
+    filter2: Constructor<E2> | CatchFilter<E2>,
+    filter3: Constructor<E3> | CatchFilter<E3>,
+    filter4: Constructor<E4> | CatchFilter<E4>,
+    filter5: Constructor<E5> | CatchFilter<E5>,
     onReject: (error: E1 | E2 | E3 | E4 | E5) => Resolvable<any>,
   ): Bluebird<R>;
   tapCatch<E1, E2, E3, E4>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    filter3: CatchFilter<E3>,
-    filter4: CatchFilter<E4>,
+    filter1: Constructor<E1>,
+    filter2: Constructor<E2>,
+    filter3: Constructor<E3>,
+    filter4: Constructor<E4>,
+    onReject: (error: E1 | E2 | E3 | E4) => Resolvable<any>,
+  ): Bluebird<R>;
+  tapCatch<E1, E2, E3, E4>(
+    filter1: Constructor<E1> | CatchFilter<E1>,
+    filter2: Constructor<E2> | CatchFilter<E2>,
+    filter3: Constructor<E3> | CatchFilter<E3>,
+    filter4: Constructor<E4> | CatchFilter<E4>,
     onReject: (error: E1 | E2 | E3 | E4) => Resolvable<any>,
   ): Bluebird<R>;
   tapCatch<E1, E2, E3>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
-    filter3: CatchFilter<E3>,
+    filter1: Constructor<E1>,
+    filter2: Constructor<E2>,
+    filter3: Constructor<E3>,
+    onReject: (error: E1 | E2 | E3) => Resolvable<any>,
+  ): Bluebird<R>;
+  tapCatch<E1, E2, E3>(
+    filter1: Constructor<E1> | CatchFilter<E1>,
+    filter2: Constructor<E2> | CatchFilter<E2>,
+    filter3: Constructor<E3> | CatchFilter<E3>,
     onReject: (error: E1 | E2 | E3) => Resolvable<any>,
   ): Bluebird<R>;
   tapCatch<E1, E2>(
-    filter1: CatchFilter<E1>,
-    filter2: CatchFilter<E2>,
+    filter1: Constructor<E1>,
+    filter2: Constructor<E2>,
+    onReject: (error: E1 | E2) => Resolvable<any>,
+  ): Bluebird<R>;
+  tapCatch<E1, E2>(
+    filter1: Constructor<E1> | CatchFilter<E1>,
+    filter2: Constructor<E2> | CatchFilter<E2>,
     onReject: (error: E1 | E2) => Resolvable<any>,
   ): Bluebird<R>;
   tapCatch<E1>(
-    filter1: CatchFilter<E1>,
+    filter1: Constructor<E1>,
+    onReject: (error: E1) => Resolvable<any>,
+  ): Bluebird<R>;
+  tapCatch<E1>(
+    // tslint:disable-next-line:unified-signatures
+    filter1: Constructor<E1> | CatchFilter<E1>,
     onReject: (error: E1) => Resolvable<any>,
   ): Bluebird<R>;
 
@@ -376,33 +413,64 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
 
   // No need to be specific about Error types in these overrides, since there's no handler function
   catchReturn<U>(
-    filter1: CatchFilter<Error>,
-    filter2: CatchFilter<Error>,
-    filter3: CatchFilter<Error>,
-    filter4: CatchFilter<Error>,
-    filter5: CatchFilter<Error>,
+    filter1: Constructor<Error>,
+    filter2: Constructor<Error>,
+    filter3: Constructor<Error>,
+    filter4: Constructor<Error>,
+    filter5: Constructor<Error>,
     value: U,
   ): Bluebird<R | U>;
   catchReturn<U>(
-    filter1: CatchFilter<Error>,
-    filter2: CatchFilter<Error>,
-    filter3: CatchFilter<Error>,
-    filter4: CatchFilter<Error>,
+    filter1: Constructor<Error> | CatchFilter<Error>,
+    filter2: Constructor<Error> | CatchFilter<Error>,
+    filter3: Constructor<Error> | CatchFilter<Error>,
+    filter4: Constructor<Error> | CatchFilter<Error>,
+    filter5: Constructor<Error> | CatchFilter<Error>,
     value: U,
   ): Bluebird<R | U>;
   catchReturn<U>(
-    filter1: CatchFilter<Error>,
-    filter2: CatchFilter<Error>,
-    filter3: CatchFilter<Error>,
+    filter1: Constructor<Error>,
+    filter2: Constructor<Error>,
+    filter3: Constructor<Error>,
+    filter4: Constructor<Error>,
     value: U,
   ): Bluebird<R | U>;
   catchReturn<U>(
-    filter1: CatchFilter<Error>,
-    filter2: CatchFilter<Error>,
+    filter1: Constructor<Error> | CatchFilter<Error>,
+    filter2: Constructor<Error> | CatchFilter<Error>,
+    filter3: Constructor<Error> | CatchFilter<Error>,
+    filter4: Constructor<Error> | CatchFilter<Error>,
     value: U,
   ): Bluebird<R | U>;
   catchReturn<U>(
-    filter1: CatchFilter<Error>,
+    filter1: Constructor<Error>,
+    filter2: Constructor<Error>,
+    filter3: Constructor<Error>,
+    value: U,
+  ): Bluebird<R | U>;
+  catchReturn<U>(
+    filter1: Constructor<Error> | CatchFilter<Error>,
+    filter2: Constructor<Error> | CatchFilter<Error>,
+    filter3: Constructor<Error> | CatchFilter<Error>,
+    value: U,
+  ): Bluebird<R | U>;
+  catchReturn<U>(
+    filter1: Constructor<Error>,
+    filter2: Constructor<Error>,
+    value: U,
+  ): Bluebird<R | U>;
+  catchReturn<U>(
+    filter1: Constructor<Error> | CatchFilter<Error>,
+    filter2: Constructor<Error> | CatchFilter<Error>,
+    value: U,
+  ): Bluebird<R | U>;
+  catchReturn<U>(
+    filter1: Constructor<Error>,
+    value: U,
+  ): Bluebird<R | U>;
+  catchReturn<U>(
+    // tslint:disable-next-line:unified-signatures
+    filter1: Constructor<Error> | CatchFilter<Error>,
     value: U,
   ): Bluebird<R | U>;
 
@@ -420,33 +488,64 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
 
   // No need to be specific about Error types in these overrides, since there's no handler function
   catchThrow(
-    filter1: CatchFilter<Error>,
-    filter2: CatchFilter<Error>,
-    filter3: CatchFilter<Error>,
-    filter4: CatchFilter<Error>,
-    filter5: CatchFilter<Error>,
+    filter1: Constructor<Error>,
+    filter2: Constructor<Error>,
+    filter3: Constructor<Error>,
+    filter4: Constructor<Error>,
+    filter5: Constructor<Error>,
     reason: Error,
   ): Bluebird<R>;
   catchThrow(
-    filter1: CatchFilter<Error>,
-    filter2: CatchFilter<Error>,
-    filter3: CatchFilter<Error>,
-    filter4: CatchFilter<Error>,
+    filter1: Constructor<Error> | CatchFilter<Error>,
+    filter2: Constructor<Error> | CatchFilter<Error>,
+    filter3: Constructor<Error> | CatchFilter<Error>,
+    filter4: Constructor<Error> | CatchFilter<Error>,
+    filter5: Constructor<Error> | CatchFilter<Error>,
     reason: Error,
   ): Bluebird<R>;
   catchThrow(
-    filter1: CatchFilter<Error>,
-    filter2: CatchFilter<Error>,
-    filter3: CatchFilter<Error>,
+    filter1: Constructor<Error>,
+    filter2: Constructor<Error>,
+    filter3: Constructor<Error>,
+    filter4: Constructor<Error>,
     reason: Error,
   ): Bluebird<R>;
   catchThrow(
-    filter1: CatchFilter<Error>,
-    filter2: CatchFilter<Error>,
+    filter1: Constructor<Error> | CatchFilter<Error>,
+    filter2: Constructor<Error> | CatchFilter<Error>,
+    filter3: Constructor<Error> | CatchFilter<Error>,
+    filter4: Constructor<Error> | CatchFilter<Error>,
     reason: Error,
   ): Bluebird<R>;
   catchThrow(
-    filter1: CatchFilter<Error>,
+    filter1: Constructor<Error>,
+    filter2: Constructor<Error>,
+    filter3: Constructor<Error>,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow(
+    filter1: Constructor<Error> | CatchFilter<Error>,
+    filter2: Constructor<Error> | CatchFilter<Error>,
+    filter3: Constructor<Error> | CatchFilter<Error>,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow(
+    filter1: Constructor<Error>,
+    filter2: Constructor<Error>,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow(
+    filter1: Constructor<Error> | CatchFilter<Error>,
+    filter2: Constructor<Error> | CatchFilter<Error>,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow(
+    filter1: Constructor<Error>,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow(
+    // tslint:disable-next-line:unified-signatures
+    filter1: Constructor<Error> | CatchFilter<Error>,
     reason: Error,
   ): Bluebird<R>;
 

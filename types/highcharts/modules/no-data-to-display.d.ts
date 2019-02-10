@@ -1,8 +1,3 @@
-// Type definitions for Highcharts No Data to Display 4.2.7
-// Project: http://www.highcharts.com/
-// Definitions by: Andrey Zolotin <https://github.com/nitoloz>, Rowell Heria <https://github.com/rowellx68>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Static } from "highcharts";
 
 declare module "highcharts" {

@@ -175,8 +175,8 @@ window.onload=()=>{
     {
         // Snap load and animate svg
         var g = s.group();
-        var tux = Snap.load("Dreaming_tux.svg", function ( loadedFragment:Snap.Element ) {
-                                                        g.append( loadedFragment );
+        var tux = Snap.load("Dreaming_tux.svg", function ( loadedFragment:Snap.Fragment ) {
+                                                        g.append( loadedFragment.selectAll() );
                                                         g.hover( hoverover, hoverout );
                                                         g.text(300,100, 'hover over me');
                                                 } );

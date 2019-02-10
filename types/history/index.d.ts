@@ -8,20 +8,20 @@ export as namespace History;
 export type Action = 'PUSH' | 'POP' | 'REPLACE';
 export type UnregisterCallback = () => void;
 
-export interface History {
+export interface History<HistoryLocationState = LocationState> {
     length: number;
     action: Action;
-    location: Location;
-    push(path: Path, state?: LocationState): void;
-    push(location: LocationDescriptorObject): void;
-    replace(path: Path, state?: LocationState): void;
-    replace(location: LocationDescriptorObject): void;
+    location: Location<HistoryLocationState>;
+    push(path: Path, state?: HistoryLocationState): void;
+    push(location: LocationDescriptorObject<HistoryLocationState>): void;
+    replace(path: Path, state?: HistoryLocationState): void;
+    replace(location: LocationDescriptorObject<HistoryLocationState>): void;
     go(n: number): void;
     goBack(): void;
     goForward(): void;
     block(prompt?: boolean | string | TransitionPromptHook): UnregisterCallback;
     listen(listener: LocationListener): UnregisterCallback;
-    createHref(location: LocationDescriptorObject): Href;
+    createHref(location: LocationDescriptorObject<HistoryLocationState>): Href;
 }
 
 export interface Location<S = LocationState> {

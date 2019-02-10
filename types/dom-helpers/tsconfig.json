@@ -1,0 +1,60 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "index.d.ts",
+        "activeElement.d.ts",
+        "ownerDocument.d.ts",
+        "ownerWindow.d.ts",
+        "dom-helpers-tests.ts",
+        "class/addClass.d.ts",
+        "class/hasClass.d.ts",
+        "class/index.d.ts",
+        "class/removeClass.d.ts",
+        "events/filter.d.ts",
+        "events/index.d.ts",
+        "events/listen.d.ts",
+        "events/off.d.ts",
+        "events/on.d.ts",
+        "query/closest.d.ts",
+        "query/contains.d.ts",
+        "query/height.d.ts",
+        "query/index.d.ts",
+        "query/isWindow.d.ts",
+        "query/matches.d.ts",
+        "query/offset.d.ts",
+        "query/offsetParent.d.ts",
+        "query/position.d.ts",
+        "query/querySelectorAll.d.ts",
+        "query/scrollLeft.d.ts",
+        "query/scrollParent.d.ts",
+        "query/scrollTop.d.ts",
+        "query/width.d.ts",
+        "style/getComputedStyle.d.ts",
+        "style/index.d.ts",
+        "style/removeStyle.d.ts",
+        "transition/animate.d.ts",
+        "transition/end.d.ts",
+        "transition/index.d.ts",
+        "transition/properties.d.ts",
+        "util/requestAnimationFrame.d.ts",
+        "util/scrollbarSize.d.ts",
+        "util/scrollTo.d.ts"
+    ]
+}

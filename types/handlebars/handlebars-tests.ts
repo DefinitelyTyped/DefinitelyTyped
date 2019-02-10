@@ -1,6 +1,6 @@
 
 //import Handlebars = require('handlebars');
-import * as Handlerbars from 'handlebars';
+import * as Handlebars from 'handlebars';
 
 const context = {
     author: { firstName: 'Alan', lastName: 'Johnson' },
@@ -78,3 +78,10 @@ template6([{url:"", title:""}])
 const escapedExpression = Handlebars.Utils.escapeExpression('<script>alert(\'xss\');</script>');
 
 Handlebars.helpers !== undefined;
+
+const parsedTmpl = Handlebars.parse('<p>Hello, my name is {{name}}.</p>', {
+  srcName: "/foo/bar/baz.hbs",
+  ignoreStandalone: true
+});
+
+const parsedTmplWithoutOptions = Handlebars.parse('<p>Hello, my name is {{name}}.</p>');

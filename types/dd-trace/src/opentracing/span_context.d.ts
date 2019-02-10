@@ -22,7 +22,7 @@ interface SpanContextLike {
     trace?: {
         started: number[],
         finished: number[]
-    }
+    };
 }
 
 export = DatadogSpanContext;

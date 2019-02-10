@@ -385,6 +385,8 @@ export function defineProperty(
     meta?: any
 ): void;
 
+export function notifyPropertyChange(obj: object, keyName: string): void;
+
 declare module '@ember/utils/-private/types' {
     interface TypeLookup {
         class: typeof EmberObject;

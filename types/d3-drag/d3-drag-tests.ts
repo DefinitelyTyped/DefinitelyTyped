@@ -134,7 +134,7 @@ touchableFn = circleDrag.touchable();
 
 circleCustomDrag.subject(function(d, i, g) {
     // Cast event type for completeness, otherwise event is of type any.
-    const e = <d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CustomSubject | d3Drag.SubjectPosition>> event;
+    const e = event as d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CustomSubject | d3Drag.SubjectPosition>;
     const that: SVGCircleElement = this;
     const datum: CircleDatum = d;
     const index: number = i;
@@ -163,14 +163,14 @@ subjectAccessor = circleCustomDrag.subject();
 
 function dragstarted(this: SVGCircleElement, d: CircleDatum) {
     // cast d3 event to drag event. Otherwise, d3 event is currently defined as type 'any'
-    const e = <d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition>> event;
+    const e = event as d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition>;
     e.sourceEvent.stopPropagation();
     select(this).classed('dragging', true);
 }
 
 function dragged(this: SVGCircleElement, d: CircleDatum) {
     // cast d3 event to drag event. Otherwise, d3 event is currently defined as type 'any'
-    const e = <d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition>> event;
+    const e = event as d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition>;
     select(this).attr('cx', d.x = e.x).attr('cy', d.y = e.y);
 }
 

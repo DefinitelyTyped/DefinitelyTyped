@@ -1,4 +1,4 @@
-import { UnwrapComputedPropertyGetter } from '@ember/object/-private/types';
+import { UnwrapComputedPropertyGetter } from "@ember/object/-private/types";
 
 /**
  * Returns the cached value for a property, if one exists.
@@ -13,6 +13,11 @@ export function cacheFor<T, K extends keyof T>(
 /**
  * Creates a shallow copy of the passed object. A deep copy of the object is
  * returned if the optional `deep` argument is `true`.
+ *
+ * @deprecated as of Ember 3.3, to be removed in Ember 4.0. See how to migrate
+ * [here][deprecation].
+ *
+ * [deprecation]: https://emberjs.com/deprecations/v3.x#toc_ember-runtime-deprecate-copy-copyable
  */
 export function copy<T>(obj: T, deep: true): T;
 export function copy(obj: any, deep?: boolean): any;

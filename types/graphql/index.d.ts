@@ -15,8 +15,10 @@
 //                 Divyendu Singh <https://github.com/divyenduz>
 //                 Brad Zacher <https://github.com/bradzacher>
 //                 Curtis Layne <https://github.com/clayne11>
+//                 Jonathan Cardoso <https://github.com/JCMais>
+//                 Pavel Lang <https://github.com/langpavel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 // The primary entry point into fulfilling a GraphQL request.
 export { graphql, graphqlSync, GraphQLArgs } from "./graphql";

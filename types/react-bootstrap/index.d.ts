@@ -14,6 +14,7 @@
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Duong Tran <https://github.com/t49tran>
+//                 Erik Zivkovic <https://github.com/bes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

@@ -3,7 +3,7 @@
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="stripe-v2"/>
+/// <reference types="stripe-v3"/>
 
 interface StripeCheckoutStatic {
     configure(options: StripeCheckoutOptions): StripeCheckoutHandler;
@@ -16,7 +16,8 @@ interface StripeCheckoutHandler {
 
 interface StripeCheckoutOptions {
     key?: string;
-    token?(token: stripe.StripeCardTokenResponse): void;
+    token?(token: stripe.Token): void;
+    source?(source: stripe.Source): void;
     image?: string;
     name?: string;
     description?: string;

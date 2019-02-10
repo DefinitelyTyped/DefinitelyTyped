@@ -7,13 +7,14 @@
  */
 
 import * as d3Scale from 'd3-scale';
-import { interpolateCubehelix } from 'd3-interpolate';
+import { interpolateCubehelix, interpolateRound } from 'd3-interpolate';
 import { timeHour } from 'd3-time';
 import {
     schemePuRd,
-    interpolateRainbow,
     interpolateCool,
-    interpolateInferno
+    interpolateInferno,
+    interpolateRainbow,
+    interpolateSpectral,
 } from 'd3-scale-chromatic';
 
 // -------------------------------------------------------------------------------
@@ -68,6 +69,7 @@ let numExtent: [number, number];
 let numOrUndefinedExtent: [number | undefined, number | undefined];
 
 let outputNumberMaybe: number | undefined;
+
 // -------------------------------------------------------------------------------
 // Linear Scale Factory
 // -------------------------------------------------------------------------------
@@ -357,7 +359,8 @@ logScaleNumString = logScaleNumString.interpolate((a, b) => {
 
 // chainable
 logScaleNumber = logScaleNumber.nice();
-// logScaleNumber = logScaleNumber.nice(5); // fails, logarithmic scale does not support count parameter.
+// $ExpectError
+logScaleNumber = logScaleNumber.nice(5); // fails, logarithmic scale does not support count parameter.
 
 // ticks(...) -----------------------------------------------------------------
 
@@ -514,7 +517,8 @@ localTimeScaleNumber = localTimeScaleNumber.nice(5);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour, 5);
 
-// localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
+// $ExpectError
+localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
 
 // ticks(...) -----------------------------------------------------------------
 
@@ -585,6 +589,74 @@ outputString = sequentialScaleColorString(10);
 // copy(...) -----------------------------------------------------------------
 
 const copiedSequentialScale: d3Scale.ScaleSequential<string> = sequentialScaleColorString.copy();
+
+// -------------------------------------------------------------------------------
+// Diverging Scale Factory
+// -------------------------------------------------------------------------------
+
+// scaleQuantize() -----------------------------------------------------------------
+
+const interpolateDouble = (t: number) => t * 2;
+let divergingScaleNumber: d3Scale.ScaleDiverging<number>;
+let divergingScaleString: d3Scale.ScaleDiverging<string>;
+
+// $ExpectError
+d3Scale.scaleDiverging(); // fails, Expected 1 arguments, but got 0.
+
+divergingScaleNumber = d3Scale.scaleDiverging<number>(interpolateRound(0, 1));
+divergingScaleNumber = d3Scale.scaleDiverging<number>(interpolateDouble);
+divergingScaleString = d3Scale.scaleDiverging<string>(interpolateSpectral);
+
+// ScaleDiverging Interface =======================================================
+
+// (...) value mapping from domain to output -----------------------------------
+
+outputNumber = divergingScaleNumber(1);
+outputString = divergingScaleString(1);
+
+// domain(...) -----------------------------------------------------------------
+
+let domainDivergingScale: [number, number, number];
+
+divergingScaleNumber = divergingScaleNumber.domain([0, 0.5, 1]);
+divergingScaleNumber = divergingScaleNumber.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
+domainDivergingScale = divergingScaleNumber.domain();
+
+// $ExpectError
+divergingScaleNumber.domain([0, 1]);
+// $ExpectError
+divergingScaleNumber.domain([new NumCoercible(0), new NumCoercible(0.5)]);
+
+divergingScaleString = divergingScaleString.domain([0, 0.5, 1]);
+divergingScaleString = divergingScaleString.domain([new NumCoercible(0), 0.5, new NumCoercible(1)]);
+domainDivergingScale = divergingScaleString.domain();
+
+// $ExpectError
+divergingScaleString.domain([0, 1]);
+// $ExpectError
+divergingScaleString.domain([new NumCoercible(0), new NumCoercible(0.5)]);
+
+// clamp(...) -----------------------------------------------------------------
+
+clampFlag = divergingScaleNumber.clamp();
+clampFlag = divergingScaleString.clamp();
+
+divergingScaleNumber = divergingScaleNumber.clamp(true);
+divergingScaleString = divergingScaleString.clamp(true);
+
+// interpolator(...) -----------------------------------------------------------------
+
+const inum: (t: number) => number = divergingScaleNumber.interpolator();
+const istr: (t: number) => string = divergingScaleString.interpolator();
+
+divergingScaleNumber = divergingScaleNumber.interpolator((t) => t + 2);
+divergingScaleNumber = divergingScaleNumber.interpolator(interpolateRound(2, 3));
+divergingScaleString = divergingScaleString.interpolator(sequentialInterpolator);
+
+// copy(...) -----------------------------------------------------------------
+
+const copiedDivergingScaleNumber: d3Scale.ScaleDiverging<number> = divergingScaleNumber.copy();
+const copiedDivergingScaleString: d3Scale.ScaleDiverging<string> = divergingScaleString.copy();
 
 // -------------------------------------------------------------------------------
 // Quantize Scale Factory

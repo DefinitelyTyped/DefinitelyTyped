@@ -75,10 +75,13 @@ import {
   UncontrolledDropdown,
   UncontrolledTooltip,
   UncontrolledCollapse,
+  UncontrolledCarousel,
   TabContent,
   Table,
   Tag,
-  Tooltip
+  Tooltip,
+  Spinner,
+  UncontrolledPopover,
 } from 'reactstrap';
 
 // --------------- Alert
@@ -277,6 +280,14 @@ const Example13 = (
     <Button color="secondary" size="lg" disabled>Button</Button>
   </div>
 );
+
+interface CustomButtonProps extends ButtonProps {
+  customProp: string;
+}
+// NOTE: not adding the <{}> causes the generic parameter to be a spread type of CustomButtonProps,
+// for some reason this causes children to be inferred as being 'ReactNode & {}' which makes the spread
+// invalid. TS3.2 bug?
+const CustomButton: React.SFC<CustomButtonProps> = props => <Button<{}> {...props}/>;
 
 class Example14 extends React.Component<any, any> {
   state: any;
@@ -3746,7 +3757,7 @@ function Example117() {
 }
 
 function Example118() {
-    const ref: string | ((e: any) => void) | React.RefObject<any> = null as any;
+    const ref: React.Ref<any> = React.createRef();
 
     <Button innerRef={ref}/>;
     <CardLink innerRef={ref}/>;
@@ -3759,7 +3770,7 @@ import { default as Alert_ } from './lib/Alert'; /* tslint:disable-line: no-rela
 import { default as Badge_ } from './lib/Badge'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as Breadcrumb_ } from './lib/Breadcrumb'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as BreadcrumbItem_ } from './lib/BreadcrumbItem'; /* tslint:disable-line: no-relative-import-in-test */
-import { default as Button_ } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
+import { default as Button_, ButtonProps } from './lib/Button'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonDropdown_ } from './lib/ButtonDropdown'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonGroup_ } from './lib/ButtonGroup'; /* tslint:disable-line: no-relative-import-in-test */
 import { default as ButtonToolbar_ } from './lib/ButtonToolbar'; /* tslint:disable-line: no-relative-import-in-test */
@@ -4101,7 +4112,8 @@ class Example119 extends React.Component<any, any> {
           <div>
             <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Check this custom checkbox" />
             <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Or this one" />
-            <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="But not this disabled one" disabled />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox3" label={<span>Or this one</span>} />
+            <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="But not this disabled one" disabled />
           </div>
         </FormGroup>
         <FormGroup>
@@ -4109,7 +4121,8 @@ class Example119 extends React.Component<any, any> {
           <div>
             <CustomInput type="radio" id="exampleCustomRadio" name="customRadio" label="Select this custom radio" />
             <CustomInput type="radio" id="exampleCustomRadio2" name="customRadio" label="Or this one" />
-            <CustomInput type="radio" id="exampleCustomRadio3" label="But not this disabled one" disabled />
+            <CustomInput type="radio" id="exampleCustomRadio3" name="customRadio" label={<span>Or this one</span>} />
+            <CustomInput type="radio" id="exampleCustomRadio4" label="But not this disabled one" disabled />
           </div>
         </FormGroup>
         <FormGroup>
@@ -4117,6 +4130,7 @@ class Example119 extends React.Component<any, any> {
           <div>
             <CustomInput type="checkbox" id="exampleCustomInline" label="An inline custom input" inline />
             <CustomInput type="checkbox" id="exampleCustomInline2" label="and another one" inline />
+            <CustomInput type="checkbox" id="exampleCustomInline3" label={<span>and this one</span>} inline />
           </div>
         </FormGroup>
         <FormGroup>
@@ -4170,6 +4184,7 @@ class Example119 extends React.Component<any, any> {
         <FormGroup>
           <Label for="exampleCustomFileBrowser">File Browser with Custom Label</Label>
           <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" label="Yo, pick a file!" />
+          <CustomInput type="file" id="exampleCustomFileBrowser1" name="customFile" label={<span>Yo, pick a file!</span>} />
         </FormGroup>
         <FormGroup>
           <Label for="exampleCustomFileBrowser">File Browser Disabled</Label>
@@ -4288,4 +4303,57 @@ function Example123() {
       </UncontrolledCollapse>
     </div>
   );
+}
+
+function Example124()  {
+  // https://reactstrap.github.io/components/carousel/
+  const items = [
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 1',
+      caption: 'Slide 1'
+    },
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 2',
+      caption: 'Slide 2'
+    },
+    {
+      src: 'data:image/svg+xml...',
+      altText: 'Slide 3',
+      caption: 'Slide 3'
+    }
+  ];
+
+  return (
+    <UncontrolledCarousel items={items} />
+  );
+}
+
+function Example125() {
+  return (
+    <div>
+      <Spinner />
+      <Spinner color="primary" />
+      <Spinner size="sm" />
+      <Spinner type="grow" />
+      <Spinner color="success" size="sm" type="grow" />
+      <Spinner className="customClass" />
+    </div>
+  );
+}
+
+function Example126() {
+    return (
+        <div>
+            <UncontrolledPopover placement="bottom" target="UncontrolledPopover">
+                <PopoverHeader>Popover Title</PopoverHeader>
+                <PopoverBody>Lorem ipsum dolor sit amet</PopoverBody>
+            </UncontrolledPopover>
+            <UncontrolledPopover defaultOpen={true} placement="bottom" target="UncontrolledPopover">
+                <PopoverHeader>Popover Title</PopoverHeader>
+                <PopoverBody>Lorem ipsum dolor sit amet</PopoverBody>
+            </UncontrolledPopover>
+        </div>
+    );
 }

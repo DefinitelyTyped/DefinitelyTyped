@@ -79,3 +79,10 @@ console.log(plistString1);
 
 const plistString2 = plist.build(plistValue2, {pretty: false});
 console.log(plistString2);
+
+function f(a: ReadonlyArray<string>) {
+    plist.build(a);
+}
+
+// $ExpectError
+plist.build(() => 0);
