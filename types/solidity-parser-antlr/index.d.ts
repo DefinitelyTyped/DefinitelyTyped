@@ -18,7 +18,9 @@ export interface BaseASTNode {
     range?: [number, number];
     loc?: Location;
 }
-export interface SourceUnit extends BaseASTNode {} // tslint:disable-line:no-empty-interface
+export interface SourceUnit extends BaseASTNode {
+    children: ASTNode[]; // TODO: Can be more precise
+} // tslint:disable-line:no-empty-interface
 export interface PragmaDirective extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface PragmaName extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface PragmaValue extends BaseASTNode {} // tslint:disable-line:no-empty-interface
@@ -29,6 +31,7 @@ export interface ImportDeclaration extends BaseASTNode {} // tslint:disable-line
 export interface ImportDirective extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface ContractDefinition extends BaseASTNode {
     name: string;
+    subNodes: ASTNode[]; // TODO: Can be more precise
 }
 export interface InheritanceSpecifier extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface ContractPart extends BaseASTNode {} // tslint:disable-line:no-empty-interface
@@ -45,6 +48,8 @@ export interface ModifierInvocation extends BaseASTNode {
 }
 export interface FunctionDefinition extends BaseASTNode {
     name: string;
+    parameters: ParameterList;
+    body: Block | null;
 }
 export interface ReturnParameters extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface ModifierList extends BaseASTNode {} // tslint:disable-line:no-empty-interface
