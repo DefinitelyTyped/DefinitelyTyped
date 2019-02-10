@@ -2569,6 +2569,11 @@ class Rectangle {
     R.replace(/foo/g, "bar", "foo foo foo"); // => 'bar bar bar'
     R.replace(/foo/g, "bar")("foo foo foo"); // => 'bar bar bar'
     R.replace(/foo/g)("bar")("foo foo foo"); // => 'bar bar bar'
+
+    // Using a function as the replacement value
+    R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`, "coo foo koo"); // => 'c0oo f4oo k8oo'
+    R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`)("coo foo koo"); // => 'c0oo f4oo k8oo'
+    R.replace(/([cfk])oo/g)((match, p1, offset) => `${p1}-${offset}`) ("coo foo koo"); // => 'c0oo f4oo k8oo'
 };
 
 /*****************************************************************
