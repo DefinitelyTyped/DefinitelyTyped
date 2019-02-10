@@ -185,7 +185,7 @@ export class Double {
 
     valueOf(): number;
 }
-  
+
 /** A class representation of the BSON Int32 type. */
 export class Int32 {
     /**
