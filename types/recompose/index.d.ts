@@ -130,7 +130,7 @@ declare module 'recompose' {
         TStateUpdaterName extends string
     > = (
         {[stateName in TStateName]: TState} &
-        {[stateUpdateName in TStateUpdaterName]: (state: TState) => TState}
+        {[stateUpdateName in TStateUpdaterName]: (state: TState, callback?: () => void) => TState}
     )
     export function withState<
         TOutter,
