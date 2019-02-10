@@ -39,7 +39,7 @@ console.log(EJSON.stringify(doc, ['int32'], 2));
 let doc2 = { int32: new Int32(10), _id: new ObjectId() };
 const text = '{ "int32": { "$numberInt": "10" } }';
 
-let o: object
+let o: {}
 o = EJSON.parse (text, { relaxed: false });
 console.log(EJSON.stringify(o));
 
