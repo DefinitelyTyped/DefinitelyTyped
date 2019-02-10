@@ -1044,6 +1044,18 @@ declare namespace RootAPI {
         openApp(appId: string, config?: any): any;
 
         /**
+         * promise object
+         * Promise utility that can be used for asynchronous operations.
+         * Very useful for the paint method to indicate when the rendering is completed.
+         * executor
+         * Type: Function
+         * The executing function with two parameters:
+         * resolve
+         * reject
+         */
+        Promise: PromiseConstructor;
+
+        /**
          * Registers an extension for use in this mashup. The extension is not installed on the
          * Qlik Sense server and only available in the session where it is created.
          * As long as a JavaScript module is created in the correct format, it can be sent to
