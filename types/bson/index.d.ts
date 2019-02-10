@@ -111,26 +111,6 @@ export interface CalculateObjectSizeOptions {
         docStartIndex: number,
         options?: DeserializeOptions
     ): number;
-
-    /**
-     * Deserialize stream data as BSON documents.
-     * 
-     * @param data The buffer containing the serialized set of BSON documents.
-     * @param startIndex The start index in the data Buffer where the deserialization is to start.
-     * @param numberOfDocuments Number of documents to deserialize
-     * @param documents An array where to store the deserialized documents
-     * @param docStartIndex The index in the documents array from where to start inserting documents
-     * @param options Additional options used for the deserialization
-     * @returns The next index in the buffer after deserialization of the `numberOfDocuments`
-     */
-    export function deserializeStream(
-        data: Buffer,
-        startIndex: number,
-        numberOfDocuments: number,
-        documents: Array<any>,
-        docStartIndex: number,
-        options?: DeserializeOptions
-    ): number;
   
 /** A class representation of the BSON Binary type. */
 export class Binary {
