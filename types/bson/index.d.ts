@@ -64,7 +64,6 @@ export interface CalculateObjectSizeOptions {
  */
 export function serialize(object: any, options?: SerializeOptions): Buffer;
 
-<<<<<<< HEAD
 
 /**
  * Serialize a Javascript object.
@@ -75,8 +74,6 @@ export function serialize(object: any, options?: SerializeOptions): Buffer;
  */
 export function serialize(object: any, options?: SerializeOptions): Buffer;
 
-=======
->>>>>>> 8246c79ed02837d60a659f29a8c0725d7451fc99
 /**
  * Serialize a Javascript object using a predefined Buffer and index into the buffer, useful when pre-allocating the space for serialization.
  * 
@@ -86,7 +83,6 @@ export function serialize(object: any, options?: SerializeOptions): Buffer;
  * @returns The index pointing to the last written byte in the buffer
  */
 export function serializeWithBufferAndIndex(object: any, buffer: Buffer, options?: SerializeWithBufferAndIndexOptions): number;
-<<<<<<< HEAD
 
 /**
  * Deserialize data as BSON.
@@ -125,26 +121,6 @@ export function deserializeStream(
     docStartIndex: number,
     options?: DeserializeOptions
 ): number;
-=======
-
-/**
- * Deserialize data as BSON.
- * 
- * @param buffer The buffer containing the serialized set of BSON documents.
- * @param options Deserialize options.
- * @returns The deserialized Javascript Object.
- */
-export function deserialize(buffer: Buffer, options?: DeserializeOptions): any;
-
-/**
- * Calculate the bson size for a passed in Javascript object.
- *
- * @param {Object} object the Javascript object to calculate the BSON byte size for.
- * @param {CalculateObjectSizeOptions} Options
- * @return {Number} returns the number of bytes the BSON object will take up.
- */
-export function calculateObjectSize(object: any, options?: CalculateObjectSizeOptions): number;
->>>>>>> 8246c79ed02837d60a659f29a8c0725d7451fc99
 
 /**
  * Deserialize stream data as BSON documents.
@@ -225,11 +201,6 @@ export class DBRef {
      * @param db Optional db name, if omitted the reference is local to the current db
      */
     constructor(namespace: string, oid: ObjectId, db?: string);
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> 8246c79ed02837d60a659f29a8c0725d7451fc99
     namespace: string;
     oid: ObjectId;
     db?: string;
@@ -645,17 +616,9 @@ export namespace EJSON {
      * console.log(EJSON.stringify(doc));
      */
     export function stringify(
-<<<<<<< HEAD
         value: {}, 
         replacer: ((key: string, value: any) => any) | Array<string | number>, 
         indents?: string | number, 
         options?: {relaxed?: boolean;}
         ): string;  
-=======
-      value: {}, 
-      replacer: ((key: string, value: any) => any) | Array<string | number>, 
-      indents?: string | number, 
-      options?: {relaxed?: boolean;}
-    ): string;  
->>>>>>> 8246c79ed02837d60a659f29a8c0725d7451fc99
 }
