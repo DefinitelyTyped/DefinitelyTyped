@@ -6,7 +6,7 @@
 //                 Patrick Sachs <https://github.com/PatrickSachs>
 //                 Brandon Shelton <https://github.com/YangusKhan>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
-//                 Sebastian Greaves <https://github.com/sgreav>
+//                 Hanna Greaves <https://github.com/sgreav>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -18,8 +18,7 @@ import {
     Block,
     Inline,
     Operations,
-    Schema,
-    Stack,
+    SchemaProperties,
     Value,
     Operation,
     MarkProperties,
@@ -112,7 +111,7 @@ export interface BasicEditorProps {
     plugins?: Plugin[];
     readOnly?: boolean;
     role?: string;
-    schema?: Schema;
+    schema?: SchemaProperties;
     spellCheck?: boolean;
     style?: React.CSSProperties;
     tabIndex?: number;
@@ -121,15 +120,11 @@ export interface BasicEditorProps {
 export type EditorProps = BasicEditorProps & Plugin;
 
 export interface EditorState {
-    schema: Schema;
     value: Value;
-    stack: Stack;
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> implements Controller {
     controller: CoreEditor;
-    schema: Schema;
-    stack: Stack;
 
     readonly plugins: Plugin[];
     readonly operations: Immutable.List<Operation>;
@@ -137,7 +132,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     readonly value: Value;
 
     // Instance methods
-    resolveController(plugins: Plugin[], schema: Schema, commands: any[], queries: any[]): void;
+    resolveController(plugins: Plugin[], schema: SchemaProperties, commands: any[], queries: any[]): void;
 
     // Controller
     addMark: CoreEditor['addMark'];

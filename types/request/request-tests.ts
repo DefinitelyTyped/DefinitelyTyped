@@ -14,7 +14,6 @@ let strOrTrueOrUndef: string | true | undefined;
 const buffer: Buffer = new Buffer('foo');
 let num = 0;
 let bool: boolean;
-let date: Date;
 let obj: object;
 const dest = 'foo';
 
@@ -58,8 +57,8 @@ obj = req.toJSON();
 let cookie: request.Cookie = request.cookie('foo')!;
 str = cookie.key;
 str = cookie.value;
-date = cookie.expires;
-str = cookie.path;
+const expires: Date | 'Infinity' = cookie.expires;
+const cpath: string | null = cookie.path;
 str = cookie.toString();
 bool = cookie.httpOnly;
 

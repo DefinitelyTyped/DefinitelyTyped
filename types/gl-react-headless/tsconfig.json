@@ -1,6 +1,7 @@
 {
   "files": [
-    "index.d.ts"
+    "index.d.ts",
+    "gl-react-headless-tests.tsx"
   ],
   "compilerOptions": {
     "module": "commonjs",

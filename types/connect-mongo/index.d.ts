@@ -110,6 +110,7 @@ declare namespace connectMongo {
         length: (callback: (err: any, length: number) => void) => void;
         clear: (callback?: (err?: any) => void) => void;
         touch: (sid: string, session: Express.SessionData, callback?: (err: any) => void) => void;
+        close: () => void;
     }
 }
 

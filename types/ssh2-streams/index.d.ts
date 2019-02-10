@@ -1046,6 +1046,24 @@ export class SFTPStream extends stream.Transform {
 
     /**
      * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, options: ReadFileOptions, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, encoding: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
+     * Reads a file in memory and returns its contents
+     */
+    readFile(remotePath: string, callback: (err: any, handle: Buffer) => void): void;
+
+    /**
+     * (Client-only)
      * Returns a new readable stream for `path`.
      */
     createReadStream(path: string, options?: ReadStreamOptions): stream.Readable;
@@ -1610,6 +1628,11 @@ export interface TransferOptions {
      * Called every time a part of a file was transferred
      */
     step?: (total_transferred: number, chunk: number, total: number) => void;
+
+    /**
+     * Integer or string representing the file mode to set for the uploaded file.
+     */
+    mode?: number | string;
 }
 
 export interface ReadStreamOptions {
@@ -1680,4 +1703,9 @@ export interface ParsedKey {
     publicOrig: Buffer;
     ppk?: boolean;
     privateMAC?: string;
+}
+
+export interface ReadFileOptions {
+    encoding?: string;
+    flag?: string;
 }

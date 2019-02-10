@@ -74,9 +74,7 @@ export interface ojComboboxMany<K, D> extends ojCombobox<any[] | null, ojCombobo
     asyncValidators: Array<AsyncValidator<any[]>>;
     converter: Converter<any> | Validation.RegisteredConverter | null;
     minLength: number;
-    optionRenderer?: ((param0: ojCombobox.OptionContext) => {
-        insert: Element;
-    } | undefined) | null;
+    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null;
     options: Array<ojCombobox.Option | ojCombobox.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys: {
@@ -95,6 +93,7 @@ export interface ojComboboxMany<K, D> extends ojCombobox<any[] | null, ojCombobo
     };
     placeholder: string | null;
     readonly rawValue: string | null;
+    readOnly: boolean;
     required: boolean;
     validators: Array<Validator<any[]> | Validation.RegisteredValidator> | null;
     value: any[] | null;
@@ -120,6 +119,7 @@ export interface ojComboboxMany<K, D> extends ojCombobox<any[] | null, ojCombobo
     onPickerAttributesChanged: ((event: JetElementCustomEvent<ojComboboxMany<K, D>["pickerAttributes"]>) => any) | null;
     onPlaceholderChanged: ((event: JetElementCustomEvent<ojComboboxMany<K, D>["placeholder"]>) => any) | null;
     onRawValueChanged: ((event: JetElementCustomEvent<ojComboboxMany<K, D>["rawValue"]>) => any) | null;
+    onReadOnlyChanged: ((event: JetElementCustomEvent<ojComboboxMany<K, D>["readOnly"]>) => any) | null;
     onRequiredChanged: ((event: JetElementCustomEvent<ojComboboxMany<K, D>["required"]>) => any) | null;
     onValidatorsChanged: ((event: JetElementCustomEvent<ojComboboxMany<K, D>["validators"]>) => any) | null;
     onValueChanged: ((event: JetElementCustomEvent<ojComboboxMany<K, D>["value"]>) => any) | null;
@@ -161,6 +161,7 @@ export interface ojComboboxManyEventMap<K, D> extends ojComboboxEventMap<any[] |
     'pickerAttributesChanged': JetElementCustomEvent<ojComboboxMany<K, D>["pickerAttributes"]>;
     'placeholderChanged': JetElementCustomEvent<ojComboboxMany<K, D>["placeholder"]>;
     'rawValueChanged': JetElementCustomEvent<ojComboboxMany<K, D>["rawValue"]>;
+    'readOnlyChanged': JetElementCustomEvent<ojComboboxMany<K, D>["readOnly"]>;
     'requiredChanged': JetElementCustomEvent<ojComboboxMany<K, D>["required"]>;
     'validatorsChanged': JetElementCustomEvent<ojComboboxMany<K, D>["validators"]>;
     'valueChanged': JetElementCustomEvent<ojComboboxMany<K, D>["value"]>;
@@ -170,9 +171,7 @@ export interface ojComboboxManySettableProperties<K, D> extends ojComboboxSettab
     asyncValidators: Array<AsyncValidator<any[]>>;
     converter: Converter<any> | Validation.RegisteredConverter | null;
     minLength: number;
-    optionRenderer?: ((param0: ojCombobox.OptionContext) => {
-        insert: Element;
-    } | undefined) | null;
+    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null;
     options: Array<ojCombobox.Option | ojCombobox.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys: {
@@ -191,6 +190,7 @@ export interface ojComboboxManySettableProperties<K, D> extends ojComboboxSettab
     };
     placeholder: string | null;
     readonly rawValue: string | null;
+    readOnly: boolean;
     required: boolean;
     validators: Array<Validator<any[]> | Validation.RegisteredValidator> | null;
     value: any[] | null;
@@ -216,9 +216,7 @@ export interface ojComboboxOne<K, D> extends ojCombobox<any, ojComboboxOneSettab
     converter: Converter<any> | Validation.RegisteredConverter | null;
     filterOnOpen: 'none' | 'rawValue';
     minLength: number;
-    optionRenderer?: ((param0: ojCombobox.OptionContext) => {
-        insert: Element;
-    } | undefined) | null;
+    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null;
     options: Array<ojCombobox.Option | ojCombobox.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys: {
@@ -237,6 +235,7 @@ export interface ojComboboxOne<K, D> extends ojCombobox<any, ojComboboxOneSettab
     };
     placeholder: string | null;
     readonly rawValue: string | null;
+    readOnly: boolean;
     required: boolean;
     validators: Array<Validator<any> | Validation.RegisteredValidator> | null;
     value: any;
@@ -263,6 +262,7 @@ export interface ojComboboxOne<K, D> extends ojCombobox<any, ojComboboxOneSettab
     onPickerAttributesChanged: ((event: JetElementCustomEvent<ojComboboxOne<K, D>["pickerAttributes"]>) => any) | null;
     onPlaceholderChanged: ((event: JetElementCustomEvent<ojComboboxOne<K, D>["placeholder"]>) => any) | null;
     onRawValueChanged: ((event: JetElementCustomEvent<ojComboboxOne<K, D>["rawValue"]>) => any) | null;
+    onReadOnlyChanged: ((event: JetElementCustomEvent<ojComboboxOne<K, D>["readOnly"]>) => any) | null;
     onRequiredChanged: ((event: JetElementCustomEvent<ojComboboxOne<K, D>["required"]>) => any) | null;
     onValidatorsChanged: ((event: JetElementCustomEvent<ojComboboxOne<K, D>["validators"]>) => any) | null;
     onValueChanged: ((event: JetElementCustomEvent<ojComboboxOne<K, D>["value"]>) => any) | null;
@@ -313,6 +313,7 @@ export interface ojComboboxOneEventMap<K, D> extends ojComboboxEventMap<any, ojC
     'pickerAttributesChanged': JetElementCustomEvent<ojComboboxOne<K, D>["pickerAttributes"]>;
     'placeholderChanged': JetElementCustomEvent<ojComboboxOne<K, D>["placeholder"]>;
     'rawValueChanged': JetElementCustomEvent<ojComboboxOne<K, D>["rawValue"]>;
+    'readOnlyChanged': JetElementCustomEvent<ojComboboxOne<K, D>["readOnly"]>;
     'requiredChanged': JetElementCustomEvent<ojComboboxOne<K, D>["required"]>;
     'validatorsChanged': JetElementCustomEvent<ojComboboxOne<K, D>["validators"]>;
     'valueChanged': JetElementCustomEvent<ojComboboxOne<K, D>["value"]>;
@@ -323,9 +324,7 @@ export interface ojComboboxOneSettableProperties<K, D> extends ojComboboxSettabl
     converter: Converter<any> | Validation.RegisteredConverter | null;
     filterOnOpen: 'none' | 'rawValue';
     minLength: number;
-    optionRenderer?: ((param0: ojCombobox.OptionContext) => {
-        insert: Element;
-    } | undefined) | null;
+    optionRenderer?: ((param0: ojCombobox.OptionContext) => Element) | null;
     options: Array<ojCombobox.Option | ojCombobox.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys: {
@@ -344,6 +343,7 @@ export interface ojComboboxOneSettableProperties<K, D> extends ojComboboxSettabl
     };
     placeholder: string | null;
     readonly rawValue: string | null;
+    readOnly: boolean;
     required: boolean;
     validators: Array<Validator<any> | Validation.RegisteredValidator> | null;
     value: any;
@@ -434,9 +434,7 @@ export interface ojSelectSettablePropertiesLenient<V, SV> extends Partial<ojSele
 }
 export interface ojSelectMany<K, D> extends ojSelect<any[] | null, ojSelectManySettableProperties<K, D>> {
     minimumResultsForSearch: number;
-    optionRenderer?: ((param0: ojSelect.OptionContext) => {
-        insert: Element;
-    } | undefined) | null;
+    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null;
     options: Array<ojSelect.Option | ojSelect.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys?: {
@@ -454,6 +452,7 @@ export interface ojSelectMany<K, D> extends ojSelect<any[] | null, ojSelectManyS
         class?: string;
     };
     placeholder: string | null;
+    readOnly: boolean;
     renderMode: 'jet' | 'native';
     required: boolean;
     value: any[] | null;
@@ -479,6 +478,7 @@ export interface ojSelectMany<K, D> extends ojSelect<any[] | null, ojSelectManyS
     onOptionsKeysChanged: ((event: JetElementCustomEvent<ojSelectMany<K, D>["optionsKeys"]>) => any) | null;
     onPickerAttributesChanged: ((event: JetElementCustomEvent<ojSelectMany<K, D>["pickerAttributes"]>) => any) | null;
     onPlaceholderChanged: ((event: JetElementCustomEvent<ojSelectMany<K, D>["placeholder"]>) => any) | null;
+    onReadOnlyChanged: ((event: JetElementCustomEvent<ojSelectMany<K, D>["readOnly"]>) => any) | null;
     onRenderModeChanged: ((event: JetElementCustomEvent<ojSelectMany<K, D>["renderMode"]>) => any) | null;
     onRequiredChanged: ((event: JetElementCustomEvent<ojSelectMany<K, D>["required"]>) => any) | null;
     onValueChanged: ((event: JetElementCustomEvent<ojSelectMany<K, D>["value"]>) => any) | null;
@@ -517,6 +517,7 @@ export interface ojSelectManyEventMap<K, D> extends ojSelectEventMap<any[] | nul
     'optionsKeysChanged': JetElementCustomEvent<ojSelectMany<K, D>["optionsKeys"]>;
     'pickerAttributesChanged': JetElementCustomEvent<ojSelectMany<K, D>["pickerAttributes"]>;
     'placeholderChanged': JetElementCustomEvent<ojSelectMany<K, D>["placeholder"]>;
+    'readOnlyChanged': JetElementCustomEvent<ojSelectMany<K, D>["readOnly"]>;
     'renderModeChanged': JetElementCustomEvent<ojSelectMany<K, D>["renderMode"]>;
     'requiredChanged': JetElementCustomEvent<ojSelectMany<K, D>["required"]>;
     'valueChanged': JetElementCustomEvent<ojSelectMany<K, D>["value"]>;
@@ -524,9 +525,7 @@ export interface ojSelectManyEventMap<K, D> extends ojSelectEventMap<any[] | nul
 }
 export interface ojSelectManySettableProperties<K, D> extends ojSelectSettableProperties<any[] | null> {
     minimumResultsForSearch: number;
-    optionRenderer?: ((param0: ojSelect.OptionContext) => {
-        insert: Element;
-    } | undefined) | null;
+    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null;
     options: Array<ojSelect.Option | ojSelect.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys?: {
@@ -544,6 +543,7 @@ export interface ojSelectManySettableProperties<K, D> extends ojSelectSettablePr
         class?: string;
     };
     placeholder: string | null;
+    readOnly: boolean;
     renderMode: 'jet' | 'native';
     required: boolean;
     value: any[] | null;
@@ -569,9 +569,7 @@ export interface ojSelectManySettablePropertiesLenient<K, D> extends Partial<ojS
 }
 export interface ojSelectOne<K, D> extends ojSelect<any, ojSelectOneSettableProperties<K, D>> {
     minimumResultsForSearch: number;
-    optionRenderer?: ((param0: ojSelect.OptionContext) => {
-        insert: Element;
-    } | undefined) | null;
+    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null;
     options: Array<ojSelect.Option | ojSelect.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys?: {
@@ -589,6 +587,7 @@ export interface ojSelectOne<K, D> extends ojSelect<any, ojSelectOneSettableProp
         class?: string;
     };
     placeholder: string | null;
+    readOnly: boolean;
     renderMode: 'jet' | 'native';
     required: boolean;
     value: any;
@@ -614,6 +613,7 @@ export interface ojSelectOne<K, D> extends ojSelect<any, ojSelectOneSettableProp
     onOptionsKeysChanged: ((event: JetElementCustomEvent<ojSelectOne<K, D>["optionsKeys"]>) => any) | null;
     onPickerAttributesChanged: ((event: JetElementCustomEvent<ojSelectOne<K, D>["pickerAttributes"]>) => any) | null;
     onPlaceholderChanged: ((event: JetElementCustomEvent<ojSelectOne<K, D>["placeholder"]>) => any) | null;
+    onReadOnlyChanged: ((event: JetElementCustomEvent<ojSelectOne<K, D>["readOnly"]>) => any) | null;
     onRenderModeChanged: ((event: JetElementCustomEvent<ojSelectOne<K, D>["renderMode"]>) => any) | null;
     onRequiredChanged: ((event: JetElementCustomEvent<ojSelectOne<K, D>["required"]>) => any) | null;
     onValueChanged: ((event: JetElementCustomEvent<ojSelectOne<K, D>["value"]>) => any) | null;
@@ -652,6 +652,7 @@ export interface ojSelectOneEventMap<K, D> extends ojSelectEventMap<any, ojSelec
     'optionsKeysChanged': JetElementCustomEvent<ojSelectOne<K, D>["optionsKeys"]>;
     'pickerAttributesChanged': JetElementCustomEvent<ojSelectOne<K, D>["pickerAttributes"]>;
     'placeholderChanged': JetElementCustomEvent<ojSelectOne<K, D>["placeholder"]>;
+    'readOnlyChanged': JetElementCustomEvent<ojSelectOne<K, D>["readOnly"]>;
     'renderModeChanged': JetElementCustomEvent<ojSelectOne<K, D>["renderMode"]>;
     'requiredChanged': JetElementCustomEvent<ojSelectOne<K, D>["required"]>;
     'valueChanged': JetElementCustomEvent<ojSelectOne<K, D>["value"]>;
@@ -659,9 +660,7 @@ export interface ojSelectOneEventMap<K, D> extends ojSelectEventMap<any, ojSelec
 }
 export interface ojSelectOneSettableProperties<K, D> extends ojSelectSettableProperties<any> {
     minimumResultsForSearch: number;
-    optionRenderer?: ((param0: ojSelect.OptionContext) => {
-        insert: Element;
-    } | undefined) | null;
+    optionRenderer?: ((param0: ojSelect.OptionContext) => Element) | null;
     options: Array<ojSelect.Option | ojSelect.Optgroup> | DataProvider<K, D> | null;
     optionsKeys: {
         childKeys?: {
@@ -679,6 +678,7 @@ export interface ojSelectOneSettableProperties<K, D> extends ojSelectSettablePro
         class?: string;
     };
     placeholder: string | null;
+    readOnly: boolean;
     renderMode: 'jet' | 'native';
     required: boolean;
     value: any;

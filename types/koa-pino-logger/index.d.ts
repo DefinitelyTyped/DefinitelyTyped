@@ -7,25 +7,18 @@
 /// <reference types="node"/>
 
 import { Middleware } from 'koa';
-import { LoggerOptions, Logger, Level } from 'pino';
+import { DestinationStream, LoggerOptions, Logger, Level } from 'pino';
+import { Options } from 'pino-http';
 import * as stream from 'stream';
 import * as http from 'http';
 
 export = logger;
 
 declare function logger(
-    opts?: logger.HttpLoggerOptions,
-    stream?: stream.Writable | stream.Duplex | stream.Transform
+    opts?: Options,
+    stream?: DestinationStream
 ): Middleware;
-
-declare namespace logger {
-    interface HttpLoggerOptions extends LoggerOptions {
-        logger?: Logger;
-        genReqId?(req: http.IncomingMessage): number;
-        useLevel?: Level;
-        stream?: stream.Writable | stream.Duplex | stream.Transform;
-    }
-}
+declare function logger(stream?: DestinationStream): Middleware;
 
 declare module 'koa' {
     interface Context {

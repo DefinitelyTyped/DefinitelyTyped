@@ -1020,7 +1020,7 @@ declare module "../index" {
 
     // isMatchWith
 
-    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName) => boolean;
+    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: PropertyName, object: object, source: object) => boolean;
 
     interface LoDashStatic {
         /**

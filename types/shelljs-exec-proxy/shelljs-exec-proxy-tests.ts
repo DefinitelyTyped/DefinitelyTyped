@@ -5,5 +5,5 @@ shell.git.add('.'); // $ExpectType ExecOutputReturnValue
 shell.git.commit('-am', 'Fixed issue #1'); // $ExpectType ExecOutputReturnValue
 shell.git.push('origin', 'master'); // $ExpectType ExecOutputReturnValue
 
-shell.cd('string'); // $ExpectType void
+shell.cd('string'); // $ExpectType ShellString
 shell.cd(123); // $ExpectError

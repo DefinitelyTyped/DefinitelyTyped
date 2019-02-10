@@ -46,8 +46,7 @@ declare module "./index" {
     | CROSS
     | HAND
     | MOVE
-    | TEXT
-    | WAIT;
+    | TEXT;
 
   type DEBUG_MODE =
     | GRID
@@ -110,10 +109,15 @@ declare module "./index" {
     | BEVEL
     | ROUND;
 
+  type TEXTURE_MODE =
+    | IMAGE
+    | NORMAL;
+
   type THE_STYLE =
     | NORMAL
     | ITALIC
-    | BOLD;
+    | BOLD
+    | BOLDITALIC;
 
   type TYPE =
     | VIDEO

@@ -137,11 +137,11 @@ function weather_station_monitor(session: autobahn.Session) {
 
     //Home control settings
     var desiredTemperature = Rx.Observable.subscribeAsObservable(session, "temperature.indoors.desired")
-        .map(x => <number>x.args[0]);
+        .map(x => x.args[0] as number);
 
     var dailyForecast =
         sensorReadings
-            .map(rawValue => <IWeather>rawValue.kwargs)
+            .map(rawValue => rawValue.kwargs as IWeather)
             .throttle(1000) // At most once every second
             .bufferWithTime(1000 * 60 * 60 * 24) //Milliseconds in a day
             .tap(readings => {

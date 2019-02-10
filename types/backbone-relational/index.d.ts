@@ -1,15 +1,16 @@
-// Type definitions for Backbone-relational 0.8.5
+// Type definitions for Backbone-relational 0.10.0
 // Project: http://backbonerelational.org/
 // Definitions by: Eirik Hoem <https://github.com/eirikhm>
+//                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
-import * as Backbone from 'backbone';
+import { Events, EventsHash, Model as BModel, Collection } from 'backbone';
 
-declare module 'backbone' {
-    class RelationalModel extends Model {
+declare module 'backbone-relational' {
+    class Model extends BModel {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
@@ -34,7 +35,7 @@ declare module 'backbone' {
 
         fetchRelated(key:string, options?:any, update?:boolean):any;
 
-        toJSON():any;
+        toJSON(options?: any):any;
 
         static setup();
 
@@ -47,7 +48,7 @@ declare module 'backbone' {
         static findOrCreate(attributes:any, options?:any);
     }
 
-    export class Relation extends Model {
+    export class Relation extends BModel {
 
         options:any;
         instance:any;
@@ -60,11 +61,11 @@ declare module 'backbone' {
 
         checkPreconditions():boolean;
 
-        setRelated(related:Model):void;
+        setRelated(related:BModel):void;
 
-        setRelated(related:Collection<Model>):void;
+        setRelated(related:Collection<BModel>):void;
 
-        getReverseRelations(model:RelationalModel):Relation;
+        getReverseRelations(model:Model):Relation;
 
         destroy():void;
     }
@@ -72,7 +73,7 @@ declare module 'backbone' {
     export class HasOne extends Relation {
         collectionType:any;
 
-        findRelated(options:any):Model;
+        findRelated(options:any):BModel;
 
         setKeyContents(keyContents:string):void;
 
@@ -82,21 +83,21 @@ declare module 'backbone' {
 
         setKeyContents(keyContents:number[]):void;
 
-        setKeyContents(keyContents:Collection<Model>):void;
+        setKeyContents(keyContents:Collection<BModel>):void;
 
-        onChange(model:Model, attr:any, options:any):void;
+        onChange(model:BModel, attr:any, options:any):void;
 
-        handleAddition(model:Model, coll:Collection<Model>, options:any):void;
+        handleAddition(model:BModel, coll:Collection<BModel>, options:any):void;
 
-        handleRemoval(model:Model, coll:Collection<Model>, options:any):void;
+        handleRemoval(model:BModel, coll:Collection<BModel>, options:any):void;
 
-        handleReset(coll:Collection<Model>, options:any):void;
+        handleReset(coll:Collection<BModel>, options:any):void;
 
-        tryAddRelated(model:Model, coll:any, options:any):void;
+        tryAddRelated(model:BModel, coll:any, options:any):void;
 
-        addRelated(model:Model, options:any):void;
+        addRelated(model:BModel, options:any):void;
 
-        removeRelated(model:Model, coll:any, options:any):void;
+        removeRelated(model:BModel, coll:any, options:any):void;
 
     }
 
@@ -104,34 +105,46 @@ declare module 'backbone' {
     export class HasMany extends Relation {
         collectionType:any;
 
-        findRelated(options:any):Model;
+        findRelated(options:any):BModel;
 
         setKeyContents(keyContents:string):void;
 
         setKeyContents(keyContents:number):void;
 
-        setKeyContents(keyContents:Model):void;
+        setKeyContents(keyContents:BModel):void;
 
-        onChange(model:Model, attr:any, options:any):void;
+        onChange(model:BModel, attr:any, options:any):void;
 
-        tryAddRelated(model:Model, coll:any, options:any):void;
+        tryAddRelated(model:BModel, coll:any, options:any):void;
 
-        addRelated(model:Model, options:any):void;
+        addRelated(model:BModel, options:any):void;
 
-        removeRelated(model:Model, coll:any, options:any):void;
+        removeRelated(model:BModel, coll:any, options:any):void;
 
     }
 
-    export class Store extends Events {
+    export class Store implements Events {
+        on(eventName: string, callback?: (...args: any[]) => void, context?: any): any;
+        on(eventMap: EventsHash): any;
+        on(eventName: any, callback?: any, context?: any): any;
+        off(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
+        trigger(eventName: string, ...args: any[]): any;
+        bind(eventName: string, callback: (...args: any[]) => void, context?: any): any;
+        unbind(eventName?: string, callback?: (...args: any[]) => void, context?: any): any;
+        once(events: string, callback: (...args: any[]) => void, context?: any): any;
+        listenTo(object: any, events: string, callback: (...args: any[]) => void): any;
+        listenToOnce(object: any, events: string, callback: (...args: any[]) => void): any;
+        stopListening(object?: any, events?: string, callback?: (...args: any[]) => void): any;
+
         initializeRelation(model, relation, options);
 
         addModelScope(scope:any):void;
 
         removeModelScope(scope):void;
 
-        addSubModels(subModelTypes:RelationalModel, superModelType:RelationalModel):void;
+        addSubModels(subModelTypes:Model, superModelType:Model):void;
 
-        setupSuperModel(modelType:RelationalModel):void;
+        setupSuperModel(modelType:Model):void;
 
         addReverseRelation(relation:any):void;
 
@@ -139,30 +152,30 @@ declare module 'backbone' {
 
         processOrphanRelations():void;
 
-        retroFitRelation(relation:RelationalModel, create:boolean):Collection<Model>;
+        retroFitRelation(relation:Model, create:boolean):Collection<BModel>;
 
-        getCollection(type:RelationalModel, create:boolean):Collection<Model>;
+        getCollection(type:Model, create:boolean):Collection<BModel>;
 
         getObjectByName(name:string):any;
 
 
         resolveIdForItem(type:any, item:any):any;
 
-        static find(type:any, item:string):RelationalModel;
+        static find(type:any, item:string):Model;
 
-        static find(type:any, item:number):RelationalModel;
+        static find(type:any, item:number):Model;
 
-        static find(type:any, item:RelationalModel):RelationalModel;
+        static find(type:any, item:Model):Model;
 
-        static find(type:any, item:any):RelationalModel;
+        static find(type:any, item:any):Model;
 
-        register(model:RelationalModel):void;
+        register(model:Model):void;
 
-        checkId(model:RelationalModel, id:any):void;
+        checkId(model:Model, id:any):void;
 
-        update(model:RelationalModel):void;
+        update(model:Model):void;
 
-        unregister(model:RelationalModel, collection:Collection<Model>, options:any):void;
+        unregister(model:Model, collection:Collection<BModel>, options:any):void;
 
         reset():void;
 

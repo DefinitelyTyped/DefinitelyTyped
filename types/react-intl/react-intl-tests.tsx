@@ -159,6 +159,13 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
             <FormattedMessage
                 id="test"
                 description="Test"
+                defaultMessage="Hi {blank} and {empty}!"
+                values={{ blank: null, empty: undefined }}
+                tagName={({ children }) => <div>{children}</div>} />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
             >
                 {(text) => <div className="messageDiv">{text}</div>}
             </FormattedMessage>
@@ -401,7 +408,15 @@ class TestApp extends React.Component {
             hello: "Hello, {name}!"
         };
         return (
-            <IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages} timeZone="UTC">
+            <IntlProvider
+                locale="en"
+                formats={{}}
+                messages={messages}
+                defaultLocale="en"
+                defaultFormats={messages}
+                timeZone="UTC"
+                onError={(error: string) => console.error(error)}
+            >
                 <SomeComponentWithIntl className="just-for-test" />
                 <SomeFunctionalComponentWithIntl className="another-one" />
             </IntlProvider>

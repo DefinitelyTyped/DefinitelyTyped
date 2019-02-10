@@ -34,6 +34,10 @@ export interface CommonProps {
     px?: ResponsiveProp;
     py?: ResponsiveProp;
     theme?: any;
+    // this is actually more powerful than the plugin because of some limitations of the transform
+    /**
+     * This works even without babel-plugin-styled-components.
+     */
     css?: Interpolation<any>;
 }
 

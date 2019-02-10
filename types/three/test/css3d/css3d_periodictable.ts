@@ -181,8 +181,8 @@
             //
 
             var object = new THREE.Object3D();
-            object.position.x = (<number>table[i + 3] * 140) - 1330;
-            object.position.y = - (<number>table[i + 4] * 180) + 990;
+            object.position.x = ((table[i + 3] as number) * 140) - 1330;
+            object.position.y = - ((table[i + 4] as number) * 180) + 990;
 
             targets.table.push(object);
 

@@ -4,7 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Window {
-    plugins: { OneSignal: OneSignalCordovaPlugin.OneSignalCordovaPlugin };
+    plugins: CordovaPlugins;
+}
+
+interface CordovaPlugins {
+    OneSignal: OneSignalCordovaPlugin.OneSignalCordovaPlugin;
 }
 
 declare namespace OneSignalCordovaPlugin {

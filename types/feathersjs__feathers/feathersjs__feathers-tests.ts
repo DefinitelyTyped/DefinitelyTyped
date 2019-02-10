@@ -9,7 +9,7 @@ interface Services {
     users: User;
 }
 
-const app = feathers() as Application<Services>;
+const app = feathers<Services>();
 
 app.service('users').get(0).then(u => {
     const user: User = u;

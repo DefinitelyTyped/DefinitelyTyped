@@ -2,7 +2,7 @@
 // Project: https://github.com/pawelgalazka/mochaccino#readme
 // Definitions by: Thomas-P <https://github.com/thomas-p>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 import * as Sinon from 'sinon';
 export interface Expect {
     not: Expect;

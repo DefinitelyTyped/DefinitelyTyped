@@ -181,7 +181,7 @@ export function ascending(a: Primitive | undefined, b: Primitive | undefined): n
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
- * Compares two primitive values for sorting (in ascending order).
+ * Compares two primitive values for sorting (in descending order).
  */
 export function descending(a: Primitive | undefined, b: Primitive | undefined): number;
 

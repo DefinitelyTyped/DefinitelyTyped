@@ -1,7 +1,6 @@
 // Type definitions for Mongoose 5.3.4
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
-//                 sindrenm <https://github.com/sindrenm>
 //                 lukasz-zak <https://github.com/lukasz-zak>
 //                 Alorel <https://github.com/Alorel>
 //                 jendrikw <https://github.com/jendrikw>
@@ -16,6 +15,9 @@
 //                 Norman Perrin <https://github.com/NormanPerrin>
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 stablio <https://github.com/stablio>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
+//                 Frontend Monster <https://github.com/frontendmonster>
+//                 Ming Chen <https://github.com/mingchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -280,6 +282,16 @@ declare module "mongoose" {
       collection?: string
     ): U;
 
+    /**
+     * Removes the model named `name` from this connection, if it exists. You can
+     * use this function to clean up any models you created in your tests to
+     * prevent OverwriteModelErrors.
+     *
+     * @param name if string, the name of the model to remove. If regexp, removes all models whose name matches the regexp.
+     * @returns this
+     */
+    deleteModel(name: string | RegExp): Connection;
+
     /** Returns an array of model names created on this connection. */
     modelNames(): string[];
 
@@ -306,6 +318,16 @@ declare module "mongoose" {
     readyState: number;
   }
 
+  /**
+   * Connection optional settings.
+   *
+   * see
+   *   https://mongoosejs.com/docs/api.html#mongoose_Mongoose-connect
+   * and
+   *   http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html
+   * for all available options.
+   *
+   */
   interface ConnectionOptionsBase {
     /** database Name for Mongodb Atlas Connection */
     dbName?: string;
@@ -329,11 +351,13 @@ declare module "mongoose" {
     poolSize?: number;
     /** Reconnect on error (default: true) */
     autoReconnect?: boolean;
-    /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
-    keepAlive?: number;
-    /** TCP Connection timeout setting (default: 0) */
+    /** TCP Connection keep alive enabled (default: true) */
+    keepAlive?: boolean;
+    /** The number of milliseconds to wait before initiating keepAlive on the TCP socket (default 30000) */
+    keepAliveInitialDelay?: number;
+    /** TCP Connection timeout setting (default: 30000) */
     connectTimeoutMS?: number;
-    /** TCP Socket timeout setting (default: 0) */
+    /** TCP Socket timeout setting (default: 360000) */
     socketTimeoutMS?: number;
     /** If the database authentication is dependent on another databaseName. */
     authSource?: string;
@@ -414,6 +438,7 @@ declare module "mongoose" {
        */
       autoIndex?: boolean;
     };
+    autoIndex?: boolean;
   }
 
   /** See the node-mongodb-native driver instance for options that it understands. */
@@ -511,7 +536,7 @@ declare module "mongoose" {
     /**
      * section error/notFound.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.DocumentNotFoundError
-     * 
+     *
      * An instance of this error class will be returned when `save()` fails
      * because the underlying
      * document was not found. The constructor takes one parameter, the
@@ -524,7 +549,7 @@ declare module "mongoose" {
     /**
      * section error/cast.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.CastError
-     * 
+     *
      * An instance of this error class will be returned when mongoose failed to
      * cast a value.
      */
@@ -544,7 +569,7 @@ declare module "mongoose" {
     /**
      * section error/validation.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
-     * 
+     *
      * An instance of this error class will be returned when [validation](http://mongoosejs.com/docs/validation.html) failed.
      */
     export class ValidationError extends Error {
@@ -565,7 +590,7 @@ declare module "mongoose" {
     /**
      * section error/validator.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidatorError
-     * 
+     *
      * A `ValidationError` has a hash of `errors` that contain individual `ValidatorError` instances
      */
     export class ValidatorError extends Error {
@@ -585,7 +610,7 @@ declare module "mongoose" {
     /**
      * section error/version.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.VersionError
-     * 
+     *
      * An instance of this error class will be returned when you call `save()` after
      * the document in the database was changed in a potentially unsafe way. See
      * the [`versionKey` option](http://mongoosejs.com/docs/guide.html#versionKey) for more information.
@@ -600,7 +625,7 @@ declare module "mongoose" {
     /**
      * section error/parallelSave.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ParallelSaveError
-     * 
+     *
      * An instance of this error class will be returned when you call `save()` multiple
      * times on the same document in parallel. See the [FAQ](http://mongoosejs.com/docs/faq.html) for more
      * information.
@@ -612,7 +637,7 @@ declare module "mongoose" {
     /**
      * section error/overwriteModel.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.OverwriteModelError
-     * 
+     *
      * Thrown when a model with the given name was already registered on the connection.
      * See [the FAQ about `OverwriteModelError`](http://mongoosejs.com/docs/faq.html#overwrite-model-error).
      */
@@ -623,7 +648,7 @@ declare module "mongoose" {
     /**
      * section error/missingSchema.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.MissingSchemaError
-     * 
+     *
      * Thrown when you try to access a model that has not been registered yet
      */
     export class MissingSchemaError extends Error {
@@ -633,7 +658,7 @@ declare module "mongoose" {
     /**
      * section error/divergentArray.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.DivergentArrayError
-     * 
+     *
      * An instance of this error will be returned if you used an array projection
      * and then modified the array in an unsafe way.
      */
@@ -727,7 +752,7 @@ declare module "mongoose" {
    * section schema.js
    * http://mongoosejs.com/docs/api.html#schema-js
    */
-  class Schema extends events.EventEmitter {
+  class Schema<T = any> extends events.EventEmitter {
     /**
      * Schema constructor.
      * When nesting schemas, (children in the example above), always declare
@@ -779,8 +804,10 @@ declare module "mongoose" {
      * Adds an instance method to documents constructed from Models compiled from this schema.
      * If a hash of name/fn pairs is passed as the only argument, each name/fn pair will be added as methods.
      */
-    method(method: string, fn: Function): this;
-    method(methodObj: { [name: string]: Function }): this;
+    method<F extends keyof T>(method: F, fn: T[F]): this;
+    method(methodObj: {
+      [F in keyof T]: T[F]
+    }): this;
 
     /**
      * Gets/sets schema paths.
@@ -811,11 +838,11 @@ declare module "mongoose" {
      * @param fn callback
      */
     post<T extends Document>(method: string, fn: (
-      error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
+      doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
     post<T extends Document>(method: string, fn: (
-      doc: T, next: (err?: NativeError) => void
+      error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
     /**
@@ -944,7 +971,9 @@ declare module "mongoose" {
     static reserved: any;
 
     /** Object of currently defined methods on this schema. */
-    methods: any;
+    methods: {
+      [F in keyof T]: T[F]
+    };
     /** Object of currently defined statics on this schema. */
     statics: any;
     /** Object of currently defined query helpers on this schema. */
@@ -1295,7 +1324,7 @@ declare module "mongoose" {
      * @param kind optional kind property for the error
      * @returns the current ValidationError, with all currently invalidated paths
      */
-    invalidate(path: string, errorMsg: string | NativeError, value: any, kind?: string): Error.ValidationError | boolean;
+    invalidate(path: string, errorMsg: string | NativeError, value?: any, kind?: string): Error.ValidationError | boolean;
 
     /** Returns true if path was directly set and modified, else false. */
     isDirectModified(path: string): boolean;
@@ -1885,6 +1914,12 @@ declare module "mongoose" {
     geometry(object: { type: string, coordinates: any[] }): this;
 
     /**
+     * Returns the current query options as a JSON object.
+     * @returns current query options
+     */
+    getOptions(): any;
+
+    /**
      * Returns the current query conditions as a JSON object.
      * @returns current query conditions
      */
@@ -2010,6 +2045,30 @@ declare module "mongoose" {
      * @param array array of conditions
      */
     or(array: any[]): this;
+
+    /**
+     * Make this query throw an error if no documents match the given `filter`.
+     * This is handy for integrating with async/await, because `orFail()` saves you
+     * an extra `if` statement to check if no document was found.
+     *
+     * Example:
+     *
+     *     // Throws if no doc returned
+     *     await Model.findOne({ foo: 'bar' }).orFail();
+     *
+     *     // Throws if no document was updated
+     *     await Model.updateOne({ foo: 'bar' }, { name: 'test' }).orFail();
+     *
+     *     // Throws "No docs found!" error if no docs match `{ foo: 'bar' }`
+     *     await Model.find({ foo: 'bar' }).orFail(new Error('No docs found!'));
+     *
+     *     // Throws "Not found" error if no document was found
+     *     await Model.findOneAndUpdate({ foo: 'bar' }, { name: 'test' }).
+     *       orFail(() => Error('Not found'));
+     *
+     * @param err optional error to throw if no docs match `filter`
+     */
+    orFail(err?: Error | (() => Error)): this;
 
     /** Specifies a $polygon condition */
     polygon(...coordinatePairs: number[][]): this;
@@ -2862,6 +2921,29 @@ declare module "mongoose" {
       callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
 
     /**
+     * Makes the indexes in MongoDB match the indexes defined in this model's
+     * schema. This function will drop any indexes that are not defined in
+     * the model's schema except the `_id` index, and build any indexes that
+     * are in your schema but not in MongoDB.
+     * @param options options to pass to `ensureIndexes()`
+     * @param callback optional callback
+     * @return Returns `undefined` if callback is specified, returns a promise if no callback.
+     */
+    syncIndexes(options: object, callback?: (err: any) => void): void;
+    syncIndexes(options: object): Promise<void>;
+
+    /**
+     * Lists the indexes currently defined in MongoDB. This may or may not be
+     * the same as the indexes defined in your schema depending on whether you
+     * use the [`autoIndex` option](/docs/guide.html#autoIndex) and if you
+     * build indexes manually.
+     * @param cb optional callback
+     * @return Returns `undefined` if callback is specified, returns a promise if no callback.
+     */
+    listIndexes(callback: (err: any) => void): void;
+    listIndexes(): Promise<void>;
+
+    /**
      * Sends ensureIndex commands to mongo for each index declared in the schema.
      * @param options internal options
      * @param cb optional callback
@@ -3087,9 +3169,9 @@ declare module "mongoose" {
       callback?: (err: any, res: T) => void): Promise<T>;
 
     /** Removes documents from the collection. */
-    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
-    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
-    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.WriteOpResult['result']> & QueryHelpers;
+    remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
+    deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
+    deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result']> & QueryHelpers;
 
     /**
      * Same as update(), except MongoDB replace the existing document with the given document (no atomic operators like $set).

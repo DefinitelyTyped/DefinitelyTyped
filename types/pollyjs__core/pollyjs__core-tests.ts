@@ -6,7 +6,74 @@ const polly = new Polly('test recording', {
 	recordFailedRequests: true,
 	adapters: ['xhr', 'fetch'],
 	persister: 'rest',
-	timing: Timing.relative(3)
+	timing: Timing.relative(3),
+	matchRequestsBy: {
+		method: true,
+		headers: true,
+		body: true,
+		order: true,
+
+		url: {
+		  protocol: true,
+		  username: true,
+		  password: true,
+		  hostname: true,
+		  port: true,
+		  pathname: true,
+		  query: true,
+		  hash: false
+		}
+	  }
+});
+
+new Polly('test recording', {
+	mode: 'replay',
+	recordFailedRequests: true,
+	adapters: ['xhr', 'fetch'],
+	persister: 'rest',
+	timing: Timing.relative(3),
+	matchRequestsBy: {
+		method(method) {
+			return method.toLowerCase();
+		},
+		headers: 1 === 1 ? { exclude: ['X-Auth'] } : (headers) => {
+			delete headers['X-Auth'];
+			return headers;
+		},
+		body(body) {
+			const json = JSON.parse(body);
+
+			delete json.email;
+			return JSON.stringify(json);
+		},
+
+		url: {
+			protocol(protocol) {
+				return protocol === 'http' ? 'https:' : protocol;
+			},
+			username(username) {
+				return username === 'johndoe' ? 'username' : username;
+			},
+			password(password) {
+				return password || 'password';
+			},
+			hostname(hostname) {
+				return hostname.replace('.com', '.net');
+			},
+			port(port) {
+				return port > 80 ? 3000 : 433;
+			},
+			pathname(pathname) {
+				return pathname.replace('/api/v1', '/api');
+			},
+			query(query) {
+				return { ...query, token: '' };
+			},
+			hash(hash) {
+				return hash.replace(/token=[0-9]+/, '');
+			}
+		}
+	}
 });
 
 function log(_: string) {

@@ -319,6 +319,22 @@ export interface Utils {
 			delimiter?: string
 		): void;
 	};
+	device: {
+		isWebXRAvailable: boolean;
+		getVRDisplay(): VRDisplay[];
+		checkHeadsetConnected(): boolean;
+		checkHasPositionalTracking(): boolean;
+		isMobile(): boolean;
+		isTablet(): boolean;
+		isIOS(): boolean;
+		isGearVR(): boolean;
+		isOculusGo(): boolean;
+		isR7(): boolean;
+		isLandscape(): boolean;
+		isBrowserEnvironment(): boolean;
+		isNodeEnvironment(): boolean;
+		PolyfillControls(object3D: THREE.Object3D): void;
+	};
 	styleParser: {
 		parse(value: string): object;
 		stringify(data: object): string;
@@ -342,7 +358,7 @@ export interface Utils {
 
 // Definitions
 // used as mixins to register functions to create classes (newable functions) in A-Frame
-export type ComponentDefinition<T extends object = object> = T & Partial<Component>;
+export type ComponentDefinition<T extends object = object> = T & Partial<Component> & ThisType<T & Component>;
 export type GeometryDefinition<T extends object = object, U = any> = T & Partial<Geometry<U>>;
 export type NodeDefinition<T extends object = object> = T & Partial<ANode>;
 export interface PrimitiveDefinition {

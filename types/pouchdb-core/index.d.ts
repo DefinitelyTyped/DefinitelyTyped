@@ -573,6 +573,11 @@ declare namespace PouchDB {
              * ex_ new PouchDB("dbName", {size:100});
              */
             size?: number;
+            /**
+             * A special constructor option, which appends a prefix to the database name
+             * and can be helpful for URL-based or file-based LevelDOWN path names.
+             */
+            prefix?: string;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {

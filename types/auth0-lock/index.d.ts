@@ -130,7 +130,7 @@ interface Auth0LockConstructorOptions {
     closable?: boolean;
     configurationBaseUrl?: string;
     container?: string;
-    defaultADUsernameFromEmailPrefix?: string;
+    defaultADUsernameFromEmailPrefix?: boolean;
     defaultDatabaseConnection?: string;
     defaultEnterpriseConnection?: string;
     flashMessage?: Auth0LockFlashMessageOptions;

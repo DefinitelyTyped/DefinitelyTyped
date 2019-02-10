@@ -52,9 +52,9 @@ export class Verifier {
     verify(req: Request, payload: any, done: (error: any, user?: any, info?: any) => void): void;
 }
 
-export type JwtFromRequestFunction = (req: Request) => string;
+export type JwtFromRequestFunction = (req: Request) => string | null;
 
-export const ExtractJWT: {
+export const ExtractJwt: {
     fromHeader(header_name: string): JwtFromRequestFunction;
     fromBodyField(field_name: string): JwtFromRequestFunction;
     fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;

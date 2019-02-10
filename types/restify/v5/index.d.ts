@@ -1251,13 +1251,13 @@ export namespace plugins {
      * Listens to the server's after event and emits information about that request (5.x compatible only).
      *
      * ```
-     * server.on('after', plugins.metrics( (err, metrics) =>
+     * server.on('after', plugins.metrics({ server }, (err, metrics, req, res, route) =>
      * {
      *    // metrics is an object containing information about the request
      * }));
      * ```
      */
-    function metrics(opts: { server: Server }, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
+    function metrics(opts: { server: Server }, callback: MetricsCallback): (...args: any[]) => void;
 
     /**
      * Parse the client's request for an OAUTH2 access tokensTable

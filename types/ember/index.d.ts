@@ -478,6 +478,7 @@ export namespace Ember {
     const addObserver: typeof EmberObjectObserversNs.addObserver;
     const removeObserver: typeof EmberObjectObserversNs.removeObserver;
     const get: typeof EmberObjectNs.get;
+    const notifyPropertyChange: typeof EmberObjectNs.notifyPropertyChange;
     const getWithDefault: typeof EmberObjectNs.getWithDefault;
     const getProperties: typeof EmberObjectNs.getProperties;
     const setProperties: typeof EmberObjectNs.setProperties;

@@ -37,7 +37,7 @@ export class Index {
     conflictRemove(path: string): number;
     entryCount(): number;
     getByIndex(n: number): IndexEntry;
-    getByPath(path: string, stage: number): IndexEntry;
+    getByPath(path: string, stage?: number): IndexEntry;
     hasConflicts(): boolean;
     owner(): Repository;
     path(): string;

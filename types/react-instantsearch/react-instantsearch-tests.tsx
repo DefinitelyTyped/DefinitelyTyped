@@ -348,7 +348,7 @@ import { createInstantSearch } from "react-instantsearch-core";
         : item.label;
 
       return (
-        <li key={item.value}>
+        <li key={item.label}>
           <span onClick={() => props.refine(item.value)}>
             {label} {item.isRefined ? '- selected' : ''}
           </span>

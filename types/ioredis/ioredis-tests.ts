@@ -38,6 +38,7 @@ redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
 redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 
 redis.exists('foo').then(result => result * 1);
+redis.exists('foo', ((err, data) => data * 1));
 
 // Should support usage of Buffer
 redis.set(Buffer.from('key'), '100');
@@ -192,3 +193,12 @@ redis.xread('STREAMS', 'streamName', '0-0');
 redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '>');
 redis.xrevrange('streamName', '+', '-', 'COUNT', 1);
 redis.xtrim('streamName', 'MAXLEN', '~', 1000);
+
+// ClusterRetryStrategy can return non-numbers to stop retrying
+new Redis.Cluster([], {
+    clusterRetryStrategy: (times: number, reason?: Error) => null
+});
+
+new Redis.Cluster([], {
+    clusterRetryStrategy: (times: number, reason?: Error) => 1
+});

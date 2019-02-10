@@ -9,6 +9,8 @@
 //                 Krister Kari <https://github.com/kristerkari>
 //                 Martin Raedlinger <https://github.com/formatlos>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
+//                 obedm503 <https://github.com/obedm503>
+//                 anion155 <https://github.com/anion155>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -34,11 +36,11 @@ declare namespace ReactIntl {
 
     function addLocaleData(data: Locale[] | Locale): void;
 
-    interface Messages {
-        [key: string]: FormattedMessage.MessageDescriptor;
-    }
+    type Messages<Names extends keyof any = string> = {
+        [key in Names]: FormattedMessage.MessageDescriptor;
+    };
 
-    function defineMessages<T extends Messages>(messages: T): T;
+    function defineMessages<Names extends keyof any>(messages: Messages<Names>): Messages<Names>;
 
     interface IntlConfig {
         locale: React.Requireable<any>;
@@ -46,6 +48,7 @@ declare namespace ReactIntl {
         messages: React.Requireable<any>;
         defaultLocale: React.Requireable<any>;
         defaultFormats: React.Requireable<any>;
+        onError: React.Requireable<any>;
     }
 
     interface IntlFormat {
@@ -78,6 +81,7 @@ declare namespace ReactIntl {
         defaultLocale: string;
         defaultFormats: any;
         now(): number;
+        onError(error: string): void;
     }
 
     interface InjectedIntlProps {
@@ -143,7 +147,7 @@ declare namespace ReactIntl {
 
         interface Props extends MessageDescriptor {
             values?: {[key: string]: MessageValue | JSX.Element};
-            tagName?: string;
+            tagName?: React.ReactType;
             children?: (...formattedMessage: Array<string | JSX.Element>) => React.ReactNode;
         }
     }
@@ -197,6 +201,7 @@ declare namespace ReactIntl {
             defaultFormats?: any;
             textComponent?: any;
             initialNow?: any;
+            onError?: (error: string) => void;
         }
     }
 

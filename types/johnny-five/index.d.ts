@@ -4,6 +4,7 @@
 //                 Zoltan Ujvary <https://github.com/ujvzolee>
 //                 Simon Colmer <https://github.com/workshop2>
 //                 XtrimSystems <https://github.com/xtrimsystems>
+//                 Marcin Obiedziński <https://github.com/marcinobiedz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node"/>
@@ -111,11 +112,10 @@ export declare class Board {
 
     io: any;
     id: string;
-    repl: any;
+    repl: Repl;
     isReady: boolean;
     pins: Array<Pin>;
     port: string;
-    inject: Repl;
 
     on(event: string, cb: () => void): this;
     on(event: "ready", cb: () => void): this;
@@ -365,22 +365,22 @@ export declare class LCD {
     rows: number;
     cols: number;
 
-    print(message: string): void;
-    useChar(char: string): void;
-    clear(): void;
-    cursor(row: number, col: number): void;
-    home(): void;
-    on(): void;
-    off(): void;
-    display(): void;
-    noDisplay(): void;
-    blink(): void;
-    noBlink(): void;
-    autoscroll(): void;
-    noAutoscroll(): void;
-    bgColor(color: any): void;
-    noBacklight(): void;
-    backlight(): void;
+    print(message: string): this;
+    useChar(char: string): this;
+    clear(): this;
+    cursor(row: number, col: number): this;
+    home(): this;
+    on(): this;
+    off(): this;
+    display(): this;
+    noDisplay(): this;
+    blink(): this;
+    noBlink(): this;
+    autoscroll(): this;
+    noAutoscroll(): this;
+    bgColor(color: any): this;
+    noBacklight(): this;
+    backlight(): this;
 }
 
 export interface LedOption {

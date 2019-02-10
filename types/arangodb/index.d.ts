@@ -619,6 +619,7 @@ declare namespace ArangoDB {
 
     interface Collection<T extends object = any> {
         // Collection
+        name(): string;
         checksum(
             withRevisions?: boolean,
             withData?: boolean
@@ -1503,16 +1504,7 @@ declare module "@arangodb/foxx/queues" {
     function deleteQueue(name: string): boolean;
     function get(name: string): Queue;
 
-    export {
-        createQueue as create,
-        deleteQueue as delete,
-        get,
-        JobOptions,
-        Job,
-        Queue,
-        QueueItem,
-        Script,
-    };
+    export { createQueue as create, deleteQueue as delete, get, JobOptions, Job, Queue, QueueItem, Script, };
 }
 
 declare module "@arangodb/foxx/graphql" {

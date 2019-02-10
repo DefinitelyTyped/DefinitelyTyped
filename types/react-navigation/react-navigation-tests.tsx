@@ -6,8 +6,11 @@ import {
     ViewStyle,
 } from 'react-native';
 import {
+    createAppContainer,
     createDrawerNavigator,
     createBottomTabNavigator,
+    DrawerItems,
+    DrawerItemsProps,
     DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
@@ -172,7 +175,13 @@ export const AppNavigator = createStackNavigator(
         initialRouteKey: ROUTE_KEY_START_SCREEN,
         headerLayoutPreset: 'center',
         initialRouteParams,
-        navigationOptions,
+        defaultNavigationOptions: navigationOptions,
+        navigationOptions: {
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#000',
+            },
+        }
     },
 );
 
@@ -209,10 +218,13 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
     tabBarOptions: { activeBackgroundColor: "blue" },
-    navigationOptions: () => ({
+    defaultNavigationOptions: () => ({
         tabBarOnPress: ({ scene, jumpToIndex }) => jumpToIndex(scene.index),
         tabBarIcon: ({ horizontal }) => <View />,
-    })
+    }),
+    navigationOptions: {
+        backBehavior: 'none'
+    }
 };
 
 const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
@@ -222,7 +234,7 @@ const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
 
 const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
     ...tabNavigatorConfig,
-    navigationOptions: {
+    defaultNavigationOptions: {
         tabBarOnPress: ({scene, jumpToIndex}) => {
             jumpToIndex(scene.index);
         },
@@ -257,7 +269,7 @@ const stackNavigatorScreenOptions: NavigationStackScreenOptions = {
 const stackNavigatorConfig: StackNavigatorConfig = {
     mode: "card",
     headerMode: "screen",
-    navigationOptions: stackNavigatorScreenOptions,
+    defaultNavigationOptions: stackNavigatorScreenOptions,
 };
 
 const BasicStackNavigator = createStackNavigator(
@@ -277,7 +289,7 @@ function renderBasicStackNavigator(): JSX.Element {
 const stackNavigatorConfigWithNavigationOptionsAsFunction: StackNavigatorConfig = {
     mode: "card",
     headerMode: "screen",
-    navigationOptions: ({navigationOptions, navigation, screenProps}) => (stackNavigatorScreenOptions),
+    defaultNavigationOptions: ({navigationOptions, navigation, screenProps}) => (stackNavigatorScreenOptions),
 };
 
 const AdvancedStackNavigator = createStackNavigator(
@@ -357,7 +369,18 @@ const drawerNavigatorConfig: DrawerNavigatorConfig = {
 
 const BasicDrawerNavigator = createDrawerNavigator(
     routeConfigMap,
-    stackNavigatorConfig,
+    drawerNavigatorConfig,
+);
+
+const Drawer = (props: DrawerItemsProps) => (
+    <DrawerItems {...props} />
+);
+
+const DrawerNavigatorWithCustomDrawer = createDrawerNavigator(
+    routeConfigMap,
+    {
+        contentComponent: Drawer,
+    }
 );
 
 function renderBasicDrawerNavigator(): JSX.Element {
@@ -413,14 +436,14 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
             />
         );
     }
-    _render = (props: NavigationTransitionProps, prevProps: NavigationTransitionProps): React.ReactElement<any> => {
+    _render = (props: NavigationTransitionProps, prevProps?: NavigationTransitionProps): React.ReactElement<any> => {
         return (
             <View />
         );
     }
     _configureTransition = (
         _transitionProps: NavigationTransitionProps,
-        _prevTransitionProps: NavigationTransitionProps
+        _prevTransitionProps?: NavigationTransitionProps
     ) => {
         return {};
     }
@@ -514,7 +537,7 @@ const BottomStack = createBottomTabNavigator({
         }
     }
 }, {
-    navigationOptions: () => ({
+    defaultNavigationOptions: () => ({
         tabBarOnPress: ({ defaultHandler }) => defaultHandler()
     })
 });
@@ -524,7 +547,7 @@ const CustomHeaderStack = createStackNavigator({
     Page2: { screen: Page2 }
 },
 {
-    navigationOptions: {
+    defaultNavigationOptions: {
         header: headerProps => {
             const { scene } = headerProps;
             const { options } = scene.descriptor;
@@ -644,6 +667,10 @@ createStackNavigator(
     routeConfigMap,
     {transitionConfig: () => ({screenInterpolator: StackViewTransitionConfigs.SlideFromRightIOS.screenInterpolator})}
 );
+
+// Test createAppContainer
+
+export const AppContainer = createAppContainer(AppNavigator);
 
 // Test NavigationEvents component
 const ViewWithNavigationEvents = (

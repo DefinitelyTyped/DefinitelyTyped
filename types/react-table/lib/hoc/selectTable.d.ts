@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType, ComponentClass } from 'react';
 
 import { TableProps } from '../../index';
 
@@ -12,7 +12,7 @@ export interface SelectInputComponentProps {
     row: any;
 }
 
-export interface SelectAllInputComponent {
+export interface SelectAllInputComponentProps {
     selectType: SelectType;
     checked: boolean;
     onClick: () => any;
@@ -28,7 +28,7 @@ export interface SelectTableAdditionalProps {
 
     selectAll?: boolean;
 
-    toggleAll?: SelectAllInputComponent['onClick'];
+    toggleAll?: SelectAllInputComponentProps['onClick'];
 
     toggleSelection?: SelectInputComponentProps['onClick'];
 
@@ -38,7 +38,7 @@ export interface SelectTableAdditionalProps {
     selectType?: SelectType;
 
     SelectInputComponent?: ComponentType<SelectInputComponentProps>;
-    SelectAllInputComponent?: ComponentType<SelectAllInputComponent>;
+    SelectAllInputComponent?: ComponentType<SelectAllInputComponentProps>;
 }
 
 export interface SelectTableHOCOptions {
@@ -49,8 +49,8 @@ export interface SelectTableHOCOptions {
 }
 
 declare function selectTableHOC<Props extends Partial<TableProps>>(
-    Component: ComponentType<Props>,
+    WrappedComponent: ComponentType<Props>,
     options?: SelectTableHOCOptions
-): ComponentType<Props & SelectTableAdditionalProps>;
+): ComponentClass<Props & SelectTableAdditionalProps>;
 
 export default selectTableHOC;

@@ -1,8 +1,20 @@
 // Type definitions for intl-tel-input 14.0
 // Project: https://github.com/jackocnr/intl-tel-input
-// Definitions by: Fidan Hakaj <https://github.com/fdnhkj>, Leonard Thieu <https://github.com/leonard-thieu>, Márton Molnár <https://github.com/molnarm>
+// Definitions by: Fidan Hakaj <https://github.com/fdnhkj>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
+//                 Márton Molnár <https://github.com/molnarm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+
+export as namespace intlTelInput;
+
+export = IntlTelInput;
+
+/**
+ * initialise the plugin with optional options.
+ * @param options options that can be provided during initialization.
+ */
+declare function IntlTelInput(node: Element, options?: IntlTelInput.Options): IntlTelInput.Plugin;
 
 declare namespace IntlTelInput {
     interface Static {
@@ -25,6 +37,8 @@ declare namespace IntlTelInput {
     }
 
     interface Plugin {
+        promise: Promise<void>;
+
         /**
          * Remove the plugin from the input, and unbind any event listeners.
          */
@@ -386,16 +400,50 @@ declare namespace intlTelInputUtils {
         | "VOIP";
 }
 
-interface Window {
-    intlTelInputGlobals: IntlTelInput.Static;
+declare global {
+    namespace intlTelInputUtils {
+        enum numberFormat {
+            E164 = 0,
+            INTERNATIONAL = 1,
+            NATIONAL = 2,
+            RFC3966 = 3
+        }
 
-    /**
-     * initialise the plugin with optional options.
-     * @param options options that can be provided during initialization.
-     */
-    intlTelInput(node: Element, options?: IntlTelInput.Options): IntlTelInput.Plugin;
-}
+        enum numberType {
+            FIXED_LINE = 0,
+            MOBILE = 1,
+            FIXED_LINE_OR_MOBILE = 2,
+            TOLL_FREE = 3,
+            PREMIUM_RATE = 4,
+            SHARED_COST = 5,
+            VOIP = 6,
+            PERSONAL_NUMBER = 7,
+            PAGER = 8,
+            UAN = 9,
+            VOICEMAIL = 10,
+            UNKNOWN = -1
+        }
 
-interface JQuery {
-    intlTelInput: IntlTelInput.JQueryPlugin;
+        enum validationError {
+            IS_POSSIBLE = 0,
+            INVALID_COUNTRY_CODE = 1,
+            TOO_SHORT = 2,
+            TOO_LONG = 3,
+            NOT_A_NUMBER = 4
+        }
+    }
+
+    interface Window {
+        intlTelInputGlobals: IntlTelInput.Static;
+
+        /**
+         * initialise the plugin with optional options.
+         * @param options options that can be provided during initialization.
+         */
+        intlTelInput(node: Element, options?: IntlTelInput.Options): IntlTelInput.Plugin;
+    }
+
+    interface JQuery {
+        intlTelInput: IntlTelInput.JQueryPlugin;
+    }
 }

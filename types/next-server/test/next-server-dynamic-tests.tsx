@@ -20,6 +20,10 @@ const LoadingComponent: React.StatelessComponent<LoadingComponentProps> = ({
 const DynamicComponent = dynamic(asyncComponent);
 const dynamicComponentJSX = <DynamicComponent foo="bar" />;
 
+// 1.1 Basic Usage (Loader function)
+const DynamicComponent2 = dynamic(() => asyncComponent);
+const dynamicComponent2JSX = <DynamicComponent2 foo="bar" />;
+
 // 2. With Custom Loading Component
 const DynamicComponentWithCustomLoading = dynamic(asyncComponent, {
     loading: LoadingComponent

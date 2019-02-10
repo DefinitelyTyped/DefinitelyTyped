@@ -82,10 +82,10 @@ import child = require("child_process");
 
 const version = shell.exec("node --version").stdout;
 
-const version2 = <shell.ExecOutputReturnValue> shell.exec("node --version", { async: false });
+const version2 = shell.exec("node --version", { async: false }) as shell.ExecOutputReturnValue;
 const output = version2.stdout;
 
-const asyncVersion3 = <child.ChildProcess> shell.exec("node --version", { async: true });
+const asyncVersion3 = shell.exec("node --version", { async: true }) as child.ChildProcess;
 let pid = asyncVersion3.pid;
 
 shell.exec("node --version", { silent: true }, (code, stdout, stderr) => {

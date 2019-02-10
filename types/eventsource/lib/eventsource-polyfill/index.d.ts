@@ -11,9 +11,9 @@ declare class EventSource {
   readonly url: string;
   readonly readyState: number;
   readonly withCredentials: boolean;
-  onopen: EventListener;
-  onmessage: EventListener;
-  onerror: EventListener;
+  onopen: (evt: MessageEvent) => any;
+  onmessage: (evt: MessageEvent) => any;
+  onerror: (evt: MessageEvent) => any;
   addEventListener(type: string, listener: EventListener): void;
   dispatchEvent(evt: Event): boolean;
   removeEventListener(type: string, listener?: EventListener): void;

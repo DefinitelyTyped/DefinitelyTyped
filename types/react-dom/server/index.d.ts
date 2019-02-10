@@ -1,4 +1,10 @@
-/// <reference types="node" />
+// forward declarations
+declare global {
+    namespace NodeJS {
+        // tslint:disable-next-line:no-empty-interface
+        interface ReadableStream {}
+    }
+}
 
 import { ReactElement } from 'react';
 

@@ -1243,7 +1243,11 @@ const uber: swagger.Spec = {
         },
         "surge_multiplier": {
           "type": "number",
-          "description": "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier."
+          "description": "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier.",
+          "minimum": 0,
+          "exclusiveMinimum": true,
+          "maximum": 10,
+          "exclusiveMaximum": true
         }
       }
     },

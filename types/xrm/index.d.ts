@@ -4633,7 +4633,7 @@ declare namespace Xrm {
          * Invokes the device camera to capture an image.
          * @returns On success, returns Base64 encoded file
          */
-        captureImage(imageOptions: Device.CaptureImageOptions): Async.PromiseLike<Device.CaptureFileResponse>;
+        captureImage(imageOptions?: Device.CaptureImageOptions): Async.PromiseLike<Device.CaptureFileResponse>;
 
         /**
          * Invokes the device camera to capture video.
@@ -5172,6 +5172,7 @@ declare namespace XrmEnum {
         Lookup = "lookup",
         Memo = "memo",
         Money = "money",
+        MultiOptionSet = "multioptionset",
         OptionSet = "optionset",
         String = "string"
     }
@@ -5185,6 +5186,7 @@ declare namespace XrmEnum {
         IFrame = "iframe",
         Lookup = "lookup",
         OptionSet = "optionset",
+        MultiSelectOptionSet = "multiselectoptionset",
         SubGrid = "subgrid",
         WebResource = "webresource",
         Notes = "notes",

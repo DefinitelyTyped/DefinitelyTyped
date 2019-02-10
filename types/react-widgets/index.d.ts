@@ -1,4 +1,4 @@
-// Type definitions for react-widgets 4.2
+// Type definitions for react-widgets 4.3
 // Project: https://github.com/jquense/react-widgets
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Balázs Sándor <https://github.com/sanyatuning>
@@ -6,6 +6,7 @@
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Maxime Billemaz <https://github.com/MBillemaz>
 //                 Georg Steinmetz <https://github.com/georg94>
+//                 Troy Zarger <https://github.com/tzarger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

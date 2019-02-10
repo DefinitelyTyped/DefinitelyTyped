@@ -17,8 +17,8 @@ export interface BusProps {
 
 export class Bus extends React.Component<BusProps> {
   id: number;
-  context: { glParent: Surface | Node, glSurface: Surface };
-  dependents: Array<Node | Surface>;
+  context: { glParent: Surface<any> | Node, glSurface: Surface<any> };
+  dependents: Array<Node | Surface<any>>;
   glNode?: Node;
   glBusRootNode: any;
 
@@ -43,11 +43,8 @@ export interface SurfaceProps {
   style?: any;
   preload?: any[];
   visitor?: Visitor;
-
   onLoad?: () => void;
   onLoadError?: (e: Error) => void;
-  onContextLost?: () => void;
-  onContextRestored?: () => void;
 }
 
 export interface SurfaceState {
@@ -56,13 +53,14 @@ export interface SurfaceState {
   debug: boolean;
 }
 
-export class Surface extends React.Component<SurfaceProps, SurfaceState> {
-  props: SurfaceProps;
-  state: SurfaceState;
+export class Surface<T> extends React.Component<SurfaceProps, SurfaceState> {
   id: number;
-  gl: WebGLRenderingContext;
-  RenderLessElement: any;
+  gl?: WebGLRenderingContext;
+  buffer: WebGLBuffer;
+  loaderResolver?: any;
+  glView: T;
   root: Node;
+  shaders: { [key: string]: any };
 
   mapRenderableContent(inst: any): any;
   getVisitors(): Visitor[];
@@ -85,9 +83,9 @@ export type createSurface = (
   mapRenderableContent: any,
   requestFrame: (callback: (time: number) => void) => number,
   cancelFrame: (id: number) => void
-) => Surface;
+) => Surface<typeof GLView>;
 
-export type listSurfaces = () => Surface[];
+export type listSurfaces = () => Array<Surface<any>>;
 
 export function GLSL(strings: TemplateStringsArray, ...values: any[]): string;
 
@@ -108,8 +106,8 @@ export class NearestCopy extends React.Component<NearestCopyProps> {
 }
 
 export interface SurfaceContext {
-  glParent: Node | Surface | Bus;
-  glSurface: Surface;
+  glParent: Node | Surface<any> | Bus;
+  glSurface: Surface<any>;
   glSizable: {
     getGLSize: () => [number, number];
   };
@@ -126,7 +124,7 @@ export interface Framebuffer {
 export interface NodeProps {
   shader: ShaderIdentifier | ShaderDefinition;
   uniformsOptions?: any;
-  uniforms: { [key: string]: any };
+  uniforms?: { [key: string]: any };
   ignoreUnusedUniforms?: string[] | boolean;
   sync?: boolean;
   width?: number;
@@ -155,7 +153,7 @@ export class Node extends React.Component<NodeProps> {
     [key: string]: Array<Bus | undefined>;
   };
   dependencies: Array<Node | Bus>;
-  dependents: Array<Node | Surface>;
+  dependents: Array<Node | Surface<any>>;
 }
 
 export interface ShaderIdentifier {
@@ -193,13 +191,13 @@ export namespace Uniform {
 }
 
 export class Visitor {
-  onSurfaceMount(surface: Surface): void;
-  onSurfaceUnmount(surface: Surface): void;
-  onSurfaceGLContextChange(surface: Surface, gl?: WebGLRenderingContext): void;
-  onSurfaceDrawSkipped(surface: Surface): void;
-  onSurfaceDrawStart(surface: Surface): void;
+  onSurfaceMount(surface: Surface<any>): void;
+  onSurfaceUnmount(surface: Surface<any>): void;
+  onSurfaceGLContextChange(surface: Surface<any>, gl?: WebGLRenderingContext): void;
+  onSurfaceDrawSkipped(surface: Surface<any>): void;
+  onSurfaceDrawStart(surface: Surface<any>): void;
   onSurfaceDrawError(e: Error): boolean;
-  onSurfaceDrawEnd(surface: Surface): void;
+  onSurfaceDrawEnd(surface: Surface<any>): void;
   onNodeDrawSkipped(node: Node): void;
   onNodeDrawStart(node: Node): void;
   onNodeSyncDeps(node: Node, additions: Array<Node | Bus>, deletions: Array<Node | Bus>): void;

@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/core 1.2
+// Type definitions for @pollyjs/core 2.0
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,8 +12,10 @@ export const Timing: {
 	fixed(ms: number): () => Promise<void>;
 	relative(ratio: number): (ms: number) => Promise<void>;
 };
+
+export type MatchBy<T = string, R = T> = (input: T) => R;
 export interface PollyConfig {
-	mode?: MODES;
+	mode?: MODES | string;
 
 	adapters?: Array<string | typeof Adapter>;
 	adapterOptions?: any;
@@ -34,20 +36,20 @@ export interface PollyConfig {
 	timing?: ((ms: number) => Promise<void>) | (() => Promise<void>);
 
 	matchRequestsBy?: {
-		method?: boolean;
-		headers?: any;
-		body?: boolean;
+		method?: boolean | MatchBy;
+		headers?: boolean | { exclude: string[] } | MatchBy<Record<string, string>>;
+		body?: boolean | MatchBy<any>;
 		order?: boolean;
 
 		url?: {
-			protocol?: boolean;
-			username?: boolean;
-			password?: boolean;
-			hostname?: boolean;
-			port?: boolean;
-			pathname?: boolean;
-			query?: boolean;
-			hash?: boolean;
+			protocol?: boolean | MatchBy;
+			username?: boolean | MatchBy;
+			password?: boolean | MatchBy;
+			hostname?: boolean | MatchBy;
+			port?: boolean | MatchBy<number>;
+			pathname?: boolean | MatchBy;
+			query?: boolean | MatchBy<any>;
+			hash?: boolean | MatchBy;
 		};
 	};
 }
@@ -68,7 +70,7 @@ export interface Request {
 	port: string;
 	pathname: string;
 	hash: string;
-	headers: Record<string, string>;
+	headers: Record<string, string | string[]>;
 	body: any;
 	query: any;
 	params: any;
@@ -77,7 +79,7 @@ export interface Request {
 }
 export interface Response {
 	statusCode?: number;
-	headers: Record<string, string>;
+	headers: Record<string, string | string[]>;
 	body: any;
 	status(status: number): Response;
 	getHeader(name: string): string | null;
