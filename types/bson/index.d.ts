@@ -64,16 +64,6 @@ export interface CalculateObjectSizeOptions {
  */
 export function serialize(object: any, options?: SerializeOptions): Buffer;
 
-
-/**
- * Serialize a Javascript object.
- * 
- * @param object The Javascript object to serialize.
- * @param options Serialize options.
- * @return The Buffer object containing the serialized object.
- */
-export function serialize(object: any, options?: SerializeOptions): Buffer;
-
 /**
  * Serialize a Javascript object using a predefined Buffer and index into the buffer, useful when pre-allocating the space for serialization.
  * 
