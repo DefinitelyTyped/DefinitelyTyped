@@ -2,6 +2,8 @@
 
 $("#testmask").inputmask("remove");
 
+$(":input").inputmask();
+
 let value: string = $("#testmask").inputmask("unmaskedvalue");
 
 $("#testmask").inputmask({

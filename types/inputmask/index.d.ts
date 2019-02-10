@@ -637,7 +637,7 @@ declare namespace Inputmask {
          *
          * @param opts Mask options.
          */
-        (opts: Options): Instance;
+        (opts?: Options): Instance;
 
         /**
          * Creates a new Inputmask instance.
@@ -651,7 +651,7 @@ declare namespace Inputmask {
          *
          * @param opts Mask options.
          */
-        new (opts: Options): Instance;
+        new (opts?: Options): Instance;
 
         /**
          * Extends the default inputmask options.
@@ -778,7 +778,7 @@ declare global {
          *
          * @param opts Mask options.
          */
-        inputmask(opts: Inputmask.Options): Inputmask.Instance;
+        inputmask(opts?: Inputmask.Options): Inputmask.Instance;
     }
 }
 

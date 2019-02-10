@@ -80,6 +80,10 @@ Inputmask("9", { repeat: 10 }).mask("selector");
 Inputmask({ regex: "\\d*" }).mask("selector");
 Inputmask({ regex: String.raw`\d*` }).mask("selector");
 
+let inputElement!: HTMLInputElement;
+Inputmask().mask(inputElement);
+Inputmask().mask([inputElement, inputElement]);
+
 Inputmask.extendDefaults({
 	autoUnmask: true
 });
