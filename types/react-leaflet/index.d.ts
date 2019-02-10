@@ -284,7 +284,8 @@ export interface MarkerProps extends MapLayerProps, MarkerEvents, Leaflet.Marker
     position: Leaflet.LatLngExpression;
 }
 export class Marker<P extends MarkerProps = MarkerProps, E extends Leaflet.Marker = Leaflet.Marker> extends MapLayer<P, E> {
-    getChildContext(): { popupContainer: E };
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
 export interface PathProps extends PathEvents, Leaflet.PathOptions, MapLayerProps { }
