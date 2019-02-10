@@ -12,6 +12,8 @@ import * as React from "react";
 import * as StyledComponents from "styled-components";
 import * as StyledSystem from "styled-system";
 
+export {};
+
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export interface BaseProps extends React.Props<any> {
@@ -85,6 +87,7 @@ export interface ImageProps
         Omit<React.HTMLProps<HTMLImageElement>, keyof ImageKnownProps> {}
 export const Image: React.FunctionComponent<ImageProps>;
 
+// tslint:disable-next-line no-empty-interface
 export interface LinkKnownProps extends BoxKnownProps {}
 export interface LinkProps
     extends LinkKnownProps,
@@ -103,6 +106,7 @@ export interface TextProps
         Omit<React.HTMLProps<HTMLDivElement>, keyof TextKnownProps> {}
 export const Text: React.FunctionComponent<TextProps>;
 
+// tslint:disable-next-line no-empty-interface
 export interface HeadingKnownProps extends TextKnownProps {}
 export interface HeadingProps
     extends HeadingKnownProps,
