@@ -6,7 +6,7 @@
 //                 sara f-p <https://github.com/gretzky>
 //                 angusfretwell <https://github.com/angusfretwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as React from "react";
 import * as StyledComponents from "styled-components";
