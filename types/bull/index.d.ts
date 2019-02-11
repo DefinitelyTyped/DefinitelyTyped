@@ -228,6 +228,25 @@ declare namespace Bull {
      * Takes a lock for this job so that no other queue worker can process it at the same time.
      */
     takeLock(): Promise<number | false>;
+
+    /**
+     * Get job properties as Json Object
+     */
+    toJSON(): {
+      id: JobId,
+      name: string,
+      data: T,
+      opts: JobOptions,
+      progress: number,
+      delay: number,
+      timestamp: number,
+      attemptsMade: number,
+      failedReason: any,
+      stacktrace: string[] | null,
+      returnvalue: any,
+      finishedOn: number | null,
+      processedOn: number | null
+    };
   }
 
   type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
