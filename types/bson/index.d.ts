@@ -55,62 +55,62 @@ export interface CalculateObjectSizeOptions {
 }
 
 
-    /**
-     * Serialize a Javascript object.
-     * 
-     * @param object The Javascript object to serialize.
-     * @param options Serialize options.
-     * @return The Buffer object containing the serialized object.
-     */
-    export function serialize(object: any, options?: SerializeOptions): Buffer;
+/**
+ * Serialize a Javascript object.
+ * 
+ * @param object The Javascript object to serialize.
+ * @param options Serialize options.
+ * @return The Buffer object containing the serialized object.
+ */
+export function serialize(object: any, options?: SerializeOptions): Buffer;
 
-    /**
-     * Serialize a Javascript object using a predefined Buffer and index into the buffer, useful when pre-allocating the space for serialization.
-     * 
-     * @param object The Javascript object to serialize.
-     * @param buffer The Buffer you pre-allocated to store the serialized BSON object.
-     * @param options Serialize options.
-     * @returns The index pointing to the last written byte in the buffer
-     */
-    export function serializeWithBufferAndIndex(object: any, buffer: Buffer, options?: SerializeWithBufferAndIndexOptions): number;
+/**
+ * Serialize a Javascript object using a predefined Buffer and index into the buffer, useful when pre-allocating the space for serialization.
+ * 
+ * @param object The Javascript object to serialize.
+ * @param buffer The Buffer you pre-allocated to store the serialized BSON object.
+ * @param options Serialize options.
+ * @returns The index pointing to the last written byte in the buffer
+ */
+export function serializeWithBufferAndIndex(object: any, buffer: Buffer, options?: SerializeWithBufferAndIndexOptions): number;
 
-    /**
-     * Deserialize data as BSON.
-     * 
-     * @param buffer The buffer containing the serialized set of BSON documents.
-     * @param options Deserialize options.
-     * @returns The deserialized Javascript Object.
-     */
-    export function deserialize(buffer: Buffer, options?: DeserializeOptions): any;
+/**
+ * Deserialize data as BSON.
+ * 
+ * @param buffer The buffer containing the serialized set of BSON documents.
+ * @param options Deserialize options.
+ * @returns The deserialized Javascript Object.
+ */
+export function deserialize(buffer: Buffer, options?: DeserializeOptions): any;
 
-    /**
-     * Calculate the bson size for a passed in Javascript object.
-     *
-     * @param {Object} object the Javascript object to calculate the BSON byte size for.
-     * @param {CalculateObjectSizeOptions} Options
-     * @return {Number} returns the number of bytes the BSON object will take up.
-     */
-    export function calculateObjectSize(object: any, options?: CalculateObjectSizeOptions): number;
+/**
+ * Calculate the bson size for a passed in Javascript object.
+ *
+ * @param {Object} object the Javascript object to calculate the BSON byte size for.
+ * @param {CalculateObjectSizeOptions} Options
+ * @return {Number} returns the number of bytes the BSON object will take up.
+ */
+export function calculateObjectSize(object: any, options?: CalculateObjectSizeOptions): number;
 
-    /**
-     * Deserialize stream data as BSON documents.
-     * 
-     * @param data The buffer containing the serialized set of BSON documents.
-     * @param startIndex The start index in the data Buffer where the deserialization is to start.
-     * @param numberOfDocuments Number of documents to deserialize
-     * @param documents An array where to store the deserialized documents
-     * @param docStartIndex The index in the documents array from where to start inserting documents
-     * @param options Additional options used for the deserialization
-     * @returns The next index in the buffer after deserialization of the `numberOfDocuments`
-     */
-    export function deserializeStream(
-        data: Buffer,
-        startIndex: number,
-        numberOfDocuments: number,
-        documents: Array<any>,
-        docStartIndex: number,
-        options?: DeserializeOptions
-    ): number;
+/**
+ * Deserialize stream data as BSON documents.
+ * 
+ * @param data The buffer containing the serialized set of BSON documents.
+ * @param startIndex The start index in the data Buffer where the deserialization is to start.
+ * @param numberOfDocuments Number of documents to deserialize
+ * @param documents An array where to store the deserialized documents
+ * @param docStartIndex The index in the documents array from where to start inserting documents
+ * @param options Additional options used for the deserialization
+ * @returns The next index in the buffer after deserialization of the `numberOfDocuments`
+ */
+export function deserializeStream(
+    data: Buffer,
+    startIndex: number,
+    numberOfDocuments: number,
+    documents: Array<any>,
+    docStartIndex: number,
+    options?: DeserializeOptions
+): number;
   
 /** A class representation of the BSON Binary type. */
 export class Binary {
