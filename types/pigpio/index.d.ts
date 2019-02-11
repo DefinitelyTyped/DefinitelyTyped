@@ -72,9 +72,9 @@ export class Gpio extends NodeJS.EventEmitter {
 
     /**
      * Sets the GPIO level to 0 or 1. If PWM or servo pulses are active on the GPIO they are switched off.
-     * @param levle     0 or 1
+     * @param level     0 or 1
      */
-    digitalWrite(levle: number): Gpio;
+    digitalWrite(level: number): Gpio;
 
     /**
      * Sends a trigger pulse to the GPIO. The GPIO is set to level for pulseLen microseconds and then reset to not level.
