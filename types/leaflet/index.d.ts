@@ -1116,13 +1116,6 @@ export namespace control {
     function scale(options?: Control.ScaleOptions): Control.Scale;
 }
 
-export interface AutopanOptions {
-    autoPan?: boolean;
-    autoPanPaddingTopLeft?: PointExpression;
-    autoPanPaddingBottomRight?: PointExpression;
-    autoPanPadding?: PointExpression;
-}
-
 export interface DivOverlayOptions {
     offset?: PointExpression;
     zoomAnimation?: boolean;
@@ -1130,12 +1123,16 @@ export interface DivOverlayOptions {
     pane?: string;
 }
 
-export interface PopupOptions extends DivOverlayOptions, AutopanOptions {
+export interface PopupOptions extends DivOverlayOptions {
     maxWidth?: number;
     minWidth?: number;
     maxHeight?: number;
     keepInView?: boolean;
     closeButton?: boolean;
+    autoPan?: boolean;
+    autoPanPaddingTopLeft?: PointExpression;
+    autoPanPaddingBottomRight?: PointExpression;
+    autoPanPadding?: PointExpression;
     autoClose?: boolean;
     closeOnClick?: boolean;
     closeOnEscapeKey?: boolean;
@@ -1520,7 +1517,7 @@ export class DivIcon extends Icon<DivIconOptions> {
 
 export function divIcon(options?: DivIconOptions): DivIcon;
 
-export interface MarkerOptions extends InteractiveLayerOptions, AutopanOptions {
+export interface MarkerOptions extends InteractiveLayerOptions {
     icon?: Icon | DivIcon;
     clickable?: boolean;
     draggable?: boolean;
@@ -1531,6 +1528,9 @@ export interface MarkerOptions extends InteractiveLayerOptions, AutopanOptions {
     opacity?: number;
     riseOnHover?: boolean;
     riseOffset?: number;
+    autoPan?: boolean;
+    autoPanSpeed?: number;
+    autoPanPadding?: PointExpression;
 }
 
 export class Marker<P = any> extends Layer {
