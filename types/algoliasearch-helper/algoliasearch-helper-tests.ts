@@ -189,7 +189,7 @@ queryParameters = new SearchParameters({
     length: 2,
     maxValuesPerFacet: 1,
     minimumAroundRadius: 1,
-    minProximity: {},
+    minProximity: 1,
     minWordSizefor1Typo: 1,
     minWordSizefor2Typos: 1,
     numericFilters: ['test'],

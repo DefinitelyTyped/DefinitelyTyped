@@ -17,7 +17,7 @@ import algoliasearch = require('algoliasearch');
  * @param index the name of the index to query
  * @param opts
  */
-declare function algoliasearchHelper(client: Client, index: string, opts: Partial<algoliasearchHelper.SearchParameters>): algoliasearchHelper.AlgoliaSearchHelper;
+declare function algoliasearchHelper(client: Client, index: string, opts: algoliasearchHelper.QueryParameters): algoliasearchHelper.AlgoliaSearchHelper;
 
 declare namespace algoliasearchHelper {
   export const version: string;
@@ -373,104 +373,6 @@ declare namespace algoliasearchHelper {
     optionalFacetFilters?: string;
 
     // Misc. parameters
-    /**
-     * Number of hits to be returned by the search API
-     * @see https://www.algolia.com/doc/rest#param-hitsPerPage
-     */
-    hitsPerPage?: number;
-    /**
-     * Number of values for each faceted attribute
-     * @see https://www.algolia.com/doc/rest#param-maxValuesPerFacet
-     */
-    maxValuesPerFacet?: number;
-
-    /**
-     * Number of characters to wait before doing one character replacement.
-     * @see https://www.algolia.com/doc/rest#param-minWordSizefor1Typo
-     */
-    minWordSizefor1Typo?: number;
-    /**
-     * Number of characters to wait before doing a second character replacement.
-     * @see https://www.algolia.com/doc/rest#param-minWordSizefor2Typos
-     */
-    minWordSizefor2Typos?: number;
-    /**
-     * Configure the precision of the proximity ranking criterion
-     * @see https://www.algolia.com/doc/rest#param-minProximity
-     */
-    minProximity?: any;
-    /**
-     * Should the engine allow typos on numerics.
-     * @see https://www.algolia.com/doc/rest#param-allowTyposOnNumericTokens
-     */
-    allowTyposOnNumericTokens?: boolean;
-    /**
-     * Should the plurals be ignored
-     * @see https://www.algolia.com/doc/rest#param-ignorePlurals
-     */
-    ignorePlurals?: boolean;
-    /**
-     * Enable the advanced syntax.
-     * @see https://www.algolia.com/doc/rest#param-advancedSyntax
-     */
-    advancedSyntax?: boolean;
-    /**
-     * Enable the analytics
-     * @see https://www.algolia.com/doc/rest#param-analytics
-     */
-    analytics?: boolean;
-    /**
-     * Enable the synonyms
-     * @see https://www.algolia.com/doc/rest#param-synonyms
-     */
-    synonyms?: boolean;
-    /**
-     * Should the engine replace the synonyms in the highlighted results.
-     * @see https://www.algolia.com/doc/rest#param-replaceSynonymsInHighlight
-     */
-    replaceSynonymsInHighlight?: boolean;
-    /**
-     * Code to be embedded on the left part of the highlighted results
-     * @see https://www.algolia.com/doc/rest#param-highlightPreTag
-     */
-    highlightPreTag?: string;
-    /**
-     * Code to be embedded on the right part of the highlighted results
-     * @see https://www.algolia.com/doc/rest#param-highlightPostTag
-     */
-    highlightPostTag?: string;
-    /**
-     * Remove duplicates based on the index setting attributeForDistinct
-     * @see https://www.algolia.com/doc/rest#param-distinct
-     */
-    distinct?: boolean | number;
-    /**
-     * Center of the geo search.
-     * @see https://www.algolia.com/doc/rest#param-aroundLatLng
-     */
-    aroundLatLng?: string;
-    /**
-     * Radius of the geo search.
-     * @see https://www.algolia.com/doc/rest#param-aroundRadius
-     */
-    aroundRadius?: number;
-    /**
-     * Precision of the geo search.
-     * @see https://www.algolia.com/doc/rest#param-aroundPrecision
-     */
-    minimumAroundRadius?: number;
-    /**
-     * Precision of the geo search.
-     * @see https://www.algolia.com/doc/rest#param-minimumAroundRadius
-     */
-    aroundPrecision?: number;
-    /**
-     * Allows to specify an ellipsis character for the snippet when we truncate the text
-     * (added before and after if truncated).
-     * The default value is an empty string and we recommend to set it to "…"
-     * @see https://www.algolia.com/doc/rest#param-insidePolygon
-     */
-    snippetEllipsisText?: string;
     /**
      * Applies 'exact' on single word queries if the word contains at least 3 characters
      * and is not a stop word.
