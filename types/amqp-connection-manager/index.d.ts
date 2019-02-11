@@ -191,7 +191,7 @@ export interface ChannelWrapper extends EventEmitter {
 	 */
 	close(): Promise<void>;
 
-    /**
+	/**
 	 * Close a channel, clean up resources associated with it.
 	 * @param callback
 	 */
