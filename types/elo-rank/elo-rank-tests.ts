@@ -1,4 +1,4 @@
-import { EloRank } from "elo-rank";
+import EloRank from "elo-rank";
 
 const test = new EloRank();
 
