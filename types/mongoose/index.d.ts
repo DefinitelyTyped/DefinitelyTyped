@@ -573,7 +573,7 @@ declare module "mongoose" {
      * An instance of this error class will be returned when [validation](http://mongoosejs.com/docs/validation.html) failed.
      */
     export class ValidationError extends Error {
-      errors: any;
+      errors: {[path: string]: ValidatorError};
 
       constructor(instance: MongooseDocument);
 
