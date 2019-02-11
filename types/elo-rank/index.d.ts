@@ -3,7 +3,7 @@
 // Definitions by: Antonio Pavlinovic <https://github.com/apavlinovic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class EloRank {
+class EloRank {
 	constructor(kFactor?: number);
 	setKFactor(kFactor: number): void;
 	getKFactor(): number;
