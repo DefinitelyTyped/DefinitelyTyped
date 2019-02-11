@@ -443,6 +443,8 @@ export interface ImportDeclaration extends Node {
     type: "ImportDeclaration";
     specifiers: Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>;
     source: StringLiteral;
+    // importKind is only set when flow syntax was parsed
+    importKind: void | "type" | "typeof" | "value";
 }
 
 export interface ImportDefaultSpecifier extends Node {
