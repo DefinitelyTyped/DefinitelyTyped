@@ -6,6 +6,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Paul Potsides <https://github.com/strongpauly>
 //                 janb87 <https://github.com/janb87>
+//                 Daniel Thorne <https://github.com/ldthorne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -220,7 +221,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     localizer: DateLocalizer;
 
     date?: stringOrDate;
-    now?: Date;
+    getNow?: () => Date;
     view?: View;
     events?: TEvent[];
     onNavigate?: (newDate: Date, view: View, action: Navigate) => void;
