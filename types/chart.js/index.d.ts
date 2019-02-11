@@ -417,6 +417,7 @@ declare namespace Chart {
     }
 
     interface ChartLineOptions {
+        cubicInterpolationMode?: 'default' | 'monotone';
         tension?: number;
         backgroundColor?: ChartColor;
         borderWidth?: number;
