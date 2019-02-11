@@ -1138,6 +1138,7 @@ export interface PopupOptions extends DivOverlayOptions, AutopanOptions {
     closeButton?: boolean;
     autoClose?: boolean;
     closeOnClick?: boolean;
+    closeOnEscapeKey?: boolean;
 }
 
 export type Content = string | HTMLElement;
