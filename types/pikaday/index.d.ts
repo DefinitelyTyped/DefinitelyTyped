@@ -138,6 +138,11 @@ declare class Pikaday {
      * Hide the picker and remove all event listeners - no going back!
      */
     destroy(): void;
+
+    /**
+     * Clear and reset the date
+     */
+    clear(): void;
 }
 
 // merge the Pikaday class declaration with a module
