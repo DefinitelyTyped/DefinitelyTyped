@@ -444,8 +444,8 @@ export class LeafletConsumer extends React.Component<React.ConsumerProps<Leaflet
 export class LeafletProvider extends React.Component<React.ProviderProps<LeafletContext>> {}
 
 export interface ContextProps {
-    leaflet: LeafletContext;
+    leaflet?: LeafletContext;
 }
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export function withLeaflet<T extends ContextProps>(WrappedComponent: React.Component<T>): React.Component<Omit<T, 'leaflet'>>;
+export function withLeaflet<T extends ContextProps>(WrappedComponent: React.ComponentType<T>): React.Component<Omit<T, 'leaflet'>>;
