@@ -1,4 +1,4 @@
-import * as anime from 'animejs';
+import anime from 'animejs';
 
 const test1 = anime({
 	targets: 'div',
