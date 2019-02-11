@@ -580,7 +580,7 @@
             "libraryName": "fastify-static",
             "typingsPackageName": "fastify-static",
             "sourceRepoURL": "https://github.com/fastify/fastify-static",
-            "asOfVersion": "2.2.0"
+            "asOfVersion": "2.2.1"
         },
         {
             "libraryName": "fecha",
