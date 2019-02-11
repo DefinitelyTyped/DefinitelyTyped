@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode } from "react";
+import { Component, ReactNode } from 'react';
 
 export interface DateObj {
     date: Date;
@@ -19,7 +19,7 @@ export interface Calendar {
     firstDayOfMonth: Date;
     lastDayOfMonth: Date;
     month: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
-    weeks: Array<Array<DateObj | "">>;
+    weeks: Array<Array<DateObj | ''>>;
     year: number;
 }
 
