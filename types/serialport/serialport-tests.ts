@@ -15,7 +15,7 @@ function test_connect_config() {
             lock: false,
             baudRate: 115200,
             dataBits: 5,
-            stopBits: 2,
+            stopbits: 2,
             parity: 'odd',
             rtscts: true,
             xon: true,

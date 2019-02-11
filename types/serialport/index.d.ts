@@ -56,7 +56,7 @@ declare namespace SerialPort {
 		dataBits?: 8|7|6|5;
 		highWaterMark?: number;
 		lock?: boolean;
-		stopBits?: 1|2;
+		stopbits?: 1|2;
 		parity?: 'none'|'even'|'mark'|'odd'|'space';
 		rtscts?: boolean;
 		xon?: boolean;
