@@ -2,10 +2,13 @@ import * as React from "react";
 import { NextContext, NextComponentType } from ".";
 import { DefaultQuery } from "./router";
 
+/**
+ * Result from renderPage().
+ * https://github.com/zeit/next.js/blob/v8.0.0/packages/next/pages/_document.js#L18
+ */
 export interface RenderPageResponse {
-    buildManifest: Record<string, any>;
     html?: string;
-    head?: Array<React.ReactElement<any>>;
+    head?: React.ReactNode;
 }
 
 export interface PageProps {
