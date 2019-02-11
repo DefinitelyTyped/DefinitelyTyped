@@ -619,7 +619,7 @@ export interface PathOptions extends InteractiveLayerOptions {
     opacity?: number;
     lineCap?: LineCapShape;
     lineJoin?: LineJoinShape;
-    dashArray?: string;
+    dashArray?: string | number[];
     dashOffset?: string;
     fill?: boolean;
     fillColor?: string;
