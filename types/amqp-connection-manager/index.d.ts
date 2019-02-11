@@ -195,5 +195,5 @@ export interface ChannelWrapper extends EventEmitter {
 	 * Close a channel, clean up resources associated with it.
 	 * @param callback
 	 */
-    waitForConnect(callback?: () => void): Promise<any>;
+	waitForConnect(callback?: () => void): Promise<any>;
 }
