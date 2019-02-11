@@ -447,6 +447,11 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ShallowWrapper<any, any>;
+
+    /**
+     * Returns a wrapper of the node rendered by the provided render prop.
+     */
+    renderProp(prop: string): (params: any) => ShallowWrapper<any, any>;
 }
 
 // tslint:disable-next-line no-empty-interface
