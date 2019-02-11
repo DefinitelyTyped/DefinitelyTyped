@@ -565,10 +565,22 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "fastify-cors",
+            "typingsPackageName": "fastify-cors",
+            "sourceRepoURL": "https://github.com/fastify/fastify-cors",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "Fastify-JWT",
             "typingsPackageName": "fastify-jwt",
             "sourceRepoURL": "https://github.com/fastify/fastify-jwt",
             "asOfVersion": "0.8.1"
+        },
+        {
+            "libraryName": "fastify-static",
+            "typingsPackageName": "fastify-static",
+            "sourceRepoURL": "https://github.com/fastify/fastify-static",
+            "asOfVersion": "2.2.0"
         },
         {
             "libraryName": "fecha",

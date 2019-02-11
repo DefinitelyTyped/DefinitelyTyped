@@ -614,6 +614,10 @@ interface IPatternOptions {
 	 * The source for the pattern
 	 */
 	source: string | HTMLImageElement;
+    /**
+     * Transform matrix to change the pattern, imported from svgs
+     */
+    patternTransform?: number[];
 }
 export interface Pattern extends IPatternOptions { }
 export class Pattern {
@@ -3770,7 +3774,18 @@ interface IAllFilters {
 		 */
 		fromObject(object: any): IBrightnessFilter
 	};
-	Convolute: {
+    ColorMatrix: {
+        new(options?: {
+            /** Filter matrix */
+            matrix?: number[]
+        }): IColorMatrix;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IColorMatrix
+    };
+    Convolute: {
 		new(options?: {
 			opaque?: boolean,
 			/** Filter matrix */
@@ -3957,6 +3972,13 @@ interface IBrightnessFilter extends IBaseFilter {
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IColorMatrix extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IConvoluteFilter extends IBaseFilter {
 	/**
@@ -4637,6 +4659,11 @@ interface IUtilMisc {
 	 * @param a transformMatrix
 	 */
 	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number };
+
+    /**
+     * Creates a transform matrix with the specified scale and skew
+     */
+    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
 
 	/**
 	 * Returns string representation of function body

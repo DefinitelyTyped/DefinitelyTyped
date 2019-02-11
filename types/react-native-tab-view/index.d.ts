@@ -3,6 +3,7 @@
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
+//                 Gerardo Pacheco <https://github.com/geriux>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { PureComponent, ReactNode, ComponentType } from 'react'
@@ -214,6 +215,7 @@ export type TabBarProps<T extends RouteBase = RouteBase> = SceneRendererProps<
   indicatorStyle?: StyleProp<ViewStyle>
   labelStyle?: StyleProp<ViewStyle>
   style?: StyleProp<ViewStyle>
+  useNativeDriver?: boolean;
 }
 
 export class TabBar<T extends Route = Route> extends PureComponent<TabBarProps<T>> {}

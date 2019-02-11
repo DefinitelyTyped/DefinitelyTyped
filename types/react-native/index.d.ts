@@ -16,6 +16,7 @@
 //                 Kacper Wiszczuk <https://github.com/esemesek>
 //                 Ryan Nickel <https://github.com/mrnickel>
 //                 Souvik Ghosh <https://github.com/souvik-ghosh>
+//                 Cheng Gibson <https://github.com/nossbigg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8995,8 +8996,44 @@ export interface ARTStatic {
     Text: typeof ARTText;
 }
 
+export type KeyboardEventName =
+    | "keyboardWillShow"
+    | "keyboardDidShow"
+    | "keyboardWillHide"
+    | "keyboardDidHide"
+    | "keyboardWillChangeFrame"
+    | "keyboardDidChangeFrame";
+
+export type KeyboardEventEasing =
+    | "easeIn"
+    | "easeInEaseOut"
+    | "easeOut"
+    | "linear"
+    | "keyboard";
+
+type ScreenRect = {
+    screenX: number;
+    screenY: number;
+    width: number;
+    height: number;
+};
+
+export interface KeyboardEvent {
+    duration: number;
+    easing: KeyboardEventEasing;
+    endCoordinates: ScreenRect;
+    startCoordinates: ScreenRect;
+    isEventFromThisApp: boolean;
+}
+
+type KeyboardEventListener = (event: KeyboardEvent) => void;
+
 export interface KeyboardStatic extends NativeEventEmitter {
     dismiss: () => void;
+    addListener(
+        eventType: KeyboardEventName,
+        listener: KeyboardEventListener
+    ): EmitterSubscription;
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -421,6 +421,8 @@ export interface JustifyItemsProps {
     justifyItems?: ResponsiveValue<CSS.JustifyItemsProperty>;
 }
 
+export function justifyItems(...args: any[]): any;
+
 export interface JustifyContentProps {
     /**
      * The CSS justify-content property defines how the browser distributes space between and around content items

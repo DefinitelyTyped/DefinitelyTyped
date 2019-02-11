@@ -33,17 +33,20 @@ declare module "victory" {
     "quad" | "quadIn" | "quadOut" | "quadInOut" | "sin" | "sinIn" | "sinOut" | "sinInOut";
 
   // Many victory components accept string or number or callback which returns string or number
-  type StringOrNumberOrCallback = string | number | { (): string | number };
-  type NumberOrCallback = { (): number } | number;
+  type StringOrNumberOrCallback =
+    | string
+    | number
+    | ((datum: any, active: boolean) => string | number);
+  type NumberOrCallback = ((datum: any, active: boolean) => number) | number;
 
+  type VictoryStyleObject = { [K in keyof React.CSSProperties]: StringOrNumberOrCallback };
   /**
    * Style interface used in components/themeing
    */
   export interface VictoryStyleInterface {
-    parent?: React.CSSProperties;
-    data?: React.CSSProperties;
-    labels?: React.CSSProperties;
-    tickLabels?: React.CSSProperties;
+      parent?: VictoryStyleObject;
+      data?: VictoryStyleObject;
+      labels?: VictoryStyleObject;
   }
 
   export interface VictoryAnimationProps {
@@ -123,15 +126,18 @@ declare module "victory" {
      */
     events?: React.DOMAttributes<any>;
     /**
-     * All Victory components will pass a text prop to their label component.
-     * This defines the content of the label when child nodes are absent. It will be ignored if children are provided.
-     */
-    text?: StringOrNumberOrCallback;
-    /**
      * The children of this component define the content of the label.
      * This makes using the component similar to normal HTML spans or labels. strings, numbers, and functions of data / value are supported.
      */
     children?: StringOrNumberOrCallback;
+    /**
+     * The labelPlacement prop is used to specify the placement of labels relative to the data point they represent.
+     * This prop may be given as “vertical”, “parallel” or “perpendicular”. This props is particularly useful in polar
+     * charts, where it may be desireable to position a label either parallel or perpendicular to its corresponding angle.
+     * When this prop is not set, perpendicular label placement will be used for polar charts, and vertical label
+     * placement will be used for cartesian charts.
+     */
+    labelPlacement?: "parallel" | "perpendicular" | "vertical";
     /**
      * The lineHeight prop defines how much space a single line of text should take up.
      * Note that SVG has no notion of line-height, so the positioning may differ slightly from what you would expect with CSS,
@@ -142,9 +148,30 @@ declare module "victory" {
      */
     lineHeight?: StringOrNumberOrCallback;
     /**
+     * Victory components will pass an origin prop is to define the center point in svg coordinates for polar charts.
+     * **This prop should not be set manually.**
+     */
+    origin?: { x: number, y: number };
+    /**
+     * Victory components can pass a boolean polar prop to specify whether a label is part of a polar chart.
+     * **This prop should not be set manually.**
+     */
+    polar?: boolean;
+    /**
+     * The renderInPortal prop specifies whether VictoryLabel should render text in place or within a VictoryPortal.
+     * Setting renderInPortal to true is equivalent to wrapping VictoryLabel in a VictoryPortal. This prop is false by default.
+     */
+    renderInPortal?: boolean;
+    /**
      * The style prop applies CSS properties to the rendered `<text>` element.
      */
     style?: React.CSSProperties;
+    /**
+     * The text prop defines the text VictoryLabel will render. The text prop may be given as a string, number, a function of datum,
+     * or an array of any of these. Strings may include newline characters, which VictoryLabel will split into separate
+     * <tspan/> elements. When text is given as an array, separate <tspan/> elements will be created for each element in the array.
+     */
+    text?: string[] | StringOrNumberOrCallback;
     /**
      * The textAnchor prop defines how the text is horizontally positioned relative to the given `x` and `y` coordinates.
      */
@@ -188,7 +215,7 @@ declare module "victory" {
      * with a viewBox attribute, or a static container with absolute width and height.
      * @default true
      */
-    responsive?: boolean
+    responsive?: boolean;
     /**
      * The style prop specifies styles for your VictoryContainer. Any valid inline style properties
      * will be applied. Height and width should be specified via the height
@@ -244,7 +271,7 @@ declare module "victory" {
   type CursorData = {
     x: number;
     y: number;
-  }
+  };
 
   export interface VictoryCursorContainerProps extends VictoryContainerProps {
     /**
@@ -294,7 +321,7 @@ declare module "victory" {
     /**
      * When the disable prop is set to true, VictoryCursorContainer events will not fire.
      */
-    disable?: boolean
+    disable?: boolean;
     /**
      * When the cursorDimension prop is set, the cursor will be a line to inspect the given dimension (either "x" or "y").
      * When this prop is not specified, the cursor will be a 2-dimensional crosshair.
@@ -302,7 +329,7 @@ declare module "victory" {
      * the cursor will then be a vertical line that will inspect the time value of the current mouse position.
      * @example onChange={(value, props) => this.setState({cursorValue: value})}
      */
-    onCursorChange?: (value: CursorData, props: VictoryCursorContainerProps) => void
+    onCursorChange?: (value: CursorData, props: VictoryCursorContainerProps) => void;
   }
 
   export class VictoryCursorContainer extends React.Component<VictoryCursorContainerProps, any> {}
@@ -568,10 +595,11 @@ declare module "victory" {
     /**
      * The style prop applies SVG style properties to the rendered flyout container. These props will be passed to the flyoutComponent.
      */
-    flyoutStyle?: React.CSSProperties;
+    flyoutStyle?: VictoryStyleObject;
     /**
      * The flyoutComponent prop takes a component instance which will be used to create the flyout path for each tooltip.
-     * The new element created from the passed flyoutComponent will be supplied with the following properties: x, y, dx, dy, index, datum, cornerRadius, pointerLength, pointerWidth, width, height, orientation, style, and events.
+     * The new element created from the passed flyoutComponent will be supplied with the following properties: x, y, dx, dy,
+     * index, datum, cornerRadius, pointerLength, pointerWidth, width, height, orientation, style, and events.
      * Any of these props may be overridden by passing in props to the supplied component, or modified or ignored within the custom component itself.
      * If flyoutComponent is omitted, a default Flyout component will be created with props described above.
      * Examples: flyoutComponent={<Flyout x={50} y={50}/>}, flyoutComponent={<MyCustomFlyout/>}
@@ -590,7 +618,8 @@ declare module "victory" {
     height?: NumberOrCallback;
     /**
      * The horizontal prop determines whether to plot the flyouts to the left / right of the (x, y) coordinate rather than top / bottom.
-     * This is useful when an orientation prop is not provided, and data will determine the default orientation. i.e. negative values result in a left orientation and positive values will result in a right orientation by default.
+     * This is useful when an orientation prop is not provided, and data will determine the default orientation. i.e.
+     * negative values result in a left orientation and positive values will result in a right orientation by default.
      */
     horizontal?: boolean;
     /**
@@ -617,11 +646,13 @@ declare module "victory" {
      */
     pointerLength?: NumberOrCallback;
     /**
-     * The pointerWidth prop determines the width of the base of the triangular pointer extending from the flyout. This prop may be given as a positive number or a function of datum.
+     * The pointerWidth prop determines the width of the base of the triangular pointer extending from
+     * the flyout. This prop may be given as a positive number or a function of datum.
      */
     pointerWidth?: NumberOrCallback;
     /**
-     * When renderInPortal is true, rendered tooltips will be wrapped in VictoryPortal and rendered within the Portal element within VictoryContainer. Note: This prop should not be set to true when using a custom container element.
+     * When renderInPortal is true, rendered tooltips will be wrapped in VictoryPortal and rendered within the Portal element
+     * within VictoryContainer. Note: This prop should not be set to true when using a custom container element.
      */
     renderInPortal?: boolean;
     /**
@@ -636,10 +667,11 @@ declare module "victory" {
     /**
      * VictoryAxis uses the standard theme prop. Read about it here
      * @default VictoryTheme.grayscale
-    */
+     */
     theme?: VictoryThemeDefinition;
     /**
-     * The width prop defines the width of the tooltip flyout. This prop may be given as a positive number or a function of datum. If this prop is not set, width will be determined based on an approximate text size calculated from the text and style props provided to VictoryTooltip.
+     * The width prop defines the width of the tooltip flyout. This prop may be given as a positive number or a function of datum.
+     * If this prop is not set, width will be determined based on an approximate text size calculated from the text and style props provided to VictoryTooltip.
      */
     width?: NumberOrCallback;
     /**
@@ -652,9 +684,9 @@ declare module "victory" {
     y?: number;
   }
 
-
   /**
-   * VictoryTooltip renders a tooltip component with a set of default events. When VictoryTooltip is used as a label component for any Victory component that renders data, it will attach events to rendered data components that will activate the tooltip when hovered.
+   * VictoryTooltip renders a tooltip component with a set of default events. When VictoryTooltip is used as a label
+   * component for any Victory component that renders data, it will attach events to rendered data components that will activate the tooltip when hovered.
    * VictoryTooltip renders text as well as a configurable Flyout container.
    */
   export class VictoryTooltip extends React.Component<
@@ -735,9 +767,7 @@ declare module "victory" {
      * Targets may be any valid style namespace for a given component
      */
     target: TTarget;
-    /**
-     *
-     */
+
     eventKey?: TEventKey;
     /**
      * Event handlers map. Keys are standard event names (such as onClick) and values are event callbacks
@@ -999,65 +1029,67 @@ declare module "victory" {
     label?: string | { (data: any): string };
   }
 
-  export interface VictoryAreaProps extends VictoryCommonProps, VictoryDatableProps, VictorySingleLabableProps {
-    /**
-     * The event prop take an array of event objects. Event objects are composed of
-     * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
-     * for a given component, so "data" and "labels" are all valid targets for VictoryArea events.
-     * Since VictoryArea only renders a single element, the eventKey property is not used.
-     * The eventHandlers object should be given as an object whose keys are standard
-     * event names (i.e. onClick) and whose values are event callbacks. The return value
-     * of an event handler is used to modify elemnts. The return value should be given
-     * as an object or an array of objects with optional target and eventKey keys,
-     * and a mutation key whose value is a function. The target and eventKey keys
-     * will default to those corresponding to the element the event handler was attached to.
-     * The mutation function will be called with the calculated props for the individual selected
-     * element (i.e. an area), and the object returned from the mutation function
-     * will override the props of the selected element via object assignment.
-     * @example
-     * events={[
-     *   {
-     *     target: "data",
-     *     eventHandlers: {
-     *       onClick: () => {
-     *         return [
-     *            {
-     *              mutation: (props) => {
-     *                return {style: merge({}, props.style, {fill: "orange"})};
-     *              }
-     *            }, {
-     *              target: "labels",
-     *              mutation: () => {
-     *                return {text: "hey"};
-     *              }
-     *            }
-     *          ];
-     *       }
-     *     }
-     *   }
-     * ]}
-     *}}
-      */
-    events?: EventPropTypeInterface<"data" | "labels" | "parent", "all">[];
-    /**
-     * The interpolation prop determines how data points should be connected when plotting a line
-     * @default "linear"
-     */
-    interpolation?: InterpolationPropType;
-    /**
-     * The samples prop specifies how many individual points to plot when plotting
-     * y as a function of x. Samples is ignored if x props are provided instead.
-     * @default 50
-     */
-    samples?: number;
-    /**
-     * The style prop specifies styles for your VictoryArea. Any valid inline style properties
-     * will be applied. Height, width, and padding should be specified via the height,
-     * width, and padding props, as they are used to calculate the alignment of
-     * components within chart.
-     * @example {data: {fill: "red"}, labels: {fontSize: 12}}
-     */
-    style?: VictoryStyleInterface;
+  export interface VictoryAreaProps
+      extends VictoryCommonProps,
+          VictoryDatableProps,
+          VictorySingleLabableProps {
+      /**
+       * The event prop take an array of event objects. Event objects are composed of
+       * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
+       * for a given component, so "data" and "labels" are all valid targets for VictoryArea events.
+       * Since VictoryArea only renders a single element, the eventKey property is not used.
+       * The eventHandlers object should be given as an object whose keys are standard
+       * event names (i.e. onClick) and whose values are event callbacks. The return value
+       * of an event handler is used to modify elemnts. The return value should be given
+       * as an object or an array of objects with optional target and eventKey keys,
+       * and a mutation key whose value is a function. The target and eventKey keys
+       * will default to those corresponding to the element the event handler was attached to.
+       * The mutation function will be called with the calculated props for the individual selected
+       * element (i.e. an area), and the object returned from the mutation function
+       * will override the props of the selected element via object assignment.
+       * @example
+       * events={[
+       *   {
+       *     target: "data",
+       *     eventHandlers: {
+       *       onClick: () => {
+       *         return [
+       *            {
+       *              mutation: (props) => {
+       *                return {style: merge({}, props.style, {fill: "orange"})};
+       *              }
+       *            }, {
+       *              target: "labels",
+       *              mutation: () => {
+       *                return {text: "hey"};
+       *              }
+       *            }
+       *          ];
+       *       }
+       *     }
+       *   }
+       * ]}
+       */
+      events?: EventPropTypeInterface<"data" | "labels" | "parent", "all">[];
+      /**
+       * The interpolation prop determines how data points should be connected when plotting a line
+       * @default "linear"
+       */
+      interpolation?: InterpolationPropType;
+      /**
+       * The samples prop specifies how many individual points to plot when plotting
+       * y as a function of x. Samples is ignored if x props are provided instead.
+       * @default 50
+       */
+      samples?: number;
+      /**
+       * The style prop specifies styles for your VictoryArea. Any valid inline style properties
+       * will be applied. Height, width, and padding should be specified via the height,
+       * width, and padding props, as they are used to calculate the alignment of
+       * components within chart.
+       * @example {data: {fill: "red"}, labels: {fontSize: 12}}
+       */
+      style?: VictoryStyleInterface;
   }
 
   /**
@@ -1143,7 +1175,6 @@ declare module "victory" {
      *     }
      *   }
      * ]}
-     *}}
      */
     events?: EventPropTypeInterface<"axis" | "axisLabel" | "grid" | "ticks" | "tickLabels" | "parent", number | string>[];
     /**
@@ -1195,20 +1226,40 @@ declare module "victory" {
      */
     orientation?: "top" | "bottom" | "left" | "right";
     /**
-     * The style prop specifies styles for your VictoryAxis. Any valid inline style properties
-     * will be applied. Height, width, and padding should be specified via the height,
-     * width, and padding props, as they are used to calculate the alignment of
-     * components within chart.
-     * @example {axis: {stroke: "#756f6a"}, grid: {stroke: "grey"}, ticks: {stroke: "grey"},
-     * tickLabels: {fontSize: 10, padding: 5}, axisLabel: {fontSize: 16, padding: 20}}
+     * The style prop defines the style of the component. The style prop should be given as an object
+     * with styles defined for parent, axis, axisLabel, grid, ticks, and tickLabels. Any valid svg
+     * styles are supported, but width, height, and padding should be specified via props as they
+     * determine relative layout for components in VictoryChart. Functional styles may be defined for
+     * grid, tick, and tickLabel style properties, and they will be evaluated with each tick.
+     *
+     * note: When a component is rendered as a child of another Victory component, or within a custom
+     * <svg> element with standalone={false} parent styles will be applied to the enclosing <g> tag.
+     * Many styles that can be applied to a parent <svg> will not be expressed when applied to a <g>.
+     *
+     * note: custom angle and verticalAnchor properties may be included in labels styles.
      */
     style?: {
       parent?: React.CSSProperties;
       axis?: React.CSSProperties;
       axisLabel?: React.CSSProperties;
-      grid?: React.CSSProperties;
-      ticks?: React.CSSProperties;
-      tickLabels?: React.CSSProperties;
+      grid?: {
+        [K in keyof React.CSSProperties]:
+        | string
+        | number
+        | ((tick?: any) => string | number)
+      };
+      ticks?: {
+        [K in keyof React.CSSProperties]:
+        | string
+        | number
+        | ((tick?: any) => string | number)
+      };
+      tickLabels?: {
+        [K in keyof React.CSSProperties]:
+        | string
+        | number
+        | ((tick?: any) => string | number)
+      };
     };
     /**
      * The tickComponent prop takes in an entire component which will be used
@@ -1251,7 +1302,7 @@ declare module "victory" {
      * The tickValues prop explicitly specifies which tick values to draw on the axis.
      * @example ["apples", "bananas", "oranges"], [2, 4, 6, 8]
      */
-    tickValues?: any[]
+    tickValues?: any[];
   }
 
   /**
@@ -1263,11 +1314,40 @@ declare module "victory" {
 
   export interface VictoryBarProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
     /**
+     * The alignment prop specifies how bars should be aligned relative to their data points.
+     * This prop may be given as “start”, “middle” or “end”. When this prop is not specified,
+     * bars will have “middle” alignment relative to their data points.
+     */
+    alignment?: "start" | "middle" | "end";
+    /**
+     * The barRatio prop specifies an approximate ratio between bar widths and spaces between bars.
+     * When width is not specified via the barWidth prop or in bar styles, the barRatio prop will
+     * be used to calculate a default width for each bar given the total number of bars in the data series
+     * and the overall width of the chart.
+     */
+    barRatio?: number;
+    /**
+     * The barWidth prop is used to specify the width of each bar. This prop may be given as
+     * a number of pixels or as a function that returns a number. When this prop is given as
+     * a function, it will be evaluated with the arguments datum, and active. When this value
+     * is not given, a default value will be calculated based on the overall dimensions of
+     * the chart, and the number of bars.
+     */
+    barWidth?: NumberOrCallback;
+    /**
      * The cornerRadius prop specifies a radius to apply to each bar.
      * If this prop is given as a single number, the radius will only be applied to the top of each bar.
      * When this prop is given as a function, it will be evaluated with the arguments datum, and active.
      */
-    cornerRadius?: NumberOrCallback;
+    cornerRadius?: NumberOrCallback
+    | {
+        top?: number | (NumberOrCallback),
+        topLeft?: number | (NumberOrCallback),
+        topRight?: number | (NumberOrCallback),
+        bottom?: number | (NumberOrCallback),
+        bottomLeft?: number | (NumberOrCallback),
+        bottomRight?: number | (NumberOrCallback)
+      };
     /**
      * The event prop take an array of event objects. Event objects are composed of
      * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
@@ -1307,8 +1387,7 @@ declare module "victory" {
      *     }
      *   }
      * ]}
-     *}}
-      */
+     */
     events?: EventPropTypeInterface<"data" | "labels" | "parent", number | string>[];
     /**
      * Similar to data accessor props `x` and `y`, this prop may be used to functionally
@@ -1331,21 +1410,6 @@ declare module "victory" {
      * @example {data: {fill: "red", width: 8}, labels: {fontSize: 12}}
      */
     style?: VictoryStyleInterface;
-    /**
-     * The barRatio prop specifies an approximate ratio between bar widths and spaces between bars.
-     * When width is not specified via the barWidth prop or in bar styles, the barRatio prop will
-     * be used to calculate a default width for each bar given the total number of bars in the data series
-     * and the overall width of the chart.
-     */
-    barRatio?: number;
-    /**
-     * The barWidth prop is used to specify the width of each bar. This prop may be given as
-     * a number of pixels or as a function that returns a number. When this prop is given as
-     * a function, it will be evaluated with the arguments datum, and active. When this value
-     * is not given, a default value will be calculated based on the overall dimensions of
-     * the chart, and the number of bars.
-     */
-    barWidth?: NumberOrCallback;
   }
 
   /**
@@ -1356,16 +1420,16 @@ declare module "victory" {
 
     export interface VictoryBoxPlotStyleInterface
         extends VictoryStyleInterface {
-        max?: React.CSSProperties;
-        maxLabels?: React.CSSProperties;
-        min?: React.CSSProperties;
-        minLabels?: React.CSSProperties;
-        median?: React.CSSProperties;
-        medianLabels?: React.CSSProperties;
-        q1?: React.CSSProperties;
-        q1Labels?: React.CSSProperties;
-        q3?: React.CSSProperties;
-        q3Labels?: React.CSSProperties;
+        max?: VictoryStyleObject;
+        maxLabels?: VictoryStyleObject;
+        min?: VictoryStyleObject;
+        minLabels?: VictoryStyleObject;
+        median?: VictoryStyleObject;
+        medianLabels?: VictoryStyleObject;
+        q1?: VictoryStyleObject;
+        q1Labels?: VictoryStyleObject;
+        q3?: VictoryStyleObject;
+        q3Labels?: VictoryStyleObject;
     }
 
     export interface VictoryBoxPlotProps
@@ -1432,7 +1496,6 @@ declare module "victory" {
          *     }
          *   }
          * ]}
-         *}}
          */
         events?: EventPropTypeInterface<string, StringOrNumberOrCallback>[];
         /**
@@ -1563,7 +1626,6 @@ declare module "victory" {
          *     }
          *   }
          * ]}
-         *}}
          */
         events?: EventPropTypeInterface<string, StringOrNumberOrCallback>[];
         /**
@@ -1668,8 +1730,7 @@ declare module "victory" {
        *     }
        *   }
        * ]}
-       *}}
-        */
+       */
       events?: EventPropTypeInterface<"data" | "labels" | "parent", StringOrNumberOrCallback>[];
       /**
        * Similar to data accessor props `x` and `y`, this prop may be used to functionally
@@ -1688,16 +1749,16 @@ declare module "victory" {
        * case of groups of bars, this number should be equal to the width of the bar
        * plus the desired spacing between bars.
        */
-      offset?:number
+      offset?: number;
       /**
        * The style prop specifies styles for your grouped chart. These styles will be
        * applied to all grouped children
        */
       style?: VictoryStyleInterface;
     }
-  
+
     export class VictoryGroup extends React.Component<VictoryGroupProps, any> {}
-  
+
     export interface VictoryLineProps extends VictoryCommonProps, VictoryDatableProps, VictorySingleLabableProps {
       /**
        * The event prop take an array of event objects. Event objects are composed of
@@ -1735,8 +1796,7 @@ declare module "victory" {
        *     }
        *   }
        * ]}
-       *}}
-        */
+       */
       events?: EventPropTypeInterface<"data" | "labels" | "parent", number | string>[];
       /**
        * The interpolation prop determines how data points should be connected
@@ -1770,13 +1830,13 @@ declare module "victory" {
        */
       style?: VictoryStyleInterface;
     }
-  
+
     /**
      * VictoryLine creates a line based on data. VictoryLine is a composable component, so it does not include an axis.
      * Check out VictoryChart for easy to use line charts and more.
      */
     export class VictoryLine extends React.Component<VictoryLineProps, any> {}
-  
+
     export interface VictoryLegendProps extends VictoryCommonProps, VictoryDatableProps, VictorySingleLabableProps {
       /**
        * The colorScale prop defines a color scale to be applied to each data
@@ -1925,14 +1985,14 @@ declare module "victory" {
       x?: number;
       y?: number;
     }
-  
+
     /**
      * VictoryLegend renders a chart legend component.
      */
     export class VictoryLegend extends React.Component<VictoryLegendProps, any> {}
-  
+
     type ScatterSymbolType = "circle" | "diamond" | "plus" | "square" | "star" | "triangleDown" | "triangleUp";
-  
+
     export interface VictoryScatterProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
       /**
        * The bubbleProperty prop indicates which property of the data object should be used
@@ -1978,8 +2038,7 @@ declare module "victory" {
        *     }
        *   }
        * ]}
-       *}}
-        */
+       */
       events?: EventPropTypeInterface<"data" | "labels" | "parent", StringOrNumberOrCallback>[];
       /**
        * Similar to data accessor props `x` and `y`, this prop may be used to functionally
@@ -2014,13 +2073,13 @@ declare module "victory" {
        */
       symbol?: ScatterSymbolType | { (data: any): ScatterSymbolType };
     }
-  
+
     /**
      * VictoryScatter creates a scatter of points from data. VictoryScatter is a composable component, so it does not include an axis.
      * Check out VictoryChart for easy to use scatter plots and more.
      */
     export class VictoryScatter extends React.Component<VictoryScatterProps, any> {}
-  
+
     export interface VictoryStackProps extends VictoryCommonProps, VictoryMultiLabeableProps {
       /**
        * The categories prop specifies how categorical data for a chart should be ordered.
@@ -2096,8 +2155,7 @@ declare module "victory" {
        *     }
        *   }
        * ]}
-       *}}
-        */
+       */
       events?: EventPropTypeInterface<"data" | "labels" | "parent", StringOrNumberOrCallback>[];
       /**
        * Similar to data accessor props `x` and `y`, this prop may be used to functionally
@@ -2121,9 +2179,9 @@ declare module "victory" {
        */
       xOffset?: number;
     }
-  
+
     export class VictoryStack extends React.Component<VictoryStackProps, any> {}
-  
+
     export interface VictoryPieProps extends VictoryCommonProps, VictoryMultiLabeableProps {
       /**
        * The colorScale prop is an optional prop that defines the color scale the pie
@@ -2203,8 +2261,7 @@ declare module "victory" {
        *     }
        *   }
        * ]}
-       *}}
-        */
+       */
       events?: EventPropTypeInterface<"data" | "labels" | "parent", StringOrNumberOrCallback | string[] | number[]>[];
       /**
        * Similar to data accessor props `x` and `y`, this prop may be used to functionally
@@ -2212,10 +2269,10 @@ declare module "victory" {
        */
       eventKey?: StringOrNumberOrCallback;
       /**
-        * Specifies the radius of the chart. If this property is not provided it is computed
-        * from width, height, and padding props
-        *
-        */
+       * Specifies the radius of the chart. If this property is not provided it is computed
+       * from width, height, and padding props
+       *
+       */
       radius?: number;
       /**
        * When creating a donut chart, this prop determines the number of pixels between
@@ -2267,7 +2324,7 @@ declare module "victory" {
        */
       y?: DataGetterPropType;
     }
-  
+
     /**
      * victory-pie draws an SVG pie or donut chart with React.
      * Styles and data can be customized by passing in your own values as properties to the component.
@@ -2275,4 +2332,3 @@ declare module "victory" {
      */
     export class VictoryPie extends React.Component<VictoryPieProps, any> {}
   }
-  
