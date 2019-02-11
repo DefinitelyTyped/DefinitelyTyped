@@ -5,6 +5,8 @@ import { DefaultQuery } from "./router";
 /**
  * Result from renderPage().
  * https://github.com/zeit/next.js/blob/v8.0.0/packages/next/pages/_document.js#L18
+ * https://github.com/zeit/next.js/blob/v8.0.0/packages/next-server/server/render.tsx#L159
+ * https://github.com/zeit/next.js/blob/v8.0.0/packages/next-server/server/render.tsx#L44
  */
 export interface RenderPageResponse {
     html?: string;
