@@ -5273,11 +5273,21 @@ export class Line extends Object3D {
     geometry: Geometry | BufferGeometry;
     material: Material | Material[];
 
-    type: "Line";
+    type: "Line" | "LineLoop";
     isLine: true;
 
     computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+}
+
+export class LineLoop extends Line {
+    constructor(
+        geometry?: Geometry | BufferGeometry,
+        material?: Material | Material[]
+    );
+
+    type: "LineLoop";
+    isLineLoop: true;
 }
 
 /**
