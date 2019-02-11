@@ -36,7 +36,7 @@ export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> exte
         E extends PageProps = AnyPageProps,
         P = E,
         EA extends PageProps = AnyPageProps,
-        PA = EA,
+        PA = EA
     >(
         enhancer?:
             | Enhancer<E, P> // tslint:disable-line no-unnecessary-generics
@@ -49,7 +49,7 @@ export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> exte
  * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L16
  */
 export interface DefaultDocumentIProps extends RenderPageResponse {
-    styles?: React.ReactNode[];
+    styles?: React.ReactNode;
 }
 
 /**

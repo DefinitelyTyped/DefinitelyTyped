@@ -55,7 +55,12 @@ class MyDoc extends Document<WithUrlProps> {
 
         const initialProps = await Document.getInitialProps(ctx);
 
-        const styles = [...(initialProps.styles ? initialProps.styles : []), <style />];
+        const styles = (
+            <>
+                {initialProps.styles}
+                <style />
+            </>
+        );
 
         // Custom prop
         const url = req!.url;
