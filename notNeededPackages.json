@@ -577,6 +577,12 @@
             "asOfVersion": "0.8.1"
         },
         {
+            "libraryName": "fastify-multipart",
+            "typingsPackageName": "fastify-multipart",
+            "sourceRepoURL": "https://github.com/fastify/fastify-multipart",
+            "asOfVersion": "0.7.0"
+        },
+        {
             "libraryName": "fastify-static",
             "typingsPackageName": "fastify-static",
             "sourceRepoURL": "https://github.com/fastify/fastify-static",
