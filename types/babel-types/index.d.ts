@@ -445,7 +445,7 @@ export interface ImportDeclaration extends Node {
     specifiers: Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>;
     source: StringLiteral;
     // importKind is only set when flow syntax was parsed
-    importKind: void | "type" | "typeof" | "value";
+    importKind: undefined | "type" | "typeof" | "value";
 }
 
 export interface ImportDefaultSpecifier extends Node {
