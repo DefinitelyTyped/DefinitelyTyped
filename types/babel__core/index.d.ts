@@ -85,6 +85,13 @@ export interface TransformOptions {
     envName?: string | null;
 
     /**
+     * Utilities may pass a `caller` object to identify themselves to Babel and pass capability-related flags for use by configs, presets and plugins
+     *
+     * Default: `undefined`
+     */
+    caller?: { name: string; supportsStaticESM?: boolean };
+
+    /**
      * Enable code generation
      *
      * Default: `true`
