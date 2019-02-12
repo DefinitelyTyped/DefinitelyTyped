@@ -167,16 +167,7 @@ declare module "mongoose" {
 
   export function startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
-  class CastError extends Error {
-    /**
-     * The Mongoose CastError constructor
-     * @param type The name of the type
-     * @param value The value that failed to cast
-     * @param path The path a.b.c in the doc where this cast error occurred
-     * @param reason The original error that was thrown
-     */
-    constructor(type: string, value: any, path: string, reason?: NativeError);
-  }
+  export type CastError = Error.CastError;
 
   /*
    * section connection.js
@@ -509,6 +500,11 @@ declare module "mongoose" {
    * http://mongoosejs.com/docs/api.html#error-js
    */
   class Error extends global.Error {
+
+    // "MongooseError" for instances of the current class,
+    // an other string for instances of derived classes.
+    name: "MongooseError" | string;
+
     /**
      * MongooseError constructor
      * @param msg Error message
@@ -544,6 +540,10 @@ declare module "mongoose" {
      * the document.
      */
     export class DocumentNotFoundError extends Error {
+      name: 'DocumentNotFoundError';
+      filter: any;
+      query: any;
+      constructor(filter: any);
     }
 
     /**
@@ -554,10 +554,11 @@ declare module "mongoose" {
      * cast a value.
      */
     export class CastError extends Error {
+      name: 'CastError';
       stringValue: string;
       kind: string;
-      path: string;
       value: any;
+      path: string;
       reason?: any;
       model?: any;
 
@@ -569,13 +570,18 @@ declare module "mongoose" {
     /**
      * section error/validation.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
+
+     * An instance of this error class will be returned when [validation](/docs/validation.html) failed.
+     * The `errors` property contains an object whose keys are the paths that failed and whose values are
+     * instances of CastError or ValidationError.
      *
-     * An instance of this error class will be returned when [validation](http://mongoosejs.com/docs/validation.html) failed.
      */
     export class ValidationError extends Error {
-      errors: {[path: string]: ValidatorError};
+      name: 'ValidationError';
 
-      constructor(instance: MongooseDocument);
+      errors: {[path: string]: ValidatorError | CastError};
+
+      constructor(instance?: MongooseDocument);
 
       /** Console.log helper */
       toString(): string;
@@ -594,13 +600,14 @@ declare module "mongoose" {
      * A `ValidationError` has a hash of `errors` that contain individual `ValidatorError` instances
      */
     export class ValidatorError extends Error {
-      properties: any;
+      name: 'ValidatorError';
+      properties: {message: string, type?: string, path?: string, value?: any, reason?: any};
       kind: string;
       path: string;
       value: any;
       reason: any;
 
-      constructor(properties: any);
+      constructor(properties: {message?: string, type?: string, path?: string, value?: any, reason?: any});
 
       formatMessage(msg: string | Function, properties: any): string;
 
@@ -616,6 +623,7 @@ declare module "mongoose" {
      * the [`versionKey` option](http://mongoosejs.com/docs/guide.html#versionKey) for more information.
      */
     export class VersionError extends Error {
+      name: 'VersionError';
       version: any;
       modifiedPaths: Array<any>;
 
@@ -631,6 +639,7 @@ declare module "mongoose" {
      * information.
      */
     export class ParallelSaveError extends Error {
+      name: 'ParallelSaveError';
       constructor(doc: MongooseDocument);
     }
 
@@ -642,6 +651,7 @@ declare module "mongoose" {
      * See [the FAQ about `OverwriteModelError`](http://mongoosejs.com/docs/faq.html#overwrite-model-error).
      */
     export class OverwriteModelError extends Error {
+      name: 'OverwriteModelError';
       constructor(name: string);
     }
 
@@ -652,6 +662,7 @@ declare module "mongoose" {
      * Thrown when you try to access a model that has not been registered yet
      */
     export class MissingSchemaError extends Error {
+      name: 'MissingSchemaError';
       constructor(name: string);
     }
 
@@ -663,6 +674,7 @@ declare module "mongoose" {
      * and then modified the array in an unsafe way.
      */
     export class DivergentArrayError extends Error {
+      name: 'DivergentArrayError';
       constructor(paths: Array<any>);
     }
   }
