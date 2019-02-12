@@ -2,15 +2,17 @@ import giphyApi = require('giphy-api');
 
 const cb = (err: Error, res: any) => {};
 
+const apiOptions: giphyApi.GiphyOptions = { https: true };
 giphyApi('API KEY HERE');
-giphyApi({ https: true });
+giphyApi(apiOptions);
 giphyApi({ timeout: 60 });
 giphyApi({ apiKey: 'API KEY' });
 
-const giphy = giphyApi();
+const searchOptions: giphyApi.SearchOptions = { q: 'pokemon', rating: 'g' };
+const giphy: giphyApi.Giphy = giphyApi();
 giphy.search('pokemon', cb);
 giphy.search('pokemon').then(res => {});
-giphy.search({ q: 'pokemon', rating: 'g' }, cb);
+giphy.search(searchOptions, cb);
 giphy.search({ q: 'pokemon', rating: 'g' }).then(res => {});
 
 giphy.id('feqkVgjJpYtjy', cb);
