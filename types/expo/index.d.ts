@@ -2528,7 +2528,7 @@ export namespace SQLite {
 
     interface ResultSet {
         insertId: number;
-        rowAffected: number;
+        rowsAffected: number;
         rows: {
             length: number;
             item: (index: number) => any;
