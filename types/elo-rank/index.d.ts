@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-class EloRank {
+declare class EloRank {
 	constructor(kFactor?: number);
 	setKFactor(kFactor: number): void;
 	getKFactor(): number;
