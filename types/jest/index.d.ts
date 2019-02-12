@@ -355,6 +355,7 @@ declare namespace jest {
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
             readonly RECEIVED_COLOR: (text: string) => string;
+            diff: typeof import('jest-diff');
             ensureActualIsNumber(actual: any, matcherName?: string): void;
             ensureExpectedIsNumber(actual: any, matcherName?: string): void;
             ensureNoExpected(actual: any, matcherName?: string): void;
