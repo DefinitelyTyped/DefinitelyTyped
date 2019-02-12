@@ -346,7 +346,7 @@ declare module 'angular' {
         interface IMenuService {
             close(): void;
             hide(response?: any, options?: any): IPromise<any>;
-            open(event?: JQueryEventObject): void;
+            open(event?: MouseEvent | JQueryEventObject): void;
         }
 
         interface IColorPalette {
