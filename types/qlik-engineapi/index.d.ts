@@ -4812,6 +4812,11 @@ declare namespace EngineAPI {
          * Information about the selections.
          */
         qSelectionInfo: INxSelectionInfo;
+
+        /**
+         * 	Name of the alternate state. Default is current selections $ .
+         */
+        qStateName: string;
     }
 
     /**
