@@ -59,7 +59,7 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type JSXElementConstructor<P> =
-        | ((props: P) => ReactElement<any> | null)
+        | ((props: P) => ReactElement | null)
         | (new (props: P) => Component<P, any>);
 
     type Key = string | number;
@@ -83,7 +83,7 @@ declare namespace React {
         ref?: LegacyRef<T>;
     }
 
-    interface ReactElement<P, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
+    interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
         type: T;
         props: P;
         key: Key | null;
@@ -128,7 +128,7 @@ declare namespace React {
         type: keyof ReactSVG;
     }
 
-    interface ReactPortal extends ReactElement<any> {
+    interface ReactPortal extends ReactElement {
         key: Key | null;
         children: ReactNode;
     }
@@ -172,7 +172,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
-    type ReactChild = ReactElement<any> | ReactText;
+    type ReactChild = ReactElement | ReactText;
 
     interface ReactNodeArray extends Array<ReactNode> {}
     type ReactFragment = {} | ReactNodeArray;
@@ -297,7 +297,7 @@ declare namespace React {
         /**
          * **NOTE**: Exotic components are not callable.
          */
-        (props: P): (ReactElement<any>|null);
+        (props: P): (ReactElement|null);
         readonly $$typeof: symbol;
     }
 
@@ -468,7 +468,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, context?: any): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -476,7 +476,7 @@ declare namespace React {
     }
 
     interface RefForwardingComponent<T, P = {}> {
-        (props: P & { children?: ReactNode }, ref: Ref<T>): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, ref: Ref<T>): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
