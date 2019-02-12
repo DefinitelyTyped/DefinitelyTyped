@@ -3,7 +3,7 @@
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Alex Guerra <https://github.com/heyimalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 import {
     Component,

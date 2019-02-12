@@ -210,7 +210,9 @@ const RowWithAreEqual = React.memo((props: ListChildComponentProps) => {
 class RowWithShouldComponentUpdate extends React.Component<
     ListChildComponentProps
 > {
-    shouldComponentUpdate = shouldComponentUpdate.bind(this);
+    shouldComponentUpdate(...args: any[]) {
+        return shouldComponentUpdate.call(this, ...args);
+    }
     render() {
         const { index, style } = this.props;
         return <div style={style}>Row {index}</div>;
