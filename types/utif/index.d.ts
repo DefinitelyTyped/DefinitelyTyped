@@ -35,9 +35,10 @@ export function decode(buffer: Buffer | ArrayBuffer): IFD[];
  * Note: TIFF files may have various number of channels and various color depth. The interpretation of data depends on many tags (see the TIFF 6 specification).
  *
  * @param buffer A Buffer or ArrayBuffer containing TIFF or EXIF data
+ * @param img the image file directory to be decoded
  * @param ifds An array of image file directories parsed via UTIF.decode()
  */
-export function decodeImages(buffer: Buffer | ArrayBuffer, ifds: IFD[]): void;
+export function decodeImage(buffer: Buffer | ArrayBuffer, img: IFD,ifds: IFD[]): void;
 
 /**
  * Returns Uint8Array of the image in RGBA format, 8 bits per channel (ready to use in context2d.putImageData() etc.)
