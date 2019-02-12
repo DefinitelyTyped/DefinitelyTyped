@@ -2,6 +2,7 @@
 // Project: https://github.com/photopea/UTIF.js
 // Definitions by: Jan Pesa <https://github.com/smajl>
 //                 Naveen Kumar Sangi <https://github.com/nkprince007>
+//                 Massimiliano Caniparoli <https://github.com/massic80>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import 'node';
@@ -31,11 +32,11 @@ export interface IFD {
 export function decode(buffer: Buffer | ArrayBuffer): IFD[];
 
 /**
- * If there is an image inside the IFD, is decoded and three new properties are added to the IFD: width, height and data.
+ * If there is an image inside the IFD, it is decoded and three new properties are added to the IFD: width, height and data.
  * Note: TIFF files may have various number of channels and various color depth. The interpretation of data depends on many tags (see the TIFF 6 specification).
  *
  * @param buffer A Buffer or ArrayBuffer containing TIFF or EXIF data
- * @param ifd the element of the output of UTIF.decode()
+ * @param ifd The element of the output of UTIF.decode()
  */
 export function decodeImage(buffer: Buffer | ArrayBuffer, ifd: IFD): void;
 
