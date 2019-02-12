@@ -5275,6 +5275,11 @@ declare namespace sequelize {
         collate?: string;
 
         /**
+         * Specify the ROW_FORMAT for use with the MySQL InnoDB engine.
+         */
+        rowFormat?: string;
+
+        /**
          * Set the initial AUTO_INCREMENT value for the table in MySQL.
          */
         initialAutoIncrement?: string;
