@@ -7094,7 +7094,7 @@ declare namespace EngineAPI {
          * Note: If no app is opened, an error message is returned:
          * For example code: 1007 and No active document and App invalid
          */
-        getActiveDoc(): Promise<IApp | string>; // ?Result
+        getActiveDoc(): Promise<IApp>; // ?Result
 
         /**
          * Retrieves the meta data of an app.
@@ -7240,7 +7240,7 @@ declare namespace EngineAPI {
          * >> Default is all groups.
          * @returns A Promise <Function> or undefined
          */
-        getFunctions(qGroup?: FunctionGroupType): Promise<IFunction | undefined>;
+        getFunctions(qGroup?: FunctionGroupType): Promise<IFunction[]>;
 
         /**
          * Retrieves information on the user interaction that is requested by the engine.
