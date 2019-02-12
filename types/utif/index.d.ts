@@ -1,4 +1,4 @@
-// Type definitions for utif 2.0
+// Type definitions for utif 3.0
 // Project: https://github.com/photopea/UTIF.js
 // Definitions by: Jan Pesa <https://github.com/smajl>
 //                 Naveen Kumar Sangi <https://github.com/nkprince007>
@@ -17,10 +17,10 @@ export type TiffTag = string[] | number[];
  */
 // tslint:disable-next-line:interface-name
 export interface IFD {
-    [property: string]: TiffTag | number | Uint8Array;
-    data: Uint8Array;
-    width: number;
-    height: number;
+	[property: string]: TiffTag | number | Uint8Array;
+	data: Uint8Array;
+	width: number;
+	height: number;
 }
 
 /**
@@ -31,13 +31,13 @@ export interface IFD {
 export function decode(buffer: Buffer | ArrayBuffer): IFD[];
 
 /**
- * Loops through each IFD. If there is an image inside it, it is decoded and three new properties are added to the IFD: width, height and data.
+ * If there is an image inside the IFD, is decoded and three new properties are added to the IFD: width, height and data.
  * Note: TIFF files may have various number of channels and various color depth. The interpretation of data depends on many tags (see the TIFF 6 specification).
  *
  * @param buffer A Buffer or ArrayBuffer containing TIFF or EXIF data
- * @param ifds An array of image file directories parsed via UTIF.decode()
+ * @param ifd the element of the output of UTIF.decode()
  */
-export function decodeImages(buffer: Buffer | ArrayBuffer, ifds: IFD[]): void;
+export function decodeImage(buffer: Buffer | ArrayBuffer, ifd: IFD): void;
 
 /**
  * Returns Uint8Array of the image in RGBA format, 8 bits per channel (ready to use in context2d.putImageData() etc.)
