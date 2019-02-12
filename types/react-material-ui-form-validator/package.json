@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "3.9.0"
+  }
+}
