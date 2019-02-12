@@ -1,5 +1,5 @@
 // Type definitions for rc-slider 8.6
-// Project: https://github.com/react-component/slider
+// Project: https://github.com/react-component/slider, http://github.com/react-component/slider
 // Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>
 //                 Alexander Mattoni <https://github.com/mattoni>
 //                 Austin Turner <https://github.com/paustint>

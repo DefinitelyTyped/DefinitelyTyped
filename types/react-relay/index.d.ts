@@ -1,5 +1,5 @@
 // Type definitions for react-relay 1.3
-// Project: https://github.com/facebook/relay
+// Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 //                 Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>

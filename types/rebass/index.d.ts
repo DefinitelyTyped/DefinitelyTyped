@@ -1,5 +1,5 @@
 // Type definitions for Rebass 3.0
-// Project: https://github.com/jxnblk/rebass
+// Project: https://github.com/jxnblk/rebass, https://github.com/rebassjs/rebass
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 ryee-dev <https://github.com/ryee-dev>
 //                 jamesmckenzie <https://github.com/jamesmckenzie>

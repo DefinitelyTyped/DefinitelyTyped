@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-force module 1.2
-// Project: https://github.com/d3/d3-force/
+// Project: https://github.com/d3/d3-force/, https://d3js.org/d3-force
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>

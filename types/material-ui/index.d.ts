@@ -1,5 +1,5 @@
 // Type definitions for material-ui 0.21
-// Project: https://github.com/callemall/material-ui
+// Project: https://github.com/callemall/material-ui, http://material-ui.com
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 //                 Igor Beagorudsky <https://github.com/theigor>
 //                 Ali Taheri Moghaddar <https://github.com/alitaheri>

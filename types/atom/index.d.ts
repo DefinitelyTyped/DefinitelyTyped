@@ -1,5 +1,5 @@
 // Type definitions for Atom 1.31
-// Project: https://github.com/atom/atom
+// Project: https://github.com/atom/atom, https://github.com/staydecent/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
 //                 lierdakil <https://github.com/lierdakil>

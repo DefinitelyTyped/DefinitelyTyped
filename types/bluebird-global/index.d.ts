@@ -1,5 +1,5 @@
 // Type definitions for bluebird 3.5
-// Project: https://github.com/petkaantonov/bluebird
+// Project: https://github.com/petkaantonov/bluebird, https://github.com/kaatt/bluebird-global
 // Definitions by: d-ph <https://github.com/d-ph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
