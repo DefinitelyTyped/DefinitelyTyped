@@ -67,12 +67,12 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns whether or not all the given react elements exists in the shallow render tree
      */
-    containsAllMatchingElements(nodes: ReactElement[] | Array<ReactElement[]>): boolean;
+    containsAllMatchingElements(nodes: ReactElement[] | ReactElement[][]): boolean;
 
     /**
      * Returns whether or not one of the given react elements exists in the shallow render tree.
      */
-    containsAnyMatchingElements(nodes: ReactElement[] | Array<ReactElement[]>): boolean;
+    containsAnyMatchingElements(nodes: ReactElement[] | ReactElement[][]): boolean;
 
     /**
      * Returns whether or not the current render tree is equal to the given node, based on the expected value.
