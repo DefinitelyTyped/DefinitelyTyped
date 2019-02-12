@@ -144,7 +144,7 @@ export class NavBar extends Component<CardSubViewProps, void> {
 }
 
 export interface NavigationComponentProps extends NavigationProps {
-    children?: Array<ReactElement>;
+    children?: ReactElement[];
 }
 
 export class Navigation extends Component<NavigationComponentProps> {
@@ -163,7 +163,7 @@ export class Navigation extends Component<NavigationComponentProps> {
 export function Tab(props: TabProps): ReactElement<{}>;
 
 export interface TabBarComponentProps extends TabBarProps {
-    children?: Array<ReactElement>;
+    children?: ReactElement[];
 }
 
 export class Tabs extends Component<

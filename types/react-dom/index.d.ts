@@ -87,7 +87,7 @@ export interface Renderer {
     ): Component<P, ComponentState> | Element | void;
 
     (
-        element: Array<ReactElement>,
+        element: ReactElement[],
         container: Element | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;

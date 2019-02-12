@@ -83,7 +83,7 @@ function ShallowWrapperTest() {
         shallow<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" numberProp={1} />);
 
     let reactElement: ReactElement;
-    let reactElements: Array<ReactElement>;
+    let reactElements: ReactElement[];
     let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;
@@ -485,7 +485,7 @@ function ReactWrapperTest() {
         mount<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" numberProp={1} />);
 
     let reactElement: ReactElement;
-    let reactElements: Array<ReactElement>;
+    let reactElements: ReactElement[];
     let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;

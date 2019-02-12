@@ -57,22 +57,22 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
      */
-    contains(node: ReactElement | Array<ReactElement> | string): boolean;
+    contains(node: ReactElement | ReactElement[] | string): boolean;
 
     /**
      * Returns whether or not a given react element exists in the shallow render tree.
      */
-    containsMatchingElement(node: ReactElement | Array<ReactElement>): boolean;
+    containsMatchingElement(node: ReactElement | ReactElement[]): boolean;
 
     /**
      * Returns whether or not all the given react elements exists in the shallow render tree
      */
-    containsAllMatchingElements(nodes: Array<ReactElement> | Array<Array<ReactElement>>): boolean;
+    containsAllMatchingElements(nodes: ReactElement[] | Array<ReactElement[]>): boolean;
 
     /**
      * Returns whether or not one of the given react elements exists in the shallow render tree.
      */
-    containsAnyMatchingElements(nodes: Array<ReactElement> | Array<Array<ReactElement>>): boolean;
+    containsAnyMatchingElements(nodes: ReactElement[] | Array<ReactElement[]>): boolean;
 
     /**
      * Returns whether or not the current render tree is equal to the given node, based on the expected value.
@@ -140,7 +140,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns the wrapper's underlying nodes.
      */
-    getNodes(): Array<ReactElement>;
+    getNodes(): ReactElement[];
 
     /**
      * Returns the wrapper's underlying node.
@@ -150,7 +150,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns the wrapper's underlying node.
      */
-    getElements(): Array<ReactElement>;
+    getElements(): ReactElement[];
 
     /**
      * Returns the outer most DOMComponent of the current wrapper.

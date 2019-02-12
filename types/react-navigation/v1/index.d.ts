@@ -368,15 +368,11 @@ export interface NavigationTabScreenOptions {
   title?: string;
   tabBarIcon?:
     React.ReactElement
-    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
-      any
-    > | null));
+    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement | null));
   tabBarLabel?:
     string
     | React.ReactElement
-    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
-      any
-    > | string | null));
+    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement | string | null));
   tabBarVisible?: boolean;
   tabBarTestIDProps?: { testID?: string, accessibilityLabel?: string };
   tabBarOnPress?: (options: {
@@ -389,15 +385,11 @@ export interface NavigationDrawerScreenOptions {
   title?: string;
   drawerIcon?:
     React.ReactElement
-    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
-      any
-    > | null));
+    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement | null));
   drawerLabel?:
     string
     | React.ReactElement
-    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
-      any
-    > | null));
+    | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement | null));
 }
 
 export interface NavigationRouteConfigMap {

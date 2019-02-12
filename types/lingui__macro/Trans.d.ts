@@ -6,7 +6,7 @@ export interface TransPropsWithoutI18n extends RenderProps {
     defaults?: string;
     values?: object;
     formats?: object;
-    components?: ReadonlyArray<ReactElement>;
+    components?: ReadonlyReactElement[];
     children?: ReactNode;
 }
 
