@@ -147,7 +147,7 @@ export interface Renderer {
   ): React.Component<P, React.ComponentState> | Element | void;
 
   (
-    element: Array<React.ReactElement>,
+    element: React.ReactElement[],
     container: Element | null,
     callback?: () => void
   ): React.Component<any, React.ComponentState> | Element | void;
