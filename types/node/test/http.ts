@@ -4,7 +4,28 @@ import * as net from 'net';
 
 // http Server
 {
-    const server: http.Server = new http.Server();
+    function reqListener(req: http.IncomingMessage, res: http.ServerResponse): void {}
+
+    let server: http.Server = new http.Server();
+
+    class MyIncomingMessage extends http.IncomingMessage {
+        foo: number;
+    }
+
+    class MyServerResponse extends http.ServerResponse {
+        foo: string;
+    }
+
+    server = new http.Server({ IncomingMessage: MyIncomingMessage});
+
+    server = new http.Server({
+        IncomingMessage: MyIncomingMessage,
+        ServerResponse: MyServerResponse
+    }, reqListener);
+
+    server = http.createServer(reqListener);
+    server = http.createServer({ IncomingMessage: MyIncomingMessage });
+    server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
 
     // test public props
     const maxHeadersCount: number = server.maxHeadersCount;

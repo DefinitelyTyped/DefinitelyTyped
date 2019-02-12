@@ -1074,7 +1074,25 @@ async function asyncStreamPipelineFinished() {
     https.globalAgent.options.ca = [];
 
     {
-        const server = new https.Server();
+        function reqListener(req: http.IncomingMessage, res: http.ServerResponse): void {}
+
+        class MyIncomingMessage extends http.IncomingMessage {
+            foo: number;
+        }
+
+        class MyServerResponse extends http.ServerResponse {
+            foo: string;
+        }
+
+        let server = new https.Server({ IncomingMessage: MyIncomingMessage});
+
+        server = new https.Server({
+            IncomingMessage: MyIncomingMessage,
+            ServerResponse: MyServerResponse
+        }, reqListener);
+
+        server = https.createServer({ IncomingMessage: MyIncomingMessage });
+        server = https.createServer({ ServerResponse: MyServerResponse }, reqListener);
 
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
