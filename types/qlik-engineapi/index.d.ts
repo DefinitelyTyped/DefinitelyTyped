@@ -392,6 +392,11 @@ declare namespace EngineAPI {
          * Array of dimension labels.
          */
         qFieldLabels: string[];
+
+        /**
+         * no docu
+         */
+        qLabelExpression: string;
     }
 
     /**
