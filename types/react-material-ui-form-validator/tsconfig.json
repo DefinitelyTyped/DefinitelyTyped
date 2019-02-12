@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "./react-material-ui-form-validator-tests.tsx"
+        "react-material-ui-form-validator-tests.tsx"
     ]
 }

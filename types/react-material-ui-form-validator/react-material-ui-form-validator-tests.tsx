@@ -9,7 +9,7 @@ class Test extends React.Component {
     onSubmitted = (event: React.FormEventHandler) => {};
     onError = (errors: any[]) => {};
     onValidate = (isValid: boolean) => {};
-    onTextFieldChanged = (event: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {};
+
     render() {
         return (
             <ValidatorForm
@@ -27,19 +27,12 @@ class Test extends React.Component {
                     withRequiredValidator={true}
                 />
                 <TextValidator
-                    id="email"
-                    label="Email Address"
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    placeholder="email"
-                    margin="normal"
-                    variant="outlined"
+                    name="textValidator"
                     value="value"
-                    onChange={this.onTextFieldChanged}
                     validatorListener={this.onValidate}
-                    validators={['required', 'isEmail']}
-                    errorMessages={['Email is required', 'Enter a valid email address']}
+                    validators={['required']}
+                    errorMessages={['Field is required']}
+                    withRequiredValidator={true}
                 />
             </ValidatorForm>
         );
