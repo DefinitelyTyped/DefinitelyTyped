@@ -5,7 +5,7 @@
 
 export {};
 
-export default class Tokenizr {
+export class Tokenizr {
     constructor();
 
     /**
