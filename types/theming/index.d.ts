@@ -19,7 +19,7 @@ export function withTheme<P>(
 
 export interface ThemeProviderProps {
   theme: Theme;
-  children?: React.ReactElement<any>;
+  children?: React.ReactElement;
 }
 /**
  * Provide a theme to an entire react component listening on the default channel

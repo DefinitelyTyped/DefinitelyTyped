@@ -289,17 +289,17 @@ export interface NavigationStackViewConfig {
 
 export interface NavigationStackScreenOptions {
   title?: string;
-  header?: (React.ReactElement<any> | ((headerProps: HeaderProps) => React.ReactElement<any>)) | null;
+  header?: (React.ReactElement | ((headerProps: HeaderProps) => React.ReactElement)) | null;
   headerTransparent?: boolean;
-  headerTitle?: string | React.ReactElement<any>;
+  headerTitle?: string | React.ReactElement;
   headerTitleStyle?: StyleProp<TextStyle>;
   headerTintColor?: string;
-  headerLeft?: React.ReactElement<any>;
+  headerLeft?: React.ReactElement;
   headerBackTitle?: string | null;
   headerTruncatedBackTitle?: string;
   headerBackTitleStyle?: StyleProp<TextStyle>;
   headerPressColorAndroid?: string;
-  headerRight?: React.ReactElement<any>;
+  headerRight?: React.ReactElement;
   headerStyle?: StyleProp<ViewStyle>;
   headerBackground?: React.ReactNode | React.ReactType;
   gesturesEnabled?: boolean;
@@ -367,13 +367,13 @@ export interface TabScene {
 export interface NavigationTabScreenOptions {
   title?: string;
   tabBarIcon?:
-    React.ReactElement<any>
+    React.ReactElement
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | null));
   tabBarLabel?:
     string
-    | React.ReactElement<any>
+    | React.ReactElement
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | string | null));
@@ -388,13 +388,13 @@ export interface NavigationTabScreenOptions {
 export interface NavigationDrawerScreenOptions {
   title?: string;
   drawerIcon?:
-    React.ReactElement<any>
+    React.ReactElement
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | null));
   drawerLabel?:
     string
-    | React.ReactElement<any>
+    | React.ReactElement
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | null));
@@ -557,7 +557,7 @@ export type NavigationAnimationSetter = (
   lastState: NavigationState
 ) => void;
 
-export type NavigationSceneRenderer = () => (React.ReactElement<any> | null);
+export type NavigationSceneRenderer = () => (React.ReactElement | null);
 
 export type NavigationStyleInterpolator = (
   props: NavigationSceneRendererProps
@@ -737,7 +737,7 @@ export interface TabBarTopProps {
     scene: TabScene,
     jumpToIndex: (index: number) => void,
   }) => void;
-  renderIcon: (scene: TabScene) => React.ReactElement<any>;
+  renderIcon: (scene: TabScene) => React.ReactElement;
   labelStyle?: TextStyle;
   iconStyle?: ViewStyle;
 }

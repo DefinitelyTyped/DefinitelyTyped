@@ -28,7 +28,7 @@ export interface ErrorOther<T = string> {
 }
 
 export type FormErrors<FormData = {}, T = string> = {
-    [P in keyof FormData]?: ReactElement<any> | T;
+    [P in keyof FormData]?: ReactElement | T;
 } & ErrorOther<T>;
 
 export interface WarningOther<T = void> {
@@ -36,7 +36,7 @@ export interface WarningOther<T = void> {
 }
 
 export type FormWarnings<FormData = {}, T = void> = {
-    [P in keyof FormData]?: ReactElement<any> | string | WarningOther<T>;
+    [P in keyof FormData]?: ReactElement | string | WarningOther<T>;
 };
 
 export interface RegisteredFieldState {

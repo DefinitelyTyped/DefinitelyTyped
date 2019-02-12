@@ -2702,7 +2702,7 @@ export class Svg extends Component<{ width: number, height: number, viewBox?: st
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    node: number | React.ReactElement<any> | React.RefObject<any>,
+    node: number | React.ReactElement | React.RefObject<any>,
     options?: {
         width?: number;
         height?: number;

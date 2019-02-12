@@ -42,15 +42,15 @@ export interface ReactTestInstance {
 export interface ReactTestRenderer {
     toJSON(): null | ReactTestRendererJSON;
     toTree(): null | ReactTestRendererTree;
-    unmount(nextElement?: ReactElement<any>): void;
-    update(nextElement: ReactElement<any>): void;
+    unmount(nextElement?: ReactElement): void;
+    update(nextElement: ReactElement): void;
     getInstance(): null | ReactTestInstance;
     root: ReactTestInstance;
 }
 export interface TestRendererOptions {
-    createNodeMock(element: ReactElement<any>): any;
+    createNodeMock(element: ReactElement): any;
 }
-export function create(nextElement: ReactElement<any>, options?: TestRendererOptions): ReactTestRenderer;
+export function create(nextElement: ReactElement, options?: TestRendererOptions): ReactTestRenderer;
 
 /**
  * Wrap any code rendering and triggering updates to your components into `act()` calls.

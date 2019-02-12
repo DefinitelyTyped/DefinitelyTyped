@@ -786,7 +786,7 @@ export interface ToastProps {
     color?: "darkGray" | "orange";
     icon?: "arrow-circle-forward";
     text?: string | ReadonlyArray<string>;
-    thumbnail?: React.ReactElement<any>;
+    thumbnail?: React.ReactElement;
 }
 
 /*
