@@ -44,6 +44,7 @@ interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
 
 interface MUIDataTableColumn {
     name: string;
+    label?: string;
     options?: MUIDataTableColumnOptions;
 }
 
