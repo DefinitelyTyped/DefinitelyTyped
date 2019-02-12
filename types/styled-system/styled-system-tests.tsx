@@ -43,6 +43,8 @@ import {
     alignContent,
     justifyContent,
     JustifyContentProps,
+    justifyItems,
+    JustifyItemsProps,
     FlexWrapProps,
     flexWrap,
     flexBasis,
@@ -253,7 +255,8 @@ interface FlexComponentProps
         JustifyContentProps,
         FlexWrapProps,
         FlexBasisProps,
-        FlexDirectionProps {}
+        FlexDirectionProps,
+        JustifyItemsProps {}
 const Flex: React.ComponentType<FlexComponentProps> = styled`
     ${alignItems};
     ${alignContent};
@@ -261,6 +264,7 @@ const Flex: React.ComponentType<FlexComponentProps> = styled`
     ${flexWrap};
     ${flexBasis};
     ${flexDirection};
+    ${justifyItems};
 `;
 
 interface GridComponentProps
@@ -427,6 +431,10 @@ const test = () => (
         <Flex flexDirection="column" />
         <Flex flexDirection={["column"]} />
         <Flex flexDirection={{ sm: "column" }} />
+        // justifyItems
+        <Flex justifyItems="baseline" />
+        <Flex justifyItems={["baseline", "center"]} />
+        <Flex justifyItems={{ sm: "baseline", md: "center" }} />
         // gridGap
         <Grid gridGap="1px" />
         <Grid gridGap={["1", "2"]} />

@@ -360,24 +360,35 @@ const spiedTarget = {
 
 class SpiedTargetClass {
     private _value = 3;
+    private _value2 = '';
     get value() {
         return this._value;
     }
     set value(value) {
         this._value = value;
     }
+    get value2() {
+        return this._value2;
+    }
+    set value2(value2) {
+        this._value2 = value2;
+    }
 }
 const spiedTarget2 = new SpiedTargetClass();
 
+// $ExpectError
+jest.spyOn(spiedTarget, "setValue", "get");
+// $ExpectError
+jest.spyOn(spiedTarget2, "value");
+
 const spy1 = jest.spyOn(spiedTarget, "returnsVoid");
-const spy2 = jest.spyOn(spiedTarget, "returnsVoid", "get");
 const spy3 = jest.spyOn(spiedTarget, "returnsString");
 const spy1Name: string = spy1.getMockName();
 
-const spy2Calls: any[][] = spy2.mock.calls;
+const spy1Calls: Array<[]> = spy1.mock.calls;
 
-spy2.mockClear();
-spy2.mockReset();
+spy1.mockClear();
+spy1.mockReset();
 
 const spy3Mock = spy3
     .mockImplementation(() => "")

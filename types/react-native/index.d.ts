@@ -16,6 +16,7 @@
 //                 Kacper Wiszczuk <https://github.com/esemesek>
 //                 Ryan Nickel <https://github.com/mrnickel>
 //                 Souvik Ghosh <https://github.com/souvik-ghosh>
+//                 Cheng Gibson <https://github.com/nossbigg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -6297,21 +6298,6 @@ export interface ScrollViewPropsIOS {
     scrollsToTop?: boolean;
 
     /**
-     * When snapToInterval is set, snapToAlignment will define the relationship of the the snapping to the scroll view.
-     *      - start (the default) will align the snap at the left (horizontal) or top (vertical)
-     *      - center will align the snap in the center
-     *      - end will align the snap at the right (horizontal) or bottom (vertical)
-     */
-    snapToAlignment?: "start" | "center" | "end";
-
-    /**
-     * When set, causes the scroll view to stop at multiples of the value of snapToInterval.
-     * This can be used for paginating through children that have lengths smaller than the scroll view.
-     * Used in combination with snapToAlignment.
-     */
-    snapToInterval?: number;
-
-    /**
      * An array of child indices determining which children get docked to the
      * top of the screen when scrolling. For example passing
      * `stickyHeaderIndices={[0]}` will cause the first child to be fixed to the
@@ -6483,6 +6469,44 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * functionality for the ScrollView.
      */
     refreshControl?: React.ReactElement<RefreshControlProps>;
+
+    /**
+     * When `snapToInterval` is set, `snapToAlignment` will define the relationship of the the snapping to the scroll view.
+     *      - `start` (the default) will align the snap at the left (horizontal) or top (vertical)
+     *      - `center` will align the snap in the center
+     *      - `end` will align the snap at the right (horizontal) or bottom (vertical)
+     */
+    snapToAlignment?: "start" | "center" | "end";
+
+    /**
+     * When set, causes the scroll view to stop at multiples of the value of `snapToInterval`.
+     * This can be used for paginating through children that have lengths smaller than the scroll view.
+     * Used in combination with `snapToAlignment` and `decelerationRate="fast"`. Overrides less
+     * configurable `pagingEnabled` prop.
+     */
+    snapToInterval?: number;
+
+    /**
+     * When set, causes the scroll view to stop at the defined offsets. This can be used for
+     * paginating through variously sized children that have lengths smaller than the scroll view.
+     * Typically used in combination with `decelerationRate="fast"`. Overrides less configurable
+     * `pagingEnabled` and `snapToInterval` props.
+     */
+    snapToOffsets?: number[];
+
+    /**
+     * Use in conjuction with `snapToOffsets`. By default, the beginning of the list counts as a
+     * snap offset. Set `snapToStart` to false to disable this behavior and allow the list to scroll
+     * freely between its start and the first `snapToOffsets` offset. The default value is true.
+     */
+    snapToStart?: boolean;
+
+    /**
+     * Use in conjuction with `snapToOffsets`. By default, the end of the list counts as a snap
+     * offset. Set `snapToEnd` to false to disable this behavior and allow the list to scroll freely
+     * between its end and the last `snapToOffsets` offset. The default value is true.
+     */
+    snapToEnd?: boolean;
 }
 
 declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
@@ -8995,8 +9019,44 @@ export interface ARTStatic {
     Text: typeof ARTText;
 }
 
+export type KeyboardEventName =
+    | "keyboardWillShow"
+    | "keyboardDidShow"
+    | "keyboardWillHide"
+    | "keyboardDidHide"
+    | "keyboardWillChangeFrame"
+    | "keyboardDidChangeFrame";
+
+export type KeyboardEventEasing =
+    | "easeIn"
+    | "easeInEaseOut"
+    | "easeOut"
+    | "linear"
+    | "keyboard";
+
+type ScreenRect = {
+    screenX: number;
+    screenY: number;
+    width: number;
+    height: number;
+};
+
+export interface KeyboardEvent {
+    duration: number;
+    easing: KeyboardEventEasing;
+    endCoordinates: ScreenRect;
+    startCoordinates: ScreenRect;
+    isEventFromThisApp: boolean;
+}
+
+type KeyboardEventListener = (event: KeyboardEvent) => void;
+
 export interface KeyboardStatic extends NativeEventEmitter {
     dismiss: () => void;
+    addListener(
+        eventType: KeyboardEventName,
+        listener: KeyboardEventListener
+    ): EmitterSubscription;
 }
 
 //////////////////////////////////////////////////////////////////////////
