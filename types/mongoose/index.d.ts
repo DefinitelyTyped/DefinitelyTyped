@@ -2254,6 +2254,11 @@ declare module "mongoose" {
      * functions that update validation runs. Does nothing if runValidators is false.
      */
     context?: string;
+    /**
+     *  by default, mongoose only returns the first error that occurred in casting the query.
+     *  Turn on this option to aggregate all the cast errors.
+     */
+      multipleCastError?: boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
@@ -3361,6 +3366,11 @@ declare module "mongoose" {
     overwrite?: boolean;
     /** other options */
     [other: string]: any;
+    /**
+     *  by default, mongoose only returns the first error that occurred in casting the query.
+     *  Turn on this option to aggregate all the cast errors.
+     */
+      multipleCastError?: boolean;
   }
 
   interface ModelMapReduceOption<T, Key, Val> {
