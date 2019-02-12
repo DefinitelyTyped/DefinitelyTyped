@@ -92,6 +92,11 @@ declare namespace Less {
         strictImports?: boolean;
         /** If true, allow imports from insecure https hosts. */
         insecure?: boolean;
+        /* By default URLs are kept as-is, so if you import a file in a sub-directory 
+         * that references an image, exactly the same URL will be output in the css. 
+         * This option allows you to re-write URL's in imported files so that the 
+         * URL is always relative to the base imported file */
+        rewriteUrls: "off" | "all" | "local";
         depends?: boolean;
         maxLineLen?: number;
         /** @deprecated If false, No color in compiling. */
