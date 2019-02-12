@@ -167,7 +167,7 @@ declare namespace NPM {
         Conf: ConfigStatic;
         defs: ConfigDefs;
 
-        get<T>(setting: string): T;
+        get(setting: string): any;
         set<T>(setting: string, value: T): void;
 
         loadPrefix(cb: ErrorCallback): void;
