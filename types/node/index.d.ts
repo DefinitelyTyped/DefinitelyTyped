@@ -35,6 +35,7 @@
 //                 Jeremie Rodriguez <https://github.com/jeremiergz>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
+//                 Alessio Dionisi <https://github.com/adnsio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.1.
