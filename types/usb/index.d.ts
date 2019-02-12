@@ -278,7 +278,7 @@ export class Interface {
    * The device must be open to use this method.
    * @param cb
    */
-  release(cb?: (err?: string) => void): void;
+  release(cb: (err?: string) => void): void;
 
   /**
    * Releases the interface and resets the alternate setting. Calls callback when complete.
@@ -382,6 +382,12 @@ export interface Endpoint extends EventEmitter {
 
   /** Object with fields from the endpoint descriptor -- see libusb documentation or USB spec. */
   descriptor: EndpointDescriptor;
+
+  /**
+   * Clear the halt/stall condition for this endpoint.
+   * @param callback
+   */
+  clearHalt(callback: (error: Error)=>void): void
 }
 
 /** Endpoints in the IN direction (device->PC) have this type. */
@@ -427,6 +433,12 @@ export class InEndpoint extends EventEmitter implements Endpoint {
    * @param cb
    */
   stopPoll(cb?: () => void): void;
+
+  /**
+   * Clear the halt/stall condition for this endpoint.
+   * @param callback
+   */
+  clearHalt(callback: (error: Error)=>void): void
 }
 
 /** Endpoints in the OUT direction (PC->device) have this type. */
@@ -451,6 +463,12 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
    */
   transfer(buffer: Buffer, cb: (err?: LibUSBException) => void): OutEndpoint;
   transferWithZLP(buf: Buffer, cb: (err?: LibUSBException) => void): void;
+
+  /**
+   * Clear the halt/stall condition for this endpoint.
+   * @param callback
+   */
+  clearHalt(callback: (error: Error)=>void): void
 }
 
 /** A structure representing the standard USB endpoint descriptor */
