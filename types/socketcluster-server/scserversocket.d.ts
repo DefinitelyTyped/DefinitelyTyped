@@ -52,7 +52,7 @@ declare class SCServerSocket extends Emitter {
     sendObjectSingle(object: any): void;
     sendObject(object: any, options?: { batch?: boolean }): void;
 
-    emit(event: string, ...args: any[]): boolean;
+    emit(event: string, ...args: any[]): this;
     emit(event: string, data: any, callback?: SCServerSocket.EmitCallback, options?: SCServerSocket.EmitOptions): void;
 
     triggerAuthenticationEvents(oldState: "authenticated" | "unauthenticated"): void;
