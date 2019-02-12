@@ -1,5 +1,5 @@
 // Type definitions for Node.js 10.12
-// Project: http://nodejs.org/, https://github.com/aredridel/node-bin-gen
+// Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>

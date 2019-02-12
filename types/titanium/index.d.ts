@@ -1,5 +1,5 @@
 // Type definitions for Titanium 7.3
-// Project: https://github.com/appcelerator/titanium_mobile, https://github.com/appcelerator/titanium
+// Project: https://github.com/appcelerator/titanium_mobile
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Jan Vennemann <https://github.com/janvennemann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

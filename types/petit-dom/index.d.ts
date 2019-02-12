@@ -1,5 +1,5 @@
 // Type definitions for Petit-Dom 0.2
-// Project: // https://github.com/yelouafi/petit-dom, https://github.com/yelouafi/petit-dom
+// Project: https://github.com/yelouafi/petit-dom
 // Definitions by: James Messinger <https://github.com/JamesMessinger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
