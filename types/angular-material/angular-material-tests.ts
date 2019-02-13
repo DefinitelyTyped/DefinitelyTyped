@@ -1,4 +1,9 @@
-const myApp = angular.module('testModule', ['ngMaterial']);
+import * as ng from 'angular';
+import * as angular from 'angular';
+
+import angularMaterialModule from "angular-material";
+
+const myApp = angular.module("testModule", [angularMaterialModule]);
 
 interface TestScope extends ng.IScope {
     [index: string]: any;

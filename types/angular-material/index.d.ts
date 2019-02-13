@@ -1,13 +1,66 @@
 // Type definitions for angular-material 1.1
 // Project: https://github.com/angular/material
-// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>, Edward Knowles <https://github.com/eknowles>
+// Definitions by:  Blake Bigelow <https://github.com/blbigelow>,
+//                  Peter Hajdu <https://github.com/PeterHajdu>,
+//                  Davide Donadello <https://github.com/Dona278>,
+//                  Geert Jansen <https://github.com/geertjansen>,
+//                  Edward Knowles <https://github.com/eknowles>,
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import * as angular from 'angular';
 
-declare var _: string;
-export = _;
+declare const exportedString: string;
+export default exportedString;
+
+export type IAlertDialog                = angular.material.IAlertDialog;
+export type IAriaProvider               = angular.material.IAriaProvider;
+export type IBottomSheetOptions         = angular.material.IBottomSheetOptions;
+export type IBottomSheetService         = angular.material.IBottomSheetService;
+export type IBrowserColors              = angular.material.IBrowserColors;
+export type IColorExpression            = angular.material.IColorExpression;
+export type IColorPalette               = angular.material.IColorPalette;
+export type IColorService               = angular.material.IColorService;
+export type IConfiguredColorPalette     = angular.material.IConfiguredColorPalette;
+export type IConfiguredThemes           = angular.material.IConfiguredThemes;
+export type IConfirmDialog              = angular.material.IConfirmDialog;
+export type IDateLocaleProvider         = angular.material.IDateLocaleProvider;
+export type IDefineThemeOptions         = angular.material.IDefineThemeOptions;
+export type IDialogOptions              = angular.material.IDialogOptions;
+export type IDialogProvider             = angular.material.IDialogProvider;
+export type IDialogService              = angular.material.IDialogService;
+export type IIcon                       = angular.material.IIcon;
+export type IIconProvider               = angular.material.IIconProvider;
+export type IInkRippleProvider          = angular.material.IInkRippleProvider;
+export type IMedia                      = angular.material.IMedia;
+export type IMenuService                = angular.material.IMenuService;
+export type IPalette                    = angular.material.IPalette;
+export type IPanelAnimation             = angular.material.IPanelAnimation;
+export type IPanelConfig                = angular.material.IPanelConfig;
+export type IPanelPosition              = angular.material.IPanelPosition;
+export type IPanelRef                   = angular.material.IPanelRef;
+export type IPanelService               = angular.material.IPanelService;
+export type IPresetDialog<T>            = angular.material.IPresetDialog<T>;
+export type IProgressCircularConfig     = angular.material.IProgressCircularConfig;
+export type IProgressCircularProvider   = angular.material.IProgressCircularProvider;
+export type IPromptDialog               = angular.material.IPromptDialog;
+export type ISidenavObject              = angular.material.ISidenavObject;
+export type ISidenavService             = angular.material.ISidenavService;
+export type ISimpleToastPreset          = angular.material.ISimpleToastPreset;
+export type IStickyService              = angular.material.IStickyService;
+export type ITheme                      = angular.material.ITheme;
+export type IThemeColors                = angular.material.IThemeColors;
+export type IThemeConfig                = angular.material.IThemeConfig;
+export type IThemeGrayScalePalette      = angular.material.IThemeGrayScalePalette;
+export type IThemeHues                  = angular.material.IThemeHues;
+export type IThemePalette               = angular.material.IThemePalette;
+export type IThemes                     = angular.material.IThemes;
+export type IThemingProvider            = angular.material.IThemingProvider;
+export type IThemingService             = angular.material.IThemingService;
+export type IToastOptions               = angular.material.IToastOptions;
+export type IToastPreset<T>             = angular.material.IToastPreset<T>;
+export type IToastService               = angular.material.IToastService;
+export type ResolveObject               = angular.material.ResolveObject;
 
 declare module 'angular' {
     namespace material {
