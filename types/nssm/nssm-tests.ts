@@ -1,6 +1,6 @@
 // https://github.com/alykoshin/nssm/blob/master/examples/promise_chain.js
 
-import nssm from 'nssm';
+import nssm = require('nssm');
 
 const svcName = 'test';
 const options = { nssmExe: 'nssm.exe' };
