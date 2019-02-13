@@ -10,6 +10,7 @@ import {
     SpaceProps,
     WidthProps,
     ColorProps,
+    TextColorProps,
     DisplayProps,
     FontSizeProps,
     FontFamilyProps,
@@ -43,6 +44,8 @@ import {
     alignContent,
     justifyContent,
     JustifyContentProps,
+    justifyItems,
+    JustifyItemsProps,
     FlexWrapProps,
     flexWrap,
     flexBasis,
@@ -124,7 +127,8 @@ import {
     VerticalAlignProps,
     verticalAlign,
     px,
-    createMediaQuery
+    createMediaQuery,
+    styles
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -253,7 +257,8 @@ interface FlexComponentProps
         JustifyContentProps,
         FlexWrapProps,
         FlexBasisProps,
-        FlexDirectionProps {}
+        FlexDirectionProps,
+        JustifyItemsProps {}
 const Flex: React.ComponentType<FlexComponentProps> = styled`
     ${alignItems};
     ${alignContent};
@@ -261,6 +266,7 @@ const Flex: React.ComponentType<FlexComponentProps> = styled`
     ${flexWrap};
     ${flexBasis};
     ${flexDirection};
+    ${justifyItems};
 `;
 
 interface GridComponentProps
@@ -289,11 +295,13 @@ const Grid: React.ComponentType<GridComponentProps> = styled`
 
 interface ButtonProps
     extends SpaceProps,
-        ButtonStyleProps {}
+        ButtonStyleProps,
+        TextColorProps {}
 
 const TestButton: React.ComponentType<ButtonProps> = styled`
     ${buttonStyle}
     ${space}
+    ${styles.textColor}
 `;
 
 const test = () => (
@@ -427,6 +435,10 @@ const test = () => (
         <Flex flexDirection="column" />
         <Flex flexDirection={["column"]} />
         <Flex flexDirection={{ sm: "column" }} />
+        // justifyItems
+        <Flex justifyItems="baseline" />
+        <Flex justifyItems={["baseline", "center"]} />
+        <Flex justifyItems={{ sm: "baseline", md: "center" }} />
         // gridGap
         <Grid gridGap="1px" />
         <Grid gridGap={["1", "2"]} />
@@ -515,6 +527,6 @@ const test = () => (
         // verticalAlign
         <Box verticalAlign="middle" />
 
-        <TestButton variant="primary" m={2} />
+        <TestButton variant="primary" m={2} color="tomato" />
     </div>
 );

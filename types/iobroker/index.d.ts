@@ -1,8 +1,8 @@
 // Type definitions for ioBroker 1.4
-// Project: https://github.com/ioBroker/ioBroker
+// Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.2
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
@@ -296,14 +296,28 @@ declare global {
 
             /** attached history information */
             history?: any;
+
+            /** Custom settings for this state */
+            custom?: Record<string, any>;
         }
         interface ChannelCommon extends ObjectCommon {
             /** description of this channel */
             desc?: string;
+
+            // Only states can have common.custom
+            custom?: undefined;
         }
-        type OtherCommon = ObjectCommon & {
+        interface DeviceCommon extends ObjectCommon {
+            // Only states can have common.custom
+            custom?: undefined;
+             // TODO: any other definition for device?
+        }
+        interface OtherCommon extends ObjectCommon {
             [propName: string]: any;
-        };
+
+            // Only states can have common.custom
+            custom?: undefined;
+        }
 
         interface BaseObject {
             /** The ID of this object */
@@ -311,7 +325,7 @@ declare global {
             native: Record<string, any>;
             enums?: Record<string, string>;
             type: string; // specified in the derived interfaces
-            common: ObjectCommon;
+            common: StateCommon | ChannelCommon | DeviceCommon | OtherCommon;
             acl?: ObjectACL;
         }
 
@@ -335,10 +349,10 @@ declare global {
 
         interface DeviceObject extends BaseObject {
             type: "device";
-            common: ObjectCommon; // TODO: any definition for device?
+            common: DeviceCommon;
         }
         interface PartialDeviceObject extends Partial<Pick<DeviceObject, "_id" | "native" | "enums" | "type" | "acl">> {
-            common?: Partial<ObjectCommon>;
+            common?: Partial<DeviceCommon>;
         }
 
         interface OtherObject extends BaseObject {
@@ -350,11 +364,15 @@ declare global {
         }
 
         type Object = StateObject | ChannelObject | DeviceObject | OtherObject;
+
+        type SettableObjectWorker<T extends ioBroker.Object> =
+            Pick<T, Exclude<keyof T, "_id" | "acl">> & {
+                _id?: T["_id"];
+                acl?: T["acl"];
+            };
+
         // In set[Foreign]Object[NotExists] methods, the ID and acl of the object is optional
-        interface SettableObject extends Pick<ioBroker.Object, Exclude<keyof ioBroker.Object, "_id" | "acl">> {
-            _id?: ioBroker.Object["_id"];
-            acl?: ioBroker.Object["acl"];
-        }
+        type SettableObject = SettableObjectWorker<ioBroker.Object>;
         type PartialObject = PartialStateObject | PartialChannelObject | PartialDeviceObject | PartialOtherObject;
 
         /** Defines access rights for a single file */

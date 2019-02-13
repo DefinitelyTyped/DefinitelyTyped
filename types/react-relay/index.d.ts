@@ -1,5 +1,5 @@
 // Type definitions for react-relay 1.3
-// Project: https://github.com/facebook/relay
+// Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 //                 Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
@@ -95,7 +95,7 @@ export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase = 
     dataFrom?: "NETWORK_ONLY"|"STORE_THEN_NETWORK";
     environment: RelayRuntimeTypes.Environment;
     query?: RelayRuntimeTypes.GraphQLTaggedNode | null;
-    render(readyState: ReadyState<T["response"]>): React.ReactElement<any> | undefined | null;
+    render(readyState: ReadyState<T["response"]>): React.ReactElement | undefined | null;
     variables: T["variables"];
     rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
 }

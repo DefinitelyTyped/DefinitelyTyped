@@ -41,7 +41,7 @@ export type Overwrite<T, U> = Omit<T, keyof U> & U;
  */
 export type PropsOf<C> = C extends new (props: infer P) => React.Component
   ? P
-  : C extends (props: infer P) => React.ReactElement<any> | null ? P : never;
+  : C extends (props: infer P) => React.ReactElement | null ? P : never;
 
 /**
  * a function that takes {component} and returns a component that passes along

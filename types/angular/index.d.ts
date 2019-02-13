@@ -1199,6 +1199,15 @@ declare namespace angular {
          */
         then<TResult1 = T, TResult2 = never>(
             successCallback?:
+                | ((value: T) => PromiseLike<never> | PromiseLike<TResult1> | TResult1)
+                | null,
+            errorCallback?:
+                | ((reason: any) => PromiseLike<never> | PromiseLike<TResult2> | TResult2)
+                | null,
+            notifyCallback?: (state: any) => any
+        ): IPromise<TResult1 | TResult2>;
+        then<TResult1 = T, TResult2 = never>(
+            successCallback?:
                 | ((value: T) => IPromise<never> | IPromise<TResult1> | TResult1)
                 | null,
             errorCallback?:
@@ -1210,6 +1219,11 @@ declare namespace angular {
         /**
          * Shorthand for promise.then(null, errorCallback)
          */
+        catch<TResult = never>(
+            onRejected?:
+                | ((reason: any) => PromiseLike<never> | PromiseLike<TResult> | TResult)
+                | null
+        ): IPromise<T | TResult>;
         catch<TResult = never>(
             onRejected?:
                 | ((reason: any) => IPromise<never> | IPromise<TResult> | TResult)

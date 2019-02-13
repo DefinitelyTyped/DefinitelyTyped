@@ -11,8 +11,8 @@ Also see the [definitelytyped.org](http://definitelytyped.org) website, although
 This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
-* All packages are type-checking/linting cleanly: [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
-* All packages are being published to npm in under 10,000 seconds: [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
+* All packages are [type-checking/linting](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+* All packages are being [published to npm](https://github.com/Microsoft/types-publisher) in under an hour: [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
 * [typescript-bot](https://github.com/typescript-bot) has been active on DefinitelyTyped [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
 
 If anything here seems wrong, or any of the above are failing, please raise an issue in [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped).
@@ -229,7 +229,7 @@ It depends, but most pull requests will be merged within a week. PRs that have b
 
 #### My PR is merged; when will the `@types` NPM package be updated?
 
-NPM packages should update within a few hours. If it's been more than 24 hours, ping @RyanCavanaugh and @andy-ms on the PR to investigate.
+NPM packages should update within a few minutes. If it's been more than an hour, mention the PR number on [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped) and the current maintainer will get the correct team member to investigate.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
@@ -327,14 +327,60 @@ If the standard is still a draft, it belongs here.
 Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
 When it graduates draft mode, we may remove it from DefinitelyTyped and deprecate the associated `@types` package.
 
-#### I want to update a package to a new major version
+#### How do DefinitelyTyped package versions relate to versions of the corresponding library? 
 
-If you intend to continue updating the older version of the package, you may create a new subfolder with the current version e.g. `v2`, and copy existing files to it. If so, you will need to:
+_NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)_
+
+Each DefinitelyTyped package is versioned when published to NPM. 
+The [types-publisher](https://github.com/Microsoft/types-publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor` version number listed in the first line of its `index.d.ts` file. 
+For example, here are the first few lines of [Node's type declarations](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts) for version `10.12.x` at the time of writing:
+
+```js
+// Type definitions for Node.js 10.12
+// Project: http://nodejs.org/
+// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
+//                 Alberto Schiabel <https://github.com/jkomyno>
+```
+
+Because `10.12` is at the end the first line, the npm version of the `@types/node` package will also be `10.12.x`. 
+Note that the first-line comment in the `index.d.ts` file should only contain the `major.minor` version (e.g. `10.12`) and should not contain a patch version (e.g. `10.12.4`).
+This is because only the major and minor release numbers are aligned between library packages and type declaration packages. 
+The patch release number of the type declaration package (e.g. `.0` in `10.12.0`) is initialized to zero by DefinitelyTyped and is incremented each time a new `@types/node` package is published to NPM for the same major/minor version of the corresponding library.
+
+Sometimes type declaration package versions and library package versions can get out of sync.
+Below are a few common reasons why, in order of how much they inconvenience users of a library.
+Only the last case is typically problematic.
+
+* As noted above, the patch version of the type declaration package is unrelated to the library patch version.
+  This allows DefinitelyTyped to safely update type declarations for the same major/minor version of a library. 
+* If updating a package for new functionality, don't forget to update the version number to line up with that version of the library.
+  If users make sure versions correspond between JavaScript packages and their respective `@types` packages, then `npm update` should typically just work.
+* It's common for type declaration package updates to lag behind library updates because it's often library users, not maintainers, who update DefinitelyTyped when new library features are released.
+  So there may be a lag of days, weeks, or even months before a helpful community member sends a PR to update the type declaration package for a new library release.
+  If you're impacted by this, you can be the change you want to see in the world and you can be that helpful community member!
+
+:exclamation: If you're updating type declarations for a library, always set the `major.minor` version in the first line of `index.d.ts` to match the library version that you're documenting! :exclamation:
+
+#### If a library is updated to a new major version with breaking changes, how should I update its type declaration package?
+
+[Semantic versioning](https://semver.org/) requires that versions with breaking changes must increment the major version number.  
+For example, a library that removes a publicly exported function after its `3.5.8` release must bump its version to `4.0.0` in its next release.  
+Furthermore, when the library's `4.0.0` release is out, its DefinitelyTyped type declaration package should also be updated to `4.0.0`, including any breaking changes to the library's API. 
+
+Many libraries have a large installed base of developers (including maintainers of other packages using that library as a dependency) who won't move right away to a new version that has breaking changes, because it might be months until a maintainer has time to rewrite code to adapt to the new version. 
+In the meantime, users of old library versions still may want to update type declarations for older versions. 
+
+If you intend to continue updating the older version of a library's type declarations, you may create a new subfolder (e.g. `/v2/`) named for the current (soon to be "old") version, and copy existing files from the current version to it. 
+
+Because the root folder should always contain the type declarations for the latest ("new") version, you'll need to make a few changes to the files in your old-version subdirectory to ensure that relative path references point to the subdirectory, not the root.
 
 1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
 2. Add path mapping rules to ensure that tests are running against the intended version.
 
-For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
+For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.  
+Because many users still consumed the older `2.x` version, a maintainer who wanted to update the type declarations for this library to `3.x` added a `v2` folder inside the history repository that contains type declarations for the older version. 
+At the time of writing, the [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) looks roughly like:
 
 ```json
 {
@@ -352,10 +398,11 @@ For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/Defi
 }
 ```
 
-If there are other packages on DefinitelyTyped that are incompatible with the new version, you will need to add path mappings to the old version. You will also need to do this for packages depending on packages depending on the old version.
+If there are other packages in DefinitelyTyped that are incompatible with the new version, you will need to add path mappings to the old version. 
+You will also need to do this recursively for packages depending on packages depending on the old version.
 
-For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`;
-transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
+For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`. 
+Transitively, `react-router-bootstrap` (which depends on `react-router`) also needed to add the same path mapping (`"history": [ "history/v2" ]`) in its `tsconfig.json` until its `react-router` dependency was updated to the latest version.
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
 

@@ -1,5 +1,5 @@
 // Type definitions for stellar-base 0.10
-// Project: https://github.com/stellar/js-stellar-sdk
+// Project: https://github.com/stellar/js-stellar-base
 // Definitions by: Carl Foster <https://github.com/carl-foster>
 //                 Triston Jones <https://github.com/tristonj>
 //                 Paul Selden <https://github.com/pselden>
