@@ -2288,7 +2288,7 @@ declare module "child_process" {
         stderr: T;
         status: number;
         signal: string;
-        error: Error;
+        error?: Error;
     }
     export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
