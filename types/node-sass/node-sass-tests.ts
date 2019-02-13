@@ -30,8 +30,8 @@ const asyncImporter: sass.AsyncImporter = function(url, prev, done) {
   }
 };
 
-const anotherAsyncImporter: sass.AsyncImporter = function (url, prev, done) {
-  someAsyncFunction(url, prev, function (result) {
+const anotherAsyncImporter: sass.AsyncImporter = (url, prev, done) => {
+  someAsyncFunction(url, prev, (result) => {
     if (result == null) {
       // return null to opt out of handling this path
       // compiler will fall to next importer in array (or its own default)
@@ -41,13 +41,12 @@ const anotherAsyncImporter: sass.AsyncImporter = function (url, prev, done) {
     done({ file: result.path });
     done({ contents: result.data });
   });
-}
+};
 
-const handleAsyncResult: sass.SassRenderCallback = function(error, result) { // node-style callback from v3.0.0 onwards
+const handleAsyncResult: sass.SassRenderCallback = (error, result) => { // node-style callback from v3.0.0 onwards
   if (error) {
     console.log(error.status, error.column, error.message, error.line);
-  }
-  else {
+  } else {
     console.log(result.stats);
     console.log(result.css.toString());
     console.log(result.map.toString());
@@ -57,7 +56,7 @@ const handleAsyncResult: sass.SassRenderCallback = function(error, result) { // 
 };
 
 const syncFunction: Record<string, sass.SyncSassFn> = {
-  "pow($base, $exp)": function ($base, $exp) {
+  "pow($base, $exp)"($base, $exp) {
     console.log(this.options.file); // "string"
     console.log(typeof this.callback); // "undefined"
     if ($base instanceof sass.types.Number && $exp instanceof sass.types.Number) {
@@ -72,19 +71,19 @@ const syncFunction: Record<string, sass.SyncSassFn> = {
 };
 
 const syncVarArg: Record<string, sass.SyncSassVarArgFn3> = {
-  "add-all($n1, $n2, $ns...)": function($n1, $n2, $ns) {
+  "add-all($n1, $n2, $ns...)"($n1, $n2, $ns) {
     if (!($n1 instanceof sass.types.Number)) {
       throw new Error("Expected a number");
     }
     if (!($n2 instanceof sass.types.Number)) {
       throw new Error("Expected a number");
     }
-    let unit = $n1.getUnit();
+    const unit = $n1.getUnit();
     if ($n2.getUnit() !== unit) {
       throw new Error("units don't match");
     }
     let accum = $n1.getValue() + $n2.getValue();
-    $ns.forEach(function ($n) {
+    $ns.forEach(($n) => {
       if (!($n instanceof sass.types.Number)) {
         throw new Error("Expected a number");
       }
@@ -100,7 +99,7 @@ const syncVarArg: Record<string, sass.SyncSassVarArgFn3> = {
 const syncFunctions: Record<string, sass.SyncSassFunction> = {...syncFunction, ...syncVarArg};
 
 const asyncFunction: Record<string, sass.AsyncSassFn2> = {
-  "pow-async($base, $exp)": function ($base, $exp, done) {
+  "pow-async($base, $exp)"($base, $exp, done) {
     console.log(this.options.file); // "string"
     console.log(typeof this.callback); // "function"
     if ($base instanceof sass.types.Number && $exp instanceof sass.types.Number) {
@@ -115,7 +114,7 @@ const asyncFunction: Record<string, sass.AsyncSassFn2> = {
 };
 
 const asyncVarArg: Record<string, sass.AsyncSassVarArgFn3> = {
-  "add-all-async($n1, $n2, $ns...)": function($n1, $n2, $ns, done) {
+  "add-all-async($n1, $n2, $ns...)"($n1, $n2, $ns, done) {
     if (!($n1 instanceof sass.types.Number)) {
       done(new sass.types.Error("Expected a number"));
       return;
@@ -124,14 +123,13 @@ const asyncVarArg: Record<string, sass.AsyncSassVarArgFn3> = {
       done(new sass.types.Error("Expected a number"));
       return;
     }
-    let unit = $n1.getUnit();
+    const unit = $n1.getUnit();
     if ($n2.getUnit() !== unit) {
       done(new sass.types.Error("units don't match"));
       return;
     }
     let accum = $n1.getValue() + $n2.getValue();
-    for (let i = 0; i < $ns.length; i++) {
-      let $n = $ns[i];
+    for (const $n of $ns) {
       if (!($n instanceof sass.types.Number)) {
         done(new sass.types.Error("Expected a number"));
         return;
@@ -141,7 +139,6 @@ const asyncVarArg: Record<string, sass.AsyncSassVarArgFn3> = {
         return;
       }
       accum = accum + $n.getValue();
-
     }
     done(sass.types.Number(accum, unit));
   }
@@ -204,47 +201,47 @@ function sameType<V extends sass.types.Value>(v1: V, v2: V): boolean {
 }
 
 // function-based Constructors and instance methods for types
-let true1 = sass.types.Boolean(true);
+const true1 = sass.types.Boolean(true);
 true1.getValue(); // true
-let true2 = sass.types.Boolean.TRUE;
-let true3 = sass.TRUE;
+const true2 = sass.types.Boolean.TRUE;
+const true3 = sass.TRUE;
 sameType(true2, true3);
-true2 === true3 // true
-let false1 = sass.types.Boolean(false);
-let false2 = sass.types.Boolean.FALSE;
-let false3 = sass.FALSE;
-false2 === false3 // true
+true2 === true3; // true
+const false1 = sass.types.Boolean(false);
+const false2 = sass.types.Boolean.FALSE;
+const false3 = sass.FALSE;
+false2 === false3; // true
 false1.getValue(); // false
-let null1 = sass.types.Null();
-let null2 = sass.types.Null.NULL;
-let null3 = sass.NULL;
+const null1 = sass.types.Null();
+const null2 = sass.types.Null.NULL;
+const null3 = sass.NULL;
 sameType(null2, null3);
 null1 === null2; // true
 null1 === null3; // true
-let ident = sass.types.String("x");
+const ident = sass.types.String("x");
 ident.getValue(); // 'x'
-let stringQuoted = sass.types.String("'x'");
+const stringQuoted = sass.types.String("'x'");
 stringQuoted.getValue(); // '\'x\''
-let number = sass.types.Number(5);
+const number = sass.types.Number(5);
 number.getUnit(); // ""
 number.getValue(); // 5
-let dimension = sass.types.Number(5, "px");
+const dimension = sass.types.Number(5, "px");
 dimension.getUnit(); // "px"
-let redOpaque = sass.types.Color(240, 15, 0);
+const redOpaque = sass.types.Color(240, 15, 0);
 redOpaque.getR(); // 240
 redOpaque.getG(); // 15
 redOpaque.getB(); // 0
 redOpaque.getA(); // 1
-let redTranslucent = sass.types.Color(240, 15, 0, 0.5);
+const redTranslucent = sass.types.Color(240, 15, 0, 0.5);
 redTranslucent.getA(); // 0.5
-let redOpaque2 = sass.types.Color(0xF00F00FF);
+const redOpaque2 = sass.types.Color(0xF00F00FF);
 redOpaque2.getR(); // 240
 redOpaque2.getG(); // 15
 redOpaque2.getB(); // 0
 redOpaque2.getA(); // 1
-let redTranslucent2 = sass.types.Color(0xF00F007F);
+const redTranslucent2 = sass.types.Color(0xF00F007F);
 redTranslucent.getA(); // 0.5
-let spaceList1 = sass.types.List(1);
+const spaceList1 = sass.types.List(1);
 spaceList1.getLength(); // 1
 spaceList1.getSeparator(); // false
 spaceList1.setValue(0, ident);
@@ -254,24 +251,24 @@ spaceList1.setValue(0, null1);
 spaceList1.setValue(0, dimension);
 spaceList1.setValue(0, redOpaque);
 spaceList1.getValue(0) === redOpaque; // true
-let spaceList2 = sass.types.List(1, false);
+const spaceList2 = sass.types.List(1, false);
 spaceList2.setValue(0, sass.types.String("s"));
-let commaList1 = sass.types.List(2, true);
+const commaList1 = sass.types.List(2, true);
 commaList1.getLength(); // 2
 commaList1.getSeparator(); // true (it's a comma)
 commaList1.setValue(0, spaceList1);
 commaList1.setValue(2, spaceList2);
-let map1 = sass.types.Map(2);
+const map1 = sass.types.Map(2);
 map1.getLength(); // 2
 map1.setKey(0, ident);
 map1.setValue(0, spaceList1);
 ident === map1.getKey(0); // true
 spaceList1 === map1.getValue(1); // true
 sameType(ident, map1.getKey(0)); // true
-let error = new sass.types.Error("message");
+const error = new sass.types.Error("message");
 
 function valuesOf(enumerable: sass.types.Enumerable): sass.types.Value[] {
-  let values = new Array<sass.types.Value>();
+  const values = new Array<sass.types.Value>();
   for (let i = 0; i < enumerable.getLength(); i++) {
     values.push(enumerable.getValue(i));
   }
@@ -285,17 +282,17 @@ console.dir(arr);
 
 // new-based Constructors
 // boolean and null raise a runtime error if constructed with new.
-// let newTrue = new sass.types.Boolean(true);
-// let newFalse = new sass.types.Boolean(false);
-// let newNull = new sass.types.Null();
-let newIdent = new sass.types.String("x");
-let newNumber = new sass.types.Number(5);
-let newDimension = new sass.types.Number(5, "px");
-let newRedOpaque = new sass.types.Color(240, 15, 0);
-let newRedTranslucent = new sass.types.Color(240, 15, 0, 0.5);
-let newRedOpaque2 = new sass.types.Color(0xF00F00FF);
-let newSpaceList1 = new sass.types.List(1);
-let newSpaceList2 = new sass.types.List(1, false);
-let newCommaList1 = new sass.types.List(2, true);
-let newMap1 = new sass.types.Map(2);
-let newError = new sass.types.Error("message");
+// const newTrue = new sass.types.Boolean(true);
+// const newFalse = new sass.types.Boolean(false);
+// const newNull = new sass.types.Null();
+const newIdent = new sass.types.String("x");
+const newNumber = new sass.types.Number(5);
+const newDimension = new sass.types.Number(5, "px");
+const newRedOpaque = new sass.types.Color(240, 15, 0);
+const newRedTranslucent = new sass.types.Color(240, 15, 0, 0.5);
+const newRedOpaque2 = new sass.types.Color(0xF00F00FF);
+const newSpaceList1 = new sass.types.List(1);
+const newSpaceList2 = new sass.types.List(1, false);
+const newCommaList1 = new sass.types.List(2, true);
+const newMap1 = new sass.types.Map(2);
+const newError = new sass.types.Error("message");
