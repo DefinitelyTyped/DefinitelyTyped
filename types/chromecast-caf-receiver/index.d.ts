@@ -1,4 +1,4 @@
-// Type definitions for chromecast-caf-receiver 3.x
+// Type definitions for non-npm package chromecast-caf-receiver 3.x
 // Project: https://github.com/googlecast
 // Definitions by: Craig Bruce <https://github.com/craigrbruce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
