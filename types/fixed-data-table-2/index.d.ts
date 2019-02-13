@@ -30,7 +30,7 @@ export interface ColumnReorderEndEvent {
     reorderColumn: string;
 }
 
-export type ElementOrFunc<P> = string | React.ReactElement<any> | ((props: P) => (string | React.ReactElement<any>));
+export type ElementOrFunc<P> = string | React.ReactElement | ((props: P) => (string | React.ReactElement));
 
 export type TableRowEventHandler = (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
 
@@ -616,7 +616,7 @@ export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
      * You can also pass in a function that returns a react elemnt, with the
      * props object above passed in as the first parameter.
      */
-    header?: string | React.ReactElement<any> | ((props: ColumnGroupHeaderProps) => (string | React.ReactElement<any>));
+    header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => (string | React.ReactElement));
 }
 
 export class ColumnGroup extends React.Component<ColumnGroupProps> {

@@ -89,7 +89,7 @@ declare namespace React {
         ref?: Ref<T>;
     }
 
-    interface ReactElement<P> {
+    interface ReactElement<P = any> {
         type: string | ComponentClass<P> | SFC<P>;
         props: P;
         key: Key | null;
@@ -180,7 +180,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
-    type ReactChild = ReactElement<any> | ReactText;
+    type ReactChild = ReactElement | ReactText;
 
     interface ReactNodeArray extends Array<ReactNode> {}
     type ReactFragment = {} | ReactNodeArray;
@@ -343,7 +343,7 @@ declare namespace React {
 
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+        (props: P & { children?: ReactNode }, context?: any): ReactElement | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -404,7 +404,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any> | null;
+        render(): ReactElement | null;
 
         [propertyName: string]: any;
     }
@@ -3581,11 +3581,11 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T, C extends ReactElement<any>>(children: C[], fn: (child: C, index: number) => T): T[];
+        map<T, C extends ReactElement>(children: C[], fn: (child: C, index: number) => T): T[];
         map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
         forEach(children: ReactNode, fn: (child: ReactChild, index: number) => any): void;
         count(children: ReactNode): number;
-        only(children: ReactNode): ReactElement<any>;
+        only(children: ReactNode): ReactElement;
         toArray(children: ReactNode): ReactChild[];
     }
 
@@ -3621,7 +3621,7 @@ declare namespace React {
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
-        interface Element extends React.ReactElement<any> { }
+        interface Element extends React.ReactElement { }
         interface ElementClass extends React.Component<any> {
             render(): JSX.Element | null | false;
         }
