@@ -1,5 +1,5 @@
 // Type definitions for Victory 31.0
-// Project: https://github.com/FormidableLabs/victory
+// Project: https://github.com/FormidableLabs/victory, https://formidable.com/open-source/victory
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 snerks <https://github.com/snerks>
 //                 Krzysztof Cebula <https://github.com/Havret>

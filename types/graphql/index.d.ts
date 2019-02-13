@@ -1,5 +1,5 @@
 // Type definitions for graphql 14.0
-// Project: https://www.npmjs.com/package/graphql
+// Project: https://github.com/graphql/graphql-js
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>
 //                 Caleb Meredith <https://github.com/calebmer>
 //                 Dominic Watson <https://github.com/intellix>

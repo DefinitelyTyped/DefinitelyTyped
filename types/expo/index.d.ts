@@ -1,5 +1,5 @@
 // Type definitions for expo 32.0
-// Project: https://github.com/expo/expo-sdk
+// Project: https://github.com/expo/expo/tree/master/packages/expo
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Jan Aagaard <https://github.com/janaagaard75>
