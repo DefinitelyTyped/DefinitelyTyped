@@ -5,6 +5,7 @@
 //                  Davide Donadello <https://github.com/Dona278>,
 //                  Geert Jansen <https://github.com/geertjansen>,
 //                  Edward Knowles <https://github.com/eknowles>,
+//                  Charles Bean <https://github.com/charlesbean>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
