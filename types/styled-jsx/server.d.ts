@@ -1,6 +1,8 @@
 import { ReactElement } from "react";
 
-declare function flushToHTML(): string;
+declare function flushToHTML(opts?: {
+  nonce?: string;
+}): string;
 declare function flushToReact<T>(opts?: {
   nonce?: string;
 }): Array<ReactElement<T>>;
