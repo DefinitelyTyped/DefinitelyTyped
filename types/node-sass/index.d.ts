@@ -2,7 +2,7 @@
 // Project: https://github.com/sass/node-sass
 // Definitions by: Asana <https://github.com/pspeter3>, Chris Eppstein <https://github.com/chriseppstein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.7
 
 /// <reference types="node" />
 
@@ -130,7 +130,7 @@ export interface Result {
 		includedFiles: string[];
 	};
 }
-export type SassRenderCallback = (err: SassError, result: Result) => unknown;
+export type SassRenderCallback = (err: SassError, result: Result) => any;
 
 // Note, most node-sass constructors can be invoked as a function or with a new
 // operator. The exception: the types Null and Boolean for which new is
