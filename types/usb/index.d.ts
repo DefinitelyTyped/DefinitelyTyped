@@ -387,7 +387,7 @@ export interface Endpoint extends EventEmitter {
    * Clear the halt/stall condition for this endpoint.
    * @param callback
    */
-  clearHalt(callback: (error: Error) => void): void;
+  clearHalt(callback: (error?: string) => void): void;
 }
 
 /** Endpoints in the IN direction (device->PC) have this type. */
@@ -438,7 +438,7 @@ export class InEndpoint extends EventEmitter implements Endpoint {
    * Clear the halt/stall condition for this endpoint.
    * @param callback
    */
-  clearHalt(callback: (error: Error) => void): void;
+  clearHalt(callback: (error?: string) => void): void;
 }
 
 /** Endpoints in the OUT direction (PC->device) have this type. */
@@ -468,7 +468,7 @@ export class OutEndpoint extends EventEmitter implements Endpoint {
    * Clear the halt/stall condition for this endpoint.
    * @param callback
    */
-  clearHalt(callback: (error: Error) => void): void;
+  clearHalt(callback: (error?: string) => void): void;
 }
 
 /** A structure representing the standard USB endpoint descriptor */
