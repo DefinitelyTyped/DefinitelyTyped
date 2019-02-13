@@ -1,14 +1,15 @@
-// Type definitions for node-jose 1.1.1
+// Type definitions for node-jose 1.1
 // Project: https://github.com/cisco/node-jose
 // Definitions by: Nadun Indunil <https://github.com/nadunindunil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
 export function canYouSee(ks: JWK.Key | JWK.KeyStore, opts: object): JWS.Verifier;
 
 export namespace JWA {
-    type decryptEncryptOptions = {
+    interface decryptEncryptOptions {
         aad?: Buffer;
         adata?: Buffer;
         iv?: Buffer;
@@ -24,34 +25,36 @@ export namespace JWA {
         apv?: Buffer; // agreement party info used in ec
         p2s?: Buffer; // used in pbes
         p2c?: number; // used in pbes
-    };
+    }
 
-    type deriveOptions = {
+    interface deriveOptions {
         length?: number; // key length
         otherInfo?: Buffer; // info used in concatkdf
         public?: Buffer; // public key used in ecdh
         hash?: Buffer; // hash used in ecdh
         salt?: Buffer; // salt value used in hkdf
         info?: Buffer; // app identifier info used in hkdf
-    };
+    }
 
-    type encryptReturn = {
+    interface encryptReturn {
         data: Buffer; // The cipher text
         tag?: Buffer; // The tag used in some algorithms
-    };
+    }
 
-    type signReturn = {
+    interface signReturn {
         data: Buffer; // the data passed into the sign function
         mac: Buffer; // the signature for `data`
-    };
+    }
 
-    type signVerifyOptions = { loose?: boolean };
+    interface signVerifyOptions {
+        loose?: boolean;
+    }
 
-    type verifyReturn = {
+    interface verifyReturn {
         data: Buffer; // the data passed into the verify function
         mac: Buffer; // the signature for `data`
         valid: boolean; // whether the signature matches the data
-    };
+    }
 
     function decrypt(
         alg: string,
@@ -88,8 +91,7 @@ export namespace JWA {
 }
 
 export namespace JWE {
-    function createEncrypt(key: JWK.Key): JWE.Encryptor;
-    function createEncrypt(keys: JWK.Key[]): JWE.Encryptor;
+    function createEncrypt(keys: JWK.Key | JWK.Key[]): Encryptor;
     function createEncrypt(
         options: {
             format?: 'compact' | 'flattened';
@@ -97,20 +99,20 @@ export namespace JWE {
             fields?: object;
         },
         key: JWK.Key
-    ): JWE.Encryptor;
+    ): Encryptor;
 
-    function createDecrypt(key: JWK.Key | JWK.KeyStore, opts?: any): JWE.Decryptor;
+    function createDecrypt(key: JWK.Key | JWK.KeyStore, opts?: any): Decryptor;
 
-    export interface Encryptor {
+    interface Encryptor {
         update(input: any): this;
         final(): Promise<string>;
     }
 
-    export interface Decryptor {
-        decrypt(input: string): Promise<JWE.DecryptResult>;
+    interface Decryptor {
+        decrypt(input: string): Promise<DecryptResult>;
     }
 
-    export interface DecryptResult {
+    interface DecryptResult {
         /**
          * an array of the member names from the "protected" member
          */
@@ -138,30 +140,30 @@ export namespace JWK {
     function asKey(
         key: string | Buffer | object | RawKey,
         form?: 'json' | 'private' | 'pkcs8' | 'public' | 'spki' | 'pkix' | 'x509' | 'pem'
-    ): Promise<JWK.Key>;
+    ): Promise<Key>;
     /**
      * To import a JWK-set as a keystore
      */
-    function asKeyStore(ks: object | string): Promise<JWK.KeyStore>;
+    function asKeyStore(ks: object | string): Promise<KeyStore>;
 
-    function createKey(kty: any, size: any, props: any): Promise<JWK.Key>;
+    function createKey(kty: any, size: any, props: any): Promise<Key>;
     /**
      * To create an empty keystore
      */
-    function createKeyStore(): JWK.KeyStore;
-    
-    function isKey(input: any): input is JWK.Key;
+    function createKeyStore(): KeyStore;
 
-    function isKeyStore(input: any): input is JWK.KeyStore;
+    function isKey(input: any): input is Key;
 
-    export type KeyUse = 'sig' | 'enc' | 'desc';
+    function isKeyStore(input: any): input is KeyStore;
 
-    export interface JWEEncryptor {
+    type KeyUse = 'sig' | 'enc' | 'desc';
+
+    interface JWEEncryptor {
         update(input: any): this;
         final(): Promise<string>;
     }
 
-    export interface RawKey {
+    interface RawKey {
         alg: string;
         kty: string;
         use: KeyUse;
@@ -171,17 +173,17 @@ export namespace JWK {
         n: string;
     }
 
-    export interface KeyStoreGetFilter {
+    interface KeyStoreGetFilter {
         kty?: string;
         use?: KeyUse;
         alg?: string;
     }
 
-    export interface KeyStoreGetOptions extends KeyStoreGetFilter {
+    interface KeyStoreGetOptions extends KeyStoreGetFilter {
         kid: string;
     }
 
-    export interface KeyStore {
+    interface KeyStore {
         /**
          * To export the public keys of a keystore as a JWK-set
          */
@@ -192,7 +194,7 @@ export namespace JWK {
         get(kid: string, filter?: KeyStoreGetFilter): RawKey;
         get(options: KeyStoreGetOptions): RawKey;
         all(options?: Partial<KeyStoreGetOptions>): RawKey[];
-        add(key: RawKey): Promise<JWK.Key>;
+        add(key: RawKey): Promise<Key>;
         /**
          * @param key
          *  String serialization of a JSON JWK/(base64-encoded) PEM/(binary-encoded) DER
@@ -209,17 +211,17 @@ export namespace JWK {
          * - "pem" for a PEM encoded of PKCS8 / SPKI / PKIX
          */
         add(
-            key: string | Buffer | JWK.Key | object,
+            key: string | Buffer | Key | object,
             form?: 'json' | 'private' | 'pkcs8' | 'public' | 'spki' | 'pkix' | 'x509' | 'pem'
-        ): Promise<JWK.Key>;
+        ): Promise<Key>;
 
-        generate(kty: string, size?: string | number, props?: any): Promise<JWK.Key>;
+        generate(kty: string, size?: string | number, props?: any): Promise<Key>;
 
-        remove(key: JWK.Key): void;
+        remove(key: Key): void;
     }
 
-    export interface Key {
-        keystore: JWK.KeyStore;
+    interface Key {
+        keystore: KeyStore;
         length: number;
         kty: string;
         kid: string;
@@ -233,8 +235,7 @@ export namespace JWK {
 }
 
 export namespace JWS {
-    function createSign(key: JWK.Key): JWS.Signer;
-    function createSign(keys: JWK.Key[]): JWS.Signer;
+    function createSign(keys: JWK.Key | JWK.Key[]): Signer;
     function createSign(
         options: {
             format?: 'compact' | 'flattened';
@@ -243,33 +244,26 @@ export namespace JWS {
             fields?: object;
         },
         key: JWK.Key | JWK.Key[]
-    ): JWS.Signer;
+    ): Signer;
 
     /**
      * Using a keystore.
      */
-    function createVerify(keyStore: JWK.KeyStore): JWS.Verifier;
-
-    /**
-     * To verify using a key embedded in the JWS
-     */
-    function createVerify(): JWS.Verifier;
-
     function createVerify(
-        input: string | JWK.Key | object,
+        input?: string | JWK.Key | JWK.KeyStore | object,
         opts?: { allowEmbeddedKey?: boolean; algorithms?: string[]; handlers?: any }
-    ): JWS.Verifier;
+    ): Verifier;
 
-    export interface createSignResult {
+    interface createSignResult {
         signResult: object;
     }
 
-    export interface Signer {
+    interface Signer {
         update(input: Buffer | string, encoding?: string): this;
         final(): Promise<createSignResult>;
     }
 
-    export interface BaseResult {
+    interface BaseResult {
         /**
          * the combined 'protected' and 'unprotected' header members
          */
@@ -285,35 +279,35 @@ export namespace JWS {
         protected: string[];
     }
 
-    export interface VerificationResult extends BaseResult {
+    interface VerificationResult extends BaseResult {
         /**
          * the verified signature
          */
         signature: Buffer | string;
     }
 
-    export interface Verifier {
+    interface Verifier {
         verify(input: string, opts?: { allowEmbeddedKey?: boolean }): Promise<VerificationResult>;
     }
 
-    export interface exp {
+    interface exp {
         complete(jws: any): any;
     }
 
-    export interface verifyOptions {
+    interface verifyOptions {
         allowEmbeddedKey?: boolean;
         algorithms?: string[];
         handlers: { exp: boolean | exp };
     }
 }
 
-type parseReturn = {
+interface parseReturn {
     type: 'JWS' | 'JWE';
     format: 'compact' | 'json';
     input: Buffer | string | object;
     header: object;
     perform: (ks: JWK.KeyStore) => Promise<JWE.DecryptResult> | Promise<JWS.VerificationResult>;
-};
+}
 
 export function parse(input: Buffer | string | object): parseReturn;
 
@@ -340,3 +334,13 @@ export namespace util {
         function encode(input: string): string;
     }
 }
+
+declare const _default: {
+    JWA: typeof JWA;
+    JWE: typeof JWE;
+    JWS: typeof JWS;
+    JWK: typeof JWK;
+    parse: typeof parse;
+    util: typeof util;
+};
+export default _default;

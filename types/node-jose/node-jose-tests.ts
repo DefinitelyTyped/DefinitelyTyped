@@ -50,7 +50,7 @@ keystore.generate('oct', 256).then(function(result) {
 });
 
 // ... with properties
-var props = {
+let props = {
     kid: 'gBdaS-G8RLax2qgObTD94w',
     alg: 'A256GCM',
     use: 'enc'
@@ -271,7 +271,7 @@ jose.JWS.createVerify()
         // ...
     });
 
-var verifier = jose.JWS.createVerify({ allowEmbeddedKey: true });
+let verifier = jose.JWS.createVerify({ allowEmbeddedKey: true });
 
 verifier.verify('input').then(function(result) {
     // ...
