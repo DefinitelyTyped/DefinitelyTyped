@@ -22,7 +22,7 @@ declare namespace through2 {
     }
 
     type TransformCallback = (err?: any, data?: any) => void;
-    type TransformFunction = (this: stream.Transform, chunk: any, enc: string, callback: TransformCallback) => void;
+    type TransformFunction = (this: stream.Transform, chunk: any, enc: BufferEncoding, callback: TransformCallback) => void;
     type FlushCallback = (this: stream.Transform, flushCallback: () => void) => void;
 
 	/**

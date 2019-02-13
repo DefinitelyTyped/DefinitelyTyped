@@ -127,7 +127,7 @@ function message_attachments_test() {
             },
             {   // binary buffer as an attachment
                 filename: 'text2.txt',
-                content: new Buffer('hello world!', 'utf-8')
+                content: new Buffer('hello world!', 'utf8')
             },
             {   // file on disk as an attachment
                 filename: 'text3.txt',

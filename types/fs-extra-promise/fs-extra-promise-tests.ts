@@ -19,7 +19,7 @@ let strOrBuf: string | Buffer;
 let buffer: Buffer;
 declare const modeNum: number;
 declare const modeStr: string;
-declare const encoding: string;
+declare const encoding: BufferEncoding;
 declare const symlinkType: "file" | "dir" | "junction";
 declare const flags: string;
 declare const srcpath: string;
@@ -164,7 +164,10 @@ fs.readFile(filename, (err: Error, data: Buffer) => {
 });
 buffer = fs.readFileSync(filename);
 str = fs.readFileSync(filename, encoding);
-strOrBuf = fs.readFileSync(filename, openOpts);
+strOrBuf = fs.readFileSync(filename, {
+    ...openOpts,
+    encoding: 'utf8'
+});
 
 fs.writeFile(filename, data, errorCallback);
 fs.writeFile(filename, data, { encoding }, errorCallback);
@@ -195,14 +198,14 @@ bool = fs.existsSync(path);
 readStream = fs.createReadStream(path);
 readStream = fs.createReadStream(path, {
 	flags: str,
-	encoding: str,
+	encoding,
 	fd: num,
 	mode: num
 });
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
 	flags: str,
-	encoding: str
+	encoding
 });
 
 function isDirectoryCallback(err: Error, isDirectory: boolean) {}

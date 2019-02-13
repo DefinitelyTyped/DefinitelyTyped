@@ -210,7 +210,7 @@ fs.write(0, new Buffer(""), 0, 0, null).then(x => {
 });
 
 // $ExpectType Promise<void>
-fs.writeFile("foo.txt", "i am foo", { encoding: "utf-8" });
+fs.writeFile("foo.txt", "i am foo", { encoding: "utf8" });
 
 // $ExpectType Promise<string>
 fs.mkdtemp("foo");

@@ -623,10 +623,10 @@ function Argv$configObject() {
 function Argv$configParseFunction() {
     const ya = yargs
         .config('settings', (configPath) => {
-            return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            return JSON.parse(fs.readFileSync(configPath, 'utf8'));
         })
         .config('settings', 'description', (configPath) => {
-            return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            return JSON.parse(fs.readFileSync(configPath, 'utf8'));
         })
         .argv;
 }

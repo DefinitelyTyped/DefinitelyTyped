@@ -23,8 +23,8 @@ async function test() {
     const fd1 = await yauzl.fromFd(0);
     const fd2 = await yauzl.fromFd(0, options);
 
-    const buffer1 = await yauzl.fromBuffer(Buffer.from("test", "utf-8"));
-    const buffer2 = await yauzl.fromBuffer(Buffer.from("test", "utf-8"), options);
+    const buffer1 = await yauzl.fromBuffer(Buffer.from("test", "utf8"));
+    const buffer2 = await yauzl.fromBuffer(Buffer.from("test", "utf8"), options);
 
     const rar1 = await yauzl.fromRandomAccessReader(new FakeRaR(), 1);
     const rar2 = await yauzl.fromRandomAccessReader(new FakeRaR(), 1, options);

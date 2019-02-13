@@ -13,8 +13,8 @@ var config: SVGSpriter.Config;
 var spriter       = new SVGSpriter(config);
 
 // Add SVG source files — the manual way ...
-spriter.add('assets/svg-1.svg', null, fs.readFileSync('assets/svg-1.svg', {encoding: 'utf-8'}));
-spriter.add('assets/svg-2.svg', null, fs.readFileSync('assets/svg-2.svg', {encoding: 'utf-8'}));
+spriter.add('assets/svg-1.svg', null, fs.readFileSync('assets/svg-1.svg', {encoding: 'utf8'}));
+spriter.add('assets/svg-2.svg', null, fs.readFileSync('assets/svg-2.svg', {encoding: 'utf8'}));
 /* ... */
 
 // Compile the sprite

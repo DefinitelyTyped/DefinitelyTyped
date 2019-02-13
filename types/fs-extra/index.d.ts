@@ -110,10 +110,10 @@ export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoExcept
 export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
 export function access(path: string | Buffer, mode?: number): Promise<void>;
 
-export function appendFile(file: string | Buffer | number, data: any, options: { encoding?: string; mode?: number | string; flag?: string; },
+export function appendFile(file: string | Buffer | number, data: any, options: { encoding?: BufferEncoding; mode?: number | string; flag?: string; },
     callback: (err: NodeJS.ErrnoException) => void): void;
 export function appendFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function appendFile(file: string | Buffer | number, data: any, options?: { encoding?: string; mode?: number | string; flag?: string; }): Promise<void>;
+export function appendFile(file: string | Buffer | number, data: any, options?: { encoding?: BufferEncoding; mode?: number | string; flag?: string; }): Promise<void>;
 
 export function chmod(path: string | Buffer, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
 export function chmod(path: string | Buffer, mode: string | number): Promise<void>;
@@ -180,9 +180,13 @@ export function read(fd: number, buffer: Buffer, offset: number, length: number,
 export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<ReadResult>;
 
 export function readFile(file: string | Buffer | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-export function readFile(file: string | Buffer | number, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-export function readFile(file: string | Buffer | number, options: { flag?: string; } | { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-export function readFile(file: string | Buffer | number, options: { flag?: string; } | { encoding: string; flag?: string; }): Promise<string>;
+export function readFile(file: string | Buffer | number, encoding: BufferEncoding, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+export function readFile(
+    file: string | Buffer | number,
+    options: { flag?: string; } | { encoding: BufferEncoding; flag?: string; },
+    callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+): void;
+export function readFile(file: string | Buffer | number, options: { flag?: string; } | { encoding: BufferEncoding; flag?: string; }): Promise<string>;
 // tslint:disable-next-line:unified-signatures
 export function readFile(file: string | Buffer | number, encoding: string): Promise<string>;
 export function readFile(file: string | Buffer | number): Promise<Buffer>;
@@ -236,9 +240,9 @@ export function write(fd: number, buffer: Buffer, offset: number, length: number
 export function write(fd: number, buffer: Buffer, offset: number, length: number, callback: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
 export function write(fd: number, data: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-export function write(fd: number, data: any, offset: number, encoding: string, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+export function write(fd: number, data: any, offset: number, encoding: BufferEncoding, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): Promise<WriteResult>;
-export function write(fd: number, data: any, offset: number, encoding?: string): Promise<WriteResult>;
+export function write(fd: number, data: any, offset: number, encoding?: BufferEncoding): Promise<WriteResult>;
 
 export function writeFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(file: string | Buffer | number, data: any, options?: WriteFileOptions | string): Promise<void>;
@@ -289,12 +293,12 @@ export interface ReadOptions {
     throws?: boolean;
     fs?: object;
     reviver?: any;
-    encoding?: string;
+    encoding?: BufferEncoding;
     flag?: string;
 }
 
 export interface WriteFileOptions {
-    encoding?: string;
+    encoding?: BufferEncoding;
     flag?: string;
     mode?: number;
 }

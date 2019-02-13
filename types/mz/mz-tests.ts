@@ -214,7 +214,7 @@ import zlib = require('mz/zlib')
 describe('zlib', function () {
 
   it('.gzip().then().gunzip()', function (done) {
-    var buf = new Buffer("lol", 'utf-8');
+    var buf = new Buffer("lol", 'utf8');
     zlib.gzip(buf).then(function (res) {
       return zlib.gunzip(res)
     }).then(function (string) {
@@ -225,7 +225,7 @@ describe('zlib', function () {
 
   describe('callback support', function () {
     it('.gzip() and .gunzip()', function (done) {
-    var buf = new Buffer("lol", 'utf-8');
+    var buf = new Buffer("lol", 'utf8');
       zlib.gzip(buf, function (err, res) {
         assert(!err)
         assert(Buffer.isBuffer(res))
