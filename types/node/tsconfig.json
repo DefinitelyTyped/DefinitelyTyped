@@ -44,6 +44,7 @@
         "zlib.d.ts",
         "node-tests.ts",
         "test/http.ts",
+        "test/http2.ts",
         "test/readline.ts",
         "test/global.ts",
         "test/worker_threads.ts",
