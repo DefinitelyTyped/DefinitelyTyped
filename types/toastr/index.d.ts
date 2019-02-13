@@ -328,7 +328,7 @@ interface Toastr {
 	 	 */
 		(): void;
 		/**
-		 * Removes specific toasts (without animation)
+		 * Removes specific toast (without animation)
 		 *
 		 * @param toast Toast to remove
 	 	 */
