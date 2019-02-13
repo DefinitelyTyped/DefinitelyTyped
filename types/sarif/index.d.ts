@@ -5,8 +5,8 @@
 // TypeScript Version: 2.4
 
 /**
- * Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-10-10 JSON Schema:
- * a standard format for the output of static analysis tools.
+ * Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-01-09 JSON Schema: a standard format for the
+ * output of static analysis tools.
  */
 export interface Log {
     /**
@@ -23,11 +23,16 @@ export interface Log {
      * The set of runs contained in this log file.
      */
     runs: Run[];
+
+    /**
+     * Key/value pairs that provide additional information about the log file.
+     */
+    properties?: PropertyBag;
 }
 
 export namespace Log {
     type version =
-        "2.0.0-csd.2.beta.2018-10-10";
+        "2.0.0-csd.2.beta.2019-01-09";
 }
 
 /**
@@ -53,6 +58,11 @@ export interface Attachment {
      * An array of regions of interest within the attachment.
      */
     regions?: Region[];
+
+    /**
+     * Key/value pairs that provide additional information about the attachment.
+     */
+    properties?: PropertyBag;
 }
 
 /**
@@ -188,55 +198,79 @@ export interface Exception {
     stack?: Stack;
 
     /**
-     * Key/value pairs that provide additional information about the exception
+     * Key/value pairs that provide additional information about the exception.
      */
     properties?: PropertyBag;
 }
 
 /**
- * References to external files that should be inlined with the content of a root log file.
+ * TBD
  */
-export interface ExternalFiles {
+export interface ExternalPropertyFile {
     /**
-     * The location of a file containing a run.conversion object to be merged with the root log file.
+     * The location of the external property file.
      */
-    conversion?: FileLocation;
+    fileLocation?: FileLocation;
 
     /**
-     * The location of a file containing a run.files object to be merged with the root log file.
+     * A stable, unique identifer for the external property file in the form of a GUID.
      */
-    files?: FileLocation;
+    instanceGuid?: string;
 
     /**
-     * The location of a file containing a run.graphs object to be merged with the root log file.
+     * A non-negative integer specifying the number of items contained in the external property file.
      */
-    graphs?: FileLocation;
+    itemCount?: number;
 
     /**
-     * An array of locations of files containing arrays of run.invocation objects to be merged with the root log
-     * file.
-     */
-    invocations?: FileLocation[];
-
-    /**
-     * The location of a file containing a run.logicalLocations object to be merged with the root log file.
-     */
-    logicalLocations?: FileLocation;
-
-    /**
-     * The location of a file containing a run.resources object to be merged with the root log file.
-     */
-    resources?: FileLocation;
-
-    /**
-     * An array of locations of files containins arrays of run.result objects to be merged with the root log file.
-     */
-    results?: FileLocation[];
-
-    /**
-     * Key/value pairs that provide additional information about the external files
+     * Key/value pairs that provide additional information about the external property file.
      */
     properties?: PropertyBag;
+}
+
+/**
+ * References to external property files that should be inlined with the content of a root log file.
+ */
+export interface ExternalPropertyFiles {
+    /**
+     * An external property file containing a run.conversion object to be merged with the root log file.
+     */
+    conversion?: ExternalPropertyFile;
+
+    /**
+     * An array of external property files containing run.files arrays to be merged with the root log file.
+     */
+    files?: ExternalPropertyFile[];
+
+    /**
+     * An external property file containing a run.graphs object to be merged with the root log file.
+     */
+    graphs?: ExternalPropertyFile;
+
+    /**
+     * An array of external property files containing run.invocations arrays to be merged with the root log file.
+     */
+    invocations?: ExternalPropertyFile[];
+
+    /**
+     * An array of external property files containing run.logicalLocations arrays to be merged with the root log file.
+     */
+    logicalLocations?: ExternalPropertyFile[];
+
+    /**
+     * An external property file containing a run.resources object to be merged with the root log file.
+     */
+    resources?: ExternalPropertyFile;
+
+    /**
+     * An array of external property files containing run.results arrays to be merged with the root log file.
+     */
+    results?: ExternalPropertyFile[];
+
+    /**
+     * An external property file containing a run.properties object to be merged with the root log file.
+     */
+    properties?: ExternalPropertyFile;
 }
 
 /**
@@ -286,14 +320,19 @@ export interface File {
     offset?: number;
 
     /**
-     * Identifies the key of the immediate parent of the file, if this file is nested.
+     * Identifies the index of the immediate parent of the file, if this file is nested.
      */
-    parentKey?: string;
+    parentIndex?: number;
 
     /**
      * The role or roles played by the file in the analysis.
      */
     roles?: File.roles[];
+
+    /**
+     * Specifies the source language for any file object that refers to a text file that contains source code.
+     */
+    sourceLanguage?: string;
 
     /**
      * Key/value pairs that provide additional information about the file.
@@ -363,6 +402,11 @@ export interface FileContent {
  */
 export interface FileLocation {
     /**
+     * The index within the run files array of the file object associated with the file location.
+     */
+    fileIndex?: number;
+
+    /**
      * A string containing a valid relative or absolute URI.
      */
     uri: string;
@@ -413,7 +457,7 @@ export interface Graph {
     /**
      * An array of edge objects representing the edges of the graph.
      */
-    edges: Edge[];
+    edges?: Edge[];
 
     /**
      * A string that uniquely identifies the graph within a run.graphs or result.graphs array.
@@ -423,7 +467,7 @@ export interface Graph {
     /**
      * An array of node objects representing the nodes of the graph.
      */
-    nodes: Node[];
+    nodes?: Node[];
 
     /**
      * Key/value pairs that provide additional information about the graph.
@@ -443,7 +487,7 @@ export interface GraphTraversal {
     /**
      * The sequences of edges traversed by this graph traversal.
      */
-    edgeTraversals: EdgeTraversal[];
+    edgeTraversals?: EdgeTraversal[];
 
     /**
      * A string that uniquely identifies that graph being traversed.
@@ -612,6 +656,11 @@ export interface Location {
     fullyQualifiedLogicalName?: string;
 
     /**
+     * The index within the logical locations array of the logical location associated with the result.
+     */
+    logicalLocationIndex?: number;
+
+    /**
      * A message relevant to the location.
      */
     message?: Message;
@@ -643,9 +692,9 @@ export interface LogicalLocation {
     fullyQualifiedName?: string;
 
     /**
-     * The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member',
-     * 'module', 'namespace', 'package', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of
-     * those accurately describe the construct.
+     * The type of construct this logical location component refers to. Should be one of 'function', 'member',
+     * 'module', 'namespace', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of those
+     * accurately describe the construct.
      */
     kind?: string;
 
@@ -656,10 +705,10 @@ export interface LogicalLocation {
     name?: string;
 
     /**
-     * Identifies the key of the immediate parent of the construct in which the result was detected. For example,
+     * Identifies the index of the immediate parent of the construct in which the result was detected. For example,
      * this property might point to a logical location that represents the namespace that holds a type.
      */
-    parentKey?: string;
+    parentIndex?: number;
 
     /**
      * Key/value pairs that provide additional information about the logical location.
@@ -763,10 +812,14 @@ export interface Notification {
     physicalLocation?: PhysicalLocation;
 
     /**
-     * The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be
-     * used to retrieve rule metadata from the rules dictionary, if it exists.
+     * The stable, unique identifier of the rule, if any, to which this notification is relevant.
      */
     ruleId?: string;
+
+    /**
+     * The index within the run resources array of the rule object, if any, associated with this notification.
+     */
+    ruleIndex?: number;
 
     /**
      * The thread identifier of the code that generated the notification.
@@ -918,6 +971,11 @@ export interface Region {
     snippet?: FileContent;
 
     /**
+     * Specifies the source language, if any, of the portion of the file specified by the region object.
+     */
+    sourceLanguage?: string;
+
+    /**
      * The column number of the first character in the region.
      */
     startColumn?: number;
@@ -963,10 +1021,14 @@ export interface Resources {
     messageStrings?: { [key: string]: string };
 
     /**
-     * A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all
-     * rules associated with an analysis tool or a specific run of an analysis tool.
+     * An array of rule objects relevant to the run.
      */
-    rules?: { [key: string]: Rule };
+    rules?: Rule[];
+
+    /**
+     * Key/value pairs that provide additional information about the resources.
+     */
+    properties?: PropertyBag;
 }
 
 /**
@@ -993,12 +1055,6 @@ export interface Result {
      * An array of 'codeFlow' objects relevant to the result.
      */
     codeFlows?: CodeFlow[];
-
-    /**
-     * An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter
-     * transformed into the result object.
-     */
-    conversionProvenance?: PhysicalLocation[];
 
     /**
      * A stable, unique identifier for the equivalence class of logically identical results to which this result
@@ -1028,6 +1084,11 @@ export interface Result {
     graphTraversals?: GraphTraversal[];
 
     /**
+     * An absolute URI at which the result can be viewed.
+     */
+    hostedViewerUri?: string;
+
+    /**
      * A stable, unique identifer for the result in the form of a GUID.
      */
     instanceGuid?: string;
@@ -1038,7 +1099,7 @@ export interface Result {
     level?: Result.level;
 
     /**
-     * One or more locations where the result occurred. Specify only one location unless the problem indicated by
+     * The set of locations where the result was detected. Specify only one location unless the problem indicated by
      * the result can only be corrected by making a change at every specified location.
      */
     locations?: Location[];
@@ -1047,7 +1108,7 @@ export interface Result {
      * A message that describes the result. The first sentence of the message only will be displayed when visible
      * space is limited.
      */
-    message?: Message;
+    message: Message;
 
     /**
      * A positive integer specifying the number of times this logically unique result was observed in this run.
@@ -1060,15 +1121,30 @@ export interface Result {
     partialFingerprints?: { [key: string]: string };
 
     /**
+     * Information about how and when the result was detected.
+     */
+    provenance?: ResultProvenance;
+
+    /**
+     * A number representing the priority or importance of the result.
+     */
+    rank?: number;
+
+    /**
      * A set of locations relevant to this result.
      */
     relatedLocations?: Location[];
 
     /**
-     * The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be
+     * The stable, unique identifier of the rule, if any, to which this notification is relevant. This member can be
      * used to retrieve rule metadata from the rules dictionary, if it exists.
      */
     ruleId?: string;
+
+    /**
+     * The index within the run resources array of the rule object associated with this result.
+     */
+    ruleIndex?: number;
 
     /**
      * An array of 'stack' objects relevant to the result.
@@ -1081,7 +1157,7 @@ export interface Result {
     suppressionStates?: Result.suppressionStates[];
 
     /**
-     * The URIs of the work items associated with this result
+     * The URIs of the work items associated with this result.
      */
     workItemUris?: string[];
 
@@ -1111,6 +1187,52 @@ export namespace Result {
 }
 
 /**
+ * Contains information about how and when a result was detected.
+ */
+export interface ResultProvenance {
+    /**
+     * An array of physicalLocation objects which specify the portions of an analysis tool's output that a
+     * converter transformed into the result.
+     */
+    conversionSources?: PhysicalLocation[];
+
+    /**
+     * A GUID-valued string equal to the id.instanceGuid property of the run in which the result was first
+     * detected.
+     */
+    firstDetectionRunInstanceGuid?: string;
+
+    /**
+     * The Coordinated Universal Time (UTC) date and time at which the result was first detected. See "Date/time
+     * properties" in the SARIF spec for the required format.
+     */
+    firstDetectionTimeUtc?: string;
+
+    /**
+     * The index within the run.invocations array of the invocation object which describes the tool invocation that
+     * detected the result.
+     */
+    invocationIndex?: number;
+
+    /**
+     * A GUID-valued string equal to the id.instanceGuid property of the run in which the result was most recently
+     * detected.
+     */
+    lastDetectionRunInstanceGuid?: string;
+
+    /**
+     * The Coordinated Universal Time (UTC) date and time at which the result was most recently detected. See
+     * "Date/time properties" in the SARIF spec for the required format.
+     */
+    lastDetectionTimeUtc?: string;
+
+    /**
+     * Key/value pairs that provide additional information about the result.
+     */
+    properties?: PropertyBag;
+}
+
+/**
  * Describes an analysis rule.
  */
 export interface Rule {
@@ -1118,6 +1240,12 @@ export interface Rule {
      * Information about the rule that can be configured at runtime.
      */
     configuration?: RuleConfiguration;
+
+    /**
+     * An array of stable, opaque identifiers by which this rule was known in some previous version of the analysis
+     * tool.
+     */
+    deprecatedIds?: string[];
 
     /**
      * A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any
@@ -1176,9 +1304,14 @@ export interface Rule {
  */
 export interface RuleConfiguration {
     /**
-     * Specifies the default severity level of the result.
+     * Specifies the default severity level for results generated by this rule.
      */
     defaultLevel?: RuleConfiguration.defaultLevel;
+
+    /**
+     * Specifies the default priority or importance for results generated by this rule.
+     */
+    defaultRank?: number;
 
     /**
      * Specifies whether the rule will be evaluated during the scan.
@@ -1200,8 +1333,7 @@ export namespace RuleConfiguration {
     type defaultLevel =
         "note" |
         "warning" |
-        "error" |
-        "open";
+        "error";
 }
 
 /**
@@ -1212,11 +1344,6 @@ export interface Run {
      * Automation details that describe the aggregate of runs to which this run belongs.
      */
     aggregateIds?: RunAutomationDetails[];
-
-    /**
-     * The hardware architecture for which the run was targeted.
-     */
-    architecture?: string;
 
     /**
      * The 'instanceGuid' property of a previous SARIF 'run' that comprises the baseline that was used to compute
@@ -1241,9 +1368,20 @@ export interface Run {
     defaultFileEncoding?: string;
 
     /**
-     * A dictionary, each of whose keys is a URI and each of whose values is a file object.
+     * Specifies the default source language for any file object that refers to a text file that contains source
+     * code.
      */
-    files?: { [key: string]: File };
+    defaultSourceLanguage?: string;
+
+    /**
+     * References to external property files that should be inlined with the content of a root log file.
+     */
+    externalPropertyFiles?: ExternalPropertyFiles;
+
+    /**
+     * An array of file objects relevant to the run.
+     */
+    files?: File[];
 
     /**
      * A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that
@@ -1262,9 +1400,15 @@ export interface Run {
     invocations?: Invocation[];
 
     /**
-     * A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.
+     * An array of logical locations such as namespaces, types or functions.
      */
-    logicalLocations?: { [key: string]: LogicalLocation };
+    logicalLocations?: LogicalLocation[];
+
+    /**
+     * An ordered list of character sequences that were treated as line breaks when computing region information
+     * for the run.
+     */
+    newlineSequences?: string[];
 
     /**
      * The file location specified by each uriBaseId symbol on the machine where the tool originally ran.
@@ -1472,7 +1616,7 @@ export interface ThreadFlowLocation {
     module?: string;
 
     /**
-     * An integer representing a containment hierarchy within the thread flow
+     * An integer representing a containment hierarchy within the thread flow.
      */
     nestingLevel?: number;
 
@@ -1506,15 +1650,15 @@ export namespace ThreadFlowLocation {
  */
 export interface Tool {
     /**
+     * The binary version of the tool's primary executable file expressed as four non-negative integers separated
+     * by a period (for operating systems that express file versions in this way).
+     */
+    dottedQuadFileVersion?: string;
+
+    /**
      * The absolute URI from which the tool can be downloaded.
      */
     downloadUri?: string;
-
-    /**
-     * The binary version of the tool's primary executable file (for operating systems such as Windows that provide
-     * that information).
-     */
-    fileVersion?: string;
 
     /**
      * The name of the tool along with its version and any other useful identifying information, such as its locale.
@@ -1555,7 +1699,7 @@ export interface Tool {
 }
 
 /**
- * TBD
+ * Specifies the information necessary to retrieve a desired revision from a version control system.
  */
 export interface VersionControlDetails {
     /**
@@ -1568,6 +1712,12 @@ export interface VersionControlDetails {
      * The name of a branch containing the revision.
      */
     branch?: string;
+
+    /**
+     * The location in the local file system to which the root of the repository was mapped at the time of the
+     * analysis.
+     */
+    mappedTo?: FileLocation;
 
     /**
      * The absolute URI of the repository.

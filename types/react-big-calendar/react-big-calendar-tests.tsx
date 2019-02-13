@@ -70,6 +70,7 @@ class CalendarResource {
             return (
               <MyCalendar  {...this.props}
               date={new Date()}
+              getNow={() => new Date()}
               view={'day'}
               events={getEvents()}
               onNavigate={(newDate: Date, view: View, action: Navigate) => { }}

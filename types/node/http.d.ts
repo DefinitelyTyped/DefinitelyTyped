@@ -7,14 +7,14 @@ declare module "http" {
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
         'accept'?: string;
-        'access-control-allow-origin'?: string;
-        'access-control-allow-credentials'?: string;
-        'access-control-expose-headers'?: string;
-        'access-control-max-age'?: string;
-        'access-control-allow-methods'?: string;
-        'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-allow-headers'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -50,9 +50,9 @@ declare module "http" {
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
+        'tk'?: string;
         'trailer'?: string;
         'transfer-encoding'?: string;
-        'tk'?: string;
         'upgrade'?: string;
         'user-agent'?: string;
         'vary'?: string;
@@ -88,13 +88,26 @@ declare module "http" {
         createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
     }
 
+    interface ServerOptions {
+        IncomingMessage?: typeof IncomingMessage;
+        ServerResponse?: typeof ServerResponse;
+    }
+
+    type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
+
     class Server extends net.Server {
-        constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
+        constructor(requestListener?: RequestListener);
+        constructor(options: ServerOptions, requestListener?: RequestListener);
 
         setTimeout(msecs?: number, callback?: () => void): this;
         setTimeout(callback: () => void): this;
         maxHeadersCount: number;
         timeout: number;
+        /**
+         * Limit the amount of time the parser will wait to receive the complete HTTP headers.
+         * @default 40000
+         */
+        headersTimeout: number;
         keepAliveTimeout: number;
     }
 
@@ -233,7 +246,8 @@ declare module "http" {
         [errorCode: string]: string | undefined;
     };
 
-    function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
+    function createServer(requestListener?: RequestListener): Server;
+    function createServer(options: ServerOptions, requestListener?: RequestListener): Server;
     function createClient(port?: number, host?: string): any;
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
@@ -244,4 +258,10 @@ declare module "http" {
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     let globalAgent: Agent;
+
+    /**
+     * Read-only property specifying the maximum allowed size of HTTP headers in bytes.
+     * Defaults to 8KB. Configurable using the [`--max-http-header-size`][] CLI option.
+     */
+    const maxHeaderSize: number;
 }

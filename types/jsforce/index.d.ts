@@ -1,5 +1,5 @@
 // Type definitions for jsforce 1.9
-// Project: https://github.com/jsforce/jsforce
+// Project: http://github.com/jsforce/jsforce
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 //                 Kamil Ejsymont <https://github.com/netes>
 //                 Thomas Dvornik <https://github.com/amphro>

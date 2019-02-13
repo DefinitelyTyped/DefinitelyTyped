@@ -1,5 +1,5 @@
 // Type definitions for Chart.js 2.7
-// Project: https://github.com/nnnick/Chart.js
+// Project: https://github.com/nnnick/Chart.js, http://www.chartjs.org
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
@@ -417,6 +417,7 @@ declare namespace Chart {
     }
 
     interface ChartLineOptions {
+        cubicInterpolationMode?: 'default' | 'monotone';
         tension?: number;
         backgroundColor?: ChartColor;
         borderWidth?: number;

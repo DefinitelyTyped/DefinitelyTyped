@@ -1,5 +1,5 @@
 // Type definitions for expo 32.0
-// Project: https://github.com/expo/expo-sdk
+// Project: https://github.com/expo/expo/tree/master/packages/expo
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Jan Aagaard <https://github.com/janaagaard75>
@@ -2528,7 +2528,7 @@ export namespace SQLite {
 
     interface ResultSet {
         insertId: number;
-        rowAffected: number;
+        rowsAffected: number;
         rows: {
             length: number;
             item: (index: number) => any;
@@ -2702,7 +2702,7 @@ export class Svg extends Component<{ width: number, height: number, viewBox?: st
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    node: number | React.ReactElement<any> | React.RefObject<any>,
+    node: number | React.ReactElement | React.RefObject<any>,
     options?: {
         width?: number;
         height?: number;

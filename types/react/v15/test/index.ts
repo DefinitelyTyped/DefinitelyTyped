@@ -441,7 +441,7 @@ const PropTypesSpecification: React.ComponentSpec<any, any> = {
             return null;
         }
     },
-    render: (): React.ReactElement<any> | null => {
+    render: (): React.ReactElement | null => {
         return null;
     }
 };
@@ -498,7 +498,7 @@ const mappedChildrenArrayWithKnownChildren: number[] =
     React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
-let onlyChild: React.ReactElement<any> = React.Children.only(React.DOM.div()); // ok
+let onlyChild: React.ReactElement = React.Children.only(React.DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 

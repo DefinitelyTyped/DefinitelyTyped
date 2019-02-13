@@ -5,7 +5,7 @@ import { createRenderer } from 'react-test-renderer/shallow';
 class TestComponent extends React.Component { }
 
 const renderer = create(React.createElement("div"), {
-    createNodeMock: (el: React.ReactElement<any>) => {
+    createNodeMock: (el: React.ReactElement) => {
         return {};
     }
 });

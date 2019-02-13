@@ -269,7 +269,7 @@ declare module 'recompose' {
     // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
     export function toRenderProps<TInner, TOutter>(
         hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
-    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement<any> }>;
+    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement }>;
 
     // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
     export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
@@ -335,10 +335,10 @@ declare module 'recompose' {
         type: Component<any> | string,
         props?: Object,
         children?: React.ReactNode
-    ): React.ReactElement<any>;
+    ): React.ReactElement;
 
     // createEagerFactory: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEagerFactory
-    type componentFactory = (props?: Object, children?: React.ReactNode) => React.ReactElement<any>;
+    type componentFactory = (props?: Object, children?: React.ReactNode) => React.ReactElement;
     export function createEagerFactory(
         type: Component<any> | string
     ): componentFactory;

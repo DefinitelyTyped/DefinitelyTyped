@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-array module 1.2
-// Project: https://github.com/d3/d3-array
+// Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Tom Wanzek <https://github.com/tomwanzek>

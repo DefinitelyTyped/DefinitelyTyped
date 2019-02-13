@@ -214,3 +214,7 @@ fs.writeFile("foo.txt", "i am foo", { encoding: "utf-8" });
 
 // $ExpectType Promise<string>
 fs.mkdtemp("foo");
+
+fs.copyFile("src", "dest").then();
+fs.copyFile("src", "dest", fs.constants.COPYFILE_EXCL).then();
+fs.copyFile("src", "dest", errorCallback);

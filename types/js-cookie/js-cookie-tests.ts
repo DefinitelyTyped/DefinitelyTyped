@@ -19,8 +19,8 @@ Cookies.get();
 Cookies.remove('name');
 Cookies.remove('name', { path: '' });
 
-const Cookies2 = Cookies.noConflict();
-Cookies2; // $ExpectType CookiesStatic
+const Cookies2 = Cookies.noConflict!();
+Cookies2; // $ExpectType CookiesStatic<object>
 
 Cookies.set('name', { foo: 'bar' });
 
@@ -40,12 +40,14 @@ cookies.get('escaped');
 Cookies.defaults.path = '';
 delete Cookies.defaults.path;
 
-const PHPCookies = Cookies.withConverter({
+const PHPCookies = Cookies.withConverter<object>({
     write(value) {
-        return encodeURIComponent(value)
+        value; // $ExpectType string | object
+        return encodeURIComponent(value as string)
             .replace(/%(23|24|26|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
     },
     read(value) {
+        value; // $ExpectType string
         return value
             .replace(/\+/g, ' ')
             .replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);

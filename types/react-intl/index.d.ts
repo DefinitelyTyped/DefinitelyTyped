@@ -1,5 +1,5 @@
 // Type definitions for react-intl 2.3
-// Project: http://formatjs.io/react/
+// Project: http://formatjs.io/react/, https://github.com/yahoo/react-intl
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>,
 //                 Christian Droulers <https://github.com/cdroulers>,
 //                 Fedor Nezhivoi <https://github.com/gyzerok>,

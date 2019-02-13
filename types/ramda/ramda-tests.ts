@@ -1116,6 +1116,23 @@ interface Obj {
 };
 
 () => {
+    const sampleList = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+    R.move<string>(0, 2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+    R.move<string>(-1, 0, sampleList); // => ['f', 'a', 'b', 'c', 'd', 'e'] list rotation
+
+    const moveCurried1 = R.move(0, 2);
+    moveCurried1<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+
+    const moveCurried2 = R.move(0);
+    moveCurried2<string>(2, sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+
+    const moveCurried3 = R.move(0);
+    const moveCurried4 = moveCurried3(2);
+    moveCurried4<string>(sampleList); // => ['b', 'c', 'a', 'd', 'e', 'f']
+};
+
+() => {
     R.none(R.isNaN, [1, 2, 3]); // => true
     R.none(R.isNaN, [1, 2, 3, NaN]); // => false
     R.none(R.isNaN)([1, 2, 3, NaN]); // => false
@@ -2552,6 +2569,11 @@ class Rectangle {
     R.replace(/foo/g, "bar", "foo foo foo"); // => 'bar bar bar'
     R.replace(/foo/g, "bar")("foo foo foo"); // => 'bar bar bar'
     R.replace(/foo/g)("bar")("foo foo foo"); // => 'bar bar bar'
+
+    // Using a function as the replacement value
+    R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`, "coo foo koo"); // => 'c0oo f4oo k8oo'
+    R.replace(/([cfk])oo/g, (match, p1, offset) => `${p1}-${offset}`)("coo foo koo"); // => 'c0oo f4oo k8oo'
+    R.replace(/([cfk])oo/g)((match, p1, offset) => `${p1}-${offset}`) ("coo foo koo"); // => 'c0oo f4oo k8oo'
 };
 
 /*****************************************************************
