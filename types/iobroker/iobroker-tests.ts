@@ -286,3 +286,22 @@ function repro2() {
     };
     adapter.extendForeignObject("obj.id", obj, (err) => { });
 }
+
+// repro from https://github.com/ioBroker/adapter-core/issues/6
+function repro3() {
+    adapter.getDevices((error, deviceList) => {
+        if (deviceList) {
+            deviceList[0]; // $ExpectType DeviceObject
+        }
+    });
+    adapter.getChannels((error, channelList) => {
+        if (channelList) {
+            channelList[0]; // $ExpectType ChannelObject
+        }
+    });
+    adapter.getStatesOf((error, stateList) => {
+        if (stateList) {
+            stateList[0]; // $ExpectType StateObject
+        }
+    });
+}

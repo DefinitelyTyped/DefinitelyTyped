@@ -1667,7 +1667,7 @@ declare global {
             value: T;
         }
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
-        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: Array<GetObjectsItem<T>>) => void;
+        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: T[]) => void;
 
         type SecondParameterOf<T extends (...args: any[]) => any> = T extends (arg0: any, arg1: infer R, ...args: any[]) => any ? R : never;
         /** Infers the return type from a callback-style API and strips out null and undefined */
