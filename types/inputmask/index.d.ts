@@ -716,7 +716,7 @@ declare global {
         /**
          * Return the default (empty) mask value.
          */
-        inputmask(method: "getemptymask"): string;
+        inputmask(method: "getemptymask"): string; // tslint:disable-line:unified-signatures
         /**
          * The metadata of the actual mask provided in the mask definitions can be obtained by calling getmetadata. If
          * only a mask is provided the mask definition will be returned by the getmetadata.
@@ -726,15 +726,15 @@ declare global {
          * Check whether the returned value is masked or not; currently only works reliably when using `jquery.val` fn
          * to retrieve the value
          */
-        inputmask(method: "hasMaskedValue"): boolean;
+        inputmask(method: "hasMaskedValue"): boolean; // tslint:disable-line:unified-signatures
         /**
          * Verify whether the current value is complete or not.
          */
-        inputmask(method: "isComplete"): boolean;
+        inputmask(method: "isComplete"): boolean; // tslint:disable-line:unified-signatures
         /**
          * Validate a given value against the mask.
          */
-        inputmask(method: "isValid"): boolean;
+        inputmask(method: "isValid"): boolean; // tslint:disable-line:unified-signatures
         /**
          * Get an option on an existing inputmask.
          *
@@ -765,7 +765,7 @@ declare global {
         /**
          * Gets the unmasked value.
          */
-        inputmask(method: "unmaskedvalue"): string;
+        inputmask(method: "unmaskedvalue"): string; // tslint:disable-line:unified-signatures
         /**
          * Creates a new Inputmask instance.
          *
