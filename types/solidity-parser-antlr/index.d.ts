@@ -18,7 +18,9 @@ export interface BaseASTNode {
     range?: [number, number];
     loc?: Location;
 }
-export interface SourceUnit extends BaseASTNode {} // tslint:disable-line:no-empty-interface
+export interface SourceUnit extends BaseASTNode {
+    children: ASTNode[]; // TODO: Can be more precise
+} // tslint:disable-line:no-empty-interface
 export interface PragmaDirective extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface PragmaName extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface PragmaValue extends BaseASTNode {} // tslint:disable-line:no-empty-interface
@@ -29,6 +31,7 @@ export interface ImportDeclaration extends BaseASTNode {} // tslint:disable-line
 export interface ImportDirective extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface ContractDefinition extends BaseASTNode {
     name: string;
+    subNodes: ASTNode[]; // TODO: Can be more precise
 }
 export interface InheritanceSpecifier extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface ContractPart extends BaseASTNode {} // tslint:disable-line:no-empty-interface
@@ -45,6 +48,8 @@ export interface ModifierInvocation extends BaseASTNode {
 }
 export interface FunctionDefinition extends BaseASTNode {
     name: string;
+    parameters: ParameterList;
+    body: Block | null;
 }
 export interface ReturnParameters extends BaseASTNode {} // tslint:disable-line:no-empty-interface
 export interface ModifierList extends BaseASTNode {} // tslint:disable-line:no-empty-interface
@@ -241,88 +246,88 @@ export type ASTNode =
     | BinaryOperation
     | Conditional;
 export interface Visitor {
-    SourceUnit?: (node: SourceUnit) => void;
-    PragmaDirective?: (node: PragmaDirective) => void;
-    PragmaName?: (node: PragmaName) => void;
-    PragmaValue?: (node: PragmaValue) => void;
-    Version?: (node: Version) => void;
-    VersionOperator?: (node: VersionOperator) => void;
-    VersionConstraint?: (node: VersionConstraint) => void;
-    ImportDeclaration?: (node: ImportDeclaration) => void;
-    ImportDirective?: (node: ImportDirective) => void;
-    ContractDefinition?: (node: ContractDefinition) => void;
-    InheritanceSpecifier?: (node: InheritanceSpecifier) => void;
-    ContractPart?: (node: ContractPart) => void;
-    StateVariableDeclaration?: (node: StateVariableDeclaration) => void;
-    UsingForDeclaration?: (node: UsingForDeclaration) => void;
-    StructDefinition?: (node: StructDefinition) => void;
-    ModifierDefinition?: (node: ModifierDefinition) => void;
-    ModifierInvocation?: (node: ModifierInvocation) => void;
-    FunctionDefinition?: (node: FunctionDefinition) => void;
-    ReturnParameters?: (node: ReturnParameters) => void;
-    ModifierList?: (node: ModifierList) => void;
-    EventDefinition?: (node: EventDefinition) => void;
-    EnumValue?: (node: EnumValue) => void;
-    EnumDefinition?: (node: EnumDefinition) => void;
-    ParameterList?: (node: ParameterList) => void;
-    Parameter?: (node: Parameter) => void;
-    EventParameterList?: (node: EventParameterList) => void;
-    EventParameter?: (node: EventParameter) => void;
-    FunctionTypeParameterList?: (node: FunctionTypeParameterList) => void;
-    FunctionTypeParameter?: (node: FunctionTypeParameter) => void;
-    VariableDeclaration?: (node: VariableDeclaration) => void;
-    TypeName?: (node: TypeName) => void;
-    UserDefinedTypeName?: (node: UserDefinedTypeName) => void;
-    Mapping?: (node: Mapping) => void;
-    FunctionTypeName?: (node: FunctionTypeName) => void;
-    StorageLocation?: (node: StorageLocation) => void;
-    StateMutability?: (node: StateMutability) => void;
-    Block?: (node: Block) => void;
-    Statement?: (node: Statement) => void;
-    ExpressionStatement?: (node: ExpressionStatement) => void;
-    IfStatement?: (node: IfStatement) => void;
-    WhileStatement?: (node: WhileStatement) => void;
-    SimpleStatement?: (node: SimpleStatement) => void;
-    ForStatement?: (node: ForStatement) => void;
-    InlineAssemblyStatement?: (node: InlineAssemblyStatement) => void;
-    DoWhileStatement?: (node: DoWhileStatement) => void;
-    ContinueStatement?: (node: ContinueStatement) => void;
-    BreakStatement?: (node: BreakStatement) => void;
-    ReturnStatement?: (node: ReturnStatement) => void;
-    ThrowStatement?: (node: ThrowStatement) => void;
-    VariableDeclarationStatement?: (node: VariableDeclarationStatement) => void;
-    IdentifierList?: (node: IdentifierList) => void;
-    ElementaryTypeName?: (node: ElementaryTypeName) => void;
-    Expression?: (node: Expression) => void;
-    PrimaryExpression?: (node: PrimaryExpression) => void;
-    ExpressionList?: (node: ExpressionList) => void;
-    NameValueList?: (node: NameValueList) => void;
-    NameValue?: (node: NameValue) => void;
-    FunctionCallArguments?: (node: FunctionCallArguments) => void;
-    AssemblyBlock?: (node: AssemblyBlock) => void;
-    AssemblyItem?: (node: AssemblyItem) => void;
-    AssemblyExpression?: (node: AssemblyExpression) => void;
-    AssemblyCall?: (node: AssemblyCall) => void;
-    AssemblyLocalDefinition?: (node: AssemblyLocalDefinition) => void;
-    AssemblyAssignment?: (node: AssemblyAssignment) => void;
-    AssemblyIdentifierOrList?: (node: AssemblyIdentifierOrList) => void;
-    AssemblyIdentifierList?: (node: AssemblyIdentifierList) => void;
-    AssemblyStackAssignment?: (node: AssemblyStackAssignment) => void;
-    LabelDefinition?: (node: LabelDefinition) => void;
-    AssemblySwitch?: (node: AssemblySwitch) => void;
-    AssemblyCase?: (node: AssemblyCase) => void;
-    AssemblyFunctionDefinition?: (node: AssemblyFunctionDefinition) => void;
-    AssemblyFunctionReturns?: (node: AssemblyFunctionReturns) => void;
-    AssemblyFor?: (node: AssemblyFor) => void;
-    AssemblyIf?: (node: AssemblyIf) => void;
-    AssemblyLiteral?: (node: AssemblyLiteral) => void;
-    SubAssembly?: (node: SubAssembly) => void;
-    TupleExpression?: (node: TupleExpression) => void;
-    ElementaryTypeNameExpression?: (node: ElementaryTypeNameExpression) => void;
-    NumberLiteral?: (node: NumberLiteral) => void;
-    Identifier?: (node: Identifier) => void;
-    BinaryOperation?: (node: BinaryOperation) => void;
-    Conditional?: (node: Conditional) => void;
+    SourceUnit?: (node: SourceUnit) => any;
+    PragmaDirective?: (node: PragmaDirective) => any;
+    PragmaName?: (node: PragmaName) => any;
+    PragmaValue?: (node: PragmaValue) => any;
+    Version?: (node: Version) => any;
+    VersionOperator?: (node: VersionOperator) => any;
+    VersionConstraint?: (node: VersionConstraint) => any;
+    ImportDeclaration?: (node: ImportDeclaration) => any;
+    ImportDirective?: (node: ImportDirective) => any;
+    ContractDefinition?: (node: ContractDefinition) => any;
+    InheritanceSpecifier?: (node: InheritanceSpecifier) => any;
+    ContractPart?: (node: ContractPart) => any;
+    StateVariableDeclaration?: (node: StateVariableDeclaration) => any;
+    UsingForDeclaration?: (node: UsingForDeclaration) => any;
+    StructDefinition?: (node: StructDefinition) => any;
+    ModifierDefinition?: (node: ModifierDefinition) => any;
+    ModifierInvocation?: (node: ModifierInvocation) => any;
+    FunctionDefinition?: (node: FunctionDefinition) => any;
+    ReturnParameters?: (node: ReturnParameters) => any;
+    ModifierList?: (node: ModifierList) => any;
+    EventDefinition?: (node: EventDefinition) => any;
+    EnumValue?: (node: EnumValue) => any;
+    EnumDefinition?: (node: EnumDefinition) => any;
+    ParameterList?: (node: ParameterList) => any;
+    Parameter?: (node: Parameter) => any;
+    EventParameterList?: (node: EventParameterList) => any;
+    EventParameter?: (node: EventParameter) => any;
+    FunctionTypeParameterList?: (node: FunctionTypeParameterList) => any;
+    FunctionTypeParameter?: (node: FunctionTypeParameter) => any;
+    VariableDeclaration?: (node: VariableDeclaration) => any;
+    TypeName?: (node: TypeName) => any;
+    UserDefinedTypeName?: (node: UserDefinedTypeName) => any;
+    Mapping?: (node: Mapping) => any;
+    FunctionTypeName?: (node: FunctionTypeName) => any;
+    StorageLocation?: (node: StorageLocation) => any;
+    StateMutability?: (node: StateMutability) => any;
+    Block?: (node: Block) => any;
+    Statement?: (node: Statement) => any;
+    ExpressionStatement?: (node: ExpressionStatement) => any;
+    IfStatement?: (node: IfStatement) => any;
+    WhileStatement?: (node: WhileStatement) => any;
+    SimpleStatement?: (node: SimpleStatement) => any;
+    ForStatement?: (node: ForStatement) => any;
+    InlineAssemblyStatement?: (node: InlineAssemblyStatement) => any;
+    DoWhileStatement?: (node: DoWhileStatement) => any;
+    ContinueStatement?: (node: ContinueStatement) => any;
+    BreakStatement?: (node: BreakStatement) => any;
+    ReturnStatement?: (node: ReturnStatement) => any;
+    ThrowStatement?: (node: ThrowStatement) => any;
+    VariableDeclarationStatement?: (node: VariableDeclarationStatement) => any;
+    IdentifierList?: (node: IdentifierList) => any;
+    ElementaryTypeName?: (node: ElementaryTypeName) => any;
+    Expression?: (node: Expression) => any;
+    PrimaryExpression?: (node: PrimaryExpression) => any;
+    ExpressionList?: (node: ExpressionList) => any;
+    NameValueList?: (node: NameValueList) => any;
+    NameValue?: (node: NameValue) => any;
+    FunctionCallArguments?: (node: FunctionCallArguments) => any;
+    AssemblyBlock?: (node: AssemblyBlock) => any;
+    AssemblyItem?: (node: AssemblyItem) => any;
+    AssemblyExpression?: (node: AssemblyExpression) => any;
+    AssemblyCall?: (node: AssemblyCall) => any;
+    AssemblyLocalDefinition?: (node: AssemblyLocalDefinition) => any;
+    AssemblyAssignment?: (node: AssemblyAssignment) => any;
+    AssemblyIdentifierOrList?: (node: AssemblyIdentifierOrList) => any;
+    AssemblyIdentifierList?: (node: AssemblyIdentifierList) => any;
+    AssemblyStackAssignment?: (node: AssemblyStackAssignment) => any;
+    LabelDefinition?: (node: LabelDefinition) => any;
+    AssemblySwitch?: (node: AssemblySwitch) => any;
+    AssemblyCase?: (node: AssemblyCase) => any;
+    AssemblyFunctionDefinition?: (node: AssemblyFunctionDefinition) => any;
+    AssemblyFunctionReturns?: (node: AssemblyFunctionReturns) => any;
+    AssemblyFor?: (node: AssemblyFor) => any;
+    AssemblyIf?: (node: AssemblyIf) => any;
+    AssemblyLiteral?: (node: AssemblyLiteral) => any;
+    SubAssembly?: (node: SubAssembly) => any;
+    TupleExpression?: (node: TupleExpression) => any;
+    ElementaryTypeNameExpression?: (node: ElementaryTypeNameExpression) => any;
+    NumberLiteral?: (node: NumberLiteral) => any;
+    Identifier?: (node: Identifier) => any;
+    BinaryOperation?: (node: BinaryOperation) => any;
+    Conditional?: (node: Conditional) => any;
 }
 export interface ParserOpts {
     tolerant?: boolean;

@@ -17,6 +17,7 @@
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Jonathan Cardoso <https://github.com/JCMais>
 //                 Pavel Lang <https://github.com/langpavel>
+//                 Mark Caudill <https://github.com/mc0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 

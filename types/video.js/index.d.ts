@@ -4248,7 +4248,7 @@ declare namespace videojs {
 		 */
 		loop(value?: boolean): void;
 
-		loop(): string;
+		loop(): boolean;
 
 		/**
 		 * Get the current muted state, or turn mute on or off

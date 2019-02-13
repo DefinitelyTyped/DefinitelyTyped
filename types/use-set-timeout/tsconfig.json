@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "fastify-multipart-tests.ts"
+        "use-set-timeout-tests.ts"
     ]
 }

@@ -11,6 +11,7 @@ const dataSimple: string[][] = [
 const columnWithOptions: MUIDataTableColumnDef[] = [
     {
         name: 'Name',
+        label: 'New Name',
         options: {
             display: 'true',
             filter: true,

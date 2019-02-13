@@ -577,6 +577,12 @@
             "asOfVersion": "0.8.1"
         },
         {
+            "libraryName": "fastify-multipart",
+            "typingsPackageName": "fastify-multipart",
+            "sourceRepoURL": "https://github.com/fastify/fastify-multipart",
+            "asOfVersion": "0.7.0"
+        },
+        {
             "libraryName": "fastify-static",
             "typingsPackageName": "fastify-static",
             "sourceRepoURL": "https://github.com/fastify/fastify-static",
@@ -719,6 +725,12 @@
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "i18next-xhr-backend",
+            "typingsPackageName": "i18next-xhr-backend",
+            "sourceRepoURL": "https://github.com/i18next/i18next-xhr-backend",
+            "asOfVersion": "1.4.2"
         },
         {
             "libraryName": "iconv-lite",

@@ -163,7 +163,6 @@ declare module "util" {
 
     class TextEncoder {
         readonly encoding: string;
-        constructor();
         encode(input?: string): Uint8Array;
     }
 }

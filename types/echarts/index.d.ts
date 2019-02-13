@@ -5,6 +5,7 @@
 //                 Liveangela <https://github.com/liveangela>
 //                 Ovilia <https://github.com/Ovilia>
 //                 Roman <https://github.com/iRON5>
+//                 Bilal <https://github.com/bilalucar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -460,7 +461,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#title
          */
-        title?: EChartTitleOption
+        title?: EChartTitleOption | EChartTitleOption[]
 
         /**
          * Legend component.

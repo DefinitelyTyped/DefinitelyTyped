@@ -202,20 +202,25 @@ export type IndicatorProps<
 export type TabBarProps<T extends RouteBase = RouteBase> = SceneRendererProps<
   T
 > & {
-  scrollEnabled?: boolean
+  getLabelText?: (scene: Scene<T>) => string | undefined | null
+  getAccessible?: (scene: Scene<T>) => boolean
+  getAccessibilityLabel?: (scene: Scene<T>) => string | undefined | null
+  getTestID?: (scene: Scene<T>) => string | undefined | null
+  renderIcon?: (scene: Scene<T>) => ReactNode
+  renderLabel?: (scene: Scene<T>) => ReactNode
+  renderIndicator?: (props: IndicatorProps<T>) => ReactNode
+  renderBadge?: (scene: Scene<T>) => ReactNode
+  onTabPress?: (scene: Scene<T>) => void
+  onTabLongPress?: (scene: Scene<T>) => void
   pressColor?: string
   pressOpacity?: number
-  getLabelText?: (scene: Scene<T>) => string | undefined | null
-  renderLabel?: (scene: Scene<T>) => ReactNode
-  renderIcon?: (scene: Scene<T>) => ReactNode
-  renderBadge?: (scene: Scene<T>) => ReactNode
-  renderIndicator?: (props: IndicatorProps<T>) => ReactNode
-  onTabPress?: (scene: Scene<T>) => void
+  scrollEnabled?: boolean
+  bounces?: boolean
+  useNativeDriver?: boolean;
   tabStyle?: StyleProp<ViewStyle>
   indicatorStyle?: StyleProp<ViewStyle>
   labelStyle?: StyleProp<ViewStyle>
   style?: StyleProp<ViewStyle>
-  useNativeDriver?: boolean;
 }
 
 export class TabBar<T extends Route = Route> extends PureComponent<TabBarProps<T>> {}
