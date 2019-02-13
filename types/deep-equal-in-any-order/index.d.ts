@@ -3,8 +3,6 @@
 // Definitions by: Bastien Caudan <https://github.com/bcaudan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="chai" />
-
 declare global {
     namespace Chai {
         interface Deep {
