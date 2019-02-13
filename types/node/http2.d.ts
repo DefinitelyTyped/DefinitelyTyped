@@ -527,7 +527,7 @@ declare module "http2" {
     }
 
     export class Http2ServerRequest extends stream.Readable {
-        constructor(socket: net.Socket | tls.TLSSocket);
+        private constructor();
 
         readonly method: string;
         readonly httpVersion: string;
@@ -563,7 +563,7 @@ declare module "http2" {
     }
 
     export class Http2ServerResponse extends stream.Writable {
-        constructor(request: Http2ServerRequest);
+        private constructor();
 
         readonly finished: boolean;
         readonly headersSent: boolean;
