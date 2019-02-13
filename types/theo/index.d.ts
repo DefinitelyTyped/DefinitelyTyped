@@ -3,7 +3,7 @@
 // Definitions by: Pete Petrash <https://github.com/petekp>
 //                 Niko Laitinen <https://github.com/laitine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 2.2
 
 import { Collection, Map, List, OrderedMap } from "immutable";
 
