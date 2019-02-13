@@ -291,17 +291,26 @@ function repro2() {
 function repro3() {
     adapter.getDevices((error, deviceList) => {
         if (deviceList) {
-            deviceList[0]; // $ExpectType DeviceObject
+            deviceList; // $ExpectType DeviceObject[]
         }
+    });
+    adapter.getDevicesAsync().then(list => {
+        list; // $ExpectType DeviceObject[]
     });
     adapter.getChannels((error, channelList) => {
         if (channelList) {
-            channelList[0]; // $ExpectType ChannelObject
+            channelList; // $ExpectType ChannelObject[]
         }
+    });
+    adapter.getChannelsOfAsync().then(list => {
+        list; // $ExpectType ChannelObject[]
     });
     adapter.getStatesOf((error, stateList) => {
         if (stateList) {
-            stateList[0]; // $ExpectType StateObject
+            stateList; // $ExpectType StateObject[]
         }
+    });
+    adapter.getStatesOfAsync().then(list => {
+        list; // $ExpectType StateObject[]
     });
 }

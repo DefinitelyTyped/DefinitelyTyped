@@ -1477,7 +1477,7 @@ declare global {
              * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            getDevicesAsync(options?: unknown): Promise<Array<GetObjectsItem<DeviceObject>>>;
+            getDevicesAsync(options?: unknown): Promise<DeviceObject[]>;
 
             /**
              * Returns a list of all channels in this adapter instance
@@ -1502,9 +1502,9 @@ declare global {
              * @param parentDevice (optional) Name of the parent device to filter the channels by
              * @param options (optional) Some internal options.
              */
-            getChannelsOfAsync(): Promise<Array<GetObjectsItem<ChannelObject>>>;
+            getChannelsOfAsync(): Promise<ChannelObject[]>;
             // tslint:disable-next-line:unified-signatures
-            getChannelsOfAsync(parentDevice: string, options?: unknown): Promise<Array<GetObjectsItem<ChannelObject>>>;
+            getChannelsOfAsync(parentDevice: string, options?: unknown): Promise<ChannelObject[]>;
 
             /**
              * Returns a list of all states in this adapter instance
@@ -1524,9 +1524,9 @@ declare global {
              * @param options (optional) Some internal options.
              */
             // tslint:disable:unified-signatures
-            getStatesOfAsync(): Promise<Array<GetObjectsItem<StateObject>>>;
-            getStatesOfAsync(parentDevice: string, parentChannel?: string): Promise<Array<GetObjectsItem<StateObject>>>;
-            getStatesOfAsync(parentDevice: string, parentChannel: string, options?: unknown): Promise<Array<GetObjectsItem<StateObject>>>;
+            getStatesOfAsync(): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel?: string): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel: string, options?: unknown): Promise<StateObject[]>;
             // tslint:enable:unified-signatures
 
             // ==============================
