@@ -160,10 +160,8 @@ b.fill('a').fill('b');
     includes = buffer.includes("23", 1, "utf8");
     includes = buffer.includes(23);
     includes = buffer.includes(23, 1);
-    includes = buffer.includes(23, 1, "utf8");
     includes = buffer.includes(buffer);
     includes = buffer.includes(buffer, 1);
-    includes = buffer.includes(buffer, 1, "utf8");
 }
 
 {

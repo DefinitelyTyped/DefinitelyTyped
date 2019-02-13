@@ -564,7 +564,7 @@ declare module "http2" {
         connection: net.Socket | tls.TLSSocket;
         end(callback?: () => void): void;
         end(data?: string | Buffer, callback?: () => void): void;
-        end(data?: string | Buffer, encoding?: string, callback?: () => void): void;
+        end(data?: string, encoding?: BufferEncoding, callback?: () => void): void;
         readonly finished: boolean;
         getHeader(name: string): string;
         getHeaderNames(): string[];
@@ -580,7 +580,7 @@ declare module "http2" {
         statusMessage: '';
         stream: ServerHttp2Stream;
         write(chunk: string | Buffer, callback?: (err: Error) => void): boolean;
-        write(chunk: string | Buffer, encoding?: string, callback?: (err: Error) => void): boolean;
+        write(chunk: string, encoding?: BufferEncoding, callback?: (err: Error) => void): boolean;
         writeContinue(): void;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
         writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders): void;

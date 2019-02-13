@@ -308,9 +308,9 @@ declare module "crypto" {
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         setPublicKey(public_key: Binary): void;
-        setPublicKey(public_key: string, encoding: string): void;
+        setPublicKey(public_key: string, encoding: BufferEncoding): void;
         setPrivateKey(private_key: Binary): void;
-        setPrivateKey(private_key: string, encoding: string): void;
+        setPrivateKey(private_key: string, encoding: BufferEncoding): void;
         verifyError: number;
     }
     function getDiffieHellman(group_name: string): DiffieHellman;

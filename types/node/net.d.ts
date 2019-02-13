@@ -41,16 +41,16 @@ declare module "net" {
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
         write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
-        write(data: any, encoding?: string, callback?: Function): void;
+        write(str: string, encoding?: BufferEncoding, cb?: Function): boolean;
+        write(str: string, encoding?: BufferEncoding, fd?: string): boolean;
+        write(data: any, encoding?: BufferEncoding, callback?: Function): void;
 
         connect(options: SocketConnectOpts, connectionListener?: Function): this;
         connect(port: number, host: string, connectionListener?: Function): this;
         connect(port: number, connectionListener?: Function): this;
         connect(path: string, connectionListener?: Function): this;
 
-        setEncoding(encoding?: string): this;
+        setEncoding(encoding?: BufferEncoding): this;
         pause(): this;
         resume(): this;
         setTimeout(timeout: number, callback?: Function): this;
@@ -75,8 +75,8 @@ declare module "net" {
         end(): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
+        end(str: string, encoding?: BufferEncoding, cb?: Function): void;
+        end(data?: any, encoding?: BufferEncoding): void;
 
         /**
          * events.EventEmitter

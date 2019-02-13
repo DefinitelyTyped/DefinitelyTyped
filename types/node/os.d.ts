@@ -30,6 +30,14 @@ declare module "os" {
 
     type NetworkInterfaceInfo = NetworkInterfaceInfoIPv4 | NetworkInterfaceInfoIPv6;
 
+    interface UserInfo<T extends string | Buffer> {
+        username: T;
+        uid: number;
+        gid: number;
+        shell: null | string;
+        homedir: T;
+    }
+
     function hostname(): string;
     function loadavg(): number[];
     function uptime(): number;
@@ -40,7 +48,8 @@ declare module "os" {
     function release(): string;
     function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
     function homedir(): string;
-    function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string };
+    function userInfo(options?: { encoding: BufferEncoding }): UserInfo<string>;
+    function userInfo(options?: { encoding: 'buffer' }): UserInfo<Buffer>;
     const constants: {
         UV_UDP_REUSEADDR: number;
         signals: {

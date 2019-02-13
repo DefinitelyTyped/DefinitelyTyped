@@ -52,7 +52,8 @@
         "test/dgram.ts",
         "test/buffer.ts",
         "test/tty.ts",
-        "test/crypto.ts"
+        "test/crypto.ts",
+        "test/os.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
