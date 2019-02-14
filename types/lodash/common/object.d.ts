@@ -1685,8 +1685,8 @@ declare module "../index" {
         get<TObject extends object, TKey extends keyof TObject, TDefault>(
             object: TObject | null | undefined,
             path: TKey | [TKey],
-            defaultValue: TDefault
-        ): TObject[TKey] | TDefault;
+            defaultValue: TDefault,
+        ): Exclude<TObject[TKey], undefined> | TDefault;
 
         /**
          * @see _.get
