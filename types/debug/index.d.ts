@@ -38,7 +38,7 @@ declare namespace debug {
         (formatter: any, ...args: any[]): void;
 
         enabled: boolean;
-        log: (args: any[]) => any;
+        log: (...args: any[]) => any;
         namespace: string;
         extend: (namespace: string, delimiter?: string) => Debugger;
     }
