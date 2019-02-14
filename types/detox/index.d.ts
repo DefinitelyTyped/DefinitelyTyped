@@ -442,4 +442,4 @@ export { by, device, element, waitFor };
 // for backwards compatibility though.
 export const expect: Detox.Expect<Detox.Expect<any>>;
 
-export default detox;
+export = detox;
