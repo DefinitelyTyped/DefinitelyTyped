@@ -1,4 +1,4 @@
-// Type definitions for theo 8.1
+// Type definitions for theo 8.1.1
 // Project: https://github.com/salesforce-ux/theo
 // Definitions by: Pete Petrash <https://github.com/petekp>
 //                 Niko Laitinen <https://github.com/laitine>
