@@ -9,7 +9,7 @@
 export function canYouSee(ks: JWK.Key | JWK.KeyStore, opts: object): JWS.Verifier;
 
 export namespace JWA {
-    interface decryptEncryptOptions {
+    interface DecryptEncryptOptions {
         aad?: Buffer;
         adata?: Buffer;
         iv?: Buffer;
@@ -27,7 +27,7 @@ export namespace JWA {
         p2c?: number; // used in pbes
     }
 
-    interface deriveOptions {
+    interface DeriveOptions {
         length?: number; // key length
         otherInfo?: Buffer; // info used in concatkdf
         public?: Buffer; // public key used in ecdh
@@ -36,21 +36,21 @@ export namespace JWA {
         info?: Buffer; // app identifier info used in hkdf
     }
 
-    interface encryptReturn {
+    interface EncryptReturn {
         data: Buffer; // The cipher text
         tag?: Buffer; // The tag used in some algorithms
     }
 
-    interface signReturn {
+    interface SignReturn {
         data: Buffer; // the data passed into the sign function
         mac: Buffer; // the signature for `data`
     }
 
-    interface signVerifyOptions {
+    interface SignVerifyOptions {
         loose?: boolean;
     }
 
-    interface verifyReturn {
+    interface VerifyReturn {
         data: Buffer; // the data passed into the verify function
         mac: Buffer; // the signature for `data`
         valid: boolean; // whether the signature matches the data
@@ -60,10 +60,10 @@ export namespace JWA {
         alg: string,
         key: string | Buffer,
         cdata: string | Buffer,
-        props?: decryptEncryptOptions
+        props?: DecryptEncryptOptions
     ): Promise<Buffer>;
 
-    function derive(alg: string, key: string | Buffer, props?: deriveOptions): Promise<Buffer>;
+    function derive(alg: string, key: string | Buffer, props?: DeriveOptions): Promise<Buffer>;
 
     function digest(alg: string, data: string | Buffer, props?: any): Promise<Buffer>;
 
@@ -71,23 +71,23 @@ export namespace JWA {
         alg: string,
         key: string | Buffer,
         pdata: string | Buffer,
-        props?: decryptEncryptOptions
-    ): Promise<encryptReturn>;
+        props?: DecryptEncryptOptions
+    ): Promise<EncryptReturn>;
 
     function sign(
         alg: string,
         key: string | Buffer,
         pdata: string | Buffer,
-        props: signVerifyOptions
-    ): Promise<signReturn>;
+        props: SignVerifyOptions
+    ): Promise<SignReturn>;
 
     function verify(
         alg: string,
         key: string | Buffer,
         pdata: string | Buffer,
         mac: string | Buffer,
-        props: signVerifyOptions
-    ): Promise<verifyReturn>;
+        props: SignVerifyOptions
+    ): Promise<VerifyReturn>;
 }
 
 export namespace JWE {
@@ -254,13 +254,13 @@ export namespace JWS {
         opts?: { allowEmbeddedKey?: boolean; algorithms?: string[]; handlers?: any }
     ): Verifier;
 
-    interface createSignResult {
+    interface CreateSignResult {
         signResult: object;
     }
 
     interface Signer {
         update(input: Buffer | string, encoding?: string): this;
-        final(): Promise<createSignResult>;
+        final(): Promise<CreateSignResult>;
     }
 
     interface BaseResult {
@@ -290,18 +290,18 @@ export namespace JWS {
         verify(input: string, opts?: { allowEmbeddedKey?: boolean }): Promise<VerificationResult>;
     }
 
-    interface exp {
+    interface Exp {
         complete(jws: any): any;
     }
 
-    interface verifyOptions {
+    interface VerifyOptions {
         allowEmbeddedKey?: boolean;
         algorithms?: string[];
-        handlers: { exp: boolean | exp };
+        handlers: { exp: boolean | Exp };
     }
 }
 
-interface parseReturn {
+interface ParseReturn {
     type: 'JWS' | 'JWE';
     format: 'compact' | 'json';
     input: Buffer | string | object;
@@ -309,12 +309,12 @@ interface parseReturn {
     perform: (ks: JWK.KeyStore) => Promise<JWE.DecryptResult> | Promise<JWS.VerificationResult>;
 }
 
-export function parse(input: Buffer | string | object): parseReturn;
+export function parse(input: Buffer | string | object): ParseReturn;
 
 export namespace parse {
-    function compact(input: Buffer | string | object): parseReturn;
+    function compact(input: Buffer | string | object): ParseReturn;
 
-    function json(input: Buffer | string | object): parseReturn;
+    function json(input: Buffer | string | object): ParseReturn;
 }
 
 export namespace util {
