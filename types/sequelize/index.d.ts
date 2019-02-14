@@ -1,5 +1,5 @@
 // Type definitions for Sequelize 4.27.11
-// Project: http://sequelizejs.com
+// Project: https://github.com/sequelize/sequelize
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
 //                 Ivan Drinchev <https://github.com/drinchev>
