@@ -1,4 +1,4 @@
-// TypeScript Version: 2.3
+// Typescript Version: 2.3
 import { toMatchImageSnapshot, configureToMatchImageSnapshot, MatchImageSnapshotOptions } from 'jest-image-snapshot';
 
 it('should be able to use toMatchImageSnapshot in a test', () => {

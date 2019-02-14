@@ -2,7 +2,7 @@
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: Michael Zlatskovsky <https://github.com/Zlatkovsky>, Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// Typescript Version: 2.4
 
 /*
 office-runtime

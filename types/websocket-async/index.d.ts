@@ -2,7 +2,7 @@
 // Project: https://github.com/jcao219/websocket-async
 // Definitions by: Ben O'Sullivan <https://github.com/bigbeno37>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// Typescript Version: 2.7
 
 /**
  * An asynchronous WebSocket client.
