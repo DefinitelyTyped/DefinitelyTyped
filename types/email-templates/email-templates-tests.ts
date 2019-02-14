@@ -21,4 +21,9 @@ email.render('mars/html.pug', {name: 'elon'});
 email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals: {name: 'Elon'}});
 emailNoTransporter.render('mars/html.pug', {name: 'elon'});
 email.renderAll('mars');
-email.renderAll('mars', {name: 'elon'});
+const resultPromise: Promise<EmailTemplates.EmailMessage> = email.renderAll('mars', {name: 'elon'});
+resultPromise.then(message => {
+    const subject: string = message.subject;
+    const html: string = message.html;
+    const text: string = message.text;
+});

@@ -92,7 +92,7 @@ declare class EmailTemplate {
      * @param view Name of the template
      * @param locals The template variables
      */
-    renderAll(view: string, locals?: any): Promise<any>;
+    renderAll(view: string, locals?: any): Promise<EmailTemplate.EmailMessage>;
     /**
      * Send the Email
      */
@@ -120,11 +120,17 @@ declare namespace EmailTemplate {
          * @param view Name of the template
          * @param locals The template variables
          */
-        function renderAll(view: string, locals?: any): Promise<any>;
+        function renderAll(view: string, locals?: any): Promise<EmailMessage>;
 
         /**
          * Send the Email
          */
         function send(options: EmailOptions): any;
+
+        interface EmailMessage {
+            subject?: string;
+            html?: string;
+            text?: string;
+        }
 }
 export = EmailTemplate;
