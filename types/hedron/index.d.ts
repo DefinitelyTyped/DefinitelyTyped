@@ -108,6 +108,10 @@ export interface BoundsProps extends Styleable {
    */
   direction?: 'horizontal' | 'vertical';
   /**
+   * Sets whether the children should wrap when there's no more room on the primary axis
+   */
+  wrap?: boolean;
+  /**
    * Alignment of children along the vertical axis
    */
   valign?: 'top' | 'center' | 'bottom';
