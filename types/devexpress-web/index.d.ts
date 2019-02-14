@@ -34356,7 +34356,7 @@ interface ASPxDesignerNavigateTab {
      * Provides access to a report opened in the current tab.
      * Value: A knockout observable object that specifies a report opened in the current tab.
      */
-    report: any;
+    report: KnockoutObservable<Object>;
     /**
      * Provides access to an engine that manages undo and redo operations in the Web Report Designer.
      * Value: An object that specifies an undo/redo engine.
@@ -34889,6 +34889,9 @@ interface ASPxClientMenuAction {
      * Value: A string that specifies the name of the CSS class.
      */
     imageClassName: string;
+    /**
+     *  Knockout template, where you can specify a required SVG icon and write logic to color it.
+     */
     imageTemplateName: string;
     /**
      * Provides access to the action performed when a button is clicked.
@@ -34897,9 +34900,8 @@ interface ASPxClientMenuAction {
     clickAction: Function;
     /**
      * Provides access to the value that specifies whether or not the command is disabled by default.
-     * Value: true, if the command is disabled by default; otherwise, false.
      */
-    disabled: boolean;
+    disabled: KnockoutObservable<boolean>;
     /**
      * Provides access to the value that specifies whether or not the command is visible in the user interface.
      * Value: true if the command is visible; otherwise false.
