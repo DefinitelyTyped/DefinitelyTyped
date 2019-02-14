@@ -27,34 +27,34 @@ export interface Styleable {
   /**
    * Visibilty Property
    */
-  visibility?: "visible" | "hidden" | "collapse" | "initial" | "inherit";
+  visibility?: 'visible' | 'hidden' | 'collapse' | 'initial' | 'inherit';
   /**
    * Display Property
    */
   display?:
-    | "inline"
-    | "block"
-    | "contents"
-    | "flex"
-    | "grid"
-    | "inline-block"
-    | "none"
-    | "initial"
-    | "inherit"
-    | "inline-flex"
-    | "inline-grid"
-    | "inline-table"
-    | "list-item"
-    | "run-in"
-    | "table"
-    | "table-caption"
-    | "table-column-group"
-    | "table-header-group"
-    | "table-footer-group"
-    | "table-row-group"
-    | "table-cell"
-    | "table-column"
-    | "table-row";
+    | 'inline'
+    | 'block'
+    | 'contents'
+    | 'flex'
+    | 'grid'
+    | 'inline-block'
+    | 'none'
+    | 'initial'
+    | 'inherit'
+    | 'inline-flex'
+    | 'inline-grid'
+    | 'inline-table'
+    | 'list-item'
+    | 'run-in'
+    | 'table'
+    | 'table-caption'
+    | 'table-column-group'
+    | 'table-header-group'
+    | 'table-footer-group'
+    | 'table-row-group'
+    | 'table-cell'
+    | 'table-column'
+    | 'table-row';
   /**
    * Opacity Property
    */
@@ -75,7 +75,7 @@ export interface Styleable {
 
 export interface ProviderProps {
   /**
-   * Draws all child columns with "bounding boxes" for easy
+   * Draws all child columns with 'bounding boxes' for easy
    * visualization of the grid. This enables debug mode for all the
    * children of this component
    * @default false
@@ -93,7 +93,7 @@ export interface ProviderProps {
 
 export interface BoundsProps extends Styleable {
   /**
-   * Draws all child columns with "bounding boxes" for easy
+   * Draws all child columns with 'bounding boxes' for easy
    * visualization of the grid. This enables debug mode for all the
    * children of this component
    * @default false
@@ -106,15 +106,15 @@ export interface BoundsProps extends Styleable {
   /**
    * Direction of content
    */
-  direction?: "horizontal" | "vertical";
+  direction?: 'horizontal' | 'vertical';
   /**
    * Alignment of children along the vertical axis
    */
-  valign?: "top" | "center" | "bottom";
+  valign?: 'top' | 'center' | 'bottom';
   /**
    * Alignment of children along the horizontal axis
    */
-  halign?: "left" | "center" | "right";
+  halign?: 'left' | 'center' | 'right';
   /**
    * Allow for customer props due to ability to add
    * custom breakpoints
@@ -124,7 +124,7 @@ export interface BoundsProps extends Styleable {
 
 export interface BoxProps extends Styleable {
   /**
-   * Draws all child columns with "bounding boxes" for easy
+   * Draws all child columns with 'bounding boxes' for easy
    * visualization of the grid. This enables debug mode for all the
    * children of this component
    * @default false
