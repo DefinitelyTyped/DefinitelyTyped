@@ -4,6 +4,7 @@
 //                 Matus Gura <https://github.com/gurisko>
 //                 Jacob Copeland <https://github.com/blankstar85>
 //                 Vesa Poikajärvi <https://github.com/vesse>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
