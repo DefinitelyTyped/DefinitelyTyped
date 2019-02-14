@@ -2374,6 +2374,14 @@ declare module "mongoose" {
 
         /** This schema type's name, to defend against minifiers that mangle function names. */
         static schemaName: string;
+
+        /**
+         * Adds a discriminator type.
+         * @param name discriminator model name
+         * @param schema discriminator model schema
+         */
+        discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+
       }
 
       /*
