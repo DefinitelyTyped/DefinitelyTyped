@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jquery"/>
-
 /**
  * A client-side counterpart of the DashboardViewer extension.
  */
@@ -2585,10 +2583,10 @@ interface ASPxClientDashboardItemAction {
     Actions: any[];
 }
 declare enum ASPxClientDashboardAction {
-    SetMasterFilter=0,
-    ClearMasterFilter=1,
-    DrillDown=2,
-    DrillUp=3
+    SetMasterFilter = 0,
+    ClearMasterFilter = 1,
+    DrillDown = 2,
+    DrillUp = 3
 }
 /**
  * References a method that will handle the MasterFilterSet event.
@@ -13098,10 +13096,10 @@ interface InlinePictureInfo {
     actualHeight: number;
 }
 declare enum HeaderFooterType {
-    First=0,
-    Odd=1,
-    Primary=1,
-    Even=2
+    First = 0,
+    Odd = 1,
+    Primary = 1,
+    Even = 2
 }
 /**
  * Contains the settings defining a file to save to.
@@ -13124,16 +13122,16 @@ interface RichEditFileInfo {
     documentFormat: any;
 }
 declare enum DocumentFormat {
-    Undefined=0,
-    PlainText=1,
-    Rtf=2,
-    Html=3,
-    OpenXml=4,
-    Mht=5,
-    WordML=6,
-    OpenDocument=7,
-    ePub=9,
-    Doc=10
+    Undefined = 0,
+    PlainText = 1,
+    Rtf = 2,
+    Html = 3,
+    OpenXml = 4,
+    Mht = 5,
+    WordML = 6,
+    OpenDocument = 7,
+    ePub = 9,
+    Doc = 10
 }
 /**
  * Contains floating objects base settings.
@@ -13466,9 +13464,9 @@ interface SpellingInfo {
     misspelledIntervals: MisspelledInterval[];
 }
 declare enum SpellCheckerState {
-    Disabled=0,
-    InProgress=1,
-    Done=2
+    Disabled = 0,
+    InProgress = 1,
+    Done = 2
 }
 /**
  * Contains the settings defining a misspelled interval.
@@ -13506,8 +13504,8 @@ interface MisspelledInterval {
     suggestions: string[];
 }
 declare enum SpellingErrorType {
-    Misspelling=0,
-    Repeating=1
+    Misspelling = 0,
+    Repeating = 1
 }
 /**
  * Serves as a base for objects implementing different element styles.
@@ -13709,10 +13707,10 @@ interface SubDocument {
     findBookmarks(regExp: any): Bookmark[];
 }
 declare enum SubDocumentType {
-    Main=0,
-    Header=1,
-    Footer=2,
-    TextBox=3
+    Main = 0,
+    Header = 1,
+    Footer = 2,
+    TextBox = 3
 }
 /**
  * Defines a table in the document.
@@ -14279,14 +14277,14 @@ interface MailMergeSettings {
     mergeMode: any;
 }
 declare enum MergeMode {
-    NewParagraph=0,
-    NewSection=1,
-    JoinTables=2
+    NewParagraph = 0,
+    NewSection = 1,
+    JoinTables = 2
 }
 declare enum MailMergeExportRange {
-    AllRecords=0,
-    CurrentRecord=1,
-    Range=2
+    AllRecords = 0,
+    CurrentRecord = 1,
+    Range = 2
 }
 /**
  * A command to create a new empty document.
@@ -14806,69 +14804,69 @@ interface TextBoxRelativeSizeSettings {
     relativeHeightType: any;
 }
 declare enum FloatingObjectRelativeWidthType {
-    Margin=0,
-    Page=1,
-    LeftMargin=2,
-    RightMargin=3,
-    InsideMargin=4,
-    OutsideMargin=5
+    Margin = 0,
+    Page = 1,
+    LeftMargin = 2,
+    RightMargin = 3,
+    InsideMargin = 4,
+    OutsideMargin = 5
 }
 declare enum FloatingObjectRelativeHeightType {
-    Margin=0,
-    Page=1,
-    TopMargin=2,
-    BottomMargin=3,
-    InsideMargin=4,
-    OutsideMargin=5
+    Margin = 0,
+    Page = 1,
+    TopMargin = 2,
+    BottomMargin = 3,
+    InsideMargin = 4,
+    OutsideMargin = 5
 }
 declare enum FloatingObjectTextWrapType {
-    None=0,
-    TopAndBottom=1,
-    Tight=2,
-    Through=3,
-    Square=4
+    None = 0,
+    TopAndBottom = 1,
+    Tight = 2,
+    Through = 3,
+    Square = 4
 }
 declare enum FloatingObjectTextWrapSide {
-    Both=0,
-    Left=1,
-    Right=2,
-    Largest=3
+    Both = 0,
+    Left = 1,
+    Right = 2,
+    Largest = 3
 }
 declare enum FloatingObjectHorizontalPositionType {
-    Page=0,
-    Character=1,
-    Column=2,
-    Margin=3,
-    LeftMargin=4,
-    RightMargin=5,
-    InsideMargin=6,
-    OutsideMargin=7
+    Page = 0,
+    Character = 1,
+    Column = 2,
+    Margin = 3,
+    LeftMargin = 4,
+    RightMargin = 5,
+    InsideMargin = 6,
+    OutsideMargin = 7
 }
 declare enum FloatingObjectHorizontalPositionAlignment {
-    None=0,
-    Left=1,
-    Center=2,
-    Right=3,
-    Inside=4,
-    Outside=5
+    None = 0,
+    Left = 1,
+    Center = 2,
+    Right = 3,
+    Inside = 4,
+    Outside = 5
 }
 declare enum FloatingObjectVerticalPositionType {
-    Page=0,
-    Line=1,
-    Paragraph=2,
-    Margin=3,
-    TopMargin=4,
-    BottomMargin=5,
-    InsideMargin=6,
-    OutsideMargin=7
+    Page = 0,
+    Line = 1,
+    Paragraph = 2,
+    Margin = 3,
+    TopMargin = 4,
+    BottomMargin = 5,
+    InsideMargin = 6,
+    OutsideMargin = 7
 }
 declare enum FloatingObjectVerticalPositionAlignment {
-    None=0,
-    Top=1,
-    Center=2,
-    Bottom=3,
-    Inside=4,
-    Outside=5
+    None = 0,
+    Top = 1,
+    Center = 2,
+    Bottom = 3,
+    Inside = 4,
+    Outside = 5
 }
 /**
  * A command to cancel changes caused by the previous command.
@@ -15233,71 +15231,71 @@ interface ListLevelSettings {
     fontItalic: boolean;
 }
 declare enum ListLevelFormat {
-    Decimal=0,
-    AIUEOHiragana=1,
-    AIUEOFullWidthHiragana=2,
-    ArabicAbjad=3,
-    ArabicAlpha=4,
-    Bullet=5,
-    CardinalText=6,
-    Chicago=7,
-    ChineseCounting=8,
-    ChineseCountingThousand=9,
-    ChineseLegalSimplified=10,
-    Chosung=11,
-    DecimalEnclosedCircle=12,
-    DecimalEnclosedCircleChinese=13,
-    DecimalEnclosedFullstop=14,
-    DecimalEnclosedParentheses=15,
-    DecimalFullWidth=16,
-    DecimalFullWidth2=17,
-    DecimalHalfWidth=18,
-    DecimalZero=19,
-    Ganada=20,
-    Hebrew1=21,
-    Hebrew2=22,
-    Hex=23,
-    HindiConsonants=24,
-    HindiDescriptive=25,
-    HindiNumbers=26,
-    HindiVowels=27,
-    IdeographDigital=28,
-    IdeographEnclosedCircle=29,
-    IdeographLegalTraditional=30,
-    IdeographTraditional=31,
-    IdeographZodiac=32,
-    IdeographZodiacTraditional=33,
-    Iroha=34,
-    IrohaFullWidth=35,
-    JapaneseCounting=36,
-    JapaneseDigitalTenThousand=37,
-    JapaneseLegal=38,
-    KoreanCounting=39,
-    KoreanDigital=40,
-    KoreanDigital2=41,
-    KoreanLegal=42,
-    LowerLetter=43,
-    LowerRoman=44,
-    None=45,
-    NumberInDash=46,
-    Ordinal=47,
-    OrdinalText=48,
-    RussianLower=49,
-    RussianUpper=50,
-    TaiwaneseCounting=51,
-    TaiwaneseCountingThousand=52,
-    TaiwaneseDigital=53,
-    ThaiDescriptive=54,
-    ThaiLetters=55,
-    ThaiNumbers=56,
-    UpperLetter=57,
-    UpperRoman=58,
-    VietnameseDescriptive=59
+    Decimal = 0,
+    AIUEOHiragana = 1,
+    AIUEOFullWidthHiragana = 2,
+    ArabicAbjad = 3,
+    ArabicAlpha = 4,
+    Bullet = 5,
+    CardinalText = 6,
+    Chicago = 7,
+    ChineseCounting = 8,
+    ChineseCountingThousand = 9,
+    ChineseLegalSimplified = 10,
+    Chosung = 11,
+    DecimalEnclosedCircle = 12,
+    DecimalEnclosedCircleChinese = 13,
+    DecimalEnclosedFullstop = 14,
+    DecimalEnclosedParentheses = 15,
+    DecimalFullWidth = 16,
+    DecimalFullWidth2 = 17,
+    DecimalHalfWidth = 18,
+    DecimalZero = 19,
+    Ganada = 20,
+    Hebrew1 = 21,
+    Hebrew2 = 22,
+    Hex = 23,
+    HindiConsonants = 24,
+    HindiDescriptive = 25,
+    HindiNumbers = 26,
+    HindiVowels = 27,
+    IdeographDigital = 28,
+    IdeographEnclosedCircle = 29,
+    IdeographLegalTraditional = 30,
+    IdeographTraditional = 31,
+    IdeographZodiac = 32,
+    IdeographZodiacTraditional = 33,
+    Iroha = 34,
+    IrohaFullWidth = 35,
+    JapaneseCounting = 36,
+    JapaneseDigitalTenThousand = 37,
+    JapaneseLegal = 38,
+    KoreanCounting = 39,
+    KoreanDigital = 40,
+    KoreanDigital2 = 41,
+    KoreanLegal = 42,
+    LowerLetter = 43,
+    LowerRoman = 44,
+    None = 45,
+    NumberInDash = 46,
+    Ordinal = 47,
+    OrdinalText = 48,
+    RussianLower = 49,
+    RussianUpper = 50,
+    TaiwaneseCounting = 51,
+    TaiwaneseCountingThousand = 52,
+    TaiwaneseDigital = 53,
+    ThaiDescriptive = 54,
+    ThaiLetters = 55,
+    ThaiNumbers = 56,
+    UpperLetter = 57,
+    UpperRoman = 58,
+    VietnameseDescriptive = 59
 }
 declare enum ListLevelNumberAlignment {
-    Left=0,
-    Center=1,
-    Right=2
+    Left = 0,
+    Center = 1,
+    Right = 2
 }
 /**
  * A command to invoke the Insert Image dialog.
@@ -15782,8 +15780,8 @@ interface Margins {
     bottom: number;
 }
 declare enum Orientation {
-    Landscape=0,
-    Portrait=1
+    Landscape = 0,
+    Portrait = 1
 }
 /**
  * A command to increment the indent level of paragraphs in a selected range.
@@ -16049,19 +16047,19 @@ interface TabSettings {
     deleted: boolean;
 }
 declare enum TabAlign {
-    Left=0,
-    Center=1,
-    Right=2,
-    Decimal=3
+    Left = 0,
+    Center = 1,
+    Right = 2,
+    Decimal = 3
 }
 declare enum TabLeaderType {
-    None=0,
-    Dots=1,
-    MiddleDots=2,
-    Hyphens=3,
-    Underline=4,
-    ThickLine=5,
-    EqualSign=6
+    None = 0,
+    Dots = 1,
+    MiddleDots = 2,
+    Hyphens = 3,
+    Underline = 4,
+    ThickLine = 5,
+    EqualSign = 6
 }
 /**
  * Contains settings to define the paragraph formatting.
@@ -16139,23 +16137,23 @@ interface ParagraphFormattingSettings {
     backColor: string;
 }
 declare enum ParagraphAlignment {
-    Left=0,
-    Right=1,
-    Center=2,
-    Justify=3
+    Left = 0,
+    Right = 1,
+    Center = 2,
+    Justify = 3
 }
 declare enum ParagraphLineSpacingType {
-    Single=0,
-    Sesquialteral=1,
-    Double=2,
-    Multiple=3,
-    Exactly=4,
-    AtLeast=5
+    Single = 0,
+    Sesquialteral = 1,
+    Double = 2,
+    Multiple = 3,
+    Exactly = 4,
+    AtLeast = 5
 }
 declare enum ParagraphFirstLineIndent {
-    None=0,
-    Indented=1,
-    Hanging=2
+    None = 0,
+    Indented = 1,
+    Hanging = 2
 }
 /**
  * A command to add an RTF formatted content in the selected position.
@@ -16860,197 +16858,197 @@ interface TableBorderSettings {
     style: any;
 }
 declare enum BorderLineStyle {
-    None=0,
-    Single=1,
-    Thick=2,
-    Double=3,
-    Dotted=4,
-    Dashed=5,
-    DotDash=6,
-    DotDotDash=7,
-    Triple=8,
-    ThinThickSmallGap=9,
-    ThickThinSmallGap=10,
-    ThinThickThinSmallGap=11,
-    ThinThickMediumGap=12,
-    ThickThinMediumGap=13,
-    ThinThickThinMediumGap=14,
-    ThinThickLargeGap=15,
-    ThickThinLargeGap=16,
-    ThinThickThinLargeGap=17,
-    Wave=18,
-    DoubleWave=19,
-    DashSmallGap=20,
-    DashDotStroked=21,
-    ThreeDEmboss=22,
-    ThreeDEngrave=23,
-    Outset=24,
-    Inset=25,
-    Apples=26,
-    ArchedScallops=27,
-    BabyPacifier=28,
-    BabyRattle=29,
-    Balloons3Colors=30,
-    BalloonsHotAir=31,
-    BasicBlackDashes=32,
-    BasicBlackDots=33,
-    BasicBlackSquares=34,
-    BasicThinLines=35,
-    BasicWhiteDashes=36,
-    BasicWhiteDots=37,
-    BasicWhiteSquares=38,
-    BasicWideInline=39,
-    BasicWideMidline=40,
-    BasicWideOutline=41,
-    Bats=42,
-    Birds=43,
-    BirdsFlight=44,
-    Cabins=45,
-    CakeSlice=46,
-    CandyCorn=47,
-    CelticKnotwork=48,
-    CertificateBanner=49,
-    ChainLink=50,
-    ChampagneBottle=51,
-    CheckedBarBlack=52,
-    CheckedBarColor=53,
-    Checkered=54,
-    ChristmasTree=55,
-    CirclesLines=56,
-    CirclesRectangles=57,
-    ClassicalWave=58,
-    Clocks=59,
-    Compass=60,
-    Confetti=61,
-    ConfettiGrays=62,
-    ConfettiOutline=63,
-    ConfettiStreamers=64,
-    ConfettiWhite=65,
-    CornerTriangles=66,
-    CouponCutoutDashes=67,
-    CouponCutoutDots=68,
-    CrazyMaze=69,
-    CreaturesButterfly=70,
-    CreaturesFish=71,
-    CreaturesInsects=72,
-    CreaturesLadyBug=73,
-    CrossStitch=74,
-    Cup=75,
-    DecoArch=76,
-    DecoArchColor=77,
-    DecoBlocks=78,
-    DiamondsGray=79,
-    DoubleD=80,
-    DoubleDiamonds=81,
-    Earth1=82,
-    Earth2=83,
-    EclipsingSquares1=84,
-    EclipsingSquares2=85,
-    EggsBlack=86,
-    Fans=87,
-    Film=88,
-    Firecrackers=89,
-    FlowersBlockPrint=90,
-    FlowersDaisies=91,
-    FlowersModern1=92,
-    FlowersModern2=93,
-    FlowersPansy=94,
-    FlowersRedRose=95,
-    FlowersRoses=96,
-    FlowersTeacup=97,
-    FlowersTiny=98,
-    Gems=99,
-    GingerbreadMan=100,
-    Gradient=101,
-    Handmade1=102,
-    Handmade2=103,
-    HeartBalloon=104,
-    HeartGray=105,
-    Hearts=106,
-    HeebieJeebies=107,
-    Holly=108,
-    HouseFunky=109,
-    Hypnotic=110,
-    IceCreamCones=111,
-    LightBulb=112,
-    Lightning1=113,
-    Lightning2=114,
-    MapleLeaf=115,
-    MapleMuffins=116,
-    MapPins=117,
-    Marquee=118,
-    MarqueeToothed=119,
-    Moons=120,
-    Mosaic=121,
-    MusicNotes=122,
-    Northwest=123,
-    Ovals=124,
-    Packages=125,
-    PalmsBlack=126,
-    PalmsColor=127,
-    PaperClips=128,
-    Papyrus=129,
-    PartyFavor=130,
-    PartyGlass=131,
-    Pencils=132,
-    People=133,
-    PeopleHats=134,
-    PeopleWaving=135,
-    Poinsettias=136,
-    PostageStamp=137,
-    Pumpkin1=138,
-    PushPinNote1=139,
-    PushPinNote2=140,
-    Pyramids=141,
-    PyramidsAbove=142,
-    Quadrants=143,
-    Rings=144,
-    Safari=145,
-    Sawtooth=146,
-    SawtoothGray=147,
-    ScaredCat=148,
-    Seattle=149,
-    ShadowedSquares=150,
-    SharksTeeth=151,
-    ShorebirdTracks=152,
-    Skyrocket=153,
-    SnowflakeFancy=154,
-    Snowflakes=155,
-    Sombrero=156,
-    Southwest=157,
-    Stars=158,
-    Stars3d=159,
-    StarsBlack=160,
-    StarsShadowed=161,
-    StarsTop=162,
-    Sun=163,
-    Swirligig=164,
-    TornPaper=165,
-    TornPaperBlack=166,
-    Trees=167,
-    TriangleParty=168,
-    Triangles=169,
-    Tribal1=170,
-    Tribal2=171,
-    Tribal3=172,
-    Tribal4=173,
-    Tribal5=174,
-    Tribal6=175,
-    TwistedLines1=176,
-    TwistedLines2=177,
-    Vine=178,
-    Waveline=179,
-    WeavingAngles=180,
-    WeavingBraid=181,
-    WeavingRibbon=182,
-    WeavingStrips=183,
-    WhiteFlowers=184,
-    Woodwork=185,
-    XIllusions=186,
-    ZanyTriangles=187,
-    ZigZag=188,
-    ZigZagStitch=189,
-    Nil=-1
+    None = 0,
+    Single = 1,
+    Thick = 2,
+    Double = 3,
+    Dotted = 4,
+    Dashed = 5,
+    DotDash = 6,
+    DotDotDash = 7,
+    Triple = 8,
+    ThinThickSmallGap = 9,
+    ThickThinSmallGap = 10,
+    ThinThickThinSmallGap = 11,
+    ThinThickMediumGap = 12,
+    ThickThinMediumGap = 13,
+    ThinThickThinMediumGap = 14,
+    ThinThickLargeGap = 15,
+    ThickThinLargeGap = 16,
+    ThinThickThinLargeGap = 17,
+    Wave = 18,
+    DoubleWave = 19,
+    DashSmallGap = 20,
+    DashDotStroked = 21,
+    ThreeDEmboss = 22,
+    ThreeDEngrave = 23,
+    Outset = 24,
+    Inset = 25,
+    Apples = 26,
+    ArchedScallops = 27,
+    BabyPacifier = 28,
+    BabyRattle = 29,
+    Balloons3Colors = 30,
+    BalloonsHotAir = 31,
+    BasicBlackDashes = 32,
+    BasicBlackDots = 33,
+    BasicBlackSquares = 34,
+    BasicThinLines = 35,
+    BasicWhiteDashes = 36,
+    BasicWhiteDots = 37,
+    BasicWhiteSquares = 38,
+    BasicWideInline = 39,
+    BasicWideMidline = 40,
+    BasicWideOutline = 41,
+    Bats = 42,
+    Birds = 43,
+    BirdsFlight = 44,
+    Cabins = 45,
+    CakeSlice = 46,
+    CandyCorn = 47,
+    CelticKnotwork = 48,
+    CertificateBanner = 49,
+    ChainLink = 50,
+    ChampagneBottle = 51,
+    CheckedBarBlack = 52,
+    CheckedBarColor = 53,
+    Checkered = 54,
+    ChristmasTree = 55,
+    CirclesLines = 56,
+    CirclesRectangles = 57,
+    ClassicalWave = 58,
+    Clocks = 59,
+    Compass = 60,
+    Confetti = 61,
+    ConfettiGrays = 62,
+    ConfettiOutline = 63,
+    ConfettiStreamers = 64,
+    ConfettiWhite = 65,
+    CornerTriangles = 66,
+    CouponCutoutDashes = 67,
+    CouponCutoutDots = 68,
+    CrazyMaze = 69,
+    CreaturesButterfly = 70,
+    CreaturesFish = 71,
+    CreaturesInsects = 72,
+    CreaturesLadyBug = 73,
+    CrossStitch = 74,
+    Cup = 75,
+    DecoArch = 76,
+    DecoArchColor = 77,
+    DecoBlocks = 78,
+    DiamondsGray = 79,
+    DoubleD = 80,
+    DoubleDiamonds = 81,
+    Earth1 = 82,
+    Earth2 = 83,
+    EclipsingSquares1 = 84,
+    EclipsingSquares2 = 85,
+    EggsBlack = 86,
+    Fans = 87,
+    Film = 88,
+    Firecrackers = 89,
+    FlowersBlockPrint = 90,
+    FlowersDaisies = 91,
+    FlowersModern1 = 92,
+    FlowersModern2 = 93,
+    FlowersPansy = 94,
+    FlowersRedRose = 95,
+    FlowersRoses = 96,
+    FlowersTeacup = 97,
+    FlowersTiny = 98,
+    Gems = 99,
+    GingerbreadMan = 100,
+    Gradient = 101,
+    Handmade1 = 102,
+    Handmade2 = 103,
+    HeartBalloon = 104,
+    HeartGray = 105,
+    Hearts = 106,
+    HeebieJeebies = 107,
+    Holly = 108,
+    HouseFunky = 109,
+    Hypnotic = 110,
+    IceCreamCones = 111,
+    LightBulb = 112,
+    Lightning1 = 113,
+    Lightning2 = 114,
+    MapleLeaf = 115,
+    MapleMuffins = 116,
+    MapPins = 117,
+    Marquee = 118,
+    MarqueeToothed = 119,
+    Moons = 120,
+    Mosaic = 121,
+    MusicNotes = 122,
+    Northwest = 123,
+    Ovals = 124,
+    Packages = 125,
+    PalmsBlack = 126,
+    PalmsColor = 127,
+    PaperClips = 128,
+    Papyrus = 129,
+    PartyFavor = 130,
+    PartyGlass = 131,
+    Pencils = 132,
+    People = 133,
+    PeopleHats = 134,
+    PeopleWaving = 135,
+    Poinsettias = 136,
+    PostageStamp = 137,
+    Pumpkin1 = 138,
+    PushPinNote1 = 139,
+    PushPinNote2 = 140,
+    Pyramids = 141,
+    PyramidsAbove = 142,
+    Quadrants = 143,
+    Rings = 144,
+    Safari = 145,
+    Sawtooth = 146,
+    SawtoothGray = 147,
+    ScaredCat = 148,
+    Seattle = 149,
+    ShadowedSquares = 150,
+    SharksTeeth = 151,
+    ShorebirdTracks = 152,
+    Skyrocket = 153,
+    SnowflakeFancy = 154,
+    Snowflakes = 155,
+    Sombrero = 156,
+    Southwest = 157,
+    Stars = 158,
+    Stars3d = 159,
+    StarsBlack = 160,
+    StarsShadowed = 161,
+    StarsTop = 162,
+    Sun = 163,
+    Swirligig = 164,
+    TornPaper = 165,
+    TornPaperBlack = 166,
+    Trees = 167,
+    TriangleParty = 168,
+    Triangles = 169,
+    Tribal1 = 170,
+    Tribal2 = 171,
+    Tribal3 = 172,
+    Tribal4 = 173,
+    Tribal5 = 174,
+    Tribal6 = 175,
+    TwistedLines1 = 176,
+    TwistedLines2 = 177,
+    Vine = 178,
+    Waveline = 179,
+    WeavingAngles = 180,
+    WeavingBraid = 181,
+    WeavingRibbon = 182,
+    WeavingStrips = 183,
+    WhiteFlowers = 184,
+    Woodwork = 185,
+    XIllusions = 186,
+    ZanyTriangles = 187,
+    ZigZag = 188,
+    ZigZagStitch = 189,
+    Nil = -1
 }
 /**
  * Contains the settings to define the table cell formatting.
@@ -17098,10 +17096,10 @@ interface TableCellFormattingSettings {
     marginsSameAsTable: boolean;
 }
 declare enum TableCellVerticalAlignment {
-    Top=0,
-    Both=1,
-    Center=2,
-    Bottom=3
+    Top = 0,
+    Both = 1,
+    Center = 2,
+    Bottom = 3
 }
 /**
  * Contains the settings to format a table.
@@ -17189,23 +17187,23 @@ interface TableHeightUnit {
     type: any;
 }
 declare enum TableHeightUnitType {
-    Minimum=0,
-    Auto=1,
-    Exact=2
+    Minimum = 0,
+    Auto = 1,
+    Exact = 2
 }
 declare enum TableRowAlignment {
-    Both=0,
-    Center=1,
-    Distribute=2,
-    Left=3,
-    NumTab=4,
-    Right=5
+    Both = 0,
+    Center = 1,
+    Distribute = 2,
+    Left = 3,
+    NumTab = 4,
+    Right = 5
 }
 declare enum TableWidthUnitType {
-    Nil=0,
-    Auto=1,
-    FiftiethsOfPercent=2,
-    ModelUnits=3
+    Nil = 0,
+    Auto = 1,
+    FiftiethsOfPercent = 2,
+    ModelUnits = 3
 }
 /**
  * A command to change the font name of characters in a selected range.
@@ -17542,9 +17540,9 @@ interface FontFormattingSettings {
     hidden: boolean;
 }
 declare enum CharacterFormattingScript {
-    Normal=0,
-    Subscript=1,
-    Superscript=2
+    Normal = 0,
+    Subscript = 1,
+    Superscript = 2
 }
 /**
  * A command to toggle the horizontal ruler's visibility.
@@ -17604,8 +17602,8 @@ interface ForceSyncWithServerCommand extends CommandBase {
     execute(): boolean;
 }
 declare enum ViewType {
-    Simple=0,
-    PrintLayout=1
+    Simple = 0,
+    PrintLayout = 1
 }
 /**
  * A command to insert content created on the server to the client model.
@@ -19779,24 +19777,24 @@ interface ASPxClientWordChangedEventHandler<S> {
     (source: S, e: ASPxClientSpellCheckerAfterCheckEventArgs): void;
 }
 declare enum ASPxClientSpreadsheetPopupMenuType {
-    ColumnHeading=0,
-    RowHeading=1,
-    SheetTab=3,
-    Picture=4,
-    Chart=5,
-    Cell=7,
-    AutoFilter=8,
-    PivotTable=9,
-    PivotTableAutoFilter=10
+    ColumnHeading = 0,
+    RowHeading = 1,
+    SheetTab = 3,
+    Picture = 4,
+    Chart = 5,
+    Cell = 7,
+    AutoFilter = 8,
+    PivotTable = 9,
+    PivotTableAutoFilter = 10
 }
 declare enum ASPxClientSpreadsheetEditMode {
-    None=0,
-    Cell=1,
-    Comment=2
+    None = 0,
+    Cell = 1,
+    Comment = 2
 }
 declare enum ASPxClientSpreadsheetViewMode {
-    Editing=0,
-    Reading=1
+    Editing = 0,
+    Reading = 1
 }
 /**
  * Contains settings specifying size and position of a spreadsheet cell's in-place editor.
@@ -34356,7 +34354,7 @@ interface ASPxDesignerNavigateTab {
      * Provides access to a report opened in the current tab.
      * Value: A knockout observable object that specifies a report opened in the current tab.
      */
-    report: any;
+    report: KnockoutObservable<Object>;
     /**
      * Provides access to an engine that manages undo and redo operations in the Web Report Designer.
      * Value: An object that specifies an undo/redo engine.
@@ -34889,6 +34887,9 @@ interface ASPxClientMenuAction {
      * Value: A string that specifies the name of the CSS class.
      */
     imageClassName: string;
+    /**
+     *  Knockout template, where you can specify a required SVG icon and write logic to color it.
+     */
     imageTemplateName: string;
     /**
      * Provides access to the action performed when a button is clicked.
@@ -34897,9 +34898,8 @@ interface ASPxClientMenuAction {
     clickAction: Function;
     /**
      * Provides access to the value that specifies whether or not the command is disabled by default.
-     * Value: true, if the command is disabled by default; otherwise, false.
      */
-    disabled: boolean;
+    disabled: KnockoutObservable<boolean>;
     /**
      * Provides access to the value that specifies whether or not the command is visible in the user interface.
      * Value: true if the command is visible; otherwise false.
@@ -38913,4 +38913,3 @@ declare var ASPxClientReportParametersPanel: ASPxClientReportParametersPanelStat
 declare var ASPxClientReportToolbar: ASPxClientReportToolbarStatic;
 declare var ASPxClientReportViewer: ASPxClientReportViewerStatic;
 declare var ASPxClientWebDocumentViewer: ASPxClientWebDocumentViewerStatic;
-
