@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-export enum StyleListFormat { "none", "grouped", "table", "dl" }
-export enum RenderListFormat { "list", "table" }
-export enum MemberIndexFormat { "grouped", "list" }
+export type StyleListFormat = "none" | "grouped" | "table" | "dl";
+export type RenderListFormat = "list" | "table";
+export type MemberIndexFormat = "grouped" | "list";
 
 export interface RenderOptions {
     /**
      * Raw template data to use. Useful when you already have template data, obtained from .getTemplateData.
      * Either files, source or data must be supplied.
      */
-    data: object[];
+    data?: object[];
     /**
      * The template the supplied documentation will be rendered into.
      * Use the default or supply your own template for full control over the output.
@@ -77,7 +77,7 @@ export interface JsdocOptions {
      * By default results are cached to speed up repeat invocations.
      * Set to true to disable this.
      */
-    noCache: boolean;
+    noCache?: boolean;
     /**
      * One or more filenames to process.
      * Accepts globs (e.g. *.js). Either files, source or data must be supplied.
@@ -87,23 +87,23 @@ export interface JsdocOptions {
      * A string containing source code to process.
      * Either files, source or data must be supplied.
      */
-    source: string;
+    source?: string;
     /**
      * The path to the jsdoc configuration file.
      *  Default: path/to/jsdoc/conf.json.
      */
-    configure: string;
+    configure?: string;
 }
 
 export class JsdocToMarkdown {
     /**
      * Returns markdown documentation from jsdoc-annoted source code.
      */
-    render(options: RenderOptions): Promise<string>;
+    render(options: RenderOptions|JsdocOptions): Promise<string>;
     /**
      * Sync version of render.
      */
-    renderSync(options: RenderOptions): string;
+    renderSync(options: RenderOptions|JsdocOptions): string;
     /**
      * Returns the template data (jsdoc-parse output) which is fed into the output template (dmd).
      */
