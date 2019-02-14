@@ -126,7 +126,7 @@ declare namespace EmailTemplate {
         /**
          * Send the Email
          */
-        function send(options: EmailOptions): any;
+        function send(options: EmailOptions): Promise<any>;
 
         interface EmailMessage {
             subject?: string;
