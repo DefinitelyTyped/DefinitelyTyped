@@ -1648,7 +1648,7 @@
             "libraryName": "terser",
             "typingsPackageName": "terser",
             "sourceRepoURL": "https://github.com/terser-js/terser",
-            "asOfVersion": "3.12"
+            "asOfVersion": "3.12.0"
         },
         {
             "libraryName": "timezonecomplete",
