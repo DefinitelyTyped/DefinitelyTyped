@@ -2,7 +2,7 @@
 // Project: https://github.com/cisco/node-jose
 // Definitions by: Nadun Indunil <https://github.com/nadunindunil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.3
 
 /// <reference types="node" />
 
