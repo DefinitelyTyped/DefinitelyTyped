@@ -3,6 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
 //                 Jacob Copeland <https://github.com/blankstar85>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface EmailConfig {
