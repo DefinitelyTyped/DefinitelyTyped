@@ -19,3 +19,5 @@ email.juiceResources('<p>bob</p><style>div{color:red;}</style><div/>');
 email.render('mars/html.pug', {name: 'elon'});
 email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals: {name: 'Elon'}});
 emailNoTransporter.render('mars/html.pug', {name: 'elon'});
+email.renderAll('mars');
+email.renderAll('mars', {name: 'elon'});
