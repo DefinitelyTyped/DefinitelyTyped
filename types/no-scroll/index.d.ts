@@ -3,6 +3,9 @@
 // Definitions by: Zhang Yi Jiang <https://github.com/ZhangYiJiang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Module is exported as global object outside of module loader environment
+export as namespace noScroll;
+
 interface NoScroll {
     off(): void;
     on(): void;
