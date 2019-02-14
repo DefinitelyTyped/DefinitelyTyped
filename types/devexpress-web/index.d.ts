@@ -5,6 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
+/// <reference types="knockout"/>
 
 /**
  * A client-side counterpart of the DashboardViewer extension.
