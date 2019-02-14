@@ -1,4 +1,4 @@
-// Type definitions for InboxSDK 2.0
+// Type definitions for non-npm package InboxSDK 2.0
 // Project: https://www.inboxsdk.com/
 // Definitions by: Raphaël Doursenaud <https://github.com/rdoursenaud>
 //                 Amiram Korach <https://github.com/amiram>

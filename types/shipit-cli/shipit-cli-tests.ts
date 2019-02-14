@@ -1,4 +1,4 @@
-import shipit = require("shipit");
+import shipit = require("shipit-cli");
 
 shipit.initConfig({
     default: {

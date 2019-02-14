@@ -1,4 +1,4 @@
-// Type definitions for Atom 1.31
+// Type definitions for non-npm package Atom 1.31
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>

@@ -1,4 +1,4 @@
-// Type definitions for W3C Web USB API 1.0
+// Type definitions for non-npm package W3C Web USB API 1.0
 // Project: https://wicg.github.io/webusb/
 // Definitions by: Lars Knudsen <https://github.com/larsgk>
 //                 Rob Moran <https://github.com/thegecko>
