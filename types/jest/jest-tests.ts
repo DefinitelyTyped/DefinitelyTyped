@@ -308,10 +308,15 @@ const mock7 = jest.fn((arg: number) => arg);
 const mock8: jest.Mock = jest.fn((arg: number) => arg);
 // $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]>
 const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise.resolve(_makeItStop));
-// $ExpectType Mock<never, [never]>
-const mock10 = jest.fn((arg: never) => { throw new Error(arg); });
+// $ExpectType Mock<never, []>
+const mock10 = jest.fn(() => { throw new Error(); });
 // $ExpectType Mock<unknown, [unknown]>
 const mock11 = jest.fn((arg: unknown) => arg);
+interface TestApi {
+    test(x: number): string;
+}
+// $ExpectType Mock<string, [number]>
+const mock12 = jest.fn<ReturnType<TestApi["test"]>, ArgsType<TestApi["test"]>>();
 
 // $ExpectType number
 mock1('test');
