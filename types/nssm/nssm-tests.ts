@@ -1,86 +1,70 @@
-import Nssm from 'nssm'
-
+import Nssm = require('nssm');
 
 //  Examples from the https://github.com/alykoshin/nssm
-var nssm = Nssm('AeLookupSvc', { nssmExe: 'nssm.exe' });
+let nssm = Nssm('AeLookupSvc', { nssmExe: 'nssm.exe' });
 
-nssm.set('Start', 'manual', function(error, result) {
+nssm.set('Start', 'manual', (error, result) => {
   if (error) {
-    console.log('*** error:', error, ' stderr:', result);
     return;
   }
-  console.log('*** stdout: \'' + result + '\'');
 });
 
+let svcName;
+let options; // default
 
-var svcName = 'AeLookupSvc';
-var options = { nssmExe: 'nssm.exe' }; // default
-var nssm = Nssm(svcName, options);
+svcName = 'AeLookupSvc';
+options = { nssmExe: 'nssm.exe' }; // default
+nssm = Nssm(svcName, options);
 
-var propertyName = 'Start';
+const propertyName = 'Start';
 
 nssm.get(propertyName)
-  .then(function(stdout) {
-    console.log('then(): stdout: \'' + stdout + '\'');
+  .then((stdout) => {
   })
-  .catch(function(error) {
-    console.log('catch(): error:', error);
-  })
-  ;
-
+  .catch((error) => {
+  });
 
 nssm.set('start', 'manual')
-  .then(function(stdout) {
-    return nssm.get('start')
+  .then((stdout) => {
+    return nssm.get('start');
   })
-  .then(function(stdout) {
-    return nssm.start()
+  .then((stdout) => {
+    return nssm.start();
   })
-  .then(function(stdout) {
-    return nssm.stop()
+  .then((stdout) => {
+    return nssm.stop();
   })
-  .then(function(stdout) {
-    console.log('DONE');
+  .then((stdout) => {
   })
-  .catch(function(error, stderr) {
-    console.log('ERROR:', error);
-  })
-  ;
+  .catch((error, stderr) => {
+  });
 
-var svcName = 'AeLookupSvc';
-var options = { nssmExe: 'nssm.exe' }; // default
-var nssm = Nssm(svcName, options);
+ svcName = 'AeLookupSvc';
+ options = { nssmExe: 'nssm.exe' }; // default
+ nssm = Nssm(svcName, options);
 
-nssm.restart(function(error, result) {
+nssm.restart((error, result) => {
   if (error) {
-    console.log('*** error:', error, ' stderr:', result);
     return;
   }
-  console.log('*** stdout: \'' + result + '\'');
 });
 
+ svcName = 'AeLookupSvc';
+ options = { nssmExe: 'nssm.exe' }; // default
+ nssm = Nssm(svcName, options);
 
-var svcName = 'AeLookupSvc';
-var options = { nssmExe: 'nssm.exe' }; // default
-var nssm = Nssm(svcName, options);
-
-nssm.get('Start', function(error, result) {
+nssm.get('Start', (error, result) => {
   if (error) {
-    console.log('*** error:', error, ' stderr:', result);
     return;
   }
-  console.log('*** stdout: \'' + result + '\'');
 });
 
+svcName = 'test';
+options = { nssmExe: 'nssm.exe' }; // default
+nssm = Nssm(svcName, options);
 
-var svcName = 'test';
-var options = { nssmExe: 'nssm.exe' }; // default
-var nssm = Nssm(svcName, options);
-
-nssm.set('Start', 'manual', function(error, result) {
+nssm.set('Start', 'manual', (error, result) => {
   if (error) {
-    console.log('*** error:', error, ' stderr:', result);
     return;
   }
-  console.log('*** stdout: \'' + result + '\'');
 });

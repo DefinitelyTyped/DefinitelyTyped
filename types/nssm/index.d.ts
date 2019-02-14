@@ -1,9 +1,9 @@
 declare module 'nssm' {
-    export interface NssmOptions {
+    interface NssmOptions {
       nssmExe?: string
     }
 
-    export type Command =
+    type Command =
         | 'install'
         | 'remove'
         | 'start'
@@ -29,25 +29,27 @@ declare module 'nssm' {
       catch: NssmCatch<T>;
     }
 
-    export type NssmCallback = (error?: string, result?: string) => void
-    export type ZeroArgNssmCallback = (callback: NssmCallback) => void
-    export type OneArgNssmCallback = (arg1: string, callback: NssmCallback) => void
-    export type TwoArgNssmCallback = (arg1: string, arg2: string, callback: NssmCallback) => void
-    export type ZeroArgPromiseFunction = () => Promise<string>
-    export type OneArgPromiseFunction = (arg1: string) => Promise<string>
-    export type TwoArgPromiseFunction = (arg1: string, arg2: string) => NssmPromise<string>
+    type NssmCallback = (error?: string, result?: string) => void
+    type ZeroArgNssmCallback = (callback: NssmCallback) => void
+    type OneArgNssmCallback = (arg1: string, callback: NssmCallback) => void
+    type TwoArgNssmCallback = (arg1: string, arg2: string, callback: NssmCallback) => void
+    type ZeroArgPromiseFunction = () => NssmPromise<string>
+    type OneArgPromiseFunction = (arg1: string) => NssmPromise<string>
+    type TwoArgPromiseFunction = (arg1: string, arg2: string) => NssmPromise<string>
 
-    export type NssmCommand =
-      & ZeroArgNssmCallback
-      & OneArgNssmCallback
-      & TwoArgNssmCallback
-      & ZeroArgPromiseFunction
-      & OneArgPromiseFunction
-      & TwoArgPromiseFunction
+    type NssmCommand =
+        & ZeroArgNssmCallback
+        & OneArgNssmCallback
+        & TwoArgNssmCallback
+        & ZeroArgPromiseFunction
+        & OneArgPromiseFunction
+        & TwoArgPromiseFunction
 
-    export type Nssm = {
+    type Nssm = {
       [key in Command]: NssmCommand
     }
 
-    export default function (serviceName: string, options?: NssmOptions): Nssm
+    const Nssm: (serviceName: string, options?: NssmOptions) => Nssm
+
+    export = Nssm
 }
