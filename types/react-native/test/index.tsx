@@ -454,6 +454,9 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             nestedScrollEnabled={true}
                             invertStickyHeaders={true}
                             contentOffset={{ x: 0, y: 0 }}
+                            snapToStart={false}
+                            snapToEnd={false}
+                            snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
                         />

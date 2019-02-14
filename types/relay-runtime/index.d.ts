@@ -1,5 +1,5 @@
 // Type definitions for relay-runtime 1.3
-// Project: https://github.com/facebook/relay
+// Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

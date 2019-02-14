@@ -1,5 +1,5 @@
 // Type definitions for ioBroker 1.4
-// Project: https://github.com/ioBroker/ioBroker
+// Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2

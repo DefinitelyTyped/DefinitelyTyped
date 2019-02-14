@@ -12,32 +12,28 @@ declare namespace PleaseJS{
          * @param {MakeColorOption} options
          * @returns {Array}
          */
-        make_color(options?: MakeColorOption): Array<string>;
-        make_color(options?: MakeColorOption): Array<RGB>;
-        make_color(options?: MakeColorOption): Array<HSV>;
+        make_color(options?: MakeColorOption): Array<string | RGB | HSV>;
 
         /***
          * make a color scheme
          * @param {MakeSchemeOption} options
          * @returns {Array}
          */
-        make_scheme(base_color: HSV, options?: MakeSchemeOption): Array<string>;
-        make_scheme(base_color: HSV, options?: MakeSchemeOption): Array<RGB>;
-        make_scheme(base_color: HSV, options?: MakeSchemeOption): Array<HSV>;
+        make_scheme(base_color: HSV, options?: MakeSchemeOption): Array<string | RGB | HSV>;
 
         /***
          * convert color name into hex string
          * @param {string} name
          * @returns {string}
          */
-        NAME_to_HEX(name: string): string;
+        NAME_to_HEX(name: string): string | undefined;
 
         /***
          * convert color name into RGB
          * @param {string} name
          * @returns {RGB}
          */
-        NAME_to_RGB(name: string): RGB;
+        NAME_to_RGB(name: string): RGB | null;
 
         /***
          * convert color name into RGB
@@ -51,7 +47,7 @@ declare namespace PleaseJS{
          * @param {string} hex
          * @returns {RGB}
          */
-        HEX_to_RGB(hex: string): RGB;
+        HEX_to_RGB(hex: string): RGB | null;
 
         /***
          * convert RGB into HEX

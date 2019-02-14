@@ -10,6 +10,7 @@
 //                 Joachim Schuler <https://github.com/jschuler>
 //                 Adam Misiorny <https://github.com/adam187>
 //                 Sara F-P <https://github.com/gretzky>
+//                 Chris LoPresto <https://github.com/chrislopresto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -360,6 +361,12 @@ export interface SizeProps extends SizeHeightProps, SizeWidthProps {}
 
 export function size(...args: any[]): any;
 
+export interface RatioPaddingProps<TLength = TLengthStyledSystem> {
+    ratio?: ResponsiveValue<number>;
+}
+
+export function ratioPadding(...args: any[]): any;
+
 export interface RatioProps {
     /**
      * The ration is height: 0 & paddingBottom
@@ -420,6 +427,8 @@ export interface JustifyItemsProps {
      */
     justifyItems?: ResponsiveValue<CSS.JustifyItemsProperty>;
 }
+
+export function justifyItems(...args: any[]): any;
 
 export interface JustifyContentProps {
     /**
@@ -966,3 +975,80 @@ export interface MixedProps {
 }
 
 export function mixed(...args: any[]): any;
+
+export interface StylesProps {
+    space: typeof space;
+    width: typeof width;
+    fontSize: typeof fontSize;
+    textColor: typeof textColor;
+    bgColor: typeof bgColor;
+    color: typeof color;
+    fontFamily: typeof fontFamily;
+    textAlign: typeof textAlign;
+    lineHeight: typeof lineHeight;
+    fontWeight: typeof fontWeight;
+    fontStyle: typeof fontStyle;
+    letterSpacing: typeof letterSpacing;
+    display: typeof display;
+    maxWidth: typeof maxWidth;
+    minWidth: typeof minWidth;
+    height: typeof height;
+    maxHeight: typeof maxHeight;
+    minHeight: typeof minHeight;
+    sizeWidth: typeof sizeWidth;
+    sizeHeight: typeof sizeHeight;
+    size: typeof size;
+    ratioPadding: typeof ratioPadding;
+    ratio: typeof ratio;
+    verticalAlign: typeof verticalAlign;
+    alignItems: typeof alignItems;
+    alignContent: typeof alignContent;
+    justifyItems: typeof justifyItems;
+    justifyContent: typeof justifyContent;
+    flexWrap: typeof flexWrap;
+    flexBasis: typeof flexBasis;
+    flexDirection: typeof flexDirection;
+    flex: typeof flex;
+    justifySelf: typeof justifySelf;
+    alignSelf: typeof alignSelf;
+    order: typeof order;
+    gridGap: typeof gridGap;
+    gridColumnGap: typeof gridColumnGap;
+    gridRowGap: typeof gridRowGap;
+    gridColumn: typeof gridColumn;
+    gridRow: typeof gridRow;
+    gridAutoFlow: typeof gridAutoFlow;
+    gridAutoColumns: typeof gridAutoColumns;
+    gridAutoRows: typeof gridAutoRows;
+    gridTemplateColumns: typeof gridTemplateColumns;
+    gridTemplateRows: typeof gridTemplateRows;
+    gridTemplateAreas: typeof gridTemplateAreas;
+    gridArea: typeof gridArea;
+    border: typeof border;
+    borderTop: typeof borderTop;
+    borderRight: typeof borderRight;
+    borderBottom: typeof borderBottom;
+    borderLeft: typeof borderLeft;
+    borders: typeof borders;
+    borderColor: typeof borderColor;
+    borderRadius: typeof borderRadius;
+    boxShadow: typeof boxShadow;
+    opacity: typeof opacity;
+    overflow: typeof overflow;
+    background: typeof background;
+    backgroundImage: typeof backgroundImage;
+    backgroundPosition: typeof backgroundPosition;
+    backgroundRepeat: typeof backgroundRepeat;
+    backgroundSize: typeof backgroundSize;
+    position: typeof position;
+    zIndex: typeof zIndex;
+    top: typeof top;
+    right: typeof right;
+    bottom: typeof bottom;
+    left: typeof left;
+    textStyle: typeof textStyle;
+    colorStyle: typeof colorStyle;
+    buttonStyle: typeof buttonStyle;
+}
+
+export const styles: StylesProps;

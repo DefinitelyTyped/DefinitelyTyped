@@ -25,6 +25,7 @@ class AvatarEditorTest extends React.Component {
             <div>
                 <AvatarEditor image="" />
                 <AvatarEditor image={file} />
+                <AvatarEditor image="" className="helloworld" />
                 <AvatarEditor image="" width={1} />
                 <AvatarEditor image="" height={1} />
                 <AvatarEditor image="" border={1} />

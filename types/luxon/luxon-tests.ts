@@ -144,6 +144,7 @@ i.mapEndpoints((d) => d); // $ExpectType Interval
 i.toISO(); // $ExpectType string
 i.toString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
+i.toDuration(); // $ExpectType Duration
 
 if (Interval.isInterval(anything)) {
     anything; // $ExpectType Interval

@@ -1,5 +1,5 @@
 // Type definitions for ramda 0.25
-// Project: https://github.com/donnut/typescript-ramda
+// Project: https://github.com/donnut/typescript-ramda, https://ramdajs.com
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 //                 Tycho Grouwstra <https://github.com/tycho01>
 //                 Matt DeKrey <https://github.com/mdekrey>
@@ -2257,9 +2257,9 @@ declare namespace R {
         /**
          * Replace a substring or regex match in a string with a replacement.
          */
-        replace(pattern: RegExp | string, replacement: string, str: string): string;
-        replace(pattern: RegExp | string, replacement: string): (str: string) => string;
-        replace(pattern: RegExp | string): (replacement: string) => (str: string) => string;
+        replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string), str: string): string;
+        replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string)): (str: string) => string;
+        replace(pattern: RegExp | string): (replacement: string | ((match: string, ...args: any[]) => string)) => (str: string) => string;
 
         /**
          * Returns a new list with the same elements as the original list, just in the reverse order.

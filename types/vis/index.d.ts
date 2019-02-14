@@ -1,5 +1,5 @@
 // Type definitions for vis.js 4.21
-// Project: https://github.com/almende/vis
+// Project: https://github.com/almende/vis, http://visjs.org
 // Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
 //                 MacLeod Broad <https://github.com/macleodbroad-wf>
 //                 Adrian Caballero <https://github.com/adripanico>
