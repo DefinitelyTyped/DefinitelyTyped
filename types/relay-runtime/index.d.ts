@@ -79,10 +79,6 @@ export function getRequest(taggedNode: GraphQLTaggedNode): ConcreteRequest;
 
 export type RequestNode = ConcreteRequest | ConcreteBatchRequest;
 
-// Using `enum` here to create a distinct type and `const` to ensure it doesn’t leave any generated code.
-// tslint:disable-next-line:no-const-enum
-export const enum FragmentReference {}
-
 export interface OperationBase {
     variables: object;
     response: object;
