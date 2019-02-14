@@ -52,4 +52,9 @@ withTransportInstance.send({
 });
 
 email.renderAll('mars');
-email.renderAll('mars', {name: 'elon'});
+const promise = email.renderAll('mars', {name: 'elon'});
+promise.then(value => {
+    const subject: string | undefined = value.subject;
+    const html: string | undefined = value.html;
+    const text: string | undefined = value.text;
+});
