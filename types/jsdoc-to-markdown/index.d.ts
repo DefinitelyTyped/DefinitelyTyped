@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-declare enum StyleListFormat { "none", "grouped", "table", "dl" }
-declare enum RenderListFormat { "list", "table" }
-declare enum MemberIndexFormat { "grouped", "list" }
+export enum StyleListFormat { "none", "grouped", "table", "dl" }
+export enum RenderListFormat { "list", "table" }
+export enum MemberIndexFormat { "grouped", "list" }
 
-interface RenderOptions {
+export interface RenderOptions {
     data: object[];
     template?: string;
     headingDepth?: number;
@@ -26,14 +26,14 @@ interface RenderOptions {
     memberIndexFormat?: MemberIndexFormat;
 }
 
-interface JsdocOptions {
+export interface JsdocOptions {
     noCache: boolean;
     files: string|string[];
     source: string;
     configure: string;
 }
 
-export default class JsdocToMarkdown {
+export class JsdocToMarkdown {
     render(options: RenderOptions): Promise<string>;
     renderSync(options: RenderOptions): string;
     getTemplateData(options: JsdocOptions): Promise<object[]>;
