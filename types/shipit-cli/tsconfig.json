@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "shipit-tests.ts"
+        "shipit-cli-tests.ts"
     ]
 }
