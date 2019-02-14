@@ -3,7 +3,7 @@
 import nssm = require('nssm');
 
 const svcName = 'test';
-const options = { nssmExe: 'nssm.exe' };
+const options: nssm.NssmOptions = { nssmExe: 'nssm.exe' };
 const testService = nssm(svcName, options);
 
 const propertyName = 'Start';
