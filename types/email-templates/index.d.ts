@@ -115,7 +115,7 @@ interface EmailConfig<T = any> {
     /**
      * Pass a custom render function if necessary
      */
-    render?: (view: string, locals: T) => Promise<any>;
+    render?: (view: string, locals?: T) => Promise<any>;
     /**
      * force text-only rendering of template (disregards template folder)
      */
@@ -155,7 +155,7 @@ interface EmailOptions<T = any> {
     /**
      * The Template Variables
      */
-    locals: T;
+    locals?: T;
 }
 
 declare class EmailTemplate<T = any> {
@@ -170,7 +170,7 @@ declare class EmailTemplate<T = any> {
      * @param view The Html pug to render
      * @param locals The template Variables
      */
-    render(view: string, locals: T): Promise<string>;
+    render(view: string, locals?: T): Promise<string>;
     /**
      * Render all available template files for a given email
      * template (e.g. `html.pug`, `text.pug`, and `subject.pug`)
@@ -197,7 +197,7 @@ declare namespace EmailTemplate {
      * @param view The Html pug to render
      * @param locals The template Variables
      */
-    function render(view: string, locals: any): Promise<string>;
+    function render(view: string, locals?: any): Promise<string>;
 
     /**
      * Render all available template files for a given email
