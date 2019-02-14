@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
+declare enum StyleListFormat { "none", "grouped", "table", "dl" }
+declare enum RenderListFormat { "list", "table" }
+declare enum MemberIndexFormat { "grouped", "list" }
+
 interface RenderOptions {
     data: object[];
     template?: string;
@@ -15,11 +19,11 @@ interface RenderOptions {
     nameFormat?: string;
     noGfm?: boolean;
     seperators?: boolean;
-    moduleIndexFormat?: string;
-    globalIndexFormat?: string;  // @todo
-    paramListFormat?: string;    // @todo
-    propertyListFormat?: string; // @todo
-    memberIndexFormat?: string;  // @todo
+    moduleIndexFormat?: StyleListFormat;
+    globalIndexFormat?: StyleListFormat;
+    paramListFormat?: RenderListFormat;
+    propertyListFormat?: RenderListFormat;
+    memberIndexFormat?: MemberIndexFormat;
 }
 
 interface JsdocOptions {
@@ -29,13 +33,13 @@ interface JsdocOptions {
     configure: string;
 }
 
-declare class JsdocToMarkdown {
+export default class JsdocToMarkdown {
     render(options: RenderOptions): Promise<string>;
     renderSync(options: RenderOptions): string;
-    getTemplateData(options: JsdocOptions): object[];
+    getTemplateData(options: JsdocOptions): Promise<object[]>;
     getTemplateDataSync(options: JsdocOptions): object[];
-    getJsdocData(options: JsdocOptions): object[];
+    getJsdocData(options: JsdocOptions): Promise<object[]>;
     getJsdocDataSync(options: JsdocOptions): object[];
     clear(): Promise<void>;
-    getNamepaths(options: JsdocOptions): object;
+    getNamepaths(options: JsdocOptions): Promise<object>;
 }
