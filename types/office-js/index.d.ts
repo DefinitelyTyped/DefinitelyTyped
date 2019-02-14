@@ -3216,7 +3216,7 @@ declare namespace Office {
      * Represents an XML node in a tree in a document.
      *
      * @remarks
-     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr>     * </table>
+     * <table><tr><td>Requirement Sets</td><td>CustomXmlParts</td></tr></table>
      * 
      * **Support details**
      * 
@@ -13142,8 +13142,10 @@ declare namespace Office {
          *
          * @remarks
          *
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr></table>
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr>
+         * </table>
          */
         body: Body;
         /**
@@ -13542,7 +13544,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
@@ -13571,7 +13575,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          */
         displayReplyAllForm(formData: string | ReplyFormData): void;
@@ -13598,7 +13604,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
@@ -13627,7 +13635,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          */
         displayReplyForm(formData: string | ReplyFormData): void;
@@ -15381,7 +15391,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
@@ -15410,7 +15422,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          */
         displayReplyAllForm(formData: string | ReplyFormData): void;
@@ -15437,7 +15451,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
@@ -15466,7 +15482,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          */
         displayReplyForm(formData: string | ReplyFormData): void;
@@ -16093,8 +16111,8 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
          *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
-         * <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
-         * <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
+         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
+         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
          * </table>
          * 
          * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
@@ -17281,7 +17299,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
@@ -17310,7 +17330,9 @@ declare namespace Office {
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
+         * 
          *                      OR
+         * 
          *                   An {@link Office.ReplyFormData} object that contains body or attachment data and a callback function.
          */
         displayReplyAllForm(formData: string | ReplyFormData): void;
@@ -17331,8 +17353,9 @@ declare namespace Office {
          *
          * @remarks
          *
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr>
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr>
          * </table>
          *
          * @param formData - A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB.
@@ -19331,8 +19354,10 @@ declare namespace Office {
          * 
          * @remarks
          * 
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr></table>
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+         * </table>
          * 
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
@@ -19783,9 +19808,11 @@ declare namespace Office {
          * [Api set: Mailbox 1.7]
          *
          * @remarks
-         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
-         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * <tr><td>Errors</td><td>Invalid date format - The date is not in an acceptable format.</td></tr></table>
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *   <tr><td>Errors</td><td>Invalid date format - The date is not in an acceptable format.</td></tr>
+         * </table>
          * 
          * @param year - The year value of the start date.
          * @param month - The month value of the start date. Valid range is 0-11 where 0 represents the 1st month and 11 represents the 12th month.
