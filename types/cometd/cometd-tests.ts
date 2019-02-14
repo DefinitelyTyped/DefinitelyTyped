@@ -26,7 +26,7 @@ const timeSyncSubscription = cometd.addListener("/foo/bar", () => {
                 serverDate: timesync.getServerDate(),
                 timeOffset: timesync.getTimeOffset(),
                 timeOffsetSamples: timesync.getTimeOffsetSamples()
-            } 
+            }
         });
     }
 });
