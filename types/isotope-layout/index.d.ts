@@ -1,5 +1,5 @@
 // Type definitions for isotope 3.0
-// Project: http://isotope.metafizzy.co/
+// Project: https://isotope.metafizzy.co
 // Definitions by: Anže Videnič <https://github.com/avidenic>
 //                 Mălin Brândușe <https://github.com/malinushj>
 //                 SPWizard01 <https://github.com/SPWizard01>

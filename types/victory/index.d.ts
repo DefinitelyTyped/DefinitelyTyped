@@ -1,5 +1,5 @@
 // Type definitions for Victory 31.0
-// Project: https://github.com/FormidableLabs/victory
+// Project: https://github.com/FormidableLabs/victory, https://formidable.com/open-source/victory
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 snerks <https://github.com/snerks>
 //                 Krzysztof Cebula <https://github.com/Havret>
@@ -54,7 +54,7 @@ declare module "victory" {
      * The child of should be a function that takes an object of tweened values and returns a component to render.
      * @param style
      */
-    children?: (style: AnimationStyle) => React.ReactElement<any>;
+    children?: (style: AnimationStyle) => React.ReactElement;
     /**
      * The number of milliseconds the animation should take to complete.
      * @default 1000
@@ -280,7 +280,7 @@ declare module "victory" {
      * If a cursorComponent is not supplied, a new Line component will be rendered.
      * @default cursorComponent={<Line/>}
      */
-    cursorComponent?: React.ReactElement<any>;
+    cursorComponent?: React.ReactElement;
     /**
      * When the cursorDimension prop is set, the cursor will be a line to inspect the given dimension (either "x" or "y").
      * When this prop is not specified, the cursor will be a 2-dimensional crosshair.
@@ -303,7 +303,7 @@ declare module "victory" {
      * active, text. If cursorLabelComponent is omitted, a new VictoryLabel will be created with the props described above.
      * @default cursorLabelComponent={<VictoryLabel/>}
      */
-    cursorLabelComponent?: React.ReactElement<any>;
+    cursorLabelComponent?: React.ReactElement;
     /**
      * The cursorLabelOffset prop determines the pixel offset of the cursor label
      * from the cursor point. This prop should be an Object with x and y properties, or a
@@ -355,7 +355,7 @@ declare module "victory" {
      * width, height, and style. When this prop is not specified, a <rect/> will be rendered.
      * @default brushComponent={<rect/>}
      */
-    brushComponent?: React.ReactElement<any>;
+    brushComponent?: React.ReactElement;
     /**
      * When the brushDimension prop is set, brushing will only be specific to the to
      * the given dimension (either "x" or "y"), and the entire domain of the other
@@ -398,7 +398,7 @@ declare module "victory" {
      * specified, a <rect/> will be rendered.
      * @default handleComponent={<rect/>}
      */
-    handleComponent?: React.ReactElement<any>;
+    handleComponent?: React.ReactElement;
     /**
      * The handleStyle adds custom styles to the handleComponents. This prop should be given as an object of SVG style attributes.
      *
@@ -440,7 +440,7 @@ declare module "victory" {
      * props on VictoryClipContainer, such as clipPadding.
      * @example clipContainerComponent={<VictoryClipContainer clipPadding={{top: 10, right: 10}}}/>}
      */
-    clipContainerComponent?: React.ReactElement<any>;
+    clipContainerComponent?: React.ReactElement;
     /**
      * When the zoomDimension prop is set, panning and zooming will be restricted to
      * the given dimension (either x or y), and the domain of the other dimension will
@@ -605,12 +605,12 @@ declare module "victory" {
      * Examples: flyoutComponent={<Flyout x={50} y={50}/>}, flyoutComponent={<MyCustomFlyout/>}
      * @default <Flyout/>
      */
-    flyoutComponent?: React.ReactElement<any>;
+    flyoutComponent?: React.ReactElement;
     /**
      * The groupComponent prop takes a component instance which will be used to create group elements for use within container elements. This prop defaults to a <g> tag.
      * @default groupComponent={<g/>}
      */
-    groupComponent?: React.ReactElement<any>;
+    groupComponent?: React.ReactElement;
     /**
      * The height prop defines the height of the tooltip flyout. This prop may be given as a positive number or a function of datum.
      * If this prop is not set, height will be determined based on an approximate text size calculated from the text and style props provided to VictoryTooltip.
@@ -634,7 +634,7 @@ declare module "victory" {
      * Examples: labelComponent={<VictoryLabel dy={20}/>}, labelComponent={<MyCustomLabel/>}
      * @default <VictoryLabel/>
      */
-    labelComponent?: React.ReactElement<any>;
+    labelComponent?: React.ReactElement;
     /**
      * The orientation prop determines which side of the (x, y) coordinate the tooltip should be rendered on.
      * This prop can be given as “top”, “bottom”, “left”, “right”, or as a function of datum that returns one of these values.
@@ -902,7 +902,7 @@ declare module "victory" {
      * @example <VictoryContainer title="Chart of Dog Breeds" desc="This chart shows how popular each dog breed is by percentage in Seattle." />
      * @default <VictoryContainer/>
      */
-    containerComponent?: React.ReactElement<any>;
+    containerComponent?: React.ReactElement;
     /**
      * The theme prop takes a style object with nested data, labels, and parent objects.
      * You can create this object yourself, or you can use a theme provided by Victory.
@@ -919,7 +919,7 @@ declare module "victory" {
      * to a <g> tag on web, and a react-native-svg <G> tag on mobile
      * @default <g/>
      */
-    groupComponent?: React.ReactElement<any>;
+    groupComponent?: React.ReactElement;
   }
 
   /**
@@ -953,7 +953,7 @@ declare module "victory" {
      * not provided, VictoryArea will use its default Area component.
      * @default <Area/>
      */
-    dataComponent?: React.ReactElement<any>;
+    dataComponent?: React.ReactElement;
     /**
      * The domain prop describes the range of values your chart will cover. This prop can be
      * given as a array of the minimum and maximum expected values for your bar chart,
@@ -1003,7 +1003,7 @@ declare module "victory" {
      * data point, they should be created by composing VictoryArea with VictoryScatter
      * @default <VictoryLabel/>
      */
-    labelComponent?: React.ReactElement<any>;
+    labelComponent?: React.ReactElement;
   }
 
   interface VictoryMultiLabeableProps extends VictoryLabableProps {
@@ -1108,7 +1108,7 @@ declare module "victory" {
      * is not supplied, VictoryAxis will render its default AxisLine component.
      * @default <AxisLine/>
      */
-    axisComponent?: React.ReactElement<any>;
+    axisComponent?: React.ReactElement;
     /**
      * The axisLabelComponent prop takes in an entire component which will be used
      * to create the axis label. The new element created from the passed axisLabelComponent
@@ -1119,7 +1119,7 @@ declare module "victory" {
      * VictoryLabel will be created with props described above
      * @default <VictoryLabel/>
      */
-    axisLabelComponent?: React.ReactElement<any>;
+    axisLabelComponent?: React.ReactElement;
     /**
      * This prop specifies whether a given axis is intended to cross another axis.
      */
@@ -1193,7 +1193,7 @@ declare module "victory" {
      * is not supplied, VictoryAxis will render its default GridLine component.
      * @default <GridLine/>
      */
-    gridComponent?: React.ReactElement<any>;
+    gridComponent?: React.ReactElement;
     /**
      * If true, this value will flip the domain of a given axis.
      */
@@ -1270,7 +1270,7 @@ declare module "victory" {
      * is not supplied, VictoryAxis will render its default Tick component.
      * @default <Tick/>
      */
-    tickComponent?: React.ReactElement<any>;
+    tickComponent?: React.ReactElement;
     /**
      * The tickCount prop specifies approximately how many ticks should be drawn on the axis if
      * tickValues are not explicitly provided. This value is calculated by d3 scale and
@@ -1290,7 +1290,7 @@ declare module "victory" {
      * VictoryLabel will be created with props described above
      * @default <VictoryLabel/>
      */
-    tickLabelComponent?: React.ReactElement<any>;
+    tickLabelComponent?: React.ReactElement;
     /**
      * The tickFormat prop specifies how tick values should be expressed visually.
      * tickFormat can be given as a function to be applied to every tickValue, or as
@@ -1876,7 +1876,7 @@ declare module "victory" {
        * VictoryPortal to force components to render above other children.
        * @default <VictoryContainer/>
        */
-      containerComponent?: React.ReactElement<any>;
+      containerComponent?: React.ReactElement;
       /**
        * Specify data via the data prop. VictoryLegend expects data as an
        * array of objects with name (required), symbol, and labels properties.
@@ -1907,14 +1907,14 @@ declare module "victory" {
        * If a dataComponent is not provided, VictoryLegend will use its
        * default Point component.
        */
-      dataComponent?: React.ReactElement<any>;
+      dataComponent?: React.ReactElement;
       /**
        * The groupComponent prop takes an entire component which will be used to
        * create group elements for use within container elements. This prop defaults
        * to a <g> tag on web, and a react-native-svg <G> tag on mobile
        * @default <g/>
        */
-      groupComponent?: React.ReactElement<any>;
+      groupComponent?: React.ReactElement;
       /**
        * The gutter prop defines the number of pixels between legend rows or
        * columns, depending on orientation. When orientation is horizontal,
@@ -1931,7 +1931,7 @@ declare module "victory" {
        * custom component itself. If labelComponent is omitted, a new
        * VictoryLabel will be created with the props described above.
        */
-      labelComponent?: React.ReactElement<any>;
+      labelComponent?: React.ReactElement;
       /**
        * The orientation prop takes a string that defines whether legend data
        * are displayed in a row or column. When orientation is "horizontal",
@@ -2211,7 +2211,7 @@ declare module "victory" {
        * the VictoryPie; and the d3 compatible slice object.
        * If a dataComponent is not provided, VictoryPie's Slice component will be used.
        */
-      dataComponent?: React.ReactElement<any>;
+      dataComponent?: React.ReactElement;
       /**
        * The labelRadius prop defines the radius of the arc that will be used for positioning each slice label.
        * If this prop is not set, the label radius will default to the radius of the pie + label padding.

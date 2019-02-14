@@ -19,6 +19,7 @@
 //                 Maksim Sharipov <https://github.com/pret-a-porter>
 //                 Duong Tran <https://github.com/t49tran>
 //                 Ben Smith <https://github.com/8enSmith>
+//                 Wesley Tsai <https://github.com/wezleytsai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -128,7 +129,7 @@ export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function matchPath<Params extends { [K in keyof Params]?: string }>(pathname: string, props: string | RouteProps, parent?: match<Params> | null): match<Params> | null;
 
-export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean }): string;
+export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean | undefined }): string;
 
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @withRouter decorator in your code,

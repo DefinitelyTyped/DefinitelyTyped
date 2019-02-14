@@ -31,6 +31,8 @@ declare namespace createRouter {
 
     type Method = (path: string|RegExp, handlerOrConfig: Handler | object, ...handlers: Handler[]) => Router;
 
+    type OutputValidation = { body: Joi.SchemaLike } | { headers: Joi.SchemaLike };
+
     interface Spec {
         method: string|string[];
         path: string|RegExp;
@@ -47,7 +49,7 @@ declare namespace createRouter {
             formOptions?: CoBody.Options;
             jsonOptions?: CoBody.Options;
             multipartOptions?: CoBody.Options;
-            output?: {[status: string]: Joi.SchemaLike};
+            output?: {[status: string]: OutputValidation};
             continueOnError?: boolean;
         };
         meta?: any;

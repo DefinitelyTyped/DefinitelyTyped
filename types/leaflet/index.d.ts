@@ -494,7 +494,7 @@ export interface TileLayerOptions extends GridLayerOptions {
     tms?: boolean;
     zoomReverse?: boolean;
     detectRetina?: boolean;
-    crossOrigin?: boolean | string;
+    crossOrigin?: CrossOrigin;
     // [name: string]: any;
     // You are able add additional properties, but it makes this interface unchackable.
     // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15313
@@ -550,12 +550,16 @@ export namespace tileLayer {
     function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
 }
 
+export type CrossOrigin = boolean | string;
+
 export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number;
     alt?: string;
     interactive?: boolean;
     attribution?: string;
-    crossOrigin?: boolean;
+    crossOrigin?: CrossOrigin;
+    errorOverlayUrl?: string;
+    zIndex?: number;
     className?: string;
 }
 
@@ -568,6 +572,9 @@ export class ImageOverlay extends Layer {
 
     /** Update the bounds that this ImageOverlay covers */
     setBounds(bounds: LatLngBounds): this;
+
+    /** Changes the zIndex of the image overlay */
+    setZIndex(value: number): this;
 
     /** Get the bounds that this ImageOverlay covers */
     getBounds(): LatLngBounds;

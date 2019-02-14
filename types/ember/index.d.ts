@@ -1,5 +1,5 @@
 // Type definitions for Ember.js 3.0
-// Project: http://emberjs.com/
+// Project: http://emberjs.com/, https://github.com/emberjs/ember
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>
 //                 Derek Wickern <https://github.com/dwickern>

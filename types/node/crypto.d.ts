@@ -2,31 +2,115 @@ declare module "crypto" {
     import * as stream from "stream";
 
     interface Certificate {
-        exportChallenge(spkac: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
-        exportPublicKey(spkac: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
-        verifySpkac(spkac: Buffer | NodeJS.TypedArray | DataView): boolean;
+        exportChallenge(spkac: BinaryLike): Buffer;
+        exportPublicKey(spkac: BinaryLike): Buffer;
+        verifySpkac(spkac: Binary): boolean;
     }
     const Certificate: {
         new(): Certificate;
         (): Certificate;
     };
 
+    namespace constants { // https://nodejs.org/dist/latest-v10.x/docs/api/crypto.html#crypto_crypto_constants
+        const OPENSSL_VERSION_NUMBER: number;
+
+        /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
+        const SSL_OP_ALL: number;
+        /** Allows legacy insecure renegotiation between OpenSSL and unpatched clients or servers. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html. */
+        const SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
+        /** Attempts to use the server's preferences instead of the client's when selecting a cipher. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html. */
+        const SSL_OP_CIPHER_SERVER_PREFERENCE: number;
+        /** Instructs OpenSSL to use Cisco's "speshul" version of DTLS_BAD_VER. */
+        const SSL_OP_CISCO_ANYCONNECT: number;
+        /** Instructs OpenSSL to turn on cookie exchange. */
+        const SSL_OP_COOKIE_EXCHANGE: number;
+        /** Instructs OpenSSL to add server-hello extension from an early version of the cryptopro draft. */
+        const SSL_OP_CRYPTOPRO_TLSEXT_BUG: number;
+        /** Instructs OpenSSL to disable a SSL 3.0/TLS 1.0 vulnerability workaround added in OpenSSL 0.9.6d. */
+        const SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS: number;
+        /** Instructs OpenSSL to always use the tmp_rsa key when performing RSA operations. */
+        const SSL_OP_EPHEMERAL_RSA: number;
+        /** Allows initial connection to servers that do not support RI. */
+        const SSL_OP_LEGACY_SERVER_CONNECT: number;
+        const SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER: number;
+        const SSL_OP_MICROSOFT_SESS_ID_BUG: number;
+        /** Instructs OpenSSL to disable the workaround for a man-in-the-middle protocol-version vulnerability in the SSL 2.0 server implementation. */
+        const SSL_OP_MSIE_SSLV2_RSA_PADDING: number;
+        const SSL_OP_NETSCAPE_CA_DN_BUG: number;
+        const SSL_OP_NETSCAPE_CHALLENGE_BUG: number;
+        const SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG: number;
+        const SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG: number;
+        /** Instructs OpenSSL to disable support for SSL/TLS compression. */
+        const SSL_OP_NO_COMPRESSION: number;
+        const SSL_OP_NO_QUERY_MTU: number;
+        /** Instructs OpenSSL to always start a new session when performing renegotiation. */
+        const SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION: number;
+        const SSL_OP_NO_SSLv2: number;
+        const SSL_OP_NO_SSLv3: number;
+        const SSL_OP_NO_TICKET: number;
+        const SSL_OP_NO_TLSv1: number;
+        const SSL_OP_NO_TLSv1_1: number;
+        const SSL_OP_NO_TLSv1_2: number;
+        const SSL_OP_PKCS1_CHECK_1: number;
+        const SSL_OP_PKCS1_CHECK_2: number;
+        /** Instructs OpenSSL to always create a new key when using temporary/ephemeral DH parameters. */
+        const SSL_OP_SINGLE_DH_USE: number;
+        /** Instructs OpenSSL to always create a new key when using temporary/ephemeral ECDH parameters. */
+        const SSL_OP_SINGLE_ECDH_USE: number;
+        const SSL_OP_SSLEAY_080_CLIENT_DH_BUG: number;
+        const SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG: number;
+        const SSL_OP_TLS_BLOCK_PADDING_BUG: number;
+        const SSL_OP_TLS_D5_BUG: number;
+        /** Instructs OpenSSL to disable version rollback attack detection. */
+        const SSL_OP_TLS_ROLLBACK_BUG: number;
+
+        const ENGINE_METHOD_RSA: number;
+        const ENGINE_METHOD_DSA: number;
+        const ENGINE_METHOD_DH: number;
+        const ENGINE_METHOD_RAND: number;
+        const ENGINE_METHOD_EC: number;
+        const ENGINE_METHOD_CIPHERS: number;
+        const ENGINE_METHOD_DIGESTS: number;
+        const ENGINE_METHOD_PKEY_METHS: number;
+        const ENGINE_METHOD_PKEY_ASN1_METHS: number;
+        const ENGINE_METHOD_ALL: number;
+        const ENGINE_METHOD_NONE: number;
+
+        const DH_CHECK_P_NOT_SAFE_PRIME: number;
+        const DH_CHECK_P_NOT_PRIME: number;
+        const DH_UNABLE_TO_CHECK_GENERATOR: number;
+        const DH_NOT_SUITABLE_GENERATOR: number;
+
+        const ALPN_ENABLED: number;
+
+        const RSA_PKCS1_PADDING: number;
+        const RSA_SSLV23_PADDING: number;
+        const RSA_NO_PADDING: number;
+        const RSA_PKCS1_OAEP_PADDING: number;
+        const RSA_X931_PADDING: number;
+        const RSA_PKCS1_PSS_PADDING: number;
+        /** Sets the salt length for RSA_PKCS1_PSS_PADDING to the digest size when signing or verifying. */
+        const RSA_PSS_SALTLEN_DIGEST: number;
+        /** Sets the salt length for RSA_PKCS1_PSS_PADDING to the maximum permissible value when signing data. */
+        const RSA_PSS_SALTLEN_MAX_SIGN: number;
+        /** Causes the salt length for RSA_PKCS1_PSS_PADDING to be determined automatically when verifying a signature. */
+        const RSA_PSS_SALTLEN_AUTO: number;
+
+        const POINT_CONVERSION_COMPRESSED: number;
+        const POINT_CONVERSION_UNCOMPRESSED: number;
+        const POINT_CONVERSION_HYBRID: number;
+
+        /** Specifies the built-in default cipher list used by Node.js (colon-separated values). */
+        const defaultCoreCipherList: string;
+        /** Specifies the active default cipher list used by the current Node.js process  (colon-separated values). */
+        const defaultCipherList: string;
+    }
+
     /** @deprecated since v10.0.0 */
     const fips: boolean;
 
-    interface CredentialDetails {
-        pfx: string;
-        key: string;
-        passphrase: string;
-        cert: string;
-        ca: string | string[];
-        crl: string | string[];
-        ciphers: string;
-    }
-    interface Credentials { context?: any; }
-    function createCredentials(details: CredentialDetails): Credentials;
     function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
-    function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Hmac;
+    function createHmac(algorithm: string, key: BinaryLike, options?: stream.TransformOptions): Hmac;
 
     type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
     type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
@@ -35,19 +119,40 @@ declare module "crypto" {
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
     interface Hash extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer | NodeJS.TypedArray | DataView): Hash;
+        update(data: BinaryLike): Hash;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     interface Hmac extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer | NodeJS.TypedArray | DataView): Hmac;
+        update(data: BinaryLike): Hmac;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
+
+    export type KeyObjectType = 'secret' | 'public' | 'private';
+
+    interface KeyObject {
+        asymmetricKeyType?: KeyType;
+        export(options?: {
+            type: 'pkcs1' | 'spki' | 'pkcs8' | 'sec1',
+            format: KeyFormat,
+            cipher?: string,
+            passphrase?: string | Buffer
+        }): string | Buffer;
+        symmetricSize?: number;
+        type: KeyObjectType;
+    }
+
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
+
+    type Binary = Buffer | NodeJS.TypedArray | DataView;
+    type BinaryLike = string | Binary;
+
+    type CipherKey = BinaryLike | KeyObject;
+
     interface CipherCCMOptions extends stream.TransformOptions {
         authTagLength: number;
     }
@@ -55,21 +160,33 @@ declare module "crypto" {
         authTagLength?: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createCipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
+    function createCipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): CipherGCM;
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
+    function createCipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Cipher;
 
-    function createCipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
-    function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
-    function createCipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
+    function createCipheriv(
+        algorithm: CipherCCMTypes,
+        key: CipherKey,
+        iv: BinaryLike,
+        options: CipherCCMOptions
+    ): CipherCCM;
+    function createCipheriv(
+        algorithm: CipherGCMTypes,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherGCMOptions
+    ): CipherGCM;
+    function createCipheriv(
+        algorithm: string, key: CipherKey, iv: BinaryLike, options?: stream.TransformOptions
+    ): Cipher;
 
     interface Cipher extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
+        update(data: BinaryLike): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64BinaryEncoding): string;
-        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Binary, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Binary, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
         // second arg ignored
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
@@ -87,74 +204,100 @@ declare module "crypto" {
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createDecipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
+    function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
+    function createDecipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): DecipherGCM;
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
+    function createDecipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Decipher;
 
     function createDecipheriv(
         algorithm: CipherCCMTypes,
-        key: string | Buffer | NodeJS.TypedArray | DataView,
-        iv: string | Buffer | NodeJS.TypedArray | DataView,
+        key: BinaryLike,
+        iv: BinaryLike,
         options: CipherCCMOptions,
     ): DecipherCCM;
     function createDecipheriv(
         algorithm: CipherGCMTypes,
-        key: string | Buffer | NodeJS.TypedArray | DataView,
-        iv: string | Buffer | NodeJS.TypedArray | DataView,
+        key: BinaryLike,
+        iv: BinaryLike,
         options?: CipherGCMOptions,
     ): DecipherGCM;
-    function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
+    function createDecipheriv(algorithm: string, key: BinaryLike, iv: BinaryLike, options?: stream.TransformOptions): Decipher;
 
     interface Decipher extends NodeJS.ReadWriteStream {
-        update(data: Buffer | NodeJS.TypedArray | DataView): Buffer;
+        update(data: Binary): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Binary, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
         // second arg is ignored
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding?: boolean): this;
-        // setAuthTag(tag: Buffer | NodeJS.TypedArray | DataView): this;
-        // setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
+        // setAuthTag(tag: Binary): this;
+        // setAAD(buffer: Binary): this;
     }
     interface DecipherCCM extends Decipher {
-        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
-        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plaintextLength: number }): this;
+        setAuthTag(buffer: Binary): this;
+        setAAD(buffer: Binary, options: { plaintextLength: number }): this;
     }
     interface DecipherGCM extends Decipher {
-        setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
-        setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plaintextLength: number }): this;
+        setAuthTag(buffer: Binary): this;
+        setAAD(buffer: Binary, options?: { plaintextLength: number }): this;
     }
 
-    function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
-    interface Signer extends NodeJS.WritableStream {
-        update(data: string | Buffer | NodeJS.TypedArray | DataView): Signer;
-        update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: string | { key: string; passphrase?: string, padding?: number, saltLength?: number }): Buffer;
-        sign(private_key: string | { key: string; passphrase?: string, padding?: number, saltLength?: number }, output_format: HexBase64Latin1Encoding): string;
+    interface PrivateKeyInput {
+        key: string | Buffer;
+        format?: KeyFormat;
+        type?: 'pkcs1' | 'pkcs8' | 'sec1';
+        passphrase?: string | Buffer;
     }
+
+    interface PublicKeyInput {
+        key: string | Buffer;
+        format?: KeyFormat;
+        type?: 'pkcs1' | 'spki';
+    }
+
+    function createPrivateKey(key: PrivateKeyInput | string | Buffer): KeyObject;
+    function createPublicKey(key: PublicKeyInput | string | Buffer): KeyObject;
+    function createSecretKey(key: Buffer): KeyObject;
+
+    function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
+
+    interface SignPrivateKeyInput extends PrivateKeyInput {
+        padding?: number;
+        saltLength?: number;
+    }
+
+    type KeyLike = string | Buffer | KeyObject;
+
+    interface Signer extends NodeJS.WritableStream {
+        update(data: BinaryLike): Signer;
+        update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
+        sign(private_key: SignPrivateKeyInput | KeyLike): Buffer;
+        sign(private_key: SignPrivateKeyInput | KeyLike, output_format: HexBase64Latin1Encoding): string;
+    }
+
     function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
     interface Verify extends NodeJS.WritableStream {
-        update(data: string | Buffer | NodeJS.TypedArray | DataView): Verify;
+        update(data: BinaryLike): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: string | Object, signature: Buffer | NodeJS.TypedArray | DataView): boolean;
-        verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        verify(object: Object | KeyLike, signature: Binary): boolean;
+        verify(object: Object | KeyLike, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
-    function createDiffieHellman(prime_length: number, generator?: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
-    function createDiffieHellman(prime: Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
+    function createDiffieHellman(prime_length: number, generator?: number | Binary): DiffieHellman;
+    function createDiffieHellman(prime: Binary): DiffieHellman;
     function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding): DiffieHellman;
-    function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
+    function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | Binary): DiffieHellman;
     function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: string, generator_encoding: HexBase64Latin1Encoding): DiffieHellman;
     interface DiffieHellman {
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding): string;
-        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView): Buffer;
+        computeSecret(other_public_key: Binary): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
-        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64Latin1Encoding): string;
+        computeSecret(other_public_key: Binary, output_encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrime(): Buffer;
         getPrime(encoding: HexBase64Latin1Encoding): string;
@@ -164,32 +307,32 @@ declare module "crypto" {
         getPublicKey(encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
-        setPublicKey(public_key: Buffer | NodeJS.TypedArray | DataView): void;
+        setPublicKey(public_key: Binary): void;
         setPublicKey(public_key: string, encoding: string): void;
-        setPrivateKey(private_key: Buffer | NodeJS.TypedArray | DataView): void;
+        setPrivateKey(private_key: Binary): void;
         setPrivateKey(private_key: string, encoding: string): void;
         verifyError: number;
     }
     function getDiffieHellman(group_name: string): DiffieHellman;
     function pbkdf2(
-        password: string | Buffer | NodeJS.TypedArray | DataView,
-        salt: string | Buffer | NodeJS.TypedArray | DataView,
+        password: BinaryLike,
+        salt: BinaryLike,
         iterations: number,
         keylen: number,
         digest: string,
         callback: (err: Error | null, derivedKey: Buffer) => any,
     ): void;
-    function pbkdf2Sync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, iterations: number, keylen: number, digest: string): Buffer;
+    function pbkdf2Sync(password: BinaryLike, salt: BinaryLike, iterations: number, keylen: number, digest: string): Buffer;
 
     function randomBytes(size: number): Buffer;
     function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
     function pseudoRandomBytes(size: number): Buffer;
     function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
 
-    function randomFillSync<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset?: number, size?: number): T;
-    function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
-    function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
-    function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
+    function randomFillSync<T extends Binary>(buffer: T, offset?: number, size?: number): T;
+    function randomFill<T extends Binary>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
+    function randomFill<T extends Binary>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
+    function randomFill<T extends Binary>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
 
     interface ScryptOptions {
         N?: number;
@@ -198,38 +341,38 @@ declare module "crypto" {
         maxmem?: number;
     }
     function scrypt(
-        password: string | Buffer | NodeJS.TypedArray | DataView,
-        salt: string | Buffer | NodeJS.TypedArray | DataView,
+        password: BinaryLike,
+        salt: BinaryLike,
         keylen: number, callback: (err: Error | null, derivedKey: Buffer) => void,
     ): void;
     function scrypt(
-        password: string | Buffer | NodeJS.TypedArray | DataView,
-        salt: string | Buffer | NodeJS.TypedArray | DataView,
+        password: BinaryLike,
+        salt: BinaryLike,
         keylen: number,
         options: ScryptOptions,
         callback: (err: Error | null, derivedKey: Buffer) => void,
     ): void;
-    function scryptSync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, options?: ScryptOptions): Buffer;
+    function scryptSync(password: BinaryLike, salt: BinaryLike, keylen: number, options?: ScryptOptions): Buffer;
 
     interface RsaPublicKey {
-        key: string;
+        key: KeyLike;
         padding?: number;
     }
     interface RsaPrivateKey {
-        key: string;
+        key: KeyLike;
         passphrase?: string;
         padding?: number;
     }
-    function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    function publicEncrypt(public_key: RsaPublicKey | KeyLike, buffer: Binary): Buffer;
+    function privateDecrypt(private_key: RsaPrivateKey | KeyLike, buffer: Binary): Buffer;
+    function privateEncrypt(private_key: RsaPrivateKey | KeyLike, buffer: Binary): Buffer;
+    function publicDecrypt(public_key: RsaPublicKey | KeyLike, buffer: Binary): Buffer;
     function getCiphers(): string[];
     function getCurves(): string[];
     function getHashes(): string[];
     class ECDH {
         static convertKey(
-            key: string | Buffer | NodeJS.TypedArray | DataView,
+            key: BinaryLike,
             curve: string,
             inputEncoding?: HexBase64Latin1Encoding,
             outputEncoding?: "latin1" | "hex" | "base64",
@@ -237,19 +380,19 @@ declare module "crypto" {
         ): Buffer | string;
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
-        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView): Buffer;
+        computeSecret(other_public_key: Binary): Buffer;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
-        computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64Latin1Encoding): string;
+        computeSecret(other_public_key: Binary, output_encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
         getPrivateKey(): Buffer;
         getPrivateKey(encoding: HexBase64Latin1Encoding): string;
         getPublicKey(): Buffer;
         getPublicKey(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
-        setPrivateKey(private_key: Buffer | NodeJS.TypedArray | DataView): void;
+        setPrivateKey(private_key: Binary): void;
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
     function createECDH(curve_name: string): ECDH;
-    function timingSafeEqual(a: Buffer | NodeJS.TypedArray | DataView, b: Buffer | NodeJS.TypedArray | DataView): boolean;
+    function timingSafeEqual(a: Binary, b: Binary): boolean;
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: string;
 

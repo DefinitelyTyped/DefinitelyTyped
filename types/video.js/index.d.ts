@@ -1,5 +1,5 @@
 // Type definitions for Video.js 7.2
-// Project: https://github.com/videojs/video.js
+// Project: https://github.com/videojs/video.js, https://videojs.com
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
 //                 Sean Bennett <https://github.com/SWBennett06>
@@ -4248,7 +4248,7 @@ declare namespace videojs {
 		 */
 		loop(value?: boolean): void;
 
-		loop(): string;
+		loop(): boolean;
 
 		/**
 		 * Get the current muted state, or turn mute on or off
