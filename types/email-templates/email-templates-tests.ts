@@ -49,3 +49,6 @@ withTransportInstance.send({
         }]
     }
 });
+
+email.renderAll('mars');
+email.renderAll('mars', {name: 'elon'});

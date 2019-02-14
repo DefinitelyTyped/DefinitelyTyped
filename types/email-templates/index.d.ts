@@ -172,6 +172,14 @@ declare class EmailTemplate<T = any> {
      */
     render(view: string, locals: T): Promise<string>;
     /**
+     * Render all available template files for a given email
+     * template (e.g. `html.pug`, `text.pug`, and `subject.pug`)
+     *
+     * @param view Name of the template
+     * @param locals The template variables
+     */
+    renderAll(view: string, locals?: T): Promise<any>;
+    /**
      * Send the Email
      */
     send(options: EmailOptions<T>): any;
@@ -190,6 +198,15 @@ declare namespace EmailTemplate {
      * @param locals The template Variables
      */
     function render(view: string, locals: any): Promise<string>;
+
+    /**
+     * Render all available template files for a given email
+     * template (e.g. `html.pug`, `text.pug`, and `subject.pug`)
+     *
+     * @param view Name of the template
+     * @param locals The template variables
+     */
+    function renderAll(view: string, locals?: any): Promise<any>;
 
     /**
      * Send the Email
