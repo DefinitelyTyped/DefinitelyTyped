@@ -1558,6 +1558,18 @@ mongoose.Promise.all;
 mongoose.model('').findOne()
   .exec().then(cb);
 
+function testPromise_all() {
+  interface IUser extends mongoose.Document {
+    name: string;
+  }
+
+  const User = mongoose.model<IUser>('User', new mongoose.Schema({name: String}))
+
+  const dc: mongoose.DocumentQuery<IUser|null, IUser> = User.findOne({});
+  const dc2: PromiseLike<IUser|null> = dc;
+  Promise.all([dc])
+}
+
 /*
  * section model.js
  * http://mongoosejs.com/docs/api.html#model-js
