@@ -19,7 +19,7 @@ const emailNoTransporter = new EmailTemplates({
 email.juiceResources('<p>bob</p><style>div{color:red;}</style><div/>');
 email.render('mars/html.pug');
 email.render('mars/html.pug', {name: 'elon'});
-email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals: {name: 'Elon'}});
+const sendPromise: Promise<any> = email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals: {name: 'Elon'}});
 emailNoTransporter.render('mars/html.pug', {name: 'elon'});
 
 interface Locals {
