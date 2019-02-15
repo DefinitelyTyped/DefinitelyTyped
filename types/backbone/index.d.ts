@@ -119,7 +119,7 @@ declare namespace Backbone {
      * repeat all signatures below.
      */
     abstract class EventsMixin implements Events {
-        on(eventName: string, callback?: EventHandler, context?: any): this;
+        on(eventName: string, callback: EventHandler, context?: any): this;
         on(eventMap: EventMap, context?: any): this;
         off(eventName?: string, callback?: EventHandler, context?: any): this;
         trigger(eventName: string, ...args: any[]): this;
