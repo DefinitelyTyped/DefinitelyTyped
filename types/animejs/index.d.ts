@@ -110,7 +110,7 @@ declare namespace anime {
 	}
 
 	interface AnimeTimelineInstance extends AnimeInstance {
-		add(params: AnimeAnimParams): AnimeTimelineInstance;
+		add(params: AnimeAnimParams, timelineOffset?: string | number): AnimeTimelineInstance;
 	}
 
 	// Helpers
