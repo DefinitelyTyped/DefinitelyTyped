@@ -77,7 +77,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
     searchParameters: SearchParameters,
     props: TExposed,
     searchState: SearchState,
-  ): any;
+  ): SearchParameters;
 
   /**
    * This method allows the widget to register a custom metadata object for any props and state combination.
