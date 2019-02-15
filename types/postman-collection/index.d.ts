@@ -154,7 +154,7 @@ export interface ItemGroupDefinition extends PropertyDefinition {
 
 export class ItemGroup<TItem> extends Property<ItemGroupDefinition> {
     auth?: RequestAuth;
-    items: PropertyList<TItem>;
+    items: PropertyList<TItem | ItemGroup<TItem>>;
     events: EventList;
 
     constructor(definition?: ItemGroupDefinition);
