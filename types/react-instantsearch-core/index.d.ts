@@ -512,7 +512,15 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
 export function connectStateResults(stateless: React.StatelessComponent<StateResultsProvided>): React.ComponentClass;
 export function connectStateResults<TProps extends Partial<StateResultsProvided<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, StateResultsProvided<TDoc>>;
 
-export function connectStats(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+interface StatsProvided {
+  nbHits: number,
+  processingTimeMS: number
+}
+
+export function connectStats(stateless: React.StatelessComponent<StatsProvided>): React.ComponentClass
+export function connectStats<TProps extends Partial<StatsProvided>, TDoc>(ctor: React.ComponentType<TProps>):
+  ConnectedComponentClass<TProps, StatsProvided>
+
 export function connectToggleRefinement(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface AlgoliaError {
