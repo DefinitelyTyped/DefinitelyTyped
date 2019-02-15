@@ -4,11 +4,11 @@ import { colors, spacing } from '../theme';
 import { CommonProps, PropsWithStyles, InnerRef } from '../types';
 
 interface State {
-  /** Wether the option is disabled. */
+  /** Whether the option is disabled. */
   isDisabled: boolean;
-  /** Wether the option is focused. */
+  /** Whether the option is focused. */
   isFocused: boolean;
-  /** Wether the option is selected. */
+  /** Whether the option is selected. */
   isSelected: boolean;
 }
 interface InnerProps {
