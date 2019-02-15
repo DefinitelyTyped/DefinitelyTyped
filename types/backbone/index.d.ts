@@ -109,34 +109,6 @@ declare namespace Backbone {
         [event: string]: EventHandler;
     }
 
-    /**
-     * Helper to avoid code repetition in type declarations.
-     * Backbone.Events cannot be extended, hence a separate abstract
-     * class with a different name. Both classes and interfaces can
-     * extend from this helper class to reuse the signatures.
-     *
-     * For class type declarations that already extend another base
-     * class, and for actual class definitions, please see the
-     * EventsMethod* interfaces below.
-     */
-    abstract class EventsMixin implements Events {
-        on(eventName: string, callback: EventHandler, context?: any): this;
-        on(eventMap: EventMap, context?: any): this;
-        off(eventName?: string, callback?: EventHandler, context?: any): this;
-        trigger(eventName: string, ...args: any[]): this;
-        bind(eventName: string, callback: EventHandler, context?: any): this;
-        bind(eventMap: EventMap, context?: any): this;
-        unbind(eventName?: string, callback?: EventHandler, context?: any): this;
-
-        once(events: string, callback: EventHandler, context?: any): this;
-        once(eventMap: EventMap, context?: any): this;
-        listenTo(object: any, events: string, callback: EventHandler): this;
-        listenTo(object: any, eventMap: EventMap): this;
-        listenToOnce(object: any, events: string, callback: EventHandler): this;
-        listenToOnce(object: any, eventMap: EventMap): this;
-        stopListening(object?: any, events?: string, callback?: EventHandler): this;
-    }
-
     export const Events: Events;
     interface Events extends EventsMixin { }
 
@@ -172,7 +144,7 @@ declare namespace Backbone {
      *
      * If you are just writing a class type declaration that doesn't already
      * extend some other base class, you can use the EventsMixin instead;
-     * see above.
+     * see below.
      */
     interface Events_On<BaseT> {
         <T extends BaseT>(this: T, eventName: string, callback: EventHandler, context?: any): T;
@@ -190,6 +162,34 @@ declare namespace Backbone {
     }
     interface Events_Stop<BaseT> {
         <T extends BaseT>(this: T, object?: any, events?: string, callback?: EventHandler): T;
+    }
+
+    /**
+     * Helper to avoid code repetition in type declarations.
+     * Backbone.Events cannot be extended, hence a separate abstract
+     * class with a different name. Both classes and interfaces can
+     * extend from this helper class to reuse the signatures.
+     *
+     * For class type declarations that already extend another base
+     * class, and for actual class definitions, please see the
+     * Events_* interfaces above.
+     */
+    abstract class EventsMixin implements Events {
+        on(eventName: string, callback: EventHandler, context?: any): this;
+        on(eventMap: EventMap, context?: any): this;
+        off(eventName?: string, callback?: EventHandler, context?: any): this;
+        trigger(eventName: string, ...args: any[]): this;
+        bind(eventName: string, callback: EventHandler, context?: any): this;
+        bind(eventMap: EventMap, context?: any): this;
+        unbind(eventName?: string, callback?: EventHandler, context?: any): this;
+
+        once(events: string, callback: EventHandler, context?: any): this;
+        once(eventMap: EventMap, context?: any): this;
+        listenTo(object: any, events: string, callback: EventHandler): this;
+        listenTo(object: any, eventMap: EventMap): this;
+        listenToOnce(object: any, events: string, callback: EventHandler): this;
+        listenToOnce(object: any, eventMap: EventMap): this;
+        stopListening(object?: any, events?: string, callback?: EventHandler): this;
     }
 
     class ModelBase extends EventsMixin {
