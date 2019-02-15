@@ -10,7 +10,7 @@ import 'gun/lib/later.js';
 import 'gun/lib/unset.js';
 import 'gun/lib/time.js';
 
-Gun('http://yourdomain.com/gun');
+GunServer('http://yourdomain.com/gun');
 Gun(['http://server1.com/gun', 'http://server2.com/gun']);
 Gun({
     s3: {
@@ -30,22 +30,34 @@ interface AppState {
         str: string;
         bool: boolean;
         obj: {
-            arr2: Array<{ foo: number; bar: string; }>
-        }
+            arr2: Array<{ foo: number; bar: string }>;
+        };
     };
-    chatRoom: Array<{ by: string; message: string; }>;
+    chatRoom: Array<{ by: string; message: string }>;
 }
 
 const app = new Gun<AppState>();
-app.get('object').get('bool').put(true);
-app.get('object').get('num').put(1);
-app.get('object').get('obj').get('arr2').set({ foo: 1, bar: '2' });
+app.get('object')
+    .get('bool')
+    .put(true);
+app.get('object')
+    .get('num')
+    .put(1);
+app.get('object')
+    .get('obj')
+    .get('arr2')
+    .set({ foo: 1, bar: '2' });
 
-app.get('object').on((data) => {
+app.get('object')
+    .get('bool')
+    // $ExpectError
+    .put(1);
+
+app.get('object').on(data => {
     data.bool;
 });
 app.get('object').off();
-app.get('object').once((data) => {
+app.get('object').once(data => {
     if (data) data.bool;
 });
 async function name() {
@@ -53,4 +65,8 @@ async function name() {
     data.put.bool;
 }
 app.get('chatRoom').time!({ by: 'A', message: 'Hello' });
-app.get('chatRoom').time!((msg) => { msg.by; }, 20);
+app.get('chatRoom').time!(msg => {
+    msg.by;
+}, 20);
+// $ExpectError
+app.get('object').time!({ a: 1 });

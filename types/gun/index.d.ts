@@ -2,23 +2,17 @@
 // Project: https://github.com/amark/gun#readme
 // Definitions by: Jack Works <https://github.com/Jack-Works>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
-declare module 'gun' {
-    const Gun: Gun.Constructor
-    export = Gun
-}
-
-declare module 'gun/gun' {
-    const cons: typeof import('gun')
-    export = cons
-}
+declare const cons: Gun.Constructor;
+export = cons;
 
 declare namespace Gun {
-    type ArrayOf<T> = T extends Array<infer U> ? U : never
+    type ArrayOf<T> = T extends Array<infer U> ? U : never;
     /** Gun does not accept Array value, so we need extract to make types correct */
-    type AllowArray<T> = ArrayOf<T> extends never ? T : ArrayOf<T>
-    type DisallowArray<T> = ArrayOf<T> extends never ? T : never
-    type ArrayAsRecord<DataType> = ArrayOf<DataType> extends never ? DataType : Record<string, any>
+    type AllowArray<T> = ArrayOf<T> extends never ? T : ArrayOf<T>;
+    type DisallowArray<T> = ArrayOf<T> extends never ? T : never;
+    type ArrayAsRecord<DataType> = ArrayOf<DataType> extends never ? DataType : Record<string, any>;
     /**
      * options['module name'] allows you to pass options to a 3rd party module.
      * Their project README will likely list the exposed options
@@ -26,31 +20,31 @@ declare namespace Gun {
      */
     type ConstructorOptions = Partial<{
         /** Undocumented but mentioned. Write data to a JSON. */
-        file: string
+        file: string;
         /** Undocumented but mentioned. Create a websocket server */
-        web: any
+        web: any;
         /** Undocumented but mentioned. Amazon S3 */
         s3: {
-            key: any
-            secret: any
-            bucket: any
-        }
+            key: any;
+            secret: any;
+            bucket: any;
+        };
         /** the URLs are properties, and the value is an empty object. */
-        peers: Record<string, {}>
+        peers: Record<string, {}>;
         /** default: true, creates and persists local (nodejs) data using Radisk. */
-        radisk: boolean
+        radisk: boolean;
         /** default: true, persists local (browser) data to localStorage. */
-        localStorage: boolean
+        localStorage: boolean;
         /** uuid allows you to override the default 24 random alphanumeric soul generator with your own function. */
-        uuid(): string
+        uuid(): string;
         /**
          * allows you to pass options to a 3rd party module. Their project README will likely list the exposed options
          * @see https://github.com/amark/gun/wiki/Modules
          */
-        [key: string]: any
-    }>
-    type Saveable<DataType> = Partial<DataType> | string | number | boolean | null | ChainReference<DataType>
-    type AckCallback = (ack: { err: Error; ok: any } | { err: undefined; ok: string }) => void
+        [key: string]: any;
+    }>;
+    type Saveable<DataType> = Partial<DataType> | string | number | boolean | null | ChainReference<DataType>;
+    type AckCallback = (ack: { err: Error; ok: any } | { err: undefined; ok: string }) => void;
     interface ChainReference<DataType = any, ReferenceKey = any> {
         /**
          * Save data into gun, syncing it with your connected peers.
@@ -65,7 +59,7 @@ declare namespace Gun {
          *
          * @param callback invoked on each acknowledgment
          */
-        put(data: DisallowArray<DataType>, callback?: AckCallback): ChainReference<DataType, ReferenceKey>
+        put(data: DisallowArray<DataType>, callback?: AckCallback): ChainReference<DataType, ReferenceKey>;
         /**
          * Where to read data from.
          * @param key The key is the ID or property name of the data that you saved from earlier
@@ -89,7 +83,7 @@ declare namespace Gun {
                 /** the key, ID, or property name of the data. */
                 paramB: Record<'off' | 'to' | 'next' | 'the' | 'on' | 'as' | 'back' | 'rid' | 'id', any>
             ) => void
-        ): ChainReference<DataType[K], K>
+        ): ChainReference<DataType[K], K>;
         /**
          * Change the configuration of the gun database instance.
          * @param options The options argument is the same object you pass to the constructor.
@@ -97,7 +91,7 @@ declare namespace Gun {
          * The options's properties replace those in the instance's configuration but options.peers are **added** to peers known to the gun instance.
          * @returns No mention in the document, behavior as `ChainReference<DataType, ReferenceKey>`
          */
-        opt(options: ConstructorOptions): ChainReference<DataType, ReferenceKey>
+        opt(options: ConstructorOptions): ChainReference<DataType, ReferenceKey>;
         /**
          * Move up to the parent context on the chain.
          *
@@ -106,7 +100,7 @@ declare namespace Gun {
          * `-1` or `Infinity` will take you to the root.
          * @returns Impossible to determinate final type. You must cast it by yourself.
          */
-        back(amount?: number): ChainReference<unknown>
+        back(amount?: number): ChainReference;
 
         // Main API
         /**
@@ -123,7 +117,7 @@ declare namespace Gun {
         on(
             callback: (data: ArrayAsRecord<DataType>, key: ReferenceKey) => void,
             option?: { change: boolean } | boolean
-        ): ChainReference<DataType, ReferenceKey>
+        ): ChainReference<DataType, ReferenceKey>;
         /**
          * Get the current data without subscribing to updates. Or `undefined` if it cannot be found.
          * @returns In the document, it said the return value may change in the future. Don't rely on it.
@@ -131,7 +125,7 @@ declare namespace Gun {
         once(
             callback?: (data: (ArrayAsRecord<DataType>) | undefined, key: ReferenceKey) => void,
             option?: { wait: number }
-        ): ChainReference<DataType, ReferenceKey>
+        ): ChainReference<DataType, ReferenceKey>;
         /**
          * **.set does not means 'set data', it means a Mathematical Set**
          *
@@ -148,7 +142,7 @@ declare namespace Gun {
                     : never
                 : never,
             callback?: AckCallback
-        ): ChainReference<ArrayOf<DataType>>
+        ): ChainReference<ArrayOf<DataType>>;
         /**
          * Map iterates over each property and item on a node, passing it down the chain,
          * behaving like a forEach on your data.
@@ -156,13 +150,13 @@ declare namespace Gun {
          */
         map(
             callback?: (value: ArrayOf<DataType>, key: DataType) => ArrayOf<DataType> | undefined
-        ): ChainReference<ArrayOf<DataType>, ReferenceKey>
+        ): ChainReference<ArrayOf<DataType>, ReferenceKey>;
         /**
          * Undocumented, but extremely useful and mentioned in the document
          *
          * Remove **all** listener on this node.
          */
-        off(): void
+        off(): void;
 
         // Extended API
         /**
@@ -175,14 +169,14 @@ declare namespace Gun {
          * **Warning**: Not included by default! You must include it yourself via `require('gun/lib/path.js')` or
          * `<script src="https://cdn.jsdelivr.net/npm/gun/lib/path.js"></script>`!
          */
-        path?(path: string | string[]): ChainReference
+        path?(path: string | string[]): ChainReference;
         /**
          * Handle cases where data can't be found.
          *
          * **Warning**: Not included by default! You must include it yourself via `require('gun/lib/not.js')` or
          * `<script src="https://cdn.jsdelivr.net/npm/gun/lib/not.js"></script>`!
          */
-        not?(callback: (key: ReferenceKey) => void): ChainReference<DataType, ReferenceKey>
+        not?(callback: (key: ReferenceKey) => void): ChainReference<DataType, ReferenceKey>;
         /**
          * Open behaves very similarly to gun.on, except it gives you the **full depth of a document** on every update.
          * It also works with graphs, tables, or other data structures. Think of it as opening up a live connection to a document.
@@ -190,23 +184,23 @@ declare namespace Gun {
          * **Warning**: Not included by default! You must include it yourself via `require('gun/lib/open.js')` or
          * `<script src="https://cdn.jsdelivr.net/npm/gun/lib/open.js"></script>`!
          */
-        open?(callback: (data: ArrayAsRecord<DataType>) => void): ChainReference<DataType, ReferenceKey>
+        open?(callback: (data: ArrayAsRecord<DataType>) => void): ChainReference<DataType, ReferenceKey>;
         /**
          * Loads the full object once. It is the same as `open` but with the behavior of `once`.
          *
          * **Warning**: Not included by default! You must include it yourself via `require('gun/lib/load.js')` or
          * `<script src="https://cdn.jsdelivr.net/npm/gun/lib/load.js"></script>`!
          */
-        load?(callback: (data: ArrayAsRecord<DataType>) => void): ChainReference<DataType, ReferenceKey>
+        load?(callback: (data: ArrayAsRecord<DataType>) => void): ChainReference<DataType, ReferenceKey>;
         /**
          * Returns a promise for you to use.
          *
          * **Warning**: Not included by default! You must include it yourself via `require('gun/lib/then.js')` or
          * `<script src="https://cdn.jsdelivr.net/npm/gun/lib/then.js"></script>`!
          */
-        then?<TResult1 = ArrayAsRecord<DataType>, TResult2 = never>(
-            onfulfilled?: ((value: TResult1) => TResult1 | PromiseLike<TResult1>) | undefined | null
-        ): Promise<TResult1 | TResult2>
+        then?<TResult1 = ArrayAsRecord<DataType>>(
+            onfulfilled?: (value: TResult1) => TResult1 | PromiseLike<TResult1>
+        ): Promise<TResult1>;
         /**
          * Returns a promise for you to use.
          *
@@ -214,11 +208,10 @@ declare namespace Gun {
          *  `<script src="https://cdn.jsdelivr.net/npm/gun/lib/then.js"></script>`!
          */
         promise?<
-            TResult1 = { put: ArrayAsRecord<DataType>; key: ReferenceKey; gun: ChainReference<DataType, ReferenceKey> },
-            TResult2 = never
+            TResult1 = { put: ArrayAsRecord<DataType>; key: ReferenceKey; gun: ChainReference<DataType, ReferenceKey> }
         >(
-            onfulfilled?: ((value: TResult1) => TResult1 | PromiseLike<TResult1>) | undefined | null
-        ): Promise<TResult1 | TResult2>
+            onfulfilled?: (value: TResult1) => TResult1 | PromiseLike<TResult1>
+        ): Promise<TResult1>;
         /**
          * bye lets you change data after that browser peer disconnects.
          * This is useful for games and status messages,
@@ -228,8 +221,8 @@ declare namespace Gun {
          * `<script src="https://cdn.jsdelivr.net/npm/gun/lib/bye.js"></script>`!
          */
         bye?(): {
-            put(data: DisallowArray<Saveable<DataType>>): void
-        }
+            put(data: DisallowArray<Saveable<DataType>>): void;
+        };
         /**
          * Say you save some data, but want to do something with it later, like expire it or refresh it.
          * Well, then `later` is for you! You could use this to easily implement a TTL or similar behavior.
@@ -244,14 +237,14 @@ declare namespace Gun {
                 key: ReferenceKey
             ) => void,
             seconds: number
-        ): ChainReference<DataType, ReferenceKey>
+        ): ChainReference<DataType, ReferenceKey>;
         /**
          * After you save some data in an unordered list, you may need to remove it.
          *
          * **Warning**: Not included by default! You must include it yourself via `require('gun/lib/unset.js')` or
          * `<script src="https://cdn.jsdelivr.net/npm/gun/lib/unset.js"></script>`!
          */
-        unset?(data: ArrayOf<DataType>): ChainReference<DataType, ReferenceKey>
+        unset?(data: ArrayOf<DataType>): ChainReference<DataType, ReferenceKey>;
         /**
          * Subscribes to all future events that occur on the Timegraph and retrieve a specified number of old events
          *
@@ -260,59 +253,43 @@ declare namespace Gun {
         time?(
             callback: (data: ArrayOf<DataType>, key: ReferenceKey, time: number) => void,
             alsoReceiveNOldEvents?: number
-        ): ChainReference<DataType, ReferenceKey>
+        ): ChainReference<DataType, ReferenceKey>;
         /** Pushes data to a Timegraph with it's time set to Gun.state()'s time */
-        time?(data: ArrayOf<DataType>): void
+        time?(data: ArrayOf<DataType>): void;
     }
 
     interface GunSEA {
         // There is no the only content in the api document.
         user: {
-            create(alias: string, passphrase: string, callback: (...args: any[]) => void): any
-        }
+            create(alias: string, passphrase: string, callback: (...args: any[]) => void): any;
+        };
     }
 
     interface Constructor {
         /**
          * @description
          * no parameters creates a local datastore using the default persistence layer, either localStorage or Radisk.
-         */
-        <DataType = any>(): ChainReference<DataType> & GunSEA
-        new <DataType = any>(): ChainReference<DataType> & GunSEA
-
-        /**
-         * @param url
+         * @param options
          * passing a URL creates the above local datastore that also tries to sync with the URL.
          *
          * or you can pass in an array of URLs to sync with multiple peers.
          */
-        <DataType = any>(url: string | string[]): ChainReference<DataType> & GunSEA
-        new <DataType = any>(url: string | string[]): ChainReference<DataType> & GunSEA
-        <DataType = any>(option: ConstructorOptions): ChainReference<DataType> & GunSEA
-        new <DataType = any>(option: ConstructorOptions): ChainReference<DataType> & GunSEA
+        <DataType = any>(options?: string | string[] | ConstructorOptions): ChainReference<DataType> & GunSEA;
+        new <DataType = any>(options?: string | string[] | ConstructorOptions): ChainReference<DataType> & GunSEA;
         node: {
             /** Returns true if data is a gun node, otherwise false. */
-            is(anything: any): anything is ChainReference
-            /** Returns data's gun ID (instead of manually grabbing its metadata i.e. data["_"]["#"], which is faster but could change in the future)
+            is(anything: any): anything is ChainReference;
+            /**
+             * Returns data's gun ID (instead of manually grabbing its metadata i.e. data["_"]["#"], which is faster but could change in the future)
              *
-             * Returns undefined if data is not correct gun data. */
-            soul(data: ChainReference): string
+             * Returns undefined if data is not correct gun data.
+             */
+            soul(data: ChainReference): string;
             /** Returns a "gun-ified" variant of the json input by injecting a new gun ID into the metadata field. */
-            ify(json: any): any
-        }
+            ify(json: any): any;
+        };
         /** @see https://gun.eco/docs/SEA */
-        SEA: any
+        SEA: any;
     }
 }
-
-// Following modules does not export anything, but extends the gun prototype
-declare module 'gun/lib/path.js'
-declare module 'gun/lib/not.js'
-declare module 'gun/lib/open.js'
-declare module 'gun/lib/load.js'
-declare module 'gun/lib/then.js'
-declare module 'gun/lib/bye.js'
-declare module 'gun/lib/later.js'
-declare module 'gun/lib/unset.js'
-declare module 'gun/lib/time.js'
-declare const Gun: typeof import('gun')
+declare const Gun: Gun.Constructor;
