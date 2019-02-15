@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
+            "es2017.object",
             "es6",
             "dom"
         ],
@@ -16,7 +17,8 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "downlevelIteration": true,
     },
     "files": [
         "index.d.ts",
