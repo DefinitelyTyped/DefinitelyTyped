@@ -42,38 +42,9 @@ export type RelayContainer = any;
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // File: https://github.com/facebook/relay/blob/fe0e70f10bbcba1fff89911313ea69f24569464b/packages/relay-runtime/util/RelayConcreteNode.js
-export interface ConcreteFragment {
-    kind: string;
-    name: string;
-    type: string;
-    metadata: {[key: string]: any} | null;
-    argumentDefinitions: any[];
-    selections: any[];
-}
-export interface ConcreteRequest {
-    kind: string;
-    operationKind: string;
-    name: string;
-    id: string | null;
-    text: string | null;
-    metadata: {[key: string]: any};
-    fragment: ConcreteFragment;
-    operation: any;
-}
-export interface ConcreteBatchRequest {
-    kind: string;
-    operationKind: string;
-    name: string;
-    metadata: {[key: string]: any};
-    fragment: ConcreteFragment;
-    requests: Array<{
-        name: string;
-        id: string | null;
-        text: string | null;
-        argumentDependencies: any[] | null;
-        operation: any;
-    }>;
-}
+export type ConcreteFragment = any;
+export type ConcreteRequest = any;
+export type ConcreteBatchRequest = any;
 
 export function getRequest(taggedNode: GraphQLTaggedNode): ConcreteRequest;
 
