@@ -515,13 +515,13 @@ export function connectStateResults(stateless: React.StatelessComponent<StateRes
 export function connectStateResults<TProps extends Partial<StateResultsProvided<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, StateResultsProvided<TDoc>>;
 
 interface StatsProvided {
-  nbHits: number,
-  processingTimeMS: number
+  nbHits: number;
+  processingTimeMS: number;
 }
 
-export function connectStats(stateless: React.StatelessComponent<StatsProvided>): React.ComponentClass
-export function connectStats<TProps extends Partial<StatsProvided>, TDoc>(ctor: React.ComponentType<TProps>):
-  ConnectedComponentClass<TProps, StatsProvided>
+export function connectStats(stateless: React.StatelessComponent<StatsProvided>): React.ComponentClass;
+export function connectStats<TProps extends Partial<StatsProvided>>(ctor: React.ComponentType<TProps>):
+  ConnectedComponentClass<TProps, StatsProvided>;
 
 export function connectToggleRefinement(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
