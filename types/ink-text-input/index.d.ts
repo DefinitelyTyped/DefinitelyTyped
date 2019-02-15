@@ -6,7 +6,7 @@
 
 import { Component } from 'ink';
 
-export interface TextInputProps {
+interface TextInputProps {
     focus?: boolean;
     onChange?: (value: string) => void;
     onSubmit?: (value: string) => void;
@@ -14,4 +14,6 @@ export interface TextInputProps {
     value?: string;
 }
 
-export default class TextInput extends Component<TextInputProps> { }
+declare class TextInput extends Component<TextInputProps> { }
+
+export = TextInput;

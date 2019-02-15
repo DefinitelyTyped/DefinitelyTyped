@@ -1,6 +1,9 @@
 /** @jsx h */
 import { h, Component } from 'ink';
 import TextInput from 'ink-text-input';
+// NOTE: `import TextInput = require('ink-text-input');` will work as well
+// For importing using ES6 default import as above,
+// `allowSyntheticDefaultImports` flag in compiler options needs to be set to `true`
 
 interface QueryState {
     query: string;
