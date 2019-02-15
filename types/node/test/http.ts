@@ -1,7 +1,6 @@
 import * as http from 'http';
 import * as url from 'url';
 import * as net from 'net';
-import * as assert from 'assert';
 
 // http Server
 {
@@ -115,7 +114,7 @@ import * as assert from 'assert';
     req.on('data', () => { });
 
     // path
-    assert.equal(req.path.charAt(0), '/');
+    const path: string = req.path;
 }
 
 {
