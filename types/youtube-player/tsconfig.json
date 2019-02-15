@@ -27,6 +27,7 @@
         "dist/index.d.ts",
         "dist/loadYouTubeIframeApi.d.ts",
         "dist/types.d.ts",
-        "dist/YouTubePlayer.d.ts"
+        "dist/YouTubePlayer.d.ts",
+        "youtube-player-tests.ts"
     ]
 }
