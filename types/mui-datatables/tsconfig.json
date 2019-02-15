@@ -17,8 +17,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "downlevelIteration": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

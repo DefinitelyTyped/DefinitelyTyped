@@ -9,7 +9,11 @@ interface Props extends MUIDataTableOptions {
 
 class MuiCustomTable extends React.Component<Props> {
     private readonly data: string[][] = this.props.data.map((asset: any) => Object.values(asset));
-    private readonly columns = [...new Set(this.props.data.map((entry: any) => Object.keys(entry)).flat().map((title: string) => title.toUpperCase()))] as string[];
+    private readonly columns = this.props.data
+                                .map((entry: any) => Object.keys(entry))
+                                .flat()
+                                .map((title: string) => title.toUpperCase())
+                                .filter((element: string, index: number, array: string[]) => array.indexOf(element) === index);
     private readonly TableOptions: MUIDataTableOptions = {
         filterType: 'checkbox',
         responsive: 'scroll',
