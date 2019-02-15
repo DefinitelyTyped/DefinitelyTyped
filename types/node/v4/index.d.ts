@@ -785,7 +785,7 @@ declare module "http" {
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
 
-        path: string;
+        readonly path: string;
         write(chunk: any, encoding?: string): void;
         abort(): void;
         setTimeout(timeout: number, callback?: Function): void;
