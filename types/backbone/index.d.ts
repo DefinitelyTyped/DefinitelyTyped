@@ -110,13 +110,14 @@ declare namespace Backbone {
     }
 
     /**
-     * Helper to avoid code repetition. Backbone.Events cannot be extended,
-     * hence a separate abstract class with a different name.
-     * Both classes and interfaces can extend from this helper class to
-     * reuse the signatures, but only in type declarations.
-     * Classes that already extend another base class can still
-     * `implements Events`, but in this case, unfortunately you have to
-     * repeat all signatures below.
+     * Helper to avoid code repetition in type declarations.
+     * Backbone.Events cannot be extended, hence a separate abstract
+     * class with a different name. Both classes and interfaces can
+     * extend from this helper class to reuse the signatures.
+     *
+     * For class type declarations that already extend another base
+     * class, and for actual class definitions, please see the
+     * EventsMethod* interfaces below.
      */
     abstract class EventsMixin implements Events {
         on(eventName: string, callback: EventHandler, context?: any): this;
@@ -138,6 +139,58 @@ declare namespace Backbone {
 
     export const Events: Events;
     interface Events extends EventsMixin { }
+
+    /**
+     * Helper shorthands for classes that implement the Events interface.
+     * Define your class like this:
+     *
+     * import {
+     *     Events,
+     *     Events_On,
+     *     Events_Off,
+     *     Events_Trigger,
+     *     Events_Listen,
+     *     Events_Stop,
+     * } from 'backbone';
+     *
+     * class YourClass implements Events {
+     *     on: Events_On<YourClass>;
+     *     off: Events_Off<YourClass>;
+     *     trigger: Events_Trigger<YourClass>;
+     *     bind: Events_On<YourClass>;
+     *     unbind: Events_Off<YourClass>;
+     *
+     *     once: Events_On<YourClass>;
+     *     listenTo: Events_Listen<YourClass>;
+     *     listenToOnce: Events_Listen<YourClass>;
+     *     stopListening: Events_Stop<YourClass>;
+     *
+     *     // ... (other methods)
+     * }
+     *
+     * Object.assign(YourClass.prototype, Events);  // can also use _.extend
+     *
+     * If you are just writing a class type declaration that doesn't already
+     * extend some other base class, you can use the EventsMixin instead;
+     * see above.
+     */
+    interface Events_On<BaseT> {
+        <T extends BaseT>(this: T, eventName: string, callback: EventHandler, context?: any): T;
+        <T extends BaseT>(this: T, eventMap: EventMap, context?: any): T;
+    }
+    interface Events_Off<BaseT> {
+        <T extends BaseT>(this: T, eventName?: string, callback?: EventHandler, context?: any): T;
+    }
+    interface Events_Trigger<BaseT> {
+        <T extends BaseT>(this: T, eventName: string, ...args: any[]): T;
+    }
+    interface Events_Listen<BaseT> {
+        <T extends BaseT>(this: T, object: any, events: string, callback: EventHandler): T;
+        <T extends BaseT>(this: T, object: any, eventMap: EventMap): T;
+    }
+    interface Events_Stop<BaseT> {
+        <T extends BaseT>(this: T, object?: any, events?: string, callback?: EventHandler): T;
+    }
 
     class ModelBase extends EventsMixin {
         parse(response: any, options?: any): any;
