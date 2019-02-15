@@ -10,6 +10,7 @@
 //                 Ulf Schwekendiek <https://github.com/sulf>
 //                 Pablo Varela <https://github.com/pablopunk>
 //                 Claudio Procida <https://github.com/claudiopro>
+//                 Amen SOUISSI <https://github.com/amensouissi>  
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -620,7 +621,6 @@ declare namespace Draft {
             type BlockMap = Immutable.OrderedMap<string, Draft.Model.ImmutableData.ContentBlock>;
 
             var Record: Immutable.Record.Class;
-
             interface DraftBlockRenderConfig {
                 element: string;
                 wrapper?: React.ReactElement<any>;
@@ -1052,3 +1052,4 @@ export {
     DraftHandleValue,
     DraftInsertionType,
 };
+
