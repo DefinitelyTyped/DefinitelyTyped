@@ -216,6 +216,8 @@ interface Family {
 }
 var isUncleMoe = _.matches<Family>({ name: 'moe', relation: 'uncle' });
 _.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle' }], isUncleMoe);
+var uncleMoe: Family = { name: 'moe', relation: 'uncle' };
+isUncleMoe(uncleMoe);
 
 
 
