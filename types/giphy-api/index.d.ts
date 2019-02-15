@@ -69,7 +69,7 @@ declare namespace giphyApi {
         trending(cb: Callback<MultiResponse>): void;
         trending(options?: TrendingOptions): Promise<MultiResponse>;
     }
-    
+
     interface Images {
         fixed_height: BaseImage & {
             size: string;
@@ -165,7 +165,7 @@ declare namespace giphyApi {
             username: string;
             display_name: string;
             twitter: string;
-        },
+        };
         source_tld: string;
         source_post_url: string;
         update_datetime: string;
