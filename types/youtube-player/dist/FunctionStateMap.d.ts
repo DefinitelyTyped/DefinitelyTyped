@@ -1,4 +1,4 @@
-import PlayerStates from './constants/PlayerStates.js';
+import PlayerStates from './constants/PlayerStates';
 
 declare const FUNCTION_STATE_MAP: {
     pauseVideo: {
