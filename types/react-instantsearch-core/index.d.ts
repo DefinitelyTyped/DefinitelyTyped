@@ -3,6 +3,8 @@
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
 //                 David Furlong <https://github.com/davidfurlong>
+//                 Haroen Viaene <https://github.com/haroenv>
+//                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
