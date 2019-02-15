@@ -133,4 +133,5 @@ declare namespace anime {
 
 declare function anime(params: anime.AnimeParams): anime.AnimeInstance;
 
-export default anime;
+export = anime;
+export as namespace anime;
