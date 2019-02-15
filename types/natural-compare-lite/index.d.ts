@@ -5,10 +5,4 @@
 
 declare function naturalCompare(a: string, b: string): -1 | 0 | 1;
 
-declare global {
-    interface StringConstructor {
-        naturalCompare: typeof naturalCompare;
-    }
-}
-
 export = naturalCompare;
