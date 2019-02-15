@@ -20,6 +20,14 @@
         "esModuleInterop": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "dist/constants/PlayerStates.d.ts",
+        "dist/eventNames.d.ts",
+        "dist/functionNames.d.ts",
+        "dist/FunctionStateMap.d.ts",
+        "dist/index.d.ts",
+        "dist/loadYouTubeIframeApi.d.ts",
+        "dist/types.d.ts",
+        "dist/YouTubePlayer.d.ts"
     ]
 }
