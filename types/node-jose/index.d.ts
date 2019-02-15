@@ -301,17 +301,16 @@ export namespace JWS {
     }
 }
 
-interface ParseReturn {
-    type: 'JWS' | 'JWE';
-    format: 'compact' | 'json';
-    input: Buffer | string | object;
-    header: object;
-    perform: (ks: JWK.KeyStore) => Promise<JWE.DecryptResult> | Promise<JWS.VerificationResult>;
-}
-
-export function parse(input: Buffer | string | object): ParseReturn;
+export function parse(input: Buffer | string | object): parse.ParseReturn;
 
 export namespace parse {
+    interface ParseReturn {
+        type: 'JWS' | 'JWE';
+        format: 'compact' | 'json';
+        input: Buffer | string | object;
+        header: object;
+        perform: (ks: JWK.KeyStore) => Promise<JWE.DecryptResult> | Promise<JWS.VerificationResult>;
+    }
     function compact(input: Buffer | string | object): ParseReturn;
 
     function json(input: Buffer | string | object): ParseReturn;
@@ -334,13 +333,3 @@ export namespace util {
         function encode(input: string): string;
     }
 }
-
-declare const _default: {
-    JWA: typeof JWA;
-    JWE: typeof JWE;
-    JWS: typeof JWS;
-    JWK: typeof JWK;
-    parse: typeof parse;
-    util: typeof util;
-};
-export default _default;
