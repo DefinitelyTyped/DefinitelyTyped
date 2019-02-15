@@ -124,6 +124,7 @@ declare namespace Backbone {
         off(eventName?: string, callback?: EventHandler, context?: any): this;
         trigger(eventName: string, ...args: any[]): this;
         bind(eventName: string, callback: EventHandler, context?: any): this;
+        bind(eventMap: EventMap, context?: any): this;
         unbind(eventName?: string, callback?: EventHandler, context?: any): this;
 
         once(events: string, callback: EventHandler, context?: any): this;
