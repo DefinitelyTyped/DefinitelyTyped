@@ -137,4 +137,6 @@ export interface YouTubePlayer {
     setVolume(volume: number): void;
     stopVideo(): void;
     unMute(): void;
+    on(eventType: 'stateChange', listener: (event: CustomEvent & {data: number}) => void): void;
+    on(eventType: EventType, listener: (event: CustomEvent) => void): void;
 }

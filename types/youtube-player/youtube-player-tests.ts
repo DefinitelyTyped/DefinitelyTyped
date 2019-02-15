@@ -46,3 +46,36 @@ const player: YouTubePlayer = youTubePlayerFactory(
     },
     true,
 );
+
+player.cueVideoById('xyzabc123');
+player.loadVideoById('doesNotExist');
+player.playVideo();
+player.pauseVideo();
+player.setSize(320, 200);
+if (player.isMuted()) {
+    player.unMute();
+} else {
+    player.mute();
+}
+player.setVolume(player.getVolume() / 2);
+
+player.on('stateChange', (event: CustomEvent<void> & {data: number}) => {
+    switch (event.data) {
+        case PlayerStates.PLAYING:
+            console.log('playing');
+            break;
+        case PlayerStates.PAUSED:
+            console.log('paused');
+            break;
+        case PlayerStates.ENDED:
+            console.log('ended');
+            break;
+        default:
+            break;
+    }
+});
+player.on('error', (event: CustomEvent<number>) => {
+    console.error('player error', event.detail);
+});
+
+player.destroy();
