@@ -4,7 +4,7 @@ import { YouTubePlayer } from 'youtube-player/dist/types';
 
 youTubePlayerFactory('foo');
 const player: YouTubePlayer = youTubePlayerFactory(
-    document.getElementById('bar'),
+    document.getElementById('bar')!,
     {
         width: 640,
         height: 300,
