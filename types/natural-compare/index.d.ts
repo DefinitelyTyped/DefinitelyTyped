@@ -3,7 +3,7 @@
 // Definitions by: Doniyor Aliyev <https://github.com/doniyor2109>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function naturalCompare(a: string, b: string): number;
+declare function naturalCompare(a: string, b: string): -1 | 0 | 1;
 
 declare global {
     interface StringConstructor {
