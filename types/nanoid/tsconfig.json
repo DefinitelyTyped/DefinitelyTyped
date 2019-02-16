@@ -23,6 +23,7 @@
         "generate.d.ts",
         "index.d.ts",
         "nanoid-tests.ts",
+        "non-secure.d.ts",
         "random-browser.d.ts",
         "random.d.ts",
         "url.d.ts"
