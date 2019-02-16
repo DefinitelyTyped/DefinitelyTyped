@@ -592,27 +592,18 @@ export interface ConfigAPI {
      *
      * @see https://babeljs.io/docs/en/next/config-files#apicallercb
      */
-    caller<T extends SimpleCacheKey>(callerCallback: (caller: TransformOptions['caller']) => T): T
+    caller<T extends SimpleCacheKey>(callerCallback: (caller: TransformOptions['caller']) => T): T;
     /**
      * While `api.version` can be useful in general, it's sometimes nice to just declare your version.
      * This API exposes a simple way to do that with:
      *
      * @example
-     * api.assertVersion(7)
-     *
-     * @see https://babeljs.io/docs/en/next/config-files#apiassertversionrange
-     */
-    assertVersion(majorVersion: number): boolean
-    /**
-     * While `api.version` can be useful in general, it's sometimes nice to just declare your version.
-     * This API exposes a simple way to do that with:
-     *
-     * @example
+     * api.assertVersion(7) // major version only
      * api.assertVersion("^7.2")
      *
      * @see https://babeljs.io/docs/en/next/config-files#apiassertversionrange
      */
-    assertVersion(semverExpression: string): boolean
+    assertVersion(versionRange: number | string): boolean;
     // NOTE: this is an undocumented reexport from "@babel/parser" but it's missing from its types
     // tokTypes: typeof tokTypes
 }
@@ -636,11 +627,11 @@ export interface SimpleCacheConfigurator {
     /**
      * Permacache the computed config and never call the function again.
      */
-    forever(): void
+    forever(): void;
     /**
      * Do not cache this config, and re-execute the function every time.
      */
-    never(): void
+    never(): void;
     /**
      * Any time the using callback returns a value other than the one that was expected,
      * the overall config function will be called again and a new entry will be added to the cache.
@@ -648,7 +639,7 @@ export interface SimpleCacheConfigurator {
      * @example
      * api.cache.using(() => process.env.NODE_ENV)
      */
-    using<T extends SimpleCacheKey>(callback: SimpleCacheCallback<T>): T
+    using<T extends SimpleCacheKey>(callback: SimpleCacheCallback<T>): T;
     /**
      * Any time the using callback returns a value other than the one that was expected,
      * the overall config function will be called again and all entries in the cache will
@@ -657,12 +648,12 @@ export interface SimpleCacheConfigurator {
      * @example
      * api.cache.invalidate(() => process.env.NODE_ENV)
      */
-    invalidate<T extends SimpleCacheKey>(callback: SimpleCacheCallback<T>): T
+    invalidate<T extends SimpleCacheKey>(callback: SimpleCacheCallback<T>): T;
 }
 
 // https://github.com/babel/babel/blob/v7.3.3/packages/babel-core/src/config/caching.js#L231
-export type SimpleCacheKey = string | boolean | number | null | undefined
-export type SimpleCacheCallback<T extends SimpleCacheKey> = () => T
+export type SimpleCacheKey = string | boolean | number | null | undefined;
+export type SimpleCacheCallback<T extends SimpleCacheKey> = () => T;
 
 /**
  * Since `NODE_ENV` is a fairly common way to toggle behavior, Babel also includes an API function
@@ -675,18 +666,14 @@ export interface EnvFunction {
     /**
      * @returns the current `envName` string
      */
-    (): string
-    /**
-     * @returns `true` if the `envName` is `===` the argument
-     */
-    (envName: string): boolean
+    (): string;
     /**
      * @returns `true` if the `envName` is `===` any of the given strings
      */
-    (envNames: ReadonlyArray<string>): boolean
+    (envName: string | ReadonlyArray<string>): boolean;
     // the official documentation is completely wrong for this one...
     // this just passes the callback to `cache.using` but with an additional argument.
-    <T extends SimpleCacheKey>(envCallback: (envName: NonNullable<TransformOptions['envName']>) => T): T
+    <T extends SimpleCacheKey>(envCallback: (envName: NonNullable<TransformOptions['envName']>) => T): T;
 }
 
 export type ConfigFunction = (api: ConfigAPI) => TransformOptions;
