@@ -19,3 +19,12 @@ co.co(gen, 42, 'forty-two', [42], { value: 42 }, () => {})
 co.wrap(gen)(42, 'forty-two', [42], { value: 42 }, () => {})
     .then((num: number) => {}, (err: Error) => {})
     .catch((err: Error) => {});
+
+// $ExpectError
+co(gen, 42, 'forty-two', [42], { value: 42 }, () => {}).then((str: string) => {})
+
+// $ExpectError
+co.wrap(gen)();
+
+// $ExpectError
+co.wrap(gen)('forty-two');
