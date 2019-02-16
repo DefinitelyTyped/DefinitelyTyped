@@ -3,9 +3,7 @@
 // Definitions by: Nicholas Sorokin <https://github.com/aNickzz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export {};
-
-export class Tokenizr {
+declare class Tokenizr {
     constructor();
 
     /**
@@ -137,6 +135,10 @@ export class Tokenizr {
      * Unset a tag
      */
     untag(tag: string): this;
+
+    static readonly ParsingError: typeof ParsingError;
+    static readonly ActionContext: typeof ActionContext;
+    static readonly Token: typeof Token;
 }
 
 type Action = (
@@ -157,7 +159,7 @@ type RuleAction = (
     found: RegExpExecArray
 ) => void;
 
-export class ActionContext {
+declare class ActionContext {
     constructor(e: any);
 
     /**
@@ -230,7 +232,7 @@ export class ActionContext {
     untag(tag: string): this;
 }
 
-export class ParsingError extends Error {
+declare class ParsingError extends Error {
     constructor(
         message: string,
         pos: number,
@@ -245,7 +247,7 @@ export class ParsingError extends Error {
     toString(): string;
 }
 
-export class Token {
+declare class Token {
     constructor(
         type: string,
         value: any,
@@ -262,3 +264,5 @@ export class Token {
      */
     toString(): string;
 }
+
+export = Tokenizr;
