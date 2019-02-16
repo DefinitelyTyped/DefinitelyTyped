@@ -1372,4 +1372,7 @@ test.only.each`
     expect(a + b).toBe(expected);
 });
 
+test.each``("test timeout", () => {}, 1);
+test.each([])("test timeout", () => {}, 1);
+
 expect("").toHaveProperty("path.to.thing");
