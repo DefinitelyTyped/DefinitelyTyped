@@ -1291,6 +1291,12 @@
             "asOfVersion": "8.1.0"
         },
         {
+            "libraryName": "React Icons",
+            "typingsPackageName": "react-icons",
+            "sourceRepoURL": "https://www.npmjs.com/package/react-icons",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "react-monaco-editor",
             "typingsPackageName": "react-monaco-editor",
             "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
@@ -1637,6 +1643,12 @@
             "typingsPackageName": "tcomb",
             "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
             "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "terser",
+            "typingsPackageName": "terser",
+            "sourceRepoURL": "https://github.com/terser-js/terser",
+            "asOfVersion": "3.12.0"
         },
         {
             "libraryName": "timezonecomplete",

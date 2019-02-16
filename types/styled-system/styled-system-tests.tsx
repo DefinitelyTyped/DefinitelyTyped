@@ -10,6 +10,7 @@ import {
     SpaceProps,
     WidthProps,
     ColorProps,
+    TextColorProps,
     DisplayProps,
     FontSizeProps,
     FontFamilyProps,
@@ -126,7 +127,8 @@ import {
     VerticalAlignProps,
     verticalAlign,
     px,
-    createMediaQuery
+    createMediaQuery,
+    styles
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -293,11 +295,13 @@ const Grid: React.ComponentType<GridComponentProps> = styled`
 
 interface ButtonProps
     extends SpaceProps,
-        ButtonStyleProps {}
+        ButtonStyleProps,
+        TextColorProps {}
 
 const TestButton: React.ComponentType<ButtonProps> = styled`
     ${buttonStyle}
     ${space}
+    ${styles.textColor}
 `;
 
 const test = () => (
@@ -523,6 +527,6 @@ const test = () => (
         // verticalAlign
         <Box verticalAlign="middle" />
 
-        <TestButton variant="primary" m={2} />
+        <TestButton variant="primary" m={2} color="tomato" />
     </div>
 );

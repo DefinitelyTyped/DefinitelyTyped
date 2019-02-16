@@ -2200,8 +2200,7 @@ declare module "mongoose" {
     }): this;
 
     /** Executes this query and returns a promise */
-    then<TRes>(resolve?: (res: T) => void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
+    then: Promise<T>["then"];
 
     /**
      * Converts this query to a customized, reusable query
@@ -2374,6 +2373,14 @@ declare module "mongoose" {
 
         /** This schema type's name, to defend against minifiers that mangle function names. */
         static schemaName: string;
+
+        /**
+         * Adds a discriminator type.
+         * @param name discriminator model name
+         * @param schema discriminator model schema
+         */
+        discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+
       }
 
       /*
@@ -2697,8 +2704,7 @@ declare module "mongoose" {
     sort(arg: string | any): this;
 
     /** Provides promise for aggregate. */
-    then<TRes>(resolve?: (val: T) => void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
+    then: Promise<T>["then"];
 
     /**
      * Appends new custom $unwind operator(s) to this aggregate pipeline.

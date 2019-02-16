@@ -121,7 +121,7 @@ declare namespace jest {
     /**
      * Creates a mock function. Optionally takes a mock implementation.
      */
-    function fn<T, Y extends any[]>(implementation: (...args: Y) => T): Mock<T, Y>;
+    function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): Mock<T, Y>;
     /**
      * Use the automatic mocking system to generate a mocked version of the given module.
      */

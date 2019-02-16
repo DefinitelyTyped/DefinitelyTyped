@@ -1,4 +1,4 @@
-// Type definitions for fancyBox 3.5
+// Type definitions for non-npm package fancyBox 3.5
 // Project: https://github.com/fancyapps/fancyBox
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 SPWizard01 <https://github.com/SPWizard01>
