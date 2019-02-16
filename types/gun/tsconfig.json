@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "gun.d.ts",
         "gun-tests.ts"
     ]
 }
