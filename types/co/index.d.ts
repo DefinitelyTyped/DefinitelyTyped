@@ -2,6 +2,7 @@
 // Project: https://github.com/tj/co#readme
 // Definitions by: My Self <https://github.com/doniyor2109>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 type ExtractType<T> = T extends IterableIterator<infer R> ? R : never;
 
