@@ -1,3 +1,2 @@
-
-declare const cons: typeof import('gun')
-export = cons
+declare const cons: typeof import('./index');
+export = cons;
