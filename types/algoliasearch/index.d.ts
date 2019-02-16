@@ -5,6 +5,7 @@
 //                 Aurélien Hervé <https://github.com/aherve>
 //                 Samuel Vaillant <https://github.com/samouss>
 //                 Kai Eichinger <https://github.com/keichinger>
+//                 Nery Ortez <https://github.com/neryortez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -24,25 +25,25 @@ declare namespace algoliasearch {
      * Query on multiple index
      * https://github.com/algolia/algoliasearch-client-js#multiple-queries---multiplequeries
      */
-    search(
+    search<T=any>(
       queries: {
         indexName: string;
         query: string;
         params: QueryParameters;
       }[],
-      cb: (err: Error, res: MultiResponse) => void
+      cb: (err: Error, res: MultiResponse<T>) => void
     ): void;
     /**
      * Query on multiple index
      * https://github.com/algolia/algoliasearch-client-js#multiple-queries---multiplequeries
      */
-    search(
+    search<T=any>(
       queries: {
         indexName: string;
         query: string;
         params: QueryParameters;
       }[]
-    ): Promise<MultiResponse>;
+    ): Promise<MultiResponse<T>>;
     /**
      * Query for facet values of a specific facet
      */
@@ -590,14 +591,14 @@ declare namespace algoliasearch {
      * Search in an index
      * https://github.com/algolia/algoliasearch-client-js#search-in-an-index---search
      */
-    search(params: QueryParameters): Promise<Response>;
+    search<T=any>(params: QueryParameters): Promise<Response<T>>;
     /**
      * Search in an index
      * https://github.com/algolia/algoliasearch-client-js#search-in-an-index---search
      */
-    search(
+    search<T=any>(
       params: QueryParameters,
-      cb: (err: Error, res: Response) => void
+      cb: (err: Error, res: Response<T>) => void
     ): void;
     /**
      * Search in an index
@@ -1778,12 +1779,12 @@ declare namespace algoliasearch {
     camelCaseAttributes?: string[];
   }
 
-  interface Response {
+  interface Response<T=any> {
     /**
      * Contains all the hits matching the query
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
-    hits: any[];
+    hits: T[];
     /**
      * Current page
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
@@ -1842,8 +1843,8 @@ declare namespace algoliasearch {
     cursor?: string;
   }
 
-  interface MultiResponse {
-    results: Response[];
+  interface MultiResponse<T=any> {
+    results: Response<T>[];
   }
 }
 
