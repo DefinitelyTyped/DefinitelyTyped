@@ -1,8 +1,9 @@
-// Type definitions for @babel/core 7.0
+// Type definitions for @babel/core 7.1
 // Project: https://github.com/babel/babel/tree/master/packages/babel-core, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
+//                 Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -53,6 +54,15 @@ export interface TransformOptions {
      * Default: `"."`
      */
     root?: string | null;
+
+    /**
+     * This option, combined with the "root" value, defines how Babel chooses its project root.
+     * The different modes define different ways that Babel can process the "root" value to get
+     * the final project root.
+     *
+     * @see https://babeljs.io/docs/en/next/options#rootmode
+     */
+    rootMode?: 'root' | 'upward' | 'upward-optional';
 
     /**
      * The config file to load Babel's config from. Defaults to searching for "babel.config.js" inside the "root" folder. `false` will disable searching for config files.

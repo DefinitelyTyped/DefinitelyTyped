@@ -44,14 +44,17 @@ function checkOptions(_options: babel.TransformOptions) {}
 function checkConfigFunction(_config: babel.ConfigFunction) {}
 
 checkOptions({ envName: 'banana' });
-// babel uses object destructuring default to provide the envName fallback so null is not allowed
-// $ExpectError
 checkOptions({ envName: null });
 checkOptions({ caller: { name: '@babel/register' } });
 checkOptions({ caller: { name: 'babel-jest', supportsStaticESM: false } });
 // don't add an index signature; users should augment the interface instead if they need to
 // $ExpectError
 checkOptions({ caller: { name: '', tomato: true } });
+checkOptions({ rootMode: 'upward-optional' });
+// $ExpectError
+checkOptions({ rootMode: 'potato' });
+// babel uses object destructuring default to provide the envName fallback so null is not allowed
+// $ExpectError
 
 // $ExpectError
 checkConfigFunction(() => {});
