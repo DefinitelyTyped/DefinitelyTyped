@@ -10929,6 +10929,32 @@ declare namespace Office {
          */
         prependAsync(data: string): void;
         /**
+         * Adds the specified content to the beginning of the item body.
+         *
+         * The prependAsync method inserts the specified string at the beginning of the item body. 
+         * After insertion, the cursor is returned to its original place, relative to the inserted content.
+         *
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
+         * (please see the Examples section for a sample).
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.</td></tr>
+         * </table>
+         * 
+         * @param data - The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         *        coercionType: The desired format for the body. The string in the data parameter will be converted to this format.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         */
+        prependAsync(data: string, options?: CoercionTypeOptions): void;
+        /**
          * Replaces the entire body with the specified text.
          *
          * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
@@ -11004,6 +11030,34 @@ declare namespace Office {
          * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
          */
         setAsync(data: string): void;
+        /**
+         * Replaces the entire body with the specified text.
+         *
+         * When working with HTML-formatted bodies, it is important to note that the Body.getAsync and Body.setAsync methods are not idempotent. 
+         * The value returned from the getAsync method will not necessarily be exactly the same as the value that was passed in the setAsync method 
+         * previously. The client may modify the value passed to setAsync in order to make it render efficiently with its rendering engine.
+         *
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
+         * (please see the Examples section for a sample).
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.</td></tr>
+         *   <tr><td></td><td>InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.</td></tr>
+         * </table>
+         * 
+         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         *        coercionType: The desired format for the body. The string in the data parameter will be converted to this format.
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         */
+        setAsync(data: string, options?: CoercionTypeOptions): void;
 
         /**
          * Replaces the selection in the body with the specified text.
@@ -11081,6 +11135,31 @@ declare namespace Office {
          * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
          */
         setSelectedDataAsync(data: string): void;
+        /**
+         * Replaces the selection in the body with the specified text.
+         *
+         * The setSelectedDataAsync method inserts the specified string at the cursor location in the body of the item, or, if text is selected in 
+         * the editor, it replaces the selected text. If the cursor was never in the body of the item, or if the body of the item lost focus in the 
+         * UI, the string will be inserted at the top of the body content. After insertion, the cursor is placed at the end of the inserted content.
+         *
+         * When including links in HTML markup, you can disable online link preview by setting the id attribute on the anchor (\<a\>) to "LPNoLP" 
+         * (please see the Examples section for a sample).
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *   <tr><td>Errors</td><td>DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.</td></tr>
+         *   <tr><td></td><td>InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.</td></tr>
+         * </table>
+         * 
+         * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        coercionType: The desired format for the body. The string in the data parameter will be converted to this format.
+         */
+        setSelectedDataAsync(data: string, options?: CoercionTypeOptions): void;
     }
     /**
      * Represents a contact stored on the server. Read mode only.
@@ -12267,7 +12346,7 @@ declare namespace Office {
          *                 On success, the attachment identifier will be provided in the asyncResult.value property. 
          *                 If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of the error.
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (result: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -12318,6 +12397,30 @@ declare namespace Office {
         /**
          * Adds a file to a message or appointment as an attachment.
          *
+         * The addFileAttachmentAsync method uploads the file at the specified URI and attaches it to the item in the compose form.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
+         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
+         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
+         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
+         * </table>
+         * 
+         * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
+         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the attachment list.
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: { isInline: boolean }): void;
+        /**
+         * Adds a file to a message or appointment as an attachment.
+         *
          * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
@@ -12344,7 +12447,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions &  { isInline: boolean }, callback?: (result: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -12396,6 +12499,32 @@ declare namespace Office {
          * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string): void;
+        /**
+         * Adds a file to a message or appointment as an attachment.
+         *
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
+         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
+         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
+         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
+         * </table>
+         * 
+         * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
+         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
+         * 
+         * @beta
+         */
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: { isInline: boolean }): void;
         /**
          * Adds an event handler for a supported event.
          * 
@@ -13108,6 +13237,35 @@ declare namespace Office {
          *                 type Office.AsyncResult.
          */
         setSelectedDataAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        /**
+         * Asynchronously inserts data into the body or subject of a message.
+         *
+         * The setSelectedDataAsync method inserts the specified string at the cursor location in the subject or body of the item, or, if text is 
+         * selected in the editor, it replaces the selected text. If the cursor is not in the body or subject field, an error is returned. 
+         * After insertion, the cursor is placed at the end of the inserted content.
+         *
+         * [Api set: Mailbox 1.2]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr>
+         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
+         * </table>
+         * 
+         * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
+         *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. 
+         *                      If the field is an HTML editor, only the text data is inserted, even if the data is HTML. 
+         *                      If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook Web App and the 
+         *                      default style is applied in Outlook. 
+         *                      If the field is a text field, an InvalidDataFormat error is returned. 
+         *                      If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; 
+         *                      if the field is text, then plain text is used.
+         */
+        setSelectedDataAsync(data: string, options?: CoercionTypeOptions): void;
     }
 
     /**
@@ -14531,7 +14689,7 @@ declare namespace Office {
          *                 If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (result: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -14580,6 +14738,31 @@ declare namespace Office {
          *                 the error.
          */
         addFileAttachmentAsync(uri: string, attachmentName: string, callback: (result: Office.AsyncResult<string>) => void): void;
+        /**
+         * Adds a file to a message or appointment as an attachment.
+         *
+         * The addFileAttachmentAsync method uploads the file at the specified URI and attaches it to the item in the compose form.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
+         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
+         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
+         * </table>
+         * 
+         * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
+         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the 
+         *        attachment list.
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: { isInline: boolean }, callback?: (result: Office.AsyncResult<string>) => void): void;
 
         /**
          * Adds a file to a message or appointment as an attachment.
@@ -14610,7 +14793,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (result: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -14662,6 +14845,32 @@ declare namespace Office {
          * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string): void;
+        /**
+         * Adds a file to a message or appointment as an attachment.
+         *
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
+         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
+         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
+         * </table>
+         * 
+         * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
+         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
+         * 
+         * @beta
+         */
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: { isInline: boolean }): void;
 
         /**
          * Adds an Exchange item, such as a message, as an attachment to the message or appointment.
@@ -15237,6 +15446,35 @@ declare namespace Office {
          *                 type Office.AsyncResult. 
          */
         setSelectedDataAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        /**
+         * Asynchronously inserts data into the body or subject of a message.
+         *
+         * The setSelectedDataAsync method inserts the specified string at the cursor location in the subject or body of the item, or, if text is 
+         * selected in the editor, it replaces the selected text. If the cursor is not in the body or subject field, an error is returned. 
+         * After insertion, the cursor is placed at the end of the inserted content.
+         *
+         * [Api set: Mailbox 1.2]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
+         * </table>
+         * 
+         * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
+         *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. 
+         *        If the field is an HTML editor, only the text data is inserted, even if the data is HTML. 
+         *        If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook Web App and the default style is 
+         *        applied in Outlook. 
+         *        If the field is a text field, an InvalidDataFormat error is returned. 
+         *        If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; 
+         *        if the field is text, then plain text is used.
+         */
+        setSelectedDataAsync(data: string, options?: CoercionTypeOptions): void;
     }
     /**
      * The read mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -15994,7 +16232,7 @@ declare namespace Office {
          *                 If uploading the attachment fails, the asyncResult object will contain an Error object that provides a description of 
          *                 the error.
          */
-        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (result: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -16046,6 +16284,31 @@ declare namespace Office {
         /**
          * Adds a file to a message or appointment as an attachment.
          *
+         * The addFileAttachmentAsync method uploads the file at the specified URI and attaches it to the item in the compose form.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
+         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
+         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
+         * </table>
+         * 
+         * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
+         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body, and should not be displayed in the 
+         *        attachment list.
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: { isInline: boolean }): void;
+        /**
+         * Adds a file to a message or appointment as an attachment.
+         *
          * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
@@ -16072,7 +16335,7 @@ declare namespace Office {
          * 
          * @beta
          */
-        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions, callback?: (result: Office.AsyncResult<string>) => void): void;
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: Office.AsyncContextOptions & { isInline: boolean }, callback?: (result: Office.AsyncResult<string>) => void): void;
         /**
          * Adds a file to a message or appointment as an attachment.
          *
@@ -16100,6 +16363,56 @@ declare namespace Office {
          * @beta
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (result: Office.AsyncResult<string>) => void): void;
+        /**
+         * Adds a file to a message or appointment as an attachment.
+         *
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
+         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
+         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
+         * </table>
+         * 
+         * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
+         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * 
+         * @beta
+         */
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string): void;
+        /**
+         * Adds a file to a message or appointment as an attachment.
+         *
+         * The addFileAttachmentFromBase64Async method uploads the file from the base64 encoding and attaches it to the item in the compose form. This method returns the attachment identifier in the asyncResult.value object.
+         *
+         * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
+         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
+         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
+         * </table>
+         * 
+         * @param base64File - The base64 encoded content of an image or file to be added to an email or event.
+         * @param attachmentName - The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        isInline: If true, indicates that the attachment will be shown inline in the message body and should not be displayed in the attachment list.
+         * 
+         * @beta
+         */
+        addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, options?: { isInline: boolean }): void;
         /**
          * Adds an event handler for a supported event.
          * 
@@ -16825,6 +17138,34 @@ declare namespace Office {
          *                 type Office.AsyncResult.
          */
         setSelectedDataAsync(data: string, callback: (result: Office.AsyncResult<void>) => void): void;
+        /**
+         * Asynchronously inserts data into the body or subject of a message.
+         *
+         * The setSelectedDataAsync method inserts the specified string at the cursor location in the subject or body of the item, or, if text is 
+         * selected in the editor, it replaces the selected text. If the cursor is not in the body or subject field, an error is returned. 
+         * After insertion, the cursor is placed at the end of the inserted content.
+         *
+         * [Api set: Mailbox 1.2]
+         *
+         * @remarks
+         *
+         * <table>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
+         *   <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr>
+         * </table>
+         * 
+         * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
+         *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. 
+         *        If the field is an HTML editor, only the text data is inserted, even if the data is HTML. 
+         *        If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook Web App and the default style is 
+         *        applied in Outlook. If the field is a text field, an InvalidDataFormat error is returned. 
+         *        If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; 
+         *        if the field is text, then plain text is used.
+         */
+        setSelectedDataAsync(data: string, options?: CoercionTypeOptions): void;
     }
     /**
      * The message read mode of {@link Office.Item | Office.context.mailbox.item}.
