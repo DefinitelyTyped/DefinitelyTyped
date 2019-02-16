@@ -671,8 +671,9 @@ export interface EnvFunction {
      * @returns `true` if the `envName` is `===` any of the given strings
      */
     (envName: string | ReadonlyArray<string>): boolean;
-    // the official documentation is completely wrong for this one...
+    // the official documentation is misleading for this one...
     // this just passes the callback to `cache.using` but with an additional argument.
+    // it returns its result instead of necessarily returning a boolean.
     <T extends SimpleCacheKey>(envCallback: (envName: NonNullable<TransformOptions['envName']>) => T): T;
 }
 
