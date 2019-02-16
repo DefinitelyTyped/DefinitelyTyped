@@ -305,7 +305,7 @@ export interface TransformOptions {
 export interface TransformCaller {
     // the only required property
     name: string;
-    // set to true by e.g. `babel-loader` and `babel-jest`
+    // e.g. set to true by `babel-loader` and false by `babel-jest`
     supportsStaticESM?: boolean;
     // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
