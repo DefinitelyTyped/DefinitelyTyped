@@ -316,7 +316,7 @@ interface TestApi {
     test(x: number): string;
 }
 // $ExpectType Mock<string, [number]>
-const mock12 = jest.fn<ReturnType<TestApi["test"]>, ArgsType<TestApi["test"]>>();
+const mock12 = jest.fn<ReturnType<TestApi["test"]>, jest.ArgsType<TestApi["test"]>>();
 
 // $ExpectType number
 mock1('test');
