@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare class LRUCache<K = any, V = any> {
+declare class LRUCache<K, V> {
     constructor(options?: LRUCache.Options<K, V>);
     constructor(max: number);
 
