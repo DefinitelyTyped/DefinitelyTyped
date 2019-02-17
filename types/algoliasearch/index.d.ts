@@ -1451,6 +1451,11 @@ declare namespace algoliasearch {
 
     nbShards?: number;
     userData?: string | object;
+
+    /**
+     * https://www.algolia.com/doc/api-reference/api-parameters/sortFacetValuesBy/
+     */
+    sortFacetValuesBy: 'count' | 'alpha'
   }
 
   namespace SearchForFacetValues {
