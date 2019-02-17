@@ -1961,7 +1961,7 @@ export namespace ImageManipulator {
             originY: number;
             width: number;
             height: number;
-        }
+        };
     }
 
     interface ImageResult {
