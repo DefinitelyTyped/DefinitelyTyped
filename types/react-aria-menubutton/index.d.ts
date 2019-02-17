@@ -100,7 +100,7 @@ export interface MenuItemProps<T extends HTMLElement>
 	 * If value has a value, it will be passed to the onSelection handler
 	 * when the `MenuItem` is selected
 	 */
-	value?: string | boolean | number;
+	value?: any;
 
 	/**
 	 * If `text` has a value, its first letter will be the letter a user can
