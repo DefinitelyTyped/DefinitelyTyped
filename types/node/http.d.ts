@@ -147,8 +147,8 @@ declare module "http" {
         // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
         // no args in writeContinue callback
         writeContinue(callback?: () => void): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): void;
-        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): this;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77

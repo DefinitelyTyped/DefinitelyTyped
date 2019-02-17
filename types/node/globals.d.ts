@@ -793,6 +793,16 @@ declare namespace NodeJS {
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
         release: ProcessRelease;
+        features: {
+            inspector: boolean;
+            debug: boolean;
+            uv: boolean;
+            ipv6: boolean;
+            tls_alpn: boolean;
+            tls_sni: boolean;
+            tls_ocsp: boolean;
+            tls: boolean;
+        };
         /**
          * Can only be set if not in worker thread.
          */

@@ -169,17 +169,17 @@ declare module "crypto" {
     function createCipheriv(
         algorithm: CipherCCMTypes,
         key: CipherKey,
-        iv: BinaryLike,
+        iv: BinaryLike | null,
         options: CipherCCMOptions
     ): CipherCCM;
     function createCipheriv(
         algorithm: CipherGCMTypes,
         key: CipherKey,
-        iv: BinaryLike,
+        iv: BinaryLike | null,
         options?: CipherGCMOptions
     ): CipherGCM;
     function createCipheriv(
-        algorithm: string, key: CipherKey, iv: BinaryLike, options?: stream.TransformOptions
+        algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions
     ): Cipher;
 
     interface Cipher extends NodeJS.ReadWriteStream {
@@ -213,16 +213,16 @@ declare module "crypto" {
     function createDecipheriv(
         algorithm: CipherCCMTypes,
         key: BinaryLike,
-        iv: BinaryLike,
+        iv: BinaryLike | null,
         options: CipherCCMOptions,
     ): DecipherCCM;
     function createDecipheriv(
         algorithm: CipherGCMTypes,
         key: BinaryLike,
-        iv: BinaryLike,
+        iv: BinaryLike | null,
         options?: CipherGCMOptions,
     ): DecipherGCM;
-    function createDecipheriv(algorithm: string, key: BinaryLike, iv: BinaryLike, options?: stream.TransformOptions): Decipher;
+    function createDecipheriv(algorithm: string, key: BinaryLike, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
 
     interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Binary): Buffer;
