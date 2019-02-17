@@ -2,7 +2,7 @@
 
 import ejs = require("ejs");
 import { readFileSync as read } from 'fs';
-import LRU = require("lru-cache");
+import * as LRU from "lru-cache";
 import { TemplateFunction, AsyncTemplateFunction, Options } from "ejs";
 
 const fileName = 'test.ejs';
