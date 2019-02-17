@@ -13,7 +13,6 @@
 //                 Andrew Palugniok <https://github.com/apalugniok>
 //                 Robert Stigsson <https://github.com/RobertStigsson>
 //                 Kosaku Kurino <https://github.com/kousaku-maron>
-//                 Kanato Masayoshi <https://github.com/cosnomi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
