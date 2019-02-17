@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="passport" />
-
 import passport = require("passport");
 import express = require("express");
 
@@ -55,21 +53,19 @@ export interface Profile extends passport.Profile {
 export class Strategy extends passport.Strategy {
     constructor(
         options: StrategyOptions,
-        verify: (
-            accessToken: string,
-            refreshToken: string,
-            profile: Profile,
-            done: (error: any, user?: any) => void
-        ) => void
-    );
-    constructor(
-        options: StrategyOptions,
-        verify: (
-            req: express.Request,
-            accessToken: string,
-            refreshToken: string,
-            profile: Profile,
-            done: (error: any, user?: any) => void
-        ) => void
+        verify:
+            | ((
+                  accessToken: string,
+                  refreshToken: string,
+                  profile: Profile,
+                  done: (error: any, user?: any) => void
+              ) => void)
+            | ((
+                  req: express.Request,
+                  accessToken: string,
+                  refreshToken: string,
+                  profile: Profile,
+                  done: (error: any, user?: any) => void
+              ) => void)
     );
 }
