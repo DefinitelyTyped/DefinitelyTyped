@@ -124,14 +124,14 @@ openMenu("", { focusMenu: true });
 
 class ObjectMenuItem extends React.Component {
 	render() {
-		const itemValue = { name: "Test name", label: "Only item to select" }
+		const itemValue = { name: "Test name", label: "Only item to select" };
 		return (
 			<Wrapper onSelection={(value) => console.log(value.name)}>
 				<li>
 					<MenuItem value={itemValue} >{itemValue.label}</MenuItem>
 				</li>
 			</Wrapper>
-		)
+		);
 	}
 }
 
