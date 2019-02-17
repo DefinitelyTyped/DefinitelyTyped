@@ -1,4 +1,4 @@
-// Type definitions for lru-cache 5.0
+// Type definitions for lru-cache 5.1
 // Project: https://github.com/isaacs/node-lru-cache
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
@@ -173,6 +173,14 @@ declare namespace LRUCache {
          * not when it is overwritten.
          */
         noDisposeOnSet?: boolean;
+
+        /**
+         * When using time-expiring entries with `maxAge`, setting this to `true` will make each
+         * item's effective time update to the current time whenever it is retrieved from cache,
+         * causing it to not expire. (It can still fall out of cache based on recency of use, of
+         * course.)
+         */
+        updateAgeOnGet?: boolean;
     }
 
     interface Entry<K, V> {
