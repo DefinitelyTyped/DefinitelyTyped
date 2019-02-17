@@ -16,3 +16,4 @@ declare function limit<T, A>(cb: (a: A) => PromiseLike<T> | T, a: A): Promise<T>
 declare function limit<T>(cb: () => PromiseLike<T> | T): Promise<T>;
 
 declare function pLimit(concurrency: number): typeof limit;
+declare namespace pLimit {}

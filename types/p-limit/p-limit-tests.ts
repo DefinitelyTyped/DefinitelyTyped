@@ -1,4 +1,4 @@
-import pLimit = require('p-limit');
+import * as pLimit from 'p-limit';
 
 const limit = pLimit(1);
 
