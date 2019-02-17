@@ -1,13 +1,13 @@
 import { TweenLite, TweenMax } from 'gsap';
 
 const callbackWithoutParams = () => {
-    console.log('I Have No Parameters.')
-}
+    console.log('I Have No Parameters.');
+};
 
-const callbackWithParams = (...args: any) => {
-    console.log('I Have Parameters.')
+const callbackWithParams = (...args: any[]) => {
+    console.log('I Have Parameters.');
     console.log(args);
-}
+};
 
 
 const tweenLiteExample = TweenLite
@@ -30,4 +30,3 @@ const tweenMaxExample = TweenMax
     onCompleteParams: ['foo', 'bar']
   })
   .seek(0.5);
-
