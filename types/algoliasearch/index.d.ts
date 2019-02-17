@@ -1455,7 +1455,7 @@ declare namespace algoliasearch {
     /**
      * https://www.algolia.com/doc/api-reference/api-parameters/sortFacetValuesBy/
      */
-    sortFacetValuesBy: 'count' | 'alpha'
+    sortFacetValuesBy: 'count' | 'alpha';
   }
 
   namespace SearchForFacetValues {
