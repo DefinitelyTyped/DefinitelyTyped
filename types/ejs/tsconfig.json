@@ -13,9 +13,7 @@
             "../"
         ],
         "paths": {
-            "lru-cache": [
-                "lru-cache/v4"
-            ]
+            "lru-cache": ["lru-cache/v4"]
         },
         "types": [],
         "noEmit": true,
