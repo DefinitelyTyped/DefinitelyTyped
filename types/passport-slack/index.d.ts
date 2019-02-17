@@ -13,6 +13,7 @@ export interface StrategyOptions {
     callbackURL: string;
     passReqToCallback?: true;
     scope?: string[];
+    skipUserProfile?: boolean;
 }
 
 export interface StrategyOptionsWithRequest {
@@ -21,6 +22,7 @@ export interface StrategyOptionsWithRequest {
     callbackURL: string;
     passReqToCallback: true;
     scope?: string[];
+    skipUserProfile?: boolean;
 }
 
 export interface Profile extends passport.Profile {

@@ -6,7 +6,9 @@ new SlackStrategy(
         callbackURL: "callbackurl",
         clientID: "clientid",
         clientSecret: "clientsecret",
-        passReqToCallback: true
+        passReqToCallback: true,
+        scope: ["identity.basic"],
+        skipUserProfile: false
     },
     (
         req: express.Request,
