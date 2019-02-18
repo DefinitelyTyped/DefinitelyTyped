@@ -485,6 +485,19 @@ mocked.test4.mockRejectedValue(new Error());
 // $ExpectError
 mocked.test4.mockRejectedValueOnce(new Error());
 
+const mockResult = jest.fn(() => 1).mock.results[0];
+switch (mockResult.type) {
+    case 'return':
+        mockResult.value; // $ExpectType number
+        break;
+    case 'incomplete':
+        mockResult.value; // $ExpectType undefined
+        break;
+    case 'throw':
+        mockResult.value; // $ExpectType any
+        break;
+}
+
 /* Snapshot serialization */
 
 const snapshotSerializerPlugin: jest.SnapshotSerializerPlugin = {
