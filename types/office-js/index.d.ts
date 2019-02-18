@@ -13736,7 +13736,7 @@ declare namespace Office {
          *   <tr>
          *     <th>Value of entityType</th>
          *     <th>Type of objects in returned array</th>
-         *     <th>Required Permission Leve</th>
+         *     <th>Required Permission Level</th>
          *   </tr>
          *   <tr>
          *     <td>Address</td>
@@ -15574,7 +15574,7 @@ declare namespace Office {
          *   <tr>
          *     <th>Value of entityType</th>
          *     <th>Type of objects in returned array</th>
-         *     <th>Required Permission Leve</th>
+         *     <th>Required Permission Level</th>
          *   </tr>
          *   <tr>
          *     <td>Address</td>
@@ -16031,8 +16031,8 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr>
          *   <tr><td>Errors</td><td>AttachmentSizeExceeded - The attachment is larger than allowed.</td></tr>
-         * <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
-         * <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
+         *   <tr><td></td><td>FileTypeNotSupported - The attachment has an extension that is not allowed.</td></tr>
+         *   <tr><td></td><td>NumberOfAttachmentsExceeded - The message or appointment has too many attachments.</td></tr>
          * </table>
          *
          * @param uri - The URI that provides the location of the file to attach to the message or appointment. The maximum length is 2048 characters.
@@ -17474,7 +17474,7 @@ declare namespace Office {
          *   <tr>
          *     <th>Value of entityType</th>
          *     <th>Type of objects in returned array</th>
-         *     <th>Required Permission Leve</th>
+         *     <th>Required Permission Level</th>
          *   </tr>
          *   <tr>
          *     <td>Address</td>
@@ -18796,10 +18796,6 @@ declare namespace Office {
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
          * </table>
          * 
-         * In addition to this signature, this method also has the following signature:
-         * 
-         * `getAllAsync(callback: (result: Office.AsyncResult<NotificationMessageDetails[]>) => void): void;`
-         *
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
@@ -19045,7 +19041,7 @@ declare namespace Office {
          * <table>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
          *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
-         * <tr><td>Errors</td><td>NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.</td></tr>
+         *   <tr><td>Errors</td><td>NumberOfRecipientsExceeded - The number of recipients exceeded 100 entries.</td></tr>
          * </table>
          *
          * @param recipients - The recipients to add to the recipients list.
@@ -19524,7 +19520,7 @@ declare namespace Office {
         attachments?: ReplyFormAttachment[];
         /**
          * When the reply display call completes, the function passed in the callback parameter is called with a single parameter, 
-         *asyncResult, which is an Office.AsyncResult object.
+         * asyncResult, which is an Office.AsyncResult object.
          */
         callback?: (result: Office.AsyncResult<any>) => void;
     }
@@ -20131,7 +20127,8 @@ declare namespace Office {
      * @remarks
      * <table>
      *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
-     *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>  </table>
+     *   <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or Read</td></tr>
+     * </table>
      */
     interface UserProfile {
         /**
@@ -21971,7 +21968,7 @@ declare namespace Excel {
         copy(positionType?: "None" | "Before" | "After" | "Beginning" | "End", relativeTo?: Excel.Worksheet): Excel.Worksheet;
         /**
          *
-         * Deletes the worksheet from the workbook.
+         * Deletes the worksheet from the workbook. Note that if the worksheet's visibility is set to "VeryHidden", the delete operation will fail with a GeneralException.
          *
          * [Api set: ExcelApi 1.1]
          */
