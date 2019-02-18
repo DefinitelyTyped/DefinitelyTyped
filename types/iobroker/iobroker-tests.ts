@@ -20,6 +20,16 @@ adapter
     ;
 adapter.removeAllListeners();
 
+// Test adapter constructor options
+let adapterOptions: ioBroker.AdapterOptions = {
+    name: "foo",
+    ready: readyHandler,
+    stateChange: stateChangeHandler,
+    objectChange: objectChangeHandler,
+    message: messageHandler,
+    unload: unloadHandler,
+};
+
 function readyHandler() { }
 
 function stateChangeHandler(id: string, state: ioBroker.State | null | undefined) {
