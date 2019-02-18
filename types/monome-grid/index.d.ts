@@ -1,39 +1,12 @@
 // Type definitions for monome-grid 1.0
 // Project: https://github.com/dinchak/node-monome-grid
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Arlan Jaska <https://github.com/ajaska>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
-
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+export interface MonomeGrid {
+  refresh(leds: number[][]): void;
+  key(keyHandler: (x: number, y: number, s: number) => void): void;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    export function foo(): void;
-}
+export default function monomeGrid(serialNumber?: string): Promise<MonomeGrid>;
