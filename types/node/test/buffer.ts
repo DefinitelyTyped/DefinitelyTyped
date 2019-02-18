@@ -38,7 +38,8 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
     const arrUint8: Uint8Array = new Uint8Array(2);
     const buf5: Buffer = Buffer.from(arrUint8);
     const buf6: Buffer = Buffer.from(buf1);
-    const buf7: Buffer = Buffer.from(new SharedArrayBuffer(123));
+    const sb: SharedArrayBuffer = {} as any;
+    const buf7: Buffer = Buffer.from(sb);
 }
 
 // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
