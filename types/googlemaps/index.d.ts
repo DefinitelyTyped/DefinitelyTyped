@@ -11,6 +11,7 @@
 //                  Sven Kreiss <https://github.com/svenkreiss>
 //                  Umar Bolatov <https://github.com/bolatovumar>
 //                  Michael Gauthier <https://github.com/gauthierm>
+//                  Colin Doig <https://github.com/captain-igloo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -2726,29 +2727,29 @@ declare namespace google.maps {
     }
 
     export interface PlaceResult {
-      address_components: GeocoderAddressComponent[];
-      adr_address: string;
-      aspects: PlaceAspectRating[];
-      formatted_address: string;
-      formatted_phone_number: string;
-      geometry: PlaceGeometry;
-      html_attributions: string[];
-      icon: string;
-      id: string;
-      international_phone_number: string;
+      address_components?: GeocoderAddressComponent[];
+      adr_address?: string;
+      aspects?: PlaceAspectRating[];
+      formatted_address?: string;
+      formatted_phone_number?: string;
+      geometry?: PlaceGeometry;
+      html_attributions?: string[];
+      icon?: string;
+      id?: string;
+      international_phone_number?: string;
       name: string;
-      opening_hours: OpeningHours;
-      permanently_closed: boolean;
-      photos: PlacePhoto[];
-      place_id: string;
-      price_level: number;
-      rating: number;
-      reviews: PlaceReview[];
-      types: string[];
-      url: string;
-      utc_offset: number;
-      vicinity: string;
-      website: string;
+      opening_hours?: OpeningHours;
+      permanently_closed?: boolean;
+      photos?: PlacePhoto[];
+      place_id?: string;
+      price_level?: number;
+      rating?: number;
+      reviews?: PlaceReview[];
+      types?: string[];
+      url?: string;
+      utc_offset?: number;
+      vicinity?: string;
+      website?: string;
     }
 
     export interface PlaceReview {
