@@ -383,11 +383,11 @@ export interface ConnectOptions {
      */
     storeKey?: string;
     /**
-     * If true, stores a ref to the wrapped component instance and makes it available via getWrappedInstance() method.
+     * If true, use React's forwardRef to expose a ref of the wrapped component
      *
      * @default false
      */
-    withRef?: boolean;
+    forwardRef?: boolean;
 }
 
 export interface ProviderProps<A extends Action = AnyAction> {
