@@ -6,6 +6,7 @@
 //                 rileymiller <https://github.com/rileymiller>
 //                 toddself <https://github.com/toddself>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = CodeMirror;
 export as namespace CodeMirror;
@@ -356,7 +357,7 @@ declare namespace CodeMirror {
         It will call the function, buffering up all changes, and only doing the expensive update after the function returns.
         This can be a lot faster. The return value from this method will be the return value of your function. */
         operation<T>(fn: ()=> T): T;
-        
+
         /** In normal circumstances, use the above operation method. But if you want to buffer operations happening asynchronously, or that can't all be wrapped in a callback
         function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
         API and forget to call endOperation, the editor will just never update. */
@@ -782,8 +783,8 @@ declare namespace CodeMirror {
     }
 
     interface PositionConstructor {
-        new (line: number, ch?: number): Position;
-        (line: number, ch?: number): Position;
+        new (line: number, ch?: number, sticky?: string): Position;
+        (line: number, ch?: number, sticky?: string): Position;
     }
 
     interface Range {
@@ -796,6 +797,7 @@ declare namespace CodeMirror {
     interface Position {
         ch: number;
         line: number;
+        sticky?: string;
     }
 
     interface EditorConfiguration {

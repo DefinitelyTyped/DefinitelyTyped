@@ -5,7 +5,7 @@ import dynamic, { LoadingComponentProps } from "next/dynamic";
 interface MyComponentProps {
     foo: string;
 }
-const MyComponent: React.StatelessComponent<MyComponentProps> = () => <div>I'm async!</div>;
+const MyComponent: React.FunctionComponent<MyComponentProps> = () => <div>I'm async!</div>;
 const asyncComponent = Promise.resolve(MyComponent);
 
 // Examples from

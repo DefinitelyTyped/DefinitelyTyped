@@ -55,9 +55,9 @@ export type VerifyOIDCFunctionWithReq =
 export class OIDCStrategy implements passport.Strategy {
     constructor(
         options: IOIDCStrategyOptionWithRequest,
-        verify: VerifyOIDCFunction
+        verify: VerifyOIDCFunctionWithReq
     );
-    constructor(options: IOIDCStrategyOption, verify: VerifyOIDCFunctionWithReq);
+    constructor(options: IOIDCStrategyOption, verify: VerifyOIDCFunction);
 
     name: string;
 

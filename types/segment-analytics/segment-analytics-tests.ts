@@ -13,6 +13,11 @@ var testProps = {
 var testOpts = {
   integrations: {
     Mixpanel: true
+  },
+  context: {
+    campaign: {
+      name: 'Cheese Promo'
+    }
   }
 };
 
@@ -78,6 +83,22 @@ function testPage() {
   });
 
   analytics.page('Category', 'Signup');
+
+  analytics.page(undefined, 'Signup');
+
+  analytics.page(undefined, undefined, {
+    title: 'Segment Pricing',
+    url: 'https://segment.com/pricing',
+    path: '/pricing',
+    referrer: 'https://segment.com'
+  });
+
+  analytics.page(undefined, 'Signup', {
+    title: 'Segment Pricing',
+    url: 'https://segment.com/pricing',
+    path: '/pricing',
+    referrer: 'https://segment.com'
+  });
 
   analytics.page('Signup', testProps, testOpts, testCb);
 }

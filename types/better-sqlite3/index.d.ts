@@ -1,58 +1,82 @@
-// Type definitions for better-sqlite3 5.0
+// Type definitions for better-sqlite3 5.2
 // Project: http://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
 //                 Santiago Aguilar <https://github.com/sant123>
+//                 Alessandro Vergani <https://github.com/loghorn>
+//                 Andrew Kaiser <https://github.com/andykais>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 import Integer = require("integer");
 
-declare class Statement {
-    database: Database;
-    source: string;
-    returnsData: boolean;
-    constructor(db: Database, sources: string[]);
+type VariableArgFunction = (...params: any[]) => any;
+type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any
+  ? A
+  : never;
 
-    run(...params: any[]): Database.RunResult;
-    get(...params: any[]): any;
-    all(...params: any[]): any[];
-    each(params: any, cb: (row: any) => void): void;
-    each(cb: (row: any) => void): void;
-    each(...params: any[]): void;
-    pluck(toggleState?: boolean): this;
-    bind(...params: any[]): this;
-    safeIntegers(toggleState?: boolean): this;
-}
+declare namespace BetterSqlite3 {
+    interface Statement {
+        database: Database;
+        source: string;
+        reader: boolean;
 
-declare class Transaction {
-    database: Database;
-    source: string;
-    constructor(db: Database, sources: string[]);
+        run(...params: any[]): Database.RunResult;
+        get(...params: any[]): any;
+        all(...params: any[]): any[];
+        iterate(...params: any[]): IterableIterator<any>;
+        pluck(toggleState?: boolean): this;
+        expand(toggleState?: boolean): this;
+        raw(toggleState?: boolean): this;
+        bind(...params: any[]): this;
+        columns(): ColumnDefinition[];
+        safeIntegers(toggleState?: boolean): this;
+    }
 
-    run(...params: any[]): Database.RunResult;
-    bind(...params: any[]): this;
-    safeIntegers(toggleState?: boolean): this;
-}
+    interface ColumnDefinition {
+        name: string;
+        column: string | null;
+        table: string | null;
+        database: string | null;
+        type: string | null;
+    }
 
-interface Database {
-    memory: boolean;
-    readonly: boolean;
-    name: string;
-    open: boolean;
-    inTransaction: boolean;
+    interface Transaction<F extends VariableArgFunction> {
+        (...params: ArgumentTypes<F>): any;
+        default(...params: ArgumentTypes<F>): any;
+        deferred(...params: ArgumentTypes<F>): any;
+        immediate(...params: ArgumentTypes<F>): any;
+        exclusive(...params: ArgumentTypes<F>): any;
+    }
 
-    prepare(source: string): Statement;
-    transaction(sources: string[]): Transaction;
-    exec(source: string): this;
-    pragma(source: string, simplify?: boolean): any;
-    checkpoint(databaseName?: string): this;
-    register(cb: (...params: any[]) => any): this;
-    register(
-        options: Database.RegistrationOptions,
-        cb: (...params: any[]) => any
-    ): this;
-    close(): this;
-    defaultSafeIntegers(toggleState?: boolean): this;
+    interface Database {
+        memory: boolean;
+        readonly: boolean;
+        name: string;
+        open: boolean;
+        inTransaction: boolean;
+
+        prepare(source: string): Statement;
+        transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
+        exec(source: string): this;
+        pragma(source: string, options?: Database.PragmaOptions): any;
+        checkpoint(databaseName?: string): this;
+        function(name: string, cb: (...params: any[]) => any): this;
+        function(name: string, options: Database.RegistrationOptions, cb: (...params: any[]) => any): this;
+        aggregate(name: string, options: Database.AggregateOptions): this;
+        loadExtension(path: string): this;
+        close(): this;
+        defaultSafeIntegers(toggleState?: boolean): this;
+    }
+
+    interface DatabaseConstructor {
+        new(filename: string, options?: Database.Options): Database;
+        (filename: string, options?: Database.Options): Database;
+        prototype: Database;
+
+        Integer: typeof Integer;
+        SqliteError: typeof SqliteError;
+    }
 }
 
 declare class SqliteError implements Error {
@@ -60,15 +84,6 @@ declare class SqliteError implements Error {
     message: string;
     code: string;
     constructor(message: string, code: string);
-}
-
-interface DatabaseConstructor {
-    new (filename: string, options?: Database.Options): Database;
-    (filename: string, options?: Database.Options): Database;
-    prototype: Database;
-
-    Integer: typeof Integer;
-    SqliteError: typeof SqliteError;
 }
 
 declare namespace Database {
@@ -81,15 +96,33 @@ declare namespace Database {
         memory?: boolean;
         readonly?: boolean;
         fileMustExist?: boolean;
+        timeout?: number;
+    }
+
+    interface PragmaOptions {
+        simple?: boolean;
     }
 
     interface RegistrationOptions {
-        name?: string;
         varargs?: boolean;
         deterministic?: boolean;
         safeIntegers?: boolean;
     }
+
+    interface AggregateOptions extends RegistrationOptions {
+        start?: any;
+        step: (total: any, next: any) => any;
+        inverse?: (total: any, dropped: any) => any;
+        result?: (total: any) => any;
+    }
+
+    type Integer = typeof Integer;
+    type SqliteError = typeof SqliteError;
+    type Statement = BetterSqlite3.Statement;
+    type ColumnDefinition = BetterSqlite3.ColumnDefinition;
+    type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
+    type Database = BetterSqlite3.Database;
 }
 
-declare const Database: DatabaseConstructor;
+declare const Database: BetterSqlite3.DatabaseConstructor;
 export = Database;

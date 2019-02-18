@@ -1,5 +1,5 @@
 // Type definitions for emoji-regex 7.0
-// Project: https://github.com/mathiasbynens/emoji-regex
+// Project: https://github.com/mathiasbynens/emoji-regex, https://mths.be/emoji-regex
 // Definitions by: iKBAHT <https://github.com/iKBAHT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

@@ -7,6 +7,7 @@ declare namespace Clearfix {
         visibleSmBlock?: boolean;
         visibleMdBlock?: boolean;
         visibleLgBlock?: boolean;
+        bsClass?: string;
     }
 }
 declare class Clearfix extends React.Component<Clearfix.ClearfixProps> { }

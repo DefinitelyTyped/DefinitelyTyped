@@ -565,6 +565,30 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "fastify-cors",
+            "typingsPackageName": "fastify-cors",
+            "sourceRepoURL": "https://github.com/fastify/fastify-cors",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "Fastify-JWT",
+            "typingsPackageName": "fastify-jwt",
+            "sourceRepoURL": "https://github.com/fastify/fastify-jwt",
+            "asOfVersion": "0.8.1"
+        },
+        {
+            "libraryName": "fastify-multipart",
+            "typingsPackageName": "fastify-multipart",
+            "sourceRepoURL": "https://github.com/fastify/fastify-multipart",
+            "asOfVersion": "0.7.0"
+        },
+        {
+            "libraryName": "fastify-static",
+            "typingsPackageName": "fastify-static",
+            "sourceRepoURL": "https://github.com/fastify/fastify-static",
+            "asOfVersion": "2.2.1"
+        },
+        {
             "libraryName": "fecha",
             "typingsPackageName": "fecha",
             "sourceRepoURL": "https://github.com/taylorhakes/fecha",
@@ -685,6 +709,12 @@
             "asOfVersion": "0.35.0"
         },
         {
+            "libraryName": "hibp",
+            "typingsPackageName": "hibp",
+            "sourceRepoURL": "https://github.com/wKovacs64/hibp",
+            "asOfVersion": "7.3.0"
+        },
+        {
             "libraryName": "homeworks",
             "typingsPackageName": "homeworks",
             "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",
@@ -695,6 +725,12 @@
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "i18next-xhr-backend",
+            "typingsPackageName": "i18next-xhr-backend",
+            "sourceRepoURL": "https://github.com/i18next/i18next-xhr-backend",
+            "asOfVersion": "1.4.2"
         },
         {
             "libraryName": "iconv-lite",
@@ -1063,6 +1099,12 @@
             "asOfVersion": "2.0.18"
         },
         {
+            "libraryName": "Nuka Carousel",
+            "typingsPackageName": "nuka-carousel",
+            "sourceRepoURL": "https://github.com/FormidableLabs/nuka-carousel/",
+            "asOfVersion": "4.4.6"
+        },
+        {
             "libraryName": "Numbro",
             "typingsPackageName": "numbro",
             "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
@@ -1247,6 +1289,12 @@
             "typingsPackageName": "react-i18next",
             "sourceRepoURL": "https://github.com/i18next/react-i18next",
             "asOfVersion": "8.1.0"
+        },
+        {
+            "libraryName": "React Icons",
+            "typingsPackageName": "react-icons",
+            "sourceRepoURL": "https://www.npmjs.com/package/react-icons",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "react-monaco-editor",
@@ -1483,6 +1531,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "sip.js",
+            "typingsPackageName": "sip.js",
+            "sourceRepoURL": "https://github.com/onsip/SIP.js",
+            "asOfVersion": "0.12.0"
+        },
+        {
             "libraryName": "smooth-scrollbar",
             "typingsPackageName": "smooth-scrollbar",
             "sourceRepoURL": "https://github.com/idiotWu/smooth-scrollbar",
@@ -1511,6 +1565,12 @@
             "typingsPackageName": "source-map",
             "sourceRepoURL": "https://github.com/mozilla/source-map",
             "asOfVersion": "0.5.7"
+        },
+        {
+            "libraryName": "Spectacle",
+            "typingsPackageName": "spectacle",
+            "sourceRepoURL": "http://github.com/FormidableLabs/spectacle/",
+            "asOfVersion": "5.2.3"
         },
         {
             "libraryName": "Spin.js",
@@ -1585,6 +1645,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "terser",
+            "typingsPackageName": "terser",
+            "sourceRepoURL": "https://github.com/terser-js/terser",
+            "asOfVersion": "3.12.0"
+        },
+        {
             "libraryName": "timezonecomplete",
             "typingsPackageName": "timezonecomplete",
             "sourceRepoURL": "https://github.com/SpiritIT/timezonecomplete",
@@ -1637,6 +1703,12 @@
             "typingsPackageName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "sourceRepoURL": "https://github.com/dpa99c/phonegap-launch-navigator",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "Universal Router",
+            "typingsPackageName": "universal-router",
+            "sourceRepoURL": "https://github.com/kriasoft/universal-router",
+            "asOfVersion": "8.0.0"
         },
         {
             "libraryName": "upper-case",
@@ -1697,6 +1769,12 @@
             "typingsPackageName": "webcola",
             "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
             "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "WebdriverIO",
+            "typingsPackageName": "webdriverio",
+            "sourceRepoURL": "git@github.com:webdriverio/webdriverio.git",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "webgme",

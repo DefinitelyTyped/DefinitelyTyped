@@ -52,6 +52,7 @@ ReactDOM.render(
         {...selectTableAdditionalProps}
         data={data}
         columns={columns}
+        ref={React.createRef()}
     />,
     document.getElementById('root')
 );

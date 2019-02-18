@@ -1,5 +1,5 @@
-// Type definitions for Segment's analytics.js for Node.js
-// Project: https://segment.com/docs/libraries/node/
+// Type definitions for analytics-node 3.1
+// Project: https://segment.com/docs/libraries/node/, https://github.com/segmentio/analytics-node
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 //                 Thomas Thiebaud <https://github.com/thomasthiebaud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,7 +19,7 @@ declare namespace AnalyticsNode {
     _metadata: {
       nodeVersion: string;
       [key: string]: any;
-    },
+    };
     timestamp?: Date;
     messageId?: string;
     anonymousId?: string | number;
@@ -27,19 +27,21 @@ declare namespace AnalyticsNode {
   }
 
   interface Data {
-    batch: Message[],
+    batch: Message[];
     timestamp: Date;
     sentAt: Date;
   }
 
   interface Integrations {
-    [index: string]: boolean;
+    [integration_name: string]: IntegrationValue;
   }
 
-  export class Analytics {
+  type IntegrationValue = boolean | { [integration_key: string]: any };
+
+  class Analytics {
     constructor(writeKey: string, opts?: {
       flushAt?: number,
-      flushAfter?: number,
+      flushInterval?: number,
       host?: string,
       enable?: boolean
     });
@@ -49,9 +51,9 @@ declare namespace AnalyticsNode {
     identify(message: {
       userId?: string | number;
       anonymousId?: string | number;
-      traits?: Object;
+      traits?: any;
       timestamp?: Date;
-      context?: Object;
+      context?: any;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
@@ -60,9 +62,9 @@ declare namespace AnalyticsNode {
       userId?: string | number;
       anonymousId?: string | number;
       event: string;
-      properties?: Object;
+      properties?: any;
       timestamp?: Date;
-      context?: Object;
+      context?: any;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
@@ -73,9 +75,9 @@ declare namespace AnalyticsNode {
       anonymousId?: string | number;
       category?: string;
       name?: string;
-      properties?: Object;
+      properties?: any;
       timestamp?: Date;
-      context?: Object;
+      context?: any;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;
 
@@ -93,8 +95,8 @@ declare namespace AnalyticsNode {
       userId?: string | number;
       anonymousId?: string | number;
       groupId: string | number;
-      traits?: Object;
-      context?: Object;
+      traits?: any;
+      context?: any;
       timestamp?: Date;
       integrations?: Integrations;
     }, callback?: (err: Error, data: Data) => void): Analytics;

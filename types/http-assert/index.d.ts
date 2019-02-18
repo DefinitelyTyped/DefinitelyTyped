@@ -1,6 +1,7 @@
-// Type definitions for http-assert 1.3
+// Type definitions for http-assert 1.4
 // Project: https://github.com/jshttp/http-assert
 // Definitions by: jKey Lu <https://github.com/jkeylu>
+//                 Peter Squicciarini <https://github.com/stripedpajamas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -22,6 +23,7 @@ declare namespace assert {
 
     const equal: Assert;
     const notEqual: Assert;
+    const ok: Assert;
     const strictEqual: Assert;
     const notStrictEqual: Assert;
     const deepEqual: Assert;

@@ -1,5 +1,5 @@
 // Type definitions for Ember.js 3.0
-// Project: http://emberjs.com/
+// Project: http://emberjs.com/, https://github.com/emberjs/ember
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>
 //                 Derek Wickern <https://github.com/dwickern>
@@ -478,6 +478,7 @@ export namespace Ember {
     const addObserver: typeof EmberObjectObserversNs.addObserver;
     const removeObserver: typeof EmberObjectObserversNs.removeObserver;
     const get: typeof EmberObjectNs.get;
+    const notifyPropertyChange: typeof EmberObjectNs.notifyPropertyChange;
     const getWithDefault: typeof EmberObjectNs.getWithDefault;
     const getProperties: typeof EmberObjectNs.getProperties;
     const setProperties: typeof EmberObjectNs.setProperties;

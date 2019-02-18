@@ -1,16 +1,19 @@
-import { SCServer, SCServerSocket } from "socketcluster-server";
+import { SCServerSocket } from "socketcluster-server";
 import SCBroker = require("sc-broker/scbroker");
 import { FlexiMap } from "fleximap";
 import { ExpiryManager } from "expirymanager";
+import * as scClusterBrokerClient from "scc-broker-client";
 
 ////////////////////////////////////////////////////
 /// SCBroker tests
 ////////////////////////////////////////////////////
 
-const options: SCServer.SCServerOptions = { port: 80 };
+const run = () => {
+    console.log("run called!");
+};
 
 let scBroker = new SCBroker();
-scBroker = new SCBroker(options);
+scBroker = new SCBroker({ run });
 scBroker.options = { environment: "prod" };
 
 const id: number = scBroker.id;
@@ -56,3 +59,25 @@ class MyBroker extends SCBroker {
         this.on("subscribe", channel => {});
     }
 }
+
+// From the socketcluster sample
+class Broker extends SCBroker {
+    run() {
+        console.log("   >> Broker PID:", process.pid);
+
+        if (this.options.clusterStateServerHost) {
+            scClusterBrokerClient.attach(this, {
+                stateServerHost: this.options.clusterStateServerHost,
+                stateServerPort: this.options.clusterStateServerPort,
+                mappingEngine: this.options.clusterMappingEngine,
+                clientPoolSize: this.options.clusterClientPoolSize,
+                authKey: this.options.clusterAuthKey,
+                stateServerConnectTimeout: this.options.clusterStateServerConnectTimeout,
+                stateServerAckTimeout: this.options.clusterStateServerAckTimeout,
+                stateServerReconnectRandomness: this.options.clusterStateServerReconnectRandomness
+            });
+        }
+    }
+}
+
+new Broker();

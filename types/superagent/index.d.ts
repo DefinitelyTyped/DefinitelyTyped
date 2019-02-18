@@ -100,6 +100,7 @@ declare namespace request {
         files: any;
         forbidden: boolean;
         get(header: string): string;
+        get(header: 'Set-Cookie'): string[];
         header: any;
         info: boolean;
         links: object;
@@ -148,6 +149,7 @@ declare namespace request {
         serialize(serializer: Serializer): this;
         set(field: object): this;
         set(field: string, val: string): this;
+        set(field: 'Cookie', val: string[]): this;
         timeout(ms: number | { deadline?: number, response?: number }): this;
         type(val: string): this;
         unset(field: string): this;

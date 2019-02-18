@@ -184,7 +184,7 @@ declare namespace ReactDataGrid {
           * or anything that React can render, so you can customize it as you
           * please.
           */
-        title?: string | React.ReactElement<any>;
+        title?: string | React.ReactElement;
 
         /**
           * Function - if you want custom rendering, specify this property.

@@ -1,12 +1,14 @@
 declare let str: string;
 declare let strOrNull: string | null;
 declare let strOrUndefined: string | undefined;
+declare let strOrUndefinedOrNull: string | undefined | null;
 declare let date: Date;
 declare let anyObj: any;
 declare let num: number;
 declare let error: Error;
 declare let bool: boolean;
 declare let boolOrUndefined: boolean | undefined;
+declare let numOrUndefined: number | undefined;
 declare let apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
 declare let apiGwEvtReqCtxOpt: AWSLambda.APIGatewayEventRequestContext | null | undefined;
 declare let apiGwEvt: AWSLambda.APIGatewayEvent;
@@ -80,6 +82,11 @@ declare const scheduledEvent: AWSLambda.ScheduledEvent;
 str = apiGwEvtReqCtx.accountId;
 str = apiGwEvtReqCtx.apiId;
 authResponseContextOpt = apiGwEvtReqCtx.authorizer;
+numOrUndefined = apiGwEvtReqCtx.connectedAt;
+strOrUndefined = apiGwEvtReqCtx.connectionId;
+strOrUndefined = apiGwEvtReqCtx.domainName;
+strOrUndefined = apiGwEvtReqCtx.eventType;
+strOrUndefined = apiGwEvtReqCtx.extendedRequestId;
 str = apiGwEvtReqCtx.httpMethod;
 strOrNull = apiGwEvtReqCtx.identity.accessKey;
 strOrNull = apiGwEvtReqCtx.identity.accountId;
@@ -94,11 +101,15 @@ str = apiGwEvtReqCtx.identity.sourceIp;
 strOrNull = apiGwEvtReqCtx.identity.user;
 strOrNull = apiGwEvtReqCtx.identity.userAgent;
 strOrNull = apiGwEvtReqCtx.identity.userArn;
+strOrUndefined = apiGwEvtReqCtx.messageDirection;
+strOrUndefinedOrNull = apiGwEvtReqCtx.messageId;
 str = apiGwEvtReqCtx.path;
 str = apiGwEvtReqCtx.stage;
 str = apiGwEvtReqCtx.requestId;
+strOrUndefined = apiGwEvtReqCtx.requestTime;
 str = apiGwEvtReqCtx.resourceId;
 str = apiGwEvtReqCtx.resourcePath;
+strOrUndefined = apiGwEvtReqCtx.routeKey;
 
 /* API Gateway Event */
 strOrNull = apiGwEvt.body;
@@ -118,12 +129,18 @@ str = apiGwEvt.resource;
 str = customAuthorizerEvt.type;
 str = customAuthorizerEvt.methodArn;
 strOrUndefined = customAuthorizerEvt.authorizationToken;
+strOrUndefined = customAuthorizerEvt.resource;
+strOrUndefined = customAuthorizerEvt.path;
+strOrUndefined = customAuthorizerEvt.httpMethod;
 str = customAuthorizerEvt.headers!["example"];
 str = customAuthorizerEvt.multiValueHeaders!["example"][0];
 str = customAuthorizerEvt.pathParameters!["example"];
 str = customAuthorizerEvt.queryStringParameters!["example"];
 str = customAuthorizerEvt.multiValueQueryStringParameters!["example"][0];
+str = customAuthorizerEvt.stageVariables!["example"];
 apiGwEvtReqCtxOpt = customAuthorizerEvt.requestContext;
+strOrUndefined = customAuthorizerEvt.domainName;
+strOrUndefined = customAuthorizerEvt.apiId;
 
 /* DynamoDB Stream Event */
 const dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
@@ -599,6 +616,27 @@ const CodePipelineEvent: AWSLambda.CodePipelineEvent = {
 
 CodePipelineEvent["CodePipeline.job"].data.encryptionKey = { type: 'KMS', id: 'key' };
 
+/* CodePipeline CloudWatch Events
+ * see https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
+ * Their documentation says that detail.version is a string, but it is actually an integer
+ */
+const CodePipelineCloudWatchEvent: AWSLambda.CodePipelineCloudWatchEvent = {
+    version: '0',
+    id: 'event_Id',
+    'detail-type': 'CodePipeline Pipeline Execution State Change',
+    source: 'aws.codepipeline',
+    account: 'Pipeline_Account',
+    time: 'TimeStamp',
+    region: 'us-east-1',
+    resources: ['arn:aws:codepipeline:us-east-1:account_ID:myPipeline'],
+    detail: {
+        pipeline: 'myPipeline',
+        version: 1,
+        state: 'STARTED',
+        'execution-id': 'execution_Id',
+    },
+};
+
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
 const CloudFrontRequestWithCustomOriginEvent: AWSLambda.CloudFrontRequestEvent = {
   Records: [
@@ -1028,4 +1066,114 @@ const firehoseEventHandler: AWSLambda.FirehoseTransformationHandler = (
             }
         ]
     });
+};
+
+declare let lexEvent: AWSLambda.LexEvent;
+lexEvent = {
+    currentIntent: {
+        name: 'intent-name',
+        slots: {
+            slot1: null,
+            slot2: 'value2',
+        },
+        slotDetails: {
+            slot1: {
+                resolutions: [
+                    { value: 'value1' },
+                ],
+                originalValue: 'originalValue',
+            }
+        },
+        confirmationStatus: 'None',
+    },
+    bot: {
+        name: 'bot name',
+        alias: 'bot alias',
+        version: 'bot version',
+    },
+    userId: 'User ID specified in the POST request to Amazon Lex.',
+    inputTranscript: 'Text used to process the request',
+    invocationSource: 'FulfillmentCodeHook',
+    outputDialogMode: 'Text',
+    messageVersion: '1.0',
+    sessionAttributes: {
+        key1: 'value1',
+        key2: 'value2',
+    },
+    requestAttributes: {
+        key1: 'value1',
+        key2: 'value2',
+    }
+};
+
+declare let lexResult: AWSLambda.LexResult;
+declare let lexDialogAction: AWSLambda.LexDialogAction;
+declare let lexDialogActionBase: AWSLambda.LexDialogActionBase;
+declare let lexDialogActionClose: AWSLambda.LexDialogActionClose;
+declare let lexDialogActionConfirmIntent: AWSLambda.LexDialogActionConfirmIntent;
+declare let lexDialogActionDelegate: AWSLambda.LexDialogActionDelegate;
+declare let lexDialogActionElicitIntent: AWSLambda.LexDialogActionElicitIntent;
+declare let lexDialogActionElicitSlot: AWSLambda.LexDialogActionElicitSlot;
+declare let lexGenericAttachment: AWSLambda.LexGenericAttachment;
+
+lexResult = {
+    sessionAttributes: {
+        attrib1: 'Value One',
+    },
+    dialogAction: {
+        type: 'Close',
+        fulfillmentState: 'Failed',
+    },
+};
+
+str = lexGenericAttachment.title;
+str = lexGenericAttachment.subTitle;
+str = lexGenericAttachment.imageUrl;
+str = lexGenericAttachment.attachmentLinkUrl;
+str = lexGenericAttachment.buttons[0].text;
+str = lexGenericAttachment.buttons[0].value;
+
+lexDialogAction.type === 'Close';
+lexDialogAction.type === 'ConfirmIntent';
+lexDialogAction.type === 'Delegate';
+lexDialogAction.type === 'ElicitIntent';
+lexDialogAction.type === 'ElicitSlot';
+
+lexDialogActionBase.message!.contentType === 'CustomPayload';
+lexDialogActionBase.message!.contentType === 'PlainText';
+lexDialogActionBase.message!.contentType === 'SSML';
+str = lexDialogActionBase.message!.content;
+num = lexDialogActionBase.responseCard!.version;
+lexDialogActionBase.responseCard!.contentType === 'application/vnd.amazonaws.card.generic';
+// $ExpectType LexGenericAttachment
+lexDialogActionBase.responseCard!.genericAttachments[0];
+
+lexDialogActionClose.type === 'Close';
+lexDialogActionClose.fulfillmentState === 'Failed';
+lexDialogActionClose.fulfillmentState === 'Fulfilled';
+
+lexDialogActionConfirmIntent.type === 'ConfirmIntent';
+str = lexDialogActionConfirmIntent.intentName;
+strOrNull = lexDialogActionConfirmIntent.slots['example'];
+
+lexDialogActionDelegate.type === 'Delegate';
+strOrNull = lexDialogActionDelegate.slots['example'];
+
+lexDialogActionElicitIntent.type === 'ElicitIntent';
+lexDialogActionElicitSlot.type === 'ElicitSlot';
+strOrNull = lexDialogActionElicitSlot.slots['example'];
+str = lexDialogActionElicitSlot.slotToElicit;
+str = lexDialogActionElicitSlot.intentName;
+
+const lexEventHandler: AWSLambda.LexHandler = async (
+    event: AWSLambda.LexEvent,
+    context: AWSLambda.Context,
+) => {
+    // $ExpectType LexEvent
+    event;
+
+    // $ExpectType Context
+    context;
+    str = context.functionName;
+    return lexResult;
 };

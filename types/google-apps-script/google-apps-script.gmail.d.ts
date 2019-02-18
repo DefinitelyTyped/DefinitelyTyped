@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-12-26
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -103,6 +103,7 @@ declare namespace GoogleAppsScript {
       getContentType(): string;
       getDataAsString(): string;
       getDataAsString(charset: string): string;
+      getHash(): string;
       getName(): string;
       getSize(): Integer;
       isGoogleType(): boolean;

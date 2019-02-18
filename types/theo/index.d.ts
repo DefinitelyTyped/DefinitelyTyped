@@ -1,10 +1,11 @@
-// Type definitions for theo 8.0
+// Type definitions for theo 8.1
 // Project: https://github.com/salesforce-ux/theo
 // Definitions by: Pete Petrash <https://github.com/petekp>
+//                 Niko Laitinen <https://github.com/laitine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Iterable, Collection, Map, List, OrderedMap } from "immutable";
+import { Collection, Map, List, OrderedMap } from "immutable";
 
 export type StyleProperty =
     | "name"
@@ -27,31 +28,25 @@ export type Format =
     | "list.scss"
     | "module.js"
     | "common.js"
-    | "html";
-
-export type Transform = "raw" | "ios" | "android" | "web";
-
-export type ValueTransform =
-    | "color/rgb"
-    | "color/hex"
-    | "color/hex8rgba"
-    | "color/hex8argb"
-    | "percentage/float"
-    | "relative/pixel"
-    | "relative/pixelValue";
+    | "html"
+    | "json"
+    | "raw.json"
+    | "ios.json"
+    | "android.xml"
+    | "aura.tokens";
 
 export function convert(options: ConvertOptions): Promise<string>;
 export function convertSync(options: ConvertOptions): string;
 export function registerFormat(
-    name: Format,
+    name: string,
     format: FormatResultFn | string
 ): void;
 export function registerTransform(
-    name: Transform,
-    valueTransforms: ValueTransform[]
+    name: string,
+    valueTransforms: string[]
 ): void;
 export function registerValueTransform(
-    name: ValueTransform,
+    name: string,
     predicate: (prop: Prop) => boolean,
     transform: (prop: Prop) => string | number
 ): void;
@@ -64,6 +59,8 @@ export type FormatResultFn = (result: ImmutableStyleMap) => string;
 
 export interface StyleMap {
     aliases: Aliases;
+    global?: Props;
+    imports?: string[];
     props: Props;
     meta: Meta;
     options: object;
@@ -77,10 +74,12 @@ export interface ImmutableStyleMap extends Map<string, any> {
 export interface ConvertOptions {
     transform: TransformOptions;
     format: FormatOptions;
+    resolveAliases?: boolean;
+    resolveMetaAliases?: boolean;
 }
 
 export interface TransformOptions {
-    type?: Transform;
+    type?: string;
     file: string;
     data?: string;
 }

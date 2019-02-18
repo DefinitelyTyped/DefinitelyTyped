@@ -1,5 +1,5 @@
 // Type definitions for Chart.js 2.7
-// Project: https://github.com/nnnick/Chart.js
+// Project: https://github.com/nnnick/Chart.js, http://www.chartjs.org
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
@@ -284,8 +284,7 @@ declare namespace Chart {
         circumference?: number;
         rotation?: number;
         devicePixelRatio?: number;
-        // Plugins can require any options
-        plugins?: { [pluginId: string]: any };
+        plugins?: ChartPluginsOptions;
     }
 
     interface ChartFontOptions {
@@ -367,6 +366,12 @@ declare namespace Chart {
         borderWidth?: number;
     }
 
+    // NOTE: declare plugin options as interface instead of inline '{ [plugin: string]: any }'
+    // to allow module augmentation in case some plugins want to strictly type their options.
+    interface ChartPluginsOptions {
+        [pluginId: string]: any;
+    }
+
     interface ChartTooltipsStaticConfiguration {
         positioners: { [mode: string]: ChartTooltipPositioner };
     }
@@ -412,6 +417,7 @@ declare namespace Chart {
     }
 
     interface ChartLineOptions {
+        cubicInterpolationMode?: 'default' | 'monotone';
         tension?: number;
         backgroundColor?: ChartColor;
         borderWidth?: number;
@@ -532,6 +538,7 @@ declare namespace Chart {
     interface LinearTickOptions extends TickOptions {
         maxTicksLimit?: number;
         stepSize?: number;
+        precision?: number;
         suggestedMin?: number;
         suggestedMax?: number;
     }

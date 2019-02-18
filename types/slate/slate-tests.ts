@@ -12,10 +12,12 @@ const node: BlockJSON = {
 			key: "a",
 			leaves: [
 				{
+                    object: "leaf",
 					text: "example",
 					marks: [{
                         data: { testData: "data"},
-                        type: "mark"
+                        type: "mark",
+                        object: "mark"
                     }]
 				}
 			]

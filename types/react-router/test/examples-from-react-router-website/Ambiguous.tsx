@@ -41,7 +41,7 @@ const AmbiguousExample = () => (
 
 const About = () => <h2>About</h2>;
 const Company = () => <h2>Company</h2>;
-const User: React.SFC<RouteComponentProps<{user: string}>> = ({ match }) => match && (
+const User: React.SFC<RouteComponentProps<{user: string}>> = ({ match }) => (
   <div>
     <h2>User: {match.params.user}</h2>
   </div>

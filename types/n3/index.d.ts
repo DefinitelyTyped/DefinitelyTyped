@@ -1,5 +1,5 @@
 // Type definitions for N3 1.0
-// Project: https://github.com/RubenVerborgh/N3.js
+// Project: https://github.com/rdfjs/n3.js
 // Definitions by: Fred Eisele <https://github.com/phreed>
 //                 Ruben Taelman <https://github.com/rubensworks>
 //                 Laurens Rietveld <https://github.com/LaurensRietveld>
@@ -143,6 +143,7 @@ export interface ParserOptions {
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
 
 export interface N3Parser<Q extends BaseQuad = Quad> {
+    parse(input: string): Q[];
     parse(input: string, callback: ParseCallback<Q>): void;
 }
 

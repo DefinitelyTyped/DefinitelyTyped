@@ -1,13 +1,10 @@
-import * as getPort from "get-port";
+import getPort = require('get-port');
 
-getPort().then(port => {
-    console.log(port);
-});
-
-getPort({ port: 3000 }).then(port => {
-    console.log(port);
-});
-
-getPort({ port: [3000, 3001] }).then(port => {
-    console.log(port);
-});
+// $ExpectType Promise<number>
+getPort();
+// $ExpectType Promise<number>
+getPort({ port: 3000 });
+// $ExpectType Promise<number>
+getPort({ port: [3000, 3001] });
+// $ExpectType Promise<number>
+getPort({ host: 'foo.local' });

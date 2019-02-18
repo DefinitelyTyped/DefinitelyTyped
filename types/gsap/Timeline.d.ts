@@ -85,7 +85,7 @@ declare namespace gsap {
         removeLabel(label: string): any;
 
         /** Jumps to a specific time (or label) without affecting whether or not the instance is paused or reversed. */
-        seek(position: string | number, supressEvents: boolean): TimelineLite;
+        seek(position: string | number, supressEvents?: boolean): TimelineLite;
 
         /**
          * Adds a zero-duration tween to the end of the timeline (or elsewhere using the "position" parameter) that sets values immediately (when the virtual playhead reaches that

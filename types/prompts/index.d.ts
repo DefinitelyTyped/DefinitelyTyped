@@ -1,7 +1,8 @@
-// Type definitions for prompts 1.1
+// Type definitions for prompts 1.2
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
+//                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -47,18 +48,19 @@ declare namespace prompts {
     interface Choice {
         title: string;
         value: string;
+        disable?: boolean;
     }
 
     interface Options {
-        onSubmit: (prompt: PromptObject, answer: any, answers: any[]) => void;
-        onCancel: (prompt: PromptObject, answers: any) => void;
+        onSubmit?: (prompt: PromptObject, answer: any, answers: any[]) => void;
+        onCancel?: (prompt: PromptObject, answers: any) => void;
     }
 
     interface PromptObject<T extends string = string> {
-        type: ValueOrFunc<string>;
+        type: ValueOrFunc<PromptType> | Falsy;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
-        initial?: string;
+        initial?: string | number | boolean;
         style?: string;
         format?: PrevCaller<T, void>;
         validate?: PrevCaller<T, void>;
@@ -84,6 +86,10 @@ declare namespace prompts {
         values: Answers<T>,
         prompt: PromptObject
     ) => R;
+
+    type Falsy = false | null | undefined;
+
+    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete";
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }

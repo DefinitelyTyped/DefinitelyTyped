@@ -8,6 +8,7 @@ declare namespace Nav {
         activeKey?: any;
         bsSize?: Sizes;
         bsStyle?: string;
+        bsClass?: string;
         collapsible?: boolean;
         eventKey?: any;
         expanded?: boolean;

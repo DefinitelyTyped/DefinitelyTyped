@@ -521,18 +521,30 @@ function testFromRenderProps() {
 
     interface InnerProps {
         renderValue: string;
-        outterValue: number;
     }
 
     interface OutterProps {
         outterValue: number;
     }
 
-    const RenderPropComponent: React.StatelessComponent<{
-        render: (renderProps: RenderProps) => React.ReactElement<any>;
-    }> = ({ render }) => render({ value: 'test' });
+    interface ComponentProps {
+        renderValue: string;
+        outterValue: number;
+    }
 
-    const component: React.StatelessComponent<InnerProps> = ({ renderValue }) => <div>{renderValue}</div>;
+    interface RenderComponentProps {
+        render: (renderProps: RenderProps) => React.ReactElement;
+    }
+
+    class RenderPropComponent extends React.Component<RenderComponentProps> {
+        render () {
+            return this.props.render({ value: 'test' });
+        }
+    }
+
+    const component: React.StatelessComponent<ComponentProps> = ({ outterValue, renderValue }) => (
+        <div>{outterValue}{renderValue}</div>
+    );
 
     const Enhanced = fromRenderProps<InnerProps, OutterProps, RenderProps>(
         RenderPropComponent,

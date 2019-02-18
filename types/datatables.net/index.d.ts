@@ -1,5 +1,5 @@
 // Type definitions for JQuery DataTables 1.10
-// Project: http://www.datatables.net
+// Project: https://datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
 //                 Omid Rad <https://github.com/omidkrad>
 //                 Armin Sander <https://github.com/pragmatrix>
@@ -1602,7 +1602,7 @@ declare namespace DataTables {
         /**
          * Class to assign to each cell in the column. Since: 1.10
          */
-        data?: number | string | ObjectColumnData | FunctionColumnData;
+        data?: number | string | ObjectColumnData | FunctionColumnData | null;
 
         /**
          * Set default, static, content for a column. Since: 1.10

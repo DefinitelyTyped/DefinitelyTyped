@@ -103,7 +103,7 @@ declare namespace SerialPort {
 			constructor(options: {delimiter: string | Buffer | number[], encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex'});
 		}
 		class Ready extends Stream.Transform {
-			constructor(options: {data: string | Buffer | number[]});
+			constructor(options: {delimiter: string | Buffer | number[]});
 		}
 		class Regex extends Stream.Transform {
 			constructor(options: {regex: RegExp});

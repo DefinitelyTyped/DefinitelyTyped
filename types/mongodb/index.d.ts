@@ -999,7 +999,7 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { startAtClusterTime?: Timestamp, session?: ClientSession }): ChangeStream;
 }
 
-type Condition<T, P extends keyof T> = {
+export type Condition<T, P extends keyof T> = {
     $eq?: T[P];
     $gt?: T[P];
     $gte?: T[P];
@@ -1022,7 +1022,7 @@ type Condition<T, P extends keyof T> = {
         $caseSensitive?: boolean;
         $diacraticSensitive?: boolean;
     };
-    $where: Object;
+    $where?: Object;
     $geoIntersects?: Object;
     $geoWithin?: Object;
     $near?: Object;

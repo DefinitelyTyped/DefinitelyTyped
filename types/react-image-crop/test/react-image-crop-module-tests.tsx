@@ -81,6 +81,10 @@ class CompleteTest extends React.Component<{}, TestState> {
         });
     }
 
+    onImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+        console.warn('Error loading image');
+    }
+
     render() {
         return (
             <ReactCrop
@@ -99,6 +103,9 @@ class CompleteTest extends React.Component<{}, TestState> {
                 onDragStart={() => console.log('Drag start')}
                 onDragEnd={() => console.log('Drag end')}
                 crossorigin="anonymous"
+                onImageError={this.onImageError}
+                className="my-cropper"
+                locked={false}
             />
         );
     }

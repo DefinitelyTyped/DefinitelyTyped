@@ -24,7 +24,12 @@ export interface DotenvSafeOptions {
    */
   path?: string,
   /**
-   * Path to example environment file.
+   * Path to example environment file. (Option 1)
+   * @default ".env.example"
+   */
+  example?: string,
+  /**
+   * Path to example environment file. (Option 2 -- example takes precendence)
    * @default ".env.example"
    */
   sample?: string,

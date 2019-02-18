@@ -431,12 +431,12 @@ declare interface ContextDelegatedResponse {
     flushHeaders(): void;
 }
 
-declare class Application extends EventEmitter {
+declare class Application<StateT = any, CustomT = {}> extends EventEmitter {
     proxy: boolean;
-    middleware: Application.Middleware[];
+    middleware: Application.Middleware<StateT, CustomT>[];
     subdomainOffset: number;
     env: string;
-    context: Application.BaseContext;
+    context: Application.BaseContext & CustomT;
     request: Application.BaseRequest;
     response: Application.BaseResponse;
     silent: boolean;
@@ -497,7 +497,9 @@ declare class Application extends EventEmitter {
      *
      * Old-style middleware will be converted.
      */
-    use(middleware: Application.Middleware): this;
+    use<NewStateT = {}, NewCustomT = {}>(
+        middleware: Application.Middleware<StateT & NewStateT, CustomT & NewCustomT>,
+    ): Application<StateT & NewStateT, CustomT & NewCustomT>;
 
     /**
      * Return a request handler callback
@@ -510,10 +512,10 @@ declare class Application extends EventEmitter {
      *
      * @api private
      */
-    createContext(
+    createContext<StateT = any>(
         req: IncomingMessage,
         res: ServerResponse,
-    ): Application.Context;
+    ): Application.ParameterizedContext<StateT>;
 
     /**
      * Default error handler.
@@ -524,7 +526,7 @@ declare class Application extends EventEmitter {
 }
 
 declare namespace Application {
-    type Middleware = compose.Middleware<Context>;
+    type Middleware<StateT = any, CustomT = {}> = compose.Middleware<ParameterizedContext<StateT, CustomT>>;
 
     interface BaseRequest extends ContextDelegatedRequest {
         /**
@@ -684,7 +686,7 @@ declare namespace Application {
         request: Request;
     }
 
-    interface Context extends BaseContext {
+    type ParameterizedContext<StateT = any, CustomT = {}> = BaseContext & {
         app: Application;
         request: Request;
         response: Response;
@@ -693,12 +695,14 @@ declare namespace Application {
         originalUrl: string;
         cookies: Cookies;
         accept: accepts.Accepts;
-        state: any;
+        state: StateT;
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
         respond?: boolean;
-    }
+    } & CustomT;
+
+    interface Context extends ParameterizedContext {}
 }
 
 export = Application;

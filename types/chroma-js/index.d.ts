@@ -21,6 +21,8 @@ declare namespace chroma {
         gl: [number, number, number, number];
     }
 
+    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl";
+
     interface ChromaStatic {
         /**
          * Creates a color from a string representation (as supported in CSS).
@@ -209,7 +211,7 @@ declare namespace chroma {
         css(col: string): Color;
     }
 
-    type Color = {
+    interface Color {
         /**
          * Get and set the color opacity.
          */
@@ -300,9 +302,109 @@ declare namespace chroma {
          * chroma('#ff0000').num() === 16711680
          */
         num(): number;
-    } & {
-        [K in keyof ColorSpaces]: () => ColorSpaces[K];
-    };
+
+        /**
+         * Returns an array with the red, green, and blue component, each as
+         * number within the range 0..255. Chroma internally stores RGB
+         * channels as floats but rounds the numbers before returning them.
+         * You can pass false to prevent the rounding.
+         *
+         * @example
+         * chroma('orange').rgb() === [255,165,0]
+         * chroma('orange').darken().rgb() === [198,118,0]
+         * chroma('orange').darken().rgb(false) === [198.05,118.11,0]
+         */
+        rgb: (round?: boolean) => ColorSpaces['rgb'];
+
+        /**
+         * Just like color.rgb but adds the alpha channel to the returned array.
+         *
+         * @example
+         * chroma('orange').rgba() === [255,165,0,1]
+         * chroma('hsla(20, 100%, 40%, 0.5)').rgba() === [204,68,0,0.5]
+         */
+        rgba: (round?: boolean) => ColorSpaces['rgba'];
+
+        /**
+         * Returns an array with the `hue`, `saturation`, and `lightness`
+         * component. Hue is the color angle in degree (`0..360`), saturation
+         * and lightness are within `0..1`. Note that for hue-less colors
+         * (black, white, and grays), the hue component will be NaN.
+         *
+         * @example
+         * chroma('orange').hsl() === [38.82,1,0.5,1]
+         * chroma('white').hsl() === [NaN,0,1,1]
+         */
+        hsl: () => ColorSpaces['hsl'];
+
+        /**
+         * Returns an array with the `hue`, `saturation`, and `value`
+         * components. Hue is the color angle in degree (`0..360`),
+         * saturation and value are within `0..1`. Note that for hue-less
+         * colors (black, white, and grays), the hue component will be NaN.
+         *
+         * @example
+         * chroma('orange').hsv() === [38.82,1,1]
+         * chroma('white').hsv() === [NaN,0,1]
+         */
+        hsv: () => ColorSpaces['hsv'];
+
+        /**
+         * Returns an array with the `hue`, `saturation`, and `intensity`
+         * components, each as number between 0 and 255. Note that for hue-less
+         *  colors (black, white, and grays), the hue component will be NaN.
+         *
+         * @example
+         * chroma('orange').hsi() === [39.64,1,0.55]
+         * chroma('white').hsi() === [NaN,0,1]
+         */
+        hsi: () => ColorSpaces['hsi'];
+
+        /**
+         * Returns an array with the **L**, **a**, and **b** components.
+         *
+         * @example
+         * chroma('orange').lab() === [74.94,23.93,78.95]
+         */
+        lab: () => ColorSpaces['lab'];
+
+        /**
+         * Returns an array with the **Lightness**, **chroma**, and **hue**
+         * components.
+         *
+         * @example
+         * chroma('skyblue').lch() === [79.21,25.94,235.11]
+         */
+        lch: () => ColorSpaces['lch'];
+
+        /**
+         * Alias of [lch](#color-lch), but with the components in reverse
+         * order.
+         *
+         * @example
+         * chroma('skyblue').hcl() === [235.11,25.94,79.21]
+         */
+        hcl: () => ColorSpaces['hcl'];
+
+        /**
+         * Just like color.rgb but adds the alpha channel to the returned
+         * array.
+         *
+         * @example
+         * chroma('orange').rgba() === [255,165,0,1]
+         * chroma('hsla(20, 100%, 40%, 0.5)').rgba() === [204,68,0,0.5]
+         */
+        cmyk: () => ColorSpaces['cmyk'];
+
+        /**
+         * Returns an array with the cyan, magenta, yellow, and key (black)
+         * components, each as a normalized value between 0 and 1.
+         *
+         * @example
+         * chroma('33cc00').gl() === [0.2,0.8,0,1]
+         */
+        gl: () => ColorSpaces['gl'];
+    }
 
     interface Scale<OutType = Color> {
         (c: string[]): Scale;
@@ -311,7 +413,7 @@ declare namespace chroma {
 
         domain(d?: number[], n?: number, mode?: string): this;
 
-        mode(mode: keyof ColorSpaces): this;
+        mode(mode: InterpolationMode): this;
 
         gamma(g: number): this;
 

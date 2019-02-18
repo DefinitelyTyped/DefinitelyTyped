@@ -20,15 +20,7 @@ is(test, node);
 is(test, node, 4, parent);
 is(test, node, 5, parent);
 
-interface TestContext {
-  some: string;
-}
-function testWithContext(this: TestContext, node: unknown) {}
-is<TestContext>(testWithContext, node);
+function testFunc(node: unknown) {}
+is(testFunc, node);
 
 const wrongTestFunc: is.TestFunction = (node: unknown, n: string) => {}; // $ExpectError
-
-interface OtherTestContext {
-  some: number;
-}
-is<OtherTestContext>(testWithContext, node); // $ExpectError

@@ -31,6 +31,17 @@ ReactDOM.render(
 
         name="react-tags-field"
         id="react-tags-field"
+
+        classNames={{
+            tags: 'tagsClass',
+            tagInput: 'tagInputClass',
+            tagInputField: 'tagInputFieldClass',
+            selected: 'selectedClass',
+            tag: 'tagClass',
+            remove: 'removeClass',
+            suggestions: 'suggestionsClass',
+            activeSuggestion: 'activeSuggestionClass'
+        }}
     />,
     document.getElementById("app")
 );

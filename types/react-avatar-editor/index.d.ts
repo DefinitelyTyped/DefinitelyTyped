@@ -2,6 +2,7 @@
 // Project: https://github.com/mosch/react-avatar-editor
 // Definitions by: Diogo Corrêa <https://github.com/diogocorrea>
 //                 Gabriel Prates <https://github.com/gabsprates>
+//                 Laurent Senta <https://github.com/lsenta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -23,6 +24,7 @@ export interface CroppedRect {
 }
 
 export interface AvatarEditorProps {
+    className?: string;
     image: string | File;
     width?: number;
     height?: number;

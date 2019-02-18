@@ -137,7 +137,7 @@ igDef.event; // $ExpectType EventDefinition[] | undefined
 // ItemGroup Tests
 const ig = new pmCollection.ItemGroup<pmCollection.Certificate>();
 ig.auth; // $ExpectType RequestAuth | undefined
-ig.items; // $ExpectType PropertyList<Certificate>
+ig.items; // $ExpectType PropertyList<Certificate | ItemGroup<Certificate>>
 ig.events; // $ExpectType EventList
 
 ig.authorizeRequestsUsing("string"); // $ExpectType void

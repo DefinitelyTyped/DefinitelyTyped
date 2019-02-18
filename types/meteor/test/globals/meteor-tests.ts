@@ -201,7 +201,7 @@ Posts.insert({ title: "Hello world", body: "First post" });
  **/
 
 class Animal {
-    constructor(doc: any) {}
+    constructor(public doc: any) {}
 }
 
 interface AnimalDAO {

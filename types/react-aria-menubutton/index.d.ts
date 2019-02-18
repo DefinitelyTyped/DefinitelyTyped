@@ -1,7 +1,8 @@
-// Type definitions for react-aria-menubutton 5.1
+// Type definitions for react-aria-menubutton 6.1
 // Project: https://github.com/davidtheclark/react-aria-menubutton
 // Definitions by: Muhammad Fawwaz Orabi <https://github.com/forabi>
 //                 Chris Rohlfs <https://github.com/crohlfs>
+//                 Mats Roshauw <https://github.com/karmats>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -32,6 +33,13 @@ export interface WrapperProps<T extends HTMLElement>
 	 * selection is made. Default: `true`.
 	 */
 	closeOnSelection?: boolean;
+
+	/**
+	 * By default, it does automatically close.
+	 * If false, the menu will not automatically close when it
+	 * blurs. Default: `true`.
+	 */
+	closeOnBlur?: boolean;
 
 	isOpen?: boolean;
 
