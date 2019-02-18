@@ -6515,6 +6515,16 @@ declare namespace sequelize {
          */
         logging?: Function;
 
+        /**
+         * Specify the parent transaction so that this transaction is nested or a save point within the parent
+         */
+        transaction?: Transaction;
+
+        /**
+         * Sets the constraints to be deferred or immediately checked.
+         */
+        deferrable?: Deferrable;
+
     }
 
     //
