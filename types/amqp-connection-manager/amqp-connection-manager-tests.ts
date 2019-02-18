@@ -23,3 +23,5 @@ channelWrapper.sendToQueue("foo", Buffer.from("bar"))
     .catch((error: Error): void => {
         // nothing
     });
+
+channelWrapper.waitForConnect().then(() => {});
