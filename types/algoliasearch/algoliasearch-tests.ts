@@ -150,7 +150,7 @@ let _algoliaQueryParameters: QueryParameters = {
   synonyms: true,
   replaceSynonymsInHighlight: false,
   minProximity: 0,
-  sortFacetValuesBy: 'alpha'
+  sortFacetValuesBy: 'alpha',
 };
 
 let client: Client = algoliasearch('', '');
