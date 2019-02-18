@@ -53,7 +53,7 @@ export interface PropTypes {
             role: 'combobox';
             'aria-autocomplete': 'list';
             'aria-expanded': boolean;
-            'aria-activedescendant': string | null;
+            'aria-activedescendant': string | undefined;
             disabled: boolean;
             onKeyDown: React.KeyboardEventHandler;
             onBlur: () => void;
@@ -62,7 +62,7 @@ export interface PropTypes {
         } & InputProps;
         getSuggestionItemProps: <SuggestionProps extends {}>(suggestion: Suggestion, options?: SuggestionProps) => {
             key: number;
-            id: string | null;
+            id: string | undefined;
             role: 'option';
             onMouseEnter: () => void;
             onMouseLeave: () => void;
