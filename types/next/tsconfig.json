@@ -38,6 +38,8 @@
         "test/next-link-tests.tsx",
         "test/next-dynamic-tests.tsx",
         "test/next-router-tests.tsx",
-        "test/next-component-tests.tsx"
+        "test/next-component-tests.tsx",
+        "test/imports/no-default.tsx",
+        "test/imports/with-default.tsx"
     ]
 }
