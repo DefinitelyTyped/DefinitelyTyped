@@ -2,6 +2,7 @@
 // Project: https://github.com/jpuri/react-draft-wysiwyg#readme
 // Definitions by: imechZhangLY <https://github.com/imechZhangLY>
 //                 brunoMaurice <https://github.com/brunoMaurice>
+//                 ldanet <https://github.com/ldanet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -20,7 +21,7 @@ export class SelectionState extends Draft.SelectionState {}
 export interface EditorProps {
     onChange?(contentState: ContentState): RawDraftContentState;
     onEditorStateChange?(editorState: EditorState): void;
-    onContentStateChange?(contentState: ContentState): RawDraftContentState;
+    onContentStateChange?(contentState: RawDraftContentState): void;
     initialContentState?: RawDraftContentState;
     defaultContentState?: RawDraftContentState;
     contentState?: RawDraftContentState;
