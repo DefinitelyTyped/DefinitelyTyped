@@ -15,20 +15,20 @@ export interface BaseProps<C> extends React.ClassAttributes<C> {
 }
 
 export interface SpaceProps<C> extends BaseProps<C> {
-    m?: number | string | ReadonlyArray<number>;
-    mt?: number | string | ReadonlyArray<number>;
-    mr?: number | string | ReadonlyArray<number>;
-    mb?: number | string | ReadonlyArray<number>;
-    ml?: number | string | ReadonlyArray<number>;
-    mx?: number | string | ReadonlyArray<number>;
-    my?: number | string | ReadonlyArray<number>;
-    p?: number | string | ReadonlyArray<number>;
-    pt?: number | string | ReadonlyArray<number>;
-    pr?: number | string | ReadonlyArray<number>;
-    pb?: number | string | ReadonlyArray<number>;
-    pl?: number | string | ReadonlyArray<number>;
-    px?: number | string | ReadonlyArray<number>;
-    py?: number | string | ReadonlyArray<number>;
+    m?: number | string | ReadonlyArray<number | string>;
+    mt?: number | string | ReadonlyArray<number | string>;
+    mr?: number | string | ReadonlyArray<number | string>;
+    mb?: number | string | ReadonlyArray<number | string>;
+    ml?: number | string | ReadonlyArray<number | string>;
+    mx?: number | string | ReadonlyArray<number | string>;
+    my?: number | string | ReadonlyArray<number | string>;
+    p?: number | string | ReadonlyArray<number | string>;
+    pt?: number | string | ReadonlyArray<number | string>;
+    pr?: number | string | ReadonlyArray<number | string>;
+    pb?: number | string | ReadonlyArray<number | string>;
+    pl?: number | string | ReadonlyArray<number | string>;
+    px?: number | string | ReadonlyArray<number | string>;
+    py?: number | string | ReadonlyArray<number | string>;
 }
 
 export interface BoxProps extends SpaceProps<BoxClass> {
