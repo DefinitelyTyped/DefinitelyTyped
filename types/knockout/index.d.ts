@@ -30,6 +30,12 @@ interface KnockoutComputedFunctions<T> {
 }
 
 interface KnockoutObservableFunctions<T> {
+    /**
+     * Used by knockout to decide if value of observable has changed and should notify subscribers. Returns true if instances are primitives, and false if are objects.
+     * If your observable holds an object, this can be overwritten to return equality based on your needs.
+     * @param a previous value.
+     * @param b next value.
+     */
     equalityComparer(a: T, b: T): boolean;
 }
 
@@ -217,7 +223,13 @@ interface KnockoutComputedStatic {
 }
 
 interface KnockoutReadonlyComputed<T> extends KnockoutReadonlyObservable<T> {
+    /**
+     * Returns whether the computed observable may be updated in the future. A computed observable is inactive if it has no dependencies.
+     */
     isActive(): boolean;
+    /**
+     * Returns the current number of dependencies of the computed observable.
+     */
     getDependenciesCount(): number;
 }
 
@@ -230,14 +242,6 @@ interface KnockoutComputed<T> extends KnockoutReadonlyComputed<T>, KnockoutObser
      * computed observable that has dependencies on observables that won’t be cleaned.
      */
     dispose(): void;
-    /**
-     * Returns whether the computed observable may be updated in the future. A computed observable is inactive if it has no dependencies.
-     */
-    isActive(): boolean;
-    /**
-     * Returns the current number of dependencies of the computed observable.
-     */
-    getDependenciesCount(): number;
     /**
      * Customizes observables basic functionality.
      * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
@@ -260,19 +264,19 @@ interface KnockoutReadonlyObservableArray<T> extends KnockoutReadonlyObservable<
     subscribe(callback: (newValue: KnockoutArrayChange<T>[]) => void, target: any, event: "arrayChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target: any, event: "beforeChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target?: any, event?: "change"): KnockoutSubscription;
-    subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
+    subscribe<U>(callback: (newValue: U) => void, target: any, event: string): KnockoutSubscription;
 }
 
 /*
-    NOTE: In theory this should extend both Observable<T[]> and ReadonlyObservableArray<T>,
+    NOTE: In theory this should extend both KnockoutObservable<T[]> and KnockoutReadonlyObservableArray<T>,
         but can't since they both provide conflicting typings of .subscribe.
-    So it extends Observable<T[]> and duplicates the subscribe definitions, which should be kept in sync
+    So it extends KnockoutObservable<T[]> and duplicates the subscribe definitions, which should be kept in sync
 */
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
     subscribe(callback: (newValue: KnockoutArrayChange<T>[]) => void, target: any, event: "arrayChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target: any, event: "beforeChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target?: any, event?: "change"): KnockoutSubscription;
-    subscribe<TEvent>(callback: (newValue: TEvent) => void, target: any, event: string): KnockoutSubscription;
+    subscribe<U>(callback: (newValue: U) => void, target: any, event: string): KnockoutSubscription;
 
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservableArray<T>;
 }
@@ -292,7 +296,6 @@ interface KnockoutObservableStatic {
 interface KnockoutReadonlyObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
     (): T;
 
-
     /**
      * Returns the current value of the computed observable without creating a dependency.
      */
@@ -305,6 +308,10 @@ interface KnockoutObservable<T> extends KnockoutReadonlyObservable<T> {
     (value: T): void;
 
     // Since .extend does arbitrary thing to an observable, it's not safe to do on a readonly observable
+    /**
+     * Customizes observables basic functionality.
+     * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
+     */
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
@@ -358,8 +365,19 @@ interface KnockoutBindingContext {
     $component: any;
     $componentTemplateNodes: Node[];
 
-    extend(properties: any): any;
-    createChildContext(dataItemOrAccessor: any, dataItemAlias?: any, extendCallback?: Function): any;
+    /**
+     * Clones the current Binding Context, adding extra properties to it.
+     * @param properties object with properties to be added in the binding context.
+     */
+    extend(properties: { [key: string]: any; } | (() => { [key: string]: any; })): KnockoutBindingContext;
+    /**
+     * This returns a new binding context whose viewmodel is the first parameter and whose $parentContext is the current bindingContext. 
+     * @param dataItemOrAccessor The binding context of the children.
+     * @param dataItemAlias An alias for the data item in descendant contexts.
+     * @param extendCallback Function to be called.
+     * @param options Further options.
+     */
+    createChildContext(dataItemOrAccessor: any, dataItemAlias?: string, extendCallback?: Function, options?: { "exportDependencies": boolean }): any;
 }
 
 interface KnockoutAllBindingsAccessor {
@@ -416,7 +434,7 @@ interface KnockoutBindingHandlers {
 }
 
 interface KnockoutMemoization {
-    memoize(callback: () => string): string;
+    memoize(callback: Function): string;
     unmemoize(memoId: string, callbackParams: any[]): boolean;
     unmemoizeDomNodeAndDescendants(domNode: any, extraCallbackParamsArray: any[]): boolean;
     parseMemoText(memoText: string): string;
@@ -665,10 +683,22 @@ interface KnockoutStatic {
 
     observableArray: KnockoutObservableArrayStatic;
 
-    contextFor(node: any): any;
+    /**
+     * Evaluates if instance is a KnockoutSubscribable.
+     * @param instance Instance to be evaluated.
+     */
     isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
-    toJSON(viewModel: any, replacer?: Function, space?: any): string;
-
+    /**
+     * Clones object substituting each observable for it's underlying value. Uses browser JSON.stringify internally to stringify the result.
+     * @param viewModel Object with observables to be converted.
+     * @param replacer A Function or array of names that alters the behavior of the stringification process.
+     * @param space Used to insert white space into the output JSON string for readability purposes.
+     */
+    toJSON(viewModel: any, replacer?: Function | [string | number], space?: string | number): string;
+    /**
+     * Clones object substituting for each observable the current value of that observable.
+     * @param viewModel Object with observables to be converted.
+     */
     toJS(viewModel: any): any;
     /**
      * Determine if argument is an observable. Returns true for observables, observable arrays, and all computed observables.
@@ -701,8 +731,25 @@ interface KnockoutStatic {
      */
     isComputed<T>(instance: KnockoutObservable<T> | T): instance is KnockoutComputed<T>;
 
-    dataFor(node: any): any;
+    /**
+     * Returns the data that was available for binding against the element.
+     * @param node Html node that contains the binding context.
+     */
+    dataFor(node: Node): any;
+    /**
+     * Returns the entire binding context that was available to the DOM element.
+     * @param node Html node that contains the binding context.
+     */
+    contextFor(node: Node): any;
+    /**
+     * Removes a node from the DOM.
+     * @param node Node to be removed.
+     */
     removeNode(node: Node): void;
+    /**
+     * Used internally by Knockout to clean up data/computeds that it created related to the element. It does not remove any event handlers added by bindings.
+     * @param node Node to be cleaned.
+     */
     cleanNode(node: Node): Node;
     renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any): any;
