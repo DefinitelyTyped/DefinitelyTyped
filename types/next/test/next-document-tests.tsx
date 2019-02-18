@@ -38,21 +38,34 @@ class MyDoc extends Document<WithUrlProps> {
     static async getInitialProps(ctx: NextDocumentContext) {
         const { req, renderPage } = ctx;
 
-        // without callback
+        // without enhancer
         const _page = renderPage();
 
-        // with callback
-        const enhancer: Enhancer<PageProps, {}> = App => props => <App />;
-        const { html, head, buildManifest } = renderPage(enhancer);
+        // with component enhancer
+        const enhancer: Enhancer<PageProps, {}> = Component => props => <Component />;
+        const _enhancedPage = renderPage(enhancer);
+
+        // with app and component enhancers
+        const enhanceApp: Enhancer<PageProps, {}> = App => props => <App />;
+        const enhanceComponent: Enhancer<PageProps, {}> = Component => props => <Component />;
+        const { html, head } = renderPage({
+            enhanceApp,
+            enhanceComponent
+        });
 
         const initialProps = await Document.getInitialProps(ctx);
 
-        const styles = [...(initialProps.styles ? initialProps.styles : []), <style />];
+        const styles = (
+            <>
+                {initialProps.styles}
+                <style />
+            </>
+        );
 
         // Custom prop
         const url = req!.url;
 
-        return { html, head, buildManifest, styles, url };
+        return { html, head, styles, url };
     }
 
     constructor(props: WithUrlProps & DocumentProps) {
@@ -65,12 +78,14 @@ class MyDoc extends Document<WithUrlProps> {
 
     render() {
         const { pathname, query } = this.props.__NEXT_DATA__;
+        const { head, styles } = this.props;
 
         return (
             <html>
                 <Head nonce="nonce" any="property" should="work" here>
+                    {head}
                     <title>My page</title>
-                    {this.props.styles}
+                    {styles}
                 </Head>
                 <body>
                     <Main />

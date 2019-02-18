@@ -32,7 +32,7 @@ export = Snoowrap;
 
 declare class Snoowrap {
   static getAuthUrl(options: Snoowrap.AuthUrlOptions): string;
-  static fromAuthCode(options: Snoowrap.AuthCodeOptions): Snoowrap;
+  static fromAuthCode(options: Snoowrap.AuthCodeOptions): Promise<Snoowrap>;
   static noConflict(): typeof Snoowrap;
 
   accessToken: string;

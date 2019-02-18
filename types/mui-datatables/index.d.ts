@@ -1,5 +1,5 @@
 // Type definitions for mui-datatables 2.0
-// Project: https://github.com/gregnb/mui-datatable
+// Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -44,6 +44,7 @@ interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
 
 interface MUIDataTableColumn {
     name: string;
+    label?: string;
     options?: MUIDataTableColumnOptions;
 }
 
@@ -84,7 +85,7 @@ interface MUIDataTableTextLabelsSelectedRows {
     deleteAria: string;
 }
 
-interface MUIDataTableTextLabels {
+export interface MUIDataTableTextLabels {
     body: MUIDataTableTextLabelsBody;
     pagination: MUIDataTableTextLabelsPagination;
     toolbar: MUIDataTableTextLabelsToolbar;

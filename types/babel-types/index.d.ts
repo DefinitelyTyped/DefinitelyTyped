@@ -1,5 +1,5 @@
 // Type definitions for babel-types 7.0
-// Project: https://github.com/babel/babel/tree/master/packages/babel-types
+// Project: https://github.com/babel/babel/tree/master/packages/babel-types, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Sam Baxter <https://github.com/baxtersa>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>

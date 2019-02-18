@@ -127,5 +127,12 @@ export interface ReactDatePickerProps {
 	withPortal?: boolean;
 	yearDropdownItemNumber?: number;
 }
-declare const ReactDatePicker: React.ClassicComponentClass<ReactDatePickerProps>;
+
+declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
+    readonly setBlur: () => void;
+    readonly setFocus: () => void;
+    readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;
+    readonly isCalendarOpen: () => boolean;
+}
+
 export default ReactDatePicker;

@@ -967,18 +967,18 @@ declare module "http" {
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
         'accept'?: string;
-        'access-control-allow-origin'?: string;
-        'access-control-allow-credentials'?: string;
-        'access-control-expose-headers'?: string;
-        'access-control-max-age'?: string;
-        'access-control-allow-methods'?: string;
-        'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
-        'authorization'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-allow-headers'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
+        'authorization'?: string;
         'cache-control'?: string;
         'connection'?: string;
         'content-disposition'?: string;
@@ -999,9 +999,9 @@ declare module "http" {
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
+        'tk'?: string;
         'trailer'?: string;
         'transfer-encoding'?: string;
-        'tk'?: string;
         'upgrade'?: string;
         'user-agent'?: string;
         'vary'?: string;

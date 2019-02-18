@@ -57,32 +57,32 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
      */
-    contains(node: ReactElement<any> | Array<ReactElement<any>> | string): boolean;
+    contains(node: ReactElement | ReactElement[] | string): boolean;
 
     /**
      * Returns whether or not a given react element exists in the shallow render tree.
      */
-    containsMatchingElement(node: ReactElement<any> | Array<ReactElement<any>>): boolean;
+    containsMatchingElement(node: ReactElement | ReactElement[]): boolean;
 
     /**
      * Returns whether or not all the given react elements exists in the shallow render tree
      */
-    containsAllMatchingElements(nodes: Array<ReactElement<any>> | Array<Array<ReactElement<any>>>): boolean;
+    containsAllMatchingElements(nodes: ReactElement[] | ReactElement[][]): boolean;
 
     /**
      * Returns whether or not one of the given react elements exists in the shallow render tree.
      */
-    containsAnyMatchingElements(nodes: Array<ReactElement<any>> | Array<Array<ReactElement<any>>>): boolean;
+    containsAnyMatchingElements(nodes: ReactElement[] | ReactElement[][]): boolean;
 
     /**
      * Returns whether or not the current render tree is equal to the given node, based on the expected value.
      */
-    equals(node: ReactElement<any>): boolean;
+    equals(node: ReactElement): boolean;
 
     /**
      * Returns whether or not a given react element matches the shallow render tree.
      */
-    matchesElement(node: ReactElement<any>): boolean;
+    matchesElement(node: ReactElement): boolean;
 
     /**
      * Returns whether or not the current node has a className prop including the passed in class name.
@@ -130,27 +130,27 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns the node at a given index of the current wrapper.
      */
-    get(index: number): ReactElement<any>;
+    get(index: number): ReactElement;
 
     /**
      * Returns the wrapper's underlying node.
      */
-    getNode(): ReactElement<any>;
+    getNode(): ReactElement;
 
     /**
      * Returns the wrapper's underlying nodes.
      */
-    getNodes(): Array<ReactElement<any>>;
+    getNodes(): ReactElement[];
 
     /**
      * Returns the wrapper's underlying node.
      */
-    getElement(): ReactElement<any>;
+    getElement(): ReactElement;
 
     /**
      * Returns the wrapper's underlying node.
      */
-    getElements(): Array<ReactElement<any>>;
+    getElements(): ReactElement[];
 
     /**
      * Returns the outer most DOMComponent of the current wrapper.
@@ -619,7 +619,7 @@ export class EnzymeAdapter {
 }
 
 /**
- * Configure enzyme to use the correct adapter for the react verstion
+ * Configure enzyme to use the correct adapter for the react version
  * This is enabling the Enzyme configuration with adapters in TS
  */
 export function configure(options: {

@@ -1279,7 +1279,7 @@ declare namespace algoliasearch {
      * default: ""
      * https://www.algolia.com/doc/api-reference/api-parameters/aroundLatLngViaIP/
      */
-    aroundLatLngViaIP?: string;
+    aroundLatLngViaIP?: boolean;
     /**
      * Control the radius associated with a geo search. Defined in meters.
      * default: null
@@ -1687,7 +1687,7 @@ declare namespace algoliasearch {
      * a list of language ISO codes (as a comma-separated string) for which stop words should be enable
      * https://github.com/algolia/algoliasearch-client-js#removestopwords
      */
-    removeStopWords?: string[];
+    removeStopWords?: boolean | string[];
     /**
      * List of attributes on which you want to apply word-splitting ("decompounding") for
      * each of the languages supported (German, Dutch, and Finnish as of 05/2018)

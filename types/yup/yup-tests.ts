@@ -3,6 +3,7 @@ import * as yup from "yup";
 // tslint:disable-next-line:no-duplicate-imports
 import {
     reach,
+    isSchema,
     date,
     Schema,
     ObjectSchema,
@@ -23,6 +24,10 @@ const schema1 = yup.object().shape({
 });
 reach(schema1, "nested.arr.num");
 reach(schema1, "nested.arr[].num");
+
+// isSchema function
+const isSchemaResult1: boolean = isSchema(schema1);
+const isSchemaResult2: boolean = isSchema({});
 
 // addMethod function
 yup.addMethod<NumberSchema>(yup.number, "minimum", function(
@@ -199,6 +204,12 @@ const testContext = function(this: TestContext) {
     this.resolve;
     // $ExpectType ValidationError
     this.createError({ path: "1", message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ path: "1"});
+    // $ExpectType ValidationError
+    this.createError();
     return true;
 };
 mixed.test("with-context", "it uses function context", testContext);

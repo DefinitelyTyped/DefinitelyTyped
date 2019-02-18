@@ -107,6 +107,8 @@ export interface TypeaheadContainerProps<T extends TypeaheadModel> {
     text: string;
 }
 
+export type TypeaheadResult<T extends TypeaheadModel> = T & { customOption: boolean };
+
 export interface TypeaheadProps<T extends TypeaheadModel> {
     /* For localized accessibility: Should return a string indicating the number of results for screen readers.
     Receives the current results. */
@@ -252,10 +254,10 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     placeholder?: string;
 
     /* Callback for custom menu rendering. */
-    renderMenu?: (results: T[], menuProps: any) => React.ReactNode;
+    renderMenu?: (results: Array<TypeaheadResult<T>>, menuProps: any) => React.ReactNode;
 
     /* Provides a hook for customized rendering of menu item contents. */
-    renderMenuItemChildren?: (option: T, props: TypeaheadMenuProps<T>, index: number) => React.ReactNode;
+    renderMenuItemChildren?: (option: TypeaheadResult<T>, props: TypeaheadMenuProps<T>, index: number) => React.ReactNode;
 
     /* Provides a hook for customized rendering of tokens when multiple selections are enabled. */
     renderToken?: (selectedItem: T, props: TypeaheadMenuProps<T>, index: number) => React.ReactNode;

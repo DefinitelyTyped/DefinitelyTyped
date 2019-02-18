@@ -1,5 +1,5 @@
-// Type definitions for next 7.0
-// Project: https://github.com/zeit/next.js/packages/next
+// Type definitions for next 8.0
+// Project: https://github.com/zeit/next.js/packages/next, https://nextjs.org
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
 //                 James Hegedus <https://github.com/jthegedus>

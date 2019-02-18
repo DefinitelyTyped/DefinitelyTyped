@@ -18,6 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "cometd-tests.ts"
+        "cometd-tests.ts",
+        "AckExtension/index.d.ts",
+    	"TimeSyncExtension/index.d.ts"
     ]
 }
