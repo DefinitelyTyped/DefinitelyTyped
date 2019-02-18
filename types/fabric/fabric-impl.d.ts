@@ -103,7 +103,7 @@ export function log(...values: any[]): void;
 export function warn(...values: any[]): void;
 
 ///////////////////////////////////////////////////////////////////////////////
-// Data Object Interfaces - These intrface are not specific part of fabric,
+// Data Object Interfaces - These interface are not specific part of fabric,
 // They are just helpful for for defining function parameters
 //////////////////////////////////////////////////////////////////////////////
 interface IDataURLOptions {
@@ -135,6 +135,9 @@ interface IDataURLOptions {
 	 * Cropping height. Introduced in v1.2.14
 	 */
 	height?: number;
+	enableRetinaScaling?: boolean;
+	withoutTransform?: boolean;
+	withoutShadow?: boolean;
 }
 
 interface IEvent {
@@ -175,6 +178,14 @@ interface IToSVGOptions {
 	 * Encoding of SVG output
 	 */
 	encoding: string;
+	/**
+	 * desired width of svg with or without units
+	 */
+	width: number;
+	/**
+	 * desired height of svg with or without units
+	 */
+	height: number;
 }
 
 interface IViewBox {
@@ -611,32 +622,44 @@ interface IPatternOptions {
 	 */
 	offsetY: number;
 	/**
-	 * The source for the pattern
+	 * crossOrigin value (one of "", "anonymous", "use-credentials")
+	 * @see https://developer.mozilla.org/en-US/docs/HTML/CORS_settings_attributes
+	 * @type String
+	 * @default
 	 */
-	source: string | HTMLImageElement;
-    /**
-     * Transform matrix to change the pattern, imported from svgs
-     */
-    patternTransform?: number[];
+	crossOrigin: '' | 'anonymous' | 'use-credentials';
+	/**
+	 * Transform matrix to change the pattern, imported from svgs
+	 */
+	patternTransform?: number[];
 }
 export interface Pattern extends IPatternOptions { }
 export class Pattern {
 	constructor(options?: IPatternOptions);
 
 	initialise(options?: IPatternOptions): Pattern;
-	/**
-	 * Returns an instance of CanvasPattern
-	 */
-	toLive(ctx: CanvasRenderingContext2D): Pattern;
 
 	/**
 	 * Returns object representation of a pattern
+	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return {Object} Object representation of a pattern instance
 	 */
-	toObject(): any;
+	toObject: any;
+
 	/**
 	 * Returns SVG representation of a pattern
+	 * @param {fabric.Object} object
+	 * @return {String} SVG representation of a pattern
 	 */
 	toSVG(object: Object): string;
+
+	/**
+	 * Returns an instance of CanvasPattern
+	 * @param {CanvasRenderingContext2D} ctx Context to create pattern
+	 * @return {CanvasPattern}
+	 */
+	toLive(ctx: CanvasRenderingContext2D): CanvasPattern;
+
 }
 
 export class Point {
@@ -647,152 +670,222 @@ export class Point {
 
 	/**
 	 * Adds another point to this one and returns another one
+	 * @param {fabric.Point} that
+	 * @return {fabric.Point} new Point instance with added values
 	 */
 	add(that: Point): Point;
 
 	/**
 	 * Adds another point to this one
+	 * @param {fabric.Point} that
+	 * @return {fabric.Point} thisArg
+	 * @chainable
 	 */
 	addEquals(that: Point): Point;
 
 	/**
 	 * Adds value to this point and returns a new one
+	 * @param {Number} scalar
+	 * @return {fabric.Point} new Point with added value
 	 */
 	scalarAdd(scalar: number): Point;
 
 	/**
 	 * Adds value to this point
+	 * @param {Number} scalar
+	 * @return {fabric.Point} thisArg
+	 * @chainable
 	 */
 	scalarAddEquals(scalar: number): Point;
 
 	/**
 	 * Subtracts another point from this point and returns a new one
+	 * @param {fabric.Point} that
+	 * @return {fabric.Point} new Point object with subtracted values
 	 */
 	subtract(that: Point): Point;
 
 	/**
 	 * Subtracts another point from this point
+	 * @param {fabric.Point} that
+	 * @return {fabric.Point} thisArg
+	 * @chainable
 	 */
 	subtractEquals(that: Point): Point;
 
 	/**
 	 * Subtracts value from this point and returns a new one
+	 * @param {Number} scalar
+	 * @return {fabric.Point}
 	 */
 	scalarSubtract(scalar: number): Point;
 
 	/**
 	 * Subtracts value from this point
+	 * @param {Number} scalar
+	 * @return {fabric.Point} thisArg
+	 * @chainable
 	 */
 	scalarSubtractEquals(scalar: number): Point;
 
 	/**
-	 * Miltiplies this point by a value and returns a new one
+	 * Multiplies this point by a value and returns a new one
+	 * @param {Number} scalar
+	 * @return {fabric.Point}
 	 */
 	multiply(scalar: number): Point;
 
 	/**
-	 * Miltiplies this point by a value
+	 * Multiplies this point by a value
+	 * @param {Number} scalar
+	 * @return {fabric.Point} thisArg
+	 * @chainable
 	 */
 	multiplyEquals(scalar: number): Point;
 
 	/**
 	 * Divides this point by a value and returns a new one
+	 * @param {Number} scalar
+	 * @return {fabric.Point}
 	 */
 	divide(scalar: number): Point;
 
 	/**
 	 * Divides this point by a value
+	 * @param {Number} scalar
+	 * @return {fabric.Point} thisArg
+	 * @chainable
 	 */
 	divideEquals(scalar: number): Point;
 
 	/**
 	 * Returns true if this point is equal to another one
+	 * @param {fabric.Point} that
+	 * @return {Boolean}
 	 */
 	eq(that: Point): Point;
 
 	/**
 	 * Returns true if this point is less than another one
+	 * @param {fabric.Point} that
+	 * @return {Boolean}
 	 */
 	lt(that: Point): Point;
 
 	/**
 	 * Returns true if this point is less than or equal to another one
+	 * @param {fabric.Point} that
+	 * @return {Boolean}
 	 */
 	lte(that: Point): Point;
 
 	/**
 	 * Returns true if this point is greater another one
+	 * @param {fabric.Point} that
+	 * @return {Boolean}
 	 */
 	gt(that: Point): Point;
 
 	/**
 	 * Returns true if this point is greater than or equal to another one
+	 * @param {fabric.Point} that
+	 * @return {Boolean}
 	 */
 	gte(that: Point): Point;
 
 	/**
 	 * Returns new point which is the result of linear interpolation with this one and another one
+	 * @param {fabric.Point} that
+	 * @param {Number} t , position of interpolation, between 0 and 1 default 0.5
+	 * @return {fabric.Point}
 	 */
 	lerp(that: Point, t: number): Point;
 
 	/**
 	 * Returns distance from this point and another one
+	 * @param {fabric.Point} that
+	 * @return {Number}
 	 */
 	distanceFrom(that: Point): number;
 
 	/**
 	 * Returns the point between this point and another one
+	 * @param {fabric.Point} that
+	 * @return {fabric.Point}
 	 */
 	midPointFrom(that: Point): Point;
 
 	/**
 	 * Returns a new point which is the min of this and another one
+	 * @param {fabric.Point} that
+	 * @return {fabric.Point}
 	 */
 	min(that: Point): Point;
 
 	/**
 	 * Returns a new point which is the max of this and another one
+	 * @param {fabric.Point} that
+	 * @return {fabric.Point}
 	 */
 	max(that: Point): Point;
 
 	/**
 	 * Returns string representation of this point
+	 * @return {String}
 	 */
 	toString(): string;
 
 	/**
 	 * Sets x/y of this point
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @chainable
 	 */
 	setXY(x: number, y: number): Point;
 
 	/**
+	 * Sets x of this point
+	 * @param {Number} x
+	 * @chainable
+	 */
+	setX(x: number): Point;
+
+	/**
+	 * Sets y of this point
+	 * @param {Number} y
+	 * @chainable
+	 */
+	setY(y: number): Point;
+
+	/**
 	 * Sets x/y of this point from another point
+	 * @param {fabric.Point} that
+	 * @chainable
 	 */
 	setFromPoint(that: Point): Point;
 
 	/**
 	 * Swaps x/y of this point and another point
+	 * @param {fabric.Point} that
 	 */
 	swap(that: Point): Point;
+
+	/**
+	 * return a cloned instance of the point
+	 * @return {fabric.Point}
+	 */
+	clone(): Point;
 }
 
 interface IShadowOptions {
-	/**
-	 * Whether the shadow should affect stroke operations
-	 */
-	affectStrike: boolean;
-	/**
-	 * Shadow blur
-	 */
-	blur: number;
 	/**
 	 * Shadow color
 	 */
 	color: string;
 	/**
-	 * Indicates whether toObject should include default values
+	 * Shadow blur
 	 */
-	includeDefaultValues: boolean;
+	blur: number;
 	/**
 	 * Shadow horizontal offset
 	 */
@@ -801,29 +894,42 @@ interface IShadowOptions {
 	 * Shadow vertical offset
 	 */
 	offsetY: number;
+	/**
+	 * Whether the shadow should affect stroke operations
+	 */
+	affectStrike: boolean;
+	/**
+	 * Indicates whether toObject should include default values
+	 */
+	includeDefaultValues: boolean;
 }
 export interface Shadow extends IShadowOptions { }
 export class Shadow {
-	constructor(options?: IShadowOptions);
+	constructor(options?: IShadowOptions| string);
 	initialize(options?: IShadowOptions | string): Shadow;
 	/**
 	 * Returns object representation of a shadow
+	 * @return {Object} Object representation of a shadow instance
 	 */
 	toObject(): any;
 	/**
-	 * Returns a string representation of an instance, CSS3 text-shadow declaration
+	 * Returns a string representation of an instance
+	 * @see http://www.w3.org/TR/css-text-decor-3/#text-shadow
+	 * @return {String} Returns CSS3 text-shadow declaration
 	 */
 	toString(): string;
 	/**
 	 * Returns SVG representation of a shadow
+	 * @param {fabric.Object} object
+	 * @return {String} SVG representation of a shadow
 	 */
 	toSVG(object: Object): string;
-
 	/**
-	 * Regex matching shadow offsetX, offsetY and blur, Static
+	 * Regex matching shadow offsetX, offsetY and blur (ex: "2px 2px 10px rgba(0,0,0,0.2)", "rgb(0,255,0) 2px 2px")
+	 * @static
+	 * @field
+	 * @memberOf fabric.Shadow
 	 */
-	reOffsetsAndBlur: RegExp;
-
 	static reOffsetsAndBlur: RegExp;
 }
 
@@ -853,161 +959,237 @@ interface ICanvasDimensionsOptions {
 
 interface IStaticCanvasOptions {
 	/**
-	 * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas
-	 */
-	allowTouchScrolling?: boolean;
-
-	/**
-	 * When true, canvas is scaled by devicePixelRatio for better rendering on retina screens
-	 */
-	enableRetinaScaling?: boolean;
-
-	/**
-	 * Indicates whether this canvas will use image smoothing, this is on by default in browsers
-	 */
-	imageSmoothingEnabled?: boolean;
-
-	/**
-	 * Indicates whether objects should remain in current stack position when selected.
-	 * When false objects are brought to top and rendered as part of the selection group
-	 */
-	preserveObjectStacking?: boolean;
-
-	/**
-	 * The transformation (in the format of Canvas transform) which focuses the viewport
-	 */
-	viewportTransform?: number[];
-
-	freeDrawingColor?: string;
-	freeDrawingLineWidth?: number;
-
-	/**
 	 * Background color of canvas instance.
-	 * Should be set via setBackgroundColor
+	 * Should be set via {@link fabric.StaticCanvas#setBackgroundColor}.
+	 * @type {(String|fabric.Pattern)}
 	 */
 	backgroundColor?: string | Pattern;
 	/**
 	 * Background image of canvas instance.
-	 * Should be set via setBackgroundImage
-	 * <b>Backwards incompatibility note:</b> The "backgroundImageOpacity" and "backgroundImageStretch" properties are deprecated since 1.3.9.
+	 * Should be set via {@link fabric.StaticCanvas#setBackgroundImage}.
+	 * <b>Backwards incompatibility note:</b> The "backgroundImageOpacity"
+	 * and "backgroundImageStretch" properties are deprecated since 1.3.9.
+	 * Use {@link fabric.Image#opacity}, {@link fabric.Image#width} and {@link fabric.Image#height}.
+	 * since 2.4.0 image caching is active, please when putting an image as background, add to the
+	 * canvas property a reference to the canvas it is on. Otherwise the image cannot detect the zoom
+	 * vale. As an alternative you can disable image objectCaching
+	 * @type fabric.Image
 	 */
-	backgroundImage?: Image | string;
-	backgroundImageOpacity?: number;
-	backgroundImageStretch?: number;
-	/**
-	 * Function that determines clipping of entire canvas area
-	 * Being passed context as first argument. See clipping canvas area
-	 */
-	clipTo?(context: CanvasRenderingContext2D): void;
-
-	/**
-	 * Indicates whether object controls (borders/controls) are rendered above overlay image
-	 */
-	controlsAboveOverlay?: boolean;
-
-	/**
-	 * Indicates whether toObject/toDatalessObject should include default values
-	 */
-	includeDefaultValues?: boolean;
+	backgroundImage?: Image;
 	/**
 	 * Overlay color of canvas instance.
-	 * Should be set via setOverlayColor
+	 * Should be set via {@link fabric.StaticCanvas#setOverlayColor}
+	 * @since 1.3.9
+	 * @type {(String|fabric.Pattern)}
 	 */
 	overlayColor?: string | Pattern;
 	/**
 	 * Overlay image of canvas instance.
-	 * Should be set via setOverlayImage
-	 * <b>Backwards incompatibility note:</b> The "overlayImageLeft" and "overlayImageTop" properties are deprecated since 1.3.9.
+	 * Should be set via {@link fabric.StaticCanvas#setOverlayImage}.
+	 * <b>Backwards incompatibility note:</b> The "overlayImageLeft"
+	 * and "overlayImageTop" properties are deprecated since 1.3.9.
+	 * Use {@link fabric.Image#left} and {@link fabric.Image#top}.
+	 * since 2.4.0 image caching is active, please when putting an image as overlay, add to the
+	 * canvas property a reference to the canvas it is on. Otherwise the image cannot detect the zoom
+	 * vale. As an alternative you can disable image objectCaching
+	 * @type fabric.Image
 	 */
 	overlayImage?: Image;
-	overlayImageLeft?: number;
-	overlayImageTop?: number;
 	/**
-	 * Indicates whether add, insertAt and remove should also re-render canvas.
-	 * Disabling this option could give a great performance boost when adding/removing a lot of objects to/from canvas at once
-	 * (followed by a manual rendering after addition/deletion)
+	 * Indicates whether toObject/toDatalessObject should include default values
+	 * if set to false, takes precedence over the object value.
+	 * @type Boolean
+	 */
+	includeDefaultValues?: boolean;
+	/**
+	 * Indicates whether objects' state should be saved
+	 * @type Boolean
+	 */
+	stateful?: boolean;
+	/**
+	 * Indicates whether {@link fabric.Collection.add}, {@link fabric.Collection.insertAt} and {@link fabric.Collection.remove},
+	 * {@link fabric.StaticCanvas.moveTo}, {@link fabric.StaticCanvas.clear} and many more, should also re-render canvas.
+	 * Disabling this option will not give a performance boost when adding/removing a lot of objects to/from canvas at once
+	 * since the renders are quequed and executed one per frame.
+	 * Disabling is suggested anyway and managing the renders of the app manually is not a big effort ( canvas.requestRenderAll() )
+	 * Left default to true to do not break documentation and old app, fiddles.
+	 * @type Boolean
 	 */
 	renderOnAddRemove?: boolean;
 	/**
-	 * Indicates whether objects' state should be saved
+	 * Function that determines clipping of entire canvas area
+	 * Being passed context as first argument.
+	 * If you are using code minification, ctx argument can be minified/manglied you should use
+	 * as a workaround `var ctx = arguments[0];` in the function;
+	 * See clipping canvas area in {@link https://github.com/kangax/fabric.js/wiki/FAQ}
+	 * @deprecated since 2.0.0
+	 * @type Function
 	 */
-	stateful?: boolean;
+	clipTo?(context: CanvasRenderingContext2D): void;
+	/**
+	 * Indicates whether object controls (borders/controls) are rendered above overlay image
+	 * @type Boolean
+	 */
+	controlsAboveOverlay?: boolean;
+	/**
+	 * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas
+	 * @type Boolean
+	 */
+	allowTouchScrolling?: boolean;
+	/**
+	 * Indicates whether this canvas will use image smoothing, this is on by default in browsers
+	 */
+	imageSmoothingEnabled?: boolean;
+	/**
+	 * The transformation (in the format of Canvas transform) which focuses the viewport
+	 */
+	viewportTransform?: number[];
+	/**
+	 * if set to false background image is not affected by viewport transform
+	 * @since 1.6.3
+	 * @type Boolean
+	 */
+	backgroundVpt?: boolean;
+	/**
+	 * if set to false overlay image is not affected by viewport transform
+	 * @since 1.6.3
+	 * @type Boolean
+	 */
+	overlayVpt?: boolean;
+	/**
+	 * When true, canvas is scaled by devicePixelRatio for better rendering on retina screens
+	 * @type Boolean
+	 */
+	enableRetinaScaling?: boolean;
+	/**
+	 * Describe canvas element extension over design
+	 * properties are tl,tr,bl,br.
+	 * if canvas is not zoomed/panned those points are the four corner of canvas
+	 * if canvas is viewportTransformed you those points indicate the extension
+	 * of canvas element in plain untrasformed coordinates
+	 * The coordinates get updated with @method calcViewportBoundaries.
+	 * @memberOf fabric.StaticCanvas.prototype
+	 */
+	vptCoords?: {tl: number, tr: number, bl: number, br: number}
+	/**
+	 * Based on vptCoords and object.aCoords, skip rendering of objects that
+	 * are not included in current viewport.
+	 * May greatly help in applications with crowded canvas and use of zoom/pan
+	 * If One of the corner of the bounding box of the object is on the canvas
+	 * the objects get rendered.
+	 * @memberOf fabric.StaticCanvas.prototype
+	 * @type Boolean
+	 */
+	skipOffscreen?: boolean;
+	/**
+	 * a fabricObject that, without stroke define a clipping area with their shape. filled in black
+	 * the clipPath object gets used when the canvas has rendered, and the context is placed in the
+	 * top left corner of the canvas.
+	 * clipPath will clip away controls, if you do not want this to happen use controlsAboveOverlay = true
+	 * @type fabric.Object
+	 */
+	clipPath?: Object;
+	/**
+	 * When true, getSvgTransform() will apply the StaticCanvas.viewportTransform to the SVG transformation. When true,
+	 * a zoomed canvas will then produce zoomed SVG output.
+	 * @type Boolean
+	 */
+	svgViewportTransformation: boolean;
 }
 export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas> { }
 export class StaticCanvas {
 	/**
 	 * Constructor
-	 * @param element <canvas> element to initialize instance on
-	 * @param [options] Options object
+	 * @param {HTMLElement | String} el <canvas> element to initialize instance on
+	 * @param {Object} [options] Options object
+	 * @return {Object} thisArg
 	 */
 	constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
 
 	/**
 	 * Calculates canvas element offset relative to the document
 	 * This method is also attached as "resize" event handler of window
+	 * @return {fabric.Canvas} instance
+	 * @chainable
 	 */
-	calcOffset(): this;
+	calcOffset(): StaticCanvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayImage|overlay image} for this canvas
-	 * @param image fabric.Image instance or URL of an image to set overlay to
-	 * @param callback callback to invoke when image is loaded and set as an overlay
-	 * @param [options] Optional options to set for the {@link fabric.Image|overlay image}.
+	 * @param {(fabric.Image|String)} image fabric.Image instance or URL of an image to set overlay to
+	 * @param {Function} callback callback to invoke when image is loaded and set as an overlay
+	 * @param {Object} [options] Optional options to set for the {@link fabric.Image|overlay image}.
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
-	setOverlayImage(image: Image | string, callback: (img: HTMLImageElement) => void, options?: IImageOptions): this;
+	setOverlayImage(image: Image | string, callback: (img: HTMLImageElement | undefined) => void, options?: IImageOptions): StaticCanvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundImage|background image} for this canvas
-	 * @param image fabric.Image instance or URL of an image to set background to
-	 * @param callback Callback to invoke when image is loaded and set as background
-	 * @param [options] Optional options to set for the {@link fabric.Image|background image}.
+	 * @param {(fabric.Image|String)} image fabric.Image instance or URL of an image to set background to
+	 * @param {Function} callback Callback to invoke when image is loaded and set as background
+	 * @param {Object} [options] Optional options to set for the {@link fabric.Image|background image}.
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
-	setBackgroundImage(image: Image | string, callback?: (img: HTMLImageElement) => void, options?: IImageOptions): this;
+	setBackgroundImage(image: Image | string, callback?: Function, options?: IImageOptions): StaticCanvas;
 
 	/**
-	 * Sets {@link fabric.StaticCanvas#overlayColor|background color} for this canvas
-	 * @param overlayColor Color or pattern to set background color to
-	 * @param callback Callback to invoke when background color is set
+	 * Sets {@link fabric.StaticCanvas#overlayColor|foreground color} for this canvas
+	 * @param {(String|fabric.Pattern)} overlayColor Color or pattern to set foreground color to
+	 * @param {Function} callback Callback to invoke when foreground color is set
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
-	setOverlayColor(overlayColor: string | Pattern, callback: (pattern: Pattern | undefined) => void): this;
+	setOverlayColor(overlayColor: string | Pattern, callback: (pattern: Pattern | undefined) => void): StaticCanvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundColor|background color} for this canvas
-	 * @param backgroundColor Color or pattern to set background color to
-	 * @param callback Callback to invoke when background color is set
+	 * @param {(String|fabric.Pattern)} backgroundColor Color or pattern to set background color to
+	 * @param {Function} callback Callback to invoke when background color is set
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
 	setBackgroundColor(backgroundColor: string | Pattern, callback: (pattern: Pattern | undefined) => void): StaticCanvas;
 
 	/**
 	 * Returns canvas width (in px)
+	 * @return {Number}
 	 */
 	getWidth(): number;
 
 	/**
 	 * Returns canvas height (in px)
+	 * @return {Number}
 	 */
 	getHeight(): number;
 
 	/**
 	 * Sets width of this canvas instance
-	 * @param value                         Value to set width to
-	 * @param        [options]                     Options object
+	 * @param {Number|String} value                         Value to set width to
+	 * @param {Object}        [options]                     Options object
+	 * @return {fabric.Canvas} instance
+	 * @chainable true
 	 */
-	setWidth(value: number | string, options?: ICanvasDimensionsOptions): this;
+	setWidth(value: number | string, options?: ICanvasDimensionsOptions): StaticCanvas;
 
 	/**
 	 * Sets height of this canvas instance
 	 * @param value                         Value to set height to
 	 * @param        [options]                     Options object
+	 * @return {fabric.Canvas} instance
+	 * @chainable true
 	 */
-	setHeight(value: number | string, options?: ICanvasDimensionsOptions): this;
+	setHeight(value: number | string, options?: ICanvasDimensionsOptions): StaticCanvas;
 
 	/**
 	 * Sets dimensions (width, height) of this canvas instance. when options.cssOnly flag active you should also supply the unit of measure (px/%/em)
 	 * @param        dimensions                    Object with width/height properties
 	 * @param        [options]                     Options object
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
-	setDimensions(dimensions: ICanvasDimensions, options?: ICanvasDimensionsOptions): this;
+	setDimensions(dimensions: ICanvasDimensions, options?: ICanvasDimensionsOptions): StaticCanvas;
 
 	/**
 	 * Returns canvas zoom level
@@ -1016,190 +1198,296 @@ export class StaticCanvas {
 
 	/**
 	 * Sets viewport transform of this canvas instance
-	 * @param vpt the transform in the form of context.transform
+	 * @param {Array} vpt the transform in the form of context.transform
+	 * @return {fabric.Canvas} instance
+	 * @chainable
 	 */
-	setViewportTransform(vpt: number[]): this;
+	setViewportTransform(vpt: number[]): StaticCanvas;
 
 	/**
 	 * Sets zoom level of this canvas instance, zoom centered around point
-	 * @param point to zoom with respect to
-	 * @param value to set zoom to, less than 1 zooms out
+	 * @param {fabric.Point} point to zoom with respect to
+	 * @param {Number} value to set zoom to, less than 1 zooms out
+	 * @return {fabric.Canvas} instance
+	 * @chainable true
 	 */
-	zoomToPoint(point: Point, value: number): this;
+	zoomToPoint(point: Point, value: number): StaticCanvas;
 
 	/**
 	 * Sets zoom level of this canvas instance
-	 * @param value to set zoom to, less than 1 zooms out
+	 * @param {Number} value to set zoom to, less than 1 zooms out
+	 * @return {fabric.Canvas} instance
+	 * @chainable
 	 */
-	setZoom(value: number): this;
+	setZoom(value: number): StaticCanvas;
 
 	/**
 	 * Pan viewport so as to place point at top left corner of canvas
-	 * @param point to move to
+	 * @param {fabric.Point} point to move to
+	 * @return {fabric.Canvas} instance
+	 * @chainable
 	 */
-	absolutePan(point: Point): this;
+	absolutePan(point: Point): StaticCanvas;
 
 	/**
 	 * Pans viewpoint relatively
-	 * @param point (position vector) to move by
+	 * @param {fabric.Point} point (position vector) to move by
+	 * @return {fabric.Canvas} instance
+	 * @chainable
 	 */
-	relativePan(point: Point): this;
+	relativePan(point: Point): StaticCanvas;
 
 	/**
 	 * Returns <canvas> element corresponding to this instance
+	 * @return {HTMLCanvasElement}
 	 */
 	getElement(): HTMLCanvasElement;
-
-	/**
-	 * Returns currently selected object, if any
-	 */
-	getActiveObject(): Object;
-
-	/**
-	 * Returns currently selected group of object, if any
-	 */
-	getActiveGroup(): Group;
 
 	/**
 	 * Clears specified context of canvas element
 	 * @param ctx Context to clear
 	 * @chainable
 	 */
-	clearContext(ctx: CanvasRenderingContext2D): this;
+	clearContext(ctx: CanvasRenderingContext2D): StaticCanvas;
 
 	/**
 	 * Returns context of canvas where objects are drawn
+	 * @return {CanvasRenderingContext2D}
 	 */
 	getContext(): CanvasRenderingContext2D;
 
 	/**
 	 * Clears all contexts (background, main, top) of an instance
-	 */
-	clear(): this;
-
-	/**
-	 * Renders both the top canvas and the secondary container canvas.
-	 * @param [allOnTop] Whether we want to force all images to be rendered on the top canvas
+	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	renderAll(allOnTop?: boolean): this;
+	clear(): StaticCanvas;
 
 	/**
-	 * Append a renderAll request to next animation frame. a boolean flag will avoid appending more.
+	 * Renders the canvas
+	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	requestRenderAll(): this;
+	renderAll(): StaticCanvas;
 
 	/**
-	 * Method to render only the top canvas.
-	 * Also used to render the group selection box.
+	 * Function created to be instance bound at initialization
+	 * used in requestAnimationFrame rendering
+	 * Let the fabricJS call it. If you call it manually you could have more
+	 * animationFrame stacking on to of each other
+	 * for an imperative rendering, use canvas.renderAll
+	 * @private
+	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	renderTop(): StaticCanvas;
+	renderAndReset(): StaticCanvas;
+
+	/**
+	 * Append a renderAll request to next animation frame.
+	 * unless one is already in progress, in that case nothing is done
+	 * a boolean flag will avoid appending more.
+	 * @return {fabric.Canvas} instance
+	 * @chainable
+	 */
+	requestRenderAll(): StaticCanvas;
+
+	/**
+	 * Calculate the position of the 4 corner of canvas with current viewportTransform.
+	 * helps to determinate when an object is in the current rendering viewport using
+	 * object absolute coordinates ( aCoords )
+	 * @return {Object} points.tl
+	 * @chainable
+	 */
+	calcViewportBoundaries(): StaticCanvas;
+
+	cancelRequestedRender(): void;
+
+	/**
+	 * Renders background, objects, overlay and controls.
+	 * @param {CanvasRenderingContext2D} ctx
+	 * @param {Array} objects to render
+	 * @return {fabric.Canvas} instance
+	 * @chainable
+	 */
+	renderCanvas(ctx: CanvasRenderingContext2D, objects: Object[] ): StaticCanvas;
+
+	/**
+	 * Paint the cached clipPath on the lowerCanvasEl
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	drawClipPathOnCanvas(ctx: CanvasRenderingContext2D): void;
 
 	/**
 	 * Returns coordinates of a center of canvas.
 	 * Returned value is an object with top and left properties
+	 * @return {Object} object with "top" and "left" number values
 	 */
 	getCenter(): { top: number; left: number; };
-	/**
-	 * Centers object horizontally.
-	 * You might need to call `setCoords` on an object after centering, to update controls area.
-	 * @param object Object to center horizontally
-	 */
-	centerObjectH(object: Object): this;
 
 	/**
-	 * Centers object vertically.
-	 * You might need to call `setCoords` on an object after centering, to update controls area.
-	 * @param object Object to center vertically
+	 * Centers object horizontally in the canvas
+	 * @param {fabric.Object} object Object to center horizontally
+	 * @return {fabric.Canvas} thisArg
 	 */
-	centerObjectV(object: Object): this;
+	centerObjectH(object: Object): StaticCanvas;
 
 	/**
-	 * Centers object vertically and horizontally.
-	 * You might need to call `setCoords` on an object after centering, to update controls area.
-	 * @param object Object to center vertically and horizontally
+	 * Centers object vertically in the canvas
+	 * @param {fabric.Object} object Object to center vertically
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
-	centerObject(object: Object): this;
+	centerObjectV(object: Object): StaticCanvas;
+
+	/**
+	 * Centers object vertically and horizontally in the canvas
+	 * @param {fabric.Object} object Object to center vertically and horizontally
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	centerObject(object: Object): StaticCanvas;
+
+	/**
+	 * Centers object vertically and horizontally in the viewport
+	 * @param {fabric.Object} object Object to center vertically and horizontally
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	viewportCenterObject(object: Object): StaticCanvas;
+
+	/**
+	 * Centers object horizontally in the viewport, object.top is unchanged
+	 * @param {fabric.Object} object Object to center vertically and horizontally
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	viewportCenterObjectH(object: Object): StaticCanvas;
+
+	/**
+	 * Centers object Vertically in the viewport, object.top is unchanged
+	 * @param {fabric.Object} object Object to center vertically and horizontally
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	viewportCenterObjectV(object: Object): StaticCanvas;
+
+	/**
+	 * Calculate the point in canvas that correspond to the center of actual viewport.
+	 * @return {fabric.Point} vpCenter, viewport center
+	 */
+	getVpCenter(): Point;
 
 	/**
 	 * Returs dataless JSON representation of canvas
-	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return {String} json string
 	 */
 	toDatalessJSON(propertiesToInclude?: string[]): string;
 
 	/**
 	 * Returns object representation of canvas
-	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return {Object} object representation of an instance
 	 */
 	toObject(propertiesToInclude?: string[]): any;
 
 	/**
 	 * Returns dataless object representation of canvas
-	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return {Object} object representation of an instance
 	 */
 	toDatalessObject(propertiesToInclude?: string[]): any;
-
-	/**
-	 * When true, getSvgTransform() will apply the StaticCanvas.viewportTransform to the SVG transformation. When true,
-	 * a zoomed canvas will then produce zoomed SVG output.
-	 */
-	svgViewportTransformation: boolean;
 
 	/**
 	 * Returns SVG representation of canvas
 	 * @param [options] Options object for SVG output
 	 * @param [reviver] Method for further parsing of svg elements, called after each fabric object converted into svg representation.
+	 * @return {String} SVG string
 	 */
 	toSVG(options: IToSVGOptions, reviver?: Function): string;
 
 	/**
-	 * Moves an object to the bottom of the stack of drawn objects
-	 * @param object Object to send to back
+	 * Moves an object or the objects of a multiple selection
+	 * to the bottom of the stack of drawn objects
+	 * @param {fabric.Object} object Object to send to back
+	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	sendToBack(object: Object): this;
+	sendToBack(object: Object): StaticCanvas;
 
 	/**
-	 * Moves an object to the top of the stack of drawn objects
-	 * @param object Object to send
+	 * Moves an object or the objects of a multiple selection
+	 * to the top of the stack of drawn objects
+	 * @param {fabric.Object} object Object to send
+	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	bringToFront(object: Object): this;
+	bringToFront(object: Object): StaticCanvas;
 
 	/**
-	 * Moves an object down in stack of drawn objects
-	 * @param object Object to send
-	 * @param [intersecting] If `true`, send object behind next lower intersecting object
+	 * Moves an object or a selection down in stack of drawn objects
+	 * An optional paramter, intersecting allowes to move the object in behind
+	 * the first intersecting object. Where intersection is calculated with
+	 * bounding box. If no intersection is found, there will not be change in the
+	 * stack.
+	 * @param {fabric.Object} object Object to send
+	 * @param {Boolean} [intersecting] If `true`, send object behind next lower intersecting object
+	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	sendBackwards(object: Object): this;
+	sendBackwards(object: Object, intersecting?: boolean): StaticCanvas;
 
 	/**
-	 * Moves an object up in stack of drawn objects
-	 * @param object Object to send
-	 * @param [intersecting] If `true`, send object in front of next upper intersecting object
+	 * Moves an object or a selection up in stack of drawn objects
+	 * An optional paramter, intersecting allowes to move the object in front
+	 * of the first intersecting object. Where intersection is calculated with
+	 * bounding box. If no intersection is found, there will not be change in the
+	 * stack.
+	 * @param {fabric.Object} object Object to send
+	 * @param {Boolean} [intersecting] If `true`, send object in front of next upper intersecting object
+	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	bringForward(object: Object): this;
+	bringForward(object: Object, intersecting?: boolean): StaticCanvas;
+
 	/**
 	 * Moves an object to specified level in stack of drawn objects
-	 * @param object Object to send
-	 * @param index Position to move to
+	 * @param {fabric.Object} object Object to send
+	 * @param {Number} index Position to move to
+	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	moveTo(object: Object, index: number): this;
+	moveTo(object: Object, index: number): StaticCanvas;
 
 	/**
-	 * Clears a canvas element and removes all event listeners
-	 */
-	dispose(): this;
+	 * Clears a canvas element and dispose objects
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable	 */
+	dispose(): StaticCanvas;
 
 	/**
 	 * Returns a string representation of an instance
+	 * @return {String} string representation of an instance
 	 */
 	toString(): string;
+
+	/**
+	 * @static
+	 * @type String
+	 * @default
+	 */
+	static EMPTY_JSON: string;
+
+	/**
+	 * Provides a way to check support of some of the canvas methods
+	 * (either those of HTMLCanvasElement itself, or rendering context)
+	 *
+	 * @param {String} methodName Method to check support for;
+	 *                            Could be one of "setLineDash"
+	 * @return {Boolean | null} `true` if method is supported (or at least exists),
+	 *                          `null` if canvas element or context can not be initialized
+	 */
+	supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 
 	/**
 	 * Exports canvas element to a dataurl image. Note that when multiplier is used, cropping is scaled appropriately
@@ -1208,29 +1496,17 @@ export class StaticCanvas {
 	toDataURL(options?: IDataURLOptions): string;
 
 	/**
-	 * Provides a way to check support of some of the canvas methods
-	 * (either those of HTMLCanvasElement itself, or rendering context)
-	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
-	 * @return `true` if method is supported (or at least exists), null` if canvas element or context can not be initialized
+	 * Returns JSON representation of canvas
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
+	static toJSON(propertiesToInclude?: string[]): string;
 
-	/**
-	 * Populates canvas with data from the specified JSON.
-	 * JSON format must conform to the one of toJSON formats
-	 * @param json JSON string or object
-	 * @param callback Callback, invoked when json is parsed
-	 *                            and corresponding objects (e.g: {@link fabric.Image})
-	 *                            are initialized
-	 * @param [reviver] Method for further parsing of JSON elements, called after each fabric object created.
-	 */
-	loadFromJSON(json: string | any, callback: () => void, reviver?: Function): this;
 	/**
 	 * Clones canvas instance
 	 * @param [callback] Receives cloned instance as a first argument
 	 * @param [properties] Array of properties to include in the cloned canvas and children
 	 */
-	clone(callback: (canvas: StaticCanvas) => void, properties?: string[]): void;
+	clone(callback: Function, properties?: string[]): void;
 
 	/**
 	 * Clones canvas instance without cloning existing data.
@@ -1238,47 +1514,25 @@ export class StaticCanvas {
 	 * but leaves data empty (so that you can populate it with your own)
 	 * @param [callback] Receives cloned instance as a first argument
 	 */
-	cloneWithoutData(callback: (canvas: StaticCanvas) => void): void;
-
-	/**
-	 * Callback; invoked right before object is about to be scaled/rotated
-	 */
-	onBeforeScaleRotate(target: Object): void;
-
-	// Functions from object straighten mixin
-	// --------------------------------------------------------------------------------------------------------------------------------
-
-	/**
-	 * Straightens object, then rerenders canvas
-	 * @param object Object to straighten
-	 */
-	straightenObject(object: Object): this;
-
-	/**
-	 * Same as straightenObject, but animated
-	 * @param object Object to straighten
-	 */
-	fxStraightenObject(object: Object): this;
-
-	static EMPTY_JSON: string;
-	/**
-	 * Provides a way to check support of some of the canvas methods
-	 * (either those of HTMLCanvasElement itself, or rendering context)
-	 * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
-	 */
-	static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
-	/**
-	 * Returns JSON representation of canvas
-	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 */
-	static toJSON(propertiesToInclude?: string[]): string;
+	cloneWithoutData(callback: Function): void;
 }
 
 interface ICanvasOptions extends IStaticCanvasOptions {
 	/**
 	 * When true, objects can be transformed by one side (unproportionally)
+	 * @type Boolean
 	 */
 	uniScaleTransform?: boolean;
+
+	/**
+	 * Indicates which key enable unproportional scaling
+	 * values: 'altKey', 'shiftKey', 'ctrlKey'.
+	 * If `null` or 'none' or any other string that is not a modifier key
+	 * feature is disabled feature disabled.
+	 * @since 1.6.2
+	 * @type String
+	 */
+	uniScaleKey?: string;
 
 	/**
 	 * When true, objects use center point as the origin of scale transformation.
@@ -1293,6 +1547,28 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	centeredRotation?: boolean;
 
 	/**
+	 * Indicates which key enable centered Transform
+	 * values: 'altKey', 'shiftKey', 'ctrlKey'.
+	 * If `null` or 'none' or any other string that is not a modifier key
+	 * feature is disabled feature disabled.
+	 * @since 1.6.2
+	 * @type String
+	 * @default
+	 */
+	centeredKey?: string;
+
+	/**
+	 * Indicates which key enable alternate action on corner
+	 * values: 'altKey', 'shiftKey', 'ctrlKey'.
+	 * If `null` or 'none' or any other string that is not a modifier key
+	 * feature is disabled feature disabled.
+	 * @since 1.6.2
+	 * @type String
+	 * @default
+	 */
+	altActionKey?: string;
+
+	/**
 	 * Indicates that canvas is interactive. This property should not be changed.
 	 */
 	interactive?: boolean;
@@ -1303,6 +1579,32 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	selection?: boolean;
 
 	/**
+	 * Indicates which key or keys enable multiple click selection
+	 * Pass value as a string or array of strings
+	 * values: 'altKey', 'shiftKey', 'ctrlKey'.
+	 * If `null` or empty or containing any other string that is not a modifier key
+	 * feature is disabled.
+	 * @since 1.6.2
+	 * @type String|Array
+	 * @default
+	 */
+	selectionKey?: string;
+
+	/**
+	 * Indicates which key enable alternative selection
+	 * in case of target overlapping with active object
+	 * values: 'altKey', 'shiftKey', 'ctrlKey'.
+	 * For a series of reason that come from the general expectations on how
+	 * things should work, this feature works only for preserveObjectStacking true.
+	 * If `null` or 'none' or any other string that is not a modifier key
+	 * feature is disabled.
+	 * @since 1.6.5
+	 * @type null|String
+	 * @default
+	 */
+	altSelectionKey?: string;
+
+	/**
 	 * Color of selection
 	 */
 	selectionColor?: string;
@@ -1311,7 +1613,7 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * Default dash array pattern
 	 * If not empty the selection border is dashed
 	 */
-	selectionDashArray?: any[];
+	selectionDashArray?: number[];
 
 	/**
 	 * Color of the border of selection (usually slightly darker than color of selection itself)
@@ -1322,6 +1624,13 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * Width of a line used in object/group selection
 	 */
 	selectionLineWidth?: number;
+
+	/**
+	 * Select only shapes that are fully contained in the dragged selection rectangle.
+	 * @type Boolean
+	 * @default
+	 */
+	selectionFullyContained?: boolean;
 
 	/**
 	 * Default cursor value used when hovering over an object on canvas
@@ -1349,6 +1658,14 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	rotationCursor?: string;
 
 	/**
+	 * Cursor value used for disabled elements ( corners with disabled action )
+	 * @type String
+	 * @since 2.0.0
+	 * @default
+	 */
+	notAllowedCursor?: string;
+
+	/**
 	 * Default element class that's given to wrapper (div) element of canvas
 	 */
 	containerClass?: string;
@@ -1374,6 +1691,54 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * and then mouseup finalizes it and adds an instance of `fabric.Path` onto canvas.
 	 */
 	isDrawingMode?: boolean;
+
+	/**
+	 * Indicates whether objects should remain in current stack position when selected.
+	 * When false objects are brought to top and rendered as part of the selection group
+	 * @type Boolean
+	 */
+	preserveObjectStacking?: boolean;
+
+	/**
+	 * Indicates the angle that an object will lock to while rotating.
+	 * @type Number
+	 * @since 1.6.7
+	 */
+	snapAngle?: number;
+
+	/**
+	 * Indicates the distance from the snapAngle the rotation will lock to the snapAngle.
+	 * When `null`, the snapThreshold will default to the snapAngle.
+	 * @type null|Number
+	 * @since 1.6.7
+	 * @default
+	 */
+	snapThreshold?: null | number;
+
+	/**
+	 * Indicates if the right click on canvas can output the context menu or not
+	 * @type Boolean
+	 * @since 1.6.5
+	 * @default
+	 */
+	stopContextMenu?: boolean;
+
+	/**
+	 * Indicates if the canvas can fire right click events
+	 * @type Boolean
+	 * @since 1.6.5
+	 * @default
+	 */
+	fireRightClick?: boolean;
+
+	/**
+	 * Indicates if the canvas can fire middle click events
+	 * @type Boolean
+	 * @since 1.7.8
+	 * @default
+	 */
+	fireMiddleClick?: boolean;
+
 }
 export interface Canvas extends StaticCanvas { }
 export interface Canvas extends ICanvasOptions { }
@@ -1386,106 +1751,129 @@ export class Canvas {
 	constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
 
 	_objects: Object[];
-
 	/**
-	 * Checks if point is contained within an area of given object
-	 * @param e Event object
-	 * @param target Object to test against
-	 */
-	containsPoint(e: Event, target: Object): boolean;
-	/**
-	 * Deactivates all objects on canvas, removing any active group or object
-	 * @return thisArg
-	 */
-	deactivateAll(): Canvas;
-	/**
-	 * Deactivates all objects and dispatches appropriate events
-	 * @param [e] Event (passed along when firing)
-	 * @return thisArg
-	 */
-	deactivateAllWithDispatch(e?: Event): Canvas;
-	/**
-	 * Discards currently active group
-	 * @param [e] Event (passed along when firing)
-	 * @return thisArg
-	 */
-	discardActiveGroup(e?: Event): Canvas;
-	/**
-	 * Discards currently active object
-	 * @param [e] Event (passed along when firing)
-	 * @return thisArg
+	 * Renders both the top canvas and the secondary container canvas.
+	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	discardActiveObject(e?: Event): Canvas;
+	renderAll(): Canvas;
 	/**
-	 * Draws objects' controls (borders/controls)
-	 * @param ctx Context to render controls on
+	 * Method to render only the top canvas.
+	 * Also used to render the group selection box.
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
-	drawControls(ctx: CanvasRenderingContext2D): void;
+	renderTop(): Canvas;
+	/**
+	 * Checks if point is contained within an area of given object
+	 * @param {Event} e Event object
+	 * @param {fabric.Object} target Object to test against
+	 * @param {Object} [point] x,y object of point coordinates we want to check.
+	 * @return {Boolean} true if point is contained within an area of given object
+	 */
+	containsPoint(e: Event, target: Object, point?: {x: number, y: number}): boolean;
+	/**
+	 * Returns true if object is transparent at a certain location
+	 * @param {fabric.Object} target Object to check
+	 * @param {Number} x Left coordinate
+	 * @param {Number} y Top coordinate
+	 * @return {Boolean}
+	 */
+	isTargetTransparent(target: Object, x: number, y: number): boolean;
+	/**
+	 * Set the cursor type of the canvas element
+	 * @param {String} value Cursor type of the canvas element.
+	 * @see http://www.w3.org/TR/css3-ui/#cursor
+	 */
+	setCursor(value: string): void;
 	/**
 	 * Method that determines what object we are clicking on
-	 * @param e mouse event
-	 * @param skipGroup when true, group is skipped and only objects are traversed through
+	 * the skipGroup parameter is for internal use, is needed for shift+click action
+	 * @param {Event} e mouse event
+	 * @param {Boolean} skipGroup when true, activeGroup is skipped and only objects are traversed through
+	 * @return {fabric.Object} the target found
 	 */
-	findTarget(e: MouseEvent, skipGroup: boolean): Canvas;
+	findTarget(e: MouseEvent, skipGroup: boolean): Object;
 	/**
-	 * Returns currently active group
-	 * @return Current group
+	 * Returns pointer coordinates without the effect of the viewport
+	 * @param {Object} pointer with "x" and "y" number values
+	 * @return {Object} object with "x" and "y" number values
 	 */
-	getActiveGroup(): Group;
-	/**
-	 * Returns currently active object
-	 * @return active object
-	 */
-	getActiveObject(): Object;
-	/**
-	 * Returns an array with the current selected objects
-	 * @return {Object[]} array of active objects
-	 */
-	getActiveObjects(): Object[];
+	restorePointerVpt(pointer: Point): any;
 	/**
 	 * Returns pointer coordinates relative to canvas.
-	 * @return object with "x" and "y" number values
+	 * Can return coordinates with or without viewportTransform.
+	 * ignoreZoom false gives back coordinates that represent
+	 * the point clicked on canvas element.
+	 * ignoreZoom true gives back coordinates after being processed
+	 * by the viewportTransform ( sort of coordinates of what is displayed
+	 * on the canvas where you are clicking.
+	 * ignoreZoom true = HTMLElement coordinates relative to top,left
+	 * ignoreZoom false, default = fabric space coordinates, the same used for shape position
+	 * To interact with your shapes top and left you want to use ignoreZoom true
+	 * most of the time, while ignoreZoom false will give you coordinates
+	 * compatible with the object.oCoords system.
+	 * of the time.
+	 * @param {Event} e
+	 * @param {Boolean} ignoreZoom
+	 * @return {Object} object with "x" and "y" number values
 	 */
-	getPointer(e: Event, ignoreZoom?: boolean, upperCanvasEl?: CanvasRenderingContext2D): { x: number; y: number; };
+	getPointer(e: Event, ignoreZoom: boolean): { x: number; y: number; };
 	/**
 	 * Returns context of canvas where object selection is drawn
+	 * @return {CanvasRenderingContext2D}
 	 */
 	getSelectionContext(): CanvasRenderingContext2D;
 	/**
 	 * Returns <canvas> element on which object selection is drawn
+	 * @return {HTMLCanvasElement}
 	 */
 	getSelectionElement(): HTMLCanvasElement;
 	/**
-	 * Returns true if object is transparent at a certain location
-	 * @param target Object to check
-	 * @param x Left coordinate
-	 * @param y Top coordinate
+	 * Returns currently active object
+	 * @return {fabric.Object} active object
 	 */
-	isTargetTransparent(target: Object, x: number, y: number): boolean;
+	getActiveObject(): Object;
 	/**
-	 * Sets active group to a speicified one
-	 * @param group Group to set as a current one
-	 * @param [e] Event (passed along when firing)
+	 * Returns an array with the current selected objects
+	 * @return {fabric.Object} active object
 	 */
-	setActiveGroup(group: Group, e?: Event): Canvas;
+	getActiveObjects(): Object[];
 	/**
 	 * Sets given object as the only active object on canvas
-	 * @param object Object to set as an active one
-	 * @param [e] Event (passed along when firing "object:selected")
+	 * @param {fabric.Object} object Object to set as an active one
+	 * @param {Event} [e] Event (passed along when firing "object:selected")
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
 	setActiveObject(object: Object, e?: Event): Canvas;
 	/**
-	 * Set the cursor type of the canvas element
-	 * @param value Cursor type of the canvas element.
-	 * @see http://www.w3.org/TR/css3-ui/#cursor
+	 * Discards currently active object and fire events. If the function is called by fabric
+	 * as a consequence of a mouse event, the event is passed as a parameter and
+	 * sent to the fire function for the custom events. When used as a method the
+	 * e param does not have any application.
+	 * @param {event} e
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
-	setCursor(value: string): void;
-
+	discardActiveObject(e?: Event): Canvas;
 	/**
-	 * Removes all event listeners
+	 * Clears a canvas element and removes all event listeners
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
 	 */
-	removeListeners(): void;
+	dispose(): Canvas;
+	/**
+	 * Clears all contexts (background, main, top) of an instance
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	clear(): Canvas;
+	/**
+	 * Draws objects' controls (borders/controls)
+	 * @param {CanvasRenderingContext2D} ctx Context to render controls on
+	 */
+	drawControls(ctx: CanvasRenderingContext2D): void;
 
 	static EMPTY_JSON: string;
 	/**
@@ -1514,7 +1902,6 @@ interface ICircleOptions extends IObjectOptions {
 	 * Start angle of the circle, moving clockwise
 	 */
 	startAngle?: number;
-
 	/**
 	 * End angle of the circle
 	 */
@@ -1639,34 +2026,17 @@ export class Group {
 	 * @param objects Group objects
 	 * @param [options] Options object
 	 */
-	constructor(items?: any[], options?: IObjectOptions);
-
-	activateAllObjects(): Group;
+	constructor(objects?: Object[], options?: IObjectOptions, isAlreadyGrouped?: boolean);
+	/**
+	 * Returns string representation of a group
+	 */
+	toString(): string;
 	/**
 	 * Adds an object to a group; Then recalculates group's dimension, position.
 	 * @return thisArg
 	 * @chainable
 	 */
 	addWithUpdate(object: Object): Group;
-	containsPoint(point: Point): boolean;
-	/**
-	 * Destroys a group (restoring state of its objects)
-	 * @return thisArg
-	 * @chainable
-	 */
-	destroy(): Group;
-    /**
-     * make a group an active selection, remove the group from canvas
-     * the group has to be on canvas for this to work.
-     * @return {fabric.ActiveSelection} thisArg
-     * @chainable
-     */
-    toActiveSelection(): ActiveSelection;
-	/**
-	 * Checks whether this group was moved (since `saveCoords` was called last)
-	 * @return true if an object was moved (since fabric.Group#saveCoords was called)
-	 */
-	hasMoved(): boolean;
 	/**
 	 * Removes an object from a group; Then recalculates group's dimension, position.
 	 * @return thisArg
@@ -1674,24 +2044,78 @@ export class Group {
 	 */
 	removeWithUpdate(object: Object): Group;
 	/**
+	 * Returns object representation of an instance
+	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return object representation of an instance
+	 */
+	toObject(propertiesToInclude?: string[]): any;
+	/**
+	 * Returns object representation of an instance, in dataless mode.
+	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+	 * @return {Object} object representation of an instance
+	 */
+	toDatalessObject(propertiesToInclude?: string[]): any;
+	/**
 	 * Renders instance on a given context
 	 * @param ctx context to render instance on
 	 */
 	render(ctx: CanvasRenderingContext2D): void;
 	/**
-	 * Removes objects from a collection, then renders canvas (if `renderOnAddRemove` is not `false`)
-	 * @param object Zero or more fabric instances
-	 * @return thisArg
-	 * @chainable
+	 * Decide if the object should cache or not. Create its own cache level
+	 * objectCaching is a global flag, wins over everything
+	 * needsItsOwnCache should be used when the object drawing method requires
+	 * a cache step. None of the fabric classes requires it.
+	 * Generally you do not cache objects in groups because the group outside is cached.
+	 * @return {Boolean}
 	 */
-	remove(...object: Object[]): Group;
+	shouldCache(): boolean;
 	/**
-	 * Saves coordinates of this instance (to be used together with `hasMoved`)
-	 * @saveCoords
-	 * @return thisArg
+	 * Check if this object or a child object will cast a shadow
+	 * @return {Boolean}
+	 */
+	willDrawShadow(): boolean;
+	/**
+	 * Check if this group or its parent group are caching, recursively up
+	 * @return {Boolean}
+	 */
+	isOnACache(): boolean;
+	/**
+	 * Execute the drawing operation for an object on a specified context
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	drawObject(ctx: CanvasRenderingContext2D): void;
+	/**
+	 * Check if cache is dirty
+	 */
+	isCacheDirty(skipCanvas?: boolean): boolean;
+	/**
+	 * Realises the transform from this group onto the supplied object
+	 * i.e. it tells you what would happen if the supplied object was in
+	 * the group, and then the group was destroyed. It mutates the supplied
+	 * object.
+	 * @param {fabric.Object} object
+	 * @return {fabric.Object} transformedObject
+	 */
+	realizeTransform(object: Object): Object;
+	/**
+	 * Destroys a group (restoring state of its objects)
+	 * @return {fabric.Group} thisArg
 	 * @chainable
 	 */
-	saveCoords(): Group;
+	destroy(): Group;
+	/**
+	 * make a group an active selection, remove the group from canvas
+	 * the group has to be on canvas for this to work.
+	 * @return {fabric.ActiveSelection} thisArg
+	 * @chainable
+	 */
+	toActiveSelection(): ActiveSelection;
+	/**
+	 * Destroys a group (restoring state of its objects)
+	 * @return {fabric.Group} thisArg
+	 * @chainable
+	 */
+	ungroupOnCanvas(): Group;
 	/**
 	 * Sets coordinates of all group objects
 	 * @return thisArg
@@ -1699,22 +2123,17 @@ export class Group {
 	 */
 	setObjectsCoords(): Group;
 	/**
-	 * Returns object representation of an instance
-	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 * @return object representation of an instance
-	 */
-	toObject(propertiesToInclude?: string[]): any;
-	/**
-	 * Returns string represenation of a group
-	 */
-	toString(): string;
-	/**
 	 * Returns svg representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
 	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
-
+	/**
+	 * Returns svg clipPath representation of an instance
+	 * @param {Function} [reviver] Method for further parsing of svg representation.
+	 * @return {String} svg representation of an instance
+	 */
+	toClipPathSVG(reviver?: Function): string;
 	/**
 	 * Returns {@link fabric.Group} instance from an object representation
 	 * @param object Object to create a group from
@@ -1726,14 +2145,14 @@ export class Group {
 ///////////////////////////////////////////////////////////////////////////////
 // ActiveSelection
 //////////////////////////////////////////////////////////////////////////////
-export interface ActiveSelection extends Object, ICollection<Group> { }
+export interface ActiveSelection extends Group, ICollection<Group> { }
 export class ActiveSelection {
 	/**
 	 * Constructor
 	 * @param objects ActiveSelection objects
 	 * @param [options] Options object
 	 */
-	constructor(items?: Object[], options?: IObjectOptions);
+	constructor(objects?: Object[], options?: IObjectOptions);
 
 	/**
      * Change te activeSelection to a normal group,
@@ -1741,14 +2160,6 @@ export class ActiveSelection {
      * active object. no events fired.
      */
 	toGroup(): Group;
-
-	/**
-	 * Removes objects from a collection, then renders canvas (if `renderOnAddRemove` is not `false`)
-	 * @param object Zero or more fabric instances
-	 * @return thisArg
-	 * @chainable
-	 */
-	remove(...object: Object[]): Group;
 
 	/**
 	 * Returns string represenation of a group
@@ -1769,6 +2180,36 @@ interface IImageOptions extends IObjectOptions {
 	 * crossOrigin value (one of "", "anonymous", "allow-credentials")
 	 */
 	crossOrigin?: string;
+
+	/**
+	 * When calling {@link fabric.Image.getSrc}, return value from element src with `element.getAttribute('src')`.
+	 * This allows for relative urls as image src.
+	 * @since 2.7.0
+	 * @type Boolean
+	 */
+	srcFromAttribute?: boolean;
+
+	/**
+	 * minimum scale factor under which any resizeFilter is triggered to resize the image
+	 * 0 will disable the automatic resize. 1 will trigger automatically always.
+	 * number bigger than 1 are not implemented yet.
+	 * @type Number
+	 */
+	minimumScaleTrigger?: number;
+
+	/**
+	 * Image crop in pixels from original image size.
+	 * @since 2.0.0
+	 * @type Number
+	 */
+	cropX?: number;
+
+	/**
+	 * Image crop in pixels from original image size.
+	 * @since 2.0.0
+	 * @type Number
+	 */
+	cropY?: number;
 
 	/**
 	 * AlignX value, part of preserveAspectRatio (one of "none", "mid", "min", "max")
@@ -1805,40 +2246,10 @@ export class Image {
 
 	initialize(element?: string | HTMLImageElement, options?: IImageOptions): void;
 	/**
-	 * Applies filters assigned to this image (from "filters" array) or from filter param
-	 * @param {Array} filters to be applied
-	 * @return {thisArg} return the fabric.Image object
-	 * @chainable
-	 */
-	applyFilters(filters?: IBaseFilter[]): Image;
-	/**
-	 * Returns a clone of an instance
-	 * @param callback Callback is invoked with a clone as a first argument
-	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
-	 */
-	clone(callback?: Function, propertiesToInclude?: string[]): void;
-	/**
-	 * Returns complexity of an instance
-	 * @return complexity of this instance
-	 */
-	complexity(): number;
-	/**
 	 * Returns image element which this instance if based on
 	 * @return Image element
 	 */
 	getElement(): HTMLImageElement;
-	/**
-	 * Returns original size of an image
-	 * @return Object with "width" and "height" properties
-	 */
-	getOriginalSize(): { width: number; height: number; };
-	/**
-	 * Returns source of an image
-	 * @return Source of an image
-	 */
-	getSrc(): string;
-	render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
-
 	/**
 	 * Sets image element for this instance to a specified one.
 	 * If filters defined they are applied to new image.
@@ -1848,9 +2259,22 @@ export class Image {
 	 */
 	setElement(element: HTMLImageElement, callback: Function, options: IImageOptions): Image;
 	/**
+	 * Delete a single texture if in webgl mode
+	 */
+	removeTexture(key: any): void;
+	/**
+	 * Delete textures, reference to elements and eventually JSDOM cleanup
+	 */
+	dispose(): void;
+	/**
 	 * Sets crossOrigin value (on an instance and corresponding image element)
 	 */
 	setCrossOrigin(value: string): Image;
+	/**
+	 * Returns original size of an image
+	 * @return Object with "width" and "height" properties
+	 */
+	getOriginalSize(): { width: number; height: number; };
 	/**
 	 * Returns object representation of an instance
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
@@ -1858,10 +2282,10 @@ export class Image {
 	 */
 	toObject(propertiesToInclude?: string[]): any;
 	/**
-	 * Returns string representation of an instance
-	 * @return String representation of an instance
+	 * Returns true if an image has crop applied, inspecting values of cropX,cropY,width,hight.
+	 * @return {Boolean}
 	 */
-	toString(): string;
+	hasCrop(): boolean;
 	/**
 	 * Returns SVG representation of an instance
 	 * @param [reviver] Method for further parsing of svg representation.
@@ -1869,26 +2293,65 @@ export class Image {
 	 */
 	toSVG(reviver?: Function): string;
 	/**
+	 * Returns source of an image
+	 * @return Source of an image
+	 */
+	getSrc(): string;
+	/**
 	 * Sets source of an image
-	 * @param src Source string (URL)
-	 * @param [callback] Callback is invoked when image has been loaded (and all filters have been applied)
-	 * @param [options] Options object
+	 * @param {String} src Source string (URL)
+	 * @param {Function} [callback] Callback is invoked when image has been loaded (and all filters have been applied)
+	 * @param {Object} [options] Options object
+	 * @return {fabric.Image} thisArg
+	 * @chainable
 	 */
 	setSrc(src: string, callback?: Function, options?: IImageOptions): Image;
-
 	/**
-	 * Creates an instance of fabric.Image from an URL string
-	 * @param url URL to create an image from
-	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
-	 * @param [imgOptions] Options object
+	 * Returns string representation of an instance
+	 * @return String representation of an instance
 	 */
-	static fromURL(url: string, callback?: (image: Image) => void, imgOptions?: IImageOptions): Image;
+	toString(): string;
+	applyResizeFilters(): void;
+	/**
+	 * Applies filters assigned to this image (from "filters" array) or from filter param
+	 * @param {Array} filters to be applied
+	 * @return {thisArg} return the fabric.Image object
+	 * @chainable
+	 */
+	applyFilters(filters?: IBaseFilter[]): Image;
+	/**
+	 * Decide if the object should cache or not. Create its own cache level
+	 * objectCaching is a global flag, wins over everything
+	 * needsItsOwnCache should be used when the object drawing method requires
+	 * a cache step. None of the fabric classes requires it.
+	 * Generally you do not cache objects in groups because the group outside is cached.
+	 * This is the special image version where we would like to avoid caching where possible.
+	 * Essentially images do not benefit from caching. They may require caching, and in that
+	 * case we do it. Also caching an image usually ends in a loss of details.
+	 * A full performance audit should be done.
+	 * @return {Boolean}
+	 */
+	shouldCache(): void;
+	/**
+	 * Calculate offset for center and scale factor for the image in order to respect
+	 * the preserveAspectRatio attribute
+	 * @private
+	 * @return {Object}
+	 */
+	parsePreserveAspectRatioAttribute(): any;
 	/**
 	 * Creates an instance of fabric.Image from its object representation
 	 * @param object Object to create an instance from
 	 * @param [callback] Callback to invoke when an image instance is created
 	 */
 	static fromObject(object: any, callback: (image: Image) => void): void;
+	/**
+	 * Creates an instance of fabric.Image from an URL string
+	 * @param url URL to create an image from
+	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
+	 * @param [imgOptions] Options object
+	 */
+	static fromURL(url: string, callback?: Function, imgOptions?: IImageOptions): Image;
 	/**
 	 * Returns Image instance from an SVG element
 	 * @param element Element to parse
@@ -1900,7 +2363,6 @@ export class Image {
 	 * Default CSS class name for canvas
 	 */
 	static CSS_CANVAS: string;
-
 	static filters: IAllFilters;
 }
 
@@ -1930,11 +2392,6 @@ export class Line {
 	 * @param [options] Options object
 	 */
 	constructor(points?: number[], objObjects?: IObjectOptions);
-	/**
-	 * Returns complexity of an instance
-	 * @return complexity
-	 */
-	complexity(): number;
 	initialize(points?: number[], options?: ILineOptions): Line;
 	/**
 	 * Returns object representation of an instance
@@ -1949,8 +2406,6 @@ export class Line {
 	 * @return svg representation of an instance
 	 */
 	toSVG(reviver?: Function): string;
-
-	static ATTRIBUTE_NAMES: string[];
 	/**
 	 * Returns fabric.Line instance from an SVG element
 	 * @param element Element to parse
@@ -1962,8 +2417,8 @@ export class Line {
 	 * @param object Object to create an instance from
 	 */
 	static fromObject(object: any): Line;
+	static ATTRIBUTE_NAMES: string[];
 }
-
 interface IObjectOptions {
 	/**
 	 * Type of an object (rect, circle, path, etc.).
@@ -2012,17 +2467,7 @@ interface IObjectOptions {
 	 */
 	scaleY?: number;
 
-    /**
-     * Object skew factor (horizontal)
-     */
-    skewX?: number;
-
-    /**
-     * Object skew factor (vertical)
-     */
-    skewY?: number;
-
-    /**
+	/**
 	 * When true, an object is rendered as flipped horizontally
 	 */
 	flipX?: boolean;
@@ -2042,6 +2487,21 @@ interface IObjectOptions {
 	 */
 	angle?: number;
 
+    /**
+     * Object skew factor (horizontal)
+     */
+    skewX?: number;
+
+    /**
+     * Object skew factor (vertical)
+     */
+    skewY?: number;
+
+	/**
+	 * Size of object's controlling corners (in pixels)
+	 */
+	cornerSize?: number;
+
 	/**
 	 * When true, object's controlling corners are rendered as transparent inside (i.e. stroke instead of fill)
 	 */
@@ -2051,6 +2511,11 @@ interface IObjectOptions {
 	 * Default cursor value used when hovering over this object on canvas
 	 */
 	hoverCursor?: string;
+
+	/**
+	 * Default cursor value used when moving an object on canvas
+	 */
+	moveCursor?: string;
 
 	/**
 	 * Padding between object and its controlling borders (in pixels)
@@ -2073,16 +2538,6 @@ interface IObjectOptions {
 	cornerColor?: string;
 
 	/**
-	 * Array specifying dash pattern of an object's control (hasBorder must be true)
-	 */
-	cornerDashArray?: number[];
-
-	/**
-	 * Size of object's controlling corners (in pixels)
-	 */
-	cornerSize?: number;
-
-	/**
 	 * Color of controlling corners of an object (when it's active and transparentCorners false)
 	 */
 	cornerStrokeColor?: string;
@@ -2091,6 +2546,11 @@ interface IObjectOptions {
 	 * Specify style of control, 'rect' or 'circle'
 	 */
 	cornerStyle?: "rect" | "circle";
+
+	/**
+	 * Array specifying dash pattern of an object's control (hasBorder must be true)
+	 */
+	cornerDashArray?: number[];
 
 	/**
 	 * When true, this object will use center point as the origin of transformation
@@ -2129,9 +2589,11 @@ interface IObjectOptions {
 	backgroundColor?: string;
 
 	/**
-	 * When `true`, object is cached on an additional canvas.
+	 * Selection Background color of an object. colored layer behind the object when it is active.
+	 * does not mix good with globalCompositeOperation methods.
+	 * @type String
 	 */
-	objectCaching?: boolean;
+	selectionBackgroundColor?: string;
 
 	/**
 	 * When defined, an object is rendered via stroke and this property specifies its color
@@ -2146,7 +2608,14 @@ interface IObjectOptions {
 	/**
 	 * Array specifying dash pattern of an object's stroke (stroke must be defined)
 	 */
-	strokeDashArray?: any[];
+	strokeDashArray?: number[];
+
+	/**
+	 * Line offset of an object's stroke
+	 * @type Number
+	 * @default
+	 */
+	strokeDashOffset?: number;
 
 	/**
 	 * Line endings style of an object's stroke (one of "butt", "round", "square")
@@ -2240,20 +2709,7 @@ interface IObjectOptions {
 	 */
 	clipTo?: Function;
 
-    /**
-     * A fabricObject that, without stroke define a clipping area with their shape. filled in black
-     * the clipPath object gets used when the object has rendered, and the context is placed in the center
-     * of the object cacheCanvas.
-     * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
-     */
-    clipPath?: Object;
-
-    /**
-     * When set to `true`, object's cache will be rerendered next render call.
-     */
-    dirty?: boolean;
-
-    /**
+	/**
 	 * When `true`, object horizontal movement is locked
 	 */
 	lockMovementX?: boolean;
@@ -2284,9 +2740,124 @@ interface IObjectOptions {
 	lockUniScaling?: boolean;
 
 	/**
+	 * When `true`, object horizontal skewing is locked
+	 * @type Boolean
+	 */
+	lockSkewingX?: boolean;
+
+	/**
+	 * When `true`, object vertical skewing is locked
+	 * @type Boolean
+	 */
+	lockSkewingY?: boolean;
+
+	/**
 	 * When `true`, object cannot be flipped by scaling into negative values
 	 */
 	lockScalingFlip?: boolean;
+
+	/**
+	 * When `true`, object is not exported in OBJECT/JSON
+	 * since 1.6.3
+	 * @type Boolean
+	 * @default
+	 */
+	excludeFromExport?: boolean;
+
+	/**
+	 * When `true`, object is cached on an additional canvas.
+	 */
+	objectCaching?: boolean;
+
+	/**
+	 * When `true`, object properties are checked for cache invalidation. In some particular
+	 * situation you may want this to be disabled ( spray brush, very big, groups)
+	 * or if your application does not allow you to modify properties for groups child you want
+	 * to disable it for groups.
+	 * default to false
+	 * since 1.7.0
+	 * @type Boolean
+	 * @default false
+	 */
+	statefullCache?: boolean;
+
+	/**
+	 * When `true`, cache does not get updated during scaling. The picture will get blocky if scaled
+	 * too much and will be redrawn with correct details at the end of scaling.
+	 * this setting is performance and application dependant.
+	 * default to true
+	 * since 1.7.0
+	 * @type Boolean
+	 */
+	noScaleCache?: boolean;
+
+	/**
+	 * When `false`, the stoke width will scale with the object.
+	 * When `true`, the stroke will always match the exact pixel size entered for stroke width.
+	 * default to false
+	 * @since 2.6.0
+	 * @type Boolean
+	 * @default false
+	 * @type Boolean
+	 */
+	strokeUniform?: boolean;
+
+	/**
+	 * When set to `true`, object's cache will be rerendered next render call.
+	 */
+	dirty?: boolean;
+
+	/**
+	 * Determines if the fill or the stroke is drawn first (one of "fill" or "stroke")
+	 * @type String
+	 */
+	paintFirst?: string;
+
+	/**
+	 * List of properties to consider when checking if state
+	 * of an object is changed (fabric.Object#hasStateChanged)
+	 * as well as for history (undo/redo) purposes
+	 * @type Array
+	 */
+	stateProperties?: string[];
+
+	/**
+	 * List of properties to consider when checking if cache needs refresh
+	 * Those properties are checked by statefullCache ON ( or lazy mode if we want ) or from single
+	 * calls to Object.set(key, value). If the key is in this list, the object is marked as dirty
+	 * and refreshed at the next render
+	 * @type Array
+	 */
+	cacheProperties?: string[];
+
+	/**
+     * A fabricObject that, without stroke define a clipping area with their shape. filled in black
+     * the clipPath object gets used when the object has rendered, and the context is placed in the center
+     * of the object cacheCanvas.
+     * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
+     */
+    clipPath?: Object;
+
+	/**
+	 * Meaningful ONLY when the object is used as clipPath.
+	 * if true, the clipPath will make the object clip to the outside of the clipPath
+	 * since 2.4.0
+	 * @type boolean
+	 * @default false
+	 */
+	inverted?: boolean;
+
+	/**
+	 * Meaningful ONLY when the object is used as clipPath.
+	 * if true, the clipPath will have its top and left relative to canvas, and will
+	 * not be influenced by the object transform. This will make the clipPath relative
+	 * to the canvas, but clipping just a particular object.
+	 * WARNING this is beta, this feature may change or be renamed.
+	 * since 2.4.0
+	 * @type boolean
+	 * @default false
+	 */
+	absolutePositioned?: boolean;
 
 	/**
 	 * Not used by fabric, just for convenience
@@ -2366,17 +2937,16 @@ export class Object {
 	getWidth(): number;
 	setWidth(value: number): Object;
 
-	/* * Sets object's properties from options
-		* @param {Object} [options] Options object
-		*/
+	/* Sets object's properties from options
+	 * @param {Object} [options] Options object
+	 */
 	setOptions(options: IObjectOptions): void;
 
 	/**
 	 * Transforms context when rendering an object
-	 * @param ctx Context
-	 * @param fromLeft When true, context is transformed to object's top/left corner. This is used when rendering text on Node
+	 * @param {CanvasRenderingContext2D} ctx Context
 	 */
-	transform(ctx: CanvasRenderingContext2D, fromLeft: boolean): void;
+	transform(ctx: CanvasRenderingContext2D): void;
 
 	/**
 	 * Returns an object representation of an instance
@@ -2396,63 +2966,107 @@ export class Object {
 	toString(): string;
 
 	/**
-	 * Basic getter
-	 * @param property Property name
+	 * Return the object scale factor counting also the group scaling, zoom and retina
+	 * @return {Object} object with scaleX and scaleY properties
 	 */
-	get<K extends keyof this>(property: K): this[K];
+	getTotalObjectScaling(): {scaleX: number, scaleY: number};
 
 	/**
-	 * Sets property to a given value.
-	 * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
-	 * If you need to update those, call `setCoords()`.
-	 * @param key Property name
-	 * @param value Property value (if function, the value is passed into it and its return value is used as a new one)
+	 * Return the object opacity counting also the group property
+	 * @return {Number}
 	 */
-	set<K extends keyof this>(key: K, value: this[K] | ((value: this[K]) => this[K])): this;
-	/**
-	 * Sets property to a given value.
-	 * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
-	 * If you need to update those, call `setCoords()`.
-	 * @param options Property object, iterate over the object properties
-	 */
-	set(options: Partial<this>): this;
-
-	/**
-	 * Toggles specified property from `true` to `false` or from `false` to `true`
-	 * @param property Property to toggle
-	 */
-	toggle(property: keyof this): this;
-
-	/**
-	 * Sets sourcePath of an object
-	 * @param value Value to set sourcePath to
-	 */
-	setSourcePath(value: string): this;
+	getObjectOpacity(): number;
 
 	/**
 	 * Retrieves viewportTransform from Object's canvas if possible
 	 */
-	getViewportTransform(): boolean;
+	getViewportTransform(): any;
 
 	/**
 	 * Renders an object on a specified context
-	 * @param ctx Context to render on
-	 * @param [noTransform] When true, context is not transformed
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
 	 */
-	render(ctx: CanvasRenderingContext2D, noTransform?: boolean): void;
+	render(ctx: CanvasRenderingContext2D): void;
+
+	/**
+	 * When set to `true`, force the object to have its own cache, even if it is inside a group
+	 * it may be needed when your object behave in a particular way on the cache and always needs
+	 * its own isolated canvas to render correctly.
+	 * Created to be overridden
+	 * since 1.7.12
+	 * @returns false
+	 */
+	needsItsOwnCache(): boolean;
+
+	/**
+	 * Decide if the object should cache or not. Create its own cache level
+	 * objectCaching is a global flag, wins over everything
+	 * needsItsOwnCache should be used when the object drawing method requires
+	 * a cache step. None of the fabric classes requires it.
+	 * Generally you do not cache objects in groups because the group outside is cached.
+	 * @return {Boolean}
+	 */
+	shouldCache(): boolean;
+
+	/**
+	 * Check if this object or a child object will cast a shadow
+	 * used by Group.shouldCache to know if child has a shadow recursively
+	 * @return {Boolean}
+	 */
+	willDrawShadow(): boolean;
+
+	/**
+	 * Execute the drawing operation for an object clipPath
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	drawClipPathOnCache(ctx: CanvasRenderingContext2D): void;
+
+	/**
+	 * Execute the drawing operation for an object on a specified context
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	drawObject(ctx: CanvasRenderingContext2D): void;
+
+	/**
+	 * Paint the cached copy of the object on the target context.
+	 * @param {CanvasRenderingContext2D} ctx Context to render on
+	 */
+	drawCacheOnCanvas(ctx: CanvasRenderingContext2D): void;
+
+	/**
+	 * Check if cache is dirty
+	 * @param {Boolean} skipCanvas skip canvas checks because this object is painted
+	 * on parent canvas.
+	 */
+	isCacheDirty(): boolean;
 
 	/**
 	 * Clones an instance, using a callback method will work for every object.
 	 * @param callback Callback is invoked with a clone as a first argument
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
-	clone(callback: (clone: Object) => void, propertiesToInclude?: string[]): void;
+	clone(callback: Function, propertiesToInclude?: string[]): void;
 
 	/**
 	 * Creates an instance of fabric.Image out of an object
 	 * @param callback callback, invoked with an instance as a first argument
 	 */
-	cloneAsImage(callback: (image: Image) => void): this;
+	cloneAsImage(callback: Function, options?: IDataURLOptions): Object;
+
+	/**
+	 * Converts an object into a HTMLCanvas element
+	 * @param {Object} options Options object
+	 * @param {Number} [options.multiplier=1] Multiplier to scale by
+	 * @param {Number} [options.left] Cropping left offset. Introduced in v1.2.14
+	 * @param {Number} [options.top] Cropping top offset. Introduced in v1.2.14
+	 * @param {Number} [options.width] Cropping width. Introduced in v1.2.14
+	 * @param {Number} [options.height] Cropping height. Introduced in v1.2.14
+	 * @param {Boolean} [options.enableRetinaScaling] Enable retina scaling for clone image. Introduce in 1.6.4
+	 * @param {Boolean} [options.withoutTransform] Remove current object transform ( no scale , no angle, no flip, no skew ). Introduced in 2.3.4
+	 * @param {Boolean} [options.withoutShadow] Remove current object shadow. Introduced in 2.4.2
+	 * @return {String} Returns a data: URL containing a representation of the object in the format specified by options.format
+	 */
+	toCanvasElement(options?: IDataURLOptions): string;
 
 	/**
 	 * Converts an object into a data-url-like string
@@ -2483,59 +3097,73 @@ export class Object {
 	 * @param property Property name 'stroke' or 'fill'
 	 * @param [options] Options object
 	 */
-	setGradient(property: "stroke" | "fill", options: IGradientOptions): this;
+	setGradient(property: "stroke" | "fill", options: IGradientOptions): Object;
+
 	/**
 	 * Sets pattern fill of an object
 	 * @param options Options object
 	 */
-	setPatternFill(options: IFillOptions): this;
+	setPatternFill(options: IFillOptions): Object;
 
 	/**
 	 * Sets shadow of an object
 	 * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
 	 */
-	setShadow(options?: string | Shadow): this;
+	setShadow(options?: string | Shadow): Object;
 
 	/**
 	 * Sets "color" of an instance (alias of `set('fill', …)`)
 	 * @param color Color value
 	 */
-	setColor(color: string): this;
+	setColor(color: string): Object;
 
 	/**
 	 * Sets "angle" of an instance
 	 * @param angle Angle value
 	 */
-	setAngle(angle: number): this;
-
-	/**
-	 * Sets "angle" of an instance
-	 * @param angle Angle value
-	 */
-	rotate(angle: number): this;
+	rotate(angle: number): Object;
 
 	/**
 	 * Centers object horizontally on canvas to which it was added last.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 */
-	centerH(): this;
+	centerH(): Object;
+
+	/**
+	 * Centers object horizontally on current viewport of canvas to which it was added last.
+	 * You might need to call `setCoords` on an object after centering, to update controls area.
+	 * @return {fabric.Object} thisArg
+	 * @chainable
+	 */
+	viewportCenterH(): Object;
 
 	/**
 	 * Centers object vertically on canvas to which it was added last.
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 */
-	centerV(): this;
+	centerV(): Object;
+
+	/**
+	 * Centers object vertically on current viewport of canvas to which it was added last.
+	 * You might need to call `setCoords` on an object after centering, to update controls area.
+	 * @return {fabric.Object} thisArg
+	 * @chainable
+	 */
+	viewportCenterV(): Object;
 
 	/**
 	 * Centers object vertically and horizontally on canvas to which is was added last
 	 * You might need to call `setCoords` on an object after centering, to update controls area.
 	 */
-	center(): this;
+	center(): Object;
 
 	/**
-	 * Removes object from canvas to which it was added last
+	 * Centers object on current viewport of canvas to which it was added last.
+	 * You might need to call `setCoords` on an object after centering, to update controls area.
+	 * @return {fabric.Object} thisArg
+	 * @chainable
 	 */
-	remove(): Object;
+	viewportCenter(): Object;
 
 	/**
 	 * Returns coordinates of a pointer relative to an object
@@ -2543,6 +3171,52 @@ export class Object {
 	 * @param [pointer] Pointer to operate upon (instead of event)
 	 */
 	getLocalPointer(e: Event, pointer?: { x: number, y: number }): { x: number, y: number };
+
+	/**
+	 * Basic getter
+	 * @param property Property name
+	 */
+	get<K extends keyof this>(property: K): this[K];
+
+	/**
+	 * Sets property to a given value.
+	 * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
+	 * If you need to update those, call `setCoords()`.
+	 * @param key Property name
+	 * @param value Property value (if function, the value is passed into it and its return value is used as a new one)
+	 */
+	set<K extends keyof this>(key: K, value: this[K] | ((value: this[K]) => this[K])): Object;
+
+	/**
+	 * Sets property to a given value.
+	 * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
+	 * If you need to update those, call `setCoords()`.
+	 * @param options Property object, iterate over the object properties
+	 */
+	set(options: Partial<this>): Object;
+
+	/**
+	 * Toggles specified property from `true` to `false` or from `false` to `true`
+	 * @param property Property to toggle
+	 */
+	toggle(property: keyof this): Object;
+
+	/**
+	 * Sets sourcePath of an object
+	 * @param value Value to set sourcePath to
+	 */
+	setSourcePath(value: string): Object;
+
+	/**
+	 * Sets "angle" of an instance
+	 * @param angle Angle value
+	 */
+	setAngle(angle: number): Object;
+
+	/**
+	 * Removes object from canvas to which it was added last
+	 */
+	remove(): Object;
 
 	/**
 	 * Sets object's properties from options
@@ -2580,21 +3254,21 @@ export class Object {
 	 * @param [options] Object with additional `stateProperties` array to include when saving state
 	 * @return thisArg
 	 */
-	saveState(options?: { stateProperties: any[] }): this;
+	saveState(options?: { stateProperties: any[] }): Object;
 	/**
 	 * Setups state of an object
 	 */
-	setupState(): this;
+	setupState(): Object;
 	// functions from object straightening mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Straightens an object (rotating it from current angle to one of 0, 90, 180, 270, etc. depending on which is closer)
 	 */
-	straighten(): this;
+	straighten(): Object;
 	/**
 	 * Same as straighten but with animation
 	 */
-	fxStraighten(callbacks: Callbacks): this;
+	fxStraighten(callbacks: Callbacks): Object;
 
 	// functions from object stacking mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
@@ -2602,25 +3276,25 @@ export class Object {
 	 * Moves an object up in stack of drawn objects
 	 * @param [intersecting] If `true`, send object in front of next upper intersecting object
 	 */
-	bringForward(intersecting?: boolean): this;
+	bringForward(intersecting?: boolean): Object;
 	/**
 	 * Moves an object to the top of the stack of drawn objects
 	 */
-	bringToFront(): this;
+	bringToFront(): Object;
 	/**
 	 * Moves an object down in stack of drawn objects
 	 * @param [intersecting] If `true`, send object behind next lower intersecting object
 	 */
-	sendBackwards(intersecting?: boolean): this;
+	sendBackwards(intersecting?: boolean): Object;
 	/**
 	 * Moves an object to the bottom of the stack of drawn objects
 	 */
-	sendToBack(): this;
+	sendToBack(): Object;
 	/**
 	 * Moves an object to specified level in stack of drawn objects
 	 * @param index New position of object
 	 */
-	moveTo(index: number): this;
+	moveTo(index: number): Object;
 
 	// functions from object origin mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
@@ -2680,7 +3354,7 @@ export class Object {
 	 * Requires public options: padding, borderColor
 	 * @param ctx Context to draw on
 	 */
-	drawBorders(context: CanvasRenderingContext2D): this;
+	drawBorders(context: CanvasRenderingContext2D): Object;
 
 	/**
 	 * Draws corners of an object's bounding box.
@@ -2700,7 +3374,7 @@ export class Object {
 	 * @param controlName The name of the control. Possible values are 'tl', 'tr', 'br', 'bl', 'ml', 'mt', 'mr', 'mb', 'mtr'.
 	 * @param visible true to set the specified control visible, false otherwise
 	 */
-	setControlVisible(controlName: string, visible: boolean): this;
+	setControlVisible(controlName: string, visible: boolean): Object;
 
 	/**
 	 * Sets the visibility state of object controls.
@@ -2724,7 +3398,7 @@ export class Object {
 	 * Sets corner position coordinates based on current angle, width and height
 	 * See https://github.com/kangax/fabric.js/wiki/When-to-call-setCoords
 	 */
-	setCoords(): this;
+	setCoords(): Object;
 	/**
 	 * Returns coordinates of object's bounding rectangle (left, top, width, height)
      * @param absoluteopt use coordinates without viewportTransform
@@ -2753,17 +3427,17 @@ export class Object {
 	 * @param value Scale factor
 	 * @return thisArg
 	 */
-	scale(value: number): this;
+	scale(value: number): Object;
 	/**
 	 * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
 	 * @param value New height value
 	 */
-	scaleToHeight(value: number): this;
+	scaleToHeight(value: number): Object;
 	/**
 	 * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
 	 * @param value New width value
 	 */
-	scaleToWidth(value: number): this;
+	scaleToWidth(value: number): Object;
 	/**
 	 * Checks if object intersects with another object
 	 * @param other Object to test
