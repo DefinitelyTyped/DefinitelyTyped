@@ -1023,7 +1023,7 @@ interface KnockoutComponents {
 
     /**
      * Registers a component, in the default component loader, to be used by name in the component binding.
-     * @param componentName Component name. Will be used for your custom HTML tag name
+     * @param componentName Component name. Will be used for your custom HTML tag name.
      * @param config Component configuration.
      */
     register(componentName: string, config: KnockoutComponentTypes.Config | KnockoutComponentTypes.EmptyConfig): void;
