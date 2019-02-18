@@ -1,0 +1,27 @@
+import * as glVec from "gl-vec4";
+
+glVec.add([1, 2, 3], [1, 2, 3], [1, 2, 3]);
+glVec.clone([1, 2, 3]);
+glVec.copy([1, 2, 3], [1, 2, 3]);
+glVec.create();
+glVec.distance([1, 2, 3], [1, 2, 3]);
+glVec.divide([1, 2, 3], [1, 2, 3], [1, 2, 3]);
+glVec.dot([1, 2, 3], [1, 2, 3]);
+glVec.fromValues(6, 6, 6, 6);
+glVec.inverse([1, 2, 3], [1, 2, 3]);
+glVec.length([1, 2, 3]);
+glVec.lerp([1, 2, 3], [1, 2, 3], [1, 2, 3], 6);
+glVec.max([1, 2, 3], [1, 2, 3], [1, 2, 3]);
+glVec.min([1, 2, 3], [1, 2, 3], [1, 2, 3]);
+glVec.multiply([1, 2, 3], [1, 2, 3], [1, 2, 3]);
+glVec.negate([1, 2, 3], [1, 2, 3]);
+glVec.normalize([1, 2, 3], [1, 2, 3]);
+glVec.random([1, 2, 3], 6);
+glVec.scale([1, 2, 3], [1, 2, 3], 6);
+glVec.scaleAndAdd([1, 2, 3], [1, 2, 3], [1, 2, 3], 6);
+glVec.set([1, 2, 3], [1, 2, 3], [1, 2, 3], 6, 6);
+glVec.squaredDistance([1, 2, 3], [1, 2, 3]);
+glVec.squaredLength([1, 2, 3]);
+glVec.subtract([1, 2, 3], [1, 2, 3], [1, 2, 3]);
+glVec.transformMat4([1, 2, 3], [1, 2, 3], [1, 2, 3]);
+glVec.transformQuat([1, 2, 3], [1, 2, 3], [1, 2, 3]);
