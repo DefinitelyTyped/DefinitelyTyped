@@ -97,6 +97,7 @@ let _algoliaIndexSettings: IndexSettings = {
   minProximity: 0,
   placeholders: { '': [''] },
   camelCaseAttributes: [''],
+  sortFacetValuesBy: 'count',
 };
 
 let _algoliaQueryParameters: QueryParameters = {
