@@ -6,12 +6,12 @@
 
 import { Component, InkComponent } from 'ink';
 
-export interface ItemOfSelectInput {
+interface ItemOfSelectInput {
     label: string;
     value: any;
 }
 
-export interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInput> {
+interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInput> {
     focus?: boolean;
     indicatorComponent?: InkComponent;
     itemComponent?: InkComponent;
@@ -20,4 +20,6 @@ export interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInpu
     onSelect?: (item: T) => void;
 }
 
-export default class SelectInput extends Component<SelectInputProps> { }
+declare class SelectInput extends Component<SelectInputProps> { }
+
+export = SelectInput;
