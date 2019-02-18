@@ -3286,6 +3286,11 @@ declare namespace sequelize {
          * if true, it will also eager load the relations of the child models, recursively.
          */
         nested?: boolean;
+
+        /**
+         * If true, runs a separate query to fetch the associated instances, only supported for hasMany associations
+         */
+        separate?: boolean;
     }
 
     /**
