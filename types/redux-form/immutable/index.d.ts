@@ -24,5 +24,7 @@ export {
     isSubmitting,
     isAsyncValidating,
     isValid,
-    SubmissionError
-} from "../";
+    SubmissionError,
+    startSubmit,
+    stopSubmit,
+} from '../';

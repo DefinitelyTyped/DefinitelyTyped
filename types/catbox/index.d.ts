@@ -231,7 +231,7 @@ export interface DecoratedPolicyOptions<T> extends PolicyOptions<T> {
     /**
      * @default false
      */
-    getDecoratedValue?: boolean;
+    getDecoratedValue: boolean | undefined;
 }
 
 export interface GenerateFuncFlags {

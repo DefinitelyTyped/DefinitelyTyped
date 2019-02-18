@@ -1,10 +1,11 @@
-// Type definitions for luxon 1.10
+// Type definitions for luxon 1.11
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
 //                 Jonathan Siebern <https://github.com/jsiebern>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 //                 Pietro Vismara <https://github.com/pietrovismara>
+//                 Janeene Beeforth <https://github.com/dawnmist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -435,7 +436,7 @@ export class Interval {
     splitAt(...dateTimes: DateTime[]): Interval[];
     splitBy(duration: Duration | DurationObject | number): Interval[];
     toDuration(
-        unit: DurationUnit | DurationUnit[],
+        unit?: DurationUnit | DurationUnit[],
         options?: DiffOptions
     ): Duration;
     toFormat(
@@ -467,11 +468,11 @@ export interface ZoneOffsetOptions {
 }
 
 export class Zone {
-    static offsetName(ts: number, options?: ZoneOffsetOptions): string;
-    static isValid: boolean;
-    static name: string;
-    static type: string;
-    static universal: boolean;
+    offsetName(ts: number, options?: ZoneOffsetOptions): string;
+    isValid: boolean;
+    name: string;
+    type: string;
+    universal: boolean;
     equals(other: Zone): boolean;
     offset(ts: number): number;
 }

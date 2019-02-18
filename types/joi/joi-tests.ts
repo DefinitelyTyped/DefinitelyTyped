@@ -706,6 +706,8 @@ objSchema = objSchema.nand(str, str);
 objSchema = objSchema.nand(str, str, str);
 objSchema = objSchema.nand(strArr);
 
+objSchema = objSchema.schema();
+
 objSchema = objSchema.or(str);
 objSchema = objSchema.or(str, str);
 objSchema = objSchema.or(str, str, str);

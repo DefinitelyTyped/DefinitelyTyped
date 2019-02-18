@@ -1,5 +1,5 @@
 // Type definitions for Knex.js 0.15
-// Project: https://github.com/tgriesser/knex
+// Project: https://github.com/tgriesser/knex, https://knexjs.org
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
 //                 Matt R. Wilson <https://github.com/mastermatt>

@@ -81,3 +81,18 @@ new CleanCSS({ returnPromise: true, sourceMap: true }).minify(source, inputSourc
         console.log(error);
     }
 );
+
+// test object return when passing options as object
+let CleanCssOptions: CleanCSS.Options = { returnPromise: true };
+new CleanCSS(CleanCssOptions).minify(source)
+    .then((minified: CleanCSS.Output): void => {
+        console.log(minified.styles);
+    }).catch((error: any): void => {
+        console.log(error);
+    }
+);
+
+CleanCssOptions = { returnPromise: false };
+new CleanCSS(CleanCssOptions).minify(source, (error: any, minified: CleanCSS.Output): void => {
+    console.log(minified.styles);
+});

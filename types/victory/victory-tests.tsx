@@ -34,7 +34,7 @@ let test = <VictoryAnimation
     {(style: AnimationStyle) =>
         <span style={{color: style["color"] as string}}>Hello!</span>
     }
-</VictoryAnimation>
+</VictoryAnimation>;
 
 // VictoryLabel test
 test = <VictoryLabel x={50} y={10}
@@ -51,7 +51,28 @@ test = <VictoryLabel x={50} y={10}
                      dy={10}
                      lineHeight={1.5}>
     {"data viz \n is \n fun!"}
-</VictoryLabel>
+</VictoryLabel>;
+
+test = (
+    <VictoryLabel
+        text={datum => datum.label}
+        labelPlacement='perpendicular'
+        renderInPortal={true}
+    >
+        {"data viz \n is \n fun!"}
+    </VictoryLabel>
+);
+
+test = (
+    <VictoryLabel
+        text={['some', 'text', 'strings']}
+        labelPlacement='vertical'
+        renderInPortal={true}
+        lineHeight={'12'}
+    >
+        {"data viz \n is \n fun!"}
+    </VictoryLabel>
+);
 
 // VictoryArea test
 test = (
@@ -91,19 +112,19 @@ test = (
                     onClick: () => {
                         return {
                             mutation: (props) => {
-                                return { style: { fill: "orange" } }
+                                return { style: { fill: "orange" } };
                             }
-                        }
+                        };
                     },
                     onMouseEnter: () => {
                         return [
                             {
                                 target: "labels",
                                 mutation: (props) => {
-                                    return { text: "hey" }
+                                    return { text: "hey" };
                                 }
                             }
-                        ]
+                        ];
                     }
                 }
             }
@@ -156,32 +177,37 @@ test = (
 test = (
     <VictoryAxis
         style={{
-          axis: {stroke: "black"},
-          grid: {strokeWidth: 2},
-          ticks: {stroke: "red"},
-          tickLabels: {fontSize: 12},
-          axisLabel: {fontSize: 16}
+            axis: { stroke: "black" },
+            grid: { strokeWidth: 2 },
+            ticks: { stroke: "red" },
+            tickLabels: { fontSize: 12 },
+            axisLabel: { fontSize: 16 }
         }}
         label="Planets"
         tickValues={[
-          "Mercury",
-          "Venus",
-          "Earth",
-          "Mars",
-          "Jupiter"
-        ]}/>
+            "Mercury",
+            "Venus",
+            "Earth",
+            "Mars",
+            "Jupiter"
+        ]} />
 );
 
 test = (
     <VictoryAxis
         scale="time"
+        style={{
+            grid: { strokeWidth: tick => tick.x },
+            ticks: { stroke: tick => tick.color },
+            tickLabels: { fontSize: tick => tick.y },
+        }}
         tickValues={[
             new Date(1980, 1, 1),
             new Date(1990, 1, 1),
             new Date(2000, 1, 1),
             new Date(2010, 1, 1),
             new Date(2020, 1, 1)]}
-        tickFormat={(x) => x.getFullYear()}/>
+        tickFormat={(x) => x.getFullYear()} />
 );
 
 test = (
@@ -189,7 +215,7 @@ test = (
         dependentAxis
         padding={{left: 50, top: 20, bottom: 20}}
         scale="log"
-        domain={{ x: [new Date(Date.UTC(2016, 0, 1)), new Date()], y: [1,5] }}
+        domain={{ x: [new Date(Date.UTC(2016, 0, 1)), new Date()], y: [1, 5] }}
     />
 );
 
@@ -278,6 +304,9 @@ test = (
             {x: 4, y: 2},
             {x: 5, y: 1}
         ]}
+        alignment="start"
+        barWidth={(datum, active) => active ? datum.x : datum.y}
+        cornerRadius={{top: 2, bottom: 4}}
         events={[
             {
               target: "data",
@@ -574,12 +603,19 @@ test = (
 test = (
     <VictoryScatter
         data={[
-            {amount: 1, yield: 1, error: 0.5},
-            {amount: 2, yield: 2, error: 1.1},
-            {amount: 3, yield: 3, error: 0},
-            {amount: 4, yield: 2, error: 0.1},
-            {amount: 5, yield: 1, error: 1.5}
+            { amount: 1, yield: 1, error: 0.5 },
+            { amount: 2, yield: 2, error: 1.1 },
+            { amount: 3, yield: 3, error: 0 },
+            { amount: 4, yield: 2, error: 0.1 },
+            { amount: 5, yield: 1, error: 1.5 }
         ]}
+        style={{
+            data: {
+                fill: d => d.x,
+                stroke: (datum, active) => active ? datum.x : datum.y,
+                strokeWidth: 3
+            }
+        }}
         x={"amount"}
         y={(data) => (data.yield + data.error)}
     />

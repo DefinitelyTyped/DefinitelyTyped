@@ -2294,7 +2294,7 @@ export class JSONLoader extends Loader {
  * Handles and keeps track of loaded and pending data.
  */
 export class LoadingManager {
-    constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: () => void);
+    constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: (url: string) => void);
 
     onStart?: (url: string, loaded: number, total: number) => void;
 
@@ -5273,11 +5273,21 @@ export class Line extends Object3D {
     geometry: Geometry | BufferGeometry;
     material: Material | Material[];
 
-    type: "Line";
+    type: "Line" | "LineLoop" | "LineSegments";
     isLine: true;
 
     computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+}
+
+export class LineLoop extends Line {
+    constructor(
+        geometry?: Geometry | BufferGeometry,
+        material?: Material | Material[]
+    );
+
+    type: "LineLoop";
+    isLineLoop: true;
 }
 
 /**
@@ -5295,6 +5305,9 @@ export class LineSegments extends Line {
         material?: Material | Material[],
         mode?: number
     );
+    
+    type: "LineSegments";
+    isLineSegments: true;
 }
 
 export class Mesh extends Object3D {
@@ -5463,16 +5476,14 @@ export interface WebGLRendererParameters {
     preserveDrawingBuffer?: boolean;
 
     /**
-     * default is 0x000000.
+     *  Can be "high-performance", "low-power" or "default"
      */
-    clearColor?: number;
+    powerPreference?: string;
 
     /**
-     * default is 0.
+     * default is true.
      */
-    clearAlpha?: number;
-
-    devicePixelRatio?: number;
+    depth?: boolean;
 
     /**
      * default is false.

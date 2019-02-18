@@ -1,5 +1,5 @@
-// Type definitions for D3JS d3-selection module 1.3
-// Project: https://github.com/d3/d3-selection/
+// Type definitions for D3JS d3-selection module 1.4
+// Project: https://github.com/d3/d3-selection/, https://d3js.org/d3-selection
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.3.0
+// Last module patch version validated against: 1.4.0
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -783,6 +783,40 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
     data<NewDatum>(data: ValueFn<PElement, PDatum, NewDatum[]>, key?: ValueFn<GElement | PElement, Datum | NewDatum, string>): Selection<GElement, NewDatum, PElement, PDatum>;
 
     /**
+     * Appends, removes and reorders elements as necessary to match the data that was previously bound by `selection.data`, returning the merged enter and update selection.
+     * This method is a convenient alternative to the more explicit `selection.enter`, `selection.exit`, `selection.append` and `selection.remove`.
+     *
+     * The "matching" logic is determined by the key function passed to `selection.data`.
+     */
+    join<K extends keyof ElementTagNameMap, OldDatum = Datum>(
+        enter: K,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
+    ): Selection<GElement | ElementTagNameMap[K], Datum, PElement, PDatum>;
+    /**
+     * Appends, removes and reorders elements as necessary to match the data that was previously bound by `selection.data`, returning the merged enter and update selection.
+     * This method is a convenient alternative to the more explicit `selection.enter`, `selection.exit`, `selection.append` and `selection.remove`.
+     *
+     * The "matching" logic is determined by the key function passed to `selection.data`.
+     */
+    join<ChildElement extends BaseType, OldDatum = Datum>(
+        enter: string,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
+    ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
+    /**
+     * Appends, removes and reorders elements as necessary to match the data that was previously bound by `selection.data`, returning the merged enter and update selection.
+     * This method is a convenient alternative to the more explicit `selection.enter`, `selection.exit`, `selection.append` and `selection.remove`.
+     *
+     * The "matching" logic is determined by the key function passed to `selection.data`.
+     */
+    join<ChildElement extends BaseType, OldDatum = Datum>(
+        enter: (elem: Selection<EnterElement, Datum, PElement, PDatum>) => Selection<ChildElement, Datum, PElement, PDatum>,
+        update?: (elem: Selection<GElement, Datum, PElement, PDatum>) => Selection<GElement, Datum, PElement, PDatum> | undefined,
+        exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void
+    ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
+
+    /**
      * Return the enter selection: placeholder nodes for each datum that had no corresponding DOM element
      * in the selection. (The enter selection is empty for selections not returned by selection.data.)
      */
@@ -828,9 +862,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * When a specified event is dispatched on a selected node, the specified listener will be evaluated for each selected element.
      *
      * An optional capture flag may be specified which corresponds to the W3C useCapture flag:
-     * “After initiating capture, all events of the specified type will be dispatched to the registered EventListener before being
+     * "After initiating capture, all events of the specified type will be dispatched to the registered EventListener before being
      * dispatched to any EventTargets beneath them in the tree. Events which are bubbling upward through the tree will not
-     * trigger an EventListener designated to use capture.”
+     * trigger an EventListener designated to use capture."
      *
      * @param typenames The typenames is a string event type, such as click, mouseover, or submit; any DOM event type supported by your browser may be used.
      * The type may be optionally followed by a period (.) and a name; the optional name allows multiple callbacks to be registered

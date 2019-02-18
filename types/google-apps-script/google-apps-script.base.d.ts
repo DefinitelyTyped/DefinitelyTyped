@@ -324,4 +324,3 @@ declare var Logger: GoogleAppsScript.Base.Logger;
 // conflicts with MimeType in lib.d.ts
 // declare var MimeType: GoogleAppsScript.Base.MimeType;
 declare var Session: GoogleAppsScript.Base.Session;
-declare var console: GoogleAppsScript.Base.console;

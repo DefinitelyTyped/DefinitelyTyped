@@ -434,4 +434,10 @@ declare global {
     }
 }
 
-export { by, detox, device, element, expect, waitFor };
+export { by, detox, device, element, waitFor };
+
+// Not exporting the global `expect` from the top of the file here
+// because `expect` conflicts with the global `expect` of jest and
+// therefore exporting it doesn't work. The global `expect` is kept
+// for backwards compatibility though.
+export const expect: Detox.Expect<Detox.Expect<any>>;

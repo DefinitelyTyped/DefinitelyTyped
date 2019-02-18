@@ -1109,6 +1109,37 @@ declare module paper {
         modulo(size: number[]): Size;
         modulo(size: number): Size;
 
+		/**
+		 * Sets the size with the given width and height values.
+         * @param width - the width
+         * @param height - the height
+		 */
+		set(width: number, height: number): Size;
+
+		/**
+		 * Sets the size using the numbers in the given array as dimensions.
+         * @param array - an array of numbers
+		 */
+		set(array: number[]): Size;
+		
+		/**
+		 * Sets the size using the properties in the given object.
+         * @param object - the object literal containing properies (width:10, height:10 etc)
+		 */
+		set(object: any): Size;
+		
+		/**
+		 * Sets the size using the coordinates of the given Size object.
+         * @param size - the size to duplicate from
+         */
+		set(size: Size): Size;
+		
+		/**
+         * Sets the size using the point.x and point.y values of the given Point object.
+         * @param point - the point from which to create a size
+         */
+        set(point: Point): Size;
+
     }
     export interface IFrameEvent {
 

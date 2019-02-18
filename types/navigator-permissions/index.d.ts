@@ -1,4 +1,4 @@
-// Type definitions for Navigator.Permissions 0.1
+// Type definitions for non-npm package Navigator.Permissions 0.1
 // Project: https://developer.mozilla.org/en-US/docs/Web/API/Permissions
 // Definitions by: Vince Varga <https://github.com/vargavince91>, MindDoc <https://github.com/minddocdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

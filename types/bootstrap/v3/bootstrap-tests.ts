@@ -1,11 +1,21 @@
 declare let aHtmlElement: HTMLElement;
 
 // --------------------------------------------------------------------------------------
+// jQuery backward compatibility
+// --------------------------------------------------------------------------------------
+
+$(".dropdown").on("affixed.bs.affix", (e) => {
+    e.stopPropagation();
+});
+
+// --------------------------------------------------------------------------------------
 // Modal
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".modal").modal();
 
+// $ExpectType JQuery<HTMLElement>
 $(".modal").modal("show");
 
 $(".modal").modal("toggle");
@@ -27,8 +37,10 @@ $(".modal").modal({
 // Dropdown
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".dropdown").dropdown();
 
+// $ExpectType JQuery<HTMLElement>
 $(".dropdown").dropdown("toggle");
 
 $(".dropdown").on("show.bs.dropdown", (e) => {
@@ -39,8 +51,10 @@ $(".dropdown").on("show.bs.dropdown", (e) => {
 // Scrollspy
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".navbar").scrollspy();
 
+// $ExpectType JQuery<HTMLElement>
 $(".navbar").scrollspy("refresh");
 
 $(".navbar").scrollspy({
@@ -48,7 +62,7 @@ $(".navbar").scrollspy({
     offset: 10,
 });
 
-$('.navbar').on("activate.bs.scrollspy", () => {
+$(".navbar").on("activate.bs.scrollspy", () => {
     // do something...
 });
 
@@ -56,8 +70,10 @@ $('.navbar').on("activate.bs.scrollspy", () => {
 // Togglable tabs
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".tab").tab();
 
+// $ExpectType JQuery<HTMLElement>
 $(".tab").tab("show");
 
 $(".tab").on("shown.bs.tab", (e) => {
@@ -69,8 +85,10 @@ $(".tab").on("shown.bs.tab", (e) => {
 // Tooltip
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".tooltip").tooltip();
 
+// $ExpectType JQuery<HTMLElement>
 $(".tooltip").tooltip("show");
 
 $(".tooltip").tooltip({
@@ -129,8 +147,10 @@ $(".tooltip").on("hidden.bs.tooltip", () => {
 // Popover
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".popover").popover();
 
+// $ExpectType JQuery<HTMLElement>
 $(".popover").popover("show");
 
 $(".popover").popover({
@@ -186,8 +206,10 @@ $(".popover").on("hidden.bs.popover", () => {
 // Alert
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".alert").alert();
 
+// $ExpectType JQuery<HTMLElement>
 $(".alert").alert("close");
 
 $(".alert").on("closed.bs.alert", () => {
@@ -198,6 +220,7 @@ $(".alert").on("closed.bs.alert", () => {
 // Button
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".btn").button("toggle");
 
 $(".btn").button("reset");
@@ -208,8 +231,10 @@ $(".btn").button("Swaps text to any data defined text state.");
 // Collapse
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".collapse").collapse();
 
+// $ExpectType JQuery<HTMLElement>
 $(".collapse").collapse("toggle");
 
 $(".collapse").collapse({
@@ -225,8 +250,10 @@ $(".collapse").on("hidden.bs.collapse", () => {
 // Carousel
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".carousel").carousel();
 
+// $ExpectType JQuery<HTMLElement>
 $(".carousel").carousel("cycle");
 
 $(".carousel").carousel(200);
@@ -246,7 +273,7 @@ $(".carousel").carousel({
     pause: null,
 });
 
-$('#myCarousel').on('slide.bs.carousel', (e) => {
+$("#myCarousel").on("slide.bs.carousel", (e) => {
     const dir: "left" | "right" = e.direction;
     aHtmlElement = e.relatedTarget;
 });
@@ -255,8 +282,10 @@ $('#myCarousel').on('slide.bs.carousel', (e) => {
 // Affix
 // --------------------------------------------------------------------------------------
 
+// $ExpectType JQuery<HTMLElement>
 $(".affix").affix();
 
+// $ExpectType JQuery<HTMLElement>
 $(".affix").affix("checkPosition");
 
 $(".affix").affix({

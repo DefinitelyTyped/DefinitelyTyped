@@ -2,7 +2,10 @@ import {
     FixedSizeList,
     VariableSizeList,
     FixedSizeGrid,
-    VariableSizeGrid
+    VariableSizeGrid,
+    ListChildComponentProps,
+    areEqual,
+    shouldComponentUpdate
 } from "react-window";
 import * as React from "react";
 
@@ -66,7 +69,7 @@ const FixedSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         direction={testBool ? "vertical" : "horizontal"}
         initialScrollOffset={0}
         innerRef={anyRef}
-        innerTagName="div"
+        innerElementType="div"
         itemData={{ foo: "bar" }}
         itemKey={index => "foo" + index.toString()}
         onItemsRendered={({
@@ -81,7 +84,7 @@ const FixedSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
             visibleStopIndex
         }
         useIsScrolling={true}
-        outerTagName="div"
+        outerElementType="div"
         style={{ color: "cyan" }}
         overscanCount={0}
         outerRef={anyRef}
@@ -112,7 +115,7 @@ const VariableSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
         direction={testBool ? "vertical" : "horizontal"}
         initialScrollOffset={0}
         innerRef={anyRef}
-        innerTagName="div"
+        innerElementType="div"
         itemData={{ foo: "bar" }}
         itemKey={index => "foo" + index.toString()}
         onItemsRendered={({
@@ -127,7 +130,7 @@ const VariableSizeListTestOptionalProps: React.SFC<{ testBool: boolean }> = ({
             visibleStopIndex
         }
         useIsScrolling={true}
-        outerTagName="div"
+        outerElementType="div"
         style={{ color: "cyan" }}
         overscanCount={0}
         outerRef={anyRef}
@@ -161,7 +164,7 @@ const VariableSizeGridTestOptionalProps: React.SFC = () => (
         initialScrollLeft={0}
         initialScrollTop={0}
         innerRef={anyRef}
-        innerTagName="div"
+        innerElementType="div"
         itemData={{ foo: "bar" }}
         itemKey={({ columnIndex, rowIndex }) =>
             columnIndex.toString() + rowIndex.toString()
@@ -184,8 +187,9 @@ const VariableSizeGridTestOptionalProps: React.SFC = () => (
             verticalScrollDirection
         }) => undefined}
         outerRef={anyRef}
-        outerTagName="div"
-        overscanCount={5}
+        outerElementType="div"
+        overscanColumnsCount={5}
+        overscanRowsCount={5}
         ref="ref"
         style={{ color: "red" }}
         useIsScrolling={true}
@@ -197,3 +201,20 @@ const VariableSizeGridTestOptionalProps: React.SFC = () => (
         )}
     </VariableSizeGrid>
 );
+
+const RowWithAreEqual = React.memo((props: ListChildComponentProps) => {
+    const { index, style } = props;
+    return <div style={style}>Row {index}</div>;
+}, areEqual);
+
+class RowWithShouldComponentUpdate extends React.Component<
+    ListChildComponentProps
+> {
+    shouldComponentUpdate(...args: any[]) {
+        return shouldComponentUpdate.call(this, ...args);
+    }
+    render() {
+        const { index, style } = this.props;
+        return <div style={style}>Row {index}</div>;
+    }
+}
