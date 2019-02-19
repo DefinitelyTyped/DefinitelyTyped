@@ -16,7 +16,7 @@ export interface LazyLoadProps {
     children?: ReactNode;
     throttle?: number | boolean;
     debounce?: number | boolean;
-    placeholder?: any;
+    placeholder?: ReactNode;
     unmountIfInvisible?: boolean;
 }
 
