@@ -287,6 +287,50 @@ function testAssert() {
     sinon.assert.expose(obj);
     sinon.assert.expose(obj, { prefix: 'blah' });
     sinon.assert.expose(obj, { includeFail: true });
+
+    const typedSpy = sinon.spy((arg1: string, arg2: boolean) => 123);
+    sinon.assert.notCalled(typedSpy);
+    sinon.assert.called(typedSpy);
+    sinon.assert.calledOnce(typedSpy);
+    sinon.assert.calledTwice(typedSpy);
+    sinon.assert.calledThrice(typedSpy);
+    sinon.assert.callCount(typedSpy, 3);
+    sinon.assert.callOrder(typedSpy, spyTwo);
+    sinon.assert.calledOn(typedSpy, obj);
+    sinon.assert.calledOn(typedSpy.firstCall, obj);
+    sinon.assert.alwaysCalledOn(typedSpy, obj);
+    sinon.assert.alwaysCalledWith(typedSpy, 'a', 'b', 'c'); // $ExpectError
+    sinon.assert.alwaysCalledWith(typedSpy, 'a', true);
+    sinon.assert.neverCalledWith(typedSpy, 'a', false);
+    sinon.assert.neverCalledWith(typedSpy, 'a', 'b'); // $ExpectError
+    sinon.assert.calledWithExactly(typedSpy, 'a', true);
+    sinon.assert.calledWithExactly(typedSpy, 'a', 'b'); // $ExpectError
+    sinon.assert.alwaysCalledWithExactly(typedSpy, 'a', true);
+    sinon.assert.alwaysCalledWithExactly(typedSpy, 'a', 1); // $ExpectError
+    sinon.assert.calledWithMatch(typedSpy, 'a', true);
+    sinon.assert.calledWithMatch(typedSpy.firstCall, 'a', true);
+    sinon.assert.calledWithMatch(typedSpy.firstCall, 'a', 2); // $ExpectError
+    sinon.assert.alwaysCalledWithMatch(typedSpy, 'a', true);
+    sinon.assert.alwaysCalledWithMatch(typedSpy, 'a', 2); // $ExpectError
+    sinon.assert.neverCalledWithMatch(typedSpy, 'a', true);
+    sinon.assert.neverCalledWithMatch(typedSpy, 'a', 2); // $ExpectError
+    sinon.assert.calledWithNew(typedSpy);
+    sinon.assert.calledWithNew(typedSpy.firstCall);
+    sinon.assert.threw(typedSpy);
+    sinon.assert.threw(typedSpy.firstCall);
+    sinon.assert.threw(typedSpy, 'foo error');
+    sinon.assert.threw(typedSpy.firstCall, 'foo error');
+    sinon.assert.threw(typedSpy, new Error('foo'));
+    sinon.assert.threw(typedSpy.firstCall, new Error('foo'));
+    sinon.assert.alwaysThrew(typedSpy);
+    sinon.assert.alwaysThrew(typedSpy, 'foo error');
+    sinon.assert.alwaysThrew(typedSpy, new Error('foo'));
+    sinon.assert.match('a', 'b');
+    sinon.assert.match(1, 1 + 1);
+    sinon.assert.match({ a: 1 }, { b: 2, c: 'abc' });
+    sinon.assert.expose(obj);
+    sinon.assert.expose(obj, { prefix: 'blah' });
+    sinon.assert.expose(obj, { includeFail: true });
 }
 
 function testTypedSpy() {
