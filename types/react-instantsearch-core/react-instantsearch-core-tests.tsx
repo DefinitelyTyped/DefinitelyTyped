@@ -22,7 +22,10 @@ import {
   TranslatableProvided,
   translatable,
   ConnectorProvided,
-  StateResultsProvided
+  StateResultsProvided,
+  ConnectorSearchResults,
+  BasicDoc,
+  AllSearchResults
 } from 'react-instantsearch-core';
 
 () => {
@@ -661,4 +664,45 @@ import * as Autosuggest from 'react-autosuggest';
     loadingIndicator={<i className="material-icons">search</i>}
     onSubmit={(evt) => { console.log('submitted', evt); }}
      />;
+};
+
+// can we recreate connectStateResults from source using the createConnector typedef?
+() => {
+  function getIndexId(context: any): string {
+    return context && context.multiIndexContext
+      ? context.multiIndexContext.targetedIndex
+      : context.ais.mainTargetedIndex;
+  }
+
+  function getResults<TDoc>(searchResults: { results: AllSearchResults<TDoc> }, context: any): SearchResults<TDoc> | null | undefined {
+    const {results} = searchResults;
+    if (results && !results.hits) {
+      return results[getIndexId(context)]
+        ? results[getIndexId(context)]
+        : null;
+    } else {
+      return results ? results : null;
+    }
+  }
+
+  const csr = createConnector({
+    displayName: 'AlgoliaStateResults',
+
+    getProvidedProps(props, searchState, searchResults) {
+      const results = getResults(searchResults, this.context);
+
+      return {
+        searchState,
+        searchResults: results,
+        allSearchResults: searchResults.results,
+        searching: searchResults.searching,
+        isSearchStalled: searchResults.isSearchStalled,
+        error: searchResults.error,
+        searchingForFacetValues: searchResults.searchingForFacetValues,
+        props,
+      };
+    },
+  });
+
+  const asConnectStateResults: typeof connectStateResults = csr;
 };

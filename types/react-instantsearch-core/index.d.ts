@@ -32,6 +32,14 @@ export function createInstantSearch(
  */
 export function createIndex(defaultRoot: object): React.ComponentClass<any>;
 
+export interface ConnectorSearchResults<TDoc = BasicDoc> {
+  results: AllSearchResults<TDoc>;
+  searching: boolean;
+  searchingForFacetValues: boolean;
+  isSearchStalled: boolean;
+  error: any;
+}
+
 export interface ConnectorDescription<TProvided, TExposed> {
   displayName: string;
   propTypes?: any;
@@ -50,7 +58,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
     this: React.Component<TExposed>,
     props: TExposed,
     searchState: SearchState,
-    searchResults: SearchResults,
+    searchResults: ConnectorSearchResults<any>,
     metadata: any,
     resultsFacetValues: any,
   ): TProvided;
@@ -495,7 +503,7 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
    */
   searchResults: SearchResults<TDoc>;
   /** In case of multiple indices you can retrieve all the results */
-  allSearchResults: { [index: string]: SearchResults<TDoc> };
+  allSearchResults: AllSearchResults<TDoc>;
   /** If there is a search in progress. */
   searching: boolean;
   /** Flag that indicates if React InstantSearch has detected that searches are stalled. */
@@ -615,6 +623,14 @@ export interface SearchResults<TDoc = BasicDoc> {
   aroundLatLng?: string;
   automaticRadius?: string;
 }
+
+/**
+ * The shape of the searchResults object when used in a multi-index search
+ * https://community.algolia.com/react-instantsearch/connectors/connectStateResults.html#default-props-entry-connectStateResults-searchResults
+ */
+export type AllSearchResults<TDoc = BasicDoc> = {
+  [index: string]: SearchResults<TDoc>;
+} & SearchResults<TDoc>;
 
 /**
  * All the records that match the search parameters.
