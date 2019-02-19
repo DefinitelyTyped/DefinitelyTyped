@@ -186,7 +186,7 @@ export interface AutocompleteExposed {
 
 // tslint:disable-next-line:no-unnecessary-generics
 export function connectAutoComplete<TDoc = BasicDoc>(stateless: React.StatelessComponent<AutocompleteProvided<TDoc>>): React.ComponentClass<AutocompleteExposed>;
-export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc>(Composed: React.ComponentType<Props>):
+export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc = BasicDoc>(Composed: React.ComponentType<Props>):
   ConnectedComponentClass<Props, AutocompleteProvided<TDoc>, AutocompleteExposed>;
 
 export function connectBreadcrumb(Composed: React.ComponentType<any>): React.ComponentClass<any>;
@@ -511,8 +511,10 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectStateResults.html
  */
-export function connectStateResults(stateless: React.StatelessComponent<StateResultsProvided>): React.ComponentClass;
-export function connectStateResults<TProps extends Partial<StateResultsProvided<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, StateResultsProvided<TDoc>>;
+export function connectStateResults<TDoc = BasicDoc>(
+  stateless: React.StatelessComponent<StateResultsProvided<TDoc>>): React.ComponentClass;
+export function connectStateResults<TProps extends Partial<StateResultsProvided<TDoc>>, TDoc = BasicDoc>(
+  ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, StateResultsProvided<TDoc>>;
 
 interface StatsProvided {
   nbHits: number;
