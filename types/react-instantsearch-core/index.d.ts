@@ -511,10 +511,10 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectStateResults.html
  */
-export function connectStateResults<TDoc = BasicDoc>(
-  stateless: React.StatelessComponent<StateResultsProvided<TDoc>>): React.ComponentClass;
-export function connectStateResults<TProps extends Partial<StateResultsProvided<TDoc>>, TDoc = BasicDoc>(
-  ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, StateResultsProvided<TDoc>>;
+export function connectStateResults(
+  stateless: React.StatelessComponent<StateResultsProvided>): React.ComponentClass;
+export function connectStateResults<TProps extends Partial<StateResultsProvided<any>>>(
+  ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, StateResultsProvided>;
 
 interface StatsProvided {
   nbHits: number;

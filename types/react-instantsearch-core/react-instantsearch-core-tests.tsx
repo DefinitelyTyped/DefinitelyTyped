@@ -21,7 +21,8 @@ import {
   Hit,
   TranslatableProvided,
   translatable,
-  ConnectorProvided
+  ConnectorProvided,
+  StateResultsProvided
 } from 'react-instantsearch-core';
 
 () => {
@@ -209,18 +210,35 @@ import {
 };
 
 () => {
+  interface MyDoc {
+    field1: string;
+    field2: number;
+    field3: { compound: string };
+  }
+
   interface StateResultsProps {
-    searchResults: SearchResults<{
-      field1: string
-      field2: number
-      field3: { compound: string }
-     }>;
+    searchResults: SearchResults<MyDoc>;
     // partial of StateResultsProvided
 
     additionalProp: string;
   }
 
-  const Stateless = ({ additionalProp, searchResults }: StateResultsProps) =>
+  const Stateless = connectStateResults(
+    ({
+      searchResults,
+      additionalProp, // $ExpectError
+    }) => (<div>
+      <h1>{additionalProp}</h1>
+      {searchResults.hits.map((h) => {
+        return <span>{h._highlightResult.field1!.value}</span>;
+      })}
+    </div>)
+  );
+
+  <Stateless />;
+  <Stateless additionalProp='test' />; // $ExpectError
+
+  const StatelessWithType = ({ additionalProp, searchResults }: StateResultsProps) =>
     <div>
       <h1>{additionalProp}</h1>
       {searchResults.hits.map((h) => {
@@ -229,11 +247,11 @@ import {
         return <span>{compound}</span>;
       })}
     </div>;
-  const ComposedStateless = connectStateResults(Stateless);
+  const ComposedStatelessWithType = connectStateResults(StatelessWithType);
 
-  <ComposedStateless />; // $ExpectError
+  <ComposedStatelessWithType />; // $ExpectError
 
-  <ComposedStateless additionalProp='test' />;
+  <ComposedStatelessWithType additionalProp='test' />;
 
   class MyComponent extends React.Component<StateResultsProps> {
     render() {
