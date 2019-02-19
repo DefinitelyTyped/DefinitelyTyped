@@ -1,4 +1,4 @@
-// Type definitions for Enzyme 3.1
+// Type definitions for Enzyme 3.9
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
@@ -8,6 +8,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Torgeir Hovden <https://github.com/thovden>
 //                 Martin Hochel <https://github.com/hotell>
+//                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -447,6 +448,11 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ShallowWrapper<any, any>;
+
+    /**
+     * Returns a wrapper of the node rendered by the provided render prop.
+     */
+    renderProp<PropName extends keyof P>(prop: PropName): (...params: any[]) => ShallowWrapper<P, S>;
 }
 
 // tslint:disable-next-line no-empty-interface
