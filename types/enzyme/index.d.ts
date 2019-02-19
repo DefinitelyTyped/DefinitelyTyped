@@ -364,7 +364,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     length: number;
 }
 
-type Parameters<T> = T extends (...args: infer A) => any ? A : never
+export type Parameters<T> = T extends (...args: infer A) => any ? A : never;
 
 // tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> { }
