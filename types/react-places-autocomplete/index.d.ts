@@ -56,7 +56,7 @@ export interface PropTypes {
             'aria-activedescendant': string | undefined;
             disabled: boolean;
             onKeyDown: React.KeyboardEventHandler;
-            onBlur: () => void;
+            onBlur: React.FocusEventHandler;
             value: string | undefined;
             onChange: (ev: { target: { value: string }}) => void;
         } & InputProps;
@@ -64,13 +64,13 @@ export interface PropTypes {
             key: number;
             id: string | undefined;
             role: 'option';
-            onMouseEnter: () => void;
-            onMouseLeave: () => void;
+            onMouseEnter: React.MouseEventHandler;
+            onMouseLeave: React.MouseEventHandler;
             onMouseDown: React.MouseEventHandler;
-            onMouseUp: () => void;
-            onTouchStart: () => void;
-            onTouchEnd: () => void;
-            onClick: (event?: Event) => void;
+            onMouseUp: React.MouseEventHandler;
+            onTouchStart: React.TouchEventHandler;
+            onTouchEnd: React.TouchEventHandler;
+            onClick: React.MouseEventHandler;
         } & SuggestionProps;
     }>) => React.ReactNode;
 }
