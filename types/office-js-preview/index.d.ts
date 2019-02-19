@@ -2056,7 +2056,7 @@ declare namespace Office {
          * 
          * [Api set: Mailbox Preview]
          */
-        LocationChanged,
+        EnhancedLocationsChanged,
         /**
          * Triggers when a customXmlPart node is deleted.
          */
@@ -12407,7 +12407,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -12432,7 +12432,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -12455,7 +12455,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -12884,7 +12884,7 @@ declare namespace Office {
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -12907,7 +12907,7 @@ declare namespace Office {
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -12928,7 +12928,7 @@ declare namespace Office {
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -13472,7 +13472,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13497,7 +13497,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13520,7 +13520,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13976,7 +13976,7 @@ declare namespace Office {
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -13999,7 +13999,7 @@ declare namespace Office {
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -14020,7 +14020,7 @@ declare namespace Office {
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -14122,7 +14122,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14148,7 +14148,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14172,7 +14172,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14440,7 +14440,7 @@ declare namespace Office {
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -14464,7 +14464,7 @@ declare namespace Office {
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -14486,7 +14486,7 @@ declare namespace Office {
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
-        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+        * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -16129,7 +16129,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16154,7 +16154,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16177,7 +16177,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16616,7 +16616,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16639,7 +16639,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -16660,7 +16660,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17221,7 +17221,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17246,7 +17246,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17269,7 +17269,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17731,7 +17731,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17754,7 +17754,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -17775,7 +17775,7 @@ declare namespace Office {
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
-         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.LocationChanged` are also supported.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
