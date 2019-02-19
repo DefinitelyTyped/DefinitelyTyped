@@ -20,6 +20,10 @@ export function copy(src: string, dest: string, callback: (err: Error) => void):
 export function copy(src: string, dest: string, options: CopyOptions, callback: (err: Error) => void): void;
 export function copySync(src: string, dest: string, options?: CopyOptionsSync): void;
 
+export function copyFile(src: string, dest: string, flags?: number): Promise<void>;
+export function copyFile(src: string, dest: string, callback: (err: Error) => void): void;
+export function copyFile(src: string, dest: string, flags: number, callback: (err: Error) => void): void;
+
 export function move(src: string, dest: string, options?: MoveOptions): Promise<void>;
 export function move(src: string, dest: string, callback: (err: Error) => void): void;
 export function move(src: string, dest: string, options: MoveOptions, callback: (err: Error) => void): void;

@@ -1,5 +1,5 @@
 // Type definitions for snekfetch 4.0
-// Project: https://github.com/GusCaplan/snekfetch
+// Project: https://github.com/GusCaplan/snekfetch, https://snekfetch.js.org
 // Definitions by: Iker Pérez Brunelli <https://github.com/ANekoIsFineToo>
 //                 Shayne Hartford <https://github.com/ShayBox>
 //                 Yukine <https://github.com/Dev-Yukine>

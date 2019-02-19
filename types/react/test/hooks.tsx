@@ -120,6 +120,23 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
         setState(reducerState.age);
     }, []);
 
+    // effects are only allowed to either be actually void or return actually void functions
+    React.useEffect(() => () => {});
+    // indistinguishable
+    React.useEffect(() => () => undefined);
+    // $ExpectError
+    React.useEffect(() => null);
+    // $ExpectError
+    React.useEffect(() => Math.random() ? null : undefined);
+    // $ExpectError
+    React.useEffect(() => () => null);
+    // $ExpectError
+    React.useEffect(() => () => Math.random() ? null : undefined);
+    // $ExpectError
+    React.useEffect(() => async () => {});
+    // $ExpectError
+    React.useEffect(async () => () => {});
+
     React.useDebugValue(id, value => value.toFixed());
     React.useDebugValue(id);
 

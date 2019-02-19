@@ -26,6 +26,7 @@ export function addMethod<T extends Schema<any>>(
 export function ref(path: string, options?: { contextPrefix: string }): Ref;
 export function lazy<T>(fn: (value: T) => Schema<T>): Lazy;
 export function setLocale(customLocale: LocaleObject): void;
+export function isSchema(obj: any): obj is Schema<any>;
 
 export const mixed: MixedSchemaConstructor;
 export const string: StringSchemaConstructor;
@@ -227,7 +228,7 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params: { path: string; message: string }) => ValidationError;
+    createError: (params?: { path?: string; message?: string }) => ValidationError;
 }
 
 export interface ValidateOptions {

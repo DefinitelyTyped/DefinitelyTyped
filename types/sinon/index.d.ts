@@ -1,5 +1,5 @@
 // Type definitions for Sinon 7.0
-// Project: http://sinonjs.org/
+// Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
 //                 Lukas Spieß <https://github.com/lumaxis>

@@ -1,4 +1,4 @@
-// Type definitions for @sindresorhus/djb2a 1.0
+// Type definitions for non-npm package @sindresorhus/djb2a 1.0
 // Project: https://github.com/sindresorhus/djb2a
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

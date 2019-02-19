@@ -1,5 +1,5 @@
 // Type definitions for swagger-node-runner 0.5
-// Project: https://www.npmjs.com/package/swagger-node-runner
+// Project: https://github.com/theganyo/swagger-node-runner
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4

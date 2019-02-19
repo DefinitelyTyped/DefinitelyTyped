@@ -1,5 +1,5 @@
-// Type definitions for expo 31.0
-// Project: https://github.com/expo/expo-sdk
+// Type definitions for expo 32.0
+// Project: https://github.com/expo/expo/tree/master/packages/expo
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Jan Aagaard <https://github.com/janaagaard75>
@@ -15,6 +15,7 @@
 //                 Pavel Ihm <https://github.com/ihmpavel>
 //                 Bartosz Dotryw <https://github.com/burtek>
 //                 Jason Killian <https://github.com/jkillian>
+//                 Satyajit Sahoo <https://github.com/satya164>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -22,11 +23,21 @@ export * from 'react-native-maps';
 export { default as MapView } from 'react-native-maps';
 
 import { EventSubscription } from 'fbemitter';
-import { Component, ComponentClass, ComponentType, Ref } from 'react';
-import { ImageRequireSource, ImageURISource, LinkingStatic as ReactNativeLinkingStatic, StyleProp, ViewProps, ViewStyle } from 'react-native';
+import { Component, ComponentClass, Ref, ComponentType } from 'react';
+import {
+    ColorPropType,
+    ImageRequireSource,
+    ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
+    NativeEventEmitter,
+    ViewProps,
+    ViewStyle,
+    Permission,
+    StyleProp
+} from 'react-native';
 
 export type Axis = number;
-export type BarCodeScannedCallback = (params: { type: string; data: string; }) => void;
+export type BarCodeScannedCallback = (result: { type: string; data: string; }) => void;
 export type Md5 = string;
 export type Orientation = 'portrait' | 'landscape';
 export type RequireSource = ImageRequireSource;
@@ -401,9 +412,6 @@ export namespace Audio {
 
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
-
-        /** Boolean selecting if audio should go to earpiece (only on Android). */
-        playThroughEarpieceAndroid: boolean;
     }
 
     function setIsEnabledAsync(value: boolean): Promise<void>;
@@ -420,7 +428,7 @@ export namespace Audio {
          * - `sound`: The newly created and loaded Sound object.
          * - `status`: The PlaybackStatus of the Sound object. See the AV documentation for further information.
          */
-        static create(
+        static createAsync(
             /**
              * The source of the sound. The following forms are supported:
              *
@@ -565,7 +573,7 @@ export interface PlaybackStatusToSet {
     volume?: number;
 }
 
-export type PlaybackSource = RequireSource | { uri: string, headers?: { [header: string]: string }, overrideFileExtensionAndroid?: string } | Asset;
+export type PlaybackSource = RequireSource | { uri: string } | Asset;
 
 export class PlaybackObject {
     /**
@@ -769,10 +777,10 @@ export namespace Brightness {
  * Camera
  */
 export interface PictureOptions {
-    quality?: number;
-    base64?: boolean;
-    exif?: boolean;
-    onPictureSaved?: (data: PictureResponse) => void;
+  quality?: number;
+  base64?: boolean;
+  exif?: boolean;
+  onPictureSaved?: (data: PictureResponse) => void;
 }
 
 export interface PictureResponse {
@@ -797,24 +805,28 @@ export class CameraObject {
 }
 
 export interface CameraProps extends ViewProps {
-    autoFocus?: string | number | boolean;
-    barCodeTypes?: Array<string | number>;
-    faceDetectionClassifications?: number;
-    faceDetectionLandmarks?: number;
-    faceDetectionMode?: number;
-    flashMode?: string | number;
+    zoom?: number;
+    ratio?: string;
     /** Distance to plane of sharpest focus. A value between `0` and `1`. `0`: infinity focus, `1`: focus as close as possible. Default: `0`. For Android this is available only for some devices and when `useCamera2Api` is set to `true`. */
     focusDepth?: number;
-    onBarCodeScanned?: BarCodeScannedCallback;
+    type?: number | string;
     onCameraReady?: () => void;
+    useCamera2Api?: boolean;
+    flashMode?: number | string;
+    whiteBalance?: number | string;
+    autoFocus?: string | boolean | number;
+    pictureSize?: string;
+    videoStabilizationMode?: number;
+    onMountError?: (error: { message: string }) => void;
+    barCodeScannerSettings?: { barCodeTypes?: Array<string | number>; };
+    onBarCodeScanned?: BarCodeScannedCallback;
+    faceDetectorSettings?: {
+        mode?: number;
+        runClassifications?: number;
+        detectLandmarks?: number;
+    };
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
-    onMountError?: () => void;
-    ratio?: string;
     ref?: Ref<CameraObject>;
-    type?: string | number;
-    whiteBalance?: string | number;
-    /** A value between `0` and `1` being a percentage of device's max zoom. `0`: not zoomed, `1`: maximum zoom. Default: `0`. */
-    zoom?: number;
 }
 
 export interface CameraConstants {
@@ -1540,15 +1552,62 @@ export namespace FacebookAds {
         setMediaCachePolicy(cachePolicy: MediaCachePolicy): void;
     }
 
-    function withNativeAd(component: Component<{
-        icon?: string;
-        coverImage?: string;
-        title?: string;
-        subtitle?: string;
-        description?: string;
-        callToActionText?: string;
+    interface NativeAd {
+        /**
+         * The headline the advertiser entered when they created their ad. This is usually the ad's main
+         * title.
+         */
+        headline?: string;
+
+        /**
+         * The link description which is additional information that the advertiser may have entered
+         */
+        linkDescription?: string;
+
+        /**
+         * The name of the Facebook Page or mobile app that represents the business running the ad
+         */
+        advertiserName?: string;
+
+        /**
+         * The ad's social context, such as, "Over half a million users"
+         */
         socialContext?: string;
-    }>): Component<{ adsManager: NativeAdsManager }, { ad: any, canRequestAds: boolean }>;
+
+        /**
+         * The call-to-action phrase of the ad, such as, "Install Now"
+         */
+        callToActionText?: string;
+
+        /**
+         * The body text, truncated to 90 characters, that contains the text the advertiser entered when
+         * they created their ad to tell people what the ad promotes
+         */
+        bodyText?: string;
+
+        /**
+         * The word "ad", translated into the viewer's language
+         */
+        adTranslation?: string;
+
+        /**
+         * The word "promoted", translated into the viewer's language
+         */
+        promotedTranslation?: string;
+
+        /**
+         * The word "sponsored", translated into the viewer's language
+         */
+        sponsoredTranslation?: string;
+    }
+
+    function withNativeAd<P>(component: Component<P & { nativeAd: NativeAd }>): Component<
+        {
+            adsManager: NativeAdsManager,
+            onAdLoaded?: ((ad: NativeAd) => void) | null;
+        } & P,
+        { ad: NativeAd | null, canRequestAds: boolean }
+    >;
 
     /**
      * Banner View
@@ -1563,6 +1622,16 @@ export namespace FacebookAds {
     }
 
     class BannerView extends Component<BannerViewProps> { }
+
+    type AdTriggerViewProps<P> = {
+        renderInteractiveComponent?: (props: P) => React.ReactElement<P>;
+    } & P;
+
+    class AdTriggerView<P> extends Component<AdTriggerViewProps<P>> { }
+
+    class AdIconView extends Component { }
+
+    class AdMediaView extends Component { }
 
     /**
      * Ad Settings
@@ -1657,6 +1726,8 @@ export namespace FaceDetector {
  * FileSystem
  */
 export namespace FileSystem {
+    type EncodingType = "utf8" | "base64";
+
     type FileInfo = {
         exists: true;
         isDirectory: boolean;
@@ -1669,6 +1740,16 @@ export namespace FileSystem {
         isDirectory: false;
     };
 
+    interface ReadingOptions {
+        encoding?: EncodingType;
+        position?: number;
+        length?: number;
+    }
+
+    interface WritingOptions {
+        encoding?: EncodingType;
+    }
+
     interface DownloadResult {
         uri: string;
         status: number;
@@ -1680,8 +1761,8 @@ export namespace FileSystem {
     const cacheDirectory: string;
 
     function getInfoAsync(fileUri: string, options?: { md5?: string, size?: boolean; }): Promise<FileInfo>;
-    function readAsStringAsync(fileUri: string): Promise<string>;
-    function writeAsStringAsync(fileUri: string, contents: string): Promise<void>;
+    function readAsStringAsync(fileUri: string, options?: ReadingOptions): Promise<string>;
+    function writeAsStringAsync(fileUri: string, contents: string, options?: WritingOptions): Promise<void>;
     function deleteAsync(fileUri: string, options?: { idempotent: boolean; }): Promise<void>;
     function moveAsync(options: { from: string, to: string; }): Promise<void>;
     function copyAsync(options: { from: string, to: string; }): Promise<void>;
@@ -1741,6 +1822,14 @@ export namespace LocalAuthentication {
         /** Error code in the case where authentication fails. */
         error: string
     };
+
+    interface AuthenticationTypeType {
+        FINGERPRINT: number;
+        FACIAL_RECOGNITION: number;
+    }
+
+    /** Determine the auhentication types supported on the device. */
+    function supportedAuthenticationTypesAsync(): Promise<AuthenticationTypeType[]>;
 
     /** Determine whether a face or fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
@@ -1886,8 +1975,6 @@ export namespace ImageManipulator {
         compress?: number;
         format?: 'jpeg' | 'png';
     }
-
-    function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 
     function manipulateAsync(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
@@ -2075,9 +2162,10 @@ export const Linking: LinkingStatic;
  */
 export namespace Location {
     interface LocationOptions {
-        enableHighAccuracy?: boolean;
+        accuracy: number;
         timeInterval?: number;
         distanceInterval?: number;
+        timeout?: number;
     }
 
     interface LocationProps {
@@ -2120,6 +2208,20 @@ export namespace Location {
         name: string;
     }
 
+    interface LocationTaskOptions {
+        accuracy?: number;
+        showsBackgroundLocationIndicator?: boolean;
+    }
+
+    interface Region {
+        identifier?: string;
+        latitude: number;
+        longitude: number;
+        radius: number;
+        notifyOnEnter?: boolean;
+        notifyOnExit?: boolean;
+    }
+
     type LocationCallback = (data: LocationData) => void;
 
     function getCurrentPositionAsync(options: LocationOptions): Promise<LocationData>;
@@ -2127,8 +2229,16 @@ export namespace Location {
     function getProviderStatusAsync(): Promise<ProviderStatus>;
     function getHeadingAsync(): Promise<HeadingStatus>;
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
-    function geocodeAsync(address: string): Promise<Coords[]>;
+    function geocodeAsync(address: string): Promise<Coords>;
     function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
+    function requestPermissionsAsync(): Promise<void>;
+    function hasServicesEnabledAsync(): Promise<boolean>;
+    function startgeocodUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
+    function stopLocationUpdatesAsync(taskName: string): Promise<void>;
+    function hasStartedLocationUpdatesAsync(taskName: string): Promise<boolean>;
+    function startGeofencingAsync(taskName: string, regions: Region[]): Promise<void>;
+    function stopGeofencingAsync(taskName: string): Promise<void>;
+    function hasStartedGeofencingAsync(taskName: string): Promise<boolean>;
     function setApiKey(key: string): void;
 }
 
@@ -2166,46 +2276,72 @@ export namespace Notifications {
             sound?: boolean
         };
         android?: {
-            sound?: boolean;
+            channelId?: string;
             icon?: string;
             color?: string;
-            priority?: 'min' | 'low' | 'high' | 'max';
             sticky?: boolean;
-            vibrate?: boolean | number[];
-            link?: string;
         };
-    }
-
-    interface SchedulingOptions {
-        time: Date | number;
-        repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
-        intervalMs?: number;
-    }
-
-    interface ChannelAndroid {
-        name: string;
-        description?: string;
-        sound?: boolean;
-        priority?: 'min' | 'low' | 'default' | 'high' | 'max';
-        vibrate?: boolean | number[];
-        badge?: boolean;
     }
 
     type LocalNotificationId = string | number;
 
-    function addListener(listener: (notification: Notification) => any): EventSubscription;
+    interface Channel {
+        name: string;
+        description?: string;
+        priority?: string;
+        sound?: boolean;
+        vibrate?: boolean | number[];
+        badge?: boolean;
+    }
+
+    interface ActionType {
+        actionId: string;
+        buttonTitle: string;
+        isDestructive?: boolean;
+        isAuthenticationRequired?: boolean;
+        textInput?: {
+          submitButtonTitle: string;
+          placeholder: string;
+        };
+    }
+
+    function createCategoryAsync(categoryId: string, actions: ActionType[]): Promise<void>;
+    function deleteCategoryAsync(categoryId: string): Promise<void>;
     function getExpoPushTokenAsync(): Promise<string>;
-    function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
-    function scheduleLocalNotificationAsync(
-        localNotification: LocalNotification,
-        schedulingOptions: SchedulingOptions
-    ): Promise<LocalNotificationId>;
-    function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
-    function dismissAllNotificationsAsync(): Promise<void>;
-    function cancelScheduledNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
-    function cancelAllScheduledNotificationsAsync(): Promise<void>;
-    function createChannelAndroidAsync(id: string, channel: ChannelAndroid): Promise<void>;
+    function getDevicePushTokenAsync(config: {
+        gcmSenderId?: string;
+    }): Promise<{ type: string; data: string }>;
+    function createChannelAndroidAsync(id: string, channel: Channel): Promise<void>;
     function deleteChannelAndroidAsync(id: string): Promise<void>;
+
+    /* Shows a notification instantly */
+    function presentLocalNotificationAsync(
+        notification: LocalNotification
+    ): Promise<LocalNotificationId>;
+
+    /** Schedule a notification at a later date */
+    function scheduleLocalNotificationAsync(
+        notification: LocalNotification,
+        options?: {
+          time?: Date | number;
+          repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+          intervalMs?: number;
+        }
+    ): Promise<LocalNotificationId>;
+
+    /** Dismiss currently shown notification with ID (Android only) */
+    function dismissNotificationAsync(notificationId: LocalNotificationId): Promise<void>;
+
+    /** Dismiss all currently shown notifications (Android only) */
+    function dismissAllNotificationsAsync(): Promise<void>;
+
+    /** Cancel scheduled notification notification with ID */
+    function cancelScheduledNotificationAsync(notificationId: LocalNotificationId): Promise<void>;
+
+    /** Cancel all scheduled notifications */
+    function cancelAllScheduledNotificationsAsync(): Promise<void>;
+
+    function addListener(listener: (notification: Notification) => any): EventSubscription;
     function getBadgeNumberAsync(): Promise<number>;
     function setBadgeNumberAsync(number: number): Promise<void>;
 }
@@ -2332,11 +2468,14 @@ export namespace Segment {
     function identify(userId: string): void;
     function identifyWithTraits(userId: string, traits: object): void;
     function track(event: string): void;
+    function alias(newId: string, options?: { [key: string]: any }): Promise<boolean>;
     function reset(): void;
     function trackWithProperties(event: string, properties: object): void;
     function screen(screenName: string): void;
     function screenWithProperties(screenName: string, properties: object): void;
     function flush(): void;
+    function getEnabledAsync(): void;
+    function setEnabledAsync(enabled: boolean): void;
 }
 
 /**
@@ -2350,7 +2489,7 @@ export namespace Speech {
         onStart?: () => void;
         onStopped?: () => void;
         onDone?: () => void;
-        onError?: (error: string) => void;
+        onError?: (error: Error) => void;
     }
 
     function speak(text: string, options?: SpeechOptions): void;
@@ -2389,7 +2528,7 @@ export namespace SQLite {
 
     interface ResultSet {
         insertId: number;
-        rowAffected: number;
+        rowsAffected: number;
         rows: {
             length: number;
             item: (index: number) => any;
@@ -2563,13 +2702,14 @@ export class Svg extends Component<{ width: number, height: number, viewBox?: st
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    view?: (number | React.ReactElement<any>),
+    node: number | React.ReactElement | React.RefObject<any>,
     options?: {
-        width?: number,
-        height?: number,
-        format?: 'png' | 'jpg' | 'jpeg' | 'webm',
-        quality?: number,
-        result?: 'file' | 'base64' | 'data-uri',
+        width?: number;
+        height?: number;
+        format: 'png' | 'jpg' | 'raw' | 'webm';
+        quality: number;
+        snapshotContentContainer: boolean;
+        result: "tmpfile" | "base64" | "data-uri" | "zip-base64";
     }
 ): Promise<string>;
 

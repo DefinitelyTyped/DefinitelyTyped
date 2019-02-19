@@ -42,7 +42,7 @@ const Test: React.StatelessComponent = () => {
             component={Container}
             theme="test"
             className="animated-list"
-            childFactory={ (child: React.ReactElement<any>) => child }
+            childFactory={ (child: React.ReactElement) => child }
         >
             <Components.Transition
                 in

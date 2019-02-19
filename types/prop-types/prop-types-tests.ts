@@ -9,7 +9,7 @@ interface Props {
     any?: any;
     array: string[];
     bool: boolean;
-    element: ReactElement<any>;
+    element: ReactElement;
     func(foo: string): void;
     node?: ReactNode;
     requiredNode: NonNullable<ReactNode>;

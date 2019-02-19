@@ -25,7 +25,7 @@ declare module Meteor {
         _id?: string;
         username?: string;
         emails?: UserEmail[];
-        createdAt?: number;
+        createdAt?: Date;
         profile?: any;
         services?: any;
     }
@@ -49,7 +49,15 @@ declare module Meteor {
     /** Error **/
 
     /** Method **/
-    function methods(methods: Object): void;
+    interface MethodThisType {
+        isSimulation: boolean;
+        userId: string | null;
+        connection: Connection | null;
+        setUserId(userId: string): void;
+        unblock(): void;
+    }
+
+    function methods(methods: {[key: string]: (this: MethodThisType, ...args: any[]) => any}): void;
 
     function call(name: string, ...args: any[]): any;
 
@@ -195,7 +203,7 @@ declare module Meteor {
     function onConnection(callback: Function): void;
     /** Connection **/
 
-    function publish(name: string, func: Function): void;
+    function publish(name: string, func: (this: Subscription, ...args: any[]) => void): void;
 
     function _debug(...args: any[]): void;
 }

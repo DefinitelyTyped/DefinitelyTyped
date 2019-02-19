@@ -1,5 +1,5 @@
 // Type definitions for JQuery DataTables 1.10
-// Project: http://www.datatables.net
+// Project: https://datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
 //                 Omid Rad <https://github.com/omidkrad>
 //                 Armin Sander <https://github.com/pragmatrix>

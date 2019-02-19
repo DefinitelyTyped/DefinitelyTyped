@@ -1,4 +1,4 @@
-// Type definitions for p-retry 2.0
+// Type definitions for p-retry 3.0
 // Project: https://github.com/sindresorhus/p-retry#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,7 +19,7 @@ declare namespace pRetry {
 
     interface FailedAttemptError extends Error {
         attemptNumber: number;
-        attemptsLeft: number;
+        retriesLeft: number;
     }
 
     interface Options extends OperationOptions {

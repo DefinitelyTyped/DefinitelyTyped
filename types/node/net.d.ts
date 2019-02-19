@@ -158,6 +158,10 @@ declare module "net" {
         exclusive?: boolean;
         readableAll?: boolean;
         writableAll?: boolean;
+        /**
+         * @default false
+         */
+        ipv6Only?: boolean;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
@@ -175,7 +179,7 @@ declare module "net" {
         listen(handle: any, backlog?: number, listeningListener?: Function): this;
         listen(handle: any, listeningListener?: Function): this;
         close(callback?: Function): this;
-        address(): AddressInfo | string;
+        address(): AddressInfo | string | null;
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;
         unref(): this;

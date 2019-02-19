@@ -1,4 +1,4 @@
-// Type definitions for wx-app 2.2
+// Type definitions for non-npm package wx-app 2.2
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 AlexStacker <https://github.com/AlexStacker>
@@ -3745,19 +3745,19 @@ declare namespace wx {
 
   type UnboxBehaviorData<T> = T extends Behavior<{}, {}, {}> ? T['__DO_NOT_USE_INTERNAL_FIELD_DATA'] : {};
   type UnboxBehaviorProps<T> = T extends Behavior<{}, {}, {}> ? T['__DO_NOT_USE_INTERNAL_FIELD_PROPS'] : {};
-	type UnboxBehaviorMethod<T> = T extends Behavior<{}, {}, {}> ? T['__DO_NOT_USE_INTERNAL_FIELD_METHODS'] : {};
+	type UnboxBehaviorMethods<T> = T extends Behavior<{}, {}, {}> ? T['__DO_NOT_USE_INTERNAL_FIELD_METHODS'] : {};
 
   type UnboxBehaviorsMethods<
     Behaviors extends Array<Behavior<{}, {}, {}> | string>
-	> = UnionToIntersection<UnboxBehaviorMethod<ArrayType<Behaviors>>>;
+	> = UnboxBehaviorMethods<UnionToIntersection<ArrayType<Behaviors>>>;
 
   type UnboxBehaviorsData<
     Behaviors extends Array<Behavior<{}, {}, {}> | string>
-	> = UnionToIntersection<UnboxBehaviorData<ArrayType<Behaviors>>>;
+	> = UnboxBehaviorData<UnionToIntersection<ArrayType<Behaviors>>>;
 
   type UnboxBehaviorsProps<
     Behaviors extends Array<Behavior<{}, {}, {}> | string>
-	> = UnionToIntersection<UnboxBehaviorProps<ArrayType<Behaviors>>>;
+	> = UnboxBehaviorProps<UnionToIntersection<ArrayType<Behaviors>>>;
 
 	// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 	type CombinedInstance<

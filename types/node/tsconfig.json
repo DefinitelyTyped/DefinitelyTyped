@@ -1,6 +1,7 @@
 {
     "files": [
         "index.d.ts",
+        "base.d.ts",
         "globals.d.ts",
         "assert.d.ts",
         "async_hooks.d.ts",
@@ -41,7 +42,17 @@
         "vm.d.ts",
         "worker_threads.d.ts",
         "zlib.d.ts",
-        "node-tests.ts"
+        "node-tests.ts",
+        "test/http.ts",
+        "test/readline.ts",
+        "test/global.ts",
+        "test/worker_threads.ts",
+        "test/util.ts",
+        "test/net.ts",
+        "test/dgram.ts",
+        "test/buffer.ts",
+        "test/tty.ts",
+        "test/crypto.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -52,7 +63,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [

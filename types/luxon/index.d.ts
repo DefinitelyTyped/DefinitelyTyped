@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.10
+// Type definitions for luxon 1.11
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -436,7 +436,7 @@ export class Interval {
     splitAt(...dateTimes: DateTime[]): Interval[];
     splitBy(duration: Duration | DurationObject | number): Interval[];
     toDuration(
-        unit: DurationUnit | DurationUnit[],
+        unit?: DurationUnit | DurationUnit[],
         options?: DiffOptions
     ): Duration;
     toFormat(

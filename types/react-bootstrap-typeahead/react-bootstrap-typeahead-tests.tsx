@@ -110,6 +110,21 @@ class BasicExample extends React.Component {
                 <Typeahead
                     labelKey="name"
                     options={options}
+                    placeholder="Choose a state..."
+                    renderMenu={(results, menuProps) => (
+                      <Menu {...menuProps}>
+                        { results.map((result, index) => (
+                          <MenuItem option={result} position={index} key={index}>
+                            { result.customOption && 'New: ' }
+                            <Highlighter search={menuProps.text}>{result.name}</Highlighter>
+                          </MenuItem>
+                        )) }
+                      </Menu>
+                    )}
+                />
+                <Typeahead
+                    labelKey="name"
+                    options={options}
                     placeholder="Choose a state...">
                     <Menu id="menu-id">
                     {options.map((o, idx) => (
