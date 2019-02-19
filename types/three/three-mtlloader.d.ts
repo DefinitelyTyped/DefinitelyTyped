@@ -3,10 +3,12 @@
 
 import { Material } from "./three-core";
 import {LoadingManager} from "./three-core";
+import {Mapping} from "./three-core";
 import {EventDispatcher} from "./three-core";
 import {BufferGeometry} from "./three-core";
 import {Side} from "./three-core";
 import {Texture} from "./three-core";
+import {Vector2} from "./three-core";
 import {Wrapping} from "./three-core";
 
 export interface MaterialCreatorOptions {
@@ -56,29 +58,51 @@ export class MTLLoader extends EventDispatcher {
     setMaterialOptions(value: MaterialCreatorOptions) : void;
 }
 
+export interface MaterialInfo {
+    ks?: number[];
+    kd?: number[];
+    ke?: number[];
+    map_kd?: string;
+    map_ks?: string;
+    map_ke?: string;
+    norm?: string;
+    map_bump?: string;
+    bump?: string;
+    map_d?: string;
+    ns?: number;
+    d?: number;
+    tr?: number;
+}
+
+export interface TexParams {
+    scale: Vector2;
+    offset: Vector2;
+    url: string;
+}
+
 export class MaterialCreator {
 
     constructor(baseUrl?: string, options?: MaterialCreatorOptions);
 
     baseUrl : string;
-    materialsInfo : any;
-    materials : any;
-    materialsArray : Material[];
-    nameLookup : any;
     options : MaterialCreatorOptions;
+    materialsInfo : {[key: string]: MaterialInfo};
+    materials : {[key: string]: Material};
+    private materialsArray : Material[];
+    nameLookup : {[key: string]: number};
     side : Side;
     wrap : Wrapping;
 
     setCrossOrigin( value: boolean ) : void;
-    setMaterials( materialsInfo: any ) : void;
-    convert( materialsInfo: any ) : any;
     setManager( value: LoadingManager ) : void;
+    setMaterials( materialsInfo: {[key: string]: MaterialInfo} ) : void;
+    convert( materialsInfo: {[key: string]: MaterialInfo} ) : {[key: string]: MaterialInfo};
     preload() : void;
     getIndex( materialName: string ) : Material;
     getAsArray() : Material[];
     create( materialName: string ) : Material;
     createMaterial_( materialName: string ) : Material;
-    getTextureParams( value: string, matParams: any ) : any;
-    loadTexture(url: string, mapping: any, onLoad: (bufferGeometry: BufferGeometry) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): Texture;
+    getTextureParams( value: string, matParams: any ) : TexParams;
+    loadTexture(url: string, mapping?: Mapping, onLoad?: (bufferGeometry: BufferGeometry) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): Texture;
 
 }
