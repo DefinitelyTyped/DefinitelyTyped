@@ -5142,6 +5142,9 @@ fp.now(); // $ExpectType number
 
 // _.get
 {
+    const value: string | undefined = anything;
+    const defValue: boolean = anything;
+
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
@@ -5151,8 +5154,9 @@ fp.now(); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
-    _.get({ a: undefined }, 'a'); // $ExpectType undefined
-    _.get({ a: undefined }, 'a', false); // $ExpectType boolean
+    _.get({ a: undefined }, "a"); // $ExpectType undefined
+    _.get({ a: value }, "a", defValue); // $ExpectType string | boolean
+    _.get({ a: undefined }, "a", defValue); // $ExpectType boolean
 
     _("abc").get(1); // $ExpectType string
     _("abc").get(["0"], "_");
