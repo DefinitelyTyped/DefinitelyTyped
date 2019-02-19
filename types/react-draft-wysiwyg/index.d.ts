@@ -19,7 +19,7 @@ export class ContentBlock extends Draft.ContentBlock {}
 export class SelectionState extends Draft.SelectionState {}
 
 export interface EditorProps {
-    onChange?(contentState: ContentState): RawDraftContentState;
+    onChange?(contentState: RawDraftContentState): void;
     onEditorStateChange?(editorState: EditorState): void;
     onContentStateChange?(contentState: RawDraftContentState): void;
     initialContentState?: RawDraftContentState;
