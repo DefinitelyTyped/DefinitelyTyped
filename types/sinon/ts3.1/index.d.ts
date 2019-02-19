@@ -211,7 +211,7 @@ declare namespace Sinon {
         returnValues: TReturnValue[];
 
         // Methods
-        (...args: any[]): any;
+        (...args: TArgs): TReturnValue;
         /**
          * Returns true if the spy was called before @param anotherSpy
          * @param anotherSpy
@@ -338,7 +338,7 @@ declare namespace Sinon {
         /**
          * Spies on the provided function
          */
-        (func: Function): SinonSpy;
+        <F extends (...args: any[]) => any>(func: F): SinonSpy<Parameters<F>, ReturnType<F>>;
         /**
          * Creates a spy for object.method and replaces the original method with the spy.
          * An exception is thrown if the property is not already a function.

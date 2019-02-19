@@ -83,8 +83,8 @@ function testSandbox() {
     const privateFooStubbedInstance = sb.createStubInstance(PrivateFoo);
     stubInstance.foo.calledWith('foo', 1);
     privateFooStubbedInstance.foo.calledWith();
-    const clsFoo: sinon.SinonStub = stubInstance.foo;
-    const privateFooFoo: sinon.SinonStub = privateFooStubbedInstance.foo;
+    const clsFoo: sinon.SinonStub<[string, number], number> = stubInstance.foo;
+    const privateFooFoo: sinon.SinonStub<[], void> = privateFooStubbedInstance.foo;
     const clsBar: number = stubInstance.bar;
     const privateFooBar: number = privateFooStubbedInstance.bar;
 }
@@ -325,7 +325,7 @@ function testTypedSpy() {
 }
 
 function testSpy() {
-    const fn = () => { };
+    let fn = (arg: string, arg2: number): boolean => true;
     const obj = class {
         foo() { }
         set bar(val: number) { }
@@ -333,12 +333,11 @@ function testSpy() {
     };
     const instance = new obj();
 
-    let spy = sinon.spy();
+    const spy = sinon.spy(); // $ExpectType SinonSpy<any[], any>
     const spyTwo = sinon.spy().named('spyTwo');
 
-    spy = sinon.spy(fn);
-    spy = sinon.spy(instance, 'foo');
-    spy = sinon.spy(instance, 'bar', ['set', 'get']);
+    const methodSpy = sinon.spy(instance, 'foo');
+    const methodSpy2 = sinon.spy(instance, 'bar', ['set', 'get']);
 
     let count = 0;
     count = spy.callCount;
@@ -356,7 +355,12 @@ function testSpy() {
     arr = spy.exceptions;
     arr = spy.returnValues;
 
-    spy('a', 'b');
+    const fnSpy = sinon.spy(fn); // $ExpectType SinonSpy<[string, number], boolean>
+    fn = fnSpy; // Should be assignable to original function
+    fnSpy('a', 1); // $ExpectType boolean
+    fnSpy.args; // $ExpectType [string, number][]
+    fnSpy.returnValues; // $ExpectType boolean[]
+
     spy(1, 2);
     spy(true);
 
@@ -420,13 +424,12 @@ function testSpy() {
 
 function testStub() {
     const obj = class {
-        foo() { }
+        foo(arg: string): number { return 1; }
         promiseFunc() { return Promise.resolve('foo'); }
     };
     const instance = new obj();
 
-    let stub = sinon.stub();
-    stub = sinon.stub(instance, 'foo').named('namedStub');
+    const stub = sinon.stub();
 
     const spy: sinon.SinonSpy = stub;
 
@@ -485,6 +488,25 @@ function testStub() {
     stub.yieldsToAsync('foo', 'a', 2);
     stub.yieldsToOnAsync('foo', instance, 'a', 2);
     stub.withArgs('a', 2).returns(true);
+
+    // Type-safe stubs
+    const stub2 = sinon.stub(instance, 'foo').named('namedStub');
+    instance.foo = stub2; // Should be assignable to original
+    stub2.returns(true); // $ExpectError
+    stub2.returns(5);
+    stub2.returns('foo'); // $ExpectError
+    stub2.callsFake((arg: string) => 1);
+    stub2.callsFake((arg: number) => 1); // $ExpectError
+    stub2.callsFake((arg: string) => 'a'); // $ExpectError
+    stub2.onCall(1).returns(2);
+    stub2.withArgs('a', 2).returns('true'); // $ExpectError
+    stub2.withArgs('a').returns(1);
+    stub2.withArgs('a').returns('a'); // $ExpectError
+
+    const pStub = sinon.stub(instance, 'promiseFunc');
+    pStub.resolves();
+    pStub.resolves('foo');
+    pStub.resolves(1); // $ExpectError
 }
 
 function testTypedStub() {
