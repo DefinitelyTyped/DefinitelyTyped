@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "chart.js": "^2.7.3",
+        "vue": "^2.6.6"
+    }
+}
