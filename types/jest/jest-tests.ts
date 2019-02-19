@@ -349,21 +349,15 @@ const mockContextVoid = jest.fn().mock;
 const mockContextString = jest.fn(() => "").mock;
 
 jest.fn().mockClear();
-
 jest.fn().mockReset();
-
 jest.fn().mockRestore();
+jest.fn().mockImplementation((test: number) => test);
+jest.fn().mockResolvedValue(1);
 
-const spiedTarget = {
-    returnsVoid(): void { },
-    setValue(value: string): void {
-        this.value = value;
-    },
-    returnsString(): string {
-        return "";
-    }
-};
-
+interface SpyInterface {
+    prop?: number;
+    method?: (arg1: boolean) => void;
+}
 class SpiedTargetClass {
     private _value = 3;
     private _value2 = '';
@@ -380,6 +374,15 @@ class SpiedTargetClass {
         this._value2 = value2;
     }
 }
+const spiedTarget = {
+    returnsVoid(): void { },
+    setValue(value: string): void {
+        this.value = value;
+    },
+    returnsString(): string {
+        return "";
+    }
+};
 const spiedTarget2 = new SpiedTargetClass();
 
 // $ExpectError
@@ -425,11 +428,17 @@ const spy5 = jest.spyOn(spiedTarget2, "value", "get");
 spy5.mockReturnValue('5');
 
 // $ExpectType SpyInstance<void, [number]>
-const spy6 = jest.spyOn(spiedTarget2, "value", "set");
+jest.spyOn(spiedTarget2, "value", "set");
 
-// should compile
-jest.fn().mockImplementation((test: number) => test);
-jest.fn().mockResolvedValue(1);
+let spyInterfaceImpl: SpyInterface = {};
+// $ExpectError
+jest.spyOn(spyInterfaceImpl, "method", "get");
+// $ExpectError
+jest.spyOn(spyInterfaceImpl, "prop");
+// $ExpectType SpyInstance<number, []>
+jest.spyOn(spyInterfaceImpl, "prop", "get");
+// $ExpectType SpyInstance<void, [boolean]>
+jest.spyOn(spyInterfaceImpl, "method");
 
 interface Type1 { a: number; }
 interface Type2 { b: number; }
