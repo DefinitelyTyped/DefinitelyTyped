@@ -154,6 +154,9 @@ redis.multi([
 const keys = ['foo', 'bar'];
 redis.mget(...keys);
 
+redis.mset(...['foo', 'bar']);
+redis.mset({ foo: 'bar' });
+
 new Redis.Cluster([
     'localhost'
 ]);
