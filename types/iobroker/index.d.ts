@@ -1682,7 +1682,7 @@ declare global {
         type SetStateCallback = (err: string | null, id?: string) => void;
         type SetStateChangedCallback = (err: string | null, id: string, notChanged: boolean) => void;
         type DeleteStateCallback = (err: string | null, id?: string) => void;
-        type GetHistoryResult = Array<(State & { id?: string })>
+        type GetHistoryResult = Array<(State & { id?: string })>;
         type GetHistoryCallback = (err: string | null, result: GetHistoryResult, step: number, sessionId?: string) => void;
 
         /** Contains the return values of readDir */
