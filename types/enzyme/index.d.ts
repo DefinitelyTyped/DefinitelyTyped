@@ -364,6 +364,8 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     length: number;
 }
 
+type Parameters<T> = T extends (...args: infer A) => any ? A : never
+
 // tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> { }
 export class ShallowWrapper<P = {}, S = {}, C = Component> {
@@ -452,7 +454,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     /**
      * Returns a wrapper of the node rendered by the provided render prop.
      */
-    renderProp<PropName extends keyof P>(prop: PropName): (...params: any[]) => ShallowWrapper<P, S>;
+    renderProp<PropName extends keyof P>(prop: PropName): (...params: Parameters<P[PropName]>) => ShallowWrapper<any, never>;
 }
 
 // tslint:disable-next-line no-empty-interface
