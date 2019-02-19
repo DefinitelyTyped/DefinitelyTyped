@@ -5152,7 +5152,7 @@ fp.now(); // $ExpectType number
     _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
     _.get({ a: undefined }, 'a'); // $ExpectType undefined
-    _.get({ a: undefined }, 'a', 'default'); // $ExpectType 'default'
+    _.get({ a: undefined }, 'a', false); // $ExpectType boolean
 
     _("abc").get(1); // $ExpectType string
     _("abc").get(["0"], "_");
