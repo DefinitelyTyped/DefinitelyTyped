@@ -2,13 +2,14 @@
 // Project: https://github.com/ankane/vue-chartkick#readme
 // Definitions by: CNS Media <https://github.com/cnsmedia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-declare module "vue-chartkick" {
-    import {PluginObject} from "vue";
-    interface VueChartkickPlugin extends PluginObject<{adapter: any}> {
-        version: string;
-        addAdapter: (library: any) => void
-    }
-    const VueChartkick: VueChartkickPlugin;
-    export default VueChartkick;
+import { PluginObject } from "vue";
+
+interface VueChartkickPlugin extends PluginObject<{ adapter: any }> {
+    version: string;
+    addAdapter: (library: any) => void;
 }
+
+declare const VueChartkick: VueChartkickPlugin;
+export default VueChartkick;
