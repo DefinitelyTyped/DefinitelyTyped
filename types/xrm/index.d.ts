@@ -4657,7 +4657,7 @@ declare namespace Xrm {
          * Opens a dialog box to select files from your computer (web client) or mobile device (mobile clients).
          * @returns On success, returns an array of files
          */
-        pickFile(pickFileOptions: Device.PickFileOptions): Async.PromiseLike<Device.CaptureFileResponse[]>;
+        pickFile(pickFileOptions?: Device.PickFileOptions): Async.PromiseLike<Device.CaptureFileResponse[]>;
     }
 
     /**

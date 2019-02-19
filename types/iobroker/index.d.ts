@@ -1,5 +1,5 @@
 // Type definitions for ioBroker 1.4
-// Project: https://github.com/ioBroker/ioBroker
+// Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
@@ -1477,7 +1477,7 @@ declare global {
              * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            getDevicesAsync(options?: unknown): Promise<Array<GetObjectsItem<DeviceObject>>>;
+            getDevicesAsync(options?: unknown): Promise<DeviceObject[]>;
 
             /**
              * Returns a list of all channels in this adapter instance
@@ -1502,9 +1502,9 @@ declare global {
              * @param parentDevice (optional) Name of the parent device to filter the channels by
              * @param options (optional) Some internal options.
              */
-            getChannelsOfAsync(): Promise<Array<GetObjectsItem<ChannelObject>>>;
+            getChannelsOfAsync(): Promise<ChannelObject[]>;
             // tslint:disable-next-line:unified-signatures
-            getChannelsOfAsync(parentDevice: string, options?: unknown): Promise<Array<GetObjectsItem<ChannelObject>>>;
+            getChannelsOfAsync(parentDevice: string, options?: unknown): Promise<ChannelObject[]>;
 
             /**
              * Returns a list of all states in this adapter instance
@@ -1524,9 +1524,9 @@ declare global {
              * @param options (optional) Some internal options.
              */
             // tslint:disable:unified-signatures
-            getStatesOfAsync(): Promise<Array<GetObjectsItem<StateObject>>>;
-            getStatesOfAsync(parentDevice: string, parentChannel?: string): Promise<Array<GetObjectsItem<StateObject>>>;
-            getStatesOfAsync(parentDevice: string, parentChannel: string, options?: unknown): Promise<Array<GetObjectsItem<StateObject>>>;
+            getStatesOfAsync(): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel?: string): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel: string, options?: unknown): Promise<StateObject[]>;
             // tslint:enable:unified-signatures
 
             // ==============================
@@ -1667,7 +1667,7 @@ declare global {
             value: T;
         }
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
-        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: Array<GetObjectsItem<T>>) => void;
+        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: T[]) => void;
 
         type SecondParameterOf<T extends (...args: any[]) => any> = T extends (arg0: any, arg1: infer R, ...args: any[]) => any ? R : never;
         /** Infers the return type from a callback-style API and strips out null and undefined */

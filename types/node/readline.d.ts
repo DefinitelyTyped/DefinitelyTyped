@@ -104,6 +104,7 @@ declare module "readline" {
         prependOnceListener(event: "SIGCONT", listener: () => void): this;
         prependOnceListener(event: "SIGINT", listener: () => void): this;
         prependOnceListener(event: "SIGTSTP", listener: () => void): this;
+        [Symbol.asyncIterator](): AsyncIterableIterator<string>;
     }
 
     type ReadLine = Interface; // type forwarded for backwards compatiblity

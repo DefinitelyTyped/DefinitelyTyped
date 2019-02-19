@@ -1,5 +1,5 @@
 // Type definitions for redux-form 7.5
-// Project: https://github.com/erikras/redux-form
+// Project: https://github.com/erikras/redux-form, https://redux-form.com
 // Definitions by: Carson Full <https://github.com/carsonf>
 //                 Daniel Lytkin <https://github.com/aikoven>
 //                 Karol Janyst <https://github.com/LKay>
@@ -28,7 +28,7 @@ export interface ErrorOther<T = string> {
 }
 
 export type FormErrors<FormData = {}, T = string> = {
-    [P in keyof FormData]?: ReactElement<any> | T;
+    [P in keyof FormData]?: ReactElement | T;
 } & ErrorOther<T>;
 
 export interface WarningOther<T = void> {
@@ -36,7 +36,7 @@ export interface WarningOther<T = void> {
 }
 
 export type FormWarnings<FormData = {}, T = void> = {
-    [P in keyof FormData]?: ReactElement<any> | string | WarningOther<T>;
+    [P in keyof FormData]?: ReactElement | string | WarningOther<T>;
 };
 
 export interface RegisteredFieldState {

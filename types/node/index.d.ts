@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.12
+// Type definitions for non-npm package Node.js 11.9
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -6,9 +6,11 @@
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Benjamin Toueg <https://github.com/btoueg>
 //                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
+//                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
 //                 Flarna <https://github.com/Flarna>
@@ -70,7 +72,8 @@ interface SymbolConstructor {
     readonly asyncIterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
-interface SharedArrayBuffer {
+declare class SharedArrayBuffer {
+    constructor(byteSize: number);
     readonly byteLength: number;
     slice(begin?: number, end?: number): SharedArrayBuffer;
 }

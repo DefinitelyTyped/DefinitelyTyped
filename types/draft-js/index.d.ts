@@ -623,7 +623,7 @@ declare namespace Draft {
 
             interface DraftBlockRenderConfig {
                 element: string;
-                wrapper?: React.ReactElement<any>;
+                wrapper?: React.ReactElement;
             }
 
             class EditorState extends Record {

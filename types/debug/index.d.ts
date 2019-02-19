@@ -16,7 +16,7 @@ declare namespace debug {
     interface Debug {
         (namespace: string): Debugger;
         coerce: (val: any) => any;
-        disable: () => void;
+        disable: () => string;
         enable: (namespaces: string) => void;
         enabled: (namespaces: string) => boolean;
 
