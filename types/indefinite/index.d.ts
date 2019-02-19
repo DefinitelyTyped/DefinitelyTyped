@@ -3,12 +3,9 @@
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "indefinite" {
-    interface Options {
-        capitalize?: boolean;
-        caseInsensitive?: boolean;
-        numbers?: "colloquial";
-    }
-    export default function(word: string | number, opts?: Options): string;
+export interface Options {
+    capitalize?: boolean;
+    caseInsensitive?: boolean;
+    numbers?: "colloquial";
 }
-  
+export function indefinite(word: string | number, opts?: Options): string;
