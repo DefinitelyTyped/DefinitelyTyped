@@ -2349,6 +2349,7 @@ export class Line {
 	 */
 	makeEdgeToOriginGetter(propertyNames: {origin: number, axis1: any, axis2: any, dimension: any}, originValues: {nearest: any, center: any, farthest: any}): Function;
 }
+
 interface IObjectOptions {
 	/**
 	 * Type of an object (rect, circle, path, etc.).
@@ -2417,15 +2418,15 @@ interface IObjectOptions {
 	 */
 	angle?: number;
 
-    /**
-     * Object skew factor (horizontal)
-     */
-    skewX?: number;
+	/**
+	 * Object skew factor (horizontal)
+	 */
+	skewX?: number;
 
-    /**
-     * Object skew factor (vertical)
-     */
-    skewY?: number;
+	/**
+	 * Object skew factor (vertical)
+	 */
+	skewY?: number;
 
 	/**
 	 * Size of object's controlling corners (in pixels)
@@ -2457,10 +2458,10 @@ interface IObjectOptions {
 	 */
 	borderColor?: string;
 
-    /**
-     * Array specifying dash pattern of an object's border (hasBorder must be true)
-     */
-    borderDashArray?: number[];
+	/**
+	 * Array specifying dash pattern of an object's border (hasBorder must be true)
+	 */
+	borderDashArray?: number[];
 
 	/**
 	 * Color of controlling corners of an object (when it's active)
@@ -2761,12 +2762,12 @@ interface IObjectOptions {
 	cacheProperties?: string[];
 
 	/**
-     * A fabricObject that, without stroke define a clipping area with their shape. filled in black
-     * the clipPath object gets used when the object has rendered, and the context is placed in the center
-     * of the object cacheCanvas.
-     * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
-     */
-    clipPath?: Object;
+	 * A fabricObject that, without stroke define a clipping area with their shape. filled in black
+	 * the clipPath object gets used when the object has rendered, and the context is placed in the center
+	 * of the object cacheCanvas.
+	 * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
+	 */
+	clipPath?: Object;
 
 	/**
 	 * Meaningful ONLY when the object is used as clipPath.
@@ -2798,11 +2799,40 @@ interface IObjectOptions {
 	 * Not used by fabric, just for convenience
 	 */
 	data?: any;
-
-    /**
-     * Describes the object's corner position in canvas object absolute properties.
-     */
-    aCoords?: {bl: Point, br: Point, tl: Point, tr: Point};
+	/**
+	 * Describe object's corner position in canvas element coordinates.
+	 * properties are tl,mt,tr,ml,mr,bl,mb,br,mtr for the main controls.
+	 * each property is an object with x, y and corner.
+	 * The `corner` property contains in a similar manner the 4 points of the
+	 * interactive area of the corner.
+	 * The coordinates depends from this properties: width, height, scaleX, scaleY
+	 * skewX, skewY, angle, strokeWidth, viewportTransform, top, left, padding.
+	 * The coordinates get updated with @method setCoords.
+	 * You can calculate them without updating with @method calcCoords;
+	 * @memberOf fabric.Object.prototype
+	 */
+	oCoords?: {tl: Point, mt: Point, tr: Point, ml: Point, mr: Point, bl: Point, mb: Point, br: Point, mtr: Point};
+	/**
+	 * Describe object's corner position in canvas object absolute coordinates
+	 * properties are tl,tr,bl,br and describe the four main corner.
+	 * each property is an object with x, y, instance of Fabric.Point.
+	 * The coordinates depends from this properties: width, height, scaleX, scaleY
+	 * skewX, skewY, angle, strokeWidth, top, left.
+	 * Those coordinates are usefull to understand where an object is. They get updated
+	 * with oCoords but they do not need to be updated when zoom or panning change.
+	 * The coordinates get updated with @method setCoords.
+	 * You can calculate them without updating with @method calcCoords(true);
+	 * @memberOf fabric.Object.prototype
+	 */
+	aCoords?: {bl: Point, br: Point, tl: Point, tr: Point};
+	/**
+	 * storage for object full transform matrix
+	 */
+	matrixCache?: any;
+	/**
+	 * storage for object transform matrix
+	 */
+	ownMatrixCache?: any;
 }
 export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> { }
 export class Object {
@@ -2810,8 +2840,8 @@ export class Object {
 	initialize(options?: IObjectOptions): Object;
 
 	/* Sets object's properties from options
-	 * @param {Object} [options] Options object
-	 */
+     * @param {Object} [options] Options object
+     */
 	setOptions(options: IObjectOptions): void;
 
 	/**
@@ -2866,7 +2896,7 @@ export class Object {
 	/**
 	 * Retrieves viewportTransform from Object's canvas if possible
 	 */
-	getViewportTransform(): any;
+	getViewportTransform(): any[];
 
 	/**
 	 * Renders an object on a specified context
@@ -2924,7 +2954,7 @@ export class Object {
 	 * @param {Boolean} skipCanvas skip canvas checks because this object is painted
 	 * on parent canvas.
 	 */
-	isCacheDirty(): boolean;
+	isCacheDirty(skipCanvas?: boolean): boolean;
 
 	/**
 	 * Clones an instance, using a callback method will work for every object.
@@ -2983,7 +3013,7 @@ export class Object {
 	 * @param property Property name 'stroke' or 'fill'
 	 * @param [options] Options object
 	 */
-	setGradient(property: "stroke" | "fill", options: IGradientOptions): Object;
+	setGradient(property: "stroke" | "fill", options?: IGradientOptions): Object;
 
 	/**
 	 * Sets pattern fill of an object
@@ -3103,7 +3133,7 @@ export class Object {
 	 * Sets object's properties from options
 	 * @param [options] Options object
 	 */
-	setOptions(options: any): void;
+	setOptions(options?: any): void;
 	/**
 	 * Sets sourcePath of an object
 	 * @param value Value to set sourcePath to
@@ -3113,12 +3143,16 @@ export class Object {
 	// -----------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Returns styles-string for svg-export
+	 * @param {Boolean} skipShadow a boolean to skip shadow filter output
+	 * @return {String}
 	 */
-	getSvgStyles(): string;
+	getSvgStyles(skipShadow?: boolean): string;
 	/**
 	 * Returns transform-string for svg-export
+	 * @param {Boolean} use the full transform or the single object one.
+	 * @return {String}
 	 */
-	getSvgTransform(): string;
+	getSvgTransform(full?: boolean, additionalTransform?: string): string;
 	/**
 	 * Returns transform-string for svg-export from the transform matrix of single elements
 	 */
@@ -3128,8 +3162,10 @@ export class Object {
 	// -----------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Returns true if object state (one of its state properties) was changed
+	 * @param {String} [propertySet] optional name for the set of property we want to save
+	 * @return {Boolean} true if instance' state has changed since `{@link fabric.Object#saveState}` was called
 	 */
-	hasStateChanged(): boolean;
+	hasStateChanged(propertySet: string): boolean;
 	/**
 	 * Saves state of an object
 	 * @param [options] Object with additional `stateProperties` array to include when saving state
@@ -3138,8 +3174,10 @@ export class Object {
 	saveState(options?: { stateProperties: any[] }): Object;
 	/**
 	 * Setups state of an object
+	 * @param {Object} [options] Object with additional `stateProperties` array to include when saving state
+	 * @return {fabric.Object} thisArg
 	 */
-	setupState(): Object;
+	setupState(options?: any): Object;
 	// functions from object straightening mixin
 	// -----------------------------------------------------------------------------------------------------------------------------------
 	/**
@@ -3201,10 +3239,11 @@ export class Object {
 
 	/**
 	 * Returns the coordinates of the object as if it has a different origin
-	 * @param originX Horizontal origin: 'left', 'center' or 'right'
-	 * @param originY Vertical origin: 'top', 'center' or 'bottom'
+	 * @param {String} originX Horizontal origin: 'left', 'center' or 'right'
+	 * @param {String} originY Vertical origin: 'top', 'center' or 'bottom'
+	 * @return {fabric.Point}
 	 */
-	getPointByOrigin(): Point;
+	getPointByOrigin(originX: string, originY: string) : Point;
 
 	/**
 	 * Returns the point in local coordinates
@@ -3233,9 +3272,46 @@ export class Object {
 	 * Draws borders of an object's bounding box.
 	 * Requires public properties: width, height
 	 * Requires public options: padding, borderColor
-	 * @param ctx Context to draw on
+	 * @param {CanvasRenderingContext2D} ctx Context to draw on
+	 * @param {Object} styleOverride object to override the object style
+	 * @return {fabric.Object} thisArg
+	 * @chainable
 	 */
-	drawBorders(context: CanvasRenderingContext2D): Object;
+	drawBorders(ctx: CanvasRenderingContext2D, styleOverride?: any): Object;
+
+	/**
+	 * Draws borders of an object's bounding box when it is inside a group.
+	 * Requires public properties: width, height
+	 * Requires public options: padding, borderColor
+	 * @param {CanvasRenderingContext2D} ctx Context to draw on
+	 * @param {object} options object representing current object parameters
+	 * @param {Object} styleOverride object to override the object style
+	 * @return {fabric.Object} thisArg
+	 * @chainable
+	 */
+	drawBordersInGroup(ctx: CanvasRenderingContext2D, options?: any, styleOverride?: any): Object;
+
+	/**
+	 * Draws corners of an object's bounding box.
+	 * Requires public properties: width, height
+	 * Requires public options: cornerSize, padding
+	 * @param {CanvasRenderingContext2D} ctx Context to draw on
+	 * @param {Object} styleOverride object to override the object style
+	 * @return {fabric.Object} thisArg
+	 * @chainable
+	 */
+	drawControls(ctx: CanvasRenderingContext2D, styleOverride?: any): Object;
+
+	/**
+	 * Draws a colored layer behind the object, inside its selection borders.
+	 * Requires public options: padding, selectionBackgroundColor
+	 * this function is called when the context is transformed
+	 * has checks to be skipped when the object is on a staticCanvas
+	 * @param {CanvasRenderingContext2D} ctx Context to draw on
+	 * @return {fabric.Object} thisArg
+	 * @chainable
+	 */
+	drawSelectionBackground(ctx: CanvasRenderingContext2D): Object;
 
 	/**
 	 * Draws corners of an object's bounding box.
@@ -3276,33 +3352,45 @@ export class Object {
 	// functions from geometry mixin
 	// -------------------------------------------------------------------------------------------------------------------------------
 	/**
-	 * Sets corner position coordinates based on current angle, width and height
-	 * See https://github.com/kangax/fabric.js/wiki/When-to-call-setCoords
+	 * Sets corner position coordinates based on current angle, width and height.
+	 * See {@link https://github.com/kangax/fabric.js/wiki/When-to-call-setCoords|When-to-call-setCoords}
+	 * @param {Boolean} [ignoreZoom] set oCoords with or without the viewport transform.
+	 * @param {Boolean} [skipAbsolute] skip calculation of aCoords, usefull in setViewportTransform
+	 * @return {fabric.Object} thisArg
+	 * @chainable
 	 */
-	setCoords(): Object;
+	setCoords(ignoreZoom?: boolean, skipAbsolute?: boolean): Object;
 	/**
 	 * Returns coordinates of object's bounding rectangle (left, top, width, height)
-     * @param absoluteopt use coordinates without viewportTransform
-     * @param calculateopt use coordinates of current position instead of .oCoords / .aCoords
-	 * @return Object with left, top, width, height properties
+	 * the box is intented as aligned to axis of canvas.
+	 * @param {Boolean} [absolute] use coordinates without viewportTransform
+	 * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords / .aCoords
+	 * @return {Object} Object with left, top, width, height properties
 	 */
-	getBoundingRect(absoluteopt?: boolean, calculateopt?: boolean): { left: number; top: number; width: number; height: number };
+	getBoundingRect(absolute?: boolean, calculate?: boolean): { left: number; top: number; width: number; height: number };
 	/**
 	 * Checks if object is fully contained within area of another object
-	 * @param other Object to test
+	 * @param {Object} other Object to test
+	 * @param {Boolean} [absolute] use coordinates without viewportTransform
+	 * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords
+	 * @return {Boolean} true if object is fully contained within area of another object
 	 */
-	isContainedWithinObject(other: Object): boolean;
+	isContainedWithinObject(other: Object, absolute?: boolean, calculate?: boolean): boolean;
 	/**
 	 * Checks if object is fully contained within area formed by 2 points
 	 * @param pointTL top-left point of area
 	 * @param pointBR bottom-right point of area
 	 */
-	isContainedWithinRect(pointTL: any, pointBR: any): boolean;
+	isContainedWithinRect(pointTL: any, pointBR: any, absolute?: boolean, calculate?: boolean): boolean;
 	/**
 	 * Checks if point is inside the object
-	 * @param point Point to check against
+	 * @param {fabric.Point} point Point to check against
+	 * @param {Object} [lines] object returned from @method _getImageLines
+	 * @param {Boolean} [absolute] use coordinates without viewportTransform
+	 * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords
+	 * @return {Boolean} true if point is inside the object
 	 */
-	containsPoint(point: Point): boolean;
+	containsPoint(point: Point, lines?: any, absolute?: boolean, calculate?: boolean): boolean;
 	/**
 	 * Scales an object (equally by x and y)
 	 * @param value Scale factor
@@ -3313,23 +3401,130 @@ export class Object {
 	 * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
 	 * @param value New height value
 	 */
-	scaleToHeight(value: number): Object;
+	scaleToHeight(value: number, absolute?: boolean): Object;
 	/**
 	 * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
 	 * @param value New width value
 	 */
-	scaleToWidth(value: number): Object;
+	scaleToWidth(value: number, absolute?: boolean): Object;
 	/**
 	 * Checks if object intersects with another object
-	 * @param other Object to test
+	 * @param {Object} other Object to test
+	 * @param {Boolean} [absolute] use coordinates without viewportTransform
+	 * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords
+	 * @return {Boolean} true if object intersects with another object
 	 */
-	intersectsWithObject(other: Object): boolean;
+	intersectsWithObject(other: Object, absolute?: boolean, calculate?: boolean): boolean;
 	/**
 	 * Checks if object intersects with an area formed by 2 points
-	 * @param pointTL top-left point of area
-	 * @param pointBR bottom-right point of area
+	 * @param {Object} pointTL top-left point of area
+	 * @param {Object} pointBR bottom-right point of area
+	 * @param {Boolean} [absolute] use coordinates without viewportTransform
+	 * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords
+	 * @return {Boolean} true if object intersects with an area formed by 2 points
 	 */
-	intersectsWithRect(pointTL: any, pointBR: any): boolean;
+	intersectsWithRect(pointTL: any, pointBR: any, absolute?: boolean, calculate?: boolean): boolean;
+	/**
+	 * Animates object's properties
+	 */
+	animate(): Object;
+	/**
+	 * Calculate and returns the .coords of an object.
+	 * @return {Object} Object with tl, tr, br, bl ....
+	 * @chainable
+	 */
+	calcCoords(absolute?: boolean): any;
+	/**
+	 * calculate trasform Matrix that represent current transformation from
+	 * object properties.
+	 * @param {Boolean} [skipGroup] return transformMatrix for object and not go upward with parents
+	 * @return {Array} matrix Transform Matrix for the object
+	 */
+	calcTransformMatrix(skipGroup?: boolean): any[];
+	/**
+	 * return correct set of coordinates for intersection
+	 */
+	getCoords(absolute?: boolean, calculate?: boolean): any;
+	/**
+	 * Returns height of an object bounding box counting transformations
+	 * before 2.0 it was named getHeight();
+	 * @return {Number} height value
+	 */
+	getScaledHeight(): number;
+	/**
+	 * Returns width of an object bounding box counting transformations
+	 * before 2.0 it was named getWidth();
+	 * @return {Number} width value
+	 */
+	getScaledWidth(): number;
+	/**
+	 * Returns id attribute for svg output
+	 * @return {String}
+	 */
+	getSvgCommons(): string;
+	/**
+	 * Returns filter for svg shadow
+	 * @return {String}
+	 */
+	getSvgFilter(): string;
+	/**
+	 * Returns styles-string for svg-export
+	 * @param {Object} style the object from which to retrieve style properties
+	 * @param {Boolean} useWhiteSpace a boolean to include an additional attribute in the style.
+	 * @return {String}
+	 */
+	getSvgSpanStyles(style: any, useWhiteSpace?: boolean): string;
+	/**
+	 * Returns text-decoration property for svg-export
+	 * @param {Object} style the object from which to retrieve style properties
+	 * @return {String}
+	 */
+	getSvgTextDecoration(style: any): string;
+	/**
+	 * Checks if object is contained within the canvas with current viewportTransform
+	 * the check is done stopping at first point that appears on screen
+	 * @param {Boolean} [calculate] use coordinates of current position instead of .aCoords
+	 * @return {Boolean} true if object is fully or partially contained within canvas
+	 */
+	isOnScreen(calculate?: boolean): boolean;
+	/**
+	 * Checks if object is partially contained within the canvas with current viewportTransform
+	 * @param {Boolean} [calculate] use coordinates of current position instead of .oCoords
+	 * @return {Boolean} true if object is partially contained within canvas
+	 */
+	isPartiallyOnScreen(calculate?: boolean): boolean;
+	/**
+	 * This callback function is called every time _discardActiveObject or _setActiveObject
+	 * try to to deselect this object. If the function returns true, the process is cancelled
+	 */
+	onDeselect(): void;
+	/**
+	 * This callback function is called every time _discardActiveObject or _setActiveObject
+	 * try to to select this object. If the function returns true, the process is cancelled
+	 */
+	onSelect(): void;
+	/**
+	 * Returns svg clipPath representation of an instance
+	 * @param {Function} [reviver] Method for further parsing of svg representation.
+	 * @return {String} svg representation of an instance
+	 */
+	toClipPathSVG(reviver?: Function): string;
+	/**
+	 * Returns svg representation of an instance
+	 * @param {Function} [reviver] Method for further parsing of svg representation.
+	 * @return {String} svg representation of an instance
+	 */
+	toSVG(reviver?: Function): string;
+	/**
+	 * Translates the coordinates from a set of origin to another (based on the object's dimensions)
+	 * @param {fabric.Point} point The point which corresponds to the originX and originY params
+	 * @param {String} fromOriginX Horizontal origin: 'left', 'center' or 'right'
+	 * @param {String} fromOriginY Vertical origin: 'top', 'center' or 'bottom'
+	 * @param {String} toOriginX Horizontal origin: 'left', 'center' or 'right'
+	 * @param {String} toOriginY Vertical origin: 'top', 'center' or 'bottom'
+	 * @return {fabric.Point}
+	 */
+	translateToGivenOrigin(pointL: Point, fromOriginX: string, fromOriginY: string, toOriginX: string, toOriginY: string): Point;
 }
 
 interface IPathOptions extends IObjectOptions {
