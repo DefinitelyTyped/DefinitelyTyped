@@ -1051,6 +1051,12 @@ interface IStaticCanvasOptions {
 	 * @type Boolean
 	 */
 	svgViewportTransformation: boolean;
+	/**
+	 * Animation duration (in ms) for fx* methods
+	 * @type Number
+	 */
+	FX_DURATION?: number;
+
 }
 export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas> { }
 export class StaticCanvas {
@@ -1068,7 +1074,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	calcOffset(): StaticCanvas;
+	calcOffset(): Canvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayImage|overlay image} for this canvas
@@ -1078,7 +1084,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	setOverlayImage(image: Image | string, callback: (img: HTMLImageElement | undefined) => void, options?: IImageOptions): StaticCanvas;
+	setOverlayImage(image: Image | string, callback: Function, options?: IImageOptions): Canvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundImage|background image} for this canvas
@@ -1088,7 +1094,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	setBackgroundImage(image: Image | string, callback?: Function, options?: IImageOptions): StaticCanvas;
+	setBackgroundImage(image: Image | string, callback: Function, options?: IImageOptions): Canvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#overlayColor|foreground color} for this canvas
@@ -1097,7 +1103,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	setOverlayColor(overlayColor: string | Pattern, callback: (pattern: Pattern | undefined) => void): StaticCanvas;
+	setOverlayColor(overlayColor: string | Pattern, callback: Function): Canvas;
 
 	/**
 	 * Sets {@link fabric.StaticCanvas#backgroundColor|background color} for this canvas
@@ -1106,7 +1112,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	setBackgroundColor(backgroundColor: string | Pattern, callback: (pattern: Pattern | undefined) => void): StaticCanvas;
+	setBackgroundColor(backgroundColor: string | Pattern, callback: Function): Canvas;
 
 	/**
 	 * Returns canvas width (in px)
@@ -1127,7 +1133,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable true
 	 */
-	setWidth(value: number | string, options?: ICanvasDimensionsOptions): StaticCanvas;
+	setWidth(value: number | string, options?: ICanvasDimensionsOptions): Canvas;
 
 	/**
 	 * Sets height of this canvas instance
@@ -1136,7 +1142,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable true
 	 */
-	setHeight(value: number | string, options?: ICanvasDimensionsOptions): StaticCanvas;
+	setHeight(value: number | string, options?: ICanvasDimensionsOptions): Canvas;
 
 	/**
 	 * Sets dimensions (width, height) of this canvas instance. when options.cssOnly flag active you should also supply the unit of measure (px/%/em)
@@ -1145,7 +1151,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	setDimensions(dimensions: ICanvasDimensions, options?: ICanvasDimensionsOptions): StaticCanvas;
+	setDimensions(dimensions: ICanvasDimensions, options?: ICanvasDimensionsOptions): Canvas;
 
 	/**
 	 * Returns canvas zoom level
@@ -1158,7 +1164,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	setViewportTransform(vpt: number[]): StaticCanvas;
+	setViewportTransform(vpt: number[]): Canvas;
 
 	/**
 	 * Sets zoom level of this canvas instance, zoom centered around point
@@ -1167,7 +1173,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable true
 	 */
-	zoomToPoint(point: Point, value: number): StaticCanvas;
+	zoomToPoint(point: Point, value: number): Canvas;
 
 	/**
 	 * Sets zoom level of this canvas instance
@@ -1175,7 +1181,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	setZoom(value: number): StaticCanvas;
+	setZoom(value: number): Canvas;
 
 	/**
 	 * Pan viewport so as to place point at top left corner of canvas
@@ -1183,7 +1189,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	absolutePan(point: Point): StaticCanvas;
+	absolutePan(point: Point): Canvas;
 
 	/**
 	 * Pans viewpoint relatively
@@ -1191,7 +1197,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	relativePan(point: Point): StaticCanvas;
+	relativePan(point: Point): Canvas;
 
 	/**
 	 * Returns <canvas> element corresponding to this instance
@@ -1204,7 +1210,7 @@ export class StaticCanvas {
 	 * @param ctx Context to clear
 	 * @chainable
 	 */
-	clearContext(ctx: CanvasRenderingContext2D): StaticCanvas;
+	clearContext(ctx: CanvasRenderingContext2D): Canvas;
 
 	/**
 	 * Returns context of canvas where objects are drawn
@@ -1217,14 +1223,14 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	clear(): StaticCanvas;
+	clear(): Canvas;
 
 	/**
 	 * Renders the canvas
 	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	renderAll(): StaticCanvas;
+	renderAll(): Canvas;
 
 	/**
 	 * Function created to be instance bound at initialization
@@ -1236,7 +1242,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	renderAndReset(): StaticCanvas;
+	renderAndReset(): Canvas;
 
 	/**
 	 * Append a renderAll request to next animation frame.
@@ -1245,7 +1251,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	requestRenderAll(): StaticCanvas;
+	requestRenderAll(): Canvas;
 
 	/**
 	 * Calculate the position of the 4 corner of canvas with current viewportTransform.
@@ -1254,9 +1260,7 @@ export class StaticCanvas {
 	 * @return {Object} points.tl
 	 * @chainable
 	 */
-	calcViewportBoundaries(): StaticCanvas;
-
-	cancelRequestedRender(): void;
+	calcViewportBoundaries():  {tl: Point, br: Point, tr: Point, bl: Point};
 
 	/**
 	 * Renders background, objects, overlay and controls.
@@ -1265,7 +1269,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} instance
 	 * @chainable
 	 */
-	renderCanvas(ctx: CanvasRenderingContext2D, objects: Object[] ): StaticCanvas;
+	renderCanvas(ctx: CanvasRenderingContext2D, objects: Object[] ): Canvas;
 
 	/**
 	 * Paint the cached clipPath on the lowerCanvasEl
@@ -1285,7 +1289,7 @@ export class StaticCanvas {
 	 * @param {fabric.Object} object Object to center horizontally
 	 * @return {fabric.Canvas} thisArg
 	 */
-	centerObjectH(object: Object): StaticCanvas;
+	centerObjectH(object: Object): Canvas;
 
 	/**
 	 * Centers object vertically in the canvas
@@ -1293,7 +1297,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	centerObjectV(object: Object): StaticCanvas;
+	centerObjectV(object: Object): Canvas;
 
 	/**
 	 * Centers object vertically and horizontally in the canvas
@@ -1301,7 +1305,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	centerObject(object: Object): StaticCanvas;
+	centerObject(object: Object): Canvas;
 
 	/**
 	 * Centers object vertically and horizontally in the viewport
@@ -1309,7 +1313,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	viewportCenterObject(object: Object): StaticCanvas;
+	viewportCenterObject(object: Object): Canvas;
 
 	/**
 	 * Centers object horizontally in the viewport, object.top is unchanged
@@ -1317,7 +1321,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	viewportCenterObjectH(object: Object): StaticCanvas;
+	viewportCenterObjectH(object: Object): Canvas;
 
 	/**
 	 * Centers object Vertically in the viewport, object.top is unchanged
@@ -1325,7 +1329,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	viewportCenterObjectV(object: Object): StaticCanvas;
+	viewportCenterObjectV(object: Object): Canvas;
 
 	/**
 	 * Calculate the point in canvas that correspond to the center of actual viewport.
@@ -1360,7 +1364,7 @@ export class StaticCanvas {
 	 * @param [reviver] Method for further parsing of svg elements, called after each fabric object converted into svg representation.
 	 * @return {String} SVG string
 	 */
-	toSVG(options: IToSVGOptions, reviver?: Function): string;
+	toSVG(options?: IToSVGOptions, reviver?: Function): string;
 
 	/**
 	 * Moves an object or the objects of a multiple selection
@@ -1369,7 +1373,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	sendToBack(object: Object): StaticCanvas;
+	sendToBack(object: Object): Canvas;
 
 	/**
 	 * Moves an object or the objects of a multiple selection
@@ -1378,7 +1382,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	bringToFront(object: Object): StaticCanvas;
+	bringToFront(object: Object): Canvas;
 
 	/**
 	 * Moves an object or a selection down in stack of drawn objects
@@ -1391,7 +1395,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	sendBackwards(object: Object, intersecting?: boolean): StaticCanvas;
+	sendBackwards(object: Object, intersecting?: boolean): Canvas;
 
 	/**
 	 * Moves an object or a selection up in stack of drawn objects
@@ -1404,7 +1408,7 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	bringForward(object: Object, intersecting?: boolean): StaticCanvas;
+	bringForward(object: Object, intersecting?: boolean): Canvas;
 
 	/**
 	 * Moves an object to specified level in stack of drawn objects
@@ -1413,13 +1417,13 @@ export class StaticCanvas {
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable
 	 */
-	moveTo(object: Object, index: number): StaticCanvas;
+	moveTo(object: Object, index: number): Canvas;
 
 	/**
 	 * Clears a canvas element and dispose objects
 	 * @return {fabric.Canvas} thisArg
 	 * @chainable	 */
-	dispose(): StaticCanvas;
+	dispose(): Canvas;
 
 	/**
 	 * Returns a string representation of an instance
@@ -1462,7 +1466,7 @@ export class StaticCanvas {
 	 * @param [callback] Receives cloned instance as a first argument
 	 * @param [properties] Array of properties to include in the cloned canvas and children
 	 */
-	clone(callback: Function, properties?: string[]): void;
+	clone(callback?: any, properties?: string[]): void;
 
 	/**
 	 * Clones canvas instance without cloning existing data.
@@ -1470,7 +1474,7 @@ export class StaticCanvas {
 	 * but leaves data empty (so that you can populate it with your own)
 	 * @param [callback] Receives cloned instance as a first argument
 	 */
-	cloneWithoutData(callback: Function): void;
+	cloneWithoutData(callback?: any): void;
 
 	/**
 	 * Populates canvas with data from the specified dataless JSON.
@@ -1485,7 +1489,7 @@ export class StaticCanvas {
 	 * @chainable
 	 * @tutorial {@link http://fabricjs.com/fabric-intro-part-3#deserialization}
 	 */
-	loadFromDatalessJSON(json: any, callback?: Function, reviver?: Function): Canvas;
+	loadFromDatalessJSON(json: any, callback: Function, reviver?: Function): Canvas;
 	/**
 	 * Populates canvas with data from the specified JSON.
 	 * JSON format must conform to the one of {@link fabric.Canvas#toJSON}
@@ -1496,7 +1500,64 @@ export class StaticCanvas {
 	 * @param {Function} [reviver] Method for further parsing of JSON elements, called after each fabric object created.
 	 * @return {fabric.Canvas} instance
 	 */
-	loadFromJSON(json: any, callback?: Function, reviver?: Function): Canvas;
+	loadFromJSON(json: any, callback: Function, reviver?: Function): Canvas;
+	/**
+	 * Creates markup containing SVG font faces,
+	 * font URLs for font faces must be collected by developers
+	 * and are not extracted from the DOM by fabricjs
+	 * @param {Array} objects Array of fabric objects
+	 * @return {String}
+	 */
+	createSVGFontFacesMarkup(objects: any[]): string;
+	/**
+	 * Creates markup containing SVG referenced elements like patterns, gradients etc.
+	 * @return {String}
+	 */
+	createSVGRefElementsMarkup(): string;
+	/**
+	 * Centers object horizontally with animation.
+	 * @param {fabric.Object} object Object to center
+	 * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
+	 * @param {Function} [callbacks.onComplete] Invoked on completion
+	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	fxCenterObjectH(object: Object, callbacks?: Callbacks): Canvas;
+	/**
+	 * Centers object vertically with animation.
+	 * @param {fabric.Object} object Object to center
+	 * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
+	 * @param {Function} [callbacks.onComplete] Invoked on completion
+	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	fxCenterObjectV(object: Object, callbacks?: Callbacks): Canvas;
+	/**
+	 * Same as `fabric.Canvas#remove` but animated
+	 * @param {fabric.Object} object Object to remove
+	 * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
+	 * @param {Function} [callbacks.onComplete] Invoked on completion
+	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	fxRemove(object: Object, callbacks?: Callbacks): Canvas;
+	/**
+	 * Same as {@link fabric.Canvas.prototype.straightenObject}, but animated
+	 * @param {fabric.Object} object Object to straighten
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	fxStraightenObject(object: Object): Canvas;
+	/**
+	 * Straightens object, then rerenders canvas
+	 * @param {fabric.Object} object Object to straighten
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	straightenObject(object: Object): Canvas;
 }
 
 interface ICanvasOptions extends IStaticCanvasOptions {
@@ -1570,7 +1631,7 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * @type String|Array
 	 * @default
 	 */
-	selectionKey?: string;
+	selectionKey?: string | string[];
 
 	/**
 	 * Indicates which key enable alternative selection
@@ -1584,7 +1645,7 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * @type null|String
 	 * @default
 	 */
-	altSelectionKey?: string;
+	altSelectionKey?: string | null;
 
 	/**
 	 * Color of selection
@@ -1869,6 +1930,10 @@ export class Canvas {
 	 * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
 	 */
 	static toJSON(propertiesToInclude?: string[]): string;
+	/**
+	 * Removes all event listeners
+	 */
+	removeListeners(): void;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
