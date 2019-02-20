@@ -20,7 +20,8 @@ class Readme {
             }
         };
 
-        randomRequester.send(req)
+        randomRequester
+            .send(req)
             .then(console.log)
             .catch(console.log)
             .then(() => process.exit());
@@ -35,6 +36,7 @@ class Readme {
         });
 
         const req = {
+            __subset: 'subset',
             type: 'randomRequest',
             payload: {
                 val: Math.floor(Math.random() * 10)
@@ -52,6 +54,7 @@ class Readme {
             name: 'Random Responder',
             namespace: 'rnd',
             key: 'a certain key',
+            subset: 'subset',
             respondsTo: ['randomRequest']
         });
 
@@ -80,11 +83,22 @@ class Readme {
             payload: { val: number };
         }
 
-        randomResponder.on('randomRequest', (req: RandomRequest, callback: (error: any, answer?: number) => void) => {
-            const answer = Math.floor(Math.random() * 10);
-            console.log('request', req.payload.val, 'answering with', answer);
-            callback(null, answer);
-        });
+        randomResponder.on(
+            'randomRequest',
+            (
+                req: RandomRequest,
+                callback: (error: any, answer?: number) => void
+            ) => {
+                const answer = Math.floor(Math.random() * 10);
+                console.log(
+                    'request',
+                    req.payload.val,
+                    'answering with',
+                    answer
+                );
+                callback(null, answer);
+            }
+        );
     }
 
     mongooseResponder() {
@@ -139,7 +153,7 @@ class Readme {
             subscribesTo: ['randomUpdate']
         });
 
-        randomSubscriber.on('randomUpdate', (req) => {
+        randomSubscriber.on('randomUpdate', req => {
             console.log('notified of ', req);
         });
     }
@@ -152,15 +166,18 @@ class Readme {
         app.listen(process.argv[2] || 5555);
 
         function handler(req: any, res: any) {
-            fs.readFile(__dirname + '/index.html', (err: Error, data: Buffer) => {
-                if (err) {
-                    res.writeHead(500);
-                    return res.end('Error loading index.html');
-                }
+            fs.readFile(
+                __dirname + '/index.html',
+                (err: Error, data: Buffer) => {
+                    if (err) {
+                        res.writeHead(500);
+                        return res.end('Error loading index.html');
+                    }
 
-                res.writeHead(200);
-                res.end(data);
-            });
+                    res.writeHead(200);
+                    res.end(data);
+                }
+            );
         }
 
         const sockend = new cote.Sockend(io, {
@@ -205,21 +222,23 @@ class Readme {
 
         const rates: { [key: string]: number } = {
             usd_eur: 0.91,
-            eur_usd: 1.10
+            eur_usd: 1.1
         };
 
         interface Convert {
             type: 'convert';
             payload: {
-                amount: number,
-                from: string,
-                to: string
+                amount: number;
+                from: string;
+                to: string;
             };
         }
 
         responder.on('convert', (req: Convert) => {
             const { payload } = req;
-            return Promise.resolve(payload.amount * rates[`${payload.from}_${payload.to}`]);
+            return Promise.resolve(
+                payload.amount * rates[`${payload.from}_${payload.to}`]
+            );
         });
     }
 
@@ -228,7 +247,10 @@ class Readme {
     }
 
     multicastComponent() {
-        const req = new cote.Requester({ name: 'req' }, { multicast: '239.1.11.111' });
+        const req = new cote.Requester(
+            { name: 'req' },
+            { multicast: '239.1.11.111' }
+        );
     }
 
     broadcast() {
@@ -236,7 +258,10 @@ class Readme {
     }
 
     broadcastComponent() {
-        const req = new cote.Requester({ name: 'req' }, { broadcast: '255.255.255.255' });
+        const req = new cote.Requester(
+            { name: 'req' },
+            { broadcast: '255.255.255.255' }
+        );
     }
 }
 
@@ -262,7 +287,7 @@ class InitialObservations {
         techno.removeAllListeners();
 
         const village = new cote.Subscriber({ name: 'Village' });
-        const doHelp = () => { };
+        const doHelp = () => {};
         village.many('wolf', 2, doHelp);
         village.emit('wolf');
         village.emit('wolf');
@@ -297,19 +322,16 @@ class InitialObservations {
         //     name: 'Requester',
         //     respondsTo: ['foo']
         // })
-
         // Incorrect:
         // const responder = new cote.Responder({
         //     name: 'Responder',
         //     subscribesTo: ['bar']
         // })
-
         // Incorrect:
         // const publisher = new cote.Publisher({
         //     name: 'Publisher',
         //     requests: ['baz']
         // })
-
         // Incorrect:
         // const subscriber = new cote.Subscriber({
         //     name: 'Subscriber',
@@ -318,31 +340,52 @@ class InitialObservations {
     }
 
     discovery() {
-        new cote.Responder({ name: 'LocalUnlessForwarded' }, { address: '127.0.0.1' });
+        new cote.Responder(
+            { name: 'LocalUnlessForwarded' },
+            { address: '127.0.0.1' }
+        );
 
-        new cote.Publisher({ name: 'PassionateGreeter' }, { helloInterval: 100 });
+        new cote.Publisher(
+            { name: 'PassionateGreeter' },
+            { helloInterval: 100 }
+        );
 
-        new cote.Requester({ name: 'Optimist' }, {
-            checkInterval: 1e5,
-            nodeTimeout: 1e6
-        });
+        new cote.Requester(
+            { name: 'Optimist' },
+            {
+                checkInterval: 1e5,
+                nodeTimeout: 1e6
+            }
+        );
 
-        new cote.Subscriber({ name: 'Hachiko' }, { masterTimeout: 9 * 365 * 24 * 60 * 60 * 1000 });
+        new cote.Subscriber(
+            { name: 'Hachiko' },
+            { masterTimeout: 9 * 365 * 24 * 60 * 60 * 1000 }
+        );
 
-        new cote.Monitor({ name: 'HelloService', port: 2345 }, {
-            monitor: false,
-            statusLogsEnabled: false
-        });
+        new cote.Monitor(
+            { name: 'HelloService', port: 2345 },
+            {
+                monitor: false,
+                statusLogsEnabled: false
+            }
+        );
 
-        new cote.Monitor({ name: 'OfflineLogger', port: 2346 }, {
-            disableScreen: true,
-            helloLogsEnabled: false,
-            log: true
-        });
+        new cote.Monitor(
+            { name: 'OfflineLogger', port: 2346 },
+            {
+                disableScreen: true,
+                helloLogsEnabled: false,
+                log: true
+            }
+        );
 
         new cote.Responder({ name: 'HearsNoneAbove' }, { ignoreProcess: true });
 
-        new cote.Requester({ name: 'OwnStatusReporter' }, { statusInterval: 100 });
+        new cote.Requester(
+            { name: 'OwnStatusReporter' },
+            { statusInterval: 100 }
+        );
     }
 
     callbackApi() {
@@ -364,7 +407,8 @@ class InitialObservations {
             }
         };
 
-        randomRequester.send(req)
+        randomRequester
+            .send(req)
             .then(console.log)
             .catch(console.log)
             .then(() => process.exit());
@@ -385,7 +429,8 @@ class InitialObservations {
             }
         };
 
-        randomRequester.send(req)
+        randomRequester
+            .send(req)
             .then(console.log)
             .catch(console.log)
             .then(() => process.exit());
