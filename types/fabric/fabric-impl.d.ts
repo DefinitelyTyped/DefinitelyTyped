@@ -628,7 +628,6 @@ interface IPatternOptions {
 export interface Pattern extends IPatternOptions { }
 export class Pattern {
 	constructor(options?: IPatternOptions);
-	initialise(options?: IPatternOptions): Pattern;
 	/**
 	 * Returns object representation of a pattern
 	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
@@ -1472,6 +1471,32 @@ export class StaticCanvas {
 	 * @param [callback] Receives cloned instance as a first argument
 	 */
 	cloneWithoutData(callback: Function): void;
+
+	/**
+	 * Populates canvas with data from the specified dataless JSON.
+	 * JSON format must conform to the one of {@link fabric.Canvas#toDatalessJSON}
+	 * @deprecated since 1.2.2
+	 * @param {String|Object} json JSON string or object
+	 * @param {Function} callback Callback, invoked when json is parsed
+	 *                            and corresponding objects (e.g: {@link fabric.Image})
+	 *                            are initialized
+	 * @param {Function} [reviver] Method for further parsing of JSON elements, called after each fabric object created.
+	 * @return {fabric.Canvas} instance
+	 * @chainable
+	 * @tutorial {@link http://fabricjs.com/fabric-intro-part-3#deserialization}
+	 */
+	loadFromDatalessJSON(json: any, callback?: Function, reviver?: Function): Canvas;
+	/**
+	 * Populates canvas with data from the specified JSON.
+	 * JSON format must conform to the one of {@link fabric.Canvas#toJSON}
+	 * @param {String|Object} json JSON string or object
+	 * @param {Function} callback Callback, invoked when json is parsed
+	 *                            and corresponding objects (e.g: {@link fabric.Image})
+	 *                            are initialized
+	 * @param {Function} [reviver] Method for further parsing of JSON elements, called after each fabric object created.
+	 * @return {fabric.Canvas} instance
+	 */
+	loadFromJSON(json: any, callback?: Function, reviver?: Function): Canvas;
 }
 
 interface ICanvasOptions extends IStaticCanvasOptions {
@@ -1775,7 +1800,7 @@ export class Canvas {
 	 * @param {Boolean} ignoreZoom
 	 * @return {Object} object with "x" and "y" number values
 	 */
-	getPointer(e: Event, ignoreZoom: boolean): { x: number; y: number; };
+	getPointer(e: Event, ignoreZoom?: boolean): { x: number; y: number; };
 	/**
 	 * Returns context of canvas where object selection is drawn
 	 * @return {CanvasRenderingContext2D}
@@ -2149,7 +2174,6 @@ export class Image {
 	 * @param [options] Options object
 	 */
 	constructor(element?: string | HTMLImageElement, options?: IImageOptions);
-	initialize(element?: string | HTMLImageElement, options?: IImageOptions): void;
 	/**
 	 * Returns image element which this instance if based on
 	 * @return Image element
@@ -2268,7 +2292,6 @@ export class Line {
 	 * @param [options] Options object
 	 */
 	constructor(points?: number[], objObjects?: ILineOptions);
-	initialize(points?: number[], options?: ILineOptions): Line;
 	/**
 	 * Returns svg representation of an instance
 	 * @return {Array} an array of strings with the specific svg representation
@@ -3046,11 +3069,6 @@ export class Object {
 	setAngle(angle: number): Object;
 
 	/**
-	 * Removes object from canvas to which it was added last
-	 */
-	remove(): Object;
-
-	/**
 	 * Sets object's properties from options
 	 * @param [options] Options object
 	 */
@@ -3300,7 +3318,6 @@ export class Path {
 
 	pathOffset: Point;
 
-	initialize(path?: Point[], options?: IPathOptions): Path;
 	/**
 	 * Returns svg clipPath representation of an instance
 	 * @param {Function} [reviver] Method for further parsing of svg representation.
@@ -3366,7 +3383,6 @@ export class Polyline extends Object {
 	 * @param [skipOffset] Whether points offsetting should be skipped
 	 */
 	constructor(points: Array<{ x: number; y: number }>, options?: IPolylineOptions);
-	initialize(points: Point[], options?: IPolylineOptions): void;
 	/**
 	 * List of attribute names to account for when parsing SVG element (used by `fabric.Polygon.fromElement`)
 	 */
@@ -3403,7 +3419,6 @@ export class Rect extends Object {
 	 * @param [options] Options object
 	 */
 	constructor(options?: IRectOptions);
-	initialize(options?: IRectOptions): Rect;
 	/**
 	 * List of attribute names to account for when parsing SVG element (used by `fabric.Rect.fromElement`)
 	 */
@@ -3510,10 +3525,10 @@ interface TextOptions extends IObjectOptions {
 	 * @type {Number}
 	 */
 	deltaY?: number;
+	text?: string;
 }
 export interface Text extends TextOptions { }
 export class Text extends Object {
-	text?: string;
 	/**
 	 * Constructor
 	 * @param text Text string
@@ -3541,7 +3556,7 @@ export class Text extends Object {
 	 * text and itext do not have wrapping, return false
 	 * @return {Boolean}
 	 */
-	isEndOfWrapping(): boolean;
+	isEndOfWrapping(lineIndex: number): boolean;
 	/**
 	 * Returns string representation of an instance
 	 */
@@ -3675,7 +3690,7 @@ interface ITextOptions extends TextOptions {
 	path?: string;
 	useNative?: boolean;
 }
-export interface IText extends ITextOptions, IObservable<IText> { }
+export interface IText extends ITextOptions { }
 export class IText extends Text {
 	/**
 	 * Constructor
@@ -3683,7 +3698,6 @@ export class IText extends Text {
 	 * @param [options] Options object
 	 */
 	constructor(text: string, options?: ITextOptions);
-	initialize(text: string, options?: ITextOptions): IText;
 	/**
 	 * Sets selection start (left boundary of a selection)
 	 * @param {Number} index Index to set selection start to
@@ -3736,6 +3750,133 @@ export class IText extends Text {
 	 * @param {function} [callback] invoked with new instance as argument
 	 */
 	static fromObject(object: any, callback?: Function): IText;
+	/**
+	 * Initializes all the interactive behavior of IText
+	 */
+	initBehavior(): void;
+	onDeselect(): void;
+	/**
+	 * Initializes "added" event handler
+	 */
+	initAddedHandler(): void;
+	/**
+	 * Initializes delayed cursor
+	 */
+	initDelayedCursor(): void;
+	/**
+	 * Aborts cursor animation and clears all timeouts
+	 */
+	abortCursorAnimation(): void;
+	/**
+	 * Selects entire text
+	 * @return {fabric.IText} thisArg
+	 * @chainable
+	 */
+	selectAll(): IText;
+	/**
+	 * Returns selected text
+	 * @return {String}
+	 */
+	getSelectedText(): string;
+	/**
+	 * Find new selection index representing start of current word according to current selection index
+	 * @param {Number} startFrom Surrent selection index
+	 * @return {Number} New selection index
+	 */
+	findWordBoundaryLeft(startFrom: number): number;
+	/**
+	 * Find new selection index representing end of current word according to current selection index
+	 * @param {Number} startFrom Current selection index
+	 * @return {Number} New selection index
+	 */
+	findWordBoundaryRight(startFrom: number): number;
+	/**
+	 * Find new selection index representing start of current line according to current selection index
+	 * @param {Number} startFrom Current selection index
+	 * @return {Number} New selection index
+	 */
+	findLineBoundaryLeft(startFrom: number): number;
+	/**
+	 * Find new selection index representing end of current line according to current selection index
+	 * @param {Number} startFrom Current selection index
+	 * @return {Number} New selection index
+	 */
+	findLineBoundaryRight(startFrom: number): number;
+	/**
+	 * Finds index corresponding to beginning or end of a word
+	 * @param {Number} selectionStart Index of a character
+	 * @param {Number} direction 1 or -1
+	 * @return {Number} Index of the beginning or end of a word
+	 */
+	searchWordBoundary(selectionStart: number, direction: number): number;
+	/**
+	 * Selects a word based on the index
+	 * @param {Number} selectionStart Index of a character
+	 */
+	selectWord(selectionStart: number): void;
+	/**
+	 * Selects a line based on the index
+	 * @param {Number} selectionStart Index of a character
+	 * @return {fabric.IText} thisArg
+	 * @chainable
+	 */
+	selectLine(selectionStart: number): IText;
+	/**
+	 * Enters editing state
+	 * @return {fabric.IText} thisArg
+	 * @chainable
+	 */
+	enterEditing(): IText;
+	/**
+	 * Initializes "mousemove" event handler
+	 */
+	initMouseMoveHandler(): void;
+	/**
+	 * Exits from editing state
+	 * @return {fabric.IText} thisArg
+	 * @chainable
+	 */
+	exitEditing(): IText;
+	/**
+	 * remove and reflow a style block from start to end.
+	 * @param {Number} start linear start position for removal (included in removal)
+	 * @param {Number} end linear end position for removal ( excluded from removal )
+	 */
+	removeStyleFromTo(start: number, end: number): void;
+	/**
+	 * Shifts line styles up or down
+	 * @param {Number} lineIndex Index of a line
+	 * @param {Number} offset Can any number?
+	 */
+	shiftLineStyles(lineIndex: number, offset: number): void;
+	/**
+	 * Inserts new style object
+	 * @param {Number} lineIndex Index of a line
+	 * @param {Number} charIndex Index of a char
+	 * @param {Number} qty number of lines to add
+	 * @param {Array} copiedStyle Array of objects styles
+	 */
+	insertNewlineStyleObject(lineIndex: number, charIndex: number, qty: number, copiedStyle: any[]): void;
+	/**
+	 * Inserts style object for a given line/char index
+	 * @param {Number} lineIndex Index of a line
+	 * @param {Number} charIndex Index of a char
+	 * @param {Number} quantity number Style object to insert, if given
+	 * @param {Array} copiedStyle array of style objecs
+	 */
+	insertCharStyleObject(lineIndex: number, charIndex: number, quantity: number, copiedStyle: any[]): void;
+	/**
+	 * Inserts style object(s)
+	 * @param {Array} insertedText Characters at the location where style is inserted
+	 * @param {Number} start cursor index for inserting style
+	 * @param {Array} [copiedStyle] array of style objects to insert.
+	 */
+	insertNewStyleBlock(insertedText: any[], start: number, copiedStyle: any[]): void;
+	/**
+	 * Set the selectionStart and selectionEnd according to the ne postion of cursor
+	 * mimic the key - mouse navigation when shift is pressed.
+	 */
+	setSelectionStartEndWithShift(start: number, end: number, newSelection: number): void;
 }
 interface ITextboxOptions extends ITextOptions {
 	/**
@@ -3767,7 +3908,7 @@ interface ITextboxOptions extends ITextOptions {
 	 */
 	splitByGrapheme?: boolean;
 }
-export interface Textbox extends ITextboxOptions, IObservable<Textbox>{}
+export interface Textbox extends ITextboxOptions{}
 export class Textbox extends IText {
     /**
      * Constructor
@@ -4699,7 +4840,7 @@ interface IUtilMisc {
 	 * @param elements SVG elements to group
 	 * @param [options] Options object
 	 */
-	groupSVGElements(elements: any[], options?: any, path?: any): PathGroup;
+	groupSVGElements(elements: any[], options?: any, path?: string): Object | Group;
 
 	/**
 	 * Populates an object with properties of another object
