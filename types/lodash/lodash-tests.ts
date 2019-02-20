@@ -4293,8 +4293,8 @@ fp.now(); // $ExpectType number
     fp.isObject(anything); // $ExpectType boolean
     if (fp.isObject(anything)) {
         // $ExpectType object
-        anything
-    };
+        anything;
+    }
 }
 
 // _.isObjectLike
