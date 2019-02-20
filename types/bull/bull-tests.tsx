@@ -143,6 +143,8 @@ pdfQueue
 .on('drained', () => undefined)
 .on('removed', (job: Queue.Job) => undefined);
 
+pdfQueue.setMaxListeners(42);
+
 // test different process methods
 
 const profileQueue = new Queue('profile');

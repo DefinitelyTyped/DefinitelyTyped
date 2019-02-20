@@ -10,6 +10,6 @@ UTIF.encodeImage(rgba, 8, 8);
 // $ExpectType ArrayBuffer
 UTIF.encode(IFDs);
 // $ExpectType void
-UTIF.decodeImages(new ArrayBuffer(64), IFDs);
+UTIF.decodeImage(new ArrayBuffer(64), IFDs[0]);
 // $ExpectType void
 UTIF.replaceIMG();

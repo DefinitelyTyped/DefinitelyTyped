@@ -1,4 +1,4 @@
-// Type definitions for bdapi 0.2
+// Type definitions for non-npm package bdapi 0.2
 // Project: https://github.com/rauenzi/BetterDiscordApp
 // Definitions by: Ari Seyhun <https://github.com/Acidic9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

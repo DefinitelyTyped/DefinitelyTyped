@@ -20,6 +20,16 @@ adapter
     ;
 adapter.removeAllListeners();
 
+// Test adapter constructor options
+let adapterOptions: ioBroker.AdapterOptions = {
+    name: "foo",
+    ready: readyHandler,
+    stateChange: stateChangeHandler,
+    objectChange: objectChangeHandler,
+    message: messageHandler,
+    unload: unloadHandler,
+};
+
 function readyHandler() { }
 
 function stateChangeHandler(id: string, state: ioBroker.State | null | undefined) {
@@ -285,4 +295,32 @@ function repro2() {
         }
     };
     adapter.extendForeignObject("obj.id", obj, (err) => { });
+}
+
+// repro from https://github.com/ioBroker/adapter-core/issues/6
+function repro3() {
+    adapter.getDevices((error, deviceList) => {
+        if (deviceList) {
+            deviceList; // $ExpectType DeviceObject[]
+        }
+    });
+    adapter.getDevicesAsync().then(list => {
+        list; // $ExpectType DeviceObject[]
+    });
+    adapter.getChannels((error, channelList) => {
+        if (channelList) {
+            channelList; // $ExpectType ChannelObject[]
+        }
+    });
+    adapter.getChannelsOfAsync().then(list => {
+        list; // $ExpectType ChannelObject[]
+    });
+    adapter.getStatesOf((error, stateList) => {
+        if (stateList) {
+            stateList; // $ExpectType StateObject[]
+        }
+    });
+    adapter.getStatesOfAsync().then(list => {
+        list; // $ExpectType StateObject[]
+    });
 }

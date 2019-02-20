@@ -38,33 +38,28 @@ function test_hooks() {
 }
 
 function test_presence() {
-    let state = {};
-    const stateFromServer = {};
+  const socket = new Socket("/ws", {params: {userToken: "123"}});
 
-    const onJoin = (id: string, current: any, newPres: any) => {
-      if(!current){
-        console.log("user has entered for the first time", newPres)
-      } else {
-        console.log("user additional presence", newPres)
-      }
-    };
+  const channel = socket.channel("room:123", {token: '123'});
+  const presence = new Presence(channel);
 
-    const onLeave = (id: string, current: any, leftPres: any) => {
-      if(current.metas.length === 0){
-        console.log("user has left from all devices", leftPres)
-      } else {
-        console.log("user left from a device", leftPres)
-      }
-    };
+  let presenceState = {};
 
-    state = Presence.syncState(state, stateFromServer, onJoin, onLeave);
+  const logState = (state: Object) => {
+    Presence.list(state, (id: string) => id).forEach(console.log);
+  };
 
-    const listBy = (id: string, {metas: [first, ...rest]} : {metas: any[]}) => {
-      first.count = rest.length + 1;
-      first.id = id;
+  channel.on("presence_state", (state) => {
+    presenceState = Presence.syncState(presenceState, state);
+    logState(presenceState);
+  });
 
-      return first;
-    };
+  channel.on("presence_diff", (diff) => {
+    presenceState = Presence.syncState(presenceState, diff);
+    logState(presenceState);
+  });
 
-    const onlineUsers = Presence.list(state, listBy);
+  socket.connect();
+
+  channel.join();
 }

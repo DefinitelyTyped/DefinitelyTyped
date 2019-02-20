@@ -1477,7 +1477,7 @@ declare global {
              * @param options (optional) Some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            getDevicesAsync(options?: unknown): Promise<Array<GetObjectsItem<DeviceObject>>>;
+            getDevicesAsync(options?: unknown): Promise<DeviceObject[]>;
 
             /**
              * Returns a list of all channels in this adapter instance
@@ -1502,9 +1502,9 @@ declare global {
              * @param parentDevice (optional) Name of the parent device to filter the channels by
              * @param options (optional) Some internal options.
              */
-            getChannelsOfAsync(): Promise<Array<GetObjectsItem<ChannelObject>>>;
+            getChannelsOfAsync(): Promise<ChannelObject[]>;
             // tslint:disable-next-line:unified-signatures
-            getChannelsOfAsync(parentDevice: string, options?: unknown): Promise<Array<GetObjectsItem<ChannelObject>>>;
+            getChannelsOfAsync(parentDevice: string, options?: unknown): Promise<ChannelObject[]>;
 
             /**
              * Returns a list of all states in this adapter instance
@@ -1524,9 +1524,9 @@ declare global {
              * @param options (optional) Some internal options.
              */
             // tslint:disable:unified-signatures
-            getStatesOfAsync(): Promise<Array<GetObjectsItem<StateObject>>>;
-            getStatesOfAsync(parentDevice: string, parentChannel?: string): Promise<Array<GetObjectsItem<StateObject>>>;
-            getStatesOfAsync(parentDevice: string, parentChannel: string, options?: unknown): Promise<Array<GetObjectsItem<StateObject>>>;
+            getStatesOfAsync(): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel?: string): Promise<StateObject[]>;
+            getStatesOfAsync(parentDevice: string, parentChannel: string, options?: unknown): Promise<StateObject[]>;
             // tslint:enable:unified-signatures
 
             // ==============================
@@ -1627,11 +1627,11 @@ declare global {
             removeAllListeners(event?: "ready" | "unload" | "stateChange" | "objectChange" | "message"): this;
         } // end interface Adapter
 
-        type ReadyHandler = () => void;
-        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void;
-        type StateChangeHandler = (id: string, obj: State | null | undefined) => void;
-        type MessageHandler = (obj: Message) => void;
-        type UnloadHandler = (callback: EmptyCallback) => void;
+        type ReadyHandler = () => void | Promise<void>;
+        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void | Promise<void>;
+        type StateChangeHandler = (id: string, obj: State | null | undefined) => void | Promise<void>;
+        type MessageHandler = (obj: Message) => void | Promise<void>;
+        type UnloadHandler = (callback: EmptyCallback) => void | Promise<void>;
 
         type EmptyCallback = () => void;
         type ErrorCallback = (err?: string) => void;
@@ -1667,7 +1667,7 @@ declare global {
             value: T;
         }
         // This is a version used by GetDevices/GetChannelsOf/GetStatesOf
-        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: Array<GetObjectsItem<T>>) => void;
+        type GetObjectsCallback3<T extends BaseObject> = (err: string | null, result?: T[]) => void;
 
         type SecondParameterOf<T extends (...args: any[]) => any> = T extends (arg0: any, arg1: infer R, ...args: any[]) => any ? R : never;
         /** Infers the return type from a callback-style API and strips out null and undefined */

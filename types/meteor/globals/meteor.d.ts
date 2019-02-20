@@ -203,7 +203,7 @@ declare module Meteor {
     function onConnection(callback: Function): void;
     /** Connection **/
 
-    function publish(name: string, func: Function): void;
+    function publish(name: string, func: (this: Subscription, ...args: any[]) => void): void;
 
     function _debug(...args: any[]): void;
 }

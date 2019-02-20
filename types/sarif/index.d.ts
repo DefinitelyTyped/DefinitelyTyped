@@ -1,4 +1,4 @@
-// Type definitions for Sarif 2.0
+// Type definitions for non-npm package Sarif 2.0
 // Project: https://github.com/Microsoft/sarif-sdk
 // Definitions by: Rusty Scrivens <https://github.com/rscrivens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

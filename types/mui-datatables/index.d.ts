@@ -85,7 +85,7 @@ interface MUIDataTableTextLabelsSelectedRows {
     deleteAria: string;
 }
 
-interface MUIDataTableTextLabels {
+export interface MUIDataTableTextLabels {
     body: MUIDataTableTextLabelsBody;
     pagination: MUIDataTableTextLabelsPagination;
     toolbar: MUIDataTableTextLabelsToolbar;

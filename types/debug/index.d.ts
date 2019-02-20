@@ -16,7 +16,7 @@ declare namespace debug {
     interface Debug {
         (namespace: string): Debugger;
         coerce: (val: any) => any;
-        disable: () => void;
+        disable: () => string;
         enable: (namespaces: string) => void;
         enabled: (namespaces: string) => boolean;
 
@@ -38,7 +38,7 @@ declare namespace debug {
         (formatter: any, ...args: any[]): void;
 
         enabled: boolean;
-        log: (v: any) => string;
+        log: (...args: any[]) => any;
         namespace: string;
         extend: (namespace: string, delimiter?: string) => Debugger;
     }

@@ -1225,6 +1225,8 @@ var documentarray: mongoose.Schema.Types.DocumentArray = new mongoose.Schema.Typ
 mongoose.Schema.Types.DocumentArray.schemaName.toLowerCase();
 /* inherited properties */
 documentarray.sparse(true);
+/* http://thecodebarbarian.com/mongoose-4.8-embedded-discriminators */
+documentarray.discriminator('name', new mongoose.Schema({ foo: String }));
 
 /*
  * section schema/number.js
@@ -1555,6 +1557,18 @@ mongoose.Promise.all;
 
 mongoose.model('').findOne()
   .exec().then(cb);
+
+function testPromise_all() {
+  interface IUser extends mongoose.Document {
+    name: string;
+  }
+
+  const User = mongoose.model<IUser>('User', new mongoose.Schema({name: String}))
+
+  const dc: mongoose.DocumentQuery<IUser|null, IUser> = User.findOne({});
+  const dc2: PromiseLike<IUser|null> = dc;
+  Promise.all([dc])
+}
 
 /*
  * section model.js
