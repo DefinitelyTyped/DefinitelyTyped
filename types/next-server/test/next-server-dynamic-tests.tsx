@@ -12,23 +12,19 @@ const LoadingComponent: React.StatelessComponent<LoadingComponentProps> = ({
 }) => <p>loading...</p>;
 
 // 1. Basic Usage (Also does SSR)
-const DynamicComponent = dynamic(asyncComponent);
-const dynamicComponentJSX = <DynamicComponent foo />;
+const Test1 = dynamic(asyncComponent);
+const test1JSX = <Test1 foo />;
 
 // 1.1 Basic Usage (Loader function)
-const DynamicComponent2 = dynamic(() => asyncComponent);
-const dynamicComponent2JSX = <DynamicComponent2 foo />;
+const Test1Func = dynamic(() => asyncComponent);
+const test1FuncJSX = <Test1Func foo />;
 
-// 2. With Custom Loading Component
-const DynamicComponentWithCustomLoading = dynamic(() => asyncComponent, {
-    loading: LoadingComponent
-});
-const dynamicComponentWithCustomLoadingJSX = <DynamicComponentWithCustomLoading foo />;
-
-// 3. With No SSR
-const DynamicComponentWithNoSSR = dynamic(() => asyncComponent, {
+// 2. With Custom Options
+const Test2 = dynamic(() => asyncComponent, {
+    loading: LoadingComponent,
     ssr: false
 });
+const test2JSX = <Test2 foo />;
 
 // 4. With Multiple Modules At Once
 // TODO: Mapped components still doesn't infer their props.
