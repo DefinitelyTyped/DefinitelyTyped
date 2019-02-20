@@ -73,6 +73,7 @@ export interface VideoProperties extends ViewProps {
   progressUpdateInterval?: number;
   useTextureView?: boolean;
   allowsExternalPlayback?: boolean;
+  audioOnly: boolean;
 
   onLoadStart?(): void;
   onLoad?(data: OnLoadData): void;
