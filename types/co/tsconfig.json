@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,16 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "preserve"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "test/basic-content-state-tests.tsx",
-        "test/basic-controlled-tests.tsx",
-        "test/basic-tests.tsx",
-        "test/custom-toolbar-tests.tsx",
-        "test/focus-blur-callbacks-tests.tsx",
-        "test/uncontrolled-raw-draft-content-state.tsx"
+        "co-tests.ts"
     ]
 }
