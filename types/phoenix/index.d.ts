@@ -53,18 +53,18 @@ declare module "phoenix" {
     constructor(endPoint: string, opts?: Partial<SocketConnectOption>);
 
     protocol(): string;
-    endpointURL(): string;
+    endPointURL(): string;
 
     connect(params?: any): void;
     disconnect(callback?: Function, code?: number, reason?: string);
     connectionState(): ConnectionState;
     isConnected(): boolean;
 
-    remove(channel: Channel);
+    remove(channel: Channel): void;
     channel(topic: string, chanParams?: Object): Channel;
-    push(data: Object);
+    push(data: Object): void;
 
-    log(kind: string, message: string, data: Object);
+    log(kind: string, message: string, data: Object): void;
     hasLogger(): boolean;
 
     onOpen(callback: Function): void;
@@ -132,22 +132,22 @@ declare module "phoenix" {
   class Presence {
     constructor(channel: Channel, opts?: Object);
 
-    onJoin(callback: Function);
-    onLeave(callback: Function);
-    onSync(callback: Function);
-    list<T = any>(chooser?: Function): T[];
+    onJoin(callback: Function): void;
+    onLeave(callback: Function): void;
+    onSync(callback: Function): void;
+    list<T = any>(chooser?: (key: string, presence: Object) => T): T[];
     inPendingSyncState(): boolean;
 
     static syncState(
-      currentState: any,
-      newState: any,
+      currentState: Object,
+      newState: Object,
       onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
       onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
     ): any;
 
     static syncDiff(
-      currentState: any,
-      newState: any,
+      currentState: Object,
+      diff: {joins: Object; leaves: Object},
       onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
       onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
     ): any;
