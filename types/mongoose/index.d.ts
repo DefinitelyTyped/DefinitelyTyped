@@ -337,7 +337,7 @@ declare module "mongoose" {
     /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
     ssl?: boolean;
     /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
-    sslValidate?: object;
+    sslValidate?: boolean;
     /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
     poolSize?: number;
     /** Reconnect on error (default: true) */
