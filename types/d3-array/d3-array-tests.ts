@@ -957,8 +957,3 @@ num = d3Array.thresholdScott(readonlyNumbersArray, -1, 234);
 num = d3Array.thresholdSturges(numbersArray);
 num = d3Array.thresholdSturges(typedArray);
 num = d3Array.thresholdSturges(readonlyNumbersArray);
-
-// Deprecated ==================================================================
-
-const histDeprecatedNumber: d3Array.HistogramGenerator<MixedObject, number> = d3Array.histogram<MixedObject, number>();
-const histDeprecatedDate: d3Array.HistogramGenerator<MixedObject, Date> = d3Array.histogram<MixedObject, Date>();

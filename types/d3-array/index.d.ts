@@ -156,19 +156,19 @@ export function variance<T>(array: Iterable<T>, accessor: (datum: T, index: numb
 export function scan(array: Iterable<number>, comparator?: (a: number, b: number) => number): number | undefined;
 export function scan<T>(array: Iterable<T>, comparator: (a: T, b: T) => number): number | undefined;
 
-export function bisectLeft(array: Iterable<number>, x: number, lo?: number, hi?: number): number;
-export function bisectLeft(array: Iterable<string>, x: string, lo?: number, hi?: number): number;
-export function bisectLeft(array: Iterable<Date>, x: Date, lo?: number, hi?: number): number;
+export function bisectLeft(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
+export function bisectLeft(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
+export function bisectLeft(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
 
-export function bisectRight(array: Iterable<number>, x: number, lo?: number, hi?: number): number;
-export function bisectRight(array: Iterable<string>, x: string, lo?: number, hi?: number): number;
-export function bisectRight(array: Iterable<Date>, x: Date, lo?: number, hi?: number): number;
+export function bisectRight(array: ArrayLike<number>, x: number, lo?: number, hi?: number): number;
+export function bisectRight(array: ArrayLike<string>, x: string, lo?: number, hi?: number): number;
+export function bisectRight(array: ArrayLike<Date>, x: Date, lo?: number, hi?: number): number;
 
 export const bisect: typeof bisectRight;
 
 export interface Bisector<T, U> {
-    left(array: Iterable<T>, x: U, lo?: number, hi?: number): number;
-    right(array: Iterable<T>, x: U, lo?: number, hi?: number): number;
+    left(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
+    right(array: ArrayLike<T>, x: U, lo?: number, hi?: number): number;
 }
 
 export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
@@ -180,7 +180,7 @@ export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
  * @param array The array to partially sort (in place).
  * @param k The middle index for partial sorting.
  */
-export function quickselect<T>(array: Iterable<T>, k: number): T[];
+export function quickselect<T>(array: ArrayLike<T>, k: number): T[];
 
 /**
  * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
@@ -189,7 +189,7 @@ export function quickselect<T>(array: Iterable<T>, k: number): T[];
  * @param k The middle index for partial sorting.
  * @param left The left index of the range to sort.
  */
-export function quickselect<T>(array: Iterable<T>, k: number, left: number): T[];
+export function quickselect<T>(array: ArrayLike<T>, k: number, left: number): T[];
 
 /**
  * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
@@ -199,7 +199,7 @@ export function quickselect<T>(array: Iterable<T>, k: number, left: number): T[]
  * @param left The left index of the range to sort.
  * @param right The right index.
  */
-export function quickselect<T>(array: Iterable<T>, k: number, left: number, right: number): T[];
+export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, right: number): T[];
 
 /**
  * Rearranges items so that all items in the [left, k] are the smallest. The k-th element will have the (k - left + 1)-th smallest value in [left, right].
@@ -210,7 +210,7 @@ export function quickselect<T>(array: Iterable<T>, k: number, left: number, righ
  * @param right The right index.
  * @param compare The compare function.
  */
-export function quickselect<T>(array: Iterable<T>, k: number, left: number, right: number, compare: (a: Primitive | undefined, b: Primitive | undefined) => number): T[];
+export function quickselect<T>(array: ArrayLike<T>, k: number, left: number, right: number, compare: (a: Primitive | undefined, b: Primitive | undefined) => number): T[];
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
@@ -252,7 +252,7 @@ export function rollup<TObject, TKey, TReduce>(a: Iterable<TObject>, reduce: (va
  * @param a First input array.
  * @param b Second input array.
  */
-export function cross<S, T>(a: Iterable<S>, b: ArrayLike<T>): Array<[S, T]>;
+export function cross<S, T>(a: Iterable<S>, b: Iterable<T>): Array<[S, T]>;
 
 /**
  * Returns the Cartesian product of the two arrays a and b.
