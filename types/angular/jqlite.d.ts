@@ -444,6 +444,12 @@ interface JQuery {
     prepend(func: (index: number, html: string) => string | Element | JQuery): this;
 
     /**
+     * Get the immediately preceding sibling of each element in the set of matched elements. If a selector is provided, it retrieves the previous sibling only if it matches that selector.
+     * @param selector A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/prev/ }*/
+    prev(selector?: string): this;
+
+    /**
      * Get the value of a property for the first element in the set of matched elements.
      *
      * @param propertyName The name of the property to get.
