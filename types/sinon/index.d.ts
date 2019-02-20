@@ -1626,7 +1626,6 @@ declare namespace Sinon {
             constructor: StubbableType<TType>,
             overrides?: { [K in keyof TType]?: any }
         ): SinonStubbedInstance<TType>;
-
     }
 
     interface SinonApi {
