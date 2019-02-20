@@ -340,6 +340,14 @@ interface ICanvasAnimation<T> {
 	 * @chainable
 	 */
 	fxRemove(object: Object): T;
+
+	/**
+	 * Same as {@link fabric.Canvas.prototype.straightenObject}, but animated
+	 * @param {fabric.Object} object Object to straighten
+	 * @return {fabric.Canvas} thisArg
+	 * @chainable
+	 */
+	fxStraightenObject(object: Object): T;
 }
 interface IObjectAnimation<T> {
 	/**
@@ -1051,11 +1059,6 @@ interface IStaticCanvasOptions {
 	 * @type Boolean
 	 */
 	svgViewportTransformation?: boolean;
-	/**
-	 * Animation duration (in ms) for fx* methods
-	 * @type Number
-	 */
-	FX_DURATION?: number;
 
 }
 export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas> { }
@@ -1514,43 +1517,6 @@ export class StaticCanvas {
 	 * @return {String}
 	 */
 	createSVGRefElementsMarkup(): string;
-	/**
-	 * Centers object horizontally with animation.
-	 * @param {fabric.Object} object Object to center
-	 * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
-	 * @param {Function} [callbacks.onComplete] Invoked on completion
-	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
-	 * @return {fabric.Canvas} thisArg
-	 * @chainable
-	 */
-	fxCenterObjectH(object: Object, callbacks?: Callbacks): Canvas;
-	/**
-	 * Centers object vertically with animation.
-	 * @param {fabric.Object} object Object to center
-	 * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
-	 * @param {Function} [callbacks.onComplete] Invoked on completion
-	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
-	 * @return {fabric.Canvas} thisArg
-	 * @chainable
-	 */
-	fxCenterObjectV(object: Object, callbacks?: Callbacks): Canvas;
-	/**
-	 * Same as `fabric.Canvas#remove` but animated
-	 * @param {fabric.Object} object Object to remove
-	 * @param {Object} [callbacks] Callbacks object with optional "onComplete" and/or "onChange" properties
-	 * @param {Function} [callbacks.onComplete] Invoked on completion
-	 * @param {Function} [callbacks.onChange] Invoked on every step of animation
-	 * @return {fabric.Canvas} thisArg
-	 * @chainable
-	 */
-	fxRemove(object: Object, callbacks?: Callbacks): Canvas;
-	/**
-	 * Same as {@link fabric.Canvas.prototype.straightenObject}, but animated
-	 * @param {fabric.Object} object Object to straighten
-	 * @return {fabric.Canvas} thisArg
-	 * @chainable
-	 */
-	fxStraightenObject(object: Object): Canvas;
 	/**
 	 * Straightens object, then rerenders canvas
 	 * @param {fabric.Object} object Object to straighten
