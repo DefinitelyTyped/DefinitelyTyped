@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-sass-tests.ts"
+        "co-tests.ts"
     ]
 }

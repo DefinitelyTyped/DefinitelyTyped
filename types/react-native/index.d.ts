@@ -7662,6 +7662,9 @@ export interface PanResponderStatic {
 export interface Rationale {
     title: string;
     message: string;
+    buttonPositive: string;
+    buttonNegative?: string;
+    buttonNeutral?: string;
 }
 
 export type Permission =

@@ -177,6 +177,8 @@ new Redis.Cluster([{
 
 redis.xack('streamName', 'groupName', 'id');
 redis.xadd('streamName', '*', 'field', 'name');
+redis.xadd('streamName', 'MAXLEN', 100, '*', 'field', 'name');
+redis.xadd('streamName', 'MAXLEN', '~', 100, '*', 'field', 'name');
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id');
 redis.xdel('streamName', 'id');
 redis.xgroup('CREATE', 'streamName', 'groupName', '$');
