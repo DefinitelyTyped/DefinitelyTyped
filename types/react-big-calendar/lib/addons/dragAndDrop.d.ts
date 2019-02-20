@@ -11,4 +11,4 @@ declare class DragAndDropCalendar<TEvent extends Event = Event, TResource extend
   extends React.Component<BigCalendarProps<TEvent, TResource> & withDragAndDropProps<TEvent>> {}
 
 declare function withDragAndDrop(calendar: typeof BigCalendar): typeof DragAndDropCalendar;
-export = withDragAndDrop;
+export default withDragAndDrop;
