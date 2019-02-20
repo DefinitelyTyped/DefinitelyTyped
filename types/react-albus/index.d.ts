@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import { History } from "history";
+import * as React from 'react';
+import { History } from 'history';
 
 export interface StepObject {
     id: string;
@@ -39,17 +39,18 @@ export interface WizardProps {
     basename?: string;
 }
 
-export const Wizard: React.ComponentType<WizardProps>;
+export class Wizard extends React.Component<WizardProps, any> {}
 
 export interface StepsProps {
     step?: StepObject;
 }
 
-export const Steps: React.ComponentType<StepsProps>;
+export class Steps extends React.Component<StepsProps, any> {}
 
-export type StepProps = StepObject & (
-    | { render?: (wizard: WizardContext) => React.ReactNode }
-    | { children: (wizard: WizardContext) => React.ReactNode });
+export type StepProps = StepObject &
+    (
+        | { render?: (wizard: WizardContext) => React.ReactNode }
+        | { children: (wizard: WizardContext) => React.ReactNode });
 
 /**
  * In addition to id, any additional props added to <Step> will be available on each step object.
@@ -62,4 +63,4 @@ export type StepProps = StepObject & (
  *   }
  * }
  */
-export const Step: React.ComponentType<StepProps>;
+export class Step extends React.Component<StepProps, any> {}
