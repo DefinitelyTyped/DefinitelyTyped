@@ -11,7 +11,7 @@ export type CompareResult = -1|0|1;
 
 export namespace Name {
     class Component {
-        constructor(value?: number[]|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number);
+        constructor(value?: ReadonlyArray<number>|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number);
         constructor(component: Component);
 
         compare(other: Component): CompareResult;
@@ -52,12 +52,12 @@ export namespace Name {
 }
 
 export class Name {
-    constructor(components?: Array<Name.Component|Uint8Array>);
+    constructor(components?: ReadonlyArray<Name.Component|Uint8Array>);
     constructor(uri: string);
     // tslint:disable-next-line unified-signatures
     constructor(name: Name);
 
-    append(value: number[]|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number): Name;
+    append(value: ReadonlyArray<number>|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number): Name;
     append(component: Name.Component): Name;
     // tslint:disable-next-line unified-signatures
     append(name: Name): Name;

@@ -1,7 +1,7 @@
 export class Blob {
     constructor(value?: Blob);
     constructor(value: Buffer, copy?: boolean);
-    constructor(value: number[]|string);
+    constructor(value: ReadonlyArray<number>|string);
 
     buf(): Buffer;
     equals(other: Blob): boolean;
@@ -11,7 +11,7 @@ export class Blob {
 
 export class SignedBlob extends Blob {
     constructor();
-    constructor(value: Blob|Buffer|number[], signedPortionBeginOffset: number, signedPortionEndOffset: number);
+    constructor(value: Blob|Buffer|ReadonlyArray<number>, signedPortionBeginOffset: number, signedPortionEndOffset: number);
 
     getSignedPortionBeginOffset(): number;
     getSignedPortionEndOffset(): number;
