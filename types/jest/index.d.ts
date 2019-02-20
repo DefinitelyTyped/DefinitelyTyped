@@ -1,5 +1,5 @@
 // Type definitions for Jest 24.0
-// Project: http://facebook.github.io/jest/
+// Project: https://jestjs.io
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
 //                 jwbay <https://github.com/jwbay>
@@ -263,7 +263,20 @@ declare namespace jest {
     }
 
     interface Each {
-        (cases: any[]): (name: string, fn: (...args: any[]) => any) => void;
+        // Exclusively arrays.
+        <T extends any[]>(cases: ReadonlyArray<T>): (
+            name: string,
+            fn: (...args: T) => any
+        ) => void;
+        // Not arrays.
+        <T>(cases: ReadonlyArray<T>): (
+            name: string,
+            fn: (...args: T[]) => any
+        ) => void;
+        (cases: ReadonlyArray<ReadonlyArray<any>>): (
+            name: string,
+            fn: (...args: any[]) => any
+        ) => void;
         (strings: TemplateStringsArray, ...placeholders: any[]): (
             name: string,
             fn: (arg: any) => any
