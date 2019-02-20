@@ -60,7 +60,7 @@ class CalendarResource {
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
-                    
+
 // Drag and Drop Example Test
 {
     interface Props {
