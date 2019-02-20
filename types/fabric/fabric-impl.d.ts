@@ -614,6 +614,10 @@ interface IPatternOptions {
 	 * The source for the pattern
 	 */
 	source: string | HTMLImageElement;
+    /**
+     * Transform matrix to change the pattern, imported from svgs
+     */
+    patternTransform?: number[];
 }
 export interface Pattern extends IPatternOptions { }
 export class Pattern {
@@ -2236,7 +2240,20 @@ interface IObjectOptions {
 	 */
 	clipTo?: Function;
 
-	/**
+    /**
+     * A fabricObject that, without stroke define a clipping area with their shape. filled in black
+     * the clipPath object gets used when the object has rendered, and the context is placed in the center
+     * of the object cacheCanvas.
+     * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
+     */
+    clipPath?: Object;
+
+    /**
+     * When set to `true`, object's cache will be rerendered next render call.
+     */
+    dirty?: boolean;
+
+    /**
 	 * When `true`, object horizontal movement is locked
 	 */
 	lockMovementX?: boolean;
@@ -3757,7 +3774,18 @@ interface IAllFilters {
 		 */
 		fromObject(object: any): IBrightnessFilter
 	};
-	Convolute: {
+    ColorMatrix: {
+        new(options?: {
+            /** Filter matrix */
+            matrix?: number[]
+        }): IColorMatrix;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IColorMatrix
+    };
+    Convolute: {
 		new(options?: {
 			opaque?: boolean,
 			/** Filter matrix */
@@ -3944,6 +3972,13 @@ interface IBrightnessFilter extends IBaseFilter {
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IColorMatrix extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IConvoluteFilter extends IBaseFilter {
 	/**
@@ -4624,6 +4659,11 @@ interface IUtilMisc {
 	 * @param a transformMatrix
 	 */
 	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number };
+
+    /**
+     * Creates a transform matrix with the specified scale and skew
+     */
+    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
 
 	/**
 	 * Returns string representation of function body

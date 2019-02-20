@@ -3187,8 +3187,9 @@ declare namespace sequelize {
      * We did put Object in the end, because there where query might be a JSON Blob. It cripples a bit the
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
+    type Primitives = string | number | boolean | Buffer;
     type WhereOptions<T> = {
-        [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | WhereNested | Array<string | number> | null;
+        [P in keyof T]?: Primitives | Array<Primitives> | WhereLogic | (T[P] extends Primitives ? null : WhereOptions<T[P]>) | col | and | or | WhereGeometryOptions | WhereNested | null;
     };
 
     /**
@@ -3285,6 +3286,11 @@ declare namespace sequelize {
          * if true, it will also eager load the relations of the child models, recursively.
          */
         nested?: boolean;
+
+        /**
+         * If true, runs a separate query to fetch the associated instances, only supported for hasMany associations
+         */
+        separate?: boolean;
     }
 
     /**
@@ -5274,6 +5280,11 @@ declare namespace sequelize {
         collate?: string;
 
         /**
+         * Specify the ROW_FORMAT for use with the MySQL InnoDB engine.
+         */
+        rowFormat?: string;
+
+        /**
          * Set the initial AUTO_INCREMENT value for the table in MySQL.
          */
         initialAutoIncrement?: string;
@@ -6503,6 +6514,16 @@ declare namespace sequelize {
          * A function that gets executed while running the query to log the sql.
          */
         logging?: Function;
+
+        /**
+         * Specify the parent transaction so that this transaction is nested or a save point within the parent
+         */
+        transaction?: Transaction;
+
+        /**
+         * Sets the constraints to be deferred or immediately checked.
+         */
+        deferrable?: Deferrable[keyof Deferrable];
 
     }
 

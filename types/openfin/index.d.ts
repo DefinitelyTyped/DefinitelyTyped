@@ -1,4 +1,4 @@
-// Type definitions for OpenFin API 37.0
+// Type definitions for non-npm package OpenFin API 39.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-// based on v9.61.37.14
+// based on v10.66.39.25
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**
@@ -37,6 +37,7 @@ declare namespace fin {
 
     // v2 shapes
     type Identity = import('./_v2/identity').Identity;
+    type applicationLogInfo = import('./_v2/api/application/application').LogInfo;
     type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
     type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
     type TrayInfo = import('./_v2/api/application/application').TrayInfo;
@@ -46,6 +47,7 @@ declare namespace fin {
     type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;
     type CookieInfo = import('./_v2/api/system/cookie').CookieInfo;
     type CookieOption = import('./_v2/api/system/cookie').CookieOption;
+    type CrashReporterOption = import('./_v2/api/system/crashReporterOption').CrashReporterOption;
     type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
     type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
     type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
@@ -65,12 +67,14 @@ declare namespace fin {
     type RuntimeInfo = import('./_v2/api/system/runtime-info').RuntimeInfo;
     type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
     type WindowDetail = import('./_v2/api/system/window').WindowDetail;
-    type WindowInfo = import('./_v2/api/system/window').WindowInfo;
+    type SystemWindowInfo = import('./_v2/api/system/window').WindowInfo;
     type AnchorType = import('./_v2/api/window/anchor-type').AnchorType;
     type Bounds = import('./_v2/api/window/bounds').default;
     type Transition = import('./_v2/api/window/transition').Transition;
     type TransitionOptions = import('./_v2/api/window/transition').TransitionOptions;
     type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
+    type WindowInfo = import('./_v2/api/window/window').WindowInfo;
+    type FrameInfo = import('./_v2/api/window/window').FrameInfo;
 
     const desktop: OpenFinDesktop;
 
@@ -145,6 +149,10 @@ declare namespace fin {
          */
         getGroups(callback?: (groups: OpenFinWindow[][]) => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Retrieves information about the application.
+         */
+        getInfo(callback?: (info: LaunchInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Retrieves the JSON manifest that was used to create the application. Invokes the error callback if the application was not created from a manifest.
          */
         getManifest(callback?: (manifest: any) => void, errorCallback?: (reason: string) => void): void;
@@ -157,13 +165,13 @@ declare namespace fin {
          */
         getShortcuts(callback?: (config: ShortCutConfig) => void, errorCallback?: (reason: string) => void): void;
         /**
-         * Retrieves information about the application.
-         */
-        getInfo(callback?: (info: LaunchInfo) => void, errorCallback?: (reason: string) => void): void;
-        /**
          * Retrieves information about the system tray.
          */
         getTrayIconInfo(callback?: (trayInfo: TrayInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Returns the current zoom level of the application.
+         */
+        getZoomLevel(callback?: (level: number) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Determines if the application is currently running.
          */
@@ -203,6 +211,14 @@ declare namespace fin {
          */
         scheduleRestart(callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Sends a message to the RVM to upload the application's logs. On success, an object containing logId is returned.
+         */
+        sendApplicationLog(callback?: (logInfo: applicationLogInfo) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Sets an associated username with that app for Application Log Management use
+         */
+        setAppLogUsername(username: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Sets new shortcut configuration for current application.
          * Application has to be launched with a manifest and has to have shortcut configuration (icon url, name, etc.) in its manifest to
          * be able to change shortcut states.
@@ -212,6 +228,11 @@ declare namespace fin {
          * Adds a customizable icon in the system tray and notifies the application when clicked.
          */
         setTrayIcon(iconUrl: string, listener: (clickInfo: TrayIconClickedEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Sets the zoom level of the application. The original size is 0 and each increment above or below represents zooming 20%
+         * larger or smaller to default limits of 300% and 50% of original size, respectively.
+         */
+        setZoomLevel(level: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Closes the application by terminating its process.
          */
@@ -556,19 +577,23 @@ declare namespace fin {
         /**
          * Retrieves an array of data (name, ids, bounds) for all application windows.
          */
-        getAllWindows(callback?: (windowInfoList: WindowInfo[]) => void, errorCallback?: (reason: string) => void): void;
+        getAllWindows(callback?: (windowInfoList: SystemWindowInfo[]) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns information about the app asset.
          */
         getAppAssetInfo(options: AppAssetRequest, callback?: (appAssetInfo: AppAssetInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Retrieves the command line argument string that started OpenFin Runtime.
+         */
+        getCommandLineArguments(callback?: (args: string) => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Get additional info of cookies.
          */
         getCookies(option: CookieOption, callback?: (info: CookieInfo[]) => void, errorCallback?: (reason: string) => void): void;
         /**
-         * Retrieves the command line argument string that started OpenFin Runtime.
+         * Get the current state of the crash reporter.
          */
-        getCommandLineArguments(callback?: (args: string) => void, errorCallback?: (reason: string) => void): void;
+        getCrashReporterState(callback?: (state: CrashReporterOption) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves the configuration object that started the OpenFin Runtime.
          */
@@ -601,6 +626,10 @@ declare namespace fin {
          * Retrieves an array containing information for each log file.
          */
         getLogList(callback?: (logInfoList: LogInfo[]) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Returns a unique identifier (UUID) provided by the machine.
+         */
+        getMachineId(callback?: (uuid: string) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves the minimum (inclusive) logging level that is currently being written to the logs.
          */
@@ -691,17 +720,18 @@ declare namespace fin {
          */
         showDeveloperTools(uuid: string, name: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Start the crash reporter for the browser process if not already running.
+         * You can optionally specify `diagnosticMode` to have the logs sent to
+         * OpenFin on runtime close
+         */
+        startCrashReporter(options: CrashReporterOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Attempt to close an external process. The process will be terminated if it has not closed after the elapsed timeout in milliseconds.
          */
         terminateExternalProcess(
             processUuid: string,
             timeout: number,
             killTree: boolean,
-            callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
-            errorCallback?: (reason: string) => void): void;
-        terminateExternalProcess(
-            processUuid: string,
-            timeout: number,
             callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
             errorCallback?: (reason: string) => void): void;
         /**
@@ -808,6 +838,11 @@ declare namespace fin {
          */
         close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Executes Javascript on the window, restricted to windows you own or windows owned by applications you have created.
+         * @param code JavaScript code to be executed on the window.
+         */
+        executeJavaScript(code: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Prevents a user from changing a window's size/position when using the window's frame.
          * 'disabled-frame-bounds-changing' is generated at the start of and during a user move/size operation.
          * 'disabled-frame-bounds-changed' is generated after a user move/size operation.
@@ -832,6 +867,11 @@ declare namespace fin {
          */
         focus(callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Retrieves an array of frame info objects representing the main frame and any
+         * iframes that are currently on the page.
+         */
+        getAllFrames(callback?: (frames: FrameInfo[]) => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Gets the current bounds (top, left, width, height) of the window.
          */
         getBounds(callback?: (bounds: Bounds) => void, errorCallback?: (reason: string) => void): void;
@@ -840,6 +880,10 @@ declare namespace fin {
          * Please note that calling window is included in the result array.
          */
         getGroup(callback?: (group: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Gets an information object for the window.
+         */
+        getInfo(callback?: (info: WindowInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Gets the current settings of the window.
          */
@@ -893,6 +937,22 @@ declare namespace fin {
          */
         moveTo(left: number, top: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
+         * Navigates the window to a specified URL.
+         */
+        navigate(url: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Navigates the window back one page.
+         */
+        navigateBack(callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Navigates the window forward one page.
+         */
+        navigateForward(callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Reloads the window current page.
+         */
+        reload(ignoreCacheopt?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
          * Removes a previously registered event listener from the specified event.
          */
         removeEventListener(
@@ -944,6 +1004,10 @@ declare namespace fin {
          * Stops the taskbar icon from flashing.
          */
         stopFlashing(callback?: () => void, errorCallback?: (reason: string) => void): void;
+        /**
+         * Stops any current navigation the window is performing.
+         */
+        stopNavigation(callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Updates the window using the passed options
          */

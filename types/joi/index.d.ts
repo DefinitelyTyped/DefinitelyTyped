@@ -488,7 +488,6 @@ export interface BooleanSchema extends AnySchema {
     /**
      * Allows the values provided to truthy and falsy as well as the "true" and "false" default conversion
      * (when not in strict() mode) to be matched in a case insensitive manner.
-     * @param enabled
      */
     insensitive(enabled?: boolean): this;
 }
@@ -791,6 +790,11 @@ export interface ObjectSchema extends AnySchema {
      * Specifies the exact number of keys in the object.
      */
     length(limit: number): this;
+
+    /**
+     * Requires the object to be a Joi schema instance.
+     */
+    schema(): this;
 
     /**
      * Specify validation rules for unknown keys matching a pattern.

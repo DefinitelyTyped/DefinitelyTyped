@@ -729,6 +729,8 @@ export interface ServerConfig {
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
     algorithms?: Algorithms;
     /** A message that is sent to clients immediately upon connection, before handshaking begins. */
+    greeting?: string
+    /** A message that is sent to clients once, right before authentication begins. */
     banner?: string;
     /** A custom server software name/version identifier. */
     ident?: string;

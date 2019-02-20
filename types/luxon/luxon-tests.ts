@@ -1,4 +1,4 @@
-import { DateTime, Duration, Interval, Info, Settings, IANAZone } from 'luxon';
+import { DateTime, Duration, Interval, Info, Settings, IANAZone, Zone, ZoneOffsetOptions } from 'luxon';
 
 /* DateTime */
 const dt = DateTime.local(2017, 5, 15, 8, 30);
@@ -140,10 +140,12 @@ i.length('years'); // $ExpectType number
 i.contains(DateTime.local(2019)); // $ExpectType boolean
 i.set({end: DateTime.local(2020)}); // $ExpectType Interval
 i.mapEndpoints((d) => d); // $ExpectType Interval
+i.intersection(i); // $ExpectType Interval | null
 
 i.toISO(); // $ExpectType string
 i.toString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
+i.toDuration(); // $ExpectType Duration
 
 if (Interval.isInterval(anything)) {
     anything; // $ExpectType Interval
@@ -285,3 +287,21 @@ dur.reconfigure({ conversionAccuracy: 'longterm' }); // $ExpectType Duration
 
 start.until(end); // $ExpectType Interval
 i.toDuration(['years', 'months', 'days']); // $ExpectType Duration
+
+/* Sample Zone Implementation */
+class SampleZone extends Zone {
+  readonly isValid = false;
+  readonly name = 'Sample';
+  readonly type = 'Example';
+  readonly universal = true;
+
+  offsetName(ts: number, options?: ZoneOffsetOptions) {
+    return 'SampleZone';
+  }
+  equals(other: Zone) {
+    return other.name === this.name;
+  }
+  offset(ts: number) {
+    return 0;
+  }
+}

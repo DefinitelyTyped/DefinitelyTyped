@@ -7,6 +7,7 @@
 //                 Benjamin Dobson <https://github.com/bpdsw>
 //                 Be Birchall <https://github.com/bebebebebe>
 //                 Daniel Cassidy <https://github.com/djcsdy>
+//                 Drew Wyatt <https://github.com/drewwyatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -264,6 +265,13 @@ declare namespace jwplayer {
         reason: 'auto' | 'api' | 'initial choice';
     }
 
+    interface CastParam {
+        available: boolean;
+        active: boolean;
+        deviceName: string;
+        type: 'cast';
+    }
+
     interface EventParams {
         adClick: AdProgressParam;
         adCompanions: AdCompanionsParam;
@@ -277,6 +285,7 @@ declare namespace jwplayer {
         adPlay: AdPlayParam;
         adPause: AdPlayParam;
         adTime: AdTimeParam;
+        cast: CastParam;
         meta: MetadataParam;
         audioTracks: AudioTracksParam;
         audioTrackChanged: AudioTrackChangedParam;

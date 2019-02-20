@@ -540,7 +540,7 @@ export class RuleTester {
         name: string,
         rule: Rule.RuleModule,
         tests: {
-            valid?: RuleTester.ValidTestCase[];
+            valid?: Array<string | RuleTester.ValidTestCase>;
             invalid?: RuleTester.InvalidTestCase[];
         },
     ): void;

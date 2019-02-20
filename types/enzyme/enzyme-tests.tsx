@@ -35,6 +35,10 @@ interface MyComponentState {
     stateProperty: string;
 }
 
+function toComponentType<T>(Component: ComponentClass<T> | StatelessComponent<T>): ComponentClass<T> | StatelessComponent<T> {
+  return Component;
+}
+
 class MyComponent extends Component<MyComponentProps, MyComponentState> {
     handleEcho(value: string) {
         return value;
@@ -59,6 +63,8 @@ const MyStatelessComponent = (props: StatelessProps) => <span />;
 
 const AnotherStatelessComponent = (props: AnotherStatelessProps) => <span />;
 
+const ComponentType = toComponentType(MyComponent);
+
 // Enzyme.configure
 function configureTest() {
     const configureAdapter: { adapter: EnzymeAdapter } = { adapter: {} };
@@ -76,8 +82,8 @@ function ShallowWrapperTest() {
     let shallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState> =
         shallow<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" numberProp={1} />);
 
-    let reactElement: ReactElement<any>;
-    let reactElements: Array<ReactElement<any>>;
+    let reactElement: ReactElement;
+    let reactElements: ReactElement[];
     let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;
@@ -478,8 +484,8 @@ function ReactWrapperTest() {
     let reactWrapper: ReactWrapper<MyComponentProps, MyComponentState> =
         mount<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" numberProp={1} />);
 
-    let reactElement: ReactElement<any>;
-    let reactElements: Array<ReactElement<any>>;
+    let reactElement: ReactElement;
+    let reactElements: ReactElement[];
     let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;
@@ -858,6 +864,14 @@ function ReactWrapperTest() {
         reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, reactWrapper);
         reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, undefined, { attachTo: document.createElement('div') });
         reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} />, reactWrapper, { attachTo: document.createElement('div') });
+    }
+
+    function test_component_type() {
+      const wrapper1 = shallow(<div><ComponentType stringProp={"S"} numberProp={1} /></div>);
+      wrapper1.find<MyComponentProps>(ComponentType).props().stringProp; // $ExpectType string
+
+      const wrapper2 = mount(<div><ComponentType stringProp={"S"} numberProp={1} /></div>);
+      wrapper2.find<MyComponentProps>(ComponentType).props().stringProp; // $ExpectType string
     }
 }
 

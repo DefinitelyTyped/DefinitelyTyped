@@ -16,6 +16,8 @@
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 stablio <https://github.com/stablio>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
+//                 Frontend Monster <https://github.com/frontendmonster>
+//                 Ming Chen <https://github.com/mingchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -165,16 +167,7 @@ declare module "mongoose" {
 
   export function startSession(options?: mongodb.SessionOptions, cb?: (err: any, session: mongodb.ClientSession) => void): Promise<mongodb.ClientSession>;
 
-  class CastError extends Error {
-    /**
-     * The Mongoose CastError constructor
-     * @param type The name of the type
-     * @param value The value that failed to cast
-     * @param path The path a.b.c in the doc where this cast error occurred
-     * @param reason The original error that was thrown
-     */
-    constructor(type: string, value: any, path: string, reason?: NativeError);
-  }
+  export type CastError = Error.CastError;
 
   /*
    * section connection.js
@@ -316,6 +309,16 @@ declare module "mongoose" {
     readyState: number;
   }
 
+  /**
+   * Connection optional settings.
+   *
+   * see
+   *   https://mongoosejs.com/docs/api.html#mongoose_Mongoose-connect
+   * and
+   *   http://mongodb.github.io/node-mongodb-native/3.0/api/MongoClient.html
+   * for all available options.
+   *
+   */
   interface ConnectionOptionsBase {
     /** database Name for Mongodb Atlas Connection */
     dbName?: string;
@@ -334,16 +337,18 @@ declare module "mongoose" {
     /** Use ssl connection (needs to have a mongod server with ssl support) (default: true) */
     ssl?: boolean;
     /** Validate mongod server certificate against ca (needs to have a mongod server with ssl support, 2.4 or higher) */
-    sslValidate?: object;
+    sslValidate?: boolean;
     /** Number of connections in the connection pool for each server instance, set to 5 as default for legacy reasons. */
     poolSize?: number;
     /** Reconnect on error (default: true) */
     autoReconnect?: boolean;
-    /** TCP KeepAlive on the socket with a X ms delay before start (default: 0). */
-    keepAlive?: number;
-    /** TCP Connection timeout setting (default: 0) */
+    /** TCP Connection keep alive enabled (default: true) */
+    keepAlive?: boolean;
+    /** The number of milliseconds to wait before initiating keepAlive on the TCP socket (default 30000) */
+    keepAliveInitialDelay?: number;
+    /** TCP Connection timeout setting (default: 30000) */
     connectTimeoutMS?: number;
-    /** TCP Socket timeout setting (default: 0) */
+    /** TCP Socket timeout setting (default: 360000) */
     socketTimeoutMS?: number;
     /** If the database authentication is dependent on another databaseName. */
     authSource?: string;
@@ -495,6 +500,11 @@ declare module "mongoose" {
    * http://mongoosejs.com/docs/api.html#error-js
    */
   class Error extends global.Error {
+
+    // "MongooseError" for instances of the current class,
+    // an other string for instances of derived classes.
+    name: "MongooseError" | string;
+
     /**
      * MongooseError constructor
      * @param msg Error message
@@ -530,6 +540,10 @@ declare module "mongoose" {
      * the document.
      */
     export class DocumentNotFoundError extends Error {
+      name: 'DocumentNotFoundError';
+      filter: any;
+      query: any;
+      constructor(filter: any);
     }
 
     /**
@@ -540,10 +554,11 @@ declare module "mongoose" {
      * cast a value.
      */
     export class CastError extends Error {
+      name: 'CastError';
       stringValue: string;
       kind: string;
-      path: string;
       value: any;
+      path: string;
       reason?: any;
       model?: any;
 
@@ -555,13 +570,18 @@ declare module "mongoose" {
     /**
      * section error/validation.js
      * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
+
+     * An instance of this error class will be returned when [validation](/docs/validation.html) failed.
+     * The `errors` property contains an object whose keys are the paths that failed and whose values are
+     * instances of CastError or ValidationError.
      *
-     * An instance of this error class will be returned when [validation](http://mongoosejs.com/docs/validation.html) failed.
      */
     export class ValidationError extends Error {
-      errors: any;
+      name: 'ValidationError';
 
-      constructor(instance: MongooseDocument);
+      errors: {[path: string]: ValidatorError | CastError};
+
+      constructor(instance?: MongooseDocument);
 
       /** Console.log helper */
       toString(): string;
@@ -580,13 +600,14 @@ declare module "mongoose" {
      * A `ValidationError` has a hash of `errors` that contain individual `ValidatorError` instances
      */
     export class ValidatorError extends Error {
-      properties: any;
+      name: 'ValidatorError';
+      properties: {message: string, type?: string, path?: string, value?: any, reason?: any};
       kind: string;
       path: string;
       value: any;
       reason: any;
 
-      constructor(properties: any);
+      constructor(properties: {message?: string, type?: string, path?: string, value?: any, reason?: any});
 
       formatMessage(msg: string | Function, properties: any): string;
 
@@ -602,6 +623,7 @@ declare module "mongoose" {
      * the [`versionKey` option](http://mongoosejs.com/docs/guide.html#versionKey) for more information.
      */
     export class VersionError extends Error {
+      name: 'VersionError';
       version: any;
       modifiedPaths: Array<any>;
 
@@ -617,6 +639,7 @@ declare module "mongoose" {
      * information.
      */
     export class ParallelSaveError extends Error {
+      name: 'ParallelSaveError';
       constructor(doc: MongooseDocument);
     }
 
@@ -628,6 +651,7 @@ declare module "mongoose" {
      * See [the FAQ about `OverwriteModelError`](http://mongoosejs.com/docs/faq.html#overwrite-model-error).
      */
     export class OverwriteModelError extends Error {
+      name: 'OverwriteModelError';
       constructor(name: string);
     }
 
@@ -638,6 +662,7 @@ declare module "mongoose" {
      * Thrown when you try to access a model that has not been registered yet
      */
     export class MissingSchemaError extends Error {
+      name: 'MissingSchemaError';
       constructor(name: string);
     }
 
@@ -649,6 +674,7 @@ declare module "mongoose" {
      * and then modified the array in an unsafe way.
      */
     export class DivergentArrayError extends Error {
+      name: 'DivergentArrayError';
       constructor(paths: Array<any>);
     }
   }
@@ -1310,7 +1336,7 @@ declare module "mongoose" {
      * @param kind optional kind property for the error
      * @returns the current ValidationError, with all currently invalidated paths
      */
-    invalidate(path: string, errorMsg: string | NativeError, value: any, kind?: string): Error.ValidationError | boolean;
+    invalidate(path: string, errorMsg: string | NativeError, value?: any, kind?: string): Error.ValidationError | boolean;
 
     /** Returns true if path was directly set and modified, else false. */
     isDirectModified(path: string): boolean;
@@ -1408,9 +1434,9 @@ declare module "mongoose" {
      * Executes registered validation rules (skipping asynchronous validators) for this document.
      * This method is useful if you need synchronous validation.
      * @param pathsToValidate only validate the given paths
-     * @returns MongooseError if there are errors during validation, or undefined if there is no error.
+     * @returns ValidationError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate?: string | string[]): Error;
+    validateSync(pathsToValidate?: string | string[]): Error.ValidationError;
 
     /** Hash containing current validation errors. */
     errors: any;
@@ -2174,8 +2200,7 @@ declare module "mongoose" {
     }): this;
 
     /** Executes this query and returns a promise */
-    then<TRes>(resolve?: (res: T) => void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
+    then: Promise<T>["then"];
 
     /**
      * Converts this query to a customized, reusable query
@@ -2240,6 +2265,11 @@ declare module "mongoose" {
      * functions that update validation runs. Does nothing if runValidators is false.
      */
     context?: string;
+    /**
+     *  by default, mongoose only returns the first error that occurred in casting the query.
+     *  Turn on this option to aggregate all the cast errors.
+     */
+      multipleCastError?: boolean;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
@@ -2343,6 +2373,14 @@ declare module "mongoose" {
 
         /** This schema type's name, to defend against minifiers that mangle function names. */
         static schemaName: string;
+
+        /**
+         * Adds a discriminator type.
+         * @param name discriminator model name
+         * @param schema discriminator model schema
+         */
+        discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+
       }
 
       /*
@@ -2666,8 +2704,7 @@ declare module "mongoose" {
     sort(arg: string | any): this;
 
     /** Provides promise for aggregate. */
-    then<TRes>(resolve?: (val: T) => void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
+    then: Promise<T>["then"];
 
     /**
      * Appends new custom $unwind operator(s) to this aggregate pipeline.
@@ -3347,6 +3384,11 @@ declare module "mongoose" {
     overwrite?: boolean;
     /** other options */
     [other: string]: any;
+    /**
+     *  by default, mongoose only returns the first error that occurred in casting the query.
+     *  Turn on this option to aggregate all the cast errors.
+     */
+      multipleCastError?: boolean;
   }
 
   interface ModelMapReduceOption<T, Key, Val> {

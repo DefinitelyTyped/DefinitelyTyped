@@ -249,7 +249,13 @@ export interface Input {
 export interface RegularOutput {
   address: string;
   amount: string;
-  script_type: string;
+  script_type?: string;
+}
+
+export interface InternalOutput {
+  address_n: number[];
+  amount: string;
+  script_type?: string;
 }
 
 export interface SendMaxOutput {
@@ -262,7 +268,7 @@ export interface OpReturnOutput {
   dataHex: string;
 }
 
-export type Output = RegularOutput | SendMaxOutput | OpReturnOutput;
+export type Output = RegularOutput | InternalOutput | SendMaxOutput | OpReturnOutput;
 
 export interface SignTransactionParams extends CommonParams {
   inputs: Input[];

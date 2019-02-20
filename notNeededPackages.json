@@ -565,6 +565,30 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "fastify-cors",
+            "typingsPackageName": "fastify-cors",
+            "sourceRepoURL": "https://github.com/fastify/fastify-cors",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "Fastify-JWT",
+            "typingsPackageName": "fastify-jwt",
+            "sourceRepoURL": "https://github.com/fastify/fastify-jwt",
+            "asOfVersion": "0.8.1"
+        },
+        {
+            "libraryName": "fastify-multipart",
+            "typingsPackageName": "fastify-multipart",
+            "sourceRepoURL": "https://github.com/fastify/fastify-multipart",
+            "asOfVersion": "0.7.0"
+        },
+        {
+            "libraryName": "fastify-static",
+            "typingsPackageName": "fastify-static",
+            "sourceRepoURL": "https://github.com/fastify/fastify-static",
+            "asOfVersion": "2.2.1"
+        },
+        {
             "libraryName": "fecha",
             "typingsPackageName": "fecha",
             "sourceRepoURL": "https://github.com/taylorhakes/fecha",
@@ -701,6 +725,12 @@
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "i18next-xhr-backend",
+            "typingsPackageName": "i18next-xhr-backend",
+            "sourceRepoURL": "https://github.com/i18next/i18next-xhr-backend",
+            "asOfVersion": "1.4.2"
         },
         {
             "libraryName": "iconv-lite",
@@ -1087,6 +1117,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "p-throttle",
+            "typingsPackageName": "p-throttle",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
             "sourceRepoURL": "https://github.com/blakeembrey/param-case",
@@ -1259,6 +1295,12 @@
             "typingsPackageName": "react-i18next",
             "sourceRepoURL": "https://github.com/i18next/react-i18next",
             "asOfVersion": "8.1.0"
+        },
+        {
+            "libraryName": "React Icons",
+            "typingsPackageName": "react-icons",
+            "sourceRepoURL": "https://www.npmjs.com/package/react-icons",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "react-monaco-editor",
@@ -1607,6 +1649,12 @@
             "typingsPackageName": "tcomb",
             "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
             "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "terser",
+            "typingsPackageName": "terser",
+            "sourceRepoURL": "https://github.com/terser-js/terser",
+            "asOfVersion": "3.12.0"
         },
         {
             "libraryName": "timezonecomplete",

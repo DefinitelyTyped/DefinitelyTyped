@@ -73,6 +73,7 @@ class ExampleOfUsingReactModal extends React.Component {
         data={customDataVariables}
         contentRef={instance => this.contentRef = instance}
         overlayRef={instance => this.overlayRef = instance}
+        testId="modal-content"
         >
         <h1>Modal Content</h1>
         <p>Etc.</p>

@@ -1,5 +1,5 @@
 // Type definitions for fetch-mock 7.2
-// Project: https://github.com/wheresrhys/fetch-mock
+// Project: https://github.com/wheresrhys/fetch-mock, http://www.wheresrhys.co.uk/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Tamir Duberstein <https://github.com/tamird>
 //                 Risto Keravuori <https://github.com/merrywhether>

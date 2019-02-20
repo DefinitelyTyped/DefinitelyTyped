@@ -7,7 +7,7 @@
 import { Middleware, Context } from 'koa';
 
 declare namespace KoaBouncer {
-    export class ValidatorError extends Error {
+    export class ValidationError extends Error {
         name: string;
         message: string;
         bouncer: {

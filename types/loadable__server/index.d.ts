@@ -51,7 +51,7 @@ export class ChunkExtractor {
 	/**
 	 * Get scripts as a string of `<script>` tags
 	 */
-	getScriptTags(): string[];
+	getScriptTags(): string;
 
 	/**
 	 * Get scripts as an array of React `<script>` elements.
@@ -61,7 +61,7 @@ export class ChunkExtractor {
 	/**
 	 * Get "prefetch" and "preload" links as a string of `<link>` tags
 	 */
-	getLinkTags(): string[];
+	getLinkTags(): string;
 
 	/**
 	 * Get "prefetch" and "preload" links as an array of React `<link>` elements
@@ -71,7 +71,7 @@ export class ChunkExtractor {
 	/**
 	 * Get style links as a string of `<link>` tags
 	 */
-	getStyleTags(): string[];
+	getStyleTags(): string;
 
 	/**
 	 * Get style links as an array of React `<link>` elements

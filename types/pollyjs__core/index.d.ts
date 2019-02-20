@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/core 1.3
+// Type definitions for @pollyjs/core 2.0
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -70,7 +70,7 @@ export interface Request {
 	port: string;
 	pathname: string;
 	hash: string;
-	headers: Record<string, string>;
+	headers: Record<string, string | string[]>;
 	body: any;
 	query: any;
 	params: any;
@@ -79,7 +79,7 @@ export interface Request {
 }
 export interface Response {
 	statusCode?: number;
-	headers: Record<string, string>;
+	headers: Record<string, string | string[]>;
 	body: any;
 	status(status: number): Response;
 	getHeader(name: string): string | null;

@@ -62,3 +62,5 @@ const signature = Git.Signature.now("name", "email");
 signature.name();
 signature.email();
 signature.when();
+
+repo.createBlobFromBuffer(Buffer.from("test")).then((oid: Git.Oid) => oid.cpy());

@@ -1,5 +1,5 @@
 // Type definitions for TinyMCE 4.5
-// Project: https://github.com/tinymce/tinymce
+// Project: https://github.com/tinymce/tinymce, https://github.com/tinymce/tinymce-dist
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Poul Poulsen <https://github.com/ipoul>
 //                 Nico Hartto <https://github.com/nicohartto>
@@ -324,13 +324,13 @@ export interface Settings {
 
 export namespace settings {
   interface Menu {
-    file: MenuItem;
-    edit: MenuItem;
-    insert: MenuItem;
-    view: MenuItem;
-    format: MenuItem;
-    table: MenuItem;
-    tools: MenuItem;
+    file?: MenuItem;
+    edit?: MenuItem;
+    insert?: MenuItem;
+    view?: MenuItem;
+    format?: MenuItem;
+    table?: MenuItem;
+    tools?: MenuItem;
   }
 
   interface MenuItem {
