@@ -522,7 +522,7 @@ interface IGradientOptions {
 	 */
 	offsetY?: number;
 	type?: string;
-	coords?: {x1: number, y1: number, x2: number, y2: number, r1: number, r2: number};
+	coords?: {x1?: number, y1?: number, x2?: number, y2?: number, r1?: number, r2?: number};
 	/**
 	 * Color stops object eg. {0:string; 1:string;
 	 */
@@ -931,7 +931,7 @@ interface IStaticCanvasOptions {
 	 * vale. As an alternative you can disable image objectCaching
 	 * @type fabric.Image
 	 */
-	backgroundImage?: Image;
+	backgroundImage?: Image | string;
 	/**
 	 * Overlay color of canvas instance.
 	 * Should be set via {@link fabric.StaticCanvas#setOverlayColor}
@@ -1050,7 +1050,7 @@ interface IStaticCanvasOptions {
 	 * a zoomed canvas will then produce zoomed SVG output.
 	 * @type Boolean
 	 */
-	svgViewportTransformation: boolean;
+	svgViewportTransformation?: boolean;
 	/**
 	 * Animation duration (in ms) for fx* methods
 	 * @type Number
@@ -2335,19 +2335,19 @@ interface ILineOptions extends IObjectOptions {
 	/**
 	 * x value or first line edge
 	 */
-	x1: number;
+	x1?: number;
 	/**
 	 * x value or second line edge
 	 */
-	x2: number;
+	x2?: number;
 	/**
 	 * y value or first line edge
 	 */
-	y1: number;
+	y1?: number;
 	/**
 	 * y value or second line edge
 	 */
-	y2: number;
+	y2?: number;
 }
 export interface Line extends Object, ILineOptions { }
 export class Line {
@@ -2599,7 +2599,7 @@ interface IObjectOptions {
 	/**
 	 * Shadow object representing shadow of this shape
 	 */
-	shadow?: Shadow;
+	shadow?: Shadow | string;
 
 	/**
 	 * Opacity of object's controlling borders when object is active and moving
@@ -3536,7 +3536,7 @@ interface TextOptions extends IObjectOptions {
 	 * "justify-left", "justify-center" or "justify-right".
 	 * @type String
 	 */
-	textAlign?: 'left' | 'center' | 'right' | 'justify' | 'justify-left' | 'justify-center' | 'justify-right';
+	textAlign?: string;
 	/**
 	 * Font style . Possible values: "", "normal", "italic" or "oblique".
 	 * @type String
@@ -3572,7 +3572,7 @@ interface TextOptions extends IObjectOptions {
 	 * <b>Backwards incompatibility note:</b> This property was named "textShadow" (String) until v1.2.11
 	 * @type fabric.Shadow
 	 */
-	shadow?: Shadow;
+	shadow?: Shadow | string;
 	/**
 	 * additional space between characters
 	 * expressed in thousands of em unit
