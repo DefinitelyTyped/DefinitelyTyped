@@ -1,4 +1,4 @@
-import BigCalendar, { BigCalendarProps, Event } from 'react-big-calendar';
+import BigCalendar, { BigCalendarProps, Event } from '../../index.d.ts';
 
 type withDragAndDropProps<TEvent> = {
   onEventDrop?: (args: { event: TEvent, start: stringOrDate, end: stringOrDate, allDay: boolean }) => void;
