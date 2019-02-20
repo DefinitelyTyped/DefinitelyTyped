@@ -73,7 +73,7 @@ export interface ConnectorDescription<TProvided, TExposed> {
     props: TExposed,
     searchState: SearchState,
     ...args: any[],
-  ): any;
+  ): SearchState;
 
   /**
    * This method applies the current props and state to the provided SearchParameters, and returns a new SearchParameters. The SearchParameters
