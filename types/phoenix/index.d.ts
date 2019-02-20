@@ -5,18 +5,22 @@
 
 declare module "phoenix" {
   class Push {
-    constructor(channel: Channel, event: string, payload: any, timeout: number);
+    constructor(
+      channel: Channel,
+      event: string,
+      payload: Object,
+      timeout: number,
+    );
 
-    resend(timeout: number): void;
     send(): void;
+    resend(timeout: number): void;
 
-    receive(status: string, callback: (response?: any) => void): Push;
+    receive(status: string, callback: (response?: any) => any): this;
   }
 
-  export class Channel {
-    constructor(topic: string, params?: Object, socket?: Socket);
 
-    rejoinUntilConnected(): void;
+  class Channel {
+    constructor(topic: string, params?: Object | Function, socket?: Socket);
 
     join(timeout?: number): Push;
     leave(timeout?: number): Push;
@@ -28,50 +32,50 @@ declare module "phoenix" {
     on(event: string, callback: (response?: any) => void): void;
     off(event: string): void;
 
-    canPush(): boolean;
-
     push(event: string, payload: Object, timeout?: number): Push;
   }
 
-  export class Socket {
-    constructor(endPoint: string, opts?: Object);
+  type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
+  
+  interface SocketConnectOption {
+    params: Object | Function;
+    transport: any;
+    timeout: number;
+    heartbeatIntervalMs: number;
+    reconnectAfterMs: number;
+    longpollernumber: number;
+    encode: (payload: Object, callback: Function) => any;
+    decode: (payload: string, callback: Function) => any;
+    logger: (kind: string, message: string, data: Object) => void;
+  }
+    
+  class Socket {
+    constructor(endPoint: string, opts?: Partial<SocketConnectOption>);
 
     protocol(): string;
-    endPointURL(): string;
+    endpointURL(): string;
 
-    disconnect(callback?: Function, code?: string, reason?: any): void;
     connect(params?: any): void;
+    disconnect(callback?: Function, code?: number, reason?: string);
+    connectionState(): ConnectionState;
+    isConnected(): boolean;
 
-    log(kind: string, msg: string, data: any): void;
+    remove(channel: Channel);
+    channel(topic: string, chanParams?: Object): Channel;
+    push(data: Object);
+
+    log(kind: string, message: string, data: Object);
+    hasLogger(): boolean;
 
     onOpen(callback: Function): void;
     onClose(callback: Function): void;
     onError(callback: Function): void;
     onMessage(callback: Function): void;
 
-    onConnOpen(): void;
-    onConnClose(event: any): void;
-    onConnError(error: any): void;
-
-    triggerChanError(): void;
-
-    connectionState(): string;
-
-    isConnected(): boolean;
-
-    remove(channel: Channel): void;
-    channel(topic: string, chanParams?: Object): Channel;
-
-    push(data: any): void;
-
     makeRef(): string;
-    sendHeartbeat(): void;
-    flushSendBuffer(): void;
-
-    onConnMessage(rawMessage: any): void;
   }
 
-  export class LongPoll {
+  class LongPoll {
     constructor(endPoint: string);
 
     normalizeEndpoint(endPoint: string): string;
@@ -86,8 +90,10 @@ declare module "phoenix" {
     close(code?: any, reason?: any): void;
   }
 
-  export class Ajax {
-    request(
+  class Ajax {
+    static states: {[state: string]: number};
+
+    static request(
       method: string,
       endPoint: string,
       accept: string,
@@ -97,7 +103,7 @@ declare module "phoenix" {
       callback?: (response?: any) => void
     ): void;
 
-    xdomainRequest(
+    static xdomainRequest(
       req: any,
       method: string,
       endPoint: string,
@@ -107,7 +113,7 @@ declare module "phoenix" {
       callback?: (response?: any) => void
     ): void;
 
-    xhrRequest(
+    static xhrRequest(
       req: any,
       method: string,
       endPoint: string,
@@ -118,13 +124,19 @@ declare module "phoenix" {
       callback?: (response?: any) => void
     ): void;
 
-    parseJSON(resp: string): JSON;
-    serialize(obj: any, parentKey: string): string;
-    appendParams(url: string, params: any): string;
+    static parseJSON(resp: string): JSON;
+    static serialize(obj: any, parentKey: string): string;
+    static appendParams(url: string, params: any): string;
   }
 
-  export class Presence {
+  class Presence {
     constructor(channel: Channel, opts?: Object);
+
+    onJoin(callback: Function);
+    onLeave(callback: Function);
+    onSync(callback: Function);
+    list<T = any>(chooser?: Function): T[];
+    inPendingSyncState(): boolean;
 
     static syncState(
       currentState: any,
@@ -140,6 +152,9 @@ declare module "phoenix" {
       onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
     ): any;
 
-    static list(presences: Object, chooser?: Function): any;
+    static list<T = any>(
+      presences: Object,
+      chooser?: (key: string, presence: Object) => T,
+    ): T[];
   }
 }
