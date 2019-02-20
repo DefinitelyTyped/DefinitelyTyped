@@ -1697,8 +1697,6 @@ declare namespace Chai {
     }
 }
 
-declare const chai: Chai.ChaiStatic;
-
 declare module "chai" {
     export = chai;
 }
