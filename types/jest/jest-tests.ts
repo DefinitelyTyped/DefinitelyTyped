@@ -358,6 +358,15 @@ interface SpyInterface {
     prop?: number;
     method?: (arg1: boolean) => void;
 }
+const spiedTarget = {
+    returnsVoid(): void { },
+    setValue(value: string): void {
+        this.value = value;
+    },
+    returnsString(): string {
+        return "";
+    }
+};
 class SpiedTargetClass {
     private _value = 3;
     private _value2 = '';
@@ -374,15 +383,7 @@ class SpiedTargetClass {
         this._value2 = value2;
     }
 }
-const spiedTarget = {
-    returnsVoid(): void { },
-    setValue(value: string): void {
-        this.value = value;
-    },
-    returnsString(): string {
-        return "";
-    }
-};
+
 const spiedTarget2 = new SpiedTargetClass();
 
 // $ExpectError
