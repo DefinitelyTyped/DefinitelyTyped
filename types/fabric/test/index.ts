@@ -12,7 +12,7 @@ function sample1() {
   });
 
   for (let i = 0; i < 15; i++) {
-    fabric.Image.fromURL('../assets/ladybug.png', img => {
+    fabric.Image.fromURL('../assets/ladybug.png', (img: fabric.Image) => {
       img.set({
         left: fabric.util.getRandomInt(0, 600),
         top: fabric.util.getRandomInt(0, 500),
@@ -122,7 +122,7 @@ function sample3() {
     }
   });
 
-  const image = fabric.Image.fromURL('../assets/printio.png', img => {
+  const image = fabric.Image.fromURL('../assets/printio.png', (img: fabric.Image) => {
     const oImg = img.set({ left: 300, top: 300, angle: -15 }).scale(0.9);
     canvas.add(oImg).renderAll();
     canvas.setActiveObject(oImg);
@@ -331,10 +331,10 @@ function sample6() {
     canvas.centerObject(obj);
     canvas.add(obj);
 
-    obj.clone(clone => canvas.add(clone.set({ left: 100, top: 100, angle: -15 })));
-    obj.clone(clone => canvas.add(clone.set({ left: 480, top: 100, angle: 15 })));
-    obj.clone(clone => canvas.add(clone.set({ left: 100, top: 400, angle: -15 })));
-    obj.clone(clone => canvas.add(clone.set({ left: 480, top: 400, angle: 15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 100, angle: -15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 100, angle: 15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 400, angle: -15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 400, angle: 15 })));
 
     canvas.on('mouse:move', options => {
       const p = canvas.getPointer(options.e);
@@ -357,7 +357,7 @@ function sample7() {
   const canvas = new fabric.Canvas('c', { selection: false });
 
   setInterval(() => {
-    fabric.Image.fromURL('../assets/ladybug.png', obj => {
+    fabric.Image.fromURL('../assets/ladybug.png', (obj: fabric.Object) => {
       const img = <ImageWithInfo> obj;
       img.set('left', fabric.util.getRandomInt(200, 600)).set('top', -50);
       img.movingLeft = !!Math.round(Math.random());
@@ -475,7 +475,7 @@ function sample8() {
         break;
 
       case 'image1':
-        fabric.Image.fromURL('../assets/pug.jpg', image => {
+        fabric.Image.fromURL('../assets/pug.jpg', (image: fabric.Image) => {
           image.set({
             left,
             top,
@@ -489,7 +489,7 @@ function sample8() {
         break;
 
       case 'image2':
-        fabric.Image.fromURL('../assets/logo.png', image => {
+        fabric.Image.fromURL('../assets/logo.png', (image: fabric.Image) => {
           image.set({
             left,
             top,
@@ -510,14 +510,7 @@ function sample8() {
           fabric.loadSVGFromURL(`../assets/${match[0]}.svg`, (objects, options) => {
             const loadedObject = fabric.util.groupSVGElements(objects, options);
 
-            loadedObject.set({
-              left,
-              top,
-              angle,
-              padding: 10,
-              cornerSize: 10
-            });
-            loadedObject/*.scaleToWidth(300)*/.setCoords();
+            loadedObject.setCoords();
 
             // loadedObject.hasRotatingPoint = true;
 
