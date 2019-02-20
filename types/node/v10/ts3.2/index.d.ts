@@ -13,7 +13,8 @@
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 // tslint:disable-next-line:no-bad-reference
-/// <reference path="../ts3.1/index.d.ts" />
+/// <reference path="../base.d.ts" />
 
 // TypeScript 3.2-specific augmentations:
+/// <reference path="util.d.ts" />
 /// <reference path="globals.d.ts" />
