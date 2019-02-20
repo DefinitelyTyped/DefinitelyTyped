@@ -1,7 +1,9 @@
+// tslint:disable-next-line no-empty-interface
 export interface Transport {
 }
 
 export namespace Transport {
+    // tslint:disable-next-line no-empty-interface
     interface ConnectionInfo {
     }
 }
@@ -34,6 +36,7 @@ export class WebSocketTransport implements Transport {
 
 export namespace WebSocketTransport {
     class ConnectionInfo implements Transport.ConnectionInfo {
+        // tslint:disable-next-line unified-signatures
         constructor(host: string, port: number);
         constructor(uri: string);
         equals(other: ConnectionInfo): boolean;

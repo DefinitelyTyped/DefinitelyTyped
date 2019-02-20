@@ -29,6 +29,7 @@ export class KeyChain {
     sign(data: Data, params: SigningInfo, onComplete?: (data: Data) => any, onError?: (err: any) => any): void;
     sign(interest: Interest, params: SigningInfo, onComplete?: (interest: Interest) => any, onError?: (err: any) => any): void;
     signWithSha256(data: Data): void;
+    // tslint:disable-next-line unified-signatures
     signWithSha256(interest: Interest): void;
 }
 

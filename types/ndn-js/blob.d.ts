@@ -1,8 +1,7 @@
 export class Blob {
     constructor(value?: Blob);
     constructor(value: Buffer, copy?: boolean);
-    constructor(value: number[]);
-    constructor(value: string);
+    constructor(value: number[]|string);
 
     buf(): Buffer;
     equals(other: Blob): boolean;

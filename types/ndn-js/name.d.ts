@@ -54,10 +54,12 @@ export namespace Name {
 export class Name {
     constructor(components?: Array<Name.Component|Uint8Array>);
     constructor(uri: string);
+    // tslint:disable-next-line unified-signatures
     constructor(name: Name);
 
     append(value: number[]|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number): Name;
     append(component: Name.Component): Name;
+    // tslint:disable-next-line unified-signatures
     append(name: Name): Name;
     appendImplicitSha256Digest(digest: Blob): Name;
     appendParametersSha256Digest(digest: Blob): Name;
