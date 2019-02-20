@@ -272,7 +272,7 @@ declare namespace IORedis {
         hgetBuffer(key: KeyType, field: string, callback: (err: Error, res: Buffer) => void): void;
         hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
-        hmset(key: KeyType, ...args: string[]): Promise<0 | 1>;
+        hmset(key: KeyType, ...args: any[]): Promise<0 | 1>;
         hmset(key: KeyType, data: any, callback: (err: Error, res: 0 | 1) => void): void;
         hmset(key: KeyType, data: any): Promise<0 | 1>;
 
@@ -313,11 +313,11 @@ declare namespace IORedis {
         getset(key: KeyType, value: any, callback: (err: Error, res: string | null) => void): void;
         getset(key: KeyType, value: any): Promise<string | null>;
 
-        mset(...args: string[]): any;
+        mset(...args: any[]): any;
         mset(data: any, callback: (err: Error, res: string) => void): void;
         mset(data: any): Promise<string>;
 
-        msetnx(...args: string[]): any;
+        msetnx(...args: any[]): any;
         msetnx(data: any, callback: (err: Error, res: 0 | 1) => void): void;
         msetnx(data: any): Promise<0 | 1>;
 
@@ -677,7 +677,7 @@ declare namespace IORedis {
         hget(key: KeyType, field: string, callback?: (err: Error, res: string | string) => void): Pipeline;
         hgetBuffer(key: KeyType, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        hmset(key: KeyType, ...args: string[]): Pipeline;
+        hmset(key: KeyType, ...args: any[]): Pipeline;
         hmset(key: KeyType, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         hmget(key: KeyType, ...fields: string[]): Pipeline;
@@ -706,10 +706,10 @@ declare namespace IORedis {
 
         getset(key: KeyType, value: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        mset(...args: string[]): Pipeline;
+        mset(...args: any[]): Pipeline;
         mset(data: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        msetnx(...args: string[]): Pipeline;
+        msetnx(...args: any[]): Pipeline;
         msetnx(data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         randomkey(callback?: (err: Error, res: string) => void): Pipeline;
