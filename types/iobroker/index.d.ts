@@ -1627,11 +1627,11 @@ declare global {
             removeAllListeners(event?: "ready" | "unload" | "stateChange" | "objectChange" | "message"): this;
         } // end interface Adapter
 
-        type ReadyHandler = () => void;
-        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void;
-        type StateChangeHandler = (id: string, obj: State | null | undefined) => void;
-        type MessageHandler = (obj: Message) => void;
-        type UnloadHandler = (callback: EmptyCallback) => void;
+        type ReadyHandler = () => void | Promise<void>;
+        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void | Promise<void>;
+        type StateChangeHandler = (id: string, obj: State | null | undefined) => void | Promise<void>;
+        type MessageHandler = (obj: Message) => void | Promise<void>;
+        type UnloadHandler = (callback: EmptyCallback) => void | Promise<void>;
 
         type EmptyCallback = () => void;
         type ErrorCallback = (err?: string) => void;

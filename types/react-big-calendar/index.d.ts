@@ -114,7 +114,7 @@ export interface HeaderProps {
 }
 
 export interface Components {
-    event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    event?: React.ComponentType<EventProps>;
     eventWrapper?: React.ComponentType<EventWrapperProps>;
     eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -155,6 +155,11 @@ export interface ToolbarProps {
     onNavigate: (navigate: Navigate, date?: Date) => void;
     onView: (view: View) => void;
     children?: React.ReactNode;
+}
+
+export interface EventProps<T extends Event = Event> {
+    event: T;
+    title: string;
 }
 
 export interface EventWrapperProps<T extends Event = Event> {

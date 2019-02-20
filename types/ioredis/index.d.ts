@@ -489,6 +489,8 @@ declare namespace IORedis {
         xack(key: KeyType, group: string, ...ids: string[]): any;
 
         xadd(key: KeyType, id: string, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', count: number, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', approximate: '~', count: number, ...args: string[]): any;
 
         xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, ...args: any[]): any;
 
