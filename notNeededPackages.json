@@ -415,6 +415,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "detect-browser",
+            "typingsPackageName": "detect-browser",
+            "sourceRepoURL": "https://github.com/DamonOehlman/detect-browser",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "DevExtreme",
             "typingsPackageName": "devextreme",
             "sourceRepoURL": "http://js.devexpress.com/",
