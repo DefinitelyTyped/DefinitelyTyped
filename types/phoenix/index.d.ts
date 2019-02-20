@@ -56,7 +56,7 @@ declare module "phoenix" {
     endPointURL(): string;
 
     connect(params?: any): void;
-    disconnect(callback?: Function, code?: number, reason?: string);
+    disconnect(callback?: Function, code?: number, reason?: string): void;
     connectionState(): ConnectionState;
     isConnected(): boolean;
 
