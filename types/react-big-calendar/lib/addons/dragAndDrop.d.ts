@@ -1,5 +1,5 @@
 import BigCalendar, { BigCalendarProps, Event, stringOrDate } from '../../index';
-import React from 'react';
+import * as React from 'react';
 
 interface withDragAndDropProps<TEvent> {
   onEventDrop?: (args: { event: TEvent, start: stringOrDate, end: stringOrDate, allDay: boolean }) => void;
