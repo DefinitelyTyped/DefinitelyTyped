@@ -1,4 +1,4 @@
-import { pretty } from "pretty";
+import pretty = require("pretty");
 
 pretty(`<h1>nice</h1>`);
 

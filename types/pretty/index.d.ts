@@ -4,8 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-export interface PrettyOptions {
+interface PrettyOptions {
     ocd: boolean;
 }
 
-export function pretty(str: string, options?: PrettyOptions): string;
+declare function pretty(str: string, options?: PrettyOptions): string;
+
+export = pretty;
