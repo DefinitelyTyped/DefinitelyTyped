@@ -183,7 +183,7 @@ declare namespace request {
     type OptionsWithUrl = UrlOptions & CoreOptions;
     type Options = OptionsWithUri | OptionsWithUrl;
 
-    type RequestCallback = (error: any, response: Response, body: any) => void;
+    type RequestCallback = (error: any, response?: Response, body: any) => void;
 
     interface HttpArchiveRequest {
         url?: string;
