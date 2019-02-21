@@ -41,7 +41,12 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
     const db = client.db('test');
 
     const collection = db.collection('test_insert');
-    collection.insertOne({ a: 2 }, (err: mongodb.MongoError, docs: any) => {
+    collection.insertOne({ a: 2 }, (err: mongodb.MongoError, result) => {
+        result.insertedCount; // $ExpectType number
+        result.insertedId; // $ExpectType ObjectId
+        result.result.n; // $ExpectType number
+        result.result.ok; // $ExpectType number
+
         // Intentionally omitted type annotation from 'count'.
         // This way it requires a more accurate typedef which allows inferring that it's a number.
         collection.countDocuments((err: mongodb.MongoError, count) => {
@@ -164,14 +169,16 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
         interface TestCollection {
             stringField: string;
             numberField?: number;
+            fruitTags: string[];
         }
         const testCollection = db.collection<TestCollection>('testCollection');
-		testCollection.insertOne(
-            { stringField: 'hola' }
-        );
+		testCollection.insertOne({
+            stringField: 'hola',
+            fruitTags: ['Strawberry'],
+        });
 		testCollection.insertMany([
-            { stringField: 'hola' },
-            { stringField: 'hola', numberField: 1 },
+            { stringField: 'hola', fruitTags: ['Apple', 'Lemon'] },
+            { stringField: 'hola', numberField: 1, fruitTags: [] },
         ]);
         testCollection.find({
             numberField: {
@@ -180,6 +187,18 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
         });
 
         const res: mongodb.Cursor<TestCollection> = testCollection.find({ _id: 123 });
+
+        testCollection.updateOne(
+            { stringField: 'hola' },
+            {
+                $addToSet: {
+                    fruitTags: 'Orange',
+                },
+                $pull: {
+                    fruitTags: 'Lemon',
+                }
+            }
+        );
     }
 });
 
