@@ -47,7 +47,7 @@ declare module "phoenix" {
     longpollernumber: number;
     encode: (payload: Object, callback: Function) => any;
     decode: (payload: string, callback: Function) => any;
-    logger: (kind: string, message: string, data: Object) => void;
+    logger: (kind: string, message: string, data: any) => void;
   }
     
   class Socket {
@@ -136,7 +136,7 @@ declare module "phoenix" {
     onJoin(callback: Function): void;
     onLeave(callback: Function): void;
     onSync(callback: Function): void;
-    list<T = any>(chooser?: (key: string, presence: Object) => T): T[];
+    list<T = any>(chooser?: (key: string, presence: any) => T): T[];
     inPendingSyncState(): boolean;
 
     static syncState(
@@ -155,7 +155,7 @@ declare module "phoenix" {
 
     static list<T = any>(
       presences: Object,
-      chooser?: (key: string, presence: Object) => T,
+      chooser?: (key: string, presence: any) => T,
     ): T[];
   }
 }
