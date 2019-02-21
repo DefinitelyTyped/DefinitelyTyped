@@ -1,1 +1,7 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true
+}
