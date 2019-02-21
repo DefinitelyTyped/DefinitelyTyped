@@ -8,9 +8,11 @@ class PercentageCircleTest extends React.Component {
             <View>
                 <PercentageCircle 
                     borderWidth={5}
+                    bgcolor="#fff"
                     color="#000"
                     percent={100}
                     radius={10}
+                    disabled={false}
                 />
             </View>
         );
