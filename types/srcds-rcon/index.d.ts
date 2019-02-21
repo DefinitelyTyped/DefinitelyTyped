@@ -9,7 +9,7 @@
  * @param params.address - The address to connect to.
  * @param params.password - The Rcon password to use.
  */
-declare function Rcon(params: Params): RconInstance;
+declare function Rcon(params: Params): RconInterface;
 
 /**
  * Rcon connection parameters.
@@ -26,7 +26,7 @@ interface Params {
     password: string;
 }
 
-declare class RconInstance {
+declare class RconInterface {
     /**
      * Connect to the server using predefined credentials.
      */
