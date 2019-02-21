@@ -424,7 +424,7 @@ export interface DbCreateOptions extends CommonOptions {
     promiseLibrary?: object;
     /**
      * https://docs.mongodb.com/manual/reference/read-concern/#read-concern
-     **/
+     */
     readConcern?: ReadConcern;
     /**
      * Sets a cap on how many operations the driver will buffer up before giving up on getting a
@@ -1925,7 +1925,7 @@ export class GridFSBucketWriteStream extends Writable {
 export interface GridFSBucketWriteStreamOptions {
     /**
      * Custom file id for the GridFS file.
-     **/
+     */
     id?: GridFSBucketWriteStreamId;
     /**
      * The chunk size to use, in bytes
