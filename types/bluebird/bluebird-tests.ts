@@ -79,6 +79,7 @@ let anyProm: Promise<any>;
 let boolProm: Promise<boolean>;
 let objProm: Promise<object> = Promise.resolve(obj);
 let voidProm: Promise<void>;
+let neverProm: Promise<never>;
 
 let fooProm: Promise<Foo> = Promise.resolve(foo);
 let barProm: Promise<Bar> = Promise.resolve(bar);
@@ -569,8 +570,8 @@ voidProm = fooProm.thenReturn();
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // fooProm
-fooProm = fooProm.throw(err);
-fooProm = fooProm.thenThrow(err);
+neverProm = fooProm.throw(err);
+neverProm = fooProm.thenThrow(err);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -806,7 +807,7 @@ fooProm = Promise.resolve(fooThen);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-voidProm = Promise.reject(reason);
+neverProm = Promise.reject(reason);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -914,7 +915,8 @@ fooArrProm = Promise.all(fooArr);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-objProm = Promise.props(objProm);
+let mapProm: Promise<Map<{}, {}>>;
+mapProm = Promise.props(objProm);
 objProm = Promise.props(obj);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
