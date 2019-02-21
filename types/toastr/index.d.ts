@@ -320,10 +320,19 @@ interface Toastr {
 		(toast: JQuery, clearOptions: {force: boolean}): void;
 	};
 	/**
-	 * Removes all toasts (without animation)
+	 * Removes toasts (without animation)
 	 */
 	remove: {
+		/**
+		 * Removes all toasts (without animation)
+	 	 */
 		(): void;
+		/**
+		 * Removes specific toast (without animation)
+		 *
+		 * @param toast Toast to remove
+	 	 */
+		(toast: JQuery): void;
 	};
 	/**
 	 * Create an error toast
