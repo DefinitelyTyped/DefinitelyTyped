@@ -24,11 +24,16 @@ export interface SpringConfig {
 }
 
 export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
+    action:
     animateHeight?: boolean;
     animateTransitions?: boolean;
     axis?: AxisType;
     containerStyle?: React.CSSProperties;
     disabled?: boolean;
+    /*
+     * This is the config used to disable lazy loading, if true it will render all the views in first rendering.
+     */
+    disableLazyLoading?: boolean;
     enableMouseEvents?: boolean;
     hysteresis?: number;
     ignoreNativeScroll?: boolean;
