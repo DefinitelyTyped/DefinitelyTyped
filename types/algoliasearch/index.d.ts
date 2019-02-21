@@ -6,6 +6,7 @@
 //                 Samuel Vaillant <https://github.com/samouss>
 //                 Kai Eichinger <https://github.com/keichinger>
 //                 Nery Ortez <https://github.com/neryortez>
+//                 Antoine Rousseau <https://github.com/antoinerousseau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1778,12 +1779,20 @@ declare namespace algoliasearch {
     };
     /**
      * List of attributes on which to do a decomposition of camel case words.
-     *
-     https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
+     * https://www.algolia.com/doc/api-reference/api-parameters/camelCaseAttributes/
      */
     camelCaseAttributes?: string[];
-
+    /**
+     * Controls how facet values are sorted.
+     * https://www.algolia.com/doc/api-reference/api-parameters/sortFacetValuesBy/
+     */
     sortFacetValuesBy?: 'count' | 'alpha';
+    /**
+     * Sets the languages to be used by language-specific settings and functionalities
+     * such as ignorePlurals, removeStopWords, and CJK word-detection.
+     * https://www.algolia.com/doc/api-reference/api-parameters/queryLanguages/
+     */
+    queryLanguages?: string[];
   }
 
   interface Response<T=any> {
