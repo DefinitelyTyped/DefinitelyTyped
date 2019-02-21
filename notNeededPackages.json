@@ -1651,6 +1651,12 @@
             "asOfVersion": "1.8.0"
         },
         {
+            "libraryName": "tabris-plugin-firebase",
+            "typingsPackageName": "tabris-plugin-firebase",
+            "sourceRepoURL": "https://github.com/eclipsesource/tabris-plugin-firebase",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "tcomb",
             "typingsPackageName": "tcomb",
             "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
