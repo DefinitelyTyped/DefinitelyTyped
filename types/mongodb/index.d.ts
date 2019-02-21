@@ -876,7 +876,16 @@ export interface Collection<TSchema = Default> {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
     findOneAndDelete(filter: FilterQuery<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndDelete(filter: FilterQuery<TSchema>, options?: { projection?: object, sort?: object, maxTimeMS?: number, session?: ClientSession }): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndDelete(filter: FilterQuery<TSchema>, options: { projection?: object, sort?: object, maxTimeMS?: number, session?: ClientSession }, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndDelete(
+        filter: FilterQuery<TSchema>,
+        options: {
+            projection?: object,
+            sort?: object,
+            maxTimeMS?: number,
+            session?: ClientSession
+        },
+        callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>
+    ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
@@ -893,9 +902,29 @@ export interface Collection<TSchema = Default> {
     /** @deprecated MongoDB 3.6 or higher no longer supports the group command. We recommend rewriting using the aggregation framework. */
     group(keys: object | any[] | Function | Code, condition: object, initial: object, reduce: Function | Code, finalize: Function | Code, command: boolean, callback: MongoCallback<any>): void;
     /** @deprecated MongoDB 3.6 or higher no longer supports the group command. We recommend rewriting using the aggregation framework. */
-    group(keys: object | any[] | Function | Code, condition: object, initial: object, reduce: Function | Code, finalize: Function | Code, command: boolean, options?: { readPreference?: ReadPreference | string, session?: ClientSession }): Promise<any>;
+    group(
+        keys: object | any[] | Function | Code,
+        condition: object,
+        initial: object,
+        reduce: Function | Code,
+        finalize: Function | Code,
+        command: boolean,
+        options?: { readPreference?: ReadPreference | string, session?: ClientSession }
+    ): Promise<any>;
     /** @deprecated MongoDB 3.6 or higher no longer supports the group command. We recommend rewriting using the aggregation framework. */
-    group(keys: object | any[] | Function | Code, condition: object, initial: object, reduce: Function | Code, finalize: Function | Code, command: boolean, options: { readPreference?: ReadPreference | string, session?: ClientSession }, callback: MongoCallback<any>): void;
+    group(
+        keys: object | any[] | Function | Code,
+        condition: object,
+        initial: object,
+        reduce: Function | Code,
+        finalize: Function | Code,
+        command: boolean,
+        options: {
+            readPreference?: ReadPreference | string,
+            session?: ClientSession
+        },
+        callback: MongoCallback<any>
+    ): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#indexes */
     indexes(options?: { session: ClientSession }): Promise<any>;
     indexes(callback: MongoCallback<any>): void;
