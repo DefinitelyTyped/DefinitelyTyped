@@ -79,37 +79,36 @@ export interface ClientSession extends EventEmitter {
     id: any;
     /**
      * Aborts the currently active transaction in this session.
-     * @param {MongoCallback<void>} [cb] Optional callback for completion of this operation
+     * @param cb Optional callback for completion of this operation
      */
     abortTransaction(cb?: MongoCallback<void>): Promise<void>;
     /**
      * Advances the operationTime for a ClientSession.
-     * @param {mongodb.Timestamp} operationTime
      */
     advanceOperationTime(operamtionTime: Timestamp): void;
     /**
      * Commits the currently active transaction in this session.
-     * @param {MongoCallback<void>} [cb] Optional callback for completion of this operation
+     * @param cb Optional callback for completion of this operation
      */
     commitTransaction(cb?: MongoCallback<void>): Promise<void>;
 
     /**
      * Ends this session on the server
-     * @param {MongoCallback<void>} [cb] Optional callback for completion of this operation
+     * @param cb Optional callback for completion of this operation
      */
     endSession(cb?: MongoCallback<void>): void;
     /**
      * Ends this session on the server
-     * @param {*} [options] Optional settings. Currently reserved for future use
-     * @param {MongoCallback<void>} [cb] Optional callback for completion of this operation
+     * @param options Optional settings. Currently reserved for future use
+     * @param cb Optional callback for completion of this operation
      */
     endSession(options: any, cb?: MongoCallback<void>): void;
 
     /**
      * Used to determine if this session equals another
      *
-     * @param {ClientSession} session A class representing a client session on the server
-     * @returns {boolean} if the sessions are equal
+     * @param session A class representing a client session on the server
+     * @returns Whether the sessions are equal
      */
     equals(session: ClientSession): boolean;
 
@@ -117,14 +116,12 @@ export interface ClientSession extends EventEmitter {
     incrementTransactionNumber(): void;
 
     /**
-     * @returns {boolean} this session is currently in a transaction or not
+     * @returns Whether this session is currently in a transaction or not
      */
     inTransaction(): boolean;
 
     /**
      * Starts a new transaction with the given options.
-     * @param {TransactionOptions} options
-     * @memberof ClientSession
      */
     startTransaction(options?: TransactionOptions): void;
 
@@ -151,19 +148,17 @@ interface WriteConcern {
     /**
      * requests acknowledgement that the write operation has
      * propagated to a specified number of mongod hosts
-     * @type {(number | 'majority' | string)} default 1
+     * @default 1
      */
     w?: number | 'majority' | string;
     /**
      * requests acknowledgement from MongoDB that the write operation has
      * been written to the journal
-     * @type {boolean} default false
+     * @default false
      */
     j?: boolean;
     /**
      * a time limit, in milliseconds, for the write concern
-     * @type {number}
-     * @memberof WriteConcern
      */
     wtimeout?: number;
 }
@@ -175,7 +170,7 @@ interface WriteConcern {
 export interface SessionOptions {
     /**
      * Whether causal consistency should be enabled on this session
-     * @type {boolean} default true
+     * @default true
      */
     causalConsistency?: boolean;
     /**
