@@ -387,7 +387,7 @@ export interface ConnectOptions {
      *
      * @default false
      */
-    withRef?: boolean;
+    forwardRef?: boolean;
 }
 
 export interface ProviderProps<A extends Action = AnyAction> {
