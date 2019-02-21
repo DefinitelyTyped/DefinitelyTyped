@@ -12,6 +12,7 @@ export interface SnackbarComponentProps {
     messageColor?: string;
     backgroundColor?: string;
     distanceCallback?: () => void;
+    actionHandler?: () => void;
     left?: number;
     right?: number;
     bottom?: number;
