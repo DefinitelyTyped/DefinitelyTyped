@@ -1,4 +1,4 @@
-// Type definitions for react-swipeable-views 0.13.1
+// Type definitions for react-swipeable-views 0.13
 // Project: https://github.com/oliviertassinari/react-swipeable-views
 // Definitions by: Michael Ledin <https://github.com/mxl>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
