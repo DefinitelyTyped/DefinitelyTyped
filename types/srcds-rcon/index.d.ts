@@ -1,8 +1,7 @@
-// Type definitions for srcds-rcon 2.2.1
-// Project: https://github.com/randunel/node-srcds-rcon
+// Type definitions for srcds-rcon 2.2
+// Project: https://github.com/randunel/node-srcds-rcon#readme
 // Definitions by: Juan de Urtubey <https://github.com/jdeurt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 
 /**
  * Create an Rcon Instance.
