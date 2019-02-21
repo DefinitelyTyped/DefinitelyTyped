@@ -553,6 +553,12 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "frac",
+            "typingsPackageName": "frac",
+            "sourceRepoURL": "https://github.com/sheetjs/frac",
+            "asOfVersion": "1.1.1"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
