@@ -1,5 +1,6 @@
-// Type definitions for MongoDB v3.1
-// Project: https://github.com/mongodb/node-mongodb-native/tree/3.0.0
+// Type definitions for MongoDB 3.1
+// Project: https://github.com/mongodb/node-mongodb-native
+//          https://github.com/mongodb/node-mongodb-native/tree/3.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 //                 Alan Marcell <https://github.com/alanmarcell>
 //                 Jason Dreyzehner <https://github.com/bitjson>
@@ -23,7 +24,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Documentation : http://mongodb.github.io/node-mongodb-native/3.1/api/
+// Documentation: http://mongodb.github.io/node-mongodb-native/3.1/api/
 
 /// <reference types="node" />
 /// <reference types="bson" />
