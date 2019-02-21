@@ -3941,7 +3941,8 @@ interface ITextOptions extends TextOptions {
 	 * Index where text selection starts (or where cursor is when there is no selection)
 	 * @type Number
 	 */
-	selectionStart?: number;/**
+	selectionStart?: number;
+	/**
 	 * Index where text selection ends
 	 * @type Number
 	 */
@@ -3998,6 +3999,26 @@ interface ITextOptions extends TextOptions {
 	inCompositionMode?: boolean;
 	path?: string;
 	useNative?: boolean;
+	/**
+	 * For functionalities on keyDown + ctrl || cmd
+	 */
+	ctrlKeysMapDown?: any;
+	/**
+	 * For functionalities on keyUp + ctrl || cmd
+	 */
+	ctrlKeysMapUp?: any;
+	/**
+	 * For functionalities on keyDown
+	 * Map a special key to a function of the instance/prototype
+	 * If you need different behaviour for ESC or TAB or arrows, you have to change
+	 * this map setting the name of a function that you build on the fabric.Itext or
+	 * your prototype.
+	 * the map change will affect all Instances unless you need for only some text Instances
+	 * in that case you have to clone this object and assign your Instance.
+	 * this.keysMap = fabric.util.object.clone(this.keysMap);
+	 * The function must be in fabric.Itext.prototype.myFunction And will receive event as args[0]
+	 */
+	keysMap?: any;
 }
 export interface IText extends ITextOptions { }
 export class IText extends Text {
@@ -4020,7 +4041,7 @@ export class IText extends Text {
 	/**
 	 * Prepare and clean the contextTop
 	 */
-	clearContextTop(skipRestor: boolean): void;
+	clearContextTop(skipRestore?: boolean): void;
 	/**
 	 * Renders cursor or selection (depending on what exists)
 	 */
@@ -4180,12 +4201,172 @@ export class IText extends Text {
 	 * @param {Number} start cursor index for inserting style
 	 * @param {Array} [copiedStyle] array of style objects to insert.
 	 */
-	insertNewStyleBlock(insertedText: any[], start: number, copiedStyle: any[]): void;
+	insertNewStyleBlock(insertedText: any[], start: number, copiedStyle?: any[]): void;
 	/**
 	 * Set the selectionStart and selectionEnd according to the ne postion of cursor
 	 * mimic the key - mouse navigation when shift is pressed.
 	 */
 	setSelectionStartEndWithShift(start: number, end: number, newSelection: number): void;
+	/**
+	 * Copies selected text
+	 */
+	copy(): void;
+	/**
+	 * convert from fabric to textarea values
+	 */
+	fromGraphemeToStringSelection(start: number, end: number, _text: string): {selectionStart: string, selectionEnd: string};
+	/**
+	 * convert from textarea to grapheme indexes
+	 */
+	fromStringToGraphemeSelection(start: number, end: number, text: string): {selectionStart: string, selectionEnd: string};
+	/**
+	 * Gets start offset of a selection
+	 * @param {Event} e Event object
+	 * @param {Boolean} isRight
+	 * @return {Number}
+	 */
+	getDownCursorOffset(e: Event, isRight?: boolean): number;
+	/**
+	 * Returns index of a character corresponding to where an object was clicked
+	 * @param {Event} e Event object
+	 * @return {Number} Index of a character
+	 */
+	getSelectionStartFromPointer(e: Event): number;
+	/**
+	 * @param {Event} e Event object
+	 * @param {Boolean} isRight
+	 * @return {Number}
+	 */
+	getUpCursorOffset(e: Event, isRight?: boolean): number;
+	/**
+	 * Initializes double and triple click event handlers
+	 */
+	initClicks(): void;
+	/**
+	 * Initializes event handlers related to cursor or selection
+	 */
+	initCursorSelectionHandlers(): void
+	/**
+	 * Initializes "dbclick" event handler
+	 */
+	initDoubleClickSimulation(): void;
+	/**
+	 * Initializes hidden textarea (needed to bring up keyboard in iOS)
+	 */
+	initHiddenTextarea(): void;
+	/**
+	 * Initializes "mousedown" event handler
+	 */
+	initMousedownHandler(): void;
+	/**
+	 * Initializes "mouseup" event handler
+	 */
+	initMouseupHandler(): void;
+	/**
+	 * insert characters at start position, before start position.
+	 * start  equal 1 it means the text get inserted between actual grapheme 0 and 1
+	 * if style array is provided, it must be as the same length of text in graphemes
+	 * if end is provided and is bigger than start, old text is replaced.
+	 * start/end ar per grapheme position in _text array.
+	 *
+	 * @param {String} text text to insert
+	 * @param {Array} style array of style objects
+	 * @param {Number} start
+	 * @param {Number} end default to start + 1
+	 */
+	insertChars(text: string, style: any[], start: number, end: number): void;
+	/**
+	 * Moves cursor down
+	 * @param {Event} e Event object
+	 */
+	moveCursorDown(e: Event): void;
+	/**
+	 * Moves cursor left
+	 * @param {Event} e Event object
+	 */
+	moveCursorLeft(e: Event): void;
+	/**
+	 * Moves cursor left without keeping selection
+	 * @param {Event} e
+	 */
+	moveCursorLeftWithoutShift(e: Event): void;
+	/**
+	 * Moves cursor left while keeping selection
+	 * @param {Event} e
+	 */
+	moveCursorLeftWithShift(e: Event): void;
+	/**
+	 * Moves cursor right
+	 * @param {Event} e Event object
+	 */
+	moveCursorRight(e: Event): void;
+	/**
+	 * Moves cursor right without keeping selection
+	 * @param {Event} e Event object
+	 */
+	moveCursorRightWithoutShift(e: Event): void;
+	/**
+	 * Moves cursor right while keeping selection
+	 * @param {Event} e
+	 */
+	moveCursorRightWithShift(e: Event): void;
+	/**
+	 * Moves cursor up
+	 * @param {Event} e Event object
+	 */
+	moveCursorUp(e: Event): void;
+	/**
+	 * Moves cursor up without shift
+	 * @param {Number} offset
+	 */
+	moveCursorWithoutShift(offset: number): void;
+	/**
+	 * Moves cursor with shift
+	 * @param {Number} offset
+	 */
+	moveCursorWithShift(offset: number): void;
+	/**
+	 * Composition end
+	 */
+	onCompositionEnd(): void;
+	/**
+	 * Composition start
+	 */
+	onCompositionStart(): void;
+	/**
+	 * Handles onInput event
+	 * @param {Event} e Event object
+	 */
+	onInput(e: Event): void;
+	/**
+	 * Handles keyup event
+	 * @param {Event} e Event object
+	 */
+	onKeyDown(e: Event): void;
+	/**
+	 * Handles keyup event
+	 * We handle KeyUp because ie11 and edge have difficulties copy/pasting
+	 * if a copy/cut event fired, keyup is dismissed
+	 * @param {Event} e Event object
+	 */
+	onKeyUp(e: Event): void;
+	/**
+	 * Pastes text
+	 */
+	paste(): void;
+	/**
+	 * Removes characters from start/end
+	 * start/end ar per grapheme position in _text array.
+	 *
+	 * @param {Number} start
+	 * @param {Number} end default to start + 1
+	 */
+	removeChars(start: number, end: number): void;
+	/**
+	 * Changes cursor location in a text depending on passed pointer (x/y) object
+	 * @param {Event} e Event object
+	 */
+	setCursorByClick(e: Event): void;
 }
 interface ITextboxOptions extends ITextOptions {
 	/**
