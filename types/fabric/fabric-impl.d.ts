@@ -3899,7 +3899,7 @@ export class Text extends Object {
 	 * @param {Boolean} [complete] get full style or not
 	 * @return {Array} styles an array with one, zero or more Style objects
 	 */
-	getSelectionStyles(startIndex: number, endIndex: number, complete?: boolean): any[];
+	getSelectionStyles(startIndex?: number, endIndex?: number, complete?: boolean): any[];
 	/**
 	 * Returns styles-string for svg-export
 	 * @param {Boolean} skipShadow a boolean to skip shadow filter output
