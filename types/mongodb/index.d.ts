@@ -1649,7 +1649,7 @@ export interface WriteOpResult {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#~resultCallback */
-export type CursorResult = any | void | boolean;
+export type CursorResult = object | null | boolean;
 
 type Default = any;
 
@@ -1761,7 +1761,7 @@ export interface EndCallback {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#~resultCallback */
-export type AggregationCursorResult = any | void;
+export type AggregationCursorResult = object | null;
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html */
 export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#batchSize */
@@ -1818,7 +1818,7 @@ export class AggregationCursor<T = Default> extends Readable {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */
-export type CommandCursorResult = any | void;
+export type CommandCursorResult = object | null;
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html */
 export class CommandCursor extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#hasNext */
