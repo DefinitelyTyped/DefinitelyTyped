@@ -12,8 +12,8 @@ const options: mongodb.MongoClientOptions = {
     wtimeout: 300,
     j: true,
     bufferMaxEntries: 1000,
-    readPreference: 'ReadPreference | string',
-    promoteValues: {},
+    readPreference: true ? mongodb.ReadPreference.NEAREST : 'string',
+    promoteValues: true,
     pkFactory: {},
     poolSize: 1,
 
@@ -24,7 +24,7 @@ const options: mongodb.MongoClientOptions = {
     reconnectInterval: 123456,
     ssl: true,
     sslValidate: false,
-    checkServerIdentity: () => {},
+    checkServerIdentity: true ? true : (host, cert) => { return undefined; },
     sslCA: ['str'],
     sslCRL: ['str'],
     sslCert: new Buffer(999),
@@ -95,8 +95,9 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
         cursor = cursor.addQueryModifier('', true);
         cursor = cursor.batchSize(1);
         cursor = cursor.comment('');
-        cursor = cursor.filter(1);
-        cursor = cursor.hint({});
+        cursor = cursor.filter({a: 1});
+        cursor = cursor.hint({ age: 1 });
+        cursor = cursor.hint('age_1');
         cursor = cursor.limit(1);
         cursor = cursor.map((result) => {});
         cursor = cursor.max(1);
