@@ -128,7 +128,7 @@ declare namespace request {
         ca(cert: Buffer): this;
         cert(cert: Buffer | string): this;
         clearTimeout(): this;
-        end(callback?: CallbackHandler): this;
+        end(callback?: CallbackHandler): void;
         field(name: string, val: MultipartValue): this;
         field(fields: { [fieldName: string]: MultipartValue }): this;
         get(field: string): string;
