@@ -84,6 +84,8 @@ declare namespace commandLineArgs {
          * One or more group names the option belongs to.
          */
         group?: string | string[];
+
+	[x: string]: any;
     }
 }
 

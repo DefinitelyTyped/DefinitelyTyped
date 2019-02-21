@@ -9,7 +9,9 @@ const optionDefinitions: commandLineArgs.OptionDefinition[] = [
         multiple: true,
         lazyMultiple: true,
         defaultOption: true,
-        group: 'one'
+        group: 'one',
+        description: 'description',
+        typeLabel: '<label>'
     }
 ];
 
