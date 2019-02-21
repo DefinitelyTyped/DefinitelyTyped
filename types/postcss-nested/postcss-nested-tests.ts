@@ -1,5 +1,5 @@
 import * as postcss from 'postcss';
-import * as nested from 'postcss-nested';
+import nested = require('postcss-nested');
 
 const withDefaultOptions: postcss.Transformer = nested();
 const withCustomOptions: postcss.Transformer = nested({
