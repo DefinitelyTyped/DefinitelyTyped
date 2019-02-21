@@ -14,7 +14,6 @@
         },
         "callable-types": false,
         "comment-format": false,
-        "dt-header": false,
         "eofline": false,
         "export-just-namespace": false,
         "import-spacing": false,
@@ -76,12 +75,10 @@
         "space-before-function-paren": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "triple-equals": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
         "use-default-type-parameter": false,
-        "void-return": false,
-        "whitespace": false
+        "void-return": false
     }
 }
