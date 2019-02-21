@@ -2,7 +2,7 @@
 // Project: https://github.com/randunel/node-srcds-rcon
 // Definitions by: Juan de Urtubey <https://github.com/jdeurt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2.2
+// TypeScript Version: 3.2
 
 /**
  * Create an Rcon Instance.
