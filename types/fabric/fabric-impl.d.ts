@@ -3661,7 +3661,9 @@ export class Rect extends Object {
 	 */
 	static fromObject(object: any): Rect;
 }
+
 interface TextOptions extends IObjectOptions {
+	type?: string;
 	/**
 	 * Font size (in pixels)
 	 * @type Number
@@ -3752,6 +3754,18 @@ interface TextOptions extends IObjectOptions {
 	 */
 	deltaY?: number;
 	text?: string;
+	/**
+	 * List of properties to consider when checking if cache needs refresh
+	 * @type Array
+	 */
+	cacheProperties?: string[];
+	/**
+	 * List of properties to consider when checking if
+	 * state of an object is changed ({@link fabric.Object#hasStateChanged})
+	 * as well as for history (undo/redo) purposes
+	 * @type Array
+	 */
+	stateProperties?: string[];
 }
 export interface Text extends TextOptions { }
 export class Text extends Object {
@@ -3852,6 +3866,75 @@ export class Text extends Object {
 	 * @param {Function} [callback] Callback to invoke when an fabric.Text instance is created
 	 */
 	static fromObject(object: any, callback?: Function): Text;
+	/**
+	 * Check if characters in a text have a value for a property
+	 * whose value matches the textbox's value for that property.  If so,
+	 * the character-level property is deleted.  If the character
+	 * has no other properties, then it is also deleted.  Finally,
+	 * if the line containing that character has no other characters
+	 * then it also is deleted.
+	 *
+	 * @param {string} property The property to compare between characters and text.
+	 */
+	cleanStyle(property: string): void;
+	/**
+	 * Returns 2d representation (lineIndex and charIndex) of cursor (or selection start)
+	 * @param {Number} [selectionStart] Optional index. When not given, current selectionStart is used.
+	 * @param {Boolean} [skipWrapping] consider the location for unwrapped lines. usefull to manage styles.
+	 */
+	get2DCursorLocation(selectionStart: number, skipWrapping: boolean): {lineIndex: number, charIndex: number};
+	/**
+	 * return a new object that contains all the style property for a character
+	 * the object returned is newly created
+	 * @param {Number} lineIndex of the line where the character is
+	 * @param {Number} charIndex position of the character on the line
+	 * @return {Object} style object
+	 */
+	getCompleteStyleDeclaration(lineIndex: number, charIndex: number): any;
+	/**
+	 * Gets style of a current selection/cursor (at the start position)
+	 * if startIndex or endIndex are not provided, slectionStart or selectionEnd will be used.
+	 * @param {Number} [startIndex] Start index to get styles at
+	 * @param {Number} [endIndex] End index to get styles at, if not specified selectionEnd or startIndex + 1
+	 * @param {Boolean} [complete] get full style or not
+	 * @return {Array} styles an array with one, zero or more Style objects
+	 */
+	getSelectionStyles(startIndex: number, endIndex: number, complete?: boolean): any[];
+	/**
+	 * Returns styles-string for svg-export
+	 * @param {Boolean} skipShadow a boolean to skip shadow filter output
+	 * @return {String}
+	 */
+	getSvgStyles(skipShadow?: boolean): string;
+	/**
+	 * Returns true if object has no styling or no styling in a line
+	 * @param {Number} lineIndex , lineIndex is on wrapped lines.
+	 * @return {Boolean}
+	 */
+	isEmptyStyles(lineIndex: number): boolean;
+	/**
+	 * Remove a style property or properties from all individual character styles
+	 * in a text object.  Deletes the character style object if it contains no other style
+	 * props.  Deletes a line style object if it contains no other character styles.
+	 *
+	 * @param {String} props The property to remove from character styles.
+	 */
+	removeStyle(property: string): void;
+	/**
+	 * Sets style of a current selection, if no selection exist, do not set anything.
+	 * @param {Object} [styles] Styles object
+	 * @param {Number} [startIndex] Start index to get styles at
+	 * @param {Number} [endIndex] End index to get styles at, if not specified selectionEnd or startIndex + 1
+	 * @return {fabric.IText} thisArg
+	 * @chainable
+	 */
+	setSelectionStyles(styles: any, startIndex: number, endIndex: number): Text;
+	/**
+	 * Returns true if object has a style property or has it ina specified line
+	 * @param {Number} lineIndex
+	 * @return {Boolean}
+	 */
+	styleHas(property: string, lineIndex?: number): boolean;
 }
 interface ITextOptions extends TextOptions {
 	/**
