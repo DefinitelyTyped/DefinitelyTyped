@@ -1698,7 +1698,7 @@ declare namespace Chai {
 }
 
 declare module "chai" {
-    export = chai;
+    export = Chai;
 }
 
 interface Object {
