@@ -1,4 +1,4 @@
-import * as CamlBuilder from 'camljs'
+import CamlBuilder from 'camljs'
 
 var caml = new CamlBuilder().Where()
 	.Any(
