@@ -103,7 +103,7 @@ export interface ClientSession extends EventEmitter {
      * @param {*} [options] Optional settings. Currently reserved for future use
      * @param {MongoCallback<void>} [cb] Optional callback for completion of this operation
      */
-    endSession(options: any, cb?: MongoCallback<void>): void
+    endSession(options: any, cb?: MongoCallback<void>): void;
 
     /**
      * Used to determine if this session equals another
@@ -486,7 +486,7 @@ export interface ServerOptions extends SSLOptions {
     /**
      * Default: true;
      */
-    monitoring?: boolean
+    monitoring?: boolean;
 
     /**
      * Socket Options
@@ -737,7 +737,7 @@ export interface IndexOptions extends CommonOptions {
      */
     partialFilterExpression?: any;
     collation?: CollationDocument;
-    default_language?: string
+    default_language?: string;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html */
@@ -782,12 +782,12 @@ export interface Admin {
 export interface AddUserOptions extends CommonOptions {
     fsync: boolean;
     customData?: object;
-    roles?: object[]
+    roles?: object[];
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Admin.html#removeUser */
 export interface FSyncOptions extends CommonOptions {
-    fsync?: boolean
+    fsync?: boolean;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html */
@@ -1298,7 +1298,7 @@ export interface CollectionAggregationOptions {
     promoteValues?: boolean;
     promoteBuffers?: boolean;
     collation?: CollationDocument;
-    comment?: string
+    comment?: string;
     session?: ClientSession;
 
 }
@@ -1383,7 +1383,7 @@ export interface DeleteWriteOpResultObject {
         ok?: number;
         //The total count of documents deleted.
         n?: number;
-    }
+    };
     //The connection object used for the operation.
     connection?: any;
     //The number of documents deleted.
@@ -1556,7 +1556,7 @@ export interface InsertWriteOpResult {
     ops: any[];
     insertedIds: { [key: number]: ObjectID };
     connection: any;
-    result: { ok: number, n: number }
+    result: { ok: number, n: number };
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#insertOne */
@@ -1568,7 +1568,7 @@ export interface CollectionInsertOneOptions extends CommonOptions {
     //Force server to assign _id values instead of driver.
     forceServerObjectId?: boolean;
     //Allow driver to bypass schema validation in MongoDB 3.2 or higher.
-    bypassDocumentValidation?: boolean
+    bypassDocumentValidation?: boolean;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertOneWriteOpResult */
@@ -1577,7 +1577,7 @@ export interface InsertOneWriteOpResult {
     ops: any[];
     insertedId: ObjectID;
     connection: any;
-    result: { ok: number, n: number }
+    result: { ok: number, n: number };
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#parallelCollectionScan */
@@ -1992,76 +1992,76 @@ export interface LoggerOptions {
     /**
      * Custom logger function
      */
-    loggerLevel?: string
+    loggerLevel?: string;
     /**
      * Override default global log level.
      */
-    logger?: log
+    logger?: log;
 }
 
-export type log = (message?: string, state?: LoggerState) => void
+export type log = (message?: string, state?: LoggerState) => void;
 
 export interface LoggerState {
-    type: string
-    message: string
-    className: string
-    pid: number
-    date: number
+    type: string;
+    message: string;
+    className: string;
+    pid: number;
+    date: number;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Logger.html */
 export class Logger {
-    constructor(className: string, options?: LoggerOptions)
+    constructor(className: string, options?: LoggerOptions);
     /**
      * Log a message at the debug level
      */
-    debug(message: string, state: LoggerState): void
+    debug(message: string, state: LoggerState): void;
     /**
      * Log a message at the warn level
      */
-    warn(message: string, state: LoggerState): void
+    warn(message: string, state: LoggerState): void;
     /**
      * Log a message at the info level
      */
-    info(message: string, state: LoggerState): void
+    info(message: string, state: LoggerState): void;
     /**
      * Log a message at the error level
      */
-    error(message: string, state: LoggerState): void
+    error(message: string, state: LoggerState): void;
     /**
      * Is the logger set at info level
      */
-    isInfo(): boolean
+    isInfo(): boolean;
     /**
      * Is the logger set at error level
      */
-    isError(): boolean
+    isError(): boolean;
     /**
      * Is the logger set at error level
      */
-    isWarn(): boolean
+    isWarn(): boolean;
     /**
      * Is the logger set at debug level
      */
-    isDebug(): boolean
+    isDebug(): boolean;
     /**
      * Resets the logger to default settings, error and no filtered classes
      */
-    static reset(): void
+    static reset(): void;
     /**
      * Get the current logger function
      */
-    static currentLogger(): log
+    static currentLogger(): log;
     //Set the current logger function
-    static setCurrentLogger(log: log): void
+    static setCurrentLogger(log: log): void;
     /**
      * Set what classes to log.
      */
-    static filter(type: string, values: string[]): void
+    static filter(type: string, values: string[]): void;
     /**
      * Set the current log level
      */
-    static setLevel(level: string): void
+    static setLevel(level: string): void;
 }
 
 /** https://docs.mongodb.com/manual/reference/collation/#collation-document-fields */
