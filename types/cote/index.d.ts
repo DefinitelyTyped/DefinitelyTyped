@@ -1,8 +1,9 @@
-// Type definitions for cote 0.19.1
+// Type definitions for cote 0.19
 // Project: https://github.com/dashersw/cote#readme
 // Definitions by: makepost <https://github.com/makepost>
 //                 Labat Robin <https://github.com/roblabat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { EventEmitter2 } from 'eventemitter2';
 import * as SocketIO from 'socket.io';
