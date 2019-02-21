@@ -16,7 +16,7 @@ export interface Location {
 }
 
 // Note: This should be consistent with the definition of type ASTNode
-type TypeString = 'SourceUnit'
+export type TypeString = 'SourceUnit'
 | 'PragmaDirective'
 | 'PragmaName'
 | 'PragmaValue'
