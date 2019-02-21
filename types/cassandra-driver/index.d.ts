@@ -116,7 +116,7 @@ export namespace policies {
       onUnavailable(requestInfo: RequestInfo, consistency: types.consistencies, required: number, alive: number): DecisionInfo;
       onWriteTimeout(requestInfo: RequestInfo, consistency: types.consistencies, received: number, blockFor: number, writeType: string): DecisionInfo;
       rethrowResult(): { decision: retryDecision };
-      retryResult(): { decision: retryDecision, consistency: types.consistencies, useCurrentHost: boolean };
+      retryResult(consistency?: types.consistencies, useCurrentHost?: boolean): { decision: retryDecision, consistency: types.consistencies, useCurrentHost: boolean };
     }
   }
 

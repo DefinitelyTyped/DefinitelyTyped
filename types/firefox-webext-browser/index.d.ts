@@ -3188,7 +3188,7 @@ declare namespace browser.storage {
      * @param changes Object mapping each key that changed to its corresponding `storage.StorageChange` for that item.
      * @param areaName The name of the storage area (`"sync"`, `"local"` or `"managed"`) the changes are for.
      */
-    const onChanged: WebExtEvent<(changes: StorageChange, areaName: string) => void>;
+    const onChanged: WebExtEvent<(changes: {[key: string]: StorageChange}, areaName: string) => void>;
 }
 
 /**

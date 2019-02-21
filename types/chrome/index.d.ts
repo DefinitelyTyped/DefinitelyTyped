@@ -5246,7 +5246,7 @@ declare namespace chrome.runtime {
 
     export interface PortMessageEvent extends chrome.events.Event<(message: any, port: Port) => void> { }
 
-    export interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response: any) => void) => void> { }
+    export interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void> { }
 
     export interface ExtensionConnectEvent extends chrome.events.Event<(port: Port) => void> { }
 

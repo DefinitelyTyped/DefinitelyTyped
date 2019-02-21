@@ -44,7 +44,7 @@ declare class Pikaday {
      * can optionally be passed as the second parameter to prevent triggering
      * of the onSelect callback, allowing the date to be set silently.
      */
-    setDate(date: string | Date, preventOnSelect?: boolean): void;
+    setDate(date: string | Date | null, preventOnSelect?: boolean): void;
 
     /**
      * Returns a Moment.js object for the selected date (Moment must be
@@ -101,13 +101,13 @@ declare class Pikaday {
      * Update the range start date. For using two Pikaday instances to
      * select a date range.
      */
-    setStartRange(date: Date): void;
+    setStartRange(date: Date | null): void;
 
     /**
      * Update the range end date. For using two Pikaday instances to select
      * a date range.
      */
-    setEndRange(date: Date): void;
+    setEndRange(date: Date | null): void;
 
     /**
      * Update the HTML.
@@ -138,6 +138,11 @@ declare class Pikaday {
      * Hide the picker and remove all event listeners - no going back!
      */
     destroy(): void;
+
+    /**
+     * Clear and reset the date
+     */
+    clear(): void;
 }
 
 // merge the Pikaday class declaration with a module
