@@ -143,7 +143,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
-    transform?: { corner: string };
+	transform?: { corner: string };
 }
 
 interface IFillOptions {
@@ -2135,10 +2135,10 @@ export class ActiveSelection {
 	 */
 	constructor(objects?: Object[], options?: IObjectOptions);
 	/**
-     * Change te activeSelection to a normal group,
-     * High level function that automatically adds it to canvas as
-     * active object. no events fired.
-     */
+	 * Change te activeSelection to a normal group,
+	 * High level function that automatically adds it to canvas as
+	 * active object. no events fired.
+	 */
 	toGroup(): Group;
 	/**
 	 * If returns true, deselection is cancelled.
@@ -3928,7 +3928,7 @@ export class Text extends Object {
 	 * @return {fabric.IText} thisArg
 	 * @chainable
 	 */
-	setSelectionStyles(styles: any, startIndex: number, endIndex: number): Text;
+	setSelectionStyles(styles: any, startIndex?: number, endIndex?: number): Text;
 	/**
 	 * Returns true if object has a style property or has it ina specified line
 	 * @param {Number} lineIndex
@@ -4400,12 +4400,12 @@ interface ITextboxOptions extends ITextOptions {
 }
 export interface Textbox extends ITextboxOptions{}
 export class Textbox extends IText {
-    /**
-     * Constructor
-     * @param text Text string
-     * @param [options] Options object
-     */
-    constructor(text: string, options?: ITextboxOptions);
+	/**
+	 * Constructor
+	 * @param text Text string
+	 * @param [options] Options object
+	 */
+	constructor(text: string, options?: ITextboxOptions);
 	/**
 	 * Returns true if object has a style property or has it ina specified line
 	 * @param {Number} lineIndex
@@ -4503,18 +4503,18 @@ interface IAllFilters {
 		 */
 		fromObject(object: any): IBrightnessFilter
 	};
-    ColorMatrix: {
-        new(options?: {
-            /** Filter matrix */
-            matrix?: number[]
-        }): IColorMatrix;
-        /**
-         * Returns filter instance from an object representation
-         * @param object Object to create an instance from
-         */
-        fromObject(object: any): IColorMatrix
-    };
-    Convolute: {
+	ColorMatrix: {
+		new(options?: {
+			/** Filter matrix */
+			matrix?: number[]
+		}): IColorMatrix;
+		/**
+		 * Returns filter instance from an object representation
+		 * @param object Object to create an instance from
+		 */
+		fromObject(object: any): IColorMatrix
+	};
+	Convolute: {
 		new(options?: {
 			opaque?: boolean,
 			/** Filter matrix */
@@ -4703,11 +4703,11 @@ interface IBrightnessFilter extends IBaseFilter {
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IColorMatrix extends IBaseFilter {
-    /**
-     * Applies filter to canvas element
-     * @param canvasEl Canvas element to apply filter to
-     */
-    applyTo(canvasEl: HTMLCanvasElement): void;
+	/**
+	 * Applies filter to canvas element
+	 * @param canvasEl Canvas element to apply filter to
+	 */
+	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IConvoluteFilter extends IBaseFilter {
 	/**
@@ -5389,10 +5389,10 @@ interface IUtilMisc {
 	 */
 	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number };
 
-    /**
-     * Creates a transform matrix with the specified scale and skew
-     */
-    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
+	/**
+	 * Creates a transform matrix with the specified scale and skew
+	 */
+	customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
 
 	/**
 	 * Returns string representation of function body
