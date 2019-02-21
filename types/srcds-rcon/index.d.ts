@@ -14,17 +14,17 @@ declare function Rcon(params: Params): RconInstance;
 /**
  * Rcon connection parameters.
  */
-type Params = {
+interface Params {
     /**
      * A valid address.
      */
-    address: string,
+    address: string;
 
     /**
      * An Rcon password.
      */
-    password: string
-};
+    password: string;
+}
 
 declare class RconInstance {
     /**
@@ -45,6 +45,4 @@ declare class RconInstance {
     command(text: string, timeout?: number): Promise<string>;
 }
 
-declare module "srcds-rcon" {
-    export = Rcon;
-}
+export default Rcon;

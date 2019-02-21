@@ -1,7 +1,7 @@
-import Rcon = require("srcds-rcon");
+import Rcon from "srcds-rcon";
 
 // $ExpectType RconInterface
-let rcon = Rcon({
+const rcon = Rcon({
     address: "192.168.1.10",
     password: "test"
 });
