@@ -1,4 +1,4 @@
-// Type definitions for react-swipeable-views 0.12
+// Type definitions for react-swipeable-views 0.13.1
 // Project: https://github.com/oliviertassinari/react-swipeable-views
 // Definitions by: Michael Ledin <https://github.com/mxl>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
@@ -24,7 +24,6 @@ export interface SpringConfig {
 }
 
 export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
-    action:
     animateHeight?: boolean;
     animateTransitions?: boolean;
     axis?: AxisType;
