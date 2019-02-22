@@ -6,7 +6,7 @@ class PercentageCircleTest extends React.Component {
     render() {
         return (
             <View>
-                <PercentageCircle 
+                <PercentageCircle
                     borderWidth={5}
                     bgcolor="#fff"
                     color="#000"
