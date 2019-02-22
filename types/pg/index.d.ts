@@ -154,12 +154,12 @@ export class Pool extends events.EventEmitter {
     end(callback: () => void): void;
 
     query<T extends Submittable>(queryStream: T): T;
-    query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
-    query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult | QueryArrayResult[]>;
+    query(queryConfig: QueryConfig): Promise<QueryResult | QueryResult[]>;
+    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult | QueryResult[]>;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult | QueryArrayResult[]) => void): Query;
+    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult | QueryResult[]) => void): Query;
+    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult | QueryResult[]) => void): Query;
 
     on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
     on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
@@ -172,12 +172,12 @@ export class ClientBase extends events.EventEmitter {
     connect(callback: (err: Error) => void): void;
 
     query<T extends Submittable>(queryStream: T): T;
-    query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
-    query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult | QueryArrayResult[]>;
+    query(queryConfig: QueryConfig): Promise<QueryResult | QueryResult[]>;
+    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult | QueryResult[]>;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult | QueryArrayResult[]) => void): Query;
+    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult | QueryResult[]) => void): Query;
+    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult | QueryResult[]) => void): Query;
 
     copyFrom(queryText: string): stream.Writable;
     copyTo(queryText: string): stream.Readable;

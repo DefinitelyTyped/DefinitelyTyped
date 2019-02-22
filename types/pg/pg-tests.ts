@@ -1,4 +1,4 @@
-import { types, Client, QueryArrayConfig, Pool } from "pg";
+import { types, Client, QueryArrayConfig, QueryResult, QueryArrayResult, Pool } from "pg";
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -21,8 +21,8 @@ client.connect(err => {
             console.error("Error running query", err);
             return;
         }
-        console.log(result.rowCount);
-        console.log(result.rows[0]["theTime"]);
+        console.log((result as QueryResult).rowCount);
+        console.log((result as QueryResult).rows[0]["theTime"]);
         client.end();
         return null;
     });
@@ -55,22 +55,38 @@ client.query(query, (err, res) => {
   if (err) {
     console.error(err.stack);
   } else {
-    console.log(res.rows);
-    console.log(res.fields.map(f => f.name));
+    console.log((res as QueryResult).rows);
+    console.log((res as QueryResult).fields.map(f => f.name));
+  }
+});
+client.query(query, (err, res) => {
+  if (err) {
+    console.error(err.stack);
+  } else {
+    console.log((res as QueryResult[])[0].rows);
+    console.log((res as QueryResult[])[0].fields.map(f => f.name));
   }
 });
 client.query(query)
   .then(res => {
-    console.log(res.rows);
-    console.log(res.fields.map(f => f.name));
+    console.log((res as QueryResult).rows);
+    console.log((res as QueryResult).fields.map(f => f.name));
+  })
+  .catch(e => {
+    console.error(e.stack);
+  });
+client.query(query)
+  .then(res => {
+    console.log((res as QueryResult[])[0].rows);
+    console.log((res as QueryResult[])[0].fields.map(f => f.name));
   })
   .catch(e => {
     console.error(e.stack);
   });
 client.query(query, ['brianc'])
   .then(res => {
-    console.log(res.rows);
-    console.log(res.fields.map(f => f.name));
+    console.log((res as QueryResult).rows);
+    console.log((res as QueryResult).fields.map(f => f.name));
   })
   .catch(e => {
     console.error(e.stack);
@@ -86,14 +102,22 @@ client.query(queryArrMode, (err, res) => {
   if (err) {
     console.error(err.stack);
   } else {
-    console.log(res.rows);
-    console.log(res.fields.map(f => f.name));
+    console.log((res as QueryArrayResult).rows);
+    console.log((res as QueryArrayResult).fields.map(f => f.name));
+  }
+});
+client.query(queryArrMode, (err, res) => {
+  if (err) {
+    console.error(err.stack);
+  } else {
+    console.log((res as QueryArrayResult[])[0].rows);
+    console.log((res as QueryArrayResult[])[0].fields.map(f => f.name));
   }
 });
 client.query(queryArrMode)
   .then(res => {
-    console.log(res.rows);
-    console.log(res.fields.map(f => f.name));
+    console.log((res as QueryArrayResult).rows);
+    console.log((res as QueryArrayResult).fields.map(f => f.name));
   })
   .catch(e => {
     console.error(e.stack);
@@ -101,7 +125,11 @@ client.query(queryArrMode)
 client.query({
   text: 'select 1',
   rowMode: 'array',
-}).then(res => console.log(res.fields[0]));
+}).then(res => console.log((res as QueryArrayResult).fields[0]));
+client.query({
+  text: 'select 1',
+  rowMode: 'array',
+}).then(res => console.log((res as QueryArrayResult[])[0].fields[0]));
 
 client.end((err) => {
   console.log('client has disconnected');
@@ -141,13 +169,13 @@ pool.connect((err, client, done) => {
       console.error('error running query', err);
       return;
     }
-    console.log(result.rows[0].number);
+    console.log((result as QueryResult).rows[0].number);
   });
 });
 
 pool.connect().then(client => {
   client.query({ text: 'SELECT $1::int AS number', values: ['1'], rowMode: 'array' }).then(result => {
-    console.log(result.rowCount, result.rows[0][0], result.fields[0].name);
+    console.log((result as QueryArrayResult).rowCount, (result as QueryArrayResult).rows[0][0], (result as QueryArrayResult).fields[0].name);
   }).then(() => client.release(), e => client.release(e));
 });
 
@@ -160,14 +188,30 @@ pool.query('SELECT $1::text as name', ['brianc'], (err, result) => {
     console.error('Error executing query', err.stack);
     return;
   }
-  console.log(result.rows[0].name);
+  console.log((result as QueryResult).rows[0].name);
+});
+
+pool.query('SELECT $1::text as name; SELECT $1::test as name;', ['brianc'], (err, resultTemp) => {
+  if (err) {
+    console.error('Error executing query', err.stack);
+    return;
+  }
+  const result = resultTemp as QueryResult[];
+  console.log(result[0].rows[0].name);
+  console.log(result[1].rows[0].name);
 });
 
 pool.query('SELECT $1::text as name', ['brianc'])
-  .then((res) => console.log(res.rows[0].name))
+  .then((res) => console.log((res as QueryResult).rows[0].name))
+  .catch(err => console.error('Error executing query', err.stack));
+pool.query('SELECT $1::text as name; SELECT $1::text as name;', ['brianc'])
+  .then((res) => console.log((res as QueryResult[])[0].rows[0].name, (res as QueryResult[])[1].rows[0].name))
   .catch(err => console.error('Error executing query', err.stack));
 pool.query({ text: 'SELECT $1::text as name' }, ['brianc'])
-  .then((res) => console.log(res.rows[0].name))
+  .then((res) => console.log((res as QueryResult).rows[0].name))
+  .catch(err => console.error('Error executing query', err.stack));
+pool.query({ text: 'SELECT $1::text as name; SELECT $1::text as name;' }, ['brianc'])
+  .then((res) => console.log((res as QueryResult[])[0].rows[0].name, (res as QueryResult[])[1].rows[0].name))
   .catch(err => console.error('Error executing query', err.stack));
 
 pool.end(() => {

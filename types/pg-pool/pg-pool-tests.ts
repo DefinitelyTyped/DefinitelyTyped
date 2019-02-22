@@ -1,4 +1,5 @@
 import { Pool } from "pg-pool";
+import { QueryResult } from "pg";
 
 let pool = new Pool()
 
@@ -20,7 +21,7 @@ let pool2 = new Pool({
 pool.connect().then(client => {
   client.query('select $1::text as name', ['pg-pool']).then(res => {
     client.release()
-    console.log('hello from', res.rows[0].name)
+    console.log('hello from', (res as QueryResult).rows[0].name)
   })
   .catch(e => {
     client.release()
@@ -31,11 +32,11 @@ pool.connect().then(client => {
 async function helperTest() {
     const time = await pool.query('SELECT NOW()');
     const name = await pool.query('select $1::text as name', ['brianc']);
-    console.log(name.rows[0].name, 'says hello at', time.rows[0].name);
+    console.log((name as QueryResult).rows[0].name, 'says hello at', (time as QueryResult).rows[0].name);
 }
 
 pool.query('SELECT $1::text as name', ['brianc'], function (err, res) {
-  console.log(res.rows[0].name) // brianc
+  console.log((res as QueryResult).rows[0].name) // brianc
 })
 
 pool.end();
