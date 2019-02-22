@@ -4,18 +4,17 @@
         "lib": [
             "es6"
         ],
-        "jsx": "react-native",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react-native"
     },
     "files": [
         "index.d.ts",
