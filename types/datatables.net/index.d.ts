@@ -1150,10 +1150,6 @@ declare namespace DataTables {
         ext: ExtSettings;
     }
 
-    interface ObjectColumnRender {
-        display(d?: number | string | object): string | object;
-    }
-
     interface ObjectOrderFixed {
         /**
          * Two-element array:
@@ -1686,14 +1682,22 @@ declare namespace DataTables {
     }
 
     interface ObjectColumnData {
-        _: string;
-        filter?: string;
-        display?: string;
-        type?: string;
-        sort?: string;
+        _: string | FunctionColumnData;
+        filter?: string | FunctionColumnData;
+        display?: string | FunctionColumnData;
+        type?: string | FunctionColumnData;
+        sort?: string | FunctionColumnData;
     }
 
     type FunctionColumnRender = (data: any, type: any, row: any, meta: CellMetaSettings) => any;
+
+    interface ObjectColumnRender {
+        _?: string | FunctionColumnRender;
+        filter?: string | FunctionColumnRender;
+        display?: string | FunctionColumnRender;
+        type?: string | FunctionColumnRender;
+        sort?: string | FunctionColumnRender;
+    }
 
     interface CellMetaSettings {
         row: number;
