@@ -201,7 +201,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     className?: string;
     fill?: string;
-    radius?: number | any[];
+    radius?: number | number[];
     layout?: LayoutType;
     xAxisId?: string | number;
     yAxisId?: string | number;
