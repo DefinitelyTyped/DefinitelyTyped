@@ -879,8 +879,8 @@ export interface Collection<TSchema = Default> {
     findOne<T = TSchema>(filter: FilterQuery<TSchema>, options: FindOneOptions, callback: MongoCallback<T | null>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
     findOneAndDelete(filter: FilterQuery<TSchema>, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndDelete(filter: FilterQuery<TSchema>, options?: { projection?: Object, sort?: Object, maxTimeMS?: number, session?: ClientSession }): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndDelete(filter: FilterQuery<TSchema>, options: { projection?: Object, sort?: Object, maxTimeMS?: number, session?: ClientSession }, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndDelete(filter: FilterQuery<TSchema>, options?: FindOneAndDeleteOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndDelete(filter: FilterQuery<TSchema>, options: FindOneAndDeleteOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: Object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
@@ -1292,7 +1292,7 @@ export interface CollectionAggregationOptions {
      * Allow driver to bypass schema validation in MongoDB 3.2 or higher.
      */
     bypassDocumentValidation?: boolean;
-    hint?: string | object;   
+    hint?: string | object;
     raw?: boolean;
     promoteLongs?: boolean;
     promoteValues?: boolean;
@@ -1407,12 +1407,24 @@ export interface FindOneAndReplaceOption extends CommonOptions {
     maxTimeMS?: number;
     upsert?: boolean;
     returnOriginal?: boolean;
+    collation?: CollationDocument;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
 export interface FindOneAndUpdateOption extends FindOneAndReplaceOption {
     arrayFilters?: Object[];
 }
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
+export interface FindOneAndDeleteOption {
+    projection?: Object;
+    sort?: Object;
+    maxTimeMS?: number;
+    session?: ClientSession;
+    collation?: CollationDocument;
+}
+
+
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
 export interface GeoHaystackSearchOptions {
