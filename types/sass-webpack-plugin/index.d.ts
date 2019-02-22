@@ -2,7 +2,7 @@
 // Project: https://github.com/jalkoby/sass-webpack-plugin
 // Definitions by: AEPKILL <https://github.com/AepKill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.7
 
 import { Options } from 'node-sass';
 import { Plugin } from 'webpack';

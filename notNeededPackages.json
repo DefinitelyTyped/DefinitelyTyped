@@ -727,6 +727,12 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "i18next-browser-languagedetector",
+            "typingsPackageName": "i18next-browser-languagedetector",
+            "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "i18next-xhr-backend",
             "typingsPackageName": "i18next-xhr-backend",
             "sourceRepoURL": "https://github.com/i18next/i18next-xhr-backend",
@@ -1114,6 +1120,12 @@
             "libraryName": "Onsen UI",
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-throttle",
+            "typingsPackageName": "p-throttle",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
             "asOfVersion": "2.0.0"
         },
         {

@@ -15,6 +15,11 @@ declare class Service {
       };
 
       name: string;
+      stage: string;
+      region: string;
+      runtime?: string;
+      timeout?: number;
+      versionFunctions: boolean;
     };
     constructor(serverless: Serverless, data: {});
 
