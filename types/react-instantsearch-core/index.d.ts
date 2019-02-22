@@ -403,7 +403,7 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
  * https://community.algolia.com/react-instantsearch/connectors/connectStateResults.html
  */
 export function connectStateResults(stateless: React.StatelessComponent<StateResultsProvided>): React.ComponentClass;
-export function connectStateResults<TProps extends Partial<StateResultsProvided<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, StateResultsProvided<TDoc>>;
+export function connectStateResults<TProps>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, StateResultsProvided<{}>>;
 
 export function connectStats(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectToggleRefinement(Composed: React.ComponentType<any>): React.ComponentClass<any>;
