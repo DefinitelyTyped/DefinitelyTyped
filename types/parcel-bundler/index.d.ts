@@ -173,6 +173,8 @@ declare class ParcelBundler {
     addPackager(type: string, packager: string): void;
 
     bundle(): Promise<ParcelBundler.ParcelBundle>;
+
+    middleware(): (req: any, res: any, next: any) => any;
 }
 
 export = ParcelBundler;
