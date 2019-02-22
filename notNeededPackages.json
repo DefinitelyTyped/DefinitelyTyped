@@ -730,7 +730,7 @@
             "libraryName": "i18next-browser-languagedetector",
             "typingsPackageName": "i18next-browser-languagedetector",
             "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
-            "asOfVersion": "2.0.2"
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "i18next-xhr-backend",
