@@ -30,7 +30,7 @@ export type TooltipFormatter = (value: string | number | Array<string | number>,
                                 entry: TooltipPayload, index: number) => React.ReactNode;
 export type ItemSorter<T> = (a: T, b: T) => number;
 export type ContentRenderer<P> = (props: P) => React.ReactNode;
-export type DataKey = string | number | ((dataObject: any) => number | [number, number] | null);
+export type DataKey = string | number | ((dataObject: any) => string | number | [number, number] | null);
 
 export type IconType = 'plainline' | 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'star' | 'triangle' | 'wye' | 'plainline';
 export type LegendType = IconType | 'none';

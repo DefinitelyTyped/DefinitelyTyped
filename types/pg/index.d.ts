@@ -206,7 +206,9 @@ export interface PoolClient extends ClientBase {
     release(err?: Error): void;
 }
 
-export class Query extends events.EventEmitter {
+export class Query extends events.EventEmitter implements Submittable {
+    constructor(queryTextOrConfig?: string | QueryConfig, values?: any[]);
+    submit: (connection: Connection) => void;
     on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "end", listener: (result: ResultBuilder) => void): this;

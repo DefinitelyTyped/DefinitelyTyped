@@ -1,4 +1,4 @@
-// Type definitions for @sap/xsenv 1.2
+// Type definitions for non-npm package @sap/xsenv 1.2
 // Project: https://help.sap.com/hana_platform
 // Definitions by: [Michael Müller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -37,6 +37,13 @@ xall("A data driven test can be pending",
     }
 );
 
+all("A data set must consist of array-wrapped arrays, if test expects single array input",
+    [[[1, 2]], [[3, 4]], [[5, 6]]],
+    (numberArray: number[]) => {
+        expect(numberArray.length).toBe(2);
+    }
+);
+
 describe("A suite", () => {
     let a: number;
 
