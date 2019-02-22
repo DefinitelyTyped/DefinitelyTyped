@@ -2285,7 +2285,7 @@ export class Image {
 	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
 	 * @param [imgOptions] Options object
 	 */
-	static fromURL(url: string, callback?: Function, imgOptions?: IImageOptions): Image;
+	static fromURL(url: string, callback?: (image: Image) => void, imgOptions?: IImageOptions): Image;
 	/**
 	 * Returns Image instance from an SVG element
 	 * @param element Element to parse
