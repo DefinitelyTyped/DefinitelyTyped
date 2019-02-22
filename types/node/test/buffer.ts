@@ -201,3 +201,10 @@ b.fill('a').fill('b');
     const buffer = new Buffer('123');
     const octets = new Uint8Array(buffer.buffer);
 }
+
+// Inherited from Uint8Array but return buffer
+{
+    const b = Buffer.from('asd');
+    let res: Buffer = b.reverse();
+    res = b.subarray(1);
+}
