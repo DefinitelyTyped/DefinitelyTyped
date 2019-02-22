@@ -715,6 +715,12 @@
             "asOfVersion": "7.3.0"
         },
         {
+            "libraryName": "Highcharts",
+            "typingsPackageName": "highcharts",
+            "sourceRepoURL": "https://github.com/highcharts/highcharts",
+            "asOfVersion": "7.0.0"
+        },
+        {
             "libraryName": "homeworks",
             "typingsPackageName": "homeworks",
             "sourceRepoURL": "https://github.com/IGAWorksDev/homeworks/",
