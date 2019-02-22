@@ -16,6 +16,7 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Slava Yultyyev <https://github.com/yultyyev>
 //                 Corey Psoinos <https://github.com/cpsoinos>
+//                 Adam Duren <https://github.com/adamduren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -2837,6 +2838,11 @@ declare namespace Stripe {
              * Date the payout is expected to arrive in the bank. This factors in delays like weekends or bank holidays
              */
             arrival_date: number;
+
+            /**
+             * Returns true if the payout was created by an automated payout schedule, and false if it was requested manually.
+             */
+            automatic: boolean;
 
             /**
              * Balance transaction that describes the impact of this transfer on your account balance. [Expandable]
