@@ -635,7 +635,7 @@ interface IPatternOptions {
 	/**
 	 * The source for the pattern
 	 */
-	source?: string | HTMLImageElement;
+	source: string | HTMLImageElement;
 }
 export interface Pattern extends IPatternOptions { }
 export class Pattern {
