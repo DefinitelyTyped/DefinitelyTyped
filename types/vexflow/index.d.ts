@@ -1,4 +1,4 @@
-// Type definitions for VexFlow v1.2.85
+// Type definitions for VexFlow v1.2.88
 // Project: http://vexflow.com
 // Definitions by: Roman Quiring <https://github.com/rquiring>
 //                 Sebastian Haas <https://github.com/sebastianhaas>
@@ -1107,7 +1107,7 @@ declare namespace Vex {
             constructor(note_struct : {type? : string, dots? : number, duration : string});
             static DEBUG : boolean;
             flag: Glyph;
-            getAttribute(attr : string);
+            getAttribute(attr : string) : any;
             setFlagStyle(style_struct : {shadowColor? : string, shadowBlur? : string, fillStyle? : string, strokeStyle? : string}) : void;                
             getStem() : Stem;
             setStem(stem : Stem) : StemmableNote;
