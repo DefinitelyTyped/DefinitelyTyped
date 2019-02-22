@@ -5389,17 +5389,72 @@ export class Skeleton {
     clone(): this;
 }
 
+/**
+ * A mesh that has a Skeleton with bones that can then be used to animate the vertices of the geometry. The material must support skinning and have skinning enabled.
+ * @see MeshStandardMaterial.skinning
+ * @source https://github.com/mrdoob/three.js/blob/master/src/objects/SkinnedMesh.js
+ */
 export class SkinnedMesh extends Mesh {
-    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[], useVertexTexture?: boolean);
 
+    /**
+     * @param  {BufferGeometry} geometry? an instance of {@link BufferGeometry}.
+     * @param  {Material|Material[]} material? (optional) an instance of {@link Material}. Default is a new {@link MeshBasicMaterial}.
+     * @param  {boolean} useVertexTexture?
+     */
+    constructor(geometry?: BufferGeometry, material?: Material | Material[]);
+
+    /**
+     * Either "attached" or "detached". "attached" uses the SkinnedMesh.matrixWorld property for the base transform	matrix of the bones. "detached" uses the SkinnedMesh.bindMatrix. Default is "attached".
+     */
     bindMode: string;
+
+    /**
+     * The base matrix that is used for the bound bone transforms.
+     */
     bindMatrix: Matrix4;
+
+    /**
+     * The base matrix that is used for resetting the bound bone transforms.
+     */
     bindMatrixInverse: Matrix4;
+
+    /**
+     * Used to check whether this or derived classes are skinned meshes. Default is true.
+     * You should not change this, as it used internally for optimisation.
+     */
+    isSkinnedMesh: boolean;
+
+    /**
+     * Skeleton representing the bone hierarchy of the skinned mesh.
+     */
     skeleton: Skeleton;
 
+    /**
+     * Bind a skeleton to the skinned mesh. The bindMatrix gets saved to .bindMatrix property and the .bindMatrixInverse gets calculated.
+     * @param  {Skeleton} skeleton Skeleton created from a Bones tree.
+     * @param  {Matrix4} bindMatrix? Matrix4 that represents the base transform of the skeleton.
+     * @returns void
+     * @see Skeleton
+     */
     bind( skeleton: Skeleton, bindMatrix?: Matrix4 ): void;
+
+    /**
+     * This method sets the skinned mesh in the rest pose (resets the pose).
+     * @returns void
+     */
     pose(): void;
+
+    /**
+     * Normalizes the skin weights.
+     */
     normalizeSkinWeights(): void;
+
+    /**
+     * Updates the MatrixWorld.
+     * @param  {boolean} force?
+     * @returns void
+     * @see MatrixWorld
+     */
     updateMatrixWorld(force?: boolean): void;
 }
 
