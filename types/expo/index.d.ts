@@ -1952,14 +1952,16 @@ export namespace ImageManipulator {
     }
 
     interface Flip {
-        flip?: { vertical?: boolean; horizontal?: boolean };
+        flip: { vertical?: boolean; horizontal?: boolean };
     }
 
     interface Crop {
-        originX: number;
-        originY: number;
-        width: number;
-        height: number;
+        crop: {
+            originX: number;
+            originY: number;
+            width: number;
+            height: number;
+        };
     }
 
     interface ImageResult {
