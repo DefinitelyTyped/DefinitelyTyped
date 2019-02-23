@@ -1,4 +1,5 @@
 import sinon = require("sinon");
+import Bluebird = require("bluebird");
 
 function testSandbox() {
     const obj = {};
@@ -422,6 +423,7 @@ function testStub() {
     const obj = class {
         foo() { }
         promiseFunc() { return Promise.resolve('foo'); }
+        promiseLikeFunc() { return {} as any as Bluebird<string>; }
     };
     const instance = new obj();
 
@@ -430,9 +432,11 @@ function testStub() {
 
     const spy: sinon.SinonSpy = stub;
 
-    function promiseFunc(n: number) { return Promise.resolve('foo'); }
     const promiseStub = sinon.stub(instance, 'promiseFunc');
     promiseStub.resolves('test');
+
+    const promiseLikeStub = sinon.stub(instance, 'promiseLikeFunc');
+    promiseLikeStub.resolves('test');
 
     sinon.stub(instance);
 
