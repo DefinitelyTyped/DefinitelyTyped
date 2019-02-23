@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+import * as express from "express-serve-static-core";
+
 declare namespace ParcelBundler {
     interface ParcelOptions {
         /**
@@ -174,7 +176,7 @@ declare class ParcelBundler {
 
     bundle(): Promise<ParcelBundler.ParcelBundle>;
 
-    middleware(): (req: any, res: any, next: any) => any;
+    middleware(): (req: express.Request, res: express.Response, next: express.NextFunction) => any;
 }
 
 export = ParcelBundler;
