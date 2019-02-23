@@ -873,7 +873,7 @@ declare namespace IORedis {
 
     type ClusterNode = string | number | NodeConfiguration;
 
-    interface Cluster {
+    interface Cluster extends NodeJS.EventEmitter, Commander {
         connect(callback: () => void): Promise<any>;
         disconnect(): void;
         nodes: Redis[];
