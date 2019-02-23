@@ -1270,6 +1270,7 @@ declare namespace Vex {
             static DEBUG : boolean;
             start : Note;
             stop : Note;
+            position : TextBracket.Positions;
             applyStyle(context : IRenderContext) : TextBracket;
             setDashed(dashed : boolean, dash? : number[]) : TextBracket;
             setFont(font : {family : string, size : number, weight : string}) : TextBracket;
