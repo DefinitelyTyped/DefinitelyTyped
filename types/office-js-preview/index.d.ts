@@ -22074,7 +22074,7 @@ declare namespace Excel {
         findOrNullObject(text: string, criteria: Excel.SearchCriteria): Excel.Range;
         /**
          *
-         * Does FlashFill to current range.Flash Fill will automatically fills data when it senses a pattern, so the range must be single column range and have data around in order to find pattern.
+         * Does FlashFill to current range. Flash Fill will automatically fills data when it senses a pattern, so the range must be single column range and have data around in order to find pattern.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
