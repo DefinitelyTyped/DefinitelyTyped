@@ -22,6 +22,7 @@
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -909,6 +910,12 @@ declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
     var SlowBuffType: typeof SlowBuffer;
+
+    export function transcode(
+        source: Buffer | Uint8Array,
+        fromEnc: "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary",
+        toEnc: "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary"): Buffer;
+
     export { BuffType as Buffer, SlowBuffType as SlowBuffer };
 }
 
