@@ -33,7 +33,7 @@ import * as perf_hooks from "perf_hooks";
 import Module = require("module");
 
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -593,6 +593,11 @@ function bufferTests() {
     {
         let buffer = new Buffer('123');
         let octets = new Uint8Array(buffer.buffer);
+    }
+
+    // Buffer module, transcode function
+    {
+        transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer
     }
 }
 
