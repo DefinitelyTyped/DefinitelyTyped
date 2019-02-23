@@ -16,7 +16,7 @@ export interface Location {
 }
 
 // Note: This should be consistent with the definition of type ASTNode
-export type TypeString = 'SourceUnit'
+export type ASTNodeTypeString = 'SourceUnit'
 | 'PragmaDirective'
 | 'PragmaName'
 | 'PragmaValue'
@@ -100,7 +100,7 @@ export type TypeString = 'SourceUnit'
 | 'Conditional';
 
 export interface BaseASTNode {
-    type: TypeString;
+    type: ASTNodeTypeString;
     range?: [number, number];
     loc?: Location;
 }
