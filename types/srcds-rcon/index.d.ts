@@ -45,4 +45,4 @@ declare class RconInterface {
     command(text: string, timeout?: number): Promise<string>;
 }
 
-export default Rcon;
+export = Rcon;
