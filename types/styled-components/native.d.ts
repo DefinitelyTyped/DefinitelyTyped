@@ -15,6 +15,7 @@ export {
 import {
   AnyStyledComponent,
   DefaultTheme,
+  isStyledComponent,
   StyledComponentInnerAttrs,
   StyledComponentInnerComponent,
   StyledComponentInnerOtherProps,
@@ -226,6 +227,9 @@ export interface ReactNativeThemedStyledComponentsModule<
   ThemeProvider: ThemeProviderComponent<T, U>;
   ThemeConsumer: React.Consumer<T>;
   ThemeContext: React.Context<T>;
+
+  // This could be made to assert `target is StyledComponent<any, T>` instead, but that feels not type safe
+  isStyledComponent: typeof isStyledComponent;
 }
 
 declare const styled: ReactNativeStyledInterface<DefaultTheme>;
