@@ -73,11 +73,11 @@ export interface CSSProperties<Props> {
     | DynamicCSSRule<Props>
     | CSSProperties<Props>;
 }
-export type Styles<ClassKey extends string = string, Props = {}> = Record<
+export type Styles<ClassKey extends string | number | symbol = string, Props = {}> = Record<
   ClassKey,
   CSSProperties<Props>
   >;
-export type StyleCreator<C extends string = string, T extends {} = {}, Props = {}> = (
+export type StyleCreator<C extends string | number | symbol = string, T extends {} = {}, Props = {}> = (
   theme: T
 ) => Styles<C, Props>;
 
@@ -93,20 +93,20 @@ export interface InjectOptions extends CreateStyleSheetOptions {
   theming?: Theming;
 }
 
-export type ClassNameMap<C extends string> = Record<C, string>;
+export type ClassNameMap<C extends string | number | symbol> = Record<C, string>;
 export type WithSheet<
-  S extends string | Styles | StyleCreator<string, any>,
+    S extends string | Styles | StyleCreator<keyof S, any>,
   GivenTheme = undefined,
-  Props = {}
+Props = {},
   > = {
   classes: ClassNameMap<
-    S extends string
+    S extends string | number | symbol
       ? S
       : S extends StyleCreator<infer C, any, Props>
       ? C
       : S extends Styles<infer C, Props> ? C : never
     >;
-} & WithTheme<S extends StyleCreator<string, infer T> ? T : GivenTheme>;
+} & WithTheme<S extends StyleCreator<keyof S, infer T> ? T : GivenTheme>;
 
 export interface WithTheme<T> {
   theme: T;

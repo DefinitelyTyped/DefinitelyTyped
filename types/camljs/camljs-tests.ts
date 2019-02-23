@@ -1,4 +1,4 @@
-
+import CamlBuilder from 'camljs'
 
 var caml = new CamlBuilder().Where()
 	.Any(
@@ -53,3 +53,37 @@ caml = CamlBuilder.Expression()
 	.ToString();
 
 caml = new CamlBuilder().Where().DateTimeField("Created").GreaterThan(new Date(Date.UTC(2013,0,1))).ToString();
+
+// Aggregations and extended syntax of GroupBy
+var query = new CamlBuilder()
+    .View(["Category", { count: "ID" }, { sum: "Amount" }])
+    .Query()
+    .GroupBy("Category", true, 100)
+    .ToString();
+
+// ContentTypeId field
+var query = new CamlBuilder()
+    .Where()
+    .TextField("Title").EqualTo("Document")
+    .And()
+    .ContentTypeIdField().BeginsWith("0x101")
+    .ToString();
+
+// joins
+var query = new CamlBuilder()
+    .View(["Title", "Country", "Population"])
+    .LeftJoin("Country", "Country").Select("y4r6", "Population")
+    .Query()
+    .Where()
+    .NumberField("Population").LessThan(10)
+    .ToString();
+
+// RowLimit & Scope
+var camlBuilder1 = new CamlBuilder()
+    .View(["ID", "Created"])
+    .RowLimit(20, true)
+    .Scope(CamlBuilder.ViewScope.RecursiveAll)
+    .Query()
+    .Where()
+    .TextField("Title").BeginsWith("A")
+    .ToString();
