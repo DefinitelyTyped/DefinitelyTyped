@@ -1,5 +1,5 @@
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode } from "buffer";
 
 const utf8Buffer = new Buffer('test');
 const base64Buffer = new Buffer('', 'base64');
@@ -200,4 +200,9 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     const octets = new Uint8Array(buffer.buffer);
+}
+
+// Buffer module, transcode function
+{
+    transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer
 }
