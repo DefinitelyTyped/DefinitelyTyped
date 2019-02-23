@@ -7,6 +7,7 @@
 //                 Claas Brüggemann <https://github.com/ClaasBrueggemann>
 //                 Kai Eichinger <https://github.com/keichinger>
 //                 Nery Ortez <https://github.com/neryortez>
+//                 Antoine Rousseau <https://github.com/antoinerousseau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -534,9 +535,16 @@ declare namespace algoliasearch {
     userData?: string | object;
 
     /**
+     * Controls how facet values are sorted.
      * https://www.algolia.com/doc/api-reference/api-parameters/sortFacetValuesBy/
      */
     sortFacetValuesBy?: 'count' | 'alpha';
+    /**
+     * Sets the languages to be used by language-specific settings and functionalities
+     * such as ignorePlurals, removeStopWords, and CJK word-detection.
+     * https://www.algolia.com/doc/api-reference/api-parameters/queryLanguages/
+     */
+    queryLanguages?: string[];
   }
 
   namespace SearchForFacetValues {
