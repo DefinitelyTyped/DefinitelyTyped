@@ -35,7 +35,7 @@ import * as trace_events from "trace_events";
 import Module = require("module");
 
 // Specifically test buffer module regression.
-import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -631,6 +631,11 @@ function bufferTests() {
     {
         const buffer = new Buffer('123');
         const octets = new Uint8Array(buffer.buffer);
+    }
+
+    // Buffer module, transcode function
+    {
+        transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer
     }
 }
 
