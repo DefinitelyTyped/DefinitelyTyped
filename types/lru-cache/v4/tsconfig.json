@@ -8,12 +8,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "lru-cache": [ "lru-cache/v4" ]
+            "lru-cache": ["lru-cache/v4"]
         },
         "types": [],
         "noEmit": true,
@@ -21,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "mustache-express-tests.ts"
+        "lru-cache-tests.ts"
     ]
 }

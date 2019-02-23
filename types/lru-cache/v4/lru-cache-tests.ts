@@ -1,4 +1,4 @@
-import LRUCache = require('lru-cache');
+import LRU = require('lru-cache');
 
 const num = 1;
 
@@ -10,9 +10,9 @@ const foo = {
     foo() {}
 };
 
-const cache = new LRUCache<string, Foo>();
-cache; // $ExpectType LRUCache<string, Foo>
-new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
+const cache = LRU<string, Foo>();
+cache; // $ExpectType Cache<string, Foo>
+LRU<string, Foo>({ // $ExpectType Cache<string, Foo>
 	max: num,
 	maxAge: num,
 	length(value) {
@@ -26,9 +26,9 @@ new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
 	stale: false,
     noDisposeOnSet: false,
 });
-new LRUCache<string, Foo>(num); // $ExpectType LRUCache<string, Foo>
-new LRUCache<string, Foo>(); // $ExpectType LRUCache<string, Foo>
-new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
+LRU<string, Foo>(num); // $ExpectType Cache<string, Foo>
+new LRU<string, Foo>(); // $ExpectType Cache<string, Foo>
+new LRU<string, Foo>({ // $ExpectType Cache<string, Foo>
     max: num,
     maxAge: num,
     length: (value) => {
@@ -38,7 +38,7 @@ new LRUCache<string, Foo>({ // $ExpectType LRUCache<string, Foo>
     stale: false,
     noDisposeOnSet: false,
 });
-new LRUCache<string, Foo>(num); // $ExpectType LRUCache<string, Foo>
+new LRU<string, Foo>(num); // $ExpectType Cache<string, Foo>
 
 cache.length; // $ExpectType number
 cache.length = 1; // $ExpectError
@@ -80,26 +80,26 @@ cache.prune();
 cache.forEach(function(value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
-    cache; // $ExpectType LRUCache<string, Foo>
-    this; // $ExpectType LRUCache<string, Foo>
+    cache; // $ExpectType Cache<string, Foo>
+    this; // $ExpectType Cache<string, Foo>
 });
 cache.forEach(function(value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
-    cache; // $ExpectType LRUCache<string, Foo>
+    cache; // $ExpectType Cache<string, Foo>
     this; // $ExpectType { foo(): void; }
 }, foo);
 
 cache.rforEach(function(value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
-    cache; // $ExpectType LRUCache<string, Foo>
-    this; // $ExpectType LRUCache<string, Foo>
+    cache; // $ExpectType Cache<string, Foo>
+    this; // $ExpectType Cache<string, Foo>
 });
 cache.rforEach(function(value, key, cache) {
     value; // $ExpectType Foo
     key; // $ExpectType string
-    cache; // $ExpectType LRUCache<string, Foo>
+    cache; // $ExpectType Cache<string, Foo>
     this; // $ExpectType { foo(): void; }
 }, foo);
 
@@ -107,5 +107,5 @@ cache.keys(); // $ExpectType string[]
 cache.values(); // $ExpectType Foo[]
 
 const dump = cache.dump();
-dump; // $ExpectType Entry<string, Foo>[]
+dump; // $ExpectType LRUEntry<string, Foo>[]
 cache.load(dump);
