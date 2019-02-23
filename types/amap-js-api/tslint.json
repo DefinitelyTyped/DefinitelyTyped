@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "only-arrow-functions": false,
+        "space-before-function-paren": false,
+        "no-var-keyword": false,
+        "no-unnecessary-class": false,
+        "file-name-casing": false
+    }
+}
