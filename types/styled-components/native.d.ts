@@ -218,14 +218,14 @@ export interface ReactNativeThemedStyledComponentsModule<
   T extends object,
   U extends object = T
 > {
-  default: ReactNativeStyledInterface<T>
+  default: ReactNativeStyledInterface<T>;
 
-  css: ThemedCssFunction<T>
+  css: ThemedCssFunction<T>;
 
-  withTheme: WithThemeFnInterface<T>
-  ThemeProvider: ThemeProviderComponent<T, U>
-  ThemeConsumer: React.Consumer<T>
-  ThemeContext: React.Context<T>
+  withTheme: WithThemeFnInterface<T>;
+  ThemeProvider: ThemeProviderComponent<T, U>;
+  ThemeConsumer: React.Consumer<T>;
+  ThemeContext: React.Context<T>;
 }
 
 declare const styled: ReactNativeStyledInterface<DefaultTheme>;
