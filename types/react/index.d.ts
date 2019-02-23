@@ -172,7 +172,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
-    type ReactChild = ReactElement | ReactText;
+    type ReactChild = ReactElement | ReactText | object;
 
     interface ReactNodeArray extends Array<ReactNode> {}
     type ReactFragment = ReactElement | ReactNodeArray;
