@@ -316,7 +316,7 @@ interface TestApi {
     test(x: number): string;
 }
 // $ExpectType Mock<string, [number]>
-const mock12 = jest.fn<ReturnType<TestApi["test"]>, ArgsType<TestApi["test"]>>();
+const mock12 = jest.fn<ReturnType<TestApi["test"]>, jest.ArgsType<TestApi["test"]>>();
 
 // $ExpectType number
 mock1('test');
@@ -484,6 +484,19 @@ mocked.test4.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
 mocked.test4.mockRejectedValue(new Error());
 // $ExpectError
 mocked.test4.mockRejectedValueOnce(new Error());
+
+const mockResult = jest.fn(() => 1).mock.results[0];
+switch (mockResult.type) {
+    case 'return':
+        mockResult.value; // $ExpectType number
+        break;
+    case 'incomplete':
+        mockResult.value; // $ExpectType undefined
+        break;
+    case 'throw':
+        mockResult.value; // $ExpectType any
+        break;
+}
 
 /* Snapshot serialization */
 

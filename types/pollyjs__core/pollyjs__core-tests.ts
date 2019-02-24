@@ -127,5 +127,19 @@ async function test() {
 		.configure({ expiresIn: '5d' })
 		.passthrough();
 
+	server.any().on('error', (req, error) => {
+		req
+			.setHeader('Content-Length', '2344')
+			.setHeaders({
+				'Content-Type': 'application/json',
+				'Content-Length': '42'
+			})
+			.removeHeader('Content-Length')
+			.removeHeaders(['Content-Type', 'Content-Length']);
+
+		req.removeHeaders(['Content-Type', 'Content-Length']);
+		log(req.pathname + JSON.stringify(error));
+	});
+
 	await polly.flush();
 }

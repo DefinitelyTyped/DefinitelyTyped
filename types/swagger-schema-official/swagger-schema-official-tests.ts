@@ -1373,7 +1373,6 @@ const reference_support: swagger.Spec = {
                     {
                         "in": "body",
                         "name": "bodyParameter",
-                        "type": "string",
                         "description": "The body parameter"
                     }
                 ],

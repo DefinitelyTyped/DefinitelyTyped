@@ -42,6 +42,7 @@ import {
     HeaderBackButton,
     Header,
     NavigationContainer,
+    NavigationContext,
     NavigationParams,
     NavigationPopAction,
     NavigationPopToTopAction,
@@ -680,4 +681,15 @@ const ViewWithNavigationEvents = (
     onWillBlur={console.log}
     onDidBlur={console.log}
   />
+);
+
+// Test NavigationContext
+const componentWithNavigationContext = (
+    <NavigationContext.Consumer>
+        {
+            navigationContext => (
+                <NavigationEvents navigation={navigationContext} />
+            )
+        }
+    </NavigationContext.Consumer>
 );

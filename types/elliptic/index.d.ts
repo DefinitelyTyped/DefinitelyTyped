@@ -187,7 +187,7 @@ export class ec {
 
 export namespace ec {
     interface GenKeyPairOptions {
-        pers: any;
+        pers?: any;
         entropy: any;
         persEnc?: string;
         entropyEnc?: string;
