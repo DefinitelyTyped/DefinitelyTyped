@@ -24,7 +24,7 @@ const invalidOptions = {
 () => (
     <ReactScrollIntoViewIfNeeded
         active={true}
-        options={invalidOptions}
+        options={invalidOptions} // $ExpectError
         elementType="h1"
     >
         Children
