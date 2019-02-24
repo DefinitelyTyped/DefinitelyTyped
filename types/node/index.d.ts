@@ -37,16 +37,16 @@
 //                 Kyle Uehlein <https://github.com/kuehlein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// NOTE: These definitions support NodeJS and TypeScript 3.1.
+// NOTE: These definitions support NodeJS and TypeScript 3.2.
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
 //          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
-//          - ~/ts3.1/index.d.ts  - Definitions specific to TypeScript 3.1
+//          - ~/ts3.2/index.d.ts  - Definitions specific to TypeScript 3.2
 
-// NOTE: Augmentations for TypeScript 3.1 and later should use individual files for overrides
-//       within the respective ~/ts3.1 (or later) folder. However, this is disallowed for versions
-//       prior to TypeScript 3.1, so the older definitions will be found here.
+// NOTE: Augmentations for TypeScript 3.2 and later should use individual files for overrides
+//       within the respective ~/ts3.2 (or later) folder. However, this is disallowed for versions
+//       prior to TypeScript 3.2, so the older definitions will be found here.
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />

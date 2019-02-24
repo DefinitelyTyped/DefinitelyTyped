@@ -7,7 +7,7 @@
 
 // Reference required types from the default lib:
 /// <reference lib="es2018" />
-/// <reference lib="esnext.asyncIterable" />
+/// <reference lib="esnext.asynciterable" />
 /// <reference lib="esnext.intl" />
 /// <reference lib="esnext.bigint" />
 
