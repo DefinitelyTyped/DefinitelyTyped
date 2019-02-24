@@ -1,4 +1,4 @@
-// Type definitions for mailparser v2.0.0
+// Type definitions for mailparser v2.4.2
 // Project: https://www.npmjs.com/package/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 Andrey Volynkin <https://github.com/Avol-V/>
@@ -290,6 +290,13 @@ export class MailParser extends StreamModule.Transform {
 export type Source = Buffer | Stream | string;
 
 /**
+ * Options object for simpleParser.
+ */
+export interface SimpleParserOptions extends StreamModule.TransformOptions {
+	keepCidLinks?: boolean;
+}
+
+/**
  * Parse email message to structure object.
  *
  * @param source A message source.
@@ -301,5 +308,16 @@ export function simpleParser(source: Source, callback: (err: any, mail: ParsedMa
  * Parse email message to structure object.
  *
  * @param source A message source.
+ * @param options Transform options passed to MailParser's constructor
+ * @param callback Function to get a structured email object.
  */
-export function simpleParser(source: Source): Promise<ParsedMail>;
+export function simpleParser(source: Source, options: SimpleParserOptions, callback: (err: any, mail: ParsedMail) => void): void;
+
+
+/**
+ * Parse email message to structure object.
+ *
+ * @param source A message source.
+ * @param options Transform options passed to MailParser's constructor
+ */
+export function simpleParser(source: Source, options?: SimpleParserOptions): Promise<ParsedMail>;
