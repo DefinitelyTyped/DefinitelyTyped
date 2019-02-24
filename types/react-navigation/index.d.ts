@@ -923,7 +923,7 @@ export interface DrawerItemsProps {
   inactiveLabelStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<ViewStyle>;
   drawerPosition: 'left' | 'right';
-  screenProps?: { [key: string]: any };
+  screenProps?: any;
 }
 export interface DrawerScene {
   route: NavigationRoute;
