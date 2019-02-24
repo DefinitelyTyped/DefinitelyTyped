@@ -397,6 +397,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "dd-trace",
+            "typingsPackageName": "dd-trace",
+            "sourceRepoURL": "https://github.com/DataDog/dd-trace-js",
+            "asOfVersion": "0.9.0"
+        },
+        {
             "libraryName": "decimal.js",
             "typingsPackageName": "decimal.js",
             "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
