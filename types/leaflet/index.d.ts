@@ -626,7 +626,7 @@ export interface PathOptions extends InteractiveLayerOptions {
     opacity?: number;
     lineCap?: LineCapShape;
     lineJoin?: LineJoinShape;
-    dashArray?: string;
+    dashArray?: string | number[];
     dashOffset?: string;
     fill?: boolean;
     fillColor?: string;
@@ -1134,14 +1134,15 @@ export interface PopupOptions extends DivOverlayOptions {
     maxWidth?: number;
     minWidth?: number;
     maxHeight?: number;
+    keepInView?: boolean;
+    closeButton?: boolean;
     autoPan?: boolean;
     autoPanPaddingTopLeft?: PointExpression;
     autoPanPaddingBottomRight?: PointExpression;
     autoPanPadding?: PointExpression;
-    keepInView?: boolean;
-    closeButton?: boolean;
     autoClose?: boolean;
     closeOnClick?: boolean;
+    closeOnEscapeKey?: boolean;
 }
 
 export type Content = string | HTMLElement;
@@ -1534,6 +1535,9 @@ export interface MarkerOptions extends InteractiveLayerOptions {
     opacity?: number;
     riseOnHover?: boolean;
     riseOffset?: number;
+    autoPan?: boolean;
+    autoPanSpeed?: number;
+    autoPanPadding?: PointExpression;
 }
 
 export class Marker<P = any> extends Layer {
