@@ -1424,8 +1424,6 @@ export interface FindOneAndDeleteOption {
     collation?: CollationDocument;
 }
 
-
-
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
 export interface GeoHaystackSearchOptions {
     readPreference?: ReadPreference | string;
