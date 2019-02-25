@@ -350,7 +350,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * });
    * </code>
    */
-  call<U extends keyof R>(propertyName: U, ...args: any[]): Bluebird<any>;
+  call<U extends keyof Q, Q>(this: Bluebird<Q>, propertyName: U, ...args: any[]): Bluebird<Q[U] extends (...args: any[]) => any ? ReturnType<Q[U]> : never>;
 
   /**
    * This is a convenience method for doing:

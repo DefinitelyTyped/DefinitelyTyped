@@ -553,7 +553,7 @@ bool = fooProm.isResolved();
 strProm = fooProm.call("foo");
 strProm = fooProm.call("foo", 1, 2, 3);
 
-// $ExpectType Bluebird<any>
+// $ExpectType Bluebird<never>
 quxProm.call("qux");
 
 strProm = fooProm.get("foo").then(method => method());
