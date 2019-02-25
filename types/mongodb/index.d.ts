@@ -1417,8 +1417,8 @@ export interface FindOneAndUpdateOption extends FindOneAndReplaceOption {
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndDelete */
 export interface FindOneAndDeleteOption {
-    projection?: Object;
-    sort?: Object;
+    projection?: object;
+    sort?: object;
     maxTimeMS?: number;
     session?: ClientSession;
     collation?: CollationDocument;
