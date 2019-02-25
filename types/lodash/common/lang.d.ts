@@ -1231,7 +1231,7 @@ declare module "../index" {
         /**
          * see _.isObject
          */
-        isObject(): boolean;
+        isObject(): this is LoDashImplicitWrapper<object>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
