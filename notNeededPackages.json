@@ -1138,7 +1138,7 @@
             "libraryName": "p-throttle",
             "typingsPackageName": "p-throttle",
             "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
-            "asOfVersion": "2.0.0"
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "param-case",
