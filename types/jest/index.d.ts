@@ -1625,6 +1625,7 @@ declare namespace jest {
         numPendingTests: number;
         numPendingTestSuites: number;
         numRuntimeErrorTestSuites: number;
+        numTodoTests: number;
         numTotalTests: number;
         numTotalTestSuites: number;
         snapshot: SnapshotSummary;
