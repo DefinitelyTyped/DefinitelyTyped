@@ -29,6 +29,7 @@
         "lib/Fields.d.ts",
         "lib/FieldArray.d.ts",
         "lib/Form.d.ts",
+        "lib/FormName.d.ts",
         "lib/FormSection.d.ts",
         "lib/formValues.d.ts",
         "lib/formValueSelector.d.ts",
