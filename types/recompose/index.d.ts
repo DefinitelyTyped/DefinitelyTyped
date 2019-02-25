@@ -46,7 +46,7 @@ declare module 'recompose' {
     export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
         <P extends TInjectedProps>(
             component: Component<P>
-        ): React.ComponentType<Omit<P, keyof TInjectedProps> & TNeedsProps>
+        ): React.ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps>
     }
 
     // Injects props and removes them from the prop requirements.
@@ -283,7 +283,7 @@ declare module 'recompose' {
     // setStatic: https://github.com/acdlite/recompose/blob/master/docs/API.md#setStatic
     export function setStatic(
         key: string, value: any
-    ): <T extends Component>(component: T) => T;
+    ): <T extends Component<any>>(component: T) => T;
 
     // setPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#setPropTypes
     export function setPropTypes<P>(
@@ -293,7 +293,7 @@ declare module 'recompose' {
     // setDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#setDisplayName
     export function setDisplayName(
         displayName: string
-    ): <T extends Component>(component: T) => T;
+    ): <T extends Component<any>>(component: T) => T;
 
 
     // Utilities: https://github.com/acdlite/recompose/blob/master/docs/API.md#utilities
