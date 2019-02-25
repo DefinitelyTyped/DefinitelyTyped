@@ -98,8 +98,6 @@
         "test/size.ts",
         "test/util.ts",
         "test/view2d.ts",
-        "tsconfig.json",
-        "tslint.json",
         "type-util.d.ts",
         "util.d.ts",
         "view2D.d.ts"
