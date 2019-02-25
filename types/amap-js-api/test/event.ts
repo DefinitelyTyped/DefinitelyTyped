@@ -43,7 +43,7 @@ AMap.event.addListener(map, 'click', (event: AMap.Map.EventMap['click']) => {
 });
 
 // $ExpectType EventListener<1>
-AMap.event.addListenerOnce(map, 'hotspotclick', function (event: AMap.Map.EventMap['hotspotclick']) {
+const eventListener = AMap.event.addListenerOnce(map, 'hotspotclick', function (event: AMap.Map.EventMap['hotspotclick']) {
     // $ExpectType "hotspotclick"
     event.type;
     // $ExpectType string
@@ -54,7 +54,6 @@ AMap.event.addListenerOnce(map, 'hotspotclick', function (event: AMap.Map.EventM
     this.test;
 }, { test: 1 });
 
-declare const eventListener: AMap.event.EventListener<0>;
 // $ExpectType void
 AMap.event.removeListener(eventListener);
 
