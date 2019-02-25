@@ -13,6 +13,7 @@ import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
+import { PropsWithChildren } from '../index';
 
 // NOTE: forward declarations for tests
 declare function setInterval(...args: any[]): any;
@@ -803,3 +804,9 @@ const sfc: React.SFC<any> = Memoized2;
 // this $ExpectError is failing on TypeScript@next
 // // $ExpectError Property '$$typeof' is missing in type
 // const specialSfc2: React.SpecialSFC = props => null;
+
+const propsWithChildren: PropsWithChildren<Props> = {
+    hello: "world",
+    foo: 42,
+    children: functionComponent,
+};
