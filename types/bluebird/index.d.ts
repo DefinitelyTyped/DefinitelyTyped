@@ -560,12 +560,12 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Like calling `.then`, but the fulfillment value or rejection reason is assumed to be an array, which is flattened to the formal parameters of the handlers.
    */
-  spread<U, Q>(this: Bluebird<R & Iterable<Q>>, fulfilledHandler: (...values: Array<Q>) => Resolvable<U>): Bluebird<U>;
+  spread<U, Q>(this: Bluebird<R & Iterable<Q>>, fulfilledHandler: (...values: Q[]) => Resolvable<U>): Bluebird<U>;
 
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  all(this: Bluebird<Iterable<unknown>>): Bluebird<R>;
+  all(this: Bluebird<Iterable<{}>>): Bluebird<R>;
 
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -592,7 +592,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  some(this: Bluebird<Iterable<unknown>>, count: number): Bluebird<R>;
+  some(this: Bluebird<Iterable<{}>>, count: number): Bluebird<R>;
 
   /**
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
