@@ -8,4 +8,4 @@ export interface Options {
     caseInsensitive?: boolean;
     numbers?: "colloquial";
 }
-export function indefinite(word: string | number, opts?: Options): string;
+export default function indefinite(word: string | number, opts?: Options): string;

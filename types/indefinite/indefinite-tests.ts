@@ -1,4 +1,4 @@
-import { indefinite } from "indefinite";
+import indefinite from "indefinite";
 
 const anApple = indefinite("apple"); // "an apple"
 const aBanana = indefinite('banana'); // "a banana"
