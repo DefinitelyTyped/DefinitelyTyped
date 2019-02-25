@@ -4300,7 +4300,7 @@ fp.now(); // $ExpectType number
     if (_(anything).isObject()) {
         anything; // $ExpectType any
     }
-    if (_.chain(anything).isObject()) {
+    if (_.chain(anything).isObject().value()) {
         anything; // $ExpectType any
     }
 }
