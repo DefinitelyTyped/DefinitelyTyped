@@ -1135,6 +1135,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "p-map",
+            "typingsPackageName": "p-map",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-map",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "p-throttle",
             "typingsPackageName": "p-throttle",
             "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
