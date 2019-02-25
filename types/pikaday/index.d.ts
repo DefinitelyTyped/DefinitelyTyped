@@ -36,7 +36,7 @@ declare class Pikaday {
      * Returns a JavaScript Date object for the selected day, or null if
      * no date is selected.
      */
-    getDate(): Date;
+    getDate(): Date | null;
 
     /**
      * Set the current selection. This will be restricted within the bounds
@@ -50,7 +50,7 @@ declare class Pikaday {
      * Returns a Moment.js object for the selected date (Moment must be
      * loaded before Pikaday).
      */
-    getMoment(): moment.Moment;
+    getMoment(): moment.Moment | null;
 
     /**
      * Set the current selection with a Moment.js object (see setDate).
@@ -159,7 +159,7 @@ declare namespace Pikaday {
         /**
          * Bind the datepicker to a form field.
          */
-        field?: HTMLElement;
+        field?: HTMLElement | null;
 
         /**
          * The default output format for toString() and field value.
@@ -171,7 +171,7 @@ declare namespace Pikaday {
          * Use a different element to trigger opening the datepicker.
          * Default: field element.
          */
-        trigger?: HTMLElement;
+        trigger?: HTMLElement | null;
 
         /**
          * Automatically show/hide the datepicker on field focus.
@@ -201,7 +201,7 @@ declare namespace Pikaday {
          * DOM node to render calendar into, see container example.
          * Default: undefined.
          */
-        container?: HTMLElement;
+        container?: HTMLElement | null;
 
         /**
          * The initial date to view when first opened.
@@ -330,12 +330,12 @@ declare namespace Pikaday {
          * Function which will be used for parsing input string and getting a date object from it.
          * This function will take precedence over moment.
          */
-        parse?(date: string, format: string): Date;
+        parse?(date: string, format: string): Date | null;
 
         /**
          * Callback function for when a date is selected.
          */
-        onSelect?(date: Date): void;
+        onSelect?(this: Pikaday, date: Date): void;
 
         /**
          * Callback function for when the picker becomes visible.
