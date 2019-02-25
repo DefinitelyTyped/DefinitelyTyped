@@ -3594,7 +3594,7 @@ export interface ImageURISource {
     scale?: number;
 }
 
-export type ImageRequireSource = number;
+export type ImageRequireSource = any;
 
 /**
  * @see ImagePropsIOS.onProgress
