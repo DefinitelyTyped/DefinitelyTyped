@@ -4294,6 +4294,15 @@ fp.now(); // $ExpectType number
     if (fp.isObject(anything)) {
         anything; // $ExpectType object
     }
+    if (_.isObject(anything)) {
+        anything; // $ExpectType object
+    }
+    if (_(anything).isObject()) {
+        anything; // $ExpectType any
+    }
+    if (_.chain(anything).isObject()) {
+        anything; // $ExpectType any
+    }
 }
 
 // _.isObjectLike
