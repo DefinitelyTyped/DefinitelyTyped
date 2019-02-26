@@ -89,6 +89,7 @@ declare namespace request {
         forbidden: boolean;
         xhr: XMLHttpRequest;
         get(header: string): string;
+        redirects: string[];
     }
 
     interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
