@@ -155,8 +155,8 @@ export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.
     viewport: Viewport;
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
-    onViewportChange: () => void;
-    onViewportChanged: () => void;
+    onViewportChange: (viewport: Viewport | null) => void;
+    onViewportChanged: (viewport: Viewport | null) => void;
     bindContainer(container: HTMLDivElement | null | undefined): void;
     shouldUpdateCenter(next: Leaflet.LatLngExpression, prev: Leaflet.LatLngExpression): boolean;
     shouldUpdateBounds(next: Leaflet.LatLngBoundsExpression, prev: Leaflet.LatLngBoundsExpression): boolean;

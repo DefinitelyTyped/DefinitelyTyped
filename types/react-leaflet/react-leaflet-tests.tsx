@@ -635,17 +635,16 @@ export class VectorLayersExample extends Component<undefined, undefined> {
 
 // viewport.js
 
+const viewportCenter: [number, number] = [51.505, -0.09];
+
 const DEFAULT_VIEWPORT = {
-    center: [51.505, -0.09] as [number, number],
+    center: viewportCenter,
     zoom: 13
 };
 
 export class ViewportExample extends Component<undefined, { viewport: Viewport }> {
     state = {
-        viewport: {
-            center: [51.505, -0.09] as [number, number],
-            zoom: 13
-        }
+        viewport: DEFAULT_VIEWPORT
     };
 
     onClickReset = () => {
