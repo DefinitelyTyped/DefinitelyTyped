@@ -146,7 +146,8 @@ declare global {
         mapSeries<U, Q>(this: Promise<T & Iterable<Q>>, iterator: IterateFunction<Q, U>): Bluebird<U[]>;
         nodeify: Bluebird<T>["nodeify"];
         props: Bluebird<T>["props"];
-        race: Bluebird<T>["race"];
+        race<Q>(this: Promise<T & Iterable<Q>>): Bluebird<Q>;
+        race(): Bluebird<never>;
         reason: Bluebird<T>["reason"];
         reduce<U, Q>(this: Promise<T & Iterable<Q>>, reducer: (memo: U, item: Q, index: number, arrayLength: number) => (U | PromiseLike<U>), initialValue?: U): Bluebird<U>;
         reflect: Bluebird<T>["reflect"];
