@@ -289,7 +289,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveToStartOfPreviousText: CoreEditor['moveToStartOfPreviousText'];
     moveToStartOfText: CoreEditor['moveToStartOfText'];
     moveToRangeOfDocument: CoreEditor['moveToRangeOfDocument'];
-    moveToRangeOf: CoreEditor['moveToRangeOf'];
+    moveToRangeOfNode: CoreEditor['moveToRangeOfNode'];
     select: CoreEditor['select'];
     addMarkAtRange: CoreEditor['addMarkAtRange'];
     deleteAtRange: CoreEditor['deleteAtRange'];
