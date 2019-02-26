@@ -138,16 +138,16 @@ openpgp.initWorker({ path:'openpgp.worker.js' });
 async () => {
     let hkp = new openpgp.HKP();
 
-    let hkpOptions = {
+    const hkpOptions = {
         query: 'alice@example.com'
     };
 
-    let armoredPubkey = await hkp.lookup(hkpOptions);
+    const armoredPubkey = await hkp.lookup(hkpOptions);
     await openpgp.key.readArmored(armoredPubkey);
 
     hkp = new openpgp.HKP('https://pgp.mit.edu');
 
-    let pubkey = '-----BEGIN PGP PUBLIC KEY BLOCK ... END PGP PUBLIC KEY BLOCK-----';
+    const pubkey = '-----BEGIN PGP PUBLIC KEY BLOCK ... END PGP PUBLIC KEY BLOCK-----';
 
     await hkp.upload(pubkey);
 }
