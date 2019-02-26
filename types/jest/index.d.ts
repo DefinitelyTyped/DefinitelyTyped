@@ -266,20 +266,24 @@ declare namespace jest {
         // Exclusively arrays.
         <T extends any[]>(cases: ReadonlyArray<T>): (
             name: string,
-            fn: (...args: T) => any
+            fn: (...args: T) => any,
+            timeout?: number
         ) => void;
         // Not arrays.
         <T>(cases: ReadonlyArray<T>): (
             name: string,
-            fn: (...args: T[]) => any
+            fn: (...args: T[]) => any,
+            timeout?: number
         ) => void;
         (cases: ReadonlyArray<ReadonlyArray<any>>): (
             name: string,
-            fn: (...args: any[]) => any
+            fn: (...args: any[]) => any,
+            timeout?: number
         ) => void;
         (strings: TemplateStringsArray, ...placeholders: any[]): (
             name: string,
-            fn: (arg: any) => any
+            fn: (arg: any) => any,
+            timeout?: number
         ) => void;
     }
 
@@ -1638,6 +1642,7 @@ declare namespace jest {
         numPendingTests: number;
         numPendingTestSuites: number;
         numRuntimeErrorTestSuites: number;
+        numTodoTests: number;
         numTotalTests: number;
         numTotalTestSuites: number;
         snapshot: SnapshotSummary;

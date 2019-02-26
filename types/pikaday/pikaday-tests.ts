@@ -14,15 +14,15 @@ new Pikaday({field: $('#datepicker')[0]});
             console.log(date.toISOString());
         }
     });
-    field.parentNode.insertBefore(picker.el, field.nextSibling);
+    field.parentNode!.insertBefore(picker.el, field.nextSibling);
 })();
 
 (() => {
     const picker = new Pikaday({
         field: document.getElementById('datepicker'),
         format: 'D MMM YYYY',
-        onSelect: () => {
-            console.log(this.getMoment().format('Do MMMM YYYY'));
+        onSelect() {
+            console.log(this.getMoment()!.format('Do MMMM YYYY'));
         }
     });
 
@@ -116,3 +116,7 @@ new Pikaday({field: $('#datepicker')[0]});
         toString: (date, format) => '2017-08-23'
     });
 })();
+
+new Pikaday({
+    parse: (date) => null
+});
