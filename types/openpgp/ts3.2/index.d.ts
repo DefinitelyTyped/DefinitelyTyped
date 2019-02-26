@@ -9,6 +9,8 @@
 
 export as namespace openpgp;
 
+export * from '../common';
+
 export interface UserId {
     name?: string,
     email?: string,
