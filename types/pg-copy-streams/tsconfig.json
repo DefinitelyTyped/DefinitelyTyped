@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "detect-browser-tests.ts"
+        "pg-copy-streams-tests.ts"
     ]
 }
