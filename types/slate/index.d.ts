@@ -1,4 +1,4 @@
-// Type definitions for slate 0.43
+// Type definitions for slate 0.44
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -8,6 +8,7 @@
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
 //                 Hanna Greaves <https://github.com/sgreav>
+//                 Jack Allen <https://github.com/jackall3n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -1144,7 +1145,7 @@ export class Editor implements Controller {
     moveToStartOfPreviousText(): Editor;
     moveToStartOfText(): Editor;
     moveToRangeOfDocument(): Editor;
-    moveToRangeOf(node: Node): Editor;
+    moveToRangeOfNode(node: Node): Editor;
     select(properties: Range | RangeProperties): Editor;
     addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
     deleteAtRange(range: Range): Editor;
@@ -1933,7 +1934,7 @@ export interface Controller {
     /**
      * Move the current selection's anchor to the start of the provided node and its focus to the end of it.
      */
-    moveToRangeOf(node: Node): Controller;
+    moveToRangeOfNode(node: Node): Controller;
     /**
      * Merge the current selection with the provided properties
      */
