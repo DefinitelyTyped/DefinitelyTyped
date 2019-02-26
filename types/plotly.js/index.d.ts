@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.43
+// Type definitions for plotly.js 1.44
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -10,6 +10,7 @@
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
+//                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -205,7 +206,17 @@ export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLEl
 
 // Layout
 export interface Layout {
-	title: string;
+	title: string | Partial<{
+		text: string;
+		font: Partial<Font>;
+		xref: 'container' | 'paper';
+		yref: 'container' | 'paper';
+		x: number;
+		y: number;
+		xanchor: 'auto' | 'left' | 'center' | 'right';
+		yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+		pad: Partial<Padding>
+	}>;
 	titlefont: Partial<Font>;
 	autosize: boolean;
 	showlegend: boolean;
