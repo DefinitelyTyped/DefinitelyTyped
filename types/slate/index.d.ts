@@ -402,8 +402,6 @@ declare class BaseNode<
     findDescendants(iterator: (node: Node) => boolean): Node | null;
     getActiveMarksAtRange(range: Range): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
-    getBlocksAtRange(range: Range): Immutable.List<Block>;
-    getBlocksAtRangeAsArray(range: Range): Block[];
     getBlocks(): Immutable.List<Block>;
     getBlocksAsArray(): Block[];
     getBlocksByType(type: string): Immutable.List<Block>;
@@ -433,6 +431,8 @@ declare class BaseNode<
     getInsertMarksAtRange(range: Range): Immutable.Set<Mark>;
     getKeysToPathsTable(): object;
     getLastText(): Text | null;
+    getLeafBlocksAtRange(range: Range): Immutable.List<Block>;
+    getLeafBlocksAtRangeAsArray(range: Range): Block[];
     getMarks(): Immutable.Set<Mark>;
     getMarksAsArray(): Mark[];
     getMarksAtPosition(key: string, offset: number): Immutable.Set<Mark>;
@@ -884,6 +884,8 @@ export type ErrorCode =
     | "child_required"
     | "child_type_invalid"
     | "child_unknown"
+    | "child_min_invalid"
+    | "child_max_invalid"
     | "first_child_object_invalid"
     | "first_child_type_invalid"
     | "last_child_object_invalid"
