@@ -263,10 +263,11 @@ declare namespace jest {
     }
 
     interface Each {
-        (cases: any[]): (name: string, fn: (...args: any[]) => any) => void;
+        (cases: any[]): (name: string, fn: (...args: any[]) => any, timeout?: number) => void;
         (strings: TemplateStringsArray, ...placeholders: any[]): (
             name: string,
-            fn: (arg: any) => any
+            fn: (arg: any) => any,
+            timeout?: number
         ) => void;
     }
 
