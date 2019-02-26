@@ -14,6 +14,13 @@ amqp.connect('amqp://localhost')
 
 amqp.connect('amqp://localhost')
     .then(connection => {
+        connection.serverProperties.copyright; // $ExpectType string | undefined
+        connection.serverProperties.platform; // $ExpectType string | undefined
+        connection.serverProperties.information; // $ExpectType string | undefined
+        connection.serverProperties.host; // $ExpectType string
+        connection.serverProperties.product; // $ExpectType string
+        connection.serverProperties.version; // $ExpectType string
+
         return connection.createChannel()
             .tap(channel => channel.checkQueue('myQueue'))
             .then(channel => {
@@ -37,6 +44,13 @@ import amqpcb = require('amqplib/callback_api');
 
 amqpcb.connect('amqp://localhost', (err, connection) => {
     if (!err) {
+        connection.serverProperties.copyright; // $ExpectType string | undefined
+        connection.serverProperties.platform; // $ExpectType string | undefined
+        connection.serverProperties.information; // $ExpectType string | undefined
+        connection.serverProperties.host; // $ExpectType string
+        connection.serverProperties.product; // $ExpectType string
+        connection.serverProperties.version; // $ExpectType string
+
         connection.createChannel((err, channel) => {
           if (!err) {
               channel.assertQueue('myQueue', {}, (err, ok) => {
