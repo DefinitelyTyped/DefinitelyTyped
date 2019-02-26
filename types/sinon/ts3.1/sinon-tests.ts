@@ -67,7 +67,7 @@ function testSandbox() {
     sb.replaceSetter(replaceMe, 'setter', (v) => { });
 
     const cls = class {
-        foo(arg1: string, arg2: number) { return 1; }
+        foo(arg1: string, arg2: number): number { return 1; }
         bar: number;
     };
     const PrivateFoo = class {
@@ -87,6 +87,10 @@ function testSandbox() {
     const privateFooFoo: sinon.SinonStub = privateFooStubbedInstance.foo;
     const clsBar: number = stubInstance.bar;
     const privateFooBar: number = privateFooStubbedInstance.bar;
+    sb.createStubInstance(cls, {
+        foo: (arg1: string, arg2: number) => 2,
+        bar: 1
+    });
 }
 
 function testFakeServer() {
