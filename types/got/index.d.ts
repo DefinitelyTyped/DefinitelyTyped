@@ -36,6 +36,7 @@ declare class HTTPError extends StdError {
     statusCode: number;
     statusMessage: string;
     headers: http.IncomingHttpHeaders;
+    body: Buffer | string | object;
 }
 
 declare class MaxRedirectsError extends StdError {
