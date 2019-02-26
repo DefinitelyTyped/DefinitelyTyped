@@ -15,6 +15,7 @@
 //                 Peter Thorson <https://github.com/zaphoyd>
 //                 Will Garcia <https://github.com/thewillg>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -704,7 +705,7 @@ export interface ArraySchema extends AnySchema {
      * `schema` - the validation rules required to satisfy the assertion. If the `schema` includes references, they are resolved against
      * the array item being tested, not the value of the `ref` target.
      */
-    assertItem(schema: SchemaLike): this;
+    has(schema: SchemaLike): this;
     /**
      * Allow this array to be sparse.
      * enabled can be used with a falsy value to go back to the default behavior.

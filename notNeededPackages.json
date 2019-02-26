@@ -397,6 +397,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "dd-trace",
+            "typingsPackageName": "dd-trace",
+            "sourceRepoURL": "https://github.com/DataDog/dd-trace-js",
+            "asOfVersion": "0.9.0"
+        },
+        {
             "libraryName": "decimal.js",
             "typingsPackageName": "decimal.js",
             "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
@@ -413,6 +419,12 @@
             "typingsPackageName": "delay",
             "sourceRepoURL": "https://github.com/sindresorhus/delay",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "detect-browser",
+            "typingsPackageName": "detect-browser",
+            "sourceRepoURL": "https://github.com/DamonOehlman/detect-browser",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "DevExtreme",
@@ -725,6 +737,12 @@
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "i18next-browser-languagedetector",
+            "typingsPackageName": "i18next-browser-languagedetector",
+            "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "i18next-xhr-backend",
@@ -1115,6 +1133,12 @@
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-throttle",
+            "typingsPackageName": "p-throttle",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "param-case",
