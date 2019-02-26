@@ -285,6 +285,10 @@ declare global {
          */
         data(methodName: 'isotope'): Isotope;
         /**
+         * Filters, sorts, and lays out items.
+         */
+        isotope(): JQuery;
+        /**
          * Lays out specified items.
          * @param elements Array of Isotope.Items
          * @param isStill Disables transitions
