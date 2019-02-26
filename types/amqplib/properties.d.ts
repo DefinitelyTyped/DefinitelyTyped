@@ -215,7 +215,8 @@ export interface ServerProperties {
     host: string;
     product: string;
     version: string;
-    platform?: string;
+    platform: string;
     copyright?: string;
-    information?: string;
+    information: string;
+    [key: string]: string | undefined;
 }
