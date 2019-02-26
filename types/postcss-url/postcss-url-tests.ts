@@ -7,7 +7,7 @@ const single: postcss.Transformer = url({ url: 'copy', assetsPath: 'img', useHas
 
 const multiple: postcss.Transformer = url([
     { filter: '**/assets/copy/*.png', url: 'copy', assetsPath: 'img', useHash: true },
-    { filter: '**/assets/inline/*.svg', url: 'inline' },
+    { filter: '**/assets/inline/*.svg', url: 'inline', optimizeSvgEncode: true },
     { filter: '**/assets/**/*.gif', url: 'rebase' },
     { filter: 'cdn/**/*', url: (asset) => `https://cdn.url/${asset.url}` },
 ]);
