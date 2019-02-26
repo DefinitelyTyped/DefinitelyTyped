@@ -136,7 +136,7 @@ openpgp.initWorker({ path:'openpgp.worker.js' });
 })();
 
 async () => {
-    let hkp = new openpgp.HKP(); // Defaults to https://keyserver.ubuntu.com, or pass another keyserver URL as a string
+    let hkp = new openpgp.HKP();
 
     let hkpOptions = {
         query: 'alice@example.com'
