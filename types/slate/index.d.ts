@@ -461,6 +461,8 @@ declare class BaseNode<
     getPreviousNode(path: Path): Node | null;
     getPreviousSibling(path: Path): Node | null;
     getPreviousText(path: Path): Text | null;
+    getRootBlocksAtRange(range: Range): Immutable.List<Block>;
+    getRootInlinesAtRange(range: Range): Immutable.List<Block>;
     getSelectionIndexes(
         range: Range,
         isSelected?: boolean
