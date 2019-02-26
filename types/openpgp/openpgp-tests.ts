@@ -135,6 +135,23 @@ openpgp.initWorker({ path:'openpgp.worker.js' });
     return verified.signatures[0].valid;
 })();
 
+async () => {
+    let hkp = new openpgp.HKP(); // Defaults to https://keyserver.ubuntu.com, or pass another keyserver URL as a string
+
+    let hkpOptions = {
+        query: 'alice@example.com'
+    };
+
+    let armoredPubkey = await hkp.lookup(hkpOptions);
+    await openpgp.key.readArmored(armoredPubkey);
+
+    hkp = new openpgp.HKP('https://pgp.mit.edu');
+
+    let pubkey = '-----BEGIN PGP PUBLIC KEY BLOCK ... END PGP PUBLIC KEY BLOCK-----';
+
+    await hkp.upload(pubkey);
+}
+
 // Open PGP Tests
 
 
@@ -193,20 +210,3 @@ openpgp.util.shiftRight("", 1);
 openpgp.util.str2bin("");
 openpgp.util.str2Uint8Array("");
 openpgp.util.Uint8Array2str(openpgp.util.str2Uint8Array(""));
-
-async () => {
-    let hkp = new openpgp.HKP(); // Defaults to https://keyserver.ubuntu.com, or pass another keyserver URL as a string
-
-    let hkpOptions = {
-        query: 'alice@example.com'
-    };
-
-    let armoredPubkey = await hkp.lookup(hkpOptions);
-    await openpgp.key.readArmored(armoredPubkey);
-
-    hkp = new openpgp.HKP('https://pgp.mit.edu');
-
-    let pubkey = '-----BEGIN PGP PUBLIC KEY BLOCK ... END PGP PUBLIC KEY BLOCK-----';
-
-    await hkp.upload(pubkey);
-}
