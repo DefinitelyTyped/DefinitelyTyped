@@ -440,8 +440,8 @@ export class ZoomControl<P extends ZoomControlProps = ZoomControlProps, E extend
 }
 
 // context.js
-export class LeafletConsumer extends React.Component<React.ConsumerProps<LeafletContext>> {}
-export class LeafletProvider extends React.Component<React.ProviderProps<LeafletContext>> {}
+export const LeafletProvider: React.Provider<LeafletContext>;
+export const LeafletConsumer: React.Consumer<LeafletContext>;
 
 export interface ContextProps {
     leaflet?: LeafletContext;
