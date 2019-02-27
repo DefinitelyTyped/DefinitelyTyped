@@ -1,5 +1,5 @@
 import * as React from "react";
-import Gitalk from "../index";
+import Gitalk from "..";
 
 declare class GitalkComponent extends React.Component<{ options: Gitalk.GitalkOptions }> {
 

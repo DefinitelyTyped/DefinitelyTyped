@@ -36,6 +36,7 @@ const allOptions: Gitalk.GitalkOptions = {
     enableHotKey: false,
 };
 
-const a = new Gitalk(options);
+const instance = new Gitalk(options);
+instance.render("#element");
 
 const element = <GitalkComponent options={allOptions} />;
