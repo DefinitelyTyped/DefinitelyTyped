@@ -39,6 +39,10 @@ interface ContainerProps {
      * default: false
      */
     visible?: boolean;
+    buttonSeparatorStyle?: ViewStyle;
+    contentStyle?: ViewStyle;
+    footerStyle?: ViewStyle;
+    headerStyle?: ViewStyle;
 }
 
 interface TitleProps {
