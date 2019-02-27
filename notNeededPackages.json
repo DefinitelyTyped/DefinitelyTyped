@@ -1150,7 +1150,7 @@
             "libraryName": "p-pipe",
             "typingsPackageName": "p-pipe",
             "sourceRepoURL": "https://github.com/sindresorhus/p-pipe",
-            "asOfVersion": "2.0.0"
+            "asOfVersion": "2.0.1"
         },
         {
             "libraryName": "p-throttle",
