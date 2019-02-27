@@ -8,7 +8,7 @@ import * as React from 'react';
 
 interface MUIDataTableData {
     index: number;
-    data: any[];
+    data: Array<object|number[]|string[]>;
 }
 
 interface MUIDataTableStateRows {
@@ -165,8 +165,172 @@ export interface MuiDatatablesTableState {
 export interface MUIDataTableProps {
     title: string;
     columns: MUIDataTableColumnDef[];
-    data: any[];
+    data: Array<object|number[]|string[]>;
     options?: MUIDataTableOptions;
+}
+
+export interface MUIDataTablePopover {
+    action?: () => any;
+    elevation?: number;
+    option?: boolean;
+    onClose?: () => any;
+    onExited?: () => any;
+    anchorEl?: React.ReactNode;
+    ref?: any;
+    anchorOrigin?: any;
+    transformOrigin?: any;
+}
+
+export interface MUIDataTableBody {
+    data: Array<object|number[]|string[]>;
+    count: number;
+    columns: MUIDataTableColumnDef[];
+    options: object;
+    filterList?: string[][];
+    onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
+    selectedRows?: object;
+    selectRowUpdate?: () => any;
+    searchText?: string;
+    toggleExpandRow?: () => any;
+    classes: object;
+}
+
+export interface MUIDataTableBodyCell {
+    classes?: object;
+    colIndex?: number;
+    columnHeader?: any;
+    options?: object;
+    dataIndex?: number;
+    rowIndex?: number;
+    className?: string;
+    children?: any;
+    otherProps?: any;
+}
+
+export interface MUIDataTableBodyRow {
+    options: object;
+    onClick?: () => any;
+    rowSelected?: boolean;
+    classes?: object;
+    className?: string;
+}
+
+export interface MUIDataTableFilter {
+    filterData: any[];
+    filterList?: string[][];
+    options: object;
+    onFilterUpdate?: () => any;
+    onFilterRest?: () => any;
+    classes?: object;
+}
+
+export interface MUIDataTableFilterList {
+    filterList: string[][];
+    onFilterUpdate?: () => any;
+    classes?: object;
+}
+
+export interface MUIDataTableFooter {
+    options?: object;
+    rowCount?: number;
+    page?: number;
+    rowsPerPage?: number;
+    changeRowsPerPage?: any;
+    changePage?: any;
+}
+
+export interface MUIDataTableHead {
+    classes?: object;
+    columns?: MUIDataTableColumnDef[];
+    count?: number;
+    options?: object;
+    data?: any[];
+    page?: any;
+    setCellRef?: any;
+    selectedRows?: any;
+}
+
+export interface MUIDataTableHeadCell {
+    classes?: object;
+    options: object;
+    sortDirection?: 'asc' | 'desc';
+    toggleSort: () => any;
+    sort: boolean;
+    hint: string;
+    children?: any;
+}
+
+export interface MUIDataTableHeadRow {
+    classes?: object;
+}
+
+export interface MUIDataTablePaginations {
+    count: number;
+    options: object;
+    page: number;
+    rowsPerPage: number;
+    changeRowsPerPage: () => any;
+}
+
+export interface MUIDataTableResize {
+    classes?: object;
+    options?: object;
+    rowSelected?: boolean;
+    setResizeable?: () => any;
+    updateDividers: () => any;
+}
+
+export interface MUIDataTableSearch {
+    classes?: object;
+    options?: object;
+    onHide?: () => any;
+    onSearch?: () => any;
+}
+
+export interface MUIDataTableSelectCell {
+    checked: boolean;
+    fixedHeader: boolean;
+    isHeaderCell?: boolean;
+    expandableOn?: boolean;
+    selectableOn?: boolean;
+    isRowExpanded?: boolean;
+    isRowSelectable?: boolean;
+    onChange?: () => any;
+    onExpand?: () => any;
+    classes?: object;
+    otherProps?: any;
+}
+
+export interface MUIDataTableToolbar {
+    data?: any[];
+    classes?: object;
+    columns: MUIDataTableColumnDef[];
+    options?: object;
+    setTableActions?: () => any;
+    searchTextUpdate?: () => any;
+    filterData?: any;
+    filterList?: string[][];
+    filterUpdate?: any;
+    resetFilters?: any;
+    toggleViewColumn?: any;
+    title?: any;
+    tableRef?: () => any;
+}
+
+export interface MUIDataTableToolbarSelect {
+    options: object;
+    rowSelected?: boolean;
+    displayData?: any;
+    onRowsDelete?: () => any;
+    selectRowUpdate?: () => any;
+    classes?: object;
+}
+
+export interface MUIDataTableViewCol {
+    columns: any[];
+    object: object;
+    onColumnUpdate: () => any;
+    classes?: object;
 }
 
 declare const MUIDataTable: React.ComponentType<MUIDataTableProps>;
