@@ -766,7 +766,10 @@ declare namespace NodeJS {
         release: ProcessRelease;
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?: [number, number]): [number, number];
+        hrtime: {
+            (): (time?: [number, number]) => [number, number];
+            bigint: () => number;
+        };
         domain: Domain;
 
         // Worker
