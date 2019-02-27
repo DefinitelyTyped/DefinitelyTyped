@@ -781,6 +781,12 @@
             "asOfVersion": "1.3.0"
         },
         {
+            "libraryName": "internal-ip",
+            "typingsPackageName": "internal-ip",
+            "sourceRepoURL": "https://github.com/sindresorhus/internal-ip",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "inversify",
             "typingsPackageName": "inversify",
             "sourceRepoURL": "http://inversify.io",
@@ -1132,6 +1138,18 @@
             "libraryName": "Onsen UI",
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-map",
+            "typingsPackageName": "p-map",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-map",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-pipe",
+            "typingsPackageName": "p-pipe",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-pipe",
             "asOfVersion": "2.0.0"
         },
         {
@@ -1787,6 +1805,12 @@
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "wait-for-localhost",
+            "typingsPackageName": "wait-for-localhost",
+            "sourceRepoURL": "https://github.com/sindresorhus/wait-for-localhost",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "webcola",

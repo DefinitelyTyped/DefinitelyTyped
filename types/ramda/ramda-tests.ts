@@ -299,7 +299,7 @@ class F2 {
 
     const capitalize = (str: string) => R.pipe(
         R.split(""),
-        R.adjust(R.toUpper, 0),
+        R.adjust(0, R.toUpper),
         R.join("")
     )(str);
 
