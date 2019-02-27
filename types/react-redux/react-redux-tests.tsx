@@ -1167,6 +1167,48 @@ function TestLibraryManagedAttributes() {
     <ConnectedComponent2 fn={() => { }} />;
 }
 
+function TestNonReactStatics() {
+    interface OwnProps {
+        bar: number;
+    }
+
+    interface MapStateProps {
+        foo: string;
+    }
+
+    class Component extends React.Component<OwnProps & MapStateProps> {
+        static defaultProps = {
+            bar: 0,
+        };
+
+        static meaningOfLife = 42;
+
+        render() {
+            return <div />;
+        }
+    }
+
+    function mapStateToProps(state: any): MapStateProps {
+        return {
+            foo: 'foo',
+        };
+    }
+
+    Component.meaningOfLife;
+    Component.defaultProps.bar;
+
+    const ConnectedComponent = connect(mapStateToProps)(Component);
+
+    // This is a non-React static and should be hoisted as-is.
+    ConnectedComponent.meaningOfLife;
+
+    // This is a React static, so it's not hoisted.
+    // However, ConnectedComponent is still a ComponentClass, which specifies `defaultProps`
+    // as an optional static member. We can force an error (and assert that `defaultProps`
+    // wasn't hoisted) by reaching into the `defaultProps` object without a null check.
+    ConnectedComponent.defaultProps.bar; // $ExpectError
+}
+
 function TestProviderContext() {
     const store: Store = createStore((state = {}) => state);
     const nullContext = React.createContext(null);
