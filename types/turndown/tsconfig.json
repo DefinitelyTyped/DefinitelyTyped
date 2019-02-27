@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "lib": ["dom"]
+    },
+    "files": ["index.d.ts", "turndown-tests.ts"]
+}
