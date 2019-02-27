@@ -18,6 +18,7 @@
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Frontend Monster <https://github.com/frontendmonster>
 //                 Ming Chen <https://github.com/mingchen>
+//                 Olga Isakova <https://github.com/penumbra1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1061,11 +1062,24 @@ declare module "mongoose" {
     /** defaults to "__v" */
     versionKey?: string | boolean;
     /**
+     * By default, Mongoose will automatically 
+     * select() any populated paths. 
+     * To opt out, set selectPopulatedPaths to false.
+     */
+    selectPopulatedPaths?: boolean;
+    /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
      * incremented even if these paths are updated).
      */
     skipVersioning?: any;
+    /**
+     * Validation errors in a single nested schema are reported
+     * both on the child and on the parent schema.
+     * Set storeSubdocValidationError to false on the child schema 
+     * to make Mongoose only report the parent error.
+     */
+    storeSubdocValidationError?: boolean;
     /**
      * If set timestamps, mongoose assigns createdAt
      * and updatedAt fields to your schema, the type

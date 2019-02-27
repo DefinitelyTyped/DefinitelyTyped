@@ -85,6 +85,13 @@ declare namespace url {
         ignoreFragmentWarning?: boolean;
 
         /**
+         * Reduce size of inlined svg (IE9+, Android 3+)
+         *
+         * @default false
+         */
+        optimizeSvgEncode?: boolean;
+
+        /**
          * Determine wether a file should be inlined.
          */
         filter?: RegExp | CustomFilterFunction | string;
