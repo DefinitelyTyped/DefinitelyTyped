@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "react-flip-move": "2.9.14"
+    }
+}
