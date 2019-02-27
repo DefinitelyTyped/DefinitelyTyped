@@ -2,8 +2,8 @@ declare var beforeAll: (callback: () => void) => void;
 declare var beforeEach: (callback: () => void) => void;
 declare var afterAll: (callback: () => void) => void;
 
-import * as detox from "detox";
-import * as adapter from "detox/runners/jest/adapter";
+import detox = require("detox");
+import adapter = require("detox/runners/jest/adapter");
 
 // Normally the Detox configuration from the project's package.json like so:
 // const config = require("./package.json").detox;
