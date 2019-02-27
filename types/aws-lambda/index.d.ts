@@ -26,6 +26,7 @@
 //                 James Gregory <https://github.com/jagregory>
 //                 Erik Dalén <https://github.com/dalen>
 //                 Loïk Gaonac'h <https://github.com/loikg>
+//                 Richard Cornelissen <https://github.com/richardcornelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
