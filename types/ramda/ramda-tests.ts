@@ -2180,7 +2180,7 @@ class Rectangle {
         this.colors = Array.prototype.slice.call(arguments, 1);
     }
 
-    Circle.prototype.area = () => Math.PI * Math.pow(this.r, 2);
+    Circle.prototype.area = function () { Math.PI * Math.pow(this.r, 2) };
 
     const circleN = R.constructN(2, Circle);
     let c1      = circleN(1, "red");
@@ -2623,7 +2623,7 @@ class Rectangle {
     const Why: any = ((val: boolean) => {
         const why = {} as any;
         why.val = val;
-        why.and = (x: boolean) => this.val && x;
+        why.and = function (x: boolean) { this.val && x };
         return Why;
     })(true);
     const why      = new Why(true);
