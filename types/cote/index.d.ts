@@ -117,7 +117,7 @@ export interface ResponderAdvertisement extends Advertisement {
     respondsTo?: string[];
 
     /**
-     * Subset attribut for directed requests.
+     * Advertisement attribute that lets you target a subgroup of responders using the __subset property of a request.
      */
     subset?: string;
 }
