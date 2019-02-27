@@ -81,13 +81,13 @@ declare namespace confetti {
          */
         y?: number;
     }
-    interface globalOpts {
+    interface GlobalOptions {
         resize: boolean;
     }
 
     function create(
         canvas: HTMLCanvasElement,
-        options?: globalOpts
+        options?: GlobalOptions
     ): (options?: Options) => Promise<null> | null;
 }
 
