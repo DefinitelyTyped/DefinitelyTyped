@@ -28,6 +28,21 @@ interface KNOWN_STATICS {
     arity: true;
 }
 
+declare namespace hoistNonReactStatics {
+    type NonReactStatics<
+        S extends React.ComponentType<any>,
+        C extends {
+            [key: string]: true
+        } = {}
+    > = {
+        [key in Exclude<
+            keyof S,
+            // only extends static properties, exclude instance properties and known react statics
+            keyof REACT_STATICS | keyof KNOWN_STATICS | keyof C
+        >]: S[key]
+    };
+}
+
 declare function hoistNonReactStatics<
     T extends React.ComponentType<any>,
     S extends React.ComponentType<any>,
@@ -38,13 +53,6 @@ declare function hoistNonReactStatics<
     TargetComponent: T,
     SourceComponent: S,
     customStatic?: C,
-): T &
-    {
-        [key in Exclude<
-            keyof S,
-            // only extends static properties, exclude instance properties and known react statics
-            keyof REACT_STATICS | keyof KNOWN_STATICS | keyof C
-        >]: S[key]
-    };
+): T & hoistNonReactStatics.NonReactStatics<S, C>;
 
 export = hoistNonReactStatics;
