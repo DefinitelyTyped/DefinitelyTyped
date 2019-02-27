@@ -34,7 +34,7 @@ const allOptions: Gitalk.GitalkOptions = {
         staggerDelayBy: 150,
     },
     enableHotKey: false,
-}
+};
 
 const a = new Gitalk(options);
 
