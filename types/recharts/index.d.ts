@@ -905,8 +905,9 @@ export interface XPadding {
  * In the current lib, there is not actual implementation for XAxis.
  */
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
-export interface XAxisProps extends EventAttributes {
+export interface XAxisProps extends EventAttributes, Partial<PresentationAttributes> {
     allowDecimals?: boolean;
+    position?: PositionType;
     hide?: boolean;
     // The name of data displayed in the axis
     name?: string | number;
@@ -948,7 +949,6 @@ export interface XAxisProps extends EventAttributes {
     // see label section at http://recharts.org/#/en-US/api/XAxis
     label?: string | number | Label | LabelProps;
     allowDuplicatedCategory?: boolean;
-    stroke?: string;
 }
 
 export class XAxis extends React.Component<XAxisProps> { }
@@ -959,8 +959,9 @@ export interface YPadding {
 }
 
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
-export interface YAxisProps extends EventAttributes {
+export interface YAxisProps extends EventAttributes, Partial<PresentationAttributes> {
     allowDecimals?: boolean;
+    position?: PositionType;
     hide?: boolean;
     // The name of data displayed in the axis
     name?: string | number;
@@ -1000,7 +1001,6 @@ export interface YAxisProps extends EventAttributes {
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
     label?: string | number | Label | LabelProps;
-    stroke?: string;
 }
 
 export class YAxis extends React.Component<YAxisProps> { }
