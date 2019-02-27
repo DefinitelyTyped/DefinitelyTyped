@@ -44,14 +44,16 @@ type NssmCommandFn =
     & TwoArgCommandFn
     & PromiseCommandFn;
 
-type Nssm = {
-    [key in Command]: NssmCommandFn
-};
-
-interface NssmOptions {
-    nssmExe?: string;
-}
-
-declare function nssm(serviceName: string, options?: NssmOptions): Nssm;
-
 export = nssm;
+
+declare function nssm(serviceName: string, options?: nssm.NssmOptions): nssm.Nssm;
+
+declare namespace nssm {
+    type Nssm = {
+        [key in Command]: NssmCommandFn
+    };
+
+    interface NssmOptions {
+        nssmExe?: string;
+    }
+}

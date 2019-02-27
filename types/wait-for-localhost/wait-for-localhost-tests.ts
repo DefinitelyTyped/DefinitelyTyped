@@ -1,5 +1,5 @@
 import waitForLocalhost = require('wait-for-localhost');
 
-// $ExpectType Promise<void>
-waitForLocalhost();
-waitForLocalhost(8080);
+waitForLocalhost(); // $ExpectType Promise<void>
+waitForLocalhost({ port: 8080 }); // $ExpectType Promise<void>
+waitForLocalhost({ useGet: true }); // $ExpectType Promise<void>

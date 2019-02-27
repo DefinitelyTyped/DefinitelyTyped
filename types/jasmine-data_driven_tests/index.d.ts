@@ -34,6 +34,6 @@ interface JasmineDataDrivenTest {
         assertion: (arg0: T, arg1: U, done: () => void) => void): void;
     <T>(
         description: string,
-        dataset: T[],
+        dataset: T[] | Array<[T]>,
         assertion: (value: T, done: () => void) => void): void;
 }

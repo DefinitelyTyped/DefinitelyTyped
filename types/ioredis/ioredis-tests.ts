@@ -154,6 +154,9 @@ redis.multi([
 const keys = ['foo', 'bar'];
 redis.mget(...keys);
 
+redis.mset(...['foo', 'bar']);
+redis.mset({ foo: 'bar' });
+
 new Redis.Cluster([
     'localhost'
 ]);
@@ -177,6 +180,8 @@ new Redis.Cluster([{
 
 redis.xack('streamName', 'groupName', 'id');
 redis.xadd('streamName', '*', 'field', 'name');
+redis.xadd('streamName', 'MAXLEN', 100, '*', 'field', 'name');
+redis.xadd('streamName', 'MAXLEN', '~', 100, '*', 'field', 'name');
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id');
 redis.xdel('streamName', 'id');
 redis.xgroup('CREATE', 'streamName', 'groupName', '$');

@@ -140,6 +140,7 @@ i.length('years'); // $ExpectType number
 i.contains(DateTime.local(2019)); // $ExpectType boolean
 i.set({end: DateTime.local(2020)}); // $ExpectType Interval
 i.mapEndpoints((d) => d); // $ExpectType Interval
+i.intersection(i); // $ExpectType Interval | null
 
 i.toISO(); // $ExpectType string
 i.toString(); // $ExpectType string
