@@ -2083,6 +2083,8 @@ export interface SvgCommonProps {
 export interface SvgRectProps extends SvgCommonProps {
     width: number | string;
     height: number | string;
+    rx?: number | string;
+    ry?: number | string;
 }
 
 export interface SvgCircleProps extends SvgCommonProps {
@@ -2192,7 +2194,7 @@ export class Svg extends Component<{ width: number, height: number, viewBox?: st
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    view?: (number | React.ReactElement<any>),
+    view?: (number | React.ReactElement),
     options?: {
         width?: number,
         height?: number,

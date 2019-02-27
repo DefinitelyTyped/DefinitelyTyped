@@ -1,7 +1,8 @@
 // Type definitions for isotope 3.0
-// Project: http://isotope.metafizzy.co/
+// Project: https://isotope.metafizzy.co
 // Definitions by: Anže Videnič <https://github.com/avidenic>
 //                 Mălin Brândușe <https://github.com/malinushj>
+//                 SPWizard01 <https://github.com/SPWizard01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -30,7 +31,7 @@ declare namespace Isotope {
          * If set to a string, that value is used as a selector.
          * If filter is set to a function, that function checks each item and returns true or false if the item should be shown or hidden.
          */
-        filter?: string | (() => boolean);
+        filter?: string | ((itemElement: HTMLElement) => boolean);
         /**
          * Items are arranged into rows. Rows progress vertically. Similar to what you would expect from a layout that uses CSS floats. fitRows works well for items that have the same height.
          */
@@ -283,6 +284,10 @@ declare global {
          * Get the Isotope instance from a jQuery object. Isotope instances are useful to access Isotope properties.
          */
         data(methodName: 'isotope'): Isotope;
+        /**
+         * Filters, sorts, and lays out items.
+         */
+        isotope(): JQuery;
         /**
          * Lays out specified items.
          * @param elements Array of Isotope.Items

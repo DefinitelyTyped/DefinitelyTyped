@@ -288,6 +288,12 @@ export declare class RequestError implements Error {
     public name: string;
     public message: string;
     public code: string;
+    public number?: number;
+    public state?: number;
+    public class?: number;
+    public lineNumber?: number;
+    public serverName?: string;
+    public procName?: string;
 }
 
 export declare class Transaction extends events.EventEmitter {

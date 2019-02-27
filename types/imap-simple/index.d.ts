@@ -55,7 +55,7 @@ export class ImapSimple extends NodeJS.EventEmitter {
     getBoxes(callback: (err: Error, boxes: Imap.MailBoxes) => void): void;
     getBoxes(): Promise<Imap.MailBoxes>;
 
-    /** Search for and retrieve mail in the previously opened mailbox. */
+    /** Search for and retrieve mail in the currently open mailbox. */
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions, callback: (err: Error, messages: Message[]) => void): void;
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions): Promise<Message[]>;
 

@@ -2007,7 +2007,7 @@ export interface GeocodingResponse<STATUSES = GeocodingResponseStatus> {
      * When the geocoder returns a status code other than `OK`, there may be an additional `error_message` field
      * within the Geocoding response object. This field contains more detailed information about the reasons behind the given status code.
      */
-    error_meesage: string;
+    error_message: string;
     /**
      * contains an array of geocoded address information and geometry information.
      *
@@ -3107,7 +3107,7 @@ export interface QueryAutocompleteResult {
      * contains an `offset` value and a `length`.
      * These describe the location of the entered term in the prediction result text, so that the term can be highlighted if desired.
      */
-    matched_substring: PredictionSubstring[];
+    matched_substrings: PredictionSubstring[];
 }
 
 /** A Radar Search request must include at least one of `keyword`, `name`, or `type`. */

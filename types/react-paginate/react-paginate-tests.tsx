@@ -12,6 +12,7 @@ class Test extends React.Component {
                 nextLabel={'next'}
                 breakLabel={'break-me'}
                 breakClassName={'break-class'}
+                breakLinkClassName={'break-link'}
                 onPageChange={(selectedItem: {selected: number}) => null}
                 initialPage={2}
                 forcePage={3}

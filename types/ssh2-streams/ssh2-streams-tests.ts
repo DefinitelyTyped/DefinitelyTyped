@@ -102,4 +102,6 @@ sftp.createReadStream("path");
 sftp.createWriteStream("path");
 sftp.data(0, buffer);
 sftp.fastGet("remotePath", "localPath", () => {});
+sftp.fastGet("remotePath", "localPath", { concurrency: 64, chunkSize: 32768, step: () => {} }, () => {});
 sftp.fastPut("localPath", "remotePath", () => {});
+sftp.fastPut("localPath", "remotePath", { concurrency: 64, chunkSize: 32768, step: () => {}, mode: '0755' }, () => {});

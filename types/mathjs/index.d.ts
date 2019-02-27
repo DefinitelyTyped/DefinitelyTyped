@@ -1,4 +1,4 @@
-// Type definitions for mathjs 4.4
+// Type definitions for mathjs 5.0
 // Project: http://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
@@ -1277,7 +1277,7 @@ declare namespace math {
          * @param format The Matrix storage format
          * @returns A matrix with ones on the diagonal
          */
-        eye(
+        identity(
             size: number | number[] | Matrix | MathArray,
             format?: string
         ): Matrix | MathArray | number;
@@ -1287,7 +1287,7 @@ declare namespace math {
          * @param format The Matrix storage format
          * @returns A matrix with ones on the diagonal
          */
-        eye(m: number, n: number, format?: string): Matrix | MathArray | number;
+        identity(m: number, n: number, format?: string): Matrix | MathArray | number;
 
         /**
          * Filter the items in an array or one dimensional matrix.
@@ -3714,12 +3714,12 @@ declare namespace math {
          * matrix has ones on the diagonal and zeros elsewhere.
          * @param format The Matrix storage format
          */
-        eye(format?: string): MathJsChain;
+        identity(format?: string): MathJsChain;
         /**
          * @param n The y dimension for the matrix
          * @param format The Matrix storage format
          */
-        eye(n: number, format?: string): MathJsChain;
+        identity(n: number, format?: string): MathJsChain;
 
         /**
          * Filter the items in an array or one dimensional matrix.

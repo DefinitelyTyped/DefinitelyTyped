@@ -66,15 +66,15 @@ export interface ShallowRenderer {
     /**
      * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
      */
-    getRenderOutput<E extends ReactElement<any>>(): E;
+    getRenderOutput<E extends ReactElement>(): E;
     /**
      * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
      */
-    getRenderOutput(): ReactElement<any>;
+    getRenderOutput(): ReactElement;
     /**
      * Similar to `ReactDOM.render` but it doesn't require DOM and only renders a single level deep.
      */
-    render(element: ReactElement<any>, context?: any): void;
+    render(element: ReactElement, context?: any): void;
     unmount(): void;
 }
 
@@ -186,22 +186,22 @@ export function isElement(element: any): boolean;
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<T extends HTMLElement>(
-    element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
+    element: ReactElement, type: string): element is ReactHTMLElement<T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
-    element: ReactElement<any>, type: string): element is DOMElement<P, T>;
+    element: ReactElement, type: string): element is DOMElement<P, T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P>(
-    element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;
+    element: ReactElement, type: SFC<P>): element is SFCElement<P>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
-    element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
+    element: ReactElement, type: ClassType<P, T, C>): element is CElement<P, T>;
 
 /**
  * Returns `true` if `instance` is a DOM component (such as a `<div>` or `<span>`).
@@ -278,3 +278,26 @@ export function findRenderedComponentWithType<T extends Component<any>, C extend
  * Call this in your tests to create a shallow renderer.
  */
 export function createRenderer(): ShallowRenderer;
+
+/**
+ * Wrap any code rendering and triggering updates to your components into `act()` calls.
+ *
+ * Ensures that the behavior in your tests matches what happens in the browser
+ * more closely by executing pending `useEffect`s before returning. This also
+ * reduces the amount of re-renders done.
+ *
+ * @param callback A synchronous, void callback that will execute as a single, complete React commit.
+ *
+ * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+ */
+// the "void | undefined" is here to forbid any sneaky "Promise" returns.
+// the actual return value is always a "DebugPromiseLike",
+// but having an "| {}" makes it harder to accidentally use.
+export function act(callback: () => void | undefined): DebugPromiseLike | {};
+
+// Intentionally doesn't extend PromiseLike<never>.
+// Ideally this should be as hard to accidentally use as possible.
+export interface DebugPromiseLike {
+    // the actual then() in here is 0-ary, but that doesn't count as a PromiseLike.
+    then(onfulfilled: (value: never) => never, onrejected: (reason: never) => never): never;
+}

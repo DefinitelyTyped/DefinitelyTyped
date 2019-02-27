@@ -15,6 +15,7 @@
 //                 Peter Thorson <https://github.com/zaphoyd>
 //                 Will Garcia <https://github.com/thewillg>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -488,7 +489,6 @@ export interface BooleanSchema extends AnySchema {
     /**
      * Allows the values provided to truthy and falsy as well as the "true" and "false" default conversion
      * (when not in strict() mode) to be matched in a case insensitive manner.
-     * @param enabled
      */
     insensitive(enabled?: boolean): this;
 }
@@ -705,7 +705,7 @@ export interface ArraySchema extends AnySchema {
      * `schema` - the validation rules required to satisfy the assertion. If the `schema` includes references, they are resolved against
      * the array item being tested, not the value of the `ref` target.
      */
-    assertItem(schema: SchemaLike): this;
+    has(schema: SchemaLike): this;
     /**
      * Allow this array to be sparse.
      * enabled can be used with a falsy value to go back to the default behavior.
@@ -791,6 +791,11 @@ export interface ObjectSchema extends AnySchema {
      * Specifies the exact number of keys in the object.
      */
     length(limit: number): this;
+
+    /**
+     * Requires the object to be a Joi schema instance.
+     */
+    schema(): this;
 
     /**
      * Specify validation rules for unknown keys matching a pattern.

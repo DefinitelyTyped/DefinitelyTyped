@@ -3,6 +3,7 @@ import * as yup from "yup";
 // tslint:disable-next-line:no-duplicate-imports
 import {
     reach,
+    isSchema,
     date,
     Schema,
     ObjectSchema,
@@ -23,6 +24,10 @@ const schema1 = yup.object().shape({
 });
 reach(schema1, "nested.arr.num");
 reach(schema1, "nested.arr[].num");
+
+// isSchema function
+const isSchemaResult1: boolean = isSchema(schema1);
+const isSchemaResult2: boolean = isSchema({});
 
 // addMethod function
 yup.addMethod<NumberSchema>(yup.number, "minimum", function(
@@ -143,6 +148,7 @@ mixed.default({ number: 5 });
 mixed.default(() => ({ number: 5 }));
 mixed.default();
 mixed.nullable(true);
+mixed.nullable();
 mixed.required();
 mixed.required("Foo");
 mixed.required(() => "Foo");
@@ -199,6 +205,12 @@ const testContext = function(this: TestContext) {
     this.resolve;
     // $ExpectType ValidationError
     this.createError({ path: "1", message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ path: "1"});
+    // $ExpectType ValidationError
+    this.createError();
     return true;
 };
 mixed.test("with-context", "it uses function context", testContext);
@@ -367,7 +379,7 @@ arrSchema.max(5, () => "max");
 arrSchema.min(5);
 arrSchema.min(5, "min");
 arrSchema.min(5, () => "min");
-arrSchema.compact(value => value === null);
+arrSchema.compact((value, index, array) => value === array[index]);
 
 yup.array(); // $ExpectType ArraySchema<{}>
 yup.array(yup.string()); // $ExpectType ArraySchema<string>

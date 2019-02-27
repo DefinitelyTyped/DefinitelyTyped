@@ -247,6 +247,7 @@ declare namespace needle {
     export type NeedleCallback = core.NeedleCallback;
     export type NeedleHttpVerbs = core.NeedleHttpVerbs;
     export type NeedleOptions = core.NeedleOptions;
+    export type NeedleResponse = core.NeedleResponse;
     export type ReadableStream = core.ReadableStream;
 
     /**

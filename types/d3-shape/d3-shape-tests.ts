@@ -1464,6 +1464,7 @@ seriesDatum = seriesPoint.data;
 let order: number[];
 const seriesAnyAny: d3Shape.Series<any, any> = seriesArray[0];
 
+order = d3Shape.stackOrderAppearance(seriesAnyAny);
 order = d3Shape.stackOrderAscending(seriesAnyAny);
 order = d3Shape.stackOrderDescending(seriesAnyAny);
 order = d3Shape.stackOrderInsideOut(seriesAnyAny);

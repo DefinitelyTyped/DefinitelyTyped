@@ -85,6 +85,7 @@ import {
     DatePickerAndroid,
     ViewPropTypes,
     requireNativeComponent,
+    Keyboard,
 } from "react-native";
 
 declare module "react-native" {
@@ -332,6 +333,14 @@ InteractionManager.runAfterInteractions(() => {
 }).then(() => "done");
 
 export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
+    list: FlatList<any> | null = null;
+
+    componentDidMount(): void {
+        if (this.list) {
+            this.list.flashScrollIndicators();
+        }
+    }
+
     _renderItem = (rowData: any) => {
         return (
             <View>
@@ -345,6 +354,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     render() {
         return (
             <FlatList
+                ref={list => (this.list = list)}
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
@@ -444,6 +454,9 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             nestedScrollEnabled={true}
                             invertStickyHeaders={true}
                             contentOffset={{ x: 0, y: 0 }}
+                            snapToStart={false}
+                            snapToEnd={false}
+                            snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
                         />
@@ -834,3 +847,8 @@ const ShareTest = () => {
         }
     });
 };
+
+const KeyboardTest = () => {
+    const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
+    subscriber.remove();
+}

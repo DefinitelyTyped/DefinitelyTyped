@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
-import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue } from 'react-redux';
+import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue, Selector } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -1191,4 +1191,19 @@ function TestProviderContext() {
 
     // Null is not a valid value for the context.
     <Provider store={store} context={null} />; // $ExpectError
+}
+
+function TestSelector() {
+    interface OwnProps { key?: string; }
+    interface State { key: string; }
+
+    const simpleSelect: Selector<State, string> = (state: State) => state.key;
+    const notSimpleSelect: Selector<State, string, OwnProps> = (state: State, ownProps: OwnProps) => ownProps.key || state.key;
+
+    const ownProps = {};
+    const state = { key: 'value' };
+    simpleSelect(state);
+    notSimpleSelect(state, ownProps);
+    simpleSelect(state, ownProps); // $ExpectError
+    notSimpleSelect(state); // $ExpectError
 }

@@ -175,8 +175,8 @@ export class ec {
     constructor(options: string | curves.PresetCurve)
 
     keyPair(options: ec.KeyPairOptions): ec.KeyPair;
-    keyFromPrivate(priv: Buffer | ec.KeyPair, enc?: string): ec.KeyPair;
-    keyFromPublic(pub: Buffer | ec.KeyPair, enc?: string): ec.KeyPair;
+    keyFromPrivate(priv: Buffer | string | ec.KeyPair, enc?: string): ec.KeyPair;
+    keyFromPublic(pub: Buffer | string | {x: string, y: string} | ec.KeyPair, enc?: string): ec.KeyPair;
     genKeyPair(options?: ec.GenKeyPairOptions): ec.KeyPair;
     sign(msg: BNInput, key: Buffer | ec.KeyPair, enc: string, options?: ec.SignOptions): ec.Signature;
     sign(msg: BNInput, key: Buffer | ec.KeyPair, options?: ec.SignOptions): ec.Signature;
@@ -187,7 +187,7 @@ export class ec {
 
 export namespace ec {
     interface GenKeyPairOptions {
-        pers: any;
+        pers?: any;
         entropy: any;
         persEnc?: string;
         entropyEnc?: string;
@@ -201,8 +201,8 @@ export namespace ec {
     }
 
     class KeyPair {
-        static fromPublic(ec: ec, pub: Buffer | KeyPair, enc?: string): KeyPair;
-        static fromPrivate(ec: ec, priv: Buffer | KeyPair, enc?: string): KeyPair;
+        static fromPublic(ec: ec, pub: Buffer | string | {x: string, y: string} | KeyPair, enc?: string): KeyPair;
+        static fromPrivate(ec: ec, priv: Buffer | string | KeyPair, enc?: string): KeyPair;
 
         ec: ec;
 

@@ -251,6 +251,24 @@ const graphDiv = '#test';
 	};
 	Plotly.update(graphDiv, data_update, layout_update);
 })();
+
+(() => {
+	const update = {
+		title: {
+			text: 'some new title',
+			font: {
+				size: 1.2,
+			},
+			x: 0.9,
+			pad: {
+				t: 20
+			},
+		}, // updates the title
+		'xaxis.range': [0, 5],   // updates the xaxis range
+		'yaxis.range[1]': 15	 // updates the end of the yaxis range
+	} as Layout;
+	Plotly.relayout(graphDiv, update);
+})();
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////

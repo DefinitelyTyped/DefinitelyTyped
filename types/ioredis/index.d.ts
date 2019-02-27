@@ -107,6 +107,7 @@ declare namespace IORedis {
         del(...keys: KeyType[]): Promise<number>;
 
         exists(...keys: KeyType[]): Promise<number>;
+        exists(key: KeyType, callback: (err: Error, res: number) => void): void;
 
         setbit(key: KeyType, offset: number, value: any, callback: (err: Error, res: number) => void): void;
         setbit(key: KeyType, offset: number, value: any): Promise<number>;
@@ -271,7 +272,7 @@ declare namespace IORedis {
         hgetBuffer(key: KeyType, field: string, callback: (err: Error, res: Buffer) => void): void;
         hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
-        hmset(key: KeyType, field: string, value: any, ...args: string[]): Promise<0 | 1>;
+        hmset(key: KeyType, ...args: any[]): Promise<0 | 1>;
         hmset(key: KeyType, data: any, callback: (err: Error, res: 0 | 1) => void): void;
         hmset(key: KeyType, data: any): Promise<0 | 1>;
 
@@ -312,9 +313,13 @@ declare namespace IORedis {
         getset(key: KeyType, value: any, callback: (err: Error, res: string | null) => void): void;
         getset(key: KeyType, value: any): Promise<string | null>;
 
-        mset(key: KeyType, value: any, ...args: string[]): any;
+        mset(...args: any[]): any;
+        mset(data: any, callback: (err: Error, res: string) => void): void;
+        mset(data: any): Promise<string>;
 
-        msetnx(key: KeyType, value: any, ...args: string[]): any;
+        msetnx(...args: any[]): any;
+        msetnx(data: any, callback: (err: Error, res: 0 | 1) => void): void;
+        msetnx(data: any): Promise<0 | 1>;
 
         randomkey(callback: (err: Error, res: string) => void): void;
         randomkey(): Promise<string>;
@@ -488,6 +493,8 @@ declare namespace IORedis {
         xack(key: KeyType, group: string, ...ids: string[]): any;
 
         xadd(key: KeyType, id: string, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', count: number, ...args: string[]): any;
+        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', approximate: '~', count: number, ...args: string[]): any;
 
         xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, ...args: any[]): any;
 
@@ -672,7 +679,7 @@ declare namespace IORedis {
         hget(key: KeyType, field: string, callback?: (err: Error, res: string | string) => void): Pipeline;
         hgetBuffer(key: KeyType, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
-        hmset(key: KeyType, field: string, value: any, ...args: string[]): Pipeline;
+        hmset(key: KeyType, ...args: any[]): Pipeline;
         hmset(key: KeyType, data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         hmget(key: KeyType, ...fields: string[]): Pipeline;
@@ -701,9 +708,11 @@ declare namespace IORedis {
 
         getset(key: KeyType, value: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        mset(key: KeyType, value: any, ...args: string[]): Pipeline;
+        mset(...args: any[]): Pipeline;
+        mset(data: any, callback?: (err: Error, res: string) => void): Pipeline;
 
-        msetnx(key: KeyType, value: any, ...args: string[]): Pipeline;
+        msetnx(...args: any[]): Pipeline;
+        msetnx(data: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
         randomkey(callback?: (err: Error, res: string) => void): Pipeline;
 

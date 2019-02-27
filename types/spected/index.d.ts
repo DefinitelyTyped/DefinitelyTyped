@@ -1,30 +1,35 @@
-// Type definitions for spected 0.26
+// Type definitions for spected 0.7
 // Project: https://github.com/25th-floor/spected
 // Definitions by: Benjamin Makus <https://github.com/benneq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
-declare var spected: Spected;
+declare function spected<ROOTINPUT, SPEC extends SpecValue<ROOTINPUT, ROOTINPUT> = SpecValue<ROOTINPUT, ROOTINPUT>>(spec: SPEC, input: ROOTINPUT): Result<ROOTINPUT, SPEC>;
 
-export type Spected = (spec: Spec, input: any) => Result;
+type Predicate<INPUT, ROOTINPUT> = (value: INPUT, inputs: ROOTINPUT) => boolean;
 
-export type Predicate = (value: any, inputs: any) => boolean;
+type ErrorMsg<INPUT> =
+    | (string | number | boolean | symbol | null | undefined | object)
+    | ((value: INPUT, field: string) => any);
 
-export type ErrorMsg =
-    | string
-    | ((value: any, field: string) => string);
+export type Spec<INPUT, ROOTINPUT = any> = [Predicate<INPUT, ROOTINPUT>, ErrorMsg<INPUT>];
 
-export interface Spec {
-    [key: string]: SpecValue;
-}
+export type SpecArray<INPUT, ROOTINPUT = any> = Array<Spec<INPUT, ROOTINPUT>>;
 
-export type SpecValue =
-    | ReadonlyArray<[Predicate, ErrorMsg]>
-    | ((value: any) => any)
-    | Spec;
+export type SpecFunction<INPUT, ROOTINPUT = any> = [INPUT] extends [ReadonlyArray<infer U>]
+    ? (value: INPUT) => ReadonlyArray<SpecArray<U, ROOTINPUT>>
+    : [INPUT] extends [object]
+        ? (value: INPUT) => SpecObject<INPUT, ROOTINPUT>
+        : (value: INPUT) => SpecArray<INPUT, ROOTINPUT>;
 
-export interface Result {
-    [key: string]: true | string[] | Result;
-}
+export type SpecObject<INPUT, ROOTINPUT = any> = Partial<{[key in keyof INPUT]: SpecValue<INPUT[key], ROOTINPUT>}>;
+
+export type SpecValue<INPUT, ROOTINPUT = any> = [INPUT] extends [ReadonlyArray<any>]
+    ? SpecArray<INPUT, ROOTINPUT> | SpecFunction<INPUT, ROOTINPUT>
+        : [INPUT] extends [object]
+            ? SpecArray<INPUT, ROOTINPUT> | SpecFunction<INPUT, ROOTINPUT> | SpecObject<INPUT, ROOTINPUT>
+            : SpecArray<INPUT, ROOTINPUT> | SpecFunction<INPUT, ROOTINPUT>;
+
+export type Result<INPUT, SPEC> = {[key in keyof INPUT]: true | any[] | Result<INPUT[key], any>};
 
 export default spected;

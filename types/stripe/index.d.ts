@@ -16,6 +16,7 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Slava Yultyyev <https://github.com/yultyyev>
 //                 Corey Psoinos <https://github.com/cpsoinos>
+//                 Saransh Kataria <https://github.com/saranshkataria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -3383,6 +3384,12 @@ declare namespace Stripe {
              * May only be set if type=service.
              */
             statement_descriptor?: string;
+
+            /**
+             * A label that represents units of this product, such as seat(s), in Stripe and on customers’ receipts and invoices.
+             * Only available on products of type=service.
+             */
+            unit_label?: string;
         }
 
         interface IProductUpdateOptions extends IDataOptionsWithMetadata {
@@ -4642,9 +4649,10 @@ declare namespace Stripe {
             items: IList<subscriptionItems.ISubscriptionItem>;
 
             /**
-             * Hash describing the plan the customer is subscribed to
+             * Hash describing the plan the customer is subscribed to.  Only set if the subscription
+             * contains a single plan.
              */
-            plan: plans.IPlan;
+            plan?: plans.IPlan | null;
 
             /**
              * The number of subscriptions for the associated plan
@@ -4869,6 +4877,18 @@ declare namespace Stripe {
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
             /**
+             * Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items.
+             */
+            invoice_now?: boolean;
+
+            /**
+             * Will generate a proration invoice item that credits remaining unused time until the subscription period end.
+             */
+            prorate?: boolean;
+
+            /**
+             * @deprecated Use subscription update with cancel_at_period_end option as of 2018-08-23.
+             *
              * A flag that if set to true will delay the cancellation of the subscription until the end of the current period.
              */
             at_period_end?: boolean;
@@ -5062,7 +5082,7 @@ declare namespace Stripe {
             /**
              * Balance transaction that describes the impact of this reversal on your account balance.
              */
-            balance_transaction: string;
+            balance_transaction: string | balance.IBalanceTransaction;
 
             /**
              * ID of the charge that was refunded. [Expandable]

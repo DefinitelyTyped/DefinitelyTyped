@@ -537,6 +537,21 @@ export class Account implements Resource {
     balance: MoneyHash;
 
     /**
+     * Allow deposits
+     */
+    allow_deposits: boolean;
+
+    /**
+     * Allow withdrawls
+     */
+    allow_withdrawals: boolean;
+
+    /**
+     * Account worth in fiat.
+     */
+    native_balance: MoneyHash;
+
+    /**
      * Promote an account as primary account.
      * Scope: wallet:accounts:update
      */
@@ -630,7 +645,7 @@ export class Account implements Resource {
      * Lists buys for an account.
      * Scope: wallet:buys:read
      */
-    getBuys(cb: (error: Error, result: Buy[]) => void): void;
+    getBuys(opts: null, cb: (error: Error, result: Buy[]) => void): void;
 
     /**
      * Show an individual buy.
@@ -663,7 +678,7 @@ export class Account implements Resource {
      * Lists sells for an account.
      * Scope: wallet:sells:read
      */
-    getSells(cb: (error: Error, result: Sell[]) => void): void;
+    getSells(opts: null, cb: (error: Error, result: Sell[]) => void): void;
 
     /**
      * Show an individual sell.
@@ -883,7 +898,7 @@ export class Buy implements Resource {
     /**
      * Fee associated to this buy
      */
-    fee: MoneyHash;
+    fees: Fee[];
 
     /**
      * Has this buy been committed?
@@ -901,6 +916,26 @@ export class Buy implements Resource {
     payout_at?: string;
 
     /**
+     * Unit price of the base currency.
+     */
+    unit_price: UnitPrice;
+
+    /**
+     * Hold period for transfer.
+     */
+    hold_business_days: number;
+
+    /**
+     * Is it the first buy for this symbol?
+     */
+    is_first_buy: boolean;
+
+    /**
+     * Is there another action required to make the transfer pass?
+     */
+    requires_completion_step: boolean;
+
+    /**
      * Completes a buy that is created in commit: false state.
      * If the exchange rate has changed since the buy was created, this call will fail with the error “The exchange rate updated while you
      * were waiting. The new total is shown below”. The buy’s total will also be updated. You can repeat the `commit` call to accept the new
@@ -908,6 +943,32 @@ export class Buy implements Resource {
      * Scope: wallet:buys:create
      */
     commit(cb: (error: Error, transaction: Buy) => void): void;
+}
+
+export interface Fee {
+  /**
+   * Amount associated to this fee
+   */
+  amount: MoneyHash;
+  /**
+   * Fee beneficiary ("bank", "coinbase", ...)
+   */
+  type: string;
+}
+
+export interface UnitPrice {
+  /**
+   * Amount as floating-point in a string
+   */
+  amount: string;
+  /**
+   * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
+   */
+  currency: string;
+  /**
+   * Type of price
+   */
+  scale: number;
 }
 
 export type SellStatus = "created" | "completed" | "canceled";

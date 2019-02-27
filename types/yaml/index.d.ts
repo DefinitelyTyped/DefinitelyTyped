@@ -1,5 +1,5 @@
 // Type definitions for yaml 1.0
-// Project: https://github.com/eemeli/yaml
+// Project: https://github.com/eemeli/yaml, https://eemeli.org/yaml
 // Definitions by: Ika <https://github.com/ikatyang>
 //                 Colin Bradley <https://github.com/ColinBradley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

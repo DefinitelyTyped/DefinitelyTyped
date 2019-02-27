@@ -2,6 +2,7 @@
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
+//                 Alex Bjørlig <https://github.com/dauledk>          
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -50,6 +51,7 @@ export interface UserData {
   phone_verified?: boolean;
   given_name?: string;
   family_name?: string;
+  name?: string;
   user_metadata?: UserMetadata;
   app_metadata?: AppMetadata;
 }

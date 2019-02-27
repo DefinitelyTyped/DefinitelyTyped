@@ -1,11 +1,11 @@
 // Type definitions for Frisby 2.0
-// Project: https://github.com/vlucas/frisby
+// Project: https://github.com/vlucas/frisby, http://frisbyjs.com
 // Definitions by: Christopher E. Woodland <https://github.com/cwoodland>
 //                 Johnny Li <https://github.com/johnny4753>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
-/// <reference types='jasmine'/>
+/// <reference types='jest'/>
 
 // #region Imports
 export import nodeFetch = require('node-fetch'); // Import all definitions from node-fetch.

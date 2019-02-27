@@ -4,6 +4,7 @@
 //                 Ali Taheri <https://github.com/alitaheri>,
 //                 Zheyang Song <https://github.com/ZheyangSong>,
 //                 Andrew Hathaway <https://github.com/andrewhathaway>
+//                 Manav Mishra <https://github.com/manav-m>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -12,11 +13,11 @@ import * as React from "react";
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
 
-declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> { }
+declare class ReactGridLayout extends React.Component<
+    ReactGridLayout.ReactGridLayoutProps
+> {}
 
 declare namespace ReactGridLayout {
-    type Breakpoints = 'lg' | 'md' | 'sm' | 'xs' | 'xxs';
-
     interface Layout {
         /**
          * A string corresponding to the component key.
@@ -85,9 +86,9 @@ declare namespace ReactGridLayout {
         isResizable?: boolean;
     }
 
-    type Layouts = {
-        [P in Breakpoints]?: Layout[];
-    };
+    interface Layouts {
+        [P: string]: Layout[];
+    }
 
     type ItemCallback = (
         layout: Layout[],
@@ -263,12 +264,12 @@ declare namespace ReactGridLayout {
          *
          * Breakpoint names are arbitrary but must match in the cols and layouts objects.
          */
-        breakpoints?: {[P in Breakpoints]: number };
+        breakpoints?: { [P: string]: number };
 
         /**
          * Number of cols. This is a breakpoint -> cols map, e.g. `{lg: 12, md: 10, ...}`.
          */
-        cols?: {[P in Breakpoints]: number };
+        cols?: { [P: string]: number };
 
         /**
          * layouts is an object mapping breakpoints to layouts.
@@ -285,7 +286,7 @@ declare namespace ReactGridLayout {
         /**
          * Callback so you can save the layout.
          */
-        onLayoutChange?(currentLayout: Layout, allLayouts: Layouts): void;
+        onLayoutChange?(currentLayout: Layout[], allLayouts: Layouts): void;
 
         /**
          * Callback when the width changes, so you can modify the layout as needed.
@@ -298,7 +299,7 @@ declare namespace ReactGridLayout {
         ): void;
     }
 
-    class Responsive extends React.Component<ResponsiveProps> { }
+    class Responsive extends React.Component<ResponsiveProps> {}
 
     interface WidthProviderProps {
         /**

@@ -23,7 +23,7 @@ export class Client<T> implements ClientApi<T> {
     /** start() - creates a connection to the cache server. Must be called before any other method is available. */
     start(): Promise<void>;
     /** stop() - terminates the connection to the cache server. */
-    stop(): void;
+    stop(): Promise<void>;
     /**
      * get(key, callback) - retrieve an item from the cache engine if found where:
      *  * key - a cache key object (see [ICacheKey]).
@@ -231,7 +231,7 @@ export interface DecoratedPolicyOptions<T> extends PolicyOptions<T> {
     /**
      * @default false
      */
-    getDecoratedValue?: boolean;
+    getDecoratedValue: boolean | undefined;
 }
 
 export interface GenerateFuncFlags {
