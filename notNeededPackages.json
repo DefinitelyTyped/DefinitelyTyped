@@ -1807,6 +1807,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "wait-for-localhost",
+            "typingsPackageName": "wait-for-localhost",
+            "sourceRepoURL": "https://github.com/sindresorhus/wait-for-localhost",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "webcola",
             "typingsPackageName": "webcola",
             "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
