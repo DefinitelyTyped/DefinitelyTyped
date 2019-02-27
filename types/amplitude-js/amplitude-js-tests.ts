@@ -1,5 +1,7 @@
 // Tests for Amplitude SDK TypeScript definitions
 
+import amplitude = require('amplitude-js');
+
 module Amplitude.Tests {
 
     function all() {

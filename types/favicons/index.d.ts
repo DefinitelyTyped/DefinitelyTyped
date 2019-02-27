@@ -1,5 +1,5 @@
 // Type definitions for favicons 5.3
-// Project: https://github.com/evilebottnawi/favicons/blob/master/package.json
+// Project: https://github.com/itgalaxy/favicons
 // Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Nikk Radetskiy <https://github.com/metsawyr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
@@ -9,7 +9,7 @@
 import { Duplex } from "stream";
 
 declare namespace favicons {
-     interface Configuration {
+    interface Configuration {
         /** Path for overriding default icons path @default "/" */
         path: string;
         /** Your application's name @default null */
@@ -38,6 +38,8 @@ declare namespace favicons {
         version: string;
         /** Print logs to console? @default false */
         logging: boolean;
+        /** Use nearest neighbor resampling to preserve hard edges on pixel art @default false */
+        pixel_art: boolean;
         /**
          * Platform Options:
          * - offset - offset in percentage
@@ -66,18 +68,18 @@ declare namespace favicons {
         }>;
     }
 
-     interface FavIconResponse {
+    interface FavIconResponse {
         images: Array<{ name: string; contents: Buffer }>;
         files: Array<{ name: string; contents: Buffer }>;
         html: string[];
     }
 
-     type Callback = (error: Error | null, response: FavIconResponse) => void;
+    type Callback = (error: Error | null, response: FavIconResponse) => void;
 
     /** You can programmatically access Favicons configuration (icon filenames, HTML, manifest files, etc) with this export */
-     const config: Configuration;
+    const config: Configuration;
 
-     function stream(configuration?: Configuration): Duplex;
+    function stream(configuration?: Configuration): Duplex;
 }
 /**
  * Generate favicons

@@ -11,10 +11,10 @@ function subtract(minuend: number, subtrahend: number) {
 }
 
 beforeEach(() => {
-    jest.spyOn(global, 'describe').mockImplementation((title, fn) => fn());
-    jest.spyOn(global, 'test').mockImplementation((name, fn) => fn());
-    global.test.skip = jest.fn((name, fn) => fn());
-    global.test.only = jest.fn((name, fn) => fn());
+    jest.spyOn(global, 'describe').mockImplementation((title, fn) => (fn as () => void)());
+    jest.spyOn(global, 'test').mockImplementation((name, fn) => (fn as () => void)());
+    global.test.skip = jest.fn((_: string, fn: jest.EmptyFunction) => fn());
+    global.test.only = jest.fn((_: string, fn: jest.EmptyFunction) => fn());
 });
 
 afterEach(() => {
@@ -54,8 +54,8 @@ test('array', () => {
 });
 
 test('object', () => {
-    jest.spyOn(global, 'describe').mockImplementation((title, fn) => fn());
-    jest.spyOn(global, 'test').mockImplementation((name, fn) => fn());
+    jest.spyOn(global, 'describe').mockImplementation((title, fn) => (fn as () => void)());
+    jest.spyOn(global, 'test').mockImplementation((name, fn) => (fn as () => void)());
 
     const title = 'add(augend, addend)';
 

@@ -346,7 +346,7 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (
+        <T, K extends keyof T>(obj: T, method: K, types?: string[]): T[K] extends (
             ...args: infer TArgs
         ) => infer TReturnValue
             ? SinonSpy<TArgs, TReturnValue>
@@ -1707,11 +1707,14 @@ declare namespace Sinon {
          *
          * @template TType Type being stubbed.
          * @param constructor   Object or class to stub.
+         * @param overrides     An optional map overriding created stubs
          * @returns A stubbed version of the constructor.
          * @remarks The given constructor function is not invoked. See also the stub API.
          */
         createStubInstance<TType>(
-            constructor: StubbableType<TType>
+            constructor: StubbableType<TType>,
+            overrides?: { [K in keyof TType]?:
+                SinonStubbedMember<TType[K]> | TType[K] extends (...args: any[]) => infer R ? R : TType[K] }
         ): SinonStubbedInstance<TType>;
     }
 

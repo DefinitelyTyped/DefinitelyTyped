@@ -1,10 +1,12 @@
 // Type definitions for react-simple-maps 0.12
 // Project: https://github.com/zcreativelabs/react-simple-maps#readme
 // Definitions by: Novikov Mihail <https://github.com/thepocp>
+//                 Andrej Mihajlov <https://github.com/pronebird>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import { GeoProjection } from 'd3-geo';
 
 export type Point = [number, number];
 
@@ -19,17 +21,21 @@ export interface Line {
     };
 }
 
+export interface ProjectionConfig {
+    scale: number;
+    xOffset: number;
+    yOffset: number;
+    rotation: [number, number, number];
+    precision: number;
+}
+
+export type ProjectionFunction = (width: number, height: number, config: ProjectionConfig) => GeoProjection;
+
 export interface ComposableMapProps {
     width?: number;
     height?: number;
-    projection?: string | (() => void);
-    projectionConfig?: {
-        scale?: number;
-        xOffset?: number;
-        yOffset?: number;
-        rotation?: number[];
-        precision?: number;
-    };
+    projection?: string | ProjectionFunction;
+    projectionConfig?: Partial<ProjectionConfig>;
     style?: React.CSSProperties;
     defs?: SVGDefsElement;
     className?: string;
@@ -68,7 +74,7 @@ export interface ZoomableGroupProps {
 export interface GeographiesProps {
     disableOptimization?: boolean;
     geography?: string | { [key: string]: any } | string[];
-    children?: (geographies: object[], projection: (point: Point) => void) => void;
+    children?: (geographies: object[], projection: GeoProjection) => void;
 }
 
 export interface GeographyProps {
@@ -76,7 +82,7 @@ export interface GeographyProps {
     precision?: number;
     round?: boolean;
     geography?: object;
-    projection?: (point: Point) => void;
+    projection?: GeoProjection;
     tabable?: boolean;
     style?: {
         default?: React.CSSProperties;

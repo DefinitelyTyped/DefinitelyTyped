@@ -4,7 +4,7 @@ import { TransitionCallbacks } from 'react-bootstrap';
 declare namespace Collapse {
     export interface CollapseProps extends TransitionCallbacks, React.ClassAttributes<Collapse> {
         dimension?: 'height' | 'width' | { ( ):string };
-        getDimensionValue?: ( dimension:number, element:React.ReactElement<any> ) => number;
+        getDimensionValue?: ( dimension:number, element:React.ReactElement ) => number;
         in?: boolean;
         timeout?: number;
         transitionAppear?: boolean;

@@ -54,7 +54,7 @@ api.Users.create(legalUser).then(data => {
   console.log(`${legalUser.Name} user created at ${legalUser.CreationDate}`);
 });
 
-api.Users.create(legalUser, { readResponseHeaders: true }).then(data => {
+api.Users.create(legalUser, { resolveWithFullResponse: true }).then(data => {
   const d = data; // $ExpectType WithResponse<UserLegalData>
   const value = data.body; // $ExpectType UserLegalData
 });

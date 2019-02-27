@@ -32,6 +32,7 @@ redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
 redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 
 redis.exists('foo').then(result => result * 1);
+redis.exists('foo', ((err, data) => data * 1));
 
 new Redis();       // Connect to 127.0.0.1:6379
 new Redis(6380);   // 127.0.0.1:6380

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, AccessibilityInfo } from 'react-native';
+import { Text } from 'react-native';
 
 import {
     Accelerometer,
@@ -154,7 +154,6 @@ Audio.setAudioModeAsync({
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
     allowsRecordingIOS: true,
-    playThroughEarpieceAndroid: false
 });
 Audio.setIsEnabledAsync(true);
 
@@ -233,7 +232,7 @@ Audio.RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE === 3;
 Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
-    const result = await Audio.Sound.create({uri: 'uri'}, {
+    const result = await Audio.Sound.createAsync({uri: 'uri'}, {
         volume: 0.55,
         rate: 16.5
     }, null, true);
@@ -262,13 +261,13 @@ async () => {
     <AppLoading />
 );
 
-const barCodeScannedCallback = () => {};
+const barcodeReadCallback = () => {};
 () => (
     <BarCodeScanner
         type="front"
         torchMode="off"
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
-        onBarCodeScanned={barCodeScannedCallback} />
+        onBarCodeScanned={barcodeReadCallback} />
 );
 
 () => (
@@ -408,11 +407,12 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', [
+    const result = await ImageManipulator.manipulateAsync('url', [
         { rotate: 90 },
         { resize: { width: 300 } },
         { resize: { height: 300 } },
         { resize: { height: 300, width: 300 } },
+        { crop: { originX: 0, originY: 0, height: 300, width: 300 } }
     ], {
         compress: 0.75
     });
@@ -963,7 +963,7 @@ const userLocationCallback = (event: EventUserLocation) =>  console.log(event);
 // #endregion
 
 async () => {
-    const updateEventListener: Updates.UpdateEventListener = ({ type, manifest, message }) => {
+    const updateEventListener: Updates.UpdateEventListener = ({ type }) => {
         switch (type) {
             case Updates.EventType.DOWNLOAD_STARTED:
             case Updates.EventType.DOWNLOAD_PROGRESS:

@@ -116,6 +116,7 @@ declare namespace WaveSurfer {
         autoCenter?: boolean;
         backend?: string;
         barHeight?: number;
+        barWidth?: number;
         barGap?: number;
         closeAudioContext?: boolean;
         container: string | HTMLElement;

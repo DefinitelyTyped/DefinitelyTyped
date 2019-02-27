@@ -867,6 +867,7 @@ export class BufferGeometry extends EventDispatcher {
     boundingBox: Box3;
     boundingSphere: Sphere;
     drawRange: { start: number, count: number };
+    userData: {[key: string]: any};
 
     getIndex(): BufferAttribute;
     setIndex( index: BufferAttribute|number[] ): void;
@@ -2293,7 +2294,7 @@ export class JSONLoader extends Loader {
  * Handles and keeps track of loaded and pending data.
  */
 export class LoadingManager {
-    constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: () => void);
+    constructor(onLoad?: () => void, onProgress?: (url: string, loaded: number, total: number) => void, onError?: (url: string) => void);
 
     onStart?: (url: string, loaded: number, total: number) => void;
 
@@ -3393,6 +3394,7 @@ export class Color {
     equals(color: Color): boolean;
     fromArray(rgb: number[], offset?: number): this;
     toArray(array?: number[], offset?: number): number[];
+    toArray(xyz: ArrayLike<number>, offset?: number): ArrayLike<number>;
 }
 
 export namespace ColorKeywords {
@@ -4707,8 +4709,17 @@ export class Vector2 implements Vector {
      * Returns an array [x, y], or copies x and y into the provided array.
      * @param array (optional) array to store the vector to. If this is not provided, a new array will be created.
      * @param offset (optional) optional offset into the array.
+     * @return The created or provided array.
      */
     toArray(array?: number[], offset?: number): number[];
+
+    /**
+     * Copies x and y into the provided array-like.
+     * @param array array-like to store the vector to.
+     * @param offset (optional) optional offset into the array.
+     * @return The provided array-like.
+     */
+    toArray(array: ArrayLike<number>, offset?: number): ArrayLike<number>;
 
     /**
      * Sets this vector's x and y values from the attribute.
@@ -4850,7 +4861,7 @@ export class Vector3 implements Vector {
 
     applyQuaternion(q: Quaternion): this;
 
-    project(camrea: Camera): this;
+    project(camera: Camera): this;
 
     unproject(camera: Camera): this;
 
@@ -4985,7 +4996,23 @@ export class Vector3 implements Vector {
     equals(v: Vector3): boolean;
 
     fromArray(xyz: number[], offset?: number): Vector3;
+
+    /**
+     * Returns an array [x, y, z], or copies x, y and z into the provided array.
+     * @param array (optional) array to store the vector to. If this is not provided, a new array will be created.
+     * @param offset (optional) optional offset into the array.
+     * @return The created or provided array.
+     */
     toArray(xyz?: number[], offset?: number): number[];
+
+    /**
+     * Copies x, y and z into the provided array-like.
+     * @param array array-like to store the vector to.
+     * @param offset (optional) optional offset into the array.
+     * @return The provided array-like.
+     */
+    toArray(xyz: ArrayLike<number>, offset?: number): ArrayLike<number>;
+
     fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): this;
 }
 
@@ -5246,11 +5273,21 @@ export class Line extends Object3D {
     geometry: Geometry | BufferGeometry;
     material: Material | Material[];
 
-    type: "Line";
+    type: "Line" | "LineLoop" | "LineSegments";
     isLine: true;
 
     computeLineDistances(): this;
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+}
+
+export class LineLoop extends Line {
+    constructor(
+        geometry?: Geometry | BufferGeometry,
+        material?: Material | Material[]
+    );
+
+    type: "LineLoop";
+    isLineLoop: true;
 }
 
 /**
@@ -5268,6 +5305,9 @@ export class LineSegments extends Line {
         material?: Material | Material[],
         mode?: number
     );
+    
+    type: "LineSegments";
+    isLineSegments: true;
 }
 
 export class Mesh extends Object3D {
@@ -5436,16 +5476,14 @@ export interface WebGLRendererParameters {
     preserveDrawingBuffer?: boolean;
 
     /**
-     * default is 0x000000.
+     *  Can be "high-performance", "low-power" or "default"
      */
-    clearColor?: number;
+    powerPreference?: string;
 
     /**
-     * default is 0.
+     * default is true.
      */
-    clearAlpha?: number;
-
-    devicePixelRatio?: number;
+    depth?: boolean;
 
     /**
      * default is false.

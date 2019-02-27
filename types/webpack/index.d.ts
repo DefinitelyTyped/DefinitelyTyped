@@ -610,6 +610,8 @@ declare namespace webpack {
             name?: boolean | string | ((...args: any[]) => any);
             /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
             cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions | false };
+            /** Override the default name separator (~) when generating names automatically (name: true)  */
+            automaticNameDelimiter?: string;
         }
         interface RuntimeChunkOptions {
             /** The name or name factory for the runtime chunks. */

@@ -1,5 +1,5 @@
 // Type definitions for react-autosuggest 9.3
-// Project: http://react-autosuggest.js.org/
+// Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
 //                 Robert Essig <https://github.com/robessog>

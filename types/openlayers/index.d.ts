@@ -1,5 +1,5 @@
 // Type definitions for OpenLayers 4.6
-// Project: http://openlayers.org/
+// Project: https://openlayers.org
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 //                 Bin Wang <https://github.com/wb14123>
 //                 Junyoung Clare Jang <https://github.com/ailrun>
@@ -11855,6 +11855,7 @@ export namespace olx {
             freehandCondition?: ol.EventsConditionType;
             freehand?: boolean;
             wrapX?: boolean;
+            stopClick?: boolean;
         }
 
         interface ExtentOptions {

@@ -70,6 +70,7 @@ class CalendarResource {
             return (
               <MyCalendar  {...this.props}
               date={new Date()}
+              getNow={() => new Date()}
               view={'day'}
               events={getEvents()}
               onNavigate={(newDate: Date, view: View, action: Navigate) => { }}
@@ -202,7 +203,7 @@ function Event(event: any) {
 
 class EventWrapper extends React.Component<EventWrapperProps> {
     render() {
-        const { continuesEarlier, label, accessors = {}, style } = this.props;
+        const { continuesEarlier, event, label, accessors = {}, style } = this.props;
         return (
             <div style={style}>
                 <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
