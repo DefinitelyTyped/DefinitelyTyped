@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "opentracing": ">=0.14.1"
+        "handlebars": ">=4.1.0"
     }
 }

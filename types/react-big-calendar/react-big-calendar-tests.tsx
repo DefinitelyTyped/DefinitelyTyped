@@ -203,7 +203,7 @@ function Event(event: any) {
 
 class EventWrapper extends React.Component<EventWrapperProps> {
     render() {
-        const { continuesEarlier, label, accessors = {}, style } = this.props;
+        const { continuesEarlier, event, label, accessors = {}, style } = this.props;
         return (
             <div style={style}>
                 <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
