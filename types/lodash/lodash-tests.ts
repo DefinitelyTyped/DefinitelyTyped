@@ -3401,10 +3401,12 @@ fp.now(); // $ExpectType number
 // _.flowRight
 {
     const fn1 = (n: number): number => 0;
+    const fn1Optional = (n?: number): number => 0;
     const fn2 = (m: number, n: number): number => 0;
     const fn3 = (a: number): string => "";
     const fn4 = (a: string): boolean => true;
 
+    _.flow(fn1Optional, fn3); // $ExpectType (a1: number | undefined) => string
     _.flow(fn2, fn1); // $ExpectType (a1: number, a2: number) => number
     _.flow(fn2, fn1, fn1, fn1, fn1, fn1, fn1); // $ExpectType (a1: number, a2: number) => number
     _.flow(fn2, fn1, fn3, fn4); // $ExpectType (a1: number, a2: number) => boolean
