@@ -1699,6 +1699,12 @@
             "asOfVersion": "3.12.0"
         },
         {
+            "libraryName": "three.js",
+            "typingsPackageName": "three",
+            "sourceRepoURL": "https://github.com/mrdoob/three.js",
+            "asOfVersion": "0.102.0"
+        },
+        {
             "libraryName": "timezonecomplete",
             "typingsPackageName": "timezonecomplete",
             "sourceRepoURL": "https://github.com/SpiritIT/timezonecomplete",
