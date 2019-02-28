@@ -1147,6 +1147,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "p-pipe",
+            "typingsPackageName": "p-pipe",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-pipe",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "p-throttle",
             "typingsPackageName": "p-throttle",
             "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
@@ -1799,6 +1805,12 @@
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "wait-for-localhost",
+            "typingsPackageName": "wait-for-localhost",
+            "sourceRepoURL": "https://github.com/sindresorhus/wait-for-localhost",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "webcola",

@@ -51,7 +51,7 @@ declare namespace ReactCrop {
 
     function getPixelCrop(image: HTMLImageElement, percentCrop: Crop): Crop;
     function makeAspectCrop(crop: Crop, imageAspect: number): Crop;
-    function containCrop(crop: Crop, imageAspect: number): Crop;
+    function containCrop(previousCrop: Crop, crop: Crop, imageAspect: number): Crop;
 }
 
 declare class ReactCrop extends Component<ReactCrop.ReactCropProps> {

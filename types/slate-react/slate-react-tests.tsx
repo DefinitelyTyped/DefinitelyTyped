@@ -220,7 +220,7 @@ editor
 .moveToEndOfPreviousText()
 .moveToEndOfText()
 .moveToFocus()
-.moveToRangeOf(inline)
+.moveToRangeOfNode(inline)
 .moveToRangeOfDocument()
 .moveToStart()
 .moveToStartOfBlock()
