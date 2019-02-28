@@ -26,6 +26,7 @@
 //                 James Gregory <https://github.com/jagregory>
 //                 Erik Dalén <https://github.com/dalen>
 //                 Loïk Gaonac'h <https://github.com/loikg>
+//                 Roberto Zen <https://github.com/skyzenr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -34,7 +35,7 @@ export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
     authorizer?: AuthResponseContext | null;
-    connectedAt: number;
+    connectedAt?: number;
     connectionId?: string;
     domainName?: string;
     eventType?: string;

@@ -12576,7 +12576,7 @@ declare namespace Office {
          * 
          * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
-         * @param options - An object literal that contains one or more of the following properties.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. 
          *                      If the field is an HTML editor, only the text data is inserted, even if the data is HTML. 
@@ -12585,10 +12585,10 @@ declare namespace Office {
          *                      If the field is a text field, an InvalidDataFormat error is returned. 
          *                      If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; 
          *                      if the field is text, then plain text is used.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        setSelectedDataAsync(data: string, options: Office.AsyncContextOptions & CoercionTypeOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -12608,10 +12608,10 @@ declare namespace Office {
          *
          * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        setSelectedDataAsync(data: string, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
 
     /**
@@ -14269,7 +14269,7 @@ declare namespace Office {
          * 
          * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
-         * @param options - An object literal that contains one or more of the following properties.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. 
          *        If the field is an HTML editor, only the text data is inserted, even if the data is HTML. 
@@ -14278,10 +14278,10 @@ declare namespace Office {
          *        If the field is a text field, an InvalidDataFormat error is returned. 
          *        If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; 
          *        if the field is text, then plain text is used.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          */
-        setSelectedDataAsync(data: string, options: Office.AsyncContextOptions & CoercionTypeOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -14301,10 +14301,10 @@ declare namespace Office {
          *
          * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult. 
          */
-        setSelectedDataAsync(data: string, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * The read mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -15570,7 +15570,7 @@ declare namespace Office {
          * 
          * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
-         * @param options - An object literal that contains one or more of the following properties.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. 
          *        If the field is an HTML editor, only the text data is inserted, even if the data is HTML. 
@@ -15578,10 +15578,10 @@ declare namespace Office {
          *        applied in Outlook. If the field is a text field, an InvalidDataFormat error is returned. 
          *        If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; 
          *        if the field is text, then plain text is used.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        setSelectedDataAsync(data: string, options: Office.AsyncContextOptions & CoercionTypeOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -15601,10 +15601,10 @@ declare namespace Office {
          *
          * @param data - The data to be inserted. Data is not to exceed 1,000,000 characters. 
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
-         * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
          */
-        setSelectedDataAsync(data: string, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
+        setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * The message read mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -15995,7 +15995,8 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
+         * `Office.EventType.RecurrenceChanged`.
+         * In Preview, `Office.EventType.AttachmentsChanged` and `Office.EventType.EnhancedLocationsChanged` are also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -19338,6 +19339,47 @@ declare namespace Excel {
     }
     /**
      *
+     * Provide information about the detail of WorksheetChangedEvent/TableChangedEvent
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface ChangedEventDetail {
+        /**
+         *
+         * Represents the value after changed. The data returned could be of type string, number, or a boolean. Cells that contain an error will return the error string.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        valueAfter: any;
+        /**
+         *
+         * Represents the value before changed. The data returned could be of type string, number, or a boolean. Cells that contain an error will return the error string.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        valueBefore: any;
+        /**
+         *
+         * Represents the type of value after changed
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        valueTypeAfter: Excel.RangeValueType | "Unknown" | "Empty" | "String" | "Integer" | "Double" | "Boolean" | "Error" | "RichValue";
+        /**
+         *
+         * Represents the type of value before changed
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        valueTypeBefore: Excel.RangeValueType | "Unknown" | "Empty" | "String" | "Integer" | "Double" | "Boolean" | "Error" | "RichValue";
+    }
+    /**
+     *
      * Provides information about the worksheet that raised the Changed event.
      *
      * [Api set: ExcelApi 1.7]
@@ -19357,6 +19399,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         changeType: Excel.DataChangeType | "Unknown" | "RangeEdited" | "RowInserted" | "RowDeleted" | "ColumnInserted" | "ColumnDeleted" | "CellInserted" | "CellDeleted";
+        /**
+         *
+         * Represents the information about the change detail
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         */
+        details: Excel.ChangedEventDetail;
         /**
          *
          * Gets the source of the event. See Excel.EventSource for details.
@@ -19497,6 +19546,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         worksheetId: string;
+        /**
+         *
+         * Represents the information about the change detail
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         */
+        details: Excel.ChangedEventDetail;
         /**
          *
          * Gets the range that represents the changed area of a table on a specific worksheet.
@@ -21907,7 +21963,28 @@ declare namespace Excel {
         set(properties: Interfaces.RangeUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Range): void;
+        /**
+         *
+         * Fills range from the current range to the destination range.
+            The destination range must extend the source either horizontally or vertically. Discontiguous ranges are not supported.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param destinationRange The destination range to autofill.
+         * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
+         */
         autoFill(destinationRange: Range | string, autoFillType?: Excel.AutoFillType): void;
+        /**
+         *
+         * Fills range from the current range to the destination range.
+            The destination range must extend the source either horizontally or vertically. Discontiguous ranges are not supported.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param destinationRange The destination range to autofill.
+         * @param autoFillType The type of autofill. Specifies how the destination range is to be filled, based on the contents of the current range. Default is "FillDefault".
+         */
         autoFill(destinationRange: Range | string, autoFillType?: "FillDefault" | "FillCopy" | "FillSeries" | "FillFormats" | "FillValues" | "FillDays" | "FillWeekdays" | "FillMonths" | "FillYears" | "LinearTrend" | "GrowthTrend" | "FlashFill"): void;
         /**
          *
@@ -22025,6 +22102,14 @@ declare namespace Excel {
          * @returns The Range which matched the search criteria.
          */
         findOrNullObject(text: string, criteria: Excel.SearchCriteria): Excel.Range;
+        /**
+         *
+         * Does FlashFill to current range. Flash Fill will automatically fills data when it senses a pattern, so the range must be single column range and have data around in order to find pattern.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        flashFill(): void;
         /**
          *
          * Gets a Range object with the same top-left cell as the current Range object, but with the specified numbers of rows and columns.
@@ -22234,7 +22319,7 @@ declare namespace Excel {
          * @param cellType The type of cells to include.
          * @param cellValueType If cellType is either Constants or Formulas, this argument is used to determine which types of cells to include in the result. These values can be combined together to return more than one type. The default is to select all constants or formulas, no matter what the type.
          */
-        getSpecialCells(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Comments" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
+        getSpecialCells(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
         /**
          *
          * Gets the RangeAreas object, comprising one or more ranges, that represents all the cells that match the specified type and value.
@@ -22257,7 +22342,7 @@ declare namespace Excel {
          * @param cellType The type of cells to include.
          * @param cellValueType If cellType is either Constants or Formulas, this argument is used to determine which types of cells to include in the result. These values can be combined together to return more than one type. The default is to select all constants or formulas, no matter what the type.
          */
-        getSpecialCellsOrNullObject(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Comments" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
+        getSpecialCellsOrNullObject(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
         /**
          *
          * Gets the range object containing the anchor cell for a cell getting spilled into. Fails if applied to a range with more than one cell. Read only.
@@ -22772,7 +22857,7 @@ declare namespace Excel {
          * @param cellType The type of cells to include.
          * @param cellValueType If cellType is either Constants or Formulas, this argument is used to determine which types of cells to include in the result. These values can be combined together to return more than one type. The default is to select all constants or formulas, no matter what the type.
          */
-        getSpecialCells(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Comments" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
+        getSpecialCells(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
         /**
          *
          * Returns a RangeAreas object that represents all the cells that match the specified type and value. Returns a null object if no special cells are found that match the criteria.
@@ -22794,7 +22879,7 @@ declare namespace Excel {
          * @param cellType The type of cells to include.
          * @param cellValueType If cellType is either Constants or Formulas, this argument is used to determine which types of cells to include in the result. These values can be combined together to return more than one type. The default is to select all constants or formulas, no matter what the type.
          */
-        getSpecialCellsOrNullObject(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Comments" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
+        getSpecialCellsOrNullObject(cellType: "ConditionalFormats" | "DataValidations" | "Blanks" | "Constants" | "Formulas" | "SameConditionalFormat" | "SameDataValidation" | "Visible", cellValueType?: "All" | "Errors" | "ErrorsLogical" | "ErrorsNumbers" | "ErrorsText" | "ErrorsLogicalNumber" | "ErrorsLogicalText" | "ErrorsNumberText" | "Logical" | "LogicalNumbers" | "LogicalText" | "LogicalNumbersText" | "Numbers" | "NumbersText" | "Text"): Excel.RangeAreas;
         /**
          *
          * Returns a scoped collection of tables that overlap with any range in this RangeAreas object.
@@ -35206,7 +35291,7 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param index Index value of the object to be retrieved. Zero-indexed.
+         * @param index Index value of the style object to be retrieved. Zero-indexed.
          */
         getItemAt(index: number): Excel.Style;
         /**
@@ -36443,12 +36528,8 @@ declare namespace Excel {
          * @beta
          *
          * @param geometricShapeType Represents the geometric type of the shape. See Excel.GeometricShapeType for details.
-         * @param left The distance, in points, from the left side of the shape to the left side of the worksheet.
-         * @param top The distance, in points, from the top edge of the shape to the top of the worksheet.
-         * @param width The width, in points, of the shape.
-         * @param height The height, in points, of the shape.
          */
-        addGeometricShape(geometricShapeType: Excel.GeometricShapeType, left: number, top: number, width: number, height: number): Excel.Shape;
+        addGeometricShape(geometricShapeType: Excel.GeometricShapeType): Excel.Shape;
         /**
          *
          * Adds a geometric shape to worksheet. Returns a Shape object that represents the new shape.
@@ -36457,12 +36538,8 @@ declare namespace Excel {
          * @beta
          *
          * @param geometricShapeType Represents the geometric type of the shape. See Excel.GeometricShapeType for details.
-         * @param left The distance, in points, from the left side of the shape to the left side of the worksheet.
-         * @param top The distance, in points, from the top edge of the shape to the top of the worksheet.
-         * @param width The width, in points, of the shape.
-         * @param height The height, in points, of the shape.
          */
-        addGeometricShape(geometricShapeType: "LineInverse" | "Triangle" | "RightTriangle" | "Rectangle" | "Diamond" | "Parallelogram" | "Trapezoid" | "NonIsoscelesTrapezoid" | "Pentagon" | "Hexagon" | "Heptagon" | "Octagon" | "Decagon" | "Dodecagon" | "Star4" | "Star5" | "Star6" | "Star7" | "Star8" | "Star10" | "Star12" | "Star16" | "Star24" | "Star32" | "RoundRectangle" | "Round1Rectangle" | "Round2SameRectangle" | "Round2DiagonalRectangle" | "SnipRoundRectangle" | "Snip1Rectangle" | "Snip2SameRectangle" | "Snip2DiagonalRectangle" | "Plaque" | "Ellipse" | "Teardrop" | "HomePlate" | "Chevron" | "PieWedge" | "Pie" | "BlockArc" | "Donut" | "NoSmoking" | "RightArrow" | "LeftArrow" | "UpArrow" | "DownArrow" | "StripedRightArrow" | "NotchedRightArrow" | "BentUpArrow" | "LeftRightArrow" | "UpDownArrow" | "LeftUpArrow" | "LeftRightUpArrow" | "QuadArrow" | "LeftArrowCallout" | "RightArrowCallout" | "UpArrowCallout" | "DownArrowCallout" | "LeftRightArrowCallout" | "UpDownArrowCallout" | "QuadArrowCallout" | "BentArrow" | "UturnArrow" | "CircularArrow" | "LeftCircularArrow" | "LeftRightCircularArrow" | "CurvedRightArrow" | "CurvedLeftArrow" | "CurvedUpArrow" | "CurvedDownArrow" | "SwooshArrow" | "Cube" | "Can" | "LightningBolt" | "Heart" | "Sun" | "Moon" | "SmileyFace" | "IrregularSeal1" | "IrregularSeal2" | "FoldedCorner" | "Bevel" | "Frame" | "HalfFrame" | "Corner" | "DiagonalStripe" | "Chord" | "Arc" | "LeftBracket" | "RightBracket" | "LeftBrace" | "RightBrace" | "BracketPair" | "BracePair" | "Callout1" | "Callout2" | "Callout3" | "AccentCallout1" | "AccentCallout2" | "AccentCallout3" | "BorderCallout1" | "BorderCallout2" | "BorderCallout3" | "AccentBorderCallout1" | "AccentBorderCallout2" | "AccentBorderCallout3" | "WedgeRectCallout" | "WedgeRRectCallout" | "WedgeEllipseCallout" | "CloudCallout" | "Cloud" | "Ribbon" | "Ribbon2" | "EllipseRibbon" | "EllipseRibbon2" | "LeftRightRibbon" | "VerticalScroll" | "HorizontalScroll" | "Wave" | "DoubleWave" | "Plus" | "FlowChartProcess" | "FlowChartDecision" | "FlowChartInputOutput" | "FlowChartPredefinedProcess" | "FlowChartInternalStorage" | "FlowChartDocument" | "FlowChartMultidocument" | "FlowChartTerminator" | "FlowChartPreparation" | "FlowChartManualInput" | "FlowChartManualOperation" | "FlowChartConnector" | "FlowChartPunchedCard" | "FlowChartPunchedTape" | "FlowChartSummingJunction" | "FlowChartOr" | "FlowChartCollate" | "FlowChartSort" | "FlowChartExtract" | "FlowChartMerge" | "FlowChartOfflineStorage" | "FlowChartOnlineStorage" | "FlowChartMagneticTape" | "FlowChartMagneticDisk" | "FlowChartMagneticDrum" | "FlowChartDisplay" | "FlowChartDelay" | "FlowChartAlternateProcess" | "FlowChartOffpageConnector" | "ActionButtonBlank" | "ActionButtonHome" | "ActionButtonHelp" | "ActionButtonInformation" | "ActionButtonForwardNext" | "ActionButtonBackPrevious" | "ActionButtonEnd" | "ActionButtonBeginning" | "ActionButtonReturn" | "ActionButtonDocument" | "ActionButtonSound" | "ActionButtonMovie" | "Gear6" | "Gear9" | "Funnel" | "MathPlus" | "MathMinus" | "MathMultiply" | "MathDivide" | "MathEqual" | "MathNotEqual" | "CornerTabs" | "SquareTabs" | "PlaqueTabs" | "ChartX" | "ChartStar" | "ChartPlus", left: number, top: number, width: number, height: number): Excel.Shape;
+        addGeometricShape(geometricShapeType: "LineInverse" | "Triangle" | "RightTriangle" | "Rectangle" | "Diamond" | "Parallelogram" | "Trapezoid" | "NonIsoscelesTrapezoid" | "Pentagon" | "Hexagon" | "Heptagon" | "Octagon" | "Decagon" | "Dodecagon" | "Star4" | "Star5" | "Star6" | "Star7" | "Star8" | "Star10" | "Star12" | "Star16" | "Star24" | "Star32" | "RoundRectangle" | "Round1Rectangle" | "Round2SameRectangle" | "Round2DiagonalRectangle" | "SnipRoundRectangle" | "Snip1Rectangle" | "Snip2SameRectangle" | "Snip2DiagonalRectangle" | "Plaque" | "Ellipse" | "Teardrop" | "HomePlate" | "Chevron" | "PieWedge" | "Pie" | "BlockArc" | "Donut" | "NoSmoking" | "RightArrow" | "LeftArrow" | "UpArrow" | "DownArrow" | "StripedRightArrow" | "NotchedRightArrow" | "BentUpArrow" | "LeftRightArrow" | "UpDownArrow" | "LeftUpArrow" | "LeftRightUpArrow" | "QuadArrow" | "LeftArrowCallout" | "RightArrowCallout" | "UpArrowCallout" | "DownArrowCallout" | "LeftRightArrowCallout" | "UpDownArrowCallout" | "QuadArrowCallout" | "BentArrow" | "UturnArrow" | "CircularArrow" | "LeftCircularArrow" | "LeftRightCircularArrow" | "CurvedRightArrow" | "CurvedLeftArrow" | "CurvedUpArrow" | "CurvedDownArrow" | "SwooshArrow" | "Cube" | "Can" | "LightningBolt" | "Heart" | "Sun" | "Moon" | "SmileyFace" | "IrregularSeal1" | "IrregularSeal2" | "FoldedCorner" | "Bevel" | "Frame" | "HalfFrame" | "Corner" | "DiagonalStripe" | "Chord" | "Arc" | "LeftBracket" | "RightBracket" | "LeftBrace" | "RightBrace" | "BracketPair" | "BracePair" | "Callout1" | "Callout2" | "Callout3" | "AccentCallout1" | "AccentCallout2" | "AccentCallout3" | "BorderCallout1" | "BorderCallout2" | "BorderCallout3" | "AccentBorderCallout1" | "AccentBorderCallout2" | "AccentBorderCallout3" | "WedgeRectCallout" | "WedgeRRectCallout" | "WedgeEllipseCallout" | "CloudCallout" | "Cloud" | "Ribbon" | "Ribbon2" | "EllipseRibbon" | "EllipseRibbon2" | "LeftRightRibbon" | "VerticalScroll" | "HorizontalScroll" | "Wave" | "DoubleWave" | "Plus" | "FlowChartProcess" | "FlowChartDecision" | "FlowChartInputOutput" | "FlowChartPredefinedProcess" | "FlowChartInternalStorage" | "FlowChartDocument" | "FlowChartMultidocument" | "FlowChartTerminator" | "FlowChartPreparation" | "FlowChartManualInput" | "FlowChartManualOperation" | "FlowChartConnector" | "FlowChartPunchedCard" | "FlowChartPunchedTape" | "FlowChartSummingJunction" | "FlowChartOr" | "FlowChartCollate" | "FlowChartSort" | "FlowChartExtract" | "FlowChartMerge" | "FlowChartOfflineStorage" | "FlowChartOnlineStorage" | "FlowChartMagneticTape" | "FlowChartMagneticDisk" | "FlowChartMagneticDrum" | "FlowChartDisplay" | "FlowChartDelay" | "FlowChartAlternateProcess" | "FlowChartOffpageConnector" | "ActionButtonBlank" | "ActionButtonHome" | "ActionButtonHelp" | "ActionButtonInformation" | "ActionButtonForwardNext" | "ActionButtonBackPrevious" | "ActionButtonEnd" | "ActionButtonBeginning" | "ActionButtonReturn" | "ActionButtonDocument" | "ActionButtonSound" | "ActionButtonMovie" | "Gear6" | "Gear9" | "Funnel" | "MathPlus" | "MathMinus" | "MathMultiply" | "MathDivide" | "MathEqual" | "MathNotEqual" | "CornerTabs" | "SquareTabs" | "PlaqueTabs" | "ChartX" | "ChartStar" | "ChartPlus"): Excel.Shape;
         /**
          *
          * Group a subset of shapes in a worksheet. Returns a Shape object that represents the new group of shapes.
@@ -36673,6 +36750,14 @@ declare namespace Excel {
          * @beta
          */
         altTextTitle: string;
+        /**
+         *
+         * Returns the number of connection sites on the specified shape. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly connectionSiteCount: number;
         /**
          *
          * Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
@@ -37232,6 +37317,22 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
+         * Represents the shape object that the beginning of the specified line is attached to. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly beginConnectedShape: Excel.Shape;
+        /**
+         *
+         * Represents the shape object that the end of the specified line is attached to. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly endConnectedShape: Excel.Shape;
+        /**
+         *
          * Returns the shape object for the line. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -37240,12 +37341,92 @@ declare namespace Excel {
         readonly shape: Excel.Shape;
         /**
          *
+         * Represents the length of the arrowhead at the beginning of the specified line.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        beginArrowHeadLength: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+        /**
+         *
+         * Represents the style of the arrowhead at the beginning of the specified line.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        beginArrowHeadStyle: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+        /**
+         *
+         * Represents the width of the arrowhead at the beginning of the specified line.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        beginArrowHeadWidth: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+        /**
+         *
+         * Represents an integer that specifies the connection site that the beginning of a connector is connected to. Read-only. Returns null when the beginning of the line is not attached to any shape.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly beginConnectedSite: number;
+        /**
+         *
+         * Represents the length of the arrowhead at the end of the specified line.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        endArrowHeadLength: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+        /**
+         *
+         * Represents the style of the arrowhead at the end of the specified line.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        endArrowHeadStyle: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+        /**
+         *
+         * Represents the width of the arrowhead at the end of the specified line.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        endArrowHeadWidth: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+        /**
+         *
+         * Represents an integer that specifies the connection site that the end of a connector is connected to. Read-only. Returns null when the end of the line is not attached to any shape.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly endConnectedSite: number;
+        /**
+         *
          * Represents the shape identifier. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
         readonly id: string;
+        /**
+         *
+         * Represents whether the beginning of the specified line is connected to a shape. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isBeginConnected: boolean;
+        /**
+         *
+         * Represents whether the end of the specified line is connected to a shape. Read-only.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isEndConnected: boolean;
         /**
          *
          * Represents the connector type for the line.
@@ -37268,6 +37449,44 @@ declare namespace Excel {
         set(properties: Interfaces.LineUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Line): void;
+        /**
+         *
+         * Attaches the beginning of the specified connector to a specified shape.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param shape The shape to attach the beginning of the connector to.
+         * @param connectionSite The connection site on the shape which the beginning of the connector attach to. Must be an integer between 0 and the connection site count(not included) of the specified shape.
+         */
+        beginConnect(shape: Excel.Shape, connectionSite: number): void;
+        /**
+         *
+         * Detaches the beginning of the specified connector from the shape it's attached to.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        beginDisconnect(): void;
+        /**
+         *
+         * Attaches the end of the specified connector to a specified shape.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param shape The shape to attach the end of the connector to.
+         * @param connectionSite The connection site on the shape which the end of the connector attach to. Must be an integer between 0 and the connection site count(not included) of the specified shape.
+         */
+        endConnect(shape: Excel.Shape, connectionSite: number): void;
+        /**
+         *
+         * Detaches the end of the specified connector from the shape it's attached to.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        endDisconnect(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
@@ -37497,6 +37716,13 @@ declare namespace Excel {
     class TextFrame extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext; 
+        /**
+         *
+         * Represents the text range in the text frame.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
         readonly textRange: Excel.TextRange;
         /**
          *
@@ -37903,7 +38129,7 @@ declare namespace Excel {
         nameInFormula: string;
         /**
          *
-         * Represents the sort order of the items in the slicer.
+         * Represents the sort order of the items in the slicer. Possible values are: DataSourceOrder, Ascending, Descending.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37919,7 +38145,7 @@ declare namespace Excel {
         style: string;
         /**
          *
-         * Represents the distance, in points, from the top edge of the slicer to the right of the worksheet.
+         * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an invalid argument exception when set with negative value as input.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -37967,7 +38193,7 @@ declare namespace Excel {
         delete(): void;
         /**
          *
-         * Returns an array of selected items' names. Read-only.
+         * Returns an array of selected items' keys. Read-only.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -37975,8 +38201,8 @@ declare namespace Excel {
         getSelectedItems(): OfficeExtension.ClientResult<string[]>;
         /**
          *
-         * Select slicer items based on their names. Previous selection will be cleared.
-            All items will be deselected if the array is empty.
+         * Select slicer items based on their keys. Previous selection will be cleared.
+            All items will be selected by default if the array is empty.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -38118,7 +38344,9 @@ declare namespace Excel {
         readonly hasData: boolean;
         /**
          *
-         * True if the slicer item is selected. Setting this value will not clear other SlicerItems' selected state.
+         * True if the slicer item is selected.
+            Setting this value will not clear other SlicerItems' selected state.
+            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -38962,6 +39190,36 @@ declare namespace Excel {
         systemDash = "SystemDash",
         systemDot = "SystemDot",
         systemDashDot = "SystemDashDot"
+    }
+    /**
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum ArrowHeadLength {
+        short = "Short",
+        medium = "Medium",
+        long = "Long"
+    }
+    /**
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum ArrowHeadStyle {
+        none = "None",
+        triangle = "Triangle",
+        stealth = "Stealth",
+        diamond = "Diamond",
+        oval = "Oval",
+        open = "Open"
+    }
+    /**
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum ArrowHeadWidth {
+        narrow = "Narrow",
+        medium = "Medium",
+        wide = "Wide"
     }
     /**
      * [Api set: ExcelApi 1.1]
@@ -39875,7 +40133,13 @@ declare namespace Excel {
          *
          */
         worksheetFormatChanged = "WorksheetFormatChanged",
-        wacoperationEvent = "WACOperationEvent"
+        wacoperationEvent = "WACOperationEvent",
+        /**
+         *
+         * RibbonCommandExecuted represents the type of event registered on ribbon, and occurs when user click on ribbon
+         *
+         */
+        ribbonCommandExecuted = "RibbonCommandExecuted"
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -40487,12 +40751,6 @@ declare namespace Excel {
         blanks = "Blanks",
         /**
          *
-         * Cells containing comments.
-         *
-         */
-        comments = "Comments",
-        /**
-         *
          * Cells containing constants.
          *
          */
@@ -40783,6 +41041,24 @@ declare namespace Excel {
         dataSourceOrder = "DataSourceOrder",
         ascending = "Ascending",
         descending = "Descending"
+    }
+    /**
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum RibbonTab {
+        others = "Others",
+        home = "Home",
+        insert = "Insert",
+        draw = "Draw",
+        pageLayout = "PageLayout",
+        formulas = "Formulas",
+        data = "Data",
+        review = "Review",
+        view = "View",
+        developer = "Developer",
+        addIns = "AddIns",
+        help = "Help"
     }
     /**
      *
@@ -48949,6 +49225,54 @@ declare namespace Excel {
         interface LineUpdateData {
             /**
              *
+             * Represents the length of the arrowhead at the beginning of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginArrowHeadLength?: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+            /**
+             *
+             * Represents the style of the arrowhead at the beginning of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginArrowHeadStyle?: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+            /**
+             *
+             * Represents the width of the arrowhead at the beginning of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginArrowHeadWidth?: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+            /**
+             *
+             * Represents the length of the arrowhead at the end of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endArrowHeadLength?: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+            /**
+             *
+             * Represents the style of the arrowhead at the end of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endArrowHeadStyle?: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+            /**
+             *
+             * Represents the width of the arrowhead at the end of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endArrowHeadWidth?: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+            /**
+             *
              * Represents the connector type for the line.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -49241,7 +49565,7 @@ declare namespace Excel {
             nameInFormula?: string;
             /**
              *
-             * Represents the sort order of the items in the slicer.
+             * Represents the sort order of the items in the slicer. Possible values are: DataSourceOrder, Ascending, Descending.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -49257,7 +49581,7 @@ declare namespace Excel {
             style?: string;
             /**
              *
-             * Represents the distance, in points, from the top edge of the slicer to the right of the worksheet.
+             * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an invalid argument exception when set with negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -49282,7 +49606,9 @@ declare namespace Excel {
         interface SlicerItemUpdateData {
             /**
              *
-             * True if the slicer item is selected. Setting this value will not clear other SlicerItems' selected state.
+             * True if the slicer item is selected.
+            Setting this value will not clear other SlicerItems' selected state.
+            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -54667,6 +54993,14 @@ declare namespace Excel {
             altTextTitle?: string;
             /**
              *
+             * Returns the number of connection sites on the specified shape. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            connectionSiteCount?: number;
+            /**
+             *
              * Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -54839,12 +55173,92 @@ declare namespace Excel {
         interface LineData {
             /**
              *
+             * Represents the length of the arrowhead at the beginning of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginArrowHeadLength?: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+            /**
+             *
+             * Represents the style of the arrowhead at the beginning of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginArrowHeadStyle?: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+            /**
+             *
+             * Represents the width of the arrowhead at the beginning of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginArrowHeadWidth?: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+            /**
+             *
+             * Represents an integer that specifies the connection site that the beginning of a connector is connected to. Read-only. Returns null when the beginning of the line is not attached to any shape.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginConnectedSite?: number;
+            /**
+             *
+             * Represents the length of the arrowhead at the end of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endArrowHeadLength?: Excel.ArrowHeadLength | "Short" | "Medium" | "Long";
+            /**
+             *
+             * Represents the style of the arrowhead at the end of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endArrowHeadStyle?: Excel.ArrowHeadStyle | "None" | "Triangle" | "Stealth" | "Diamond" | "Oval" | "Open";
+            /**
+             *
+             * Represents the width of the arrowhead at the end of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endArrowHeadWidth?: Excel.ArrowHeadWidth | "Narrow" | "Medium" | "Wide";
+            /**
+             *
+             * Represents an integer that specifies the connection site that the end of a connector is connected to. Read-only. Returns null when the end of the line is not attached to any shape.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endConnectedSite?: number;
+            /**
+             *
              * Represents the shape identifier. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
             id?: string;
+            /**
+             *
+             * Represents whether the beginning of the specified line is connected to a shape. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isBeginConnected?: boolean;
+            /**
+             *
+             * Represents whether the end of the specified line is connected to a shape. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isEndConnected?: boolean;
             /**
              *
              * Represents the connector type for the line.
@@ -55179,7 +55593,7 @@ declare namespace Excel {
             nameInFormula?: string;
             /**
              *
-             * Represents the sort order of the items in the slicer.
+             * Represents the sort order of the items in the slicer. Possible values are: DataSourceOrder, Ascending, Descending.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -55195,7 +55609,7 @@ declare namespace Excel {
             style?: string;
             /**
              *
-             * Represents the distance, in points, from the top edge of the slicer to the right of the worksheet.
+             * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an invalid argument exception when set with negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -55228,7 +55642,9 @@ declare namespace Excel {
             hasData?: boolean;
             /**
              *
-             * True if the slicer item is selected. Setting this value will not clear other SlicerItems' selected state.
+             * True if the slicer item is selected.
+            Setting this value will not clear other SlicerItems' selected state.
+            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63447,6 +63863,14 @@ declare namespace Excel {
             altTextTitle?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Returns the number of connection sites on the specified shape. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            connectionSiteCount?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -63651,6 +64075,14 @@ declare namespace Excel {
              * @beta
              */
             altTextTitle?: boolean;
+            /**
+             *
+             * Returns the number of connection sites on the specified shape. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            connectionSiteCount?: boolean;
             /**
              *
              * Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
@@ -63945,6 +64377,14 @@ declare namespace Excel {
             altTextTitle?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Returns the number of connection sites on the specified shape. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            connectionSiteCount?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents the geometric shape type of the specified shape. See Excel.GeometricShapeType for detail. Returns null if the shape is not geometric, for example, get GeometricShapeType of a line or a chart will return null.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -64071,6 +64511,22 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
+            * Represents the shape object that the beginning of the specified line is attached to.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            beginConnectedShape?: Excel.Interfaces.ShapeLoadOptions;
+            /**
+            *
+            * Represents the shape object that the end of the specified line is attached to.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            endConnectedShape?: Excel.Interfaces.ShapeLoadOptions;
+            /**
+            *
             * Returns the shape object for the line.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -64079,12 +64535,92 @@ declare namespace Excel {
             shape?: Excel.Interfaces.ShapeLoadOptions;
             /**
              *
+             * Represents the length of the arrowhead at the beginning of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginArrowHeadLength?: boolean;
+            /**
+             *
+             * Represents the style of the arrowhead at the beginning of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginArrowHeadStyle?: boolean;
+            /**
+             *
+             * Represents the width of the arrowhead at the beginning of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginArrowHeadWidth?: boolean;
+            /**
+             *
+             * Represents an integer that specifies the connection site that the beginning of a connector is connected to. Read-only. Returns null when the beginning of the line is not attached to any shape.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            beginConnectedSite?: boolean;
+            /**
+             *
+             * Represents the length of the arrowhead at the end of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endArrowHeadLength?: boolean;
+            /**
+             *
+             * Represents the style of the arrowhead at the end of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endArrowHeadStyle?: boolean;
+            /**
+             *
+             * Represents the width of the arrowhead at the end of the specified line.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endArrowHeadWidth?: boolean;
+            /**
+             *
+             * Represents an integer that specifies the connection site that the end of a connector is connected to. Read-only. Returns null when the end of the line is not attached to any shape.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            endConnectedSite?: boolean;
+            /**
+             *
              * Represents the shape identifier. Read-only.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
              */
             id?: boolean;
+            /**
+             *
+             * Represents whether the beginning of the specified line is connected to a shape. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isBeginConnected?: boolean;
+            /**
+             *
+             * Represents whether the end of the specified line is connected to a shape. Read-only.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isEndConnected?: boolean;
             /**
              *
              * Represents the connector type for the line.
@@ -64195,6 +64731,13 @@ declare namespace Excel {
          */
         interface TextFrameLoadOptions {
             $all?: boolean;
+            /**
+            *
+            * Represents the text range in the text frame.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
             textRange?: Excel.Interfaces.TextRangeLoadOptions;
             /**
              *
@@ -64451,7 +64994,7 @@ declare namespace Excel {
             nameInFormula?: boolean;
             /**
              *
-             * Represents the sort order of the items in the slicer.
+             * Represents the sort order of the items in the slicer. Possible values are: DataSourceOrder, Ascending, Descending.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64467,7 +65010,7 @@ declare namespace Excel {
             style?: boolean;
             /**
              *
-             * Represents the distance, in points, from the top edge of the slicer to the right of the worksheet.
+             * Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an invalid argument exception when set with negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -64561,7 +65104,7 @@ declare namespace Excel {
             nameInFormula?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the sort order of the items in the slicer.
+             * For EACH ITEM in the collection: Represents the sort order of the items in the slicer. Possible values are: DataSourceOrder, Ascending, Descending.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64577,7 +65120,7 @@ declare namespace Excel {
             style?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents the distance, in points, from the top edge of the slicer to the right of the worksheet.
+             * For EACH ITEM in the collection: Represents the distance, in points, from the top edge of the slicer to the top of the worksheet.
             Throws an invalid argument exception when set with negative value as input.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -64613,7 +65156,9 @@ declare namespace Excel {
             hasData?: boolean;
             /**
              *
-             * True if the slicer item is selected. Setting this value will not clear other SlicerItems' selected state.
+             * True if the slicer item is selected.
+            Setting this value will not clear other SlicerItems' selected state.
+            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64655,7 +65200,9 @@ declare namespace Excel {
             hasData?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: True if the slicer item is selected. Setting this value will not clear other SlicerItems' selected state.
+             * For EACH ITEM in the collection: True if the slicer item is selected.
+            Setting this value will not clear other SlicerItems' selected state.
+            By default, if the slicer item is the only one selected, when it is deselected, all items will be selected.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -64703,6 +65250,7 @@ declare namespace Excel {
         }
     }
 }
+
 
 ////////////////////////////////////////////////////////////////
 //////////////////////// End Excel APIs ////////////////////////

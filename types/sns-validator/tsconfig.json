@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "internal-ip-tests.ts"
+        "sns-validator-tests.ts"
     ]
 }
