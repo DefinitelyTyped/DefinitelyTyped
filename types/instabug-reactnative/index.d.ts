@@ -1,139 +1,498 @@
-// Type definitions for instabug-reactnative 8.0
+// Type definitions for instabug-reactnative 8.0.26
 // Project: https://github.com/Instabug/instabug-reactnative#readme
-// Definitions by: Peng Cao <https://github.com/pengcao1>
+// Definitions by: Aly Ezz <https://github.com/alyezz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export const Instabug: InstabugStatic;
-export type Instabug = InstabugStatic;
-export type BugReporting = BugReportingStatic;
-export default Instabug;
+declare module "instabug-reactnative" {
+    
+    module BugReporting {
 
-interface InstabugStatic {
-    invocationEvent: InvocationEvent;
-    colorTheme: ColorTheme;
-    locale: Locale;
-    strings: Strings;
-    welcomeMessageMode: WelcomeMessageMode;
-    startWithToken(token: string, event: string[]): void;
-    setColorTheme(colorTheme: string): void;
-    setPrimaryColor(color: number): void;
-    setFloatingButtonEdge(): void;
-    setLocale(locale: string): void;
-    setStringToKey(key: string): void;
-    setWelcomeMessageMode(welcomeMsg: string): void;
-    identifyUserWithEmail(email: string, name: string): void;
-    setUserAttribute(key: string, value: string): void;
-    getUserAttribute(key: string, callBack: (attribute: string) => void): void;
-    getAllUserAttributes(callBack: (allAttributes: string[]) => void): void;
-    removeUserAttribute(key: string): void;
-    setUserData(key: string): void;
-    logOut(): void;
-    logVerbose(info: string): void;
-    logInfo(info: string): void;
-    logDebug(info: string): void;
-    logError(info: string): void;
-    logWarn(info: string): void;
-    setUserStepsEnabled(enabled: boolean): void;
-    setAutoScreenRecordingEnabled(enabled: boolean): void;
-    setAutoScreenRecordingMaxDuration(ms: number): void;
-    setViewHierarchyEnabled(enabled: boolean): void;
-    resetTags(): void;
-    getTags(callBack: (tags: string) => void): void;
-    appendTags(tags: string[]): void;
-    setSessionProfilerEnabled(enabled: boolean): void;
-    setCrashReportingEnabled(enabled: boolean): void;
-    setChatNotificationEnabled(enabled: boolean): void;
-    getUnreadMessagesCount(callBack: (count: number) => void): void;
-    setOnNewMessageHandler(callBacck: () => void): void;
-    setPromptOptionsEnabled(chat: boolean, bug: boolean, feedback: boolean): void;
-    setSurveysEnabled(enabled: boolean): void;
-    setPostInvocationHandler(): void;
-}
+      function setInvocationEvents(invocationEvents: invocationEvent[]): void;
 
-interface WelcomeMessageMode {
-    beta: string;
-    live: string;
-    disabled: string;
-}
+      function invoke(): void;
 
-interface Strings {
-    shakeHint: string;
-    swipeHint: string;
-    edgeSwipeStartHint: string;
-    startAlertText: string;
-    invalidEmailMessage: string;
-    invalidEmailTitle: string;
-    invalidCommentMessage: string;
-    invalidCommentTitle: string;
-    invocationHeader: string;
-    talkToUs: string;
-    reportBug: string;
-    reportFeedback: string;
-    emailFieldHint: string;
-    commentFieldHintForBugReport: string;
-    commentFieldHintForFeedback: string;
-    addVideoMessage: string;
-    addVoiceMessage: string;
-    addImageFromGallery: string;
-    addExtraScreenshot: string;
-    audioRecordingPermissionDeniedTitle: string;
-    audioRecordingPermissionDeniedMessage: string;
-    // microphonePermissionAlertSettingsButtonText Instabug.microphonePermissionAlertSettingsButtonText,
-    recordingMessageToHoldText: string;
-    recordingMessageToReleaseText: string;
-    conversationsHeaderTitle: string;
-    screenshotHeaderTitle: string;
-    chatsNoConversationsHeadlineText: string;
-    doneButtonText: string;
-    okButtonText: string;
-    cancelButtonText: string;
-    thankYouText: string;
-    audio: string;
-    video: string;
-    image: string;
-    chatsHeaderTitle: string;
-    team: string;
-    messageNotification: string;
-    messagesNotificationAndOthers: string;
+      function setInvocationOptions(invocationOptions: invocationOptions[]): void;
 
-    // iOS only
-    // Instabug.strings.collectingDataText
-}
+      function invokeWithInvocationModeAndOptions(
+        invocationMode: invocationMode,
+        invocationOptions: invocationOptions[]
+        ): void;
+      
+      function onInvokeHandler(preInvocationHandler: Function): void;
 
-interface Locale {
-    arabic: string;
-    chineseSimplified: string;
-    chineseTraditional: string;
-    czech: string;
-    danish: string;
-    english: string;
-    french: string;
-    german: string;
-    italian: string;
-    japanese: string;
-    polish: string;
-    portugueseBrazil: string;
-    russian: string;
-    spanish: string;
-    swedish: string;
-    turkish: string;
-}
+      function onReportSubmitHandler(preSendingHandler: Function): void;
 
-interface ColorTheme {
-    light: string;
-    dark: string;
-}
+      function onSDKDismissedHandler(postInvocationHandler: Function): void;
 
-interface InvocationEvent {
-    none: string;
-    shake: string;
-    screenshot: string;
-    twoFingersSwipe: string;
-    floatingButton: string;
-}
+      function dismiss(): void;
 
-interface BugReportingStatic {
-    setShakingThresholdForAndroid(shakingThreshold: number): void;
-    setShakingThresholdForiPhone(shakingThreshold: number): void;
-    setShakingThresholdForiPad(shakingThreshold: number): void;
-}
+      function setPromptOptionsEnabled(
+        chat: boolean,
+        bug: boolean, 
+        feedback: boolean
+        ): void;
+
+      function setShakingThresholdForiPhone(iPhoneShakingThreshold: number): void;
+
+      function setShakingThresholdForiPad(iPadShakingThreshold: number): void;
+
+      function setShakingThresholdForAndroid(androidThreshold: number): void;
+
+      function setExtendedBugReportMode(extendedBugReportMode: extendedBugReportMode): void;
+
+      enum invocationEvent {
+        none,
+        shake,
+        screenshot,
+        twoFingersSwipe,
+        floatingButton
+      }
+      enum invocationMode {
+        NA,
+        newBug,
+        newFeedback,
+        newChat,
+        chatsList
+      }
+      enum invocationOptions {
+        emailFieldHidden,
+        emailFieldOptional,
+        commentFieldRequired,
+        disablePostSendingDialog
+      }
+      enum extendedBugReportMode {
+        enabledWithRequiredFields,
+        enabledWithOptionalFields,
+        disabled
+      }
+    }
+
+    module FeatureRequests {
+
+      function setEmailFieldRequired(
+        isEmailFieldRequired: boolean, 
+        actionTypes: actionTypes[]
+        ): void;
+
+      function show(): void;
+
+      enum actionTypes {
+        allActions,
+        reportBug,
+        requestNewFeature,
+        addCommentToFeature
+      }
+    }
+
+    module Surveys {
+
+      function showSurveyIfAvailable(): void;
+
+      function setThresholdForReshowingSurveyAfterDismiss(
+        sessionCount: number, 
+        daysCount: number
+        ): void;
+
+      function getAvailableSurveys(availableSurveysCallback: Function): void;
+
+      function setAutoShowingEnabled(autoShowingSurveysEnabled: boolean): void;
+
+      function onShowCallback(willShowSurveyHandler: Function): void;
+
+      function onDismissCallback(didDismissSurveyHandler: Function): void;
+      
+      function showSurvey(surveyToken: String): void;
+
+      function hasRespondedToSurvey(
+        surveyToken: String, 
+        surveyTokenCallback: Function
+        ): void;
+
+      function setShouldShowWelcomeScreen(shouldShowWelcomeScreen: boolean): void;
+    }
+
+    function startWithToken(
+      token: String, 
+      invocationEvent: invocationEvent[]
+      ): void;
+
+    function invoke(): void;
+
+    function invokeWithInvocationMode(invocationMode: invocationMode): void;
+
+    function dismiss(): void;
+
+    function setUserData(userData: String): void;
+
+    function setAutoScreenRecordingEnabled(autoScreenRecordingEnabled: boolean): void;
+
+    function setAutoScreenRecosetAutoScreenRecordingMaxDurationrdingEnabled(autoScreenRecordingMaxDuration: number): void;
+
+    function IBGLog(log: String): void;
+
+    function setUserStepsEnabled(isUserStepsEnabled: boolean): void;
+
+    function setIBGLogPrintsToConsole(printsToConsole: boolean): void;
+
+    function setCrashReportingEnabled(enableCrashReporter: boolean): void;
+
+    function setPreSendingHandler(preSendingHandler: Function): void;
+
+    function setDidSelectPromptOptionHandler(didSelectPromptOptionHandler: Function): void;
+
+    function showSurveyWithToken(surveyToken: String): void;
+
+    function hasRespondedToSurveyWithToken(
+      surveyToken: String, 
+      surveyTokenCallback: Function
+      ): void;
+
+    function setSessionProfilerEnabled(sessionProfilerEnabled: boolean): void;
+
+    function setPreInvocationHandler(preInvocationHandler: Function): void;
+
+    function setPostInvocationHandler(postInvocationHandler: Function): void;
+
+    function showIntroMessage(): void;
+
+    function setUserEmail(userEmail: String): void;
+
+    function setUserName(userName: String): void;
+
+    function setWillSkipScreenshotAnnotation(setWillSkipScreenshotAnnotation: boolean): void;
+
+    function getUnreadMessagesCount(messageCountCallback: Function): void;
+
+    function setInvocationEvent(invocationEvent: invocationEvent): void;
+
+    function setPushNotificationsEnabled(isPushNotificationEnabled: boolean): void;
+
+    function setEmailFieldRequired(isEmailFieldRequired: boolean): void;
+
+    function setEmailFieldRequiredForActions(
+      isEmailFieldRequired: boolean, 
+      actionTypes: actionTypes
+      ): void;
+
+    function setCommentFieldRequired(isCommentFieldRequired: boolean): void;
+
+    function setShakingThresholdForIPhone(
+      iPhoneShakingThreshold: number, 
+      iPadShakingThreshold: number
+      ): void;
+
+    function setShakingThresholdForiPhone(iPhoneShakingThreshold: number): void;
+
+    function setShakingThresholdForiPad(iPadShakingThreshold: number): void;
+
+    function setShakingThresholdForAndroid(androidThreshold: number): void;
+
+    function setFloatingButtonEdge(
+      floatingButtonEdge: number, 
+      offsetFromTop: number
+      ): void;
+
+    function setLocale(locale: locale): void;
+
+    function setIntroMessageEnabled(isIntroMessageEnabled: boolean): void;
+
+    function setColorTheme(colorTheme: colorTheme): void;
+
+    function setPrimaryColor(setPrimaryColor: String): void;
+    
+    function appendTags(tags: String[]): void;
+
+    function resetTags(): void;
+
+    function getTags(tagsCallback: Function): void;
+
+    function setStringToKey(
+      string: String, 
+      key: String
+      ): void;
+
+    function setAttachmentTypesEnabled(
+      screenshot: boolean, 
+      extraScreenshot: boolean, 
+      galleryImage: boolean, 
+      voiceNote: boolean, 
+      screenRecording: boolean
+      ): void;
+
+    function setEnabledAttachmentTypes(
+      screenshot: boolean, 
+      extraScreenshot: boolean, 
+      galleryImage: boolean, 
+      screenRecording: boolean
+      ): void;
+
+    function setChatNotificationEnabled(isChatNotificationEnabled: boolean): void;
+
+    function setOnNewMessageHandler(onNewMessageHandler: Function): void;
+
+    function isInstabugNotification(
+      dict: any, 
+      isInstabugNotificationCallback: Function
+      ): void;
+
+    function identifyUserWithEmail(
+      email: String, 
+      name: String
+      ): void;
+
+    function logOut(): void;
+
+    function setReportCategories(...titles: String[]): void;
+
+    function setExtendedBugReportMode(extendedBugReportMode: extendedBugReportMode): void;
+
+    function logUserEventWithName(name: String): void;
+
+    function logUserEventWithName(
+      name: String, 
+      params: any
+      ): void;
+
+    function logVerbose(message: String): void;
+
+    function logInfo(message: String): void;
+
+    function logDebug(message: String): void;
+
+    function logError(message: String): void;
+
+    function logWarn(message: String): void;
+
+    function clearLogs(): void;
+
+    function setReproStepsMode(reproStepsMode: reproStepsMode): void;
+
+    function setUserAttribute(
+      key: String, 
+      value: String
+      ): void;
+
+    function getUserAttribute(
+      key: String, 
+      userAttributeCallback: Function)
+      : void;
+
+    function removeUserAttribute(key: String): void;
+
+    function getAllUserAttributes(userAttributesCallback: Function): void;
+
+    function clearAllUserAttributes(): void;
+
+    function setViewHierarchyEnabled(viewHierarchyEnabled: boolean): void;
+
+    function setSurveysEnabled(surveysEnabled: boolean): void;
+
+    function showSurveysIfAvailable(): void;
+
+    function setWillShowSurveyHandler(willShowSurveyHandler: Function): void;
+
+    function setDidDismissSurveyHandler(didDismissSurveyHandler: Function): void;
+
+    function setPromptOptionsEnabled(
+      chat: boolean, 
+      bug:boolean, 
+      feedback:boolean
+      ): void;
+
+    function setDebugEnabled(isDebugEnabled: boolean): void;
+
+    function enable(): void;
+
+    function disable(): void;
+
+    function isRunningLive(runningLiveCallBack: Function): void;
+
+    function setSuccessDialogEnabled(enabled: boolean): void;
+
+    function setEnableInAppNotificationSound(shouldPlaySound: boolean): void;
+
+    function reportJSException(errorObject: any): void;
+
+    function setVideoRecordingFloatingButtonPosition(position: IBGPosition): void;
+
+    function setThresholdForReshowingSurveyAfterDismiss(
+      sessionCount: number, 
+      daysCount: number
+      ): void;
+
+    function setAutoShowingSurveysEnabled(autoShowingSurveysEnabled: boolean): void;
+
+    function showFeatureRequests(): void;
+
+    function setShouldShowSurveysWelcomeScreen(shouldShowWelcomeScreen: boolean): void;
+
+    function showWelcomeMessage(welcomeMessageMode: welcomeMessageMode): void;
+
+    function setWelcomeMessageMode(welcomeMessageMode: welcomeMessageMode): void;
+
+    function addFileAttachment(
+      filePath: String, 
+      fileName: String
+      ): void;
+
+    function callPrivateApi(
+      apiName: String, 
+      param: any
+      ): void;
+
+    enum invocationEvent {
+      none,
+      shake,
+      screenshot,
+      twoFingersSwipe,
+      floatingButton
+   }
+
+   enum reproStepsMode {
+      enabled,
+      disabled,
+      enabledWithNoScreenshots
+   }
+
+   enum dismissType {
+      submit,
+      cancel,
+      addAttachment
+   }
+
+   enum promptOption {
+      bug,
+      chat,
+      feedback
+   }
+
+   enum reportType {
+      bug,
+      feedback
+   }
+
+   enum invocationMode {
+      NA,
+      newBug,
+      newFeedback,
+      newChat,
+      chatsList
+   }
+
+   enum invocationOptions {
+      invocationOptionsEmailFieldHidden,
+      invocationOptionsEmailFieldOptional,
+      invocationOptionsCommentFieldRequired,
+      invocationOptionsDisablePostSendingDialog
+   }
+
+   enum extendedBugReportMode {
+      enabledWithRequiredFields,
+      enabledWithOptionalFields,
+      disabled
+   }
+
+   enum locale {
+      arabic,
+      chineseSimplified,
+      chineseTraditional,
+      czech,
+      danish,
+      dutch,
+      english,
+      french,
+      german,
+      italian,
+      japanese,
+      polish,
+      portugueseBrazil,
+      russian,
+      spanish,
+      swedish,
+      turkish,
+      korean
+   }
+
+    enum colorTheme {
+      light,
+      dark
+   }
+    
+   enum floatingButtonEdge {
+      left,
+      right
+   }
+
+    enum IBGPosition {
+      bottomRight,
+      topRight,
+      bottomLeft,
+      topLeft
+   }
+
+   enum welcomeMessageMode {
+      live,
+      beta,
+      disabled
+   }
+
+    enum actionTypes {
+      allActions,
+      reportBug,
+      requestNewFeature,
+      addCommentToFeature
+   }
+   
+    enum strings {
+      shakeHint, 
+      swipeHint, 
+      edgeSwipeStartHint, 
+      startAlertText, 
+      invalidEmailMessage, 
+      invalidEmailTitle, 
+      invalidCommentMessage, 
+      invalidCommentTitle, 
+      invocationHeader, 
+      talkToUs, 
+      reportBug, 
+      reportFeedback, 
+      emailFieldHint, 
+      commentFieldHintForBugReport, 
+      commentFieldHintForFeedback, 
+      addVideoMessage, 
+      addVoiceMessage, 
+      addImageFromGallery, 
+      addExtraScreenshot, 
+      audioRecordingPermissionDeniedTitle,
+      audioRecordingPermissionDeniedMessage,
+      microphonePermissionAlertSettingsButtonText,
+      recordingMessageToHoldText, 
+      recordingMessageToReleaseText, 
+      conversationsHeaderTitle, 
+      screenshotHeaderTitle, 
+      chatsNoConversationsHeadlineText, 
+      doneButtonText, 
+      okButtonText, 
+      cancelButtonText, 
+      thankYouText, 
+      audio, 
+      video, 
+      image, 
+      chatsHeaderTitle, 
+      team, 
+      messagesNotification, 
+      messagesNotificationAndOthers, 
+      conversationTextFieldHint, 
+      collectingDataText, 
+      thankYouAlertText, 
+      welcomeMessageBetaWelcomeStepTitle,
+      welcomeMessageBetaWelcomeStepContent,
+      welcomeMessageBetaHowToReportStepTitle,
+      welcomeMessageBetaHowToReportStepContent,
+      welcomeMessageBetaFinishStepTitle,
+      welcomeMessageBetaFinishStepContent,
+      welcomeMessageLiveWelcomeStepTitle,
+      welcomeMessageLiveWelcomeStepContent
+   }
+
+  }
