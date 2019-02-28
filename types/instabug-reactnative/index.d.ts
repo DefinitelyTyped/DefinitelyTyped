@@ -81,7 +81,7 @@ export namespace Surveys {
   function setShouldShowWelcomeScreen(shouldShowWelcomeScreen: boolean): void;
 }
 export function startWithToken(
-  token: string, 
+  token: string,
   invocationEvent: invocationEvent[]
   ): void;
 export function invoke(): void;
@@ -136,7 +136,7 @@ export function appendTags(tags: string[]): void;
 export function resetTags(): void;
 export function getTags(tagsCallback: () => void): void;
 export function setstringToKey(
-  string: string, 
+  string: string,
   key: string
   ): void;
 export function setAttachmentTypesEnabled(
@@ -155,7 +155,7 @@ export function setEnabledAttachmentTypes(
 export function setChatNotificationEnabled(isChatNotificationEnabled: boolean): void;
 export function setOnNewMessageHandler(onNewMessageHandler: () => void): void;
 export function isInstabugNotification(
-  dict: any, 
+  dict: any,
   isInstabugNotificationCallback: () => void
   ): void;
 export function identifyUserWithEmail(
@@ -168,7 +168,7 @@ export function setExtendedBugReportMode(extendedBugReportMode: extendedBugRepor
 export function logUserEventWithName(name: string): void;
 export function logUserEventWithName(
   name: string,
-  params: any
+  params: string
   ): void;
 export function logVerbose(message: string): void;
 export function logInfo(message: string): void;
