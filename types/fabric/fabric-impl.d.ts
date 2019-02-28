@@ -3815,9 +3815,10 @@ export class Text extends Object {
 	/**
 	 * measure a text line measuring all characters.
 	 * @param {Number} lineIndex line number
-	 * @return {Number} Line width
+     * @return {Object} object.width total width of characters
+     * @return {Object} object.numOfSpaces length of chars that match this._reSpacesAndTabs
 	 */
-	measureLine(lineIndex: number): number;
+	measureLine(lineIndex: number): { width: number, numOfSpaces: number };
 	/**
 	 * Calculate height of line at 'lineIndex'
 	 * @param {Number} lineIndex index of line to calculate
