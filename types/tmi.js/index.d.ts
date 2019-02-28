@@ -6,7 +6,7 @@
 
 // Twitch IRC docs: https://dev.twitch.tv/docs/irc/
 // Last updated: 2019/2/27
-import { StrictEventEmitter } from "strict-event-emitter-types";
+import { StrictEventEmitter } from "./strict-event-emitter-types";
 
 export interface Actions {
     action(channel: string, message: string): Promise<[string]>;
