@@ -1,6 +1,6 @@
 import stampit = require('stampit');
 
-const a = stampit().init(function (options) {
+const a = stampit().init(function(options) {
     const a = options.args[0];
     this.getA = () => {
         return a;
