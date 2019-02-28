@@ -910,12 +910,8 @@ declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
     var SlowBuffType: typeof SlowBuffer;
-
-    export function transcode(
-        source: Buffer | Uint8Array,
-        fromEnc: "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary",
-        toEnc: "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary"): Buffer;
-
+    export type TranscodeEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary";
+    export function transcode(source: Buffer | Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
     export { BuffType as Buffer, SlowBuffType as SlowBuffer };
 }
 
