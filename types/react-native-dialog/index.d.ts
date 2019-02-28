@@ -1,4 +1,4 @@
-// Type definitions for react-native-dialog 4.0
+// Type definitions for react-native-dialog 5.5
 // Project: https://github.com/mmazzarolo/react-native-dialog
 // Definitions by: MrLuje <https://github.com/MrLuje>
 //                 Stack Builders <https://github.com/stackbuilders>
