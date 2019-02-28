@@ -1,3 +1,4 @@
+import {CheerioStatic} from 'cheerio';
 import cheerio = require('gulp-cheerio');
 import gulp = require('gulp');
 import Vinyl = require('vinyl');

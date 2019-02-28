@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-/// <reference types="cheerio" />
+import { Cheerio } from 'cheerio';
 
 export type Node = string | [string, ...any[]];
 export function parse(xml: string, trim?: boolean): Node[];

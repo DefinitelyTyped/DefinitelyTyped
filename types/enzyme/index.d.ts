@@ -12,7 +12,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-/// <reference types="cheerio" />
+import { Cheerio } from 'cheerio';
 import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;

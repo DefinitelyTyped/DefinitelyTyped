@@ -3,8 +3,7 @@ import cheerio = require('cheerio');
 /*
  * LOADING
  */
-let html =
-`<ul id="fruits">
+let html = `<ul id="fruits">
   <li class="orange">Apple</li>
   <li class="class">Orange</li>
   <li class="pear">Pear</li>
@@ -18,15 +17,15 @@ cheerio(html);
 cheerio('ul', html);
 cheerio('li', 'ul', html);
 
-const $fromElement = cheerio.load($("ul").get(0));
+const $fromElement = cheerio.load($('ul').get(0));
 
-if ($fromElement("ul > li").length !== 3) {
-  throw new Error("Expecting 3 elements when passing `CheerioElement` to `load()`");
+if ($fromElement('ul > li').length !== 3) {
+    throw new Error('Expecting 3 elements when passing `CheerioElement` to `load()`');
 }
 
 $ = cheerio.load(html, {
     normalizeWhitespace: true,
-    xmlMode: true
+    xmlMode: true,
 });
 
 $ = cheerio.load(html, {
@@ -36,7 +35,7 @@ $ = cheerio.load(html, {
     lowerCaseTags: true,
     lowerCaseAttributeNames: true,
     recognizeCDATA: true,
-    recognizeSelfClosing: true
+    recognizeSelfClosing: true,
 });
 
 /**
@@ -55,8 +54,8 @@ $el.attr('id');
 $el.attr('id', 'favorite').html();
 
 // props
-$el.prop('style')
-$el.prop('style', 'none').html()
+$el.prop('style');
+$el.prop('style', 'none').html();
 
 // data
 $el.data();
@@ -65,7 +64,9 @@ $el.data('kind', 'mac');
 
 // val
 $('input[type="text"]').val();
-$('input[type="text"]').val('test').html();
+$('input[type="text"]')
+    .val('test')
+    .html();
 
 // removeAttr
 $el.removeAttr('class').html();
@@ -74,14 +75,16 @@ $el.removeAttr('class').html();
 $el.addClass('class').addClass('test');
 $el.hasClass('test');
 $el.removeClass('class').removeClass('test');
-$el.addClass('red').removeClass().html();
+$el.addClass('red')
+    .removeClass()
+    .html();
 $el.toggleClass('fruit green red').html();
 
 // is
 $el.is('#id');
 $el.is($el);
 $el.is(() => {
-  return true;
+    return true;
 });
 
 /**
@@ -94,7 +97,7 @@ $('<form><input name="foo" value="bar" /></form>').serialize();
 /**
  * Traversing
  */
- // find
+// find
 $el.find('li').length;
 $el.find($('.apple')).length;
 
@@ -139,7 +142,9 @@ $el.prevUntil();
 $el.prevUntil('.class');
 
 // .slice( start, [end] )
-$el.slice(1).eq(0).text();
+$el.slice(1)
+    .eq(0)
+    .text();
 $el.slice(1, 2).length;
 
 // .siblings([selector])
@@ -155,13 +160,15 @@ $el.contents().length;
 
 // .each( function(index, element) )
 $el.each((i, el) => {
-  $(el).html();
+    $(el).html();
 });
 
 // .map( function(index, element) )
 $el.map((i, el) => {
-  return $(el).text();
-}).get().join(' ');
+    return $(el).text();
+})
+    .get()
+    .join(' ');
 
 // .filter
 $ = cheerio.load(html);
@@ -170,7 +177,7 @@ $el.filter($('.class')).attr('class');
 $el.filter($('.class')[0]).attr('class');
 
 $el.filter((i, el) => {
-  return $(el).attr('class') === 'class';
+    return $(el).attr('class') === 'class';
 }).attr('class');
 
 // .not
@@ -179,7 +186,7 @@ $el.not($('.class')).length;
 $el.not($('.class')[0]).length;
 
 $el.not((i, el) => {
-  return $(el).attr('class') === 'class';
+    return $(el).attr('class') === 'class';
 }).length;
 
 // .has
@@ -187,10 +194,14 @@ $el.has('.class').attr('id');
 $el.has($el[0]).attr('id');
 
 // .first()
-$el.children().first().text();
+$el.children()
+    .first()
+    .text();
 
 // .last()
-$el.children().last().text();
+$el.children()
+    .last()
+    .text();
 
 // .eq( i )
 $el.eq(0).text();
@@ -211,18 +222,18 @@ $el.index($('#fruit, li'));
 $el.eq(0).end().length;
 
 // .add
-$el.add('.class').length
+$el.add('.class').length;
 
 // .addBack( [filter] )
-$el.eq(0).addBack().length
-$el.eq(0).addBack('.class').length
+$el.eq(0).addBack().length;
+$el.eq(0).addBack('.class').length;
 
 /**
  * Manipulation
  */
 
-$('<li class="plum">Plum</li>').appendTo($el)
-$el.prependTo($('<li class="plum">Plum</li>'))
+$('<li class="plum">Plum</li>').appendTo($el);
+$el.prependTo($('<li class="plum">Plum</li>'));
 
 // .append( content, [content, ...] )
 $el.append('<li class="plum">Plum</li>').html();
@@ -237,14 +248,18 @@ $el.after('<li class="plum">Plum</li>').html();
 $el.after('<li class="plum">Plum</li>', '<li class="plum">Plum</li>').html();
 
 // .insertAfter( content )
-$('<li class="plum">Plum</li>').insertAfter('.class').html();
+$('<li class="plum">Plum</li>')
+    .insertAfter('.class')
+    .html();
 
 // .before( content, [content, ...] )
 $el.before('<li class="plum">Plum</li>').html();
 $el.before('<li class="plum">Plum</li>', '<li class="plum">Plum</li>').html();
 
 // .insertBefore( content )
-$('<li class="plum">Plum</li>').insertBefore('.class').html();
+$('<li class="plum">Plum</li>')
+    .insertBefore('.class')
+    .html();
 
 // .remove( [selector] )
 $el.remove().html();
@@ -291,7 +306,9 @@ $el.clone().html();
  */
 
 // $.root
-$.root().append('<ul id="vegetables"></ul>').html();
+$.root()
+    .append('<ul id="vegetables"></ul>')
+    .html();
 
 // $.contains( container, contained )
 $.contains($el[0], $el[0]);

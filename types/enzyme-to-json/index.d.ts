@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
+import { Cheerio } from 'cheerio';
 import { ReactWrapper, ShallowWrapper } from 'enzyme';
 
 export default function toJson<P, S>(wrapper: ShallowWrapper<P, S> | ReactWrapper<P, S> | Cheerio): object;

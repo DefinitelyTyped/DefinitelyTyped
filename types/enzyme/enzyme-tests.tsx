@@ -11,6 +11,7 @@ import {
     ComponentClass as EnzymeComponentClass
 } from "enzyme";
 import { Component, ReactElement, ReactNode, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
+import { Cheerio } from 'cheerio';
 
 // Help classes/interfaces
 interface MyComponentProps {

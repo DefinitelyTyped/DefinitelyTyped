@@ -3,9 +3,9 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="cheerio" />
 /// <reference types="node" />
 /// <reference types="vinyl" />
+import { Cheerio } from 'cheerio';
 
 import Vinyl = require('vinyl');
 

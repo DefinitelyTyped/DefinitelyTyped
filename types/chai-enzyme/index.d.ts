@@ -8,7 +8,8 @@
 /// <reference types="enzyme" />
 /// <reference types="chai" />
 /// <reference types="react" />
-/// <reference types="cheerio" />
+
+import { Cheerio } from 'cheerio';
 
 declare namespace Chai {
     type EnzymeSelector = string | React.StatelessComponent<any> | React.ComponentClass<any> | { [key: string]: any };
