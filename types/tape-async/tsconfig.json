@@ -18,6 +18,8 @@
 	},
 	"files": [
 		"index.d.ts",
-		"tape-async-tests.ts"
+		"test/tape-async.async.test.ts",
+		"test/tape-async.generators.test.ts",
+		"test/tape-async.test.ts"
 	]
 }

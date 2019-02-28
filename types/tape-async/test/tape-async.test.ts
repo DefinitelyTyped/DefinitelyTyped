@@ -1,7 +1,7 @@
 import tape = require("tape-async");
 
 var name: string;
-var cb: (test: tape.Test) => Promise<void>;
+var cb: (test: tape.Test) => void;
 var opts: tape.TestOptions;
 var t: tape.Test;
 
@@ -10,11 +10,7 @@ tape(name, cb);
 tape(opts, cb);
 tape(name, opts, cb);
 
-tape(name, async (test: tape.Test) => {
-	t = test;
-});
-
-tape(name, function* (test: tape.Test): IterableIterator<void> {
+tape(name, (test: tape.Test) => {
 	t = test;
 });
 
@@ -174,11 +170,11 @@ tape(name, (test: tape.Test) => {
 	test.doesNotThrow(fn, CustomException);
 	test.doesNotThrow(fn, CustomException, msg);
 
-	test.test(name, async (st) => {
+	test.test(name, st => {
 		t = st;
 	});
 
-	test.test(name, opts, async (st) => {
+	test.test(name, opts, st => {
 		t = st;
 	});
 
