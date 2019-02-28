@@ -1,11 +1,14 @@
 import * as GlVec3 from "gl-vec3";
 import GLVec3Add from "gl-vec3/add";
+import GLVec3Angle from "gl-vec3/angle";
 import GLVec3Clone from "gl-vec3/clone";
 import GLVec3Copy from "gl-vec3/copy";
 import GLVec3Create from "gl-vec3/create";
 import GLVec3Dist from "gl-vec3/dist";
 import GLVec3Div from "gl-vec3/div";
 import GLVec3Dot from "gl-vec3/dot";
+import GLVec3Equals from "gl-vec3/equals";
+import GLVec3exactEquals from "gl-vec3/exactEquals";
 import GLVec3forEach from "gl-vec3/forEach";
 import GLVec3fromValues from "gl-vec3/fromValues";
 import GLVec3Inverse from "gl-vec3/inverse";
@@ -30,6 +33,9 @@ import GLVec3TransformQuat from "gl-vec3/transformQuat";
 GlVec3.add([1, 2, 3], [1, 2, 3], [1, 2, 3]);
 GLVec3Add([1, 2, 3], [1, 2, 3], [1, 2, 3]);
 
+GlVec3.angle([1, 2, 3], [1, 2, 3]);
+GLVec3Angle([1, 2, 3], [1, 2, 3]);
+
 GlVec3.clone([1, 2, 3]);
 GLVec3Clone([1, 2, 3]);
 
@@ -53,6 +59,12 @@ GLVec3forEach([1, 2, 3], 5, 6, 1, () => [3], {});
 
 GlVec3.fromValues(1, 2, 3);
 GLVec3fromValues(1, 2, 3);
+
+GlVec3.equals([1, 2, 3], [1, 2, 3]);
+GLVec3Equals([1, 2, 3], [1, 2, 3]);
+
+GlVec3.exactEquals([1, 2, 3], [1, 2, 3]);
+GLVec3exactEquals([1, 2, 3], [1, 2, 3]);
 
 GlVec3.inverse([1, 2, 3], [1, 2, 3]);
 GLVec3Inverse([1, 2, 3], [1, 2, 3]);
