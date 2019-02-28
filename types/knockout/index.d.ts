@@ -1057,8 +1057,8 @@ interface KnockoutComponents {
     getComponentNameForNode(node: Node): string;
 }
 
-declare var ko: KnockoutStatic;
 
 declare module "knockout" {
+    var ko: KnockoutStatic;
     export = ko;
 }
