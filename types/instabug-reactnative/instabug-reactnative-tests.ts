@@ -1,36 +1,16 @@
-import Instabug from "instabug-reactnative";
+// Tests for instabug-reactnative 8.0.26
+// Project: https://github.com/Instabug/instabug-reactnative#readme
+// Tests by: Aly Ezz <https://github.com/alyezz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-Instabug.startWithToken("token: string", [""]);
-Instabug.setColorTheme("colorTheme: string");
-Instabug.setPrimaryColor(1);
-Instabug.setFloatingButtonEdge();
-Instabug.setLocale("locale: string");
-Instabug.setStringToKey("key: string");
-Instabug.setWelcomeMessageMode("welcomeMsg: string");
-Instabug.identifyUserWithEmail("email: string", "name: string");
-Instabug.setUserAttribute("key: string", "value: string");
-Instabug.getUserAttribute("key: string", (attribute) => 1);
-Instabug.getAllUserAttributes((allAttributes) => 1);
-Instabug.removeUserAttribute("key: string");
-Instabug.setUserData("key: string");
-Instabug.logOut();
-Instabug.logVerbose("info: string");
-Instabug.logInfo("info: string");
-Instabug.logDebug("info: string");
-Instabug.logError("info: string");
-Instabug.logWarn("info: string");
-Instabug.setUserStepsEnabled(true);
-Instabug.setAutoScreenRecordingEnabled(false);
-Instabug.setAutoScreenRecordingMaxDuration(10000);
-Instabug.setViewHierarchyEnabled(true);
-Instabug.resetTags();
-Instabug.getTags((tags) => 1);
-Instabug.appendTags([""]);
-Instabug.setSessionProfilerEnabled(false);
-Instabug.setCrashReportingEnabled(true);
-Instabug.setChatNotificationEnabled(false);
-Instabug.getUnreadMessagesCount((count) => 1);
-Instabug.setOnNewMessageHandler(() => 1);
+import Instabug, {BugReporting, FeatureRequests, Surveys} from'instabug-reactnative';
+
+Instabug.startWithToken("APP_TOKEN", [Instabug.invocationEvent.shake]);
+Instabug.setReportCategories("Performance","UI","Flow","Other");
 Instabug.setPromptOptionsEnabled(true, true, true);
-Instabug.setSurveysEnabled(false);
-Instabug.setPostInvocationHandler();
+Instabug.setLocale(Instabug.locale.english);
+Instabug.setColorTheme(Instabug.colorTheme.light);
+Surveys.showSurvey("ZAKSlVz98QdPyOx1wIt8BA");
+BugReporting.invokeWithInvocationModeAndOptions(BugReporting.invocationMode.newBug, []);
+BugReporting.setInvocationEvents([BugReporting.invocationEvent.shake]);
+Instabug.getUnreadMessagesCount((count) => {});
