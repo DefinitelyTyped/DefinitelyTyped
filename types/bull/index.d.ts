@@ -17,6 +17,7 @@
 // TypeScript Version: 2.8
 
 import * as Redis from "ioredis";
+import { EventEmitter } from "events";
 
 /**
  * This is the Queue constructor.
@@ -384,7 +385,7 @@ declare namespace Bull {
     next: number;
   }
 
-  interface Queue<T = any> {
+  interface Queue<T = any> extends EventEmitter {
     /**
      * The name of the queue
      */

@@ -1111,6 +1111,7 @@ knex('users')
 //
 // Migrations
 //
+const name = "test";
 const config = {
   directory: "./migrations",
   extension: "js",

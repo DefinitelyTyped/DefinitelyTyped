@@ -31,6 +31,8 @@
 //                 Fellipe Chagas <https://github.com/chagasaway>
 //                 Deniss Borisovs <https://github.com/denissb>
 //                 Kenneth Skovhus <https://github.com/skovhus>
+//                 Aaron Rosen <https://github.com/azrosen92>
+//                 Haseeb Majid <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -623,7 +625,7 @@ export interface NavigationEventSubscription {
 }
 
 export interface NavigationEventsProps extends ViewProps {
-  navigation?: NavigationNavigator;
+  navigation?: NavigationScreenProp<NavigationRoute>;
   onWillFocus?: NavigationEventCallback;
   onDidFocus?: NavigationEventCallback;
   onWillBlur?: NavigationEventCallback;
@@ -921,6 +923,7 @@ export interface DrawerItemsProps {
   inactiveLabelStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<ViewStyle>;
   drawerPosition: 'left' | 'right';
+  screenProps?: any;
 }
 export interface DrawerScene {
   route: NavigationRoute;
@@ -1367,3 +1370,5 @@ export interface SafeAreaViewProps extends ViewProps {
 }
 
 export const SafeAreaView: React.ComponentClass<SafeAreaViewProps>;
+
+export const NavigationContext: React.Context<NavigationScreenProp<NavigationRoute>>;

@@ -422,7 +422,7 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        readonly props: Readonly<{ children?: ReactNode }> & Readonly<P>;
+        readonly props: Readonly<PropsWithChildren<P>>;
         state: Readonly<S>;
         /**
          * @deprecated
@@ -468,7 +468,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement | null;
+        (props: PropsWithChildren<P>, context?: any): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -476,7 +476,7 @@ declare namespace React {
     }
 
     interface RefForwardingComponent<T, P = {}> {
-        (props: P & { children?: ReactNode }, ref: Ref<T>): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -722,6 +722,8 @@ declare namespace React {
                 : P
             : P;
 
+    type PropsWithChildren<P> = P & { children?: ReactNode };
+
     /**
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
      * or ComponentPropsWithoutRef when refs are not supported.
@@ -747,7 +749,7 @@ declare namespace React {
 
     function memo<P extends object>(
         Component: SFC<P>,
-        propsAreEqual?: (prevProps: Readonly<P & { children?: ReactNode }>, nextProps: Readonly<P & { children?: ReactNode }>) => boolean
+        propsAreEqual?: (prevProps: Readonly<PropsWithChildren<P>>, nextProps: Readonly<PropsWithChildren<P>>) => boolean
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,
@@ -807,6 +809,14 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usestate
      */
     function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
+    // convenience overload when first argument is ommitted
+    /**
+     * Returns a stateful value, and a function to update it.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#usestate
+     */
+    function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
     /**
      * An alternative to `useState`.
      *
@@ -894,6 +904,20 @@ declare namespace React {
      */
     // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T|null): RefObject<T>;
+    // convenience overload for potentially undefined initialValue / call with 0 arguments
+    // has a default to stop it from defaulting to {} instead
+    /**
+     * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
+     * (`initialValue`). The returned object will persist for the full lifetime of the component.
+     *
+     * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
+     * value around similar to how you’d use instance fields in classes.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#useref
+     */
+    // TODO (TypeScript 3.0): <T extends unknown>
+    function useRef<T = undefined>(): MutableRefObject<T | undefined>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
@@ -958,7 +982,8 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usememo
      */
-    function useMemo<T>(factory: () => T, deps: DependencyList): T;
+    // allow undefined, but don't make it optional as that is very likely a mistake
+    function useMemo<T>(factory: () => T, deps: DependencyList | undefined): T;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
