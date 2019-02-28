@@ -32085,15 +32085,19 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the styles. WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
-     *
+     * Represents a collection of all the styles. 
+     * WARNING: There's currently a known issue with the StyleCollection.items array when loading items from the collection. 
+     * Until this issue is resolved, do not use the StyleCollection.items property, the StyleCollection.load() method, 
+     * or the StyleCollection.toJSON() method.
      * [Api set: ExcelApi 1.7]
      */
     class StyleCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext; 
-        /** 
-         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
+        /**
+         * WARNING: There's currently a known issue with the `StyleCollection.items` array when loading items from the collection. 
+         * Until this issue is resolved, do not use the `StyleCollection.items` property, the `StyleCollection.load()` method, 
+         * or the `StyleCollection.toJSON()` method.
          */
         readonly items: Excel.Style[];
         /**
@@ -32115,13 +32119,17 @@ declare namespace Excel {
          */
         getItem(name: string): Excel.Style;
         /**
-         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
+         * WARNING: There's currently a known issue with the `StyleCollection.items` array when loading items from the collection. 
+         * Until this issue is resolved, do not use the `StyleCollection.items` property, the `StyleCollection.load()` method, 
+         * or the `StyleCollection.toJSON()` method.
          */
         load(option?: Excel.Interfaces.StyleCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.StyleCollection;
         load(option?: string | string[]): Excel.StyleCollection;
         load(option?: OfficeExtension.LoadOption): Excel.StyleCollection;
         /**
-         * WARNING: The StyleCollection items array has a known issue when loading items from the collection. Do not use `StyleCollection.items`, any `load()` method, and the `toJSON()` method.
+         * WARNING: There's currently a known issue with the `StyleCollection.items` array when loading items from the collection. 
+         * Until this issue is resolved, do not use the `StyleCollection.items` property, the `StyleCollection.load()` method, 
+         * or the `StyleCollection.toJSON()` method.
          */
         toJSON(): Excel.Interfaces.StyleCollectionData;
     }

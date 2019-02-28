@@ -202,6 +202,13 @@ b.fill('a').fill('b');
     const octets = new Uint8Array(buffer.buffer);
 }
 
+// Inherited from Uint8Array but return buffer
+{
+    const b = Buffer.from('asd');
+    let res: Buffer = b.reverse();
+    res = b.subarray(1);
+}
+
 // Buffer module, transcode function
 {
     transcode(Buffer.from('€'), 'utf8', 'ascii'); // $ExpectType Buffer

@@ -1,5 +1,7 @@
 
 import cron = require('cron');
+import moment = require('moment');
+
 var CronJob = cron.CronJob;
 var CronTime = cron.CronTime;
 
@@ -34,6 +36,16 @@ var job = new CronJob(new Date(), () => {
   timeZone /* Time zone of this job. */
 );
 
+// Another example with Moment
+var job = new CronJob(moment(), () => {
+  /* runs once at the specified moment. */
+  }, () => {
+    /* This function is executed when the job stops */
+  },
+  true, /* Start the job right now */
+  timeZone /* Time zone of this job. */
+);
+
 // For good measure
 var job = new CronJob({
   cronTime: '00 30 11 * * 1-5',
@@ -48,7 +60,8 @@ var job = new CronJob({
   timeZone: 'America/Los_Angeles'
 });
 console.log(job.lastDate());
-console.log(job.nextDates(1));
+console.log(job.nextDates());// Should be a Moment object
+console.log(job.nextDates(1));// Should be an array of Moment object
 console.log(job.running);
 job.setTime(new CronTime('00 30 11 * * 1-2'));
 job.start();
@@ -67,4 +80,5 @@ try {
 // Check cronTime fomat
 new CronTime('* * * * * *');
 new CronTime(new Date());
+new CronTime(moment());
 
