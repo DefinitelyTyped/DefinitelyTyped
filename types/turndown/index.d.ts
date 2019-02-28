@@ -1,6 +1,7 @@
-// Type declarations for turndown
-// Project: https://github.com/domchristie/turndown
+// Type definitions for turndown 5.0
+// Project: https://github.com/domchristie/turndown#readme
 // Definitions by: Scott Jones <https://github.com/scottdj92>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "turndown" {
     export default class TurndownService {
