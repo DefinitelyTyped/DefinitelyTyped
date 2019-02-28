@@ -154,7 +154,7 @@ interface SomeStamp extends stampit.Stamp {
 }
 
 const SomeStamp = stampit()
-    .init(function (params: { a: number; b: boolean}) {
+    .init(function(params: { a: number; b: boolean}) {
         this.a = '' + a;
         this.b = '' + b;
     }) as SomeStamp;
