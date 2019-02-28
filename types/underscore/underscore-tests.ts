@@ -520,7 +520,7 @@ function chain_tests() {
     let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
     let evenAndOddGroupedNumbers = _.chain(numberObjects)
         .groupBy('property')
-        .mapObject((objects) => _.pluck(objects, 'value'))
+        .mapObject((objects: any) => _.pluck(objects, 'value'))
         .value(); // { odd: [1], even: [0, 2] }
 
   var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
