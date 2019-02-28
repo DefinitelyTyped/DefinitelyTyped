@@ -1725,7 +1725,7 @@ declare namespace Sinon {
         createStubInstance<TType>(
             constructor: StubbableType<TType>,
             overrides?: { [K in keyof TType]?:
-                SinonStubbedMember<TType[K]> | TType[K] extends (...args: any[]) => infer R ? R : TType[K] }
+                SinonStubbedMember<TType[K]> | (TType[K] extends (...args: any[]) => infer R ? R : TType[K]) }
         ): SinonStubbedInstance<TType>;
     }
 

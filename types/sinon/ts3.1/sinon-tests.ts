@@ -89,8 +89,11 @@ function testSandbox() {
     const clsBar: number = stubInstance.bar;
     const privateFooBar: number = privateFooStubbedInstance.bar;
     sb.createStubInstance(cls, {
-        foo: (arg1: string, arg2: number) => 2,
+        foo: sinon.stub<[string, number], number>().returns(1),
         bar: 1
+    });
+    sb.createStubInstance(cls, {
+        foo: 1, // used as return value
     });
 }
 
