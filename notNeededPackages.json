@@ -1117,6 +1117,12 @@
             "asOfVersion": "0.7.6"
         },
         {
+            "libraryName": "normalize-url",
+            "typingsPackageName": "normalize-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/normalize-url",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "Normalizr",
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
