@@ -220,7 +220,7 @@ const cluster = new Redis.Cluster(
     clusterOptions
 );
 cluster.on('end', () => console.log('on end'));
-cluster.nodes.map(node => {
+cluster.nodes().map(node => {
     node.pipeline()
         .flushdb()
         .exec()

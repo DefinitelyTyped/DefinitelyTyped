@@ -873,10 +873,12 @@ declare namespace IORedis {
 
     type ClusterNode = string | number | NodeConfiguration;
 
+    type NodeRole = 'master' | 'slave' | 'all';
+
     interface Cluster extends NodeJS.EventEmitter, Commander {
         connect(callback: () => void): Promise<any>;
         disconnect(): void;
-        nodes: Redis[];
+        nodes(role?: NodeRole): Redis[];
     }
 
     interface ClusterStatic extends NodeJS.EventEmitter, Commander {
