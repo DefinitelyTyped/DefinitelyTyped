@@ -9,6 +9,7 @@
 //                 Robert Bullen <https://github.com/robertbullen>
 //                 Yusuke Sato <https://github.com/sat0yu>
 //                 Dan Rumney <https://github.com/dancrumb>
+//                 Ronald Hong <https://github.com/flushentitypacket>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -108,6 +109,7 @@ export interface StringSchemaConstructor {
 export interface StringSchema extends Schema<string> {
     min(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     max(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
+    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     matches(
         regex: RegExp,
         messageOrOptions?:
