@@ -2302,6 +2302,15 @@ interface IObjectOptions {
      * Describes the object's corner position in canvas object absolute properties.
      */
     aCoords?: {bl: Point, br: Point, tl: Point, tr: Point};
+
+    /**
+     * Describe object's corner position in canvas element coordinates. properties are tl,mt,tr,ml,mr,bl,mb,br,mtr for
+     * the main controls. each property is an object with x, y and corner. The `corner` property contains in a similar
+     * manner the 4 points of the interactive area of the corner. The coordinates depends from this properties: width,
+     * height, scaleX, scaleY skewX, skewY, angle, strokeWidth, viewportTransform, top, left, padding. The coordinates
+     * get updated with @method setCoords. You can calculate them without updating with @method calcCoords;
+     */
+    oCoords?: { tl: Point, mt: Point, tr: Point, ml: Point, mr: Point, bl: Point, mb: Point, br: Point, mtr: Point }
 }
 export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> { }
 export class Object {
