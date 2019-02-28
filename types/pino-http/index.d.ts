@@ -20,7 +20,7 @@ declare namespace PinoHttp {
         genReqId?: GenReqId;
         useLevel?: Level;
         stream?: DestinationStream;
-        customLogLevel?: (res: unknown, error: unknown) => Level
+        customLogLevel?: (res: ServerResponse, error: unknown) => Level
     }
 
     interface GenReqId {
