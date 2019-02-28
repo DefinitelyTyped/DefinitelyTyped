@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import tapeSync from "tape";
+import tapeSync = require("tape");
 export = tape;
 
 declare function tape(name: string, cb: tape.TestCase): void
@@ -16,7 +16,7 @@ declare function tape(opts: tape.TestOptions, cb: tape.TestCase): void;
 declare namespace tape {
 
 	interface TestCase {
-		(test: Test): void | Generator | PromiseLike<void>;
+		(test: Test): void | Iterator<any> | PromiseLike<void>;
 	}
 
 	/**
