@@ -6,9 +6,9 @@
 export default class Unsplash {
     public auth: Auth;
     public categories: CategoriesApi;
-    public collections: CollectionApi;
+    public collections: CollectionsApi;
     public currentUser: CurrentUserApi;
-    public users: UserApi;
+    public users: UsersApi;
     public photos: PhotoApi;
     public search: SearchApi;
     public stats: StatsApi;
@@ -85,7 +85,7 @@ export class PhotoApi {
     }): Promise<any>;
 }
 
-export class CollectionApi {
+export class CollectionsApi {
     public listCollections(
         page?: number,
         perPage?: number,
@@ -96,10 +96,12 @@ export class CollectionApi {
         page?: number,
         perPage?: number
     ): Promise<any>;
+
     public listFeaturedCollections(
         page?: number,
         perPage?: number
     ): Promise<any>;
+
     public getCollection(id: number): Promise<any>;
 
     public getCollectionPhotos(
@@ -145,6 +147,8 @@ export class CollectionApi {
 }
 
 export class SearchApi {
+    public all(keyword: string, page: number, per_page: number): Promise<any>;
+
     public photos(
         keyword: string,
         page?: number,
@@ -172,18 +176,18 @@ export class CurrentUserApi {
     public profile(): Promise<any>;
 
     public updateProfile(options: {
-        username: string;
-        firstName: string;
-        lastName: string;
-        email: string;
-        url: string;
-        location: string;
-        bio: string;
-        instagramUsername: string;
+        username?: string;
+        firstName?: string;
+        lastName?: string;
+        email?: string;
+        url?: string;
+        location?: string;
+        bio?: string;
+        instagramUsername?: string;
     }): Promise<any>;
 }
 
-export class UserApi {
+export class UsersApi {
     public profile(username: string): Promise<any>;
 
     public statistics(
@@ -217,7 +221,9 @@ export class UserApi {
 
 export class CategoriesApi {
     public listCategories(): Promise<any>;
+
     public category(id: any): Promise<any>;
+
     public categoryPhotos(
         id: any,
         page?: number,
@@ -227,6 +233,8 @@ export class CategoriesApi {
 
 export class Auth {
     public getAuthenticationUrl(scopes?: ReadonlyArray<string>): string;
-    public userAuthentication(code: string): object;
+
+    public userAuthentication(code: string): Promise<any>;
+
     public setBearerToken(accessToken: string): void;
 }
