@@ -26,5 +26,5 @@ server = simplesmtp.createSimpleServer({
 ): void => {
 	callback(null, true);
 });
-(this as any)._server.listen(this.port, "0.0.0.0", (error?: Error): void => {
+(this as any)._server.listen((this as any).port, "0.0.0.0", (error?: Error): void => {
 });
