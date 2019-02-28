@@ -3407,6 +3407,16 @@ fp.now(); // $ExpectType number
     const fn4 = (a: string): boolean => true;
 
     _.flow(fn1Optional, fn3); // $ExpectType (a1: number | undefined) => string
+    // $ExpectType (a1: number, a2: number, a3: number, a4: number, ...args: any[]) => number
+    _.flow(
+        (a: number, b: number, c: number, d: number, e: number) => a,
+        val => val
+    );
+    // $ExpectType (a1: number, a2: number, a3: number, a4: number, ...args: any[]) => number
+    _.flow(
+        (a: number, b: number, c: number, d: number, e?: number) => a,
+        val => val
+    );
     _.flow(fn2, fn1); // $ExpectType (a1: number, a2: number) => number
     _.flow(fn2, fn1, fn1, fn1, fn1, fn1, fn1); // $ExpectType (a1: number, a2: number) => number
     _.flow(fn2, fn1, fn3, fn4); // $ExpectType (a1: number, a2: number) => boolean
