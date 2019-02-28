@@ -10,4 +10,6 @@ bundler.addAssetType('md', 'markdown-asset');
 
 bundler.addPackager('md', 'markdown-packager');
 
+bundler.middleware();
+
 bundler.bundle().then(bundle => bundle.name);
