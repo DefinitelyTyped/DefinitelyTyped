@@ -165,11 +165,7 @@ export function identifyUserWithEmail(
 export function logOut(): void;
 export function setReportCategories(...titles: string[]): void;
 export function setExtendedBugReportMode(extendedBugReportMode: extendedBugReportMode): void;
-export function logUserEventWithName(name: string): void;
-export function logUserEventWithName(
-  name: string,
-  params: string
-  ): void;
+export function logUserEventWithName(name: string,  params?: any): void;
 export function logVerbose(message: string): void;
 export function logInfo(message: string): void;
 export function logDebug(message: string): void;

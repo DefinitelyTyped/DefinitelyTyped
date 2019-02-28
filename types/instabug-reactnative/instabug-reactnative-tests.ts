@@ -10,5 +10,4 @@ Instabug.setReportCategories("Performance", "UI", "Flow", "Other");
 Instabug.setPromptOptionsEnabled(true, true, true);
 Instabug.setLocale(Instabug.locale.english);
 Instabug.setColorTheme(Instabug.colorTheme.light);
-Surveys.showSurvey("ZAKSlVz98QdPyOx1wIt8BA");
 Instabug.setInvocationEvent(Instabug.invocationEvent.shake);
