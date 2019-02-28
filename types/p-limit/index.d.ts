@@ -1,18 +1,43 @@
-// Type definitions for p-limit 2.0
+// Type definitions for p-limit 2.1
 // Project: https://github.com/sindresorhus/p-limit#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 export = pLimit;
 
-declare function limit<T, A, B, C, D, E, F>(cb: (a: A, b: B, c: C, d: D, e: E, f: F, ...args: any[]) => PromiseLike<T> | T, a: A, b: B, c: C, d: D, e: E, f: F, ...args: any[]): Promise<T>;
-declare function limit<T, A, B, C, D, E, F>(cb: (a: A, b: B, c: C, d: D, e: E, f: F) => PromiseLike<T> | T, a: A, b: B, c: C, d: D, e: E, f: F): Promise<T>;
-declare function limit<T, A, B, C, D, E>(cb: (a: A, b: B, c: C, d: D, e: E) => PromiseLike<T> | T, a: A, b: B, c: C, d: D, e: E): Promise<T>;
-declare function limit<T, A, B, C, D>(cb: (a: A, b: B, c: C, d: D) => PromiseLike<T> | T, a: A, b: B, c: C, d: D): Promise<T>;
-declare function limit<T, A, B, C>(cb: (a: A, b: B, c: C) => PromiseLike<T> | T, a: A, b: B, c: C): Promise<T>;
-declare function limit<T, A, B>(cb: (a: A, b: B) => PromiseLike<T> | T, a: A, b: B): Promise<T>;
-declare function limit<T, A>(cb: (a: A) => PromiseLike<T> | T, a: A): Promise<T>;
-declare function limit<T>(cb: () => PromiseLike<T> | T): Promise<T>;
+/**
+ * Run multiple promise-returning & async functions with limited concurrency.
+ * @param concurrency Concurrency limit. Minimum: `1`.
+ * @returns A `limit` function.
+ */
+declare function pLimit(concurrency: number): pLimit.Limit;
 
-declare function pLimit(concurrency: number): typeof limit;
+declare namespace pLimit {
+    interface Limit {
+        /**
+         * Returns the promise returned by calling `fn(...args)`.
+         *
+         * @param fn Promise-returning/async function.
+         * @param args Any arguments to pass through to `fn`.
+         * Support for passing arguments on to the `fn` is provided in order to be able to avoid
+         * creating unnecessary closures. You probably don't need this optimization unless you're
+         * pushing a lot of functions.
+         */
+        <TArgs extends any[], R>(
+            fn: (...args: TArgs) => PromiseLike<R> | R,
+            ...args: TArgs
+        ): Promise<R>;
+
+        /**
+         * The number of promises that are currently running.
+         */
+        readonly activeCount: number;
+
+        /**
+         * The number of promises that are waiting to run (i.e. their internal `fn` was not called yet).
+         */
+        readonly pendingCount: number;
+    }
+}

@@ -1379,7 +1379,11 @@ declare namespace sequelize {
          * Should the join model have timestamps
          */
         timestamps?: boolean;
-
+         
+        /**
+         * Belongs-To-Many creates a unique key when primary key is not present on through model. This unique key name can be overridden using uniqueKey option.
+         */
+        uniqueKey?: string;
     }
 
     /**
