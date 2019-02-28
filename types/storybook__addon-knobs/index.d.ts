@@ -4,6 +4,7 @@
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
 //                 A.MacLeay <https://github.com/amacleay>
 //                 Michael Loughry <https://github.com/MLoughry>
+//                 Alan Choi <https://github.com/alanhchoi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
