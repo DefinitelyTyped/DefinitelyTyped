@@ -558,6 +558,10 @@ declare module _ {
             list: _.List<T>,
             propertyName: K): T[K][];
 
+        pluck(
+            list: _.List<any>,
+            propertyName: string): any;
+
         /**
         * Returns the maximum value in list.
         * @param list Finds the maximum value in this list.
