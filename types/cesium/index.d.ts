@@ -3134,14 +3134,13 @@ declare namespace Cesium {
         static clone(hpr: HeadingPitchRange, result?: HeadingPitchRange): HeadingPitchRange;
     }
 
-    class Cesium3DTilesetItem {
-      url: string;
-      maximumScreenSpaceError: number;
-      maximumNumberOfLoadedTiles: number;
-    }
-
+    // tslint:disable-next-line:no-unnecessary-class
     class Cesium3DTileset {
-      constructor (Cesium3DTilesetItem: Cesium3DTilesetItem)
+      constructor(Cesium3DTilesetItem: {
+        url: string;
+        maximumScreenSpaceError: number;
+        maximumNumberOfLoadedTiles: number;
+      })
     }
 
     class ImageryLayer {
