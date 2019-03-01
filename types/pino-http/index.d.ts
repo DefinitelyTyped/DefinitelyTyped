@@ -15,15 +15,12 @@ declare function PinoHttp(stream?: DestinationStream): PinoHttp.HttpLogger;
 declare namespace PinoHttp {
     type HttpLogger = (req: IncomingMessage, res: ServerResponse) => void;
 
-    // When we upgrade to TypeScript 3.0, we can use `unknown`.
-    type PoorMansUnknown = {} | null | undefined;
-
     interface Options extends LoggerOptions {
         logger?: Logger;
         genReqId?: GenReqId;
         useLevel?: Level;
         stream?: DestinationStream;
-        customLogLevel?: (res: ServerResponse, error: PoorMansUnknown) => Level;
+        customLogLevel?: (res: ServerResponse, error: Error) => Level;
     }
 
     interface GenReqId {
