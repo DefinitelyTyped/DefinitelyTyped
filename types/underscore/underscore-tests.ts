@@ -173,7 +173,7 @@ _.contains([1, 2, 3], 3, 1);
 _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/33479
-var foo: any = {'a': 1, 'b': 2};
+var foo: any[] = [{'a': 1, 'b': 2}];
 _.pluck(foo, 'a');
 
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];

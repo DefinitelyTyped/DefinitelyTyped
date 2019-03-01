@@ -560,7 +560,7 @@ declare module _ {
 
         pluck(
             list: _.List<any>,
-            propertyName: string): any;
+            propertyName: string): any[];
 
         /**
         * Returns the maximum value in list.
