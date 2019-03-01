@@ -183,17 +183,17 @@ interface TwitchExtConfiguration {
 	/**
 	 * This property returns the record for the broadcaster segment if one is found; otherwise, undefined.
 	 */
-	broadcaster: { version: string; content: string } | undefined;
+	broadcaster?: { version: string; content: string };
 
 	/**
 	 * This property returns the record for the developer segment if one is found; otherwise, undefined.
 	 */
-	developer: { version: string; content: string } | undefined;
+	developer?: { version: string; content: string };
 
 	/**
 	 * This property returns the record for the global segment if one is found; otherwise, undefined.
 	 */
-	global: { version: string; content: string } | undefined;
+	global?: { version: string; content: string };
 
 	/**
 	 * This function registers a callback that is called whenever an extension configuration is received.
