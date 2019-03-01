@@ -14,8 +14,8 @@ export default class Unsplash {
     public stats: StatsApi;
 
     public constructor(options: {
-        apiUrl: string;
-        apiVersion: string;
+        apiUrl?: string;
+        apiVersion?: string;
         applicationId: string;
         secret: string;
         callbackUrl?: string;
@@ -183,7 +183,7 @@ export interface UsersApi {
     statistics(
         username: string,
         resolution?: string,
-        quantity?: string
+        quantity?: number
     ): Promise<Response>;
 
     photos(
