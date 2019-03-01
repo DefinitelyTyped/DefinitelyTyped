@@ -36,7 +36,7 @@ export default class Unsplash {
 
 export function toJson(response: any): any;
 
-declare module UnsplashApi {
+export namespace UnsplashApi {
     interface Photo {
         listPhotos(
             page?: number,
