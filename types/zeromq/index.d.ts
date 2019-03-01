@@ -218,8 +218,7 @@ export class Socket extends NodeJS.EventEmitter {
      * Disable monitoring of a Socket release idle handler
      * and close the socket
      *
-     * @return {Socket} for chaining
-     * @api public
+     * @return for chaining
      */
     unmonitor(): Socket;
 
