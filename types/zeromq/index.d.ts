@@ -1,5 +1,3 @@
-import { EventEmitter } from "events";
-
 // Type definitions for zeromq 4.6
 // Project: https://github.com/zeromq/zeromq.js
 // Definitions by: Dave McKeown <https://github.com/davemckeown>
@@ -118,7 +116,7 @@ export const ZMQ_IO_THREADS: number;
 export const ZMQ_MAX_SOCKETS: number;
 export const ZMQ_ROUTER_HANDOVER: number;
 
-export class Socket extends EventEmitter {
+export class Socket extends NodeJS.EventEmitter {
     /**
      * Set `opt` to `val`.
      *
