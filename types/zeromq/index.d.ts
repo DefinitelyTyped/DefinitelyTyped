@@ -231,11 +231,6 @@ export class Socket extends EventEmitter {
      */
     close(): Socket;
 
-    /**
-     * Socket event - 'message'
-     */
-    on(eventName: string, callback: (...buffer: Buffer[]) => void): void;
-
     pause(): void;
     resume(): void;
 
