@@ -1,20 +1,27 @@
 declare module "child_process" {
     import * as events from "events";
-    import * as stream from "stream";
     import * as net from "net";
+    import { Writable, Readable, Stream, Pipe } from "stream";
 
     interface ChildProcess extends events.EventEmitter {
-        stdin: stream.Writable;
-        stdout: stream.Readable;
-        stderr: stream.Readable;
-        stdio: [stream.Writable, stream.Readable, stream.Readable];
-        killed: boolean;
-        pid: number;
+        stdin: Writable | null;
+        stdout: Readable | null;
+        stderr: Readable | null;
+        readonly channel?: Pipe | null;
+        readonly stdio: [
+            Writable | null, // stdin
+            Readable | null, // stdout
+            Readable | null, // stderr
+            Readable | Writable | null | undefined, // extra
+            Readable | Writable | null | undefined // extra
+        ];
+        readonly killed: boolean;
+        readonly pid: number;
+        readonly connected: boolean;
         kill(signal?: string): void;
         send(message: any, callback?: (error: Error) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error) => void): boolean;
-        connected: boolean;
         disconnect(): void;
         unref(): void;
         ref(): void;
@@ -75,17 +82,20 @@ declare module "child_process" {
         keepOpen?: boolean;
     }
 
-    type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | stream.Stream | number | null | undefined)>;
+    type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | Stream | number | null | undefined)>;
 
-    interface CommonOptions {
-        /**
-         * @default true
-         */
-        windowsHide?: boolean;
+    interface ProcessEnvOptions {
         uid?: number;
         gid?: number;
         cwd?: string;
         env?: NodeJS.ProcessEnv;
+    }
+
+    interface CommonOptions extends ProcessEnvOptions {
+        /**
+         * @default true
+         */
+        windowsHide?: boolean;
         /**
          * @default 0
          */
@@ -249,16 +259,12 @@ declare module "child_process" {
         ): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ForkOptions {
-        cwd?: string;
-        env?: NodeJS.ProcessEnv;
+    interface ForkOptions extends ProcessEnvOptions {
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
         stdio?: StdioOptions;
         windowsVerbatimArguments?: boolean;
-        uid?: number;
-        gid?: number;
     }
     function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
