@@ -1,6 +1,6 @@
-// Type definitions for howler.js v2.0.5
+// Type definitions for howler.js v2.1.1
 // Project: https://github.com/goldfire/howler.js
-// Definitions by: Pedro Casaubon <https://github.com/xperiments>, Alexander Leon <https://github.com/alien35>, Nicholas Higgins <https://github.com/nicholashza> 
+// Definitions by: Pedro Casaubon <https://github.com/xperiments>, Alexander Leon <https://github.com/alien35>, Nicholas Higgins <https://github.com/nicholashza>, Eduards Klavins <https://github.com/ezisezis> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HowlerGlobal {
@@ -11,7 +11,7 @@ interface HowlerGlobal {
     unload(): void;
     usingWebAudio: boolean;
     noAudio: boolean;
-    mobileAutoEnable: boolean;
+    autoUnlock: boolean;
     autoSuspend: boolean;
     ctx: AudioContext;
     masterGain: GainNode;
