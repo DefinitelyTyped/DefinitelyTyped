@@ -220,9 +220,10 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends NonFunctionPropertyNames<T>>(object: T, method: M, accessType: 'get'): SpyInstance<T[M], []>;
-    function spyOn<T extends {}, M extends NonFunctionPropertyNames<T>>(object: T, method: M, accessType: 'set'): SpyInstance<void, [T[M]]>;
-    function spyOn<T extends {}, M extends FunctionPropertyNames<T>>(object: T, method: M): T[M] extends (...args: any[]) => any ? SpyInstance<ReturnType<T[M]>, ArgsType<T[M]>> : never;
+    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(object: T, method: M, accessType: 'get'): SpyInstance<Required<T>[M], []>;
+    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(object: T, method: M, accessType: 'set'): SpyInstance<void, [Required<T>[M]]>;
+    function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(object: T, method: M): Required<T>[M] extends (...args: any[]) => any ?
+        SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>> : never;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -263,10 +264,11 @@ declare namespace jest {
     }
 
     interface Each {
-        (cases: any[]): (name: string, fn: (...args: any[]) => any) => void;
+        (cases: any[]): (name: string, fn: (...args: any[]) => any, timeout?: number) => void;
         (strings: TemplateStringsArray, ...placeholders: any[]): (
             name: string,
-            fn: (arg: any) => any
+            fn: (arg: any) => any,
+            timeout?: number
         ) => void;
     }
 
@@ -978,19 +980,28 @@ declare namespace jest {
     }
 
     /**
-     * Represents the result of a single call to a mock function.
+     * Represents the result of a single call to a mock function with a return value.
      */
-    interface MockResult {
-        /**
-         * True if the function threw.
-         * False if the function returned.
-         */
-        isThrow: boolean;
-        /**
-         * The value that was either thrown or returned by the function.
-         */
+    interface MockResultReturn<T> {
+        type: 'return';
+        value: T;
+    }
+    /**
+     * Represents the result of a single incomplete call to a mock function.
+     */
+    interface MockResultIncomplete {
+        type: 'incomplete';
+        value: undefined;
+    }
+    /**
+     * Represents the result of a single call to a mock function with a thrown error.
+     */
+    interface MockResultThrow {
+        type: 'throw';
         value: any;
     }
+
+    type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
 
     interface MockContext<T, Y extends any[]> {
         calls: Y[];
@@ -999,7 +1010,7 @@ declare namespace jest {
         /**
          * List of results of calls to the mock function.
          */
-        results: MockResult[];
+        results: Array<MockResult<T>>;
     }
 }
 
@@ -1616,6 +1627,7 @@ declare namespace jest {
         numPendingTests: number;
         numPendingTestSuites: number;
         numRuntimeErrorTestSuites: number;
+        numTodoTests: number;
         numTotalTests: number;
         numTotalTestSuites: number;
         snapshot: SnapshotSummary;

@@ -31,18 +31,30 @@ class Test extends React.Component {
         return (
             <form onSubmit={this.handleFormSubmit}>
                 <PlacesAutocomplete value={this.state.address} onChange={this.onChange} googleCallbackName="google_callback_name">
-                    {({getInputProps, getSuggestionItemProps, suggestions}) => (
-                        <>
-                            <input {...getInputProps()} />
-                            <div>
-                                {suggestions.map(suggestion => (
-                                    <div {...getSuggestionItemProps(suggestion)} >
-                                        {suggestion.description}
-                                    </div>
-                                ))}
-                            </div>
-                        </>
-                    )}
+                    {({getInputProps, suggestions, getSuggestionItemProps, loading}) => {
+                        const inputProps = getInputProps({
+                            required: true,
+                            className: loading ? 'is-pending' : ''
+                        });
+                        return (
+                            <>
+                                <input {...inputProps} />
+                                <div>
+                                    {suggestions.map(suggestion => {
+                                        const divProps = getSuggestionItemProps(suggestion, {
+                                            className: suggestion.active ? 'active' : ''
+                                        });
+                                        return (
+                                            <div {...divProps}>
+                                                {suggestion.description}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </>
+                        );
+                    }
+                }
                 </PlacesAutocomplete>
             </form>
         );

@@ -397,6 +397,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "dd-trace",
+            "typingsPackageName": "dd-trace",
+            "sourceRepoURL": "https://github.com/DataDog/dd-trace-js",
+            "asOfVersion": "0.9.0"
+        },
+        {
             "libraryName": "decimal.js",
             "typingsPackageName": "decimal.js",
             "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
@@ -413,6 +419,12 @@
             "typingsPackageName": "delay",
             "sourceRepoURL": "https://github.com/sindresorhus/delay",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "detect-browser",
+            "typingsPackageName": "detect-browser",
+            "sourceRepoURL": "https://github.com/DamonOehlman/detect-browser",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "DevExtreme",
@@ -727,6 +739,12 @@
             "asOfVersion": "1.2.0"
         },
         {
+            "libraryName": "i18next-browser-languagedetector",
+            "typingsPackageName": "i18next-browser-languagedetector",
+            "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "i18next-xhr-backend",
             "typingsPackageName": "i18next-xhr-backend",
             "sourceRepoURL": "https://github.com/i18next/i18next-xhr-backend",
@@ -761,6 +779,12 @@
             "typingsPackageName": "interact.js",
             "sourceRepoURL": "https://github.com/taye/interact.js",
             "asOfVersion": "1.3.0"
+        },
+        {
+            "libraryName": "internal-ip",
+            "typingsPackageName": "internal-ip",
+            "sourceRepoURL": "https://github.com/sindresorhus/internal-ip",
+            "asOfVersion": "4.1.0"
         },
         {
             "libraryName": "inversify",
@@ -1093,6 +1117,12 @@
             "asOfVersion": "0.7.6"
         },
         {
+            "libraryName": "normalize-url",
+            "typingsPackageName": "normalize-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/normalize-url",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "Normalizr",
             "typingsPackageName": "normalizr",
             "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
@@ -1115,6 +1145,24 @@
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-map",
+            "typingsPackageName": "p-map",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-map",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-pipe",
+            "typingsPackageName": "p-pipe",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-pipe",
+            "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "p-throttle",
+            "typingsPackageName": "p-throttle",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "param-case",
@@ -1763,6 +1811,12 @@
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "wait-for-localhost",
+            "typingsPackageName": "wait-for-localhost",
+            "sourceRepoURL": "https://github.com/sindresorhus/wait-for-localhost",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "webcola",

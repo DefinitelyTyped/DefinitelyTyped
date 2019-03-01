@@ -20,6 +20,16 @@ adapter
     ;
 adapter.removeAllListeners();
 
+// Test adapter constructor options
+let adapterOptions: ioBroker.AdapterOptions = {
+    name: "foo",
+    ready: readyHandler,
+    stateChange: stateChangeHandler,
+    objectChange: objectChangeHandler,
+    message: messageHandler,
+    unload: unloadHandler,
+};
+
 function readyHandler() { }
 
 function stateChangeHandler(id: string, state: ioBroker.State | null | undefined) {
@@ -259,6 +269,8 @@ adapter.subscribeStatesAsync("*").catch(handleError);
 adapter.subscribeForeignStatesAsync("*").catch(handleError);
 adapter.unsubscribeStatesAsync("*").catch(handleError);
 adapter.unsubscribeForeignStatesAsync("*").catch(handleError);
+
+adapter.getHistory("state.id", {}, (err, result: ioBroker.GetHistoryResult) => {});
 
 // Repro from https://github.com/ioBroker/adapter-core/issues/3
 const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {
