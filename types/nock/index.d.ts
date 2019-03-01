@@ -150,6 +150,7 @@ declare namespace nock {
         response?: string | any;
         headers?: HttpHeaders;
         reqheaders?: { [key: string]: string | RegExp | { (headerValue: string): boolean; }; };
+        rawHeaders?: string[];
         options?: Options;
     }
 
