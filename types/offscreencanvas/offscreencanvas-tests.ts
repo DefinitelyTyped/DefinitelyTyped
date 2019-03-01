@@ -27,3 +27,7 @@ const ctx = canvas.getContext("2d")!;
 ctx.drawImage(offscreenCanvas, 0, 0);
 ctx.drawImage(offscreenCanvas, 0, 0, 20, 10);
 ctx.drawImage(offscreenCanvas, 0, 0, 20, 10, 0, 0, 20, 10);
+
+// Test createImageBitmap function with offscreen canvas
+const imageBitmap1 = createImageBitmap(offscreenCanvas);
+const imageBitmap2 = createImageBitmap(offscreenCanvas, 1, 2, 3, 4);

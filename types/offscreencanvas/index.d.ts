@@ -6,11 +6,16 @@
 declare global {
     // https://html.spec.whatwg.org/multipage/canvas.html#canvasdrawimage
     interface CanvasDrawImage {
-        drawImage(image: OffscreenCanvas, dx: number, dy: number): void;
-        drawImage(image: OffscreenCanvas, dx: number, dy: number, dw: number, dh: number): void;
-        drawImage(image: OffscreenCanvas, sx: number, sy: number, sw: number, sh: number,
+        drawImage(image: CanvasImageSource | OffscreenCanvas, dx: number, dy: number): void;
+        drawImage(image: CanvasImageSource | OffscreenCanvas, dx: number, dy: number, dw: number, dh: number): void;
+        drawImage(image: CanvasImageSource | OffscreenCanvas, sx: number, sy: number, sw: number, sh: number,
             dx: number, dy: number, dw: number, dh: number): void;
     }
+
+    // https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#dom-createimagebitmap
+    function createImageBitmap(image: ImageBitmapSource | OffscreenCanvas): Promise<ImageBitmap>;
+    function createImageBitmap(image: ImageBitmapSource | OffscreenCanvas, sx: number, sy: number,
+        sw: number, sh: number): Promise<ImageBitmap>;
 
     // https://html.spec.whatwg.org/multipage/canvas.html#dom-canvas-transfercontroltooffscreen
     interface HTMLCanvasElement extends HTMLElement {
