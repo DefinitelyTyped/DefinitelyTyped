@@ -186,7 +186,7 @@ interface TwitchExtConfiguration {
 
 	/**
 	 * This property returns the record for the developer segment if one is found; otherwise, undefined.
-	*/
+	 */
 	developer: { version: string; content: string } | undefined;
 
 	/**
@@ -199,11 +199,10 @@ interface TwitchExtConfiguration {
 	 * The callback function takes no input and returns nothing. After this is called for the first time,
 	 * the records for the global, developer and broadcaster segments will be set if the data is available.
 	 * @param callback The callback that is fired.
-	*/
+	 */
 	onChanged(
 		callback: () => void
-	): void
-
+	): void;
 
 	/**
 	 * This function can be called by the front end to set an extension configuration.
@@ -213,7 +212,6 @@ interface TwitchExtConfiguration {
 	 */
 	set(segment: string, version: string, content: string): void;
 }
-
 
 interface TwitchExtFeatureFlags {
 	/**
