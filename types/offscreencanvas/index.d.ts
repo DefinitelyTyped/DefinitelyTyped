@@ -1,7 +1,9 @@
-// Type definitions for non-npm package offscreencanvas-browser
+// Type definitions for non-npm package offscreencanvas-browser 2019.3
 // Project: https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface
 // Definitions by: Klaus Reimer <https://github.com/kayahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// TypeScript Version: 3.1
 
 declare global {
     // https://html.spec.whatwg.org/multipage/canvas.html#canvasdrawimage
@@ -32,7 +34,7 @@ declare global {
     var OffscreenCanvasRenderingContext2D: {
         prototype: OffscreenCanvasRenderingContext2D;
         new (): OffscreenCanvasRenderingContext2D;
-    }
+    };
 
     // https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface
     interface OffscreenCanvas extends EventTarget {
@@ -49,7 +51,7 @@ declare global {
     var OffscreenCanvas: {
         prototype: OffscreenCanvas;
         new (width: number, height: number): OffscreenCanvas;
-    }
+    };
 }
 
 export { };
