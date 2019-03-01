@@ -1,4 +1,4 @@
-// Type definitions for Forge Viewer 6.3
+// Type definitions for Forge Viewer 6.4
 // Project: https://forge.autodesk.com/en/docs/viewer/v6/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -238,10 +238,14 @@ declare namespace Autodesk {
           [key: string]: any;
         }
 
+        const AGGREGATE_FIT_TO_VIEW_EVENT = 'aggregateFitToView';
+        const AGGREGATE_ISOLATION_CHANGED_EVENT = 'aggregateIsolation';
         const AGGREGATE_SELECTION_CHANGED_EVENT = 'aggregateSelection';
         const ANIMATION_READY_EVENT = 'animationReady';
         const CAMERA_CHANGE_EVENT = 'cameraChanged';
+        const CAMERA_TRANSITION_COMPLETED = 'cameraTransitionCompleted';
         const CUTPLANES_CHANGE_EVENT = 'cutplanesChanged';
+        const CANCEL_LEAFLET_SCREENSHOT = 'cancelLeafletScreenshot';
         const ESCAPE_EVENT = 'escape';
         const EXPLODE_CHANGE_EVENT = 'explodeChanged';
         const EXTENSION_LOADED_EVENT = 'extensionLoaded';
@@ -251,12 +255,17 @@ declare namespace Autodesk {
         const FRAGMENTS_LOADED_EVENT = 'fragmentsLoaded';
         const FULLSCREEN_MODE_EVENT = 'fullscreenMode';
         const GEOMETRY_LOADED_EVENT = 'geometryLoaded';
+        const GEOMETRY_DOWNLOAD_COMPLETE_EVENT = 'geometryDownloadComplete';
         const HIDE_EVENT = 'hide';
         const HYPERLINK_EVENT = 'hyperlink';
         const ISOLATE_EVENT = 'isolate';
         const LAYER_VISIBILITY_CHANGED_EVENT = 'layerVisibilityChanged';
+        const LOAD_GEOMETRY_EVENT = 'loadGeometry';
         const LOAD_MISSING_GEOMETRY = 'loadMissingGeometry';
+        const MODEL_ADDED_EVENT = 'modelAdded';
         const MODEL_ROOT_LOADED_EVENT = 'modelRootLoaded';
+        const MODEL_REMOVED_EVENT = 'modelRemoved';
+        const MODEL_LAYERS_LOADED_EVENT = 'modelLayersLoaded';
         const MODEL_UNLOADED_EVENT = 'modelUnloaded';
         const NAVIGATION_MODE_CHANGED_EVENT = 'navigationModeChanged';
         const OBJECT_TREE_CREATED_EVENT = 'objectTreeCreated';
@@ -277,6 +286,7 @@ declare namespace Autodesk {
         const VIEWER_RESIZE_EVENT = 'viewerResize';
         const VIEWER_STATE_RESTORED_EVENT = 'viewerStateRestored';
         const VIEWER_UNINITIALIZED = 'viewerUninitialized';
+        const WEBGL_CONTEXT_LOST_EVENT = 'webGlContextLost';
 
         interface ViewerEventArgs {
           target?: Viewer3D;
@@ -333,6 +343,7 @@ declare namespace Autodesk {
           setTag(tag: string, value: any): void;
           traverse(cb: () => void): boolean;
           urn(searchParent: boolean): string;
+          useAsDefault(): boolean;
         }
 
         let theExtensionManager: ExtensionManager;
@@ -850,11 +861,15 @@ declare namespace Autodesk {
                 hitTestViewport(vpVec: THREE.Vector3, ignoreTransparent: boolean): HitTestResult;
                 initialize(): void;
                 setLightPreset(index: number, force?: boolean): void;
+
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
 
                 getMaterials(): any;
+                getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
+
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
+                setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
             }
 
             class VisibilityManager {
