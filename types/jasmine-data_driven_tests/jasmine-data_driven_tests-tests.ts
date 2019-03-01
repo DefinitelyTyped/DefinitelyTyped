@@ -5,8 +5,8 @@ using("A suite",
           [1, 2, 3],
           [2, 4, 6]
       ],
-      function (a, b, c) {
-          it("can be data driven", function () {
+      (a, b, c) => {
+          it("can be data driven", () => {
               expect(c).toBe(a + b);
           });
       }
@@ -17,8 +17,8 @@ xusing("A data driven suite",
           [1, 2, 3],
           [2, 4, 6]
       ],
-      function (a, b, c) {
-          it("can be pending", function () {
+      (a, b, c) => {
+          it("can be pending", () => {
               expect(c).toBe(a + b);
           });
       }
@@ -26,13 +26,13 @@ xusing("A data driven suite",
 
 using("A data driven suite",
       [ 'a', 'b', 'c' ],
-      (lhs) => {
+      lhs => {
           beforeEach(() => {
               console.log(`lhs = ${lhs}`);
           });
           all("can contain data driven tests",
               [ 'd', 'e', 'f' ],
-              (rhs) => {
+              rhs => {
                   expect(lhs).not.toBe(rhs);
               }
           );
