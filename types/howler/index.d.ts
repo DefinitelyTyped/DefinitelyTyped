@@ -98,7 +98,7 @@ interface Howl {
     on(event: 'seek', callback: (soundId: number) => void, id?: number): this;
     on(event: 'fade', callback: (soundId: number) => void, id?: number): this;
     on(event: string, callback: Function, id?: number): this;
-    on(event: 'onunlock', callback: (soundId: number) => void, id?: number): this;
+    on(event: 'unlock', callback: (soundId: number) => void, id?: number): this;
 
     once(event: 'load', callback: () => void, id?: number): this;
     once(event: 'loaderror', callback: (soundId: number, error: any) => void, id?: number): this;
@@ -113,7 +113,7 @@ interface Howl {
     once(event: 'seek', callback: (soundId: number) => void, id?: number): this;
     once(event: 'fade', callback: (soundId: number) => void, id?: number): this;
     once(event: string, callback: Function, id?: number): this;
-    once(event: 'onunlock', callback: (soundId: number) => void, id?: number): this;
+    once(event: 'unlock', callback: (soundId: number) => void, id?: number): this;
 
     off(event: string, callback?: Function, id?: number): this;
 
