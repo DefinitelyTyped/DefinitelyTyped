@@ -27,12 +27,12 @@ export function getParametersSync(
 ): SSM.Types.GetParametersResult;
 
 export function getParametersByPath(
-    path: SSM.Types.ParameterNameList,
+    path: SSM.Types.PSParameterName,
     options?: SSM.Types.ClientConfiguration
 ): Promise<SSM.Types.ParameterList>;
 
 export function getParametersByPathSync(
-    path: SSM.Types.ParameterNameList,
+    path: SSM.Types.PSParameterName,
     options?: SSM.Types.ClientConfiguration
 ): SSM.Types.ParameterList;
 
