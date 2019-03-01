@@ -12,7 +12,6 @@
 // TypeScript Version: 2.4
 
 /// <reference types="jquery" />
-/// <reference types="handlebars" />
 
 declare module 'ember' {
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
