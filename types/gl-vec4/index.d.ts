@@ -2,7 +2,6 @@
 // Project: https://github.com/stackgl/gl-vec4
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
 
 /**
  * Adds two vec4's.
@@ -27,7 +26,7 @@ export function create(): number[];
 /**
  * Calculates the euclidian distance between two vec4's.
  */
-export function distance(a: number[], b: number[]): number[];
+export function distance(a: number[], b: number[]): number;
 
 /**
  * Divides two vec4's.
@@ -37,7 +36,7 @@ export function divide(out: number[], a: number[], b: number[]): number[];
 /**
  * Calculates the dot product of two vec4's.
  */
-export function dot(a: number[], b: number[]): number[];
+export function dot(a: number[], b: number[]): number;
 
 /**
  * Creates a new vec4 initialized with the given values.
@@ -52,7 +51,7 @@ export function inverse(out: number[], a: number[]): number[];
 /**
  * Calculates the length of a vec4.
  */
-export function length(a: number[]): number[];
+export function length(a: number[]): number;
 
 /**
  * Performs a linear interpolation between two vec4's.
@@ -107,12 +106,12 @@ export function set(out: number[], x: number[], y: number[], z: number, w: numbe
 /**
  * Calculates the squared euclidian distance between two vec4's.
  */
-export function squaredDistance(a: number[], b: number[]): number[];
+export function squaredDistance(a: number[], b: number[]): number;
 
 /**
  * Calculates the squared length of a vec4.
  */
-export function squaredLength(a: number[]): number[];
+export function squaredLength(a: number[]): number;
 
 /**
  * Subtracts vector b from vector a.
