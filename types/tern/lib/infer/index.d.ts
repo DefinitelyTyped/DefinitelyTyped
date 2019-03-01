@@ -193,7 +193,7 @@ export interface Constraint extends AVal {
 
 // #### Scopes ####
 interface ScopeConstructor {
-    new(parent?: Scope): Scope;
+    new(): Scope;
     new(parent: Scope, originNode: ESTree.Node): Scope;
 }
 export const Scope: ScopeConstructor;
