@@ -2414,6 +2414,7 @@ declare module 'ember' {
             function print(ast: any): void;
             const logger: typeof Ember.Logger;
             function log(level: string, str: string): void;
+            function registerHelper(name: string, helper: any): void;
         }
         namespace String {
             function camelize(str: string): string;
