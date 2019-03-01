@@ -1,6 +1,6 @@
 // Type definitions for unsplash-js 5.0
 // Project: https://github.com/unsplash/unsplash-js#readme
-// Definitions by: My Self <https://github.com/markupcode>
+// Definitions by: Andrew Malikov <https://github.com/markupcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default class Unsplash {
@@ -13,7 +13,7 @@ export default class Unsplash {
     public search: SearchApi;
     public stats: StatsApi;
 
-    constructor(options: {
+    public constructor(options: {
         apiUrl: string;
         apiVersion: string;
         applicationId: string;
@@ -23,48 +23,48 @@ export default class Unsplash {
         headers?: { [key: string]: string };
     });
 
-    private request(requestOptions: {
+    public request(requestOptions: {
         url: string;
         method: string;
         query: object;
         headers: object;
         body: object;
         oauth: boolean;
-    }): Promise<any>;
+    }): Promise<Response>;
 }
 
 export function toJson(response: any): any;
 
-export class PhotoApi {
-    public listPhotos(
+export interface PhotoApi {
+    listPhotos(
         page?: number,
         perPage?: number,
         orderBy?: string
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public listCuratedPhotos(
+    listCuratedPhotos(
         page?: number,
         perPage?: number,
         orderBy?: string
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public searchPhotos(
+    searchPhotos(
         query: string,
         categories: ReadonlyArray<string>,
         page: number,
         perPage: number
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public getPhoto(
+    getPhoto(
         id: string,
         width?: number,
         height?: number,
         rectangle?: ReadonlyArray<number>
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public getPhotoStats(id: string): Promise<any>;
+    getPhotoStats(id: string): Promise<Response>;
 
-    public getRandomPhoto(options: {
+    getRandomPhoto(options: {
         width?: number;
         height?: number;
         query?: string;
@@ -72,110 +72,100 @@ export class PhotoApi {
         featured?: boolean;
         collections?: ReadonlyArray<string>;
         count?: number;
-    }): Promise<any>;
+    }): Promise<Response>;
 
-    public uploadPhoto(photo: object): void;
+    uploadPhoto(photo: object): void;
 
-    public likePhoto(id: string): Promise<any>;
+    likePhoto(id: string): Promise<Response>;
 
-    public unlikePhoto(id: string): Promise<any>;
+    unlikePhoto(id: string): Promise<Response>;
 
-    public downloadPhoto(photo: {
+    downloadPhoto(photo: {
         links: { download_location: string };
-    }): Promise<any>;
+    }): Promise<Response>;
 }
 
-export class CollectionsApi {
-    public listCollections(
+export interface CollectionsApi {
+    listCollections(
         page?: number,
         perPage?: number,
         orderBy?: string
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public listCuratedCollections(
-        page?: number,
-        perPage?: number
-    ): Promise<any>;
+    listCuratedCollections(page?: number, perPage?: number): Promise<Response>;
 
-    public listFeaturedCollections(
-        page?: number,
-        perPage?: number
-    ): Promise<any>;
+    listFeaturedCollections(page?: number, perPage?: number): Promise<Response>;
 
-    public getCollection(id: number): Promise<any>;
+    getCollection(id: number): Promise<Response>;
 
-    public getCollectionPhotos(
+    getCollectionPhotos(
         id: number,
         page?: number,
         perPage?: number,
         orderBy?: string
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public getCuratedCollectionPhotos(
+    getCuratedCollectionPhotos(
         id: number,
         page?: number,
         perPage?: number,
         orderBy?: string
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public createCollection(
+    createCollection(
         title: string,
         description?: string,
         private?: boolean
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public updateCollection(
+    updateCollection(
         id: number,
         title?: string,
         description?: string,
         private?: boolean
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public deleteCollection(id: number): Promise<any>;
+    deleteCollection(id: number): Promise<Response>;
 
-    public addPhotoToCollection(
+    addPhotoToCollection(
         collectionId: number,
         photoId: string
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public removePhotoFromCollection(
+    removePhotoFromCollection(
         collectionId: number,
         photoId: string
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public listRelatedCollections(collectionId: number): Promise<any>;
+    listRelatedCollections(collectionId: number): Promise<Response>;
 }
 
-export class SearchApi {
-    public all(keyword: string, page: number, per_page: number): Promise<any>;
+export interface SearchApi {
+    all(keyword: string, page: number, per_page: number): Promise<Response>;
 
-    public photos(
+    photos(
         keyword: string,
         page?: number,
         per_page?: number
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public users(
+    users(keyword: string, page?: number, per_page?: number): Promise<Response>;
+
+    collections(
         keyword: string,
         page?: number,
         per_page?: number
-    ): Promise<any>;
-
-    public collections(
-        keyword: string,
-        page?: number,
-        per_page?: number
-    ): Promise<any>;
+    ): Promise<Response>;
 }
 
-export class StatsApi {
-    public total(): Promise<any>;
+export interface StatsApi {
+    total(): Promise<Response>;
 }
 
-export class CurrentUserApi {
-    public profile(): Promise<any>;
+export interface CurrentUserApi {
+    profile(): Promise<Response>;
 
-    public updateProfile(options: {
+    updateProfile(options: {
         username?: string;
         firstName?: string;
         lastName?: string;
@@ -184,57 +174,53 @@ export class CurrentUserApi {
         location?: string;
         bio?: string;
         instagramUsername?: string;
-    }): Promise<any>;
+    }): Promise<Response>;
 }
 
-export class UsersApi {
-    public profile(username: string): Promise<any>;
+export interface UsersApi {
+    profile(username: string): Promise<Response>;
 
-    public statistics(
+    statistics(
         username: string,
         resolution?: string,
         quantity?: string
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public photos(
+    photos(
         username: string,
         page?: number,
         perPage?: number,
         orderBy?: string,
         stats?: boolean
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public likes(
+    likes(
         username: string,
         page?: number,
         perPage?: number,
         orderBy?: string
-    ): Promise<any>;
+    ): Promise<Response>;
 
-    public collections(
+    collections(
         username: string,
         page?: number,
         perPage?: number,
         orderBy?: string
-    ): Promise<any>;
+    ): Promise<Response>;
 }
 
-export class CategoriesApi {
-    public listCategories(): Promise<any>;
+export interface CategoriesApi {
+    listCategories(): Promise<Response>;
 
-    public category(id: any): Promise<any>;
+    category(id: any): Promise<Response>;
 
-    public categoryPhotos(
-        id: any,
-        page?: number,
-        perPage?: number
-    ): Promise<any>;
+    categoryPhotos(id: any, page?: number, perPage?: number): Promise<Response>;
 }
 
-export class Auth {
-    public getAuthenticationUrl(scopes?: ReadonlyArray<string>): string;
+export interface Auth {
+    getAuthenticationUrl(scopes?: ReadonlyArray<string>): string;
 
-    public userAuthentication(code: string): Promise<any>;
+    userAuthentication(code: string): Promise<Response>;
 
-    public setBearerToken(accessToken: string): void;
+    setBearerToken(accessToken: string): void;
 }
