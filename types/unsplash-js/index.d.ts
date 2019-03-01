@@ -2,18 +2,19 @@
 // Project: https://github.com/unsplash/unsplash-js#readme
 // Definitions by: Andrew Malikov <https://github.com/markupcode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export default class Unsplash {
-    public auth: Auth;
-    public categories: CategoriesApi;
-    public collections: CollectionsApi;
-    public currentUser: CurrentUserApi;
-    public users: UsersApi;
-    public photos: PhotoApi;
-    public search: SearchApi;
-    public stats: StatsApi;
+    auth: Auth;
+    categories: CategoriesApi;
+    collections: CollectionsApi;
+    currentUser: CurrentUserApi;
+    users: UsersApi;
+    photos: PhotoApi;
+    search: SearchApi;
+    stats: StatsApi;
 
-    public constructor(options: {
+    constructor(options: {
         apiUrl?: string;
         apiVersion?: string;
         applicationId: string;
@@ -23,7 +24,7 @@ export default class Unsplash {
         headers?: { [key: string]: string };
     });
 
-    public request(requestOptions: {
+    request(requestOptions: {
         url: string;
         method: string;
         query: object;
