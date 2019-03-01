@@ -134,7 +134,7 @@ declare namespace helmet {
     export interface IHelmetHpkpConfiguration {
         maxAge: number;
         sha256s: string[];
-        includeSubdomains?: boolean;
+        includeSubDomains?: boolean;
         reportUri?: string;
         reportOnly?: boolean;
         setIf?: IHelmetSetIfFunction;
