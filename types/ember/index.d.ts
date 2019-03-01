@@ -38,15 +38,17 @@ import {
     ComputedPropertyCallback,
     ObserverMethod
 } from '@ember/object/-private/types';
-import * as HandlebarsNamespace from 'handlebars';
+
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
 import Rsvp from 'rsvp';
+
 import { TemplateFactory } from 'htmlbars-inline-precompile';
 
 import { Registry as ServiceRegistry } from '@ember/service';
 import { Registry as ControllerRegistry } from '@ember/controller';
 import * as EmberStringNs from '@ember/string';
+import * as EmberStringHandlebarsNs from '@ember/string/-private/handlebars';
 // tslint:disable-next-line:no-duplicate-imports
 import * as EmberServiceNs from '@ember/service';
 import * as EmberPolyfillsNs from '@ember/polyfills';
@@ -424,11 +426,12 @@ export namespace Ember {
         function K(): any;
         function createFrame(objec: any): any;
         function Exception(message: string): void;
-        const SafeString: typeof HandlebarsNamespace.SafeString;
+        class SafeString extends EmberStringHandlebarsNs.SafeString {}
         function parse(string: string): any;
         function print(ast: any): void;
         const logger: typeof Logger;
         function log(level: string, str: string): void;
+        function registerHelper(name: string, helper: any): void;
     }
     namespace String {
         const camelize: typeof EmberStringNs.camelize;
