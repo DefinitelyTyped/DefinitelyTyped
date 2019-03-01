@@ -12,7 +12,6 @@
 // TypeScript Version: 2.4
 
 /// <reference types="jquery" />
-/// <reference types="handlebars" />
 
 declare module 'ember' {
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
@@ -2421,6 +2420,7 @@ declare module 'ember' {
             function print(ast: any): void;
             const logger: typeof Ember.Logger;
             function log(level: string, str: string): void;
+            function registerHelper(name: string, helper: any): void;
         }
         namespace String {
             function camelize(str: string): string;
