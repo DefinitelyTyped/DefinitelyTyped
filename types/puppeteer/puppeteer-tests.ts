@@ -618,3 +618,11 @@ puppeteer.launch().then(async browser => {
   );
   console.log('there are', numMatchingEls, 'banana paragaphs');
 });
+
+(async () => {
+  const rev = '630727';
+  const browserFetcher = puppeteer.createBrowserFetcher();
+  await browserFetcher.canDownload(rev);
+  const revisionInfo = await browserFetcher.download(rev);
+  await browserFetcher.remove(rev);
+});
