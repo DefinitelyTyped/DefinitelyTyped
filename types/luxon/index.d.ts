@@ -426,7 +426,7 @@ export class Interval {
     engulfs(other: Interval): boolean;
     equals(other: Interval): boolean;
     hasSame(unit: DurationUnit): boolean;
-    intersection(other: Interval): Interval;
+    intersection(other: Interval): Interval | null;
     isAfter(dateTime: DateTime): boolean;
     isBefore(dateTime: DateTime): boolean;
     isEmpty(): boolean;

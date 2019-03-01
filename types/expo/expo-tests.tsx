@@ -412,6 +412,7 @@ async () => {
         { resize: { width: 300 } },
         { resize: { height: 300 } },
         { resize: { height: 300, width: 300 } },
+        { crop: { originX: 0, originY: 0, height: 300, width: 300 } }
     ], {
         compress: 0.75
     });

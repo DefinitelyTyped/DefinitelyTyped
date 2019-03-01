@@ -104,7 +104,7 @@ export interface RuleOptions {
 	index: number;
 	className: string;
 }
-export declare class SheetsRegistry {
+export class SheetsRegistry {
 	constructor();
 	registry: ReadonlyArray<StyleSheet>;
 	readonly index: number;
@@ -122,7 +122,7 @@ export type CreateStyleSheetOptions<Name extends string = any> = Partial<{
 	generateClassName: GenerateClassName<Name>;
 	classNamePrefix: string;
 }>;
-export declare class JSS {
+export class JSS {
 	constructor(options?: Partial<JSSOptions>);
 	createStyleSheet<Name extends string>(
 		styles: Partial<Styles<Name>>,

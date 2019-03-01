@@ -1021,7 +1021,7 @@ query.findOne(function (err, res) {
 query.findOneAndRemove({name: 'aa'}, {
   rawResult: true
 }, function (err, doc) {
-  doc.execPopulate();
+    doc.lastErrorObject
 }).findOneAndRemove();
 query.findOneAndUpdate({name: 'aa'}, {name: 'bb'}, {
 
@@ -1911,6 +1911,14 @@ LocModel.findOneAndUpdate().exec().then(function (arg) {
     arg.openingTimes;
   }
 });
+LocModel.findOneAndUpdate(
+    // find a document with that filter
+    {name: "aa"},
+    // document to insert when nothing was found
+    { $set: {name: "bb"} },
+    // options
+    {upsert: true, new: true, runValidators: true,
+        rawResult: true, multipleCastError: true });
 LocModel.geoSearch({}, {
   near: [1, 2],
   maxDistance: 22
