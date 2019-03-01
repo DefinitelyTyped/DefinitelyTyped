@@ -423,7 +423,7 @@ declare module "victory" {
 	export interface VictoryVoronoiContainerProps extends VictoryContainerProps {
 		/**
 		 * When the activateData prop is set to true, the active prop will be set to true on all
-		 * data components within a voronoi area. When this prop is set to false, the onActivated 
+		 * data components within a voronoi area. When this prop is set to false, the onActivated
 		 * and onDeactivated callbacks will still fire, but no mutations to data components will
 		 * occur via Victory’s event system.
 		 */
@@ -431,8 +431,8 @@ declare module "victory" {
 		/**
 		 * When the activateLabels prop is set to true, the active prop will be set to true on all
 		 * labels corresponding to points within a voronoi area. When this prop is set to false,
-		 * the onActivated and onDeactivated callbacks will still fire, but no mutations to label 
-		 * components will occur via Victory’s event system. Labels defined directly on 
+		 * the onActivated and onDeactivated callbacks will still fire, but no mutations to label
+		 * components will occur via Victory’s event system. Labels defined directly on
 		 * VictoryVoronoiContainer via the labels prop will still appear when this prop is set to false.
 		 */
 		activateLabels?: boolean;
@@ -441,8 +441,8 @@ declare module "victory" {
 		 */
 		disable?: boolean;
 		/**
-		 * When a labels prop is provided to VictoryVoronoiContainer it will render a label component 
-		 * rather than activating labels on the child components it renders. This is useful for 
+		 * When a labels prop is provided to VictoryVoronoiContainer it will render a label component
+		 * rather than activating labels on the child components it renders. This is useful for
 		 * creating multi- point tooltips. This prop should be given as a function which will be called
 		 * once for each active point. The labels function will be called with the arguments point,
 		 * index, and points, where point refers to a single active point, index refers to the position
@@ -455,7 +455,7 @@ declare module "victory" {
 		 */
 		labelComponent?: React.ReactElement;
 		/**
-		 * The onActivated prop accepts a function to be called whenever new data points are activated. 
+		 * The onActivated prop accepts a function to be called whenever new data points are activated.
 		 * The function is called with the parameters points (an array of active data objects) and props
 		 * (the props used by VictoryVoronoiContainer).
 		 */
@@ -474,14 +474,14 @@ declare module "victory" {
 		/**
 		 * The voronoiBlacklist prop is used to specify a list of components to ignore when calculating a
 		 * shared voronoi diagram. Components with a name prop matching an element in the voronoiBlacklist
-		 * array will be ignored by VictoryVoronoiContainer. Ignored components will never be flagged as 
+		 * array will be ignored by VictoryVoronoiContainer. Ignored components will never be flagged as
 		 * active, and will not contribute date to shared tooltips or labels.
 		 */
 		voronoiBlacklist?: string[];
 		/**
-		 *When the voronoiDimension prop is set, voronoi selection will only take the given dimension into 
+		 * When the voronoiDimension prop is set, voronoi selection will only take the given dimension into
 		 * account. For example, when dimension is set to “x”, all data points matching a particular x mouse
-		 * position will be activated regardless of y value. When this prop is not given, voronoi selection 
+		 * position will be activated regardless of y value. When this prop is not given, voronoi selection
 		 * is determined by both x any y values.
 		 */
 		voronoiDimension?: "x" | "y";
