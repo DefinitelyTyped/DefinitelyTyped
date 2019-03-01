@@ -211,7 +211,7 @@ interface TwitchExtConfiguration {
 	 * @param version The configuration segment to set.
 	 * @param content The version of configuration with which the segment is stored.
 	 */
-	set(segment: string, version: string, content: string): void;
+	set(segment: "broadcaster", version: string, content: string): void;
 }
 
 interface TwitchExtFeatureFlags {
