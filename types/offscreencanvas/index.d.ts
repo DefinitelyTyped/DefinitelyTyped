@@ -1,4 +1,4 @@
-// Type definitions for the W3C OffscreenCanvas
+// Type definitions for non-npm package offscreencanvas-browser
 // Project: https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface
 // Definitions by: Klaus Reimer <https://github.com/kayahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
