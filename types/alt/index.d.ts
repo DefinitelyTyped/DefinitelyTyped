@@ -1,10 +1,10 @@
 // Type definitions for Alt 0.16.10
 // Project: https://github.com/goatslacker/alt
-// Definitions by: Michael Shearer <https://github.com/Shearerbeard>
+// Definitions by: Michael Shearer <https://github.com/Shearerbeard>, Dan Schwartz <https://github.com/tiodan81>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-///<reference types="react"/>
+import React from 'react';
 
 declare namespace AltJS {
 
