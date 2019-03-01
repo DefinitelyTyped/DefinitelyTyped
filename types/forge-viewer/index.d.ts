@@ -150,6 +150,13 @@ declare namespace Autodesk {
 
         interface ViewerConfig {
           disableBrowserContextMenu?: boolean;
+          disabledExtensions?: {
+            bimwalk?: boolean;
+            hyperlink?: boolean;
+            measure?: boolean;
+            scalarisSimulation?: boolean;
+            section?: boolean;
+          };
           extensions?: string[];
           useConsolidation?: boolean;
           consolidationMemoryLimit?: number;
@@ -356,6 +363,7 @@ declare namespace Autodesk {
             language?: string;
             accessToken?: string;
             useADP?: boolean;
+            useConsolidation?: boolean;
             [key: string]: any;
         }
 
@@ -449,16 +457,42 @@ declare namespace Autodesk {
         }
 
         class Model {
-            getBoundingBox(): THREE.Box3;
+            fetchTopology(maxSizeMB: number): Promise<object>;
             getBulkProperties(dbIds: number[], propFilter?: string[], successCallback?: (r: any) => void, errorCallback?: (err: any) => void): void;
             getData(): any;
             getFragmentList(): any;
             getObjectTree(successCallback?: (result: InstanceTree) => void, errorCallback?: (err: any) => void): void;
             getProperties(dbId: number, successCallback?: (r: PropertyResult) => void, errorCallback?: (err: any) => void): void;
+            geomPolyCount(): number;
+            getDefaultCamera(): THREE.Camera;
+            getDisplayUnit(): string;
+            getDocumentNode(): object;
+            getExternalIdMapping(onSuccessCallback: () => void, onErrorCallback: () => void): any;
+            getFastLoadList(): any;
+            getFragmentMap(): any; // DbidFragmentMap|InstanceTree;
+            getLayersRoot(): object;
+            getMetadata(itemName: string, subitemName?: string, defaultValue?: any): any;
+            getRoot(): object;
+            getRootId(): number;
+            getTopoIndex(fragId: number): number;
+            getTopology(index: number): object;
+            getUnitData(unit: string): object;
             getUnitScale(): number;
-            getUnitString(): number;
-
-            search(text: string, successCallback: (r: number[]) => void, errorCallback?: (err: any) => void, attributeNames?: string[]): void;
+            getUnitString(): string;
+            getUpVector(): any;
+            hasTopology(): boolean;
+            instancePolyCount(): number;
+            is2d(): boolean;
+            is3d(): boolean;
+            isAEC(): boolean;
+            isLoadDone(): boolean;
+            isObjectTreeCreated(): boolean;
+            isObjectTreeLoaded(): boolean;
+            pageToModel(): void;
+            pointInClip(): void;
+            search(text: string, onSuccessCallback: () => void, onErrorCallback: () => void, attributeNames?: string[]): void;
+            setData(data: object): void;
+            setUUID(urn: string): void;
             clearThemingColors(): void;
 
             getInstanceTree(): InstanceTree;
@@ -771,6 +805,13 @@ declare namespace Autodesk {
             getHitPoint(x: number, y: number): THREE.Vector3;
         }
 
+        namespace Extensions {
+          class ViewerPropertyPanel extends UI.PropertyPanel {
+            constructor(viewer: Private.GuiViewer3D);
+            currentNodeIds: object[];
+          }
+        }
+
         namespace Private {
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
 
@@ -863,7 +904,8 @@ declare namespace Autodesk {
                 setLightPreset(index: number, force?: boolean): void;
 
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
-
+                modelqueue(): any;
+                matman(): any;
                 getMaterials(): any;
                 getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
 
