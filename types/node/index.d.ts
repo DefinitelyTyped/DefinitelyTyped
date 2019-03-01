@@ -63,6 +63,7 @@ interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
 interface Set<T> {}
+interface Map<K, V> {}
 interface ReadonlySet<T> {}
 interface IteratorResult<T> { }
 interface Iterable<T> { }
