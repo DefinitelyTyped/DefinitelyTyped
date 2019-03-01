@@ -245,6 +245,7 @@ interface Buffer extends Uint8Array {
     compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
+    subarray(begin: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
@@ -267,6 +268,7 @@ interface Buffer extends Uint8Array {
     readFloatBE(offset: number): number;
     readDoubleLE(offset: number): number;
     readDoubleBE(offset: number): number;
+    reverse(): this;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;

@@ -207,3 +207,22 @@ new Redis.Cluster([], {
 new Redis.Cluster([], {
     clusterRetryStrategy: (times: number, reason?: Error) => 1
 });
+
+// Cluster types
+const clusterOptions: Redis.ClusterOptions = {};
+const cluster = new Redis.Cluster(
+    [
+        {
+            host: 'localhost',
+            port: 6379
+        }
+    ],
+    clusterOptions
+);
+cluster.on('end', () => console.log('on end'));
+cluster.nodes().map(node => {
+    node.pipeline()
+        .flushdb()
+        .exec()
+        .then(result => console.log(result));
+});
