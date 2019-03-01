@@ -772,7 +772,7 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 		error = jasmine.createSpy("onFailure");
 		complete = jasmine.createSpy("onComplete");
 
-		onreadystatechange = () => {
+		onreadystatechange = function() {
 			if (this.readyState === (this.DONE || 4)) { // IE 8 doesn't support DONE
 				if (this.status === 200) {
 					success(this.responseText, this.textStatus, this);

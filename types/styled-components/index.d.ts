@@ -5,6 +5,7 @@
 //                 Adam Lavin <https://github.com/lavoaster>
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Jason Killian <https://github.com/jkillian>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -45,9 +46,9 @@ export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
 // Wrap in an outer-level conditional type to allow distribution over props that are unions
 type Defaultize<P, D> = P extends any
     ? string extends keyof P ? P :
-        & Pick<P, Exclude<keyof P, keyof D>>
-        & Partial<Pick<P, Extract<keyof P, keyof D>>>
-        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+        & PickU<P, Exclude<keyof P, keyof D>>
+        & Partial<PickU<P, Extract<keyof P, keyof D>>>
+        & Partial<PickU<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D; }
@@ -64,13 +65,13 @@ export type StyledComponentProps<
     // The props that are made optional by .attrs
     A extends keyof any
 > = WithOptionalTheme<
-    Omit<
+    OmitU<
         ReactDefaultizedProps<
             C,
             React.ComponentPropsWithRef<C>
         > & O,
         A
-    > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+    > & Partial<PickU<React.ComponentPropsWithRef<C> & O, A>>,
     T
 > & WithChildrenIfReactComponentClass<C>;
 
@@ -345,8 +346,10 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
 >;
 
 // Helper type operators
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
+// Pick that distributes over union types
+export type PickU<T, K extends keyof T> = T extends any ? {[P in K]: T[P]} : never;
+export type OmitU<T, K extends keyof T> = T extends any ? PickU<T, Exclude<keyof T, K>> : never;
+type WithOptionalTheme<P extends { theme?: T }, T> = OmitU<P, "theme"> & {
     theme?: T;
 };
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;

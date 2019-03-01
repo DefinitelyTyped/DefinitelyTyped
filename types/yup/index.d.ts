@@ -70,7 +70,7 @@ export interface Schema<T> {
     withMutation(fn: (current: this) => void): void;
     default(value: any): this;
     default(): T;
-    nullable(isNullable: boolean): this;
+    nullable(isNullable?: boolean): this;
     required(message?: TestOptionsMessage): this;
     notRequired(): this;
     typeError(message?: TestOptionsMessage): this;
