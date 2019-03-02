@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODO
+        "no-angle-bracket-type-assertion": false,
+        "no-any-union": false
+    }
+}
