@@ -621,7 +621,11 @@ puppeteer.launch().then(async browser => {
 
 (async () => {
   const rev = '630727';
-  const browserFetcher = puppeteer.createBrowserFetcher();
+  const browserFetcher = puppeteer.createBrowserFetcher({
+    host: 'https://storage.googleapis.com',
+    path: '/tmp/.local-chromium',
+    platform: 'linux',
+  });
   await browserFetcher.canDownload(rev);
   const revisionInfo = await browserFetcher.download(rev);
   await browserFetcher.remove(rev);
