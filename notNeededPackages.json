@@ -1177,6 +1177,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "ora",
+            "typingsPackageName": "ora",
+            "sourceRepoURL": "https://github.com/sindresorhus/ora",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "p-event",
             "typingsPackageName": "p-event",
             "sourceRepoURL": "https://github.com/sindresorhus/p-event",
