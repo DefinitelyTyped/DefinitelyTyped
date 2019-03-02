@@ -1231,6 +1231,12 @@
             "asOfVersion": "1.0.4"
         },
         {
+            "libraryName": "pkg-conf",
+            "typingsPackageName": "pkg-conf",
+            "sourceRepoURL": "https://github.com/sindresorhus/pkg-conf",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "plottable",
             "typingsPackageName": "plottable",
             "sourceRepoURL": "http://plottablejs.org/",
