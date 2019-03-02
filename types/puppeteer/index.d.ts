@@ -31,6 +31,8 @@ export interface JSONObject {
 }
 export type SerializableOrJSHandle = Serializable | JSHandle;
 
+export type Platform = "mac" | "win32" | "win64" | "linux";
+
 /** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
 export interface Evalable {
   /**
@@ -2187,26 +2189,14 @@ export interface CoverageEntry {
   ranges: Array<{start: number, end: number}>;
 }
 
-/** Attaches Puppeteer to an existing Chromium instance */
-export function connect(options?: ConnectOptions): Promise<Browser>;
-/** The default flags that Chromium will be launched with */
-export function defaultArgs(options?: ChromeArgOptions): string[];
-/** Path where Puppeteer expects to find bundled Chromium */
-export function executablePath(): string;
-/** The method launches a browser instance with given arguments. The browser will be closed when the parent node.js process is closed. */
-export function launch(options?: LaunchOptions): Promise<Browser>;
-
-/** This methods attaches Puppeteer to an existing Chromium instance. */
-export function createBrowserFetcher(options?: LaunchOptions): BrowserFetcher;
-
 /** BrowserFetcher can download and manage different versions of Chromium. */
 export interface BrowserFetcher {
   /** The method initiates a HEAD request to check if the revision is available. */
   canDownload(revision: string): Promise<boolean>;
   /** The method initiates a GET request to download the revision from the host. */
-  download(revision: string, progressCallback?: (downloadBytes: number, totalBytes: number) => any): Promise<RevisionInfo>;
+  download(revision: string, progressCallback?: (downloadBytes: number, totalBytes: number) => void): Promise<RevisionInfo>;
   localRevisions(): Promise<string[]>;
-  platform(): string;
+  platform(): Platform;
   remove(revision: string): Promise<void>;
   revisionInfo(revision: string): RevisionInfo;
 }
@@ -2223,3 +2213,23 @@ export interface RevisionInfo {
   /** whether the revision is locally available on disk */
   local: boolean;
 }
+
+export interface FetcherOptions {
+  /** A download host to be used. Defaults to `https://storage.googleapis.com`. */
+  host: string;
+  /** A path for the downloads folder. Defaults to `<root>/.local-chromium`, where `<root>` is puppeteer's package root. */
+  path: string;
+  /** Possible values are: `mac`, `win32`, `win64`, `linux`. Defaults to the current platform. */
+  platform: Platform;
+}
+
+/** Attaches Puppeteer to an existing Chromium instance */
+export function connect(options?: ConnectOptions): Promise<Browser>;
+/** The default flags that Chromium will be launched with */
+export function defaultArgs(options?: ChromeArgOptions): string[];
+/** Path where Puppeteer expects to find bundled Chromium */
+export function executablePath(): string;
+/** The method launches a browser instance with given arguments. The browser will be closed when the parent node.js process is closed. */
+export function launch(options?: LaunchOptions): Promise<Browser>;
+/** This methods attaches Puppeteer to an existing Chromium instance. */
+export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;
