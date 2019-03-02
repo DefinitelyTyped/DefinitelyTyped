@@ -1211,7 +1211,7 @@ import * as p from "process";
         process.prependListener("exit", (code: number) => { });
         process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
         process.on("uncaughtException", (error: Error) => { });
-        process.addListener("unhandledRejection", (reason: any, promise: Promise<any>) => { });
+        process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
         process.once("warning", (warning: Error) => { });
         process.prependListener("message", (message: any, sendHandle: any) => { });
         process.prependOnceListener("SIGBREAK", () => { });
