@@ -55,6 +55,9 @@
 // TypeScript 2.1-specific augmentations:
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
+// Empty interfaces are used here which merge fine with the real declarations in the lib XXX files
+// just to ensure the names are known and node typings can be sued without importing these libs.
+// if someone really needs these types the libs need to be added via --lib or in tsconfig.json
 interface MapConstructor { }
 interface WeakMapConstructor { }
 interface SetConstructor { }
@@ -73,8 +76,9 @@ interface SymbolConstructor {
     readonly asyncIterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
-declare class SharedArrayBuffer {
-    constructor(byteSize: number);
+// even this is just a forward declaration some properties are added otherwise
+// it would be allowed to pass anything to e.g. Buffer.from()
+interface SharedArrayBuffer {
     readonly byteLength: number;
     slice(begin?: number, end?: number): SharedArrayBuffer;
 }
