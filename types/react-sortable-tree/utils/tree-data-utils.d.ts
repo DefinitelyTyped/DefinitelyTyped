@@ -8,7 +8,7 @@ export function getDescendantCount(data: TreeNode & {ignoreCollapsed?: boolean})
 export function getVisibleNodeCount(data: FullTree): number;
 export function getVisibleNodeInfoAtIndex(
     data: FullTree & {
-        targetIndex: number,
+        index: number,
         getNodeKey: GetNodeKeyFunction,
     }): TreeNode & TreePath & {lowerSiblingsCounts: number[]} | null;
 export function walk(data: WalkAndMapFunctionParameters): void;

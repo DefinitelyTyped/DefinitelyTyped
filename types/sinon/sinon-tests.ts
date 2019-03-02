@@ -87,6 +87,9 @@ function testSandbox() {
     const privateFooFoo: sinon.SinonStub = privateFooStubbedInstance.foo;
     const clsBar: number = stubInstance.bar;
     const privateFooBar: number = privateFooStubbedInstance.bar;
+    sb.createStubInstance(cls, {
+        bar: 1
+    });
 }
 
 function testFakeServer() {
@@ -208,6 +211,7 @@ function testMatch() {
     sinon.match.regexp.test('foo');
     sinon.match.date.test('foo');
     sinon.match.symbol.test('foo');
+    sinon.match.in([1, 2, 3]).test(1);
     sinon.match.same(obj);
     sinon.match.typeOf('string').test('foo');
     sinon.match.instanceOf(fn).test('foo');
@@ -327,6 +331,8 @@ function testSpy() {
     const fn = () => { };
     const obj = class {
         foo() { }
+        set bar(val: number) { }
+        get bar() { return 0; }
     };
     const instance = new obj();
 
@@ -335,6 +341,7 @@ function testSpy() {
 
     spy = sinon.spy(fn);
     spy = sinon.spy(instance, 'foo');
+    spy = sinon.spy(instance, 'bar', ['set', 'get']);
 
     let count = 0;
     count = spy.callCount;

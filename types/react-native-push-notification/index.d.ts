@@ -14,7 +14,7 @@ export interface PushNotificationPermissions {
 export interface PushNotification {
     foreground: boolean;
     userInteraction: boolean;
-    message: string|object;
+    message: string | object;
     data: object;
     badge: number;
     alert: object;
@@ -23,7 +23,7 @@ export interface PushNotification {
 }
 
 export interface PushNotificationOptions {
-    onRegister?: (token: { os: string, token: string }) => void;
+    onRegister?: (token: { os: string; token: string }) => void;
     onNotification?: (notification: PushNotification) => void;
     senderID?: string;
     permissions?: PushNotificationPermissions;
@@ -31,6 +31,7 @@ export interface PushNotificationOptions {
     requestPermissions?: boolean;
 }
 
+export type PriorityType = 'max' | 'high' | 'low' | 'min' | 'default';
 export type RepeatType = 'week' | 'day' | 'hour' | 'minute' | 'time';
 
 export class PushNotificationObject {
@@ -48,6 +49,7 @@ export class PushNotificationObject {
     tag?: string;
     group?: string;
     ongoing?: boolean;
+    priority?: PriorityType;
 
     /* iOS only properties */
     alertAction?: any;

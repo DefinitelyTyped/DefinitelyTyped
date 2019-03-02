@@ -7,6 +7,7 @@ import Transport from '../../transport/transport';
 import { WindowEvents } from '../events/window';
 import { AnchorType } from './anchor-type';
 import { WindowOption } from './windowOption';
+import { EntityType } from '../frame/frame';
 /**
  * @lends Window
  */
@@ -29,7 +30,7 @@ export default class _WindowModule extends Base {
     wrapSync(identity: Identity): _Window;
     /**
      * Creates a new Window.
-     * @param { WindowOption } options - Window creation options
+     * @param { Window~options } options - Window creation options
      * @return {Promise.<_Window>}
      * @tutorial Window.create
      * @static
@@ -66,7 +67,7 @@ export interface WindowInfo {
 export interface FrameInfo {
     name: string;
     uuid: string;
-    entityType: string;
+    entityType: EntityType;
     parent?: Identity;
 }
 export interface Area {
@@ -75,6 +76,203 @@ export interface Area {
     x: number;
     y: number;
 }
+/**
+ * @typedef {object} Window~options
+ * @summary Window creation options.
+ * @desc This is the options object required by {@link Window.create Window.create}.
+ *
+ * Note that `name` is the only required property — albeit the `url` property is usually provided as well
+ * (defaults to `"about:blank"` when omitted).
+ *
+ * _This jsdoc typedef mirrors the `WindowOptions` TypeScript interface in `@types/openfin`._
+ *
+ * @property {object} [accelerator]
+ * Enable keyboard shortcuts for devtools, zoom, reload, and reload ignoring cache.
+ *
+ * @property {boolean} [accelerator.devtools=false]
+ * If `true`, enables the devtools keyboard shortcut:<br>
+ * `Ctrl` + `Shift` + `I` _(Toggles Devtools)_
+ *
+ * @property {boolean} [accelerator.reload=false]
+ * If `true`, enables the reload keyboard shortcuts:<br>
+ * `Ctrl` + `R` _(Windows)_<br>
+ * `F5` _(Windows)_<br>
+ * `Command` + `R` _(Mac)_
+ *
+ * @property {boolean} [accelerator.reloadIgnoringCache=false]
+ * If `true`, enables the reload-from-source keyboard shortcuts:<br>
+ * `Ctrl` + `Shift` + `R` _(Windows)_<br>
+ * `Shift` + `F5` _(Windows)_<br>
+ * `Command` + `Shift` + `R` _(Mac)_
+ *
+ * @property {boolean} [accelerator.zoom=false]
+ * If `true`, enables the zoom keyboard shortcuts:<br>
+ * `Ctrl` + `+` _(Zoom In)_<br>
+ * `Ctrl` + `Shift` + `+` _(Zoom In)_<br>
+ * `Ctrl` + `-` _(Zoom Out)_<br>
+ * `Ctrl` + `Shift` + `-` _(Zoom Out)_<br>
+ * `Ctrl` + `Scroll` _(Zoom In & Out)_<br>
+ * `Ctrl` + `0` _(Restore to 100%)_
+ *
+ * @property {boolean} [alwaysOnTop=false] - _Updatable._
+ * A flag to always position the window at the top of the window stack.
+ *
+ * @property {object} [api]
+ * Configurations for API injection.
+ *
+ * @property {object} [api.iframe] Configure if the the API should be injected into iframes based on domain.
+ *
+ * @property {boolean} [api.iframe.crossOriginInjection=false] Controls if the `fin` API object is present for cross origin iframes.
+ * @property {boolean} [api.iframe.sameOriginInjection=true] Controls if the `fin` API object is present for same origin iframes.
+ *
+ * @property {number} [aspectRatio=0] - _Updatable._
+ * The aspect ratio of width to height to enforce for the window. If this value is equal to or less than zero,
+ * an aspect ratio will not be enforced.
+ *
+ * @property {boolean} [autoShow=true]
+ * A flag to automatically show the window when it is created.
+ *
+ * @property {string} [backgroundColor="#FFF"]
+ * The window’s _backfill_ color as a hexadecimal value. Not to be confused with the content background color
+ * (`document.body.style.backgroundColor`),
+ * this color briefly fills a window’s (a) content area before its content is loaded as well as (b) newly exposed
+ * areas when growing a window. Setting
+ * this value to the anticipated content background color can help improve user experience.
+ * Default is white.
+ *
+ * @property {object} [contentNavigation]
+ * Restrict navigation to URLs that match a whitelisted pattern. See [here](https://developer.chrome.com/extensions/match_patterns)
+ * for more details.
+ * @property {string[]} [contentNavigation.whitelist=[]] List of whitelisted URLs.
+ *
+ * @property {boolean} [contextMenu=true] - _Updatable._
+ * A flag to show the context menu when right-clicking on a window.
+ * Gives access to the devtools for the window.
+ *
+ * @property {object} [cornerRounding] - _Updatable._
+ * Defines and applies rounded corners for a frameless window. **NOTE:** On macOS corner is not ellipse but circle rounded by the
+ *  average of _height_ and _width_.
+ * @property {number} [cornerRounding.height=0] The height in pixels.
+ * @property {number} [cornerRounding.width=0] The width in pixels.
+ *
+ * @property {string} [customData=""] - _Updatable._
+ * A field that the user can attach serializable data to to be ferried around with the window options.
+ * _When omitted, the default value of this property is the empty string (`""`)._
+ *
+ * @property {customRequestHeaders[]} [customRequestHeaders]
+ * Defines list of {@link customRequestHeaders} for requests sent by the window.
+ *
+ * @property {boolean} [defaultCentered=false]
+ * Centers the window in the primary monitor. This option overrides `defaultLeft` and `defaultTop`. When `saveWindowState` is `true`,
+ * this value will be ignored for subsequent launches in favor of the cached value. **NOTE:** On macOS _defaultCenter_ is
+ * somewhat above center vertically.
+ *
+ * @property {number} [defaultHeight=500]
+ * The default height of the window. When `saveWindowState` is `true`, this value will be ignored for subsequent launches
+ * in favor of the cached value.
+ *
+ * @property {number} [defaultLeft=100]
+ * The default left position of the window. When `saveWindowState` is `true`, this value will be ignored for subsequent
+ * launches in favor of the cached value.
+ *
+ * @property {number} [defaultTop=100]
+ * The default top position of the window. When `saveWindowState` is `true`, this value will be ignored for subsequent
+ * launches in favor of the cached value.
+ *
+ * @property {number} [defaultWidth=800]
+ * The default width of the window. When `saveWindowState` is `true`, this value will be ignored for subsequent
+ * launches in favor of the cached value.
+ *
+ * @property {boolean} [frame=true] - _Updatable._
+ * A flag to show the frame.
+ *
+ * @hidden-property {boolean} [hideOnClose=false] - A flag to allow a window to be hidden when the close button is clicked.
+ *
+ * @property {string} [icon] - _Updatable. Inheritable._
+ * A URL for the icon to be shown in the window title bar and the taskbar.
+ * _When omitted, inherits from the parent application._
+ *
+ * @property {number} [maxHeight=-1] - _Updatable._
+ * The maximum height of a window. Will default to the OS defined value if set to -1.
+ *
+ * @property {boolean} [maximizable=true] - _Updatable._
+ * A flag that lets the window be maximized.
+ *
+ * @property {number} [maxWidth=-1] - _Updatable._
+ * The maximum width of a window. Will default to the OS defined value if set to -1.
+ *
+ * @property {number} [minHeight=0] - _Updatable._
+ * The minimum height of a window.
+ *
+ * @property {boolean} [minimizable=true] - _Updatable._
+ * A flag that lets the window be minimized.
+ *
+ * @property {number} [minWidth=0] - _Updatable._
+ * The minimum width of a window.
+ *
+ * @property {string} name
+ * The name of the window.
+ *
+ * @property {number} [opacity=1.0] - _Updatable._
+ * A flag that specifies how transparent the window will be.
+ * This value is clamped between `0.0` and `1.0`.
+ *
+ * @property {preloadScript[]} [preloadScripts] - _Inheritable_
+ * A list of scripts that are eval'ed before other scripts in the page. When omitted, _inherits_
+ * from the parent application.
+ *
+ * @property {boolean} [resizable=true] - _Updatable._
+ * A flag to allow the user to resize the window.
+ *
+ * @property {object} [resizeRegion] - _Updatable._
+ * Defines a region in pixels that will respond to user mouse interaction for resizing a frameless window.
+ * @property {number} [resizeRegion.bottomRightCorner=9]
+ * The size in pixels of an additional square resizable region located at the bottom right corner of a frameless window.
+ * @property {number} [resizeRegion.size=7]
+ * The size in pixels.
+ * @property {object} [resizeRegion.sides={top:true,right:true,bottom:true,left:true}]
+ * Sides that a window can be resized from.
+ *
+ * @property {boolean} [saveWindowState=true]
+ * A flag to cache the location of the window.
+ *
+ * @property {boolean} [shadow=false]
+ * A flag to display a shadow on frameless windows.
+ * `shadow` and `cornerRounding` are mutually exclusive.
+ * On Windows 7, Aero theme is required.
+ *
+ * @property {boolean} [showTaskbarIcon=true] - _Updatable._ _Windows_.
+ * A flag to show the window's icon in the taskbar.
+ *
+ * @property {boolean} [smallWindow=false]
+ * A flag to specify a frameless window that can be be created and resized to less than 41x36px (width x height).
+ * _Note: Caveats of small windows are no Aero Snap and drag to/from maximize._
+ *
+ * @property {string} [state="normal"]
+ * The visible state of the window on creation.
+ * One of:
+ * * `"maximized"`
+ * * `"minimized"`
+ * * `"normal"`
+ *
+ * @property {string} [taskbarIconGroup=<application uuid>] - _Windows_.
+ * Specify a taskbar group for the window.
+ * _If omitted, defaults to app's uuid (`fin.desktop.Application.getCurrent().uuid`)._
+ *
+ * @property {string} [url="about:blank"]
+ * The URL of the window.
+ *
+ * @property {string} [uuid=<application uuid>]
+ * The `uuid` of the application, unique within the set of all `Application`s running in OpenFin Runtime.
+ * If omitted, defaults to the `uuid` of the application spawning the window.
+ * If given, must match the `uuid` of the  application spawning the window.
+ * In other words, the application's `uuid` is the only acceptable value, but is the default, so there's
+ * really no need to provide it.
+ *
+ * @property {boolean} [waitForPageLoad=false]
+ * When set to `true`, the window will not appear until the `window` object's `load` event fires.
+ * When set to `false`, the window will appear immediately without waiting for content to be loaded.
+ */
 /**
  * @typedef { Object } Area
  * @property { number } height Area's height
@@ -117,7 +315,7 @@ this animation onto the end of the animation queue.
 /**
  * Bounds is a interface that has the properties of height,
  * width, left, top which are all numbers
- * @typedef { Object } Bounds
+ * @typedef { object } Bounds
  * @property { number } height Get the application height bound
  * @property { number } width Get the application width bound
  * @property { number } top Get the application top bound
@@ -130,337 +328,91 @@ this animation onto the end of the animation queue.
  * control over the window state such as the ability to minimize, maximize, restore, etc.
  * By default a window does not show upon instantiation; instead the window's show() method
  * must be invoked manually. The new window appears in the same process as the parent window.
+ * It has the ability to listen for <a href="tutorial-Window.EventEmitter.html">window specific events</a>.
  * @class
  * @alias Window
-*/
+ * @hideconstructor
+ */
 export declare class _Window extends EmitterBase<WindowEvents> {
     identity: Identity;
-    /**
-     * Raised when a window within this application requires credentials from the user.
-     *
-     * @event Window#auth-requested
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {object} authInfo
-     * @property {string} authInfo.host - Host server.
-     * @property {boolean} authInfo.isProxy - Indicates if the request involves a proxy.
-     * @property {number} authInfo.port - Port number.
-     * @property {string} authInfo.realm - Authentication request realm.
-     * @property {string} authInfo.scheme - Authentication scheme.
-     */
-    /**
-     * Raised when a window loses focus.
-     *
-     * @event Window#blurred
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised after changes in a window's size and/or position.
-     *
-     * @event Window#bounds-changed
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {number} changeType - Describes what kind of change occurred.
-     0 means a change in position.
-     1 means a change in size.
-     2 means a change in position and size.
-     * @property {string} deferred - Indicated whether pending changes have been applied.
-     * @property {number} height - New height of the window.
-     * @property {number} left - New left most coordinate of the window.
-     * @property {number} top - New top most coordinate of the window.
-     * @property {number} width - New width of the window.
-     */
-    /**
-     * Raised when a window has been prevented from closing. A window will be prevented from closing by default,
-     either through the API or by a user when ‘close-requested’ has been subscribed to and the Window.close(force) flag is false.
-     *
-     * @event Window#close-requested
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when a window has closed.
-     *
-     * @event Window#closed
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when a window has crashed.
-     *
-     * @event Window#crashed
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when the frame is disabled after all prevent user changes in window's size and/or position have completed.
-     *
-     * @event Window#disabled-frame-bounds-changed
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {number} changeType - Describes what kind of change occurred.
-     0 means a change in position.
-     1 means a change in size.
-     2 means a change in position and size.
-     * @property {string} deferred - Indicated whether pending changes have been applied.
-     * @property {number} height - New height of the window.
-     * @property {number} left - New left most coordinate of the window.
-     * @property {number} top - New top most coordinate of the window.
-     * @property {number} width - New width of the window.
-     */
-    /**
-     * Raised when the frame is disabled during prevented user changes to a window's size and/or position.
-     *
-     * @event Window#disabled-frame-bounds-changing
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {number} changeType - Describes what kind of change occurred.
-     0 means a change in position.
-     1 means a change in size.
-     2 means a change in position and size.
-     * @property {string} deferred - Indicated whether pending changes have been applied.
-     * @property {number} height - New height of the window.
-     * @property {number} left - New left most coordinate of the window.
-     * @property {number} top - New top most coordinate of the window.
-     * @property {number} width - New width of the window.
-     */
-    /**
-     * Raised when the window has been embedded.
-     *
-     * @event Window#embedded
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when an external process has exited.
-     *
-     * @event Window#external-process-exited
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {string} processUuid - The process handle UUID.
-     * @property {number} exitCode - The process exit code
-     */
-    /**
-     * Raised when an external process has started.
-     *
-     * @event Window#external-process-started
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {string} processUuid - The process handle UUID.
-     */
-    /**
-     * Raised when a window's frame becomes disabled.
-     *
-     * @event Window#frame-disabled
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when a window's frame becomes enabled.
-     *
-     * @event Window#frame-enabled
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when a window joins/leaves a group and/or when the group a window is a member of changes.
-     *
-     * @event Window#group-changed
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {string} source - Which group array the window that the event listener was registered on is included in:
-     'source' The window is included in sourceGroup.
-     'target' The window is included in targetGroup.
-     'nothing' The window is not included in sourceGroup nor targetGroup.
-     * @property {string} reason - The reason this event was triggered.
-     'leave' A window has left the group due to a leave or merge with group.
-     'join' A window has joined the group.
-     'merge' Two groups have been merged together.
-     'disband' There are no other windows in the group.
-     * @property {string} name - Name of the window.
-     * @property {legacyWindowIdentity[]} sourceGroup - All the windows in the group the sourceWindow originated from.
-     * @property {string} sourceWindowAppUuid - UUID of the application the sourceWindow belongs to the
-     source window is the window in which (merge/join/leave)group(s) was called.
-     * @property {string} sourceWindowName - Name of the sourcewindow.
-     The source window is the window in which (merge/join/leave)group(s) was called.
-     * @property {legacyWindowIdentity[]} targetGroup - All the windows in the group the targetWindow orginated from.
-     * @property {string} targetWindowAppUuid - UUID of the application the targetWindow belongs to.
-     The target window is the window that was passed into (merge/join)group(s).
-     * @property {string} targetWindowName - Name of the targetWindow.
-     The target window is the window that was passed into (merge/join)group(s).
-     */
-    /**
-     * Raised when a window has been hidden.
-     *
-     * @event Window#hidden
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {string} reason - Action prompted the close The reasons are:
-     "hide"
-     "hide-on-close"
-    */
-    /**
-     * Raised when a window is initialized.
-     *
-     * @event Window#initialized
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when a window is maximized.
-     *
-     * @event Window#maximized
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when a window is minimized.
-     *
-     * @event Window#minimized
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when window navigation is rejected as per ContentNavigation whitelist/blacklist rules.
-     *
-     * @event Window#navigation-rejected
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {string} sourceName - source of navigation window name.
-     * @property {string} url - Blocked content url.
-     */
-    /**
-     * Raised when a window is out of memory.
-     *
-     * @event Window#out-of-memory
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised after the execution of all of a window's preload scripts. Contains
-     information about all window's preload scripts' final states.
-     *
-     * @event Window#preload-scripts-state-changed
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {preloadScriptState[]} preloadState -  An array of all final preload scripts' states
-     */
-    /**
-     * Raised during the execution of a window's preload script. Contains information
-     about a single window's preload script's state, for which the event has been raised.
-     *
-     * @event Window#preload-scripts-state-changing
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {preloadScriptState[]} preloadState -  An array of all final preload scripts' states
-     */
-    /**
-     * Raised when an HTTP load was cancelled or failed.
-     *
-     * @event Window#resource-load-failed
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {number} errorCode - The Chromium error code.
-     * @property {string} errorDescription - The Chromium error description.
-     * @property {string} validatedURL - The url attempted.
-     * @property {boolean} isMainFrame - Was the attempt made from the main frame.
-     */
-    /**
-     * Raised when an HTTP resource request has received response details.
-     *
-     * @event Window#resource-response-received
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {boolean} status - Status of the request.
-     * @property {string} newUrl - The URL of the responded resource.
-     * @property {string} originalUrl - The requested URL.
-     * @property {number} httpResponseCode - The HTTP Response code.
-     * @property {string} requestMethod - The HTTP request method.
-     * @property {string} referrer - The HTTP referrer.
-     * @property {object} headers - The HTTP headers.
-     * @property {string} resourceType - Resource type:
-     "mainFrame", "subFrame",
-     "styleSheet", "script", "image",
-     "object", "xhr", or "other"
-    */
-    /**
-     * Raised when a window has reloaded.
-     *
-     * @event Window#reloaded
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     * @property {string} url - Url has has been reloaded.
-     */
-    /**
-     * Raised when a window is displayed after having been minimized or
-     when a window leaves the maximize state without minimizing.
-     *
-     * @event Window#restored
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when a window has been prevented from showing.
-     A window will be prevented from showing by default, either through the API or by a user when
-     ‘show-requested’ has been subscribed to on the window or 'window-show-requested'
-     on the parent application and the Window.show(force) flag is false.
-     *
-     * @event Window#show-requested
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * Raised when a window been shown.
-     *
-     * @event Window#shown
-     * @type {object}
-     * @property {string} name - Name of the window.
-     * @property {string} uuid - UUID of the application that the window belongs to.
-     */
-    /**
-     * @typedef {object} legacyWindowIdentity
-     * @summary Object summary
-     * @desc Object description
-     * @property {string} appUuid - The UUID of the application this window entry belongs to.
-     * @property {string} windowName - The name of this window entry.
-     */
-    /**
-     * @typedef {object} preloadScriptState
-     * @summary Object summary
-     * @desc Object description
-     * @property {string} url - The url of the preload script.
-     * @property {string} state - The preload script state:
-     "load-failed", "failed", "succeeded"
-     */
     constructor(wire: Transport, identity: Identity);
+    /**
+     * Adds a listener to the end of the listeners array for the specified event.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - Called whenever an event of the specified type occurs.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function addListener
+     * @memberof Window
+     * @instance
+     * @tutorial Window.EventEmitter
+     */
+    /**
+     * Adds a listener to the end of the listeners array for the specified event.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - Called whenever an event of the specified type occurs.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function on
+     * @memberof Window
+     * @instance
+     * @tutorial Window.EventEmitter
+     */
+    /**
+     * Adds a one time listener for the event. The listener is invoked only the first time the event is fired, after which it is removed.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function once
+     * @memberof Window
+     * @instance
+     * @tutorial Window.EventEmitter
+     */
+    /**
+     * Adds a listener to the beginning of the listeners array for the specified event.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function prependListener
+     * @memberof Window
+     * @instance
+     * @tutorial Window.EventEmitter
+     */
+    /**
+     * Adds a one time listener for the event. The listener is invoked only the first time the event is fired, after which it is removed.
+     * The listener is added to the beginning of the listeners array.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function prependOnceListener
+     * @memberof Window
+     * @instance
+     * @tutorial Window.EventEmitter
+     */
+    /**
+     * Remove a listener from the listener array for the specified event.
+     * Caution: Calling this method changes the array indices in the listener array behind the listener.
+     * @param { string | symbol } eventType  - The type of the event.
+     * @param { Function } listener - The callback function.
+     * @param { SubOptions } [options] - Option to support event timestamps.
+     * @return {Promise.<this>}
+     * @function removeListener
+     * @memberof Window
+     * @instance
+     * @tutorial Window.EventEmitter
+     */
+    /**
+     * Removes all listeners, or those of the specified event.
+     * @param { string | symbol } [eventType]  - The type of the event.
+     * @return {Promise.<this>}
+     * @function removeAllListeners
+     * @memberof Window
+     * @instance
+     * @tutorial Window.EventEmitter
+     */
     createWindow(options: WindowOption): Promise<_Window>;
     private windowListFromNameList;
     /**
@@ -518,23 +470,26 @@ export declare class _Window extends EmitterBase<WindowEvents> {
     */
     close(force?: boolean): Promise<void>;
     /**
-     * Returns then running applications uuid
+     * Returns the native OS level Id.
+     * In Windows, it will return the Windows [handle](https://docs.microsoft.com/en-us/windows/desktop/WinProg/windows-data-types#HWND).
      * @return {Promise.<string>}
      * @tutorial Window.getNativeId
      */
     getNativeId(): Promise<string>;
+    disableFrame(): Promise<void>;
     /**
      * Prevents a user from changing a window's size/position when using the window's frame.
      * @return {Promise.<void>}
-     * @tutorial Window.disableFrame
+     * @tutorial Window.disableUserMovement
      */
-    disableFrame(): Promise<void>;
+    disableUserMovement(): Promise<void>;
+    enableFrame(): Promise<void>;
     /**
      * Re-enables user changes to a window's size/position when using the window's frame.
      * @return {Promise.<void>}
-     * @tutorial Window.enableFrame
+     * @tutorial Window.enableUserMovement
      */
-    enableFrame(): Promise<void>;
+    enableUserMovement(): Promise<void>;
     /**
      * Executes Javascript on the window, restricted to windows you own or windows owned by
      * applications you have created.
@@ -602,6 +557,12 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      */
     getState(): Promise<string>;
     /**
+     * Determines if the window is a main window.
+     * @return {boolean}
+     * @tutorial Window.isMainWindow
+     */
+    isMainWindow(): boolean;
+    /**
      * Determines if the window is currently showing.
      * @return {Promise.<boolean>}
      * @tutorial Window.isShowing
@@ -609,7 +570,7 @@ export declare class _Window extends EmitterBase<WindowEvents> {
     isShowing(): Promise<boolean>;
     /**
      * Joins the same window group as the specified window.
-     * @param { class } target The window whose group is to be joined
+     * @param { _Window } target The window whose group is to be joined
      * @return {Promise.<void>}
      * @tutorial Window.joinGroup
      */
@@ -634,7 +595,7 @@ export declare class _Window extends EmitterBase<WindowEvents> {
     maximize(): Promise<void>;
     /**
      * Merges the instance's window group with the same window group as the specified window
-     * @param { class } target The window whose group is to be merged with
+     * @param { _Window } target The window whose group is to be merged with
      * @return {Promise.<void>}
      * @tutorial Window.mergeGroups
      */
@@ -769,6 +730,12 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * @tutorial Window.navigateBack
      */
     navigateBack(): Promise<void>;
+    /**
+     * Navigates the window forward one page.
+     * @return {Promise.<void>}
+     * @tutorial Window.navigateForward
+     */
+    navigateForward(): Promise<void>;
     /**
      * Stops any current navigation the window is performing.
      * @return {Promise.<void>}

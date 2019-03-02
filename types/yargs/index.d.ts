@@ -1,11 +1,10 @@
 // Type definitions for yargs 12.0
-// Project: https://github.com/chevex/yargs
+// Project: https://github.com/chevex/yargs, https://yargs.js.org
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
-//                 Teddy Cross <https://github.com/tkazec>
 //                 Steffen Viken Valvåg <https://github.com/steffenvv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -176,7 +175,8 @@ declare namespace yargs {
          * 'positional' should be called in a command's builder function, and is not
          * available on the top-level yargs instance. If so, it will throw an error.
          */
-        positional(key: string, opt: PositionalOptions): Argv<T>;
+        positional<K extends keyof T, O extends PositionalOptions>(key: K, opt: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
+        positional<K extends string, O extends PositionalOptions>(key: K, opt: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
 
         recommendCommands(): Argv<T>;
 
@@ -226,6 +226,7 @@ declare namespace yargs {
         skipValidation(key: string | ReadonlyArray<string>): Argv<T>;
 
         strict(): Argv<T>;
+        strict(enabled: boolean): Argv<T>;
 
         string<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToString<T[key]> }>;
         string<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: string | undefined }>;
@@ -252,7 +253,7 @@ declare namespace yargs {
         wrap(columns: number | null): Argv<T>;
     }
 
-    type Arguments<T> = T & {
+    type Arguments<T = {}> = T & {
         /** Non-option arguments */
         _: string[];
         /** The script name or node command */
@@ -376,7 +377,7 @@ declare namespace yargs {
 
     type InferredOptionTypes<O extends { [key: string]: Options }> = { [key in keyof O]: InferredOptionType<O[key]> };
 
-    interface CommandModule<T, U> {
+    interface CommandModule<T = {}, U = {}> {
         aliases?: ReadonlyArray<string> | string;
         builder?: CommandBuilder<T, U>;
         command?: ReadonlyArray<string> | string;
@@ -384,11 +385,11 @@ declare namespace yargs {
         handler: (args: Arguments<U>) => void;
     }
 
-    type ParseCallback<T> = (err: Error | undefined, argv: Arguments<T>, output: string) => void;
-    type CommandBuilder<T, U> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>);
+    type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T>, output: string) => void;
+    type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
-    type MiddlewareFunction<T> = (args: Arguments<T>) => void;
+    type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void;
     type Choices = ReadonlyArray<string | true | undefined>;
     type PositionalOptionsType = "boolean" | "number" | "string";
 }

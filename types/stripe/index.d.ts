@@ -14,7 +14,9 @@
 //                 Troy Zarger <https://github.com/tzarger>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Simon Schick <https://github.com/SimonSchick>
-//                 Slava Yultyyev Schick <https://github.com/yultyyev>
+//                 Slava Yultyyev <https://github.com/yultyyev>
+//                 Corey Psoinos <https://github.com/cpsoinos>
+//                 Saransh Kataria <https://github.com/saranshkataria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -76,7 +78,7 @@ declare class Stripe {
     webhooks: Stripe.resources.WebHooks;
     ephemeralKeys: Stripe.resources.EphemeralKeys;
     usageRecords: Stripe.resources.UsageRecords;
-    usageRecordSummarys: Stripe.resources.UsageRecordSummarys;
+    usageRecordSummaries: Stripe.resources.UsageRecordSummaries;
 
     setHost(host: string): void;
     setHost(host: string, port: string|number): void;
@@ -709,7 +711,7 @@ declare namespace Stripe {
             type: string;
         }
 
-        interface IBalanceListOptions extends IListOptions {
+        interface IBalanceListOptions extends IListOptionsCreated {
             available_on?: string | IDateFilter;
             currency?: string;
 
@@ -720,17 +722,10 @@ declare namespace Stripe {
             source?: string;
 
             /**
-             * For automatic Stripe transfers only, only returns transactions that were
-             * transferred out on the specified transfer ID.
+             * Only returns transactions of the given type.
              */
-            transfer?: string;
-
-            /**
-             * Only returns transactions of the given type. One of: "charge", "refund",
-             * "adjustment", "application_fee", "application_fee_refund", "transfer",
-             * or "transfer_failure"
-             */
-            type?: string;
+            type?: "charge" | "refund" | "adjustment" | "application_fee" |
+                "application_fee_refund" | "transfer" | "payment" | "payout" | "payout_failure" | "stripe_fee" | "network_cost";
 
             /**
              * For automatic Stripe payouts only, only returns transactions that were payed out on the specified payout ID.
@@ -2005,7 +2000,7 @@ declare namespace Stripe {
              */
             description: string;
 
-            discount: coupons.IDiscount;
+            discount: coupons.IDiscount | null;
 
             /**
              * The date on which payment for this invoice is due. This value will be null for invoices where billing=charge_automatically.
@@ -3389,6 +3384,12 @@ declare namespace Stripe {
              * May only be set if type=service.
              */
             statement_descriptor?: string;
+
+            /**
+             * A label that represents units of this product, such as seat(s), in Stripe and on customers’ receipts and invoices.
+             * Only available on products of type=service.
+             */
+            unit_label?: string;
         }
 
         interface IProductUpdateOptions extends IDataOptionsWithMetadata {
@@ -4612,7 +4613,7 @@ declare namespace Stripe {
              * cancel_at_period_end, canceled_at will still reflect the date of the initial cancellation request, not the end of the
              * subscription period when the subscription is automatically moved to a canceled state.
              */
-            canceled_at: number;
+            canceled_at: number | null;
 
             created: number;
 
@@ -4635,7 +4636,7 @@ declare namespace Stripe {
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
              * subscription overrides a discount applied on a customer-wide basis.
              */
-            discount: coupons.IDiscount;
+            discount: coupons.IDiscount | null;
 
             /**
              * If the subscription has ended (either because it was canceled or because the customer was switched to a subscription
@@ -4648,9 +4649,10 @@ declare namespace Stripe {
             items: IList<subscriptionItems.ISubscriptionItem>;
 
             /**
-             * Hash describing the plan the customer is subscribed to
+             * Hash describing the plan the customer is subscribed to.  Only set if the subscription
+             * contains a single plan.
              */
-            plan: plans.IPlan;
+            plan?: plans.IPlan | null;
 
             /**
              * The number of subscriptions for the associated plan
@@ -4681,12 +4683,12 @@ declare namespace Stripe {
             /**
              * If the subscription has a trial, the end of that trial.
              */
-            trial_end: number;
+            trial_end: number | null;
 
             /**
              * If the subscription has a trial, the beginning of that trial.
              */
-            trial_start: number;
+            trial_start: number | null;
 
             /**
              * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the
@@ -4875,6 +4877,18 @@ declare namespace Stripe {
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
             /**
+             * Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items.
+             */
+            invoice_now?: boolean;
+
+            /**
+             * Will generate a proration invoice item that credits remaining unused time until the subscription period end.
+             */
+            prorate?: boolean;
+
+            /**
+             * @deprecated Use subscription update with cancel_at_period_end option as of 2018-08-23.
+             *
              * A flag that if set to true will delay the cancellation of the subscription until the end of the current period.
              */
             at_period_end?: boolean;
@@ -5068,7 +5082,7 @@ declare namespace Stripe {
             /**
              * Balance transaction that describes the impact of this reversal on your account balance.
              */
-            balance_transaction: string;
+            balance_transaction: string | balance.IBalanceTransaction;
 
             /**
              * ID of the charge that was refunded. [Expandable]
@@ -5324,17 +5338,17 @@ declare namespace Stripe {
         }
     }
 
-    namespace usageRecordSummarys {
+    namespace usageRecordSummaries {
         /**
          * A object with a data property that contains an array of up to limit summaries,
          * starting after summary starting_after. Each entry in the array is a separate summary object.
          * If no more summaries are available, the resulting array is empty.
          */
-        interface IUsageRecordSummarys extends IList<IUsageRecordSummarysItem> {
+        interface IUsageRecordSummaries extends IList<IUsageRecordSummariesItem> {
             object: 'list';
         }
 
-        interface IUsageRecordSummarysItem {
+        interface IUsageRecordSummariesItem {
             id: string;
             object: string;
             invoice: string;
@@ -5344,7 +5358,7 @@ declare namespace Stripe {
             total_usage: number;
         }
 
-        interface IUsageRecordSummarysListOptions extends IListOptions {
+        interface IUsageRecordSummariesListOptions extends IListOptions {
             /**
              * Only summary items for the given subscription item.
              */
@@ -5371,12 +5385,12 @@ declare namespace Stripe {
             create(subscription: string, data: usageRecords.IUsageRecordCreationOptions, response?: IResponseFn<usageRecords.IUsageRecord>): Promise<usageRecords.IUsageRecord>;
         }
 
-        class UsageRecordSummarys extends StripeResource {
+        class UsageRecordSummaries extends StripeResource {
             /**
              * Creates a usage record for a specified subscription item and date, and fills it with a quantity.
              */
-            list(data: usageRecordSummarys.IUsageRecordSummarysListOptions, options: HeaderOptions, response?: IResponseFn<usageRecordSummarys.IUsageRecordSummarys>): Promise<usageRecordSummarys.IUsageRecordSummarys>;
-            list(data: usageRecordSummarys.IUsageRecordSummarysListOptions, response?: IResponseFn<usageRecordSummarys.IUsageRecordSummarys>): Promise<usageRecordSummarys.IUsageRecordSummarys>;
+            list(data: usageRecordSummaries.IUsageRecordSummariesListOptions, options: HeaderOptions, response?: IResponseFn<usageRecordSummaries.IUsageRecordSummaries>): Promise<usageRecordSummaries.IUsageRecordSummaries>;
+            list(data: usageRecordSummaries.IUsageRecordSummariesListOptions, response?: IResponseFn<usageRecordSummaries.IUsageRecordSummaries>): Promise<usageRecordSummaries.IUsageRecordSummaries>;
         }
 
         class Accounts extends StripeResource {

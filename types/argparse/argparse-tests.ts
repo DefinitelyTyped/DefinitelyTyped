@@ -1,6 +1,12 @@
 // near copy of each of the tests from https://github.com/nodeca/argparse/tree/master/examples
 
-import { ArgumentParser, RawDescriptionHelpFormatter } from 'argparse';
+import {
+    ArgumentParser,
+    RawDescriptionHelpFormatter,
+    Action,
+    ActionConstructorOptions,
+    Namespace,
+} from 'argparse';
 let args: any;
 
 const simpleExample = new ArgumentParser({
@@ -276,3 +282,26 @@ group.addArgument(['--bar'], {
     help: 'bar help'
 });
 formatterExample.printHelp();
+
+class CustomAction1 extends Action {
+    constructor(options: ActionConstructorOptions) {
+        super(options);
+    }
+    call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null) {
+        console.log('custom action 1');
+    }
+}
+
+class CustomAction2 extends Action {
+    call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null) {
+        console.log('custom action 2');
+    }
+}
+
+const customActionExample = new ArgumentParser({ addHelp: false });
+customActionExample.addArgument('--abc', {
+    action: CustomAction1,
+});
+customActionExample.addArgument('--def', {
+    action: CustomAction2,
+});

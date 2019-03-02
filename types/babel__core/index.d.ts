@@ -1,8 +1,9 @@
-// Type definitions for @babel/core 7.0
-// Project: https://github.com/babel/babel/tree/master/packages/babel-core
+// Type definitions for @babel/core 7.1
+// Project: https://github.com/babel/babel/tree/master/packages/babel-core, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
+//                 Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -55,6 +56,15 @@ export interface TransformOptions {
     root?: string | null;
 
     /**
+     * This option, combined with the "root" value, defines how Babel chooses its project root.
+     * The different modes define different ways that Babel can process the "root" value to get
+     * the final project root.
+     *
+     * @see https://babeljs.io/docs/en/next/options#rootmode
+     */
+    rootMode?: 'root' | 'upward' | 'upward-optional';
+
+    /**
      * The config file to load Babel's config from. Defaults to searching for "babel.config.js" inside the "root" folder. `false` will disable searching for config files.
      *
      * Default: `undefined`
@@ -82,7 +92,7 @@ export interface TransformOptions {
      *
      * Default: env vars
      */
-    envName?: string | null;
+    envName?: string;
 
     /**
      * Enable code generation
@@ -111,6 +121,14 @@ export interface TransformOptions {
      * Default: `"."`
      */
     cwd?: string | null;
+
+    /**
+     * Utilities may pass a caller object to identify themselves to Babel and
+     * pass capability-related flags for use by configs, presets and plugins.
+     *
+     * @see https://babeljs.io/docs/en/next/options#caller
+     */
+    caller?: TransformCaller;
 
     /**
      * This is an object of keys that represent different environments. For example, you may have: `{ env: { production: { \/* specific options *\/ } } }`
@@ -282,6 +300,14 @@ export interface TransformOptions {
      * `wrapPluginVisitorMethod(pluginAlias, visitorType, callback)`.
      */
     wrapPluginVisitorMethod?: ((pluginAlias: string, visitorType: "enter" | "exit", callback: (path: NodePath, state: any) => void) => (path: NodePath, state: any) => void) | null;
+}
+
+export interface TransformCaller {
+    // the only required property
+    name: string;
+    // e.g. set to true by `babel-loader` and false by `babel-jest`
+    supportsStaticESM?: boolean;
+    // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
 
 export type FileResultCallback = (err: Error | null, result: BabelFileResult | null) => any;
@@ -527,5 +553,130 @@ export interface CreateConfigItemOptions {
  * plugins and presets to inject, pre-constructing the config items would be recommended.
  */
 export function createConfigItem(value: PluginTarget | [PluginTarget, PluginOptions] | [PluginTarget, PluginOptions, string | undefined], options?: CreateConfigItemOptions): ConfigItem;
+
+// NOTE: the documentation says the ConfigAPI also exposes @babel/core's exports, but it actually doesn't
+/**
+ * @see https://babeljs.io/docs/en/next/config-files#config-function-api
+ */
+export interface ConfigAPI {
+    /**
+     * The version string for the Babel version that is loading the config file.
+     *
+     * @see https://babeljs.io/docs/en/next/config-files#apiversion
+     */
+    version: string;
+    /**
+     * @see https://babeljs.io/docs/en/next/config-files#apicache
+     */
+    cache: SimpleCacheConfigurator;
+    /**
+     * @see https://babeljs.io/docs/en/next/config-files#apienv
+     */
+    env: EnvFunction;
+    // undocumented; currently hardcoded to return 'false'
+    // async(): boolean
+    /**
+     * This API is used as a way to access the `caller` data that has been passed to Babel.
+     * Since many instances of Babel may be running in the same process with different `caller` values,
+     * this API is designed to automatically configure `api.cache`, the same way `api.env()` does.
+     *
+     * The `caller` value is available as the first parameter of the callback function.
+     * It is best used with something like this to toggle configuration behavior
+     * based on a specific environment:
+     *
+     * @example
+     * function isBabelRegister(caller?: { name: string }) {
+     *   return !!(caller && caller.name === "@babel/register")
+     * }
+     * api.caller(isBabelRegister)
+     *
+     * @see https://babeljs.io/docs/en/next/config-files#apicallercb
+     */
+    caller<T extends SimpleCacheKey>(callerCallback: (caller: TransformOptions['caller']) => T): T;
+    /**
+     * While `api.version` can be useful in general, it's sometimes nice to just declare your version.
+     * This API exposes a simple way to do that with:
+     *
+     * @example
+     * api.assertVersion(7) // major version only
+     * api.assertVersion("^7.2")
+     *
+     * @see https://babeljs.io/docs/en/next/config-files#apiassertversionrange
+     */
+    assertVersion(versionRange: number | string): boolean;
+    // NOTE: this is an undocumented reexport from "@babel/parser" but it's missing from its types
+    // tokTypes: typeof tokTypes
+}
+
+/**
+ * JS configs are great because they can compute a config on the fly,
+ * but the downside there is that it makes caching harder.
+ * Babel wants to avoid re-executing the config function every time a file is compiled,
+ * because then it would also need to re-execute any plugin and preset functions
+ * referenced in that config.
+ *
+ * To avoid this, Babel expects users of config functions to tell it how to manage caching
+ * within a config file.
+ *
+ * @see https://babeljs.io/docs/en/next/config-files#apicache
+ */
+export interface SimpleCacheConfigurator {
+    // there is an undocumented call signature that is a shorthand for forever()/never()/using().
+    // (ever: boolean): void
+    // <T extends SimpleCacheKey>(callback: CacheCallback<T>): T
+    /**
+     * Permacache the computed config and never call the function again.
+     */
+    forever(): void;
+    /**
+     * Do not cache this config, and re-execute the function every time.
+     */
+    never(): void;
+    /**
+     * Any time the using callback returns a value other than the one that was expected,
+     * the overall config function will be called again and a new entry will be added to the cache.
+     *
+     * @example
+     * api.cache.using(() => process.env.NODE_ENV)
+     */
+    using<T extends SimpleCacheKey>(callback: SimpleCacheCallback<T>): T;
+    /**
+     * Any time the using callback returns a value other than the one that was expected,
+     * the overall config function will be called again and all entries in the cache will
+     * be replaced with the result.
+     *
+     * @example
+     * api.cache.invalidate(() => process.env.NODE_ENV)
+     */
+    invalidate<T extends SimpleCacheKey>(callback: SimpleCacheCallback<T>): T;
+}
+
+// https://github.com/babel/babel/blob/v7.3.3/packages/babel-core/src/config/caching.js#L231
+export type SimpleCacheKey = string | boolean | number | null | undefined;
+export type SimpleCacheCallback<T extends SimpleCacheKey> = () => T;
+
+/**
+ * Since `NODE_ENV` is a fairly common way to toggle behavior, Babel also includes an API function
+ * meant specifically for that. This API is used as a quick way to check the `"envName"` that Babel
+ * was loaded with, which takes `NODE_ENV` into account if no other overriding environment is set.
+ *
+ * @see https://babeljs.io/docs/en/next/config-files#apienv
+ */
+export interface EnvFunction {
+    /**
+     * @returns the current `envName` string
+     */
+    (): string;
+    /**
+     * @returns `true` if the `envName` is `===` any of the given strings
+     */
+    (envName: string | ReadonlyArray<string>): boolean;
+    // the official documentation is misleading for this one...
+    // this just passes the callback to `cache.using` but with an additional argument.
+    // it returns its result instead of necessarily returning a boolean.
+    <T extends SimpleCacheKey>(envCallback: (envName: NonNullable<TransformOptions['envName']>) => T): T;
+}
+
+export type ConfigFunction = (api: ConfigAPI) => TransformOptions;
 
 export as namespace babel;

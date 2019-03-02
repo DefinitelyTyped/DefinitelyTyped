@@ -610,6 +610,8 @@ declare namespace webpack {
             name?: boolean | string | ((...args: any[]) => any);
             /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
             cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions | false };
+            /** Override the default name separator (~) when generating names automatically (name: true)  */
+            automaticNameDelimiter?: string;
         }
         interface RuntimeChunkOptions {
             /** The name or name factory for the runtime chunks. */
@@ -988,8 +990,8 @@ declare namespace webpack {
             shouldEmit: SyncBailHook<Compilation>;
             done: AsyncSeriesHook<Stats>;
             additionalPass: AsyncSeriesHook;
-            beforeRun: AsyncSeriesHook<Compilation>;
-            run: AsyncSeriesHook<Compilation>;
+            beforeRun: AsyncSeriesHook<Compiler>;
+            run: AsyncSeriesHook<Compiler>;
             emit: AsyncSeriesHook<Compilation>;
             afterEmit: AsyncSeriesHook<Compilation>;
             thisCompilation: SyncHook<Compilation, { normalModuleFactory: NormalModuleFactory }>;
@@ -1450,6 +1452,10 @@ declare namespace webpack {
 
     class WatchIgnorePlugin extends Plugin {
         constructor(paths: Array<string | RegExp>);
+    }
+
+    class SingleEntryPlugin extends Plugin {
+        constructor(context: string, entry: string, name: string);
     }
 
     namespace optimize {

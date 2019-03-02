@@ -1,6 +1,6 @@
 // Type definitions for phoenix
 // Project: https://github.com/phoenixframework/phoenix
-// Definitions by: Mirosław Ciastek <https://github.com/mciastek>
+// Definitions by: Mirosław Ciastek <https://github.com/mciastek>, John Goff <https://github.com/John-Goff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "phoenix" {
@@ -123,21 +123,23 @@ declare module "phoenix" {
     appendParams(url: string, params: any): string;
   }
 
-  export var Presence: {
-    syncState(
+  export class Presence {
+    constructor(channel: Channel, opts?: Object);
+
+    static syncState(
       currentState: any,
       newState: any,
       onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
       onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
     ): any;
 
-    syncDiff(
+    static syncDiff(
       currentState: any,
       newState: any,
       onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
       onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
     ): any;
 
-    list(presences: any, chooser?: Function): any;
+    static list(presences: Object, chooser?: Function): any;
   }
 }

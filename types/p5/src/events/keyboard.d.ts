@@ -15,12 +15,12 @@ declare module "../../index" {
      *   LEFT_ARROW, RIGHT_ARROW.
      *
      *
-     *   For ASCII keys that was pressed is stored in the
-     *   key variable. However, it does not distinguish
-     *   between uppercase and lowercase. For this reason,
-     *   it is recommended to use keyTyped() to read the
-     *   key variable, in which the case of the variable
-     *   will be distinguished.
+     *   For ASCII keys, the key that was pressed is stored
+     *   in the key variable. However, it does not
+     *   distinguish between uppercase and lowercase. For
+     *   this reason, it is recommended to use keyTyped()
+     *   to read the key variable, in which the case of the
+     *   variable will be distinguished.
      *
      *
      *   Because of how operating systems handle key

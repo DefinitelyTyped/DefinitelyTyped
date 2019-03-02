@@ -7,9 +7,9 @@ import {
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-type AsyncComponent<P = any> = Promise<React.ComponentType<P>>;
+type AsyncComponent<P = any> = Promise<React.ComponentType<P> | { default: React.ComponentType<P> }>;
 type AsyncComponentLoader<P = any> = () => AsyncComponent<P>;
-type ModuleMapping = Record<string, AsyncComponent>;
+type ModuleMapping = Record<string, AsyncComponent | AsyncComponentLoader>;
 type LoadedModuleMapping = Record<string, React.ComponentType>;
 
 interface NextDynamicOptions<P = {}> extends Omit<LoadableOptions, "loading" | "modules"> {
@@ -31,10 +31,10 @@ type DynamicComponent<P> = React.ComponentType<P> & LoadableComponent;
  * https://github.com/zeit/next.js/blob/7.0.0/lib/dynamic.js#L55
  */
 declare function dynamic<P = {}>(
-    options: AsyncComponent<P> | NextDynamicOptions<P>
+    asyncModuleOrOptions: AsyncComponentLoader<P> | AsyncComponent<P> | NextDynamicOptions<P>
 ): DynamicComponent<P>;
 declare function dynamic<P = {}>(
-    asyncModule: AsyncComponent<P>,
+    asyncModule: AsyncComponentLoader<P> | AsyncComponent<P>,
     options: NextDynamicOptions<P>
 ): DynamicComponent<P>;
 

@@ -25,7 +25,7 @@ client.getAccount("abcdef", (error: Error, account: coinbase.Account): void => {
 
     account.getBuy("abcdef", (error: Error, buy: coinbase.Buy): void => undefined);
 
-    account.getBuys((error: Error, buy: coinbase.Buy[]): void => undefined);
+    account.getBuys(null, (error: Error, buy: coinbase.Buy[]): void => undefined);
 
     account.getDeposit("abcdef", (error: Error, deposit: coinbase.Deposit): void => undefined);
 
@@ -33,7 +33,7 @@ client.getAccount("abcdef", (error: Error, account: coinbase.Account): void => {
 
     account.getSell("abcdef", (error: Error, deposit: coinbase.Sell): void => undefined);
 
-    account.getSells((error: Error, deposit: coinbase.Sell[]): void => undefined);
+    account.getSells(null, (error: Error, deposit: coinbase.Sell[]): void => undefined);
 
     account.getTransaction("abcdef", (error: Error, deposit: coinbase.Transaction): void => undefined);
 

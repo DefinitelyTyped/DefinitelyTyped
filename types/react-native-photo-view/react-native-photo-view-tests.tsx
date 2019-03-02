@@ -25,13 +25,13 @@ const test: React.SFC = () => (
         onProgress={(loaded: number, total: number) => {
             console.log(`onProgress ${loaded}/${total}`);
         }}
-        onTap={(point: {x: number; y: number}, target?: React.ReactElement<any>) => {
+        onTap={(point: {x: number; y: number}, target?: React.ReactElement) => {
             console.log('onTap');
         }}
-        onViewTap={(point: {x: number; y: number}, target?: React.ReactElement<any>) => {
+        onViewTap={(point: {x: number; y: number}, target?: React.ReactElement) => {
             console.log(`onViewTap ${point.x},${point.y} ${!!target ? 'targetted' : ''}`);
         }}
-        onScale={(scale: number, target?: React.ReactElement<any>) => {
+        onScale={(scale: number, target?: React.ReactElement) => {
             console.log(`onScale ${scale} ${!!target ? 'targetted' : ''}`);
         }}
     />

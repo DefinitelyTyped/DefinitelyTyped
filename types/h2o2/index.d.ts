@@ -1,6 +1,6 @@
 // Type definitions for h2o2 8.1
 // Project: https://github.com/hapijs/h2o2
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
+// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>, Garth Kidd <https://github.com/garthk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -83,13 +83,17 @@ declare namespace h2o2 {
 
 declare module 'hapi' {
     interface HandlerDecorations {
-        /** Proxies the request to an upstream endpoint */
+        /**
+         * Proxies the request to an upstream endpoint.
+         */
         proxy?: h2o2.ProxyHandlerOptions;
     }
 
     interface ResponseToolkit {
-        /** Proxies the request to an upstream endpoint */
-        proxy(options: h2o2.ProxyHandlerOptions): void;
+        /**
+         * Proxies the request to an upstream endpoint. `async`, so you'll need to `await` the `ResponseObject` to work on it before returning it.
+         */
+        proxy(options: h2o2.ProxyHandlerOptions): Promise<ResponseObject>;
     }
 }
 

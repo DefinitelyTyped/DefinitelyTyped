@@ -24,6 +24,7 @@ declare namespace Mark {
         acrossElements?: boolean;
         caseSensitive?: boolean;
         ignoreJoiners?: boolean;
+        ignorePunctuation?: string[];
         wildcards?: 'disabled' | 'enabled' | 'withSpaces';
 
         each?(element: Element): void;

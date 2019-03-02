@@ -1,7 +1,7 @@
 // tslint:disable:interface-over-type-literal
 
 import * as React from "react";
-import { Environment, Network, RecordSource, Store, ConnectionHandler, FragmentReference } from "relay-runtime";
+import { Environment, Network, RecordSource, Store, ConnectionHandler } from "relay-runtime";
 
 import {
     graphql,

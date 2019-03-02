@@ -1,10 +1,19 @@
-// Type definitions for react-window 1.1
-// Project: https://github.com/bvaughn/react-window/
+// Type definitions for react-window 1.5
+// Project: https://github.com/bvaughn/react-window/, http://react-window.now.sh
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
+//                 Alex Guerra <https://github.com/heyimalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentType, CSSProperties, Ref, Key } from "react";
+import {
+    Component,
+    ComponentType,
+    CSSProperties,
+    Ref,
+    Key,
+    FunctionComponent,
+    ComponentClass
+} from "react";
 
 export type Direction = "vertical" | "horizontal";
 export type ScrollDirection = "forward" | "backward";
@@ -13,13 +22,24 @@ export type Align = "auto" | "center" | "end" | "start";
 export interface ListChildComponentProps {
     index: number;
     style: CSSProperties;
+    data: any;
+    isScrolling?: boolean;
 }
 
 export interface GridChildComponentProps {
     columnIndex: number;
     rowIndex: number;
     style: CSSProperties;
+    data: any;
+    isScrolling?: boolean;
 }
+
+// This is supposed to represent the type of the first parameter to
+// React.createElement.
+export type ReactElementType =
+    | FunctionComponent<any>
+    | ComponentClass<any>
+    | string;
 
 export interface CommonProps {
     /**
@@ -27,11 +47,17 @@ export interface CommonProps {
      */
     className?: string;
     /**
+     * Tag name passed to document.createElement to create the inner container element. This is an advanced property; in most cases, the default ("div") should be used.
+     */
+    innerElementType?: ReactElementType;
+    /**
      * Ref to attach to the inner container element. This is an advanced property.
      */
     innerRef?: Ref<any>;
     /**
      * Tag name passed to document.createElement to create the inner container element. This is an advanced property; in most cases, the default ("div") should be used.
+     *
+     * @deprecated since 1.4.0
      */
     innerTagName?: string;
     /**
@@ -41,22 +67,19 @@ export interface CommonProps {
      */
     itemData?: any;
     /**
+     * Tag name passed to document.createElement to create the outer container element. This is an advanced property; in most cases, the default ("div") should be used.
+     */
+    outerElementType?: ReactElementType;
+    /**
      * Ref to attach to the outer container element. This is an advanced property.
      */
     outerRef?: Ref<any>;
     /**
      * Tag name passed to document.createElement to create the outer container element. This is an advanced property; in most cases, the default ("div") should be used.
+     *
+     * @deprecated since 1.4.0
      */
     outerTagName?: string;
-    /**
-     * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
-     *
-     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
-     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
-     *
-     * Note that overscanning too much can negatively impact performance. By default, List overscans by one item.
-     */
-    overscanCount?: number;
     /**
      * Optional inline style to attach to outermost <div> element.
      */
@@ -64,12 +87,12 @@ export interface CommonProps {
     /**
      * Adds an additional isScrolling parameter to the children render function. This parameter can be used to show a placeholder row or column while the list is being scrolled.
      *
-     * Note that using this parameter will result in an additional render call after scrolling has stopped (whenisScrolling changse from true to false).
+     * Note that using this parameter will result in an additional render call after scrolling has stopped (when isScrolling changes from true to false).
      */
     useIsScrolling?: boolean;
 }
 
-export type ListItemKeySelector = (index: number) => Key;
+export type ListItemKeySelector = (index: number, data: any) => Key;
 
 export interface ListOnItemsRenderedProps {
     overscanStartIndex: number;
@@ -136,6 +159,15 @@ export interface ListProps extends CommonProps {
      */
     itemKey?: ListItemKeySelector;
     /**
+     * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
+     *
+     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
+     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
+     *
+     * Note that overscanning too much can negatively impact performance. By default, List overscans by one item.
+     */
+    overscanCount?: number;
+    /**
      * Called when the items rendered by the list change.
      */
     onItemsRendered?: (props: ListOnItemsRenderedProps) => any;
@@ -145,9 +177,11 @@ export interface ListProps extends CommonProps {
     onScroll?: (props: ListOnScrollProps) => any;
 }
 
-export type GridItemKeySelector = (
-    params: { columnIndex: number; rowIndex: number }
-) => Key;
+export type GridItemKeySelector = (params: {
+    columnIndex: number;
+    rowIndex: number;
+    data: any;
+}) => Key;
 
 export interface GridOnItemsRenderedProps {
     overscanColumnStartIndex: number;
@@ -208,6 +242,35 @@ export interface GridProps extends CommonProps {
      * Called when the grid scroll positions changes, as a result of user scrolling or scroll-to method calls.
      */
     onScroll?: (props: GridOnScrollProps) => any;
+    /**
+     * The number of columns to render outside of the visible area. This property can be important for two reasons:
+     *
+     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
+     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
+     *
+     * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
+     */
+    overscanColumnsCount?: number;
+    /**
+     * The number of rows to render outside of the visible area. This property can be important for two reasons:
+     *
+     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
+     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
+     *
+     * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
+     */
+    overscanRowsCount?: number;
+    /**
+     * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
+     *
+     * - Overscanning by one row or column allows the tab key to focus on the next (not yet visible) item.
+     * - Overscanning slightly can reduce or prevent a flash of empty space when a user first starts scrolling.
+     *
+     * Note that overscanning too much can negatively impact performance. By default, grid overscans by one item.
+     *
+     * @deprecated since version 1.4.0
+     */
+    overscanCount?: number;
     /**
      * Number of rows in the grid. Note that only a few rows will be rendered and displayed at a time.
      */
@@ -314,11 +377,11 @@ export class VariableSizeList extends Component<VariableSizeListProps> {
     /**
      * VariableSizeList caches offsets and measurements for each index for performance purposes.
      * This method clears that cached data for all items after (and including) the specified index.
-     * It should be called whenever a item's size changes. (Note that this is not a typical occurrance.)
+     * It should be called whenever a item's size changes. (Note that this is not a typical occurrence.)
      *
      * By default the list will automatically re-render after the index is reset.
      * If you would like to delay this re-render until e.g. a state update has completed in the parent component,
-     * specify a value offalsefor the second, optional parameter.
+     * specify a value of false for the second, optional parameter.
      */
     resetAfterIndex(index: number, shouldForceUpdate: boolean): void;
 }
@@ -370,21 +433,21 @@ export class VariableSizeGrid extends Component<VariableSizeGridProps> {
     /**
      * VariableSizeGrid caches offsets and measurements for each column index for performance purposes.
      * This method clears that cached data for all columns after (and including) the specified index.
-     * It should be called whenever a column's width changes. (Note that this is not a typical occurrance.)
+     * It should be called whenever a column's width changes. (Note that this is not a typical occurrence.)
      *
      * By default the grid will automatically re-render after the index is reset.
      * If you would like to delay this re-render until e.g. a state update has completed in the parent component,
-     * specify a value offalse for the second, optional parameter.
+     * specify a value of false for the second, optional parameter.
      */
     resetAfterColumnIndex(index: number, shouldForceUpdate?: boolean): void;
     /**
      * VariableSizeGrid caches offsets and measurements for each item for performance purposes.
      * This method clears that cached data for all items after (and including) the specified indices.
-     * It should be called whenever an items size changes. (Note that this is not a typical occurrance.)
+     * It should be called whenever an items size changes. (Note that this is not a typical occurrence.)
      *
      * By default the grid will automatically re-render after the index is reset.
      * If you would like to delay this re-render until e.g. a state update has completed in the parent component,
-     * specify a value offalse for the optional shouldForceUpdate parameter.
+     * specify a value of false for the optional shouldForceUpdate parameter.
      */
     resetAfterIndices(params: {
         columnIndex: number;
@@ -394,11 +457,34 @@ export class VariableSizeGrid extends Component<VariableSizeGridProps> {
     /**
      * VariableSizeGrid caches offsets and measurements for each row index for performance purposes.
      * This method clears that cached data for all rows after (and including) the specified index.
-     * It should be called whenever a row's height changes. (Note that this is not a typical occurrance.)
+     * It should be called whenever a row's height changes. (Note that this is not a typical occurrence.)
      *
      * By default the grid will automatically re-render after the index is reset.
      * If you would like to delay this re-render until e.g. a state update has completed in the parent component,
-     * specify a value offalse for the second, optional parameter.
+     * specify a value of false for the second, optional parameter.
      */
     resetAfterRowIndex(index: number, shouldForceUpdate?: boolean): void;
 }
+
+/**
+ * Custom comparison function for React.memo().
+ * It knows to compare individual style props and ignore the wrapper object.
+ *
+ * @see https://reactjs.org/docs/react-api.html#reactmemo
+ */
+export function areEqual(
+    prevProps: Readonly<object>,
+    nextProps: Readonly<object>
+): boolean;
+
+/**
+ * Custom shouldComponentUpdate for class components.
+ * It knows to compare individual style props and ignore the wrapper object.
+ *
+ * @see https://reactjs.org/docs/react-component.html#shouldcomponentupdate
+ */
+export function shouldComponentUpdate<P = {}, S = {}>(
+    this: { props: P; state: S },
+    nextProps: Readonly<P>,
+    nextState: Readonly<S>
+): boolean;

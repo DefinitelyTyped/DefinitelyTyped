@@ -1,5 +1,5 @@
 // Type definitions for jsdom 12.2
-// Project: https://github.com/tmpvar/jsdom#readme
+// Project: https://github.com/jsdom/jsdom
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 Johan Palmfjord <https://github.com/palmfjord>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,7 +41,7 @@ export class JSDOM {
      * Behind the scenes, a jsdom Window is indeed a VM context.
      * To get access to this ability, use the runVMScript() method.
      */
-    runVMScript(script: Script): void;
+    runVMScript(script: Script): any;
 
     reconfigure(settings: ReconfigureSettings): void;
 }

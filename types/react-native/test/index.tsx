@@ -33,6 +33,7 @@ import {
     ImageResolvedAssetSource,
     ImageBackground,
     InteractionManager,
+    Linking,
     ListView,
     ListViewDataSource,
     StyleSheet,
@@ -53,6 +54,9 @@ import {
     ScrollView,
     ScrollViewProps,
     SectionListRenderItemInfo,
+    Share,
+    ShareDismissedAction,
+    ShareSharedAction,
     Switch,
     RefreshControl,
     RegisteredStyle,
@@ -78,8 +82,10 @@ import {
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
+    DatePickerAndroid,
     ViewPropTypes,
     requireNativeComponent,
+    Keyboard,
 } from "react-native";
 
 declare module "react-native" {
@@ -327,6 +333,14 @@ InteractionManager.runAfterInteractions(() => {
 }).then(() => "done");
 
 export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
+    list: FlatList<any> | null = null;
+
+    componentDidMount(): void {
+        if (this.list) {
+            this.list.flashScrollIndicators();
+        }
+    }
+
     _renderItem = (rowData: any) => {
         return (
             <View>
@@ -340,6 +354,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     render() {
         return (
             <FlatList
+                ref={list => (this.list = list)}
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
@@ -405,6 +420,12 @@ export class CapsLockComponent extends React.Component<TextProps> {
     }
 }
 
+const getInitialUrlTest = () => Linking.getInitialURL().then(val => {
+    if (val !== null) {
+        val.indexOf('val is now a string');
+    }
+})
+
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
@@ -433,6 +454,9 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             nestedScrollEnabled={true}
                             invertStickyHeaders={true}
                             contentOffset={{ x: 0, y: 0 }}
+                            snapToStart={false}
+                            snapToEnd={false}
+                            snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
                         />
@@ -762,13 +786,29 @@ const AlertIOSTest = () => {
 
 const ModalTest = () => <Modal hardwareAccelerated />;
 
-const TimePickerAndroidTest = () =>
+const TimePickerAndroidTest = () => {
     TimePickerAndroid.open({
         hour: 8,
         minute: 15,
         is24Hour: true,
         mode: "spinner",
+    }).then(result => {
+        if (result.action === TimePickerAndroid.timeSetAction) {
+            console.log('Time', result.hour, result.minute)
+        }
     });
+}
+
+const DatePickerAndroidTest = () => {
+    DatePickerAndroid.open({
+        date: new Date(),
+        mode: 'calendar'
+    }).then(result => {
+        if (result.action === DatePickerAndroid.dateSetAction) {
+            console.log('Date', result.year, result.month, result.day)
+        }
+    });
+}
 
 class BridgedComponentTest extends React.Component {
     static propTypes = {
@@ -793,3 +833,22 @@ const NativeIDTest = () => (
         <Text nativeID={"nativeID"}>Text</Text>
     </ScrollView>
 );
+
+const ShareTest = () => {
+    Share.share(
+        { title: "title", message: "message" },
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red" }
+    );
+    Share.share({ title: "title", url: "url" });
+    Share.share({ message: "message" }).then(result => {
+        if (result.action === Share.sharedAction) {
+            const activity = result.activityType;
+        } else if (result.action === Share.dismissedAction) {
+        }
+    });
+};
+
+const KeyboardTest = () => {
+    const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
+    subscriber.remove();
+}

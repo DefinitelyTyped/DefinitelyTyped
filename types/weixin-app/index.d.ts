@@ -1,10 +1,10 @@
-// Type definitions for wx-app 2.2
+// Type definitions for non-npm package wx-app 2.2
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 AlexStacker <https://github.com/AlexStacker>
 //                 Jimexist <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 declare namespace wx {
 	// #region 基本参数
@@ -87,16 +87,14 @@ declare namespace wx {
 		 * @version 1.4.0
 		 */
 		onProgressUpdate(
-			callback?: (
-				res: {
-					/** 上传进度百分比 */
-					progress: number;
-					/** 已经上传的数据长度，单位 Bytes */
-					totalBytesSent: number;
-					/** 预期需要上传的数据总长度，单位 Bytes */
-					totalBytesExpectedToSend: number;
-				}
-			) => void
+			callback?: (res: {
+				/** 上传进度百分比 */
+				progress: number;
+				/** 已经上传的数据长度，单位 Bytes */
+				totalBytesSent: number;
+				/** 预期需要上传的数据总长度，单位 Bytes */
+				totalBytesExpectedToSend: number;
+			}) => void
 		): void;
 		/**
 		 * 中断下载任务
@@ -135,16 +133,14 @@ declare namespace wx {
 		 * @version 1.4.0
 		 */
 		onProgressUpdate(
-			callback?: (
-				res: {
-					/** 下载进度百分比 */
-					progress: number;
-					/** 已经下载的数据长度，单位 Bytes */
-					totalBytesWritten: number;
-					/** 预期需要下载的数据总长度，单位 Bytes */
-					totalBytesExpectedToWrite: number;
-				}
-			) => void
+			callback?: (res: {
+				/** 下载进度百分比 */
+				progress: number;
+				/** 已经下载的数据长度，单位 Bytes */
+				totalBytesWritten: number;
+				/** 预期需要下载的数据总长度，单位 Bytes */
+				totalBytesExpectedToWrite: number;
+			}) => void
 		): void;
 		/**
 		 * 中断下载任务
@@ -1147,12 +1143,7 @@ declare namespace wx {
 	 * @version 1.1.0
 	 */
 	function onNetworkStatusChange(
-		callback: (
-			res: {
-				isConnected: boolean;
-				networkType: networkType;
-			}
-		) => void
+		callback: (res: { isConnected: boolean; networkType: networkType }) => void
 	): void;
 	// 设备-----加速度计
 	interface AccelerometerData {
@@ -1391,11 +1382,7 @@ declare namespace wx {
 	 * @version 1.1.0
 	 */
 	function onBluetoothDeviceFound(
-		callback: (
-			res: {
-				devices: BluetoothDevice[];
-			}
-		) => void
+		callback: (res: { devices: BluetoothDevice[] }) => void
 	): void;
 	interface GetConnectedBluetoothDevicesOptions extends BaseOptions {
 		services: string[];
@@ -1604,43 +1591,39 @@ declare namespace wx {
 	 * 监听低功耗蓝牙连接的错误事件，包括设备丢失，连接异常断开等等。
 	 */
 	function onBLEConnectionStateChanged(
-		callback: (
-			res: {
-				/**
-				 * 蓝牙设备 id，参考 device 对象
-				 */
-				deviceId: string;
-				/**
-				 * 连接目前的状态
-				 */
-				connected: boolean;
-			}
-		) => void
+		callback: (res: {
+			/**
+			 * 蓝牙设备 id，参考 device 对象
+			 */
+			deviceId: string;
+			/**
+			 * 连接目前的状态
+			 */
+			connected: boolean;
+		}) => void
 	): void;
 	/**
 	 * 监听低功耗蓝牙设备的特征值变化。必须先启用notify接口才能接收到设备推送的notification。
 	 */
 	function onBLECharacteristicValueChange(
-		callback: (
-			res: {
-				/**
-				 * 蓝牙设备 id，参考 device 对象
-				 */
-				deviceId: string;
-				/**
-				 * 特征值所属服务 uuid
-				 */
-				serviceId: string;
-				/**
-				 * 特征值 uuid
-				 */
-				characteristicId: string;
-				/**
-				 * 特征值最新的值
-				 */
-				value: ArrayBuffer;
-			}
-		) => void
+		callback: (res: {
+			/**
+			 * 蓝牙设备 id，参考 device 对象
+			 */
+			deviceId: string;
+			/**
+			 * 特征值所属服务 uuid
+			 */
+			serviceId: string;
+			/**
+			 * 特征值 uuid
+			 */
+			characteristicId: string;
+			/**
+			 * 特征值最新的值
+			 */
+			value: ArrayBuffer;
+		}) => void
 	): void;
 	// #region iBeacon
 	interface StartBeaconDiscoveryOptions extends BaseOptions {
@@ -1920,9 +1903,9 @@ declare namespace wx {
 		 */
 		title: string;
 		/**
-		 * 图标，只支持"success"、"loading"
+		 * 图标，只支持 "success", "loading", "none"
 		 */
-		icon?: "success" | "loading";
+		icon?: "success" | "loading" | "none";
 		/**
 		 * 自定义图标的本地路径，image 的优先级高于 icon
 		 */
@@ -3729,20 +3712,50 @@ declare namespace wx {
 
 	type DefaultProps = object | Record<string, any>;
 
-	type ExtendedComponent<
-		Instance extends Component<Data, Props>,
-		Data,
-		Methods,
-		Props
-	> = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
+	type UnionToIntersection<U> = (U extends any
+		? (k: U) => void
+		: never) extends ((k: infer I) => void)
+		? I
+		: never;
+
+	type ArrayType<T extends any[]> = T extends Array<infer R> ? R : never;
+
+	interface Behavior<Data, Props, Methods> {
+		__DO_NOT_USE_INTERNAL_FIELD_DATA: Data;
+		__DO_NOT_USE_INTERNAL_FIELD_PROPS: Props;
+		__DO_NOT_USE_INTERNAL_FIELD_METHODS: Methods;
+	}
+
+	type UnboxBehaviorData<T> = T extends Behavior<{}, {}, {}>
+		? T["__DO_NOT_USE_INTERNAL_FIELD_DATA"]
+		: {};
+	type UnboxBehaviorProps<T> = T extends Behavior<{}, {}, {}>
+		? T["__DO_NOT_USE_INTERNAL_FIELD_PROPS"]
+		: {};
+	type UnboxBehaviorMethods<T> = T extends Behavior<{}, {}, {}>
+		? T["__DO_NOT_USE_INTERNAL_FIELD_METHODS"]
+		: {};
+
+	type UnboxBehaviorsMethods<
+		Behaviors extends Array<Behavior<{}, {}, {}> | string>
+	> = UnboxBehaviorMethods<UnionToIntersection<ArrayType<Behaviors>>>;
+
+	type UnboxBehaviorsData<
+		Behaviors extends Array<Behavior<{}, {}, {}> | string>
+	> = UnboxBehaviorData<UnionToIntersection<ArrayType<Behaviors>>>;
+
+	type UnboxBehaviorsProps<
+		Behaviors extends Array<Behavior<{}, {}, {}> | string>
+	> = UnboxBehaviorProps<UnionToIntersection<ArrayType<Behaviors>>>;
 
 	// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 	type CombinedInstance<
-		Instance extends Component<Data, Props>,
+		Instance extends Component<Data, Props, Behaviors>,
 		Data,
 		Methods,
-		Props
-	> = Methods & Instance;
+		Props,
+		Behaviors extends Array<Behavior<{}, {}, {}> | string>
+	> = Methods & Instance & UnboxBehaviorsMethods<Behaviors>;
 
 	type Prop<T> = (() => T) | { new (...args: any[]): T & object };
 
@@ -3767,6 +3780,13 @@ declare namespace wx {
 
 	type PropsDefinition<T> = ArrayPropsDefinition<T> | RecordPropsDefinition<T>;
 
+	/**
+	 * https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/observer.html
+	 */
+	interface ObserversDefs<V> {
+		[expression: string]: (this: V, ...fields: any[]) => any;
+	}
+
 	interface ComponentRelation<D = any, P = any> {
 		/** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
 		type: "parent" | "child" | "ancestor" | "descendant";
@@ -3780,13 +3800,14 @@ declare namespace wx {
 		unlinked?: (target: Component<D, P>) => void;
 	}
 	type ThisTypedComponentOptionsWithRecordProps<
-		V extends Component<Data, Props>,
+		V extends Component<Data, Props, Behaviors>,
 		Data,
 		Methods,
-		Props
+		Props,
+		Behaviors extends Array<Behavior<{}, {}, {}> | string>
 	> = object &
-		ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
-		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
+		ComponentOptions<V, Data, Methods, Props, Behaviors> &
+		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>, Behaviors>>;
 
 	interface ComponentRelation<D = any, P = any> {
 		/** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -3843,10 +3864,11 @@ declare namespace wx {
 	 * Component组件参数
 	 */
 	interface ComponentOptions<
-		Instance extends Component<Data, Props>,
+		Instance extends Component<Data, Props, Behaviors>,
 		Data = DefaultData<Instance>,
 		Methods = DefaultMethods<Instance>,
-		Props = PropsDefinition<DefaultProps>
+		Props = PropsDefinition<DefaultProps>,
+		Behaviors extends Array<Behavior<{}, {}, {}> | string> = []
 	> extends Partial<Lifetimes> {
 		/**
 		 * 组件的对外属性，是属性名到属性设置的映射表
@@ -3859,6 +3881,12 @@ declare namespace wx {
 		 * 组件的内部数据，和 properties 一同用于组件的模版渲染
 		 */
 		data?: Data;
+
+		/**
+		 * 数据监听器可以用于监听和响应任何属性和数据字段的变化。从小程序基础库版本 2.6.1 开始支持
+		 * @since 2.6.1
+		 */
+		observers?: ObserversDefs<Instance>;
 
 		/**
 		 * 组件的方法，包括事件响应函数和任意的自定义方法
@@ -3899,7 +3927,7 @@ declare namespace wx {
 		 * 类似于mixins和traits的组件间代码复用机制
 		 * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
 		 */
-		behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
+		behaviors?: Behaviors;
 
 		/**
 		 * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
@@ -3927,7 +3955,7 @@ declare namespace wx {
 	 * Note this is different from PropOptions as it is the definitions you passed to Component function
 	 * whereas this type is for call-site.
 	 */
-	type DataValueType<Def> = Def extends {
+	type PropValueType<Def> = Def extends {
 		type: (...args: any[]) => infer T;
 		value?: infer T;
 	}
@@ -3939,7 +3967,11 @@ declare namespace wx {
 	/**
 	 * Component实例方法
 	 */
-	interface Component<D, P> {
+	interface Component<
+		D,
+		P,
+		B extends Array<Behavior<{}, {}, {}> | string> = []
+	> {
 		/**
 		 * 组件的文件路径
 		 */
@@ -3955,12 +3987,24 @@ declare namespace wx {
 		/**
 		 * 组件数据，包括内部数据和属性值
 		 */
-		data: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
+		data: D &
+			UnboxBehaviorsData<B> &
+			{
+				[key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
+					(P & UnboxBehaviorsProps<B>)[key]
+				>
+			};
 
 		/**
 		 * 组件数据，包括内部数据和属性值（与 data 一致）
 		 */
-		properties: { [key in keyof (D & P)]: DataValueType<(D & P)[key]> };
+		properties: D &
+			UnboxBehaviorsData<B> &
+			{
+				[key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
+					(P & UnboxBehaviorsProps<B>)[key]
+				>
+			};
 		/**
 		 * 将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值
 		 * 1. 直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
@@ -4363,14 +4407,20 @@ declare function App<T extends wx.AppOptions>(
 declare function getApp(): wx.App;
 // #endregion
 // #region Compontent组件
-declare function Component<D, M, P>(
+declare function Component<
+	D,
+	M,
+	P,
+	B extends Array<wx.Behavior<{}, {}, {}> | string> = []
+>(
 	options?: wx.ThisTypedComponentOptionsWithRecordProps<
-		wx.Component<D, P>,
+		wx.Component<D, P, B>,
 		D,
 		M,
-		P
+		P,
+		B
 	>
-): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
+): string;
 /**
  * behaviors 是用于组件间代码共享的特性
  * 类似于一些编程语言中的“mixins”或“traits”
@@ -4379,14 +4429,24 @@ declare function Component<D, M, P>(
  * 每个组件可以引用多个 behavior
  * behavior 也可以引用其他 behavior
  */
-declare function Behavior<D, M, P>(
+declare function Behavior<
+	D,
+	M,
+	P,
+	B extends Array<wx.Behavior<{}, {}, {}> | string> = []
+>(
 	options?: wx.ThisTypedComponentOptionsWithRecordProps<
-		wx.Component<D, P>,
+		wx.Component<D, P, B>,
 		D,
 		M,
-		P
+		P,
+		B
 	>
-): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
+): wx.Behavior<
+	D & wx.UnboxBehaviorsData<B>,
+	P & wx.UnboxBehaviorsProps<B>,
+	M & wx.UnboxBehaviorsMethods<B>
+>;
 // #endregion
 // #region Page
 /**

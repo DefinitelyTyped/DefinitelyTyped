@@ -58,10 +58,3 @@ declare namespace jwt {
         constructor(code: ErrorCode, error: { message: string });
     }
 }
-declare global {
-    namespace Express {
-        export interface Request {
-            user?: any
-        }
-    }
-}

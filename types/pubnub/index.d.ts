@@ -4,7 +4,8 @@
 //                  rollymaduk <https://github.com/rollymaduk>,
 //                  vitosamson <https://github.com/vitosamson>,
 //                  FlorianDr <https://github.com/FlorianDr>,
-//                  danduh <https://github.com/danduh>
+//                  danduh <https://github.com/danduh>,
+//                  ChristianBoehlke <https://github.com/ChristianBoehlke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
 // TypeScript Version: 2.2
@@ -98,6 +99,15 @@ declare class Pubnub {
   setState(
     params: Pubnub.SetStateParameters
   ): Promise<Pubnub.SetStateResponse>;
+
+  grant(
+    params: Pubnub.GrantParameters,
+    callback: (status: Pubnub.GrantStatus, response: {}) => void
+  ): void;
+
+  grant(
+    params: Pubnub.GrantParameters
+  ): Promise<{}>;
 
   encrypt(
     data: string,
@@ -346,6 +356,23 @@ declare namespace Pubnub {
     channels: {
       [channel: string]: any;
     };
+  }
+
+  // grant
+  interface GrantParameters {
+    channels?: string[];
+    channelGroups?: string[];
+    authKeys?: string[];
+    ttl?: number;
+    read?: boolean;
+    write?: boolean;
+    manage?: boolean;
+  }
+
+  interface GrantStatus {
+    error: boolean;
+    operation: string;
+    statusCode: number;
   }
 
   // encrypt & decrypt

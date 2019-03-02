@@ -12,6 +12,7 @@ export interface ChannelMessagePayload extends Identity {
     payload: any;
 }
 export declare class ChannelBase {
+    protected removeChannel: (mapKey: string) => void;
     protected subscriptions: any;
     defaultAction: (action?: string, payload?: any, senderIdentity?: ProviderIdentity) => any;
     private preAction;
@@ -20,10 +21,11 @@ export declare class ChannelBase {
     private defaultSet;
     protected send: (to: Identity, action: string, payload: any) => Promise<Message<void>>;
     protected providerIdentity: ProviderIdentity;
+    protected sendRaw: Transport['sendAction'];
     constructor(providerIdentity: ProviderIdentity, send: Transport['sendAction']);
     processAction(action: string, payload: any, senderIdentity: ProviderIdentity): Promise<any>;
     beforeAction(func: Action): void;
-    onError(func: (e: any, action: string, id: Identity) => any): void;
+    onError(func: (action: string, error: any, id: Identity) => any): void;
     afterAction(func: Action): void;
     remove(action: string): void;
     setDefaultAction(func: (action?: string, payload?: any, senderIdentity?: ProviderIdentity) => any): void;

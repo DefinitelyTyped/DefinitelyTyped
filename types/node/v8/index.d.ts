@@ -22,6 +22,7 @@
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -909,6 +910,8 @@ declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
     var SlowBuffType: typeof SlowBuffer;
+    export type TranscodeEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary";
+    export function transcode(source: Buffer | Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
     export { BuffType as Buffer, SlowBuffType as SlowBuffer };
 }
 
@@ -967,18 +970,18 @@ declare module "http" {
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
         'accept'?: string;
-        'access-control-allow-origin'?: string;
-        'access-control-allow-credentials'?: string;
-        'access-control-expose-headers'?: string;
-        'access-control-max-age'?: string;
-        'access-control-allow-methods'?: string;
-        'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
-        'authorization'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-allow-headers'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
+        'authorization'?: string;
         'cache-control'?: string;
         'connection'?: string;
         'content-disposition'?: string;
@@ -999,9 +1002,9 @@ declare module "http" {
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
+        'tk'?: string;
         'trailer'?: string;
         'transfer-encoding'?: string;
-        'tk'?: string;
         'upgrade'?: string;
         'user-agent'?: string;
         'vary'?: string;
@@ -1101,6 +1104,7 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
+        readonly path: string;
         abort(): void;
         onSocket(socket: net.Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -2288,7 +2292,7 @@ declare module "child_process" {
         stderr: T;
         status: number;
         signal: string;
-        error: Error;
+        error?: Error;
     }
     export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
     export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;

@@ -12,7 +12,7 @@ function sample1() {
   });
 
   for (let i = 0; i < 15; i++) {
-    fabric.Image.fromURL('../assets/ladybug.png', img => {
+    fabric.Image.fromURL('../assets/ladybug.png', (img: fabric.Image) => {
       img.set({
         left: fabric.util.getRandomInt(0, 600),
         top: fabric.util.getRandomInt(0, 500),
@@ -122,7 +122,7 @@ function sample3() {
     }
   });
 
-  const image = fabric.Image.fromURL('../assets/printio.png', img => {
+  const image = fabric.Image.fromURL('../assets/printio.png', (img: fabric.Image) => {
     const oImg = img.set({ left: 300, top: 300, angle: -15 }).scale(0.9);
     canvas.add(oImg).renderAll();
     canvas.setActiveObject(oImg);
@@ -236,21 +236,21 @@ function sample4() {
 
   const topControl = <HTMLInputElement> $('top-control');
   topControl.onchange = function(this: HTMLInputElement) {
-    rect.setTop(+this.value).setCoords();
+    rect.set('top',+this.value).setCoords();
     canvas.renderAll();
   };
 
   const leftControl = <HTMLInputElement> $('left-control');
   leftControl.onchange = function(this: HTMLInputElement) {
-    rect.setLeft(+this.value).setCoords();
+    rect.set('left',+this.value).setCoords();
     canvas.renderAll();
   };
 
   function updateControls() {
-    scaleControl.value = rect.getScaleX().toString();
-    angleControl.value = rect.getAngle().toString();
-    leftControl.value = rect.getLeft().toString();
-    topControl.value = rect.getTop().toString();
+    scaleControl.value = rect.scaleX.toString();
+    angleControl.value = rect.angle.toString();
+    leftControl.value = rect.left.toString();
+    topControl.value = rect.top.toString();
   }
   canvas.on({
     'object:moving': updateControls,
@@ -331,10 +331,10 @@ function sample6() {
     canvas.centerObject(obj);
     canvas.add(obj);
 
-    obj.clone(clone => canvas.add(clone.set({ left: 100, top: 100, angle: -15 })));
-    obj.clone(clone => canvas.add(clone.set({ left: 480, top: 100, angle: 15 })));
-    obj.clone(clone => canvas.add(clone.set({ left: 100, top: 400, angle: -15 })));
-    obj.clone(clone => canvas.add(clone.set({ left: 480, top: 400, angle: 15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 100, angle: -15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 100, angle: 15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 100, top: 400, angle: -15 })));
+    obj.clone((clone: fabric.Object) => canvas.add(clone.set({ left: 480, top: 400, angle: 15 })));
 
     canvas.on('mouse:move', options => {
       const p = canvas.getPointer(options.e);
@@ -343,7 +343,7 @@ function sample6() {
         const distX = Math.abs(p.x - obj.left);
         const distY = Math.abs(p.y - obj.top);
         const dist = Math.round(Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2)));
-        obj.setOpacity(1 / (dist / 20));
+        obj.set('opacity', (1 / (dist / 20)));
       });
     });
   });
@@ -357,7 +357,7 @@ function sample7() {
   const canvas = new fabric.Canvas('c', { selection: false });
 
   setInterval(() => {
-    fabric.Image.fromURL('../assets/ladybug.png', obj => {
+    fabric.Image.fromURL('../assets/ladybug.png', (obj: fabric.Object) => {
       const img = <ImageWithInfo> obj;
       img.set('left', fabric.util.getRandomInt(200, 600)).set('top', -50);
       img.movingLeft = !!Math.round(Math.random());
@@ -373,7 +373,7 @@ function sample7() {
       if (img.left > 900 || img.top > 500) {
         canvas.remove(img);
       } else {
-        img.setAngle(img.getAngle() + 2);
+        img.setAngle(img.angle + 2);
       }
     });
     canvas.renderAll();
@@ -475,7 +475,7 @@ function sample8() {
         break;
 
       case 'image1':
-        fabric.Image.fromURL('../assets/pug.jpg', image => {
+        fabric.Image.fromURL('../assets/pug.jpg', (image: fabric.Image) => {
           image.set({
             left,
             top,
@@ -489,7 +489,7 @@ function sample8() {
         break;
 
       case 'image2':
-        fabric.Image.fromURL('../assets/logo.png', image => {
+        fabric.Image.fromURL('../assets/logo.png', (image: fabric.Image) => {
           image.set({
             left,
             top,
@@ -510,14 +510,7 @@ function sample8() {
           fabric.loadSVGFromURL(`../assets/${match[0]}.svg`, (objects, options) => {
             const loadedObject = fabric.util.groupSVGElements(objects, options);
 
-            loadedObject.set({
-              left,
-              top,
-              angle,
-              padding: 10,
-              cornerSize: 10
-            });
-            loadedObject/*.scaleToWidth(300)*/.setCoords();
+            loadedObject.setCoords();
 
             // loadedObject.hasRotatingPoint = true;
 
@@ -554,15 +547,8 @@ function sample8() {
   const removeSelectedEl = document.getElementById('remove-selected');
   removeSelectedEl.onclick = () => {
     const activeObject = canvas.getActiveObject();
-    const activeGroup = canvas.getActiveGroup();
     if (activeObject) {
       canvas.remove(activeObject);
-    } else if (activeGroup) {
-      const objectsInGroup = activeGroup.getObjects();
-      canvas.discardActiveGroup();
-      objectsInGroup.forEach(object => {
-        canvas.remove(object);
-      });
     }
   };
 
@@ -601,10 +587,9 @@ function sample8() {
 
       slider.onchange = function() {
         const activeObject = canvas.getActiveObject();
-        const activeGroup = canvas.getActiveGroup();
 
-        if (activeObject || activeGroup) {
-          (activeObject || activeGroup).setOpacity(parseInt((<HTMLInputElement> this).value, 10) / 100);
+        if (activeObject) {
+          activeObject.set('opacity', (parseInt((<HTMLInputElement> this).value, 10) / 100));
           canvas.renderAll();
         }
       };
@@ -632,10 +617,9 @@ function sample8() {
 
       colorpicker.onchange = function() {
         const activeObject = canvas.getActiveObject();
-        const activeGroup = canvas.getActiveGroup();
 
-        if (activeObject || activeGroup) {
-          (activeObject || activeGroup).setFill((<HTMLInputElement> this).value);
+        if (activeObject) {
+          activeObject.set('fill', (<HTMLInputElement> this).value);
           canvas.renderAll();
         }
       };
@@ -768,16 +752,6 @@ function sample8() {
     updateComplexity();
   });
 
-  drawingColorEl.onchange = () => {
-    canvas.freeDrawingColor = drawingColorEl.value;
-  };
-  drawingLineWidthEl.onchange = () => {
-    canvas.freeDrawingLineWidth = parseInt(drawingLineWidthEl.value, 10) || 1; // disallow 0, NaN, etc.
-  };
-
-  canvas.freeDrawingColor = drawingColorEl.value;
-  canvas.freeDrawingLineWidth = parseInt(drawingLineWidthEl.value, 10) || 1;
-
   const text = `Lorem ipsum dolor sit amet,
 consectetur adipisicing elit,
 sed do eiusmod tempor incididunt
@@ -802,7 +776,7 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
   };
 
   document.onkeydown = e => {
-    const obj = canvas.getActiveObject() || canvas.getActiveGroup();
+    const obj = canvas.getActiveObject();
     if (obj && e.keyCode === 8) {
       // this is horrible. need to fix, so that unified interface can be used
       if (obj.type === 'group') {
@@ -832,8 +806,7 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
     const obj = canvas.getActiveObject();
     if (obj) {
       obj.setGradient("fill", {
-        x2: (getRandomInt(0, 1) ? 0 : obj.width),
-        y2: (getRandomInt(0, 1) ? 0 : obj.height),
+        coords: {x2: (getRandomInt(0, 1) ? 0 : obj.width), y2: (getRandomInt(0, 1) ? 0 : obj.height)},
         colorStops: {
           0: '#' + getRandomColor(),
           1: '#' + getRandomColor()
@@ -871,8 +844,8 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
     cmdUnderlineBtn.onclick = function() {
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
-        activeObject.textDecoration = (activeObject.textDecoration === 'underline' ? '' : 'underline');
-        (this as HTMLElement).className = activeObject.textDecoration ? 'selected' : '';
+        activeObject.underline = !activeObject.underline;
+        (this as HTMLElement).className = activeObject.underline ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -884,8 +857,8 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
     cmdLinethroughBtn.onclick = function() {
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
-        activeObject.textDecoration = (activeObject.textDecoration === 'line-through' ? '' : 'line-through');
-        (this as HTMLElement).className = activeObject.textDecoration ? 'selected' : '';
+        activeObject.linethrough = !activeObject.linethrough;
+        (this as HTMLElement).className = activeObject.linethrough ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -897,8 +870,8 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
     cmdOverlineBtn.onclick = function() {
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
-        activeObject.textDecoration = (activeObject.textDecoration === 'overline' ? '' : 'overline');
-        (this as HTMLElement).className = activeObject.textDecoration ? 'selected' : '';
+        activeObject.overline = !activeObject.overline;
+        (this as HTMLElement).className = activeObject.overline ? 'selected' : '';
         canvas.renderAll();
       }
     };

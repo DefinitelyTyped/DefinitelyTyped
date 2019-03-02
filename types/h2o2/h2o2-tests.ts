@@ -140,6 +140,18 @@ const badProtocolDemo: hapi.ServerRoute = {
     }
 };
 
+const replyViaToolkit: hapi.ServerRoute = {
+    method: 'GET',
+    path: '/',
+    async handler(req, h): Promise<hapi.ResponseObject> {
+        return h.proxy({
+            host: '10.33.33.1',
+            port: '443',
+            protocol: 'https'
+        });
+    }
+};
+
 if (!module.parent) {
     main().then(() => console.log('done'), err => console.error(err.stack));
 }

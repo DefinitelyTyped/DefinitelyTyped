@@ -140,6 +140,32 @@ export namespace Azure.ServiceBus {
         WnsHeaders?: any;
     }
 
+    export interface NotificationHubInstallation {
+        installationId: string;
+        readonly lastActiveOn?: string;
+        readonly expirationTime?: string;
+        readonly lastUpdate?: string;
+        platform: "apns" | "wns" | "mpns" | "adm" | "gcm";
+        pushChannel: string;
+        readonly expiredPushChannel?: string;
+        tags?: Array<string>;
+        templates?: {
+          [name: string]: {
+            body: string;
+            headers?: any;
+            expiry?: string;
+            tags?: Array<string>;
+          };
+        };
+        secondaryTile?: {
+          [titleId: string]: {
+            pushChannel: string;
+            tags?: Array<string>;
+            templates?: any;
+          };
+        };
+      }
+
     export interface Response {
         body: Dictionary<string | object>;
         headers: Dictionary<string>;

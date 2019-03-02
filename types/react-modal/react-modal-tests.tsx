@@ -12,6 +12,7 @@ class ExampleOfUsingReactModal extends React.Component {
   overlayRef: HTMLDivElement;
   render() {
     const onAfterOpenFn = () => { };
+    const onAfterCloseFn = () => { };
     const onRequestCloseFn = () => { };
     const customStyle = {
       overlay: {
@@ -59,6 +60,7 @@ class ExampleOfUsingReactModal extends React.Component {
       <ReactModal
         isOpen={true}
         onAfterOpen={onAfterOpenFn}
+        onAfterClose={onAfterCloseFn}
         onRequestClose={onRequestCloseFn}
         contentLabel="demo label"
         closeTimeoutMS={1000}
@@ -71,6 +73,7 @@ class ExampleOfUsingReactModal extends React.Component {
         data={customDataVariables}
         contentRef={instance => this.contentRef = instance}
         overlayRef={instance => this.overlayRef = instance}
+        testId="modal-content"
         >
         <h1>Modal Content</h1>
         <p>Etc.</p>

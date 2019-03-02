@@ -346,7 +346,7 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (
+        <T, K extends keyof T>(obj: T, method: K, types?: string[]): T[K] extends (
             ...args: infer TArgs
         ) => infer TReturnValue
             ? SinonSpy<TArgs, TReturnValue>
@@ -399,7 +399,7 @@ declare namespace Sinon {
          * The Promise library can be overwritten using the usingPromise method.
          * Since sinon@2.0.0
          */
-        resolves(value?: TReturnValue extends Promise<infer TResolveValue> ? TResolveValue : never): SinonStub<TArgs, TReturnValue>;
+        resolves(value?: TReturnValue extends PromiseLike<infer TResolveValue> ? TResolveValue : never): SinonStub<TArgs, TReturnValue>;
         /**
          * Causes the stub to return a Promise which resolves to the argument at the provided index.
          * stub.resolvesArg(0); causes the stub to return a Promise which resolves to the first argument.
@@ -1442,6 +1442,10 @@ declare namespace Sinon {
          */
         symbol: SinonMatcher;
         /**
+         * Requires the value to be in the specified array.
+         */
+        in(allowed: any[]): SinonMatcher;
+        /**
          * Requires the value to strictly equal ref.
          */
         same(obj: any): SinonMatcher;
@@ -1703,11 +1707,14 @@ declare namespace Sinon {
          *
          * @template TType Type being stubbed.
          * @param constructor   Object or class to stub.
+         * @param overrides     An optional map overriding created stubs
          * @returns A stubbed version of the constructor.
          * @remarks The given constructor function is not invoked. See also the stub API.
          */
         createStubInstance<TType>(
-            constructor: StubbableType<TType>
+            constructor: StubbableType<TType>,
+            overrides?: { [K in keyof TType]?:
+                SinonStubbedMember<TType[K]> | TType[K] extends (...args: any[]) => infer R ? R : TType[K] }
         ): SinonStubbedInstance<TType>;
     }
 
