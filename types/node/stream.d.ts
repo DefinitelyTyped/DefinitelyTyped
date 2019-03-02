@@ -288,6 +288,8 @@ declare module "stream" {
                 ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>,
             ): Promise<void>;
         }
+
+        interface Pipe { }
     }
 
     export = internal;

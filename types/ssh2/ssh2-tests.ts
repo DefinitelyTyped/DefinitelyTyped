@@ -359,7 +359,7 @@ new ssh2.Server({
     }).on('end', () => {
         console.log('Client disconnected');
     });
-}).listen(0, '127.0.0.1', () => {
+}).listen(0, '127.0.0.1', function () {
         console.log('Listening on port ' + this.address().port);
     });
 
@@ -425,7 +425,7 @@ new ssh2.Server({
     }).on('end', () => {
         console.log('Client disconnected');
     });
-}).listen(0, '127.0.0.1', () => {
+}).listen(0, '127.0.0.1', function () {
         console.log('Listening on port ' + this.address().port);
     });
 
