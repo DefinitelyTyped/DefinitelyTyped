@@ -47,6 +47,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
         x.children.push(y);
         x.parent = require.main;
         require.main = y;
+        const hrtimeArray: [number, number] = process.hrtime();
     }
 }
 
