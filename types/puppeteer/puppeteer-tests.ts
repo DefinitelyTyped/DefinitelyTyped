@@ -621,12 +621,25 @@ puppeteer.launch().then(async browser => {
 
 (async () => {
   const rev = '630727';
-  const browserFetcher = puppeteer.createBrowserFetcher({
+  const defaultFetcher = puppeteer.createBrowserFetcher();
+  const options: puppeteer.FetcherOptions = {
     host: 'https://storage.googleapis.com',
     path: '/tmp/.local-chromium',
     platform: 'linux',
-  });
-  await browserFetcher.canDownload(rev);
-  const revisionInfo = await browserFetcher.download(rev);
-  await browserFetcher.remove(rev);
+  };
+  const browserFetcher = puppeteer.createBrowserFetcher(options);
+  const canDownload = await browserFetcher.canDownload(rev);
+  if (canDownload) {
+      const revisionInfo = await browserFetcher.download(rev);
+      const localRevisions = await browserFetcher.localRevisions();
+      const browser = await puppeteer.launch({executablePath: revisionInfo.executablePath});
+      browser.close();
+      if (localRevisions.includes(rev)) {
+        await browserFetcher.remove(rev);
+      }
+      await browserFetcher.download(rev, (download, total) => {
+        console.log('downloadBytes:', download, 'totalBytes:', total);
+      });
+      await browserFetcher.remove(rev);
+    }
 });
