@@ -193,6 +193,8 @@ declare namespace Flexmonster {
         hash?: string;
         username?: string;
         password?: string;
+        requestHeader?: object;
+        subquery?: string;
     }
 
     interface Slice {
@@ -278,6 +280,7 @@ declare namespace Flexmonster {
         saveAllFormats?: boolean;
         showDrillThroughConfigurator?: boolean;
         grouping?: boolean;
+        showAllFieldsDrillThrough?: boolean;
     }
 
     interface PrintOptions {
@@ -345,6 +348,7 @@ declare namespace Flexmonster {
         useOlapFormattingInExcel?: boolean;
         useCustomizeCellForData?: boolean;
         excelExportAll?: boolean;
+        requestHeader?: object;
     }
 
     interface Hierarchy {
