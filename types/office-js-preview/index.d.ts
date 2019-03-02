@@ -12118,7 +12118,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
@@ -12466,7 +12466,7 @@ declare namespace Office {
         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
         *                asyncResult, which is an Office.AsyncResult object.
         */
-       removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+       removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
         * Removes the event handlers for a supported event type.
         * 
@@ -12983,7 +12983,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
@@ -13371,7 +13371,7 @@ declare namespace Office {
         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
         *                asyncResult, which is an Office.AsyncResult object.
         */
-       removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+       removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
         * Removes the event handlers for a supported event type.
         * 
@@ -13726,7 +13726,7 @@ declare namespace Office {
         * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
         *                asyncResult, which is an Office.AsyncResult object.
         */
-       removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+       removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
        /**
         * Removes the event handlers for a supported event type.
@@ -15100,7 +15100,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
@@ -15457,7 +15457,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes the event handlers for a supported event type.
          * 
@@ -15990,7 +15990,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        addHandlerAsync(eventType: Office.EventType, handler: any, options?: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        addHandlerAsync(eventType: Office.EventType, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Adds an event handler for a supported event.
          * 
@@ -16382,7 +16382,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
          *                asyncResult, which is an Office.AsyncResult object.
          */
-        removeHandlerAsync(eventType: Office.EventType, options?: any, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        removeHandlerAsync(eventType: Office.EventType, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Removes the event handlers for a supported event type.
          * 
