@@ -112,6 +112,9 @@ import * as net from 'net';
 
     // event
     req.on('data', () => { });
+
+    // path
+    const path: string = req.path;
 }
 
 {
