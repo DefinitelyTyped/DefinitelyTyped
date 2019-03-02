@@ -2216,11 +2216,11 @@ export interface RevisionInfo {
 
 export interface FetcherOptions {
   /** A download host to be used. Defaults to `https://storage.googleapis.com`. */
-  host: string;
+  host?: string;
   /** A path for the downloads folder. Defaults to `<root>/.local-chromium`, where `<root>` is puppeteer's package root. */
-  path: string;
+  path?: string;
   /** Possible values are: `mac`, `win32`, `win64`, `linux`. Defaults to the current platform. */
-  platform: Platform;
+  platform?: Platform;
 }
 
 /** Attaches Puppeteer to an existing Chromium instance */
