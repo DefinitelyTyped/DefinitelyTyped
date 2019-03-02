@@ -8,6 +8,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Sander Koenders <https://github.com/Archcry>
+//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -683,6 +684,8 @@ declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
     var SlowBuffType: typeof SlowBuffer;
+    export type TranscodeEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary";
+    export function transcode(source: Buffer, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
     export { BuffType as Buffer, SlowBuffType as SlowBuffer };
 }
 
