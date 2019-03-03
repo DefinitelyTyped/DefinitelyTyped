@@ -58,6 +58,10 @@ declare namespace Filesize {
          */
         fullforms?: string[];
         /**
+         * BCP 47 language tag to specify a locale, or true to use default locale, default is ""
+         */
+        locale?: string | boolean;
+        /**
          * Output of function (array, exponent, object, or string), default is string
          */
         output?: "array" | "exponent" | "object" | "string";
