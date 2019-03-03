@@ -4,16 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ElementContext, RunOptions } from 'axe-core';
-
-declare module "axe-core" {
-	interface Node {}
-}
-
 declare namespace Cypress {
     interface Chainable<Subject = any> {
         injectAxe(): void;
-        checkA11y(context?: ElementContext, options?: RunOptions): void;
-        configureAxe(options?: RunOptions): void;
+        checkA11y(
+            context?: import('axe-core').ElementContext,
+            options?: import('axe-core').RunOptions,
+        ): void;
+        configureAxe(options?: import('axe-core').RunOptions): void;
     }
 }
