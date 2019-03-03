@@ -35,7 +35,7 @@ bindWithMiddleware(() => {
 
 // In some place in application, we want to set value to be used elsewhere
 appNamespace.enter(context);
-appNamespace.set('requestId','someId');
+appNamespace.set('requestId', 'someId');
 appNamespace.exit(context);
 
 // Retrieve that value set before without losing the context when chaining several middleware
