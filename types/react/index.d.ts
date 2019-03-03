@@ -1423,7 +1423,7 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string;
-        className?: string;
+        className?: string | String;
         contentEditable?: boolean;
         contextMenu?: string;
         dir?: string;
@@ -2174,7 +2174,7 @@ declare namespace React {
     interface SVGAttributes<T> extends DOMAttributes<T> {
         // Attributes which also defined in HTMLAttributes
         // See comment in SVGDOMPropertyConfig.js
-        className?: string;
+        className?: string | String;
         color?: string;
         height?: number | string;
         id?: string;
