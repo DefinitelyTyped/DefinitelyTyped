@@ -2,7 +2,9 @@
 // Project: https://github.com/avanslaars/cypress-axe#readme
 // Definitions by: Justin Hall <https://github.com/wKovacs64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.1
+
+/// <reference lib="dom" />
 
 declare namespace Cypress {
     interface Chainable<Subject = any> {
