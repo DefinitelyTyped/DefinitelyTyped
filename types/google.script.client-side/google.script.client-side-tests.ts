@@ -1,7 +1,7 @@
 google.script.url.getLocation(location => {
-    location.hash; // $ExpectedType string
-    location.parameter; // $ExpectedType { [key: string]: string }
-    location.parameters; // $ExpectedType { [key: string]: ReadonlyArray<string> }
+    location.hash; // $ExpectType string
+    location.parameter; // $ExpectType { [key: string]: string; }
+    location.parameters; // $ExpectType { [key: string]: ReadonlyArray<string>; }
 });
 
 google.script.history.push(null);
@@ -13,10 +13,10 @@ google.script.history.replace({ timestamp: Date.now() }, { foo: 'bar', fiz: 'baz
 google.script.history.replace({ timestamp: Date.now() }, { foo: ['bar', 'cat'], fiz: 'baz' }, 'anchor1');
 
 google.script.history.setChangeHandler(e => {
-    e.state; // $ExpectedType google.script.history.State
-    e.location.hash; // $ExpectedType string
-    e.location.parameter; // $ExpectedType { [key: string]: string }
-    e.location.parameters; // $ExpectedType { [key: string]: ReadonlyArray<string> }
+    e.state; // $ExpectType State
+    e.location.hash; // $ExpectType string
+    e.location.parameter; // $ExpectType { [key: string]: string; }
+    e.location.parameters; // $ExpectType { [key: string]: ReadonlyArray<string>; }
 });
 
 google.script.host.origin; // $ExpectType string
