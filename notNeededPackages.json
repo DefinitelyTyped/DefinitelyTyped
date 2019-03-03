@@ -835,6 +835,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "is-online",
+            "typingsPackageName": "is-online",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-online",
+            "asOfVersion": "8.1.0"
+        },
+        {
             "libraryName": "is-plain-object",
             "typingsPackageName": "is-plain-object",
             "sourceRepoURL": "https://github.com/jonschlinkert/is-plain-object",
