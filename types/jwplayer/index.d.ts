@@ -632,7 +632,7 @@ declare namespace jwplayer {
                 readonly volume?: string;
                 readonly volumeSlider?: string;
             };
-        }
+        };
     }
 
     interface Header {
