@@ -33,7 +33,7 @@ bindWithMiddleware(() => {
     // Some middleware that doing something in the application
 });
 
-// In some place in application, we want to set value to be used elsewhere
+// In some place in the application, we want to set a value to a given key to be used elsewhere
 appNamespace.enter(context);
 appNamespace.set('requestId', 'someId');
 appNamespace.exit(context);
