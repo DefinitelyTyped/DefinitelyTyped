@@ -29,7 +29,7 @@ function bindWithMiddleware(middlewareFn: () => void) {
     return session.bind(middlewareFn, context);
 }
 
-bindWithMiddleware(()=>{
+bindWithMiddleware(() => {
     // Some middleware that doing something in the application
 });
 
