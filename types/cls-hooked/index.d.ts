@@ -12,6 +12,8 @@ export interface Namespace {
 
     set<T>(key: string, value: T): T;
     get(key: string): any;
+    enter(context: any): void;
+    exit(context: any): void;
     run(fn: (...args: any[]) => void): void;
     runAndReturn<T>(fn: (...args: any[]) => T): T;
     runPromise<T>(fn: (...args: any[]) => Promise<T>): Promise<T>;
