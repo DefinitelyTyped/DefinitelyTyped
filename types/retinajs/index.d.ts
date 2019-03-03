@@ -1,42 +1,42 @@
+// Type definitions for retinajs 2.1
+// Project: https://github.com/strues/retinajs
+// Definitions by: senjyouhara <https://github.com/senjyouhara>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 export = retinajs.retina;
 
 export as namespace retinajs;
 
 declare namespace retinajs {
-  var hasWindow: boolean;
+    // var hasWindow: boolean;
 
-  var environment: number;
+    // var environment: number;
 
-  var srcReplace: RegExp;
+    // var srcReplace: RegExp;
 
-  var inlineReplace: RegExp;
+    // var inlineReplace: RegExp;
 
-  var selector: string;
+    // var selector: string;
 
-  var processedAttr: string;
+    // var processedAttr: string;
 
-  var processedAttr: string;
+    // var processedAttr: string;
 
-  function arrayify(object: any): HTMLImageElement[];
+    // function arrayify(object: any): any[];
 
-  function chooseCap(cap: number | string): number;
+    // function chooseCap(cap: number | string): number;
 
-  function forceOriginalDimensions(image: HTMLImageElement): HTMLImageElement;
+    // function forceOriginalDimensions(image: any): any;
 
-  function setSourceIfAvailable(
-    image: HTMLImageElement,
-    retinaURL: string
-  ): void;
+    // function setSourceIfAvailable(image: any, retinaURL: string): void;
 
-  function dynamicSwapImage(image: HTMLImageElement, src: string): void;
+    // function dynamicSwapImage(image: any, src: string): void;
 
-  function manualSwapImage(image: HTMLImageElement, hdsrc: string): void;
+    // function manualSwapImage(image: any, hdsrc: string): void;
 
-  function getImages(images: HTMLImageElement[] | null): HTMLImageElement[];
+    // function getImages(images: any[] | null): any[];
 
-  function cleanBgImg(img: HTMLImageElement): HTMLImageElement;
+    // function cleanBgImg(img: any): any;
 
-  function retina(): void;
-
-  function retina(images: any): void;
+    function retina(images?: any): void;
 }
