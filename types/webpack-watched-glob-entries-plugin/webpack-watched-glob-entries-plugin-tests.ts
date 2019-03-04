@@ -1,4 +1,4 @@
-import GlobEntriesPlugin from 'webpack-watched-glob-entries-plugin';
+import GlobEntriesPlugin = require('webpack-watched-glob-entries-plugin');
 
 new GlobEntriesPlugin(); // $ExpectType WebpackWatchedGlobEntries
 
