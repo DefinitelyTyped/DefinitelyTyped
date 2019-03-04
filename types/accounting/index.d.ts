@@ -13,7 +13,7 @@ declare namespace accounting {
 
     interface CurrencySettings<TFormat> {
         symbol?: string;     // default currency symbol is '$'
-        format?: TFormat;    // controls output: %s = symbol, %v = value/number
+        format?: string;    // controls output: %s = symbol, %v = value/number
         decimal?: string;    // decimal point separator
         thousand?: string;   // thousands separator
         precision?: number;   // decimal places
