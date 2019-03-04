@@ -28,7 +28,7 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArrayItem = {
         path?: string | string[];
-        context?: string | string[]
+        context?: string | string[] | httpProxyMiddleware.Filter
     } & httpProxyMiddleware.Config;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
