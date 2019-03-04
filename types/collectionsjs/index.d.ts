@@ -30,6 +30,7 @@ export default class Collection {
     reduce(callback: (previous: any, current: any) => any, initial: any): any;
     reject(callback: (item: any) => any): Collection;
     remove(item: any): boolean;
+    reverse(): Collection;
     skip(count: number): Collection;
     slice(start: number, end?: number): Collection;
     sort(compare?: () => any): Collection;
