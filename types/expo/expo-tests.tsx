@@ -37,6 +37,7 @@ import {
     LinearGradient,
     Linking,
     Location,
+    Localization,
     MailComposer,
     MapEvent,
     MapStyleElement,
@@ -1102,6 +1103,28 @@ async () => {
     const linkingUri = Constants.linkingUri;
     const userAgent: string = await Constants.getWebViewUserAgentAsync();
 };
+// #endregion
+
+// #region Localization
+
+let locale: string = Localization.locale;
+let locales: string[] = Localization.locales;
+let country: string | undefined = Localization.country;
+let isoCurrencyCodes: string[] | undefined = Localization.isoCurrencyCodes;
+let timezone: string = Localization.timezone;
+let isRTL: boolean = Localization.isRTL;
+
+async () => {
+    const localizationData = await Localization.getLocalizationAsync();
+
+    locale = localizationData.locale;
+    locales = localizationData.locales;
+    country = localizationData.country;
+    isoCurrencyCodes = localizationData.isoCurrencyCodes;
+    timezone = localizationData.timezone;
+    isRTL = localizationData.isRTL;
+};
+
 // #endregion
 
 // #region Contacts

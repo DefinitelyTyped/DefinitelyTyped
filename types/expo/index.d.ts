@@ -2254,6 +2254,29 @@ export namespace Location {
 }
 
 /**
+ * Localization
+ */
+export namespace Localization {
+    const locale: string;
+    const locales: string[];
+    const country: string | undefined;
+    const isoCurrencyCodes: string[] | undefined;
+    const timezone: string;
+    const isRTL: boolean;
+
+    interface LocalizationData {
+        locale: string;
+        locales: string[];
+        country?: string;
+        isoCurrencyCodes?: string[];
+        timezone: string;
+        isRTL: boolean;
+    }
+
+    function getLocalizationAsync(): Promise<LocalizationData>;
+}
+
+/**
  * Magnetometer
  */
 export namespace Magnetometer {
