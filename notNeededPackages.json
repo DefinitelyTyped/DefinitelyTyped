@@ -835,6 +835,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "is-online",
+            "typingsPackageName": "is-online",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-online",
+            "asOfVersion": "8.1.0"
+        },
+        {
             "libraryName": "is-plain-object",
             "typingsPackageName": "is-plain-object",
             "sourceRepoURL": "https://github.com/jonschlinkert/is-plain-object",
@@ -1153,6 +1159,13 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "p-limit",
+            "typingsPackageName": "p-limit",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-limit",
+            "asOfVersion": "2.2.0"
+
+        },
+        {
             "libraryName": "p-map",
             "typingsPackageName": "p-map",
             "sourceRepoURL": "https://github.com/sindresorhus/p-map",
@@ -1163,6 +1176,12 @@
             "typingsPackageName": "p-pipe",
             "sourceRepoURL": "https://github.com/sindresorhus/p-pipe",
             "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "p-queue",
+            "typingsPackageName": "p-queue",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-queue",
+            "asOfVersion": "3.2.1"
         },
         {
             "libraryName": "p-throttle",

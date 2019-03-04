@@ -1,5 +1,4 @@
 import sinon = require("sinon");
-import Bluebird = require("bluebird");
 
 function testSandbox() {
     const obj = {};
@@ -427,7 +426,7 @@ function testStub() {
     const obj = class {
         foo() { }
         promiseFunc() { return Promise.resolve('foo'); }
-        promiseLikeFunc() { return {} as any as Bluebird<string>; }
+        promiseLikeFunc() { return Promise.resolve('foo') as PromiseLike<string>; }
     };
     const instance = new obj();
 
