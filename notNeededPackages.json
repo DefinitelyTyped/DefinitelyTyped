@@ -1168,7 +1168,7 @@
             "libraryName": "p-queue",
             "typingsPackageName": "p-queue",
             "sourceRepoURL": "https://github.com/sindresorhus/p-queue",
-            "asOfVersion": "3.2.0"
+            "asOfVersion": "3.2.1"
         },
         {
             "libraryName": "p-throttle",
