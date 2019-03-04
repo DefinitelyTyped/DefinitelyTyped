@@ -6,17 +6,17 @@
 import { EventEmitter } from "events";
 
 declare namespace TarantoolConnection {
-    export interface TarantoolOptions {
-      host?: string;
-      port?: number;
-      username?: string;
-      password?: string;
-      reserveHosts?: string[];
-      beforeReserve?: number;
-      timeout?: number;
-      retryStrategy?: (times: number) => number;
-      lazyConnect?: boolean;
-    }
+  interface TarantoolOptions {
+    host?: string;
+    port?: number;
+    username?: string;
+    password?: string;
+    reserveHosts?: string[];
+    beforeReserve?: number;
+    timeout?: number;
+    retryStrategy?: (times: number) => number;
+    lazyConnect?: boolean;
+  }
 }
 
 declare class TarantoolConnection extends EventEmitter {
