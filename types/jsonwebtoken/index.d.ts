@@ -17,9 +17,9 @@ export class JsonWebTokenError extends Error {
 }
 
 export class TokenExpiredError extends JsonWebTokenError {
-    expiredAt: number;
+    expiredAt: Date;
 
-    constructor(message: string, expiredAt: number);
+    constructor(message: string, expiredAt: Date);
 }
 
 export class NotBeforeError extends JsonWebTokenError {
