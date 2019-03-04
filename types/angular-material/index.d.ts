@@ -512,5 +512,10 @@ declare module 'angular' {
         }
 
         type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
+
+        interface IInteractionService {
+            getLastInteractionType(): string|null;
+            isUserInvoked(checkDelay?: number): boolean;
+        }
     }
 }

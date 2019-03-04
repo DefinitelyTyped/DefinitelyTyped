@@ -79,6 +79,7 @@ declare namespace ReactTooltip {
     }
 
     interface Props {
+        children?: React.ReactNode;
         id?: string;
         place?: Place;
         type?: Type;
