@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-export type Increment =
+type Increment =
     | 'ns'
     | 'nano'
     | 'nanosecond'
@@ -37,4 +37,6 @@ export type Increment =
     | 'week'
     | 'weeks';
 
-export default function(time: number[], smallest?: Increment, digits?: number): string;
+declare function prettyTime(time: number[], smallest?: Increment, digits?: number): string;
+
+export = prettyTime;
