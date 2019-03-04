@@ -31,7 +31,7 @@ export type Scene<T> = {
 }
 
 export type Layout = {
-  height: number
+  height?: number
   width: number
 }
 
