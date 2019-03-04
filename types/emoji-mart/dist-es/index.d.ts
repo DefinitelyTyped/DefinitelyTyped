@@ -3,19 +3,24 @@ export { default as frequently } from './utils/frequently';
 export { Data } from './utils/data';
 
 export {
-    PickerProps,
+    BackgroundImageFn,
+    EmojiSet,
+    CategoryName,
+    CustomIcons,
     EmojiProps,
+    EmojiSheetSize,
     I18n,
     PartialI18n,
-    CategoryName
-} from './utils/shared-props';
+    PickerProps,
+  } from './utils/shared-props';
 
 export {
     emojiIndex,
-    nimbleEmojiIndex,
+    NimbleEmojiIndex,
     EmojiData,
     CustomEmoji,
-    EmojiSkin
+    EmojiSkin,
+    BaseEmoji
 } from './utils/emoji-index';
 
 export {
