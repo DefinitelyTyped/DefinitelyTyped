@@ -213,7 +213,7 @@ declare namespace Resumable {
     /**
      * Look up a ResumableFile object by its unique identifier.
      **/
-    getFromUniqueIdentifier(uniqueIdentifier: string): void;
+    getFromUniqueIdentifier(uniqueIdentifier: string): ResumableFile;
     /**
      * Returns the total size of the upload in bytes.
      **/
