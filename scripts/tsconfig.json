@@ -2,12 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
+        "strict": true,
         "baseUrl": "../types",
         "typeRoots": [
             "../types"
