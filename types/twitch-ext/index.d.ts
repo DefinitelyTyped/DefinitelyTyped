@@ -207,9 +207,9 @@ interface TwitchExtConfiguration {
 
 	/**
 	 * This function can be called by the front end to set an extension configuration.
-	 * @param segment The string-encoded configuration.
-	 * @param version The configuration segment to set.
-	 * @param content The version of configuration with which the segment is stored.
+	 * @param segment The configuration segment to set. Valid value. "broadcaster".
+	 * @param version The version of configuration with which the segment is stored.
+	 * @param content The string-encoded configuration.
 	 */
 	set(segment: "broadcaster", version: string, content: string): void;
 }
