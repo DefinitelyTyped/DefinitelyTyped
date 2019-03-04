@@ -1,6 +1,6 @@
-// Type definitions for hoist-non-react-statics 3.0
+// Type definitions for hoist-non-react-statics 3.3
 // Project: https://github.com/mridgway/hoist-non-react-statics#readme
-// Definitions by: JounQin <https://github.com/JounQin>
+// Definitions by: JounQin <https://github.com/JounQin>, James Reggio <https://github.com/jamesreggio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8,10 +8,12 @@ import * as React from 'react';
 
 interface REACT_STATICS {
     childContextTypes: true;
+    contextType: true;
     contextTypes: true;
     defaultProps: true;
     displayName: true;
     getDefaultProps: true;
+    getDerivedStateFromError: true;
     getDerivedStateFromProps: true;
     mixins: true;
     propTypes: true;
@@ -28,6 +30,23 @@ interface KNOWN_STATICS {
     arity: true;
 }
 
+interface MEMO_STATICS {
+    '$$typeof': true;
+    compare: true;
+    defaultProps: true;
+    displayName: true;
+    propTypes: true;
+    type: true;
+}
+
+interface FORWARD_REF_STATICS {
+    '$$typeof': true;
+    render: true;
+    defaultProps: true;
+    displayName: true;
+    propTypes: true;
+}
+
 declare namespace hoistNonReactStatics {
     type NonReactStatics<
         S extends React.ComponentType<any>,
@@ -37,8 +56,11 @@ declare namespace hoistNonReactStatics {
     > = {
         [key in Exclude<
             keyof S,
-            // only extends static properties, exclude instance properties and known react statics
-            keyof REACT_STATICS | keyof KNOWN_STATICS | keyof C
+            S extends React.MemoExoticComponent<any>
+                ? keyof MEMO_STATICS | keyof C
+                : S extends React.ForwardRefExoticComponent<any>
+                ? keyof FORWARD_REF_STATICS | keyof C
+                : keyof REACT_STATICS | keyof KNOWN_STATICS | keyof C
         >]: S[key]
     };
 }
