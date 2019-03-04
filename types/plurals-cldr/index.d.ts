@@ -3,7 +3,7 @@
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Form = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
+type Form = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
 interface Plural {
     /**
@@ -50,4 +50,4 @@ declare const plural: Plural & {
     ordinal: Plural;
 };
 
-export default plural;
+export = plural;

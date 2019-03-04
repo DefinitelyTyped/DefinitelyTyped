@@ -1,4 +1,4 @@
-import plural from 'plurals-cldr';
+import plural = require('plurals-cldr');
 
 plural('en', 0); // $ExpectType "zero" | "one" | "two" | "few" | "many" | "other" | null
 plural('en', ''); // $ExpectType "zero" | "one" | "two" | "few" | "many" | "other" | null
