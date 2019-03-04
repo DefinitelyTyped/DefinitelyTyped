@@ -98,6 +98,7 @@ let _algoliaIndexSettings: IndexSettings = {
   placeholders: { '': [''] },
   camelCaseAttributes: [''],
   sortFacetValuesBy: 'count',
+  queryLanguages: ['fr', 'es'],
 };
 
 let _algoliaQueryParameters: QueryParameters = {
