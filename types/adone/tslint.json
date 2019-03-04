@@ -13,6 +13,7 @@
         "no-unnecessary-qualifier": false,
         "unified-signatures": false,
         "space-before-function-paren": false,
-        "await-promise": false
+        "await-promise": false,
+        "no-restricted-globals": false
     }
 }
