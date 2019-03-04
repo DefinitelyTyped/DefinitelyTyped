@@ -126,7 +126,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
        but not the list of original options unless handled as such by Typeahead's parent.
        The newly added item will always be returned as an object even if the other options are simply strings,
        so be sure your onChange callback can handle this. */
-    allowNew?: boolean;
+    allowNew?: boolean | ((results: T[], props: TypeaheadProps<T>) => boolean);
 
     /* Autofocus the input when the component initially mounts. */
     autoFocus?: boolean;
