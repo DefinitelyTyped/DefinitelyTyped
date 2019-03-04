@@ -2242,6 +2242,15 @@ export namespace Location {
     function stopGeofencingAsync(taskName: string): Promise<void>;
     function hasStartedGeofencingAsync(taskName: string): Promise<boolean>;
     function setApiKey(key: string): void;
+
+    enum Accuracy  {
+        Lowest = 1,
+        Low = 2,
+        Balanced = 3,
+        High = 4,
+        Highest = 5,
+        BestForNavigation = 6
+    }
 }
 
 /**

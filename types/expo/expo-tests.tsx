@@ -57,6 +57,16 @@ const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeA
     longitude: 0
 });
 
+Location.watchPositionAsync({
+    accuracy: Location.Accuracy.BestForNavigation,
+    timeInterval: 10000,
+    distanceInterval: 0,
+    timeout: 10000
+}, (data) => {
+    data.coords;
+    data.timestamp;
+});
+
 Accelerometer.addListener((obj) => {
     obj.x;
     obj.y;
