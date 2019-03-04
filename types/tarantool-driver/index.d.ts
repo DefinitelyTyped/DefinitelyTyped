@@ -17,7 +17,7 @@ export interface TarantoolOptions {
   lazyConnect?: boolean;
 }
 
-export default class TarantoolConnection extends EventEmitter {
+declare class TarantoolConnection extends EventEmitter {
   constructor(options: TarantoolOptions);
 
   /* Connection */
@@ -56,3 +56,5 @@ export default class TarantoolConnection extends EventEmitter {
 
   replace(spaceId: number | string, tuple: any[]): Promise<any>;
 }
+
+export = TarantoolConnection;
