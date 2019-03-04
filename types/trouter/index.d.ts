@@ -4,24 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare namespace Trouter {
-    interface FindResult<T> {
-        params: { [k: string]: string; };
-        handlers: T[];
-    }
-
-    type ValidMethods = 'get' | 'head' | 'patch' | 'options' |
-        'connect' | 'delete' | 'trace' | 'post' | 'put';
-
-    type FindReturn<T> = FindResult<T> | false;
+export interface FindResult<T> {
+    params: { [k: string]: string; };
+    handlers: T[];
 }
 
+export type ValidMethods = 'GET' | 'HEAD' | 'PATCH' | 'OPTIONS' |
+    'CONNECT' | 'DELETE' | 'TRACE' | 'POST' | 'PUT';
+
+export type FindReturn<T> = FindResult<T> | false;
+
 declare class Trouter<T = any> {
-    constructor();
+    find(method: ValidMethods, url: string): FindReturn<T>;
 
-    find(method: Trouter.ValidMethods, url: string): Trouter.FindReturn<T>;
-
-    add(method: Trouter.ValidMethods, pattern: string, ...handlers: T[]): this;
+    add(method: ValidMethods, pattern: string, ...handlers: T[]): this;
 
     all(pattern: string, ...handlers: T[]): this;
 

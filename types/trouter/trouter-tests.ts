@@ -2,7 +2,7 @@ import Trouter from 'trouter';
 
 // Default type is "any" for handlers
 const router = new Trouter();
-router.add('get', '/user/:name/:id', 'test', 'test2', 'test3');
+router.add('GET', '/user/:name/:id', 'test', 'test2', 'test3');
 
 // Typed handler example
 type Handler = (typedValue: number, couldBeAResponse: string) => void;
@@ -10,19 +10,19 @@ type Handler = (typedValue: number, couldBeAResponse: string) => void;
 const typed = new Trouter<Handler>();
 typed.get('/user/:id', (t: number, s: string) => {
 });
-const findResult = typed.find('get', '/users/1');
+const findResult = typed.find('GET', '/users/1');
 if (findResult && findResult.handlers.length > 0) {
     findResult.handlers[0](42, "asdf");
 }
-const notFound = typed.find('get', '/not-existent');
+const notFound = typed.find('GET', '/not-existent');
 if (!notFound) {
     // no match...
 }
 
 // Find
 const findTest = new Trouter();
-router.add('get', '/user/:id', 'handler');
-const fresult = router.find('get', '/user/1');
+findTest.add('GET', '/user/:id', 'handler');
+const fresult = findTest.find('GET', '/user/1');
 if (fresult && fresult.params.id) {
     // do something awesome!
     fresult.handlers[0] === 'handler';
@@ -41,12 +41,12 @@ full.trace('/somepattern', 'a handler');
 full.post('/somepattern', 'a handler');
 full.put('/somepattern', 'a handler');
 
-full.add('get', '/somepatternm', 'a handler');
-full.add('head', '/somepatternm', 'a handler');
-full.add('patch', '/somepatternm', 'a handler');
-full.add('options', '/somepatternm', 'a handler');
-full.add('connect', '/somepatternm', 'a handler');
-full.add('delete', '/somepatternm', 'a handler');
-full.add('trace', '/somepatternm', 'a handler');
-full.add('post', '/somepatternm', 'a handler');
-full.add('put', '/somepatternm', 'a handler');
+full.add('GET', '/somepatternm', 'a handler');
+full.add('HEAD', '/somepatternm', 'a handler');
+full.add('PATCH', '/somepatternm', 'a handler');
+full.add('OPTIONS', '/somepatternm', 'a handler');
+full.add('CONNECT', '/somepatternm', 'a handler');
+full.add('DELETE', '/somepatternm', 'a handler');
+full.add('TRACE', '/somepatternm', 'a handler');
+full.add('POST', '/somepatternm', 'a handler');
+full.add('PUT', '/somepatternm', 'a handler');
