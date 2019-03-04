@@ -81,6 +81,7 @@ $grid = $('.grid').isotope({
 });
 
 // test methods using jquery
+$grid.isotope();
 $grid.isotope('addItems', $('.items'));
 $grid.isotope('appended', $('.items')[0]);
 $grid.isotope('hideItemElements', [ new HTMLElement() ]);

@@ -148,6 +148,7 @@ mixed.default({ number: 5 });
 mixed.default(() => ({ number: 5 }));
 mixed.default();
 mixed.nullable(true);
+mixed.nullable();
 mixed.required();
 mixed.required("Foo");
 mixed.required(() => "Foo");
@@ -291,6 +292,8 @@ strSchema.isValid("hello"); // => true
 strSchema.required();
 strSchema.required("req");
 strSchema.required(() => "req");
+strSchema.length(5, "message");
+strSchema.length(5, () => "message");
 strSchema.min(5, "message");
 strSchema.min(5, () => "message");
 strSchema.max(5, "message");

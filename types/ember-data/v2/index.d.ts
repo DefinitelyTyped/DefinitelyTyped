@@ -525,7 +525,7 @@ export namespace DS {
          * invoking the callback with the name of each relationship and its relationship
          * descriptor.
          */
-        eachRelationship(callback: (name: string, details: RelationshipMeta<this>) => void, binding?: any): any;
+        eachRelationship<T extends Model>(this: T, callback: (name: string, details: RelationshipMeta<T>) => void, binding?: any): any;
         /**
          * Represents the model's class name as a string. This can be used to look up the model's class name through
          * `DS.Store`'s modelFor method.

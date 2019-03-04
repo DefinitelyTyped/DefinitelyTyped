@@ -9,6 +9,7 @@ ora({ spinner: { interval: 80, frames: ['-', '+', '-'] } });
 ora({ color: 'cyan' });
 ora({ color: 'foo' }); // $ExpectError
 ora({ hideCursor: true });
+ora({ indent: 1 });
 ora({ interval: 80 });
 ora({ stream: new PassThrough() });
 ora({ isEnabled: true });
@@ -17,6 +18,8 @@ spinner.color = 'yellow';
 spinner.text = 'Loading rainbows';
 spinner.isSpinning; // $ExpectType boolean
 spinner.isSpinning = true; // $ExpectError
+spinner.spinner = 'dots';
+spinner.indent = 5;
 
 spinner.start();
 spinner.start('Test text');
