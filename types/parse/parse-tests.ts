@@ -126,7 +126,7 @@ function test_query() {
     // Find objects with distinct key
     query.distinct('name');
 
-    const testQuery = Parse.Query.or(query, query);   
+    const testQuery = Parse.Query.or(query, query);
 }
 
 async function test_query_promise() {
@@ -348,30 +348,30 @@ function test_cloud_functions() {
         // result
     });
 
-    Parse.Cloud.beforeDelete('MyCustomClass', (request: Parse.Cloud.BeforeDeleteRequest,
-        response: Parse.Cloud.BeforeDeleteResponse) => {
+    Parse.Cloud.beforeDelete('MyCustomClass', (request: Parse.Cloud.BeforeDeleteRequest) => {
+        // result
+    });
+
+    Parse.Cloud.beforeDelete('MyCustomClass', async (request: Parse.Cloud.BeforeDeleteRequest) => {
         // result
     });
 
     const CUSTOM_ERROR_INVALID_CONDITION = 1001
     const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
 
-    Parse.Cloud.beforeSave('MyCustomClass', (request: Parse.Cloud.BeforeSaveRequest,
-        response: Parse.Cloud.BeforeSaveResponse) => {
-
+    Parse.Cloud.beforeSave('MyCustomClass', async (request: Parse.Cloud.BeforeSaveRequest) => {
             if (request.object.isNew()) {
-                if (!request.object.has('immutable')) return response.error('Field immutable is required')
+                if (!request.object.has('immutable')) throw new Error('Field immutable is required')
             } else {
                 const original = request.original;
                 if (original == null) { // When the object is not new, request.original must be defined
-                    return response.error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
+                    throw new Parse.Error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
                 }
 
                 if (original.get('immutable') !== request.object.get('immutable')) {
-                    return response.error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
+                    throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
                 }
             }
-            response.success()
     });
 
     Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
@@ -387,6 +387,30 @@ function test_cloud_functions() {
         request.readPreference = Parse.Cloud.ReadPreferenceOption.Secondary
         request.readPreference = Parse.Cloud.ReadPreferenceOption.SecondaryPreferred
         request.readPreference = Parse.Cloud.ReadPreferenceOption.Nearest
+    });
+
+    Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
+        let query = request.query; // the Parse.Query
+
+        return new Parse.Query("QueryMe!");
+    });
+
+    Parse.Cloud.beforeFind('MyCustomClass', async (request: Parse.Cloud.BeforeFindRequest) => {
+        let query = request.query; // the Parse.Query
+
+        return new Parse.Query("QueryMe, IN THE FUTURE!");
+    });
+
+    Parse.Cloud.afterFind('MyCustomClass', async (request: Parse.Cloud.AfterFindRequest) => {
+        return new Parse.Object('MyCustomClass');
+    });
+
+    Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
+        return 'Some result';
+    });
+
+    Parse.Cloud.job('AJob', (request: Parse.Cloud.JobRequest) => {
+        request.message('Message to associate with this job run');
     });
 }
 

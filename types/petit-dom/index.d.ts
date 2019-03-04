@@ -98,6 +98,7 @@ export namespace PetitDom {
     };
 
     interface IntrinsicProps {
+        content?: Content | ReadonlyArray<Content>;
         key?: Key;
     }
 

@@ -51,11 +51,15 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType<P = any> =
+    type ElementType<P = any> =
         {
             [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
         }[keyof JSX.IntrinsicElements] |
         ComponentType<P>;
+    /**
+     * @deprecated Please use `ElementType`
+     */
+    type ReactType<P = any> = ElementType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type JSXElementConstructor<P> =
@@ -422,7 +426,7 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        readonly props: Readonly<{ children?: ReactNode }> & Readonly<P>;
+        readonly props: Readonly<PropsWithChildren<P>>;
         state: Readonly<S>;
         /**
          * @deprecated
@@ -468,7 +472,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: P & { children?: ReactNode }, context?: any): ReactElement | null;
+        (props: PropsWithChildren<P>, context?: any): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -476,7 +480,7 @@ declare namespace React {
     }
 
     interface RefForwardingComponent<T, P = {}> {
-        (props: P & { children?: ReactNode }, ref: Ref<T>): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
         propTypes?: WeakValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -722,6 +726,8 @@ declare namespace React {
                 : P
             : P;
 
+    type PropsWithChildren<P> = P & { children?: ReactNode };
+
     /**
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
      * or ComponentPropsWithoutRef when refs are not supported.
@@ -732,11 +738,11 @@ declare namespace React {
             : T extends keyof JSX.IntrinsicElements
                 ? JSX.IntrinsicElements[T]
                 : {};
-    type ComponentPropsWithRef<T extends ReactType> =
+    type ComponentPropsWithRef<T extends ElementType> =
         T extends ComponentClass<infer P>
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
-    type ComponentPropsWithoutRef<T extends ReactType> =
+    type ComponentPropsWithoutRef<T extends ElementType> =
         PropsWithoutRef<ComponentProps<T>>;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
@@ -747,7 +753,7 @@ declare namespace React {
 
     function memo<P extends object>(
         Component: SFC<P>,
-        propsAreEqual?: (prevProps: Readonly<P & { children?: ReactNode }>, nextProps: Readonly<P & { children?: ReactNode }>) => boolean
+        propsAreEqual?: (prevProps: Readonly<PropsWithChildren<P>>, nextProps: Readonly<PropsWithChildren<P>>) => boolean
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,

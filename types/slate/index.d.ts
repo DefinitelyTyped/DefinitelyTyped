@@ -1,4 +1,4 @@
-// Type definitions for slate 0.43
+// Type definitions for slate 0.44
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -8,6 +8,7 @@
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
 //                 Hanna Greaves <https://github.com/sgreav>
+//                 Jack Allen <https://github.com/jackall3n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -401,8 +402,6 @@ declare class BaseNode<
     findDescendants(iterator: (node: Node) => boolean): Node | null;
     getActiveMarksAtRange(range: Range): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
-    getBlocksAtRange(range: Range): Immutable.List<Block>;
-    getBlocksAtRangeAsArray(range: Range): Block[];
     getBlocks(): Immutable.List<Block>;
     getBlocksAsArray(): Block[];
     getBlocksByType(type: string): Immutable.List<Block>;
@@ -432,6 +431,8 @@ declare class BaseNode<
     getInsertMarksAtRange(range: Range): Immutable.Set<Mark>;
     getKeysToPathsTable(): object;
     getLastText(): Text | null;
+    getLeafBlocksAtRange(range: Range): Immutable.List<Block>;
+    getLeafBlocksAtRangeAsArray(range: Range): Block[];
     getMarks(): Immutable.Set<Mark>;
     getMarksAsArray(): Mark[];
     getMarksAtPosition(key: string, offset: number): Immutable.Set<Mark>;
@@ -460,6 +461,8 @@ declare class BaseNode<
     getPreviousNode(path: Path): Node | null;
     getPreviousSibling(path: Path): Node | null;
     getPreviousText(path: Path): Text | null;
+    getRootBlocksAtRange(range: Range): Immutable.List<Block>;
+    getRootInlinesAtRange(range: Range): Immutable.List<Block>;
     getSelectionIndexes(
         range: Range,
         isSelected?: boolean
@@ -883,6 +886,8 @@ export type ErrorCode =
     | "child_required"
     | "child_type_invalid"
     | "child_unknown"
+    | "child_min_invalid"
+    | "child_max_invalid"
     | "first_child_object_invalid"
     | "first_child_type_invalid"
     | "last_child_object_invalid"
@@ -1144,7 +1149,7 @@ export class Editor implements Controller {
     moveToStartOfPreviousText(): Editor;
     moveToStartOfText(): Editor;
     moveToRangeOfDocument(): Editor;
-    moveToRangeOf(node: Node): Editor;
+    moveToRangeOfNode(node: Node): Editor;
     select(properties: Range | RangeProperties): Editor;
     addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
     deleteAtRange(range: Range): Editor;
@@ -1933,7 +1938,7 @@ export interface Controller {
     /**
      * Move the current selection's anchor to the start of the provided node and its focus to the end of it.
      */
-    moveToRangeOf(node: Node): Controller;
+    moveToRangeOfNode(node: Node): Controller;
     /**
      * Merge the current selection with the provided properties
      */
