@@ -50,9 +50,21 @@ declare module "node-notifier" {
             wait?: boolean;
         }
 
-        interface NotificationCallback {
-            (err: any, response: any, metadata?: any): any;
-        }
+        interface NotificationMetadata {
+            activationType?: string;
+            activationAt?: string;
+            deliveredAt?: string;
+            activationValue?: string;
+            activationValueIndex?: string;
+          }
+
+          interface NotificationCallback {
+            (
+              err: Error | null,
+              response: string,
+              metadata?: NotificationMetadata,
+            ): void;
+          }
 
         interface Option {
             withFallback?: boolean;
