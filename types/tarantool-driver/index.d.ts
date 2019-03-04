@@ -5,20 +5,22 @@
 
 import { EventEmitter } from "events";
 
-export interface TarantoolOptions {
-  host?: string;
-  port?: number;
-  username?: string;
-  password?: string;
-  reserveHosts?: string[];
-  beforeReserve?: number;
-  timeout?: number;
-  retryStrategy?: (times: number) => number;
-  lazyConnect?: boolean;
+declare namespace TarantoolConnection {
+    export interface TarantoolOptions {
+      host?: string;
+      port?: number;
+      username?: string;
+      password?: string;
+      reserveHosts?: string[];
+      beforeReserve?: number;
+      timeout?: number;
+      retryStrategy?: (times: number) => number;
+      lazyConnect?: boolean;
+    }
 }
 
 declare class TarantoolConnection extends EventEmitter {
-  constructor(options: TarantoolOptions);
+  constructor(options: TarantoolConnection.TarantoolOptions);
 
   /* Connection */
 
@@ -35,7 +37,7 @@ declare class TarantoolConnection extends EventEmitter {
   select(spaceId: number | string,
                 indexId: number | string,
                 limit: number, offset: number,
-                iterator: string, key: string | string[]): Promise<any>;
+                iterator: string, key: any[]): Promise<any>;
 
   delete(spaceId: number | string,
                 indexId: number | string,
