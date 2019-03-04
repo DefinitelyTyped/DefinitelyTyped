@@ -1153,10 +1153,17 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "p-event",
+            "typingsPackageName": "p-event",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-event",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "p-limit",
             "typingsPackageName": "p-limit",
             "sourceRepoURL": "https://github.com/sindresorhus/p-limit",
             "asOfVersion": "2.2.0"
+
         },
         {
             "libraryName": "p-map",
