@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "module": "commonjs",
         "lib": [
             "es6",
             "dom"
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "pendo-io-agent-tests.ts"
+        "pendo-io-browser-tests.ts"
     ]
 }

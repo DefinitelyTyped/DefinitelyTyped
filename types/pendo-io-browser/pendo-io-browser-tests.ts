@@ -34,13 +34,13 @@ pendo.identify({
 pendo.debugging.getEventCache();
 
 pendo.events
-    .ready(function () {
+    .ready(() => {
         // Do something once `pendo.isReady()` would return `true`
     })
-    .guidesLoaded(function () {
+    .guidesLoaded(() => {
         // Do something when Guides load
     })
-    .guidesFailed(function () {
+    .guidesFailed(() => {
         // Do something when Guides fail to load
     });
 
@@ -49,7 +49,7 @@ pendo.initialize({
     visitor: { id: "" },
     account: { id: "" },
     events: {
-        ready: function () {
+        ready() {
             // Do something when pendo is initialized
         }
     }
@@ -63,15 +63,14 @@ pendo.track("User Registered", {
 
 try {
     throw new Error();
-}
-catch (error) {
+} catch (error) {
     pendo.track("JIRA-12345--error-tripped", {
         message: error.message,
         stack: error.stack
     });
 }
 
-pendo.dom("").closest('._pendo-guide-next_')
+pendo.dom("").closest('._pendo-guide-next_');
 
 pendo.onGuideAdvanced();
 pendo.onGuideAdvanced({ steps: 2 });
