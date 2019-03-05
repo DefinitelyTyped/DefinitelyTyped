@@ -121,8 +121,8 @@ export interface DefaultComponents {
 export interface Entity<C = ObjectMap<Component>> extends ANode {
 	components: C & DefaultComponents;
 	isPlaying: boolean;
-	object3D: three.Object3D;
-	object3DMap: ObjectMap<three.Object3D>;
+	object3D: THREE.Object3D;
+	object3DMap: ObjectMap<THREE.Object3D>;
 	sceneEl?: Scene;
 
 	addState(name: string): void;
@@ -132,12 +132,12 @@ export interface Entity<C = ObjectMap<Component>> extends ANode {
 	 */
 	getComputedAttribute(attr: string): Component;
 	getDOMAttribute(attr: string): any;
-	getObject3D(type: string): three.Object3D;
-	getOrCreateObject3D(type: string, construct: any): three.Object3D;
+	getObject3D(type: string): THREE.Object3D;
+	getOrCreateObject3D(type: string, construct: any): THREE.Object3D;
 	is(stateName: string): boolean;
 	pause(): void;
 	play(): void;
-	setObject3D(type: string, obj: three.Object3D): void;
+	setObject3D(type: string, obj: THREE.Object3D): void;
 	removeAttribute(attr: string, property?: string): void;
 	removeObject3D(type: string): void;
 	removeState(stateName: string): void;
@@ -193,7 +193,7 @@ export interface EntityEventMap {
 export interface Geometry<T = any> {
 	data: T;
 	name: string;
-	geometry: three.Geometry;
+	geometry: THREE.Geometry;
 	schema: Schema<any>;
 
 	init(data: any): void;
@@ -233,12 +233,12 @@ export type SceneEvents = 'enter-vr' | 'exit-vr' | 'loaded' | 'renderstart';
 
 export interface Scene extends Entity {
 	behaviors: Behavior[];
-	camera: three.Camera;
+	camera: THREE.Camera;
 	canvas: HTMLCanvasElement;
-	effect: three.VREffect;
+	effect: THREE.VREffect;
 	isMobile: boolean;
-	object3D: three.Scene;
-	renderer: three.WebGLRenderer;
+	object3D: THREE.Scene;
+	renderer: THREE.WebGLRenderer;
 	renderStarted: boolean;
 	systems: ObjectMap<System>;
 	time: number;
@@ -266,7 +266,7 @@ export interface Shader {
 	name: string;
 	data: object;
 	schema: Schema<this['data']>;
-	material: three.Material;
+	material: THREE.Material;
 	vertexShader: string;
 	fragmentShader: string;
 
@@ -333,7 +333,7 @@ export interface Utils {
 		isLandscape(): boolean;
 		isBrowserEnvironment(): boolean;
 		isNodeEnvironment(): boolean;
-		PolyfillControls(object3D: three.Object3D): void;
+		PolyfillControls(object3D: THREE.Object3D): void;
 	};
 	styleParser: {
 		parse(value: string): object;
