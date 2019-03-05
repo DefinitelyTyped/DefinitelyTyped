@@ -21,10 +21,11 @@ async function main() {
 }
 
 const userName = process.env.GH_USERNAME;
+const token = process.env.GH_TOKEN;
 const reviewers = ["weswigham", "sandersn", "RyanCavanaugh"]
 const now = new Date();
 const branchName = `codeowner-update-${now.getFullYear()}${padNum(now.getMonth())}${padNum(now.getDay())}`;
-const remoteUrl = `https://${process.argv[2]}@github.com/${userName}/DefinitelyTyped.git`;
+const remoteUrl = `https://${process.env.GH_TOKEN}@github.com/${userName}/DefinitelyTyped.git`;
 runSequence([
     ["git", ["checkout", "."]], // reset any changes
 ]);
@@ -42,12 +43,11 @@ runSequence([
     ["git", ["push", "--set-upstream", "fork", branchName, "-f"]] // push the branch
 ]);
 
-const opts = { timeout: 100000, shell: true, stdio: "inherit" }
 /** @param {[string, string[]][]} tasks */
 function runSequence(tasks) {
     for (const task of tasks) {
         console.log(`${task[0]} ${task[1].join(" ")}`);
-        const result = cp.spawnSync(task[0], task[1], opts);
+        const result = cp.spawnSync(task[0], task[1], { timeout: 100000, shell: true, stdio: "inherit" });
         if (result.status !== 0) throw new Error(`${task[0]} ${task[1].join(" ")} failed: ${result.stderr && result.stderr.toString()}`);
     }
 }
@@ -61,18 +61,17 @@ function padNum(number) {
 const gh = new Octokit();
 gh.authenticate({
     type: "token",
-    token: process.argv[2]
+    token: process.env.GH_TOKEN,
 });
 gh.pulls.create({
     owner: process.env.TARGET_FORK,
     repo: "DefinitelyTyped",
     maintainer_can_modify: true,
-    title: `🤖 User test baselines have changed`,
+    title: `🤖 Codeowners have changed`,
     head: `${userName}:${branchName}`,
     base: "master",
     body:
 `Please review the diff and merge if no changes are unexpected.
-You can view the build log [here](https://typescript.visualstudio.com/TypeScript/_build/index?buildId=${process.env.BUILD_BUILDID}&_a=summary).
 
 cc ${reviewers.map(r => "@" + r).join(" ")}`,
 }).then(r => {
