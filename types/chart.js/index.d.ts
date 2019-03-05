@@ -60,8 +60,8 @@ declare class Chart {
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
 }
 declare class PluginServiceStatic {
-    register(plugin: PluginServiceGlobalRegistration & PluginServiceRegistrationOptions): void;
-    unregister(plugin: PluginServiceGlobalRegistration & PluginServiceRegistrationOptions): void;
+    register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
+    unregister(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
 }
 
 interface Meta {
