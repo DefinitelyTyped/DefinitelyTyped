@@ -50,7 +50,7 @@ collection.slice(1, 3); // $ExpectType Collection<{ name: string; age: number; }
 collection.sort(); // $ExpectType Collection<{ name: string; age: number; }>
 collection.sortBy('name'); // $ExpectType Collection<{ name: string; age: number; }>
 collection.stringify(); // $ExpectType string
-collection.sum('age'); // $ExpectType any
+collection.sum('age'); // $ExpectType number
 collection.take(2); // $ExpectType Collection<{ name: string; age: number; }>
 Collection.macro('addToMembers', (collection, n) => collection.map((collectionItem: any) => collectionItem + n));
 

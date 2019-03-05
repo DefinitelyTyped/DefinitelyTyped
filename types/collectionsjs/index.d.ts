@@ -24,7 +24,7 @@ export default class Collection<T> {
     join(separator?: string): string;
     keys(): Collection<T>;
     last(callback?: ((item: T) => boolean)|null): T;
-    map<R>(callback: (item: T) => R): Collection<T>;
+    map<R>(callback: (item: T) => R): Collection<R>;
     pluck(property: string): Collection<T>;
     push(item: T): Collection<T>;
     reduce<R>(callback: (previous: R, current: T) => R, initial: R): R;
