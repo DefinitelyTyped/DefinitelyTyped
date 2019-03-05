@@ -113,7 +113,7 @@ import { promisify } from 'util';
 }
 
 {
-    const key = 'keykeykeykeykeykeykeykey';
+    const key: string | null = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);
     const aad = Buffer.from('0123456789', 'hex');
 

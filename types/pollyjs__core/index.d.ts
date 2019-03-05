@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/core 2.0
+// Type definitions for @pollyjs/core 2.3
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -55,8 +55,10 @@ export interface PollyConfig {
 }
 export interface Request {
 	getHeader(name: string): string | null;
-	setHeader(name: string, value: string): Request;
-	setHeaders(headers: any): Request;
+	setHeader(name: string, value?: string | null): Request;
+	setHeaders(headers: Record<string, string | string[]>): Request;
+	removeHeader(name: string): Request;
+	removeHeaders(headers: string[]): Request;
 	hasHeader(name: string): boolean;
 	type(contentType: string): Request;
 	send(body: any): Request;
@@ -83,8 +85,10 @@ export interface Response {
 	body: any;
 	status(status: number): Response;
 	getHeader(name: string): string | null;
-	setHeader(name: string, value: string): Response;
-	setHeaders(headers: any): Response;
+	setHeader(name: string, value?: string | null): Response;
+	setHeaders(headers: Record<string, string | string[]>): Response;
+	removeHeader(name: string): Request;
+	removeHeaders(headers: string[]): Request;
 	hasHeader(name: string): boolean;
 	type(contentType: string): Response;
 	send(body: any): Response;
@@ -100,8 +104,10 @@ export interface Intercept {
 export type RequestRouteEvent = 'request';
 export type RecordingRouteEvent = 'beforeReplay' | 'beforePersist';
 export type ResponseRouteEvent = 'beforeResponse' | 'response';
+export type ErrorRouteEvent = 'error';
 
 export type EventListenerResponse = any;
+export type ErrorEventListener = (req: Request, error: any) => EventListenerResponse;
 export type RequestEventListener = (req: Request) => EventListenerResponse;
 export type RecordingEventListener = (req: Request, recording: any) => EventListenerResponse;
 export type ResponseEventListener = (req: Request, res: Response) => EventListenerResponse;
@@ -114,18 +120,21 @@ export class RouteHandler {
 	on(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
 	on(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
 	on(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
+	on(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
 	off(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
 	off(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
 	off(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
+	off(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
 	once(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
 	once(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
 	once(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
-
+	once(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
+	filter: (callback: (req: Request) => boolean) => RouteHandler;
 	passthrough(value?: boolean): RouteHandler;
 	intercept(
 		fn: (req: Request, res: Response, intercept: Intercept) => EventListenerResponse
 	): RouteHandler;
-	recordingName(recordingName: string): RouteHandler;
+	recordingName(recordingName?: string): RouteHandler;
 	configure(config: PollyConfig): RouteHandler;
 }
 export class PollyServer {
