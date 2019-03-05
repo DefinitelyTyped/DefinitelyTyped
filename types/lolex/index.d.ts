@@ -9,7 +9,7 @@
 /**
  * Names of clock methods that may be faked by install.
  */
-type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date" | "nextTick" | "hrtime" | "requestIdleCallback" | "cancelIdleCallback";
+type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date" | "nextTick" | "hrtime" | "requestAnimationFrame" | "cancelAnimationFrame" | "requestIdleCallback" | "cancelIdleCallback";
 
 /**
  * Global methods avaliable to every clock and also as standalone methods (inside `timers` global object).
