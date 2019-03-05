@@ -52,7 +52,10 @@ collection.sortBy('name'); // $ExpectType Collection<{ name: string; age: number
 collection.stringify(); // $ExpectType string
 collection.sum('age'); // $ExpectType any
 collection.take(2); // $ExpectType Collection<{ name: string; age: number; }>
-collection.macro('addToMembers', (collection, n) => collection.map((collectionItem: any) => collectionItem + n)); // $ExpectType any
+
+// Collection.macro('addToMembers', (collection, n) => collection.map((collectionItem: any) => collectionItem + n));
+// const collection2 = new Collection([1,2,3,4]).addToMembers(3);
+
 collection.unique(stark => stark.age); // $ExpectType Collection<{ name: string; age: number; }>
 collection.values(); // $ExpectType Collection<{ name: string; age: number; }>
 collection.where('age', 14); // $ExpectType Collection<{ name: string; age: number; }>

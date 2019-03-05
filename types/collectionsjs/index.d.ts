@@ -16,7 +16,7 @@ export default class Collection<T> {
     count(): number;
     each(callback: (item: T) => void): Collection<T>;
     filter(callback: (item: T) => boolean): Collection<T>;
-    find(item: any): number;
+    find(item: T): number;
     first(callback?: ((item: T) => boolean)|null): T;
     flatten(deep?: boolean): Collection<T>;
     get(index: number): T;
@@ -24,23 +24,24 @@ export default class Collection<T> {
     join(separator?: string): string;
     keys(): Collection<T>;
     last(callback?: ((item: T) => boolean)|null): T;
-    map(callback: (item: T) => any): Collection<T>;
+    map<R>(callback: (item: T) => R): Collection<T>;
     pluck(property: string): Collection<T>;
     push(item: T): Collection<T>;
-    reduce(callback: (previous: T, current: T) => any, initial: any): any;
+    reduce<R>(callback: (previous: R, current: T) => R, initial: R): R;
     reject(callback: (item: T) => boolean): Collection<T>;
-    remove(item: any): boolean;
+    remove(item: T): boolean;
     reverse(): Collection<T>;
     skip(count: number): Collection<T>;
     slice(start: number, end?: number): Collection<T>;
     sort(compare?: () => boolean): Collection<T>;
     sortBy(property: string, order?: string): Collection<T>;
     stringify(): string;
-    sum(property?: string|null): any;
+    sum(property: T extends object ? keyof T : never): number
     take(count: number): Collection<T>;
-    macro(name: string, callback: (...args: any) => any): any;
+    static macro(name: string, callback: (coll: Collection<unknown>, ...args: unknown[]) => unknown): void;
     unique(callback?: string|null|((item: T) => any)): Collection<T>;
     values(): Collection<T>;
-    where(callback: ((item: T) => boolean)|string, value?: any): Collection<T>;
+    where<K extends keyof T>(key: K, value: T[K]): Collection<T>
+    where(callback: (item: T) => boolean): Collection<T>
     zip(array: T[]|Collection<T>): Collection<T>;
 }
