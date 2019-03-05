@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as THREE from 'three';
+/// <reference types="three" />
 
 declare module "three" {
     var CSG: {
