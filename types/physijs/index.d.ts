@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="three" />
+import * as THREE from 'three';
 
 declare namespace Physijs {
     export function noConflict():Object;
