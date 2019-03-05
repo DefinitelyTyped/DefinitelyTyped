@@ -173,7 +173,7 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     connectNulls?: boolean;
     activeDot?: boolean | object | React.ReactElement<any,any> | ContentRenderer<any>;
     dot?: boolean | object | React.ReactElement<any,any> | ContentRenderer<DotProps>;
-    label?: boolean | object | ContentRenderer<any> | React.ReactElement<any,any>; 
+    label?: boolean | object | ContentRenderer<any> | React.ReactElement<any,any>;
     hide?: boolean;
     layout?: LayoutType;
     baseLine?: number | any[];
@@ -259,7 +259,7 @@ export interface CartesianAxisProps extends EventAttributes, Partial<Presentatio
     height?: number;
     orientation?: 'top' | 'bottom' | 'left' | 'right';
     viewBox?: ViewBox;
-    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any,any>; 
+    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any,any>;
     axisLine?: boolean | object;
     tickLine?: boolean | object;
     mirror?: boolean;
@@ -454,7 +454,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     label?: {
         offsetRadius: number;
     } | React.ReactElement<any,any> | ContentRenderer<PieLabelRenderProps> | boolean;
-    activeShape?: object | ContentRenderer<any> | React.ReactElement<any,any>; 
+    activeShape?: object | ContentRenderer<any> | React.ReactElement<any,any>;
     activeIndex?: number | number[];
     blendStroke?: boolean;
 }
@@ -501,7 +501,7 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     axisLine?: boolean | object;
     axisLineType?: 'polygon' | 'circle';
     tickLine?: boolean | object;
-    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any,any>; 
+    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any,any>;
     ticks?: PolarAngleAxisTick[];
     stroke?: string;
     orientation?: 'inner' | 'outer';
@@ -612,8 +612,8 @@ export interface RadialBarProps extends EventAttributes, Partial<PresentationAtt
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     angleAxisId?: string | number;
     radiusAxisId?: string | number;
-    shape?: ContentRenderer<any> | React.ReactElement<any,any>; 
-    activeShape?: object | ContentRenderer<any> | React.ReactElement<any,any>; 
+    shape?: ContentRenderer<any> | React.ReactElement<any,any>;
+    activeShape?: object | ContentRenderer<any> | React.ReactElement<any,any>;
     cornerRadius?: number | string;
     minPointSize?: number;
     maxBarSize?: number;
@@ -662,7 +662,7 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     y2?: number | string;
     xAxisId?: string | number;
     yAxisId?: string | number;
-    shape?: ContentRenderer<ReferenceAreaProps & RectangleProps> | React.ReactElement<any,any>; 
+    shape?: ContentRenderer<ReferenceAreaProps & RectangleProps> | React.ReactElement<any,any>;
 }
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
@@ -688,7 +688,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
         EventAttributes
         & Partial<PresentationAttributes<number | string, number | string>>
         & { cx: number; cy: number; }
-    > | React.ReactElement<any,any>; 
+    > | React.ReactElement<any,any>;
 }
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
@@ -703,14 +703,14 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
-    label?: string | number | ContentRenderer<any> | React.ReactElement<any,any>; 
+    label?: string | number | ContentRenderer<any> | React.ReactElement<any,any>;
     xAxisId?: string | number;
     yAxisId?: string | number;
     shape?: ContentRenderer<
         EventAttributes
         & Partial<PresentationAttributes<number | string, number | string>>
         & { x1: number; y1: number; x2: number; y2: number; }
-    > | React.ReactElement<any,any>; 
+    > | React.ReactElement<any,any>;
 }
 
 export class ReferenceLine extends React.Component<ReferenceLineProps> { }
@@ -746,12 +746,12 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     xAxisId?: string | number;
     yAxisId?: string | number;
     zAxisId?: string | number;
-    line?: boolean | object | RechartsFunction | React.ReactElement<any,any>; 
+    line?: boolean | object | RechartsFunction | React.ReactElement<any,any>;
     lineType?: 'joint' | 'fitting';
     lineJointType?: LineType;
     legendType?: LegendType;
     activeIndex?: number;
-    activeShape?: object | RechartsFunction | React.ReactElement<any,any>; 
+    activeShape?: object | RechartsFunction | React.ReactElement<any,any>;
     shape?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | React.ReactElement<any,any> | ContentRenderer<any>;
     points?: ScatterPoint[];
     hide?: boolean;
@@ -935,7 +935,7 @@ export interface XAxisProps extends EventAttributes {
     padding?: XPadding;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
-    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any,any>; 
+    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any,any>;
     axisLine?: boolean | object;
     tickLine?: boolean | object;
     minTickGap?: number;
@@ -989,7 +989,7 @@ export interface YAxisProps extends EventAttributes {
     padding?: YPadding;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
-    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any,any>; 
+    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any,any>;
     axisLine?: boolean | object;
     tickLine?: boolean | object;
     minTickGap?: number;
