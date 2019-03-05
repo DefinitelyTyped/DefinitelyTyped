@@ -3,4 +3,4 @@
  */
 declare function mod(value: number, max: number, min?: number): number;
 
-export default mod;
+export = mod;

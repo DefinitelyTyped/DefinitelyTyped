@@ -3,4 +3,4 @@
  */
 declare function len(a: number, b: number): number;
 
-export default len;
+export = len;

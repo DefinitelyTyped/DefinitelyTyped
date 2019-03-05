@@ -3,4 +3,4 @@
  */
 declare function order(value: number): number;
 
-export default order;
+export = order;

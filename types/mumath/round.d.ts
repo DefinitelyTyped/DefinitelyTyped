@@ -3,4 +3,4 @@
  */
 declare function round(value: number, step?: number): number;
 
-export default round;
+export = round;

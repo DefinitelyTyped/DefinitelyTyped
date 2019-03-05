@@ -3,4 +3,4 @@
  */
 declare function within(value: number, left: number, right: number): number;
 
-export default within;
+export = within;

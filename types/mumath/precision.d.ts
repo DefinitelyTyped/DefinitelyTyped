@@ -3,4 +3,4 @@
  */
 declare function precision(value: number): number;
 
-export default precision;
+export = precision;

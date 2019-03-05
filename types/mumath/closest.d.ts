@@ -3,4 +3,4 @@
  */
 declare function closest(value: number, list: number[]): number;
 
-export default closest;
+export = closest;

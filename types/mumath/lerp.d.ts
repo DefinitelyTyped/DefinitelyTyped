@@ -3,4 +3,4 @@
  */
 declare function lerp(x: number, y: number, ratio: number): number;
 
-export default lerp;
+export = lerp;

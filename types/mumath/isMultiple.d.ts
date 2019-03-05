@@ -4,4 +4,4 @@
  */
 declare function isMultiple(a: number, b: number, eps?: number): boolean;
 
-export default isMultiple;
+export = isMultiple;

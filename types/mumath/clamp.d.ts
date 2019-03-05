@@ -3,4 +3,4 @@
  */
 declare function clamp(value: number, left: number, right: number): number;
 
-export default clamp;
+export = clamp;

@@ -5,4 +5,4 @@
  */
 declare function scale(value: number, list: number[]): number;
 
-export default scale;
+export = scale;
