@@ -357,7 +357,7 @@ declare namespace Chart {
         cornerRadius?: number;
         multiKeyBackground?: string;
         callbacks?: ChartTooltipCallback;
-        filter?(item: ChartTooltipItem): boolean;
+        filter?(item: ChartTooltipItem, data: ChartData): boolean;
         itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
         position?: string;
         caretPadding?: number;
