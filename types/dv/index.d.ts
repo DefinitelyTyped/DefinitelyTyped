@@ -2,6 +2,7 @@
 // Project: https://github.com/creatale/node-dv
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 
@@ -22,7 +23,6 @@ export interface Segment {
 	p2: Point;
 	error: number;
 }
-
 
 export interface Skew {
 	angle: number;
@@ -55,242 +55,268 @@ export class Image {
 	constructor(type: 'png' | 'jpg', buffer: Buffer);
 	constructor(type: 'rgba' | 'rgb' | 'gray', buffer: Buffer, width: number, height: number);
 
-	public readonly width: number;
-	public readonly height: number;
+	readonly width: number;
+	readonly height: number;
 	/**
 	 * The depth of the image in bits per pixel, i.e. one of 32 (color), 8 (grayscale) or 1 (monochrome).
 	 */
-	public readonly depth: number;
+	readonly depth: number;
 
 	/**
 	 * Returns the (boolean) inverse of this image.
 	 */
-	public invert(): Image;
+	invert(): Image;
 	/**
 	 * Returns the (boolean) union of two images with equal depth, aligning them to the upper left corner.
 	 */
-	public or(otherImage: Image): Image;
+	or(otherImage: Image): Image;
 	/**
 	 * Returns the (boolean) difference of two images with equal depth, aligning them to the upper left corner.
 	 */
-	public and(otherImage: Image): Image;
+	and(otherImage: Image): Image;
 	/**
 	 * Returns the (boolean) exclusive disjunction of two images with equal depth, aligning them to the upper left corner.
 	 */
-	public xor(otherImage: Image): Image;
+	xor(otherImage: Image): Image;
 	/**
 	 * If the images are monochrome, dispatches to Leptonica's pixOr. Otherwise, returns the channelwise addition of b to a, clipped at 255.
 	 */
-	public add(otherImage: Image): Image;
-	/** If the images are monochrome, dispatches to Leptonica's pixSubtract and is equivalent to a.and(b.invert()). For grayscale images, returns the pixelwise subtraction of b from a, clipped at zero. For color, the entire RGB value is subtracted instead of doing channelwise subtraction (ask Leptonica why).
+	add(otherImage: Image): Image;
+
+	/**
+	 * If the images are monochrome, dispatches to Leptonica's pixSubtract and is equivalent to a.and(b.invert()).
+	 * For grayscale images, returns the pixelwise subtraction of b from a, clipped at zero.
+	 * For color, the entire RGB value is subtracted instead of doing channelwise subtraction (ask Leptonica why).
 	 * @example:
 	 * redness = colorImage.toGray(1, 0, 0).subtract(colorImage.toGray(0, 0.5, 0.5))
 	 */
-	public subtract(otherImage: Image): Image;
+	subtract(otherImage: Image): Image;
 	/**
 	 * Applies a convoltuion kernel with the specified dimensions. Image convolution is an operation where each destination pixel is computed based on a weighted sum of a set of nearby source pixels.
 	 */
-	public convolve(halfWidth: number, halfHeight: number): Image;
+	convolve(halfWidth: number, halfHeight: number): Image;
 
 	/**
-	 * Unsharp Masking creates an unsharp mask using halfWidth. The fraction determines how much of the edge is added back into image. The resulting image appears clearer, but it is generally less accurate.
+	 * Unsharp Masking creates an unsharp mask using halfWidth.
+	 * The fraction determines how much of the edge is added back into image.
+	 * The resulting image appears clearer, but it is generally less accurate.
 	 */
-	public unsharp(halfWidth: number, fraction: number): Image;
+	unsharp(halfWidth: number, fraction: number): Image;
 	/**
 	 * Rotates the image around its center by the specified angle in degrees.
 	 */
-	public rotate(angle: number): Image;
+	rotate(angle: number): Image;
 	/**
 	 * Scales an image proportionally by scale (1.0 = 100%).
 	 */
-	public scale(scale: number): Image;
+	scale(scale: number): Image;
 
 	/**
 	 * Scales an image by scaleX and scaleY (1.0 = 100%).
 	 */
-	public scale(scaleX: number, scaleY: number): Image;
+	scale(scaleX: number, scaleY: number): Image;
 
 	/**
 	 * Crops an image from this image by the specified rectangle and returns the resulting image.
 	 */
-	public crop(box: Box): Image;
-	public crop(x: number, y: number, width: number, height: number): Image;
+	crop(box: Box): Image;
+	crop(x: number, y: number, width: number, height: number): Image;
 	/**
 	 * Creates a mask by testing if pixels (RGB, HSV, ...) are between lower and upper. Formally speaking:
 	 * lower1 ≤ pixel1 ≤ upper1
 	 * ∧ lower2 ≤ pixel2 ≤ upper2
 	 * ∧ lower3 ≤ pixel3 ≤ upper3
 	 */
-	public inRange(lower1: number, lower2: number, lower3: number, upper1: number, upper2: number, upper3: number): Image;
+	inRange(lower1: number, lower2: number, lower3: number, upper1: number, upper2: number, upper3: number): Image;
 	/**
 	 * Only available for grayscale images. Returns the histogram in an array of length 256, where each entry represents the fraction (0.0 to 1.0) of that color in the image.
 	 * The mask parameter is optional and must be a monochrome image of same width and height; only pixels where mask is 0 will be counted.
 	 */
-	public histogram(mask?: Image): Image;
+	histogram(mask?: Image): Image;
 	/**
 	 * Computes the horizontal or vertical projection of an 1bpp or 8bpp image.
 	 */
-	public projection(mode: 'horizontal' | 'vertical'): number[];
+	projection(mode: 'horizontal' | 'vertical'): number[];
 	/**
 	 * Sets the specified value to each pixel set in the mask.
 	 */
-	public setMasked(mask: Image, value: number): Image;
+	setMasked(mask: Image, value: number): Image;
 	/**
 	 * Available for grayscale and color images. Channelwise maps each pixel of image using mapping, which must be an array of length 256 with integer values between 0 and 255.
 	 * !!! !!! Note: this function actually changes the image!
 	 * The mask parameter is optional and must be a monochrome image of same width and height; only pixels where mask is 0 will be modified.
 	 */
-	public applyCurve(mapping: number[], mask?: Image): this;
+	applyCurve(mapping: number[], mask?: Image): this;
 	/**
-	 * Applies a rank (0.0 ... 1.0) filter of the specified width and height (think of it as radius) to this image and returns the result. If you set rank to 0.5 you'll get a Median Filter. Note that this type of filter works best with odd sizes like 3 or 5.
+	 * Applies a rank (0.0 ... 1.0) filter of the specified width
+	 * and height (think of it as radius) to this image
+	 * and returns the result.
+	 * If you set rank to 0.5 you'll get a Median Filter.
+	 * Note that this type of filter works best with odd sizes like 3 or 5.
 	 */
-	public rankFilter(width: number, height: number, rank: number): Image;
+	rankFilter(width: number, height: number, rank: number): Image;
 	/**
-	 * Color image quantization using an octree based algorithm. colors must be between 2 and 256. Note that support for the resulting palette image is highly experimental at this point; only toGray() and toBuffer('png') are guaranteed to work.
+	 * Color image quantization using an octree based algorithm.
+	 * colors must be between 2 and 256.
+	 * Note that support for the resulting palette image is highly experimental at this point;
+	 * only toGray() and toBuffer('png') are guaranteed to work.
 	 */
-	public octreeColorQuant(colors: number): Image;
+	octreeColorQuant(colors: number): Image;
 	/**
-	 * Color image quantization using median cut algorithm. colors must be between 2 and 256. Note that support for the resulting palette image is highly experimental at this point; only toGray() and toBuffer('png') are guaranteed to work.
+	 * Color image quantization using median cut algorithm.
+	 * colors must be between 2 and 256.
+	 * Note that support for the resulting palette image is highly experimental at this point;
+	 * only toGray() and toBuffer('png') are guaranteed to work.
 	 */
-	public medianCutQuant(colors: number): Image;
+	medianCutQuant(colors: number): Image;
 	/**
 	 * Converts a grayscale image to monochrome using a global threshold. value must be between 0 and 255.
 	 */
-	public threshold(value: number): Image;
+	threshold(value: number): Image;
 	/**
 	 * Converts an image to grayscale using default settings. Can be used to convert monochrome images back to grayscale.
 	 */
-	public toGray(): Image;
+	toGray(): Image;
 	/**
 	 * Converts an RGB image to grayscale using the specified widths for each channel.
 	 */
-	public toGray(redWeight: number, greenWeight: number, blueWeight: number): Image;
+	toGray(redWeight: number, greenWeight: number, blueWeight: number): Image;
 	/**
-	 * Converts an RGB image to grayscale by selecting either the 'min' or 'max' channel. This can act as a simple color filter: 'max' maps colored pixels towards white, while 'min' maps colored pixels towards black.
+	 * Converts an RGB image to grayscale by selecting either the 'min' or 'max' channel.
+	 * This can act as a simple color filter: 'max' maps colored pixels towards white,
+	 * while 'min' maps colored pixels towards black.
 	 */
-	public toGray(selector: 'min' | 'max'): Image;
+	toGray(selector: 'min' | 'max'): Image;
 	/**
 	 * Converts a grayscale image to a color image.
 	 */
-	public toColor(): Image;
+	toColor(): Image;
 	/**
 	 * Converts from RGB to HSV color space. HSV has the following ranges:
 	 * Hue: [0 .. 239]
 	 * Saturation: [0 .. 255]
 	 * Value: [0 .. 255]
 	 */
-	public toHSV(): Image;
+	toHSV(): Image;
 	/**
 	 * Converts from HSV to RGB color space.
 	 */
-	public toRGB(): Image;
+	toRGB(): Image;
 	/**
 	 * Applies an Erode Filter and returns the result.
 	 */
-	public erode(width: number, height: number): Image;
+	erode(width: number, height: number): Image;
 	/**
 	 * Applies a Dilate Filter and returns the result.
 	 */
-	public dilate(width: number, height: number): Image;
+	dilate(width: number, height: number): Image;
 	/**
 	 * Applies an Open Filter and returns the result.
 	 */
-	public open(width: number, height: number): Image;
+	open(width: number, height: number): Image;
 	/**
 	 * Applies a Close Filter and returns the result.
 	 */
-	public close(width: number, height: number): Image;
+	close(width: number, height: number): Image;
 	/**
 	 * Applies morphological thinning of type (fg or bg) with the specified connectivitiy (4 or 8) and maxIterations (0 to iterate until complete).
 	 */
-	public thin(type: 'fg' | 'bg', connectivity: number, maxIterations: number): Image;
+	thin(type: 'fg' | 'bg', connectivity: number, maxIterations: number): Image;
 	/**
 	 * Scales an 8bpp image for maximum dynamic range. scale must be either log or linear.
 	 */
-	public maxDynamicRange(scale: 'log' | 'linear'): Image;
+	maxDynamicRange(scale: 'log' | 'linear'): Image;
 	/**
-	 * Applies Otsu's Method for computing the threshold of a grayscale image. It computes a threshold for each tile of the specified size and performs the threshold operation, resulting in a binary image for each tile. These are stitched into the final result.
-	 * The smooth size controls the a convolution kernel applied to threshold array (use 0 for no smoothing). The score factor controls the fraction of the max. Otsu score (typically 0.1; use 0.0 for standard Otsu).
+	 * Applies Otsu's Method for computing the threshold of a grayscale image.
+	 * It computes a threshold for each tile of the specified size and performs the threshold operation,
+	 * resulting in a binary image for each tile. These are stitched into the final result.
+	 * The smooth size controls the a convolution kernel applied to threshold array (use 0 for no smoothing).
+	 * The score factor controls the fraction of the max. Otsu score (typically 0.1; use 0.0 for standard Otsu).
 	 */
-	public otsuAdaptiveThreshold(tileWidth: number, tileHeight: number, smoothWidth: number, smoothHeight: number, scoreFactor: number): Image;
+	otsuAdaptiveThreshold(tileWidth: number, tileHeight: number, smoothWidth: number, smoothHeight: number, scoreFactor: number): Image;
 	/**
 	 * Detects Line Segments with the specified accuracy (3 is a good start). The number of found line segments can be limited using maxLineSegments (0 is unlimited).
 	 */
-	public lineSegments(accuracy: number, maxLineSegments: number, useWeightedMeanShift: boolean): Segment[];
+	lineSegments(accuracy: number, maxLineSegments: number, useWeightedMeanShift: boolean): Segment[];
 	/**
 	 * Only available for monochrome images. Tries to find the skew of this image. The resulting angle is in degree. The confidence is between 0.0 and 1.0.
 	 */
-	public findSkew(): Skew;
+	findSkew(): Skew;
 	/**
 	 * Only available for monochrome images. Tries to extract connected components (think of flood fill). The connectivity can be specified as 4 or 8 directions.
 	 */
-	public connectedComponents(connectivity: 4 | 8): Component[];
+	connectedComponents(connectivity: 4 | 8): Component[];
 	/**
 	 * The Distance Function works on 1bpp images. It labels each pixel with the largest distance between this and any other pixel in its connected component. The connectivity is either 4 or 8.
 	 */
-	public distanceFunction(connectivity: 4 | 8): Image;
+	distanceFunction(connectivity: 4 | 8): Image;
 	/**
 	 * !!! Note: this function actually changes the image!
 	 * Fills a specified rectangle with white.
 	 */
-	public clearBox(box: Box): this;
-	public clearBox(x: number, y: number, width: number, height: number): this;
+	clearBox(box: Box): this;
+	clearBox(x: number, y: number, width: number, height: number): this;
 	/**
 	 * !!! Note: this function actually changes the image!
 	 * Draws a filled rectangle to this image with the specified value. Works for 8bpp and 1bpp images.
 	 */
-	public fillBox(box: Box, value: number): this;
-	public fillBox(x: number, y: number, width: number, height: number, value: number): this;
+	fillBox(box: Box, value: number): this;
+	fillBox(x: number, y: number, width: number, height: number, value: number): this;
 	/**
 	 * !!! Note: this function actually changes the image!
 	 * Draws a filled rectangle to this image in the specified color with an optional blending parameter (0.0: transparent; 1.0: no transparency).
 	 */
-	public fillBox(box: Box, r: number, g: number, b: number, fraction?: number): this;
-	public fillBox(x: number, y: number, width: number, height: number, r: number, g: number, b: number, fraction?: number): this;
+	fillBox(box: Box, r: number, g: number, b: number, fraction?: number): this;
+	fillBox(x: number, y: number, width: number, height: number, r: number, g: number, b: number, fraction?: number): this;
 	/**
 	 * !!! Note: this function actually changes the image!
 	 * Draws a rectangle to this image with the specified border. The possible pixel manipulating operations are set, clear and flip.
 	 */
-	public drawBox(box: Box, borderWidth: number, operation: 'set' | 'clear' | 'flip'): this;
-	public drawBox(x: number, y: number, width: number, height: number, borderWidth: number, operation: 'set' | 'clear' | 'flip'): this;
+	drawBox(box: Box, borderWidth: number, operation: 'set' | 'clear' | 'flip'): this;
+	drawBox(x: number, y: number, width: number, height: number, borderWidth: number, operation: 'set' | 'clear' | 'flip'): this;
 	/**
 	 * !!! Note: this function actually changes the image!
 	 * Draws a rectangle to this image with the specified border in the specified color with an optional blending parameter (0.0: transparent; 1.0: no transparency).
 	 */
-	public drawBox(box: Box, borderWidth: number, red: number, green: number, blue: number, frac?: number): this;
-	public drawBox(x: number, y: number, width: number, height: number, borderWidth: number, red: number, green: number, blue: number, frac?: number): this;
+	drawBox(box: Box, borderWidth: number, red: number, green: number, blue: number, frac?: number): this;
+	drawBox(x: number, y: number, width: number, height: number, borderWidth: number, red: number, green: number, blue: number, frac?: number): this;
 	/**
 	 * !!! Note: this function actually changes the image!
 	 * Draws a line between p1 and p2 to this image with the specified line width. The possible pixel manipulating operations are set, clear and flip.
 	 */
-	public drawLine(p1: Point, p2: Point, width: number, operation: 'set' | 'clear' | 'flip'): this;
+	drawLine(p1: Point, p2: Point, width: number, operation: 'set' | 'clear' | 'flip'): this;
 	/**
 	 * !!! Note: this function actually changes the image!
 	 * Draws a line between p1 and p2 to this image with the specified line width in the specified color with an optional blending parameter (0.0: transparent; 1.0: no transparency).
 	 */
-	public drawLine(p1: Point, p2: Point, width: number, red: number, green: number, blue: number, frac?: number): this;
+	drawLine(p1: Point, p2: Point, width: number, red: number, green: number, blue: number, frac?: number): this;
 	/**
 	 * !!! Note: this function actually changes the image!
 	 * Draws an image to this image with the specified destination box.
 	 */
-	public drawImage(image: Image, box: Box): this;
-	public drawImage(image: Image, x: number, y: number, width: number, height: number): this;
+	drawImage(image: Image, box: Box): this;
+	drawImage(image: Image, x: number, y: number, width: number, height: number): this;
 	/**
 	 * Converts the Image in the specified format to a buffer.
-	 * Specifying raw returns the raw image data as buffer. For color images, the result contains three bytes per pixel in the order R, G, B; for grayscale and monochrome images, it contains one byte per pixel.
+	 * Specifying raw returns the raw image data as buffer.
+	 * For color images, the result contains three bytes per pixel in the order R, G, B;
+	 * for grayscale and monochrome images, it contains one byte per pixel.
 	 * Specifying png returns a PNG encoded image as buffer.
 	 * Specifying jpg returns a JPG encoded image as buffer.
 	 */
-	public toBuffer(format?: 'raw' | 'png' | 'jpg'): Buffer;
+	toBuffer(format?: 'raw' | 'png' | 'jpg'): Buffer;
 }
 
 export interface Rect {
-	// todo
+	x: number;
+	y: number;
+	width: number;
+	height: number;
 }
 
 export interface Region {
 	box: Box;
-	text: string,
+	text: string;
 	confidence: number;
 }
 
@@ -303,7 +329,7 @@ export interface Textline {
 export type Word = Region;
 
 export interface Choice {
-	text: string,
+	text: string;
 	confidence: number;
 }
 
@@ -314,7 +340,9 @@ export interface Symbol extends Region {
 export type Text = Choice;
 
 /**
- * A Tesseract object represents an optical character recognition engine, that reads text using Tesseract from an image. Tesseract supports many langauges and fonts (see Tesseract/Downloads). New language files have to be installed in node-dv/tessdata.
+ * A Tesseract object represents an optical character recognition engine, that reads text using Tesseract from an image.
+ * Tesseract supports many langauges and fonts (see Tesseract/Downloads).
+ * New language files have to be installed in node-dv/tessdata.
  */
 export class Tesseract {
 	/**
@@ -325,7 +353,7 @@ export class Tesseract {
 	/**
 	 * Creates a Tesseract engine with the specified language.
 	 */
-	constructor(datapath: string, lang: string);
+	constructor(lang: string, image: Image);
 	/**
 	 * Creates a Tesseract engine with the specified language and image.
 	 */
@@ -334,54 +362,57 @@ export class Tesseract {
 	/**
 	 * Accessor for the input image.
 	 */
-	public image: Image;
+	image: Image;
 	/**
 	 * Accessor for the rectangle that specifies a "visible" area on the image.
 	 */
-	public rectangle: Rect;
+	rectangle: Rect;
 	/**
-	 * Accessor for the page segmentation mode. Valid values are: osd_only, auto_osd, auto_only, auto, single_column, single_block_vert_text, single_block, single_line, single_word, circle_word, single_char, sparse_text, sparse_text_osd.
+	 * Accessor for the page segmentation mode.
 	 */
-	public pageSegMode: 'osd_only' | 'auto_osd' | 'auto_only' | 'auto' | 'single_column' | 'single_block_vert_text' | 'single_block' | 'single_line' | 'single_word' | 'circle_word' | 'single_char' | 'sparse_text' | 'sparse_text_osd'
+	pageSegMode: 'osd_only' | 'auto_osd' | 'auto_only' | 'auto'
+		| 'single_column' | 'single_block_vert_text' | 'single_block'
+		| 'single_line' | 'single_word' | 'circle_word' | 'single_char'
+		| 'sparse_text' | 'sparse_text_osd';
 	[key: string]: unknown;
 
 	/**
 	 * Clears the tesseract image and its last results.
 	 */
-	public clear(): void;
+	clear(): void;
 	/**
 	 * Clears all adaptive classifiers (use this when results vary during scanning).
 	 */
-	public clearAdaptiveClassifier(): void;
+	clearAdaptiveClassifier(): void;
 	/**
 	 * Returns the binarized image Tesseract uses for its recognition.
 	 */
-	public thresholdImage(): Image;
+	thresholdImage(): Image;
 	/**
 	 * Returns an array of objects, You can omit text information by setting recognize = false, which is considerably faster.
 	 */
-	public findRegions(recognize: boolean): Region[];
+	findRegions(recognize: boolean): Region[];
 	/**
 	 * Returns an array of objects, You can omit text information by setting recognize = false, which is considerably faster.
 	 */
-	public findParagraphs(recognize: boolean): Paragaph[];
+	findParagraphs(recognize: boolean): Paragaph[];
 	/**
 	 * Returns an array of objects, You can omit text information by setting recognize = false, which is considerably faster.
 	 */
-	public findTextLines(recognize: boolean): Textline[];
+	findTextLines(recognize: boolean): Textline[];
 	/**
 	 * Returns an array of objects, You can omit text information by setting recognize = false, which is considerably faster.
 	 */
-	public findWords(recognize: boolean): Word[];
+	findWords(recognize: boolean): Word[];
 	/**
 	 * Returns an array of objects, You can omit text information by setting recognize = false, which is considerably faster.
 	 */
-	public findSymbols(recognize: boolean): Symbol[];
+	findSymbols(recognize: boolean): symbol[];
 	/**
 	 * Returns text in the specified format. Valid formats are: plain, unlv.
 	 */
-	public findText(format: 'plain' | 'unlv', withConfidence?: boolean): string;
-	public findText(format: 'hocr' | 'box', pageNumber: number): string;
+	findText(format: 'plain' | 'unlv', withConfidence?: boolean): string;
+	findText(format: 'hocr' | 'box', pageNumber: number): string;
 }
 
 export interface Barcodeformat {
@@ -414,33 +445,33 @@ export class ZXing {
 	/**
 	 * Accessor for the input image this barcode reader operates on.
 	 */
-	public image: Image;
+	image: Image;
 	/**
 	 * List of barcodes the reader tries to find. It's specified as an object and missing properties account as false
 	 */
-	public formats: Barcodeformat;
+	formats: Barcodeformat;
 	/**
 	 * If try harder is enabled, the barcode reader spends more time trying to find a barcode (optimize for accuracy, not speed).
 	 */
-	public tryHarder: boolean;
+	tryHarder: boolean;
 	/**
 	 * Returns the first barcode found as an object with the following format:
 	 */
-	public findCode(): BarCode;
+	findCode(): BarCode;
 	/**
 	 * enotes the barcodes type.
 	 */
-	public readonly type: 'None' | 'QR_CODE' | 'DATA_MATRIX' | 'PDF_417' | 'UPC_E' | 'UPC_A' | 'EAN_8' | 'EAN_13' | 'CODE_128' | 'CODE_39' | 'ITF' | 'AZTEC';
+	readonly type: 'None' | 'QR_CODE' | 'DATA_MATRIX' | 'PDF_417' | 'UPC_E' | 'UPC_A' | 'EAN_8' | 'EAN_13' | 'CODE_128' | 'CODE_39' | 'ITF' | 'AZTEC';
 	/**
 	 * denotes the stringified data read from the barcode.
 	 */
-	public readonly data: string;
+	readonly data: string;
 	/**
 	 * denotes the decoded binary data of the barcode before conversion into another character encoding.
 	 */
-	public readonly buffer: Buffer;
+	readonly buffer: Buffer;
 	/**
 	 * denotes the points in pixels which were used by the barcode reader to detect the barcode.
 	 */
-	public readonly points: Point[];
+	readonly points: Point[];
 }

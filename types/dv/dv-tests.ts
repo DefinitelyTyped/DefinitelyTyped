@@ -10,9 +10,9 @@ const open = barcodes.thin('bg', 8, 5).dilate(3, 3);
 const openMap = open.distanceFunction(8);
 const openMask = openMap.threshold(10).erode(22, 22);
 const boxes = openMask.invert().connectedComponents(8);
-for (const i in boxes) {
+boxes.forEach((box) => {
 	const boxImage = barcodes.crop(
-		boxes[i].x, boxes[i].y,
-		boxes[i].width, boxes[i].height);
-	// Do something useful with our image.
-}
+		// Do something useful with our image.
+		box.x, box.y,
+		box.width, box.height);
+});
