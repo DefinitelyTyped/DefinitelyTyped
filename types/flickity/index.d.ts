@@ -512,7 +512,6 @@ interface FlickityOptions {
      * Bind events within Flickity's options by setting on to an Object. The object's keys should match the event names. on is useful for capturing events as Flickity is initialized, like ready
      */
     on?: {
-
         /**
          * Triggered after Flickity has been activated.
          */
@@ -525,9 +524,7 @@ interface FlickityOptions {
 
         /**
          * Triggered when a slide is selected.
-         * 
          * select is triggered any time a slide is selected, even on the same slide. change is triggered only when a different slide is selected.
-         * 
          * This event was previously cellSelect in Flickity v1. cellSelect will continue to work in Flickity v2.
          */
         select?: (index?: Number) => void;
@@ -574,7 +571,6 @@ interface FlickityOptions {
 
         /**
          * Triggered when the user's pointer is pressed and unpressed and has not moved enough to start dragging.
-         * 
          * click events are hard to detect with draggable UI, as they are triggered whenever a user drags. Flickity's staticClick event resolves this, as it is triggered when the user has not dragged.
          */
         staticClick?: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: Number) => void;
@@ -593,5 +589,5 @@ interface FlickityOptions {
          * Triggered after entering or exiting fullscreen view.
          */
         fullscreenChange?: (isFullscreen?: Boolean) => void;
-    }
+    };
 }
