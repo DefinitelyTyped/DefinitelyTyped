@@ -2,6 +2,7 @@
 // Project: https://flickity.metafizzy.co
 // Definitions by: Chris McGrath <https://github.com/clmcgrath>
 //                 Michael Wagner <https://github.com/wagich>
+//                 Anthony Heber <https://github.com/aheber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -506,4 +507,91 @@ interface FlickityOptions {
      * javascript dictionary of points or path to SVG file
      */
     arrowShape?: string | { x0: number, x1: number, y1: number, x2: number, y2: number, x3: number };
+
+    /**
+     * Bind events within Flickity's options by setting on to an Object. The object's keys should match the event names. on is useful for capturing events as Flickity is initialized, like ready
+     */
+    on?: {
+
+        /**
+         * Triggered after Flickity has been activated.
+         */
+        ready?: () => void;
+
+        /**
+         * Triggered when the selected slide is changed.
+         */
+        change?: (index?: Number) => void;
+
+        /**
+         * Triggered when a slide is selected.
+         * 
+         * select is triggered any time a slide is selected, even on the same slide. change is triggered only when a different slide is selected.
+         * 
+         * This event was previously cellSelect in Flickity v1. cellSelect will continue to work in Flickity v2.
+         */
+        select?: (index?: Number) => void;
+
+        /**
+         * Triggered when the slider is settled at its end position.
+         */
+        settle?: (index?: Number) => void;
+
+        /**
+         * Triggered when the slider moves.
+         */
+        scroll?: (progress?: Number) => void;
+
+        /**
+         * Triggered when dragging starts and the slider starts moving.
+         */
+        dragStart?: (event?: Event, pointer?: Element | Touch) => void;
+
+        /**
+         * Triggered when dragging moves and the slider moves.
+         */
+        dragMove?: (event?: Event, pointer?: Element | Touch, moveVector?: { x: number, y: number }) => void;
+
+        /**
+         * Triggered when dragging ends.
+         */
+        dragEnd?: (event: Event, pointer?: Element | Touch) => void;
+
+        /**
+         * Triggered when the user's pointer (mouse, touch, pointer) presses down.
+         */
+        pointerDown?: (event: Event, pointer?: Element | Touch) => void;
+
+        /**
+         * Triggered when the user's pointer moves.
+         */
+        pointerMove?: (event?: Event, pointer?: Element | Touch, moveVector?: { x: number, y: number }) => void;
+
+        /**
+         * Triggered when the user's pointer unpresses.
+         */
+        pointerUp?: (event?: Event, pointer?: Element | Touch) => void;
+
+        /**
+         * Triggered when the user's pointer is pressed and unpressed and has not moved enough to start dragging.
+         * 
+         * click events are hard to detect with draggable UI, as they are triggered whenever a user drags. Flickity's staticClick event resolves this, as it is triggered when the user has not dragged.
+         */
+        staticClick?: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: Number) => void;
+
+        /**
+         * Triggered after an image has been loaded with lazyLoad.
+         */
+        lazyLoad?: (event?: Event, cellElement?: Element) => void;
+
+        /**
+         * Triggered after a background image has been loaded with bgLazyLoad.
+         */
+        bgLazyLoad?: (event?: Event, element?: Element) => void;
+
+        /**
+         * Triggered after entering or exiting fullscreen view.
+         */
+        fullscreenChange?: (isFullscreen?: Boolean) => void;
+    }
 }
