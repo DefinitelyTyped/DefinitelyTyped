@@ -14,7 +14,6 @@
 //                 Stefan Profanter <https://github.com/Pro>,
 //                 Edmund Fokschaner <https://github.com/efokschaner>,
 //                 Roelof Jooste <https://github.com/PsychoSTS>,
-//                 Daniel Hritzkiv <https://github.com/dhritzkiv>,
 //                 Apurva Ojas <https://github.com/apurvaojas>,
 //                 Tiger Oakes <https://github.com/NotWoods>,
 //                 Ethan Kay <https://github.com/elk941>,
