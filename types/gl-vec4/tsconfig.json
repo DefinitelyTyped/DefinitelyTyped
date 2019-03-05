@@ -1,0 +1,50 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "lib": [
+        "es6"
+      ],
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "baseUrl": "../",
+      "typeRoots": [
+        "../"
+      ],
+      "types": [
+
+      ],
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+      "index.d.ts",
+      "add.d.ts",
+      "clone.d.ts",
+      "copy.d.ts",
+      "create.d.ts",
+      "distance.d.ts",
+      "divide.d.ts",
+      "dot.d.ts",
+      "fromValues.d.ts",
+      "inverse.d.ts",
+      "length.d.ts",
+      "lerp.d.ts",
+      "max.d.ts",
+      "min.d.ts",
+      "multiply.d.ts",
+      "negate.d.ts",
+      "normalize.d.ts",
+      "random.d.ts",
+      "scale.d.ts",
+      "scaleAndAdd.d.ts",
+      "set.d.ts",
+      "squaredDistance.d.ts",
+      "squaredLength.d.ts",
+      "subtract.d.ts",
+      "transformMat4.d.ts",
+      "transformQuat.d.ts",
+      "gl-vec4-tests.ts"
+    ]
+}

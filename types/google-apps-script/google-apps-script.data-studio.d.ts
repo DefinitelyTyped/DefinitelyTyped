@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-01-23
+// Type definitions for Google Apps Script 2019-02-27
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -127,6 +127,7 @@ declare namespace GoogleAppsScript {
       getFormula(): string;
       getGroup(): string;
       getId(): string;
+      getIsReaggregatable(): boolean;
       getName(): string;
       getType(): FieldType;
       isDefault(): boolean;
@@ -139,6 +140,7 @@ declare namespace GoogleAppsScript {
       setGroup(group: string): Field;
       setId(id: string): Field;
       setIsHidden(isHidden: boolean): Field;
+      setIsReaggregatable(isReaggregatable: boolean): Field;
       setName(name: string): Field;
       setType(type: FieldType): Field;
     }

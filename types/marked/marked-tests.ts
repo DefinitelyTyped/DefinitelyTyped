@@ -48,3 +48,6 @@ const slugger = new marked.Slugger();
 renderer.heading = (text, level, raw, slugger) => {
     return text + level.toString() + slugger.slug(raw);
 };
+
+const textRenderer = new marked.TextRenderer();
+console.log(textRenderer.strong(text));

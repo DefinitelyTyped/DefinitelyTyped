@@ -4,6 +4,7 @@ let mapOptions: google.maps.MapOptions = {
     backgroundColor: "#fff",
     center: { lat: -25.363, lng: 131.044 },
     clickableIcons: true,
+    controlSize: 30,
     draggable: true,
     fullscreenControl: true,
     fullscreenControlOptions: {

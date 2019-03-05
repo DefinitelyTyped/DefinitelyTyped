@@ -93,6 +93,14 @@ declare namespace google.maps {
      * interest, also known as a POI. By default map icons are clickable.
      */
     clickableIcons?: boolean
+    /**
+     * Size in pixels of the controls appearing on the map. This value must be
+     * supplied directly when creating the Map, updating this value later may
+     * bring the controls into an undefined state. Only governs the controls
+     * made by the Maps API itself. Does not scale developer created custom
+     * controls.
+     */
+    controlSize?: number;
     /** Enables/disables all default UI. May be overridden individually. */
     disableDefaultUI?: boolean;
     /** Enables/disables zoom and center on double click. Enabled by default. */

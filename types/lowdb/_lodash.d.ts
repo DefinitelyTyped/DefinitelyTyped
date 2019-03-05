@@ -1132,7 +1132,7 @@ declare module "./index" {
             this: LoDashExplicitSyncWrapper<TObject | null | undefined>,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): LoDashExplicitSyncWrapper<TObject[TKey] | TDefault>;
+        ): LoDashExplicitSyncWrapper<Exclude<TObject[TKey], undefined> | TDefault>;
         get<T>(
             this: LoDashExplicitSyncWrapper<_.NumericDictionary<T>>,
             path: number
@@ -2728,7 +2728,7 @@ declare module "./index" {
             this: LoDashExplicitAsyncWrapper<TObject | null | undefined>,
             path: TKey | [TKey],
             defaultValue: TDefault
-        ): LoDashExplicitAsyncWrapper<TObject[TKey] | TDefault>;
+        ): LoDashExplicitAsyncWrapper<Exclude<TObject[TKey], undefined> | TDefault>;
         get<T>(
             this: LoDashExplicitAsyncWrapper<_.NumericDictionary<T>>,
             path: number
