@@ -41,11 +41,7 @@ collection.last(); // $ExpectType { name: string; age: number; }
 collection.map(stark => stark.name); // $ExpectType Collection<{ name: string; age: number; }>
 collection.pluck('name'); // $ExpectType Collection<{ name: string; age: number; }>
 collection.push({name: 'Robb Stark', age: 17}); // $ExpectType Collection<{ name: string; age: number; }>
-
-const value = new Collection([1, 2, 3]).reduce(
-    (previous, current) => previous + current,
-    0
- ); // $ExpectType number
+const value = new Collection([1, 2, 3]).reduce((previous, current) => previous + current, 0); // $ExpectType number
 collection.reject(stark => stark.age < 14); // $ExpectType Collection<{ name: string; age: number; }>
 collection.remove({name: 'Robb Stark', age: 17}); // $ExpectType boolean
 collection.reverse(); // $ExpectType Collection<{ name: string; age: number; }>
@@ -56,9 +52,7 @@ collection.sortBy('name'); // $ExpectType Collection<{ name: string; age: number
 collection.stringify(); // $ExpectType string
 collection.sum('age'); // $ExpectType any
 collection.take(2); // $ExpectType Collection<{ name: string; age: number; }>
-
-// Collection.macro('addToMembers', (collection, n) => collection.map((collectionItem: any) => collectionItem + n));
-// const collection2 = new Collection([1,2,3,4]).addToMembers(3);
+Collection.macro('addToMembers', (collection, n) => collection.map((collectionItem: any) => collectionItem + n));
 
 collection.unique(stark => stark.age); // $ExpectType Collection<{ name: string; age: number; }>
 collection.values(); // $ExpectType Collection<{ name: string; age: number; }>
