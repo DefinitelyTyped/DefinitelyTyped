@@ -1,14 +1,10 @@
 // Type definitions for sendmail 1.4
 // Project: https://github.com/guileen/node-sendmail
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Saeid Ostad <https://github.com/saostad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-declare namespace sendMailConstructor {
+declare namespace sendMailFactory {
     interface Options {
         logger?: {
             debug?: () => void;
@@ -60,12 +56,10 @@ declare namespace sendMailConstructor {
 type CallbackFn = (err: Error, domain: string) => void;
 
 type SendMailFn = (
-    mail: sendMailConstructor.MailInput,
+    mail: sendMailFactory.MailInput,
     callback: CallbackFn
 ) => void;
 
-declare function sendMailConstructor(
-    options: sendMailConstructor.Options
-): SendMailFn;
+declare function sendMailFactory(options: sendMailFactory.Options): SendMailFn;
 
-export = sendMailConstructor;
+export = sendMailFactory;
