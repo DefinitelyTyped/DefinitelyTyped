@@ -31,7 +31,7 @@ export default class ReactImageMagnify extends React.Component<ReactImageMagnify
 export interface ReactImageMagnifyProps {
     // Required Props
     smallImage: SmallImageNotFluid | SmallImageFluid;
-    largeImage: LargeImage;
+    largeImage: Image;
 
     // Optional Styling Props
     className?: string;
@@ -82,5 +82,3 @@ export interface SmallImageNotFluid extends Image {
     width: number;
     height: number;
 }
-
-export interface LargeImage extends Image {}
