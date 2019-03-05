@@ -2,7 +2,7 @@
 // Project: https://github.com/guileen/node-sendmail
 // Definitions by: Saeid Ostad <https://github.com/saostad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 declare namespace sendMailFactory {
     interface Options {
@@ -42,7 +42,7 @@ declare namespace sendMailFactory {
         charset?: string;
         encoding?: string;
         id?: string;
-        headers?: any;
+        headers?: object;
         content?: string;
         html?: string;
         attachments?: Array<{
