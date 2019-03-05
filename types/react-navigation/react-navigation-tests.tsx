@@ -36,6 +36,7 @@ import {
     createSwitchNavigator,
     SwitchNavigatorConfig,
     TabBarTop,
+    createMaterialTopTabNavigator,
     TabNavigatorConfig,
     Transitioner,
     HeaderBackButton,
@@ -243,6 +244,20 @@ const tabNavigatorConfigWithNavigationOptions: TabNavigatorConfig = {
         },
     },
 };
+
+const BasicTabNavigator = createMaterialTopTabNavigator(
+    routeConfigMap,
+    tabNavigatorConfig,
+);
+
+function renderBasicTabNavigator(): JSX.Element {
+    return (
+        <BasicTabNavigator
+            ref={(ref: any) => { }}
+            style={[viewStyle, undefined]} // Test that we are using StyleProp
+        />
+    );
+}
 
 /**
  * Stack navigator.
