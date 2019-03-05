@@ -110,3 +110,9 @@ declare class ElectronStore<T = {}> implements Iterable<[string, JSONValue]> {
 }
 
 export = ElectronStore;
+
+declare global {
+    interface NodeRequireFunction {
+        (moduleName: "electron-store"): typeof ElectronStore;
+    }
+}
