@@ -217,6 +217,12 @@
             "asOfVersion": "1.2.1"
         },
         {
+            "libraryName": "camelcase",
+            "typingsPackageName": "camelcase",
+            "sourceRepoURL": "https://github.com/sindresorhus/camelcase",
+            "asOfVersion": "5.2.0"
+        },
+        {
             "libraryName": "catalog",
             "typingsPackageName": "catalog",
             "sourceRepoURL": "https://github.com/interactivethings/catalog",
@@ -263,6 +269,12 @@
             "typingsPackageName": "commander",
             "sourceRepoURL": "https://github.com/tj/commander.js",
             "asOfVersion": "2.12.2"
+        },
+        {
+            "libraryName": "conf",
+            "typingsPackageName": "conf",
+            "sourceRepoURL": "https://github.com/sindresorhus/conf",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "confirmdialog",
@@ -517,6 +529,12 @@
             "asOfVersion": "1.0.6"
         },
         {
+            "libraryName": "env-paths",
+            "typingsPackageName": "env-paths",
+            "sourceRepoURL": "https://github.com/sindresorhus/env-paths",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "error-stack-parser",
             "typingsPackageName": "error-stack-parser",
             "sourceRepoURL": "https://github.com/stacktracejs/error-stack-parser",
@@ -683,6 +701,12 @@
             "typingsPackageName": "gitlab",
             "sourceRepoURL": "https://github.com/jdalrymple/node-gitlab",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "globby",
+            "typingsPackageName": "globby",
+            "sourceRepoURL": "https://github.com/sindresorhus/globby",
+            "asOfVersion": "9.1.0"
         },
         {
             "libraryName": "Google Cloud Storage",
@@ -1003,6 +1027,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "log-update",
+            "typingsPackageName": "log-update",
+            "sourceRepoURL": "https://github.com/sindresorhus/log-update",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "log4javascript",
             "typingsPackageName": "log4javascript",
             "sourceRepoURL": "http://log4javascript.org/",
@@ -1025,6 +1055,12 @@
             "typingsPackageName": "lower-case-first",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case-first",
             "asOfVersion": "1.0.1"
+        },
+        {
+            "libraryName": "make-dir",
+            "typingsPackageName": "make-dir",
+            "sourceRepoURL": "https://github.com/sindresorhus/make-dir",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "mali",
@@ -1099,6 +1135,12 @@
             "asOfVersion": "6.0.0"
         },
         {
+            "libraryName": "move-file",
+            "typingsPackageName": "move-file",
+            "sourceRepoURL": "https://github.com/sindresorhus/move-file",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "MQTT",
             "typingsPackageName": "mqtt",
             "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
@@ -1153,6 +1195,12 @@
             "asOfVersion": "1.9.3"
         },
         {
+            "libraryName": "on-change",
+            "typingsPackageName": "on-change",
+            "sourceRepoURL": "https://github.com/sindresorhus/on-change",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "Onsen UI",
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
@@ -1169,7 +1217,6 @@
             "typingsPackageName": "p-limit",
             "sourceRepoURL": "https://github.com/sindresorhus/p-limit",
             "asOfVersion": "2.2.0"
-
         },
         {
             "libraryName": "p-map",
@@ -1308,6 +1355,12 @@
             "typingsPackageName": "qrcode-generator",
             "sourceRepoURL": "https://github.com/kazuhikoarase/qrcode-generator",
             "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "query-string",
+            "typingsPackageName": "query-string",
+            "sourceRepoURL": "https://github.com/sindresorhus/query-string",
+            "asOfVersion": "6.3.0"
         },
         {
             "libraryName": "Raven JS",
