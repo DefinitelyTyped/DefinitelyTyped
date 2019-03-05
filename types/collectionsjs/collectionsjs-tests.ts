@@ -30,7 +30,7 @@ collection.contains(stark => stark.name === 'John Snow'); // $ExpectType boolean
 collection.count(); // $ExpectType number
 collection.each(stark => stark.age = 3); // $ExpectType Collection<{ name: string; age: number; }>
 collection.filter(stark => stark.age === 14); // $ExpectType Collection<{ name: string; age: number; }>
-collection.find('bran'); // $ExpectType number
+collection.find({ name: 'Bran Stark', age: 7 }); // $ExpectType number
 collection.first(item => item.age > 7); // $ExpectType { name: string; age: number; }
 collection.flatten(true); // $ExpectType Collection<{ name: string; age: number; }>
 collection.get(2); // $ExpectType { name: string; age: number; }
@@ -41,7 +41,11 @@ collection.last(); // $ExpectType { name: string; age: number; }
 collection.map(stark => stark.name); // $ExpectType Collection<{ name: string; age: number; }>
 collection.pluck('name'); // $ExpectType Collection<{ name: string; age: number; }>
 collection.push({name: 'Robb Stark', age: 17}); // $ExpectType Collection<{ name: string; age: number; }>
-collection.reduce((previous, current) => previous.age + current.age, 0); // $ExpectType any
+
+const value = new Collection([1, 2, 3]).reduce(
+    (previous, current) => previous + current,
+    0
+ ); // $ExpectType number
 collection.reject(stark => stark.age < 14); // $ExpectType Collection<{ name: string; age: number; }>
 collection.remove({name: 'Robb Stark', age: 17}); // $ExpectType boolean
 collection.reverse(); // $ExpectType Collection<{ name: string; age: number; }>
