@@ -140,3 +140,23 @@ let flikty4: Flickity = new Flickity(new HTMLElement(), {
         x3: 30
     }
 });
+
+let flikty5: Flickity = new Flickity(new HTMLElement(), {
+    on: {
+        ready: () => {},
+        change: (index) => {},
+        select: (index) => {},
+        settle: (index)  => {},
+        scroll: (progress)  => {},
+        dragStart: (event, pointer)  => {},
+        dragMove: (event, pointer, moveVector)  => {},
+        dragEnd: (event, pointer)  => {},
+        pointerDown: (event, pointer)  => {},
+        pointerMove: (event, pointer, moveVector)  => {},
+        pointerUp: (event, pointer)  => {},
+        staticClick: (event, pointer, cellElement, cellIndex)  => {},
+        lazyLoad: (event, cellElement)  => {},
+        bgLazyLoad: (event, element)  => {},
+        fullscreenChange: (isFullscreen)  => {}
+    }
+});
