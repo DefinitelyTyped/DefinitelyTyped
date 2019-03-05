@@ -241,6 +241,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "chokidar",
+            "typingsPackageName": "chokidar",
+            "sourceRepoURL": "https://github.com/paulmillr/chokidar",
+            "asOfVersion": "2.1.2"
+        },
+        {
             "libraryName": "chunked-dc",
             "typingsPackageName": "chunked-dc",
             "sourceRepoURL": "https://github.com/saltyrtc/chunked-dc-js",
