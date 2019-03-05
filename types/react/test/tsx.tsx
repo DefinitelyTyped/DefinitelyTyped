@@ -229,6 +229,10 @@ const Memoized6 = React.memo(props => null);
 // $ExpectError
 <Memoized6 foo/>;
 
+const BeforeMemoized7: React.FC = ({ children }) => null;
+const Memoized7 = React.memo(BeforeMemoized7);
+<Memoized7>foo</Memoized7>;
+
 // NOTE: this test _requires_ TypeScript 3.1
 // It is passing, for what it's worth.
 // const Memoized7 = React.memo((() => {
