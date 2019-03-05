@@ -696,6 +696,10 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
 
+    interface HRTime {
+        (time?: [number, number]): [number, number];
+    }
+
     interface Process extends EventEmitter {
         stdout: WriteStream;
         stderr: WriteStream;
@@ -766,7 +770,7 @@ declare namespace NodeJS {
         release: ProcessRelease;
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?: [number, number]): [number, number];
+        hrtime: HRTime;
         domain: Domain;
 
         // Worker
