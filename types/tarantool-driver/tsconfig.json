@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "p-queue-tests.ts"
+        "tarantool-driver-tests.ts"
     ]
 }

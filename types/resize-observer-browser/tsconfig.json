@@ -2,12 +2,13 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
+            "dom",
             "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "is-online-tests.ts"
+        "resize-observer-browser-tests.ts"
     ]
 }

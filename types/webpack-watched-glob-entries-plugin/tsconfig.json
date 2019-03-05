@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "p-limit-tests.ts"
+        "webpack-watched-glob-entries-plugin-tests.ts"
     ]
 }
