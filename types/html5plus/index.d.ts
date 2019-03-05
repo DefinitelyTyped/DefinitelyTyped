@@ -291,7 +291,7 @@ interface PlusAccelerometer {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/accelerometer.html](http://www.html5plus.org/doc/zh_cn/accelerometer.html)
      */
-    getCurrentAcceleration(successCB?: () => void, errorCB?: () => void): void;
+    getCurrentAcceleration(successCB?: (result: PlusAccelerometerAcceleration) => void, errorCB?: (result: any) => void): void;
     /**
      * 监听设备加速度变化信息
      * 加速度是设备在当前方向上所做相对运动变化（增、减量）的运动传感器。加速度信息包括x、y、z三个方向的信息。
@@ -300,7 +300,7 @@ interface PlusAccelerometer {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/accelerometer.html](http://www.html5plus.org/doc/zh_cn/accelerometer.html)
      */
-    watchAcceleration(successCB?: () => void, errorCB?: () => void, options?: PlusAccelerometerAccelerometerOption): number;
+    watchAcceleration(successCB?: (result: PlusAccelerometerAcceleration) => void, errorCB?: (result: any) => void, options?: PlusAccelerometerAccelerometerOption): number;
     /**
      * 关闭监听设备加速度信息
      * 关闭监听设备加速度信息，应用关闭调用watchAcceleration方法的开启的监听操作。
@@ -558,7 +558,7 @@ interface PlusAudioAudioRecorder {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    record(option?: PlusAudioRecordOptions, successCB?: () => void, errorCB?: () => void): void;
+    record(option?: PlusAudioRecordOptions, successCB?: (result: string) => void, errorCB?: (result: any) => void): void;
     /**
      * 结束录音操作
      * 结束录音操作，通知设备完成录音操作。录音完成后将调用record方法中传入的successCB回调返回录音文件。
@@ -580,7 +580,7 @@ interface PlusAudioAudioPlayer {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/audio.html](http://www.html5plus.org/doc/zh_cn/audio.html)
      */
-    play(successCB?: () => void, errorCB?: () => void): void;
+    play(successCB?: () => void, errorCB?: (result: any) => void): void;
     /**
      * 暂停播放音频
      * 需先调用createPlayer方法创建音频播放对象，并开始播放。音频播放对象在播放状态才能暂停，在其它状态调用此方法无任何作用。
@@ -716,14 +716,14 @@ interface PlusBluetooth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    closeBluetoothAdapter(success?: () => void, fail?: () => void, complete?: () => void): void;
+    closeBluetoothAdapter(success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 获取本机蓝牙适配器状态
      * 获取成功后触发options参数中的success回调，失败触发options参数中的fail回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    getBluetoothAdapterState(success?: () => void, fail?: () => void, complete?: () => void): void;
+    getBluetoothAdapterState(success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 获取已搜索到的蓝牙设备
      * 包括已经和本机处于连接状态的设备。
@@ -731,35 +731,35 @@ interface PlusBluetooth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    getBluetoothDevices(success?: () => void, fail?: () => void, complete?: () => void): void;
+    getBluetoothDevices(success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 根据uuid获取处于已连接的设备
      * 获取成功后触发options参数中的success回调，失败触发options参数中的fail回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    getConnectedBluetoothDevices(services?: any [], success?: () => void, fail?: () => void, complete?: () => void): void;
+    getConnectedBluetoothDevices(services?: any [], success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 监听蓝牙适配器状态变化事件
      * 蓝牙适配器状态发生变化时触发回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    onBluetoothAdapterStateChange(changeCB?: () => void): void;
+    onBluetoothAdapterStateChange(changeCB?: (result: any) => void): void;
     /**
      * 监听搜索到新设备的事件
      * 搜索到新设备时触发回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    onBluetoothDeviceFound(callback?: () => void): void;
+    onBluetoothDeviceFound(callback?: (result: any) => void): void;
     /**
      * 初始化蓝牙模块
      * 初始化成功后触发options参数中的success回调，失败触发options参数中的fail回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    openBluetoothAdapter(success?: () => void, fail?: () => void, complete?: () => void): void;
+    openBluetoothAdapter(success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 开始搜索附近的蓝牙设备
      * 此操作比较耗费系统资源，请在搜索并连接到设备后调用stopBluetoothDevicesDiscovery方法停止搜索。
@@ -767,7 +767,7 @@ interface PlusBluetooth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    startBluetoothDevicesDiscovery(services?: any [], allowDuplicatesKey?: boolean, interval?: number, success?: () => void, fail?: () => void, complete?: () => void): void;
+    startBluetoothDevicesDiscovery(services?: any [], allowDuplicatesKey?: boolean, interval?: number, success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 停止搜寻附近的蓝牙外围设备
      * 若已经找到需要的蓝牙设备并不需要继续搜索时，应该调用该接口停止蓝牙搜索。
@@ -775,32 +775,32 @@ interface PlusBluetooth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    stopBluetoothDevicesDiscovery(success?: () => void, fail?: () => void, complete?: () => void): void;
+    stopBluetoothDevicesDiscovery(success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 断开与低功耗蓝牙设备的连接
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    closeBLEConnection(deviceId?: string, success?: () => void, fail?: () => void, complete?: () => void): void;
+    closeBLEConnection(deviceId?: string, success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 连接低功耗蓝牙设备
      * 若之前已有搜索过某个蓝牙设备，并成功建立连接，可直接传入之前搜索获取的deviceId尝试连接该设备，无需进行搜索操作。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    createBLEConnection(deviceId?: string, timeout?: number, success?: () => void, fail?: () => void, complete?: () => void): void;
+    createBLEConnection(deviceId?: string, timeout?: number, success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 获取蓝牙设备指定服务中所有特征值(characteristic)
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    getBLEDeviceCharacteristics(deviceId?: string, serviceId?: string, success?: () => void, fail?: () => void, complete?: () => void): void;
+    getBLEDeviceCharacteristics(deviceId?: string, serviceId?: string, success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 获取蓝牙设备的所有服务(service)
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    getBLEDeviceServices(deviceId?: string, success?: () => void, fail?: () => void, complete?: () => void): void;
+    getBLEDeviceServices(deviceId?: string, success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 启用低功耗蓝牙设备特征值变化时的notify功能，订阅特征值
      * 蓝牙设备服务的特征值必须支持notify或indicate才可以成功调用。
@@ -808,20 +808,20 @@ interface PlusBluetooth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    notifyBLECharacteristicValueChange(deviceId?: string, serviceId?: string, characteristicId?: string, state?: boolean, success?: () => void, fail?: () => void, complete?: () => void): void;
+    notifyBLECharacteristicValueChange(deviceId?: string, serviceId?: string, characteristicId?: string, state?: boolean, success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 监听低功耗蓝牙设备的特征值变化事件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    onBLECharacteristicValueChange(callback?: () => void): void;
+    onBLECharacteristicValueChange(callback?: (result: any) => void): void;
     /**
      * 监听低功耗蓝牙设备连接状态变化事件
      * 包括开发者主动连接或断开连接，设备丢失，连接异常断开等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    onBLEConnectionStateChange(callback?: () => void): void;
+    onBLEConnectionStateChange(callback?: (result: any) => void): void;
     /**
      * 读取低功耗蓝牙设备指定特征值的二进制数据值
      * 指定的特征值需支持read操作才可以成功调用。
@@ -829,7 +829,7 @@ interface PlusBluetooth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    readBLECharacteristicValue(deviceId?: string, serviceId?: string, characteristicId?: string, success?: () => void, fail?: () => void, complete?: () => void): void;
+    readBLECharacteristicValue(deviceId?: string, serviceId?: string, characteristicId?: string, success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 向低功耗蓝牙设备指定特征值写入二进制数据
      * 指定的特征值需支持write操作才可以成功调用。
@@ -837,7 +837,7 @@ interface PlusBluetooth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/bluetooth.html](http://www.html5plus.org/doc/zh_cn/bluetooth.html)
      */
-    writeBLECharacteristicValue(deviceId?: string, serviceId?: string, characteristicId?: string, value?: ArrayBuffer, success?: () => void, fail?: () => void, complete?: () => void): void;
+    writeBLECharacteristicValue(deviceId?: string, serviceId?: string, characteristicId?: string, value?: ArrayBuffer, success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
 }
 
 /**
@@ -1042,7 +1042,7 @@ interface PlusCameraCamera {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    captureImage(successCB?: () => void, errorCB?: () => void, options?: PlusCameraCameraOptions): void;
+    captureImage(successCB?: (result: string) => void, errorCB?: (result: any) => void, options?: PlusCameraCameraOptions): void;
     /**
      * 调用摄像头进行摄像操作
      * 摄像头资源为独占资源，如果其它程序或页面已经占用摄像头，再次操作则失败。
@@ -1051,7 +1051,7 @@ interface PlusCameraCamera {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/camera.html](http://www.html5plus.org/doc/zh_cn/camera.html)
      */
-    startVideoCapture(successCB?: () => void, errorCB?: () => void, option?: PlusCameraCameraOptions): void;
+    startVideoCapture(successCB?: (result: string) => void, errorCB?: (result: any) => void, option?: PlusCameraCameraOptions): void;
     /**
      * 结束摄像操作
      * 开始调用摄像头进行摄像操作后，可在后台结束摄像操作，与用户在界面结束操作效果一致。
@@ -1248,7 +1248,7 @@ interface PlusContacts {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    getAddressBook(type?: number, successCB?: () => void, errorCB?: () => void): void;
+    getAddressBook(type?: number, successCB?: (result: PlusContactsAddressBook) => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -1271,7 +1271,7 @@ interface PlusContactsAddressBook {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    find(contactFields?: string [], successCB?: () => void, errorCB?: () => void, findOptions?: PlusContactsContactFindOption): void;
+    find(contactFields?: string [], successCB?: (result: PlusContactsContact) => void, errorCB?: (result: any) => void, findOptions?: PlusContactsContactFindOption): void;
 }
 
 /**
@@ -1390,14 +1390,14 @@ interface PlusContactsContact {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    remove(successCB?: () => void, errorCB?: () => void): void;
+    remove(successCB?: () => void, errorCB?: (result: any) => void): void;
     /**
      * 保存联系人
      * 将联系人数据保存到通讯录中，操作成功将通过successCB回调函数返回保存结果，操作失败将通过通过errorCB回调函数返回错误信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/contacts.html](http://www.html5plus.org/doc/zh_cn/contacts.html)
      */
-    save(successCB?: () => void, errorCB?: () => void): void;
+    save(successCB?: () => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -1960,14 +1960,14 @@ interface PlusDownloader {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    createDownload(url?: string, options?: PlusDownloaderDownloadOptions, completedCB?: () => void): PlusDownloaderDownload;
+    createDownload(url?: string, options?: PlusDownloaderDownloadOptions, completedCB?: (result0: PlusDownloaderDownload, result1: number) => void): PlusDownloaderDownload;
     /**
      * 枚举下载任务
      * 枚举指定状态的下载任务列表，通过enumCB回调函数返回结果。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    enumerate(enumCB?: () => void, state?: PlusDownloaderDownloadState): void;
+    enumerate(enumCB?: (result: any []) => void, state?: PlusDownloaderDownloadState): void;
     /**
      * 清除下载任务
      * 清除指定状态的下载任务。
@@ -2055,7 +2055,7 @@ interface PlusDownloaderDownload {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/downloader.html](http://www.html5plus.org/doc/zh_cn/downloader.html)
      */
-    addEventListener(type?: string, listener?: () => void, capture?: boolean): void;
+    addEventListener(type?: string, listener?: (result0: PlusDownloaderDownload, result1: number) => void, capture?: boolean): void;
     /**
      * 获取下载请求HTTP响应头部信息
      * HTTP响应头部全部内容作为未解析的字符串返回，如果没有接收到这个HTTP响应头数据或者下载请求未完成则为空字符串。
@@ -2241,7 +2241,7 @@ interface PlusFingerprint {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/fingerprint.html](http://www.html5plus.org/doc/zh_cn/fingerprint.html)
      */
-    authenticate(successCB?: () => void, errorCB?: () => void, options?: PlusFingerprintAuthenticateOptions): void;
+    authenticate(successCB?: () => void, errorCB?: (result: PlusFingerprintFingerprintError) => void, options?: PlusFingerprintAuthenticateOptions): void;
     /**
      * 取消指纹识别认证
      * 取消当前正在处理的指纹识别认证操作。
@@ -2377,7 +2377,7 @@ interface PlusGallery {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    pick(succesCB?: () => void, errorCB?: () => void, options?: PlusGalleryGalleryOptions): void;
+    pick(succesCB?: (result: string) => void, errorCB?: (result: any) => void, options?: PlusGalleryGalleryOptions): void;
     /**
      * 保存文件到系统相册中
      * 保存文件到系统相册中。
@@ -2386,7 +2386,7 @@ interface PlusGallery {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/gallery.html](http://www.html5plus.org/doc/zh_cn/gallery.html)
      */
-    save(path  ?: string, succesCB?: () => void, errorCB?: () => void): void;
+    save(path  ?: string, succesCB?: (result: PlusGalleryGallerySaveEvent) => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -2586,7 +2586,7 @@ interface PlusGeolocation {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    getCurrentPosition(successCB?: () => void, errorCB?: () => void, options?: PlusGeolocationPositionOptions): void;
+    getCurrentPosition(successCB?: (result: PlusGeolocationPosition) => void, errorCB?: (result: PlusGeolocationGeolocationError) => void, options?: PlusGeolocationPositionOptions): void;
     /**
      * 监听设备位置变化信息
      * 位置信息将通过手机GPS设备或其它信息如IP地址、移动网络信号获取。
@@ -2595,7 +2595,7 @@ interface PlusGeolocation {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/geolocation.html](http://www.html5plus.org/doc/zh_cn/geolocation.html)
      */
-    watchPosition(successCB?: () => void, errorCB?: () => void, option?: PlusGeolocationPositionOptions): number;
+    watchPosition(successCB?: (result: PlusGeolocationPosition) => void, errorCB?: (result: PlusGeolocationGeolocationError) => void, option?: PlusGeolocationPositionOptions): number;
     /**
      * 关闭监听设备位置信息
      * 
@@ -2913,35 +2913,35 @@ interface PlusIbeacon {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    startBeaconDiscovery(uuids?: any [], ignoretoothAvailable?: boolean, success?: () => void, fail?: () => void, complete?: () => void): void;
+    startBeaconDiscovery(uuids?: any [], ignoretoothAvailable?: boolean, success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 停止搜索附近的iBeacon设备
      * 取消成功后触发successCB回调，失败触发errorCB回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    stopBeaconDiscovery(success?: () => void, fail?: () => void, complete?: () => void): void;
+    stopBeaconDiscovery(success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 获取已搜索到的iBeacon设备
      * 获取成功后触发successCB回调，失败触发errorCB回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    getBeacons(success?: () => void, fail?: () => void, complete?: () => void): void;
+    getBeacons(success?: (result: any) => void, fail?: (result: any) => void, complete?: (result: any) => void): void;
     /**
      * 监听iBeacon设备更新
      * iBeacon设备更新后触发updateCB回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    onBeaconUpdate(updateCB?: () => void): void;
+    onBeaconUpdate(updateCB?: (result: any) => void): void;
     /**
      * 监听iBeacon服务状态变化
      * iBeacon服务状态变化时触发changeCB回调。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/ibeacon.html](http://www.html5plus.org/doc/zh_cn/ibeacon.html)
      */
-    onBeaconServiceChange(changeCB?: () => void): void;
+    onBeaconServiceChange(changeCB?: (result: any) => void): void;
 }
 
 /**
@@ -3129,7 +3129,7 @@ interface PlusIo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    requestFileSystem(type?: number, succesCB?: () => void, errorCB?: () => void): void;
+    requestFileSystem(type?: number, succesCB?: (result: PlusIoFileSystem) => void, errorCB?: (result: any) => void): void;
     /**
      * 通过URL参数获取目录对象或文件对象
      * 快速获取指定的目录或文件操作对象，如通过URL值“_www/test.html”可直接获取文件操作对象。
@@ -3138,7 +3138,7 @@ interface PlusIo {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    resolveLocalFileSystemURL(url ?: string, succesCB?: () => void, errorCB?: () => void): void;
+    resolveLocalFileSystemURL(url ?: string, succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 将本地URL路径转换成平台绝对路径
      * 绝对路径符合各平台文件路径格式，通常用于Native.JS调用系统原生文件操作API，也可以在前面添加“file://”后在html页面中直接使用。
@@ -3199,7 +3199,7 @@ interface PlusIoDirectoryEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    getMetadata(succesCB?: () => void, errorCB?: () => void, recursive?: boolean): void;
+    getMetadata(succesCB?: (result: PlusIoMetadata) => void, errorCB?: (result: any) => void, recursive?: boolean): void;
     /**
      * 移动目录
      * 以下情况移动目录将会导致失败：
@@ -3211,7 +3211,7 @@ interface PlusIoDirectoryEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    moveTo(parent?: PlusIoDirectoryEntry, newName?: string, succesCB?: () => void, errorCB?: () => void): void;
+    moveTo(parent?: PlusIoDirectoryEntry, newName?: string, succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 拷贝目录
      * 以下情况拷贝目录将会导致失败：
@@ -3223,7 +3223,7 @@ interface PlusIoDirectoryEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    copyTo(parent?: PlusIoDirectoryEntry, newName?: string, succesCB?: () => void, errorCB?: () => void): void;
+    copyTo(parent?: PlusIoDirectoryEntry, newName?: string, succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 获取目录路径转换为URL地址
      * 
@@ -3251,14 +3251,14 @@ interface PlusIoDirectoryEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    remove(succesCB?: () => void, errorCB?: () => void): void;
+    remove(succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 获取目录所属的父目录
      * 获取父目录成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    getParent(succesCB?: () => void, errorCB?: () => void): void;
+    getParent(succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 创建目录读取对象
      * 创建一个目录读取对象，用户读取目下的文件及子目录。
@@ -3273,7 +3273,7 @@ interface PlusIoDirectoryEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    getDirectory(path?: string, flag?: PlusIoFlags, succesCB?: () => void, errorCB?: () => void): void;
+    getDirectory(path?: string, flag?: PlusIoFlags, succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 创建或打开文件
      * 创建或打开当前目录下指定的文件。
@@ -3281,7 +3281,7 @@ interface PlusIoDirectoryEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    getFile(path?: string, flag?: PlusIoFlags, succesCB?: () => void, errorCB?: () => void): void;
+    getFile(path?: string, flag?: PlusIoFlags, succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 递归删除目录
      * 删除目录将会删除其下的所有文件及子目录
@@ -3290,7 +3290,7 @@ interface PlusIoDirectoryEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    removeRecursively(succesCB?: () => void, errorCB?: () => void): void;
+    removeRecursively(succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -3306,7 +3306,7 @@ interface PlusIoDirectoryReader {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    readEntries(succesCB?: () => void, errorCB?: () => void): void;
+    readEntries(succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -3398,7 +3398,7 @@ interface PlusIoFileEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    getMetadata(succesCB?: () => void, errorCB?: () => void): void;
+    getMetadata(succesCB?: (result: PlusIoMetadata) => void, errorCB?: (result: any) => void): void;
     /**
      * 移动文件
      * 以下情况移动目录将会导致失败：
@@ -3408,7 +3408,7 @@ interface PlusIoFileEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    moveTo(parent?: PlusIoDirectoryEntry, newName?: string, succesCB?: () => void, errorCB?: () => void): void;
+    moveTo(parent?: PlusIoDirectoryEntry, newName?: string, succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 拷贝文件
      * 以下情况拷贝文件将会导致失败：
@@ -3418,7 +3418,7 @@ interface PlusIoFileEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    copyTo(parent?: PlusIoDirectoryEntry, newName?: string, succesCB?: () => void, errorCB?: () => void): void;
+    copyTo(parent?: PlusIoDirectoryEntry, newName?: string, succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 获取文件路径转换为URL地址
      * 
@@ -3444,28 +3444,28 @@ interface PlusIoFileEntry {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    remove(succesCB?: () => void, errorCB?: () => void): void;
+    remove(succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 获取文件所属的父目录
      * 获取父目录成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    getParent(succesCB?: () => void, errorCB?: () => void): void;
+    getParent(succesCB?: (result: PlusIoDirectoryEntry) => void, errorCB?: (result: any) => void): void;
     /**
      * 获取文件关联的写文件操作对象FileWriter
      * 获取写文件操作对象成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    createWriter(succesCB?: () => void, errorCB?: () => void): void;
+    createWriter(succesCB?: (result: PlusIoFileWriter) => void, errorCB?: (result: any) => void): void;
     /**
      * 获取文件数据对象
      * 获取文件数据对象成功通过succesCB回调返回，失败则通过errorCB返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    file(succesCB?: () => void, errorCB?: () => void): void;
+    file(succesCB?: (result: PlusIoFile) => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -3518,39 +3518,39 @@ interface PlusIoFileReader {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onloadstart?: () => void;
+    onloadstart?: (result: PlusIoFileEvent) => void;
     /**
      * 读取文件过程中的回调函数
      * 用于获取文件读取进度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onprogress?: () => void;
+    onprogress?: (result: PlusIoFileEvent) => void;
     /**
      * 读取文件成功完成的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onload?: () => void;
+    onload?: (result: PlusIoFileEvent) => void;
     /**
      * 取消读取文件时的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onabort?: () => void;
+    onabort?: (result: PlusIoFileEvent) => void;
     /**
      * 文件读取操作失败时调用的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onerror?: () => void;
+    onerror?: (result: PlusIoFileEvent) => void;
     /**
      * 文件读取操作完成时的回调函数
      * 不管成功或失败都会触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onloadend?: () => void;
+    onloadend?: (result: PlusIoFileEvent) => void;
     /**
      * 终止文件读取操作
      * 读取文件操作开始后，可通过此方法取消读取文件。
@@ -3632,39 +3632,39 @@ interface PlusIoFileWriter {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onwritestart?: () => void;
+    onwritestart?: (result: PlusIoFileEvent) => void;
     /**
      * 写入文件过程中的回调函数
      * 用于获取文件读取进度。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onprogress?: () => void;
+    onprogress?: (result: PlusIoFileEvent) => void;
     /**
      * 写入文件成功完成的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onwrite?: () => void;
+    onwrite?: (result: PlusIoFileEvent) => void;
     /**
      * 取消写入文件时的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onabort?: () => void;
+    onabort?: (result: PlusIoFileEvent) => void;
     /**
      * 文件写入操作失败时调用的回调函数
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onerror?: () => void;
+    onerror?: (result: PlusIoFileEvent) => void;
     /**
      * 文件写入操作完成时的回调函数
      * 不管成功或失败都会触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
-    onwriteend?: () => void;
+    onwriteend?: (result: PlusIoFileEvent) => void;
     /**
      * 终止文件写入操作
      * 写入文件数据操作开始后，可通过此方法取消写入文件数据操作。
@@ -4002,7 +4002,7 @@ interface PlusKey {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    addEventListener(event?: PlusKeyKeyType, listener?: () => void, capture?: boolean): void;
+    addEventListener(event?: PlusKeyKeyType, listener?: (result: PlusKeyKeyEvent) => void, capture?: boolean): void;
     /**
      * 隐藏软键盘
      * 隐藏已经显示的软键盘，如果软键盘没有显示则不做任何操作。
@@ -4031,7 +4031,7 @@ interface PlusKey {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/key.html](http://www.html5plus.org/doc/zh_cn/key.html)
      */
-    removeEventListener(event?: PlusKeyKeyType, listener?: () => void): void;
+    removeEventListener(event?: PlusKeyKeyType, listener?: (result: PlusKeyKeyEvent) => void): void;
 }
 
 /**
@@ -4176,7 +4176,7 @@ interface PlusMessaging {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/messaging.html](http://www.html5plus.org/doc/zh_cn/messaging.html)
      */
-    sendMessage(msg?: PlusMessagingMessage, successCB?: () => void, errorCB?: () => void): void;
+    sendMessage(msg?: PlusMessagingMessage, successCB?: () => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -4532,7 +4532,7 @@ interface PlusNativeObjBitmap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    load(path?: string, successCallback?: () => void, errorCallback?: () => void): void;
+    load(path?: string, successCallback?: () => void, errorCallback?: (result: any) => void): void;
     /**
      * 加载Base64编码格式图片到Bitmap对象
      * 从Base64编码格式图片数据中加载图片，此操作将覆盖之前的图片内容，
@@ -4540,7 +4540,7 @@ interface PlusNativeObjBitmap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    loadBase64Data(data?: string, successCallback?: () => void, errorCallback?: () => void): void;
+    loadBase64Data(data?: string, successCallback?: () => void, errorCallback?: (result: any) => void): void;
     /**
      * 回收Bitmap图片内存
      * 释放Bitmap图片占用的内存资源，但不销毁图片对象，依然可以继续使用图片对象。
@@ -4555,7 +4555,7 @@ interface PlusNativeObjBitmap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    save(path?: string, options?: PlusNativeObjBitmapSaveOptions, successCallback?: () => void, errorCallback?: () => void): void;
+    save(path?: string, options?: PlusNativeObjBitmapSaveOptions, successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 获取图片的Base64编码数据
      * 读取图片的数据内容，并转换为Base64编码格式字符串。
@@ -4827,21 +4827,21 @@ interface PlusNativeObjInputStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    onComplete?: () => void;
+    onComplete?: (result: any) => void;
     /**
      * 输入框获取焦点事件
      * 当编辑框获取焦点时触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    onFocus?: () => void;
+    onFocus?: (result: any) => void;
     /**
      * 输入框失去焦点事件
      * 当编辑框失去焦点时触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    onBlur?: () => void;
+    onBlur?: (result: any) => void;
 }
 
 /**
@@ -4980,7 +4980,7 @@ interface PlusNativeObjRichTextStyles {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    onClick?: () => void;
+    onClick?: (result: any) => void;
 }
 
 /**
@@ -5237,7 +5237,7 @@ interface PlusNativeObjView {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeobj.html](http://www.html5plus.org/doc/zh_cn/nativeobj.html)
      */
-    addEventListener(event?: PlusNativeObjViewEvents, listener?: () => void, capture?: boolean): void;
+    addEventListener(event?: PlusNativeObjViewEvents, listener?: (result: any) => void, capture?: boolean): void;
     /**
      * View控件内容动画
      * 动画后可能会导致View控件显示内容改变，可通过调用restore方法恢复。
@@ -5783,7 +5783,7 @@ interface PlusNativeUI {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    actionSheet(actionsheetStyle?: PlusNativeUIActionSheetStyles, actionsheetCallback?: () => void): PlusNativeUINativeUIObj;
+    actionSheet(actionsheetStyle?: PlusNativeUIActionSheetStyles, actionsheetCallback?: (result: any) => void): PlusNativeUINativeUIObj;
     /**
      * 弹出系统提示对话框
      * 创建并显示系统样式提示对话框，可设置提示对话框的标题、内容、按钮文字等。
@@ -5791,7 +5791,7 @@ interface PlusNativeUI {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    alert(message?: string, alertCB?: () => void, title?: string, buttonCapture?: string): void;
+    alert(message?: string, alertCB?: (result: any) => void, title?: string, buttonCapture?: string): void;
     /**
      * 弹出系统确认对话框
      * 创建并显示系统样式确认对话框，可设置确认对话框的标题、内容、按钮数目及其文字。
@@ -5799,7 +5799,7 @@ interface PlusNativeUI {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    confirm(message?: string, confirmCB?: () => void, options?: PlusNativeUIConfirmOptions, buttons?: any []): void;
+    confirm(message?: string, confirmCB?: (result: any) => void, options?: PlusNativeUIConfirmOptions, buttons?: any []): void;
     /**
      * 关闭系统等待对话框
      * 关闭已经显示的所有系统样式等待对话框，触发Waiting对象的onclose事件。
@@ -5835,7 +5835,7 @@ interface PlusNativeUI {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    pickDate(successCB?: () => void, errorCB?: () => void, options?: PlusNativeUIPickDateOption): void;
+    pickDate(successCB?: (result: any) => void, errorCB?: (result: any) => void, options?: PlusNativeUIPickDateOption): void;
     /**
      * 弹出系统时间选择对话框
      * 创建并弹出系统样式时间选择对话框，可进行时间的选择。
@@ -5843,7 +5843,7 @@ interface PlusNativeUI {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    pickTime(successCB?: () => void, errorCB?: () => void, options?: PlusNativeUIPickTimeOption): void;
+    pickTime(successCB?: (result: any) => void, errorCB?: (result: any) => void, options?: PlusNativeUIPickTimeOption): void;
     /**
      * 弹出系统输入对话框
      * 创建并显示系统样式输入对话框，可设置输入对话框的标题、内容、提示输入信息、按钮数目及其文字。
@@ -5851,7 +5851,7 @@ interface PlusNativeUI {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/nativeui.html](http://www.html5plus.org/doc/zh_cn/nativeui.html)
      */
-    prompt(message?: string, promptCB?: () => void, title?: string, tip?: string, buttons?: any []): void;
+    prompt(message?: string, promptCB?: (result: any) => void, title?: string, tip?: string, buttons?: any []): void;
     /**
      * 显示自动消失的提示消息
      * 创建并显示系统样式提示消息，弹出的提示消息为非阻塞模式，显示指定时间后自动消失。
@@ -6449,13 +6449,13 @@ interface PlusNavigator {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    createShortcut(options?: PlusNavigatorShortcutOptions, successCallback?: () => void): void;
+    createShortcut(options?: PlusNavigatorShortcutOptions, successCallback?: (result: any) => void): void;
     /**
      * 查询是否存在应用快捷方式
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/navigator.html](http://www.html5plus.org/doc/zh_cn/navigator.html)
      */
-    hasShortcut(options?: PlusNavigatorShortcutOptions, successCallback?: () => void): void;
+    hasShortcut(options?: PlusNavigatorShortcutOptions, successCallback?: (result: any) => void): void;
     /**
      * 判断当前应用是否切换到后台
      * 在多应用运行环境（如流应用）中，启动一个新应用时，之前运行的应用将会自动切换到后台运行，此时plus.navigator.isBackground()返回状态只为true。
@@ -6763,14 +6763,14 @@ interface PlusOrientation {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    getCurrentOrientation(successCB?: () => void, errorCB?: () => void): void;
+    getCurrentOrientation(successCB?: (result: string) => void, errorCB?: (result: any) => void): void;
     /**
      * 监听设备方向信息的变化
      * 方向信息是设备相对于水平初始方向分别以z、x、y轴为轴心旋转的角度，对应值为alpha、beta、gamma三个方向的信息。watchOrientation每隔固定时间就获取一次设备的方向信息，通过successCB回调函数返回。可通过option的frequency参数设定获取设备方向信息的时间间隔。方向信息获取失败则调用回调函数errorCB。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/orientation.html](http://www.html5plus.org/doc/zh_cn/orientation.html)
      */
-    watchOrientation(successCB?: () => void, errorCB?: () => void, option?: PlusOrientationOrientationOption): number;
+    watchOrientation(successCB?: (result: string) => void, errorCB?: (result: any) => void, option?: PlusOrientationOrientationOption): number;
     /**
      * 关闭监听设备方向信息
      * 
@@ -6856,14 +6856,14 @@ interface PlusProximity {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/proximity.html](http://www.html5plus.org/doc/zh_cn/proximity.html)
      */
-    getCurrentProximity(successCB?: () => void, errorCB?: () => void): void;
+    getCurrentProximity(successCB?: (result: number) => void, errorCB?: (result: any) => void): void;
     /**
      * 监听设备接近距离的变化
      * watchProximity将监听设备的接近距离信息变化事件，当接近距离发生变化时通过changeCB回调函数返回距离值。监听距离变化事件失败则通过errorCB回调函数返回错误信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/proximity.html](http://www.html5plus.org/doc/zh_cn/proximity.html)
      */
-    watchProximity(changeCB?: () => void, errorCB?: () => void): number;
+    watchProximity(changeCB?: (result: number) => void, errorCB?: (result: any) => void): number;
     /**
      * 关闭监听设备接近距离变化
      * 
@@ -7044,7 +7044,7 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    getProperty(appid?: string, getPropertyCB?: () => void): void;
+    getProperty(appid?: string, getPropertyCB?: (result: PlusRuntimeWidgetInfo) => void): void;
     /**
      * 安装应用
      * 支持以下类型安装包：
@@ -7055,7 +7055,7 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    install(filePath?: string, options?: PlusRuntimeWidgetOptions, installSuccessCB?: () => void, installErrorCB?: () => void): void;
+    install(filePath?: string, options?: PlusRuntimeWidgetOptions, installSuccessCB?: (result: PlusRuntimeWidgetInfo) => void, installErrorCB?: (result: any) => void): void;
     /**
      * 退出客户端程序
      * 
@@ -7079,7 +7079,7 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    openURL(url?: string, errorCB?: () => void, identity?: string): void;
+    openURL(url?: string, errorCB?: (result: any) => void, identity?: string): void;
     /**
      * 使用内置Webview窗口打开URL
      * 
@@ -7091,7 +7091,7 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    openFile(filepath?: string, options?: PlusRuntimeOpenFileOptions, errorCB?: () => void): void;
+    openFile(filepath?: string, options?: PlusRuntimeOpenFileOptions, errorCB?: (result: any) => void): void;
     /**
      * 处理直达页面链接参数
      * 通过URL Scheme启动时，可以在?后面添加__direct_page参数自定义直达页面地址，
@@ -7107,7 +7107,7 @@ interface PlusRuntime {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/runtime.html](http://www.html5plus.org/doc/zh_cn/runtime.html)
      */
-    launchApplication(appInf?: PlusRuntimeApplicationInf, errorCB?: () => void): void;
+    launchApplication(appInf?: PlusRuntimeApplicationInf, errorCB?: (result: any) => void): void;
     /**
      * 判断第三方程序是否已存在
      * 如果第三方程序已安装则返回true，未安装则返回false。
@@ -7395,7 +7395,7 @@ interface PlusStream {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    open(options?: PlusStreamStreamOptions, successCallback?: () => void, errorCallback?: () => void): void;
+    open(options?: PlusStreamStreamOptions, successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 流应用激活统计
      * 提交统计数据到流应用服务器，表明业务系统激活成功。
@@ -7440,13 +7440,13 @@ interface PlusStream {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    freetrafficRequest(options?: PlusStreamFreetrafficOptions, successCallback?: () => void, errorCallback?: () => void): void;
+    freetrafficRequest(options?: PlusStreamFreetrafficOptions, successCallback?: () => void, errorCallback?: (result: any) => void): void;
     /**
      * 免流量绑定手机号
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    freetrafficBind(options?: PlusStreamFreetrafficOptions, successCallback?: () => void, errorCallback?: () => void): void;
+    freetrafficBind(options?: PlusStreamFreetrafficOptions, successCallback?: () => void, errorCallback?: (result: any) => void): void;
     /**
      * 解除免流量绑定
      * 解除当前设备绑定的手机号，如果设备未绑定则不执行操作。
@@ -7459,7 +7459,7 @@ interface PlusStream {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/stream.html](http://www.html5plus.org/doc/zh_cn/stream.html)
      */
-    freetrafficInfo(successCallback?: (result: any) => void, errorCallback?: () => void): void;
+    freetrafficInfo(successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 免流量是否生效
      * 
@@ -7766,14 +7766,14 @@ interface PlusUploader {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    createUpload(url?: string, options?: PlusUploaderUploadOptions, completedCB?: () => void): PlusUploaderUpload;
+    createUpload(url?: string, options?: PlusUploaderUploadOptions, completedCB?: (result0: PlusUploaderUpload, result1: number) => void): PlusUploaderUpload;
     /**
      * 枚举上传任务
      * 枚举指定状态的上传任务列表，通过enumCB回调函数返回结果。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    enumerate(enumCB?: () => void, state?: PlusUploaderUploadState): void;
+    enumerate(enumCB?: (result: PlusUploader []) => void, state?: PlusUploaderUploadState): void;
     /**
      * 清除上传任务
      * 清除指定状态的上传任务。
@@ -7902,7 +7902,7 @@ interface PlusUploaderUpload {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/uploader.html](http://www.html5plus.org/doc/zh_cn/uploader.html)
      */
-    addEventListener(type?: string, listener?: () => void, capture?: boolean): void;
+    addEventListener(type?: string, listener?: (result0: PlusUploaderUpload, result1: number) => void, capture?: boolean): void;
     /**
      * 获取上传请求HTTP响应头部信息
      * HTTP响应头部全部内容作为未解析的字符串返回，如果没有接收到这个HTTP响应头数据或者上传请求未完成则为空字符串。
@@ -8121,7 +8121,7 @@ interface PlusVideoVideoPlayer {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    addEventListener(event?: PlusVideoVideoPlayerEvents, listener?: () => void, capture?: boolean): void;
+    addEventListener(event?: PlusVideoVideoPlayerEvents, listener?: (result: any) => void, capture?: boolean): void;
     /**
      * 设置视频播放控件参数
      * 用于动态更新视频播放控件的配置参数。
@@ -8488,7 +8488,7 @@ interface PlusVideoLivePusher {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/video.html](http://www.html5plus.org/doc/zh_cn/video.html)
      */
-    addEventListener(event?: PlusVideoLivePusherEvents, listener?: () => void, capture?: boolean): void;
+    addEventListener(event?: PlusVideoLivePusherEvents, listener?: (result: any) => void, capture?: boolean): void;
     /**
      * 设置直播推流控件参数
      * 用于动态更新直播推流控件的配置参数。
@@ -9072,7 +9072,7 @@ interface PlusWebview {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    startAnimation(options?: PlusWebviewWebviewAnimationOptions, otherOptions?: PlusWebviewWebviewAnimationOptions, callback?: () => void): void;
+    startAnimation(options?: PlusWebviewWebviewAnimationOptions, otherOptions?: PlusWebviewWebviewAnimationOptions, callback?: (result: any) => void): void;
     /**
      * 获取Webview默认是否开启硬件加速
      * 由于不同设备对硬件加速的支持情况存在差异，开启硬件加速能加速HTML页面的渲染，但也会消耗更多的系统资源，从而导致在部分设备上可能出现闪屏、发虚、分块渲染等问题，	因此5+ Runtime会根据设备实际支持情况自动选择是否开启硬件加速。
@@ -9298,7 +9298,7 @@ interface PlusWebviewWebviewObject {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    addEventListener(event?: PlusWebviewWebviewEvent, listener?: () => void, capture?: boolean): void;
+    addEventListener(event?: PlusWebviewWebviewEvent, listener?: (result: any) => void, capture?: boolean): void;
     /**
      * 在Webview窗口中添加子窗口
      * 将另一个Webview窗口作为子窗口添加到当前Webview窗口中，添加后其所有权归父Webview窗口，当父窗口关闭时子窗口自动关闭。
@@ -9344,14 +9344,14 @@ interface PlusWebviewWebviewObject {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    canBack(queryCallback?: () => void): void;
+    canBack(queryCallback?: (result: any) => void): void;
     /**
      * 查询Webview窗口是否可前进
      * Webview窗口历史记录查询操作，获取Webview是否可前进到历史加载的页面，结果通过queryCallback回调方法返回。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    canForward(queryCallback?: () => void): void;
+    canForward(queryCallback?: (result: any) => void): void;
     /**
      * 检测Webview窗口是否渲染完成
      * 检测方式为判断的Webview窗口内容是否为白屏，如果非白屏则认为渲染完成，否则认为渲染未完成。
@@ -9359,7 +9359,7 @@ interface PlusWebviewWebviewObject {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    checkRenderedContent(options?: PlusWebviewWebviewRenderedEventOptions, successCallback?: () => void, errorCallback?: () => void): void;
+    checkRenderedContent(options?: PlusWebviewWebviewRenderedEventOptions, successCallback?: () => void, errorCallback?: (result: any) => void): void;
     /**
      * 获取Webview窗口的所有子Webview窗口
      * 获取添加到Webview窗口中的所有子Webview窗口，如果没有子Webview窗口则返回空数组。
@@ -9388,14 +9388,14 @@ interface PlusWebviewWebviewObject {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    drag(options?: PlusWebviewWebviewDragOptions, otherView?: PlusWebviewWebviewDragOtherViewOptions, callback?: () => void): void;
+    drag(options?: PlusWebviewWebviewDragOptions, otherView?: PlusWebviewWebviewDragOtherViewOptions, callback?: (result: PlusWebviewWebviewDragEvent) => void): void;
     /**
      * 截屏绘制
      * 将Webview窗口的可视区域截屏并绘制到Bitmap图片对象中。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    draw(bitmap?: PlusNativeObjBitmap, successCallback?: () => void, errorCallback?: () => void, options?: PlusWebviewWebviewDrawOptions): void;
+    draw(bitmap?: PlusNativeObjBitmap, successCallback?: () => void, errorCallback?: (result: any) => void, options?: PlusWebviewWebviewDrawOptions): void;
     /**
      * 结束Webview窗口的下拉刷新
      * 关闭下拉刷新效果，恢复到开始下拉刷新之前的效果。
@@ -9514,7 +9514,7 @@ interface PlusWebviewWebviewObject {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    listenResourceLoading(options?: PlusWebviewWebviewListenResourceOptions, callback?: () => void): void;
+    listenResourceLoading(options?: PlusWebviewWebviewListenResourceOptions, callback?: (result: any) => void): void;
     /**
      * 加载新HTML数据
      * 触发Webview窗口加载HTML页面数据，如果HTML数据无效将导致页面加载失败。
@@ -9567,7 +9567,7 @@ interface PlusWebviewWebviewObject {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    overrideUrlLoading(options?: PlusWebviewWebviewOverrideUrlOptions, callback?: () => void): void;
+    overrideUrlLoading(options?: PlusWebviewWebviewOverrideUrlOptions, callback?: (result: any) => void): void;
     /**
      * 获取当前Webview窗口的父窗口
      * Webview窗口作为子窗口添加（Webview.append）到其它Webview窗口中时有效，这时其它Webview窗口为父窗口。
@@ -9612,7 +9612,7 @@ interface PlusWebviewWebviewObject {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/webview.html](http://www.html5plus.org/doc/zh_cn/webview.html)
      */
-    removeEventListener(event?: PlusWebviewWebviewEvent, listener?: () => void): void;
+    removeEventListener(event?: PlusWebviewWebviewEvent, listener?: (result: any) => void): void;
     /**
      * 从父窗口中移除
      * 从所属的父Webview窗口移除，如果没有父窗口，则无任何作用。
@@ -11798,14 +11798,14 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onloadstart?: () => void;
+    onloadstart?: (result: PlusNetProgressEvent) => void;
     /**
      * 网络请求传输数据事件
      * 通常在HTTP请求链接已经建立，开始传输数据时触发，在数据传输的过程中可能多次触发，此事件与onreadystatechange事件触发状态3类似。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onprogress?: () => void;
+    onprogress?: (result: PlusNetProgressEvent) => void;
     /**
      * 网络请求取消事件
      * 通常在调用abort方法取消HTTP请求时触发。
@@ -11813,7 +11813,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onabort?: () => void;
+    onabort?: (result: PlusNetProgressEvent) => void;
     /**
      * 网络请求错误事件
      * 通常在HTTP请求发生错误时触发，如无法连接到服务器等各种错误都触发此事件。
@@ -11821,7 +11821,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onerror?: () => void;
+    onerror?: (result: PlusNetProgressEvent) => void;
     /**
      * 网络请求成功事件
      * 通常在HTTP请求成功完成时触发，如果HTTP请求发生错误则不触发此事件。
@@ -11829,7 +11829,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onload?: () => void;
+    onload?: (result: PlusNetProgressEvent) => void;
     /**
      * 网络请求超时事件
      * 通常在HTTP请求超时时触发，此时不会触发onerror事件。
@@ -11837,7 +11837,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    ontimeout?: () => void;
+    ontimeout?: (result: PlusNetProgressEvent) => void;
     /**
      * 网络请求结束事件
      * 通常在HTTP请求结束时触发，不管是HTTP请求失败、成功、或超时之后都会触发此事件。
@@ -11845,7 +11845,7 @@ interface PlusNetXMLHttpRequest {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/net.html](http://www.html5plus.org/doc/zh_cn/net.html)
      */
-    onloadend?: () => void;
+    onloadend?: (result: PlusNetProgressEvent) => void;
     /**
      * 取消当前响应，关闭连接并且结束任何未决的网络活动
      * 此方法把XMLHttpRequest对象重置为readyState为0的状态，并且取消所有未决的网络活动。
@@ -11983,20 +11983,20 @@ interface PlusZip {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    compress(src?: string, zipfile?: string, successCB?: () => void, errorCB?: () => void): void;
+    compress(src?: string, zipfile?: string, successCB?: () => void, errorCB?: (result: any) => void): void;
     /**
      * 解压缩Zip文件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    decompress(zipfile?: string, target?: string, successCB?: () => void, errorCB?: () => void): void;
+    decompress(zipfile?: string, target?: string, successCB?: () => void, errorCB?: (result: any) => void): void;
     /**
      * 图片压缩转换
      * 可用于图片的质量压缩、大小缩放、方向旋转、区域裁剪、格式转换等。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/zip.html](http://www.html5plus.org/doc/zh_cn/zip.html)
      */
-    compressImage(options?: PlusZipCompressImageOptions, successCB?: () => void, errorCB?: () => void): void;
+    compressImage(options?: PlusZipCompressImageOptions, successCB?: (result: any) => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -12290,7 +12290,7 @@ interface PlusBarcode {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    scan(path?: string, successCB?: () => void, errorCB?: () => void, filters?: any []): void;
+    scan(path?: string, successCB?: (result0: number, result1: string, result2: string) => void, errorCB?: (result: any) => void, filters?: any []): void;
     /**
      * 创建Barcode对象
      * 调用此方法创建后并不会显示，需要调用Webview窗口的append方法将其添加到Webview窗口后才能显示。
@@ -12321,14 +12321,14 @@ interface PlusBarcodeBarcode {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    onmarked?: () => void;
+    onmarked?: (result0: number, result1: string, result2: string) => void;
     /**
      * 条码识别错误事件
      * 描控件识别过程中发生错误时触发的失败事件，并返回错误信息。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/barcode.html](http://www.html5plus.org/doc/zh_cn/barcode.html)
      */
-    onerror?: () => void;
+    onerror?: (result: any) => void;
     /**
      * 开始条码识别
      * 开始调用系统摄像头获取图片数据进行扫码识别，当识别出条码数据时通过onmarked回调函数返回。
@@ -12659,14 +12659,14 @@ interface PlusMapsMap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onclick?: () => void;
+    onclick?: (result: PlusMapsPoint) => void;
     /**
      * 地图状态改变事件
      * 用户拖动、缩放地图等操作完成后触发。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onstatuschanged?: () => void;
+    onstatuschanged?: (result: any) => void;
     /**
      * 静态方法，计算面积
      * 计算指定地理区域的面积，单位为平方米。
@@ -12674,14 +12674,14 @@ interface PlusMapsMap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    calculateArea(bounds?: PlusMapsBounds, successCallback?: () => void, errorCallback?: () => void): void;
+    calculateArea(bounds?: PlusMapsBounds, successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 静态方法，计算距离
      * 计算从pointStart坐标点到pointEnd坐标的实际直线距离，单位为米（m）。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    calculateDistance(pointStart?: PlusMapsPoint, pointEnd?: PlusMapsPoint, successCallback?: () => void, errorCallback?: () => void): void;
+    calculateDistance(pointStart?: PlusMapsPoint, pointEnd?: PlusMapsPoint, successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 静态方法，坐标转换
      * 将第三方坐标系坐标转换成当前地图的坐标系坐标。
@@ -12689,7 +12689,7 @@ interface PlusMapsMap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    convertCoordinates(point?: PlusMapsPoint, options?: PlusMapsCoordinateConvertOptions, successCallback?: () => void, errorCallback?: () => void): void;
+    convertCoordinates(point?: PlusMapsPoint, options?: PlusMapsCoordinateConvertOptions, successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 静态方法，地理编码
      * 将地理位置信息转换为坐标点。
@@ -12697,7 +12697,7 @@ interface PlusMapsMap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    geocode(address?: string, options?: PlusMapsGeocodeOptions, successCallback?: () => void, errorCallback?: () => void): void;
+    geocode(address?: string, options?: PlusMapsGeocodeOptions, successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 静态方法，反向地理编码
      * 将坐标点转换为地理位置信息。
@@ -12705,7 +12705,7 @@ interface PlusMapsMap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    reverseGeocode(point?: PlusMapsPoint, options?: PlusMapsGeocodeOptions, successCallback?: () => void, errorCallback?: () => void): void;
+    reverseGeocode(point?: PlusMapsPoint, options?: PlusMapsGeocodeOptions, successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 向地图中添加覆盖物
      * 此方法用于向地图中添加覆盖物。
@@ -12761,7 +12761,7 @@ interface PlusMapsMap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    getCurrentCenter(callback?: () => void): boolean;
+    getCurrentCenter(callback?: (result0: number, result1: PlusMapsPoint) => void): boolean;
     /**
      * 获取地图的显示类型
      * 
@@ -12775,7 +12775,7 @@ interface PlusMapsMap {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    getUserLocation(callback?: () => void): boolean;
+    getUserLocation(callback?: (result0: number, result1: PlusMapsPoint) => void): boolean;
     /**
      * 获取地图的缩放级别
      * 此方法用于设置地图的缩放级别，用于切换当前显示地图缩放级别。
@@ -13200,14 +13200,14 @@ interface PlusMapsMarker {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onclick?: () => void;
+    onclick?: (result: PlusMapsOverlay) => void;
     /**
      * 用户拖拽标点事件
      * 可调用标点对象的markObj.setDraggable(true)方法设置标点允许拖拽，当用户拖拽标点对象时触发此事件。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onDrag?: () => void;
+    onDrag?: (result: any) => void;
     /**
      * 覆盖物显示到最上层
      * 常用于覆盖物相互覆盖时调整覆盖物的显示顺序。
@@ -13309,7 +13309,7 @@ interface PlusMapsBubble {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onclick?: () => void;
+    onclick?: (result: PlusMapsOverlay) => void;
     /**
      * 设置气泡上显示的图标
      * 若为设置则无默认图标，已添加的显示的气泡在设置新值后将在地图上立即更新内容。
@@ -13623,13 +13623,13 @@ interface PlusMapsSearch {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onPoiSearchComplete?: () => void;
+    onPoiSearchComplete?: (result0: number, result1: PlusMapsSearchPoiResult) => void;
     /**
      * 线路检索完成事件
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/maps.html](http://www.html5plus.org/doc/zh_cn/maps.html)
      */
-    onRouteSearchComplete?: () => void;
+    onRouteSearchComplete?: (result0: number, result1: PlusMapsSearchRouteResult) => void;
     /**
      * 设置检索返回结果每页的信息数目
      * 地图检索结果是按页返回的，默认检索每页返回10条信息。
@@ -14009,7 +14009,7 @@ interface PlusOauth {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    getServices(successCB?: () => void, errorCB?: () => void): void;
+    getServices(successCB?: (result: PlusOauth []) => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -14072,7 +14072,7 @@ interface PlusOauthAuthService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    authorize(successCallback?: () => void, errorCallback?: () => void, options?: PlusOauthAuthOptions): void;
+    authorize(successCallback?: (result: any) => void, errorCallback?: (result: any) => void, options?: PlusOauthAuthOptions): void;
     /**
      * 请求登录授权认证操作
      * 对指定的登录授权认证服务进行登录认证操作，在登录前可通过对象的authResult属性判断是否已经登录认证过，通常只需要对没有进行过登录认证的服务进行登录认证操作。
@@ -14080,7 +14080,7 @@ interface PlusOauthAuthService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    login(successCallback?: () => void, errorCallback?: () => void, options?: PlusOauthAuthOptions): void;
+    login(successCallback?: (result: any) => void, errorCallback?: (result: any) => void, options?: PlusOauthAuthOptions): void;
     /**
      * 注销登录授权认证
      * 对指定的登录授权认证服务注销登录认证操作，注销授权认证后，再次操作时需重新进行登录认证操作。
@@ -14088,7 +14088,7 @@ interface PlusOauthAuthService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    logout(successCallback?: () => void, errorCallback?: () => void): void;
+    logout(successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 获取登录授权用户信息
      * 获取登录授权认证的用户信息，在获取前可通过对象的userInfo属性判断是否已经获取过，通常只需要对没有获取过用户信息的服务进行操作。
@@ -14096,14 +14096,14 @@ interface PlusOauthAuthService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    getUserInfo(successCallback?: () => void, errorCallback?: () => void): void;
+    getUserInfo(successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
     /**
      * 添加用户手机号信息
      * 打开登录授权服务的添加用户手机号界面进行操作，添加用户手机号操作成功后通过successCallback回调函数通知，否则通过errorCallback回调函数通知。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/oauth.html](http://www.html5plus.org/doc/zh_cn/oauth.html)
      */
-    addPhoneNumber(successCallback?: () => void, errorCallback?: () => void): void;
+    addPhoneNumber(successCallback?: (result: any) => void, errorCallback?: (result: any) => void): void;
 }
 
 /**
@@ -14341,7 +14341,7 @@ interface PlusPayment {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    getChannels(successCB?: () => void, errorCB?: () => void): void;
+    getChannels(successCB?: (result: PlusPayment []) => void, errorCB?: (result: any) => void): void;
     /**
      * 请求支付操作
      * 调用指定的支付通道进行支付操作，其中statement包含支付操作的相关信息，支付模块将弹出支付界面供用户进行支付信息的输入确认操作。
@@ -14349,7 +14349,7 @@ interface PlusPayment {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    request(channel?: PlusPaymentPaymentChannel, statement?: string, successCB?: () => void, errorCB?: () => void): void;
+    request(channel?: PlusPaymentPaymentChannel, statement?: string, successCB?: (result: PlusPaymentPaymentResult) => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -14401,14 +14401,14 @@ interface PlusPaymentPaymentChannel {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    requestOrder(ids?: any [], successCB?: () => void, errorCB?: () => void): void;
+    requestOrder(ids?: any [], successCB?: (result: PlusPayment []) => void, errorCB?: (result: any) => void): void;
     /**
      * 向IAP服务器请求已经购买的非消耗性商品和订阅商品
      * 注意：不能获取已购买的消耗性商品。
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/payment.html](http://www.html5plus.org/doc/zh_cn/payment.html)
      */
-    restoreComplateRequest(options?: any, successCB?: () => void): void;
+    restoreComplateRequest(options?: any, successCB?: (result: PlusPayment []) => void): void;
 }
 
 /**
@@ -14614,7 +14614,7 @@ interface PlusPush {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/push.html](http://www.html5plus.org/doc/zh_cn/push.html)
      */
-    addEventListener(type?: string, listener?: () => void, capture?: boolean): void;
+    addEventListener(type?: string, listener?: (result: string) => void, capture?: boolean): void;
     /**
      * 清空所有推送消息
      * 清空系统消息中心所有的推送消息。
@@ -14860,7 +14860,7 @@ interface PlusShare {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    getServices(successCB?: () => void, errorCB?: () => void): void;
+    getServices(successCB?: (result: PlusShare []) => void, errorCB?: (result: any) => void): void;
     /**
      * 使用系统组件发送分享
      * 调用系统分享组件分享消息，通过msg参数设置分享内容。
@@ -14868,7 +14868,7 @@ interface PlusShare {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    sendWithSystem(msg?: PlusShareShareMessage, successCB?: () => void, errorCB?: () => void): void;
+    sendWithSystem(msg?: PlusShareShareMessage, successCB?: () => void, errorCB?: (result: any) => void): void;
 }
 
 /**
@@ -14939,7 +14939,7 @@ interface PlusShareAuthorize {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    onerror?: () => void;
+    onerror?: (result: any) => void;
     /**
      * 加载分享授权页面
      * 创建分享授权页面后，需要调用此方法指定分享服务标识来加载授权页面数据，此标识可使用ShareService对象的id属性。
@@ -15031,7 +15031,7 @@ interface PlusShareShareService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    authorize(successCallback?: () => void, errorCallback?: () => void, options?: PlusShareAuthOptions): void;
+    authorize(successCallback?: (result: PlusShareShareService) => void, errorCallback?: (result: any) => void, options?: PlusShareAuthOptions): void;
     /**
      * 取消授权认证
      * 对指定的分享服务取消授权认证操作，取消授权认证后，再次分享时需重新进行授权操作。
@@ -15046,7 +15046,7 @@ interface PlusShareShareService {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/share.html](http://www.html5plus.org/doc/zh_cn/share.html)
      */
-    send(msg?: PlusShareShareMessage, successCB?: () => void, errorCB?: () => void): void;
+    send(msg?: PlusShareShareMessage, successCB?: () => void, errorCB?: (result: any) => void): void;
     /**
      * 调用微信小程序
      * 注意：需在微信开放平台将应用关联小程序才能正常调用。
@@ -15275,7 +15275,7 @@ interface PlusSpeech {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    startRecognize(options?: PlusSpeechSpeechRecognizeOptions, successCB?: () => void, errorCB?: (result: any) => void): void;
+    startRecognize(options?: PlusSpeechSpeechRecognizeOptions, successCB?: (result: string) => void, errorCB?: (result: any) => void): void;
     /**
      * 停止语音识别
      * 当语音识别完成时或用户取消语音识别时调用，调用此方法将导致errorCallback回调函数的调用。
@@ -15290,7 +15290,7 @@ interface PlusSpeech {
      * 
      * 参考: [http://www.html5plus.org/doc/zh_cn/speech.html](http://www.html5plus.org/doc/zh_cn/speech.html)
      */
-    addEventListener(event?: PlusSpeechSpeechRecoginzeEvents, listener?: () => void, capture?: boolean): void;
+    addEventListener(event?: PlusSpeechSpeechRecoginzeEvents, listener?: (result: any) => void, capture?: boolean): void;
 }
 
 /**
