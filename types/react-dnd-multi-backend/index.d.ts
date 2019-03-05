@@ -97,7 +97,10 @@ export interface PreviewProps {
  * This is frequently used with the Touch backend to provide a preview on mobile devices.
  */
 export class Preview extends PureComponent<PreviewProps> {}
-
+/**
+ * Pre-existing/default react-dnd-multi-backend transition available to use.
+  */
+ export const MouseTransition: Transition;
 /**
  * Pre-existing/default react-dnd-touch-backend transition available to use.
  * This transition has the setting for "enableMouseEvents" turned on.
