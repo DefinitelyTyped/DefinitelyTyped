@@ -9,7 +9,7 @@ declare module "phoenix" {
     constructor(
       channel: Channel,
       event: string,
-      payload: Object,
+      payload: object,
       timeout: number,
     );
 
@@ -21,7 +21,7 @@ declare module "phoenix" {
 
 
   class Channel {
-    constructor(topic: string, params?: Object | Function, socket?: Socket);
+    constructor(topic: string, params?: object | Function, socket?: Socket);
 
     join(timeout?: number): Push;
     leave(timeout?: number): Push;
@@ -33,19 +33,19 @@ declare module "phoenix" {
     on(event: string, callback: (response?: any) => void): void;
     off(event: string): void;
 
-    push(event: string, payload: Object, timeout?: number): Push;
+    push(event: string, payload: object, timeout?: number): Push;
   }
 
   type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
   
   interface SocketConnectOption {
-    params: Object | Function;
+    params: object | Function;
     transport: any;
     timeout: number;
     heartbeatIntervalMs: number;
     reconnectAfterMs: number;
     longpollernumber: number;
-    encode: (payload: Object, callback: Function) => any;
+    encode: (payload: object, callback: Function) => any;
     decode: (payload: string, callback: Function) => any;
     logger: (kind: string, message: string, data: any) => void;
   }
@@ -62,10 +62,10 @@ declare module "phoenix" {
     isConnected(): boolean;
 
     remove(channel: Channel): void;
-    channel(topic: string, chanParams?: Object): Channel;
-    push(data: Object): void;
+    channel(topic: string, chanParams?: object): Channel;
+    push(data: object): void;
 
-    log(kind: string, message: string, data: Object): void;
+    log(kind: string, message: string, data: object): void;
     hasLogger(): boolean;
 
     onOpen(callback: Function): void;
@@ -131,7 +131,7 @@ declare module "phoenix" {
   }
 
   class Presence {
-    constructor(channel: Channel, opts?: Object);
+    constructor(channel: Channel, opts?: object);
 
     onJoin(callback: Function): void;
     onLeave(callback: Function): void;
@@ -140,21 +140,21 @@ declare module "phoenix" {
     inPendingSyncState(): boolean;
 
     static syncState(
-      currentState: Object,
-      newState: Object,
+      currentState: object,
+      newState: object,
       onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
       onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
     ): any;
 
     static syncDiff(
-      currentState: Object,
-      diff: {joins: Object; leaves: Object},
+      currentState: object,
+      diff: {joins: object; leaves: object},
       onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
       onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
     ): any;
 
     static list<T = any>(
-      presences: Object,
+      presences: object,
       chooser?: (key: string, presence: any) => T,
     ): T[];
   }
