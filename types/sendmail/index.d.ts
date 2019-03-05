@@ -2,13 +2,14 @@
 // Project: https://github.com/guileen/node-sendmail
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
 declare namespace sendMailConstructor {
-    export interface IOptions {
+    interface Options {
         logger?: {
             debug?: () => void;
             info?: () => void;
@@ -33,7 +34,7 @@ declare namespace sendMailConstructor {
         smtpHost?: string | number;
     }
 
-    export interface IMailInput {
+    interface MailInput {
         from: string;
         to: string;
         cc?: string;
@@ -45,26 +46,26 @@ declare namespace sendMailConstructor {
         charset?: string;
         encoding?: string;
         id?: string;
-        headers?: object;
+        headers?: any;
         content?: string;
         html?: string;
-        attachments?: {
+        attachments?: Array<{
             type: string;
             filename: string;
             content: any;
-        }[];
+        }>;
     }
 }
 
 type CallbackFn = (err: Error, domain: string) => void;
 
 type SendMailFn = (
-    mail: sendMailConstructor.IMailInput,
+    mail: sendMailConstructor.MailInput,
     callback: CallbackFn
 ) => void;
 
 declare function sendMailConstructor(
-    options: sendMailConstructor.IOptions
+    options: sendMailConstructor.Options
 ): SendMailFn;
 
 export = sendMailConstructor;
