@@ -1,63 +1,166 @@
-// Type definitions for pendo-io-agent x.x
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: My Self <https://github.com/me>
+// Type definitions for Pendo.io Agent 2.16
+// Project: https://www.pendo.io/
+// Definitions by: Aaron Beall <https://github.com/aaronbeall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this library is callable (e.g. can be invoked as myLib(3)),
- *~ include those call signatures here.
- *~ Otherwise, delete this section.
- */
-declare function myLib(a: string): string;
-declare function myLib(a: number): number;
-
-/*~ If you want the name of this library to be a valid type name,
- *~ you can do so here.
- *~
- *~ For example, this allows us to write 'var x: myLib';
- *~ Be sure this actually makes sense! If it doesn't, just
- *~ delete this declaration and add types inside the namespace below.
- */
-interface myLib {
-    name: string;
-    length: number;
-    extras?: string[];
-}
-
-/*~ If your library has properties exposed on a global variable,
- *~ place them here.
- *~ You should also place types (interfaces and type alias) here.
- */
-declare namespace myLib {
-    //~ We can write 'myLib.timeout = 50;'
-    let timeout: number;
-
-    //~ We can access 'myLib.version', but not change it
-    const version: string;
-
-    //~ There's some class we can create via 'let c = new myLib.Cat(42)'
-    //~ Or reference e.g. 'function f(c: myLib.Cat) { ... }
-    class Cat {
-        constructor(n: number);
-
-        //~ We can read 'c.age' from a 'Cat' instance
-        readonly age: number;
-
-        //~ We can invoke 'c.purr()' from a 'Cat' instance
-        purr(): void;
+declare namespace pendo {
+    interface Identity {
+        visitor: Visitor;
+        account?: Account;
     }
 
-    //~ We can declare a variable as
-    //~   'var s: myLib.CatSettings = { weight: 5, name: "Maru" };'
-    interface CatSettings {
-        weight: number;
+    type Metadata = Record<string, string | number | undefined>;
+
+    interface Visitor extends Metadata {
+        id: string;
+    }
+
+    interface Account extends Metadata {
+        id?: string;
+    }
+
+    interface InitOptions extends Identity {
+        apiKey?: string;
+        excludeAllText?: boolean;
+        excludeTitle?: boolean;
+        disablePersistence?: boolean;
+        guides?: {
+            delay?: boolean;
+            disable?: boolean;
+            timeout?: number;
+            tooltip?: {
+                arrowSize?: number;
+            }
+        };
+        events?: EventCallbacks;
+    }
+
+    interface EventCallbacks {
+        ready?(): void;
+        guidesLoaded?(): void;
+        guidesFailed?(): void;
+    }
+
+    interface Pendo {
+        // Initialization and Identification
+        initialize(options: InitOptions): void;
+        identify(visitorId: string, accountId?: string): void;
+        identify(identity: Identity): void;
+        isReady(): boolean;
+        flushNow(): Promise<any>;
+        updateOptions(visitorMetadata: Metadata): void;
+        getVersion(): string;
+        getVisitorId(): string;
+        getAccountId(): string;
+        getCurrentUrl(): string;
+
+        // Guides and Guide Center
+        findGuideByName(name: string): Guide | void;
+        findGuideById(id: string): Guide | void;
+        showGuideByName(name: string): void;
+        showGuideById(id: string): void;
+        toggleLauncher(): void;
+        removeLauncher(): void;
+
+        // Troubleshooting
+        loadGuides(): void;
+        startGuides(): void;
+        stopGuides(): void;
+
+        // Debugging
+        enableDebugging(): void;
+        disableDebugging(): void;
+        isDebuggingEnabled(coerce?: false): "Yes" | "No";
+        isDebuggingEnabled(coerce: true): boolean;
+        debugging: Debugging;
+
+        // Events
+        events: Events;
+        track(trackType: string, metadata?: Metadata): void;
+
+        // Guide Events
+        onGuideAdvanced(step?: GuideStep): void;
+        onGuideAdvanced(steps: { steps: number }): void;
+        onGuidePrevious(step?: GuideStep): void;
+        onGuideDismissed(step?: GuideStep): void;
+        onGuideDismissed(until: { until: "reload" }): void;
+
+        // Other
+        validateInstall(): void;
+        dom(input: any): HTMLElement; // TODO
+    }
+
+    interface Debugging {
+        getEventCache(): any[]; // TODO
+        getAllGuides(): Guide[];
+        getAutoGuides(): { auto: Guide[]; override: Guide[] };
+        getBadgeGuides(): Guide[];
+        getLauncherGuides(): Guide[];
+    }
+
+    type Events = {
+        [K in keyof EventCallbacks]-?: (callback: EventCallbacks[K]) => Events;
+    };
+
+    interface Guide {
+        createdByUser: User;
+        createdAt: number;
+        lastUpdatedByUser: User;
+        lastUpdatedAt: number;
+        kind: string;
+        rootVersionId: string;
+        stableVersionId: string;
+        id: string;
         name: string;
-        tailLength?: number;
+        state: "published" | "staged" | "draft" | "disabled";
+        launchMethod: "api" | "automatic" | "badge" | "dom" | "launcher";
+        isMultiStep: boolean;
+        steps: GuideStep[];
+        attributes: {
+            type: string;
+            device: { desktop: boolean; mobile: boolean; type: "desktop" | "mobile" };
+            badge: any;
+            priority: number;
+            launcher: { keywords: string[] };
+        };
+        audience: any[]; // TODO
+        audienceUiHint: { filters: any[] }; // TODO
+        resetAt: number;
+        publishedAt: number;
     }
 
-    //~ We can write 'const v: myLib.VetID = 42;'
-    //~  or 'const v: myLib.VetID = "bob";'
-    type VetID = string | number;
+    interface User {
+        id: string;
+        username: string;
+        first: string;
+        last: string;
+        role: number;
+        userType: string;
+    }
 
-    //~ We can invoke 'myLib.checkCat(c)' or 'myLib.checkCat(c, v);'
-    function checkCat(c: Cat, s?: VetID);
+    interface GuideStep {
+        id: string;
+        guideId: string;
+        type: string;
+        elementPathRule: string;
+        contentType: string;
+        contentUrl?: string;
+        contentUrlCss?: string;
+        contentUrlJs?: string;
+        rank: number;
+        advanceMethod: "button" | "programatic" /* sic */ | "element";
+        thumbnailUrls?: string;
+        attributes: {
+            height: number;
+            width: number;
+            autoHeight: boolean;
+            position: string;
+            css: string;
+            variables: any;
+        };
+        lastUpdatedAt: number;
+        resetAt: number;
+    }
 }
+
+declare const pendo: pendo.Pendo;
