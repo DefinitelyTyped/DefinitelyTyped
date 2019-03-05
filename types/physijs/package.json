@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "three": "^0.102.0"
+        "@types/three": "^0.93.25"
     }
 }
