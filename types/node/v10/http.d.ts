@@ -154,6 +154,7 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
+        readonly path: string;
         abort(): void;
         onSocket(socket: net.Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
