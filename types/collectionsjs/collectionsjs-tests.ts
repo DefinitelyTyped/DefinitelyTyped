@@ -38,7 +38,7 @@ collection.has({ name: 'Bran Stark', age: 7 }); // $ExpectType boolean
 collection.join(); // $ExpectType string
 collection.keys(); // $ExpectType Collection<{ name: string; age: number; }>
 collection.last(); // $ExpectType { name: string; age: number; }
-collection.map(stark => stark.name); // $ExpectType Collection<{ name: string; age: number; }>
+collection.map(stark => stark.name); // $ExpectType Collection<string>
 collection.pluck('name'); // $ExpectType Collection<{ name: string; age: number; }>
 collection.push({name: 'Robb Stark', age: 17}); // $ExpectType Collection<{ name: string; age: number; }>
 const value = new Collection([1, 2, 3]).reduce((previous, current) => previous + current, 0); // $ExpectType number
