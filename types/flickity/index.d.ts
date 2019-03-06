@@ -67,9 +67,6 @@ declare namespace Flickity {
          * Triggered after a background image has been loaded with bgLazyLoad.
          */
         "bgLazyLoad";
-
-        
-
     interface Options {
         /**
          * Specify selector for cell elements. cellSelector is useful if you have other elements in your gallery elements that are not cells.
@@ -299,48 +296,70 @@ declare namespace Flickity {
             /**
              * Triggered when dragging starts and the slider starts moving.
              */
-            dragStart?: (event?: Event, pointer?: Element | Touch) => void;
+            dragStart?: (
+                event?: Event, 
+                pointer?: Element | Touch) => void;
 
             /**
              * Triggered when dragging moves and the slider moves.
              */
-            dragMove?: (event?: Event, pointer?: Element | Touch, moveVector?: { x: number, y: number }) => void;
+            dragMove?: (
+                event?: Event, 
+                pointer?: Element | Touch, 
+                moveVector?: { x: number, y: number }) => void;
 
             /**
              * Triggered when dragging ends.
              */
-            dragEnd?: (event: Event, pointer?: Element | Touch) => void;
+            dragEnd?: (
+                event: Event, 
+                pointer?: Element | Touch) => void;
 
             /**
              * Triggered when the user's pointer (mouse, touch, pointer) presses down.
              */
-            pointerDown?: (event: Event, pointer?: Element | Touch) => void;
+            pointerDown?: (
+                event: Event, 
+                pointer?: Element | Touch) => void;
 
             /**
              * Triggered when the user's pointer moves.
              */
-            pointerMove?: (event?: Event, pointer?: Element | Touch, moveVector?: { x: number, y: number }) => void;
+            pointerMove?: (
+                event?: Event, 
+                pointer?: Element | Touch, 
+                moveVector?: { x: number, y: number }) => void;
 
             /**
              * Triggered when the user's pointer unpresses.
              */
-            pointerUp?: (event?: Event, pointer?: Element | Touch) => void;
+            pointerUp?: (
+                event?: Event, 
+                pointer?: Element | Touch) => void;
 
             /**
              * Triggered when the user's pointer is pressed and unpressed and has not moved enough to start dragging.
              * click events are hard to detect with draggable UI, as they are triggered whenever a user drags. Flickity's staticClick event resolves this, as it is triggered when the user has not dragged.
              */
-            staticClick?: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: Number) => void;
+            staticClick?: (
+                event?: Event, 
+                pointer?: Element | Touch, 
+                cellElement?: Element, 
+                cellIndex?: Number) => void;
 
             /**
              * Triggered after an image has been loaded with lazyLoad.
              */
-            lazyLoad?: (event?: Event, cellElement?: Element) => void;
+            lazyLoad?: (
+                event?: Event, 
+                cellElement?: Element) => void;
 
             /**
              * Triggered after a background image has been loaded with bgLazyLoad.
              */
-            bgLazyLoad?: (event?: Event, element?: Element) => void;
+            bgLazyLoad?: (
+                event?: Event, 
+                element?: Element) => void;
 
             /**
              * Triggered after entering or exiting fullscreen view.
@@ -348,7 +367,6 @@ declare namespace Flickity {
             fullscreenChange?: (isFullscreen?: Boolean) => void;
         };
     }
-
 }
 
 declare class Flickity {
