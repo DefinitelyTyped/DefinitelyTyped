@@ -18,6 +18,7 @@
 //                 Jonathan Cardoso <https://github.com/JCMais>
 //                 Pavel Lang <https://github.com/langpavel>
 //                 Mark Caudill <https://github.com/mc0>
+//                 Martijn Walraven <https://github.com/martijnwalraven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
