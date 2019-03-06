@@ -178,7 +178,7 @@ declare module "net" {
         listen(options: ListenOptions, listeningListener?: Function): this;
         listen(handle: any, backlog?: number, listeningListener?: Function): this;
         listen(handle: any, listeningListener?: Function): this;
-        close(callback?: Function): this;
+        close(callback?: (err?: Error) => void): this;
         address(): AddressInfo | string | null;
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;
