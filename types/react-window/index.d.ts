@@ -1,7 +1,8 @@
-// Type definitions for react-window 1.5
+// Type definitions for react-window 1.6
 // Project: https://github.com/bvaughn/react-window/, http://react-window.now.sh
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Alex Guerra <https://github.com/heyimalex>
+//                 Manuel Alabor <https://github.com/swissmanu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -19,18 +20,18 @@ export type Direction = "vertical" | "horizontal";
 export type ScrollDirection = "forward" | "backward";
 export type Align = "auto" | "center" | "end" | "start";
 
-export interface ListChildComponentProps {
+export interface ListChildComponentProps<T = {}> {
     index: number;
     style: CSSProperties;
-    data: any;
+    data: T;
     isScrolling?: boolean;
 }
 
-export interface GridChildComponentProps {
+export interface GridChildComponentProps<T = {}> {
     columnIndex: number;
     rowIndex: number;
     style: CSSProperties;
-    data: any;
+    data: T;
     isScrolling?: boolean;
 }
 
@@ -41,7 +42,7 @@ export type ReactElementType =
     | ComponentClass<any>
     | string;
 
-export interface CommonProps {
+export interface CommonProps<T> {
     /**
      * Optional CSS class to attach to outermost <div> element.
      */
@@ -65,7 +66,7 @@ export interface CommonProps {
      *
      * Item data is useful for item renderers that are class components.
      */
-    itemData?: any;
+    itemData?: T;
     /**
      * Tag name passed to document.createElement to create the outer container element. This is an advanced property; in most cases, the default ("div") should be used.
      */
@@ -92,7 +93,7 @@ export interface CommonProps {
     useIsScrolling?: boolean;
 }
 
-export type ListItemKeySelector = (index: number, data: any) => Key;
+export type ListItemKeySelector<T = {}> = (index: number, data: T) => Key;
 
 export interface ListOnItemsRenderedProps {
     overscanStartIndex: number;
@@ -107,13 +108,13 @@ export interface ListOnScrollProps {
     scrollUpdateWasRequested: boolean;
 }
 
-export interface ListProps extends CommonProps {
+export interface ListProps<T = {}> extends CommonProps<T> {
     /**
      * React component responsible for rendering the individual item specified by an index prop. This component also receives a style prop (used for positioning).
      *
      * If useIsScrolling is enabled for the list, the component also receives an additional isScrolling boolean prop.
      */
-    children: ComponentType<ListChildComponentProps>;
+    children: ComponentType<ListChildComponentProps<T>>;
     /**
      * Height of the list.
      *
@@ -157,7 +158,7 @@ export interface ListProps extends CommonProps {
      *
      * If your list does not satisfy the above constraints, use the itemKey property to specify your own keys for items
      */
-    itemKey?: ListItemKeySelector;
+    itemKey?: ListItemKeySelector<T>;
     /**
      * The number of items (rows or columns) to render outside of the visible area. This property can be important for two reasons:
      *
@@ -170,17 +171,17 @@ export interface ListProps extends CommonProps {
     /**
      * Called when the items rendered by the list change.
      */
-    onItemsRendered?: (props: ListOnItemsRenderedProps) => any;
+    onItemsRendered?: (props: ListOnItemsRenderedProps) => void;
     /**
      * Called when the list scroll positions changes, as a result of user scrolling or scroll-to method calls.
      */
-    onScroll?: (props: ListOnScrollProps) => any;
+    onScroll?: (props: ListOnScrollProps) => void;
 }
 
-export type GridItemKeySelector = (params: {
+export type GridItemKeySelector<T = {}> = (params: {
     columnIndex: number;
     rowIndex: number;
-    data: any;
+    data: T;
 }) => Key;
 
 export interface GridOnItemsRenderedProps {
@@ -202,13 +203,13 @@ export interface GridOnScrollProps {
     verticalScrollDirection: ScrollDirection;
 }
 
-export interface GridProps extends CommonProps {
+export interface GridProps<T> extends CommonProps<T> {
     /**
      * React component responsible for rendering the individual item specified by an index prop. This component also receives a style prop (used for positioning).
      *
      * If useIsScrolling is enabled for the list, the component also receives an additional isScrolling boolean prop.
      */
-    children: ComponentType<GridChildComponentProps>;
+    children: ComponentType<GridChildComponentProps<T>>;
     /**
      * Number of columns in the grid. Note that only a few columns will be rendered and displayed at a time.
      */
@@ -233,15 +234,15 @@ export interface GridProps extends CommonProps {
      *
      * If your grid does not satisfy the above constraints, use the itemKey property to specify your own keys for items.
      */
-    itemKey?: GridItemKeySelector;
+    itemKey?: GridItemKeySelector<T>;
     /**
      * Called when the items rendered by the grid change.
      */
-    onItemsRendered?: (props: GridOnItemsRenderedProps) => any;
+    onItemsRendered?: (props: GridOnItemsRenderedProps) => void;
     /**
      * Called when the grid scroll positions changes, as a result of user scrolling or scroll-to method calls.
      */
-    onScroll?: (props: GridOnScrollProps) => any;
+    onScroll?: (props: GridOnScrollProps) => void;
     /**
      * The number of columns to render outside of the visible area. This property can be important for two reasons:
      *
@@ -281,14 +282,14 @@ export interface GridProps extends CommonProps {
     width: number;
 }
 
-export interface FixedSizeListProps extends ListProps {
+export interface FixedSizeListProps<T = {}> extends ListProps<T> {
     /**
      * Size of a item in the direction being windowed. For vertical lists, this is the row height. For horizontal lists, this is the column width.
      */
     itemSize: number;
 }
 
-export interface VariableSizeListProps extends ListProps {
+export interface VariableSizeListProps<T = {}> extends ListProps<T> {
     /**
      * Estimated size of a item in the direction being windowed. For vertical lists, this is the row height. For horizontal lists, this is the column width.
      *
@@ -302,7 +303,7 @@ export interface VariableSizeListProps extends ListProps {
     itemSize: (index: number) => number;
 }
 
-export interface FixedSizeGridProps extends GridProps {
+export interface FixedSizeGridProps<T = {}> extends GridProps<T> {
     /**
      * Width of an individual column within the grid.
      */
@@ -313,7 +314,7 @@ export interface FixedSizeGridProps extends GridProps {
     rowHeight: number;
 }
 
-export interface VariableSizeGridProps extends GridProps {
+export interface VariableSizeGridProps<T = {}> extends GridProps<T> {
     /**
      * Returns the width of the specified column.
      */
@@ -338,7 +339,7 @@ export interface VariableSizeGridProps extends GridProps {
     rowHeight: (index: number) => number;
 }
 
-export class FixedSizeList extends Component<FixedSizeListProps> {
+export class FixedSizeList<T> extends Component<FixedSizeListProps<T>> {
     /**
      * Scroll to the specified offset (scrollTop or scrollLeft, depending on the direction prop).
      */
@@ -357,7 +358,7 @@ export class FixedSizeList extends Component<FixedSizeListProps> {
     scrollToItem(index: number, align?: Align): void;
 }
 
-export class VariableSizeList extends Component<VariableSizeListProps> {
+export class VariableSizeList<T> extends Component<VariableSizeListProps<T>> {
     /**
      * Scroll to the specified offset (scrollTop or scrollLeft, depending on the direction prop).
      */
@@ -386,7 +387,7 @@ export class VariableSizeList extends Component<VariableSizeListProps> {
     resetAfterIndex(index: number, shouldForceUpdate: boolean): void;
 }
 
-export class FixedSizeGrid extends Component<FixedSizeGridProps> {
+export class FixedSizeGrid<T> extends Component<FixedSizeGridProps<T>> {
     /**
      * Scroll to the specified offsets.
      */
@@ -409,7 +410,7 @@ export class FixedSizeGrid extends Component<FixedSizeGridProps> {
     }): void;
 }
 
-export class VariableSizeGrid extends Component<VariableSizeGridProps> {
+export class VariableSizeGrid<T> extends Component<VariableSizeGridProps<T>> {
     /**
      * Scroll to the specified offsets.
      */
