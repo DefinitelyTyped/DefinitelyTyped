@@ -54,11 +54,13 @@ declare namespace LinkifyIt {
         tlds(list: string | string[], keepOld?: boolean): LinkifyIt;
     }
 
+    interface PrivateRegExp {
+        [key: string]: string | RegExp;
+    }
+
     // https://github.com/markdown-it/linkify-it/blob/master/lib/re.js
     interface PrivateLinkifyIt extends LinkifyIt {
-        re: {
-            [key: string]: string | RegExp;
-        }
+        re: PrivateRegExp;
     }
 }
 
