@@ -15,6 +15,7 @@ export interface RenderProps<T> {
   response: Response | null;
   url: string;
   data: T | null;
+  doFetch: (options?: FetchRequestProps) => Promise<void>;
 }
 
 export interface FetchRequestProps extends RequestInit {
