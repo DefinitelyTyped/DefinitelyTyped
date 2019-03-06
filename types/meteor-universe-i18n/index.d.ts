@@ -1,4 +1,4 @@
-// Type definitions for https://github.com/vazco/meteor-universe-i18n 1.14
+// Type definitions for non-npm package https://github.com/vazco/meteor-universe-i18n 1.14
 // Project: meteor-universe-i18n
 // Definitions by: Mathias Scherer <https://github.com/mathewmeconry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -65,6 +65,7 @@ declare module "meteor/universe:i18n" {
 
         // events
         function onChangeLocale(callback: (locale: string) => void): void;
+        function offChangeLocale(callback: (locale: string) => void): void;
     }
 
     interface ReactComponentProps {

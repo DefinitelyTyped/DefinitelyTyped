@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.2
+// Type definitions for Cytoscape.js 3.3
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
@@ -463,6 +463,27 @@ declare namespace cytoscape {
          * Ends batching manually (useful for asynchronous cases).
          */
         endBatch(): void;
+
+        /**
+         * Attaches the instance to the specified container for visualisation.
+         * http://js.cytoscape.org/#cy.mount
+         *
+         * If the core instance is headless prior to calling cy.mount(), then
+         * the instance will no longer be headless and the visualisation will
+         * be shown in the specified container. If the core instance is
+         * non-headless prior to calling cy.mount(), then the visualisation
+         * is swapped from the prior container to the specified container.
+         */
+        mount(element: Element): void;
+
+        /**
+         * Remove the instance from its current container.
+         * http://js.cytoscape.org/#cy.unmount
+         *
+         * This function sets the instance to be headless after unmounting from
+         * the current container.
+         */
+        unmount(): void;
 
         /**
          * A convenience function to explicitly destroy the Core.

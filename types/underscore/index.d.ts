@@ -2,6 +2,7 @@
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>, Cassey Lottman <https://github.com/clottman>, Ard Timmerman <https://github.com/confususs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare var _: _.UnderscoreStatic;
 export = _;
@@ -553,8 +554,12 @@ declare module _ {
         * @param propertyName The property to look for on each element within `list`.
         * @return The list of elements within `list` that have the property `propertyName`.
         **/
-        pluck<T extends {}>(
+        pluck<T extends {}, K extends keyof T>(
             list: _.List<T>,
+            propertyName: K): T[K][];
+
+        pluck(
+            list: _.List<any>,
             propertyName: string): any[];
 
         /**

@@ -1,11 +1,12 @@
 // Type definitions for react-relay 1.3
-// Project: https://github.com/facebook/relay
+// Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 //                 Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Nicolas Pirotte <https://github.com/npirotte>
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Kaare Hoff Skovgaard <https://github.com/kastermester>
+//                 Matt Krick <https://github.com/mattkrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -91,9 +92,10 @@ export const graphql: GraphqlInterface;
 
 export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase = RelayRuntimeTypes.OperationDefaults> {
     cacheConfig?: RelayRuntimeTypes.CacheConfig;
+    dataFrom?: "NETWORK_ONLY"|"STORE_THEN_NETWORK";
     environment: RelayRuntimeTypes.Environment;
     query?: RelayRuntimeTypes.GraphQLTaggedNode | null;
-    render(readyState: ReadyState<T["response"]>): React.ReactElement<any> | undefined | null;
+    render(readyState: ReadyState<T["response"]>): React.ReactElement | undefined | null;
     variables: T["variables"];
     rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
 }
@@ -130,14 +132,14 @@ export interface PageInfo {
 }
 export interface ConnectionData {
     edges?: ReadonlyArray<any>;
-    pageInfo?: Partial<PageInfo>;
+    pageInfo?: Partial<PageInfo> | null;
 }
 export type RelayPaginationProp = RelayProp & {
     hasMore(): boolean;
     isLoading(): boolean;
     loadMore(
         pageSize: number,
-        callback: (error?: Error) => void,
+        callback?: ((error?: Error) => void) | null,
         options?: RefetchOptions
     ): RelayRuntimeTypes.Disposable | undefined | null;
     refetchConnection(

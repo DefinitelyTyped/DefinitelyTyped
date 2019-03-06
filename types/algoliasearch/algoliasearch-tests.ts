@@ -97,6 +97,7 @@ let _algoliaIndexSettings: IndexSettings = {
   minProximity: 0,
   placeholders: { '': [''] },
   camelCaseAttributes: [''],
+  sortFacetValuesBy: 'count',
 };
 
 let _algoliaQueryParameters: QueryParameters = {
@@ -124,7 +125,7 @@ let _algoliaQueryParameters: QueryParameters = {
   ignorePlurals: false,
   disableTypoToleranceOnAttributes: [''],
   aroundLatLng: '',
-  aroundLatLngViaIP: '',
+  aroundLatLngViaIP: true,
   aroundRadius: 0,
   aroundPrecision: 0,
   minimumAroundRadius: 0,
@@ -150,6 +151,7 @@ let _algoliaQueryParameters: QueryParameters = {
   synonyms: true,
   replaceSynonymsInHighlight: false,
   minProximity: 0,
+  sortFacetValuesBy: 'alpha',
 };
 
 let client: Client = algoliasearch('', '');

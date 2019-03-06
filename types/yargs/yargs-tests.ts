@@ -307,6 +307,84 @@ function Argv$command() {
         .argv;
 }
 
+function Argv$commandModule() {
+    class CommandOne implements yargs.CommandModule {
+        handler(args: yargs.Arguments): void {
+            console.log("one");
+        }
+    }
+
+    const CommandTwo: yargs.CommandModule<{ a: string }, { b: number }> = {
+        builder: yargs => {
+            // $ExpectType: string
+            yargs.argv.a;
+            return yargs.number("b").default("b", parseInt(yargs.argv.a, 10));
+        },
+
+        handler: argv => {
+            // $ExpectType: number
+            argv.b;
+        }
+    };
+
+    class Configure implements yargs.CommandModule<{ verbose: boolean }, { verbose: boolean, key: string, value: boolean }> {
+        command = 'configure <key> [value]';
+        aliases = ['config', 'cfg'];
+        describe = 'Set a config variable';
+
+        builder(yargs: yargs.Argv<{ verbose: boolean }>) {
+            return yargs.positional('key', { default: '' }).positional('value', { default: true });
+        }
+
+        handler(argv: yargs.Arguments<{ verbose: boolean, key: string, value: string | boolean }>) {
+            if (argv.verbose) {
+                console.log(`setting ${argv.key} to ${argv.value}`);
+            }
+        }
+    }
+
+    const Configure2: yargs.CommandModule<{ verbose: boolean }, { verbose: boolean, key: string, value: boolean }> = {
+        command: 'configure <key> [value]',
+        aliases: ['config', 'cfg'],
+        describe: 'Set a config variable',
+
+        builder: yargs => {
+            return yargs.positional('key', { default: '' }).positional('value', { default: true });
+        },
+
+        handler: argv => {
+            if (argv.verbose) {
+                console.log(`setting ${argv.key} to ${argv.value}`);
+            }
+        }
+    };
+
+    const command = 'import-file <file>';
+    const describe = 'run the importer on a single file';
+    const builder = (yargs: yargs.Argv) => {
+        return yargs
+            .positional('file', {
+                describe: 'path to file to import'
+            })
+            .options({
+                cleanDestination: {
+                    boolean: true,
+                    describe: 'Clean the destination folder from previously generated files before proceeding.'
+                }
+            });
+    };
+
+    const commandArgs = builder(yargs).argv;
+
+    // $ExpectType: { [x: string]: unknown; file: unknown; cleanDestination: boolean | undefined; _: string[]; $0: string; }
+    commandArgs;
+
+    // Backwards compatibility with older types
+    const builder2: yargs.CommandBuilder = builder;
+    const commandArgs2: yargs.Arguments = builder(yargs).argv;
+    const commandArgs3: yargs.Arguments = builder2(yargs).argv;
+}
+
 function Argv$completion_sync() {
     const argv = yargs
         .completion('completion', (current, argv) => {

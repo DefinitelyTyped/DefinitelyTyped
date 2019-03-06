@@ -9,7 +9,7 @@ interface Props {
     any?: any;
     array: string[];
     bool: boolean;
-    element: ReactElement<any>;
+    element: ReactElement;
     func(foo: string): void;
     node?: ReactNode;
     requiredNode: NonNullable<ReactNode>;
@@ -34,6 +34,7 @@ interface Props {
     };
     optionalNumber?: number | null;
     customProp?: typeof uniqueType;
+    component: PropTypes.ReactComponentLike;
 }
 
 const innerProps = {
@@ -74,7 +75,8 @@ const propTypes: PropTypesMap = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
-    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
+    component: PropTypes.elementType.isRequired
 };
 
 // JS checking
@@ -100,7 +102,8 @@ const propTypesWithoutAnnotation = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
-    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>,
+    component: PropTypes.elementType.isRequired
 };
 
 const partialPropTypes = {
@@ -150,6 +153,7 @@ type ExtractFromOuterPropsMatch4 = Props extends ExtractedPropsFromOuterPropsWit
 type ExtractPropsMismatch = ExtractedPartialProps extends Props ? true : false;
 
 PropTypes.checkPropTypes({ xs: PropTypes.array }, { xs: [] }, 'location', 'componentName');
+PropTypes.resetWarningCache();
 
 // This would be the type that JSX sees
 type Defaultize<T, D> =

@@ -22,9 +22,9 @@ export interface ReactNativePhotoViewProps {
     onLoad?: () => void;
     onLoadEnd?: () => void;
     onProgress?: (loaded: number, total: number) => void;
-    onTap?: (point: {x: number, y: number}, target?: React.ReactElement<any>) => void;
-    onViewTap?: (point: {x: number, y: number}, target?: React.ReactElement<any>) => void;
-    onScale?: (scale: number, target?: React.ReactElement<any>) => void;
+    onTap?: (point: {x: number, y: number}, target?: React.ReactElement) => void;
+    onViewTap?: (point: {x: number, y: number}, target?: React.ReactElement) => void;
+    onScale?: (scale: number, target?: React.ReactElement) => void;
 }
 
 export default class ReactNativePhotoView extends React.Component<ReactNativePhotoViewProps & ViewProps> {}

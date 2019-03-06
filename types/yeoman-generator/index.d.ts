@@ -1,9 +1,10 @@
-// Type definitions for yeoman-generator 3.0
-// Project: https://github.com/yeoman/generator
+// Type definitions for yeoman-generator 3.1
+// Project: https://github.com/yeoman/generator, http://yeoman.io
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
 //                 Ika <https://github.com/ikatyang>
 //                 Joshua Cherry <https://github.com/tasadar2>
+//                 Arthur Corenzan <https://github.com/haggen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -71,7 +72,7 @@ declare namespace Generator {
         writeJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
         extendJSON(filepath: string, contents: {}, replacer?: (key: string, value: any) => any, space?: number): void;
         delete(filepath: string, options?: {}): void;
-        copy(from: string, to: string, options?: {}): void;
+        copy(from: string, to: string, options?: {}, context?: {}, templateOptions?: {}): void;
         copyTpl(from: string, to: string, context: {}, templateOptions?: {}, copyOptions?: {}): void;
         move(from: string, to: string, options?: {}): void;
         exists(filepath: string): boolean;

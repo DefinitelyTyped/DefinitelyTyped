@@ -5,17 +5,25 @@ function add10(n: number) {
 
 CustomFunctions.associate('ADD10', add10);
 
+CustomFunctions.associate({
+    ADD10: add10,
+    RANDOM: (n: number) => n * Math.random()
+});
+
+function callerAddress(invocation: CustomFunctions.Invocation) {
+    return invocation.address;
+}
+
 async function getStockValues(ticker: string): Promise<number> {
     const response = await fetch(`myService.com/prices/${ticker}`);
     return (await response.json())["price"];
 }
 
-async function getStockValuesCancellable(
-    ticker: string,
-    handler: CustomFunctions.CancelableHandler
-): Promise<number> {
+async function getStockValuesCancellable(ticker: string,
+    invocation: CustomFunctions.CancelableInvocation): Promise<number> {
+    const address = invocation.address;
     let shouldStop = false;
-    handler.onCanceled = () => (shouldStop = true);
+    invocation.onCanceled = () => (shouldStop = true);
     await pause(1000);
 
     if (shouldStop) {
@@ -26,10 +34,9 @@ async function getStockValuesCancellable(
     return (await response.json())["price"];
 }
 
-function stockPriceStream(
-    ticker: string,
-    handler: CustomFunctions.StreamingHandler<number>
-) {
+function stockPriceStream(ticker: string,
+    invocation: CustomFunctions.StreamingInvocation<number>) {
+    const address = invocation.address;
     const updateFrequency = 10 /* milliseconds*/;
     let isPending = false;
 
@@ -44,14 +51,14 @@ function stockPriceStream(
         try {
             const response = await fetch(url);
             const data = await response.json();
-            handler.setResult(data.price);
+            invocation.setResult(data.price);
         } catch (error) {
-            handler.setResult(error);
+            invocation.setResult(error);
         }
         isPending = false;
     }, updateFrequency);
 
-    handler.onCanceled = () => {
+    invocation.onCanceled = () => {
         clearInterval(timer);
     };
 }

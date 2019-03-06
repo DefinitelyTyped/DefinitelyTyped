@@ -1,5 +1,5 @@
 // Type definitions for fetch-mock 7.2
-// Project: https://github.com/wheresrhys/fetch-mock
+// Project: https://github.com/wheresrhys/fetch-mock, http://www.wheresrhys.co.uk/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Tamir Duberstein <https://github.com/tamird>
 //                 Risto Keravuori <https://github.com/merrywhether>
@@ -523,14 +523,83 @@ declare namespace fetchMock {
             options?: InspectionOptions,
         ): MockOptions | undefined;
 
-        /**
-         * Set some global config options, which include
-         * sendAsJson [default `true`] - by default fetchMock will
-         * convert objects to JSON before sending. This is overrideable
-         * for each call but for some scenarios, e.g. when dealing with a
-         * lot of array buffers, it can be useful to default to `false`
-         */
-        configure(opts: {}): void;
+        config: {
+            /**
+             * Convert objects into JSON before delivering as stub reponses.
+             * Can be useful to set to false globally if e.g. dealing with a
+             * lot of array buffers. If true, will also add
+             * content-type: application/json header.
+             * @default true
+             */
+            sendAsJson?: boolean;
+
+            /**
+             * Automatically sets a content-length header on each response.
+             * @default true
+             */
+            includeContentLength?: boolean;
+
+            /**
+             * - true: Unhandled calls fall through to the network
+             * - false: Unhandled calls throw an error
+             * - 'always': All calls fall through to the network, effectively
+             * disabling fetch-mock.
+             * @default false
+             */
+            fallbackToNetwork?: boolean | 'always';
+
+            /**
+             * Determines behaviour if a new route has the same name (or
+             * inferred name) as an existing one
+             * - undefined: An error will be throw when routes clash
+             * - true: Overwrites the existing route
+             * - false: Appends the new route to the list of routes
+             * @default undefined
+             */
+            overwriteRoutes?: boolean;
+
+            /**
+             * Print a warning if any call is caught by a fallback handler (set
+             * using the fallbackToNetwork option or catch())
+             * @default true
+             */
+            warnOnFallback?: boolean;
+
+            /**
+             * Reference to the Promise constructor of a custom Promise
+             * implementation.
+             */
+            Promise?: new (executor: (
+                resolve: () => void,
+                reject: () => void,
+            ) => void) => Promise<Response>;
+
+            /**
+             * Reference to a custom fetch implementation.
+             */
+            fetch?: (
+                input?: string | Request,
+                init?: RequestInit,
+            ) => Promise<Response>;
+
+            /**
+             * Reference to the Headers constructor of a custom fetch
+             * implementation.
+             */
+            Headers?: new () => Headers;
+
+            /**
+             * Reference to the Request constructor of a custom fetch
+             * implementation.
+             */
+            Request?: new (input: string | Request, init?: RequestInit) => Request;
+
+            /**
+             * Reference to the Response constructor of a custom fetch
+             * implementation.
+             */
+            Response?: new () => Response;
+        };
     }
 
     interface FetchMockSandbox extends FetchMockStatic {

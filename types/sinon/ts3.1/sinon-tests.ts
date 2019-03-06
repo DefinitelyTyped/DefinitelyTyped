@@ -1,4 +1,5 @@
 import sinon = require("sinon");
+import Bluebird = require("bluebird");
 
 function testSandbox() {
     const obj = {};
@@ -67,7 +68,7 @@ function testSandbox() {
     sb.replaceSetter(replaceMe, 'setter', (v) => { });
 
     const cls = class {
-        foo(arg1: string, arg2: number) { return 1; }
+        foo(arg1: string, arg2: number): number { return 1; }
         bar: number;
     };
     const PrivateFoo = class {
@@ -87,6 +88,10 @@ function testSandbox() {
     const privateFooFoo: sinon.SinonStub = privateFooStubbedInstance.foo;
     const clsBar: number = stubInstance.bar;
     const privateFooBar: number = privateFooStubbedInstance.bar;
+    sb.createStubInstance(cls, {
+        foo: (arg1: string, arg2: number) => 2,
+        bar: 1
+    });
 }
 
 function testFakeServer() {
@@ -208,6 +213,7 @@ function testMatch() {
     sinon.match.regexp.test('foo');
     sinon.match.date.test('foo');
     sinon.match.symbol.test('foo');
+    sinon.match.in([1, 2, 3]).test(1);
     sinon.match.same(obj);
     sinon.match.typeOf('string').test('foo');
     sinon.match.instanceOf(fn).test('foo');
@@ -327,6 +333,8 @@ function testSpy() {
     const fn = () => { };
     const obj = class {
         foo() { }
+        set bar(val: number) { }
+        get bar() { return 0; }
     };
     const instance = new obj();
 
@@ -335,6 +343,7 @@ function testSpy() {
 
     spy = sinon.spy(fn);
     spy = sinon.spy(instance, 'foo');
+    spy = sinon.spy(instance, 'bar', ['set', 'get']);
 
     let count = 0;
     count = spy.callCount;
@@ -418,6 +427,7 @@ function testStub() {
     const obj = class {
         foo() { }
         promiseFunc() { return Promise.resolve('foo'); }
+        promiseLikeFunc() { return {} as any as Bluebird<string>; }
     };
     const instance = new obj();
 
@@ -426,9 +436,11 @@ function testStub() {
 
     const spy: sinon.SinonSpy = stub;
 
-    function promiseFunc(n: number) { return Promise.resolve('foo'); }
     const promiseStub = sinon.stub(instance, 'promiseFunc');
     promiseStub.resolves('test');
+
+    const promiseLikeStub = sinon.stub(instance, 'promiseLikeFunc');
+    promiseLikeStub.resolves('test');
 
     sinon.stub(instance);
 

@@ -265,10 +265,28 @@ got('https://todomvc.com', { rejectUnauthorized: false });
 got('/examples/angularjs', { baseUrl: 'http://todomvc.com' });
 got('http://todomvc.com', { headers: { foo: 'bar'} });
 got('http://todomvc.com', { cookieJar: new tough.CookieJar() });
+
+// Test retry options.
 got('http://todomvc.com', { retry: 2 });
-got('http://todomvc.com', { retry: { retries: 2, methods: ['GET'], statusCodes: [408, 504], maxRetryAfter: 1 } });
+got('http://todomvc.com', {
+    retry: {
+        retries: 2,
+        methods: ['GET'],
+        statusCodes: [408, 504],
+        maxRetryAfter: 1,
+        errorCodes: ['ETIMEDOUT']
+    }
+});
+// Test custom retry error code. See https://github.com/sindresorhus/got/blob/9f3a09948ff80057b12af0af60846cc5b8f0372d/test/retry.js#L155
+got('http://todomvc.com', {
+    retry: {
+        retries: 1,
+        methods: ['GET'],
+        errorCodes: ['OH_SNAP']
+    }
+});
+
 got('http://todomvc.com', { throwHttpErrors: false });
-got('http://todomvc.com', { hooks: { beforeRequest: [ () => 'foo']} });
 
 // Test timeout options.
 got('http://todomvc.com', {timeout: 1});
@@ -288,6 +306,15 @@ got('http://todomvc.com', {
 got('http://todomvc.com', {timeout: 1}).catch((err) => err instanceof got.TimeoutError);
 
 // Test hooks.
+got('example.com', {
+    hooks: {
+        beforeRequest: [
+            options => {
+                options.headers!['x-foo'] = 'bar';
+            }
+        ]
+    }
+});
 got('example.com', {
     hooks: {
         beforeRedirect: [
@@ -339,6 +366,11 @@ got('example.com', {
 
     got('example.com', {
         hooks: {
+            beforeRequest: [
+                async () => {
+                    await doSomethingAsync();
+                }
+            ],
             beforeRedirect: [
                 async () => {
                     await doSomethingAsync();

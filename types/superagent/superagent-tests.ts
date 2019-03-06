@@ -83,6 +83,12 @@ request
     .set({ 'API-Key': 'foobar', Accept: 'application/json' })
     .end(callback);
 
+// Setting cookie header
+request
+    .get('/search')
+    .set('Cookie', ['name1=value1; Domain=.test.com; Path=/', 'name2=value2; Domain=.test.com; Path=/'])
+    .end(callback);
+
 // GET requests
 request
     .get('/search')
@@ -196,6 +202,13 @@ request('/search')
         const contentLength = res.header['content-length'];
         const contentType: string = res.type;
         const charset: string = res.charset;
+        const redirects: string[] = res.redirects;
+    });
+
+// Getting response 'Set-Cookie'
+request('/search')
+    .end((res: request.Response) => {
+      const setCookie: string[] = res.get('Set-Cookie');
     });
 
 // Custom parsers

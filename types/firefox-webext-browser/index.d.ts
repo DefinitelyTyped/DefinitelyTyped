@@ -1,4 +1,4 @@
-// Type definitions for WebExtension Development in FireFox 64.0
+// Type definitions for non-npm package WebExtension Development in FireFox 65.0
 // Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
 // Definitions by: Jasmin Bom <https://github.com/jsmnbom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -178,6 +178,8 @@ declare namespace browser._manifest {
                 alternate_urls?: string[];
                 /** @deprecated Unsupported on Firefox. */
                 prepopulated_id?: number;
+                /** Encoding of the search term. */
+                encoding?: string;
                 /** Sets the default engine to a built-in engine only. */
                 is_default?: boolean;
                 /**
@@ -455,14 +457,17 @@ declare namespace browser._manifest {
     interface ThemeType {
         images?: {
             additional_backgrounds?: ImageDataOrExtensionURL[];
+            /** @deprecated Please use _theme.images.theme_frame_, this alias will be removed in Firefox 69. */
             headerURL?: ImageDataOrExtensionURL;
             theme_frame?: ImageDataOrExtensionURL;
         };
         colors?: {
             tab_selected?: ThemeColor;
+            /** @deprecated Please use _theme.colors.frame_, this alias will be removed in Firefox 69. */
             accentcolor?: ThemeColor;
             frame?: ThemeColor;
             frame_inactive?: ThemeColor;
+            /** @deprecated Please use _theme.colors.tab_background_text_, this alias will be removed in Firefox 69. */
             textcolor?: ThemeColor;
             tab_background_text?: ThemeColor;
             tab_background_separator?: ThemeColor;
@@ -470,6 +475,7 @@ declare namespace browser._manifest {
             tab_text?: ThemeColor;
             tab_line?: ThemeColor;
             toolbar?: ThemeColor;
+            /** @deprecated Please use _theme.colors.bookmark_text_, this alias will be removed in Firefox 69. */
             toolbar_text?: ThemeColor;
             bookmark_text?: ThemeColor;
             toolbar_field?: ThemeColor;
@@ -3182,7 +3188,7 @@ declare namespace browser.storage {
      * @param changes Object mapping each key that changed to its corresponding `storage.StorageChange` for that item.
      * @param areaName The name of the storage area (`"sync"`, `"local"` or `"managed"`) the changes are for.
      */
-    const onChanged: WebExtEvent<(changes: StorageChange, areaName: string) => void>;
+    const onChanged: WebExtEvent<(changes: {[key: string]: StorageChange}, areaName: string) => void>;
 }
 
 /**
@@ -3535,11 +3541,6 @@ declare namespace browser.userScripts {
         unregister(): Promise<any>;
     }
 
-    /** A set of API methods provided by the extensions to its userScripts */
-    interface ExportedAPIMethods {
-        [key: string]: (...args: any[]) => any;
-    }
-
     /* userScripts functions */
     /**
      * Register a user script programmatically given its `userScripts.UserScriptOptions`, and resolves to a
@@ -3547,12 +3548,28 @@ declare namespace browser.userScripts {
      */
     function register(userScriptOptions: UserScriptOptions): Promise<RegisteredUserScript>;
 
+    /* userScripts events */
     /**
-     * Provides a set of custom API methods available to the registered userScripts
+     * Event called when a new userScript global has been created
      *
      * Allowed in: Content scripts only
      */
-    function setScriptAPIs(exportedAPIMethods: ExportedAPIMethods): void;
+    const onBeforeScript: WebExtEvent<(userScript: {
+        /** The userScript metadata (as set in userScripts.register) */
+        metadata: any;
+        /** The userScript global */
+        global: any;
+        /**
+         * Exports all the properties of a given plain object as userScript globals
+         * @param sourceObject A plain object whose properties are exported as userScript globals
+         */
+        defineGlobals: (sourceObject: object) => void;
+        /**
+         * Convert a given value to make it accessible to the userScript code
+         * @param value A value to convert into an object accessible to the userScript
+         */
+        export: (value: any) => any;
+    }) => void>;
 }
 
 /**
@@ -5570,16 +5587,24 @@ declare namespace browser.geckoProfiler {
         | "stackwalk"
         | "tasktracer"
         | "threads"
-        | "trackopts";
+        | "trackopts"
+        | "jstracer";
+
+    type Supports = "windowLength";
 
     /* geckoProfiler functions */
     /** Starts the profiler with the specified settings. */
     function start(settings: {
         /**
-         * The size in bytes of the buffer used to store profiling data. A larger value allows capturing a profile that
-         * covers a greater amount of time.
+         * The maximum size in bytes of the buffer used to store profiling data. A larger value allows capturing a
+         * profile that covers a greater amount of time.
          */
         bufferSize: number;
+        /**
+         * The length of the window of time that's kept in the buffer. Any collected samples are discarded as soon as
+         * they are older than the number of seconds specified in this setting. Zero means no duration restriction.
+         */
+        windowLength?: number;
         /**
          * Interval in milliseconds between samples of profiling data. A smaller value will increase the detail of the
          * profiles captured.
@@ -5821,6 +5846,8 @@ declare namespace browser.contextMenus {
          * context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string;
+        /** The id of the frame of the element where the context menu was clicked. */
+        frameId?: number;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
         frameUrl?: string;
         /** The text for the context selection, if any. */
@@ -6100,6 +6127,8 @@ declare namespace browser.menus {
          * context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string;
+        /** The id of the frame of the element where the context menu was clicked. */
+        frameId?: number;
         /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
         frameUrl?: string;
         /** The text for the context selection, if any. */
@@ -6939,6 +6968,8 @@ declare namespace browser.tabs {
         sharingState?: SharingState;
         /** Whether the tab is drawing attention. */
         attention?: boolean;
+        /** The ID of this tab's successor, if any; `tabs.TAB_ID_NONE` otherwise. */
+        successorTabId?: number;
     }
 
     /**
@@ -7320,6 +7351,10 @@ declare namespace browser.tabs {
         openerTabId?: number;
         /** Whether the load should replace the current history entry for the tab. */
         loadReplace?: boolean;
+        /**
+         * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
+         */
+        successorTabId?: number;
     }): Promise<Tab | undefined>;
     /**
      * Modifies the properties of a tab. Properties that are not specified in `updateProperties` are not modified.
@@ -7349,6 +7384,10 @@ declare namespace browser.tabs {
         openerTabId?: number;
         /** Whether the load should replace the current history entry for the tab. */
         loadReplace?: boolean;
+        /**
+         * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
+         */
+        successorTabId?: number;
     }): Promise<Tab | undefined>;
 
     /**
@@ -7517,6 +7556,29 @@ declare namespace browser.tabs {
      */
     function hide(tabIds: number | number[]): Promise<number[]>;
 
+    /**
+     * Removes an array of tabs from their lines of succession and prepends or appends them in a chain to another tab.
+     * @param tabIds An array of tab IDs to move in the line of succession. For each tab in the array, the tab's
+     *     current predecessors will have their successor set to the tab's current successor, and each tab will then be
+     *     set to be the successor of the previous tab in the array. Any tabs not in the same window as the tab
+     *     indicated by the second argument (or the first tab in the array, if no second argument) will be skipped.
+     * @param [tabId] The ID of a tab to set as the successor of the last tab in the array, or `tabs.TAB_ID_NONE` to
+     *     leave the last tab without a successor. If options.append is true, then this tab is made the predecessor of
+     *     the first tab in the array instead.
+     */
+    function moveInSuccession(tabIds: number[], tabId?: number, options?: {
+        /** Whether to move the tabs before (false) or after (true) tabId in the succession. Defaults to false. */
+        append?: boolean;
+        /**
+         * Whether to link up the current predecessors or successor (depending on options.append) of tabId to the other
+         * side of the chain after it is prepended or appended. If true, one of the following happens: if
+         * options.append is false, the first tab in the array is set as the successor of any current predecessors of
+         * tabId; if options.append is true, the current successor of tabId is set as the successor of the last tab in
+         * the array. Defaults to false.
+         */
+        insert?: boolean;
+    }): Promise<any>;
+
     /* tabs events */
     /**
      * Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired, but you can
@@ -7571,6 +7633,8 @@ declare namespace browser.tabs {
     const onActivated: WebExtEvent<(activeInfo: {
         /** The ID of the tab that has become active. */
         tabId: number;
+        /** The ID of the tab that was previously active, if that tab is still open. */
+        previousTabId?: number;
         /** The ID of the window the active tab changed inside of. */
         windowId: number;
     }) => void>;

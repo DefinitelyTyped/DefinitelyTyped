@@ -1,5 +1,5 @@
 // Type definitions for mongoose-paginate-v2 1.0
-// Project: https://github.com/aravindnc/mongoose-paginate-v2
+// Project: https://github.com/webgangster/mongoose-paginate-v2
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 //                 simonxca <https://github.com/simonxca>
 //                 woutgg <https://github.com/woutgg>
@@ -57,4 +57,5 @@ declare module 'mongoose' {
 }
 
 import mongoose = require('mongoose');
-export function _(schema: mongoose.Schema): void;
+declare function _(schema: mongoose.Schema): void;
+export = _;

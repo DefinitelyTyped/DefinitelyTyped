@@ -1,4 +1,4 @@
-// Type definitions for slate-react 0.20
+// Type definitions for slate-react 0.21
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -8,6 +8,7 @@
 //                 Irwan Fario Subastian <https://github.com/isubasti>
 //                 Hanna Greaves <https://github.com/sgreav>
 //                 Francesco Agnoletto <https://github.com/Kornil>
+//                 Jack Allen <https://github.com/jackall3n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import {
@@ -61,11 +62,6 @@ export interface RenderNodeProps {
   readOnly: boolean;
 }
 
-export interface RenderPlaceholderProps {
-    editor: CoreEditor;
-    readOnly: boolean;
-}
-
 export type EventHook = (
     event: Event,
     editor: CoreEditor,
@@ -77,7 +73,6 @@ export interface Plugin {
     renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
     renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;
     renderNode?: (props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
-    renderPlaceholder?: (props: RenderPlaceholderProps, editor: CoreEditor, next: () => any) => any;
     shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
 
     onBeforeInput?: EventHook;
@@ -289,7 +284,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveToStartOfPreviousText: CoreEditor['moveToStartOfPreviousText'];
     moveToStartOfText: CoreEditor['moveToStartOfText'];
     moveToRangeOfDocument: CoreEditor['moveToRangeOfDocument'];
-    moveToRangeOf: CoreEditor['moveToRangeOf'];
+    moveToRangeOfNode: CoreEditor['moveToRangeOfNode'];
     select: CoreEditor['select'];
     addMarkAtRange: CoreEditor['addMarkAtRange'];
     deleteAtRange: CoreEditor['deleteAtRange'];

@@ -1,5 +1,5 @@
 // Type definitions for D3JS d3-array module 1.2
-// Project: https://github.com/d3/d3-array
+// Project: https://github.com/d3/d3-array, https://d3js.org/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Tom Wanzek <https://github.com/tomwanzek>
@@ -181,7 +181,7 @@ export function ascending(a: Primitive | undefined, b: Primitive | undefined): n
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
- * Compares two primitive values for sorting (in ascending order).
+ * Compares two primitive values for sorting (in descending order).
  */
 export function descending(a: Primitive | undefined, b: Primitive | undefined): number;
 

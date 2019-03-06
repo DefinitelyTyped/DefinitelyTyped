@@ -1,6 +1,7 @@
 import { baseComponent, baseComponentEventMap, baseComponentSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
 export interface ojDialog extends baseComponent<ojDialogSettableProperties> {
     cancelBehavior: 'icon' | 'escape' | 'none';
+    dialogTitle: string | null;
     dragAffordance: 'title-bar' | 'none';
     initialVisibility: 'hide' | 'show';
     modality: 'modal' | 'modeless';
@@ -11,6 +12,7 @@ export interface ojDialog extends baseComponent<ojDialogSettableProperties> {
         labelCloseIcon?: string;
     };
     onCancelBehaviorChanged: ((event: JetElementCustomEvent<ojDialog["cancelBehavior"]>) => any) | null;
+    onDialogTitleChanged: ((event: JetElementCustomEvent<ojDialog["dialogTitle"]>) => any) | null;
     onDragAffordanceChanged: ((event: JetElementCustomEvent<ojDialog["dragAffordance"]>) => any) | null;
     onInitialVisibilityChanged: ((event: JetElementCustomEvent<ojDialog["initialVisibility"]>) => any) | null;
     onModalityChanged: ((event: JetElementCustomEvent<ojDialog["modality"]>) => any) | null;
@@ -124,6 +126,7 @@ export interface ojDialogEventMap extends baseComponentEventMap<ojDialogSettable
     'ojResizeStart': ojDialog.ojResizeStart;
     'ojResizeStop': ojDialog.ojResizeStop;
     'cancelBehaviorChanged': JetElementCustomEvent<ojDialog["cancelBehavior"]>;
+    'dialogTitleChanged': JetElementCustomEvent<ojDialog["dialogTitle"]>;
     'dragAffordanceChanged': JetElementCustomEvent<ojDialog["dragAffordance"]>;
     'initialVisibilityChanged': JetElementCustomEvent<ojDialog["initialVisibility"]>;
     'modalityChanged': JetElementCustomEvent<ojDialog["modality"]>;
@@ -133,6 +136,7 @@ export interface ojDialogEventMap extends baseComponentEventMap<ojDialogSettable
 }
 export interface ojDialogSettableProperties extends baseComponentSettableProperties {
     cancelBehavior: 'icon' | 'escape' | 'none';
+    dialogTitle: string | null;
     dragAffordance: 'title-bar' | 'none';
     initialVisibility: 'hide' | 'show';
     modality: 'modal' | 'modeless';

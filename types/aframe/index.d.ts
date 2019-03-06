@@ -358,7 +358,7 @@ export interface Utils {
 
 // Definitions
 // used as mixins to register functions to create classes (newable functions) in A-Frame
-export type ComponentDefinition<T extends object = object> = T & Partial<Component>;
+export type ComponentDefinition<T extends object = object> = T & Partial<Component> & ThisType<T & Component>;
 export type GeometryDefinition<T extends object = object, U = any> = T & Partial<Geometry<U>>;
 export type NodeDefinition<T extends object = object> = T & Partial<ANode>;
 export interface PrimitiveDefinition {

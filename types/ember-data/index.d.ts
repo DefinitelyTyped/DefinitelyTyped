@@ -543,8 +543,9 @@ export namespace DS {
          * invoking the callback with the name of each relationship and its relationship
          * descriptor.
          */
-        eachRelationship(
-            callback: (name: string, details: RelationshipMeta<this>) => void,
+        eachRelationship<T extends Model>(
+            this: T,
+            callback: (name: string, details: RelationshipMeta<T>) => void,
             binding?: any
         ): any;
         /**

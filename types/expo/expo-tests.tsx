@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, AccessibilityInfo } from 'react-native';
+import { Text } from 'react-native';
 
 import {
     Accelerometer,
@@ -47,6 +47,7 @@ import {
     Region,
     registerRootComponent,
     ScreenOrientation,
+    SecureStore,
     Svg,
     Updates
 } from 'expo';
@@ -153,7 +154,6 @@ Audio.setAudioModeAsync({
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
     allowsRecordingIOS: true,
-    playThroughEarpieceAndroid: false
 });
 Audio.setIsEnabledAsync(true);
 
@@ -232,7 +232,7 @@ Audio.RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE === 3;
 Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
-    const result = await Audio.Sound.create({uri: 'uri'}, {
+    const result = await Audio.Sound.createAsync({uri: 'uri'}, {
         volume: 0.55,
         rate: 16.5
     }, null, true);
@@ -267,7 +267,7 @@ const barcodeReadCallback = () => {};
         type="front"
         torchMode="off"
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
-        onBarCodeRead={barcodeReadCallback} />
+        onBarCodeScanned={barcodeReadCallback} />
 );
 
 () => (
@@ -407,11 +407,12 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', [
+    const result = await ImageManipulator.manipulateAsync('url', [
         { rotate: 90 },
         { resize: { width: 300 } },
         { resize: { height: 300 } },
         { resize: { height: 300, width: 300 } },
+        { crop: { originX: 0, originY: 0, height: 300, width: 300 } }
     ], {
         compress: 0.75
     });
@@ -483,6 +484,30 @@ async () => {
     isString(path2);
     isString(queryParams2['y'] || '');
 };
+
+// #region securestore
+async () => {
+    await SecureStore.setItemAsync('some-key', 'some-val', {
+        keychainService: "some-service",
+        keychainAccessible: SecureStore.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
+    });
+    const result = await SecureStore.getItemAsync('some-key', { keychainService: "some-service" });
+    if (result != null) {
+        result.slice() === 'some-val';
+    }
+    await SecureStore.deleteItemAsync('some-key', { keychainService: "some-service" });
+};
+
+const allSecureStoreKeychainAccessibleValues: number[] = [
+    SecureStore.WHEN_UNLOCKED,
+    SecureStore.AFTER_FIRST_UNLOCK,
+    SecureStore.ALWAYS,
+    SecureStore.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
+    SecureStore.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
+    SecureStore.AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY,
+    SecureStore.ALWAYS_THIS_DEVICE_ONLY,
+];
+// #endregion
 
 () => (
     <Svg width={100} height={50}>
@@ -938,7 +963,7 @@ const userLocationCallback = (event: EventUserLocation) =>  console.log(event);
 // #endregion
 
 async () => {
-    const updateEventListener: Updates.UpdateEventListener = ({ type, manifest, message }) => {
+    const updateEventListener: Updates.UpdateEventListener = ({ type }) => {
         switch (type) {
             case Updates.EventType.DOWNLOAD_STARTED:
             case Updates.EventType.DOWNLOAD_PROGRESS:

@@ -1,5 +1,5 @@
 // Type definitions for ali-oss 6.0
-// Project: https://github.com/ali-sdk/ali-oss
+// Project: https://github.com/aliyun/oss-nodejs-sdk
 // Definitions by: Ptrdu <https://github.com/ptrdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -18,6 +18,7 @@ declare namespace OSS {
         internal?: boolean; //  access OSS with aliyun internal network or not, default is false. If your servers are running on aliyun too, you can set true to save lot of money.
         secure?: boolean; // instruct OSS client to use HTTPS (secure: true) or HTTP (secure: false) protocol.
         timeout?: string | number; // instance level timeout for all operations, default is 60s
+        cname?: boolean; // use custom domain name
     }
 
     interface Bucket {
@@ -29,7 +30,7 @@ declare namespace OSS {
 
     type StorageType = "Standard" | "IA" | "Archive";
 
-    type ACLType = "public-read-write" | "public-read" | "and private";
+    type ACLType = "public-read-write" | "public-read" | "private";
 
     type HTTPMethods = "GET" | "POST" | "DELETE" | "PUT";
 
@@ -174,6 +175,7 @@ declare namespace OSS {
         mime?: string; // custom mime, will send with Content-Type entity header
         meta?: UserMeta; // user meta, will send with x-oss-meta- prefix string e.g.: { uid: 123, pid: 110 }
         callback: ObjectCallback;
+        headers?: object;
     }
 
     interface PutObjectResult {
@@ -188,6 +190,7 @@ declare namespace OSS {
         mime: string; // custom mime, will send with Content-Type entity header
         meta: UserMeta;
         callback: ObjectCallback;
+        headers?: object;
     }
 
     interface AppendObjectOptions {

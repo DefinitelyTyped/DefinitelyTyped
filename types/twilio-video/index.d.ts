@@ -1,5 +1,5 @@
 // Type definitions for twilio-video 2.0
-// Project: https://twilio.com/video
+// Project: https://twilio.com/video, https://twilio.com
 // Definitions by: MindDoc <https://github.com/minddocdev>, Darío Blanco <https://github.com/darioblanco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -404,7 +404,7 @@ export class TrackNameTooLongError extends TwilioError {
     code: 53302;
     message: 'Track name is too long';
 }
-export class TrackPublication {
+export class TrackPublication extends EventEmitter {
     trackName: string;
     trackSid: Track.SID;
 }

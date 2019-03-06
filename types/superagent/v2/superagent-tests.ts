@@ -181,6 +181,7 @@ request('/search')
     const contentLength = res.header['content-length'];
     const contentType: string = res.type;
     const charset: string = res.charset;
+    const redirects: string[] = res.redirects;
   });
 
 // Custom parsers

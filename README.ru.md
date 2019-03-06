@@ -8,7 +8,7 @@
 
 Также посетите веб-сайт [definitelytyped.org](http://definitelytyped.org), хотя информация в этом README более свежая.
 
-*Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md) and [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md).*
+*Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md) и [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md).*
 
 ## Что такое файлы декларации (файлы описания/объявления типов)?
 
@@ -101,9 +101,9 @@ DefinitelyTyped работает только благодаря вкладу т
   //                 John <https://github.com/john>
   ```
 
-* Если есть `tslint.json`, запустите `npm run lint package-name`. В противном случае запустите `tsc` in в директории пакета.
+* Если есть `tslint.json`, запустите `npm run lint package-name`. В противном случае запустите `tsc` в директории пакета.
 
-Когда вы создаете PR для редактирования существующего пакета, `dt-bot` должен @-уведомить previous authors.
+Когда вы создаете PR для редактирования существующего пакета, `dt-bot` должен @-уведомить
 предыдущих авторов. Если этого не произойдет, вы можете сделать это самостоятельно в комментарии, связанном с PR.
 
 
@@ -124,7 +124,7 @@ DefinitelyTyped работает только благодаря вкладу т
 | tsconfig.json | Позволяет вам запускать `tsc` внутри пакета.                                                         |
 | tslint.json   | Включает linting.                                                                                    |
 
-Создайте их, запустив `npx dts-gen --dt --name my-package-name --template module` если у вас ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name my-package-name --template module` в противном случае.
+Создайте их, запустив `npx dts-gen --dt --name my-package-name --template module` если у вас npm ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name my-package-name --template module` в противном случае.
 Посмотреть все варианты на [dts-gen](https://github.com/Microsoft/dts-gen).
 
 Вы можете отредактировать `tsconfig.json` чтобы добавить новые файлы, добавить `"target": "es6"` (необходимо для асинхронных функций), добавить в `"lib"`, или добавить опцию компилятора `"jsx"`.
@@ -283,7 +283,7 @@ f("one");
         "typeRoots": ["../../"],
         "paths": {
             "history": [ "history/v2" ]
-        },
+        }
     },
     "files": [
         "index.d.ts",

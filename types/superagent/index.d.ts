@@ -7,6 +7,7 @@
 //                 Alec Zopf <https://github.com/zopf>
 //                 Adam Haglund <https://github.com/beeequeue>
 //                 Lukas Elmer <https://github.com/lukaselmer>
+//                 Jesse Rogers <https://github.com/theQuazz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -100,6 +101,7 @@ declare namespace request {
         files: any;
         forbidden: boolean;
         get(header: string): string;
+        get(header: 'Set-Cookie'): string[];
         header: any;
         info: boolean;
         links: object;
@@ -115,6 +117,7 @@ declare namespace request {
         type: string;
         unauthorized: boolean;
         xhr: XMLHttpRequest;
+        redirects: string[];
     }
 
     interface Request extends Promise<Response> {
@@ -148,6 +151,7 @@ declare namespace request {
         serialize(serializer: Serializer): this;
         set(field: object): this;
         set(field: string, val: string): this;
+        set(field: 'Cookie', val: string[]): this;
         timeout(ms: number | { deadline?: number, response?: number }): this;
         type(val: string): this;
         unset(field: string): this;

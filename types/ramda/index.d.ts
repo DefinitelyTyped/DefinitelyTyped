@@ -1,5 +1,5 @@
 // Type definitions for ramda 0.25
-// Project: https://github.com/donnut/typescript-ramda
+// Project: https://github.com/donnut/typescript-ramda, https://ramdajs.com
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 //                 Tycho Grouwstra <https://github.com/tycho01>
 //                 Matt DeKrey <https://github.com/mdekrey>
@@ -25,6 +25,8 @@
 //                 Ryan McCuaig <https://github.com/rgm>
 //                 Drew Wyatt <https://github.com/drewwyatt>
 //                 John Ottenlips <https://github.com/jottenlips>
+//                 Nitesh Phadatare <https://github.com/minitesh>
+//                 Krantisinh Deshmukh <https://github.com/krantisinh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -110,6 +112,7 @@
 /// <reference path="./es/indexBy.d.ts" />
 /// <reference path="./es/indexOf.d.ts" />
 /// <reference path="./es/init.d.ts" />
+/// <reference path="./es/innerJoin.d.ts" />
 /// <reference path="./es/insertAll.d.ts" />
 /// <reference path="./es/insert.d.ts" />
 /// <reference path="./es/intersection.d.ts" />
@@ -161,6 +164,7 @@
 /// <reference path="./es/minBy.d.ts" />
 /// <reference path="./es/min.d.ts" />
 /// <reference path="./es/modulo.d.ts" />
+/// <reference path="./es/move.d.ts" />
 /// <reference path="./es/multiply.d.ts" />
 /// <reference path="./es/nAry.d.ts" />
 /// <reference path="./es/negate.d.ts" />
@@ -469,8 +473,8 @@ declare namespace R {
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
          * element at the given index replaced with the result of the function application.
          */
-        adjust<T>(fn: (a: T) => T, index: number, list: ReadonlyArray<T>): T[];
-        adjust<T>(fn: (a: T) => T, index: number): (list: ReadonlyArray<T>) => T[];
+        adjust<T>(index: number, fn: (a: T) => T, list: ReadonlyArray<T>): T[];
+        adjust<T>(index: number, fn: (a: T) => T): (list: ReadonlyArray<T>) => T[];
 
         /**
          * Returns true if all elements of the list match the predicate, false if there are any that don't.
@@ -1168,6 +1172,23 @@ declare namespace R {
         init(list: string): string;
 
         /**
+         * Takes a predicate `pred`, a list `xs`, and a list `ys`, and returns a list
+         * `xs'` comprising each of the elements of `xs` which is equal to one or more
+         * elements of `ys` according to `pred`.
+         *
+         * `pred` must be a binary function expecting an element from each list.
+         *
+         * `xs`, `ys`, and `xs'` are treated as sets, semantically, so ordering should
+         * not be significant, but since `xs'` is ordered the implementation guarantees
+         * that its values are in the same order as they appear in `xs`. Duplicates are
+         * not removed, so `xs'` may contain duplicates if `xs` contains duplicates.
+         */
+
+        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
+        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
+        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
+
+        /**
          * Inserts the supplied element into the list, at index index. Note that
          * this is not destructive: it returns a copy of the list with the changes.
          */
@@ -1555,6 +1576,17 @@ declare namespace R {
          */
         multiply(a: number, b: number): number;
         multiply(a: number): (b: number) => number;
+
+        /**
+         * Moves an item, at index `from`, to index `to`, in a `list` of elements.
+         * A new list will be created containing the new elements order.
+         */
+        move<T>(from: number, to: number, list: ReadonlyArray<T>): T[];
+        move(from: number, to: number): <T>(list: ReadonlyArray<T>) => T[];
+        move(from: number): {
+            <T>(to: number, list: ReadonlyArray<T>): T[];
+            (to: number): <T>(list: ReadonlyArray<T>) => T[];
+        };
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly n parameters.
@@ -2225,9 +2257,9 @@ declare namespace R {
         /**
          * Replace a substring or regex match in a string with a replacement.
          */
-        replace(pattern: RegExp | string, replacement: string, str: string): string;
-        replace(pattern: RegExp | string, replacement: string): (str: string) => string;
-        replace(pattern: RegExp | string): (replacement: string) => (str: string) => string;
+        replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string), str: string): string;
+        replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string)): (str: string) => string;
+        replace(pattern: RegExp | string): (replacement: string | ((match: string, ...args: any[]) => string)) => (str: string) => string;
 
         /**
          * Returns a new list with the same elements as the original list, just in the reverse order.
