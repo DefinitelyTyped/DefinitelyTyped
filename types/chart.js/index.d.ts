@@ -677,7 +677,7 @@ declare namespace Chart {
         beforeEvent?(chartInstance: Chart, event: Event, options?: any): void;
         afterEvent?(chartInstance: Chart, event: Event, options?: any): void;
 
-        resize?(chartInstance: Chart, newChartSize: Chart.ChartSize, options?: any): void;
+        resize?(chartInstance: Chart, newChartSize: ChartSize, options?: any): void;
         destroy?(chartInstance: Chart): void;
 
         /** @deprecated since version 2.5.0. Use `afterLayout` instead. */
