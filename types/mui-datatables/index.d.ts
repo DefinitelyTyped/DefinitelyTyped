@@ -2,7 +2,7 @@
 // Project: https://github.com/gregnb/mui-datatables
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
 import * as React from 'react';
 
@@ -170,11 +170,11 @@ export interface MUIDataTableProps {
 }
 
 export interface MUIDataTablePopover {
-    action?: () => any;
+    action?: (...args: any) => any;
     elevation?: number;
     option?: boolean;
-    onClose?: () => any;
-    onExited?: () => any;
+    onClose?: (...args: any) => any;
+    onExited?: (...args: any) => any;
     anchorEl?: React.ReactNode;
     ref?: any;
     anchorOrigin?: any;
@@ -189,9 +189,9 @@ export interface MUIDataTableBody {
     filterList?: string[][];
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
     selectedRows?: object;
-    selectRowUpdate?: () => any;
+    selectRowUpdate?: (...args: any) => any;
     searchText?: string;
-    toggleExpandRow?: () => any;
+    toggleExpandRow?: (...args: any) => any;
     classes: object;
 }
 
@@ -209,7 +209,7 @@ export interface MUIDataTableBodyCell {
 
 export interface MUIDataTableBodyRow {
     options: object;
-    onClick?: () => any;
+    onClick?: (...args: any) => any;
     rowSelected?: boolean;
     classes?: object;
     className?: string;
@@ -219,14 +219,14 @@ export interface MUIDataTableFilter {
     filterData: any[];
     filterList?: string[][];
     options: object;
-    onFilterUpdate?: () => any;
-    onFilterRest?: () => any;
+    onFilterUpdate?: (...args: any) => any;
+    onFilterRest?: (...args: any) => any;
     classes?: object;
 }
 
 export interface MUIDataTableFilterList {
     filterList: string[][];
-    onFilterUpdate?: () => any;
+    onFilterUpdate?: (...args: any) => any;
     classes?: object;
 }
 
@@ -254,7 +254,7 @@ export interface MUIDataTableHeadCell {
     classes?: object;
     options: object;
     sortDirection?: 'asc' | 'desc';
-    toggleSort: () => any;
+    toggleSort: (...args: any) => any;
     sort: boolean;
     hint: string;
     children?: any;
@@ -269,22 +269,22 @@ export interface MUIDataTablePaginations {
     options: object;
     page: number;
     rowsPerPage: number;
-    changeRowsPerPage: () => any;
+    changeRowsPerPage: (...args: any) => any;
 }
 
 export interface MUIDataTableResize {
     classes?: object;
     options?: object;
     rowSelected?: boolean;
-    setResizeable?: () => any;
-    updateDividers: () => any;
+    setResizeable?: (...args: any) => any;
+    updateDividers?: (...args: any) => any;
 }
 
 export interface MUIDataTableSearch {
     classes?: object;
     options?: object;
-    onHide?: () => any;
-    onSearch?: () => any;
+    onHide?: (...args: any) => any;
+    onSearch?: (...args: any) => any;
 }
 
 export interface MUIDataTableSelectCell {
@@ -295,8 +295,8 @@ export interface MUIDataTableSelectCell {
     selectableOn?: boolean;
     isRowExpanded?: boolean;
     isRowSelectable?: boolean;
-    onChange?: () => any;
-    onExpand?: () => any;
+    onChange?: (...args: any) => any;
+    onExpand?: (...args: any) => any;
     classes?: object;
     otherProps?: any;
 }
@@ -306,30 +306,30 @@ export interface MUIDataTableToolbar {
     classes?: object;
     columns: MUIDataTableColumnDef[];
     options?: object;
-    setTableActions?: () => any;
-    searchTextUpdate?: () => any;
+    setTableActions?: (...args: any) => any;
+    searchTextUpdate?: (...args: any) => any;
     filterData?: any;
     filterList?: string[][];
     filterUpdate?: any;
     resetFilters?: any;
     toggleViewColumn?: any;
     title?: any;
-    tableRef?: () => any;
+    tableRef?: (...args: any) => any;
 }
 
 export interface MUIDataTableToolbarSelect {
     options: object;
     rowSelected?: boolean;
     displayData?: any;
-    onRowsDelete?: () => any;
-    selectRowUpdate?: () => any;
+    onRowsDelete?: (...args: any) => any;
+    selectRowUpdate?: (...args: any) => any;
     classes?: object;
 }
 
 export interface MUIDataTableViewCol {
     columns: any[];
     object: object;
-    onColumnUpdate: () => any;
+    onColumnUpdate: (...args: any) => any;
     classes?: object;
 }
 
