@@ -135,6 +135,9 @@ function federatedSignIn() {
                     // ... any other providers you care about ...
 
                     default:
+                        fetch(
+                            'https://example.com/loginEndpoint',
+                            { credentials: credential, method: 'POST' });
                         break;
                 }
             } else {
@@ -201,6 +204,12 @@ function additionalDataPost(credential: PasswordCredential, token: string) {
 
 function formEncodedPost(credential: PasswordCredential, token: string) {
     credential.additionalData = new URLSearchParams();
+    fetch(
+        'https://example.com/loginEndpoint',
+        { credentials: credential, method: 'POST' });
+}
+
+function federatedCredentialPost(credential: FederatedCredential) {
     fetch(
         'https://example.com/loginEndpoint',
         { credentials: credential, method: 'POST' });
