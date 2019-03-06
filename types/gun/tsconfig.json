@@ -1,16 +1,12 @@
 {
-    "files": [
-        "index.d.ts",
-        "handlebars-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -19,5 +15,10 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "gun.d.ts",
+        "gun-tests.ts"
+    ]
 }
