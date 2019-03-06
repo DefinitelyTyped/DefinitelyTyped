@@ -1327,10 +1327,11 @@ namespace tls_tests {
         // close callback parameter is optional
         _server = _server.close();
 
-        // close callback parameter doesn't specify any arguments, so any
-        // function is acceptable
+        // close callback parameter can be either nothing (undefined) or an error
         _server = _server.close(() => { });
-        _server = _server.close((...args: any[]) => { });
+        _server = _server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
     }
 
     {
@@ -2826,9 +2827,11 @@ namespace net_tests {
             .ref()
             .unref();
 
-        // close has an optional callback function. No callback parameters are
-        // specified, so any callback function is permissible.
-        server = server.close((...args: any[]) => { });
+        // close callback parameter can be either nothing (undefined) or an error
+        server = server.close(() => { });
+        server = server.close((err) => {
+            if (typeof err !== 'undefined') { const _err: Error = err; }
+        });
 
         // test the types of the address object fields
         let address: net.AddressInfo | string = server.address();
