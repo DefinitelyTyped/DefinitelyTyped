@@ -297,68 +297,69 @@ declare namespace Flickity {
              * Triggered when dragging starts and the slider starts moving.
              */
             dragStart?: (
-                event?: Event, 
+                event?: Event,
                 pointer?: Element | Touch) => void;
 
             /**
              * Triggered when dragging moves and the slider moves.
              */
             dragMove?: (
-                event?: Event, 
-                pointer?: Element | Touch, 
+                event?: Event,
+                pointer?: Element | Touch,
                 moveVector?: { x: number, y: number }) => void;
 
             /**
              * Triggered when dragging ends.
              */
             dragEnd?: (
-                event: Event, 
+                event: Event,
                 pointer?: Element | Touch) => void;
 
             /**
              * Triggered when the user's pointer (mouse, touch, pointer) presses down.
              */
             pointerDown?: (
-                event: Event, 
+                event: Event,
                 pointer?: Element | Touch) => void;
 
             /**
              * Triggered when the user's pointer moves.
              */
             pointerMove?: (
-                event?: Event, 
-                pointer?: Element | Touch, 
+                event?: Event,
+                pointer?: Element | Touch,
                 moveVector?: { x: number, y: number }) => void;
 
             /**
              * Triggered when the user's pointer unpresses.
              */
             pointerUp?: (
-                event?: Event, 
+                event?: Event,
                 pointer?: Element | Touch) => void;
 
             /**
              * Triggered when the user's pointer is pressed and unpressed and has not moved enough to start dragging.
-             * click events are hard to detect with draggable UI, as they are triggered whenever a user drags. Flickity's staticClick event resolves this, as it is triggered when the user has not dragged.
+             * click events are hard to detect with draggable UI, as they are triggered whenever a user drags.
+             * Flickity's staticClick event resolves this, as it is triggered when the user has not dragged.
              */
             staticClick?: (
-                event?: Event, 
-                pointer?: Element | Touch, 
-                cellElement?: Element, 
+                event?: Event,
+                pointer?: Element | Touch,
+                cellElement?: Element,
                 cellIndex?: Number) => void;
 
             /**
              * Triggered after an image has been loaded with lazyLoad.
              */
             lazyLoad?: (
-                event?: Event, 
+                event?: Event,
                 cellElement?: Element) => void;
 
             /**
              * Triggered after a background image has been loaded with bgLazyLoad.
              */
             bgLazyLoad?: (
-                event?: Event, 
+                event?: Event,
                 element?: Element) => void;
 
             /**
