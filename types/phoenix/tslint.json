@@ -2,6 +2,7 @@
   "extends": "dtslint/dt.json",
   "rules": {
     "arrow-return-shorthand": true,
+    "ban-types": false,
     "callable-types": true,
     "class-name": true,
     "comment-format": [
