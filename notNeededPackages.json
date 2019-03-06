@@ -421,6 +421,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "del",
+            "typingsPackageName": "del",
+            "sourceRepoURL": "https://github.com/sindresorhus/del",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "delay",
             "typingsPackageName": "delay",
             "sourceRepoURL": "https://github.com/sindresorhus/delay",
@@ -1181,7 +1187,6 @@
             "typingsPackageName": "p-limit",
             "sourceRepoURL": "https://github.com/sindresorhus/p-limit",
             "asOfVersion": "2.2.0"
-
         },
         {
             "libraryName": "p-map",
