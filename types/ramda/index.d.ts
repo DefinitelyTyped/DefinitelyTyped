@@ -2430,9 +2430,9 @@ declare namespace R {
          * function is passed one argument: (value).
          */
         takeLastWhile<T>(pred: (a: T) => boolean, list: ReadonlyArray<T>): T[];
+        takeLastWhile<T>(pred: (x: string) => boolean): (xs: string | ReadonlyArray<T>) => string;
         takeLastWhile<T>(pred: (a: T) => boolean): <T>(list: ReadonlyArray<T>) => T[];
-        takeLastWhile(fn: (x: string) => boolean, xs: string): string;
-        takeLastWhile(fn: (x: string) => boolean): (xs: string) => string;
+        takeLastWhile(pred: (x: string) => boolean, xs: string): string;
 
         /**
          * Returns a new list containing the first `n` elements of a given list, passing each value
@@ -2440,9 +2440,9 @@ declare namespace R {
          * `false`.
          */
         takeWhile<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): T[];
+        takeWhile<T>(fn: (x: string) => boolean): (xs: string | ReadonlyArray<T>) => string;
         takeWhile<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => T[];
         takeWhile(fn: (x: string) => boolean, xs: string): string;
-        takeWhile(fn: (x: string) => boolean): (xs: string) => string;
 
         /**
          * The function to call with x. The return value of fn will be thrown away.

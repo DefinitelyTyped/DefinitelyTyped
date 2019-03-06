@@ -1396,6 +1396,26 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    const isNotFour = (x: number) => x !== 4;
+    const isNotFourString = (x: string) => x !== "4";
+    R.takeWhile(isNotFourString, "1234"); // => '123'
+    R.takeWhile(isNotFourString)("1234"); // => '123'
+    R.takeWhile(isNotFourString)(["1", "2", "3", "4"]); // => ['1', '2', '3']
+    R.takeWhile(isNotFourString, ["1", "2", "3", "4"]); // => ['1', '2', '3']
+    R.takeWhile(isNotFour)("1234"); // $ExpectError
+};
+
+() => {
+    const isNotOne = (x: number) => x !== 1;
+    const isNotOneString = (x: string) => x !== "1";
+    R.takeLastWhile(isNotOneString, "1234"); // => '234'
+    R.takeLastWhile(isNotOneString)("1234"); // => '234'
+    R.takeLastWhile(isNotOneString)(["1", "2", "3", "4"]); // => ['2', '3', '4']
+    R.takeLastWhile(isNotOneString, ["1", "2", "3", "4"]); // => ['2', '3', '4']
+    R.takeLastWhile(isNotOne)("1234"); // $ExpectError
+};
+
+() => {
     const sayX      = (x: number) => console.log("x is " + x);
     const a: number = R.tap(sayX, 100); // => 100
 };
