@@ -2430,7 +2430,9 @@ declare namespace R {
          * function is passed one argument: (value).
          */
         takeLastWhile<T>(pred: (a: T) => boolean, list: ReadonlyArray<T>): T[];
-        takeLastWhile<T>(pred: (x: string) => boolean): (xs: string | ReadonlyArray<T>) => string;
+        takeLastWhile<T>(fn: (x: string) => boolean):
+            <U extends string | ReadonlyArray<T>>(xs: U) =>
+                U extends string ? string : U;
         takeLastWhile<T>(pred: (a: T) => boolean): <T>(list: ReadonlyArray<T>) => T[];
         takeLastWhile(pred: (x: string) => boolean, xs: string): string;
 
@@ -2440,7 +2442,9 @@ declare namespace R {
          * `false`.
          */
         takeWhile<T>(fn: (x: T) => boolean, list: ReadonlyArray<T>): T[];
-        takeWhile<T>(fn: (x: string) => boolean): (xs: string | ReadonlyArray<T>) => string;
+        takeWhile<T>(fn: (x: string) => boolean):
+            <U extends string | ReadonlyArray<T>>(xs: U) =>
+                U extends string ? string : U;
         takeWhile<T>(fn: (x: T) => boolean): (list: ReadonlyArray<T>) => T[];
         takeWhile(fn: (x: string) => boolean, xs: string): string;
 

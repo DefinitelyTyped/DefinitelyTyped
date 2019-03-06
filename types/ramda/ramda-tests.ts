@@ -1398,20 +1398,20 @@ type Pair = KeyValuePair<string, number>;
 () => {
     const isNotFour = (x: number) => x !== 4;
     const isNotFourString = (x: string) => x !== "4";
-    R.takeWhile(isNotFourString, "1234"); // => '123'
-    R.takeWhile(isNotFourString)("1234"); // => '123'
-    R.takeWhile(isNotFourString)(["1", "2", "3", "4"]); // => ['1', '2', '3']
-    R.takeWhile(isNotFourString, ["1", "2", "3", "4"]); // => ['1', '2', '3']
+    R.takeWhile(isNotFourString, "1234"); // $ExpectType string
+    R.takeWhile(isNotFourString)("1234"); // $ExpectType string
+    R.takeWhile(isNotFourString)(["1", "2", "3", "4"]); // $ExpectType string[]
+    R.takeWhile(isNotFourString, ["1", "2", "3", "4"]); // $ExpectType string[]
     R.takeWhile(isNotFour)("1234"); // $ExpectError
 };
 
 () => {
     const isNotOne = (x: number) => x !== 1;
     const isNotOneString = (x: string) => x !== "1";
-    R.takeLastWhile(isNotOneString, "1234"); // => '234'
-    R.takeLastWhile(isNotOneString)("1234"); // => '234'
-    R.takeLastWhile(isNotOneString)(["1", "2", "3", "4"]); // => ['2', '3', '4']
-    R.takeLastWhile(isNotOneString, ["1", "2", "3", "4"]); // => ['2', '3', '4']
+    R.takeLastWhile(isNotOneString, "1234"); // $ExpectType string
+    R.takeLastWhile(isNotOneString)("1234"); // $ExpectType string
+    R.takeLastWhile(isNotOneString)(["1", "2", "3", "4"]); // $ExpectType string[]
+    R.takeLastWhile(isNotOneString, ["1", "2", "3", "4"]); // $ExpectType string[]
     R.takeLastWhile(isNotOne)("1234"); // $ExpectError
 };
 
