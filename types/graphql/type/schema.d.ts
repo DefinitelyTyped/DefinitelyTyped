@@ -52,6 +52,8 @@ export class GraphQLSchema {
 
     getDirectives(): ReadonlyArray<GraphQLDirective>;
     getDirective(name: string): Maybe<GraphQLDirective>;
+
+    toConfig(): GraphQLSchemaConfig;
 }
 
 type TypeMap = { [key: string]: GraphQLNamedType };

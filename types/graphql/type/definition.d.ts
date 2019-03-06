@@ -280,6 +280,12 @@ export class GraphQLScalarType {
     extensionASTNodes: Maybe<ReadonlyArray<ScalarTypeExtensionNode>>;
     constructor(config: GraphQLScalarTypeConfig<any, any>);
 
+    toConfig(): GraphQLScalarTypeConfig<any, any> & {
+        parseValue: GraphQLScalarValueParser<any>;
+        parseLiteral: GraphQLScalarLiteralParser<any>;
+        extensionASTNodes: ReadonlyArray<ScalarTypeExtensionNode>;
+    };
+
     toString(): string;
     toJSON(): string;
     inspect(): string;
@@ -356,6 +362,13 @@ export class GraphQLObjectType<
     constructor(config: GraphQLObjectTypeConfig<TSource, TContext, TArgs>);
     getFields(): GraphQLFieldMap<any, TContext, TArgs>;
     getInterfaces(): GraphQLInterfaceType[];
+
+    toConfig(): GraphQLObjectTypeConfig<any, any> & {
+        interfaces: GraphQLInterfaceType[];
+        fields: GraphQLFieldConfigMap<any, any>;
+        extensionASTNodes: ReadonlyArray<ObjectTypeExtensionNode>;
+    };
+
     toString(): string;
     toJSON(): string;
     inspect(): string;
@@ -498,6 +511,11 @@ export class GraphQLInterfaceType {
 
     getFields(): GraphQLFieldMap<any, any>;
 
+    toConfig(): GraphQLInterfaceTypeConfig<any, any> & {
+        fields: GraphQLFieldConfigMap<any, any>;
+        extensionASTNodes: ReadonlyArray<InterfaceTypeExtensionNode>;
+    };
+
     toString(): string;
     toJSON(): string;
     inspect(): string;
@@ -555,6 +573,11 @@ export class GraphQLUnionType {
 
     getTypes(): GraphQLObjectType[];
 
+    toConfig(): GraphQLUnionTypeConfig<any, any> & {
+        types: GraphQLObjectType[];
+        extensionASTNodes: ReadonlyArray<UnionTypeExtensionNode>;
+    };
+
     toString(): string;
     toJSON(): string;
     inspect(): string;
@@ -607,6 +630,11 @@ export class GraphQLEnumType {
     serialize(value: any): Maybe<string>;
     parseValue(value: any): Maybe<any>;
     parseLiteral(valueNode: ValueNode, _variables: Maybe<{ [key: string]: any }>): Maybe<any>;
+
+    toConfig(): GraphQLEnumTypeConfig & {
+        extensionASTNodes: ReadonlyArray<EnumTypeExtensionNode>;
+    };
+
     toString(): string;
     toJSON(): string;
     inspect(): string;
@@ -665,6 +693,12 @@ export class GraphQLInputObjectType {
     extensionASTNodes: Maybe<ReadonlyArray<InputObjectTypeExtensionNode>>;
     constructor(config: GraphQLInputObjectTypeConfig);
     getFields(): GraphQLInputFieldMap;
+
+    toConfig(): GraphQLInputObjectTypeConfig & {
+        fields: GraphQLInputFieldConfigMap;
+        extensionASTNodes: ReadonlyArray<InputObjectTypeExtensionNode>;
+    };
+
     toString(): string;
     toJSON(): string;
     inspect(): string;
