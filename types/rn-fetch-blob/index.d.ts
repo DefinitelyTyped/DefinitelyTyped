@@ -33,11 +33,11 @@ export interface Polyfill {
     Fetch: PolyfillFetch;
 }
 
-export declare class PolyfillFetch extends RNFetchBlobFetchPolyfill {
+export class PolyfillFetch extends RNFetchBlobFetchPolyfill {
     constructor(config: RNFetchBlobConfig);
 }
 
-export declare class RNFetchBlobFetchPolyfill {
+export class RNFetchBlobFetchPolyfill {
     constructor(config: RNFetchBlobConfig);
 
     build(): (url: string, options: RNFetchBlobConfig) => StatefulPromise<RNFetchBlobFetchRepsonse>;
@@ -129,13 +129,13 @@ export interface PolyfillFileReader extends EventTarget {
     result: number;
 }
 
-export declare namespace PolyfillFileReader {
+export namespace PolyfillFileReader {
     const EMPTY: number;
     const LOADING: number;
     const DONE: number;
 }
 
-export declare class PolyfillEvent {
+export class PolyfillEvent {
 }
 
 export interface PolyfillProgressEvent extends EventTarget {
@@ -144,7 +144,7 @@ export interface PolyfillProgressEvent extends EventTarget {
     total: number;
 }
 
-export declare class PolyfillBlob extends EventTarget {
+export class PolyfillBlob extends EventTarget {
     /**
      * RNFetchBlob Blob polyfill, create a Blob directly from file path, BASE64
      * encoded data, and string. The conversion is done implicitly according to
@@ -194,7 +194,7 @@ export declare class PolyfillBlob extends EventTarget {
     close(): Promise<void>;
 }
 
-export declare namespace PolyfillBlob {
+export namespace PolyfillBlob {
     function clearCache(): void;
 
     function build(data: any, cType: any): Promise<PolyfillBlob>;
@@ -202,7 +202,7 @@ export declare namespace PolyfillBlob {
     function setLog(level: number): void;
 }
 
-export declare class PolyfillFile extends PolyfillBlob {
+export class PolyfillFile extends PolyfillBlob {
 }
 
 export interface PolyfillXMLHttpRequest extends PolyfillXMLHttpRequestEventTarget {
@@ -252,7 +252,7 @@ export interface PolyfillXMLHttpRequest extends PolyfillXMLHttpRequestEventTarge
     responseType: string;
 }
 
-export declare namespace PolyfillXMLHttpRequest {
+export namespace PolyfillXMLHttpRequest {
     const binaryContentTypes: string[];
     const UNSENT: number;
     const OPENED: number;
@@ -490,7 +490,7 @@ export interface StatefulPromise<T> extends Promise<T> {
     expire(callback: () => void): StatefulPromise<void>;
 }
 
-export declare class RNFetchBlobSession {
+export class RNFetchBlobSession {
     constructor(name: string, list: string[]);
 
     add(path: string): RNFetchBlobSession;
@@ -609,10 +609,10 @@ export interface RNFetchBlobStream {
     onEnd(): void;
 }
 
-export declare class RNFetchBlobFile {
+export class RNFetchBlobFile {
 }
 
-export declare class RNFetchBlobStat {
+export class RNFetchBlobStat {
     lastModified: string;
     size: string;
     type: "directory" | "file";

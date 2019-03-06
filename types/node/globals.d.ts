@@ -245,6 +245,7 @@ interface Buffer extends Uint8Array {
     compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
+    subarray(begin: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
@@ -267,6 +268,7 @@ interface Buffer extends Uint8Array {
     readFloatBE(offset: number): number;
     readDoubleLE(offset: number): number;
     readDoubleBE(offset: number): number;
+    reverse(): this;
     swap16(): Buffer;
     swap32(): Buffer;
     swap64(): Buffer;
@@ -679,7 +681,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = (signal: Signals) => void;
@@ -717,6 +719,10 @@ declare namespace NodeJS {
         _destroy(err: Error | null, callback: Function): void;
         push(chunk: any, encoding?: string): boolean;
         destroy(error?: Error): void;
+    }
+
+    interface HRTime {
+        (time?: [number, number]): [number, number];
     }
 
     interface Process extends EventEmitter {
@@ -793,12 +799,22 @@ declare namespace NodeJS {
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
         release: ProcessRelease;
+        features: {
+            inspector: boolean;
+            debug: boolean;
+            uv: boolean;
+            ipv6: boolean;
+            tls_alpn: boolean;
+            tls_sni: boolean;
+            tls_ocsp: boolean;
+            tls: boolean;
+        };
         /**
          * Can only be set if not in worker thread.
          */
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?: [number, number]): [number, number];
+        hrtime: HRTime;
         domain: Domain;
 
         // Worker
