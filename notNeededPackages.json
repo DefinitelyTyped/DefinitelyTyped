@@ -1135,8 +1135,8 @@
             "asOfVersion": "2.15.0"
         },
         {
-            "libraryName": "node-png-async",
-            "typingsPackageName": "node-png-async",
+            "libraryName": "png-async",
+            "typingsPackageName": "png-async",
             "sourceRepoURL": "https://github.com/kanreisa/node-png-async",
             "asOfVersion": "0.9.4"
         },
