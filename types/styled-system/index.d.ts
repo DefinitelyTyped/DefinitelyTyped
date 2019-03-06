@@ -39,8 +39,8 @@ export interface LowLevelStylefunctionArguments {
     cssProperty?: string;
     key?: string;
     getter?: () => any;
-    transformValue?: (n: string | number) => any;
-    scale?: Array<string | number>;
+    transformValue?: (n: string | number, scale: Array<string | number> | { [key: string]: string | number) => any;
+    scale?: Array<string | number> | { [key: string]: string | number };
 }
 
 export function style(
