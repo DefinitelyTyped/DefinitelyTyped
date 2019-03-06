@@ -100,7 +100,7 @@ export interface PreviewProps {
 export class Preview extends PureComponent<PreviewProps> {}
 /**
  * Pre-existing/default react-dnd-multi-backend transition available to use.
-  */
+ */
  export const MouseTransition: Transition;
 /**
  * Pre-existing/default react-dnd-touch-backend transition available to use.
