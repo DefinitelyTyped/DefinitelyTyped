@@ -1,3 +1,3 @@
-import Repeat from "repeat-string";
+import Repeat = require("repeat-string");
 
 Repeat('A', 5);

@@ -6,4 +6,6 @@
 /**
  * Repeat the given `string` the specified `number` of times.
  */
-export default function(str: string, num: number): string;
+declare function repeat(str: string, num: number): string;
+
+export = repeat;
