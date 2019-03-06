@@ -27,17 +27,7 @@
       100
     ],
     "member-access": false,
-    "member-ordering": [
-      true,
-      {
-        "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
-        ]
-      }
-    ],
+    "member-ordering": false,
     "no-arg": true,
     "no-bitwise": true,
     "no-console": [
@@ -50,6 +40,7 @@
     ],
     "no-construct": true,
     "no-debugger": true,
+    "no-declare-current-package": false,
     "no-duplicate-super": true,
     "no-empty": false,
     "no-empty-interface": true,
@@ -61,11 +52,13 @@
     "no-misused-new": true,
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
+    "no-single-declare-module": false,
     "no-shadowed-variable": true,
     "no-string-literal": false,
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
+    "no-unnecessary-class": false,
     "no-unnecessary-initializer": true,
     "no-unused-expression": true,
     "no-use-before-declare": true,
