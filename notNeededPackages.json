@@ -1129,6 +1129,12 @@
             "asOfVersion": "2.15.0"
         },
         {
+            "libraryName": "node-png-async",
+            "typingsPackageName": "node-png-async",
+            "sourceRepoURL": "https://github.com/kanreisa/node-png-async",
+            "asOfVersion": "0.9.4"
+        },
+        {
             "libraryName": "node-waves",
             "typingsPackageName": "node-waves",
             "sourceRepoURL": "http://fian.my.id/Waves",
