@@ -1,6 +1,6 @@
 // Type definitions for linkify-it 2.0.3
 // Project: https://github.com/markdown-it/linkify-it
-// Definitions by: Lindsey Smith <https://github.com/praxxis>, Robert Coie <https://github.com/rapropos/typed-linkify-it>
+// Definitions by: Lindsey Smith <https://github.com/praxxis>, Robert Coie <https://github.com/rapropos/typed-linkify-it>, Alex Plumb <https://github.com/alexplumb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const LinkifyIt: {
@@ -15,11 +15,11 @@ declare const LinkifyIt: {
 };
 
 declare namespace LinkifyIt {
-    type Validate = (text: string, pos: number, self: LinkifyIt) => number;
+    type Validate = (text: string, pos: number, self: PrivateLinkifyIt) => number | boolean;
 
     interface FullRule {
         validate: string | RegExp | Validate;
-        normalize?(match: string): string;
+        normalize?: (match: Match) => void;
     }
 
     type Rule = string | FullRule;
@@ -52,6 +52,13 @@ declare namespace LinkifyIt {
         test(text: string): boolean;
         testSchemaAt(text: string, schemaName: string, pos: number): number;
         tlds(list: string | string[], keepOld?: boolean): LinkifyIt;
+    }
+
+    // https://github.com/markdown-it/linkify-it/blob/master/lib/re.js
+    interface PrivateLinkifyIt extends LinkifyIt {
+        re: {
+            [key: string]: string | RegExp;
+        }
     }
 }
 
