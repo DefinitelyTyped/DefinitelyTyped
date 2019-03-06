@@ -2,36 +2,55 @@
 // Project: https://github.com/stylelint/stylelint, https://stylelint.io
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Filips Alpe <https://github.com/filipsalpe>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export type FormatterType = "json" | "string" | "verbose" | "compact";
+import * as postcss from 'postcss';
 
-export type SyntaxType = "scss" | "sass" | "less" | "sugarss";
+export type FormatterType = "json" | "string" | "verbose" | "compact" | "unix";
+
+export type SyntaxType = "css-in-js"
+    | "html"
+    | "less"
+    | "markdown"
+    | "sass"
+    | "scss"
+    | "sugarss";
+
+export interface Configuration {
+    rules: Record<string, any>;
+    extends: string | string[];
+    plugins: string[];
+    processors: string[];
+    ignoreFiles: string|string[];
+    defaultSeverity: "warning"|"error";
+}
 
 export interface LinterOptions {
-    code?: string;
-    codeFilename?: string;
-    config?: JSON;
-    configBasedir?: string;
-    configFile?: string;
-    configOverrides?: JSON;
-    cache?: boolean;
-    cacheLocation?: string;
-    files?: string | string[];
-    fix?: boolean;
-    formatter?: FormatterType;
-    ignoreDisables?: boolean;
-    reportNeedlessDisables?: boolean;
-    ignorePath?: boolean;
-    syntax?: SyntaxType;
-    customSyntax?: string;
+    cache: boolean;
+    cacheLocation: string;
+    code: string;
+    codeFilename: string;
+    config: Partial<Configuration>;
+    configBasedir: string;
+    configFile: string;
+    configOverrides: Partial<Configuration>;
+    customSyntax: string;
+    disableDefaultIgnores: boolean;
+    files: string | string[];
+    fix: boolean;
+    formatter: FormatterType;
+    ignoreDisables: boolean;
+    ignorePath: string;
+    maxWarnings: number;
+    reportNeedlessDisables: boolean;
+    syntax: SyntaxType;
 }
 
 export interface LinterResult {
     errored: boolean;
     output: string;
-    postcssResults: any[];
     results: LintResult[];
 }
 
@@ -49,9 +68,10 @@ export namespace formatters {
     function string(results: LintResult[]): string;
     function compact(results: LintResult[]): string;
     function verbose(results: LintResult[]): string;
+    function unix(results: LintResult[]): string;
 }
 
-export function lint(options?: LinterOptions): Promise<LinterResult>;
+export function lint(options?: Partial<LinterOptions>): Promise<LinterResult>;
 
 export type RuleOption = {
     actual: any;
@@ -63,25 +83,35 @@ export type RuleOption = {
     optional: true;
 };
 
+export type RuleMessageValue = string | ((...args: any[]) => string);
+
 export namespace utils {
     function report(violation: {
         ruleName: string;
-        result: LintResult;
+        result: postcss.Result;
         message: string;
-        node: any;
+        node: postcss.Node;
         index?: number;
         word?: string;
         line?: number;
     }): void;
 
-    function ruleMessages(ruleName: string, messages: { [key: string]: any; }): typeof messages;
+    function ruleMessages<T extends {[key: string]: RuleMessageValue}>(
+        ruleName: string,
+        messages: T): T;
 
-    function validateOptions(result: LintResult, ruleName: string, ...options: RuleOption[]): boolean;
+    function validateOptions(result: postcss.Result, ruleName: string,
+        ...options: RuleOption[]): boolean;
 
-    function checkAgainstRule(options: { ruleName: string; ruleSettings: any; root: any; }, callback: (warning: string) => void): void;
+    function checkAgainstRule(options: {
+        ruleName: string;
+        ruleSettings: any;
+        root: any;
+    }, callback: (warning: string) => void): void;
 }
 
 export function createPlugin(
     ruleName: string,
-    plugin: (options: RuleOption[]) => (root: any, result: LintResult) => void,
+    plugin: (primaryOption: any, secondaryOptions: RuleOption[]) =>
+        (root: postcss.Root, result: postcss.Result) => void|PromiseLike<void>,
 ): any;

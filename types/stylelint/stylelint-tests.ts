@@ -1,6 +1,6 @@
 import { LinterOptions, FormatterType, SyntaxType, lint, LintResult, LinterResult, createPlugin, utils } from "stylelint";
 
-const options: LinterOptions = {
+const options: Partial<LinterOptions> = {
     code: "div { color: red }",
     files: ["**/**.scss"],
     formatter: "json",
@@ -8,14 +8,13 @@ const options: LinterOptions = {
     cacheLocation: "./stylelint.cache.json",
     ignoreDisables: true,
     reportNeedlessDisables: true,
-    ignorePath: true,
+    ignorePath: 'foo',
     syntax: "scss"
 };
 
 lint(options).then((x: LinterResult) => {
     const err: boolean = x.errored;
     const output: string = x.output;
-    const postcssResults: any[] = x.postcssResults;
     const results: LintResult[] = x.results;
 });
 
