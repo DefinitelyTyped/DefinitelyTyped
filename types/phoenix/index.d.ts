@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module "phoenix" {
+declare module 'phoenix' {
   class Push {
     constructor(
       channel: Channel,
