@@ -100,6 +100,7 @@ export interface MUIDataTableColumnOptions {
     filterList?: string[];
     filterOptions?: string[];
     sort?: boolean;
+    searchable?: boolean;
     sortDirection?: 'asc' | 'desc';
     download?: boolean;
     hint?: string;
@@ -125,6 +126,7 @@ export interface MUIDataTableOptions {
     customToolbarSelect?: () => React.ReactNode;
     customFooter?: () => React.ReactNode;
     customSort?: (data: any[], colIndex: number, order: string) => any[];
+    customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
     elevation?: number;
     caseSensitive?: boolean;
     responsive?: 'stacked' | 'scroll';
