@@ -1,4 +1,4 @@
-import Truncate from "html-truncate";
+import Truncate = require("html-truncate");
 
 Truncate('hello world', 4);
 
