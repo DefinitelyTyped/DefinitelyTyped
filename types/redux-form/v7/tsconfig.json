@@ -10,12 +10,20 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "jsx": "react",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "redux-form": [
+                "redux-form/v7"
+            ],
+            "redux-form/*": [
+                "redux-form/v7/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
@@ -29,7 +37,6 @@
         "lib/Fields.d.ts",
         "lib/FieldArray.d.ts",
         "lib/Form.d.ts",
-        "lib/FormName.d.ts",
         "lib/FormSection.d.ts",
         "lib/formValues.d.ts",
         "lib/formValueSelector.d.ts",

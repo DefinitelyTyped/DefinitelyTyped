@@ -1,10 +1,5 @@
 import { Component, ComponentType } from "react";
-import { Formatter, Parser, WrappedFieldProps, Validator } from "../index";
-
-export type FieldsWarnerOrValidator =
-    | Validator
-    | Validator[]
-    | { [name: string]: Validator | Validator[] };
+import { Formatter, Parser, WrappedFieldProps } from "../index";
 
 interface BaseFieldsProps<P = {}> {
     names: string[];
@@ -12,9 +7,7 @@ interface BaseFieldsProps<P = {}> {
     format?: Formatter | null;
     props?: P;
     parse?: Parser;
-    forwardRef?: boolean;
-    validate?: FieldsWarnerOrValidator;
-    warn?: FieldsWarnerOrValidator;
+    withRef?: boolean;
 }
 
 export interface GenericFields<P> extends Component<BaseFieldsProps<P> & P> {

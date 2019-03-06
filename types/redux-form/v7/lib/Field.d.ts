@@ -44,7 +44,7 @@ export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     parse?: Parser;
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
-    forwardRef?: boolean;
+    withRef?: boolean;
     immutableProps?: string[];
 }
 
