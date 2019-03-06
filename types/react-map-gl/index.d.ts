@@ -1,4 +1,4 @@
-// Type definitions for react-map-gl 4.0
+// Type definitions for react-map-gl 4.0.13
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
@@ -226,6 +226,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     keyboard?: boolean;
     onHover?: (event: PointerEvent) => void;
     onClick?: (event: PointerEvent) => void;
+    onNativeClick?: (event: PointerEvent) => void;
     onDblClick?: (event: PointerEvent) => void;
     onContextMenu?: (event: PointerEvent) => void;
     onMouseDown?: (event: PointerEvent) => void;
