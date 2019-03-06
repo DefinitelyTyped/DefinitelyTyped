@@ -1,8 +1,8 @@
-// Type definitions for phoenix
+// Type definitions for phoenix 1.4.1
 // Project: https://github.com/phoenixframework/phoenix
 // Definitions by: Mirosław Ciastek <https://github.com/mciastek>, John Goff <https://github.com/John-Goff>, Po Chen <https://github.com/princemaple>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 declare module 'phoenix' {
   class Push {
@@ -18,7 +18,6 @@ declare module 'phoenix' {
 
     receive(status: string, callback: (response?: any) => any): this;
   }
-
 
   class Channel {
     constructor(topic: string, params?: object | Function, socket?: Socket);
@@ -37,7 +36,7 @@ declare module 'phoenix' {
   }
 
   type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
-  
+
   interface SocketConnectOption {
     params: object | Function;
     transport: any;
@@ -49,7 +48,7 @@ declare module 'phoenix' {
     decode: (payload: string, callback: Function) => any;
     logger: (kind: string, message: string, data: any) => void;
   }
-    
+
   class Socket {
     constructor(endPoint: string, opts?: Partial<SocketConnectOption>);
 
