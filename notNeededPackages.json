@@ -721,6 +721,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "handlebars",
+            "typingsPackageName": "handlebars",
+            "sourceRepoURL": "https://github.com/wycats/handlebars.js",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "handsontable",
             "typingsPackageName": "handsontable",
             "sourceRepoURL": "https://handsontable.com/",
