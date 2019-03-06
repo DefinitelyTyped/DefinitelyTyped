@@ -36,8 +36,8 @@ main().catch(e => {
 
 runSequence([
     ["git", ["checkout", "-b", branchName]], // create a branch
-    ["git", ["add", "."]], // Add all changes
-    ["git", ["commit", "-m", `"Update user baselines"`]], // Commit all changes
+    ["git", ["add", ".github/CODEOWNERS"]], // Add CODEOWNERS
+    ["git", ["commit", "-m", `"Update CODEOWNERS"`]], // Commit all changes
     ["git", ["remote", "add", "fork", remoteUrl]], // Add the remote fork
     ["git", ["push", "--set-upstream", "fork", branchName, "-f"]] // push the branch
 ]);
