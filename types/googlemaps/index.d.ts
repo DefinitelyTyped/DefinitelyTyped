@@ -11,6 +11,7 @@
 //                  Sven Kreiss <https://github.com/svenkreiss>
 //                  Umar Bolatov <https://github.com/bolatovumar>
 //                  Michael Gauthier <https://github.com/gauthierm>
+//                  Colin Doig <https://github.com/captain-igloo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -93,6 +94,14 @@ declare namespace google.maps {
      * interest, also known as a POI. By default map icons are clickable.
      */
     clickableIcons?: boolean
+    /**
+     * Size in pixels of the controls appearing on the map. This value must be
+     * supplied directly when creating the Map, updating this value later may
+     * bring the controls into an undefined state. Only governs the controls
+     * made by the Maps API itself. Does not scale developer created custom
+     * controls.
+     */
+    controlSize?: number;
     /** Enables/disables all default UI. May be overridden individually. */
     disableDefaultUI?: boolean;
     /** Enables/disables zoom and center on double click. Enabled by default. */
@@ -2726,29 +2735,29 @@ declare namespace google.maps {
     }
 
     export interface PlaceResult {
-      address_components: GeocoderAddressComponent[];
-      adr_address: string;
-      aspects: PlaceAspectRating[];
-      formatted_address: string;
-      formatted_phone_number: string;
-      geometry: PlaceGeometry;
-      html_attributions: string[];
-      icon: string;
-      id: string;
-      international_phone_number: string;
+      address_components?: GeocoderAddressComponent[];
+      adr_address?: string;
+      aspects?: PlaceAspectRating[];
+      formatted_address?: string;
+      formatted_phone_number?: string;
+      geometry?: PlaceGeometry;
+      html_attributions?: string[];
+      icon?: string;
+      id?: string;
+      international_phone_number?: string;
       name: string;
-      opening_hours: OpeningHours;
-      permanently_closed: boolean;
-      photos: PlacePhoto[];
-      place_id: string;
-      price_level: number;
-      rating: number;
-      reviews: PlaceReview[];
-      types: string[];
-      url: string;
-      utc_offset: number;
-      vicinity: string;
-      website: string;
+      opening_hours?: OpeningHours;
+      permanently_closed?: boolean;
+      photos?: PlacePhoto[];
+      place_id?: string;
+      price_level?: number;
+      rating?: number;
+      reviews?: PlaceReview[];
+      types?: string[];
+      url?: string;
+      utc_offset?: number;
+      vicinity?: string;
+      website?: string;
     }
 
     export interface PlaceReview {

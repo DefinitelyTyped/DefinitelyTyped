@@ -2057,7 +2057,7 @@ declare module "victory" {
       /**
        * The size prop determines how to scale each data point
        */
-      size?: number | { (data: any): number };
+      size?: number | { (data: any): number } | { (data: any, active: boolean): number };
       /**
        * The style prop specifies styles for your VictoryScatter. Any valid inline style properties
        * will be applied. Height, width, and padding should be specified via the height,
