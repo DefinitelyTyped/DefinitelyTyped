@@ -1,9 +1,9 @@
-import Repeat from "repeat-element";
+import repeat = require("repeat-element");
 
-Repeat(5, 5);
+repeat(5, 5);
 
-Repeat({some: 'object'}, 5);
+repeat({some: 'object'}, 5);
 
-Repeat('a', 5);
+repeat('a', 5);
 
-Repeat(null, 5);
+repeat(null, 5);
