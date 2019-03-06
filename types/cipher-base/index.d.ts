@@ -11,4 +11,4 @@ declare abstract class CipherBase {
     abstract update(value: Buffer, inputEnc?: string, outputEnc?: string): Buffer;
 }
 
-export default CipherBase;
+export = CipherBase;
