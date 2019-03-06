@@ -1,7 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "chokidar": "^2.1.2",
-    "del": "*"
+    "chokidar": "^2.1.2"
   }
 }
