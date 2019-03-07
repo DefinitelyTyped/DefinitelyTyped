@@ -163,6 +163,23 @@ export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.
     onViewportChanged: (viewport: Viewport | null) => void;
 }
 
+export interface DivOverlayProps extends Leaflet.DivOverlayOptions {
+    children: Children;
+    onClose?: () => void;
+    onOpen?: () => void;
+}
+
+export interface DivOverlayTypes extends Leaflet.Evented {
+    isOpen: () => boolean;
+    update: () => void;
+}
+
+export class DivOverlay<P extends DivOverlayProps, E extends DivOverlayTypes> extends MapComponent<P, E> {
+    onClose: () => void;
+    onOpen: () => void;
+    onRender: () => void;
+}
+
 export interface PaneProps {
     name?: string;
     children?: Children;
@@ -293,10 +310,10 @@ export interface RectangleProps extends PathEvents, Leaflet.PolylineOptions {
 }
 export class Rectangle<P extends RectangleProps = RectangleProps, E extends Leaflet.Rectangle = Leaflet.Rectangle> extends Path<P, E> { }
 
-export interface PopupProps extends Leaflet.PopupOptions {
-    children?: Children;
+export interface PopupProps extends DivOverlayProps, Leaflet.PopupOptions {
     position?: Leaflet.LatLngExpression;
 }
+
 export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = Leaflet.Popup> extends MapComponent<P, E> {
     onPopupOpen(arg: { popup: E }): void;
     onPopupClose(arg: { popup: E }): void;
@@ -304,9 +321,9 @@ export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = 
     removePopupContent(): void;
 }
 
-export interface TooltipProps extends Leaflet.TooltipOptions {
-    children?: Children;
+export interface TooltipProps extends DivOverlayProps, Leaflet.TooltipOptions {
 }
+
 export class Tooltip<P extends TooltipProps = TooltipProps, E extends Leaflet.Tooltip = Leaflet.Tooltip> extends MapComponent<P, E> {
     onTooltipOpen(arg: { tooltip: E }): void;
     onTooltipClose(arg: { tooltip: E }): void;
