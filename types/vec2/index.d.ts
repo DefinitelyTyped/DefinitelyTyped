@@ -9,7 +9,7 @@
  * Otherwise the operation will be applied to `this` and `this` will be returned.
  * Also, since `Infinity`and `NaN` are so insidious, this library will throw as soon as it detects either of these so you can take action to fix your data/algorithm.
  */
-export class Vec2 {
+declare class Vec2 {
     x: number;
     y: number;
 
@@ -225,3 +225,5 @@ export class Vec2 {
      */
     toString(): string;
 }
+
+export default Vec2;
