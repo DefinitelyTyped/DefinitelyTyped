@@ -42,12 +42,6 @@ interface MUIDataTableCustomHeadRenderer extends MUIDataTableColumn {
     index: number;
 }
 
-interface MUIDataTableColumn {
-    name: string;
-    label?: string;
-    options?: MUIDataTableColumnOptions;
-}
-
 interface MUIDataTableTextLabelsBody {
     noMatch: string;
     toolTip: string;
@@ -83,6 +77,12 @@ interface MUIDataTableTextLabelsSelectedRows {
     text: string;
     delete: string;
     deleteAria: string;
+}
+
+export interface MUIDataTableColumn {
+    name: string;
+    label?: string;
+    options?: MUIDataTableColumnOptions;
 }
 
 export interface MUIDataTableTextLabels {
