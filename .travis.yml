@@ -8,8 +8,5 @@ notifications:
   email: false
 
 script:
- - npm install
- - npm run build
  - npm run test
- - if [[ $TRAVIS_EVENT_TYPE == "cron" ]]; then npm run update-codeowners || travis_terminate
-   1; fi
+ - if [[ $TRAVIS_EVENT_TYPE == "cron" ]]; then npm run update-codeowners || travis_terminate 1; fi
