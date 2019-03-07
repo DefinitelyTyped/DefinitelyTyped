@@ -3,24 +3,25 @@
 // Definitions by: Konrad Klockgether <https://github.com/Nielio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Vec2} from '../vec2';
+/* tslint:disable:array-type */  // cause contradictory error messages
+
+import { Vec2 } from '../vec2';
 
 /**
  * Create a new polygon:
-
- ```javascript
- var p = new Polygon([
- Vec2(0, 0),
- Vec2(10, 0),
- Vec2(0, 10)
- ]);
-
- ```
-
- You can pass an array of `Vec2`s, arrays `[x, y]`, or objects `{ x: 10, y: 20 }`
+ *
+ * ```javascript
+ * var p = new Polygon([
+ * Vec2(0, 0),
+ * Vec2(10, 0),
+ * Vec2(0, 10)
+ * ]);
+ *
+ * ```
+ *
+ * You can pass an array of `Vec2`s, arrays `[x, y]`, or objects `{ x: 10, y: 20 }`
  */
-export declare class Polygon {
-
+export class Polygon {
     points: Vec2[];
 
     /**
@@ -28,9 +29,7 @@ export declare class Polygon {
      */
     readonly length: number;
 
-    constructor(points: Vec2[]);
-    constructor(points: { x: number, y: number }[]);
-    constructor(points: number[][]);
+    constructor(points: Vec2[] | number[][] | { x: number, y: number }[]);
 
     /**
      * Something like Array.forEach on points
@@ -60,8 +59,7 @@ export declare class Polygon {
      * Remove the specified `vec2` or numeric index from this polygon
      * @param vecOrIndex
      */
-    remove(vecOrIndex: Vec2): Polygon;
-    remove(vecOrIndex: number): Polygon;
+    remove(vecOrIndex: Vec2 | number): Polygon;
 
     /**
      * Removes contiguous points that are the same
@@ -183,11 +181,13 @@ export declare class Polygon {
      * See the tests for more info
      * @param thing
      */
-    contains(thing: Vec2[]): boolean;
-    contains(thing: { position: Vec2, radius: number }): boolean;
-    contains(thing: { x1: number, y1: number, x2: number, y2: number }): boolean;
-    contains(thing: { x: number, y: number, w: number, h: number }): boolean;
-    contains(thing: { x: number, y: number, width: number, hheight: number }): boolean;
+    contains(
+        thing: Vec2[]
+        | { position: Vec2, radius: number }
+        | { x1: number, y1: number, x2: number, y2: number }
+        | { x: number, y: number, w: number, h: number }
+        | { x: number, y: number, width: number, hheight: number }
+    ): boolean;
 
     /**
      * Returns a new polygon representing the boolean union of `this` and the incoming `polygon`
