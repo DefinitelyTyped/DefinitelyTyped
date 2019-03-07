@@ -87,6 +87,9 @@ const c3: WebpackDevServer.Configuration = {
 const c4: WebpackDevServer.Configuration = {
     writeToDisk: (filePath: string) => true,
 };
+const c5: WebpackDevServer.Configuration = {
+    proxy: [{context: (pathname: string) => true}]
+};
 
 // API example
 server = new WebpackDevServer(compiler, config);
