@@ -239,6 +239,13 @@ warehouse.getProducts();
 warehouse.getProducts({ where: {}, scope: false });
 warehouse.getProducts({ where: {}, scope: false }).then((products) => products[0].id);
 
+interface ProductInstanceIncludeBarcode extends ProductInstance {
+    barcode: BarcodeInstance
+}
+warehouse.getProducts({ where: {}, scope: false, include: {model: Barcode, as: 'barcode'} }).then((products) => {
+    (products[0] as ProductInstanceIncludeBarcode).barcode
+});
+
 warehouse.setProducts();
 warehouse.setProducts([product]);
 warehouse.setProducts([product], { validate: true }).then(() => { });

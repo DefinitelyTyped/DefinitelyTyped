@@ -281,6 +281,11 @@ declare namespace sequelize {
          * Apply a scope on the related model, or remove its default scope by passing false.
          */
         scope?: string | boolean;
+
+        /**
+         * Load further nested related models
+         */
+        include?: IncludeOptions;
     }
 
     /**
