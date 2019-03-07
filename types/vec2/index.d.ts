@@ -5,10 +5,11 @@
 
 /**
  * A generic library useful when you need to work with points/vectors in 2d space.
- * **Stuff to Note**: most of the Vec2's methods take a `returnNew` as the last parameter.  If passed a truthy value, a new vector will be returned to you.  Otherwise the operation will be applied to `this` and `this` will be returned.
+ * **Stuff to Note**: most of the Vec2's methods take a `returnNew` as the last parameter.  If passed a truthy value, a new vector will be returned to you.
+ * Otherwise the operation will be applied to `this` and `this` will be returned.
  * Also, since `Infinity`and `NaN` are so insidious, this library will throw as soon as it detects either of these so you can take action to fix your data/algorithm.
  */
-export declare class Vec2 {
+export class Vec2 {
     x: number;
     y: number;
 
@@ -62,37 +63,33 @@ export declare class Vec2 {
      * @param returnNew
      */
     add(x: number, y: number, returnNew?: boolean): Vec2;
-    add(array: number[], returnNew?: boolean): Vec2;
-    add(vec2: Vec2, returnNew?: boolean): Vec2;
+    add(vec2: number[] | Vec2, returnNew?: boolean): Vec2;
 
     subtract(x: number, y: number, returnNew?: boolean): Vec2;
-    subtract(array: number[], returnNew?: boolean): Vec2;
-    subtract(vec2: Vec2, returnNew?: boolean): Vec2;
+    subtract(vec2: Vec2 | number[], returnNew?: boolean): Vec2;
 
     /**
      * Multiply this vectors components with the incoming, returning a clone if `returnNew` is truthy.
-     * @param scalar
+     * @param x
+     * @param y
      * @param returnNew
-     * @private
      */
-    multiply(scalar: number, returnNew?: boolean): Vec2;
     multiply(x: number, y: number, returnNew?: boolean): Vec2;
-    multiply(array: number[], returnNew?: boolean): Vec2;
-    multiply(vec2: Vec2, returnNew?: boolean): Vec2;
+    multiply(scalarArrayVec2: number | number[] | Vec2, returnNew?: boolean): Vec2;
 
     /**
      * Divide this vectors components by the incoming, returning a clone if `returnNew` is truthy.
      * _note_: this method will throw if you attempt to divide by zero or pass values that cause NaNs
-     * @param scalar
+     * @param x
+     * @param y
      * @param returnNew
      */
-    divide(scalar: number, returnNew?: boolean): Vec2;
     divide(x: number, y: number, returnNew?: boolean): Vec2;
-    divide(array: number[], returnNew?: boolean): Vec2;
-    divide(vec2: Vec2, returnNew?: boolean): Vec2;
+    divide(scalarArrayVec2: number | number[] | Vec2, returnNew?: boolean): Vec2;
 
     /**
-     * Rotate this vector's cordinates around `(0,0)`.  If `returnNew` is specified, a new `Vec2` will be created and populated with the result and returned.  Otherwise the result is applied to this vector and `this` is returned.
+     * Rotate this vector's cordinates around `(0,0)`.  If `returnNew` is specified, a new `Vec2` will be created and populated with the result and returned.
+     * Otherwise the result is applied to this vector and `this` is returned.
      * `inverse` - inverts the direction of the rotation
      * `returnNew` - causes the result to be applied to a new `Vec2`, otherwise the result is applied to `this`
      * @param radians
@@ -102,15 +99,15 @@ export declare class Vec2 {
     rotate(radians: number, inverse?: number, returnNew?: boolean): Vec2;
 
     /**
-     *Returns the length of this vector from `(0,0)`
+     * Returns the length of this vector from `(0,0)`
      */
     length(): number;
 
     /**
-     *Returns the length of this vector prior to the `Math.sqrt` call.
-     *This is usefull when you don't need to know the actual distance, but need a normalized value to compare with another `Vec2#lengthSquared` or similar.
+     * Returns the length of this vector prior to the `Math.sqrt` call.
+     * This is usefull when you don't need to know the actual distance, but need a normalized value to compare with another `Vec2#lengthSquared` or similar.
      */
-    lengthSquared(): number
+    lengthSquared(): number;
 
     /**
      * _returns_: the distance between this vector and the incoming
@@ -125,28 +122,28 @@ export declare class Vec2 {
     nearest(array: Vec2[]): Vec2;
 
     /**
-     *Normalizes this vector.  If `returnNew` is truthy, a new vector populated with the normalized coordinates will be returned.
+     * Normalizes this vector.  If `returnNew` is truthy, a new vector populated with the normalized coordinates will be returned.
      * @param returnNew
      */
-    normalize(returnNew?: boolean): Vec2
+    normalize(returnNew?: boolean): Vec2;
 
     /**
-     *returns true if the incoming coordinates are the same as this vector's
-     * @param vec2
+     * Returns true if the incoming coordinates are the same as this vector's
+     * @param x
+     * @param y
      */
-    equal(vec2: Vec2): boolean;
     equal(x: number, y: number): boolean;
-    equal(array: number[]): boolean;
+    equal(arrayVec2: number[] | Vec2): boolean;
 
     /**
-     *Return a `Vec2` that contains the absolute value of each of this vector's parts.
-     *If `returnNew` is truthy, create a new `Vec2` and return it. Otherwise apply the absolute values to to `this`.
+     * Return a `Vec2` that contains the absolute value of each of this vector's parts.
+     * If `returnNew` is truthy, create a new `Vec2` and return it. Otherwise apply the absolute values to to `this`.
      * @param returnNew
      */
     abs(returnNew?: boolean): Vec2;
 
     /**
-     *Return a `Vec2` consisting of the smallest values from this vector and the incoming
+     * Return a `Vec2` consisting of the smallest values from this vector and the incoming
      * When returnNew is truthy, a new `Vec2` will be returned otherwise the minimum values in either this or `vec` will be applied to this vector.
      * @param vec
      * @param returnNew
@@ -154,15 +151,16 @@ export declare class Vec2 {
     min(vec: Vec2, returnNew?: boolean): Vec2;
 
     /**
-     *Return a `Vec2` consisting of the largest values from this vector and the incoming
+     * Return a `Vec2` consisting of the largest values from this vector and the incoming
      * When returnNew is truthy, a new `Vec2` will be returned otherwise the maximum values in either `this` or `vec` will be applied to this vector.
      * @param vec
      * @param returnNew
      */
-    max(vec: Vec2, returnNew?: boolean): Vec2
+    max(vec: Vec2, returnNew?: boolean): Vec2;
 
     /**
-     *Clamp the coordinates of this vector to the high/low of the incoming vec2s.  If `returnNew` apply the result to the new vector and return.  Otherwise apply to this vector.
+     * Clamp the coordinates of this vector to the high/low of the incoming vec2s.  If `returnNew` apply the result to the new vector and return.
+     * Otherwise apply to this vector.
      * @param low
      * @param high
      * @param returnNew
@@ -181,7 +179,7 @@ export declare class Vec2 {
     lerp(vec: Vec2, amount: number, returnNew?: boolean): Vec2;
 
     /**
-     *Returns a vector set with the `(-y,x)` coordinates of this vector.  If `returnNew` a new vector is created and the operation is applied to the new vector.
+     * Returns a vector set with the `(-y,x)` coordinates of this vector.  If `returnNew` a new vector is created and the operation is applied to the new vector.
      * @param returnNew
      */
     skew(returnNew?: boolean): Vec2;
@@ -197,13 +195,13 @@ export declare class Vec2 {
     perpDot(): number;
 
     /**
-     *returns the angle from this vector to the incoming.
+     * Returns the angle from this vector to the incoming.
      * @param vec
      */
     angleTo(vec: Vec2): number;
 
     /**
-     * where `start` and `end` are vec2-like (e.g. `start.x` and `start.y`)
+     * Where `start` and `end` are vec2-like (e.g. `start.x` and `start.y`)
      * @param start
      * @param end
      */
@@ -225,5 +223,5 @@ export declare class Vec2 {
     /**
      * _returns_: `'(x, y)'`
      */
-    toString(): string
+    toString(): string;
 }
