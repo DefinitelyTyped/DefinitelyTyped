@@ -203,7 +203,7 @@ export interface AppLoadingProps {
     onError?: (error: Error) => void;
 
     /**  Whether to hide the native splash screen as soon as you unmount the AppLoading component. */
-    autoHideSplash?: boolean
+    autoHideSplash?: boolean;
 }
 
 /**
