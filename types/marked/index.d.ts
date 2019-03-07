@@ -114,6 +114,15 @@ declare namespace marked {
         br(): string;
     }
 
+    class Parser {
+        constructor(options?: MarkedOptions);
+        parse(src: TokensList): string;
+        next(): Token;
+        peek(): Token | number;
+        parseText(): string;
+        tok(): string
+    }
+
     class Lexer {
         rules: Rules;
         tokens: TokensList;
