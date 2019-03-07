@@ -5941,7 +5941,7 @@ declare namespace sequelize {
         /**
          * Default export for `import Sequelize from 'sequelize';` kind of imports
          */
-        // default: SequelizeStatic;
+        default: SequelizeStatic;
 
         /**
          * Export sequelize static on the instance for `import Sequelize from 'sequelize';` kind of imports
