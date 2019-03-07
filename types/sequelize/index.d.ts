@@ -1379,7 +1379,7 @@ declare namespace sequelize {
          * Should the join model have timestamps
          */
         timestamps?: boolean;
-         
+
         /**
          * Belongs-To-Many creates a unique key when primary key is not present on through model. This unique key name can be overridden using uniqueKey option.
          */
@@ -5938,6 +5938,15 @@ declare namespace sequelize {
         cls: any;
         useCLS(namespace:cls.Namespace): Sequelize;
 
+        /**
+         * Default export for `import Sequelize from 'sequelize';` kind of imports
+         */
+        default: SequelizeStatic;
+
+        /**
+         * Export sequelize static on the instance for `import Sequelize from 'sequelize';` kind of imports
+         */
+        Sequelize: SequelizeStatic;
     }
 
     interface QueryOptionsTransactionRequired { }
