@@ -7,14 +7,9 @@ sudo: false
 notifications:
   email: false
 
-jobs:
-  include:
-    - stage: build
-      script: npm install
-      script: npm run build
-      script: npm run test
-    - stage: codeowners
-      script: npm run update-codeowners
-stages:
- - name: codeowners
-   if: env(TRAVIS_EVENT_TYPE) = cron
+script:
+ - npm install
+ - npm run build
+ - npm run test
+ - if [[ $TRAVIS_EVENT_TYPE == "cron" ]]; then npm run update-codeowners || travis_terminate
+   1; fi
