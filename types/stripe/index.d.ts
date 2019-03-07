@@ -7339,9 +7339,18 @@ declare namespace Stripe {
             ): Promise<paymentIntents.IPaymentIntent>;
             cancel(
                 paymentIntentId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            cancel(
+                paymentIntentId: string,
                 data: {
                     cancellation_reason?: paymentIntents.PaymentIntentCancelationReason,
                 },
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            cancel(
+                paymentIntentId: string,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
         }
