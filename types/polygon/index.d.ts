@@ -5,7 +5,7 @@
 
 /* tslint:disable:array-type */  // cause contradictory error messages
 
-import Vec2 from '../vec2';
+import Vec2 from 'vec2';
 
 /**
  * Create a new polygon:
