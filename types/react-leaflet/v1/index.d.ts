@@ -1,4 +1,4 @@
-// Type definitions for react-leaflet 1.1
+// Type definitions for react-leaflet 1.9.1
 // Project: https://github.com/PaulLeCam/react-leaflet
 // Definitions by: Dave Leaver <https://github.com/danzel>, David Schneider <https://github.com/davschne>, Yui T. <https://github.com/yuit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,11 @@ import * as React from 'react';
 // which already declares things with some of the same names
 
 export type Children = React.ReactNode | React.ReactNode[];
+
+export interface Viewport {
+    center: [number, number] | null | undefined;
+    zoom: number | null | undefined;
+}
 
 export interface MapEvents {
     onclick?(event: Leaflet.LeafletMouseEvent): void;
@@ -140,18 +145,22 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     minZoom?: number;
     style?: React.CSSProperties;
     useFlyTo?: boolean;
+    viewport?: Viewport;
     zoom?: number;
 }
 
 export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.Map> extends MapComponent<P, E> {
     className?: string;
     container: HTMLDivElement;
+    viewport: Viewport;
     getChildContext(): { layerContainer: E, map: E };
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
     bindContainer(container: HTMLDivElement): void;
     shouldUpdateCenter(next: Leaflet.LatLngExpression, prev: Leaflet.LatLngExpression): boolean;
     shouldUpdateBounds(next: Leaflet.LatLngBoundsExpression, prev: Leaflet.LatLngBoundsExpression): boolean;
+    onViewportChange: (viewport: Viewport | null) => void;
+    onViewportChanged: (viewport: Viewport | null) => void;
 }
 
 export interface PaneProps {
