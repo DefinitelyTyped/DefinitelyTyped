@@ -218,26 +218,32 @@ declare module "tls" {
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         addListener(event: "secureConnect", listener: () => void): this;
+        addListener(event: "session", listener: (session: Buffer) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "OCSPResponse", response: Buffer): boolean;
         emit(event: "secureConnect"): boolean;
+        emit(event: "session", session: Buffer): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         on(event: "secureConnect", listener: () => void): this;
+        on(event: "session", listener: (session: Buffer) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         once(event: "secureConnect", listener: () => void): this;
+        once(event: "session", listener: (session: Buffer) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         prependListener(event: "secureConnect", listener: () => void): this;
+        prependListener(event: "session", listener: (session: Buffer) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         prependOnceListener(event: "secureConnect", listener: () => void): this;
+        prependOnceListener(event: "session", listener: (session: Buffer) => void): this;
     }
 
     interface TlsOptions extends SecureContextOptions {

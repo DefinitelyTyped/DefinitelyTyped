@@ -2,7 +2,9 @@
 // Project: https://github.com/parcel-bundler/parcel#readme
 // Definitions by: pinage404 <https://github.com/pinage404>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
+
+import * as express from "express-serve-static-core";
 
 declare namespace ParcelBundler {
     interface ParcelOptions {
@@ -173,6 +175,8 @@ declare class ParcelBundler {
     addPackager(type: string, packager: string): void;
 
     bundle(): Promise<ParcelBundler.ParcelBundle>;
+
+    middleware(): (req: express.Request, res: express.Response, next: express.NextFunction) => any;
 }
 
 export = ParcelBundler;

@@ -1,4 +1,4 @@
-// Type definitions for ora 3.0
+// Type definitions for ora 3.1
 // Project: https://github.com/sindresorhus/ora
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>
 //                 Christian Rackerseder <https://github.com/screendriver>
@@ -44,6 +44,16 @@ declare namespace ora {
          * Change the spinner color.
          */
         color: Color;
+
+        /**
+         * Change the spinner.
+         */
+        spinner: SpinnerName | Spinner;
+
+        /**
+         * Change the spinner indent.
+         */
+        indent: number;
 
         /**
          * Start the spinner.
@@ -149,6 +159,11 @@ declare namespace ora {
          * @default true
          */
         hideCursor?: boolean;
+        /**
+         * Indent the spinner with the given number of spaces.
+         * @default 0
+         */
+        indent?: number;
         /**
          * Interval between each frame.
          *

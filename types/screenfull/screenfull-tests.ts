@@ -1,112 +1,46 @@
 import screenfull = require('screenfull');
 
-function test_fullscreen_page() {
-  if (screenfull && screenfull.enabled) {
-    screenfull.request();
-  }
-}
+if (screenfull) {
+    screenfull.enabled; // $ExpectType boolean
+    screenfull.enabled = false; // $ExpectError
+    screenfull.isFullscreen; // $ExpectType boolean
+    screenfull.isFullscreen = false; // $ExpectError
+    screenfull.element; // $ExpectType Element | null
+    screenfull.element = document.documentElement; // $ExpectError
 
-function test_fullscreen_element() {
-  var elem = document.getElementById('target');
-  if (screenfull && screenfull.enabled) {
-    screenfull.request(elem);
-  }
-}
+    if (screenfull.enabled) {
+        const elem: Element = document.getElementById('target')!;
 
-function test_toggle() {
-  var elem = document.getElementById('target');
-  if (screenfull && screenfull.enabled) {
-    screenfull.toggle(elem);
-  }
-}
+        screenfull.request(); // $ExpectType Promise<void>
+        screenfull.request(elem); // $ExpectType Promise<void>
+        screenfull.toggle(); // $ExpectType Promise<void>
+        screenfull.toggle(elem); // $ExpectType Promise<void>
+        screenfull.exit(); // $ExpectType Promise<void>
 
-function test_exit() {
-  if (screenfull && screenfull.enabled) {
-    screenfull.request();
-  }
-  document.getElementById('target').addEventListener('click', function () {
-    if (screenfull && screenfull.enabled) {
-      screenfull.exit();
+        screenfull.on('change', event => {
+            event; // $ExpectType Event
+        });
+        screenfull.on('error', event => {
+            event; // $ExpectType Event
+        });
+        screenfull.off('change', event => {
+            event; // $ExpectType Event
+        });
+        screenfull.off('error', event => {
+            event; // $ExpectType Event
+        });
+        screenfull.onchange(event => {
+            event; // $ExpectType Event
+        });
+        screenfull.onerror(event => {
+            event; // $ExpectType Event
+        });
+
+        screenfull.raw.requestFullscreen; // $ExpectType string
+        screenfull.raw.exitFullscreen; // $ExpectType string
+        screenfull.raw.fullscreenElement; // $ExpectType string
+        screenfull.raw.fullscreenEnabled; // $ExpectType string
+        screenfull.raw.fullscreenchange; // $ExpectType string
+        screenfull.raw.fullscreenerror; // $ExpectType string
     }
-  })
-}
-
-function test_raw_detect_change() {
-  if (screenfull && screenfull.enabled) {
-    document.addEventListener(screenfull.raw.fullscreenchange, function () {
-      if (screenfull && screenfull.isFullscreen) {
-        console.log('fullscreen');
-      } else {
-        console.log('not fullscreen');
-      }
-    });
-  }
-}
-
-function test_raw_error() {
-  if (screenfull && screenfull.enabled) {
-    document.addEventListener(screenfull.raw.fullscreenerror, function (event) {
-      console.error('Failed to enable fullscreen', event);
-    });
-  }
-}
-
-function test_detect_change() {
-  if (screenfull && screenfull.enabled) {
-    screenfull.onchange(function () {
-      if (screenfull && screenfull.isFullscreen) {
-        console.log('fullscreen');
-      } else {
-        console.log('not fullscreen');
-      }
-    });
-  }
-}
-
-function test_detect_error() {
-  if (screenfull && screenfull.enabled) {
-    screenfull.onerror(function (event) {
-      console.error('Failed to enable fullscreen', event);
-    });
-  }
-}
-
-function test_listener_on() {
-  if (screenfull && screenfull.enabled) {
-    screenfull.on('change', function () {
-      if (screenfull && screenfull.isFullscreen) {
-        console.log('fullscreen');
-      } else {
-        console.log('not fullscreen');
-      }
-    });
-    screenfull.on('error', function (event) {
-      console.error('Failed to enable fullscreen', event);
-    })
-  }
-}
-
-function test_listener_off() {
-  if (screenfull && screenfull.enabled) {
-    screenfull.off('change', function () {
-      if (screenfull && screenfull.isFullscreen) {
-        console.log('fullscreen');
-      } else {
-        console.log('not fullscreen');
-      }
-    });
-    screenfull.off('error', function (event) {
-      console.error('Failed to enable fullscreen', event);
-    })
-  }
-}
-
-function test_access_element() {
-  var elem = document.getElementById('target');
-  if (screenfull && screenfull.enabled) {
-    screenfull.request(elem);
-    if (elem !== screenfull.element) {
-      alert('incorrect element property');
-    }
-  }
 }

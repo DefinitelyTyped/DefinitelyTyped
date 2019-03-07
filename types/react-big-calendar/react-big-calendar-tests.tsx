@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import BigCalendar, { BigCalendarProps, Navigate, View, DateRange, DateLocalizer, ToolbarProps, EventWrapperProps } from "react-big-calendar";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const globalize: any;
@@ -58,6 +59,30 @@ class CalendarResource {
     const localizer = BigCalendar.momentLocalizer(moment);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
+// Drag and Drop Example Test
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const DragAndDropCalendar = withDragAndDrop(BigCalendar);
+    const DnD = ({ localizer }: Props) => (
+        <DragAndDropCalendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+            onEventDrop={console.log}
+            onEventResize={console.log}
+        />
+    );
+
+    const localizer = BigCalendar.momentLocalizer(moment);
+
+    ReactDOM.render(<DnD localizer={localizer} />, document.body);
 }
 
 {
@@ -203,7 +228,7 @@ function Event(event: any) {
 
 class EventWrapper extends React.Component<EventWrapperProps> {
     render() {
-        const { continuesEarlier, label, accessors = {}, style } = this.props;
+        const { continuesEarlier, event, label, accessors = {}, style } = this.props;
         return (
             <div style={style}>
                 <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>

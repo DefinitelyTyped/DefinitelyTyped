@@ -65,7 +65,7 @@ import * as net from 'net';
     res.addTrailers({ 'x-foo': 'bar' });
 
     // writeHead
-    res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n');
+    res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end();
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
     res.writeHead(200);
 
@@ -112,6 +112,9 @@ import * as net from 'net';
 
     // event
     req.on('data', () => { });
+
+    // path
+    const path: string = req.path;
 }
 
 {

@@ -43,3 +43,12 @@ confetti({
         y: 0.6
     }
 });
+
+const canvas = document.createElement('canvas');
+const myConfetti = confetti.create(canvas);
+
+myConfetti();
+
+myConfetti({
+    particleCount: 150
+});

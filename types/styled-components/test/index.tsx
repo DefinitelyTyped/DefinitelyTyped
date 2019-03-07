@@ -1030,3 +1030,32 @@ const WrapperFunc = (props: WrapperProps) => <div />;
 const StyledWrapperFunc = styled(WrapperFunc)``;
 // No `children` in props, so this should generate an error
 const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
+
+function unionTest() {
+    interface Book {
+        kind: 'book';
+        author: string;
+    }
+
+    interface Magazine {
+        kind: 'magazine';
+        issue: number;
+    }
+
+    type SomethingToRead = (Book | Magazine);
+
+    const Readable: React.FunctionComponent<SomethingToRead> = props => {
+        if (props.kind === 'magazine') {
+            return <div>magazine #{props.issue}</div>;
+        }
+
+        return <div>magazine #{props.author}</div>;
+    };
+
+    const StyledReadable = styled(Readable)`
+        font-size: ${props => props.kind === 'book' ? 16 : 14}
+    `;
+
+    <StyledReadable kind="book" author="Hejlsberg" />;
+    <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
+}

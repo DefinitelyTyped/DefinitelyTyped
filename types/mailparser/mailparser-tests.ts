@@ -36,10 +36,16 @@ var sourceStream = fs.createReadStream('foo.eml');
 simpleParser(sourceString, (err, mail) => err ? err : mail.html);
 simpleParser(sourceBuffer, (err, mail) => err ? err : mail.html);
 simpleParser(sourceStream, (err, mail) => err ? err : mail.html);
+simpleParser(sourceString, { keepCidLinks: true }, (err, mail) => err ? err : mail.html);
+simpleParser(sourceBuffer, { keepCidLinks: true }, (err, mail) => err ? err : mail.html);
+simpleParser(sourceStream, { keepCidLinks: true }, (err, mail) => err ? err : mail.html);
 
 simpleParser(sourceString).then(mail => mail.html).catch(err => err);
 simpleParser(sourceBuffer).then(mail => mail.html).catch(err => err);
 simpleParser(sourceStream).then(mail => mail.html).catch(err => err);
+simpleParser(sourceString, { keepCidLinks: true }).then(mail => mail.html).catch(err => err);
+simpleParser(sourceBuffer, { keepCidLinks: true }).then(mail => mail.html).catch(err => err);
+simpleParser(sourceStream, { keepCidLinks: true }).then(mail => mail.html).catch(err => err);
 
 simpleParser(sourceString, (err, mail) => {
 	console.log(mail.headers.get('subject'));
