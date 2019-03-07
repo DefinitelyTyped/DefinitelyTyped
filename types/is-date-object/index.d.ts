@@ -7,7 +7,7 @@
 type InvalidTypes = undefined | null | boolean | string | number | [] | {};
 
 declare function isDateObject(value: Date): true;
-declare function isDateObject(value: InvalidTypes | unknown): false;
-declare function isDateObject(value?: unknown): false;
+declare function isDateObject(value: InvalidTypes | unknown): boolean;
+declare function isDateObject(value?: unknown): boolean;
 
 export = isDateObject;
