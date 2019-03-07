@@ -877,6 +877,12 @@
             "asOfVersion": "3.8.1"
         },
         {
+            "libraryName": "jest-cli",
+            "typingsPackageName": "jest-cli",
+            "sourceRepoURL": "https://github.com/facebook/jest",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jest-matcher-utils",
             "typingsPackageName": "jest-matcher-utils",
             "sourceRepoURL": "https://github.com/facebook/jest",
