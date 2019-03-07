@@ -1,4 +1,4 @@
-// Type definitions for requestidlecallback 0.30
+// Type definitions for requestidlecallback 0.3.0
 // Project: https://w3c.github.io/requestidlecallback/, https://github.com/afarkas/requestidlecallback
 // Definitions by: 贺师俊 <https://github.com/hax>
 //                 Tobias Ebnöther <https://github.com/ebi>
