@@ -148,13 +148,13 @@ export interface CommonUserstate {
     "user-id"?: string;
     "tmi-sent-ts"?: string;
     flags?: string;
+    [paramater: string]: any;
 }
 
 export interface UserNoticeState extends CommonUserstate {
     login?: string;
     message?: string;
     "system-msg"?: string;
-    [paramater: string]: any;
 }
 
 export interface CommonSubUserstate extends UserNoticeState {
