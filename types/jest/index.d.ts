@@ -155,6 +155,11 @@ declare namespace jest {
      */
     function resetModules(): typeof jest;
     /**
+     * Creates a sandbox registry for the modules that are loaded inside the callback function..
+     * This is useful to isolate specific modules for every test so that local module state doesn't conflict between tests.
+     */
+    function isolateModules(fn: () => void): typeof jest;
+    /**
      * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
      * This only works with jest-circus!
      */
