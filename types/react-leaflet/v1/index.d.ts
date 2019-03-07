@@ -240,6 +240,19 @@ export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E ext
     getChildContext(): { popupContainer: E };
 }
 
+export interface VideoOverlayProps extends Leaflet.VideoOverlayOptions {
+    attribution?: string;
+    children?: Children;
+    bounds: Leaflet.LatLngBoundsExpression;
+    opacity?: number;
+    play?: boolean;
+    url: string | string[] | HTMLVideoElement;
+    zIndex?: number;
+}
+export class VideoOverlay<P extends VideoOverlayProps = VideoOverlayProps, E extends Leaflet.VideoOverlay = Leaflet.VideoOverlay> extends MapLayer<P, E> {
+    getChildContext(): { popupContainer: E };
+}
+
 export interface LayerGroupProps {
     children?: Children;
 }

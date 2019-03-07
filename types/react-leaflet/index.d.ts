@@ -278,6 +278,19 @@ export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E ext
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
+export interface VideoOverlayProps extends Leaflet.VideoOverlayOptions, MapComponentProps {
+    attribution?: string;
+    bounds: Leaflet.LatLngBoundsExpression;
+    opacity?: number;
+    play?: boolean;
+    url: string | string[] | HTMLVideoElement;
+    zIndex?: number;
+}
+export class VideoOverlay<P extends VideoOverlayProps = VideoOverlayProps, E extends Leaflet.VideoOverlay = Leaflet.VideoOverlay> extends MapLayer<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
+
 export class LayerGroup<P extends MapLayerProps = MapLayerProps, E extends Leaflet.LayerGroup = Leaflet.LayerGroup> extends MapLayer<P, E> {
     createLeafletElement(props: P): E;
 }
