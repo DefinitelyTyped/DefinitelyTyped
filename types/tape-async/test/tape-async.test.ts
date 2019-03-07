@@ -1,9 +1,9 @@
 import tape = require("tape-async");
 
-var name: string;
-var cb: (test: tape.Test) => void;
-var opts: tape.TestOptions;
-var t: tape.Test;
+let name: string;
+let cb: (test: tape.Test) => void;
+let opts: tape.TestOptions;
+let t: tape.Test;
 
 tape(cb);
 tape(name, cb);
@@ -26,14 +26,12 @@ tape.only(name, opts, cb);
 
 tape.onFinish(() => {});
 
-
-var sopts: tape.StreamOptions;
-var rs: NodeJS.ReadableStream;
+let sopts: tape.StreamOptions;
+let rs: NodeJS.ReadableStream;
 rs = tape.createStream();
 rs = tape.createStream(sopts);
 
-
-var htest: typeof tape;
+let htest: typeof tape;
 htest = tape.createHarness();
 
 class CustomException extends Error {
@@ -42,19 +40,17 @@ class CustomException extends Error {
 	}
 }
 
-
 tape(name, (test: tape.Test) => {
+	let num: number;
+	let ms: number;
+	let value: any;
+	let actual: any;
+	let expected: any;
+	let err: any;
+	let fn = () => {};
+	let msg: string;
 
-	var num: number;
-	var ms: number;
-	var value: any;
-	var actual: any;
-	var expected: any;
-	var err: any;
-	var fn = function() {};
-	var msg: string;
-
-	var exceptionExpected: RegExp | (() => void);
+	let exceptionExpected: RegExp | (() => void);
 
 	test.plan(num);
 	test.end();

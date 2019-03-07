@@ -2,10 +2,10 @@
 
 import tape = require("tape-async");
 
-var name: string;
-var cb: (test: tape.Test) => Promise<void>;
-var opts: tape.TestOptions;
-var t: tape.Test;
+let name: string;
+let cb: (test: tape.Test) => Promise<void>;
+let opts: tape.TestOptions;
+let t: tape.Test;
 
 tape(cb);
 tape(name, cb);
