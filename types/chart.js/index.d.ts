@@ -1,5 +1,5 @@
 // Type definitions for Chart.js 2.7
-// Project: https://github.com/nnnick/Chart.js, http://www.chartjs.org
+// Project: https://github.com/nnnick/Chart.js, https://www.chartjs.org
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
@@ -357,7 +357,7 @@ declare namespace Chart {
         cornerRadius?: number;
         multiKeyBackground?: string;
         callbacks?: ChartTooltipCallback;
-        filter?(item: ChartTooltipItem): boolean;
+        filter?(item: ChartTooltipItem, data: ChartData): boolean;
         itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
         position?: string;
         caretPadding?: number;

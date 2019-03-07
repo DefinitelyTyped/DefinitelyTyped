@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
+import { Component, ReactNode } from "react";
 
 export interface LazyLoadProps {
     once?: boolean;
@@ -13,10 +13,10 @@ export interface LazyLoadProps {
     overflow?: boolean;
     resize?: boolean;
     scroll?: boolean;
-    children?: JSX.Element;
+    children?: ReactNode;
     throttle?: number | boolean;
     debounce?: number | boolean;
-    placeholder?: any;
+    placeholder?: ReactNode;
     unmountIfInvisible?: boolean;
 }
 

@@ -7,7 +7,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="chokidar"/>
 /// <reference types="node" />
 /// <reference types="serve-static" />
 
