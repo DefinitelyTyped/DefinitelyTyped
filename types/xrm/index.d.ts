@@ -4372,7 +4372,7 @@ declare namespace Xrm {
 
         /**
          * Displays an error dialog.
-         * @param errorOptions An object to specify the options for error dialog.         
+         * @param errorOptions An object to specify the options for error dialog.
          */
         openErrorDialog(errorOptions: Navigation.ErrorDialogOptions): Async.PromiseLike<any>;
 
