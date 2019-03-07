@@ -74,7 +74,9 @@ export interface AxeBuilder {
      * Perform analysis and retrieve results.
      * @param callback   Function to execute when analysis completes.
      */
-    analyze(callback: (results: AxeAnalysis) => void): Promise<AxeAnalysis>;
+    analyze(
+        callback?: (err: Error, results: AxeAnalysis) => void
+    ): Promise<AxeAnalysis>;
 }
 
 export const AxeBuilder: {

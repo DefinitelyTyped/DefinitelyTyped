@@ -20,7 +20,7 @@ const inTest = async (webDriver: WebDriver) => {
         .disableRules("rule")
         .disableRules(["rule", "rule"])
         .configure(spec)
-        .analyze((internalResults: AxeAnalysis) => {});
+        .analyze((err: Error, internalResults: AxeAnalysis) => {});
 
     const inapplicable: Result[] = analysis.inapplicable;
     const incomplete: Result[] = analysis.incomplete;
