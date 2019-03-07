@@ -4372,8 +4372,7 @@ declare namespace Xrm {
 
         /**
          * Displays an error dialog.
-         * @param confirmStrings The strings to be used in the confirm dialog.
-         * @param confirmOptions The height and width options for alert dialog
+         * @param errorOptions An object to specify the options for error dialog.         
          */
         openErrorDialog(errorOptions: Navigation.ErrorDialogOptions): Async.PromiseLike<any>;
 
