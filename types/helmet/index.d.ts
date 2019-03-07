@@ -134,6 +134,10 @@ declare namespace helmet {
     export interface IHelmetHpkpConfiguration {
         maxAge: number;
         sha256s: string[];
+        /**
+         * @deprecated Use includeSubDomains instead. (Uppercase "D")
+         */
+        includeSubdomains?: boolean;
         includeSubDomains?: boolean;
         reportUri?: string;
         reportOnly?: boolean;
@@ -142,6 +146,10 @@ declare namespace helmet {
 
     export interface IHelmetHstsConfiguration {
         maxAge?: number;
+        /**
+         * @deprecated Use includeSubDomains instead. (Uppercase "D")
+         */
+        includeSubdomains?: boolean;
         includeSubDomains?: boolean;
         preload?: boolean;
         setIf?: IHelmetSetIfFunction;
