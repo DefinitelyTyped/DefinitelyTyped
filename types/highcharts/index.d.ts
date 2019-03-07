@@ -5834,6 +5834,8 @@ declare namespace Highcharts {
         size?: number | string;
         innerSize?: number | string;
 
+         
+        
         type?: string;
         /**
          * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
@@ -5964,6 +5966,11 @@ declare namespace Highcharts {
          * Define the visual z index of the series.
          */
         zIndex?: number;
+        
+        /** 
+        *when using any indicators, Define the indicators name like 'candlesticksss'.
+        */
+        linkedTo?:string;
     }
 
     interface SeriesOptions extends IndividualSeriesOptions, SeriesChart { }
