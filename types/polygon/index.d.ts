@@ -5,7 +5,7 @@
 
 /* tslint:disable:array-type */  // cause contradictory error messages
 
-import { Vec2 } from '../vec2';
+import Vec2 from '../vec2';
 
 /**
  * Create a new polygon:
@@ -21,7 +21,7 @@ import { Vec2 } from '../vec2';
  *
  * You can pass an array of `Vec2`s, arrays `[x, y]`, or objects `{ x: 10, y: 20 }`
  */
-export class Polygon {
+declare class Polygon {
     points: Vec2[];
 
     /**
@@ -183,10 +183,10 @@ export class Polygon {
      */
     contains(
         thing: Vec2[]
-        | { position: Vec2, radius: number }
-        | { x1: number, y1: number, x2: number, y2: number }
-        | { x: number, y: number, w: number, h: number }
-        | { x: number, y: number, width: number, hheight: number }
+            | { position: Vec2, radius: number }
+            | { x1: number, y1: number, x2: number, y2: number }
+            | { x: number, y: number, w: number, h: number }
+            | { x: number, y: number, width: number, hheight: number }
     ): boolean;
 
     /**
@@ -206,3 +206,5 @@ export class Polygon {
      */
     toArray(): number[][];
 }
+
+export default Polygon;
