@@ -895,6 +895,12 @@
             "asOfVersion": "24.3.0"
         },
         {
+            "libraryName": "jest-each",
+            "typingsPackageName": "jest-each",
+            "sourceRepoURL": "https://github.com/facebook/jest",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jest-matcher-utils",
             "typingsPackageName": "jest-matcher-utils",
             "sourceRepoURL": "https://github.com/facebook/jest",
