@@ -54,5 +54,5 @@ console.log(textRenderer.strong(text));
 
 const parseTestText = "- list1\n  - list1.1\n\n listend";
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
-const parser = new marked.Parser()
+const parser = new marked.Parser();
 console.log(parser.parse(parseTestTokens));

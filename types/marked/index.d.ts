@@ -120,7 +120,7 @@ declare namespace marked {
         next(): Token;
         peek(): Token | number;
         parseText(): string;
-        tok(): string
+        tok(): string;
     }
 
     class Lexer {
