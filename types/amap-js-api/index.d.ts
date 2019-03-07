@@ -1,4 +1,4 @@
-// Type definitions for non-npm package amap-js-sdk 1.4
+// Type definitions for non-npm package amap-js-api 1.4
 // Project: https://lbs.amap.com/api/javascript-api/summary
 // Definitions by: breeze9527 <https://github.com/breeze9527>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

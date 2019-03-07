@@ -15,7 +15,7 @@ declare namespace AMap {
         type Options = CircleOptions | PolyOptions | RectOptions;
     }
 
-    class MarkerShape {
+    class MarkerShape extends EventEmitter {
         constructor(options: MarkerShape.Options);
     }
 }
