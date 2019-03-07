@@ -5,3 +5,10 @@
 
 export = camelcaseKeys;
 declare function camelcaseKeys(input: any, options?: { exclude?: string[] | RegExp[], deep?: boolean }): any;
+
+declare namespace camelcaseKeys {
+    interface Options {
+        deep?: boolean;
+        exclude?: Array<string | RegExp>;
+    }
+}
