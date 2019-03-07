@@ -877,6 +877,12 @@
             "asOfVersion": "3.8.1"
         },
         {
+            "libraryName": "jest-matcher-utils",
+            "typingsPackageName": "jest-matcher-utils",
+            "sourceRepoURL": "https://github.com/facebook/jest",
+            "asOfVersion": "24.3.0"
+        },
+        {
             "libraryName": "jimp",
             "typingsPackageName": "jimp",
             "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
@@ -1135,12 +1141,6 @@
             "asOfVersion": "2.15.0"
         },
         {
-            "libraryName": "png-async",
-            "typingsPackageName": "png-async",
-            "sourceRepoURL": "https://github.com/kanreisa/node-png-async",
-            "asOfVersion": "0.9.4"
-        },
-        {
             "libraryName": "node-waves",
             "typingsPackageName": "node-waves",
             "sourceRepoURL": "http://fian.my.id/Waves",
@@ -1283,6 +1283,12 @@
             "typingsPackageName": "plottable",
             "sourceRepoURL": "http://plottablejs.org/",
             "asOfVersion": "3.7.0"
+        },
+        {
+            "libraryName": "png-async",
+            "typingsPackageName": "png-async",
+            "sourceRepoURL": "https://github.com/kanreisa/node-png-async",
+            "asOfVersion": "0.9.4"
         },
         {
             "libraryName": "poly2tri.js",
