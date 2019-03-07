@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/vec2": "^1.6.0"
+    }
+}
