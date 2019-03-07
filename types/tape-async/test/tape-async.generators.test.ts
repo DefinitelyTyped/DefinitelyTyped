@@ -1,10 +1,8 @@
-// TypeScript Version: 2.3
-
 import tape = require("tape-async");
 
-let name: string;
-let cb: (test: tape.Test) => IterableIterator<any>;
-let opts: tape.TestOptions;
+const name: string = undefined;
+const cb = function*(test: tape.Test): IterableIterator<void> {};
+const opts: tape.TestOptions = {};
 let t: tape.Test;
 
 tape(cb);

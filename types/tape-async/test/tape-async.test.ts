@@ -1,8 +1,8 @@
 import tape = require("tape-async");
 
-let name: string;
-let cb: (test: tape.Test) => void;
-let opts: tape.TestOptions;
+const name: string = undefined;
+const cb = (test: tape.Test) => {};
+const opts: tape.TestOptions = {};
 let t: tape.Test;
 
 tape(cb);
@@ -26,7 +26,7 @@ tape.only(name, opts, cb);
 
 tape.onFinish(() => {});
 
-let sopts: tape.StreamOptions;
+const sopts: tape.StreamOptions = undefined;
 let rs: NodeJS.ReadableStream;
 rs = tape.createStream();
 rs = tape.createStream(sopts);
@@ -41,16 +41,16 @@ class CustomException extends Error {
 }
 
 tape(name, (test: tape.Test) => {
-	let num: number;
-	let ms: number;
-	let value: any;
-	let actual: any;
-	let expected: any;
-	let err: any;
-	let fn = () => {};
-	let msg: string;
+	const num: number = undefined;
+	const ms: number = undefined;
+	const value: any = undefined;
+	const actual: any = undefined;
+	const expected: any = undefined;
+	const err: any = undefined;
+	const fn = () => {};
+	const msg: string = undefined;
 
-	let exceptionExpected: RegExp | (() => void);
+	const exceptionExpected: RegExp | (() => void) = undefined;
 
 	test.plan(num);
 	test.end();
