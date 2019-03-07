@@ -5,6 +5,14 @@ import SequelizeAsDefault from 'sequelize';
 import { Sequelize as SequelizeAsIndividualExport } from 'sequelize';
 
 //
+// Import checks
+// ~~~~~~~~~~~~~
+//
+Sequelize.Model.Instance
+SequelizeAsDefault.Model.Instance
+SequelizeAsIndividualExport.Model.Instance
+
+//
 //  Fixtures
 // ~~~~~~~~~~
 //
@@ -27,7 +35,6 @@ var Comment   = s.define<AnyInstance, AnyAttributes>( 'comment', {} );
 var Post      = s.define<AnyInstance, AnyAttributes>( 'post', {} );
 var t : Sequelize.Transaction = null;
 s.transaction().then( ( a ) => t = a );
-
 
 //
 //  Generics
