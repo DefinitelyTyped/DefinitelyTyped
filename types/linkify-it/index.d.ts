@@ -1,4 +1,5 @@
 // Type definitions for linkify-it 2.1.0
+// TypeScript Version: 2.2
 // Project: https://github.com/markdown-it/linkify-it
 // Definitions by: Lindsey Smith <https://github.com/praxxis>, Robert Coie <https://github.com/rapropos/typed-linkify-it>, Alex Plumb <https://github.com/alexplumb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +16,7 @@ declare const LinkifyIt: {
 };
 
 declare namespace LinkifyIt {
-    type Validate = (text: string, pos: number, self: PrivateLinkifyIt) => number | boolean;
+    type Validate = (text: string, pos: number, self: LinkifyIt) => number | boolean;
 
     interface FullRule {
         validate: string | RegExp | Validate;
@@ -52,15 +53,9 @@ declare namespace LinkifyIt {
         test(text: string): boolean;
         testSchemaAt(text: string, schemaName: string, pos: number): number;
         tlds(list: string | string[], keepOld?: boolean): LinkifyIt;
-    }
-
-    interface PrivateRegExp {
-        [key: string]: string | RegExp;
-    }
-
-    // https://github.com/markdown-it/linkify-it/blob/master/lib/re.js
-    interface PrivateLinkifyIt extends LinkifyIt {
-        re: PrivateRegExp;
+        re: {
+            [key: string]: RegExp;
+        };
     }
 }
 
