@@ -1,6 +1,8 @@
 import Sequelize = require("sequelize");
 import Q = require('q');
 import Bluebird = require('bluebird');
+import SequelizeAsDefault from 'sequelize';
+import { Sequelize as SequelizeAsIndividualExport } from 'sequelize';
 
 //
 //  Fixtures
@@ -26,8 +28,6 @@ var Post      = s.define<AnyInstance, AnyAttributes>( 'post', {} );
 var t : Sequelize.Transaction = null;
 s.transaction().then( ( a ) => t = a );
 
-var sequelizeAsDefaultImport = Sequelize.default;
-var sequelizeAsExportClause  = Sequelize.Sequelize;
 
 //
 //  Generics
