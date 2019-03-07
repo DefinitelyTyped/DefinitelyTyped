@@ -16,7 +16,7 @@
 //                 Bartosz Dotryw <https://github.com/burtek>
 //                 Jason Killian <https://github.com/jkillian>
 //                 Satyajit Sahoo <https://github.com/satya164>
-//                 Vinit Sood <https://github.com/vinitsood> 
+//                 Vinit Sood <https://github.com/vinitsood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
