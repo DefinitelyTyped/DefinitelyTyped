@@ -4,10 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-type InvalidTypes = undefined | null | boolean | string | number | [] | {};
-
 declare function isDateObject(value: Date): true;
-declare function isDateObject(value: InvalidTypes | unknown): false;
-declare function isDateObject(value?: unknown): false;
+declare function isDateObject(value?: object): boolean;
+declare function isDateObject(value?: null | boolean | string | number | symbol | bigint | []): false;
 
 export = isDateObject;
