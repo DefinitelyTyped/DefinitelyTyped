@@ -146,6 +146,7 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     style?: React.CSSProperties;
     useFlyTo?: boolean;
     viewport?: Viewport;
+    whenReady?: () => void;
     zoom?: number;
 }
 
