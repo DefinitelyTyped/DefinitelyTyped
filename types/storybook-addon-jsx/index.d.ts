@@ -7,7 +7,7 @@
 import '@storybook/react';
 import { ReactNode, ReactElement } from 'react';
 
-export type displayNameFunc = (element: ReactElement<any>) => string;
+export type displayNameFunc = (element: ReactElement) => string;
 
 declare module '@storybook/react' {
     interface Options {

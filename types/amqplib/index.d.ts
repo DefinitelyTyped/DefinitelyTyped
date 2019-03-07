@@ -1,5 +1,5 @@
 // Type definitions for amqplib 0.5
-// Project: https://github.com/squaremo/amqp.node
+// Project: https://github.com/squaremo/amqp.node, http://squaremo.github.io/amqp.node
 // Definitions by: Michael Nahkies <https://github.com/mnahkies>, Ab Reitsma <https://github.com/abreits>, Nicolás Fantone <https://github.com/nfantone>, Nick Zelei <https://github.com/zelein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -8,13 +8,14 @@
 
 import * as Promise from 'bluebird';
 import * as events from 'events';
-import { Replies, Options, Message, GetMessage, ConsumeMessage } from './properties';
+import { Replies, Options, Message, GetMessage, ConsumeMessage, ServerProperties } from './properties';
 export * from './properties';
 
 export interface Connection extends events.EventEmitter {
     close(): Promise<void>;
     createChannel(): Promise<Channel>;
     createConfirmChannel(): Promise<ConfirmChannel>;
+    serverProperties: ServerProperties;
 }
 
 export interface Channel extends events.EventEmitter {

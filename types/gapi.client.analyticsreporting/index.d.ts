@@ -1,4 +1,4 @@
-// Type definitions for Google Google Analytics Reporting API v4 4.0
+// Type definitions for non-npm package Google Google Analytics Reporting API v4 4.0
 // Project: https://developers.google.com/analytics/devguides/reporting/core/v4/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,5 +1,5 @@
 // Type definitions for Sinon 7.0
-// Project: http://sinonjs.org/
+// Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
 //                 Lukas Spieß <https://github.com/lumaxis>
@@ -1618,10 +1618,14 @@ declare namespace Sinon {
          *
          * @template TType Type being stubbed.
          * @param constructor   Object or class to stub.
+         * @param overrides     An optional map overriding created stubs
          * @returns A stubbed version of the constructor.
          * @remarks The given constructor function is not invoked. See also the stub API.
          */
-        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
+        createStubInstance<TType>(
+            constructor: StubbableType<TType>,
+            overrides?: { [K in keyof TType]?: any }
+        ): SinonStubbedInstance<TType>;
     }
 
     interface SinonApi {

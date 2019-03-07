@@ -13,4 +13,5 @@ Additional Details
  * Global values: none
 
 # Credits
-<a href="mailto:forge.help@autodesk.com">Forge Partner Development</a>
+- <a href="mailto:forge.help@autodesk.com">Forge Partner Development</a>
+- Alan Smith [@alansmithnbs](https://github.com/alansmithnbs)

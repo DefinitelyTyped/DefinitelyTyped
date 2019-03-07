@@ -47,24 +47,29 @@ export interface BaseParameter {
 }
 
 export interface BodyParameter extends BaseParameter {
+  in: 'body';
   schema?: Schema;
 }
 
 export interface QueryParameter extends BaseParameter, BaseSchema {
+  in: 'query';
   type: string;
   allowEmptyValue?: boolean;
 }
 
 export interface PathParameter extends BaseParameter, BaseSchema {
+  in: 'path';
   type: string;
   required: boolean;
 }
 
 export interface HeaderParameter extends BaseParameter, BaseSchema {
+  in: 'header';
   type: string;
 }
 
 export interface FormDataParameter extends BaseParameter, BaseSchema {
+  in: 'formData';
   type: string;
   collectionFormat?: string;
   allowEmptyValue?: boolean;

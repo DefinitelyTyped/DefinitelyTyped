@@ -1,5 +1,5 @@
 // Type definitions for flexmonster 2.6
-// Project: https://www.flexmonster.com/
+// Project: https://flexmonster.com/
 // Definitions by:  Flexmonster <https://github.com/flexmonster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -135,6 +135,7 @@ declare namespace Flexmonster {
         showGridAndCharts(type?: string, position?: string, multiple?: boolean): void;
         sortingMethod(hierarchyName: string, compareFunction: (a: string, b: string) => boolean): void;
         sortValues(axisName: string, type: string, tuple: number[], measure: MeasureObject): void;
+        toolbar: Toolbar;
         updateData(object: DataSource | object[]): void;
         version: string;
         fusioncharts?: {
@@ -179,6 +180,7 @@ declare namespace Flexmonster {
         dataSourceInfo?: string;
         dataSourceType?: string;
         fieldSeparator?: string;
+        thousandSeparator?: string;
         filename?: string;
         ignoreQuotedLineBreaks?: boolean;
         proxyUrl?: string;
@@ -191,6 +193,8 @@ declare namespace Flexmonster {
         hash?: string;
         username?: string;
         password?: string;
+        requestHeader?: object;
+        subquery?: string;
     }
 
     interface Slice {
@@ -276,6 +280,7 @@ declare namespace Flexmonster {
         saveAllFormats?: boolean;
         showDrillThroughConfigurator?: boolean;
         grouping?: boolean;
+        showAllFieldsDrillThrough?: boolean;
     }
 
     interface PrintOptions {
@@ -343,6 +348,7 @@ declare namespace Flexmonster {
         useOlapFormattingInExcel?: boolean;
         useCustomizeCellForData?: boolean;
         excelExportAll?: boolean;
+        requestHeader?: object;
     }
 
     interface Hierarchy {
@@ -463,6 +469,34 @@ declare namespace Flexmonster {
 
     interface Toolbar {
         getTabs: () => ToolbarTab[];
+        // Connect tab
+        connectLocalCSVHandler: () => void;
+        connectLocalJSONHandler: () => void;
+        connectRemoteCSV: () => void;
+        connectRemoteJSON: () => void;
+        connectOLAP: () => void;
+        // Open tab
+        openLocalReport: () => void;
+        openRemoteReport: () => void;
+        // Save tab
+        saveHandler: () => void;
+        // Export tab
+        printHandler: () => void;
+        exportHandler: (type: string) => void;
+        // Grid tab
+        gridHandler: () => void;
+        // Charts tab
+        chartsHandler: (type: string) => void;
+        chartsMultipleHandler: () => void;
+        // Format tab
+        formatCellsHandler: () => void;
+        conditionalFormattingHandler: () => void;
+        // Options tab
+        optionsHandler: () => void;
+        // Fields tab
+        fieldsHandler: () => void;
+        // Fullscreen tab
+        fullscreenHandler: () => void;
     }
 
     interface ToolbarTab {

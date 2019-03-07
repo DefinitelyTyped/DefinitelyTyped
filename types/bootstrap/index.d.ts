@@ -1,5 +1,5 @@
-// Type definitions for Bootstrap 4.2
-// Project: https://github.com/twbs/bootstrap/
+// Type definitions for Bootstrap 4.3
+// Project: https://github.com/twbs/bootstrap/, https://getbootstrap.com
 // Definitions by: denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -352,6 +352,25 @@ export interface TooltipOption {
      * @default "scrollParent"
      */
     boundary?: Popper.Boundary | HTMLElement;
+
+    /**
+     * Enable or disable the sanitization. If activated 'template', 'content' and 'title' options will be sanitized.
+     *
+     * @default true
+     */
+    sanitize?: boolean;
+
+    /**
+     * Object which contains allowed attributes and tags.
+     */
+    whiteList?: {[key: string]: string[]};
+
+    /**
+     * Here you can supply your own sanitize function. This can be useful if you prefer to use a dedicated library to perform sanitization.
+     *
+     * @default null
+     */
+    sanitizeFn?: null | ((input: string) => string);
 }
 
 // --------------------------------------------------------------------------------------

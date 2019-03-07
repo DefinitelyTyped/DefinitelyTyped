@@ -1,8 +1,7 @@
 import { Sort } from '../..';
 import Comment from './Comment';
 import Listing, { ListingOptions } from './Listing';
-import RedditUser from './RedditUser';
-import Subreddit, { FlairTemplate } from './Subreddit';
+import { FlairTemplate } from './Subreddit';
 import VoteableContent, { RichTextFlair } from './VoteableContent';
 
 interface Media {
@@ -113,7 +112,7 @@ export default class Submission extends VoteableContent<Submission> {
   assignFlair(options: { text: string; cssClass: string; }): Promise<this>;
   disableContestMode(): Promise<this>;
   enableContestMode(): Promise<this>;
-  getDuplicates(options?: ListingOptions): Listing<Submission>;
+  getDuplicates(options?: ListingOptions): Promise<Listing<Submission>>;
   getLinkFlairTemplates(): Promise<FlairTemplate[]>;
   /* @deprecated */ getRelated(options?: ListingOptions): Submission;
   hide(): Promise<this>;

@@ -1,5 +1,5 @@
 // Type definitions for d3JS d3-zoom module 1.7
-// Project: https://github.com/d3/d3-zoom/
+// Project: https://github.com/d3/d3-zoom/, https://d3js.org/d3-zoom
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>

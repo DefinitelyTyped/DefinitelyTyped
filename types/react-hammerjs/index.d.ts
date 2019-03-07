@@ -38,6 +38,7 @@ declare namespace ReactHammer {
         onPinchCancel?: HammerListener;
         onPinchEnd?: HammerListener;
         onPinchIn?: HammerListener;
+        onPinchOut?: HammerListener;
         onPinchStart?: HammerListener;
         onPress?: HammerListener;
         onPressUp?: HammerListener;

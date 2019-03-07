@@ -26,9 +26,12 @@ import {
     SubmissionError,
     FieldArrayFieldsProps
 } from "redux-form";
+
 import {
     Field as ImmutableField,
-    reduxForm as immutableReduxForm
+    reduxForm as immutableReduxForm,
+    startSubmit as immutableStartSubmit,
+    stopSubmit as immutableStopSubmit
 } from "redux-form/immutable";
 
 import LibField, {
@@ -287,6 +290,12 @@ const Test = reduxForm<TestFormData>({
                                 component="select"
                             />
 
+                            <Field
+                                name="field4"
+                                component={ MyField }
+                                foo="bar"
+                            />
+
                             <FieldCustom
                                 name="field4"
                                 component={ MyField }
@@ -413,7 +422,11 @@ class FormNameTest extends React.Component {
     render() {
         return (
             <FormName>
-                {({ form }) => <span>Form Name is: {form}</span>}
+                {({ form, sectionPrefix }) => (
+                    <span>
+                        Form name is {form} and section prefix is {sectionPrefix}
+                    </span>
+                )}
             </FormName>
         );
     }

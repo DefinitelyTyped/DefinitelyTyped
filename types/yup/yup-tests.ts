@@ -3,6 +3,7 @@ import * as yup from "yup";
 // tslint:disable-next-line:no-duplicate-imports
 import {
     reach,
+    isSchema,
     date,
     Schema,
     ObjectSchema,
@@ -23,6 +24,10 @@ const schema1 = yup.object().shape({
 });
 reach(schema1, "nested.arr.num");
 reach(schema1, "nested.arr[].num");
+
+// isSchema function
+const isSchemaResult1: boolean = isSchema(schema1);
+const isSchemaResult2: boolean = isSchema({});
 
 // addMethod function
 yup.addMethod<NumberSchema>(yup.number, "minimum", function(
@@ -143,6 +148,7 @@ mixed.default({ number: 5 });
 mixed.default(() => ({ number: 5 }));
 mixed.default();
 mixed.nullable(true);
+mixed.nullable();
 mixed.required();
 mixed.required("Foo");
 mixed.required(() => "Foo");
@@ -199,6 +205,12 @@ const testContext = function(this: TestContext) {
     this.resolve;
     // $ExpectType ValidationError
     this.createError({ path: "1", message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ path: "1"});
+    // $ExpectType ValidationError
+    this.createError();
     return true;
 };
 mixed.test("with-context", "it uses function context", testContext);
@@ -280,6 +292,8 @@ strSchema.isValid("hello"); // => true
 strSchema.required();
 strSchema.required("req");
 strSchema.required(() => "req");
+strSchema.length(5, "message");
+strSchema.length(5, () => "message");
 strSchema.min(5, "message");
 strSchema.min(5, () => "message");
 strSchema.max(5, "message");

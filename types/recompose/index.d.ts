@@ -46,7 +46,7 @@ declare module 'recompose' {
     export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
         <P extends TInjectedProps>(
             component: Component<P>
-        ): React.ComponentType<Omit<P, keyof TInjectedProps> & TNeedsProps>
+        ): React.ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps>
     }
 
     // Injects props and removes them from the prop requirements.
@@ -269,7 +269,7 @@ declare module 'recompose' {
     // toRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#torenderprops
     export function toRenderProps<TInner, TOutter>(
         hoc: InferableComponentEnhancerWithProps<TInner & TOutter, TOutter>
-    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement<any> }>;
+    ): StatelessComponent<TOutter & { children: (props: TInner) => React.ReactElement }>;
 
     // fromRenderProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#fromrenderprops
     export function fromRenderProps<TInner, TOutter, TRenderProps = {}>(
@@ -283,7 +283,7 @@ declare module 'recompose' {
     // setStatic: https://github.com/acdlite/recompose/blob/master/docs/API.md#setStatic
     export function setStatic(
         key: string, value: any
-    ): <T extends Component>(component: T) => T;
+    ): <T extends Component<any>>(component: T) => T;
 
     // setPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#setPropTypes
     export function setPropTypes<P>(
@@ -293,7 +293,7 @@ declare module 'recompose' {
     // setDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#setDisplayName
     export function setDisplayName(
         displayName: string
-    ): <T extends Component>(component: T) => T;
+    ): <T extends Component<any>>(component: T) => T;
 
 
     // Utilities: https://github.com/acdlite/recompose/blob/master/docs/API.md#utilities
@@ -335,10 +335,10 @@ declare module 'recompose' {
         type: Component<any> | string,
         props?: Object,
         children?: React.ReactNode
-    ): React.ReactElement<any>;
+    ): React.ReactElement;
 
     // createEagerFactory: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEagerFactory
-    type componentFactory = (props?: Object, children?: React.ReactNode) => React.ReactElement<any>;
+    type componentFactory = (props?: Object, children?: React.ReactNode) => React.ReactElement;
     export function createEagerFactory(
         type: Component<any> | string
     ): componentFactory;

@@ -94,6 +94,9 @@ class Test extends React.Component<React.Props<{}>> {
                     name="list"
                     multiple={false}
                 />
+                <DropdownList
+                    containerClassName="list-items"
+                />
                 <Multiselect
                     autoFocus
                     allowCreate
