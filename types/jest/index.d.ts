@@ -21,8 +21,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-/// <reference types="jest-diff" />
-
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
 declare var afterAll: jest.Lifecycle;
@@ -353,39 +351,11 @@ declare namespace jest {
         each: Each;
     }
 
-    interface MatcherUtils {
-        readonly expand: boolean;
-        readonly isNot: boolean;
-        utils: {
-            readonly EXPECTED_COLOR: (text: string) => string;
-            readonly RECEIVED_COLOR: (text: string) => string;
-            diff: typeof import('jest-diff');
-            ensureActualIsNumber(actual: any, matcherName?: string): void;
-            ensureExpectedIsNumber(actual: any, matcherName?: string): void;
-            ensureNoExpected(actual: any, matcherName?: string): void;
-            ensureNumbers(actual: any, expected: any, matcherName?: string): void;
-            /**
-             * get the type of a value with handling of edge cases like `typeof []` and `typeof null`
-             */
-            getType(value: any): string;
-            matcherHint(matcherName: string, received?: string, expected?: string, options?: { secondArgument?: string, isDirectExpectCall?: boolean }): string;
-            pluralize(word: string, count: number): string;
-            printExpected(value: any): string;
-            printReceived(value: any): string;
-            printWithType(name: string, received: any, print: (value: any) => string): string;
-            stringify(object: {}, maxDepth?: number): string;
-        };
-        /**
-         *  This is a deep-equality function that will return true if two objects have the same values (recursively).
-         */
-        equals(a: any, b: any): boolean;
-    }
-
     interface ExpectExtendMap {
         [key: string]: CustomMatcher;
     }
 
-    type CustomMatcher = (this: MatcherUtils, received: any, ...actual: any[]) => CustomMatcherResult | Promise<CustomMatcherResult>;
+    type CustomMatcher = (this: import('expect').MatcherState, received: any, ...actual: any[]) => CustomMatcherResult | Promise<CustomMatcherResult>;
 
     interface CustomMatcherResult {
         pass: boolean;
