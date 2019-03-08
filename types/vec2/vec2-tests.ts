@@ -1,7 +1,6 @@
-// no tests yet
-
 import Vec2 from 'vec2';
 
+// some constructor tests
 const instance = new Vec2([0, 1]);
 const instanceFromArray = new Vec2(instance.toArray());
 const json = instanceFromArray.toJSON();
