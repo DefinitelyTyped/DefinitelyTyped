@@ -655,19 +655,6 @@ test = (
     />
 );
 
-test = (
-    <VictoryScatter
-        data={[
-          {x: 1, y: 3},
-          {x: 2, y: 5},
-          {x: 3, y: 4},
-          {x: 4, y: 2},
-          {x: 5, y: 5}
-        ]}
-        size={(d, a) => (a ? 5 : 3)}
-    />
-);
-
 // VictoryPie test
 test = (
     <VictoryPie
