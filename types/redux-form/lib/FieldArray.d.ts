@@ -6,7 +6,7 @@ export interface BaseFieldArrayProps<P = {}> {
     component: ComponentType<P>;
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
-    withRef?: boolean;
+    forwardRef?: boolean;
     props?: P;
     rerenderOnEveryChange?: boolean;
 }

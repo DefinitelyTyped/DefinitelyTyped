@@ -59,7 +59,7 @@ export interface SignOptions {
 
 export interface VerifyOptions {
     algorithms?: string[];
-    audience?: string | string[];
+    audience?: string | RegExp | Array<string | RegExp>;
     clockTimestamp?: number;
     clockTolerance?: number;
     issuer?: string | string[];

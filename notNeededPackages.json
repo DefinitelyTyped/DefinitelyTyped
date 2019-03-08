@@ -241,6 +241,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "chokidar",
+            "typingsPackageName": "chokidar",
+            "sourceRepoURL": "https://github.com/paulmillr/chokidar",
+            "asOfVersion": "2.1.3"
+        },
+        {
             "libraryName": "chunked-dc",
             "typingsPackageName": "chunked-dc",
             "sourceRepoURL": "https://github.com/saltyrtc/chunked-dc-js",
@@ -413,6 +419,12 @@
             "typingsPackageName": "deepmerge",
             "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
             "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "del",
+            "typingsPackageName": "del",
+            "sourceRepoURL": "https://github.com/sindresorhus/del",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "delay",
@@ -713,6 +725,12 @@
             "typingsPackageName": "gulp-typescript",
             "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "handlebars",
+            "typingsPackageName": "handlebars",
+            "sourceRepoURL": "https://github.com/wycats/handlebars.js",
+            "asOfVersion": "4.1.0"
         },
         {
             "libraryName": "handsontable",
@@ -1117,6 +1135,12 @@
             "asOfVersion": "2.15.0"
         },
         {
+            "libraryName": "png-async",
+            "typingsPackageName": "png-async",
+            "sourceRepoURL": "https://github.com/kanreisa/node-png-async",
+            "asOfVersion": "0.9.4"
+        },
+        {
             "libraryName": "node-waves",
             "typingsPackageName": "node-waves",
             "sourceRepoURL": "http://fian.my.id/Waves",
@@ -1153,6 +1177,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "ora",
+            "typingsPackageName": "ora",
+            "sourceRepoURL": "https://github.com/sindresorhus/ora",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "p-event",
             "typingsPackageName": "p-event",
             "sourceRepoURL": "https://github.com/sindresorhus/p-event",
@@ -1163,7 +1193,6 @@
             "typingsPackageName": "p-limit",
             "sourceRepoURL": "https://github.com/sindresorhus/p-limit",
             "asOfVersion": "2.2.0"
-
         },
         {
             "libraryName": "p-map",
@@ -1254,6 +1283,12 @@
             "typingsPackageName": "pkcs11js",
             "sourceRepoURL": "https://github.com/PeculiarVentures/pkcs11js",
             "asOfVersion": "1.0.4"
+        },
+        {
+            "libraryName": "pkg-conf",
+            "typingsPackageName": "pkg-conf",
+            "sourceRepoURL": "https://github.com/sindresorhus/pkg-conf",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "plottable",
@@ -1710,6 +1745,12 @@
             "typingsPackageName": "tabris",
             "sourceRepoURL": "http://tabrisjs.com",
             "asOfVersion": "1.8.0"
+        },
+        {
+            "libraryName": "tabris-plugin-firebase",
+            "typingsPackageName": "tabris-plugin-firebase",
+            "sourceRepoURL": "https://github.com/eclipsesource/tabris-plugin-firebase",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "tcomb",

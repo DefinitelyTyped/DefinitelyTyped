@@ -27,6 +27,7 @@
 //                 Erik Dalén <https://github.com/dalen>
 //                 Loïk Gaonac'h <https://github.com/loikg>
 //                 Roberto Zen <https://github.com/skyzenr>
+//                 Richard Cornelissen <https://github.com/richardcornelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -536,10 +537,10 @@ export type StatementResource = MaybeStatementPrincipal & ({ Resource: string | 
 export type StatementPrincipal = MaybeStatementResource & ({ Principal: PrincipalValue } | { NotPrincipal: PrincipalValue });
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ * https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-output.html
  */
 export interface AuthResponseContext {
-    [name: string]: any;
+    [name: string]: boolean | number | string;
 }
 
 /**
