@@ -168,7 +168,7 @@ declare class Polygon {
             | { position: Vec2, radius: number }
             | { x1: number, y1: number, x2: number, y2: number }
             | { x: number, y: number, w: number, h: number }
-            | { x: number, y: number, width: number, hheight: number }
+            | { x: number, y: number, width: number, height: number }
     ): boolean;
 
     /**
