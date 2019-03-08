@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "moment-timezone.d.ts",
         "moment-timezone-tests.ts"
     ]
 }
