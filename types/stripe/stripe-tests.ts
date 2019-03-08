@@ -1057,6 +1057,8 @@ stripe.paymentIntents.confirm("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
 stripe.paymentIntents.capture("pi_Aabcxyz01aDfoo", {}, (err, intent) => {});
 stripe.paymentIntents.capture("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
 
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", (err, intent) => {});
+stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo").then((intent) => {});
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", {}, (err, intent) => {});
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", {}).then((intent) => {});
 stripe.paymentIntents.cancel("pi_Aabcxyz01aDfoo", { cancellation_reason: 'duplicate' }, (err, intent) => {});
