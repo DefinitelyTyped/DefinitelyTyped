@@ -162,8 +162,8 @@ export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.
     bindContainer(container: HTMLDivElement): void;
     shouldUpdateCenter(next: Leaflet.LatLngExpression, prev: Leaflet.LatLngExpression): boolean;
     shouldUpdateBounds(next: Leaflet.LatLngBoundsExpression, prev: Leaflet.LatLngBoundsExpression): boolean;
-    onViewportChange: (viewport: Viewport | null) => void;
-    onViewportChanged: (viewport: Viewport | null) => void;
+    onViewportChange: () => void;
+    onViewportChanged: () => void;
 }
 
 export interface DivOverlayProps extends Leaflet.DivOverlayOptions {
