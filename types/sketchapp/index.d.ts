@@ -17,8 +17,33 @@ type SketchMSLayerListExpandedType = 0 | 1 | 2;
 type SketchMSEncodedBase64BinaryPlist = string;
 type SketchMSNSColorArchive = SketchMSKeyValueArchive;
 type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
+type SketchMSUserData = SketchMSUserDocument | SketchMSUserPage;
 interface SketchMSNestedSymbolOverride {
   symbolID: string;
+}
+interface SketchMSPreview {
+  source: string;
+  width: number;
+  height: number;
+}
+interface SketchMSUserPage {
+  [key: string]: {
+    scrollOrigin: SketchMSCurvePoint;
+    zoomValue: number;
+  };
+}
+interface SketchMSUserDocument {
+  document: {
+    pageListCollapsed: number;
+    pageListHeight: number;
+  }
+}
+interface SketchMSData {
+  pages: Array<SketchMSPage>;
+  previews: Array<SketchMSPreview>;
+  document: SketchMSDocumentData;
+  user: SketchMSUserData;
+  meta: SketchMSMetadata;
 }
 interface SketchMSStringAttribute {
   _class: 'stringAttribute';
