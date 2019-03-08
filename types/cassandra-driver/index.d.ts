@@ -87,7 +87,8 @@ export namespace policies {
 
     interface DecisionInfo {
       decision: number;
-      consistency: number;
+      consistency?: number;
+      useCurrentHost?: boolean;
     }
 
     interface RequestInfo {
@@ -115,8 +116,8 @@ export namespace policies {
       onReadTimeout(requestInfo: RequestInfo, consistency: types.consistencies, received: number, blockFor: number, isDataPresent: boolean): DecisionInfo;
       onUnavailable(requestInfo: RequestInfo, consistency: types.consistencies, required: number, alive: number): DecisionInfo;
       onWriteTimeout(requestInfo: RequestInfo, consistency: types.consistencies, received: number, blockFor: number, writeType: string): DecisionInfo;
-      rethrowResult(): { decision: retryDecision };
-      retryResult(): { decision: retryDecision, consistency: types.consistencies, useCurrentHost: boolean };
+      rethrowResult(): DecisionInfo;
+      retryResult(consistency?: types.consistencies, useCurrentHost?: boolean): DecisionInfo;
     }
   }
 

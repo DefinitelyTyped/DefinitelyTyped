@@ -4,99 +4,111 @@
 //                 ryee-dev <https://github.com/ryee-dev>
 //                 jamesmckenzie <https://github.com/jamesmckenzie>
 //                 sara f-p <https://github.com/gretzky>
+//                 angusfretwell <https://github.com/angusfretwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as React from "react";
+import * as StyledComponents from "styled-components";
+import * as StyledSystem from "styled-system";
 
-export interface BaseProps<C> extends React.ClassAttributes<C> {
-    className?: string;
-    as?: any;
+export {};
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
+export interface BaseProps extends React.Props<any> {
+    as?: React.ReactType;
+    css?: StyledComponents.CSSObject;
 }
 
-export interface SpaceProps<C> extends BaseProps<C> {
-    m?: number | string | ReadonlyArray<number>;
-    mt?: number | string | ReadonlyArray<number>;
-    mr?: number | string | ReadonlyArray<number>;
-    mb?: number | string | ReadonlyArray<number>;
-    ml?: number | string | ReadonlyArray<number>;
-    mx?: number | string | ReadonlyArray<number>;
-    my?: number | string | ReadonlyArray<number>;
-    p?: number | string | ReadonlyArray<number>;
-    pt?: number | string | ReadonlyArray<number>;
-    pr?: number | string | ReadonlyArray<number>;
-    pb?: number | string | ReadonlyArray<number>;
-    pl?: number | string | ReadonlyArray<number>;
-    px?: number | string | ReadonlyArray<number>;
-    py?: number | string | ReadonlyArray<number>;
-}
+interface BoxKnownProps
+    extends BaseProps,
+        StyledSystem.SpaceProps,
+        StyledSystem.WidthProps,
+        StyledSystem.FontSizeProps,
+        StyledSystem.ColorProps,
+        StyledSystem.FlexProps,
+        StyledSystem.OrderProps,
+        StyledSystem.AlignSelfProps {}
+export interface BoxProps
+    extends BoxKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
+export const Box: React.FunctionComponent<BoxProps>;
 
-export interface BoxProps extends SpaceProps<BoxClass> {
-    className?: string;
-    width?: number | string | ReadonlyArray<number>;
-    fontSize?: number | ReadonlyArray<number>;
-    css?: object;
-    color?: string;
-    bg?: string;
-}
-// tslint:disable-next-line:strict-export-declare-modifiers
-type BoxClass = React.FunctionComponent<BoxProps>;
-export const Box: BoxClass;
-
-export interface ButtonProps extends BoxProps {
-    fontWeight?: string;
-    border?: number | string;
-    borderColor?: string;
-    borderRadius?: number | string;
-    variant?: string;
-}
+interface ButtonKnownProps
+    extends BoxKnownProps,
+        StyledSystem.FontWeightProps,
+        StyledSystem.BorderProps,
+        StyledSystem.BordersProps,
+        StyledSystem.BorderColorProps,
+        StyledSystem.BorderRadiusProps,
+        StyledSystem.ButtonStyleProps {}
+export interface ButtonProps
+    extends ButtonKnownProps,
+        Omit<React.HTMLProps<HTMLButtonElement>, keyof ButtonKnownProps> {}
 export const Button: React.FunctionComponent<ButtonProps>;
 
-export interface CardProps extends BoxProps {
-    border?: number | string;
-    borderColor?: string;
-    borderRadius?: number | string;
-    boxShadow?: string;
-    backgroundImage?: string;
-    backgroundSize?: string;
-    backgroundPosition?: string;
-    backgroundRepeat?: string;
-    opacity?: number;
-    variant?: string;
+interface CardKnownProps
+    extends BoxKnownProps,
+        StyledSystem.BorderProps,
+        StyledSystem.BordersProps,
+        StyledSystem.BorderColorProps,
+        StyledSystem.BorderRadiusProps,
+        StyledSystem.BoxShadowProps,
+        StyledSystem.BackgroundImageProps,
+        StyledSystem.BackgroundSizeProps,
+        StyledSystem.BackgroundPositionProps,
+        StyledSystem.BackgroundRepeatProps,
+        StyledSystem.OpacityProps {
+    variant?: StyledSystem.ResponsiveValue<string>;
 }
+export interface CardProps
+    extends CardKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof CardKnownProps> {}
 export const Card: React.FunctionComponent<CardProps>;
 
-export interface FlexProps extends BoxProps {
-    alignItems?: string;
-    justifyContent?: string;
-    flexDirection?: string;
-    flexWrap?: string;
-}
+interface FlexKnownProps
+    extends BoxKnownProps,
+        StyledSystem.FlexWrapProps,
+        StyledSystem.FlexDirectionProps,
+        StyledSystem.AlignItemsProps,
+        StyledSystem.JustifyContentProps {}
+export interface FlexProps
+    extends FlexKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof FlexKnownProps> {}
 export const Flex: React.FunctionComponent<FlexProps>;
 
-export interface ImageProps extends BoxProps {
-    height?: number | string;
-    borderRadius?: number | string;
-    src?: string;
-    alt?: string;
-}
+interface ImageKnownProps
+    extends BoxKnownProps,
+        StyledSystem.HeightProps,
+        StyledSystem.BorderRadiusProps {}
+export interface ImageProps
+    extends ImageKnownProps,
+        Omit<React.HTMLProps<HTMLImageElement>, keyof ImageKnownProps> {}
 export const Image: React.FunctionComponent<ImageProps>;
 
-export interface LinkProps extends BoxProps {
-    href?: string;
-}
+// tslint:disable-next-line no-empty-interface
+interface LinkKnownProps extends BoxKnownProps {}
+export interface LinkProps
+    extends LinkKnownProps,
+        Omit<React.HTMLProps<HTMLAnchorElement>, keyof LinkKnownProps> {}
 export const Link: React.FunctionComponent<LinkProps>;
 
-export interface TextProps extends BoxProps {
-    fontSize?: number | ReadonlyArray<number>;
-    fontWeight?: string;
-    color?: string;
-    fontFamily?: string;
-    textAlign?: string;
-    lineHeight?: number | string;
-    letterSpacing?: number | string;
-}
+interface TextKnownProps
+    extends BoxKnownProps,
+        StyledSystem.FontFamilyProps,
+        StyledSystem.FontWeightProps,
+        StyledSystem.TextAlignProps,
+        StyledSystem.LineHeightProps,
+        StyledSystem.LetterSpacingProps {}
+export interface TextProps
+    extends TextKnownProps,
+        Omit<React.HTMLProps<HTMLDivElement>, keyof TextKnownProps> {}
 export const Text: React.FunctionComponent<TextProps>;
 
-export type HeadingProps = TextProps;
+// tslint:disable-next-line no-empty-interface
+interface HeadingKnownProps extends TextKnownProps {}
+export interface HeadingProps
+    extends HeadingKnownProps,
+        Omit<React.HTMLProps<HTMLHeadingElement>, keyof HeadingKnownProps> {}
 export const Heading: React.FunctionComponent<HeadingProps>;

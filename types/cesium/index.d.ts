@@ -1,4 +1,4 @@
-// Type definitions for cesium 1.47
+// Type definitions for cesium 1.54
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
@@ -1393,7 +1393,7 @@ declare namespace Cesium {
 
     class ScreenSpaceEventHandler {
         constructor(element?: HTMLCanvasElement);
-        setInputAction(action: () => void, type: number, modifier?: number): void;
+        setInputAction(action: (click: { position: Cartesian2 }) => void, type: number, modifier?: number): void;
         getInputAction(type: number, modifier?: number): () => void;
         removeInputAction(type: number, modifier?: number): void;
         isDestroyed(): boolean;
@@ -3132,6 +3132,15 @@ declare namespace Cesium {
         range: number;
         constructor(heading?: number, pitch?: number, range?: number);
         static clone(hpr: HeadingPitchRange, result?: HeadingPitchRange): HeadingPitchRange;
+    }
+
+    // tslint:disable-next-line:no-unnecessary-class
+    class Cesium3DTileset {
+      constructor(Cesium3DTilesetItem: {
+        url: string;
+        maximumScreenSpaceError: number;
+        maximumNumberOfLoadedTiles: number;
+      })
     }
 
     class ImageryLayer {

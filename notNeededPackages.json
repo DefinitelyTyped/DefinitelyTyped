@@ -241,6 +241,12 @@
             "asOfVersion": "2.5.0"
         },
         {
+            "libraryName": "chokidar",
+            "typingsPackageName": "chokidar",
+            "sourceRepoURL": "https://github.com/paulmillr/chokidar",
+            "asOfVersion": "2.1.3"
+        },
+        {
             "libraryName": "chunked-dc",
             "typingsPackageName": "chunked-dc",
             "sourceRepoURL": "https://github.com/saltyrtc/chunked-dc-js",
@@ -397,6 +403,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "dd-trace",
+            "typingsPackageName": "dd-trace",
+            "sourceRepoURL": "https://github.com/DataDog/dd-trace-js",
+            "asOfVersion": "0.9.0"
+        },
+        {
             "libraryName": "decimal.js",
             "typingsPackageName": "decimal.js",
             "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
@@ -409,10 +421,22 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "del",
+            "typingsPackageName": "del",
+            "sourceRepoURL": "https://github.com/sindresorhus/del",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "delay",
             "typingsPackageName": "delay",
             "sourceRepoURL": "https://github.com/sindresorhus/delay",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "detect-browser",
+            "typingsPackageName": "detect-browser",
+            "sourceRepoURL": "https://github.com/DamonOehlman/detect-browser",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "DevExtreme",
@@ -703,6 +727,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "handlebars",
+            "typingsPackageName": "handlebars",
+            "sourceRepoURL": "https://github.com/wycats/handlebars.js",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "handsontable",
             "typingsPackageName": "handsontable",
             "sourceRepoURL": "https://handsontable.com/",
@@ -725,6 +755,12 @@
             "typingsPackageName": "http-status-codes",
             "sourceRepoURL": "https://github.com/prettymuchbryce/node-http-status",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "i18next-browser-languagedetector",
+            "typingsPackageName": "i18next-browser-languagedetector",
+            "sourceRepoURL": "https://github.com/i18next/i18next-browser-languagedetector",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "i18next-xhr-backend",
@@ -761,6 +797,12 @@
             "typingsPackageName": "interact.js",
             "sourceRepoURL": "https://github.com/taye/interact.js",
             "asOfVersion": "1.3.0"
+        },
+        {
+            "libraryName": "internal-ip",
+            "typingsPackageName": "internal-ip",
+            "sourceRepoURL": "https://github.com/sindresorhus/internal-ip",
+            "asOfVersion": "4.1.0"
         },
         {
             "libraryName": "inversify",
@@ -809,6 +851,12 @@
             "typingsPackageName": "is-lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-lower-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "is-online",
+            "typingsPackageName": "is-online",
+            "sourceRepoURL": "https://github.com/sindresorhus/is-online",
+            "asOfVersion": "8.1.0"
         },
         {
             "libraryName": "is-plain-object",
@@ -1087,10 +1135,22 @@
             "asOfVersion": "2.15.0"
         },
         {
+            "libraryName": "png-async",
+            "typingsPackageName": "png-async",
+            "sourceRepoURL": "https://github.com/kanreisa/node-png-async",
+            "asOfVersion": "0.9.4"
+        },
+        {
             "libraryName": "node-waves",
             "typingsPackageName": "node-waves",
             "sourceRepoURL": "http://fian.my.id/Waves",
             "asOfVersion": "0.7.6"
+        },
+        {
+            "libraryName": "normalize-url",
+            "typingsPackageName": "normalize-url",
+            "sourceRepoURL": "https://github.com/sindresorhus/normalize-url",
+            "asOfVersion": "4.2.0"
         },
         {
             "libraryName": "Normalizr",
@@ -1115,6 +1175,48 @@
             "typingsPackageName": "onsenui",
             "sourceRepoURL": "http://onsen.io",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "ora",
+            "typingsPackageName": "ora",
+            "sourceRepoURL": "https://github.com/sindresorhus/ora",
+            "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "p-event",
+            "typingsPackageName": "p-event",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-event",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "p-limit",
+            "typingsPackageName": "p-limit",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-limit",
+            "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "p-map",
+            "typingsPackageName": "p-map",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-map",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "p-pipe",
+            "typingsPackageName": "p-pipe",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-pipe",
+            "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "p-queue",
+            "typingsPackageName": "p-queue",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-queue",
+            "asOfVersion": "3.2.1"
+        },
+        {
+            "libraryName": "p-throttle",
+            "typingsPackageName": "p-throttle",
+            "sourceRepoURL": "https://github.com/sindresorhus/p-throttle",
+            "asOfVersion": "2.1.0"
         },
         {
             "libraryName": "param-case",
@@ -1181,6 +1283,12 @@
             "typingsPackageName": "pkcs11js",
             "sourceRepoURL": "https://github.com/PeculiarVentures/pkcs11js",
             "asOfVersion": "1.0.4"
+        },
+        {
+            "libraryName": "pkg-conf",
+            "typingsPackageName": "pkg-conf",
+            "sourceRepoURL": "https://github.com/sindresorhus/pkg-conf",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "plottable",
@@ -1639,6 +1747,12 @@
             "asOfVersion": "1.8.0"
         },
         {
+            "libraryName": "tabris-plugin-firebase",
+            "typingsPackageName": "tabris-plugin-firebase",
+            "sourceRepoURL": "https://github.com/eclipsesource/tabris-plugin-firebase",
+            "asOfVersion": "2.1.0"
+        },
+        {
             "libraryName": "tcomb",
             "typingsPackageName": "tcomb",
             "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
@@ -1763,6 +1877,12 @@
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "wait-for-localhost",
+            "typingsPackageName": "wait-for-localhost",
+            "sourceRepoURL": "https://github.com/sindresorhus/wait-for-localhost",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "webcola",

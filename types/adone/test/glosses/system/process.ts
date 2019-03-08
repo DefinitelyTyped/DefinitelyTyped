@@ -223,7 +223,7 @@ namespace adoneTests.system.process {
             });
 
             ret.on("message", () => {});
-            ret.stdout.pipe(adone.fs.createWriteStream(__filename));
+            ret.stdout!.pipe(adone.fs.createWriteStream(__filename));
         }
     }
 
@@ -811,7 +811,7 @@ namespace adoneTests.system.process {
             });
 
             ret.on("message", () => {});
-            ret.stdout.pipe(adone.fs.createWriteStream(__filename));
+            ret.stdout!.pipe(adone.fs.createWriteStream(__filename));
         }
     }
 

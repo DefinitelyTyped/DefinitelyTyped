@@ -346,7 +346,7 @@ declare module 'angular' {
         interface IMenuService {
             close(): void;
             hide(response?: any, options?: any): IPromise<any>;
-            open(event?: MouseEvent): void;
+            open(event?: MouseEvent | JQueryEventObject): void;
         }
 
         interface IColorPalette {
@@ -512,5 +512,10 @@ declare module 'angular' {
         }
 
         type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
+
+        interface IInteractionService {
+            getLastInteractionType(): string|null;
+            isUserInvoked(checkDelay?: number): boolean;
+        }
     }
 }

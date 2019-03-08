@@ -210,3 +210,13 @@ export interface XDeath {
     "original-expiration"?: any;
     "routing-keys": string[];
 }
+
+export interface ServerProperties {
+    host: string;
+    product: string;
+    version: string;
+    platform: string;
+    copyright?: string;
+    information: string;
+    [key: string]: string | undefined;
+}
