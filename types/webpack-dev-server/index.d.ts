@@ -28,7 +28,7 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArrayItem = {
         path?: string | string[];
-        context?: string | string[]
+        context?: string | string[] | httpProxyMiddleware.Filter
     } & httpProxyMiddleware.Config;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
@@ -52,11 +52,11 @@ declare namespace WebpackDevServer {
 
     interface Configuration {
         /** Provides the ability to execute custom middleware after all other middleware internally within the server. */
-        after?: (app: express.Application) => void;
+        after?: (app: express.Application, server: WebpackDevServer) => void;
         /** This option allows you to whitelist services that are allowed to access the dev server. */
         allowedHosts?: string[];
         /** Provides the ability to execute custom middleware prior to all other middleware internally within the server. */
-        before?: (app: express.Application) => void;
+        before?: (app: express.Application, server: WebpackDevServer) => void;
         /** This option broadcasts the server via ZeroConf networking on start. */
         bonjour?: boolean;
         /**
@@ -150,7 +150,7 @@ declare namespace WebpackDevServer {
          */
         quiet?: boolean;
         /** @deprecated Here you can access the Express app object and add your own custom middleware to it. */
-        setup?: (app: express.Application) => void;
+        setup?: (app: express.Application, server: WebpackDevServer) => void;
         /** The Unix socket to listen to (instead of a host). */
         socket?: string;
         /** It is possible to configure advanced options for serving static files from contentBase. */

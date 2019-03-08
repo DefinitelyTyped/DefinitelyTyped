@@ -96,6 +96,12 @@ stories.add('dynamic knobs', () => {
 const readonlyOptionsArray: ReadonlyArray<string> = ['hi'];
 select('With readonly array', readonlyOptionsArray, readonlyOptionsArray[0]);
 
+const optionsObject = {
+  Apple: { taste: 'sweet', color: 'red' },
+  Lemon: { taste: 'sour', color: 'yellow' }
+};
+select('With object', optionsObject, optionsObject.Apple);
+
 const genericArray = array('With regular array', ['hi', 'there']);
 
 const userInputArray = array('With readonly array', readonlyOptionsArray);
