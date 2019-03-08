@@ -3137,7 +3137,7 @@ declare module 'ember' {
         function isPresent(obj: any): boolean;
         /**
          * Merge the contents of two objects together into the first object.
-         * @deprecated Use Object.assign
+         * @deprecated Use Ember.assign
          */
         function merge<T, U>(original: T, updates: U): T & U;
         /**
@@ -3290,7 +3290,6 @@ declare module 'ember' {
         function typeOf(item: any): string;
         /**
          * Copy properties from a source object to a target object.
-         * @deprecated Use Object.assign
          */
         function assign<T, U>(target: T, source: U): T & U;
         function assign<T, U, V>(target: T, source1: U, source2: V): T & U & V;
