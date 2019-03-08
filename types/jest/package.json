@@ -1,4 +1,5 @@
 {
+  "private": true,
   "dependencies": {
     "expect": "^24.3.0"
   }
