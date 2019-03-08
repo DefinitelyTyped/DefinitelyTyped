@@ -47,8 +47,6 @@ export interface MapEvents {
     onlocationerror?(event: Leaflet.ErrorEvent): void;
     onpopupopen?(event: Leaflet.PopupEvent): void;
     onpopupclose?(event: Leaflet.PopupEvent): void;
-    onviewportchange?: (viewport: Viewport | null) => void;
-    onviewportchanged?: (viewport: Viewport | null) => void;
 }
 
 export interface MarkerEvents {
@@ -148,6 +146,8 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     useFlyTo?: boolean;
     viewport?: Viewport;
     whenReady?: () => void;
+    onViewportChange?: (viewport: Viewport) => void;
+    onViewportChanged?: (viewport: Viewport) => void;
 }
 
 export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.Map> extends MapEvented<P, E> {

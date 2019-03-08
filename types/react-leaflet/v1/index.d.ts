@@ -148,6 +148,8 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     viewport?: Viewport;
     whenReady?: () => void;
     zoom?: number;
+    onViewportChange?: (viewport: Viewport) => void;
+    onViewportChanged?: (viewport: Viewport) => void;
 }
 
 export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.Map> extends MapComponent<P, E> {
