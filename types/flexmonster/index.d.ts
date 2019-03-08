@@ -1,4 +1,4 @@
-// Type definitions for flexmonster 2.6
+// Type definitions for flexmonster 2.7
 // Project: https://flexmonster.com/
 // Definitions by:  Flexmonster <https://github.com/flexmonster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ declare const Flexmonster: FlexmonsterConstructor;
 export = Flexmonster;
 
 interface FlexmonsterConstructor {
-    new (params: Flexmonster.Params): Flexmonster.Pivot;
+    new(params: Flexmonster.Params): Flexmonster.Pivot;
     (params: Flexmonster.Params): Flexmonster.Pivot;
 }
 
@@ -75,7 +75,7 @@ declare namespace Flexmonster {
         clear(): void;
         clearFilter(hierarchyName: string): void;
         clearXMLACache(proxyUrl: string, databaseId: string, callbackHandler: ((reponse: object) => void) | string, cubeId: string, measuresGroupId: string,
-        username?: string, password?: string): void;
+            username?: string, password?: string): void;
         closeFieldsList(): void;
         collapseAllData(): void;
         collapseData(hierarchyName: string): void;
@@ -93,8 +93,7 @@ declare namespace Flexmonster {
         getColumns(): Hierarchy[];
         getCondition(id: string): ConditionalFormat;
         getData(options: { slice?: Slice }, callbackHandler: ((rawData: any) => void) | string, updateHandler?: ((rawData: any) => void) | string): void;
-        getFilter(hierarchyName: string): FilterItem[];
-        getFilterProperties(hierarchyName: string): FilterProperties;
+        getFilter(hierarchyName: string): Filter;
         getFormat(measureName: string): Format;
         getMeasures(): Measure[];
         getMembers(hierarchyName: string, memberName: string, callbackHandler: ((members: Member[]) => void) | string): Member[];
@@ -123,13 +122,11 @@ declare namespace Flexmonster {
         removeSelection(): void;
         runQuery(slice: Slice): void;
         save(filename: string, destination: string, callbackHandler?: (() => void) | string, url?: string, embedData?: boolean): string;
-        setBottomX(hierarchyName: string, num: number, measure: MeasureObject): void;
-        setFilter(hierarchyName: string, items: string[], negation?: boolean): void;
+        setFilter(hierarchyName: string, filter: Filter): void;
         setFormat(format: Format, measureName: string): void;
         setOptions(options: Options): void;
         setReport(report: Report): void;
         setSort(hierarchyName: string, sortName: string, customSorting?: string[]): void;
-        setTopX(hierarchyName: string, num: number, measure: MeasureObject): void;
         showCharts(type?: string, multiple?: boolean): void;
         showGrid(): void;
         showGridAndCharts(type?: string, position?: string, multiple?: boolean): void;
@@ -140,18 +137,18 @@ declare namespace Flexmonster {
         version: string;
         fusioncharts?: {
             getData(options: { type: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any }, callbackHandler: ((rawData: any) => void) | string,
-            updateHandler?: ((rawData: any) => void) | string): void;
+                updateHandler?: ((rawData: any) => void) | string): void;
             getNumberFormat(format: object): object;
         };
         googlecharts?: {
             getData(options: { type?: string; slice?: Slice; prepareDataFunction?: (rawData: any) => any }, callbackHandler: ((rawData: any) => void) | string,
-            updateHandler?: ((rawData: any) => void) | string): void;
+                updateHandler?: ((rawData: any) => void) | string): void;
             getNumberFormat(format: object): object;
             getNumberFormatPattern(format: object): string;
         };
         highcharts?: {
             getData(options: { type?: string; slice?: Slice; xAxisType?: string; valuesOnly?: boolean, withDrilldown?: boolean, prepareDataFunction?: (rawData: any) => any },
-            callbackHandler: ((rawData: any) => void) | string, updateHandler?: ((rawData: any) => void) | string): void;
+                callbackHandler: ((rawData: any) => void) | string, updateHandler?: ((rawData: any) => void) | string): void;
             getAxisFormat(format: object): string;
             getPointXFormat(format: object): string;
             getPointYFormat(format: object): string;
@@ -194,7 +191,11 @@ declare namespace Flexmonster {
         username?: string;
         password?: string;
         requestHeader?: object;
-        subquery?: string;
+        subquery?: string | object;
+        // elasticsearch
+        host?: string | string[] | object;
+        index?: string;
+        mapping?: object;
     }
 
     interface Slice {
@@ -255,6 +256,11 @@ declare namespace Flexmonster {
             dragging?: boolean;
             grandTotalsPosition?: string;
             drillThroughMaxRows?: number;
+        };
+        filter?: {
+            timezoneOffset?: number;
+            weekOffset?: number;
+            dateFormat?: string;
         };
         configuratorActive?: boolean;
         configuratorButton?: boolean;
@@ -354,16 +360,76 @@ declare namespace Flexmonster {
     interface Hierarchy {
         caption?: string;
         dimensionName?: string;
-        filter?: {
-            members?: string[];
-            negation?: boolean;
-            measure?: MeasureObject;
-            quantity?: number;
-            type?: string;
-        };
+        filter?: Filter;
         sortName?: string;
         sortOrder?: string[];
         uniqueName?: string;
+    }
+
+    interface Filter {
+        members?: string[];
+        exclude?: string[];
+        include?: string[];
+        query?: NumberQuery | LabelQuery | DateQuery | TimeQuery | ValueQuery;
+        measure?: string | MeasureObject;
+    }
+
+    interface NumberQuery {
+        equal?: number;
+        not_equal?: number;
+        greater?: number;
+        greater_equal?: number;
+        less?: number;
+        less_equal?: number;
+        between?: number[];
+        not_between?: number[];
+    }
+
+    interface LabelQuery {
+        equal?: string;
+        not_equal?: string;
+        begin?: string;
+        not_begin?: string;
+        end?: string;
+        not_end?: string;
+        contain?: string;
+        not_contain?: string;
+        greater?: string;
+        greater_equal?: string;
+        less?: string;
+        less_equal?: string;
+        between?: string[];
+        not_between?: string[];
+    }
+
+    interface DateQuery {
+        equal?: string;
+        not_equal?: string;
+        before?: string;
+        before_equal?: string;
+        after?: string;
+        after_equal?: string;
+        between?: string[];
+        not_between?: string[];
+        last?: string;
+        current?: string;
+        next?: string;
+    }
+
+    interface TimeQuery {
+        equal?: string;
+        not_equal?: string;
+        greater?: string;
+        greater_equal?: string;
+        less?: string;
+        less_equal?: string;
+        between?: string[];
+        not_between?: string[];
+    }
+
+    interface ValueQuery extends NumberQuery {
+        top?: number;
+        bottom?: number;
     }
 
     interface Measure {
