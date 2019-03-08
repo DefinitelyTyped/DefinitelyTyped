@@ -1,5 +1,4 @@
 import * as React from "react";
-import { MouseEventHandler } from "react";
 import { render } from "react-dom";
 import { CSVLink, CSVDownload } from "react-csv";
 
@@ -22,16 +21,16 @@ Raed,Labes
 Yezzi,Min l3b
 `;
 
-const syncOnClickReturn = (event: MouseEventHandler<HTMLAnchorElement>) => {
+const syncOnClickReturn = (event: React.MouseEventHandler<HTMLAnchorElement>) => {
     window.console.log(event);
     return true;
 };
-const syncOnClickVoid = (event: MouseEventHandler<HTMLAnchorElement>) => window.console.log(event);
-const asyncOnClickReturn = (event: MouseEventHandler<HTMLAnchorElement>, done: (proceed?: boolean) => void) => {
+const syncOnClickVoid = (event: React.MouseEventHandler<HTMLAnchorElement>) => window.console.log(event);
+const asyncOnClickReturn = (event: React.MouseEventHandler<HTMLAnchorElement>, done: (proceed?: boolean) => void) => {
     window.console.log(event);
     done(true);
 };
-const asyncOnClickVoid = (event: MouseEventHandler<HTMLAnchorElement>, done: (proceed?: boolean) => void) => {
+const asyncOnClickVoid = (event: React.MouseEventHandler<HTMLAnchorElement>, done: (proceed?: boolean) => void) => {
     window.console.log(event);
     done();
 };
