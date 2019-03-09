@@ -1,9 +1,10 @@
-// Type definitions for prosemirror-view 1.3
+// Type definitions for prosemirror-view 1.8
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,7 +15,8 @@ import {
   ResolvedPos,
   Slice,
   Schema,
-  Mark
+  Mark,
+  ParseRule
 } from 'prosemirror-model';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { Mapping } from 'prosemirror-transform';
@@ -332,6 +334,11 @@ export class EditorView<S extends Schema = any> {
    * easily passed around.
    */
   dispatch(tr: Transaction<S>): void;
+  /**
+   * View descriptions are data structures that describe the DOM that is
+   * used to represent the editor's content.
+   */
+  docView: NodeViewDesc;
 }
 /**
  * Props are configuration values that can be passed to an editor view
@@ -660,4 +667,190 @@ export interface NodeView<S extends Schema = any> {
    * editor is destroyed.
    */
   destroy?: (() => void) | null;
+}
+export interface ViewDescNode extends Node {
+  /**
+   * An expando property on the DOM node provides a link back to its
+   * description.
+   */
+  pmViewDesc: NodeView;
+}
+/**
+ * View descriptions are data structures that describe the DOM that is
+ * used to represent the editor's content. They are used for:
+ *
+ * - Incremental redrawing when the document changes
+ *
+ * - Figuring out what part of the document a given DOM position
+ *   corresponds to
+ *
+ * - Wiring in custom implementations of the editing interface for a
+ *   given node
+ *
+ * They form a doubly-linked mutable tree, starting at `view.docView`.
+ *
+ * This is the base for the various kinds of descriptions. Defines their
+ * basic structure and shared methods.
+ */
+export interface ViewDesc {
+  parent: ViewDesc;
+  children: ViewDesc;
+  dom: ViewDescNode;
+  /**
+   * This is the node that holds the child views. It may be null for
+   * descs that don't have children.
+   */
+  contentDOM?: Node | null;
+  beforePosition: boolean;
+  /**
+   * Used to check whether a given description corresponds to a given hack
+   */
+  matchesHack(): boolean;
+  /**
+   * When parsing in-editor content (in domchange.js), we allow
+   * descriptions to determine the parse rules that should be used to
+   * parse them.
+   */
+  parseRule(): ParseRule | undefined;
+  /**
+   * Used by the editor's event handler to ignore events that come
+   * from certain descs.
+   */
+  stopEvent(event: Event): boolean;
+  /**
+   * The size of the content represented by this desc.
+   */
+  readonly size: number;
+  /**
+   * For block nodes, this represents the space taken up by their
+   * start/end tokens.
+   */
+  readonly border: number;
+  destroy(): void;
+  posBeforeChild(child: ViewDesc): number;
+  readonly posBefore: number;
+  readonly posAtStart: number;
+  readonly posAfter: number;
+  readonly posAtEnd: number;
+  readonly contentLost: boolean;
+  localPosFromDOM(dom: Node, offset: number, bias?: number): number;
+  /**
+   * Scan up the dom finding the first desc that is a descendant of
+   * this one.
+   */
+  nearestDesc(dom: Node, onlyNodes?: boolean): ViewDesc;
+  getDesc(dom: Node): ViewDesc;
+  posFromDOM(dom: Node, offset: number, bias?: number): number;
+  /**
+   * Find the desc for the node after the given pos, if any. (When a
+   * parent node overrode rendering, there might not be one.)
+   */
+  descAt(pos: number): NodeViewDesc | undefined;
+  domFromPos(pos: number): {node: Node, offset: number};
+  /**
+   * Used to find a DOM range in a single parent for a given changed range.
+   */
+  parseRange(from: number, to: number, base?: number): { node?: Node , from: number, to: number, fromOffset: number, toOffset: number };
+  emptyChildAt(side: number): boolean;
+  domAfterPos(pos: number): Node;
+  /**
+   * View descs are responsible for setting any selection that falls
+   * entirely inside of them, so that custom implementations can do
+   * custom things with the selection. Note that this falls apart when
+   * a selection starts in such a node and ends in another, in which
+   * case we just use whatever domFromPos produces as a best effort.
+   */
+  setSelection(anchor: number, head: number, root: Document, force?: boolean): void;
+  ignoreMutation(mutation: MutationRecord): boolean;
+  /**
+   * Remove a subtree of the element tree that has been touched
+   * by a DOM change, so that the next update will redraw it.
+   */
+  markDirty(from: number, to: number): void;
+}
+/**
+ * A widget desc represents a widget decoration, which is a DOM node
+ * drawn between the document nodes.
+ */
+export interface WidgetViewDesc extends ViewDesc  {
+    widget: Decoration;
+    /**
+     * Used to check whether a given description corresponds to a given widget
+     */
+    matchesWidget(widget: Decoration): boolean;
+}
+/**
+ * A cursor wrapper is used to put the cursor in when newly typed text
+ * needs to be styled differently from its surrounding text (for
+ * example through storedMarks), so that the style of the text doesn't
+ * visually 'pop' between typing it and actually updating the view.
+ */
+// tslint:disable-next-line:no-empty-interface
+export interface CursorWrapperDesc extends WidgetViewDesc {}
+/**
+ * A mark desc represents a mark. May have multiple children,
+ * depending on how the mark is split. Note that marks are drawn using
+ * a fixed nesting order, for simplicity and predictability, so in
+ * some cases they will be split more often than would appear
+ * necessary.
+ */
+export interface MarkViewDesc<S extends Schema = any> extends ViewDesc {
+  mark: Mark<S>;
+  /**
+   * Used to check whether a given description corresponds to a given mark
+   */
+  matchesMark(mark: Mark<S>): boolean;
+}
+/**
+ * Node view descs are the main, most common type of view desc, and
+ * correspond to an actual node in the document. Unlike mark descs,
+ * they populate their child array themselves.
+ */
+export interface NodeViewDesc<S extends Schema = any> extends ViewDesc {
+  nodeDOM?: Node;
+  node: ProsemirrorNode<S>;
+  outerDeco: Decoration[];
+  innerDeco: DecorationSet<S>;
+  /**
+   * Used to check whether a given description corresponds to a given node
+   */
+  matchesNode(node: ProsemirrorNode<S>, outerDeco: Decoration[], innerDeco: DecorationSet<S>): boolean;
+  readonly size: number;
+  readonly border: 0 | 1;
+  /**
+   * Syncs `this.children` to match `this.node.content` and the local
+   * decorations, possibly introducing nesting for marks. Then, in a
+   * separate step, syncs the DOM inside `this.contentDOM` to
+   * `this.children`.
+   */
+  updateChildren(view: EditorView<S>, pos: number): void;
+  /**
+   * If this desc be updated to match the given node decoration,
+   * do so and return true.
+   */
+  update(node: ProsemirrorNode<S>, outerDeco: Decoration[], innerDeco: DecorationSet<S>, view: EditorView<S>): boolean;
+  updateInner(node: ProsemirrorNode<S>, outerDeco: Decoration[], innerDeco: DecorationSet<S>, view: EditorView<S>): void;
+  updateOuterDeco(outerDeco: Decoration[]): void;
+  /**
+   * Mark this node as being the selected node.
+   */
+  selectNode(): void;
+  /**
+   * Remove selected node marking from this node.
+   */
+  deselectNode(): void;
+}
+export interface TextViewDesc extends NodeViewDesc {
+  inParent(): boolean;
+}
+/**
+ * A separate subclass is used for customized node views, so that the
+ * extra checks only have to be made for nodes that are actually
+ * customized.
+ */
+export interface CustomNodeViewDesc extends NodeViewDesc {
+  spec: NodeView;
+  selectNode(): void;
+  deselectNode(): void;
+  setSelection(anchor: number, head: number, root: Document): void;
 }

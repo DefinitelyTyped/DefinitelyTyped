@@ -13,3 +13,5 @@ const res2_3: view.DecorationSet = res2_1.decorations!({} as any)!;
 const res3_1: view.EditorProps["attributes"] = () => {};
 const res3_2: view.EditorProps["attributes"] = () => null;
 const res3_3: view.EditorProps["attributes"] = () => undefined;
+
+const { node, offset } = res1_1.docView.domFromPos(1);
