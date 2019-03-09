@@ -1,4 +1,4 @@
-// Type definitions for @storybook/vue 5.0.1
+// Type definitions for @storybook/vue 5.0
 // Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/app/vue
 // Definitions by: Punit Gupta <https://github.com/pntgupta>
 //                 Jurgis Rudaks <https://github.com/jurgisrudaks>
