@@ -27,8 +27,8 @@ export interface VueSelectProps {
     index: string | null;
     getOptionLabel: (option: any) => string;
     onChange: (val: any) => void;
-    onInput: (val: any) => void
-    onTab: () => void
+    onInput: (val: any) => void;
+    onTab: () => void;
     taggable: boolean;
     tabindex: number | null;
     pushTags: boolean;
