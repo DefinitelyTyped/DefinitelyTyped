@@ -1,4 +1,4 @@
-// Type definitions for parse 2.1.0
+// Type definitions for parse 2.1.1
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -8,6 +8,7 @@
 //                  Otherwise SAS <https://github.com/owsas>
 //                  Andrew Goldis <https://github.com/agoldis>
 //                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
+//                  Jong Eun Lee <https://github.com/yomybaby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -621,6 +622,7 @@ subscription.on('close', () => {});
     class User extends Object {
 
         static current(): User | undefined;
+        static currentAsync(): Promise<User>;
         static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
         static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
         static logOut(): Promise<User>;
