@@ -4,24 +4,25 @@ export { Data } from './utils/data';
 
 export {
     BackgroundImageFn,
-    EmojiSet,
     CategoryName,
     CustomIcons,
     EmojiProps,
+    EmojiSet,
     EmojiSheetSize,
     I18n,
     PartialI18n,
     PickerProps,
-  } from './utils/shared-props';
+} from './utils/shared-props';
+
+export { default as emojiIndex } from './utils/emoji-index/emoji-index';
 
 export {
-    emojiIndex,
-    NimbleEmojiIndex,
-    EmojiData,
+    BaseEmoji,
     CustomEmoji,
+    EmojiData,
     EmojiSkin,
-    BaseEmoji
-} from './utils/emoji-index';
+    default as NimbleEmojiIndex,
+} from './utils/emoji-index/nimble-emoji-index';
 
 export {
     Picker,
