@@ -634,13 +634,13 @@ export class VectorLayersExample extends Component<undefined, undefined> {
 const DEFAULT_VIEWPORT: Viewport = {
     center: [51.505, -0.09],
     zoom: 13,
-}
+};
 
 interface ViewportExampleState {
-    viewport: Viewport
+    viewport: Viewport;
 }
 
-class ViewportExample extends Component<undefined, ViewportExampleState> {
+export class ViewportExample extends Component<undefined, ViewportExampleState> {
     state = {
         viewport: DEFAULT_VIEWPORT,
     };
@@ -670,10 +670,10 @@ class ViewportExample extends Component<undefined, ViewportExampleState> {
 
 // video-overlay.js
 interface VideoOverlayExampleState {
-    play: boolean
+    play: boolean;
 }
 
-class VideoOverlayExample extends Component<undefined, VideoOverlayExampleState> {
+export class VideoOverlayExample extends Component<undefined, VideoOverlayExampleState> {
     state = {
         play: true,
     };

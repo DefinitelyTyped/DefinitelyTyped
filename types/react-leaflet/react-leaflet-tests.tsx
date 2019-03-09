@@ -637,10 +637,10 @@ export class VectorLayersExample extends Component<undefined, undefined> {
 const DEFAULT_VIEWPORT: Viewport = {
     center: [51.505, -0.09],
     zoom: 13,
-}
+};
 
 interface ViewportExampleState {
-    viewport: Viewport
+    viewport: Viewport;
 }
 
 class ViewportExample extends Component<undefined, ViewportExampleState> {
