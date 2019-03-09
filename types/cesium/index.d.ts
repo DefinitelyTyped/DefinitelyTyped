@@ -706,8 +706,8 @@ declare namespace Cesium {
 
     class Event {
         numberOfListeners: number;
-        addEventListener(listener: () => void, scope?: any): Event.RemoveCallback;
-        removeEventListener(listener: () => void, scope?: any): boolean;
+        addEventListener(listener: (...args: any[]) => void, scope?: any): Event.RemoveCallback;
+        removeEventListener(listener: (...args: any[]) => void, scope?: any): boolean;
         raiseEvent(...args: any[]): void;
     }
 
