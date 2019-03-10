@@ -140,3 +140,6 @@ proxy({
 proxy({
   headers: {host: 'www.example.org'}
 });
+
+// Shorthands
+proxy('/');

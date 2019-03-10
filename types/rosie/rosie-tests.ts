@@ -19,6 +19,7 @@ resultObj = Factory.build('some');
 Factory.define('coach')
   .option('buildPlayer', false)
   .sequence('id')
+  .sequence('name', (i: number) => `Coach${i}`)
   .attr('players', ['id', 'buildPlayer'], function(id: any, buildPlayer: boolean) {
     if (buildPlayer) {
       return [Factory.build('player', {coach_id: id})];
@@ -68,6 +69,21 @@ personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstN
 const person = Factory.build<Person>('Person');
 let aString = '';
 aString = person.firstName;
+
+// Unregistered factories
+const unregisteredPersonFactory = new Factory<Person>();
+
+unregisteredPersonFactory.attr('firstName', 'John').sequence('id');
+
+// Sequence with dependencies
+unregisteredPersonFactory.sequence('lastName', ['age'], (i: number, age: number) => `Doe ${i} ${age}`)
+
+// Unregistered extended factories
+
+const unregisteredExtendedPersonFactory = new Factory().extend(unregisteredPersonFactory)
+
+unregisteredExtendedPersonFactory.attr('firstName', 'John2')
+unregisteredExtendedPersonFactory.sequence('lastName', ['age'], (i: number) => `Doe2 ${i}`)
 
 class CustomClass {
   type: string;

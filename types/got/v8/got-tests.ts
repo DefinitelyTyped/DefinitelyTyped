@@ -252,7 +252,7 @@ got('todomvc', {
 }).then(res => res.fromCache);
 
 got('todomvc', {
-    cache: new QuickLRU(),
+    cache: new QuickLRU({maxSize: 10}),
 }).then(res => res.fromCache);
 
 got(new url.URL('http://todomvc.com'));

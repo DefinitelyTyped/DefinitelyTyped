@@ -3,6 +3,7 @@
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
+//                 Jamie Woodbury <https://github.com/JamieWoodbury>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -98,6 +99,7 @@ declare namespace sharp {
     const gravity: GravityEnum;
     const strategy: StrategyEnum;
     const kernel: KernelEnum;
+    const fit: FitEnum;
     const bool: BoolEnum;
 
     interface Sharp extends Duplex {
@@ -108,6 +110,12 @@ declare namespace sharp {
          * @returns A sharp instance that can be used to chain operations
          */
         removeAlpha(): Sharp;
+
+        /**
+         * Ensure alpha channel, if missing. The added alpha channel will be fully opaque. This is a no-op if the image already has an alpha channel.
+         * @returns A sharp instance that can be used to chain operations
+         */
+        ensureAlpha(): Sharp;
 
         /**
          * Extract a single channel from a multi-channel image.
@@ -204,7 +212,7 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        overlayWith(image: string | Buffer, options?: OverlayOptions): Sharp;
+        overlayWith(image?: string | Buffer, options?: OverlayOptions): Sharp;
 
         //#endregion
 
@@ -599,9 +607,10 @@ declare namespace sharp {
 
     interface SharpOptions {
         /**
-         * By default apply a "best effort" to decode images, even if the data is corrupt or invalid.
-         * Set this flag to true if you'd rather halt processing and raise an error when loading invalid images.
-         * (optional, default false)
+         * By default halt processing and raise an error when loading invalid images.
+         * Set this flag to false if you'd rather apply a "best effort" to decode images,
+         * even if the data is corrupt or invalid. (optional, default true)
+         * (optional, default true)
          */
         failOnError?: boolean;
         /** Number representing the DPI for vector images. (optional, default 72) */
@@ -780,6 +789,16 @@ declare namespace sharp {
         adaptiveFiltering?: boolean;
         /** Force PNG output, otherwise attempt to use input format (optional, default  true) */
         force?: boolean;
+        /** use the lowest number of colours needed to achieve given quality, requires libimagequant (optional, default `100`) */
+        quality?: number;
+        /** Quantise to a palette-based image with alpha transparency support, requires libimagequant (optional, default false) */
+        palette?: boolean;
+        /** Maximum number of palette entries, requires libimagequant (optional, default 256) */
+        colours?: number;
+        /** Alternative Spelling of "colours". Maximum number of palette entries, requires libimagequant (optional, default 256) */
+        colors?: number;
+        /**  Level of Floyd-Steinberg error diffusion, requires libimagequant (optional, default 1.0) */
+        dither?: number;
     }
 
     interface RotateOptions {
@@ -928,6 +947,7 @@ declare namespace sharp {
     interface KernelEnum {
         nearest: "nearest";
         cubic: "cubic";
+        mitchell: "mitchell";
         lanczos2: "lanczos2";
         lanczos3: "lanczos3";
     }

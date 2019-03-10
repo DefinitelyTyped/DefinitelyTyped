@@ -2,6 +2,7 @@
 // Project: https://github.com/EmergingTechnologyAdvisors/node-serialport
 // Definitions by: Jeremy Foster <https://github.com/codefoster>
 //                 Andrew Pearson <https://github.com/apearson>
+//                 Cameron Tacklind <https://github.com/cinderblock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -100,10 +101,10 @@ declare namespace SerialPort {
 			constructor(options: {delimiter: string | Buffer | number[], includeDelimiter?: boolean});
 		}
 		class Readline extends Delimiter {
-			constructor(options: {delimiter: string | Buffer | number[], encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex'});
+			constructor(options: {delimiter: string | Buffer | number[], encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex', includeDelimiter?: boolean});
 		}
 		class Ready extends Stream.Transform {
-			constructor(options: {data: string | Buffer | number[]});
+			constructor(options: {delimiter: string | Buffer | number[]});
 		}
 		class Regex extends Stream.Transform {
 			constructor(options: {regex: RegExp});

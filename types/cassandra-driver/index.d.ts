@@ -1,12 +1,12 @@
-// Type definitions for cassandra-driver v3.5.0
+// Type definitions for cassandra-driver 4.0
 // Project: https://github.com/datastax/nodejs-driver
 // Definitions by: Marc Fisher <https://github.com/Svjard>
 //                 Christian D <https://github.com/pc-jedi>
+//                 Michal Kaminski <https://github.com/michal-b-kaminski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-/// <reference types="long" />
 
 export type Callback = Function;
 export type ResultCallback = (err: Error, result: types.ResultSet) => void;
@@ -34,43 +34,29 @@ export namespace policies {
   }
 
   namespace loadBalancing {
-    let DCAwareRoundRobinPolicy: DCAwareRoundRobinPolicyStatic;
-    let RoundRobinPolicy: RoundRobinPolicyStatic;
-    let TokenAwarePolicy: TokenAwarePolicyStatic;
-    let WhiteListPolicy: WhiteListPolicyStatic;
-
-    interface LoadBalancingPolicy {
+    class LoadBalancingPolicy {
       init(client: Client, hosts: HostMap, callback: Callback): void;
       getDistance(host: Host): types.distance;
-      newQueryPlan(keyspace: string, queryOptions: any, callback: Callback): void;
+      newQueryPlan(keyspace: string, queryOptions: ExecutionOptions | null, callback: Callback): void;
+      getOptions(): Map<string, any>;
     }
 
-    interface DCAwareRoundRobinPolicyStatic {
-      new (localDc?: string, usedHostsPerRemoteDc?: number): DCAwareRoundRobinPolicy;
+    class DCAwareRoundRobinPolicy extends LoadBalancingPolicy {
+      localDc: string;
+      localHostsArray: Host[];
+
+      constructor(localDc?: string);
     }
 
-    interface DCAwareRoundRobinPolicy extends LoadBalancingPolicy {
-      localHostsArray: Array<Host>;
-      remoteHostsArray: Array<Host>;
+    class RoundRobinPolicy extends LoadBalancingPolicy {}
+
+    class TokenAwarePolicy extends LoadBalancingPolicy {
+      constructor(childPolicy: LoadBalancingPolicy);
     }
 
-    interface RoundRobinPolicyStatic {
-      new (): RoundRobinPolicy;
+    class WhiteListPolicy extends LoadBalancingPolicy {
+      constructor(childPolicy: LoadBalancingPolicy, whiteList: string[]);
     }
-
-    interface RoundRobinPolicy extends LoadBalancingPolicy { }
-
-    interface TokenAwarePolicyStatic {
-      new (childPolicy: LoadBalancingPolicy): TokenAwarePolicy;
-    }
-
-    interface TokenAwarePolicy extends LoadBalancingPolicy { }
-
-    interface WhiteListPolicyStatic {
-      new (childPolicy: LoadBalancingPolicy, whiteList: Array<string>): WhiteListPolicy;
-    }
-
-    interface WhiteListPolicy extends LoadBalancingPolicy { }
   }
 
   namespace reconnection {
@@ -78,7 +64,9 @@ export namespace policies {
     let ExponentialReconnectionPolicy: ExponentialReconnectionPolicyStatic;
 
     interface ReconnectionPolicy {
-      newSchedule(): { next: Function };
+      newSchedule(): {
+        next(): { delay: number; done: boolean; }
+      };
     }
 
     interface ConstantReconnectionPolicyStatic {
@@ -99,12 +87,13 @@ export namespace policies {
 
     interface DecisionInfo {
       decision: number;
-      consistency: number;
+      consistency?: number;
+      useCurrentHost?: boolean;
     }
 
     interface RequestInfo {
-      request: any,
-      nbRetry: number
+      request: any;
+      nbRetry: number;
     }
 
     enum retryDecision {
@@ -127,47 +116,47 @@ export namespace policies {
       onReadTimeout(requestInfo: RequestInfo, consistency: types.consistencies, received: number, blockFor: number, isDataPresent: boolean): DecisionInfo;
       onUnavailable(requestInfo: RequestInfo, consistency: types.consistencies, required: number, alive: number): DecisionInfo;
       onWriteTimeout(requestInfo: RequestInfo, consistency: types.consistencies, received: number, blockFor: number, writeType: string): DecisionInfo;
-      rethrowResult(): { decision: retryDecision };
-      retryResult(): { decision: retryDecision, consistency: types.consistencies, useCurrentHost: boolean };
+      rethrowResult(): DecisionInfo;
+      retryResult(consistency?: types.consistencies, useCurrentHost?: boolean): DecisionInfo;
     }
   }
 
   namespace speculativeExecution {
-    let NoSpeculativeExecutionPolicy: NoSpeculativeExecutionPolicyStatic
+    let NoSpeculativeExecutionPolicy: NoSpeculativeExecutionPolicyStatic;
 
     interface SpeculativeExecutionPolicy {
       init(client: Client): void;
-      newPlan(keyspace: string, queryInfo: string | Array<string>): {
-          nextExecution: Function
-      }
+      newPlan(keyspace: string, queryInfo: string | string[]): {
+          nextExecution: () => number;
+      };
     }
 
     interface NoSpeculativeExecutionPolicyStatic {
-      new (): NoSpeculativeExecutionPolicy
+      new (): NoSpeculativeExecutionPolicy;
     }
 
     interface NoSpeculativeExecutionPolicy extends SpeculativeExecutionPolicy { }
-    
+
     interface ConstantSpeculativeExecutionPolicyStatic {
-      new (delay: number, maxSpeculativeExecutions: number): ConstantSpeculativeExecutionPolicy
+      new (delay: number, maxSpeculativeExecutions: number): ConstantSpeculativeExecutionPolicy;
     }
 
     interface ConstantSpeculativeExecutionPolicy extends SpeculativeExecutionPolicy { }
   }
 
   namespace timestampGeneration {
-      let MonotonicTimestampGenerator: MonotonicTimestampGeneratorStatic
+      let MonotonicTimestampGenerator: MonotonicTimestampGeneratorStatic;
 
       interface TimestampGenerator {
-        next(client: Client): null | number | _Long
+        next(client: Client): null | number | _Long;
       }
 
       interface MonotonicTimestampGeneratorStatic {
-        new (warningThreshold?: number, minLogInterval?: number): MonotonicTimestampGeneratorStatic
+        new (warningThreshold?: number, minLogInterval?: number): MonotonicTimestampGeneratorStatic;
       }
 
       interface MonotonicTimestampGenerator extends TimestampGenerator {
-        getDate(): number
+        getDate(): number;
       }
   }
 }
@@ -297,11 +286,11 @@ export namespace types {
   }
 
   interface IntegerStatic {
-    new (bits: Array<number>, sign: number): Integer;
+    new (bits: number[], sign: number): Integer;
 
     fromInt(value: number): Integer;
     fromNumber(value: number): Integer;
-    fromBits(bits: Array<number>): Integer;
+    fromBits(bits: number[]): Integer;
     fromString(str: string, opt_radix?: number): Integer;
     fromBuffer(bits: Buffer): Integer;
     toBuffer(value: Integer): Buffer;
@@ -404,14 +393,14 @@ export namespace types {
       speculativeExecutions: number,
       achievedConsistency: consistencies,
       traceId: Uuid,
-      warnings: Array<string>,
+      warnings: string[],
       customPayload: any
     };
-    rows: Array<Row>;
+    rows: Row[];
     rowLength: number;
     columns: Array<{ [key: string]: string; }>;
     pageState: string;
-    nextPage: Function;
+    nextPage: () => void;
 
     first(): Row | null;
     getPageState(): string;
@@ -428,7 +417,7 @@ export namespace types {
     buffer: Buffer;
     paused: boolean;
 
-    _valve(readNext: Function): void;
+    _valve(readNext: () => void): void;
     add(chunk: Buffer): void;
   }
 
@@ -439,7 +428,7 @@ export namespace types {
   interface Row {
     get(columnName: string | number): { [key: string]: any; };
     values(): Array<{ [key: string]: any; }>;
-    keys(): Array<string>;
+    keys(): string[];
     forEach(callback: Callback): void;
     [key: string]: any;
   }
@@ -462,19 +451,19 @@ export namespace types {
   }
 
   interface TupleStatic {
-    new (...args: Array<any>): Tuple;
+    new (...args: any[]): Tuple;
 
-    fromArray(elements: Array<any>): Tuple;
+    fromArray(elements: any[]): Tuple;
   }
 
   interface Tuple {
-    elements: Array<any>;
+    elements: any[];
     length: number;
 
     get(index: number): any;
     toString(): string;
     toJSON(): string;
-    values(): Array<any>;
+    values(): any[];
   }
 
   interface UuidStatic {
@@ -488,6 +477,7 @@ export namespace types {
     buffer: Buffer;
 
     getBuffer(): Buffer;
+    // tslint:disable-next-line:no-unnecessary-qualifier
     equals(other: types.Uuid): boolean;
     toString(): string;
     inspect(): string;
@@ -496,58 +486,61 @@ export namespace types {
 }
 
 export let Client: ClientStatic;
-export let Host: HostStatic;
-export let HostMap: HostMapStatic;
 export let Encoder: EncoderStatic;
 
 export interface ClientOptions {
-  contactPoints: Array<string>,
-  keyspace?: string,
-  refreshSchemaDelay?: number,
-  isMetadataSyncEnabled?: boolean,
-  prepareOnAllHosts?: boolean,
-  rePrepareOnUp?: boolean,
-  maxPrepared?: number,
+  contactPoints: string[];
+  localDataCenter?: string;
+  keyspace?: string;
+  refreshSchemaDelay?: number;
+  isMetadataSyncEnabled?: boolean;
+  prepareOnAllHosts?: boolean;
+  rePrepareOnUp?: boolean;
+  maxPrepared?: number;
   policies?: {
-    loadBalancing?: policies.loadBalancing.LoadBalancingPolicy,
-    retry?: policies.retry.RetryPolicy,
-    reconnection?: policies.reconnection.ReconnectionPolicy,
-    addressResolution?: policies.addressResolution.AddressTranslator,
-    speculativeExecution?: policies.speculativeExecution.SpeculativeExecutionPolicy,
-    timestampGeneration?: policies.timestampGeneration.TimestampGenerator,
-  },
-  queryOptions?: QueryOptions,
+    loadBalancing?: policies.loadBalancing.LoadBalancingPolicy;
+    retry?: policies.retry.RetryPolicy;
+    reconnection?: policies.reconnection.ReconnectionPolicy;
+    addressResolution?: policies.addressResolution.AddressTranslator;
+    speculativeExecution?: policies.speculativeExecution.SpeculativeExecutionPolicy;
+    timestampGeneration?: policies.timestampGeneration.TimestampGenerator;
+  };
+  queryOptions?: QueryOptions;
   pooling?: {
-    heartBeatInterval?: number,
-    coreConnectionsPerHost?: { [key: number]: number; },
-    maxRequestsPerConnection?: number,
+    heartBeatInterval?: number;
+    coreConnectionsPerHost?: { [key: number]: number; };
+    maxRequestsPerConnection?: number;
     warmup?: boolean;
-  },
+  };
   protocolOptions?: {
-    port?: number,
-    maxSchemaAgreementWaitSeconds?: number,
-    maxVersion?: number,
-    noCompact?: boolean
-  },
+    port?: number;
+    maxSchemaAgreementWaitSeconds?: number;
+    maxVersion?: number;
+    noCompact?: boolean;
+  };
   socketOptions?: {
-    connectTimeout?: number,
-    defunctReadTimeoutThreshold?: number,
-    keepAlive?: boolean,
-    keepAliveDelay?: number,
-    readTimeout?: number,
-    tcpNoDelay?: boolean,
-    coalescingThreshold?: number
-  },
-  authProvider?: auth.AuthProvider,
-  sslOptions?: tls.ConnectionOptions,
+    connectTimeout?: number;
+    defunctReadTimeoutThreshold?: number;
+    keepAlive?: boolean;
+    keepAliveDelay?: number;
+    readTimeout?: number;
+    tcpNoDelay?: boolean;
+    coalescingThreshold?: number;
+  };
+  authProvider?: auth.AuthProvider;
+  requestTracker?: tracker.RequestTracker;
+  sslOptions?: tls.ConnectionOptions;
   encoding?: {
-    map?: Function,
-    set?: Function,
-    copyBuffer?: boolean,
-    useUndefinedAsUnset?: boolean
-  },
-  profiles?: Array<ExecutionProfile>,
-  promiseFactory?: Function,
+    map?: typeof Map | ((...args: any[]) => any);
+    set?: typeof Set | ((...args: any[]) => any);
+    copyBuffer?: boolean;
+    useUndefinedAsUnset?: boolean;
+    useBigIntAsLong?: boolean;
+    useBigIntAsVarint?: boolean;
+  };
+  profiles?: ExecutionProfile[];
+  promiseFactory?: (handler: (callback: (err?: any, result?: any) => void) => void) => Promise<any>;
+  metrics?: metrics.ClientMetrics;
 }
 
 export interface QueryOptions {
@@ -557,21 +550,22 @@ export interface QueryOptions {
   customPayload?: any;
   executionProfile?: string | ExecutionProfile;
   fetchSize?: number;
-  hints?: Array<string> | Array<Array<string>>;
+  hints?: string[] | string[][];
   isIdempotent?: boolean;
   keyspace?: string;
   logged?: boolean;
+  counter?: boolean;
   pageState?: Buffer | string;
   prepare?: boolean;
   readTimeout?: number;
   retry?: policies.retry.RetryPolicy;
-  retryOnTimeout?: boolean;
-  routingIndexes?: Array<number>;
-  routingKey?: Buffer | Array<Buffer>;
-  routingNames?: Array<string>;
+  routingIndexes?: number[];
+  routingKey?: Buffer | Buffer[];
+  routingNames?: string[];
   serialConsistency?: number;
   timestamp?: number | _Long;
   traceQuery?: boolean;
+  host?: Host;
 }
 
 export interface ClientStatic {
@@ -582,10 +576,11 @@ export interface Client extends events.EventEmitter {
   hosts: HostMap;
   keyspace: string;
   metadata: metadata.Metadata;
+  metrics: metrics.ClientMetrics;
 
-  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
-  batch(queries: Array<string> | Array<{ query: string, params?: any }>, callback: ResultCallback): void;
-  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<types.ResultSet>;
+  batch(queries: string[] | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
+  batch(queries: string[] | Array<{ query: string, params?: any }>, callback: ResultCallback): void;
+  batch(queries: string[] | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<types.ResultSet>;
 
   connect(callback: Callback): void;
   connect(): Promise<void>;
@@ -594,44 +589,36 @@ export interface Client extends events.EventEmitter {
   execute(query: string, params: any, callback: ResultCallback): void;
   execute(query: string, callback: ResultCallback): void;
   execute(query: string, params?: any, options?: QueryOptions): Promise<types.ResultSet>;
-  getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
+  getReplicas(keyspace: string, token: Buffer): any[]; // TODO: Should this be a more explicit return?
   getState(): metadata.ClientState;
   shutdown(callback?: Callback): void;
   shutdown(): Promise<void>;
   stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
 }
 
-export interface HostStatic {
-  new (address: string, protocolVersion: number, options: ClientOptions): Host;
-}
-
 export interface Host extends events.EventEmitter {
   address: string;
   cassandraVersion: string;
-  dataCenter: string;
+  datacenter: string;
   rack: string;
-  tokens: Array<string>;
+  tokens: string[];
 
   canBeConsideredAsUp(): boolean;
-  getCassandraVersion(): Array<number>;
+  getCassandraVersion(): number[];
   isUp(): boolean;
-}
-
-export interface HostMapStatic {
-  new (): HostMap;
 }
 
 export interface HostMap extends events.EventEmitter {
   length: number;
 
-  clear(): Array<Host>;
+  clear(): Host[];
   forEach(callback: Callback): void;
   get(key: string): Host;
-  keys(): Array<string>;
+  keys(): string[];
   remove(key: string): void;
-  removeMultiple(keys: Array<string>): void;
+  removeMultiple(keys: string[]): void;
   set(key: string, value: Host): void;
-  values(): Array<Host>;
+  values(): Host[];
 }
 
 export interface EncoderStatic {
@@ -643,21 +630,20 @@ export interface Encoder {
   encode(value: any, typeInfo?: string | number | { code: number, info?: any }): Buffer;
 }
 
-interface ExecutionProfileOptions {
-  consistency: number,
-    loadBalancing: policies.loadBalancing.LoadBalancingPolicy,
-    name: string,
-    readTimeout: number,
-    retry: policies.retry.RetryPolicy,
-    serialConsistency: number
+export interface ExecutionProfileOptions {
+  consistency: number;
+  loadBalancing: policies.loadBalancing.LoadBalancingPolicy;
+  name: string;
+  readTimeout: number;
+  retry: policies.retry.RetryPolicy;
+  serialConsistency: number;
 }
 
 export interface ExecutionProfileStatic {
-  new (name: string, options: ExecutionProfileOptions): ExecutionProfile
+  new (name: string, options: ExecutionProfileOptions): ExecutionProfile;
 }
 
-export interface ExecutionProfile extends ExecutionProfileOptions {
-}
+export interface ExecutionProfile extends ExecutionProfileOptions {}
 
 export namespace auth {
   let Authenticator: AuthenticatorStatic;
@@ -687,8 +673,10 @@ export namespace auth {
 }
 
 export namespace errors {
-  abstract class DriverError {
+  abstract class DriverError extends Error {
     constructor(message: string, constructor?: any);
+
+    info: string;
   }
 
   class ArgumentError extends DriverError {
@@ -705,75 +693,74 @@ export namespace errors {
 
   class NoHostAvailableError extends DriverError {
     constructor(innerErrors: any, message?: string);
+
+    innerErrors: any;
   }
 
   class NotSupportedError extends DriverError {
     constructor(message: string);
   }
 
-  class OperationTimedOutError extends DriverError { }
+  class OperationTimedOutError extends DriverError {
+    constructor(message: string, host?: string);
+
+    host?: string;
+  }
 
   class ResponseError extends DriverError {
     constructor(code: number, message: string);
+
+    code: number;
+  }
+
+  class BusyConnectionError extends DriverError {
+    constructor(address: string, maxRequestsPerConnection: number, connectionLength: number);
   }
 }
 
 export namespace metadata {
-  let Aggregate: AggregateStatic;
-  let Index: IndexStatic;
-  let MaterializedView: MaterializedViewStatic;
   let Metadata: MetadataStatic;
-  let SchemaFunction: SchemaFunctionStatic;
-  let TableMetadata: TableMetadataStatic;
 
   type caching = "all" | "keys_only" | "rows_only" | "none";
-
-  interface AggregateStatic {
-    new (): Aggregate;
-  }
 
   interface Aggregate {
     argumentTypes: Array<{ code: number, info: any }>;
     finalFunction: string;
     initCondition: string;
-    keyspaceName: string,
+    keyspaceName: string;
     returnType: string;
-    signature: Array<string>;
+    signature: string[];
     stateFunction: string;
     stateType: string;
   }
-  
-  interface ClientStateStatic {
-    new (): ClientState;
-  }
-  
+
   interface ClientState {
-    getConnectedHosts(): Array<Host>;
+    getConnectedHosts(): Host[];
     getInFlightQueries(host: Host): number;
     getOpenConnections(host: Host): number;
     toString(): string;
   }
 
   interface DataTypeInfo {
-    code: number,
-    info: string | DataTypeInfo | Array<DataTypeInfo>,
+    code: number;
+    info: string | DataTypeInfo | DataTypeInfo[];
     options: {
-      frozen: boolean,
-      reversed: boolean
-    }
+      frozen: boolean;
+      reversed: boolean;
+    };
   }
 
   interface ColumnInfo {
-    name: string,
-    type: DataTypeInfo
+    name: string;
+    type: DataTypeInfo;
   }
 
   interface DataCollection {
     bloomFilterFalsePositiveChance: number;
     caching: caching;
     clusterKeys: Array<{ c: ColumnInfo, index: number, order: string }>;
-    clusteringOrder: Array<string>;
-    columns: Array<ColumnInfo>;
+    clusteringOrder: string[];
+    columns: ColumnInfo[];
     columnsByName: { [key: string]: ColumnInfo };
     comment: string;
     compactionClass: string;
@@ -787,7 +774,7 @@ export namespace metadata {
     maxIndexInterval?: number;
     minIndexInterval?: number;
     name: string;
-    partitionKeys: Array<{ c: ColumnInfo, index: number }>
+    partitionKeys: Array<{ c: ColumnInfo, index: number }>;
     populateCacheOnFlush: boolean;
     readRepairChance: number;
     speculateRetry: string;
@@ -799,17 +786,10 @@ export namespace metadata {
     composites
   }
 
-  interface IndexStatic {
-    new (name: string, target: string, kind: IndexType, options: Object): Index;
-
-    fromRows(indexRows: Array<types.Row>): Array<Index>;
-    fromColumnRows(columnRows: Array<types.Row>, columnsByName: { [key: string]: ColumnInfo }): Array<Index>;
-  }
-
   interface Index {
     kind: IndexType;
     name: string;
-    options: Object;
+    options: object;
     target: string;
 
     isCompositesKind(): boolean;
@@ -817,11 +797,19 @@ export namespace metadata {
     isKeysKind(): boolean;
   }
 
-  interface MaterializedViewStatic {
-    new (name: string): MaterializedView;
+  interface MaterializedView extends DataCollection { }
+
+  interface QueryTrace {
+    requestType: any;
+    coordinator: any;
+    parameters: any;
+    startedAt: any;
+    duration: any;
+    clientAddress: any;
+    events: Array<{ id: any; activity: any; source: any; elapsed: any; thread: any }>;
   }
 
-  interface MaterializedView extends DataCollection { }
+  type MetadataCallback<T> = (err: any, retVal: T) => void;
 
   interface MetadataStatic {
     new (options: ClientOptions, controlConnection: any): Metadata;
@@ -830,44 +818,334 @@ export namespace metadata {
   interface Metadata {
     clearPrepared(): void;
 
-    getAggregate(keyspaceName: string, name: string, signature: Array<string> | Array<{ code: number, info: any }>, callback: Callback): void;
-    getAggregates(keyspaceName: string, name: string, callback: Callback): void;
-    getFunction(keyspaceName: string, name: string, signature: Array<string> | Array<{ code: number, info: any }>, callback: Callback): void;
-    getFunctions(keyspaceName: string, name: string, callback: Callback): void;
-    getMaterializedView(keyspaceName: string, name: string, callback: Callback): void;
-    getReplicas(keyspaceName: string, tokenBuffer: Buffer): Array<any>;
-    getTable(keyspaceName: string, name: string, callback: Callback): void;
-    getTrace(traceId: types.Uuid, callback: Callback): void;
-    getUdt(keyspaceName: string, name: string, callback: Callback): void;
-    refreshKeyspace(name: string, callback?: Callback): void;
-    refreshKeyspaces(callback?: Callback): void;
-  }
-
-  interface SchemaFunctionStatic {
-    new (): SchemaFunction;
+    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: MetadataCallback<Aggregate>): void;
+    getAggregate(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>): Promise<Aggregate>;
+    getAggregates(keyspaceName: string, name: string, callback: MetadataCallback<Aggregate[]>): void;
+    getAggregates(keyspaceName: string, name: string): Promise<Aggregate[]>;
+    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>, callback: MetadataCallback<SchemaFunction>): void;
+    getFunction(keyspaceName: string, name: string, signature: string[] | Array<{ code: number, info: any }>): Promise<SchemaFunction>;
+    getFunctions(keyspaceName: string, name: string, callback: MetadataCallback<SchemaFunction[]>): void;
+    getFunctions(keyspaceName: string, name: string): Promise<SchemaFunction[]>;
+    getMaterializedView(keyspaceName: string, name: string, callback: MetadataCallback<MaterializedView>): void;
+    getMaterializedView(keyspaceName: string, name: string, callback: Callback): Promise<MaterializedView>;
+    getReplicas(keyspaceName: string, token: Buffer | token.Token | token.TokenRange): any[]; // TODO
+    getTable(keyspaceName: string, name: string, callback: MetadataCallback<TableMetadata>): void;
+    getTable(keyspaceName: string, name: string): Promise<TableMetadata>;
+    getTokenRanges(): Set<token.TokenRange>;
+    getTokenRangesForHost(keyspaceName: string, host: Host): Set<token.TokenRange> | null;
+    getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: MetadataCallback<QueryTrace>): void;
+    getTrace(traceId: types.Uuid, consistency: types.consistencies, callback: Callback): Promise<QueryTrace>;
+    getTrace(traceId: types.Uuid, callback: MetadataCallback<QueryTrace>): void;
+    getTrace(traceId: types.Uuid): Promise<QueryTrace>;
+    getUdt(keyspaceName: string, name: string, callback: MetadataCallback<any>): void; // TODO
+    getUdt(keyspaceName: string, name: string): Promise<any>; // TODO
+    newToken(components: Buffer[] | Buffer | string): token.Token;
+    newTokenRange(start: token.Token, end: token.Token): token.TokenRange;
+    refreshKeyspace(name: string, callback: Callback): void;
+    refreshKeyspace(name: string): Promise<void>;
+    refreshKeyspaces(waitReconnect: boolean, callback: Callback): void;
+    refreshKeyspaces(waitReconnect?: boolean): Promise<void>;
+    refreshKeyspaces(callback: Callback): void;
   }
 
   interface SchemaFunction {
-    argumentNames: Array<string>;
+    argumentNames: string[];
     argumentTypes: Array<{ code: number, info: any }>;
     body: string;
     calledOnNullInput: boolean;
-    keyspaceName: string,
+    keyspaceName: string;
     language: string;
     name: string;
     returnType: string;
-    signature: Array<string>;
-  }
-
-  interface TableMetadataStatic {
-    new (name: string): TableMetadata;
+    signature: string[];
   }
 
   interface TableMetadata extends DataCollection {
-    indexes: Array<Index>;
+    indexes: Index[];
     indexInterval?: number;
     isCompact: boolean;
     memtableFlushPeriod: number;
     replicateOnWrite: boolean;
+    cdc?: boolean;
+    virtual: boolean;
   }
 }
+
+export interface ExecutionOptionsStatic {
+  new (): ExecutionOptions;
+}
+
+export interface ExecutionOptions {
+  getCaptureStackTrace(): boolean;
+  getConsistency(): types.consistencies;
+  getCustomPayload(): { [key: string]: any };
+  getFetchSize(): number;
+  getFixedHost(): Host;
+  getHints(): string[] | string[][];
+  isAutoPage(): boolean;
+  isBatchCounter(): boolean;
+  isBatchLogged(): boolean;
+  isIdempotent(): boolean;
+  isPrepared(): boolean;
+  isQueryTracing(): boolean;
+  getKeyspace(): string;
+  getLoadBalancingPolicy(): policies.loadBalancing.LoadBalancingPolicy;
+  getPageState(): Buffer;
+  getRawQueryOptions(): QueryOptions;
+  getReadTimeout(): number;
+  getRetryPolicy(): policies.retry.RetryPolicy;
+  getRoutingKey(): Buffer | Buffer[];
+  getSerialConsistency(): types.consistencies;
+  getTimestamp(): number | Long | undefined | null;
+  setHints(hints: string[]): void;
+}
+
+export let ExecutionOptions: ExecutionOptionsStatic;
+export let ExecutionProfile: ExecutionProfileStatic;
+
+export namespace mapping {
+  let Mapper: MapperStatic;
+  let ModelBatchItem: ModelBatchItemStatic;
+  let ModelMappingInfo: ModelMappingInfoStatic;
+  let ModelMapper: ModelMapperStatic;
+  let MappingHandler: MappingHandlerStatic;
+  let Result: ResultStatic;
+  let DefaultTableMappings: DefaultTableMappingsStatic;
+  let UnderscoreCqlToCamelCaseMappings: UnderscoreCqlToCamelCaseMappingsStatic;
+
+  interface MappingExecutionOptions {
+    executionProfile?: string;
+    isIdempotent?: boolean;
+    logged?: boolean;
+    timestamp?: number | Long;
+    fetchSize?: number;
+    pageState?: number;
+  }
+
+  interface ModelTables {
+    name: string;
+    isView: boolean;
+  }
+
+  interface MappingQuery {
+    query: string;
+    isIdempotent: boolean;
+    isCounter: boolean;
+  }
+
+  interface MapperStatic {
+    new (client: Client, options?: MappingOptions): Mapper;
+  }
+  interface Mapper {
+    batch(items: ModelBatchItem[], executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    forModel(name: string): ModelMapper;
+  }
+
+  interface MappingOptions {
+    models: { [key: string]: ModelOptions };
+  }
+
+  interface ModelOptions {
+    tables?: string[] | ModelTables[];
+    mappings?: TableMappings;
+    columns?: { [key: string]: string };
+    keyspace?: string;
+  }
+
+  interface ModelMappingInfoStatic {
+    new (keyspace: string, tables: ModelTables[], mappings: TableMappings, columns: { [key: string]: string }): ModelMappingInfo;
+    parse(options: MappingOptions, currentKeyspace: string): { [key: string]: ModelMappingInfo };
+    createDefault(modelName: string, currentKeyspace: string): ModelMappingInfo;
+  }
+  interface ModelMappingInfo {
+    keyspace: string;
+    tables: ModelTables[];
+
+    getColumnName(propName: string): string;
+    getPropertyName(columnName: string): string;
+    newInstance(): TableMappings;
+  }
+
+  interface MappingDocInfo {
+    fields?: string[];
+    ttl?: number;
+    ifNotExists?: boolean;
+    when?: { [key: string]: string };
+    orderBy?: { [key: string]: string };
+    limit?: number;
+    deleteOnlyColumns?: boolean;
+  }
+
+  interface ModelBatchItemStatic {
+    new (
+      queries: Promise<MappingQuery[]>,
+      doc: { [key: string]: any },
+      docInfo: MappingDocInfo,
+      mappingInfo: ModelMappingInfo
+    ): ModelBatchItem;
+  }
+  interface ModelBatchItem {}
+
+  interface MappingHandlerStatic {
+    new (client: Client, mappingInfo: ModelMappingInfo): MappingHandler;
+  }
+  interface MappingHandler {}
+
+  interface ModelBatchMapper {
+    insert(doc: { [key: string]: any }, docInfo?: MappingDocInfo): ModelBatchItem;
+    remove(doc: { [key: string]: any }, docInfo?: MappingDocInfo): ModelBatchItem;
+    update(doc: { [key: string]: any }, docInfo?: MappingDocInfo): ModelBatchItem;
+  }
+
+  interface ModelMapperStatic {
+    new (name: string, handler: MappingHandler): ModelMapper;
+  }
+  interface ModelMapper {
+    name: string;
+    batching: ModelBatchMapper;
+
+    get(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    find(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    findAll(docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    insert(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    update(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    remove(doc: { [key: string]: any }, docInfo?: MappingDocInfo, executionOptions?: string | MappingExecutionOptions): Promise<Result>;
+    mapWithQuery(
+      query: string,
+      paramsHandler: (doc: { [key: string]: any }) => any,
+      executionOptions?: string | MappingExecutionOptions
+    ): (doc: { [key: string]: any }, executionOptions?: string | MappingExecutionOptions) => Promise<Result>;
+  }
+
+  interface ResultStatic {
+    new (rs: types.ResultSet, info: ModelMappingInfo, rowAdapter: (row: types.Row, info: ModelMappingInfo) => { [key: string]: any }): Result;
+  }
+  interface Result {
+    [Symbol.iterator](): Iterator<{ [key: string]: any }>;
+    wasApplied(): boolean;
+    first(): { [key: string]: any };
+    toArray(): Array<{ [key: string]: any }>;
+    forEach(callback: (currentValue: { [key: string]: any }, index: number) => void, thisArg?: any): void;
+  }
+
+  interface TableMappings {
+    getColumnName(propName: string): string;
+    getPropertyName(columnName: string): string;
+    newObjectInstance(): { [key: string]: any };
+  }
+
+  interface DefaultTableMappingsStatic {
+    new (): DefaultTableMappings;
+  }
+  interface DefaultTableMappings extends TableMappings {}
+  interface UnderscoreCqlToCamelCaseMappingsStatic {
+    new (): UnderscoreCqlToCamelCaseMappings;
+  }
+  interface UnderscoreCqlToCamelCaseMappings extends TableMappings {}
+}
+
+export namespace tracker {
+  let RequestLogger: RequestLoggerStatic;
+
+  interface RequestLoggerOptions {
+    slowThreshold?: number;
+    logNormalRequests?: boolean;
+    logErroredRequests?: boolean;
+    messageMaxQueryLength?: number;
+    messageMaxParameterValueLength?: number;
+    messageMaxErrorStackTraceLength?: number;
+  }
+
+  interface RequestTracker {
+    onError(
+      host: Host,
+      query: string | Array<{ query: string, params?: any }>,
+      parameters: any[] | { [key: string]: any } | null,
+      executionOptions: ExecutionOptions,
+      requestLength: number,
+      err: Error,
+      latency: number[]
+    ): void;
+    onSuccess(
+      host: Host,
+      query: string | Array<{ query: string, params?: any }>,
+      parameters: any[] | { [key: string]: any } | null,
+      executionOptions: ExecutionOptions,
+      requestLength: number,
+      responseLength: number,
+      latency: number[]
+    ): void;
+    shutdown(): void;
+  }
+
+  interface RequestLoggerStatic {
+    new (options: RequestLoggerOptions): RequestLogger;
+  }
+  interface RequestLogger extends RequestTracker {}
+}
+
+export namespace metrics {
+  let DefaultMetrics: DefaultMetricsStatic;
+
+  interface ClientMetrics {
+    onAuthenticationError(e: Error | errors.AuthenticationError): void;
+    onClientTimeoutError(e: errors.OperationTimedOutError): void;
+    onClientTimeoutRetry(e: Error): void;
+    onConnectionError(e: Error): void;
+    onIgnoreError(e: Error): void;
+    onOtherError(e: Error): void;
+    onOtherErrorRetry(e: Error): void;
+    onReadTimeoutError(e: errors.ResponseError): void;
+    onReadTimeoutRetry(e: Error): void;
+    onResponse(latency: number[]): void;
+    onSpeculativeExecution(): void;
+    onSuccessfulResponse(latency: number[]): void;
+    onUnavailableError(e: errors.ResponseError): void;
+    onUnavailableRetry(e: Error): void;
+    onWriteTimeoutError(e: errors.ResponseError): void;
+    onWriteTimeoutRetry(e: Error): void;
+  }
+
+  interface DefaultMetricsStatic {
+    new (): DefaultMetrics;
+  }
+  interface DefaultMetrics extends ClientMetrics {}
+}
+
+export namespace token {
+  interface Tokenizer {
+    hash(value: Buffer | number[]): Token;
+    parse(value: string): Token;
+    minToken(): Token;
+    split(start: Token, end: Token, numberOfSplits: number): TokenRange[];
+    splitBase(start: number, end: number, ringEnd: number, ringLength: number, numberOfSplits: number): number[];
+    stringify(token: Token): string;
+  }
+
+  class Token {
+    constructor(value: any);
+
+    getType(): { code: number, info: any };
+    getValue(): any;
+    compare(other: Token): number;
+    equals(other: Token): boolean;
+  }
+
+  class TokenRange {
+    start: Token;
+    end: Token;
+
+    constructor(start: Token, end: Token, tokenizer: Tokenizer);
+
+    splitEvenly(numberOfSplits: number): TokenRange[];
+    isEmpty(): boolean;
+    isWrappedAround(): boolean;
+    unwrap(): TokenRange[];
+    contains(token: Token): boolean;
+    equals(other: TokenRange): boolean;
+    compare(other: TokenRange): number;
+  }
+}
+
+export function defaultOptions(): ClientOptions;
+export const version: string;

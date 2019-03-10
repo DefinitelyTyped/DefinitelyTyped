@@ -1,7 +1,7 @@
 import Message = require('../ojmessaging');
 import Color = require('../ojcolor');
 export interface AsyncValidator<V> {
-    hint: Promise<string>;
+    hint: Promise<(string | null)>;
     validate(value: V): Promise<boolean>;
 }
 export class ColorConverter implements Converter<Color> {

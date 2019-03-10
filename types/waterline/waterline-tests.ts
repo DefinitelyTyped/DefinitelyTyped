@@ -173,10 +173,10 @@ const valid2 = {
             cb("http://");
         }, 1);
     },
-    before: () => {
+    before: function () {
         return this.endDate;
     },
-    after: () => {
+    after: function () {
         return this.startDate;
     }
 };

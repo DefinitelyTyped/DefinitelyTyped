@@ -94,6 +94,7 @@ declare module 'jspdf' {
          *  - split_text_to_size
          *  - SVG
          *  - total_pages
+         *  - vfs
          */
 
         // jsPDF plugin: addHTML
@@ -205,8 +206,13 @@ declare module 'jspdf' {
 
         // jsPDF plugin: total_pages
         putTotalPages(pageExpression:string):jsPDF;
+
+        // jsPDF plugin: vfs
+        existsFileInVFS(filename:string):boolean;
+        addFileToVFS(filename:string, filecontent:string):jsPDF;
+        getFileFromVFS(filename:string):string;
     }
-    
+
     namespace jsPDF {}
 
     export = jsPDF;

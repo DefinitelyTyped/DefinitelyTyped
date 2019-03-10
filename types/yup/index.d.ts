@@ -5,8 +5,12 @@
 //                 Moreton Bay Regional Council <https://github.com/MoretonBayRC>,
 //                 Sindre Seppola <https://github.com/sseppola>
 //                 Yash Kulshrestha <https://github.com/YashdalfTheGray>
+//                 Vincent Pizzo <https://github.com/vincentjames501>
+//                 Robert Bullen <https://github.com/robertbullen>
+//                 Yusuke Sato <https://github.com/sat0yu>
+//                 Dan Rumney <https://github.com/dancrumb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 export function reach<T>(
     schema: Schema<T>,
@@ -21,13 +25,8 @@ export function addMethod<T extends Schema<any>>(
 ): void;
 export function ref(path: string, options?: { contextPrefix: string }): Ref;
 export function lazy<T>(fn: (value: T) => Schema<T>): Lazy;
-export function ValidationError(
-    errors: string | string[],
-    value: any,
-    path: string,
-    type?: any
-): ValidationError;
 export function setLocale(customLocale: LocaleObject): void;
+export function isSchema(obj: any): obj is Schema<any>;
 
 export const mixed: MixedSchemaConstructor;
 export const string: StringSchemaConstructor;
@@ -47,6 +46,10 @@ export type AnySchemaConstructor =
     | ArraySchemaConstructor
     | ObjectSchemaConstructor;
 
+export type TestOptionsMessage =
+    | string
+    | ((params: object & Partial<TestMessageParams>) => string);
+
 export interface Schema<T> {
     clone(): this;
     label(label: string): this;
@@ -54,24 +57,25 @@ export interface Schema<T> {
     meta(): any;
     describe(): SchemaDescription;
     concat(schema: this): this;
-    validate(value: T, options?: ValidateOptions): Promise<T>;
-    validateSync(value: T, options?: ValidateOptions): T;
+    validate(value: any, options?: ValidateOptions): Promise<T>;
+    validateSync(value: any, options?: ValidateOptions): T;
     validateAt(path: string, value: T, options?: ValidateOptions): Promise<T>;
     validateSyncAt(path: string, value: T, options?: ValidateOptions): T;
-    isValid(value: T, options?: any): Promise<boolean>;
-    isValidSync(value: T, options?: any): boolean;
+    isValid(value: any, options?: any): Promise<boolean>;
+    isValidSync(value: any, options?: any): value is T;
     cast(value: any, options?: any): T;
     isType(value: any): value is T;
     strict(isStrict: boolean): this;
     strip(strip: boolean): this;
     withMutation(fn: (current: this) => void): void;
-    default(value?: any): this;
-    nullable(isNullable: boolean): this;
-    required(message?: string): this;
+    default(value: any): this;
+    default(): T;
+    nullable(isNullable?: boolean): this;
+    required(message?: TestOptionsMessage): this;
     notRequired(): this;
-    typeError(message?: string): this;
-    oneOf(arrayOfValues: any[], message?: string): this;
-    notOneOf(arrayOfValues: any[], message?: string): this;
+    typeError(message?: TestOptionsMessage): this;
+    oneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
+    notOneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
     test(
         name: string,
@@ -102,20 +106,21 @@ export interface StringSchemaConstructor {
 }
 
 export interface StringSchema extends Schema<string> {
-    min(limit: number | Ref, message?: string): StringSchema;
-    max(limit: number | Ref, message?: string): StringSchema;
+    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
+    min(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
+    max(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     matches(
         regex: RegExp,
         messageOrOptions?:
-            | string
-            | { message?: string; excludeEmptyString?: boolean }
+            | TestOptionsMessage
+            | { message?: TestOptionsMessage; excludeEmptyString?: boolean }
     ): StringSchema;
-    email(message?: string): StringSchema;
-    url(message?: string): StringSchema;
+    email(message?: TestOptionsMessage): StringSchema;
+    url(message?: TestOptionsMessage): StringSchema;
     ensure(): StringSchema;
-    trim(message?: string): StringSchema;
-    lowercase(message?: string): StringSchema;
-    uppercase(message?: string): StringSchema;
+    trim(message?: TestOptionsMessage): StringSchema;
+    lowercase(message?: TestOptionsMessage): StringSchema;
+    uppercase(message?: TestOptionsMessage): StringSchema;
 }
 
 export interface NumberSchemaConstructor {
@@ -124,13 +129,13 @@ export interface NumberSchemaConstructor {
 }
 
 export interface NumberSchema extends Schema<number> {
-    min(limit: number | Ref, message?: string): NumberSchema;
-    max(limit: number | Ref, message?: string): NumberSchema;
-    lessThan(limit: number | Ref, message?: string): NumberSchema;
-    moreThan(limit: number | Ref, message?: string): NumberSchema;
-    positive(message?: string): NumberSchema;
-    negative(message?: string): NumberSchema;
-    integer(message?: string): NumberSchema;
+    min(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
+    max(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
+    lessThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
+    moreThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
+    positive(message?: TestOptionsMessage): NumberSchema;
+    negative(message?: TestOptionsMessage): NumberSchema;
+    integer(message?: TestOptionsMessage): NumberSchema;
     truncate(): NumberSchema;
     round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema;
 }
@@ -149,8 +154,8 @@ export interface DateSchemaConstructor {
 }
 
 export interface DateSchema extends Schema<Date> {
-    min(limit: Date | string | Ref, message?: string): DateSchema;
-    max(limit: Date | string | Ref, message?: string): DateSchema;
+    min(limit: Date | string | Ref, message?: TestOptionsMessage): DateSchema;
+    max(limit: Date | string | Ref, message?: TestOptionsMessage): DateSchema;
 }
 
 export interface ArraySchemaConstructor {
@@ -160,24 +165,41 @@ export interface ArraySchemaConstructor {
 
 export interface ArraySchema<T> extends Schema<T[]> {
     of<U>(type: Schema<U>): ArraySchema<U>;
-    min(limit: number | Ref, message?: string): ArraySchema<T>;
-    max(limit: number | Ref, message?: string): ArraySchema<T>;
+    min(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
+    max(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
     ensure(): ArraySchema<T>;
-    compact(rejector?: (value: any) => boolean): ArraySchema<T>;
+    compact(rejector?: (value: T, index: number, array: T[]) => boolean): ArraySchema<T>;
 }
 
+export type ObjectSchemaDefinition<T extends object> = {
+    [field in keyof T]: Schema<T[field]> | Ref
+};
+
+/**
+ * Merges two interfaces. For properties in common, property types from `U` trump those of `T`.
+ * This is conducive to the functionality of
+ * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
+ */
+export type Shape<T extends object, U extends object> = {
+    [P in keyof T]: P extends keyof U ? U[P] : T[P]
+} &
+    U;
+
 export interface ObjectSchemaConstructor {
-    <T>(fields?: { [field in keyof T]: Schema<T[field]> }): ObjectSchema<T>;
+    <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
     new (): ObjectSchema<{}>;
 }
 
-export interface ObjectSchema<T> extends Schema<T> {
-    shape(
-        fields: { [field in keyof T]: Schema<T[field]> },
+export interface ObjectSchema<T extends object> extends Schema<T> {
+    shape<U extends object>(
+        fields: ObjectSchemaDefinition<U>,
         noSortEdges?: Array<[string, string]>
-    ): ObjectSchema<T>;
+    ): ObjectSchema<Shape<T, U>>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
-    noUnknown(onlyKnownKeys?: boolean, message?: string): ObjectSchema<T>;
+    noUnknown(
+        onlyKnownKeys?: boolean,
+        message?: TestOptionsMessage
+    ): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
@@ -206,7 +228,8 @@ export interface TestContext {
     options: ValidateOptions;
     parent: any;
     schema: Schema<any>;
-    createError: (params: { path: string; message: string }) => ValidationError;
+    resolve: (value: any) => any;
+    createError: (params?: { path?: string; message?: string }) => ValidationError;
 }
 
 export interface ValidateOptions {
@@ -256,9 +279,7 @@ export interface TestOptions {
     /**
      * The validation error message
      */
-    message?:
-        | string
-        | ((params: object & Partial<TestMessageParams>) => string);
+    message?: TestOptionsMessage;
 
     /**
      * Values passed to message for interpolation
@@ -275,11 +296,16 @@ export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: string[];
+    tests: Array<{ name: string, params: object }>;
     fields: object;
 }
 
-export interface ValidationError {
+// ValidationError works a lot more like a class vs. a constructor
+// function that returns an interface. It's also got a couple of
+// static methods and it inherits from the generic Error class in
+// the [yup codebase][1].
+// [1]: (https://github.com/jquense/yup/blob/master/src/ValidationError.js)
+export class ValidationError extends Error {
     name: string;
     message: string;
     value: any;
@@ -298,10 +324,46 @@ export interface ValidationError {
      */
     inner: ValidationError[];
     params?: object;
+
+    static isError(err: any): err is ValidationError;
+    static formatError(
+        message: string | ((params?: any) => string),
+        params?: any
+    ): string | ((params?: any) => string);
+
+    constructor(
+        errors: string | string[],
+        value: any,
+        path: string,
+        type?: any
+    );
 }
 
-export interface Ref {
-    [key: string]: any;
+// It is tempting to declare `Ref` very simply, but there are problems with these approaches:
+//
+// * `type Ref = Record<string, any>;` - This is essentially how it was originally declared, but
+//    just about any object satisfies this contract, which makes the type declaration too loose to
+//    be useful.
+//
+// * `type Ref = object;` - This is a variation on the previous bullet in that it is too loose.
+//
+// * `class Ref {}` - This is yet another variation that is too loose.
+//
+// * `type Ref = void;` - This works and the emitted JavaScript is just fine, but it results in some
+//    confusing IntelliSense, e.g it looks like the `ref()` returns `void`, which is not the case.
+//
+// The solution is twofold. 1.) Declare it as a class with a private constructor to prevent it from
+// being instantiated by anything but the `ref()` factory function, and; 2.) declare a private
+// readonly property (that yup actually places on the prototype) to force it to be structurally
+// incompatible with any other object type.
+
+/**
+ * `Ref` is an opaque type that is internal to yup. Creating a `Ref` instance is accomplished via the `ref()` factory
+ * function.
+ */
+export class Ref {
+    private constructor();
+    private readonly __isYupRef: true;
 }
 
 // tslint:disable-next-line:no-empty-interface

@@ -1,12 +1,7 @@
 import * as React from "react";
 import dynamic, { LoadingComponentProps } from "next-server/dynamic";
 
-// You'd typically do this via import('./MyComponent')
-interface MyComponentProps {
-    foo: string;
-}
-const MyComponent: React.StatelessComponent<MyComponentProps> = () => <div>I'm async!</div>;
-const asyncComponent = Promise.resolve(MyComponent);
+const asyncComponent = import('./imports/with-default');
 
 // Examples from
 // https://github.com/zeit/next.js/#dynamic-import
@@ -17,26 +12,31 @@ const LoadingComponent: React.StatelessComponent<LoadingComponentProps> = ({
 }) => <p>loading...</p>;
 
 // 1. Basic Usage (Also does SSR)
-const DynamicComponent = dynamic(asyncComponent);
-const dynamicComponentJSX = <DynamicComponent foo="bar" />;
+const Test1 = dynamic(asyncComponent);
+const test1JSX = <Test1 foo />;
 
-// 2. With Custom Loading Component
-const DynamicComponentWithCustomLoading = dynamic(asyncComponent, {
-    loading: LoadingComponent
-});
-const dynamicComponentWithCustomLoadingJSX = <DynamicComponentWithCustomLoading foo="bar" />;
+// 1.1 Basic Usage (Loader function)
+const Test1Func = dynamic(() => asyncComponent);
+const test1FuncJSX = <Test1Func foo />;
 
-// 3. With No SSR
-const DynamicComponentWithNoSSR = dynamic(asyncComponent, {
+// 2. With Custom Options
+const Test2 = dynamic(() => asyncComponent, {
+    loading: LoadingComponent,
     ssr: false
 });
+const test2JSX = <Test2 foo />;
 
 // 4. With Multiple Modules At Once
-const HelloBundle = dynamic<MyComponentProps>({
+// TODO: Mapped components still doesn't infer their props.
+interface BundleComponentProps {
+    foo: string;
+}
+
+const HelloBundle = dynamic<BundleComponentProps>({
     modules: () => {
         const components = {
-            Hello1: asyncComponent,
-            Hello2: asyncComponent
+            Hello1: () => asyncComponent,
+            Hello2: () => asyncComponent
         };
 
         return components;
@@ -60,6 +60,6 @@ const LoadableComponent = dynamic({
 });
 
 // 6. No loading
-const DynamicComponentWithNoLoading = dynamic(asyncComponent, {
+const DynamicComponentWithNoLoading = dynamic(() => asyncComponent, {
     loading: () => null
 });

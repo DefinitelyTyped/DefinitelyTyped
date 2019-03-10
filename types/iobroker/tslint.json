@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // This package has its own type `Object` which is not equal to the global `Object` type
+        // To avoid any confusion, it is referenced as `ioBroker.Object` instead of just `Object`
+        "no-unnecessary-qualifier": false
+    }
+}

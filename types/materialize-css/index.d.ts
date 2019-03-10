@@ -9,6 +9,7 @@
 
 /// <reference types="jquery" />
 /// <reference path="./autocomplete.d.ts" />
+/// <reference path="./autoinit.d.ts" />
 /// <reference path="./carousel.d.ts" />
 /// <reference path="./character-counter.d.ts" />
 /// <reference path="./chips.d.ts" />

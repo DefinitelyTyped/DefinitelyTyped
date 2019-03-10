@@ -26,6 +26,8 @@
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
+//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
+//                 Thanik Bhongbhibhat <https://github.com/bhongy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -111,6 +113,13 @@ interface Console {
     // --- Inspector mode only ---
     /**
      * This method does not display anything unless used in the inspector.
+     *  The console.markTimeline() method is the deprecated form of console.timeStamp().
+     *
+     * @deprecated Use console.timeStamp() instead.
+     */
+    markTimeline(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
      *  Starts a JavaScript CPU profile with an optional label.
      */
     profile(label?: string): void;
@@ -118,7 +127,7 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Stops the current JavaScript CPU profiling session if one has been started and prints the report to the Profiles panel of the inspector.
      */
-    profileEnd(): void;
+    profileEnd(label?: string): void;
     /**
      * This method does not display anything unless used in the inspector.
      *  Prints to `stdout` the array `array` formatted as a table.
@@ -129,6 +138,20 @@ interface Console {
      *  Adds an event with the label `label` to the Timeline panel of the inspector.
      */
     timeStamp(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  The console.timeline() method is the deprecated form of console.time().
+     *
+     * @deprecated Use console.time() instead.
+     */
+    timeline(label?: string): void;
+    /**
+     * This method does not display anything unless used in the inspector.
+     *  The console.timelineEnd() method is the deprecated form of console.timeEnd().
+     *
+     * @deprecated Use console.timeEnd() instead.
+     */
+    timelineEnd(label?: string): void;
 }
 
 interface Error {
@@ -972,6 +995,8 @@ declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
     var SlowBuffType: typeof SlowBuffer;
+    export type TranscodeEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary";
+    export function transcode(source: Buffer | Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
     export { BuffType as Buffer, SlowBuffType as SlowBuffer };
 }
 
@@ -1031,18 +1056,18 @@ declare module "http" {
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
         'accept'?: string;
-        'access-control-allow-origin'?: string;
-        'access-control-allow-credentials'?: string;
-        'access-control-expose-headers'?: string;
-        'access-control-max-age'?: string;
-        'access-control-allow-methods'?: string;
-        'access-control-allow-headers'?: string;
         'accept-patch'?: string;
         'accept-ranges'?: string;
-        'authorization'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-allow-headers'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
+        'authorization'?: string;
         'cache-control'?: string;
         'connection'?: string;
         'content-disposition'?: string;
@@ -1063,9 +1088,9 @@ declare module "http" {
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
+        'tk'?: string;
         'trailer'?: string;
         'transfer-encoding'?: string;
-        'tk'?: string;
         'upgrade'?: string;
         'user-agent'?: string;
         'vary'?: string;
@@ -1165,6 +1190,7 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
+        readonly path: string;
         abort(): void;
         onSocket(socket: net.Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -2390,7 +2416,9 @@ declare module "readline" {
 }
 
 declare module "vm" {
-    export interface Context { }
+    export interface Context {
+        [key: string]: any;
+    }
     export interface ScriptOptions {
         filename?: string;
         lineOffset?: number;
@@ -3289,7 +3317,7 @@ declare module "net" {
         listen(options: ListenOptions, listeningListener?: Function): this;
         listen(handle: any, backlog?: number, listeningListener?: Function): this;
         listen(handle: any, listeningListener?: Function): this;
-        close(callback?: Function): this;
+        close(callback?: (err?: Error) => void): this;
         address(): AddressInfo | string;
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;

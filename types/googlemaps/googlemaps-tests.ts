@@ -4,6 +4,7 @@ let mapOptions: google.maps.MapOptions = {
     backgroundColor: "#fff",
     center: { lat: -25.363, lng: 131.044 },
     clickableIcons: true,
+    controlSize: 30,
     draggable: true,
     fullscreenControl: true,
     fullscreenControlOptions: {
@@ -124,7 +125,7 @@ data.setStyle({
     cursor: "pointer",
     fillColor: "#79B55B",
     fillOpacity: 1,
-    icon: <google.maps.Icon>{ url: "//maps.google.com/mapfiles/ms/icons/blue.png" },
+    icon: { url: "//maps.google.com/mapfiles/ms/icons/blue.png" } as google.maps.Icon,
     shape: { coords: [1, 2, 3], type: "circle" },
     strokeColor: "#79B55B",
     strokeOpacity: 1,
@@ -449,3 +450,8 @@ service.findPlaceFromPhoneNumber({
 
     results[0].name; // $ExpectType string
 });
+
+/***** google.maps.places.Autocomplete *****/
+const autocomplete = new google.maps.places.Autocomplete(document.createElement('input'));
+const placeResult = autocomplete.getPlace();
+placeResult.name; // $ExpectType string

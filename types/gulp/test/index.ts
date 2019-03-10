@@ -1,12 +1,12 @@
 import * as gulp from 'gulp';
 import * as undertaker from 'undertaker';
 import * as registry from 'undertaker-registry';
-import del = require("del");
 
 const minify: () => any = () => { };
 const jade: () => any = () => { };
 const someplugin: () => any = () => { };
 const promisedDel: (list: string[]) => any = (list) => { };
+const del: (pattern: string | string[]) => any = (pattern) => { };
 
 gulp.src('client/templates/*.jade')
     .pipe(jade())

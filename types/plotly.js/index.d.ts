@@ -1,5 +1,5 @@
-// Type definitions for plotly.js 1.41
-// Project: https://plot.ly/javascript/
+// Type definitions for plotly.js 1.44
+// Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
 //                 Frederik Aalund <https://github.com/frederikaalund>
@@ -10,6 +10,7 @@
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
+//                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -205,7 +206,17 @@ export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLEl
 
 // Layout
 export interface Layout {
-	title: string;
+	title: string | Partial<{
+		text: string;
+		font: Partial<Font>;
+		xref: 'container' | 'paper';
+		yref: 'container' | 'paper';
+		x: number;
+		y: number;
+		xanchor: 'auto' | 'left' | 'center' | 'right';
+		yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+		pad: Partial<Padding>
+	}>;
 	titlefont: Partial<Font>;
 	autosize: boolean;
 	showlegend: boolean;
@@ -250,7 +261,7 @@ export interface Layout {
 	ternary: {}; // TODO
 	geo: {}; // TODO
 	mapbox: {}; // TODO
-	radialaxis: {}; // TODO
+	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
 	direction: 'clockwise' | 'counterclockwise';
 	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
@@ -479,7 +490,9 @@ export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'box' | 'heatmap' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' | 'surface';
+	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
+		'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
+		'scatterpolar' | 'scatterternary' | 'surface';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -542,6 +555,11 @@ export interface PlotData {
 		end: number | string;
 		size: number | string;
 	};
+	values: Datum[];
+	labels: Datum[];
+	hole: number;
+	theta: Datum[];
+	r: Datum[];
 }
 
 /**
@@ -630,6 +648,7 @@ export interface ColorBar {
 export interface PlotMarker {
 	symbol: string | string[]; // Drawing.symbolList
 	color: Color | Color[];
+	colors: Color[];
 	colorscale: string | string[] | Array<Array<(string | number)>>;
 	cauto: boolean;
 	cmax: number;

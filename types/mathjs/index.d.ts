@@ -1,8 +1,9 @@
-// Type definitions for mathjs 4.4
-// Project: http://mathjs.org/
+// Type definitions for mathjs 5.0
+// Project: https://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
 //                  Brad Besserman <https://github.com/bradbesserman>
+//                  Pawel Krol <https://github.com/pawkrol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1276,7 +1277,7 @@ declare namespace math {
          * @param format The Matrix storage format
          * @returns A matrix with ones on the diagonal
          */
-        eye(
+        identity(
             size: number | number[] | Matrix | MathArray,
             format?: string
         ): Matrix | MathArray | number;
@@ -1286,7 +1287,7 @@ declare namespace math {
          * @param format The Matrix storage format
          * @returns A matrix with ones on the diagonal
          */
-        eye(m: number, n: number, format?: string): Matrix | MathArray | number;
+        identity(m: number, n: number, format?: string): Matrix | MathArray | number;
 
         /**
          * Filter the items in an array or one dimensional matrix.
@@ -1298,8 +1299,8 @@ declare namespace math {
          * traversed. The function must return a boolean.
          */
         filter(
-            x: Matrix | MathArray,
-            test: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray) | RegExp
+            x: Matrix | MathArray | string[],
+            test: ((value: any, index: any, matrix: Matrix | MathArray | string[]) => boolean) | RegExp
         ): Matrix | MathArray;
 
         /**
@@ -2571,6 +2572,23 @@ declare namespace math {
          * ‘string’, ‘Array’, ‘Date’.
          */
         typeof(x: any): string;
+
+        /**
+         * Import functions from an object or a module
+         * To avoid errors when using one of the imported functions extend module like this:
+         *
+         * @example
+         * // imported_math_functions.ts
+         * declare module 'mathjs' {
+         *      interface MathJsStatic {
+         *          hello(a: number): number;
+         *      }
+         * }
+         *
+         * @param object An object with functions to be imported.
+         * @param options An object with import options.
+         */
+        import(object: ImportObject | ImportObject[], options: ImportOptions): void;
     }
 
     interface Matrix {
@@ -3696,12 +3714,12 @@ declare namespace math {
          * matrix has ones on the diagonal and zeros elsewhere.
          * @param format The Matrix storage format
          */
-        eye(format?: string): MathJsChain;
+        identity(format?: string): MathJsChain;
         /**
          * @param n The y dimension for the matrix
          * @param format The Matrix storage format
          */
-        eye(n: number, format?: string): MathJsChain;
+        identity(n: number, format?: string): MathJsChain;
 
         /**
          * Filter the items in an array or one dimensional matrix.
@@ -4541,5 +4559,15 @@ declare namespace math {
          * Determine the type of a variable.
          */
         typeof(): MathJsChain;
+    }
+
+    interface ImportOptions {
+        override?: boolean;
+        silent?: boolean;
+        wrap?: boolean;
+    }
+
+    interface ImportObject {
+        [key: string]: any;
     }
 }

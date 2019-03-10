@@ -1,13 +1,25 @@
+const TYPES = {
+    DOCUMENT: 'DOCUMENT',
+    PAGE: 'PAGE',
+    SCREEN: 'SCREEN',
+    IMAGE: 'IMAGE',
+    RECTANGLE: 'RECT',
+    ELLIPSE: 'ELLIPSE',
+    DIAMOND: 'DIAMOND',
+    HOTSPOT: 'HOTSPOT',
+    LAYER: 'LAYER',
+} as Flow.Types;
+
 const flowFile: Flow.File = {
     document: {
         id: 'cjo45613k00002a5p9gj6nr3b',
         name: 'Basic Document',
-        type: Flow.Type.Document,
+        type: TYPES.DOCUMENT,
         children: [
             {
                 id: 'cjo456d2700002a5p80zudiut',
                 name: 'Page 1',
-                type: Flow.Type.Page,
+                type: TYPES.PAGE,
                 backgroundColor: {
                     r: 0,
                     g: 0,
@@ -18,7 +30,7 @@ const flowFile: Flow.File = {
                     {
                         id: 'cjo45mq7500002a5p8n8u1bfz',
                         name: 'Sign in',
-                        type: Flow.Type.Screen,
+                        type: TYPES.SCREEN,
                         source: {
                             fileName: 'sign-in.png',
                             dirPath: './assets',
@@ -36,7 +48,7 @@ const flowFile: Flow.File = {
                     {
                         id: 'cjo45oi8700002a5pmpnxhfny',
                         name: 'Sign up',
-                        type: Flow.Type.Screen,
+                        type: TYPES.SCREEN,
                         source: {
                             fileName: 'sign-up.png',
                             dirPath: './assets',
@@ -65,10 +77,10 @@ flowFile.settings = {};
 flowFile.schemaVersion = 1;
 
 const document: Flow.Document = flowFile.document;
-document.type = Flow.Type.Document;
+document.type = TYPES.DOCUMENT;
 
 const page: Flow.Page = document.children[0];
-page.type = Flow.Type.Page;
+page.type = TYPES.PAGE;
 page.backgroundColor = {
     r: 255,
     g: 255,
@@ -79,7 +91,7 @@ page.backgroundColor = {
 const hotspot: Flow.Layer = {
     id: 'cjo5mezgg00003g5winhxc8o0',
     name: 'Layer',
-    type: Flow.Type.Hotspot,
+    type: TYPES.HOTSPOT,
     position: {
         x: 390,
         y: 390,
@@ -92,10 +104,10 @@ const hotspot: Flow.Layer = {
         nodeID: 'cjo45mq7500002a5p8n8u1bfz',
     }],
 };
-hotspot.type = Flow.Type.Hotspot;
+hotspot.type = TYPES.HOTSPOT;
 
 const screen = page.children[0] as Flow.Screen;
-screen.type = Flow.Type.Screen;
+screen.type = TYPES.SCREEN;
 screen.children.push(hotspot);
 screen.position = {
     x: 0,

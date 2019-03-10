@@ -1,4 +1,4 @@
-// Type definitions for ArangoDB 3.4
+// Type definitions for non-npm package ArangoDB 3.4
 // Project: https://github.com/arangodb/arangodb
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -619,6 +619,7 @@ declare namespace ArangoDB {
 
     interface Collection<T extends object = any> {
         // Collection
+        name(): string;
         checksum(
             withRevisions?: boolean,
             withData?: boolean
@@ -1503,16 +1504,7 @@ declare module "@arangodb/foxx/queues" {
     function deleteQueue(name: string): boolean;
     function get(name: string): Queue;
 
-    export {
-        createQueue as create,
-        deleteQueue as delete,
-        get,
-        JobOptions,
-        Job,
-        Queue,
-        QueueItem,
-        Script,
-    };
+    export { createQueue as create, deleteQueue as delete, get, JobOptions, Job, Queue, QueueItem, Script, };
 }
 
 declare module "@arangodb/foxx/graphql" {

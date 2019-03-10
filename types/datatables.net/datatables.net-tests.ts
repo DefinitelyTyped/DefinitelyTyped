@@ -578,7 +578,7 @@ $('#example tbody').on('click', 'td', () => {
 
 const cell_invalidate_1 = cell.invalidate();
 const cell_invalidate_2 = cell.invalidate("data");
-$('#example tbody').on('click', 'td', () => {
+$('#example tbody').on('click', 'td', function()  {
     this.innerHTML = (parseInt(this.innerHTML, 10) + 1).toString();
     dt.cell(this).invalidate().draw();
 });
@@ -773,7 +773,7 @@ let column_search_set = column.search("string");
 column_search_set = column.search("string", true);
 column_search_set = column.search("string", true, false);
 column_search_set = column.search("string", true, false, true);
-$('#column3_search').on('keyup', () => {
+$('#column3_search').on('keyup', function() {
     dt
         .columns(3)
         .search((this as HTMLInputElement).value)

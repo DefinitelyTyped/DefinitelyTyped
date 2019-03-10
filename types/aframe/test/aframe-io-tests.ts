@@ -30,7 +30,7 @@ AFRAME.registerComponent('set-image', {
 
 	init: function() {
 		var data = this.data;
-		var el = this.el!;
+		var el = this.el;
 
 		this.setupFadeAnimation();
 
@@ -133,14 +133,14 @@ AFRAME.registerComponent('arrow-key-rotation', {
 		if (!this.data.enabled) {
 			return;
 		}
-		var rotation = this.el!.getAttribute('rotation');
+		var rotation = this.el.getAttribute('rotation');
 		if (!rotation) {
 			return;
 		}
 		if (this.directionX || this.directionY) {
 			rotation.x += this.data.dx * this.directionY;
 			rotation.y += this.data.dy * this.directionX;
-			this.el!.setAttribute('rotation', rotation);
+			this.el.setAttribute('rotation', rotation);
 		}
 	}
 });
@@ -164,10 +164,10 @@ AFRAME.registerComponent('hide-once-playing', {
 		}
 	},
 	onPlaying: function() {
-		this.el!.setAttribute('visible', false);
+		this.el.setAttribute('visible', false);
 	},
 	onPause: function() {
-		this.el!.setAttribute('visible', true);
+		this.el.setAttribute('visible', true);
 	}
 });
 
@@ -178,10 +178,10 @@ AFRAME.registerComponent('play-on-vrdisplayactivate-or-enter-vr', {
 	},
 	play: function() {
 		window.addEventListener('vrdisplayactivate', this.playVideo);
-		this.el!.sceneEl!.addEventListener('enter-vr', this.playVideoNextTick);
+		this.el.sceneEl!.addEventListener('enter-vr', this.playVideoNextTick);
 	},
 	pause: function() {
-		this.el!.sceneEl!.removeEventListener('enter-vr', this.playVideoNextTick);
+		this.el.sceneEl!.removeEventListener('enter-vr', this.playVideoNextTick);
 		window.removeEventListener('vrdisplayactivate', this.playVideo);
 	},
 	playVideoNextTick: function() {
@@ -189,7 +189,7 @@ AFRAME.registerComponent('play-on-vrdisplayactivate-or-enter-vr', {
 	},
 	playVideo: function() {
 		// TODO improve type
-		var video = (this.el! as Entity<any>).components.material.material.map.image;
+		var video = (this.el as Entity<any>).components.material.material.map.image;
 		if (!video) {
 			return;
 		}
@@ -208,7 +208,7 @@ AFRAME.registerComponent('play-on-window-click', {
 		window.removeEventListener('click', this.onClick);
 	},
 	onClick: function() {
-		var video = (this.el! as Entity<any>).components.material.material.map.image;
+		var video = (this.el as Entity<any>).components.material.material.map.image;
 		if (!video) {
 			return;
 		}
@@ -227,7 +227,7 @@ AFRAME.registerComponent('toggle-play-on-window-click', {
 		window.removeEventListener('click', this.onClick);
 	},
 	onClick: function() {
-		var video = (this.el! as Entity<any>).components.material.material.map.image;
+		var video = (this.el as Entity<any>).components.material.material.map.image;
 		if (!video) {
 			return;
 		}
@@ -359,7 +359,7 @@ AFRAME.registerComponent('audioanalyser-levels-scale', {
 			return;
 		}
 
-		children = this.el!.children;
+		children = this.el.children;
 		for (var i = 0; i < children.length; i++) {
 			(children[i] as ANode).setAttribute('scale', {
 				x: 1,
@@ -382,7 +382,7 @@ AFRAME.registerComponent('audioanalyser-volume-bind', {
 	tick: function() {
 		var analyserComponent;
 		var data = this.data;
-		var el = this.el!;
+		var el = this.el;
 		var value;
 
 		analyserComponent = data.analyserEl.components.audioanalyser;
@@ -404,7 +404,7 @@ AFRAME.registerComponent('audioanalyser-volume-scale', {
 	tick: function() {
 		var analyserEl = this.data.analyserEl || this.el;
 		var analyserComponent;
-		var el = this.el!;
+		var el = this.el;
 		var volume;
 
 		analyserComponent = analyserEl.components.audioanalyser;
@@ -542,7 +542,7 @@ AFRAME.registerComponent('audioanalyser-waveform', {
 	},
 
 	remove: function() {
-		this.el!.removeObject3D('waveformContainer');
+		this.el.removeObject3D('waveformContainer');
 	}
 });
 
@@ -874,7 +874,7 @@ AFRAME.registerComponent('color-on-beat', {
 
 	init: function() {
 		var analyserEl = this.data.analyserEl || this.el;
-		var el = this.el!;
+		var el = this.el;
 
 		analyserEl.addEventListener('audioanalyser-beat', function() {
 			el.setAttribute(
@@ -909,12 +909,12 @@ AFRAME.registerComponent('remove-on-event', {
 
 	removeEventListener: function() {
 		var data = this.data;
-		var el = this.el!;
+		var el = this.el;
 		el.removeEventListener(data.event, this._removeEntity);
 	},
 
 	_removeEntity: function() {
-		var el = this.el!;
+		var el = this.el;
 		if ((el as any).parentEl) {
 			(el as any).parentEl.removeChild(el);
 		}
@@ -1016,7 +1016,7 @@ function rgbToHex(r: number, g: number, b: number) {
 
 AFRAME.registerComponent('random-material', {
 	init: function() {
-		this.el!.setAttribute('material', {
+		this.el.setAttribute('material', {
 			color: this.getRandomColor(),
 			metalness: Math.random(),
 			roughness: Math.random()
@@ -1034,7 +1034,7 @@ AFRAME.registerComponent('random-material', {
 
 AFRAME.registerComponent('random-torus-knot', {
 	init: function() {
-		this.el!.setAttribute('geometry', {
+		this.el.setAttribute('geometry', {
 			primitive: 'torusKnot',
 			radius: Math.random() * 10,
 			radiusTubular: Math.random() * 0.75,

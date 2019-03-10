@@ -1,5 +1,4 @@
-import fetch = require("node-fetch");
-import { Headers, Request, RequestInit, Response } from 'node-fetch';
+import fetch, { Headers, Request, RequestInit, Response } from 'node-fetch';
 import { Agent } from "http";
 
 function test_fetchUrlWithOptions() {
@@ -77,4 +76,9 @@ function test_headersRaw() {
 	const headers = new Headers();
 	const myHeader = 'foo';
 	headers.raw()[myHeader]; // $ExpectType string[]
+}
+
+function test_isRedirect() {
+    fetch.isRedirect(301);
+    fetch.isRedirect(201);
 }

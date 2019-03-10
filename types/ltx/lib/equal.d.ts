@@ -1,4 +1,6 @@
-export declare function nameEqual(a: any, b: any): boolean;
-export declare function attrsEqual(a: any, b: any): boolean;
-export declare function childrenEqual(a: any, b: any): boolean;
-export declare function equal(a: any, b: any): boolean;
+import { Element } from './Element';
+
+export function nameEqual(a: Element, b: Element): boolean;
+export function attrsEqual(a: Element, b: Element): boolean;
+export function childrenEqual(a: Element, b: Element): boolean;
+export function equal(a: Element, b: Element): boolean;

@@ -308,11 +308,11 @@ declare module "../../index" {
      *   second four values (indices 4-7) will contain the
      *   R, G, B, A values of the pixel at (1, 0). More
      *   generally, to set values for a pixel at (x, y):
-     *   var d = pixelDensity(); for (var i = 0; i < d;
-     *   i++) { for (var j = 0; j < d; j++) { // loop over
-     *   idx = 4 * ((y * d + j) * width * d + (x * d + i));
-     *   pixels[idx] = r; pixels[idx+1] = g; pixels[idx+2]
-     *   = b; pixels[idx+3] = a; } }
+     *   let d = pixelDensity(); for (let i = 0; i < d;
+     *   i++) { for (let j = 0; j < d; j++) { // loop over
+     *   index = 4 * ((y * d + j) * width * d + (x * d +
+     *   i)); pixels[index] = r; pixels[index+1] = g;
+     *   pixels[index+2] = b; pixels[index+3] = a; } }
      *
      *
      *

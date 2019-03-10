@@ -130,7 +130,8 @@ const otherOptions : Auth0LockConstructorOptions = {
   hashCleanup: false,
   leeway: 30,
   _enableImpersonation: true,
-  _enableIdPInitiatedLogin: false
+  _enableIdPInitiatedLogin: false,
+  defaultADUsernameFromEmailPrefix: false
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, otherOptions);

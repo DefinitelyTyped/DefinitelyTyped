@@ -6,6 +6,7 @@
 //                 Andrew Goh Yisheng <https://github.com/9y5>
 //                 Thomas Chia <https://github.com/thchia>
 //                 Piotr Dabrowski <https://github.com/yhnavein>
+//                 Victor Irzak <https://github.com/virzak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -19,6 +20,7 @@ export namespace ReactStripeElements {
 	type TokenResponse = stripe.TokenResponse;
 	type SourceResponse = stripe.SourceResponse;
 	type SourceOptions = stripe.SourceOptions;
+	type HTMLStripeElement = stripe.elements.Element;
 
 	/**
 	 * There's a bug in @types/stripe which defines the property as
@@ -60,7 +62,7 @@ export namespace ReactStripeElements {
 
 		onFocus?(event: ElementChangeResponse): void;
 
-		onReady?(el: HTMLElement): void;
+		onReady?(el: HTMLStripeElement): void;
 	}
 }
 
@@ -90,4 +92,10 @@ export class PostalCodeElement extends React.Component<ReactStripeElements.Eleme
 }
 
 export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.ElementProps> {
+}
+
+export class IbanElement extends React.Component<ReactStripeElements.ElementProps> {
+}
+
+export class IdealBankElement extends React.Component<ReactStripeElements.ElementProps> {
 }

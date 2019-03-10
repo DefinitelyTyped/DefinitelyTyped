@@ -1,4 +1,4 @@
-// Type definitions for @feathersjs/feathers 3.0
+// Type definitions for @feathersjs/feathers 3.1
 // Project: http://feathersjs.com/
 // Definitions by:  Jan Lohage <https://github.com/j2L4e>
 //                  Abraao Alves <https://github.com/AbraaoAlves>
@@ -12,7 +12,8 @@
 import { EventEmitter } from 'events';
 import * as self from '@feathersjs/feathers';
 
-declare const feathers: (() => Application<object>) & typeof self;
+// tslint:disable-next-line no-unnecessary-generics
+declare const feathers: (<T = any>() => Application<T>) & typeof self;
 export default feathers;
 
 export const version: string;
@@ -138,7 +139,7 @@ export interface HooksObject {
 
 // todo: figure out what to do: These methods don't actually need to be implemented, so they can be undefined at runtime. Yet making them optional gets cumbersome in strict mode.
 export interface ServiceMethods<T> {
-    find(params?: Params): Promise<T[] | Paginated<T>>;
+    find(params?: Params): Promise<T | T[] | Paginated<T>>;
 
     get(id: Id, params?: Params): Promise<T>;
 

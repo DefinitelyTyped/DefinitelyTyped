@@ -604,7 +604,7 @@ d3Selection.select('#svg-1') // irrelevant typing to get contextual typing in la
     .classed('has-transform-property', function(d) {
         console.log('Color of first data element array', d.length > 0 ? d[0].color : 'Data array empty'); // CircleDatumAlternative type
         // $ExpectError
-        return this.transform !== undefined;
+        return this!.transform !== undefined;
     });
 
 // SCENARIO 3: Only inferred typing (To have datum-type in 'classed' method call, no need for DOM object access)
@@ -649,6 +649,7 @@ const startCircleData: CircleDatumAlternative[] = [
         color: 'slateblue'
     }
 ];
+
 const endCircleData: CircleDatumAlternative[] = [
     {
         nodeId: 'n1',
@@ -1060,7 +1061,7 @@ interface SuccessEvent {
 const successEvent = { type: 'wonEuro2016', team: 'Island' };
 
 function customListener(this: HTMLBodyElement | null, finalOpponent: string): string {
-    const e = <SuccessEvent> d3Selection.event;
+    const e = d3Selection.event as SuccessEvent;
 
     return `${e.team} defeated ${finalOpponent} in the EURO 2016 Cup. Who would have thought!!!`;
 }
@@ -1169,3 +1170,134 @@ predefinedNamespaces['dummy'] = 'http://www.w3.org/2020/dummynamespace';
 xWindow = d3Selection.window(xElement);
 xWindow = d3Selection.window(xDoc);
 xWindow = d3Selection.window(xWindow);
+
+// ---------------------------------------------------------------------------------------
+// JOIN - Convenient alternative to explicit enter update and exit methods
+// ---------------------------------------------------------------------------------------
+
+interface OldDatum {
+    oldData: number;
+}
+
+interface Datum {
+    data: string;
+}
+
+let selText: d3Selection.Selection<SVGTextElement, Datum, SVGSVGElement, SVGDatum>;
+let selTextAndCircle: d3Selection.Selection<SVGTextElement | SVGCircleElement, Datum, SVGSVGElement, SVGDatum>;
+
+const text = svgEl.selectAll<SVGTextElement, OldDatum>('text').data<Datum>([{data: 'a'}]);
+
+declare const r: () => boolean;
+
+// with only enter param
+
+selText = text.join('text');
+selText = text.join<SVGTextElement>('custom');
+selText = text.join(enter => enter.append('text').text(d => d.data));
+
+selText = text.join('circle'); // $ExpectError
+selText = text.join<SVGCircleElement>('custom'); // $ExpectError
+selText = text.join(enter => enter.append('circle')); // $ExpectError
+
+selTextAndCircle = text.join('circle');
+selTextAndCircle = text.join<SVGCircleElement>('custom');
+selTextAndCircle = text.join(enter => enter.append('circle').text(d => d.data));
+
+// with all param
+
+selText = text.join(
+    'text',
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selText = text.join<SVGTextElement>(
+    'custom',
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selText = text.join(
+    enter => enter.append('text').text(d => d.data),
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selTextAndCircle = text.join(
+    'circle',
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selTextAndCircle = text.join<SVGCircleElement>(
+    'custom',
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+selTextAndCircle = text.join(
+    enter => enter.append('circle').text(d => d.data),
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.data).remove(),
+);
+
+// with all param and old datum
+
+selText = text.join<'text', OldDatum>(
+    'text',
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => `Bye ${d.oldData}`).remove(),
+);
+
+selText = text.join<SVGTextElement, OldDatum>(
+    'custom',
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => `Bye ${d.oldData}`).remove(),
+);
+
+selText = text.join<SVGTextElement, OldDatum>(
+    enter => enter.append('text').text(d => d.data),
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.oldData).remove(),
+);
+
+selTextAndCircle = text.join<'circle', OldDatum>(
+    'circle',
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.oldData).remove(),
+);
+
+selTextAndCircle = text.join<SVGCircleElement, OldDatum>(
+    'circle',
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.oldData).remove(),
+);
+
+selTextAndCircle = text.join<SVGCircleElement, OldDatum>(
+    enter => enter.append('circle').text(d => d.data),
+    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    exit => exit.text(d => d.oldData).remove(),
+);
+
+// Example from: https://github.com/d3/d3-selection/issues/194#issuecomment-427577484
+const groups = svgEl.selectAll<SVGGElement, {}>('g')
+    .data([{r: 10, text: 'hi'}])
+    .join(
+        (enter) => {
+            const g = enter.append('g').attr('class', 'tick');
+            g.append('circle');
+            g.append('text');
+            return g;
+        },
+        () => undefined,
+        (exit) => exit.remove()
+    )
+    .attr('transform', (_, i) => `translate(0, ${i})`);
+
+    groups.select('circle')
+        .attr('r', d => d.r);
+
+    groups.select('text')
+        .text(d => d.text)
+        .attr('dy', '0.32em');

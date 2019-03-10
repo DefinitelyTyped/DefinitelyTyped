@@ -5,13 +5,16 @@
 // TypeScript Version: 2.8
 
 import '@storybook/react';
-import { ReactNode } from 'react';
+import { ReactNode, ReactElement } from 'react';
+
+export type displayNameFunc = (element: ReactElement) => string;
 
 declare module '@storybook/react' {
     interface Options {
         skip?: number;
         enableBeautify?: boolean;
         onBeforeRender?: (domString: string) => string;
+        displayName?: string | displayNameFunc;
     }
 
     interface Story {

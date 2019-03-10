@@ -13,25 +13,6 @@ function ignoreFunction(path: string) {
 	return true;
 }
 
-// this is the obsolete API and will be removed in a future version
-
-packager({
-	dir: ".",
-	name: "myapplication",
-	platform: "win32",
-	arch: "all",
-	electronVersion: "0.34.0",
-	win32metadata: {
-		CompanyName: "Acme CO",
-		FileDescription: "My application",
-		OriginalFilename: "myapp.exe",
-		ProductName: "Application",
-		InternalName: "roadrunner",
-		"requested-execution-level": "highestAvailable",
-		"application-manifest": "manifest.xml"
-	}
-}, callback);
-
 function onCompleted(appPaths: string | string[]) {
 }
 
@@ -102,7 +83,7 @@ packager({
 	afterExtract: [
 		completeFunction
 	],
-	afterPrune:  [
+	afterPrune: [
 		completeFunction
 	],
 	appCopyright: "Copyright",
@@ -122,7 +103,6 @@ packager({
 	ignore: /ab+c/,
 	out: "out",
 	overwrite: true,
-	packageManager: false,
 	prune: true,
 	quiet: true,
 	tmpdir: "/tmp",
@@ -157,7 +137,6 @@ packager({
 		new RegExp('abc')
 	],
 	overwrite: false,
-	packageManager: "npm",
 	platform: "darwin",
 	prune: false,
 	quiet: false,
@@ -184,7 +163,14 @@ packager({
 		strictSSL: false
 	},
 	ignore: ignoreFunction,
-	packageManager: "cnpm",
+	platform: "linux"
+}).then(onCompleted).catch(onError);
+
+packager({
+	dir: ".",
+	arch: "mips64el",
+	electronVersion: "1.8.8",
+	prebuiltAsar: "prebuilt.asar",
 	platform: "linux"
 }).then(onCompleted).catch(onError);
 
@@ -200,10 +186,13 @@ packager({
 		quiet: true,
 		strictSSL: false
 	},
-	packageManager: "yarn",
 	platform: "mas",
 	extendInfo: {
 		foo: "bar"
+	},
+	osxNotarize: {
+		appleId: "My ID",
+		appleIdPassword: "Bad Password"
 	},
 	osxSign: {
 		identity: "myidentity",

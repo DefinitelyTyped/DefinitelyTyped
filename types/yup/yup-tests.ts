@@ -3,6 +3,7 @@ import * as yup from "yup";
 // tslint:disable-next-line:no-duplicate-imports
 import {
     reach,
+    isSchema,
     date,
     Schema,
     ObjectSchema,
@@ -16,13 +17,17 @@ import {
 } from "yup";
 
 // reach function
-let schema = yup.object().shape({
+const schema1 = yup.object().shape({
     nested: yup.object().shape({
         arr: yup.array().of(yup.object().shape({ num: yup.number().max(4) }))
     })
 });
-reach(schema, "nested.arr.num");
-reach(schema, "nested.arr[].num");
+reach(schema1, "nested.arr.num");
+reach(schema1, "nested.arr[].num");
+
+// isSchema function
+const isSchemaResult1: boolean = isSchema(schema1);
+const isSchemaResult2: boolean = isSchema({});
 
 // addMethod function
 yup.addMethod<NumberSchema>(yup.number, "minimum", function(
@@ -41,7 +46,7 @@ yup.addMethod(yup.date, "newMethod", function(
 });
 
 // ref function
-schema = yup.object().shape({
+const schema2 = yup.object().shape({
     baz: yup.ref("foo.bar"),
     foo: yup.object().shape({
         bar: yup.string()
@@ -49,7 +54,16 @@ schema = yup.object().shape({
     x: yup.ref("$x")
 });
 
-schema.cast({ foo: { bar: "boom" } }, { context: { x: 5 } });
+let ref: yup.Ref = yup.ref("foo.bar");
+
+// $ExpectError
+ref = {};
+
+// $ExpectError
+ref = { __isYupRef: true };
+
+// cast function
+schema2.cast({ foo: { bar: "boom" } }, { context: { x: 5 } });
 
 // lazy function
 const node: ObjectSchema<any> = yup.object().shape({
@@ -68,12 +82,21 @@ const renderable = yup.lazy(value => {
 });
 const renderables = yup.array().of(renderable);
 
+// ValidationError static methods
+// $ExpectType boolean
+ValidationError.isError(new ValidationError("error", "value", "path"));
+// $ExpectType string | ((params?: any) => string)
+ValidationError.formatError("error", { path: "path" });
+ValidationError.formatError("error");
+ValidationError.formatError(() => "error");
+ValidationError.formatError(() => "error", { path: "path" });
+
 // ValidationError
-let error: ValidationError = yup.ValidationError("error", "value", "path");
-error = yup.ValidationError(["error", "error2"], true, "path");
-error = yup.ValidationError(["error", "error2"], 5, "path");
-error = yup.ValidationError(["error", "error2"], { name: "value" }, "path");
-error = yup.ValidationError(
+let error: ValidationError = new yup.ValidationError("error", "value", "path");
+error = new yup.ValidationError(["error", "error2"], true, "path");
+error = new yup.ValidationError(["error", "error2"], 5, "path");
+error = new yup.ValidationError(["error", "error2"], { name: "value" }, "path");
+error = new yup.ValidationError(
     ["error", "error2"],
     { name: "value" },
     "path",
@@ -84,7 +107,7 @@ error = {
     message: "error",
     path: "path",
     errors: ["error"],
-    inner: [yup.ValidationError("error", true, "path")],
+    inner: [new yup.ValidationError("error", true, "path")],
     type: "date",
     value: { start: "2017-11-10" }
 };
@@ -125,11 +148,17 @@ mixed.default({ number: 5 });
 mixed.default(() => ({ number: 5 }));
 mixed.default();
 mixed.nullable(true);
+mixed.nullable();
 mixed.required();
+mixed.required("Foo");
+mixed.required(() => "Foo");
 mixed.notRequired(); // $ExpectType MixedSchema
 mixed.typeError("type error");
+mixed.typeError(() => "type error");
 mixed.oneOf(["hello", "world"], "message");
+mixed.oneOf(["hello", "world"], () => "message");
 mixed.notOneOf(["hello", "world"], "message");
+mixed.notOneOf(["hello", "world"], () => "message");
 mixed.when("isBig", {
     is: value => true,
     then: yup.number().min(5),
@@ -141,10 +170,8 @@ mixed
         then: yup.number().min(5),
         otherwise: yup.number().min(0)
     })
-    .when(
-        "$other",
-        (value: any, schema: MixedSchema) =>
-            value === 4 ? schema.required() : schema
+    .when("$other", (value: any, schema: MixedSchema) =>
+        value === 4 ? schema.required() : schema
     );
 // tslint:disable-next-line:no-invalid-template-strings
 mixed.test("is-jimmy", "${path} is not Jimmy", value => value === "jimmy");
@@ -174,8 +201,16 @@ const testContext = function(this: TestContext) {
     this.parent;
     // $ExpectType Schema<any>
     this.schema;
+    // $ExpectType (value: any) => any
+    this.resolve;
     // $ExpectType ValidationError
     this.createError({ path: "1", message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ message: "1" });
+    // $ExpectType ValidationError
+    this.createError({ path: "1"});
+    // $ExpectType ValidationError
+    this.createError();
     return true;
 };
 mixed.test("with-context", "it uses function context", testContext);
@@ -255,26 +290,58 @@ yup.object()
 const strSchema = yup.string(); // $ExpectType StringSchema
 strSchema.isValid("hello"); // => true
 strSchema.required();
+strSchema.required("req");
+strSchema.required(() => "req");
+strSchema.length(5, "message");
+strSchema.length(5, () => "message");
 strSchema.min(5, "message");
+strSchema.min(5, () => "message");
 strSchema.max(5, "message");
+strSchema.max(5, () => "message");
 strSchema.matches(/(hi|bye)/);
+strSchema.matches(/(hi|bye)/, "invalid");
+strSchema.matches(/(hi|bye)/, () => "invalid");
 strSchema.email();
+strSchema.email("invalid");
+strSchema.email(() => "invalid");
 strSchema.url();
+strSchema.url("bad url");
+strSchema.url(() => "bad url");
 strSchema.ensure();
 strSchema.trim();
+strSchema.trim("trimmed");
+strSchema.trim(() => "trimmed");
 strSchema.lowercase();
+strSchema.lowercase("lower");
+strSchema.lowercase(() => "lower");
 strSchema.uppercase();
+strSchema.uppercase("upper");
+strSchema.uppercase(() => "upper");
 
 // Number schema
 const numSchema = yup.number(); // $ExpectType NumberSchema
 numSchema.isValid(10); // => true
+numSchema.min(5);
 numSchema.min(5, "message");
+numSchema.min(5, () => "message");
+numSchema.max(5);
 numSchema.max(5, "message");
+numSchema.max(5, () => "message");
 numSchema.positive();
+numSchema.positive("pos");
+numSchema.positive(() => "pos");
 numSchema.negative();
+numSchema.negative("neg");
+numSchema.negative(() => "neg");
 numSchema.lessThan(5);
+numSchema.lessThan(5, "lt");
+numSchema.lessThan(5, () => "lt");
 numSchema.moreThan(5);
+numSchema.moreThan(5, "mt");
+numSchema.moreThan(5, () => "mt");
 numSchema.integer();
+numSchema.integer("int");
+numSchema.integer(() => "int");
 numSchema.truncate();
 numSchema.round("floor");
 numSchema
@@ -293,18 +360,28 @@ dateSchema.min(new Date());
 dateSchema.min("2017-11-12");
 dateSchema.min(new Date(), "message");
 dateSchema.min("2017-11-12", "message");
+dateSchema.min("2017-11-12", () => "message");
 dateSchema.max(new Date());
 dateSchema.max("2017-11-12");
 dateSchema.max(new Date(), "message");
 dateSchema.max("2017-11-12", "message");
+dateSchema.max("2017-11-12", () => "message");
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().min(2));
 arrSchema.isValid([2, 3]); // => true
 arrSchema.isValid([1, -24]); // => false
 arrSchema.required();
+arrSchema.required("req");
+arrSchema.required(() => "req");
 arrSchema.ensure();
-arrSchema.compact(value => value === null);
+arrSchema.max(5);
+arrSchema.max(5, "max");
+arrSchema.max(5, () => "max");
+arrSchema.min(5);
+arrSchema.min(5, "min");
+arrSchema.min(5, () => "min");
+arrSchema.compact((value, index, array) => value === array[index]);
 
 yup.array(); // $ExpectType ArraySchema<{}>
 yup.array(yup.string()); // $ExpectType ArraySchema<string>
@@ -334,6 +411,7 @@ objSchema.from("prop", "myProp", true);
 objSchema.noUnknown();
 objSchema.noUnknown(true);
 objSchema.noUnknown(true, "message");
+objSchema.noUnknown(true, () => "message");
 objSchema.transformKeys(key => key.toUpperCase());
 objSchema.camelCase();
 objSchema.constantCase();
@@ -342,7 +420,7 @@ const description: SchemaDescription = {
     type: "type",
     label: "label",
     meta: { key: "value" },
-    tests: ["test1", "test2"],
+    tests: [{ name: "test1", params: {} }, { name: "test2", params: {} }],
     fields: { key: "value" }
 };
 
@@ -410,6 +488,40 @@ const testObject: MyInterface = {
 };
 
 typedSchema.validateSync(testObject); // $ExpectType MyInterface
+
+// Shape<T, U> and shape function
+interface AB {
+    a: string;
+    b: number;
+}
+
+interface BC {
+    b: string;
+    c: number;
+}
+
+interface ExpectedABC {
+    a: string;
+    b: string;
+    c: number;
+}
+
+const expectedAbc: ExpectedABC = {
+    a: "qwerty",
+    b: "asdfg",
+    c: 123
+};
+const actualAbc: yup.Shape<AB, BC> = expectedAbc;
+
+const definitionAB: yup.ObjectSchemaDefinition<AB> = {
+    a: yup.string(),
+    b: yup.number()
+};
+const definitionBC: yup.ObjectSchemaDefinition<BC> = {
+    b: yup.string(),
+    c: yup.number()
+};
+const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
 
 // $ExpectError
 yup.object<MyInterface>({

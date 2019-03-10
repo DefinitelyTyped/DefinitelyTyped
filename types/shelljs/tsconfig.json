@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "make.d.ts",
         "shelljs-tests.ts"
     ]
 }

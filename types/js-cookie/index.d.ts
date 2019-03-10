@@ -33,7 +33,7 @@ declare namespace Cookies {
         secure?: boolean;
     }
 
-    interface CookiesStatic {
+    interface CookiesStatic<T extends object = object> {
         /**
          * Allows default cookie attributes to be accessed, changed, or reset
          */
@@ -42,7 +42,7 @@ declare namespace Cookies {
         /**
          * Create a cookie
          */
-        set(name: string, value: string | object, options?: CookieAttributes): void;
+        set(name: string, value: string | T, options?: CookieAttributes): void;
 
         /**
          * Read cookie
@@ -79,7 +79,7 @@ declare namespace Cookies {
          * or SDK. Note: The noConflict method is not necessary when using
          * AMD or CommonJS, thus it is not exposed in those environments.
          */
-        noConflict(): CookiesStatic;
+        noConflict?(): CookiesStatic<T>;
 
         /**
          * Create a new instance of the api that overrides the default
@@ -88,10 +88,11 @@ declare namespace Cookies {
          * will run the converter first for each cookie. The returned
          * string will be used as the cookie value.
          */
-        withConverter(converter: CookieConverter | { write: CookieConverter; read: CookieConverter; }): CookiesStatic;
+        withConverter<TConv extends object>(converter: CookieReadConverter | { write: CookieWriteConverter<TConv>; read: CookieReadConverter; }): CookiesStatic<TConv>;
     }
 
-    type CookieConverter = (value: string, name: string) => string;
+    type CookieWriteConverter<T extends object> = (value: string | T, name: string) => string;
+    type CookieReadConverter = (value: string, name: string) => string;
 }
 
 declare const Cookies: Cookies.CookiesStatic;

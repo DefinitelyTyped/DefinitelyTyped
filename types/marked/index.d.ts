@@ -1,8 +1,10 @@
-// Type definitions for Marked 0.4
-// Project: https://github.com/markedjs/marked
+// Type definitions for Marked 0.6
+// Project: https://github.com/markedjs/marked, https://marked.js.org
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
 //                 CrossR <https://github.com/CrossR>
+//                 Mike Wickett <https://github.com/mwickett>
+//                 Hitomi Hatsukaze <https://github.com/htkzhtm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -33,6 +35,15 @@ declare namespace marked {
      * @param options Hash of options
      */
     function lexer(src: string, options?: MarkedOptions): TokensList;
+
+    /**
+     * @param src String of markdown source to be compiled
+     * @param links Array of links
+     * @param options Hash of options
+     * @return String of compiled HTML
+     */
+
+    function inlineLexer(src: string, links: string[], options?: MarkedOptions): string;
 
     /**
      * Compiles markdown to HTML.
@@ -71,7 +82,7 @@ declare namespace marked {
         code(code: string, language: string, isEscaped: boolean): string;
         blockquote(quote: string): string;
         html(html: string): string;
-        heading(text: string, level: number, raw: string): string;
+        heading(text: string, level: number, raw: string, slugger: Slugger): string;
         hr(): string;
         list(body: string, ordered: boolean, start: number): string;
         listitem(text: string): string;
@@ -92,11 +103,35 @@ declare namespace marked {
         text(text: string): string;
     }
 
+    class TextRenderer {
+        strong(text: string): string;
+        em(text: string): string;
+        codespan(text: string): string;
+        del(text: string): string;
+        text(text: string): string;
+        link(href: string, title: string, text: string): string;
+        image(href: string, title: string, text: string): string;
+        br(): string;
+    }
+
+    class Parser {
+        constructor(options?: MarkedOptions);
+        parse(src: TokensList): string;
+        next(): Token;
+        peek(): Token | number;
+        parseText(): string;
+        tok(): string;
+    }
+
     class Lexer {
         rules: Rules;
         tokens: TokensList;
         constructor(options?: MarkedOptions);
         lex(src: string): TokensList;
+    }
+
+    class Slugger {
+        slug(value: string): string;
     }
 
     interface Rules {

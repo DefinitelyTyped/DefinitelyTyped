@@ -1,4 +1,4 @@
-// Type definitions for Google Drive API v3 3.0
+// Type definitions for non-npm package Google Drive API v3 3.0
 // Project: https://developers.google.com/drive/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1042,6 +1042,8 @@ declare namespace gapi.client {
             }): Request<File>;
             /** Creates a new file. */
             create(request: {
+                /** Resource Parameter for folder creation */
+                resource?: any;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */

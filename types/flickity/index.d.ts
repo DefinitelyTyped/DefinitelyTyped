@@ -1,5 +1,5 @@
 // Type definitions for Flickity 2.0
-// Project: http://flickity.metafizzy.co/
+// Project: https://flickity.metafizzy.co
 // Definitions by: Chris McGrath <https://github.com/clmcgrath>
 //                 Michael Wagner <https://github.com/wagich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -457,7 +457,7 @@ interface FlickityOptions {
      *
      * default: disabled
      */
-    asNavFor?: string;
+    asNavFor?: string | HTMLElement;
 
     /**
      * The number of pixels a mouse or touch has to move before dragging begins. Increase dragThreshold to allow for more wiggle room for vertical page scrolling on touch devices.

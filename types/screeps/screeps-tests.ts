@@ -655,6 +655,12 @@ function keys<T>(o: T): Array<keyof T> {
 {
     room.getEventLog();
     room.getEventLog(true);
+
+    const events = room.getEventLog();
+
+    const event = events[0] as EventItem<EVENT_ATTACK>;
+
+    event.data.attackType;
 }
 
 // Room.Terrain

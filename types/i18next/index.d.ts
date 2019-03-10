@@ -1,4 +1,4 @@
-// Type definitions for i18next 11.9
+// Type definitions for i18next 12.1
 // Project: http://i18next.com
 // Definitions by: Michael Ledin <https://github.com/mxl>
 //                 Budi Irawan <https://github.com/deerawan>
@@ -159,6 +159,12 @@ declare namespace i18next {
          * @default undefined
          */
         resources?: Resource;
+
+        /**
+         * Allow initializing with bundled resources while using a backend to load non bundled ones.
+         * @default false
+         */
+        partialBundledLanguages?: boolean;
 
         /**
          * language to use (overrides language detection)

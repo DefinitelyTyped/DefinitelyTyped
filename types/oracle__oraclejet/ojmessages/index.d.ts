@@ -3,6 +3,7 @@ import { ojMessage } from '../ojmessage';
 import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
 export interface ojMessages extends JetElement<ojMessagesSettableProperties> {
     display: 'general' | 'notification';
+    displayOptions: ojMessage.DisplayOptions;
     messages: ojMessage.Message[] | null | DataProvider<any, ojMessage.Message>;
     position: ojMessages.Position | null;
     translations: {
@@ -15,6 +16,7 @@ export interface ojMessages extends JetElement<ojMessagesSettableProperties> {
         labelLandmark?: string;
     };
     onDisplayChanged: ((event: JetElementCustomEvent<ojMessages["display"]>) => any) | null;
+    onDisplayOptionsChanged: ((event: JetElementCustomEvent<ojMessages["displayOptions"]>) => any) | null;
     onMessagesChanged: ((event: JetElementCustomEvent<ojMessages["messages"]>) => any) | null;
     onPositionChanged: ((event: JetElementCustomEvent<ojMessages["position"]>) => any) | null;
     onTranslationsChanged: ((event: JetElementCustomEvent<ojMessages["translations"]>) => any) | null;
@@ -25,17 +27,19 @@ export interface ojMessages extends JetElement<ojMessagesSettableProperties> {
     setProperty<T extends keyof ojMessagesSettableProperties>(property: T, value: ojMessagesSettableProperties[T]): void;
     setProperty<T extends string>(property: T, value: JetSetPropertyType<T, ojMessagesSettableProperties>): void;
     setProperties(properties: ojMessagesSettablePropertiesLenient): void;
-    close(associated: object): void;
+    close(message: ojMessage.Message): void;
     closeAll(closeFilter?: (message: ojMessage.Message) => boolean): void;
 }
 export interface ojMessagesEventMap extends HTMLElementEventMap {
     'displayChanged': JetElementCustomEvent<ojMessages["display"]>;
+    'displayOptionsChanged': JetElementCustomEvent<ojMessages["displayOptions"]>;
     'messagesChanged': JetElementCustomEvent<ojMessages["messages"]>;
     'positionChanged': JetElementCustomEvent<ojMessages["position"]>;
     'translationsChanged': JetElementCustomEvent<ojMessages["translations"]>;
 }
 export interface ojMessagesSettableProperties extends JetSettableProperties {
     display: 'general' | 'notification';
+    displayOptions: ojMessage.DisplayOptions;
     messages: ojMessage.Message[] | null | DataProvider<any, ojMessage.Message>;
     position: ojMessages.Position | null;
     translations: {

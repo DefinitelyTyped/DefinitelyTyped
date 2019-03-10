@@ -240,7 +240,7 @@ declare namespace mermaidAPI {
 
     function parse(text: string): any;
 
-    function initalize(options: Config): void;
+    function initialize(options: Config): void;
 
     function getConfig(): Config;
 }

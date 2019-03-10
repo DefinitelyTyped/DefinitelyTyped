@@ -136,6 +136,12 @@ webAuth.passwordlessStart({
     send: 'code'
 }, (err, data) => {});
 
+webAuth.passwordlessLogin({
+    connection: 'the_connection',
+    phoneNumber: '123',
+    verificationCode: '456'
+}, (err, data) => {});
+
 webAuth.signupAndAuthorize({
     connection: 'the_connection',
     email: 'me@example.com',

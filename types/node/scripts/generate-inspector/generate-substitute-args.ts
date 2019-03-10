@@ -4,17 +4,21 @@ import { capitalize, createDocs, flattenArgs, hasElements, isObjectReference } f
 
 const INDENT = "    ";
 
+// Turns a type into a type representing an array of that type
+const arrify = (typeString: string) => {
+  return typeString === '{}' ? `Array<${typeString}>` : `${typeString}[]`;
+}
+
 // Converts DevTools type to TS type
 const createTypeString = (type: schema.Field, domain?: string): string => {
     return isObjectReference(type) ? type.$ref :
-        type.type === "any"                    ? "any" :
+        type.type === "any"                ? "any" :
         type.type === "integer"            ? "number" :
         type.type === "number"             ? "number" :
         type.type === "boolean"            ? "boolean" :
         type.type === "string"             ? "string" :
-        type.type === "array"                ? `${createTypeString(type.items, domain)}[]` :
-        type.type === "object"             ? "{}" // this code path is likely never exercised
-                                                                 : "never";
+        type.type === "array"              ? arrify(createTypeString(type.items, domain)) :
+        type.type === "object"             ? "{}" : "never"; // "never" has yet to be observed
 };
 
 // Helper for createInterface -- constructs a list of interface fields
@@ -138,7 +142,7 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
         .map(item => item.commands
             .map(command => createPostFunctions(command, item.domain))
             .reduce(flattenArgs(""), []))
-        .reduce(flattenArgs(), []);
+        .reduce(flattenArgs(""), []);
 
     const eventOverloads: string[] = createListeners(protocol.domains
         .map(item => {

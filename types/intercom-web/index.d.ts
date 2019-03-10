@@ -1,4 +1,4 @@
-// Type definitions for Intercom Web API 2.8
+// Type definitions for non-npm package Intercom Web API 2.8
 // Project: https://docs.intercom.io/
 //            configure-intercom-for-your-product-or-site/
 //            customize-the-intercom-messenger/the-intercom-javascript-api
