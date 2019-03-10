@@ -4,6 +4,7 @@ let mapOptions: google.maps.MapOptions = {
     backgroundColor: "#fff",
     center: { lat: -25.363, lng: 131.044 },
     clickableIcons: true,
+    controlSize: 30,
     draggable: true,
     fullscreenControl: true,
     fullscreenControlOptions: {
@@ -124,7 +125,7 @@ data.setStyle({
     cursor: "pointer",
     fillColor: "#79B55B",
     fillOpacity: 1,
-    icon: <google.maps.Icon>{ url: "//maps.google.com/mapfiles/ms/icons/blue.png" },
+    icon: { url: "//maps.google.com/mapfiles/ms/icons/blue.png" } as google.maps.Icon,
     shape: { coords: [1, 2, 3], type: "circle" },
     strokeColor: "#79B55B",
     strokeOpacity: 1,
@@ -412,3 +413,45 @@ heatmap.setData([
     { weight: 1, location: new google.maps.LatLng(37.782551, -122.445368) },
     { weight: 2, location: new google.maps.LatLng(37.782745, -122.444586) }
 ]);
+
+/***** google.maps.places.PlacesService *****/
+let service = new google.maps.places.PlacesService(new HTMLDivElement());
+
+service.getDetails({
+    placeId: '-a1',
+    fields: ['name'],
+    sessionToken: new google.maps.places.AutocompleteSessionToken()
+}, (result, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.NOT_FOUND) {
+        return;
+    }
+
+    result.name; // $ExpectType string
+})
+
+service.findPlaceFromQuery({
+    query: 'Big Ben London',
+    fields: ['name']
+}, (results, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        return;
+    }
+
+    results[0].name; // $ExpectType string
+});
+
+service.findPlaceFromPhoneNumber({
+    phoneNumber: '123456',
+    fields: ['name']
+}, (results, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        return;
+    }
+
+    results[0].name; // $ExpectType string
+});
+
+/***** google.maps.places.Autocomplete *****/
+const autocomplete = new google.maps.places.Autocomplete(document.createElement('input'));
+const placeResult = autocomplete.getPlace();
+placeResult.name; // $ExpectType string

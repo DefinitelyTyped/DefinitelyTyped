@@ -16,6 +16,7 @@ import ElementChangeResponse = stripe.elements.ElementChangeResponse;
 import ElementsOptions = stripe.elements.ElementsOptions;
 import ElementsCreateOptions = stripe.elements.ElementsCreateOptions;
 import PatchedTokenResponse = ReactStripeElements.PatchedTokenResponse;
+import HTMLStripeElement = ReactStripeElements.HTMLStripeElement;
 
 const cardElementProps: ElementsOptions = {
     iconStyle: 'solid',
@@ -63,41 +64,46 @@ const fontElementsProps: ElementsCreateOptions = {
   locale: "es"
 };
 
+<CardElement
+    {...cardElementProps}
+    onReady={(el: HTMLStripeElement) => el.clear()}
+/>;
+
 const ElementsWithPropsTest: React.SFC = () => (
     <div>
         <CardElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardNumberElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardExpiryElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <CardCVCElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
         <PostalCodeElement
             {...cardElementProps}
             onChange={(event: ElementChangeResponse) => void 0}
             onBlur={(event: ElementChangeResponse) => void 0}
-            onReady={() => void 0}
+            onReady={(el: HTMLStripeElement) => void 0}
             onFocus={(event: ElementChangeResponse) => void 0}
         />
     </div>
@@ -110,6 +116,22 @@ interface ComponentProps {
 class WrappedComponent extends React.Component<
     ComponentProps & InjectedStripeProps
 > {
+    constructor(props: ComponentProps & InjectedStripeProps) {
+        super(props);
+        // Test for paymentRequest
+        const paymentRequest = props.stripe && props.stripe.paymentRequest({
+            country: 'US',
+            currency: 'usd',
+            total: {
+                label: 'Demo total',
+                amount: 1
+            }
+        });
+        if (paymentRequest) {
+            paymentRequest.on('token', ({complete, token, ...data}) => undefined);
+            paymentRequest.canMakePayment().then(res => undefined);
+        }
+    }
     onSubmit = () => {
         this.props.stripe!
             .createToken({

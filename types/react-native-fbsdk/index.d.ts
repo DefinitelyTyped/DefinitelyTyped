@@ -2,7 +2,7 @@
 // Project: https://github.com/facebook/react-native-fbsdk
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { ComponentClass, Component } from 'react';
 import { ViewStyle } from 'react-native';
@@ -638,6 +638,12 @@ export namespace AppEventsLogger {
      * Explicitly kicks off flushing of events to Facebook.
      */
     function flush(): void;
+
+    /**
+     * Sets a custom user ID to associate with all app events.
+     * The userID is persisted until it is cleared by passing nil.
+     */
+    function setUserID(userID: string | null): void;
 
     /**
      * For iOS only, sets and sends device token to register the current application for push notifications.

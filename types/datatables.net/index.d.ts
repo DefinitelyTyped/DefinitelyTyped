@@ -1,5 +1,5 @@
 // Type definitions for JQuery DataTables 1.10
-// Project: http://www.datatables.net
+// Project: https://datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
 //                 Omid Rad <https://github.com/omidkrad>
 //                 Armin Sander <https://github.com/pragmatrix>
@@ -1094,13 +1094,13 @@ declare namespace DataTables {
         (): JQueryDataTables;
 
         /**
-         * Check is a table node is a DataTable or not
+         * Check if a table node is a DataTable already or not.
          *
          * Usage:
          * $.fn.dataTable.isDataTable("selector");
-         * @param table Selector string for table
+         * @param table The table to check.
          */
-        isDataTable(table: string): boolean;
+        isDataTable(table: string | Node | JQuery | Api): boolean;
 
         /**
          * Helpers for `columns.render`.
@@ -1602,7 +1602,7 @@ declare namespace DataTables {
         /**
          * Class to assign to each cell in the column. Since: 1.10
          */
-        data?: number | string | ObjectColumnData | FunctionColumnData;
+        data?: number | string | ObjectColumnData | FunctionColumnData | null;
 
         /**
          * Set default, static, content for a column. Since: 1.10
@@ -2026,7 +2026,10 @@ declare namespace DataTables {
         sVersion: string;
         search: any[];
         selector: object;
-        type: object;
+        /**
+         * Type based plug-ins.
+         */
+        type: ExtTypeSettings;
     }
 
     interface ExtClassesSettings {
@@ -2208,4 +2211,36 @@ declare namespace DataTables {
         sJUIFooter?: string;
     }
     //#endregion "ext internal"
+
+    interface ExtTypeSettings {
+        /**
+         * Type detection functions for plug-in development.
+         *
+         * @see https://datatables.net/manual/plug-ins/type-detection
+         */
+        detect: FunctionExtTypeSettingsDetect[];
+        /**
+         * Type based ordering functions for plug-in development.
+         *
+         * @see https://datatables.net/manual/plug-ins/sorting
+         * @default {}
+         */
+        order: object;
+        /**
+         * Type based search formatting for plug-in development.
+         *
+         * @default {}
+         * @example
+         *   $.fn.dataTable.ext.type.search['title-numeric'] = function ( d ) {
+         *     return d.replace(/\n/g," ").replace( /<.*?>/g, "" );
+         *   }
+         */
+        search: object;
+    }
+
+    /**
+     * @param data Data from the column cell to be analysed.
+     * @param DataTables settings object.
+     */
+    type FunctionExtTypeSettingsDetect = (data: any, settings: Settings) => (string | null);
 }

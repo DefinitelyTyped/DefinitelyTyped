@@ -29,6 +29,9 @@ describe("Stripe", () => {
             console.log('ready');
         });
         card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
+            console.log(resp.elementType);
+        });
+        card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
             console.log(resp.brand);
         });
         stripe.createToken(card, {
@@ -208,5 +211,10 @@ describe("Stripe v2 & v3", () => {
             (error: stripe.Error) => {
                 console.error(error);
             });
+
+        elements.create('iban', {
+            supportedCountries: ['SEPA'],
+            placeholderCountry: 'AT'
+        });
     });
 });

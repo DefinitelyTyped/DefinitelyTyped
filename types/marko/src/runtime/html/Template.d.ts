@@ -1,34 +1,47 @@
 /// <reference types="node" />
 
 import * as stream from 'stream';
-//import * as AsyncStream from './AsyncStream';
+import { ServerResponse } from 'http';
+import AsyncStream from './AsyncStream';
+import RenderResult from './RenderResult';
+import AsyncVDOMBuilder from '../vdom/AsyncVDOMBuilder';
+import { AsyncWriter } from 'async-writer';
 
-type AsyncStream = any;
+export class Readable extends stream.Readable {
+  _t: any;
+  _d: any;
+  _shouldBuffer: boolean;
+  _rendered: boolean;
 
-declare class Readable extends stream.Readable {
-    _t: any;
-    _d: any;
-    _shouldBuffer: boolean;
-    _rendered: boolean;
+  constructor(template: Template, data: any, options: any);
 
-    constructor(template: T, data: any, options: any);
-    write(data: any): void;
+  write(data: any): void;
 }
 
-declare interface Renderable {
-    createOut: any;
-    renderToString(data?: any, callback?: any): any;
-    renderSync(data?: any): any;
-    render(data?: any, out?: any): any;
+export interface Renderable {
+  createOut: any;
+
+  renderToString(data?: any): string;
+
+  renderToString(data: any, callback: (err: Error | null, result: string) => void): undefined;
+
+  renderSync(data?: any): RenderResult;
+
+  render(data?: any): Promise<RenderResult>;
+
+  render(data: any, out: AsyncStream | AsyncWriter | AsyncVDOMBuilder | stream.Writable |
+    ((err: any, result: RenderResult) => void)): void;
 }
 
 export default interface Template extends Renderable {
-    path: string;
-    _: any;
-    ___shouldBuffer: boolean;
-    meta: any;
+  path: string;
+  _: any;
+  ___shouldBuffer: boolean;
+  meta: any;
 
-    (path: string, renderFunc: any, options: any): Template;
-    createOut(globalData: any, writer: any, parentOut: any, buffer: any): AsyncStream;
-    stream(data: any): Readable;
+  (path: string, renderFunc: any, options: any): Template;
+
+  createOut(globalData?: any, writer?: any, parentOut?: any, buffer?: any): AsyncStream;
+
+  stream(data: any): Readable;
 }

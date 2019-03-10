@@ -1,3 +1,3 @@
-import btoa from 'btoa';
+import btoa = require('btoa');
 
 btoa('foo');

@@ -20,6 +20,10 @@ export function copy(src: string, dest: string, callback: (err: Error) => void):
 export function copy(src: string, dest: string, options: CopyOptions, callback: (err: Error) => void): void;
 export function copySync(src: string, dest: string, options?: CopyOptionsSync): void;
 
+export function copyFile(src: string, dest: string, flags?: number): Promise<void>;
+export function copyFile(src: string, dest: string, callback: (err: Error) => void): void;
+export function copyFile(src: string, dest: string, flags: number, callback: (err: Error) => void): void;
+
 export function move(src: string, dest: string, options?: MoveOptions): Promise<void>;
 export function move(src: string, dest: string, callback: (err: Error) => void): void;
 export function move(src: string, dest: string, options: MoveOptions, callback: (err: Error) => void): void;
@@ -207,9 +211,9 @@ export function rmdir(path: string | Buffer): Promise<void>;
 export function stat(path: string | Buffer, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: string | Buffer): Promise<Stats>;
 
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type: fs.symlink.Type | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type: FsSymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
 export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: fs.symlink.Type): Promise<void>;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: FsSymlinkType): Promise<void>;
 
 export function truncate(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
 export function truncate(path: string | Buffer, len: number, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -261,6 +265,7 @@ export type CopyFilterSync = (src: string, dest: string) => boolean;
 export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
 export type SymlinkType = "dir" | "file";
+export type FsSymlinkType = "dir" | "file" | "junction";
 
 export interface CopyOptions {
     dereference?: boolean;

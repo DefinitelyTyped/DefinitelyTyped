@@ -1,12 +1,12 @@
 // Type definitions for Sequelize 3.30.4
-// Project: http://sequelizejs.com
+// Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
 // Definitions by: samuelneff <https://github.com/samuelneff>
 //                 Peter Harris <https://github.com/codeanimal>
 //                 Ivan Drinchev <https://github.com/drinchev>
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 James D. Callahan III <https://github.com/torhal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -3140,7 +3140,7 @@ declare namespace sequelize {
     /**
     * Shortcut for types used in FindOptions.attributes
     */
-    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;    
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -6183,7 +6183,7 @@ declare namespace sequelize {
 
         camelizeIf(str: string, condition: boolean): string;
         underscoredIf(str: string, condition: boolean): string;
-                     
+
         _: SequelizeLoDash;
 
         /**

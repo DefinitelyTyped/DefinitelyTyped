@@ -2,7 +2,7 @@
 // Project: https://github.com/plougsgaard/react-timeout
 // Definitions by: Kerwyn Rojas <https://github.com/kerwynrg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

@@ -11,11 +11,15 @@ export default class Listing<T> extends Array<T> {
 }
 
 export interface ListingOptions {
-  limit?: string;
+  limit?: number;
   after?: string;
   before?: string;
   show?: string;
   count?: number;
+}
+
+export interface SortedListingOptions extends ListingOptions {
+  time?: 'all' | 'hour' | 'day' | 'week' | 'month' | 'year';
 }
 
 interface FetchMoreOptions {

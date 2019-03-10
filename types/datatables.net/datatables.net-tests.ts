@@ -578,7 +578,7 @@ $('#example tbody').on('click', 'td', () => {
 
 const cell_invalidate_1 = cell.invalidate();
 const cell_invalidate_2 = cell.invalidate("data");
-$('#example tbody').on('click', 'td', () => {
+$('#example tbody').on('click', 'td', function()  {
     this.innerHTML = (parseInt(this.innerHTML, 10) + 1).toString();
     dt.cell(this).invalidate().draw();
 });
@@ -773,7 +773,7 @@ let column_search_set = column.search("string");
 column_search_set = column.search("string", true);
 column_search_set = column.search("string", true, false);
 column_search_set = column.search("string", true, false, true);
-$('#column3_search').on('keyup', () => {
+$('#column3_search').on('keyup', function() {
     dt
         .columns(3)
         .search((this as HTMLInputElement).value)
@@ -1002,6 +1002,9 @@ const static_6 = new $.fn.dataTable.Api("selector");
 
 const version: boolean = $.fn.dataTable.versionCheck("1.10.0");
 const isDataTable: boolean = $.fn.dataTable.isDataTable("selector");
+const isDataTable_3: boolean = $.fn.dataTable.isDataTable(dt.row("selector").node());
+const isDataTable_2: boolean = $.fn.dataTable.isDataTable($("selector"));
+const isDataTable_4: boolean = $.fn.dataTable.isDataTable($("selector").dataTable().api());
 const escapeRegex: string = $.fn.dataTable.util.escapeRegex("");
 
 const throttle_1 = $.fn.dataTable.util.throttle((data) => {
@@ -1070,3 +1073,92 @@ const util_1: boolean = dt.any();
 const util_2: number = dt.count();
 
 //#endregion "Methods-Util"
+
+//#region "ExtSettings"
+
+const ext_classes_settings: DataTables.ExtClassesSettings = {
+};
+const ext_classes_settings_full: DataTables.ExtClassesSettings = {
+    sFilter: "",
+    sFilterInput: "",
+    sFooterTH: "",
+    sHeaderTH: "",
+    sInfo: "",
+    sJUIFooter: "",
+    sJUIHeader: "",
+    sLength: "",
+    sLengthSelect: "",
+    sNoFooter: "",
+    sPageButton: "",
+    sPageButtonActive: "",
+    sPageButtonDisabled: "",
+    sPaging: "",
+    sProcessing: "",
+    sRowEmpty: "",
+    sScrollBody: "",
+    sScrollFoot: "",
+    sScrollFootInner: "",
+    sScrollHead: "",
+    sScrollHeadInner: "",
+    sScrollWrapper: "",
+    sSortable: "",
+    sSortableAsc: "",
+    sSortableDesc: "",
+    sSortableNone: "",
+    sSortAsc: "",
+    sSortColumn: "",
+    sSortDesc: "",
+    sSortIcon: "",
+    sSortJUI: "",
+    sSortJUIAsc: "",
+    sSortJUIAscAllowed: "",
+    sSortJUIDesc: "",
+    sSortJUIDescAllowed: "",
+    sSortJUIWrapper: "",
+    sStripeEven: "",
+    sStripeOdd: "",
+    sTable: "",
+    sWrapper: ""
+};
+
+const ext_type_settings: DataTables.ExtTypeSettings = {
+    detect: [],
+    search: {},
+    order: {}
+};
+ext_type_settings.detect.push((d: string, s: DataTables.Settings) => {
+    return null;
+});
+ext_type_settings.detect.push((d: string, s: DataTables.Settings) => {
+    return "";
+});
+
+const ext_settings: DataTables.ExtSettings = {
+    aTypes: [],
+    afnFiltering: [],
+    afnSortData: {},
+    aoFeatures: [],
+    builder: "",
+    classes: ext_classes_settings,
+    errMode: "",
+    feature: [],
+    fnVersionCheck: (version: string) => "",
+    iApiIndex: 0,
+    internal: {},
+    legacy: {},
+    oApi: {},
+    oJUIClasses: {},
+    oPagination: {},
+    oSort: {},
+    oStdClasses: ext_classes_settings,
+    ofnSearch: {},
+    order: {},
+    pager: {},
+    renderer: {},
+    sVersion: "",
+    search: [],
+    selector: {},
+    type: ext_type_settings
+};
+
+ //#endregion "ExtSettings"

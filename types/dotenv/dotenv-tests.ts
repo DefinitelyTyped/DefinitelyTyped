@@ -1,20 +1,18 @@
-import dotenv = require('dotenv');
+import dotenv = require("dotenv");
 
 const env = dotenv.config();
-const dbUrl: string | null = env.error || !env.parsed ? null : env.parsed['DATABASE_URL'];
+const dbUrl: string | null = env.error || !env.parsed ? null : env.parsed["BASIC"];
 
-dotenv.config({
-    path: '.env'
+dotenv.load({
+  path: ".env-example",
+  encoding: "utf8",
+  debug: true
 });
 
-dotenv.config({
-    encoding: 'utf8'
+const parsed = dotenv.parse("NODE_ENV=production\nDB_HOST=a.b.c");
+const dbHost: string = parsed["DB_HOST"];
+
+const parsedFromBuffer = dotenv.parse(new Buffer("JUSTICE=league\n"), {
+  debug: true
 });
-
-dotenv.load();
-
-const parsed = dotenv.parse("ENVIRONMENT=production\nDEBUG=no\n");
-const debug: string = parsed['DEBUG'];
-
-const parsedFromBuffer = dotenv.parse(new Buffer("JUSTICE=league\n"));
-const justice: string = parsedFromBuffer['JUSTICE'];
+const justice: string = parsedFromBuffer["JUSTICE"];

@@ -217,7 +217,7 @@ declare module "url" {
 		 * 
 		 * 
 		 */
-		export function format(args: Object): string;
+		export function format(args: object): string;
 	
 		/**
 		 * 

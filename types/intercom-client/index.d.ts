@@ -2,11 +2,14 @@
 // Project: https://github.com/intercom/intercom-node
 // Definitions by: Jinesh Shah <https://github.com/jineshshah36>, Josef Hornych <https://github.com/peping>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 /// <reference types="node" />
 
 import { List as UserList, User, UserIdentifier } from './User';
+import { List as LeadList, Lead, LeadIdentifier } from './Lead';
 import { CompanyIdentifier, List as CompanyList, Company } from './Company';
+import { TagIdentifier, List as TagList, Tag, TagOper } from './Tag';
+import { List as EventList, Event, ListParam as EventListParam } from './Event';
 import { Scroll } from './Scroll';
 import { IntercomError } from './IntercomError';
 
@@ -29,6 +32,10 @@ export class Client {
 
     users: Users;
     companies: Companies;
+    tags: Tags;
+    events: Events;
+    contacts: Leads;
+    leads: Leads;
 }
 
 export class ApiResponse<T> extends IncomingMessage {
@@ -47,17 +54,46 @@ export class Users {
     find(identifier: UserIdentifier): Promise<ApiResponse<User>>;
     find(identifier: UserIdentifier, cb: callback<ApiResponse<User>>): void;
 
-    list(): Promise<ApiResponse<User>>;
-    list(cb: callback<ApiResponse<User>>): void;
+    list(): Promise<ApiResponse<UserList>>;
+    list(cb: callback<ApiResponse<UserList>>): void;
 
     listBy(params: {tag_id?: string, segment_id?: string}): Promise<ApiResponse<UserList>>;
     listBy(params: {tag_id?: string, segment_id?: string}, cb: callback<ApiResponse<UserList>>): void;
 
     scroll: Scroll<User>;
 
-    archive(): Promise<User>;
+    archive(identifier: UserIdentifier): Promise<ApiResponse<User>>;
+    archive(identifier: UserIdentifier, cb: callback<ApiResponse<User>>): void;
 
-    requestPermanentDeletion(): Promise<{id: number}>;
+    requestPermanentDeletion(id: string): Promise<{ id: number }>;
+    requestPermanentDeletion(id: string, cb: callback<{ id: number }>): void;
+
+    requestPermanentDeletionByParams(identifier: UserIdentifier): Promise<{ id: number }>;
+    requestPermanentDeletionByParams(identifier: UserIdentifier, cb: callback<{ id: number }>): void;
+}
+
+export class Leads {
+    create(lead: Partial<Lead>): Promise<ApiResponse<Lead>>;
+    create(lead: Partial<Lead>, cb: callback<ApiResponse<Lead>>): void;
+
+    update(lead: UserIdentifier & Partial<Lead>): Promise<ApiResponse<Lead>>;
+    update(lead: UserIdentifier & Partial<Lead>, cb: callback<ApiResponse<Lead>>): void;
+
+    list(): Promise<ApiResponse<LeadList>>;
+    list(cb: callback<ApiResponse<LeadList>>): void;
+
+    listBy(params: { email?: string, tag_id?: string, segment_id?: string }): Promise<ApiResponse<LeadList>>;
+    listBy(params: { email?: string, tag_id?: string, segment_id?: string }, cb: callback<ApiResponse<LeadList>>): void;
+
+    find(identifier: LeadIdentifier): Promise<ApiResponse<Lead>>
+    find(identifier: LeadIdentifier, cb: callback<ApiResponse<Lead>>): void;
+
+    delete(id: string): Promise<ApiResponse<Lead>>;
+    delete(id: string, cb: callback<ApiResponse<Lead>>): void;
+
+    convert(params: { contact: LeadIdentifier, user: UserIdentifier }): Promise<ApiResponse<Lead>>;
+    convert(params: { contact: LeadIdentifier, user: UserIdentifier }, cb: callback<ApiResponse<Lead>>): void;
+
 }
 
 export class Companies {
@@ -79,4 +115,29 @@ export class Companies {
     scroll: Scroll<Company>;
 
     archive(): Promise<Company>;
+}
+
+export class Tags {
+  create(tag: Partial<Tag>): Promise<ApiResponse<Tag>>;
+  create(tag: Partial<Tag>, cb: callback<ApiResponse<Tag>>): void;
+
+  tag(tagOper: TagOper): Promise<ApiResponse<Tag>>;
+  tag(tagOper: TagOper, cb: callback<ApiResponse<Tag>>): void;
+
+  untag(tagOper: TagOper): Promise<ApiResponse<Tag>>;
+  untag(tagOper: TagOper, cb: callback<ApiResponse<Tag>>): void;
+
+  delete(tag: TagIdentifier): Promise<IncomingMessage>;
+  delete(tag: TagIdentifier, cb: callback<IncomingMessage>): void;
+
+  list(): Promise<ApiResponse<TagList>>;
+  list(cb: callback<ApiResponse<TagList>>): void;
+}
+
+export class Events {
+    create(event: Partial<Event>): Promise<IncomingMessage>;
+    create(event: Partial<Event>, cb: callback<IncomingMessage>): void;
+
+    listBy(params: EventListParam): Promise<ApiResponse<CompanyList>>;
+    listBy(params: EventListParam, cb: callback<ApiResponse<CompanyList>>): void;
 }

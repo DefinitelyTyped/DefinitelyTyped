@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "msnodesqlv8.d.ts",
         "mssql-tests.ts"
     ]
 }

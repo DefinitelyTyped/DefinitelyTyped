@@ -34,8 +34,8 @@ import http = require('http')
 // response time metrics tests https://github.com/expressjs/response-time#response-time-metrics //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 {
-    const app = express()
-    app.use(responseTime(function (req, res, time) {
+    const app = express();
+    app.use(responseTime((req: express.Request, res: express.Response, time: number) => {
         let num: number = time;
     }));
 }

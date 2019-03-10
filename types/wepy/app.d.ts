@@ -1,3 +1,5 @@
+import { PageConfig } from "./page";
+
 export interface AppConfig {
     appEvents?: string[];
     pageEvents?: string[];
@@ -11,16 +13,9 @@ export interface AppConstructor {
 /* the supported add-ons */
 export type AddOn = "requestfix" | "promisify";
 
-export interface WindowConfig {
-    backgroundTextStyle: string;
-    navigationBarBackgroundColor: string;
-    navigationBarTitleText: string;
-    navigationBarTextStyle: string;
-}
-
 export default class app {
     config: {
-        window: WindowConfig;
+        window: PageConfig;
         pages: string[];
     };
     $init(wepy: any, config: AppConfig): void;

@@ -1,4 +1,4 @@
-import * as MarkdownIt from "markdown-it";
+import MarkdownIt = require("markdown-it");
 import anchor = require("markdown-it-anchor");
 
 const md = new MarkdownIt();

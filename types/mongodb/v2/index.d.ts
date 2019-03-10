@@ -2,7 +2,6 @@
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 //                 Alan Marcell <https://github.com/alanmarcell>
-//                 Gady Piazza <https://github.com/kikar>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Gaurav Lahoti <https://github.com/dante-101>
 //                 Mariano Cortesi <https://github.com/mcortesi>
@@ -22,7 +21,7 @@ export function connect(uri: string, options?: MongoClientOptions): Promise<Db>;
 export function connect(uri: string, callback: MongoCallback<Db>): void;
 export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
 
-export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, Timestamp, DBRef } from 'bson';
+export { Binary, DBRef, Decimal128, Double, Int32, Long, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
 export class MongoClient {
@@ -158,8 +157,10 @@ export interface SocketOptions {
     autoReconnect?: boolean;
     // TCP Socket NoDelay option. default:true
     noDelay?: boolean;
-    // TCP KeepAlive on the socket with a X ms delay before start. default:0
-    keepAlive?: number;
+    // TCP KeepAlive enabled on the socket. default:true
+    keepAlive?: boolean;
+    // TCP KeepAlive initial delay before sending first keep-alive packet when idle. default:300000
+    keepAliveInitialDelay?: number;
     // TCP Connection timeout setting. default 0
     connectTimeoutMS?: number;
     // TCP Socket timeout setting. default 0

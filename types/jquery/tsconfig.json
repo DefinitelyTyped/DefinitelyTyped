@@ -20,8 +20,8 @@
     },
     "files": [
         "index.d.ts",
+        "dist/jquery.slim.d.ts",
         "jquery-tests.ts",
-        "test/bluebird-global-tests.ts",
         "test/example-tests.ts",
         "test/longdesc-tests.ts",
         "test/learn-tests.ts",

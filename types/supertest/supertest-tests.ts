@@ -59,6 +59,17 @@ function hasPreviousAndNextKeys(res: supertest.Response) {
   if (!('prev' in res.body)) throw new Error("missing prev key");
 }
 
+// functional expect without response type
+(request
+  .get('/') as supertest.Test)
+  .expect(res => {
+    if (!('next' in res.body)) return "missing next key";
+    if (!('prev' in res.body)) throw new Error("missing prev key");
+  })
+  .end((err: any, res: supertest.Response) => {
+    if (err) throw err;
+  });
+
 // object expect
 (request
   .get('/') as supertest.Test)

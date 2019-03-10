@@ -6,6 +6,9 @@ export interface KbState {
 }
 
 export default class MyKeyboard extends React.Component<{}, KbState> {
+    state = {
+        textarea: ''
+    };
     onTextareaChanged = (newState: string) => {
         this.setState({ textarea: newState });
     }

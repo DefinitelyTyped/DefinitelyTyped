@@ -62,15 +62,15 @@ declare namespace Tgfancy {
 declare class Tgfancy extends TelegramBot {
     constructor(token: string, options?: Tgfancy.ConstructorOptions);
 
-    resolveChatId(chatId: string): Promise<Tgfancy.ResolvedChat | Error>;
+    resolveChatId(chatId: string): Promise<Tgfancy.ResolvedChat>;
 
-    openWebSocket(): Promise<undefined | Error>;
+    openWebSocket(): Promise<undefined>;
 
-    closeWebSocket(): Promise<undefined | Error>;
+    closeWebSocket(): Promise<undefined>;
 
     hasOpenWebSocket(): boolean;
 
-    kickChatMember(chatId: number | string, userId: number | string, ban?: boolean): Promise<boolean | Error>;
+    kickChatMember(chatId: number | string, userId: number | string, ban?: boolean): Promise<boolean>;
 }
 
 export = Tgfancy;

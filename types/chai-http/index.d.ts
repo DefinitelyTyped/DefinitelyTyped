@@ -64,6 +64,8 @@ declare global {
 			del(url: string, callback?: (err: any, res: Response) => void): request.Request;
 			options(url: string, callback?: (err: any, res: Response) => void): request.Request;
 			patch(url: string, callback?: (err: any, res: Response) => void): request.Request;
+			keepOpen(): Agent;
+			close(callback?: (err: any) => void): Agent;
 		}
 
 		interface TypeComparison {

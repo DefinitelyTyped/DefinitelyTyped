@@ -6,13 +6,14 @@
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
-//                 Ahmed T. Ali <https://github.com/ahmed-taj>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
+//                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
+//                 Kyle Uehlein <https://github.com/kuehlein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -86,8 +87,6 @@ declare namespace webpack {
         watchOptions?: Options.WatchOptions;
         /** Switch loaders to debug mode. */
         debug?: boolean;
-        /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
-        devServer?: any; // TODO: Type this
         /** Include polyfills or mocks for various node stuff */
         node?: Node | false;
         /** Set the value of require.amd and define.amd. */
@@ -341,7 +340,7 @@ declare namespace webpack {
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
     interface ExternalsObjectElement {
-        [key: string]: boolean | string;
+        [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;

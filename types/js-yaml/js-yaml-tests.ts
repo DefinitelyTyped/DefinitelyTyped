@@ -58,19 +58,22 @@ loadOpts = {
 	filename: str
 };
 loadOpts = {
-	strict: bool
-};
-loadOpts = {
-	schema: bool
+	onWarning(e) { e.stack; }
 };
 loadOpts = {
 	json: bool
+};
+loadOpts = {
+	schema: yaml.DEFAULT_SAFE_SCHEMA
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 dumpOpts = {
 	indent: num
+};
+dumpOpts = {
+	noArrayIndent: bool
 };
 dumpOpts = {
 	skipInvalid: bool
@@ -83,6 +86,9 @@ dumpOpts = {
 };
 dumpOpts = {
 	schema: value
+};
+dumpOpts = {
+	schema: yaml.DEFAULT_FULL_SCHEMA
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -109,19 +115,19 @@ type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType DocumentLoadResult
+// $ExpectType any
 yaml.safeLoad(str);
-// $ExpectType DocumentLoadResult
+// $ExpectType any
 yaml.safeLoad(str, loadOpts);
 
-// $ExpectType DocumentLoadResult
+// $ExpectType any
 yaml.load(str);
-// $ExpectType DocumentLoadResult
+// $ExpectType any
 yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType DocumentLoadResult[]
+// $ExpectType any[]
 yaml.safeLoadAll(str);
 
 // $ExpectType undefined
@@ -132,10 +138,10 @@ yaml.safeLoadAll(str, (doc) => {
 yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
-// $ExpectType DocumentLoadResult[]
+// $ExpectType any[]
 value = yaml.safeLoadAll(str, undefined, loadOpts);
 
-// $ExpectType DocumentLoadResult[]
+// $ExpectType any[]
 value = yaml.loadAll(str);
 
 // $ExpectType undefined
@@ -146,7 +152,7 @@ yaml.loadAll(str, (doc) => {
 yaml.loadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
-// $ExpectType DocumentLoadResult[]
+// $ExpectType any[]
 value = yaml.loadAll(str, undefined, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

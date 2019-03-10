@@ -1,5 +1,6 @@
 import nock = require('nock');
 import * as fs from 'fs';
+import { URL } from 'url';
 
 var scope: nock.Scope;
 var inst: nock.Interceptor;
@@ -143,6 +144,11 @@ var couchdb = nock('http://myapp.iriscouch.com')
                   username: 'pgte',
                   email: 'pedro.teixeira@gmail.com'
                  });
+
+// Using URL as input
+var scope = nock(new URL('https://example.org/'))
+    .get('/resource')
+    .reply(200, 'url matched');
 
 // Specifying hostname
 var scope = nock('http://www.example.com')
@@ -305,7 +311,7 @@ var scope = nock('http://www.google.com')
 /// Access original request and headers
 var scope = nock('http://www.google.com')
    .get('/cat-poems')
-   .reply((uri, requestBody) => {
+   .reply(function (uri, requestBody) {
      console.log('path:', this.req.path);
      console.log('headers:', this.req.headers);
      // ...

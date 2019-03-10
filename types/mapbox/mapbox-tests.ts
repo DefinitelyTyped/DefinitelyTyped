@@ -4,6 +4,8 @@ const mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i8
 
 const map = L.map('map').addLayer(mapboxTiles).setView(new L.LatLng([42.3610, -71.0587]), 15);
 
+const lightTiles = L.mapbox.styleLayer('mapbox://styles/mapbox/light-v9').addTo(map);
+
 const coordinates = document.getElementById('coordinates');
 
 const marker = L.marker(new L.LatLng([0, 0]), {

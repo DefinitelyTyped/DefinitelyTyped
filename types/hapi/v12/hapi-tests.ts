@@ -6,7 +6,7 @@ import * as Hapi from 'hapi';
 
 // Create a server with a host and port
 var server = new Hapi.Server();
-server.connection(<Hapi.IServerConnectionOptions>{
+server.connection({
     host: "localhost",
     port: 8000
 });

@@ -2,7 +2,7 @@
 // Project: https://github.com/overlookmotel/fs-extra-promise
 // Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>, Hiromi Shikata <https://github.com/HiromiShikata>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

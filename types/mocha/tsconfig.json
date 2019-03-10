@@ -15,12 +15,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true
     },
     "files": [
         "index.d.ts",
-        "lib/ms.d.ts",
-        "lib/interfaces/common.d.ts",
         "mocha-tests.ts"
     ]
 }

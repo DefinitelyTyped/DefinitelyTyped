@@ -66,12 +66,12 @@ export interface CornerBit extends MDCNumbers {
  * Likewise END maps to RIGHT or LEFT depending on the directionality.
  */
 export interface Corner extends MDCNumbers {
-  TOP_LEFT: 0;
-  TOP_RIGHT: CornerBit["RIGHT"];
-  BOTTOM_LEFT: CornerBit["BOTTOM"];
-  BOTTOM_RIGHT: CornerBit["BOTTOM"] | CornerBit["RIGHT"];
-  TOP_START: CornerBit["FLIP_RTL"];
-  TOP_END: CornerBit["FLIP_RTL"] | CornerBit["RIGHT"];
-  BOTTOM_START: CornerBit["BOTTOM"] | CornerBit["FLIP_RTL"];
-  BOTTOM_END: CornerBit["BOTTOM"] | CornerBit["RIGHT"] | CornerBit["FLIP_RTL"];
+    TOP_LEFT: 0;
+    TOP_RIGHT: 4;
+    BOTTOM_LEFT: 1;
+    BOTTOM_RIGHT: 5;
+    TOP_START: 8;
+    TOP_END: 12;
+    BOTTOM_START: 9;
+    BOTTOM_END: 13;
 }

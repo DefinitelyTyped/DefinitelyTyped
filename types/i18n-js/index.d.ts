@@ -70,6 +70,8 @@ declare namespace I18n {
     }
     function toCurrency(num: number, options?: ToCurrencyOptions): string;
 
+    function toTime(scope: Scope, value: string | number | Date): string;
+
     interface ToHumanSizeOptions extends ToNumberOptions {
         format?: string;
     }

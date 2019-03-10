@@ -20,6 +20,8 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "Errors.d.ts",
+        "DeviceDescriptors.d.ts",
         "index.d.ts",
         "puppeteer-tests.ts"
     ]

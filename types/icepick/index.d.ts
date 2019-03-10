@@ -8,13 +8,15 @@ export declare function freeze<T>(collection: T): T;
 export declare function thaw<T>(collection: T): T;
 export declare function assoc<T, V>(collection: T, key: number | string, value: V): T;
 export declare function dissoc<T>(collection: T, key: number | string): T;
+export declare function dissocIn<T>(collection: T, path: Array<number | string>): T;
 export declare function assocIn<T, V>(collection: T, path: Array<number | string>, value: V): T;
 export declare function getIn<T>(collection: T, path: Array<number | string>): any;
 export declare function updateIn<T, V>(collection: T, path: Array<number | string>, callback: (value: V) => V): T;
 
 export {assoc as set};
-export {dissoc as unset};
 export {assocIn as setIn};
+export {dissoc as unset};
+export {dissocIn as unsetIn};
 
 export declare function assign<T>(target: T): T;
 export declare function assign<T, S1>(target: T, source1: S1): (T & S1);
@@ -52,6 +54,9 @@ interface IcepickWrapper<T> {
 
     assocIn<V>(path: Array<number | string>, value: V): IcepickWrapper<T>;
     setIn<V>(path: Array<number | string>, value: V): IcepickWrapper<T>;
+    
+    dissocIn<V>(path: Array<number | string>): IcepickWrapper<T>;
+    unsetIn<V>(path: Array<number | string>): IcepickWrapper<T>;
 
     getIn(path: Array<number | string>): IcepickWrapper<any>;
     updateIn<V>(path: Array<number | string>, callback: (value: V) => V): IcepickWrapper<T>;

@@ -1,5 +1,5 @@
 // Type definitions for copy-webpack-plugin 4.4
-// Project: https://github.com/kevlened/copy-webpack-plugin
+// Project: https://github.com/webpack-contrib/copy-webpack-plugin
 // Definitions by: flying-sheep <https://github.com/flying-sheep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -61,7 +61,7 @@ interface CopyWebpackPluginConfiguration {
 }
 
 interface CopyWebpackPlugin {
-    new (patterns?: CopyPattern[], options?: CopyWebpackPluginConfiguration): Plugin
+    new (patterns?: (string | CopyPattern)[], options?: CopyWebpackPluginConfiguration): Plugin
 }
 
 declare const copyWebpackPlugin: CopyWebpackPlugin

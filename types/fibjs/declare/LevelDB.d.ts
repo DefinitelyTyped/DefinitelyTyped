@@ -78,7 +78,7 @@ declare class Class_LevelDB extends Class__object {
 	 * 
 	 * 
 	 */
-	mset(map: Object): void;
+	mset(map: object): void;
 
 	/**
 	 * 

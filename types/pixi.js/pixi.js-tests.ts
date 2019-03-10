@@ -1508,7 +1508,7 @@ function filters() {
 
                 maggot.scale.set(1 + Math.random() * 0.3);
                 //tslint:disable-next-line:whitespace
-                maggot.original = (<PIXI.Point>maggot.scale).clone();
+                maggot.original = (maggot.scale as PIXI.Point).clone();
                 this.maggots.push(maggot);
             }
 

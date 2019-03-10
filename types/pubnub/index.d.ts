@@ -1,8 +1,14 @@
 // Type definitions for pubnub 4.0
 // Project: https://github.com/pubnub/javascript
-// Definitions by: bitbankinc <https://github.com/bitbankinc>, rollymaduk <https://github.com/rollymaduk>, vitosamson <https://github.com/vitosamson>
+// Definitions by:  bitbankinc <https://github.com/bitbankinc>,
+//                  rollymaduk <https://github.com/rollymaduk>,
+//                  vitosamson <https://github.com/vitosamson>,
+//                  FlorianDr <https://github.com/FlorianDr>,
+//                  danduh <https://github.com/danduh>,
+//                  ChristianBoehlke <https://github.com/ChristianBoehlke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
+// TypeScript Version: 2.2
 
 declare class Pubnub {
   constructor(config: Pubnub.PubnubConfig);
@@ -40,6 +46,11 @@ declare class Pubnub {
   fire(
     params: Pubnub.FireParameters
   ): Promise<Pubnub.PublishResponse>;
+
+  history(
+    params: Pubnub.HistoryParameters,
+    callback: (status: Pubnub.HistoryStatus, response: Pubnub.HistoryResponse) => void
+  ): void;
 
   subscribe(params: Pubnub.SubscribeParameters): void;
 
@@ -88,6 +99,27 @@ declare class Pubnub {
   setState(
     params: Pubnub.SetStateParameters
   ): Promise<Pubnub.SetStateResponse>;
+
+  grant(
+    params: Pubnub.GrantParameters,
+    callback: (status: Pubnub.GrantStatus, response: {}) => void
+  ): void;
+
+  grant(
+    params: Pubnub.GrantParameters
+  ): Promise<{}>;
+
+  encrypt(
+    data: string,
+    customCipherKey?: string,
+    options?: Pubnub.CryptoParameters,
+  ): any;
+
+  decrypt(
+    data: object,
+    customCipherKey?: string,
+    options?: Pubnub.CryptoParameters
+  ): any;
 }
 
 declare namespace Pubnub {
@@ -180,6 +212,34 @@ declare namespace Pubnub {
     timetoken: number;
   }
 
+  interface HistoryParameters {
+    channel: string;
+    count: number;
+    stringifiedTimeToken?: boolean;
+    includeTimetoken?: boolean;
+    reverse?: boolean;
+    start?: number; // timetoken
+    end?: number; // timetoken
+  }
+
+  interface HistoryMessage {
+    entry: any;
+    timetoken?: string | number;
+  }
+
+  interface HistoryResponse {
+    endTimeToken?: number;
+    startTimeToken?: number;
+    messages: HistoryMessage[];
+  }
+
+  interface HistoryStatus {
+    error: boolean;
+    errorData?: Error;
+    operation: string; // see Pubnub.Operations
+    statusCode?: number;
+  }
+
   interface PublishStatus {
     operation: string; // see Pubnub.Operations
     category: string; // see Pubnub.Categories;
@@ -212,7 +272,9 @@ declare namespace Pubnub {
   // addListener
   interface ListenerParameters {
     status?(statusEvent: StatusEvent): void;
+
     message?(messageEvent: MessageEvent): void;
+
     presence?(presenceEvent: PresenceEvent): void;
   }
 
@@ -294,6 +356,31 @@ declare namespace Pubnub {
     channels: {
       [channel: string]: any;
     };
+  }
+
+  // grant
+  interface GrantParameters {
+    channels?: string[];
+    channelGroups?: string[];
+    authKeys?: string[];
+    ttl?: number;
+    read?: boolean;
+    write?: boolean;
+    manage?: boolean;
+  }
+
+  interface GrantStatus {
+    error: boolean;
+    operation: string;
+    statusCode: number;
+  }
+
+  // encrypt & decrypt
+  interface CryptoParameters {
+    encryptKey?: boolean;
+    keyEncoding?: string;
+    keyLength?: number;
+    mode?: string;
   }
 
   interface Categories {

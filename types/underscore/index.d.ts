@@ -1,13 +1,14 @@
 // Type definitions for Underscore 1.8
 // Project: http://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>, Cassey Lottman <https://github.com/clottman>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>, Cassey Lottman <https://github.com/clottman>, Ard Timmerman <https://github.com/confususs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare var _: _.UnderscoreStatic;
 export = _;
 export as namespace _;
 
-// The DOM is not required to be present, but these definitions reference type Element for the 
+// The DOM is not required to be present, but these definitions reference type Element for the
 // isElement check. If the DOM is present, this declaration will merge.
 declare global {
     interface Element { }
@@ -67,6 +68,10 @@ declare module _ {
 
     interface Dictionary<T> extends Collection<T> {
         [index: string]: T;
+    }
+
+    interface Predicate<T> {
+        (value: T): boolean;
     }
 
     interface ListIterator<T, TResult> {
@@ -553,8 +558,12 @@ declare module _ {
         * @param propertyName The property to look for on each element within `list`.
         * @return The list of elements within `list` that have the property `propertyName`.
         **/
-        pluck<T extends {}>(
+        pluck<T extends {}, K extends keyof T>(
             list: _.List<T>,
+            propertyName: K): T[K][];
+
+        pluck(
+            list: _.List<any>,
             propertyName: string): any[];
 
         /**
@@ -3631,7 +3640,7 @@ declare module _ {
         * @param object Convert this object to a list of [key, value] pairs.
         * @return List of [key, value] pairs on `object`.
         **/
-        pairs(object: any): any[][];
+        pairs(object: any): [string, any][];
 
         /**
         * Returns a copy of the object where the keys have become the values and the values the keys.
@@ -3782,7 +3791,7 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matches<T>(attrs: T): _.ListIterator<T, boolean>;
+        matches<T>(attrs: T): _.Predicate<T>;
 
         /**
         * Returns a predicate function that will tell you if a passed in object contains all of the key/value properties present in attrs.
@@ -3790,7 +3799,7 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matcher<T>(attrs: T): _.ListIterator<T, boolean>;
+        matcher<T>(attrs: T): _.Predicate<T>;
 
         /**
         * Returns a function that will itself return the key property of any passed-in object.
@@ -4738,7 +4747,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): any[][];
+        pairs(): [string, any][];
 
         /**
         * Wrapped type `object`.
@@ -5692,7 +5701,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.values
         **/
-        values(): _Chain<T>;
+        values(): _Chain<any>;
 
         /**
         * Wrapped type `object`.
@@ -5704,7 +5713,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): _Chain<T[]>;
+        pairs(): _Chain<[string, any]>;
 
         /**
         * Wrapped type `object`.

@@ -2,7 +2,7 @@
 // Project: https://github.com/clauderic/react-sortable-hoc
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>, Charles Rey <https://github.com/charlesrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -36,7 +36,7 @@ export interface SortEnd {
 
 export type SortEndHandler = (sort: SortEnd, event: SortEvent) => void;
 
-export type ContainerGetter = (element: React.ReactElement<any>) => HTMLElement;
+export type ContainerGetter = (element: React.ReactElement) => HTMLElement;
 
 export interface Dimensions {
     width: number;

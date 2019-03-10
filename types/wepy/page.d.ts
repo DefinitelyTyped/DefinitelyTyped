@@ -8,8 +8,20 @@ export interface PageConstructor {
     new (): page;
 }
 
+export interface PageConfig {
+    navigationBarBackgroundColor?: string;
+    navigationBarTextStyle?: string;
+    navigationBarTitleText?: string;
+    backgroundColor?: string;
+    backgroundTextStyle?: string;
+    enablePullDownRefresh?: boolean;
+    disableScroll?: boolean;
+    onReachBottomDistance?: number;
+}
+
 export default class page extends component {
-    $preloadData: { [key: string]: any };
+    config?: PageConfig;
+    $preloadData?: { [key: string]: any };
     $init(wxpage: any, $parent: any): any;
     $route(
         type: "redirectTo" | "navigateTo",

@@ -134,7 +134,7 @@ declare class Class_LruCache extends Class_EventEmitter {
 	 * 
 	 * 
 	 */
-	set(map: Object): void;
+	set(map: object): void;
 
 	/**
 	 * 

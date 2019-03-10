@@ -1,5 +1,5 @@
 // Type definitions for wepy 1.7
-// Project: https://github.com/Tencent/wepy#readme
+// Project: https://github.com/Tencent/wepy#readme, https://github.com/wepyjs/wepy
 // Definitions by: Jiayu Liu <https://github.com/Jimexist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -13,12 +13,20 @@ import util from "./util";
 import base from "./base";
 import { WxEnhances } from "./wx_enhanced";
 
+export as namespace wepy;
+
+export type Event = typeof event;
+export type Component = typeof component;
+export type App = typeof app;
+export type Page = typeof page;
+export type Mixin = typeof mixin;
+
 interface DefaultExport extends WxEnhances {
-    event: typeof event;
-    app: typeof app;
-    component: typeof component;
-    page: typeof page;
-    mixin: typeof mixin;
+    event: wepy.Event;
+    app: wepy.App;
+    component: wepy.Component;
+    page: wepy.Page;
+    mixin: wepy.Mixin;
     $createApp: typeof base.$createApp;
     $createPage: typeof base.$createPage;
     $isEmpty: typeof util.$isEmpty;

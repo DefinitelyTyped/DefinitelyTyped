@@ -57,7 +57,7 @@ declare class Class_MongoCursor extends Class__object {
 	 * 
 	 * 
 	 */
-	sort(opts: Object): Class_MongoCursor;
+	sort(opts: object): Class_MongoCursor;
 
 	/**
 	 * 
@@ -77,7 +77,7 @@ declare class Class_MongoCursor extends Class__object {
 	 * 
 	 * 
 	 */
-	next(): Object;
+	next(): object;
 
 	/**
 	 * 
@@ -140,7 +140,7 @@ declare class Class_MongoCursor extends Class__object {
 	 * 
 	 * 
 	 */
-	hint(opts: Object): Class_MongoCursor;
+	hint(opts: object): Class_MongoCursor;
 
 } /** endof class */
 
