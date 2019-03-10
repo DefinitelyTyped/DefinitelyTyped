@@ -345,7 +345,7 @@ export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
 export class GraphQLObjectType<
     TSource = any,
     TContext = any,
-    TArgs = { [key: string]: any }
+    TArgs = any
 > {
     name: string;
     description: Maybe<string>;
@@ -364,7 +364,7 @@ export class GraphQLObjectType<
 export interface GraphQLObjectTypeConfig<
     TSource,
     TContext,
-    TArgs = { [key: string]: any }
+    TArgs = any
 > {
     name: string;
     interfaces?: Thunk<Maybe<GraphQLInterfaceType[]>>;
@@ -378,7 +378,7 @@ export interface GraphQLObjectTypeConfig<
 export type GraphQLTypeResolver<
     TSource,
     TContext,
-    TArgs = { [key: string]: any }
+    TArgs = any
 > = (
     value: TSource,
     context: TContext,
@@ -435,11 +435,11 @@ export interface GraphQLArgumentConfig {
     astNode?: Maybe<InputValueDefinitionNode>;
 }
 
-export type GraphQLFieldConfigMap<TSource, TContext, TArgs = { [key: string]: any }> = {
+export type GraphQLFieldConfigMap<TSource, TContext, TArgs = any> = {
     [key: string]: GraphQLFieldConfig<TSource, TContext, TArgs>;
 };
 
-export interface GraphQLField<TSource, TContext, TArgs = { [key: string]: any }> {
+export interface GraphQLField<TSource, TContext, TArgs = any> {
     name: string;
     description: Maybe<string>;
     type: GraphQLOutputType;
@@ -464,7 +464,7 @@ export function isRequiredArgument(arg: GraphQLArgument): boolean;
 export type GraphQLFieldMap<
     TSource,
     TContext,
-    TArgs = { [key: string]: any }
+    TArgs = any
 > = {
     [key: string]: GraphQLField<TSource, TContext, TArgs>;
 };
@@ -506,7 +506,7 @@ export class GraphQLInterfaceType {
 export interface GraphQLInterfaceTypeConfig<
     TSource,
     TContext,
-    TArgs = { [key: string]: any }
+    TArgs = any
 > {
     name: string;
     fields: Thunk<GraphQLFieldConfigMap<TSource, TContext, TArgs>>;

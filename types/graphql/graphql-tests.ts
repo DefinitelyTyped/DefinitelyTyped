@@ -1,4 +1,4 @@
-import { assertInputType, isInputType, isOutputType } from 'graphql';
+import { assertInputType, isInputType, isOutputType, GraphQLObjectType, GraphQLString } from 'graphql';
 
 ///////////////////////////
 // graphql               //
@@ -52,8 +52,23 @@ function language_visitor_tests() {
 function type_definition_tests() {
     isInputType(null);
     isOutputType(null);
-
     assertInputType(null);
+    new GraphQLObjectType({
+        name: "Query",
+        fields: () => ({
+            hello: {
+                type: GraphQLString,
+                args: {
+                    id: {
+                        type: GraphQLString
+                    }
+                },
+                resolve: (source, context, args: {id: null | "string"}) => {
+                    return "world";
+                }
+            }
+        })
+    })
 }
 
 function type_directives_tests() {
