@@ -1,11 +1,12 @@
 import events = require('events');
-import { Replies, Options, Message } from './properties';
+import { Replies, Options, Message, ServerProperties } from './properties';
 export * from './properties';
 
 export interface Connection extends events.EventEmitter {
     close(callback?: (err: any) => void): void;
     createChannel(callback: (err: any, channel: Channel) => void): void;
     createConfirmChannel(callback: (err: any, confirmChannel: ConfirmChannel) => void): void;
+    serverProperties: ServerProperties;
 }
 
 export interface Channel extends events.EventEmitter {

@@ -23,6 +23,7 @@
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
+//                 Thanik Bhongbhibhat <https://github.com/bhongy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -2901,7 +2902,7 @@ declare module "net" {
         listen(options: ListenOptions, listeningListener?: Function): this;
         listen(handle: any, backlog?: number, listeningListener?: Function): this;
         listen(handle: any, listeningListener?: Function): this;
-        close(callback?: Function): this;
+        close(callback?: (err?: Error) => void): this;
         address(): { port: number; family: string; address: string; };
         getConnections(cb: (error: Error | null, count: number) => void): void;
         ref(): this;

@@ -962,11 +962,11 @@ declare namespace Office {
              * 
              * *Supported hosts, by platform*
              *  <table>
-             *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-             *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-             *   <tr><td><strong> Outlook    </strong></td><td> Y (Mailbox 1.3)            </td><td>                            </td><td>                 </td></tr>
-             *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-             *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><th>                             </th><th> Office for Windows desktop                                       </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
+             *   <tr><td><strong> Excel      </strong></td><td> Y                                                                </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><td><strong> Outlook    </strong></td><td> Y (Mailbox 1.3: without options<br>Mailbox Preview: with options)</td><td>                            </td><td>                 </td></tr>
+             *   <tr><td><strong> PowerPoint </strong></td><td> Y                                                                </td><td> Y                          </td><td> Y               </td></tr>
+             *   <tr><td><strong> Word       </strong></td><td> Y                                                                </td><td> Y                          </td><td> Y               </td></tr>
              *  </table>
              * 
              * @param options Optional. An object literal that contains one or more of the following properties.
@@ -974,7 +974,7 @@ declare namespace Office {
              *                    this value indicates of the handled event should continue execution or be canceled. 
              *                    For example, an add-in that handles the ItemSend event can set allowEvent = false to cancel sending of the message.
              */
-            completed(options?: any): void;
+            completed(options?: { allowEvent: boolean }): void;
         }
 
         /**
@@ -1633,7 +1633,7 @@ declare namespace Office {
          */
         controlBackgroundColor: string;
         /**
-         * Gets the Office theme body control color as a hexadecimal color triplet (e.g. "FFA500").
+         * Gets the Office theme control foreground color as a hexadecimal color triplet (e.g. "FFA500").
          */
         controlForegroundColor: string;
     }
@@ -10751,6 +10751,12 @@ declare namespace Office {
          * Gets the size of the attachment in bytes.
          */
         size: number;
+        /**
+         * Gets the url of the attachment if its type is `MailboxEnums.AttachmentType.Cloud`.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        url: string;
     }
     /**
      * The body object provides methods for adding and updating the content of the message or appointment. 

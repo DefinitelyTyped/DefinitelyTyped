@@ -1003,7 +1003,15 @@ const SQSEvent: AWSLambda.SQSEvent = {
                 SenderId: "594035263019",
                 ApproximateFirstReceiveTimestamp: "1529104986230"
             },
-            messageAttributes: {},
+            messageAttributes: {
+                testAttr: {
+                    stringValue: "100",
+                    binaryValue: "base64Str",
+                    stringListValues: [],
+                    binaryListValues: [],
+                    dataType: "Number"
+                }
+            },
             md5OfBody: "9bb58f26192e4ba00f01e2e7b136bbd8",
             eventSource: "aws:sqs",
             eventSourceARN: "arn:aws:sqs:us-west-2:594035263019:NOTFIFOQUEUE",
@@ -1039,6 +1047,10 @@ const SQSMessageNode8AsyncHandler: AWSLambda.SQSHandler = async (
     event;
     str = event.Records[0].messageId;
     anyObj = event.Records[0].body;
+    strOrUndefined = event.Records[0].messageAttributes.testAttr.stringValue;
+    strOrUndefined = event.Records[0].messageAttributes.testAttr.binaryValue;
+    str = event.Records[0].messageAttributes.testAttr.dataType;
+
     // $ExpectType Context
     context;
     str = context.functionName;

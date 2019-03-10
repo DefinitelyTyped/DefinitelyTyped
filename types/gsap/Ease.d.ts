@@ -1,6 +1,6 @@
 declare namespace gsap {
     class Ease {
-        constructor(func?: () => void, extraParams?: any[], type?: number, power?: number);
+        constructor(func?: (...args: any[]) => void, extraParams?: any[], type?: number, power?: number);
 
         /** Translates the tween's progress ratio into the corresponding ease ratio. */
         getRatio(p: number): number;
