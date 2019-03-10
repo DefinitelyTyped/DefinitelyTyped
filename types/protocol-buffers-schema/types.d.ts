@@ -1,22 +1,24 @@
 export interface Option {
-    [key: string]: string | boolean
+    [key: string]: string | boolean;
 }
 
 export interface Options {
-    [key: string]: string | boolean | Option | Option[]
+    [key: string]: string | boolean | Option | Option[];
 }
 
-export interface Enum  {
+export interface Enum {
     name: string;
-    values: {[key: string]: {
+    values: {
+        [key: string]: {
             value: number;
             options: Options;
-    }};
+        };
+    };
     options: Options;
 }
 
 export interface FieldOptions {
-    [key: string]: string
+    [key: string]: string;
 }
 
 export interface Field {
@@ -24,8 +26,8 @@ export interface Field {
     type: string;
     tag: number;
     map: {
-        from: string,
-        to: string
+        from: string;
+        to: string;
     };
     oneof: null | string;
     required: boolean;
@@ -37,19 +39,19 @@ export interface Message {
     name: string;
     enums: Enum[];
     extends: Extend[];
-    extensions: Extension[]
+    extensions: Extension[];
     messages: Message[];
     fields: Field[];
 }
 
 export interface Extend {
-    name: string
-    message: Message
+    name: string;
+    message: Message;
 }
 
 export interface Extension {
-    from: number
-    to: number
+    from: number;
+    to: number;
 }
 
 export interface Service {

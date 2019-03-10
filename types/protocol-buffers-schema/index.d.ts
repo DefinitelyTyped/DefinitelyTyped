@@ -3,7 +3,7 @@
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Schema} from "./types"
+import { Schema } from "./types";
 declare namespace parse {
     export function parse(buffer: string | Buffer): Schema;
     export function stringify(schema: Schema): string;
