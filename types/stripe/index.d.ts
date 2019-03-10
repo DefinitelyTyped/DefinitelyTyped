@@ -1254,7 +1254,7 @@ declare namespace Stripe {
             max_redemptions: number;
 
             metadata: IMetadata;
-            
+
             /**
              * Name of the coupon displayed to customers on for instance invoices or receipts.
              */
@@ -1317,7 +1317,7 @@ declare namespace Stripe {
              * For example, you might have a 50% off coupon that the first 20 readers of your blog can use.
              */
             max_redemptions?: number;
-            
+
             /**
              * Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the id is shown if name is not set.
              */
