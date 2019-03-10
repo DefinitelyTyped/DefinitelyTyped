@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "protocol-buffers-schema-tests.ts"]
+    "files": ["index.d.ts", "parse.d.ts", "stringify.d.ts", "tokenize.d.ts", "protocol-buffers-schema-tests.ts"]
 }
