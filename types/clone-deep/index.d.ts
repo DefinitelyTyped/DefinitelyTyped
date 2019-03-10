@@ -4,11 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-export interface InstanceClone<T> {
-  (val: T): T;
-}
-
 export default function cloneDeep<T>(
   val: T,
-  instanceClone?: true | InstanceClone<T>
+  instanceClone?: true | ((val: T) => T)
 ): T;
