@@ -41,3 +41,13 @@ vara.ready(() => {});
 // $ExpectType false | TextElements
 vara.get(0);
 vara.get('second');
+
+// $ExpectType void
+vara.draw(0);
+vara.draw(0, 1000);
+
+// $ExpectType void
+vara.animationEnd((id, group) => {});
+
+// $ExpectType void
+vara.playAll();
