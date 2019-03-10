@@ -1,6 +1,16 @@
 import Sequelize = require("sequelize");
 import Q = require('q');
 import Bluebird = require('bluebird');
+import SequelizeAsDefault from 'sequelize';
+import { Sequelize as SequelizeAsIndividualExport } from 'sequelize';
+
+//
+// Import checks
+// ~~~~~~~~~~~~~
+//
+Sequelize.Model.Instance
+SequelizeAsDefault.Model.Instance
+SequelizeAsIndividualExport.Model.Instance
 
 //
 //  Fixtures
@@ -238,6 +248,13 @@ product.createWarehouse({ id: 1 }, { save: true, silent: true }).then(() => { })
 warehouse.getProducts();
 warehouse.getProducts({ where: {}, scope: false });
 warehouse.getProducts({ where: {}, scope: false }).then((products) => products[0].id);
+
+interface ProductInstanceIncludeBarcode extends ProductInstance {
+    barcode: BarcodeInstance
+}
+warehouse.getProducts({ where: {}, scope: false, include: {model: Barcode, as: 'barcode'} }).then((products) => {
+    (products[0] as ProductInstanceIncludeBarcode).barcode
+});
 
 warehouse.setProducts();
 warehouse.setProducts([product]);
@@ -1242,7 +1259,7 @@ s.query( '' );
 s.query( '' ).then( function( res ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
-s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
+s.query( 'select ? as foo, ? as bar', { type : sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { type : s.QueryTypes.SELECT } );
 s.query( 'select :one as foo, :two as bar', { raw : true, replacements : { one : 1, two : 2 } } );
 s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ); } );

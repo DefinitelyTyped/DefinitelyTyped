@@ -120,6 +120,7 @@ export interface Components {
     dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     timeSlotWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
+    timeGutterHeader?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     timeGutterWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     toolbar?: React.ComponentType<ToolbarProps>;
     agenda?: {

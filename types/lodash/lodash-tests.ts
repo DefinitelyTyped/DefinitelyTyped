@@ -5154,6 +5154,9 @@ fp.now(); // $ExpectType number
 
 // _.get
 {
+    const value: string | undefined = anything;
+    const defaultValue: boolean = anything;
+
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
@@ -5163,6 +5166,9 @@ fp.now(); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
+    _.get({ a: undefined }, "a"); // $ExpectType undefined
+    _.get({ a: value }, "a", defaultValue); // $ExpectType string | boolean
+    _.get({ a: undefined }, "a", defaultValue); // $ExpectType boolean
 
     _("abc").get(1); // $ExpectType string
     _("abc").get(["0"], "_");
@@ -5170,6 +5176,9 @@ fp.now(); // $ExpectType number
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
     _({ a: { b: true } }).get(["a"]); // $ExpectType { b: boolean; }
     _({ a: { b: true } }).get(["a", "b"]); // $ExpectType any
+    _({ a: undefined }).get("a"); // $ExpectType undefined
+    _({ a: value }).get("a", defaultValue); // $ExpectType string | boolean
+    _({ a: undefined }).get("a", defaultValue); // $ExpectType boolean
 
     _.chain("abc").get(1); // $ExpectType LoDashExplicitWrapper<string>
     _.chain("abc").get(["0"], "_");
@@ -5177,6 +5186,9 @@ fp.now(); // $ExpectType number
     _.chain({ a: { b: true } }).get("a"); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a"]); // $ExpectType LoDashExplicitWrapper<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType LoDashExplicitWrapper<any>
+    _.chain({ a: undefined }).get("a"); // $ExpectType LoDashExplicitWrapper<undefined>
+    _.chain({ a: value }).get("a", defaultValue); // $ExpectType LoDashExplicitWrapper<string | boolean>
+    _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType LoDashExplicitWrapper<boolean>
 
     fp.get(Symbol.iterator, []); // $ExpectType any
     fp.get(Symbol.iterator)([]); // $ExpectType any

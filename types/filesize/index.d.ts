@@ -1,8 +1,9 @@
-// Type definitions for filesize 4.0
+// Type definitions for filesize 4.1
 // Project: https://github.com/avoidwork/filesize.js, https://filesizejs.com
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Renaud Chaput <https://github.com/renchap>
 //                 Roman Nuritdinov <https://github.com/Ky6uk>
+//                 Sam Hulick <https://github.com/ffxsam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var fileSize: Filesize.Filesize;
@@ -57,6 +58,10 @@ declare namespace Filesize {
          * Array of full form overrides, default is []
          */
         fullforms?: string[];
+        /**
+         * BCP 47 language tag to specify a locale, or true to use default locale, default is ""
+         */
+        locale?: string | boolean;
         /**
          * Output of function (array, exponent, object, or string), default is string
          */

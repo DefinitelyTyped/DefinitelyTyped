@@ -872,10 +872,6 @@ export interface StackNavigatorConfig
 }
 
 // Return createNavigationContainer
-export function StackNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  stackConfig?: StackNavigatorConfig
-): NavigationContainer;
 
 export function createStackNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -891,11 +887,6 @@ export interface SwitchNavigatorConfig {
 
 // Return createNavigationContainer
 export type _SwitchNavigatorConfig = NavigationSwitchRouterConfig;
-
-export function SwitchNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  switchConfig?: SwitchNavigatorConfig
-): NavigationContainer;
 
 export function createSwitchNavigator(
   routeConfigMap: NavigationRouteConfigMap,
@@ -962,11 +953,6 @@ export interface DrawerNavigatorConfig
   drawerLockMode?: DrawerLockMode;
 }
 
-export function DrawerNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawerConfig?: DrawerNavigatorConfig
-): NavigationContainer;
-
 export function createDrawerNavigator(
   routeConfigMap: NavigationRouteConfigMap,
   drawerConfig?: DrawerNavigatorConfig
@@ -1021,15 +1007,6 @@ export interface BottomTabNavigatorConfig
 }
 
 // From navigators/TabNavigator.js
-export function TabNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
-): NavigationContainer;
-
-export function createTabNavigator(
-  routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
-): NavigationContainer;
 
 export function createBottomTabNavigator(
   routeConfigMap: NavigationRouteConfigMap,

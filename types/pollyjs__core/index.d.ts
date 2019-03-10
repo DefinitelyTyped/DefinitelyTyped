@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/core 2.2
+// Type definitions for @pollyjs/core 2.3
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -129,12 +129,12 @@ export class RouteHandler {
 	once(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
 	once(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
 	once(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
-
+	filter: (callback: (req: Request) => boolean) => RouteHandler;
 	passthrough(value?: boolean): RouteHandler;
 	intercept(
 		fn: (req: Request, res: Response, intercept: Intercept) => EventListenerResponse
 	): RouteHandler;
-	recordingName(recordingName: string): RouteHandler;
+	recordingName(recordingName?: string): RouteHandler;
 	configure(config: PollyConfig): RouteHandler;
 }
 export class PollyServer {

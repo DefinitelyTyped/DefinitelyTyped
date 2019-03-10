@@ -94,7 +94,21 @@ stories.add('dynamic knobs', () => {
 });
 
 const readonlyOptionsArray: ReadonlyArray<string> = ['hi'];
-select('With readonly array', readonlyOptionsArray, readonlyOptionsArray[0]);
+select('With readonly string array', readonlyOptionsArray, readonlyOptionsArray[0]);
+
+type StringLiteralType = 'Apple' | 'Banana' | 'Grapes';
+const stringLiteralArray: StringLiteralType[] = ['Apple', 'Banana', 'Grapes'];
+
+let selectedFruit: StringLiteralType;
+
+// type of value returned from `select` must be `StringLiteralType`.
+selectedFruit = select('With string literal array', stringLiteralArray, stringLiteralArray[0]);
+
+const optionsObject = {
+  Apple: { taste: 'sweet', color: 'red' },
+  Lemon: { taste: 'sour', color: 'yellow' }
+};
+select('With object', optionsObject, optionsObject.Apple);
 
 const genericArray = array('With regular array', ['hi', 'there']);
 

@@ -313,7 +313,8 @@ var buffersEqual = require('buffer-equal-constant-time'),
     //ssh2 = require('ssh2'),
     utils = ssh2.utils;
 
-var pubKey = utils.genPublicKey(utils.parseKey(fs.readFileSync('user.pub')) as ssh2_streams.ParsedKey);
+var pubKey = utils.parseKey(fs.readFileSync('user.pub')) as ssh2_streams.ParsedKey;
+var pubKeySSH = Buffer.from(pubKey.getPublicSSH());
 
 new ssh2.Server({
     hostKeys: [fs.readFileSync('host.key')]
@@ -326,15 +327,14 @@ new ssh2.Server({
             && ctx.password === 'bar')
             ctx.accept();
         else if (ctx.method === 'publickey'
-            && ctx.key.algo === pubKey.fulltype
-            && buffersEqual(ctx.key.data, pubKey.public)) {
+            && ctx.key.algo === pubKey.type
+            && buffersEqual(ctx.key.data, pubKeySSH)) {
             if (ctx.signature) {
-                var verifier = crypto.createVerify(ctx.sigAlgo);
-                verifier.update(ctx.blob);
-                if (verifier.verify(pubKey.publicOrig.toString("utf8"), ctx.signature))
+                if (pubKey.verify(ctx.blob, ctx.signature)) {
                     ctx.accept();
-                else
+                } else {
                     ctx.reject();
+                }
             } else {
                 // if no signature present, that means the client is just checking
                 // the validity of the given public key
@@ -359,7 +359,7 @@ new ssh2.Server({
     }).on('end', () => {
         console.log('Client disconnected');
     });
-}).listen(0, '127.0.0.1', () => {
+}).listen(0, '127.0.0.1', function () {
         console.log('Listening on port ' + this.address().port);
     });
 
@@ -425,7 +425,7 @@ new ssh2.Server({
     }).on('end', () => {
         console.log('Client disconnected');
     });
-}).listen(0, '127.0.0.1', () => {
+}).listen(0, '127.0.0.1', function () {
         console.log('Listening on port ' + this.address().port);
     });
 

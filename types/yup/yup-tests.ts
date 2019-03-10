@@ -292,6 +292,8 @@ strSchema.isValid("hello"); // => true
 strSchema.required();
 strSchema.required("req");
 strSchema.required(() => "req");
+strSchema.length(5, "message");
+strSchema.length(5, () => "message");
 strSchema.min(5, "message");
 strSchema.min(5, () => "message");
 strSchema.max(5, "message");
@@ -418,7 +420,7 @@ const description: SchemaDescription = {
     type: "type",
     label: "label",
     meta: { key: "value" },
-    tests: ["test1", "test2"],
+    tests: [{ name: "test1", params: {} }, { name: "test2", params: {} }],
     fields: { key: "value" }
 };
 

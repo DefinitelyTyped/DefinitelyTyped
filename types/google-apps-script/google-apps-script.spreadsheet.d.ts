@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-01-23
+// Type definitions for Google Apps Script 2019-02-27
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,6 +48,35 @@ declare namespace GoogleAppsScript {
      * applied to different cells based on the banding settings.
      */
     export enum BandingTheme { LIGHT_GREY, CYAN, GREEN, YELLOW, ORANGE, BLUE, TEAL, GREY, BROWN, LIGHT_GREEN, INDIGO, PINK }
+
+    /**
+     * Access the existing BigQuery data source specification. To create a new data source
+     * specification, use SpreadsheetApp.newDataSourceSpec().
+     */
+    export interface BigQueryDataSourceSpec {
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getProjectId(): string;
+      getRawQuery(): string;
+      getType(): DataSourceType;
+    }
+
+    /**
+     * The builder for BigQueryDataSourceSpecBuilder.
+     */
+    export interface BigQueryDataSourceSpecBuilder {
+      build(): DataSourceSpec;
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getProjectId(): string;
+      getRawQuery(): string;
+      getType(): DataSourceType;
+      removeAllParameters(): BigQueryDataSourceSpecBuilder;
+      removeParameter(parameterName: string): BigQueryDataSourceSpecBuilder;
+      setParameterFromCell(parameterName: string, sourceCell: string): BigQueryDataSourceSpecBuilder;
+      setProjectId(projectId: string): BigQueryDataSourceSpecBuilder;
+      setRawQuery(rawQuery: string): BigQueryDataSourceSpecBuilder;
+    }
 
     /**
      * Access boolean conditions in ConditionalFormatRules. Each
@@ -166,6 +195,154 @@ declare namespace GoogleAppsScript {
      * An enumeration of possible special paste types.
      */
     export enum CopyPasteType { PASTE_NORMAL, PASTE_NO_BORDERS, PASTE_FORMAT, PASTE_FORMULA, PASTE_DATA_VALIDATION, PASTE_VALUES, PASTE_CONDITIONAL_FORMATTING, PASTE_COLUMN_WIDTHS }
+
+    /**
+     * An enumeration of data execution error codes.
+     */
+    export enum DataExecutionErrorCode { DATA_EXECUTION_ERROR_CODE_UNSUPPORTED, NONE, TIME_OUT, TOO_MANY_ROWS, TOO_MANY_CELLS, ENGINE, PARAMETER_INVALID, UNSUPPORTED_DATA_TYPE, DUPLICATE_COLUMN_NAMES, INTERRUPTED, OTHER, TOO_MANY_CHARS_PER_CELL }
+
+    /**
+     * An enumeration of data execution states.
+     */
+    export enum DataExecutionState { DATA_EXECUTION_STATE_UNSUPPORTED, RUNNING, SUCCESS, ERROR, NOT_STARTED }
+
+    /**
+     * The data execution status.
+     */
+    export interface DataExecutionStatus {
+      getErrorCode(): DataExecutionErrorCode;
+      getErrorMessage(): string;
+      getExecutionState(): DataExecutionState;
+      getLastRefreshedTime(): Date;
+      isTruncated(): boolean;
+    }
+
+    /**
+     * Access and modify existing data source. To create a data source table with new data source, see
+     * DataSourceTable.
+     */
+    export interface DataSource {
+      getSpec(): DataSourceSpec;
+      updateSpec(spec: DataSourceSpec): DataSource;
+    }
+
+    /**
+     * Access existing data source parameters.
+     */
+    export interface DataSourceParameter {
+      getName(): string;
+      getSourceCell(): string;
+      getType(): DataSourceParameterType;
+    }
+
+    /**
+     * An enumeration of data source parameter types.
+     */
+    export enum DataSourceParameterType { DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED, CELL }
+
+    /**
+     * Access the general settings of an existing data source spec. To access data source spec for
+     * certain type, use as...() method. To create a new data source spec, use SpreadsheetApp.newDataSourceSpec().
+     *
+     * This example shows how to get information from a BigQuery data source spec.
+     *
+     *     var dataSourceTable =
+     *         SpreadsheetApp.getActive().getSheetByName("Data Sheet 1").getDataSourceTables()[0];
+     *     var spec = dataSourceTable.getDataSource().getSpec();
+     *     if (spec.getType() == SpreadsheetApp.DataSourceType.BIGQUERY) {
+     *       var bqSpec = spec.asBigQuery();
+     *       Logger.log("Project ID: %s\n", bqSpec.getProjectId());
+     *       Logger.log("Raw query string: %s\n", bqSpec.getRawQuery());
+     *     }
+     */
+    export interface DataSourceSpec {
+      asBigQuery(): BigQueryDataSourceSpec;
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getType(): DataSourceType;
+    }
+
+    /**
+     * The builder for DataSourceSpec. To create a specification for certain type, use as...() method. To create a new builder, use SpreadsheetApp.newDataSourceSpec(). To use the specification, see DataSourceTable.
+     *
+     * This examples show how to build a BigQuery data source specification.
+     *
+     *     var spec = SpreadsheetApp.newDataSourceSpec()
+     *                .asBigQuery()
+     *                .setProjectId('big_query_project')
+     *                .setRawQuery('select @FIELD from table limit @LIMIT')
+     *                .setParameterFromCell('FIELD', 'Sheet1!A1')
+     *                .setParameterFromCell('LIMIT', 'namedRangeCell')
+     *                .build();
+     */
+    export interface DataSourceSpecBuilder {
+      asBigQuery(): BigQueryDataSourceSpecBuilder;
+      build(): DataSourceSpec;
+      copy(): DataSourceSpecBuilder;
+      getParameters(): DataSourceParameter[];
+      getType(): DataSourceType;
+      removeAllParameters(): DataSourceSpecBuilder;
+      removeParameter(parameterName: string): DataSourceSpecBuilder;
+      setParameterFromCell(parameterName: string, sourceCell: string): DataSourceSpecBuilder;
+    }
+
+    /**
+     * Access and modify existing data source table. To create a new data source table on a new sheet,
+     * use Spreadsheet.insertSheetWithDataSourceTable(spec).
+     *
+     * This example shows how to create a new data source table.
+     *
+     *     SpreadsheetApp.enableBigQueryExecution();
+     *     var spreadsheet = SpreadsheetApp.getActive();
+     *     var spec = SpreadsheetApp.newDataSourceSpec()
+     *                .asBigQuery()
+     *                .setProjectId('big_query_project')
+     *                .setRawQuery('select @FIELD from table limit @LIMIT')
+     *                .setParameterFromCell('FIELD', 'Sheet1!A1')
+     *                .setParameterFromCell('LIMIT', 'namedRangeCell')
+     *                .build();
+     *     // Starts data execution asynchronously.
+     *     var dataSheet = spreadsheet.insertSheetWithDataSourceTable(spec);
+     *     var dataSourceTable = dataSheet.getDataSourceTables()[0];
+     *     // waitForCompletion() blocks script execution until data execution completes.
+     *     dataSourceTable.waitForCompletion(60);
+     *     // Check status after execution.
+     *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
+     *
+     * This example shows how to edit a data source.
+     *
+     *     SpreadsheetApp.enableBigQueryExecution();
+     *     var dataSheet = SpreadsheetApp.getActive().getSheetByName("Data Sheet 1");
+     *     var dataSourceTable = dataSheet.getDataSourceTables()[0];
+     *     var dataSource = dataSourceTable.getDataSource();
+     *     var newSpec = dataSource.getSpec()
+     *                   .copy()
+     *                   .asBigQuery()
+     *                   .setRawQuery('select name from table limit 2')
+     *                   .removeAllParameters()
+     *                   .build();
+     *     // Updates data source specification and starts data execution asynchronously.
+     *     dataSource.updateSpec(newSpec);
+     *     // Check status during execution.
+     *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
+     *     // waitForCompletion() blocks script execution until data execution completes.
+     *     dataSourceTable.waitForCompletion(60);
+     *     // Check status after execution.
+     *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
+     */
+    export interface DataSourceTable {
+      forceRefreshData(): DataSourceTable;
+      getDataSource(): DataSource;
+      getRange(): Range;
+      getStatus(): DataExecutionStatus;
+      refreshData(): DataSourceTable;
+      waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
+    }
+
+    /**
+     * An enumeration of data source types.
+     */
+    export enum DataSourceType { DATA_SOURCE_TYPE_UNSUPPORTED, BIGQUERY }
 
     /**
      * Access data validation rules. To create a new rule, use SpreadsheetApp.newDataValidation() and DataValidationBuilder. You can use
@@ -1215,6 +1392,7 @@ declare namespace GoogleAppsScript {
       getBandings(): Banding[];
       getCell(row: Integer, column: Integer): Range;
       getColumn(): Integer;
+      getDataSourceTables(): DataSourceTable[];
       getDataSourceUrl(): string;
       getDataTable(): Charts.DataTable;
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
@@ -1493,6 +1671,7 @@ declare namespace GoogleAppsScript {
       getConditionalFormatRules(): ConditionalFormatRule[];
       getCurrentCell(): Range;
       getDataRange(): Range;
+      getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
       getFilter(): Filter;
       getFormUrl(): string;
@@ -1627,6 +1806,7 @@ declare namespace GoogleAppsScript {
       getColumnWidth(columnPosition: Integer): Integer;
       getCurrentCell(): Range;
       getDataRange(): Range;
+      getDataSourceTables(): DataSourceTable[];
       getDeveloperMetadata(): DeveloperMetadata[];
       getEditors(): Base.User[];
       getFormUrl(): string;
@@ -1677,6 +1857,7 @@ declare namespace GoogleAppsScript {
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer, options: Object): Sheet;
       insertSheet(sheetName: string, options: Object): Sheet;
+      insertSheetWithDataSourceTable(spec: DataSourceSpec): Sheet;
       isColumnHiddenByUser(columnPosition: Integer): boolean;
       isRowHiddenByFilter(rowPosition: Integer): boolean;
       isRowHiddenByUser(rowPosition: Integer): boolean;
@@ -1728,6 +1909,10 @@ declare namespace GoogleAppsScript {
       BooleanCriteria: typeof BooleanCriteria;
       BorderStyle: typeof BorderStyle;
       CopyPasteType: typeof CopyPasteType;
+      DataExecutionErrorCode: typeof DataExecutionErrorCode;
+      DataExecutionState: typeof DataExecutionState;
+      DataSourceParameterType: typeof DataSourceParameterType;
+      DataSourceType: typeof DataSourceType;
       DataValidationCriteria: typeof DataValidationCriteria;
       DeveloperMetadataLocationType: typeof DeveloperMetadataLocationType;
       DeveloperMetadataVisibility: typeof DeveloperMetadataVisibility;
@@ -1744,6 +1929,8 @@ declare namespace GoogleAppsScript {
       WrapStrategy: typeof WrapStrategy;
       create(name: string): Spreadsheet;
       create(name: string, rows: Integer, columns: Integer): Spreadsheet;
+      enableAllDataSourcesExecution(): void;
+      enableBigQueryExecution(): void;
       flush(): void;
       getActive(): Spreadsheet;
       getActiveRange(): Range;
@@ -1754,6 +1941,7 @@ declare namespace GoogleAppsScript {
       getSelection(): Selection;
       getUi(): Base.Ui;
       newConditionalFormatRule(): ConditionalFormatRuleBuilder;
+      newDataSourceSpec(): DataSourceSpecBuilder;
       newDataValidation(): DataValidationBuilder;
       newFilterCriteria(): FilterCriteriaBuilder;
       newRichTextValue(): RichTextValueBuilder;

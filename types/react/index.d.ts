@@ -21,6 +21,7 @@
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Paul Sherman <https://github.com/pshrmn>
 //                 Sunil Pai <https://github.com/threepointone>
+//                 Saransh Kataria <https://github.com/saranshkataria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -51,11 +52,15 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType<P = any> =
+    type ElementType<P = any> =
         {
             [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
         }[keyof JSX.IntrinsicElements] |
         ComponentType<P>;
+    /**
+     * @deprecated Please use `ElementType`
+     */
+    type ReactType<P = any> = ElementType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type JSXElementConstructor<P> =
@@ -422,7 +427,7 @@ declare namespace React {
         // always pass children as variadic arguments to `createElement`.
         // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
-        readonly props: Readonly<PropsWithChildren<P>>;
+        readonly props: Readonly<P> & Readonly<{ children?: ReactNode }>;
         state: Readonly<S>;
         /**
          * @deprecated
@@ -734,11 +739,11 @@ declare namespace React {
             : T extends keyof JSX.IntrinsicElements
                 ? JSX.IntrinsicElements[T]
                 : {};
-    type ComponentPropsWithRef<T extends ReactType> =
+    type ComponentPropsWithRef<T extends ElementType> =
         T extends ComponentClass<infer P>
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
-    type ComponentPropsWithoutRef<T extends ReactType> =
+    type ComponentPropsWithoutRef<T extends ElementType> =
         PropsWithoutRef<ComponentProps<T>>;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
@@ -1773,6 +1778,7 @@ declare namespace React {
         rel?: string;
         target?: string;
         type?: string;
+        referrerPolicy?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface

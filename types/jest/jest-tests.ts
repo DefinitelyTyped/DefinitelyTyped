@@ -267,6 +267,7 @@ jest
     .mock("moduleName", jest.fn(), { virtual: true })
     .resetModuleRegistry()
     .resetModules()
+    .isolateModules(() => {})
     .retryTimes(3)
     .runAllImmediates()
     .runAllTicks()

@@ -41,7 +41,7 @@ export class JSDOM {
      * Behind the scenes, a jsdom Window is indeed a VM context.
      * To get access to this ability, use the runVMScript() method.
      */
-    runVMScript(script: Script): void;
+    runVMScript(script: Script): any;
 
     reconfigure(settings: ReconfigureSettings): void;
 }
