@@ -1,39 +1,14 @@
 // Type definitions for protocol-buffers-schema 3.3
 // Project: https://github.com/mafintosh/protocol-buffers-schema
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
-
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+import {Schema} from "./types"
+declare namespace parse {
+    export function parse(buffer: string | Buffer): Schema;
+    export function stringify(schema: Schema): string;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
+declare function parse(buffer: string | Buffer): Schema;
 
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    export function foo(): void;
-}
+export = parse;
