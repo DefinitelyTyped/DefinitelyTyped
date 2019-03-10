@@ -3,6 +3,8 @@
 // Definitions by: Claas Ahlrichs <https://github.com/claasahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 import { Schema } from "./types";
 declare namespace parse {
     function parse(buffer: string | Buffer): Schema;
