@@ -220,8 +220,8 @@ const customSlotPropGetter = (date: Date) => {
 function Event(props: EventProps<CalendarEvent>) {
     return (
         <span>
-            <strong>{event.title}</strong>
-            {event.desc && ':  ' + event.desc}
+            <strong>{props.event.title}</strong>
+            {props.event.desc && ':  ' + props.event.desc}
         </span>
     );
 }
