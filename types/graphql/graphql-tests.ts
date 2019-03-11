@@ -66,7 +66,7 @@ function type_definition_tests() {
                     }
                 },
                 resolve: (source, args, context) => {
-                    return args.message || args.message;
+                    return args.message;
                 }
             }
         })
