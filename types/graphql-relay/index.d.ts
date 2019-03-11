@@ -30,29 +30,29 @@ import {
 // connection/connection.js
 
 /**
- * Returns a GraphQLFieldConfigArgumentMap appropriate to include on a field
+ * Returns a GraphQLFieldConfigArgumentMap<any> appropriate to include on a field
  * whose return type is a connection type with forward pagination.
  */
 export interface ForwardConnectionArgs {
     after: { type: GraphQLScalarType };
     first: { type: GraphQLScalarType };
 }
-export const forwardConnectionArgs: GraphQLFieldConfigArgumentMap & ForwardConnectionArgs;
+export const forwardConnectionArgs: GraphQLFieldConfigArgumentMap<any> & ForwardConnectionArgs;
 
 /**
- * Returns a GraphQLFieldConfigArgumentMap appropriate to include on a field
+ * Returns a GraphQLFieldConfigArgumentMap<any> appropriate to include on a field
  * whose return type is a connection type with backward pagination.
  */
 export interface BackwardConnectionArgs {
     before: { type: GraphQLScalarType };
     last: { type: GraphQLScalarType };
 }
-export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap & BackwardConnectionArgs;
+export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap<any> & BackwardConnectionArgs;
 /**
- * Returns a GraphQLFieldConfigArgumentMap appropriate to include on a field
+ * Returns a GraphQLFieldConfigArgumentMap<any> appropriate to include on a field
  * whose return type is a connection type with bidirectional pagination.
  */
-export const connectionArgs: GraphQLFieldConfigArgumentMap & ForwardConnectionArgs & BackwardConnectionArgs;
+export const connectionArgs: GraphQLFieldConfigArgumentMap<any> & ForwardConnectionArgs & BackwardConnectionArgs;
 
 export type ConnectionConfigNodeTypeNullable =
     | GraphQLScalarType
