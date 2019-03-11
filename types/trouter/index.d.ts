@@ -1,4 +1,4 @@
-// Type definitions for trouter 2.0
+// Type definitions for trouter 3.0
 // Project: https://github.com/lukeed/trouter
 // Definitions by: Markus Lanz <https://github.com/stahlstift>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,6 +48,8 @@ export type HTTPMethod =
 export type FindReturn<T> = FindResult<T> | false;
 
 declare class Trouter<T = any> {
+    use(pattern: string, ...handlers: T[]): this;
+
     find(method: HTTPMethod, url: string): FindReturn<T>;
 
     add(method: HTTPMethod, pattern: string, ...handlers: T[]): this;
