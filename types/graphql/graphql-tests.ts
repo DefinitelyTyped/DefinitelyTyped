@@ -55,7 +55,7 @@ function type_definition_tests() {
     assertInputType(null);
     new GraphQLObjectType({
         name: "Query",
-        fields: () : {
+        fields: (): {
             hello: GraphQLFieldConfig<any, { message: null | string }, any>
         } => ({
             hello: {
