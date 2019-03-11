@@ -1682,21 +1682,21 @@ declare namespace DataTables {
     }
 
     interface ObjectColumnData {
-        _: string | FunctionColumnData;
-        filter?: string | FunctionColumnData;
-        display?: string | FunctionColumnData;
-        type?: string | FunctionColumnData;
-        sort?: string | FunctionColumnData;
+        _: string | number | FunctionColumnData;
+        filter?: string | number | FunctionColumnData;
+        display?: string | number | FunctionColumnData;
+        type?: string | number | FunctionColumnData;
+        sort?: string | number | FunctionColumnData;
     }
 
     type FunctionColumnRender = (data: any, type: any, row: any, meta: CellMetaSettings) => any;
 
     interface ObjectColumnRender {
-        _?: string | FunctionColumnRender;
-        filter?: string | FunctionColumnRender;
-        display?: string | FunctionColumnRender;
-        type?: string | FunctionColumnRender;
-        sort?: string | FunctionColumnRender;
+        _?: string | number | FunctionColumnRender;
+        filter?: string | number | FunctionColumnRender;
+        display?: string | number | FunctionColumnRender;
+        type?: string | number | FunctionColumnRender;
+        sort?: string | number | FunctionColumnRender;
     }
 
     interface CellMetaSettings {
