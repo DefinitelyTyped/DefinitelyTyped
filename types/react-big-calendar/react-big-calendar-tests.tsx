@@ -93,7 +93,7 @@ class CalendarResource {
     class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent, CalendarResource>> {
         render() {
             return (
-              <MyCalendar<CalendarEvent> {...this.props}
+              <MyCalendar {...this.props}
               date={new Date()}
               getNow={() => new Date()}
               view={'day'}
