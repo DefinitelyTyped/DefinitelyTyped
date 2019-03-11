@@ -22,6 +22,10 @@ const inTest = async (webDriver: WebDriver) => {
         .configure(spec)
         .analyze((err: Error | null, internalResults: AxeAnalysis) => {});
 
+    const deprecatedAnalysis: AxeAnalysis = await AxeBuilder(webDriver).analyze(
+        (internalResults: AxeAnalysis) => {}
+    );
+
     const inapplicable: Result[] = analysis.inapplicable;
     const incomplete: Result[] = analysis.incomplete;
     const passes: Result[] = analysis.passes;
