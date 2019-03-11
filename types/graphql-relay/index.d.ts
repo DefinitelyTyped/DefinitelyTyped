@@ -246,14 +246,14 @@ export interface MutationConfig {
  */
 export function mutationWithClientMutationId(
     config: MutationConfig
-): GraphQLFieldConfig<any, any>;
+): GraphQLFieldConfig<any, any, any>;
 
 // node/node.js
 
 export interface GraphQLNodeDefinitions {
     nodeInterface: GraphQLInterfaceType;
-    nodeField: GraphQLFieldConfig<any, any>;
-    nodesField: GraphQLFieldConfig<any, any>;
+    nodeField: GraphQLFieldConfig<any, any, any>;
+    nodesField: GraphQLFieldConfig<any, any, any>;
 }
 
 export type typeResolverFn = ((any: any) => GraphQLObjectType) |
@@ -300,7 +300,7 @@ export function fromGlobalId(globalId: string): ResolvedGlobalId;
 export function globalIdField(
     typeName?: string,
     idFetcher?: (object: any, context: any, info: GraphQLResolveInfo) => string
-): GraphQLFieldConfig<any, any>;
+): GraphQLFieldConfig<any, any, any>;
 
 // node/plural.js
 
@@ -314,4 +314,4 @@ export interface PluralIdentifyingRootFieldConfig {
 
 export function pluralIdentifyingRootField(
     config: PluralIdentifyingRootFieldConfig
-): GraphQLFieldConfig<any, any>;
+): GraphQLFieldConfig<any, any, any>;
