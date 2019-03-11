@@ -115,3 +115,40 @@ export function createPlugin(
     plugin: (primaryOption: any, secondaryOptions: RuleOption[]) =>
         (root: postcss.Root, result: postcss.Result) => void|PromiseLike<void>,
 ): any;
+
+export interface RuleTesterResult {
+    expected: number;
+    actual: number;
+    description: string;
+}
+
+export interface RuleTesterTest {
+    code: string;
+    description?: string;
+}
+
+export interface RuleTesterTestRejected extends RuleTesterTest {
+    line?: number;
+    column?: number;
+    only?: boolean;
+    message?: string;
+}
+
+export interface RuleTesterSchema {
+    ruleName: string;
+    syntax?: SyntaxType;
+    config?: any;
+    accept?: RuleTesterTest[];
+    reject?: RuleTesterTestRejected[];
+}
+
+export interface RuleTesterContext {
+    comparisonCount: number;
+    completeAssertionDescription: string;
+    caseDescription: string;
+    only?: boolean;
+}
+
+export function createRuleTester(
+    fn: (result: Promise<RuleTesterResult[]>, context: RuleTesterContext) => void
+): (rule: any, schema: RuleTesterSchema) => void;

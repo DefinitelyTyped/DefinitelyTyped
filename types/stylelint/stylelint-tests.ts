@@ -1,4 +1,16 @@
-import { LinterOptions, FormatterType, SyntaxType, lint, LintResult, LinterResult, createPlugin, utils } from "stylelint";
+import {
+    LinterOptions,
+    FormatterType,
+    SyntaxType,
+    lint,
+    LintResult,
+    LinterResult,
+    createPlugin,
+    utils,
+    createRuleTester,
+    RuleTesterContext,
+    RuleTesterResult
+} from "stylelint";
 
 const options: Partial<LinterOptions> = {
     code: "div { color: red }",
@@ -51,4 +63,23 @@ createPlugin(ruleName, options => {
             });
         });
     };
+});
+
+const tester = createRuleTester(
+    (result: Promise<RuleTesterResult[]>, context: RuleTesterContext) => {
+        return;
+    }
+);
+
+tester({}, {
+    ruleName: 'foo',
+    config: [true, 1],
+    accept: [
+        { code: 'test' },
+        { code: 'test2', description: 'testing' }
+    ],
+    reject: [
+        { code: 'testreject', line: 1, column: 1 },
+        { code: 'test2reject', message: 'x', line: 1, column: 1 }
+    ]
 });
