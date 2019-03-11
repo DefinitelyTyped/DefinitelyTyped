@@ -229,6 +229,12 @@
             "asOfVersion": "3.5.0"
         },
         {
+            "libraryName": "chai-http",
+            "typingsPackageName": "chai-http",
+            "sourceRepoURL": "https://github.com/chaijs/chai-http",
+            "asOfVersion": "4.2.0"
+        },
+        {
             "libraryName": "chalk",
             "typingsPackageName": "chalk",
             "sourceRepoURL": "https://github.com/chalk/chalk",
@@ -1177,12 +1183,6 @@
             "asOfVersion": "2.15.0"
         },
         {
-            "libraryName": "png-async",
-            "typingsPackageName": "png-async",
-            "sourceRepoURL": "https://github.com/kanreisa/node-png-async",
-            "asOfVersion": "0.9.4"
-        },
-        {
             "libraryName": "node-waves",
             "typingsPackageName": "node-waves",
             "sourceRepoURL": "http://fian.my.id/Waves",
@@ -1343,6 +1343,12 @@
             "typingsPackageName": "plottable",
             "sourceRepoURL": "http://plottablejs.org/",
             "asOfVersion": "3.7.0"
+        },
+        {
+            "libraryName": "png-async",
+            "typingsPackageName": "png-async",
+            "sourceRepoURL": "https://github.com/kanreisa/node-png-async",
+            "asOfVersion": "0.9.4"
         },
         {
             "libraryName": "poly2tri.js",
