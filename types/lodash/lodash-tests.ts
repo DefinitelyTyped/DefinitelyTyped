@@ -4291,6 +4291,12 @@ fp.now(); // $ExpectType number
     _(42).isObject(); // $ExpectType boolean
     _.chain([]).isObject(); // $ExpectType LoDashExplicitWrapper<boolean>
     fp.isObject(anything); // $ExpectType boolean
+    if (fp.isObject(anything)) {
+        anything; // $ExpectType object
+    }
+    if (_.isObject(anything)) {
+        anything; // $ExpectType object
+    }
 }
 
 // _.isObjectLike
