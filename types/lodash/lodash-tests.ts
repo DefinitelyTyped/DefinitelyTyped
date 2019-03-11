@@ -6608,10 +6608,10 @@ fp.now(); // $ExpectType number
     _(undefined).defaultTo({ a: "" }); // $ExpectType { a: string; }
 
     _.chain(42).defaultTo(42); // $ExpectType LoDashExplicitWrapper<number>
-    _.chain(undefined).defaultTo(42); // $ExpectType LoDashExplicitWrapper<42>
-    _.chain(null).defaultTo(42); // $ExpectType LoDashExplicitWrapper<42>
+    const z1: _.LoDashExplicitWrapper<number> = _.chain(undefined).defaultTo(42);
+    const z2: _.LoDashExplicitWrapper<number> = _.chain(null).defaultTo(42);
     _.chain(NaN).defaultTo(42); // $ExpectType LoDashExplicitWrapper<number>
-    _.chain(undefined).defaultTo("default"); // $ExpectType LoDashExplicitWrapper<"default">
+    const z3: _.LoDashExplicitWrapper<string> =  _.chain(undefined).defaultTo("default");
     _.chain(undefined).defaultTo([true]); // $ExpectType LoDashExplicitWrapper<boolean[]>
     _.chain(undefined).defaultTo({ a: "" }); // $ExpectType LoDashExplicitWrapper<{ a: string; }>
 
