@@ -28,6 +28,7 @@
 //                 Loïk Gaonac'h <https://github.com/loikg>
 //                 Roberto Zen <https://github.com/skyzenr>
 //                 Richard Cornelissen <https://github.com/richardcornelissen>
+//                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -85,6 +86,24 @@ export interface APIGatewayProxyEvent {
     resource: string;
 }
 export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
+
+// https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html
+export interface ApplicationLoadBalancerEventRequestContext {
+    elb: {
+        targetGroupArn: string;
+    };
+}
+export interface ApplicationLoadBalancerEvent {
+    requestContext: ApplicationLoadBalancerEventRequestContext;
+    httpMethod: string;
+    path: string;
+    queryStringParameters?: { [parameter: string]: string }; // URL encoded
+    headers?: { [header: string]: string };
+    multiValueQueryStringParameters?: { [parameter: string]: string[] }; // URL encoded
+    multiValueHeaders?: { [header: string]: string[] };
+    body: string | null;
+    isBase64Encoded: boolean;
+}
 
 // API Gateway CustomAuthorizer "event"
 export interface CustomAuthorizerEvent {
@@ -473,6 +492,15 @@ export interface APIGatewayProxyResult {
     isBase64Encoded?: boolean;
 }
 export type ProxyResult = APIGatewayProxyResult; // Old name
+
+export interface ApplicationLoadBalancerResult {
+    statusCode: number;
+    statusDescription: string;
+    headers?: { [header: string]: boolean | number | string };
+    multiValueHeaders?: { [header: string]: Array<boolean | number | string> };
+    body: string;
+    isBase64Encoded: boolean;
+}
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.
@@ -1051,6 +1079,8 @@ export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayPro
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
+
+export type ApplicationLoadBalancerHandler = Handler<ApplicationLoadBalancerEvent, ApplicationLoadBalancerResult>;
 
 // TODO: IoT
 
