@@ -226,7 +226,7 @@ function Event(props: EventProps<CalendarEvent>) {
     );
 }
 
-function EventWrapper(props:EventWrapperProps<CalendarEvent>) {
+function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     const { continuesEarlier, event, label, accessors = {}, style } = props;
     return (
         <div style={style}>
