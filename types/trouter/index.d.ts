@@ -45,14 +45,12 @@ declare namespace Trouter {
         | 'UNLINK'
         | 'UNLOCK'
         | 'UNSUBSCRIBE';
-
-    type FindReturn<T> = FindResult<T> | false;
 }
 
 declare class Trouter<T = any> {
     use(pattern: string, ...handlers: T[]): this;
 
-    find(method: Trouter.HTTPMethod, url: string): Trouter.FindReturn<T>;
+    find(method: Trouter.HTTPMethod, url: string): Trouter.FindResult<T>;
 
     add(method: Trouter.HTTPMethod, pattern: string, ...handlers: T[]): this;
 

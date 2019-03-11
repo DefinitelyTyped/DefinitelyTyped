@@ -11,11 +11,11 @@ const typed = new Trouter<Handler>();
 typed.get('/user/:id', (t: number, s: string) => {
 });
 const findResult = typed.find('GET', '/users/1');
-if (findResult && findResult.handlers.length > 0) {
+if (findResult.handlers.length > 0) {
     findResult.handlers[0](42, "asdf");
 }
 const notFound = typed.find('GET', '/not-existent');
-if (!notFound) {
+if (notFound.handlers.length === 0) {
     // no match...
 }
 
@@ -23,7 +23,7 @@ if (!notFound) {
 const findTest = new Trouter();
 findTest.add('GET', '/user/:id', 'handler');
 const fresult = findTest.find('GET', '/user/1');
-if (fresult && fresult.params.id) {
+if (fresult.params.id) {
     // do something awesome!
     fresult.handlers[0] === 'handler';
 }
