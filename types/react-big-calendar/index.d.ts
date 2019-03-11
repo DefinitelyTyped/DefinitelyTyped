@@ -113,9 +113,9 @@ export interface HeaderProps {
     localizer: DateLocalizer;
 }
 
-export interface Components {
-    event?: React.ComponentType<EventProps>;
-    eventWrapper?: React.ComponentType<EventWrapperProps>;
+export interface Components<T> {
+    event?: React.ComponentType<EventProps<T>>;
+    eventWrapper?: React.ComponentType<EventWrapperProps<T>>;
     eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -263,7 +263,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     scrollToTime?: Date;
     culture?: string;
     formats?: Formats;
-    components?: Components;
+    components?: Components<TEvent>;
     messages?: Messages;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string);
     allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean);
