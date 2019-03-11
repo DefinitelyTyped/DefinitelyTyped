@@ -93,7 +93,7 @@ class CalendarResource {
     class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent, CalendarResource>> {
         render() {
             return (
-              <MyCalendar  {...this.props}
+              <MyCalendar<CalendarEvent> {...this.props}
               date={new Date()}
               getNow={() => new Date()}
               view={'day'}
@@ -217,7 +217,7 @@ const customSlotPropGetter = (date: Date) => {
     else return {};
 };
 
-function Event(event: any) {
+function Event(props: EventProps<CalendarEvent>) {
     return (
         <span>
             <strong>{event.title}</strong>
@@ -226,15 +226,13 @@ function Event(event: any) {
     );
 }
 
-class EventWrapper extends React.Component<EventWrapperProps> {
-    render() {
-        const { continuesEarlier, event, label, accessors = {}, style } = this.props;
-        return (
-            <div style={style}>
-                <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
-            </div>
-        );
-    }
+function EventWrapper(props:EventWrapperProps<CalendarEvent>) {
+    const { continuesEarlier, event, label, accessors = {}, style } = props;
+    return (
+        <div style={style}>
+            <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
+        </div>
+    );
 }
 
 class Toolbar extends React.Component<ToolbarProps> {
