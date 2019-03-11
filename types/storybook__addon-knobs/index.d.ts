@@ -52,6 +52,7 @@ export function object<T>(name: string, value: T, groupId?: string): T;
 export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): string;
 
 export function select<T>(name: string, options: { [s: string]: T }, value: T, groupId?: string): T;
+export function select<T extends string>(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
 export function select(name: string, options: ReadonlyArray<string>, value: string, groupId?: string): string;
 
 export function date(name: string, value?: Date, groupId?: string): Date;

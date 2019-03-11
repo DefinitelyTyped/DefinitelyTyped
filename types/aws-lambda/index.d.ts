@@ -879,11 +879,17 @@ export interface SQSRecordAttributes {
     SenderId: string;
     ApproximateFirstReceiveTimestamp: string;
 }
+
+export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;
+
 export interface SQSMessageAttribute {
-    Name: string;
-    Type: string;
-    Value: string;
+    stringValue?: string;
+    binaryValue?: string;
+    stringListValues: never[]; // Not implemented. Reserved for future use.
+    binaryListValues: never[]; // Not implemented. Reserved for future use.
+    dataType: SQSMessageAttributeDataType;
 }
+
 export interface SQSMessageAttributes {
     [name: string]: SQSMessageAttribute;
 }

@@ -1,6 +1,7 @@
 // Type definitions for non-npm package the SketchApp 1.0
 // Project: https://github.com/xlayers/xlayers
 // Definitions by: Wassim Chegham <https://github.com/manekinekko>
+//                 Phetsinorath William <https://github.com/shikanime>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type SketchMSBorderPositionEnum = 0 | 1 | 2 | 3;
@@ -17,8 +18,33 @@ type SketchMSLayerListExpandedType = 0 | 1 | 2;
 type SketchMSEncodedBase64BinaryPlist = string;
 type SketchMSNSColorArchive = SketchMSKeyValueArchive;
 type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
+type SketchMSUserData = SketchMSUserDocument | SketchMSUserPage;
 interface SketchMSNestedSymbolOverride {
   symbolID: string;
+}
+interface SketchMSPreview {
+  source: string;
+  width: number;
+  height: number;
+}
+interface SketchMSUserPage {
+  [key: string]: {
+    scrollOrigin: SketchMSCurvePoint;
+    zoomValue: number;
+  };
+}
+interface SketchMSUserDocument {
+  document: {
+    pageListCollapsed: number;
+    pageListHeight: number;
+  };
+}
+interface SketchMSData {
+  pages: SketchMSPage[];
+  previews: SketchMSPreview[];
+  document: SketchMSDocumentData;
+  user: SketchMSUserData;
+  meta: SketchMSMetadata;
 }
 interface SketchMSStringAttribute {
   _class: 'stringAttribute';
@@ -83,8 +109,8 @@ interface SketchMSImageDataReference {
 }
 type SketchMSPointString = string;
 interface SketchMSPath {
-  _class: 'path';
-  isClosed: boolean;
+  _class: 'path' | 'shapePath' | 'rectangle' | 'oval' | 'triangle';
+  isClosed?: boolean;
   points: SketchMSCurvePoint[];
 }
 interface SketchMSCurvePoint {
@@ -355,6 +381,8 @@ interface SketchMSSymbolMaster {
   attributedString: SketchMSAttributedString;
   name: string;
   layers: SketchMSLayer[];
+  points: SketchMSPath;
+  isClosed?: boolean;
   isVisible: boolean;
   nameIsFixed: boolean;
   grid: SketchMSSimpleGrid;

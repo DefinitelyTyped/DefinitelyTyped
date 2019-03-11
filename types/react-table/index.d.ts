@@ -51,12 +51,12 @@ export interface SortingRule {
 }
 
 export interface TableProps<D = any, ResolvedData = D> extends
-    Partial<TextProps>,
-    Partial<ComponentDecoratorProps>,
-    Partial<ControlledStateCallbackProps>,
-    Partial<PivotingProps>,
-    Partial<ControlledStateOverrideProps>,
-    Partial<ComponentProps> {
+    TextProps,
+    ComponentDecoratorProps,
+    ControlledStateCallbackProps,
+    PivotingProps,
+    ControlledStateOverrideProps,
+    ComponentProps {
     /** Default: [] */
     data: D[];
 

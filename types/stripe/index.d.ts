@@ -3359,6 +3359,15 @@ declare namespace Stripe {
             source?: string;
         }
 
+        interface IPaymentIntentRetrieveOptions {
+            /**
+             * The client secret of the PaymentIntent. Required if a publishable key is used to retrieve the source.
+             *
+             * REQUIRED IF USING PUBLISHABLE KEY!
+             */
+            client_secret: string;
+        }
+
         interface IPaymentIntentCaptureOptions {
             /**
              * The amount to capture (in cents) from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount will be automatically refunded. Defaults to the full `amount_capturable` if not provided.
@@ -7278,6 +7287,17 @@ declare namespace Stripe {
              */
             retrieve(
                 id: string,
+                data: paymentIntents.IPaymentIntentRetrieveOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            retrieve(
+                id: string,
+                data: paymentIntents.IPaymentIntentRetrieveOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            retrieve(
+                id: string,
                 options: HeaderOptions,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
@@ -7304,6 +7324,15 @@ declare namespace Stripe {
                 data: paymentIntents.IPaymentIntentConfirmOptions,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
+            confirm(
+                paymentIntentId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            confirm(
+                paymentIntentId: string,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
 
             /**
              * Capture the funds of an existing uncaptured PaymentIntent where `required_action="requires_capture"`.
@@ -7320,6 +7349,15 @@ declare namespace Stripe {
             capture(
                 paymentIntentId: string,
                 data: paymentIntents.IPaymentIntentCaptureOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            capture(
+                paymentIntentId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            capture(
+                paymentIntentId: string,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
 
@@ -7339,9 +7377,18 @@ declare namespace Stripe {
             ): Promise<paymentIntents.IPaymentIntent>;
             cancel(
                 paymentIntentId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            cancel(
+                paymentIntentId: string,
                 data: {
                     cancellation_reason?: paymentIntents.PaymentIntentCancelationReason,
                 },
+                response?: IResponseFn<paymentIntents.IPaymentIntent>,
+            ): Promise<paymentIntents.IPaymentIntent>;
+            cancel(
+                paymentIntentId: string,
                 response?: IResponseFn<paymentIntents.IPaymentIntent>,
             ): Promise<paymentIntents.IPaymentIntent>;
         }

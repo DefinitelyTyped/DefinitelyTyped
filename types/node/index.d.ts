@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 11.10
+// Type definitions for non-npm package Node.js 11.11
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -64,6 +64,7 @@ interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
 interface Set<T> {}
+interface Map<K, V> {}
 interface ReadonlySet<T> {}
 interface IteratorResult<T> { }
 interface Iterable<T> { }
