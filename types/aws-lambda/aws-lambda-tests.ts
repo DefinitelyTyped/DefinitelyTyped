@@ -907,7 +907,7 @@ const defaultCallbackHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLamb
 const albSyncHandler: AWSLambda.ALBHandler = (
     event: AWSLambda.ALBEvent,
     context: AWSLambda.Context,
-    cb: AWSLambda.Callback<AWSLambda.ALBResult>,
+    cb: AWSLambda.ALBCallback,
 ) => {
     cb(null, {
         statusCode: 200,
@@ -920,7 +920,7 @@ const albSyncHandler: AWSLambda.ALBHandler = (
 const albAsyncHandler: AWSLambda.ALBHandler = async (
     event: AWSLambda.ALBEvent,
     context: AWSLambda.Context,
-    cb: AWSLambda.Callback<AWSLambda.ALBResult>,
+    cb: AWSLambda.ALBCallback,
 ) => {
     return {
         statusCode: 200,
