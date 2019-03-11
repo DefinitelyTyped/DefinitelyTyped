@@ -101,11 +101,13 @@ declare module "http" {
 
         setTimeout(msecs?: number, callback?: () => void): this;
         setTimeout(callback: () => void): this;
-        maxHeadersCount: number;
+        // https://nodejs.org/api/http.html#http_server_maxheaderscount
+        maxHeadersCount: number | null;
         timeout: number;
         /**
          * Limit the amount of time the parser will wait to receive the complete HTTP headers.
          * @default 40000
+         * {@link https://nodejs.org/api/http.html#http_server_headerstimeout}
          */
         headersTimeout: number;
         keepAliveTimeout: number;
