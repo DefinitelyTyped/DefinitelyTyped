@@ -26,7 +26,13 @@ declare module "https" {
 
         setTimeout(callback: () => void): this;
         setTimeout(msecs?: number, callback?: () => void): this;
+        maxHeadersCount: number;
         timeout: number;
+        /**
+         * Limit the amount of time the parser will wait to receive the complete HTTP headers.
+         * @default 40000
+         */
+        headersTimeout: number;
         keepAliveTimeout: number;
     }
 
