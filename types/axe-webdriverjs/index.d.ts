@@ -72,6 +72,13 @@ export interface AxeBuilder {
 
     /**
      * Perform analysis and retrieve results.
+     * Old API without error parameter for callback
+     * @param callback   Function to execute when analysis completes.
+     */
+    analyze(callback?: (results: AxeAnalysis) => void): Promise<AxeAnalysis>;
+
+    /**
+     * Perform analysis and retrieve results.
      * @param callback   Function to execute when analysis completes.
      */
     analyze(
