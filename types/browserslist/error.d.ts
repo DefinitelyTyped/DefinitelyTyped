@@ -1,6 +1,6 @@
 declare class BrowserslistError extends Error {
     constructor(message: any);
-    browserslist: boolean;
+    browserslist: true;
 }
 
 export = BrowserslistError;
