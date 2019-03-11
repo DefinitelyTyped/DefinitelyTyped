@@ -1,4 +1,4 @@
-const Trouter = require('trouter');
+import Trouter = require('trouter');
 
 // Default type is "any" for handlers
 const router = new Trouter();
