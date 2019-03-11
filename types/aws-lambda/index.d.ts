@@ -88,13 +88,13 @@ export interface APIGatewayProxyEvent {
 export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
 
 // https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html
-export interface ApplicationLoadBalancerEventRequestContext {
+export interface ALBEventRequestContext {
     elb: {
         targetGroupArn: string;
     };
 }
-export interface ApplicationLoadBalancerEvent {
-    requestContext: ApplicationLoadBalancerEventRequestContext;
+export interface ALBEvent {
+    requestContext: ALBEventRequestContext;
     httpMethod: string;
     path: string;
     queryStringParameters?: { [parameter: string]: string }; // URL encoded
@@ -493,7 +493,7 @@ export interface APIGatewayProxyResult {
 }
 export type ProxyResult = APIGatewayProxyResult; // Old name
 
-export interface ApplicationLoadBalancerResult {
+export interface ALBResult {
     statusCode: number;
     statusDescription: string;
     headers?: { [header: string]: boolean | number | string };
@@ -1080,7 +1080,7 @@ export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
 
-export type ApplicationLoadBalancerHandler = Handler<ApplicationLoadBalancerEvent, ApplicationLoadBalancerResult>;
+export type ALBHandler = Handler<ALBEvent, ALBResult>;
 
 // TODO: IoT
 

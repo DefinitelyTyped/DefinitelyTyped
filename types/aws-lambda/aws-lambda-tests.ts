@@ -13,9 +13,9 @@ declare let numOrUndefined: number | undefined;
 declare let apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
 declare let apiGwEvtReqCtxOpt: AWSLambda.APIGatewayEventRequestContext | null | undefined;
 declare let apiGwEvt: AWSLambda.APIGatewayEvent;
-declare let albEvtReqCtx: AWSLambda.ApplicationLoadBalancerEventRequestContext;
-declare let albEvt: AWSLambda.ApplicationLoadBalancerEvent;
-declare let albRes: AWSLambda.ApplicationLoadBalancerResult;
+declare let albEvtReqCtx: AWSLambda.ALBEventRequestContext;
+declare let albEvt: AWSLambda.ALBEvent;
+declare let albRes: AWSLambda.ALBResult;
 declare let customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 declare let clientCtx: AWSLambda.ClientContext;
 declare let clientCtxOrUndefined: AWSLambda.ClientContext | undefined;
@@ -904,10 +904,10 @@ const inferredHandler: AWSLambda.S3Handler = (event, context, cb) => {
 // Test using default Callback type still works.
 const defaultCallbackHandler: AWSLambda.APIGatewayProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 
-const albSyncHandler: AWSLambda.ApplicationLoadBalancerHandler = (
-    event: AWSLambda.ApplicationLoadBalancerEvent,
+const albSyncHandler: AWSLambda.ALBHandler = (
+    event: AWSLambda.ALBEvent,
     context: AWSLambda.Context,
-    cb: AWSLambda.Callback<AWSLambda.ApplicationLoadBalancerResult>,
+    cb: AWSLambda.Callback<AWSLambda.ALBResult>,
 ) => {
     cb(null, {
         statusCode: 200,
@@ -917,10 +917,10 @@ const albSyncHandler: AWSLambda.ApplicationLoadBalancerHandler = (
         isBase64Encoded: false,
     });
 };
-const albAsyncHandler: AWSLambda.ApplicationLoadBalancerHandler = async (
-    event: AWSLambda.ApplicationLoadBalancerEvent,
+const albAsyncHandler: AWSLambda.ALBHandler = async (
+    event: AWSLambda.ALBEvent,
     context: AWSLambda.Context,
-    cb: AWSLambda.Callback<AWSLambda.ApplicationLoadBalancerResult>,
+    cb: AWSLambda.Callback<AWSLambda.ALBResult>,
 ) => {
     return {
         statusCode: 200,
