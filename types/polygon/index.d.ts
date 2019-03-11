@@ -26,134 +26,134 @@ import Vec2 from 'vec2';
  * Otherwise the operation will be applied to `this` and `this` will be returned.
  */
 declare class Polygon {
-    public readonly points: Vec2[];
+    readonly points: Vec2[];
 
     /**
      * Returns the number of points in this polygon
      */
-    public readonly length: number;
+    readonly length: number;
 
     constructor(points: Vec2[] | number[][] | { x: number, y: number }[]);
 
     /**
      * Something like Array.forEach on points
      */
-    public each(fn: (prev: Vec2, current: Vec2, next: Vec2, idx: number) => any): Polygon;
+    each(fn: (prev: Vec2, current: Vec2, next: Vec2, idx: number) => any): Polygon;
 
     /**
      * Returns the point at index `idx`. note: this will wrap in both directions
      */
-    public point(idx: number): Vec2;
+    point(idx: number): Vec2;
 
     /**
      * Ensure all of the points are unique
      */
-    public dedupe(returnNew?: boolean): Polygon;
+    dedupe(returnNew?: boolean): Polygon;
 
     /**
      * Insert `vec2` at the specified index
      */
-    public insert(vec2: Vec2, index: number): void;
+    insert(vec2: Vec2, index: number): void;
 
     /**
      * Remove the specified `vec2` or numeric index from this polygon
      */
-    public remove(vecOrIndex: Vec2 | number): Polygon;
+    remove(vecOrIndex: Vec2 | number): Polygon;
 
     /**
      * Removes contiguous points that are the same
      */
-    public clean(returnNew?: boolean): Polygon;
+    clean(returnNew?: boolean): Polygon;
 
     /**
      * Returns the direction in which a polygon is wound (true === clockwise)
      */
-    public winding(): boolean;
+    winding(): boolean;
 
     /**
      * Rewinds the polygon in the specified direction (true === clockwise)
      */
-    public rewind(cw: boolean): Polygon;
+    rewind(cw: boolean): Polygon;
 
     /**
      * Computes the area of the polygon
      */
-    public area(): number;
+    area(): number;
 
     /**
      * Finds the closest point in this polygon to `vec2`
      */
-    public closestPointTo(vec2: Vec2): Vec2;
+    closestPointTo(vec2: Vec2): Vec2;
 
     /**
      * Returns a `Vec2` at the center of the AABB
      */
-    public center(): Vec2;
+    center(): Vec2;
 
     /**
      * Scales this polygon around `origin` (default is `this.center()`) and will return a new polygon if requested with `returnNew`
      */
-    public scale(amount: number, origin: Vec2, returnNew?: boolean): Polygon;
+    scale(amount: number, origin: Vec2, returnNew?: boolean): Polygon;
 
     /**
      * Returns true if `vec2` is inside the polygon
      */
-    public containsPoint(vec2: Vec2): boolean;
+    containsPoint(vec2: Vec2): boolean;
 
     /**
      * Returns true if `poly` is completely contained in this polygon
      */
-    public containsPolygon(poly: Polygon): boolean;
+    containsPolygon(poly: Polygon): boolean;
 
     /**
      * Returns an object `{x:_, y:_, w:_, h:_}` representing the axis-aligned bounding box of this polygyon
      */
-    public aabb(): { x: number, y: number, w: number, h: number };
+    aabb(): { x: number, y: number, w: number, h: number };
 
     /**
      * Performs an offset/buffering operation on this polygon and returns a new one
      */
-    public offset(amount: number): Polygon;
+    offset(amount: number): Polygon;
 
     /**
      * Return an array `[startpoint, endpoint]` representing the line at the specified `index`
      */
-    public line(index: number): [Vec2, Vec2];
+    line(index: number): [Vec2, Vec2];
 
     /**
      * Iterate over the lines in this polygon
      */
-    public lines(fn: (start: Vec2, end: Vec2, index: number) => any): Polygon;
+    lines(fn: (start: Vec2, end: Vec2, index: number) => any): Polygon;
 
     /**
      * Find self-intersections and return them as a new polygon
      */
-    public selfIntersections(): Polygon;
+    selfIntersections(): Polygon;
 
     /**
      * Remove self intersections from this polygon.  returns an array of polygons
      */
-    public pruneSelfIntersections(): Polygon[];
+    pruneSelfIntersections(): Polygon[];
 
     /**
      *  Return a new instance of this polygon
      */
-    public clone(): Polygon;
+    clone(): Polygon;
 
     /**
      * Rotate by origin `vec2` (default `this.center()`) by radians `rads` and return a clone if `returnNew` is specified
      */
-    public rotate(rads: number, vec2: Vec2, returnNew?: boolean): Polygon;
+    rotate(rads: number, vec2: Vec2, returnNew?: boolean): Polygon;
 
     /**
      * Translate by `vec2` and return a clone if `returnNew` is specified
      */
-    public translate(vec2: Vec2, returnNew?: boolean): Polygon;
+    translate(vec2: Vec2, returnNew?: boolean): Polygon;
 
     /**
      * Return true if this polygon has the same components and the incoming `poly`
      */
-    public equal(poly: Polygon): boolean;
+    equal(poly: Polygon): boolean;
 
     /**
      * Works with an array of vec2's,
@@ -163,7 +163,7 @@ declare class Polygon {
      * and an object populated with x,y,width,height.
      * See the tests for more info
      */
-    public contains(
+    contains(
         thing: Vec2[]
             | { position: Vec2, radius: number }
             | { x1: number, y1: number, x2: number, y2: number }
@@ -174,17 +174,17 @@ declare class Polygon {
     /**
      * Returns a new polygon representing the boolean union of `this` and the incoming `polygon`
      */
-    public union(polygon: Polygon): Polygon;
+    union(polygon: Polygon): Polygon;
 
     /**
      * Returns a new polygon representing the boolean cut of `polygon` from `this`
      */
-    public cut(polygon: Polygon): Polygon;
+    cut(polygon: Polygon): Polygon;
 
     /**
      * Convert this polygon into an array of arrays (`[[x, y]]`)
      */
-    public toArray(): number[][];
+    toArray(): number[][];
 }
 
 export default Polygon;
