@@ -68,8 +68,8 @@ export type ConnectionConfigNodeType =
 export interface ConnectionConfig {
     name?: string | null;
     nodeType: ConnectionConfigNodeType;
-    resolveNode?: GraphQLFieldResolver<any, any> | null;
-    resolveCursor?: GraphQLFieldResolver<any, any> | null;
+    resolveNode?: GraphQLFieldResolver<any, any, any> | null;
+    resolveCursor?: GraphQLFieldResolver<any, any, any> | null;
     edgeFields?: Thunk<GraphQLFieldConfigMap<any, any>> | null;
     connectionFields?: Thunk<GraphQLFieldConfigMap<any, any>> | null;
 }

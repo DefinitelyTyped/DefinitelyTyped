@@ -45,7 +45,7 @@ forwardConnectionArgs.first = { type: GraphQLInt };
 backwardConnectionArgs.before = { type: GraphQLString };
 backwardConnectionArgs.last = { type: GraphQLInt };
 // connectionDefinitions returns a connectionType and its associated edgeType, given a node type.
-const resolve: GraphQLFieldResolver<any, any> = (source, args, context, info) => {
+const resolve: GraphQLFieldResolver<any, any, any> = (source, args, context, info) => {
     context.flag = "f";
 };
 const fields: GraphQLFieldConfigMap<any, any> = {};
@@ -124,8 +124,8 @@ const idFetcher = (id: string, context: any, info: GraphQLResolveInfo) => {
     context.flag = "f";
 };
 const nodeDef = nodeDefinitions<any>(idFetcher, resolver);
-const nodeFieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodeField;
-const nodesFieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodesField;
+const nodeFieldConfig: GraphQLFieldConfig<any, any, any> = nodeDef.nodeField;
+const nodesFieldConfig: GraphQLFieldConfig<any, any, any> = nodeDef.nodesField;
 const interfaceType: GraphQLInterfaceType = nodeDef.nodeInterface;
 // toGlobalId takes a type name and an ID specific to that type name, and returns a "global ID" that is unique among all types.
 toGlobalId("t", "i").toLowerCase();
@@ -137,10 +137,10 @@ fgi.type.toUpperCase();
 const idFetcher2 = (object: any, context: any, info: GraphQLResolveInfo) => {
     return "";
 };
-const gif: GraphQLFieldConfig<any, any> = globalIdField("t", idFetcher2);
+const gif: GraphQLFieldConfig<any, any, any> = globalIdField("t", idFetcher2);
 // pluralIdentifyingRootField creates a field that accepts a list of non-ID identifiers (like a username) and maps them to their corresponding objects.
 const input: GraphQLInputType = GraphQLString;
-const prf: GraphQLFieldConfig<any, any> = pluralIdentifyingRootField({
+const prf: GraphQLFieldConfig<any, any, any> = pluralIdentifyingRootField({
     argName: "a",
     inputType: input,
     outputType: input,
