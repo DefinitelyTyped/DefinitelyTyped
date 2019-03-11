@@ -18,6 +18,7 @@
 //                 Corey Psoinos <https://github.com/cpsoinos>
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Jonas Keisel <https://github.com/0xJoKe>
+//                 Jay Bell <https://github.com/yharaskrik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -436,7 +437,7 @@ declare namespace Stripe {
              * dictionary containing a user’s credit card details (with the options shown
              * below). Stripe will automatically validate the card.
              */
-            external_account: string ;
+            external_account: string | IBankAccount;
 
             /**
              * Only applicable on accounts (not customers or recipients). If you set this to true (or if this is the first external account being added
