@@ -113,7 +113,7 @@ export interface HeaderProps {
     localizer: DateLocalizer;
 }
 
-export interface Components<T> {
+export interface Components<T extends Event = Event> {
     event?: React.ComponentType<EventProps<T>>;
     eventWrapper?: React.ComponentType<EventWrapperProps<T>>;
     eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
