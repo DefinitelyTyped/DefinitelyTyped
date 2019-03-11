@@ -16,6 +16,9 @@ export interface AxeAnalysis {
     violations: Result[];
 }
 
+type OldAnalyzeCallbackType = (results: AxeAnalysis) => void;
+type AnalyzeCallbackType = (err: Error | null, results: AxeAnalysis) => void;
+
 export interface AxeBuilder {
     /**
      * Includes a selector in analysis.
@@ -72,17 +75,10 @@ export interface AxeBuilder {
 
     /**
      * Perform analysis and retrieve results.
-     * Old API without error parameter for callback
-     * @param callback   Function to execute when analysis completes.
-     */
-    analyze(callback?: (results: AxeAnalysis) => void): Promise<AxeAnalysis>;
-
-    /**
-     * Perform analysis and retrieve results.
      * @param callback   Function to execute when analysis completes.
      */
     analyze(
-        callback?: (err: Error | null, results: AxeAnalysis) => void
+        callback?: OldAnalyzeCallbackType | AnalyzeCallbackType
     ): Promise<AxeAnalysis>;
 }
 
