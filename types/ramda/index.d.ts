@@ -609,10 +609,13 @@ declare namespace R {
 
     // Represents all objects evolvable with Evolver E
     type Evolvable<E extends Evolver> = {
-        [P in keyof E]?: E[P] extends (value: infer V) => any ? V :
-            E[P] extends Evolver ? Evolvable<E[P]> :
-            never
+        [P in keyof E]?: Evolved<E[P]>;
     };
+
+    type Evolved<T> =
+        T extends (value: infer V) => any ? V :
+        T extends Evolver ? Evolvable<T> :
+        never;
 
     interface Placeholder { __isRamdaPlaceholder__: true; }
 
