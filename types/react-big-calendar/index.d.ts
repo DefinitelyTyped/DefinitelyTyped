@@ -167,7 +167,7 @@ export interface EventWrapperProps<TEvent extends Event = Event> {
     // https://github.com/intljusticemission/react-big-calendar/blob/27a2656b40ac8729634d24376dff8ea781a66d50/src/TimeGridEvent.js#L28
     style?: React.CSSProperties & { xOffset: number };
     className: string;
-    event: T;
+    event: TEvent;
     isRtl: boolean;
     getters: {
         eventProp?: EventPropGetter<TEvent>;
