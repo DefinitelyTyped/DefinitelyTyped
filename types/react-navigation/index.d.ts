@@ -33,6 +33,7 @@
 //                 Kenneth Skovhus <https://github.com/skovhus>
 //                 Aaron Rosen <https://github.com/azrosen92>
 //                 Haseeb Majid <https://github.com/hmajid2301>
+//                 Thibault Malbranche <https://github.com/titozzz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -845,7 +846,8 @@ export interface NavigationContainerProps<S = {}, O = {}> {
 
 export interface NavigationContainerComponent
   extends React.Component<
-  NavigationContainerProps & NavigationNavigatorProps<any>
+  NavigationContainerProps & NavigationNavigatorProps<any>,
+  { nav: NavigationState | null }
   > {
   dispatch: NavigationDispatch;
 }
