@@ -5,7 +5,7 @@
 
 /* tslint:disable:array-type */  // cause contradictory error messages
 
-import Vec2 from 'vec2';
+import Vec2 = require('../vec2');
 
 /**
  * Create a new polygon:
@@ -187,4 +187,4 @@ declare class Polygon {
     toArray(): number[][];
 }
 
-export default Polygon;
+export = Polygon;
