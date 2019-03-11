@@ -2041,6 +2041,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "zapier-platform-core",
+            "typingsPackageName": "zapier-platform-core",
+            "sourceRepoURL": "https://github.com/zapier/zapier-platform-core",
+            "asOfVersion": "6.1.0"
+        },
+        {
             "libraryName": "zetapush-js",
             "typingsPackageName": "zetapush-js",
             "sourceRepoURL": "https://github.com/zetapush/zetapush-js",
