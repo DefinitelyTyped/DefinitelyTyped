@@ -78,7 +78,7 @@ export interface AxeBuilder {
      * @param callback   Function to execute when analysis completes.
      */
     analyze(
-        callback?: DeprecatedAnalyzeCallback | AnalyzeCallback
+        callback?: AnalyzeCallback | DeprecatedAnalyzeCallback
     ): Promise<AxeAnalysis>;
 }
 
