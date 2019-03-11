@@ -32,7 +32,7 @@ export interface ExecutionContext {
     contextValue: any;
     operation: OperationDefinitionNode;
     variableValues: { [key: string]: any };
-    fieldResolver: GraphQLFieldResolver<any, any>;
+    fieldResolver: GraphQLFieldResolver<any, any, any>;
     errors: GraphQLError[];
 }
 
@@ -58,7 +58,7 @@ export type ExecutionArgs = {
     contextValue?: any;
     variableValues?: Maybe<{ [key: string]: any }>;
     operationName?: Maybe<string>;
-    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any, any>>;
 };
 
 /**
@@ -81,7 +81,7 @@ export function execute<TData = ExecutionResultDataDefault>(
     contextValue?: any,
     variableValues?: Maybe<{ [key: string]: any }>,
     operationName?: Maybe<string>,
-    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any, any>>
 ): MaybePromise<ExecutionResult<TData>>;
 
 /**
@@ -123,7 +123,7 @@ export function buildExecutionContext(
     contextValue: any,
     rawVariableValues: Maybe<{ [key: string]: any }>,
     operationName: Maybe<string>,
-    fieldResolver: Maybe<GraphQLFieldResolver<any, any>>
+    fieldResolver: Maybe<GraphQLFieldResolver<any, any, any>>
 ): ReadonlyArray<GraphQLError> | ExecutionContext;
 
 /**
@@ -144,7 +144,7 @@ export function collectFields(
 
 export function buildResolveInfo(
     exeContext: ExecutionContext,
-    fieldDef: GraphQLField<any, any>,
+    fieldDef: GraphQLField<any, any, any>,
     fieldNodes: ReadonlyArray<FieldNode>,
     parentType: GraphQLObjectType,
     path: ResponsePath
@@ -152,11 +152,11 @@ export function buildResolveInfo(
 
 // Isolates the "ReturnOrAbrupt" behavior to not de-opt the `resolveField`
 // function. Returns the result of resolveFn or the abrupt-return Error object.
-export function resolveFieldValueOrError<TSource>(
+export function resolveFieldValueOrError<TSource, TArgs, TContext>(
     exeContext: ExecutionContext,
-    fieldDef: GraphQLField<TSource, any>,
+    fieldDef: GraphQLField<TSource, TContext, TArgs>,
     fieldNodes: ReadonlyArray<FieldNode>,
-    resolveFn: GraphQLFieldResolver<TSource, any>,
+    resolveFn: GraphQLFieldResolver<TSource, TContext, TArgs>,
     source: TSource,
     info: GraphQLResolveInfo
 ): Error | any;
@@ -167,7 +167,7 @@ export function resolveFieldValueOrError<TSource>(
  * and returns it as the result, or if it's a function, returns the result
  * of calling that function while passing along args and context.
  */
-export const defaultFieldResolver: GraphQLFieldResolver<any, any>;
+export const defaultFieldResolver: GraphQLFieldResolver<any, any, any>;
 
 /**
  * This method looks up the field on the given type defintion.
@@ -182,4 +182,4 @@ export function getFieldDef(
     schema: GraphQLSchema,
     parentType: GraphQLObjectType,
     fieldName: string
-): Maybe<GraphQLField<any, any>>;
+): Maybe<GraphQLField<any, any, any>>;

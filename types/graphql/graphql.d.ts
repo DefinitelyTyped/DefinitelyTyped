@@ -46,7 +46,7 @@ export interface GraphQLArgs {
     contextValue?: any;
     variableValues?: Maybe<{ [key: string]: any }>;
     operationName?: Maybe<string>;
-    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any, any>>;
 }
 
 export function graphql<TData = ExecutionResultDataDefault>(args: GraphQLArgs): Promise<ExecutionResult<TData>>;
@@ -57,7 +57,7 @@ export function graphql<TData = ExecutionResultDataDefault>(
     contextValue?: any,
     variableValues?: Maybe<{ [key: string]: any }>,
     operationName?: Maybe<string>,
-    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any, any>>
 ): Promise<ExecutionResult<TData>>;
 
 /**
@@ -74,5 +74,5 @@ export function graphqlSync<TData = ExecutionResultDataDefault>(
     contextValue?: any,
     variableValues?: Maybe<{ [key: string]: any }>,
     operationName?: Maybe<string>,
-    fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
+    fieldResolver?: Maybe<GraphQLFieldResolver<any, any, any>>
 ): ExecutionResult<TData>;

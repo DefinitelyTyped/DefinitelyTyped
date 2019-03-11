@@ -34,7 +34,7 @@ export function getVariableValues(
  * Object prototype.
  */
 export function getArgumentValues(
-    def: GraphQLField<any, any> | GraphQLDirective,
+    def: GraphQLField<any, any, any> | GraphQLDirective,
     node: FieldNode | DirectiveNode,
     variableValues?: Maybe<{ [key: string]: any }>
 ): { [key: string]: any };

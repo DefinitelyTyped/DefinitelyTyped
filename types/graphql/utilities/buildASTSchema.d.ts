@@ -66,7 +66,7 @@ export class ASTDefinitionBuilder {
 
     buildDirective(directiveNode: DirectiveDefinitionNode): GraphQLDirective;
 
-    buildField(field: FieldDefinitionNode): GraphQLFieldConfig<any, any>;
+    buildField(field: FieldDefinitionNode): GraphQLFieldConfig<any, any, any>;
 
     buildInputField(value: InputValueDefinitionNode): GraphQLInputField;
 

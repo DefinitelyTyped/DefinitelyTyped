@@ -73,7 +73,7 @@ export class ValidationContext extends ASTValidationContext {
 
     getParentInputType(): Maybe<GraphQLInputType>;
 
-    getFieldDef(): Maybe<GraphQLField<any, any>>;
+    getFieldDef(): Maybe<GraphQLField<any, any, any>>;
 
     getDirective(): Maybe<GraphQLDirective>;
 
