@@ -1,4 +1,4 @@
-import { assertInputType, isInputType, isOutputType, GraphQLObjectType, GraphQLString } from 'graphql';
+import { assertInputType, isInputType, isOutputType, GraphQLObjectType, GraphQLFieldConfig, GraphQLString } from 'graphql';
 
 ///////////////////////////
 // graphql               //
@@ -59,14 +59,14 @@ function type_definition_tests() {
             hello: {
                 type: GraphQLString,
                 args: {
-                    id: {
+                    message: {
                         type: GraphQLString
                     }
                 },
-                resolve: (source, context, args: {id: null | "string"}) => {
-                    return "world";
+                resolve: (source, context, args) => {
+                    return args.message || args.message;
                 }
-            }
+            } as GraphQLFieldConfig<any, { message: null | string }, any>
         })
     })
 }

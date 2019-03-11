@@ -415,7 +415,7 @@ export type ResponsePath = {
 
 export interface GraphQLFieldConfig<TSource, TArgs, TContext> {
     type: GraphQLOutputType;
-    args?: GraphQLFieldConfigArgumentMap;
+    args?: GraphQLFieldConfigArgumentMap<TArgs>;
     resolve?: GraphQLFieldResolver<TSource, TArgs, TContext>;
     subscribe?: GraphQLFieldResolver<TSource, TArgs, TContext>;
     deprecationReason?: Maybe<string>;
@@ -423,7 +423,7 @@ export interface GraphQLFieldConfig<TSource, TArgs, TContext> {
     astNode?: Maybe<FieldDefinitionNode>;
 }
 
-export type GraphQLFieldConfigArgumentMap = { [key: string]: GraphQLArgumentConfig };
+export type GraphQLFieldConfigArgumentMap<TArgs> = { [K in keyof TArgs]: GraphQLArgumentConfig };
 
 export interface GraphQLArgumentConfig {
     type: GraphQLInputType;

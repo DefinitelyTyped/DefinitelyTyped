@@ -26,7 +26,7 @@ export interface GraphQLDirectiveConfig {
     name: string;
     description?: Maybe<string>;
     locations: DirectiveLocationEnum[];
-    args?: Maybe<GraphQLFieldConfigArgumentMap>;
+    args?: Maybe<GraphQLFieldConfigArgumentMap<any>>;
     astNode?: Maybe<DirectiveDefinitionNode>;
 }
 
