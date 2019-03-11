@@ -149,8 +149,8 @@ declare namespace AngularFormly {
 	 */
 	interface IWatcher {
 		deep?: boolean; //Defaults to false
-		expression?: string | { (field: string, scope: ITemplateScope): boolean };
-		listener: (field: string, newValue: any, oldValue: any, scope: ITemplateScope, stopWatching: Function) => void;
+		expression?: string | { (field: IFieldConfigurationObject, scope: ITemplateScope): boolean };
+		listener: (field: IFieldConfigurationObject, newValue: any, oldValue: any, scope: ITemplateScope, stopWatching: Function) => void;
 		type?: string; //Defaults to $watch but can be set to $watchCollection or $watchGroup
 	}
 
