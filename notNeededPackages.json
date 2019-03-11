@@ -1477,6 +1477,12 @@
             "asOfVersion": "6.3.0"
         },
         {
+            "libraryName": "quick-lru",
+            "typingsPackageName": "quick-lru",
+            "sourceRepoURL": "https://github.com/sindresorhus/quick-lru",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
