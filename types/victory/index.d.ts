@@ -2424,4 +2424,16 @@ declare module "victory" {
    * Data changes are animated with VictoryAnimation.
    */
   export class VictoryPie extends React.Component<VictoryPieProps, any> {}
+
+  export type ContainerType =
+    | "brush"
+    | "cursor"
+    | "selection"
+    | "voronoi"
+    | "zoom";
+
+    export function createContainer<V, W>(
+      c1: ContainerType,
+      c2: ContainerType
+    ): React.FunctionComponent<V & W>;
 }
