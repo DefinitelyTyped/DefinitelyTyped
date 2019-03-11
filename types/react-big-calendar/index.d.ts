@@ -113,9 +113,9 @@ export interface HeaderProps {
     localizer: DateLocalizer;
 }
 
-export interface Components<T extends Event = Event> {
-    event?: React.ComponentType<EventProps<T>>;
-    eventWrapper?: React.ComponentType<EventWrapperProps<T>>;
+export interface Components<TEvent extends Event = Event> {
+    event?: React.ComponentType<EventProps<TEvent>>;
+    eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
     eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -158,29 +158,29 @@ export interface ToolbarProps {
     children?: React.ReactNode;
 }
 
-export interface EventProps<T extends Event = Event> {
-    event: T;
+export interface EventProps<TEvent extends Event = Event> {
+    event: TEvent;
     title: string;
 }
 
-export interface EventWrapperProps<T extends Event = Event> {
+export interface EventWrapperProps<TEvent extends Event = Event> {
     // https://github.com/intljusticemission/react-big-calendar/blob/27a2656b40ac8729634d24376dff8ea781a66d50/src/TimeGridEvent.js#L28
     style?: React.CSSProperties & { xOffset: number };
     className: string;
     event: T;
     isRtl: boolean;
     getters: {
-        eventProp?: EventPropGetter<T>;
+        eventProp?: EventPropGetter<TEvent>;
         slotProp?: SlotPropGetter;
         dayProp?: DayPropGetter;
     };
     onClick: (e: React.MouseEvent<HTMLElement>) => void;
     onDoubleClick: (e: React.MouseEvent<HTMLElement>) => void;
     accessors: {
-        title?: (event: T) => string;
-        tooltip?: (event: T) => string;
-        end?: (event: T) => Date;
-        start?: (event: T) => Date;
+        title?: (event: TEvent) => string;
+        tooltip?: (event: TEvent) => string;
+        end?: (event: TEvent) => Date;
+        start?: (event: TEvent) => Date;
     };
     selected: boolean;
     label: string;
@@ -293,7 +293,7 @@ export default class BigCalendar<TEvent extends Event = Event, TResource extends
     components: {
         dateCellWrapper: React.ComponentType,
         dayWrapper: React.ComponentType,
-        eventWrapper: React.ComponentType,
+        eventWrapper: React.ComponentType<TEvent>,
     };
     /**
      * create DateLocalizer from globalize
