@@ -75,4 +75,4 @@ declare class Trouter<T = any> {
     put(pattern: string, ...handlers: T[]): this;
 }
 
-export default Trouter;
+export = Trouter;
