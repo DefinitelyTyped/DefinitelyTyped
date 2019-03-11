@@ -9,7 +9,8 @@ import {
     utils,
     createRuleTester,
     RuleTesterContext,
-    RuleTesterResult
+    RuleTesterResult,
+    Plugin
 } from "stylelint";
 
 const options: Partial<LinterOptions> = {
@@ -40,7 +41,7 @@ const messages = utils.ruleMessages(ruleName, {
     warning: (reason: string) => `This is not allowed because ${reason}`,
 });
 
-createPlugin(ruleName, options => {
+const testPlugin: Plugin = (options) => {
     return (root, result) => {
         const validOptions = utils.validateOptions(result, ruleName, { actual: options });
         if (!validOptions) {
@@ -63,7 +64,9 @@ createPlugin(ruleName, options => {
             });
         });
     };
-});
+};
+
+createPlugin(ruleName, testPlugin);
 
 const tester = createRuleTester(
     (result: Promise<RuleTesterResult[]>, context: RuleTesterContext) => {
@@ -71,7 +74,7 @@ const tester = createRuleTester(
     }
 );
 
-tester({}, {
+tester(testPlugin, {
     ruleName: 'foo',
     config: [true, 1],
     accept: [

@@ -110,10 +110,12 @@ export namespace utils {
     }, callback: (warning: string) => void): void;
 }
 
+export type Plugin = (primaryOption: any, secondaryOptions: RuleOption[]) =>
+    (root: postcss.Root, result: postcss.Result) => void|PromiseLike<void>;
+
 export function createPlugin(
     ruleName: string,
-    plugin: (primaryOption: any, secondaryOptions: RuleOption[]) =>
-        (root: postcss.Root, result: postcss.Result) => void|PromiseLike<void>,
+    plugin: Plugin
 ): any;
 
 export interface RuleTesterResult {
@@ -151,4 +153,4 @@ export interface RuleTesterContext {
 
 export function createRuleTester(
     fn: (result: Promise<RuleTesterResult[]>, context: RuleTesterContext) => void
-): (rule: any, schema: RuleTesterSchema) => void;
+): (rule: Plugin, schema: RuleTesterSchema) => void;
