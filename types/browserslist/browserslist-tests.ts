@@ -22,4 +22,4 @@ for (const opt of opts) {
 browserslist.coverage([""]); // $ExpectType number
 browserslist.coverage([""], { "": { "": 0 } }); // $ExpectType number
 
-new BrowserslistError('error'); //$ExpectType BrowserslistError
+new BrowserslistError('error'); // $ExpectType BrowserslistError
