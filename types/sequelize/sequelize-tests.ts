@@ -997,6 +997,9 @@ User.findAll( { where: { $and:[ { username: { $not: "user" } }, { theDate: new D
 User.findAll( { where: { $or:[ { username: { $not: "user" } }, { theDate: new Date() } ] } } );
 User.findAll( { where: { emails: { $overlap: ["me@mail.com", "you@mail.com"] } } } );
 
+var options: Sequelize.AnyFindOptions = { where: { $and: Sequelize.where( Sequelize.fn( 'char_length', Sequelize.col('username') ), 4 ) } };
+User.findAll( options );
+
 User.findById( 'a string' );
 User.findById( 42 );
 User.findById( Buffer.from('a buffer') );

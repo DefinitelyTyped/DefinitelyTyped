@@ -3198,7 +3198,7 @@ declare namespace sequelize {
      */
     type Primitives = string | number | boolean | Buffer;
     type WhereOptions<T> = {
-        [P in keyof T]?: Primitives | Array<Primitives> | WhereLogic | (T[P] extends Primitives ? null : WhereOptions<T[P]>) | col | and | or | WhereGeometryOptions | WhereNested | null;
+        [P in keyof T]?: Primitives | Array<Primitives> | WhereLogic | (T[P] extends Primitives ? null : WhereOptions<T[P]>) | col | and | or | WhereGeometryOptions | WhereNested | where | null;
     };
 
     /**
