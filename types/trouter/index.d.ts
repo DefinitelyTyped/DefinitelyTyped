@@ -4,55 +4,57 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export interface FindResult<T> {
-    params: { [k: string]: string; };
-    handlers: T[];
+declare namespace Trouter {
+    interface FindResult<T> {
+        params: { [k: string]: string; };
+        handlers: T[];
+    }
+
+    type HTTPMethod =
+        | 'ACL'
+        | 'BIND'
+        | 'CHECKOUT'
+        | 'CONNECT'
+        | 'COPY'
+        | 'DELETE'
+        | 'GET'
+        | 'HEAD'
+        | 'LINK'
+        | 'LOCK'
+        | 'M-SEARCH'
+        | 'MERGE'
+        | 'MKACTIVITY'
+        | 'MKCALENDAR'
+        | 'MKCOL'
+        | 'MOVE'
+        | 'NOTIFY'
+        | 'OPTIONS'
+        | 'PATCH'
+        | 'POST'
+        | 'PROPFIND'
+        | 'PROPPATCH'
+        | 'PURGE'
+        | 'PUT'
+        | 'REBIND'
+        | 'REPORT'
+        | 'SEARCH'
+        | 'SOURCE'
+        | 'SUBSCRIBE'
+        | 'TRACE'
+        | 'UNBIND'
+        | 'UNLINK'
+        | 'UNLOCK'
+        | 'UNSUBSCRIBE';
+
+    type FindReturn<T> = FindResult<T> | false;
 }
-
-export type HTTPMethod =
-    | 'ACL'
-    | 'BIND'
-    | 'CHECKOUT'
-    | 'CONNECT'
-    | 'COPY'
-    | 'DELETE'
-    | 'GET'
-    | 'HEAD'
-    | 'LINK'
-    | 'LOCK'
-    | 'M-SEARCH'
-    | 'MERGE'
-    | 'MKACTIVITY'
-    | 'MKCALENDAR'
-    | 'MKCOL'
-    | 'MOVE'
-    | 'NOTIFY'
-    | 'OPTIONS'
-    | 'PATCH'
-    | 'POST'
-    | 'PROPFIND'
-    | 'PROPPATCH'
-    | 'PURGE'
-    | 'PUT'
-    | 'REBIND'
-    | 'REPORT'
-    | 'SEARCH'
-    | 'SOURCE'
-    | 'SUBSCRIBE'
-    | 'TRACE'
-    | 'UNBIND'
-    | 'UNLINK'
-    | 'UNLOCK'
-    | 'UNSUBSCRIBE';
-
-export type FindReturn<T> = FindResult<T> | false;
 
 declare class Trouter<T = any> {
     use(pattern: string, ...handlers: T[]): this;
 
-    find(method: HTTPMethod, url: string): FindReturn<T>;
+    find(method: Trouter.HTTPMethod, url: string): Trouter.FindReturn<T>;
 
-    add(method: HTTPMethod, pattern: string, ...handlers: T[]): this;
+    add(method: Trouter.HTTPMethod, pattern: string, ...handlers: T[]): this;
 
     all(pattern: string, ...handlers: T[]): this;
 
