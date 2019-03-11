@@ -16,8 +16,8 @@ export interface AxeAnalysis {
     violations: Result[];
 }
 
-type OldAnalyzeCallbackType = (results: AxeAnalysis) => void;
-type AnalyzeCallbackType = (err: Error | null, results: AxeAnalysis) => void;
+export type DeprecatedAnalyzeCallback = (results: AxeAnalysis) => void;
+export type AnalyzeCallback = (err: Error | null, results: AxeAnalysis) => void;
 
 export interface AxeBuilder {
     /**
@@ -78,7 +78,7 @@ export interface AxeBuilder {
      * @param callback   Function to execute when analysis completes.
      */
     analyze(
-        callback?: OldAnalyzeCallbackType | AnalyzeCallbackType
+        callback?: DeprecatedAnalyzeCallback | AnalyzeCallback
     ): Promise<AxeAnalysis>;
 }
 
